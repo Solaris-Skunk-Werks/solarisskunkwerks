@@ -1,0 +1,169 @@
+New equipment to be added
+-------------------------------------------------------------------------------
+- Angel ECM								Equipment  ISAngelECM CLAngelECM
+Modular Armor							Equipment  ISModularArmor  CLModularArmor
+Shield, Small							Equipment  ISSmallShield
+Shield, Medium							Equipment  ISMediumShield
+Shield, Large							Equipment  ISLargeShield
+BattleMech Harjel						Equipment  "IS Harjel" "Clan Harjel"
+C3 Boosted Master						Equipment
+C3 Boosted Slave						Equipment
+C3 Emergency Master						Equipment
+C3 Remote Sensor Launcher				Equipment
+Chaff Pod								Equipment
+Collapsible Command Module				Equipment
+Coolant Pod								Equipment
+Drone Operating System					Equipment
+Electronic Warfare Equipment			Equipment
+Laser Insulator							Equipment
+Mine Dispenser							Equipment
+- M-Pod									Equipment  CLMPod  ISMPod
+Recon Camera							Equipment
+Supercharger							Equipment  "IS Super Charger"
+Vehicular Drop Chute (Reusable)			Equipment
+
+
+New weapons to be added
+-------------------------------------------------------------------------------
+- Arrow IV System						Artillery  CLArrowIV  ISArrowIV
+- Thumper								Artillery  CLThumper  ISThumper
+- Sniper									Artillery  CLSniper  ISSniper
+Thumper Artillery Cannon				Artillery
+Sniper Artillery Cannon					Artillery
+Long Tom Artillery Cannon				Artillery
+- HVAC/2									Weapon  ISHVAC2
+- HVAC/5									Weapon  ISHVAC5
+- HVAC/10									Weapon  ISHVAC10
+Caseless AC/2							Weapon
+Caseless AC/5							Weapon
+Caseless AC/10							Weapon
+Caseless AC/20							Weapon
+ProtoMech AC/2							Weapon
+ProtoMech AC/4							Weapon
+ProtoMech AC/8							Weapon
+Clan Rotary AC/2						Weapon  CLRotaryAC2
+Clan Rotary AC/5						Weapon  CLRotaryAC5
+Chain Whip								Weapon  Chain Whip
+Claws									Weapon  ISClaw
+Flail									Weapon  "IS Flail"
+Lance									Weapon  ISLance
+Mace									Weapon  Mace
+Spikes									Weapon  Spikes
+Talons									Weapon  Talons
+Vibroblade, Small						Weapon  ISSmallVibroblade
+Vibroblade, Medium						Weapon  ISMediumVibroblade
+Vibroblade, Large						Weapon  ISLargeVibroblade
+ER Flamer								Weapon
+Heavy Flamer							Weapon  ISHeavyFlamer
+Fluid Gun								Weapon
+Magshot									Weapon  ISMagshotGR
+Silver Bullet Gauss						Weapon  ISSBGR
+Bombast Laser							Weapon  ISBombastLaser
+- Chemical Laser, Small					Weapon  CLSmallChemLaser
+- Chemical Laser, Medium					Weapon  CLMediumChemLaser
+- Chamical Laser, Large					Weapon  CLLargeChemLaser
+- ER Pulse Laser, Small					Weapon  CLERSmallPulseLaser
+- ER Pulse Laser, Medium					Weapon  CLERMediumPulseLaser
+- ER Pulse Laser, Large					Weapon  CLERLargePulseLaser
+Improved Heavy Laser, Small				Weapon
+Improved Heavy Laser, Medium			Weapon
+Improved Heavy Laser, Large				Weapon
+Mech Mortar/1							Weapon  CLMekMortar1 ISMekMortar1
+Mech Mortar/2							Weapon  CLMekMortar2 ISMekMortar2
+Mech Mortar/4							Weapon  CLMekMortar4 ISMekMortar4
+Mech Mortar/8							Weapon  CLMekMortar8 ISMekMortar8
+Enhanced LRM-5							Weapon
+Enhanced LRM-10							Weapon
+Enhanced LRM-15							Weapon
+Enhanced LRM-20							Weapon
+Extended LRM-5							Weapon  ISExtendedLRM5
+Extended LRM-10							Weapon  ISExtendedLRM10
+Extended LRM-15							Weapon  ISExtendedLRM15
+Extended LRM-20							Weapon  ISExtendedLRM20
+Improved One-Shot Launcher				Weapon
+Streak LRM-5							Weapon  CLStreakLRM5
+Streak LRM-10							Weapon  CLStreakLRM10
+Streak LRM-15							Weapon  CLStreakLRM15
+Streak LRM-20							Weapon  CLStreakLRM20
+- PPC Capacitor (new PPCs)				Weapon  ISPPCCapacitor  ISLightPPCCapacitor
+-												ISERPPCCapacitor  ISHeavyPPCCapacitor
+-												ISSNPPCCapacitor
+- Light Rifle								Weapon
+- Medium Rifle							Weapon
+- Heavy Rifle								Weapon
+BattleMech Taser						Weapon
+- Thunderbolt-5							Weapon  ISThunderbolt5
+- Thunderbolt-10							Weapon  ISThunderbolt10
+- Thunderbolt-15							Weapon  ISThunderbolt15
+- Thunderbolt-20							Weapon  ISThunderbolt20
+
+
+New systems to add
+-------------------------------------------------------------------------------
+Mechanical Jump Boosters				? new system  "Jump Booster"
+UMU										Jump Jet  ISUMU CLUMU
+CASE II									? new system  ISCASEII CLCASEII
+Cockpit Command Console					Cockpit
+Torso-Mounted Cockpit					Cockpit
+XXL Fusion Engine						Engine
+Large ICE								Engine
+Large Fusion							Engine
+Large Light Fusion						Engine
+Large XL Fusion							Engine
+Large XXL Fusion						Engine
+Compact Heat Sinks						Heat Sink  "IS1 Compact Heat Sink" "IS2 Compact Heat Sink"
+Laser Heat Sinks						Heat Sink  "CLLaser Heat Sink"
+Reinforced Structure					Chassis
+Turret, Shoulder						? new system
+Turret, Head							? new system
+Turret, Quad							? new system
+
+
+Experimental equipment checkboxes to add
+-------------------------------------------------------------------------------
+Actuator Enhancement System (arm)		? New System  ISAES CLAES
+Actuator Enhancement System (leg)		? New system  ISAES CLAES
+Partial Wing							? new system
+- Blue Shield PFD							? new system
+Booby Trap								? new system
+- Chameleon LPS							? new system  ChameleonLightPolarizationField
+Full-Head Ejection System				? new system
+Mechwarrior Aquatic Survival System		? new system
+- Null Signature System					? new system  NullSignatureSystem
+- Void Signature System					? new system  VoidSignatureSystem
+
+
+New missile systems to add
+-------------------------------------------------------------------------------
+Artemis V FCS							? New System
+MRM Apollo FCS							? new system   ISApollo
+
+
+New ammunition to add
+-------------------------------------------------------------------------------
+
+
+New rules to be implemented
+-------------------------------------------------------------------------------
+Fractional Accounting
+Mixed Technologies
+Patchwork Armor
+Ultra-Light BattleMechs
+
+
+rimcol12l1o8
+
+
+BSPFD - 3 tons, one crit in all locations except head
+- Exceptions: Cannot be pod-mounted
+
+CLPS - 0 tons, one crit in all locations except CT and head
+- Exceptions: Cannot be pod-mounted, no Void Sig, no Stealth Armor
+
+Null Sig - 0 tons, one crit in all location except head
+- Exceptions: Cannot be pod-mounted, no TC, no C3, no Stealth Armor, no Void Sig
+
+Void Sig - 0 tons, one crit in all locations except head
+- Exceptions: Cannot be pod-mounted, no TC, no C3, no Stealth Armor, no Null Sig, no CLPS
+
+

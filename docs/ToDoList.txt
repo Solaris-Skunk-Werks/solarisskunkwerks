@@ -1,0 +1,58 @@
+To-Do List, in order by what needs to be done
+
+(1) Adjust print for different sizes of paper
+(1) Selectable default paper size
+(1) MegaMek and armored components
+(1) Tactical Operations equipment
+(2) Tab order to be changed on Armor panel
+(2) Highlight Armor numbers on Armor panel when clicked
+(2) Save 'Mech and variants in one file
+(2) Force save before Post to Solaris7.com
+(2) Auto-save after Post to Solaris7.com
+(2) Print Saved 'Mech (without loading a new one)
+(2) Auto-allocate heat sinks and jump jets
+(3) Should remember the load path for an individual file instead of pulling from options.
+(3) Adjust font size for long Strings
+(3) Print TacOps record sheets
+(3) Revised Fluff tab with RTF controls
+(3) Don't split words from one line to the other in the editor pane
+(3) Buttons for bold, italic, underline, URL, and IMG tags for editor pane
+(3) Add option to remove item to the allocation screen
+(3) Show where an item is allocated on the equipment panel
+(3) Drag items back into the queue
+(3) Text export formatting doesn't match all the HTML export formatting.
+(3) -l <filename> // loads the specified file
+(3) -p <filename> [-c <config>] // prints the specified file (using an optional
+				configuration.  if none given prints the first omni loadout)
+(4) Higher DPI print sheets as seperate download
+(4) Equipment print names
+(4) Fuel tanks for non-nuclear engines
+(4) Include spell-checker
+(4) Text export to a window like the Cost/BV Breakdown.
+(4) Text export directly to clipboard
+(5) Batch Printing (multiple different 'Mechs)
+(5) Variant controls (like OmniMech controls)
+(5) Allocation shifts items instead of unallocates them.
+(5) Shift loadout equipment to differ from base chassis (OmniMechs)
+(5) Battleforce stats
+(6) New rules levels (Era Specific, Unofficial)
+(6) Load 'Mech from .mtf file
+(7) 'Mech image from Fluff panel gets printed
+(7) "All" era for the 'Mech
+(7) Expanded Charts screen (layered firepower, etc...)
+(8) Primitive 'Mechs
+(8) Mixed technology 'Mechs
+(8) Quirks from Strategic Operations
+(8) IndustrialMechs
+(9) Expanded MegaMek interoperability
+(9) IndustrialMech equipment
+(9) Equipment by Faction
+(9) Custom weapons
+(9) Custom engines?
+
+
+Print Stuff from Skyhigh
+1) No ammo amounts
+2) no total heat for Alpha Strikes
+3) Cluster hit tables doesn't do 7 or other odd numbers
+4) Ferro/Endo etc should be printed in italics

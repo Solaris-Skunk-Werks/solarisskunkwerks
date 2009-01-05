@@ -1,0 +1,199 @@
+SSW Changelog
+-------------------------------------------------------------------------------
+Version 0.6.0
++ Added
+- Added a splash screen to indicate that the program is loading.
+- Added a Cost/BV Breakdown screen.
+- Added basic Printing (biped and quad record sheets from Total Warfare).
+- Added more TacOps equipment (ER Pulse Lasers, M-Pods, Angel ECM).
+- You can now drag equipment from one location to another or within locations.
+- Added the ability to save MTF files to a custom subdirectory within MM data.
+- Added Artillery.  Also added Clan Chemical Lasers.
+- Added an option to reduce and print charts with the 'Mech.
+- Added a Print dialogue with additional print options.
+- Added some basic charts into the program.
+- Added an "Efficient" Maximize button to the Armor panel.
+- Added Thunderbolt launchers, Rifles, and HVACs.
+- Added PPC Capacitors.
+- You can now change the Rules Level for individual OmniMech loadouts.
+- Added the base Battle Value to the save file for functionality with other programs.
+- Added a "Remaining" button to the armor panel (uses remaining tonnage).
+- Added ER and heavy flamers, Enhanced ER PPC for Clan Wolverine, and 'Mech Taser.
+- Added Null-Sig, Void-Sig, Blue Shield, and Chameleon systems.
+
++ Changed
+- Fixed a load bug with heatsinks.
+- OmniMechs can no longer be "locked" after loading from file.
+- Fixed a bug when exporting to MTF and overwriting previous omni variants.
+- SSW should now load MGArrays from save file.
+- Rebuilt the BV calculation routines for better reporting.
+- Fixed a loading bug with Omni heatsinks (again, I think...)
+- Fixed a bug where extra jump jets would appear after locking an Omni chassis.
+- Fixed a loading issue with Omni jump jets.
+- Ground Mobile HPG is now location splitable.
+- Fixed prohibited split allocation (HGR to arms, etc...)
+- Fixed a problem with Drag from Location and non-contiguous items.
+- Fixed a load bug with equipment with names smaller than 4 characters.
+- Fixed a MegaMek load error with Inner Sphere A-Pods.
+- The Options file is no longer invalidated by missing options.
+  - The OptionsReader will scavenge what it can from the file.
+- The HAG-40 can now split-allocate correctly.
+- Fixed a split-allocation bug where the item would disappear on Cancel.
+- Fixed cost on MASC per Tech Manual errata.
+- Removed the decimal place after BV when printing a 'Mech.
+- Fixed another load bug with Heat Sinks and OmniMechs.
+- Fixed a bug where changing tech base removed the jumpjets from the queue.
+- Fixed a bug where changing motive bed screwed up jumpjets and heat sinks.
+- Changed load order because MASC and TSM were loaded before actuators.
+- Print now uses Quad locations when using the Helpful Charts feature (for Quads).
+- Fixed a bug with drag from location and updating the current item.
+- You can now edit the jumpjet manufacturer after loading a 'Mech with JJs.
+- REALLY Fixed Retractable Blade tonnage.
+- Dragging locked items is no longer possible (should never have been).
+- Correctly set the Targeting Computer checkbox on load.
+- Efficient button is no longer accessible after locking the chassis.
+- Fixed double-click to add physical weapon also adding artillery.
+- Fixed HTML export for MG Arrays as the MGArray code had changed.
+- Heat-adjusted weapon BV was calculated wrong.  Fixed.
+- Targeting Computer was being counted twice for Offensive BV.  Fixed.
+- Targeting Computer did not use modified weapon BV.  Fixed.
+- Targeting Computer now has correct defensive BV when armored.
+- Availability Code now corrects for extinct and later intro dates.
+- Text export did not include CASE locations for Omni loadouts.  Fixed.
+- Small cockpit did not reduce BV for Piloting Skill penalties.  Fixed.
+- Changed the static position of some dialogues to main window relative.
+- Fixed a save/load issue with OmniMechs.
+- Changed HTML export format for equipment.
+- Reflected the HTML changes in Text Export.
+- Fixed an "Index Out Of Range" error with Left Arm dragging allocation.
+- Fixed Availability for Succession Wars and Clan Invasion 'Mechs.
+- PPC Capacitors were being use to calculate Targeting Computer size.  Fixed.
+- Made some changes to deal with strange filenames.  Whether it works...
+- Some equipment is now mountable to the rear (AMS, TAG, etc...)
+- Performing a Save As now clears the Solaris 7 ID to prevent overwrite.
+- Manufacturer Location for OmniMechs is no longer set to the first loadout name.
+- Motive Type ComboBox never reset on New or Load.  Fixed.
+- Selective Allocate now reflects the correct location names for quads.
+- Cost/BV Breakdown now shows Small Cockpit modifier if appropriate.
+- Cost/BV Breakdown and BV now reports Stealth Armor modifiers correctly.
+- Changed outdated Adjusted Running MP for a detailed Max Movement display.
+- Fixed an issue with Loading and the first OmniMech loadout's actuators.
+- Made some code changes that make me very happy.
+- Invalid equipment should now flush correctly.
+
+-------------------------------------------------------------------------------
+Version 0.5.0
++ Added
+- Choosers for the Rules Level and Mech Type.
+- Support for HTML and Text export of the Rules Level.
+- Availability display for core components.
+- Added a "New Mech" menu item.
+- Added options for default Rules, Era, and Techbase.
+- Added an option for UAC/RAC heat in the lower display.
+- OmniMechs now fully supported.
+- Text export now supports OmniMechs.
+- HTML export now supports OmniMechs.
+- Added support for uploading a mech directly to Solaris7.com.
+- Saving a mech now works.
+- Loading a mech now works.
+- Added allocation buttons to the Loadout Controls area.
+- Allowed for double-clicking when adding equipment to a Mech.
+- Added support for Armored Components.
+- Added support for the latest MegaMek "levels" to differentiate equipment rules levels.
+
++ Changed
+- Rebuilt the GUI to use a hashtable lookup scheme.
+- Reworked the GUI to work better on default XP display scheme.
+- Skyhigh wrote a new HTML template which is now included.
+- Now checks for nuclear engines for weapons that require them (HGR).
+- Now checks for nuclear engines for jump jet purposes.
+- Pluralized the equipment fluff blocks when needed.
+- Now correctly clears the fluff when you get a new mech.
+- Fixed MASC tonnage and crits, and Clan UAC/5 tonnage per errata.
+- OmniMechs now automatically remove actuators when a weapon requires it.
+- Changed Auto and Selective Allocate to allocate to the bottom of a location.
+- Fixed a bug where physical weapons were referencing a discarded mech.
+- Fixed a bug when restricting by year and jump jets were not available.
+- Minor interface tweaks to work better on Linux.
+  - The program no longer supports GTK+ and will revert to Java's Metal.
+- Fixed a bug with New Mech and retaining the old number of heat sinks.
+- Fixed a bug when loading where Improved Jump Jets turned Standard.
+- Fixed a bug when loading where Stealth Armor was being allocated twice.
+- Improved Jump Jets now report the correct heat usage.
+- Fixed a bug where all loadouts in an OmniMech shared the same Jump Jet configuration.
+- Changed the way a 'Mech is saved to preserve encoding.
+- Added a quick BV breakdown to the Summary screen.
+
+-------------------------------------------------------------------------------
+Version 0.4.0
++ Added
+- Missile Weapons and all their ammunition (whew!).
+- Ballistic Weapons and all their ammunition.
+- Artemis IV FCS and Targeting Computer.
+- Max armor tonnage display on the Armor Tonnage Chooser screen.
+- Compact Crits, Auto-Allocate, and Selective Allocate as controls.
+- Split Allocation now supported.
+- Special Equipment added.
+- Export to Megamek works now.
+- Physical Weapons added.
+- Export to Text works now.
+- Finished the Fluff tab except for Export to HTML.
+- Added a Summary window accessible from the Tools menu.
+- Added MG Arrays and OS Launchers.
+- HTML writer is now finished.
+- Added the software license into the program.
+
++ Changed
+- Jump jets were reporting incorrect tonnages for 80 and 85 ton mechs, fixed.
+- Minor little code fixes due to new code.
+- Fixed a doubling issue with split-allocated items and compacting the loadout.
+- Fixed ammo selection list losing focus after selecting an ammunition lot.
+- Fixed lookup names for Megamek so all items are supported.
+- Allocation now informs you of crit size and what you're allocating.
+- Minor code fixes resulting from inattentive cut-and-paste operations.
+- Altered list renderers to account for Artemis and MG Arrays.
+- More code fixes to correct problems with MG Arrays and Artemis systems.
+- Name changed to Solaris Skunk Werks from Classic Battletech Mech Designer.
+- No longer allows both C3 and C3i systems in the same mech.
+- Rearranged the Credits and About dialogues to look better.
+- Changed the program logo.
+- Sorting Equipment Stat block by location now.
+- Added a missing tag to the default HTML template.
+- Added options for sorting equipment in the stat blocks for TXT and HTML.
+- Fixed some minor GUI bugs with resizing.
+
+-------------------------------------------------------------------------------
+Version 0.3.0
++ Added
+- Energy Weapons and their ammunition.
+- Completed BV2 algorithms.
+- Implemented much of the Equipment and Criticals tabs.
+
++ Changed
+- Some formating in various views due to shortcomings with NetBeans.
+
+-------------------------------------------------------------------------------
+Version 0.2.0
++ Added
+- Credits page (thanks you!).
+- Running MP now shows adjusted values for TSM and MASC.
+- Added the ability to retain certain components if Tech Base or Era changes.
+- Added the Options menu.
+- Tons and criticals now show red when going negative.
+- Armor pane and it's associated options are finished.
+
++ Changed
+- Offensive BV calculation did not use the Speed Factor, this was added.
+- Shortcut for exit was changed to Alt-X because it was previously Ctrl-X.
+- Changed code around for ease of maintenance later.
+- Fixed a bug where unchecking Restrict by Year did not refresh certain items.
+- Summary tab name changed to Charts.
+
+-------------------------------------------------------------------------------
+Version 0.1.0
++ Added
+- Basics tab is finished and working.
+- The following controls on the Fluff tab work:
+  - Load Image.
+  - Clear Image.
+
