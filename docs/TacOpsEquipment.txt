@@ -28,9 +28,9 @@ New weapons to be added
 - Arrow IV System						Artillery  CLArrowIV  ISArrowIV
 - Thumper								Artillery  CLThumper  ISThumper
 - Sniper									Artillery  CLSniper  ISSniper
-Thumper Artillery Cannon				Artillery
-Sniper Artillery Cannon					Artillery
-Long Tom Artillery Cannon				Artillery
+Thumper Artillery Cannon				Weapon
+Sniper Artillery Cannon					Weapon
+Long Tom Artillery Cannon				Weapon
 - HVAC/2									Weapon  ISHVAC2
 - HVAC/5									Weapon  ISHVAC5
 - HVAC/10									Weapon  ISHVAC10
@@ -53,8 +53,8 @@ Talons									Weapon  Talons
 Vibroblade, Small						Weapon  ISSmallVibroblade
 Vibroblade, Medium						Weapon  ISMediumVibroblade
 Vibroblade, Large						Weapon  ISLargeVibroblade
-ER Flamer								Weapon
-Heavy Flamer							Weapon  ISHeavyFlamer
+- ER Flamer								Weapon
+- Heavy Flamer							Weapon  ISHeavyFlamer
 Fluid Gun								Weapon
 Magshot									Weapon  ISMagshotGR
 Silver Bullet Gauss						Weapon  ISSBGR
@@ -91,7 +91,7 @@ Streak LRM-20							Weapon  CLStreakLRM20
 - Light Rifle								Weapon
 - Medium Rifle							Weapon
 - Heavy Rifle								Weapon
-BattleMech Taser						Weapon
+- BattleMech Taser						Weapon
 - Thunderbolt-5							Weapon  ISThunderbolt5
 - Thunderbolt-10							Weapon  ISThunderbolt10
 - Thunderbolt-15							Weapon  ISThunderbolt15
@@ -149,21 +149,3 @@ Fractional Accounting
 Mixed Technologies
 Patchwork Armor
 Ultra-Light BattleMechs
-
-
-rimcol12l1o8
-
-
-BSPFD - 3 tons, one crit in all locations except head
-- Exceptions: Cannot be pod-mounted
-
-CLPS - 0 tons, one crit in all locations except CT and head
-- Exceptions: Cannot be pod-mounted, no Void Sig, no Stealth Armor
-
-Null Sig - 0 tons, one crit in all location except head
-- Exceptions: Cannot be pod-mounted, no TC, no C3, no Stealth Armor, no Void Sig
-
-Void Sig - 0 tons, one crit in all locations except head
-- Exceptions: Cannot be pod-mounted, no TC, no C3, no Stealth Armor, no Null Sig, no CLPS
-
-
