@@ -1489,9 +1489,18 @@ public class Mech {
 
         // check for Misc equipment.  We're going to add it to chassis cost
         // instead of equipment costs.  It all evens out in the end
-        if( HasCTCase() ) { ChassisCost += CurLoadout.GetCTCase().GetCost(); }
-        if( HasLTCase() ) { ChassisCost += CurLoadout.GetCTCase().GetCost(); }
-        if( HasRTCase() ) { ChassisCost += CurLoadout.GetCTCase().GetCost(); }
+        if( IsClan() ) {
+            int[] test = CurLoadout.FindExplosiveInstances();
+            for( int i = 0; i < test.length; i++ ) {
+                if( test[i] > 0 ) {
+                    ChassisCost += CurLoadout.GetCTCase().GetCost();
+                }
+            }
+        } else {
+            if( HasCTCase() ) { ChassisCost += CurLoadout.GetCTCase().GetCost(); }
+            if( HasLTCase() ) { ChassisCost += CurLoadout.GetCTCase().GetCost(); }
+            if( HasRTCase() ) { ChassisCost += CurLoadout.GetCTCase().GetCost(); }
+        }
         if( HasNullSig() ) { ChassisCost += NullSig.GetCost(); }
         if( HasVoidSig() ) { ChassisCost += VoidSig.GetCost(); }
         if( HasChameleon() ) { ChassisCost += Chameleon.GetCost(); }
@@ -1547,9 +1556,18 @@ public class Mech {
         result += GetHeatSinks().GetCost();
         result += GetJumpJets().GetCost();
         result += CurArmor.GetCost();
-        if( HasCTCase() ) { result += CurLoadout.GetCTCase().GetCost(); }
-        if( HasLTCase() ) { result += CurLoadout.GetCTCase().GetCost(); }
-        if( HasRTCase() ) { result += CurLoadout.GetCTCase().GetCost(); }
+        if( IsClan() ) {
+            int[] test = CurLoadout.FindExplosiveInstances();
+            for( int i = 0; i < test.length; i++ ) {
+                if( test[i] > 0 ) {
+                    result += CurLoadout.GetCTCase().GetCost();
+                }
+            }
+        } else {
+            if( HasCTCase() ) { result += CurLoadout.GetCTCase().GetCost(); }
+            if( HasLTCase() ) { result += CurLoadout.GetCTCase().GetCost(); }
+            if( HasRTCase() ) { result += CurLoadout.GetCTCase().GetCost(); }
+        }
 
         return result;
     }

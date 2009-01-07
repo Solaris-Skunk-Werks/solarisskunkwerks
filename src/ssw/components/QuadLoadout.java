@@ -1300,6 +1300,118 @@ public class QuadLoadout implements ifLoadout {
         return retval;
     }
 
+    public int[] FindExplosiveInstances() {
+        // this routine is used to find where modular armor is located for
+        // reporting and BV purposes
+        int[] retval = { 0, 0, 0, 0, 0, 0, 0, 0 };
+        for( int i = 0; i < 6; i++ ) {
+            if( HDCrits[i] instanceof Ammunition ) {
+                if( ((Ammunition) HDCrits[i]).IsExplosive() ) {
+                    retval[Constants.LOC_HD]++;
+                }
+            } else if( HDCrits[i] instanceof ifWeapon ) {
+                if( ((ifWeapon) HDCrits[i]).IsExplosive() ){
+                    retval[Constants.LOC_HD]++;
+                }
+            }
+            if( CTCrits[i] instanceof Ammunition ) {
+                if( ((Ammunition) CTCrits[i]).IsExplosive() ) {
+                    retval[Constants.LOC_CT]++;
+                }
+            } else if( CTCrits[i] instanceof ifWeapon ) {
+                if( ((ifWeapon) CTCrits[i]).IsExplosive() ){
+                    retval[Constants.LOC_CT]++;
+                }
+            }
+            if( LTCrits[i] instanceof Ammunition ) {
+                if( ((Ammunition) LTCrits[i]).IsExplosive() ) {
+                    retval[Constants.LOC_LT]++;
+                }
+            } else if( LTCrits[i] instanceof ifWeapon ) {
+                if( ((ifWeapon) LTCrits[i]).IsExplosive() ){
+                    retval[Constants.LOC_LT]++;
+                }
+            }
+            if( RTCrits[i] instanceof Ammunition ) {
+                if( ((Ammunition) RTCrits[i]).IsExplosive() ) {
+                    retval[Constants.LOC_RT]++;
+                }
+            } else if( RTCrits[i] instanceof ifWeapon ) {
+                if( ((ifWeapon) RTCrits[i]).IsExplosive() ){
+                    retval[Constants.LOC_RT]++;
+                }
+            }
+            if( LACrits[i] instanceof Ammunition ) {
+                if( ((Ammunition) LACrits[i]).IsExplosive() ) {
+                    retval[Constants.LOC_LA]++;
+                }
+            } else if( LACrits[i] instanceof ifWeapon ) {
+                if( ((ifWeapon) LACrits[i]).IsExplosive() ){
+                    retval[Constants.LOC_LA]++;
+                }
+            }
+            if( RACrits[i] instanceof Ammunition ) {
+                if( ((Ammunition) RACrits[i]).IsExplosive() ) {
+                    retval[Constants.LOC_RA]++;
+                }
+            } else if( RACrits[i] instanceof ifWeapon ) {
+                if( ((ifWeapon) RACrits[i]).IsExplosive() ){
+                    retval[Constants.LOC_RA]++;
+                }
+            }
+            if( LLCrits[i] instanceof Ammunition ) {
+                if( ((Ammunition) LLCrits[i]).IsExplosive() ) {
+                    retval[Constants.LOC_LL]++;
+                }
+            } else if( LLCrits[i] instanceof ifWeapon ) {
+                if( ((ifWeapon) LLCrits[i]).IsExplosive() ){
+                    retval[Constants.LOC_LL]++;
+                }
+            }
+            if( RLCrits[i] instanceof Ammunition ) {
+                if( ((Ammunition) RLCrits[i]).IsExplosive() ) {
+                    retval[Constants.LOC_RL]++;
+                }
+            } else if( RLCrits[i] instanceof ifWeapon ) {
+                if( ((ifWeapon) RLCrits[i]).IsExplosive() ){
+                    retval[Constants.LOC_RL]++;
+                }
+            }
+        }
+
+        for( int i = 6; i < 12; i++ ) {
+            if( CTCrits[i] instanceof Ammunition ) {
+                if( ((Ammunition) CTCrits[i]).IsExplosive() ) {
+                    retval[Constants.LOC_CT]++;
+                }
+            } else if( CTCrits[i] instanceof ifWeapon ) {
+                if( ((ifWeapon) CTCrits[i]).IsExplosive() ){
+                    retval[Constants.LOC_CT]++;
+                }
+            }
+            if( LTCrits[i] instanceof Ammunition ) {
+                if( ((Ammunition) LTCrits[i]).IsExplosive() ) {
+                    retval[Constants.LOC_LT]++;
+                }
+            } else if( LTCrits[i] instanceof ifWeapon ) {
+                if( ((ifWeapon) LTCrits[i]).IsExplosive() ){
+                    retval[Constants.LOC_LT]++;
+                }
+            }
+            if( RTCrits[i] instanceof Ammunition ) {
+                if( ((Ammunition) RTCrits[i]).IsExplosive() ) {
+                    retval[Constants.LOC_RT]++;
+                }
+            } else if( RTCrits[i] instanceof ifWeapon ) {
+                if( ((ifWeapon) RTCrits[i]).IsExplosive() ){
+                    retval[Constants.LOC_RT]++;
+                }
+            }
+        }
+
+        return retval;
+    }
+
     public void FlushIllegal( int Era, int Year, boolean Restrict ) {
         // since most everything else is taken care of during mech recalculates,
         // this method is provided for non-core equipment

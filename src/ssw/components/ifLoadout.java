@@ -89,6 +89,7 @@ public interface ifLoadout {
     public int[] FindHeatSinks( boolean DHS, boolean Clan );
     public int[] FindJumpJets( boolean IJJ );
     public int[] FindModularArmor();
+    public int[] FindExplosiveInstances();
     public void FlushIllegal( int Era, int Year, boolean Restrict );
     public boolean UnallocateAll( abPlaceable p, boolean override );
     public void Remove( abPlaceable p );

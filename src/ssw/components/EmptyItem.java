@@ -40,7 +40,7 @@ public class EmptyItem extends abPlaceable {
 
     // returns the name of this item in the Loadout.
     public String GetCritName() {
-        return " - roll again";
+        return "Roll Again";
     }
 
     public String GetMMName( boolean UseRear ) {
@@ -100,5 +100,4 @@ public class EmptyItem extends abPlaceable {
     public String toString() {
         return "- roll again";
     }
-
 }

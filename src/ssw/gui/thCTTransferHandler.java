@@ -165,6 +165,7 @@ public class thCTTransferHandler extends TransferHandler {
         if( a.NumPlaced() <= 0 ) {
             CurMech.GetLoadout().RemoveFromQueue( a );
         }
+        CurMech.ReCalcBaseCost();
         Parent.RefreshInfoPane();
         return true;
     }
