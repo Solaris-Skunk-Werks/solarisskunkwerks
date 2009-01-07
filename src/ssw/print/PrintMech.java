@@ -237,6 +237,10 @@ public class PrintMech implements Printable {
                 if( a[i].IsArmored() ) {
                     graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                     graphics.drawString( a[i].GetCritName(), p[i].x + 7, p[i].y );
+                } else if ( isItalics(a[i]) ) {
+                    graphics.setFont( ItalicFont );
+                    graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.setFont( PlainFont );
                 } else {
                     graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
                 }
@@ -254,6 +258,10 @@ public class PrintMech implements Printable {
                 if( a[i].IsArmored() ) {
                     graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                     graphics.drawString( a[i].GetCritName(), p[i].x + 7, p[i].y );
+                } else if ( isItalics(a[i]) ) {
+                    graphics.setFont( ItalicFont );
+                    graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.setFont( PlainFont );
                 } else {
                     graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
                 }
@@ -271,6 +279,10 @@ public class PrintMech implements Printable {
                 if( a[i].IsArmored() ) {
                     graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                     graphics.drawString( a[i].GetCritName(), p[i].x + 7, p[i].y );
+                } else if ( isItalics(a[i]) ) {
+                    graphics.setFont( ItalicFont );
+                    graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.setFont( PlainFont );
                 } else {
                     graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
                 }
@@ -288,6 +300,10 @@ public class PrintMech implements Printable {
                 if( a[i].IsArmored() ) {
                     graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                     graphics.drawString( a[i].GetCritName(), p[i].x + 7, p[i].y );
+                } else if ( isItalics(a[i]) ) {
+                    graphics.setFont( ItalicFont );
+                    graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.setFont( PlainFont );
                 } else {
                     graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
                 }
@@ -305,6 +321,10 @@ public class PrintMech implements Printable {
                 if( a[i].IsArmored() ) {
                     graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                     graphics.drawString( a[i].GetCritName(), p[i].x + 7, p[i].y );
+                } else if ( isItalics(a[i]) ) {
+                    graphics.setFont( ItalicFont );
+                    graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.setFont( PlainFont );
                 } else {
                     graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
                 }
@@ -322,6 +342,10 @@ public class PrintMech implements Printable {
                 if( a[i].IsArmored() ) {
                     graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                     graphics.drawString( a[i].GetCritName(), p[i].x + 7, p[i].y );
+                } else if ( isItalics(a[i]) ) {
+                    graphics.setFont( ItalicFont );
+                    graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.setFont( PlainFont );
                 } else {
                     graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
                 }
@@ -339,6 +363,10 @@ public class PrintMech implements Printable {
                 if( a[i].IsArmored() ) {
                     graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                     graphics.drawString( a[i].GetCritName(), p[i].x + 7, p[i].y );
+                } else if ( isItalics(a[i]) ) {
+                    graphics.setFont( ItalicFont );
+                    graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.setFont( PlainFont );
                 } else {
                     graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
                 }
@@ -356,12 +384,41 @@ public class PrintMech implements Printable {
                 if( a[i].IsArmored() ) {
                     graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                     graphics.drawString( a[i].GetCritName(), p[i].x + 7, p[i].y );
+                } else if ( isItalics(a[i]) ) {
+                    graphics.setFont( ItalicFont );
+                    graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.setFont( PlainFont );
                 } else {
                     graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
                 }
             }
         }
     }
+
+    private boolean isItalics(abPlaceable a) {
+        if (a.GetCritName().equalsIgnoreCase("endo-steel"))
+            return true;
+        else if (a.GetCritName().equalsIgnoreCase("endo-composite"))
+            return true;
+        else if (a.GetCritName().equalsIgnoreCase("ferro-fibrous"))
+            return true;
+        else if (a.GetCritName().equalsIgnoreCase("ferro-lamellor"))
+            return true;
+        else if (a.GetCritName().equalsIgnoreCase("hardened"))
+            return true;
+        else if (a.GetCritName().equalsIgnoreCase("industrial"))
+            return true;
+        else if (a.GetCritName().equalsIgnoreCase("laser-reflective"))
+            return true;
+        else if (a.GetCritName().equalsIgnoreCase("reactive armor"))
+            return true;
+        else if (a.GetCritName().equalsIgnoreCase("heavy ferro-fibrous"))
+            return true;
+        else if (a.GetCritName().equalsIgnoreCase("light ferro-fibrous"))
+            return true;
+        else
+            return false;
+}
 
     private void DrawMechData( Graphics2D graphics ) {
         Point[] p = null;
