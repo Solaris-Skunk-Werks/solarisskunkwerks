@@ -842,6 +842,7 @@ public class Mech {
         if( CurLoadout.UsingTC() ) { result += GetTC().GetTonnage(); }
         if( ! CurEngine.IsNuclear() ) { result += CurLoadout.GetPowerAmplifier().GetTonnage(); }
         if( HasBlueShield ) { result += BlueShield.GetTonnage(); }
+        if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
 
         Vector v = CurLoadout.GetNonCore();
         if( v.size() > 0 ) {
@@ -871,6 +872,7 @@ public class Mech {
         if( CurLoadout.UsingTC() ) { result += GetTC().GetTonnage(); }
         if( ! CurEngine.IsNuclear() ) { result += CurLoadout.GetPowerAmplifier().GetTonnage(); }
         if( HasBlueShield ) { result += BlueShield.GetTonnage(); }
+        if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
 
         Vector v = CurLoadout.GetNonCore();
         if( v.size() > 0 ) {
@@ -1506,9 +1508,12 @@ public class Mech {
         if( HasChameleon() ) { ChassisCost += Chameleon.GetCost(); }
         if( HasBlueShield() ) { ChassisCost += BlueShield.GetCost(); }
 
-        // same goes for the targeting computer
+        // same goes for the targeting computer and supercharger
         if( CurLoadout.UsingTC() ) {
             ChassisCost += GetTC().GetCost();
+        }
+        if( CurLoadout.HasSupercharger() ) {
+            ChassisCost += CurLoadout.GetSupercharger().GetCost();
         }
     }
 
@@ -1978,7 +1983,9 @@ public class Mech {
         for( int i = 0; i < v.size(); i++ ) {
             AC.Combine( ((abPlaceable) v.get( i )).GetAvailability() );
         }
-
+        if( CurLoadout.HasSupercharger() ) {
+            AC.Combine( CurLoadout.GetSupercharger().GetAvailability() );
+        }
         // now adjust for the era.
         if( Era == Constants.SUCCESSION ) {
             // cut out the Star League stuff.

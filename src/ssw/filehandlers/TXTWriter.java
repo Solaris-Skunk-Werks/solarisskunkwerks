@@ -527,6 +527,9 @@ public class TXTWriter {
         if( CurMech.UsingTC() ) {
             v.add( CurMech.GetTC() );
         }
+        if( CurMech.GetLoadout().HasSupercharger() ) {
+            v.add( CurMech.GetLoadout().GetSupercharger() );
+        }
 
         // now sort the equipment by location
         v = FileCommon.SortEquipmentForStats( CurMech, v, MyOptions );

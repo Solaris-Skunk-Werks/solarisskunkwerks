@@ -60,6 +60,7 @@ public class QuadLoadout implements ifLoadout {
     private TargetingComputer CurTC = new TargetingComputer( this );
     private ifLoadout BaseLoadout = null;
     private PowerAmplifier PowerAmp = new PowerAmplifier( this );
+    private Supercharger SCharger = new Supercharger( this );
     private int RulesLevel = Constants.TOURNAMENT;
 
     // Fill up and initialize the critical space arrays.  This is where all the
@@ -2975,6 +2976,91 @@ public class QuadLoadout implements ifLoadout {
         // unallocates the TC from the loadout and then performs a TC check
         Remove( CurTC );
         CheckTC();
+    }
+
+    public void SetSupercharger( boolean b, int Loc ) throws Exception {
+        // see if the user wants to change its location
+        if( HasSupercharger() == b ) {
+            if( b == false ) { return; }
+            if( Find( SCharger ) == Loc ) {
+                // no move, ignore it
+                return;
+            } else {
+                // remove it and continue
+                Remove( SCharger );
+            }
+        }
+        if( b == false ) {
+            Remove( SCharger );
+            return;
+        }
+
+        // ensure we have engine slots in the location given
+        boolean placed = false;
+        int increment = 0;
+        switch( Loc ) {
+            case Constants.LOC_CT:
+                while( placed == false ) {
+                    if ( increment > 11 ) {
+                        throw new Exception( "No room was available in the CT for the Superchager.\nIt has been removed." );
+                    }
+                    try {
+                        AddToCT( SCharger, increment );
+                        placed = true;
+                    } catch ( Exception e ) {
+                        increment++;
+                    }
+                }
+                break;
+            case Constants.LOC_LT:
+                if( Owner.GetEngine().GetSideTorsoCrits() < 1 ) {
+                    throw new Exception( "Supercharger can only be placed in a location with Engine criticals." );
+                }
+                while( placed == false ) {
+                    if ( increment > 11 ) {
+                        throw new Exception( "No room was available in the LT for the Superchager.\nIt has been removed." );
+                    }
+                    try {
+                        AddToLT( SCharger, increment );
+                        placed = true;
+                    } catch ( Exception e ) {
+                        increment++;
+                    }
+                }
+                break;
+            case Constants.LOC_RT:
+                if( Owner.GetEngine().GetSideTorsoCrits() < 1 ) {
+                    throw new Exception( "Supercharger can only be placed in a location with Engine criticals." );
+                }
+                while( placed == false ) {
+                    if ( increment > 11 ) {
+                        throw new Exception( "No room was available in the RT for the Superchager.\nIt has been removed." );
+                    }
+                    try {
+                        AddToRT( SCharger, increment );
+                        placed = true;
+                    } catch ( Exception e ) {
+                        increment++;
+                    }
+                }
+                break;
+            default:
+                throw new Exception( "Supercharger can only be placed in a location with Engine criticals." );
+        }
+
+        AddMechModifier( SCharger.GetMechModifier() );
+    }
+
+    public boolean HasSupercharger() {
+        if( IsAllocated( SCharger ) ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Supercharger GetSupercharger() {
+        return SCharger;
     }
 
     public PowerAmplifier GetPowerAmplifier() {

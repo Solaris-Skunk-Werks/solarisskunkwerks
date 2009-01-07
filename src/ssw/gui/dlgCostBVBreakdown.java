@@ -160,6 +160,9 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
         if( CurMech.HasBlueShield() ) {
             retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetBlueShield().GetCritName(), CurMech.GetBlueShield().GetDefensiveBV(), CurMech.GetBlueShield().GetOffensiveBV(), CurMech.GetBlueShield().GetCost() ) + NL;
         }
+        if( CurMech.GetLoadout().HasSupercharger() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetLoadout().GetSupercharger().GetCritName(), CurMech.GetLoadout().GetSupercharger().GetDefensiveBV(), CurMech.GetLoadout().GetSupercharger().GetOffensiveBV(), CurMech.GetLoadout().GetSupercharger().GetCost() ) + NL;
+        }
         return retval;
     }
 

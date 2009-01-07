@@ -4,6 +4,7 @@ To-Do List, in order by what needs to be done
 (1) Selectable default paper size
 (1) MegaMek and armored components
 (1) Tactical Operations equipment
+(1) Options for default print quality and differing Record Sheet filenames based on dpi.
 (2) Tab order to be changed on Armor panel
 (2) Highlight Armor numbers on Armor panel when clicked
 (2) Save 'Mech and variants in one file
@@ -52,7 +53,5 @@ To-Do List, in order by what needs to be done
 
 
 Print Stuff from Skyhigh
-1) No ammo amounts
 2) no total heat for Alpha Strikes
 3) Cluster hit tables doesn't do 7 or other odd numbers
-4) Ferro/Endo etc should be printed in italics

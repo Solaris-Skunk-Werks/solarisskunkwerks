@@ -32,13 +32,12 @@ import ssw.Constants;
 
 public class Supercharger extends abPlaceable {
     private ifLoadout Owner;
-    private boolean Clan;
     private AvailableCode ISAC = new AvailableCode( false, 'C', 'F', 'F', 'F', 1950, 0, 0, "ES", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL ),
                           CLAC = new AvailableCode( true, 'C', 'F', 'F', 'F', 1950, 0, 0, "ES", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
 
-    public Supercharger( ifLoadout l, boolean clan ) {
+    public Supercharger( ifLoadout l ) {
         Owner = l;
-        Clan = clan;
+        AddMechModifier( new MechModifier( 0, 0, 0, 0.5f, 0, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true ) );
     }
 
     @Override
@@ -48,7 +47,7 @@ public class Supercharger extends abPlaceable {
 
     @Override
     public String GetMMName(boolean UseRear) {
-        if( Clan ) {
+        if( Owner.GetMech().IsClan() ) {
             return "CL Super Charger";
         } else {
             return "IS Super Charger";
@@ -62,12 +61,20 @@ public class Supercharger extends abPlaceable {
 
     @Override
     public float GetTonnage() {
-        return Owner.GetMech().GetEngine().GetTonnage() * 0.1f;
+        float retval = ((int) ( Math.ceil( Owner.GetMech().GetEngine().GetTonnage() * 0.1f * 2 ))) * 0.5f;
+        if( IsArmored() ) {
+            retval += 0.5f;
+        }
+        return retval;
     }
 
     @Override
     public float GetCost() {
-        return Owner.GetMech().GetEngine().GetRating() * 10000.0f;
+        float retval = Owner.GetMech().GetEngine().GetRating() * 10000.0f;
+        if( IsArmored() ) {
+            retval += 150000.f;
+        }
+        return retval;
     }
 
     @Override
@@ -82,16 +89,34 @@ public class Supercharger extends abPlaceable {
 
     @Override
     public float GetDefensiveBV() {
-        return 0.0f;
+        if( IsArmored() ) {
+            return 5.0f;
+        } else {
+            return 0.0f;
+        }
+    }
+
+    @Override
+    public boolean LocationLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean LocationLinked() {
+        return true;
+    }
+
+    @Override
+    public boolean CoreComponent() {
+        return true;
     }
 
     @Override
     public AvailableCode GetAvailability() {
-        if( Clan ) {
+        if( Owner.GetMech().IsClan() ) {
             return CLAC;
         } else {
             return ISAC;
         }
     }
-
 }

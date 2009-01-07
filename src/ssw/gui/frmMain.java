@@ -782,6 +782,15 @@ public class frmMain extends javax.swing.JFrame {
             chkBSPFD.setEnabled( false );
             chkBSPFD.setSelected( false );
         }
+        if( CommonTools.IsAllowed( CurMech.GetLoadout().GetSupercharger().GetAvailability(), CurMech ) ) {
+            chkSupercharger.setEnabled( true );
+            cmbSCLoc.setEnabled( true );
+            lblSupercharger.setEnabled( true );
+        } else {
+            chkSupercharger.setEnabled( false );
+            cmbSCLoc.setEnabled( false );
+            lblSupercharger.setEnabled( false );
+        }
 
         // now set all the equipment if needed
         if( ! chkArtemisSRM.isEnabled() ) {
@@ -824,6 +833,19 @@ public class frmMain extends javax.swing.JFrame {
                 chkArtemisMML.setSelected( true );
             } else {
                 chkArtemisMML.setSelected( false );
+            }
+        }
+        if( ! chkSupercharger.isEnabled() ) {
+            try {
+                CurMech.GetLoadout().SetSupercharger( false, 0 );
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+            }
+        } else {
+            if( CurMech.GetLoadout().HasSupercharger() ) {
+                chkSupercharger.setSelected( true );
+            } else {
+                chkSupercharger.setSelected( false );
             }
         }
         if( ! chkUseTC.isEnabled() ) { CurMech.UseTC( false ); }
@@ -1871,6 +1893,22 @@ public class frmMain extends javax.swing.JFrame {
         } else {
             chkRTCASE.setSelected( false );
         }
+        if( CurMech.GetLoadout().HasSupercharger() ) {
+            chkSupercharger.setSelected( true );
+            switch( CurMech.GetLoadout().Find( CurMech.GetLoadout().GetSupercharger() ) ) {
+                case Constants.LOC_CT:
+                    cmbSCLoc.setSelectedItem( "CT" );
+                    break;
+                case Constants.LOC_LT:
+                    cmbSCLoc.setSelectedItem( "LT" );
+                    break;
+                case Constants.LOC_RT:
+                    cmbSCLoc.setSelectedItem( "RT" );
+                    break;
+            }
+        } else {
+            chkSupercharger.setSelected( false );
+        }
     }
 
     private boolean VerifyMech( ActionEvent evt ) {
@@ -2321,7 +2359,7 @@ public class frmMain extends javax.swing.JFrame {
         chkBoobyTrap = new javax.swing.JCheckBox();
         chkPartialWing = new javax.swing.JCheckBox();
         chkFHES = new javax.swing.JCheckBox();
-        jLabel55 = new javax.swing.JLabel();
+        lblSupercharger = new javax.swing.JLabel();
         jLabel57 = new javax.swing.JLabel();
         pnlArmor = new javax.swing.JPanel();
         pnlFrontArmor = new javax.swing.JPanel();
@@ -3727,7 +3765,11 @@ public class frmMain extends javax.swing.JFrame {
         jPanel4.add(chkVoidSig, gridBagConstraints);
 
         chkSupercharger.setText("Supercharger");
-        chkSupercharger.setEnabled(false);
+        chkSupercharger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSuperchargerActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
@@ -3736,7 +3778,11 @@ public class frmMain extends javax.swing.JFrame {
         jPanel4.add(chkSupercharger, gridBagConstraints);
 
         cmbSCLoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CT", "LT", "RT" }));
-        cmbSCLoc.setEnabled(false);
+        cmbSCLoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbSCLocActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
@@ -3771,14 +3817,13 @@ public class frmMain extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel4.add(chkFHES, gridBagConstraints);
 
-        jLabel55.setText("Install in:");
-        jLabel55.setEnabled(false);
+        lblSupercharger.setText("Install in:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        jPanel4.add(jLabel55, gridBagConstraints);
+        jPanel4.add(lblSupercharger, gridBagConstraints);
 
         jLabel57.setText("        ");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -10070,6 +10115,7 @@ public class frmMain extends javax.swing.JFrame {
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
         RefreshOmniVariants();
+        RefreshEquipment();
         RefreshOmniChoices();
         CurMech.ReCalcBaseCost();
         RefreshSummary();
@@ -10658,6 +10704,60 @@ private void btnRemainingArmorActionPerformed(java.awt.event.ActionEvent evt) {/
     RefreshInfoPane();
 }//GEN-LAST:event_btnRemainingArmorActionPerformed
 
+private void cmbSCLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSCLocActionPerformed
+    int curLoc = CurMech.GetLoadout().Find( CurMech.GetLoadout().GetSupercharger() );
+    int DesiredLoc = FileCommon.DecodeLocation( (String) cmbSCLoc.getSelectedItem() );
+    if( curLoc == DesiredLoc ) { return; }
+    if( CurMech.GetLoadout().HasSupercharger() ) {
+        try {
+            CurMech.GetLoadout().SetSupercharger( true, DesiredLoc );
+        } catch( Exception e ) {
+            javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+            chkSupercharger.setSelected( false );
+            // now refresh the information panes
+            CurMech.ReCalcBaseCost();
+            RefreshSummary();
+            RefreshInfoPane();
+            return;
+        }
+    }
+    // now refresh the information panes
+    CurMech.ReCalcBaseCost();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_cmbSCLocActionPerformed
+
+private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSuperchargerActionPerformed
+    if( CurMech.GetLoadout().HasSupercharger() == chkSupercharger.isSelected() ) {
+        return;
+    }
+    try {
+        CurMech.GetLoadout().SetSupercharger( chkSupercharger.isSelected(), FileCommon.DecodeLocation( (String) cmbSCLoc.getSelectedItem() ) );
+    } catch( Exception e ) {
+        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        try {
+            CurMech.GetLoadout().SetSupercharger( false , 0 );
+        } catch( Exception x ) {
+            // how the hell did we get an error removing it?
+            javax.swing.JOptionPane.showMessageDialog( this, x.getMessage() );
+            // now refresh the information panes
+            CurMech.ReCalcBaseCost();
+            RefreshSummary();
+            RefreshInfoPane();
+        }
+        chkSupercharger.setSelected( false );
+        // now refresh the information panes
+        CurMech.ReCalcBaseCost();
+        RefreshSummary();
+        RefreshInfoPane();
+        return;
+    }
+    // now refresh the information panes
+    CurMech.ReCalcBaseCost();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkSuperchargerActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddEquip;
     private javax.swing.JButton btnAddVariant;
@@ -10792,7 +10892,6 @@ private void btnRemainingArmorActionPerformed(java.awt.event.ActionEvent evt) {/
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
-    private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
@@ -10955,6 +11054,7 @@ private void btnRemainingArmorActionPerformed(java.awt.event.ActionEvent evt) {/
     private javax.swing.JLabel lblSumJJ;
     private javax.swing.JLabel lblSumPAmps;
     private javax.swing.JLabel lblSumStructure;
+    private javax.swing.JLabel lblSupercharger;
     private javax.swing.JLabel lblTechBase;
     private javax.swing.JLabel lblTonPercArmor;
     private javax.swing.JLabel lblTonPercEngine;

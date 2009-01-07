@@ -20,6 +20,7 @@ Version 0.6.0
 - Added a "Remaining" button to the armor panel (uses remaining tonnage).
 - Added ER and heavy flamers, Enhanced ER PPC for Clan Wolverine, and 'Mech Taser.
 - Added Null-Sig, Void-Sig, Blue Shield, and Chameleon systems.
+- Added in the Supercharger.
 
 + Changed
 - Fixed a load bug with heatsinks.

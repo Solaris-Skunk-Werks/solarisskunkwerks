@@ -897,6 +897,9 @@ public class HTMLWriter {
             if( CurMech.UsingTC() ) {
                 ret.add( CurMech.GetTC() );
             }
+            if( CurMech.GetLoadout().HasSupercharger() ) {
+                ret.add( CurMech.GetLoadout().GetSupercharger() );
+            }
 
             // sort the weapons by location
             ret = FileCommon.SortEquipmentForStats( CurMech, ret, MyOptions );

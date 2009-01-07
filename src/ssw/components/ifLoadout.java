@@ -144,6 +144,9 @@ public interface ifLoadout {
     public void UseTC( boolean use );
     public void CheckTC();
     public void UnallocateTC();
+    public void SetSupercharger( boolean b, int Loc ) throws Exception;
+    public boolean HasSupercharger();
+    public Supercharger GetSupercharger();
     public PowerAmplifier GetPowerAmplifier();
     public void CheckExclusions( abPlaceable a ) throws Exception;
     public void AddMechModifier( MechModifier m );
