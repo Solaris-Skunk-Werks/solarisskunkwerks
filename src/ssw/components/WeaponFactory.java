@@ -506,6 +506,24 @@ public class WeaponFactory {
         addPW.SetSpecials( "PA", "-", 10000.0f, 10000.0f, 1.725f, true );
         addPW.SetToHit( -2, -2, -2 );
         ISPW.add( addPW  );
+
+        // chain whip
+        a = new AvailableCode( false, 'C', 'X', 'X', 'F', 3071, 0, 0, "WB", "", false, false, 3069, true, "LA", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addPW = new PhysicalWeapon( "Chain Whip","Chain Whip", Owner, a );
+        addPW.SetStats(0.0f, 0.0f, 3.0f, 2);
+        addPW.SetDamage(0.0f, 1);
+        addPW.SetSpecials("PA", "-", 0.0f, 120000.0f, 1.725f, false);
+        addPW.SetToHit(-2, -2, -2);
+        ISPW.add(addPW);
+
+        // claws
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3060, 0, 0, "LA", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        addPW = new PhysicalWeapon( "Claws","Claws", Owner, a );
+        addPW.SetStats(0.06666f, 0.06666f, 0.0f, 0);
+        addPW.SetDamage(0.1428f, 0);
+        addPW.SetSpecials("PA", "-", 2800.0f, 0.0f, 1.275f, false);
+        addPW.SetToHit(1, 1, 1);
+        ISPW.add(addPW);
     }
 
     private void BuildWeapons() {
