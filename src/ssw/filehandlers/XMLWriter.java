@@ -457,6 +457,14 @@ public class XMLWriter {
             retval += GetLocationLines( prefix + tab, p );
             retval += prefix + "</equipment>" + NL;
         }
+        if( CurMech.GetLoadout().HasSupercharger() ) {
+            abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetSupercharger();
+            retval += prefix + "<equipment>" + NL;
+            retval += prefix + tab + "<name manufacturer=\"\">Supercharger</name>" + NL;
+            retval += prefix + tab + "<type>Supercharger</type>" + NL;
+            retval += GetLocationLines( prefix + tab, p );
+            retval += prefix + "</equipment>" + NL;
+        }
         return retval;
     }
 

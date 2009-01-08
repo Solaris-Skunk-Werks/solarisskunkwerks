@@ -347,7 +347,7 @@ public class XMLReader {
                         splitLoc.add( DecodeLocation( nl.item( j ) ) );
                     }
                 }
-                if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" ) ) {
+                if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" ) || eType.equals( "Supercharger" ) ) {
                     if( eType.equals( "TargetingComputer") ) {
                         m.UseTC( true );
                         ltc = l;
@@ -361,6 +361,8 @@ public class XMLReader {
                         if( l.Location == Constants.LOC_RT ) {
                             m.AddRTCase();
                         }
+                    } else if( eType.equals( "Supercharger" ) ) {
+
                     }
                 } else {
                     abPlaceable p = GetEquipmentByName( eName, eType, m );

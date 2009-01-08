@@ -235,6 +235,13 @@ public class QuadLoadout implements ifLoadout {
 
     public void FullUnallocate() {
         // this removes all items from the loadout.
+
+        // Check for jump jets and send them to the queue
+        abPlaceable[] a = Jumps.GetPlacedJumps();
+        for( int i = 0; i < a.length; i++ ) {
+            UnallocateAll( a[i], true );
+        }
+
         for( int i = 0; i < 6; i++ ) {
             HDCrits[i] = NoItem;
             CTCrits[i] = NoItem;

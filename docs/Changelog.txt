@@ -84,6 +84,7 @@ Version 0.6.0
 - Non-Critable items now print in italics correctly (Specter83).
 - Clan CASE cost is now correctly factored into the 'Mech.
 - Ammo bin lot sizes are now printed on the Critical Chart.
+- Fixed a bug when changing Rules Levels and disappearing jump jets.
 
 -------------------------------------------------------------------------------
 Version 0.5.0
