@@ -541,8 +541,8 @@ public class BipedLoadout implements ifLoadout {
         } else {
             if( p instanceof PhysicalWeapon ) {
                 // Ensure that no other physical weapons are mounted in this location
-                for ( int i = 0; i < 11; i ++){
-                    if ( RACrits[i] instanceof PhysicalWeapon )
+                for( int i = 0; i < NonCore.size(); i++ ){
+                    if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_RA)
                         throw new Exception( p.GetCritName() +
                             " cannot be allocated to the right arm because\nthe arm already mounts a physical weapon." );
                 }
@@ -587,8 +587,8 @@ public class BipedLoadout implements ifLoadout {
             if( p instanceof PhysicalWeapon ) {
 
                 // Ensure that no other physical weapons are mounted in this location
-                for ( int i = 0; i < 11; i ++){
-                    if ( LACrits[i] instanceof PhysicalWeapon )
+                for( int i = 0; i < NonCore.size(); i++ ){
+                    if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_LA)
                         throw new Exception( p.GetCritName() +
                             " cannot be allocated to the left arm because\nthe arm already mounts a physical weapon." );
                 }
