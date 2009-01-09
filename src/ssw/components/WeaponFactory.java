@@ -894,6 +894,16 @@ public class WeaponFactory {
         addEW.SetStats(1.5f, 1, 11250.0f, 15.0f, 0.0f);
         ISEW.add(addEW);
 
+        // bombast laser
+        a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3064, 0, 0, "LA", "", false, false, 3061, true, "LA", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addEW = new EnergyWeapon("Bombast Laser", "ISBombastLaser", "DE", false, a);
+        addEW.SetDamage(7, 7, 7);
+        addEW.SetHeat(12);
+        addEW.SetRange(0, 5, 10, 15);
+        addEW.SetSpecials("V", false, false, 0, 0, true);
+        addEW.SetStats(7.0f, 3, 200000.0f, 137.0f, 0.0f);
+        ISEW.add(addEW);
+
         // lrm-5
         a = new AvailableCode(false, 'C', 'C', 'C', 'C', 2400, 0, 0, "TH", "", false, false);
         addMW = new MissileWeapon("LRM-5", "ISLRM5", "M", false, a);
@@ -1919,7 +1929,7 @@ public class WeaponFactory {
 
         // chain whip
         a = new AvailableCode( false, 'C', 'X', 'X', 'F', 3071, 0, 0, "WB", "", false, false, 3069, true, "LA", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        addPW = new PhysicalWeapon( "Chain Whip","Chain Whip", Owner, a );
+        addPW = new PhysicalWeapon( "Chain Whip","ISChainWhip", Owner, a );
         addPW.SetStats(0.0f, 0.0f, 3.0f, 2);
         addPW.SetDamage(0.0f, 1);
         addPW.SetSpecials("PA", "-", 0.0f, 120000.0f, 1.725f, false);
@@ -1928,29 +1938,32 @@ public class WeaponFactory {
 
         // claws
         a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3060, 0, 0, "LA", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        addPW = new PhysicalWeapon( "Claws","Claws", Owner, a );
+        addPW = new PhysicalWeapon( "Claws","ISClaw", Owner, a );
         addPW.SetStats(0.06666f, 0.06666f, 0.0f, 0);
         addPW.SetDamage(0.1428f, 0);
         addPW.SetSpecials("PA", "-", 2800.0f, 0.0f, 1.275f, false);
         addPW.SetToHit(1, 1, 1);
+        addPW.SetReplacesHand(true);
         ISPW.add(addPW);
 
         // flail
         a = new AvailableCode( false, 'B', 'X', 'X', 'E', 3057, 0, 0, "FC", "", false, false, 3054, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        addPW = new PhysicalWeapon( "Flail","Flail", Owner, a );
+        addPW = new PhysicalWeapon( "Flail","ISFlail", Owner, a );
         addPW.SetStats(0.0f, 0.0f, 5.0f, 4);
         addPW.SetDamage(0.0f, 9);
         addPW.SetSpecials("PA", "-", 0.0f, 110000.0f, 1.2222f, false);
         addPW.SetToHit(1, 1, 1);
+        addPW.SetReplacesHand(true);
         ISPW.add(addPW);
 
         // lance
         a = new AvailableCode( false, 'C', 'X', 'X', 'F', 3064, 0, 0, "LA", "", false, false, 3061, true, "LA", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        addPW = new PhysicalWeapon( "Lance","Lance", Owner, a );
+        addPW = new PhysicalWeapon( "Lance","ISLance", Owner, a );
         addPW.SetStats(0.05f, 0.05f, 0.0f, 0);
         addPW.SetDamage(0.2f, 0);
         addPW.SetSpecials("PA", "-", 3000.0f, 0.0f, 1.0f, false);
         addPW.SetToHit(2, 2, 2);
+        addPW.SetRequiresHand(false);
         ISPW.add(addPW);
 
         // arrow iv system
@@ -2168,6 +2181,39 @@ public class WeaponFactory {
         addEW.SetSpecials( "-", false, false, 0, 0, true );
         addEW.SetStats( 4.0f, 3, 250000.0f, 244.0f, 0.0f );
         addEW.SetToHit( 1, 1, 1 );
+        CLEW.add( addEW  );
+
+        // improved clan heavy small laser
+        a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3069, 0, 0, "CGS", "", false, false, 3066, true, "CGS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addEW = new EnergyWeapon( "Improved Heavy Small Laser", "CLImprovedHeavySmallLaser", "DE", true, a );
+        addEW.SetDamage( 6, 6, 6 );
+        addEW.SetHeat( 3 );
+        addEW.SetRange( 0, 1, 2, 3 );
+        addEW.SetSpecials( "-", false, false, 0, 0, true );
+        addEW.SetStats( 1.5f, 1, 30000.0f, 19.0f, 0.0f );
+        addEW.SetToHit( 0, 0, 0 );
+        CLEW.add( addEW  );
+
+        // improved clan heavy medium laser
+        a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3069, 0, 0, "CGS", "", false, false, 3066, true, "CGS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addEW = new EnergyWeapon( "Heavy Medium Laser", "CLImprovedHeavyMediumLaser", "DE", true, a );
+        addEW.SetDamage( 10, 10, 10 );
+        addEW.SetHeat( 7 );
+        addEW.SetRange( 0, 3, 6, 9 );
+        addEW.SetSpecials( "-", false, false, 0, 0, true );
+        addEW.SetStats( 2.0f, 2, 150000.0f, 93.0f, 0.0f );
+        addEW.SetToHit( 0, 0, 0 );
+        CLEW.add( addEW  );
+
+        // improved clan heavy large laser
+        a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3069, 0, 0, "CGS", "", false, false, 3066, true, "CGS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addEW = new EnergyWeapon( "Heavy Large Laser", "CLImprovedHeavyLargeLaser", "DE", true, a );
+        addEW.SetDamage( 16, 16, 16 );
+        addEW.SetHeat( 18 );
+        addEW.SetRange( 0, 5, 10, 15 );
+        addEW.SetSpecials( "-", false, false, 0, 0, true );
+        addEW.SetStats( 6.0f, 3, 400000.0f, 296.0f, 0.0f );
+        addEW.SetToHit( 0, 0, 0 );
         CLEW.add( addEW  );
 
         // small chem laser
