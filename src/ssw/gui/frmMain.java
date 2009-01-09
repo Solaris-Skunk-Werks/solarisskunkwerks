@@ -2253,6 +2253,8 @@ public class frmMain extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        jScrollPane25 = new javax.swing.JScrollPane();
+        jEditorPane1 = new javax.swing.JEditorPane();
         tbpMainTabPane = new javax.swing.JTabbedPane();
         pnlBasicSetup = new javax.swing.JPanel();
         pnlBasicInformation = new javax.swing.JPanel();
@@ -2547,14 +2549,14 @@ public class frmMain extends javax.swing.JFrame {
         chkRTCASE2 = new javax.swing.JCheckBox();
         chkRTTurret = new javax.swing.JCheckBox();
         pnlLACrits = new javax.swing.JPanel();
-        jScrollPane14 = new javax.swing.JScrollPane();
+        scrLACrits = new javax.swing.JScrollPane();
         lstLACrits = new javax.swing.JList();
         chkLALowerArm = new javax.swing.JCheckBox();
         chkLAHand = new javax.swing.JCheckBox();
         chkLACASE2 = new javax.swing.JCheckBox();
         chkLAAES = new javax.swing.JCheckBox();
         pnlRACrits = new javax.swing.JPanel();
-        jScrollPane15 = new javax.swing.JScrollPane();
+        scrRACrits = new javax.swing.JScrollPane();
         lstRACrits = new javax.swing.JList();
         chkRALowerArm = new javax.swing.JCheckBox();
         chkRAHand = new javax.swing.JCheckBox();
@@ -2725,6 +2727,8 @@ public class frmMain extends javax.swing.JFrame {
         mnuHelp = new javax.swing.JMenu();
         mnuCredits = new javax.swing.JMenuItem();
         mnuAboutSSW = new javax.swing.JMenuItem();
+
+        jScrollPane25.setViewportView(jEditorPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -5506,7 +5510,9 @@ public class frmMain extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlHDCrits.add(chkHDCASE2, gridBagConstraints);
 
-        lstHDCrits.setFont(new java.awt.Font("Tahoma", 0, 10));
+        jScrollPane10.setPreferredSize(new java.awt.Dimension(105, 87));
+
+        lstHDCrits.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lstHDCrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Head", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6" };
             public int getSize() { return strings.length; }
@@ -5643,16 +5649,19 @@ public class frmMain extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         pnlHDCrits.add(jScrollPane10, gridBagConstraints);
 
-        pnlCriticals.add(pnlHDCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 115, 165));
+        pnlCriticals.add(pnlHDCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 117, 165));
 
         pnlCTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Center Torso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlCTCrits.setMaximumSize(new java.awt.Dimension(114, 233));
         pnlCTCrits.setMinimumSize(new java.awt.Dimension(114, 233));
         pnlCTCrits.setLayout(new java.awt.GridBagLayout());
 
-        lstCTCrits.setFont(new java.awt.Font("Tahoma", 0, 10));
+        jScrollPane11.setPreferredSize(new java.awt.Dimension(105, 170));
+
+        lstCTCrits.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lstCTCrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Center Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
@@ -5808,7 +5817,7 @@ public class frmMain extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlCTCrits.add(chkCTCASE2, gridBagConstraints);
 
-        pnlCriticals.add(pnlCTCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 115, -1));
+        pnlCriticals.add(pnlCTCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 117, -1));
 
         pnlLTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Torso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlLTCrits.setMaximumSize(new java.awt.Dimension(114, 235));
@@ -5828,7 +5837,10 @@ public class frmMain extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlLTCrits.add(chkLTCASE, gridBagConstraints);
 
-        lstLTCrits.setFont(new java.awt.Font("Tahoma", 0, 10));
+        jScrollPane12.setMinimumSize(new java.awt.Dimension(105, 183));
+        jScrollPane12.setPreferredSize(new java.awt.Dimension(105, 170));
+
+        lstLTCrits.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lstLTCrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Left Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
@@ -5983,14 +5995,17 @@ public class frmMain extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlLTCrits.add(chkLTTurret, gridBagConstraints);
 
-        pnlCriticals.add(pnlLTCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 40, 115, 270));
+        pnlCriticals.add(pnlLTCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 40, 117, 270));
 
         pnlRTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Torso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlRTCrits.setMaximumSize(new java.awt.Dimension(114, 233));
         pnlRTCrits.setMinimumSize(new java.awt.Dimension(114, 233));
         pnlRTCrits.setLayout(new java.awt.GridBagLayout());
 
-        lstRTCrits.setFont(new java.awt.Font("Tahoma", 0, 10));
+        jScrollPane13.setMinimumSize(new java.awt.Dimension(105, 183));
+        jScrollPane13.setPreferredSize(new java.awt.Dimension(105, 170));
+
+        lstRTCrits.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lstRTCrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Right Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
@@ -6157,14 +6172,17 @@ public class frmMain extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlRTCrits.add(chkRTTurret, gridBagConstraints);
 
-        pnlCriticals.add(pnlRTCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 40, 115, 270));
+        pnlCriticals.add(pnlRTCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 40, 117, 270));
 
         pnlLACrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Arm", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlLACrits.setMaximumSize(new java.awt.Dimension(114, 256));
         pnlLACrits.setMinimumSize(new java.awt.Dimension(114, 256));
         pnlLACrits.setLayout(new java.awt.GridBagLayout());
 
-        lstLACrits.setFont(new java.awt.Font("Tahoma", 0, 10));
+        scrLACrits.setMinimumSize(new java.awt.Dimension(105, 87));
+        scrLACrits.setPreferredSize(new java.awt.Dimension(105, 170));
+
+        lstLACrits.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lstLACrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Left Arm", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
@@ -6270,12 +6288,12 @@ public class frmMain extends javax.swing.JFrame {
         };
         lstLACrits.addMouseListener( mlLACrits );
         lstLACrits.setCellRenderer( Mechrender );
-        jScrollPane14.setViewportView(lstLACrits);
+        scrLACrits.setViewportView(lstLACrits);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        pnlLACrits.add(jScrollPane14, gridBagConstraints);
+        pnlLACrits.add(scrLACrits, gridBagConstraints);
 
         chkLALowerArm.setSelected(true);
         chkLALowerArm.setText("Lower Arm");
@@ -6317,14 +6335,17 @@ public class frmMain extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlLACrits.add(chkLAAES, gridBagConstraints);
 
-        pnlCriticals.add(pnlLACrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 115, -1));
+        pnlCriticals.add(pnlLACrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 117, -1));
 
         pnlRACrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Arm", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlRACrits.setMaximumSize(new java.awt.Dimension(114, 256));
         pnlRACrits.setMinimumSize(new java.awt.Dimension(114, 256));
         pnlRACrits.setLayout(new java.awt.GridBagLayout());
 
-        lstRACrits.setFont(new java.awt.Font("Tahoma", 0, 10));
+        scrRACrits.setMinimumSize(new java.awt.Dimension(105, 87));
+        scrRACrits.setPreferredSize(new java.awt.Dimension(105, 170));
+
+        lstRACrits.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lstRACrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Right Arm", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
@@ -6430,12 +6451,12 @@ public class frmMain extends javax.swing.JFrame {
         };
         lstRACrits.addMouseListener( mlRACrits );
         lstRACrits.setCellRenderer( Mechrender );
-        jScrollPane15.setViewportView(lstRACrits);
+        scrRACrits.setViewportView(lstRACrits);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        pnlRACrits.add(jScrollPane15, gridBagConstraints);
+        pnlRACrits.add(scrRACrits, gridBagConstraints);
 
         chkRALowerArm.setSelected(true);
         chkRALowerArm.setText("Lower Arm");
@@ -6477,12 +6498,15 @@ public class frmMain extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlRACrits.add(chkRAAES, gridBagConstraints);
 
-        pnlCriticals.add(pnlRACrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 115, -1));
+        pnlCriticals.add(pnlRACrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 117, -1));
 
         pnlLLCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Leg", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlLLCrits.setMaximumSize(new java.awt.Dimension(116, 120));
         pnlLLCrits.setMinimumSize(new java.awt.Dimension(116, 120));
         pnlLLCrits.setLayout(new java.awt.GridBagLayout());
+
+        jScrollPane16.setMinimumSize(new java.awt.Dimension(105, 87));
+        jScrollPane16.setPreferredSize(new java.awt.Dimension(105, 87));
 
         lstLLCrits.setFont(new java.awt.Font("Tahoma", 0, 10));
         lstLLCrits.setModel(new javax.swing.AbstractListModel() {
@@ -6628,14 +6652,17 @@ public class frmMain extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlLLCrits.add(chkLLCASE2, gridBagConstraints);
 
-        pnlCriticals.add(pnlLLCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 320, 115, -1));
+        pnlCriticals.add(pnlLLCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 320, 117, -1));
 
         pnlRLCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Leg", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlRLCrits.setMaximumSize(new java.awt.Dimension(116, 120));
         pnlRLCrits.setMinimumSize(new java.awt.Dimension(116, 120));
         pnlRLCrits.setLayout(new java.awt.GridBagLayout());
 
-        lstRLCrits.setFont(new java.awt.Font("Tahoma", 0, 10));
+        jScrollPane17.setMinimumSize(new java.awt.Dimension(105, 87));
+        jScrollPane17.setPreferredSize(new java.awt.Dimension(105, 87));
+
+        lstRLCrits.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lstRLCrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Right Leg", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6" };
             public int getSize() { return strings.length; }
@@ -6779,7 +6806,7 @@ public class frmMain extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlRLCrits.add(chkRLCASE2, gridBagConstraints);
 
-        pnlCriticals.add(pnlRLCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 320, 115, -1));
+        pnlCriticals.add(pnlRLCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 320, 117, -1));
 
         pnlEquipmentToPlace.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Equipment to Place", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlEquipmentToPlace.setMaximumSize(new java.awt.Dimension(146, 330));
@@ -8537,6 +8564,8 @@ public class frmMain extends javax.swing.JFrame {
             ((javax.swing.border.TitledBorder) pnlRAArmorBox.getBorder()).setTitle( "RA" );
             ((javax.swing.border.TitledBorder) pnlLLArmorBox.getBorder()).setTitle( "LL" );
             ((javax.swing.border.TitledBorder) pnlRLArmorBox.getBorder()).setTitle( "RL" );
+            scrRACrits.setPreferredSize( new java.awt.Dimension( 105, 170 ) );
+            scrLACrits.setPreferredSize( new java.awt.Dimension( 105, 170 ) );
         } else {
             // if the mech is already a quad, forget it.
             if( CurMech.IsQuad() ) { return; }
@@ -8548,6 +8577,8 @@ public class frmMain extends javax.swing.JFrame {
             ((javax.swing.border.TitledBorder) pnlRAArmorBox.getBorder()).setTitle( "FRL" );
             ((javax.swing.border.TitledBorder) pnlLLArmorBox.getBorder()).setTitle( "RLL" );
             ((javax.swing.border.TitledBorder) pnlRLArmorBox.getBorder()).setTitle( "RRL" );
+            scrRACrits.setPreferredSize( new java.awt.Dimension( 105, 87 ) );
+            scrLACrits.setPreferredSize( new java.awt.Dimension( 105, 87 ) );
         }
 
         // set the loadout arrays
@@ -10850,6 +10881,7 @@ private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JEditorPane edtNotables;
     private javax.swing.JEditorPane edtOverview;
     private javax.swing.JEditorPane edtVariants;
+    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -10925,8 +10957,6 @@ private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
-    private javax.swing.JScrollPane jScrollPane14;
-    private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane17;
     private javax.swing.JScrollPane jScrollPane18;
@@ -10937,6 +10967,7 @@ private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JScrollPane jScrollPane22;
     private javax.swing.JScrollPane jScrollPane23;
     private javax.swing.JScrollPane jScrollPane24;
+    private javax.swing.JScrollPane jScrollPane25;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
@@ -11176,6 +11207,8 @@ private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JPanel pnlVariants;
     private javax.swing.JPanel pnlWeaponsManufacturers;
     private javax.swing.JScrollPane scpWeaponManufacturers;
+    private javax.swing.JScrollPane scrLACrits;
+    private javax.swing.JScrollPane scrRACrits;
     private javax.swing.JSpinner spnBoosterMP;
     private javax.swing.JSpinner spnCTArmor;
     private javax.swing.JSpinner spnCTRArmor;
