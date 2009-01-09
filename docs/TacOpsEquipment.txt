@@ -43,10 +43,6 @@ ProtoMech AC/4							Weapon
 ProtoMech AC/8							Weapon
 Clan Rotary AC/2						Weapon  CLRotaryAC2
 Clan Rotary AC/5						Weapon  CLRotaryAC5
-Chain Whip								Weapon  Chain Whip
-Claws									Weapon  ISClaw
-Flail									Weapon  "IS Flail"
-Lance									Weapon  ISLance
 Mace									Weapon  Mace
 Spikes									Weapon  Spikes
 Talons									Weapon  Talons
@@ -58,16 +54,12 @@ Vibroblade, Large						Weapon  ISLargeVibroblade
 Fluid Gun								Weapon
 Magshot									Weapon  ISMagshotGR
 Silver Bullet Gauss						Weapon  ISSBGR
-Bombast Laser							Weapon  ISBombastLaser
 - Chemical Laser, Small					Weapon  CLSmallChemLaser
 - Chemical Laser, Medium					Weapon  CLMediumChemLaser
 - Chamical Laser, Large					Weapon  CLLargeChemLaser
 - ER Pulse Laser, Small					Weapon  CLERSmallPulseLaser
 - ER Pulse Laser, Medium					Weapon  CLERMediumPulseLaser
 - ER Pulse Laser, Large					Weapon  CLERLargePulseLaser
-Improved Heavy Laser, Small				Weapon
-Improved Heavy Laser, Medium			Weapon
-Improved Heavy Laser, Large				Weapon
 Mech Mortar/1							Weapon  CLMekMortar1 ISMekMortar1
 Mech Mortar/2							Weapon  CLMekMortar2 ISMekMortar2
 Mech Mortar/4							Weapon  CLMekMortar4 ISMekMortar4
