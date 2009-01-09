@@ -540,6 +540,13 @@ public class BipedLoadout implements ifLoadout {
                 " cannot be allocated to the right arm." );
         } else {
             if( p instanceof PhysicalWeapon ) {
+                // Ensure that no other physical weapons are mounted in this location
+                for ( int i = 0; i < 11; i ++){
+                    if ( RACrits[i] instanceof PhysicalWeapon )
+                        throw new Exception( p.GetCritName() +
+                            " cannot be allocated to the right arm because\nthe arm already mounts a physical weapon." );
+                }
+
                 if( ! ( RACrits[2] instanceof Actuator ) || ! ( RACrits[3] instanceof Actuator ) ) {
                     throw new Exception( p.GetCritName() +
                         " cannot be allocated to the right arm because\nthe arm does not have a hand or lower arm actuator." );
@@ -578,6 +585,14 @@ public class BipedLoadout implements ifLoadout {
                 " cannot be allocated to the left arm." );
         } else {
             if( p instanceof PhysicalWeapon ) {
+
+                // Ensure that no other physical weapons are mounted in this location
+                for ( int i = 0; i < 11; i ++){
+                    if ( LACrits[i] instanceof PhysicalWeapon )
+                        throw new Exception( p.GetCritName() +
+                            " cannot be allocated to the left arm because\nthe arm already mounts a physical weapon." );
+                }
+
                 if( ! ( LACrits[2] instanceof Actuator ) || ! ( LACrits[3] instanceof Actuator ) ) {
                     throw new Exception( p.GetCritName() +
                         " cannot be allocated to the left arm because\nthe arm does not have a hand or lower arm actuator." );
