@@ -10338,13 +10338,12 @@ private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         } else {
             cmbMotiveType.setSelectedIndex( 0 );
         }
-        CurMech = m;
-        chkYearRestrict.setSelected( CurMech.IsYearRestricted() );
-        txtProdYear.setText( "" + CurMech.GetYear() );
+        chkYearRestrict.setSelected( m.IsYearRestricted() );
+        txtProdYear.setText( "" + m.GetYear() );
         cmbMechEra.setEnabled( true );
         cmbTechBase.setEnabled( true );
         txtProdYear.setEnabled( true );
-        switch( CurMech.GetEra() ) {
+        switch( m.GetEra() ) {
             case 0:
                 lblEraYears.setText( "2443 ~ 2800" );
                 cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere" }));
@@ -10359,9 +10358,11 @@ private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 break;
         }
 
-        cmbRulesLevel.setSelectedIndex( CurMech.GetRulesLevel() );
-        cmbMechEra.setSelectedIndex( CurMech.GetEra() );
-        cmbTechBase.setSelectedIndex( CurMech.GetTechBase() );
+        cmbRulesLevel.setSelectedIndex( m.GetRulesLevel() );
+        cmbMechEra.setSelectedIndex( m.GetEra() );
+        cmbTechBase.setSelectedIndex( m.GetTechBase() );
+
+        CurMech = m;
 
         if( chkYearRestrict.isSelected() ) {
             cmbMechEra.setEnabled( false );

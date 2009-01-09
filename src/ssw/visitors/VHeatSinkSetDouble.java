@@ -53,4 +53,9 @@ public class VHeatSinkSetDouble implements ifVisitor {
         // now let's blow out the heat sinks and recalculate
         h.ReCalculate();
     }
+
+    @Override
+    public String toString() {
+        return "Double Heat Sink Visitor";
+    }
 }
