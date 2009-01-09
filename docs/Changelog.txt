@@ -85,6 +85,8 @@ Version 0.6.0
 - Clan CASE cost is now correctly factored into the 'Mech.
 - Ammo bin lot sizes are now printed on the Critical Chart.
 - Fixed a bug when changing Rules Levels and disappearing jump jets.
+- Changed font size for some items when using Swing's Metal motif.
+- The main window is now resizable (fix for KUbuntu users with OpenJDK).
 
 -------------------------------------------------------------------------------
 Version 0.5.0

@@ -58,11 +58,13 @@ public class Main {
                 UIManager.put( "swing.boldMetal", Boolean.FALSE );
                 UIDefaults uiDefaults = UIManager.getDefaults();
                 Font f = uiDefaults.getFont( "Label.font" );
-                uiDefaults.put( "Label.font", f.deriveFont( f.getStyle(), 11.0f ));
+                uiDefaults.put( "Label.font", f.deriveFont( f.getStyle(), 10.0f ));
                 f = uiDefaults.getFont( "ComboBox.font" );
-                uiDefaults.put( "ComboBox.font", f.deriveFont( f.getStyle(), 11.0f ));
+                uiDefaults.put( "ComboBox.font", f.deriveFont( f.getStyle(), 10.0f ));
                 f = uiDefaults.getFont( "Button.font" );
-                uiDefaults.put( "Button.font", f.deriveFont( f.getStyle(), 11.0f ));
+                uiDefaults.put( "Button.font", f.deriveFont( f.getStyle(), 10.0f ));
+                f = uiDefaults.getFont( "CheckBox.font" );
+                uiDefaults.put( "CheckBox.font", f.deriveFont( f.getStyle(), 10.0f ));
                 UIManager.setLookAndFeel( "javax.swing.plaf.metal.MetalLookAndFeel" );
             } else {
                 UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
@@ -91,7 +93,7 @@ public class Main {
                 MainFrame.setTitle( Constants.AppDescription + " " + Constants.Version );
                 MainFrame.setSize( 760, 575 );
                 MainFrame.setLocationRelativeTo( null );
-                MainFrame.setResizable( false );
+                MainFrame.setResizable( true );
                 MainFrame.setDefaultCloseOperation( javax.swing.JFrame.DISPOSE_ON_CLOSE );
                 MainFrame.setVisible( true );
             }
