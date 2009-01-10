@@ -79,6 +79,14 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         return chkPrintCharts.isSelected();
     }
 
+    public boolean UseA4Paper() {
+        if( cmbPaperSize.getSelectedIndex() == 0 ) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -104,6 +112,9 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         lblAdjustBV = new javax.swing.JLabel();
         chkMWStats = new javax.swing.JCheckBox();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        cmbPaperSize = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -163,7 +174,7 @@ public class dlgPrintOptions extends javax.swing.JDialog {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
@@ -236,6 +247,20 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(chkMWStats, gridBagConstraints);
 
+        jLabel5.setText("Paper Size:");
+        jPanel3.add(jLabel5);
+
+        cmbPaperSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Letter", "A4" }));
+        jPanel3.add(cmbPaperSize);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
+        getContentPane().add(jPanel3, gridBagConstraints);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -292,12 +317,15 @@ private void chkMWStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JCheckBox chkMWStats;
     private javax.swing.JCheckBox chkPrintCharts;
     private javax.swing.JComboBox cmbGunnery;
+    private javax.swing.JComboBox cmbPaperSize;
     private javax.swing.JComboBox cmbPiloting;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblAdjustBV;
     private javax.swing.JLabel lblAdjustBVLabel;
     private javax.swing.JTextField txtWarriorName;

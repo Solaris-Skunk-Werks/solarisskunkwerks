@@ -50,7 +50,8 @@ public class PrintMech implements Printable {
                   RecordSheet = null;
     private boolean Advanced = false,
                     Charts = false,
-                    PrintPilot = true;
+                    PrintPilot = true,
+                    UseA4Paper = false;
     private String PilotName = "";
     private int Piloting = 0,
                 Gunnery = 0;
@@ -62,12 +63,13 @@ public class PrintMech implements Printable {
     private Font SmallFont = new Font( "Arial", Font.PLAIN, 7 );
     private Font SmallItalicFont = new Font( "Arial", Font.ITALIC, 7 );
 
-    public PrintMech( frmMain parent, Mech m, Image i, boolean adv ) {
+    public PrintMech( frmMain parent, Mech m, Image i, boolean adv, boolean A4 ) {
         Parent = parent;
         CurMech = m;
         MechImage = i;
         Advanced = adv;
         BV = CurMech.GetCurrentBV();
+        UseA4Paper = A4;
         GetRecordSheet();
     }
 
@@ -95,6 +97,11 @@ public class PrintMech implements Printable {
     }
 
     private void PreparePrint( Graphics2D graphics ) {
+        // adjust the printable area for A4 paper size
+        if( UseA4Paper ) {
+            graphics.scale( 0.9705d, 0.9705d );
+        }
+        
         // adjust the printable area for use with helpful charts
         if( Charts ) {
             graphics.scale( 0.8d, 0.8d );

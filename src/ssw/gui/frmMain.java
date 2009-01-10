@@ -2038,11 +2038,23 @@ public class frmMain extends javax.swing.JFrame {
         }
 
         PrinterJob job = PrinterJob.getPrinterJob();
-        PrintMech p = new PrintMech( this, m, GetImage( m.GetSSWImage() ), false );
+        PrintMech p = new PrintMech( this, m, GetImage( m.GetSSWImage() ), false, POptions.UseA4Paper() );
         p.SetPilotData( POptions.GetWarriorName(), POptions.GetGunnery(), POptions.GetPiloting() );
         p.SetOptions( POptions.PrintCharts(), POptions.PrintPilot(), POptions.GetAdjustedBV() );
+
         Paper paper = new Paper();
-        paper.setImageableArea( 18, 18, 576, 756 );
+        if( POptions.UseA4Paper() ) {
+            // silly Europeans...
+            paper.setSize( 595, 842 );
+            paper.setImageableArea( 18, 18, 559, 806 );
+        } else {
+            // no need to set the size as Paper() defaults to 8.5" x 11"
+            paper.setImageableArea( 18, 18, 576, 756 );
+        }
+
+        // get rid of the Print Options window.
+        POptions.dispose();
+
         PageFormat page = new PageFormat();
         page.setPaper( paper );
         job.setPrintable( p, page );
@@ -2054,7 +2066,7 @@ public class frmMain extends javax.swing.JFrame {
                 System.err.println( e.getMessage() );
                 System.out.println( e.getStackTrace() );
             }
-       }
+        }
     }
 
     private void UpdateBasicChart() {

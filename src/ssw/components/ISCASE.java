@@ -79,6 +79,11 @@ public class ISCASE extends abPlaceable {
         return true;
     }
 
+    @Override
+    public boolean IsCritable() {
+        return false;
+    }
+
     // All placeables should be able to return their AvailabileCode
     public AvailableCode GetAvailability() {
         return AC;

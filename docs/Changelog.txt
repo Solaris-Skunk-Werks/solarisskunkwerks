@@ -87,7 +87,8 @@ Version 0.6.0
 - Fixed a bug when changing Rules Levels and disappearing jump jets.
 - Changed font size for some items when using Swing's Metal motif.
 - The main window is now resizable (fix for KUbuntu users with OpenJDK).
-- Fixed a load problem with non-Tournament Legal units
+- Fixed a load problem with non-Tournament Legal units.
+- Added an options for paper size when printing (Letter and A4).
 
 -------------------------------------------------------------------------------
 Version 0.5.0
