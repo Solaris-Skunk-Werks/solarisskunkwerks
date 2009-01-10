@@ -542,6 +542,15 @@ public class WeaponFactory {
         addPW.SetSpecials("PA", "-", 3000.0f, 0.0f, 1.0f, false);
         addPW.SetToHit(2, 2, 2);
         ISPW.add( addPW );
+
+        // mace
+        a = new AvailableCode( false, 'B', 'X', 'F', 'D', 3061, 0, 0, "LA", "", false, false, 3061, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        addPW = new PhysicalWeapon( "Mace","ISMace", Owner, a );
+        addPW.SetStats(0.1f, 0.1f, 0.0f, 0);
+        addPW.SetDamage(0.25f, 0);
+        addPW.SetSpecials("PA", "-", 0.0f, 130000.0f, 1.0f, false);
+        addPW.SetToHit(1, 1, 1);
+        ISPW.add(addPW);
     }
 
     private void BuildWeapons() {
@@ -1964,6 +1973,15 @@ public class WeaponFactory {
         addPW.SetSpecials("PA", "-", 3000.0f, 0.0f, 1.0f, false);
         addPW.SetToHit(2, 2, 2);
         addPW.SetRequiresHand(false);
+        ISPW.add(addPW);
+
+        // mace
+        a = new AvailableCode( false, 'B', 'X', 'F', 'D', 3061, 0, 0, "LA", "", false, false, 3061, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        addPW = new PhysicalWeapon( "Mace","ISMace", Owner, a );
+        addPW.SetStats(0.1f, 0.1f, 0.0f, 0);
+        addPW.SetDamage(0.25f, 0);
+        addPW.SetSpecials("PA", "-", 0.0f, 130000.0f, 1.0f, false);
+        addPW.SetToHit(1, 1, 1);
         ISPW.add(addPW);
 
         // arrow iv system
