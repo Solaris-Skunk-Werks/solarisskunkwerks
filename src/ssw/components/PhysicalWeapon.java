@@ -50,7 +50,10 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
                   BVMult = 0.0f;
     private boolean Fusion = false,
                     Nuclear = false,
-                    RoundToHalfTon = false;
+                    RoundToHalfTon = false,
+                    RequiresHand = true,
+                    ReplacesHand = false,
+                    RequiresLowerArm = true;
 
     public PhysicalWeapon( String name, String lookup, Mech m, AvailableCode a ) {
         Name = name;
@@ -108,6 +111,19 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         Nuclear = b;
     }
 
+    public void SetRequiresHand( boolean b ) {
+        RequiresHand = b;
+    }
+
+    public void SetReplacesHand( boolean b ) {
+        ReplacesHand = b;
+        RequiresHand = false;
+    }
+
+    public void SetRequiresLowerArm( boolean b ) {
+        RequiresLowerArm = b;
+    }
+
     public void SetOwner( Mech m ) {
         // convenience method since physical weapons are based on tonnage
         Owner = m;
@@ -119,6 +135,18 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
 
     public boolean RequiresNuclear() {
         return Nuclear;
+    }
+
+    public boolean RequiresHand() {
+        return RequiresHand;
+    }
+
+    public boolean ReplacesHand() {
+        return ReplacesHand;
+    }
+
+    public boolean RequiresLowerArm() {
+        return RequiresLowerArm;
     }
 
     public float GetCostMult() {
