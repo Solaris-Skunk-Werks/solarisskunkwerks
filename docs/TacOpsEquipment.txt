@@ -42,9 +42,6 @@ Clan Rotary AC/2						Weapon  CLRotaryAC2
 Clan Rotary AC/5						Weapon  CLRotaryAC5
 Spikes									Weapon  Spikes
 Talons									Weapon  Talons
-Vibroblade, Small						Weapon  ISSmallVibroblade
-Vibroblade, Medium						Weapon  ISMediumVibroblade
-Vibroblade, Large						Weapon  ISLargeVibroblade
 - ER Flamer								Weapon
 - Heavy Flamer							Weapon  ISHeavyFlamer
 Fluid Gun								Weapon
@@ -70,10 +67,6 @@ Streak LRM-20							Weapon  CLStreakLRM20
 - PPC Capacitor (new PPCs)				Weapon  ISPPCCapacitor  ISLightPPCCapacitor
 -												ISERPPCCapacitor  ISHeavyPPCCapacitor
 -												ISSNPPCCapacitor
-- Light Rifle								Weapon
-- Medium Rifle							Weapon
-- Heavy Rifle								Weapon
-- BattleMech Taser						Weapon
 
 
 New systems to add

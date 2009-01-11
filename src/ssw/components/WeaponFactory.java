@@ -523,6 +523,7 @@ public class WeaponFactory {
         addPW.SetDamage(0.1428f, 0);
         addPW.SetSpecials("PA", "-", 2800.0f, 0.0f, 1.275f, false);
         addPW.SetToHit(1, 1, 1);
+        addPW.SetReplacesHand(true);
         ISPW.add( addPW );
 
         // flail
@@ -532,6 +533,7 @@ public class WeaponFactory {
         addPW.SetDamage(0.0f, 9);
         addPW.SetSpecials("PA", "-", 0.0f, 110000.0f, 1.2222f, false);
         addPW.SetToHit(1, 1, 1);
+        addPW.SetReplacesHand(true);
         ISPW.add( addPW );
 
         // lance
@@ -541,6 +543,7 @@ public class WeaponFactory {
         addPW.SetDamage(0.2f, 0);
         addPW.SetSpecials("PA", "-", 3000.0f, 0.0f, 1.0f, false);
         addPW.SetToHit(2, 2, 2);
+        addPW.SetRequiresHand(false);
         ISPW.add( addPW );
 
         // mace
@@ -550,6 +553,36 @@ public class WeaponFactory {
         addPW.SetDamage(0.25f, 0);
         addPW.SetSpecials("PA", "-", 0.0f, 130000.0f, 1.0f, false);
         addPW.SetToHit(1, 1, 1);
+        ISPW.add(addPW);
+
+        // vibroblade small
+        a = new AvailableCode( false, 'D', 'X', 'X', 'E', 3065, 0, 0, "DC", "", false, false, 3059, true, "DC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addPW = new PhysicalWeapon( "Small Vibroblade","ISSmallVibroBlade", Owner, a );
+        addPW.SetStats(0.0f, 0.0f, 3.0f, 1);
+        addPW.SetDamage(0.0f, 7);
+        addPW.SetHeat(3);
+        addPW.SetSpecials("PA", "V", 0.0f, 150000.0f, 12.0f, false);
+        addPW.SetToHit(-1, -1, -1);
+        ISPW.add(addPW);
+
+        // vibroblade medium
+        a = new AvailableCode( false, 'D', 'X', 'X', 'E', 3065, 0, 0, "DC", "", false, false, 3059, true, "DC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addPW = new PhysicalWeapon( "Medium Vibroblade","ISMediumVibroBlade", Owner, a );
+        addPW.SetStats(0.0f, 0.0f, 5.0f, 2);
+        addPW.SetDamage(0.0f, 10);
+        addPW.SetHeat(5);
+        addPW.SetSpecials("PA", "V", 0.0f, 400000.0f, 17.0f, false);
+        addPW.SetToHit(-1, -1, -1);
+        ISPW.add(addPW);
+
+        // vibroblade large
+        a = new AvailableCode( false, 'D', 'X', 'X', 'E', 3065, 0, 0, "DC", "", false, false, 3059, true, "DC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addPW = new PhysicalWeapon( "Large Vibroblade","ISLargeVibroBlade", Owner, a );
+        addPW.SetStats(0.0f, 0.0f, 7.0f, 4);
+        addPW.SetDamage(0.0f, 14);
+        addPW.SetHeat(7);
+        addPW.SetSpecials("PA", "V", 0.0f, 750000.0f, 24.0f, false);
+        addPW.SetToHit(-1, -1, -1);
         ISPW.add(addPW);
     }
 
@@ -1982,6 +2015,36 @@ public class WeaponFactory {
         addPW.SetDamage(0.25f, 0);
         addPW.SetSpecials("PA", "-", 0.0f, 130000.0f, 1.0f, false);
         addPW.SetToHit(1, 1, 1);
+        ISPW.add(addPW);
+
+        // vibroblade small
+        a = new AvailableCode( false, 'D', 'X', 'X', 'E', 3065, 0, 0, "DC", "", false, false, 3059, true, "DC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addPW = new PhysicalWeapon( "Small Vibroblade","ISSmallVibroBlade", Owner, a );
+        addPW.SetStats(0.0f, 0.0f, 3.0f, 1);
+        addPW.SetDamage(0.0f, 7);
+        addPW.SetHeat(3);
+        addPW.SetSpecials("PA", "V", 0.0f, 150000.0f, 12.0f, false);
+        addPW.SetToHit(-1, -1, -1);
+        ISPW.add(addPW);
+
+        // vibroblade medium
+        a = new AvailableCode( false, 'D', 'X', 'X', 'E', 3065, 0, 0, "DC", "", false, false, 3059, true, "DC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addPW = new PhysicalWeapon( "Medium Vibroblade","ISMediumVibroBlade", Owner, a );
+        addPW.SetStats(0.0f, 0.0f, 5.0f, 2);
+        addPW.SetDamage(0.0f, 10);
+        addPW.SetHeat(5);
+        addPW.SetSpecials("PA", "V", 0.0f, 400000.0f, 17.0f, false);
+        addPW.SetToHit(-1, -1, -1);
+        ISPW.add(addPW);
+
+        // vibroblade large
+        a = new AvailableCode( false, 'D', 'X', 'X', 'E', 3065, 0, 0, "DC", "", false, false, 3059, true, "DC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addPW = new PhysicalWeapon( "Large Vibroblade","ISLargeVibroBlade", Owner, a );
+        addPW.SetStats(0.0f, 0.0f, 7.0f, 4);
+        addPW.SetDamage(0.0f, 14);
+        addPW.SetHeat(7);
+        addPW.SetSpecials("PA", "V", 0.0f, 750000.0f, 24.0f, false);
+        addPW.SetToHit(-1, -1, -1);
         ISPW.add(addPW);
 
         // arrow iv system

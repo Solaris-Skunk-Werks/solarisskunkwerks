@@ -36,7 +36,8 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
                    Manufacturer = "";
     private Mech Owner;
     private AvailableCode AC;
-    private int ToHitShort = 0,
+    private int Heat = 0,
+                ToHitShort = 0,
                 ToHitMedium = 0,
                 ToHitLong = 0,
                 DamageAdd = 0,
@@ -74,6 +75,10 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         // sets the weapons damage potential
         DamageMult = dmult;
         DamageAdd = dadder;
+    }
+
+    public void SetHeat( int h ) {
+        Heat = h;
     }
 
     public void SetSpecials( String type, String spec, float cmult, float cadd, float bmult, boolean round ) {
