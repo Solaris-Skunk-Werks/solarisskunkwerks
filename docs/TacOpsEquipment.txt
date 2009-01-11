@@ -25,9 +25,6 @@ Vehicular Drop Chute (Reusable)			Equipment
 
 New weapons to be added
 -------------------------------------------------------------------------------
-- Arrow IV System						Artillery  CLArrowIV  ISArrowIV
-- Thumper								Artillery  CLThumper  ISThumper
-- Sniper									Artillery  CLSniper  ISSniper
 Thumper Artillery Cannon				Weapon
 Sniper Artillery Cannon					Weapon
 Long Tom Artillery Cannon				Weapon
@@ -43,7 +40,6 @@ ProtoMech AC/4							Weapon
 ProtoMech AC/8							Weapon
 Clan Rotary AC/2						Weapon  CLRotaryAC2
 Clan Rotary AC/5						Weapon  CLRotaryAC5
-Mace									Weapon  Mace
 Spikes									Weapon  Spikes
 Talons									Weapon  Talons
 Vibroblade, Small						Weapon  ISSmallVibroblade
@@ -54,12 +50,6 @@ Vibroblade, Large						Weapon  ISLargeVibroblade
 Fluid Gun								Weapon
 Magshot									Weapon  ISMagshotGR
 Silver Bullet Gauss						Weapon  ISSBGR
-- Chemical Laser, Small					Weapon  CLSmallChemLaser
-- Chemical Laser, Medium					Weapon  CLMediumChemLaser
-- Chamical Laser, Large					Weapon  CLLargeChemLaser
-- ER Pulse Laser, Small					Weapon  CLERSmallPulseLaser
-- ER Pulse Laser, Medium					Weapon  CLERMediumPulseLaser
-- ER Pulse Laser, Large					Weapon  CLERLargePulseLaser
 Mech Mortar/1							Weapon  CLMekMortar1 ISMekMortar1
 Mech Mortar/2							Weapon  CLMekMortar2 ISMekMortar2
 Mech Mortar/4							Weapon  CLMekMortar4 ISMekMortar4
@@ -84,10 +74,6 @@ Streak LRM-20							Weapon  CLStreakLRM20
 - Medium Rifle							Weapon
 - Heavy Rifle								Weapon
 - BattleMech Taser						Weapon
-- Thunderbolt-5							Weapon  ISThunderbolt5
-- Thunderbolt-10							Weapon  ISThunderbolt10
-- Thunderbolt-15							Weapon  ISThunderbolt15
-- Thunderbolt-20							Weapon  ISThunderbolt20
 
 
 New systems to add
