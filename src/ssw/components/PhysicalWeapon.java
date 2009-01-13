@@ -118,15 +118,20 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
 
     public void SetRequiresHand( boolean b ) {
         RequiresHand = b;
+        if ( b == true )
+            RequiresLowerArm = true;
     }
 
     public void SetReplacesHand( boolean b ) {
         ReplacesHand = b;
-        RequiresHand = false;
+        if ( b == true )
+            RequiresHand = false;
     }
 
     public void SetRequiresLowerArm( boolean b ) {
         RequiresLowerArm = b;
+        if ( b == false )
+            RequiresHand = false;
     }
 
     public void SetOwner( Mech m ) {
@@ -274,7 +279,7 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
     }
 
     public int GetHeat() {
-        return 0;
+        return Heat;
     }
 
     public int GetBVHeat() {

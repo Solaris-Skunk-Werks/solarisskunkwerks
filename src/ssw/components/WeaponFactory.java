@@ -108,6 +108,10 @@ public class WeaponFactory {
             ((PhysicalWeapon) retval).SetDamage( w.GetDamageMult(), w.GetDamageAdd() );
             ((PhysicalWeapon) retval).SetSpecials( w.GetType(), w.GetSpecials(), w.GetCostMult(), w.GetCostAdd(), w.GetBVMult(), w.GetRounding() );
             ((PhysicalWeapon) retval).SetToHit( w.GetToHitShort(), w.GetToHitMedium(), w.GetToHitLong() );
+            ((PhysicalWeapon) retval).SetHeat( w.GetHeat() );
+            ((PhysicalWeapon) retval).SetRequiresHand( w.RequiresHand() );
+            ((PhysicalWeapon) retval).SetRequiresLowerArm( w.RequiresLowerArm() );
+            ((PhysicalWeapon) retval).SetReplacesHand( w.ReplacesHand() );
         } else if( p instanceof MGArray ) {
             MGArray m = (MGArray) p;
             retval = new MGArray( (BallisticWeapon) GetCopy( m.GetMGType() ), m.GetNumMGs(), m.GetMGTons(), m.IsClan(), m.GetAvailability() );

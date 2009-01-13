@@ -547,10 +547,20 @@ public class BipedLoadout implements ifLoadout {
                             " cannot be allocated to the right arm because\nthe arm already mounts a physical weapon." );
                 }
 
-                if( ! ( RACrits[2] instanceof Actuator ) || ! ( RACrits[3] instanceof Actuator ) ) {
+                // Check for proper actuators
+                if ( ((PhysicalWeapon)p).RequiresHand() && ! ( RACrits[3] instanceof Actuator ) ) {
                     throw new Exception( p.GetCritName() +
-                        " cannot be allocated to the right arm because\nthe arm does not have a hand or lower arm actuator." );
+                        " cannot be allocated to the right arm because\nthe arm does not have a hand actuator." );  
                 }
+                if ( ((PhysicalWeapon)p).RequiresLowerArm() && ! ( RACrits[2] instanceof Actuator ) ) {
+                    throw new Exception( p.GetCritName() +
+                        " cannot be allocated to the right arm because\nthe arm does not have a lower arm actuator." );
+                }
+                if ( ((PhysicalWeapon)p).ReplacesHand() && ( RACrits[3] instanceof Actuator ) ) {
+                    throw new Exception( p.GetCritName() +
+                        " cannot be allocated to the right arm because\nthe arm contains a hand actuator." );
+                }
+
             }
             if( p instanceof ifWeapon ) {
                 if( ((ifWeapon) p).OmniRestrictActuators() && Owner.IsOmnimech() ) {
@@ -593,9 +603,18 @@ public class BipedLoadout implements ifLoadout {
                             " cannot be allocated to the left arm because\nthe arm already mounts a physical weapon." );
                 }
 
-                if( ! ( LACrits[2] instanceof Actuator ) || ! ( LACrits[3] instanceof Actuator ) ) {
+                // Check for proper actuators
+                if ( ((PhysicalWeapon)p).RequiresHand() && ! ( RACrits[3] instanceof Actuator ) ) {
                     throw new Exception( p.GetCritName() +
-                        " cannot be allocated to the left arm because\nthe arm does not have a hand or lower arm actuator." );
+                        " cannot be allocated to the left arm because\nthe arm does not have a hand actuator." );
+                }
+                if ( ((PhysicalWeapon)p).RequiresLowerArm() && ! ( RACrits[2] instanceof Actuator ) ) {
+                    throw new Exception( p.GetCritName() +
+                        " cannot be allocated to the left arm because\nthe arm does not have a lower arm actuator." );
+                }
+                if ( ((PhysicalWeapon)p).ReplacesHand() && ( RACrits[3] instanceof Actuator ) ) {
+                    throw new Exception( p.GetCritName() +
+                        " cannot be allocated to the left arm because\nthe arm contains a hand actuator." );
                 }
             }
             if( p instanceof ifWeapon ) {
