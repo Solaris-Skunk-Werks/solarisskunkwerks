@@ -3796,6 +3796,7 @@ public class frmMain extends javax.swing.JFrame {
         jPanel4.add(chkVoidSig, gridBagConstraints);
 
         chkSupercharger.setText("Supercharger");
+        chkSupercharger.setEnabled(false);
         chkSupercharger.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkSuperchargerActionPerformed(evt);
@@ -3809,6 +3810,7 @@ public class frmMain extends javax.swing.JFrame {
         jPanel4.add(chkSupercharger, gridBagConstraints);
 
         cmbSCLoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CT", "LT", "RT" }));
+        cmbSCLoc.setEnabled(false);
         cmbSCLoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbSCLocActionPerformed(evt);
@@ -3849,6 +3851,7 @@ public class frmMain extends javax.swing.JFrame {
         jPanel4.add(chkFHES, gridBagConstraints);
 
         lblSupercharger.setText("Install in:");
+        lblSupercharger.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
@@ -5539,7 +5542,7 @@ public class frmMain extends javax.swing.JFrame {
 
         jScrollPane10.setPreferredSize(new java.awt.Dimension(105, 87));
 
-        lstHDCrits.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lstHDCrits.setFont(new java.awt.Font("Tahoma", 0, 10));
         lstHDCrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Head", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6" };
             public int getSize() { return strings.length; }
@@ -5688,7 +5691,7 @@ public class frmMain extends javax.swing.JFrame {
 
         jScrollPane11.setPreferredSize(new java.awt.Dimension(105, 170));
 
-        lstCTCrits.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lstCTCrits.setFont(new java.awt.Font("Tahoma", 0, 10));
         lstCTCrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Center Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
@@ -5867,7 +5870,7 @@ public class frmMain extends javax.swing.JFrame {
         jScrollPane12.setMinimumSize(new java.awt.Dimension(105, 183));
         jScrollPane12.setPreferredSize(new java.awt.Dimension(105, 170));
 
-        lstLTCrits.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lstLTCrits.setFont(new java.awt.Font("Tahoma", 0, 10));
         lstLTCrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Left Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
@@ -6032,7 +6035,7 @@ public class frmMain extends javax.swing.JFrame {
         jScrollPane13.setMinimumSize(new java.awt.Dimension(105, 183));
         jScrollPane13.setPreferredSize(new java.awt.Dimension(105, 170));
 
-        lstRTCrits.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lstRTCrits.setFont(new java.awt.Font("Tahoma", 0, 10));
         lstRTCrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Right Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
@@ -6209,7 +6212,7 @@ public class frmMain extends javax.swing.JFrame {
         scrLACrits.setMinimumSize(new java.awt.Dimension(105, 87));
         scrLACrits.setPreferredSize(new java.awt.Dimension(105, 170));
 
-        lstLACrits.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lstLACrits.setFont(new java.awt.Font("Tahoma", 0, 10));
         lstLACrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Left Arm", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
@@ -6372,7 +6375,7 @@ public class frmMain extends javax.swing.JFrame {
         scrRACrits.setMinimumSize(new java.awt.Dimension(105, 87));
         scrRACrits.setPreferredSize(new java.awt.Dimension(105, 170));
 
-        lstRACrits.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lstRACrits.setFont(new java.awt.Font("Tahoma", 0, 10));
         lstRACrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Right Arm", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
@@ -6689,7 +6692,7 @@ public class frmMain extends javax.swing.JFrame {
         jScrollPane17.setMinimumSize(new java.awt.Dimension(105, 87));
         jScrollPane17.setPreferredSize(new java.awt.Dimension(105, 87));
 
-        lstRLCrits.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lstRLCrits.setFont(new java.awt.Font("Tahoma", 0, 10));
         lstRLCrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Right Leg", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6" };
             public int getSize() { return strings.length; }

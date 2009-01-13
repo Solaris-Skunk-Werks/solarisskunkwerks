@@ -2072,6 +2072,7 @@
                 <Component class="javax.swing.JCheckBox" name="chkSupercharger">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Supercharger"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkSuperchargerActionPerformed"/>
@@ -2091,6 +2092,7 @@
                         <StringItem index="2" value="RT"/>
                       </StringArray>
                     </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbSCLocActionPerformed"/>
@@ -2137,6 +2139,7 @@
                 <Component class="javax.swing.JLabel" name="lblSupercharger">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Install in:"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
