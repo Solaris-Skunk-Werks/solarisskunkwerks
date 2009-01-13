@@ -21,6 +21,7 @@ Version 0.6.0
 - Added ER and heavy flamers, Enhanced ER PPC for Clan Wolverine, and 'Mech Taser.
 - Added Null-Sig, Void-Sig, Blue Shield, and Chameleon systems.
 - Added in the Supercharger.
+- Added in a bunch of TacOps Physical Weapons (Specter83)
 
 + Changed
 - Fixed a load bug with heatsinks.
@@ -89,7 +90,8 @@ Version 0.6.0
 - The main window is now resizable (fix for KUbuntu users with OpenJDK).
 - Fixed a load problem with non-Tournament Legal units.
 - Added an options for paper size when printing (Letter and A4).
--Made some changes to the CASE system for smoother 'Mech loading.
+- Made some changes to the CASE system for smoother 'Mech loading.
+- Disabled Motif Look and Feel for Linux users.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

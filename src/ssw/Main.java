@@ -54,7 +54,8 @@ public class Main {
             // added code to turn off the boldface of Metal L&F.
             // Set System L&F
             if( UIManager.getSystemLookAndFeelClassName().equals( "com.sun.java.swing.plaf.gtk.GTKLookAndFeel" ) ||
-            UIManager.getSystemLookAndFeelClassName().equals( "javax.swing.plaf.metal.MetalLookAndFeel" ) ) {
+            UIManager.getSystemLookAndFeelClassName().equals( "javax.swing.plaf.metal.MetalLookAndFeel" ) ||
+            UIManager.getSystemLookAndFeelClassName().equals( "com.sun.java.swing.plaf.motif.MotifLookAndFeel" ) ) {
                 UIManager.put( "swing.boldMetal", Boolean.FALSE );
                 UIDefaults uiDefaults = UIManager.getDefaults();
                 Font f = uiDefaults.getFont( "Label.font" );
@@ -69,8 +70,7 @@ public class Main {
             } else {
                 UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
             }
-        }
-        catch (UnsupportedLookAndFeelException e) {
+        } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
             System.err.flush();
         }
