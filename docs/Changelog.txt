@@ -92,6 +92,8 @@ Version 0.6.0
 - Added an options for paper size when printing (Letter and A4).
 - Made some changes to the CASE system for smoother 'Mech loading.
 - Disabled Motif Look and Feel for Linux users.
+- Fixed the Physical Weapons filter, allowing for the Hatchet and R-Blade.
+- Added a Rules Level display when choosing weapons.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

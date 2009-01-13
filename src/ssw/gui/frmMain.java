@@ -1499,6 +1499,35 @@ public class frmMain extends javax.swing.JFrame {
         } else {
             lblInfoReintro.setText( "--" );
         }
+        if( CurMech.IsIndustrialmech() ) {
+            switch( AC.GetRulesLevelIM() ) {
+                case Constants.TOURNAMENT:
+                    lblInfoRulesLevel.setText( "Tournament" );
+                    break;
+                case Constants.ADVANCED:
+                    lblInfoRulesLevel.setText( "Advanced" );
+                    break;
+                case Constants.EXPERIMENTAL:
+                    lblInfoRulesLevel.setText( "Experimental" );
+                    break;
+                default:
+                    lblInfoRulesLevel.setText( "??" );
+            }
+        } else {
+            switch( AC.GetRulesLevelBM() ) {
+                case Constants.TOURNAMENT:
+                    lblInfoRulesLevel.setText( "Tournament" );
+                    break;
+                case Constants.ADVANCED:
+                    lblInfoRulesLevel.setText( "Advanced" );
+                    break;
+                case Constants.EXPERIMENTAL:
+                    lblInfoRulesLevel.setText( "Experimental" );
+                    break;
+                default:
+                    lblInfoRulesLevel.setText( "??" );
+            }
+        }
         lblInfoName.setText( p.GetCritName() );
         lblInfoTonnage.setText( "" + p.GetTonnage() );
         lblInfoCrits.setText( "" + p.NumCrits() );
@@ -2552,6 +2581,8 @@ public class frmMain extends javax.swing.JFrame {
         lblInfoBV = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         lblInfoMountRestrict = new javax.swing.JLabel();
+        jLabel55 = new javax.swing.JLabel();
+        lblInfoRulesLevel = new javax.swing.JLabel();
         pnlCriticals = new javax.swing.JPanel();
         pnlHDCrits = new javax.swing.JPanel();
         chkHDTurret = new javax.swing.JCheckBox();
@@ -5470,14 +5501,14 @@ public class frmMain extends javax.swing.JFrame {
         jLabel32.setText("Cost");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(jLabel32, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
@@ -5486,14 +5517,14 @@ public class frmMain extends javax.swing.JFrame {
         jLabel34.setText("BV");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         pnlEquipInfo.add(jLabel34, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
@@ -5512,6 +5543,22 @@ public class frmMain extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 4, 0);
         pnlEquipInfo.add(lblInfoMountRestrict, gridBagConstraints);
+
+        jLabel55.setText("Rules Level");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
+        pnlEquipInfo.add(jLabel55, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
+        pnlEquipInfo.add(lblInfoRulesLevel, gridBagConstraints);
 
         pnlEquipment.add(pnlEquipInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 325, 710, -1));
 
@@ -10969,6 +11016,7 @@ private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
@@ -11075,6 +11123,7 @@ private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel lblInfoName;
     private javax.swing.JLabel lblInfoRange;
     private javax.swing.JLabel lblInfoReintro;
+    private javax.swing.JLabel lblInfoRulesLevel;
     private javax.swing.JLabel lblInfoSpecials;
     private javax.swing.JLabel lblInfoTonnage;
     private javax.swing.JLabel lblInfoType;

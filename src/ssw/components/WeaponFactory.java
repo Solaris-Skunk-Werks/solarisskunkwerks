@@ -224,98 +224,54 @@ public class WeaponFactory {
     public Object[] GetPhysicalWeapons( Mech m ) {
         // returns an array based on the given specifications of era and year
         Vector RetVal = new Vector();
-        abPlaceable test;
 
-        if( m.IsClan() ) {
-            // clans never use physical weapons so this is easy
-            return null;
-        } else {
-            // the Inner Sphere portion of this will be a bit of a hack, but the
-            // reasons are evident.  Retractable Blades were never used until
-            // 3070 or thereabouts, and hatchets are code F during the
-            // succession wars because only one mech used them.
+        // do this a little differently.
+        // the Inner Sphere portion of this will be a bit of a hack, but the
+        // reasons are evident.  Retractable Blades were never used until
+        // 3070 or thereabouts, and hatchets are code F during the
+        // succession wars because only one mech used them.
+        // first. let's get the physical weapons into the new vector
+        for( int i = 0; i < ISPW.size(); i++ ) {
+            RetVal.add( ISPW.get( i ) );
+        }
 
-            // Check to see if we're restricting
-            if( m.IsYearRestricted() ) {
-                // we'll do this by key years instead of polling the weapons
-                if( m.GetYear() < 3022 ) {
+        // now weed out things that shouldn't be there
+        for( int i = RetVal.size() - 1; i >= 0; i-- ) {
+            abPlaceable a = (abPlaceable) RetVal.get( i );
+            AvailableCode AC = a.GetAvailability();
+
+            // check it using the normal routine, with two exceptions
+            if( a.GetCritName().equals( "Retractable Blade") ) {
+                if( m.IsYearRestricted() ) {
                     if( MyOptions.Equip_AllowRBlade ) {
-                        for( int i = 0; i < ISPW.size(); i++ ) {
-                            test = (abPlaceable) ISPW.get( i );
-                            if( test.GetCritName().matches( "Retractable Blade" ) ) {
-                                RetVal.add( test );
-                            }
+                        if( m.GetYear() < 2420 ) {
+                            RetVal.remove( i );
                         }
                     } else {
-                        return null;
-                    }
-                } else if( m.GetYear() >= 3022 && m.GetYear() < 3058 ) {
-                    if( MyOptions.Equip_AllowRBlade ) {
-                        for( int i = 0; i < ISPW.size(); i++ ) {
-                            test = (abPlaceable) ISPW.get( i );
-                            if( test.GetCritName().matches( "Hatchet" ) || test.GetCritName().matches( "Retractable Blade") ) {
-                                RetVal.add( test );
-                            }
-                        }
-                    } else {
-                        for( int i = 0; i < ISPW.size(); i++ ) {
-                            test = (abPlaceable) ISPW.get( i );
-                            if( test.GetCritName().matches( "Hatchet" ) ) {
-                                RetVal.add( test );
-                            }
-                        }
-                    }
-                } else if( m.GetYear() >= 3058 && m.GetYear() < 3069 ) {
-                    if( MyOptions.Equip_AllowRBlade ) {
-                        return ISPW.toArray();
-                    } else {
-                        for( int i = 0; i < ISPW.size(); i++ ) {
-                            test = (abPlaceable) ISPW.get( i );
-                            if( test.GetCritName().matches( "Hatchet" ) || test.GetCritName().matches( "Sword" ) ) {
-                                RetVal.add( test );
-                            }
+                        if( m.GetYear() < 3068 ) {
+                            RetVal.remove( i );
                         }
                     }
                 } else {
-                    return ISPW.toArray();
+                    if( ! MyOptions.Equip_AllowRBlade ) {
+                        if( m.GetEra() != Constants.CLAN_INVASION ) {
+                            RetVal.remove( i );
+                        }
+                    }
+                }
+            } else if( a.GetCritName().equals( "Hatchet" ) ) {
+                if( m.IsYearRestricted() ) {
+                    if( m.GetYear() < 3022 ) {
+                        RetVal.remove( i );
+                    }
+                } else {
+                    if( m.GetEra() != Constants.SUCCESSION && m.GetEra() != Constants.CLAN_INVASION ) {
+                        RetVal.remove( i );
+                    }
                 }
             } else {
-                // we're getting the return by era instead of restricting
-                switch ( m.GetEra() ) {
-                case Constants.STAR_LEAGUE:
-                    // no physical weapons were used during this era
-                    if( MyOptions.Equip_AllowRBlade ) {
-                        for( int i = 0; i < ISPW.size(); i++ ) {
-                            test = (abPlaceable) ISPW.get( i );
-                            if( test.GetCritName().matches( "Retractable Blade" ) ) {
-                                RetVal.add( test );
-                            }
-                        }
-                        break;
-                    } else {
-                        return null;
-                    }
-                case Constants.SUCCESSION:
-                    //only the hatchet was used on battlemechs during this time
-                    if( MyOptions.Equip_AllowRBlade ) {
-                        for( int i = 0; i < ISPW.size(); i++ ) {
-                            test = (abPlaceable) ISPW.get( i );
-                            if( test.GetCritName().matches( "Hatchet" ) || test.GetCritName().matches( "Retractable Blade" ) ) {
-                                RetVal.add( test );
-                            }
-                        }
-                    } else {
-                        for( int i = 0; i < ISPW.size(); i++ ) {
-                            test = (abPlaceable) ISPW.get( i );
-                            if( test.GetCritName().matches( "Hatchet" ) ) {
-                                RetVal.add( test );
-                            }
-                        }
-                    }
-                    break;
-                case Constants.CLAN_INVASION:
-                    // all physical weapons are available
-                    return ISPW.toArray();
+                if( ! CommonTools.IsAllowed( AC, m ) ) {
+                    RetVal.remove( i );
                 }
             }
         }
