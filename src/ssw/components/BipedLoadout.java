@@ -604,15 +604,15 @@ public class BipedLoadout implements ifLoadout {
                 }
 
                 // Check for proper actuators
-                if ( ((PhysicalWeapon)p).RequiresHand() && ! ( RACrits[3] instanceof Actuator ) ) {
+                if ( ((PhysicalWeapon)p).RequiresHand() && ! ( LACrits[3] instanceof Actuator ) ) {
                     throw new Exception( p.GetCritName() +
                         " cannot be allocated to the left arm because\nthe arm does not have a hand actuator." );
                 }
-                if ( ((PhysicalWeapon)p).RequiresLowerArm() && ! ( RACrits[2] instanceof Actuator ) ) {
+                if ( ((PhysicalWeapon)p).RequiresLowerArm() && ! ( LACrits[2] instanceof Actuator ) ) {
                     throw new Exception( p.GetCritName() +
                         " cannot be allocated to the left arm because\nthe arm does not have a lower arm actuator." );
                 }
-                if ( ((PhysicalWeapon)p).ReplacesHand() && ( RACrits[3] instanceof Actuator ) ) {
+                if ( ((PhysicalWeapon)p).ReplacesHand() && ( LACrits[3] instanceof Actuator ) ) {
                     throw new Exception( p.GetCritName() +
                         " cannot be allocated to the left arm because\nthe arm contains a hand actuator." );
                 }

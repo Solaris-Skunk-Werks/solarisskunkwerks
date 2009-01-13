@@ -484,6 +484,7 @@ public class WeaponFactory {
         addPW.SetSpecials("PA", "-", 2800.0f, 0.0f, 1.275f, false);
         addPW.SetToHit(1, 1, 1);
         addPW.SetReplacesHand(true);
+        addPW.SetRequiresLowerArm( true );
         ISPW.add( addPW );
 
         // flail
@@ -494,6 +495,7 @@ public class WeaponFactory {
         addPW.SetSpecials("PA", "-", 0.0f, 110000.0f, 1.2222f, false);
         addPW.SetToHit(1, 1, 1);
         addPW.SetReplacesHand(true);
+        addPW.SetRequiresLowerArm( true );
         ISPW.add( addPW );
 
         // lance
@@ -507,7 +509,7 @@ public class WeaponFactory {
         ISPW.add( addPW );
 
         // mace
-        a = new AvailableCode( false, 'B', 'X', 'F', 'D', 3061, 0, 0, "LA", "", false, false, 3061, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        a = new AvailableCode( false, 'B', 'X', 'X', 'D', 3061, 0, 0, "LA", "", false, false, 3061, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addPW = new PhysicalWeapon( "Mace","ISMace", Owner, a );
         addPW.SetStats(0.1f, 0.1f, 0.0f, 0);
         addPW.SetDamage(0.25f, 0);
@@ -1946,6 +1948,7 @@ public class WeaponFactory {
         addPW.SetSpecials("PA", "-", 2800.0f, 0.0f, 1.275f, false);
         addPW.SetToHit(1, 1, 1);
         addPW.SetReplacesHand(true);
+        addPW.SetRequiresLowerArm( true );
         ISPW.add(addPW);
 
         // flail
@@ -1956,6 +1959,7 @@ public class WeaponFactory {
         addPW.SetSpecials("PA", "-", 0.0f, 110000.0f, 1.2222f, false);
         addPW.SetToHit(1, 1, 1);
         addPW.SetReplacesHand(true);
+        addPW.SetRequiresLowerArm( true );
         ISPW.add(addPW);
 
         // lance
@@ -1969,7 +1973,7 @@ public class WeaponFactory {
         ISPW.add(addPW);
 
         // mace
-        a = new AvailableCode( false, 'B', 'X', 'F', 'D', 3061, 0, 0, "LA", "", false, false, 3061, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        a = new AvailableCode( false, 'B', 'X', 'X', 'D', 3061, 0, 0, "LA", "", false, false, 3061, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addPW = new PhysicalWeapon( "Mace","ISMace", Owner, a );
         addPW.SetStats(0.1f, 0.1f, 0.0f, 0);
         addPW.SetDamage(0.25f, 0);
