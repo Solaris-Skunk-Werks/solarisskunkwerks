@@ -75,7 +75,12 @@ public class VGyroSetCompact implements ifVisitor {
         if( CASEInstalled ) {
             // at this point, we don't care whether it happened or not since the
             // primary inhabitants of the CT are taken care of.
-            CurMech.AddCTCase();
+            try {
+                CurMech.AddCTCase();
+            } catch( Exception e ) {
+                // unhandled at this time.  write out a system error
+                System.err.println( e.getMessage() );
+            }
         }
     }
 }
