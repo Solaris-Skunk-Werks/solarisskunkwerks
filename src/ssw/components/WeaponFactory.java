@@ -2281,7 +2281,7 @@ public class WeaponFactory {
 
         // improved clan heavy medium laser
         a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3069, 0, 0, "CGS", "", false, false, 3066, true, "CGS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        addEW = new EnergyWeapon( "Heavy Medium Laser", "CLImprovedHeavyMediumLaser", "DE", true, a );
+        addEW = new EnergyWeapon( "Improved Heavy Medium Laser", "CLImprovedHeavyMediumLaser", "DE", true, a );
         addEW.SetDamage( 10, 10, 10 );
         addEW.SetHeat( 7 );
         addEW.SetRange( 0, 3, 6, 9 );
@@ -2292,7 +2292,7 @@ public class WeaponFactory {
 
         // improved clan heavy large laser
         a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3069, 0, 0, "CGS", "", false, false, 3066, true, "CGS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        addEW = new EnergyWeapon( "Heavy Large Laser", "CLImprovedHeavyLargeLaser", "DE", true, a );
+        addEW = new EnergyWeapon( "Improved Heavy Large Laser", "CLImprovedHeavyLargeLaser", "DE", true, a );
         addEW.SetDamage( 16, 16, 16 );
         addEW.SetHeat( 18 );
         addEW.SetRange( 0, 5, 10, 15 );
