@@ -2682,17 +2682,22 @@ public class QuadLoadout implements ifLoadout {
             // will be empty.  Write an event to stderr
             System.err.println( "Could not set Artemis IV for an empty loadout." );
         }
-        if( IsAllocated( CTCase ) ) {
-            clone.SetCTCASE( CTCase );
-            clone.AddCTCASE();
-        }
-        if( IsAllocated( LTCase ) ) {
-            clone.SetLTCASE( LTCase );
-            clone.AddLTCASE();
-        }
-        if( IsAllocated( RTCase ) ) {
-            clone.SetRTCASE( RTCase );
-            clone.AddRTCASE();
+        try {
+            if( IsAllocated( CTCase ) ) {
+                clone.SetCTCASE( CTCase );
+                clone.AddCTCASE( -1 );
+            }
+            if( IsAllocated( LTCase ) ) {
+                clone.SetLTCASE( LTCase );
+                clone.AddLTCASE( -1 );
+            }
+            if( IsAllocated( RTCase ) ) {
+                clone.SetRTCASE( RTCase );
+                clone.AddRTCASE( -1 );
+            }
+        } catch( Exception e ) {
+            // unhandled, print a message out to system error.
+            System.err.println( "CASE system not reinstalled:\n" + e.getMessage() );
         }
         if( NonCore.size() > 0 ) {
             // have to move the none-core items
@@ -2780,64 +2785,106 @@ public class QuadLoadout implements ifLoadout {
         Equipment = v;
     }
 
-    public boolean AddCTCASE() {
+    public void AddCTCASE( int index ) throws Exception {
         // adds CASE equipment to the CT
-        if( Owner.IsClan() ) { return false; }
-        if( HasCTCASE() ) { return true; }
+        if( Owner.IsClan() ) {
+            throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
+        }
+        if( HasCTCASE() ) {
+            return;
+        }
         boolean placed = false;
         int increment = 11;
-        while( placed == false ) {
-            if ( increment < 0 ) { return false; }
+        if( index < 0 ) {
+            // general placement routine
+            while( placed == false ) {
+                if ( increment < 0 ) {
+                    throw new Exception( "There is not enough space in the CT for CASE." );
+                }
+                try {
+                    AddToCT( CTCase, increment );
+                    increment--;
+                    placed = true;
+                } catch ( Exception e ) {
+                    increment--;
+                }
+            }
+        } else {
+            // specific placement routine
             try {
-                AddToCT( CTCase, increment );
-                increment--;
-                placed = true;
-            } catch ( Exception e ) {
-                increment--;
+                AddToCT( CTCase, index );
+            } catch( Exception e ) {
+                throw new Exception( "CASE system could not be allocated to slot " + index + ".\nCASE system was not installed." );
             }
         }
-        // must have worked
-        return true;
     }
 
-    public boolean AddLTCASE() {
+    public void AddLTCASE( int index ) throws Exception {
         // adds CASE equipment to the LT
-        if( Owner.IsClan() ) { return false; }
-        if( HasLTCASE() ) { return true; }
+        if( Owner.IsClan() ) {
+            throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
+        }
+        if( HasLTCASE() ) {
+            return;
+        }
         boolean placed = false;
         int increment = 11;
-        while( placed == false ) {
-            if ( increment < 0 ) { return false; }
+        if( index < 0 ) {
+            // general placement routine
+            while( placed == false ) {
+                if ( increment < 0 ) {
+                    throw new Exception( "There is not enough space in the LT for CASE." );
+                }
+                try {
+                    AddToLT( LTCase, increment );
+                    increment--;
+                    placed = true;
+                } catch ( Exception e ) {
+                    increment--;
+                }
+            }
+        } else {
+            // specific placement routine
             try {
-                AddToLT( LTCase, increment );
-                increment--;
-                placed = true;
-            } catch ( Exception e ) {
-                increment--;
+                AddToLT( LTCase, index );
+            } catch( Exception e ) {
+                throw new Exception( "CASE system could not be allocated to slot " + index + ".\nCASE system was not installed." );
             }
         }
-        // must have worked
-        return true;
     }
 
-    public boolean AddRTCASE() {
+    public void AddRTCASE( int index ) throws Exception {
         // adds CASE equipment to the RT
-        if( Owner.IsClan() ) { return false; }
-        if( HasRTCASE() ) { return true; }
+        if( Owner.IsClan() ) {
+            throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
+        }
+        if( HasRTCASE() ) {
+            return;
+        }
         boolean placed = false;
         int increment = 11;
-        while( placed == false ) {
-            if ( increment < 0 ) { return false; }
+        if( index < 0 ) {
+            // general placement routine
+            while( placed == false ) {
+                if ( increment < 0 ) {
+                    throw new Exception( "There is not enough space in the RT for CASE." );
+                }
+                try {
+                    AddToRT( RTCase, increment );
+                    increment--;
+                    placed = true;
+                } catch ( Exception e ) {
+                    increment--;
+                }
+            }
+        } else {
+            // specific placement routine
             try {
-                AddToRT( RTCase, increment );
-                increment--;
-                placed = true;
-            } catch ( Exception e ) {
-                increment--;
+                AddToRT( RTCase, index );
+            } catch( Exception e ) {
+                throw new Exception( "CASE system could not be allocated to slot " + index + ".\nCASE system was not installed." );
             }
         }
-        // must have worked
-        return true;
     }
 
     public void SetCTCASE( ISCASE c ) {
@@ -2985,7 +3032,7 @@ public class QuadLoadout implements ifLoadout {
         CheckTC();
     }
 
-    public void SetSupercharger( boolean b, int Loc ) throws Exception {
+    public void SetSupercharger( boolean b, int Loc, int index ) throws Exception {
         // see if the user wants to change its location
         if( HasSupercharger() == b ) {
             if( b == false ) { return; }
@@ -3003,56 +3050,84 @@ public class QuadLoadout implements ifLoadout {
         }
 
         // ensure we have engine slots in the location given
-        boolean placed = false;
-        int increment = 0;
-        switch( Loc ) {
-            case Constants.LOC_CT:
-                while( placed == false ) {
-                    if ( increment > 11 ) {
-                        throw new Exception( "No room was available in the CT for the Superchager.\nIt has been removed." );
+        if( index < 0 ) {
+            boolean placed = false;
+            int increment = 0;
+            switch( Loc ) {
+                case Constants.LOC_CT:
+                    while( placed == false ) {
+                        if ( increment > 11 ) {
+                            throw new Exception( "No room was available in the CT for the Superchager.\nIt has been removed." );
+                        }
+                        try {
+                            AddToCT( SCharger, increment );
+                            placed = true;
+                        } catch ( Exception e ) {
+                            increment++;
+                        }
                     }
-                    try {
-                        AddToCT( SCharger, increment );
-                        placed = true;
-                    } catch ( Exception e ) {
-                        increment++;
+                    break;
+                case Constants.LOC_LT:
+                    if( Owner.GetEngine().GetSideTorsoCrits() < 1 ) {
+                        throw new Exception( "Supercharger can only be placed in a location with Engine criticals." );
                     }
-                }
-                break;
-            case Constants.LOC_LT:
-                if( Owner.GetEngine().GetSideTorsoCrits() < 1 ) {
+                    while( placed == false ) {
+                        if ( increment > 11 ) {
+                            throw new Exception( "No room was available in the LT for the Superchager.\nIt has been removed." );
+                        }
+                        try {
+                            AddToLT( SCharger, increment );
+                            placed = true;
+                        } catch ( Exception e ) {
+                            increment++;
+                        }
+                    }
+                    break;
+                case Constants.LOC_RT:
+                    if( Owner.GetEngine().GetSideTorsoCrits() < 1 ) {
+                        throw new Exception( "Supercharger can only be placed in a location with Engine criticals." );
+                    }
+                    while( placed == false ) {
+                        if ( increment > 11 ) {
+                            throw new Exception( "No room was available in the RT for the Superchager.\nIt has been removed." );
+                        }
+                        try {
+                            AddToRT( SCharger, increment );
+                            placed = true;
+                        } catch ( Exception e ) {
+                            increment++;
+                        }
+                    }
+                    break;
+                default:
                     throw new Exception( "Supercharger can only be placed in a location with Engine criticals." );
-                }
-                while( placed == false ) {
-                    if ( increment > 11 ) {
-                        throw new Exception( "No room was available in the LT for the Superchager.\nIt has been removed." );
-                    }
+            }
+        } else {
+            switch( Loc ) {
+                case Constants.LOC_CT:
                     try {
-                        AddToLT( SCharger, increment );
-                        placed = true;
-                    } catch ( Exception e ) {
-                        increment++;
+                        AddToCT( SCharger, index );
+                    } catch( Exception e ) {
+                        throw new Exception( "Supercharger cannot be allocated to slot " + index + "\nSupercharger not installed." );
                     }
-                }
-                break;
-            case Constants.LOC_RT:
-                if( Owner.GetEngine().GetSideTorsoCrits() < 1 ) {
+                    break;
+                case Constants.LOC_LT:
+                    try {
+                        AddToLT( SCharger, index );
+                    } catch( Exception e ) {
+                        throw new Exception( "Supercharger cannot be allocated to slot " + index + "\nSupercharger not installed." );
+                    }
+                    break;
+                case Constants.LOC_RT:
+                    try {
+                        AddToRT( SCharger, index );
+                    } catch( Exception e ) {
+                        throw new Exception( "Supercharger cannot be allocated to slot " + index + "\nSupercharger not installed." );
+                    }
+                    break;
+                default:
                     throw new Exception( "Supercharger can only be placed in a location with Engine criticals." );
-                }
-                while( placed == false ) {
-                    if ( increment > 11 ) {
-                        throw new Exception( "No room was available in the RT for the Superchager.\nIt has been removed." );
-                    }
-                    try {
-                        AddToRT( SCharger, increment );
-                        placed = true;
-                    } catch ( Exception e ) {
-                        increment++;
-                    }
-                }
-                break;
-            default:
-                throw new Exception( "Supercharger can only be placed in a location with Engine criticals." );
+            }
         }
 
         AddMechModifier( SCharger.GetMechModifier() );

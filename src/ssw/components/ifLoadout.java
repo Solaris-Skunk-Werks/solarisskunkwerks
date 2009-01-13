@@ -118,9 +118,9 @@ public interface ifLoadout {
     public void SetNonCore( Vector v );
     public void SetTCList( Vector v );
     public void SetEquipment( Vector v );
-    public boolean AddCTCASE();
-    public boolean AddLTCASE();
-    public boolean AddRTCASE();
+    public void AddCTCASE( int index ) throws Exception;
+    public void AddLTCASE( int index ) throws Exception;
+    public void AddRTCASE( int index ) throws Exception;
     public void SetCTCASE( ISCASE c );
     public void SetLTCASE( ISCASE c );
     public void SetRTCASE( ISCASE c );
@@ -144,7 +144,7 @@ public interface ifLoadout {
     public void UseTC( boolean use );
     public void CheckTC();
     public void UnallocateTC();
-    public void SetSupercharger( boolean b, int Loc ) throws Exception;
+    public void SetSupercharger( boolean b, int Loc, int index ) throws Exception;
     public boolean HasSupercharger();
     public Supercharger GetSupercharger();
     public PowerAmplifier GetPowerAmplifier();

@@ -837,7 +837,7 @@ public class frmMain extends javax.swing.JFrame {
         }
         if( ! chkSupercharger.isEnabled() ) {
             try {
-                CurMech.GetLoadout().SetSupercharger( false, 0 );
+                CurMech.GetLoadout().SetSupercharger( false, 0, -1 );
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
             }
@@ -943,13 +943,28 @@ public class frmMain extends javax.swing.JFrame {
     private void RecalcEquipment() {
         // recalculates the equipment if anything changes
         if( chkCTCASE.isSelected() ) {
-            CurMech.AddCTCase();
+            try {
+                CurMech.AddCTCase();
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                chkCTCASE.setSelected( false );
+            }
         }
         if( chkLTCASE.isSelected() ) {
-            CurMech.AddLTCase();
+            try {
+                CurMech.AddLTCase();
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                chkLTCASE.setSelected( false );
+            }
         }
         if( chkRTCASE.isSelected() ) {
-            CurMech.AddRTCase();
+            try {
+                CurMech.AddRTCase();
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                chkRTCASE.setSelected( false );
+            }
         }
     }
 
@@ -9319,8 +9334,10 @@ public class frmMain extends javax.swing.JFrame {
     private void chkCTCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCTCASEActionPerformed
         if( CurMech.HasCTCase() == chkCTCASE.isSelected() ) { return; }
         if( chkCTCASE.isSelected() ) {
-            if( ! CurMech.AddCTCase() ) {
-                javax.swing.JOptionPane.showMessageDialog( this, "There is not enough space in the CT for CASE." );
+            try {
+                CurMech.AddCTCase();
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkCTCASE.setSelected( false );
             }
         } else {
@@ -9333,8 +9350,10 @@ public class frmMain extends javax.swing.JFrame {
     private void chkRTCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRTCASEActionPerformed
         if( CurMech.HasRTCase() == chkRTCASE.isSelected() ) { return; }
         if( chkRTCASE.isSelected() ) {
-            if( ! CurMech.AddRTCase() ) {
-                javax.swing.JOptionPane.showMessageDialog( this, "There is not enough space in the RT for CASE." );
+            try {
+                CurMech.AddRTCase();
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkRTCASE.setSelected( false );
             }
         } else {
@@ -9347,8 +9366,10 @@ public class frmMain extends javax.swing.JFrame {
     private void chkLTCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLTCASEActionPerformed
         if( CurMech.HasLTCase() == chkLTCASE.isSelected() ) { return; }
         if( chkLTCASE.isSelected() ) {
-            if( ! CurMech.AddLTCase() ) {
-                javax.swing.JOptionPane.showMessageDialog( this, "There is not enough space in the LT for CASE." );
+            try {
+                CurMech.AddLTCase();
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkLTCASE.setSelected( false );
             }
         } else {
@@ -10762,7 +10783,7 @@ private void cmbSCLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     if( curLoc == DesiredLoc ) { return; }
     if( CurMech.GetLoadout().HasSupercharger() ) {
         try {
-            CurMech.GetLoadout().SetSupercharger( true, DesiredLoc );
+            CurMech.GetLoadout().SetSupercharger( true, DesiredLoc, -1 );
         } catch( Exception e ) {
             javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
             chkSupercharger.setSelected( false );
@@ -10784,11 +10805,11 @@ private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//G
         return;
     }
     try {
-        CurMech.GetLoadout().SetSupercharger( chkSupercharger.isSelected(), FileCommon.DecodeLocation( (String) cmbSCLoc.getSelectedItem() ) );
+        CurMech.GetLoadout().SetSupercharger( chkSupercharger.isSelected(), FileCommon.DecodeLocation( (String) cmbSCLoc.getSelectedItem() ), -1 );
     } catch( Exception e ) {
         javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
         try {
-            CurMech.GetLoadout().SetSupercharger( false , 0 );
+            CurMech.GetLoadout().SetSupercharger( false , 0, -1 );
         } catch( Exception x ) {
             // how the hell did we get an error removing it?
             javax.swing.JOptionPane.showMessageDialog( this, x.getMessage() );

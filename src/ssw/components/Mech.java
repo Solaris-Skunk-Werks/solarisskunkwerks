@@ -451,14 +451,19 @@ public class Mech {
         CurArmor.Place( CurLoadout );
 
         // attempt to replace any CASE systems that went missing
-        if( ctcase ) {
-            AddCTCase();
-        }
-        if( ltcase ) {
-            AddLTCase();
-        }
-        if( rtcase ) {
-            AddRTCase();
+        try {
+            if( ctcase ) {
+                AddCTCase();
+            }
+            if( ltcase ) {
+                AddLTCase();
+            }
+            if( rtcase ) {
+                AddRTCase();
+            }
+        } catch( Exception e ) {
+            // unhandled at this time, print an error out
+            System.err.println( "CASE system not reinstalled:\n" + e.getMessage() );
         }
     }
 
@@ -524,14 +529,19 @@ public class Mech {
         CurArmor.Place( CurLoadout );
 
         // attempt to replace any CASE systems that went missing
-        if( ctcase ) {
-            AddCTCase();
-        }
-        if( ltcase ) {
-            AddLTCase();
-        }
-        if( rtcase ) {
-            AddRTCase();
+        try {
+            if( ctcase ) {
+                AddCTCase();
+            }
+            if( ltcase ) {
+                AddLTCase();
+            }
+            if( rtcase ) {
+                AddRTCase();
+            }
+        } catch( Exception e ) {
+            // unhandled at this time, print an error out
+            System.err.println( "CASE system not reinstalled:\n" + e.getMessage() );
         }
     }
 
@@ -1619,19 +1629,19 @@ public class Mech {
         }
     }
 
-    public boolean AddCTCase() {
+    public void AddCTCase() throws Exception {
         // adds CASE equipment to the CT
-        return CurLoadout.AddCTCASE();
+        CurLoadout.AddCTCASE( -1 );
     }
 
-    public boolean AddLTCase() {
+    public void AddLTCase() throws Exception {
         // adds CASE equipment to the LT
-        return CurLoadout.AddLTCASE();
+        CurLoadout.AddLTCASE( -1 );
     }
 
-    public boolean AddRTCase() {
+    public void AddRTCase() throws Exception {
         // adds CASE equipment to the RT
-        return CurLoadout.AddRTCASE();
+        CurLoadout.AddRTCASE( -1 );
     }
 
     public boolean HasCTCase() {

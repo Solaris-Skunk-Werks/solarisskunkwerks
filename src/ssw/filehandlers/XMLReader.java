@@ -353,16 +353,16 @@ public class XMLReader {
                         ltc = l;
                     } else if( eType.equals( "CASE" ) ) {
                         if( l.Location == Constants.LOC_CT ) {
-                            m.AddCTCase();
+                            m.GetLoadout().AddCTCASE( l.Index );
                         }
                         if( l.Location == Constants.LOC_LT ) {
-                            m.AddLTCase();
+                            m.GetLoadout().AddLTCASE( l.Index );
                         }
                         if( l.Location == Constants.LOC_RT ) {
-                            m.AddRTCase();
+                            m.GetLoadout().AddRTCASE( l.Index );
                         }
                     } else if( eType.equals( "Supercharger" ) ) {
-
+                        m.GetLoadout().SetSupercharger( true, l.Location, l.Index );
                     }
                 } else {
                     abPlaceable p = GetEquipmentByName( eName, eType, m );
@@ -665,20 +665,22 @@ public class XMLReader {
                                 splitLoc.add( DecodeLocation( nl.item( j ) ) );
                             }
                         }
-                        if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" ) ) {
+                        if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" ) || eType.equals( "Supercharger" ) ) {
                             if( eType.equals( "TargetingComputer") ) {
                                 m.UseTC( true );
                                 ltc = l;
                             } else if( eType.equals( "CASE" ) ) {
                                 if( l.Location == Constants.LOC_CT ) {
-                                    m.AddCTCase();
+                                    m.GetLoadout().AddCTCASE( l.Index );
                                 }
                                 if( l.Location == Constants.LOC_LT ) {
-                                    m.AddLTCase();
+                                    m.GetLoadout().AddLTCASE( l.Index );
                                 }
                                 if( l.Location == Constants.LOC_RT ) {
-                                    m.AddRTCase();
+                                    m.GetLoadout().AddRTCASE( l.Index );
                                 }
+                            } else if( eType.equals( "Supercharger" ) ) {
+                                m.GetLoadout().SetSupercharger( true, l.Location, l.Index );
                             }
                         } else {
                             abPlaceable p = GetEquipmentByName( eName, eType, m );
