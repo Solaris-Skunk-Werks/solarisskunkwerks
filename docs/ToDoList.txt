@@ -1,6 +1,6 @@
 To-Do List, in order by what needs to be done
 
-(1) Adjust print for different sizes of paper
+- tentatively done - (1) Adjust print for different sizes of paper
 (1) Selectable default paper size
 (1) MegaMek and armored components
 (1) Tactical Operations equipment
@@ -26,11 +26,11 @@ To-Do List, in order by what needs to be done
 (3) -p <filename> [-c <config>] // prints the specified file (using an optional
 				configuration.  if none given prints the first omni loadout)
 (4) Higher DPI print sheets as seperate download
-(4) Equipment print names
+- partly done - (4) Equipment print names
 (4) Fuel tanks for non-nuclear engines
 (4) Include spell-checker
 (4) Text export to a window like the Cost/BV Breakdown.
-(4) Text export directly to clipboard
+- done - (4) Text export directly to clipboard
 (5) Batch Printing (multiple different 'Mechs)
 (5) Variant controls (like OmniMech controls)
 (5) Allocation shifts items instead of unallocates them.

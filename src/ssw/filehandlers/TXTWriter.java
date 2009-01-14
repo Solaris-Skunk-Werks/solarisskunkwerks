@@ -53,315 +53,231 @@ public class TXTWriter {
     public void WriteTXT( String filename ) throws IOException {
         BufferedWriter FR = new BufferedWriter( new FileWriter( filename ) );
 
+        // get the text export and write it
+        FR.write( GetTextExport() );
+
+        // all done
+        FR.close();
+    }
+
+    public String GetTextExport() {
+        String retval = "";
+
         if( CurMech.IsOmnimech() ) {
             // start out with the base chassis.  we'll switch later when needed
             CurMech.SetCurLoadout( Constants.BASELOADOUT_NAME );
         }
-        FR.write( CurMech.GetName() + " " + CurMech.GetModel() );
-        FR.newLine();
-        FR.newLine();
+        retval += CurMech.GetName() + " " + CurMech.GetModel() + NL + NL;
         switch( CurMech.GetBaseRulesLevel() ) {
         case Constants.TOURNAMENT:
-            FR.write( "Rules Level: Tournament Legal" );
+            retval += "Rules Level: Tournament Legal" + NL;
             break;
         case Constants.ADVANCED:
-            FR.write( "Rules Level: Advanced" );
+            retval += "Rules Level: Advanced" + NL;
             break;
         case Constants.EXPERIMENTAL:
-            FR.write( "Rules Level: Experimental Tech" );
+            retval += "Rules Level: Experimental Tech" + NL;
             break;
         }
-        FR.newLine();
         if( CurMech.IsClan() ) {
-            FR.write( "Tech Base: Clan" );
+            retval += "Tech Base: Clan" + NL;
         } else {
-            FR.write( "Tech Base: Inner Sphere" );
+            retval += "Tech Base: Inner Sphere" + NL;
         }
-        FR.newLine();
         if( CurMech.IsQuad() ) {
             if( CurMech.IsOmnimech() ) {
-                FR.write( "Chassis Config: Quad Omnimech" );
+                retval += "Chassis Config: Quad Omnimech" + NL;
             } else {
-                FR.write( "Chassis Config: Quad" );
+                retval += "Chassis Config: Quad" + NL;
             }
         } else {
             if( CurMech.IsOmnimech() ) {
-                FR.write( "Chassis Config: Biped Omnimech" );
+                retval += "Chassis Config: Biped Omnimech" + NL;
             } else {
-                FR.write( "Chassis Config: Biped" );
+                retval += "Chassis Config: Biped" + NL;
             }
         }
-        FR.newLine();
-        FR.write( "Production Year: " + CurMech.GetYear() );
-        FR.newLine();
-        FR.write( "Mass: " + CurMech.GetTonnage() + " tons" );
-        FR.newLine();
-        FR.newLine();
-        FR.write( "Chassis: " + CurMech.GetChassisModel() + " " + CurMech.GetIntStruc().GetCritName() );
-        FR.newLine();
-        FR.write( "Power Plant: " + CurMech.GetEngineManufacturer() + " " + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine() );
-        FR.newLine();
+        retval += "Production Year: " + CurMech.GetYear() + NL;
+        retval += "Mass: " + CurMech.GetTonnage() + " tons" + NL + NL;
+        retval += "Chassis: " + CurMech.GetChassisModel() + " " + CurMech.GetIntStruc().GetCritName() + NL;
+        retval += "Power Plant: " + CurMech.GetEngineManufacturer() + " " + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine() + NL;
         if( CurMech.GetAdjustedWalkingMP( false, true ) != CurMech.GetWalkingMP() ) {
-            FR.write( "Walking Speed: " + ( CurMech.GetWalkingMP() * 10.75f ) + " km/h (" + ( CurMech.GetAdjustedWalkingMP( false, true ) * 10.75f ) + " km/h" );
+            retval += "Walking Speed: " + ( CurMech.GetWalkingMP() * 10.75f ) + " km/h (" + ( CurMech.GetAdjustedWalkingMP( false, true ) * 10.75f ) + " km/h" + NL;
         } else {
-            FR.write( "Walking Speed: " + ( CurMech.GetWalkingMP() * 10.75f ) + " km/h" );
+            retval += "Walking Speed: " + ( CurMech.GetWalkingMP() * 10.75f ) + " km/h" + NL;
         }
-        FR.newLine();
         if( CurMech.GetAdjustedRunningMP( false, true ) != CurMech.GetRunningMP() ) {
-            FR.write( "Maximum Speed: " + ( CurMech.GetRunningMP() * 10.75f ) + " km/h (" + ( CurMech.GetAdjustedRunningMP( false, true ) * 10.75f ) + " km/h)" );
-            FR.newLine();
+            retval += "Maximum Speed: " + ( CurMech.GetRunningMP() * 10.75f ) + " km/h (" + ( CurMech.GetAdjustedRunningMP( false, true ) * 10.75f ) + " km/h)" + NL;
         } else {
-            FR.write( "Maximum Speed: " + ( CurMech.GetRunningMP() * 10.75f ) + " km/h"  );
-            FR.newLine();
+            retval += "Maximum Speed: " + ( CurMech.GetRunningMP() * 10.75f ) + " km/h" + NL;
         }
-        FR.write( "Jump Jets: " + CurMech.GetJJModel() );
-        FR.newLine();
+        retval += "Jump Jets: " + CurMech.GetJJModel() + NL;
         if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
             if( CurMech.GetAdjustedJumpingMP( false ) != CurMech.GetJumpJets().GetNumJJ() ) {
-                FR.write( "    Jump Capacity: " + ( CurMech.GetJumpJets().GetNumJJ() * 30 ) + " meters (" + ( CurMech.GetAdjustedJumpingMP( false ) * 30 ) + " meters)" );
+                retval += "    Jump Capacity: " + ( CurMech.GetJumpJets().GetNumJJ() * 30 ) + " meters (" + ( CurMech.GetAdjustedJumpingMP( false ) * 30 ) + " meters)" + NL;
             } else {
-                FR.write( "    Jump Capacity: " + ( CurMech.GetJumpJets().GetNumJJ() * 30 ) + " meters" );
+                retval += "    Jump Capacity: " + ( CurMech.GetJumpJets().GetNumJJ() * 30 ) + " meters" + NL;
             }
-            FR.newLine();
         }
         if( CurMech.HasCTCase()|| CurMech.HasLTCase() || CurMech.HasRTCase() ) {
-            FR.write( "Armor: " + CurMech.GetArmorModel() + " " + CurMech.GetArmor().GetCritName() + " w/ CASE" );
-            FR.newLine();
+            retval += "Armor: " + CurMech.GetArmorModel() + " " + CurMech.GetArmor().GetCritName() + " w/ CASE" + NL;
         } else {
-            FR.write( "Armor: " + CurMech.GetArmorModel() + " " + CurMech.GetArmor().GetCritName() );
-            FR.newLine();
+            retval += "Armor: " + CurMech.GetArmorModel() + " " + CurMech.GetArmor().GetCritName() + NL;
         }
-        FR.write( "Armament:" );
-        FR.newLine();
-        FR.write( GetArmament() );
-        FR.write( "Manufacturer: " + CurMech.GetCompany() );
-        FR.newLine();
-        FR.write( "    Primary Factory: " + CurMech.GetLocation() );
-        FR.newLine();
-        FR.write( BuildComputerBlock() );
-        FR.newLine();
-        FR.newLine();
+        retval += "Armament:" + NL;
+        retval += GetArmament();
+        retval += "Manufacturer: " + CurMech.GetCompany() + NL;
+        retval += "    Primary Factory: " + CurMech.GetLocation() + NL;
+        retval += BuildComputerBlock() + NL + NL;
         if( ! CurMech.GetOverview().equals( "" ) ) {
-            FR.write( "Overview:" );
-            FR.newLine();
-            FR.write( CurMech.GetOverview() );
-            FR.newLine();
-            FR.newLine();
+            retval += "Overview:" + NL;
+            retval += CurMech.GetOverview() + NL + NL;
         }
         if( ! CurMech.GetCapabilities().equals( "" ) ) {
-            FR.write( "Capabilities:" );
-            FR.newLine();
-            FR.write( CurMech.GetCapabilities() );
-            FR.newLine();
-            FR.newLine();
+            retval += "Capabilities:" + NL;
+            retval += CurMech.GetCapabilities() + NL + NL;
         }
         if( ! CurMech.GetHistory().equals( "" ) ) {
-            FR.write( "Battle History:" );
-            FR.newLine();
-            FR.write( CurMech.GetHistory() );
-            FR.newLine();
-            FR.newLine();
+            retval += "Battle History:" + NL;
+            retval += CurMech.GetHistory() + NL + NL;
         }
         if( ! CurMech.GetDeployment().equals( "" ) ) {
-            FR.write( "Deployment:" );
-            FR.newLine();
-            FR.write( CurMech.GetDeployment() );
-            FR.newLine();
-            FR.newLine();
+            retval += "Deployment:" + NL;
+            retval += CurMech.GetDeployment() + NL + NL;
         }
         if( ! CurMech.GetVariants().equals( "" ) ) {
-            FR.write( "Variants:" );
-            FR.newLine();
-            FR.write( CurMech.GetVariants() );
-            FR.newLine();
-            FR.newLine();
+            retval += "Variants:" + NL;
+            retval += CurMech.GetVariants() + NL + NL;
         }
         if( ! CurMech.GetNotables().equals( "" ) ) {
-            FR.write( "Notable 'Mechs & MechWarriors: " );
-            FR.newLine();
-            FR.write( CurMech.GetNotables() );
-            FR.newLine();
-            FR.newLine();
+            retval += "Notable 'Mechs & MechWarriors: " + NL;
+            retval += CurMech.GetNotables() + NL + NL;
         }
-        FR.newLine();
-        FR.write( CurMech.GetName() + " " + CurMech.GetModel() );
-        FR.newLine();
-        FR.newLine();
+        retval += NL + CurMech.GetName() + " " + CurMech.GetModel() + NL + NL;
         if( CurMech.IsClan() ) {
-            FR.write( "Tech Base: Clan" );
+            retval += "Tech Base: Clan" + NL;
         } else {
-            FR.write( "Tech Base: Inner Sphere" );
+            retval += "Tech Base: Inner Sphere" + NL;
         }
-        FR.newLine();
         if( CurMech.IsQuad() ) {
             if( CurMech.IsOmnimech() ) {
-                FR.write( "Chassis Config: Quad Omnimech" );
+                retval += "Chassis Config: Quad Omnimech" + NL;
             } else {
-                FR.write( "Chassis Config: Quad" );
+                retval += "Chassis Config: Quad" + NL;
             }
         } else {
             if( CurMech.IsOmnimech() ) {
-                FR.write( "Chassis Config: Biped Omnimech" );
+                retval += "Chassis Config: Biped Omnimech" + NL;
             } else {
-                FR.write( "Chassis Config: Biped" );
+                retval += "Chassis Config: Biped" + NL;
             }
         }
-        FR.newLine();
-        FR.write( String.format( "Era: %1$-56s Cost: %2$,.0f", DecodeEra(), Math.floor( CurMech.GetTotalCost() + 0.5f ) ) );
-        FR.newLine();
-        FR.write( String.format( "Availability: %1$-48s BV2: %2$,d", CurMech.GetAvailability().GetShortenedCode(), CurMech.GetCurrentBV() ) );
-        FR.newLine();
-        FR.newLine();
-        FR.write( "Equipment           Type                         Rating                   Mass  " );
-        FR.newLine();
-        FR.write( String.format( "Internal Structure: %1$-28s %2$3s points              %3$6.2f", CurMech.GetIntStruc().GetCritName(), CurMech.GetIntStruc().GetTotalPoints(), CurMech.GetIntStruc().GetTonnage() ) );
-        FR.newLine();
+        retval += String.format( "Era: %1$-56s Cost: %2$,.0f", DecodeEra(), Math.floor( CurMech.GetTotalCost() + 0.5f ) ) + NL;
+        retval += String.format( "Availability: %1$-48s BV2: %2$,d", CurMech.GetAvailability().GetShortenedCode(), CurMech.GetCurrentBV() ) + NL + NL;
+        retval += "Equipment           Type                         Rating                   Mass  " + NL;
+        retval += String.format( "Internal Structure: %1$-28s %2$3s points              %3$6.2f", CurMech.GetIntStruc().GetCritName(), CurMech.GetIntStruc().GetTotalPoints(), CurMech.GetIntStruc().GetTonnage() ) + NL;
         if( CurMech.GetIntStruc().NumCrits() > 0 ) {
-            FR.write( "    Internal Locations: " + FileCommon.GetInternalLocations( CurMech ) );
-            FR.newLine();
+            retval += "    Internal Locations: " + FileCommon.GetInternalLocations( CurMech ) + NL;
         }
-        FR.write( String.format( "Engine:             %1$-28s %2$3s                     %3$6.2f", CurMech.GetEngine().GetCritName(), CurMech.GetEngine().GetRating(), CurMech.GetEngine().GetTonnage() ) );
-        FR.newLine();
-        FR.write( "    Walking MP: " + CurMech.GetWalkingMP() );
-        FR.newLine();
+        retval += String.format( "Engine:             %1$-28s %2$3s                     %3$6.2f", CurMech.GetEngine().GetCritName(), CurMech.GetEngine().GetRating(), CurMech.GetEngine().GetTonnage() ) + NL;
+        retval += "    Walking MP: " + CurMech.GetWalkingMP() + NL;
         if( CurMech.GetRunningMP() != CurMech.GetAdjustedRunningMP( false, true ) ) {
-            FR.write( "    Running MP: " + CurMech.GetRunningMP() + " (" + CurMech.GetAdjustedRunningMP( false, true ) + ")" );
+            retval += "    Running MP: " + CurMech.GetRunningMP() + " (" + CurMech.GetAdjustedRunningMP( false, true ) + ")" + NL;
         } else {
-            FR.write( "    Running MP: " + CurMech.GetRunningMP() );
+            retval += "    Running MP: " + CurMech.GetRunningMP() + NL;
         }
-        FR.newLine();
-        FR.write( "    Jumping MP: " + CurMech.GetJumpJets().GetNumJJ() );
+        retval += "    Jumping MP: " + CurMech.GetJumpJets().GetNumJJ();
         if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
             if( CurMech.GetJumpJets().IsImproved() ) {
-                FR.write( "  (Improved)" );
+                retval += "  (Improved)";
             } else {
-                FR.write( "  (Standard)" );
+                retval += "  (Standard)";
             }
         }
-        FR.newLine();
+        retval += NL;
         if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
-            FR.write( String.format( "    %1$-68s %2$6.2f", "Jump Jet Locations: " + FileCommon.GetJumpJetLocations( CurMech ), CurMech.GetJumpJets().GetTonnage() ) );
-            FR.newLine();
+            retval += String.format( "    %1$-68s %2$6.2f", "Jump Jet Locations: " + FileCommon.GetJumpJetLocations( CurMech ), CurMech.GetJumpJets().GetTonnage() ) + NL;
         }
-        FR.write( String.format( "Heat Sinks:         %1$-28s %2$-8s                %3$6.2f", GetHSType(), GetHSNum(), CurMech.GetHeatSinks().GetTonnage() ) );
-        FR.newLine();
+        retval += String.format( "Heat Sinks:         %1$-28s %2$-8s                %3$6.2f", GetHSType(), GetHSNum(), CurMech.GetHeatSinks().GetTonnage() ) + NL;
         if( CurMech.GetHeatSinks().GetNumHS() > CurMech.GetEngine().InternalHeatSinks() ) {
-            FR.write( "    Heat Sink Locations: " + FileCommon.GetHeatSinkLocations( CurMech ) );
-            FR.newLine();
+            retval += "    Heat Sink Locations: " + FileCommon.GetHeatSinkLocations( CurMech ) + NL;
         }
-        FR.write( String.format( "Gyro:               %1$-52s %2$6.2f", CurMech.GetGyro(), CurMech.GetGyro().GetTonnage() ) );
-        FR.newLine();
-        FR.write( String.format( "Cockpit:            %1$-52s %2$6.2f", CurMech.GetCockpit(), CurMech.GetCockpit().GetTonnage() ) );
-        FR.newLine();
+        retval += String.format( "Gyro:               %1$-52s %2$6.2f", CurMech.GetGyro().GetLookupName(), CurMech.GetGyro().GetTonnage() ) + NL;
+        retval += String.format( "Cockpit:            %1$-52s %2$6.2f", CurMech.GetCockpit().GetLookupName(), CurMech.GetCockpit().GetTonnage() ) + NL;
         if( ! CurMech.GetEngine().IsNuclear() ) {
             if( CurMech.GetLoadout().GetPowerAmplifier().GetTonnage() > 0 ) {
-                FR.write( String.format( "%1$-72s %2$6.2f", "Power Amplifiers:", CurMech.GetLoadout().GetPowerAmplifier().GetTonnage() ) );
-                FR.newLine();
+                retval += String.format( "%1$-72s %2$6.2f", "Power Amplifiers:", CurMech.GetLoadout().GetPowerAmplifier().GetTonnage() ) + NL;
             }
         }
-        FR.write( "    Actuators:      " + FileCommon.BuildActuators( CurMech, false ) );
-        FR.newLine();
+        retval += "    Actuators:      " + FileCommon.BuildActuators( CurMech, false ) + NL;
         if( CurMech.GetPhysEnhance().IsTSM() ) {
-            FR.write( "    TSM Locations: " + FileCommon.GetTSMLocations( CurMech ) );
-            FR.newLine();
+            retval += "    TSM Locations: " + FileCommon.GetTSMLocations( CurMech ) + NL;
         }
-        FR.write( String.format( "Armor:              %1$-28s AV - %2$3s                %3$6.2f", CurMech.GetArmor().GetCritName(), CurMech.GetArmor().GetArmorValue(), CurMech.GetArmor().GetTonnage() ) );
-        FR.newLine();
+        retval += String.format( "Armor:              %1$-28s AV - %2$3s                %3$6.2f", CurMech.GetArmor().GetCritName(), CurMech.GetArmor().GetArmorValue(), CurMech.GetArmor().GetTonnage() ) + NL;
         if( CurMech.GetArmor().NumCrits() > 0 ) {
-            FR.write( "    Armor Locations: " + FileCommon.GetArmorLocations( CurMech ) );
-            FR.newLine();
+            retval += "    Armor Locations: " + FileCommon.GetArmorLocations( CurMech ) + NL;
         }
         if( CurMech.HasCTCase() || CurMech.HasLTCase() || CurMech.HasRTCase() ) {
-            FR.write( String.format( "    %1$-68s %2$6.2f", "CASE Locations: " + FileCommon.GetCaseLocations( CurMech ), CurMech.GetCaseTonnage() ) );
-            FR.newLine();
+            retval += String.format( "    %1$-68s %2$6.2f", "CASE Locations: " + FileCommon.GetCaseLocations( CurMech ), CurMech.GetCaseTonnage() ) + NL;
         }
-        FR.newLine();
-        FR.write( "                                                      Internal       Armor      " );
-        FR.newLine();
-        FR.write( "                                                      Structure      Factor     " );
-        FR.newLine();
-        FR.write( String.format( "                                                Head     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetHeadPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_HD ) ) );
-        FR.newLine();
-        FR.write( String.format( "                                        Center Torso     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetCTPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_CT ) ) );
-        FR.newLine();
-        FR.write( String.format( "                                 Center Torso (rear)                  %1$-3s       ", CurMech.GetArmor().GetLocationArmor( Constants.LOC_CTR ) ) );
-        FR.newLine();
+        retval += NL + "                                                      Internal       Armor      " + NL;
+        retval += "                                                      Structure      Factor     " + NL;
+        retval += String.format( "                                                Head     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetHeadPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_HD ) ) + NL;
+        retval += String.format( "                                        Center Torso     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetCTPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_CT ) ) + NL;
+        retval += String.format( "                                 Center Torso (rear)                  %1$-3s       ", CurMech.GetArmor().GetLocationArmor( Constants.LOC_CTR ) ) + NL;
         if( CurMech.GetArmor().GetLocationArmor( Constants.LOC_LT ) != CurMech.GetArmor().GetLocationArmor( Constants.LOC_RT ) ) {
-            FR.write( String.format( "                                          Left Torso     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetSidePoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LT ) ) );
-            FR.newLine();
-            FR.write( String.format( "                                         Right Torso     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetSidePoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_RT ) ) );
-            FR.newLine();
+            retval += String.format( "                                          Left Torso     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetSidePoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LT ) ) + NL;
+            retval += String.format( "                                         Right Torso     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetSidePoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_RT ) ) + NL;
         } else {
-            FR.write( String.format( "                                           L/R Torso     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetSidePoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LT ) ) );
-            FR.newLine();
+            retval += String.format( "                                           L/R Torso     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetSidePoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LT ) ) + NL;
         }
         if( CurMech.GetArmor().GetLocationArmor( Constants.LOC_LTR ) != CurMech.GetArmor().GetLocationArmor( Constants.LOC_RTR ) ) {
-            FR.write( String.format( "                                   Left Torso (rear)                  %1$-3s       ", CurMech.GetArmor().GetLocationArmor( Constants.LOC_LTR ) ) );
-            FR.newLine();
-            FR.write( String.format( "                                  Right Torso (rear)                  %1$-3s       ", CurMech.GetArmor().GetLocationArmor( Constants.LOC_RTR ) ) );
-            FR.newLine();
+            retval += String.format( "                                   Left Torso (rear)                  %1$-3s       ", CurMech.GetArmor().GetLocationArmor( Constants.LOC_LTR ) ) + NL;
+            retval += String.format( "                                  Right Torso (rear)                  %1$-3s       ", CurMech.GetArmor().GetLocationArmor( Constants.LOC_RTR ) ) + NL;
         } else {
-            FR.write( String.format( "                                    L/R Torso (rear)                  %1$-3s       ", CurMech.GetArmor().GetLocationArmor( Constants.LOC_LTR ) ) );
-            FR.newLine();
+            retval += String.format( "                                    L/R Torso (rear)                  %1$-3s       ", CurMech.GetArmor().GetLocationArmor( Constants.LOC_LTR ) ) + NL;
         }
         if( CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) != CurMech.GetArmor().GetLocationArmor( Constants.LOC_RA ) ) {
             if( CurMech.IsQuad() ) {
-                FR.write( String.format( "                                      Left Front Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) ) );
-                FR.newLine();
-                FR.write( String.format( "                                     Right Front Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_RA ) ) );
-                FR.newLine();
+                retval += String.format( "                                      Left Front Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) ) + NL;
+                retval += String.format( "                                     Right Front Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_RA ) ) + NL;
             } else {
-                FR.write( String.format( "                                            Left Arm     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) ) );
-                FR.newLine();
-                FR.write( String.format( "                                           Right Arm     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_RA ) ) );
-                FR.newLine();
+                retval += String.format( "                                            Left Arm     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) ) + NL;
+                retval += String.format( "                                           Right Arm     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_RA ) ) + NL;
             }
         } else {
             if( CurMech.IsQuad() ) {
-                FR.write( String.format( "                                       L/R Front Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) ) );
-                FR.newLine();
+                retval += String.format( "                                       L/R Front Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) ) + NL;
             } else {
-                FR.write( String.format( "                                             L/R Arm     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) ) );
-                FR.newLine();
+                retval += String.format( "                                             L/R Arm     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) ) + NL;
             }
         }
         if( CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) != CurMech.GetArmor().GetLocationArmor( Constants.LOC_RL ) ) {
             if( CurMech.IsQuad() ) {
-                FR.write( String.format( "                                       Left Rear Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) ) );
-                FR.newLine();
-                FR.write( String.format( "                                      Right Rear Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_RL ) ) );
-                FR.newLine();
+                retval += String.format( "                                       Left Rear Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) ) + NL;
+                retval += String.format( "                                      Right Rear Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_RL ) ) + NL;
             } else {
-                FR.write( String.format( "                                            Left Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) ) );
-                FR.newLine();
-                FR.write( String.format( "                                           Right Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_RL ) ) );
-                FR.newLine();
+                retval += String.format( "                                            Left Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) ) + NL;
+                retval += String.format( "                                           Right Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_RL ) ) + NL;
             }
         } else {
             if( CurMech.IsQuad() ) {
-                FR.write( String.format( "                                        L/R Rear Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) ) );
-                FR.newLine();
+                retval += String.format( "                                        L/R Rear Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) ) + NL;
             } else {
-                FR.write( String.format( "                                             L/R Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) ) );
-                FR.newLine();
+                retval += String.format( "                                             L/R Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) ) + NL;
             }
         }
-        FR.newLine();
         if( CurMech.IsOmnimech() ) {
             Vector l = CurMech.GetLoadouts();
             for( int i = 0; i < l.size(); i++ ) {
                 CurMech.SetCurLoadout( ((ifLoadout) l.get( i )).GetName() );
-                FR.newLine();
-                FR.write( BuildOmniLoadout() );
-                FR.newLine();
+                retval += NL + BuildOmniLoadout() + NL;
             }
         } else {
-            FR.write( BuildEquipmentBlock() );
-            FR.newLine();
+            retval += NL + BuildEquipmentBlock() + NL;
         }
 
-        // all done
-        FR.close();
+        return retval;
     }
 
     private String GetArmament() {

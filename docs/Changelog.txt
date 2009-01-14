@@ -22,6 +22,7 @@ Version 0.6.0
 - Added Null-Sig, Void-Sig, Blue Shield, and Chameleon systems.
 - Added in the Supercharger.
 - Added in a bunch of TacOps Physical Weapons (Specter83)
+- You can now export text directly to the system clipboard (File -> Export).
 
 + Changed
 - Fixed a load bug with heatsinks.
