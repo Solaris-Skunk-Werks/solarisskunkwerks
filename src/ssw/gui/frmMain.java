@@ -50,6 +50,7 @@ import ssw.visitors.*;
 import ssw.print.*;
 import ssw.states.ifState;
 import java.awt.print.*;
+import java.util.prefs.*;
 
 public class frmMain extends javax.swing.JFrame {
 
@@ -76,6 +77,7 @@ public class frmMain extends javax.swing.JFrame {
     JMenuItem mnuArmorComponent = new JMenuItem( "Armor Component" );
     MechLoadoutRenderer Mechrender = new MechLoadoutRenderer( this, GlobalOptions );
     Hashtable Lookup = new Hashtable();
+    private Preferences Prefs;
 
     final int BALLISTIC = 0,
               ENERGY = 1,
@@ -88,6 +90,8 @@ public class frmMain extends javax.swing.JFrame {
 
     /** Creates new form frmMain */
     public frmMain() {
+        Prefs = Preferences.userNodeForPackage(this.getClass());
+
         initComponents();
 
         mnuUnallocateAll.addActionListener( new java.awt.event.ActionListener() {
@@ -10355,6 +10359,7 @@ public class frmMain extends javax.swing.JFrame {
                 }
             }
             XMLw.WriteXML( file );
+            Prefs.put("LastOpenFile", file);
             // if there were no problems, let the user know how it went
             javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully:\n" + file );
         } catch( IOException e ) {
@@ -10369,6 +10374,7 @@ public class frmMain extends javax.swing.JFrame {
 
 private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLoadActionPerformed
         // get the filename we're going to load from
+        File tempFile = new File(Prefs.get("LastOpenDirectory", ""));
         JFileChooser fc = new JFileChooser( GlobalOptions.SaveLoadPath );
         fc.addChoosableFileFilter( new javax.swing.filechooser.FileFilter() {
             public boolean accept( File f ) {
@@ -10394,12 +10400,15 @@ private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
             }
         } );
         fc.setAcceptAllFileFilterUsed( false );
+        fc.setCurrentDirectory(tempFile);
         int returnVal = fc.showDialog( this, "Load Mech" );
         if( returnVal != JFileChooser.APPROVE_OPTION ) { return; }
         File loadmech = fc.getSelectedFile();
         String filename = "";
         try {
             filename = loadmech.getCanonicalPath();
+            Prefs.put("LastOpenDirectory", loadmech.getCanonicalPath().replace(loadmech.getName(), ""));
+            Prefs.put("LastOpenFile", loadmech.getName());
         } catch( Exception e ) {
             javax.swing.JOptionPane.showMessageDialog( this, "There was a problem opening the file:\n" + e.getMessage() );
             return;
