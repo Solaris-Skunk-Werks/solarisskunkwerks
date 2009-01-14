@@ -118,6 +118,11 @@ public abstract class abPlaceable {
     // returns the name of this item in the Loadout.
     public abstract String GetCritName();
 
+    // returns the name of this item for printing
+    public String GetPrintName(){
+        return GetCritName();
+    }
+
     // returns the reporting name for Megamek (needed for compatibility)
     public abstract String GetMMName(boolean UseRear);
 

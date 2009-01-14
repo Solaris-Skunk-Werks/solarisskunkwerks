@@ -238,16 +238,14 @@ public class PrintMech implements Printable {
         for( int i = 0; i < a.length && i < p.length; i++ ) {
             if( ! a[i].IsCritable() ) {
                 graphics.setFont( ItalicFont );
-                graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                 graphics.setFont( PlainFont );
             } else {
                 if( a[i].IsArmored() ) {
                     graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                    graphics.drawString( a[i].GetCritName(), p[i].x + 7, p[i].y );
-                } else if( a[i] instanceof Ammunition ) {
-                    graphics.drawString( "(" + ((Ammunition) a[i]).GetLotSize() + ") " + a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
                 } else {
-                    graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                 }
             }
         }
@@ -257,16 +255,14 @@ public class PrintMech implements Printable {
         for( int i = 0; i < a.length && i < p.length; i++ ) {
             if( ! a[i].IsCritable() ) {
                 graphics.setFont( ItalicFont );
-                graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                 graphics.setFont( PlainFont );
             } else {
                 if( a[i].IsArmored() ) {
                     graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                    graphics.drawString( a[i].GetCritName(), p[i].x + 7, p[i].y );
-                } else if( a[i] instanceof Ammunition ) {
-                    graphics.drawString( "(" + ((Ammunition) a[i]).GetLotSize() + ") " + a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
                 } else {
-                    graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                 }
             }
         }
@@ -276,16 +272,14 @@ public class PrintMech implements Printable {
         for( int i = 0; i < a.length && i < p.length; i++ ) {
             if( ! a[i].IsCritable() ) {
                 graphics.setFont( ItalicFont );
-                graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                 graphics.setFont( PlainFont );
             } else {
                 if( a[i].IsArmored() ) {
                     graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                    graphics.drawString( a[i].GetCritName(), p[i].x + 7, p[i].y );
-                } else if( a[i] instanceof Ammunition ) {
-                    graphics.drawString( "(" + ((Ammunition) a[i]).GetLotSize() + ") " + a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
                 } else {
-                    graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                 }
             }
         }
@@ -295,16 +289,14 @@ public class PrintMech implements Printable {
         for( int i = 0; i < a.length && i < p.length; i++ ) {
             if( ! a[i].IsCritable() ) {
                 graphics.setFont( ItalicFont );
-                graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                 graphics.setFont( PlainFont );
             } else {
                 if( a[i].IsArmored() ) {
                     graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                    graphics.drawString( a[i].GetCritName(), p[i].x + 7, p[i].y );
-                } else if( a[i] instanceof Ammunition ) {
-                    graphics.drawString( "(" + ((Ammunition) a[i]).GetLotSize() + ") " + a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
                 } else {
-                    graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                 }
             }
         }
@@ -314,16 +306,14 @@ public class PrintMech implements Printable {
         for( int i = 0; i < a.length && i < p.length; i++ ) {
             if( ! a[i].IsCritable() ) {
                 graphics.setFont( ItalicFont );
-                graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                 graphics.setFont( PlainFont );
             } else {
                 if( a[i].IsArmored() ) {
                     graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                    graphics.drawString( a[i].GetCritName(), p[i].x + 7, p[i].y );
-                } else if( a[i] instanceof Ammunition ) {
-                    graphics.drawString( "(" + ((Ammunition) a[i]).GetLotSize() + ") " + a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
                 } else {
-                    graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                 }
             }
         }
@@ -333,16 +323,14 @@ public class PrintMech implements Printable {
         for( int i = 0; i < a.length && i < p.length; i++ ) {
             if( ! a[i].IsCritable() ) {
                 graphics.setFont( ItalicFont );
-                graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                 graphics.setFont( PlainFont );
             } else {
                 if( a[i].IsArmored() ) {
                     graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                    graphics.drawString( a[i].GetCritName(), p[i].x + 7, p[i].y );
-                } else if( a[i] instanceof Ammunition ) {
-                    graphics.drawString( "(" + ((Ammunition) a[i]).GetLotSize() + ") " + a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
                 } else {
-                    graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                 }
             }
         }
@@ -352,16 +340,14 @@ public class PrintMech implements Printable {
         for( int i = 0; i < a.length && i < p.length; i++ ) {
             if( ! a[i].IsCritable() ) {
                 graphics.setFont( ItalicFont );
-                graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                 graphics.setFont( PlainFont );
             } else {
                 if( a[i].IsArmored() ) {
                     graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                    graphics.drawString( a[i].GetCritName(), p[i].x + 7, p[i].y );
-                } else if( a[i] instanceof Ammunition ) {
-                    graphics.drawString( "(" + ((Ammunition) a[i]).GetLotSize() + ") " + a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
                 } else {
-                    graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                 }
             }
         }
@@ -371,16 +357,14 @@ public class PrintMech implements Printable {
         for( int i = 0; i < a.length && i < p.length; i++ ) {
             if( ! a[i].IsCritable() ) {
                 graphics.setFont( ItalicFont );
-                graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                 graphics.setFont( PlainFont );
             } else {
                 if( a[i].IsArmored() ) {
                     graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                    graphics.drawString( a[i].GetCritName(), p[i].x + 7, p[i].y );
-                } else if( a[i] instanceof Ammunition ) {
-                    graphics.drawString( "(" + ((Ammunition) a[i]).GetLotSize() + ") " + a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
                 } else {
-                    graphics.drawString( a[i].GetCritName(), p[i].x, p[i].y );
+                    graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                 }
             }
         }
@@ -401,7 +385,7 @@ public class PrintMech implements Printable {
         for( int i = 0; i < a.length; i++ ) {
             PlaceableInfo item = a[i];
             graphics.drawString( item.Count + "", p[0].x, p[0].y + offset );
-            graphics.drawString( item.Item.GetCritName(), p[1].x, p[1].y + offset );
+            graphics.drawString( item.Item.GetPrintName(), p[1].x, p[1].y + offset );
             graphics.drawString( FileCommon.EncodeLocation( item.Location, CurMech.IsQuad() ), p[2].x, p[2].y + offset );
             if( item.Item instanceof Equipment ) {
                 graphics.drawString( ((Equipment) item.Item).GetHeat() + "", p[3].x, p[3].y + offset );
@@ -1064,7 +1048,7 @@ public class PrintMech implements Printable {
                 // search for other matching weapons in the same location
                 for( int j = 0; j < a.length; j++ ) {
                     if( a[j] != null ) {
-                        if( a[j].GetCritName().equals( b.GetCritName() ) ) {
+                        if( a[j].GetPrintName().equals( b.GetPrintName() ) ) {
                             if( CurMech.GetLoadout().Find( a[j] ) == p.Location ) {
                                 count++;
                                 a[j] = null;

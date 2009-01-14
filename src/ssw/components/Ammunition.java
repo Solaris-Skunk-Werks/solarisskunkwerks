@@ -66,6 +66,11 @@ public class Ammunition extends abPlaceable {
         return Name;
     }
 
+    @Override
+    public String GetPrintName() {
+        return "@"+GetCritName().replace("@ ", "") + " (" + GetLotSize() + ")";
+    }
+
     public String GetMMName( boolean UseRear ) {
         return LookupName;
     }
@@ -197,10 +202,6 @@ public class Ammunition extends abPlaceable {
     }
     public AvailableCode GetAvailability() {
         return AC;
-    }
-
-    public String GetPrintName() {
-        return GetCritName() + " (" + GetLotSize() + ")";
     }
 
     @Override
