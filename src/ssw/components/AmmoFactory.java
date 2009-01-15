@@ -26,7 +26,7 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// Last used Ammo Index: 106
+// Last used Ammo Index: 107
 
 package ssw.components;
 
@@ -2324,6 +2324,15 @@ public class AmmoFactory {
         add.SetRange( 3, 6, 12, 19 );
         add.SetExplosive( false );
         add.SetLotSize( 4 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'E', 'X', 'X', 'D', 3072, 0, 0, "FS", "", false, false, 0, false, "FS", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ Magshot Gauss Rifle", "IS Magshot Gauss Rifle Ammo", 107, false, a );
+        add.SetStats( 1.0f, 1000.0f, 2.0f, 0.0f );
+        add.SetDamage( 2, 1, 1 );
+        add.SetRange( 0, 3, 6, 9 );
+        add.SetExplosive( false );
+        add.SetLotSize( 50 );
         ISAM.add( add );
 
         a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3067, 0, 0, "FS", "", false, false, 3065, true, "FS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );

@@ -1756,6 +1756,19 @@ public class WeaponFactory {
         addBW.SetRequiresNuclear( true );
         ISBW.add( addBW );
 
+        // magshot gauss
+        a = new AvailableCode( false, 'E', 'X', 'X', 'D', 3072, 0, 0, "FS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        addBW = new BallisticWeapon( "Magshot Gauss Rifle", "ISMagshotGaussRifle", "DB", false, a );
+        addBW.SetDamage( 2, 2, 2 );
+        addBW.SetHeat( 1 );
+        addBW.SetRange( 0, 3, 6, 9 );
+        addBW.SetSpecials( "X", true, true, 50, 107, true, false );
+        addBW.SetStats( 0.5f, 2, 8500.0f, 15.0f, 0.0f );
+        addBW.SetBallistics( true, false, false, false );
+        addBW.SetAllocations( true, true, true, true, true, false );
+        addBW.SetRequiresNuclear( true );
+        ISBW.add( addBW );
+
         // mech taser
         a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3067, 0, 0, "FS", "", false, false, 3065, true, "FS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addBW = new BallisticWeapon( "BattleMech Taser", "ISBattleMechTaser", "DB", false, a );
