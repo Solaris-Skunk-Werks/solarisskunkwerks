@@ -123,6 +123,14 @@ public class stEngineISFI implements ifEngine, ifState {
         return 2;
     }
 
+    public int MinimumHeat() {
+        return 0;
+    }
+
+    public int JumpingHeatMultiplier() {
+        return 1;
+    }
+
     public MechModifier GetMechModifier() {
         return null;
     }

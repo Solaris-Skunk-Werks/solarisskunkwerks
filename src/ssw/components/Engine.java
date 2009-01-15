@@ -44,11 +44,13 @@ public class Engine extends abPlaceable {
                                       ISFUEngine = new stEngineISFU(),
                                       ISLFEngine = new stEngineISLF(),
                                       ISXLEngine = new stEngineISXL(),
+                                      ISXXLEngine = new stEngineISXXL(),
                                       CLICEngine = new stEngineCLIC(),
                                       CLFCEngine = new stEngineCLFC(),
                                       CLFIEngine = new stEngineCLFI(),
                                       CLFUEngine = new stEngineCLFU(),
-                                      CLXLEngine = new stEngineCLXL();
+                                      CLXLEngine = new stEngineCLXL(),
+                                      CLXXLEngine = new stEngineCLXXL();
     private Mech Owner;
 
     // Constructor
@@ -105,6 +107,14 @@ public class Engine extends abPlaceable {
         CurConfig = CLXLEngine;
     }
 
+    public void SetISXXLEngine() {
+        CurConfig = ISXXLEngine;
+    }
+
+    public void SetCLXXLEngine() {
+        CurConfig = CLXXLEngine;
+    }
+
     public void SetISLFEngine() {
         CurConfig = ISLFEngine;
     }
@@ -118,7 +128,7 @@ public class Engine extends abPlaceable {
     }
 
     public boolean IsISXL() {
-        if( CurConfig == ISXLEngine ) {
+        if( CurConfig == ISXLEngine || CurConfig == ISXXLEngine || CurConfig == CLXXLEngine ) {
             return true;
         } else {
             return false;
@@ -212,9 +222,9 @@ public class Engine extends abPlaceable {
     public ifState[] GetStates() {
         ifState[] retval = { (ifState) ISICEngine, (ifState) ISFCEngine,
             (ifState) ISFIEngine, (ifState) ISCFEngine, (ifState) ISFUEngine,
-            (ifState) ISLFEngine, (ifState) ISXLEngine, (ifState) CLICEngine,
-            (ifState) CLFCEngine, (ifState) CLFIEngine, (ifState) CLFUEngine,
-            (ifState) CLXLEngine };
+            (ifState) ISLFEngine, (ifState) ISXLEngine, (ifState) ISXXLEngine, 
+            (ifState) CLICEngine, (ifState) CLFCEngine, (ifState) CLFIEngine,
+            (ifState) CLFUEngine, (ifState) CLXLEngine, (ifState) CLXXLEngine };
         return retval;
     }
 
@@ -385,6 +395,14 @@ public class Engine extends abPlaceable {
 
     public int MaxMovementHeat() {
         return CurConfig.MaxMovementHeat();
+    }
+
+    public int MinimumHeat() {
+        return CurConfig.MinimumHeat();
+    }
+
+    public int JumpingHeatMultiplier() {
+        return CurConfig.JumpingHeatMultiplier();
     }
 
     @Override

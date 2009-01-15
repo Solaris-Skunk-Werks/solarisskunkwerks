@@ -298,6 +298,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         Lookup.put( "Fission Engine", new VEngineSetFission() );
         Lookup.put( "Fusion Engine", new VEngineSetFusion() );
         Lookup.put( "XL Engine", new VEngineSetFusionXL() );
+        Lookup.put( "XXL Engine", new VEngineSetFusionXXL() );
         Lookup.put( "I.C.E. Engine", new VEngineSetICE() );
         Lookup.put( "Compact Fusion Engine", new VEngineSetCompactFusion() );
         Lookup.put( "Light Fusion Engine", new VEngineSetLightFusion() );

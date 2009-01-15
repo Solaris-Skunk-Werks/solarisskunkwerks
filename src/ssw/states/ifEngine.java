@@ -47,5 +47,7 @@ public interface ifEngine {
     public AvailableCode GetAvailability();
     public int FreeHeatSinks();
     public int MaxMovementHeat();
+    public int MinimumHeat();
+    public int JumpingHeatMultiplier();
     public MechModifier GetMechModifier();
 }
