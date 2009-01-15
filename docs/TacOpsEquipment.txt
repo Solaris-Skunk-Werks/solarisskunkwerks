@@ -45,7 +45,6 @@ Talons									Weapon  Talons
 - ER Flamer								Weapon
 - Heavy Flamer							Weapon  ISHeavyFlamer
 Fluid Gun								Weapon
-Magshot									Weapon  ISMagshotGR
 Silver Bullet Gauss						Weapon  ISSBGR
 Mech Mortar/1							Weapon  CLMekMortar1 ISMekMortar1
 Mech Mortar/2							Weapon  CLMekMortar2 ISMekMortar2

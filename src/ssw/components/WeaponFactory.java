@@ -1758,7 +1758,7 @@ public class WeaponFactory {
 
         // magshot gauss
         a = new AvailableCode( false, 'E', 'X', 'X', 'D', 3072, 0, 0, "FS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        addBW = new BallisticWeapon( "Magshot Gauss Rifle", "ISMagshotGaussRifle", "DB", false, a );
+        addBW = new BallisticWeapon( "Magshot Gauss Rifle", "ISMagshotGR", "DB", false, a );
         addBW.SetDamage( 2, 2, 2 );
         addBW.SetHeat( 1 );
         addBW.SetRange( 0, 3, 6, 9 );
