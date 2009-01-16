@@ -259,6 +259,9 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                     Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_LT );
                 } catch( Exception e ) {
                     javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                    result = false;
+                    setVisible( false );
+                    return;
                 }
                 break;
             case 1:
@@ -266,6 +269,9 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                     Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_RT );
                 } catch( Exception e ) {
                     javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                    result = false;
+                    setVisible( false );
+                    return;
                 }
                 break;
             }
@@ -277,6 +283,9 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                     Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_CT );
                 } catch( Exception e ) {
                     javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                    result = false;
+                    setVisible( false );
+                    return;
                 }
                 break;
             case 1:
@@ -284,6 +293,9 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                     Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_LL );
                 } catch( Exception e ) {
                     javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                    result = false;
+                    setVisible( false );
+                    return;
                 }
                 break;
             case 2:
@@ -291,6 +303,9 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                     Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_LA );
                 } catch( Exception e ) {
                     javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                    result = false;
+                    setVisible( false );
+                    return;
                 }
                 break;
             }
@@ -302,6 +317,9 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                     Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_CT );
                 } catch( Exception e ) {
                     javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                    result = false;
+                    setVisible( false );
+                    return;
                 }
                 break;
             case 1:
@@ -309,6 +327,9 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                     Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_RL );
                 } catch( Exception e ) {
                     javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                    result = false;
+                    setVisible( false );
+                    return;
                 }
                 break;
             case 2:
@@ -316,6 +337,9 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                     Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_RA );
                 } catch( Exception e ) {
                     javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                    result = false;
+                    setVisible( false );
+                    return;
                 }
                 break;
             }
@@ -326,6 +350,9 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_LT );
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                result = false;
+                setVisible( false );
+                return;
             }
             break;
         case Constants.LOC_RA:
@@ -334,6 +361,9 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_RT );
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                result = false;
+                setVisible( false );
+                return;
             }
             break;
         case Constants.LOC_LL:
@@ -342,6 +372,9 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_LT );
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                result = false;
+                setVisible( false );
+                return;
             }
             break;
         case Constants.LOC_RL:
@@ -350,6 +383,9 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_RT );
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                result = false;
+                setVisible( false );
+                return;
             }
             break;
         }

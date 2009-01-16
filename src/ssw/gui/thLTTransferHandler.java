@@ -146,6 +146,9 @@ public class thLTTransferHandler extends TransferHandler {
                         dlgSplit.dispose();
                         return true;
                     } else {
+                        CurMech.GetLoadout().AddToQueue( a );
+                        CurMech.ReCalcBaseCost();
+                        Parent.RefreshInfoPane();
                         dlgSplit.dispose();
                         return false;
                     }
