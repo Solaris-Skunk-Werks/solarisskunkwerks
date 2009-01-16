@@ -2054,27 +2054,28 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
     }
 
-    private void PrintMech( Mech m ) {
-        // Solidify the mech first.
-        SolidifyMech();
+    private void PrintMech( Mech m, boolean saved) {
+        if (!saved){
+            // Solidify the mech first.
+            SolidifyMech();
 
-        if( ! VerifyMech( new ActionEvent( this, 1234567890, null ) ) ) {
-            return;
+            if( ! VerifyMech( new ActionEvent( this, 1234567890, null ) ) ) {
+                return;
+            }
         }
-
         dlgPrintOptions POptions = new dlgPrintOptions( this, true, m );
         String Title = "";
-        if( CurMech.IsOmnimech() ) {
-            if( CurMech.GetModel().isEmpty() ) {
-                Title = CurMech.GetName() + " " + CurMech.GetLoadout().GetName();
+        if( m.IsOmnimech() ) {
+            if( m.GetModel().isEmpty() ) {
+                Title = m.GetName() + " " + m.GetLoadout().GetName();
             } else {
-                Title = CurMech.GetName() + " " + CurMech.GetModel() + " " + CurMech.GetLoadout().GetName();
+                Title = m.GetName() + " " + m.GetModel() + " " + m.GetLoadout().GetName();
             }
         } else {
-            if( CurMech.GetModel().isEmpty() ) {
-                Title = CurMech.GetName();
+            if( m.GetModel().isEmpty() ) {
+                Title = m.GetName();
             } else {
-                Title = CurMech.GetName() + " " + CurMech.GetModel();
+                Title = m.GetName() + " " + m.GetModel();
             }
         }
         Title = "Printing " + Title;
@@ -8013,7 +8014,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jMenu2.add(mnuPrintCurrentMech);
 
         mnuPrintSavedMech.setText("Saved Mech");
-        mnuPrintSavedMech.setEnabled(false);
         mnuPrintSavedMech.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuPrintSavedMechActionPerformed(evt);
@@ -10408,188 +10408,143 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 	}//GEN-LAST:event_mnuSaveActionPerformed
 
 private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLoadActionPerformed
-        // get the filename we're going to load from
-        File tempFile = new File(Prefs.get("LastOpenDirectory", ""));
-        JFileChooser fc = new JFileChooser( GlobalOptions.SaveLoadPath );
-        fc.addChoosableFileFilter( new javax.swing.filechooser.FileFilter() {
-            public boolean accept( File f ) {
-                if (f.isDirectory()) {
-                    return true;
-                }
-
-                String extension = Utils.getExtension( f );
-                if ( extension != null ) {
-                    if ( extension.equals( "ssw" ) ) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-
-                return false;
-            }
-
-            //The description of this filter
-            public String getDescription() {
-                return "*.ssw";
-            }
-        } );
-        fc.setAcceptAllFileFilterUsed( false );
-        fc.setCurrentDirectory(tempFile);
-        int returnVal = fc.showDialog( this, "Load Mech" );
-        if( returnVal != JFileChooser.APPROVE_OPTION ) { return; }
-        File loadmech = fc.getSelectedFile();
-        String filename = "";
-        try {
-            filename = loadmech.getCanonicalPath();
-            Prefs.put("LastOpenDirectory", loadmech.getCanonicalPath().replace(loadmech.getName(), ""));
-            Prefs.put("LastOpenFile", loadmech.getName());
-        } catch( Exception e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem opening the file:\n" + e.getMessage() );
+    // Get the mech we're loading
+    Mech m = LoadMech();
+    if (m == null){
             return;
+    }
+               
+    // Put it in the gui.
+    UnlockGUIFromOmni();
+    if( m.IsQuad() ) {
+        cmbMotiveType.setSelectedIndex( 1 );
+    } else {
+        cmbMotiveType.setSelectedIndex( 0 );
+    }
+    chkYearRestrict.setSelected( m.IsYearRestricted() );
+    txtProdYear.setText( "" + m.GetYear() );
+    cmbMechEra.setEnabled( true );
+    cmbTechBase.setEnabled( true );
+    txtProdYear.setEnabled( true );
+    switch( m.GetEra() ) {
+        case 0:
+            lblEraYears.setText( "2443 ~ 2800" );
+            cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere" }));
+            break;
+        case 1:
+            lblEraYears.setText( "2801 ~ 3050" );
+            cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
+            break;
+        case 2:
+            lblEraYears.setText( "3051 on" );
+            cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
+            break;
+    }
+
+    cmbRulesLevel.setSelectedIndex( m.GetRulesLevel() );
+    cmbMechEra.setSelectedIndex( m.GetEra() );
+    cmbTechBase.setSelectedIndex( m.GetTechBase() );
+
+    CurMech = m;
+
+    if( chkYearRestrict.isSelected() ) {
+        cmbMechEra.setEnabled( false );
+        cmbTechBase.setEnabled( false );
+        txtProdYear.setEnabled( false );
+    }
+    txtMechName.setText( CurMech.GetName() );
+    txtMechModel.setText( CurMech.GetModel() );
+
+    if( CurMech.IsOmnimech() ) {
+        LockGUIForOmni();
+        RefreshOmniVariants();
+        RefreshOmniChoices();
+    }
+
+    FixTransferHandlers();
+
+    ResetTonnageSelector();
+    BuildChassisSelector();
+    BuildEngineSelector();
+    BuildGyroSelector();
+    BuildCockpitSelector();
+    BuildEnhancementSelector();
+    BuildHeatsinkSelector();
+    BuildJumpJetSelector();
+    BuildArmorSelector();
+    cmbInternalType.setSelectedItem( CurMech.GetIntStruc().GetLookupName() );
+    cmbEngineType.setSelectedItem( CurMech.GetEngine().GetLookupName() );
+    cmbGyroType.setSelectedItem( CurMech.GetGyro().GetLookupName() );
+    cmbCockpitType.setSelectedItem( CurMech.GetCockpit().GetLookupName() );
+    cmbPhysEnhance.setSelectedItem( CurMech.GetPhysEnhance().GetLookupName() );
+    cmbHeatSinkType.setSelectedItem( CurMech.GetHeatSinks().GetLookupName() );
+    cmbJumpJetType.setSelectedItem( CurMech.GetJumpJets().GetLookupName() );
+    cmbArmorType.setSelectedItem( CurMech.GetArmor().GetLookupName() );
+    FixWalkMPSpinner();
+    FixHeatSinkSpinnerModel();
+    FixJJSpinnerModel();
+    RefreshInternalPoints();
+    FixArmorSpinners();
+    Weapons.RebuildPhysicals( CurMech );
+    RefreshEquipment();
+    chkCTCASE.setSelected( CurMech.HasCTCase() );
+    chkLTCASE.setSelected( CurMech.HasLTCase() );
+    chkRTCASE.setSelected( CurMech.HasRTCase() );
+    chkUseTC.setSelected( CurMech.UsingTC() );
+    chkNullSig.setSelected( CurMech.HasNullSig() );
+    chkVoidSig.setSelected( CurMech.HasVoidSig() );
+    chkBSPFD.setSelected( CurMech.HasBlueShield() );
+    chkCLPS.setSelected( CurMech.HasChameleon() );
+    SetLoadoutArrays();
+    RefreshSummary();
+    RefreshInfoPane();
+    SetWeaponChoosers();
+    ResetAmmo();
+
+    // load the fluff image.
+    ImageIcon FluffImage = new ImageIcon( CurMech.GetSSWImage() );
+    // See if we need to scale
+    int h = FluffImage.getIconHeight();
+    int w = FluffImage.getIconWidth();
+    if ( w > 290 || h > 350 ) {
+        if ( w > h ) { // resize based on width
+            FluffImage = new ImageIcon(FluffImage.getImage().
+                getScaledInstance(290, -1, Image.SCALE_DEFAULT));
+        } else { // resize based on height
+            FluffImage = new ImageIcon(FluffImage.getImage().
+                getScaledInstance(-1, 350, Image.SCALE_DEFAULT));
         }
+    }
 
-        XMLReader XMLr = new XMLReader();
-        Mech m = null;
-        try {
-            m = XMLr.ReadMech( this, filename );
-        } catch( Exception e ) {
-            // had a problem loading the mech.  let the user know.
-            javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
-            return;
-        }
+    edtOverview.setText( CurMech.GetOverview() );
+    edtCapabilities.setText( CurMech.GetCapabilities() );
+    edtHistory.setText( CurMech.GetHistory() );
+    edtDeployment.setText( CurMech.GetDeployment() );
+    edtVariants.setText( CurMech.GetVariants() );
+    edtNotables.setText( CurMech.GetNotables() );
+    edtAdditionalFluff.setText( CurMech.GetAdditional() );
+    txtManufacturer.setText( CurMech.GetCompany() );
+    txtManufacturerLocation.setText( CurMech.GetLocation() );
+    txtEngineManufacturer.setText( CurMech.GetEngineManufacturer() );
+    txtArmorModel.setText( CurMech.GetArmorModel() );
+    txtChassisModel.setText( CurMech.GetChassisModel() );
+    if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
+        txtJJModel.setEnabled( true );
+        txtJJModel.setText( CurMech.GetJJModel() );
+    }
+    txtCommSystem.setText( CurMech.GetCommSystem() );
+    txtTNTSystem.setText( CurMech.GetTandTSystem() );
 
-        UnlockGUIFromOmni();
-        if( m.IsQuad() ) {
-            cmbMotiveType.setSelectedIndex( 1 );
-        } else {
-            cmbMotiveType.setSelectedIndex( 0 );
-        }
-        chkYearRestrict.setSelected( m.IsYearRestricted() );
-        txtProdYear.setText( "" + m.GetYear() );
-        cmbMechEra.setEnabled( true );
-        cmbTechBase.setEnabled( true );
-        txtProdYear.setEnabled( true );
-        switch( m.GetEra() ) {
-            case 0:
-                lblEraYears.setText( "2443 ~ 2800" );
-                cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere" }));
-                break;
-            case 1:
-                lblEraYears.setText( "2801 ~ 3050" );
-                cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
-                break;
-            case 2:
-                lblEraYears.setText( "3051 on" );
-                cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
-                break;
-        }
-
-        cmbRulesLevel.setSelectedIndex( m.GetRulesLevel() );
-        cmbMechEra.setSelectedIndex( m.GetEra() );
-        cmbTechBase.setSelectedIndex( m.GetTechBase() );
-
-        CurMech = m;
-
-        if( chkYearRestrict.isSelected() ) {
-            cmbMechEra.setEnabled( false );
-            cmbTechBase.setEnabled( false );
-            txtProdYear.setEnabled( false );
-        }
-        txtMechName.setText( CurMech.GetName() );
-        txtMechModel.setText( CurMech.GetModel() );
-
-        if( CurMech.IsOmnimech() ) {
-            LockGUIForOmni();
-            RefreshOmniVariants();
-            RefreshOmniChoices();
-        }
-
-        FixTransferHandlers();
-
-        ResetTonnageSelector();
-        BuildChassisSelector();
-        BuildEngineSelector();
-        BuildGyroSelector();
-        BuildCockpitSelector();
-        BuildEnhancementSelector();
-        BuildHeatsinkSelector();
-        BuildJumpJetSelector();
-        BuildArmorSelector();
-        cmbInternalType.setSelectedItem( CurMech.GetIntStruc().GetLookupName() );
-        cmbEngineType.setSelectedItem( CurMech.GetEngine().GetLookupName() );
-        cmbGyroType.setSelectedItem( CurMech.GetGyro().GetLookupName() );
-        cmbCockpitType.setSelectedItem( CurMech.GetCockpit().GetLookupName() );
-        cmbPhysEnhance.setSelectedItem( CurMech.GetPhysEnhance().GetLookupName() );
-        cmbHeatSinkType.setSelectedItem( CurMech.GetHeatSinks().GetLookupName() );
-        cmbJumpJetType.setSelectedItem( CurMech.GetJumpJets().GetLookupName() );
-        cmbArmorType.setSelectedItem( CurMech.GetArmor().GetLookupName() );
-        FixWalkMPSpinner();
-        FixHeatSinkSpinnerModel();
-        FixJJSpinnerModel();
-        RefreshInternalPoints();
-        FixArmorSpinners();
-        Weapons.RebuildPhysicals( CurMech );
-        RefreshEquipment();
-        chkCTCASE.setSelected( CurMech.HasCTCase() );
-        chkLTCASE.setSelected( CurMech.HasLTCase() );
-        chkRTCASE.setSelected( CurMech.HasRTCase() );
-        chkUseTC.setSelected( CurMech.UsingTC() );
-        chkNullSig.setSelected( CurMech.HasNullSig() );
-        chkVoidSig.setSelected( CurMech.HasVoidSig() );
-        chkBSPFD.setSelected( CurMech.HasBlueShield() );
-        chkCLPS.setSelected( CurMech.HasChameleon() );
-        CurMech.ReCalcBaseCost();
-        SetLoadoutArrays();
-        RefreshSummary();
-        RefreshInfoPane();
-        SetWeaponChoosers();
-        ResetAmmo();
-
-        // load the fluff image.
-        ImageIcon FluffImage = new ImageIcon( CurMech.GetSSWImage() );
-        // See if we need to scale
-        int h = FluffImage.getIconHeight();
-        int w = FluffImage.getIconWidth();
-        if ( w > 290 || h > 350 ) {
-            if ( w > h ) { // resize based on width
-                FluffImage = new ImageIcon(FluffImage.getImage().
-                    getScaledInstance(290, -1, Image.SCALE_DEFAULT));
-            } else { // resize based on height
-                FluffImage = new ImageIcon(FluffImage.getImage().
-                    getScaledInstance(-1, 350, Image.SCALE_DEFAULT));
-            }
-        }
-
-        edtOverview.setText( CurMech.GetOverview() );
-        edtCapabilities.setText( CurMech.GetCapabilities() );
-        edtHistory.setText( CurMech.GetHistory() );
-        edtDeployment.setText( CurMech.GetDeployment() );
-        edtVariants.setText( CurMech.GetVariants() );
-        edtNotables.setText( CurMech.GetNotables() );
-        edtAdditionalFluff.setText( CurMech.GetAdditional() );
-        txtManufacturer.setText( CurMech.GetCompany() );
-        txtManufacturerLocation.setText( CurMech.GetLocation() );
-        txtEngineManufacturer.setText( CurMech.GetEngineManufacturer() );
-        txtArmorModel.setText( CurMech.GetArmorModel() );
-        txtChassisModel.setText( CurMech.GetChassisModel() );
-        if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
-            txtJJModel.setEnabled( true );
-            txtJJModel.setText( CurMech.GetJJModel() );
-        }
-        txtCommSystem.setText( CurMech.GetCommSystem() );
-        txtTNTSystem.setText( CurMech.GetTandTSystem() );
-
-        // see if we should enable the Power Amplifier display
-        if( CurMech.GetEngine().IsNuclear() ) {
-            lblSumPAmps.setVisible( false );
-            txtSumPAmpsTon.setVisible( false );
-            txtSumPAmpsACode.setVisible( false );
-        } else {
-            lblSumPAmps.setVisible( true );
-            txtSumPAmpsTon.setVisible( true );
-            txtSumPAmpsACode.setVisible( true );
-        }
+    // see if we should enable the Power Amplifier display
+    if( CurMech.GetEngine().IsNuclear() ) {
+        lblSumPAmps.setVisible( false );
+        txtSumPAmpsTon.setVisible( false );
+        txtSumPAmpsACode.setVisible( false );
+    } else {
+        lblSumPAmps.setVisible( true );
+        txtSumPAmpsTon.setVisible( true );
+        txtSumPAmpsACode.setVisible( true );
+    }
 }//GEN-LAST:event_mnuLoadActionPerformed
 
 private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSaveAsActionPerformed
@@ -10720,11 +10675,13 @@ private void lstChooseArtilleryValueChanged(javax.swing.event.ListSelectionEvent
 }//GEN-LAST:event_lstChooseArtilleryValueChanged
 
 private void mnuPrintCurrentMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintCurrentMechActionPerformed
-    PrintMech( CurMech );
+    PrintMech( CurMech, false );
 }//GEN-LAST:event_mnuPrintCurrentMechActionPerformed
 
 private void mnuPrintSavedMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintSavedMechActionPerformed
-// TODO add your handling code here:
+    Mech m = LoadMech();
+    if (!(m==null))
+        PrintMech(m, true);
 }//GEN-LAST:event_mnuPrintSavedMechActionPerformed
 
 private void btnEfficientArmorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfficientArmorActionPerformed
@@ -10924,6 +10881,61 @@ private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//G
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_chkSuperchargerActionPerformed
+
+private Mech LoadMech (){
+    Mech m = null;
+    
+    File tempFile = new File(Prefs.get("LastOpenDirectory", ""));
+    JFileChooser fc = new JFileChooser( GlobalOptions.SaveLoadPath );
+    fc.addChoosableFileFilter( new javax.swing.filechooser.FileFilter() {
+        public boolean accept( File f ) {
+            if (f.isDirectory()) {
+                return true;
+            }
+
+            String extension = Utils.getExtension( f );
+            if ( extension != null ) {
+                if ( extension.equals( "ssw" ) ) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        //The description of this filter
+        public String getDescription() {
+            return "*.ssw";
+        }
+    } );
+    fc.setAcceptAllFileFilterUsed( false );
+    fc.setCurrentDirectory(tempFile);
+    int returnVal = fc.showDialog( this, "Load Mech" );
+    if( returnVal != JFileChooser.APPROVE_OPTION ) { return m; }
+    File loadmech = fc.getSelectedFile();
+    String filename = "";
+    try {
+        filename = loadmech.getCanonicalPath();
+        Prefs.put("LastOpenDirectory", loadmech.getCanonicalPath().replace(loadmech.getName(), ""));
+        Prefs.put("LastOpenFile", loadmech.getName());
+    } catch( Exception e ) {
+        javax.swing.JOptionPane.showMessageDialog( this, "There was a problem opening the file:\n" + e.getMessage() );
+        return m;
+    }
+
+    XMLReader XMLr = new XMLReader();
+    try {
+        m = XMLr.ReadMech( this, filename );
+        m.ReCalcBaseCost();
+    } catch( Exception e ) {
+        // had a problem loading the mech.  let the user know.
+        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        return m;
+    }
+    
+    return m;
+}
 
 private void mnuExportClipboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportClipboardActionPerformed
     // takes the text export and copies it to thesystem clipboard.
