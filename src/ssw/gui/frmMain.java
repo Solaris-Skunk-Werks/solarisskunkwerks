@@ -77,7 +77,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     JMenuItem mnuArmorComponent = new JMenuItem( "Armor Component" );
     MechLoadoutRenderer Mechrender = new MechLoadoutRenderer( this, GlobalOptions );
     Hashtable Lookup = new Hashtable();
-    private Preferences Prefs;
+    Preferences Prefs;
 
     final int BALLISTIC = 0,
               ENERGY = 1,
@@ -10267,6 +10267,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     	// must do all the normal actions for HTML export, then attempt to post
 	    // right now we'll just show the screen so we can see it
         // exports the mech to HTML format
+
+        //Save any changes to the Mech before posting...
+        mnuSaveActionPerformed(evt);
+
 	    String CurLoadout = "";
 	    if( CurMech.IsOmnimech() ) {
 	        CurLoadout = CurMech.GetLoadout().GetName();
@@ -10282,7 +10286,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 	    dlgPostToSolaris7 PostS7 = new dlgPostToSolaris7( this, true );
             PostS7.setLocationRelativeTo( this );
 	    PostS7.setVisible( true );
-    
+
+        // Save the mech after the post is completed
+        mnuSaveActionPerformed(evt);
+
 	    // lastly, if this is an omnimech, reset the display to the last loadout
 	    cmbOmniVariant.setSelectedItem( CurLoadout );
 	    cmbOmniVariantActionPerformed( evt );
@@ -10315,6 +10322,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         File savemech;
         String test = GlobalOptions.SaveLoadPath + File.separator + filename;
+        if (filename.equals(Prefs.get("LastOpenFile", ""))) {
+            test = Prefs.get("LastOpenDirectory", "") + File.separator + Prefs.get("LastOpenFile", "");
+        }
         File testfile = new File( test );
         if( testfile.exists() ) {
             // this is just a quick save on an existing mech.
@@ -10352,6 +10362,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             int returnVal = fc.showDialog( this, "Save Mech" );
             if( returnVal != JFileChooser.APPROVE_OPTION ) { return; }
             savemech = fc.getSelectedFile();
+            
+            //Since we are saving to a new file update the stored prefs
+            try {
+                Prefs.put("LastOpenDirectory", savemech.getCanonicalPath().replace(savemech.getName(), ""));
+                Prefs.put("LastOpenFile", savemech.getName());
+            } catch (IOException e) {
+                javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the file:\n" + e.getMessage() );
+                return;
+            }
         }
 
         // exports the mech to XML format
@@ -10373,9 +10392,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 }
             }
             XMLw.WriteXML( file );
-            Prefs.put("LastOpenFile", file);
+
             // if there were no problems, let the user know how it went
-            javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully:\n" + file );
+            if (evt.getActionCommand().equals("Save Mech")) {
+                javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully:\n" + file );
+            }
         } catch( IOException e ) {
             javax.swing.JOptionPane.showMessageDialog( this, "There was a problem writing the file:\n" + e.getMessage() );
             return;
