@@ -59,6 +59,9 @@ public class dlgPostToSolaris7 extends javax.swing.JDialog {
         CurMech = Parent.CurMech;
         setTitle( "Post to Solaris7.com" );
         initComponents();
+        txtCallsign.setText(Parent.Prefs.get("S7Callsign", ""));
+        txtPassword.setText(Parent.Prefs.get("S7Password", ""));
+        
         if( ! CurMech.GetOptions().S7Callsign.equals( "null" ) ) {
             txtCallsign.setText( CurMech.GetOptions().S7Callsign );
             if( ! CurMech.GetOptions().S7Password.equals( "null" ) ) {
@@ -70,6 +73,7 @@ public class dlgPostToSolaris7 extends javax.swing.JDialog {
             }
             chkSaveInfo.setSelected( true );
         }
+
         // load the image ID, if any
         if( ! CurMech.GetSolaris7ImageID().equals( "0" ) |! CurMech.GetSolaris7ImageID().equals( "-1" ) ) {
             UserImage = CurMech.GetSolaris7ImageID();
@@ -351,6 +355,8 @@ private void btnGetArmoriesActionPerformed(java.awt.event.ActionEvent evt) {//GE
     try {
         if( CurMech.GetOptions().S7UserID == -1 ) {
             UserID = serve.GetMemberID( Callsign, Password );
+            Parent.Prefs.put("S7Callsign", Callsign);
+            Parent.Prefs.put("S7Password", Password);
         }
         if( UserID != -1 ) {
             Armories = serve.GetArmoryList( UserID );
