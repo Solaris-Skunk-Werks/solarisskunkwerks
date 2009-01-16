@@ -10,7 +10,7 @@ To-Do List, in order by what needs to be done
 (2) Save 'Mech and variants in one file
 (2) Force save before Post to Solaris7.com
 (2) Auto-save after Post to Solaris7.com
-(2) Print Saved 'Mech (without loading a new one)
+(2) Print Saved 'Mech (without loading a new one); Half way done (arcangel)
 (2) Auto-allocate heat sinks and jump jets
 (3) Should remember the load path for an individual file instead of pulling from options.
 (3) Adjust font size for long Strings
