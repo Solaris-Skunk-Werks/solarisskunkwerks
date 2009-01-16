@@ -23,6 +23,7 @@ Version 0.6.0
 - Added in the Supercharger.
 - Added in a bunch of TacOps Physical Weapons (Specter83)
 - You can now export text directly to the system clipboard (File -> Export).
+- Added Print Saved Mech Command to Menu. Does not work with Omnimechs as is. (Arcangel)
 
 + Changed
 - Fixed a load bug with heatsinks.
