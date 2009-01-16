@@ -907,24 +907,30 @@ public class Mech {
     public int GetMovementHeat() {
         int walk = CurEngine.MaxMovementHeat();
         int jump = 0;
+        int minjumpheat = 3 * CurEngine.JumpingHeatMultiplier();
+        float heatperjj = 0.0f;
+
+        if( GetJumpJets().IsImproved() ) {
+            heatperjj = 0.5f * CurEngine.JumpingHeatMultiplier();
+        } else {
+            heatperjj = 1.0f * CurEngine.JumpingHeatMultiplier();
+        }
+
+        if( GetJumpJets().GetNumJJ() > 0 ) {
+            jump = (int) ( GetJumpJets().GetNumJJ() * heatperjj + 0.51f );
+        }
+
+        if( jump < minjumpheat ) { jump = minjumpheat; }
+
         if( Parent.GetOptions().Heat_RemoveJumps ) {
             if( Parent.GetOptions().Heat_RemoveMovement ) {
-                walk = 0;
-            }
-        } else {
-            if( GetJumpJets().GetNumJJ() > 0 ) {
-                if( GetJumpJets().GetNumJJ() > 3 ) {
-                    if( GetJumpJets().IsImproved() ) {
-                        jump = (int) ( GetJumpJets().GetNumJJ() * 0.5f + 0.51f );
-                        if( jump < 3 ) { jump = 3; }
-                    } else {
-                        jump = GetJumpJets().GetNumJJ();
-                    }
-                } else {
-                    jump = 3;
-                }
+                walk = CurEngine.MinimumHeat();
+                jump = 0;
+            } else {
+                jump = 0;
             }
         }
+
         if( jump > walk ) {
             return jump;
         } else {
@@ -936,18 +942,21 @@ public class Mech {
         // provided for BV calculations
         int walk = CurEngine.MaxMovementHeat();
         int jump = 0;
-        if( GetJumpJets().GetNumJJ() > 0 ) {
-            if( GetJumpJets().GetNumJJ() > 3 ) {
-                if( GetJumpJets().IsImproved() ) {
-                    jump = (int) ( GetJumpJets().GetNumJJ() * 0.5f + 0.51f );
-                    if( jump < 3 ) { jump = 3; }
-                } else {
-                    jump = GetJumpJets().GetNumJJ();
-                }
-            } else {
-                jump = 3;
-            }
+        int minjumpheat = 3 * CurEngine.JumpingHeatMultiplier();
+        float heatperjj = 0.0f;
+
+        if( GetJumpJets().IsImproved() ) {
+            heatperjj = 0.5f * CurEngine.JumpingHeatMultiplier();
+        } else {
+            heatperjj = 1.0f * CurEngine.JumpingHeatMultiplier();
         }
+
+        if( GetJumpJets().GetNumJJ() > 0 ) {
+            jump = (int) ( GetJumpJets().GetNumJJ() * heatperjj + 0.51f );
+        }
+
+        if( jump < minjumpheat ) { jump = minjumpheat; }
+
         if( jump > walk ) {
             return jump;
         } else {
@@ -1105,10 +1114,14 @@ public class Mech {
                 p = (abPlaceable) v.get( i );
                 if( p instanceof Ammunition ) {
                     if( ((Ammunition) p).IsExplosive() ) {
-                        switch( CurLoadout.Find( p ) ) {
-                        case 0: case 1: case 6: case 7:
+                        if( CurEngine.IsISXL() ) {
                             result -= 15.0f;
-                            break;
+                        } else {
+                            switch( CurLoadout.Find( p ) ) {
+                            case 0: case 1: case 6: case 7:
+                                result -= 15.0f;
+                                break;
+                            }
                         }
                     }
                 }
@@ -1155,10 +1168,14 @@ public class Mech {
                 p = (abPlaceable) v.get( i );
                 if( p instanceof ifWeapon ) {
                     if( ((ifWeapon) p).IsExplosive() ) {
-                        switch( CurLoadout.Find( p ) ) {
-                        case 0: case 1: case 6: case 7:
+                        if( CurEngine.IsISXL() ) {
                             result -= p.NumCrits();
-                            break;
+                        } else {
+                            switch( CurLoadout.Find( p ) ) {
+                            case 0: case 1: case 6: case 7:
+                                result -= p.NumCrits();
+                                break;
+                            }
                         }
                     }
                 }
