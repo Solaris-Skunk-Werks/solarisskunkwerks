@@ -287,7 +287,8 @@ public class TWQuadPoints implements ifPrintPoints {
         new Point( 30, 104 ), new Point( 55, 130 ), new Point( 55, 140 ), new Point( 55, 150 ),
         new Point( 160, 118 ), new Point( 197, 131 ), new Point( 197, 142 ), new Point( 262, 104 ),
         new Point( 286, 116 ), new Point( 359, 116 ), new Point( 35, 339 ), new Point( 140, 339 ),
-        new Point( 508, 594 ), new Point( 526, 594 ), new Point( 532, 699 ), new Point( 532, 714 ) };
+        new Point( 508, 594 ), new Point( 526, 594 ), new Point( 532, 699 ), new Point( 532, 714 ),
+        new Point(140, 354) };
     private final static Point[] InternalInfo = { 
         new Point( 0, 0 ), new Point( 462, 504 ), new Point( 401, 408 ), new Point( 526, 408 ),
         new Point( 398, 476 ), new Point( 527, 476 ), new Point( 395, 525 ), new Point( 532, 525 ) };
