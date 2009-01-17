@@ -444,22 +444,19 @@ public class FileCommon {
         // for each vector that has items, add them to the return vector in
         // the correct order, based on options.
         if( o.Export_Sort == o.EXPORT_SORT_OUT ) {
-            for( int i = 0; i < 8; i++ ) {
-                if( sort[i].size() > 0 ) {
-                    for( int j = 0; j < sort[i].size(); j++ ) {
-                        retval.add( sort[i].get( j ) );
-                    }
+            if( sort[0].size() > 0 ) {
+                for( int j = 0; j < sort[0].size(); j++ ) {
+                    retval.add( sort[0].get( j ) );
                 }
             }
-        } else {
-            if( sort[4].size() > 0 ) {
-                for( int j = 0; j < sort[4].size(); j++ ) {
-                    retval.add( sort[4].get( j ) );
+            if( sort[1].size() > 0 ) {
+                for( int j = 0; j < sort[1].size(); j++ ) {
+                    retval.add( sort[1].get( j ) );
                 }
             }
-            if( sort[5].size() > 0 ) {
-                for( int j = 0; j < sort[5].size(); j++ ) {
-                    retval.add( sort[5].get( j ) );
+            if( sort[3].size() > 0 ) {
+                for( int j = 0; j < sort[3].size(); j++ ) {
+                    retval.add( sort[3].get( j ) );
                 }
             }
             if( sort[2].size() > 0 ) {
@@ -467,9 +464,45 @@ public class FileCommon {
                     retval.add( sort[2].get( j ) );
                 }
             }
+            if( sort[5].size() > 0 ) {
+                for( int j = 0; j < sort[5].size(); j++ ) {
+                    retval.add( sort[5].get( j ) );
+                }
+            }
+            if( sort[4].size() > 0 ) {
+                for( int j = 0; j < sort[4].size(); j++ ) {
+                    retval.add( sort[4].get( j ) );
+                }
+            }
+            if( sort[7].size() > 0 ) {
+                for( int j = 0; j < sort[7].size(); j++ ) {
+                    retval.add( sort[7].get( j ) );
+                }
+            }
+            if( sort[6].size() > 0 ) {
+                for( int j = 0; j < sort[6].size(); j++ ) {
+                    retval.add( sort[6].get( j ) );
+                }
+            }
+        } else {
+            if( sort[5].size() > 0 ) {
+                for( int j = 0; j < sort[5].size(); j++ ) {
+                    retval.add( sort[5].get( j ) );
+                }
+            }
+            if( sort[4].size() > 0 ) {
+                for( int j = 0; j < sort[4].size(); j++ ) {
+                    retval.add( sort[4].get( j ) );
+                }
+            }
             if( sort[3].size() > 0 ) {
                 for( int j = 0; j < sort[3].size(); j++ ) {
                     retval.add( sort[3].get( j ) );
+                }
+            }
+            if( sort[2].size() > 0 ) {
+                for( int j = 0; j < sort[2].size(); j++ ) {
+                    retval.add( sort[2].get( j ) );
                 }
             }
             if( sort[1].size() > 0 ) {
@@ -482,14 +515,14 @@ public class FileCommon {
                     retval.add( sort[0].get( j ) );
                 }
             }
-            if( sort[6].size() > 0 ) {
-                for( int j = 0; j < sort[6].size(); j++ ) {
-                    retval.add( sort[6].get( j ) );
-                }
-            }
             if( sort[7].size() > 0 ) {
                 for( int j = 0; j < sort[7].size(); j++ ) {
                     retval.add( sort[7].get( j ) );
+                }
+            }
+            if( sort[6].size() > 0 ) {
+                for( int j = 0; j < sort[6].size(); j++ ) {
+                    retval.add( sort[6].get( j ) );
                 }
             }
         }

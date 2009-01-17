@@ -38,7 +38,7 @@ BG_ARMORED=153,153,153
 FG_ARMORED=255,255,255
 
 ########## Export Options ##########
-EXPORT_SORT=0
+EXPORT_SORT=1
 EXPORT_AMMOATEND=TRUE
 
 ########## Solaris 7 Options ##########

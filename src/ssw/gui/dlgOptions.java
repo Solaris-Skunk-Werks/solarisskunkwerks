@@ -815,14 +815,14 @@ public class dlgOptions extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel2.add(jLabel3, gridBagConstraints);
 
-        jLabel6.setText("     (HD, CT, LT, RT, LA, RA, LL, RL)");
+        jLabel6.setText("     (HD, CT, RT, LT, RA, LA, RL, LL)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel2.add(jLabel6, gridBagConstraints);
 
-        jLabel7.setText("     (LA, RA, LT, RT, CT, HD, LL, RL)");
+        jLabel7.setText("     (RA, LA, RT, LT, CT, HD, RL, LL)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;

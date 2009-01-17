@@ -98,6 +98,7 @@ Version 0.6.0
 - Fixed the Physical Weapons filter, allowing for the Hatchet and R-Blade.
 - Added a Rules Level display when choosing weapons.
 - Fixed another Split Allocation bug (item not returning to queue).
+- Equipment sort order for export changed to right dominant instead of left.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

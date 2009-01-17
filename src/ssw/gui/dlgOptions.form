@@ -796,7 +796,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
-                <Property name="text" type="java.lang.String" value="     (HD, CT, LT, RT, LA, RA, LL, RL)"/>
+                <Property name="text" type="java.lang.String" value="     (HD, CT, RT, LT, RA, LA, RL, LL)"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -806,7 +806,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
-                <Property name="text" type="java.lang.String" value="     (LA, RA, LT, RT, CT, HD, LL, RL)"/>
+                <Property name="text" type="java.lang.String" value="     (RA, LA, RT, LT, CT, HD, RL, LL)"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
