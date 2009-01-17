@@ -353,13 +353,13 @@ public class XMLReader {
                         ltc = l;
                     } else if( eType.equals( "CASE" ) ) {
                         if( l.Location == Constants.LOC_CT ) {
-                            m.GetLoadout().AddCTCASE( l.Index );
+                            m.GetLoadout().SetCTCASE( true, l.Index );
                         }
                         if( l.Location == Constants.LOC_LT ) {
-                            m.GetLoadout().AddLTCASE( l.Index );
+                            m.GetLoadout().SetLTCASE( true, l.Index );
                         }
                         if( l.Location == Constants.LOC_RT ) {
-                            m.GetLoadout().AddRTCASE( l.Index );
+                            m.GetLoadout().SetRTCASE( true, l.Index );
                         }
                     } else if( eType.equals( "Supercharger" ) ) {
                         m.GetLoadout().SetSupercharger( true, l.Location, l.Index );
@@ -671,13 +671,13 @@ public class XMLReader {
                                 ltc = l;
                             } else if( eType.equals( "CASE" ) ) {
                                 if( l.Location == Constants.LOC_CT ) {
-                                    m.GetLoadout().AddCTCASE( l.Index );
+                                    m.GetLoadout().SetCTCASE( true, l.Index );
                                 }
                                 if( l.Location == Constants.LOC_LT ) {
-                                    m.GetLoadout().AddLTCASE( l.Index );
+                                    m.GetLoadout().SetLTCASE( true, l.Index );
                                 }
                                 if( l.Location == Constants.LOC_RT ) {
-                                    m.GetLoadout().AddRTCASE( l.Index );
+                                    m.GetLoadout().SetRTCASE( true, l.Index );
                                 }
                             } else if( eType.equals( "Supercharger" ) ) {
                                 m.GetLoadout().SetSupercharger( true, l.Location, l.Index );

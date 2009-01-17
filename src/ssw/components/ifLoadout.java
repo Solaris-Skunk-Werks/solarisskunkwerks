@@ -118,15 +118,12 @@ public interface ifLoadout {
     public void SetNonCore( Vector v );
     public void SetTCList( Vector v );
     public void SetEquipment( Vector v );
-    public void AddCTCASE( int index ) throws Exception;
-    public void AddLTCASE( int index ) throws Exception;
-    public void AddRTCASE( int index ) throws Exception;
+    public void SetCTCASE( boolean Add, int index ) throws Exception;
+    public void SetLTCASE( boolean Add, int index ) throws Exception;
+    public void SetRTCASE( boolean Add, int index ) throws Exception;
     public void SetCTCASE( ISCASE c );
     public void SetLTCASE( ISCASE c );
     public void SetRTCASE( ISCASE c );
-    public void RemoveCTCASE();
-    public void RemoveLTCASE();
-    public void RemoveRTCASE();
     public boolean HasCTCASE();
     public boolean HasLTCASE();
     public boolean HasRTCASE();

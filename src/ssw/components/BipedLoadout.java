@@ -2927,15 +2927,15 @@ public class BipedLoadout implements ifLoadout {
         try {
             if( IsAllocated( CTCase ) ) {
                 clone.SetCTCASE( CTCase );
-                clone.AddCTCASE( -1 );
+                clone.SetCTCASE( true, -1 );
             }
             if( IsAllocated( LTCase ) ) {
                 clone.SetLTCASE( LTCase );
-                clone.AddLTCASE( -1 );
+                clone.SetLTCASE( true, -1 );
             }
             if( IsAllocated( RTCase ) ) {
                 clone.SetRTCASE( RTCase );
-                clone.AddRTCASE( -1 );
+                clone.SetRTCASE( true, -1 );
             }
         } catch( Exception e ) {
             // unhandled, print a message to the error log
@@ -3042,14 +3042,18 @@ public class BipedLoadout implements ifLoadout {
         Equipment = v;
     }
 
-    public void AddCTCASE( int index ) throws Exception {
+    public void SetCTCASE( boolean Add, int index ) throws Exception {
         // adds CASE equipment to the CT
         if( Owner.IsClan() ) {
             throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
         }
-        if( HasCTCASE() ) {
+        if( ! Add ) {
+            Remove( CTCase );
+        }
+        if( Add && HasCTCASE() ) {
             return;
         }
+
         boolean placed = false;
         int increment = 11;
         if( index < 0 ) {
@@ -3076,14 +3080,18 @@ public class BipedLoadout implements ifLoadout {
         }
     }
 
-    public void AddLTCASE( int index ) throws Exception {
+    public void SetLTCASE( boolean Add, int index ) throws Exception {
         // adds CASE equipment to the LT
         if( Owner.IsClan() ) {
             throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
         }
-        if( HasLTCASE() ) {
+        if( ! Add ) {
+            Remove( LTCase );
+        }
+        if( Add && HasLTCASE() ) {
             return;
         }
+
         boolean placed = false;
         int increment = 11;
         if( index < 0 ) {
@@ -3110,14 +3118,18 @@ public class BipedLoadout implements ifLoadout {
         }
     }
 
-    public void AddRTCASE( int index ) throws Exception {
+    public void SetRTCASE( boolean Add, int index ) throws Exception {
         // adds CASE equipment to the RT
         if( Owner.IsClan() ) {
             throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
         }
-        if( HasRTCASE() ) {
+        if( ! Add ) {
+            Remove( RTCase );
+        }
+        if( Add && HasRTCASE() ) {
             return;
         }
+
         boolean placed = false;
         int increment = 11;
         if( index < 0 ) {
@@ -3154,18 +3166,6 @@ public class BipedLoadout implements ifLoadout {
 
     public void SetRTCASE( ISCASE c ) {
         RTCase = c;
-    }
-
-    public void RemoveCTCASE() {
-        Remove( CTCase );
-    }
-
-    public void RemoveLTCASE() {
-        Remove( LTCase );
-    }
-
-    public void RemoveRTCASE() {
-        Remove( RTCase );
     }
 
     public boolean HasCTCASE() {

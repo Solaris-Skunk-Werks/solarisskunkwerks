@@ -1648,17 +1648,17 @@ public class Mech {
 
     public void AddCTCase() throws Exception {
         // adds CASE equipment to the CT
-        CurLoadout.AddCTCASE( -1 );
+        CurLoadout.SetCTCASE( true, -1 );
     }
 
     public void AddLTCase() throws Exception {
         // adds CASE equipment to the LT
-        CurLoadout.AddLTCASE( -1 );
+        CurLoadout.SetLTCASE( true, -1 );
     }
 
     public void AddRTCase() throws Exception {
         // adds CASE equipment to the RT
-        CurLoadout.AddRTCASE( -1 );
+        CurLoadout.SetRTCASE( true, -1 );
     }
 
     public boolean HasCTCase() {
@@ -1678,17 +1678,32 @@ public class Mech {
 
     public void RemoveCTCase() {
         // remove the CT CASE equipment
-        CurLoadout.RemoveCTCASE();
+        try {
+            CurLoadout.SetCTCASE( false, -1 );
+        } catch( Exception e ) {
+            // why we have an error while removing CASE is beyond me.  Log it.
+            System.err.println( "Exception while removing CT CASE:\n" + e.getMessage() );
+        }
     }
 
     public void RemoveLTCase() {
         // remove the LT CASE equipment
-        CurLoadout.RemoveLTCASE();
+        try {
+            CurLoadout.SetLTCASE( false, -1 );
+        } catch( Exception e ) {
+            // why we have an error while removing CASE is beyond me.  Log it.
+            System.err.println( "Exception while removing LT CASE:\n" + e.getMessage() );
+        }
     }
 
     public void RemoveRTCase() {
         // remove the RT CASE equipment
-        CurLoadout.RemoveRTCASE();
+        try {
+            CurLoadout.SetRTCASE( false, -1 );
+        } catch( Exception e ) {
+            // why we have an error while removing CASE is beyond me.  Log it.
+            System.err.println( "Exception while removing RT CASE:\n" + e.getMessage() );
+        }
     }
 
     public float GetCaseTonnage() {
