@@ -857,14 +857,31 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( ! chkCTCASE.isEnabled() ) { CurMech.RemoveCTCase(); }
         if( ! chkLTCASE.isEnabled() ) { CurMech.RemoveLTCase(); }
         if( ! chkRTCASE.isEnabled() ) { CurMech.RemoveRTCase(); }
-        try {
-            if( ! chkNullSig.isEnabled() ) { CurMech.SetNullSig( false ); }
-            if( ! chkVoidSig.isEnabled() ) { CurMech.SetVoidSig( false ); }
-            if( ! chkBSPFD.isEnabled() ) { CurMech.SetBlueShield( false ); }
-            if( ! chkCLPS.isEnabled() ) { CurMech.SetChameleon( false ); }
-        } catch( Exception e ) {
-            // we should never get this, but report it if we do
-            javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+
+        if( CurMech.IsOmnimech() ) {
+            // these items can only be loaded into the base chassis, so they
+            // are always locked for an omnimech (although they may be checked).
+            chkNullSig.setEnabled( false );
+            chkVoidSig.setEnabled( false );
+            chkBSPFD.setEnabled( false );
+            chkCLPS.setEnabled( false );
+
+            // now see if we have a supercharger on the base chassis
+            if( CurMech.GetBaseLoadout().HasSupercharger() ) {
+                chkSupercharger.setEnabled( false );
+                cmbSCLoc.setEnabled( false );
+                lblSupercharger.setEnabled( false );
+            }
+        } else {
+            try {
+                if( ! chkNullSig.isEnabled() ) { CurMech.SetNullSig( false ); }
+                if( ! chkVoidSig.isEnabled() ) { CurMech.SetVoidSig( false ); }
+                if( ! chkBSPFD.isEnabled() ) { CurMech.SetBlueShield( false ); }
+                if( ! chkCLPS.isEnabled() ) { CurMech.SetChameleon( false ); }
+            } catch( Exception e ) {
+                // we should never get this, but report it if we do
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+            }
         }
     }
 
@@ -1821,6 +1838,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkVoidSig.setEnabled( false );
         chkCLPS.setEnabled( false );
         chkBSPFD.setEnabled( false );
+        if( CurMech.GetBaseLoadout().HasSupercharger() ) {
+            chkSupercharger.setEnabled( false );
+            lblSupercharger.setEnabled( false );
+            cmbSCLoc.setEnabled( false );
+        }
 
         CheckActuators();
 
@@ -1881,6 +1903,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkVoidSig.setEnabled( true );
         chkCLPS.setEnabled( true );
         chkBSPFD.setEnabled( true );
+        chkSupercharger.setEnabled( true );
+        lblSupercharger.setEnabled( true );
+        cmbSCLoc.setEnabled( true );
 
         // now enable the omnimech controls
         cmbOmniVariant.setEnabled( false );

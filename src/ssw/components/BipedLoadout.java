@@ -2951,6 +2951,9 @@ public class BipedLoadout implements ifLoadout {
         if( Equipment.size() > 0 ) {
             clone.SetEquipment( (Vector) Equipment.clone() );
         }
+        if( HasSupercharger() ) {
+            clone.SetSupercharger( SCharger );
+        }
         if( Owner.IsOmnimech() ) {
             // before we unallocate the actuators, we need to make sure that
             // there are no physical weapons located there.
@@ -3396,6 +3399,13 @@ public class BipedLoadout implements ifLoadout {
             }
         }
 
+        AddMechModifier( SCharger.GetMechModifier() );
+    }
+
+    public void SetSupercharger( Supercharger s ) {
+        // this sets the loadout's supercharger to a different one.
+        // Used for cloning purposes only!
+        SCharger = s;
         AddMechModifier( SCharger.GetMechModifier() );
     }
 

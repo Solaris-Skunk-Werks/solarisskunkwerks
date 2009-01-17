@@ -145,6 +145,7 @@ public interface ifLoadout {
     public void CheckTC();
     public void UnallocateTC();
     public void SetSupercharger( boolean b, int Loc, int index ) throws Exception;
+    public void SetSupercharger( Supercharger s );
     public boolean HasSupercharger();
     public Supercharger GetSupercharger();
     public PowerAmplifier GetPowerAmplifier();

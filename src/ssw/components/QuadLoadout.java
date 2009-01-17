@@ -2709,6 +2709,9 @@ public class QuadLoadout implements ifLoadout {
         if( Equipment.size() > 0 ) {
             clone.SetEquipment( (Vector) Equipment.clone() );
         }
+        if( HasSupercharger() ) {
+            clone.SetSupercharger( SCharger );
+        }
         if( Owner.IsOmnimech() ) {
             clone.GetActuators().RemoveLeftLowerArm();
             clone.GetActuators().RemoveRightLowerArm();
@@ -3130,6 +3133,13 @@ public class QuadLoadout implements ifLoadout {
             }
         }
 
+        AddMechModifier( SCharger.GetMechModifier() );
+    }
+
+    public void SetSupercharger( Supercharger s ) {
+        // this sets the loadout's supercharger to a different one.
+        // Used for cloning purposes only!
+        SCharger = s;
         AddMechModifier( SCharger.GetMechModifier() );
     }
 
