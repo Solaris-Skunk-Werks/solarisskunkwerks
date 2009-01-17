@@ -2080,6 +2080,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }
 
     private void PrintMech( Mech m, boolean saved) {
+        boolean useA4paper = false, printCharts = false, printPilot = false;
+        String warriorName = "";
+        int gunnerySkill = 4, pilotingSkill =  5;
+        float adjustedBV = m.GetCurrentBV();
+
         if (!saved){
             // Solidify the mech first.
             SolidifyMech();
@@ -2087,38 +2092,74 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             if( ! VerifyMech( new ActionEvent( this, 1234567890, null ) ) ) {
                 return;
             }
-        }
-        dlgPrintOptions POptions = new dlgPrintOptions( this, true, m );
-        String Title = "";
-        if( m.IsOmnimech() ) {
-            if( m.GetModel().isEmpty() ) {
-                Title = m.GetName() + " " + m.GetLoadout().GetName();
+            dlgPrintOptions POptions = new dlgPrintOptions( this, true, m );
+            String Title = "";
+            if( m.IsOmnimech() ) {
+                if( m.GetModel().isEmpty() ) {
+                    Title = m.GetName() + " " + m.GetLoadout().GetName();
+                } else {
+                    Title = m.GetName() + " " + m.GetModel() + " " + m.GetLoadout().GetName();
+                }
             } else {
-                Title = m.GetName() + " " + m.GetModel() + " " + m.GetLoadout().GetName();
+                if( m.GetModel().isEmpty() ) {
+                    Title = m.GetName();
+                } else {
+                    Title = m.GetName() + " " + m.GetModel();
+                }
             }
-        } else {
+            Title = "Printing " + Title;
+            POptions.setTitle( Title );
+            POptions.setLocationRelativeTo( this );
+            POptions.setVisible( true );
+
+            if( ! POptions.Result() ) {
+                return;
+            }
+
+            useA4paper = POptions.UseA4Paper();
+            warriorName = POptions.GetWarriorName();
+            gunnerySkill = POptions.GetGunnery();
+            pilotingSkill = POptions.GetPiloting();
+            printCharts = POptions.PrintCharts();
+            printPilot = POptions.PrintPilot();
+            adjustedBV = POptions.GetAdjustedBV();
+            POptions.dispose();
+        }
+        else{
+            // explict polymorphism is a very annoying.
+            dlgPrintSavedMechOptions POptions = new dlgPrintSavedMechOptions( this, true, m );
+            String Title = "";
             if( m.GetModel().isEmpty() ) {
                 Title = m.GetName();
             } else {
                 Title = m.GetName() + " " + m.GetModel();
             }
-        }
-        Title = "Printing " + Title;
-        POptions.setTitle( Title );
-        POptions.setLocationRelativeTo( this );
-        POptions.setVisible( true );
+            Title = "Printing " + Title;
+            POptions.setTitle( Title );
+            POptions.setLocationRelativeTo( this );
+            POptions.setVisible( true );
 
-        if( ! POptions.Result() ) {
-            return;
+            if( ! POptions.Result() ) {
+                return;
+            }
+
+            useA4paper = POptions.UseA4Paper();
+            warriorName = POptions.GetWarriorName();
+            gunnerySkill = POptions.GetGunnery();
+            pilotingSkill = POptions.GetPiloting();
+            printCharts = POptions.PrintCharts();
+            printPilot = POptions.PrintPilot();
+            adjustedBV = POptions.GetAdjustedBV();
+            POptions.dispose();
         }
 
         PrinterJob job = PrinterJob.getPrinterJob();
-        PrintMech p = new PrintMech( this, m, GetImage( m.GetSSWImage() ), false, POptions.UseA4Paper() );
-        p.SetPilotData( POptions.GetWarriorName(), POptions.GetGunnery(), POptions.GetPiloting() );
-        p.SetOptions( POptions.PrintCharts(), POptions.PrintPilot(), POptions.GetAdjustedBV() );
+        PrintMech p = new PrintMech( this, m, GetImage( m.GetSSWImage() ), false, useA4paper);
+        p.SetPilotData( warriorName, gunnerySkill, pilotingSkill);
+        p.SetOptions( printCharts, printPilot, adjustedBV );
 
         Paper paper = new Paper();
-        if( POptions.UseA4Paper() ) {
+        if( useA4paper ) {
             // silly Europeans...
             paper.setSize( 595, 842 );
             paper.setImageableArea( 18, 18, 559, 806 );
@@ -2126,9 +2167,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             // no need to set the size as Paper() defaults to 8.5" x 11"
             paper.setImageableArea( 18, 18, 576, 756 );
         }
-
-        // get rid of the Print Options window.
-        POptions.dispose();
 
         PageFormat page = new PageFormat();
         page.setPaper( paper );
