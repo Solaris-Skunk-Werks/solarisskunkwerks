@@ -78,8 +78,12 @@ public class Constants {
                      ART4_NONE = 0,
                      ART4_SRM = 1,
                      ART4_LRM = 2,
-                     ART4_MML = 3;
-    
+                     ART4_MML = 3,
+                     PW_CLASS_NORMAL = 0,
+                     PW_CLASS_SHIELD = 1,
+                     PW_CLASS_SPIKE = 2,
+                     PW_CLASS_TALON = 3;
+
     public final static String strSTAR_LEAGUE = "Age of War/Star League",
                         strSUCCESSION = "Succession Wars",
                         strCLAN_INVASION = "Clan Invasion",

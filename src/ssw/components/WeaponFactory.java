@@ -106,12 +106,14 @@ public class WeaponFactory {
             retval = new PhysicalWeapon( w.GetName(), w.GetMMName( false ), Owner, w.GetAvailability() );
             ((PhysicalWeapon) retval).SetStats( w.GetTonMult(), w.GetCritMult(), w.GetTonAdd(), w.GetCritAdd() );
             ((PhysicalWeapon) retval).SetDamage( w.GetDamageMult(), w.GetDamageAdd() );
-            ((PhysicalWeapon) retval).SetSpecials( w.GetType(), w.GetSpecials(), w.GetCostMult(), w.GetCostAdd(), w.GetBVMult(), w.GetRounding() );
+            ((PhysicalWeapon) retval).SetSpecials( w.GetType(), w.GetSpecials(), w.GetCostMult(), w.GetCostAdd(), w.GetBVMult(), w.GetBVAdd(), w.GetDefBV(), w.GetRounding() );
             ((PhysicalWeapon) retval).SetToHit( w.GetToHitShort(), w.GetToHitMedium(), w.GetToHitLong() );
             ((PhysicalWeapon) retval).SetHeat( w.GetHeat() );
             ((PhysicalWeapon) retval).SetRequiresHand( w.RequiresHand() );
             ((PhysicalWeapon) retval).SetRequiresLowerArm( w.RequiresLowerArm() );
             ((PhysicalWeapon) retval).SetReplacesHand( w.ReplacesHand() );
+            ((PhysicalWeapon) retval).SetPWClass( w.GetPWClass() );
+            ((PhysicalWeapon) retval).SetAllocations( w.CanAllocHD(), w.CanAllocCT(), w.CanAllocTorso(), w.CanAllocArms(), w.CanAllocLegs(), false );
         } else if( p instanceof MGArray ) {
             MGArray m = (MGArray) p;
             retval = new MGArray( (BallisticWeapon) GetCopy( m.GetMGType() ), m.GetNumMGs(), m.GetMGTons(), m.IsClan(), m.GetAvailability() );
@@ -445,7 +447,7 @@ public class WeaponFactory {
         addPW = new PhysicalWeapon( "Hatchet", "Hatchet", Owner, a );
         addPW.SetStats( 0.06666f, 0.06666f, 0.0f, 0 );
         addPW.SetDamage( 0.2f, 0 );
-        addPW.SetSpecials( "PA", "-", 5000.0f, 0.0f, 1.5f, false );
+        addPW.SetSpecials( "PA", "-", 5000.0f, 0.0f, 1.5f, 0.0f, 0.0f, false );
         addPW.SetToHit( -1, -1, -1 );
         ISPW.add( addPW );
 
@@ -454,7 +456,7 @@ public class WeaponFactory {
         addPW = new PhysicalWeapon( "Sword", "Sword", Owner, a );
         addPW.SetStats( 0.05f, 0.06666f, 0.0f, 0 );
         addPW.SetDamage( 0.1f, 1 );
-        addPW.SetSpecials( "PA", "-", 10000.0f, 0.0f, 1.725f, false );
+        addPW.SetSpecials( "PA", "-", 10000.0f, 0.0f, 1.725f, 0.0f, 0.0f, false );
         addPW.SetToHit( -2, -2, -2 );
         ISPW.add( addPW );
 
@@ -463,7 +465,7 @@ public class WeaponFactory {
         addPW = new PhysicalWeapon( "Retractable Blade", "Retractable Blade", Owner, a );
         addPW.SetStats( 0.05f, 0.05f, 0.5f, 1 );
         addPW.SetDamage( 0.1f, 0 );
-        addPW.SetSpecials( "PA", "-", 10000.0f, 10000.0f, 1.725f, true );
+        addPW.SetSpecials( "PA", "-", 10000.0f, 10000.0f, 1.725f, 0.0f, 0.0f, true );
         addPW.SetToHit( -2, -2, -2 );
         ISPW.add( addPW );
 
@@ -472,7 +474,7 @@ public class WeaponFactory {
         addPW = new PhysicalWeapon( "Chain Whip","Chain Whip", Owner, a );
         addPW.SetStats(0.0f, 0.0f, 3.0f, 2);
         addPW.SetDamage(0.0f, 1);
-        addPW.SetSpecials("PA", "-", 0.0f, 120000.0f, 1.725f, false);
+        addPW.SetSpecials("PA", "-", 0.0f, 120000.0f, 1.725f, 0.0f, 0.0f, false);
         addPW.SetToHit(-2, -2, -2);
         ISPW.add( addPW );
 
@@ -481,7 +483,7 @@ public class WeaponFactory {
         addPW = new PhysicalWeapon( "Claws","Claws", Owner, a );
         addPW.SetStats(0.06666f, 0.06666f, 0.0f, 0);
         addPW.SetDamage(0.1428f, 0);
-        addPW.SetSpecials("PA", "-", 2800.0f, 0.0f, 1.275f, false);
+        addPW.SetSpecials("PA", "-", 2800.0f, 0.0f, 1.275f, 0.0f, 0.0f, false);
         addPW.SetToHit(1, 1, 1);
         addPW.SetReplacesHand(true);
         addPW.SetRequiresLowerArm( true );
@@ -492,7 +494,7 @@ public class WeaponFactory {
         addPW = new PhysicalWeapon( "Flail","Flail", Owner, a );
         addPW.SetStats(0.0f, 0.0f, 5.0f, 4);
         addPW.SetDamage(0.0f, 9);
-        addPW.SetSpecials("PA", "-", 0.0f, 110000.0f, 1.2222f, false);
+        addPW.SetSpecials("PA", "-", 0.0f, 110000.0f, 0.0f, 11.0f, 0.0f, false);
         addPW.SetToHit(1, 1, 1);
         addPW.SetReplacesHand(true);
         addPW.SetRequiresLowerArm( true );
@@ -503,7 +505,7 @@ public class WeaponFactory {
         addPW = new PhysicalWeapon( "Lance","Lance", Owner, a );
         addPW.SetStats(0.05f, 0.05f, 0.0f, 0);
         addPW.SetDamage(0.2f, 0);
-        addPW.SetSpecials("PA", "-", 3000.0f, 0.0f, 1.0f, false);
+        addPW.SetSpecials("PA", "-", 3000.0f, 0.0f, 1.0f, 0.0f, 0.0f, false);
         addPW.SetToHit(2, 2, 2);
         addPW.SetRequiresHand(false);
         ISPW.add( addPW );
@@ -513,7 +515,7 @@ public class WeaponFactory {
         addPW = new PhysicalWeapon( "Mace","ISMace", Owner, a );
         addPW.SetStats(0.1f, 0.1f, 0.0f, 0);
         addPW.SetDamage(0.25f, 0);
-        addPW.SetSpecials("PA", "-", 0.0f, 130000.0f, 1.0f, false);
+        addPW.SetSpecials("PA", "-", 0.0f, 130000.0f, 1.0f, 0.0f, 0.0f, false);
         addPW.SetToHit(1, 1, 1);
         ISPW.add(addPW);
 
@@ -523,7 +525,7 @@ public class WeaponFactory {
         addPW.SetStats(0.0f, 0.0f, 3.0f, 1);
         addPW.SetDamage(0.0f, 7);
         addPW.SetHeat(3);
-        addPW.SetSpecials("PA", "V", 0.0f, 150000.0f, 12.0f, false);
+        addPW.SetSpecials("PA", "V", 0.0f, 150000.0f, 0.0f, 12.0f, 0.0f, false);
         addPW.SetToHit(-1, -1, -1);
         ISPW.add(addPW);
 
@@ -533,7 +535,7 @@ public class WeaponFactory {
         addPW.SetStats(0.0f, 0.0f, 5.0f, 2);
         addPW.SetDamage(0.0f, 10);
         addPW.SetHeat(5);
-        addPW.SetSpecials("PA", "V", 0.0f, 400000.0f, 17.0f, false);
+        addPW.SetSpecials("PA", "V", 0.0f, 400000.0f, 0.0f, 17.0f, 0.0f, false);
         addPW.SetToHit(-1, -1, -1);
         ISPW.add(addPW);
 
@@ -543,8 +545,20 @@ public class WeaponFactory {
         addPW.SetStats(0.0f, 0.0f, 7.0f, 4);
         addPW.SetDamage(0.0f, 14);
         addPW.SetHeat(7);
-        addPW.SetSpecials("PA", "V", 0.0f, 750000.0f, 24.0f, false);
+        addPW.SetSpecials("PA", "V", 0.0f, 750000.0f, 0.0f, 24.0f, 0.0f, false);
         addPW.SetToHit(-1, -1, -1);
+        ISPW.add(addPW);
+
+        // spikes
+        a = new AvailableCode( false, 'C', 'X', 'E', 'E', 3051, 0, 0, "FC", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addPW = new PhysicalWeapon( "Spikes","ISSpikes", Owner, a );
+        addPW.SetStats(0.0f, 0.0f, 0.5f, 1);
+        addPW.SetDamage(0.0f, 2);
+        addPW.SetSpecials("PA", "PB", 50.0f, 0.0f, 0.0f, 0.0f, 4.0f, false);
+        addPW.SetToHit(0, 0, 0);
+        addPW.SetRequiresLowerArm( false );
+        addPW.SetPWClass( ssw.Constants.PW_CLASS_SPIKE );
+        addPW.SetAllocations(true, true, true, true, true, false);
         ISPW.add(addPW);
     }
 
@@ -1917,80 +1931,80 @@ public class WeaponFactory {
         addMGA = new MGArray(addBW, 4, 1.0f, false, a);
         ISBW.add(addMGA);
 
-        // hatchet
-        a = new AvailableCode(false, 'B', 'X', 'F', 'D', 3022, 0, 0, "LC", "", false, false);
-        addPW = new PhysicalWeapon("Hatchet", "Hatchet", Owner, a);
-        addPW.SetStats(0.06666f, 0.06666f, 0.0f, 0);
-        addPW.SetDamage(0.2f, 0);
-        addPW.SetSpecials("PA", "-", 5000.0f, 0.0f, 1.5f, false);
-        addPW.SetToHit(-1, -1, -1);
-        ISPW.add(addPW);
+         // hatchet
+        a = new AvailableCode( false, 'B', 'X', 'F', 'D', 3022, 0, 0, "LC", "", false, false );
+        addPW = new PhysicalWeapon( "Hatchet", "Hatchet", Owner, a );
+        addPW.SetStats( 0.06666f, 0.06666f, 0.0f, 0 );
+        addPW.SetDamage( 0.2f, 0 );
+        addPW.SetSpecials( "PA", "-", 5000.0f, 0.0f, 1.5f, 0.0f, 0.0f, false );
+        addPW.SetToHit( -1, -1, -1 );
+        ISPW.add( addPW );
 
         // sword
-        a = new AvailableCode(false, 'B', 'X', 'X', 'D', 3058, 0, 0, "DC", "", false, false);
-        addPW = new PhysicalWeapon("Sword", "Sword", Owner, a);
-        addPW.SetStats(0.05f, 0.06666f, 0.0f, 0);
-        addPW.SetDamage(0.1f, 1);
-        addPW.SetSpecials("PA", "-", 10000.0f, 0.0f, 1.725f, false);
-        addPW.SetToHit(-2, -2, -2);
-        ISPW.add(addPW);
+        a = new AvailableCode( false, 'B', 'X', 'X', 'D', 3058, 0, 0, "DC", "", false, false );
+        addPW = new PhysicalWeapon( "Sword", "Sword", Owner, a );
+        addPW.SetStats( 0.05f, 0.06666f, 0.0f, 0 );
+        addPW.SetDamage( 0.1f, 1 );
+        addPW.SetSpecials( "PA", "-", 10000.0f, 0.0f, 1.725f, 0.0f, 0.0f, false );
+        addPW.SetToHit( -2, -2, -2 );
+        ISPW.add( addPW );
 
         // retractable blade
-        a = new AvailableCode(false, 'B', 'F', 'D', 'D', 2420, 0, 0, "TH", "", false, false);
-        addPW = new PhysicalWeapon("Retractable Blade", "Retractable Blade", Owner, a);
-        addPW.SetStats(0.05f, 0.05f, 0.5f, 1);
-        addPW.SetDamage(0.1f, 0);
-        addPW.SetSpecials("PA", "-", 10000.0f, 10000.0f, 1.725f, true);
-        addPW.SetToHit(-2, -2, -2);
-        ISPW.add(addPW);
+        a = new AvailableCode( false, 'B', 'F', 'D', 'D', 2420, 0, 0, "TH", "", false, false );
+        addPW = new PhysicalWeapon( "Retractable Blade", "Retractable Blade", Owner, a );
+        addPW.SetStats( 0.05f, 0.05f, 0.5f, 1 );
+        addPW.SetDamage( 0.1f, 0 );
+        addPW.SetSpecials( "PA", "-", 10000.0f, 10000.0f, 1.725f, 0.0f, 0.0f, true );
+        addPW.SetToHit( -2, -2, -2 );
+        ISPW.add( addPW );
 
         // chain whip
         a = new AvailableCode( false, 'C', 'X', 'X', 'F', 3071, 0, 0, "WB", "", false, false, 3069, true, "LA", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        addPW = new PhysicalWeapon( "Chain Whip","ISChainWhip", Owner, a );
+        addPW = new PhysicalWeapon( "Chain Whip","Chain Whip", Owner, a );
         addPW.SetStats(0.0f, 0.0f, 3.0f, 2);
         addPW.SetDamage(0.0f, 1);
-        addPW.SetSpecials("PA", "-", 0.0f, 120000.0f, 1.725f, false);
+        addPW.SetSpecials("PA", "-", 0.0f, 120000.0f, 1.725f, 0.0f, 0.0f, false);
         addPW.SetToHit(-2, -2, -2);
-        ISPW.add(addPW);
+        ISPW.add( addPW );
 
         // claws
         a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3060, 0, 0, "LA", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        addPW = new PhysicalWeapon( "Claws","ISClaw", Owner, a );
+        addPW = new PhysicalWeapon( "Claws","Claws", Owner, a );
         addPW.SetStats(0.06666f, 0.06666f, 0.0f, 0);
         addPW.SetDamage(0.1428f, 0);
-        addPW.SetSpecials("PA", "-", 2800.0f, 0.0f, 1.275f, false);
+        addPW.SetSpecials("PA", "-", 2800.0f, 0.0f, 1.275f, 0.0f, 0.0f, false);
         addPW.SetToHit(1, 1, 1);
         addPW.SetReplacesHand(true);
         addPW.SetRequiresLowerArm( true );
-        ISPW.add(addPW);
+        ISPW.add( addPW );
 
         // flail
         a = new AvailableCode( false, 'B', 'X', 'X', 'E', 3057, 0, 0, "FC", "", false, false, 3054, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        addPW = new PhysicalWeapon( "Flail","ISFlail", Owner, a );
+        addPW = new PhysicalWeapon( "Flail","Flail", Owner, a );
         addPW.SetStats(0.0f, 0.0f, 5.0f, 4);
         addPW.SetDamage(0.0f, 9);
-        addPW.SetSpecials("PA", "-", 0.0f, 110000.0f, 1.2222f, false);
+        addPW.SetSpecials("PA", "-", 0.0f, 110000.0f, 0.0f, 11.0f, 0.0f, false);
         addPW.SetToHit(1, 1, 1);
         addPW.SetReplacesHand(true);
         addPW.SetRequiresLowerArm( true );
-        ISPW.add(addPW);
+        ISPW.add( addPW );
 
         // lance
         a = new AvailableCode( false, 'C', 'X', 'X', 'F', 3064, 0, 0, "LA", "", false, false, 3061, true, "LA", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        addPW = new PhysicalWeapon( "Lance","ISLance", Owner, a );
+        addPW = new PhysicalWeapon( "Lance","Lance", Owner, a );
         addPW.SetStats(0.05f, 0.05f, 0.0f, 0);
         addPW.SetDamage(0.2f, 0);
-        addPW.SetSpecials("PA", "-", 3000.0f, 0.0f, 1.0f, false);
+        addPW.SetSpecials("PA", "-", 3000.0f, 0.0f, 1.0f, 0.0f, 0.0f, false);
         addPW.SetToHit(2, 2, 2);
         addPW.SetRequiresHand(false);
-        ISPW.add(addPW);
+        ISPW.add( addPW );
 
         // mace
         a = new AvailableCode( false, 'B', 'X', 'X', 'D', 3061, 0, 0, "LA", "", false, false, 3061, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addPW = new PhysicalWeapon( "Mace","ISMace", Owner, a );
         addPW.SetStats(0.1f, 0.1f, 0.0f, 0);
         addPW.SetDamage(0.25f, 0);
-        addPW.SetSpecials("PA", "-", 0.0f, 130000.0f, 1.0f, false);
+        addPW.SetSpecials("PA", "-", 0.0f, 130000.0f, 1.0f, 0.0f, 0.0f, false);
         addPW.SetToHit(1, 1, 1);
         ISPW.add(addPW);
 
@@ -2000,7 +2014,7 @@ public class WeaponFactory {
         addPW.SetStats(0.0f, 0.0f, 3.0f, 1);
         addPW.SetDamage(0.0f, 7);
         addPW.SetHeat(3);
-        addPW.SetSpecials("PA", "V", 0.0f, 150000.0f, 12.0f, false);
+        addPW.SetSpecials("PA", "V", 0.0f, 150000.0f, 0.0f, 12.0f, 0.0f, false);
         addPW.SetToHit(-1, -1, -1);
         ISPW.add(addPW);
 
@@ -2010,7 +2024,7 @@ public class WeaponFactory {
         addPW.SetStats(0.0f, 0.0f, 5.0f, 2);
         addPW.SetDamage(0.0f, 10);
         addPW.SetHeat(5);
-        addPW.SetSpecials("PA", "V", 0.0f, 400000.0f, 17.0f, false);
+        addPW.SetSpecials("PA", "V", 0.0f, 400000.0f, 0.0f, 17.0f, 0.0f, false);
         addPW.SetToHit(-1, -1, -1);
         ISPW.add(addPW);
 
@@ -2020,8 +2034,20 @@ public class WeaponFactory {
         addPW.SetStats(0.0f, 0.0f, 7.0f, 4);
         addPW.SetDamage(0.0f, 14);
         addPW.SetHeat(7);
-        addPW.SetSpecials("PA", "V", 0.0f, 750000.0f, 24.0f, false);
+        addPW.SetSpecials("PA", "V", 0.0f, 750000.0f, 0.0f, 24.0f, 0.0f, false);
         addPW.SetToHit(-1, -1, -1);
+        ISPW.add(addPW);
+
+        // spikes
+        a = new AvailableCode( false, 'C', 'X', 'E', 'E', 3051, 0, 0, "FC", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addPW = new PhysicalWeapon( "Spikes","ISSpikes", Owner, a );
+        addPW.SetStats(0.0f, 0.0f, 0.5f, 1);
+        addPW.SetDamage(0.0f, 2);
+        addPW.SetSpecials("PA", "PB", 50.0f, 0.0f, 0.0f, 0.0f, 4.0f, false);
+        addPW.SetToHit(0, 0, 0);
+        addPW.SetRequiresLowerArm( false );
+        addPW.SetPWClass( ssw.Constants.PW_CLASS_SPIKE );
+        addPW.SetAllocations(true, true, true, true, true, false);
         ISPW.add(addPW);
 
         // arrow iv system

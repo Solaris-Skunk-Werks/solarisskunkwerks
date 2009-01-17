@@ -41,20 +41,29 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
                 ToHitMedium = 0,
                 ToHitLong = 0,
                 DamageAdd = 0,
-                CritAdd = 0;
+                CritAdd = 0,
+                PWClass = ssw.Constants.PW_CLASS_NORMAL;
     private float TonMult = 0.0f,
                   CritMult = 0.0f,
                   TonAdd = 0.0f,
                   DamageMult = 0.0f,
                   CostMult = 0.0f,
                   CostAdd= 0.0f,
-                  BVMult = 0.0f;
+                  BVMult = 0.0f,
+                  BVAdd = 0.0f,
+                  DefBV = 0.0f;
     private boolean Fusion = false,
                     Nuclear = false,
                     RoundToHalfTon = false,
                     RequiresHand = true,
                     ReplacesHand = false,
-                    RequiresLowerArm = true;
+                    RequiresLowerArm = true,
+                    Alloc_HD = false,
+                    Alloc_CT = false,
+                    Alloc_Torso = false,
+                    Alloc_Arms = true,
+                    Alloc_Legs = false,
+                    CanSplit = false;
 
     public PhysicalWeapon( String name, String lookup, Mech m, AvailableCode a ) {
         Name = name;
@@ -71,6 +80,15 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         CritAdd = cadder;
     }
 
+    public void SetAllocations( boolean hd, boolean ct, boolean torso, boolean arms, boolean legs, boolean split ) {
+        Alloc_HD = hd;
+        Alloc_CT = ct;
+        Alloc_Torso = torso;
+        Alloc_Arms = arms;
+        Alloc_Legs = legs;
+        CanSplit = split;
+    }
+
     public void SetDamage( float dmult, int dadder ) {
         // sets the weapons damage potential
         DamageMult = dmult;
@@ -81,12 +99,14 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         Heat = h;
     }
 
-    public void SetSpecials( String type, String spec, float cmult, float cadd, float bmult, boolean round ) {
+    public void SetSpecials( String type, String spec, float cmult, float cadd, float bmult, float badd, float dbv, boolean round ) {
         Type = type;
         Specials = spec;
         CostMult = cmult;
         CostAdd = cadd;
         BVMult = bmult;
+        BVAdd = badd;
+        DefBV = dbv;
         RoundToHalfTon = round;
     }
 
@@ -134,6 +154,14 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
             RequiresHand = false;
     }
 
+    public void SetPWClass( int pwclass ) {
+        PWClass = pwclass;
+    }
+
+    public int GetPWClass () {
+        return PWClass;
+    }
+
     public void SetOwner( Mech m ) {
         // convenience method since physical weapons are based on tonnage
         Owner = m;
@@ -169,6 +197,14 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
 
     public float GetBVMult() {
         return BVMult;
+    }
+
+    public float GetBVAdd() {
+        return BVAdd;
+    }
+
+    public float GetDefBV() {
+        return DefBV;
     }
 
     public float GetTonMult() {
@@ -239,7 +275,7 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
     }
 
     public float GetOffensiveBV() {
-        return GetDamageShort() * BVMult;
+        return GetDamageShort() * BVMult + BVAdd;
     }
 
     public float GetCurOffensiveBV( boolean UseRear ) {
@@ -248,9 +284,9 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
 
     public float GetDefensiveBV() {
         if( IsArmored() ) {
-            return GetOffensiveBV() * 0.05f * NumCrits();
+            return GetOffensiveBV() * 0.05f * NumCrits() + DefBV;
         }
-        return 0.0f;
+        return DefBV;
     }
 
     @Override
@@ -283,7 +319,7 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
     }
 
     public int GetBVHeat() {
-        return 0;
+        return Heat;
     }
 
     public int GetDamageShort() {
@@ -384,22 +420,22 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
 
     @Override
     public boolean CanAllocHD() {
-        return false;
+        return Alloc_HD;
     }
 
     @Override
     public boolean CanAllocCT() {
-        return false;
+        return Alloc_CT;
     }
 
     @Override
     public boolean CanAllocTorso() {
-        return false;
+        return Alloc_Torso;
     }
 
     @Override
     public boolean CanAllocLegs() {
-        return false;
+        return Alloc_Legs;
     }
 
     @Override

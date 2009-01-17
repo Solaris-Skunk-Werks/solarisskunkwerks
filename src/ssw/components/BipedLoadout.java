@@ -483,6 +483,14 @@ public class BipedLoadout implements ifLoadout {
             throw new Exception( p.GetCritName() +
                 " cannot be allocated to the head." );
         } else {
+           if( p instanceof PhysicalWeapon ) {
+           // Ensure that no other physical weapons are mounted in this location
+                for( int i = 0; i < NonCore.size(); i++ ){
+                    if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_HD)
+                        throw new Exception( p.GetCritName() +
+                            " cannot be allocated to the head because\nthe head already mounts a physical weapon." );
+                }
+           }
             try {
                 Allocate( p, SIndex, HDCrits );
             } catch( Exception e ) {
@@ -497,6 +505,14 @@ public class BipedLoadout implements ifLoadout {
             throw new Exception( p.GetCritName() +
                 " cannot be allocated to the center torso." );
         } else {
+           if( p instanceof PhysicalWeapon ) {
+           // Ensure that no other physical weapons are mounted in this location
+                for( int i = 0; i < NonCore.size(); i++ ){
+                    if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_CT)
+                        throw new Exception( p.GetCritName() +
+                            " cannot be allocated to the center torso because\nthe torso already mounts a physical weapon." );
+                }
+           }
             try {
                 Allocate( p, SIndex, CTCrits );
             } catch( Exception e ) {
@@ -511,6 +527,14 @@ public class BipedLoadout implements ifLoadout {
             throw new Exception( p.GetCritName() +
                 " cannot be allocated to the right torso." );
         } else {
+           if( p instanceof PhysicalWeapon ) {
+           // Ensure that no other physical weapons are mounted in this location
+                for( int i = 0; i < NonCore.size(); i++ ){
+                    if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_RT)
+                        throw new Exception( p.GetCritName() +
+                            " cannot be allocated to the right torso because\nthe torso already mounts a physical weapon." );
+                }
+           }
             try {
                 Allocate( p, SIndex, RTCrits );
             } catch( Exception e ) {
@@ -525,6 +549,14 @@ public class BipedLoadout implements ifLoadout {
             throw new Exception( p.GetCritName() +
                 " cannot be allocated to the left torso." );
         } else {
+           if( p instanceof PhysicalWeapon ) {
+           // Ensure that no other physical weapons are mounted in this location
+                for( int i = 0; i < NonCore.size(); i++ ){
+                    if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_LT)
+                        throw new Exception( p.GetCritName() +
+                            " cannot be allocated to the left torso because\nthe torso already mounts a physical weapon." );
+                }
+           }
             try {
                 Allocate( p, SIndex, LTCrits );
             } catch( Exception e ) {
@@ -540,17 +572,19 @@ public class BipedLoadout implements ifLoadout {
                 " cannot be allocated to the right arm." );
         } else {
             if( p instanceof PhysicalWeapon ) {
-                // Ensure that no other physical weapons are mounted in this location
+                // Ensure that no other physical weapons of the same class are mounted in this location,
                 for( int i = 0; i < NonCore.size(); i++ ){
-                    if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_RA)
-                        throw new Exception( p.GetCritName() +
-                            " cannot be allocated to the right arm because\nthe arm already mounts a physical weapon." );
+                    if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_RA) {
+                        if ( ((PhysicalWeapon)p).GetPWClass() == ((PhysicalWeapon)NonCore.get( i )).GetPWClass() )
+                            throw new Exception( p.GetCritName() +
+                                " cannot be allocated to the right arm because\nthe arm already mounts a physical weapon of the same class." );
+                    }
                 }
 
                 // Check for proper actuators
                 if ( ((PhysicalWeapon)p).RequiresHand() && ! ( RACrits[3] instanceof Actuator ) ) {
                     throw new Exception( p.GetCritName() +
-                        " cannot be allocated to the right arm because\nthe arm does not have a hand actuator." );  
+                        " cannot be allocated to the right arm because\nthe arm does not have a hand actuator." );
                 }
                 if ( ((PhysicalWeapon)p).RequiresLowerArm() && ! ( RACrits[2] instanceof Actuator ) ) {
                     throw new Exception( p.GetCritName() +
@@ -595,12 +629,13 @@ public class BipedLoadout implements ifLoadout {
                 " cannot be allocated to the left arm." );
         } else {
             if( p instanceof PhysicalWeapon ) {
-
-                // Ensure that no other physical weapons are mounted in this location
+                // Ensure that no other physical weapons of the same class are mounted in this location,
                 for( int i = 0; i < NonCore.size(); i++ ){
-                    if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_LA)
-                        throw new Exception( p.GetCritName() +
-                            " cannot be allocated to the left arm because\nthe arm already mounts a physical weapon." );
+                    if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_LA) {
+                        if ( ((PhysicalWeapon)p).GetPWClass() == ((PhysicalWeapon)NonCore.get( i )).GetPWClass() )
+                            throw new Exception( p.GetCritName() +
+                                " cannot be allocated to the left arm because\nthe arm already mounts a physical weapon of the same class." );
+                    }
                 }
 
                 // Check for proper actuators
@@ -649,6 +684,14 @@ public class BipedLoadout implements ifLoadout {
             throw new Exception( p.GetCritName() +
                 " cannot be allocated to the right leg." );
         } else {
+           if( p instanceof PhysicalWeapon ) {
+           // Ensure that no other physical weapons are mounted in this location
+                for( int i = 0; i < NonCore.size(); i++ ){
+                    if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_RL)
+                        throw new Exception( p.GetCritName() +
+                            " cannot be allocated to the right leg because\nthe leg already mounts a physical weapon." );
+                }
+           }
             try {
                 Allocate( p, SIndex, RLCrits );
             } catch( Exception e ) {
@@ -663,6 +706,14 @@ public class BipedLoadout implements ifLoadout {
             throw new Exception( p.GetCritName() +
                 " cannot be allocated to the left leg." );
         } else {
+           if( p instanceof PhysicalWeapon ) {
+           // Ensure that no other physical weapons are mounted in this location
+                for( int i = 0; i < NonCore.size(); i++ ){
+                    if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_LL)
+                        throw new Exception( p.GetCritName() +
+                            " cannot be allocated to the left leg because\nthe leg already mounts a physical weapon." );
+                }
+           }
             try {
                 Allocate( p, SIndex, LLCrits );
             } catch( Exception e ) {

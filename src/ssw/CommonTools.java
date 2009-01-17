@@ -193,7 +193,7 @@ public class CommonTools {
     public static boolean CheckExclusions( abPlaceable a, Mech m ) throws Exception {
         // initialize
         Vector v;
-        
+
         // See if it requires a specific engine
         if( a instanceof ifWeapon ) {
             if( ((ifWeapon) a).RequiresNuclear() &! m.GetEngine().IsNuclear() ) {
@@ -209,20 +209,28 @@ public class CommonTools {
                 throw new Exception( "A quad mech has no hand or lower arm actuators\nand may not mount physical weapons." );
             }
             // check to ensure that no more than two physical weapons are in the mech
+            // unless they are spikes which are allowed up to eight
             v = m.GetLoadout().GetNonCore();
             int pcheck = 0;
+            int spikecheck = 0;
             for( int i = 0; i < v.size(); i++ ) {
                 if( v.get( i ) instanceof PhysicalWeapon ) {
-                    pcheck++;
+                    if ( ((PhysicalWeapon)v.get(i)).GetPWClass() == ssw.Constants.PW_CLASS_SPIKE )
+                        spikecheck++;
+                    else
+                        pcheck++;
                 }
             }
-            if( pcheck >= 2 ) {
+            if( ((PhysicalWeapon)a).GetPWClass() == ssw.Constants.PW_CLASS_NORMAL && pcheck >= 2 ) {
                 throw new Exception(  "A mech may mount no more than two physical weapons." );
+            }
+            else if( ((PhysicalWeapon)a).GetPWClass() == ssw.Constants.PW_CLASS_SPIKE && spikecheck >= 8) {
+                throw new Exception(  "A mech may mount no more than eight spikes, one per location." );
             }
         }
         // do we have equipment exclusions?
         if( a.GetExclusions() != null ) {
-            try { 
+            try {
                 m.GetLoadout().CheckExclusions( a );
             } catch( Exception e ) {
                 throw e;
