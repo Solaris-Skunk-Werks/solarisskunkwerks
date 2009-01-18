@@ -2274,7 +2274,7 @@ public class WeaponFactory {
         addEW.SetHeat( 3 );
         addEW.SetRange( 0, 1, 2, 3 );
         addEW.SetSpecials( "-", false, false, 0, 0, true );
-        addEW.SetStats( 1.5f, 1, 30000.0f, 19.0f, 0.0f );
+        addEW.SetStats( 0.5f, 1, 30000.0f, 19.0f, 0.0f );
         addEW.SetToHit( 0, 0, 0 );
         CLEW.add( addEW  );
 
@@ -2285,7 +2285,7 @@ public class WeaponFactory {
         addEW.SetHeat( 7 );
         addEW.SetRange( 0, 3, 6, 9 );
         addEW.SetSpecials( "-", false, false, 0, 0, true );
-        addEW.SetStats( 2.0f, 2, 150000.0f, 93.0f, 0.0f );
+        addEW.SetStats( 1.0f, 2, 150000.0f, 93.0f, 0.0f );
         addEW.SetToHit( 0, 0, 0 );
         CLEW.add( addEW  );
 
@@ -2296,7 +2296,7 @@ public class WeaponFactory {
         addEW.SetHeat( 18 );
         addEW.SetRange( 0, 5, 10, 15 );
         addEW.SetSpecials( "-", false, false, 0, 0, true );
-        addEW.SetStats( 6.0f, 3, 400000.0f, 296.0f, 0.0f );
+        addEW.SetStats( 4.0f, 3, 400000.0f, 296.0f, 0.0f );
         addEW.SetToHit( 0, 0, 0 );
         CLEW.add( addEW  );
 
