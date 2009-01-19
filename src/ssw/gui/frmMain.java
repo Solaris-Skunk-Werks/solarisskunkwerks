@@ -8351,7 +8351,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         LoadSelections();
 
         // when a new era is selected, we have to recalculate the mech
+        /*
+         * We're testing this for the next few builds to see what happens.
         CurMech.GetLoadout().FullUnallocate();
+        */
         RecalcEngine();
         RecalcGyro();
         RecalcIntStruc();
@@ -10155,7 +10158,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             LoadSelections();
 
             // when a new rules level is selected, we have to recalculate the mech
+            /*
+             * We're testing this for the next few builds to see what happens.
             CurMech.GetLoadout().FullUnallocate();
+            */
             RecalcEngine();
             RecalcGyro();
             RecalcIntStruc();

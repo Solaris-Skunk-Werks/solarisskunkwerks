@@ -1441,10 +1441,7 @@ public class Mech {
 
     public float GetOffensiveFactor() {
         float result = 0.0f;
-        result += GetAdjustedRunningMP( true, false ) + ( GetAdjustedJumpingMP( true ) * 0.5f ) - 5.0f;
-        if( CurPhysEnhance.IsTSM() || CurPhysEnhance.IsMASC() ) {
-            result += 1.0f;
-        }
+        result += GetAdjustedRunningMP( true, true ) + ( Math.floor( GetAdjustedJumpingMP( true ) * 0.5f + 0.5f )  ) - 5.0f;
         result = result * 0.1f + 1.0f;
         result = (float) Math.pow( result, 1.2f ) ;
 

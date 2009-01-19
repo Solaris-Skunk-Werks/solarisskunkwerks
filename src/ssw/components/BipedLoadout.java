@@ -1813,9 +1813,7 @@ public class BipedLoadout implements ifLoadout {
         }
 
         // is the item was mounted rear, set it to normal
-        if( p.IsMountedRear() ) {
-            p.MountRear( false );
-        }
+        p.MountRear( false );
 
         // if the item is a Missile Weapon, check for artemis and unallocate
         if( p instanceof MissileWeapon ) {

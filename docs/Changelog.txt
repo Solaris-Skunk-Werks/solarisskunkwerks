@@ -102,6 +102,9 @@ Version 0.6.0
 - Supercharger should now properly transfer to Omni loadouts.
 - IS ERPPC now has the correct BV.
 - Message box when selecting non-existant equipment is now suppressed.
+- Removed code to unallocate everything in certain instances (testing new code).
+- Unallocated items should no longer be mounted rear.
+- Fixed speed factor calculations for Offensive BV.
 
 -------------------------------------------------------------------------------
 Version 0.5.0
