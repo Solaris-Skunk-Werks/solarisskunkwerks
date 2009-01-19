@@ -2790,14 +2790,14 @@ public class QuadLoadout implements ifLoadout {
 
     public void SetCTCASE( boolean Add, int index ) throws Exception {
         // adds CASE equipment to the CT
-        if( Owner.IsClan() ) {
-            throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
-        }
         if( ! Add ) {
             Remove( CTCase );
         }
         if( Add && HasCTCASE() ) {
             return;
+        }
+        if( Owner.IsClan() ) {
+            throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
         }
 
         boolean placed = false;
@@ -2828,14 +2828,14 @@ public class QuadLoadout implements ifLoadout {
 
     public void SetLTCASE( boolean Add, int index ) throws Exception {
         // adds CASE equipment to the LT
-        if( Owner.IsClan() ) {
-            throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
-        }
         if( ! Add ) {
             Remove( LTCase );
         }
         if( Add && HasLTCASE() ) {
             return;
+        }
+        if( Owner.IsClan() ) {
+            throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
         }
 
         boolean placed = false;
@@ -2866,14 +2866,14 @@ public class QuadLoadout implements ifLoadout {
 
     public void SetRTCASE( boolean Add, int index ) throws Exception {
         // adds CASE equipment to the RT
-        if( Owner.IsClan() ) {
-            throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
-        }
         if( ! Add ) {
             Remove( RTCase );
         }
         if( Add && HasRTCASE() ) {
             return;
+        }
+        if( Owner.IsClan() ) {
+            throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
         }
 
         boolean placed = false;

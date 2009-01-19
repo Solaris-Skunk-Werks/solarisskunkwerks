@@ -191,6 +191,8 @@ public class CommonTools {
     }
 
     public static boolean CheckExclusions( abPlaceable a, Mech m ) throws Exception {
+        if( a == null ) { return false; }
+
         // initialize
         Vector v;
 

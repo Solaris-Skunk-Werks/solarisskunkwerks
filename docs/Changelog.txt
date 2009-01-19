@@ -100,6 +100,8 @@ Version 0.6.0
 - Fixed another Split Allocation bug (item not returning to queue).
 - Equipment sort order for export changed to right dominant instead of left.
 - Supercharger should now properly transfer to Omni loadouts.
+- IS ERPPC now has the correct BV.
+- Message box when selecting non-existant equipment is now suppressed.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

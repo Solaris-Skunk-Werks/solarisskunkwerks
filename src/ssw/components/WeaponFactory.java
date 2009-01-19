@@ -244,32 +244,40 @@ public class WeaponFactory {
 
             // check it using the normal routine, with two exceptions
             if( a.GetCritName().equals( "Retractable Blade") ) {
-                if( m.IsYearRestricted() ) {
-                    if( MyOptions.Equip_AllowRBlade ) {
-                        if( m.GetYear() < 2420 ) {
+                if( ! m.IsClan() ) {
+                    if( m.IsYearRestricted() ) {
+                        if( MyOptions.Equip_AllowRBlade ) {
+                            if( m.GetYear() < 2420 ) {
+                                RetVal.remove( i );
+                            }
+                        } else {
+                            if( m.GetYear() < 3068 ) {
+                                RetVal.remove( i );
+                            }
+                        }
+                    } else {
+                        if( ! MyOptions.Equip_AllowRBlade ) {
+                            if( m.GetEra() != Constants.CLAN_INVASION ) {
+                                RetVal.remove( i );
+                            }
+                        }
+                    }
+                } else {
+                    RetVal.remove( i );
+                }
+            } else if( a.GetCritName().equals( "Hatchet" ) ) {
+                if( ! m.IsClan() ) {
+                    if( m.IsYearRestricted() ) {
+                        if( m.GetYear() < 3022 ) {
                             RetVal.remove( i );
                         }
                     } else {
-                        if( m.GetYear() < 3068 ) {
+                        if( m.GetEra() != Constants.SUCCESSION && m.GetEra() != Constants.CLAN_INVASION ) {
                             RetVal.remove( i );
                         }
                     }
                 } else {
-                    if( ! MyOptions.Equip_AllowRBlade ) {
-                        if( m.GetEra() != Constants.CLAN_INVASION ) {
-                            RetVal.remove( i );
-                        }
-                    }
-                }
-            } else if( a.GetCritName().equals( "Hatchet" ) ) {
-                if( m.IsYearRestricted() ) {
-                    if( m.GetYear() < 3022 ) {
-                        RetVal.remove( i );
-                    }
-                } else {
-                    if( m.GetEra() != Constants.SUCCESSION && m.GetEra() != Constants.CLAN_INVASION ) {
-                        RetVal.remove( i );
-                    }
+                    RetVal.remove( i );
                 }
             } else {
                 if( ! CommonTools.IsAllowed( AC, m ) ) {
@@ -817,7 +825,7 @@ public class WeaponFactory {
         addEW.SetHeat(15);
         addEW.SetRange(0, 7, 14, 23);
         addEW.SetSpecials("-", true, false, 0, 0, true);
-        addEW.SetStats(7.0f, 3, 300000.0f, 228.0f, 0.0f);
+        addEW.SetStats(7.0f, 3, 300000.0f, 229.0f, 0.0f);
         ISEW.add(addEW);
 
         // er ppc w/ capacitor
