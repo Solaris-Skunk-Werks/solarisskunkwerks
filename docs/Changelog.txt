@@ -110,6 +110,7 @@ Version 0.6.0
 - Fixed a bug with the Supercharger and changing engine and gyro types.
 - Fixed a bug with loading a Mech while working with an OmniMech with a lower Rules Level.
 - Fixed a BV error with Missile Weapons.
+- Expanded the Cost/BV Breakdown dialogue for better troubleshooting.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

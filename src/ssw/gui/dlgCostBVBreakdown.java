@@ -104,7 +104,9 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
         retval += "________________________________________________________________________________" + NL;
         retval += "Heat Efficiency (6 + " + CurMech.GetHeatSinks().TotalDissipation() + " - " + CurMech.GetBVMovementHeat() + ") = "+ ( 6 + CurMech.GetHeatSinks().TotalDissipation() - CurMech.GetBVMovementHeat() ) + NL;
         retval += String.format( "%1$-73s %2$,6.2f", "Adjusted Weapon BV Total WBV", CurMech.GetHeatAdjustedWeaponBV() ) + NL;
+        retval += PrintHeatAdjustedWeaponBV();
         retval += String.format( "%1$-73s %2$,6.2f", "Non-Heat Equipment Total NHBV", CurMech.GetNonHeatEquipBV() ) + NL;
+        retval += PrintNonHeatEquipBV();
         retval += String.format( "%1$-73s %2$,6.2f", "Excessive Ammunition Penalty", CurMech.GetExcessiveAmmoPenalty() ) + NL;
         retval += String.format( "%1$-73s %2$,6.2f", "Mech Tonnage Bonus", CurMech.GetTonnageBV() ) + NL;
         retval += String.format( "%1$-73s %2$,6.2f", "Subtotal (WBV + NHBV - Excessive Ammo + Tonnage Bonus)", CurMech.GetUnmodifiedOffensiveBV() ) + NL;
@@ -162,6 +164,116 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
         }
         if( CurMech.GetLoadout().HasSupercharger() ) {
             retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetLoadout().GetSupercharger().GetCritName(), CurMech.GetLoadout().GetSupercharger().GetDefensiveBV(), CurMech.GetLoadout().GetSupercharger().GetOffensiveBV(), CurMech.GetLoadout().GetSupercharger().GetCost() ) + NL;
+        }
+        return retval;
+    }
+
+    public String PrintHeatAdjustedWeaponBV() {
+        Vector v = CurMech.GetLoadout().GetNonCore(), wep = new Vector();
+        float result = 0.0f, foreBV = 0.0f, rearBV = 0.0f;
+        boolean UseRear = false;
+        String retval = "";
+        abPlaceable a = null;
+
+        // is it even worth performing all this?
+        if( v.size() <= 0 ) {
+            // nope
+            return retval;
+        }
+
+        // trim out the other equipment and get a list of offensive weapons only.
+        for( int i = 0; i < v.size(); i++ ) {
+            if( v.get( i ) instanceof ifWeapon ) {
+                wep.add( v.get( i ) );
+            }
+        }
+
+        // just to save us a headache if there are no weapons
+        if( wep.size() <= 0 ) { return retval; }
+
+        // now get the mech's heat efficiency and the total heat from weapons
+        int heff = 6 + CurMech.GetHeatSinks().TotalDissipation() - CurMech.GetBVMovementHeat();
+        int wheat = CurMech.GetBVWeaponHeat();
+        float TCTotal = 0.0f;
+
+        // find out the total BV of rear and forward firing weapons
+        for( int i = 0; i < wep.size(); i++ ) {
+            if( ((abPlaceable) wep.get( i )).IsMountedRear() ) {
+                rearBV += ((abPlaceable) wep.get( i )).GetOffensiveBV();
+            } else {
+                foreBV += ((abPlaceable) wep.get( i )).GetOffensiveBV();
+            }
+        }
+        if( rearBV > foreBV ) { UseRear = true; }
+
+        // see if we need to run heat calculations
+        if( heff - wheat >= 0 ) {
+            // no need for extensive calculations, return the weapon BV
+            for( int i = 0; i < wep.size(); i++ ) {
+                a = ((abPlaceable) wep.get( i ));
+                retval += String.format( "%1$-73s %2$,6.2f", "    -> " + a.GetCritName(), a.GetCurOffensiveBV( UseRear ) ) + NL;
+                result += a.GetCurOffensiveBV( UseRear );
+                if( ((ifWeapon) a).IsTCCapable() ) {
+                    TCTotal += a.GetCurOffensiveBV( UseRear );
+                }
+            }
+            if( CurMech.GetLoadout().UsingTC() ) {
+                TCTotal = TCTotal * 0.25f;
+                result += TCTotal;
+                retval += String.format( "%1$-73s %2$,6.2f", "    -> Targeting Computer BV", TCTotal ) + NL;
+            }
+            return retval;
+        }
+
+        // Sort the weapon list
+        abPlaceable[] sorted = CurMech.SortWeapons( wep, UseRear );
+
+        // calculate the BV of the weapons based on heat
+        int curheat = 0;
+        for( int i = 0; i < sorted.length; i++ ) {
+            a = ((abPlaceable) sorted[i]);
+            if( curheat < heff ) {
+                retval += String.format( "%1$-73s %2$,6.2f", "    -> " + a.GetCritName(), a.GetCurOffensiveBV( UseRear ) ) + NL;
+                result += a.GetCurOffensiveBV( UseRear );
+                if( ((ifWeapon) a).IsTCCapable() ) {
+                    TCTotal += a.GetCurOffensiveBV( UseRear );
+                }
+            } else {
+                if( ((ifWeapon) sorted[i]).GetBVHeat() <= 0 ) {
+                    retval += String.format( "%1$-73s %2$,6.2f", "    -> " + a.GetCritName(), a.GetCurOffensiveBV( UseRear ) ) + NL;
+                    result += a.GetCurOffensiveBV( UseRear );
+                    if( ((ifWeapon) a).IsTCCapable() ) {
+                        TCTotal += a.GetCurOffensiveBV( UseRear );
+                    }
+                } else {
+                    retval += String.format( "%1$-73s %2$,6.2f", "    -> " + a.GetCritName(), a.GetCurOffensiveBV( UseRear ) * 0.5f ) + NL;
+                    result += a.GetCurOffensiveBV( UseRear ) * 0.5f;
+                    if( ((ifWeapon) a).IsTCCapable() ) {
+                        TCTotal += a.GetCurOffensiveBV( UseRear ) * 0.5f;
+                    }
+                }
+            }
+            curheat += ((ifWeapon) a).GetBVHeat();
+        }
+        if( CurMech.GetLoadout().UsingTC() ) {
+            TCTotal = TCTotal * 0.25f;
+            result += TCTotal;
+            retval += String.format( "%1$-73s %2$,6.2f", "    -> Targeting Computer BV", TCTotal ) + NL;
+        }
+        return retval;
+    }
+
+    public String PrintNonHeatEquipBV() {
+        // return the BV of all offensive equipment
+        Vector v = CurMech.GetLoadout().GetNonCore();
+        abPlaceable a = null;
+        String retval = "";
+
+        for( int i = 0; i < v.size(); i++ ) {
+            if( ! ( v.get( i ) instanceof ifWeapon ) ) {
+                a = ((abPlaceable) v.get( i ));
+                retval += String.format( "%1$-73s %2$,6.2f", "    -> " + a.GetCritName(), a.GetOffensiveBV() ) + NL;
+            }
         }
         return retval;
     }
