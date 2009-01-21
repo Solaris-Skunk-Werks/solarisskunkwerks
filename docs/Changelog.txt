@@ -106,6 +106,10 @@ Version 0.6.0
 - Removed code to unallocate everything in certain instances (testing new code).
 - Unallocated items should no longer be mounted rear.
 - Fixed speed factor calculations for Offensive BV.
+- Fixed a bug where CASE could not be removed.
+- Fixed a bug with the Supercharger and changing engine and gyro types.
+- Fixed a bug with loading a Mech while working with an OmniMech with a lower Rules Level.
+- Fixed a BV error with Missile Weapons.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

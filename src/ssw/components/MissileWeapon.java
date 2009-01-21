@@ -347,15 +347,15 @@ public class MissileWeapon extends abPlaceable implements ifWeapon {
     public float GetCurOffensiveBV( boolean UseRear ) {
         if( UseRear ) {
             if( MountedRear ) {
-                return OffBV;
+                return GetOffensiveBV();
             } else {
-                return OffBV * 0.5f;
+                return GetOffensiveBV() * 0.5f;
             }
         } else {
             if( MountedRear ) {
-                return OffBV * 0.5f;
+                return GetOffensiveBV() * 0.5f;
             } else {
-                return OffBV;
+                return GetOffensiveBV();
             }
         }
     }

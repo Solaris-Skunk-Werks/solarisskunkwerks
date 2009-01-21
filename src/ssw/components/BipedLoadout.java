@@ -3095,6 +3095,7 @@ public class BipedLoadout implements ifLoadout {
         // adds CASE equipment to the CT
         if( ! Add ) {
             Remove( CTCase );
+            return;
         }
         if( Add && HasCTCASE() ) {
             return;
@@ -3133,6 +3134,7 @@ public class BipedLoadout implements ifLoadout {
         // adds CASE equipment to the LT
         if( ! Add ) {
             Remove( LTCase );
+            return;
         }
         if( Add && HasLTCASE() ) {
             return;
@@ -3171,6 +3173,7 @@ public class BipedLoadout implements ifLoadout {
         // adds CASE equipment to the RT
         if( ! Add ) {
             Remove( RTCase );
+            return;
         }
         if( Add && HasRTCASE() ) {
             return;

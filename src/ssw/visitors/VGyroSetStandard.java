@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.visitors;
 
+import ssw.Constants;
 import ssw.components.*;
 
 public class VGyroSetStandard implements ifVisitor {
@@ -40,6 +41,7 @@ public class VGyroSetStandard implements ifVisitor {
     public void Visit( Mech m ) {
         CurMech = m;
         boolean CASEInstalled = false;
+        boolean SChargerInstalled = false;
         Gyro g = CurMech.GetGyro();
         ifLoadout l = CurMech.GetLoadout();
 
@@ -48,6 +50,19 @@ public class VGyroSetStandard implements ifVisitor {
             // remove it.  We may not be able to replace it, but we'll try
             CASEInstalled = true;
             CurMech.RemoveCTCase();
+        }
+
+        // see if we have a supercharger installed
+        if( CurMech.GetLoadout().HasSupercharger() ) {
+            if( CurMech.GetLoadout().Find( CurMech.GetLoadout().GetSupercharger() ) == Constants.LOC_CT ) {
+                SChargerInstalled = true;
+                try {
+                    CurMech.GetLoadout().SetSupercharger( false, -1, -1 );
+                } catch ( Exception e ) {
+                    // wow, a problem removing it.  Log it for later.
+                    System.err.println( e.getMessage() );
+                }
+            }
         }
 
         // We have to remove the engine as well as mess with the gyro here
@@ -79,6 +94,15 @@ public class VGyroSetStandard implements ifVisitor {
                 CurMech.AddCTCase();
             } catch( Exception e ) {
                 // unhandled at this time.  write out a system error
+                System.err.println( e.getMessage() );
+            }
+        }
+
+        // try to reinstall the Supercharger
+        if( SChargerInstalled ) {
+            try {
+                CurMech.GetLoadout().SetSupercharger( true, Constants.LOC_CT, -1 );
+            } catch ( Exception e ) {
                 System.err.println( e.getMessage() );
             }
         }

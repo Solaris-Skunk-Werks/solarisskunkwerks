@@ -78,6 +78,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     MechLoadoutRenderer Mechrender = new MechLoadoutRenderer( this, GlobalOptions );
     Hashtable Lookup = new Hashtable();
     Preferences Prefs;
+    boolean Load = false;
 
     final int BALLISTIC = 0,
               ENERGY = 1,
@@ -1158,6 +1159,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkRTCASE.setSelected( true );
         } else {
             chkRTCASE.setSelected( false );
+        }
+        if( CurMech.GetLoadout().HasSupercharger() ) {
+            chkSupercharger.setSelected( true );
+            cmbSCLoc.setSelectedItem( FileCommon.EncodeLocation( CurMech.GetLoadout().Find( CurMech.GetLoadout().GetSupercharger() ), false ) );
+        } else {
+            chkSupercharger.setSelected( false );
         }
         UpdateBasicChart();
     }
@@ -8286,6 +8293,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_spnNumberOfHSStateChanged
 
     private void cmbMechEraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMechEraActionPerformed
+        if( Load ) { return; }
         // whenever the era is changed we basically need to reset the GUI and
         // most of the mech.  Certain things we will transfer.
         if( CurMech.GetEra() == cmbMechEra.getSelectedIndex() ) {
@@ -8577,6 +8585,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_cmbTonnageActionPerformed
 
     private void cmbTechBaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTechBaseActionPerformed
+        if( Load ) { return; }
         // do we really need to do this?
         if( cmbTechBase.getSelectedIndex() == 0 ) {
             if( ! CurMech.IsClan() ) { return; }
@@ -9498,7 +9507,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_chkRTCASEActionPerformed
 
     private void chkLTCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLTCASEActionPerformed
-        if( CurMech.HasLTCase() == chkLTCASE.isSelected() ) { return; }
+        //if( CurMech.HasLTCase() == chkLTCASE.isSelected() ) { return; }
         if( chkLTCASE.isSelected() ) {
             try {
                 CurMech.AddLTCase();
@@ -10109,6 +10118,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_mnuNewMechActionPerformed
 
     private void cmbRulesLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRulesLevelActionPerformed
+        if( Load ) { return; }
         if( CurMech.GetLoadout().GetRulesLevel() == cmbRulesLevel.getSelectedIndex() ) {
             // we're already at the correct rules level.
             return;
@@ -10480,9 +10490,12 @@ private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     // Get the mech we're loading
     Mech m = LoadMech();
     if (m == null){
-            return;
+        return;
     }
-               
+
+    // added for special situations
+    Load = true;
+
     // Put it in the gui.
     UnlockGUIFromOmni();
     if( m.IsQuad() ) {
@@ -10515,6 +10528,8 @@ private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     cmbTechBase.setSelectedIndex( m.GetTechBase() );
 
     CurMech = m;
+    // now that we're done with the special stuff...
+    Load = false;
 
     if( chkYearRestrict.isSelected() ) {
         cmbMechEra.setEnabled( false );

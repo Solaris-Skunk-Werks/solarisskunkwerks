@@ -2045,7 +2045,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( false, 'A', 'A', 'A', 'B', 1950, 0, 0, "PS", "", false, false );
         add = new Ammunition( "@ Machine Gun (1/2)", "ISMG Ammo (100)", 48, false, a );
-        add.SetStats( 0.5f, 500.0f, 1.0f, 0.0f );
+        add.SetStats( 0.5f, 500.0f, 0.5f, 0.0f );
         add.SetDamage( 2, 1, 1 );
         add.SetRange( 0, 1, 2, 3 );
         add.SetExplosive( true );
@@ -2063,7 +2063,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( false, 'A', 'X', 'X', 'C', 3068, 0, 0, "CC", "", false, false );
         add = new Ammunition( "@ Light Machine Gun (1/2)", "ISLightMG Ammo (100)", 78, false, a );
-        add.SetStats( 0.5f, 250.0f, 1.0f, 0.0f );
+        add.SetStats( 0.5f, 250.0f, 0.5f, 0.0f );
         add.SetDamage( 1, 1, 1 );
         add.SetRange( 0, 2, 4, 6 );
         add.SetExplosive( true );
@@ -2081,7 +2081,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( false, 'A', 'X', 'X', 'C', 3068, 0, 0, "TC", "", false, false );
         add = new Ammunition( "@ Heavy Machine Gun (1/2)", "ISHeavyMG Ammo (50)", 79, false, a );
-        add.SetStats( 0.5f, 500.0f, 1.0f, 0.0f );
+        add.SetStats( 0.5f, 500.0f, 0.5f, 0.0f );
         add.SetDamage( 3, 1, 1 );
         add.SetRange( 0, 1, 2, 0 );
         add.SetExplosive( true );
@@ -3587,7 +3587,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'A', 'X', 'A', 'A', 1950, 0, 0, "PS", "", false, false );
         add = new Ammunition( "@ Machine Gun (1/2)", "CLMG Ammo (100)", 49, true, a );
-        add.SetStats( 0.5f, 500.0f, 1.0f, 0.0f );
+        add.SetStats( 0.5f, 500.0f, 0.5f, 0.0f );
         add.SetDamage( 2, 1, 1 );
         add.SetRange( 0, 1, 2, 3 );
         add.SetExplosive( true );
@@ -3605,7 +3605,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'A', 'X', 'X', 'B', 3060, 0, 0, "CSJ", "", false, false );
         add = new Ammunition( "@ Light Machine Gun (1/2)", "CLLightMG Ammo (100)", 80, true, a );
-        add.SetStats( 0.5f, 250.0f, 1.0f, 0.0f );
+        add.SetStats( 0.5f, 250.0f, 0.5f, 0.0f );
         add.SetDamage( 1, 1, 1 );
         add.SetRange( 0, 2, 4, 6 );
         add.SetExplosive( true );
@@ -3623,7 +3623,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'A', 'X', 'X', 'B', 3059, 0, 0, "CSJ", "", false, false );
         add = new Ammunition( "@ Heavy Machine Gun (1/2)", "CLHeavyMG Ammo (50)", 81, true, a );
-        add.SetStats( 0.5f, 500.0f, 1.0f, 0.0f );
+        add.SetStats( 0.5f, 500.0f, 0.5f, 0.0f );
         add.SetDamage( 3, 1, 1 );
         add.SetRange( 0, 1, 2, 0 );
         add.SetExplosive( true );

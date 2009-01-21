@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.visitors;
 
+import ssw.Constants;
 import ssw.components.*;
 
 public class VEngineSetFusionXL implements ifVisitor {
@@ -42,6 +43,20 @@ public class VEngineSetFusionXL implements ifVisitor {
         CurMech = m;
         ifLoadout l = CurMech.GetLoadout();
         Engine e = CurMech.GetEngine();
+        boolean SChargerInstalled = false;
+        int SChargerLoc = -1;
+
+        // see if we have a supercharger installed
+        if( l.HasSupercharger() ) {
+            SChargerInstalled = true;
+            SChargerLoc = l.Find( l.GetSupercharger() );
+            try {
+                CurMech.GetLoadout().SetSupercharger( false, -1, -1 );
+            } catch ( Exception ex ) {
+                // wow, a problem removing it.  Log it for later.
+                System.err.println( ex.getMessage() );
+            }
+        }
 
         // remove the engine
         e.Remove(l);
@@ -55,5 +70,16 @@ public class VEngineSetFusionXL implements ifVisitor {
 
         // place the engine
         e.Place(l);
+
+        // try to reinstall the Supercharger
+        if( SChargerInstalled ) {
+            try {
+                // we're not interested in where the suypercharger was since it
+                // can only go in the same spot as an engine.
+                CurMech.GetLoadout().SetSupercharger( true, Constants.LOC_CT, SChargerLoc );
+            } catch ( Exception ex ) {
+                System.err.println( ex.getMessage() );
+            }
+        }
     }
 }
