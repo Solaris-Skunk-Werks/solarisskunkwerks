@@ -28,9 +28,6 @@ New weapons to be added
 Thumper Artillery Cannon				Weapon
 Sniper Artillery Cannon					Weapon
 Long Tom Artillery Cannon				Weapon
-- HVAC/2									Weapon  ISHVAC2
-- HVAC/5									Weapon  ISHVAC5
-- HVAC/10									Weapon  ISHVAC10
 Caseless AC/2							Weapon
 Caseless AC/5							Weapon
 Caseless AC/10							Weapon
@@ -45,7 +42,6 @@ Talons									Weapon  Talons
 - ER Flamer								Weapon
 - Heavy Flamer							Weapon  ISHeavyFlamer
 Fluid Gun								Weapon
-Silver Bullet Gauss						Weapon  ISSBGR
 Mech Mortar/1							Weapon  CLMekMortar1 ISMekMortar1
 Mech Mortar/2							Weapon  CLMekMortar2 ISMekMortar2
 Mech Mortar/4							Weapon  CLMekMortar4 ISMekMortar4

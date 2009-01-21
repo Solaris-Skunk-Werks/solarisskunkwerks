@@ -26,7 +26,7 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// Last used Ammo Index: 107
+// Last used Ammo Index: 108
 
 package ssw.components;
 
@@ -2333,6 +2333,15 @@ public class AmmoFactory {
         add.SetRange( 0, 3, 6, 9 );
         add.SetExplosive( false );
         add.SetLotSize( 50 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'D', 'X', 'X', 'F', 3051, 0, 0, "FC", "", false, false, 3050, true, "FS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Silver Bullet Gauss", "IS Silver Bullet Gauss Ammo", 108, false, a );
+        add.SetStats( 1.0f, 25000.0f, 25.0f, 0.0f );
+        add.SetDamage( 15, 15, 15 );
+        add.SetRange( 2, 7, 15, 22 );
+        add.SetExplosive( false );
+        add.SetLotSize( 8 );
         ISAM.add( add );
 
         a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3067, 0, 0, "FS", "", false, false, 3065, true, "FS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );

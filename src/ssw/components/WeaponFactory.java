@@ -1791,6 +1791,19 @@ public class WeaponFactory {
         addBW.SetRequiresNuclear( true );
         ISBW.add( addBW );
 
+        // silver bullet gauss
+        a = new AvailableCode( false, 'D', 'X', 'X', 'F', 3051, 0, 0, "FC", "", false, false, 3050, true, "FS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addBW = new BallisticWeapon( "Silver Bullet Gauss", "ISSBGR", "DB", false, a );
+        addBW.SetDamage( 15, 15, 15 );
+        addBW.SetHeat( 1 );
+        addBW.SetRange( 2, 7, 15, 22 );
+        addBW.SetSpecials( "C, F, X", true, true, 50, 108, false, false );
+        addBW.SetStats( 15.0f, 7, 350000.0f, 198.0f, 0.0f );
+        addBW.SetBallistics( true, false, false, true );
+        addBW.SetAllocations( false, true, true, true, false, false );
+        addBW.SetRequiresNuclear( true );
+        ISBW.add( addBW );
+
         // mech taser
         a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3067, 0, 0, "FS", "", false, false, 3065, true, "FS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addBW = new BallisticWeapon( "BattleMech Taser", "ISBattleMechTaser", "DB", false, a );

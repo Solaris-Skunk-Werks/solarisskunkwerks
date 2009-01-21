@@ -21,7 +21,8 @@ Version 0.6.0
 - Added ER and heavy flamers, Enhanced ER PPC for Clan Wolverine, and 'Mech Taser.
 - Added Null-Sig, Void-Sig, Blue Shield, and Chameleon systems.
 - Added in the Supercharger.
-- Added in a bunch of TacOps Physical Weapons (Specter83)
+- Added Mace, Lance, Spikes, Vibroblades, Flail, Claws, Chain Whip
+- Added Bombast Lasers, Silver Bullet Gauss, Magshot Gauss Rifle
 - You can now export text directly to the system clipboard (File -> Export).
 - Added Print Saved Mech Command to Menu. Works with Omni and Standard Mechs (Arcangel)
 - XXL Engines are now in.
