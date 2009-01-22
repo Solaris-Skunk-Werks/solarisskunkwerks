@@ -2862,6 +2862,28 @@ public class WeaponFactory {
         addBW.SetAllocations( true, true, true, true, true, true );
         CLBW.add( addBW  );
 
+        // rotary ac2
+        a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3073, 0, 0, "CDS", "", false, false, 3069, true, "CDS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addBW = new BallisticWeapon( "Rotary AC/2", "CLRotaryAC2", "DB", true, a );
+        addBW.SetDamage( 2, 2, 2 );
+        addBW.SetHeat( 1 );
+        addBW.SetRange( 0, 8, 17, 25 );
+        addBW.SetSpecials( "R/C/R6", true, true, 45, 109, true, false );
+        addBW.SetStats( 8.0f, 4, 175000.0f, 161.0f, 0.0f );
+        addBW.SetBallistics( false, false, true, false );
+        CLBW.add( addBW  );
+
+        // rotary ac5
+        a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3073, 0, 0, "CDS", "", false, false, 3069, true, "CDS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addBW = new BallisticWeapon( "Rotary AC/5", "CLRotaryAC5", "DB", true, a );
+        addBW.SetDamage( 5, 5, 5 );
+        addBW.SetHeat( 1 );
+        addBW.SetRange( 0, 7, 14, 21 );
+        addBW.SetSpecials( "R/C/R6", true, true, 20, 110, true, false );
+        addBW.SetStats( 10.0f, 8, 275000.0f, 345.0f, 0.0f );
+        addBW.SetBallistics( false, false, true, false );
+        CLBW.add( addBW  );
+
         // ap gauss rifle
         a = new AvailableCode( true, 'F', 'X', 'X', 'E', 3069, 0, 0, "CJF", "", false, false );
         addBW = new BallisticWeapon( "AP Gauss Rifle", "CLAPGaussRifle", "DB", true, a );

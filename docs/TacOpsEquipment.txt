@@ -35,9 +35,6 @@ Caseless AC/20							Weapon
 ProtoMech AC/2							Weapon
 ProtoMech AC/4							Weapon
 ProtoMech AC/8							Weapon
-Clan Rotary AC/2						Weapon  CLRotaryAC2
-Clan Rotary AC/5						Weapon  CLRotaryAC5
-Spikes									Weapon  Spikes
 Talons									Weapon  Talons
 - ER Flamer								Weapon
 - Heavy Flamer							Weapon  ISHeavyFlamer

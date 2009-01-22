@@ -26,7 +26,7 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// Last used Ammo Index: 108
+// Last used Ammo Index: 110
 
 package ssw.components;
 
@@ -3529,6 +3529,24 @@ public class AmmoFactory {
         add.SetRange( 0, 4, 8, 12 );
         add.SetExplosive( true );
         add.SetLotSize( 5 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3073, 0, 0, "CDS", "", false, false, 3069, true, "CDS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Rotary AC/2", "CLRotaryAC2 Ammo", 109, true, a );
+        add.SetStats( 1.0f, 3000.0f, 20.0f, 0.0f );
+        add.SetDamage( 2, 1, 1 );
+        add.SetRange( 0, 8, 17, 25 );
+        add.SetExplosive( true );
+        add.SetLotSize( 45 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3073, 0, 0, "CDS", "", false, false, 3069, true, "CDS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Rotary AC/5", "CLRotaryAC5 Ammo", 110, true, a );
+        add.SetStats( 1.0f, 12000.0f, 43.0f, 0.0f );
+        add.SetDamage( 5, 1, 1 );
+        add.SetRange( 0, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 20 );
         CLAM.add( add );
 
         a = new AvailableCode( true, 'F', 'X', 'X', 'E', 3069, 0, 0, "CJF", "", false, false );
