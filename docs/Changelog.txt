@@ -26,6 +26,7 @@ Version 0.6.0
 - You can now export text directly to the system clipboard (File -> Export).
 - Added Print Saved Mech Command to Menu. Works with Omni and Standard Mechs (Arcangel)
 - XXL Engines are now in.
+- Added lines to denote a multi-crit item to the Record Sheet print.
 
 + Changed
 - Fixed a load bug with heatsinks.

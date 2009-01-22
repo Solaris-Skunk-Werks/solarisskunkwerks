@@ -236,16 +236,60 @@ public class PrintMech implements Printable {
         a = CurMech.GetLoadout().GetCrits( Constants.LOC_HD );
         p = points.GetCritHDPoints();
         for( int i = 0; i < a.length && i < p.length; i++ ) {
-            if( ! a[i].IsCritable() ) {
-                graphics.setFont( ItalicFont );
-                graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                graphics.setFont( PlainFont );
+            if( a[i].NumCrits() > 1 && a[i].Contiguous() &! ( a[i] instanceof Engine ) &! ( a[i] instanceof Gyro ) ) {
+                // print the multi-slot indicator before the item
+                abPlaceable Current = a[i];
+                int j = i;
+                int End = Current.NumCrits() + j;
+                if( End > a.length ) {
+                    End = a.length - 1;
+                }
+                for( ; j < End; j++ ) {
+                    if( j == i ) {
+                        // starting out
+                        graphics.drawLine( p[j].x, p[j].y - 4, p[j].x + 2, p[j].y - 4 );
+                        graphics.drawLine( p[j].x, p[j].y - 4, p[j].x, p[j].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    } else if( j == End - 1 ) {
+                        // end the line
+                        graphics.drawLine( p[j].x, p[j].y - 2, p[j].x + 2, p[j].y - 2 );
+                        graphics.drawLine( p[j].x, p[j].y - 2, p[j].x, p[j-1].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    } else {
+                        // continue the line
+                        graphics.drawLine( p[j].x, p[j].y, p[j].x, p[j-1].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    }
+                }
+                i = j - 1;
             } else {
-                if( a[i].IsArmored() ) {
-                    graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                    graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
-                } else {
+                // single slot item
+                if( ! a[i].IsCritable() ) {
+                    graphics.setFont( ItalicFont );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                    graphics.setFont( PlainFont );
+                } else {
+                    if( a[i].IsArmored() ) {
+                        graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
+                        graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                    } else {
+                        graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                    }
                 }
             }
         }
@@ -253,16 +297,60 @@ public class PrintMech implements Printable {
         a = CurMech.GetLoadout().GetCrits( Constants.LOC_CT );
         p = points.GetCritCTPoints();
         for( int i = 0; i < a.length && i < p.length; i++ ) {
-            if( ! a[i].IsCritable() ) {
-                graphics.setFont( ItalicFont );
-                graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                graphics.setFont( PlainFont );
+            if( a[i].NumCrits() > 1 && a[i].Contiguous() &! ( a[i] instanceof Engine ) &! ( a[i] instanceof Gyro ) ) {
+                // print the multi-slot indicator before the item
+                abPlaceable Current = a[i];
+                int j = i;
+                int End = Current.NumCrits() + j;
+                if( End > a.length ) {
+                    End = a.length - 1;
+                }
+                for( ; j < End; j++ ) {
+                    if( j == i ) {
+                        // starting out
+                        graphics.drawLine( p[j].x, p[j].y - 4, p[j].x + 2, p[j].y - 4 );
+                        graphics.drawLine( p[j].x, p[j].y - 4, p[j].x, p[j].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    } else if( j == End - 1 ) {
+                        // end the line
+                        graphics.drawLine( p[j].x, p[j].y - 2, p[j].x + 2, p[j].y - 2 );
+                        graphics.drawLine( p[j].x, p[j].y - 2, p[j].x, p[j-1].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    } else {
+                        // continue the line
+                        graphics.drawLine( p[j].x, p[j].y, p[j].x, p[j-1].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    }
+                }
+                i = j - 1;
             } else {
-                if( a[i].IsArmored() ) {
-                    graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                    graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
-                } else {
+                // single slot item
+                if( ! a[i].IsCritable() ) {
+                    graphics.setFont( ItalicFont );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                    graphics.setFont( PlainFont );
+                } else {
+                    if( a[i].IsArmored() ) {
+                        graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
+                        graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                    } else {
+                        graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                    }
                 }
             }
         }
@@ -270,16 +358,60 @@ public class PrintMech implements Printable {
         a = CurMech.GetLoadout().GetCrits( Constants.LOC_LT );
         p = points.GetCritLTPoints();
         for( int i = 0; i < a.length && i < p.length; i++ ) {
-            if( ! a[i].IsCritable() ) {
-                graphics.setFont( ItalicFont );
-                graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                graphics.setFont( PlainFont );
+            if( a[i].NumCrits() > 1 && a[i].Contiguous() &! ( a[i] instanceof Engine ) &! ( a[i] instanceof Gyro ) ) {
+                // print the multi-slot indicator before the item
+                abPlaceable Current = a[i];
+                int j = i;
+                int End = Current.NumCrits() + j;
+                if( End > a.length ) {
+                    End = a.length - 1;
+                }
+                for( ; j < End; j++ ) {
+                    if( j == i ) {
+                        // starting out
+                        graphics.drawLine( p[j].x, p[j].y - 4, p[j].x + 2, p[j].y - 4 );
+                        graphics.drawLine( p[j].x, p[j].y - 4, p[j].x, p[j].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    } else if( j == End - 1 ) {
+                        // end the line
+                        graphics.drawLine( p[j].x, p[j].y - 2, p[j].x + 2, p[j].y - 2 );
+                        graphics.drawLine( p[j].x, p[j].y - 2, p[j].x, p[j-1].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    } else {
+                        // continue the line
+                        graphics.drawLine( p[j].x, p[j].y, p[j].x, p[j-1].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    }
+                }
+                i = j - 1;
             } else {
-                if( a[i].IsArmored() ) {
-                    graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                    graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
-                } else {
+                // single slot item
+                if( ! a[i].IsCritable() ) {
+                    graphics.setFont( ItalicFont );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                    graphics.setFont( PlainFont );
+                } else {
+                    if( a[i].IsArmored() ) {
+                        graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
+                        graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                    } else {
+                        graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                    }
                 }
             }
         }
@@ -287,16 +419,60 @@ public class PrintMech implements Printable {
         a = CurMech.GetLoadout().GetCrits( Constants.LOC_RT );
         p = points.GetCritRTPoints();
         for( int i = 0; i < a.length && i < p.length; i++ ) {
-            if( ! a[i].IsCritable() ) {
-                graphics.setFont( ItalicFont );
-                graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                graphics.setFont( PlainFont );
+            if( a[i].NumCrits() > 1 && a[i].Contiguous() &! ( a[i] instanceof Engine ) &! ( a[i] instanceof Gyro ) ) {
+                // print the multi-slot indicator before the item
+                abPlaceable Current = a[i];
+                int j = i;
+                int End = Current.NumCrits() + j;
+                if( End > a.length ) {
+                    End = a.length - 1;
+                }
+                for( ; j < End; j++ ) {
+                    if( j == i ) {
+                        // starting out
+                        graphics.drawLine( p[j].x, p[j].y - 4, p[j].x + 2, p[j].y - 4 );
+                        graphics.drawLine( p[j].x, p[j].y - 4, p[j].x, p[j].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    } else if( j == End - 1 ) {
+                        // end the line
+                        graphics.drawLine( p[j].x, p[j].y - 2, p[j].x + 2, p[j].y - 2 );
+                        graphics.drawLine( p[j].x, p[j].y - 2, p[j].x, p[j-1].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    } else {
+                        // continue the line
+                        graphics.drawLine( p[j].x, p[j].y, p[j].x, p[j-1].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    }
+                }
+                i = j - 1;
             } else {
-                if( a[i].IsArmored() ) {
-                    graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                    graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
-                } else {
+                // single slot item
+                if( ! a[i].IsCritable() ) {
+                    graphics.setFont( ItalicFont );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                    graphics.setFont( PlainFont );
+                } else {
+                    if( a[i].IsArmored() ) {
+                        graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
+                        graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                    } else {
+                        graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                    }
                 }
             }
         }
@@ -304,16 +480,60 @@ public class PrintMech implements Printable {
         a = CurMech.GetLoadout().GetCrits( Constants.LOC_LA );
         p = points.GetCritLAPoints();
         for( int i = 0; i < a.length && i < p.length; i++ ) {
-            if( ! a[i].IsCritable() ) {
-                graphics.setFont( ItalicFont );
-                graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                graphics.setFont( PlainFont );
+            if( a[i].NumCrits() > 1 && a[i].Contiguous() &! ( a[i] instanceof Engine ) &! ( a[i] instanceof Gyro ) ) {
+                // print the multi-slot indicator before the item
+                abPlaceable Current = a[i];
+                int j = i;
+                int End = Current.NumCrits() + j;
+                if( End > a.length ) {
+                    End = a.length - 1;
+                }
+                for( ; j < End; j++ ) {
+                    if( j == i ) {
+                        // starting out
+                        graphics.drawLine( p[j].x, p[j].y - 4, p[j].x + 2, p[j].y - 4 );
+                        graphics.drawLine( p[j].x, p[j].y - 4, p[j].x, p[j].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    } else if( j == End - 1 ) {
+                        // end the line
+                        graphics.drawLine( p[j].x, p[j].y - 2, p[j].x + 2, p[j].y - 2 );
+                        graphics.drawLine( p[j].x, p[j].y - 2, p[j].x, p[j-1].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    } else {
+                        // continue the line
+                        graphics.drawLine( p[j].x, p[j].y, p[j].x, p[j-1].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    }
+                }
+                i = j - 1;
             } else {
-                if( a[i].IsArmored() ) {
-                    graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                    graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
-                } else {
+                // single slot item
+                if( ! a[i].IsCritable() ) {
+                    graphics.setFont( ItalicFont );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                    graphics.setFont( PlainFont );
+                } else {
+                    if( a[i].IsArmored() ) {
+                        graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
+                        graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                    } else {
+                        graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                    }
                 }
             }
         }
@@ -321,16 +541,60 @@ public class PrintMech implements Printable {
         a = CurMech.GetLoadout().GetCrits( Constants.LOC_RA );
         p = points.GetCritRAPoints();
         for( int i = 0; i < a.length && i < p.length; i++ ) {
-            if( ! a[i].IsCritable() ) {
-                graphics.setFont( ItalicFont );
-                graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                graphics.setFont( PlainFont );
+            if( a[i].NumCrits() > 1 && a[i].Contiguous() &! ( a[i] instanceof Engine ) &! ( a[i] instanceof Gyro ) ) {
+                // print the multi-slot indicator before the item
+                abPlaceable Current = a[i];
+                int j = i;
+                int End = Current.NumCrits() + j;
+                if( End > a.length ) {
+                    End = a.length - 1;
+                }
+                for( ; j < End; j++ ) {
+                    if( j == i ) {
+                        // starting out
+                        graphics.drawLine( p[j].x, p[j].y - 4, p[j].x + 2, p[j].y - 4 );
+                        graphics.drawLine( p[j].x, p[j].y - 4, p[j].x, p[j].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    } else if( j == End - 1 ) {
+                        // end the line
+                        graphics.drawLine( p[j].x, p[j].y - 2, p[j].x + 2, p[j].y - 2 );
+                        graphics.drawLine( p[j].x, p[j].y - 2, p[j].x, p[j-1].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    } else {
+                        // continue the line
+                        graphics.drawLine( p[j].x, p[j].y, p[j].x, p[j-1].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    }
+                }
+                i = j - 1;
             } else {
-                if( a[i].IsArmored() ) {
-                    graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                    graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
-                } else {
+                // single slot item
+                if( ! a[i].IsCritable() ) {
+                    graphics.setFont( ItalicFont );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                    graphics.setFont( PlainFont );
+                } else {
+                    if( a[i].IsArmored() ) {
+                        graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
+                        graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                    } else {
+                        graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                    }
                 }
             }
         }
@@ -338,16 +602,60 @@ public class PrintMech implements Printable {
         a = CurMech.GetLoadout().GetCrits( Constants.LOC_LL );
         p = points.GetCritLLPoints();
         for( int i = 0; i < a.length && i < p.length; i++ ) {
-            if( ! a[i].IsCritable() ) {
-                graphics.setFont( ItalicFont );
-                graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                graphics.setFont( PlainFont );
+            if( a[i].NumCrits() > 1 && a[i].Contiguous() &! ( a[i] instanceof Engine ) &! ( a[i] instanceof Gyro ) ) {
+                // print the multi-slot indicator before the item
+                abPlaceable Current = a[i];
+                int j = i;
+                int End = Current.NumCrits() + j;
+                if( End > a.length ) {
+                    End = a.length - 1;
+                }
+                for( ; j < End; j++ ) {
+                    if( j == i ) {
+                        // starting out
+                        graphics.drawLine( p[j].x, p[j].y - 4, p[j].x + 2, p[j].y - 4 );
+                        graphics.drawLine( p[j].x, p[j].y - 4, p[j].x, p[j].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    } else if( j == End - 1 ) {
+                        // end the line
+                        graphics.drawLine( p[j].x, p[j].y - 2, p[j].x + 2, p[j].y - 2 );
+                        graphics.drawLine( p[j].x, p[j].y - 2, p[j].x, p[j-1].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    } else {
+                        // continue the line
+                        graphics.drawLine( p[j].x, p[j].y, p[j].x, p[j-1].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    }
+                }
+                i = j - 1;
             } else {
-                if( a[i].IsArmored() ) {
-                    graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                    graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
-                } else {
+                // single slot item
+                if( ! a[i].IsCritable() ) {
+                    graphics.setFont( ItalicFont );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                    graphics.setFont( PlainFont );
+                } else {
+                    if( a[i].IsArmored() ) {
+                        graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
+                        graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                    } else {
+                        graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                    }
                 }
             }
         }
@@ -355,16 +663,60 @@ public class PrintMech implements Printable {
         a = CurMech.GetLoadout().GetCrits( Constants.LOC_RL );
         p = points.GetCritRLPoints();
         for( int i = 0; i < a.length && i < p.length; i++ ) {
-            if( ! a[i].IsCritable() ) {
-                graphics.setFont( ItalicFont );
-                graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                graphics.setFont( PlainFont );
+            if( a[i].NumCrits() > 1 && a[i].Contiguous() &! ( a[i] instanceof Engine ) &! ( a[i] instanceof Gyro ) ) {
+                // print the multi-slot indicator before the item
+                abPlaceable Current = a[i];
+                int j = i;
+                int End = Current.NumCrits() + j;
+                if( End > a.length ) {
+                    End = a.length - 1;
+                }
+                for( ; j < End; j++ ) {
+                    if( j == i ) {
+                        // starting out
+                        graphics.drawLine( p[j].x, p[j].y - 4, p[j].x + 2, p[j].y - 4 );
+                        graphics.drawLine( p[j].x, p[j].y - 4, p[j].x, p[j].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    } else if( j == End - 1 ) {
+                        // end the line
+                        graphics.drawLine( p[j].x, p[j].y - 2, p[j].x + 2, p[j].y - 2 );
+                        graphics.drawLine( p[j].x, p[j].y - 2, p[j].x, p[j-1].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    } else {
+                        // continue the line
+                        graphics.drawLine( p[j].x, p[j].y, p[j].x, p[j-1].y );
+                        if( a[j].IsArmored() ) {
+                            graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                        } else {
+                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                        }
+                    }
+                }
+                i = j - 1;
             } else {
-                if( a[i].IsArmored() ) {
-                    graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                    graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
-                } else {
+                // single slot item
+                if( ! a[i].IsCritable() ) {
+                    graphics.setFont( ItalicFont );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                    graphics.setFont( PlainFont );
+                } else {
+                    if( a[i].IsArmored() ) {
+                        graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
+                        graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                    } else {
+                        graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                    }
                 }
             }
         }
