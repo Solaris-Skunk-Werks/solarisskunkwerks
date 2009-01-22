@@ -46,7 +46,7 @@ public class PrintConsts {
                             HEATSINK_SINGLE = 14,
                             HEATSINK_DOUBLE = 15,
                             MAX_HEAT = 16;
-    public final static String RS_TW_BP = "./rs/RS_TW_BP.jpg",
+    public final static String RS_TW_BP = "./rs/RS_TW_BP.png",
                                RS_TW_QD = "./rs/RS_TW_QD.jpg",
                                RS_TO_BP = "",
                                RS_TO_QD = "";
