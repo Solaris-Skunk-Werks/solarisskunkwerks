@@ -48,7 +48,7 @@ public class Main {
 
         // uncomment the following line before creating a build.
 
-        //SetupLogFile( Constants.LogFileName );
+        SetupLogFile( Constants.LogFileName );
 
         try {
             // added code to turn off the boldface of Metal L&F.

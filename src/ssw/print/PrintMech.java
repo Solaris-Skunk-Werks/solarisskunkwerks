@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.print;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -62,6 +63,8 @@ public class PrintMech implements Printable {
     private Font ItalicFont = new Font( "Arial", Font.ITALIC, 8 );
     private Font SmallFont = new Font( "Arial", Font.PLAIN, 7 );
     private Font SmallItalicFont = new Font( "Arial", Font.ITALIC, 7 );
+    private Color Black = new Color( 0, 0, 0 ),
+                  Grey = new Color( 128, 128, 128 );
 
     public PrintMech( frmMain parent, Mech m, Image i, boolean adv, boolean A4 ) {
         Parent = parent;
@@ -281,8 +284,10 @@ public class PrintMech implements Printable {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
                     graphics.setFont( ItalicFont );
+                    graphics.setColor( Grey );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                     graphics.setFont( PlainFont );
+                    graphics.setColor( Black );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
@@ -342,8 +347,10 @@ public class PrintMech implements Printable {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
                     graphics.setFont( ItalicFont );
+                    graphics.setColor( Grey );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                     graphics.setFont( PlainFont );
+                    graphics.setColor( Black );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
@@ -403,8 +410,10 @@ public class PrintMech implements Printable {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
                     graphics.setFont( ItalicFont );
+                    graphics.setColor( Grey );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                     graphics.setFont( PlainFont );
+                    graphics.setColor( Black );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
@@ -464,8 +473,10 @@ public class PrintMech implements Printable {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
                     graphics.setFont( ItalicFont );
+                    graphics.setColor( Grey );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                     graphics.setFont( PlainFont );
+                    graphics.setColor( Black );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
@@ -525,8 +536,10 @@ public class PrintMech implements Printable {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
                     graphics.setFont( ItalicFont );
+                    graphics.setColor( Grey );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                     graphics.setFont( PlainFont );
+                    graphics.setColor( Black );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
@@ -586,8 +599,10 @@ public class PrintMech implements Printable {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
                     graphics.setFont( ItalicFont );
+                    graphics.setColor( Grey );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                     graphics.setFont( PlainFont );
+                    graphics.setColor( Black );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
@@ -647,8 +662,10 @@ public class PrintMech implements Printable {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
                     graphics.setFont( ItalicFont );
+                    graphics.setColor( Grey );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                     graphics.setFont( PlainFont );
+                    graphics.setColor( Black );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
@@ -708,8 +725,10 @@ public class PrintMech implements Printable {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
                     graphics.setFont( ItalicFont );
+                    graphics.setColor( Grey );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                     graphics.setFont( PlainFont );
+                    graphics.setColor( Black );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
@@ -790,6 +809,16 @@ public class PrintMech implements Printable {
                 graphics.drawString( "--", p[8].x, p[8].y + offset );
             }
             offset += 8;
+            // now add in the data for the item
+            if( item.Item instanceof ifWeapon ) {
+                ifWeapon w = (ifWeapon) item.Item;
+                graphics.drawString( "[" + w.GetType() + ", " + w.GetSpecials() + "]", p[2].x, p[2].y + offset );
+                offset += 8;
+            } else if( item.Item instanceof Equipment ) {
+                Equipment e = (Equipment) item.Item;
+                graphics.drawString( "[" + e.GetType() + ", " + e.GetSpecials() + "]", p[2].x, p[2].y + offset );
+                offset += 8;
+            }
         }
 
         graphics.setFont( BoldFont );
