@@ -49,6 +49,7 @@ public class Ammunition extends abPlaceable {
                     Clan;
     private AvailableCode AC;
     private String Name,
+                   PrintName,
                    LookupName;
 
     public Ammunition( String n, String l, int i, boolean c, AvailableCode a ) {
@@ -57,6 +58,9 @@ public class Ammunition extends abPlaceable {
         // LookupName is the name used when saved to MegaMek
         AC = a;
         Name = n;
+        // set the print name the same as the critname.  if it needs to be
+        // changed a method is provided.
+        PrintName = n;
         LookupName = l;
         AmmoIndex = i;
         Clan = c;
@@ -66,9 +70,19 @@ public class Ammunition extends abPlaceable {
         return Name;
     }
 
+    public void SetPrintName( String p ) {
+        // for ammos that have huge names you can override the normal name
+        PrintName = p;
+    }
+
+    public String GetBasePrintName() {
+        // returns the base printname for cloning purposes
+        return PrintName;
+    }
+
     @Override
     public String GetPrintName() {
-        return "@"+GetCritName().replace("@ ", "") + " (" + GetLotSize() + ")";
+        return "@" + PrintName.replace( "@ ", "" ) + " (" + GetLotSize() + ")";
     }
 
     public String GetMMName( boolean UseRear ) {

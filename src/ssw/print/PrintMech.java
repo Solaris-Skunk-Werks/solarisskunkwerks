@@ -234,7 +234,7 @@ public class PrintMech implements Printable {
     private void DrawCriticals( Graphics2D graphics ) {
         abPlaceable[] a = null;
         Point[] p = null;
-        graphics.setFont( PlainFont );
+        graphics.setFont( SmallFont );
 
         a = CurMech.GetLoadout().GetCrits( Constants.LOC_HD );
         p = points.GetCritHDPoints();
@@ -283,10 +283,10 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    graphics.setFont( ItalicFont );
+                    graphics.setFont( SmallItalicFont );
                     graphics.setColor( Grey );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                    graphics.setFont( PlainFont );
+                    graphics.setFont( SmallFont );
                     graphics.setColor( Black );
                 } else {
                     if( a[i].IsArmored() ) {
@@ -306,7 +306,13 @@ public class PrintMech implements Printable {
                 // print the multi-slot indicator before the item
                 abPlaceable Current = a[i];
                 int j = i;
-                int End = Current.NumCrits() + j;
+                int End;
+                if( Current.CanSplit() ) {
+                    int[] check = CurMech.GetLoadout().FindInstances( Current );
+                    End = check[Constants.LOC_CT] + j;
+                } else {
+                    End = Current.NumCrits() + j;
+                }
                 if( End > a.length ) {
                     End = a.length - 1;
                 }
@@ -346,10 +352,10 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    graphics.setFont( ItalicFont );
+                    graphics.setFont( SmallItalicFont );
                     graphics.setColor( Grey );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                    graphics.setFont( PlainFont );
+                    graphics.setFont( SmallFont );
                     graphics.setColor( Black );
                 } else {
                     if( a[i].IsArmored() ) {
@@ -369,7 +375,13 @@ public class PrintMech implements Printable {
                 // print the multi-slot indicator before the item
                 abPlaceable Current = a[i];
                 int j = i;
-                int End = Current.NumCrits() + j;
+                int End;
+                if( Current.CanSplit() ) {
+                    int[] check = CurMech.GetLoadout().FindInstances( Current );
+                    End = check[Constants.LOC_LT] + j;
+                } else {
+                    End = Current.NumCrits() + j;
+                }
                 if( End > a.length ) {
                     End = a.length - 1;
                 }
@@ -409,10 +421,10 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    graphics.setFont( ItalicFont );
+                    graphics.setFont( SmallItalicFont );
                     graphics.setColor( Grey );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                    graphics.setFont( PlainFont );
+                    graphics.setFont( SmallFont );
                     graphics.setColor( Black );
                 } else {
                     if( a[i].IsArmored() ) {
@@ -432,7 +444,13 @@ public class PrintMech implements Printable {
                 // print the multi-slot indicator before the item
                 abPlaceable Current = a[i];
                 int j = i;
-                int End = Current.NumCrits() + j;
+                int End;
+                if( Current.CanSplit() ) {
+                    int[] check = CurMech.GetLoadout().FindInstances( Current );
+                    End = check[Constants.LOC_RT] + j;
+                } else {
+                    End = Current.NumCrits() + j;
+                }
                 if( End > a.length ) {
                     End = a.length - 1;
                 }
@@ -472,10 +490,10 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    graphics.setFont( ItalicFont );
+                    graphics.setFont( SmallItalicFont );
                     graphics.setColor( Grey );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                    graphics.setFont( PlainFont );
+                    graphics.setFont( SmallFont );
                     graphics.setColor( Black );
                 } else {
                     if( a[i].IsArmored() ) {
@@ -495,7 +513,13 @@ public class PrintMech implements Printable {
                 // print the multi-slot indicator before the item
                 abPlaceable Current = a[i];
                 int j = i;
-                int End = Current.NumCrits() + j;
+                int End;
+                if( Current.CanSplit() ) {
+                    int[] check = CurMech.GetLoadout().FindInstances( Current );
+                    End = check[Constants.LOC_LA] + j;
+                } else {
+                    End = Current.NumCrits() + j;
+                }
                 if( End > a.length ) {
                     End = a.length - 1;
                 }
@@ -535,10 +559,10 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    graphics.setFont( ItalicFont );
+                    graphics.setFont( SmallItalicFont );
                     graphics.setColor( Grey );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                    graphics.setFont( PlainFont );
+                    graphics.setFont( SmallFont );
                     graphics.setColor( Black );
                 } else {
                     if( a[i].IsArmored() ) {
@@ -558,7 +582,13 @@ public class PrintMech implements Printable {
                 // print the multi-slot indicator before the item
                 abPlaceable Current = a[i];
                 int j = i;
-                int End = Current.NumCrits() + j;
+                int End;
+                if( Current.CanSplit() ) {
+                    int[] check = CurMech.GetLoadout().FindInstances( Current );
+                    End = check[Constants.LOC_RA] + j;
+                } else {
+                    End = Current.NumCrits() + j;
+                }
                 if( End > a.length ) {
                     End = a.length - 1;
                 }
@@ -598,10 +628,10 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    graphics.setFont( ItalicFont );
+                    graphics.setFont( SmallItalicFont );
                     graphics.setColor( Grey );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                    graphics.setFont( PlainFont );
+                    graphics.setFont( SmallFont );
                     graphics.setColor( Black );
                 } else {
                     if( a[i].IsArmored() ) {
@@ -621,7 +651,13 @@ public class PrintMech implements Printable {
                 // print the multi-slot indicator before the item
                 abPlaceable Current = a[i];
                 int j = i;
-                int End = Current.NumCrits() + j;
+                int End;
+                if( Current.CanSplit() ) {
+                    int[] check = CurMech.GetLoadout().FindInstances( Current );
+                    End = check[Constants.LOC_LL] + j;
+                } else {
+                    End = Current.NumCrits() + j;
+                }
                 if( End > a.length ) {
                     End = a.length - 1;
                 }
@@ -661,10 +697,10 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    graphics.setFont( ItalicFont );
+                    graphics.setFont( SmallItalicFont );
                     graphics.setColor( Grey );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                    graphics.setFont( PlainFont );
+                    graphics.setFont( SmallFont );
                     graphics.setColor( Black );
                 } else {
                     if( a[i].IsArmored() ) {
@@ -684,7 +720,13 @@ public class PrintMech implements Printable {
                 // print the multi-slot indicator before the item
                 abPlaceable Current = a[i];
                 int j = i;
-                int End = Current.NumCrits() + j;
+                int End;
+                if( Current.CanSplit() ) {
+                    int[] check = CurMech.GetLoadout().FindInstances( Current );
+                    End = check[Constants.LOC_RL] + j;
+                } else {
+                    End = Current.NumCrits() + j;
+                }
                 if( End > a.length ) {
                     End = a.length - 1;
                 }
@@ -724,10 +766,10 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    graphics.setFont( ItalicFont );
+                    graphics.setFont( SmallItalicFont );
                     graphics.setColor( Grey );
                     graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                    graphics.setFont( PlainFont );
+                    graphics.setFont( SmallFont );
                     graphics.setColor( Black );
                 } else {
                     if( a[i].IsArmored() ) {
@@ -812,11 +854,19 @@ public class PrintMech implements Printable {
             // now add in the data for the item
             if( item.Item instanceof ifWeapon ) {
                 ifWeapon w = (ifWeapon) item.Item;
-                graphics.drawString( "[" + w.GetType() + ", " + w.GetSpecials() + "]", p[2].x, p[2].y + offset );
+                if( w.GetSpecials().equals( "-" ) ) {
+                    graphics.drawString( "[" + w.GetType() + "]", p[2].x, p[2].y + offset );
+                } else {
+                    graphics.drawString( "[" + w.GetType() + ", " + w.GetSpecials() + "]", p[2].x, p[2].y + offset );
+                }
                 offset += 8;
             } else if( item.Item instanceof Equipment ) {
                 Equipment e = (Equipment) item.Item;
-                graphics.drawString( "[" + e.GetType() + ", " + e.GetSpecials() + "]", p[2].x, p[2].y + offset );
+                if( e.GetSpecials().equals( "-" ) ) {
+                    graphics.drawString( "[" + e.GetType() + "]", p[2].x, p[2].y + offset );
+                } else {
+                    graphics.drawString( "[" + e.GetType() + ", " + e.GetSpecials() + "]", p[2].x, p[2].y + offset );
+                }
                 offset += 8;
             }
         }

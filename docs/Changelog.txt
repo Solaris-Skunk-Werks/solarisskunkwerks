@@ -114,6 +114,7 @@ Version 0.6.0
 - Expanded the Cost/BV Breakdown dialogue for better troubleshooting.
 - Made some cosmetic changes to the print module.
 - Fixed a problem with Heat Efficiency and BV calculations.
+- Changed ammo print names for Inner Sphere ammo (Clan soon to come).
 
 -------------------------------------------------------------------------------
 Version 0.5.0
