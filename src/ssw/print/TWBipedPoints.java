@@ -258,7 +258,7 @@ public class TWBipedPoints implements ifPrintPoints {
         new Point( 39, 103 ), new Point( 58, 130 ), new Point( 58, 140 ), new Point( 58, 150 ),
         new Point( 162, 117 ), new Point( 199, 131 ), new Point( 199, 142 ), new Point( 261, 104 ),
         new Point( 285, 116 ), new Point( 358, 116 ), new Point( 42, 339 ), new Point( 144, 339 ),
-        new Point( 500, 594 ), new Point( 516, 594 ), new Point( 522, 698 ), new Point( 522, 713 ),
+        new Point( 500, 594 ), new Point( 516, 594 ), new Point( 522, 699 ), new Point( 522, 713 ),
         new Point( 145, 354)};
     private final static Point[] InternalInfo = { 
         new Point( 0, 0 ), new Point( 456, 503 ), new Point( 428, 394 ), new Point( 521, 394 ),

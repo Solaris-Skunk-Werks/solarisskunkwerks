@@ -2406,6 +2406,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         btnExportHTMLIcon = new javax.swing.JButton();
         btnExportTextIcon = new javax.swing.JButton();
         btnExportMTFIcon = new javax.swing.JButton();
+        jSeparator23 = new javax.swing.JToolBar.Separator();
+        jButton1 = new javax.swing.JButton();
         jSeparator21 = new javax.swing.JToolBar.Separator();
         btnOptionsIcon = new javax.swing.JButton();
         tbpMainTabPane = new javax.swing.JTabbedPane();
@@ -2995,6 +2997,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         tlbIconBar.add(btnExportMTFIcon);
+        tlbIconBar.add(jSeparator23);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_up.gif"))); // NOI18N
+        jButton1.setToolTipText("Upload to Solaris7.com");
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        tlbIconBar.add(jButton1);
         tlbIconBar.add(jSeparator21);
 
         btnOptionsIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/icon_settings.gif"))); // NOI18N
@@ -11403,6 +11418,10 @@ private void btnExportClipboardIconActionPerformed(java.awt.event.ActionEvent ev
     mnuExportClipboardActionPerformed(evt);
 }//GEN-LAST:event_btnExportClipboardIconActionPerformed
 
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    mnuPostS7ActionPerformed(evt);
+}//GEN-LAST:event_jButton1ActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -11508,6 +11527,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JEditorPane edtNotables;
     private javax.swing.JEditorPane edtOverview;
     private javax.swing.JEditorPane edtVariants;
+    private javax.swing.JButton jButton1;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -11618,6 +11638,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JSeparator jSeparator20;
     private javax.swing.JToolBar.Separator jSeparator21;
     private javax.swing.JToolBar.Separator jSeparator22;
+    private javax.swing.JToolBar.Separator jSeparator23;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
