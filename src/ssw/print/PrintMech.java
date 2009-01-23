@@ -192,42 +192,42 @@ public class PrintMech implements Printable {
 
         p = points.GetInternalHDPoints();
         for( int i = 0; i < CurMech.GetIntStruc().GetHeadPoints(); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 5, 5 );
+            graphics.drawOval( p[i].x, p[i].y, 4, 4 );
         }
 
         p = points.GetInternalCTPoints();
         for( int i = 0; i < CurMech.GetIntStruc().GetCTPoints(); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 5, 5 );
+            graphics.drawOval( p[i].x, p[i].y, 4, 4 );
         }
 
         p = points.GetInternalLTPoints();
         for( int i = 0; i < CurMech.GetIntStruc().GetSidePoints(); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 5, 5 );
+            graphics.drawOval( p[i].x, p[i].y, 4, 4 );
         }
 
         p = points.GetInternalRTPoints();
         for( int i = 0; i < CurMech.GetIntStruc().GetSidePoints(); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 5, 5 );
+            graphics.drawOval( p[i].x, p[i].y, 4, 4 );
         }
 
         p = points.GetInternalLAPoints();
         for( int i = 0; i < CurMech.GetIntStruc().GetArmPoints(); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 5, 5 );
+            graphics.drawOval( p[i].x, p[i].y, 4, 4 );
         }
 
         p = points.GetInternalRAPoints();
         for( int i = 0; i < CurMech.GetIntStruc().GetArmPoints(); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 5, 5 );
+            graphics.drawOval( p[i].x, p[i].y, 4, 4 );
         }
 
         p = points.GetInternalLLPoints();
         for( int i = 0; i < CurMech.GetIntStruc().GetLegPoints(); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 5, 5 );
+            graphics.drawOval( p[i].x, p[i].y, 4, 4 );
         }
 
         p = points.GetInternalRLPoints();
         for( int i = 0; i < CurMech.GetIntStruc().GetLegPoints(); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 5, 5 );
+            graphics.drawOval( p[i].x, p[i].y, 4, 4 );
         }
     }
 
@@ -283,11 +283,7 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    graphics.setFont( SmallItalicFont );
-                    graphics.setColor( Grey );
-                    graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                    graphics.setFont( SmallFont );
-                    graphics.setColor( Black );
+                    DrawNonCritable( graphics, a[i].GetPrintName(), p[i].x, p[i].y );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
@@ -352,11 +348,7 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    graphics.setFont( SmallItalicFont );
-                    graphics.setColor( Grey );
-                    graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                    graphics.setFont( SmallFont );
-                    graphics.setColor( Black );
+                    DrawNonCritable( graphics, a[i].GetPrintName(), p[i].x, p[i].y );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
@@ -421,11 +413,7 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    graphics.setFont( SmallItalicFont );
-                    graphics.setColor( Grey );
-                    graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                    graphics.setFont( SmallFont );
-                    graphics.setColor( Black );
+                    DrawNonCritable( graphics, a[i].GetPrintName(), p[i].x, p[i].y );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
@@ -490,11 +478,7 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    graphics.setFont( SmallItalicFont );
-                    graphics.setColor( Grey );
-                    graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                    graphics.setFont( SmallFont );
-                    graphics.setColor( Black );
+                    DrawNonCritable( graphics, a[i].GetPrintName(), p[i].x, p[i].y );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
@@ -559,11 +543,7 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    graphics.setFont( SmallItalicFont );
-                    graphics.setColor( Grey );
-                    graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                    graphics.setFont( SmallFont );
-                    graphics.setColor( Black );
+                    DrawNonCritable( graphics, a[i].GetPrintName(), p[i].x, p[i].y );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
@@ -628,11 +608,7 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    graphics.setFont( SmallItalicFont );
-                    graphics.setColor( Grey );
-                    graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                    graphics.setFont( SmallFont );
-                    graphics.setColor( Black );
+                    DrawNonCritable( graphics, a[i].GetPrintName(), p[i].x, p[i].y );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
@@ -697,11 +673,7 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    graphics.setFont( SmallItalicFont );
-                    graphics.setColor( Grey );
-                    graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                    graphics.setFont( SmallFont );
-                    graphics.setColor( Black );
+                    DrawNonCritable( graphics, a[i].GetPrintName(), p[i].x, p[i].y );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
@@ -766,11 +738,7 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    graphics.setFont( SmallItalicFont );
-                    graphics.setColor( Grey );
-                    graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
-                    graphics.setFont( SmallFont );
-                    graphics.setColor( Black );
+                    DrawNonCritable( graphics, a[i].GetPrintName(), p[i].x, p[i].y );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
@@ -960,6 +928,14 @@ public class PrintMech implements Printable {
         graphics.drawString( CurMech.GetArmor().GetLocationArmor( Constants.LOC_CTR ) + "", p[Constants.LOC_CTR].x, p[Constants.LOC_CTR].y );
         graphics.drawString( CurMech.GetArmor().GetLocationArmor( Constants.LOC_LTR ) + "", p[Constants.LOC_LTR].x, p[Constants.LOC_LTR].y );
         graphics.drawString( CurMech.GetArmor().GetLocationArmor( Constants.LOC_RTR ) + "", p[Constants.LOC_RTR].x, p[Constants.LOC_RTR].y );
+    }
+
+    private void DrawNonCritable( Graphics2D graphics, String Item, int X, int Y ) {
+        graphics.setFont( ItalicFont );
+        graphics.setColor( Grey );
+        graphics.drawString( Item, X, Y );
+        graphics.setFont( PlainFont );
+        graphics.setColor( Black );
     }
 
     private void AddCharts( Graphics2D graphics ) {

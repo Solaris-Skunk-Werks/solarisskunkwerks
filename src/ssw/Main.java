@@ -91,7 +91,7 @@ public class Main {
             public void run() {
                 frmMain MainFrame = new frmMain();
                 MainFrame.setTitle( Constants.AppDescription + " " + Constants.Version );
-                MainFrame.setSize( 760, 575 );
+                MainFrame.setSize( 750, 600 );
                 MainFrame.setLocationRelativeTo( null );
                 MainFrame.setResizable( true );
                 MainFrame.setDefaultCloseOperation( javax.swing.JFrame.DISPOSE_ON_CLOSE );

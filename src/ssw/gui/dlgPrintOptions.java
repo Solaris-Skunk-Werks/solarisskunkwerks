@@ -45,6 +45,9 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         cmbGunnery.setSelectedIndex( 4 );
         cmbPiloting.setSelectedIndex( 5 );
         lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );
+        if (Parent.Prefs.getBoolean("UseA4", false)) {
+            cmbPaperSize.setSelectedIndex(1);
+        }
     }
 
     public boolean Result() {

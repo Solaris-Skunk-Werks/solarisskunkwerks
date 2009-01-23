@@ -92,8 +92,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     /** Creates new form frmMain */
     public frmMain() {
         Prefs = Preferences.userNodeForPackage(this.getClass());
-
+        
         initComponents();
+        setViewToolbar(Prefs.getBoolean("ViewToolbar", true));
 
         mnuUnallocateAll.addActionListener( new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -236,6 +237,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 }
             }
         } );
+
+        LoadMechFromPreferences();
     }
 
     public Image GetImage( String filename ) {
@@ -2160,6 +2163,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             POptions.dispose();
         }
 
+        Prefs.putBoolean("UseA4", useA4paper);
+
         PrinterJob job = PrinterJob.getPrinterJob();
         PrintMech p = new PrintMech( this, m, GetImage( m.GetSSWImage() ), false, useA4paper);
         p.SetPilotData( warriorName, gunnerySkill, pilotingSkill);
@@ -2391,6 +2396,18 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         jScrollPane25 = new javax.swing.JScrollPane();
         jEditorPane1 = new javax.swing.JEditorPane();
+        tlbIconBar = new javax.swing.JToolBar();
+        btnNewIcon = new javax.swing.JButton();
+        btnOpen = new javax.swing.JButton();
+        btnSaveIcon = new javax.swing.JButton();
+        btnPrintIcon = new javax.swing.JButton();
+        jSeparator22 = new javax.swing.JToolBar.Separator();
+        btnExportClipboardIcon = new javax.swing.JButton();
+        btnExportHTMLIcon = new javax.swing.JButton();
+        btnExportTextIcon = new javax.swing.JButton();
+        btnExportMTFIcon = new javax.swing.JButton();
+        jSeparator21 = new javax.swing.JToolBar.Separator();
+        btnOptionsIcon = new javax.swing.JButton();
         tbpMainTabPane = new javax.swing.JTabbedPane();
         pnlBasicSetup = new javax.swing.JPanel();
         pnlBasicInformation = new javax.swing.JPanel();
@@ -2858,6 +2875,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuExit = new javax.swing.JMenuItem();
         mnuTools = new javax.swing.JMenu();
         mnuOptions = new javax.swing.JMenuItem();
+        mnuViewToolbar = new javax.swing.JCheckBoxMenuItem();
         mnuSummary = new javax.swing.JMenuItem();
         mnuCostBVBreakdown = new javax.swing.JMenuItem();
         mnuUnlock = new javax.swing.JMenuItem();
@@ -2870,7 +2888,131 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane25.setViewportView(jEditorPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(750, 515));
         getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        tlbIconBar.setFloatable(false);
+        tlbIconBar.setFocusable(false);
+        tlbIconBar.setMaximumSize(new java.awt.Dimension(30, 30));
+        tlbIconBar.setMinimumSize(new java.awt.Dimension(30, 30));
+        tlbIconBar.setPreferredSize(new java.awt.Dimension(30, 30));
+        tlbIconBar.setRequestFocusEnabled(false);
+        tlbIconBar.setVerifyInputWhenFocusTarget(false);
+
+        btnNewIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_new.gif"))); // NOI18N
+        btnNewIcon.setToolTipText("New Mech");
+        btnNewIcon.setFocusable(false);
+        btnNewIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnNewIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnNewIcon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewIconActionPerformed(evt);
+            }
+        });
+        tlbIconBar.add(btnNewIcon);
+
+        btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/folder.gif"))); // NOI18N
+        btnOpen.setToolTipText("Load Mech");
+        btnOpen.setFocusable(false);
+        btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOpenActionPerformed(evt);
+            }
+        });
+        tlbIconBar.add(btnOpen);
+
+        btnSaveIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/action_save.gif"))); // NOI18N
+        btnSaveIcon.setToolTipText("Save Mech");
+        btnSaveIcon.setFocusable(false);
+        btnSaveIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSaveIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSaveIcon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveIconActionPerformed(evt);
+            }
+        });
+        tlbIconBar.add(btnSaveIcon);
+
+        btnPrintIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/action_print.gif"))); // NOI18N
+        btnPrintIcon.setToolTipText("Print Mech");
+        btnPrintIcon.setFocusable(false);
+        btnPrintIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPrintIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPrintIcon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintIconActionPerformed(evt);
+            }
+        });
+        tlbIconBar.add(btnPrintIcon);
+        tlbIconBar.add(jSeparator22);
+
+        btnExportClipboardIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_tag_blue.gif"))); // NOI18N
+        btnExportClipboardIcon.setToolTipText("Export Text to Clipboard");
+        btnExportClipboardIcon.setFocusable(false);
+        btnExportClipboardIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExportClipboardIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnExportClipboardIcon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportClipboardIconActionPerformed(evt);
+            }
+        });
+        tlbIconBar.add(btnExportClipboardIcon);
+
+        btnExportHTMLIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_code.gif"))); // NOI18N
+        btnExportHTMLIcon.setToolTipText("Export HTML");
+        btnExportHTMLIcon.setFocusable(false);
+        btnExportHTMLIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExportHTMLIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnExportHTMLIcon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportHTMLIconActionPerformed(evt);
+            }
+        });
+        tlbIconBar.add(btnExportHTMLIcon);
+
+        btnExportTextIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_edit.gif"))); // NOI18N
+        btnExportTextIcon.setToolTipText("Export Text");
+        btnExportTextIcon.setFocusable(false);
+        btnExportTextIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExportTextIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnExportTextIcon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportTextIconActionPerformed(evt);
+            }
+        });
+        tlbIconBar.add(btnExportTextIcon);
+
+        btnExportMTFIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_favourites.gif"))); // NOI18N
+        btnExportMTFIcon.setToolTipText("Export MTF");
+        btnExportMTFIcon.setFocusable(false);
+        btnExportMTFIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExportMTFIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnExportMTFIcon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportMTFIconActionPerformed(evt);
+            }
+        });
+        tlbIconBar.add(btnExportMTFIcon);
+        tlbIconBar.add(jSeparator21);
+
+        btnOptionsIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/icon_settings.gif"))); // NOI18N
+        btnOptionsIcon.setToolTipText("View Options");
+        btnOptionsIcon.setFocusable(false);
+        btnOptionsIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnOptionsIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnOptionsIcon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOptionsIconActionPerformed(evt);
+            }
+        });
+        tlbIconBar.add(btnOptionsIcon);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        getContentPane().add(tlbIconBar, gridBagConstraints);
 
         pnlBasicSetup.setLayout(new java.awt.GridBagLayout());
 
@@ -7913,7 +8055,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         tbpMainTabPane.addTab("Charts", pnlCharts);
 
-        getContentPane().add(tbpMainTabPane, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        getContentPane().add(tbpMainTabPane, gridBagConstraints);
 
         pnlInfoPanel.setMaximumSize(new java.awt.Dimension(32767, 26));
         pnlInfoPanel.setMinimumSize(new java.awt.Dimension(730, 26));
@@ -7994,7 +8139,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
         getContentPane().add(pnlInfoPanel, gridBagConstraints);
 
@@ -8075,6 +8220,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         jMenu2.setText("Print");
 
+        mnuPrintCurrentMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         mnuPrintCurrentMech.setText("Current Mech");
         mnuPrintCurrentMech.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -8083,6 +8229,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         jMenu2.add(mnuPrintCurrentMech);
 
+        mnuPrintSavedMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         mnuPrintSavedMech.setText("Saved Mech");
         mnuPrintSavedMech.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -8128,6 +8275,16 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         mnuTools.add(mnuOptions);
+
+        mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
+        mnuViewToolbar.setSelected(true);
+        mnuViewToolbar.setText("View Toolbar");
+        mnuViewToolbar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuViewToolbarActionPerformed(evt);
+            }
+        });
+        mnuTools.add(mnuViewToolbar);
 
         mnuSummary.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
         mnuSummary.setText("Show Summary");
@@ -11021,6 +11178,163 @@ private Mech LoadMech (){
     return m;
 }
 
+private void LoadMechFromPreferences()
+{
+    Mech m = null;
+    String filename = Prefs.get("LastOpenDirectory", "") + Prefs.get("LastOpenFile", "");
+    if (! filename.isEmpty() ) {
+        XMLReader XMLr = new XMLReader();
+        try {
+            m = XMLr.ReadMech( this, filename );
+            m.ReCalcBaseCost();
+        } catch( Exception e ) {
+            // had a problem loading the mech.  let the user know.
+            javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        }
+        CurMech = m;
+        ReloadMech();
+    }
+}
+
+private void ReloadMech()
+{
+    // added for special situations
+    Load = true;
+
+    // Put it in the gui.
+    UnlockGUIFromOmni();
+    if( CurMech.IsQuad() ) {
+        cmbMotiveType.setSelectedIndex( 1 );
+    } else {
+        cmbMotiveType.setSelectedIndex( 0 );
+    }
+    chkYearRestrict.setSelected( CurMech.IsYearRestricted() );
+    txtProdYear.setText( "" + CurMech.GetYear() );
+    cmbMechEra.setEnabled( true );
+    cmbTechBase.setEnabled( true );
+    txtProdYear.setEnabled( true );
+    switch( CurMech.GetEra() ) {
+        case 0:
+            lblEraYears.setText( "2443 ~ 2800" );
+            cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere" }));
+            break;
+        case 1:
+            lblEraYears.setText( "2801 ~ 3050" );
+            cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
+            break;
+        case 2:
+            lblEraYears.setText( "3051 on" );
+            cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
+            break;
+    }
+
+    cmbRulesLevel.setSelectedIndex( CurMech.GetRulesLevel() );
+    cmbMechEra.setSelectedIndex( CurMech.GetEra() );
+    cmbTechBase.setSelectedIndex( CurMech.GetTechBase() );
+
+    // now that we're done with the special stuff...
+    Load = false;
+
+    if( chkYearRestrict.isSelected() ) {
+        cmbMechEra.setEnabled( false );
+        cmbTechBase.setEnabled( false );
+        txtProdYear.setEnabled( false );
+    }
+    txtMechName.setText( CurMech.GetName() );
+    txtMechModel.setText( CurMech.GetModel() );
+
+    if( CurMech.IsOmnimech() ) {
+        LockGUIForOmni();
+        RefreshOmniVariants();
+        RefreshOmniChoices();
+    }
+
+    FixTransferHandlers();
+
+    ResetTonnageSelector();
+    BuildChassisSelector();
+    BuildEngineSelector();
+    BuildGyroSelector();
+    BuildCockpitSelector();
+    BuildEnhancementSelector();
+    BuildHeatsinkSelector();
+    BuildJumpJetSelector();
+    BuildArmorSelector();
+    cmbInternalType.setSelectedItem( CurMech.GetIntStruc().GetLookupName() );
+    cmbEngineType.setSelectedItem( CurMech.GetEngine().GetLookupName() );
+    cmbGyroType.setSelectedItem( CurMech.GetGyro().GetLookupName() );
+    cmbCockpitType.setSelectedItem( CurMech.GetCockpit().GetLookupName() );
+    cmbPhysEnhance.setSelectedItem( CurMech.GetPhysEnhance().GetLookupName() );
+    cmbHeatSinkType.setSelectedItem( CurMech.GetHeatSinks().GetLookupName() );
+    cmbJumpJetType.setSelectedItem( CurMech.GetJumpJets().GetLookupName() );
+    cmbArmorType.setSelectedItem( CurMech.GetArmor().GetLookupName() );
+    FixWalkMPSpinner();
+    FixHeatSinkSpinnerModel();
+    FixJJSpinnerModel();
+    RefreshInternalPoints();
+    FixArmorSpinners();
+    Weapons.RebuildPhysicals( CurMech );
+    RefreshEquipment();
+    chkCTCASE.setSelected( CurMech.HasCTCase() );
+    chkLTCASE.setSelected( CurMech.HasLTCase() );
+    chkRTCASE.setSelected( CurMech.HasRTCase() );
+    chkUseTC.setSelected( CurMech.UsingTC() );
+    chkNullSig.setSelected( CurMech.HasNullSig() );
+    chkVoidSig.setSelected( CurMech.HasVoidSig() );
+    chkBSPFD.setSelected( CurMech.HasBlueShield() );
+    chkCLPS.setSelected( CurMech.HasChameleon() );
+    SetLoadoutArrays();
+    RefreshSummary();
+    RefreshInfoPane();
+    SetWeaponChoosers();
+    ResetAmmo();
+
+    // load the fluff image.
+    ImageIcon FluffImage = new ImageIcon( CurMech.GetSSWImage() );
+    // See if we need to scale
+    int h = FluffImage.getIconHeight();
+    int w = FluffImage.getIconWidth();
+    if ( w > 290 || h > 350 ) {
+        if ( w > h ) { // resize based on width
+            FluffImage = new ImageIcon(FluffImage.getImage().
+                getScaledInstance(290, -1, Image.SCALE_DEFAULT));
+        } else { // resize based on height
+            FluffImage = new ImageIcon(FluffImage.getImage().
+                getScaledInstance(-1, 350, Image.SCALE_DEFAULT));
+        }
+    }
+
+    edtOverview.setText( CurMech.GetOverview() );
+    edtCapabilities.setText( CurMech.GetCapabilities() );
+    edtHistory.setText( CurMech.GetHistory() );
+    edtDeployment.setText( CurMech.GetDeployment() );
+    edtVariants.setText( CurMech.GetVariants() );
+    edtNotables.setText( CurMech.GetNotables() );
+    edtAdditionalFluff.setText( CurMech.GetAdditional() );
+    txtManufacturer.setText( CurMech.GetCompany() );
+    txtManufacturerLocation.setText( CurMech.GetLocation() );
+    txtEngineManufacturer.setText( CurMech.GetEngineManufacturer() );
+    txtArmorModel.setText( CurMech.GetArmorModel() );
+    txtChassisModel.setText( CurMech.GetChassisModel() );
+    if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
+        txtJJModel.setEnabled( true );
+        txtJJModel.setText( CurMech.GetJJModel() );
+    }
+    txtCommSystem.setText( CurMech.GetCommSystem() );
+    txtTNTSystem.setText( CurMech.GetTandTSystem() );
+
+    // see if we should enable the Power Amplifier display
+    if( CurMech.GetEngine().IsNuclear() ) {
+        lblSumPAmps.setVisible( false );
+        txtSumPAmpsTon.setVisible( false );
+        txtSumPAmpsACode.setVisible( false );
+    } else {
+        lblSumPAmps.setVisible( true );
+        txtSumPAmpsTon.setVisible( true );
+        txtSumPAmpsACode.setVisible( true );
+    }
+}
+
 private void mnuExportClipboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportClipboardActionPerformed
     // takes the text export and copies it to thesystem clipboard.
         String CurLoadout = "";
@@ -11049,6 +11363,58 @@ private void mnuExportClipboardActionPerformed(java.awt.event.ActionEvent evt) {
         clipboard.setContents( export, this );
 }//GEN-LAST:event_mnuExportClipboardActionPerformed
 
+private void btnSaveIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveIconActionPerformed
+    mnuSaveActionPerformed(evt);
+}//GEN-LAST:event_btnSaveIconActionPerformed
+
+private void btnPrintIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintIconActionPerformed
+    mnuPrintCurrentMechActionPerformed(evt);
+}//GEN-LAST:event_btnPrintIconActionPerformed
+
+private void btnNewIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewIconActionPerformed
+    mnuNewMechActionPerformed(evt);
+}//GEN-LAST:event_btnNewIconActionPerformed
+
+private void btnOptionsIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOptionsIconActionPerformed
+    mnuOptionsActionPerformed(evt);
+}//GEN-LAST:event_btnOptionsIconActionPerformed
+
+private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
+    mnuLoadActionPerformed(evt);
+}//GEN-LAST:event_btnOpenActionPerformed
+
+private void mnuViewToolbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuViewToolbarActionPerformed
+    setViewToolbar(mnuViewToolbar.getState());
+}//GEN-LAST:event_mnuViewToolbarActionPerformed
+
+private void btnExportHTMLIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportHTMLIconActionPerformed
+    mnuExportHTMLActionPerformed(evt);
+}//GEN-LAST:event_btnExportHTMLIconActionPerformed
+
+private void btnExportTextIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportTextIconActionPerformed
+    mnuExportTXTActionPerformed(evt);
+}//GEN-LAST:event_btnExportTextIconActionPerformed
+
+private void btnExportMTFIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportMTFIconActionPerformed
+    mnuExportMTFActionPerformed(evt);
+}//GEN-LAST:event_btnExportMTFIconActionPerformed
+
+private void btnExportClipboardIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportClipboardIconActionPerformed
+    mnuExportClipboardActionPerformed(evt);
+}//GEN-LAST:event_btnExportClipboardIconActionPerformed
+
+private void setViewToolbar(boolean Visible)
+{
+    tlbIconBar.setVisible(Visible);
+    Prefs.putBoolean("ViewToolbar", Visible);
+    mnuViewToolbar.setState(Visible);
+    if (Visible) {
+        if (this.getHeight() != 600) { this.setSize(750, 600); }
+    } else {
+        if (this.getHeight() != 575) { this.setSize(750, 575); }
+    }
+}
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddEquip;
     private javax.swing.JButton btnAddVariant;
@@ -11061,14 +11427,23 @@ private void mnuExportClipboardActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JButton btnCompactCrits;
     private javax.swing.JButton btnDeleteVariant;
     private javax.swing.JButton btnEfficientArmor;
+    private javax.swing.JButton btnExportClipboardIcon;
     private javax.swing.JButton btnExportHTML;
+    private javax.swing.JButton btnExportHTMLIcon;
     private javax.swing.JButton btnExportMTF;
+    private javax.swing.JButton btnExportMTFIcon;
     private javax.swing.JButton btnExportTXT;
+    private javax.swing.JButton btnExportTextIcon;
     private javax.swing.JButton btnLoadImage;
     private javax.swing.JButton btnLockChassis;
     private javax.swing.JButton btnMaxArmor;
+    private javax.swing.JButton btnNewIcon;
+    private javax.swing.JButton btnOpen;
+    private javax.swing.JButton btnOptionsIcon;
+    private javax.swing.JButton btnPrintIcon;
     private javax.swing.JButton btnRemainingArmor;
     private javax.swing.JButton btnRemoveEquip;
+    private javax.swing.JButton btnSaveIcon;
     private javax.swing.JButton btnSelectiveAllocate;
     private javax.swing.JCheckBox chkArtemisLRM;
     private javax.swing.JCheckBox chkArtemisMML;
@@ -11241,6 +11616,8 @@ private void mnuExportClipboardActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JSeparator jSeparator19;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator20;
+    private javax.swing.JToolBar.Separator jSeparator21;
+    private javax.swing.JToolBar.Separator jSeparator22;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
@@ -11401,6 +11778,7 @@ private void mnuExportClipboardActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JMenuItem mnuSummary;
     private javax.swing.JMenu mnuTools;
     private javax.swing.JMenuItem mnuUnlock;
+    private javax.swing.JCheckBoxMenuItem mnuViewToolbar;
     private javax.swing.JPanel onlLoadoutControls;
     private javax.swing.JPanel pnlAdditionalFluff;
     private javax.swing.JPanel pnlAmmunition;
@@ -11483,6 +11861,7 @@ private void mnuExportClipboardActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JTabbedPane tbpFluffEditors;
     private javax.swing.JTabbedPane tbpMainTabPane;
     private javax.swing.JTabbedPane tbpWeaponChooser;
+    private javax.swing.JToolBar tlbIconBar;
     private javax.swing.JTextField txtArmorModel;
     private javax.swing.JTextField txtChassisModel;
     private javax.swing.JTextField txtCommSystem;

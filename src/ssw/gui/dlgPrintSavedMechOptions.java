@@ -48,6 +48,9 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
             cmbOmniVariant.setEnabled(false);
         }
         lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );
+        if (Parent.Prefs.getBoolean("UseA4", false)) {
+            cmbPaperSize.setSelectedIndex(1);
+        }
     }
 
     /** This method is called from within the constructor to

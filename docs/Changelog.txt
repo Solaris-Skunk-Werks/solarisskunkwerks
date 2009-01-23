@@ -27,6 +27,10 @@ Version 0.6.0
 - Added Print Saved Mech Command to Menu. Works with Omni and Standard Mechs (Arcangel)
 - XXL Engines are now in.
 - Added lines to denote a multi-crit item to the Record Sheet print.
+- Added Weapon Heat to printouts for both Biped and Quad mechs
+- Added auto-load of last open file
+- Added icon toolbar for ease-of-use
+- Print Paper size selection remembered
 
 + Changed
 - Fixed a load bug with heatsinks.
