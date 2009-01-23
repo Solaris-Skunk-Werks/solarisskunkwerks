@@ -2860,6 +2860,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'X', 'E', 3059, 0, 0, "CHH", "", false, false, 3057, true, "CHH", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         add = new Ammunition( "@ Small Chemical Laser", "CLSmallChemLaserAmmo", 91, true, a );
+        add.SetPrintName( "@ Small Chem Laser" );
         add.SetStats( 1.0f, 30000.0f, 1.0f, 0.0f );
         add.SetDamage( 3, 1, 1 );
         add.SetRange( 0, 1, 2, 3 );
@@ -2869,6 +2870,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'X', 'E', 3059, 0, 0, "CHH", "", false, false, 3057, true, "CHH", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         add = new Ammunition( "@ Medium Chemical Laser", "CLMediumChemLaserAmmo", 92, true, a );
+        add.SetPrintName( "@ Medium Chem Laser" );
         add.SetStats( 1.0f, 30000.0f, 5.0f, 0.0f );
         add.SetDamage( 5, 1, 1 );
         add.SetRange( 0, 3, 6, 9 );
@@ -2878,6 +2880,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'X', 'E', 3059, 0, 0, "CHH", "", false, false, 3057, true, "CHH", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         add = new Ammunition( "@ Large Chemical Laser", "CLLargeChemLaserAmmo", 93, true, a );
+        add.SetPrintName( "@ Large Chem Laser" );
         add.SetStats( 1.0f, 30000.0f, 12.0f, 0.0f );
         add.SetDamage( 8, 1, 1 );
         add.SetRange( 0, 5, 10, 15 );
@@ -2914,6 +2917,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2598, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ SRM-2 (Artemis Capable)", "CLSRM2 Ammo", 8, true, a );
+        add.SetPrintName( "@ SRM-2 (Artemis)" );
         add.SetStats( 1.0f, 54000.0f, 3.0f, 0.0f );
         add.SetDamage( 2, 2, 2 );
         add.SetRange( 0, 3, 6, 9 );
@@ -2923,6 +2927,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2598, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ SRM-4 (Artemis Capable)", "CLSRM4 Ammo", 9, true, a );
+        add.SetPrintName( "@ SRM-4 (Artemis)" );
         add.SetStats( 1.0f, 54000.0f, 5.0f, 0.0f );
         add.SetDamage( 2, 4, 2 );
         add.SetRange( 0, 3, 6, 9 );
@@ -2932,6 +2937,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2598, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ SRM-6 (Artemis Capable)", "CLSRM6 Ammo", 10, true, a );
+        add.SetPrintName( "@ SRM-6 (Artemis)" );
         add.SetStats( 1.0f, 54000.0f, 7.0f, 0.0f );
         add.SetDamage( 2, 6, 2 );
         add.SetRange( 0, 3, 6, 9 );
@@ -2941,6 +2947,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2385, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ SRM-2 (Fragmentation)", "CLSRM2 Ammo", 8, true, a );
+        add.SetPrintName( "@ SRM-2 (Frag)" );
         add.SetStats( 1.0f, 54000.0f, 3.0f, 0.0f );
         add.SetDamage( 2, 2, 2 );
         add.SetRange( 0, 3, 6, 9 );
@@ -2950,6 +2957,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2385, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ SRM-4 (Fragmentation)", "CLSRM4 Ammo", 9, true, a );
+        add.SetPrintName( "@ SRM-4 (Frag)" );
         add.SetStats( 1.0f, 54000.0f, 5.0f, 0.0f );
         add.SetDamage( 2, 4, 2 );
         add.SetRange( 0, 3, 6, 9 );
@@ -2959,6 +2967,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2385, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ SRM-6 (Fragmentation)", "CLSRM6 Ammo", 10, true, a );
+        add.SetPrintName( "@ SRM-6 (Frag)" );
         add.SetStats( 1.0f, 54000.0f, 7.0f, 0.0f );
         add.SetDamage( 2, 6, 2 );
         add.SetRange( 0, 3, 6, 9 );
@@ -3049,6 +3058,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2597, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ SRM-2 (Narc Capable)", "CLSRM2 Ammo", 8, true, a );
+        add.SetPrintName( "@ SRM-2 (Narc)" );
         add.SetStats( 1.0f, 54000.0f, 3.0f, 0.0f );
         add.SetDamage( 2, 2, 2 );
         add.SetRange( 0, 3, 6, 9 );
@@ -3058,6 +3068,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2597, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ SRM-4 (Narc Capable)", "CLSRM4 Ammo", 9, true, a );
+        add.SetPrintName( "@ SRM-4 (Narc)" );
         add.SetStats( 1.0f, 54000.0f, 5.0f, 0.0f );
         add.SetDamage( 2, 4, 2 );
         add.SetRange( 0, 3, 6, 9 );
@@ -3067,6 +3078,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2597, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ SRM-6 (Narc Capable)", "CLSRM6 Ammo", 10, true, a );
+        add.SetPrintName( "@ SRM-6 (Narc)" );
         add.SetStats( 1.0f, 54000.0f, 7.0f, 0.0f );
         add.SetDamage( 2, 6, 2 );
         add.SetRange( 0, 3, 6, 9 );
@@ -3274,6 +3286,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2598, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ LRM-5 (Artemis Capable)", "CLLRM5 Ammo", 29, true, a );
+        add.SetPrintName( "@ LRM-5 (Artemis)" );
         add.SetStats( 1.0f, 60000.0f, 7.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 0, 7, 14, 21 );
@@ -3283,6 +3296,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2598, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ LRM-10 (Artemis Capable)", "CLLRM10 Ammo", 30, true, a );
+        add.SetPrintName( "@ LRM-10 (Artemis)" );
         add.SetStats( 1.0f, 60000.0f, 14.0f, 0.0f );
         add.SetDamage( 1, 5, 10 );
         add.SetRange( 0, 7, 14, 21 );
@@ -3292,6 +3306,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2598, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ LRM-15 (Artemis Capable)", "CLLRM15 Ammo", 31, true, a );
+        add.SetPrintName( "@ LRM-15 (Artemis)" );
         add.SetStats( 1.0f, 60000.0f, 21.0f, 0.0f );
         add.SetDamage( 1, 5, 15 );
         add.SetRange( 0, 7, 14, 21 );
@@ -3301,6 +3316,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2598, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ LRM-20 (Artemis Capable)", "CLLRM20 Ammo", 32, true, a );
+        add.SetPrintName( "@ LRM-20 (Artemis)" );
         add.SetStats( 1.0f, 60000.0f, 27.0f, 0.0f );
         add.SetDamage( 1, 5, 20 );
         add.SetRange( 0, 7, 14, 21 );
@@ -3346,6 +3362,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'D', 'X', 'D', 'C', 2385, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ LRM-5 (Fragmentation)", "CLLRM5 Ammo", 29, true, a );
+        add.SetPrintName( "@ LRM-5 (Frag)" );
         add.SetStats( 1.0f, 60000.0f, 7.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 0, 7, 14, 21 );
@@ -3355,6 +3372,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'D', 'X', 'D', 'C', 2385, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ LRM-10 (Fragmentation)", "CLLRM10 Ammo", 30, true, a );
+        add.SetPrintName( "@ LRM-10 (Frag)" );
         add.SetStats( 1.0f, 60000.0f, 14.0f, 0.0f );
         add.SetDamage( 1, 5, 10 );
         add.SetRange( 0, 7, 14, 21 );
@@ -3364,6 +3382,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'D', 'X', 'D', 'C', 2385, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ LRM-15 (Fragmentation)", "CLLRM15 Ammo", 31, true, a );
+        add.SetPrintName( "@ LRM-15 (Frag)" );
         add.SetStats( 1.0f, 60000.0f, 21.0f, 0.0f );
         add.SetDamage( 1, 5, 15 );
         add.SetRange( 0, 7, 14, 21 );
@@ -3373,6 +3392,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'D', 'X', 'D', 'C', 2385, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ LRM-20 (Fragmentation)", "CLLRM20 Ammo", 32, true, a );
+        add.SetPrintName( "@ LRM-20 (Frag)" );
         add.SetStats( 1.0f, 60000.0f, 27.0f, 0.0f );
         add.SetDamage( 1, 5, 20 );
         add.SetRange( 0, 7, 14, 21 );
@@ -3454,6 +3474,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2597, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ LRM-5 (Narc Capable)", "CLLRM5 Ammo", 29, true, a );
+        add.SetPrintName( "@ LRM-5 (Narc)" );
         add.SetStats( 1.0f, 60000.0f, 7.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 0, 7, 14, 21 );
@@ -3463,6 +3484,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2597, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ LRM-10 (Narc Capable)", "CLLRM10 Ammo", 30, true, a );
+        add.SetPrintName( "@ LRM-10 (Narc)" );
         add.SetStats( 1.0f, 60000.0f, 14.0f, 0.0f );
         add.SetDamage( 1, 5, 10 );
         add.SetRange( 0, 7, 14, 21 );
@@ -3472,6 +3494,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2597, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ LRM-15 (Narc Capable)", "CLLRM15 Ammo", 31, true, a );
+        add.SetPrintName( "@ LRM-15 (Narc)" );
         add.SetStats( 1.0f, 60000.0f, 21.0f, 0.0f );
         add.SetDamage( 1, 5, 15 );
         add.SetRange( 0, 7, 14, 21 );
@@ -3481,6 +3504,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2597, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ LRM-20 (Narc Capable)", "CLLRM20 Ammo", 32, true, a );
+        add.SetPrintName( "@ LRM-20 (Narc)" );
         add.SetStats( 1.0f, 60000.0f, 27.0f, 0.0f );
         add.SetDamage( 1, 5, 20 );
         add.SetRange( 0, 7, 14, 21 );
@@ -3571,6 +3595,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2826, 0, 0, "CGS", "", false, false );
         add = new Ammunition( "@ LB 2-X AC (Slug)", "CLLBXAC2 Ammo", 54, true, a );
+        add.SetPrintName( "@ LB 2-X (Slug)" );
         add.SetStats( 1.0f, 2000.0f, 6.0f, 0.0f );
         add.SetDamage( 2, 1, 1 );
         add.SetRange( 4, 10, 20, 30 );
@@ -3580,6 +3605,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2826, 0, 0, "CGS", "", false, false );
         add = new Ammunition( "@ LB 2-X AC (Cluster)", "CLLBXAC2 CL Ammo", 54, true, a );
+        add.SetPrintName( "@ LB 2-X (Cluster)" );
         add.SetStats( 1.0f, 3300.0f, 6.0f, 0.0f );
         add.SetDamage( 1, 2, 1 );
         add.SetRange( 4, 10, 20, 30 );
@@ -3590,6 +3616,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2825, 0, 0, "CCY", "", false, false );
         add = new Ammunition( "@ LB 5-X AC (Slug)", "CLLBXAC5 Ammo", 55, true, a );
+        add.SetPrintName( "@ LB 5-X (Slug)" );
         add.SetStats( 1.0f, 9000.0f, 12.0f, 0.0f );
         add.SetDamage( 5, 1, 1 );
         add.SetRange( 3, 8, 15, 24 );
@@ -3599,6 +3626,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2825, 0, 0, "CCY", "", false, false );
         add = new Ammunition( "@ LB 5-X AC (Cluster)", "CLLBXAC5 CL Ammo", 55, true, a );
+        add.SetPrintName( "@ LB 5-X (Cluster)" );
         add.SetStats( 1.0f, 15000.0f, 12.0f, 0.0f );
         add.SetDamage( 1, 5, 1 );
         add.SetRange( 3, 8, 15, 24 );
@@ -3609,6 +3637,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2595, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ LB 10-X AC (Slug)", "CLLBXAC10 Ammo", 56, true, a );
+        add.SetPrintName( "@ LB 10-X (Slug)" );
         add.SetStats( 1.0f, 12000.0f, 19.0f, 0.0f );
         add.SetDamage( 10, 1, 1 );
         add.SetRange( 0, 6, 12, 18 );
@@ -3618,6 +3647,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2595, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ LB 10-X AC (Cluster)", "CLLBXAC10 CL Ammo", 56, true, a );
+        add.SetPrintName( "@ LB 10-X (Cluster)" );
         add.SetStats( 1.0f, 20000.0f, 19.0f, 0.0f );
         add.SetDamage( 1, 10, 1 );
         add.SetRange( 0, 6, 12, 18 );
@@ -3628,6 +3658,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2826, 0, 0, "CHH", "", false, false );
         add = new Ammunition( "@ LB 20-X AC (Slug)", "CLLBXAC20 Ammo", 57, true, a );
+        add.SetPrintName( "@ LB 20-X (Slug)" );
         add.SetStats( 1.0f, 20000.0f, 30.0f, 0.0f );
         add.SetDamage( 20, 1, 1 );
         add.SetRange( 0, 4, 8, 12 );
@@ -3637,6 +3668,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'C', 2826, 0, 0, "CHH", "", false, false );
         add = new Ammunition( "@ LB 20-X AC (Cluster)", "CLLBXAC20 CL Ammo", 57, true, a );
+        add.SetPrintName( "@ LB 20-X (Cluster)" );
         add.SetStats( 1.0f, 34000.0f, 30.0f, 0.0f );
         add.SetDamage( 1, 20, 1 );
         add.SetRange( 0, 4, 8, 12 );
@@ -3719,6 +3751,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'F', 'X', 'X', 'E', 3068, 0, 0, "CHH", "", false, false );
         add = new Ammunition( "@ Hyper Assault Gauss 20", "CLHAG20 Ammo", 75, true, a );
+        add.SetPrintName( "@ HAG-20" );
         add.SetStats( 1.0f, 30000.0f, 33.0f, 0.0f );
         add.SetDamage( 1, 5, 20 );
         add.SetRange( 2, 8, 16, 24 );
@@ -3728,6 +3761,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'F', 'X', 'X', 'E', 3068, 0, 0, "CHH", "", false, false );
         add = new Ammunition( "@ Hyper Assault Gauss 30", "CLHAG30 Ammo", 76, true, a );
+        add.SetPrintName( "@ HAG-30" );
         add.SetStats( 1.0f, 30000.0f, 50.0f, 0.0f );
         add.SetDamage( 1, 5, 30 );
         add.SetRange( 2, 8, 16, 24 );
@@ -3737,6 +3771,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'F', 'X', 'X', 'E', 3069, 0, 0, "CHH", "", false, false );
         add = new Ammunition( "@ Hyper Assault Gauss 40", "CLHAG40 Ammo", 77, true, a );
+        add.SetPrintName( "@ HAG-40" );
         add.SetStats( 1.0f, 30000.0f, 67.0f, 0.0f );
         add.SetDamage( 1, 5, 40 );
         add.SetRange( 2, 8, 16, 24 );
@@ -3746,6 +3781,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'A', 'X', 'A', 'A', 1950, 0, 0, "PS", "", false, false );
         add = new Ammunition( "@ Machine Gun", "CLMG Ammo (200)", 49, true, a );
+        add.SetPrintName( "@ MG" );
         add.SetStats( 1.0f, 1000.0f, 1.0f, 0.0f );
         add.SetDamage( 2, 1, 1 );
         add.SetRange( 0, 1, 2, 3 );
@@ -3755,6 +3791,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'A', 'X', 'A', 'A', 1950, 0, 0, "PS", "", false, false );
         add = new Ammunition( "@ Machine Gun (1/2)", "CLMG Ammo (100)", 49, true, a );
+        add.SetPrintName( "@ MG (1/2)" );
         add.SetStats( 0.5f, 500.0f, 0.5f, 0.0f );
         add.SetDamage( 2, 1, 1 );
         add.SetRange( 0, 1, 2, 3 );
@@ -3764,6 +3801,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'A', 'X', 'X', 'B', 3060, 0, 0, "CSJ", "", false, false );
         add = new Ammunition( "@ Light Machine Gun", "CLLightMG Ammo (200)", 80, true, a );
+        add.SetPrintName( "@ LMG" );
         add.SetStats( 1.0f, 500.0f, 1.0f, 0.0f );
         add.SetDamage( 1, 1, 1 );
         add.SetRange( 0, 2, 4, 6 );
@@ -3773,6 +3811,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'A', 'X', 'X', 'B', 3060, 0, 0, "CSJ", "", false, false );
         add = new Ammunition( "@ Light Machine Gun (1/2)", "CLLightMG Ammo (100)", 80, true, a );
+        add.SetPrintName( "@ LMG (1/2)" );
         add.SetStats( 0.5f, 250.0f, 0.5f, 0.0f );
         add.SetDamage( 1, 1, 1 );
         add.SetRange( 0, 2, 4, 6 );
@@ -3782,6 +3821,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'A', 'X', 'X', 'B', 3059, 0, 0, "CSJ", "", false, false );
         add = new Ammunition( "@ Heavy Machine Gun", "CLHeavyMG Ammo (100)", 81, true, a );
+        add.SetPrintName( "@ HMG" );
         add.SetStats( 1.0f, 1000.0f, 1.0f, 0.0f );
         add.SetDamage( 3, 1, 1 );
         add.SetRange( 0, 1, 2, 0 );
@@ -3791,6 +3831,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'A', 'X', 'X', 'B', 3059, 0, 0, "CSJ", "", false, false );
         add = new Ammunition( "@ Heavy Machine Gun (1/2)", "CLHeavyMG Ammo (50)", 81, true, a );
+        add.SetPrintName( "@ HMG (1/2)" );
         add.SetStats( 0.5f, 500.0f, 0.5f, 0.0f );
         add.SetDamage( 3, 1, 1 );
         add.SetRange( 0, 1, 2, 0 );
@@ -3809,6 +3850,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'D', 2850, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         add = new Ammunition( "@ Arrow IV (Non-Homing)", "CLArrowIVAmmo", 86, false, a );
+        add.SetPrintName( "@ Arrow IV (Non-Home)" );
         add.SetStats( 1.0f, 10000.0f, 30.0f, 0.0f );
         add.SetDamage( 20, 1, 1 );
         add.SetRange( 0, 8, 0, 0 );
@@ -3881,6 +3923,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'D', 2645, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         add = new Ammunition( "@ Thumper (Copperhead)", "CLThumperAmmo", 89, false, a );
+        add.SetPrintName( "@ Thumper (Cprhead)" );
         add.SetStats( 1.0f, 6750.0f, 5.0f, 0.0f );
         add.SetDamage( 5, 1, 1 );
         add.SetRange( 0, 21, 0, 0 );
@@ -3899,6 +3942,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'C', 'X', 'C', 'C', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         add = new Ammunition( "@ Thumper (Illumination)", "CLThumperAmmo", 89, false, a );
+        add.SetPrintName( "@ Thumper (Illum)" );
         add.SetStats( 1.0f, 2250.0f, 5.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 0, 21, 0, 0 );
@@ -3944,6 +3988,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'D', 2645, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         add = new Ammunition( "@ Sniper (Copperhead)", "CLSniperAmmo", 90, false, a );
+        add.SetPrintName( "@ Sniper (Cprhead)" );
         add.SetStats( 1.0f, 9000.0f, 11.0f, 0.0f );
         add.SetDamage( 10, 1, 1 );
         add.SetRange( 0, 18, 0, 0 );
@@ -3962,6 +4007,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( true, 'C', 'X', 'C', 'C', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         add = new Ammunition( "@ Sniper (Illumination)", "CLSniperAmmo", 90, false, a );
+        add.SetPrintName( "@ Sniper (Illum)" );
         add.SetStats( 1.0f, 3000.0f, 11.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 0, 18, 0, 0 );

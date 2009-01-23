@@ -115,6 +115,7 @@ Version 0.6.0
 - Made some cosmetic changes to the print module.
 - Fixed a problem with Heat Efficiency and BV calculations.
 - Changed ammo print names for Inner Sphere ammo (Clan soon to come).
+- Changed ammo print names for Clan ammo.
 
 -------------------------------------------------------------------------------
 Version 0.5.0
