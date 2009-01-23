@@ -43,6 +43,10 @@ public class stJumpJetISNJJ implements ifJumpJetFactory, ifState {
         return false;
     }
 
+    public boolean IsUMU() {
+        return false;
+    }
+
     public JumpJet GetJumpJet() {
         return new JumpJet( "Jump Jet", "Jump Jet", 1, AC );
     }

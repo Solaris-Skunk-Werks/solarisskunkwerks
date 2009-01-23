@@ -845,12 +845,13 @@ public class PrintMech implements Printable {
 
         // have to hack the movement to print the correct stuff here.
         if( CurMech.GetAdjustedWalkingMP( false, true ) != CurMech.GetWalkingMP() ) {
-            if( CurMech.GetAdjustedWalkingMP( false, true ) < CurMech.GetWalkingMP() ) {
+            graphics.drawString( CurMech.GetWalkingMP() + " (" + CurMech.GetAdjustedWalkingMP( false, true ) + ")", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
+/*            if( CurMech.GetAdjustedWalkingMP( false, true ) < CurMech.GetWalkingMP() ) {
                 graphics.drawString( CurMech.GetAdjustedWalkingMP( false, true ) + "", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
             } else {
                 graphics.drawString( CurMech.GetWalkingMP() + " (" + CurMech.GetAdjustedWalkingMP( false, true ) + ")", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
             }
-        } else {
+*/        } else {
             graphics.drawString( CurMech.GetWalkingMP() + "", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
         }
         if( CurMech.GetAdjustedRunningMP( false, true ) != CurMech.GetRunningMP() ) {

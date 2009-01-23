@@ -39,8 +39,10 @@ public class JumpJetFactory {
     private LinkedList CurrentJumps = new LinkedList();
     private static ifJumpJetFactory ISNJJ = new stJumpJetISNJJ(),
                                     ISIJJ = new stJumpJetISIJJ(),
+                                    ISUMU = new stJumpJetISUMU(),
                                     CLNJJ = new stJumpJetCLNJJ(),
-                                    CLIJJ = new stJumpJetCLIJJ();
+                                    CLIJJ = new stJumpJetCLIJJ(),
+                                    CLUMU = new stJumpJetCLUMU();
     private ifJumpJetFactory CurConfig = ISNJJ;
 
     public JumpJetFactory( ifLoadout l ) {

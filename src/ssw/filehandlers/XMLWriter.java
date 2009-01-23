@@ -218,9 +218,9 @@ public class XMLWriter {
             for( int i = 0; i < v.size(); i++ ) {
                 CurMech.SetCurLoadout( ((ifLoadout) v.get( i )).GetName() );
                 if( CurMech.GetBaseRulesLevel() != CurMech.GetLoadout().GetRulesLevel() ) {
-                    FR.write( tab + "<loadout name=\"" + CurMech.GetLoadout().GetName() + "\" ruleslevel=\"" + CurMech.GetLoadout().GetRulesLevel() + "\" a4srm=\"" + GetBoolean( CurMech.UsingA4SRM() ) + "\" a4lrm=\"" + GetBoolean( CurMech.UsingA4LRM() ) + "\" a4mml=\"" + GetBoolean( CurMech.UsingA4MML() ) + "\">" );
+                    FR.write( tab + "<loadout name=\"" + FileCommon.EncodeFluff( CurMech.GetLoadout().GetName() ) + "\" ruleslevel=\"" + CurMech.GetLoadout().GetRulesLevel() + "\" a4srm=\"" + GetBoolean( CurMech.UsingA4SRM() ) + "\" a4lrm=\"" + GetBoolean( CurMech.UsingA4LRM() ) + "\" a4mml=\"" + GetBoolean( CurMech.UsingA4MML() ) + "\">" );
                 } else {
-                    FR.write( tab + "<loadout name=\"" + CurMech.GetLoadout().GetName() + "\" a4srm=\"" + GetBoolean( CurMech.UsingA4SRM() ) + "\" a4lrm=\"" + GetBoolean( CurMech.UsingA4LRM() ) + "\" a4mml=\"" + GetBoolean( CurMech.UsingA4MML() ) + "\">" );
+                    FR.write( tab + "<loadout name=\"" + FileCommon.EncodeFluff( CurMech.GetLoadout().GetName() ) + "\" a4srm=\"" + GetBoolean( CurMech.UsingA4SRM() ) + "\" a4lrm=\"" + GetBoolean( CurMech.UsingA4LRM() ) + "\" a4mml=\"" + GetBoolean( CurMech.UsingA4MML() ) + "\">" );
                 }
                 FR.newLine();
                 // add in the battle value for this loadout

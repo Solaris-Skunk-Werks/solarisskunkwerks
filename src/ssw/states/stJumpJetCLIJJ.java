@@ -43,6 +43,10 @@ public class stJumpJetCLIJJ implements ifJumpJetFactory, ifState {
         return true;
     }
 
+    public boolean IsUMU() {
+        return false;
+    }
+
     public JumpJet GetJumpJet() {
         return new JumpJet( "Improved Jump Jet", "CLImprovedJump Jet",  2, AC );
     }

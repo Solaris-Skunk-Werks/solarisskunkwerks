@@ -56,7 +56,7 @@ public class stGyroISHeavy implements ifGyro, ifState {
     }
 
     public String GetCritName() {
-        return "Heavy-Duty Gyro";
+        return "Heavy Duty Gyro";
     }
 
     public String GetMMName() {

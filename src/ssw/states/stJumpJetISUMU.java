@@ -28,15 +28,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
+import ssw.Constants;
 import ssw.components.AvailableCode;
 import ssw.components.JumpJet;
 import ssw.components.MechModifier;
 
-public class stJumpJetCLNJJ implements ifJumpJetFactory, ifState {
-    private AvailableCode AC = new AvailableCode( true, 'D', 'X', 'B', 'B', 2471, 0, 0, "TH", "", false, false );
+public class stJumpJetISUMU implements ifJumpJetFactory, ifState {
+    private AvailableCode AC = new AvailableCode( false, 'E', 'X', 'X', 'E', 3066, 0, 0, "LA", "", false, false, 3062, true, "LA", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
 
     public boolean IsClan() {
-        return true;
+        return false;
     }
 
     public boolean IsImproved() {
@@ -44,11 +45,11 @@ public class stJumpJetCLNJJ implements ifJumpJetFactory, ifState {
     }
 
     public boolean IsUMU() {
-        return false;
+        return true;
     }
 
     public JumpJet GetJumpJet() {
-        return new JumpJet( "Jump Jet", "Jump Jet", 1, AC );
+        return new JumpJet( "Mech UMU", "Mech UMU", 1, AC );
     }
 
     public float GetCost() {
@@ -72,6 +73,6 @@ public class stJumpJetCLNJJ implements ifJumpJetFactory, ifState {
     }
 
     public String GetLookupName() {
-        return "Standard Jump Jet";
+        return "Mech UMU";
     }
 }

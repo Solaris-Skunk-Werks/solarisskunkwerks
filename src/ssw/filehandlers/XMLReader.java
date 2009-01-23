@@ -513,7 +513,7 @@ public class XMLReader {
                 if( map.getNamedItem( "name" ) == null ) {
                     throw new Exception( "An omnimech loadout was specified but has no name.\nThe Mech cannot be loaded." );
                 } else {
-                    m.AddLoadout( map.getNamedItem( "name" ).getTextContent() );
+                    m.AddLoadout( FileCommon.DecodeFluff( map.getNamedItem( "name" ).getTextContent() ) );
                 }
                 m.SetA4FCSSRM( ParseBoolean( map.getNamedItem( "a4srm" ).getTextContent() ) );
                 m.SetA4FCSLRM( ParseBoolean( map.getNamedItem( "a4lrm" ).getTextContent() ) );

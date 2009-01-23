@@ -35,6 +35,7 @@ import ssw.components.MechModifier;
 public interface ifJumpJetFactory {
     public boolean IsClan();
     public boolean IsImproved();
+    public boolean IsUMU();
     public JumpJet GetJumpJet();
     public float GetCost();
     public float GetTonnage();
