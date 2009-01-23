@@ -33,269 +33,269 @@ import java.awt.Point;
 public class TWQuadPoints implements ifPrintPoints {
 
     private final static Point[] HeatSinkPoints = {
-        new Point( 506, 600 ), new Point( 512, 600 ), new Point( 518, 600 ), new Point( 524, 600 ), new Point( 530, 600 ),
-        new Point( 506, 606 ), new Point( 512, 606 ), new Point( 518, 606 ), new Point( 524, 606 ), new Point( 530, 606 ),
-        new Point( 506, 612 ), new Point( 512, 612 ), new Point( 518, 612 ), new Point( 524, 612 ), new Point( 530, 612 ),
-        new Point( 506, 618 ), new Point( 512, 618 ), new Point( 518, 618 ), new Point( 524, 618 ), new Point( 530, 618 ),
-        new Point( 506, 624 ), new Point( 512, 624 ), new Point( 518, 624 ), new Point( 524, 624 ), new Point( 530, 624 ),
-        new Point( 506, 630 ), new Point( 512, 630 ), new Point( 518, 630 ), new Point( 524, 630 ), new Point( 530, 630 ),
-        new Point( 506, 636 ), new Point( 512, 636 ), new Point( 518, 636 ), new Point( 524, 636 ), new Point( 530, 636 ),
-        new Point( 506, 642 ), new Point( 512, 642 ), new Point( 518, 642 ), new Point( 524, 642 ), new Point( 530, 642 ),
-        new Point( 506, 648 ), new Point( 512, 648 ), new Point( 518, 648 ), new Point( 524, 648 ), new Point( 530, 648 ),
-        new Point( 506, 654 ), new Point( 512, 654 ), new Point( 518, 654 ), new Point( 524, 654 ), new Point( 530, 654 ),
-        new Point( 506, 660 ), new Point( 512, 660 ), new Point( 518, 660 ), new Point( 524, 660 ), new Point( 530, 660 ),
-        new Point( 506, 666 ), new Point( 512, 666 ), new Point( 518, 666 ), new Point( 524, 666 ), new Point( 530, 666 ),
-        new Point( 506, 672 ), new Point( 512, 672 ), new Point( 518, 672 ), new Point( 524, 672 ), new Point( 530, 672 ) };
+        new Point( 501, 600 ), new Point( 507, 600 ), new Point( 513, 600 ), new Point( 519, 600 ), new Point( 525, 600 ),
+        new Point( 501, 606 ), new Point( 507, 606 ), new Point( 513, 606 ), new Point( 519, 606 ), new Point( 525, 606 ),
+        new Point( 501, 612 ), new Point( 507, 612 ), new Point( 513, 612 ), new Point( 519, 612 ), new Point( 525, 612 ),
+        new Point( 501, 618 ), new Point( 507, 618 ), new Point( 513, 618 ), new Point( 519, 618 ), new Point( 525, 618 ),
+        new Point( 501, 624 ), new Point( 507, 624 ), new Point( 513, 624 ), new Point( 519, 624 ), new Point( 525, 624 ),
+        new Point( 501, 630 ), new Point( 507, 630 ), new Point( 513, 630 ), new Point( 519, 630 ), new Point( 525, 630 ),
+        new Point( 501, 636 ), new Point( 507, 636 ), new Point( 513, 636 ), new Point( 519, 636 ), new Point( 525, 636 ),
+        new Point( 501, 642 ), new Point( 507, 642 ), new Point( 513, 642 ), new Point( 519, 642 ), new Point( 525, 642 ),
+        new Point( 501, 648 ), new Point( 507, 648 ), new Point( 513, 648 ), new Point( 519, 648 ), new Point( 525, 648 ),
+        new Point( 501, 654 ), new Point( 507, 654 ), new Point( 513, 654 ), new Point( 519, 654 ), new Point( 525, 654 ),
+        new Point( 501, 660 ), new Point( 507, 660 ), new Point( 513, 660 ), new Point( 519, 660 ), new Point( 525, 660 ),
+        new Point( 501, 666 ), new Point( 507, 666 ), new Point( 513, 666 ), new Point( 519, 666 ), new Point( 525, 666 ),
+        new Point( 501, 672 ), new Point( 507, 672 ), new Point( 513, 672 ), new Point( 519, 672 ), new Point( 525, 672 ) };
     private final static Point[] CTArmorPoints = {
-        new Point( 460, 86 ), new Point( 466, 86 ), new Point( 472, 86 ), new Point( 478, 86 ), new Point( 484, 86 ), new Point( 490, 86 ), new Point( 496, 86 ),
-        new Point( 460, 92 ), new Point( 466, 92 ), new Point( 472, 92 ), new Point( 478, 92 ), new Point( 484, 92 ), new Point( 490, 92 ), new Point( 496, 92 ),
-        new Point( 460, 98 ), new Point( 466, 98 ), new Point( 472, 98 ), new Point( 478, 98 ), new Point( 484, 98 ), new Point( 490, 98 ), new Point( 496, 98 ),
-        new Point( 460, 104 ), new Point( 466, 104 ), new Point( 472, 104 ), new Point( 478, 104 ), new Point( 484, 104 ), new Point( 490, 104 ), new Point( 496, 104 ),
-        new Point( 460, 110 ), new Point( 466, 110 ), new Point( 472, 110 ), new Point( 478, 110 ), new Point( 484, 110 ), new Point( 490, 110 ), new Point( 496, 110 ),
-        new Point( 460, 116 ), new Point( 466, 116 ), new Point( 472, 116 ), new Point( 478, 116 ), new Point( 484, 116 ), new Point( 490, 116 ), new Point( 496, 116 ),
-        new Point( 460, 122 ), new Point( 466, 122 ), new Point( 472, 122 ), new Point( 478, 122 ), new Point( 484, 122 ), new Point( 490, 122 ), new Point( 496, 122 ),
-        new Point( 463, 128 ), new Point( 469, 128 ), new Point( 475, 128 ), new Point( 481, 128 ), new Point( 487, 128 ), new Point( 493, 128 ),
-        new Point( 463, 134 ), new Point( 469, 134 ), new Point( 475, 134 ), new Point( 481, 134 ), new Point( 487, 134 ), new Point( 493, 134 ),
-        new Point( 478, 140 ) };
+        new Point( 451, 86 ), new Point( 457, 86 ), new Point( 463, 86 ), new Point( 469, 86 ), new Point( 475, 86 ), new Point( 481, 86 ), new Point( 487, 86 ),
+        new Point( 451, 92 ), new Point( 457, 92 ), new Point( 463, 92 ), new Point( 469, 92 ), new Point( 475, 92 ), new Point( 481, 92 ), new Point( 487, 92 ),
+        new Point( 451, 98 ), new Point( 457, 98 ), new Point( 463, 98 ), new Point( 469, 98 ), new Point( 475, 98 ), new Point( 481, 98 ), new Point( 487, 98 ),
+        new Point( 451, 104 ), new Point( 457, 104 ), new Point( 463, 104 ), new Point( 469, 104 ), new Point( 475, 104 ), new Point( 481, 104 ), new Point( 487, 104 ),
+        new Point( 451, 110 ), new Point( 457, 110 ), new Point( 463, 110 ), new Point( 469, 110 ), new Point( 475, 110 ), new Point( 481, 110 ), new Point( 487, 110 ),
+        new Point( 451, 116 ), new Point( 457, 116 ), new Point( 463, 116 ), new Point( 469, 116 ), new Point( 475, 116 ), new Point( 481, 116 ), new Point( 487, 116 ),
+        new Point( 451, 122 ), new Point( 457, 122 ), new Point( 463, 122 ), new Point( 469, 122 ), new Point( 475, 122 ), new Point( 481, 122 ), new Point( 487, 122 ),
+        new Point( 454, 128 ), new Point( 460, 128 ), new Point( 466, 128 ), new Point( 472, 128 ), new Point( 469, 128 ), new Point( 484, 128 ),
+        new Point( 454, 134 ), new Point( 460, 134 ), new Point( 466, 134 ), new Point( 472, 134 ), new Point( 469, 134 ), new Point( 484, 134 ),
+        new Point( 469, 140 ) };
     private final static Point[] LTArmorPoints = {
-        new Point( 448, 44 ), new Point( 442, 44 ), new Point( 436, 44 ), new Point( 430, 44 ), new Point( 424, 44 ),
-        new Point( 448, 50 ), new Point( 442, 50 ), new Point( 436, 50 ), new Point( 430, 50 ), new Point( 424, 50 ),
-        new Point( 448, 56 ), new Point( 442, 56 ), new Point( 436, 56 ), new Point( 430, 56 ), new Point( 424, 56 ),
-        new Point( 448, 62 ), new Point( 442, 62 ), new Point( 436, 62 ), new Point( 430, 62 ), new Point( 424, 62 ),
-        new Point( 448, 68 ), new Point( 442, 68 ), new Point( 436, 68 ), new Point( 430, 68 ), new Point( 424, 68 ),
-        new Point( 448, 74 ), new Point( 442, 74 ), new Point( 436, 74 ), new Point( 430, 74 ), new Point( 424, 74 ),
-        new Point( 448, 80 ), new Point( 442, 80 ), new Point( 436, 80 ), new Point( 430, 80 ), new Point( 424, 80 ),
-        new Point( 448, 86 ), new Point( 442, 86 ), new Point( 436, 86 ), new Point( 430, 86 ), new Point( 424, 86 ),
-        new Point( 448, 92 ), new Point( 442, 92 ) };
+        new Point( 439, 44 ), new Point( 433, 44 ), new Point( 427, 44 ), new Point( 421, 44 ), new Point( 415, 44 ),
+        new Point( 439, 50 ), new Point( 433, 50 ), new Point( 427, 50 ), new Point( 421, 50 ), new Point( 415, 50 ),
+        new Point( 439, 56 ), new Point( 433, 56 ), new Point( 427, 56 ), new Point( 421, 56 ), new Point( 415, 56 ),
+        new Point( 439, 62 ), new Point( 433, 62 ), new Point( 427, 62 ), new Point( 421, 62 ), new Point( 415, 62 ),
+        new Point( 439, 68 ), new Point( 433, 68 ), new Point( 427, 68 ), new Point( 421, 68 ), new Point( 415, 68 ),
+        new Point( 439, 74 ), new Point( 433, 74 ), new Point( 427, 74 ), new Point( 421, 74 ), new Point( 415, 74 ),
+        new Point( 439, 80 ), new Point( 433, 80 ), new Point( 427, 80 ), new Point( 421, 80 ), new Point( 415, 80 ),
+        new Point( 439, 86 ), new Point( 433, 86 ), new Point( 427, 86 ), new Point( 421, 86 ), new Point( 415, 86 ),
+        new Point( 439, 92 ), new Point( 433, 92 ) };
     private final static Point[] RTArmorPoints = {
-        new Point( 508, 44 ), new Point( 514, 44 ), new Point( 520, 44 ), new Point( 526, 44 ), new Point( 532, 44 ),
-        new Point( 508, 50 ), new Point( 514, 50 ), new Point( 520, 50 ), new Point( 526, 50 ), new Point( 532, 50 ),
-        new Point( 508, 56 ), new Point( 514, 56 ), new Point( 520, 56 ), new Point( 526, 56 ), new Point( 532, 56 ),
-        new Point( 508, 62 ), new Point( 514, 62 ), new Point( 520, 62 ), new Point( 526, 62 ), new Point( 532, 62 ),
-        new Point( 508, 68 ), new Point( 514, 68 ), new Point( 520, 68 ), new Point( 526, 68 ), new Point( 532, 68 ),
-        new Point( 508, 74 ), new Point( 514, 74 ), new Point( 520, 74 ), new Point( 526, 74 ), new Point( 532, 74 ),
-        new Point( 508, 80 ), new Point( 514, 80 ), new Point( 520, 80 ), new Point( 526, 80 ), new Point( 532, 80 ),
-        new Point( 508, 86 ), new Point( 514, 86 ), new Point( 520, 86 ), new Point( 526, 86 ), new Point( 532, 86 ),
-        new Point( 508, 92 ), new Point( 514, 92 ) };
+        new Point( 499, 44 ), new Point( 505, 44 ), new Point( 511, 44 ), new Point( 517, 44 ), new Point( 523, 44 ),
+        new Point( 499, 50 ), new Point( 505, 50 ), new Point( 511, 50 ), new Point( 517, 50 ), new Point( 523, 50 ),
+        new Point( 499, 56 ), new Point( 505, 56 ), new Point( 511, 56 ), new Point( 517, 56 ), new Point( 523, 56 ),
+        new Point( 499, 62 ), new Point( 505, 62 ), new Point( 511, 62 ), new Point( 517, 62 ), new Point( 523, 62 ),
+        new Point( 499, 68 ), new Point( 505, 68 ), new Point( 511, 68 ), new Point( 517, 68 ), new Point( 523, 68 ),
+        new Point( 499, 74 ), new Point( 505, 74 ), new Point( 511, 74 ), new Point( 517, 74 ), new Point( 523, 74 ),
+        new Point( 499, 80 ), new Point( 505, 80 ), new Point( 511, 80 ), new Point( 517, 80 ), new Point( 523, 80 ),
+        new Point( 499, 86 ), new Point( 505, 86 ), new Point( 511, 86 ), new Point( 517, 86 ), new Point( 523, 86 ),
+        new Point( 499, 92 ), new Point( 505, 92 ) };
     private final static Point[] HDArmorPoints = {
-        new Point( 478, 72 ), new Point( 478, 66 ), new Point( 478, 60 ), new Point( 472, 72 ), new Point( 484, 72 ),
-        new Point( 472, 66 ), new Point( 484, 66 ), new Point( 472, 60 ), new Point( 484, 60 ) };
+        new Point( 469, 72 ), new Point( 469, 66 ), new Point( 469, 60 ), new Point( 463, 72 ), new Point( 475, 72 ),
+        new Point( 463, 66 ), new Point( 475, 66 ), new Point( 463, 60 ), new Point( 475, 60 ) };
     private final static Point[] LAArmorPoints = {
-        new Point( 436, 122 ), new Point( 430, 122 ), new Point( 424, 122 ), new Point( 418, 122 ),
-        new Point( 436, 128 ), new Point( 430, 128 ), new Point( 424, 128 ), new Point( 418, 128 ),
-        new Point( 435, 134 ), new Point( 429, 134 ), new Point( 423, 134 ), new Point( 417, 134 ),
-        new Point( 435, 140 ), new Point( 429, 140 ), new Point( 423, 140 ), new Point( 417, 140 ),
-        new Point( 434, 146 ), new Point( 428, 146 ), new Point( 422, 146 ), new Point( 416, 146 ),
-        new Point( 434, 152 ), new Point( 428, 152 ), new Point( 422, 152 ), new Point( 416, 152 ),
-        new Point( 433, 158 ), new Point( 427, 158 ), new Point( 421, 158 ), new Point( 415, 158 ),
-        new Point( 433, 164 ), new Point( 427, 164 ), new Point( 421, 164 ), new Point( 415, 164 ),
-        new Point( 432, 170 ), new Point( 426, 170 ), new Point( 420, 170 ), new Point( 414, 170 ),
-        new Point( 432, 176 ), new Point( 426, 176 ), new Point( 420, 176 ), new Point( 414, 176 ),
-        new Point( 431, 182 ), new Point( 425, 182 ) };
+        new Point( 427, 122 ), new Point( 421, 122 ), new Point( 415, 122 ), new Point( 409, 122 ),
+        new Point( 427, 128 ), new Point( 421, 128 ), new Point( 415, 128 ), new Point( 409, 128 ),
+        new Point( 426, 134 ), new Point( 420, 134 ), new Point( 414, 134 ), new Point( 408, 134 ),
+        new Point( 426, 140 ), new Point( 420, 140 ), new Point( 414, 140 ), new Point( 408, 140 ),
+        new Point( 425, 146 ), new Point( 419, 146 ), new Point( 413, 146 ), new Point( 407, 146 ),
+        new Point( 425, 152 ), new Point( 419, 152 ), new Point( 413, 152 ), new Point( 407, 152 ),
+        new Point( 424, 158 ), new Point( 418, 158 ), new Point( 412, 158 ), new Point( 406, 158 ),
+        new Point( 424, 164 ), new Point( 418, 164 ), new Point( 412, 164 ), new Point( 406, 164 ),
+        new Point( 423, 170 ), new Point( 417, 170 ), new Point( 411, 170 ), new Point( 405, 170 ),
+        new Point( 423, 176 ), new Point( 417, 176 ), new Point( 411, 176 ), new Point( 405, 176 ),
+        new Point( 422, 182 ), new Point( 416, 182 ) };
     private final static Point[] RAArmorPoints = {
-        new Point( 521, 122 ), new Point( 527, 122 ), new Point( 533, 122 ), new Point( 539, 122 ),
-        new Point( 521, 128 ), new Point( 527, 128 ), new Point( 533, 128 ), new Point( 539, 128 ),
-        new Point( 522, 134 ), new Point( 528, 134 ), new Point( 534, 134 ), new Point( 540, 134 ),
-        new Point( 522, 140 ), new Point( 528, 140 ), new Point( 534, 140 ), new Point( 540, 140 ),
-        new Point( 523, 146 ), new Point( 529, 146 ), new Point( 535, 146 ), new Point( 541, 146 ),
-        new Point( 523, 152 ), new Point( 529, 152 ), new Point( 535, 152 ), new Point( 541, 152 ),
-        new Point( 524, 158 ), new Point( 530, 158 ), new Point( 536, 158 ), new Point( 542, 158 ),
-        new Point( 524, 164 ), new Point( 530, 164 ), new Point( 536, 164 ), new Point( 542, 164 ),
-        new Point( 525, 170 ), new Point( 531, 170 ), new Point( 537, 170 ), new Point( 543, 170 ),
-        new Point( 525, 176 ), new Point( 531, 176 ), new Point( 537, 176 ), new Point( 543, 176 ),
-        new Point( 526, 182 ), new Point( 532, 182 ) };
+        new Point( 512, 122 ), new Point( 518, 122 ), new Point( 524, 122 ), new Point( 530, 122 ),
+        new Point( 512, 128 ), new Point( 518, 128 ), new Point( 524, 128 ), new Point( 530, 128 ),
+        new Point( 513, 134 ), new Point( 519, 134 ), new Point( 525, 134 ), new Point( 531, 134 ),
+        new Point( 513, 140 ), new Point( 519, 140 ), new Point( 525, 140 ), new Point( 531, 140 ),
+        new Point( 514, 146 ), new Point( 520, 146 ), new Point( 526, 146 ), new Point( 532, 146 ),
+        new Point( 514, 152 ), new Point( 520, 152 ), new Point( 526, 152 ), new Point( 532, 152 ),
+        new Point( 515, 158 ), new Point( 521, 158 ), new Point( 527, 158 ), new Point( 533, 158 ),
+        new Point( 515, 164 ), new Point( 521, 164 ), new Point( 527, 164 ), new Point( 533, 164 ),
+        new Point( 516, 170 ), new Point( 522, 170 ), new Point( 528, 170 ), new Point( 534, 170 ),
+        new Point( 516, 176 ), new Point( 522, 176 ), new Point( 528, 176 ), new Point( 534, 176 ),
+        new Point( 517, 182 ), new Point( 523, 182 ) };
     private final static Point[] LLArmorPoints = {
-        new Point( 456, 158 ), new Point( 450, 158 ), new Point( 444, 158 ),
-        new Point( 456, 164 ), new Point( 450, 164 ), new Point( 444, 164 ),
-        new Point( 456, 170 ), new Point( 450, 170 ), new Point( 444, 170 ),
-        new Point( 456, 176 ), new Point( 450, 176 ), new Point( 444, 176 ),
-        new Point( 456, 182 ), new Point( 450, 182 ), new Point( 444, 182 ),
-        new Point( 456, 188 ), new Point( 450, 188 ), new Point( 444, 188 ),
-        new Point( 456, 194 ), new Point( 450, 194 ), new Point( 444, 194 ),
-        new Point( 456, 200 ), new Point( 450, 200 ), new Point( 444, 200 ),
-        new Point( 456, 206 ), new Point( 450, 206 ), new Point( 444, 206 ),
-        new Point( 456, 212 ), new Point( 450, 212 ), new Point( 444, 212 ),
-        new Point( 456, 218 ), new Point( 450, 218 ), new Point( 444, 218 ),
-        new Point( 456, 224 ), new Point( 450, 224 ), new Point( 444, 224 ),
-        new Point( 456, 230 ), new Point( 450, 230 ), new Point( 444, 230 ),
-        new Point( 456, 236 ), new Point( 450, 236 ), new Point( 444, 236 ) };
+        new Point( 447, 158 ), new Point( 441, 158 ), new Point( 435, 158 ),
+        new Point( 447, 164 ), new Point( 441, 164 ), new Point( 435, 164 ),
+        new Point( 447, 170 ), new Point( 441, 170 ), new Point( 435, 170 ),
+        new Point( 447, 176 ), new Point( 441, 176 ), new Point( 435, 176 ),
+        new Point( 447, 182 ), new Point( 441, 182 ), new Point( 435, 182 ),
+        new Point( 447, 188 ), new Point( 441, 188 ), new Point( 435, 188 ),
+        new Point( 447, 194 ), new Point( 441, 194 ), new Point( 435, 194 ),
+        new Point( 447, 200 ), new Point( 441, 200 ), new Point( 435, 200 ),
+        new Point( 447, 206 ), new Point( 441, 206 ), new Point( 435, 206 ),
+        new Point( 447, 212 ), new Point( 441, 212 ), new Point( 435, 212 ),
+        new Point( 447, 218 ), new Point( 441, 218 ), new Point( 435, 218 ),
+        new Point( 447, 224 ), new Point( 441, 224 ), new Point( 435, 224 ),
+        new Point( 447, 230 ), new Point( 441, 230 ), new Point( 435, 230 ),
+        new Point( 447, 236 ), new Point( 441, 236 ), new Point( 435, 236 ) };
     private final static Point[] RLArmorPoints = {
-        new Point( 500, 158 ), new Point( 506, 158 ), new Point( 512, 158 ),
-        new Point( 500, 164 ), new Point( 506, 164 ), new Point( 512, 164 ),
-        new Point( 500, 170 ), new Point( 506, 170 ), new Point( 512, 170 ),
-        new Point( 500, 176 ), new Point( 506, 176 ), new Point( 512, 176 ),
-        new Point( 500, 182 ), new Point( 506, 182 ), new Point( 512, 182 ),
-        new Point( 500, 188 ), new Point( 506, 188 ), new Point( 512, 188 ),
-        new Point( 500, 194 ), new Point( 506, 194 ), new Point( 512, 194 ),
-        new Point( 500, 200 ), new Point( 506, 200 ), new Point( 512, 200 ),
-        new Point( 500, 206 ), new Point( 506, 206 ), new Point( 512, 206 ),
-        new Point( 500, 212 ), new Point( 506, 212 ), new Point( 512, 212 ),
-        new Point( 500, 218 ), new Point( 506, 218 ), new Point( 512, 218 ),
-        new Point( 500, 224 ), new Point( 506, 224 ), new Point( 512, 224 ),
-        new Point( 500, 230 ), new Point( 506, 230 ), new Point( 512, 230 ),
-        new Point( 500, 236 ), new Point( 506, 236 ), new Point( 512, 236 ) };
+        new Point( 491, 158 ), new Point( 497, 158 ), new Point( 503, 158 ),
+        new Point( 491, 164 ), new Point( 497, 164 ), new Point( 503, 164 ),
+        new Point( 491, 170 ), new Point( 497, 170 ), new Point( 503, 170 ),
+        new Point( 491, 176 ), new Point( 497, 176 ), new Point( 503, 176 ),
+        new Point( 491, 182 ), new Point( 497, 182 ), new Point( 503, 182 ),
+        new Point( 491, 188 ), new Point( 497, 188 ), new Point( 503, 188 ),
+        new Point( 491, 194 ), new Point( 497, 194 ), new Point( 503, 194 ),
+        new Point( 491, 200 ), new Point( 497, 200 ), new Point( 503, 200 ),
+        new Point( 491, 206 ), new Point( 497, 206 ), new Point( 503, 206 ),
+        new Point( 491, 212 ), new Point( 497, 212 ), new Point( 503, 212 ),
+        new Point( 491, 218 ), new Point( 497, 218 ), new Point( 503, 218 ),
+        new Point( 491, 224 ), new Point( 497, 224 ), new Point( 503, 224 ),
+        new Point( 491, 230 ), new Point( 497, 230 ), new Point( 503, 230 ),
+        new Point( 491, 236 ), new Point( 497, 236 ), new Point( 503, 236 ) };
     private final static Point[] CTRArmorPoints = {
-        new Point( 466, 292 ), new Point( 472, 292 ), new Point( 478, 292 ), new Point( 484, 292 ), new Point( 490, 292 ),
-        new Point( 466, 298 ), new Point( 472, 298 ), new Point( 478, 298 ), new Point( 484, 298 ), new Point( 490, 298 ),
-        new Point( 466, 304 ), new Point( 472, 304 ), new Point( 478, 304 ), new Point( 484, 304 ), new Point( 490, 304 ),
-        new Point( 466, 310 ), new Point( 472, 310 ), new Point( 478, 310 ), new Point( 484, 310 ), new Point( 490, 310 ),
-        new Point( 466, 316 ), new Point( 472, 316 ), new Point( 478, 316 ), new Point( 484, 316 ), new Point( 490, 316 ),
-        new Point( 466, 322 ), new Point( 472, 322 ), new Point( 478, 322 ), new Point( 484, 322 ), new Point( 490, 322 ),
-        new Point( 466, 328 ), new Point( 472, 328 ), new Point( 478, 328 ), new Point( 484, 328 ), new Point( 490, 328 ),
-        new Point( 466, 334 ), new Point( 472, 334 ), new Point( 478, 334 ), new Point( 484, 334 ), new Point( 490, 334 ),
-        new Point( 466, 340 ), new Point( 472, 340 ), new Point( 478, 340 ), new Point( 484, 340 ), new Point( 490, 340 ),
-        new Point( 466, 346 ), new Point( 472, 346 ), new Point( 478, 346 ), new Point( 484, 346 ), new Point( 490, 346 ),
-        new Point( 466, 352 ), new Point( 472, 352 ), new Point( 478, 352 ), new Point( 484, 352 ), new Point( 490, 352 ),
-        new Point( 460, 358 ), new Point( 466, 358 ), new Point( 472, 358 ), new Point( 478, 358 ), new Point( 484, 358 ), new Point( 490, 358 ), new Point( 496, 359 ) };
+        new Point( 457, 292 ), new Point( 463, 292 ), new Point( 469, 292 ), new Point( 475, 292 ), new Point( 481, 292 ),
+        new Point( 457, 298 ), new Point( 463, 298 ), new Point( 469, 298 ), new Point( 475, 298 ), new Point( 481, 298 ),
+        new Point( 457, 304 ), new Point( 463, 304 ), new Point( 469, 304 ), new Point( 475, 304 ), new Point( 481, 304 ),
+        new Point( 457, 310 ), new Point( 463, 310 ), new Point( 469, 310 ), new Point( 475, 310 ), new Point( 481, 310 ),
+        new Point( 457, 316 ), new Point( 463, 316 ), new Point( 469, 316 ), new Point( 475, 316 ), new Point( 481, 316 ),
+        new Point( 457, 322 ), new Point( 463, 322 ), new Point( 469, 322 ), new Point( 475, 322 ), new Point( 481, 322 ),
+        new Point( 457, 328 ), new Point( 463, 328 ), new Point( 469, 328 ), new Point( 475, 328 ), new Point( 481, 328 ),
+        new Point( 457, 334 ), new Point( 463, 334 ), new Point( 469, 334 ), new Point( 475, 334 ), new Point( 481, 334 ),
+        new Point( 457, 340 ), new Point( 463, 340 ), new Point( 469, 340 ), new Point( 475, 340 ), new Point( 481, 340 ),
+        new Point( 457, 346 ), new Point( 463, 346 ), new Point( 469, 346 ), new Point( 475, 346 ), new Point( 481, 346 ),
+        new Point( 457, 352 ), new Point( 463, 352 ), new Point( 469, 352 ), new Point( 475, 352 ), new Point( 481, 352 ),
+        new Point( 451, 358 ), new Point( 457, 358 ), new Point( 463, 358 ), new Point( 469, 358 ), new Point( 475, 358 ), new Point( 481, 358 ), new Point( 487, 359 ) };
     private final static Point[] LTRArmorPoints = {
-        new Point( 457, 295 ), new Point( 451, 295 ),
-        new Point( 457, 301 ), new Point( 451, 301 ), new Point( 445, 301 ),
-        new Point( 457, 307 ), new Point( 451, 307 ), new Point( 445, 307 ), new Point( 439, 307 ),
-        new Point( 457, 313 ), new Point( 451, 313 ), new Point( 445, 313 ), new Point( 439, 313 ), new Point( 433, 313 ),
-        new Point( 457, 319 ), new Point( 451, 319 ), new Point( 445, 319 ), new Point( 439, 319 ), new Point( 433, 319 ),
-        new Point( 457, 325 ), new Point( 451, 325 ), new Point( 445, 325 ), new Point( 439, 325 ),
-        new Point( 457, 331 ), new Point( 451, 331 ), new Point( 445, 331 ), new Point( 439, 331 ),
-        new Point( 457, 337 ), new Point( 451, 337 ), new Point( 445, 337 ),
-        new Point( 457, 345 ), new Point( 451, 345 ), new Point( 445, 345 ), new Point( 439, 345 ), new Point( 433, 345 ), new Point( 427, 345 ),
-        new Point( 457, 351 ), new Point( 451, 351 ), new Point( 445, 351 ), new Point( 439, 351 ), new Point( 433, 351 ), new Point( 427, 351 ) };
+        new Point( 449, 295 ), new Point( 443, 295 ),
+        new Point( 449, 301 ), new Point( 443, 301 ), new Point( 437, 301 ),
+        new Point( 449, 307 ), new Point( 443, 307 ), new Point( 437, 307 ), new Point( 431, 307 ),
+        new Point( 449, 313 ), new Point( 443, 313 ), new Point( 437, 313 ), new Point( 431, 313 ), new Point( 425, 313 ),
+        new Point( 449, 319 ), new Point( 443, 319 ), new Point( 437, 319 ), new Point( 431, 319 ), new Point( 425, 319 ),
+        new Point( 449, 325 ), new Point( 443, 325 ), new Point( 437, 325 ), new Point( 431, 325 ),
+        new Point( 449, 331 ), new Point( 443, 331 ), new Point( 437, 331 ), new Point( 431, 331 ),
+        new Point( 449, 337 ), new Point( 443, 337 ), new Point( 437, 337 ),
+        new Point( 449, 345 ), new Point( 443, 345 ), new Point( 437, 345 ), new Point( 431, 345 ), new Point( 425, 345 ), new Point( 419, 345 ),
+        new Point( 449, 351 ), new Point( 443, 351 ), new Point( 437, 351 ), new Point( 431, 351 ), new Point( 425, 351 ), new Point( 419, 351 ) };
     private final static Point[] RTRArmorPoints = {
-        new Point( 499, 295 ), new Point( 505, 295 ),
-        new Point( 499, 301 ), new Point( 505, 301 ), new Point( 511, 301 ),
-        new Point( 499, 307 ), new Point( 505, 307 ), new Point( 511, 307 ), new Point( 517, 307 ),
-        new Point( 499, 313 ), new Point( 505, 313 ), new Point( 511, 313 ), new Point( 517, 313 ), new Point( 523, 313 ),
-        new Point( 499, 319 ), new Point( 505, 319 ), new Point( 511, 319 ), new Point( 517, 319 ), new Point( 523, 319 ),
-        new Point( 499, 325 ), new Point( 505, 325 ), new Point( 511, 325 ), new Point( 517, 325 ),
-        new Point( 499, 331 ), new Point( 505, 331 ), new Point( 511, 331 ), new Point( 517, 331 ),
-        new Point( 499, 337 ), new Point( 505, 337 ), new Point( 511, 337 ),
-        new Point( 499, 345 ), new Point( 505, 345 ), new Point( 511, 345 ), new Point( 517, 345 ), new Point( 523, 345 ), new Point( 529, 345 ),
-        new Point( 499, 351 ), new Point( 505, 351 ), new Point( 511, 351 ), new Point( 517, 351 ), new Point( 523, 351 ), new Point( 529, 351 ) };
+        new Point( 490, 295 ), new Point( 496, 295 ),
+        new Point( 490, 301 ), new Point( 496, 301 ), new Point( 502, 301 ),
+        new Point( 490, 307 ), new Point( 496, 307 ), new Point( 502, 307 ), new Point( 508, 307 ),
+        new Point( 490, 313 ), new Point( 496, 313 ), new Point( 502, 313 ), new Point( 508, 313 ), new Point( 514, 313 ),
+        new Point( 490, 319 ), new Point( 496, 319 ), new Point( 502, 319 ), new Point( 508, 319 ), new Point( 514, 319 ),
+        new Point( 490, 325 ), new Point( 496, 325 ), new Point( 502, 325 ), new Point( 508, 325 ),
+        new Point( 490, 331 ), new Point( 496, 331 ), new Point( 502, 331 ), new Point( 508, 331 ),
+        new Point( 490, 337 ), new Point( 496, 337 ), new Point( 502, 337 ),
+        new Point( 490, 345 ), new Point( 496, 345 ), new Point( 502, 345 ), new Point( 508, 345 ), new Point( 514, 345 ), new Point( 520, 345 ),
+        new Point( 490, 351 ), new Point( 496, 351 ), new Point( 502, 351 ), new Point( 508, 351 ), new Point( 514, 351 ), new Point( 520, 351 ) };
     private final static Point[] CTCritPoints = {
-        new Point( 157, 461 ), new Point( 157, 470 ), new Point( 157, 479 ), new Point( 157, 487 ),
-        new Point( 157, 496 ), new Point( 157, 505 ), new Point( 157, 517 ), new Point( 157, 526 ),
-        new Point( 157, 535 ), new Point( 157, 543 ), new Point( 157, 552 ), new Point( 157, 561 ) };
+        new Point( 161, 461 ), new Point( 161, 470 ), new Point( 161, 479 ), new Point( 161, 487 ),
+        new Point( 161, 496 ), new Point( 161, 505 ), new Point( 161, 517 ), new Point( 161, 526 ),
+        new Point( 161, 535 ), new Point( 161, 543 ), new Point( 161, 552 ), new Point( 161, 561 ) };
     private final static Point[] HDCritPoints = {
-        new Point( 157, 390 ), new Point( 157, 399 ), new Point( 157, 408 ), new Point( 157, 416 ),
-        new Point( 157, 424 ), new Point( 157, 433 ) };
+        new Point( 161, 390 ), new Point( 161, 399 ), new Point( 161, 408 ), new Point( 161, 416 ),
+        new Point( 161, 424 ), new Point( 161, 433 ) };
     private final static Point[] LTCritPoints = {
-        new Point( 33, 516 ), new Point( 33, 525 ), new Point( 33, 534 ), new Point( 33, 543 ),
-        new Point( 33, 551 ), new Point( 33, 560 ), new Point( 33, 572 ), new Point( 33, 581 ),
-        new Point( 33, 590 ), new Point( 33, 598 ), new Point( 33, 607 ), new Point( 33, 616 ) };
+        new Point( 43, 516 ), new Point( 43, 525 ), new Point( 43, 534 ), new Point( 43, 543 ),
+        new Point( 43, 551 ), new Point( 43, 560 ), new Point( 43, 572 ), new Point( 43, 581 ),
+        new Point( 43, 590 ), new Point( 43, 598 ), new Point( 43, 607 ), new Point( 43, 616 ) };
     private final static Point[] RTCritPoints = {
         new Point( 281, 516 ), new Point( 281, 525 ), new Point( 281, 534 ), new Point( 281, 543 ),
         new Point( 281, 551 ), new Point( 281, 560 ), new Point( 281, 572 ), new Point( 281, 581 ),
         new Point( 281, 590 ), new Point( 281, 598 ), new Point( 281, 607 ), new Point( 281, 616 ) };
     private final static Point[] LACritPoints = {
-        new Point( 33, 429 ), new Point( 33, 439 ), new Point( 33, 447 ), new Point( 33, 456 ), new Point( 33, 464 ), new Point( 33, 473 ) };
+        new Point( 43, 429 ), new Point( 43, 439 ), new Point( 43, 447 ), new Point( 43, 456 ), new Point( 43, 464 ), new Point( 43, 473 ) };
     private final static Point[] RACritPoints = {
         new Point( 281, 429 ), new Point( 281, 439 ), new Point( 281, 447 ), new Point( 281, 456 ), new Point( 281, 464 ), new Point( 281, 473 ) };
     private final static Point[] LLCritPoints = {
-        new Point( 33, 657 ), new Point( 33, 666 ), new Point( 33, 674 ), new Point( 33, 682 ), new Point( 33, 691 ), new Point( 33, 700 ) };
+        new Point( 43, 657 ), new Point( 43, 666 ), new Point( 43, 674 ), new Point( 43, 682 ), new Point( 43, 691 ), new Point( 43, 700 ) };
     private final static Point[] RLCritPoints = {
         new Point( 281, 657 ), new Point( 281, 666 ), new Point( 281, 674 ), new Point( 281, 682 ), new Point( 281, 691 ), new Point( 281, 700 ) };
     private final static Point[] HDInternalPoints = {
-        new Point( 463, 402 ), new Point( 460, 408 ), new Point( 466, 408 ) };
+        new Point( 456, 402 ), new Point( 452, 408 ), new Point( 459, 408 ) };
     private final static Point[] CTInternalPoints = {
-        new Point( 451, 420 ), new Point( 457, 420 ), new Point( 463, 420 ), new Point( 469, 420 ), new Point( 475, 420 ),
-        new Point( 451, 426 ), new Point( 457, 426 ), new Point( 463, 426 ), new Point( 469, 426 ), new Point( 475, 426 ),
-        new Point( 451, 432 ), new Point( 457, 432 ), new Point( 463, 432 ), new Point( 469, 432 ), new Point( 475, 432 ),
-        new Point( 451, 438 ), new Point( 457, 438 ), new Point( 463, 438 ), new Point( 469, 438 ), new Point( 475, 438 ),
-        new Point( 454, 444 ), new Point( 460, 444 ), new Point( 466, 444 ), new Point( 472, 444 ),
-        new Point( 454, 450 ), new Point( 460, 450 ), new Point( 466, 450 ), new Point( 472, 450 ),
-        new Point( 457, 456 ), new Point( 463, 456 ), new Point( 469, 456 ) };
+        new Point( 443, 420 ), new Point( 449, 420 ), new Point( 455, 420 ), new Point( 461, 420 ), new Point( 467, 420 ),
+        new Point( 443, 426 ), new Point( 449, 426 ), new Point( 455, 426 ), new Point( 461, 426 ), new Point( 467, 426 ),
+        new Point( 443, 432 ), new Point( 449, 432 ), new Point( 455, 432 ), new Point( 461, 432 ), new Point( 467, 432 ),
+        new Point( 443, 438 ), new Point( 449, 438 ), new Point( 455, 438 ), new Point( 461, 438 ), new Point( 467, 438 ),
+        new Point( 446, 444 ), new Point( 452, 444 ), new Point( 458, 444 ), new Point( 464, 444 ),
+        new Point( 446, 450 ), new Point( 452, 450 ), new Point( 458, 450 ), new Point( 464, 450 ),
+        new Point( 449, 456 ), new Point( 455, 456 ), new Point( 461, 456 ) };
     private final static Point[] LTInternalPoints = {
-        new Point( 442, 400 ), new Point( 436, 400 ), new Point( 430, 400 ),
-        new Point( 442, 406 ), new Point( 436, 406 ), new Point( 430, 406 ), new Point( 424, 406 ),
-        new Point( 442, 412 ), new Point( 436, 412 ), new Point( 430, 412 ), new Point( 424, 412 ), new Point( 418, 412 ),
-        new Point( 442, 418 ), new Point( 436, 418 ), new Point( 430, 418 ), new Point( 424, 418 ), new Point( 418, 418 ),
-        new Point( 442, 424 ), new Point( 436, 424 ), new Point( 430, 424 ), new Point( 424, 424 ) };
+        new Point( 436, 400 ), new Point( 430, 400 ), new Point( 424, 400 ),
+        new Point( 436, 406 ), new Point( 430, 406 ), new Point( 424, 406 ), new Point( 418, 406 ),
+        new Point( 436, 412 ), new Point( 430, 412 ), new Point( 424, 412 ), new Point( 418, 412 ), new Point( 412, 412 ),
+        new Point( 436, 418 ), new Point( 430, 418 ), new Point( 424, 418 ), new Point( 418, 418 ), new Point( 412, 418 ),
+        new Point( 436, 424 ), new Point( 430, 424 ), new Point( 424, 424 ), new Point( 418, 424 ) };
     private final static Point[] RTInternalPoints = {
-        new Point( 485, 400 ), new Point( 491, 400 ), new Point( 497, 400 ),
-        new Point( 485, 406 ), new Point( 491, 406 ), new Point( 497, 406 ), new Point( 503, 406 ),
-        new Point( 485, 412 ), new Point( 491, 412 ), new Point( 497, 412 ), new Point( 503, 412 ), new Point( 509, 412 ),
-        new Point( 485, 418 ), new Point( 491, 418 ), new Point( 497, 418 ), new Point( 503, 418 ), new Point( 509, 418 ),
-        new Point( 485, 424 ), new Point( 491, 424 ), new Point( 497, 424 ), new Point( 503, 424 ) };
+        new Point( 475, 400 ), new Point( 481, 400 ), new Point( 487, 400 ),
+        new Point( 475, 406 ), new Point( 481, 406 ), new Point( 487, 406 ), new Point( 493, 406 ),
+        new Point( 475, 412 ), new Point( 481, 412 ), new Point( 487, 412 ), new Point( 493, 412 ), new Point( 499, 412 ),
+        new Point( 475, 418 ), new Point( 481, 418 ), new Point( 487, 418 ), new Point( 493, 418 ), new Point( 499, 418 ),
+        new Point( 475, 424 ), new Point( 481, 424 ), new Point( 487, 424 ), new Point( 493, 424 ) };
     private final static Point[] LLInternalPoints = {
-        new Point( 445, 448 ),
-        new Point( 442, 454 ),
-        new Point( 445, 460 ), new Point( 439, 460 ),
-        new Point( 445, 466 ), new Point( 439, 466 ),
-        new Point( 445, 472 ), new Point( 439, 472 ),
-        new Point( 442, 478 ),
-        new Point( 442, 484 ),
-        new Point( 445, 490 ), new Point( 439, 490 ),
-        new Point( 442, 496 ),
-        new Point( 442, 502 ),
-        new Point( 442, 508 ),
-        new Point( 442, 514 ),
-        new Point( 445, 520 ), new Point( 439, 520 ),
-        new Point( 445, 526 ), new Point( 439, 526 ),
-        new Point( 442, 532 ) };
+        new Point( 438, 448 ),
+        new Point( 435, 454 ),
+        new Point( 438, 460 ), new Point( 432, 460 ),
+        new Point( 438, 466 ), new Point( 432, 466 ),
+        new Point( 438, 472 ), new Point( 432, 472 ),
+        new Point( 435, 478 ),
+        new Point( 435, 484 ),
+        new Point( 438, 490 ), new Point( 432, 490 ),
+        new Point( 435, 496 ),
+        new Point( 435, 502 ),
+        new Point( 435, 508 ),
+        new Point( 435, 514 ),
+        new Point( 438, 520 ), new Point( 432, 520 ),
+        new Point( 438, 526 ), new Point( 432, 526 ),
+        new Point( 435, 532 ) };
     private final static Point[] RLInternalPoints = {
-        new Point( 482, 448 ),
-        new Point( 485, 454 ),
-        new Point( 482, 460 ), new Point( 488, 460 ),
-        new Point( 482, 466 ), new Point( 488, 466 ),
-        new Point( 482, 472 ), new Point( 488, 472 ),
-        new Point( 485, 478 ),
-        new Point( 485, 484 ),
-        new Point( 482, 490 ), new Point( 488, 490 ),
-        new Point( 485, 496 ),
-        new Point( 485, 502 ),
-        new Point( 485, 508 ),
-        new Point( 485, 514 ),
-        new Point( 482, 520 ), new Point( 488, 520 ),
-        new Point( 482, 526 ), new Point( 488, 526 ),
-        new Point( 485, 532 ) };
+        new Point( 473, 448 ),
+        new Point( 475, 454 ),
+        new Point( 473, 460 ), new Point( 479, 460 ),
+        new Point( 473, 466 ), new Point( 479, 466 ),
+        new Point( 473, 472 ), new Point( 479, 472 ),
+        new Point( 476, 478 ),
+        new Point( 476, 484 ),
+        new Point( 473, 490 ), new Point( 479, 490 ),
+        new Point( 476, 496 ),
+        new Point( 476, 502 ),
+        new Point( 476, 508 ),
+        new Point( 476, 514 ),
+        new Point( 473, 520 ), new Point( 479, 520 ),
+        new Point( 473, 526 ), new Point( 479, 526 ),
+        new Point( 476, 532 ) };
     private final static Point[] LAInternalPoints = {
-        new Point( 434, 449 ), new Point( 428, 449 ),
-        new Point( 426, 455 ),
-        new Point( 425, 461 ),
-        new Point( 422, 467 ), new Point( 428, 467 ),
-        new Point( 422, 473 ), new Point( 428, 473 ),
-        new Point( 425, 479 ),
-        new Point( 425, 485 ),
-        new Point( 426, 491 ), new Point( 420, 491 ),
-        new Point( 426, 497 ), new Point( 420, 497 ),
-        new Point( 423, 503 ),
-        new Point( 422, 509 ),
-        new Point( 421, 515 ),
-        new Point( 420, 521 ),
-        new Point( 420, 527 ),
-        new Point( 420, 533 ),
-        new Point( 420, 539 ) };
+        new Point( 427, 449 ), new Point( 421, 449 ),
+        new Point( 419, 455 ),
+        new Point( 418, 461 ),
+        new Point( 415, 467 ), new Point( 421, 467 ),
+        new Point( 415, 473 ), new Point( 421, 473 ),
+        new Point( 418, 479 ),
+        new Point( 418, 485 ),
+        new Point( 419, 491 ), new Point( 413, 491 ),
+        new Point( 419, 497 ), new Point( 413, 497 ),
+        new Point( 416, 503 ),
+        new Point( 415, 509 ),
+        new Point( 414, 515 ),
+        new Point( 413, 521 ),
+        new Point( 413, 527 ),
+        new Point( 413, 533 ),
+        new Point( 413, 539 ) };
     private final static Point[] RAInternalPoints = {
-        new Point( 493, 449 ), new Point( 499, 449 ),
-        new Point( 501, 455 ),
-        new Point( 502, 461 ),
-        new Point( 499, 467 ), new Point( 505, 467 ),
-        new Point( 499, 473 ), new Point( 505, 473 ),
-        new Point( 502, 479 ),
-        new Point( 502, 485 ), 
-        new Point( 501, 491 ), new Point( 507, 491 ),
-        new Point( 501, 497 ), new Point( 507, 497 ),
-        new Point( 504, 503 ),
-        new Point( 505, 509 ),
-        new Point( 506, 515 ),
-        new Point( 507, 521 ),
-        new Point( 507, 527 ),
-        new Point( 507, 533 ),
-        new Point( 507, 539 ) };
+        new Point( 484, 449 ), new Point( 490, 449 ),
+        new Point( 492, 455 ),
+        new Point( 493, 461 ),
+        new Point( 490, 467 ), new Point( 496, 467 ),
+        new Point( 490, 473 ), new Point( 496, 473 ),
+        new Point( 493, 479 ),
+        new Point( 493, 485 ),
+        new Point( 492, 491 ), new Point( 498, 491 ),
+        new Point( 492, 497 ), new Point( 498, 497 ),
+        new Point( 495, 503 ),
+        new Point( 496, 509 ),
+        new Point( 497, 515 ),
+        new Point( 498, 521 ),
+        new Point( 498, 527 ),
+        new Point( 498, 533 ),
+        new Point( 498, 539 ) };
     private final static Point[] WeaponPoints = {
-        new Point( 10, 188 ), new Point( 20, 188 ), new Point( 95, 188 ), new Point( 115, 188 ), new Point( 130, 188 ),
-        new Point( 158, 188 ), new Point( 170, 188 ), new Point( 185, 188 ), new Point( 203, 188 ) };
+        new Point( 18, 187 ), new Point( 28, 187 ), new Point( 102, 187 ), new Point( 123, 187 ), new Point( 138, 187 ),
+        new Point( 164, 187 ), new Point( 177, 187 ), new Point( 192, 187 ), new Point( 208, 187 ) };
     private final static Point[] DataPoints = {
-        new Point( 30, 104 ), new Point( 55, 130 ), new Point( 55, 140 ), new Point( 55, 150 ),
-        new Point( 160, 118 ), new Point( 197, 131 ), new Point( 197, 142 ), new Point( 262, 104 ),
-        new Point( 286, 116 ), new Point( 359, 116 ), new Point( 35, 339 ), new Point( 140, 339 ),
-        new Point( 508, 594 ), new Point( 526, 594 ), new Point( 532, 699 ), new Point( 532, 714 ),
-        new Point(140, 354) };
+        new Point( 40, 104 ), new Point( 58, 130 ), new Point( 58, 140 ), new Point( 58, 150 ),
+        new Point( 162, 118 ), new Point( 199, 131 ), new Point( 199, 142 ), new Point( 262, 104 ),
+        new Point( 284, 116 ), new Point( 357, 116 ), new Point( 42, 340 ), new Point( 143, 340 ),
+        new Point( 498, 594 ), new Point( 516, 594 ), new Point( 522, 699 ), new Point( 522, 713 ),
+        new Point( 145, 354 ) };
     private final static Point[] InternalInfo = { 
-        new Point( 0, 0 ), new Point( 462, 504 ), new Point( 401, 408 ), new Point( 526, 408 ),
-        new Point( 398, 476 ), new Point( 527, 476 ), new Point( 395, 525 ), new Point( 532, 525 ) };
+        new Point( 0, 0 ), new Point( 454, 504 ), new Point( 395, 408 ), new Point( 515, 408 ),
+        new Point( 392, 476 ), new Point( 517, 476 ), new Point( 389, 525 ), new Point( 521, 525 ) };
     private final static Point[] ArmorInfo = {
-        new Point( 488, 28 ), new Point( 478, 194 ), new Point( 393, 120 ), new Point( 560, 120 ),
-        new Point( 401, 297 ), new Point( 554, 297 ), new Point( 450, 286 ), new Point( 507, 286 ),
-        new Point( 511, 358 ), new Point( 408, 347 ), new Point( 549, 347 ) };
+        new Point( 478, 28 ), new Point( 469, 194 ), new Point( 388, 120 ), new Point( 548, 120 ),
+        new Point( 396, 297 ), new Point( 544, 297 ), new Point( 442, 286 ), new Point( 497, 286 ),
+        new Point( 502, 358 ), new Point( 401, 347 ), new Point( 538, 347 ) };
 
     public Point[] GetCritHDPoints() {
         return HDCritPoints;

@@ -62,6 +62,7 @@ public class PrintMech implements Printable {
     private Font PlainFont = new Font( "Arial", Font.PLAIN, 8 );
     private Font ItalicFont = new Font( "Arial", Font.ITALIC, 8 );
     private Font SmallFont = new Font( "Arial", Font.PLAIN, 7 );
+    private Font XtraSmallFont = new Font( "Arial", Font.PLAIN, 6 );
     private Font SmallItalicFont = new Font( "Arial", Font.ITALIC, 7 );
     private Color Black = new Color( 0, 0, 0 ),
                   Grey = new Color( 128, 128, 128 );
@@ -762,6 +763,7 @@ public class PrintMech implements Printable {
         PlaceableInfo[] a = SortEquipmentByLocation();
         p = points.GetWeaponChartPoints();
         graphics.setFont( SmallFont );
+        if (a.length >= 9) { graphics.setFont( XtraSmallFont ); }
         int offset = 0;
         for( int i = 0; i < a.length; i++ ) {
             PlaceableInfo item = a[i];
@@ -818,25 +820,19 @@ public class PrintMech implements Printable {
             } else {
                 graphics.drawString( "--", p[8].x, p[8].y + offset );
             }
-            offset += 8;
-            // now add in the data for the item
+            offset += graphics.getFont().getSize();
+
+            // Output Equipment Specific Codes
+            String Codes = "";
             if( item.Item instanceof ifWeapon ) {
                 ifWeapon w = (ifWeapon) item.Item;
-                if( w.GetSpecials().equals( "-" ) ) {
-                    graphics.drawString( "[" + w.GetType() + "]", p[2].x, p[2].y + offset );
-                } else {
-                    graphics.drawString( "[" + w.GetType() + ", " + w.GetSpecials() + "]", p[2].x, p[2].y + offset );
-                }
-                offset += 8;
+                Codes = ("[" + w.GetType() + ", " + w.GetSpecials() + "]").replace(", -", "");
             } else if( item.Item instanceof Equipment ) {
                 Equipment e = (Equipment) item.Item;
-                if( e.GetSpecials().equals( "-" ) ) {
-                    graphics.drawString( "[" + e.GetType() + "]", p[2].x, p[2].y + offset );
-                } else {
-                    graphics.drawString( "[" + e.GetType() + ", " + e.GetSpecials() + "]", p[2].x, p[2].y + offset );
-                }
-                offset += 8;
+                Codes = ("[" + e.GetType() + ", " + e.GetSpecials() + "]").replace(", -", "");
             }
+            graphics.drawString( Codes, p[1].x + 2, p[1].y + offset );
+            offset += graphics.getFont().getSize();
         }
 
         graphics.setFont( BoldFont );

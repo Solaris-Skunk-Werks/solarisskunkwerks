@@ -252,8 +252,8 @@ public class TWBipedPoints implements ifPrintPoints {
         new Point( 502, 425 ), new Point( 508, 425 ), new Point( 506, 431 ), new Point( 506, 437 ),
         new Point( 507, 443 ), new Point( 507, 449 ), new Point( 508, 455 ), new Point( 508, 461 ), new Point( 508, 467 ) };
     private final static Point[] WeaponPoints = {
-        new Point( 17, 188 ), new Point( 28, 188 ), new Point( 102, 188 ), new Point( 120, 188 ), new Point( 136, 188 ),
-        new Point( 162, 188 ), new Point( 175, 188 ), new Point( 190, 188 ), new Point( 208, 188 ) };
+        new Point( 17, 187 ), new Point( 28, 187 ), new Point( 102, 187 ), new Point( 120, 187 ), new Point( 136, 187 ),
+        new Point( 162, 187 ), new Point( 175, 187 ), new Point( 190, 187 ), new Point( 208, 187 ) };
     private final static Point[] DataPoints = {
         new Point( 39, 103 ), new Point( 58, 130 ), new Point( 58, 140 ), new Point( 58, 150 ),
         new Point( 162, 117 ), new Point( 199, 131 ), new Point( 199, 142 ), new Point( 261, 104 ),
