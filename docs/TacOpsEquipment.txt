@@ -43,10 +43,6 @@ Mech Mortar/1							Weapon  CLMekMortar1 ISMekMortar1
 Mech Mortar/2							Weapon  CLMekMortar2 ISMekMortar2
 Mech Mortar/4							Weapon  CLMekMortar4 ISMekMortar4
 Mech Mortar/8							Weapon  CLMekMortar8 ISMekMortar8
-Enhanced LRM-5							Weapon
-Enhanced LRM-10							Weapon
-Enhanced LRM-15							Weapon
-Enhanced LRM-20							Weapon
 Extended LRM-5							Weapon  ISExtendedLRM5
 Extended LRM-10							Weapon  ISExtendedLRM10
 Extended LRM-15							Weapon  ISExtendedLRM15

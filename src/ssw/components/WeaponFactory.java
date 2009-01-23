@@ -1245,6 +1245,54 @@ public class WeaponFactory {
         addMW.SetMissile(1, 1, false, false, false);
         ISMW.add(addMW);
 
+        // enhanced lrm-5
+        a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3058, 0, 0, "FC", "", false, false, 3055, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addMW = new MissileWeapon("Enhanced LRM-5", "ISELRM5", "M", false, a);
+        addMW.SetDamage(1, 1, 1);
+        addMW.SetHeat(2);
+        addMW.SetRange(3, 7, 14, 21);
+        addMW.SetSpecials("C/S/C5/5", false, true, 24, 111, false);
+        addMW.SetStats(3.0f, 2, 37500.0f, 67.0f, 0.0f);
+        addMW.SetMissile(5, 5, false, true, false);
+        addMW.SetArtemisType(Constants.ART4_LRM);
+        ISMW.add(addMW);
+
+        // enhanced lrm-10
+        a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3058, 0, 0, "FC", "", false, false, 3055, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addMW = new MissileWeapon("Enhanced LRM-10", "ISELRM10", "M", false, a);
+        addMW.SetDamage(1, 1, 1);
+        addMW.SetHeat(4);
+        addMW.SetRange(3, 7, 14, 21);
+        addMW.SetSpecials("C/S/C5/10", false, true, 12, 112, false);
+        addMW.SetStats(6.0f, 4, 125000.0f, 104.0f, 0.0f);
+        addMW.SetMissile(10, 5, false, true, false);
+        addMW.SetArtemisType(Constants.ART4_LRM);
+        ISMW.add(addMW);
+
+        // enhanced lrm-15
+        a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3058, 0, 0, "FC", "", false, false, 3055, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addMW = new MissileWeapon("Enhanced LRM-15", "ISELRM15", "M", false, a);
+        addMW.SetDamage(1, 1, 1);
+        addMW.SetHeat(5);
+        addMW.SetRange(3, 7, 14, 21);
+        addMW.SetSpecials("C/S/C5/15", false, true, 8, 113, false);
+        addMW.SetStats(9.0f, 6, 157000.0f, 157.0f, 0.0f);
+        addMW.SetMissile(15, 5, false, true, false);
+        addMW.SetArtemisType(Constants.ART4_LRM);
+        ISMW.add(addMW);
+
+        // enhanced lrm-20
+        a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3058, 0, 0, "FC", "", false, false, 3055, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addMW = new MissileWeapon("Enhanced LRM-20", "ISELRM20", "M", false, a);
+        addMW.SetDamage(1, 1, 1);
+        addMW.SetHeat(6);
+        addMW.SetRange(3, 7, 14, 21);
+        addMW.SetSpecials("C/S/C5/20", false, true, 6, 114, false);
+        addMW.SetStats(12.0f, 9, 312500.0f, 210.0f, 0.0f);
+        addMW.SetMissile(20, 5, false, true, false);
+        addMW.SetArtemisType(Constants.ART4_LRM);
+        ISMW.add(addMW);
+
         // lrm-5 OS
         a = new AvailableCode(false, 'C', 'C', 'F', 'C', 2676, 2800, 3030, "TH", "FW", true, true);
         addMW = new MissileWeapon("LRM-5 (OS)", "ISLRM5 (OS)", "M", false, a);
