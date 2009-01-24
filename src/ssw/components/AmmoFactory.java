@@ -26,7 +26,7 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// Last used Ammo Index: 114
+// Last used Ammo Index: 122
 
 package ssw.components;
 
@@ -4155,6 +4155,42 @@ public class AmmoFactory {
         a = new AvailableCode( true, 'C', 'X', 'B', 'B', 2380, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ LRM-20 (Torpedo)", "CLLRM20 Ammo", 32, true, a );
         add.SetStats( 1.0f, 30000.0f, 27.0f, 0.0f );
+        add.SetDamage( 1, 5, 20 );
+        add.SetRange( 0, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 6 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3057, 0, 0, "CCY", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Streak LRM-5", "CLStreakLRM5 Ammo", 119, true, a );
+        add.SetStats( 1.0f, 60000.0f, 11.0f, 0.0f );
+        add.SetDamage( 1, 5, 5 );
+        add.SetRange( 0, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 24 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3057, 0, 0, "CCY", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Streak LRM-10", "CLStreakLRM10 Ammo", 120, true, a );
+        add.SetStats( 1.0f, 60000.0f, 22.0f, 0.0f );
+        add.SetDamage( 1, 5, 10 );
+        add.SetRange( 0, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 12 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3057, 0, 0, "CCY", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Streak LRM-15", "CLStreakLRM15 Ammo", 121, true, a );
+        add.SetStats( 1.0f, 60000.0f, 32.0f, 0.0f );
+        add.SetDamage( 1, 5, 15 );
+        add.SetRange( 0, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 8 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3057, 0, 0, "CCY", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Streak LRM-20", "CLStreakLRM20 Ammo", 122, true, a );
+        add.SetStats( 1.0f, 60000.0f, 43.0f, 0.0f );
         add.SetDamage( 1, 5, 20 );
         add.SetRange( 0, 7, 14, 21 );
         add.SetExplosive( true );

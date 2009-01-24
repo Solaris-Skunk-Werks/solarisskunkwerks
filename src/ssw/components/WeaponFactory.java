@@ -2763,6 +2763,50 @@ public class WeaponFactory {
         addMW.SetMissile( 6, 2, true, false, false );
         CLMW.add( addMW  );
 
+        // clan streak lrm-5
+        a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3057, 0, 0, "CCY", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addMW = new MissileWeapon( "Streak LRM-5", "CLSreakLRM5", "M", true, a );
+        addMW.SetDamage( 1, 1, 1 );
+        addMW.SetHeat( 2 );
+        addMW.SetRange( 0, 7, 14, 21 );
+        addMW.SetSpecials( "C/S/C5/5", false, true, 24, 119, false );
+        addMW.SetStats( 1.0f, 1, 75000.0f, 86.0f, 0.0f );
+        addMW.SetMissile( 5, 5, false, true, false );
+        CLMW.add( addMW  );
+
+        // clan streak lrm-10
+        a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3057, 0, 0, "CCY", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addMW = new MissileWeapon( "Streak LRM-10", "CLSreakLRM10", "M", true, a );
+        addMW.SetDamage( 1, 1, 1 );
+        addMW.SetHeat( 6 );
+        addMW.SetRange( 0, 7, 14, 21 );
+        addMW.SetSpecials( "C/S/C5/10", false, true, 12, 120, false );
+        addMW.SetStats( 5.0f, 2, 225000.0f, 173.0f, 0.0f );
+        addMW.SetMissile( 10, 5, false, true, false );
+        CLMW.add( addMW  );
+
+        // clan streak lrm-15
+        a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3057, 0, 0, "CCY", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addMW = new MissileWeapon( "Streak LRM-15", "CLSreakLRM15", "M", true, a );
+        addMW.SetDamage( 1, 1, 1 );
+        addMW.SetHeat( 5 );
+        addMW.SetRange( 0, 7, 14, 21 );
+        addMW.SetSpecials( "C/S/C5/15", false, true, 8, 121, false );
+        addMW.SetStats( 7.0f, 3, 400000.0f, 259.0f, 0.0f );
+        addMW.SetMissile( 15, 5, false, false, false );
+        CLMW.add( addMW  );
+
+        // clan streak lrm-20
+        a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3057, 0, 0, "CCY", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addMW = new MissileWeapon( "Streak LRM-20", "CLSreakLRM20", "M", true, a );
+        addMW.SetDamage( 1, 1, 1 );
+        addMW.SetHeat( 6 );
+        addMW.SetRange( 0, 7, 14, 21 );
+        addMW.SetSpecials( "C/S/C5/20", false, true, 6, 122, false );
+        addMW.SetStats( 10.0f, 5, 600000.0f, 345.0f, 0.0f );
+        addMW.SetMissile( 20, 5, false, false, false );
+        CLMW.add( addMW  );
+
         // narc missile beacon
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2587, 0, 0, "TH", "", false, false );
         addMW = new MissileWeapon( "Narc Missile Beacon", "CLNarcBeacon", "M", true, a );
