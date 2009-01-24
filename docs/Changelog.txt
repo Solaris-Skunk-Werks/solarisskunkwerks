@@ -32,6 +32,7 @@ Version 0.6.0
 - Added auto-load of last open file
 - Added icon toolbar for ease-of-use
 - Print Paper size selection remembered
+- Added Mech UMUs to the jump jet list.
 
 + Changed
 - Fixed a load bug with heatsinks.

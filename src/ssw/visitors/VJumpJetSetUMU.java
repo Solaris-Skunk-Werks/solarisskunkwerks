@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.visitors;
 import ssw.components.*;
 
-public class VJumpJetSetStandard implements ifVisitor {
+public class VJumpJetSetUMU implements ifVisitor {
     private Mech CurMech;
 
     public void LoadLocations(LocationIndex[] locs) {
@@ -40,8 +40,8 @@ public class VJumpJetSetStandard implements ifVisitor {
         // Just pass us off to the jump jets
         CurMech = m;
         JumpJetFactory j = CurMech.GetJumpJets();
-        if( j.IsImproved() || j.IsUMU() ) {
-            j.SetNormal();
+        if( ! j.IsUMU() ) {
+            j.SetUMU();
 
             // now let's blow out the jump jets and recalculate
             j.ReCalculate();

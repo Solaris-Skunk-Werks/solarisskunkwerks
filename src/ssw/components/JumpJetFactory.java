@@ -60,6 +60,8 @@ public class JumpJetFactory {
 
         if( PlacedJumps.IsImproved() ) {
             SetImproved();
+        } else if( PlacedJumps.IsUMU() ) {
+            SetUMU();
         } else {
             SetNormal();
         }
@@ -75,6 +77,8 @@ public class JumpJetFactory {
     public void SetInnerSphere() {
         if( CurConfig.IsImproved() ) {
             CurConfig = ISIJJ;
+        } else if( CurConfig.IsUMU() ) {
+            CurConfig = ISUMU;
         } else {
             CurConfig = ISNJJ;
         }
@@ -83,6 +87,8 @@ public class JumpJetFactory {
     public void SetClan() {
         if( CurConfig.IsImproved() ) {
             CurConfig = CLIJJ;
+        } else if( CurConfig.IsUMU() ) {
+            CurConfig = CLUMU;
         } else {
             CurConfig = CLNJJ;
         }
@@ -104,8 +110,19 @@ public class JumpJetFactory {
         }
     }
 
+    public void SetUMU() {
+        if( Owner.GetMech().IsClan() ) {
+            CurConfig = CLUMU;
+        } else {
+            CurConfig = ISUMU;
+        }
+    }
     public boolean IsImproved() {
         return CurConfig.IsImproved();
+    }
+
+    public boolean IsUMU() {
+        return CurConfig.IsUMU();
     }
 
     public int GetNumJJ() {
@@ -244,8 +261,8 @@ public class JumpJetFactory {
     }
 
     public ifState[] GetStates() {
-        ifState[] retval = { (ifState) ISNJJ, (ifState) ISIJJ, (ifState) CLNJJ,
-            (ifState) CLIJJ };
+        ifState[] retval = { (ifState) ISNJJ, (ifState) ISIJJ, (ifState) ISUMU, 
+                             (ifState) CLNJJ, (ifState) CLIJJ, (ifState) CLUMU };
         return retval;
     }
 

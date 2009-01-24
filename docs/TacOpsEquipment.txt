@@ -60,11 +60,11 @@ Streak LRM-20							Weapon  CLStreakLRM20
 New systems to add
 -------------------------------------------------------------------------------
 Mechanical Jump Boosters				? new system  "Jump Booster"
-UMU										Jump Jet  ISUMU CLUMU
+- UMU										Jump Jet  ISUMU CLUMU
 CASE II									? new system  ISCASEII CLCASEII
 Cockpit Command Console					Cockpit
 Torso-Mounted Cockpit					Cockpit
-XXL Fusion Engine						Engine
+- XXL Fusion Engine						Engine
 Large ICE								Engine
 Large Fusion							Engine
 Large Light Fusion						Engine

@@ -317,6 +317,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         Lookup.put( "Double Heat Sink", new VHeatSinkSetDouble() );
         Lookup.put( "Standard Jump Jet", new VJumpJetSetStandard() );
         Lookup.put( "Improved Jump Jet", new VJumpJetSetImproved() );
+        Lookup.put( "Mech UMU", new VJumpJetSetUMU() );
     }
 
     private void SetWeaponChoosers() {
