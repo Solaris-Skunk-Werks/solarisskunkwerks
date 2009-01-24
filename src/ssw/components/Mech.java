@@ -825,9 +825,15 @@ public class Mech {
     }
 
     public int GetAdjustedJumpingMP( boolean BV ) {
-        int retval = CurLoadout.GetJumpJets().GetNumJJ();
-        retval += GetTotalModifiers( BV, true ).JumpingAdder();
-        return retval;
+        // Large Shields restrict jumping ability but do affect BV movement modifiers
+        if ( ! BV && ! GetTotalModifiers( BV, true ).CanJump() ) {
+            return 0;
+        }
+        else {
+            int retval = CurLoadout.GetJumpJets().GetNumJJ();
+            retval += GetTotalModifiers( BV, true ).JumpingAdder();
+            return retval;
+        }
     }
 
     public float GetJJMult() {
@@ -1230,7 +1236,7 @@ public class Mech {
         float jump = 0.0f;
         if( GetJumpJets().GetNumJJ() > 0 ) {
             JumpMP = GetAdjustedJumpingMP( true ) - 1;
-            jump = DefensiveFactor[JumpMP] + 0.1f;
+                jump = DefensiveFactor[JumpMP] + 0.1f;
         }
 
         float retval = 0.0f;

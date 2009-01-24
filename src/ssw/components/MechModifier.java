@@ -41,7 +41,8 @@ public class MechModifier {
                   ArmorMult = 0.0f,
                   IntMult = 0.0f,
                   RunMult = 0.0f;
-    private boolean BVMovement;
+    private boolean BVMovement,
+                    CanJump = true;
 
 /**
  * Creates a new MechModifier for miscellaneous statistics not covered elsewhere
@@ -72,6 +73,14 @@ public class MechModifier {
         ArmorMult = amult;
         IntMult = imult;
         BVMovement = BVMove;
+    }
+
+    public void SetCanJump(boolean j) {
+        CanJump = j;
+    }
+
+    public boolean CanJump () {
+        return CanJump;
     }
 
     public int WalkingAdder() {
@@ -137,6 +146,9 @@ public class MechModifier {
         }
         ArmorMult += m.ArmorMultiplier();
         IntMult += m.InternalMultiplier();
+        if ( ! m.CanJump ) {
+            CanJump = false;
+        }
     }
 
     public void BVCombine( MechModifier m ) {
@@ -157,6 +169,9 @@ public class MechModifier {
         }
         ArmorMult += m.ArmorMultiplier();
         IntMult += m.InternalMultiplier();
+        if ( ! m.CanJump ) {
+            CanJump = false;
+        }
     }
 
     @Override

@@ -2,9 +2,6 @@ New equipment to be added
 -------------------------------------------------------------------------------
 - Angel ECM								Equipment  ISAngelECM CLAngelECM
 Modular Armor							Equipment  ISModularArmor  CLModularArmor
-Shield, Small							Equipment  ISSmallShield
-Shield, Medium							Equipment  ISMediumShield
-Shield, Large							Equipment  ISLargeShield
 BattleMech Harjel						Equipment  "IS Harjel" "Clan Harjel"
 C3 Boosted Master						Equipment
 C3 Boosted Slave						Equipment
@@ -43,10 +40,6 @@ Mech Mortar/1							Weapon  CLMekMortar1 ISMekMortar1
 Mech Mortar/2							Weapon  CLMekMortar2 ISMekMortar2
 Mech Mortar/4							Weapon  CLMekMortar4 ISMekMortar4
 Mech Mortar/8							Weapon  CLMekMortar8 ISMekMortar8
-Extended LRM-5							Weapon  ISExtendedLRM5
-Extended LRM-10							Weapon  ISExtendedLRM10
-Extended LRM-15							Weapon  ISExtendedLRM15
-Extended LRM-20							Weapon  ISExtendedLRM20
 Improved One-Shot Launcher				Weapon
 Streak LRM-5							Weapon  CLStreakLRM5
 Streak LRM-10							Weapon  CLStreakLRM10

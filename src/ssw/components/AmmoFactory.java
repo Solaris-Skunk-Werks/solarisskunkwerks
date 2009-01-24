@@ -1042,7 +1042,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'C', 'C', 'C', 2400, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ ELRM-5", "ISELRM5 Ammo", 111, false, a );
+        add = new Ammunition( "@ NLRM-5", "ISNLRM5 Ammo", 111, false, a );
         add.SetStats( 1.0f, 31000.0f, 7.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1051,7 +1051,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'C', 'C', 'C', 2400, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ ELRM-10", "ISELRM10 Ammo", 112, false, a );
+        add = new Ammunition( "@ NLRM-10", "ISNLRM10 Ammo", 112, false, a );
         add.SetStats( 1.0f, 31000.0f, 13.0f, 0.0f );
         add.SetDamage( 1, 10, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1060,7 +1060,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'C', 'C', 'C', 2400, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ ELRM-15", "ISELRM15 Ammo", 113, false, a );
+        add = new Ammunition( "@ NLRM-15", "ISNLRM15 Ammo", 113, false, a );
         add.SetStats( 1.0f, 31000.0f, 20.0f, 0.0f );
         add.SetDamage( 1, 15, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1069,7 +1069,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'C', 'C', 'C', 2400, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ ELRM-20", "ISELRM20 Ammo", 114, false, a );
+        add = new Ammunition( "@ NLRM-20", "ISNLRM20 Ammo", 114, false, a );
         add.SetStats( 1.0f, 31000.0f, 26.0f, 0.0f );
         add.SetDamage( 1, 20, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1078,8 +1078,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'E', 'F', 'D', 2598, 2855, 3035, "TH", "FW", true, true );
-        add = new Ammunition( "@ ELRM-5 (Artemis Capable)", "ISELRM5 Ammo", 111, false, a );
-        add.SetPrintName( "@ ELRM-5 (Artemis)" );
+        add = new Ammunition( "@ NLRM-5 (Artemis Capable)", "ISNLRM5 Ammo", 111, false, a );
+        add.SetPrintName( "@ NLRM-5 (Artemis)" );
         add.SetStats( 1.0f, 62000.0f, 7.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1088,8 +1088,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'E', 'F', 'D', 2598, 2855, 3035, "TH", "FW", true, true );
-        add = new Ammunition( "@ ELRM-10 (Artemis Capable)", "ISELRM10 Ammo", 112, false, a );
-        add.SetPrintName( "@ ELRM-10 (Artemis)" );
+        add = new Ammunition( "@ NLRM-10 (Artemis Capable)", "ISNLRM10 Ammo", 112, false, a );
+        add.SetPrintName( "@ NLRM-10 (Artemis)" );
         add.SetStats( 1.0f, 62000.0f, 13.0f, 0.0f );
         add.SetDamage( 1, 10, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1098,8 +1098,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'E', 'F', 'D', 2598, 2855, 3035, "TH", "FW", true, true );
-        add = new Ammunition( "@ ELRM-15 (Artemis Capable)", "ISELRM15 Ammo", 113, false, a );
-        add.SetPrintName( "@ ELRM-15 (Artemis)" );
+        add = new Ammunition( "@ NLRM-15 (Artemis Capable)", "ISNLRM15 Ammo", 113, false, a );
+        add.SetPrintName( "@ NLRM-15 (Artemis)" );
         add.SetStats( 1.0f, 62000.0f, 20.0f, 0.0f );
         add.SetDamage( 1, 15, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1108,8 +1108,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'E', 'F', 'D', 2598, 2855, 3035, "TH", "FW", true, true );
-        add = new Ammunition( "@ ELRM-20 (Artemis Capable)", "ISELRM20 Ammo", 114, false, a );
-        add.SetPrintName( "@ ELRM-20 (Artemis)" );
+        add = new Ammunition( "@ NLRM-20 (Artemis Capable)", "ISNLRM20 Ammo", 114, false, a );
+        add.SetPrintName( "@ NLRM-20 (Artemis)" );
         add.SetStats( 1.0f, 62000.0f, 26.0f, 0.0f );
         add.SetDamage( 1, 20, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1118,7 +1118,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'E', 'X', 'E', 2377, 2790, 3054, "FS", "FW", true, true );
-        add = new Ammunition( "@ ELRM-5 (Flare)", "ISELRM5 Ammo", 111, false, a );
+        add = new Ammunition( "@ NLRM-5 (Flare)", "ISNLRM5 Ammo", 111, false, a );
         add.SetStats( 1.0f, 31000.0f, 7.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1127,7 +1127,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'E', 'X', 'E', 2377, 2790, 3054, "FS", "FW", true, true );
-        add = new Ammunition( "@ ELRM-10 (Flare)", "ISELRM10 Ammo", 112, false, a );
+        add = new Ammunition( "@ NLRM-10 (Flare)", "ISNLRM10 Ammo", 112, false, a );
         add.SetStats( 1.0f, 31000.0f, 13.0f, 0.0f );
         add.SetDamage( 1, 10, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1136,7 +1136,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'E', 'X', 'E', 2377, 2790, 3054, "FS", "FW", true, true );
-        add = new Ammunition( "@ ELRM-15 (Flare)", "ISELRM15 Ammo", 113, false, a );
+        add = new Ammunition( "@ NLRM-15 (Flare)", "ISNLRM15 Ammo", 113, false, a );
         add.SetStats( 1.0f, 31000.0f, 20.0f, 0.0f );
         add.SetDamage( 1, 15, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1145,7 +1145,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'E', 'X', 'E', 2377, 2790, 3054, "FS", "FW", true, true );
-        add = new Ammunition( "@ ELRM-20 (Flare)", "ISELRM20 Ammo", 114, false, a );
+        add = new Ammunition( "@ NLRM-20 (Flare)", "ISNLRM20 Ammo", 114, false, a );
         add.SetStats( 1.0f, 31000.0f, 26.0f, 0.0f );
         add.SetDamage( 1, 20, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1154,8 +1154,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'D', 'E', 'X', 'D', 2385, 2810, 3050, "TH", "FW", true, true );
-        add = new Ammunition( "@ ELRM-5 (Fragmentation)", "ISELRM5 Ammo", 111, false, a );
-        add.SetPrintName( "@ ELRM-5 (Frag)" );
+        add = new Ammunition( "@ NLRM-5 (Fragmentation)", "ISNLRM5 Ammo", 111, false, a );
+        add.SetPrintName( "@ NLRM-5 (Frag)" );
         add.SetStats( 1.0f, 62000.0f, 7.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1164,8 +1164,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'D', 'E', 'X', 'D', 2385, 2810, 3050, "TH", "FW", true, true );
-        add = new Ammunition( "@ ELRM-10 (Fragmentation)", "ISELRM10 Ammo", 112, false, a );
-        add.SetPrintName( "@ ELRM-10 (Frag)" );
+        add = new Ammunition( "@ NLRM-10 (Fragmentation)", "ISNLRM10 Ammo", 112, false, a );
+        add.SetPrintName( "@ NLRM-10 (Frag)" );
         add.SetStats( 1.0f, 62000.0f, 13.0f, 0.0f );
         add.SetDamage( 1, 10, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1174,8 +1174,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'D', 'E', 'X', 'D', 2385, 2810, 3050, "TH", "FW", true, true );
-        add = new Ammunition( "@ ELRM-15 (Fragmentation)", "ISELRM15 Ammo", 113, false, a );
-        add.SetPrintName( "@ ELRM-15 (Frag)" );
+        add = new Ammunition( "@ NLRM-15 (Fragmentation)", "ISNLRM15 Ammo", 113, false, a );
+        add.SetPrintName( "@ NLRM-15 (Frag)" );
         add.SetStats( 1.0f, 62000.0f, 20.0f, 0.0f );
         add.SetDamage( 1, 15, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1184,8 +1184,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'D', 'E', 'X', 'D', 2385, 2810, 3050, "TH", "FW", true, true );
-        add = new Ammunition( "@ ELRM-20 (Fragmentation)", "ISELRM20 Ammo", 114, false, a );
-        add.SetPrintName( "@ ELRM-20 (Frag)" );
+        add = new Ammunition( "@ NLRM-20 (Fragmentation)", "ISNLRM20 Ammo", 114, false, a );
+        add.SetPrintName( "@ NLRM-20 (Frag)" );
         add.SetStats( 1.0f, 62000.0f, 26.0f, 0.0f );
         add.SetDamage( 1, 20, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1194,8 +1194,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'E', 3053, 0, 0, "FW", "", false, false );
-        add = new Ammunition( "@ ELRM-5 (Incendiary)", "ISELRM5 Ammo", 111, false, a );
-        add.SetPrintName( "@ ELRM-5 (Incend.)" );
+        add = new Ammunition( "@ NLRM-5 (Incendiary)", "ISNLRM5 Ammo", 111, false, a );
+        add.SetPrintName( "@ NLRM-5 (Incend.)" );
         add.SetStats( 1.0f, 46500.0f, 7.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1204,8 +1204,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'E', 3053, 0, 0, "FW", "", false, false );
-        add = new Ammunition( "@ ELRM-10 (Incendiary)", "ISELRM10 Ammo", 112, false, a );
-        add.SetPrintName( "@ ELRM-10 (Incend.)" );
+        add = new Ammunition( "@ NLRM-10 (Incendiary)", "ISNLRM10 Ammo", 112, false, a );
+        add.SetPrintName( "@ NLRM-10 (Incend.)" );
         add.SetStats( 1.0f, 46500.0f, 13.0f, 0.0f );
         add.SetDamage( 1, 10, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1214,8 +1214,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'E', 3053, 0, 0, "FW", "", false, false );
-        add = new Ammunition( "@ ELRM-15 (Incendiary)", "ISELRM15 Ammo", 113, false, a );
-        add.SetPrintName( "@ ELRM-15 (Incend.)" );
+        add = new Ammunition( "@ NLRM-15 (Incendiary)", "ISNLRM15 Ammo", 113, false, a );
+        add.SetPrintName( "@ NLRM-15 (Incend.)" );
         add.SetStats( 1.0f, 46500.0f, 20.0f, 0.0f );
         add.SetDamage( 1, 15, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1224,8 +1224,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'E', 3053, 0, 0, "FW", "", false, false );
-        add = new Ammunition( "@ ELRM-20 (Incendiary)", "ISELRM20 Ammo", 114, false, a );
-        add.SetPrintName( "@ ELRM-20 (Incend.)" );
+        add = new Ammunition( "@ NLRM-20 (Incendiary)", "ISNLRM20 Ammo", 114, false, a );
+        add.SetPrintName( "@ NLRM-20 (Incend.)" );
         add.SetStats( 1.0f, 46500.0f, 26.0f, 0.0f );
         add.SetDamage( 1, 20, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1234,8 +1234,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'D', 3057, 0, 0, "FW", "", false, false );
-        add = new Ammunition( "@ ELRM-5 (Semi-Guided)", "ISELRM5 Ammo", 111, false, a );
-        add.SetPrintName( "@ ELRM-5 (Semi-G)" );
+        add = new Ammunition( "@ NLRM-5 (Semi-Guided)", "ISNLRM5 Ammo", 111, false, a );
+        add.SetPrintName( "@ NLRM-5 (Semi-G)" );
         add.SetStats( 1.0f, 93000.0f, 7.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1244,8 +1244,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'D', 3057, 0, 0, "FW", "", false, false );
-        add = new Ammunition( "@ ELRM-10 (Semi-Guided)", "ISELRM10 Ammo", 112, false, a );
-        add.SetPrintName( "@ ELRM-10 (Semi-G)" );
+        add = new Ammunition( "@ NLRM-10 (Semi-Guided)", "ISNLRM10 Ammo", 112, false, a );
+        add.SetPrintName( "@ NLRM-10 (Semi-G)" );
         add.SetStats( 1.0f, 93000.0f, 13.0f, 0.0f );
         add.SetDamage( 1, 10, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1254,8 +1254,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'D', 3057, 0, 0, "FW", "", false, false );
-        add = new Ammunition( "@ ELRM-15 (Semi-Guided)", "ISELRM15 Ammo", 113, false, a );
-        add.SetPrintName( "@ ELRM-15 (Semi-G)" );
+        add = new Ammunition( "@ NLRM-15 (Semi-Guided)", "ISNLRM15 Ammo", 113, false, a );
+        add.SetPrintName( "@ NLRM-15 (Semi-G)" );
         add.SetStats( 1.0f, 93000.0f, 20.0f, 0.0f );
         add.SetDamage( 1, 15, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1264,8 +1264,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'D', 3057, 0, 0, "FW", "", false, false );
-        add = new Ammunition( "@ ELRM-20 (Semi-Guided)", "ISELRM20 Ammo", 114, false, a );
-        add.SetPrintName( "@ ELRM-20 (Semi-G)" );
+        add = new Ammunition( "@ NLRM-20 (Semi-Guided)", "ISNLRM20 Ammo", 114, false, a );
+        add.SetPrintName( "@ NLRM-20 (Semi-G)" );
         add.SetStats( 1.0f, 93000.0f, 26.0f, 0.0f );
         add.SetDamage( 1, 20, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1274,7 +1274,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'E', 'X', 'D', 2621, 2840, 3053, "TH", "FC", true, true );
-        add = new Ammunition( "@ ELRM-5 (Swarm)", "ISELRM5 Ammo", 111, false, a );
+        add = new Ammunition( "@ NLRM-5 (Swarm)", "ISNLRM5 Ammo", 111, false, a );
         add.SetStats( 1.0f, 62000.0f, 7.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1283,7 +1283,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'E', 'X', 'D', 2621, 2840, 3053, "TH", "FC", true, true );
-        add = new Ammunition( "@ ELRM-10 (Swarm)", "ISELRM10 Ammo", 112, false, a );
+        add = new Ammunition( "@ NLRM-10 (Swarm)", "ISNLRM10 Ammo", 112, false, a );
         add.SetStats( 1.0f, 62000.0f, 13.0f, 0.0f );
         add.SetDamage( 1, 10, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1292,7 +1292,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'E', 'X', 'D', 2621, 2840, 3053, "TH", "FC", true, true );
-        add = new Ammunition( "@ ELRM-15 (Swarm)", "ISELRM15 Ammo", 113, false, a );
+        add = new Ammunition( "@ NLRM-15 (Swarm)", "ISNLRM15 Ammo", 113, false, a );
         add.SetStats( 1.0f, 62000.0f, 20.0f, 0.0f );
         add.SetDamage( 1, 15, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1301,7 +1301,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'E', 'X', 'D', 2621, 2840, 3053, "TH", "FC", true, true );
-        add = new Ammunition( "@ ELRM-20 (Swarm)", "ISELRM20 Ammo", 114, false, a );
+        add = new Ammunition( "@ NLRM-20 (Swarm)", "ISNLRM20 Ammo", 114, false, a );
         add.SetStats( 1.0f, 62000.0f, 26.0f, 0.0f );
         add.SetDamage( 1, 20, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1310,7 +1310,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'D', 3057, 0, 0, "FW", "", false, false );
-        add = new Ammunition( "@ ELRM-5 (Swarm-I)", "ISELRM5 Ammo", 111, false, a );
+        add = new Ammunition( "@ NLRM-5 (Swarm-I)", "ISNLRM5 Ammo", 111, false, a );
         add.SetStats( 1.0f, 93000.0f, 7.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1319,7 +1319,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'D', 3057, 0, 0, "FW", "", false, false );
-        add = new Ammunition( "@ ELRM-10 (Swarm-I)", "ISELRM10 Ammo", 112, false, a );
+        add = new Ammunition( "@ NLRM-10 (Swarm-I)", "ISNLRM10 Ammo", 112, false, a );
         add.SetStats( 1.0f, 93000.0f, 13.0f, 0.0f );
         add.SetDamage( 1, 10, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1328,7 +1328,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'D', 3057, 0, 0, "FW", "", false, false );
-        add = new Ammunition( "@ ELRM-15 (Swarm-I)", "ISELRM15 Ammo", 113, false, a );
+        add = new Ammunition( "@ NLRM-15 (Swarm-I)", "ISNLRM15 Ammo", 113, false, a );
         add.SetStats( 1.0f, 93000.0f, 20.0f, 0.0f );
         add.SetDamage( 1, 15, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1337,7 +1337,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'D', 3057, 0, 0, "FW", "", false, false );
-        add = new Ammunition( "@ ELRM-20 (Swarm-I)", "ISELRM20 Ammo", 114, false, a );
+        add = new Ammunition( "@ NLRM-20 (Swarm-I)", "ISNLRM20 Ammo", 114, false, a );
         add.SetStats( 1.0f, 93000.0f, 26.0f, 0.0f );
         add.SetDamage( 1, 20, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1346,7 +1346,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'E', 'F', 'D', 2620, 2840, 3052, "TH", "FC", true, true );
-        add = new Ammunition( "@ ELRM-5 (Thunder)", "ISELRM5 Ammo", 111, false, a );
+        add = new Ammunition( "@ NLRM-5 (Thunder)", "ISNLRM5 Ammo", 111, false, a );
         add.SetStats( 1.0f, 62000.0f, 7.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1355,7 +1355,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'E', 'F', 'D', 2620, 2840, 3052, "TH", "FC", true, true );
-        add = new Ammunition( "@ ELRM-10 (Thunder)", "ISELRM10 Ammo", 112, false, a );
+        add = new Ammunition( "@ NLRM-10 (Thunder)", "ISNLRM10 Ammo", 112, false, a );
         add.SetStats( 1.0f, 62000.0f, 13.0f, 0.0f );
         add.SetDamage( 1, 10, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1364,7 +1364,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'E', 'F', 'D', 2620, 2840, 3052, "TH", "FC", true, true );
-        add = new Ammunition( "@ ELRM-15 (Thunder)", "ISELRM15 Ammo", 113, false, a );
+        add = new Ammunition( "@ NLRM-15 (Thunder)", "ISNLRM15 Ammo", 113, false, a );
         add.SetStats( 1.0f, 62000.0f, 20.0f, 0.0f );
         add.SetDamage( 1, 15, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1373,7 +1373,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'E', 'F', 'D', 2620, 2840, 3052, "TH", "FC", true, true );
-        add = new Ammunition( "@ ELRM-20 (Thunder)", "ISELRM20 Ammo", 114, false, a );
+        add = new Ammunition( "@ NLRM-20 (Thunder)", "ISNLRM20 Ammo", 114, false, a );
         add.SetStats( 1.0f, 62000.0f, 26.0f, 0.0f );
         add.SetDamage( 1, 20, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1382,8 +1382,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'E', 3057, 0, 0, "CC", "", false, false );
-        add = new Ammunition( "@ ELRM-5 (Thunder-Augmented)", "ISELRM5 Ammo", 111, false, a );
-        add.SetPrintName( "@ ELRM-5 (Th-Aug)" );
+        add = new Ammunition( "@ NLRM-5 (Thunder-Augmented)", "ISNLRM5 Ammo", 111, false, a );
+        add.SetPrintName( "@ NLRM-5 (Th-Aug)" );
         add.SetStats( 1.0f, 93000.0f, 7.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1392,8 +1392,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'E', 3057, 0, 0, "CC", "", false, false );
-        add = new Ammunition( "@ ELRM-10 (Thunder-Augmented)", "ISELRM10 Ammo", 112, false, a );
-        add.SetPrintName( "@ ELRM-10 (Th-Aug)" );
+        add = new Ammunition( "@ NLRM-10 (Thunder-Augmented)", "ISNLRM10 Ammo", 112, false, a );
+        add.SetPrintName( "@ NLRM-10 (Th-Aug)" );
         add.SetStats( 1.0f, 93000.0f, 13.0f, 0.0f );
         add.SetDamage( 1, 10, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1402,8 +1402,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'E', 3057, 0, 0, "CC", "", false, false );
-        add = new Ammunition( "@ ELRM-15 (Thunder-Augmented)", "ISELRM15 Ammo", 113, false, a );
-        add.SetPrintName( "@ ELRM-15 (Th-Aug)" );
+        add = new Ammunition( "@ NLRM-15 (Thunder-Augmented)", "ISNLRM15 Ammo", 113, false, a );
+        add.SetPrintName( "@ NLRM-15 (Th-Aug)" );
         add.SetStats( 1.0f, 93000.0f, 20.0f, 0.0f );
         add.SetDamage( 1, 15, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1412,8 +1412,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'E', 3057, 0, 0, "CC", "", false, false );
-        add = new Ammunition( "@ ELRM-20 (Thunder-Augmented)", "ISELRM20 Ammo", 114, false, a );
-        add.SetPrintName( "@ ELRM-20 (Th-Aug)" );
+        add = new Ammunition( "@ NLRM-20 (Thunder-Augmented)", "ISNLRM20 Ammo", 114, false, a );
+        add.SetPrintName( "@ NLRM-20 (Th-Aug)" );
         add.SetStats( 1.0f, 93000.0f, 26.0f, 0.0f );
         add.SetDamage( 1, 20, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1422,8 +1422,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'D', 3056, 0, 0, "CC", "", false, false );
-        add = new Ammunition( "@ ELRM-5 (Thunder-Inferno)", "ISELRM5 Ammo", 111, false, a );
-        add.SetPrintName( "@ ELRM-5 (Th-Inf)" );
+        add = new Ammunition( "@ NLRM-5 (Thunder-Inferno)", "ISNLRM5 Ammo", 111, false, a );
+        add.SetPrintName( "@ NLRM-5 (Th-Inf)" );
         add.SetStats( 1.0f, 31000.0f, 7.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1432,8 +1432,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'D', 3056, 0, 0, "CC", "", false, false );
-        add = new Ammunition( "@ ELRM-10 (Thunder-Inferno)", "ISELRM10 Ammo", 112, false, a );
-        add.SetPrintName( "@ ELRM-10 (Th-Inf)" );
+        add = new Ammunition( "@ NLRM-10 (Thunder-Inferno)", "ISNLRM10 Ammo", 112, false, a );
+        add.SetPrintName( "@ NLRM-10 (Th-Inf)" );
         add.SetStats( 1.0f, 31000.0f, 13.0f, 0.0f );
         add.SetDamage( 1, 10, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1442,8 +1442,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'D', 3056, 0, 0, "CC", "", false, false );
-        add = new Ammunition( "@ ELRM-15 (Thunder-Inferno)", "ISELRM15 Ammo", 113, false, a );
-        add.SetPrintName( "@ ELRM-15 (Th-Inf)" );
+        add = new Ammunition( "@ NLRM-15 (Thunder-Inferno)", "ISNLRM15 Ammo", 113, false, a );
+        add.SetPrintName( "@ NLRM-15 (Th-Inf)" );
         add.SetStats( 1.0f, 31000.0f, 20.0f, 0.0f );
         add.SetDamage( 1, 15, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1452,8 +1452,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'D', 3056, 0, 0, "CC", "", false, false );
-        add = new Ammunition( "@ ELRM-20 (Thunder-Inferno)", "ISELRM20 Ammo", 114, false, a );
-        add.SetPrintName( "@ ELRM-20 (Th-Inf)" );
+        add = new Ammunition( "@ NLRM-20 (Thunder-Inferno)", "ISNLRM20 Ammo", 114, false, a );
+        add.SetPrintName( "@ NLRM-20 (Th-Inf)" );
         add.SetStats( 1.0f, 31000.0f, 26.0f, 0.0f );
         add.SetDamage( 1, 20, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1462,8 +1462,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'E', 3057, 0, 0, "CC", "", false, false );
-        add = new Ammunition( "@ ELRM-5 (Thunder-Vibrabomb)", "ISELRM5 Ammo", 111, false, a );
-        add.SetPrintName( "@ ELRM-5 (Th-Vib)" );
+        add = new Ammunition( "@ NLRM-5 (Thunder-Vibrabomb)", "ISNLRM5 Ammo", 111, false, a );
+        add.SetPrintName( "@ NLRM-5 (Th-Vib)" );
         add.SetStats( 1.0f, 77500.0f, 7.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1472,8 +1472,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'E', 3057, 0, 0, "CC", "", false, false );
-        add = new Ammunition( "@ ELRM-10 (Thunder-Vibrabomb)", "ISELRM10 Ammo", 112, false, a );
-        add.SetPrintName( "@ ELRM-10 (Th-Vib)" );
+        add = new Ammunition( "@ NLRM-10 (Thunder-Vibrabomb)", "ISNLRM10 Ammo", 112, false, a );
+        add.SetPrintName( "@ NLRM-10 (Th-Vib)" );
         add.SetStats( 1.0f, 77500.0f, 13.0f, 0.0f );
         add.SetDamage( 1, 10, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1482,8 +1482,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'E', 3057, 0, 0, "CC", "", false, false );
-        add = new Ammunition( "@ ELRM-15 (Thunder-Vibrabomb)", "ISELRM15 Ammo", 113, false, a );
-        add.SetPrintName( "@ ELRM-15 (Th-Vib)" );
+        add = new Ammunition( "@ NLRM-15 (Thunder-Vibrabomb)", "ISNLRM15 Ammo", 113, false, a );
+        add.SetPrintName( "@ NLRM-15 (Th-Vib)" );
         add.SetStats( 1.0f, 77500.0f, 20.0f, 0.0f );
         add.SetDamage( 1, 15, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1492,8 +1492,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'E', 3057, 0, 0, "CC", "", false, false );
-        add = new Ammunition( "@ ELRM-20 (Thunder-Vibrabomb)", "ISELRM20 Ammo", 114, false, a );
-        add.SetPrintName( "@ ELRM-20 (Th-Vib)" );
+        add = new Ammunition( "@ NLRM-20 (Thunder-Vibrabomb)", "ISNLRM20 Ammo", 114, false, a );
+        add.SetPrintName( "@ NLRM-20 (Th-Vib)" );
         add.SetStats( 1.0f, 77500.0f, 26.0f, 0.0f );
         add.SetDamage( 1, 20, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1502,8 +1502,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'E', 3058, 0, 0, "CC", "", false, false );
-        add = new Ammunition( "@ ELRM-5 (Thunder-Active)", "ISELRM5 Ammo", 111, false, a );
-        add.SetPrintName( "@ ELRM-5 (Th-Act)" );
+        add = new Ammunition( "@ NLRM-5 (Thunder-Active)", "ISNLRM5 Ammo", 111, false, a );
+        add.SetPrintName( "@ NLRM-5 (Th-Act)" );
         add.SetStats( 1.0f, 93000.0f, 7.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1512,8 +1512,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'E', 3058, 0, 0, "CC", "", false, false );
-        add = new Ammunition( "@ ELRM-10 (Thunder-Active)", "ISELRM10 Ammo", 112, false, a );
-        add.SetPrintName( "@ ELRM-10 (Th-Act)" );
+        add = new Ammunition( "@ NLRM-10 (Thunder-Active)", "ISNLRM10 Ammo", 112, false, a );
+        add.SetPrintName( "@ NLRM-10 (Th-Act)" );
         add.SetStats( 1.0f, 93000.0f, 13.0f, 0.0f );
         add.SetDamage( 1, 10, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1522,8 +1522,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'E', 3058, 0, 0, "CC", "", false, false );
-        add = new Ammunition( "@ ELRM-15 (Thunder-Active)", "ISELRM15 Ammo", 113, false, a );
-        add.SetPrintName( "@ ELRM-15 (Th-Act)" );
+        add = new Ammunition( "@ NLRM-15 (Thunder-Active)", "ISNLRM15 Ammo", 113, false, a );
+        add.SetPrintName( "@ NLRM-15 (Th-Act)" );
         add.SetStats( 1.0f, 93000.0f, 20.0f, 0.0f );
         add.SetDamage( 1, 15, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1532,8 +1532,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'X', 'X', 'E', 3058, 0, 0, "CC", "", false, false );
-        add = new Ammunition( "@ ELRM-20 (Thunder-Active)", "ISELRM20 Ammo", 114, false, a );
-        add.SetPrintName( "@ ELRM-20 (Th-Act)" );
+        add = new Ammunition( "@ NLRM-20 (Thunder-Active)", "ISNLRM20 Ammo", 114, false, a );
+        add.SetPrintName( "@ NLRM-20 (Th-Act)" );
         add.SetStats( 1.0f, 93000.0f, 26.0f, 0.0f );
         add.SetDamage( 1, 20, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1542,8 +1542,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'E', 'F', 'D', 2597, 2795, 3035, "TH", "FW", false, false );
-        add = new Ammunition( "@ ELRM-5 (Narc Capable)", "ISELRM5 Ammo", 111, false, a );
-        add.SetPrintName( "@ ELRM-5 (Narc)" );
+        add = new Ammunition( "@ NLRM-5 (Narc Capable)", "ISNLRM5 Ammo", 111, false, a );
+        add.SetPrintName( "@ NLRM-5 (Narc)" );
         add.SetStats( 1.0f, 62000.0f, 7.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1552,8 +1552,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'E', 'F', 'D', 2597, 2795, 3035, "TH", "FW", false, false );
-        add = new Ammunition( "@ ELRM-10 (Narc Capable)", "ISELRM10 Ammo", 112, false, a );
-        add.SetPrintName( "@ ELRM-10 (Narc)" );
+        add = new Ammunition( "@ NLRM-10 (Narc Capable)", "ISNLRM10 Ammo", 112, false, a );
+        add.SetPrintName( "@ NLRM-10 (Narc)" );
         add.SetStats( 1.0f, 62000.0f, 13.0f, 0.0f );
         add.SetDamage( 1, 10, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1562,8 +1562,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'E', 'F', 'D', 2597, 2795, 3035, "TH", "FW", false, false );
-        add = new Ammunition( "@ ELRM-15 (Narc Capable)", "ISELRM15 Ammo", 113, false, a );
-        add.SetPrintName( "@ ELRM-15 (Narc)" );
+        add = new Ammunition( "@ NLRM-15 (Narc Capable)", "ISNLRM15 Ammo", 113, false, a );
+        add.SetPrintName( "@ NLRM-15 (Narc)" );
         add.SetStats( 1.0f, 62000.0f, 20.0f, 0.0f );
         add.SetDamage( 1, 15, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1572,8 +1572,8 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'E', 'F', 'D', 2597, 2795, 3035, "TH", "FW", false, false );
-        add = new Ammunition( "@ ELRM-20 (Narc Capable)", "ISELRM20 Ammo", 114, false, a );
-        add.SetPrintName( "@ ELRM-20 (Narc)" );
+        add = new Ammunition( "@ NLRM-20 (Narc Capable)", "ISNLRM20 Ammo", 114, false, a );
+        add.SetPrintName( "@ NLRM-20 (Narc)" );
         add.SetStats( 1.0f, 62000.0f, 26.0f, 0.0f );
         add.SetDamage( 1, 20, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1582,7 +1582,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'C', 'C', 'C', 2380, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ ELRM-5 (Torpedo)", "ISELRM5 Ammo", 111, false, a );
+        add = new Ammunition( "@ NLRM-5 (Torpedo)", "ISNLRM5 Ammo", 111, false, a );
         add.SetStats( 1.0f, 31000.0f, 7.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1591,7 +1591,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'C', 'C', 'C', 2380, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ ELRM-10 (Torpedo)", "ISELRM10 Ammo", 112, false, a );
+        add = new Ammunition( "@ NLRM-10 (Torpedo)", "ISNLRM10 Ammo", 112, false, a );
         add.SetStats( 1.0f, 31000.0f, 13.0f, 0.0f );
         add.SetDamage( 1, 10, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1600,7 +1600,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'C', 'C', 'C', 2380, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ ELRM-15 (Torpedo)", "ISELRM15 Ammo", 113, false, a );
+        add = new Ammunition( "@ NLRM-15 (Torpedo)", "ISNLRM15 Ammo", 113, false, a );
         add.SetStats( 1.0f, 31000.0f, 20.0f, 0.0f );
         add.SetDamage( 1, 15, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1609,7 +1609,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'C', 'C', 'C', 2380, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ ELRM-20 (Torpedo)", "ISELRM20 Ammo", 114, false, a );
+        add = new Ammunition( "@ NLRM-20 (Torpedo)", "ISNLRM20 Ammo", 114, false, a );
         add.SetStats( 1.0f, 31000.0f, 26.0f, 0.0f );
         add.SetDamage( 1, 20, 5 );
         add.SetRange( 3, 7, 14, 21 );
@@ -1617,6 +1617,42 @@ public class AmmoFactory {
         add.SetLotSize( 6 );
         ISAM.add( add );
 
+
+        a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3054, 0, 0, "FC", "", false, false, 3052, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ ELRM-5", "ISELRM5 Ammo", 115, false, a );
+        add.SetStats( 1.0f, 35000.0f, 8.0f, 0.0f );
+        add.SetDamage( 1, 5, 5 );
+        add.SetRange( 10, 12, 22, 38 );
+        add.SetExplosive( true );
+        add.SetLotSize( 18 );
+        ISAM.add( add );
+
+        a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3054, 0, 0, "FC", "", false, false, 3052, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ ELRM-10", "ISELRM10 Ammo", 116, false, a );
+        add.SetStats( 1.0f, 35000.0f, 17.0f, 0.0f );
+        add.SetDamage( 1, 10, 5 );
+        add.SetRange( 10, 12, 22, 38 );
+        add.SetExplosive( true );
+        add.SetLotSize( 9 );
+        ISAM.add( add );
+
+        a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3054, 0, 0, "FC", "", false, false, 3052, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ ELRM-15", "ISELRM15 Ammo", 117, false, a );
+        add.SetStats( 1.0f, 35000.0f, 25.0f, 0.0f );
+        add.SetDamage( 1, 15, 5 );
+        add.SetRange( 10, 12, 22, 38 );
+        add.SetExplosive( true );
+        add.SetLotSize( 6 );
+        ISAM.add( add );
+
+        a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3054, 0, 0, "FC", "", false, false, 3052, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ ELRM-20", "ISELRM20 Ammo", 118, false, a );
+        add.SetStats( 1.0f, 35000.0f, 34.0f, 0.0f );
+        add.SetDamage( 1, 20, 5 );
+        add.SetRange( 10, 12, 22, 38 );
+        add.SetExplosive( true );
+        add.SetLotSize( 4 );
+        ISAM.add( add );
 
         a = new AvailableCode( false, 'E', 'C', 'C', 'C', 2400, 0, 0, "TH", "", false, false );
         add = new Ammunition( "@ MML-3 (LRM)", "ISMML3 LRM Ammo", 33, false, a );

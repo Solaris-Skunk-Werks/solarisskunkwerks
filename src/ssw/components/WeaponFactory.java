@@ -108,6 +108,7 @@ public class WeaponFactory {
             ((PhysicalWeapon) retval).SetDamage( w.GetDamageMult(), w.GetDamageAdd() );
             ((PhysicalWeapon) retval).SetSpecials( w.GetType(), w.GetSpecials(), w.GetCostMult(), w.GetCostAdd(), w.GetBVMult(), w.GetBVAdd(), w.GetDefBV(), w.GetRounding() );
             ((PhysicalWeapon) retval).SetToHit( w.GetToHitShort(), w.GetToHitMedium(), w.GetToHitLong() );
+            (retval).AddMechModifier( w.GetMechModifier() );
             ((PhysicalWeapon) retval).SetHeat( w.GetHeat() );
             ((PhysicalWeapon) retval).SetRequiresHand( w.RequiresHand() );
             ((PhysicalWeapon) retval).SetRequiresLowerArm( w.RequiresLowerArm() );
@@ -567,6 +568,43 @@ public class WeaponFactory {
         addPW.SetRequiresLowerArm( false );
         addPW.SetPWClass( ssw.Constants.PW_CLASS_SPIKE );
         addPW.SetAllocations(true, true, true, true, true, false);
+        ISPW.add(addPW);
+
+        // small shield
+        a = new AvailableCode( false, 'D', 'X', 'X', 'F', 3067, 0, 0, "LA", "", false, false, 3065, true, "LA", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addPW = new PhysicalWeapon( "Small Shield","ISSmallShield", Owner, a );
+        addPW.SetStats(0.0f, 0.0f, 2.0f, 3);
+        addPW.SetDamage(0.0f, 3);
+        addPW.SetSpecials("PA", "PB", 0.0f, 50000.0f, 0.0f, 0.0f, 50.0f, false);
+        addPW.SetToHit(-2, -2, -2);
+        addPW.SetRequiresLowerArm(false);
+        addPW.SetPWClass( ssw.Constants.PW_CLASS_SHIELD );
+        ISPW.add(addPW);
+
+        // medium shield
+        a = new AvailableCode( false, 'D', 'X', 'X', 'F', 3067, 0, 0, "LA", "", false, false, 3065, true, "LA", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addPW = new PhysicalWeapon( "Medium Shield","ISMediumShield", Owner, a );
+        addPW.SetStats(0.0f, 0.0f, 4.0f, 5);
+        addPW.SetDamage(0.0f, 5);
+        addPW.SetSpecials("PA", "PB", 0.0f, 100000.0f, 0.0f, 0.0f, 135.0f, false);
+        addPW.SetToHit(-3, -3, -3);
+        addPW.SetRequiresLowerArm(false);
+        addPW.SetPWClass( ssw.Constants.PW_CLASS_SHIELD );
+        addPW.AddMechModifier( new MechModifier( -1, 0, 0, 0.0f, 0, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true ));
+        ISPW.add(addPW);
+
+        // large shield
+        a = new AvailableCode( false, 'D', 'X', 'X', 'F', 3067, 0, 0, "LA", "", false, false, 3065, true, "LA", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addPW = new PhysicalWeapon( "Large Shield","ISLargeShield", Owner, a );
+        addPW.SetStats(0.0f, 0.0f, 6.0f, 7);
+        addPW.SetDamage(0.0f, 7);
+        addPW.SetSpecials("PA", "PB", 0.0f, 300000.0f, 0.0f, 0.0f, 263.0f, false);
+        addPW.SetToHit(-4, -4, -4);
+        addPW.SetRequiresLowerArm(false);
+        addPW.SetPWClass( ssw.Constants.PW_CLASS_SHIELD );
+        MechModifier addMod = new MechModifier( -1, 0, 0, 0.0f, 0, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true );
+        addMod.SetCanJump(false);
+        addPW.AddMechModifier( addMod );
         ISPW.add(addPW);
     }
 
@@ -1247,7 +1285,7 @@ public class WeaponFactory {
 
         // enhanced lrm-5
         a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3058, 0, 0, "FC", "", false, false, 3055, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        addMW = new MissileWeapon("Enhanced LRM-5", "ISELRM5", "M", false, a);
+        addMW = new MissileWeapon("Enhanced LRM-5", "ISNLRM5", "M", false, a);
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(2);
         addMW.SetRange(3, 7, 14, 21);
@@ -1259,7 +1297,7 @@ public class WeaponFactory {
 
         // enhanced lrm-10
         a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3058, 0, 0, "FC", "", false, false, 3055, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        addMW = new MissileWeapon("Enhanced LRM-10", "ISELRM10", "M", false, a);
+        addMW = new MissileWeapon("Enhanced LRM-10", "ISNLRM10", "M", false, a);
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(4);
         addMW.SetRange(3, 7, 14, 21);
@@ -1271,7 +1309,7 @@ public class WeaponFactory {
 
         // enhanced lrm-15
         a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3058, 0, 0, "FC", "", false, false, 3055, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        addMW = new MissileWeapon("Enhanced LRM-15", "ISELRM15", "M", false, a);
+        addMW = new MissileWeapon("Enhanced LRM-15", "ISNLRM15", "M", false, a);
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(5);
         addMW.SetRange(3, 7, 14, 21);
@@ -1283,7 +1321,7 @@ public class WeaponFactory {
 
         // enhanced lrm-20
         a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3058, 0, 0, "FC", "", false, false, 3055, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        addMW = new MissileWeapon("Enhanced LRM-20", "ISELRM20", "M", false, a);
+        addMW = new MissileWeapon("Enhanced LRM-20", "ISNLRM20", "M", false, a);
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(6);
         addMW.SetRange(3, 7, 14, 21);
@@ -1291,6 +1329,54 @@ public class WeaponFactory {
         addMW.SetStats(12.0f, 9, 312500.0f, 210.0f, 0.0f);
         addMW.SetMissile(20, 5, false, true, false);
         addMW.SetArtemisType(Constants.ART4_LRM);
+        ISMW.add(addMW);
+
+        // extended lrm-5
+        a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3054, 0, 0, "FC", "", false, false, 3052, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addMW = new MissileWeapon("Extended LRM-5", "ISELRM5", "M", false, a);
+        addMW.SetDamage(1, 1, 1);
+        addMW.SetHeat(3);
+        addMW.SetRange(10, 12, 22, 38);
+        addMW.SetSpecials("C/S/C5/5", false, true, 18, 115, false);
+        addMW.SetStats(6.0f, 1, 60000.0f, 52.0f, 0.0f);
+        addMW.SetMissile(5, 5, false, false, false);
+        addMW.SetArtemisType(Constants.ART4_NONE);
+        ISMW.add(addMW);
+
+        // extended lrm-10
+        a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3054, 0, 0, "FC", "", false, false, 3052, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addMW = new MissileWeapon("Extended LRM-10", "ISELRM10", "M", false, a);
+        addMW.SetDamage(1, 1, 1);
+        addMW.SetHeat(6);
+        addMW.SetRange(10, 12, 22, 38);
+        addMW.SetSpecials("C/S/C5/10", false, true, 9, 116, false);
+        addMW.SetStats(8.0f, 4, 200000.0f, 104.0f, 0.0f);
+        addMW.SetMissile(10, 5, false, false, false);
+        addMW.SetArtemisType(Constants.ART4_NONE);
+        ISMW.add(addMW);
+
+        // extended lrm-15
+        a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3054, 0, 0, "FC", "", false, false, 3052, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addMW = new MissileWeapon("Extended LRM-15", "ISELRM15", "M", false, a);
+        addMW.SetDamage(1, 1, 1);
+        addMW.SetHeat(8);
+        addMW.SetRange(10, 12, 22, 38);
+        addMW.SetSpecials("C/S/C5/15", false, true, 6, 117, false);
+        addMW.SetStats(12.0f, 6, 350000.0f, 157.0f, 0.0f);
+        addMW.SetMissile(15, 5, false, false, false);
+        addMW.SetArtemisType(Constants.ART4_NONE);
+        ISMW.add(addMW);
+
+        // extended lrm-20
+        a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3054, 0, 0, "FC", "", false, false, 3052, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addMW = new MissileWeapon("Extended LRM-20", "ISELRM20", "M", false, a);
+        addMW.SetDamage(1, 1, 1);
+        addMW.SetHeat(12);
+        addMW.SetRange(10, 12, 22, 38);
+        addMW.SetSpecials("C/S/C5/20", false, true, 4, 118, false);
+        addMW.SetStats(18.0f, 8, 500000.0f, 210.0f, 0.0f);
+        addMW.SetMissile(20, 5, false, false, false);
+        addMW.SetArtemisType(Constants.ART4_NONE);
         ISMW.add(addMW);
 
         // lrm-5 OS
@@ -2117,6 +2203,43 @@ public class WeaponFactory {
         addPW.SetRequiresLowerArm( false );
         addPW.SetPWClass( ssw.Constants.PW_CLASS_SPIKE );
         addPW.SetAllocations(true, true, true, true, true, false);
+        ISPW.add(addPW);
+
+        // small shield
+        a = new AvailableCode( false, 'D', 'X', 'X', 'F', 3067, 0, 0, "LA", "", false, false, 3065, true, "LA", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addPW = new PhysicalWeapon( "Small Shield","ISSmallShield", Owner, a );
+        addPW.SetStats(0.0f, 0.0f, 2.0f, 3);
+        addPW.SetDamage(0.0f, 3);
+        addPW.SetSpecials("PA", "PB", 0.0f, 50000.0f, 0.0f, 0.0f, 50.0f, false);
+        addPW.SetToHit(-2, -2, -2);
+        addPW.SetRequiresLowerArm(false);
+        addPW.SetPWClass( ssw.Constants.PW_CLASS_SHIELD );
+        ISPW.add(addPW);
+
+        // medium shield
+        a = new AvailableCode( false, 'D', 'X', 'X', 'F', 3067, 0, 0, "LA", "", false, false, 3065, true, "LA", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addPW = new PhysicalWeapon( "Medium Shield","ISMediumShield", Owner, a );
+        addPW.SetStats(0.0f, 0.0f, 4.0f, 5);
+        addPW.SetDamage(0.0f, 5);
+        addPW.SetSpecials("PA", "PB", 0.0f, 100000.0f, 0.0f, 0.0f, 135.0f, false);
+        addPW.SetToHit(-3, -3, -3);
+        addPW.SetRequiresLowerArm(false);
+        addPW.SetPWClass( ssw.Constants.PW_CLASS_SHIELD );
+        addPW.AddMechModifier( new MechModifier( -1, 0, 0, 0.0f, 0, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, false ));
+        ISPW.add(addPW);
+
+        // large shield
+        a = new AvailableCode( false, 'D', 'X', 'X', 'F', 3067, 0, 0, "LA", "", false, false, 3065, true, "LA", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addPW = new PhysicalWeapon( "Large Shield","ISLargeShield", Owner, a );
+        addPW.SetStats(0.0f, 0.0f, 6.0f, 7);
+        addPW.SetDamage(0.0f, 7);
+        addPW.SetSpecials("PA", "PB", 0.0f, 300000.0f, 0.0f, 0.0f, 263.0f, false);
+        addPW.SetToHit(-4, -4, -4);
+        addPW.SetRequiresLowerArm(false);
+        addPW.SetPWClass( ssw.Constants.PW_CLASS_SHIELD );
+        MechModifier addMod = new MechModifier( -1, 0, 0, 0.0f, 0, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, false );
+        addMod.SetCanJump(false);
+        addPW.AddMechModifier( addMod );
         ISPW.add(addPW);
 
         // arrow iv system
