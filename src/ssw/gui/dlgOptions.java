@@ -133,11 +133,6 @@ public class dlgOptions extends javax.swing.JDialog {
         txtHTMLPath.setText( MyOptions.HTMLPath );
         txtTXTPath.setText( MyOptions.TXTPath );
         txtMegamekPath.setText( MyOptions.MegamekPath );
-        if( MyOptions.UseMMCustom ) {
-            chkMMCustom.setSelected( true );
-            txtMMCustom.setEnabled( true );
-            txtMMCustom.setText( MyOptions.MMCustom );
-        }
     }
 
     private void SaveState() {
@@ -187,13 +182,6 @@ public class dlgOptions extends javax.swing.JDialog {
         MyOptions.HTMLPath = txtHTMLPath.getText();
         MyOptions.TXTPath = txtTXTPath.getText();
         MyOptions.MegamekPath = txtMegamekPath.getText();
-        if( chkMMCustom.isSelected() ) {
-            MyOptions.UseMMCustom = true;
-            MyOptions.MMCustom = txtMMCustom.getText();
-        } else {
-            MyOptions.UseMMCustom = false;
-            MyOptions.MMCustom = "";
-        }
 
         if( rdoSortOut.isSelected() ) {
             MyOptions.Export_Sort = MyOptions.EXPORT_SORT_OUT;
@@ -207,19 +195,6 @@ public class dlgOptions extends javax.swing.JDialog {
         } catch( IOException e ) {
             javax.swing.JOptionPane.showMessageDialog( Parent, "Could not save the options!\nFile operation problem (save, close)." );
         }
-    }
-
-    private boolean ValidateMMCustom() {
-        char[] c = txtMMCustom.getText().toCharArray();
-        for( int i = 0; i < c.length; i++ ) {
-            if( ( c[i] >= 'a' ) && ( c[i] <= 'z' ) ) { continue; }
-            if( ( c[i] >= 'A' ) && ( c[i] <= 'Z' ) ) { continue; }
-            if( ( c[i] >= '0' ) && ( c[i] <= '9' ) ) { continue; }
-            if( c[i] == '-' ) { continue; }
-            if( c[i] == '_' ) { continue; }
-            return false;
-        }
-        return true;
     }
 
     /** This method is called from within the constructor to
@@ -307,8 +282,6 @@ public class dlgOptions extends javax.swing.JDialog {
         txtMegamekPath = new javax.swing.JTextField();
         btnMegamekPath = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
-        chkMMCustom = new javax.swing.JCheckBox();
-        txtMMCustom = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
@@ -959,29 +932,6 @@ public class dlgOptions extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlPaths.add(jLabel16, gridBagConstraints);
 
-        chkMMCustom.setText("Use custom folder for MegaMek files");
-        chkMMCustom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkMMCustomActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlPaths.add(chkMMCustom, gridBagConstraints);
-
-        txtMMCustom.setEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlPaths.add(txtMMCustom, gridBagConstraints);
-
         jTabbedPane1.addTab("Paths", pnlPaths);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1056,12 +1006,6 @@ public class dlgOptions extends javax.swing.JDialog {
     }//GEN-LAST:event_chkCustomPercentActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // first, check to see that our MegaMek custom directory is okay
-        if( ! ValidateMMCustom() ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "The custom MegaMek directory can only contain letters,\nnumbers, underscores \"_\", and dashes \"-\"" );
-            jTabbedPane1.setSelectedComponent( pnlPaths );
-            return;
-        }
         SaveState();
         dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
@@ -1234,15 +1178,6 @@ private void btnArmoredBackActionPerformed(java.awt.event.ActionEvent evt) {//GE
         if ( newColor != null ) { lblArmored.setBackground( newColor ); }
 }//GEN-LAST:event_btnArmoredBackActionPerformed
 
-private void chkMMCustomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkMMCustomActionPerformed
-    if( chkMMCustom.isSelected() ) {
-        txtMMCustom.setEnabled( true );
-    } else {
-        txtMMCustom.setEnabled( false );
-        txtMMCustom.setText( "" );
-    }
-}//GEN-LAST:event_chkMMCustomActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnArmoredBack;
     private javax.swing.JButton btnArmoredFore;
@@ -1270,7 +1205,6 @@ private void chkMMCustomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JCheckBox chkCustomPercent;
     private javax.swing.JCheckBox chkEquipmentHeat;
     private javax.swing.JCheckBox chkJumpHeat;
-    private javax.swing.JCheckBox chkMMCustom;
     private javax.swing.JCheckBox chkMoveHeat;
     private javax.swing.JCheckBox chkOSWeapons;
     private javax.swing.JCheckBox chkRearWeapons;
@@ -1321,7 +1255,6 @@ private void chkMMCustomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JRadioButton rdoSortOut;
     private javax.swing.JTextField txtCTPercent;
     private javax.swing.JTextField txtHTMLPath;
-    private javax.swing.JTextField txtMMCustom;
     private javax.swing.JTextField txtMegamekPath;
     private javax.swing.JTextField txtSaveLoadPath;
     private javax.swing.JTextField txtSidePercent;

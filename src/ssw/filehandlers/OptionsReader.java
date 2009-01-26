@@ -208,10 +208,6 @@ public class OptionsReader {
         FR.newLine();
         FR.write( "PATH_MEGAMEK=" + o.MegamekPath );
         FR.newLine();
-        FR.write( "USEMMCUSTOM=" + GetBoolean( o.UseMMCustom ) );
-        FR.newLine();
-        FR.write( "PATH_MMCUSTOM=" + o.MMCustom );
-        FR.newLine();
 
         FR.newLine();
         FR.write( "########## End Of File ##########" );
@@ -360,12 +356,6 @@ public class OptionsReader {
         }
         if( HTOptions.get( "PATH_MEGAMEK" ) != null ) {
             o.MegamekPath = HTOptions.get( "PATH_MEGAMEK" );
-        }
-        if( HTOptions.get( "USEMMCUSTOM" ) != null ) {
-            o.UseMMCustom = ProcessBoolean( HTOptions.get( "USEMMCUSTOM" ) );
-            if( HTOptions.get( "PATH_MMCUSTOM" ) != null ) {
-                o.MMCustom = HTOptions.get( "PATH_MMCUSTOM" );
-            }
         }
     }
 

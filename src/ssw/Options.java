@@ -78,8 +78,7 @@ public class Options {
                   SaveLoadPath = "none",
                   HTMLPath = "none",
                   TXTPath = "none",
-                  MegamekPath = "none",
-                  MMCustom = "";
+                  MegamekPath = "none";
 
     public void SetDefaults() {
         // choose to keep this here because it made sense.
@@ -118,7 +117,6 @@ public class Options {
         TXTPath = System.getProperty("user.dir");
         MegamekPath = System.getProperty("user.dir");
         UseMMCustom = false;
-        MMCustom = "";
     }
 
     public void ClearUserInfo() {

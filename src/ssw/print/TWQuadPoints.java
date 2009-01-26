@@ -33,19 +33,18 @@ import java.awt.Point;
 public class TWQuadPoints implements ifPrintPoints {
 
     private final static Point[] HeatSinkPoints = {
-        new Point( 501, 600 ), new Point( 507, 600 ), new Point( 513, 600 ), new Point( 519, 600 ), new Point( 525, 600 ),
-        new Point( 501, 606 ), new Point( 507, 606 ), new Point( 513, 606 ), new Point( 519, 606 ), new Point( 525, 606 ),
-        new Point( 501, 612 ), new Point( 507, 612 ), new Point( 513, 612 ), new Point( 519, 612 ), new Point( 525, 612 ),
-        new Point( 501, 618 ), new Point( 507, 618 ), new Point( 513, 618 ), new Point( 519, 618 ), new Point( 525, 618 ),
-        new Point( 501, 624 ), new Point( 507, 624 ), new Point( 513, 624 ), new Point( 519, 624 ), new Point( 525, 624 ),
-        new Point( 501, 630 ), new Point( 507, 630 ), new Point( 513, 630 ), new Point( 519, 630 ), new Point( 525, 630 ),
-        new Point( 501, 636 ), new Point( 507, 636 ), new Point( 513, 636 ), new Point( 519, 636 ), new Point( 525, 636 ),
-        new Point( 501, 642 ), new Point( 507, 642 ), new Point( 513, 642 ), new Point( 519, 642 ), new Point( 525, 642 ),
-        new Point( 501, 648 ), new Point( 507, 648 ), new Point( 513, 648 ), new Point( 519, 648 ), new Point( 525, 648 ),
-        new Point( 501, 654 ), new Point( 507, 654 ), new Point( 513, 654 ), new Point( 519, 654 ), new Point( 525, 654 ),
-        new Point( 501, 660 ), new Point( 507, 660 ), new Point( 513, 660 ), new Point( 519, 660 ), new Point( 525, 660 ),
-        new Point( 501, 666 ), new Point( 507, 666 ), new Point( 513, 666 ), new Point( 519, 666 ), new Point( 525, 666 ),
-        new Point( 501, 672 ), new Point( 507, 672 ), new Point( 513, 672 ), new Point( 519, 672 ), new Point( 525, 672 ) };
+        new Point( 500, 610 ), new Point( 506, 610 ), new Point( 512, 610 ), new Point( 518, 610 ), new Point( 524, 610 ),
+        new Point( 500, 616 ), new Point( 506, 616 ), new Point( 512, 616 ), new Point( 518, 616 ), new Point( 524, 616 ),
+        new Point( 500, 622 ), new Point( 506, 622 ), new Point( 512, 622 ), new Point( 518, 622 ), new Point( 524, 622 ),
+        new Point( 500, 628 ), new Point( 506, 628 ), new Point( 512, 628 ), new Point( 518, 628 ), new Point( 524, 628 ),
+        new Point( 500, 634 ), new Point( 506, 634 ), new Point( 512, 634 ), new Point( 518, 634 ), new Point( 524, 634 ),
+        new Point( 500, 640 ), new Point( 506, 640 ), new Point( 512, 640 ), new Point( 518, 640 ), new Point( 524, 640 ),
+        new Point( 500, 646 ), new Point( 506, 646 ), new Point( 512, 646 ), new Point( 518, 646 ), new Point( 524, 646 ),
+        new Point( 500, 652 ), new Point( 506, 652 ), new Point( 512, 652 ), new Point( 518, 652 ), new Point( 524, 652 ),
+        new Point( 500, 658 ), new Point( 506, 658 ), new Point( 512, 658 ), new Point( 518, 658 ), new Point( 524, 658 ),
+        new Point( 500, 664 ), new Point( 506, 664 ), new Point( 512, 664 ), new Point( 518, 664 ), new Point( 524, 664 ),
+        new Point( 500, 670 ), new Point( 506, 670 ), new Point( 512, 670 ), new Point( 518, 670 ), new Point( 524, 670 ),
+        new Point( 500, 676 ), new Point( 506, 676 ), new Point( 512, 676 ), new Point( 518, 676 ), new Point( 524, 676 ), };
     private final static Point[] CTArmorPoints = {
         new Point( 451, 86 ), new Point( 457, 86 ), new Point( 463, 86 ), new Point( 469, 86 ), new Point( 475, 86 ), new Point( 481, 86 ), new Point( 487, 86 ),
         new Point( 451, 92 ), new Point( 457, 92 ), new Point( 463, 92 ), new Point( 469, 92 ), new Point( 475, 92 ), new Point( 481, 92 ), new Point( 487, 92 ),
@@ -284,11 +283,11 @@ public class TWQuadPoints implements ifPrintPoints {
         new Point( 18, 187 ), new Point( 28, 187 ), new Point( 102, 187 ), new Point( 123, 187 ), new Point( 138, 187 ),
         new Point( 164, 187 ), new Point( 177, 187 ), new Point( 192, 187 ), new Point( 208, 187 ) };
     private final static Point[] DataPoints = {
-        new Point( 40, 104 ), new Point( 58, 130 ), new Point( 58, 140 ), new Point( 58, 150 ),
-        new Point( 162, 118 ), new Point( 199, 131 ), new Point( 199, 142 ), new Point( 262, 104 ),
-        new Point( 284, 116 ), new Point( 357, 116 ), new Point( 42, 340 ), new Point( 143, 340 ),
-        new Point( 498, 594 ), new Point( 516, 594 ), new Point( 522, 699 ), new Point( 522, 713 ),
-        new Point( 145, 354 ) };
+        new Point( 40, 104 ), new Point( 65, 130 ), new Point( 65, 140 ), new Point( 65, 150 ),
+        new Point( 165, 118 ), new Point( 199, 131 ), new Point( 170, 129 ), new Point( 261, 104 ),
+        new Point( 285, 116 ), new Point( 358, 116 ), new Point( 44, 340 ), new Point( 145, 340 ),
+        new Point( 499, 594 ), new Point( 515, 594 ), new Point( 522, 699 ), new Point( 522, 713 ),
+        new Point( 142, 354)};
     private final static Point[] InternalInfo = { 
         new Point( 0, 0 ), new Point( 454, 504 ), new Point( 395, 408 ), new Point( 515, 408 ),
         new Point( 392, 476 ), new Point( 517, 476 ), new Point( 389, 525 ), new Point( 521, 525 ) };
@@ -426,6 +425,6 @@ public class TWQuadPoints implements ifPrintPoints {
     }
 
     public Point GetMechImageLoc() {
-        return null;
+        return new Point( 230, 160 );
     }
 }

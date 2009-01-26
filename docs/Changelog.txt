@@ -122,6 +122,11 @@ Version 0.6.0
 - Fixed a problem with Heat Efficiency and BV calculations.
 - Changed ammo print names for Inner Sphere ammo (Clan soon to come).
 - Changed ammo print names for Clan ammo.
+- Fluff Image should now be remembered and load accordingly.
+- Fluff Image is now printed on the recordsheet.
+- More cosmetic changes to the recordsheet.
+- MegaMek path is now literal, it will not save to data/mechfiles.
+- Targeting Computer is now checked correctly on loading or new Mech.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

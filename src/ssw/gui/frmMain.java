@@ -733,6 +733,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // fix the targeting computer display
         if( CommonTools.IsAllowed( CurMech.GetTC().GetAvailability(), CurMech ) ) {
             chkUseTC.setEnabled( true );
+            if( CurMech.UsingTC() ) {
+                chkUseTC.setSelected( true );
+            } else {
+                chkUseTC.setSelected( false );
+            }
         } else {
             chkUseTC.setSelected( false );
             chkUseTC.setEnabled( false );
@@ -8411,6 +8416,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // add the image to the fluff image label
         lblFluffImage.setIcon( FluffImage );
+        CurMech.SetSSWImage( fc.getSelectedFile().getPath() );
     }//GEN-LAST:event_btnLoadImageActionPerformed
 
     private void btnClearImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearImageActionPerformed
@@ -10036,21 +10042,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
         if( ! GlobalOptions.MegamekPath.equals( "none" ) ) {
-            if( GlobalOptions.UseMMCustom ) {
-                File f = new File( GlobalOptions.MegamekPath + File.separator + "data" + File.separator + "mechfiles" + File.separator + GlobalOptions.MMCustom );
-                if( f.exists() ){
-                    file = GlobalOptions.MegamekPath + File.separator + "data" + File.separator + "mechfiles" + File.separator + GlobalOptions.MMCustom + File.separator + file;
-                } else {
-                    if( f.mkdir() ) {
-                        file = GlobalOptions.MegamekPath + File.separator + "data" + File.separator + "mechfiles" + File.separator + GlobalOptions.MMCustom + File.separator + file;
-                    } else {
-                        javax.swing.JOptionPane.showMessageDialog( this, "Export failed: Could not create a custom MegaMek directory.\nEnsure the MegaMek directory can be written to." );
-                        return;
-                    }
-                }
-            } else {
-                file = GlobalOptions.MegamekPath + File.separator + "data" + File.separator + "mechfiles" + File.separator + file;
-            }
+            file = GlobalOptions.MegamekPath + File.separator + file;
         }
         MTFWriter mtfw = new MTFWriter( CurMech );
         try {
@@ -10773,6 +10765,8 @@ private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         }
     }
 
+    lblFluffImage.setIcon( FluffImage );
+
     edtOverview.setText( CurMech.GetOverview() );
     edtCapabilities.setText( CurMech.GetCapabilities() );
     edtHistory.setText( CurMech.GetHistory() );
@@ -11319,6 +11313,8 @@ private void ReloadMech()
                 getScaledInstance(-1, 350, Image.SCALE_DEFAULT));
         }
     }
+
+    lblFluffImage.setIcon( FluffImage );
 
     edtOverview.setText( CurMech.GetOverview() );
     edtCapabilities.setText( CurMech.GetCapabilities() );

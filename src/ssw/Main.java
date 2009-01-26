@@ -48,14 +48,12 @@ public class Main {
 
         // uncomment the following line before creating a build.
 
-        SetupLogFile( Constants.LogFileName );
+        //SetupLogFile( Constants.LogFileName );
 
         try {
             // added code to turn off the boldface of Metal L&F.
             // Set System L&F
-            if( UIManager.getSystemLookAndFeelClassName().equals( "com.sun.java.swing.plaf.gtk.GTKLookAndFeel" ) ||
-            UIManager.getSystemLookAndFeelClassName().equals( "javax.swing.plaf.metal.MetalLookAndFeel" ) ||
-            UIManager.getSystemLookAndFeelClassName().equals( "com.sun.java.swing.plaf.motif.MotifLookAndFeel" ) ) {
+            if( ! UIManager.getSystemLookAndFeelClassName().equals( "com.sun.java.swing.plaf.windows.WindowsLookAndFeel" ) ) {
                 UIManager.put( "swing.boldMetal", Boolean.FALSE );
                 UIDefaults uiDefaults = UIManager.getDefaults();
                 Font f = uiDefaults.getFont( "Label.font" );
