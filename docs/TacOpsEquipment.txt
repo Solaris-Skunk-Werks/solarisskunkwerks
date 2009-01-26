@@ -1,7 +1,6 @@
 New equipment to be added
 -------------------------------------------------------------------------------
-- Angel ECM								Equipment  ISAngelECM CLAngelECM
-Modular Armor							Equipment  ISModularArmor  CLModularArmor
+- Angel ECM								Equipment  CLAngelECM
 BattleMech Harjel						Equipment  "IS Harjel" "Clan Harjel"
 C3 Boosted Master						Equipment
 C3 Boosted Slave						Equipment
@@ -16,7 +15,6 @@ Laser Insulator							Equipment
 Mine Dispenser							Equipment
 - M-Pod									Equipment  CLMPod  ISMPod
 Recon Camera							Equipment
-Supercharger							Equipment  "IS Super Charger"
 Vehicular Drop Chute (Reusable)			Equipment
 
 
@@ -25,29 +23,16 @@ New weapons to be added
 Thumper Artillery Cannon				Weapon
 Sniper Artillery Cannon					Weapon
 Long Tom Artillery Cannon				Weapon
-Caseless AC/2							Weapon
-Caseless AC/5							Weapon
-Caseless AC/10							Weapon
-Caseless AC/20							Weapon
 ProtoMech AC/2							Weapon
 ProtoMech AC/4							Weapon
 ProtoMech AC/8							Weapon
 Talons									Weapon  Talons
-- ER Flamer								Weapon
-- Heavy Flamer							Weapon  ISHeavyFlamer
 Fluid Gun								Weapon
 Mech Mortar/1							Weapon  CLMekMortar1 ISMekMortar1
 Mech Mortar/2							Weapon  CLMekMortar2 ISMekMortar2
 Mech Mortar/4							Weapon  CLMekMortar4 ISMekMortar4
 Mech Mortar/8							Weapon  CLMekMortar8 ISMekMortar8
 Improved One-Shot Launcher				Weapon
-Streak LRM-5							Weapon  CLStreakLRM5
-Streak LRM-10							Weapon  CLStreakLRM10
-Streak LRM-15							Weapon  CLStreakLRM15
-Streak LRM-20							Weapon  CLStreakLRM20
-- PPC Capacitor (new PPCs)				Weapon  ISPPCCapacitor  ISLightPPCCapacitor
--												ISERPPCCapacitor  ISHeavyPPCCapacitor
--												ISSNPPCCapacitor
 
 
 New systems to add
@@ -57,7 +42,6 @@ Mechanical Jump Boosters				? new system  "Jump Booster"
 CASE II									? new system  ISCASEII CLCASEII
 Cockpit Command Console					Cockpit
 Torso-Mounted Cockpit					Cockpit
-- XXL Fusion Engine						Engine
 Large ICE								Engine
 Large Fusion							Engine
 Large Light Fusion						Engine
@@ -76,13 +60,11 @@ Experimental equipment checkboxes to add
 Actuator Enhancement System (arm)		? New System  ISAES CLAES
 Actuator Enhancement System (leg)		? New system  ISAES CLAES
 Partial Wing							? new system
-- Blue Shield PFD							? new system
 Booby Trap								? new system
 - Chameleon LPS							? new system  ChameleonLightPolarizationField
 Full-Head Ejection System				? new system
 Mechwarrior Aquatic Survival System		? new system
 - Null Signature System					? new system  NullSignatureSystem
-- Void Signature System					? new system  VoidSignatureSystem
 
 
 New missile systems to add
