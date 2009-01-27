@@ -60,6 +60,7 @@ public class Options {
                DefaultRules = Constants.TOURNAMENT,
                DefaultEra = Constants.STAR_LEAGUE,
                DefaultTechbase = Constants.INNER_SPHERE,
+               DefaultHeatSinks = Constants.SINGLE_HEATSINK,
                S7UserID = -1;
     public Color bg_LOCKED = new Color( 0, 0, 0 ),
                  fg_LOCKED = new Color( 204, 255, 255 ),
@@ -97,6 +98,7 @@ public class Options {
         DefaultRules = Constants.TOURNAMENT;
         DefaultEra = Constants.STAR_LEAGUE;
         DefaultTechbase = Constants.INNER_SPHERE;
+        DefaultHeatSinks = Constants.SINGLE_HEATSINK;
         Equip_AllowRBlade = false;
         Export_Sort = EXPORT_SORT_OUT;
         Export_AmmoAtEnd = true;

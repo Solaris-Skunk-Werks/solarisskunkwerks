@@ -148,6 +148,8 @@ public class OptionsReader {
         FR.newLine();
         FR.write( "DEFAULT_TECHBASE=" + o.DefaultTechbase );
         FR.newLine();
+        FR.write( "DEFAULT_HEATSINKS=" + o.DefaultHeatSinks );
+        FR.newLine();
         FR.write( "ALLOW_RBLADE=" + GetBoolean( o.Equip_AllowRBlade ) );
         FR.newLine();
 
@@ -286,6 +288,9 @@ public class OptionsReader {
         }
         if( HTOptions.get( "DEFAULT_TECHBASE" ) != null ) {
             o.DefaultTechbase = ProcessInt( HTOptions.get( "DEFAULT_TECHBASE" ) );
+        }
+        if( HTOptions.get( "DEFAULT_HEATSINKS" ) != null ) {
+            o.DefaultHeatSinks = ProcessInt( HTOptions.get( "DEFAULT_HEATSINKS" ) );
         }
         if( HTOptions.get( "ALLOW_RBLADE" ) != null ) {
             o.Equip_AllowRBlade = ProcessBoolean( HTOptions.get( "ALLOW_RBLADE" ) );

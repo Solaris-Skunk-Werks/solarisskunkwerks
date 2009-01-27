@@ -107,6 +107,7 @@ public class dlgOptions extends javax.swing.JDialog {
         cmbDefaultRules.setSelectedIndex( MyOptions.DefaultRules );
         cmbDefaultEra.setSelectedIndex( MyOptions.DefaultEra );
         cmbDefaultTechbase.setSelectedIndex( MyOptions.DefaultTechbase );
+        cmbHSType.setSelectedIndex( MyOptions.DefaultHeatSinks );
         chkRetractableBlade.setSelected( MyOptions.Equip_AllowRBlade );
 
         lblLocked.setBackground( MyOptions.bg_LOCKED );
@@ -163,6 +164,7 @@ public class dlgOptions extends javax.swing.JDialog {
         MyOptions.DefaultRules = cmbDefaultRules.getSelectedIndex();
         MyOptions.DefaultEra = cmbDefaultEra.getSelectedIndex();
         MyOptions.DefaultTechbase = cmbDefaultTechbase.getSelectedIndex();
+        MyOptions.DefaultHeatSinks = cmbHSType.getSelectedIndex();
         MyOptions.Equip_AllowRBlade = chkRetractableBlade.isSelected();
 
         MyOptions.bg_LOCKED = lblLocked.getBackground();
@@ -241,6 +243,8 @@ public class dlgOptions extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
         cmbDefaultRules = new javax.swing.JComboBox();
         jLabel11 = new javax.swing.JLabel();
+        cmbHSType = new javax.swing.JComboBox();
+        jLabel16 = new javax.swing.JLabel();
         pnlColorOptions = new javax.swing.JPanel();
         lblLocked = new javax.swing.JLabel();
         lblLinked = new javax.swing.JLabel();
@@ -281,7 +285,6 @@ public class dlgOptions extends javax.swing.JDialog {
         jLabel15 = new javax.swing.JLabel();
         txtMegamekPath = new javax.swing.JTextField();
         btnMegamekPath = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
@@ -474,7 +477,7 @@ public class dlgOptions extends javax.swing.JDialog {
         chkRetractableBlade.setText("Allow Retractable Blade before canon");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
@@ -548,6 +551,25 @@ public class dlgOptions extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 2, 0);
         pnlEquipOptions.add(jLabel11, gridBagConstraints);
+
+        cmbHSType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Single Heat Sink", "Double Heat Sink" }));
+        cmbHSType.setMaximumSize(new java.awt.Dimension(150, 20));
+        cmbHSType.setMinimumSize(new java.awt.Dimension(150, 20));
+        cmbHSType.setPreferredSize(new java.awt.Dimension(150, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(4, 2, 0, 0);
+        pnlEquipOptions.add(cmbHSType, gridBagConstraints);
+
+        jLabel16.setText("Heat Sinks:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
+        pnlEquipOptions.add(jLabel16, gridBagConstraints);
 
         jTabbedPane1.addTab("Equipment", pnlEquipOptions);
 
@@ -894,7 +916,7 @@ public class dlgOptions extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlPaths.add(btnSaveLoadPath, gridBagConstraints);
 
-        jLabel15.setText("Megamek root directory:");
+        jLabel15.setText("Default Megamek Export Path:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
@@ -923,14 +945,6 @@ public class dlgOptions extends javax.swing.JDialog {
         gridBagConstraints.gridy = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlPaths.add(btnMegamekPath, gridBagConstraints);
-
-        jLabel16.setText("(i.e. \"C:\\Program Files\\Megamek\")");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlPaths.add(jLabel16, gridBagConstraints);
 
         jTabbedPane1.addTab("Paths", pnlPaths);
 
@@ -1214,6 +1228,7 @@ private void btnArmoredBackActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JComboBox cmbDefaultEra;
     private javax.swing.JComboBox cmbDefaultRules;
     private javax.swing.JComboBox cmbDefaultTechbase;
+    private javax.swing.JComboBox cmbHSType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

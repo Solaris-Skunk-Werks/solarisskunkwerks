@@ -117,19 +117,33 @@ public class PrintMech implements Printable {
             // See if we need to scale
             int h = MechImage.getHeight( Parent );
             int w = MechImage.getWidth( Parent );
-            System.out.println( "H: " + h + "  W: " + w );
             if ( w > 145 || h > 200 ) {
                 if ( w > h ) { // resize based on width
                     double resize = 145.0d / w;
                     h = (int) ( h * resize );
                     w = (int) ( w * resize );
+                    if( h > 200 ) {
+                        // resize again, this time based on height
+                        resize = 200.0d / h;
+                        h = (int) ( h * resize );
+                        w = (int) ( w * resize );
+                    }
                 } else { // resize based on height
                     double resize = 200.0d / h;
                     h = (int) ( h * resize );
                     w = (int) ( w * resize );
+                    if( w > 145 ) {
+                        // resize again, this time based on width
+                        resize = 145.0d / w;
+                        h = (int) ( h * resize );
+                        w = (int) ( w * resize );
+                    }
                 }
             }
-            graphics.drawImage( MechImage, points.GetMechImageLoc().x, points.GetMechImageLoc().y, w, h, null );
+            // get the offsets to print the image more or less centered
+            int offx = (int) ( ( 145 - w ) / 2 );
+            int offy = (int) ( ( 200 - h ) / 2 );
+            graphics.drawImage( MechImage, points.GetMechImageLoc().x + offx, points.GetMechImageLoc().y + offy, w, h, null );
         }
 
         DrawArmorCircles( graphics );
@@ -795,7 +809,7 @@ public class PrintMech implements Printable {
                     graphics.drawString( ((ifWeapon) item.Item).GetHeat() + "", p[3].x, p[3].y + offset );
                 }
             } else {
-                graphics.drawString( "--", p[3].x, p[3].y + offset );
+                graphics.drawString( "-", p[3].x, p[3].y + offset );
             }
             if( item.Item instanceof ifWeapon ) {
                 if( item.Item instanceof MissileWeapon ) {
@@ -821,39 +835,43 @@ public class PrintMech implements Printable {
                         graphics.drawString( "[" + ((Equipment) item.Item).GetType() + "]", p[4].x, p[4].y + offset );
                         PrintSpecials = false;
                     } else {
-                        graphics.drawString( "--", p[4].x, p[4].y + offset );
+                        graphics.drawString( "-", p[4].x, p[4].y + offset );
                         PrintSpecials = true;
                     }
                 } else {
-                    graphics.drawString( "--", p[4].x, p[4].y + offset );
+                    graphics.drawString( "-", p[4].x, p[4].y + offset );
                     PrintSpecials = true;
                 }
             }
             if( item.Item instanceof ifWeapon ) {
-                graphics.drawString( ((ifWeapon) item.Item).GetRangeMin() + "", p[5].x, p[5].y + offset );
+                if( ((ifWeapon) item.Item).GetRangeMin() < 1 ) {
+                    graphics.drawString( "-", p[5].x, p[5].y + offset );
+                } else {
+                    graphics.drawString( ((ifWeapon) item.Item).GetRangeMin() + "", p[5].x, p[5].y + offset );
+                }
             } else {
-                graphics.drawString( "--", p[5].x, p[5].y + offset );
+                graphics.drawString( "-", p[5].x, p[5].y + offset );
             }
             if( item.Item instanceof ifWeapon ) {
                 graphics.drawString( ((ifWeapon) item.Item).GetRangeShort() + "", p[6].x, p[6].y + offset );
             } else if( item.Item instanceof Equipment ) {
                 graphics.drawString( ((Equipment) item.Item).GetShortRange() + "", p[6].x, p[6].y + offset );
             } else {
-                graphics.drawString( "--", p[6].x, p[6].y + offset );
+                graphics.drawString( "-", p[6].x, p[6].y + offset );
             }
             if( item.Item instanceof ifWeapon ) {
                 graphics.drawString( ((ifWeapon) item.Item).GetRangeMedium() + "", p[7].x, p[7].y + offset );
             } else if( item.Item instanceof Equipment ) {
                 graphics.drawString( ((Equipment) item.Item).GetMediumRange() + "", p[7].x, p[7].y + offset );
             } else {
-                graphics.drawString( "--", p[7].x, p[7].y + offset );
+                graphics.drawString( "-", p[7].x, p[7].y + offset );
             }
             if( item.Item instanceof ifWeapon ) {
                 graphics.drawString( ((ifWeapon) item.Item).GetRangeLong() + "", p[8].x, p[8].y + offset );
             } else if( item.Item instanceof Equipment ) {
                 graphics.drawString( ((Equipment) item.Item).GetLongRange() + "", p[8].x, p[8].y + offset );
             } else {
-                graphics.drawString( "--", p[8].x, p[8].y + offset );
+                graphics.drawString( "-", p[8].x, p[8].y + offset );
             }
 
             offset += graphics.getFont().getSize();

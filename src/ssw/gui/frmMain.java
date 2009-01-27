@@ -183,7 +183,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbGyroType.setSelectedItem( Constants.DEFAULT_GYRO );
         cmbCockpitType.setSelectedItem( Constants.DEFAULT_COCKPIT );
         cmbPhysEnhance.setSelectedItem( Constants.DEFAULT_ENHANCEMENT );
-        cmbHeatSinkType.setSelectedItem( Constants.DEFAULT_HEATSINK );
+        cmbHeatSinkType.setSelectedIndex( GlobalOptions.DefaultHeatSinks );
         cmbJumpJetType.setSelectedItem( Constants.DEFAULT_JUMPJET );
         cmbArmorType.setSelectedItem( Constants.DEFAULT_ARMOR );
         cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( new String[] { CurMech.GetLoadout().GetName() } ) );
@@ -238,7 +238,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         } );
 
-        LoadMechFromPreferences();
+        //LoadMechFromPreferences();
     }
 
     public Image GetImage( String filename ) {
