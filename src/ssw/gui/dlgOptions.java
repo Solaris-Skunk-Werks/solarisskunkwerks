@@ -131,6 +131,7 @@ public class dlgOptions extends javax.swing.JDialog {
         chkAmmoAtEnd.setSelected( MyOptions.Export_AmmoAtEnd );
 
         txtSaveLoadPath.setText( MyOptions.SaveLoadPath );
+        chkLoadLastMech.setSelected( MyOptions.LoadLastMech );
         txtHTMLPath.setText( MyOptions.HTMLPath );
         txtTXTPath.setText( MyOptions.TXTPath );
         txtMegamekPath.setText( MyOptions.MegamekPath );
@@ -181,6 +182,7 @@ public class dlgOptions extends javax.swing.JDialog {
         MyOptions.fg_HILITE = lblHiLite.getForeground();
 
         MyOptions.SaveLoadPath = txtSaveLoadPath.getText();
+        MyOptions.LoadLastMech = chkLoadLastMech.isSelected();
         MyOptions.HTMLPath = txtHTMLPath.getText();
         MyOptions.TXTPath = txtTXTPath.getText();
         MyOptions.MegamekPath = txtMegamekPath.getText();
@@ -285,6 +287,7 @@ public class dlgOptions extends javax.swing.JDialog {
         jLabel15 = new javax.swing.JLabel();
         txtMegamekPath = new javax.swing.JTextField();
         btnMegamekPath = new javax.swing.JButton();
+        chkLoadLastMech = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
@@ -852,14 +855,14 @@ public class dlgOptions extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlPaths.add(btnTXTPath, gridBagConstraints);
 
         jLabel13.setText("Default HTML Export Path:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlPaths.add(jLabel13, gridBagConstraints);
@@ -870,7 +873,7 @@ public class dlgOptions extends javax.swing.JDialog {
         txtHTMLPath.setPreferredSize(new java.awt.Dimension(200, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlPaths.add(txtHTMLPath, gridBagConstraints);
 
@@ -882,14 +885,14 @@ public class dlgOptions extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlPaths.add(btnHTMLPath, gridBagConstraints);
 
         jLabel14.setText("Default Text Export Path:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlPaths.add(jLabel14, gridBagConstraints);
@@ -900,7 +903,7 @@ public class dlgOptions extends javax.swing.JDialog {
         txtTXTPath.setPreferredSize(new java.awt.Dimension(200, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlPaths.add(txtTXTPath, gridBagConstraints);
 
@@ -919,7 +922,7 @@ public class dlgOptions extends javax.swing.JDialog {
         jLabel15.setText("Default Megamek Export Path:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlPaths.add(jLabel15, gridBagConstraints);
@@ -945,6 +948,15 @@ public class dlgOptions extends javax.swing.JDialog {
         gridBagConstraints.gridy = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlPaths.add(btnMegamekPath, gridBagConstraints);
+
+        chkLoadLastMech.setText("Load Last Mech on Startup");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
+        pnlPaths.add(chkLoadLastMech, gridBagConstraints);
 
         jTabbedPane1.addTab("Paths", pnlPaths);
 
@@ -1219,6 +1231,7 @@ private void btnArmoredBackActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JCheckBox chkCustomPercent;
     private javax.swing.JCheckBox chkEquipmentHeat;
     private javax.swing.JCheckBox chkJumpHeat;
+    private javax.swing.JCheckBox chkLoadLastMech;
     private javax.swing.JCheckBox chkMoveHeat;
     private javax.swing.JCheckBox chkOSWeapons;
     private javax.swing.JCheckBox chkRearWeapons;

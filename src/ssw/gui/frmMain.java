@@ -70,6 +70,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     JMenuItem mnuUnallocateAll = new JMenuItem( "Unallocate All" );
     JMenuItem mnuMountRear = new JMenuItem( "Mount Rear" );
     JMenuItem mnuInfoItem = new JMenuItem( "Get Info" );
+    JMenuItem mnuRemoveItem = new JMenuItem( "Remove Item" );
     JPopupMenu mnuPlacement = new JPopupMenu();
     JMenuItem mnuInfoPlacement = new JMenuItem( "Get Info" );
     JMenuItem mnuSelective = new JMenuItem( "Selective Allocate" );
@@ -92,7 +93,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     /** Creates new form frmMain */
     public frmMain() {
         Prefs = Preferences.userNodeForPackage(this.getClass());
-        
+
         initComponents();
         setViewToolbar(Prefs.getBoolean("ViewToolbar", true));
 
@@ -120,12 +121,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
 
+        mnuRemoveItem.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                RemoveItemCritTab();
+            }
+        });
+
         mnuCrits.add( mnuInfoItem );
         mnuCrits.add( mnuMountRear );
         mnuCrits.add( mnuUnallocateAll );
         // not at all finished implementing this.  Need to add support for Omnis
         // as well as unallocating takes the armoring off.
         mnuCrits.add( mnuArmorComponent );
+        mnuCrits.add( mnuRemoveItem );
         mnuArmorComponent.setVisible( false );
 
         mnuInfoPlacement.addActionListener( new java.awt.event.ActionListener() {
@@ -238,7 +246,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         } );
 
-        //LoadMechFromPreferences();
+        // if the user wants, load the last mech.
+        if( GlobalOptions.LoadLastMech ) { LoadMechFromPreferences(); }
     }
 
     public Image GetImage( String filename ) {
@@ -1448,7 +1457,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbGyroType.setSelectedItem( Constants.DEFAULT_GYRO );
         cmbCockpitType.setSelectedItem( Constants.DEFAULT_COCKPIT );
         cmbPhysEnhance.setSelectedItem( Constants.DEFAULT_ENHANCEMENT );
-        cmbHeatSinkType.setSelectedItem( Constants.DEFAULT_HEATSINK );
+        cmbHeatSinkType.setSelectedIndex( GlobalOptions.DefaultHeatSinks );
         cmbJumpJetType.setSelectedItem( Constants.DEFAULT_JUMPJET );
         cmbArmorType.setSelectedItem( Constants.DEFAULT_ARMOR );
         FixWalkMPSpinner();
@@ -1718,6 +1727,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             lblInfoMountRestrict.setText( "none" );
         }
+    }
+
+    private void RemoveItemCritTab() {
+        
     }
 
     private void SolidifyMech() {
@@ -2736,6 +2749,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlEquipmentToPlace = new javax.swing.JPanel();
         jScrollPane18 = new javax.swing.JScrollPane();
         lstCritsToPlace = new javax.swing.JList();
+        btnRemoveItemCrits = new javax.swing.JButton();
         onlLoadoutControls = new javax.swing.JPanel();
         btnCompactCrits = new javax.swing.JButton();
         btnClearLoadout = new javax.swing.JButton();
@@ -7132,11 +7146,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlEquipmentToPlace.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Equipment to Place", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlEquipmentToPlace.setMaximumSize(new java.awt.Dimension(146, 330));
         pnlEquipmentToPlace.setMinimumSize(new java.awt.Dimension(146, 330));
-        pnlEquipmentToPlace.setLayout(new javax.swing.BoxLayout(pnlEquipmentToPlace, javax.swing.BoxLayout.LINE_AXIS));
+        pnlEquipmentToPlace.setLayout(new javax.swing.BoxLayout(pnlEquipmentToPlace, javax.swing.BoxLayout.PAGE_AXIS));
 
         jScrollPane18.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        lstCritsToPlace.setFont(new java.awt.Font("Tahoma", 0, 10));
+        lstCritsToPlace.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lstCritsToPlace.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Selected", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -7218,6 +7232,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane18.setViewportView(lstCritsToPlace);
 
         pnlEquipmentToPlace.add(jScrollPane18);
+
+        btnRemoveItemCrits.setText("Remove Item");
+        btnRemoveItemCrits.setEnabled(false);
+        btnRemoveItemCrits.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveItemCritsActionPerformed(evt);
+            }
+        });
+        pnlEquipmentToPlace.add(btnRemoveItemCrits);
 
         pnlCriticals.add(pnlEquipmentToPlace, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 150, 360));
 
@@ -10899,9 +10922,11 @@ private void lstCritsToPlaceValueChanged(javax.swing.event.ListSelectionEvent ev
         if( Index < 0 ) {
             btnAutoAllocate.setEnabled( false );
             btnSelectiveAllocate.setEnabled( false );
+            btnRemoveItemCrits.setEnabled( false );
             return;
         }
         CurItem = (abPlaceable) v.get( Index );
+        btnRemoveItemCrits.setEnabled( true );
         if( CurItem.Contiguous() ) {
             btnAutoAllocate.setEnabled( false );
             btnSelectiveAllocate.setEnabled( false );
@@ -11419,6 +11444,10 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     mnuPostS7ActionPerformed(evt);
 }//GEN-LAST:event_jButton1ActionPerformed
 
+private void btnRemoveItemCritsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveItemCritsActionPerformed
+
+}//GEN-LAST:event_btnRemoveItemCritsActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -11459,6 +11488,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JButton btnPrintIcon;
     private javax.swing.JButton btnRemainingArmor;
     private javax.swing.JButton btnRemoveEquip;
+    private javax.swing.JButton btnRemoveItemCrits;
     private javax.swing.JButton btnSaveIcon;
     private javax.swing.JButton btnSelectiveAllocate;
     private javax.swing.JCheckBox chkArtemisLRM;

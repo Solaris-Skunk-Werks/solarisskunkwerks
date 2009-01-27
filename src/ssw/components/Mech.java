@@ -924,9 +924,8 @@ public class Mech {
 
         if( GetJumpJets().GetNumJJ() > 0 ) {
             jump = (int) ( GetJumpJets().GetNumJJ() * heatperjj + 0.51f );
+            if( jump < minjumpheat ) { jump = minjumpheat; }
         }
-
-        if( jump < minjumpheat ) { jump = minjumpheat; }
 
         if( Parent.GetOptions().Heat_RemoveJumps ) {
             if( Parent.GetOptions().Heat_RemoveMovement ) {

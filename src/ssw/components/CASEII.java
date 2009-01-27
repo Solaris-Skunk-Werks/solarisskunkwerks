@@ -28,13 +28,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
+import ssw.Constants;
+
 /**
  *
  * @author justin
  */
 public class CASEII extends abPlaceable {
     // A simple class for CASE II.
-    private AvailableCode AC = new AvailableCode( false, 'D', 'C', 'F', 'D', 2476, 2840, 3036, "TH", "DC", true, true );
+    private AvailableCode ISAC = new AvailableCode( false, 'E', 'X', 'X', 'F', 3064, 0, 0, "FW", "", false, false, 3057, true, "FW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL ),
+                          CLAC = new AvailableCode( true, 'F', 'X', 'X', 'F', 3062, 0, 0, "CCY", "", false, false, 3059, true, "CCY", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+    private ifLoadout Owner;
+
+    public CASEII( ifLoadout l ) {
+        Owner = l;
+    }
 
     @Override
     public boolean LocationLocked() {
@@ -51,7 +59,11 @@ public class CASEII extends abPlaceable {
     }
 
     public String GetMMName( boolean UseRear ) {
-        return "ISCASE";
+        if( Owner.GetMech().IsClan() ) {
+            return "CLCASEII";
+        } else {
+            return "ISCASEII";
+        }
     }
 
     public int NumCrits() {
@@ -59,7 +71,11 @@ public class CASEII extends abPlaceable {
     }
 
     public float GetTonnage() {
-        return 0.5f;
+        if( Owner.GetMech().IsClan() ) {
+            return 0.5f;
+        } else {
+            return 1.0f;
+        }
     }
 
     public float GetOffensiveBV() {
@@ -75,7 +91,7 @@ public class CASEII extends abPlaceable {
     }
 
     public float GetCost() {
-        return 50000.0f;
+        return 175000.0f;
     }
 
     @Override
@@ -90,7 +106,11 @@ public class CASEII extends abPlaceable {
 
     // All placeables should be able to return their AvailabileCode
     public AvailableCode GetAvailability() {
-        return AC;
+        if( Owner.GetMech().IsClan() ) {
+            return CLAC;
+        } else {
+            return ISAC;
+        }
     }
 
     @Override

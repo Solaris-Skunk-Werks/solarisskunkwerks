@@ -51,7 +51,8 @@ public class Options {
                    Heat_RemoveEquipment = false,
                    Equip_AllowRBlade = false,
                    Export_AmmoAtEnd = true,
-                   UseMMCustom = false;
+                   UseMMCustom = false,
+                   LoadLastMech = false;
     public int Armor_CTRPercent = 25,
                Armor_STRPercent = 25,
                Armor_Priority = PRIORITY_TORSO,
@@ -119,6 +120,7 @@ public class Options {
         TXTPath = System.getProperty("user.dir");
         MegamekPath = System.getProperty("user.dir");
         UseMMCustom = false;
+        LoadLastMech = false;
     }
 
     public void ClearUserInfo() {

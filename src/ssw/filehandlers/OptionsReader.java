@@ -202,6 +202,8 @@ public class OptionsReader {
         FR.newLine();
         FR.write( "########## Pathing Options ##########" );
         FR.newLine();
+        FR.write( "LOAD_LAST_MECH=" + GetBoolean( o.LoadLastMech ) );
+        FR.newLine();
         FR.write( "PATH_SAVELOAD=" + o.SaveLoadPath );
         FR.newLine();
         FR.write( "PATH_HTML=" + o.HTMLPath );
@@ -350,6 +352,9 @@ public class OptionsReader {
             o.S7UserID = ProcessInt( HTOptions.get( "S7USERID" ) );
         }
 
+        if( HTOptions.get( "LOAD_LAST_MECH" ) != null ) {
+            o.LoadLastMech = ProcessBoolean( HTOptions.get( "LOAD_LAST_MECH" ) );
+        }
         if( HTOptions.get( "PATH_SAVELOAD" ) != null ) {
             o.SaveLoadPath = HTOptions.get( "PATH_SAVELOAD" );
         }

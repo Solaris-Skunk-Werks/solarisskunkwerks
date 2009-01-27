@@ -98,7 +98,7 @@ public class stCockpitISSmall implements ifCockpit, ifState {
     }
 
     public float GetCost( int Tonnage ) {
-        float result = 250000.0f + ( 2000.0f * Tonnage );
+        float result = 225000.0f + ( 2000.0f * Tonnage );
         result += Sensors.GetCost();
         result += LifeSupport.GetCost();
         result += SecondSensors.GetCost();

@@ -53,6 +53,14 @@ public class QuadLoadout implements ifLoadout {
     private ISCASE CTCase = new ISCASE(),
                    LTCase = new ISCASE(),
                    RTCase = new ISCASE();
+    private CASEII HDCaseII = new CASEII( this ),
+                   CTCaseII = new CASEII( this ),
+                   LTCaseII = new CASEII( this ),
+                   RTCaseII = new CASEII( this ),
+                   LACaseII = new CASEII( this ),
+                   RACaseII = new CASEII( this ),
+                   LLCaseII = new CASEII( this ),
+                   RLCaseII = new CASEII( this );
     private boolean A4FCS_SRM = false,
                     A4FCS_LRM = false,
                     A4FCS_MML = false,
@@ -2934,6 +2942,390 @@ public class QuadLoadout implements ifLoadout {
 
     public ISCASE GetRTCase() {
         return RTCase;
+    }
+
+    public void SetHDCASEII( boolean Add, int index ) throws Exception {
+        // adds CASE II equipment to the HD
+        if( ! Add ) {
+            Remove( HDCaseII );
+            return;
+        }
+        if( Add && HasHDCASEII() ) {
+            return;
+        }
+
+        boolean placed = false;
+        int increment = 5;
+        if( index < 0 ) {
+            // general placement routine
+            while( placed == false ) {
+                if ( increment < 0 ) {
+                    throw new Exception( "There is not enough space in the HD for CASE II." );
+                }
+                try {
+                    AddToHD( HDCaseII, increment );
+                    increment--;
+                    placed = true;
+                } catch ( Exception e ) {
+                    increment--;
+                }
+            }
+        } else {
+            // specific placement routine
+            try {
+                AddToHD( HDCaseII, index );
+            } catch( Exception e ) {
+                throw new Exception( "CASE II system could not be allocated to slot " + index + ".\nCASE II system was not installed in the HD." );
+            }
+        }
+    }
+
+    public void SetHDCASEII( CASEII c ) {
+        HDCaseII = c;
+    }
+
+    public boolean HasHDCASEII() {
+        return IsAllocated( HDCaseII );
+    }
+
+    public CASEII GetHDCaseII() {
+        return HDCaseII;
+    }
+
+    public void SetCTCASEII( boolean Add, int index ) throws Exception {
+        // adds CASE II equipment to the CT
+        if( ! Add ) {
+            Remove( CTCaseII );
+            return;
+        }
+        if( Add && HasCTCASEII() ) {
+            return;
+        }
+
+        boolean placed = false;
+        int increment = 11;
+        if( index < 0 ) {
+            // general placement routine
+            while( placed == false ) {
+                if ( increment < 0 ) {
+                    throw new Exception( "There is not enough space in the CT for CASE II." );
+                }
+                try {
+                    AddToCT( CTCaseII, increment );
+                    increment--;
+                    placed = true;
+                } catch ( Exception e ) {
+                    increment--;
+                }
+            }
+        } else {
+            // specific placement routine
+            try {
+                AddToCT( CTCaseII, index );
+            } catch( Exception e ) {
+                throw new Exception( "CASE II system could not be allocated to slot " + index + ".\nCASE II system was not installed in the CT." );
+            }
+        }
+    }
+
+    public void SetCTCASEII( CASEII c ) {
+        CTCaseII = c;
+    }
+
+    public boolean HasCTCASEII() {
+        return IsAllocated( CTCaseII );
+    }
+
+    public CASEII GetCTCaseII() {
+        return CTCaseII;
+    }
+
+    public void SetLTCASEII( boolean Add, int index ) throws Exception {
+        // adds CASE II equipment to the LT
+        if( ! Add ) {
+            Remove( LTCaseII );
+            return;
+        }
+        if( Add && HasLTCASEII() ) {
+            return;
+        }
+
+        boolean placed = false;
+        int increment = 11;
+        if( index < 0 ) {
+            // general placement routine
+            while( placed == false ) {
+                if ( increment < 0 ) {
+                    throw new Exception( "There is not enough space in the LT for CASE II." );
+                }
+                try {
+                    AddToLT( LTCaseII, increment );
+                    increment--;
+                    placed = true;
+                } catch ( Exception e ) {
+                    increment--;
+                }
+            }
+        } else {
+            // specific placement routine
+            try {
+                AddToLT( LTCaseII, index );
+            } catch( Exception e ) {
+                throw new Exception( "CASE II system could not be allocated to slot " + index + ".\nCASE II system was not installed in the LT." );
+            }
+        }
+    }
+
+    public void SetLTCASEII( CASEII c ) {
+        LTCaseII = c;
+    }
+
+    public boolean HasLTCASEII() {
+        return IsAllocated( LTCaseII );
+    }
+
+    public CASEII GetLTCaseII() {
+        return LTCaseII;
+    }
+
+    public void SetRTCASEII( boolean Add, int index ) throws Exception {
+        // adds CASE II equipment to the RT
+        if( ! Add ) {
+            Remove( RTCaseII );
+            return;
+        }
+        if( Add && HasRTCASEII() ) {
+            return;
+        }
+
+        boolean placed = false;
+        int increment = 11;
+        if( index < 0 ) {
+            // general placement routine
+            while( placed == false ) {
+                if ( increment < 0 ) {
+                    throw new Exception( "There is not enough space in the RT for CASE II." );
+                }
+                try {
+                    AddToRT( RTCaseII, increment );
+                    increment--;
+                    placed = true;
+                } catch ( Exception e ) {
+                    increment--;
+                }
+            }
+        } else {
+            // specific placement routine
+            try {
+                AddToRT( RTCaseII, index );
+            } catch( Exception e ) {
+                throw new Exception( "CASE II system could not be allocated to slot " + index + ".\nCASE II system was not installed in the RT." );
+            }
+        }
+    }
+
+    public void SetRTCASEII( CASEII c ) {
+        RTCaseII = c;
+    }
+
+    public boolean HasRTCASEII() {
+        return IsAllocated( RTCaseII );
+    }
+
+    public CASEII GetRTCaseII() {
+        return RTCaseII;
+    }
+
+    public void SetLACASEII( boolean Add, int index ) throws Exception {
+        // adds CASE II equipment to the LA
+        if( ! Add ) {
+            Remove( LACaseII );
+            return;
+        }
+        if( Add && HasLACASEII() ) {
+            return;
+        }
+
+        boolean placed = false;
+        int increment = 5;
+        if( index < 0 ) {
+            // general placement routine
+            while( placed == false ) {
+                if ( increment < 0 ) {
+                    throw new Exception( "There is not enough space in the LT for CASE II." );
+                }
+                try {
+                    AddToLA( LACaseII, increment );
+                    increment--;
+                    placed = true;
+                } catch ( Exception e ) {
+                    increment--;
+                }
+            }
+        } else {
+            // specific placement routine
+            try {
+                AddToLA( LACaseII, index );
+            } catch( Exception e ) {
+                throw new Exception( "CASE II system could not be allocated to slot " + index + ".\nCASE II system was not installed in the LA." );
+            }
+        }
+    }
+
+    public void SetLACASEII( CASEII c ) {
+        LACaseII = c;
+    }
+
+    public boolean HasLACASEII() {
+        return IsAllocated( LACaseII );
+    }
+
+    public CASEII GetLACaseII() {
+        return LACaseII;
+    }
+
+    public void SetRACASEII( boolean Add, int index ) throws Exception {
+        // adds CASE II equipment to the RA
+        if( ! Add ) {
+            Remove( RACaseII );
+            return;
+        }
+        if( Add && HasRACASEII() ) {
+            return;
+        }
+
+        boolean placed = false;
+        int increment = 5;
+        if( index < 0 ) {
+            // general placement routine
+            while( placed == false ) {
+                if ( increment < 0 ) {
+                    throw new Exception( "There is not enough space in the RA for CASE II." );
+                }
+                try {
+                    AddToRA( RACaseII, increment );
+                    increment--;
+                    placed = true;
+                } catch ( Exception e ) {
+                    increment--;
+                }
+            }
+        } else {
+            // specific placement routine
+            try {
+                AddToRA( RACaseII, index );
+            } catch( Exception e ) {
+                throw new Exception( "CASE II system could not be allocated to slot " + index + ".\nCASE II system was not installed in the RA." );
+            }
+        }
+    }
+
+    public void SetRACASEII( CASEII c ) {
+        RACaseII = c;
+    }
+
+    public boolean HasRACASEII() {
+        return IsAllocated( RACaseII );
+    }
+
+    public CASEII GetRACaseII() {
+        return RACaseII;
+    }
+
+    public void SetLLCASEII( boolean Add, int index ) throws Exception {
+        // adds CASE II equipment to the LL
+        if( ! Add ) {
+            Remove( LLCaseII );
+            return;
+        }
+        if( Add && HasLLCASEII() ) {
+            return;
+        }
+
+        boolean placed = false;
+        int increment = 5;
+        if( index < 0 ) {
+            // general placement routine
+            while( placed == false ) {
+                if ( increment < 0 ) {
+                    throw new Exception( "There is not enough space in the LL for CASE II." );
+                }
+                try {
+                    AddToLL( LLCaseII, increment );
+                    increment--;
+                    placed = true;
+                } catch ( Exception e ) {
+                    increment--;
+                }
+            }
+        } else {
+            // specific placement routine
+            try {
+                AddToLL( LLCaseII, index );
+            } catch( Exception e ) {
+                throw new Exception( "CASE II system could not be allocated to slot " + index + ".\nCASE II system was not installed in the LL." );
+            }
+        }
+    }
+
+    public void SetLLCASEII( CASEII c ) {
+        LLCaseII = c;
+    }
+
+    public boolean HasLLCASEII() {
+        return IsAllocated( LLCaseII );
+    }
+
+    public CASEII GetLLCaseII() {
+        return LLCaseII;
+    }
+
+    public void SetRLCASEII( boolean Add, int index ) throws Exception {
+        // adds CASE II equipment to the RL
+        if( ! Add ) {
+            Remove( RLCaseII );
+            return;
+        }
+        if( Add && HasRLCASEII() ) {
+            return;
+        }
+
+        boolean placed = false;
+        int increment = 5;
+        if( index < 0 ) {
+            // general placement routine
+            while( placed == false ) {
+                if ( increment < 0 ) {
+                    throw new Exception( "There is not enough space in the RL for CASE II." );
+                }
+                try {
+                    AddToRL( RLCaseII, increment );
+                    increment--;
+                    placed = true;
+                } catch ( Exception e ) {
+                    increment--;
+                }
+            }
+        } else {
+            // specific placement routine
+            try {
+                AddToRL( RLCaseII, index );
+            } catch( Exception e ) {
+                throw new Exception( "CASE II system could not be allocated to slot " + index + ".\nCASE II system was not installed in the RL." );
+            }
+        }
+    }
+
+    public void SetRLCASEII( CASEII c ) {
+        RLCaseII = c;
+    }
+
+    public boolean HasRLCASEII() {
+        return IsAllocated( RLCaseII );
+    }
+
+    public CASEII GetRLCaseII() {
+        return RLCaseII;
     }
 
     // handlers for Artemis IV operations.
