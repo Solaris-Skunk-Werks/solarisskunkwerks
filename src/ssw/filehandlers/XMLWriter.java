@@ -449,6 +449,70 @@ public class XMLWriter {
             retval += GetLocationLines( prefix + tab, p );
             retval += prefix + "</equipment>" + NL;
         }
+        if( CurMech.GetLoadout().HasHDCASEII() ) {
+            abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetHDCaseII();
+            retval += prefix + "<equipment>" + NL;
+            retval += prefix + tab + "<name manufacturer=\"\">CASEII</name>" + NL;
+            retval += prefix + tab + "<type>CASEII</type>" + NL;
+            retval += GetLocationLines( prefix + tab, p );
+            retval += prefix + "</equipment>" + NL;
+        }
+        if( CurMech.GetLoadout().HasCTCASEII() ) {
+            abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetCTCaseII();
+            retval += prefix + "<equipment>" + NL;
+            retval += prefix + tab + "<name manufacturer=\"\">CASEII</name>" + NL;
+            retval += prefix + tab + "<type>CASEII</type>" + NL;
+            retval += GetLocationLines( prefix + tab, p );
+            retval += prefix + "</equipment>" + NL;
+        }
+        if( CurMech.GetLoadout().HasLTCASEII() ) {
+            abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetLTCaseII();
+            retval += prefix + "<equipment>" + NL;
+            retval += prefix + tab + "<name manufacturer=\"\">CASEII</name>" + NL;
+            retval += prefix + tab + "<type>CASEII</type>" + NL;
+            retval += GetLocationLines( prefix + tab, p );
+            retval += prefix + "</equipment>" + NL;
+        }
+        if( CurMech.GetLoadout().HasRTCASEII() ) {
+            abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetRTCaseII();
+            retval += prefix + "<equipment>" + NL;
+            retval += prefix + tab + "<name manufacturer=\"\">CASEII</name>" + NL;
+            retval += prefix + tab + "<type>CASEII</type>" + NL;
+            retval += GetLocationLines( prefix + tab, p );
+            retval += prefix + "</equipment>" + NL;
+        }
+        if( CurMech.GetLoadout().HasLACASEII() ) {
+            abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetLACaseII();
+            retval += prefix + "<equipment>" + NL;
+            retval += prefix + tab + "<name manufacturer=\"\">CASEII</name>" + NL;
+            retval += prefix + tab + "<type>CASEII</type>" + NL;
+            retval += GetLocationLines( prefix + tab, p );
+            retval += prefix + "</equipment>" + NL;
+        }
+        if( CurMech.GetLoadout().HasRACASEII() ) {
+            abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetRACaseII();
+            retval += prefix + "<equipment>" + NL;
+            retval += prefix + tab + "<name manufacturer=\"\">CASEII</name>" + NL;
+            retval += prefix + tab + "<type>CASEII</type>" + NL;
+            retval += GetLocationLines( prefix + tab, p );
+            retval += prefix + "</equipment>" + NL;
+        }
+        if( CurMech.GetLoadout().HasLLCASEII() ) {
+            abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetLLCaseII();
+            retval += prefix + "<equipment>" + NL;
+            retval += prefix + tab + "<name manufacturer=\"\">CASEII</name>" + NL;
+            retval += prefix + tab + "<type>CASEII</type>" + NL;
+            retval += GetLocationLines( prefix + tab, p );
+            retval += prefix + "</equipment>" + NL;
+        }
+        if( CurMech.GetLoadout().HasRLCASEII() ) {
+            abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetRLCaseII();
+            retval += prefix + "<equipment>" + NL;
+            retval += prefix + tab + "<name manufacturer=\"\">CASEII</name>" + NL;
+            retval += prefix + tab + "<type>CASEII</type>" + NL;
+            retval += GetLocationLines( prefix + tab, p );
+            retval += prefix + "</equipment>" + NL;
+        }
         if( CurMech.UsingTC() ) {
             abPlaceable p = (abPlaceable) CurMech.GetTC();
             retval += prefix + "<equipment>" + NL;

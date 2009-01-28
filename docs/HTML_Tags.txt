@@ -96,6 +96,8 @@ The following tags are recognized between omnimech tags:
 	<+-SSW_OMNI_LOADOUT_JUMPJET_TONNAGE-+>
 	<+-SSW_OMNI_LOADOUT_CASE_TONNAGE-+>
 	<+-SSW_OMNI_LOADOUT_CASE_LOCATION_LINE-+>
+        <+-SSW_OMNI_LOADOUT_CASEII_TONNAGE-+>
+        <+-SSW_OMNI_LOADOUT_CASEII_LOCATION_LINE-+>
 
 	<+-SSW_START_EQUIPMENT_STAT_BLOCK-+>
 		<+-SSW_EQUIP_NAME-+>
@@ -185,6 +187,7 @@ Following is a complete list of all currently supported HTML tags
 <+-SSW_JUMPJET_TONNAGE-+>
 <+-SSW_ENHANCEMENT_TONNAGE-+>
 <+-SSW_CASE_TONNAGE-+>
+<+-SSW_CASEII_TONNAGE-+>
 <+-SSW_EQUIPMENT_TOTAL_TONNAGE-+>
 <+-SSW_POD_TONNAGE-+>
 <+-SSW_POWER_AMP_TONNAGE-+>
@@ -242,6 +245,7 @@ Following is a complete list of all currently supported HTML tags
 <+-SSW_JUMPJET_SPACE-+>
 <+-SSW_JUMPJET_LOCATION_LINE-+>
 <+-SSW_CASE_LOCATION_LINE-+>
+<+-SSW_CASEII_LOCATION_LINE-+>
 
 ##### Miscellaneous Mech Statistics #####
 <+-SSW_ENGINE_RATING-+>

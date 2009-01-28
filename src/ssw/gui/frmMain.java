@@ -816,6 +816,35 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             lblSupercharger.setEnabled( false );
         }
 
+        // now check the CASE II systems
+        if( CommonTools.IsAllowed( CurMech.GetLoadout().GetCTCaseII().GetAvailability(), CurMech ) ) {
+            chkHDCASE2.setEnabled( true );
+            chkCTCASE2.setEnabled( true );
+            chkLTCASE2.setEnabled( true );
+            chkRTCASE2.setEnabled( true );
+            chkLACASE2.setEnabled( true );
+            chkRACASE2.setEnabled( true );
+            chkLLCASE2.setEnabled( true );
+            chkRLCASE2.setEnabled( true );
+        } else {
+            chkHDCASE2.setEnabled( false );
+            chkHDCASE2.setSelected( false );
+            chkCTCASE2.setEnabled( false );
+            chkCTCASE2.setSelected( false );
+            chkLTCASE2.setEnabled( false );
+            chkLTCASE2.setSelected( false );
+            chkRTCASE2.setEnabled( false );
+            chkRTCASE2.setSelected( false );
+            chkLACASE2.setEnabled( false );
+            chkLACASE2.setSelected( false );
+            chkRACASE2.setEnabled( false );
+            chkRACASE2.setSelected( false );
+            chkLLCASE2.setEnabled( false );
+            chkLLCASE2.setSelected( false );
+            chkRLCASE2.setEnabled( false );
+            chkRLCASE2.setSelected( false );
+        }
+
         // now set all the equipment if needed
         if( ! chkArtemisSRM.isEnabled() ) {
             try {
@@ -901,6 +930,31 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
             if( CurMech.GetBaseLoadout().HasRTCASE() ) {
                 chkRTCASE.setEnabled( false );
+            }
+
+            if( CurMech.GetBaseLoadout().HasHDCASEII() ) {
+                chkHDCASE2.setEnabled( false );
+            }
+            if( CurMech.GetBaseLoadout().HasCTCASEII() ) {
+                chkCTCASE2.setEnabled( false );
+            }
+            if( CurMech.GetBaseLoadout().HasLTCASEII() ) {
+                chkLTCASE2.setEnabled( false );
+            }
+            if( CurMech.GetBaseLoadout().HasRTCASEII() ) {
+                chkRTCASE2.setEnabled( false );
+            }
+            if( CurMech.GetBaseLoadout().HasLACASEII() ) {
+                chkLACASE2.setEnabled( false );
+            }
+            if( CurMech.GetBaseLoadout().HasRACASEII() ) {
+                chkRACASE2.setEnabled( false );
+            }
+            if( CurMech.GetBaseLoadout().HasLLCASEII() ) {
+                chkLLCASE2.setEnabled( false );
+            }
+            if( CurMech.GetBaseLoadout().HasRLCASEII() ) {
+                chkRLCASE2.setEnabled( false );
             }
         } else {
             try {
@@ -1016,6 +1070,71 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkRTCASE.setSelected( false );
+            }
+        }
+
+        if( chkHDCASE2.isSelected() ) {
+            try {
+                CurMech.GetLoadout().SetHDCASEII( true, -1 );
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                chkHDCASE2.setSelected( false );
+            }
+        }
+        if( chkCTCASE2.isSelected() ) {
+            try {
+                CurMech.GetLoadout().SetCTCASEII( true, -1 );
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                chkCTCASE2.setSelected( false );
+            }
+        }
+        if( chkLTCASE2.isSelected() ) {
+            try {
+                CurMech.GetLoadout().SetLTCASEII( true, -1 );
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                chkLTCASE2.setSelected( false );
+            }
+        }
+        if( chkRTCASE2.isSelected() ) {
+            try {
+                CurMech.GetLoadout().SetRTCASEII( true, -1 );
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                chkRTCASE2.setSelected( false );
+            }
+        }
+        if( chkLACASE2.isSelected() ) {
+            try {
+                CurMech.GetLoadout().SetLACASEII( true, -1 );
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                chkLACASE2.setSelected( false );
+            }
+        }
+        if( chkRACASE2.isSelected() ) {
+            try {
+                CurMech.GetLoadout().SetRACASEII( true, -1 );
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                chkRACASE2.setSelected( false );
+            }
+        }
+        if( chkLLCASE2.isSelected() ) {
+            try {
+                CurMech.GetLoadout().SetLLCASEII( true, -1 );
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                chkLLCASE2.setSelected( false );
+            }
+        }
+        if( chkRLCASE2.isSelected() ) {
+            try {
+                CurMech.GetLoadout().SetRLCASEII( true, -1 );
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                chkRLCASE2.setSelected( false );
             }
         }
     }
@@ -1173,6 +1292,35 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         javax.swing.table.AbstractTableModel m = (javax.swing.table.AbstractTableModel) tblWeaponManufacturers.getModel();
         m.fireTableDataChanged();
 
+        CheckEquipment();
+
+        UpdateBasicChart();
+    }
+
+    private void CheckEquipment() {
+        // consolidating some code here.
+        if( CurMech.UsingA4SRM() ) {
+            chkArtemisSRM.setSelected( true );
+        } else {
+            chkArtemisSRM.setSelected( false );
+        }
+        if( CurMech.UsingA4LRM() ) {
+            chkArtemisLRM.setSelected( true );
+        } else {
+            chkArtemisLRM.setSelected( false );
+        }
+        if( CurMech.UsingA4MML() ) {
+            chkArtemisMML.setSelected( true );
+        } else {
+            chkArtemisMML.setSelected( false );
+        }
+
+        if( CurMech.UsingTC() ) {
+            chkUseTC.setSelected( true );
+        } else {
+            chkUseTC.setSelected( false );
+        }
+
         // if anything ditched the CASE systems, we'll want to know.
         if( CurMech.HasCTCase() ) {
             chkCTCASE.setSelected( true );
@@ -1189,13 +1337,54 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             chkRTCASE.setSelected( false );
         }
+
+        if( CurMech.GetLoadout().HasHDCASEII() ) {
+            chkHDCASE2.setSelected( true );
+        } else {
+            chkHDCASE2.setSelected( false );
+        }
+        if( CurMech.GetLoadout().HasCTCASEII() ) {
+            chkCTCASE2.setSelected( true );
+        } else {
+            chkCTCASE2.setSelected( false );
+        }
+        if( CurMech.GetLoadout().HasLTCASEII() ) {
+            chkLTCASE2.setSelected( true );
+        } else {
+            chkLTCASE2.setSelected( false );
+        }
+        if( CurMech.GetLoadout().HasRTCASEII() ) {
+            chkRTCASE2.setSelected( true );
+        } else {
+            chkRTCASE2.setSelected( false );
+        }
+        if( CurMech.GetLoadout().HasLACASEII() ) {
+            chkLACASE2.setSelected( true );
+        } else {
+            chkLACASE2.setSelected( false );
+        }
+        if( CurMech.GetLoadout().HasRACASEII() ) {
+            chkRACASE2.setSelected( true );
+        } else {
+            chkRACASE2.setSelected( false );
+        }
+        if( CurMech.GetLoadout().HasLLCASEII() ) {
+            chkLLCASE2.setSelected( true );
+        } else {
+            chkLLCASE2.setSelected( false );
+        }
+        if( CurMech.GetLoadout().HasRLCASEII() ) {
+            chkRLCASE2.setSelected( true );
+        } else {
+            chkRLCASE2.setSelected( false );
+        }
+
         if( CurMech.GetLoadout().HasSupercharger() ) {
             chkSupercharger.setSelected( true );
             cmbSCLoc.setSelectedItem( FileCommon.EncodeLocation( CurMech.GetLoadout().Find( CurMech.GetLoadout().GetSupercharger() ), false ) );
         } else {
             chkSupercharger.setSelected( false );
         }
-        UpdateBasicChart();
     }
 
     private void FixArmorSpinners() {
@@ -1481,6 +1670,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkCTCASE.setSelected( false );
         chkLTCASE.setSelected( false );
         chkRTCASE.setSelected( false );
+        chkHDCASE2.setSelected( false );
+        chkCTCASE2.setSelected( false );
+        chkLTCASE2.setSelected( false );
+        chkRTCASE2.setSelected( false );
+        chkLACASE2.setSelected( false );
+        chkRACASE2.setSelected( false );
+        chkLLCASE2.setSelected( false );
+        chkRLCASE2.setSelected( false );
         chkNullSig.setSelected( false );
         chkVoidSig.setSelected( false );
         chkBSPFD.setSelected( false );
@@ -1897,6 +2094,32 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( chkRTCASE.isSelected() ) {
             chkRTCASE.setEnabled( false );
         }
+
+        if( chkHDCASE2.isSelected() ) {
+            chkHDCASE2.setEnabled( false );
+        }
+        if( chkCTCASE2.isSelected() ) {
+            chkCTCASE2.setEnabled( false );
+        }
+        if( chkLTCASE2.isSelected() ) {
+            chkLTCASE2.setEnabled( false );
+        }
+        if( chkRTCASE2.isSelected() ) {
+            chkRTCASE2.setEnabled( false );
+        }
+        if( chkLACASE2.isSelected() ) {
+            chkLACASE2.setEnabled( false );
+        }
+        if( chkRACASE2.isSelected() ) {
+            chkRACASE2.setEnabled( false );
+        }
+        if( chkLLCASE2.isSelected() ) {
+            chkLLCASE2.setEnabled( false );
+        }
+        if( chkRLCASE2.isSelected() ) {
+            chkRLCASE2.setEnabled( false );
+        }
+
         chkNullSig.setEnabled( false );
         chkVoidSig.setEnabled( false );
         chkCLPS.setEnabled( false );
@@ -1957,6 +2180,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkCTCASE.setEnabled( true );
         chkLTCASE.setEnabled( true );
         chkRTCASE.setEnabled( true );
+        chkHDCASE2.setEnabled( true );
+        chkCTCASE2.setEnabled( true );
+        chkLTCASE2.setEnabled( true );
+        chkRTCASE2.setEnabled( true );
+        chkLACASE2.setEnabled( true );
+        chkRACASE2.setEnabled( true );
+        chkLLCASE2.setEnabled( true );
+        chkRLCASE2.setEnabled( true );
         chkOmnimech.setSelected( false );
         chkOmnimech.setEnabled( true );
         btnLockChassis.setEnabled( false );
@@ -1994,58 +2225,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void RefreshOmniChoices() {
         // this changes the GUI when a new variant is loaded to reflect the
         // equipment it has loaded.
-        if( CurMech.UsingA4SRM() ) {
-            chkArtemisSRM.setSelected( true );
-        } else {
-            chkArtemisSRM.setSelected( false );
-        }
-        if( CurMech.UsingA4LRM() ) {
-            chkArtemisLRM.setSelected( true );
-        } else {
-            chkArtemisLRM.setSelected( false );
-        }
-        if( CurMech.UsingA4MML() ) {
-            chkArtemisMML.setSelected( true );
-        } else {
-            chkArtemisMML.setSelected( false );
-        }
-        if( CurMech.UsingTC() ) {
-            chkUseTC.setSelected( true );
-        } else {
-            chkUseTC.setSelected( false );
-        }
         CheckActuators();
-        if( CurMech.HasCTCase() ) {
-            chkCTCASE.setSelected( true );
-        } else {
-            chkCTCASE.setSelected( false );
-        }
-        if( CurMech.HasLTCase() ) {
-            chkLTCASE.setSelected( true );
-        } else {
-            chkLTCASE.setSelected( false );
-        }
-        if( CurMech.HasRTCase() ) {
-            chkRTCASE.setSelected( true );
-        } else {
-            chkRTCASE.setSelected( false );
-        }
-        if( CurMech.GetLoadout().HasSupercharger() ) {
-            chkSupercharger.setSelected( true );
-            switch( CurMech.GetLoadout().Find( CurMech.GetLoadout().GetSupercharger() ) ) {
-                case Constants.LOC_CT:
-                    cmbSCLoc.setSelectedItem( "CT" );
-                    break;
-                case Constants.LOC_LT:
-                    cmbSCLoc.setSelectedItem( "LT" );
-                    break;
-                case Constants.LOC_RT:
-                    cmbSCLoc.setSelectedItem( "RT" );
-                    break;
-            }
-        } else {
-            chkSupercharger.setSelected( false );
-        }
+        CheckEquipment();
     }
 
     private boolean VerifyMech( ActionEvent evt ) {
@@ -5876,6 +6057,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         chkHDCASE2.setText("C.A.S.E. II");
         chkHDCASE2.setEnabled(false);
+        chkHDCASE2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkHDCASE2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -6191,6 +6377,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         chkCTCASE2.setText("C.A.S.E. II");
         chkCTCASE2.setEnabled(false);
+        chkCTCASE2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkCTCASE2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -6365,6 +6556,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         chkLTCASE2.setText("C.A.S.E. II");
         chkLTCASE2.setEnabled(false);
+        chkLTCASE2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkLTCASE2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -6546,6 +6742,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         chkRTCASE2.setText("C.A.S.E. II");
         chkRTCASE2.setEnabled(false);
+        chkRTCASE2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkRTCASE2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -6715,6 +6916,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         chkLACASE2.setText("C.A.S.E. II");
         chkLACASE2.setEnabled(false);
+        chkLACASE2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkLACASE2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -6882,6 +7088,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         chkRACASE2.setText("C.A.S.E. II");
         chkRACASE2.setEnabled(false);
+        chkRACASE2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkRACASE2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -7046,6 +7257,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         chkLLCASE2.setText("C.A.S.E. II");
         chkLLCASE2.setEnabled(false);
+        chkLLCASE2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkLLCASE2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -7204,6 +7420,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         chkRLCASE2.setText("C.A.S.E. II");
         chkRLCASE2.setEnabled(false);
+        chkRLCASE2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkRLCASE2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -11547,6 +11768,214 @@ private void btnRemoveItemCritsActionPerformed(java.awt.event.ActionEvent evt) {
     CurItem = (abPlaceable) v.get( Index );
     RemoveItemCritTab();
 }//GEN-LAST:event_btnRemoveItemCritsActionPerformed
+
+private void chkCTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCTCASE2ActionPerformed
+        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasCTCASEII() ) {
+            chkCTCASE2.setSelected( true );
+            return;
+        }
+        if( CurMech.GetLoadout().HasCTCASEII() == chkCTCASE2.isSelected() ) { return; }
+        if( chkCTCASE2.isSelected() ) {
+            try {
+                CurMech.GetLoadout().SetCTCASEII( true, -1 );
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                chkCTCASE2.setSelected( false );
+            }
+        } else {
+            try {
+                CurMech.GetLoadout().SetCTCASEII( false, -1 );
+            } catch( Exception e ) {
+                // removing CASE II should never return an exception.  log it.
+                System.err.println( "Received an error removing CT CASE II:" );
+                System.err.println( e.getStackTrace() );
+            }
+        }
+        CurMech.ReCalcBaseCost();
+        RefreshInfoPane();
+}//GEN-LAST:event_chkCTCASE2ActionPerformed
+
+private void chkRACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRACASE2ActionPerformed
+        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasRACASEII() ) {
+            chkRACASE2.setSelected( true );
+            return;
+        }
+        if( CurMech.GetLoadout().HasRACASEII() == chkRACASE2.isSelected() ) { return; }
+        if( chkRACASE2.isSelected() ) {
+            try {
+                CurMech.GetLoadout().SetRACASEII( true, -1 );
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                chkRACASE2.setSelected( false );
+            }
+        } else {
+            try {
+                CurMech.GetLoadout().SetRACASEII( false, -1 );
+            } catch( Exception e ) {
+                // removing CASE II should never return an exception.  log it.
+                System.err.println( "Received an error removing RA CASE II:" );
+                System.err.println( e.getStackTrace() );
+            }
+        }
+        CurMech.ReCalcBaseCost();
+        RefreshInfoPane();
+}//GEN-LAST:event_chkRACASE2ActionPerformed
+
+private void chkRTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRTCASE2ActionPerformed
+        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasRTCASEII() ) {
+            chkRTCASE2.setSelected( true );
+            return;
+        }
+        if( CurMech.GetLoadout().HasRTCASEII() == chkRTCASE2.isSelected() ) { return; }
+        if( chkRTCASE2.isSelected() ) {
+            try {
+                CurMech.GetLoadout().SetRTCASEII( true, -1 );
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                chkRTCASE2.setSelected( false );
+            }
+        } else {
+            try {
+                CurMech.GetLoadout().SetRTCASEII( false, -1 );
+            } catch( Exception e ) {
+                // removing CASE II should never return an exception.  log it.
+                System.err.println( "Received an error removing RT CASE II:" );
+                System.err.println( e.getStackTrace() );
+            }
+        }
+        CurMech.ReCalcBaseCost();
+        RefreshInfoPane();
+}//GEN-LAST:event_chkRTCASE2ActionPerformed
+
+private void chkRLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRLCASE2ActionPerformed
+        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasRLCASEII() ) {
+            chkRLCASE2.setSelected( true );
+            return;
+        }
+        if( CurMech.GetLoadout().HasRLCASEII() == chkRLCASE2.isSelected() ) { return; }
+        if( chkRLCASE2.isSelected() ) {
+            try {
+                CurMech.GetLoadout().SetRLCASEII( true, -1 );
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                chkRLCASE2.setSelected( false );
+            }
+        } else {
+            try {
+                CurMech.GetLoadout().SetRLCASEII( false, -1 );
+            } catch( Exception e ) {
+                // removing CASE II should never return an exception.  log it.
+                System.err.println( "Received an error removing RL CASE II:" );
+                System.err.println( e.getStackTrace() );
+            }
+        }
+        CurMech.ReCalcBaseCost();
+        RefreshInfoPane();
+}//GEN-LAST:event_chkRLCASE2ActionPerformed
+
+private void chkHDCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkHDCASE2ActionPerformed
+        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasHDCASEII() ) {
+            chkHDCASE2.setSelected( true );
+            return;
+        }
+        if( CurMech.GetLoadout().HasHDCASEII() == chkHDCASE2.isSelected() ) { return; }
+        if( chkHDCASE2.isSelected() ) {
+            try {
+                CurMech.GetLoadout().SetHDCASEII( true, -1 );
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                chkHDCASE2.setSelected( false );
+            }
+        } else {
+            try {
+                CurMech.GetLoadout().SetHDCASEII( false, -1 );
+            } catch( Exception e ) {
+                // removing CASE II should never return an exception.  log it.
+                System.err.println( "Received an error removing HD CASE II:" );
+                System.err.println( e.getStackTrace() );
+            }
+        }
+        CurMech.ReCalcBaseCost();
+        RefreshInfoPane();
+}//GEN-LAST:event_chkHDCASE2ActionPerformed
+
+private void chkLTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLTCASE2ActionPerformed
+        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasLTCASEII() ) {
+            chkLTCASE2.setSelected( true );
+            return;
+        }
+        if( CurMech.GetLoadout().HasLTCASEII() == chkLTCASE2.isSelected() ) { return; }
+        if( chkLTCASE2.isSelected() ) {
+            try {
+                CurMech.GetLoadout().SetLTCASEII( true, -1 );
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                chkLTCASE2.setSelected( false );
+            }
+        } else {
+            try {
+                CurMech.GetLoadout().SetLTCASEII( false, -1 );
+            } catch( Exception e ) {
+                // removing CASE II should never return an exception.  log it.
+                System.err.println( "Received an error removing LT CASE II:" );
+                System.err.println( e.getStackTrace() );
+            }
+        }
+        CurMech.ReCalcBaseCost();
+        RefreshInfoPane();
+}//GEN-LAST:event_chkLTCASE2ActionPerformed
+
+private void chkLLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLLCASE2ActionPerformed
+        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasLLCASEII() ) {
+            chkLLCASE2.setSelected( true );
+            return;
+        }
+        if( CurMech.GetLoadout().HasLLCASEII() == chkLLCASE2.isSelected() ) { return; }
+        if( chkLLCASE2.isSelected() ) {
+            try {
+                CurMech.GetLoadout().SetLLCASEII( true, -1 );
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                chkLLCASE2.setSelected( false );
+            }
+        } else {
+            try {
+                CurMech.GetLoadout().SetLLCASEII( false, -1 );
+            } catch( Exception e ) {
+                // removing CASE II should never return an exception.  log it.
+                System.err.println( "Received an error removing LL CASE II:" );
+                System.err.println( e.getStackTrace() );
+            }
+        }
+        CurMech.ReCalcBaseCost();
+        RefreshInfoPane();
+}//GEN-LAST:event_chkLLCASE2ActionPerformed
+
+private void chkLACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLACASE2ActionPerformed
+        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasLACASEII() ) {
+            chkLACASE2.setSelected( true );
+            return;
+        }
+        if( CurMech.GetLoadout().HasLACASEII() == chkLACASE2.isSelected() ) { return; }
+        if( chkLACASE2.isSelected() ) {
+            try {
+                CurMech.GetLoadout().SetLACASEII( true, -1 );
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                chkLACASE2.setSelected( false );
+            }
+        } else {
+            try {
+                CurMech.GetLoadout().SetLACASEII( false, -1 );
+            } catch( Exception e ) {
+                // removing CASE II should never return an exception.  log it.
+                System.err.println( "Received an error removing LA CASE II:" );
+                System.err.println( e.getStackTrace() );
+            }
+        }
+        CurMech.ReCalcBaseCost();
+        RefreshInfoPane();
+}//GEN-LAST:event_chkLACASE2ActionPerformed
 
 private void setViewToolbar(boolean Visible)
 {

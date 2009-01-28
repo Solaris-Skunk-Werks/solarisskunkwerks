@@ -347,7 +347,7 @@ public class XMLReader {
                         splitLoc.add( DecodeLocation( nl.item( j ) ) );
                     }
                 }
-                if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" ) || eType.equals( "Supercharger" ) ) {
+                if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" ) || eType.equals( "CASEII" ) || eType.equals( "Supercharger" ) ) {
                     if( eType.equals( "TargetingComputer") ) {
                         m.UseTC( true );
                         ltc = l;
@@ -360,6 +360,31 @@ public class XMLReader {
                         }
                         if( l.Location == Constants.LOC_RT ) {
                             m.GetLoadout().SetRTCASE( true, l.Index );
+                        }
+                    } else if( eType.equals( "CASEII" ) ) {
+                        if( l.Location == Constants.LOC_HD ) {
+                            m.GetLoadout().SetHDCASEII( true, l.Index );
+                        }
+                        if( l.Location == Constants.LOC_CT ) {
+                            m.GetLoadout().SetCTCASEII( true, l.Index );
+                        }
+                        if( l.Location == Constants.LOC_LT ) {
+                            m.GetLoadout().SetLTCASEII( true, l.Index );
+                        }
+                        if( l.Location == Constants.LOC_RT ) {
+                            m.GetLoadout().SetRTCASEII( true, l.Index );
+                        }
+                        if( l.Location == Constants.LOC_LA ) {
+                            m.GetLoadout().SetLACASEII( true, l.Index );
+                        }
+                        if( l.Location == Constants.LOC_RA ) {
+                            m.GetLoadout().SetRACASEII( true, l.Index );
+                        }
+                        if( l.Location == Constants.LOC_LL ) {
+                            m.GetLoadout().SetLLCASEII( true, l.Index );
+                        }
+                        if( l.Location == Constants.LOC_RL ) {
+                            m.GetLoadout().SetRLCASEII( true, l.Index );
                         }
                     } else if( eType.equals( "Supercharger" ) ) {
                         m.GetLoadout().SetSupercharger( true, l.Location, l.Index );
@@ -665,7 +690,7 @@ public class XMLReader {
                                 splitLoc.add( DecodeLocation( nl.item( j ) ) );
                             }
                         }
-                        if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" ) || eType.equals( "Supercharger" ) ) {
+                        if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" ) || eType.equals( "CASEII" ) || eType.equals( "Supercharger" ) ) {
                             if( eType.equals( "TargetingComputer") ) {
                                 m.UseTC( true );
                                 ltc = l;
@@ -678,6 +703,31 @@ public class XMLReader {
                                 }
                                 if( l.Location == Constants.LOC_RT ) {
                                     m.GetLoadout().SetRTCASE( true, l.Index );
+                                }
+                            } else if( eType.equals( "CASEII" ) ) {
+                                if( l.Location == Constants.LOC_HD ) {
+                                    m.GetLoadout().SetHDCASEII( true, l.Index );
+                                }
+                                if( l.Location == Constants.LOC_CT ) {
+                                    m.GetLoadout().SetCTCASEII( true, l.Index );
+                                }
+                                if( l.Location == Constants.LOC_LT ) {
+                                    m.GetLoadout().SetLTCASEII( true, l.Index );
+                                }
+                                if( l.Location == Constants.LOC_RT ) {
+                                    m.GetLoadout().SetRTCASEII( true, l.Index );
+                                }
+                                if( l.Location == Constants.LOC_LA ) {
+                                    m.GetLoadout().SetLACASEII( true, l.Index );
+                                }
+                                if( l.Location == Constants.LOC_RA ) {
+                                    m.GetLoadout().SetRACASEII( true, l.Index );
+                                }
+                                if( l.Location == Constants.LOC_LL ) {
+                                    m.GetLoadout().SetLLCASEII( true, l.Index );
+                                }
+                                if( l.Location == Constants.LOC_RL ) {
+                                    m.GetLoadout().SetRLCASEII( true, l.Index );
                                 }
                             } else if( eType.equals( "Supercharger" ) ) {
                                 m.GetLoadout().SetSupercharger( true, l.Location, l.Index );

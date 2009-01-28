@@ -217,8 +217,11 @@ public class TXTWriter {
         if( CurMech.GetArmor().NumCrits() > 0 ) {
             retval += "    Armor Locations: " + FileCommon.GetArmorLocations( CurMech ) + NL;
         }
-        if( CurMech.HasCTCase() || CurMech.HasLTCase() || CurMech.HasRTCase() ) {
+        if( CurMech.GetCaseTonnage() != 0.0f ) {
             retval += String.format( "    %1$-68s %2$6.2f", "CASE Locations: " + FileCommon.GetCaseLocations( CurMech ), CurMech.GetCaseTonnage() ) + NL;
+        }
+        if( CurMech.GetCASEIITonnage() != 0.0f ) {
+            retval += String.format( "    %1$-68s %2$6.2f", "CASE II Locations: " + FileCommon.GetCaseIILocations( CurMech ), CurMech.GetCASEIITonnage() ) + NL;
         }
         retval += NL + "                                                      Internal       Armor      " + NL;
         retval += "                                                      Structure      Factor     " + NL;
@@ -573,8 +576,11 @@ public class TXTWriter {
                 retval += "    Heat Sink Locations: " + FileCommon.GetHeatSinkLocations( CurMech ) + NL;
             }
         }
-        if( CurMech.HasCTCase() || CurMech.HasLTCase() || CurMech.HasRTCase() ) {
+        if( CurMech.GetCaseTonnage() != 0.0f ) {
             retval += String.format( "    %1$-68s %2$6.2f", "CASE Locations: " + FileCommon.GetCaseLocations( CurMech ), CurMech.GetCaseTonnage() ) + NL;
+        }
+        if( CurMech.GetCASEIITonnage() != 0.0f ) {
+            retval += String.format( "    %1$-68s %2$6.2f", "CASE II Locations: " + FileCommon.GetCaseIILocations( CurMech ), CurMech.GetCASEIITonnage() ) + NL;
         }
         if( ! CurMech.GetEngine().IsNuclear() ) {
             if( CurMech.GetLoadout().GetPowerAmplifier().GetTonnage() > 0 ) {

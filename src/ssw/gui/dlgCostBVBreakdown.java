@@ -142,10 +142,34 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
             retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE", 0.0f, 0.0f, CurMech.GetLoadout().GetCTCase().GetCost() ) + NL;
         }
         if( CurMech.HasLTCase() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE", 0.0f, 0.0f, CurMech.GetLoadout().GetCTCase().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE", 0.0f, 0.0f, CurMech.GetLoadout().GetLTCase().GetCost() ) + NL;
         }
         if( CurMech.HasRTCase() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE", 0.0f, 0.0f, CurMech.GetLoadout().GetCTCase().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE", 0.0f, 0.0f, CurMech.GetLoadout().GetRTCase().GetCost() ) + NL;
+        }
+        if( CurMech.GetLoadout().HasHDCASEII() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetHDCaseII().GetCost() ) + NL;
+        }
+        if( CurMech.GetLoadout().HasCTCASEII() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetCTCaseII().GetCost() ) + NL;
+        }
+        if( CurMech.GetLoadout().HasLTCASEII() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetLTCaseII().GetCost() ) + NL;
+        }
+        if( CurMech.GetLoadout().HasRTCASEII() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetRTCaseII().GetCost() ) + NL;
+        }
+        if( CurMech.GetLoadout().HasLACASEII() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetLACaseII().GetCost() ) + NL;
+        }
+        if( CurMech.GetLoadout().HasRACASEII() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetRACaseII().GetCost() ) + NL;
+        }
+        if( CurMech.GetLoadout().HasLLCASEII() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetLLCaseII().GetCost() ) + NL;
+        }
+        if( CurMech.GetLoadout().HasRLCASEII() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetRLCaseII().GetCost() ) + NL;
         }
         if( CurMech.UsingTC() ) {
             retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "Targeting Computer", CurMech.GetTC().GetDefensiveBV(), CurMech.GetTC().GetOffensiveBV(), CurMech.GetTC().GetCost() ) + NL;

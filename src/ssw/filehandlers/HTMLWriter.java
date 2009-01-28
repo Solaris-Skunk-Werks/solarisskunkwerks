@@ -466,6 +466,14 @@ public class HTMLWriter {
             }
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_CASE_LOCATION_LINE-+>" ) ) {
             return FileCommon.GetCaseLocations( CurMech );
+        } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_CASEII_TONNAGE-+>" ) ) {
+            if( CurMech.GetCASEIITonnage() == 0.0f ) {
+                return "";
+            } else {
+                return "" + CurMech.GetCASEIITonnage();
+            }
+        } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_CASEII_LOCATION_LINE-+>" ) ) {
+            return FileCommon.GetCaseIILocations( CurMech );
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_AVAILABILITY-+>" ) ) {
             return CurMech.GetAvailability().GetShortenedCode();
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_JUMPJET_TYPE-+>" ) ) {
@@ -1125,6 +1133,8 @@ public class HTMLWriter {
         lookup.put( "<+-SSW_INTERNAL_TYPE-+>", CurMech.GetIntStruc().GetCritName() );
         lookup.put( "<+-SSW_CASE_LOCATION_LINE-+>", FileCommon.GetCaseLocations( CurMech ) );
         lookup.put( "<+-SSW_CASE_TONNAGE-+>", "" + CurMech.GetCaseTonnage() );
+        lookup.put( "<+-SSW_CASEII_LOCATION_LINE-+>", FileCommon.GetCaseIILocations( CurMech ) );
+        lookup.put( "<+-SSW_CASEII_TONNAGE-+>", "" + CurMech.GetCASEIITonnage() );
         if( CurMech.IsQuad() ) {
             lookup.put( "<+-SSW_CHASSIS_CONFIG-+>", "Quad" );
             lookup.put( "<+-SSW_ARM_LOCATION_NAME-+>", "R/L Front Leg" );

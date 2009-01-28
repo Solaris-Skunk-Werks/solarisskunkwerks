@@ -404,6 +404,14 @@ public class Mech {
         boolean ctcase = HasCTCase();
         boolean ltcase = HasLTCase();
         boolean rtcase = HasRTCase();
+        boolean hdcase2 = CurLoadout.HasHDCASEII();
+        boolean ctcase2 = CurLoadout.HasCTCASEII();
+        boolean ltcase2 = CurLoadout.HasLTCASEII();
+        boolean rtcase2 = CurLoadout.HasRTCASEII();
+        boolean lacase2 = CurLoadout.HasLACASEII();
+        boolean racase2 = CurLoadout.HasRACASEII();
+        boolean llcase2 = CurLoadout.HasLLCASEII();
+        boolean rlcase2 = CurLoadout.HasRLCASEII();
 
         // remember how many heat sinks and jump jets we had
         int NumJJ = GetJumpJets().GetNumJJ();
@@ -461,6 +469,30 @@ public class Mech {
             if( rtcase ) {
                 AddRTCase();
             }
+            if( hdcase2 ) {
+                CurLoadout.SetHDCASEII( true, -1 );
+            }
+            if( ctcase2 ) {
+                CurLoadout.SetCTCASEII( true, -1 );
+            }
+            if( ltcase2 ) {
+                CurLoadout.SetLTCASEII( true, -1 );
+            }
+            if( rtcase2 ) {
+                CurLoadout.SetRTCASEII( true, -1 );
+            }
+            if( lacase2 ) {
+                CurLoadout.SetLACASEII( true, -1 );
+            }
+            if( racase2 ) {
+                CurLoadout.SetRACASEII( true, -1 );
+            }
+            if( llcase2 ) {
+                CurLoadout.SetLLCASEII( true, -1 );
+            }
+            if( rlcase2 ) {
+                CurLoadout.SetRLCASEII( true, -1 );
+            }
         } catch( Exception e ) {
             // unhandled at this time, print an error out
             System.err.println( "CASE system not reinstalled:\n" + e.getMessage() );
@@ -473,6 +505,14 @@ public class Mech {
         boolean ctcase = HasCTCase();
         boolean ltcase = HasLTCase();
         boolean rtcase = HasRTCase();
+        boolean hdcase2 = CurLoadout.HasHDCASEII();
+        boolean ctcase2 = CurLoadout.HasCTCASEII();
+        boolean ltcase2 = CurLoadout.HasLTCASEII();
+        boolean rtcase2 = CurLoadout.HasRTCASEII();
+        boolean lacase2 = CurLoadout.HasLACASEII();
+        boolean racase2 = CurLoadout.HasRACASEII();
+        boolean llcase2 = CurLoadout.HasLLCASEII();
+        boolean rlcase2 = CurLoadout.HasRLCASEII();
 
         // remember how many heat sinks and jump jets we had
         int NumJJ = GetJumpJets().GetNumJJ();
@@ -538,6 +578,30 @@ public class Mech {
             }
             if( rtcase ) {
                 AddRTCase();
+            }
+            if( hdcase2 ) {
+                CurLoadout.SetHDCASEII( true, -1 );
+            }
+            if( ctcase2 ) {
+                CurLoadout.SetCTCASEII( true, -1 );
+            }
+            if( ltcase2 ) {
+                CurLoadout.SetLTCASEII( true, -1 );
+            }
+            if( rtcase2 ) {
+                CurLoadout.SetRTCASEII( true, -1 );
+            }
+            if( lacase2 ) {
+                CurLoadout.SetLACASEII( true, -1 );
+            }
+            if( racase2 ) {
+                CurLoadout.SetRACASEII( true, -1 );
+            }
+            if( llcase2 ) {
+                CurLoadout.SetLLCASEII( true, -1 );
+            }
+            if( rlcase2 ) {
+                CurLoadout.SetRLCASEII( true, -1 );
             }
         } catch( Exception e ) {
             // unhandled at this time, print an error out
@@ -855,6 +919,14 @@ public class Mech {
         if( HasCTCase() ) { result += CurLoadout.GetCTCase().GetTonnage(); }
         if( HasLTCase() ) { result += CurLoadout.GetCTCase().GetTonnage(); }
         if( HasRTCase() ) { result += CurLoadout.GetCTCase().GetTonnage(); }
+        if( CurLoadout.HasHDCASEII() ) { result += CurLoadout.GetHDCaseII().GetTonnage(); }
+        if( CurLoadout.HasCTCASEII() ) { result += CurLoadout.GetCTCaseII().GetTonnage(); }
+        if( CurLoadout.HasLTCASEII() ) { result += CurLoadout.GetLTCaseII().GetTonnage(); }
+        if( CurLoadout.HasRTCASEII() ) { result += CurLoadout.GetRTCaseII().GetTonnage(); }
+        if( CurLoadout.HasLACASEII() ) { result += CurLoadout.GetLACaseII().GetTonnage(); }
+        if( CurLoadout.HasRACASEII() ) { result += CurLoadout.GetRACaseII().GetTonnage(); }
+        if( CurLoadout.HasLLCASEII() ) { result += CurLoadout.GetLLCaseII().GetTonnage(); }
+        if( CurLoadout.HasRLCASEII() ) { result += CurLoadout.GetRLCaseII().GetTonnage(); }
         if( CurLoadout.UsingTC() ) { result += GetTC().GetTonnage(); }
         if( ! CurEngine.IsNuclear() ) { result += CurLoadout.GetPowerAmplifier().GetTonnage(); }
         if( HasBlueShield ) { result += BlueShield.GetTonnage(); }
@@ -885,6 +957,14 @@ public class Mech {
         if( HasCTCase() ) { result += CurLoadout.GetCTCase().GetTonnage(); }
         if( HasLTCase() ) { result += CurLoadout.GetCTCase().GetTonnage(); }
         if( HasRTCase() ) { result += CurLoadout.GetCTCase().GetTonnage(); }
+        if( CurLoadout.HasHDCASEII() ) { result += CurLoadout.GetHDCaseII().GetTonnage(); }
+        if( CurLoadout.HasCTCASEII() ) { result += CurLoadout.GetCTCaseII().GetTonnage(); }
+        if( CurLoadout.HasLTCASEII() ) { result += CurLoadout.GetLTCaseII().GetTonnage(); }
+        if( CurLoadout.HasRTCASEII() ) { result += CurLoadout.GetRTCaseII().GetTonnage(); }
+        if( CurLoadout.HasLACASEII() ) { result += CurLoadout.GetLACaseII().GetTonnage(); }
+        if( CurLoadout.HasRACASEII() ) { result += CurLoadout.GetRACaseII().GetTonnage(); }
+        if( CurLoadout.HasLLCASEII() ) { result += CurLoadout.GetLLCaseII().GetTonnage(); }
+        if( CurLoadout.HasRLCASEII() ) { result += CurLoadout.GetRLCaseII().GetTonnage(); }
         if( CurLoadout.UsingTC() ) { result += GetTC().GetTonnage(); }
         if( ! CurEngine.IsNuclear() ) { result += CurLoadout.GetPowerAmplifier().GetTonnage(); }
         if( HasBlueShield ) { result += BlueShield.GetTonnage(); }
@@ -1119,12 +1199,71 @@ public class Mech {
                 if( p instanceof Ammunition ) {
                     if( ((Ammunition) p).IsExplosive() ) {
                         if( CurEngine.IsISXL() ) {
-                            result -= 15.0f;
+                            switch( CurLoadout.Find( p ) ) {
+                                case 0:
+                                    if( ! CurLoadout.HasHDCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 1:
+                                    if( ! CurLoadout.HasCTCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 2:
+                                    if( ! CurLoadout.HasLTCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 3:
+                                    if( ! CurLoadout.HasRTCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 4:
+                                    if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 5:
+                                    
+                                    if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 6:
+                                    if( ! CurLoadout.HasLLCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 7:
+                                    if( ! CurLoadout.HasRLCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                            }
                         } else {
                             switch( CurLoadout.Find( p ) ) {
-                            case 0: case 1: case 6: case 7:
-                                result -= 15.0f;
-                                break;
+                                case 0:
+                                    if( ! CurLoadout.HasHDCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 1:
+                                    if( ! CurLoadout.HasCTCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 6: 
+                                    if( ! CurLoadout.HasLLCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 7:
+                                    if( ! CurLoadout.HasRLCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
                             }
                         }
                     }
@@ -1136,22 +1275,90 @@ public class Mech {
                 if( p instanceof Ammunition ) {
                     if( ((Ammunition) p).IsExplosive() ) {
                         if( CurEngine.IsISXL() ) {
-                            result -= 15.0f;
+                            switch( CurLoadout.Find( p ) ) {
+                                case 0:
+                                    if( ! CurLoadout.HasHDCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 1:
+                                    if( ! CurLoadout.HasCTCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 2:
+                                    if( ! CurLoadout.HasLTCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 3:
+                                    if( ! CurLoadout.HasRTCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 4:
+                                    if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 5:
+                                    if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 6:
+                                    if( ! CurLoadout.HasLLCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 7:
+                                    if( ! CurLoadout.HasRLCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                            }
                         } else {
                             switch( CurLoadout.Find( p ) ) {
-                            case 0: case 1: case 6: case 7:
-                                result -= 15.0f;
-                                break;
-                            case 2: case 4:
-                                if( ! HasLTCase() ) {
-                                    result -= 15.0f;
-                                }
-                                break;
-                            case 3: case 5:
-                                if( ! HasRTCase() ) {
-                                    result -= 15.0f;
-                                }
-                                break;
+                                case 0:
+                                    if( ! CurLoadout.HasHDCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 1:
+                                    if( ! CurLoadout.HasCTCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 2:
+                                    if( ! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 3:
+                                    if( ! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 4:
+                                    if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 5:
+                                    if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 6:
+                                    if( ! CurLoadout.HasLLCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
+                                case 7:
+                                    if( ! CurLoadout.HasRLCASEII() ) {
+                                        result -= 15.0f;
+                                    }
+                                    break;
                             }
                         }
                     }
@@ -1173,12 +1380,70 @@ public class Mech {
                 if( p instanceof ifWeapon ) {
                     if( ((ifWeapon) p).IsExplosive() ) {
                         if( CurEngine.IsISXL() ) {
-                            result -= p.NumCrits();
+                            switch( CurLoadout.Find( p ) ) {
+                                case 0:
+                                    if( ! CurLoadout.HasHDCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 1:
+                                    if( ! CurLoadout.HasCTCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 2:
+                                    if( ! CurLoadout.HasLTCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 3:
+                                    if( ! CurLoadout.HasRTCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 4:
+                                    if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 5:
+                                    if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 6:
+                                    if( ! CurLoadout.HasLLCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 7:
+                                    if( ! CurLoadout.HasRLCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                            }
                         } else {
                             switch( CurLoadout.Find( p ) ) {
-                            case 0: case 1: case 6: case 7:
-                                result -= p.NumCrits();
-                                break;
+                                case 0:
+                                    if( ! CurLoadout.HasHDCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 1:
+                                    if( ! CurLoadout.HasCTCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 6: 
+                                    if( ! CurLoadout.HasLLCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 7:
+                                    if( ! CurLoadout.HasRLCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
                             }
                         }
                     }
@@ -1190,22 +1455,90 @@ public class Mech {
                 if( p instanceof ifWeapon ) {
                     if( ((ifWeapon) p).IsExplosive() ) {
                         if( CurEngine.IsISXL() ) {
-                            result -= p.NumCrits();
+                            switch( CurLoadout.Find( p ) ) {
+                                case 0:
+                                    if( ! CurLoadout.HasHDCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 1:
+                                    if( ! CurLoadout.HasCTCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 2:
+                                    if( ! CurLoadout.HasLTCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 3:
+                                    if( ! CurLoadout.HasRTCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 4:
+                                    if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 5:
+                                    if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 6:
+                                    if( ! CurLoadout.HasLLCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 7:
+                                    if( ! CurLoadout.HasRLCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                            }
                         } else {
                             switch( CurLoadout.Find( p ) ) {
-                            case 0: case 1: case 6: case 7:
-                                result -= p.NumCrits();
-                                break;
-                            case 2: case 4:
-                                if( ! HasLTCase() ) {
-                                    result -= p.NumCrits();
-                                }
-                                break;
-                            case 3: case 5:
-                                if( ! HasRTCase() ) {
-                                    result -= p.NumCrits();
-                                }
-                                break;
+                                case 0:
+                                    if( ! CurLoadout.HasHDCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 1:
+                                    if( ! CurLoadout.HasCTCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 2:
+                                    if( ! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 3:
+                                    if( ! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 4:
+                                    if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 5:
+                                    if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 6:
+                                    if( ! CurLoadout.HasLLCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
+                                case 7:
+                                    if( ! CurLoadout.HasRLCASEII() ) {
+                                        result -= p.NumCrits();
+                                    }
+                                    break;
                             }
                         }
                     }
@@ -1531,6 +1864,14 @@ public class Mech {
             if( HasLTCase() ) { ChassisCost += CurLoadout.GetCTCase().GetCost(); }
             if( HasRTCase() ) { ChassisCost += CurLoadout.GetCTCase().GetCost(); }
         }
+        if( CurLoadout.HasHDCASEII() ) { ChassisCost += CurLoadout.GetHDCaseII().GetCost(); }
+        if( CurLoadout.HasCTCASEII() ) { ChassisCost += CurLoadout.GetCTCaseII().GetCost(); }
+        if( CurLoadout.HasLTCASEII() ) { ChassisCost += CurLoadout.GetLTCaseII().GetCost(); }
+        if( CurLoadout.HasRTCASEII() ) { ChassisCost += CurLoadout.GetRTCaseII().GetCost(); }
+        if( CurLoadout.HasLACASEII() ) { ChassisCost += CurLoadout.GetLACaseII().GetCost(); }
+        if( CurLoadout.HasRACASEII() ) { ChassisCost += CurLoadout.GetRACaseII().GetCost(); }
+        if( CurLoadout.HasLLCASEII() ) { ChassisCost += CurLoadout.GetLLCaseII().GetCost(); }
+        if( CurLoadout.HasRLCASEII() ) { ChassisCost += CurLoadout.GetRLCaseII().GetCost(); }
         if( HasNullSig() ) { ChassisCost += NullSig.GetCost(); }
         if( HasVoidSig() ) { ChassisCost += VoidSig.GetCost(); }
         if( HasChameleon() ) { ChassisCost += Chameleon.GetCost(); }
@@ -1601,6 +1942,14 @@ public class Mech {
             if( HasLTCase() ) { result += CurLoadout.GetCTCase().GetCost(); }
             if( HasRTCase() ) { result += CurLoadout.GetCTCase().GetCost(); }
         }
+        if( CurLoadout.HasHDCASEII() ) { result += CurLoadout.GetHDCaseII().GetCost(); }
+        if( CurLoadout.HasCTCASEII() ) { result += CurLoadout.GetCTCaseII().GetCost(); }
+        if( CurLoadout.HasLTCASEII() ) { result += CurLoadout.GetLTCaseII().GetCost(); }
+        if( CurLoadout.HasRTCASEII() ) { result += CurLoadout.GetRTCaseII().GetCost(); }
+        if( CurLoadout.HasLACASEII() ) { result += CurLoadout.GetLACaseII().GetCost(); }
+        if( CurLoadout.HasRACASEII() ) { result += CurLoadout.GetRACaseII().GetCost(); }
+        if( CurLoadout.HasLLCASEII() ) { result += CurLoadout.GetLLCaseII().GetCost(); }
+        if( CurLoadout.HasRLCASEII() ) { result += CurLoadout.GetRLCaseII().GetCost(); }
 
         return result;
     }
@@ -1713,6 +2062,21 @@ public class Mech {
         if( HasCTCase() ) { retval += 0.5f; }
         if( HasLTCase() ) { retval += 0.5f; }
         if( HasRTCase() ) { retval += 0.5f; }
+
+        return retval;
+    }
+
+    public float GetCASEIITonnage() {
+        float retval = 0.0f;
+
+        if( CurLoadout.HasHDCASEII() ) { retval += CurLoadout.GetHDCaseII().GetCost(); }
+        if( CurLoadout.HasCTCASEII() ) { retval += CurLoadout.GetCTCaseII().GetCost(); }
+        if( CurLoadout.HasLTCASEII() ) { retval += CurLoadout.GetLTCaseII().GetCost(); }
+        if( CurLoadout.HasRTCASEII() ) { retval += CurLoadout.GetRTCaseII().GetCost(); }
+        if( CurLoadout.HasLACASEII() ) { retval += CurLoadout.GetLACaseII().GetCost(); }
+        if( CurLoadout.HasRACASEII() ) { retval += CurLoadout.GetRACaseII().GetCost(); }
+        if( CurLoadout.HasLLCASEII() ) { retval += CurLoadout.GetLLCaseII().GetCost(); }
+        if( CurLoadout.HasRLCASEII() ) { retval += CurLoadout.GetRLCaseII().GetCost(); }
 
         return retval;
     }
@@ -2020,6 +2384,10 @@ public class Mech {
         }
         if( HasCTCase() || HasRTCase() || HasLTCase() ) {
             AC.Combine( CurLoadout.GetCTCase().GetAvailability() );
+        }
+        if( CurLoadout.HasHDCASEII() || CurLoadout.HasCTCASEII() || CurLoadout.HasLTCASEII() || CurLoadout.HasRTCASEII() ||
+            CurLoadout.HasLACASEII() || CurLoadout.HasRACASEII() || CurLoadout.HasLLCASEII() || CurLoadout.HasRLCASEII() ) {
+            AC.Combine( CurLoadout.GetCTCaseII().GetAvailability() );
         }
         if( ! CurEngine.IsNuclear() ) { AC.Combine( CurLoadout.GetPowerAmplifier().GetAvailability() ); }
         Vector v = CurLoadout.GetNonCore();

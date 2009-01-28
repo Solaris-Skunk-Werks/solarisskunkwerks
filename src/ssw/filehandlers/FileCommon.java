@@ -330,6 +330,56 @@ public class FileCommon {
         }
     }
 
+    public static String GetCaseIILocations( Mech m ) {
+        String retval = "";
+
+        if( m.GetLoadout().HasHDCASEII() ) {
+            retval += "1 HD";
+        }
+        if( m.GetLoadout().HasCTCASEII() ) {
+            retval += ", 1 CT";
+        }
+        if( m.GetLoadout().HasLTCASEII() ) {
+            retval += ", 1 LT";
+        }
+        if( m.GetLoadout().HasRTCASEII() ) {
+            retval += ", 1 RT";
+        }
+        if( m.GetLoadout().HasLACASEII() ) {
+            if( m.IsQuad() ) {
+                retval += ", 1 FLL";
+            } else {
+                retval += ", 1 LA";
+            }
+        }
+        if( m.GetLoadout().HasRACASEII() ) {
+            if( m.IsQuad() ) {
+                retval += ", 1 FRL";
+            } else {
+                retval += ", 1 RA";
+            }
+        }
+        if( m.GetLoadout().HasLLCASEII() ) {
+            if( m.IsQuad() ) {
+                retval += ", 1 RLL";
+            } else {
+                retval += ", 1 LL";
+            }
+        }
+        if( m.GetLoadout().HasRLCASEII() ) {
+            if( m.IsQuad() ) {
+                retval += ", 1 RRL";
+            } else {
+                retval += ", 1 RL";
+            }
+        }
+        if( retval.startsWith( "," ) ) {
+            return retval.substring( 2 );
+        } else {
+            return retval;
+        }
+    }
+
     public static String EncodeLocation( int loc, boolean quad ) {
         switch( loc ) {
         case Constants.LOC_HD:
