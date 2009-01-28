@@ -79,7 +79,26 @@ public class thHDTransferHandler extends TransferHandler {
             return false;
         }
 
-        if( DropItem.Locked ) { return false; }
+        if( DropItem.Locked ) {
+            abPlaceable a = CurMech.GetLoadout().GetCrits( DropItem.Location )[DropItem.SourceIndex];
+            if( a instanceof CASEII ) {
+                if( DropItem.Location != Constants.LOC_HD ) {
+                    return false;
+                } else {
+                    // get the drop location
+                    JList.DropLocation dl = (JList.DropLocation) info.getDropLocation();
+                    int dindex = dl.getIndex();
+                    if( CurMech.GetLoadout().GetCrits( Constants.LOC_HD )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( Constants.LOC_HD )[dindex].LocationLinked() ) {
+                        return false;
+                    }
+                    if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().GetHDCaseII() == a ) {
+                        return false;
+                    }
+                }
+            } else {
+                return false;
+            }
+        }
         if( DropItem.Empty ) { return false; }
 
         info.setShowDropLocation( true );

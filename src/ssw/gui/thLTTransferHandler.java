@@ -80,7 +80,43 @@ public class thLTTransferHandler extends TransferHandler {
             return false;
         }
 
-        if( DropItem.Locked ) { return false; }
+        if( DropItem.Locked ) {
+            abPlaceable a = CurMech.GetLoadout().GetCrits( DropItem.Location )[DropItem.SourceIndex];
+            if( a instanceof ISCASE || a instanceof CASEII || a instanceof MultiSlotSystem || a instanceof Supercharger ) {
+                if( DropItem.Location != Constants.LOC_LT ) {
+                    return false;
+                } else {
+                    // get the drop location
+                    JList.DropLocation dl = (JList.DropLocation) info.getDropLocation();
+                    int dindex = dl.getIndex();
+                    if( CurMech.GetLoadout().GetCrits( Constants.LOC_LT )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( Constants.LOC_LT )[dindex].LocationLinked() ) {
+                        return false;
+                    }
+                    if( a instanceof ISCASE ) {
+                        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().GetLTCase() == a ) {
+                            return false;
+                        }
+                    } else if(  a instanceof CASEII ) {
+                        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().GetLTCaseII() == a ) {
+                            return false;
+                        }
+                    } else if( a instanceof Supercharger ) {
+                        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().GetSupercharger() == a ) {
+                            return false;
+                        }
+                    } else if( a instanceof MultiSlotSystem ) {
+                        if( CurMech.IsOmnimech() ) {
+                            return false;
+                        }
+                    } else {
+                        // added for code completeness, but this should never happen
+                        return false;
+                    }
+                }
+            } else {
+                return false;
+            }
+        }
         if( DropItem.Empty ) { return false; }
 
         info.setShowDropLocation( true );

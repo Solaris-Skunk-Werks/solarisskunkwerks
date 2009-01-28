@@ -114,7 +114,7 @@ public class MultiSlotSystem extends abPlaceable {
         // Place the system in the mech
         boolean placed = false;
         int increment;
-        // quads have less sapce in the front legs, hence the check
+        // quads have less space in the front legs, hence the check
         try {
             if( l.IsQuad() ) {
                 increment = 5;
@@ -258,6 +258,11 @@ public class MultiSlotSystem extends abPlaceable {
     @Override
     public boolean Contiguous() {
         return false;
+    }
+
+    @Override
+    public boolean CoreComponent() {
+        return true;
     }
 
     @Override

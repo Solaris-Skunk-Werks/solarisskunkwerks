@@ -891,6 +891,17 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 cmbSCLoc.setEnabled( false );
                 lblSupercharger.setEnabled( false );
             }
+
+            // do we have any CASE in the baseloadout?
+            if( CurMech.GetBaseLoadout().HasCTCASE() ) {
+                chkCTCASE.setEnabled( false );
+            }
+            if( CurMech.GetBaseLoadout().HasLTCASE() ) {
+                chkLTCASE.setEnabled( false );
+            }
+            if( CurMech.GetBaseLoadout().HasRTCASE() ) {
+                chkRTCASE.setEnabled( false );
+            }
         } else {
             try {
                 if( ! chkNullSig.isEnabled() ) { CurMech.SetNullSig( false ); }
@@ -1730,7 +1741,30 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }
 
     private void RemoveItemCritTab() {
-        
+        if( ! CurItem.CoreComponent() && CurItem.Contiguous() ) {
+            CurMech.GetLoadout().Remove( CurItem );
+
+            // refresh the selected equipment listbox
+            if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
+                Equipment[SELECTED] = new Object[] { " " };
+            } else {
+                Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
+            }
+            lstSelectedEquipment.setListData( Equipment[SELECTED] );
+
+            // Check the targeting computer if needed
+            if( CurMech.UsingTC() ) {
+                CurMech.UnallocateTC();
+            }
+
+            // refresh the ammunition display
+            ResetAmmo();
+
+            // now refresh the information panes
+            CurMech.ReCalcBaseCost();
+            RefreshSummary();
+            RefreshInfoPane();
+        }
     }
 
     private void SolidifyMech() {
@@ -5286,6 +5320,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     // add it to the loadout
                     CurMech.GetLoadout().AddToQueue( a );
 
+                    // see if we need ammunition and add it if applicable
+                    ResetAmmo();
+
                     // refresh the selected equipment listbox
                     if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
                         Equipment[SELECTED] = new Object[] { " " };
@@ -5912,8 +5949,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     }
                     if( ! CurItem.CoreComponent() ) {
                         mnuInfoItem.setEnabled( true );
+                        mnuRemoveItem.setEnabled( true );
                     } else {
                         mnuInfoItem.setEnabled( false );
+                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -5961,8 +6000,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     }
                     if( ! CurItem.CoreComponent() ) {
                         mnuInfoItem.setEnabled( true );
+                        mnuRemoveItem.setEnabled( true );
                     } else {
                         mnuInfoItem.setEnabled( false );
+                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -6061,8 +6102,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     }
                     if( ! CurItem.CoreComponent() ) {
                         mnuInfoItem.setEnabled( true );
+                        mnuRemoveItem.setEnabled( true );
                     } else {
                         mnuInfoItem.setEnabled( false );
+                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -6110,8 +6153,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     }
                     if( ! CurItem.CoreComponent() ) {
                         mnuInfoItem.setEnabled( true );
+                        mnuRemoveItem.setEnabled( true );
                     } else {
                         mnuInfoItem.setEnabled( false );
+                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -6240,8 +6285,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     }
                     if( ! CurItem.CoreComponent() ) {
                         mnuInfoItem.setEnabled( true );
+                        mnuRemoveItem.setEnabled( true );
                     } else {
                         mnuInfoItem.setEnabled( false );
+                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -6289,8 +6336,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     }
                     if( ! CurItem.CoreComponent() ) {
                         mnuInfoItem.setEnabled( true );
+                        mnuRemoveItem.setEnabled( true );
                     } else {
                         mnuInfoItem.setEnabled( false );
+                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -6405,8 +6454,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     }
                     if( ! CurItem.CoreComponent() ) {
                         mnuInfoItem.setEnabled( true );
+                        mnuRemoveItem.setEnabled( true );
                     } else {
                         mnuInfoItem.setEnabled( false );
+                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -6454,8 +6505,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     }
                     if( ! CurItem.CoreComponent() ) {
                         mnuInfoItem.setEnabled( true );
+                        mnuRemoveItem.setEnabled( true );
                     } else {
                         mnuInfoItem.setEnabled( false );
+                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -6569,8 +6622,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     mnuMountRear.setText( "Mount Rear " );
                     if( ! CurItem.CoreComponent() ) {
                         mnuInfoItem.setEnabled( true );
+                        mnuRemoveItem.setEnabled( true );
                     } else {
                         mnuInfoItem.setEnabled( false );
+                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -6605,8 +6660,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     mnuMountRear.setText( "Mount Rear " );
                     if( ! CurItem.CoreComponent() ) {
                         mnuInfoItem.setEnabled( true );
+                        mnuRemoveItem.setEnabled( true );
                     } else {
                         mnuInfoItem.setEnabled( false );
+                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -6732,8 +6789,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     mnuMountRear.setText( "Mount Rear " );
                     if( ! CurItem.CoreComponent() ) {
                         mnuInfoItem.setEnabled( true );
+                        mnuRemoveItem.setEnabled( true );
                     } else {
                         mnuInfoItem.setEnabled( false );
+                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -6768,8 +6827,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     mnuMountRear.setText( "Mount Rear " );
                     if( ! CurItem.CoreComponent() ) {
                         mnuInfoItem.setEnabled( true );
+                        mnuRemoveItem.setEnabled( true );
                     } else {
                         mnuInfoItem.setEnabled( false );
+                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -6908,8 +6969,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     }
                     if( ! CurItem.CoreComponent() ) {
                         mnuInfoItem.setEnabled( true );
+                        mnuRemoveItem.setEnabled( true );
                     } else {
                         mnuInfoItem.setEnabled( false );
+                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -6957,8 +7020,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     }
                     if( ! CurItem.CoreComponent() ) {
                         mnuInfoItem.setEnabled( true );
+                        mnuRemoveItem.setEnabled( true );
                     } else {
                         mnuInfoItem.setEnabled( false );
+                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -7062,8 +7127,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     }
                     if( ! CurItem.CoreComponent() ) {
                         mnuInfoItem.setEnabled( true );
+                        mnuRemoveItem.setEnabled( true );
                     } else {
                         mnuInfoItem.setEnabled( false );
+                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -7111,8 +7178,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     }
                     if( ! CurItem.CoreComponent() ) {
                         mnuInfoItem.setEnabled( true );
+                        mnuRemoveItem.setEnabled( true );
                     } else {
                         mnuInfoItem.setEnabled( false );
+                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -7150,7 +7219,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         jScrollPane18.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        lstCritsToPlace.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lstCritsToPlace.setFont(new java.awt.Font("Tahoma", 0, 10));
         lstCritsToPlace.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Selected", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -9677,6 +9746,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_chkRALowerArmActionPerformed
 
     private void chkCTCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCTCASEActionPerformed
+        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasCTCASE() ) {
+            chkCTCASE.setSelected( true );
+            return;
+        }
         if( CurMech.HasCTCase() == chkCTCASE.isSelected() ) { return; }
         if( chkCTCASE.isSelected() ) {
             try {
@@ -9693,6 +9766,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_chkCTCASEActionPerformed
 
     private void chkRTCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRTCASEActionPerformed
+        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasRTCASE() ) {
+            chkRTCASE.setSelected( true );
+            return;
+        }
         if( CurMech.HasRTCase() == chkRTCASE.isSelected() ) { return; }
         if( chkRTCASE.isSelected() ) {
             try {
@@ -9709,7 +9786,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_chkRTCASEActionPerformed
 
     private void chkLTCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLTCASEActionPerformed
-        //if( CurMech.HasLTCase() == chkLTCASE.isSelected() ) { return; }
+        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasLTCASE() ) {
+            chkLTCASE.setSelected( true );
+            return;
+        }
+        if( CurMech.HasLTCase() == chkLTCASE.isSelected() ) { return; }
         if( chkLTCASE.isSelected() ) {
             try {
                 CurMech.AddLTCase();
@@ -10904,7 +10985,12 @@ private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
 private void lstSelectedEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstSelectedEquipmentValueChanged
         if( lstSelectedEquipment.getSelectedIndex() < 0 ) { return; }
-        abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( lstSelectedEquipment.getSelectedIndex() );
+        abPlaceable p;
+        try {
+            p = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( lstSelectedEquipment.getSelectedIndex() );
+        } catch( Exception e ) {
+            return;
+        }
         ShowInfoOn( p );
 }//GEN-LAST:event_lstSelectedEquipmentValueChanged
 
@@ -10926,13 +11012,18 @@ private void lstCritsToPlaceValueChanged(javax.swing.event.ListSelectionEvent ev
             return;
         }
         CurItem = (abPlaceable) v.get( Index );
-        btnRemoveItemCrits.setEnabled( true );
         if( CurItem.Contiguous() ) {
             btnAutoAllocate.setEnabled( false );
             btnSelectiveAllocate.setEnabled( false );
+            if( ! CurItem.CoreComponent() ) {
+                btnRemoveItemCrits.setEnabled( true );
+            } else {
+                btnRemoveItemCrits.setEnabled( false );
+            }
         } else {
             btnAutoAllocate.setEnabled( true );
             btnSelectiveAllocate.setEnabled( true );
+            btnRemoveItemCrits.setEnabled( false );
         }
 }//GEN-LAST:event_lstCritsToPlaceValueChanged
 
@@ -11445,7 +11536,16 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_jButton1ActionPerformed
 
 private void btnRemoveItemCritsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveItemCritsActionPerformed
-
+    Vector v = CurMech.GetLoadout().GetQueue();
+    int Index = lstCritsToPlace.getSelectedIndex();
+    if( Index < 0 ) {
+        btnAutoAllocate.setEnabled( false );
+        btnSelectiveAllocate.setEnabled( false );
+        btnRemoveItemCrits.setEnabled( false );
+        return;
+    }
+    CurItem = (abPlaceable) v.get( Index );
+    RemoveItemCritTab();
 }//GEN-LAST:event_btnRemoveItemCritsActionPerformed
 
 private void setViewToolbar(boolean Visible)

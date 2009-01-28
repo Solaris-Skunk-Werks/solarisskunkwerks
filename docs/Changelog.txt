@@ -28,11 +28,13 @@ Version 0.6.0
 - Added Print Saved Mech Command to Menu. Works with Omni and Standard Mechs (Arcangel)
 - XXL Engines are now in.
 - Added lines to denote a multi-crit item to the Record Sheet print.
-- Added Weapon Heat to printouts for both Biped and Quad mechs
-- Added auto-load of last open file
-- Added icon toolbar for ease-of-use
-- Print Paper size selection remembered
+- Added Weapon Heat to printouts for both Biped and Quad mechs.
+- Added auto-load of last open file (now an option).
+- Added icon toolbar for ease-of-use.
+- Print Paper size selection remembered.
 - Added Mech UMUs to the jump jet list.
+- You can now remove items from the Criticals tab (context menu or button for queue)
+- You can now move CASE and certain items around in their locations.
 
 + Changed
 - Fixed a load bug with heatsinks.
@@ -128,6 +130,7 @@ Version 0.6.0
 - MegaMek path is now literal, it will not save to data/mechfiles.
 - Targeting Computer is now checked correctly on loading or new Mech.
 - Default heat sink type is now a startup option.
+- Fixed a bug with selecting Artillery and ammo not being reset.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

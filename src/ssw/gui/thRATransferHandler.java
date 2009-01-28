@@ -85,7 +85,35 @@ public class thRATransferHandler extends TransferHandler {
             return false;
         }
 
-        if( DropItem.Locked ) { return false; }
+        if( DropItem.Locked ) {
+            abPlaceable a = CurMech.GetLoadout().GetCrits( DropItem.Location )[DropItem.SourceIndex];
+            if( a instanceof CASEII || a instanceof MultiSlotSystem ) {
+                if( DropItem.Location != Constants.LOC_RA ) {
+                    return false;
+                } else {
+                    // get the drop location
+                    JList.DropLocation dl = (JList.DropLocation) info.getDropLocation();
+                    int dindex = dl.getIndex();
+                    if( CurMech.GetLoadout().GetCrits( Constants.LOC_RA )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( Constants.LOC_RA )[dindex].LocationLinked() ) {
+                        return false;
+                    }
+                    if( a instanceof CASEII ) {
+                        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().GetRACaseII() == a ) {
+                            return false;
+                        }
+                    } else if( a instanceof MultiSlotSystem ) {
+                        if( CurMech.IsOmnimech() ) {
+                            return false;
+                        }
+                    } else {
+                        // added for code completeness, but this should never happen
+                        return false;
+                    }
+                }
+            } else {
+                return false;
+            }
+        }
         if( DropItem.Empty ) { return false; }
 
         info.setShowDropLocation( true );
