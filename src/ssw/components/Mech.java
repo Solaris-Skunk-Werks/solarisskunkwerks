@@ -777,6 +777,10 @@ public class Mech {
         return RulesLevel;
     }
 
+    public String GetFullName() {
+        return String.format("%1$s %2$s %3$s", GetName(), GetModel(), GetLoadout().GetName()).replace(" " + Constants.BASELOADOUT_NAME, "").replace("  " , " ");
+    }
+
     public int GetDeprecatedLevel() {
         // returns the mech's "level" according to the older rules
         // this is used by Solaris7.com

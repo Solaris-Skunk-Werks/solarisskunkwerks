@@ -2400,6 +2400,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         Prefs.putBoolean("UseA4", useA4paper);
 
         PrinterJob job = PrinterJob.getPrinterJob();
+        job.setJobName(m.GetFullName());
         PrintMech p = new PrintMech( this, m, GetImage( m.GetSSWImage() ), false, useA4paper);
         p.SetPilotData( warriorName, gunnerySkill, pilotingSkill);
         p.SetOptions( printCharts, printPilot, adjustedBV );
