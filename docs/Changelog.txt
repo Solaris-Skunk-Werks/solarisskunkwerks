@@ -35,7 +35,8 @@ Version 0.6.0
 - Added Mech UMUs to the jump jet list.
 - You can now remove items from the Criticals tab (context menu or button for queue)
 - You can now move CASE and certain items around in their locations.
-- Added CASE II.
+- Added CASE II, Reinforced Structure.
+- Added an "All Era (non-canon)" option to the Era chooser.
 
 + Changed
 - Fixed a load bug with heatsinks.

@@ -184,6 +184,9 @@ public class CommonTools {
                         return false;
                     }
                 }
+            case 3:
+                // the "All" era.
+                return true;
             }
         }
 

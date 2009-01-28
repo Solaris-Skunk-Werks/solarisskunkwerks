@@ -410,6 +410,8 @@ public class TXTWriter {
             return Constants.strSUCCESSION;
         case Constants.CLAN_INVASION:
             return Constants.strCLAN_INVASION;
+        case Constants.ALL_ERA:
+            return Constants.strALL_ERA;
         default:
             return "Unknown";
         }

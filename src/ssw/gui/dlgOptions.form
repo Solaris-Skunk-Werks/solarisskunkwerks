@@ -350,10 +350,11 @@
             <Component class="javax.swing.JComboBox" name="cmbDefaultEra">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
+                  <StringArray count="4">
                     <StringItem index="0" value="Age of War/Star League"/>
                     <StringItem index="1" value="Succession Wars"/>
                     <StringItem index="2" value="Clan Invasion"/>
+                    <StringItem index="3" value="All Eras (non canon)"/>
                   </StringArray>
                 </Property>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">

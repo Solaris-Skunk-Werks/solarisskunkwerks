@@ -64,7 +64,6 @@ public class Mech {
                 TechBase,
                 RulesLevel,
                 Tonnage = 20,
-                ChassisBV,
                 WalkMP;
     private float JJMult,
                   ChassisCost,
@@ -2401,6 +2400,20 @@ public class Mech {
         if( CurLoadout.HasSupercharger() ) {
             AC.Combine( CurLoadout.GetSupercharger().GetAvailability() );
         }
+
+        if( HasBlueShield() ) {
+            AC.Combine( BlueShield.GetAvailability() );
+        }
+        if( HasNullSig() ) {
+            AC.Combine( NullSig.GetAvailability() );
+        }
+        if( HasVoidSig() ) {
+            AC.Combine( VoidSig.GetAvailability() );
+        }
+        if( HasChameleon() ) {
+            AC.Combine( Chameleon.GetAvailability() );
+        }
+
         // now adjust for the era.
         if( Era == Constants.SUCCESSION ) {
             // cut out the Star League stuff.

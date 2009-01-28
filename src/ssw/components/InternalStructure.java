@@ -47,12 +47,16 @@ public class InternalStructure extends abPlaceable {
                              ISECQD = new stChassisISECQD(),
                              ISPRBP = new stChassisISPRBP(),
                              ISPRQD = new stChassisISPRQD(),
+                             ISREBP = new stChassisISREBP(),
+                             ISREQD = new stChassisISREQD(),
                              CLMSBP = new stChassisCLMSBP(),
                              CLMSQD = new stChassisCLMSQD(),
                              CLESBP = new stChassisCLESBP(),
                              CLESQD = new stChassisCLESQD(),
                              CLECBP = new stChassisCLECBP(),
-                             CLECQD = new stChassisCLECQD();
+                             CLECQD = new stChassisCLECQD(),
+                             CLREBP = new stChassisCLREBP(),
+                             CLREQD = new stChassisCLREQD();
     private int Placed = 0;
     
     // Constructor
@@ -118,6 +122,16 @@ public class InternalStructure extends abPlaceable {
         Config = ISPRQD;
     }
 
+    public void SetISREBP() {
+        // Set this chassis to an Inner Sphere Reinforced Biped
+        Config = ISREBP;
+    }
+
+    public void SetISREQD() {
+        // Set this chassis to an Inner Sphere Reinforced Quad
+        Config = ISREQD;
+    }
+
     public void SetCLMSQD() {
         // Set this chassis to a Clan Standard Quad
         Config = CLMSQD;
@@ -141,6 +155,16 @@ public class InternalStructure extends abPlaceable {
     public void SetCLECQD() {
         // Set this chassis to a Clan Endo-Composite Quad
         Config = CLECQD;
+    }
+
+    public void SetCLREBP() {
+        // Set this chassis to a Clan Reinforced Biped
+        Config = CLREBP;
+    }
+
+    public void SetCLREQD() {
+        // Set this chassis to a Clan Reinforced Quad
+        Config = CLREQD;
     }
 
     public boolean IsClan() {
@@ -238,7 +262,7 @@ public class InternalStructure extends abPlaceable {
     }
 
     public ifState[] GetStates( boolean biped ) {
-        ifState[] retval = { null, null, null, null, null, null, null };
+        ifState[] retval = { null, null, null, null, null, null, null, null, null };
         if( biped ) {
             retval[0] = (ifState) ISMSBP;
             retval[1] = (ifState) ISESBP;
@@ -248,6 +272,8 @@ public class InternalStructure extends abPlaceable {
             retval[5] = (ifState) ISECBP;
             //retval[6] = (ifState) ISPRBP;
             retval[6] = (ifState) CLECBP;
+            retval[7] = (ifState) ISREBP;
+            retval[8] = (ifState) CLREBP;
         } else {
             retval[0] = (ifState) ISMSQD;
             retval[1] = (ifState) ISESQD;
@@ -257,6 +283,8 @@ public class InternalStructure extends abPlaceable {
             retval[5] = (ifState) ISECQD;
             //retval[6] = (ifState) ISPRQD;
             retval[6] = (ifState) CLECQD;
+            retval[7] = (ifState) ISREQD;
+            retval[8] = (ifState) CLREQD;
         }
         return retval;
     }

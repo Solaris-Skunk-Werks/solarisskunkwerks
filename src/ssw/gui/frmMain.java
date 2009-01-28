@@ -305,6 +305,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         Lookup.put( "Composite Structure", new VChassisSetComposite() );
         Lookup.put( "Endo-Steel", new VChassisSetEndoSteel() );
         Lookup.put( "Endo-Composite", new VChassisSetEndoComposite() );
+        Lookup.put( "Reinforced Structure", new VChassisSetReinforced() );
         Lookup.put( "Standard Cockpit", new VCockpitSetStandard() );
         Lookup.put( "Small Cockpit", new VCockpitSetSmall() );
         Lookup.put( "Fuel-Cell Engine", new VEngineSetFuelCell() );
@@ -1179,6 +1180,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 case 2:
                     chkOmnimech.setEnabled( true );
                     break;
+                case 3:
+                    chkOmnimech.setEnabled( true );
+                    break;
             }
         }
 
@@ -1630,6 +1634,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         case Constants.CLAN_INVASION:
             CurMech.SetYear( 3070, false );
             break;
+        case Constants.ALL_ERA:
+            CurMech.SetYear( 0, false );
+            break;
         }
         if( cmbTechBase.getSelectedIndex() == Constants.CLAN ) {
             CurMech.SetClan();
@@ -1704,6 +1711,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtJJModel.setText( "" );
         txtCommSystem.setText( "" );
         txtTNTSystem.setText( "" );
+
+        if( cmbMechEra.getSelectedIndex() == Constants.ALL_ERA ) {
+            chkYearRestrict.setEnabled( false );
+        } else {
+            chkYearRestrict.setEnabled( true );
+        }
     }
 
     private void GetInfoOn() {
@@ -2400,7 +2413,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         Prefs.putBoolean("UseA4", useA4paper);
 
         PrinterJob job = PrinterJob.getPrinterJob();
-        job.setJobName(m.GetFullName());
+        job.setJobName( m.GetFullName() );
         PrintMech p = new PrintMech( this, m, GetImage( m.GetSSWImage() ), false, useA4paper);
         p.SetPilotData( warriorName, gunnerySkill, pilotingSkill);
         p.SetOptions( printCharts, printPilot, adjustedBV );
@@ -3305,7 +3318,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlBasicInformation.add(lblMechEra, gridBagConstraints);
 
-        cmbMechEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War/Star League", "Succession Wars", "Clan Invasion" }));
+        cmbMechEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War/Star League", "Succession Wars", "Clan Invasion", "All Eras (non-canon)" }));
         cmbMechEra.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbMechEra.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbMechEra.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -8479,6 +8492,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         getContentPane().add(pnlInfoPanel, gridBagConstraints);
 
         mnuFile.setText("File");
+        mnuFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuFileActionPerformed(evt);
+            }
+        });
 
         mnuNewMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK));
         mnuNewMech.setText("New Mech");
@@ -8819,6 +8837,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 txtProdYear.setText( "" );
                 CurMech.SetEra( Constants.CLAN_INVASION );
                 CurMech.SetYear( 3070, false );
+                break;
+            case 3:
+                lblEraYears.setText( "Any" );
+                cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
+                txtProdYear.setText( "" );
+                CurMech.SetEra( Constants.ALL_ERA );
+                CurMech.SetYear( 0, false );
+                chkYearRestrict.setEnabled( false );
                 break;
         }
 
@@ -10549,6 +10575,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         return;
                     }
                     break;
+                case 3:
+                    // all era
+                    chkYearRestrict.setSelected( false );
+                    chkYearRestrict.setEnabled( false );
             }
 
             // we know we have a good year, lock it in.
@@ -11011,6 +11041,12 @@ private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         case 2:
             lblEraYears.setText( "3051 on" );
             cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
+            break;
+        case 3:
+            lblEraYears.setText( "Any" );
+            cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
+            chkYearRestrict.setEnabled( false );
+            chkYearRestrict.setSelected( false );
             break;
     }
 
@@ -11977,6 +12013,10 @@ private void chkLACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         CurMech.ReCalcBaseCost();
         RefreshInfoPane();
 }//GEN-LAST:event_chkLACASE2ActionPerformed
+
+private void mnuFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFileActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_mnuFileActionPerformed
 
 private void setViewToolbar(boolean Visible)
 {

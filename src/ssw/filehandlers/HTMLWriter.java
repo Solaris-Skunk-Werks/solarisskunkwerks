@@ -1158,6 +1158,9 @@ public class HTMLWriter {
         case Constants.EXPERIMENTAL:
             lookup.put( "<+-SSW_RULES_LEVEL-+>", "Experimental Tech" );
             break;
+        case Constants.ALL_ERA:
+            lookup.put( "<+-SSW_RULES_LEVEL-+>", "Non-Canon" );
+            break;
         }
         if( CurMech.IsOmnimech() ) {
             lookup.put( "<+-SSW_POD_TONNAGE-+>", "" + ( CurMech.GetTonnage() - CurMech.GetCurrentTons() ) );

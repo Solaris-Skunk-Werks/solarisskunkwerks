@@ -1,6 +1,5 @@
 New equipment to be added
 -------------------------------------------------------------------------------
-- Angel ECM								Equipment  CLAngelECM
 BattleMech Harjel						Equipment  "IS Harjel" "Clan Harjel"
 C3 Boosted Master						Equipment
 C3 Boosted Slave						Equipment
@@ -13,7 +12,6 @@ Drone Operating System					Equipment
 Electronic Warfare Equipment			Equipment
 Laser Insulator							Equipment
 Mine Dispenser							Equipment
-- M-Pod									Equipment  CLMPod  ISMPod
 Recon Camera							Equipment
 Vehicular Drop Chute (Reusable)			Equipment
 
@@ -38,8 +36,6 @@ Improved One-Shot Launcher				Weapon
 New systems to add
 -------------------------------------------------------------------------------
 Mechanical Jump Boosters				? new system  "Jump Booster"
-- UMU										Jump Jet  ISUMU CLUMU
-CASE II									? new system  ISCASEII CLCASEII
 Cockpit Command Console					Cockpit
 Torso-Mounted Cockpit					Cockpit
 Large ICE								Engine
@@ -49,7 +45,6 @@ Large XL Fusion							Engine
 Large XXL Fusion						Engine
 Compact Heat Sinks						Heat Sink  "IS1 Compact Heat Sink" "IS2 Compact Heat Sink"
 Laser Heat Sinks						Heat Sink  "CLLaser Heat Sink"
-Reinforced Structure					Chassis
 Turret, Shoulder						? new system
 Turret, Head							? new system
 Turret, Quad							? new system
@@ -61,10 +56,8 @@ Actuator Enhancement System (arm)		? New System  ISAES CLAES
 Actuator Enhancement System (leg)		? New system  ISAES CLAES
 Partial Wing							? new system
 Booby Trap								? new system
-- Chameleon LPS							? new system  ChameleonLightPolarizationField
 Full-Head Ejection System				? new system
 Mechwarrior Aquatic Survival System		? new system
-- Null Signature System					? new system  NullSignatureSystem
 
 
 New missile systems to add

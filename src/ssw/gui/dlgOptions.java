@@ -494,7 +494,7 @@ public class dlgOptions extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
         pnlEquipOptions.add(jLabel8, gridBagConstraints);
 
-        cmbDefaultEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War/Star League", "Succession Wars", "Clan Invasion" }));
+        cmbDefaultEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War/Star League", "Succession Wars", "Clan Invasion", "All Eras (non canon)" }));
         cmbDefaultEra.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbDefaultEra.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbDefaultEra.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -1113,6 +1113,9 @@ public class dlgOptions extends javax.swing.JDialog {
             cmbDefaultTechbase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
             break;
         case Constants.CLAN_INVASION:
+            cmbDefaultTechbase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
+            break;
+        case Constants.ALL_ERA:
             cmbDefaultTechbase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
             break;
         }
