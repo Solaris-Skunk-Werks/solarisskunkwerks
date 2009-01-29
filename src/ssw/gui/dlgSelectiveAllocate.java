@@ -138,8 +138,8 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
         lblRLQuant = new javax.swing.JLabel();
         spnRLCrits = new javax.swing.JSpinner();
         jPanel1 = new javax.swing.JPanel();
-        btnCancel = new javax.swing.JButton();
         btnOkay = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         lblItemCrits = new javax.swing.JLabel();
         lblAllocateItem = new javax.swing.JLabel();
 
@@ -325,14 +325,6 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
         gridBagConstraints.gridy = 3;
         getContentPane().add(pnlRL, gridBagConstraints);
 
-        btnCancel.setText("Cancel");
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnCancel);
-
         btnOkay.setText("Okay");
         btnOkay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -340,6 +332,14 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
             }
         });
         jPanel1.add(btnOkay);
+
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCancel);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

@@ -154,8 +154,8 @@ public class dlgPostToSolaris7 extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         cmbTROYear = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
-        btnCancel = new javax.swing.JButton();
         btnPost = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         btnGetArmories = new javax.swing.JButton();
 
@@ -301,14 +301,6 @@ public class dlgPostToSolaris7 extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(jPanel2, gridBagConstraints);
 
-        btnCancel.setText("Cancel");
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btnCancel);
-
         btnPost.setText("Post Mech");
         btnPost.setEnabled(false);
         btnPost.addActionListener(new java.awt.event.ActionListener() {
@@ -317,6 +309,14 @@ public class dlgPostToSolaris7 extends javax.swing.JDialog {
             }
         });
         jPanel3.add(btnPost);
+
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnCancel);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

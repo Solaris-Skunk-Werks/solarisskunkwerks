@@ -60,8 +60,8 @@ public class dlgOmniBase extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         txtLoadoutName = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        btnCancel = new javax.swing.JButton();
         Okay = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -95,14 +95,6 @@ public class dlgOmniBase extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(txtLoadoutName, gridBagConstraints);
 
-        btnCancel.setText("Cancel");
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnCancel);
-
         Okay.setText("Okay");
         Okay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,6 +102,14 @@ public class dlgOmniBase extends javax.swing.JDialog {
             }
         });
         jPanel1.add(Okay);
+
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCancel);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

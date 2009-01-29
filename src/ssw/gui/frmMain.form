@@ -4314,6 +4314,9 @@
                       <Events>
                         <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="lstSelectedEquipmentValueChanged"/>
                       </Events>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="lstSelectedEquipment.setCellRenderer( new EquipmentListRenderer( this ) );"/>
+                      </AuxValues>
                     </Component>
                   </SubComponents>
                 </Container>

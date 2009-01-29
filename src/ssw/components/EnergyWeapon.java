@@ -42,7 +42,8 @@ public class EnergyWeapon extends abPlaceable implements ifWeapon {
                     MountedRear = false,
                     Fusion = false,
                     Nuclear = false,
-                    UseCapacitor = false;
+                    UseCapacitor = false,
+                    Explosive = false;
     private int Heat = 0,
                 DamSht = 0,
                 DamMed = 0,
@@ -250,8 +251,11 @@ public class EnergyWeapon extends abPlaceable implements ifWeapon {
     }
 
     public boolean IsExplosive() {
-        // no canon energy weapon is explosive
-        return false;
+        return Explosive;
+    }
+
+    public void SetExplosive( boolean b ) {
+        Explosive = b;
     }
 
     public boolean HasCapacitor() {

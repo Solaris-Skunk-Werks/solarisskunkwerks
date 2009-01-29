@@ -233,8 +233,8 @@ public class dlgBrowseS7Images extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         cmbImageList = new javax.swing.JComboBox();
         jPanel1 = new javax.swing.JPanel();
-        brnCancel = new javax.swing.JButton();
         btnUseImage = new javax.swing.JButton();
+        brnCancel = new javax.swing.JButton();
         lblImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -262,14 +262,6 @@ public class dlgBrowseS7Images extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 2, 0);
         getContentPane().add(cmbImageList, gridBagConstraints);
 
-        brnCancel.setText("Cancel");
-        brnCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                brnCancelActionPerformed(evt);
-            }
-        });
-        jPanel1.add(brnCancel);
-
         btnUseImage.setText("Use Image");
         btnUseImage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -277,6 +269,14 @@ public class dlgBrowseS7Images extends javax.swing.JDialog {
             }
         });
         jPanel1.add(btnUseImage);
+
+        brnCancel.setText("Cancel");
+        brnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                brnCancelActionPerformed(evt);
+            }
+        });
+        jPanel1.add(brnCancel);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

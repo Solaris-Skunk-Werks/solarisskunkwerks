@@ -465,7 +465,7 @@ public class WeaponFactory {
         addPW = new PhysicalWeapon( "Sword", "Sword", Owner, a );
         addPW.SetStats( 0.05f, 0.06666f, 0.0f, 0 );
         addPW.SetDamage( 0.1f, 1 );
-        addPW.SetSpecials( "PA", "-", 10000.0f, 0.0f, 1.725f, 0.0f, 0.0f, false );
+        addPW.SetSpecials( "PA", "-", 10000.0f, 0.0f, 1.725f, 0.0f, 0.0f, true );
         addPW.SetToHit( -2, -2, -2 );
         ISPW.add( addPW );
 
@@ -2100,7 +2100,7 @@ public class WeaponFactory {
         addPW = new PhysicalWeapon( "Sword", "Sword", Owner, a );
         addPW.SetStats( 0.05f, 0.06666f, 0.0f, 0 );
         addPW.SetDamage( 0.1f, 1 );
-        addPW.SetSpecials( "PA", "-", 10000.0f, 0.0f, 1.725f, 0.0f, 0.0f, false );
+        addPW.SetSpecials( "PA", "-", 10000.0f, 0.0f, 1.725f, 0.0f, 0.0f, true );
         addPW.SetToHit( -2, -2, -2 );
         ISPW.add( addPW );
 
@@ -2468,6 +2468,7 @@ public class WeaponFactory {
         addEW.SetSpecials( "-", false, false, 0, 0, true );
         addEW.SetStats( 0.5f, 1, 30000.0f, 19.0f, 0.0f );
         addEW.SetToHit( 0, 0, 0 );
+        addEW.SetExplosive( true );
         CLEW.add( addEW  );
 
         // improved clan heavy medium laser
@@ -2479,6 +2480,7 @@ public class WeaponFactory {
         addEW.SetSpecials( "-", false, false, 0, 0, true );
         addEW.SetStats( 1.0f, 2, 150000.0f, 93.0f, 0.0f );
         addEW.SetToHit( 0, 0, 0 );
+        addEW.SetExplosive( true );
         CLEW.add( addEW  );
 
         // improved clan heavy large laser
@@ -2490,6 +2492,7 @@ public class WeaponFactory {
         addEW.SetSpecials( "-", false, false, 0, 0, true );
         addEW.SetStats( 4.0f, 3, 400000.0f, 296.0f, 0.0f );
         addEW.SetToHit( 0, 0, 0 );
+        addEW.SetExplosive( true );
         CLEW.add( addEW  );
 
         // small chem laser

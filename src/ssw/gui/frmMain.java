@@ -1711,6 +1711,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtJJModel.setText( "" );
         txtCommSystem.setText( "" );
         txtTNTSystem.setText( "" );
+        ImageIcon FluffImage= Utils.createImageIcon( Constants.NO_IMAGE );
+        lblFluffImage.setIcon( FluffImage );
 
         if( cmbMechEra.getSelectedIndex() == Constants.ALL_ERA ) {
             chkYearRestrict.setEnabled( false );
@@ -5735,6 +5737,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 lstSelectedEquipmentValueChanged(evt);
             }
         });
+        lstSelectedEquipment.setCellRenderer( new EquipmentListRenderer( this ) );
         jScrollPane23.setViewportView(lstSelectedEquipment);
 
         pnlSelected.add(jScrollPane23);
@@ -8744,6 +8747,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         getScaledInstance(-1, 350, Image.SCALE_DEFAULT));
                 }
             }
+        } else {
+            FluffImage = Utils.createImageIcon( Constants.NO_IMAGE );
         }
 
         // add the image to the fluff image label
@@ -11113,7 +11118,12 @@ private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     ResetAmmo();
 
     // load the fluff image.
-    ImageIcon FluffImage = new ImageIcon( CurMech.GetSSWImage() );
+    ImageIcon FluffImage = null;
+    if( CurMech.GetSSWImage().equals( Constants.NO_IMAGE ) ) {
+        FluffImage = Utils.createImageIcon( Constants.NO_IMAGE );
+    } else {
+        FluffImage = new ImageIcon( CurMech.GetSSWImage() );
+    }
     // See if we need to scale
     int h = FluffImage.getIconHeight();
     int w = FluffImage.getIconWidth();
@@ -11674,7 +11684,12 @@ private void ReloadMech()
     ResetAmmo();
 
     // load the fluff image.
-    ImageIcon FluffImage = new ImageIcon( CurMech.GetSSWImage() );
+    ImageIcon FluffImage = null;
+    if( CurMech.GetSSWImage().equals( Constants.NO_IMAGE ) ) {
+        FluffImage = Utils.createImageIcon( Constants.NO_IMAGE );
+    } else {
+        FluffImage = new ImageIcon( CurMech.GetSSWImage() );
+    }
     // See if we need to scale
     int h = FluffImage.getIconHeight();
     int w = FluffImage.getIconWidth();

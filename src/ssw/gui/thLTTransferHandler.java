@@ -104,8 +104,25 @@ public class thLTTransferHandler extends TransferHandler {
                         if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().GetSupercharger() == a ) {
                             return false;
                         }
-                    } else if( a instanceof MultiSlotSystem || a instanceof Engine ) {
+                    } else if( a instanceof MultiSlotSystem ) {
                         if( CurMech.IsOmnimech() ) {
+                            return false;
+                        }
+                    } else if( a instanceof Engine ) {
+                        if( CurMech.IsOmnimech() ) {
+                            return false;
+                        }
+                        // get the side torso crit size so we can check for non-
+                        // moveable items.  This'll probably piss some people off
+                        int Size = CurMech.GetEngine().GetSideTorsoCrits();
+                        abPlaceable[] Loc = CurMech.GetLoadout().GetCrits( Constants.LOC_LT );
+                        try {
+                            for( int i = 0; i < Size; i++ ) {
+                                if( Loc[dindex + i].LocationLocked() || Loc[dindex + i].LocationLinked() ) {
+                                    return false;
+                                }
+                            }
+                        } catch( Exception e ) {
                             return false;
                         }
                     } else {
