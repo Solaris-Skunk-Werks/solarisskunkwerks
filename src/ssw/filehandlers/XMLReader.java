@@ -111,13 +111,27 @@ public class XMLReader {
             m.Visit( v );
         }
         n = d.getElementsByTagName( "engine" );
+        map = n.item( 0 ).getAttributes();
+        LocationIndex[] lengine = { null, null };
+        if( map.getNamedItem( "lsstart" ) != null ) {
+            l = new LocationIndex();
+            l.Index = Integer.parseInt( map.getNamedItem( "lsstart" ).getTextContent() );
+            l.Location = Constants.LOC_LT;
+            lengine[0] = l;
+        }
+        if( map.getNamedItem( "rsstart" ) != null ) {
+            l = new LocationIndex();
+            l.Index = Integer.parseInt( map.getNamedItem( "rsstart" ).getTextContent() );
+            l.Location = Constants.LOC_RT;
+            lengine[1] = l;
+        }
         v = Parent.Lookup( n.item( 0 ).getTextContent() );
         if( v == null ) {
             throw new Exception( "The Engine type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
         } else {
+            v.LoadLocations( lengine );
             m.Visit( v );
         }
-        map = n.item( 0 ).getAttributes();
         m.SetEngineRating( Integer.parseInt( map.getNamedItem( "rating" ).getTextContent() ) );
         m.SetEngineManufacturer( FileCommon.DecodeFluff( map.getNamedItem( "manufacturer" ).getTextContent() ) );
         n = d.getElementsByTagName( "cockpit" );

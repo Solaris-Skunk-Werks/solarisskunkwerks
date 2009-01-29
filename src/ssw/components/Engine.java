@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
+import ssw.Constants;
 import ssw.states.*;
 
 public class Engine extends abPlaceable {
@@ -331,6 +332,153 @@ public class Engine extends abPlaceable {
             // Now allocate the LT engine crits
             try {
                 l.AddToLT( this, 0 );
+            } catch ( Exception e ) {
+                // no matter what the exception says, this is bad.  Let the mech
+                // handle this (probably by completely clearing the loadout).
+                // no matter what the exception says, this is bad.  Let the mech
+                // handle this (probably by completely clearing the loadout).
+                abPlaceable[] a = l.GetLTCrits();
+                for( int i = 0; i < CurConfig.GetSideTorsoCrits(); i++ ) {
+                    l.UnallocateAll( a[i], true );
+                }
+                try {
+                    l.AddToLT( this, 0 );
+                } catch ( Exception f ) {
+                    return false;
+                }
+            }
+        }
+
+        // looks like everything worked out fine
+        return true;
+    }
+
+    @Override
+    public boolean Place( ifLoadout l, LocationIndex[] Locs ) {
+        // Override the placement method for the superclass.
+        // First, ensure we're fooling the loadout for CT placement.
+        FoolLoadoutCT = true;
+
+        // Place the first block.  This is the easy one.
+        try {
+            l.AddToCT( this, 0 );
+        } catch ( Exception e ) {
+            // something is taking the engine's spot.  Blow out whatever's there
+            abPlaceable[] a = l.GetCTCrits();
+            for( int i = 0; i < 2; i++ ) {
+                l.UnallocateAll( a[i], true );
+            }
+            try {
+                l.AddToCT( this, 0 );
+            } catch ( Exception f ) {
+                // what?  well, report it.
+                return false;
+            }
+        }
+
+        // Figure out how many times to place this engine in the CT and do it.
+        if( CurConfig.NumCTBlocks() == 2 ) {
+            // try the first block, used when we have a compact gyro
+            try {
+                l.AddToCT( this, 5 );
+            } catch ( Exception e1 ) {
+                // Move on to the next index, which is for standard gyros
+                if( ! ( l.GetCTCrits()[5] instanceof Gyro ) ) {
+                    // not a gyro there.  blow it out and reinstall
+                    abPlaceable[] a = l.GetCTCrits();
+                    for( int i = 5; i < NumCrits() + 5; i++ ) {
+                        l.UnallocateAll( a[i], true );
+                    }
+                    try {
+                        l.AddToCT( this, 5 );
+                    } catch ( Exception f ) {
+                        return false;
+                    }
+                } else {
+                    try {
+                        l.AddToCT( this, 7 );
+                    } catch ( Exception e2 ) {
+                        if( ! ( l.GetCTCrits()[7] instanceof Gyro ) ) {
+                            // not a gyro there.  blow it out and reinstall
+                            abPlaceable[] a = l.GetCTCrits();
+                            for( int i = 7; i < NumCrits() + 7; i++ ) {
+                                l.UnallocateAll( a[i], true );
+                            }
+                            try {
+                                l.AddToCT( this, 7 );
+                            } catch ( Exception f ) {
+                                return false;
+                            }
+                        } else {
+                            // Move on to the next index, which is for extra-light gyros
+                            try {
+                                l.AddToCT( this, 9 );
+                            } catch ( Exception e3 ) {
+                                // something is taking the engine's spot. Blow it out
+                                abPlaceable[] a = l.GetCTCrits();
+                                for( int i = 9; i < 12; i++ ) {
+                                    l.UnallocateAll( a[i], true );
+                                }
+                                try {
+                                    l.AddToCT( this, 9 );
+                                } catch ( Exception f ) {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // CT slots have been placed, time to do the side torsos, if any.
+        if( CurConfig.GetSideTorsoCrits() > 0 ) {
+            // Fool the loadout
+            FoolLoadoutCT = false;
+
+            // do we have a RT or LT Index?  If not, use the normal method
+            int ltindex = -1;
+            int rtindex = -1;
+
+            for( int i = 0; i < Locs.length; i++ ) {
+                if( Locs[i] != null ) {
+                    if( Locs[i].Location == Constants.LOC_LT ) {
+                        if( Locs[i].Index >= 0 ) {
+                            ltindex = Locs[i].Index;
+                        }
+                    }
+                    if( Locs[i].Location == Constants.LOC_RT ) {
+                        if( Locs[i].Index >= 0 ) {
+                            rtindex = Locs[i].Index;
+                        }
+                    }
+                }
+            }
+
+            if( rtindex == -1 ) { rtindex = 0; }
+
+            // Allocate the RT engine crits.
+            try {
+                l.AddToRT( this, rtindex );
+            } catch ( Exception e ) {
+                // no matter what the exception says, this is bad.  Let the mech
+                // handle this (probably by completely clearing the loadout).
+                abPlaceable[] a = l.GetRTCrits();
+                for( int i = 0; i < CurConfig.GetSideTorsoCrits(); i++ ) {
+                    l.UnallocateAll( a[i], true );
+                }
+                try {
+                    l.AddToRT( this, 0 );
+                } catch ( Exception f ) {
+                    return false;
+                }
+            }
+
+            if( ltindex == -1 ) { ltindex = 0; }
+
+            // Now allocate the LT engine crits
+            try {
+                l.AddToLT( this, ltindex );
             } catch ( Exception e ) {
                 // no matter what the exception says, this is bad.  Let the mech
                 // handle this (probably by completely clearing the loadout).

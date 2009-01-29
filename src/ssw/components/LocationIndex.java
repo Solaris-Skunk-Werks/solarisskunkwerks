@@ -35,4 +35,15 @@ public class LocationIndex {
     public int Location = -1;
     public int Number = -1; // used for contiguous split items.  otherwise
                             // should be ignored
+
+    public void SetFirst( LocationIndex l ) {
+        // this method determines if the given index is before the one given
+        // and then sets the index accordingly.  If the locations do not match,
+        // the given index is ddiscarded.
+        if( l.Location == Location ) {
+            if( l.Index < Index &! ( l.Index == -1 ) ) {
+                Index = l.Index;
+            }
+        }
+    }
 }

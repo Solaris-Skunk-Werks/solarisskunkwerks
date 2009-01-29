@@ -33,9 +33,10 @@ import ssw.components.*;
 
 public class VEngineSetLightFusion implements ifVisitor {
     private Mech CurMech;
+    LocationIndex[] Locs = null;
 
-    public void LoadLocations(LocationIndex[] locs) {
-        // does nothing here, but may later.
+    public void LoadLocations( LocationIndex[] locs ) {
+        Locs = locs;
     }
 
     public void Visit(Mech m) {
@@ -70,7 +71,11 @@ public class VEngineSetLightFusion implements ifVisitor {
         }
 
         // place the engine
-        e.Place(l);
+        if( Locs == null ) {
+            e.Place( l );
+        } else {
+            e.Place( l, Locs );
+        }
 
         // try to reinstall the Supercharger
         if( SChargerInstalled ) {

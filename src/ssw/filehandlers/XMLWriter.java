@@ -91,7 +91,20 @@ public class XMLWriter {
         FR.write( tab + "</structure>" );
         FR.newLine();
 
-        FR.write( tab + "<engine rating=\"" + CurMech.GetEngine().GetRating() + "\" manufacturer=\"" + FileCommon.EncodeFluff( CurMech.GetEngineManufacturer() ) + "\">" + CurMech.GetEngine().GetLookupName() + "</engine>" );
+        Vector engineLocs = CurMech.GetLoadout().FindIndexes( CurMech.GetEngine() );
+        LocationIndex ls = new LocationIndex();
+        LocationIndex rs = new LocationIndex();
+        ls.Location = Constants.LOC_LT;
+        ls.Index = 12;
+        rs.Location = Constants.LOC_RT;
+        rs.Index = 12;
+        for( int i = 0; i < engineLocs.size(); i++ ) {
+            ls.SetFirst( ((LocationIndex) engineLocs.get( i )) );
+            rs.SetFirst( ((LocationIndex) engineLocs.get( i )) );
+        }
+        if( ls.Index == 12 ) { ls.Index = -1; }
+        if( rs.Index == 12 ) { rs.Index = -1; }
+        FR.write( tab + "<engine rating=\"" + CurMech.GetEngine().GetRating() + "\" manufacturer=\"" + FileCommon.EncodeFluff( CurMech.GetEngineManufacturer() ) + "\" lsstart=\"" + ls.Index + "\" rsstart=\"" + rs.Index + "\">" + CurMech.GetEngine().GetLookupName() + "</engine>" );
         FR.newLine();
 
         FR.write( tab + "<gyro>" + CurMech.GetGyro().GetLookupName() + "</gyro>" );
