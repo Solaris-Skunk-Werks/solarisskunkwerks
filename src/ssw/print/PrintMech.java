@@ -984,10 +984,14 @@ public class PrintMech implements Printable {
     }
 
     private void DrawNonCritable( Graphics2D graphics, String Item, int X, int Y ) {
-        graphics.setFont( ItalicFont );
+        // save the old font
+        Font OldFont = graphics.getFont();
+
+        // set the new font
+        graphics.setFont( OldFont.deriveFont( Font.ITALIC ) );
         graphics.setColor( Grey );
         graphics.drawString( Item, X, Y );
-        graphics.setFont( PlainFont );
+        graphics.setFont( OldFont );
         graphics.setColor( Black );
     }
 

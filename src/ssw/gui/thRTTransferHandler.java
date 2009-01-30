@@ -115,7 +115,7 @@ public class thRTTransferHandler extends TransferHandler {
                         // get the side torso crit size so we can check for non-
                         // moveable items.  This'll probably piss some people off
                         int Size = CurMech.GetEngine().GetSideTorsoCrits();
-                        abPlaceable[] Loc = CurMech.GetLoadout().GetCrits( Constants.LOC_LT );
+                        abPlaceable[] Loc = CurMech.GetLoadout().GetCrits( Constants.LOC_RT );
                         try {
                             for( int i = 0; i < Size; i++ ) {
                                 if( Loc[dindex + i].LocationLocked() || Loc[dindex + i].LocationLinked() ) {

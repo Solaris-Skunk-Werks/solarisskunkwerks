@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
+import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -80,6 +81,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     Hashtable Lookup = new Hashtable();
     Preferences Prefs;
     boolean Load = false;
+    private Cursor Hourglass = new Cursor( Cursor.WAIT_CURSOR );
+    private Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
 
     final int BALLISTIC = 0,
               ENERGY = 1,
@@ -10912,6 +10915,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
 	private void mnuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSaveActionPerformed
         // Solidify the mech first.
+        setCursor( Hourglass );
+        
         SolidifyMech();
 
         if( ! VerifyMech( evt ) ) {
@@ -11010,6 +11015,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // lastly, if this is an omnimech, reset the display to the last loadout
         cmbOmniVariant.setSelectedItem( CurLoadout );
         cmbOmniVariantActionPerformed( evt );
+
+        setCursor( NormalCursor );
 	}//GEN-LAST:event_mnuSaveActionPerformed
 
 private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLoadActionPerformed
@@ -11118,12 +11125,11 @@ private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     ResetAmmo();
 
     // load the fluff image.
-    ImageIcon FluffImage = null;
-    if( CurMech.GetSSWImage().equals( Constants.NO_IMAGE ) ) {
-        FluffImage = Utils.createImageIcon( Constants.NO_IMAGE );
-    } else {
+    ImageIcon FluffImage = Utils.createImageIcon( Constants.NO_IMAGE );
+    if( ! CurMech.GetSSWImage().equals( Constants.NO_IMAGE ) ) {
         FluffImage = new ImageIcon( CurMech.GetSSWImage() );
     }
+
     // See if we need to scale
     int h = FluffImage.getIconHeight();
     int w = FluffImage.getIconWidth();
@@ -11684,12 +11690,12 @@ private void ReloadMech()
     ResetAmmo();
 
     // load the fluff image.
-    ImageIcon FluffImage = null;
-    if( CurMech.GetSSWImage().equals( Constants.NO_IMAGE ) ) {
-        FluffImage = Utils.createImageIcon( Constants.NO_IMAGE );
-    } else {
+    // load the fluff image.
+    ImageIcon FluffImage = Utils.createImageIcon( Constants.NO_IMAGE );
+    if( ! CurMech.GetSSWImage().equals( Constants.NO_IMAGE ) ) {
         FluffImage = new ImageIcon( CurMech.GetSSWImage() );
     }
+
     // See if we need to scale
     int h = FluffImage.getIconHeight();
     int w = FluffImage.getIconWidth();
