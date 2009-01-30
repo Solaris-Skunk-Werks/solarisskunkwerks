@@ -32,7 +32,10 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         cmbGunnery.setSelectedIndex( 4 );
         cmbPiloting.setSelectedIndex( 5 );
         txtMechName.setText(CurMech.GetName());
-        txtMechModel.setText(CurMech.GetModel());
+        if (CurMech.GetModel().isEmpty())
+            txtMechName.setText(CurMech.GetName());
+        else
+            txtMechName.setText(CurMech.GetName() + " " + CurMech.GetName());
         if( CurMech.IsOmnimech()){
             Vector Loadouts = CurMech.GetLoadouts();
             ifLoadout tempLoadout;
@@ -82,10 +85,10 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         cmbPaperSize = new javax.swing.JComboBox();
         cmbOmniVariant = new javax.swing.JComboBox();
-        txtMechModel = new javax.swing.JTextField();
         txtMechName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Print Saved Mech");
 
         txtWarriorName.setMaximumSize(new java.awt.Dimension(150, 20));
         txtWarriorName.setMinimumSize(new java.awt.Dimension(150, 20));
@@ -176,10 +179,6 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
             }
         });
 
-        txtMechModel.setBackground(new java.awt.Color(255, 255, 255));
-        txtMechModel.setEditable(false);
-
-        txtMechName.setBackground(new java.awt.Color(255, 255, 255));
         txtMechName.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -187,39 +186,36 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtMechName, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtMechModel, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtMechName, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                    .addComponent(jLabel3)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtWarriorName, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(chkMWStats))
                         .addGap(4, 4, 4)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(chkAdjustBV)
                         .addGap(22, 22, 22)
                         .addComponent(lblAdjustBVLabel))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(chkPrintCharts)
                         .addGap(26, 26, 26)
                         .addComponent(lblAdjustBV))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(127, 127, 127)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cmbOmniVariant, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(71, Short.MAX_VALUE))
+                    .addComponent(cmbOmniVariant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtMechName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtMechModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbOmniVariant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -242,8 +238,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
                 .addGap(4, 4, 4)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -360,7 +355,6 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblAdjustBV;
     private javax.swing.JLabel lblAdjustBVLabel;
-    private javax.swing.JTextField txtMechModel;
     private javax.swing.JTextField txtMechName;
     private javax.swing.JTextField txtWarriorName;
     // End of variables declaration//GEN-END:variables
