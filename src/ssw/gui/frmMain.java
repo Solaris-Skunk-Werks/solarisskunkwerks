@@ -8598,7 +8598,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jMenu2.add(mnuPrintSavedMech);
 
         mnuPrintBatch.setText("Batch Print Mechs");
-        mnuPrintBatch.setEnabled(false);
+        mnuPrintBatch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuPrintBatchActionPerformed(evt);
+            }
+        });
         jMenu2.add(mnuPrintBatch);
 
         mnuFile.add(jMenu2);
@@ -11523,7 +11527,7 @@ private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//G
     RefreshInfoPane();
 }//GEN-LAST:event_chkSuperchargerActionPerformed
 
-private Mech LoadMech (){
+public Mech LoadMech (){
     Mech m = null;
     
     File tempFile = new File(Prefs.get("LastOpenDirectory", ""));
@@ -12038,6 +12042,13 @@ private void chkLACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 private void mnuFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFileActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_mnuFileActionPerformed
+
+private void mnuPrintBatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintBatchActionPerformed
+    dlgPrintBatchMechs BatchPrint = new dlgPrintBatchMechs (this, true);
+    BatchPrint.setLocationRelativeTo( this );
+    BatchPrint.setVisible( true );
+    BatchPrint.dispose();
+}//GEN-LAST:event_mnuPrintBatchActionPerformed
 
 private void setViewToolbar(boolean Visible)
 {
