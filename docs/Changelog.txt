@@ -38,6 +38,7 @@ Version 0.6.0
 - Added CASE II, Reinforced Structure.
 - Added an "All Era (non-canon)" option to the Era chooser.
 - Item locations are now shown in the Selected Equipment List.
+- Added Batch Print Saved Mechs Feature (ArcAngel)
 
 + Changed
 - Fixed a load bug with heatsinks.
