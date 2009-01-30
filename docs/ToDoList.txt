@@ -31,7 +31,7 @@ To-Do List, in order by what needs to be done
 (4) Include spell-checker
 (4) Text export to a window like the Cost/BV Breakdown.
 - done - (4) Text export directly to clipboard
-(5) Batch Printing (multiple different 'Mechs)
+(5) Batch Printing (multiple different 'Mechs) (Complete)
 (5) Variant controls (like OmniMech controls)
 (5) Allocation shifts items instead of unallocates them.
 (5) Shift loadout equipment to differ from base chassis (OmniMechs)
