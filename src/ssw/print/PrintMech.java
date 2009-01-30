@@ -90,7 +90,6 @@ public class PrintMech implements Printable {
     }
 
     public int print( Graphics graphics, PageFormat pageFormat, int pageIndex ) throws PrinterException {
-        if( pageIndex >= 1 ) { return Printable.NO_SUCH_PAGE; }
         ((Graphics2D) graphics).translate( pageFormat.getImageableX(), pageFormat.getImageableY() );
         if( RecordSheet == null ) {
             return Printable.NO_SUCH_PAGE;
