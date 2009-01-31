@@ -2414,9 +2414,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             adjustedBV = POptions.GetAdjustedBV();
             POptions.dispose();
         }
-
-        Prefs.putBoolean("UseA4", useA4paper);
-
         PrinterJob job = PrinterJob.getPrinterJob();
         job.setJobName( m.GetFullName() );
         PrintMech p = new PrintMech( this, m, GetImage( m.GetSSWImage() ), false, useA4paper);
@@ -8727,10 +8724,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         //(Accept All) file filter.
         fc.addChoosableFileFilter(new ImageFilter());
         fc.setAcceptAllFileFilterUsed(false);
+        if (! Prefs.get("LastImagePath", "").isEmpty() ) {
+            fc.setCurrentDirectory(new File(Prefs.get("LastImagePath", "")));
+        }
 
         //Add custom icons for file types.
-        ImageFileView IFV = new ImageFileView();
-        fc.setFileView( IFV );
+        //ImageFileView IFV = new ImageFileView();
+        //fc.setFileView( IFV );
 
 	//Add the preview pane.
         fc.setAccessory(new ImagePreview(fc));
@@ -8740,22 +8740,30 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         //Process the results.  If no file is chosen, the default is used.
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            FluffImage = new ImageIcon(fc.getSelectedFile().getPath());
+            try
+            {
+                Prefs.put("LastImagePath", fc.getSelectedFile().getCanonicalPath().replace(fc.getSelectedFile().getName(), ""));
+                Prefs.put("LastImageFile", fc.getSelectedFile().getName());
 
-            // See if we need to scale
-            int h = FluffImage.getIconHeight();
-            int w = FluffImage.getIconWidth();
-            if ( w > 290 || h > 350 ) {
-                if ( w > h ) { // resize based on width
-                    FluffImage = new ImageIcon(FluffImage.getImage().
-                        getScaledInstance(290, -1, Image.SCALE_DEFAULT));
-                } else { // resize based on height
-                    FluffImage = new ImageIcon(FluffImage.getImage().
-                        getScaledInstance(-1, 350, Image.SCALE_DEFAULT));
+                FluffImage = new ImageIcon(fc.getSelectedFile().getPath());
+
+                // See if we need to scale
+                int h = FluffImage.getIconHeight();
+                int w = FluffImage.getIconWidth();
+                if ( w > 290 || h > 350 ) {
+                    if ( w > h ) { // resize based on width
+                        FluffImage = new ImageIcon(FluffImage.getImage().
+                            getScaledInstance(290, -1, Image.SCALE_DEFAULT));
+                    } else { // resize based on height
+                        FluffImage = new ImageIcon(FluffImage.getImage().
+                            getScaledInstance(-1, 350, Image.SCALE_DEFAULT));
+                    }
                 }
+            } catch (Exception e) {
+                //break;
             }
         } else {
-            FluffImage = Utils.createImageIcon( Constants.NO_IMAGE );
+            //FluffImage = Utils.createImageIcon( Constants.NO_IMAGE );
         }
 
         // add the image to the fluff image label
@@ -11591,16 +11599,16 @@ private void LoadMechFromPreferences()
         try {
             m = XMLr.ReadMech( this, filename );
             m.ReCalcBaseCost();
+            CurMech = m;
+            ReloadMech();
         } catch( Exception e ) {
             // had a problem loading the mech.  let the user know.
             javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
         }
-        CurMech = m;
-        ReloadMech();
     }
 }
 
-private void ReloadMech()
+public void ReloadMech()
 {
     // added for special situations
     Load = true;

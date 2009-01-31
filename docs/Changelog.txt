@@ -39,6 +39,8 @@ Version 0.6.0
 - Added an "All Era (non-canon)" option to the Era chooser.
 - Item locations are now shown in the Selected Equipment List.
 - Added Batch Print Saved Mechs Feature (ArcAngel)
+- Added Preferences saving for Print Options
+- Added double-click to load mech in SSW to Batch print window
 
 + Changed
 - Fixed a load bug with heatsinks.

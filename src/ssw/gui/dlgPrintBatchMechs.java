@@ -74,6 +74,11 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
         setTitle("Print Multiple Mechs");
 
         lstChoosenMechs.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lstChoosenMechs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstChoosenMechsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(lstChoosenMechs);
 
         btnRemoveMech.setText("Remove Mech");
@@ -121,8 +126,8 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnPrintAll, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
-                            .addComponent(btnAddMech, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnPrintAll, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                            .addComponent(btnAddMech, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnMechDetails)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -161,11 +166,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
                 name += " " + m.GetModel();
             POptions.setLocationRelativeTo( parent );
             POptions.setVisible( true );
-            if (m.IsOmnimech())
-                name += " " + m.GetLoadout().GetName();
-            if (POptions.PrintPilot())
-                name += ", " + POptions.GetWarriorName();
-            mechList.add(new mechData(name, m, POptions));
+            mechList.add(new mechData(BuildMechName(m, POptions), m, POptions));
             lstChoosenMechs.setListData(mechList);
         }
     }//GEN-LAST:event_btnAddMechActionPerformed
@@ -173,6 +174,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
     private void btnPrintAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintAllActionPerformed
         Book pages = new Book();
         PrinterJob job = PrinterJob.getPrinterJob();
+        job.setJobName("SSW Batch Print");
         
         for (int i = 0; i < mechList.size(); ++i){
             mechData current = mechList.get(i);
@@ -226,14 +228,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
         Mech m = selected.m;
         POptions.setLocationRelativeTo( parent );
         POptions.setVisible( true );
-        String name = m.GetName();
-        if (!m.GetModel().isEmpty())
-            name += " " + m.GetModel();
-        if (m.IsOmnimech())
-            name += " " + m.GetLoadout().GetName();
-        if (POptions.PrintPilot())
-            name += ", " + POptions.GetWarriorName();
-        selected.name = name;
+        selected.name = BuildMechName(m, POptions);
     }//GEN-LAST:event_btnMechDetailsActionPerformed
 
     private void btnRemoveMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveMechActionPerformed
@@ -249,6 +244,14 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
         this.setVisible(false);
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    private void lstChoosenMechsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstChoosenMechsMouseClicked
+        if (evt.getClickCount() >= 2) {
+            parent.CurMech = ((mechData) lstChoosenMechs.getSelectedValue()).m;
+            parent.ReloadMech();
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_lstChoosenMechsMouseClicked
+
     public Image GetImage( String filename ) {
         java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
         Image retval = toolkit.getImage( filename );
@@ -261,6 +264,14 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
             return null;
         }
         return retval;
+    }
+
+    private String BuildMechName(Mech m, dlgPrintSavedMechOptions po){
+        String name = m.GetFullName();
+        if (po.PrintPilot()) {
+            name += " [" + po.GetWarriorName() + "]";
+        }
+        return name.replace(" []", "");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

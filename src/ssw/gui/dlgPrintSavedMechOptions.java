@@ -31,11 +31,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         CurMech = m;
         cmbGunnery.setSelectedIndex( 4 );
         cmbPiloting.setSelectedIndex( 5 );
-        txtMechName.setText(CurMech.GetName());
-        if (CurMech.GetModel().isEmpty())
-            txtMechName.setText(CurMech.GetName());
-        else
-            txtMechName.setText(CurMech.GetName() + " " + CurMech.GetName());
+        txtMechName.setText(CurMech.GetFullName());
         if( CurMech.IsOmnimech()){
             Vector Loadouts = CurMech.GetLoadouts();
             ifLoadout tempLoadout;
@@ -51,9 +47,13 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
             cmbOmniVariant.setEnabled(false);
         }
         lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );
+        chkPrintCharts.setSelected(Parent.Prefs.getBoolean("UseCharts", false));
+        chkAdjustBV.setSelected(Parent.Prefs.getBoolean("AdjustPG", false));
+        chkMWStats.setSelected(Parent.Prefs.getBoolean("NoPilot", false));
         if (Parent.Prefs.getBoolean("UseA4", false)) {
             cmbPaperSize.setSelectedIndex(1);
         }
+
     }
 
     /** This method is called from within the constructor to
@@ -253,6 +253,11 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
 }//GEN-LAST:event_chkAdjustBVActionPerformed
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        Parent.Prefs.putBoolean("UseA4", UseA4Paper());
+        Parent.Prefs.putBoolean("UseCharts", chkPrintCharts.isSelected());
+        Parent.Prefs.putBoolean("AdjustPG", chkAdjustBV.isSelected());
+        Parent.Prefs.putBoolean("NoPilot", chkMWStats.isSelected());
+
         Result = true;
         setVisible( false );
 }//GEN-LAST:event_btnPrintActionPerformed
