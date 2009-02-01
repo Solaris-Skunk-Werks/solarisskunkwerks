@@ -21,9 +21,6 @@ New weapons to be added
 Thumper Artillery Cannon				Weapon
 Sniper Artillery Cannon					Weapon
 Long Tom Artillery Cannon				Weapon
-ProtoMech AC/2							Weapon
-ProtoMech AC/4							Weapon
-ProtoMech AC/8							Weapon
 Talons									Weapon  Talons
 Fluid Gun								Weapon
 Mech Mortar/1							Weapon  CLMekMortar1 ISMekMortar1

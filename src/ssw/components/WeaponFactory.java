@@ -3102,6 +3102,39 @@ public class WeaponFactory {
         addBW.SetBallistics( false, false, true, false );
         CLBW.add( addBW  );
 
+        // protomech ac2
+        a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3073, 0, 0, "CBS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        addBW = new BallisticWeapon( "Protomech AC/2", "CLProtoAC2", "DB", true, a );
+        addBW.SetDamage( 2, 2, 2 );
+        addBW.SetHeat( 1 );
+        addBW.SetRange( 0, 7, 14, 20 );
+        addBW.SetSpecials( "S", false, true, 40, 123, true, false );
+        addBW.SetStats( 3.5f, 2, 95000.0f, 34.0f, 0.0f );
+        addBW.SetBallistics( false, false, false, false );
+        CLBW.add( addBW  );
+
+        // protomech ac4
+        a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3073, 0, 0, "CBS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        addBW = new BallisticWeapon( "Protomech AC/4", "CLProtoAC4", "DB", true, a );
+        addBW.SetDamage( 4, 4, 4 );
+        addBW.SetHeat( 1 );
+        addBW.SetRange( 0, 5, 10, 15 );
+        addBW.SetSpecials( "S", false, true, 20, 124, true, false );
+        addBW.SetStats( 4.5f, 3, 133000.0f, 49.0f, 0.0f );
+        addBW.SetBallistics( false, false, false, false );
+        CLBW.add( addBW  );
+
+        // protomech ac8
+        a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3073, 0, 0, "CBS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        addBW = new BallisticWeapon( "Protomech AC/8", "CLProtoAC8", "DB", true, a );
+        addBW.SetDamage( 8, 8, 8 );
+        addBW.SetHeat( 2 );
+        addBW.SetRange( 0, 3, 7, 10 );
+        addBW.SetSpecials( "S", false, true, 10, 125, true, false );
+        addBW.SetStats( 5.5f, 4, 175000.0f, 66.0f, 0.0f );
+        addBW.SetBallistics( false, false, false, false );
+        CLBW.add( addBW  );
+
         // ap gauss rifle
         a = new AvailableCode( true, 'F', 'X', 'X', 'E', 3069, 0, 0, "CJF", "", false, false );
         addBW = new BallisticWeapon( "AP Gauss Rifle", "CLAPGaussRifle", "DB", true, a );
