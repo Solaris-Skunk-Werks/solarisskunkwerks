@@ -31,11 +31,11 @@ package ssw.components;
 import ssw.states.*;
 
 public class PhysicalEnhancement extends abPlaceable {
-    private final static stPEISNone ISNone = new stPEISNone();
-    private final static stPECLNone CLNone = new stPECLNone();
-    private final static stPEISMASC ISMASC = new stPEISMASC();
-    private final static stPEISTSM ISTSM = new stPEISTSM();
-    private final static stPECLMASC CLMASC = new stPECLMASC();
+    private final static ifPhysEnhance ISNone = new stPEISNone(),
+                                       CLNone = new stPECLNone(),
+                                       ISMASC = new stPEISMASC(),
+                                       ISTSM = new stPEISTSM(),
+                                       CLMASC = new stPECLMASC();
     private ifPhysEnhance CurConfig = ISNone;
     private Mech Owner;
     private int Placed = 0;

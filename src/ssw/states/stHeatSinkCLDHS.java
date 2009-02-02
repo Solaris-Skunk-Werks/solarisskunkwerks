@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
+import ssw.Constants;
 import ssw.components.AvailableCode;
 import ssw.components.HeatSink;
 import ssw.components.MechModifier;
@@ -35,6 +36,10 @@ import ssw.components.MechModifier;
 public class stHeatSinkCLDHS implements ifHeatSinkFactory, ifState {
 
     private AvailableCode AC = new AvailableCode( true, 'E', 'X', 'B', 'C', 2567, 0, 0, "TH", "", false, false );
+
+    public stHeatSinkCLDHS() {
+        AC.SetRulesLevelIM( Constants.UNALLOWED );
+    }
 
     public boolean IsClan() {
         return true;

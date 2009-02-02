@@ -103,6 +103,22 @@ public class HeatSinkFactory {
         }
     }
 
+    public void SetISDouble() {
+        CurConfig = ISDHS;
+    }
+
+    public void SetISSingle() {
+        CurConfig = ISSHS;
+    }
+
+    public void SetCLDouble() {
+        CurConfig = CLDHS;
+    }
+
+    public void SetCLSingle() {
+        CurConfig = CLSHS;
+    }
+
     public boolean IsDouble() {
         return CurConfig.IsDouble();
     }

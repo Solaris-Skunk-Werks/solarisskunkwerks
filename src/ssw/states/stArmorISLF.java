@@ -37,7 +37,7 @@ public class stArmorISLF implements ifArmor, ifState {
         3067, 0, 0, "FW", "", false, false );
 
     public stArmorISLF() {
-        AC.SetRulesLevelIM( Constants.UNALLOWED );
+        AC.SetRulesLevelIM( Constants.EXPERIMENTAL );
     }
 
     public String GetLookupName() {

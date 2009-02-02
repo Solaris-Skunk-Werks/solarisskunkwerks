@@ -59,7 +59,7 @@ public class stChassisISIMQD implements ifChassis, ifState {
     private final static AvailableCode AC = new AvailableCode( false, 'C', 'C', 'C', 'C', 2300, 0, 0, "TH", "", false, false );
 
     public stChassisISIMQD() {
-        AC.SetRulesLevelIM( Constants.UNALLOWED );
+        AC.SetRulesLevelBM( Constants.UNALLOWED );
     }
 
     public boolean IsClan() {

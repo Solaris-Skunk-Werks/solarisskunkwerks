@@ -37,7 +37,7 @@ public class stArmorCLFF implements ifArmor, ifState {
         2571, 0, 0, "TH", "", false, false );
 
     public stArmorCLFF() {
-        AC.SetRulesLevelIM( Constants.UNALLOWED );
+        AC.SetRulesLevelIM( Constants.EXPERIMENTAL );
     }
 
     public String GetLookupName() {

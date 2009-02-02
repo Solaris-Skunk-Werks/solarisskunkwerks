@@ -16,7 +16,7 @@ import ssw.components.MechModifier;
 public class stEngineISXXL implements ifEngine, ifState {
     // An Inner Sphere XXL Fusion Engine
     private final static AvailableCode AC = new AvailableCode( false, 'F', 'X', 'X', 'F',
-        3055, 0, 0, "FC", "", false, false, 2582, true, "TH", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        3055, 0, 0, "FC", "", false, false, 2582, true, "TH", Constants.EXPERIMENTAL, Constants.UNALLOWED );
     private final static float[] Masses = {0.5f,0.5f,0.5f,0.5f,0.5f,0.5f,0.5f,
         0.5f,0.5f,0.5f,0.5f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.5f,1.5f,
         1.5f,1.5f,1.5f,1.5f,1.5f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.5f,2.5f,

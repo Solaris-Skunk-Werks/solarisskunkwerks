@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
+import ssw.Constants;
 import ssw.components.*;
 
 public class stCockpitISSmall implements ifCockpit, ifState {
@@ -42,6 +43,10 @@ public class stCockpitISSmall implements ifCockpit, ifState {
     private final static SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support",
         "Life Support", 1, true, AC );
     private final MechModifier MechMod = new MechModifier( 0, 0, 0, 0.0f, 1, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true );
+
+    public stCockpitISSmall() {
+        AC.SetRulesLevelIM( Constants.UNALLOWED );
+    }
 
     public boolean IsClan() {
         return false;

@@ -37,7 +37,7 @@ public class stArmorISST implements ifArmor, ifState {
     private final MechModifier MechMod = new MechModifier( 0, 0, 0, 0.0f, 0, 0, 10, 0.2f, 0.0f, 0.0f, 0.0f, true );
 
     public stArmorISST() {
-        AC.SetRulesLevelIM( Constants.UNALLOWED );
+        AC.SetRulesLevelIM( Constants.EXPERIMENTAL );
     }
 
     public String GetLookupName() {

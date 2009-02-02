@@ -16,7 +16,7 @@ import ssw.components.MechModifier;
 public class stEngineCLXXL implements ifEngine, ifState {
     // A Clan XXL Fusion Engine
     private final static AvailableCode AC = new AvailableCode( true, 'F', 'X', 'X', 'F',
-        2954, 0, 0, "CDS", "", false, false, 2582, true, "TH", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        2954, 0, 0, "CDS", "", false, false, 2582, true, "TH", Constants.EXPERIMENTAL, Constants.UNALLOWED );
     private final static float[] Masses = {0.5f,0.5f,0.5f,0.5f,0.5f,0.5f,0.5f,
         0.5f,0.5f,0.5f,0.5f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.5f,1.5f,
         1.5f,1.5f,1.5f,1.5f,1.5f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.5f,2.5f,

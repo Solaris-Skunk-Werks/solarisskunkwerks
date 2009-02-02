@@ -28,12 +28,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
+import ssw.Constants;
 import ssw.components.*;
 
 public class stPECLMASC implements ifPhysEnhance, ifState {
     private final static AvailableCode AC = new AvailableCode( true, 'E', 'X', 'C', 'D',
         2740, 0, 0, "TH", "", false, false );
     private final MechModifier MechMod = new MechModifier( 0, 0, 0, 0.5f, 0, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true );
+
+    public stPECLMASC() {
+        AC.SetRulesLevelIM( Constants.UNALLOWED );
+    }
 
     public boolean IsClan() {
         return true;

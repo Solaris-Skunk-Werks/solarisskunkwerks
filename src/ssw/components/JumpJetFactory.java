@@ -117,6 +117,31 @@ public class JumpJetFactory {
             CurConfig = ISUMU;
         }
     }
+
+    public void SetISNormal() {
+        CurConfig = ISNJJ;
+    }
+
+    public void SetISImproved() {
+        CurConfig = ISIJJ;
+    }
+
+    public void SetISUMU() {
+        CurConfig = ISUMU;
+    }
+
+    public void SetCLNormal() {
+        CurConfig = CLNJJ;
+    }
+
+    public void SetCLImproved() {
+        CurConfig = CLIJJ;
+    }
+
+    public void SetCLUMU() {
+        CurConfig = CLUMU;
+    }
+
     public boolean IsImproved() {
         return CurConfig.IsImproved();
     }

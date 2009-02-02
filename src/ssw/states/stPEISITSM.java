@@ -29,54 +29,81 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.states;
 
 import ssw.Constants;
-import ssw.components.AvailableCode;
-import ssw.components.JumpJet;
-import ssw.components.MechModifier;
+import ssw.components.*;
 
-public class stJumpJetCLIJJ implements ifJumpJetFactory, ifState {
-    private AvailableCode AC = new AvailableCode( true, 'E', 'X', 'X', 'D', 3069, 0, 0, "CWF", "", false, false );
+public class stPEISITSM implements ifPhysEnhance, ifState {
+    private final static AvailableCode AC = new AvailableCode( false, 'E', 'X', 'F', 'E', 3045, 0, 0, "FC", "", false, false );
 
-    public stJumpJetCLIJJ() {
-        AC.SetRulesLevelIM( Constants.UNALLOWED );
+    public stPEISITSM() {
+        AC.SetRulesLevelBM( Constants.UNALLOWED );
     }
 
     public boolean IsClan() {
-        return true;
-    }
-
-    public boolean IsImproved() {
-        return true;
-    }
-
-    public boolean IsUMU() {
         return false;
     }
 
-    public JumpJet GetJumpJet() {
-        return new JumpJet( "Improved Jump Jet", "CLImprovedJump Jet",  2, AC );
+    public int GetTonnage( int mechtons ) {
+        return 0;
+    }
+    
+    public int GetCrits( int mechtons ) {
+        return 12;
     }
 
-    public float GetCost() {
-        return 500.0f;
+    public String GetLookupName() {
+        return "Industrial TSM";
     }
 
-    public float GetTonnage() {
-        return 2.0f;
+    public String GetCritName() {
+        return "Industrial TSM";
     }
 
-    public int GetNumCrits() {
-        return 2;
+    public String GetMMName() {
+        return "Industrial Triple Strength Myomer";
+    }
+
+    public boolean Contiguous() {
+        return false;
+    }
+
+    public boolean CanArmor() {
+        return false;
+    }
+
+    public float GetCost( int mechtons, float enginetons ) {
+        return 12000 * mechtons;
+    }
+    
+    public float GetOffensiveBV( int Tonnage ) {
+        return Tonnage * 1.15f;
+    }
+
+    public float GetDefensiveBV( int Tonnage ) {
+        return 0.0f;
+    }
+
+    public boolean IncrementPlaced() {
+        return true;
+    }
+
+    public boolean DecrementPlaced() {
+        return true;
     }
 
     public AvailableCode GetAvailability() {
         return AC;
+    }
+    
+    public boolean IsCritable() {
+        return false;
     }
 
     public MechModifier GetMechModifier() {
         return null;
     }
 
-    public String GetLookupName() {
-        return "Improved Jump Jet";
+    @Override
+    public String toString() {
+        return "Industrial TSM";
     }
 }

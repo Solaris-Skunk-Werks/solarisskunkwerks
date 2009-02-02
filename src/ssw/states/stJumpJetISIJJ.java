@@ -28,12 +28,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
+import ssw.Constants;
 import ssw.components.AvailableCode;
 import ssw.components.JumpJet;
 import ssw.components.MechModifier;
 
 public class stJumpJetISIJJ implements ifJumpJetFactory, ifState {
     private AvailableCode AC = new AvailableCode( false, 'E', 'X', 'X', 'E', 3069, 0, 0, "CWX", "", false, false );
+
+    public stJumpJetISIJJ() {
+        AC.SetRulesLevelIM( Constants.UNALLOWED );
+    }
 
     public boolean IsClan() {
         return false;
