@@ -2698,7 +2698,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         btnNewIcon = new javax.swing.JButton();
         btnOpen = new javax.swing.JButton();
         btnSaveIcon = new javax.swing.JButton();
+        jSeparator24 = new javax.swing.JToolBar.Separator();
         btnPrintIcon = new javax.swing.JButton();
+        btnPrintSaved = new javax.swing.JButton();
+        btnPrintBatch = new javax.swing.JButton();
         jSeparator22 = new javax.swing.JToolBar.Separator();
         btnExportClipboardIcon = new javax.swing.JButton();
         btnExportHTMLIcon = new javax.swing.JButton();
@@ -3235,9 +3238,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         tlbIconBar.add(btnSaveIcon);
+        tlbIconBar.add(jSeparator24);
 
         btnPrintIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/action_print.gif"))); // NOI18N
-        btnPrintIcon.setToolTipText("Print Mech");
+        btnPrintIcon.setToolTipText("Print Current Mech");
         btnPrintIcon.setFocusable(false);
         btnPrintIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPrintIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -3247,6 +3251,28 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         tlbIconBar.add(btnPrintIcon);
+
+        btnPrintSaved.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/action_print_saved.gif"))); // NOI18N
+        btnPrintSaved.setFocusable(false);
+        btnPrintSaved.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPrintSaved.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPrintSaved.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintSavedActionPerformed(evt);
+            }
+        });
+        tlbIconBar.add(btnPrintSaved);
+
+        btnPrintBatch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/action_print_batch.gif"))); // NOI18N
+        btnPrintBatch.setFocusable(false);
+        btnPrintBatch.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPrintBatch.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPrintBatch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintBatchActionPerformed(evt);
+            }
+        });
+        tlbIconBar.add(btnPrintBatch);
         tlbIconBar.add(jSeparator22);
 
         btnExportClipboardIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_tag_blue.gif"))); // NOI18N
@@ -11960,6 +11986,14 @@ private void mnuPrintBatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     BatchPrint.dispose();
 }//GEN-LAST:event_mnuPrintBatchActionPerformed
 
+private void btnPrintSavedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintSavedActionPerformed
+    mnuPrintSavedMechActionPerformed(evt);
+}//GEN-LAST:event_btnPrintSavedActionPerformed
+
+private void btnPrintBatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintBatchActionPerformed
+    mnuPrintBatchActionPerformed(evt);
+}//GEN-LAST:event_btnPrintBatchActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -11997,7 +12031,9 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JButton btnNewIcon;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnOptionsIcon;
+    private javax.swing.JButton btnPrintBatch;
     private javax.swing.JButton btnPrintIcon;
+    private javax.swing.JButton btnPrintSaved;
     private javax.swing.JButton btnRemainingArmor;
     private javax.swing.JButton btnRemoveEquip;
     private javax.swing.JButton btnRemoveItemCrits;
@@ -12178,6 +12214,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JToolBar.Separator jSeparator21;
     private javax.swing.JToolBar.Separator jSeparator22;
     private javax.swing.JToolBar.Separator jSeparator23;
+    private javax.swing.JToolBar.Separator jSeparator24;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
