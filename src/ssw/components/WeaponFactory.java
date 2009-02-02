@@ -2768,18 +2768,18 @@ public class WeaponFactory {
 
         // clan streak lrm-5
         a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3057, 0, 0, "CCY", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        addMW = new MissileWeapon( "Streak LRM-5", "CLSreakLRM5", "M", true, a );
+        addMW = new MissileWeapon( "Streak LRM-5", "CLStreakLRM5", "M", true, a );
         addMW.SetDamage( 1, 1, 1 );
         addMW.SetHeat( 2 );
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/5", false, true, 24, 119, false );
-        addMW.SetStats( 1.0f, 1, 75000.0f, 86.0f, 0.0f );
+        addMW.SetStats( 2.0f, 1, 75000.0f, 86.0f, 0.0f );
         addMW.SetMissile( 5, 5, false, true, false );
         CLMW.add( addMW  );
 
         // clan streak lrm-10
         a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3057, 0, 0, "CCY", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        addMW = new MissileWeapon( "Streak LRM-10", "CLSreakLRM10", "M", true, a );
+        addMW = new MissileWeapon( "Streak LRM-10", "CLStreakLRM10", "M", true, a );
         addMW.SetDamage( 1, 1, 1 );
         addMW.SetHeat( 6 );
         addMW.SetRange( 0, 7, 14, 21 );
@@ -2790,7 +2790,7 @@ public class WeaponFactory {
 
         // clan streak lrm-15
         a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3057, 0, 0, "CCY", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        addMW = new MissileWeapon( "Streak LRM-15", "CLSreakLRM15", "M", true, a );
+        addMW = new MissileWeapon( "Streak LRM-15", "CLStreakLRM15", "M", true, a );
         addMW.SetDamage( 1, 1, 1 );
         addMW.SetHeat( 5 );
         addMW.SetRange( 0, 7, 14, 21 );
@@ -2801,7 +2801,7 @@ public class WeaponFactory {
 
         // clan streak lrm-20
         a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3057, 0, 0, "CCY", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        addMW = new MissileWeapon( "Streak LRM-20", "CLSreakLRM20", "M", true, a );
+        addMW = new MissileWeapon( "Streak LRM-20", "CLStreakLRM20", "M", true, a );
         addMW.SetDamage( 1, 1, 1 );
         addMW.SetHeat( 6 );
         addMW.SetRange( 0, 7, 14, 21 );
