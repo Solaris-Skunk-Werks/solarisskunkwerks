@@ -35,6 +35,7 @@ public class PhysicalEnhancement extends abPlaceable {
                                        CLNone = new stPECLNone(),
                                        ISMASC = new stPEISMASC(),
                                        ISTSM = new stPEISTSM(),
+                                       ISITSM = new stPEISITSM(),
                                        CLMASC = new stPECLMASC();
     private ifPhysEnhance CurConfig = ISNone;
     private Mech Owner;
@@ -60,7 +61,11 @@ public class PhysicalEnhancement extends abPlaceable {
     public void SetISTSM() {
         CurConfig = ISTSM;
     }
-    
+
+    public void SetISITSM() {
+        CurConfig = ISITSM;
+    }
+
     public void SetCLMASC() {
         CurConfig = CLMASC;
     }
@@ -134,7 +139,7 @@ public class PhysicalEnhancement extends abPlaceable {
     }
 
     public boolean IsTSM() {
-        if( CurConfig == ISTSM ) {
+        if( CurConfig == ISTSM || CurConfig == ISITSM ) {
             return true;
         } else {
             return false;
@@ -209,7 +214,7 @@ public class PhysicalEnhancement extends abPlaceable {
 
     public ifState[] GetStates() {
         ifState[] retval = { (ifState) ISNone, (ifState) CLNone,
-            (ifState) ISMASC, (ifState) ISTSM, (ifState) CLMASC };
+            (ifState) ISMASC, (ifState) ISTSM, (ifState) CLMASC, (ifState) ISITSM };
         return retval;
     }
 
@@ -225,7 +230,7 @@ public class PhysicalEnhancement extends abPlaceable {
 
     @Override
     public String toString() {
-        if( CurConfig == ISTSM ) {
+        if( CurConfig == ISTSM || CurConfig == ISITSM ) {
             if( CurConfig.GetCrits( Owner.GetTonnage() ) > Placed ) {
                 return CurConfig.GetCritName() + " (" + ( CurConfig.GetCrits( Owner.GetTonnage() ) - Placed ) + ")";
             } else {

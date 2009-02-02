@@ -74,13 +74,14 @@ public class Mech {
     private boolean Quad,
                     Omnimech,
                     Primitive = false,
-                    Industrialmech = false,
+                    IndustrialMech = false,
                     YearSpecified = false,
                     YearRestricted = false,
                     HasNullSig = false,
                     HasVoidSig = false,
                     HasChameleon = false,
-                    HasBlueShield = false;
+                    HasBlueShield = false,
+                    HasEnviroSealing = false;
     private Engine CurEngine = new Engine( this );
     private ifLoadout MainLoadout = new BipedLoadout( Constants.BASELOADOUT_NAME, this ),
                     CurLoadout = MainLoadout;
@@ -94,7 +95,8 @@ public class Mech {
     private MultiSlotSystem NullSig,
                             VoidSig,
                             Chameleon,
-                            BlueShield;
+                            BlueShield,
+                            EnviroSealing;
 
     // Constructor
     public Mech( frmMain window ) {
@@ -116,20 +118,24 @@ public class Mech {
 
         // load up some special equipment
         AvailableCode AC = new AvailableCode( false, 'E', 'E', 'X', 'X', 2630, 2790, 0, "TH", "", true, false, 0, false, "", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        NullSig = new MultiSlotSystem( "Null Signature System", "NullSignatureSystem", 0.0f, false, 1400000.0f, AC );
+        NullSig = new MultiSlotSystem( this, "Null Signature System", "NullSignatureSystem", 0.0f, false, true, 1400000.0f, false, AC );
         NullSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 10, 0.2f, 0.0f, 0.0f, 0.0f, true ) );
         NullSig.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Void Signature System", "Stealth Armor", "C3" }, "Null Signature System" ) );
         AC = new AvailableCode( false, 'E', 'F', 'X', 'X', 2630, 2790, 0, "TH", "", true, false, 0, false, "", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        Chameleon = new MultiSlotSystem( "Chameleon LPS", "ChameleonLightPolarizationField", 0.0f, true, 600000.0f, AC );
+        Chameleon = new MultiSlotSystem( this, "Chameleon LPS", "ChameleonLightPolarizationField", 0.0f, true, true, 600000.0f, false, AC );
         Chameleon.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 6, 0.2f, 0.0f, 0.0f, 0.0f, true ) );
         Chameleon.SetExclusions( new Exclusion( new String[] { "Void Signature System", "Stealth Armor" }, "Chameleon LPS" ) );
         AC = new AvailableCode( false, 'E', 'X', 'X', 'F', 3053, 0, 0, "FS", "", false, false, 3051, true, "FS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        BlueShield = new MultiSlotSystem( "Blue Shield PFD", "BlueShieldPFD", 3.0f, false, 1000000.0f, AC );
+        BlueShield = new MultiSlotSystem( this, "Blue Shield PFD", "BlueShieldPFD", 3.0f, false, true, 1000000.0f, false, AC );
         BlueShield.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 0, 0.0f, 0.0f, 0.2f, 0.2f, true ) );
         AC = new AvailableCode( false, 'E', 'X', 'X', 'E', 3070, 0, 0, "WB", "", false, false, 3060, true, "WB", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        VoidSig = new MultiSlotSystem( "Void Signature System", "VoidSignatureSystem", 0.0f, false, 2000000.0f, AC );
+        VoidSig = new MultiSlotSystem( this, "Void Signature System", "VoidSignatureSystem", 0.0f, false, true, 2000000.0f, false, AC );
         VoidSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 10, 0.0f, 1.3f, 0.0f, 0.0f, true ) );
         VoidSig.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Null Signature System", "Stealth Armor", "C3", "Chameleon LPS" }, "Void Signature System" ) );
+        AC = new AvailableCode( false, 'C', 'C', 'C', 'C', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.UNALLOWED, Constants.TOURNAMENT );
+        EnviroSealing = new MultiSlotSystem( this, "Environmental Sealing", "Environmental Sealing", 0.0f, false, true, 225.0f, true, AC );
+        //EnviroSealing.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 10, 0.0f, 1.3f, 0.0f, 0.0f, true ) );
+        //EnviroSealing.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Null Signature System", "Stealth Armor", "C3", "Chameleon LPS" }, "Void Signature System" ) );
     }
 
     public void Recalculate() {
@@ -239,13 +245,25 @@ public class Mech {
 
         // switch the internal structure
         if( IsQuad() ) {
-            CurIntStruc.SetISMSQD();
+            if( IndustrialMech ) {
+                CurIntStruc.SetISIMQD();
+            } else {
+                CurIntStruc.SetISMSQD();
+            }
         } else {
-            CurIntStruc.SetISMSBP();
+            if( IndustrialMech ) {
+                CurIntStruc.SetISIMBP();
+            } else {
+                CurIntStruc.SetISMSBP();
+            }
         }
 
         // switch the cockpit
-        CurCockpit.SetISCockpit();
+        if( IndustrialMech ) {
+            CurCockpit.SetISIndustrialCockpit();
+        } else {
+            CurCockpit.SetISCockpit();
+        }
 
         // switch the heat sinks
         GetHeatSinks().SetInnerSphere();
@@ -294,13 +312,25 @@ public class Mech {
 
         // switch the internal structure
         if( IsQuad() ) {
-            CurIntStruc.SetCLMSQD();
+            if( IndustrialMech ) {
+                CurIntStruc.SetCLIMQD();
+            } else {
+                CurIntStruc.SetCLMSQD();
+            }
         } else {
-            CurIntStruc.SetCLMSBP();
+            if( IndustrialMech ) {
+                CurIntStruc.SetCLIMBP();
+            } else {
+                CurIntStruc.SetCLMSBP();
+            }
         }
 
         // switch the cockpit
-        CurCockpit.SetClanCockpit();
+        if( IndustrialMech ) {
+            CurCockpit.SetCLIndustrialCockpit();
+        } else {
+            CurCockpit.SetClanCockpit();
+        }
 
         // switch the heat sinks
         GetHeatSinks().SetClan();
@@ -329,7 +359,7 @@ public class Mech {
         UseTC( false );
     }
 
-    public void SetPrimitive() {
+/*    public void SetPrimitive() {
         // performs all the neccesary actions to switch the Tech Base over to Primitive.
         // set the tech base
         TechBase = Constants.INNER_SPHERE;
@@ -387,7 +417,7 @@ public class Mech {
 
         // recalculate to get the correct engine tonnage and rating
         Recalculate();
-    }
+    }*/
 
     public boolean IsClan() {
         if( TechBase == Constants.CLAN ) {
@@ -428,9 +458,17 @@ public class Mech {
 
         // next, change the internal structure to a default standard biped
         if( IsClan() ) {
-            CurIntStruc.SetCLMSBP();
+            if( IndustrialMech ) {
+                CurIntStruc.SetCLIMBP();
+            } else {
+                CurIntStruc.SetCLMSBP();
+            }
         } else {
-            CurIntStruc.SetISMSBP();
+            if( IndustrialMech ) {
+                CurIntStruc.SetISIMBP();
+            } else {
+                CurIntStruc.SetISMSBP();
+            }
         }
 
         // set the mech to a biped
@@ -538,9 +576,17 @@ public class Mech {
 
         // next, change the internal structure to a default standard quad
         if( IsClan() ) {
-            CurIntStruc.SetCLMSQD();
+            if( IndustrialMech ) {
+                CurIntStruc.SetCLIMQD();
+            } else {
+                CurIntStruc.SetCLMSQD();
+            }
         } else {
-            CurIntStruc.SetISMSQD();
+            if( IndustrialMech ) {
+                CurIntStruc.SetISIMQD();
+            } else {
+                CurIntStruc.SetISMSQD();
+            }
         }
 
         // set the mech to a quad
@@ -610,6 +656,36 @@ public class Mech {
 
     public boolean IsQuad() {
         return Quad;
+    }
+
+    public void SetIndustrialmech() {
+        // do all the neccesary things to change over to an IndustrialMech
+        IndustrialMech = true;
+        if( IsClan() ) {
+            SetClan();
+        } else {
+            SetInnerSphere();
+        }
+        if( Quad ) {
+            SetQuad();
+        } else {
+            SetBiped();
+        }
+    }
+
+    public void SetBattlemech() {
+        // do all the neccesary things to change over to a BattleMech
+        IndustrialMech = false;
+        if( IsClan() ) {
+            SetClan();
+        } else {
+            SetInnerSphere();
+        }
+        if( Quad ) {
+            SetQuad();
+        } else {
+            SetBiped();
+        }
     }
 
     public void SetOmnimech( String name ) {
@@ -732,20 +808,12 @@ public class Mech {
         return MainLoadout;
     }
 
-    public void SetIndustrialmech() {
-        // for now this does nothing, but is included for completeness.
-    }
-
-    public void SetBattlemech() {
-        // for now the mech is always a battlemech, but we'll need this.
-    }
-
     public boolean IsOmnimech() {
         return Omnimech;
     }
 
     public boolean IsIndustrialmech() {
-        return Industrialmech;
+        return IndustrialMech;
     }
 
     public boolean UsingTC() {
@@ -1773,7 +1841,7 @@ public class Mech {
 
     public float GetTonnageBV() {
         if( CurPhysEnhance.IsTSM() ) {
-            return Tonnage * 1.5f;
+            return CurPhysEnhance.GetOffensiveBV();
         } else {
             return Tonnage;
         }
@@ -1879,6 +1947,7 @@ public class Mech {
         if( HasVoidSig() ) { ChassisCost += VoidSig.GetCost(); }
         if( HasChameleon() ) { ChassisCost += Chameleon.GetCost(); }
         if( HasBlueShield() ) { ChassisCost += BlueShield.GetCost(); }
+        if( HasEnviroSealing() ) { ChassisCost += EnviroSealing.GetCost(); }
 
         // same goes for the targeting computer and supercharger
         if( CurLoadout.UsingTC() ) {
@@ -2345,6 +2414,62 @@ public class Mech {
         return BlueShield;
     }
 
+    public void SetEnviroSealing( boolean set ) throws Exception {
+        if( set == HasEnviroSealing ) {
+            return;
+        } else {
+            if( set ) {
+                try {
+                    MainLoadout.CheckExclusions( EnviroSealing );
+                } catch( Exception e ) {
+                    throw e;
+                }
+                if( ! EnviroSealing.Place( MainLoadout ) ) {
+                    MainLoadout.Remove( EnviroSealing );
+                    throw new Exception( "There is no available room for the Environmental Sealing!\nIt will not be allocated." );
+                }
+                AddMechModifier( EnviroSealing.GetMechModifier() );
+                HasEnviroSealing = true;
+            } else {
+                MainLoadout.Remove( EnviroSealing );
+                HasEnviroSealing = false;
+            }
+        }
+    }
+
+    // the following method is added for when we want to load a 'Mech
+    // and have specific locations for the system
+    public void SetEnviroSealing( boolean set, LocationIndex[] locs ) throws Exception {
+        if( set == HasEnviroSealing ) {
+            return;
+        } else {
+            if( set ) {
+                try {
+                    MainLoadout.CheckExclusions( EnviroSealing );
+                } catch( Exception e ) {
+                    throw e;
+                }
+                if( ! EnviroSealing.Place( MainLoadout, locs ) ) {
+                    MainLoadout.Remove( EnviroSealing );
+                    throw new Exception( "There is no available room for the Environmental Sealing!\nIt will not be allocated." );
+                }
+                AddMechModifier( EnviroSealing.GetMechModifier() );
+                HasEnviroSealing = true;
+            } else {
+                MainLoadout.Remove( EnviroSealing );
+                HasEnviroSealing = false;
+            }
+        }
+    }
+
+    public boolean HasEnviroSealing() {
+        return HasEnviroSealing;
+    }
+
+    public MultiSlotSystem GetEnviroSealing() {
+        return EnviroSealing;
+    }
+
     public void CheckPhysicals() {
         // unallocates physical weapons, especially if the tonnage changes
         // we'll also check to see if the mech is a quad and remove the weapons
@@ -2412,6 +2537,9 @@ public class Mech {
         }
         if( HasChameleon() ) {
             AC.Combine( Chameleon.GetAvailability() );
+        }
+        if( HasEnviroSealing() ) {
+            AC.Combine( EnviroSealing.GetAvailability() );
         }
 
         // now adjust for the era.

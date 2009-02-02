@@ -36,16 +36,22 @@ public class MultiSlotSystem extends abPlaceable {
     private float Tonnage,
                   Cost = 0.0f;
     private int DefensiveBonus = 0;
-    private boolean ExcludeCT;
+    private boolean ExcludeCT,
+                    ExcludeHD,
+                    CostTons;
     private String CritName,
                    MMName;
+    private Mech Owner;
 
-    public MultiSlotSystem( String name, String mname, float tons, boolean xct, float cost, AvailableCode a ) {
+    public MultiSlotSystem( Mech owner, String name, String mname, float tons, boolean xct, boolean xhd, float cost, boolean costtons, AvailableCode a ) {
+        Owner = owner;
         CritName = name;
         MMName = mname;
         Tonnage = tons;
         ExcludeCT = xct;
+        ExcludeHD = xhd;
         Cost = cost;
+        CostTons = costtons;
         AC = a;
     }
 
@@ -80,7 +86,11 @@ public class MultiSlotSystem extends abPlaceable {
 
     @Override
     public float GetCost() {
-        return Cost;
+        if( CostTons ) {
+            return Owner.GetTonnage() * Cost;
+        } else {
+            return Cost;
+        }
     }
 
     @Override
@@ -200,6 +210,21 @@ public class MultiSlotSystem extends abPlaceable {
                     if ( increment < 0 ) { return false; }
                     try {
                         l.AddToCT( this, increment );
+                        increment--;
+                        placed = true;
+                    } catch ( Exception e ) {
+                        increment--;
+                    }
+                }
+            }
+            // do we need to allocate to the head?
+            if( ! ExcludeHD ) {
+                placed = false;
+                increment = 5;
+                while( placed == false ) {
+                    if ( increment < 0 ) { return false; }
+                    try {
+                        l.AddToHD( this, increment );
                         increment--;
                         placed = true;
                     } catch ( Exception e ) {

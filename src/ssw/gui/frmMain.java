@@ -304,12 +304,16 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         Lookup.put( "Laser-Reflective", new VArmorSetLR( this ) );
         Lookup.put( "Reactive Armor", new VArmorSetRE( this ) );
         Lookup.put( "Industrial Armor", new VArmorSetIndustrial( this ) );
+        Lookup.put( "Commercial Armor", new VArmorSetCommercial( this ) );
         Lookup.put( "Standard Structure", new VChassisSetStandard() );
         Lookup.put( "Composite Structure", new VChassisSetComposite() );
         Lookup.put( "Endo-Steel", new VChassisSetEndoSteel() );
         Lookup.put( "Endo-Composite", new VChassisSetEndoComposite() );
         Lookup.put( "Reinforced Structure", new VChassisSetReinforced() );
+        Lookup.put( "Industrial Structure", new VChassisSetIndustrial() );
         Lookup.put( "Standard Cockpit", new VCockpitSetStandard() );
+        Lookup.put( "Industrial Cockpit", new VCockpitSetIndustrial() );
+        Lookup.put( "Industrial w/ Adv. FC", new VCockpitSetIndustrialAFC() );
         Lookup.put( "Small Cockpit", new VCockpitSetSmall() );
         Lookup.put( "Fuel-Cell Engine", new VEngineSetFuelCell() );
         Lookup.put( "Fission Engine", new VEngineSetFission() );
@@ -326,6 +330,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         Lookup.put( "No Enhancement", new VEnhanceSetNone() );
         Lookup.put( "MASC", new VEnhanceSetMASC() );
         Lookup.put( "TSM", new VEnhanceSetTSM() );
+        Lookup.put( "Industrial TSM", new VEnhanceSetITSM() );
         Lookup.put( "Single Heat Sink", new VHeatSinkSetSingle() );
         Lookup.put( "Double Heat Sink", new VHeatSinkSetDouble() );
         Lookup.put( "Standard Jump Jet", new VJumpJetSetStandard() );
@@ -3683,6 +3688,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbMechType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbMechType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbMechType.setPreferredSize(new java.awt.Dimension(150, 20));
+        cmbMechType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbMechTypeActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -11993,6 +12003,27 @@ private void btnPrintSavedActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 private void btnPrintBatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintBatchActionPerformed
     mnuPrintBatchActionPerformed(evt);
 }//GEN-LAST:event_btnPrintBatchActionPerformed
+
+private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMechTypeActionPerformed
+    return;
+/*    if( cmbMechType.getSelectedIndex() == 0 ) {
+        CurMech.SetBattlemech();
+    } else {
+        CurMech.SetIndustrialmech();
+    }
+
+    // set the loadout arrays
+    SetLoadoutArrays();
+    // fix the armor spinners
+    FixArmorSpinners();
+
+    // now refresh the information panes
+    CurMech.ReCalcBaseCost();
+    RefreshSummary();
+    RefreshInfoPane();
+    RefreshInternalPoints();
+    SetWeaponChoosers();*/
+}//GEN-LAST:event_cmbMechTypeActionPerformed
 
 private void setViewToolbar(boolean Visible)
 {

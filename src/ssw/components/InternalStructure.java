@@ -287,7 +287,7 @@ public class InternalStructure extends abPlaceable {
     }
 
     public ifState[] GetStates( boolean biped ) {
-        ifState[] retval = { null, null, null, null, null, null, null, null, null };
+        ifState[] retval = { null, null, null, null, null, null, null, null, null, null, null };
         if( biped ) {
             retval[0] = (ifState) ISMSBP;
             retval[1] = (ifState) ISESBP;
@@ -298,9 +298,9 @@ public class InternalStructure extends abPlaceable {
             retval[6] = (ifState) CLECBP;
             retval[7] = (ifState) ISREBP;
             retval[8] = (ifState) CLREBP;
-            //retval[9] = (ifState) ISPRBP;
-            //retval[10] = (ifState) ISIMBP;
-            //retval[11] = (ifState) CLIMBP;
+            retval[9] = (ifState) ISIMBP;
+            retval[10] = (ifState) CLIMBP;
+            //retval[11] = (ifState) ISPRBP;
         } else {
             retval[0] = (ifState) ISMSQD;
             retval[1] = (ifState) ISESQD;
@@ -311,9 +311,9 @@ public class InternalStructure extends abPlaceable {
             retval[6] = (ifState) CLECQD;
             retval[7] = (ifState) ISREQD;
             retval[8] = (ifState) CLREQD;
-            //retval[9] = (ifState) ISPRQD;
-            //retval[10] = (ifState) ISIMQD;
-            //retval[11] = (ifState) CLIMQD;
+            retval[9] = (ifState) ISIMQD;
+            retval[10] = (ifState) CLIMQD;
+            //retval[11] = (ifState) ISPRQD;
         }
         return retval;
     }

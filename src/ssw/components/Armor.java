@@ -48,13 +48,15 @@ public class Armor  extends abPlaceable {
                     ISHA = new stArmorISHA(),
                     ISLR = new stArmorISLR(),
                     ISRE = new stArmorISRE(),
+                    ISCM = new stArmorISCM(),
                     CLIN = new stArmorCLIN(),
                     CLMS = new stArmorCLMS(),
                     CLFF = new stArmorCLFF(),
                     CLFL = new stArmorCLFL(),
                     CLHA = new stArmorCLHA(),
                     CLLR = new stArmorCLLR(),
-                    CLRE = new stArmorCLRE();
+                    CLRE = new stArmorCLRE(),
+                    CLCM = new stArmorCLCM();
     private ifArmor Config = ISMS;
 
     public Armor( Mech m ) {
@@ -107,6 +109,10 @@ public class Armor  extends abPlaceable {
         Config = ISRE;
     }
 
+    public void SetISCM() {
+        Config = ISCM;
+    }
+
     public void SetCLIN() {
         // sets the armor to Clan Industrial
         Config = CLIN;
@@ -140,6 +146,10 @@ public class Armor  extends abPlaceable {
     public void SetCLRE() {
         // set the armor to Inner Sphere Reactive
         Config = CLRE;
+    }
+
+    public void SetCLCM() {
+        Config = CLCM;
     }
 
     public void Recalculate() {
@@ -486,8 +496,8 @@ public class Armor  extends abPlaceable {
 
     public ifState[] GetStates() {
         ifState[] retval = { (ifState) ISIN, (ifState) ISMS, (ifState) ISFF,
-            (ifState) ISST, (ifState) ISLF, (ifState) ISHF, (ifState) ISHA, (ifState) ISLR, (ifState) ISRE, (ifState) CLIN,
-            (ifState) CLMS, (ifState) CLFF, (ifState) CLFL, (ifState) CLHA, (ifState) CLLR, (ifState) CLRE };
+            (ifState) ISST, (ifState) ISLF, (ifState) ISHF, (ifState) ISHA, (ifState) ISLR, (ifState) ISRE, (ifState) ISCM,
+            (ifState) CLIN, (ifState) CLMS, (ifState) CLFF, (ifState) CLFL, (ifState) CLHA, (ifState) CLLR, (ifState) CLRE, (ifState) CLCM };
         return retval;
     }
 
