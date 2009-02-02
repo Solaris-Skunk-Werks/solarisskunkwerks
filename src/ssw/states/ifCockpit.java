@@ -43,6 +43,7 @@ public interface ifCockpit {
     public String GetMMName();
     public float GetCost( int Tonnage );
     public float BVMod();
+    public boolean HasFireControl();
     public AvailableCode GetAvailability();
     public MechModifier GetMechModifier();
     public int ReportCrits();

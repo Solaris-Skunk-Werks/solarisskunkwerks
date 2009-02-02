@@ -34,7 +34,7 @@ import ssw.components.MechModifier;
 
 public class stChassisISCOQD implements ifChassis, ifState {
     // An Inner Sphere Composite Quad chassis
-    private final static float[] Masses = { 0.0f, 0.0f, 1.0f, 1.5f, 1.5f, 2.0f,
+    private final static float[] Masses = { 0.5f, 1.0f, 1.0f, 1.5f, 1.5f, 2.0f,
         2.0f, 2.5f, 2.5f, 3.0f, 3.0f, 3.5f, 3.5f, 4.0f, 4.0f, 4.5f, 4.5f, 5.0f,
         5.0f };
     private final static int[][] IntPoints = {

@@ -105,7 +105,11 @@ public class stCockpitCL implements ifCockpit, ifState {
         result += SecondLifeSupport.GetCost();
         return result;
     }
-    
+
+    public boolean HasFireControl() {
+        return true;
+    }
+
     public float BVMod() {
         return 1.0f;
     }

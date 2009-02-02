@@ -29,14 +29,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.states;
 
 import ssw.Constants;
-import ssw.components.AvailableCode;
-import ssw.components.MechModifier;
+import ssw.components.*;
 
-public class stChassisISCOBP implements ifChassis, ifState {
-    // An Inner Sphere Composite Biped chassis
-    private final static float[] Masses = { 0.5f, 1.0f, 1.0f, 1.5f, 1.5f, 2.0f,
-        2.0f, 2.5f, 2.5f, 3.0f, 3.0f, 3.5f, 3.5f, 4.0f, 4.0f, 4.5f, 4.5f, 5.0f,
-        5.0f };
+public class stChassisCLIMQD implements ifChassis, ifState {
+    // An Inner Sphere Standard Military Quad chassis
+    private final static float[] Masses = { 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f,
+        8.0f, 9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f, 17.0f, 18.0f, 19.0f,
+        20.0f };
     private final static int[][] IntPoints = {
         { 4, 3, 1, 2 },
         { 5, 4, 2, 3 },
@@ -57,20 +56,22 @@ public class stChassisISCOBP implements ifChassis, ifState {
         { 29, 19, 15, 19 },
         { 30, 20, 16, 20 },
         { 31, 21, 17, 21 } };
-    private final static AvailableCode AC = new AvailableCode( false, 'E', 'X',
-            'X', 'E', 3061, 0, 0, "FS", "", false, false, 3056, true, "FC",
-            Constants.EXPERIMENTAL, Constants.UNALLOWED );
+    private final static AvailableCode AC = new AvailableCode( true, 'C', 'X', 'C', 'C', 2300, 0, 0, "TH", "", false, false );
+
+    public stChassisCLIMQD() {
+        AC.SetRulesLevelIM( Constants.UNALLOWED );
+    }
 
     public boolean IsClan() {
-        return false;
+        return true;
     }
-    
+
     public int GetCrits() {
         return 0;
     }
-    
+
     public String GetLookupName() {
-        return "Composite Structure";
+        return "Industrial Structure";
     }
 
     public String GetCritName() {
@@ -78,7 +79,7 @@ public class stChassisISCOBP implements ifChassis, ifState {
     }
 
     public String GetMMName() {
-        return "Composite";
+        return "Industrial";
     }
 
     public float GetStrucTon( int Tonnage ) {
@@ -86,7 +87,7 @@ public class stChassisISCOBP implements ifChassis, ifState {
     }
     
     public boolean IsQuad() {
-        return false;
+        return true;
     }
     
     public int GetHeadPoints() {
@@ -103,21 +104,22 @@ public class stChassisISCOBP implements ifChassis, ifState {
     }
     
     public int GetArmPoints( int Tonnage ) {
-        return IntPoints[GetIndex(Tonnage)][2];
+        // Quads have legs for "arms" so we return the leg points
+        return IntPoints[GetIndex(Tonnage)][3];
     }
 
     public int GetLegPoints( int Tonnage ) {
         return IntPoints[GetIndex(Tonnage)][3];
     }
-    
+
     public float GetCost( int Tonnage ) {
-        return 1600 * Tonnage;
+        return 300 * Tonnage;
     }
-    
+
     public float GetBVMult() {
-        return 1.0f;
+        return 0.5f;
     }
-    
+
     public boolean IncrementPlaced() {
         return false;
     }
@@ -141,6 +143,6 @@ public class stChassisISCOBP implements ifChassis, ifState {
     // toString
     @Override
     public String toString() {
-        return "Composite";
+        return "Industrial";
     }
 }

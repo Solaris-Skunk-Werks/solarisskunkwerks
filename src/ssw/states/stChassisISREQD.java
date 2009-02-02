@@ -33,7 +33,7 @@ import ssw.components.*;
 
 public class stChassisISREQD implements ifChassis, ifState {
     // An Inner Sphere Reinforced Quad chassis
-    private final static float[] Masses = { 0.0f, 0.0f, 4.0f, 5.0f, 6.0f, 7.0f,
+    private final static float[] Masses = { 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f,
         8.0f, 9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f, 17.0f, 18.0f, 19.0f,
         20.0f };
     private final static int[][] IntPoints = {

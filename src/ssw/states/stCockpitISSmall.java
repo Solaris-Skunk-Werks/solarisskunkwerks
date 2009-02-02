@@ -106,6 +106,10 @@ public class stCockpitISSmall implements ifCockpit, ifState {
         return result;
     }
     
+    public boolean HasFireControl() {
+        return true;
+    }
+
     public float BVMod() {
         return 0.95f;
     }

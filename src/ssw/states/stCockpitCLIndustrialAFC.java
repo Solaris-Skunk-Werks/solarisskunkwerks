@@ -30,20 +30,15 @@ package ssw.states;
 
 import ssw.components.*;
 
-public class stCockpitIS implements ifCockpit, ifState {
-    private final static AvailableCode AC = new AvailableCode( false, 'D', 'C', 'C', 'C',
-        2300, 0, 0, "TH", "", false, false );
-    private final static SimplePlaceable Sensors = new SimplePlaceable( "Sensors",
-        "Sensors", 1, true, AC );
-    private final static SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support",
-        "Life Support", 1, true, AC );
-    private final static SimplePlaceable SecondSensors = new SimplePlaceable( "Sensors",
-        "Sensors", 1, true, AC );
-    private final static SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support",
-        "Life Support", 1, true, AC );
+public class stCockpitCLIndustrialAFC implements ifCockpit, ifState {
+    private final static AvailableCode AC = new AvailableCode( true, 'D', 'X', 'E', 'E', 2300, 0, 0, "TH", "", false, false );
+    private final static SimplePlaceable Sensors = new SimplePlaceable( "Sensors", "Sensors", 1, true, AC );
+    private final static SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support", "Life Support", 1, true, AC );
+    private final static SimplePlaceable SecondSensors = new SimplePlaceable( "Sensors", "Sensors", 1, true, AC );
+    private final static SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support", "Life Support", 1, true, AC );
 
     public boolean IsClan() {
-        return false;
+        return true;
     }
     
     public float GetTonnage() {
@@ -82,7 +77,7 @@ public class stCockpitIS implements ifCockpit, ifState {
     }
 
     public String GetLookupName() {
-        return "Standard Cockpit";
+        return "Industrial w/ Adv. FC";
     }
 
     public String GetCritName() {
@@ -94,7 +89,7 @@ public class stCockpitIS implements ifCockpit, ifState {
     }
 
     public String GetReportName() {
-        return "Standard";
+        return "Industrial w/ Adv. Fire Control";
     }
 
     public float GetCost( int Tonnage ) {
@@ -105,7 +100,7 @@ public class stCockpitIS implements ifCockpit, ifState {
         result += SecondLifeSupport.GetCost();
         return result;
     }
-    
+
     public boolean HasFireControl() {
         return true;
     }
@@ -128,7 +123,6 @@ public class stCockpitIS implements ifCockpit, ifState {
 
     @Override
     public String toString() {
-        return "Standard Cockpit";
+        return "Industrial Cockpit (AFC)";
     }
-
 }

@@ -49,6 +49,8 @@ public class InternalStructure extends abPlaceable {
                              ISPRQD = new stChassisISPRQD(),
                              ISREBP = new stChassisISREBP(),
                              ISREQD = new stChassisISREQD(),
+                             ISIMBP = new stChassisISIMBP(),
+                             ISIMQD = new stChassisISIMQD(),
                              CLMSBP = new stChassisCLMSBP(),
                              CLMSQD = new stChassisCLMSQD(),
                              CLESBP = new stChassisCLESBP(),
@@ -56,7 +58,9 @@ public class InternalStructure extends abPlaceable {
                              CLECBP = new stChassisCLECBP(),
                              CLECQD = new stChassisCLECQD(),
                              CLREBP = new stChassisCLREBP(),
-                             CLREQD = new stChassisCLREQD();
+                             CLREQD = new stChassisCLREQD(),
+                             CLIMBP = new stChassisCLIMBP(),
+                             CLIMQD = new stChassisCLIMQD();
     private int Placed = 0;
     
     // Constructor
@@ -132,6 +136,16 @@ public class InternalStructure extends abPlaceable {
         Config = ISREQD;
     }
 
+    public void SetISIMBP() {
+        // Set this chassis to an Inner Sphere Reinforced Biped
+        Config = ISIMBP;
+    }
+
+    public void SetISIMQD() {
+        // Set this chassis to an Inner Sphere Reinforced Quad
+        Config = ISIMQD;
+    }
+
     public void SetCLMSQD() {
         // Set this chassis to a Clan Standard Quad
         Config = CLMSQD;
@@ -166,6 +180,17 @@ public class InternalStructure extends abPlaceable {
         // Set this chassis to a Clan Reinforced Quad
         Config = CLREQD;
     }
+
+    public void SetCLIMBP() {
+        // Set this chassis to an Inner Sphere Reinforced Biped
+        Config = CLIMBP;
+    }
+
+    public void SetCLIMQD() {
+        // Set this chassis to an Inner Sphere Reinforced Quad
+        Config = CLIMQD;
+    }
+
 
     public boolean IsClan() {
         return Config.IsClan();
@@ -270,10 +295,12 @@ public class InternalStructure extends abPlaceable {
             retval[3] = (ifState) CLESBP;
             retval[4] = (ifState) ISCOBP;
             retval[5] = (ifState) ISECBP;
-            //retval[6] = (ifState) ISPRBP;
             retval[6] = (ifState) CLECBP;
             retval[7] = (ifState) ISREBP;
             retval[8] = (ifState) CLREBP;
+            //retval[9] = (ifState) ISPRBP;
+            //retval[10] = (ifState) ISIMBP;
+            //retval[11] = (ifState) CLIMBP;
         } else {
             retval[0] = (ifState) ISMSQD;
             retval[1] = (ifState) ISESQD;
@@ -281,10 +308,12 @@ public class InternalStructure extends abPlaceable {
             retval[3] = (ifState) CLESQD;
             retval[4] = (ifState) ISCOQD;
             retval[5] = (ifState) ISECQD;
-            //retval[6] = (ifState) ISPRQD;
             retval[6] = (ifState) CLECQD;
             retval[7] = (ifState) ISREQD;
             retval[8] = (ifState) CLREQD;
+            //retval[9] = (ifState) ISPRQD;
+            //retval[10] = (ifState) ISIMQD;
+            //retval[11] = (ifState) CLIMQD;
         }
         return retval;
     }

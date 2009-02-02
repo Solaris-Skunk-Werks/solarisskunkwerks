@@ -32,11 +32,11 @@ import ssw.states.*;
 
 public class Gyro extends abPlaceable {
     private Mech Owner;
-    private final static stGyroCLStandard ClanStandard = new stGyroCLStandard();
-    private final static stGyroISStandard ISStandard = new stGyroISStandard();
-    private final static stGyroISCompact ISCompact = new stGyroISCompact();
-    private final static stGyroISHeavy ISHeavy = new stGyroISHeavy();
-    private final static stGyroISXL ISXL = new stGyroISXL();
+    private final static ifGyro ClanStandard = new stGyroCLStandard(),
+                                ISStandard = new stGyroISStandard(),
+                                ISCompact = new stGyroISCompact(),
+                                ISHeavy = new stGyroISHeavy(),
+                                ISXL = new stGyroISXL();
     private ifGyro CurConfig = ISStandard;
 
     public Gyro( Mech m ) {

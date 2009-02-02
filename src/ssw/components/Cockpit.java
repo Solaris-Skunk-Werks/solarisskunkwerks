@@ -31,10 +31,14 @@ package ssw.components;
 import ssw.states.*;
 
 public class Cockpit extends abPlaceable {
-    private final static stCockpitCL ClanCockpit = new stCockpitCL();
-    private final static stCockpitIS ISCockpit = new stCockpitIS();
-    private final static stCockpitISSmall SmallCockpit = new stCockpitISSmall();
-    private final static stCockpitISPrimitive Primitive = new stCockpitISPrimitive();
+    private final static ifCockpit ClanCockpit = new stCockpitCL(),
+                                   ISCockpit = new stCockpitIS(),
+                                   SmallCockpit = new stCockpitISSmall(),
+                                   Primitive = new stCockpitISPrimitive(),
+                                   ISIndusCockpit = new stCockpitISIndustrial(),
+                                   ISIndusAFCCockpit = new stCockpitISIndustrialAFC(),
+                                   CLIndusCockpit = new stCockpitISIndustrial(),
+                                   CLIndusAFCCockpit = new stCockpitISIndustrialAFC();
     private ifCockpit CurConfig = ISCockpit;
     private Mech Owner;
 
@@ -58,10 +62,26 @@ public class Cockpit extends abPlaceable {
         CurConfig = Primitive;
     }
 
+    public void SetISIndustrialCockpit() {
+        CurConfig = ISIndusCockpit;
+    }
+
+    public void SetISIndustrialAFCCockpit() {
+        CurConfig = ISIndusAFCCockpit;
+    }
+
+    public void SetCLIndustrialCockpit() {
+        CurConfig = CLIndusCockpit;
+    }
+
+    public void SetCLIndustrialAFCCockpit() {
+        CurConfig = CLIndusAFCCockpit;
+    }
+
     public boolean IsClan() {
         return CurConfig.IsClan();
     }
-    
+
     public float GetTonnage() {
         if( IsArmored() ) {
             return CurConfig.GetTonnage() + 0.5f;
@@ -156,6 +176,10 @@ public class Cockpit extends abPlaceable {
         } else {
             return CurConfig.GetCost( Owner.GetTonnage() );
         }
+    }
+
+    public boolean HasFireControl() {
+        return CurConfig.HasFireControl();
     }
 
     public float BVMod() {

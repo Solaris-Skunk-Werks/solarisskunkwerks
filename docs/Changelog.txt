@@ -137,6 +137,7 @@ Version 0.6.0
 - Targeting Computer is now checked correctly on loading or new Mech.
 - Default heat sink type is now a startup option.
 - Fixed a bug with selecting Artillery and ammo not being reset.
+- Fixed a bug with changing Rules Level and CASE II not unallocating.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

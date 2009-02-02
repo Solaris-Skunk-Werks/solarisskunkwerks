@@ -831,22 +831,70 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkLLCASE2.setEnabled( true );
             chkRLCASE2.setEnabled( true );
         } else {
-            chkHDCASE2.setEnabled( false );
-            chkHDCASE2.setSelected( false );
-            chkCTCASE2.setEnabled( false );
-            chkCTCASE2.setSelected( false );
-            chkLTCASE2.setEnabled( false );
-            chkLTCASE2.setSelected( false );
-            chkRTCASE2.setEnabled( false );
-            chkRTCASE2.setSelected( false );
-            chkLACASE2.setEnabled( false );
-            chkLACASE2.setSelected( false );
-            chkRACASE2.setEnabled( false );
-            chkRACASE2.setSelected( false );
-            chkLLCASE2.setEnabled( false );
-            chkLLCASE2.setSelected( false );
-            chkRLCASE2.setEnabled( false );
-            chkRLCASE2.setSelected( false );
+            try {
+                chkHDCASE2.setEnabled( false );
+                chkHDCASE2.setSelected( false );
+                CurMech.GetLoadout().SetHDCASEII( false, -1 );
+            } catch( Exception e ) {
+                // no reason we should get exceptions when unallocating CASE.
+                System.err.println( e.getMessage() );
+            }
+            try {
+                chkCTCASE2.setEnabled( false );
+                chkCTCASE2.setSelected( false );
+                CurMech.GetLoadout().SetCTCASEII( false, -1 );
+            } catch( Exception e ) {
+                // no reason we should get exceptions when unallocating CASE.
+                System.err.println( e.getMessage() );
+            }
+            try {
+                chkLTCASE2.setEnabled( false );
+                chkLTCASE2.setSelected( false );
+                CurMech.GetLoadout().SetLTCASEII( false, -1 );
+            } catch( Exception e ) {
+                // no reason we should get exceptions when unallocating CASE.
+                System.err.println( e.getMessage() );
+            }
+            try {
+                chkRTCASE2.setEnabled( false );
+                chkRTCASE2.setSelected( false );
+                CurMech.GetLoadout().SetRTCASEII( false, -1 );
+            } catch( Exception e ) {
+                // no reason we should get exceptions when unallocating CASE.
+                System.err.println( e.getMessage() );
+            }
+            try {
+                chkLACASE2.setEnabled( false );
+                chkLACASE2.setSelected( false );
+                CurMech.GetLoadout().SetLACASEII( false, -1 );
+            } catch( Exception e ) {
+                // no reason we should get exceptions when unallocating CASE.
+                System.err.println( e.getMessage() );
+            }
+            try {
+                chkRACASE2.setEnabled( false );
+                chkRACASE2.setSelected( false );
+                CurMech.GetLoadout().SetRACASEII( false, -1 );
+            } catch( Exception e ) {
+                // no reason we should get exceptions when unallocating CASE.
+                System.err.println( e.getMessage() );
+            }
+            try {
+                chkLLCASE2.setEnabled( false );
+                chkLLCASE2.setSelected( false );
+                CurMech.GetLoadout().SetLLCASEII( false, -1 );
+            } catch( Exception e ) {
+                // no reason we should get exceptions when unallocating CASE.
+                System.err.println( e.getMessage() );
+            }
+            try {
+                chkRLCASE2.setEnabled( false );
+                chkRLCASE2.setSelected( false );
+                CurMech.GetLoadout().SetRLCASEII( false, -1 );
+            } catch( Exception e ) {
+                // no reason we should get exceptions when unallocating CASE.
+                System.err.println( e.getMessage() );
+            }
         }
 
         // now set all the equipment if needed
@@ -11037,155 +11085,8 @@ private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     if (m == null){
         return;
     }
-
-    // added for special situations
-    Load = true;
-
-    // Put it in the gui.
-    UnlockGUIFromOmni();
-    if( m.IsQuad() ) {
-        cmbMotiveType.setSelectedIndex( 1 );
-    } else {
-        cmbMotiveType.setSelectedIndex( 0 );
-    }
-    chkYearRestrict.setSelected( m.IsYearRestricted() );
-    txtProdYear.setText( "" + m.GetYear() );
-    cmbMechEra.setEnabled( true );
-    cmbTechBase.setEnabled( true );
-    txtProdYear.setEnabled( true );
-    switch( m.GetEra() ) {
-        case 0:
-            lblEraYears.setText( "2443 ~ 2800" );
-            cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere" }));
-            break;
-        case 1:
-            lblEraYears.setText( "2801 ~ 3050" );
-            cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
-            break;
-        case 2:
-            lblEraYears.setText( "3051 on" );
-            cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
-            break;
-        case 3:
-            lblEraYears.setText( "Any" );
-            cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
-            chkYearRestrict.setEnabled( false );
-            chkYearRestrict.setSelected( false );
-            break;
-    }
-
-    cmbRulesLevel.setSelectedIndex( m.GetRulesLevel() );
-    cmbMechEra.setSelectedIndex( m.GetEra() );
-    cmbTechBase.setSelectedIndex( m.GetTechBase() );
-
     CurMech = m;
-    // now that we're done with the special stuff...
-    Load = false;
-
-    if( chkYearRestrict.isSelected() ) {
-        cmbMechEra.setEnabled( false );
-        cmbTechBase.setEnabled( false );
-        txtProdYear.setEnabled( false );
-    }
-    txtMechName.setText( CurMech.GetName() );
-    txtMechModel.setText( CurMech.GetModel() );
-
-    if( CurMech.IsOmnimech() ) {
-        LockGUIForOmni();
-        RefreshOmniVariants();
-        RefreshOmniChoices();
-    }
-
-    FixTransferHandlers();
-
-    ResetTonnageSelector();
-    BuildChassisSelector();
-    BuildEngineSelector();
-    BuildGyroSelector();
-    BuildCockpitSelector();
-    BuildEnhancementSelector();
-    BuildHeatsinkSelector();
-    BuildJumpJetSelector();
-    BuildArmorSelector();
-    cmbInternalType.setSelectedItem( CurMech.GetIntStruc().GetLookupName() );
-    cmbEngineType.setSelectedItem( CurMech.GetEngine().GetLookupName() );
-    cmbGyroType.setSelectedItem( CurMech.GetGyro().GetLookupName() );
-    cmbCockpitType.setSelectedItem( CurMech.GetCockpit().GetLookupName() );
-    cmbPhysEnhance.setSelectedItem( CurMech.GetPhysEnhance().GetLookupName() );
-    cmbHeatSinkType.setSelectedItem( CurMech.GetHeatSinks().GetLookupName() );
-    cmbJumpJetType.setSelectedItem( CurMech.GetJumpJets().GetLookupName() );
-    cmbArmorType.setSelectedItem( CurMech.GetArmor().GetLookupName() );
-    FixWalkMPSpinner();
-    FixHeatSinkSpinnerModel();
-    FixJJSpinnerModel();
-    RefreshInternalPoints();
-    FixArmorSpinners();
-    Weapons.RebuildPhysicals( CurMech );
-    RefreshEquipment();
-    chkCTCASE.setSelected( CurMech.HasCTCase() );
-    chkLTCASE.setSelected( CurMech.HasLTCase() );
-    chkRTCASE.setSelected( CurMech.HasRTCase() );
-    chkUseTC.setSelected( CurMech.UsingTC() );
-    chkNullSig.setSelected( CurMech.HasNullSig() );
-    chkVoidSig.setSelected( CurMech.HasVoidSig() );
-    chkBSPFD.setSelected( CurMech.HasBlueShield() );
-    chkCLPS.setSelected( CurMech.HasChameleon() );
-    SetLoadoutArrays();
-    RefreshSummary();
-    RefreshInfoPane();
-    SetWeaponChoosers();
-    ResetAmmo();
-
-    // load the fluff image.
-    ImageIcon FluffImage = Utils.createImageIcon( Constants.NO_IMAGE );
-    if( ! CurMech.GetSSWImage().equals( Constants.NO_IMAGE ) ) {
-        FluffImage = new ImageIcon( CurMech.GetSSWImage() );
-    }
-
-    // See if we need to scale
-    int h = FluffImage.getIconHeight();
-    int w = FluffImage.getIconWidth();
-    if ( w > 290 || h > 350 ) {
-        if ( w > h ) { // resize based on width
-            FluffImage = new ImageIcon(FluffImage.getImage().
-                getScaledInstance(290, -1, Image.SCALE_DEFAULT));
-        } else { // resize based on height
-            FluffImage = new ImageIcon(FluffImage.getImage().
-                getScaledInstance(-1, 350, Image.SCALE_DEFAULT));
-        }
-    }
-
-    lblFluffImage.setIcon( FluffImage );
-
-    edtOverview.setText( CurMech.GetOverview() );
-    edtCapabilities.setText( CurMech.GetCapabilities() );
-    edtHistory.setText( CurMech.GetHistory() );
-    edtDeployment.setText( CurMech.GetDeployment() );
-    edtVariants.setText( CurMech.GetVariants() );
-    edtNotables.setText( CurMech.GetNotables() );
-    edtAdditionalFluff.setText( CurMech.GetAdditional() );
-    txtManufacturer.setText( CurMech.GetCompany() );
-    txtManufacturerLocation.setText( CurMech.GetLocation() );
-    txtEngineManufacturer.setText( CurMech.GetEngineManufacturer() );
-    txtArmorModel.setText( CurMech.GetArmorModel() );
-    txtChassisModel.setText( CurMech.GetChassisModel() );
-    if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
-        txtJJModel.setEnabled( true );
-        txtJJModel.setText( CurMech.GetJJModel() );
-    }
-    txtCommSystem.setText( CurMech.GetCommSystem() );
-    txtTNTSystem.setText( CurMech.GetTandTSystem() );
-
-    // see if we should enable the Power Amplifier display
-    if( CurMech.GetEngine().IsNuclear() ) {
-        lblSumPAmps.setVisible( false );
-        txtSumPAmpsTon.setVisible( false );
-        txtSumPAmpsACode.setVisible( false );
-    } else {
-        lblSumPAmps.setVisible( true );
-        txtSumPAmpsTon.setVisible( true );
-        txtSumPAmpsACode.setVisible( true );
-    }
+    LoadMechIntoGUI();
 }//GEN-LAST:event_mnuLoadActionPerformed
 
 private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSaveAsActionPerformed
@@ -11586,7 +11487,7 @@ public Mech LoadMech (){
         javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
         return m;
     }
-    
+
     return m;
 }
 
@@ -11600,16 +11501,17 @@ private void LoadMechFromPreferences()
             m = XMLr.ReadMech( this, filename );
             m.ReCalcBaseCost();
             CurMech = m;
-            ReloadMech();
+            LoadMechIntoGUI();
         } catch( Exception e ) {
             // had a problem loading the mech.  let the user know.
             javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
         }
+        CurMech = m;
+        LoadMechIntoGUI();
     }
 }
 
-public void ReloadMech()
-{
+public void LoadMechIntoGUI() {
     // added for special situations
     Load = true;
 

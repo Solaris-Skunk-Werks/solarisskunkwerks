@@ -247,7 +247,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
     private void lstChoosenMechsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstChoosenMechsMouseClicked
         if (evt.getClickCount() >= 2) {
             parent.CurMech = ((mechData) lstChoosenMechs.getSelectedValue()).m;
-            parent.ReloadMech();
+            parent.LoadMechIntoGUI();
             this.setVisible(false);
         }
     }//GEN-LAST:event_lstChoosenMechsMouseClicked

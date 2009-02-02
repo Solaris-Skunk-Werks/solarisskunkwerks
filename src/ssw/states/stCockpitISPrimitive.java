@@ -106,6 +106,10 @@ public class stCockpitISPrimitive implements ifCockpit, ifState {
         return result;
     }
     
+    public boolean HasFireControl() {
+        return false;
+    }
+
     public float BVMod() {
         return 1.0f;
     }
