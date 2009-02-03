@@ -188,7 +188,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
             pilotingSkill =  POptions.GetPiloting();
             float adjustedBV = m.GetCurrentBV();
 
-            PrintMech p = new PrintMech( this.parent, m, GetImage( m.GetSSWImage() ), false, useA4paper, true);
+            PrintMech p = new PrintMech( this.parent, m, GetImage( m.GetSSWImage() ), false, useA4paper);
             p.SetPilotData( warriorName, gunnerySkill, pilotingSkill);
             p.SetOptions( printCharts, printPilot, adjustedBV );
 
