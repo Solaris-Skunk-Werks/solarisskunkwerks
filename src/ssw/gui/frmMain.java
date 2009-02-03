@@ -2484,8 +2484,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         PageFormat page = new PageFormat();
+        Book pages = new Book();
         page.setPaper( paper );
-        job.setPrintable( p, page );
+        pages.append(p, page);
+        job.setPageable(pages);
         boolean DoPrint = job.printDialog();
         if( DoPrint ) {
             try {
@@ -2713,7 +2715,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         btnExportTextIcon = new javax.swing.JButton();
         btnExportMTFIcon = new javax.swing.JButton();
         jSeparator23 = new javax.swing.JToolBar.Separator();
-        jButton1 = new javax.swing.JButton();
+        btnPostToS7 = new javax.swing.JButton();
         jSeparator21 = new javax.swing.JToolBar.Separator();
         btnOptionsIcon = new javax.swing.JButton();
         tbpMainTabPane = new javax.swing.JTabbedPane();
@@ -3329,17 +3331,17 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         tlbIconBar.add(btnExportMTFIcon);
         tlbIconBar.add(jSeparator23);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_up.gif"))); // NOI18N
-        jButton1.setToolTipText("Upload to Solaris7.com");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnPostToS7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_up.gif"))); // NOI18N
+        btnPostToS7.setToolTipText("Upload to Solaris7.com");
+        btnPostToS7.setFocusable(false);
+        btnPostToS7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPostToS7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPostToS7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnPostToS7ActionPerformed(evt);
             }
         });
-        tlbIconBar.add(jButton1);
+        tlbIconBar.add(btnPostToS7);
         tlbIconBar.add(jSeparator21);
 
         btnOptionsIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/icon_settings.gif"))); // NOI18N
@@ -8678,6 +8680,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         jMenu2.add(mnuPrintSavedMech);
 
+        mnuPrintBatch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         mnuPrintBatch.setText("Batch Print Mechs");
         mnuPrintBatch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -11760,9 +11763,9 @@ private void btnExportClipboardIconActionPerformed(java.awt.event.ActionEvent ev
     mnuExportClipboardActionPerformed(evt);
 }//GEN-LAST:event_btnExportClipboardIconActionPerformed
 
-private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+private void btnPostToS7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPostToS7ActionPerformed
     mnuPostS7ActionPerformed(evt);
-}//GEN-LAST:event_jButton1ActionPerformed
+}//GEN-LAST:event_btnPostToS7ActionPerformed
 
 private void btnRemoveItemCritsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveItemCritsActionPerformed
     Vector v = CurMech.GetLoadout().GetQueue();
@@ -12062,6 +12065,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JButton btnNewIcon;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnOptionsIcon;
+    private javax.swing.JButton btnPostToS7;
     private javax.swing.JButton btnPrintBatch;
     private javax.swing.JButton btnPrintIcon;
     private javax.swing.JButton btnPrintSaved;
@@ -12133,7 +12137,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JEditorPane edtNotables;
     private javax.swing.JEditorPane edtOverview;
     private javax.swing.JEditorPane edtVariants;
-    private javax.swing.JButton jButton1;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
