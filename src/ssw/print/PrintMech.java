@@ -52,7 +52,7 @@ public class PrintMech implements Printable {
     private boolean Advanced = false,
                     Charts = false,
                     PrintPilot = true,
-                    UseA4Paper = false,
+                    UseA4Paper = false;
     private String PilotName = "";
     private int Piloting = 0,
                 Gunnery = 0;
