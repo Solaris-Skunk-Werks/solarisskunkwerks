@@ -52,7 +52,7 @@ public class PrintMech implements Printable {
     private boolean Advanced = false,
                     Charts = false,
                     PrintPilot = true,
-                    UseA4Paper = false;
+                    UseA4Paper = false,
     private String PilotName = "";
     private int Piloting = 0,
                 Gunnery = 0;
@@ -67,7 +67,7 @@ public class PrintMech implements Printable {
     private Color Black = new Color( 0, 0, 0 ),
                   Grey = new Color( 128, 128, 128 );
 
-    public PrintMech( frmMain parent, Mech m, Image i, boolean adv, boolean A4 ) {
+    public PrintMech( frmMain parent, Mech m, Image i, boolean adv, boolean A4) {
         Parent = parent;
         CurMech = m;
         MechImage = i;
