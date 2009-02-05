@@ -28,8 +28,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
+import java.awt.Color;
 import java.awt.Component;
-import java.awt.Font;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -49,24 +49,63 @@ public class MechLoadoutRenderer  extends DefaultListCellRenderer {
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus) {
         JLabel label = (JLabel)super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
         String Text = "";
+        abPlaceable[] Loc = null;
+        abPlaceable a = null;
+        Color BorderCol = new Color( 0, 0, 0 );
+        // find the location
+        switch( Parent.GetLocation( list ) ) {
+            case Constants.LOC_HD:
+                Loc = Parent.CurMech.GetLoadout().GetHDCrits();
+                break;
+            case Constants.LOC_CT:
+                Loc = Parent.CurMech.GetLoadout().GetCTCrits();
+                break;
+            case Constants.LOC_LT:
+                Loc = Parent.CurMech.GetLoadout().GetLTCrits();
+                break;
+            case Constants.LOC_RT:
+                Loc = Parent.CurMech.GetLoadout().GetRTCrits();
+                break;
+            case Constants.LOC_LA:
+                Loc = Parent.CurMech.GetLoadout().GetLACrits();
+                break;
+            case Constants.LOC_RA:
+                Loc = Parent.CurMech.GetLoadout().GetRACrits();
+                break;
+            case Constants.LOC_LL:
+                Loc = Parent.CurMech.GetLoadout().GetLLCrits();
+                break;
+            case Constants.LOC_RL:
+                Loc = Parent.CurMech.GetLoadout().GetRLCrits();
+                break;
+            default:
+                Loc = null;
+        }
+
         if( value instanceof abPlaceable ) {
-            if( ((abPlaceable) value).IsArmored() ) {
+            a = (abPlaceable) value;
+            if( a.IsArmored() ) {
                 label.setBackground( CurOptions.bg_ARMORED );
                 label.setForeground( CurOptions.fg_ARMORED );
-            } else if( ((abPlaceable) value).LocationLinked() ) {
+                BorderCol = CurOptions.bg_ARMORED;
+            } else if( a.LocationLinked() ) {
                 label.setBackground( CurOptions.bg_LINKED );
                 label.setForeground( CurOptions.fg_LINKED );
-            } else if( ((abPlaceable) value).LocationLocked() ) {
+                BorderCol = CurOptions.bg_LINKED;
+            } else if( a.LocationLocked() ) {
                 label.setBackground( CurOptions.bg_LOCKED );
                 label.setForeground( CurOptions.fg_LOCKED );
-            } else if( value instanceof EmptyItem ) {
+                BorderCol = CurOptions.bg_LOCKED;
+            } else if( a instanceof EmptyItem ) {
                 label.setBackground( CurOptions.bg_EMPTY );
                 label.setForeground( CurOptions.fg_EMPTY );
+                BorderCol = CurOptions.bg_EMPTY;
             } else {
                 label.setBackground( CurOptions.bg_NORMAL );
                 label.setForeground( CurOptions.fg_NORMAL );
+                BorderCol = CurOptions.bg_NORMAL;
             }
-            Text = ((abPlaceable) value).GetCritName();
+            Text = a.GetCritName();
         }
 
         label.setText( Text );
@@ -98,8 +137,22 @@ public class MechLoadoutRenderer  extends DefaultListCellRenderer {
                 label.setText( "(" + size + ")" + Parent.CurItem.GetCritName() );
             }
         }
-
-        label.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        
+        if( Loc == null ) {
+            label.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        } else {
+            if( ! ( index + 1 >= Loc.length ) ) {
+                if( Loc[index + 1] == a &! ( a instanceof EmptyItem ) && a.Contiguous() ) {
+                    //no bottom border.  just skip me
+                    label.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, BorderCol));
+                } else {
+                    label.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+                }
+            } else {
+                // just add the lower border in because it looks nicer.
+                label.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+            }
+        }
         return label;
     }
 }

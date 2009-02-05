@@ -2741,6 +2741,20 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         //do nothing
     }
 
+    // the following method is provided to the MechRenderer for comparison
+    // purposes.  Please check MechLoadoutRenderer.java for implementation.
+    public int GetLocation( javax.swing.JList list ) {
+        if( list == lstHDCrits ) { return Constants.LOC_HD; }
+        if( list == lstCTCrits ) { return Constants.LOC_CT; }
+        if( list == lstLTCrits ) { return Constants.LOC_LT; }
+        if( list == lstRTCrits ) { return Constants.LOC_RT; }
+        if( list == lstLACrits ) { return Constants.LOC_LA; }
+        if( list == lstRACrits ) { return Constants.LOC_RA; }
+        if( list == lstLLCrits ) { return Constants.LOC_LL; }
+        if( list == lstRLCrits ) { return Constants.LOC_RL; }
+        return -1;
+    }
+
      /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
