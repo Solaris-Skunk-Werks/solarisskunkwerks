@@ -80,6 +80,10 @@ public class stArmorISCM implements ifArmor, ifState {
         return 0.5f;
     }
 
+    public int GetBAR() {
+        return 5;
+    }
+
     public boolean LocationLocked() {
         return locked;
     }

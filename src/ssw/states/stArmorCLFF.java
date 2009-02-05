@@ -87,6 +87,10 @@ public class stArmorCLFF implements ifArmor, ifState {
         return 1.0f;
     }
 
+    public int GetBAR() {
+        return 10;
+    }
+
     public boolean LocationLocked() {
         return locked;
     }

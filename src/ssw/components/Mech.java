@@ -133,7 +133,7 @@ public class Mech {
         VoidSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 10, 0.0f, 1.3f, 0.0f, 0.0f, true ) );
         VoidSig.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Null Signature System", "Stealth Armor", "C3", "Chameleon LPS" }, "Void Signature System" ) );
         AC = new AvailableCode( false, 'C', 'C', 'C', 'C', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.UNALLOWED, Constants.TOURNAMENT );
-        EnviroSealing = new MultiSlotSystem( this, "Environmental Sealing", "Environmental Sealing", 0.0f, false, true, 225.0f, true, AC );
+        EnviroSealing = new MultiSlotSystem( this, "Environmental Sealing", "Environmental Sealing", 0.0f, false, false, 225.0f, true, AC );
         //EnviroSealing.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 10, 0.0f, 1.3f, 0.0f, 0.0f, true ) );
         //EnviroSealing.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Null Signature System", "Stealth Armor", "C3", "Chameleon LPS" }, "Void Signature System" ) );
     }
@@ -2623,12 +2623,14 @@ public class Mech {
     }
 
     public void AddMechModifier( MechModifier m ) {
+        if( m == null ) { return; }
         if( ! MechMods.contains( m ) &! CurLoadout.GetMechMods().contains( m ) ) {
             MechMods.add( m );
         }
     }
 
     public void RemoveMechMod( MechModifier m ) {
+        if( m == null ) { return; }
         MechMods.remove( m );
     }
 

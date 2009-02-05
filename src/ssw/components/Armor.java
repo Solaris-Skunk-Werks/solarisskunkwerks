@@ -518,6 +518,10 @@ public class Armor  extends abPlaceable {
         return ( GetArmorValue() + GetModularArmorValue() ) * Config.GetBVTypeMult() * 2.5f;
     }
 
+    public int GetBAR() {
+        return Config.GetBAR();
+    }
+
     @Override
     public void ResetPlaced() {
         Placed = 0;

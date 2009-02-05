@@ -39,6 +39,7 @@ public interface ifArmor {
     public String GetMMName();
     public float GetCostMult();
     public float GetBVTypeMult();
+    public int GetBAR();
     public boolean LocationLocked();
     public void SetLocked( boolean l );
     public MechModifier GetMechModifier();

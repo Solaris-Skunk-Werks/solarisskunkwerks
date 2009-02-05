@@ -86,6 +86,16 @@ public class XMLReader {
         m.SetRulesLevel( Integer.parseInt( n.item( 0 ).getTextContent() ) );
         n = d.getElementsByTagName( "era" );
         m.SetEra( Integer.parseInt( n.item( 0 ).getTextContent() ) );
+
+        n = d.getElementsByTagName( "mech_type" );
+        if( n.getLength() <= 0 ) {
+            // old files are always BattleMechs
+        } else if( n.item( 0 ).getTextContent().equals( "IndustrialMech" ) ) {
+            // industrialmech.  we're not worried about BattleMechs since the
+            // mech defaults to them anyway
+            m.SetIndustrialmech();
+        }
+
         n = d.getElementsByTagName( "motive_type" );
         if( n.item( 0 ).getTextContent().equals( "Quad" ) ) {
             m.SetQuad();

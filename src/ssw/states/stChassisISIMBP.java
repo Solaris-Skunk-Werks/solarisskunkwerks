@@ -75,7 +75,7 @@ public class stChassisISIMBP implements ifChassis, ifState {
     }
 
     public String GetCritName() {
-        return "";
+        return "Industrial";
     }
 
     public String GetMMName() {

@@ -1136,13 +1136,21 @@ public class HTMLWriter {
         lookup.put( "<+-SSW_CASEII_LOCATION_LINE-+>", FileCommon.GetCaseIILocations( CurMech ) );
         lookup.put( "<+-SSW_CASEII_TONNAGE-+>", "" + CurMech.GetCASEIITonnage() );
         if( CurMech.IsQuad() ) {
-            lookup.put( "<+-SSW_CHASSIS_CONFIG-+>", "Quad" );
+            if( CurMech.IsIndustrialmech() ) {
+                lookup.put( "<+-SSW_CHASSIS_CONFIG-+>", "Quad IndustrialMech" );
+            } else {
+                lookup.put( "<+-SSW_CHASSIS_CONFIG-+>", "Quad" );
+            }
             lookup.put( "<+-SSW_ARM_LOCATION_NAME-+>", "R/L Front Leg" );
             lookup.put( "<+-SSW_LEG_LOCATION_NAME-+>", "R/L Rear Leg" );
             lookup.put( "<+-SSW_ARM_LOCATION_LONGNAME-+>", "Right/Left Front Leg" );
             lookup.put( "<+-SSW_LEG_LOCATION_LONGNAME-+>", "Right/Left Rear Leg" );
         } else {
-            lookup.put( "<+-SSW_CHASSIS_CONFIG-+>", "Biped" );
+            if( CurMech.IsIndustrialmech() ) {
+                lookup.put( "<+-SSW_CHASSIS_CONFIG-+>", "Biped IndustrialMech" );
+            } else {
+                lookup.put( "<+-SSW_CHASSIS_CONFIG-+>", "Biped" );
+            }
             lookup.put( "<+-SSW_ARM_LOCATION_NAME-+>", "R/L Arm" );
             lookup.put( "<+-SSW_LEG_LOCATION_NAME-+>", "R/L Leg" );
             lookup.put( "<+-SSW_ARM_LOCATION_LONGNAME-+>", "Right/Left Arm" );

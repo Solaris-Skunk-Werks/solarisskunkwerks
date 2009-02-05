@@ -3930,12 +3930,14 @@ public class BipedLoadout implements ifLoadout {
     }
 
     public void AddMechModifier( MechModifier m ) {
+        if( m == null ) { return; }
         if( ! MechMods.contains( m ) &! Owner.GetMechMods().contains( m ) ) {
             MechMods.add( m );
         }
     }
 
     public void RemoveMechMod( MechModifier m ) {
+        if( m == null ) { return; }
         MechMods.remove( m );
     }
 

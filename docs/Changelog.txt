@@ -41,6 +41,8 @@ Version 0.6.0
 - Added Batch Print Saved Mechs Feature (ArcAngel)
 - Added Preferences saving for Print Options
 - Added double-click to load mech in SSW to Batch print window
+- Added Ultralight 'Mechs for Experimental Rules.
+- The basics of IndustrialMechs are in.
 
 + Changed
 - Fixed a load bug with heatsinks.
@@ -138,6 +140,9 @@ Version 0.6.0
 - Default heat sink type is now a startup option.
 - Fixed a bug with selecting Artillery and ammo not being reset.
 - Fixed a bug with changing Rules Level and CASE II not unallocating.
+- Fixed a load bug with the Fluff Image.
+- Clan Streak LRMs now have their correct MegaMek names.
+- Prettified the Text and Clipboard export.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

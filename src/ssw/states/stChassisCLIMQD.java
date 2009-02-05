@@ -75,7 +75,7 @@ public class stChassisCLIMQD implements ifChassis, ifState {
     }
 
     public String GetCritName() {
-        return "";
+        return "Industrial";
     }
 
     public String GetMMName() {

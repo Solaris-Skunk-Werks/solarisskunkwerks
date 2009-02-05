@@ -82,6 +82,10 @@ public class stArmorISHA implements ifArmor, ifState {
         return 2.0f;
     }
 
+    public int GetBAR() {
+        return 10;
+    }
+
     public boolean LocationLocked() {
         return locked;
     }

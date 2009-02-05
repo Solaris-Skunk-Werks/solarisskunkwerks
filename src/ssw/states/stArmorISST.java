@@ -212,6 +212,10 @@ public class stArmorISST implements ifArmor, ifState {
         return 1.0f;
     }
 
+    public int GetBAR() {
+        return 10;
+    }
+
     public boolean LocationLocked() {
         // stealth armor is always locked.
         return true;

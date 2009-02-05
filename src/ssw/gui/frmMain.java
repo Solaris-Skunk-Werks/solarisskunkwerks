@@ -83,6 +83,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     boolean Load = false;
     private Cursor Hourglass = new Cursor( Cursor.WAIT_CURSOR );
     private Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
+    ImageIcon FluffImage = Utils.createImageIcon( Constants.NO_IMAGE );
 
     final int BALLISTIC = 0,
               ENERGY = 1,
@@ -815,6 +816,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkBSPFD.setEnabled( false );
             chkBSPFD.setSelected( false );
         }
+        if( CurMech.IsIndustrialmech() ) {
+            chkEnviroSealing.setEnabled( true );
+            chkEjectionSeat.setEnabled( true );
+        } else {
+            chkEnviroSealing.setEnabled( false );
+            chkEjectionSeat.setEnabled( false );
+            chkEnviroSealing.setSelected( false );
+            chkEjectionSeat.setSelected( false );
+        }
         if( CommonTools.IsAllowed( CurMech.GetLoadout().GetSupercharger().GetAvailability(), CurMech ) ) {
             chkSupercharger.setEnabled( true );
             cmbSCLoc.setEnabled( true );
@@ -970,6 +980,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkVoidSig.setEnabled( false );
             chkBSPFD.setEnabled( false );
             chkCLPS.setEnabled( false );
+            chkEnviroSealing.setEnabled( false );
+            chkEjectionSeat.setEnabled( false );
 
             // now see if we have a supercharger on the base chassis
             if( CurMech.GetBaseLoadout().HasSupercharger() ) {
@@ -1019,6 +1031,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( ! chkVoidSig.isEnabled() ) { CurMech.SetVoidSig( false ); }
                 if( ! chkBSPFD.isEnabled() ) { CurMech.SetBlueShield( false ); }
                 if( ! chkCLPS.isEnabled() ) { CurMech.SetChameleon( false ); }
+                if( ! chkEnviroSealing.isEnabled() ) { CurMech.SetEnviroSealing( false ); }
             } catch( Exception e ) {
                 // we should never get this, but report it if we do
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
@@ -1206,14 +1219,24 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( chkYearRestrict.isSelected() ) {
             if( cmbTechBase.getSelectedIndex() == 1 ) {
                 if( ProdYear >= 2854 ) {
-                    chkOmnimech.setEnabled( true );
+                    if( CurMech.IsIndustrialmech() ) {
+                        chkOmnimech.setEnabled( false );
+                        chkOmnimech.setSelected( false );
+                    } else {
+                        chkOmnimech.setEnabled( true );
+                    }
                 } else {
                     chkOmnimech.setEnabled( false );
                     chkOmnimech.setSelected( false );
                 }
             } else {
                 if( ProdYear >= 3052 ) {
-                    chkOmnimech.setEnabled( true );
+                    if( CurMech.IsIndustrialmech() ) {
+                        chkOmnimech.setEnabled( false );
+                        chkOmnimech.setSelected( false );
+                    } else {
+                        chkOmnimech.setEnabled( true );
+                    }
                 } else {
                     chkOmnimech.setEnabled( false );
                     chkOmnimech.setSelected( false );
@@ -1227,17 +1250,32 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     break;
                 case 1:
                     if( cmbTechBase.getSelectedIndex() == 1 ) {
-                        chkOmnimech.setEnabled( true );
+                        if( CurMech.IsIndustrialmech() ) {
+                            chkOmnimech.setEnabled( false );
+                            chkOmnimech.setSelected( false );
+                        } else {
+                            chkOmnimech.setEnabled( true );
+                        }
                     } else {
                         chkOmnimech.setEnabled( false );
                         chkOmnimech.setSelected( false );
                     }
                     break;
                 case 2:
-                    chkOmnimech.setEnabled( true );
+                    if( CurMech.IsIndustrialmech() ) {
+                        chkOmnimech.setEnabled( false );
+                        chkOmnimech.setSelected( false );
+                    } else {
+                        chkOmnimech.setEnabled( true );
+                    }
                     break;
                 case 3:
-                    chkOmnimech.setEnabled( true );
+                    if( CurMech.IsIndustrialmech() ) {
+                        chkOmnimech.setEnabled( false );
+                        chkOmnimech.setSelected( false );
+                    } else {
+                        chkOmnimech.setEnabled( true );
+                    }
                     break;
             }
         }
@@ -1605,56 +1643,62 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void ResetTonnageSelector() {
         int tons = CurMech.GetTonnage();
-        if( tons > 15 && tons < 25 ) {
+        if( tons < 15 ) {
             cmbTonnage.setSelectedIndex( 0 );
-            lblMechType.setText( "Light Mech");
-        } else if( tons > 20 && tons < 30 ) {
+            lblMechType.setText( "Ultralight Mech");
+        } else if( tons > 10 && tons < 20 ) {
             cmbTonnage.setSelectedIndex( 1 );
-            lblMechType.setText( "Light Mech");
-        } else if( tons > 25 && tons < 35 ) {
+            lblMechType.setText( "Ultralight Mech");
+        } else if( tons > 15 && tons < 25 ) {
             cmbTonnage.setSelectedIndex( 2 );
             lblMechType.setText( "Light Mech");
-        } else if( tons > 30 && tons < 40 ) {
+        } else if( tons > 20 && tons < 30 ) {
             cmbTonnage.setSelectedIndex( 3 );
             lblMechType.setText( "Light Mech");
-        } else if( tons > 35 && tons < 45 ) {
+        } else if( tons > 25 && tons < 35 ) {
             cmbTonnage.setSelectedIndex( 4 );
-            lblMechType.setText( "Medium Mech");
-        } else if( tons > 40 && tons < 50 ) {
+            lblMechType.setText( "Light Mech");
+        } else if( tons > 30 && tons < 40 ) {
             cmbTonnage.setSelectedIndex( 5 );
-            lblMechType.setText( "Medium Mech");
-        } else if( tons > 45 && tons < 55 ) {
+            lblMechType.setText( "Light Mech");
+        } else if( tons > 35 && tons < 45 ) {
             cmbTonnage.setSelectedIndex( 6 );
             lblMechType.setText( "Medium Mech");
-        } else if( tons > 50 && tons < 60 ) {
+        } else if( tons > 40 && tons < 50 ) {
             cmbTonnage.setSelectedIndex( 7 );
             lblMechType.setText( "Medium Mech");
-        } else if( tons > 55 && tons < 65 ) {
+        } else if( tons > 45 && tons < 55 ) {
             cmbTonnage.setSelectedIndex( 8 );
-            lblMechType.setText( "Heavy Mech");
-        } else if( tons > 60 && tons < 70 ) {
+            lblMechType.setText( "Medium Mech");
+        } else if( tons > 50 && tons < 60 ) {
             cmbTonnage.setSelectedIndex( 9 );
-            lblMechType.setText( "Heavy Mech");
-        } else if( tons > 65 && tons < 75 ) {
+            lblMechType.setText( "Medium Mech");
+        } else if( tons > 55 && tons < 65 ) {
             cmbTonnage.setSelectedIndex( 10 );
             lblMechType.setText( "Heavy Mech");
-        } else if( tons > 70 && tons < 80 ) {
+        } else if( tons > 60 && tons < 70 ) {
             cmbTonnage.setSelectedIndex( 11 );
             lblMechType.setText( "Heavy Mech");
-        } else if( tons > 75 && tons < 85 ) {
+        } else if( tons > 65 && tons < 75 ) {
             cmbTonnage.setSelectedIndex( 12 );
-            lblMechType.setText( "Assault Mech");
-        } else if( tons > 80 && tons < 90 ) {
+            lblMechType.setText( "Heavy Mech");
+        } else if( tons > 70 && tons < 80 ) {
             cmbTonnage.setSelectedIndex( 13 );
-            lblMechType.setText( "Assault Mech");
-        } else if( tons > 85 && tons < 95 ) {
+            lblMechType.setText( "Heavy Mech");
+        } else if( tons > 75 && tons < 85 ) {
             cmbTonnage.setSelectedIndex( 14 );
             lblMechType.setText( "Assault Mech");
-        } else if( tons > 90 && tons < 100 ) {
+        } else if( tons > 80 && tons < 90 ) {
             cmbTonnage.setSelectedIndex( 15 );
             lblMechType.setText( "Assault Mech");
-        } else {
+        } else if( tons > 85 && tons < 95 ) {
             cmbTonnage.setSelectedIndex( 16 );
+            lblMechType.setText( "Assault Mech");
+        } else if( tons > 90 && tons < 100 ) {
+            cmbTonnage.setSelectedIndex( 17 );
+            lblMechType.setText( "Assault Mech");
+        } else {
+            cmbTonnage.setSelectedIndex( 18 );
             lblMechType.setText( "Assault Mech");
         }
     }
@@ -1767,8 +1811,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtJJModel.setText( "" );
         txtCommSystem.setText( "" );
         txtTNTSystem.setText( "" );
-        ImageIcon FluffImage= Utils.createImageIcon( Constants.NO_IMAGE );
-        lblFluffImage.setIcon( FluffImage );
+        lblFluffImage.setIcon( null );
 
         if( cmbMechEra.getSelectedIndex() == Constants.ALL_ERA ) {
             chkYearRestrict.setEnabled( false );
@@ -2195,6 +2238,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkVoidSig.setEnabled( false );
         chkCLPS.setEnabled( false );
         chkBSPFD.setEnabled( false );
+        chkEnviroSealing.setEnabled( false );
+        chkEjectionSeat.setEnabled( false );
         if( CurMech.GetBaseLoadout().HasSupercharger() ) {
             chkSupercharger.setEnabled( false );
             lblSupercharger.setEnabled( false );
@@ -2271,7 +2316,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkSupercharger.setEnabled( true );
         lblSupercharger.setEnabled( true );
         cmbSCLoc.setEnabled( true );
-
+        if( CurMech.IsIndustrialmech() ) {
+            chkEnviroSealing.setEnabled( true );
+            chkEjectionSeat.setEnabled( true );
+        } else {
+            chkEnviroSealing.setEnabled( false );
+            chkEjectionSeat.setEnabled( false );
+        }
         // now enable the omnimech controls
         cmbOmniVariant.setEnabled( false );
         btnAddVariant.setEnabled( false );
@@ -2826,6 +2877,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkFHES = new javax.swing.JCheckBox();
         lblSupercharger = new javax.swing.JLabel();
         jLabel57 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        chkEjectionSeat = new javax.swing.JCheckBox();
+        chkEnviroSealing = new javax.swing.JCheckBox();
         pnlArmor = new javax.swing.JPanel();
         pnlFrontArmor = new javax.swing.JPanel();
         pnlRLArmorBox = new javax.swing.JPanel();
@@ -3512,7 +3566,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlChassis.add(lblTonnage, gridBagConstraints);
 
-        cmbTonnage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90", "95", "100" }));
+        cmbTonnage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90", "95", "100" }));
+        cmbTonnage.setSelectedIndex(2);
         cmbTonnage.setMaximumSize(new java.awt.Dimension(60, 20));
         cmbTonnage.setMinimumSize(new java.awt.Dimension(60, 20));
         cmbTonnage.setPreferredSize(new java.awt.Dimension(60, 20));
@@ -3686,7 +3741,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 2);
         pnlChassis.add(chkOmnimech, gridBagConstraints);
 
-        cmbMechType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Battlemech" }));
+        cmbMechType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Battlemech", "IndustrialMech" }));
         cmbMechType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbMechType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbMechType.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -4473,10 +4528,33 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         pnlBasicSetup.add(jPanel4, gridBagConstraints);
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Industrial Equipment"));
+        jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.PAGE_AXIS));
+
+        chkEjectionSeat.setText("Ejection Seat");
+        chkEjectionSeat.setEnabled(false);
+        jPanel6.add(chkEjectionSeat);
+
+        chkEnviroSealing.setText("Environmental Sealing");
+        chkEnviroSealing.setEnabled(false);
+        chkEnviroSealing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkEnviroSealingActionPerformed(evt);
+            }
+        });
+        jPanel6.add(chkEnviroSealing);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlBasicSetup.add(jPanel6, gridBagConstraints);
 
         tbpMainTabPane.addTab("Basic Setup", pnlBasicSetup);
 
@@ -7716,7 +7794,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlImage.setLayout(new java.awt.GridBagLayout());
 
         lblFluffImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFluffImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/No_Image.png"))); // NOI18N
         lblFluffImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lblFluffImage.setMaximumSize(new java.awt.Dimension(290, 350));
         lblFluffImage.setMinimumSize(new java.awt.Dimension(290, 350));
@@ -8805,7 +8882,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         JFileChooser fc = new JFileChooser();
 
         // get the current image in case we cancel
-        ImageIcon FluffImage = (ImageIcon) lblFluffImage.getIcon();
+        ImageIcon newFluffImage = (ImageIcon) lblFluffImage.getIcon();
 
         //Add a custom file filter and disable the default
         //(Accept All) file filter.
@@ -8832,17 +8909,18 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 Prefs.put("LastImagePath", fc.getSelectedFile().getCanonicalPath().replace(fc.getSelectedFile().getName(), ""));
                 Prefs.put("LastImageFile", fc.getSelectedFile().getName());
 
-                FluffImage = new ImageIcon(fc.getSelectedFile().getPath());
+                newFluffImage = new ImageIcon(fc.getSelectedFile().getPath());
 
+                if( newFluffImage == null ) { return; }
                 // See if we need to scale
-                int h = FluffImage.getIconHeight();
-                int w = FluffImage.getIconWidth();
+                int h = newFluffImage.getIconHeight();
+                int w = newFluffImage.getIconWidth();
                 if ( w > 290 || h > 350 ) {
                     if ( w > h ) { // resize based on width
-                        FluffImage = new ImageIcon(FluffImage.getImage().
+                        newFluffImage = new ImageIcon(newFluffImage.getImage().
                             getScaledInstance(290, -1, Image.SCALE_DEFAULT));
                     } else { // resize based on height
-                        FluffImage = new ImageIcon(FluffImage.getImage().
+                        newFluffImage = new ImageIcon(newFluffImage.getImage().
                             getScaledInstance(-1, 350, Image.SCALE_DEFAULT));
                     }
                 }
@@ -8850,17 +8928,17 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 //break;
             }
         } else {
-            //FluffImage = Utils.createImageIcon( Constants.NO_IMAGE );
+            //
         }
 
         // add the image to the fluff image label
-        lblFluffImage.setIcon( FluffImage );
+        lblFluffImage.setIcon( newFluffImage );
         CurMech.SetSSWImage( fc.getSelectedFile().getPath() );
     }//GEN-LAST:event_btnLoadImageActionPerformed
 
     private void btnClearImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearImageActionPerformed
         // Set the fluff image to default
-        lblFluffImage.setIcon( Utils.createImageIcon( Constants.NO_IMAGE ) );
+        lblFluffImage.setIcon( null );
     }//GEN-LAST:event_btnClearImageActionPerformed
 
     private void cmbHeatSinkTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHeatSinkTypeActionPerformed
@@ -9095,88 +9173,115 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // We have to decode the selected index to set values.  A bit safer, I
         // think, because we can directly set the values ourselves.
         int Tons = 0;
+        int CurTons = CurMech.GetTonnage();
         switch ( cmbTonnage.getSelectedIndex() ) {
             case 0:
+                // 10 ton 'Mech.  Need to check the settings first
+                if( ! CurMech.IsIndustrialmech() ) {
+                    if( CurMech.GetRulesLevel() != Constants.EXPERIMENTAL ) {
+                        cmbRulesLevel.setSelectedIndex( Constants.EXPERIMENTAL );
+                        //javax.swing.JOptionPane.showMessageDialog( this, "BattleMechs may only choose this tonnage under\nExperimental Rules.  The tonnage has been reset." );
+                        //cmbTonnage.setSelectedItem( CurTons + "" );
+                        //return;
+                    }
+                }
+                lblMechType.setText( "Ultralight Mech");
+                Tons = 10;
+                break;
+            case 1:
+                // 15 ton 'Mech
+                if( ! CurMech.IsIndustrialmech() ) {
+                    if( CurMech.GetRulesLevel() != Constants.EXPERIMENTAL ) {
+                        cmbRulesLevel.setSelectedIndex( Constants.EXPERIMENTAL );
+                        //javax.swing.JOptionPane.showMessageDialog( this, "BattleMechs may only choose this tonnage under\nExperimental Rules.  The tonnage has been reset." );
+                        //cmbTonnage.setSelectedItem( CurTons + "" );
+                        //return;
+                    }
+                }
+                lblMechType.setText( "Ultralight Mech");
+                Tons = 15;
+                break;
+            case 2:
                 // 20 ton mech
                 lblMechType.setText( "Light Mech");
                 Tons = 20;
                 break;
-            case 1:
+            case 3:
                 // 25 ton mech
                 lblMechType.setText( "Light Mech");
                 Tons = 25;
                 break;
-            case 2:
+            case 4:
                 // 30 ton mech
                 lblMechType.setText( "Light Mech");
                 Tons = 30;
                 break;
-            case 3:
+            case 5:
                 // 35 ton mech
                 lblMechType.setText( "Light Mech");
                 Tons = 35;
                 break;
-            case 4:
+            case 6:
                 // 40 ton mech
                 lblMechType.setText( "Medium Mech");
                 Tons = 40;
                 break;
-            case 5:
+            case 7:
                 // 45 ton mech
                 lblMechType.setText( "Medium Mech");
                 Tons = 45;
                 break;
-            case 6:
+            case 8:
                 // 50 ton mech
                 lblMechType.setText( "Medium Mech");
                 Tons = 50;
                 break;
-            case 7:
+            case 9:
                 // 55 ton mech
                 lblMechType.setText( "Medium Mech");
                 Tons = 55;
                 break;
-            case 8:
+            case 10:
                 // 60 ton mech
                 lblMechType.setText( "Heavy Mech");
                 Tons = 60;
                 break;
-            case 9:
+            case 11:
                 // 65 ton mech
                 lblMechType.setText( "Heavy Mech");
                 Tons = 65;
                 break;
-            case 10:
+            case 12:
                 // 70 ton mech
                 lblMechType.setText( "Heavy Mech");
                 Tons = 70;
                 break;
-            case 11:
+            case 13:
                 // 75 ton mech
                 lblMechType.setText( "Heavy Mech");
                 Tons = 75;
                 break;
-            case 12:
+            case 14:
                 // 80 ton mech
                 lblMechType.setText( "Assault Mech");
                 Tons = 80;
                 break;
-            case 13:
+            case 15:
                 // 85 ton mech
                 lblMechType.setText( "Assault Mech");
                 Tons = 85;
                 break;
-            case 14:
+            case 16:
                 // 90 ton mech
                 lblMechType.setText( "Assault Mech");
                 Tons = 90;
                 break;
-            case 15:
+            case 17:
                 // 95 ton mech
                 lblMechType.setText( "Assault Mech");
                 Tons = 95;
                 break;
-            case 16:
+            case 18:
                 // 100 ton mech
                 lblMechType.setText( "Assault Mech");
                 Tons = 100;
@@ -10772,6 +10877,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 return;
             }
         } else {
+            // check tonnage first, and adjust as needed.
+            if( NewLevel < Constants.EXPERIMENTAL &! CurMech.IsIndustrialmech() ) {
+                if( CurMech.GetTonnage() < 20 ) {
+                    cmbTonnage.setSelectedItem( "20" );
+                }
+            }
             CurMech.SetRulesLevel( NewLevel );
 
             // get the currently chosen selections
@@ -11643,26 +11754,24 @@ public void LoadMechIntoGUI() {
     ResetAmmo();
 
     // load the fluff image.
-    // load the fluff image.
-    ImageIcon FluffImage = Utils.createImageIcon( Constants.NO_IMAGE );
-    if( ! CurMech.GetSSWImage().equals( Constants.NO_IMAGE ) ) {
-        FluffImage = new ImageIcon( CurMech.GetSSWImage() );
-    }
+    ImageIcon newFluffImage = null;
+    newFluffImage = new ImageIcon( CurMech.GetSSWImage() );
 
-    // See if we need to scale
-    int h = FluffImage.getIconHeight();
-    int w = FluffImage.getIconWidth();
-    if ( w > 290 || h > 350 ) {
-        if ( w > h ) { // resize based on width
-            FluffImage = new ImageIcon(FluffImage.getImage().
-                getScaledInstance(290, -1, Image.SCALE_DEFAULT));
-        } else { // resize based on height
-            FluffImage = new ImageIcon(FluffImage.getImage().
-                getScaledInstance(-1, 350, Image.SCALE_DEFAULT));
+    if( newFluffImage != null ) {
+        // See if we need to scale
+        int h = newFluffImage.getIconHeight();
+        int w = newFluffImage.getIconWidth();
+        if ( w > 290 || h > 350 ) {
+            if ( w > h ) { // resize based on width
+                newFluffImage = new ImageIcon(newFluffImage.getImage().
+                    getScaledInstance(290, -1, Image.SCALE_DEFAULT));
+            } else { // resize based on height
+                newFluffImage = new ImageIcon(newFluffImage.getImage().
+                    getScaledInstance(-1, 350, Image.SCALE_DEFAULT));
+            }
         }
     }
-
-    lblFluffImage.setIcon( FluffImage );
+    lblFluffImage.setIcon( newFluffImage );
 
     edtOverview.setText( CurMech.GetOverview() );
     edtCapabilities.setText( CurMech.GetCapabilities() );
@@ -12008,25 +12117,84 @@ private void btnPrintBatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 }//GEN-LAST:event_btnPrintBatchActionPerformed
 
 private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMechTypeActionPerformed
-    return;
-/*    if( cmbMechType.getSelectedIndex() == 0 ) {
-        CurMech.SetBattlemech();
-    } else {
-        CurMech.SetIndustrialmech();
-    }
+        if( cmbMechType.getSelectedIndex() == 0 ) {
+            // check tonnage first
+            if( CurMech.GetTonnage() < 20 ) {
+                if( CurMech.GetRulesLevel() < Constants.EXPERIMENTAL ) {
+                    cmbTonnage.setSelectedItem( "20" );
+                }
+            }
+            CurMech.SetBattlemech();
+        } else {
+            CurMech.SetIndustrialmech();
+        }
 
-    // set the loadout arrays
-    SetLoadoutArrays();
-    // fix the armor spinners
-    FixArmorSpinners();
+        // set the loadout arrays
+        SetLoadoutArrays();
+
+        // fix the armor spinners
+        FixArmorSpinners();
+
+        // refresh all the combo boxes.
+        BuildChassisSelector();
+        BuildEngineSelector();
+        BuildGyroSelector();
+        BuildCockpitSelector();
+        BuildEnhancementSelector();
+        BuildHeatsinkSelector();
+        BuildJumpJetSelector();
+        BuildArmorSelector();
+        RefreshEquipment();
+        CheckOmnimech();
+
+        // now reset the combo boxes to the closest choices we previously selected
+        LoadSelections();
+
+        RecalcEngine();
+        RecalcGyro();
+        RecalcIntStruc();
+        RecalcCockpit();
+        CurMech.GetActuators().PlaceActuators();
+        RecalcHeatSinks();
+        RecalcJumpJets();
+        RecalcEnhancements();
+        RecalcArmor();
+        RecalcEquipment();
+
+        // since you can only ever change the era when not restricted, we're not
+        // doing it here.  Pass in default values.
+        CurMech.GetLoadout().FlushIllegal( cmbMechEra.getSelectedIndex(), 0, false );
+
+        // now refresh the information panes
+        CurMech.ReCalcBaseCost();
+        RefreshSummary();
+        RefreshInfoPane();
+        SetWeaponChoosers();
+        ResetAmmo();
+}//GEN-LAST:event_cmbMechTypeActionPerformed
+
+private void chkEnviroSealingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEnviroSealingActionPerformed
+    // is the system already installed?
+    if( chkEnviroSealing.isSelected() == CurMech.HasEnviroSealing() ) { return; }
+    try {
+        if( chkEnviroSealing.isSelected() ) {
+            CurMech.SetEnviroSealing( true );
+        } else {
+            CurMech.SetEnviroSealing( false );
+        }
+    } catch( Exception e ) {
+        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        // ensure it's not checked when it shouldn't be
+        chkEnviroSealing.setSelected( CurMech.HasEnviroSealing() );
+        return;
+    }
 
     // now refresh the information panes
     CurMech.ReCalcBaseCost();
     RefreshSummary();
     RefreshInfoPane();
-    RefreshInternalPoints();
-    SetWeaponChoosers();*/
-}//GEN-LAST:event_cmbMechTypeActionPerformed
+
+}//GEN-LAST:event_chkEnviroSealingActionPerformed
 
 private void setViewToolbar(boolean Visible)
 {
@@ -12085,6 +12253,8 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JCheckBox chkCLPS;
     private javax.swing.JCheckBox chkCTCASE;
     private javax.swing.JCheckBox chkCTCASE2;
+    private javax.swing.JCheckBox chkEjectionSeat;
+    private javax.swing.JCheckBox chkEnviroSealing;
     private javax.swing.JCheckBox chkFHES;
     private javax.swing.JCheckBox chkHDCASE2;
     private javax.swing.JCheckBox chkHDTurret;
@@ -12209,6 +12379,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
