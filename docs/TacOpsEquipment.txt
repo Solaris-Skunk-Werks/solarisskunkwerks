@@ -18,9 +18,6 @@ Vehicular Drop Chute (Reusable)			Equipment
 
 New weapons to be added
 -------------------------------------------------------------------------------
-Thumper Artillery Cannon				Weapon
-Sniper Artillery Cannon					Weapon
-Long Tom Artillery Cannon				Weapon
 Talons									Weapon  Talons
 Fluid Gun								Weapon
 Mech Mortar/1							Weapon  CLMekMortar1 ISMekMortar1

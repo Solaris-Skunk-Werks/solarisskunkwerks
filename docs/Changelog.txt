@@ -23,7 +23,7 @@ Version 0.6.0
 - Added in the Supercharger.
 - Added Mace, Lance, Spikes, Vibroblades, Flail, Claws, Chain Whip, Shields
 - Added Bombast Lasers, Silver Bullet Gauss, Magshot Gauss Rifle, Clan Rotary ACs
-- Added Enhanced LRMs, Extended LRMs, Streak LRMs, Protomech ACs
+- Added Enhanced LRMs, Extended LRMs, Streak LRMs, Protomech ACs, Artillery Cannons
 - You can now export text directly to the system clipboard (File -> Export).
 - Added Print Saved Mech Command to Menu. Works with Omni and Standard Mechs (Arcangel)
 - XXL Engines are now in.
