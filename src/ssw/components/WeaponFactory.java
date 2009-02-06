@@ -246,20 +246,22 @@ public class WeaponFactory {
             // check it using the normal routine, with two exceptions
             if( a.GetCritName().equals( "Retractable Blade") ) {
                 if( ! m.IsClan() ) {
-                    if( m.IsYearRestricted() ) {
-                        if( MyOptions.Equip_AllowRBlade ) {
-                            if( m.GetYear() < 2420 ) {
-                                RetVal.remove( i );
+                    if( m.GetEra() < Constants.ALL_ERA ) {
+                        if( m.IsYearRestricted() ) {
+                            if( MyOptions.Equip_AllowRBlade ) {
+                                if( m.GetYear() < 2420 ) {
+                                    RetVal.remove( i );
+                                }
+                            } else {
+                                if( m.GetYear() < 3068 ) {
+                                    RetVal.remove( i );
+                                }
                             }
                         } else {
-                            if( m.GetYear() < 3068 ) {
-                                RetVal.remove( i );
-                            }
-                        }
-                    } else {
-                        if( ! MyOptions.Equip_AllowRBlade ) {
-                            if( m.GetEra() != Constants.CLAN_INVASION ) {
-                                RetVal.remove( i );
+                            if( ! MyOptions.Equip_AllowRBlade ) {
+                                if( m.GetEra() != Constants.CLAN_INVASION ) {
+                                    RetVal.remove( i );
+                                }
                             }
                         }
                     }
@@ -268,13 +270,15 @@ public class WeaponFactory {
                 }
             } else if( a.GetCritName().equals( "Hatchet" ) ) {
                 if( ! m.IsClan() ) {
-                    if( m.IsYearRestricted() ) {
-                        if( m.GetYear() < 3022 ) {
-                            RetVal.remove( i );
-                        }
-                    } else {
-                        if( m.GetEra() != Constants.SUCCESSION && m.GetEra() != Constants.CLAN_INVASION ) {
-                            RetVal.remove( i );
+                    if( m.GetEra() < Constants.ALL_ERA ) {
+                        if( m.IsYearRestricted() ) {
+                            if( m.GetYear() < 3022 ) {
+                                RetVal.remove( i );
+                            }
+                        } else {
+                            if( m.GetEra() != Constants.SUCCESSION && m.GetEra() != Constants.CLAN_INVASION ) {
+                                RetVal.remove( i );
+                            }
                         }
                     }
                 } else {

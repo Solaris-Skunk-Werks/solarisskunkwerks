@@ -44,11 +44,20 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         CurMech = m;
         cmbGunnery.setSelectedIndex( 4 );
         cmbPiloting.setSelectedIndex( 5 );
-        lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );
 
         chkPrintCharts.setSelected(Parent.Prefs.getBoolean("UseCharts", false));
-        chkAdjustBV.setSelected(Parent.Prefs.getBoolean("AdjustPG", false));
         chkMWStats.setSelected(Parent.Prefs.getBoolean("NoPilot", false));
+        if( chkMWStats.isSelected() ) {
+            lblAdjustBV.setText( String.format( "%1$,d", CurMech.GetCurrentBV() ) );
+            chkAdjustBV.setSelected( false );
+            chkAdjustBV.setEnabled( false );
+            cmbGunnery.setEnabled( false );
+            cmbPiloting.setEnabled( false );
+            txtWarriorName.setEnabled( false );
+        } else {
+            chkAdjustBV.setSelected(Parent.Prefs.getBoolean("AdjustPG", false));
+            lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );   
+        }
         if (Parent.Prefs.getBoolean("UseA4", false)) {
             cmbPaperSize.setSelectedIndex(1);
         }

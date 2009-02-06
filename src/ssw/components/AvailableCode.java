@@ -43,6 +43,7 @@ public class AvailableCode {
                 ReIntro,
                 RulesLevelBM,
                 RulesLevelIM,
+                RulesLevelVee,
                 RandDStart;
     private String IntroFaction,
                    ReIntroFaction,
@@ -92,6 +93,7 @@ public class AvailableCode {
         ReIntroduced = ReI_TF;
         RulesLevelBM = Constants.TOURNAMENT;
         RulesLevelIM = Constants.TOURNAMENT;
+        RulesLevelVee = Constants.TOURNAMENT;
         RandDStart = 0;
         RandDFaction = "";
         Prototype = false;
@@ -119,6 +121,10 @@ public class AvailableCode {
         RulesLevelIM = a;
     }
 
+    public void SetRulesLevelVee( int a ) {
+        RulesLevelVee = a;
+    }
+
     public void SetPrimitiveAllowed( boolean pa ) {
         PrimitiveAllowed = pa;
     }
@@ -141,6 +147,10 @@ public class AvailableCode {
 
     public int GetRulesLevelIM() {
         return RulesLevelIM;
+    }
+
+    public int GetRulesLevelVee() {
+        return RulesLevelVee;
     }
 
     public char GetTechRating() {
@@ -268,6 +278,9 @@ public class AvailableCode {
         }
         if( a.GetRulesLevelIM() > RulesLevelIM ) {
             RulesLevelIM = a.GetRulesLevelIM();
+        }
+        if( a.GetRulesLevelVee() > RulesLevelVee ) {
+            RulesLevelVee = a.GetRulesLevelVee();
         }
         if( a.IsPrototype() ) {
             Prototype = true;

@@ -43,6 +43,8 @@ Version 0.6.0
 - Added double-click to load mech in SSW to Batch print window
 - Added Ultralight 'Mechs for Experimental Rules.
 - The basics of IndustrialMechs are in.
+- Added an option for formatting ammunition names when printing.
+- BAR is now printed on the sheet if needed (BAR < 10).
 
 + Changed
 - Fixed a load bug with heatsinks.
@@ -143,6 +145,8 @@ Version 0.6.0
 - Fixed a load bug with the Fluff Image.
 - Clan Streak LRMs now have their correct MegaMek names.
 - Prettified the Text and Clipboard export.
+- Prettified the Criticals tab a bit.
+- Fixed an issue with the Print Options dialogue and not printing MW names.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

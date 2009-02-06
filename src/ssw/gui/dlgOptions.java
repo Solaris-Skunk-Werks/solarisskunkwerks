@@ -109,6 +109,7 @@ public class dlgOptions extends javax.swing.JDialog {
         cmbDefaultTechbase.setSelectedIndex( MyOptions.DefaultTechbase );
         cmbHSType.setSelectedIndex( MyOptions.DefaultHeatSinks );
         chkRetractableBlade.setSelected( MyOptions.Equip_AllowRBlade );
+        txtAmmoPrintName.setText( MyOptions.AmmoNameFormat );
 
         lblLocked.setBackground( MyOptions.bg_LOCKED );
         lblLocked.setForeground( MyOptions.fg_LOCKED );
@@ -186,6 +187,7 @@ public class dlgOptions extends javax.swing.JDialog {
         MyOptions.HTMLPath = txtHTMLPath.getText();
         MyOptions.TXTPath = txtTXTPath.getText();
         MyOptions.MegamekPath = txtMegamekPath.getText();
+        MyOptions.AmmoNameFormat = txtAmmoPrintName.getText();
 
         if( rdoSortOut.isSelected() ) {
             MyOptions.Export_Sort = MyOptions.EXPORT_SORT_OUT;
@@ -247,6 +249,9 @@ public class dlgOptions extends javax.swing.JDialog {
         jLabel11 = new javax.swing.JLabel();
         cmbHSType = new javax.swing.JComboBox();
         jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        txtAmmoPrintName = new javax.swing.JTextField();
+        btnAmmoNameInfo = new javax.swing.JButton();
         pnlColorOptions = new javax.swing.JPanel();
         lblLocked = new javax.swing.JLabel();
         lblLinked = new javax.swing.JLabel();
@@ -573,6 +578,37 @@ public class dlgOptions extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
         pnlEquipOptions.add(jLabel16, gridBagConstraints);
+
+        jLabel17.setText("Ammo Print Format:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
+        pnlEquipOptions.add(jLabel17, gridBagConstraints);
+
+        txtAmmoPrintName.setText("jTextField1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 0);
+        pnlEquipOptions.add(txtAmmoPrintName, gridBagConstraints);
+
+        btnAmmoNameInfo.setText("?");
+        btnAmmoNameInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAmmoNameInfoActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 4);
+        pnlEquipOptions.add(btnAmmoNameInfo, gridBagConstraints);
 
         jTabbedPane1.addTab("Equipment", pnlEquipOptions);
 
@@ -1207,7 +1243,24 @@ private void btnArmoredBackActionPerformed(java.awt.event.ActionEvent evt) {//GE
         if ( newColor != null ) { lblArmored.setBackground( newColor ); }
 }//GEN-LAST:event_btnArmoredBackActionPerformed
 
+private void btnAmmoNameInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmmoNameInfoActionPerformed
+    // display allowable field info
+    String msg = "Ammo Print Name formatting.\n\n";
+    msg += "Fill in the text field with how you would like your\n";
+    msg += "ammunition names to be printed on the recordsheet.\n\n";
+    msg += "You can use certain variables for information:\n";
+    msg += "%F - Full Name of the ammunition\n";
+    msg += "%P - Print Name (usually shorter than Full Name)\n";
+    msg += "%L - Size of the ammo lot (number of rounds)\n\n";
+    msg += "Example: @%P (%L)\n";
+    msg += "Returns: @SRM-6 (15)\n";
+    msg += "Example: [Ammo]%P (%L)\n";
+    msg += "Returns: [Ammo]SRM-6 (15)\n";
+    javax.swing.JOptionPane.showMessageDialog( Parent, msg );
+}//GEN-LAST:event_btnAmmoNameInfoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAmmoNameInfo;
     private javax.swing.JButton btnArmoredBack;
     private javax.swing.JButton btnArmoredFore;
     private javax.swing.JButton btnCancel;
@@ -1253,6 +1306,7 @@ private void btnArmoredBackActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1284,6 +1338,7 @@ private void btnArmoredBackActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JRadioButton rdoPriorityTorso;
     private javax.swing.JRadioButton rdoSortIn;
     private javax.swing.JRadioButton rdoSortOut;
+    private javax.swing.JTextField txtAmmoPrintName;
     private javax.swing.JTextField txtCTPercent;
     private javax.swing.JTextField txtHTMLPath;
     private javax.swing.JTextField txtMegamekPath;

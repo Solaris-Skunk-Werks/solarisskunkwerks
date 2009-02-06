@@ -2141,14 +2141,14 @@ public class Mech {
     public float GetCASEIITonnage() {
         float retval = 0.0f;
 
-        if( CurLoadout.HasHDCASEII() ) { retval += CurLoadout.GetHDCaseII().GetCost(); }
-        if( CurLoadout.HasCTCASEII() ) { retval += CurLoadout.GetCTCaseII().GetCost(); }
-        if( CurLoadout.HasLTCASEII() ) { retval += CurLoadout.GetLTCaseII().GetCost(); }
-        if( CurLoadout.HasRTCASEII() ) { retval += CurLoadout.GetRTCaseII().GetCost(); }
-        if( CurLoadout.HasLACASEII() ) { retval += CurLoadout.GetLACaseII().GetCost(); }
-        if( CurLoadout.HasRACASEII() ) { retval += CurLoadout.GetRACaseII().GetCost(); }
-        if( CurLoadout.HasLLCASEII() ) { retval += CurLoadout.GetLLCaseII().GetCost(); }
-        if( CurLoadout.HasRLCASEII() ) { retval += CurLoadout.GetRLCaseII().GetCost(); }
+        if( CurLoadout.HasHDCASEII() ) { retval += CurLoadout.GetHDCaseII().GetTonnage(); }
+        if( CurLoadout.HasCTCASEII() ) { retval += CurLoadout.GetCTCaseII().GetTonnage(); }
+        if( CurLoadout.HasLTCASEII() ) { retval += CurLoadout.GetLTCaseII().GetTonnage(); }
+        if( CurLoadout.HasRTCASEII() ) { retval += CurLoadout.GetRTCaseII().GetTonnage(); }
+        if( CurLoadout.HasLACASEII() ) { retval += CurLoadout.GetLACaseII().GetTonnage(); }
+        if( CurLoadout.HasRACASEII() ) { retval += CurLoadout.GetRACaseII().GetTonnage(); }
+        if( CurLoadout.HasLLCASEII() ) { retval += CurLoadout.GetLLCaseII().GetTonnage(); }
+        if( CurLoadout.HasRLCASEII() ) { retval += CurLoadout.GetRLCaseII().GetTonnage(); }
 
         return retval;
     }

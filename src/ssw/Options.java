@@ -80,7 +80,8 @@ public class Options {
                   SaveLoadPath = "none",
                   HTMLPath = "none",
                   TXTPath = "none",
-                  MegamekPath = "none";
+                  MegamekPath = "none",
+                  AmmoNameFormat = "@%P (%L)";
 
     public void SetDefaults() {
         // choose to keep this here because it made sense.
@@ -119,6 +120,7 @@ public class Options {
         HTMLPath = System.getProperty("user.dir");
         TXTPath = System.getProperty("user.dir");
         MegamekPath = System.getProperty("user.dir");
+        AmmoNameFormat = "@%P (%L)";
         UseMMCustom = false;
         LoadLastMech = false;
     }

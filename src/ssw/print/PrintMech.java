@@ -317,6 +317,8 @@ public class PrintMech implements Printable {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                         graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                    } else if( a[i] instanceof Ammunition ) {
+                        graphics.drawString( FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
                     } else {
                         graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                     }
@@ -382,6 +384,8 @@ public class PrintMech implements Printable {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                         graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                    } else if( a[i] instanceof Ammunition ) {
+                        graphics.drawString( FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
                     } else {
                         graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                     }
@@ -447,6 +451,8 @@ public class PrintMech implements Printable {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                         graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                    } else if( a[i] instanceof Ammunition ) {
+                        graphics.drawString( FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
                     } else {
                         graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                     }
@@ -512,6 +518,8 @@ public class PrintMech implements Printable {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                         graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                    } else if( a[i] instanceof Ammunition ) {
+                        graphics.drawString( FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
                     } else {
                         graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                     }
@@ -577,6 +585,8 @@ public class PrintMech implements Printable {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                         graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                    } else if( a[i] instanceof Ammunition ) {
+                        graphics.drawString( FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
                     } else {
                         graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                     }
@@ -642,6 +652,8 @@ public class PrintMech implements Printable {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                         graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                    } else if( a[i] instanceof Ammunition ) {
+                        graphics.drawString( FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
                     } else {
                         graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                     }
@@ -707,6 +719,8 @@ public class PrintMech implements Printable {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                         graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                    } else if( a[i] instanceof Ammunition ) {
+                        graphics.drawString( FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
                     } else {
                         graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                     }
@@ -772,6 +786,8 @@ public class PrintMech implements Printable {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                         graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                    } else if( a[i] instanceof Ammunition ) {
+                        graphics.drawString( FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
                     } else {
                         graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
                     }
@@ -980,6 +996,21 @@ public class PrintMech implements Printable {
         graphics.drawString( CurMech.GetArmor().GetLocationArmor( Constants.LOC_CTR ) + "", p[Constants.LOC_CTR].x, p[Constants.LOC_CTR].y );
         graphics.drawString( CurMech.GetArmor().GetLocationArmor( Constants.LOC_LTR ) + "", p[Constants.LOC_LTR].x, p[Constants.LOC_LTR].y );
         graphics.drawString( CurMech.GetArmor().GetLocationArmor( Constants.LOC_RTR ) + "", p[Constants.LOC_RTR].x, p[Constants.LOC_RTR].y );
+        if( CurMech.GetArmor().GetBAR() < 10 ) {
+            graphics.setFont( XtraSmallFont );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_HD].x, p[Constants.LOC_HD].y + 7 );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_CT].x - 5, p[Constants.LOC_CT].y + 8 );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_LT].x - 4, p[Constants.LOC_LT].y + 7 );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_RT].x - 4, p[Constants.LOC_RT].y + 7 );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_LA].x - 4, p[Constants.LOC_LA].y + 8 );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_RA].x - 5, p[Constants.LOC_RA].y + 8 );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_LL].x - 4, p[Constants.LOC_LL].y + 8 );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_RL].x - 4, p[Constants.LOC_RL].y + 8 );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_CTR].x + 2, p[Constants.LOC_CTR].y + 8 );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_LTR].x + 13, p[Constants.LOC_LTR].y );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_RTR].x - 22, p[Constants.LOC_RTR].y );
+            graphics.setFont( SmallFont );
+        }
     }
 
     private void DrawNonCritable( Graphics2D graphics, String Item, int X, int Y ) {
@@ -1600,6 +1631,16 @@ public class PrintMech implements Printable {
             retval[0][i] += p.x;
             retval[1][i] += p.y;
         }
+        return retval;
+    }
+
+    private String FormatAmmoPrintName( Ammunition a ) {
+        // this routine returns a user-defined ammunition name based on a user-
+        // defined ammunition filter.
+        String retval = Parent.GetOptions().AmmoNameFormat;
+        retval = retval.replace( "%F", a.GetCritName() );
+        retval = retval.replace( "%P", a.GetPrintName() );
+        retval = retval.replace( "%L", "" + a.GetLotSize() );
         return retval;
     }
 

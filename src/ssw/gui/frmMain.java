@@ -11686,6 +11686,11 @@ public void LoadMechIntoGUI() {
     } else {
         cmbMotiveType.setSelectedIndex( 0 );
     }
+    if( CurMech.IsIndustrialmech() ) {
+        cmbMechType.setSelectedIndex( 1 );
+    } else {
+        cmbMechType.setSelectedIndex( 0 );
+    }
     chkYearRestrict.setSelected( CurMech.IsYearRestricted() );
     txtProdYear.setText( "" + CurMech.GetYear() );
     cmbMechEra.setEnabled( true );
@@ -12131,6 +12136,11 @@ private void btnPrintBatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 }//GEN-LAST:event_btnPrintBatchActionPerformed
 
 private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMechTypeActionPerformed
+        if( cmbMechType.getSelectedIndex() == 1 ) {
+            if( CurMech.IsIndustrialmech() ) { return; }
+        } else {
+            if( ! CurMech.IsIndustrialmech() ) { return; }
+        }
         if( cmbMechType.getSelectedIndex() == 0 ) {
             // check tonnage first
             if( CurMech.GetTonnage() < 20 ) {

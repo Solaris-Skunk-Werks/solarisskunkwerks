@@ -82,7 +82,8 @@ public class Ammunition extends abPlaceable {
 
     @Override
     public String GetPrintName() {
-        return "@" + PrintName.replace( "@ ", "" ) + " (" + GetLotSize() + ")";
+        //return "@" + PrintName.replace( "@ ", "" ) + " (" + GetLotSize() + ")";
+        return PrintName.replace( "@ ", "" );
     }
 
     public String GetMMName( boolean UseRear ) {

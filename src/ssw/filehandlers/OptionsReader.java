@@ -152,6 +152,8 @@ public class OptionsReader {
         FR.newLine();
         FR.write( "ALLOW_RBLADE=" + GetBoolean( o.Equip_AllowRBlade ) );
         FR.newLine();
+        FR.write( "AMMO_NAME_FORMAT=" + o.AmmoNameFormat );
+        FR.newLine();
 
         FR.newLine();
         FR.write( "########## Color Options ##########" );
@@ -296,6 +298,9 @@ public class OptionsReader {
         }
         if( HTOptions.get( "ALLOW_RBLADE" ) != null ) {
             o.Equip_AllowRBlade = ProcessBoolean( HTOptions.get( "ALLOW_RBLADE" ) );
+        }
+        if( HTOptions.get( "AMMO_NAME_FORMAT" ) != null ) {
+            o.AmmoNameFormat = HTOptions.get( "AMMO_NAME_FORMAT" );
         }
 
         if( HTOptions.get( "BG_LOCKED" ) != null ) {
