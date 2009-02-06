@@ -3351,6 +3351,195 @@ public class AmmoFactory {
         add.SetLotSize( 10 );
         ISAM.add( add );
 
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Long Tom Cannon", "ISLongTomCannonAmmo", 128, false, a );
+        add.SetStats( 1.0f, 20000.0f, 41.0f, 0.0f );
+        add.SetDamage( 25, 1, 1 );
+        add.SetRange( 4, 6, 13, 20 );
+        add.SetExplosive( true );
+        add.SetLotSize( 5 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Long Tom Cannon (Cluster)", "ISLongTomCannonAmmo", 128, false, a );
+        add.SetStats( 1.0f, 30000.0f, 41.0f, 0.0f );
+        add.SetDamage( 20, 1, 1 );
+        add.SetRange( 4, 6, 13, 20 );
+        add.SetExplosive( true );
+        add.SetLotSize( 5 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Long Tom Cannon (Copperhead)", "ISLongTomCannonAmmo", 128, false, a );
+        add.SetStats( 1.0f, 30000.0f, 41.0f, 0.0f );
+        add.SetDamage( 15, 1, 1 );
+        add.SetRange( 4, 6, 13, 20 );
+        add.SetExplosive( true );
+        add.SetLotSize( 5 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Long Tom Cannon (Flechette)", "ISLongTomCannonAmmo", 128, false, a );
+        add.SetStats( 1.0f, 30000.0f, 41.0f, 0.0f );
+        add.SetDamage( 0, 1, 1 );
+        add.SetRange( 4, 6, 13, 20 );
+        add.SetExplosive( true );
+        add.SetLotSize( 5 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Long Tom Cannon (Illumination)", "ISLongTomCannonAmmo", 128, false, a );
+        add.SetStats( 1.0f, 10000.0f, 41.0f, 0.0f );
+        add.SetDamage( 0, 1, 1 );
+        add.SetRange( 4, 6, 13, 20 );
+        add.SetExplosive( true );
+        add.SetLotSize( 5 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Long Tom Cannon (Smoke)", "ISLongTomCannonAmmo", 128, false, a );
+        add.SetStats( 1.0f, 10000.0f, 41.0f, 0.0f );
+        add.SetDamage( 0, 1, 1 );
+        add.SetRange( 4, 6, 13, 20 );
+        add.SetExplosive( true );
+        add.SetLotSize( 5 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Long Tom Cannon (Thunder)", "ISLongTomCannonAmmo", 128, false, a );
+        add.SetStats( 1.0f, 30000.0f, 41.0f, 0.0f );
+        add.SetDamage( 0, 1, 1 );
+        add.SetRange( 4, 6, 13, 20 );
+        add.SetExplosive( true );
+        add.SetLotSize( 5 );
+        ISAM.add( add );
+        
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Sniper Cannon", "ISSniperCannonAmmo", 127, false, a );
+        add.SetStats( 1.0f, 15000.0f, 10.0f, 0.0f );
+        add.SetDamage( 20, 1, 1 );
+        add.SetRange( 2, 4, 8, 12 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Sniper Cannon (Cluster)", "ISSniperCannonAmmo", 127, false, a );
+        add.SetStats( 1.0f, 22500.0f, 10.0f, 0.0f );
+        add.SetDamage( 15, 1, 1 );
+        add.SetRange( 2, 4, 8, 12 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Sniper Cannon (Copperhead)", "ISSniperCannonAmmo", 127, false, a );
+        add.SetStats( 1.0f, 22500.0f, 10.0f, 0.0f );
+        add.SetDamage( 10, 1, 1 );
+        add.SetRange( 2, 4, 8, 12 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Sniper Cannon (Flechette)", "ISSniperCannonAmmo", 127, false, a );
+        add.SetStats( 1.0f, 22500.0f, 10.0f, 0.0f );
+        add.SetDamage( 0, 1, 1 );
+        add.SetRange( 2, 4, 8, 12 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Sniper Cannon (Illumination)", "ISSniperCannonAmmo", 127, false, a );
+        add.SetStats( 1.0f, 7500.0f, 10.0f, 0.0f );
+        add.SetDamage( 0, 1, 1 );
+        add.SetRange( 2, 4, 8, 12 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Sniper Cannon (Smoke)", "ISSniperCannonAmmo", 127, false, a );
+        add.SetStats( 1.0f, 7500.0f, 10.0f, 0.0f );
+        add.SetDamage( 0, 1, 1 );
+        add.SetRange( 2, 4, 8, 12 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Sniper Cannon (Thunder)", "ISSniperCannonAmmo", 127, false, a );
+        add.SetStats( 1.0f, 22500.0f, 10.0f, 0.0f );
+        add.SetDamage( 0, 1, 1 );
+        add.SetRange( 2, 4, 8, 12 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Thumper Cannon", "ISThumperCannonAmmo", 126, false, a );
+        add.SetStats( 1.0f, 10000.0f, 10.0f, 0.0f );
+        add.SetDamage( 20, 1, 1 );
+        add.SetRange( 3, 4, 9, 14 );
+        add.SetExplosive( true );
+        add.SetLotSize( 20 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Thumper Cannon (Cluster)", "ISThumperCannonAmmo", 126, false, a );
+        add.SetStats( 1.0f, 15000.0f, 10.0f, 0.0f );
+        add.SetDamage( 15, 1, 1 );
+        add.SetRange( 3, 4, 9, 14 );
+        add.SetExplosive( true );
+        add.SetLotSize( 20 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Thumper Cannon (Copperhead)", "ISThumperCannonAmmo", 126, false, a );
+        add.SetStats( 1.0f, 15000.0f, 10.0f, 0.0f );
+        add.SetDamage( 10, 1, 1 );
+        add.SetRange( 3, 4, 9, 14 );
+        add.SetExplosive( true );
+        add.SetLotSize( 20 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Thumper Cannon (Flechette)", "ISThumperCannonAmmo", 126, false, a );
+        add.SetStats( 1.0f, 15000.0f, 10.0f, 0.0f );
+        add.SetDamage( 0, 1, 1 );
+        add.SetRange( 3, 4, 9, 14 );
+        add.SetExplosive( true );
+        add.SetLotSize( 20 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Thumper Cannon (Illumination)", "ISThumperCannonAmmo", 126, false, a );
+        add.SetStats( 1.0f, 5000.0f, 10.0f, 0.0f );
+        add.SetDamage( 0, 1, 1 );
+        add.SetRange( 3, 4, 9, 14 );
+        add.SetExplosive( true );
+        add.SetLotSize( 20 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Thumper Cannon (Smoke)", "ISThumperCannonAmmo", 126, false, a );
+        add.SetStats( 1.0f, 5000.0f, 10.0f, 0.0f );
+        add.SetDamage( 0, 1, 1 );
+        add.SetRange( 3, 4, 9, 14 );
+        add.SetExplosive( true );
+        add.SetLotSize( 20 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        add = new Ammunition( "@ Thumper Cannon (Thunder)", "ISThumperCannonAmmo", 126, false, a );
+        add.SetStats( 1.0f, 15000.0f, 10.0f, 0.0f );
+        add.SetDamage( 0, 1, 1 );
+        add.SetRange( 3, 4, 9, 14 );
+        add.SetExplosive( true );
+        add.SetLotSize( 20 );
+        ISAM.add( add );
+
         a = new AvailableCode(false, 'D', 'X', 'X', 'F', 3059, 0, 0, "CC", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         add = new Ammunition( "@ HVAC/2", "ISHVAC2 Ammo", 94, false, a );
         add.SetStats( 1.0f, 3000.0f, 7.0f, 0.0f );

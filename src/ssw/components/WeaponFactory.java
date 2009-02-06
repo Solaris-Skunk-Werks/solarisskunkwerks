@@ -2275,6 +2275,45 @@ public class WeaponFactory {
         addAR.SetAllocations( false, true, true, true, true, true );
         ISAR.add( addAR );
 
+        // long tom artillery cannon
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addBW = new BallisticWeapon( "Long Tom Artillery Cannon", "ISLongTomArtCannon", "DB", false, a );
+        addBW.SetDamage( 25, 25, 25 );
+        addBW.SetHeat( 20 );
+        addBW.SetRange( 4, 6, 13, 20 );
+        addBW.SetSpecials( "AE, S", true, true, 5, 128, false, false );
+        addBW.SetStats( 20.0f, 15, 650000.0f, 385.0f, 0.0f );
+        addBW.SetBallistics( false, false, false, false );
+        addBW.SetAllocations( false, true, true, false, false, false );
+        addBW.SetRequiresNuclear( false );
+        ISBW.add( addBW );
+
+        // sniper artillery cannon
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addBW = new BallisticWeapon( "Sniper Artillery Cannon", "ISSniperArtCannon", "DB", false, a );
+        addBW.SetDamage( 20, 20, 20 );
+        addBW.SetHeat( 10 );
+        addBW.SetRange( 2, 4, 8, 12 );
+        addBW.SetSpecials( "AE, S", true, true, 10, 127, false, false );
+        addBW.SetStats( 15.0f, 10, 475000.0f, 77.0f, 0.0f );
+        addBW.SetBallistics( false, false, false, false );
+        addBW.SetAllocations( false, true, true, false, false, false );
+        addBW.SetRequiresNuclear( false );
+        ISBW.add( addBW );
+
+        // thumper artillery cannon
+        a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addBW = new BallisticWeapon( "Thumper Artillery Cannon", "ISThumperArtCannon", "DB", false, a );
+        addBW.SetDamage( 15, 15, 15 );
+        addBW.SetHeat( 5 );
+        addBW.SetRange( 3, 4, 9, 15 );
+        addBW.SetSpecials( "AE, S", true, true, 20, 126, false, false );
+        addBW.SetStats( 10.0f, 7, 200000.0f, 385.0f, 0.0f );
+        addBW.SetBallistics( false, false, false, false );
+        addBW.SetAllocations( false, true, true, false, false, false );
+        addBW.SetRequiresNuclear( false );
+        ISBW.add( addBW );
+
  /*******************************************************************************
  *      START CLAN WEAPONS
  ******************************************************************************/
