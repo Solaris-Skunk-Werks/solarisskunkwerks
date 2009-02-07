@@ -1699,28 +1699,36 @@ public class QuadLoadout implements ifLoadout {
         // start the round-robin.  LA, LT, CT, RT, RA, LL, RL, HD in order
         while( p.NumPlaced() < p.NumCrits() ) {
             try {
-                AddToLA( p );
+                if ( p.CanAllocLegs() )
+                    AddToLA( p );
                 if( p.NumPlaced() >= p.NumCrits() ) { break; }
                 if( FreeCrits() <= 0 ) { break; }
-                AddToLT( p );
+                if ( p.CanAllocTorso() )
+                    AddToLT( p );
                 if( p.NumPlaced() >= p.NumCrits() ) { break; }
                 if( FreeCrits() <= 0 ) { break; }
-                AddToCT( p );
+                if ( p.CanAllocCT() )
+                    AddToCT( p );
                 if( p.NumPlaced() >= p.NumCrits() ) { break; }
                 if( FreeCrits() <= 0 ) { break; }
-                AddToRT( p );
+                if ( p.CanAllocTorso() )
+                    AddToRT( p );
                 if( p.NumPlaced() >= p.NumCrits() ) { break; }
                 if( FreeCrits() <= 0 ) { break; }
-                AddToRA( p );
+                if ( p.CanAllocLegs() )
+                    AddToRA( p );
                 if( p.NumPlaced() >= p.NumCrits() ) { break; }
                 if( FreeCrits() <= 0 ) { break; }
-                AddToRL( p );
+                if ( p.CanAllocLegs() )
+                    AddToRL( p );
                 if( p.NumPlaced() >= p.NumCrits() ) { break; }
                 if( FreeCrits() <= 0 ) { break; }
-                AddToLL( p );
+                if ( p.CanAllocLegs() )
+                    AddToLL( p );
                 if( p.NumPlaced() >= p.NumCrits() ) { break; }
                 if( FreeCrits() <= 0 ) { break; }
-                AddToHD( p );
+                if ( p.CanAllocHD() )
+                    AddToHD( p );
                 if( p.NumPlaced() >= p.NumCrits() ) { break; }
                 if( FreeCrits() <= 0 ) { break; }
             } catch ( Exception e ) {

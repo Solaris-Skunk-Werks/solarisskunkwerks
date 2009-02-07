@@ -211,20 +211,25 @@ public class CommonTools {
         // does it require certain actuators?
         if( a instanceof PhysicalWeapon ) {
             if( m.IsQuad() ) {
-                throw new Exception( "A quad mech has no hand or lower arm actuators\nand may not mount physical weapons." );
+                if ( ((PhysicalWeapon)a).GetPWClass() != Constants.PW_CLASS_TALON )
+                    throw new Exception( "A quad mech has no hand or lower arm actuators\nand may not mount physical weapons." );
             }
             // check to ensure that no more than two physical weapons are in the mech
             // unless they are spikes which are allowed up to eight
+            // may have only one set of talons
             v = m.GetLoadout().GetNonCore();
             int pcheck = 0;
             int spikecheck = 0;
             int shieldcheck = 0;
+            int taloncheck = 0;
             for( int i = 0; i < v.size(); i++ ) {
                 if( v.get( i ) instanceof PhysicalWeapon ) {
                     if ( ((PhysicalWeapon)v.get(i)).GetPWClass() == ssw.Constants.PW_CLASS_SPIKE )
                         spikecheck++;
                     else if ( ((PhysicalWeapon)v.get(i)).GetPWClass() == ssw.Constants.PW_CLASS_SHIELD )
                         shieldcheck++;
+                    else if ( ((PhysicalWeapon)v.get(i)).GetPWClass() == ssw.Constants.PW_CLASS_TALON )
+                        taloncheck++;
                     else
                         pcheck++;
                 }
@@ -237,6 +242,9 @@ public class CommonTools {
             }
             else if ( ((PhysicalWeapon)a).GetPWClass() == ssw.Constants.PW_CLASS_SHIELD && shieldcheck >= 2 ) {
                 throw new Exception(  "A mech may mount no more than two shields." );
+            }
+            else if ( ((PhysicalWeapon)a).GetPWClass() == ssw.Constants.PW_CLASS_TALON && taloncheck >= 1 ) {
+                throw new Exception(  "A mech may mount only one set of talons." );
             }
         }
         // do we have equipment exclusions?

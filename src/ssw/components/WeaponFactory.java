@@ -40,6 +40,7 @@ public class WeaponFactory {
            ISBW = new Vector(),
            CLBW = new Vector(),
            ISPW = new Vector(),
+           CLPW = new Vector(),
            ISAR = new Vector(),
            CLAR = new Vector();
     private Mech Owner;
@@ -103,18 +104,25 @@ public class WeaponFactory {
             ((BallisticWeapon) retval).SetRequiresNuclear( b.RequiresNuclear());
         } else if( p instanceof PhysicalWeapon ) {
             PhysicalWeapon w = (PhysicalWeapon) p;
-            retval = new PhysicalWeapon( w.GetName(), w.GetMMName( false ), Owner, w.GetAvailability() );
-            ((PhysicalWeapon) retval).SetStats( w.GetTonMult(), w.GetCritMult(), w.GetTonAdd(), w.GetCritAdd() );
-            ((PhysicalWeapon) retval).SetDamage( w.GetDamageMult(), w.GetDamageAdd() );
-            ((PhysicalWeapon) retval).SetSpecials( w.GetType(), w.GetSpecials(), w.GetCostMult(), w.GetCostAdd(), w.GetBVMult(), w.GetBVAdd(), w.GetDefBV(), w.GetRounding() );
-            ((PhysicalWeapon) retval).SetToHit( w.GetToHitShort(), w.GetToHitMedium(), w.GetToHitLong() );
-            (retval).AddMechModifier( w.GetMechModifier() );
-            ((PhysicalWeapon) retval).SetHeat( w.GetHeat() );
-            ((PhysicalWeapon) retval).SetRequiresHand( w.RequiresHand() );
-            ((PhysicalWeapon) retval).SetRequiresLowerArm( w.RequiresLowerArm() );
-            ((PhysicalWeapon) retval).SetReplacesHand( w.ReplacesHand() );
-            ((PhysicalWeapon) retval).SetPWClass( w.GetPWClass() );
-            ((PhysicalWeapon) retval).SetAllocations( w.CanAllocHD(), w.CanAllocCT(), w.CanAllocTorso(), w.CanAllocArms(), w.CanAllocLegs(), false );
+            if ( w.GetPWClass() == Constants.PW_CLASS_TALON )
+            {
+                retval = new Talons ( Owner );
+            }
+            else
+            {
+                retval = new PhysicalWeapon( w.GetName(), w.GetMMName( false ), Owner, w.GetAvailability() );
+                ((PhysicalWeapon) retval).SetStats( w.GetTonMult(), w.GetCritMult(), w.GetTonAdd(), w.GetCritAdd() );
+                ((PhysicalWeapon) retval).SetDamage( w.GetDamageMult(), w.GetDamageAdd() );
+                ((PhysicalWeapon) retval).SetSpecials( w.GetType(), w.GetSpecials(), w.GetCostMult(), w.GetCostAdd(), w.GetBVMult(), w.GetBVAdd(), w.GetDefBV(), w.GetRounding() );
+                ((PhysicalWeapon) retval).SetToHit( w.GetToHitShort(), w.GetToHitMedium(), w.GetToHitLong() );
+                (retval).AddMechModifier( w.GetMechModifier() );
+                ((PhysicalWeapon) retval).SetHeat( w.GetHeat() );
+                ((PhysicalWeapon) retval).SetRequiresHand( w.RequiresHand() );
+                ((PhysicalWeapon) retval).SetRequiresLowerArm( w.RequiresLowerArm() );
+                ((PhysicalWeapon) retval).SetReplacesHand( w.ReplacesHand() );
+                ((PhysicalWeapon) retval).SetPWClass( w.GetPWClass() );
+                ((PhysicalWeapon) retval).SetAllocations( w.CanAllocHD(), w.CanAllocCT(), w.CanAllocTorso(), w.CanAllocArms(), w.CanAllocLegs(), false );
+            }
         } else if( p instanceof MGArray ) {
             MGArray m = (MGArray) p;
             retval = new MGArray( (BallisticWeapon) GetCopy( m.GetMGType() ), m.GetNumMGs(), m.GetMGTons(), m.IsClan(), m.GetAvailability() );
@@ -226,7 +234,13 @@ public class WeaponFactory {
 
     public Object[] GetPhysicalWeapons( Mech m ) {
         // returns an array based on the given specifications of era and year
-        Vector RetVal = new Vector();
+        Vector RetVal = new Vector(), test;
+
+        if( m.IsClan() ) {
+            test = CLPW;
+        } else {
+            test = ISPW;
+        }
 
         // do this a little differently.
         // the Inner Sphere portion of this will be a bit of a hack, but the
@@ -234,8 +248,8 @@ public class WeaponFactory {
         // 3070 or thereabouts, and hatchets are code F during the
         // succession wars because only one mech used them.
         // first. let's get the physical weapons into the new vector
-        for( int i = 0; i < ISPW.size(); i++ ) {
-            RetVal.add( ISPW.get( i ) );
+        for( int i = 0; i < test.size(); i++ ) {
+            RetVal.add( test.get( i ) );
         }
 
         // now weed out things that shouldn't be there
@@ -347,7 +361,7 @@ public class WeaponFactory {
     }
 
     public BallisticWeapon GetBallisticWeaponByName( String name, boolean Clan ) {
-        // searches the energy weapon database for the named item and returns it
+        // searches the ballistic weapon database for the named item and returns it
         Vector Test = new Vector();
 
         if( Clan ) {
@@ -367,7 +381,7 @@ public class WeaponFactory {
     }
 
     public MGArray GetMGArrayByName( String name, boolean Clan ) {
-        // searches the energy weapon database for the named item and returns it
+        // searches the mg weapon database for the named item and returns it
         Vector Test = new Vector();
 
         if( Clan ) {
@@ -387,7 +401,7 @@ public class WeaponFactory {
     }
 
     public MissileWeapon GetMissileWeaponByName( String name, boolean Clan ) {
-        // searches the energy weapon database for the named item and returns it
+        // searches the missile weapon database for the named item and returns it
         Vector Test = new Vector();
 
         if( Clan ) {
@@ -410,7 +424,7 @@ public class WeaponFactory {
         Vector Test = new Vector();
 
         if( m.IsClan() ) {
-            return null;
+            Test = CLPW;
         } else {
             Test = ISPW;
         }
@@ -428,7 +442,7 @@ public class WeaponFactory {
     }
 
     public Artillery GetArtilleryByName( String name, boolean Clan ) {
-        // searches the energy weapon database for the named item and returns it
+        // searches the artillery weapon database for the named item and returns it
         Vector Test = new Vector();
 
         if( Clan ) {
@@ -454,6 +468,7 @@ public class WeaponFactory {
         PhysicalWeapon addPW;
 
         ISPW.clear();
+        CLPW.clear();
 
         // hatchet
         a = new AvailableCode( false, 'B', 'X', 'F', 'D', 3022, 0, 0, "LC", "", false, false );
@@ -610,6 +625,9 @@ public class WeaponFactory {
         addMod.SetCanJump(false);
         addPW.AddMechModifier( addMod );
         ISPW.add(addPW);
+
+        addPW = new Talons( Owner );
+        CLPW.add( addPW );
     }
 
     private void BuildWeapons() {
@@ -3411,5 +3429,7 @@ public class WeaponFactory {
         addBW.SetRequiresNuclear( false );
         CLBW.add( addBW );
 
+        addPW = new Talons( Owner );
+        CLPW.add( addPW );
     }
 }

@@ -696,8 +696,9 @@ public class BipedLoadout implements ifLoadout {
            // Ensure that no other physical weapons are mounted in this location
                 for( int i = 0; i < NonCore.size(); i++ ){
                     if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_RL)
-                        throw new Exception( p.GetCritName() +
-                            " cannot be allocated to the right leg because\nthe leg already mounts a physical weapon." );
+                        if ( ((PhysicalWeapon)p).GetPWClass() != Constants.PW_CLASS_TALON )
+                            throw new Exception( p.GetCritName() +
+                                " cannot be allocated to the right leg because\nthe leg already mounts a physical weapon." );
                 }
            }
             try {
@@ -718,8 +719,9 @@ public class BipedLoadout implements ifLoadout {
            // Ensure that no other physical weapons are mounted in this location
                 for( int i = 0; i < NonCore.size(); i++ ){
                     if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_LL)
-                        throw new Exception( p.GetCritName() +
-                            " cannot be allocated to the left leg because\nthe leg already mounts a physical weapon." );
+                        if ( ((PhysicalWeapon)p).GetPWClass() != Constants.PW_CLASS_TALON )
+                            throw new Exception( p.GetCritName() +
+                                " cannot be allocated to the left leg because\nthe leg already mounts a physical weapon." );
                 }
            }
             try {
@@ -1956,28 +1958,36 @@ public class BipedLoadout implements ifLoadout {
         // start the round-robin.  LA, LT, CT, RT, RA, LL, RL, HD in order
         while( p.NumPlaced() < p.NumCrits() ) {
             try {
-                AddToLA( p );
+                if ( p.CanAllocArms() )
+                    AddToLA( p );
                 if( p.NumPlaced() >= p.NumCrits() ) { break; }
                 if( FreeCrits() <= 0 ) { break; }
-                AddToLT( p );
+                if ( p.CanAllocTorso() )
+                    AddToLT( p );
                 if( p.NumPlaced() >= p.NumCrits() ) { break; }
                 if( FreeCrits() <= 0 ) { break; }
-                AddToCT( p );
+                if ( p.CanAllocCT() )
+                    AddToCT( p );
                 if( p.NumPlaced() >= p.NumCrits() ) { break; }
                 if( FreeCrits() <= 0 ) { break; }
-                AddToRT( p );
+                if ( p.CanAllocTorso() )
+                    AddToRT( p );
                 if( p.NumPlaced() >= p.NumCrits() ) { break; }
                 if( FreeCrits() <= 0 ) { break; }
-                AddToRA( p );
+                if ( p.CanAllocArms() )
+                    AddToRA( p );
                 if( p.NumPlaced() >= p.NumCrits() ) { break; }
                 if( FreeCrits() <= 0 ) { break; }
-                AddToRL( p );
+                if ( p.CanAllocLegs() )
+                    AddToRL( p );
                 if( p.NumPlaced() >= p.NumCrits() ) { break; }
                 if( FreeCrits() <= 0 ) { break; }
-                AddToLL( p );
+                if ( p.CanAllocLegs() )
+                    AddToLL( p );
                 if( p.NumPlaced() >= p.NumCrits() ) { break; }
                 if( FreeCrits() <= 0 ) { break; }
-                AddToHD( p );
+                if ( p.CanAllocHD() )
+                    AddToHD( p );
                 if( p.NumPlaced() >= p.NumCrits() ) { break; }
                 if( FreeCrits() <= 0 ) { break; }
             } catch ( Exception e ) {

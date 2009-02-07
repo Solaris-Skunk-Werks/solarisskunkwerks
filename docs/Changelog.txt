@@ -21,7 +21,7 @@ Version 0.6.0
 - Added ER and heavy flamers, Enhanced ER PPC for Clan Wolverine, and 'Mech Taser.
 - Added Null-Sig, Void-Sig, Blue Shield, and Chameleon systems.
 - Added in the Supercharger.
-- Added Mace, Lance, Spikes, Vibroblades, Flail, Claws, Chain Whip, Shields
+- Added Mace, Lance, Spikes, Vibroblades, Flail, Claws, Chain Whip, Shields, Talons
 - Added Bombast Lasers, Silver Bullet Gauss, Magshot Gauss Rifle, Clan Rotary ACs
 - Added Enhanced LRMs, Extended LRMs, Streak LRMs, Protomech ACs, Artillery Cannons
 - You can now export text directly to the system clipboard (File -> Export).

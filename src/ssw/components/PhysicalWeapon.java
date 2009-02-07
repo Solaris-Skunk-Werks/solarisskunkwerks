@@ -34,7 +34,7 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
                    Type,
                    Specials,
                    Manufacturer = "";
-    private Mech Owner;
+    protected Mech Owner;
     private AvailableCode AC;
     private int Heat = 0,
                 ToHitShort = 0,
@@ -71,6 +71,9 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         Owner = m;
         AC = a;
     }
+
+    // Required to allow Talons to extend PhysicalWeapon
+    public PhysicalWeapon(){}
 
     public void SetStats( float tmult, float cmult, float tadder, int cadder ) {
         // sets the weapon's tonnage and critical statistics
