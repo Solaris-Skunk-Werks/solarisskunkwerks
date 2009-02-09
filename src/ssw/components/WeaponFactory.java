@@ -42,7 +42,8 @@ public class WeaponFactory {
            ISPW = new Vector(),
            CLPW = new Vector(),
            ISAR = new Vector(),
-           CLAR = new Vector();
+           CLAR = new Vector(),
+           INPW = new Vector();
     private Mech Owner;
     private Options MyOptions;
 
@@ -248,6 +249,12 @@ public class WeaponFactory {
         // 3070 or thereabouts, and hatchets are code F during the
         // succession wars because only one mech used them.
         // first. let's get the physical weapons into the new vector
+        for( int i = 0; i < test.size(); i++ ) {
+            RetVal.add( test.get( i ) );
+        }
+
+        // do the same of Industrail Physicals
+        test = INPW;
         for( int i = 0; i < test.size(); i++ ) {
             RetVal.add( test.get( i ) );
         }
@@ -469,6 +476,7 @@ public class WeaponFactory {
 
         ISPW.clear();
         CLPW.clear();
+        INPW.clear();
 
         // hatchet
         a = new AvailableCode( false, 'B', 'X', 'F', 'D', 3022, 0, 0, "LC", "", false, false );
@@ -626,8 +634,82 @@ public class WeaponFactory {
         addPW.AddMechModifier( addMod );
         ISPW.add(addPW);
 
+        // Talons
         addPW = new Talons( Owner );
         CLPW.add( addPW );
+
+        // Backhoe
+        a = new AvailableCode(false, 'B', 'B', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addPW = new IndustrialPhysicalWeapon("Backhoe", "Backhoe", Owner, a);
+        addPW.SetStats(0.0F, 0.0F, 5, 6);
+        addPW.SetDamage(0.0f, 6);
+        ((IndustrialPhysicalWeapon)addPW).SetSpecials(50000, 8, 0);
+        INPW.add(addPW);
+
+        // Chainsaw
+        a = new AvailableCode(false, 'B', 'D', 'D', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addPW = new IndustrialPhysicalWeapon("Chainsaw", "Chainsaw", Owner, a);
+        addPW.SetStats(0.0F, 0.0F, 5, 5);
+        addPW.SetDamage(0.0f, 5);
+        ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 7, 0);
+        INPW.add(addPW);
+
+        // Combine
+        a = new AvailableCode(false, 'B', 'C', 'C', 'C', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addPW = new IndustrialPhysicalWeapon("Combine", "Combine", Owner, a);
+        addPW.SetStats(0.0F, 0.0F, 2.5f, 4);
+        addPW.SetDamage(0.0f, 3);
+        ((IndustrialPhysicalWeapon)addPW).SetSpecials(75000, 5, 0);
+        INPW.add(addPW);
+        
+        // Dual Saw
+        a = new AvailableCode(false, 'C', 'D', 'D', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addPW = new IndustrialPhysicalWeapon("Daul Saw", "Dual Saw", Owner, a);
+        addPW.SetStats(0.0F, 0.0F, 7, 7);
+        addPW.SetDamage(0.0f, 7);
+        ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 9, 0);
+        INPW.add(addPW);
+        
+        // Heavy Duty Pile-Driver
+        a = new AvailableCode(false, 'D', 'D', 'E', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addPW = new IndustrialPhysicalWeapon("Heavy Duty Pile-Driver", "Heavy Duty Pile-Driver", Owner, a);
+        addPW.SetStats(0.0F, 0.0F, 10, 8);
+        addPW.SetDamage(0.0f, 9);
+        ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 9, 0);
+        INPW.add(addPW);
+        
+        // Mining Drill
+        a = new AvailableCode(false, 'B', 'C', 'D', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addPW = new IndustrialPhysicalWeapon("Mining Drill", "Mining Drill", Owner, a);
+        addPW.SetStats(0.0F, 0.0F, 3, 4);
+        addPW.SetDamage(0.0f, 4);
+        ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 6, 0);
+        INPW.add(addPW);
+        
+        // Rock Cutter
+        a = new AvailableCode(false, 'C', 'D', 'D', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addPW = new IndustrialPhysicalWeapon("Rock Cutter", "Rock Cutter", Owner, a);
+        addPW.SetStats(0.0F, 0.0F, 5, 5);
+        addPW.SetDamage(0.0f, 5);
+        ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 6, 0);
+        INPW.add(addPW);
+        
+        // Spot Welder
+        a = new AvailableCode(false, 'C', 'C', 'D', 'C', 2320, 0, 0, "CC", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addPW = new IndustrialPhysicalWeapon("Spot Welder", "Spot Welder", Owner, a);
+        addPW.SetStats(0.0F, 0.0F, 2, 1);
+        addPW.SetDamage(0.0f, 5);
+        addPW.SetHeat(2);
+        ((IndustrialPhysicalWeapon)addPW).SetSpecials(75000, 5, 0);
+        INPW.add(addPW);
+        
+        // Wrecking Ball
+        a = new AvailableCode(false, 'A', 'C', 'C', 'C', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addPW = new IndustrialPhysicalWeapon("Wrecking Ball", "Wrecking Ball", Owner, a);
+        addPW.SetStats(0.0F, 0.0F, 4, 5);
+        addPW.SetDamage(0.0f, 8);
+        ((IndustrialPhysicalWeapon)addPW).SetSpecials(80000, 8,0);
+        INPW.add(addPW);
     }
 
     private void BuildWeapons() {
