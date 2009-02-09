@@ -147,7 +147,10 @@ public class Mech {
         } else  {
             JJMult = 2.0f;
         }
-        MechMult = 1.0f + ( Tonnage * 0.01f );
+        if (IndustrialMech = false)
+            MechMult = 1.0f + ( Tonnage * 0.01f );
+        else
+            MechMult = 1.0f + ( Tonnage / 400.0f);
     }
 
     public int GetTonnage() {
