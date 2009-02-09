@@ -36,6 +36,10 @@ public class VArmorSetIndustrial implements ifVisitor {
     private frmMain Parent;
     private Mech CurMech;
 
+    public VArmorSetIndustrial() {
+        Parent = null;
+    }
+
     public VArmorSetIndustrial( frmMain p ) {
         Parent = p;
     }

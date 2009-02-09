@@ -36,6 +36,10 @@ public class VArmorSetHA implements ifVisitor {
     private frmMain Parent;
     private Mech CurMech;
 
+    public VArmorSetHA(){
+        Parent = null;
+    }
+
     public VArmorSetHA( frmMain p ) {
         Parent = p;
     }

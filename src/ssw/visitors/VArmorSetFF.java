@@ -40,6 +40,10 @@ public class VArmorSetFF implements ifVisitor {
         // does nothing here, but may later.
     }
 
+    public VArmorSetFF() {
+        Parent = null;
+    }
+
     public VArmorSetFF( frmMain p ) {
         Parent = p;
     }

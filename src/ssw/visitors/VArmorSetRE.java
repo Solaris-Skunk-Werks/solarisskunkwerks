@@ -36,6 +36,10 @@ public class VArmorSetRE implements ifVisitor {
     private frmMain Parent;
     private Mech CurMech;
 
+    public VArmorSetRE() {
+        Parent = null;
+    }
+
     public VArmorSetRE( frmMain p ) {
         Parent = p;
     }

@@ -36,6 +36,10 @@ public class VArmorSetLightFF implements ifVisitor {
     private frmMain Parent;
     private Mech CurMech;
 
+    public VArmorSetLightFF() {
+        Parent = null;
+    }
+
     public VArmorSetLightFF( frmMain p ) {
         Parent = p;
     }

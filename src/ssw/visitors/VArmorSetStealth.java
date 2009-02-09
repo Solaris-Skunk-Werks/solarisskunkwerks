@@ -37,6 +37,10 @@ public class VArmorSetStealth implements ifVisitor {
     private Mech CurMech;
     private LocationIndex[] Locs = null;
 
+    public VArmorSetStealth() {
+        Parent = null;
+    }
+
     public VArmorSetStealth( frmMain p ) {
         Parent = p;
     }

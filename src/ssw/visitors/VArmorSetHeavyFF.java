@@ -36,6 +36,10 @@ public class VArmorSetHeavyFF implements ifVisitor {
     private frmMain Parent;
     private Mech CurMech;
 
+    public VArmorSetHeavyFF(){
+        Parent = null;
+    }
+
     public VArmorSetHeavyFF( frmMain p ) {
         Parent = p;
     }

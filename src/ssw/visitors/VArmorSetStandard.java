@@ -36,6 +36,10 @@ public class VArmorSetStandard implements ifVisitor {
     private frmMain Parent;
     private Mech CurMech;
 
+    public VArmorSetStandard(){
+        Parent = null;
+    }
+
     public VArmorSetStandard( frmMain p ) {
         Parent = p;
     }

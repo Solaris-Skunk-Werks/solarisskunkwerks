@@ -40,6 +40,21 @@ import ssw.visitors.ifVisitor;
 
 public class XMLReader {
     frmMain Parent;
+    DataFactory data;
+
+    public Mech ReadMech( String filename ) throws Exception {
+        Parent = null;
+        Mech retval = new Mech();
+        Document load;
+        filename = FileCommon.GetSafeFilename( filename );
+
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        load = db.parse( filename );
+
+        retval = BuildMech( retval, load );
+        return retval;
+    }
 
     public Mech ReadMech( frmMain parent, String filename ) throws Exception {
         Parent = parent;
@@ -56,6 +71,8 @@ public class XMLReader {
     }
 
     private Mech BuildMech( Mech m, Document d ) throws Exception {
+        data = new DataFactory(m);
+
         NodeList n = d.getElementsByTagName( "mech" );
         NamedNodeMap map = n.item( 0 ).getAttributes();
         LocationIndex l;
@@ -114,7 +131,7 @@ public class XMLReader {
 
         // now load up the structural components
         n = d.getElementsByTagName( "gyro" );
-        ifVisitor v = Parent.Lookup( n.item( 0 ).getTextContent() );
+        ifVisitor v = data.Lookup( n.item( 0 ).getTextContent() );
         if( v == null ) {
             throw new Exception( "The Gyro type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
         } else {
@@ -135,7 +152,7 @@ public class XMLReader {
             l.Location = Constants.LOC_RT;
             lengine[1] = l;
         }
-        v = Parent.Lookup( n.item( 0 ).getTextContent() );
+        v = data.Lookup( n.item( 0 ).getTextContent() );
         if( v == null ) {
             throw new Exception( "The Engine type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
         } else {
@@ -145,7 +162,7 @@ public class XMLReader {
         m.SetEngineRating( Integer.parseInt( map.getNamedItem( "rating" ).getTextContent() ) );
         m.SetEngineManufacturer( FileCommon.DecodeFluff( map.getNamedItem( "manufacturer" ).getTextContent() ) );
         n = d.getElementsByTagName( "cockpit" );
-        v = Parent.Lookup( n.item( 0 ).getTextContent() );
+        v = data.Lookup( n.item( 0 ).getTextContent() );
         if( v == null ) {
             throw new Exception( "The Cockpit type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
         } else {
@@ -165,7 +182,7 @@ public class XMLReader {
         if( Type == null ) {
             throw new Exception( "The Internal Structure type could not be found (missing type node).\nThe Mech cannot be loaded." );
         } else {
-            v = Parent.Lookup( Type.getTextContent() );
+            v = data.Lookup( Type.getTextContent() );
             if( v == null ) {
                 throw new Exception( "The Internal Structure type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
             } else {
@@ -212,7 +229,7 @@ public class XMLReader {
         if( Type == null ) {
             throw new Exception( "The Armor type could not be found (missing type node).\nThe Mech cannot be loaded." );
         } else {
-            v = Parent.Lookup( Type.getTextContent() );
+            v = data.Lookup( Type.getTextContent() );
             if( v == null ) {
                 throw new Exception( "The Armor type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
             } else {
@@ -292,7 +309,7 @@ public class XMLReader {
                 if( Type == null ) {
                     throw new Exception( "The Heat Sink type could not be found (missing type node).\nThe Mech cannot be loaded." );
                 } else {
-                    v = Parent.Lookup( Type.getTextContent() );
+                    v = data.Lookup( Type.getTextContent() );
                     if( v == null ) {
                         throw new Exception( "The Heat Sink type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
                     } else {
@@ -328,7 +345,7 @@ public class XMLReader {
                 if( Type == null ) {
                     throw new Exception( "The Jump Jet type could not be found (missing type node).\nThe Mech cannot be loaded." );
                 } else {
-                    v = Parent.Lookup( Type.getTextContent() );
+                    v = data.Lookup( Type.getTextContent() );
                     if( v == null ) {
                         throw new Exception( "The Jump Jet type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
                     } else {
@@ -526,7 +543,7 @@ public class XMLReader {
             if( Type == null ) {
                 throw new Exception( "The Enhancement type could not be found (missing type node).\nThe Mech cannot be loaded." );
             } else {
-                v = Parent.Lookup( Type.getTextContent() );
+                v = data.Lookup( Type.getTextContent() );
                 if( v == null ) {
                     throw new Exception( "The Enhancement type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
                 } else {
@@ -617,7 +634,7 @@ public class XMLReader {
                         if( Type == null ) {
                             throw new Exception( "The Heat Sink type could not be found (missing type node).\nThe Mech cannot be loaded." );
                         } else {
-                            v = Parent.Lookup( Type.getTextContent() );
+                            v = data.Lookup( Type.getTextContent() );
                             if( v == null ) {
                                 throw new Exception( "The Heat Sink type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
                             }
@@ -665,7 +682,7 @@ public class XMLReader {
                         if( Type == null ) {
                             throw new Exception( "The Jump Jet type could not be found (missing type node).\nThe Mech cannot be loaded." );
                         } else {
-                            v = Parent.Lookup( Type.getTextContent() );
+                            v = data.Lookup( Type.getTextContent() );
                             if( v == null ) {
                                 throw new Exception( "The Jump Jet type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
                             } else {
@@ -912,11 +929,11 @@ public class XMLReader {
             }
         }
         if( type.equals( "energy" ) ) {
-            retval = Parent.GetWeapons().GetEnergyWeaponByName( name, m.IsClan() );
+            retval = data.GetWeapons().GetEnergyWeaponByName( name, m.IsClan() );
         } else if( type.equals( "ballistic" ) ) {
-            retval = Parent.GetWeapons().GetBallisticWeaponByName( name, m.IsClan() );
+            retval = data.GetWeapons().GetBallisticWeaponByName( name, m.IsClan() );
         } else if( type.equals( "missile" ) ) {
-            retval = Parent.GetWeapons().GetMissileWeaponByName( name, m.IsClan() );
+            retval = data.GetWeapons().GetMissileWeaponByName( name, m.IsClan() );
             switch( ((MissileWeapon) retval).GetArtemisType() ) {
             case Constants.ART4_SRM:
                 if( m.UsingA4SRM() ) { ((MissileWeapon) retval).UseArtemis( true ); }
@@ -929,15 +946,15 @@ public class XMLReader {
                 break;
             }
         } else if( type.equals( "mgarray" ) ) {
-            retval = Parent.GetWeapons().GetMGArrayByName( name, m.IsClan() );
+            retval = data.GetWeapons().GetMGArrayByName( name, m.IsClan() );
         } else if( type.equals( "equipment" ) ) {
-            retval = Parent.GetEquipment().GetEquipmentByName( name, m.IsClan() );
+            retval = data.GetEquipment().GetEquipmentByName( name, m.IsClan() );
         } else if( type.equals( "ammunition" ) ) {
-            retval = Parent.GetAmmo().GetAmmoByName( name, m.IsClan() );
+            retval = data.GetAmmo().GetAmmoByName( name, m.IsClan() );
         } else if( type.equals( "physical" ) ) {
-            retval = Parent.GetWeapons().GetPhysicalWeaponByName( name, m );
+            retval = data.GetWeapons().GetPhysicalWeaponByName( name, m );
         } else if( type.equals( "artillery" ) ) {
-            retval = Parent.GetWeapons().GetArtilleryByName( name, m.IsClan() );
+            retval = data.GetWeapons().GetArtilleryByName( name, m.IsClan() );
         } else {
             return null;
         }

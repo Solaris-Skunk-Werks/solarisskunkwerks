@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
+import java.util.Hashtable;
 import java.util.Vector;
 import ssw.*;
 import ssw.gui.frmMain;
@@ -98,9 +99,18 @@ public class Mech {
                             BlueShield,
                             EnviroSealing;
 
-    // Constructor
+    // Constructors
+    public Mech() {
+        Parent = null;
+        Load();
+    }
+
     public Mech( frmMain window ) {
         Parent = window;
+        Load();
+    }
+
+    private void Load(){
         // Set the names and years to blank so the user doesn't have to overtype
         Name = "";
         Era = Constants.STAR_LEAGUE;

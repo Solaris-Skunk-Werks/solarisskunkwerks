@@ -36,6 +36,10 @@ public class VArmorSetLR implements ifVisitor {
     private frmMain Parent;
     private Mech CurMech;
 
+    public VArmorSetLR(){
+        Parent = null;
+    }
+
     public VArmorSetLR( frmMain p ) {
         Parent = p;
     }

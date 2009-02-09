@@ -36,6 +36,10 @@ public class VArmorSetCommercial implements ifVisitor {
     private frmMain Parent;
     private Mech CurMech;
 
+    public VArmorSetCommercial() {
+        Parent = null;
+    }
+
     public VArmorSetCommercial( frmMain p ) {
         Parent = p;
     }
