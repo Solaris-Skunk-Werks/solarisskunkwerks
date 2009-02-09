@@ -343,6 +343,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // sets the weapon choosers up.  first, get the user's choices.
 
         // get the equipment lists for the choices.
+        Weapons.RebuildPhysicals(CurMech);
         Equipment[ENERGY] = Weapons.GetEnergyWeapons( CurMech );
         Equipment[MISSILE] = Weapons.GetMissileWeapons( CurMech );
         Equipment[BALLISTIC] = Weapons.GetBallisticWeapons( CurMech );
@@ -5498,10 +5499,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     abPlaceable a = (abPlaceable) Equipment[PHYSICAL][index];
                     a = Weapons.GetCopy( a );
 
-                    if( CurMech.IsQuad() ) {
-                        javax.swing.JOptionPane.showMessageDialog( lstChoosePhysical.getTopLevelAncestor(), "A quad mech has no hand or lower arm actuators\nand may not mount physical weapons." );
-                        return;
-                    }
                     // check to ensure that no more than two physical weapons are in the mech
                     Vector v = CurMech.GetLoadout().GetNonCore();
                     int pcheck = 0;
