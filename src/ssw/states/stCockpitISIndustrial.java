@@ -111,7 +111,7 @@ public class stCockpitISIndustrial implements ifCockpit, ifState {
     }
 
     public float BVMod() {
-        return 1.0f;
+        return 0.9f;
     }
 
     public AvailableCode GetAvailability() {
