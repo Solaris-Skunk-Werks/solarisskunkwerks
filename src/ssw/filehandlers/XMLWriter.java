@@ -118,7 +118,11 @@ public class XMLWriter {
         FR.write( tab + "<gyro>" + CurMech.GetGyro().GetLookupName() + "</gyro>" );
         FR.newLine();
 
-        FR.write( tab + "<cockpit>" + CurMech.GetCockpit().GetLookupName() + "</cockpit>" );
+        if( CurMech.HasEjectionSeat() ) {
+            FR.write( tab + "<cockpit ejectionseat=\"true\">" + CurMech.GetCockpit().GetLookupName() + "</cockpit>" );
+        } else {
+            FR.write( tab + "<cockpit>" + CurMech.GetCockpit().GetLookupName() + "</cockpit>" );
+        }
         FR.newLine();
 
         if( CurMech.GetPhysEnhance().IsTSM() || CurMech.GetPhysEnhance().IsMASC() ) {
@@ -223,6 +227,14 @@ public class XMLWriter {
             FR.write( tab + tab + "<multislot name=\"" + CurMech.GetChameleon().GetCritName() + "\">" );
             FR.newLine();
             FR.write( GetLocationLines( tab + tab + tab, CurMech.GetChameleon() ) );
+            FR.write( tab + tab + "</multislot>" );
+            FR.newLine();
+        }
+        if( CurMech.HasEnviroSealing() ) {
+            // this can only ever go in the base loadout, so we'll save it here
+            FR.write( tab + tab + "<multislot name=\"" + CurMech.GetEnviroSealing().GetCritName() + "\">" );
+            FR.newLine();
+            FR.write( GetLocationLines( tab + tab + tab, CurMech.GetEnviroSealing() ) );
             FR.write( tab + tab + "</multislot>" );
             FR.newLine();
         }

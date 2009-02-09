@@ -36,6 +36,8 @@ public class SimplePlaceable extends abPlaceable {
     // they are armored components
     private boolean LocLocked;
     private int Crits;
+    private float Tonnage = 0.0f,
+                  Cost = 0.0f;
     private String CritName,
                    MMName;
     private AvailableCode AC;
@@ -66,12 +68,20 @@ public class SimplePlaceable extends abPlaceable {
     public int NumCrits() {
         return Crits;
     }
-    
+
+    public void SetTonnage( float tons ) {
+        Tonnage = tons;
+    }
+
+    public void SetCost( float cost ) {
+        Cost = cost;
+    }
+
     public float GetTonnage() {
         if( IsArmored() ) {
-            return Crits * 0.5f;
+            return Crits * 0.5f + Tonnage;
         } else {
-            return 0.0f;
+            return Tonnage;
         }
     }
 
@@ -92,9 +102,9 @@ public class SimplePlaceable extends abPlaceable {
 
     public float GetCost() {
         if( IsArmored() ) {
-            return 150000.0f * Crits;
+            return 150000.0f * Crits + Cost;
         } else {
-            return 0.0f;
+            return Cost;
         }
     }
 

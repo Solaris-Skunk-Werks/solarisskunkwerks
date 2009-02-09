@@ -147,8 +147,13 @@ public class QuadLoadout implements ifLoadout {
     }
 
     public boolean SetRulesLevel( int NewLevel ) {
-        if( NewLevel < Owner.GetBaseRulesLevel() ) {
-            return false;
+        if( Owner.IsOmnimech() ) {
+            if( NewLevel < Owner.GetBaseRulesLevel() ) {
+                return false;
+            } else {
+                RulesLevel = NewLevel;
+                return true;
+            }
         } else {
             RulesLevel = NewLevel;
             return true;

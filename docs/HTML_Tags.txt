@@ -191,6 +191,7 @@ Following is a complete list of all currently supported HTML tags
 <+-SSW_EQUIPMENT_TOTAL_TONNAGE-+>
 <+-SSW_POD_TONNAGE-+>
 <+-SSW_POWER_AMP_TONNAGE-+>
+<+-SSW_EJECTIONSEAT_TONNAGE-+>
 
 ##### Armor and Internal Values #####
 <+-SSW_HD_ARMOR-+>

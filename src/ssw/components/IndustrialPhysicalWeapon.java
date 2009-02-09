@@ -15,7 +15,7 @@ public class IndustrialPhysicalWeapon extends PhysicalWeapon {
         this.resetAllocations(m);
         this.SetReplacesHand(true);
         this.SetRequiresLowerArm(true);
-        this.SetPWClass(ssw.Constants.PW_CLASS_INDUSTRIAL);
+        this.SetPWClass( ssw.Constants.PW_CLASS_INDUSTRIAL );
     }
 
     public void resetAllocations(Mech m)

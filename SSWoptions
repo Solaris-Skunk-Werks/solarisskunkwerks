@@ -49,7 +49,7 @@ S7PASSWORD=null
 S7USERID=-1
 
 ########## Pathing Options ##########
-LOAD_LAST_MECH=TRUE
+LOAD_LAST_MECH=FALSE
 PATH_SAVELOAD=none
 PATH_HTML=none
 PATH_TXT=none

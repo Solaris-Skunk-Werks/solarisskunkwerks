@@ -82,7 +82,8 @@ public class Mech {
                     HasVoidSig = false,
                     HasChameleon = false,
                     HasBlueShield = false,
-                    HasEnviroSealing = false;
+                    HasEnviroSealing = false,
+                    HasEjectionSeat = false;
     private Engine CurEngine = new Engine( this );
     private ifLoadout MainLoadout = new BipedLoadout( Constants.BASELOADOUT_NAME, this ),
                     CurLoadout = MainLoadout;
@@ -98,6 +99,7 @@ public class Mech {
                             Chameleon,
                             BlueShield,
                             EnviroSealing;
+    private SimplePlaceable EjectionSeat;
 
     // Constructors
     public Mech() {
@@ -144,8 +146,10 @@ public class Mech {
         VoidSig.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Null Signature System", "Stealth Armor", "C3", "Chameleon LPS" }, "Void Signature System" ) );
         AC = new AvailableCode( false, 'C', 'C', 'C', 'C', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.UNALLOWED, Constants.TOURNAMENT );
         EnviroSealing = new MultiSlotSystem( this, "Environmental Sealing", "Environmental Sealing", 0.0f, false, false, 225.0f, true, AC );
-        //EnviroSealing.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 10, 0.0f, 1.3f, 0.0f, 0.0f, true ) );
-        //EnviroSealing.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Null Signature System", "Stealth Armor", "C3", "Chameleon LPS" }, "Void Signature System" ) );
+        AC = new AvailableCode( false, 'C', 'D', 'E', 'F', 2445, 0, 0, "TH", "", false, false, 0, false, "", Constants.UNALLOWED, Constants.TOURNAMENT );
+        EjectionSeat = new SimplePlaceable( "Ejection Seat", "EjectionSeat", 1, true, AC );
+        EjectionSeat.SetTonnage( 0.5f );
+        EjectionSeat.SetCost( 25000.0f );
     }
 
     public void Recalculate() {
@@ -157,10 +161,10 @@ public class Mech {
         } else  {
             JJMult = 2.0f;
         }
-        if (IndustrialMech = false)
+        if (IndustrialMech == false)
             MechMult = 1.0f + ( Tonnage * 0.01f );
         else
-            MechMult = 1.0f + ( Tonnage / 400.0f);
+            MechMult = 1.0f + ( Tonnage * 0.0025f );
     }
 
     public int GetTonnage() {
@@ -684,6 +688,7 @@ public class Mech {
         } else {
             SetBiped();
         }
+        Recalculate();
     }
 
     public void SetBattlemech() {
@@ -699,6 +704,7 @@ public class Mech {
         } else {
             SetBiped();
         }
+        Recalculate();
     }
 
     public void SetOmnimech( String name ) {
@@ -1015,6 +1021,7 @@ public class Mech {
         if( ! CurEngine.IsNuclear() ) { result += CurLoadout.GetPowerAmplifier().GetTonnage(); }
         if( HasBlueShield ) { result += BlueShield.GetTonnage(); }
         if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
+        if( HasEjectionSeat ) { result += EjectionSeat.GetTonnage(); }
 
         Vector v = CurLoadout.GetNonCore();
         if( v.size() > 0 ) {
@@ -1053,6 +1060,7 @@ public class Mech {
         if( ! CurEngine.IsNuclear() ) { result += CurLoadout.GetPowerAmplifier().GetTonnage(); }
         if( HasBlueShield ) { result += BlueShield.GetTonnage(); }
         if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
+        if( HasEjectionSeat ) { result += EjectionSeat.GetTonnage(); }
 
         Vector v = CurLoadout.GetNonCore();
         if( v.size() > 0 ) {
@@ -1961,6 +1969,7 @@ public class Mech {
         if( HasChameleon() ) { ChassisCost += Chameleon.GetCost(); }
         if( HasBlueShield() ) { ChassisCost += BlueShield.GetCost(); }
         if( HasEnviroSealing() ) { ChassisCost += EnviroSealing.GetCost(); }
+        if( HasEjectionSeat ) { ChassisCost += EjectionSeat.GetCost(); }
 
         // same goes for the targeting computer and supercharger
         if( CurLoadout.UsingTC() ) {
@@ -2015,6 +2024,9 @@ public class Mech {
         result += GetHeatSinks().GetCost();
         result += GetJumpJets().GetCost();
         result += CurArmor.GetCost();
+        if( HasEjectionSeat ) {
+            result += EjectionSeat.GetCost();
+        }
         if( IsClan() ) {
             int[] test = CurLoadout.FindExplosiveInstances();
             for( int i = 0; i < test.length; i++ ) {
@@ -2481,6 +2493,29 @@ public class Mech {
 
     public MultiSlotSystem GetEnviroSealing() {
         return EnviroSealing;
+    }
+
+    public void SetEjectionSeat( boolean set ) throws Exception {
+        if( set == HasEjectionSeat ) {
+            return;
+        } else {
+            if( set ) {
+                // Ejection seat can only go in the main loadout
+                MainLoadout.AddTo( EjectionSeat, Constants.LOC_HD, 3 );
+                HasEjectionSeat = true;
+            } else {
+                MainLoadout.Remove( EjectionSeat );
+                HasEjectionSeat = false;
+            }
+        }
+    }
+
+    public boolean HasEjectionSeat() {
+        return HasEjectionSeat;
+    }
+
+    public SimplePlaceable GetEjectionSeat() {
+        return EjectionSeat;
     }
 
     public void CheckPhysicals() {

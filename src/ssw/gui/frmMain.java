@@ -1683,6 +1683,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             CurMech.SetInnerSphere();
         }
+        if( CurMech.IsIndustrialmech() ) {
+            cmbMechType.setSelectedIndex( 1 );
+        } else {
+            cmbMechType.setSelectedIndex( 0 );
+        }
         txtMechName.setText( CurMech.GetName() );
         txtMechModel.setText( CurMech.GetModel() );
 
@@ -2694,6 +2699,27 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( list == lstLLCrits ) { return Constants.LOC_LL; }
         if( list == lstRLCrits ) { return Constants.LOC_RL; }
         return -1;
+    }
+
+    // check the tonnage to see if it's legal and acts accordingly
+    public void CheckTonnage( boolean RulesChange ) {
+        if( RulesChange ) {
+            if( ! CurMech.IsIndustrialmech() ) {
+                if( CurMech.GetRulesLevel() < Constants.EXPERIMENTAL ) {
+                    cmbTonnage.setSelectedItem( "20" );
+                }
+            }
+        } else {
+            // a change in mech type or tonnage
+            if( ! CurMech.IsIndustrialmech() ) {
+                // this is really the only time tonnage needs to be restricted
+                if( CurMech.GetRulesLevel() < Constants.EXPERIMENTAL ) {
+                    if( CurMech.GetTonnage() < 20 ) {
+                        cmbRulesLevel.setSelectedIndex( Constants.EXPERIMENTAL );
+                    }
+                }
+            }
+        }
     }
 
      /** This method is called from within the constructor to
@@ -4493,6 +4519,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         chkEjectionSeat.setText("Ejection Seat");
         chkEjectionSeat.setEnabled(false);
+        chkEjectionSeat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkEjectionSeatActionPerformed(evt);
+            }
+        });
         jPanel6.add(chkEjectionSeat);
 
         chkEnviroSealing.setText("Environmental Sealing");
@@ -9128,27 +9159,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         switch ( cmbTonnage.getSelectedIndex() ) {
             case 0:
                 // 10 ton 'Mech.  Need to check the settings first
-                if( ! CurMech.IsIndustrialmech() ) {
-                    if( CurMech.GetRulesLevel() != Constants.EXPERIMENTAL ) {
-                        cmbRulesLevel.setSelectedIndex( Constants.EXPERIMENTAL );
-                        //javax.swing.JOptionPane.showMessageDialog( this, "BattleMechs may only choose this tonnage under\nExperimental Rules.  The tonnage has been reset." );
-                        //cmbTonnage.setSelectedItem( CurTons + "" );
-                        //return;
-                    }
-                }
                 lblMechType.setText( "Ultralight Mech");
                 Tons = 10;
                 break;
             case 1:
                 // 15 ton 'Mech
-                if( ! CurMech.IsIndustrialmech() ) {
-                    if( CurMech.GetRulesLevel() != Constants.EXPERIMENTAL ) {
-                        cmbRulesLevel.setSelectedIndex( Constants.EXPERIMENTAL );
-                        //javax.swing.JOptionPane.showMessageDialog( this, "BattleMechs may only choose this tonnage under\nExperimental Rules.  The tonnage has been reset." );
-                        //cmbTonnage.setSelectedItem( CurTons + "" );
-                        //return;
-                    }
-                }
                 lblMechType.setText( "Ultralight Mech");
                 Tons = 15;
                 break;
@@ -9244,6 +9259,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             CurMech.SetTonnage( Tons );
         }
+
+        // check the tonnage
+        CheckTonnage( false );
 
         // fix the walking and jumping MP spinners
         FixWalkMPSpinner();
@@ -10803,13 +10821,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void cmbRulesLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRulesLevelActionPerformed
         if( Load ) { return; }
-        if( CurMech.GetLoadout().GetRulesLevel() == cmbRulesLevel.getSelectedIndex() ) {
+        int NewLevel = cmbRulesLevel.getSelectedIndex();
+        int OldLevel = CurMech.GetLoadout().GetRulesLevel();
+
+        if( OldLevel == NewLevel ) {
             // we're already at the correct rules level.
             return;
         }
-
-        int NewLevel = cmbRulesLevel.getSelectedIndex();
-        int OldLevel = CurMech.GetLoadout().GetRulesLevel();
 
         // do we have an OmniMech?
         if( CurMech.IsOmnimech() ) {
@@ -10828,13 +10846,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 return;
             }
         } else {
-            // check tonnage first, and adjust as needed.
-            if( NewLevel < Constants.EXPERIMENTAL &! CurMech.IsIndustrialmech() ) {
-                if( CurMech.GetTonnage() < 20 ) {
-                    cmbTonnage.setSelectedItem( "20" );
-                }
-            }
             CurMech.SetRulesLevel( NewLevel );
+            CheckTonnage( true );
 
             // get the currently chosen selections
             SaveSelections();
@@ -11703,6 +11716,8 @@ public void LoadMechIntoGUI() {
     chkVoidSig.setSelected( CurMech.HasVoidSig() );
     chkBSPFD.setSelected( CurMech.HasBlueShield() );
     chkCLPS.setSelected( CurMech.HasChameleon() );
+    chkEnviroSealing.setSelected( CurMech.HasEnviroSealing() );
+    chkEjectionSeat.setSelected( CurMech.HasEjectionSeat() );
     SetLoadoutArrays();
     RefreshSummary();
     RefreshInfoPane();
@@ -12078,16 +12093,13 @@ private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             if( ! CurMech.IsIndustrialmech() ) { return; }
         }
         if( cmbMechType.getSelectedIndex() == 0 ) {
-            // check tonnage first
-            if( CurMech.GetTonnage() < 20 ) {
-                if( CurMech.GetRulesLevel() < Constants.EXPERIMENTAL ) {
-                    cmbTonnage.setSelectedItem( "20" );
-                }
-            }
             CurMech.SetBattlemech();
         } else {
             CurMech.SetIndustrialmech();
         }
+
+        // check the tonnage
+        CheckTonnage( false );
 
         // set the loadout arrays
         SetLoadoutArrays();
@@ -12155,6 +12167,28 @@ private void chkEnviroSealingActionPerformed(java.awt.event.ActionEvent evt) {//
     RefreshInfoPane();
 
 }//GEN-LAST:event_chkEnviroSealingActionPerformed
+
+private void chkEjectionSeatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEjectionSeatActionPerformed
+    if( chkEjectionSeat.isSelected() == CurMech.HasEjectionSeat() ) { return; }
+    try {
+        if( chkEjectionSeat.isSelected() ) {
+            CurMech.SetEjectionSeat( true );
+        } else {
+            CurMech.SetEjectionSeat( false );
+        }
+    } catch( Exception e ) {
+        // ensure it's not checked when it shouldn't be
+        chkEjectionSeat.setSelected( CurMech.HasEjectionSeat() );
+        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        return;
+    }
+
+    // now refresh the information panes
+    CurMech.ReCalcBaseCost();
+    RefreshSummary();
+    RefreshInfoPane();
+
+}//GEN-LAST:event_chkEjectionSeatActionPerformed
 
 private void setViewToolbar(boolean Visible)
 {

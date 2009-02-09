@@ -947,6 +947,9 @@ public class HTMLWriter {
             if( CurMech.HasBlueShield() ) {
                 ret.add( CurMech.GetBlueShield() );
             }
+            if( CurMech.HasEnviroSealing() ) {
+                ret.add( CurMech.GetEnviroSealing() );
+            }
         }
 
         // turn the return vector into an array
@@ -1187,6 +1190,11 @@ public class HTMLWriter {
         // added this in to avoid the "null" result.
         lookup.put( "<+-SSW_REMOVE_IF_OMNI_NO_FIXED-+>", "" );
         lookup.put( "<+-SSW_MULTISLOTNOTES-+>", BuildMultiSlotNotes() );
+        if( CurMech.HasEjectionSeat() ) {
+            lookup.put( "<+-SSW_EJECTIONSEAT_TONNAGE-+>", "" + CurMech.GetEjectionSeat().GetTonnage() );
+        } else {
+            lookup.put( "<+-SSW_EJECTIONSEAT_TONNAGE-+>", "" );
+        }
 //        lookup.put( "<+-SSW_", CurMech );
     }
 
@@ -1286,6 +1294,9 @@ public class HTMLWriter {
         }
         if( CurMech.HasBlueShield() ) {
             retval += "* The " + CurMech.GetBlueShield().GetCritName() + " occupies 1 slot in every location except the HD." + NL;
+        }
+        if( CurMech.HasEnviroSealing() ) {
+            retval += "* The " + CurMech.GetEnviroSealing().GetCritName() + " occupies 1 slot in every location." + NL;
         }
         return retval;
     }

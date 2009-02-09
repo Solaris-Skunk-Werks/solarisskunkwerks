@@ -162,11 +162,15 @@ public class XMLReader {
         m.SetEngineRating( Integer.parseInt( map.getNamedItem( "rating" ).getTextContent() ) );
         m.SetEngineManufacturer( FileCommon.DecodeFluff( map.getNamedItem( "manufacturer" ).getTextContent() ) );
         n = d.getElementsByTagName( "cockpit" );
+        map = n.item( 0 ).getAttributes();
         v = data.Lookup( n.item( 0 ).getTextContent() );
         if( v == null ) {
             throw new Exception( "The Cockpit type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
         } else {
             m.Visit( v );
+        }
+        if( map.getNamedItem( "ejectionseat" ) != null ) {
+            m.SetEjectionSeat( true );
         }
         n = d.getElementsByTagName( "structure" );
         map = n.item( 0 ).getAttributes();
@@ -493,6 +497,8 @@ public class XMLReader {
                     m.SetVoidSig( true, Locs );
                 } else if( type.equals( m.GetChameleon().GetCritName() ) ) {
                     m.SetChameleon( true, Locs );
+                } else if( type.equals( m.GetEnviroSealing().GetCritName() ) ) {
+                    m.SetEnviroSealing( true, Locs );
                 }
             }
         }

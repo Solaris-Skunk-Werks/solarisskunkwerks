@@ -222,6 +222,9 @@ public class TXTWriter {
         }
         retval += String.format( "Gyro:               %1$-52s %2$6.2f", CurMech.GetGyro().GetLookupName(), CurMech.GetGyro().GetTonnage() ) + NL;
         retval += String.format( "Cockpit:            %1$-52s %2$6.2f", CurMech.GetCockpit().GetLookupName(), CurMech.GetCockpit().GetTonnage() ) + NL;
+        if( CurMech.HasEjectionSeat() ) {
+            retval += String.format( "    %1$-68s %2$6.2f", "Ejection Seat:", CurMech.GetEjectionSeat().GetTonnage() ) + NL;
+        }
         if( ! CurMech.GetEngine().IsNuclear() ) {
             if( CurMech.GetLoadout().GetPowerAmplifier().GetTonnage() > 0 ) {
                 retval += String.format( "%1$-72s %2$6.2f", "Power Amplifiers:", CurMech.GetLoadout().GetPowerAmplifier().GetTonnage() ) + NL;
@@ -232,7 +235,7 @@ public class TXTWriter {
             retval += "    TSM Locations: " + FileCommon.GetTSMLocations( CurMech ) + NL;
         }
         if( CurMech.GetArmor().GetBAR() < 10 ) {
-            retval += String.format( "Armor:              %1$-28s AV - %2$3s                %3$6.2f", CurMech.GetArmor().GetCritName() + " (B.A.R.: " + CurMech.GetArmor().GetBAR() +")", CurMech.GetArmor().GetArmorValue(), CurMech.GetArmor().GetTonnage() ) + NL;
+            retval += String.format( "Armor:              %1$-28s AV - %2$3s                %3$6.2f", CurMech.GetArmor().GetCritName() + " (BAR: " + CurMech.GetArmor().GetBAR() +")", CurMech.GetArmor().GetArmorValue(), CurMech.GetArmor().GetTonnage() ) + NL;
         } else {
             retval += String.format( "Armor:              %1$-28s AV - %2$3s                %3$6.2f", CurMech.GetArmor().GetCritName(), CurMech.GetArmor().GetArmorValue(), CurMech.GetArmor().GetTonnage() ) + NL;
         }
@@ -540,6 +543,10 @@ public class TXTWriter {
             retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", CurMech.GetBlueShield().GetCritName(), "*", 7, 3.0f ) + NL;
             Special = true;
         }
+        if( CurMech.HasEnviroSealing() ) {
+            retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", CurMech.GetEnviroSealing().GetCritName(), "*", 8, 0.0f ) + NL;
+            Special = true;
+        }
 
         if( Special ) {
             retval += NL;
@@ -557,6 +564,9 @@ public class TXTWriter {
         }
         if( CurMech.HasBlueShield() ) {
             retval += "* The " + CurMech.GetBlueShield().GetCritName() + " occupies 1 slot in every location except the HD." + NL;
+        }
+        if( CurMech.HasEnviroSealing() ) {
+            retval += "* The " + CurMech.GetEnviroSealing().GetCritName() + " occupies 1 slot in every location." + NL;
         }
 
         return retval;
