@@ -195,8 +195,11 @@ public class Talons extends PhysicalWeapon {
     }
 
     @Override
-    public String toString()
-    {
-        return "Talons";
+    public String toString() {
+        if( NumCrits() > Placed ) {
+            return "Talons (" + ( NumCrits() - Placed ) + ")";
+        } else {
+            return "Talons";
+        }
     }
 }

@@ -2710,6 +2710,18 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
     }
 
+    private void CheckFileName( String s ) throws Exception {
+        if( s.contains( "\\" ) ) {
+            throw new Exception( "The Mech name or model contains a back slash\nwhich should be removed before saving." );
+        }
+        if( s.contains( "/" ) ) {
+            throw new Exception( "The Mech name or model contains a forward slash\nwhich should be removed before saving." );
+        }
+        if( s.contains( "*" ) ) {
+            throw new Exception( "The Mech name or model contains an asterisk\nwhich should be removed before saving." );
+        }
+    }
+
      /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -11091,6 +11103,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         SolidifyMech();
 
         if( ! VerifyMech( evt ) ) {
+            setCursor( NormalCursor );
             return;
         }
 
@@ -11101,6 +11114,17 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             filename = CurMech.GetName() + " " + CurMech.GetModel() + ".ssw";
         }
 
+        // need to double-check the filename and warn the user if there are 
+        // special character
+        try {
+            CheckFileName( filename );
+        } catch( Exception e ) {
+            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the file name:\n" + e.getMessage() );
+            setCursor( NormalCursor );
+            return;
+        }
+
+        // save the 'Mech
         File savemech;
         String test = GlobalOptions.SaveLoadPath + File.separator + filename;
         if (filename.equals(Prefs.get("LastOpenFile", ""))) {
@@ -11141,7 +11165,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             fc.setAcceptAllFileFilterUsed( false );
             fc.setSelectedFile( new File( filename ) );
             int returnVal = fc.showDialog( this, "Save Mech" );
-            if( returnVal != JFileChooser.APPROVE_OPTION ) { return; }
+            if( returnVal != JFileChooser.APPROVE_OPTION ) {
+                setCursor( NormalCursor );
+                return;
+            }
             savemech = fc.getSelectedFile();
             
             //Since we are saving to a new file update the stored prefs
@@ -11150,6 +11177,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 Prefs.put("LastOpenFile", savemech.getName());
             } catch (IOException e) {
                 javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the file:\n" + e.getMessage() );
+                setCursor( NormalCursor );
                 return;
             }
         }
@@ -11180,6 +11208,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         } catch( IOException e ) {
             javax.swing.JOptionPane.showMessageDialog( this, "There was a problem writing the file:\n" + e.getMessage() );
+            setCursor( NormalCursor );
             return;
         }
 
@@ -11213,6 +11242,14 @@ private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             filename = CurMech.GetName() + ".ssw";
         } else {
             filename = CurMech.GetName() + " " + CurMech.GetModel() + ".ssw";
+        }
+
+        // need to double-check the filename and warn the user if there are 
+        // special character
+        try {
+            CheckFileName( filename );
+        } catch( Exception e ) {
+            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the file name:\n" + e.getMessage() + "\nSaving will continue, but you should cahnge the filename." );
         }
 
         // get the filename we're going to save to

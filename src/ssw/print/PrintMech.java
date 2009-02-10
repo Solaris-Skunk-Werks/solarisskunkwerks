@@ -965,7 +965,7 @@ public class PrintMech implements Printable {
         graphics.drawString( String.format( "%1$,.0f", BV ), p[PrintConsts.BV2].x, p[PrintConsts.BV2].y );
         graphics.drawString( "Weapon Heat (" + CurMech.GetWeaponHeat() + ")", p[PrintConsts.MAX_HEAT].x, p[PrintConsts.MAX_HEAT].y );
         graphics.setFont(SmallFont);
-        graphics.drawString( "Armor Pts: " + CurMech.GetArmor().GetArmorValue() , p[PrintConsts.TOTAL_ARMOR].x, p[PrintConsts.TOTAL_ARMOR].y );
+        //graphics.drawString( "Armor Pts: " + CurMech.GetArmor().GetArmorValue() , p[PrintConsts.TOTAL_ARMOR].x, p[PrintConsts.TOTAL_ARMOR].y );
         graphics.setFont(BoldFont);
 
         if( PrintPilot ) {

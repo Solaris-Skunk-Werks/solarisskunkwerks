@@ -28,7 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
-import java.util.Hashtable;
 import java.util.Vector;
 import ssw.*;
 import ssw.gui.frmMain;
