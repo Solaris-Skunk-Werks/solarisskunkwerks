@@ -516,6 +516,16 @@ public class QuadLoadout implements ifLoadout {
             throw new Exception( p.GetCritName() +
                 " cannot be allocated to the right torso." );
         } else {
+            if (p instanceof PhysicalWeapon){
+                // Ensure that no other physical weapons of the same class are mounted in this location,
+                for( int i = 0; i < NonCore.size(); i++ ){
+                    if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_RT) {
+                        if ( ((PhysicalWeapon)p).GetPWClass() == ((PhysicalWeapon)NonCore.get( i )).GetPWClass() )
+                            throw new Exception( p.GetCritName() +
+                                " cannot be allocated to the right torso because\nthe torso already mounts a physical weapon of the same class." );
+                    }
+                }
+            }
             try {
                 Allocate( p, SIndex, RTCrits );
             } catch( Exception e ) {
@@ -530,6 +540,16 @@ public class QuadLoadout implements ifLoadout {
             throw new Exception( p.GetCritName() +
                 " cannot be allocated to the left torso." );
         } else {
+            if (p instanceof PhysicalWeapon){
+                // Ensure that no other physical weapons of the same class are mounted in this location,
+                for( int i = 0; i < NonCore.size(); i++ ){
+                    if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_LT) {
+                        if ( ((PhysicalWeapon)p).GetPWClass() == ((PhysicalWeapon)NonCore.get( i )).GetPWClass() )
+                            throw new Exception( p.GetCritName() +
+                                " cannot be allocated to the left torso because\nthe torso already mounts a physical weapon of the same class." );
+                    }
+                }
+            }
             try {
                 Allocate( p, SIndex, LTCrits );
             } catch( Exception e ) {
