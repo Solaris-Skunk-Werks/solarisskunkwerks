@@ -490,6 +490,15 @@ public class Mech {
         // set the mech to a biped
         Quad = false;
 
+        // remove the  any existing  physical weapons
+        Vector v = CurLoadout.GetNonCore();
+        for( int i = v.size() - 1; i >= 0; i-- ) {
+            abPlaceable p = (abPlaceable) v.get( i );
+            if( p instanceof PhysicalWeapon ) {
+                CurLoadout.Remove(p);
+            }
+        }
+        
         // replace everything into the new loadout
         CurGyro.Place( CurLoadout );
         CurEngine.Place( CurLoadout );
@@ -571,15 +580,6 @@ public class Mech {
         int NumJJ = GetJumpJets().GetNumJJ();
         int NumHS = GetHeatSinks().GetNumHS() - CurEngine.FreeHeatSinks();
 
-        // remove any existing physical weapons, since quads can't mount them
-        Vector v = CurLoadout.GetNonCore();
-        for( int i = v.size() - 1; i >= 0; i-- ) {
-            abPlaceable p = (abPlaceable) v.get( i );
-            if( p instanceof PhysicalWeapon ) {
-                CurLoadout.Remove( p );
-            }
-        }
-
         // Get a new Quad Loadout and load up the queue
         ifLoadout l = new QuadLoadout( Constants.BASELOADOUT_NAME, this );
         CurLoadout.Transfer(l);
@@ -607,6 +607,15 @@ public class Mech {
 
         // set the mech to a quad
         Quad = true;
+
+        // remove the  any existing  physical weapons
+        Vector v = CurLoadout.GetNonCore();
+        for( int i = v.size() - 1; i >= 0; i-- ) {
+            abPlaceable p = (abPlaceable) v.get( i );
+            if( p instanceof PhysicalWeapon ) {
+                CurLoadout.Remove(p);
+            }
+        }
 
         // replace everything into the new loadout
         CurGyro.Place( CurLoadout );
