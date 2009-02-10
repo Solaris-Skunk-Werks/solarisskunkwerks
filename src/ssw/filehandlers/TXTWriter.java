@@ -499,7 +499,7 @@ public class TXTWriter {
 
             // build the string based on the type of equipment
             if( p instanceof Ammunition ) {
-                retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", ((Ammunition) p).GetPrintName(), loc, crits, p.GetTonnage() ) + NL;
+                retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", FileCommon.FormatAmmoPrintName( (Ammunition) p ), loc, crits, p.GetTonnage() ) + NL;
             } else if( p instanceof MissileWeapon ) {
                 if( ((MissileWeapon) p).IsUsingArtemis() ) {
                     retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, p.GetTonnage() - 1.0f ) + NL;
@@ -660,7 +660,7 @@ public class TXTWriter {
 
             // build the string based on the type of equipment
             if( p instanceof Ammunition ) {
-                retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", ((Ammunition) p).GetPrintName(), loc, crits, p.GetTonnage() ) + NL;
+                retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", FileCommon.FormatAmmoPrintName((Ammunition) p), loc, crits, p.GetTonnage() ) + NL;
             } else if( p instanceof MissileWeapon ) {
                 if( ((MissileWeapon) p).IsUsingArtemis() ) {
                     retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, p.GetTonnage() - 1.0f ) + NL;

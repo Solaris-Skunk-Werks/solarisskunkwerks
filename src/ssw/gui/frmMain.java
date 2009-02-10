@@ -579,6 +579,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
 
+        // see if we need to enable the jump jet manufacturer field
+        if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
+            // enable the field
+            txtJJModel.setEnabled( true );
+        } else {
+            // disable it, but don't clear it
+            txtJJModel.setEnabled( false );
+        }
+
         spnJumpMP.setModel( new javax.swing.SpinnerNumberModel( current, min, max, 1) );
     }
 
@@ -2722,6 +2731,16 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
     }
 
+    private void SolidifyJJManufacturer() {
+        // this method is used mainly for OmniMechs with varying jump jet loads
+        if( ! txtJJModel.getText().equals( "" ) || ! CurMech.GetJJModel().equals( "" ) ) {
+            if( ! txtJJModel.getText().equals( CurMech.GetJJModel() ) ) { 
+                CurMech.SetJJModel( txtJJModel.getText() );
+            }
+        }
+        txtJJModel.setText( CurMech.GetJJModel() );
+    }
+
      /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -3222,12 +3241,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jSeparator17 = new javax.swing.JSeparator();
         mnuExit = new javax.swing.JMenuItem();
         mnuTools = new javax.swing.JMenu();
-        mnuOptions = new javax.swing.JMenuItem();
-        mnuViewToolbar = new javax.swing.JCheckBoxMenuItem();
         mnuSummary = new javax.swing.JMenuItem();
         mnuCostBVBreakdown = new javax.swing.JMenuItem();
         mnuUnlock = new javax.swing.JMenuItem();
         jSeparator15 = new javax.swing.JSeparator();
+        mnuOptions = new javax.swing.JMenuItem();
+        mnuViewToolbar = new javax.swing.JCheckBoxMenuItem();
         mnuClearUserData = new javax.swing.JMenuItem();
         mnuHelp = new javax.swing.JMenu();
         mnuCredits = new javax.swing.JMenuItem();
@@ -8797,25 +8816,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         mnuTools.setText("Tools");
 
-        mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
-        mnuOptions.setText("Options");
-        mnuOptions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuOptionsActionPerformed(evt);
-            }
-        });
-        mnuTools.add(mnuOptions);
-
-        mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
-        mnuViewToolbar.setSelected(true);
-        mnuViewToolbar.setText("View Toolbar");
-        mnuViewToolbar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuViewToolbarActionPerformed(evt);
-            }
-        });
-        mnuTools.add(mnuViewToolbar);
-
         mnuSummary.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
         mnuSummary.setText("Show Summary");
         mnuSummary.addActionListener(new java.awt.event.ActionListener() {
@@ -8837,6 +8837,25 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuUnlock.setEnabled(false);
         mnuTools.add(mnuUnlock);
         mnuTools.add(jSeparator15);
+
+        mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
+        mnuOptions.setText("Options");
+        mnuOptions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuOptionsActionPerformed(evt);
+            }
+        });
+        mnuTools.add(mnuOptions);
+
+        mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
+        mnuViewToolbar.setSelected(true);
+        mnuViewToolbar.setText("View Toolbar");
+        mnuViewToolbar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuViewToolbarActionPerformed(evt);
+            }
+        });
+        mnuTools.add(mnuViewToolbar);
 
         mnuClearUserData.setText("Clear User Data");
         mnuClearUserData.addActionListener(new java.awt.event.ActionListener() {
@@ -10598,6 +10617,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 file = CurMech.GetName() + " " + CurMech.GetModel() + ".mtf";
             }
         }
+        // need to double-check the filename and warn the user if there are 
+        // special character
+        try {
+            CheckFileName( file );
+        } catch( Exception e ) {
+            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the file name:\n" + e.getMessage() );
+            return;
+        }
+
         if( ! GlobalOptions.MegamekPath.equals( "none" ) ) {
             file = GlobalOptions.MegamekPath + File.separator + file;
         }
@@ -10641,6 +10669,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             file = CurMech.GetName() + " " + CurMech.GetModel() + ".txt";
         }
+        // need to double-check the filename and warn the user if there are 
+        // special character
+        try {
+            CheckFileName( file );
+        } catch( Exception e ) {
+            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the file name:\n" + e.getMessage() );
+            return;
+        }
+
         if( ! GlobalOptions.TXTPath.equals( "none" ) ) {
             file = GlobalOptions.TXTPath + File.separator + file;
         }
@@ -10681,6 +10718,16 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             file = CurMech.GetName() + " " + CurMech.GetModel() + ".html";
         }
+
+        // need to double-check the filename and warn the user if there are 
+        // special character
+        try {
+            CheckFileName( file );
+        } catch( Exception e ) {
+            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the file name:\n" + e.getMessage() );
+            return;
+        }
+
         if( ! GlobalOptions.HTMLPath.equals( "none" ) ) {
             file = GlobalOptions.HTMLPath + File.separator + file;
         }
@@ -10967,6 +11014,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         LockGUIForOmni();
         RefreshOmniVariants();
         RefreshOmniChoices();
+        SolidifyJJManufacturer();
         CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
@@ -11013,6 +11061,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         FixHeatSinkSpinnerModel();
         RefreshOmniVariants();
         RefreshOmniChoices();
+        SolidifyJJManufacturer();
         CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
@@ -11042,6 +11091,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
         RefreshOmniChoices();
+        SolidifyJJManufacturer();
         CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
@@ -11807,8 +11857,10 @@ public void LoadMechIntoGUI() {
     txtChassisModel.setText( CurMech.GetChassisModel() );
     if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
         txtJJModel.setEnabled( true );
-        txtJJModel.setText( CurMech.GetJJModel() );
     }
+    // omnimechs may have jump jets in one loadout and not another.
+    txtJJModel.setText( CurMech.GetJJModel() );
+    System.out.println( CurMech.GetJJModel() );
     txtCommSystem.setText( CurMech.GetCommSystem() );
     txtTNTSystem.setText( CurMech.GetTandTSystem() );
 

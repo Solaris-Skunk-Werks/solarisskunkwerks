@@ -604,7 +604,7 @@ public class HTMLWriter {
 
                         if( check.equals( "<+-SSW_EQUIP_NAME-+>" ) ) {
                             if( a instanceof Ammunition ) {
-                                retval += ((Ammunition) a).GetPrintName();
+                                retval += FileCommon.FormatAmmoPrintName( ((Ammunition) a) );
                             } else {
                                 retval += a.GetCritName();
                             }
@@ -734,7 +734,7 @@ public class HTMLWriter {
 
                         if( check.equals( "<+-SSW_EQUIP_NAME-+>" ) ) {
                             if( a instanceof Ammunition ) {
-                                retval += ((Ammunition) a).GetPrintName();
+                                retval += FileCommon.FormatAmmoPrintName( ((Ammunition) a) );
                             } else {
                                 retval += a.GetCritName();
                             }

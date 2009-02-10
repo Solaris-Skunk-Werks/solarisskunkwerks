@@ -643,4 +643,14 @@ public class FileCommon {
             return -1;
         }
     }
+
+    public static String FormatAmmoPrintName( Ammunition a ) {
+        // this routine returns a user-defined ammunition name based on a user-
+        // defined ammunition filter.
+        String retval = (new Options()).AmmoNameFormat;
+        retval = retval.replace( "%F", a.GetCritName() );
+        retval = retval.replace( "%P", a.GetPrintName() );
+        retval = retval.replace( "%L", "" + a.GetLotSize() );
+        return retval;
+    }
 }

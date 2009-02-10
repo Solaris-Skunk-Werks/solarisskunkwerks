@@ -147,6 +147,9 @@ Version 0.6.0
 - Prettified the Text and Clipboard export.
 - Prettified the Criticals tab a bit.
 - Fixed an issue with the Print Options dialogue and not printing MW names.
+- OmniMechs will now save/load their Jump Jet manufacturer names.
+- HTML and TXT export will now use the Ammo Print Format.
+- If an illegal character is in the name or model, you are now prompted before saving.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

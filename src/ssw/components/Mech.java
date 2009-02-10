@@ -2849,14 +2849,13 @@ public class Mech {
     }
 
     public String GetJJModel() {
-        if( GetJumpJets().GetNumJJ() < 1 ) {
+        if( ! Omnimech && GetJumpJets().GetNumJJ() < 1 ) {
             return "None";
-        } else {
-            if( JJModel.matches( "" ) ) {
-                return "Unknown";
-            }
-            return JJModel;
         }
+        if( JJModel.matches( "" ) ) {
+            return "Unknown";
+        }
+        return JJModel;
     }
 
     public String GetCommSystem() {
