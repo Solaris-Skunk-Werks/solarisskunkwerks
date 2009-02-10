@@ -117,7 +117,7 @@ public class PreviewDialog extends JDialog implements ActionListener {
         JButton result = null;
 
         ImageIcon icon = null;        
-        URL imageURL = getClass().getClassLoader().getResource("images/" + iconName);
+        URL imageURL = getClass().getResource("/ssw/images/" + iconName);
         if (imageURL != null)
             icon = new ImageIcon(imageURL);
 
