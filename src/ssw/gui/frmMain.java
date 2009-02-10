@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
+import de.java.print.PreviewDialog;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -36,7 +37,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.Hashtable;
 import java.util.Vector;
 import javax.swing.DropMode;
 import javax.swing.ImageIcon;
@@ -3204,6 +3204,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuPrintCurrentMech = new javax.swing.JMenuItem();
         mnuPrintSavedMech = new javax.swing.JMenuItem();
         mnuPrintBatch = new javax.swing.JMenuItem();
+        mnuPrintPreview = new javax.swing.JMenuItem();
         mnuPostS7 = new javax.swing.JMenuItem();
         jSeparator17 = new javax.swing.JSeparator();
         mnuExit = new javax.swing.JMenuItem();
@@ -8738,6 +8739,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         mnuFile.add(jMenu2);
 
+        mnuPrintPreview.setText("Print Preview");
+        mnuPrintPreview.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuPrintPreviewActionPerformed(evt);
+            }
+        });
+        mnuFile.add(mnuPrintPreview);
+
         mnuPostS7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
         mnuPostS7.setText("Post Mech to Solaris7.com");
         mnuPostS7.addActionListener(new java.awt.event.ActionListener() {
@@ -12178,6 +12187,26 @@ private void chkEjectionSeatActionPerformed(java.awt.event.ActionEvent evt) {//G
 
 }//GEN-LAST:event_chkEjectionSeatActionPerformed
 
+private void mnuPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintPreviewActionPerformed
+    PrintMech p = new PrintMech( this, CurMech, null, false, false);
+    p.SetPilotData( "", 4, 5);
+    p.SetOptions( false, false, 0 );
+
+    Paper paper = new Paper();
+    paper.setImageableArea( 18, 18, 576, 756 );
+
+    PageFormat page = new PageFormat();
+    Book pages = new Book();
+    page.setPaper( paper );
+    pages.append(p, page);
+    PreviewDialog dlgPreview = new PreviewDialog(CurMech.GetFullName(), this, pages, 2.0);
+    dlgPreview.setSize(800, 600);
+    dlgPreview.setLocationRelativeTo(null);
+    dlgPreview.setModal(true);
+    dlgPreview.setResizable(true);
+    dlgPreview.setVisible(true);
+}//GEN-LAST:event_mnuPrintPreviewActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -12556,6 +12585,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JMenuItem mnuPostS7;
     private javax.swing.JMenuItem mnuPrintBatch;
     private javax.swing.JMenuItem mnuPrintCurrentMech;
+    private javax.swing.JMenuItem mnuPrintPreview;
     private javax.swing.JMenuItem mnuPrintSavedMech;
     private javax.swing.JMenuItem mnuSave;
     private javax.swing.JMenuItem mnuSaveAs;
