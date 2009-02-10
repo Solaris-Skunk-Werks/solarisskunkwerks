@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
-import de.java.print.PreviewDialog;
+import ssw.printpreview.PreviewDialog;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
