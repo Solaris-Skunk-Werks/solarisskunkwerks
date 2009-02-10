@@ -197,7 +197,7 @@ public class dlgOptions extends javax.swing.JDialog {
         MyOptions.Export_AmmoAtEnd = chkAmmoAtEnd.isSelected();
 
         try {
-            Parent.GetOptionsReader().WriteOptions( Constants.OptionsFileName, MyOptions );
+            MyOptions.Save();
         } catch( IOException e ) {
             javax.swing.JOptionPane.showMessageDialog( Parent, "Could not save the options!\nFile operation problem (save, close)." );
         }

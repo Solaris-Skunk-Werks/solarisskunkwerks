@@ -2452,7 +2452,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         PrinterJob job = PrinterJob.getPrinterJob();
         job.setJobName( m.GetFullName() );
-        PrintMech p = new PrintMech( this, m, CommonTools.GetImage( m.GetSSWImage() ), false, useA4paper);
+        Media media = new Media();
+        Image mechImage = media.GetImage(m.GetSSWImage());
+        PrintMech p = new PrintMech( this, m, mechImage, false, useA4paper);
         p.SetPilotData( warriorName, gunnerySkill, pilotingSkill);
         p.SetOptions( printCharts, printPilot, adjustedBV );
 
@@ -8837,7 +8839,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void mnuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExitActionPerformed
         try {
-            OReader.WriteOptions( Constants.OptionsFileName, GlobalOptions );
+            GlobalOptions.Save();
         } catch( IOException e ) {
             javax.swing.JOptionPane.showMessageDialog( this, "Could not save the options!  File operation problem (save, close):\n" + e );
         }

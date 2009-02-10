@@ -43,6 +43,7 @@ import ssw.Constants;
 import ssw.Options;
 import ssw.components.*;
 import ssw.filehandlers.FileCommon;
+import ssw.filehandlers.Media;
 import ssw.gui.frmMain;
 
 public class PrintMech implements Printable {
@@ -68,6 +69,7 @@ public class PrintMech implements Printable {
     private Font SmallItalicFont = new Font( "Arial", Font.ITALIC, 7 );
     private Color Black = new Color( 0, 0, 0 ),
                   Grey = new Color( 128, 128, 128 );
+    private Media media = new Media();
 
     public PrintMech( frmMain parent, Mech m, Image i, boolean adv, boolean A4) {
         Parent = parent;
@@ -1634,16 +1636,16 @@ public class PrintMech implements Printable {
         // loads the correct record sheet and points based on the information given
         if( CurMech.IsQuad() ) {
             if( Advanced ) {
-                RecordSheet = CommonTools.GetImage(PrintConsts.RS_TO_QD );
+                RecordSheet = media.GetImage(PrintConsts.RS_TO_QD );
             } else {
-                RecordSheet = CommonTools.GetImage( PrintConsts.RS_TW_QD );
+                RecordSheet = media.GetImage( PrintConsts.RS_TW_QD );
                 points = new TWQuadPoints();
             }
         } else {
             if( Advanced ) {
-                RecordSheet = CommonTools.GetImage( PrintConsts.RS_TO_BP );
+                RecordSheet = media.GetImage( PrintConsts.RS_TO_BP );
             } else {
-                RecordSheet = CommonTools.GetImage( PrintConsts.RS_TW_BP );
+                RecordSheet = media.GetImage( PrintConsts.RS_TW_BP );
                 points = new TWBipedPoints();
             }
         }

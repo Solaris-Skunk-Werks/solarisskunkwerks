@@ -29,6 +29,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw;
 
 import java.awt.Color;
+import java.io.IOException;
+import ssw.filehandlers.OptionsReader;
 
 public class Options {
     // This is just a holder for a bunch of public variables that everybody
@@ -83,6 +85,16 @@ public class Options {
                   MegamekPath = "none",
                   AmmoNameFormat = "@%P (%L)";
 
+    private OptionsReader OReader = new OptionsReader();
+
+    public Options() {
+        try {
+            Load();
+        } catch (IOException e) {
+            
+        }
+    }
+
     public void SetDefaults() {
         // choose to keep this here because it made sense.
         Armor_CustomPercentage = false;
@@ -129,5 +141,13 @@ public class Options {
         S7Callsign = "null";
         S7Password = "null";
         S7UserID = -1;
+    }
+
+    public void Load() throws IOException {
+        OReader.ReadOptions(Constants.OptionsFileName, this);
+    }
+
+    public void Save() throws IOException {
+        OReader.WriteOptions(Constants.OptionsFileName, this);
     }
 }
