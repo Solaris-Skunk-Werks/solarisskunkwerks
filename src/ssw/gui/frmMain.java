@@ -78,12 +78,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     JMenuItem mnuAuto = new JMenuItem( "Auto-Allocate" );
     JMenuItem mnuArmorComponent = new JMenuItem( "Armor Component" );
     MechLoadoutRenderer Mechrender = new MechLoadoutRenderer( this, GlobalOptions );
-    Hashtable Lookup = new Hashtable();
     Preferences Prefs;
     boolean Load = false;
     private Cursor Hourglass = new Cursor( Cursor.WAIT_CURSOR );
     private Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
     ImageIcon FluffImage = Utils.createImageIcon( Constants.NO_IMAGE );
+    DataFactory data = new DataFactory(CurMech);
 
     private dlgPrintBatchMechs BatchWindow = null;
 
@@ -254,20 +254,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // if the user wants, load the last mech.
         if( GlobalOptions.LoadLastMech ) { LoadMechFromPreferences(); }
-    }
-
-    public Image GetImage( String filename ) {
-        java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
-        Image retval = toolkit.getImage( filename );
-        java.awt.MediaTracker mediaTracker = new java.awt.MediaTracker( this );
-        mediaTracker.addImage( retval, 0 );
-        try {
-            mediaTracker.waitForID( 0 );
-        } catch( InterruptedException ie ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "Interrupted while loading image " + filename );
-            return null;
-	}
-        return retval;
     }
 
     public OptionsReader GetOptionsReader() {
@@ -982,21 +968,21 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void RecalcGyro() {
         // changes the armor type.
         String LookupVal = (String) cmbGyroType.getSelectedItem();
-        ifVisitor v = (ifVisitor) Lookup.get( LookupVal );
+        ifVisitor v = (ifVisitor) data.Lookup.get( LookupVal );
         CurMech.Visit( v );
     }
 
     private void RecalcCockpit() {
         // recalculates the cockpit on the mech
         String LookupVal = (String) cmbCockpitType.getSelectedItem();
-        ifVisitor v = (ifVisitor) Lookup.get( LookupVal );
+        ifVisitor v = (ifVisitor) data.Lookup.get( LookupVal );
         CurMech.Visit( v );
     }
 
     private void RecalcEnhancements() {
         // recalculates the enhancements on the mech
         String LookupVal = (String) cmbPhysEnhance.getSelectedItem();
-        ifVisitor v = (ifVisitor) Lookup.get( LookupVal );
+        ifVisitor v = (ifVisitor) data.Lookup.get( LookupVal );
         CurMech.Visit( v );
     }
 
@@ -1005,7 +991,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         String LookupVal = (String) cmbJumpJetType.getSelectedItem();
         if( LookupVal == null ) { return; }
         if( LookupVal.equals( CurMech.GetJumpJets().GetLookupName() ) ) { return; }
-        ifVisitor v = (ifVisitor) Lookup.get( LookupVal );
+        ifVisitor v = (ifVisitor) data.Lookup.get( LookupVal );
         CurMech.Visit( v );
         FixJJSpinnerModel();
     }
@@ -1013,7 +999,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void RecalcHeatSinks() {
         // recalculate the heat sinks based on what is selected.
         String LookupVal = (String) cmbHeatSinkType.getSelectedItem();
-        ifVisitor v = (ifVisitor) Lookup.get( LookupVal );
+        ifVisitor v = (ifVisitor) data.Lookup.get( LookupVal );
         CurMech.Visit( v );
         FixHeatSinkSpinnerModel();
     }
@@ -1021,7 +1007,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void RecalcIntStruc() {
         // recalculates the internal structure if anything happened.
         String LookupVal = (String) cmbInternalType.getSelectedItem();
-        ifVisitor v = (ifVisitor) Lookup.get( LookupVal );
+        ifVisitor v = (ifVisitor) data.Lookup.get( LookupVal );
         CurMech.Visit( v );
     }
 
@@ -1029,7 +1015,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // changes the engine type.  Changing the type does not change the rating
         // which makes our job here easier.
         String LookupVal = (String) cmbEngineType.getSelectedItem();
-        ifVisitor v = (ifVisitor) Lookup.get( LookupVal );
+        ifVisitor v = (ifVisitor) data.Lookup.get( LookupVal );
         CurMech.Visit( v );
 
         // redo the heat sinks because the engine affects them
@@ -1052,7 +1038,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void RecalcArmor() {
         // changes the armor type.
         String LookupVal = (String) cmbArmorType.getSelectedItem();
-        ifVisitor v = (ifVisitor) Lookup.get( LookupVal );
+        ifVisitor v = (ifVisitor) data.Lookup.get( LookupVal );
         CurMech.Visit( v );
     }
 
@@ -2466,7 +2452,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         PrinterJob job = PrinterJob.getPrinterJob();
         job.setJobName( m.GetFullName() );
-        PrintMech p = new PrintMech( this, m, GetImage( m.GetSSWImage() ), false, useA4paper);
+        PrintMech p = new PrintMech( this, m, CommonTools.GetImage( m.GetSSWImage() ), false, useA4paper);
         p.SetPilotData( warriorName, gunnerySkill, pilotingSkill);
         p.SetOptions( printCharts, printPilot, adjustedBV );
 
