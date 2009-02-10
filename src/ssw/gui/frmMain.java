@@ -2737,6 +2737,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         btnNewIcon = new javax.swing.JButton();
         btnOpen = new javax.swing.JButton();
         btnSaveIcon = new javax.swing.JButton();
+        btnPrintPreview = new javax.swing.JButton();
         jSeparator24 = new javax.swing.JToolBar.Separator();
         btnPrintIcon = new javax.swing.JButton();
         btnPrintSaved = new javax.swing.JButton();
@@ -3281,6 +3282,18 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         tlbIconBar.add(btnSaveIcon);
+
+        btnPrintPreview.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/image.gif"))); // NOI18N
+        btnPrintPreview.setToolTipText("Print Preview");
+        btnPrintPreview.setFocusable(false);
+        btnPrintPreview.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPrintPreview.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPrintPreview.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintPreviewActionPerformed(evt);
+            }
+        });
+        tlbIconBar.add(btnPrintPreview);
         tlbIconBar.add(jSeparator24);
 
         btnPrintIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/action_print.gif"))); // NOI18N
@@ -3296,6 +3309,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         tlbIconBar.add(btnPrintIcon);
 
         btnPrintSaved.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/action_print_saved.gif"))); // NOI18N
+        btnPrintSaved.setToolTipText("Print Saved Mech");
         btnPrintSaved.setFocusable(false);
         btnPrintSaved.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPrintSaved.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -3307,6 +3321,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         tlbIconBar.add(btnPrintSaved);
 
         btnPrintBatch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/action_print_batch.gif"))); // NOI18N
+        btnPrintBatch.setToolTipText("Print Batch");
         btnPrintBatch.setFocusable(false);
         btnPrintBatch.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPrintBatch.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -12244,6 +12259,10 @@ private void mnuPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//G
     dlgPreview.setVisible(true);
 }//GEN-LAST:event_mnuPrintPreviewActionPerformed
 
+private void btnPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintPreviewActionPerformed
+    mnuPrintPreviewActionPerformed(evt);
+}//GEN-LAST:event_btnPrintPreviewActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -12284,6 +12303,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JButton btnPostToS7;
     private javax.swing.JButton btnPrintBatch;
     private javax.swing.JButton btnPrintIcon;
+    private javax.swing.JButton btnPrintPreview;
     private javax.swing.JButton btnPrintSaved;
     private javax.swing.JButton btnRemainingArmor;
     private javax.swing.JButton btnRemoveEquip;
