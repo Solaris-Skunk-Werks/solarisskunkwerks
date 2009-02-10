@@ -45,6 +45,7 @@ Version 0.6.0
 - The basics of IndustrialMechs are in.
 - Added an option for formatting ammunition names when printing.
 - BAR is now printed on the sheet if needed (BAR < 10).
+- Added Physical Weapon-like Industrial equipment.
 - Added Print Preview option to File and Toolbar menus
 
 + Changed
@@ -152,6 +153,7 @@ Version 0.6.0
 - HTML and TXT export will now use the Ammo Print Format.
 - If an illegal character is in the name or model, you are now prompted before saving.
 - Structure re-work to disconnect the Mech from the GUI for use in outside programs
+- Corrected Industrial Mech Costs and BV.
 
 -------------------------------------------------------------------------------
 Version 0.5.0
