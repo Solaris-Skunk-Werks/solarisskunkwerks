@@ -38,7 +38,6 @@ public class Mech {
     // handle calculations and settings for the design.
 
     // Declares
-    private frmMain Parent;
     private String Name = "",
                    Model = "",
                    Overview = "",
@@ -99,15 +98,14 @@ public class Mech {
                             BlueShield,
                             EnviroSealing;
     private SimplePlaceable EjectionSeat;
+    private Options options = new Options();
 
     // Constructors
     public Mech() {
-        Parent = null;
         Load();
     }
 
     public Mech( frmMain window ) {
-        Parent = window;
         Load();
     }
 
@@ -1107,8 +1105,8 @@ public class Mech {
             if( jump < minjumpheat ) { jump = minjumpheat; }
         }
 
-        if( Parent.GetOptions().Heat_RemoveJumps ) {
-            if( Parent.GetOptions().Heat_RemoveMovement ) {
+        if( options.Heat_RemoveJumps ) {
+            if( options.Heat_RemoveMovement ) {
                 walk = CurEngine.MinimumHeat();
                 jump = 0;
             } else {
@@ -1158,9 +1156,9 @@ public class Mech {
         }
 
         abPlaceable a;
-        boolean UseOS = Parent.GetOptions().Heat_RemoveOSWeapons;
-        boolean UseRear = Parent.GetOptions().Heat_RemoveRearWeapons;
-        boolean FullRate = Parent.GetOptions().Heat_UAC_RAC_FullRate;
+        boolean UseOS = options.Heat_RemoveOSWeapons;
+        boolean UseRear = options.Heat_RemoveRearWeapons;
+        boolean FullRate = options.Heat_UAC_RAC_FullRate;
         for( int i = 0; i < v.size(); i++ ) {
             a = (abPlaceable) v.get( i );
             if( a instanceof ifWeapon ) {
@@ -1206,7 +1204,7 @@ public class Mech {
                     }
                 }
             } else if( a instanceof Equipment ) {
-                if( ! Parent.GetOptions().Heat_RemoveEquipment ) {
+                if( ! options.Heat_RemoveEquipment ) {
                     result += ((Equipment) a).GetHeat();
                 }
             }
@@ -2065,7 +2063,7 @@ public class Mech {
 
     public Options GetOptions() {
         // provided for the components that may be governed by options
-        return Parent.GetOptions();
+        return options;
     }
 
     public float GetEquipCost() {
