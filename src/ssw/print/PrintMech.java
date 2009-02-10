@@ -38,7 +38,9 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.util.Vector;
+import ssw.CommonTools;
 import ssw.Constants;
+import ssw.Options;
 import ssw.components.*;
 import ssw.filehandlers.FileCommon;
 import ssw.gui.frmMain;
@@ -77,6 +79,16 @@ public class PrintMech implements Printable {
         GetRecordSheet();
     }
 
+    public PrintMech( Mech m, Image i, boolean adv, boolean A4) {
+        Parent = null;
+        CurMech = m;
+        MechImage = i;
+        Advanced = adv;
+        BV = CurMech.GetCurrentBV();
+        UseA4Paper = A4;
+        GetRecordSheet();   
+    }
+
     public void SetPilotData( String pname, int ppilot, int pgun ) {
         PilotName = pname;
         Piloting = ppilot;
@@ -99,6 +111,11 @@ public class PrintMech implements Printable {
         }
     }
 
+    public Graphics2D PrintPreview( Graphics2D graphics ) {
+        PreparePrint(graphics);
+        return graphics;
+    }
+    
     private void PreparePrint( Graphics2D graphics ) {
         // adjust the printable area for A4 paper size
         if( UseA4Paper ) {
@@ -945,7 +962,10 @@ public class PrintMech implements Printable {
         graphics.drawString( String.format( "%1$,.0f C-Bills", Math.floor( CurMech.GetTotalCost() + 0.5f ) ), p[PrintConsts.COST].x, p[PrintConsts.COST].y );
         graphics.drawString( String.format( "%1$,.0f", BV ), p[PrintConsts.BV2].x, p[PrintConsts.BV2].y );
         graphics.drawString( "Weapon Heat (" + CurMech.GetWeaponHeat() + ")", p[PrintConsts.MAX_HEAT].x, p[PrintConsts.MAX_HEAT].y );
-        
+        graphics.setFont(SmallFont);
+        graphics.drawString( "Armor Pts: " + CurMech.GetArmor().GetArmorValue() , p[PrintConsts.TOTAL_ARMOR].x, p[PrintConsts.TOTAL_ARMOR].y );
+        graphics.setFont(BoldFont);
+
         if( PrintPilot ) {
             graphics.drawString( PilotName, p[PrintConsts.PILOT_NAME].x, p[PrintConsts.PILOT_NAME].y );
             graphics.drawString( Gunnery + "", p[PrintConsts.PILOT_GUN].x, p[PrintConsts.PILOT_GUN].y );
@@ -1027,70 +1047,75 @@ public class PrintMech implements Printable {
 
     private void AddCharts( Graphics2D graphics ) {
         // added for helpful charts, such as to-hit mods and cluster hits.
+        int lineX1 = 466;
+        int lineX2 = 575;
+        int primaryX = 469;
+        int secondaryX = 560;
+        int currentY = 10;
 
         // to-hit modifiers
         graphics.setFont( SmallFont );
-        graphics.drawString( "Attack Modifiers: Attacker...", 469, 10 );
-        graphics.drawString( "  is Stationary", 469, 18 );
-        graphics.drawString( "+0", 560, 18 );
-        graphics.drawString( "  Walked", 469, 26 );
-        graphics.drawString( "+1", 560, 26 );
-        graphics.drawString( "  Ran", 469, 34 );
-        graphics.drawString( "+2", 560, 34 );
-        graphics.drawString( "  Jumped", 469, 42 );
-        graphics.drawString( "+3", 560, 42 );
-        graphics.drawString( "Attack Modifiers: Damaged...", 469, 50 );
-        graphics.drawString( "  Sensors", 469, 58 );
-        graphics.drawString( "+2", 560, 58 );
-        graphics.drawString( "  Shoulder", 469, 66 );
-        graphics.drawString( "+4", 560, 66 );
+        graphics.drawString( "Attack Modifiers: Attacker...", primaryX, 10 );
+        graphics.drawString( "  is Stationary", primaryX, 18 );
+        graphics.drawString( "+0", secondaryX, 18 );
+        graphics.drawString( "  Walked", primaryX, 26 );
+        graphics.drawString( "+1", secondaryX, 26 );
+        graphics.drawString( "  Ran", primaryX, 34 );
+        graphics.drawString( "+2", secondaryX, 34 );
+        graphics.drawString( "  Jumped", primaryX, 42 );
+        graphics.drawString( "+3", secondaryX, 42 );
+        graphics.drawString( "Attack Modifiers: Damaged...", primaryX, 50 );
+        graphics.drawString( "  Sensors", primaryX, 58 );
+        graphics.drawString( "+2", secondaryX, 58 );
+        graphics.drawString( "  Shoulder", primaryX, 66 );
+        graphics.drawString( "+4", secondaryX, 66 );
         graphics.setFont( SmallItalicFont );
-        graphics.drawString( "    (weapons in that arm)", 469, 74 );
+        graphics.drawString( "    (weapons in that arm)", primaryX, 74 );
         graphics.setFont( SmallFont );
-        graphics.drawString( "  Arm Actuator", 469, 82 );
-        graphics.drawString( "+1", 560, 82 );
+        graphics.drawString( "  Arm Actuator", primaryX, 82 );
+        graphics.drawString( "+1", secondaryX, 82 );
         graphics.setFont( SmallItalicFont );
-        graphics.drawString( "    (cumulative, in that arm)", 469, 90 );
+        graphics.drawString( "    (cumulative, in that arm)", primaryX, 90 );
         graphics.setFont( SmallFont );
-        graphics.drawString( "Attack Modifiers: Target...", 469, 98 );
-        graphics.drawString( "  Moved 0-2 hexes", 469, 106 );
-        graphics.drawString( "+0", 560, 106 );
-        graphics.drawString( "  Moved 3-4 hexes", 469, 114 );
-        graphics.drawString( "+1", 560, 114 );
-        graphics.drawString( "  Moved 5-6 hexes", 469, 122 );
-        graphics.drawString( "+2", 560, 122 );
-        graphics.drawString( "  Moved 7-9 hexes", 469, 130 );
-        graphics.drawString( "+3", 560, 130 );
-        graphics.drawString( "  Moved 10-17 hexes", 469, 138 );
-        graphics.drawString( "+4", 560, 138 );
-        graphics.drawString( "  Moved 18-24 hexes", 469, 146 );
-        graphics.drawString( "+5", 560, 146 );
-        graphics.drawString( "  Moved 25+ hexes", 469, 154 );
-        graphics.drawString( "+6", 560, 154 );
-        graphics.drawString( "  Jumped", 469, 162 );
-        graphics.drawString( "+1", 560, 162 );
+        graphics.drawString( "Attack Modifiers: Target...", primaryX, 98 );
+        graphics.drawString( "  Moved 0-2 hexes", primaryX, 106 );
+        graphics.drawString( "+0", secondaryX, 106 );
+        graphics.drawString( "  Moved 3-4 hexes", primaryX, 114 );
+        graphics.drawString( "+1", secondaryX, 114 );
+        graphics.drawString( "  Moved 5-6 hexes", primaryX, 122 );
+        graphics.drawString( "+2", secondaryX, 122 );
+        graphics.drawString( "  Moved 7-9 hexes", primaryX, 130 );
+        graphics.drawString( "+3", secondaryX, 130 );
+        graphics.drawString( "  Moved 10-17 hexes", primaryX, 138 );
+        graphics.drawString( "+4", secondaryX, 138 );
+        graphics.drawString( "  Moved 18-24 hexes", primaryX, 146 );
+        graphics.drawString( "+5", secondaryX, 146 );
+        graphics.drawString( "  Moved 25+ hexes", primaryX, 154 );
+        graphics.drawString( "+6", secondaryX, 154 );
+        graphics.drawString( "  Jumped", primaryX, 162 );
+        graphics.drawString( "+1", secondaryX, 162 );
         graphics.setFont( SmallItalicFont );
-        graphics.drawString( "    (additional)", 469, 170 );
+        graphics.drawString( "    (additional)", primaryX, 170 );
         graphics.setFont( SmallFont );
-        graphics.drawString( "  has Partial Cover", 469, 178 );
-        graphics.drawString( "+1", 560, 178 );
-        graphics.drawString( "  Prone: Adjacent", 469, 186 );
-        graphics.drawString( "-2", 560, 186 );
-        graphics.drawString( "  Prone: not Adjacent", 469, 194 );
-        graphics.drawString( "+1", 560, 194 );
-        graphics.drawString( "Range", 469, 202 );
-        graphics.drawString( "  Short", 469, 210 );
-        graphics.drawString( "+0", 560, 210 );
-        graphics.drawString( "  Medium", 469, 218 );
-        graphics.drawString( "+2", 560, 218 );
-        graphics.drawString( "  Long", 469, 226 );
-        graphics.drawString( "+4", 560, 226 );
+        graphics.drawString( "  has Partial Cover", primaryX, 178 );
+        graphics.drawString( "+1", secondaryX, 178 );
+        graphics.drawString( "  Prone: Adjacent", primaryX, 186 );
+        graphics.drawString( "-2", secondaryX, 186 );
+        graphics.drawString( "  Prone: not Adjacent", primaryX, 194 );
+        graphics.drawString( "+1", secondaryX, 194 );
+        graphics.drawString( "Range", primaryX, 202 );
+        graphics.drawString( "  Short", primaryX, 210 );
+        graphics.drawString( "+0", secondaryX, 210 );
+        graphics.drawString( "  Medium", primaryX, 218 );
+        graphics.drawString( "+2", secondaryX, 218 );
+        graphics.drawString( "  Long", primaryX, 226 );
+        graphics.drawString( "+4", secondaryX, 226 );
 
         // bounding box
-        graphics.drawLine( 575, 3, 575, 229 );
-        graphics.drawLine( 466, 3, 466, 229 );
         graphics.drawLine( 466, 3, 575, 3 );
+        graphics.drawLine( 575, 3, 575, 229 );
         graphics.drawLine( 466, 229, 575, 229 );
+        graphics.drawLine( 466, 3, 466, 229 );
 
         // main hit location chart
         if( CurMech.IsQuad() ) {
@@ -1609,16 +1634,16 @@ public class PrintMech implements Printable {
         // loads the correct record sheet and points based on the information given
         if( CurMech.IsQuad() ) {
             if( Advanced ) {
-                RecordSheet = Parent.GetImage( PrintConsts.RS_TO_QD );
+                RecordSheet = CommonTools.GetImage(PrintConsts.RS_TO_QD );
             } else {
-                RecordSheet = Parent.GetImage( PrintConsts.RS_TW_QD );
+                RecordSheet = CommonTools.GetImage( PrintConsts.RS_TW_QD );
                 points = new TWQuadPoints();
             }
         } else {
             if( Advanced ) {
-                RecordSheet = Parent.GetImage( PrintConsts.RS_TO_BP );
+                RecordSheet = CommonTools.GetImage( PrintConsts.RS_TO_BP );
             } else {
-                RecordSheet = Parent.GetImage( PrintConsts.RS_TW_BP );
+                RecordSheet = CommonTools.GetImage( PrintConsts.RS_TW_BP );
                 points = new TWBipedPoints();
             }
         }
@@ -1637,7 +1662,7 @@ public class PrintMech implements Printable {
     private String FormatAmmoPrintName( Ammunition a ) {
         // this routine returns a user-defined ammunition name based on a user-
         // defined ammunition filter.
-        String retval = Parent.GetOptions().AmmoNameFormat;
+        String retval = (new Options()).AmmoNameFormat;
         retval = retval.replace( "%F", a.GetCritName() );
         retval = retval.replace( "%P", a.GetPrintName() );
         retval = retval.replace( "%L", "" + a.GetLotSize() );

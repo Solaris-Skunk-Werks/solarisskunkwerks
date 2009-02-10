@@ -28,6 +28,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw;
 
+import java.awt.Image;
+import java.awt.MediaTracker;
 import java.util.Vector;
 import ssw.components.*;
 
@@ -261,5 +263,9 @@ public class CommonTools {
 
     public static float GetAdjustedBV( float BV, int Gunnery, int Piloting ) {
         return BV * BVMods[Gunnery][Piloting];
+    }
+
+    public static Image GetImage( String filename ) {
+        return java.awt.Toolkit.getDefaultToolkit().getImage( filename );
     }
 }
