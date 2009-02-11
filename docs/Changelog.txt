@@ -47,6 +47,7 @@ Version 0.6.0
 - BAR is now printed on the sheet if needed (BAR < 10).
 - Added Physical Weapon-like Industrial equipment.
 - Added Print Preview option to File and Toolbar menus
+- Added Total Armor Points to the printout
 
 + Changed
 - Fixed a load bug with heatsinks.
