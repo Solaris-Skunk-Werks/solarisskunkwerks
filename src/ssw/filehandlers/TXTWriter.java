@@ -109,7 +109,7 @@ public class TXTWriter {
         retval += "Chassis: " + CurMech.GetChassisModel() + " " + CurMech.GetIntStruc().GetCritName() + NL;
         retval += "Power Plant: " + CurMech.GetEngineManufacturer() + " " + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine() + NL;
         if( CurMech.GetAdjustedWalkingMP( false, true ) != CurMech.GetWalkingMP() ) {
-            retval += "Walking Speed: " + ( CurMech.GetWalkingMP() * 10.75f ) + " km/h (" + ( CurMech.GetAdjustedWalkingMP( false, true ) * 10.75f ) + " km/h" + NL;
+            retval += "Walking Speed: " + ( CurMech.GetWalkingMP() * 10.75f ) + " km/h (" + ( CurMech.GetAdjustedWalkingMP( false, true ) * 10.75f ) + " km/h)" + NL;
         } else {
             retval += "Walking Speed: " + ( CurMech.GetWalkingMP() * 10.75f ) + " km/h" + NL;
         }
@@ -198,7 +198,11 @@ public class TXTWriter {
             retval += "    Internal Locations: " + FileCommon.GetInternalLocations( CurMech ) + NL;
         }
         retval += String.format( "Engine:             %1$-28s %2$3s                     %3$6.2f", CurMech.GetEngine().GetCritName(), CurMech.GetEngine().GetRating(), CurMech.GetEngine().GetTonnage() ) + NL;
-        retval += "    Walking MP: " + CurMech.GetWalkingMP() + NL;
+        if( CurMech.GetWalkingMP() != CurMech.GetAdjustedWalkingMP( false , true ) ) {
+            retval += "    Walking MP: " + CurMech.GetWalkingMP() + " (" + CurMech.GetAdjustedWalkingMP( false, true ) + ")" + NL;
+        } else {
+            retval += "    Walking MP: " + CurMech.GetWalkingMP() + NL;
+        }
         if( CurMech.GetRunningMP() != CurMech.GetAdjustedRunningMP( false, true ) ) {
             retval += "    Running MP: " + CurMech.GetRunningMP() + " (" + CurMech.GetAdjustedRunningMP( false, true ) + ")" + NL;
         } else {

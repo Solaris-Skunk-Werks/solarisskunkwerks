@@ -73,6 +73,7 @@ public class WeaponFactory {
             ((EnergyWeapon) retval).SetRequiresFusion( e.RequiresFusion() );
             ((EnergyWeapon) retval).SetRequiresNuclear( e.RequiresNuclear());
             ((EnergyWeapon) retval).UseCapacitor( Capacitor );
+            ((EnergyWeapon) retval).SetPrintName( e.GetPrintName() );
             if( Capacitor ) { e.UseCapacitor( true ); }
         } else if( p instanceof MissileWeapon ) {
             MissileWeapon m = (MissileWeapon) p;
@@ -87,6 +88,7 @@ public class WeaponFactory {
             ((MissileWeapon) retval).SetArtemisType( m.GetArtemisType() );
             ((MissileWeapon) retval).SetRequiresFusion( m.RequiresFusion() );
             ((MissileWeapon) retval).SetRequiresNuclear( m.RequiresNuclear());
+            ((MissileWeapon) retval).SetPrintName( m.GetPrintName() );
         } else if( p instanceof BallisticWeapon ) {
             BallisticWeapon b = (BallisticWeapon) p;
             retval = new BallisticWeapon( b.GetName(), b.GetMMName( false ), b.GetType(), b.IsClan(), b.GetAvailability() );
@@ -103,6 +105,7 @@ public class WeaponFactory {
             }
             ((BallisticWeapon) retval).SetRequiresFusion( b.RequiresFusion() );
             ((BallisticWeapon) retval).SetRequiresNuclear( b.RequiresNuclear());
+            ((BallisticWeapon) retval).SetPrintName( b.GetPrintName() );
         } else if( p instanceof PhysicalWeapon ) {
             PhysicalWeapon w = (PhysicalWeapon) p;
             if ( w.GetPWClass() == Constants.PW_CLASS_TALON )
@@ -730,6 +733,7 @@ public class WeaponFactory {
         // small laser
         a = new AvailableCode(false, 'C', 'B', 'B', 'B', 2400, 0, 0, "TH", "", false, false);
         addEW = new EnergyWeapon("Small Laser", "ISSmallLaser", "DE", false, a);
+        addEW.SetPrintName( "Small Laser" );
         addEW.SetDamage(3, 3, 3);
         addEW.SetHeat(1);
         addEW.SetRange(0, 1, 2, 3);
@@ -740,6 +744,7 @@ public class WeaponFactory {
         // medium laser
         a = new AvailableCode(false, 'C', 'B', 'B', 'B', 2400, 0, 0, "TH", "", false, false);
         addEW = new EnergyWeapon("Medium Laser", "ISMediumLaser", "DE", false, a);
+        addEW.SetPrintName( "Medium Laser" );
         addEW.SetDamage(5, 5, 5);
         addEW.SetHeat(3);
         addEW.SetRange(0, 3, 6, 9);
@@ -750,6 +755,7 @@ public class WeaponFactory {
         // large laser
         a = new AvailableCode(false, 'C', 'C', 'D', 'C', 2430, 0, 0, "TH", "", false, false);
         addEW = new EnergyWeapon("Large Laser", "ISLargeLaser", "DE", false, a);
+        addEW.SetPrintName( "Large Laser" );
         addEW.SetDamage(8, 8, 8);
         addEW.SetHeat(8);
         addEW.SetRange(0, 5, 10, 15);
@@ -760,6 +766,7 @@ public class WeaponFactory {
         // er small laser
         a = new AvailableCode(false, 'E', 'X', 'X', 'D', 3058, 0, 0, "FW", "", false, false);
         addEW = new EnergyWeapon("ER Small Laser", "ISERSmallLaser", "DE", false, a);
+        addEW.SetPrintName( "ER Small Laser" );
         addEW.SetDamage(3, 3, 3);
         addEW.SetHeat(2);
         addEW.SetRange(0, 2, 4, 5);
@@ -770,6 +777,7 @@ public class WeaponFactory {
         // er medium laser
         a = new AvailableCode(false, 'E', 'X', 'X', 'D', 3058, 0, 0, "FW", "", false, false);
         addEW = new EnergyWeapon("ER Medium Laser", "ISERMediumLaser", "DE", false, a);
+        addEW.SetPrintName( "ER Medium Laser" );
         addEW.SetDamage(5, 5, 5);
         addEW.SetHeat(5);
         addEW.SetRange(0, 4, 8, 12);
@@ -780,6 +788,7 @@ public class WeaponFactory {
         // er large laser
         a = new AvailableCode(false, 'E', 'E', 'F', 'D', 2620, 2950, 3037, "TH", "DC", true, true);
         addEW = new EnergyWeapon("ER Large Laser", "ISERLargeLaser", "DE", false, a);
+        addEW.SetPrintName( "ER Large Laser" );
         addEW.SetDamage(8, 8, 8);
         addEW.SetHeat(12);
         addEW.SetRange(0, 7, 14, 19);
@@ -790,6 +799,7 @@ public class WeaponFactory {
         // small pulse laser
         a = new AvailableCode(false, 'E', 'E', 'F', 'D', 2609, 2950, 3037, "TH", "DC", true, true);
         addEW = new EnergyWeapon("Small Pulse Laser", "ISSmallPulseLaser", "P", false, a);
+        addEW.SetPrintName( "Small Pulse Laser" );
         addEW.SetDamage(3, 3, 3);
         addEW.SetHeat(2);
         addEW.SetRange(0, 1, 2, 3);
@@ -801,6 +811,7 @@ public class WeaponFactory {
         // medium pulse laser
         a = new AvailableCode(false, 'E', 'E', 'F', 'D', 2609, 2950, 3037, "TH", "DC", true, true);
         addEW = new EnergyWeapon("Medium Pulse Laser", "ISMediumPulseLaser", "P", false, a);
+        addEW.SetPrintName( "Medium Pulse Laser" );
         addEW.SetDamage(6, 6, 6);
         addEW.SetHeat(4);
         addEW.SetRange(0, 2, 4, 6);
@@ -812,6 +823,7 @@ public class WeaponFactory {
         // large pulse laser
         a = new AvailableCode(false, 'E', 'E', 'F', 'D', 2609, 2950, 3037, "TH", "DC", true, true);
         addEW = new EnergyWeapon("Large Pulse Laser", "ISLargePulseLaser", "P", false, a);
+        addEW.SetPrintName( "Large Pulse Laser" );
         addEW.SetDamage(9, 9, 9);
         addEW.SetHeat(10);
         addEW.SetRange(0, 3, 7, 10);
@@ -823,6 +835,7 @@ public class WeaponFactory {
         // small variable speed laser
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3070, 0, 0, "FWL/WB", "", false, false, 3066, true, "FW/WB", Constants.ADVANCED, Constants.ADVANCED );
         addEW = new EnergyWeapon("Small Variable Speed Laser", "ISSmallVSPLaser", "P", false, a);
+        addEW.SetPrintName( "Small VSPL" );
         addEW.SetDamage(5, 4, 3);
         addEW.SetHeat(3);
         addEW.SetRange(0, 2, 4, 6);
@@ -834,6 +847,7 @@ public class WeaponFactory {
         // medium variable speed laser
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3070, 0, 0, "FWL/WB", "", false, false, 3066, true, "FW/WB", Constants.ADVANCED, Constants.ADVANCED );
         addEW = new EnergyWeapon("Medium Variable Speed Laser", "ISMediumVSPLaser", "P", false, a);
+        addEW.SetPrintName( "Medium VSPL" );
         addEW.SetDamage(9, 7, 5);
         addEW.SetHeat(7);
         addEW.SetRange(0, 2, 5, 9);
@@ -845,6 +859,7 @@ public class WeaponFactory {
         // large variable speed laser
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3070, 0, 0, "FWL/WB", "", false, false, 3066, true, "FW/WB", Constants.ADVANCED, Constants.ADVANCED );
         addEW = new EnergyWeapon("Large Variable Speed Laser", "ISLargeVSPLaser", "P", false, a);
+        addEW.SetPrintName( "Large VSPL" );
         addEW.SetDamage(11, 9, 7);
         addEW.SetHeat(10);
         addEW.SetRange(0, 4, 8, 15);
@@ -856,6 +871,7 @@ public class WeaponFactory {
         // small x-pulse laser
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3057, 0, 0, "FC", "", false, false, 3055, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addEW = new EnergyWeapon("Small X-Pulse Laser", "ISSmallXPulseLaser", "P", false, a);
+        addEW.SetPrintName( "Small X-Pulse Laser" );
         addEW.SetDamage(3, 3, 3);
         addEW.SetHeat(3);
         addEW.SetRange(0, 2, 4, 5);
@@ -867,6 +883,7 @@ public class WeaponFactory {
         // medium x-pulse laser
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3057, 0, 0, "FC", "", false, false, 3055, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addEW = new EnergyWeapon("Medium X-Pulse Laser", "ISMediumXPulseLaser", "P", false, a);
+        addEW.SetPrintName( "Medium X-Pulse Laser" );
         addEW.SetDamage(6, 6, 6);
         addEW.SetHeat(6);
         addEW.SetRange(0, 3, 6, 9);
@@ -878,6 +895,7 @@ public class WeaponFactory {
         // large x-pulse laser
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3057, 0, 0, "FC", "", false, false, 3055, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addEW = new EnergyWeapon("Large X-Pulse Laser", "ISLargeXPulseLaser", "P", false, a);
+        addEW.SetPrintName( "Large X-Pulse Laser" );
         addEW.SetDamage(9, 9, 9);
         addEW.SetHeat(14);
         addEW.SetRange(0, 5, 10, 15);
@@ -889,6 +907,7 @@ public class WeaponFactory {
         // binary laser cannon
         a = new AvailableCode(false, 'D', 'X', 'E', 'E', 2812, 0, 0, "FW", "", false, false, 2801, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addEW = new EnergyWeapon("Binary Laser Cannon", "ISBlazer", "DE", false, a);
+        addEW.SetPrintName( "Binary Laser Cannon" );
         addEW.SetDamage( 12, 12, 12 );
         addEW.SetHeat( 16 );
         addEW.SetRange(0, 5, 10, 15);
@@ -900,6 +919,7 @@ public class WeaponFactory {
         // light ppc
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3067, 0, 0, "DC", "", false, false);
         addEW = new EnergyWeapon("Light PPC", "ISLightPPC", "DE", false, a);
+        addEW.SetPrintName( "Light PPC" );
         addEW.SetDamage(5, 5, 5);
         addEW.SetHeat(5);
         addEW.SetRange(3, 6, 12, 18);
@@ -910,6 +930,7 @@ public class WeaponFactory {
         // light ppc w/ capacitor
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3067, 0, 0, "DC", "", false, false);
         addEW = new EnergyWeapon("Light PPC w/ Capacitor", "ISLightPPC", "DE", false, a);
+        addEW.SetPrintName( "Light PPC" );
         addEW.SetDamage(5, 5, 5);
         addEW.SetHeat(5);
         addEW.SetRange(3, 6, 12, 18);
@@ -921,6 +942,7 @@ public class WeaponFactory {
         // ppc
         a = new AvailableCode(false, 'D', 'C', 'C', 'C', 2460, 0, 0, "TH", "", false, false);
         addEW = new EnergyWeapon("PPC", "ISPPC", "DE", false, a);
+        addEW.SetPrintName( "PPC" );
         addEW.SetDamage(10, 10, 10);
         addEW.SetHeat(10);
         addEW.SetRange(3, 6, 12, 18);
@@ -931,6 +953,7 @@ public class WeaponFactory {
         // ppc w/ capacitor
         a = new AvailableCode(false, 'D', 'C', 'C', 'C', 2460, 0, 0, "TH", "", false, false);
         addEW = new EnergyWeapon("PPC w/ Capacitor", "ISPPC", "DE", false, a);
+        addEW.SetPrintName( "PPC" );
         addEW.SetDamage(10, 10, 10);
         addEW.SetHeat(10);
         addEW.SetRange(3, 6, 12, 18);
@@ -942,6 +965,7 @@ public class WeaponFactory {
         // heavy ppc
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3067, 0, 0, "DC", "", false, false);
         addEW = new EnergyWeapon("Heavy PPC", "ISHeavyPPC", "DE", false, a);
+        addEW.SetPrintName( "Heavy PPC" );
         addEW.SetDamage(15, 15, 15);
         addEW.SetHeat(15);
         addEW.SetRange(3, 6, 12, 18);
@@ -952,6 +976,7 @@ public class WeaponFactory {
         // heavy ppc w/ capacitor
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3067, 0, 0, "DC", "", false, false);
         addEW = new EnergyWeapon("Heavy PPC w/ Capacitor", "ISHeavyPPC", "DE", false, a);
+        addEW.SetPrintName( "Heavy PPC" );
         addEW.SetDamage(15, 15, 15);
         addEW.SetHeat(15);
         addEW.SetRange(3, 6, 12, 18);
@@ -963,6 +988,7 @@ public class WeaponFactory {
         // er ppc
         a = new AvailableCode(false, 'E', 'E', 'F', 'D', 2760, 2860, 3037, "TH", "DC", true, true);
         addEW = new EnergyWeapon("ER PPC", "ISERPPC", "DE", false, a);
+        addEW.SetPrintName( "ER PPC" );
         addEW.SetDamage(10, 10, 10);
         addEW.SetHeat(15);
         addEW.SetRange(0, 7, 14, 23);
@@ -973,6 +999,7 @@ public class WeaponFactory {
         // er ppc w/ capacitor
         a = new AvailableCode(false, 'E', 'E', 'F', 'D', 2760, 2860, 3037, "TH", "DC", true, true);
         addEW = new EnergyWeapon("ER PPC w/ Capacitor", "ISERPPC", "DE", false, a);
+        addEW.SetPrintName( "ER PPC" );
         addEW.SetDamage(10, 10, 10);
         addEW.SetHeat(15);
         addEW.SetRange(0, 7, 14, 23);
@@ -984,6 +1011,7 @@ public class WeaponFactory {
         // enhanced er ppc
         a = new AvailableCode( false, 'F', 'X', 'F', 'X', 2801, 2825, 0, "CWV", "", true, false, 0, false, "", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addEW = new EnergyWeapon("Enhanced ER PPC", "ISEnhancedERPPC", "DE", false, a);
+        addEW.SetPrintName( "Enhanced ER PPC" );
         addEW.SetDamage(12, 12, 12);
         addEW.SetHeat(15);
         addEW.SetRange(0, 7, 14, 23);
@@ -994,6 +1022,7 @@ public class WeaponFactory {
         // snub-nose ppc
         a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3067, 0, 0, "DC", "", false, false);
         addEW = new EnergyWeapon("Snub-Nose PPC", "ISSNPPC", "DE", false, a);
+        addEW.SetPrintName( "Snub-Nose PPC" );
         addEW.SetDamage(10, 8, 5);
         addEW.SetHeat(10);
         addEW.SetRange(0, 9, 13, 15);
@@ -1004,6 +1033,7 @@ public class WeaponFactory {
         // snub-nose ppc w/ capacitor
         a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3067, 0, 0, "DC", "", false, false);
         addEW = new EnergyWeapon("Snub-Nose PPC w/ Capacitor", "ISSNPPC", "DE", false, a);
+        addEW.SetPrintName( "Snub-Nose PPC" );
         addEW.SetDamage(10, 8, 5);
         addEW.SetHeat(10);
         addEW.SetRange(0, 9, 13, 15);
@@ -1015,6 +1045,7 @@ public class WeaponFactory {
         // plasma rifle
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3068, 0, 0, "CC", "", false, false);
         addEW = new EnergyWeapon("Plasma Rifle", "ISPlasmaRifle", "DE", false, a);
+        addEW.SetPrintName( "Plasma Rifle" );
         addEW.SetDamage(10, 10, 10);
         addEW.SetHeat(10);
         addEW.SetRange(0, 5, 10, 15);
@@ -1025,6 +1056,7 @@ public class WeaponFactory {
         // flamer
         a = new AvailableCode(false, 'C', 'B', 'B', 'B', 2025, 0, 0, "WA", "", false, false);
         addEW = new EnergyWeapon("Flamer", "ISFlamer", "DE", false, a);
+        addEW.SetPrintName( "Flamer" );
         addEW.SetDamage(2, 2, 2);
         addEW.SetHeat(3);
         addEW.SetRange(0, 1, 2, 3);
@@ -1035,6 +1067,7 @@ public class WeaponFactory {
         // vehicle flamer
         a = new AvailableCode(false, 'B', 'A', 'A', 'B', 1950, 0, 0, "PS", "", false, false);
         addEW = new EnergyWeapon("Vehicle Flamer", "ISVehicleFlamer", "DE", false, a);
+        addEW.SetPrintName( "Vehicle Flamer" );
         addEW.SetDamage(2, 2, 2);
         addEW.SetHeat(3);
         addEW.SetRange(0, 1, 2, 3);
@@ -1045,6 +1078,7 @@ public class WeaponFactory {
         // er flamer
         a = new AvailableCode(false, 'D', 'X', 'X', 'E', 3070, 0, 0, "FS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addEW = new EnergyWeapon("ER Flamer", "ISERFlamer", "DE", false, a);
+        addEW.SetPrintName( "ER Flamer" );
         addEW.SetDamage(2, 2, 2);
         addEW.SetHeat(4);
         addEW.SetRange(0, 3, 5, 7);
@@ -1055,6 +1089,7 @@ public class WeaponFactory {
         // heavy flamer
         a = new AvailableCode(false, 'C', 'X', 'X', 'E', 3068, 0, 0, "LA", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addEW = new EnergyWeapon("Heavy Flamer", "ISHeavyFlamer", "DE", false, a);
+        addEW.SetPrintName( "Heavy Flamer" );
         addEW.SetDamage(4, 4, 4);
         addEW.SetHeat(5);
         addEW.SetRange(0, 2, 3, 4);
@@ -1065,6 +1100,7 @@ public class WeaponFactory {
         // bombast laser
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3064, 0, 0, "LA", "", false, false, 3061, true, "LA", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addEW = new EnergyWeapon("Bombast Laser", "ISBombastLaser", "DE", false, a);
+        addEW.SetPrintName( "Bombast Laser" );
         addEW.SetDamage(7, 7, 7);
         addEW.SetHeat(12);
         addEW.SetRange(0, 5, 10, 15);
@@ -1075,6 +1111,7 @@ public class WeaponFactory {
         // lrm-5
         a = new AvailableCode(false, 'C', 'C', 'C', 'C', 2400, 0, 0, "TH", "", false, false);
         addMW = new MissileWeapon("LRM-5", "ISLRM5", "M", false, a);
+        addMW.SetPrintName( "LRM-5" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(2);
         addMW.SetRange(6, 7, 14, 21);
@@ -1087,6 +1124,7 @@ public class WeaponFactory {
         // lrm-10
         a = new AvailableCode(false, 'C', 'C', 'C', 'C', 2400, 0, 0, "TH", "", false, false);
         addMW = new MissileWeapon("LRM-10", "ISLRM10", "M", false, a);
+        addMW.SetPrintName( "LRM-10" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(4);
         addMW.SetRange(6, 7, 14, 21);
@@ -1099,6 +1137,7 @@ public class WeaponFactory {
         // lrm-15
         a = new AvailableCode(false, 'C', 'C', 'C', 'C', 2400, 0, 0, "TH", "", false, false);
         addMW = new MissileWeapon("LRM-15", "ISLRM15", "M", false, a);
+        addMW.SetPrintName( "LRM-15" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(5);
         addMW.SetRange(6, 7, 14, 21);
@@ -1111,6 +1150,7 @@ public class WeaponFactory {
         // lrm-20
         a = new AvailableCode(false, 'C', 'C', 'C', 'C', 2400, 0, 0, "TH", "", false, false);
         addMW = new MissileWeapon("LRM-20", "ISLRM20", "M", false, a);
+        addMW.SetPrintName( "LRM-20" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(6);
         addMW.SetRange(6, 7, 14, 21);
@@ -1123,6 +1163,7 @@ public class WeaponFactory {
         // srm-2
         a = new AvailableCode(false, 'C', 'C', 'C', 'C', 2370, 0, 0, "TH", "", false, false);
         addMW = new MissileWeapon("SRM-2", "ISSRM2", "M", false, a);
+        addMW.SetPrintName( "SRM-2" );
         addMW.SetDamage(2, 2, 2);
         addMW.SetHeat(2);
         addMW.SetRange(0, 3, 6, 9);
@@ -1135,6 +1176,7 @@ public class WeaponFactory {
         // srm-4
         a = new AvailableCode(false, 'C', 'C', 'C', 'C', 2370, 0, 0, "TH", "", false, false);
         addMW = new MissileWeapon("SRM-4", "ISSRM4", "M", false, a);
+        addMW.SetPrintName( "SRM-4" );
         addMW.SetDamage(2, 2, 2);
         addMW.SetHeat(3);
         addMW.SetRange(0, 3, 6, 9);
@@ -1147,6 +1189,7 @@ public class WeaponFactory {
         // srm-6
         a = new AvailableCode(false, 'C', 'C', 'C', 'C', 2370, 0, 0, "TH", "", false, false);
         addMW = new MissileWeapon("SRM-6", "ISSRM6", "M", false, a);
+        addMW.SetPrintName( "SRM-6" );
         addMW.SetDamage(2, 2, 2);
         addMW.SetHeat(4);
         addMW.SetRange(0, 3, 6, 9);
@@ -1159,6 +1202,7 @@ public class WeaponFactory {
         // streak srm-2
         a = new AvailableCode(false, 'E', 'E', 'F', 'D', 2647, 2845, 3035, "TH", "FW", true, true);
         addMW = new MissileWeapon("Streak SRM-2", "ISStreakSRM2", "M", false, a);
+        addMW.SetPrintName( "Streak SRM-2" );
         addMW.SetDamage(2, 2, 2);
         addMW.SetHeat(2);
         addMW.SetRange(0, 3, 6, 9);
@@ -1170,6 +1214,7 @@ public class WeaponFactory {
         // streak srm-4
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3058, 0, 0, "DC", "", false, false);
         addMW = new MissileWeapon("Streak SRM-4", "ISStreakSRM4", "M", false, a);
+        addMW.SetPrintName( "Streak SRM-4" );
         addMW.SetDamage(2, 2, 2);
         addMW.SetHeat(3);
         addMW.SetRange(0, 3, 6, 9);
@@ -1181,6 +1226,7 @@ public class WeaponFactory {
         // streak srm-6
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3058, 0, 0, "DC", "", false, false);
         addMW = new MissileWeapon("Streak SRM-6", "ISStreakSRM6", "M", false, a);
+        addMW.SetPrintName( "Streak SRM-6" );
         addMW.SetDamage(2, 2, 2);
         addMW.SetHeat(4);
         addMW.SetRange(0, 3, 6, 9);
@@ -1192,6 +1238,7 @@ public class WeaponFactory {
         // mml-3
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3068, 0, 0, "WB", "", false, false);
         addMW = new MissileWeapon("MML-3", "ISMML3", "M", false, a);
+        addMW.SetPrintName( "MML-3" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(2);
         addMW.SetRange(6, 7, 14, 21);
@@ -1204,6 +1251,7 @@ public class WeaponFactory {
         // mml-5
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3068, 0, 0, "WB", "", false, false);
         addMW = new MissileWeapon("MML-5", "ISMML5", "M", false, a);
+        addMW.SetPrintName( "MML-5" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(3);
         addMW.SetRange(6, 7, 14, 21);
@@ -1216,6 +1264,7 @@ public class WeaponFactory {
         // mml-7
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3068, 0, 0, "WB", "", false, false);
         addMW = new MissileWeapon("MML-7", "ISMML7", "M", false, a);
+        addMW.SetPrintName( "MML-7" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(4);
         addMW.SetRange(6, 7, 14, 21);
@@ -1228,6 +1277,7 @@ public class WeaponFactory {
         // mml-9
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3068, 0, 0, "WB", "", false, false);
         addMW = new MissileWeapon("MML-9", "ISMML9", "M", false, a);
+        addMW.SetPrintName( "MML-9" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(5);
         addMW.SetRange(6, 7, 14, 21);
@@ -1240,6 +1290,7 @@ public class WeaponFactory {
         // mrm-10
         a = new AvailableCode(false, 'C', 'X', 'X', 'E', 3058, 0, 0, "DC", "", false, false);
         addMW = new MissileWeapon("MRM-10", "ISMRM10", "M", false, a);
+        addMW.SetPrintName( "MRM-10" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(4);
         addMW.SetRange(0, 3, 8, 15);
@@ -1252,6 +1303,7 @@ public class WeaponFactory {
         // mrm-20
         a = new AvailableCode(false, 'C', 'X', 'X', 'E', 3058, 0, 0, "DC", "", false, false);
         addMW = new MissileWeapon("MRM-20", "ISMRM20", "M", false, a);
+        addMW.SetPrintName( "MRM-20" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(6);
         addMW.SetRange(0, 3, 8, 15);
@@ -1264,6 +1316,7 @@ public class WeaponFactory {
         // mrm-30
         a = new AvailableCode(false, 'C', 'X', 'X', 'E', 3058, 0, 0, "DC", "", false, false);
         addMW = new MissileWeapon("MRM-30", "ISMRM30", "M", false, a);
+        addMW.SetPrintName( "MRM-30" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(10);
         addMW.SetRange(0, 3, 8, 15);
@@ -1276,6 +1329,7 @@ public class WeaponFactory {
         // mrm-40
         a = new AvailableCode(false, 'C', 'X', 'X', 'E', 3058, 0, 0, "DC", "", false, false);
         addMW = new MissileWeapon("MRM-40", "ISMRM40", "M", false, a);
+        addMW.SetPrintName( "MRM-40" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(12);
         addMW.SetRange(0, 3, 8, 15);
@@ -1288,6 +1342,7 @@ public class WeaponFactory {
         // thunderbolt-5
         a = new AvailableCode( false, 'E', 'X', 'X', 'F', 3072, 0, 0, "FS/LA", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addMW = new MissileWeapon("Thunderbolt-5", "ISThunderbolt5", "M", false, a);
+        addMW.SetPrintName( "Thunderbolt-5" );
         addMW.SetDamage( 5, 5, 5 );
         addMW.SetHeat( 3 );
         addMW.SetRange( 5, 6, 12, 18 );
@@ -1299,6 +1354,7 @@ public class WeaponFactory {
         // thunderbolt-10
         a = new AvailableCode( false, 'E', 'X', 'X', 'F', 3072, 0, 0, "FS/LA", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addMW = new MissileWeapon("Thunderbolt-10", "ISThunderbolt10", "M", false, a);
+        addMW.SetPrintName( "Thunderbolt-10" );
         addMW.SetDamage( 10, 10, 10 );
         addMW.SetHeat( 5 );
         addMW.SetRange( 5, 6, 12, 18 );
@@ -1310,6 +1366,7 @@ public class WeaponFactory {
         // thunderbolt-15
         a = new AvailableCode( false, 'E', 'X', 'X', 'F', 3072, 0, 0, "FS/LA", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addMW = new MissileWeapon("Thunderbolt-15", "ISThunderbolt15", "M", false, a);
+        addMW.SetPrintName( "Thunderbolt-15" );
         addMW.SetDamage( 15, 15, 15 );
         addMW.SetHeat( 7 );
         addMW.SetRange( 5, 6, 12, 18 );
@@ -1321,6 +1378,7 @@ public class WeaponFactory {
         // thunderbolt-20
         a = new AvailableCode( false, 'E', 'X', 'X', 'F', 3072, 0, 0, "FS/LA", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addMW = new MissileWeapon("Thunderbolt-20", "ISThunderbolt20", "M", false, a);
+        addMW.SetPrintName( "Thunderbolt-20" );
         addMW.SetDamage( 20, 20, 20 );
         addMW.SetHeat( 8 );
         addMW.SetRange( 5, 6, 12, 18 );
@@ -1332,6 +1390,7 @@ public class WeaponFactory {
         // rocket launcher-10
         a = new AvailableCode(false, 'B', 'X', 'X', 'B', 3064, 0, 0, "MH", "", false, false);
         addMW = new MissileWeapon("Rocket Launcher 10", "ISRocketLauncher10", "M", false, a);
+        addMW.SetPrintName( "Rocket Launcher 10" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(3);
         addMW.SetRange(0, 5, 11, 18);
@@ -1344,6 +1403,7 @@ public class WeaponFactory {
         // rocket launcher-15
         a = new AvailableCode(false, 'B', 'X', 'X', 'B', 3064, 0, 0, "MH", "", false, false);
         addMW = new MissileWeapon("Rocket Launcher 15", "ISRocketLauncher15", "M", false, a);
+        addMW.SetPrintName( "Rocket Launcher 15" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(4);
         addMW.SetRange(0, 4, 9, 15);
@@ -1356,6 +1416,7 @@ public class WeaponFactory {
         // rocket launcher-20
         a = new AvailableCode(false, 'B', 'X', 'X', 'B', 3064, 0, 0, "MH", "", false, false);
         addMW = new MissileWeapon("Rocket Launcher 20", "ISRocketLauncher20", "M", false, a);
+        addMW.SetPrintName( "Rocket Launcher 20" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(5);
         addMW.SetRange(0, 3, 7, 12);
@@ -1368,6 +1429,7 @@ public class WeaponFactory {
         // narc missile beacon
         a = new AvailableCode(false, 'E', 'E', 'F', 'D', 2587, 2795, 3035, "TH", "FW", true, true);
         addMW = new MissileWeapon("Narc Missile Beacon", "ISNarcBeacon", "M", false, a);
+        addMW.SetPrintName( "Narc Launcher" );
         addMW.SetDamage(0, 0, 0);
         addMW.SetHeat(0);
         addMW.SetRange(0, 3, 6, 9);
@@ -1379,6 +1441,7 @@ public class WeaponFactory {
         // improved narc missile beacon
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3062, 0, 0, "CS", "", false, false);
         addMW = new MissileWeapon("iNarc Launcher", "ISImprovedNarc", "M", false, a);
+        addMW.SetPrintName( "iNarc Launcher" );
         addMW.SetDamage(0, 0, 0);
         addMW.SetHeat(0);
         addMW.SetRange(0, 4, 9, 15);
@@ -1390,6 +1453,7 @@ public class WeaponFactory {
         // enhanced lrm-5
         a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3058, 0, 0, "FC", "", false, false, 3055, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addMW = new MissileWeapon("Enhanced LRM-5", "ISNLRM5", "M", false, a);
+        addMW.SetPrintName( "Enhanced LRM-5" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(2);
         addMW.SetRange(3, 7, 14, 21);
@@ -1402,6 +1466,7 @@ public class WeaponFactory {
         // enhanced lrm-10
         a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3058, 0, 0, "FC", "", false, false, 3055, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addMW = new MissileWeapon("Enhanced LRM-10", "ISNLRM10", "M", false, a);
+        addMW.SetPrintName( "Enhanced LRM-10" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(4);
         addMW.SetRange(3, 7, 14, 21);
@@ -1414,6 +1479,7 @@ public class WeaponFactory {
         // enhanced lrm-15
         a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3058, 0, 0, "FC", "", false, false, 3055, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addMW = new MissileWeapon("Enhanced LRM-15", "ISNLRM15", "M", false, a);
+        addMW.SetPrintName( "Enhanced LRM-15" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(5);
         addMW.SetRange(3, 7, 14, 21);
@@ -1426,6 +1492,7 @@ public class WeaponFactory {
         // enhanced lrm-20
         a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3058, 0, 0, "FC", "", false, false, 3055, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addMW = new MissileWeapon("Enhanced LRM-20", "ISNLRM20", "M", false, a);
+        addMW.SetPrintName( "Enhanced LRM-20" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(6);
         addMW.SetRange(3, 7, 14, 21);
@@ -1438,6 +1505,7 @@ public class WeaponFactory {
         // extended lrm-5
         a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3054, 0, 0, "FC", "", false, false, 3052, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addMW = new MissileWeapon("Extended LRM-5", "ISELRM5", "M", false, a);
+        addMW.SetPrintName( "Extended LRM-5" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(3);
         addMW.SetRange(10, 12, 22, 38);
@@ -1450,6 +1518,7 @@ public class WeaponFactory {
         // extended lrm-10
         a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3054, 0, 0, "FC", "", false, false, 3052, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addMW = new MissileWeapon("Extended LRM-10", "ISELRM10", "M", false, a);
+        addMW.SetPrintName( "Extended LRM-10" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(6);
         addMW.SetRange(10, 12, 22, 38);
@@ -1462,6 +1531,7 @@ public class WeaponFactory {
         // extended lrm-15
         a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3054, 0, 0, "FC", "", false, false, 3052, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addMW = new MissileWeapon("Extended LRM-15", "ISELRM15", "M", false, a);
+        addMW.SetPrintName( "Extended LRM-15" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(8);
         addMW.SetRange(10, 12, 22, 38);
@@ -1474,6 +1544,7 @@ public class WeaponFactory {
         // extended lrm-20
         a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3054, 0, 0, "FC", "", false, false, 3052, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addMW = new MissileWeapon("Extended LRM-20", "ISELRM20", "M", false, a);
+        addMW.SetPrintName( "Extended LRM-20" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(12);
         addMW.SetRange(10, 12, 22, 38);
@@ -1486,6 +1557,7 @@ public class WeaponFactory {
         // lrm-5 OS
         a = new AvailableCode(false, 'C', 'C', 'F', 'C', 2676, 2800, 3030, "TH", "FW", true, true);
         addMW = new MissileWeapon("LRM-5 (OS)", "ISLRM5 (OS)", "M", false, a);
+        addMW.SetPrintName( "LRM-5 (OS)" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(2);
         addMW.SetRange(6, 7, 14, 21);
@@ -1498,6 +1570,7 @@ public class WeaponFactory {
         // lrm-10 OS
         a = new AvailableCode(false, 'C', 'C', 'F', 'C', 2676, 2800, 3030, "TH", "FW", true, true);
         addMW = new MissileWeapon("LRM-10 (OS)", "ISLRM10 (OS)", "M", false, a);
+        addMW.SetPrintName( "LRM-10 (OS)" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(4);
         addMW.SetRange(6, 7, 14, 21);
@@ -1510,6 +1583,7 @@ public class WeaponFactory {
         // lrm-15 OS
         a = new AvailableCode(false, 'C', 'C', 'F', 'C', 2676, 2800, 3030, "TH", "FW", true, true);
         addMW = new MissileWeapon("LRM-15 (OS)", "ISLRM15 (OS)", "M", false, a);
+        addMW.SetPrintName( "LRM-15 (OS)" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(5);
         addMW.SetRange(6, 7, 14, 21);
@@ -1522,6 +1596,7 @@ public class WeaponFactory {
         // lrm-20 OS
         a = new AvailableCode(false, 'C', 'C', 'F', 'C', 2676, 2800, 3030, "TH", "FW", true, true);
         addMW = new MissileWeapon("LRM-20 (OS)", "ISLRM20 (OS)", "M", false, a);
+        addMW.SetPrintName( "LRM-20 (OS)" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(6);
         addMW.SetRange(6, 7, 14, 21);
@@ -1534,6 +1609,7 @@ public class WeaponFactory {
         // srm-2 OS
         a = new AvailableCode(false, 'C', 'C', 'F', 'C', 2676, 2800, 3030, "TH", "FW", true, true);
         addMW = new MissileWeapon("SRM-2 (OS)", "ISSRM2 (OS)", "M", false, a);
+        addMW.SetPrintName( "SRM-2 (OS)" );
         addMW.SetDamage(2, 2, 2);
         addMW.SetHeat(2);
         addMW.SetRange(0, 3, 6, 9);
@@ -1546,6 +1622,7 @@ public class WeaponFactory {
         // srm-4 OS
         a = new AvailableCode(false, 'C', 'C', 'F', 'C', 2676, 2800, 3030, "TH", "FW", true, true);
         addMW = new MissileWeapon("SRM-4 (OS)", "ISSRM4 (OS)", "M", false, a);
+        addMW.SetPrintName( "SRM-4 (OS)" );
         addMW.SetDamage(2, 2, 2);
         addMW.SetHeat(3);
         addMW.SetRange(0, 3, 6, 9);
@@ -1558,6 +1635,7 @@ public class WeaponFactory {
         // srm-6 OS
         a = new AvailableCode(false, 'C', 'C', 'F', 'C', 2676, 2800, 3030, "TH", "FW", true, true);
         addMW = new MissileWeapon("SRM-6 (OS)", "ISSRM6 (OS)", "M", false, a);
+        addMW.SetPrintName( "SRM-6 (OS)" );
         addMW.SetDamage(2, 2, 2);
         addMW.SetHeat(4);
         addMW.SetRange(0, 3, 6, 9);
@@ -1570,6 +1648,7 @@ public class WeaponFactory {
         // streak srm-2 OS
         a = new AvailableCode(false, 'E', 'E', 'F', 'D', 2676, 2800, 3035, "TH", "FW", true, true);
         addMW = new MissileWeapon("Streak SRM-2 (OS)", "ISStreakSRM2 (OS)", "M", false, a);
+        addMW.SetPrintName( "Streak SRM-2 (OS)" );
         addMW.SetDamage(2, 2, 2);
         addMW.SetHeat(2);
         addMW.SetRange(0, 3, 6, 9);
@@ -1581,6 +1660,7 @@ public class WeaponFactory {
         // streak srm-4 OS
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3058, 0, 0, "DC", "", false, false);
         addMW = new MissileWeapon("Streak SRM-4 (OS)", "ISStreakSRM4 (OS)", "M", false, a);
+        addMW.SetPrintName( "Streak SRM-4 (OS)" );
         addMW.SetDamage(2, 2, 2);
         addMW.SetHeat(3);
         addMW.SetRange(0, 3, 6, 9);
@@ -1592,6 +1672,7 @@ public class WeaponFactory {
         // streak srm-6 OS
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3058, 0, 0, "DC", "", false, false);
         addMW = new MissileWeapon("Streak SRM-6 (OS)", "ISStreakSRM6 (OS)", "M", false, a);
+        addMW.SetPrintName( "Streak SRM-6 (OS)" );
         addMW.SetDamage(2, 2, 2);
         addMW.SetHeat(4);
         addMW.SetRange(0, 3, 6, 9);
@@ -1603,6 +1684,7 @@ public class WeaponFactory {
         // mml-3 OS
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3068, 0, 0, "WB", "", false, false);
         addMW = new MissileWeapon("MML-3 (OS)", "ISMML3 (OS)", "M", false, a);
+        addMW.SetPrintName( "MML-3 (OS)" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(2);
         addMW.SetRange(6, 7, 14, 21);
@@ -1615,6 +1697,7 @@ public class WeaponFactory {
         // mml-5 OS
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3068, 0, 0, "WB", "", false, false);
         addMW = new MissileWeapon("MML-5 (OS)", "ISMML5 (OS)", "M", false, a);
+        addMW.SetPrintName( "MML-5 (OS)" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(3);
         addMW.SetRange(6, 7, 14, 21);
@@ -1627,6 +1710,7 @@ public class WeaponFactory {
         // mml-7 OS
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3068, 0, 0, "WB", "", false, false);
         addMW = new MissileWeapon("MML-7 (OS)", "ISMML7 (OS)", "M", false, a);
+        addMW.SetPrintName( "MML-7 (OS)" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(4);
         addMW.SetRange(6, 7, 14, 21);
@@ -1639,6 +1723,7 @@ public class WeaponFactory {
         // mml-9 OS
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3068, 0, 0, "WB", "", false, false);
         addMW = new MissileWeapon("MML-9 (OS)", "ISMML9 (OS)", "M", false, a);
+        addMW.SetPrintName( "MML-9 (OS)" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(5);
         addMW.SetRange(6, 7, 14, 21);
@@ -1651,6 +1736,7 @@ public class WeaponFactory {
         // mrm-10 OS
         a = new AvailableCode(false, 'C', 'X', 'X', 'E', 3058, 0, 0, "DC", "", false, false);
         addMW = new MissileWeapon("MRM-10 (OS)", "ISMRM10 (OS)", "M", false, a);
+        addMW.SetPrintName( "MRM-10 (OS)" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(4);
         addMW.SetRange(0, 3, 8, 15);
@@ -1663,6 +1749,7 @@ public class WeaponFactory {
         // mrm-20 OS
         a = new AvailableCode(false, 'C', 'X', 'X', 'E', 3058, 0, 0, "DC", "", false, false);
         addMW = new MissileWeapon("MRM-20 (OS)", "ISMRM20 (OS)", "M", false, a);
+        addMW.SetPrintName( "MRM-20 (OS)" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(6);
         addMW.SetRange(0, 3, 8, 15);
@@ -1675,6 +1762,7 @@ public class WeaponFactory {
         // mrm-30 OS
         a = new AvailableCode(false, 'C', 'X', 'X', 'E', 3058, 0, 0, "DC", "", false, false);
         addMW = new MissileWeapon("MRM-30 (OS)", "ISMRM30 (OS)", "M", false, a);
+        addMW.SetPrintName( "MRM-30 (OS)" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(10);
         addMW.SetRange(0, 3, 8, 15);
@@ -1687,6 +1775,7 @@ public class WeaponFactory {
         // mrm-40 OS
         a = new AvailableCode(false, 'C', 'X', 'X', 'E', 3058, 0, 0, "DC", "", false, false);
         addMW = new MissileWeapon("MRM-40 (OS)", "ISMRM40 (OS)", "M", false, a);
+        addMW.SetPrintName( "MRM-40 (OS)" );
         addMW.SetDamage(1, 1, 1);
         addMW.SetHeat(12);
         addMW.SetRange(0, 3, 8, 15);
@@ -1699,6 +1788,7 @@ public class WeaponFactory {
         // thunderbolt-5 OS
         a = new AvailableCode( false, 'E', 'X', 'X', 'F', 3072, 0, 0, "FS/LA", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addMW = new MissileWeapon("Thunderbolt-5 (OS)", "ISThunderbolt5OS", "M", false, a);
+        addMW.SetPrintName( "Thunderbolt-5 (OS)" );
         addMW.SetDamage( 5, 5, 5 );
         addMW.SetHeat( 3 );
         addMW.SetRange( 5, 6, 12, 18 );
@@ -1710,6 +1800,7 @@ public class WeaponFactory {
         // thunderbolt-10 OS
         a = new AvailableCode( false, 'E', 'X', 'X', 'F', 3072, 0, 0, "FS/LA", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addMW = new MissileWeapon("Thunderbolt-10 (OS)", "ISThunderbolt10OS", "M", false, a);
+        addMW.SetPrintName( "Thunderbolt-10 (OS)" );
         addMW.SetDamage( 10, 10, 10 );
         addMW.SetHeat( 5 );
         addMW.SetRange( 5, 6, 12, 18 );
@@ -1721,6 +1812,7 @@ public class WeaponFactory {
         // thunderbolt-15 OS
         a = new AvailableCode( false, 'E', 'X', 'X', 'F', 3072, 0, 0, "FS/LA", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addMW = new MissileWeapon("Thunderbolt-15 (OS)", "ISThunderbolt15OS", "M", false, a);
+        addMW.SetPrintName( "Thunderbolt-15 (OS)" );
         addMW.SetDamage( 15, 15, 15 );
         addMW.SetHeat( 7 );
         addMW.SetRange( 5, 6, 12, 18 );
@@ -1732,6 +1824,7 @@ public class WeaponFactory {
         // thunderbolt-20 OS
         a = new AvailableCode( false, 'E', 'X', 'X', 'F', 3072, 0, 0, "FS/LA", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addMW = new MissileWeapon("Thunderbolt-20 (OS)", "ISThunderbolt20OS", "M", false, a);
+        addMW.SetPrintName( "Thunderbolt-20 (OS)" );
         addMW.SetDamage( 20, 20, 20 );
         addMW.SetHeat( 8 );
         addMW.SetRange( 5, 6, 12, 18 );
@@ -1743,6 +1836,7 @@ public class WeaponFactory {
         // narc missile beacon OS
         a = new AvailableCode(false, 'E', 'E', 'F', 'D', 2676, 2795, 3035, "TH", "FW", true, true);
         addMW = new MissileWeapon("Narc Missile Beacon (OS)", "ISNarcBeacon (OS)", "M", false, a);
+        addMW.SetPrintName( "Narc Launcher (OS)" );
         addMW.SetDamage(0, 0, 0);
         addMW.SetHeat(0);
         addMW.SetRange(0, 3, 6, 9);
@@ -1754,6 +1848,7 @@ public class WeaponFactory {
         // improved narc missile beacon OS
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3062, 0, 0, "CS", "", false, false);
         addMW = new MissileWeapon("iNarc Launcher (OS)", "ISImprovedNarc (OS)", "M", false, a);
+        addMW.SetPrintName( "iNarc Launcher (OS)" );
         addMW.SetDamage(0, 0, 0);
         addMW.SetHeat(0);
         addMW.SetRange(0, 4, 9, 15);
@@ -1765,6 +1860,7 @@ public class WeaponFactory {
         // autocannon 2
         a = new AvailableCode(false, 'C', 'C', 'D', 'D', 2300, 0, 0, "TH", "", false, false);
         addBW = new BallisticWeapon("Autocannon/2", "ISAC2", "DB", false, a);
+        addBW.SetPrintName( "Autocannon/2" );
         addBW.SetDamage(2, 2, 2);
         addBW.SetHeat(1);
         addBW.SetRange(4, 8, 16, 24);
@@ -1775,6 +1871,7 @@ public class WeaponFactory {
         // autocannon 5
         a = new AvailableCode(false, 'C', 'C', 'C', 'D', 2250, 0, 0, "TH", "", false, false);
         addBW = new BallisticWeapon("Autocannon/5", "ISAC5", "DB", false, a);
+        addBW.SetPrintName( "Autocannon/5" );
         addBW.SetDamage(5, 5, 5);
         addBW.SetHeat(1);
         addBW.SetRange(3, 6, 12, 18);
@@ -1785,6 +1882,7 @@ public class WeaponFactory {
         // autocannon 10
         a = new AvailableCode(false, 'C', 'C', 'D', 'D', 2460, 0, 0, "TH", "", false, false);
         addBW = new BallisticWeapon("Autocannon/10", "ISAC10", "DB", false, a);
+        addBW.SetPrintName( "Autocannon/10" );
         addBW.SetDamage(10, 10, 10);
         addBW.SetHeat(3);
         addBW.SetRange(0, 5, 10, 15);
@@ -1795,6 +1893,7 @@ public class WeaponFactory {
         // autocannon 20
         a = new AvailableCode(false, 'C', 'D', 'E', 'D', 2500, 0, 0, "LC", "", false, false);
         addBW = new BallisticWeapon("Autocannon/20", "ISAC20", "DB", false, a);
+        addBW.SetPrintName( "Autocannon/20" );
         addBW.SetDamage(20, 20, 20);
         addBW.SetHeat(7);
         addBW.SetRange(0, 3, 6, 9);
@@ -1806,6 +1905,7 @@ public class WeaponFactory {
         // lb 2-x ac
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3058, 0, 0, "FS", "", false, false);
         addBW = new BallisticWeapon("LB 2-X AC", "ISLBXAC2", "DB", false, a);
+        addBW.SetPrintName( "LB 2-X AC" );
         addBW.SetDamage(2, 2, 2);
         addBW.SetHeat(1);
         addBW.SetRange(4, 9, 18, 27);
@@ -1817,6 +1917,7 @@ public class WeaponFactory {
         // lb 5-x ac
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3058, 0, 0, "FS", "", false, false);
         addBW = new BallisticWeapon("LB 5-X AC", "ISLBXAC5", "DB", false, a);
+        addBW.SetPrintName( "LB 5-X AC" );
         addBW.SetDamage(5, 5, 5);
         addBW.SetHeat(1);
         addBW.SetRange(3, 7, 14, 21);
@@ -1828,6 +1929,7 @@ public class WeaponFactory {
         // lb 10-x ac
         a = new AvailableCode(false, 'E', 'E', 'F', 'D', 2595, 2840, 3035, "TH", "FC", true, true);
         addBW = new BallisticWeapon("LB 10-X AC", "ISLBXAC10", "DB", false, a);
+        addBW.SetPrintName( "LB 10-X AC" );
         addBW.SetDamage(10, 10, 10);
         addBW.SetHeat(2);
         addBW.SetRange(0, 6, 12, 18);
@@ -1839,6 +1941,7 @@ public class WeaponFactory {
         // lb 20-x ac
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3058, 0, 0, "FS", "", false, false);
         addBW = new BallisticWeapon("LB 20-X AC", "ISLBXAC20", "DB", false, a);
+        addBW.SetPrintName( "LB 20-X AC" );
         addBW.SetDamage(20, 20, 20);
         addBW.SetHeat(6);
         addBW.SetRange(0, 4, 8, 12);
@@ -1851,6 +1954,7 @@ public class WeaponFactory {
         // light ac/2
         a = new AvailableCode(false, 'D', 'X', 'X', 'F', 3068, 0, 0, "FS", "", false, false);
         addBW = new BallisticWeapon("Light AC/2", "ISLAC2", "DB", false, a);
+        addBW.SetPrintName( "Light AC/2" );
         addBW.SetDamage(2, 2, 2);
         addBW.SetHeat(1);
         addBW.SetRange(0, 6, 12, 18);
@@ -1861,6 +1965,7 @@ public class WeaponFactory {
         // light ac/5
         a = new AvailableCode(false, 'D', 'X', 'X', 'F', 3068, 0, 0, "FS", "", false, false);
         addBW = new BallisticWeapon("Light AC/5", "ISLAC5", "DB", false, a);
+        addBW.SetPrintName( "Light AC/5" );
         addBW.SetDamage(5, 5, 5);
         addBW.SetHeat(1);
         addBW.SetRange(0, 5, 10, 15);
@@ -1871,6 +1976,7 @@ public class WeaponFactory {
         // rotary ac/2
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3062, 0, 0, "FS", "", false, false);
         addBW = new BallisticWeapon("Rotary AC/2", "ISRotaryAC2", "DB", false, a);
+        addBW.SetPrintName( "Rotary AC/2" );
         addBW.SetDamage(2, 2, 2);
         addBW.SetHeat(1);
         addBW.SetRange(0, 6, 12, 18);
@@ -1882,6 +1988,7 @@ public class WeaponFactory {
         // rotary ac/5
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3062, 0, 0, "FS", "", false, false);
         addBW = new BallisticWeapon("Rotary AC/5", "ISRotaryAC5", "DB", false, a);
+        addBW.SetPrintName( "Rotary AC/5" );
         addBW.SetDamage(5, 5, 5);
         addBW.SetHeat(1);
         addBW.SetRange(0, 5, 10, 15);
@@ -1893,6 +2000,7 @@ public class WeaponFactory {
         // ultra ac/2
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3057, 0, 0, "FW", "", false, false);
         addBW = new BallisticWeapon("Ultra AC/2", "ISUltraAC2", "DB", false, a);
+        addBW.SetPrintName( "Ultra AC/2" );
         addBW.SetDamage(2, 2, 2);
         addBW.SetHeat(1);
         addBW.SetRange(3, 8, 17, 25);
@@ -1904,6 +2012,7 @@ public class WeaponFactory {
         // ultra ac/5
         a = new AvailableCode(false, 'E', 'D', 'F', 'D', 2640, 2915, 3035, "TH", "FC", true, true);
         addBW = new BallisticWeapon("Ultra AC/5", "ISUltraAC5", "DB", false, a);
+        addBW.SetPrintName( "Ultra AC/5" );
         addBW.SetDamage(5, 5, 5);
         addBW.SetHeat(1);
         addBW.SetRange(2, 6, 13, 20);
@@ -1915,6 +2024,7 @@ public class WeaponFactory {
         // ultra ac/10
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3057, 0, 0, "FW", "", false, false);
         addBW = new BallisticWeapon("Ultra AC/10", "ISUltraAC10", "DB", false, a);
+        addBW.SetPrintName( "Ultra AC/10" );
         addBW.SetDamage(10, 10, 10);
         addBW.SetHeat(4);
         addBW.SetRange(0, 6, 12, 18);
@@ -1926,6 +2036,7 @@ public class WeaponFactory {
         // ultra ac/20
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3060, 0, 0, "LA", "", false, false);
         addBW = new BallisticWeapon("Ultra AC/20", "ISUltraAC20", "DB", false, a);
+        addBW.SetPrintName( "Ultra AC/20" );
         addBW.SetDamage(20, 20, 20);
         addBW.SetHeat(8);
         addBW.SetRange(0, 3, 7, 10);
@@ -1938,6 +2049,7 @@ public class WeaponFactory {
         // hyper-velocity autocannon 2
         a = new AvailableCode(false, 'D', 'X', 'X', 'F', 3059, 0, 0, "CC", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addBW = new BallisticWeapon("Hyper-Velocity Autocannon/2", "ISHVAC2", "DB", false, a);
+        addBW.SetPrintName( "HV AC/2" );
         addBW.SetDamage(2, 2, 2);
         addBW.SetHeat(1);
         addBW.SetRange(3, 10, 20, 35);
@@ -1949,6 +2061,7 @@ public class WeaponFactory {
         // hyper-velocity autocannon 5
         a = new AvailableCode(false, 'D', 'X', 'X', 'F', 3059, 0, 0, "CC", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addBW = new BallisticWeapon("Hyper-Velocity Autocannon/5", "ISHVAC5", "DB", false, a);
+        addBW.SetPrintName( "HV AC/5" );
         addBW.SetDamage(5, 5, 5);
         addBW.SetHeat(3);
         addBW.SetRange(3, 8, 16, 28);
@@ -1960,6 +2073,7 @@ public class WeaponFactory {
         // hyper-velocity autocannon 10
         a = new AvailableCode(false, 'D', 'X', 'X', 'F', 3059, 0, 0, "CC", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addBW = new BallisticWeapon("Hyper-Velocity Autocannon/10", "ISHVAC10", "DB", false, a);
+        addBW.SetPrintName( "HV AC/10" );
         addBW.SetDamage( 10, 10, 10 );
         addBW.SetHeat(7);
         addBW.SetRange(0, 6, 12, 20);
@@ -1971,6 +2085,7 @@ public class WeaponFactory {
         // light gauss rifle
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3056, 0, 0, "FW", "", false, false);
         addBW = new BallisticWeapon("Light Gauss Rifle", "ISLightGaussRifle", "DB", false, a);
+        addBW.SetPrintName( "Light Gauss Rifle" );
         addBW.SetDamage(8, 8, 8);
         addBW.SetHeat(1);
         addBW.SetRange(3, 8, 17, 25);
@@ -1982,6 +2097,7 @@ public class WeaponFactory {
         // gauss rifle
         a = new AvailableCode(false, 'E', 'D', 'F', 'D', 2590, 2865, 3040, "TH", "FW", true, true);
         addBW = new BallisticWeapon("Gauss Rifle", "ISGaussRifle", "DB", false, a);
+        addBW.SetPrintName( "Gauss Rifle" );
         addBW.SetDamage(15, 15, 15);
         addBW.SetHeat(1);
         addBW.SetRange(2, 7, 15, 22);
@@ -1993,6 +2109,7 @@ public class WeaponFactory {
         // heavy gauss rifle
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3061, 0, 0, "LA", "", false, false);
         addBW = new BallisticWeapon("Heavy Gauss Rifle", "ISHeavyGaussRifle", "DB", false, a);
+        addBW.SetPrintName( "Heavy Gauss Rifle" );
         addBW.SetDamage(25, 20, 10);
         addBW.SetHeat(2);
         addBW.SetRange(4, 6, 13, 20);
@@ -2006,6 +2123,7 @@ public class WeaponFactory {
         // improved heavy gauss rifle
         a = new AvailableCode( false, 'E', 'X', 'X', 'F', 3065, 0, 0, "LA", "", false, false, 3061, true, "LA", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addBW = new BallisticWeapon( "Improved Heavy Gauss Rifle", "ISImprovedHeavyGaussRifle", "DB", false, a );
+        addBW.SetPrintName( "Imp. Heavy Gauss Rifle" );
         addBW.SetDamage( 22, 22, 22 );
         addBW.SetHeat( 2 );
         addBW.SetRange( 3, 6, 12, 19 );
@@ -2019,6 +2137,7 @@ public class WeaponFactory {
         // magshot gauss
         a = new AvailableCode( false, 'E', 'X', 'X', 'D', 3072, 0, 0, "FS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addBW = new BallisticWeapon( "Magshot Gauss Rifle", "ISMagshotGR", "DB", false, a );
+        addBW.SetPrintName( "Magshot" );
         addBW.SetDamage( 2, 2, 2 );
         addBW.SetHeat( 1 );
         addBW.SetRange( 0, 3, 6, 9 );
@@ -2032,6 +2151,7 @@ public class WeaponFactory {
         // silver bullet gauss
         a = new AvailableCode( false, 'D', 'X', 'X', 'F', 3051, 0, 0, "FC", "", false, false, 3050, true, "FS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addBW = new BallisticWeapon( "Silver Bullet Gauss", "ISSBGR", "DB", false, a );
+        addBW.SetPrintName( "Silver Bullet Gauss" );
         addBW.SetDamage( 15, 15, 15 );
         addBW.SetHeat( 1 );
         addBW.SetRange( 2, 7, 15, 22 );
@@ -2045,6 +2165,7 @@ public class WeaponFactory {
         // mech taser
         a = new AvailableCode(false, 'E', 'X', 'X', 'F', 3067, 0, 0, "FS", "", false, false, 3065, true, "FS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addBW = new BallisticWeapon( "BattleMech Taser", "ISBattleMechTaser", "DB", false, a );
+        addBW.SetPrintName( "Mech Taser" );
         addBW.SetDamage( 1, 1, 1 );
         addBW.SetHeat( 6 );
         addBW.SetRange( 0, 1, 2, 4 );
@@ -2058,6 +2179,7 @@ public class WeaponFactory {
         // light rifle
         a = new AvailableCode(false, 'B', 'C', 'F', 'X', 1950, 3050, 0, "PS", "", true, false, 0, false, "", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addBW = new BallisticWeapon("Light Rifle", "ISLightRifle", "DB", false, a);
+        addBW.SetPrintName( "Light Rifle" );
         addBW.SetDamage( 3, 3, 3 );
         addBW.SetHeat( 1 );
         addBW.SetRange( 0, 4, 8, 12 );
@@ -2068,6 +2190,7 @@ public class WeaponFactory {
         // medium rifle
         a = new AvailableCode(false, 'B', 'C', 'F', 'X', 1950, 3050, 0, "PS", "", true, false, 0, false, "", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addBW = new BallisticWeapon("Medium Rifle", "ISMediumRifle", "DB", false, a);
+        addBW.SetPrintName( "Medium Rifle" );
         addBW.SetDamage( 6, 6, 6 );
         addBW.SetHeat( 2 );
         addBW.SetRange( 1, 5, 10, 15 );
@@ -2078,6 +2201,7 @@ public class WeaponFactory {
         // heavy rifle
         a = new AvailableCode(false, 'B', 'C', 'F', 'X', 1950, 3050, 0, "PS", "", true, false, 0, false, "", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addBW = new BallisticWeapon("Heavy Rifle", "ISHeavyRifle", "DB", false, a);
+        addBW.SetPrintName( "Heavy Rifle" );
         addBW.SetDamage( 9, 9, 9 );
         addBW.SetHeat( 2 );
         addBW.SetRange( 2, 6, 12, 18 );
@@ -2088,6 +2212,7 @@ public class WeaponFactory {
         // light machine gun
         a = new AvailableCode(false, 'B', 'X', 'X', 'C', 3068, 0, 0, "CC", "", false, false);
         addBW = new BallisticWeapon("Light Machine Gun", "ISLightMG", "DB", false, a);
+        addBW.SetPrintName( "LMG" );
         addBW.SetDamage(1, 1, 1);
         addBW.SetHeat(0);
         addBW.SetRange(0, 2, 4, 6);
@@ -2098,6 +2223,7 @@ public class WeaponFactory {
         // machine gun
         a = new AvailableCode(false, 'B', 'A', 'A', 'B', 1950, 0, 0, "PS", "", false, false);
         addBW = new BallisticWeapon("Machine Gun", "ISMachine Gun", "DB", false, a);
+        addBW.SetPrintName( "MG" );
         addBW.SetDamage(2, 2, 2);
         addBW.SetHeat(0);
         addBW.SetRange(0, 1, 2, 3);
@@ -2108,6 +2234,7 @@ public class WeaponFactory {
         // heavy machine gun
         a = new AvailableCode(false, 'B', 'X', 'X', 'C', 3068, 0, 0, "TC", "", false, false);
         addBW = new BallisticWeapon("Heavy Machine Gun", "ISHeavyMG", "DB", false, a);
+        addBW.SetPrintName( "HMG" );
         addBW.SetDamage(3, 3, 3);
         addBW.SetHeat(0);
         addBW.SetRange(0, 1, 2, 0);
@@ -2118,6 +2245,7 @@ public class WeaponFactory {
         // MGA light machine gun
         a = new AvailableCode(false, 'B', 'X', 'X', 'C', 3068, 0, 0, "CC", "", false, false);
         addBW = new BallisticWeapon("Light Machine Gun", "ISLightMG", "DB", false, a);
+        addBW.SetPrintName( "LMG" );
         addBW.SetDamage(1, 1, 1);
         addBW.SetHeat(0);
         addBW.SetRange(0, 2, 4, 6);
@@ -2143,6 +2271,7 @@ public class WeaponFactory {
         // machine gun
         a = new AvailableCode(false, 'B', 'A', 'A', 'B', 1950, 0, 0, "PS", "", false, false);
         addBW = new BallisticWeapon("Machine Gun", "ISMachine Gun", "DB", false, a);
+        addBW.SetPrintName( "MG" );
         addBW.SetDamage(2, 2, 2);
         addBW.SetHeat(0);
         addBW.SetRange(0, 1, 2, 3);
@@ -2168,6 +2297,7 @@ public class WeaponFactory {
         // heavy machine gun
         a = new AvailableCode(false, 'B', 'X', 'X', 'C', 3068, 0, 0, "TC", "", false, false);
         addBW = new BallisticWeapon("Heavy Machine Gun", "ISHeavyMG", "DB", false, a);
+        addBW.SetPrintName( "HMG" );
         addBW.SetDamage(3, 3, 3);
         addBW.SetHeat(0);
         addBW.SetRange(0, 1, 2, 0);
@@ -2382,39 +2512,42 @@ public class WeaponFactory {
         // long tom artillery cannon
         a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addBW = new BallisticWeapon( "Long Tom Artillery Cannon", "ISLongTomArtCannon", "DB", false, a );
+        addBW.SetPrintName( "Long Tom Art. Cannon" );
         addBW.SetDamage( 25, 25, 25 );
         addBW.SetHeat( 20 );
         addBW.SetRange( 4, 6, 13, 20 );
         addBW.SetSpecials( "AE, S", true, true, 5, 128, false, false );
         addBW.SetStats( 20.0f, 15, 650000.0f, 385.0f, 0.0f );
         addBW.SetBallistics( false, false, false, false );
-        addBW.SetAllocations( false, true, true, false, false, false );
+        addBW.SetAllocations( false, true, true, false, false, true );
         addBW.SetRequiresNuclear( false );
         ISBW.add( addBW );
 
         // sniper artillery cannon
         a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addBW = new BallisticWeapon( "Sniper Artillery Cannon", "ISSniperArtCannon", "DB", false, a );
+        addBW.SetPrintName( "Sniper Art. Cannon" );
         addBW.SetDamage( 20, 20, 20 );
         addBW.SetHeat( 10 );
         addBW.SetRange( 2, 4, 8, 12 );
         addBW.SetSpecials( "AE, S", true, true, 10, 127, false, false );
         addBW.SetStats( 15.0f, 10, 475000.0f, 77.0f, 0.0f );
         addBW.SetBallistics( false, false, false, false );
-        addBW.SetAllocations( false, true, true, false, false, false );
+        addBW.SetAllocations( false, true, true, false, false, true );
         addBW.SetRequiresNuclear( false );
         ISBW.add( addBW );
 
         // thumper artillery cannon
         a = new AvailableCode( false, 'B', 'X', 'F', 'E', 3000, 0, 0, "LC", "", false, false, 3012, true, "LC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addBW = new BallisticWeapon( "Thumper Artillery Cannon", "ISThumperArtCannon", "DB", false, a );
+        addBW.SetPrintName( "Thumper Art. Cannon" );
         addBW.SetDamage( 15, 15, 15 );
         addBW.SetHeat( 5 );
         addBW.SetRange( 3, 4, 9, 15 );
         addBW.SetSpecials( "AE, S", true, true, 20, 126, false, false );
         addBW.SetStats( 10.0f, 7, 200000.0f, 385.0f, 0.0f );
         addBW.SetBallistics( false, false, false, false );
-        addBW.SetAllocations( false, true, true, false, false, false );
+        addBW.SetAllocations( false, true, true, false, false, true );
         addBW.SetRequiresNuclear( false );
         ISBW.add( addBW );
 
@@ -2425,6 +2558,7 @@ public class WeaponFactory {
         // small laser
         a = new AvailableCode( true, 'C', 'X', 'A', 'X', 2400, 0, 0, "TH", "", false, false );
         addEW = new EnergyWeapon( "Small Laser", "ISSmallLaser", "DE", true, a );
+        addEW.SetPrintName( "Small Laser" );
         addEW.SetDamage( 3, 3, 3 );
         addEW.SetHeat( 1 );
         addEW.SetRange( 0, 1, 2, 3 );
@@ -2435,6 +2569,7 @@ public class WeaponFactory {
         // medium laser
         a = new AvailableCode( true, 'C', 'X', 'D', 'X', 2400, 2820, 0, "TH", "", true, false );
         addEW = new EnergyWeapon( "Medium Laser", "ISMediumLaser", "DE", true, a );
+        addEW.SetPrintName( "Medium Laser" );
         addEW.SetDamage( 5, 5, 5 );
         addEW.SetHeat( 3 );
         addEW.SetRange( 0, 3, 6, 9 );
@@ -2445,6 +2580,7 @@ public class WeaponFactory {
         // large laser
         a = new AvailableCode( true, 'C', 'X', 'E', 'X', 2430, 2820, 0, "TH", "", true, false );
         addEW = new EnergyWeapon( "Large Laser", "ISLargeLaser", "DE", false, a );
+        addEW.SetPrintName( "Large Laser" );
         addEW.SetDamage( 8, 8, 8 );
         addEW.SetHeat( 8 );
         addEW.SetRange( 0, 5, 10, 15 );
@@ -2455,6 +2591,7 @@ public class WeaponFactory {
         // clan er micro laser
         a = new AvailableCode( true, 'F', 'X', 'X', 'D', 3060, 0, 0, "CSJ", "", false, false );
         addEW = new EnergyWeapon( "ER Micro Laser", "CLERMicroLaser", "DE", true, a );
+        addEW.SetPrintName( "ER Micro Laser" );
         addEW.SetDamage( 2, 2, 2 );
         addEW.SetHeat( 1 );
         addEW.SetRange( 0, 1, 2, 4 );
@@ -2465,6 +2602,7 @@ public class WeaponFactory {
         // clan er small laser
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2825, 0, 0, "CJF", "", false, false );
         addEW = new EnergyWeapon( "ER Small Laser", "CLERSmallLaser", "DE", true, a );
+        addEW.SetPrintName( "ER Small Laser" );
         addEW.SetDamage( 5, 5, 5 );
         addEW.SetHeat( 2 );
         addEW.SetRange( 0, 2, 4, 6 );
@@ -2475,6 +2613,7 @@ public class WeaponFactory {
         // clan er medium laser
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2824, 0, 0, "CJF", "", false, false );
         addEW = new EnergyWeapon( "ER Medium Laser", "CLERMediumLaser", "DE", true, a );
+        addEW.SetPrintName( "ER Medium Laser" );
         addEW.SetDamage( 7, 7, 7 );
         addEW.SetHeat( 5 );
         addEW.SetRange( 0, 5, 10, 15 );
@@ -2485,6 +2624,7 @@ public class WeaponFactory {
         // clan er large laser
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2620, 0, 0, "TH", "", false, false );
         addEW = new EnergyWeapon( "ER Large Laser", "CLERLargeLaser", "DE", true, a );
+        addEW.SetPrintName( "ER Large Laser" );
         addEW.SetDamage( 10, 10, 10 );
         addEW.SetHeat( 12 );
         addEW.SetRange( 0, 8, 15, 25 );
@@ -2495,6 +2635,7 @@ public class WeaponFactory {
         // clan er small pulse laser
         a = new AvailableCode( true, 'F', 'X', 'X', 'E', 3057, 0, 0, "CWF", "", false, false, 3053, true, "CWF", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addEW = new EnergyWeapon( "ER Small Pulse Laser", "CLERSmallLaser", "P", true, a );
+        addEW.SetPrintName( "ER Small Pulse Laser" );
         addEW.SetDamage( 5, 5, 5 );
         addEW.SetHeat( 3 );
         addEW.SetRange( 0, 2, 4, 6 );
@@ -2506,6 +2647,7 @@ public class WeaponFactory {
         // clan er medium pulse laser
         a = new AvailableCode( true, 'F', 'X', 'X', 'E', 3057, 0, 0, "CWF", "", false, false, 3053, true, "CWF", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addEW = new EnergyWeapon( "ER Medium Pulse Laser", "CLERMediumLaser", "P", true, a );
+        addEW.SetPrintName( "ER Medium Pulse Laser" );
         addEW.SetDamage( 7, 7, 7 );
         addEW.SetHeat( 6 );
         addEW.SetRange( 0, 5, 9, 14 );
@@ -2517,6 +2659,7 @@ public class WeaponFactory {
         // clan er large pulse laser
         a = new AvailableCode( true, 'F', 'X', 'X', 'E', 3057, 0, 0, "CWF", "", false, false, 3053, true, "CWF", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addEW = new EnergyWeapon( "ER Large Pulse Laser", "CLERLargeLaser", "P", true, a );
+        addEW.SetPrintName( "ER Large Pulse Laser" );
         addEW.SetDamage( 10, 10, 10 );
         addEW.SetHeat( 13 );
         addEW.SetRange( 0, 7, 15, 23 );
@@ -2528,6 +2671,7 @@ public class WeaponFactory {
         // clan micro pulse laser
         a = new AvailableCode( true, 'F', 'X', 'X', 'D', 3060, 0, 0, "CSJ", "", false, false );
         addEW = new EnergyWeapon( "Micro Pulse Laser", "CLMicroPulseLaser", "P", true, a );
+        addEW.SetPrintName( "Micro Pulse Laser" );
         addEW.SetDamage( 3, 3, 3 );
         addEW.SetHeat( 1 );
         addEW.SetRange( 0, 1, 2, 3 );
@@ -2539,6 +2683,7 @@ public class WeaponFactory {
         // clan small pulse laser
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2609, 0, 0, "TH", "", false, false );
         addEW = new EnergyWeapon( "Small Pulse Laser", "CLSmallPulseLaser", "P", true, a );
+        addEW.SetPrintName( "Small Pulse Laser" );
         addEW.SetDamage( 3, 3, 3 );
         addEW.SetHeat( 2 );
         addEW.SetRange( 0, 2, 4, 6 );
@@ -2550,6 +2695,7 @@ public class WeaponFactory {
         // clan medium pulse laser
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2609, 0, 0, "TH", "", false, false );
         addEW = new EnergyWeapon( "Medium Pulse Laser", "CLMediumPulseLaser", "P", true, a );
+        addEW.SetPrintName( "Medium Pulse Laser" );
         addEW.SetDamage( 7, 7, 7 );
         addEW.SetHeat( 4 );
         addEW.SetRange( 0, 4, 8, 12 );
@@ -2561,6 +2707,7 @@ public class WeaponFactory {
         // clan large pulse laser
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2609, 0, 0, "TH", "", false, false );
         addEW = new EnergyWeapon( "Large Pulse Laser", "CLLargePulseLaser", "P", true, a );
+        addEW.SetPrintName( "Large Pulse Laser" );
         addEW.SetDamage( 10, 10, 10 );
         addEW.SetHeat( 10 );
         addEW.SetRange( 0, 6, 14, 20 );
@@ -2572,6 +2719,7 @@ public class WeaponFactory {
         // clan heavy small laser
         a = new AvailableCode( true, 'F', 'X', 'X', 'D', 3059, 0, 0, "CSA", "", false, false );
         addEW = new EnergyWeapon( "Heavy Small Laser", "CLHeavySmallLaser", "DE", true, a );
+        addEW.SetPrintName( "Heavy Small Laser" );
         addEW.SetDamage( 6, 6, 6 );
         addEW.SetHeat( 3 );
         addEW.SetRange( 0, 1, 2, 3 );
@@ -2583,6 +2731,7 @@ public class WeaponFactory {
         // clan heavy medium laser
         a = new AvailableCode( true, 'F', 'X', 'X', 'D', 3059, 0, 0, "CSA", "", false, false );
         addEW = new EnergyWeapon( "Heavy Medium Laser", "CLHeavyMediumLaser", "DE", true, a );
+        addEW.SetPrintName( "Heavy Medium Laser" );
         addEW.SetDamage( 10, 10, 10 );
         addEW.SetHeat( 7 );
         addEW.SetRange( 0, 3, 6, 9 );
@@ -2594,6 +2743,7 @@ public class WeaponFactory {
         // clan heavy large laser
         a = new AvailableCode( true, 'F', 'X', 'X', 'D', 3059, 0, 0, "CSA", "", false, false );
         addEW = new EnergyWeapon( "Heavy Large Laser", "CLHeavyLargeLaser", "DE", true, a );
+        addEW.SetPrintName( "Heavy Large Laser" );
         addEW.SetDamage( 16, 16, 16 );
         addEW.SetHeat( 18 );
         addEW.SetRange( 0, 5, 10, 15 );
@@ -2605,6 +2755,7 @@ public class WeaponFactory {
         // improved clan heavy small laser
         a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3069, 0, 0, "CGS", "", false, false, 3066, true, "CGS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addEW = new EnergyWeapon( "Improved Heavy Small Laser", "CLImprovedHeavySmallLaser", "DE", true, a );
+        addEW.SetPrintName( "Imp. Hvy Small Laser" );
         addEW.SetDamage( 6, 6, 6 );
         addEW.SetHeat( 3 );
         addEW.SetRange( 0, 1, 2, 3 );
@@ -2617,6 +2768,7 @@ public class WeaponFactory {
         // improved clan heavy medium laser
         a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3069, 0, 0, "CGS", "", false, false, 3066, true, "CGS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addEW = new EnergyWeapon( "Improved Heavy Medium Laser", "CLImprovedHeavyMediumLaser", "DE", true, a );
+        addEW.SetPrintName( "Imp. Hvy Medium Laser" );
         addEW.SetDamage( 10, 10, 10 );
         addEW.SetHeat( 7 );
         addEW.SetRange( 0, 3, 6, 9 );
@@ -2629,6 +2781,7 @@ public class WeaponFactory {
         // improved clan heavy large laser
         a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3069, 0, 0, "CGS", "", false, false, 3066, true, "CGS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addEW = new EnergyWeapon( "Improved Heavy Large Laser", "CLImprovedHeavyLargeLaser", "DE", true, a );
+        addEW.SetPrintName( "Imp. Hvy Large Laser" );
         addEW.SetDamage( 16, 16, 16 );
         addEW.SetHeat( 18 );
         addEW.SetRange( 0, 5, 10, 15 );
@@ -2641,6 +2794,7 @@ public class WeaponFactory {
         // small chem laser
         a = new AvailableCode( true, 'E', 'X', 'X', 'E', 3059, 0, 0, "CHH", "", false, false, 3057, true, "CHH", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addEW = new EnergyWeapon( "Small Chemical Laser", "CLSmallChemLaser", "DE", true, a );
+        addEW.SetPrintName( "Small Chem Laser" );
         addEW.SetDamage( 3, 3, 3 );
         addEW.SetHeat( 1 );
         addEW.SetRange( 0, 1, 2, 3 );
@@ -2651,6 +2805,7 @@ public class WeaponFactory {
         // medium chem laser
         a = new AvailableCode( true, 'E', 'X', 'X', 'E', 3059, 0, 0, "CHH", "", false, false, 3057, true, "CHH", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addEW = new EnergyWeapon( "Medium Chemical Laser", "CLMediumChemLaser", "DE", true, a );
+        addEW.SetPrintName( "Medium Chem Laser" );
         addEW.SetDamage( 5, 5, 5 );
         addEW.SetHeat( 2 );
         addEW.SetRange( 0, 3, 6, 9 );
@@ -2661,6 +2816,7 @@ public class WeaponFactory {
         // large chem laser
         a = new AvailableCode( true, 'E', 'X', 'X', 'E', 3059, 0, 0, "CHH", "", false, false, 3057, true, "CHH", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addEW = new EnergyWeapon( "Large Chemical Laser", "CLLargeChemLaser", "DE", false, a );
+        addEW.SetPrintName( "Large Chem Laser" );
         addEW.SetDamage( 8, 8, 8 );
         addEW.SetHeat( 6 );
         addEW.SetRange( 0, 5, 10, 15 );
@@ -2671,6 +2827,7 @@ public class WeaponFactory {
         // clan plasma cannon
         a = new AvailableCode( true, 'F', 'X', 'X', 'E', 3069, 0, 0, "CDS", "", false, false );
         addEW = new EnergyWeapon( "Plasma Cannon", "CLPlasmaCannon", "DE", true, a );
+        addEW.SetPrintName( "Plasma Cannon" );
         addEW.SetDamage( 0, 0, 0 );
         addEW.SetHeat( 7 );
         addEW.SetRange( 0, 6, 12, 18 );
@@ -2681,6 +2838,7 @@ public class WeaponFactory {
         // clan ppc
         a = new AvailableCode( true, 'D', 'X', 'E', 'X', 2460, 2825, 0, "TH", "", true, false );
         addEW = new EnergyWeapon( "PPC", "ISPPC", "DE", true, a );
+        addEW.SetPrintName( "PPC" );
         addEW.SetDamage( 10, 10, 10 );
         addEW.SetHeat( 10 );
         addEW.SetRange( 3, 6, 12, 18 );
@@ -2691,6 +2849,7 @@ public class WeaponFactory {
         // clan er ppc
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2760, 0, 0, "TH", "", false, false );
         addEW = new EnergyWeapon( "ER PPC", "CLERPPC", "DE", true, a );
+        addEW.SetPrintName( "ER PPC" );
         addEW.SetDamage( 15, 15, 15 );
         addEW.SetHeat( 15 );
         addEW.SetRange( 0, 7, 14, 23 );
@@ -2701,6 +2860,7 @@ public class WeaponFactory {
         // enhanced er ppc
         a = new AvailableCode( true, 'F', 'X', 'F', 'X', 2801, 2825, 0, "CWV", "", true, false, 0, false, "", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addEW = new EnergyWeapon("Enhanced ER PPC", "CLEnhancedERPPC", "DE", true, a);
+        addEW.SetPrintName( "Enhanced ER PPC" );
         addEW.SetDamage(12, 12, 12);
         addEW.SetHeat(15);
         addEW.SetRange(0, 7, 14, 23);
@@ -2711,6 +2871,7 @@ public class WeaponFactory {
         // clan flamer
         a = new AvailableCode( true, 'C', 'X', 'A', 'A', 2025, 0, 0, "WA", "", false, false );
         addEW = new EnergyWeapon( "Flamer", "CLFlamer", "DE", true, a );
+        addEW.SetPrintName( "Flamer" );
         addEW.SetDamage( 2, 2, 2 );
         addEW.SetHeat( 3 );
         addEW.SetRange( 0, 1, 2, 3 );
@@ -2721,6 +2882,7 @@ public class WeaponFactory {
         // clan vehicle flamer
         a = new AvailableCode( true, 'B', 'X', 'A', 'A', 1950, 0, 0, "PS", "", true, false );
         addEW = new EnergyWeapon( "Vehicle Flamer", "CLVehicleFlamer", "DE", true, a );
+        addEW.SetPrintName( "Vehicle Flamer" );
         addEW.SetDamage( 2, 2, 2 );
         addEW.SetHeat( 3 );
         addEW.SetRange( 0, 1, 2, 3 );
@@ -2731,6 +2893,7 @@ public class WeaponFactory {
         // clan er flamer
         a = new AvailableCode(true, 'D', 'X', 'X', 'E', 3067, 0, 0, "CJF", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addEW = new EnergyWeapon("ER Flamer", "ISERFlamer", "DE", true, a);
+        addEW.SetPrintName( "ER Flamer" );
         addEW.SetDamage(2, 2, 2);
         addEW.SetHeat(4);
         addEW.SetRange(0, 3, 5, 7);
@@ -2741,6 +2904,7 @@ public class WeaponFactory {
         // clan heavy flamer
         a = new AvailableCode(true, 'C', 'X', 'X', 'E', 3067, 0, 0, "CJF", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addEW = new EnergyWeapon("Heavy Flamer", "ISHeavyFlamer", "DE", true, a);
+        addEW.SetPrintName( "Heavy Flamer" );
         addEW.SetDamage(4, 4, 4);
         addEW.SetHeat(5);
         addEW.SetRange(0, 2, 3, 4);
@@ -2751,6 +2915,7 @@ public class WeaponFactory {
         // clan atm-3
         a = new AvailableCode( true, 'F', 'X', 'X', 'D', 3054, 0, 0, "CCY", "", false, false );
         addMW = new MissileWeapon( "ATM-3", "CLATM3", "M", true, a );
+        addMW.SetPrintName( "ATM-3" );
         addMW.SetDamage( 2, 2, 2 );
         addMW.SetHeat( 2 );
         addMW.SetRange( 4, 5, 10, 15 );
@@ -2762,6 +2927,7 @@ public class WeaponFactory {
         // clan atm-6
         a = new AvailableCode( true, 'F', 'X', 'X', 'D', 3054, 0, 0, "CCY", "", false, false );
         addMW = new MissileWeapon( "ATM-6", "CLATM6", "M", true, a );
+        addMW.SetPrintName( "ATM-6" );
         addMW.SetDamage( 2, 2, 2 );
         addMW.SetHeat( 4 );
         addMW.SetRange( 4, 5, 10, 15 );
@@ -2773,6 +2939,7 @@ public class WeaponFactory {
         // clan atm-9
         a = new AvailableCode( true, 'F', 'X', 'X', 'D', 3054, 0, 0, "CCY", "", false, false );
         addMW = new MissileWeapon( "ATM-9", "CLATM9", "M", true, a );
+        addMW.SetPrintName( "ATM-9" );
         addMW.SetDamage( 2, 2, 2 );
         addMW.SetHeat( 6 );
         addMW.SetRange( 4, 5, 10, 15 );
@@ -2784,6 +2951,7 @@ public class WeaponFactory {
         // clan atm-12
         a = new AvailableCode( true, 'F', 'X', 'X', 'D', 3055, 0, 0, "CCY", "", false, false );
         addMW = new MissileWeapon( "ATM-12", "CLATM12", "M", true, a );
+        addMW.SetPrintName( "ATM-12" );
         addMW.SetDamage( 2, 2, 2 );
         addMW.SetHeat( 8 );
         addMW.SetRange( 4, 5, 10, 15 );
@@ -2795,6 +2963,7 @@ public class WeaponFactory {
         // clan lrm-5
         a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2400, 0, 0, "TH", "", false, false );
         addMW = new MissileWeapon( "LRM-5", "CLLRM5", "M", true, a );
+        addMW.SetPrintName( "LRM-5" );
         addMW.SetDamage( 1, 1, 1 );
         addMW.SetHeat( 2 );
         addMW.SetRange( 0, 7, 14, 21 );
@@ -2807,6 +2976,7 @@ public class WeaponFactory {
         // clan lrm-10
         a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2400, 0, 0, "TH", "", false, false );
         addMW = new MissileWeapon( "LRM-10", "CLLRM10", "M", true, a );
+        addMW.SetPrintName( "LRM-10" );
         addMW.SetDamage( 1, 1, 1 );
         addMW.SetHeat( 4 );
         addMW.SetRange( 0, 7, 14, 21 );
@@ -2819,6 +2989,7 @@ public class WeaponFactory {
         // clan lrm-15
         a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2400, 0, 0, "TH", "", false, false );
         addMW = new MissileWeapon( "LRM-15", "CLLRM15", "M", true, a );
+        addMW.SetPrintName( "LRM-15" );
         addMW.SetDamage( 1, 1, 1 );
         addMW.SetHeat( 5 );
         addMW.SetRange( 0, 7, 14, 21 );
@@ -2831,6 +3002,7 @@ public class WeaponFactory {
         // clan lrm-20
         a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2400, 0, 0, "TH", "", false, false );
         addMW = new MissileWeapon( "LRM-20", "CLLRM20", "M", true, a );
+        addMW.SetPrintName( "LRM-20" );
         addMW.SetDamage( 1, 1, 1 );
         addMW.SetHeat( 6 );
         addMW.SetRange( 0, 7, 14, 21 );
@@ -2843,6 +3015,7 @@ public class WeaponFactory {
         // clan srm-2
         a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2370, 0, 0, "TH", "", false, false );
         addMW = new MissileWeapon( "SRM-2", "CLSRM2", "M", true, a );
+        addMW.SetPrintName( "SRM-2" );
         addMW.SetDamage( 2, 2, 2 );
         addMW.SetHeat( 2 );
         addMW.SetRange( 0, 3, 6, 9 );
@@ -2855,6 +3028,7 @@ public class WeaponFactory {
         // clan srm-4
         a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2370, 0, 0, "TH", "", false, false );
         addMW = new MissileWeapon( "SRM-4", "CLSRM4", "M", true, a );
+        addMW.SetPrintName( "SRM-4" );
         addMW.SetDamage( 2, 2, 2 );
         addMW.SetHeat( 3 );
         addMW.SetRange( 0, 3, 6, 9 );
@@ -2867,6 +3041,7 @@ public class WeaponFactory {
         // clan srm-6
         a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2370, 0, 0, "TH", "", false, false );
         addMW = new MissileWeapon( "SRM-6", "CLSRM6", "M", true, a );
+        addMW.SetPrintName( "SRM-6" );
         addMW.SetDamage( 2, 2, 2 );
         addMW.SetHeat( 4 );
         addMW.SetRange( 0, 3, 6, 9 );
@@ -2879,6 +3054,7 @@ public class WeaponFactory {
         // clan streak srm-2
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2647, 0, 0, "TH", "", false, false );
         addMW = new MissileWeapon( "Streak SRM-2", "CLStreakSRM2", "M", true, a );
+        addMW.SetPrintName( "Streak SRM-2" );
         addMW.SetDamage( 2, 2, 2 );
         addMW.SetHeat( 2 );
         addMW.SetRange( 0, 4, 8, 12 );
@@ -2890,6 +3066,7 @@ public class WeaponFactory {
         // clan streak srm-4
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2826, 0, 0, "CSA", "", false, false );
         addMW = new MissileWeapon( "Streak SRM-4", "CLStreakSRM4", "M", true, a );
+        addMW.SetPrintName( "Streak SRM-4" );
         addMW.SetDamage( 2, 2, 2 );
         addMW.SetHeat( 3 );
         addMW.SetRange( 0, 4, 8, 12 );
@@ -2901,6 +3078,7 @@ public class WeaponFactory {
         // clan streak srm-6
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2826, 0, 0, "CSA", "", false, false );
         addMW = new MissileWeapon( "Streak SRM-6", "CLStreakSRM6", "M", true, a );
+        addMW.SetPrintName( "Streak SRM-6" );
         addMW.SetDamage( 2, 2, 2 );
         addMW.SetHeat( 4 );
         addMW.SetRange( 0, 4, 8, 12 );
@@ -2912,6 +3090,7 @@ public class WeaponFactory {
         // clan streak lrm-5
         a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3057, 0, 0, "CCY", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addMW = new MissileWeapon( "Streak LRM-5", "CLStreakLRM5", "M", true, a );
+        addMW.SetPrintName( "Streak LRM-5" );
         addMW.SetDamage( 1, 1, 1 );
         addMW.SetHeat( 2 );
         addMW.SetRange( 0, 7, 14, 21 );
@@ -2923,6 +3102,7 @@ public class WeaponFactory {
         // clan streak lrm-10
         a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3057, 0, 0, "CCY", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addMW = new MissileWeapon( "Streak LRM-10", "CLStreakLRM10", "M", true, a );
+        addMW.SetPrintName( "Streak LRM-10" );
         addMW.SetDamage( 1, 1, 1 );
         addMW.SetHeat( 6 );
         addMW.SetRange( 0, 7, 14, 21 );
@@ -2934,6 +3114,7 @@ public class WeaponFactory {
         // clan streak lrm-15
         a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3057, 0, 0, "CCY", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addMW = new MissileWeapon( "Streak LRM-15", "CLStreakLRM15", "M", true, a );
+        addMW.SetPrintName( "Streak LRM-15" );
         addMW.SetDamage( 1, 1, 1 );
         addMW.SetHeat( 5 );
         addMW.SetRange( 0, 7, 14, 21 );
@@ -2945,6 +3126,7 @@ public class WeaponFactory {
         // clan streak lrm-20
         a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3057, 0, 0, "CCY", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addMW = new MissileWeapon( "Streak LRM-20", "CLStreakLRM20", "M", true, a );
+        addMW.SetPrintName( "Streak LRM-20" );
         addMW.SetDamage( 1, 1, 1 );
         addMW.SetHeat( 6 );
         addMW.SetRange( 0, 7, 14, 21 );
@@ -2956,6 +3138,7 @@ public class WeaponFactory {
         // narc missile beacon
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2587, 0, 0, "TH", "", false, false );
         addMW = new MissileWeapon( "Narc Missile Beacon", "CLNarcBeacon", "M", true, a );
+        addMW.SetPrintName( "Narc Launcher" );
         addMW.SetDamage( 0, 0, 0 );
         addMW.SetHeat( 0 );
         addMW.SetRange( 0, 4, 8, 12 );
@@ -2967,6 +3150,7 @@ public class WeaponFactory {
         // clan lrm-5 OS
         a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2676, 0, 0, "TH", "", false, false );
         addMW = new MissileWeapon( "LRM-5 (OS)", "CLLRM5 (OS)", "M", true, a );
+        addMW.SetPrintName( "LRM-5 (OS)" );
         addMW.SetDamage( 1, 1, 1 );
         addMW.SetHeat( 2 );
         addMW.SetRange( 0, 7, 14, 21 );
@@ -2979,6 +3163,7 @@ public class WeaponFactory {
         // clan lrm-10 OS
         a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2676, 0, 0, "TH", "", false, false );
         addMW = new MissileWeapon( "LRM-10 (OS)", "CLLRM10 (OS)", "M", true, a );
+        addMW.SetPrintName( "LRM-10 (OS)" );
         addMW.SetDamage( 1, 1, 1 );
         addMW.SetHeat( 4 );
         addMW.SetRange( 0, 7, 14, 21 );
@@ -2991,6 +3176,7 @@ public class WeaponFactory {
         // clan lrm-15 OS
         a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2676, 0, 0, "TH", "", false, false );
         addMW = new MissileWeapon( "LRM-15 (OS)", "CLLRM15 (OS)", "M", true, a );
+        addMW.SetPrintName( "LRM-15 (OS)" );
         addMW.SetDamage( 1, 1, 1 );
         addMW.SetHeat( 5 );
         addMW.SetRange( 0, 7, 14, 21 );
@@ -3003,6 +3189,7 @@ public class WeaponFactory {
         // clan lrm-20 OS
         a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2676, 0, 0, "TH", "", false, false );
         addMW = new MissileWeapon( "LRM-20 (OS)", "CLLRM20 (OS)", "M", true, a );
+        addMW.SetPrintName( "LRM-20 (OS)" );
         addMW.SetDamage( 1, 1, 1 );
         addMW.SetHeat( 6 );
         addMW.SetRange( 0, 7, 14, 21 );
@@ -3015,6 +3202,7 @@ public class WeaponFactory {
         // clan srm-2 OS
         a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2676, 0, 0, "TH", "", false, false );
         addMW = new MissileWeapon( "SRM-2 (OS)", "CLSRM2 (OS)", "M", true, a );
+        addMW.SetPrintName( "SRM-2 (OS)" );
         addMW.SetDamage( 2, 2, 2 );
         addMW.SetHeat( 2 );
         addMW.SetRange( 0, 3, 6, 9 );
@@ -3027,6 +3215,7 @@ public class WeaponFactory {
         // clan srm-4 OS
         a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2676, 0, 0, "TH", "", false, false );
         addMW = new MissileWeapon( "SRM-4 (OS)", "CLSRM4 (OS)", "M", true, a );
+        addMW.SetPrintName( "SRM-4 (OS)" );
         addMW.SetDamage( 2, 2, 2 );
         addMW.SetHeat( 3 );
         addMW.SetRange( 0, 3, 6, 9 );
@@ -3039,6 +3228,7 @@ public class WeaponFactory {
         // clan srm-6 OS
         a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2676, 0, 0, "TH", "", false, false );
         addMW = new MissileWeapon( "SRM-6 (OS)", "CLSRM6 (OS)", "M", true, a );
+        addMW.SetPrintName( "SRM-6 (OS)" );
         addMW.SetDamage( 2, 2, 2 );
         addMW.SetHeat( 4 );
         addMW.SetRange( 0, 3, 6, 9 );
@@ -3051,6 +3241,7 @@ public class WeaponFactory {
         // clan streak srm-2 OS
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2676, 0, 0, "TH", "", false, false );
         addMW = new MissileWeapon( "Streak SRM-2 (OS)", "CLStreakSRM2 (OS)", "M", true, a );
+        addMW.SetPrintName( "Streak SRM-2 (OS)" );
         addMW.SetDamage( 2, 2, 2 );
         addMW.SetHeat( 2 );
         addMW.SetRange( 0, 4, 8, 12 );
@@ -3062,6 +3253,7 @@ public class WeaponFactory {
         // clan streak srm-4 OS
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2826, 0, 0, "CSA", "", false, false );
         addMW = new MissileWeapon( "Streak SRM-4 (OS)", "CLStreakSRM4 (OS)", "M", true, a );
+        addMW.SetPrintName( "Streak SRM-4 (OS)" );
         addMW.SetDamage( 2, 2, 2 );
         addMW.SetHeat( 3 );
         addMW.SetRange( 0, 4, 8, 12 );
@@ -3073,6 +3265,7 @@ public class WeaponFactory {
         // clan streak srm-6 OS
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2826, 0, 0, "CSA", "", false, false );
         addMW = new MissileWeapon( "Streak SRM-6 (OS)", "CLStreakSRM6 (OS)", "M", true, a );
+        addMW.SetPrintName( "Streak SRM-6 (OS)" );
         addMW.SetDamage( 2, 2, 2 );
         addMW.SetHeat( 4 );
         addMW.SetRange( 0, 4, 8, 12 );
@@ -3084,6 +3277,7 @@ public class WeaponFactory {
         // narc missile beacon OS
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2676, 0, 0, "TH", "", false, false );
         addMW = new MissileWeapon( "Narc Missile Beacon (OS)", "CLNarcBeacon (OS)", "M", true, a );
+        addMW.SetPrintName( "Narc Launcher (OS)" );
         addMW.SetDamage( 0, 0, 0 );
         addMW.SetHeat( 0 );
         addMW.SetRange( 0, 4, 8, 12 );
@@ -3095,6 +3289,7 @@ public class WeaponFactory {
         // autocannon 2
         a = new AvailableCode( true, 'C', 'X', 'D', 'X', 2300, 2850, 0, "TH", "", true, false );
         addBW = new BallisticWeapon( "Autocannon/2", "ISAC2", "DB", true, a );
+        addBW.SetPrintName( "Autocannon/2" );
         addBW.SetDamage( 2, 2, 2 );
         addBW.SetHeat( 1 );
         addBW.SetRange( 4, 8, 16, 24 );
@@ -3105,6 +3300,7 @@ public class WeaponFactory {
         // autocannon 5
         a = new AvailableCode( true, 'C', 'X', 'D', 'X', 2250, 2850, 0, "TH", "", true, false );
         addBW = new BallisticWeapon( "Autocannon/5", "ISAC5", "DB", true, a );
+        addBW.SetPrintName( "Autocannon/5" );
         addBW.SetDamage( 5, 5, 5 );
         addBW.SetHeat( 1 );
         addBW.SetRange( 3, 6, 12, 18 );
@@ -3115,6 +3311,7 @@ public class WeaponFactory {
         // autocannon 10
         a = new AvailableCode( true, 'C', 'X', 'D', 'X', 2460, 2850, 0, "TH", "", true, false );
         addBW = new BallisticWeapon( "Autocannon/10", "ISAC10", "DB", true, a );
+        addBW.SetPrintName( "Autocannon/10" );
         addBW.SetDamage( 10, 10, 10 );
         addBW.SetHeat( 3 );
         addBW.SetRange( 0, 5, 10, 15 );
@@ -3125,6 +3322,7 @@ public class WeaponFactory {
         // autocannon 20
         a = new AvailableCode( true, 'C', 'X', 'E', 'X', 2500, 2850, 0, "LC", "", true, false );
         addBW = new BallisticWeapon( "Autocannon/20", "ISAC20", "DB", true, a );
+        addBW.SetPrintName( "Autocannon/20" );
         addBW.SetDamage( 20, 20, 20 );
         addBW.SetHeat( 7 );
         addBW.SetRange( 0, 3, 6, 9 );
@@ -3136,6 +3334,7 @@ public class WeaponFactory {
         // lb 2-x ac
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2826, 0, 0, "CGS", "", false, false );
         addBW = new BallisticWeapon( "LB 2-X AC", "CLLBXAC2", "DB", true, a );
+        addBW.SetPrintName( "LB 2-X AC" );
         addBW.SetDamage( 2, 2, 2 );
         addBW.SetHeat( 1 );
         addBW.SetRange( 4, 10, 20, 30 );
@@ -3147,6 +3346,7 @@ public class WeaponFactory {
         // lb 5-x ac
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2825, 0, 0, "CCY", "", false, false );
         addBW = new BallisticWeapon( "LB 5-X AC", "CLLBXAC5", "DB", true, a );
+        addBW.SetPrintName( "LB 5-X AC" );
         addBW.SetDamage( 5, 5, 5 );
         addBW.SetHeat( 1 );
         addBW.SetRange( 3, 8, 15, 24 );
@@ -3158,6 +3358,7 @@ public class WeaponFactory {
         // lb 10-x ac
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2595, 0, 0, "TH", "", false, false );
         addBW = new BallisticWeapon( "LB 10-X AC", "CLLBXAC10", "DB", true, a );
+        addBW.SetPrintName( "LB 10-X AC" );
         addBW.SetDamage( 10, 10, 10 );
         addBW.SetHeat( 2 );
         addBW.SetRange( 0, 6, 12, 18 );
@@ -3169,6 +3370,7 @@ public class WeaponFactory {
         // lb 20-x ac
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2826, 0, 0, "CHH", "", false, false );
         addBW = new BallisticWeapon( "LB 20-X AC", "CLLBXAC20", "DB", true, a );
+        addBW.SetPrintName( "LB 20-X AC" );
         addBW.SetDamage( 20, 20, 20 );
         addBW.SetHeat( 6 );
         addBW.SetRange( 0, 4, 8, 12 );
@@ -3181,6 +3383,7 @@ public class WeaponFactory {
         // ultra ac/2
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2827, 0, 0, "CGS", "", false, false );
         addBW = new BallisticWeapon( "Ultra AC/2", "CLUltraAC2", "DB", true, a );
+        addBW.SetPrintName( "Ultra AC/2" );
         addBW.SetDamage( 2, 2, 2 );
         addBW.SetHeat( 1 );
         addBW.SetRange( 2, 9, 18, 27 );
@@ -3192,6 +3395,7 @@ public class WeaponFactory {
         // ultra ac/5
         a = new AvailableCode( true, 'F', 'X', 'C', 'C', 2640, 0, 0, "TH", "", false, false );
         addBW = new BallisticWeapon( "Ultra AC/5", "CLUltraAC5", "DB", true, a );
+        addBW.SetPrintName( "Ultra AC/5" );
         addBW.SetDamage( 5, 5, 5 );
         addBW.SetHeat( 1 );
         addBW.SetRange( 0, 7, 14, 21 );
@@ -3203,6 +3407,7 @@ public class WeaponFactory {
         // ultra ac/10
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2825, 0, 0, "CDS", "", false, false );
         addBW = new BallisticWeapon( "Ultra AC/10", "CLUltraAC10", "DB", true, a );
+        addBW.SetPrintName( "Ultra AC/10" );
         addBW.SetDamage( 10, 10, 10 );
         addBW.SetHeat( 3 );
         addBW.SetRange( 0, 6, 12, 18 );
@@ -3214,6 +3419,7 @@ public class WeaponFactory {
         // ultra ac/20
         a = new AvailableCode( true, 'F', 'X', 'D', 'C', 2825, 0, 0, "CSV", "", false, false );
         addBW = new BallisticWeapon( "Ultra AC/20", "CLUltraAC20", "DB", true, a );
+        addBW.SetPrintName( "Ultra AC/20" );
         addBW.SetDamage( 20, 20, 20 );
         addBW.SetHeat( 7 );
         addBW.SetRange( 0, 4, 8, 12 );
@@ -3226,6 +3432,7 @@ public class WeaponFactory {
         // rotary ac2
         a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3073, 0, 0, "CDS", "", false, false, 3069, true, "CDS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addBW = new BallisticWeapon( "Rotary AC/2", "CLRotaryAC2", "DB", true, a );
+        addBW.SetPrintName( "Rotary AC/2" );
         addBW.SetDamage( 2, 2, 2 );
         addBW.SetHeat( 1 );
         addBW.SetRange( 0, 8, 17, 25 );
@@ -3237,6 +3444,7 @@ public class WeaponFactory {
         // rotary ac5
         a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3073, 0, 0, "CDS", "", false, false, 3069, true, "CDS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addBW = new BallisticWeapon( "Rotary AC/5", "CLRotaryAC5", "DB", true, a );
+        addBW.SetPrintName( "Rotary AC/5" );
         addBW.SetDamage( 5, 5, 5 );
         addBW.SetHeat( 1 );
         addBW.SetRange( 0, 7, 14, 21 );
@@ -3248,6 +3456,7 @@ public class WeaponFactory {
         // protomech ac2
         a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3073, 0, 0, "CBS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addBW = new BallisticWeapon( "Protomech AC/2", "CLProtoAC2", "DB", true, a );
+        addBW.SetPrintName( "Protomech AC/2" );
         addBW.SetDamage( 2, 2, 2 );
         addBW.SetHeat( 1 );
         addBW.SetRange( 0, 7, 14, 20 );
@@ -3259,6 +3468,7 @@ public class WeaponFactory {
         // protomech ac4
         a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3073, 0, 0, "CBS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addBW = new BallisticWeapon( "Protomech AC/4", "CLProtoAC4", "DB", true, a );
+        addBW.SetPrintName( "Protomech AC/4" );
         addBW.SetDamage( 4, 4, 4 );
         addBW.SetHeat( 1 );
         addBW.SetRange( 0, 5, 10, 15 );
@@ -3270,6 +3480,7 @@ public class WeaponFactory {
         // protomech ac8
         a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3073, 0, 0, "CBS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addBW = new BallisticWeapon( "Protomech AC/8", "CLProtoAC8", "DB", true, a );
+        addBW.SetPrintName( "Protomech AC/8" );
         addBW.SetDamage( 8, 8, 8 );
         addBW.SetHeat( 2 );
         addBW.SetRange( 0, 3, 7, 10 );
@@ -3281,6 +3492,7 @@ public class WeaponFactory {
         // ap gauss rifle
         a = new AvailableCode( true, 'F', 'X', 'X', 'E', 3069, 0, 0, "CJF", "", false, false );
         addBW = new BallisticWeapon( "AP Gauss Rifle", "CLAPGaussRifle", "DB", true, a );
+        addBW.SetPrintName( "AP Gauss Rifle" );
         addBW.SetDamage( 3, 3, 3 );
         addBW.SetHeat( 1 );
         addBW.SetRange( 0, 3, 6, 9 );
@@ -3292,6 +3504,7 @@ public class WeaponFactory {
         // gauss rifle
         a = new AvailableCode( true, 'F', 'X', 'C', 'C', 2590, 0, 0, "TH", "", false, false );
         addBW = new BallisticWeapon( "Gauss Rifle", "CLGaussRifle", "DB", true, a );
+        addBW.SetPrintName( "Gauss Rifle" );
         addBW.SetDamage( 15, 15, 15 );
         addBW.SetHeat( 1 );
         addBW.SetRange( 2, 7, 15, 22 );
@@ -3303,6 +3516,7 @@ public class WeaponFactory {
         // hyper assault gauss 20
         a = new AvailableCode( true, 'F', 'X', 'X', 'E', 3068, 0, 0, "CHH", "", false, false );
         addBW = new BallisticWeapon( "Hyper Assault Gauss 20", "CLHAG20", "DB", true, a );
+        addBW.SetPrintName( "HAG-20" );
         addBW.SetDamage( 20, 20, 20 );
         addBW.SetHeat( 4 );
         addBW.SetRange( 2, 8, 16, 24 );
@@ -3314,6 +3528,7 @@ public class WeaponFactory {
         // hyper assault gauss 30
         a = new AvailableCode( true, 'F', 'X', 'X', 'E', 3068, 0, 0, "CHH", "", false, false );
         addBW = new BallisticWeapon( "Hyper Assault Gauss 30", "CLHAG30", "DB", true, a );
+        addBW.SetPrintName( "HAG-30" );
         addBW.SetDamage( 30, 30, 30 );
         addBW.SetHeat( 6 );
         addBW.SetRange( 2, 8, 16, 24 );
@@ -3325,6 +3540,7 @@ public class WeaponFactory {
         // hyper assault gauss 40
         a = new AvailableCode( true, 'F', 'X', 'X', 'E', 3069, 0, 0, "CHH", "", false, false );
         addBW = new BallisticWeapon( "Hyper Assault Gauss 40", "CLHAG40", "DB", true, a );
+        addBW.SetPrintName( "HAG-40" );
         addBW.SetDamage( 40, 40, 40 );
         addBW.SetHeat( 8 );
         addBW.SetRange( 2, 8, 16, 24 );
@@ -3337,6 +3553,7 @@ public class WeaponFactory {
         // light machine gun
         a = new AvailableCode( true, 'F', 'X', 'X', 'B', 3060, 0, 0, "CSJ", "", false, false );
         addBW = new BallisticWeapon( "Light Machine Gun", "CLLightMG", "DB", true, a );
+        addBW.SetPrintName( "LMG" );
         addBW.SetDamage( 1, 1, 1 );
         addBW.SetHeat( 0 );
         addBW.SetRange( 0, 2, 4, 6 );
@@ -3347,6 +3564,7 @@ public class WeaponFactory {
         // machine gun
         a = new AvailableCode( true, 'C', 'X', 'A', 'A', 1950, 0, 0, "PS", "", false, false );
         addBW = new BallisticWeapon( "Machine Gun", "CLMG", "DB", true, a );
+        addBW.SetPrintName( "MG" );
         addBW.SetDamage( 2, 2, 2 );
         addBW.SetHeat( 0 );
         addBW.SetRange( 0, 1, 2, 3 );
@@ -3357,6 +3575,7 @@ public class WeaponFactory {
         // heavy machine gun
         a = new AvailableCode( true, 'C', 'X', 'X', 'B', 3059, 0, 0, "CSJ", "", false, false );
         addBW = new BallisticWeapon( "Heavy Machine Gun", "CLHeavyMG", "DB", true, a );
+        addBW.SetPrintName( "HMG" );
         addBW.SetDamage( 3, 3, 3 );
         addBW.SetHeat( 0 );
         addBW.SetRange( 0, 1, 2, 0 );
@@ -3367,6 +3586,7 @@ public class WeaponFactory {
         // LMGA light machine gun
         a = new AvailableCode( true, 'F', 'X', 'X', 'B', 3060, 0, 0, "CSJ", "", false, false );
         addBW = new BallisticWeapon( "Light Machine Gun", "CLLightMG", "DB", true, a );
+        addBW.SetPrintName( "LMG" );
         addBW.SetDamage( 1, 1, 1 );
         addBW.SetHeat( 0 );
         addBW.SetRange( 0, 2, 4, 6 );
@@ -3392,6 +3612,7 @@ public class WeaponFactory {
         // MGA machine gun
         a = new AvailableCode( true, 'C', 'X', 'A', 'A', 1950, 0, 0, "PS", "", false, false );
         addBW = new BallisticWeapon( "Machine Gun", "CLMG", "DB", true, a );
+        addBW.SetPrintName( "MG" );
         addBW.SetDamage( 2, 2, 2 );
         addBW.SetHeat( 0 );
         addBW.SetRange( 0, 1, 2, 3 );
@@ -3417,6 +3638,7 @@ public class WeaponFactory {
         // HMGA heavy machine gun
         a = new AvailableCode( true, 'C', 'X', 'X', 'B', 3059, 0, 0, "CSJ", "", false, false );
         addBW = new BallisticWeapon( "Heavy Machine Gun", "CLHeavyMG", "DB", true, a );
+        addBW.SetPrintName( "HMG" );
         addBW.SetDamage( 3, 3, 3 );
         addBW.SetHeat( 0 );
         addBW.SetRange( 0, 1, 2, 0 );
@@ -3475,39 +3697,42 @@ public class WeaponFactory {
         // long tom artillery cannon
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addBW = new BallisticWeapon( "Long Tom Artillery Cannon", "CLLongTomArtCannon", "DB", false, a );
+        addBW.SetPrintName( "Long Tom Art. Cannon" );
         addBW.SetDamage( 25, 25, 25 );
         addBW.SetHeat( 20 );
         addBW.SetRange( 4, 6, 13, 20 );
         addBW.SetSpecials( "AE, S", true, true, 5, 131, false, false );
         addBW.SetStats( 20.0f, 15, 650000.0f, 385.0f, 0.0f );
         addBW.SetBallistics( false, false, false, false );
-        addBW.SetAllocations( false, true, true, false, false, false );
+        addBW.SetAllocations( false, true, true, false, false, true );
         addBW.SetRequiresNuclear( false );
         CLBW.add( addBW );
 
         // sniper artillery cannon
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addBW = new BallisticWeapon( "Sniper Artillery Cannon", "CLSniperArtCannon", "DB", false, a );
+        addBW.SetPrintName( "Sniper Art. Cannon" );
         addBW.SetDamage( 20, 20, 20 );
         addBW.SetHeat( 10 );
         addBW.SetRange( 2, 4, 8, 12 );
         addBW.SetSpecials( "AE, S", true, true, 10, 130, false, false );
         addBW.SetStats( 15.0f, 10, 475000.0f, 77.0f, 0.0f );
         addBW.SetBallistics( false, false, false, false );
-        addBW.SetAllocations( false, true, true, false, false, false );
+        addBW.SetAllocations( false, true, true, false, false, true );
         addBW.SetRequiresNuclear( false );
         CLBW.add( addBW );
 
         // thumper artillery cannon
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addBW = new BallisticWeapon( "Thumper Artillery Cannon", "CLThumperArtCannon", "DB", false, a );
+        addBW.SetPrintName( "Thumper Art. Cannon" );
         addBW.SetDamage( 15, 15, 15 );
         addBW.SetHeat( 5 );
         addBW.SetRange( 3, 4, 9, 15 );
         addBW.SetSpecials( "AE, S", true, true, 20, 129, false, false );
         addBW.SetStats( 10.0f, 7, 200000.0f, 385.0f, 0.0f );
         addBW.SetBallistics( false, false, false, false );
-        addBW.SetAllocations( false, true, true, false, false, false );
+        addBW.SetAllocations( false, true, true, false, false, true );
         addBW.SetRequiresNuclear( false );
         CLBW.add( addBW );
 

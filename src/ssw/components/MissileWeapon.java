@@ -37,7 +37,8 @@ public class MissileWeapon extends abPlaceable implements ifWeapon {
                    LookupName,
                    Specials = "",
                    Type,
-                   Manufacturer = "";
+                   Manufacturer = "",
+                   PrintName = "";
     private boolean Clan,
                     OmniRestrict = false,
                     Ammo = true,
@@ -175,6 +176,10 @@ public class MissileWeapon extends abPlaceable implements ifWeapon {
         Nuclear = b;
     }
 
+    public void SetPrintName( String s ) {
+        PrintName = s;
+    }
+
     public boolean RequiresFusion() {
         return Fusion;
     }
@@ -193,6 +198,11 @@ public class MissileWeapon extends abPlaceable implements ifWeapon {
         } else {
             return LookupName;
         }
+    }
+
+    @Override
+    public String GetPrintName() {
+        return PrintName;
     }
 
     public String GetType() {

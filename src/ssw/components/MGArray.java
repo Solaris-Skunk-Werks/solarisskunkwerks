@@ -198,6 +198,11 @@ public class MGArray extends abPlaceable implements ifWeapon {
         return "MG Array (" + NumMGs + " " + MGType.GetCritName() + ")";
     }
 
+    @Override
+    public String GetPrintName() {
+        return "MG Array (" + NumMGs + " " + MGType.GetPrintName() + ")";
+    }
+
     public String GetType() {
         return "T";
     }
@@ -360,6 +365,7 @@ public class MGArray extends abPlaceable implements ifWeapon {
         ((BallisticWeapon) retval).SetBallistics( b.IsExplosive(), b.IsUltra(), b.IsRotary(), b.IsCluster() );
         ((BallisticWeapon) retval).SetAllocations( b.CanAllocHD(), b.CanAllocCT(), b.CanAllocTorso(), b.CanAllocArms(), b.CanAllocLegs(), b.CanSplit() );
         ((BallisticWeapon) retval).SetToHit( b.GetToHitShort(), b.GetToHitMedium(), b.GetToHitLong() );
+        ((BallisticWeapon) retval).SetPrintName( b.GetPrintName() );
         if( b.LocationLinked() ) {
             ((BallisticWeapon) retval).SetLocationLinked( true );
         }

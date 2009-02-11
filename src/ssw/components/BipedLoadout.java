@@ -3123,7 +3123,7 @@ public class BipedLoadout implements ifLoadout {
         if( Add && HasCTCASE() ) {
             return;
         }
-        if( Owner.IsClan() ) {
+        if( Add && Owner.IsClan() ) {
             throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
         }
 
@@ -3162,7 +3162,7 @@ public class BipedLoadout implements ifLoadout {
         if( Add && HasLTCASE() ) {
             return;
         }
-        if( Owner.IsClan() ) {
+        if( Add && Owner.IsClan() ) {
             throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
         }
 
@@ -3201,7 +3201,7 @@ public class BipedLoadout implements ifLoadout {
         if( Add && HasRTCASE() ) {
             return;
         }
-        if( Owner.IsClan() ) {
+        if( Add && Owner.IsClan() ) {
             throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
         }
 
