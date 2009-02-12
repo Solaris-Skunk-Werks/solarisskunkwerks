@@ -262,4 +262,19 @@ public class CommonTools {
     public static float GetAdjustedBV( float BV, int Gunnery, int Piloting ) {
         return BV * BVMods[Gunnery][Piloting];
     }
+
+    public static String DecodeEra( int era ) {
+        switch( era ) {
+            case Constants.STAR_LEAGUE:
+                return Constants.strSTAR_LEAGUE;
+            case Constants.SUCCESSION:
+                return Constants.strSUCCESSION;
+            case Constants.CLAN_INVASION:
+                return Constants.strCLAN_INVASION;
+            case Constants.ALL_ERA:
+                return Constants.strALL_ERA;
+            default:
+                return "Unknown";
+        }
+    }
 }
