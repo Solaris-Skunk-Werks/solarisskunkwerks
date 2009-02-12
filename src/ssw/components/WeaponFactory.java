@@ -2145,7 +2145,7 @@ public class WeaponFactory {
         addBW.SetStats( 0.5f, 2, 8500.0f, 15.0f, 0.0f );
         addBW.SetBallistics( true, false, false, false );
         addBW.SetAllocations( true, true, true, true, true, false );
-        addBW.SetRequiresNuclear( true );
+        addBW.SetRequiresNuclear( false );
         ISBW.add( addBW );
 
         // silver bullet gauss
