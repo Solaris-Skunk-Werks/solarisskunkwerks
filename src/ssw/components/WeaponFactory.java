@@ -74,6 +74,7 @@ public class WeaponFactory {
             ((EnergyWeapon) retval).SetRequiresNuclear( e.RequiresNuclear());
             ((EnergyWeapon) retval).UseCapacitor( Capacitor );
             ((EnergyWeapon) retval).SetPrintName( e.GetPrintName() );
+            ((EnergyWeapon) retval).SetPowerAmp( e.GetPowerAmp() );
             if( Capacitor ) { e.UseCapacitor( true ); }
         } else if( p instanceof MissileWeapon ) {
             MissileWeapon m = (MissileWeapon) p;
@@ -1073,6 +1074,7 @@ public class WeaponFactory {
         addEW.SetRange(0, 1, 2, 3);
         addEW.SetSpecials("H/AI", false, true, 20, 2, false);
         addEW.SetStats(0.5f, 1, 7500.0f, 5.0f, 0.0f);
+        addEW.SetPowerAmp( false );
         ISEW.add(addEW);
 
         // er flamer

@@ -48,7 +48,8 @@ public class PowerAmplifier {
         Vector v = CurLoadout.GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
             if( v.get( i ) instanceof EnergyWeapon ) {
-                tons += ((EnergyWeapon) v.get( i )).GetTonnage();
+                if ( ((EnergyWeapon)v.get( i ) ).GetPowerAmp() )
+                    tons += ((EnergyWeapon) v.get( i )).GetTonnage();
             }
         }
         if( tons <= 0.0f ) {

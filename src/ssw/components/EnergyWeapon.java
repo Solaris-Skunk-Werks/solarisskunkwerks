@@ -44,7 +44,8 @@ public class EnergyWeapon extends abPlaceable implements ifWeapon {
                     Fusion = false,
                     Nuclear = false,
                     UseCapacitor = false,
-                    Explosive = false;
+                    Explosive = false,
+                    PowerAmp = true;
     private int Heat = 0,
                 DamSht = 0,
                 DamMed = 0,
@@ -123,6 +124,14 @@ public class EnergyWeapon extends abPlaceable implements ifWeapon {
         Cost = cost;
         OffBV = obv;
         DefBV = dbv;
+    }
+
+    public void SetPowerAmp ( boolean b ){
+        PowerAmp = b;
+    }
+
+    public boolean GetPowerAmp (){
+        return PowerAmp;
     }
 
     public void UseCapacitor( boolean c ) {
