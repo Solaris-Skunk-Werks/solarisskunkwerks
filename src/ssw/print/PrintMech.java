@@ -38,6 +38,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.util.Vector;
+import ssw.CommonTools;
 import ssw.Constants;
 import ssw.components.*;
 import ssw.filehandlers.FileCommon;
@@ -47,7 +48,7 @@ import ssw.gui.frmMain;
 public class PrintMech implements Printable {
 
     private frmMain Parent;
-    private Mech CurMech;
+    public Mech CurMech;
     private Image MechImage = null,
                   RecordSheet = null;
     private boolean Advanced = false,
@@ -55,8 +56,8 @@ public class PrintMech implements Printable {
                     PrintPilot = true,
                     UseA4Paper = false;
     private String PilotName = "";
-    private int Piloting = 0,
-                Gunnery = 0;
+    private int Piloting = 5,
+                Gunnery = 4;
     private float BV = 0.0f;
     private ifPrintPoints points = null;
     private Font BoldFont = new Font( "Arial", Font.BOLD, 8 );
@@ -74,22 +75,25 @@ public class PrintMech implements Printable {
         CurMech = m;
         MechImage = i;
         Advanced = adv;
-        BV = CurMech.GetCurrentBV();
+        BV = CommonTools.GetAdjustedBV(CurMech.GetCurrentBV(), Gunnery, Piloting);
         UseA4Paper = A4;
         GetRecordSheet();
     }
 
     public PrintMech( Mech m, Image i, boolean adv, boolean A4) {
-        Parent = null;
-        CurMech = m;
-        MechImage = i;
-        Advanced = adv;
-        BV = CurMech.GetCurrentBV();
-        UseA4Paper = A4;
-        GetRecordSheet();   
+        this(null, m, i, adv, A4);
     }
 
-    public void SetPilotData( String pname, int ppilot, int pgun ) {
+    public PrintMech( Mech m ) {
+        this(null, m, null, false, false);
+    }
+
+    public PrintMech( Mech m, String Warrior, int Gun, int Pilot) {
+        this(null, m, null, false, false);
+        SetPilotData(Warrior, Gun, Pilot);
+    }
+
+    public void SetPilotData( String pname, int pgun, int ppilot ) {
         PilotName = pname;
         Piloting = ppilot;
         Gunnery = pgun;
@@ -101,6 +105,34 @@ public class PrintMech implements Printable {
         PrintPilot = PrintP;
     }
 
+    public void setMechwarrior(String name) {
+        PilotName = name;
+    }
+
+    public void setGunnery(int gunnery) {
+        Gunnery = gunnery;
+    }
+
+    public void setPiloting(int piloting) {
+        Piloting = piloting;
+    }
+
+    public void setCharts(Boolean b) {
+        Charts = b;
+    }
+
+    public String getMechwarrior(){
+        return PilotName;
+    }
+
+    public int getGunnery(){
+        return Gunnery;
+    }
+
+    public int getPiloting(){
+        return Piloting;
+    }
+
     public int print( Graphics graphics, PageFormat pageFormat, int pageIndex ) throws PrinterException {
         ((Graphics2D) graphics).translate( pageFormat.getImageableX(), pageFormat.getImageableY() );
         if( RecordSheet == null ) {
@@ -109,11 +141,6 @@ public class PrintMech implements Printable {
             PreparePrint( (Graphics2D) graphics );
             return Printable.PAGE_EXISTS;
         }
-    }
-
-    public Graphics2D PrintPreview( Graphics2D graphics ) {
-        PreparePrint(graphics);
-        return graphics;
     }
     
     private void PreparePrint( Graphics2D graphics ) {

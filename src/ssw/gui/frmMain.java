@@ -2385,112 +2385,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
     }
 
-    private void PrintMech( Mech m, boolean saved) {
-        boolean useA4paper = false, printCharts = false, printPilot = false;
-        String warriorName = "";
-        int gunnerySkill = 4, pilotingSkill =  5;
-        float adjustedBV = m.GetCurrentBV();
-
-        if (!saved){
-            // Solidify the mech first.
-            SolidifyMech();
-
-            if( ! VerifyMech( new ActionEvent( this, 1234567890, null ) ) ) {
-                return;
-            }
-            dlgPrintOptions POptions = new dlgPrintOptions( this, true, m );
-            String Title = "";
-            if( m.IsOmnimech() ) {
-                if( m.GetModel().isEmpty() ) {
-                    Title = m.GetName() + " " + m.GetLoadout().GetName();
-                } else {
-                    Title = m.GetName() + " " + m.GetModel() + " " + m.GetLoadout().GetName();
-                }
-            } else {
-                if( m.GetModel().isEmpty() ) {
-                    Title = m.GetName();
-                } else {
-                    Title = m.GetName() + " " + m.GetModel();
-                }
-            }
-            Title = "Printing " + Title;
-            POptions.setTitle( Title );
-            POptions.setLocationRelativeTo( this );
-            POptions.setVisible( true );
-
-            if( ! POptions.Result() ) {
-                return;
-            }
-
-            useA4paper = POptions.UseA4Paper();
-            warriorName = POptions.GetWarriorName();
-            gunnerySkill = POptions.GetGunnery();
-            pilotingSkill = POptions.GetPiloting();
-            printCharts = POptions.PrintCharts();
-            printPilot = POptions.PrintPilot();
-            adjustedBV = POptions.GetAdjustedBV();
-            POptions.dispose();
-        }
-        else{
-            // explict polymorphism is a very annoying.
-            dlgPrintSavedMechOptions POptions = new dlgPrintSavedMechOptions( this, true, m );
-            String Title = "";
-            if( m.GetModel().isEmpty() ) {
-                Title = m.GetName();
-            } else {
-                Title = m.GetName() + " " + m.GetModel();
-            }
-            Title = "Printing " + Title;
-            POptions.setTitle( Title );
-            POptions.setLocationRelativeTo( this );
-            POptions.setVisible( true );
-
-            if( ! POptions.Result() ) {
-                return;
-            }
-
-            useA4paper = POptions.UseA4Paper();
-            warriorName = POptions.GetWarriorName();
-            gunnerySkill = POptions.GetGunnery();
-            pilotingSkill = POptions.GetPiloting();
-            printCharts = POptions.PrintCharts();
-            printPilot = POptions.PrintPilot();
-            adjustedBV = POptions.GetAdjustedBV();
-            POptions.dispose();
-        }
-
-        PrinterJob job = PrinterJob.getPrinterJob();
-        job.setJobName( m.GetFullName() );
-        Media media = new Media();
-        Image mechImage = media.GetImage(m.GetSSWImage());
-        PrintMech p = new PrintMech( this, m, mechImage, false, useA4paper);
-        p.SetPilotData( warriorName, gunnerySkill, pilotingSkill);
-        p.SetOptions( printCharts, printPilot, adjustedBV );
-
-        Paper paper = new Paper();
-        if( useA4paper ) {
-            // silly Europeans...
-            paper.setSize( 595, 842 );
-            paper.setImageableArea( 18, 18, 559, 806 );
-        } else {
-            // no need to set the size as Paper() defaults to 8.5" x 11"
-            paper.setImageableArea( 18, 18, 576, 756 );
-        }
-
-        PageFormat page = new PageFormat();
-        Book pages = new Book();
-        page.setPaper( paper );
-        pages.append(p, page);
-        job.setPageable(pages);
-        boolean DoPrint = job.printDialog();
-        if( DoPrint ) {
-            try {
-                job.print();
-            } catch( PrinterException e ) {
-                System.err.println( e.getMessage() );
-                System.out.println( e.getStackTrace() );
-            }
-        }
+    private void PrintMech( Mech m) {
+        Printer printer = new Printer(this);
+        printer.Print(m);
     }
 
     private void UpdateBasicChart() {
@@ -11442,13 +11339,18 @@ private void lstChooseArtilleryValueChanged(javax.swing.event.ListSelectionEvent
 }//GEN-LAST:event_lstChooseArtilleryValueChanged
 
 private void mnuPrintCurrentMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintCurrentMechActionPerformed
-    PrintMech( CurMech, false );
+    // Solidify the mech first.
+    SolidifyMech();
+
+    if( VerifyMech( new ActionEvent( this, 1234567890, null ) ) ) {
+        PrintMech( CurMech );
+    }
 }//GEN-LAST:event_mnuPrintCurrentMechActionPerformed
 
 private void mnuPrintSavedMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintSavedMechActionPerformed
     Mech m = LoadMech();
     if (!(m==null))
-        PrintMech(m, true);
+        PrintMech(m);
 }//GEN-LAST:event_mnuPrintSavedMechActionPerformed
 
 private void btnEfficientArmorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfficientArmorActionPerformed
@@ -12294,7 +12196,7 @@ private void chkEjectionSeatActionPerformed(java.awt.event.ActionEvent evt) {//G
 private void mnuPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintPreviewActionPerformed
     PrintMech p = new PrintMech( this, CurMech, null, false, false);
     p.SetPilotData( "", 4, 5);
-    p.SetOptions( false, false, 0 );
+    p.SetOptions( false, false, CurMech.GetCurrentBV());
 
     Paper paper = new Paper();
     paper.setImageableArea( 18, 18, 576, 756 );

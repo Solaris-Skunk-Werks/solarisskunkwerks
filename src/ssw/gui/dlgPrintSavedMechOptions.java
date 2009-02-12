@@ -16,6 +16,7 @@ import ssw.CommonTools;
 import ssw.components.Mech;
 import java.util.Vector;
 import ssw.components.ifLoadout;
+import ssw.print.PrintMech;
 
 
 public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
@@ -24,13 +25,14 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
     private boolean Result = false;
 
     /** Creates new form dlgPrintSavedMechOptions */
-    public dlgPrintSavedMechOptions(java.awt.Frame parent, boolean modal, Mech m) {
+    public dlgPrintSavedMechOptions(java.awt.Frame parent, boolean modal, Mech m, String Warrior, int Gunnery, int Piloting) {
         super(parent, modal);
         initComponents();
         Parent = (frmMain) parent;
         CurMech = m;
-        cmbGunnery.setSelectedIndex( 4 );
-        cmbPiloting.setSelectedIndex( 5 );
+        txtWarriorName.setText( Warrior );
+        cmbGunnery.setSelectedIndex( Gunnery );
+        cmbPiloting.setSelectedIndex( Piloting );
         txtMechName.setText(CurMech.GetFullName());
         if( CurMech.IsOmnimech()){
             Vector Loadouts = CurMech.GetLoadouts();
@@ -54,6 +56,14 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
             cmbPaperSize.setSelectedIndex(1);
         }
 
+    }
+
+    public dlgPrintSavedMechOptions(java.awt.Frame parent, boolean modal, Mech m) {
+        this(parent, modal, m, "", 4, 5);
+    }
+
+    public dlgPrintSavedMechOptions(java.awt.Frame parent, boolean modal, PrintMech m) {
+        this(parent, modal, m.CurMech, m.getMechwarrior(), m.getGunnery(), m.getPiloting());
     }
 
     /** This method is called from within the constructor to

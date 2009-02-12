@@ -28,25 +28,35 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.print;
 
-public class PrintConsts {
-    public final static int MECHNAME = 0,
-                            WALKMP = 1,
-                            RUNMP = 2,
-                            JUMPMP = 3,
-                            TONNAGE = 4,
-                            TECH_CLAN = 5,
-                            TECH_IS = 6,
-                            PILOT_NAME = 7,
-                            PILOT_GUN = 8,
-                            PILOT_PILOT = 9,
-                            COST = 10,
-                            BV2 = 11,
-                            HEATSINK_NUMBER = 12,
-                            HEATSINK_DISSIPATION = 13,
-                            MAX_HEAT = 16,
-                            TOTAL_ARMOR = 17;
-    public final static String RS_TW_BP = "./rs/RS_TW_BP.png",
-                               RS_TW_QD = "./rs/RS_TW_QD.png",
-                               RS_TO_BP = "",
-                               RS_TO_QD = "";
+public class PaperSize {
+    public int PaperWidth;
+    public int PaperHeight;
+    public int ImageableX = 18;
+    public int ImageableY = 18;
+    public int ImageableWidth;
+    public int ImageableHeight;
+
+    public PaperSize(int pWidth, int pHeight, int iX, int iY, int iWidth, int iHeight) {
+        PaperWidth = pWidth;
+        PaperHeight = pHeight;
+        ImageableX = iX;
+        ImageableY = iY;
+        ImageableWidth = iWidth;
+        ImageableHeight = iHeight;
+    }
+
+    public PaperSize(int PixelWidth, int PixelHeight) {
+        this(PixelWidth, PixelHeight, 18, 18, PixelWidth-36, PixelHeight-36);
+    }
+
+    public PaperSize(double InchWidth, double InchHeight) {
+        PaperWidth = getInchesInPixels(InchWidth);
+        PaperHeight = getInchesInPixels(InchHeight);
+        ImageableWidth = ( PaperWidth - ( ImageableX * 2 ) );
+        ImageableHeight = ( PaperHeight - ( ImageableY * 2 ) );
+    }
+
+    private int getInchesInPixels(double Inch) {
+        return (int) Math.round((Inch / 0.0139));
+    }
 }
