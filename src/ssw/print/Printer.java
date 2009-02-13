@@ -30,6 +30,7 @@ package ssw.print;
 
 import java.util.Vector;
 import java.awt.print.*;
+import ssw.CommonTools;
 import ssw.components.Mech;
 import ssw.gui.*;
 
@@ -37,6 +38,7 @@ public class Printer {
     private frmMain Parent;
     private Vector Mechs = new Vector();
     private String jobName = "SSW Batch Print";
+    private Boolean Charts = true;
 
     private Book pages = new Book();
     private Paper paper = new Paper();
@@ -74,14 +76,30 @@ public class Printer {
         paper.setImageableArea( s.ImageableX, s.ImageableY, s.ImageableWidth, s.ImageableHeight );
     }
 
-    public void AddMech(Mech m, String Mechwarrior, int Gunnery, int Piloting) {
+    public Boolean getCharts() {
+        return Charts;
+    }
+
+    public void setCharts(Boolean Charts) {
+        this.Charts = Charts;
+    }
+
+    public void AddMech(Mech m, String Mechwarrior, int Gunnery, int Piloting, boolean Charts, boolean PilotInfo, boolean AdjBV) {
+        float BV = (float) m.GetCurrentBV();
+        if (AdjBV) BV = CommonTools.GetAdjustedBV(m.GetCurrentBV(), Gunnery, Piloting);
+
         PrintMech pm = new PrintMech(m);
         pm.SetPilotData(Mechwarrior, Gunnery, Piloting);
+        pm.SetOptions(Charts, PilotInfo, BV);
         Mechs.add(pm);
     }
 
+    public void AddMech(Mech m, String Mechwarrior, int Gunnery, int Piloting) {
+        AddMech(m, Mechwarrior, Gunnery, Piloting, true, true, true);
+    }
+
     public void AddMech(Mech m){
-        AddMech(m, "", 4, 5);
+        AddMech(m, "", 4, 5, true, true, true);
     }
 
     public void Print(Mech m) {
