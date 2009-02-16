@@ -247,6 +247,11 @@ public class CommonTools {
                 throw new Exception(  "A mech may mount only one set of talons." );
             }
         }
+        else if(a instanceof IndustrialEquipment){
+            if ( !((IndustrialEquipment) a).validate(m)){
+                throw new Exception( ((IndustrialEquipment) a).getValidationFalseMessage());
+            }
+        }
         // do we have equipment exclusions?
         if( a.GetExclusions() != null ) {
             try {
@@ -255,6 +260,7 @@ public class CommonTools {
                 throw e;
             }
         }
+
         // we haven't thrown any exceptions, must be fine
         return true;
     }

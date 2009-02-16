@@ -488,14 +488,18 @@ public class Mech {
         // set the mech to a biped
         Quad = false;
 
-        // remove the  any existing  physical weapons
+        // remove the any existing  physical weapons, and industrial equipment
         Vector v = CurLoadout.GetNonCore();
         for( int i = v.size() - 1; i >= 0; i-- ) {
             abPlaceable p = (abPlaceable) v.get( i );
             if( p instanceof PhysicalWeapon ) {
                 CurLoadout.Remove(p);
             }
+            else if (p instanceof IndustrialEquipment){
+                CurLoadout.Remove(p);
+            }
         }
+
         
         // replace everything into the new loadout
         CurGyro.Place( CurLoadout );
@@ -606,11 +610,15 @@ public class Mech {
         // set the mech to a quad
         Quad = true;
 
-        // remove the  any existing  physical weapons
+        // remove the  any existing  physical weapons and industrial equipment
         Vector v = CurLoadout.GetNonCore();
         for( int i = v.size() - 1; i >= 0; i-- ) {
             abPlaceable p = (abPlaceable) v.get( i );
             if( p instanceof PhysicalWeapon ) {
+                CurLoadout.Remove(p);
+            }
+            else if (p instanceof IndustrialEquipment)
+            {
                 CurLoadout.Remove(p);
             }
         }

@@ -38,12 +38,13 @@ public class DataFactory {
     Options GlobalOptions = new Options();
     Object[][] Equipment = { { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null } };
     WeaponFactory Weapons = null;
-    EquipmentFactory Equips = new EquipmentFactory();
+    EquipmentFactory Equips;
     AmmoFactory Ammo = new AmmoFactory();
 
     public DataFactory(Mech m){
         Weapons = new WeaponFactory( m, GlobalOptions );
         BuildLookupTable();
+        Equips = new EquipmentFactory (m);
     }
 
     public WeaponFactory GetWeapons() {

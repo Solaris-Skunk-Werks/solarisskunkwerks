@@ -64,7 +64,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                    GreenCol = new java.awt.Color( 0, 40, 0 );
     Object[][] Equipment = { { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null } };
     WeaponFactory Weapons = new WeaponFactory( CurMech, GlobalOptions );
-    EquipmentFactory Equips = new EquipmentFactory();
+    EquipmentFactory Equips = new EquipmentFactory(CurMech);
     AmmoFactory Ammo = new AmmoFactory();
     abPlaceable CurItem;
     JPopupMenu mnuCrits = new JPopupMenu();
@@ -7038,7 +7038,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         scrRACrits.setMinimumSize(new java.awt.Dimension(105, 87));
         scrRACrits.setPreferredSize(new java.awt.Dimension(105, 170));
 
-        lstRACrits.setFont(new java.awt.Font("Tahoma", 0, 10));
+        lstRACrits.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lstRACrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Right Arm", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }

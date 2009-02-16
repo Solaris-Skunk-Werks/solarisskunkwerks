@@ -310,7 +310,7 @@ public class WeaponFactory {
                     RetVal.remove( i );
                 }
             } else {
-                if( ! CommonTools.IsAllowed( AC, m ) ) {
+                if( ! CommonTools.IsAllowed( AC, m )) {
                     RetVal.remove( i );
                 }
             }
@@ -642,65 +642,80 @@ public class WeaponFactory {
         addPW = new Talons( Owner );
         CLPW.add( addPW );
 
+        boolean isClan = m.IsClan();
+        String techBaseCode = "IS";
+        if(isClan)
+            techBaseCode = "CL";
+        
         // Backhoe
-        a = new AvailableCode(false, 'B', 'B', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        addPW = new IndustrialPhysicalWeapon("Backhoe", "Backhoe", Owner, a);
+        a = new AvailableCode(isClan, 'B', 'B', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addPW = new IndustrialPhysicalWeapon("Backhoe", techBaseCode + "Backhoe", Owner, a);
         addPW.SetStats(0.0F, 0.0F, 5, 6);
         addPW.SetDamage(0.0f, 6);
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(50000, 8, 0);
         INPW.add(addPW);
 
         // Chainsaw
-        a = new AvailableCode(false, 'B', 'D', 'D', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        addPW = new IndustrialPhysicalWeapon("Chainsaw", "Chainsaw", Owner, a);
+        a = new AvailableCode(isClan, 'B', 'D', 'D', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addPW = new IndustrialPhysicalWeapon("Chainsaw", techBaseCode + "Chainsaw", Owner, a);
         addPW.SetStats(0.0F, 0.0F, 5, 5);
         addPW.SetDamage(0.0f, 5);
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 7, 0);
         INPW.add(addPW);
 
         // Combine
-        a = new AvailableCode(false, 'B', 'C', 'C', 'C', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        addPW = new IndustrialPhysicalWeapon("Combine", "Combine", Owner, a);
+        a = new AvailableCode(isClan, 'B', 'C', 'C', 'C', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addPW = new IndustrialPhysicalWeapon("Combine", techBaseCode + "Combine", Owner, a);
         addPW.SetStats(0.0F, 0.0F, 2.5f, 4);
         addPW.SetDamage(0.0f, 3);
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(75000, 5, 0);
         INPW.add(addPW);
         
-        // Dual Saw
-        a = new AvailableCode(false, 'C', 'D', 'D', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        addPW = new IndustrialPhysicalWeapon("Daul Saw", "Dual Saw", Owner, a);
+        // Daul Saw
+        a = new AvailableCode(isClan, 'C', 'D', 'D', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addPW = new IndustrialPhysicalWeapon("Daul Saw", techBaseCode + "DaulSaw", Owner, a);
         addPW.SetStats(0.0F, 0.0F, 7, 7);
         addPW.SetDamage(0.0f, 7);
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 9, 0);
         INPW.add(addPW);
         
         // Heavy Duty Pile-Driver
-        a = new AvailableCode(false, 'D', 'D', 'E', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        addPW = new IndustrialPhysicalWeapon("Heavy Duty Pile-Driver", "Heavy Duty Pile-Driver", Owner, a);
+        a = new AvailableCode(isClan, 'D', 'D', 'E', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addPW = new IndustrialPhysicalWeapon("Heavy Duty Pile-Driver", techBaseCode + "HeavyDutyPile-Driver", Owner, a);
         addPW.SetStats(0.0F, 0.0F, 10, 8);
         addPW.SetDamage(0.0f, 9);
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 9, 0);
         INPW.add(addPW);
         
         // Mining Drill
-        a = new AvailableCode(false, 'B', 'C', 'D', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        addPW = new IndustrialPhysicalWeapon("Mining Drill", "Mining Drill", Owner, a);
+        a = new AvailableCode(isClan, 'B', 'C', 'D', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addPW = new IndustrialPhysicalWeapon("Mining Drill", techBaseCode + "MiningDrill", Owner, a);
         addPW.SetStats(0.0F, 0.0F, 3, 4);
         addPW.SetDamage(0.0f, 4);
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 6, 0);
         INPW.add(addPW);
         
         // Rock Cutter
-        a = new AvailableCode(false, 'C', 'D', 'D', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        addPW = new IndustrialPhysicalWeapon("Rock Cutter", "Rock Cutter", Owner, a);
+        a = new AvailableCode(isClan, 'C', 'D', 'D', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addPW = new IndustrialPhysicalWeapon("Rock Cutter", techBaseCode + "RockCutter", Owner, a);
         addPW.SetStats(0.0F, 0.0F, 5, 5);
         addPW.SetDamage(0.0f, 5);
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 6, 0);
         INPW.add(addPW);
-        
+
+        // Salvage Arm
+        if (!m.IsQuad()){
+            a = new AvailableCode(isClan, 'D', 'E', 'F', 'E', 2452, 0, 0, "TH", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+            addPW = new IndustrialPhysicalWeapon("Salvage Arm", techBaseCode + "SalvageArm", Owner, a);
+            addPW.SetStats(0.0F, 0.0F, 3, 2);
+            addPW.SetDamage(0.0f, 0);
+            ((IndustrialPhysicalWeapon)addPW).SetSpecials(50000, 0,0);
+            INPW.add(addPW);
+        }
+
         // Spot Welder
-        a = new AvailableCode(false, 'C', 'C', 'D', 'C', 2320, 0, 0, "CC", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        addPW = new IndustrialPhysicalWeapon("Spot Welder", "Spot Welder", Owner, a);
+        a = new AvailableCode(isClan, 'C', 'C', 'D', 'C', 2320, 0, 0, "CC", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addPW = new IndustrialPhysicalWeapon("Spot Welder", techBaseCode + "SpotWelder", Owner, a);
         addPW.SetStats(0.0F, 0.0F, 2, 1);
         addPW.SetDamage(0.0f, 5);
         addPW.SetHeat(2);
@@ -708,8 +723,8 @@ public class WeaponFactory {
         INPW.add(addPW);
         
         // Wrecking Ball
-        a = new AvailableCode(false, 'A', 'C', 'C', 'C', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        addPW = new IndustrialPhysicalWeapon("Wrecking Ball", "Wrecking Ball", Owner, a);
+        a = new AvailableCode(isClan, 'A', 'C', 'C', 'C', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addPW = new IndustrialPhysicalWeapon("Wrecking Ball", techBaseCode + "WreckingBall", Owner, a);
         addPW.SetStats(0.0F, 0.0F, 4, 5);
         addPW.SetDamage(0.0f, 8);
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(80000, 8,0);
