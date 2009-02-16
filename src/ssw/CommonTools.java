@@ -193,7 +193,7 @@ public class CommonTools {
         return false;
     }
 
-    public static boolean CheckExclusions( abPlaceable a, Mech m ) throws Exception {
+/*    public static boolean CheckExclusions( abPlaceable a, Mech m ) throws Exception {
         if( a == null ) { return false; }
 
         // initialize
@@ -263,7 +263,7 @@ public class CommonTools {
 
         // we haven't thrown any exceptions, must be fine
         return true;
-    }
+    }*/
 
     public static float GetAdjustedBV( float BV, int Gunnery, int Piloting ) {
         return BV * BVMods[Gunnery][Piloting];

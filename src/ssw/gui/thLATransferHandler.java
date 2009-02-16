@@ -82,14 +82,14 @@ public class thLATransferHandler extends TransferHandler {
 
         if( DropItem.Locked ) {
             abPlaceable a = CurMech.GetLoadout().GetCrits( DropItem.Location )[DropItem.SourceIndex];
-            if( a instanceof CASEII || a instanceof MultiSlotSystem ) {
+            if( a instanceof CASEII || a instanceof MultiSlotSystem || a instanceof AESSystem ) {
                 if( DropItem.Location != Constants.LOC_LA ) {
                     return false;
                 } else {
                     // get the drop location
                     JList.DropLocation dl = (JList.DropLocation) info.getDropLocation();
                     int dindex = dl.getIndex();
-                    if( CurMech.GetLoadout().GetCrits( Constants.LOC_LA )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( Constants.LOC_LA )[dindex].LocationLinked() ) {
+                    if( ( CurMech.GetLoadout().GetCrits( Constants.LOC_LA )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( Constants.LOC_LA )[dindex].LocationLinked() ) && a != CurMech.GetLoadout().GetCrits( Constants.LOC_LA )[dindex] ) {
                         return false;
                     }
                     if( a instanceof CASEII ) {
@@ -98,6 +98,13 @@ public class thLATransferHandler extends TransferHandler {
                         }
                     } else if( a instanceof MultiSlotSystem ) {
                         if( CurMech.IsOmnimech() ) {
+                            return false;
+                        }
+                    } else if( a instanceof AESSystem ) {
+                        if( CurMech.IsOmnimech() ) {
+                            return false;
+                        }
+                        if( a.NumCrits() + dindex > CurMech.GetLoadout().GetCrits( Constants.LOC_LA ).length ) {
                             return false;
                         }
                     } else {

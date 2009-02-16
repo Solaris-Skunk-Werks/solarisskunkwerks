@@ -81,7 +81,10 @@ public class Mech {
                     HasChameleon = false,
                     HasBlueShield = false,
                     HasEnviroSealing = false,
-                    HasEjectionSeat = false;
+                    HasEjectionSeat = false,
+                    HasLAAES = false,
+                    HasRAAES = false,
+                    HasLegAES = false;
     private Engine CurEngine = new Engine( this );
     private ifLoadout MainLoadout = new BipedLoadout( Constants.BASELOADOUT_NAME, this ),
                     CurLoadout = MainLoadout;
@@ -98,6 +101,14 @@ public class Mech {
                             BlueShield,
                             EnviroSealing;
     private SimplePlaceable EjectionSeat;
+    private AESSystem LAAES = new AESSystem( this, false ),
+                      RAAES = new AESSystem( this, false ),
+                      FLLAES = new AESSystem( this, true ),
+                      FRLAES = new AESSystem( this, true ),
+                      LLAES = new AESSystem( this, true ),
+                      RLAES = new AESSystem( this, true ),
+                      CurLAAES,
+                      CurRAAES;
     private Options options = new Options();
 
     // Constructors
@@ -125,25 +136,30 @@ public class Mech {
         CurEngine.SetRating( 20 );
         CurLoadout.SetBaseLoadout( MainLoadout );
 
+        // Set the AES Systems to the default
+        CurLAAES = LAAES;
+        CurRAAES = RAAES;
+
         // load up some special equipment
-        AvailableCode AC = new AvailableCode( false, 'E', 'E', 'X', 'X', 2630, 2790, 0, "TH", "", true, false, 0, false, "", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        AvailableCode AC = new AvailableCode( false, 'E', 'E', 'X', 'X', 2630, 2790, 0, "TH", "", true, false, 0, false, "", Constants.EXPERIMENTAL, Constants.UNALLOWED );
         NullSig = new MultiSlotSystem( this, "Null Signature System", "NullSignatureSystem", 0.0f, false, true, 1400000.0f, false, AC );
         NullSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 10, 0.2f, 0.0f, 0.0f, 0.0f, true ) );
         NullSig.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Void Signature System", "Stealth Armor", "C3" }, "Null Signature System" ) );
-        AC = new AvailableCode( false, 'E', 'F', 'X', 'X', 2630, 2790, 0, "TH", "", true, false, 0, false, "", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        AC = new AvailableCode( false, 'E', 'F', 'X', 'X', 2630, 2790, 0, "TH", "", true, false, 0, false, "", Constants.EXPERIMENTAL, Constants.UNALLOWED );
         Chameleon = new MultiSlotSystem( this, "Chameleon LPS", "ChameleonLightPolarizationField", 0.0f, true, true, 600000.0f, false, AC );
         Chameleon.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 6, 0.2f, 0.0f, 0.0f, 0.0f, true ) );
         Chameleon.SetExclusions( new Exclusion( new String[] { "Void Signature System", "Stealth Armor" }, "Chameleon LPS" ) );
         AC = new AvailableCode( false, 'E', 'X', 'X', 'F', 3053, 0, 0, "FS", "", false, false, 3051, true, "FS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         BlueShield = new MultiSlotSystem( this, "Blue Shield PFD", "BlueShieldPFD", 3.0f, false, true, 1000000.0f, false, AC );
         BlueShield.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 0, 0.0f, 0.0f, 0.2f, 0.2f, true ) );
-        AC = new AvailableCode( false, 'E', 'X', 'X', 'E', 3070, 0, 0, "WB", "", false, false, 3060, true, "WB", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        AC = new AvailableCode( false, 'E', 'X', 'X', 'E', 3070, 0, 0, "WB", "", false, false, 3060, true, "WB", Constants.EXPERIMENTAL, Constants.UNALLOWED );
         VoidSig = new MultiSlotSystem( this, "Void Signature System", "VoidSignatureSystem", 0.0f, false, true, 2000000.0f, false, AC );
         VoidSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 10, 0.0f, 1.3f, 0.0f, 0.0f, true ) );
         VoidSig.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Null Signature System", "Stealth Armor", "C3", "Chameleon LPS" }, "Void Signature System" ) );
         AC = new AvailableCode( false, 'C', 'C', 'C', 'C', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.UNALLOWED, Constants.TOURNAMENT );
-        EnviroSealing = new MultiSlotSystem( this, "Environmental Sealing", "Environmental Sealing", 0.0f, false, false, 225.0f, true, AC );
-        AC = new AvailableCode( false, 'C', 'D', 'E', 'F', 2445, 0, 0, "TH", "", false, false, 0, false, "", Constants.UNALLOWED, Constants.TOURNAMENT );
+        EnviroSealing = new MultiSlotSystem( this, "Environmental Sealing", "Environmental Sealing", 0.1f, false, false, 225.0f, true, AC );
+        EnviroSealing.SetWeightBasedOnMechTonnage( true );
+        AC = new AvailableCode( false, 'B', 'D', 'E', 'F', 2445, 0, 0, "TH", "", false, false, 0, false, "", Constants.UNALLOWED, Constants.TOURNAMENT );
         EjectionSeat = new SimplePlaceable( "Ejection Seat", "EjectionSeat", 1, true, AC );
         EjectionSeat.SetTonnage( 0.5f );
         EjectionSeat.SetCost( 25000.0f );
@@ -488,6 +504,13 @@ public class Mech {
         // set the mech to a biped
         Quad = false;
 
+        // remove the AES system entirely
+        CurLAAES = LAAES;
+        CurRAAES = RAAES;
+        HasRAAES = false;
+        HasLAAES = false;
+        HasLegAES = false;
+
         // remove the any existing  physical weapons, and industrial equipment
         Vector v = CurLoadout.GetNonCore();
         for( int i = v.size() - 1; i >= 0; i-- ) {
@@ -609,6 +632,13 @@ public class Mech {
 
         // set the mech to a quad
         Quad = true;
+
+        // remove the AES system entirely
+        CurLAAES = FLLAES;
+        CurRAAES = FRLAES;
+        HasRAAES = false;
+        HasLAAES = false;
+        HasLegAES = false;
 
         // remove the  any existing  physical weapons and industrial equipment
         Vector v = CurLoadout.GetNonCore();
@@ -1035,7 +1065,15 @@ public class Mech {
         if( ! CurEngine.IsNuclear() ) { result += CurLoadout.GetPowerAmplifier().GetTonnage(); }
         if( HasBlueShield ) { result += BlueShield.GetTonnage(); }
         if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
+        if( HasEnviroSealing ) { result += EnviroSealing.GetTonnage(); }
         if( HasEjectionSeat ) { result += EjectionSeat.GetTonnage(); }
+        if( Quad ) {
+            if( HasLegAES ) { result += RLAES.GetTonnage() * 4.0f; }
+        } else {
+            if( HasRAAES ) { result += CurRAAES.GetTonnage(); }
+            if( HasLAAES ) { result += CurLAAES.GetTonnage(); }
+            if( HasLegAES ) { result += RLAES.GetTonnage() * 2.0f; }
+        }
 
         Vector v = CurLoadout.GetNonCore();
         if( v.size() > 0 ) {
@@ -1074,7 +1112,15 @@ public class Mech {
         if( ! CurEngine.IsNuclear() ) { result += CurLoadout.GetPowerAmplifier().GetTonnage(); }
         if( HasBlueShield ) { result += BlueShield.GetTonnage(); }
         if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
+        if( HasEnviroSealing ) { result += EnviroSealing.GetTonnage(); }
         if( HasEjectionSeat ) { result += EjectionSeat.GetTonnage(); }
+        if( Quad ) {
+            if( HasLegAES ) { result += RLAES.GetTonnage() * 4.0f; }
+        } else {
+            if( HasRAAES ) { result += CurRAAES.GetTonnage(); }
+            if( HasLAAES ) { result += CurLAAES.GetTonnage(); }
+            if( HasLegAES ) { result += RLAES.GetTonnage() * 2.0f; }
+        }
 
         Vector v = CurLoadout.GetNonCore();
         if( v.size() > 0 ) {
@@ -1712,7 +1758,8 @@ public class Mech {
     public float GetHeatAdjustedWeaponBV() {
         Vector v = CurLoadout.GetNonCore(), wep = new Vector();
         float result = 0.0f, foreBV = 0.0f, rearBV = 0.0f;
-        boolean UseRear = false;
+        boolean UseRear = false, TC = UsingTC(), UseAESMod = false;
+        abPlaceable a;
 
         // is it even worth performing all this?
         if( v.size() <= 0 ) {
@@ -1733,14 +1780,15 @@ public class Mech {
         // now get the mech's heat efficiency and the total heat from weapons
         int heff = 6 + GetHeatSinks().TotalDissipation() - GetBVMovementHeat();
         int wheat = GetBVWeaponHeat();
-        float TCTotal = 0.0f;
 
         // find out the total BV of rear and forward firing weapons
         for( int i = 0; i < wep.size(); i++ ) {
-            if( ((abPlaceable) wep.get( i )).IsMountedRear() ) {
-                rearBV += ((abPlaceable) wep.get( i )).GetOffensiveBV();
+            a = ((abPlaceable) wep.get( i ));
+            UseAESMod = UseAESModifier( a );
+            if( a.IsMountedRear() ) {
+                rearBV += a.GetCurOffensiveBV( false, TC, UseAESMod );
             } else {
-                foreBV += ((abPlaceable) wep.get( i )).GetOffensiveBV();
+                foreBV += a.GetCurOffensiveBV( false, TC, UseAESMod );
             }
         }
         if( rearBV > foreBV ) { UseRear = true; }
@@ -1749,14 +1797,9 @@ public class Mech {
         if( heff - wheat >= 0 ) {
             // no need for extensive calculations, return the weapon BV
             for( int i = 0; i < wep.size(); i++ ) {
-                result += ((abPlaceable) wep.get( i )).GetCurOffensiveBV( UseRear );
-                if( ((ifWeapon) wep.get( i )).IsTCCapable() ) {
-                    TCTotal += ((abPlaceable) wep.get( i )).GetCurOffensiveBV( UseRear );
-                }
-            }
-            if( CurLoadout.UsingTC() ) {
-                TCTotal = TCTotal * 0.25f;
-                result += TCTotal;
+                a = ((abPlaceable) wep.get( i ));
+                UseAESMod = UseAESModifier( a );
+                result += a.GetCurOffensiveBV( UseRear, TC, UseAESMod );
             }
             return result;
         }
@@ -1767,29 +1810,17 @@ public class Mech {
         // calculate the BV of the weapons based on heat
         int curheat = 0;
         for( int i = 0; i < sorted.length; i++ ) {
+            UseAESMod = UseAESModifier( sorted[i] );
             if( curheat < heff ) {
-                result += sorted[i].GetCurOffensiveBV( UseRear );
-                if( ((ifWeapon) sorted[i]).IsTCCapable() ) {
-                    TCTotal += sorted[i].GetCurOffensiveBV( UseRear );
-                }
+                result += sorted[i].GetCurOffensiveBV( UseRear, UsingTC(), UseAESMod );
             } else {
                 if( ((ifWeapon) sorted[i]).GetBVHeat() <= 0 ) {
-                    result += sorted[i].GetCurOffensiveBV( UseRear );
-                    if( ((ifWeapon) sorted[i]).IsTCCapable() ) {
-                        TCTotal += sorted[i].GetCurOffensiveBV( UseRear );
-                    }
+                    result += sorted[i].GetCurOffensiveBV( UseRear, UsingTC(), UseAESMod );
                 } else {
-                    result += sorted[i].GetCurOffensiveBV( UseRear ) * 0.5f;
-                    if( ((ifWeapon) sorted[i]).IsTCCapable() ) {
-                        TCTotal += sorted[i].GetCurOffensiveBV( UseRear ) * 0.5f;
-                    }
+                    result += sorted[i].GetCurOffensiveBV( UseRear, UsingTC(), UseAESMod ) * 0.5f;
                 }
             }
             curheat += ((ifWeapon) sorted[i]).GetBVHeat();
-        }
-        if( CurLoadout.UsingTC() ) {
-            TCTotal = TCTotal * 0.25f;
-            result += TCTotal;
         }
         return result;
     }
@@ -1878,7 +1909,19 @@ public class Mech {
         if( CurPhysEnhance.IsTSM() ) {
             return CurPhysEnhance.GetOffensiveBV();
         } else {
-            return Tonnage;
+            if( Quad ) {
+                if( HasLegAES ) {
+                    return Tonnage * 1.4f;
+                } else {
+                    return Tonnage;
+                }
+            } else {
+                float AESMod = 1.0f;
+                if( HasLAAES ) { AESMod += 0.1f; }
+                if( HasRAAES ) { AESMod += 0.1f; }
+                if( HasLegAES ) { AESMod += 0.2f; }
+                return Tonnage * AESMod;
+            }
         }
     }
 
@@ -1984,6 +2027,13 @@ public class Mech {
         if( HasBlueShield() ) { ChassisCost += BlueShield.GetCost(); }
         if( HasEnviroSealing() ) { ChassisCost += EnviroSealing.GetCost(); }
         if( HasEjectionSeat ) { ChassisCost += EjectionSeat.GetCost(); }
+        if( Quad ) {
+            if( HasLegAES ) { ChassisCost += RLAES.GetCost() * 4.0f; }
+        } else {
+            if( HasRAAES ) { ChassisCost += CurRAAES.GetCost(); }
+            if( HasLAAES ) { ChassisCost += CurLAAES.GetCost(); }
+            if( HasLegAES ) { ChassisCost += RLAES.GetCost() * 2.0f; }
+        }
 
         // same goes for the targeting computer and supercharger
         if( CurLoadout.UsingTC() ) {
@@ -2532,6 +2582,268 @@ public class Mech {
         return EjectionSeat;
     }
 
+    public void SetLAAES( boolean set, int index ) throws Exception {
+        if( set == HasLAAES ) { return; }
+        if( IsQuad() ) {
+            throw new Exception( "A quad 'Mech may not mount arm-based A.E.S. systems." );
+        }
+        if( set ) {
+            try {
+                MainLoadout.CheckExclusions( LAAES );
+            } catch( Exception e ) {
+                throw e;
+            }
+            if( index < 0 ) {
+                // plop it in the arm where it'll fit.
+                CurLoadout.AddToLA( CurLAAES );
+                HasLAAES = true;
+            } else {
+                // we have a specific location in mind here
+                CurLoadout.AddToLA( CurLAAES, index );
+                HasLAAES = true;
+            }
+        } else {
+            CurLoadout.Remove( CurLAAES );
+            HasLAAES = false;
+        }
+    }
+
+    public boolean HasLAAES() {
+        return HasLAAES;
+    }
+
+    public AESSystem GetLAAES() {
+        return CurLAAES;
+    }
+
+    public void SetRAAES( boolean set, int index ) throws Exception {
+        if( set == HasRAAES ) { return; }
+        if( IsQuad() ) {
+            throw new Exception( "A quad 'Mech may not mount arm-based A.E.S. systems." );
+        }
+        if( set ) {
+            try {
+                MainLoadout.CheckExclusions( RAAES );
+            } catch( Exception e ) {
+                throw e;
+            }
+            if( index < 0 ) {
+                // plop it in the arm where it'll fit.
+                CurLoadout.AddToRA( CurRAAES );
+                HasRAAES = true;
+            } else {
+                // we have a specific location in mind here
+                CurLoadout.AddToRA( CurRAAES, index );
+                HasRAAES = true;
+            }
+        } else {
+            CurLoadout.Remove( CurRAAES );
+            HasRAAES = false;
+        }
+    }
+
+    public boolean HasRAAES() {
+        return HasRAAES;
+    }
+
+    public AESSystem GetRAAES() {
+        return CurRAAES;
+    }
+
+    public void SetLegAES( boolean set, LocationIndex[] Loc ) throws Exception {
+        if( set == HasLegAES ) { return; }
+        boolean FRL = false, FLL = false, RL = false, LL = false;
+        if( IsQuad() ) {
+            if( set ) {
+                try {
+                    MainLoadout.CheckExclusions( LAAES );
+                } catch( Exception e ) {
+                    throw e;
+                }
+                if( Loc != null ) {
+                    try {
+                        // we've got some locations, go through them and adjust for
+                        // any missing locations
+                        for( int i = 0; i < Loc.length; i++ ) {
+                            switch( Loc[i].Location ) {
+                                case Constants.LOC_RA:
+                                    if( FRL ) {
+                                        throw new Exception( "The 'Mech already has an AES system in the FRL.\nAES System will not be installed." );
+                                    } else {
+                                        CurLoadout.AddToRA( CurRAAES, Loc[i].Index );
+                                        FRL = true;
+                                    }
+                                    break;
+                                case Constants.LOC_LA:
+                                    if( FLL ) {
+                                        throw new Exception( "The 'Mech already has an AES system in the FLL.\nAES System will not be installed." );
+                                    } else {
+                                        CurLoadout.AddToLA( CurLAAES, Loc[i].Index );
+                                        FLL = true;
+                                    }
+                                    break;
+                                case Constants.LOC_RL:
+                                    if( RL ) {
+                                        throw new Exception( "The 'Mech already has an AES system in the RL.\nAES System will not be installed." );
+                                    } else {
+                                        CurLoadout.AddToRL( RLAES, Loc[i].Index );
+                                        RL = true;
+                                    }
+                                    break;
+                                case Constants.LOC_LL:
+                                    if( LL ) {
+                                        throw new Exception( "The 'Mech already has an AES system in the LL.\nAES System will not be installed." );
+                                    } else {
+                                        CurLoadout.AddToLL( LLAES, Loc[i].Index );
+                                        LL = true;
+                                    }
+                                    break;
+                            }
+                        }
+
+                        // now handle any locations we don't have
+                        if( ! FRL ) {
+                            CurLoadout.AddToRA( CurRAAES );
+                        }   
+                        if( ! FLL ) {
+                            CurLoadout.AddToLA( CurLAAES );
+                        }
+                        if( ! RL ) {
+                            CurLoadout.AddToRL( RLAES );
+                        }
+                        if( ! LL ) {
+                            CurLoadout.AddToLL( LLAES );
+                        }
+                    } catch( Exception e ) {
+                        // remove all the leg AES systems in the 'Mech
+                        CurLoadout.Remove( FRLAES );
+                        CurLoadout.Remove( FLLAES );
+                        CurLoadout.Remove( RLAES );
+                        CurLoadout.Remove( LLAES );
+                        HasLegAES = false;
+                        throw e;
+                    }
+
+                    // looks like everything worked out well
+                    HasLegAES = true;
+                } else {
+                    // no locations so just plop them in
+                    try {
+                        CurLoadout.AddToRA( CurRAAES );
+                        CurLoadout.AddToLA( CurLAAES );
+                        CurLoadout.AddToRL( RLAES );
+                        CurLoadout.AddToLL( LLAES );
+                        HasLegAES = true;
+                    } catch( Exception e ) {
+                        // remove all the leg AES systems in the 'Mech
+                        CurLoadout.Remove( FRLAES );
+                        CurLoadout.Remove( FLLAES );
+                        CurLoadout.Remove( RLAES );
+                        CurLoadout.Remove( LLAES );
+                        HasLegAES = false;
+                        throw e;
+                    }
+                }
+            } else {
+                // remove all the leg AES systems in the 'Mech
+                CurLoadout.Remove( FRLAES );
+                CurLoadout.Remove( FLLAES );
+                CurLoadout.Remove( RLAES );
+                CurLoadout.Remove( LLAES );
+                HasLegAES = false;
+            }
+        } else {
+            if( set ) {
+                try {
+                    MainLoadout.CheckExclusions( LAAES );
+                } catch( Exception e ) {
+                    throw e;
+                }
+                if( Loc != null ) {
+                    try {
+                        // we've got some locations, go through them and adjust for
+                        // any missing locations
+                        for( int i = 0; i < Loc.length; i++ ) {
+                            switch( Loc[i].Location ) {
+                                case Constants.LOC_RL:
+                                    if( RL ) {
+                                        throw new Exception( "The 'Mech already has an AES system in the RL.\nAES System will not be installed." );
+                                    } else {
+                                        CurLoadout.AddToRL( RLAES, Loc[i].Index );
+                                        RL = true;
+                                    }
+                                    break;
+                                case Constants.LOC_LL:
+                                    if( LL ) {
+                                        throw new Exception( "The 'Mech already has an AES system in the LL.\nAES System will not be installed." );
+                                    } else {
+                                        CurLoadout.AddToLL( LLAES, Loc[i].Index );
+                                        LL = true;
+                                    }
+                                    break;
+                            }
+                        }
+
+                        // now handle any locations we don't have
+                        if( ! RL ) {
+                            CurLoadout.AddToRL( RLAES );
+                        }
+                        if( ! LL ) {
+                            CurLoadout.AddToLL( LLAES );
+                        }
+                    } catch( Exception e ) {
+                        // remove all the leg AES systems in the 'Mech
+                        CurLoadout.Remove( RLAES );
+                        CurLoadout.Remove( LLAES );
+                        HasLegAES = false;
+                        throw e;
+                    }
+
+                    // looks like everything worked out well
+                    HasLegAES = true;
+                } else {
+                    // no locations so just plop them in
+                    try {
+                        CurLoadout.AddToRL( RLAES );
+                        CurLoadout.AddToLL( LLAES );
+                        HasLegAES = true;
+                    } catch( Exception e ) {
+                        // remove all the leg AES systems in the 'Mech
+                        CurLoadout.Remove( RLAES );
+                        CurLoadout.Remove( LLAES );
+                        HasLegAES = false;
+                        throw e;
+                    }
+                }
+            } else {
+                // remove all the leg AES systems in the 'Mech
+                CurLoadout.Remove( RLAES );
+                CurLoadout.Remove( LLAES );
+                HasLegAES = false;
+            }
+        }
+    }
+
+    public boolean HasLegAES() {
+        return HasLegAES;
+    }
+
+    public AESSystem GetFRLAES() {
+        return FRLAES;
+    }
+
+    public AESSystem GetFLLAES() {
+        return FLLAES;
+    }
+
+    public AESSystem GetRLAES() {
+        return RLAES;
+    }
+
+    public AESSystem GetLLAES() {
+        return LLAES;
+    }
+
     public void CheckPhysicals() {
         // unallocates physical weapons, especially if the tonnage changes
         // we'll also check to see if the mech is a quad and remove the weapons
@@ -2603,6 +2915,9 @@ public class Mech {
         if( HasEnviroSealing() ) {
             AC.Combine( EnviroSealing.GetAvailability() );
         }
+        if( HasEjectionSeat() ) {
+            AC.Combine( EjectionSeat.GetAvailability() );
+        }
 
         // now adjust for the era.
         if( Era == Constants.SUCCESSION ) {
@@ -2624,10 +2939,13 @@ public class Mech {
         // will have better results at this time, and mechs typically don't
         // carry more than twelve to fifteen weapons.  I'll have to test this.
         int i = 1, j = 2;
+        boolean TC = UsingTC();
         Object swap;
         while( i < v.size() ) {
             // get the two items we'll be comparing
-            if( ((abPlaceable) v.get( i - 1 )).GetCurOffensiveBV( rear ) >= ((abPlaceable) v.get( i )).GetCurOffensiveBV( rear ) ) {
+            boolean AES1 = UseAESModifier( ((abPlaceable) v.get( i - 1 )) );
+            boolean AES2 = UseAESModifier( ((abPlaceable) v.get( i )) );
+            if( ((abPlaceable) v.get( i - 1 )).GetCurOffensiveBV( rear, TC, AES1 ) >= ((abPlaceable) v.get( i )).GetCurOffensiveBV( rear, TC, AES2 ) ) {
                 i = j;
                 j += 1;
             } else {
@@ -2645,7 +2963,9 @@ public class Mech {
         // weapons take precedence
         i = 1;
         while( i < v.size() ) {
-            if( ((abPlaceable) v.get( i - 1 )).GetCurOffensiveBV( rear ) == ((abPlaceable) v.get( i )).GetCurOffensiveBV( rear ) ) {
+            boolean AES1 = UseAESModifier( ((abPlaceable) v.get( i - 1 )) );
+            boolean AES2 = UseAESModifier( ((abPlaceable) v.get( i )) );
+            if( ((abPlaceable) v.get( i - 1 )).GetCurOffensiveBV( rear, TC, AES1 ) == ((abPlaceable) v.get( i )).GetCurOffensiveBV( rear, TC, AES2 ) ) {
                 if( rear ) {
                     if( ((abPlaceable) v.get( i - 1 )).IsMountedRear() &! ((abPlaceable) v.get( i )).IsMountedRear() ) {
                         swap = v.get( i - 1 );
@@ -2678,6 +2998,72 @@ public class Mech {
         }
 
         return result;
+    }
+
+    public boolean UseAESModifier( abPlaceable a ) {
+        if( ! ( a instanceof ifWeapon ) ) { return false; }
+        if( HasLegAES || HasRAAES || HasLAAES ) {
+            if( a.CanSplit() ) {
+                Vector v = CurLoadout.FindSplitIndex( a );
+                if( v.size() > 1 || v.size() < 1 ) { return false; }
+                int test = ((LocationIndex) v.get( 0 )).Location;
+                if( Quad ) {
+                    if( HasLegAES && ( test == Constants.LOC_RL || test == Constants.LOC_LL || test == Constants.LOC_RA || test == Constants.LOC_LA ) ) {
+                        if( a instanceof PhysicalWeapon ) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                } else {
+                    if( HasLegAES && ( test == Constants.LOC_RL || test == Constants.LOC_LL ) ) {
+                        if( a instanceof PhysicalWeapon ) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                    if( HasRAAES && test == Constants.LOC_RA ) {
+                        return true;
+                    }
+                    if( HasLAAES && test == Constants.LOC_LA ) {
+                        return true;
+                    }
+                }
+            } else {
+                int test = CurLoadout.Find( a );
+                if( Quad ) {
+                    if( HasLegAES && ( test == Constants.LOC_RL || test == Constants.LOC_LL || test == Constants.LOC_RA || test == Constants.LOC_LA ) ) {
+                        if( a instanceof PhysicalWeapon ) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                } else {
+                    if( HasLegAES && ( test == Constants.LOC_RL || test == Constants.LOC_LL ) ) {
+                        if( a instanceof PhysicalWeapon ) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                    if( HasRAAES && test == Constants.LOC_RA ) {
+                        return true;
+                    }
+                    if( HasLAAES && test == Constants.LOC_LA ) {
+                        return true;
+                    }
+                }
+            }
+        } else {
+            return false;
+        }
+        return false;
     }
 
     public Vector GetMechMods() {

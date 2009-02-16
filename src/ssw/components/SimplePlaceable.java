@@ -89,7 +89,7 @@ public class SimplePlaceable extends abPlaceable {
         return 0.0f;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear ) {
+    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         return 0.0f;
     }
 

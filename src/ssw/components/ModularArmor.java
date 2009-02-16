@@ -93,7 +93,7 @@ public class ModularArmor extends abPlaceable {
     }
 
     @Override
-    public float GetCurOffensiveBV( boolean UseRear ) {
+    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         return GetOffensiveBV();
     }
 

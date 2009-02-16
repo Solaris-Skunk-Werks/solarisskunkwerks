@@ -190,7 +190,7 @@ public class TXTWriter {
             }
         }
         retval += String.format( "Era: %1$-56s Cost: %2$,.0f", DecodeEra(), Math.floor( CurMech.GetTotalCost() + 0.5f ) ) + NL;
-        retval += String.format( "Availability: %1$-48s BV2: %2$,d", CurMech.GetAvailability().GetShortenedCode(), CurMech.GetCurrentBV() ) + NL + NL;
+        retval += String.format( "Tech Rating/Era Availability: %1$-32s BV2: %2$,d", CurMech.GetAvailability().GetShortenedCode(), CurMech.GetCurrentBV() ) + NL + NL;
         retval += "Equipment           Type                         Rating                   Mass  " + NL;
         retval += "--------------------------------------------------------------------------------" + NL;
         retval += String.format( "Internal Structure: %1$-28s %2$3s points              %3$6.2f", CurMech.GetIntStruc().GetCritName(), CurMech.GetIntStruc().GetTotalPoints(), CurMech.GetIntStruc().GetTonnage() ) + NL;
@@ -301,6 +301,9 @@ public class TXTWriter {
         }
         if( CurMech.IsOmnimech() ) {
             Vector l = CurMech.GetLoadouts();
+            CurMech.SetCurLoadout( Constants.BASELOADOUT_NAME );
+            retval += NL + "================================================================================" + NL;
+            retval += BuildEquipmentBlock() + NL;
             for( int i = 0; i < l.size(); i++ ) {
                 CurMech.SetCurLoadout( ((ifLoadout) l.get( i )).GetName() );
                 retval += NL + "================================================================================" + NL;
@@ -483,6 +486,25 @@ public class TXTWriter {
         if( CurMech.GetLoadout().HasSupercharger() ) {
             v.add( CurMech.GetLoadout().GetSupercharger() );
         }
+        if( CurMech.IsQuad() ) {
+            if( CurMech.HasLegAES() ) {
+                v.add( CurMech.GetRAAES() );
+                v.add( CurMech.GetLAAES() );
+                v.add( CurMech.GetRLAES() );
+                v.add( CurMech.GetLLAES() );
+            }
+        } else {
+            if( CurMech.HasRAAES() ) {
+                v.add( CurMech.GetRAAES() );
+            }
+            if( CurMech.HasLAAES() ){
+                v.add( CurMech.GetLAAES() );
+            }
+            if( CurMech.HasLegAES() ) {
+                v.add( CurMech.GetRLAES() );
+                v.add( CurMech.GetLLAES() );
+            }
+        }
 
         // now sort the equipment by location
         v = FileCommon.SortEquipmentForStats( CurMech, v, MyOptions );
@@ -597,7 +619,7 @@ public class TXTWriter {
             }
         }
         retval += String.format( "Loadout: %1$-52s Cost: %2$,.0f", CurMech.GetLoadout().GetName(), Math.floor( CurMech.GetTotalCost() + 0.5f ) ) + NL;
-        retval += String.format( "Availability: %1$-48s BV2: %2$,d", CurMech.GetAvailability().GetShortenedCode(), CurMech.GetCurrentBV() ) + NL;
+        retval += String.format( "Tech Rating/Era Availability: %1$-32s BV2: %2$,d", CurMech.GetAvailability().GetShortenedCode(), CurMech.GetCurrentBV() ) + NL;
 
         // build the starting block for the loadout information
         retval += NL + "Equipment           Type                         Rating                   Mass  " + NL;
@@ -647,6 +669,7 @@ public class TXTWriter {
 
         // the basic equipment block header
         retval += NL + "Equipment                                        Location     Critical    Mass  " + NL;
+        retval += "--------------------------------------------------------------------------------" + NL;
 
         for( int i = 0; i < v.size(); i++ ) {
             // get the equipment and find out where it lives

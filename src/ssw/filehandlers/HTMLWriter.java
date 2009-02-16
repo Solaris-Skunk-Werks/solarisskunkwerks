@@ -908,6 +908,25 @@ public class HTMLWriter {
             if( CurMech.GetLoadout().HasSupercharger() ) {
                 ret.add( CurMech.GetLoadout().GetSupercharger() );
             }
+            if( CurMech.IsQuad() ) {
+                if( CurMech.HasLegAES() ) {
+                    ret.add( CurMech.GetRAAES() );
+                    ret.add( CurMech.GetLAAES() );
+                    ret.add( CurMech.GetRLAES() );
+                    ret.add( CurMech.GetLLAES() );
+                }
+            } else {
+                if( CurMech.HasRAAES() ) {
+                    ret.add( CurMech.GetRAAES() );
+                }
+                if( CurMech.HasLAAES() ) {
+                    ret.add( CurMech.GetLAAES() );
+                }
+                if( CurMech.HasLegAES() ) {
+                    ret.add( CurMech.GetRLAES() );
+                    ret.add( CurMech.GetLLAES() );
+                }
+            }
 
             // sort the weapons by location
             ret = FileCommon.SortEquipmentForStats( CurMech, ret, MyOptions );

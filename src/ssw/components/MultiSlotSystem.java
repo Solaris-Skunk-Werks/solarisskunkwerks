@@ -38,7 +38,8 @@ public class MultiSlotSystem extends abPlaceable {
     private int DefensiveBonus = 0;
     private boolean ExcludeCT,
                     ExcludeHD,
-                    CostTons;
+                    CostTons,
+                    BasedOnMechTons = false;
     private String CritName,
                    MMName;
     private Mech Owner;
@@ -79,9 +80,17 @@ public class MultiSlotSystem extends abPlaceable {
         }
     }
 
+    public void SetWeightBasedOnMechTonnage( boolean b ) {
+        BasedOnMechTons = b;
+    }
+
     @Override
     public float GetTonnage() {
-        return Tonnage;
+        if( BasedOnMechTons ) {
+            return Owner.GetTonnage() * Tonnage;
+        } else {
+            return Tonnage;
+        }
     }
 
     @Override
@@ -99,7 +108,7 @@ public class MultiSlotSystem extends abPlaceable {
     }
 
     @Override
-    public float GetCurOffensiveBV( boolean UseRear ) {
+    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         return 0.0f;
     }
 

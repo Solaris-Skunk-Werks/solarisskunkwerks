@@ -121,7 +121,7 @@ public class Ammunition extends abPlaceable {
         return OffBV;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear ) {
+    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         return GetOffensiveBV();
     }
 

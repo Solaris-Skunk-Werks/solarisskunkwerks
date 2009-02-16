@@ -414,70 +414,133 @@ public class QuadLoadout implements ifLoadout {
 
     public void AddToCT( abPlaceable p ) throws Exception {
         // adds the specified item into the next available slot in the center torso
-        for( int i = CTCrits.length - 1; i >= 0; i-- ) {
-            if( CTCrits[i] == NoItem ) {
-                AddToCT( p, i );
-                break;
+        if( p.Contiguous() ) {
+            for( int i = 0; i < CTCrits.length; i++ ) {
+                if( CTCrits[i] == NoItem ) {
+                    AddToCT( p, i );
+                    break;
+                }
+            }
+        } else {
+            for( int i = CTCrits.length - 1; i >= 0; i-- ) {
+                if( CTCrits[i] == NoItem ) {
+                    AddToCT( p, i );
+                    break;
+                }
             }
         }
     }
 
     public void AddToLT( abPlaceable p ) throws Exception {
         // adds the specified item into the next available slot in the left torso
-        for( int i = LTCrits.length - 1; i >= 0; i-- ) {
-            if( LTCrits[i] == NoItem ) {
-                AddToLT( p, i );
-                break;
+        if( p.Contiguous() ) {
+            for( int i = 0; i < LTCrits.length; i++ ) {
+                if( LTCrits[i] == NoItem ) {
+                    AddToLT( p, i );
+                    break;
+                }
+            }
+        } else {
+            for( int i = LTCrits.length - 1; i >= 0; i-- ) {
+                if( LTCrits[i] == NoItem ) {
+                    AddToLT( p, i );
+                    break;
+                }
             }
         }
     }
 
     public void AddToRT( abPlaceable p ) throws Exception {
         // adds the specified item into the next available slot in the right torso
-        for( int i = RTCrits.length - 1; i >= 0; i-- ) {
-            if( RTCrits[i] == NoItem ) {
-                AddToRT( p, i );
-                break;
+        if( p.Contiguous() ) {
+            for( int i = 0; i < RTCrits.length; i++ ) {
+                if( RTCrits[i] == NoItem ) {
+                    AddToRT( p, i );
+                    break;
+                }
+            }
+        } else {
+            for( int i = RTCrits.length - 1; i >= 0; i-- ) {
+                if( RTCrits[i] == NoItem ) {
+                    AddToRT( p, i );
+                    break;
+                }
             }
         }
     }
 
     public void AddToLA( abPlaceable p ) throws Exception {
         // adds the specified item into the next available slot in the left arm
-        for( int i = LACrits.length - 1; i >= 0; i-- ) {
-            if( LACrits[i] == NoItem ) {
-                AddToLA( p, i );
-                break;
+        if( p.Contiguous() ) {
+            for( int i = 0; i < LACrits.length; i++ ) {
+                if( LACrits[i] == NoItem ) {
+                    AddToLA( p, i );
+                    break;
+                }
+            }
+        } else {
+            for( int i = LACrits.length - 1; i >= 0; i-- ) {
+                if( LACrits[i] == NoItem ) {
+                    AddToLA( p, i );
+                    break;
+                }
             }
         }
     }
 
     public void AddToRA( abPlaceable p ) throws Exception {
         // adds the specified item into the next available slot in the right arm
-        for( int i = RACrits.length - 1; i >= 0; i-- ) {
-            if( RACrits[i] == NoItem ) {
-                AddToRA( p, i );
-                break;
+        if( p.Contiguous() ) {
+            for( int i = 0; i < RACrits.length; i++ ) {
+                if( RACrits[i] == NoItem ) {
+                    AddToRA( p, i );
+                    break;
+                }
+            }
+        } else {
+            for( int i = RACrits.length - 1; i >= 0; i-- ) {
+                if( RACrits[i] == NoItem ) {
+                    AddToRA( p, i );
+                    break;
+                }
             }
         }
     }
 
     public void AddToLL( abPlaceable p ) throws Exception {
         // adds the specified item into the next available slot in the left leg
-        for( int i = LLCrits.length - 1; i >= 0; i-- ) {
-            if( LLCrits[i] == NoItem ) {
-                AddToLL( p, i );
-                break;
+        if( p.Contiguous() ) {
+            for( int i = 0; i < LLCrits.length; i++ ) {
+                if( LLCrits[i] == NoItem ) {
+                    AddToLL( p, i );
+                    break;
+                }
+            }
+        } else {
+            for( int i = LLCrits.length - 1; i >= 0; i-- ) {
+                if( LLCrits[i] == NoItem ) {
+                    AddToLL( p, i );
+                    break;
+                }
             }
         }
     }
 
     public void AddToRL( abPlaceable p ) throws Exception {
         // adds the specified item into the next available slot in the right leg
-        for( int i = RLCrits.length - 1; i >= 0; i-- ) {
-            if( RLCrits[i] == NoItem ) {
-                AddToRL( p, i );
-                break;
+        if( p.Contiguous() ) {
+            for( int i = 0; i < RLCrits.length; i++ ) {
+                if( RLCrits[i] == NoItem ) {
+                    AddToRL( p, i );
+                    break;
+                }
+            }
+        } else {
+            for( int i = RLCrits.length - 1; i >= 0; i-- ) {
+                if( RLCrits[i] == NoItem ) {
+                    AddToRL( p, i );
+                    break;
+                }
             }
         }
     }
@@ -3631,6 +3694,12 @@ public class QuadLoadout implements ifLoadout {
                 }
                 if( RTCrits[j].GetCritName().contains( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.GetCritName() + " if it\nalready mounts an " + RTCrits[j].GetCritName() );
+                }
+            }
+            // special addition for a targeting computer that is not in the loadout yet
+            if( Use_TC ) {
+                if( CurTC.GetCritName().contains( exclude[i] ) ) {
+                    throw new Exception( "A mech may not mount an " + p.GetCritName() + " if it\nalready mounts an " + CurTC.GetCritName() );
                 }
             }
         }

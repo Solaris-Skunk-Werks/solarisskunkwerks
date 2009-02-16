@@ -179,18 +179,23 @@ public class Artillery extends abPlaceable implements ifWeapon {
     }
 
     @Override
-    public float GetCurOffensiveBV(boolean UseRear) {
+    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+        // artillery is unaffected by targeting computers, so we'll just ignore
+        float retval = OffBV;
+        if( UseAES ) {
+            retval *= 1.5f;
+        }
         if( UseRear ) {
             if( MountedRear ) {
-                return OffBV;
+                return retval;
             } else {
-                return OffBV * 0.5f;
+                return retval * 0.5f;
             }
         } else {
             if( MountedRear ) {
-                return OffBV * 0.5f;
+                return retval * 0.5f;
             } else {
-                return OffBV;
+                return retval;
             }
         }
     }

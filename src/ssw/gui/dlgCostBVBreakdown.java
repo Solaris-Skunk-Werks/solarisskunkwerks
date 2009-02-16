@@ -90,30 +90,30 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
             retval += "(Note: BV Calculations include defensive BV for armored components.)" + NL;
         }
         retval += "________________________________________________________________________________" + NL;
-        retval += String.format( "%1$-73s %2$,6.2f", "Total Armor Factor (" + CurMech.GetArmor().GetArmorValue() + ") * Armor Type Modifier (" + CurMech.GetArmor().GetBVTypeMult() + ") * 2.5", CurMech.GetArmor().GetDefensiveBV() ) + NL;
+        retval += String.format( "%1$-71s %2$,8.2f", "Total Armor Factor (" + CurMech.GetArmor().GetArmorValue() + ") * Armor Type Modifier (" + CurMech.GetArmor().GetBVTypeMult() + ") * 2.5", CurMech.GetArmor().GetDefensiveBV() ) + NL;
         retval += "Total Structure Points (" + CurMech.GetIntStruc().GetTotalPoints() + ") * Structure Type Modifier (" + CurMech.GetIntStruc().GetBVTypeMult() + ") *" + NL;
-        retval += String.format( "%1$-73s %2$,6.2f", "    Engine Type Modifier (" + CurMech.GetEngine().GetBVMult() + ") * 1.5", CurMech.GetIntStruc().GetDefensiveBV() ) + NL;
-        retval += String.format( "%1$-73s %2$,6.2f", "Mech Tonnage (" + CurMech.GetTonnage() + ") * Gyro Type Modifer (" + CurMech.GetGyro().GetBVTypeMult() + ")", CurMech.GetGyro().GetDefensiveBV() ) + NL;
-        retval += String.format( "%1$-73s %2$,6.2f", "Total Defensive BV of all Equipment", CurMech.GetDefensiveEquipBV() ) + NL;
-        retval += String.format( "%1$-73s %2$,6.2f", "Explosive Ammunition Penalty", CurMech.GetExplosiveAmmoPenalty() ) + NL;
-        retval += String.format( "%1$-73s %2$,6.2f", "Explosive Weapon Penalty", CurMech.GetExplosiveWeaponPenalty() ) + NL;
-        retval += String.format( "%1$-73s %2$,6.2f", "Subtotal", CurMech.GetUnmodifiedDefensiveBV() ) + NL;
-        retval += String.format( "%1$-73s %2$,6.2f", "Total DBV (Subtotal * Defensive Factor (" + CurMech.GetDefensiveFactor() + "))", CurMech.GetDefensiveBV() ) + NL;
+        retval += String.format( "%1$-71s %2$,8.2f", "    Engine Type Modifier (" + CurMech.GetEngine().GetBVMult() + ") * 1.5", CurMech.GetIntStruc().GetDefensiveBV() ) + NL;
+        retval += String.format( "%1$-71s %2$,8.2f", "Mech Tonnage (" + CurMech.GetTonnage() + ") * Gyro Type Modifer (" + CurMech.GetGyro().GetBVTypeMult() + ")", CurMech.GetGyro().GetDefensiveBV() ) + NL;
+        retval += String.format( "%1$-71s %2$,8.2f", "Total Defensive BV of all Equipment", CurMech.GetDefensiveEquipBV() ) + NL;
+        retval += String.format( "%1$-71s %2$,8.2f", "Explosive Ammunition Penalty", CurMech.GetExplosiveAmmoPenalty() ) + NL;
+        retval += String.format( "%1$-71s %2$,8.2f", "Explosive Weapon Penalty", CurMech.GetExplosiveWeaponPenalty() ) + NL;
+        retval += String.format( "%1$-71s %2$,8.2f", "Subtotal", CurMech.GetUnmodifiedDefensiveBV() ) + NL;
+        retval += String.format( "%1$-71s %2$,8.2f", "Total DBV (Subtotal * Defensive Factor (" + CurMech.GetDefensiveFactor() + "))", CurMech.GetDefensiveBV() ) + NL;
         retval += NL + NL;
         retval += "Offensive BV Calculation Breakdown" + NL;
         retval += "________________________________________________________________________________" + NL;
         retval += "Heat Efficiency (6 + " + CurMech.GetHeatSinks().TotalDissipation() + " - " + CurMech.GetBVMovementHeat() + ") = "+ ( 6 + CurMech.GetHeatSinks().TotalDissipation() - CurMech.GetBVMovementHeat() ) + NL;
-        retval += String.format( "%1$-73s %2$,6.2f", "Adjusted Weapon BV Total WBV", CurMech.GetHeatAdjustedWeaponBV() ) + NL;
+        retval += String.format( "%1$-71s %2$,8.2f", "Adjusted Weapon BV Total WBV", CurMech.GetHeatAdjustedWeaponBV() ) + NL;
         retval += PrintHeatAdjustedWeaponBV();
-        retval += String.format( "%1$-73s %2$,6.2f", "Non-Heat Equipment Total NHBV", CurMech.GetNonHeatEquipBV() ) + NL;
+        retval += String.format( "%1$-71s %2$,8.2f", "Non-Heat Equipment Total NHBV", CurMech.GetNonHeatEquipBV() ) + NL;
         retval += PrintNonHeatEquipBV();
-        retval += String.format( "%1$-73s %2$,6.2f", "Excessive Ammunition Penalty", CurMech.GetExcessiveAmmoPenalty() ) + NL;
-        retval += String.format( "%1$-73s %2$,6.2f", "Mech Tonnage Bonus", CurMech.GetTonnageBV() ) + NL;
-        retval += String.format( "%1$-73s %2$,6.2f", "Subtotal (WBV + NHBV - Excessive Ammo + Tonnage Bonus)", CurMech.GetUnmodifiedOffensiveBV() ) + NL;
-        retval += String.format( "%1$-73s %2$,6.2f", "Total OBV (Subtotal * Offensive Factor (" + CurMech.GetOffensiveFactor() + "))", CurMech.GetOffensiveBV() ) + NL;
+        retval += String.format( "%1$-71s %2$,8.2f", "Excessive Ammunition Penalty", CurMech.GetExcessiveAmmoPenalty() ) + NL;
+        retval += String.format( "%1$-71s %2$,8.2f", "Mech Tonnage Bonus", CurMech.GetTonnageBV() ) + NL;
+        retval += String.format( "%1$-71s %2$,8.2f", "Subtotal (WBV + NHBV - Excessive Ammo + Tonnage Bonus)", CurMech.GetUnmodifiedOffensiveBV() ) + NL;
+        retval += String.format( "%1$-71s %2$,8.2f", "Total OBV (Subtotal * Offensive Factor (" + CurMech.GetOffensiveFactor() + "))", CurMech.GetOffensiveBV() ) + NL;
         retval += NL + NL;
         if( CurMech.GetCockpit().BVMod() != 1.0f ) {
-            retval += String.format( "%1$-73s %2$,6.2f", CurMech.GetCockpit().GetCritName() + " modifier", CurMech.GetCockpit().BVMod() ) + NL;
+            retval += String.format( "%1$-71s %2$,8.2f", CurMech.GetCockpit().GetCritName() + " modifier", CurMech.GetCockpit().BVMod() ) + NL;
             retval += String.format( "%1$-73s %2$,6d", "Total Battle Value ((DBV + OBV) * " + CurMech.GetCockpit().GetCritName() + " modifier, round off)", CurMech.GetCurrentBV() );
         } else {
             retval += String.format( "%1$-73s %2$,6d", "Total Battle Value (DBV + OBV, round off)", CurMech.GetCurrentBV() );
@@ -189,15 +189,47 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
         if( CurMech.GetLoadout().HasSupercharger() ) {
             retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetLoadout().GetSupercharger().GetCritName(), CurMech.GetLoadout().GetSupercharger().GetDefensiveBV(), CurMech.GetLoadout().GetSupercharger().GetOffensiveBV(), CurMech.GetLoadout().GetSupercharger().GetCost() ) + NL;
         }
+        if( CurMech.HasLAAES() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetLAAES().GetCritName(), CurMech.GetLAAES().GetDefensiveBV(), CurMech.GetLAAES().GetOffensiveBV(), CurMech.GetLAAES().GetCost() ) + NL;
+        }
+        if( CurMech.HasRAAES() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetRAAES().GetCritName(), CurMech.GetRAAES().GetDefensiveBV(), CurMech.GetRAAES().GetOffensiveBV(), CurMech.GetRAAES().GetCost() ) + NL;
+        }
+        if( CurMech.HasLegAES() ) {
+            if( CurMech.IsQuad() ) {
+                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
+                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
+                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
+                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
+            } else {
+                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
+                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
+            }
+        }
+        return retval;
+    }
+
+    public String PrintNonHeatEquipBV() {
+        // return the BV of all offensive equipment
+        Vector v = CurMech.GetLoadout().GetNonCore();
+        abPlaceable a = null;
+        String retval = "";
+
+        for( int i = 0; i < v.size(); i++ ) {
+            if( ! ( v.get( i ) instanceof ifWeapon ) ) {
+                a = ((abPlaceable) v.get( i ));
+                retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.GetCritName(), a.GetOffensiveBV() ) + NL;
+            }
+        }
         return retval;
     }
 
     public String PrintHeatAdjustedWeaponBV() {
         Vector v = CurMech.GetLoadout().GetNonCore(), wep = new Vector();
-        float result = 0.0f, foreBV = 0.0f, rearBV = 0.0f;
-        boolean UseRear = false;
+        float foreBV = 0.0f, rearBV = 0.0f;
+        boolean UseRear = false, TC = CurMech.UsingTC(), UseAESMod = false;
         String retval = "";
-        abPlaceable a = null;
+        abPlaceable a;
 
         // is it even worth performing all this?
         if( v.size() <= 0 ) {
@@ -218,14 +250,15 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
         // now get the mech's heat efficiency and the total heat from weapons
         int heff = 6 + CurMech.GetHeatSinks().TotalDissipation() - CurMech.GetBVMovementHeat();
         int wheat = CurMech.GetBVWeaponHeat();
-        float TCTotal = 0.0f;
 
         // find out the total BV of rear and forward firing weapons
         for( int i = 0; i < wep.size(); i++ ) {
-            if( ((abPlaceable) wep.get( i )).IsMountedRear() ) {
-                rearBV += ((abPlaceable) wep.get( i )).GetOffensiveBV();
+            a = ((abPlaceable) wep.get( i ));
+            UseAESMod = CurMech.UseAESModifier( a );
+            if( a.IsMountedRear() ) {
+                rearBV += a.GetCurOffensiveBV( false, TC, UseAESMod );
             } else {
-                foreBV += ((abPlaceable) wep.get( i )).GetOffensiveBV();
+                foreBV += a.GetCurOffensiveBV( false, TC, UseAESMod );
             }
         }
         if( rearBV > foreBV ) { UseRear = true; }
@@ -235,16 +268,8 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
             // no need for extensive calculations, return the weapon BV
             for( int i = 0; i < wep.size(); i++ ) {
                 a = ((abPlaceable) wep.get( i ));
-                retval += String.format( "%1$-73s %2$,6.2f", "    -> " + a.GetCritName(), a.GetCurOffensiveBV( UseRear ) ) + NL;
-                result += a.GetCurOffensiveBV( UseRear );
-                if( ((ifWeapon) a).IsTCCapable() ) {
-                    TCTotal += a.GetCurOffensiveBV( UseRear );
-                }
-            }
-            if( CurMech.GetLoadout().UsingTC() ) {
-                TCTotal = TCTotal * 0.25f;
-                result += TCTotal;
-                retval += String.format( "%1$-73s %2$,6.2f", "    -> Targeting Computer BV", TCTotal ) + NL;
+                UseAESMod = CurMech.UseAESModifier( ((abPlaceable) wep.get( i )) );
+                retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.GetCritName(), a.GetCurOffensiveBV( UseRear, TC, UseAESMod ) ) + NL;
             }
             return retval;
         }
@@ -255,54 +280,23 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
         // calculate the BV of the weapons based on heat
         int curheat = 0;
         for( int i = 0; i < sorted.length; i++ ) {
-            a = ((abPlaceable) sorted[i]);
+            a = sorted[i];
+            UseAESMod = CurMech.UseAESModifier( a );
             if( curheat < heff ) {
-                retval += String.format( "%1$-73s %2$,6.2f", "    -> " + a.GetCritName(), a.GetCurOffensiveBV( UseRear ) ) + NL;
-                result += a.GetCurOffensiveBV( UseRear );
-                if( ((ifWeapon) a).IsTCCapable() ) {
-                    TCTotal += a.GetCurOffensiveBV( UseRear );
-                }
+                retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.GetCritName(), a.GetCurOffensiveBV( UseRear, TC, UseAESMod ) ) + NL;
             } else {
                 if( ((ifWeapon) sorted[i]).GetBVHeat() <= 0 ) {
-                    retval += String.format( "%1$-73s %2$,6.2f", "    -> " + a.GetCritName(), a.GetCurOffensiveBV( UseRear ) ) + NL;
-                    result += a.GetCurOffensiveBV( UseRear );
-                    if( ((ifWeapon) a).IsTCCapable() ) {
-                        TCTotal += a.GetCurOffensiveBV( UseRear );
-                    }
+                    retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.GetCritName(), a.GetCurOffensiveBV( UseRear, TC, UseAESMod ) ) + NL;
                 } else {
-                    retval += String.format( "%1$-73s %2$,6.2f", "    -> " + a.GetCritName(), a.GetCurOffensiveBV( UseRear ) * 0.5f ) + NL;
-                    result += a.GetCurOffensiveBV( UseRear ) * 0.5f;
-                    if( ((ifWeapon) a).IsTCCapable() ) {
-                        TCTotal += a.GetCurOffensiveBV( UseRear ) * 0.5f;
-                    }
+                    retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.GetCritName(), a.GetCurOffensiveBV( UseRear, TC, UseAESMod ) * 0.5f ) + NL;
                 }
             }
-            curheat += ((ifWeapon) a).GetBVHeat();
-        }
-        if( CurMech.GetLoadout().UsingTC() ) {
-            TCTotal = TCTotal * 0.25f;
-            result += TCTotal;
-            retval += String.format( "%1$-73s %2$,6.2f", "    -> Targeting Computer BV", TCTotal ) + NL;
+            curheat += ((ifWeapon) sorted[i]).GetBVHeat();
         }
         return retval;
     }
 
-    public String PrintNonHeatEquipBV() {
-        // return the BV of all offensive equipment
-        Vector v = CurMech.GetLoadout().GetNonCore();
-        abPlaceable a = null;
-        String retval = "";
-
-        for( int i = 0; i < v.size(); i++ ) {
-            if( ! ( v.get( i ) instanceof ifWeapon ) ) {
-                a = ((abPlaceable) v.get( i ));
-                retval += String.format( "%1$-73s %2$,6.2f", "    -> " + a.GetCritName(), a.GetOffensiveBV() ) + NL;
-            }
-        }
-        return retval;
-    }
-
-    /** This method is called from within the constructor to
+     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
      * always regenerated by the Form Editor.

@@ -151,8 +151,8 @@ public class MGArray extends abPlaceable implements ifWeapon {
         return (float) Math.floor( ( 67.0f * NumMGs * MGType.GetOffensiveBV() ) ) * 0.01f + NumMGs * MGType.GetOffensiveBV();
     }
 
-    public float GetCurOffensiveBV( boolean UseRear ) {
-        return (float) Math.floor( ( 67.0f * NumMGs * MGType.GetOffensiveBV() ) ) * 0.01f + NumMGs * MGType.GetCurOffensiveBV( UseRear );
+    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+        return (float) Math.floor( ( 67.0f * NumMGs * MGType.GetOffensiveBV() ) ) * 0.01f + NumMGs * MGType.GetCurOffensiveBV( UseRear, UseTC, UseAES );
     }
 
     public float GetDefensiveBV() {

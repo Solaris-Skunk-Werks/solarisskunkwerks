@@ -268,7 +268,7 @@ public class InternalStructure extends abPlaceable {
         return 0.0f;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear ) {
+    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         // BV will not change for this item, so just return the normal value
         return 0.0f;
     }

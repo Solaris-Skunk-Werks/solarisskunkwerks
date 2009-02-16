@@ -117,7 +117,7 @@ public class PhysicalEnhancement extends abPlaceable {
         return CurConfig.GetOffensiveBV( Owner.GetTonnage() );
     }
 
-    public float GetCurOffensiveBV( boolean UseRear ) {
+    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         // BV will not change for this item, so just return the normal value
         return GetOffensiveBV();
     }

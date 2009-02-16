@@ -37,6 +37,7 @@ public class TargetingComputer extends abPlaceable {
 
     public TargetingComputer( ifLoadout l ) {
         Owner = l;
+        SetExclusions( new Exclusion( new String[] { "A.E.S." }, "Targeting Computer" ) );
     }
 
     @Override
@@ -79,10 +80,10 @@ public class TargetingComputer extends abPlaceable {
         // we can't really control this one, so we should always call the TC
         // with UseCurOffensiveBV().  Since almost all of the time a 'Mech will
         // mount it's weapons forward, we'll call it without using rear.
-        return GetCurOffensiveBV( false );
+        return GetCurOffensiveBV( false, false, false );
     }
 
-    public float GetCurOffensiveBV( boolean UseRear ) {
+    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         // BV calculations for the targeting computer are based on modified
         // weapon BV, which we won't know until later.
         return 0.0f;

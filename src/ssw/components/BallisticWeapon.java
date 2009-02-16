@@ -326,18 +326,25 @@ public class BallisticWeapon extends abPlaceable implements ifWeapon {
         return OffBV;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear ) {
+    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+        float retval = OffBV;
+        if( UseAES ) {
+            retval *= 1.5f;
+        }
+        if( UseTC && TCCapable ) {
+            retval *= 1.25f;
+        }
         if( UseRear ) {
             if( MountedRear ) {
-                return OffBV;
+                return retval;
             } else {
-                return OffBV * 0.5f;
+                return retval * 0.5f;
             }
         } else {
             if( MountedRear ) {
-                return OffBV * 0.5f;
+                return retval * 0.5f;
             } else {
-                return OffBV;
+                return retval;
             }
         }
     }

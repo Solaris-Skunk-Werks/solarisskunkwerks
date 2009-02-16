@@ -48,6 +48,7 @@ Version 0.6.0
 - Added Physical Weapon-like Industrial equipment.
 - Added Print Preview option to File and Toolbar menus
 - Added Total Armor Points to the printout
+- Added AES System.
 
 + Changed
 - Fixed a load bug with heatsinks.
@@ -156,6 +157,7 @@ Version 0.6.0
 - Structure re-work to disconnect the Mech from the GUI for use in outside programs
 - Corrected Industrial Mech Costs and BV.
 - Added shortened Print Names to most weapons, both Clan and Inner Sphere.
+- Fixed some minor equipment bugs.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

@@ -500,6 +500,45 @@ public class XMLReader {
                 } else if( type.equals( m.GetEnviroSealing().GetCritName() ) ) {
                     m.SetEnviroSealing( true, Locs );
                 }
+            } else if( n.item( i ).getNodeName().equals( "arm_aes" ) ) {
+                map = n.item( i ).getAttributes();
+                String Loc = map.getNamedItem( "location" ).getTextContent();
+                int Index = Integer.parseInt( map.getNamedItem( "index" ).getTextContent() );
+                if( FileCommon.DecodeLocation( Loc ) == Constants.LOC_LA ) {
+                    m.SetLAAES( true, Index );
+                }
+                if( FileCommon.DecodeLocation( Loc ) == Constants.LOC_RA ) {
+                    m.SetRAAES( true, Index );
+                }
+            } else if( n.item( i ).getNodeName().equals( "leg_aes" ) ) {
+                Vector Loc = new Vector();
+                NodeList nl = n.item( i ).getChildNodes();
+                l = new LocationIndex();
+                for( int j = 0; j < nl.getLength(); j++ ) {
+                    if( nl.item( j ).getNodeName().equals( "location" ) ) {
+                        l = DecodeLocation( nl.item( j ) );
+                        Loc.add( l );
+                    }
+                }
+
+                // make sure we have enough locations
+                if( m.IsQuad() ) {
+                    if( Loc.size() < 4 ) {
+                        throw new Exception( "Leg mounted AES was specified but there are not enough locations.\nThe Mech cannot be loaded." );
+                    }
+                } else {
+                    if( Loc.size() < 2 ) {
+                        throw new Exception( "Leg mounted AES was specified but there are not enough locations.\nThe Mech cannot be loaded." );
+                    }
+                }
+
+                // turn the vector into an array
+                LocationIndex[] Locs = new LocationIndex[Loc.size()];
+                for( int j = 0; j < Loc.size(); j++ ) {
+                    Locs[j] = (LocationIndex) Loc.get( j );
+                }
+
+                m.SetLegAES( true, Locs );
             }
         }
         if( m.UsingTC() ) {

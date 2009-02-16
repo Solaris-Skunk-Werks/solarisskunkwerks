@@ -1101,6 +1101,7 @@ public class WeaponFactory {
         addEW.SetRange(0, 3, 5, 7);
         addEW.SetSpecials("H/AI", false, false, 0, 0, false);
         addEW.SetStats(1.0f, 1, 15000.0f, 16.0f, 0.0f);
+        addEW.SetRequiresFusion( true );
         ISEW.add(addEW);
 
         // heavy flamer
@@ -1112,6 +1113,7 @@ public class WeaponFactory {
         addEW.SetRange(0, 2, 3, 4);
         addEW.SetSpecials("H/AI", false, true, 10, 104, false);
         addEW.SetStats(1.5f, 1, 11250.0f, 15.0f, 0.0f);
+        addEW.SetPowerAmp( false );
         ISEW.add(addEW);
 
         // bombast laser
@@ -2859,7 +2861,7 @@ public class WeaponFactory {
         addEW.SetDamage( 10, 10, 10 );
         addEW.SetHeat( 10 );
         addEW.SetRange( 3, 6, 12, 18 );
-        addEW.SetSpecials( "-", false, false, 0, 0, true );
+        addEW.SetSpecials( "-", true, false, 0, 0, true );
         addEW.SetStats( 7.0f, 3, 200000.0f, 176.0f, 0.0f );
         CLEW.add( addEW  );
 
@@ -2870,7 +2872,7 @@ public class WeaponFactory {
         addEW.SetDamage( 15, 15, 15 );
         addEW.SetHeat( 15 );
         addEW.SetRange( 0, 7, 14, 23 );
-        addEW.SetSpecials( "-", false, false, 0, 0, true );
+        addEW.SetSpecials( "-", true, false, 0, 0, true );
         addEW.SetStats( 6.0f, 2, 300000.0f, 412.0f, 0.0f );
         CLEW.add( addEW  );
 
@@ -2905,6 +2907,7 @@ public class WeaponFactory {
         addEW.SetRange( 0, 1, 2, 3 );
         addEW.SetSpecials( "H/AI", false, true, 20, 4, false );
         addEW.SetStats( 0.5f, 1, 7500.0f, 5.0f, 0.0f );
+        addEW.SetPowerAmp( false );
         CLEW.add( addEW  );
 
         // clan er flamer
@@ -2916,6 +2919,7 @@ public class WeaponFactory {
         addEW.SetRange(0, 3, 5, 7);
         addEW.SetSpecials("H/AI", false, false, 0, 0, false);
         addEW.SetStats(1.0f, 1, 15000.0f, 16.0f, 0.0f);
+        addEW.SetRequiresFusion( true );
         CLEW.add(addEW);
 
         // clan heavy flamer
@@ -2927,6 +2931,7 @@ public class WeaponFactory {
         addEW.SetRange(0, 2, 3, 4);
         addEW.SetSpecials("H/AI", false, true, 10, 105, false);
         addEW.SetStats(1.5f, 1, 11250.0f, 15.0f, 0.0f);
+        addEW.SetPowerAmp( false );
         CLEW.add(addEW);
 
         // clan atm-3

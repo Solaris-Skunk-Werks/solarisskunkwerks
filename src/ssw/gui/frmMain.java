@@ -769,6 +769,18 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             cmbSCLoc.setEnabled( false );
             lblSupercharger.setEnabled( false );
         }
+        if( CommonTools.IsAllowed( CurMech.GetLLAES().GetAvailability(), CurMech ) ) {
+            chkRAAES.setEnabled( true );
+            chkLAAES.setEnabled( true );
+            chkLegAES.setEnabled( true );
+        } else {
+            chkRAAES.setSelected( false );
+            chkLAAES.setSelected( false );
+            chkLegAES.setSelected( false );
+            chkRAAES.setEnabled( false );
+            chkLAAES.setEnabled( false );
+            chkLegAES.setEnabled( false );
+        }
 
         // now check the CASE II systems
         if( CommonTools.IsAllowed( CurMech.GetLoadout().GetCTCaseII().GetAvailability(), CurMech ) ) {
@@ -917,6 +929,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkCLPS.setEnabled( false );
             chkEnviroSealing.setEnabled( false );
             chkEjectionSeat.setEnabled( false );
+            chkRAAES.setEnabled( false );
+            chkLAAES.setEnabled( false );
+            chkLegAES.setEnabled( false );
 
             // now see if we have a supercharger on the base chassis
             if( CurMech.GetBaseLoadout().HasSupercharger() ) {
@@ -967,6 +982,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( ! chkBSPFD.isEnabled() ) { CurMech.SetBlueShield( false ); }
                 if( ! chkCLPS.isEnabled() ) { CurMech.SetChameleon( false ); }
                 if( ! chkEnviroSealing.isEnabled() ) { CurMech.SetEnviroSealing( false ); }
+                if( ! chkLegAES.isEnabled() ) { CurMech.SetLegAES( false, null ); }
+                if( ! chkRAAES.isEnabled() ) { CurMech.SetRAAES( false, -1 ); }
+                if( ! chkLAAES.isEnabled() ) { CurMech.SetLAAES( false, -1 ); }
             } catch( Exception e ) {
                 // we should never get this, but report it if we do
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
@@ -1021,11 +1039,21 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }
 
     private void RecalcEngine() {
+        // first, get the current number of free heat sinks
+        int OldFreeHS = CurMech.GetEngine().FreeHeatSinks();
+
         // changes the engine type.  Changing the type does not change the rating
         // which makes our job here easier.
         String LookupVal = (String) cmbEngineType.getSelectedItem();
         ifVisitor v = (ifVisitor) data.Lookup.get( LookupVal );
         CurMech.Visit( v );
+
+        // now that the new engine is in, check the number of free sinks and act
+        // accordingly
+        if( CurMech.GetEngine().FreeHeatSinks() != OldFreeHS ) {
+            // set the current number of heat sinks to the new free heat sinks
+            CurMech.GetHeatSinks().SetNumHS( CurMech.GetEngine().FreeHeatSinks() );
+        }
 
         // redo the heat sinks because the engine affects them
         CurMech.GetHeatSinks().ReCalculate();
@@ -1417,6 +1445,55 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             cmbSCLoc.setSelectedItem( FileCommon.EncodeLocation( CurMech.GetLoadout().Find( CurMech.GetLoadout().GetSupercharger() ), false ) );
         } else {
             chkSupercharger.setSelected( false );
+        }
+    }
+
+    private void CheckAES() {
+        // if the tonnage or motive type changes, we need to do this.
+        if( chkLegAES.isSelected() ) {
+            if( CurMech.GetTonnage() > 55 ) {
+                // too big to have leg AES
+                chkLegAES.setSelected( false );
+                try {
+                    CurMech.SetLegAES( false, null );
+                } catch( Exception e ) {
+                    System.err.println( e.getMessage() );
+                }
+            } else {
+                // remove and add the systems back in
+                try {
+                    CurMech.SetLegAES( false, null );
+                    CurMech.SetLegAES( true, null );
+                } catch( Exception e ) {
+                    chkLegAES.setSelected( false );
+                }
+            }
+        }
+        if( chkRAAES.isSelected() ) {
+            if( CurMech.IsQuad() ) {
+                chkRAAES.setSelected( false );
+            } else {
+                int index = CurMech.GetLoadout().FindIndex( CurMech.GetRAAES() ).Index;
+                try { 
+                    CurMech.SetRAAES( false, -1 );
+                    CurMech.SetRAAES( true, index );
+                } catch( Exception e ) {
+                    chkRAAES.setSelected( false );
+                }
+            }
+        }
+        if( chkLAAES.isSelected() ) {
+            if( CurMech.IsQuad() ) {
+                chkLAAES.setSelected( false );
+            } else {
+                int index = CurMech.GetLoadout().FindIndex( CurMech.GetLAAES() ).Index;
+                try { 
+                    CurMech.SetLAAES( false, -1 );
+                    CurMech.SetLAAES( true, index );
+                } catch( Exception e ) {
+                    chkLAAES.setSelected( false );
+                }
+            }
         }
     }
 
@@ -2180,6 +2257,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkBSPFD.setEnabled( false );
         chkEnviroSealing.setEnabled( false );
         chkEjectionSeat.setEnabled( false );
+        chkRAAES.setEnabled( false );
+        chkLAAES.setEnabled( false );
+        chkLegAES.setEnabled( false );
         if( CurMech.GetBaseLoadout().HasSupercharger() ) {
             chkSupercharger.setEnabled( false );
             lblSupercharger.setEnabled( false );
@@ -7024,6 +7104,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         chkLAAES.setText("A.E.S.");
         chkLAAES.setEnabled(false);
+        chkLAAES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkLAAESActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlLACrits.add(chkLAAES, gridBagConstraints);
@@ -7196,6 +7281,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         chkRAAES.setText("A.E.S.");
         chkRAAES.setEnabled(false);
+        chkRAAES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkRAAESActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlRACrits.add(chkRAAES, gridBagConstraints);
@@ -7693,6 +7783,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         chkLegAES.setText("A.E.S.");
         chkLegAES.setEnabled(false);
+        chkLegAES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkLegAESActionPerformed(evt);
+            }
+        });
         jPanel5.add(chkLegAES, new java.awt.GridBagConstraints());
 
         jLabel61.setText("-->");
@@ -9217,6 +9312,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // unallocate physical weapons since their size depends on tonnage
         CurMech.CheckPhysicals();
 
+        // Check any AES systems that may have been installed
+        CheckAES();
+
         // now refresh the information panes
         CurMech.ReCalcBaseCost();
         RefreshInternalPoints();
@@ -9396,6 +9494,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // fix the armor spinners
         FixArmorSpinners();
+
+        // Check any AES systems that may have been installed
+        CheckAES();
 
         // now refresh the information panes
         CurMech.ReCalcBaseCost();
@@ -10282,9 +10383,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             break;
         }
 
-        // check exclusions and return if appropriate
+        // check exclusions if needed
         try {
-            CommonTools.CheckExclusions( a, CurMech );
+            CurMech.GetLoadout().CheckExclusions( a );
         } catch( Exception e ) {
             javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
             a = null;
@@ -10292,7 +10393,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // now we can add it to the 'Mech
         if( a != null ) {
-            // add it to the loadout
             CurMech.GetLoadout().AddToQueue( a );
 
             // unallocate the TC if needed (if the size changes)
@@ -10457,7 +10557,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void chkUseTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkUseTCActionPerformed
         if( CurMech.UsingTC() == chkUseTC.isSelected() ) { return; }
         if( chkUseTC.isSelected() ) {
-            CurMech.UseTC( true );
+            try {
+                CurMech.GetLoadout().CheckExclusions( CurMech.GetTC() );
+                CurMech.UseTC( true );
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                CurMech.UseTC( false );
+            }
         } else {
             CurMech.UseTC( false );
         }
@@ -11634,8 +11740,20 @@ public void LoadMechIntoGUI() {
     UnlockGUIFromOmni();
     if( CurMech.IsQuad() ) {
         cmbMotiveType.setSelectedIndex( 1 );
+        ((javax.swing.border.TitledBorder) pnlLAArmorBox.getBorder()).setTitle( "FLL" );
+        ((javax.swing.border.TitledBorder) pnlRAArmorBox.getBorder()).setTitle( "FRL" );
+        ((javax.swing.border.TitledBorder) pnlLLArmorBox.getBorder()).setTitle( "RLL" );
+        ((javax.swing.border.TitledBorder) pnlRLArmorBox.getBorder()).setTitle( "RRL" );
+        scrRACrits.setPreferredSize( new java.awt.Dimension( 105, 87 ) );
+        scrLACrits.setPreferredSize( new java.awt.Dimension( 105, 87 ) );
     } else {
         cmbMotiveType.setSelectedIndex( 0 );
+        ((javax.swing.border.TitledBorder) pnlLAArmorBox.getBorder()).setTitle( "LA" );
+        ((javax.swing.border.TitledBorder) pnlRAArmorBox.getBorder()).setTitle( "RA" );
+        ((javax.swing.border.TitledBorder) pnlLLArmorBox.getBorder()).setTitle( "LL" );
+        ((javax.swing.border.TitledBorder) pnlRLArmorBox.getBorder()).setTitle( "RL" );
+        scrRACrits.setPreferredSize( new java.awt.Dimension( 105, 170 ) );
+        scrLACrits.setPreferredSize( new java.awt.Dimension( 105, 170 ) );
     }
     if( CurMech.IsIndustrialmech() ) {
         cmbMechType.setSelectedIndex( 1 );
@@ -12216,6 +12334,69 @@ private void mnuPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//G
 private void btnPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintPreviewActionPerformed
     mnuPrintPreviewActionPerformed(evt);
 }//GEN-LAST:event_btnPrintPreviewActionPerformed
+
+private void chkLegAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLegAESActionPerformed
+    if( chkLegAES.isSelected() == CurMech.HasLegAES() ) { return; }
+    try {
+        if( chkLegAES.isSelected() ) {
+            CurMech.SetLegAES( true, null );
+        } else {
+            CurMech.SetLegAES( false, null );
+        }
+    } catch( Exception e ) {
+        // ensure it's not checked when it shouldn't be
+        chkLegAES.setSelected( CurMech.HasLegAES() );
+        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        return;
+    }
+
+    // now refresh the information panes
+    CurMech.ReCalcBaseCost();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkLegAESActionPerformed
+
+private void chkLAAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLAAESActionPerformed
+    if( chkLAAES.isSelected() == CurMech.HasLAAES() ) { return; }
+    try {
+        if( chkLAAES.isSelected() ) {
+            CurMech.SetLAAES( true, -1 );
+        } else {
+            CurMech.SetLAAES( false, -1 );
+        }
+    } catch( Exception e ) {
+        // ensure it's not checked when it shouldn't be
+        chkLAAES.setSelected( CurMech.HasLAAES() );
+        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        return;
+    }
+
+    // now refresh the information panes
+    CurMech.ReCalcBaseCost();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkLAAESActionPerformed
+
+private void chkRAAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRAAESActionPerformed
+    if( chkRAAES.isSelected() == CurMech.HasRAAES() ) { return; }
+    try {
+        if( chkRAAES.isSelected() ) {
+            CurMech.SetRAAES( true, -1 );
+        } else {
+            CurMech.SetRAAES( false, -1 );
+        }
+    } catch( Exception e ) {
+        // ensure it's not checked when it shouldn't be
+        chkRAAES.setSelected( CurMech.HasRAAES() );
+        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        return;
+    }
+
+    // now refresh the information panes
+    CurMech.ReCalcBaseCost();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkRAAESActionPerformed
 
 private void setViewToolbar(boolean Visible)
 {

@@ -89,7 +89,7 @@ public class thLTTransferHandler extends TransferHandler {
                     // get the drop location
                     JList.DropLocation dl = (JList.DropLocation) info.getDropLocation();
                     int dindex = dl.getIndex();
-                    if( CurMech.GetLoadout().GetCrits( Constants.LOC_LT )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( Constants.LOC_LT )[dindex].LocationLinked() ) {
+                    if( ( CurMech.GetLoadout().GetCrits( Constants.LOC_LT )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( Constants.LOC_LT )[dindex].LocationLinked() ) && a != CurMech.GetLoadout().GetCrits( Constants.LOC_LT )[dindex] ) {
                         return false;
                     }
                     if( a instanceof ISCASE ) {
@@ -118,7 +118,7 @@ public class thLTTransferHandler extends TransferHandler {
                         abPlaceable[] Loc = CurMech.GetLoadout().GetCrits( Constants.LOC_LT );
                         try {
                             for( int i = 0; i < Size; i++ ) {
-                                if( Loc[dindex + i].LocationLocked() || Loc[dindex + i].LocationLinked() ) {
+                                if( ( Loc[dindex + i].LocationLocked() || Loc[dindex + i].LocationLinked() ) && a != Loc[dindex + i] ) {
                                     return false;
                                 }
                             }

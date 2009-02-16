@@ -92,7 +92,7 @@ public class PPCCapacitor extends abPlaceable {
     }
 
     @Override
-    public float GetCurOffensiveBV(boolean UseRear) {
+    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         return 0.0f;
     }
 
