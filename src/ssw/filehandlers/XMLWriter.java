@@ -66,6 +66,9 @@ public class XMLWriter {
             FR.newLine();
         }
 
+        FR.write( tab + "<cost>" + CurMech.GetTotalCost() + "</cost>" );
+        FR.newLine();
+
         FR.write( tab + "<rules_level>" + CurMech.GetBaseRulesLevel() + "</rules_level>" );
         FR.newLine();
 
@@ -238,6 +241,26 @@ public class XMLWriter {
             FR.write( tab + tab + "</multislot>" );
             FR.newLine();
         }
+        if( CurMech.HasLegAES() ) {
+            FR.write( tab + tab + "<leg_aes>" );
+            FR.newLine();
+            if( CurMech.IsQuad() ) {
+                FR.write( GetLocationLines( tab + tab + tab, CurMech.GetFLLAES() ) );
+                FR.write( GetLocationLines( tab + tab + tab, CurMech.GetFRLAES() ) );
+            }
+            FR.write( GetLocationLines( tab + tab + tab, CurMech.GetLLAES() ) );
+            FR.write( GetLocationLines( tab + tab + tab, CurMech.GetRLAES() ) );
+            FR.write( tab + tab + "</leg_aes>" );
+            FR.newLine();
+        }
+        if( CurMech.HasLAAES() ) {
+            FR.write( tab + tab + "<arm_aes location=\"" + FileCommon.EncodeLocation( Constants.LOC_LA, CurMech.IsQuad() ) + "\" index=\"" + CurMech.GetLoadout().FindIndex( CurMech.GetLAAES() ).Index + "\"/>" );
+            FR.newLine();
+        }
+        if( CurMech.HasRAAES() ) {
+            FR.write( tab + tab + "<arm_aes location=\"" + FileCommon.EncodeLocation( Constants.LOC_RA, CurMech.IsQuad() ) + "\" index=\"" + CurMech.GetLoadout().FindIndex( CurMech.GetRAAES() ).Index + "\"/>" );
+            FR.newLine();
+        }
         FR.write( GetEquipmentLines( tab + tab ) );
         if( CurMech.GetRulesLevel() == Constants.EXPERIMENTAL && CurMech.GetEra() == Constants.CLAN_INVASION ) {
             // check for armored components
@@ -258,6 +281,8 @@ public class XMLWriter {
                 FR.newLine();
                 // add in the battle value for this loadout
                 FR.write( tab + tab + "<battle_value>" + CurMech.GetCurrentBV() + "</battle_value>" );
+                FR.newLine();
+                FR.write( tab + tab + "<cost>" + CurMech.GetTotalCost() + "</cost>" );
                 FR.newLine();
                 FR.write( tab + tab + "<actuators lla=\"" + GetBoolean( CurMech.GetActuators().LeftLowerInstalled() ) + "\" lh=\"" + GetBoolean( CurMech.GetActuators().LeftHandInstalled() ) + "\" rla=\"" + GetBoolean( CurMech.GetActuators().RightLowerInstalled() ) + "\" rh=\"" + GetBoolean( CurMech.GetActuators().RightHandInstalled() ) + "\"/>" );
                 FR.newLine();
