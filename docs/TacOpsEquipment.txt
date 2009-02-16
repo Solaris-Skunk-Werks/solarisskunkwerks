@@ -45,8 +45,6 @@ Turret, Quad							? new system
 
 Experimental equipment checkboxes to add
 -------------------------------------------------------------------------------
-Actuator Enhancement System (arm)		? New System  ISAES CLAES
-Actuator Enhancement System (leg)		? New system  ISAES CLAES
 Partial Wing							? new system
 Booby Trap								? new system
 Full-Head Ejection System				? new system
@@ -68,4 +66,3 @@ New rules to be implemented
 Fractional Accounting
 Mixed Technologies
 Patchwork Armor
-Ultra-Light BattleMechs

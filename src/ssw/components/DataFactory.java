@@ -44,6 +44,7 @@ public class DataFactory {
     public DataFactory(Mech m){
         Weapons = new WeaponFactory( m, GlobalOptions );
         BuildLookupTable();
+        Weapons.RebuildPhysicals( m );
         Equips = new EquipmentFactory (m);
     }
 

@@ -448,6 +448,17 @@ public class WeaponFactory {
             }
         }
 
+        // now check the industrial Physicals
+        Test = INPW;
+
+        for( int i = 0; i < Test.size(); i++ ) {
+            if( ((abPlaceable) Test.get( i )).GetCritName().equals( name ) ) {
+                PhysicalWeapon p = (PhysicalWeapon) GetCopy( (abPlaceable) Test.get( i ) );
+                p.SetOwner( m );
+                return p;
+            }
+        }
+
         // couldn't find it?  return null
         return null;
     }

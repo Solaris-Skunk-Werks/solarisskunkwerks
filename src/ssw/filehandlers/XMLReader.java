@@ -71,7 +71,7 @@ public class XMLReader {
     }
 
     private Mech BuildMech( Mech m, Document d ) throws Exception {
-        data = new DataFactory(m);
+        data = new DataFactory( m );
 
         NodeList n = d.getElementsByTagName( "mech" );
         NamedNodeMap map = n.item( 0 ).getAttributes();
