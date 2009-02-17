@@ -49,6 +49,7 @@ Version 0.6.0
 - Added Print Preview option to File and Toolbar menus
 - Added Total Armor Points to the printout
 - Added AES System.
+- Added an Open Dialog that will list the mechs in the default directory showing name, tonnage, bv, cost, age, tech and allow for opening a file.
 
 + Changed
 - Fixed a load bug with heatsinks.
