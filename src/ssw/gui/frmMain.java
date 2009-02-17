@@ -86,6 +86,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     DataFactory data = new DataFactory(CurMech);
 
     private dlgPrintBatchMechs BatchWindow = null;
+    private dlgOpen dOpen = new dlgOpen(this, true);
 
     final int BALLISTIC = 0,
               ENERGY = 1,
@@ -254,6 +255,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // if the user wants, load the last mech.
         if( GlobalOptions.LoadLastMech ) { LoadMechFromPreferences(); }
+
+        dOpen.LoadList();
     }
 
     public OptionsReader GetOptionsReader() {
@@ -11080,7 +11083,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_btnAddVariantActionPerformed
 
     private void mnuOpenActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        dlgOpen dOpen = new dlgOpen(this, true);
+        //dlgOpen dOpen = new dlgOpen(this, true);
         dOpen.setLocationRelativeTo(this);
         dOpen.setVisible(true);
     }

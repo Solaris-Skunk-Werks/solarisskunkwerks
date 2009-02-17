@@ -29,6 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.filehandlers;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Vector;
 import javax.swing.table.AbstractTableModel;
 
@@ -36,14 +37,41 @@ import javax.swing.table.AbstractTableModel;
 public class MechList extends AbstractTableModel {
     private Vector List = new Vector();
 
-    public MechList() throws Exception {
+    public MechList() {
 
     }
     
-    public MechList(String directory) throws Exception {
+    public MechList(String directory) {
+        this();
         FileList fl = new FileList(directory);
         for ( int i=0; i <= fl.getFiles().length-1; i++ ) {
             File f = fl.getFiles()[i];
+            try
+            {
+                if (f.isFile() && f.getCanonicalPath().endsWith(".ssw")) {
+                    try
+                    {
+                        MechListData mData = new MechListData(f.getCanonicalPath());
+                        if (mData.isOmni()) {
+                            for ( int d=0; d < mData.Configurations.size(); d++ ) {
+                                List.add((MechListData) mData.Configurations.get(d));
+                            }
+                        } else {
+                            List.add(mData);
+                        }
+                    } catch (Exception e) {
+                        //do nothing
+                    }
+                }
+            } catch (IOException ie ) {
+
+            }
+        }
+    }
+
+    public void Add( File f ) {
+        try
+        {
             if (f.isFile() && f.getCanonicalPath().endsWith(".ssw")) {
                 try
                 {
@@ -56,27 +84,11 @@ public class MechList extends AbstractTableModel {
                         List.add(mData);
                     }
                 } catch (Exception e) {
-                    throw new Exception("[MechList " + f.getCanonicalPath() + " :: " + fl.getFiles().length + " :: " + e.getMessage() + "]");
+                    //do nothing
                 }
             }
-        }
-    }
-
-    public void Add( File f ) throws Exception {
-        if (f.isFile() && f.getCanonicalPath().endsWith(".ssw")) {
-            try
-            {
-                MechListData mData = new MechListData(f.getCanonicalPath());
-                if (mData.isOmni()) {
-                    for ( int d=0; d < mData.Configurations.size(); d++ ) {
-                        List.add((MechListData) mData.Configurations.get(d));
-                    }
-                } else {
-                    List.add(mData);
-                }
-            } catch (Exception e) {
-                throw new Exception("[MechList " + f.getCanonicalPath() + " :: " + e.getMessage() + "]");
-            }
+        } catch (IOException ie) {
+            //do nothing
         }
     }
 
@@ -121,7 +133,11 @@ public class MechList extends AbstractTableModel {
     public int getColumnCount() { return 6; }
     @Override
     public Class getColumnClass(int c) {
-        return getValueAt(0, c).getClass();
+        if (List.size() > 0) {
+            return getValueAt(0, c).getClass();
+        } else {
+            return String.class;
+        }
     }
     public Object getValueAt( int row, int col ) {
         MechListData m = (MechListData) List.get( row );

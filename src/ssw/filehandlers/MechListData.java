@@ -33,8 +33,8 @@ import java.util.Vector;
 public class MechListData {
     private String Name = "",
                    Model = "",
-                   Era = "",
-                   Tech = "",
+                   Era = "Age of War",
+                   Tech = "Clan",
                    Config = "";
     private int Tonnage = 0,
                 Year = 2750,

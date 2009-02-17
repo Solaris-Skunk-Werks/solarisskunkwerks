@@ -304,8 +304,8 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
 
     private Mech LoadMechFromFile(File file) {
         Mech m = null;
-        XMLReader XMLr = new XMLReader();
         try {
+            XMLReader XMLr = new XMLReader();
             m = XMLr.ReadMech( parent, file.getCanonicalPath() );
             m.ReCalcBaseCost();
         } catch( Exception e ) {

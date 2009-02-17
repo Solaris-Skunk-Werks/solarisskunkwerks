@@ -29,10 +29,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.gui;
 
 import java.awt.Color;
+import java.io.File;
 import java.io.IOException;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import ssw.*;
+import ssw.filehandlers.FileCommon;
 
 public class dlgOptions extends javax.swing.JDialog {
     frmMain Parent;
@@ -1165,6 +1167,7 @@ private void btnHTMLPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     //(Accept All) file filter.
     fc.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY );
     fc.setAcceptAllFileFilterUsed(false);
+    fc.setCurrentDirectory(new File(FileCommon.GetSafeFilename(MyOptions.HTMLPath)));
 
     //Show it.
     int returnVal = fc.showDialog( this, "Choose directory");
@@ -1184,6 +1187,7 @@ private void btnSaveLoadPathActionPerformed(java.awt.event.ActionEvent evt) {//G
     //(Accept All) file filter.
     fc.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY );
     fc.setAcceptAllFileFilterUsed(false);
+    fc.setCurrentDirectory(new File(FileCommon.GetSafeFilename(MyOptions.SaveLoadPath)));
 
     //Show it.
     int returnVal = fc.showDialog( this, "Choose directory");
@@ -1203,6 +1207,7 @@ private void btnTXTPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     //(Accept All) file filter.
     fc.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY );
     fc.setAcceptAllFileFilterUsed(false);
+    fc.setCurrentDirectory(new File(FileCommon.GetSafeFilename(MyOptions.TXTPath)));
 
     //Show it.
     int returnVal = fc.showDialog( this, "Choose directory");
@@ -1222,6 +1227,7 @@ private void btnMegamekPathActionPerformed(java.awt.event.ActionEvent evt) {//GE
     //(Accept All) file filter.
     fc.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY );
     fc.setAcceptAllFileFilterUsed(false);
+    fc.setCurrentDirectory(new File(FileCommon.GetSafeFilename(MyOptions.MegamekPath)));
 
     //Show it.
     int returnVal = fc.showDialog( this, "Choose directory");

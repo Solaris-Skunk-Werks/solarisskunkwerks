@@ -32,17 +32,24 @@ import java.io.File;
 
 public class FileList {
     private File[] files;
+    private File file;
+    private int length = 0;
 
     public FileList(String directory) {
-        File file = new File(directory);
-        if (file.isDirectory()) {
-            files = file.listFiles();
-            if (files.length > 0) {
-                for (int f = 0; f <= files.length; f++) {
-
-                }
+        try
+        {
+            file = new File(directory);
+            if (file.isDirectory()) {
+                files = file.listFiles();
+                length = files.length;
             }
+        } catch (NullPointerException npe) {
+            
         }
+    }
+
+    public int length() {
+        return length;
     }
 
     public File[] getFiles() {

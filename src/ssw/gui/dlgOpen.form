@@ -5,7 +5,7 @@
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="Select Mech(s)"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[800, 500]"/>
+      <Dimension value="[600, 500]"/>
     </Property>
   </Properties>
   <SyntheticProperties>
@@ -29,21 +29,21 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tlbActions" alignment="0" pref="673" max="32767" attributes="0"/>
+          <Component id="tlbActions" alignment="0" pref="591" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="txtSelected" pref="503" max="32767" attributes="0"/>
+              <Component id="txtSelected" pref="462" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="lblLoading" pref="140" max="32767" attributes="0"/>
+              <Component id="lblLoading" pref="99" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="spnMechTable" pref="653" max="32767" attributes="0"/>
+              <Component id="spnMechTable" pref="571" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="576" max="32767" attributes="0"/>
+              <EmptySpace pref="494" max="32767" attributes="0"/>
               <Component id="btnOpenMech" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -82,6 +82,7 @@
               <Image iconType="3" name="/ssw/Images/folder.gif"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Open Mech"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -96,10 +97,13 @@
               <Image iconType="3" name="/ssw/Images/page_up.gif"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Add to Force List"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JToolBar$Separator" name="jSeparator1">
         </Component>
         <Component class="javax.swing.JButton" name="btnOptions">
           <Properties>
@@ -113,6 +117,19 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOptionsActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/ssw/Images/action_refresh_blue.gif"/>
+            </Property>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -146,6 +163,7 @@
     <Component class="javax.swing.JButton" name="btnOpenMech">
       <Properties>
         <Property name="text" type="java.lang.String" value="Open Mech"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOpenMechActionPerformed"/>

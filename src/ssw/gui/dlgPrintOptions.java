@@ -28,18 +28,28 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
+import java.util.Vector;
 import ssw.CommonTools;
 import ssw.components.Mech;
+import javax.print.*;
 
 public class dlgPrintOptions extends javax.swing.JDialog {
     private Mech CurMech;
     private frmMain Parent;
     private boolean Result = false;
+    private Vector printers;
 
     /** Creates new form dlgPrintOptions */
     public dlgPrintOptions( java.awt.Frame parent, boolean modal, Mech m ) {
         super(parent, modal);
         initComponents();
+
+        PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
+        for (PrintService printer : services) printers.add(printer);
+
+        for (int i=0; i<=printers.size()-1; i++)
+        {
+        }
         Parent = (frmMain) parent;
         CurMech = m;
         cmbGunnery.setSelectedIndex( 4 );
@@ -131,6 +141,9 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         cmbPaperSize = new javax.swing.JComboBox();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        cmbPrinters = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -140,7 +153,7 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         txtWarriorName.setPreferredSize(new java.awt.Dimension(150, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(txtWarriorName, gridBagConstraints);
@@ -153,21 +166,21 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(chkAdjustBV, gridBagConstraints);
 
         chkPrintCharts.setText("Print helpful charts on the sheet");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(chkPrintCharts, gridBagConstraints);
 
         lblAdjustBVLabel.setText("Adjusted BV:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 0);
         getContentPane().add(lblAdjustBVLabel, gridBagConstraints);
@@ -190,7 +203,7 @@ public class dlgPrintOptions extends javax.swing.JDialog {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
@@ -231,7 +244,7 @@ public class dlgPrintOptions extends javax.swing.JDialog {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 0);
@@ -240,14 +253,14 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         jLabel3.setText("MechWarrior Name");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(jLabel3, gridBagConstraints);
 
         lblAdjustBV.setText("00,000");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         getContentPane().add(lblAdjustBV, gridBagConstraints);
 
@@ -259,7 +272,7 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(chkMWStats, gridBagConstraints);
 
@@ -271,11 +284,21 @@ public class dlgPrintOptions extends javax.swing.JDialog {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
         getContentPane().add(jPanel3, gridBagConstraints);
+
+        jLabel4.setText("Printer:");
+        jPanel4.add(jLabel4);
+
+        jPanel4.add(cmbPrinters);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        getContentPane().add(jPanel4, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -340,13 +363,16 @@ private void chkMWStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JComboBox cmbGunnery;
     private javax.swing.JComboBox cmbPaperSize;
     private javax.swing.JComboBox cmbPiloting;
+    private javax.swing.JComboBox cmbPrinters;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lblAdjustBV;
     private javax.swing.JLabel lblAdjustBVLabel;
     private javax.swing.JTextField txtWarriorName;

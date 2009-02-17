@@ -28,9 +28,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
+import java.io.File;
 import ssw.Options;
 import ssw.components.Mech;
 import ssw.filehandlers.FileCommon;
+import ssw.filehandlers.FileList;
 import ssw.filehandlers.MechList;
 import ssw.filehandlers.MechListData;
 import ssw.filehandlers.XMLReader;
@@ -38,7 +40,6 @@ import ssw.filehandlers.XMLReader;
 public class dlgOpen extends javax.swing.JDialog {
     private frmMain parent;
     private Options opts = new Options();
-    private String baseDir = FileCommon.GetSafeFilename(opts.SaveLoadPath);
     private MechList list;
 
     /** Creates new form dlgOpen */
@@ -82,6 +83,27 @@ public class dlgOpen extends javax.swing.JDialog {
         txtSelected.setText(rows.length + " Units Selected for " + BV + " BV and " + Cost + " C-Bills");
     }
 
+    public void LoadList() {
+        list = new MechList();
+
+        FileList fl = new FileList(FileCommon.GetSafeFilename(opts.SaveLoadPath));
+        for ( int i=0; i <= fl.length()-1; i++ ) {
+            File f = fl.getFiles()[i];
+            try
+            {
+                list.Add(f);
+            } catch (Exception e) {
+
+            }
+        }
+
+        if (list.Size() > 0) {
+            tblMechData.setModel(list);
+            tblMechData.setAutoCreateRowSorter(true);
+        }
+
+        this.lblLoading.setText(list.Size() + " Mechs loaded from " + opts.SaveLoadPath);
+    }
 
 
 
@@ -97,7 +119,9 @@ public class dlgOpen extends javax.swing.JDialog {
         tlbActions = new javax.swing.JToolBar();
         btnOpen = new javax.swing.JButton();
         btnAdd2Force = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
         btnOptions = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         spnMechTable = new javax.swing.JScrollPane();
         tblMechData = new javax.swing.JTable();
         txtSelected = new javax.swing.JLabel();
@@ -106,7 +130,7 @@ public class dlgOpen extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Select Mech(s)");
-        setMinimumSize(new java.awt.Dimension(800, 500));
+        setMinimumSize(new java.awt.Dimension(600, 500));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -118,6 +142,7 @@ public class dlgOpen extends javax.swing.JDialog {
 
         btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/folder.gif"))); // NOI18N
         btnOpen.setToolTipText("Open Mech");
+        btnOpen.setEnabled(false);
         btnOpen.setFocusable(false);
         btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -130,10 +155,12 @@ public class dlgOpen extends javax.swing.JDialog {
 
         btnAdd2Force.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_up.gif"))); // NOI18N
         btnAdd2Force.setToolTipText("Add to Force List");
+        btnAdd2Force.setEnabled(false);
         btnAdd2Force.setFocusable(false);
         btnAdd2Force.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAdd2Force.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         tlbActions.add(btnAdd2Force);
+        tlbActions.add(jSeparator1);
 
         btnOptions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/icon_settings.gif"))); // NOI18N
         btnOptions.setToolTipText("Change Options");
@@ -146,6 +173,17 @@ public class dlgOpen extends javax.swing.JDialog {
             }
         });
         tlbActions.add(btnOptions);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/action_refresh_blue.gif"))); // NOI18N
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        tlbActions.add(jButton1);
 
         tblMechData.setAutoCreateRowSorter(true);
         tblMechData.setModel(new javax.swing.table.DefaultTableModel(
@@ -171,6 +209,7 @@ public class dlgOpen extends javax.swing.JDialog {
         txtSelected.setText("0 Units Selected");
 
         btnOpenMech.setText("Open Mech");
+        btnOpenMech.setEnabled(false);
         btnOpenMech.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOpenMechActionPerformed(evt);
@@ -185,19 +224,19 @@ public class dlgOpen extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
+            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtSelected, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
+                .addComponent(txtSelected, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblLoading, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addComponent(lblLoading, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
+                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(576, Short.MAX_VALUE)
+                .addContainerGap(494, Short.MAX_VALUE)
                 .addComponent(btnOpenMech)
                 .addContainerGap())
         );
@@ -223,7 +262,16 @@ public class dlgOpen extends javax.swing.JDialog {
         if ( evt.getClickCount() == 2 ) {
             LoadMech();
         } else {
-            Calculate();
+            if ( tblMechData.getSelectedRowCount() > 0 ) {
+                Calculate();
+                btnOpen.setEnabled(true);
+                btnOpenMech.setEnabled(true);
+                btnAdd2Force.setEnabled(true);
+            } else {
+                btnOpen.setEnabled(false);
+                btnOpenMech.setEnabled(false);
+                btnAdd2Force.setEnabled(false);
+            }
         }
     }//GEN-LAST:event_tblMechDataMouseClicked
 
@@ -232,26 +280,7 @@ public class dlgOpen extends javax.swing.JDialog {
 }//GEN-LAST:event_btnOpenActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        this.spnMechTable.setEnabled(false);
-        this.btnOpen.setEnabled(false);
-        this.btnOpenMech.setEnabled(false);
-        this.btnAdd2Force.setEnabled(false);
-
-        try
-        {
-            list = new MechList(baseDir);
-        } catch ( Exception e ) {
-            javax.swing.JOptionPane.showMessageDialog( this.parent, e.getMessage() );
-        }
-
-        tblMechData.setModel(list);
-        tblMechData.setAutoCreateRowSorter(true);
-
-        this.lblLoading.setText(list.Size() + " Mechs loaded from " + baseDir);
-        this.spnMechTable.setEnabled(true);
-        this.btnOpen.setEnabled(true);
-        this.btnOpenMech.setEnabled(true);
-        this.btnAdd2Force.setEnabled(true);
+        if (list.Size() == 0) LoadList();
     }//GEN-LAST:event_formWindowOpened
 
     private void btnOpenMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenMechActionPerformed
@@ -259,16 +288,24 @@ public class dlgOpen extends javax.swing.JDialog {
     }//GEN-LAST:event_btnOpenMechActionPerformed
 
     private void btnOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOptionsActionPerformed
-        dlgOptions Options = new dlgOptions( parent, true );
-        Options.setLocationRelativeTo( this );
-        Options.setVisible( true );
+        dlgOptions dgOptions = new dlgOptions( parent, true );
+        dgOptions.setLocationRelativeTo( this );
+        dgOptions.setVisible( true );
+        opts = new Options();
+        LoadList();
     }//GEN-LAST:event_btnOptionsActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        LoadList();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd2Force;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnOpenMech;
     private javax.swing.JButton btnOptions;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JLabel lblLoading;
     private javax.swing.JScrollPane spnMechTable;
     private javax.swing.JTable tblMechData;
