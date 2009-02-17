@@ -50,7 +50,7 @@ S7USERID=-1
 
 ########## Pathing Options ##########
 LOAD_LAST_MECH=FALSE
-PATH_SAVELOAD=none
+PATH_SAVELOAD=/home/justin/Documents/Battletech/SSW_Mechs
 PATH_HTML=none
 PATH_TXT=none
 PATH_MEGAMEK=none

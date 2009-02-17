@@ -38,7 +38,6 @@ import ssw.CommonTools;
 import ssw.Constants;
 import ssw.visitors.VMechFullRecalc;
 import ssw.visitors.ifVisitor;
-import ssw.filehandlers.MechListData;
 
 public class XMLReader {
     frmMain Parent;
@@ -120,7 +119,7 @@ public class XMLReader {
                 for ( int dex=0; dex < n.getLength(); dex++ ) {
                     Node node = n.item(dex);
                     if (node.getNodeName().equals("battle_value")) {Config.setBV( Integer.parseInt( node.getTextContent() ) );}
-                    if (node.getNodeName().equals("cost")) {Config.setCost( Integer.parseInt( node.getTextContent() ) );}
+                    if (node.getNodeName().equals("cost")) {Config.setCost( Float.parseFloat( node.getTextContent() ) );}
                 }
 
                 Data.Configurations.add(Config);

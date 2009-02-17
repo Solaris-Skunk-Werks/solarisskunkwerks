@@ -682,9 +682,9 @@ public class WeaponFactory {
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(75000, 5, 0);
         INPW.add(addPW);
         
-        // Daul Saw
+        // Dual Saw
         a = new AvailableCode(isClan, 'C', 'D', 'D', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        addPW = new IndustrialPhysicalWeapon("Daul Saw", techBaseCode + "DaulSaw", Owner, a);
+        addPW = new IndustrialPhysicalWeapon("Dual Saw", techBaseCode + "DualSaw", Owner, a);
         addPW.SetStats(0.0F, 0.0F, 7, 7);
         addPW.SetDamage(0.0f, 7);
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 9, 0);
