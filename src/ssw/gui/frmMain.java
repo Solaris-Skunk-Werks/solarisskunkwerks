@@ -3200,6 +3200,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuFile = new javax.swing.JMenu();
         mnuNewMech = new javax.swing.JMenuItem();
         mnuLoad = new javax.swing.JMenuItem();
+        mnuOpen = new javax.swing.JMenuItem();
         jSeparator16 = new javax.swing.JSeparator();
         mnuSave = new javax.swing.JMenuItem();
         mnuSaveAs = new javax.swing.JMenuItem();
@@ -8690,6 +8691,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         mnuFile.add(mnuLoad);
+
+        mnuOpen.setText("Open");
+        mnuOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuOpenActionPerformed(evt);
+            }
+        });
+        mnuFile.add(mnuOpen);
         mnuFile.add(jSeparator16);
 
         mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
@@ -11070,6 +11079,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RefreshInfoPane();
     }//GEN-LAST:event_btnAddVariantActionPerformed
 
+    private void mnuOpenActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        dlgOpen dOpen = new dlgOpen(this, true);
+        dOpen.setLocationRelativeTo(this);
+        dOpen.setVisible(true);
+    }
+
     private void btnDeleteVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteVariantActionPerformed
         // see if the user actually wants to delete the variant
         int choice = javax.swing.JOptionPane.showConfirmDialog( this,
@@ -11699,8 +11714,8 @@ public Mech LoadMech (){
         return m;
     }
 
-    XMLReader XMLr = new XMLReader();
     try {
+        XMLReader XMLr = new XMLReader();
         m = XMLr.ReadMech( this, filename );
         m.ReCalcBaseCost();
     } catch( Exception e ) {
@@ -11717,8 +11732,8 @@ private void LoadMechFromPreferences()
     Mech m = null;
     String filename = Prefs.get("LastOpenDirectory", "") + Prefs.get("LastOpenFile", "");
     if (! filename.isEmpty() ) {
-        XMLReader XMLr = new XMLReader();
         try {
+            XMLReader XMLr = new XMLReader();
             m = XMLr.ReadMech( this, filename );
             m.ReCalcBaseCost();
             CurMech = m;
@@ -11941,7 +11956,8 @@ private void btnOptionsIconActionPerformed(java.awt.event.ActionEvent evt) {//GE
 }//GEN-LAST:event_btnOptionsIconActionPerformed
 
 private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
-    mnuLoadActionPerformed(evt);
+    //mnuLoadActionPerformed(evt);
+    mnuOpenActionPerformed(evt);
 }//GEN-LAST:event_btnOpenActionPerformed
 
 private void mnuViewToolbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuViewToolbarActionPerformed
@@ -12773,6 +12789,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JMenuItem mnuLoad;
     private javax.swing.JMenuBar mnuMainMenu;
     private javax.swing.JMenuItem mnuNewMech;
+    private javax.swing.JMenuItem mnuOpen;
     private javax.swing.JMenuItem mnuOptions;
     private javax.swing.JMenuItem mnuPostS7;
     private javax.swing.JMenuItem mnuPrintBatch;

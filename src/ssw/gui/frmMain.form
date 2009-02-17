@@ -48,6 +48,14 @@
                 <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="frmMain_mnuLoad"/>
               </AuxValues>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuOpen">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Open"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuOpenActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JSeparator" name="jSeparator16">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuSave">

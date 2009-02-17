@@ -34,22 +34,27 @@ import ssw.gui.frmMain;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.*;
+import ssw.CommonTools;
 import ssw.Constants;
 import ssw.visitors.VMechFullRecalc;
 import ssw.visitors.ifVisitor;
+import ssw.filehandlers.MechListData;
 
 public class XMLReader {
     frmMain Parent;
     DataFactory data;
+    Document load;
+    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    DocumentBuilder db;
+
+    public XMLReader() throws Exception {
+        db = dbf.newDocumentBuilder();
+    }
 
     public Mech ReadMech( String filename ) throws Exception {
         Parent = null;
         Mech retval = new Mech();
-        Document load;
         filename = FileCommon.GetSafeFilename( filename );
-
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        DocumentBuilder db = dbf.newDocumentBuilder();
         load = db.parse( filename );
 
         retval = BuildMech( retval, load );
@@ -59,15 +64,69 @@ public class XMLReader {
     public Mech ReadMech( frmMain parent, String filename ) throws Exception {
         Parent = parent;
         Mech retval = new Mech( Parent );
-        Document load;
         filename = FileCommon.GetSafeFilename( filename );
-
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        DocumentBuilder db = dbf.newDocumentBuilder();
         load = db.parse( filename );
 
         retval = BuildMech( retval, load );
         return retval;
+    }
+
+    public MechListData ReadMechData( String filename ) throws Exception {
+        MechListData mData = new MechListData();
+        mData.setFilename(filename);
+        filename = FileCommon.GetSafeFilename( filename );
+        load = db.parse( filename );
+
+        return BuildData( mData, load );
+    }
+
+    private MechListData BuildData( MechListData Data, Document d ) {
+        NodeList n = d.getElementsByTagName( "mech" );
+        NamedNodeMap map = n.item( 0 ).getAttributes();
+
+        boolean isOmni = ParseBoolean( map.getNamedItem( "omnimech" ).getTextContent() );
+        Data.setOmni( isOmni );
+
+        Data.setName( FileCommon.DecodeFluff( map.getNamedItem( "name" ).getTextContent() ) + " " + FileCommon.DecodeFluff( map.getNamedItem( "model" ).getTextContent() ) );
+        Data.setTonnage( Integer.parseInt( map.getNamedItem( "tons" ).getTextContent() ) );
+
+        n = d.getElementsByTagName( "era" );
+        Data.setEra( CommonTools.DecodeEra( Integer.parseInt( n.item( 0 ).getTextContent() ) ) );
+
+        n = d.getElementsByTagName( "techbase" );
+        Data.setTech( n.item( 0 ).getTextContent() );
+
+        n = d.getElementsByTagName( "year" );
+        Data.setYear( Integer.parseInt( n.item( 0 ).getTextContent() ) );
+
+        n = d.getElementsByTagName( "battle_value" );
+        if (n.getLength() >= 1) Data.setBV( Integer.parseInt( n.item(0).getTextContent() ) );
+
+        n = d.getElementsByTagName( "cost" );
+        if (n.getLength() >= 1) Data.setCost( Float.parseFloat( n.item(0).getTextContent() ) );
+
+        if( isOmni ) {
+            NodeList OmniLoads = d.getElementsByTagName( "loadout" );
+            for( int k = 0; k < OmniLoads.getLength(); k++ ) {
+                MechListData Config = new MechListData(Data);
+                Config.setOmni(true);
+                map = OmniLoads.item( k ).getAttributes();
+                if( map.getNamedItem( "name" ) != null ) {
+                    Config.setName( Config.getName() + " " + FileCommon.DecodeFluff( map.getNamedItem( "name" ).getTextContent() ) );
+                    Config.setConfig(FileCommon.DecodeFluff( map.getNamedItem( "name" ).getTextContent() ));
+                }
+                
+                n = OmniLoads.item( k ).getChildNodes();
+                for ( int dex=0; dex < n.getLength(); dex++ ) {
+                    Node node = n.item(dex);
+                    if (node.getNodeName().equals("battle_value")) {Config.setBV( Integer.parseInt( node.getTextContent() ) );}
+                    if (node.getNodeName().equals("cost")) {Config.setCost( Integer.parseInt( node.getTextContent() ) );}
+                }
+
+                Data.Configurations.add(Config);
+            }
+        }        
+        return Data;
     }
 
     private Mech BuildMech( Mech m, Document d ) throws Exception {
