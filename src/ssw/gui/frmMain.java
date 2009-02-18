@@ -9353,6 +9353,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             CurMech.SetClan();
         }
 
+        data.GetEquipment().rebuildIndustrialEquipment( CurMech );
+
         // refresh all the combo boxes.
         BuildChassisSelector();
         BuildEngineSelector();

@@ -3630,6 +3630,24 @@ public class AmmoFactory {
         add.SetLotSize( 6 );
         ISAM.add( add );
 
+        a = new AvailableCode(false, 'C', 'C', 'C', 'C', 2310, 0, 0, "FWL", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        add = new Ammunition( "@ Nail/Rivet Gun", "ISNail/RivetGunAmmo", 133, false, a );
+        add.SetStats( 1.0f, 300.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 1, 1 );
+        add.SetRange( 0, 1, 0, 0 );
+        add.SetExplosive( false );
+        add.SetLotSize( 300 );
+        ISAM.add( add );
+
+        a = new AvailableCode(false, 'C', 'C', 'C', 'C', 2310, 0, 0, "FWL", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        add = new Ammunition( "@ Nail/Rivet Gun (1/2)", "ISNail/RivetGunHalfAmmo", 133, false, a );
+        add.SetStats( 0.5f, 150.0f, 0.5f, 0.0f );
+        add.SetDamage( 0, 1, 1 );
+        add.SetRange( 0, 1, 0, 0 );
+        add.SetExplosive( false );
+        add.SetLotSize( 150 );
+        ISAM.add( add );
+
  /*******************************************************************************
  *      START CLAN AMMUNITION
  ******************************************************************************/
@@ -5088,5 +5106,22 @@ public class AmmoFactory {
         add.SetLotSize( 20 );
         CLAM.add( add );
 
+        a = new AvailableCode(true, 'C', 'X', 'C', 'C', 2310, 0, 0, "FWL", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        add = new Ammunition( "@ Nail/Rivet Gun", "CLNail/RivetGunAmmo", 132, false, a );
+        add.SetStats( 1.0f, 300.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 1, 1 );
+        add.SetRange( 0, 1, 0, 0 );
+        add.SetExplosive( false );
+        add.SetLotSize( 300 );
+        CLAM.add( add );
+
+        a = new AvailableCode(true, 'C', 'X', 'C', 'C', 2310, 0, 0, "FWL", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        add = new Ammunition( "@ Nail/Rivet Gun (1/2)", "CLNail/RivetGunHalfAmmo", 132, false, a );
+        add.SetStats( 0.5f, 150.0f, 0.5f, 0.0f );
+        add.SetDamage( 0, 1, 1 );
+        add.SetRange( 0, 1, 0, 0 );
+        add.SetExplosive( false );
+        add.SetLotSize( 150 );
+        CLAM.add( add );
     }
 }

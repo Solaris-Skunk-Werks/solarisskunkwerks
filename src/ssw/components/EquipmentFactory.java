@@ -415,96 +415,175 @@ public class EquipmentFactory {
         INEQ.clear();
         AvailableCode a;
         Equipment addEQ;
-        boolean isClan = m.IsClan();
-        String techBase = "IS";
-        if (isClan) {
-            techBase = "CL";        // Light Bridgelayer
-        }
-        a = new AvailableCode(isClan, 'B', 'D', 'E', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        addEQ = new IndustrialEquipment("Bridgelayer, Light", "IE", a, isClan, new BridgelayerValidator(), "Bipedal Mechs cannot carry bridgelayers.");
-        addEQ.SetLookupName(techBase + "LightBridgelayer");
+
+        // light bridgelayer
+        a = new AvailableCode( false, 'B', 'D', 'E', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT );
+        addEQ = new IndustrialEquipment("Bridgelayer, Light", "IE", a, false, new BridgelayerValidator(), "Bipedal Mechs cannot carry bridgelayers.");
+        addEQ.SetLookupName( "ISLightBridgelayer");
+        addEQ.SetStats(2, 1, 40000, 0, 5, "-");
+        addEQ.SetAllocs(false, false, true, false, false);
+        addEQ.SetMountableRear(true);
+        INEQ.add(addEQ);
+
+        a = new AvailableCode( true, 'B', 'X', 'E', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT );
+        addEQ = new IndustrialEquipment("Bridgelayer, Light", "IE", a, true, new BridgelayerValidator(), "Bipedal Mechs cannot carry bridgelayers.");
+        addEQ.SetLookupName( "CLLightBridgelayer");
         addEQ.SetStats(2, 1, 40000, 0, 5, "-");
         addEQ.SetAllocs(false, false, true, false, false);
         addEQ.SetMountableRear(true);
         INEQ.add(addEQ);
 
         // Medium Bridgelayer
-        a = new AvailableCode(isClan, 'C', 'D', 'E', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        addEQ = new IndustrialEquipment("Bridgelayer, Medium", "IE", a, isClan, new BridgelayerValidator(), "Bipedal Mechs cannot carry bridgelayers.");
-        addEQ.SetLookupName(techBase + "MediumBridgelayer");
+        a = new AvailableCode( false, 'C', 'D', 'E', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT );
+        addEQ = new IndustrialEquipment("Bridgelayer, Medium", "IE", a, false, new BridgelayerValidator(), "Bipedal Mechs cannot carry bridgelayers.");
+        addEQ.SetLookupName( "ISMediumBridgelayer");
+        addEQ.SetStats(4, 2, 75000, 0, 10, "-");
+        addEQ.SetAllocs(false, false, true, false, false);
+        addEQ.SetMountableRear(true);
+        INEQ.add(addEQ);
+
+        a = new AvailableCode( true, 'C', 'X', 'E', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT );
+        addEQ = new IndustrialEquipment("Bridgelayer, Medium", "IE", a, true, new BridgelayerValidator(), "Bipedal Mechs cannot carry bridgelayers.");
+        addEQ.SetLookupName( "CLMediumBridgelayer");
         addEQ.SetStats(4, 2, 75000, 0, 10, "-");
         addEQ.SetAllocs(false, false, true, false, false);
         addEQ.SetMountableRear(true);
         INEQ.add(addEQ);
 
         // Heavy Bridgelayer
-        a = new AvailableCode(isClan, 'D', 'E', 'E', 'E', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        addEQ = new IndustrialEquipment("Bridgelayer, Heavy", "IE", a, isClan, new BridgelayerValidator(), "Bipedal Mechs cannot carry bridgelayers.");
-        addEQ.SetLookupName(techBase + "HeavyBridgelayer");
+        a = new AvailableCode( false, 'D', 'E', 'E', 'E', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT );
+        addEQ = new IndustrialEquipment( "Bridgelayer, Heavy", "IE", a, false, new BridgelayerValidator(), "Bipedal Mechs cannot carry bridgelayers.");
+        addEQ.SetLookupName( "ISHeavyBridgelayer");
+        addEQ.SetStats(12, 6, 100000, 0, 20, "-");
+        addEQ.SetAllocs(false, false, true, false, false);
+        addEQ.SetMountableRear(true);
+        INEQ.add(addEQ);
+
+        a = new AvailableCode( true, 'D', 'X', 'E', 'E', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT );
+        addEQ = new IndustrialEquipment( "Bridgelayer, Heavy", "IE", a, true, new BridgelayerValidator(), "Bipedal Mechs cannot carry bridgelayers.");
+        addEQ.SetLookupName( "CLHeavyBridgelayer");
         addEQ.SetStats(12, 6, 100000, 0, 20, "-");
         addEQ.SetAllocs(false, false, true, false, false);
         addEQ.SetMountableRear(true);
         INEQ.add(addEQ);
 
         // Fluid Suction System, Standard
-        a = new AvailableCode(isClan, 'C', 'B', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        addEQ = new IndustrialEquipment("Fluid Suction System, Standard", "IE", a, isClan, new SimpleValidator(), "");
-        addEQ.SetLookupName(techBase + "StandardFluidSuctionSystem");
+        a = new AvailableCode(false, 'C', 'B', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Fluid Suction System, Standard", "IE", a, false, new SimpleValidator(), "");
+        addEQ.SetLookupName("ISStandardFluidSuctionSystem");
+        addEQ.SetStats(1, 1, 25000, 0, 0, "-");
+        addEQ.SetAmmo(true, 10, 0);
+        addEQ.SetMountableRear(true);
+        INEQ.add(addEQ);
+
+        a = new AvailableCode(true, 'C', 'X', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Fluid Suction System, Standard", "IE", a, true, new SimpleValidator(), "");
+        addEQ.SetLookupName("CLStandardFluidSuctionSystem");
         addEQ.SetStats(1, 1, 25000, 0, 0, "-");
         addEQ.SetAmmo(true, 10, 0);
         addEQ.SetMountableRear(true);
         INEQ.add(addEQ);
 
         // Fluid Suction System, Light
-        a = new AvailableCode(isClan, 'B', 'B', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        addEQ = new IndustrialEquipment("Fluid Suction System, Light", "IE", a, isClan, new SimpleValidator(), "");
-        addEQ.SetLookupName(techBase + "LightFluidSuctionSystem");
+        a = new AvailableCode(false, 'B', 'B', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Fluid Suction System, Light", "IE", a, false, new SimpleValidator(), "");
+        addEQ.SetLookupName("ISLightFluidSuctionSystem");
+        addEQ.SetStats(1, 0.5f, 1000, 0, 0, "-");
+        addEQ.SetAmmo(true, 10, 0);
+        addEQ.SetMountableRear(true);
+        INEQ.add(addEQ);
+
+        a = new AvailableCode(true, 'B', 'X', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Fluid Suction System, Light", "IE", a, true, new SimpleValidator(), "");
+        addEQ.SetLookupName("CLLightFluidSuctionSystem");
         addEQ.SetStats(1, 0.5f, 1000, 0, 0, "-");
         addEQ.SetAmmo(true, 10, 0);
         addEQ.SetMountableRear(true);
         INEQ.add(addEQ);
 
         // Lift Hoist
-        a = new AvailableCode(isClan, 'A', 'A', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        addEQ = new IndustrialEquipment("Lift Hoist", "IE", a, isClan, new LiftHoistValidator(), "Mech cannot have more than 2 lift hoists.");
-        addEQ.SetLookupName(techBase + "LiftHoist");
+        a = new AvailableCode(false, 'A', 'A', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Lift Hoist", "IE", a, false, new LiftHoistValidator(), "Mech cannot have more than 2 lift hoists.");
+        addEQ.SetLookupName("ISLiftHoist");
+        addEQ.SetStats(3, 3, 50000, 0, 0, "-");
+        addEQ.SetAllocs(false, false, true, true, false);
+        addEQ.SetMountableRear(true);
+        INEQ.add(addEQ);
+
+        a = new AvailableCode(true, 'A', 'X', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Lift Hoist", "IE", a, true, new LiftHoistValidator(), "Mech cannot have more than 2 lift hoists.");
+        addEQ.SetLookupName("CLLiftHoist");
         addEQ.SetStats(3, 3, 50000, 0, 0, "-");
         addEQ.SetAllocs(false, false, true, true, false);
         addEQ.SetMountableRear(true);
         INEQ.add(addEQ);
 
         // Nail/Rivet Gun
-        a = new AvailableCode(isClan, 'C', 'C', 'C', 'C', 2310, 0, 0, "FWL", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        addEQ = new IndustrialEquipment("Nail/Rivet Gun", "IE", a, isClan, new SimpleValidator(), "");
-        addEQ.SetLookupName(techBase + "Nail/RivetGun");
+        a = new AvailableCode(false, 'C', 'C', 'C', 'C', 2310, 0, 0, "FWL", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Nail/Rivet Gun", "IE", a, false, new SimpleValidator(), "");
+        addEQ.SetLookupName("ISNail/RivetGun");
         addEQ.SetStats(1, 0.5f, 7000, 1, 0, "-");
-        addEQ.SetAmmo(true, 300, 0);
+        addEQ.SetAmmo(true, 300, 133);
+        addEQ.SetMountableRear(true);
+        addEQ.SetRange(1, 0, 0);
+        INEQ.add(addEQ);
+
+        a = new AvailableCode(true, 'C', 'X', 'C', 'C', 2310, 0, 0, "FWL", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Nail/Rivet Gun", "IE", a, true, new SimpleValidator(), "");
+        addEQ.SetLookupName("CLNail/RivetGun");
+        addEQ.SetStats(1, 0.5f, 7000, 1, 0, "-");
+        addEQ.SetAmmo(true, 300, 132);
         addEQ.SetMountableRear(true);
         addEQ.SetRange(1, 0, 0);
         INEQ.add(addEQ);
 
         // Remote Sensor Dispenser
-        a = new AvailableCode(isClan, 'C', 'F', 'F', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.TOURNAMENT, Constants.TOURNAMENT);
-        addEQ = new IndustrialEquipment("Remote Sensor Dispenser", "IE", a, isClan, new SimpleValidator(), "");
-        addEQ.SetLookupName(techBase + "RemoteSensorDispenser");
+        a = new AvailableCode(false, 'C', 'F', 'F', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.TOURNAMENT, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Remote Sensor Dispenser", "IE", a, false, new SimpleValidator(), "");
+        addEQ.SetLookupName("ISRemoteSensorDispenser");
+        addEQ.SetStats(1, 0.5f, 30000, 0, 0, "-");
+        addEQ.SetAmmo(true, 60, 0);
+        addEQ.SetMountableRear(true);
+        INEQ.add(addEQ);
+
+        a = new AvailableCode(true, 'C', 'X', 'F', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.TOURNAMENT, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Remote Sensor Dispenser", "IE", a, true, new SimpleValidator(), "");
+        addEQ.SetLookupName("CLRemoteSensorDispenser");
         addEQ.SetStats(1, 0.5f, 30000, 0, 0, "-");
         addEQ.SetAmmo(true, 60, 0);
         addEQ.SetMountableRear(true);
         INEQ.add(addEQ);
 
         // Searchlight
-        a = new AvailableCode(isClan, 'A', 'A', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.TOURNAMENT, Constants.TOURNAMENT);
-        addEQ = new IndustrialEquipment("Searchlight", "IE", a, isClan, new SimpleValidator(), "");
-        addEQ.SetLookupName(techBase + "Searchlight");
+        a = new AvailableCode(false, 'A', 'A', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.TOURNAMENT, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Searchlight", "IE", a, false, new SimpleValidator(), "");
+        addEQ.SetLookupName("ISSearchlight");
+        addEQ.SetStats(1, 0.5f, 2000, 0, 0, "-");
+        addEQ.SetRange(0, 0, 170);
+        addEQ.SetMountableRear(true);
+        INEQ.add(addEQ);
+
+        a = new AvailableCode(true, 'A', 'X', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.TOURNAMENT, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Searchlight", "IE", a, true, new SimpleValidator(), "");
+        addEQ.SetLookupName("CLSearchlight");
         addEQ.SetStats(1, 0.5f, 2000, 0, 0, "-");
         addEQ.SetRange(0, 0, 170);
         addEQ.SetMountableRear(true);
         INEQ.add(addEQ);
 
         // Sprayer
-        a = new AvailableCode(isClan, 'B', 'B', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        addEQ = new IndustrialEquipment("Sprayer", "IE", a, isClan, new SimpleValidator(), "");
-        addEQ.SetLookupName(techBase + "Sprayer");
+        a = new AvailableCode(false, 'B', 'B', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Sprayer", "IE", a, false, new SimpleValidator(), "");
+        addEQ.SetLookupName("ISSprayer");
+        addEQ.SetStats(1, 0.5f, 1000, 0, 0, "-");
+        addEQ.SetRange(0, 0, 1);
+        addEQ.SetAmmo(true, 10, 0);
+        addEQ.SetMountableRear(true);
+        INEQ.add(addEQ);
+
+        a = new AvailableCode(true, 'B', 'X', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Sprayer", "IE", a, true, new SimpleValidator(), "");
+        addEQ.SetLookupName("CLSprayer");
         addEQ.SetStats(1, 0.5f, 1000, 0, 0, "-");
         addEQ.SetRange(0, 0, 1);
         addEQ.SetAmmo(true, 10, 0);
@@ -512,10 +591,55 @@ public class EquipmentFactory {
         INEQ.add(addEQ);
 
         // Cargo Container
-        a = new AvailableCode(isClan, 'A', 'A', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        addEQ = new IndustrialEquipment("Cargo Container", "IE", a, isClan, new SimpleValidator(), "");
-        addEQ.SetLookupName(techBase + "CargoContainer");
+        a = new AvailableCode(false, 'A', 'A', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Cargo Container", "IE", a, false, new SimpleValidator(), "");
+        addEQ.SetLookupName("ISCargoContainer");
         addEQ.SetStats(1, 10, 0, 0, 0, "-");
+        INEQ.add(addEQ);
+
+        a = new AvailableCode(true, 'A', 'X', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Cargo Container", "IE", a, true, new SimpleValidator(), "");
+        addEQ.SetLookupName("CLCargoContainer");
+        addEQ.SetStats(1, 10, 0, 0, 0, "-");
+        INEQ.add(addEQ);
+
+        // Cargo, Standard
+        a = new AvailableCode(false, 'A', 'A', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Cargo, Standard", "IE", a, false, new SimpleValidator(), "");
+        addEQ.SetLookupName("ISCargoStandard");
+        addEQ.SetStats(1, 1, 0, 0, 0, "-");
+        INEQ.add(addEQ);
+
+        a = new AvailableCode(true, 'A', 'X', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Cargo, Standard", "IE", a, true, new SimpleValidator(), "");
+        addEQ.SetLookupName("CLCargoStandard");
+        addEQ.SetStats(1, 1, 0, 0, 0, "-");
+        INEQ.add(addEQ);
+
+        // Cargo, Standard
+        a = new AvailableCode(false, 'A', 'A', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Cargo, Liquid", "IE", a, false, new SimpleValidator(), "");
+        addEQ.SetLookupName("ISCargoLiquid");
+        addEQ.SetStats(1, 1, 0, 0, 0, "-");
+        INEQ.add(addEQ);
+
+        a = new AvailableCode(true, 'A', 'X', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Cargo, Liquid", "IE", a, true, new SimpleValidator(), "");
+        addEQ.SetLookupName("CLCargoLiquid");
+        addEQ.SetStats(1, 1, 0, 0, 0, "-");
+        INEQ.add(addEQ);
+
+        // Cargo, Standard
+        a = new AvailableCode(false, 'A', 'A', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Cargo, Insulated", "IE", a, false, new SimpleValidator(), "");
+        addEQ.SetLookupName("ISCargoInsulated");
+        addEQ.SetStats(1, 1, 0, 0, 0, "-");
+        INEQ.add(addEQ);
+
+        a = new AvailableCode(true, 'A', 'X', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
+        addEQ = new IndustrialEquipment("Cargo, Insulated", "IE", a, true, new SimpleValidator(), "");
+        addEQ.SetLookupName("CLCargoInsulated");
+        addEQ.SetStats(1, 1, 0, 0, 0, "-");
         INEQ.add(addEQ);
     }
 
