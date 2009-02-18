@@ -29,13 +29,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.gui;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
+import javax.swing.table.TableRowSorter;
 import ssw.Options;
 import ssw.components.Mech;
-import ssw.filehandlers.FileCommon;
-import ssw.filehandlers.FileList;
-import ssw.filehandlers.MechList;
-import ssw.filehandlers.MechListData;
-import ssw.filehandlers.XMLReader;
+import ssw.filehandlers.*;
+import ssw.print.Printer;
 
 public class dlgOpen extends javax.swing.JDialog {
     private frmMain parent;
@@ -59,6 +61,10 @@ public class dlgOpen extends javax.swing.JDialog {
             if (Data.isOmni()) {
                 m.SetCurLoadout( Data.getConfig() );
             }
+
+            parent.Prefs.put("LastOpenDirectory", Data.getFilename().substring(0, Data.getFilename().lastIndexOf("\\")));
+            parent.Prefs.put("LastOpenFile", Data.getFilename().substring(Data.getFilename().lastIndexOf("\\")));
+
             parent.LoadMechIntoGUI();
             this.setVisible(false);
 
@@ -99,10 +105,39 @@ public class dlgOpen extends javax.swing.JDialog {
 
         if (list.Size() > 0) {
             tblMechData.setModel(list);
-            tblMechData.setAutoCreateRowSorter(true);
+
+            //Create a sorting class and apply it to the list
+            TableRowSorter sorter = new TableRowSorter<MechList>(list);
+            List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
+            sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
+            sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
+            sorter.setSortKeys(sortKeys);
+            tblMechData.setRowSorter(sorter);
+
+            tblMechData.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tblMechData.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tblMechData.getColumnModel().getColumn(2).setPreferredWidth(40);
+            tblMechData.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tblMechData.getColumnModel().getColumn(4).setPreferredWidth(130);
         }
 
         this.lblLoading.setText(list.Size() + " Mechs loaded from " + opts.SaveLoadPath);
+    }
+
+    private void checkSelection() {
+        if ( tblMechData.getSelectedRowCount() > 0 ) {
+            Calculate();
+            btnOpen.setEnabled(true);
+            btnPrint.setEnabled(true);
+            btnOpenMech.setEnabled(true);
+            btnAdd2Force.setEnabled(true);
+        } else {
+            btnOpen.setEnabled(false);
+            btnPrint.setEnabled(false);
+            btnOpenMech.setEnabled(false);
+            btnAdd2Force.setEnabled(false);
+            txtSelected.setText("0 Units Selected for 0 BV and 0 C-Bills");
+        }
     }
 
 
@@ -118,6 +153,7 @@ public class dlgOpen extends javax.swing.JDialog {
 
         tlbActions = new javax.swing.JToolBar();
         btnOpen = new javax.swing.JButton();
+        btnPrint = new javax.swing.JButton();
         btnAdd2Force = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnOptions = new javax.swing.JButton();
@@ -153,6 +189,19 @@ public class dlgOpen extends javax.swing.JDialog {
         });
         tlbActions.add(btnOpen);
 
+        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/action_print.gif"))); // NOI18N
+        btnPrint.setToolTipText("Print Selected Mechs");
+        btnPrint.setEnabled(false);
+        btnPrint.setFocusable(false);
+        btnPrint.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPrint.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+        tlbActions.add(btnPrint);
+
         btnAdd2Force.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_up.gif"))); // NOI18N
         btnAdd2Force.setToolTipText("Add to Force List");
         btnAdd2Force.setEnabled(false);
@@ -175,6 +224,7 @@ public class dlgOpen extends javax.swing.JDialog {
         tlbActions.add(btnOptions);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/action_refresh_blue.gif"))); // NOI18N
+        jButton1.setToolTipText("Refresh Mech List");
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -197,7 +247,7 @@ public class dlgOpen extends javax.swing.JDialog {
 
             }
         ));
-        tblMechData.setIntercellSpacing(new java.awt.Dimension(10, 5));
+        tblMechData.setIntercellSpacing(new java.awt.Dimension(4, 4));
         tblMechData.setShowVerticalLines(false);
         tblMechData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -262,16 +312,7 @@ public class dlgOpen extends javax.swing.JDialog {
         if ( evt.getClickCount() == 2 ) {
             LoadMech();
         } else {
-            if ( tblMechData.getSelectedRowCount() > 0 ) {
-                Calculate();
-                btnOpen.setEnabled(true);
-                btnOpenMech.setEnabled(true);
-                btnAdd2Force.setEnabled(true);
-            } else {
-                btnOpen.setEnabled(false);
-                btnOpenMech.setEnabled(false);
-                btnAdd2Force.setEnabled(false);
-            }
+            checkSelection();
         }
     }//GEN-LAST:event_tblMechDataMouseClicked
 
@@ -299,11 +340,39 @@ public class dlgOpen extends javax.swing.JDialog {
         LoadList();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        if ( tblMechData.getSelectedRowCount() > 0 ) {
+            Printer print = new Printer();
+
+            try
+            {
+                XMLReader read = new XMLReader();
+                int[] rows = tblMechData.getSelectedRows();
+                for ( int i=0; i < rows.length; i++ ) {
+                    MechListData data = list.Get(tblMechData.convertRowIndexToModel(rows[i]));
+                    Mech m = read.ReadMech(data.getFilename());
+                    if (data.isOmni()) {
+                        m.SetCurLoadout(data.getConfig());
+                    }
+                    print.AddMech(m);
+                }
+                print.Print();
+                tblMechData.clearSelection();
+                checkSelection();
+
+            } catch ( Exception e ) {
+
+            }
+        }
+
+    }//GEN-LAST:event_btnPrintActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd2Force;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnOpenMech;
     private javax.swing.JButton btnOptions;
+    private javax.swing.JButton btnPrint;
     private javax.swing.JButton jButton1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JLabel lblLoading;
