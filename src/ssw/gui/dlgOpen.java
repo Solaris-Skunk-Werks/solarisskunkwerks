@@ -52,7 +52,7 @@ public class dlgOpen extends javax.swing.JDialog {
     }
 
     private void LoadMech() {
-        MechListData Data = list.Get(tblMechData.convertRowIndexToModel(tblMechData.getSelectedRow()));
+        MechListData Data = list.Get( tblMechData.convertRowIndexToModel( tblMechData.getSelectedRow() ) );
         try
         {
             XMLReader read = new XMLReader();
@@ -62,8 +62,8 @@ public class dlgOpen extends javax.swing.JDialog {
                 m.SetCurLoadout( Data.getConfig() );
             }
 
-            parent.Prefs.put("LastOpenDirectory", Data.getFilename().substring(0, Data.getFilename().lastIndexOf("\\")));
-            parent.Prefs.put("LastOpenFile", Data.getFilename().substring(Data.getFilename().lastIndexOf("\\")));
+            parent.Prefs.put( "LastOpenDirectory", Data.getFilename().substring( 0, Data.getFilename().lastIndexOf( File.separator ) ) );
+            parent.Prefs.put( "LastOpenFile", Data.getFilename().substring( Data.getFilename().lastIndexOf( File.separator ) ) ); 
 
             parent.LoadMechIntoGUI();
             this.setVisible(false);

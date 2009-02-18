@@ -11221,7 +11221,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             // this is just a quick save on an existing mech.
             savemech = testfile;
         } else {
-            System.out.println( "couldn't find the file: " + test );
+            System.err.println( "couldn't find the file: " + test );
             // a new save.  we'll show a dialogue and such.
             // get the filename we're going to save to
             JFileChooser fc = new JFileChooser( GlobalOptions.SaveLoadPath );
@@ -11898,7 +11898,6 @@ public void LoadMechIntoGUI() {
     }
     // omnimechs may have jump jets in one loadout and not another.
     txtJJModel.setText( CurMech.GetJJModel() );
-    System.out.println( CurMech.GetJJModel() );
     txtCommSystem.setText( CurMech.GetCommSystem() );
     txtTNTSystem.setText( CurMech.GetTandTSystem() );
 
