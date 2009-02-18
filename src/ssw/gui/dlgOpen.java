@@ -92,7 +92,7 @@ public class dlgOpen extends javax.swing.JDialog {
     public void LoadList() {
         list = new MechList();
 
-        FileList fl = new FileList(FileCommon.GetSafeFilename(opts.SaveLoadPath));
+        FileList fl = new FileList(opts.SaveLoadPath);
         for ( int i=0; i <= fl.length()-1; i++ ) {
             File f = fl.getFiles()[i];
             try

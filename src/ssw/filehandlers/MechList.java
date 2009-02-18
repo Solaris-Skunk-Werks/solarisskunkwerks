@@ -51,7 +51,7 @@ public class MechList extends AbstractTableModel {
                 if (f.isFile() && f.getCanonicalPath().endsWith(".ssw")) {
                     try
                     {
-                        MechListData mData = new MechListData(f.getCanonicalPath());
+                        MechListData mData = new MechListData( f.getCanonicalPath() );
                         if (mData.isOmni()) {
                             for ( int d=0; d < mData.Configurations.size(); d++ ) {
                                 List.add((MechListData) mData.Configurations.get(d));
@@ -75,7 +75,7 @@ public class MechList extends AbstractTableModel {
             if (f.isFile() && f.getCanonicalPath().endsWith(".ssw")) {
                 try
                 {
-                    MechListData mData = new MechListData(f.getCanonicalPath());
+                    MechListData mData = new MechListData( f.getCanonicalPath() );
                     if (mData.isOmni()) {
                         for ( int d=0; d < mData.Configurations.size(); d++ ) {
                             List.add((MechListData) mData.Configurations.get(d));

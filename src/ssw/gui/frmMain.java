@@ -11035,6 +11035,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void mnuOpenActionPerformed(java.awt.event.ActionEvent evt) {                                        
         //dlgOpen dOpen = new dlgOpen(this, true);
         dOpen.setLocationRelativeTo(this);
+        dOpen.setSize( 750, 600 );
         dOpen.setVisible(true);
     }
 
