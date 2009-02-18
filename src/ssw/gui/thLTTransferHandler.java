@@ -200,7 +200,6 @@ public class thLTTransferHandler extends TransferHandler {
                         return true;
                     } else {
                         CurMech.GetLoadout().AddToQueue( a );
-                        CurMech.ReCalcBaseCost();
                         Parent.RefreshInfoPane();
                         dlgSplit.dispose();
                         return false;
@@ -220,7 +219,6 @@ public class thLTTransferHandler extends TransferHandler {
         if( a.NumPlaced() <= 0 ) {
             CurMech.GetLoadout().RemoveFromQueue( a );
         }
-        CurMech.ReCalcBaseCost();
         Parent.RefreshInfoPane();
         return true;
     }

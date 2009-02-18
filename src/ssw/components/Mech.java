@@ -65,7 +65,6 @@ public class Mech {
                 Tonnage = 20,
                 WalkMP;
     private float JJMult,
-                  ChassisCost,
                   MechMult;
     private final static float[] DefensiveFactor = { 1.0f, 1.0f, 1.1f, 1.1f, 1.2f, 1.2f,
         1.3f, 1.3f, 1.3f, 1.4f, 1.4f, 1.4f, 1.4f, 1.4f, 1.4f, 1.4f, 1.4f, 1.5f,
@@ -1981,10 +1980,10 @@ public class Mech {
         return CurLoadout.GetTC();
     }
 
-    public void ReCalcBaseCost() {
+    public float GetChassisCost() {
         // this method sets the cost variable by calculating the base cost.
         // this is usually only done whenever a chassis component changes.
-        ChassisCost = 0.0f;
+        float ChassisCost = 0.0f;
         if( ! CurPhysEnhance.IsTSM() ) {
             // this is standard musculature.  If we have TSM, it's handled later
             ChassisCost += 2000 * Tonnage;
@@ -2042,23 +2041,25 @@ public class Mech {
         if( CurLoadout.HasSupercharger() ) {
             ChassisCost += CurLoadout.GetSupercharger().GetCost();
         }
+
+        return ChassisCost;
     }
 
     public float GetTotalCost() {
         // final cost calculations
         if( Omnimech ) {
-            return ( GetEquipCost() + ChassisCost ) * 1.25f * MechMult;
+            return ( GetEquipCost() + GetChassisCost() ) * 1.25f * MechMult;
         } else {
-            return ( ( GetEquipCost() + ChassisCost ) * MechMult );
+            return ( ( GetEquipCost() + GetChassisCost() ) * MechMult );
         }
     }
 
     public float GetDryCost() {
         // returns the total cost of the mech without ammunition
         if( Omnimech ) {
-            return ( GetDryEquipCost() + ChassisCost ) * 1.25f * MechMult;
+            return ( GetDryEquipCost() + GetChassisCost() ) * 1.25f * MechMult;
         } else {
-            return ( ( GetDryEquipCost() + ChassisCost ) * MechMult );
+            return ( ( GetDryEquipCost() + GetChassisCost() ) * MechMult );
         }
     }
 

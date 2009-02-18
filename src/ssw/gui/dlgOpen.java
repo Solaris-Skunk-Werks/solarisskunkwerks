@@ -99,7 +99,7 @@ public class dlgOpen extends javax.swing.JDialog {
             {
                 list.Add(f);
             } catch (Exception e) {
-
+                
             }
         }
 

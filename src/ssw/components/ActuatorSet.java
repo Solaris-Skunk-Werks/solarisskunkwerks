@@ -151,7 +151,6 @@ public class ActuatorSet {
         }
         Owner.Remove( RightHand );
         RHInstalled = false;
-        Owner.GetMech().ReCalcBaseCost();
     }
 
     public void RemoveLeftHand() {
@@ -166,7 +165,6 @@ public class ActuatorSet {
         }
         Owner.Remove( LeftHand );
         LHInstalled = false;
-        Owner.GetMech().ReCalcBaseCost();
     }
 
     public void RemoveRightLowerArm() {
@@ -184,7 +182,6 @@ public class ActuatorSet {
         Owner.Remove( RightLowerArm );
         RHInstalled = false;
         RLAInstalled = false;
-        Owner.GetMech().ReCalcBaseCost();
     }
 
     public void RemoveLeftLowerArm() {
@@ -202,7 +199,6 @@ public class ActuatorSet {
         Owner.Remove( LeftLowerArm );
         LHInstalled = false;
         LLAInstalled = false;
-        Owner.GetMech().ReCalcBaseCost();
     }
 
     public boolean AddRightHand() {
@@ -232,7 +228,6 @@ public class ActuatorSet {
         RHInstalled = true;
 
         // everything worked fine.
-        Owner.GetMech().ReCalcBaseCost();
         return true;
     }
 
@@ -263,7 +258,6 @@ public class ActuatorSet {
         LHInstalled = true;
 
         // everything worked fine.
-        Owner.GetMech().ReCalcBaseCost();
         return true;
     }
 
@@ -281,7 +275,6 @@ public class ActuatorSet {
         RLAInstalled = true;
 
         // everything worked fine.
-        Owner.GetMech().ReCalcBaseCost();
         return true;
     }
 
@@ -299,7 +292,6 @@ public class ActuatorSet {
         LLAInstalled = true;
 
         // everything worked fine.
-        Owner.GetMech().ReCalcBaseCost();
         return true;
     }
 

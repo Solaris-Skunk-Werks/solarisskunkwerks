@@ -71,7 +71,5 @@ public class VMechFullRecalc implements ifVisitor {
         m.GetPhysEnhance().ResetPlaced();
         m.GetPhysEnhance().Place(l);
         
-        // lastly, set the base cost
-        m.ReCalcBaseCost();
     }
 }

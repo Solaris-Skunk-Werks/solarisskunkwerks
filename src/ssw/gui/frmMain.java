@@ -1809,7 +1809,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkVoidSig.setSelected( false );
         chkBSPFD.setSelected( false );
         chkCLPS.setSelected( false );
-        CurMech.ReCalcBaseCost();
         SetLoadoutArrays();
         RefreshSummary();
         RefreshInfoPane();
@@ -2092,7 +2091,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             ResetAmmo();
 
             // now refresh the information panes
-            CurMech.ReCalcBaseCost();
             RefreshSummary();
             RefreshInfoPane();
         }
@@ -2445,7 +2443,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             CurItem.ArmorComponent( true );
         }
-        CurMech.ReCalcBaseCost();
         RefreshInfoPane();
     }
 
@@ -5255,7 +5252,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     lstSelectedEquipment.setListData( Equipment[SELECTED] );
 
                     // now refresh the information panes
-                    CurMech.ReCalcBaseCost();
                     RefreshSummary();
                     RefreshInfoPane();
                 }
@@ -5338,7 +5334,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     lstSelectedEquipment.setListData( Equipment[SELECTED] );
 
                     // now refresh the information panes
-                    CurMech.ReCalcBaseCost();
                     RefreshSummary();
                     RefreshInfoPane();
                 }
@@ -5433,7 +5428,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     lstSelectedEquipment.setListData( Equipment[SELECTED] );
 
                     // now refresh the information panes
-                    CurMech.ReCalcBaseCost();
                     RefreshSummary();
                     RefreshInfoPane();
                 }
@@ -5519,7 +5513,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     lstSelectedEquipment.setListData( Equipment[SELECTED] );
 
                     // now refresh the information panes
-                    CurMech.ReCalcBaseCost();
                     RefreshSummary();
                     RefreshInfoPane();
                 }
@@ -5614,7 +5607,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     lstSelectedEquipment.setListData( Equipment[SELECTED] );
 
                     // now refresh the information panes
-                    CurMech.ReCalcBaseCost();
                     RefreshSummary();
                     RefreshInfoPane();
                 }
@@ -5691,7 +5683,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     lstSelectedEquipment.setListData( Equipment[SELECTED] );
 
                     // now refresh the information panes
-                    CurMech.ReCalcBaseCost();
                     RefreshSummary();
                     RefreshInfoPane();
                 }
@@ -5760,7 +5751,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     lstSelectedEquipment.setListData( Equipment[SELECTED] );
 
                     // now refresh the information panes
-                    CurMech.ReCalcBaseCost();
                     RefreshSummary();
                     RefreshInfoPane();
                 }
@@ -7127,7 +7117,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         scrRACrits.setMinimumSize(new java.awt.Dimension(105, 87));
         scrRACrits.setPreferredSize(new java.awt.Dimension(105, 170));
 
-        lstRACrits.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lstRACrits.setFont(new java.awt.Font("Tahoma", 0, 10));
         lstRACrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Right Arm", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
@@ -8975,7 +8965,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             return;
         }
         RecalcHeatSinks();
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_cmbHeatSinkTypeActionPerformed
@@ -9012,7 +9001,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_spnNumberOfHSStateChanged
@@ -9112,7 +9100,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         CurMech.GetLoadout().FlushIllegal( cmbMechEra.getSelectedIndex(), 0, false );
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
@@ -9147,7 +9134,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         CurMech.GetHeatSinks().ReCalculate();
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_spnWalkMPStateChanged
@@ -9193,7 +9179,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_spnJumpMPStateChanged
@@ -9328,7 +9313,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         CheckAES();
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshInternalPoints();
         RefreshSummary();
         RefreshInfoPane();
@@ -9385,7 +9369,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkUseTC.setSelected( false );
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
@@ -9400,7 +9383,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lblRunMP.setText( "" + CurMech.GetRunningMP() );
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_cmbPhysEnhanceActionPerformed
@@ -9412,7 +9394,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RecalcCockpit();
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_cmbCockpitTypeActionPerformed
@@ -9424,7 +9405,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RecalcGyro();
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_cmbGyroTypeActionPerformed
@@ -9457,7 +9437,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_cmbEngineTypeActionPerformed
@@ -9469,7 +9448,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RecalcIntStruc();
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_cmbInternalTypeActionPerformed
@@ -9513,7 +9491,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         CheckAES();
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
         RefreshInternalPoints();
@@ -9533,7 +9510,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RecalcArmor();
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_cmbArmorTypeActionPerformed
@@ -9583,7 +9559,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_spnHDArmorStateChanged
@@ -9630,7 +9605,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_spnRAArmorStateChanged
@@ -9682,8 +9656,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
-        RefreshSummary();
+       RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_spnRTArmorStateChanged
 
@@ -9735,7 +9708,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_spnRTRArmorStateChanged
@@ -9782,7 +9754,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_spnLAArmorStateChanged
@@ -9834,7 +9805,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_spnLTArmorStateChanged
@@ -9886,7 +9856,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_spnLTRArmorStateChanged
@@ -9930,7 +9899,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         n.setValue( (Object) a.GetLocationArmor( Constants.LOC_CTR ) );
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_spnCTArmorStateChanged
@@ -9974,7 +9942,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         n.setValue( (Object) a.GetLocationArmor( Constants.LOC_CT ) );
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_spnCTRArmorStateChanged
@@ -10021,7 +9988,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_spnLLArmorStateChanged
@@ -10068,7 +10034,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_spnRLArmorStateChanged
@@ -10103,7 +10068,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         n.setValue( (Object) a.GetLocationArmor( Constants.LOC_HD ) );
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_btnMaxArmorActionPerformed
@@ -10132,7 +10096,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         n.setValue( (Object) CurMech.GetArmor().GetLocationArmor( Constants.LOC_HD ) );
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_btnArmorTonsActionPerformed
@@ -10245,7 +10208,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             CurMech.RemoveCTCase();
         }
-        CurMech.ReCalcBaseCost();
         RefreshInfoPane();
     }//GEN-LAST:event_chkCTCASEActionPerformed
 
@@ -10265,7 +10227,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             CurMech.RemoveRTCase();
         }
-        CurMech.ReCalcBaseCost();
         RefreshInfoPane();
     }//GEN-LAST:event_chkRTCASEActionPerformed
 
@@ -10285,7 +10246,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             CurMech.RemoveLTCase();
         }
-        CurMech.ReCalcBaseCost();
         RefreshInfoPane();
     }//GEN-LAST:event_chkLTCASEActionPerformed
 
@@ -10316,7 +10276,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         ResetAmmo();
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_btnRemoveEquipActionPerformed
@@ -10434,7 +10393,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             lstSelectedEquipment.setListData( Equipment[SELECTED] );
 
             // now refresh the information panes
-            CurMech.ReCalcBaseCost();
             RefreshSummary();
             RefreshInfoPane();
         }
@@ -10460,7 +10418,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         ResetAmmo();
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_btnClearEquipActionPerformed
@@ -10469,7 +10426,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         CurMech.GetLoadout().SafeMassUnallocate();
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_btnClearLoadoutActionPerformed
@@ -10511,7 +10467,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_chkArtemisSRMActionPerformed
@@ -10534,7 +10489,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_chkArtemisLRMActionPerformed
@@ -10557,7 +10511,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_chkArtemisMMLActionPerformed
@@ -10583,7 +10536,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_chkUseTCActionPerformed
@@ -10890,7 +10842,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         CurMech.GetLoadout().FlushIllegal( cmbMechEra.getSelectedIndex(), year, chkYearRestrict.isSelected() );
 
         // finally, refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
@@ -10976,7 +10927,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
@@ -11032,7 +10982,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RefreshOmniVariants();
         RefreshOmniChoices();
         SolidifyJJManufacturer();
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_btnLockChassisActionPerformed
@@ -11079,7 +11028,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RefreshOmniVariants();
         RefreshOmniChoices();
         SolidifyJJManufacturer();
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_btnAddVariantActionPerformed
@@ -11115,7 +11063,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         FixHeatSinkSpinnerModel();
         RefreshOmniChoices();
         SolidifyJJManufacturer();
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_btnDeleteVariantActionPerformed
@@ -11136,7 +11083,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RefreshOmniVariants();
         RefreshEquipment();
         RefreshOmniChoices();
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_cmbOmniVariantActionPerformed
@@ -11506,7 +11452,6 @@ private void btnEfficientArmorActionPerformed(java.awt.event.ActionEvent evt) {/
     n.setValue( (Object) CurMech.GetArmor().GetLocationArmor( Constants.LOC_HD ) );
 
     // now refresh the information panes
-    CurMech.ReCalcBaseCost();
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_btnEfficientArmorActionPerformed
@@ -11528,7 +11473,6 @@ private void chkNullSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }
 
     // now refresh the information panes
-    CurMech.ReCalcBaseCost();
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_chkNullSigActionPerformed
@@ -11550,7 +11494,6 @@ private void chkCLPSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     }
 
     // now refresh the information panes
-    CurMech.ReCalcBaseCost();
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_chkCLPSActionPerformed
@@ -11572,7 +11515,6 @@ private void chkBSPFDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }
 
     // now refresh the information panes
-    CurMech.ReCalcBaseCost();
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_chkBSPFDActionPerformed
@@ -11594,7 +11536,6 @@ private void chkVoidSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }
 
     // now refresh the information panes
-    CurMech.ReCalcBaseCost();
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_chkVoidSigActionPerformed
@@ -11618,7 +11559,6 @@ private void btnRemainingArmorActionPerformed(java.awt.event.ActionEvent evt) {/
     n.setValue( (Object) CurMech.GetArmor().GetLocationArmor( Constants.LOC_HD ) );
 
     // now refresh the information panes
-    CurMech.ReCalcBaseCost();
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_btnRemainingArmorActionPerformed
@@ -11634,14 +11574,12 @@ private void cmbSCLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
             chkSupercharger.setSelected( false );
             // now refresh the information panes
-            CurMech.ReCalcBaseCost();
             RefreshSummary();
             RefreshInfoPane();
             return;
         }
     }
     // now refresh the information panes
-    CurMech.ReCalcBaseCost();
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_cmbSCLocActionPerformed
@@ -11660,19 +11598,16 @@ private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//G
             // how the hell did we get an error removing it?
             javax.swing.JOptionPane.showMessageDialog( this, x.getMessage() );
             // now refresh the information panes
-            CurMech.ReCalcBaseCost();
             RefreshSummary();
             RefreshInfoPane();
         }
         chkSupercharger.setSelected( false );
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
         return;
     }
     // now refresh the information panes
-    CurMech.ReCalcBaseCost();
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_chkSuperchargerActionPerformed
@@ -11722,7 +11657,6 @@ public Mech LoadMech (){
     try {
         XMLReader XMLr = new XMLReader();
         m = XMLr.ReadMech( this, filename );
-        m.ReCalcBaseCost();
     } catch( Exception e ) {
         // had a problem loading the mech.  let the user know.
         javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
@@ -11740,7 +11674,6 @@ private void LoadMechFromPreferences()
         try {
             XMLReader XMLr = new XMLReader();
             m = XMLr.ReadMech( this, filename );
-            m.ReCalcBaseCost();
             CurMech = m;
             LoadMechIntoGUI();
         } catch( Exception e ) {
@@ -12023,7 +11956,6 @@ private void chkCTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 System.err.println( e.getStackTrace() );
             }
         }
-        CurMech.ReCalcBaseCost();
         RefreshInfoPane();
 }//GEN-LAST:event_chkCTCASE2ActionPerformed
 
@@ -12049,7 +11981,6 @@ private void chkRACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 System.err.println( e.getStackTrace() );
             }
         }
-        CurMech.ReCalcBaseCost();
         RefreshInfoPane();
 }//GEN-LAST:event_chkRACASE2ActionPerformed
 
@@ -12075,7 +12006,6 @@ private void chkRTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 System.err.println( e.getStackTrace() );
             }
         }
-        CurMech.ReCalcBaseCost();
         RefreshInfoPane();
 }//GEN-LAST:event_chkRTCASE2ActionPerformed
 
@@ -12101,7 +12031,6 @@ private void chkRLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 System.err.println( e.getStackTrace() );
             }
         }
-        CurMech.ReCalcBaseCost();
         RefreshInfoPane();
 }//GEN-LAST:event_chkRLCASE2ActionPerformed
 
@@ -12127,7 +12056,6 @@ private void chkHDCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 System.err.println( e.getStackTrace() );
             }
         }
-        CurMech.ReCalcBaseCost();
         RefreshInfoPane();
 }//GEN-LAST:event_chkHDCASE2ActionPerformed
 
@@ -12153,7 +12081,6 @@ private void chkLTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 System.err.println( e.getStackTrace() );
             }
         }
-        CurMech.ReCalcBaseCost();
         RefreshInfoPane();
 }//GEN-LAST:event_chkLTCASE2ActionPerformed
 
@@ -12179,7 +12106,6 @@ private void chkLLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 System.err.println( e.getStackTrace() );
             }
         }
-        CurMech.ReCalcBaseCost();
         RefreshInfoPane();
 }//GEN-LAST:event_chkLLCASE2ActionPerformed
 
@@ -12205,7 +12131,6 @@ private void chkLACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 System.err.println( e.getStackTrace() );
             }
         }
-        CurMech.ReCalcBaseCost();
         RefreshInfoPane();
 }//GEN-LAST:event_chkLACASE2ActionPerformed
 
@@ -12279,7 +12204,6 @@ private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         CurMech.GetLoadout().FlushIllegal( cmbMechEra.getSelectedIndex(), 0, false );
 
         // now refresh the information panes
-        CurMech.ReCalcBaseCost();
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
@@ -12303,7 +12227,6 @@ private void chkEnviroSealingActionPerformed(java.awt.event.ActionEvent evt) {//
     }
 
     // now refresh the information panes
-    CurMech.ReCalcBaseCost();
     RefreshSummary();
     RefreshInfoPane();
 
@@ -12325,7 +12248,6 @@ private void chkEjectionSeatActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
 
     // now refresh the information panes
-    CurMech.ReCalcBaseCost();
     RefreshSummary();
     RefreshInfoPane();
 
@@ -12371,7 +12293,6 @@ private void chkLegAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
 
     // now refresh the information panes
-    CurMech.ReCalcBaseCost();
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_chkLegAESActionPerformed
@@ -12392,7 +12313,6 @@ private void chkLAAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }
 
     // now refresh the information panes
-    CurMech.ReCalcBaseCost();
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_chkLAAESActionPerformed
@@ -12413,7 +12333,6 @@ private void chkRAAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }
 
     // now refresh the information panes
-    CurMech.ReCalcBaseCost();
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_chkRAAESActionPerformed
