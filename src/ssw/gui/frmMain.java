@@ -8958,6 +8958,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void btnClearImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearImageActionPerformed
         // Set the fluff image to default
         lblFluffImage.setIcon( null );
+        CurMech.SetSSWImage("");
     }//GEN-LAST:event_btnClearImageActionPerformed
 
     private void cmbHeatSinkTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHeatSinkTypeActionPerformed

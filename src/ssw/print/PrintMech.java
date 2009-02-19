@@ -73,7 +73,7 @@ public class PrintMech implements Printable {
     public PrintMech( frmMain parent, Mech m, Image i, boolean adv, boolean A4) {
         Parent = parent;
         CurMech = m;
-        MechImage = i;
+        MechImage = media.GetImage(m.GetSSWImage());
         Advanced = adv;
         BV = CommonTools.GetAdjustedBV(CurMech.GetCurrentBV(), Gunnery, Piloting);
         UseA4Paper = A4;
