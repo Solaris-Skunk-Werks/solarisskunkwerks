@@ -44,10 +44,11 @@ public class MechListData {
     private String filename = "";
     public Vector Configurations = new Vector();
 
-    public MechListData(String Name, String Model, String Era, int Tonnage, int Year, int BV, float Cost, String filename){
+    public MechListData(String Name, String Model, String Era, String Tech, int Tonnage, int Year, int BV, float Cost, String filename){
         this.Name = Name;
         this.Model = Model;
         this.Era = Era;
+        this.Tech = Tech;
         this.Tonnage = Tonnage;
         this.Year = Year;
         this.BV = BV;
@@ -56,11 +57,11 @@ public class MechListData {
     }
 
     public MechListData() {
-        this("", "", "", 0, 2750, 0, 0, "");
+        this("", "", "", "", 0, 2750, 0, 0, "");
     }
 
     public MechListData( MechListData m ) {
-        this(m.Name, m.Model, m.Era, m.Tonnage, m.Year, m.BV, m.Cost, m.filename);
+        this(m.Name, m.Model, m.Era, m.Tech, m.Tonnage, m.Year, m.BV, m.Cost, m.filename);
     }
 
     public MechListData( String filename ) throws Exception {
