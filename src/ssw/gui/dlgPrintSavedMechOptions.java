@@ -41,7 +41,8 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
             for (int i = 0; i < Loadouts.size();  ++i){
                 tempLoadout = (ifLoadout) Loadouts.get(i);
                 cmbOmniVariant.addItem(tempLoadout.GetName());
-                CurMech.SetCurLoadout((String) cmbOmniVariant.getSelectedItem());
+                if (CurMech.GetLoadout().GetName().equals(tempLoadout.GetName())) {cmbOmniVariant.setSelectedItem(tempLoadout.GetName());}
+                //CurMech.SetCurLoadout((String) cmbOmniVariant.getSelectedItem());
             }
             cmbOmniVariant.removeItem("Not an Omni-Mech");
         }
