@@ -43,7 +43,7 @@ public class MechList extends AbstractTableModel {
     
     public MechList(String directory) {
         this();
-        FileList fl = new FileList(directory);
+        FileList fl = new FileList(FileCommon.GetSafeFilename(directory));
         for ( int i=0; i <= fl.getFiles().length-1; i++ ) {
             File f = fl.getFiles()[i];
             try
@@ -99,6 +99,7 @@ public class MechList extends AbstractTableModel {
     public MechListData Get( int row ) {
         return (MechListData) List.get(row);
     }
+
     public void Remove(MechListData m) {
         List.remove(m);
     }
@@ -107,10 +108,39 @@ public class MechList extends AbstractTableModel {
         return List.size();
     }
 
+    public Vector getList() {
+        return List;
+    }
 
+    public void setList(Vector l) {
+        this.List = l;
+    }
+
+    public MechList Filter(MechListData filter) {
+        MechList m = new MechList();
+        for ( int d=0; d < List.size(); d++ ) {
+            m.Add((MechListData) List.get(d));
+        }
+
+        boolean remove = false;
+        for ( int i=List.size(); i > 0; i-- ) {
+            remove = false;
+            MechListData mData = (MechListData) List.get(i-1);
+
+            if ( ! filter.getTech().isEmpty() ) {
+                if (! mData.getTech().equals(filter.getTech()) ) remove = true;
+            }
+            if ( ! filter.getEra().isEmpty() ) {
+                if (! mData.getEra().equals(filter.getEra()) ) remove = true;
+            }
+            
+            if (remove) m.Remove(mData);
+        }
+
+        return m;
+    }
 
     //Fields required for AbstractTableModel
-
     @Override
     public String getColumnName( int col ) {
         switch( col ) {
@@ -134,11 +164,31 @@ public class MechList extends AbstractTableModel {
     @Override
     public Class getColumnClass(int c) {
         if (List.size() > 0) {
-            return getValueAt(0, c).getClass();
+            return getClassOf(c).getClass();
         } else {
             return String.class;
         }
     }
+
+    public Object getClassOf( int c ) {
+        MechListData m = (MechListData) List.get( 0 );
+        switch( c ) {
+            case 0:
+                return m.getTonnage();
+            case 1:
+                return m.getName();
+            case 2:
+                return m.getBV();
+            case 3:
+                return m.getCost();
+            case 4:
+                return m.getEra();
+            case 5:
+                return m.getTech();
+        }
+        return null;
+    }
+
     public Object getValueAt( int row, int col ) {
         MechListData m = (MechListData) List.get( row );
         switch( col ) {
