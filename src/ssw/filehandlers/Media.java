@@ -31,7 +31,10 @@ package ssw.filehandlers;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Toolkit;
+import java.io.File;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import ssw.gui.frmMain;
 
 public class Media {
     MediaTracker Tracker = new MediaTracker(new JLabel());
@@ -49,5 +52,29 @@ public class Media {
             // do nothing
         }
         return retval;
+    }
+
+    public String GetDirectorySelection( frmMain Parent ) {
+        return GetDirectorySelection( Parent, "" );
+    }
+
+    public String GetDirectorySelection(frmMain Parent, String defaultPath ) {
+        String path = "";
+        JFileChooser fc = new JFileChooser();
+
+        //Add a custom file filter and disable the default
+        //(Accept All) file filter.
+        fc.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY );
+        fc.setAcceptAllFileFilterUsed(false);
+        fc.setCurrentDirectory(new File(FileCommon.GetSafeFilename(defaultPath)));
+
+        //Show it.
+        int returnVal = fc.showDialog( Parent, "Choose directory");
+
+        //Process the results.  If no file is chosen, the default is used.
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            path = fc.getSelectedFile().getPath();
+        }
+        return path;
     }
 }

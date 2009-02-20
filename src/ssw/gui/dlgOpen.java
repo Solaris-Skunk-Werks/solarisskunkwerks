@@ -45,6 +45,8 @@ public class dlgOpen extends javax.swing.JFrame {
     private frmMain parent;
     private Options opts = new Options();
     private MechList list;
+    private Media media = new Media();
+    private String dirPath = opts.SaveLoadPath;
 
     /** Creates new form dlgOpen */
     public dlgOpen(java.awt.Frame parent, boolean modal) {
@@ -96,7 +98,7 @@ public class dlgOpen extends javax.swing.JFrame {
     public void LoadList() {
         list = new MechList();
 
-        FileList fl = new FileList(opts.SaveLoadPath);
+        FileList fl = new FileList(dirPath);
         for ( int i=0; i <= fl.length()-1; i++ ) {
             File f = fl.getFiles()[i];
             try
@@ -111,7 +113,8 @@ public class dlgOpen extends javax.swing.JFrame {
             setupList(list);
         }
 
-        this.lblLoading.setText(list.Size() + " Mechs loaded from " + opts.SaveLoadPath);
+        this.lblLoading.setText(list.Size() + " Mechs loaded from " + dirPath);
+        this.setVisible(true);
     }
 
     private void setupList(MechList mechList) {
@@ -210,6 +213,7 @@ public class dlgOpen extends javax.swing.JFrame {
         lblLoading = new javax.swing.JLabel();
         cmbTech = new javax.swing.JComboBox();
         cmbEra = new javax.swing.JComboBox();
+        btnOpenDir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Select Mech(s)");
@@ -284,6 +288,7 @@ public class dlgOpen extends javax.swing.JFrame {
         tlbActions.add(jSeparator2);
 
         btnMagic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/icon_wand.gif"))); // NOI18N
+        btnMagic.setToolTipText("Update Mech Files (Long Process!)");
         btnMagic.setFocusable(false);
         btnMagic.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnMagic.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -342,6 +347,14 @@ public class dlgOpen extends javax.swing.JFrame {
             }
         });
 
+        btnOpenDir.setText("Open Dir");
+        btnOpenDir.setToolTipText("Change Directory");
+        btnOpenDir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOpenDirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -349,9 +362,11 @@ public class dlgOpen extends javax.swing.JFrame {
             .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtSelected, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblLoading, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                .addComponent(txtSelected, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
+                .addGap(4, 4, 4)
+                .addComponent(lblLoading, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnOpenDir, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -373,9 +388,10 @@ public class dlgOpen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnOpenDir)
                     .addComponent(lblLoading, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnOpenMech, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -465,10 +481,16 @@ public class dlgOpen extends javax.swing.JFrame {
         setupList(filtered);
     }//GEN-LAST:event_Filter
 
+    private void btnOpenDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenDirActionPerformed
+        dirPath = media.GetDirectorySelection( parent, opts.SaveLoadPath );
+        LoadList();
+    }//GEN-LAST:event_btnOpenDirActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd2Force;
     private javax.swing.JButton btnMagic;
     private javax.swing.JButton btnOpen;
+    private javax.swing.JButton btnOpenDir;
     private javax.swing.JButton btnOpenMech;
     private javax.swing.JButton btnOptions;
     private javax.swing.JButton btnPrint;
