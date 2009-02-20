@@ -66,7 +66,7 @@ public class Mech {
                 WalkMP;
     private float JJMult,
                   MechMult;
-    private final static float[] DefensiveFactor = { 1.0f, 1.0f, 1.1f, 1.1f, 1.2f, 1.2f,
+    public final static float[] DefensiveFactor = { 1.0f, 1.0f, 1.1f, 1.1f, 1.2f, 1.2f,
         1.3f, 1.3f, 1.3f, 1.4f, 1.4f, 1.4f, 1.4f, 1.4f, 1.4f, 1.4f, 1.4f, 1.5f,
         1.5f, 1.5f, 1.5f, 1.5f, 1.5f, 1.5f, 1.6f, 1.6f, 1.6f, 1.6f, 1.6f, 1.6f };
     private boolean Quad,

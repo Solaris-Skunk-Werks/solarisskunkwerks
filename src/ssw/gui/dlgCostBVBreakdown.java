@@ -98,7 +98,9 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
         retval += String.format( "%1$-71s %2$,8.2f", "Explosive Ammunition Penalty", CurMech.GetExplosiveAmmoPenalty() ) + NL;
         retval += String.format( "%1$-71s %2$,8.2f", "Explosive Weapon Penalty", CurMech.GetExplosiveWeaponPenalty() ) + NL;
         retval += String.format( "%1$-71s %2$,8.2f", "Subtotal", CurMech.GetUnmodifiedDefensiveBV() ) + NL;
-        retval += String.format( "%1$-71s %2$,8.2f", "Total DBV (Subtotal * Defensive Factor (" + CurMech.GetDefensiveFactor() + "))", CurMech.GetDefensiveBV() ) + NL;
+        retval += "Defensive Speed Factor Breakdown:" + NL;
+        retval += PrintDefensiveFactorCalculations();
+        retval += String.format( "%1$-71s %2$,8.2f", "Total DBV (Subtotal * Defensive Speed Factor (" + String.format( "%1$,4.2f", CurMech.GetDefensiveFactor() ) + "))", CurMech.GetDefensiveBV() ) + NL;
         retval += NL + NL;
         retval += "Offensive BV Calculation Breakdown" + NL;
         retval += "________________________________________________________________________________" + NL;
@@ -110,7 +112,9 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
         retval += String.format( "%1$-71s %2$,8.2f", "Excessive Ammunition Penalty", CurMech.GetExcessiveAmmoPenalty() ) + NL;
         retval += String.format( "%1$-71s %2$,8.2f", "Mech Tonnage Bonus", CurMech.GetTonnageBV() ) + NL;
         retval += String.format( "%1$-71s %2$,8.2f", "Subtotal (WBV + NHBV - Excessive Ammo + Tonnage Bonus)", CurMech.GetUnmodifiedOffensiveBV() ) + NL;
-        retval += String.format( "%1$-71s %2$,8.2f", "Total OBV (Subtotal * Offensive Factor (" + CurMech.GetOffensiveFactor() + "))", CurMech.GetOffensiveBV() ) + NL;
+        retval += "Offensive Speed Factor Breakdown:" + NL;
+        retval += PrintOffensiveFactorCalculations();
+        retval += String.format( "%1$-71s %2$,8.2f", "Total OBV (Subtotal * Offensive Speed Factor (" + CurMech.GetOffensiveFactor() + "))", CurMech.GetOffensiveBV() ) + NL;
         retval += NL + NL;
         if( CurMech.GetCockpit().BVMod() != 1.0f ) {
             retval += String.format( "%1$-71s %2$,8.2f", CurMech.GetCockpit().GetCritName() + " modifier", CurMech.GetCockpit().BVMod() ) + NL;
@@ -293,6 +297,52 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
             }
             curheat += ((ifWeapon) sorted[i]).GetBVHeat();
         }
+        return retval;
+    }
+
+    public String PrintDefensiveFactorCalculations() {
+        // returns the defensive factor for this mech based on it's highest
+        // target number for speed.
+        String retval = "";
+
+        // subtract one since we're indexing an array
+        int RunMP = CurMech.GetAdjustedRunningMP( true, true ) - 1;
+        int JumpMP = 0;
+
+        // this is a safeguard for using MASC on an incredibly speedy chassis
+        // there is currently no way to get a bonus higher anyway.
+        if( RunMP > 29 ) { RunMP = 29; }
+        // safeguard for low walk mp (Modular Armor, for instance)
+        if( RunMP < 0 ) { RunMP = 0; }
+
+        // Get the defensive factors for jumping and running movement
+        float ground = Mech.DefensiveFactor[RunMP];
+        float jump = 0.0f;
+        if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
+            JumpMP = CurMech.GetAdjustedJumpingMP( true ) - 1;
+                jump = Mech.DefensiveFactor[JumpMP] + 0.1f;
+        }
+
+        MechModifier m = CurMech.GetTotalModifiers( true, true );
+
+        retval += "    Maximum Ground Movement Modifier: " + String.format( "%1$,.2f", ground ) + NL;
+        retval += "    Maximum Jump Movement Modifier:   " + String.format( "%1$,.2f", jump ) + NL;
+        retval += "    Defensive Speed Factor Bonus from Equipment: " + String.format( "%1$,.2f", m.DefensiveBonus() ) + NL;
+        retval += "    Minimum Defensive Speed Factor:   " + String.format( "%1$,.2f", m.MinimumDefensiveBonus() ) + NL;
+        retval += "    (Max of Run or Jump) + DSF Bonus = " + String.format( "%1$,.2f", CurMech.GetDefensiveFactor() ) + NL;
+
+        return retval;
+    }
+
+    public String PrintOffensiveFactorCalculations() {
+        String retval = "";
+
+        float temp = (float) (CurMech.GetAdjustedRunningMP(true, true) + (Math.floor(CurMech.GetAdjustedJumpingMP(true) * 0.5f + 0.5f)) - 5.0f);
+        retval += "    Adjusted Running MP (" + CurMech.GetAdjustedRunningMP( true, true ) + ") + ( Adjusted Jumping MP (" + CurMech.GetAdjustedJumpingMP( true ) + ") / 2 ) - 5 = " + String.format( "%1$,.2f", CurMech.GetAdjustedRunningMP( true, true ) + ( Math.floor( CurMech.GetAdjustedJumpingMP( true ) * 0.5f + 0.5f )  ) - 5.0f ) + NL;
+        retval += "    " + String.format( "%1$,.2f", temp ) + " / 10 + 1 = " + ( temp * 0.1f + 1.0f ) + NL;
+        temp = temp * 0.1f + 1.0f;
+        retval += "    " + String.format( "%1$,.2f", temp ) + " ^ 1.2 = " + (float) Math.floor( ( Math.pow( temp, 1.2f ) ) * 100 + 0.5f ) / 100 + " (rounded off to two digits)" + NL; 
+
         return retval;
     }
 

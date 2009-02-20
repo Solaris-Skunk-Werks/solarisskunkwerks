@@ -120,6 +120,10 @@ public class MTFWriter {
             FR.write( "Heat Sinks:" + CurMech.GetHeatSinks().GetNumHS() + " Single" );
         }
         FR.newLine();
+        if( CurMech.IsOmnimech() ) {
+            FR.write( "Base Chassis Heat Sinks: " + CurMech.GetLoadout().GetHeatSinks().GetBaseLoadoutNumHS() );
+            FR.newLine();
+        }
         FR.write( "Walk MP:" + CurMech.GetWalkingMP() );
         FR.newLine();
         FR.write( "Jump MP:" + CurMech.GetJumpJets().GetNumJJ() );
@@ -220,263 +224,76 @@ public class MTFWriter {
         FR.newLine();
         FR.write( "Left Arm:" );
         FR.newLine();
-        FR.write( l.GetLACrits()[0].GetMMName( l.GetLACrits()[0].IsMountedRear() ) );
-        FR.newLine();
-        FR.write( l.GetLACrits()[1].GetMMName( l.GetLACrits()[1].IsMountedRear() ) );
-        FR.newLine();
-        FR.write( l.GetLACrits()[2].GetMMName( l.GetLACrits()[2].IsMountedRear() ) );
-        FR.newLine();
-        FR.write( l.GetLACrits()[3].GetMMName( l.GetLACrits()[3].IsMountedRear() ) );
-        FR.newLine();
-        FR.write( l.GetLACrits()[4].GetMMName( l.GetLACrits()[4].IsMountedRear() ) );
-        FR.newLine();
-        FR.write( l.GetLACrits()[5].GetMMName( l.GetLACrits()[5].IsMountedRear() ) );
-        FR.newLine();
-        // if a quad, the rest are ignored, otherwise fill them in
-        if( CurMech.IsQuad() ) {
-            FR.write( "-Empty-" );
-            FR.newLine();
-            FR.write( "-Empty-" );
-            FR.newLine();
-            FR.write( "-Empty-" );
-            FR.newLine();
-            FR.write( "-Empty-" );
-            FR.newLine();
-            FR.write( "-Empty-" );
-            FR.newLine();
-            FR.write( "-Empty-" );
-            FR.newLine();
-        } else {
-                FR.write( l.GetLACrits()[6].GetMMName( l.GetLACrits()[6].IsMountedRear() ) );
-            FR.newLine();
-                FR.write( l.GetLACrits()[7].GetMMName( l.GetLACrits()[7].IsMountedRear() ) );
-            FR.newLine();
-                FR.write( l.GetLACrits()[8].GetMMName( l.GetLACrits()[8].IsMountedRear() ) );
-            FR.newLine();
-                FR.write( l.GetLACrits()[9].GetMMName( l.GetLACrits()[9].IsMountedRear() ) );
-            FR.newLine();
-                FR.write( l.GetLACrits()[10].GetMMName( l.GetLACrits()[10].IsMountedRear() ) );
-            FR.newLine();
-                FR.write( l.GetLACrits()[11].GetMMName( l.GetLACrits()[11].IsMountedRear() ) );
+        for( int i = 0; i < l.GetLACrits().length; i++ ) {
+            FR.write( GetMMName( l.GetLACrits()[i] ) );
             FR.newLine();
         }
 
         FR.newLine();
         FR.write( "Right Arm:" );
         FR.newLine();
-            FR.write( l.GetRACrits()[0].GetMMName( l.GetRACrits()[0].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRACrits()[1].GetMMName( l.GetRACrits()[1].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRACrits()[2].GetMMName( l.GetRACrits()[2].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRACrits()[3].GetMMName( l.GetRACrits()[3].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRACrits()[4].GetMMName( l.GetRACrits()[4].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRACrits()[5].GetMMName( l.GetRACrits()[5].IsMountedRear() ) );
-        FR.newLine();
-        // if a quad, the rest are ignored, otherwise fill them in
-        if( CurMech.IsQuad() ) {
-            FR.write( "-Empty-" );
-            FR.newLine();
-            FR.write( "-Empty-" );
-            FR.newLine();
-            FR.write( "-Empty-" );
-            FR.newLine();
-            FR.write( "-Empty-" );
-            FR.newLine();
-            FR.write( "-Empty-" );
-            FR.newLine();
-            FR.write( "-Empty-" );
-            FR.newLine();
-        } else {
-                FR.write( l.GetRACrits()[6].GetMMName( l.GetRACrits()[6].IsMountedRear() ) );
-            FR.newLine();
-                FR.write( l.GetRACrits()[7].GetMMName( l.GetRACrits()[7].IsMountedRear() ) );
-            FR.newLine();
-                FR.write( l.GetRACrits()[8].GetMMName( l.GetRACrits()[8].IsMountedRear() ) );
-            FR.newLine();
-                FR.write( l.GetRACrits()[9].GetMMName( l.GetRACrits()[9].IsMountedRear() ) );
-            FR.newLine();
-                FR.write( l.GetRACrits()[10].GetMMName( l.GetRACrits()[10].IsMountedRear() ) );
-            FR.newLine();
-                FR.write( l.GetRACrits()[11].GetMMName( l.GetRACrits()[11].IsMountedRear() ) );
+        for( int i = 0; i < l.GetRACrits().length; i++ ) {
+            FR.write( GetMMName( l.GetRACrits()[i] ) );
             FR.newLine();
         }
 
         FR.newLine();
         FR.write( "Left Torso:" );
         FR.newLine();
-            FR.write( l.GetLTCrits()[0].GetMMName( l.GetLTCrits()[0].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetLTCrits()[1].GetMMName( l.GetLTCrits()[1].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetLTCrits()[2].GetMMName( l.GetLTCrits()[2].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetLTCrits()[3].GetMMName( l.GetLTCrits()[3].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetLTCrits()[4].GetMMName( l.GetLTCrits()[4].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetLTCrits()[5].GetMMName( l.GetLTCrits()[5].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetLTCrits()[6].GetMMName( l.GetLTCrits()[6].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetLTCrits()[7].GetMMName( l.GetLTCrits()[7].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetLTCrits()[8].GetMMName( l.GetLTCrits()[8].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetLTCrits()[9].GetMMName( l.GetLTCrits()[9].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetLTCrits()[10].GetMMName( l.GetLTCrits()[10].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetLTCrits()[11].GetMMName( l.GetLTCrits()[11].IsMountedRear() ) );
-        FR.newLine();
+        for( int i = 0; i < l.GetLTCrits().length; i++ ) {
+            FR.write( GetMMName( l.GetLTCrits()[i] ) );
+            FR.newLine();
+        }
 
         FR.newLine();
         FR.write( "Right Torso:" );
         FR.newLine();
-            FR.write( l.GetRTCrits()[0].GetMMName( l.GetRTCrits()[0].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRTCrits()[1].GetMMName( l.GetRTCrits()[1].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRTCrits()[2].GetMMName( l.GetRTCrits()[2].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRTCrits()[3].GetMMName( l.GetRTCrits()[3].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRTCrits()[4].GetMMName( l.GetRTCrits()[4].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRTCrits()[5].GetMMName( l.GetRTCrits()[5].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRTCrits()[6].GetMMName( l.GetRTCrits()[6].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRTCrits()[7].GetMMName( l.GetRTCrits()[7].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRTCrits()[8].GetMMName( l.GetRTCrits()[8].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRTCrits()[9].GetMMName( l.GetRTCrits()[9].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRTCrits()[10].GetMMName( l.GetRTCrits()[10].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRTCrits()[11].GetMMName( l.GetRTCrits()[11].IsMountedRear() ) );
-        FR.newLine();
+        for( int i = 0; i < l.GetRTCrits().length; i++ ) {
+            FR.write( GetMMName( l.GetRTCrits()[i] ) );
+            FR.newLine();
+        }
 
         FR.newLine();
         FR.write( "Center Torso:" );
         FR.newLine();
-            FR.write( l.GetCTCrits()[0].GetMMName( l.GetCTCrits()[0].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetCTCrits()[1].GetMMName( l.GetCTCrits()[1].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetCTCrits()[2].GetMMName( l.GetCTCrits()[2].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetCTCrits()[3].GetMMName( l.GetCTCrits()[3].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetCTCrits()[4].GetMMName( l.GetCTCrits()[4].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetCTCrits()[5].GetMMName( l.GetCTCrits()[5].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetCTCrits()[6].GetMMName( l.GetCTCrits()[6].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetCTCrits()[7].GetMMName( l.GetCTCrits()[7].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetCTCrits()[8].GetMMName( l.GetCTCrits()[8].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetCTCrits()[9].GetMMName( l.GetCTCrits()[9].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetCTCrits()[10].GetMMName( l.GetCTCrits()[10].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetCTCrits()[11].GetMMName( l.GetCTCrits()[11].IsMountedRear() ) );
-        FR.newLine();
+        for( int i = 0; i < l.GetCTCrits().length; i++ ) {
+            FR.write( GetMMName( l.GetCTCrits()[i] ) );
+            FR.newLine();
+        }
 
         FR.newLine();
         FR.write( "Head:" );
         FR.newLine();
-            FR.write( l.GetHDCrits()[0].GetMMName( l.GetHDCrits()[0].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetHDCrits()[1].GetMMName( l.GetHDCrits()[1].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetHDCrits()[2].GetMMName( l.GetHDCrits()[2].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetHDCrits()[3].GetMMName( l.GetHDCrits()[3].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetHDCrits()[4].GetMMName( l.GetHDCrits()[4].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetHDCrits()[5].GetMMName( l.GetHDCrits()[5].IsMountedRear() ) );
-        // needed but ignored in Megamek
-        FR.newLine();
-        FR.write( "-Empty-" );
-        FR.newLine();
-        FR.write( "-Empty-" );
-        FR.newLine();
-        FR.write( "-Empty-" );
-        FR.newLine();
-        FR.write( "-Empty-" );
-        FR.newLine();
-        FR.write( "-Empty-" );
-        FR.newLine();
-        FR.write( "-Empty-" );
-        FR.newLine();
+        for( int i = 0; i < l.GetHDCrits().length; i++ ) {
+            FR.write( GetMMName( l.GetHDCrits()[i] ) );
+            FR.newLine();
+        }
 
         FR.newLine();
         FR.write( "Left Leg:" );
         FR.newLine();
-            FR.write( l.GetLLCrits()[0].GetMMName( l.GetLLCrits()[0].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetLLCrits()[1].GetMMName( l.GetLLCrits()[1].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetLLCrits()[2].GetMMName( l.GetLLCrits()[2].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetLLCrits()[3].GetMMName( l.GetLLCrits()[3].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetLLCrits()[4].GetMMName( l.GetLLCrits()[4].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetLLCrits()[5].GetMMName( l.GetLLCrits()[5].IsMountedRear() ) );
-        // needed but ignored in Megamek
-        FR.newLine();
-        FR.write( "-Empty-" );
-        FR.newLine();
-        FR.write( "-Empty-" );
-        FR.newLine();
-        FR.write( "-Empty-" );
-        FR.newLine();
-        FR.write( "-Empty-" );
-        FR.newLine();
-        FR.write( "-Empty-" );
-        FR.newLine();
-        FR.write( "-Empty-" );
-        FR.newLine();
+        for( int i = 0; i < l.GetLLCrits().length; i++ ) {
+            FR.write( GetMMName( l.GetLLCrits()[i] ) );
+            FR.newLine();
+        }
 
         FR.newLine();
         FR.write( "Right Leg:" );
         FR.newLine();
-            FR.write( l.GetRLCrits()[0].GetMMName( l.GetRLCrits()[0].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRLCrits()[1].GetMMName( l.GetRLCrits()[1].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRLCrits()[2].GetMMName( l.GetRLCrits()[2].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRLCrits()[3].GetMMName( l.GetRLCrits()[3].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRLCrits()[4].GetMMName( l.GetRLCrits()[4].IsMountedRear() ) );
-        FR.newLine();
-            FR.write( l.GetRLCrits()[5].GetMMName( l.GetRLCrits()[5].IsMountedRear() ) );
-        FR.newLine();
-        // needed but ignored in Megamek
-        FR.write( "-Empty-" );
-        FR.newLine();
-        FR.write( "-Empty-" );
-        FR.newLine();
-        FR.write( "-Empty-" );
-        FR.newLine();
-        FR.write( "-Empty-" );
-        FR.newLine();
-        FR.write( "-Empty-" );
-        FR.newLine();
-        FR.write( "-Empty-" );
-        FR.newLine();
+        for( int i = 0; i < l.GetRLCrits().length; i++ ) {
+            FR.write( GetMMName( l.GetRLCrits()[i] ) );
+            FR.newLine();
+        }
 
         // all done
         FR.close();
+    }
+
+    private String GetMMName( abPlaceable p ) {
+        if( p.IsArmored() ) {
+            return p.GetMMName( p.IsMountedRear() ) + " (armored)";
+        } else {
+            return p.GetMMName( p.IsMountedRear() );
+        }
     }
 }

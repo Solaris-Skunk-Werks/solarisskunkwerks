@@ -77,7 +77,7 @@ public class Talons extends PhysicalWeapon {
     @Override
     public float GetTonnage() {
         float result = 0.0f;
-            result = (int) Math.ceil( Owner.GetTonnage() * 0.0667f );
+            result = (int) Math.ceil( Owner.GetTonnage() * 0.0666f );
 
         if( IsArmored() ) {
             return result + ( NumCrits() * 0.5f );

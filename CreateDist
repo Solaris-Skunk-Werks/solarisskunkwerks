@@ -1,0 +1,38 @@
+#!/bin/bash
+if [ ! -e "dist/SSW" ]
+then
+    mkdir dist/SSW
+fi
+
+if [ ! -e "dist/SSW/lib" ]
+then
+	mkdir dist/SSW/lib
+fi
+
+if [ ! -e "dist/SSW/docs" ]
+then
+	mkdir dist/SSW/docs
+fi
+
+if [ ! -e "dist/SSW/rs" ]
+then
+	mkdir dist/SSW/rs
+fi
+
+cp dist/SSW.jar dist/SSW/.
+cp dist/lib/* dist/SSW/lib/.
+cp docs/FAQ.txt dist/SSW/docs/.
+cp docs/Changelog.txt dist/SSW/docs/.
+cp docs/HTML_Tags.txt dist/SSW/docs/.
+cp docs/license_GNU_LGPL.txt dist/SSW/docs/.
+cp docs/license_SSW_BSD.txt dist/SSW/docs/.
+cp docs/README.txt dist/SSW/.
+cp HTML_Template.html dist/SSW/.
+cp HTML_Template.html dist/SSW/docs/HTML_Template.bak
+cp S7Images dist/SSW/.
+cp rs/RS_TW_BP.png dist/SSW/rs/.
+cp rs/RS_TW_QD.png dist/SSW/rs/.
+
+cd dist
+7za a ../SSW.zip SSW
+cd ..
