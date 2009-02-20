@@ -2350,6 +2350,16 @@ public class WeaponFactory {
         addMGA = new MGArray(addBW, 4, 1.0f, false, a);
         ISBW.add(addMGA);
 
+        a = new AvailableCode( false, 'B', 'B', 'B', 'B', 2750, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        addBW = new BallisticWeapon("Fluid Gun", "ISFluidGun", "DB", false, a);
+        addBW.SetPrintName( "Fluid Gun" );
+        addBW.SetDamage( 0, 0, 0 );
+        addBW.SetHeat( 0 );
+        addBW.SetRange( 0, 1, 2, 3 );
+        addBW.SetSpecials( "S", false, true, 20, 134, true, true );
+        addBW.SetStats( 2.0f, 2, 35000.0f, 6.0f, 0.0f );
+        ISBW.add(addBW);
+
          // hatchet
         a = new AvailableCode( false, 'B', 'X', 'F', 'D', 3022, 0, 0, "LC", "", false, false );
         addPW = new PhysicalWeapon( "Hatchet", "Hatchet", Owner, a );
@@ -3693,6 +3703,16 @@ public class WeaponFactory {
         a = new AvailableCode( true, 'E', 'X', 'X', 'E', 3069, 0, 0, "CDS", "", false, false );
         addMGA = new MGArray( addBW, 4, 0.5f, true, a );
         CLBW.add( addMGA );
+
+        a = new AvailableCode( true, 'B', 'B', 'B', 'B', 2750, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        addBW = new BallisticWeapon("Fluid Gun", "CLFluidGun", "DB", false, a);
+        addBW.SetPrintName( "Fluid Gun" );
+        addBW.SetDamage( 0, 0, 0 );
+        addBW.SetHeat( 0 );
+        addBW.SetRange( 0, 1, 2, 3 );
+        addBW.SetSpecials( "S", false, true, 20, 135, true, true );
+        addBW.SetStats( 2.0f, 2, 35000.0f, 6.0f, 0.0f );
+        CLBW.add(addBW);
 
         // arrow iv system
         a = new AvailableCode( true, 'E', 'X', 'D', 'D', 2850, 0, 0, "TH", "", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
