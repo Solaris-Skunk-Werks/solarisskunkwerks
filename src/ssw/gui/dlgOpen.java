@@ -157,39 +157,42 @@ public class dlgOpen extends javax.swing.JFrame {
     }
 
     private void batchUpdateMechs() {
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        try
-        {
-            XMLReader read = new XMLReader();
-            FileList List = new FileList(dirPath);
-            File[] Files = List.getFiles();
+        int Response = javax.swing.JOptionPane.showConfirmDialog(this, "This will open and re-save each file in the current directory so that all files are updated with current BV and Cost calculations.\nThis process could take a few minutes, are you ready?", "Batch Mech Processing", javax.swing.JOptionPane.YES_NO_OPTION);
+        if (Response == javax.swing.JOptionPane.YES_OPTION) {
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            try
+            {
+                XMLReader read = new XMLReader();
+                FileList List = new FileList(dirPath);
+                File[] Files = List.getFiles();
 
-            for ( int i=0; i < Files.length; i++ ) {
-                File file = Files[i];
-                if (file.isFile() && file.getCanonicalPath().endsWith(".ssw")) {
-                    try
-                    {
-                        Mech m = read.ReadMech(file.getCanonicalPath());
+                for ( int i=0; i < Files.length; i++ ) {
+                    File file = Files[i];
+                    if (file.isFile() && file.getCanonicalPath().endsWith(".ssw")) {
+                        try
+                        {
+                            Mech m = read.ReadMech(file.getCanonicalPath());
 
-                        // save the mech to XML in the current location
-                        XMLWriter writer = new XMLWriter( m );
-                        try {
-                            writer.WriteXML( file.getCanonicalPath() );
-                        } catch( IOException e ) {
+                            // save the mech to XML in the current location
+                            XMLWriter writer = new XMLWriter( m );
+                            try {
+                                writer.WriteXML( file.getCanonicalPath() );
+                            } catch( IOException e ) {
+                                //do nothing
+                            }
+                        } catch ( Exception e ) {
                             //do nothing
                         }
-                    } catch ( Exception e ) {
-                        //do nothing
                     }
                 }
+
+                LoadList();
+
+            } catch (Exception e) {
+                //do nothing
             }
-
-            LoadList();
-
-        } catch (Exception e) {
-            //do nothing
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         }
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
 
     /** This method is called from within the constructor to
