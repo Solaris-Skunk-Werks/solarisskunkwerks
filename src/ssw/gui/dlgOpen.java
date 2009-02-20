@@ -46,7 +46,7 @@ public class dlgOpen extends javax.swing.JFrame {
     private Options opts = new Options();
     private MechList list;
     private Media media = new Media();
-    private String dirPath = opts.SaveLoadPath;
+    private String dirPath = "";
 
     /** Creates new form dlgOpen */
     public dlgOpen(java.awt.Frame parent, boolean modal) {
@@ -96,8 +96,13 @@ public class dlgOpen extends javax.swing.JFrame {
     }
 
     public void LoadList() {
+        if (dirPath.isEmpty()) {
+            dirPath = parent.Prefs.get("ListPath", opts.SaveLoadPath);
+        }
+
         list = new MechList();
 
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         FileList fl = new FileList(dirPath);
         for ( int i=0; i <= fl.length()-1; i++ ) {
             File f = fl.getFiles()[i];
@@ -114,7 +119,7 @@ public class dlgOpen extends javax.swing.JFrame {
         }
 
         this.lblLoading.setText(list.Size() + " Mechs loaded from " + dirPath);
-        this.setVisible(true);
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
 
     private void setupList(MechList mechList) {
@@ -156,7 +161,7 @@ public class dlgOpen extends javax.swing.JFrame {
         try
         {
             XMLReader read = new XMLReader();
-            FileList List = new FileList(opts.SaveLoadPath);
+            FileList List = new FileList(dirPath);
             File[] Files = List.getFiles();
 
             for ( int i=0; i < Files.length; i++ ) {
@@ -333,7 +338,7 @@ public class dlgOpen extends javax.swing.JFrame {
 
         lblLoading.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblLoading.setText("Loading Mechs....");
-        lblLoading.setMaximumSize(new java.awt.Dimension(500, 14));
+        lblLoading.setMaximumSize(new java.awt.Dimension(400, 14));
 
         cmbTech.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -364,8 +369,8 @@ public class dlgOpen extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(txtSelected, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
                 .addGap(4, 4, 4)
-                .addComponent(lblLoading, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblLoading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(6, 6, 6)
                 .addComponent(btnOpenDir, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -429,8 +434,8 @@ public class dlgOpen extends javax.swing.JFrame {
         dgOptions.setLocationRelativeTo( this );
         dgOptions.setVisible( true );
         opts = new Options();
-        LoadList();
         this.setVisible(true);
+        LoadList();
     }//GEN-LAST:event_btnOptionsActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
@@ -482,7 +487,9 @@ public class dlgOpen extends javax.swing.JFrame {
     }//GEN-LAST:event_Filter
 
     private void btnOpenDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenDirActionPerformed
-        dirPath = media.GetDirectorySelection( parent, opts.SaveLoadPath );
+        dirPath = media.GetDirectorySelection( parent, dirPath );
+        this.setVisible(true);
+        parent.Prefs.put("ListPath", dirPath);
         LoadList();
     }//GEN-LAST:event_btnOpenDirActionPerformed
 

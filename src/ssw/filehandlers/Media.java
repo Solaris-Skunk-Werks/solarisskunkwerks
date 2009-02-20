@@ -59,7 +59,7 @@ public class Media {
     }
 
     public String GetDirectorySelection(frmMain Parent, String defaultPath ) {
-        String path = "";
+        String path = defaultPath;
         JFileChooser fc = new JFileChooser();
 
         //Add a custom file filter and disable the default
