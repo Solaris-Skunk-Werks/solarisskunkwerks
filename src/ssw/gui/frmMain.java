@@ -10360,6 +10360,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // check exclusions if needed
         try {
             CurMech.GetLoadout().CheckExclusions( a );
+            if(a instanceof IndustrialEquipment){
+                if (!((IndustrialEquipment) a).validate(CurMech)){
+                    throw new Exception (((IndustrialEquipment) a).getValidationFalseMessage());
+                }
+            }
         } catch( Exception e ) {
             javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
             a = null;

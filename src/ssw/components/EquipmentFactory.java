@@ -542,7 +542,7 @@ public class EquipmentFactory {
         addEQ = new IndustrialEquipment("Remote Sensor Dispenser", "IE", a, false, new SimpleValidator(), "");
         addEQ.SetLookupName("ISRemoteSensorDispenser");
         addEQ.SetStats(1, 0.5f, 30000, 0, 0, "-");
-        addEQ.SetAmmo(true, 60, 0);
+        addEQ.SetAmmo(true, 60, 137);
         addEQ.SetMountableRear(true);
         INEQ.add(addEQ);
 
@@ -550,7 +550,7 @@ public class EquipmentFactory {
         addEQ = new IndustrialEquipment("Remote Sensor Dispenser", "IE", a, true, new SimpleValidator(), "");
         addEQ.SetLookupName("CLRemoteSensorDispenser");
         addEQ.SetStats(1, 0.5f, 30000, 0, 0, "-");
-        addEQ.SetAmmo(true, 60, 0);
+        addEQ.SetAmmo(true, 60, 136);
         addEQ.SetMountableRear(true);
         INEQ.add(addEQ);
 
