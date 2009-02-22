@@ -116,7 +116,7 @@ public class MechList extends AbstractTableModel {
         this.List = l;
     }
 
-    public MechList Filter(MechListData filter) {
+    public MechList Filter(ListFilter filter) {
         MechList m = new MechList();
         for ( int d=0; d < List.size(); d++ ) {
             m.Add((MechListData) List.get(d));
@@ -132,6 +132,12 @@ public class MechList extends AbstractTableModel {
             }
             if ( ! filter.getEra().isEmpty() ) {
                 if (! mData.getEra().equals(filter.getEra()) ) remove = true;
+            }
+            if ( filter.getMaxBV() > 0 ) {
+                if ((filter.getMinBV() >= mData.getBV()) || (mData.getBV() >= filter.getMaxBV())) remove = true;
+            }
+            if ( filter.getMaxCost() > 0 ) {
+                if ((filter.getMinCost() >= mData.getCost()) || (mData.getCost() >= filter.getMaxCost())) remove = true;
             }
             
             if (remove) m.Remove(mData);
