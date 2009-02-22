@@ -1369,6 +1369,58 @@ public class WeaponFactory {
         addMW.SetToHit( 1, 1, 1 );
         ISMW.add(addMW);
 
+        // mech mortar 1
+        a = new AvailableCode( false, 'B', 'D', 'F', 'E', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        addMW = new MissileWeapon("'Mech Mortar 1", "ISMekMortar1", "M", false, a);
+        addMW.SetPrintName( "Mech Mortar 1" );
+        addMW.SetDamage(2, 2, 2);
+        addMW.SetHeat(1);
+        addMW.SetRange(6, 7, 14, 21);
+        addMW.SetSpecials("C/C2/1", false, true, 24, 138, false);
+        addMW.SetStats(2.0f, 1, 7000.0f, 10.0f, 0.0f);
+        addMW.SetMissile(1, 5, false, false, false);
+        addMW.SetToHit( 3, 3, 3 );
+        ISMW.add(addMW);
+
+        // mech mortar 2
+        a = new AvailableCode( false, 'B', 'D', 'F', 'E', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        addMW = new MissileWeapon("'Mech Mortar 2", "ISMekMortar2", "M", false, a);
+        addMW.SetPrintName( "Mech Mortar 2" );
+        addMW.SetDamage(2, 2, 2);
+        addMW.SetHeat(2);
+        addMW.SetRange(6, 7, 14, 21);
+        addMW.SetSpecials("C/C2/2", false, true, 12, 139, false);
+        addMW.SetStats(5.0f, 2, 15000.0f, 14.0f, 0.0f);
+        addMW.SetMissile(2, 5, false, false, false);
+        addMW.SetToHit( 3, 3, 3 );
+        ISMW.add(addMW);
+
+        // mech mortar 4
+        a = new AvailableCode( false, 'B', 'D', 'F', 'E', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        addMW = new MissileWeapon("'Mech Mortar 4", "ISMekMortar4", "M", false, a);
+        addMW.SetPrintName( "Mech Mortar 4" );
+        addMW.SetDamage(2, 2, 2);
+        addMW.SetHeat(5);
+        addMW.SetRange(6, 7, 14, 21);
+        addMW.SetSpecials("C/C2/4", false, true, 6, 140, false);
+        addMW.SetStats(7.0f, 3, 32000.0f, 26.0f, 0.0f);
+        addMW.SetMissile(4, 5, false, false, false);
+        addMW.SetToHit( 3, 3, 3 );
+        ISMW.add(addMW);
+
+        // mech mortar 8
+        a = new AvailableCode( false, 'B', 'D', 'F', 'E', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        addMW = new MissileWeapon("'Mech Mortar 8", "ISMekMortar8", "M", false, a);
+        addMW.SetPrintName( "Mech Mortar 8" );
+        addMW.SetDamage(2, 2, 2);
+        addMW.SetHeat(10);
+        addMW.SetRange(6, 7, 14, 21);
+        addMW.SetSpecials("C/C2/8", false, true, 4, 141, false);
+        addMW.SetStats(10.0f, 5, 70000.0f, 50.0f, 0.0f);
+        addMW.SetMissile(8, 5, false, false, false);
+        addMW.SetToHit( 3, 3, 3 );
+        ISMW.add(addMW);
+
         // thunderbolt-5
         a = new AvailableCode( false, 'E', 'X', 'X', 'F', 3072, 0, 0, "FS/LA", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addMW = new MissileWeapon("Thunderbolt-5", "ISThunderbolt5", "M", false, a);
@@ -3794,5 +3846,57 @@ public class WeaponFactory {
 
         addPW = new Talons( Owner );
         CLPW.add( addPW );
+
+        // mech mortar 1
+        a = new AvailableCode( true, 'B', 'D', 'F', 'E', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        addMW = new MissileWeapon("'Mech Mortar 1", "CLMekMortar1", "M", false, a);
+        addMW.SetPrintName( "Mech Mortar 1" );
+        addMW.SetDamage(2, 2, 2);
+        addMW.SetHeat(1);
+        addMW.SetRange(6, 7, 14, 21);
+        addMW.SetSpecials("C/C2/1", false, true, 24, 142, false);
+        addMW.SetStats(1.0f, 1, 7000.0f, 10.0f, 0.0f);
+        addMW.SetMissile(1, 5, false, false, false);
+        addMW.SetToHit( 3, 3, 3 );
+        CLMW.add(addMW);
+
+        // mech mortar 2
+        a = new AvailableCode( true, 'B', 'D', 'F', 'E', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        addMW = new MissileWeapon("'Mech Mortar 2", "CLMekMortar2", "M", false, a);
+        addMW.SetPrintName( "Mech Mortar 2" );
+        addMW.SetDamage(2, 2, 2);
+        addMW.SetHeat(2);
+        addMW.SetRange(6, 7, 14, 21);
+        addMW.SetSpecials("C/C2/2", false, true, 12, 143, false);
+        addMW.SetStats(2.5f, 1, 15000.0f, 14.0f, 0.0f);
+        addMW.SetMissile(2, 5, false, false, false);
+        addMW.SetToHit( 3, 3, 3 );
+        CLMW.add(addMW);
+
+        // mech mortar 4
+        a = new AvailableCode( true, 'B', 'D', 'F', 'E', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        addMW = new MissileWeapon("'Mech Mortar 4", "CLMekMortar4", "M", false, a);
+        addMW.SetPrintName( "Mech Mortar 4" );
+        addMW.SetDamage(2, 2, 2);
+        addMW.SetHeat(5);
+        addMW.SetRange(6, 7, 14, 21);
+        addMW.SetSpecials("C/C2/4", false, true, 6, 144, false);
+        addMW.SetStats(3.5f, 2, 32000.0f, 26.0f, 0.0f);
+        addMW.SetMissile(4, 5, false, false, false);
+        addMW.SetToHit( 3, 3, 3 );
+        CLMW.add(addMW);
+
+        // mech mortar 8
+        a = new AvailableCode( true, 'B', 'D', 'F', 'E', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        addMW = new MissileWeapon("'Mech Mortar 8", "CLMekMortar8", "M", false, a);
+        addMW.SetPrintName( "Mech Mortar 8" );
+        addMW.SetDamage(2, 2, 2);
+        addMW.SetHeat(10);
+        addMW.SetRange(6, 7, 14, 21);
+        addMW.SetSpecials("C/C2/8", false, true, 4, 145, false);
+        addMW.SetStats(5.0f, 3, 70000.0f, 50.0f, 0.0f);
+        addMW.SetMissile(8, 5, false, false, false);
+        addMW.SetToHit( 3, 3, 3 );
+        CLMW.add(addMW);
     }
 }

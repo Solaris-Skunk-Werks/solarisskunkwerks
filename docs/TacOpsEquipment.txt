@@ -18,10 +18,6 @@ Vehicular Drop Chute (Reusable)			Equipment
 
 New weapons to be added
 -------------------------------------------------------------------------------
-Mech Mortar/1							Weapon  CLMekMortar1 ISMekMortar1
-Mech Mortar/2							Weapon  CLMekMortar2 ISMekMortar2
-Mech Mortar/4							Weapon  CLMekMortar4 ISMekMortar4
-Mech Mortar/8							Weapon  CLMekMortar8 ISMekMortar8
 Improved One-Shot Launcher				Weapon
 
 

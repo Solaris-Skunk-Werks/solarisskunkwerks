@@ -3708,7 +3708,226 @@ public class AmmoFactory {
         add.SetLotSize(30);
         add.SetRange(0,0,0,0);
         ISAM.add(add);
-        
+
+        a = new AvailableCode( false, 'C', 'B', 'D', 'C', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 1 (Airburst)", "ISMekMortar1AmmoAirburst", 138, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 1, 1, 1 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 24 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'B', 'B', 'B', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 1 (Anti-Personnel)", "ISMekMortar1AmmoAntiPersonnel", 138, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 1, 1, 1 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 24 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'C', 'B', 'B', 'B', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 1 (Armor Piercing)", "ISMekMortar1AmmoAP", 138, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 2, 2, 2 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 24 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'A', 'A', 'A', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 1 (Flare)", "ISMekMortar1AmmoFlare", 138, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 24 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'C', 'X', 'X', 'E', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 1 (Semi-Guided)", "ISMekMortar1AmmoSemiGuided", 138, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 2, 2, 2 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 24 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'A', 'A', 'A', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 1 (Smoke)", "ISMekMortar1AmmoSmoke", 138, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 24 );
+        ISAM.add( add );
+
+
+        a = new AvailableCode( false, 'C', 'B', 'D', 'C', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 2 (Airburst)", "ISMekMortar2AmmoAirburst", 139, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 1, 1, 1 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 12 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'B', 'B', 'B', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 2 (Anti-Personnel)", "ISMekMortar2AmmoAntiPersonnel", 139, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 1, 1, 1 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 12 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'C', 'B', 'B', 'B', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 2 (Armor Piercing)", "ISMekMortar2AmmoAP", 139, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 2, 2, 2 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 12 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'A', 'A', 'A', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 2 (Flare)", "ISMekMortar2AmmoFlare", 139, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 12 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'C', 'X', 'X', 'E', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 2 (Semi-Guided)", "ISMekMortar2AmmoSemiGuided", 139, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 2, 2, 2 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 12 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'A', 'A', 'A', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 2 (Smoke)", "ISMekMortar2AmmoSmoke", 139, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 12 );
+        ISAM.add( add );
+
+
+        a = new AvailableCode( false, 'C', 'B', 'D', 'C', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 4 (Airburst)", "ISMekMortar4AmmoAirburst", 140, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 1, 1, 1 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 6 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'B', 'B', 'B', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 4 (Anti-Personnel)", "ISMekMortar4AmmoAntiPersonnel", 140, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 1, 1, 1 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 6 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'C', 'B', 'B', 'B', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 4 (Armor Piercing)", "ISMekMortar4AmmoAP", 140, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 2, 2, 2 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 6 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'A', 'A', 'A', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 4 (Flare)", "ISMekMortar4AmmoFlare", 140, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 6 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'C', 'X', 'X', 'E', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 4 (Semi-Guided)", "ISMekMortar4AmmoSemiGuided", 140, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 2, 2, 2 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 6 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'A', 'A', 'A', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 4 (Smoke)", "ISMekMortar4AmmoSmoke", 140, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 6 );
+        ISAM.add( add );
+
+
+        a = new AvailableCode( false, 'C', 'B', 'D', 'C', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 8 (Airburst)", "ISMekMortar8AmmoAirburst", 141, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 1, 1, 1 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 4 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'B', 'B', 'B', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 8 (Anti-Personnel)", "ISMekMortar8AmmoAntiPersonnel", 141, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 1, 1, 1 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 4 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'C', 'B', 'B', 'B', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 8 (Armor Piercing)", "ISMekMortar8AmmoAP", 141, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 2, 2, 2 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 4 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'A', 'A', 'A', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 8 (Flare)", "ISMekMortar8AmmoFlare", 141, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 4 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'C', 'X', 'X', 'E', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 8 (Semi-Guided)", "ISMekMortar8AmmoSemiGuided", 141, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 2, 2, 2 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 4 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'A', 'A', 'A', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 8 (Smoke)", "ISMekMortar8AmmoSmoke", 141, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 4 );
+        ISAM.add( add );
+
  /*******************************************************************************
  *      START CLAN AMMUNITION
  ******************************************************************************/
@@ -5254,7 +5473,7 @@ public class AmmoFactory {
         add.SetExplosive(false);
         add.SetLotSize(60);
         add.SetRange(0,0,0,0);
-        ISAM.add(add);
+        CLAM.add(add);
 
         a = new AvailableCode (true, 'C', 'F', 'F', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.TOURNAMENT, Constants.TOURNAMENT );
         add = new Ammunition ("@ Remote Sensors (1/2)", "CLRemoteSensorDispenserHalfAmmo", 136, true, a);
@@ -5262,6 +5481,225 @@ public class AmmoFactory {
         add.SetExplosive(false);
         add.SetLotSize(30);
         add.SetRange(0,0,0,0);
-        ISAM.add(add);
+        CLAM.add(add);
+
+        a = new AvailableCode( true, 'C', 'B', 'D', 'C', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 1 (Airburst)", "CLMekMortar1AmmoAirburst", 142, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 1, 1, 1 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 24 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'B', 'B', 'B', 'B', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 1 (Anti-Personnel)", "CLMekMortar1AmmoAntiPersonnel", 142, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 1, 1, 1 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 24 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'C', 'B', 'B', 'B', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 1 (Armor Piercing)", "CLMekMortar1AmmoAP", 142, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 2, 2, 2 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 24 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'B', 'A', 'A', 'A', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 1 (Flare)", "CLMekMortar1AmmoFlare", 142, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 24 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'C', 'X', 'X', 'E', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 1 (Semi-Guided)", "CLMekMortar1AmmoSemiGuided", 142, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 2, 2, 2 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 24 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'B', 'A', 'A', 'A', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 1 (Smoke)", "CLMekMortar1AmmoSmoke", 142, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 24 );
+        CLAM.add( add );
+
+
+        a = new AvailableCode( true, 'C', 'B', 'D', 'C', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 2 (Airburst)", "CLMekMortar2AmmoAirburst", 143, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 1, 1, 1 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 12 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'B', 'B', 'B', 'B', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 2 (Anti-Personnel)", "CLMekMortar2AmmoAntiPersonnel", 143, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 1, 1, 1 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 12 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'C', 'B', 'B', 'B', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 2 (Armor Piercing)", "CLMekMortar2AmmoAP", 143, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 2, 2, 2 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 12 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'B', 'A', 'A', 'A', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 2 (Flare)", "CLMekMortar2AmmoFlare", 143, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 12 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'C', 'X', 'X', 'E', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 2 (Semi-Guided)", "CLMekMortar2AmmoSemiGuided", 143, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 2, 2, 2 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 12 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'B', 'A', 'A', 'A', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 2 (Smoke)", "CLMekMortar2AmmoSmoke", 143, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 12 );
+        CLAM.add( add );
+
+
+        a = new AvailableCode( true, 'C', 'B', 'D', 'C', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 4 (Airburst)", "CLMekMortar4AmmoAirburst", 144, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 1, 1, 1 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 6 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'B', 'B', 'B', 'B', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 4 (Anti-Personnel)", "CLMekMortar4AmmoAntiPersonnel", 144, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 1, 1, 1 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 6 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'C', 'B', 'B', 'B', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 4 (Armor Piercing)", "CLMekMortar4AmmoAP", 144, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 2, 2, 2 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 6 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'B', 'A', 'A', 'A', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 4 (Flare)", "CLMekMortar4AmmoFlare", 144, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 6 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'C', 'X', 'X', 'E', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 4 (Semi-Guided)", "CLMekMortar4AmmoSemiGuided", 144, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 2, 2, 2 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 6 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'B', 'A', 'A', 'A', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 4 (Smoke)", "CLMekMortar4AmmoSmoke", 144, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 6 );
+        CLAM.add( add );
+
+
+        a = new AvailableCode( true, 'C', 'B', 'D', 'C', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 8 (Airburst)", "CLMekMortar8AmmoAirburst", 145, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 1, 1, 1 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 4 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'B', 'B', 'B', 'B', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 8 (Anti-Personnel)", "CLMekMortar8AmmoAntiPersonnel", 145, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 1, 1, 1 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 4 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'C', 'B', 'B', 'B', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 8 (Armor Piercing)", "CLMekMortar8AmmoAP", 145, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 2, 2, 2 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 4 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'B', 'A', 'A', 'A', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 8 (Flare)", "CLMekMortar8AmmoFlare", 145, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 4 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'C', 'X', 'X', 'E', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 8 (Semi-Guided)", "CLMekMortar8AmmoSemiGuided", 145, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 2, 2, 2 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 4 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'B', 'A', 'A', 'A', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ 'Mech Mortar 8 (Smoke)", "CLMekMortar8AmmoSmoke", 145, false, a );
+        add.SetStats( 1.0f, 10000.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 6, 7, 14, 21 );
+        add.SetExplosive( true );
+        add.SetLotSize( 4 );
+        CLAM.add( add );
     }
 }
