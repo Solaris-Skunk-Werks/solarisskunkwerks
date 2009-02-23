@@ -8889,11 +8889,17 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void mnuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExitActionPerformed
         try {
             GlobalOptions.Save();
-            BatchWindow.dispose();
-            dOpen.dispose();
         } catch( IOException e ) {
             javax.swing.JOptionPane.showMessageDialog( this, "Could not save the options!  File operation problem (save, close):\n" + e );
         }
+
+        try {
+            if (BatchWindow != null) BatchWindow.dispose();
+            if (dOpen != null) dOpen.dispose();
+        } catch (Exception e) {
+            //do nothing
+        }
+        
         dispose();
     }//GEN-LAST:event_mnuExitActionPerformed
 
