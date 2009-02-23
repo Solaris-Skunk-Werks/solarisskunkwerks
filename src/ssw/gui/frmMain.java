@@ -3234,6 +3234,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(750, 515));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         tlbIconBar.setFloatable(false);
@@ -8887,10 +8892,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExitActionPerformed
+        CloseProgram();
+    }//GEN-LAST:event_mnuExitActionPerformed
+
+    private void CloseProgram() {
         try {
             GlobalOptions.Save();
         } catch( IOException e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "Could not save the options!  File operation problem (save, close):\n" + e );
+            //do nothing
+            //javax.swing.JOptionPane.showMessageDialog( this, "Could not save the options!  File operation problem (save, close):\n" + e );
         }
 
         try {
@@ -8899,9 +8909,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } catch (Exception e) {
             //do nothing
         }
-        
+
         dispose();
-    }//GEN-LAST:event_mnuExitActionPerformed
+    }
 
     private void btnLoadImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadImageActionPerformed
         // Opens a file chooser for the user, then resizes the chosen image to
@@ -12351,6 +12361,10 @@ private void chkRAAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_chkRAAESActionPerformed
+
+private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+    CloseProgram();
+}//GEN-LAST:event_formWindowClosing
 
 private void setViewToolbar(boolean Visible)
 {
