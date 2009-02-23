@@ -577,7 +577,7 @@ public class EquipmentFactory {
         addEQ.SetLookupName("ISSprayer");
         addEQ.SetStats(1, 0.5f, 1000, 0, 0, "-");
         addEQ.SetRange(0, 0, 1);
-        addEQ.SetAmmo(true, 10, 0);
+        addEQ.SetAmmo(true, 10, 138);
         addEQ.SetMountableRear(true);
         INEQ.add(addEQ);
 
@@ -586,7 +586,7 @@ public class EquipmentFactory {
         addEQ.SetLookupName("CLSprayer");
         addEQ.SetStats(1, 0.5f, 1000, 0, 0, "-");
         addEQ.SetRange(0, 0, 1);
-        addEQ.SetAmmo(true, 10, 0);
+        addEQ.SetAmmo(true, 10, 139);
         addEQ.SetMountableRear(true);
         INEQ.add(addEQ);
 

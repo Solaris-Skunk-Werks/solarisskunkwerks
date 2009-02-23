@@ -3632,7 +3632,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( false, 'C', 'B', 'B', 'B', 2100, 0, 0, "ES", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         add = new Ammunition( "@ Fluid Gun (Coolant)", "ISFluidGunCoolantAmmo", 134, false, a );
-        add.SetStats( 1.0f, 500.0f, 1.0f, 0.0f );
+        add.SetStats( 1.0f, 3000.0f, 1.0f, 0.0f );
         add.SetDamage( 0, 0, 0 );
         add.SetRange( 0, 1, 2, 3 );
         add.SetExplosive( true );
@@ -3641,7 +3641,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( false, 'C', 'C', 'D', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         add = new Ammunition( "@ Fluid Gun (Corrosive)", "ISFluidGunCorrosiveAmmo", 134, false, a );
-        add.SetStats( 1.0f, 500.0f, 2.0f, 0.0f );
+        add.SetStats( 1.0f, 5000.0f, 2.0f, 0.0f );
         add.SetDamage( 0, 0, 0 );
         add.SetRange( 0, 1, 2, 3 );
         add.SetExplosive( true );
@@ -3650,7 +3650,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( false, 'B', 'B', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         add = new Ammunition( "@ Fluid Gun (Flame Retardant Foam)", "ISFluidGunFoamAmmo", 134, false, a );
-        add.SetStats( 1.0f, 500.0f, 1.0f, 0.0f );
+        add.SetStats( 1.0f, 1000.0f, 1.0f, 0.0f );
         add.SetDamage( 0, 0, 0 );
         add.SetRange( 0, 1, 2, 3 );
         add.SetExplosive( true );
@@ -3659,7 +3659,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( false, 'D', 'D', 'E', 'D', 2400, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         add = new Ammunition( "@ Fluid Gun (Inferno Fuel)", "ISFluidGunInfernoFuelAmmo", 134, false, a );
-        add.SetStats( 1.0f, 500.0f, 2.0f, 0.0f );
+        add.SetStats( 1.0f, 2000.0f, 2.0f, 0.0f );
         add.SetDamage( 0, 0, 0 );
         add.SetRange( 0, 1, 2, 3 );
         add.SetExplosive( true );
@@ -3668,7 +3668,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( false, 'B', 'B', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         add = new Ammunition( "@ Fluid Gun (Oil Slick)", "ISFluidGunOilSlickAmmo", 134, false, a );
-        add.SetStats( 1.0f, 500.0f, 1.0f, 0.0f );
+        add.SetStats( 1.0f, 2000.0f, 1.0f, 0.0f );
         add.SetDamage( 0, 0, 0 );
         add.SetRange( 0, 1, 2, 3 );
         add.SetExplosive( true );
@@ -3677,7 +3677,7 @@ public class AmmoFactory {
 
         a = new AvailableCode( false, 'B', 'B', 'B', 'B', 2100, 0, 0, "ES", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         add = new Ammunition( "@ Fluid Gun (Paint/Obscurant)", "ISFluidGunPaintAmmo", 134, false, a );
-        add.SetStats( 1.0f, 500.0f, 1.0f, 0.0f );
+        add.SetStats( 1.0f, 1000.0f, 1.0f, 0.0f );
         add.SetDamage( 0, 0, 0 );
         add.SetRange( 0, 1, 2, 3 );
         add.SetExplosive( true );
@@ -3708,6 +3708,60 @@ public class AmmoFactory {
         add.SetLotSize(30);
         add.SetRange(0,0,0,0);
         ISAM.add(add);
+
+        a = new AvailableCode( false, 'C', 'B', 'B', 'B', 2100, 0, 0, "ES", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.ADVANCED );
+        add = new Ammunition( "@ Sprayer (Coolant)", "ISSprayerCoolantAmmo", 138, false, a );
+        add.SetStats( 1.0f, 3000.0f, 0.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'C', 'C', 'D', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.ADVANCED );
+        add = new Ammunition( "@ Sprayer (Corrosive)", "ISSprayerCorrosiveAmmo", 138, false, a );
+        add.SetStats( 1.0f, 5000.0f, 0.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'B', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.ADVANCED );
+        add = new Ammunition( "@ Sprayer (Flame Retardant Foam)", "ISSprayerFoamAmmo", 138, false, a );
+        add.SetStats( 1.0f, 1000.0f, 0.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'B', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.ADVANCED );
+        add = new Ammunition( "@ Sprayer (Oil Slick)", "ISSprayerOilSlickAmmo", 138, false, a );
+        add.SetStats( 1.0f, 2000.0f, 0.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'B', 'B', 'B', 'B', 2100, 0, 0, "ES", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.ADVANCED );
+        add = new Ammunition( "@ Sprayer (Paint/Obscurant)", "ISSprayerPaintAmmo", 138, false, a );
+        add.SetStats( 1.0f, 1000.0f, 0.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'A', 'A', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.ADVANCED );
+        add = new Ammunition( "@ Sprayer (Water)", "ISSprayerWaterAmmo", 138, false, a );
+        add.SetStats( 1.0f, 500.0f, 0.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( false );
+        add.SetLotSize( 10 );
+        ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'B', 'D', 'C', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         add = new Ammunition( "@ 'Mech Mortar 1 (Airburst)", "ISMekMortar1AmmoAirburst", 138, false, a );
@@ -3926,6 +3980,60 @@ public class AmmoFactory {
         add.SetRange( 6, 7, 14, 21 );
         add.SetExplosive( true );
         add.SetLotSize( 4 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'C', 'B', 'B', 'B', 2100, 0, 0, "ES", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ Vehicle Flamer (Coolant)", "ISVehicleFlamerCoolantAmmo", 2, false, a );
+        add.SetStats( 1.0f, 3000.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( true );
+        add.SetLotSize( 20 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'C', 'B', 'B', 'B', 2100, 0, 0, "ES", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ Heavy Flamer (Coolant)", "ISHeavyFlamerCoolantAmmo", 104, false, a );
+        add.SetStats( 1.0f, 3000.0f, 2.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'D', 'D', 'E', 'D', 2400, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ Vehicle Flamer (Inferno Fuel)", "ISVehicleFlamerInfernoFuelAmmo", 2, false, a );
+        add.SetStats( 1.0f, 2000.0f, 2.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( true );
+        add.SetLotSize( 20 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'D', 'D', 'E', 'D', 2400, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ Heavy Flamer (Inferno Fuel)", "ISHeavyFlamerInfernoFuelAmmo", 104, false, a );
+        add.SetStats( 1.0f, 2000.0f, 4.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'A', 'A', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ Vehicle Flamer (Water)", "ISVehicleFlamerWaterAmmo", 2, false, a );
+        add.SetStats( 1.0f, 500.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( false );
+        add.SetLotSize( 20 );
+        ISAM.add( add );
+
+        a = new AvailableCode( false, 'A', 'A', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ Heavy Flamer (Water)", "ISHeavyFlamerWaterAmmo", 104, false, a );
+        add.SetStats( 1.0f, 500.0f, 2.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( false );
+        add.SetLotSize( 10 );
         ISAM.add( add );
 
  /*******************************************************************************
@@ -5012,7 +5120,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'D', 2850, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Arrow IV (Non-Homing)", "CLArrowIVAmmo", 86, false, a );
+        add = new Ammunition( "@ Arrow IV (Non-Homing)", "CLArrowIVAmmo", 86, true, a );
         add.SetPrintName( "@ Arrow IV (Non-Home)" );
         add.SetStats( 1.0f, 10000.0f, 30.0f, 0.0f );
         add.SetDamage( 20, 1, 1 );
@@ -5022,7 +5130,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'D', 2850, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Arrow IV (Homing)", "CLArrowIVAmmo", 86, false, a );
+        add = new Ammunition( "@ Arrow IV (Homing)", "CLArrowIVAmmo", 86, true, a );
         add.SetStats( 1.0f, 15000.0f, 30.0f, 0.0f );
         add.SetDamage( 20, 1, 1 );
         add.SetRange( 0, 8, 0, 0 );
@@ -5031,7 +5139,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'D', 2850, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Arrow IV (Cluster)", "CLArrowIVAmmo", 86, false, a );
+        add = new Ammunition( "@ Arrow IV (Cluster)", "CLArrowIVAmmo", 86, true, a );
         add.SetStats( 1.0f, 15000.0f, 30.0f, 0.0f );
         add.SetDamage( 20, 1, 1 );
         add.SetRange( 0, 8, 0, 0 );
@@ -5040,7 +5148,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'C', 'C', 'C', 'C', 2621, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Arrow IV (Illumination)", "CLArrowIVAmmo", 86, false, a );
+        add = new Ammunition( "@ Arrow IV (Illumination)", "CLArrowIVAmmo", 86, true, a );
         add.SetStats( 1.0f, 5000.0f, 30.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 0, 8, 0, 0 );
@@ -5049,7 +5157,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'D', 'D', 2600, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Arrow IV (Smoke)", "CLArrowIVAmmo", 86, false, a );
+        add = new Ammunition( "@ Arrow IV (Smoke)", "CLArrowIVAmmo", 86, true, a );
         add.SetStats( 1.0f, 5000.0f, 30.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 0, 8, 0, 0 );
@@ -5058,7 +5166,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'C', 'X', 'D', 'D', 2600, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Arrow IV (FASCAM)", "CLArrowIVAmmo", 86, false, a );
+        add = new Ammunition( "@ Arrow IV (FASCAM)", "CLArrowIVAmmo", 86, true, a );
         add.SetStats( 1.0f, 15000.0f, 30.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 0, 8, 0, 0 );
@@ -5067,7 +5175,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Thumper", "CLThumperAmmo", 89, false, a );
+        add = new Ammunition( "@ Thumper", "CLThumperAmmo", 89, true, a );
         add.SetStats( 1.0f, 4500.0f, 5.0f, 0.0f );
         add.SetDamage( 15, 1, 1 );
         add.SetRange( 0, 21, 0, 0 );
@@ -5076,7 +5184,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Thumper (Cluster)", "CLThumperAmmo", 89, false, a );
+        add = new Ammunition( "@ Thumper (Cluster)", "CLThumperAmmo", 89, true, a );
         add.SetStats( 1.0f, 6750.0f, 5.0f, 0.0f );
         add.SetDamage( 10, 1, 1 );
         add.SetRange( 0, 21, 0, 0 );
@@ -5085,7 +5193,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'D', 2645, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Thumper (Copperhead)", "CLThumperAmmo", 89, false, a );
+        add = new Ammunition( "@ Thumper (Copperhead)", "CLThumperAmmo", 89, true, a );
         add.SetPrintName( "@ Thumper (Cprhead)" );
         add.SetStats( 1.0f, 6750.0f, 5.0f, 0.0f );
         add.SetDamage( 5, 1, 1 );
@@ -5095,7 +5203,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'E', 'X', 'E', 'E', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Thumper (Flechette)", "CLThumperAmmo", 89, false, a );
+        add = new Ammunition( "@ Thumper (Flechette)", "CLThumperAmmo", 89, true, a );
         add.SetStats( 1.0f, 6750.0f, 5.0f, 0.0f );
         add.SetDamage( 5, 1, 1 );
         add.SetRange( 0, 21, 0, 0 );
@@ -5104,7 +5212,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'C', 'X', 'C', 'C', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Thumper (Illumination)", "CLThumperAmmo", 89, false, a );
+        add = new Ammunition( "@ Thumper (Illumination)", "CLThumperAmmo", 89, true, a );
         add.SetPrintName( "@ Thumper (Illum)" );
         add.SetStats( 1.0f, 2250.0f, 5.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
@@ -5114,7 +5222,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Thumper (Smoke)", "CLThumperAmmo", 89, false, a );
+        add = new Ammunition( "@ Thumper (Smoke)", "CLThumperAmmo", 89, true, a );
         add.SetStats( 1.0f, 2250.0f, 5.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 0, 21, 0, 0 );
@@ -5123,7 +5231,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'C', 'X', 'D', 'D', 2600, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Thumper (FASCAM)", "CLThumperAmmo", 89, false, a );
+        add = new Ammunition( "@ Thumper (FASCAM)", "CLThumperAmmo", 89, true, a );
         add.SetStats( 1.0f, 6750.0f, 5.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 0, 21, 0, 0 );
@@ -5132,7 +5240,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Sniper", "CLSniperAmmo", 90, false, a );
+        add = new Ammunition( "@ Sniper", "CLSniperAmmo", 90, true, a );
         add.SetStats( 1.0f, 6000.0f, 11.0f, 0.0f );
         add.SetDamage( 20, 1, 1 );
         add.SetRange( 0, 18, 0, 0 );
@@ -5141,7 +5249,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Sniper (Cluster)", "CLSniperAmmo", 90, false, a );
+        add = new Ammunition( "@ Sniper (Cluster)", "CLSniperAmmo", 90, true, a );
         add.SetStats( 1.0f, 9000.0f, 11.0f, 0.0f );
         add.SetDamage( 15, 1, 1 );
         add.SetRange( 0, 18, 0, 0 );
@@ -5150,7 +5258,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'E', 'X', 'D', 'D', 2645, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Sniper (Copperhead)", "CLSniperAmmo", 90, false, a );
+        add = new Ammunition( "@ Sniper (Copperhead)", "CLSniperAmmo", 90, true, a );
         add.SetPrintName( "@ Sniper (Cprhead)" );
         add.SetStats( 1.0f, 9000.0f, 11.0f, 0.0f );
         add.SetDamage( 10, 1, 1 );
@@ -5160,7 +5268,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'E', 'X', 'E', 'E', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Sniper (Flechette)", "CLSniperAmmo", 90, false, a );
+        add = new Ammunition( "@ Sniper (Flechette)", "CLSniperAmmo", 90, true, a );
         add.SetStats( 1.0f, 9000.0f, 11.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 0, 18, 0, 0 );
@@ -5169,7 +5277,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'C', 'X', 'C', 'C', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Sniper (Illumination)", "CLSniperAmmo", 90, false, a );
+        add = new Ammunition( "@ Sniper (Illumination)", "CLSniperAmmo", 90, true, a );
         add.SetPrintName( "@ Sniper (Illum)" );
         add.SetStats( 1.0f, 3000.0f, 11.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
@@ -5179,7 +5287,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Sniper (Smoke)", "CLSniperAmmo", 90, false, a );
+        add = new Ammunition( "@ Sniper (Smoke)", "CLSniperAmmo", 90, true, a );
         add.SetStats( 1.0f, 3000.0f, 11.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 0, 18, 0, 0 );
@@ -5188,7 +5296,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'C', 'X', 'D', 'D', 2600, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Sniper (FASCAM)", "CLSniperAmmo", 90, false, a );
+        add = new Ammunition( "@ Sniper (FASCAM)", "CLSniperAmmo", 90, true, a );
         add.SetStats( 1.0f, 9000.0f, 11.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 0, 18, 0, 0 );
@@ -5198,7 +5306,7 @@ public class AmmoFactory {
 
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Long Tom Cannon", "CLLongTomCannonAmmo", 131, false, a );
+        add = new Ammunition( "@ Long Tom Cannon", "CLLongTomCannonAmmo", 131, true, a );
         add.SetStats( 1.0f, 20000.0f, 41.0f, 0.0f );
         add.SetDamage( 25, 1, 1 );
         add.SetRange( 4, 6, 13, 20 );
@@ -5207,7 +5315,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Long Tom Cannon (Cluster)", "CLLongTomCannonAmmo", 131, false, a );
+        add = new Ammunition( "@ Long Tom Cannon (Cluster)", "CLLongTomCannonAmmo", 131, true, a );
         add.SetStats( 1.0f, 30000.0f, 41.0f, 0.0f );
         add.SetDamage( 20, 1, 1 );
         add.SetRange( 4, 6, 13, 20 );
@@ -5216,7 +5324,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Long Tom Cannon (Copperhead)", "CLLongTomCannonAmmo", 131, false, a );
+        add = new Ammunition( "@ Long Tom Cannon (Copperhead)", "CLLongTomCannonAmmo", 131, true, a );
         add.SetStats( 1.0f, 30000.0f, 41.0f, 0.0f );
         add.SetDamage( 15, 1, 1 );
         add.SetRange( 4, 6, 13, 20 );
@@ -5225,7 +5333,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Long Tom Cannon (Flechette)", "CLLongTomCannonAmmo", 131, false, a );
+        add = new Ammunition( "@ Long Tom Cannon (Flechette)", "CLLongTomCannonAmmo", 131, true, a );
         add.SetStats( 1.0f, 30000.0f, 41.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 4, 6, 13, 20 );
@@ -5234,7 +5342,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Long Tom Cannon (Illumination)", "CLLongTomCannonAmmo", 131, false, a );
+        add = new Ammunition( "@ Long Tom Cannon (Illumination)", "CLLongTomCannonAmmo", 131, true, a );
         add.SetStats( 1.0f, 10000.0f, 41.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 4, 6, 13, 20 );
@@ -5243,7 +5351,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Long Tom Cannon (Smoke)", "CLLongTomCannonAmmo", 131, false, a );
+        add = new Ammunition( "@ Long Tom Cannon (Smoke)", "CLLongTomCannonAmmo", 131, true, a );
         add.SetStats( 1.0f, 10000.0f, 41.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 4, 6, 13, 20 );
@@ -5252,7 +5360,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Long Tom Cannon (Thunder)", "CLLongTomCannonAmmo", 131, false, a );
+        add = new Ammunition( "@ Long Tom Cannon (Thunder)", "CLLongTomCannonAmmo", 131, true, a );
         add.SetStats( 1.0f, 30000.0f, 41.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 4, 6, 13, 20 );
@@ -5261,7 +5369,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Sniper Cannon", "CLSniperCannonAmmo", 130, false, a );
+        add = new Ammunition( "@ Sniper Cannon", "CLSniperCannonAmmo", 130, true, a );
         add.SetStats( 1.0f, 15000.0f, 10.0f, 0.0f );
         add.SetDamage( 20, 1, 1 );
         add.SetRange( 2, 4, 8, 12 );
@@ -5270,7 +5378,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Sniper Cannon (Cluster)", "CLSniperCannonAmmo", 130, false, a );
+        add = new Ammunition( "@ Sniper Cannon (Cluster)", "CLSniperCannonAmmo", 130, true, a );
         add.SetStats( 1.0f, 22500.0f, 10.0f, 0.0f );
         add.SetDamage( 15, 1, 1 );
         add.SetRange( 2, 4, 8, 12 );
@@ -5279,7 +5387,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Sniper Cannon (Copperhead)", "CLSniperCannonAmmo", 130, false, a );
+        add = new Ammunition( "@ Sniper Cannon (Copperhead)", "CLSniperCannonAmmo", 130, true, a );
         add.SetStats( 1.0f, 22500.0f, 10.0f, 0.0f );
         add.SetDamage( 10, 1, 1 );
         add.SetRange( 2, 4, 8, 12 );
@@ -5288,7 +5396,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Sniper Cannon (Flechette)", "CLSniperCannonAmmo", 130, false, a );
+        add = new Ammunition( "@ Sniper Cannon (Flechette)", "CLSniperCannonAmmo", 130, true, a );
         add.SetStats( 1.0f, 22500.0f, 10.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 2, 4, 8, 12 );
@@ -5297,7 +5405,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Sniper Cannon (Illumination)", "CLSniperCannonAmmo", 130, false, a );
+        add = new Ammunition( "@ Sniper Cannon (Illumination)", "CLSniperCannonAmmo", 130, true, a );
         add.SetStats( 1.0f, 7500.0f, 10.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 2, 4, 8, 12 );
@@ -5306,7 +5414,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Sniper Cannon (Smoke)", "CLSniperCannonAmmo", 130, false, a );
+        add = new Ammunition( "@ Sniper Cannon (Smoke)", "CLSniperCannonAmmo", 130, true, a );
         add.SetStats( 1.0f, 7500.0f, 10.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 2, 4, 8, 12 );
@@ -5315,7 +5423,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Sniper Cannon (Thunder)", "CLSniperCannonAmmo", 130, false, a );
+        add = new Ammunition( "@ Sniper Cannon (Thunder)", "CLSniperCannonAmmo", 130, true, a );
         add.SetStats( 1.0f, 22500.0f, 10.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 2, 4, 8, 12 );
@@ -5324,7 +5432,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Thumper Cannon", "CLThumperCannonAmmo", 129, false, a );
+        add = new Ammunition( "@ Thumper Cannon", "CLThumperCannonAmmo", 129, true, a );
         add.SetStats( 1.0f, 10000.0f, 10.0f, 0.0f );
         add.SetDamage( 20, 1, 1 );
         add.SetRange( 3, 4, 9, 14 );
@@ -5333,7 +5441,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Thumper Cannon (Cluster)", "CLThumperCannonAmmo", 129, false, a );
+        add = new Ammunition( "@ Thumper Cannon (Cluster)", "CLThumperCannonAmmo", 129, true, a );
         add.SetStats( 1.0f, 15000.0f, 10.0f, 0.0f );
         add.SetDamage( 15, 1, 1 );
         add.SetRange( 3, 4, 9, 14 );
@@ -5342,7 +5450,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Thumper Cannon (Copperhead)", "CLThumperCannonAmmo", 129, false, a );
+        add = new Ammunition( "@ Thumper Cannon (Copperhead)", "CLThumperCannonAmmo", 129, true, a );
         add.SetStats( 1.0f, 15000.0f, 10.0f, 0.0f );
         add.SetDamage( 10, 1, 1 );
         add.SetRange( 3, 4, 9, 14 );
@@ -5351,7 +5459,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Thumper Cannon (Flechette)", "CLThumperCannonAmmo", 129, false, a );
+        add = new Ammunition( "@ Thumper Cannon (Flechette)", "CLThumperCannonAmmo", 129, true, a );
         add.SetStats( 1.0f, 15000.0f, 10.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 3, 4, 9, 14 );
@@ -5360,7 +5468,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Thumper Cannon (Illumination)", "CLThumperCannonAmmo", 129, false, a );
+        add = new Ammunition( "@ Thumper Cannon (Illumination)", "CLThumperCannonAmmo", 129, true, a );
         add.SetStats( 1.0f, 5000.0f, 10.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 3, 4, 9, 14 );
@@ -5369,7 +5477,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Thumper Cannon (Smoke)", "CLThumperCannonAmmo", 129, false, a );
+        add = new Ammunition( "@ Thumper Cannon (Smoke)", "CLThumperCannonAmmo", 129, true, a );
         add.SetStats( 1.0f, 5000.0f, 10.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 3, 4, 9, 14 );
@@ -5378,7 +5486,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'X', 'F', 'E', 3032, 0, 0, "CW", "", false, false, 3030, true, "CW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        add = new Ammunition( "@ Thumper Cannon (Thunder)", "CLThumperCannonAmmo", 129, false, a );
+        add = new Ammunition( "@ Thumper Cannon (Thunder)", "CLThumperCannonAmmo", 129, true, a );
         add.SetStats( 1.0f, 15000.0f, 10.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 3, 4, 9, 14 );
@@ -5387,7 +5495,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode(true, 'C', 'X', 'C', 'C', 2310, 0, 0, "FWL", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        add = new Ammunition( "@ Nail/Rivet Gun", "CLNail/RivetGunAmmo", 132, false, a );
+        add = new Ammunition( "@ Nail/Rivet Gun", "CLNail/RivetGunAmmo", 132, true, a );
         add.SetStats( 1.0f, 300.0f, 1.0f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 0, 1, 0, 0 );
@@ -5396,7 +5504,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode(true, 'C', 'X', 'C', 'C', 2310, 0, 0, "FWL", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.TOURNAMENT);
-        add = new Ammunition( "@ Nail/Rivet Gun (1/2)", "CLNail/RivetGunHalfAmmo", 132, false, a );
+        add = new Ammunition( "@ Nail/Rivet Gun (1/2)", "CLNail/RivetGunHalfAmmo", 132, true, a );
         add.SetStats( 0.5f, 150.0f, 0.5f, 0.0f );
         add.SetDamage( 0, 1, 1 );
         add.SetRange( 0, 1, 0, 0 );
@@ -5405,8 +5513,8 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'C', 'B', 'B', 'B', 2100, 0, 0, "ES", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Fluid Gun (Coolant)", "CLFluidGunCoolantAmmo", 135, false, a );
-        add.SetStats( 1.0f, 500.0f, 1.0f, 0.0f );
+        add = new Ammunition( "@ Fluid Gun (Coolant)", "CLFluidGunCoolantAmmo", 135, true, a );
+        add.SetStats( 1.0f, 3000.0f, 1.0f, 0.0f );
         add.SetDamage( 0, 0, 0 );
         add.SetRange( 0, 1, 2, 3 );
         add.SetExplosive( true );
@@ -5414,8 +5522,8 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'C', 'C', 'D', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Fluid Gun (Corrosive)", "CLFluidGunCorrosiveAmmo", 135, false, a );
-        add.SetStats( 1.0f, 500.0f, 2.0f, 0.0f );
+        add = new Ammunition( "@ Fluid Gun (Corrosive)", "CLFluidGunCorrosiveAmmo", 135, true, a );
+        add.SetStats( 1.0f, 5000.0f, 2.0f, 0.0f );
         add.SetDamage( 0, 0, 0 );
         add.SetRange( 0, 1, 2, 3 );
         add.SetExplosive( true );
@@ -5423,8 +5531,8 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'B', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Fluid Gun (Flame Retardant Foam)", "CLFluidGunFoamAmmo", 135, false, a );
-        add.SetStats( 1.0f, 500.0f, 1.0f, 0.0f );
+        add = new Ammunition( "@ Fluid Gun (Flame Retardant Foam)", "CLFluidGunFoamAmmo", 135, true, a );
+        add.SetStats( 1.0f, 1000.0f, 1.0f, 0.0f );
         add.SetDamage( 0, 0, 0 );
         add.SetRange( 0, 1, 2, 3 );
         add.SetExplosive( true );
@@ -5432,8 +5540,8 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'D', 'D', 'E', 'D', 2400, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Fluid Gun (Inferno Fuel)", "CLFluidGunInfernoFuelAmmo", 135, false, a );
-        add.SetStats( 1.0f, 500.0f, 2.0f, 0.0f );
+        add = new Ammunition( "@ Fluid Gun (Inferno Fuel)", "CLFluidGunInfernoFuelAmmo", 135, true, a );
+        add.SetStats( 1.0f, 2000.0f, 2.0f, 0.0f );
         add.SetDamage( 0, 0, 0 );
         add.SetRange( 0, 1, 2, 3 );
         add.SetExplosive( true );
@@ -5441,8 +5549,8 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'B', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Fluid Gun (Oil Slick)", "CLFluidGunOilSlickAmmo", 135, false, a );
-        add.SetStats( 1.0f, 500.0f, 1.0f, 0.0f );
+        add = new Ammunition( "@ Fluid Gun (Oil Slick)", "CLFluidGunOilSlickAmmo", 135, true, a );
+        add.SetStats( 1.0f, 2000.0f, 1.0f, 0.0f );
         add.SetDamage( 0, 0, 0 );
         add.SetRange( 0, 1, 2, 3 );
         add.SetExplosive( true );
@@ -5450,8 +5558,8 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'B', 'B', 'B', 'B', 2100, 0, 0, "ES", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Fluid Gun (Paint/Obscurant)", "CLFluidGunPaintAmmo", 135, false, a );
-        add.SetStats( 1.0f, 500.0f, 1.0f, 0.0f );
+        add = new Ammunition( "@ Fluid Gun (Paint/Obscurant)", "CLFluidGunPaintAmmo", 135, true, a );
+        add.SetStats( 1.0f, 1000.0f, 1.0f, 0.0f );
         add.SetDamage( 0, 0, 0 );
         add.SetRange( 0, 1, 2, 3 );
         add.SetExplosive( true );
@@ -5459,7 +5567,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'A', 'A', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        add = new Ammunition( "@ Fluid Gun (Water)", "CLFluidGunWaterAmmo", 135, false, a );
+        add = new Ammunition( "@ Fluid Gun (Water)", "CLFluidGunWaterAmmo", 135, true, a );
         add.SetStats( 1.0f, 500.0f, 1.0f, 0.0f );
         add.SetDamage( 0, 0, 0 );
         add.SetRange( 0, 1, 2, 3 );
@@ -5481,6 +5589,60 @@ public class AmmoFactory {
         add.SetExplosive(false);
         add.SetLotSize(30);
         add.SetRange(0,0,0,0);
+        CLAM.add(add);
+
+        a = new AvailableCode( true, 'C', 'B', 'B', 'B', 2100, 0, 0, "ES", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.ADVANCED );
+        add = new Ammunition( "@ Sprayer (Coolant)", "CLSprayerCoolantAmmo", 139, true, a );
+        add.SetStats( 1.0f, 3000.0f, 0.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'C', 'C', 'D', 'D', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.ADVANCED );
+        add = new Ammunition( "@ Sprayer (Corrosive)", "CLSprayerCorrosiveAmmo", 139, true, a );
+        add.SetStats( 1.0f, 5000.0f, 0.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'B', 'B', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.ADVANCED );
+        add = new Ammunition( "@ Sprayer (Flame Retardant Foam)", "CLSprayerFoamAmmo", 139, true, a );
+        add.SetStats( 1.0f, 1000.0f, 0.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'B', 'B', 'B', 'B', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.ADVANCED );
+        add = new Ammunition( "@ Sprayer (Oil Slick)", "CLSprayerOilSlickAmmo", 139, true, a );
+        add.SetStats( 1.0f, 2000.0f, 0.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'B', 'B', 'B', 'B', 2100, 0, 0, "ES", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.ADVANCED );
+        add = new Ammunition( "@ Sprayer (Paint/Obscurant)", "CLSprayerPaintAmmo", 139, true, a );
+        add.SetStats( 1.0f, 1000.0f, 0.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'A', 'A', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.ADVANCED );
+        add = new Ammunition( "@ Sprayer (Water)", "CLSprayerWaterAmmo", 139, true, a );
+        add.SetStats( 1.0f, 500.0f, 0.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( false );
+        add.SetLotSize( 10 );
         CLAM.add(add);
 
         a = new AvailableCode( true, 'C', 'B', 'D', 'C', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
@@ -5701,5 +5863,60 @@ public class AmmoFactory {
         add.SetExplosive( true );
         add.SetLotSize( 4 );
         CLAM.add( add );
+
+        a = new AvailableCode( true, 'C', 'B', 'B', 'B', 2100, 0, 0, "ES", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ Vehicle Flamer (Coolant)", "CLVehicleFlamerCoolantAmmo", 4, true, a );
+        add.SetStats( 1.0f, 3000.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( true );
+        add.SetLotSize( 20 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'C', 'B', 'B', 'B', 2100, 0, 0, "ES", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ Heavy Flamer (Coolant)", "CLHeavyFlamerCoolantAmmo", 105, true, a );
+        add.SetStats( 1.0f, 3000.0f, 2.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'D', 'D', 'E', 'D', 2400, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ Vehicle Flamer (Inferno Fuel)", "CLVehicleFlamerInfernoFuelAmmo", 4, true, a );
+        add.SetStats( 1.0f, 2000.0f, 2.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( true );
+        add.SetLotSize( 20 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'D', 'D', 'E', 'D', 2400, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ Heavy Flamer (Inferno Fuel)", "CLHeavyFlamerInfernoFuelAmmo", 105, true, a );
+        add.SetStats( 1.0f, 2000.0f, 4.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( true );
+        add.SetLotSize( 10 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'A', 'A', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ Vehicle Flamer (Water)", "CLVehicleFlamerWaterAmmo", 4, true, a );
+        add.SetStats( 1.0f, 500.0f, 1.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( false );
+        add.SetLotSize( 20 );
+        CLAM.add( add );
+
+        a = new AvailableCode( true, 'A', 'A', 'A', 'A', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        add = new Ammunition( "@ Heavy Flamer (Water)", "CLHeavyFlamerWaterAmmo", 105, true, a );
+        add.SetStats( 1.0f, 500.0f, 2.0f, 0.0f );
+        add.SetDamage( 0, 0, 0 );
+        add.SetRange( 0, 1, 2, 3 );
+        add.SetExplosive( false );
+        add.SetLotSize( 10 );
+        CLAM.add( add );
+
     }
 }
