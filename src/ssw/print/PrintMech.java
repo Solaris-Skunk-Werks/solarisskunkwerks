@@ -37,6 +37,7 @@ import java.awt.Point;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
+import java.util.Hashtable;
 import java.util.Vector;
 import ssw.CommonTools;
 import ssw.Constants;
@@ -950,6 +951,31 @@ public class PrintMech implements Printable {
             }
         }
 
+        //HARD CODED CHECK FOR TC!! SHOULD BE REPLACED SOMETIME IN THE FUTURE!!!
+        if (CurMech.GetLoadout().UsingTC()) {
+            TargetingComputer tc = CurMech.GetLoadout().GetTC();
+            graphics.drawString("1", p[0].x, p[0].y + offset);
+            graphics.drawString(tc.GetPrintName(), p[1].x, p[1].y + offset);
+            offset += graphics.getFont().getSize();
+        }
+        offset += (graphics.getFont().getSize() * 2);
+
+        //Output the list of Ammunition
+        Vector AmmoList = GetAmmo();
+        if ( AmmoList.size() > 0 ) {
+            graphics.drawString("Ammunition Type", p[0].x, p[0].y + offset);
+            graphics.drawString("Rounds", p[2].x, p[2].y + offset);
+            offset += 2;
+            graphics.drawLine(p[0].x, p[0].y + offset, p[8].x + 8, p[8].y + offset);
+            offset += graphics.getFont().getSize();
+        }
+        for ( int index=0; index < AmmoList.size(); index++ ) {
+            AmmoData CurAmmo = (AmmoData) AmmoList.get(index);
+            graphics.drawString(CurAmmo.PrintName, p[0].x, p[0].y + offset);
+            graphics.drawString(CurAmmo.LotSize + "", p[2].x, p[2].y + offset);
+            offset += graphics.getFont().getSize();
+        }
+
         graphics.setFont( BoldFont );
         p = points.GetDataChartPoints();
         if( CurMech.IsOmnimech() ) {
@@ -1608,6 +1634,31 @@ public class PrintMech implements Printable {
         graphics.drawLine( 0, 756, 316, 756 );
     }
 
+    private Vector GetAmmo() {
+        //Output the list of Ammunition
+        Vector all = CurMech.GetLoadout().GetNonCore();
+        Vector AmmoList = new Vector();
+        for ( int index=0; index < all.size(); index++ ) {
+            if(  all.get( index ) instanceof Ammunition ) {
+                AmmoData CurAmmo = new AmmoData((Ammunition) all.get(index));
+
+                boolean found = false;
+                for ( int internal=0; internal < AmmoList.size(); internal++ ) {
+                    AmmoData existAmmo = (AmmoData) AmmoList.get(internal);
+                    if ( CurAmmo.PrintName.equals( existAmmo.PrintName ) ) {
+                        existAmmo.LotSize += CurAmmo.LotSize;
+                        found = true;
+                        break;
+                    }
+                }
+                if ( !found ) {
+                    AmmoList.add(CurAmmo);
+                }
+            }
+        }
+        return AmmoList;
+    }
+
     private PlaceableInfo[] SortEquipmentByLocation() {
         Vector v = CurMech.GetLoadout().GetNonCore();
         Vector temp = new Vector();
@@ -1690,5 +1741,15 @@ public class PrintMech implements Printable {
         public int Location,
                    Count;
         public abPlaceable Item;
+    }
+
+    private class AmmoData {
+        public String PrintName;
+        public int LotSize;
+
+        public AmmoData( Ammunition ammo ) {
+            this.PrintName = ammo.GetPrintName();
+            this.LotSize = ammo.GetLotSize();
+        }
     }
 }
