@@ -28,7 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw;
 
-import java.util.Vector;
 import ssw.components.*;
 
 public class CommonTools {

@@ -1516,7 +1516,8 @@ public class QuadLoadout implements ifLoadout {
         return retval;
     }
 
-    public void FlushIllegal( int Era, int Year, boolean Restrict ) {
+//    public void FlushIllegal( int Era, int Year, boolean Restrict ) {
+    public void FlushIllegal() {
         // since most everything else is taken care of during mech recalculates,
         // this method is provided for non-core equipment
         AvailableCode AC;
@@ -1528,7 +1529,11 @@ public class QuadLoadout implements ifLoadout {
         for( int i = NonCore.size() - 1; i >= 0; i-- ) {
             p = (abPlaceable) NonCore.get( i );
             AC = p.GetAvailability();
+            if( ! CommonTools.IsAllowed( AC, Owner ) ) {
+                Remove( p );
+            }
 
+/*
             if( Restrict ) {
                 if( AC.WentExtinct() ) {
                     if( AC.WasReIntroduced() ) {
@@ -1563,7 +1568,7 @@ public class QuadLoadout implements ifLoadout {
                     }
                     break;
                 }
-            }
+            }*/
         }
     }
 

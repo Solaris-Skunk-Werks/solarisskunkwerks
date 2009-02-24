@@ -163,6 +163,8 @@ Version 0.6.0
 - Corrected Industrial Mech Costs and BV.
 - Added shortened Print Names to most weapons, both Clan and Inner Sphere.
 - Fixed some minor equipment bugs.
+- Expanded the Cost/BV Breakdown screen to include more information.
+- Armored components are now available in MTF export.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

@@ -2679,7 +2679,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     public void CheckTonnage( boolean RulesChange ) {
         if( RulesChange ) {
             if( ! CurMech.IsIndustrialmech() ) {
-                if( CurMech.GetRulesLevel() < Constants.EXPERIMENTAL ) {
+                if( CurMech.GetRulesLevel() < Constants.EXPERIMENTAL && CurMech.GetTonnage() < 20 ) {
                     cmbTonnage.setSelectedItem( "20" );
                 }
             }
@@ -2687,7 +2687,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             // a change in mech type or tonnage
             if( ! CurMech.IsIndustrialmech() ) {
                 // this is really the only time tonnage needs to be restricted
-                if( CurMech.GetRulesLevel() < Constants.EXPERIMENTAL ) {
+                if( CurMech.GetRulesLevel() < Constants.EXPERIMENTAL && CurMech.GetTonnage() < 20 ) {
                     if( CurMech.GetTonnage() < 20 ) {
                         cmbRulesLevel.setSelectedIndex( Constants.EXPERIMENTAL );
                     }
@@ -9125,7 +9125,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // since you can only ever change the era when not restricted, we're not
         // doing it here.  Pass in default values.
-        CurMech.GetLoadout().FlushIllegal( cmbMechEra.getSelectedIndex(), 0, false );
+        CurMech.GetLoadout().FlushIllegal();
+        //CurMech.GetLoadout().FlushIllegal( cmbMechEra.getSelectedIndex(), 0, false );
 
         // now refresh the information panes
         RefreshSummary();
@@ -10872,7 +10873,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RecalcEnhancements();
         RecalcArmor();
         RecalcEquipment();
-        CurMech.GetLoadout().FlushIllegal( cmbMechEra.getSelectedIndex(), year, chkYearRestrict.isSelected() );
+        //CurMech.GetLoadout().FlushIllegal( cmbMechEra.getSelectedIndex(), year, chkYearRestrict.isSelected() );
+        CurMech.GetLoadout().FlushIllegal();
 
         // finally, refresh the information panes
         RefreshSummary();
@@ -10907,7 +10909,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             if( CurMech.GetLoadout().SetRulesLevel( NewLevel ) ) {
                 // we can.
                 if( OldLevel > NewLevel ) {
-                    CurMech.GetLoadout().FlushIllegal( NewLevel, 0, false );
+                    //CurMech.GetLoadout().FlushIllegal( NewLevel, 0, false );
+                    CurMech.GetLoadout().FlushIllegal();
                 }
                 RefreshEquipment();
                 RecalcEquipment();
@@ -10926,7 +10929,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
             // since you can only ever change the rules level when not restricted,
             // we're not doing it here.  Pass in default values.
-            CurMech.GetLoadout().FlushIllegal( CurMech.GetRulesLevel(), 0, false );
+            //CurMech.GetLoadout().FlushIllegal( CurMech.GetEra(), 0, false );
+            CurMech.GetLoadout().FlushIllegal();
 
             // refresh all the combo boxes.
             BuildChassisSelector();
@@ -12235,7 +12239,8 @@ private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
         // since you can only ever change the era when not restricted, we're not
         // doing it here.  Pass in default values.
-        CurMech.GetLoadout().FlushIllegal( cmbMechEra.getSelectedIndex(), 0, false );
+        CurMech.GetLoadout().FlushIllegal();
+        //CurMech.GetLoadout().FlushIllegal( cmbMechEra.getSelectedIndex(), 0, false );
 
         // now refresh the information panes
         RefreshSummary();

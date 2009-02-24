@@ -90,7 +90,8 @@ public interface ifLoadout {
     public int[] FindJumpJets( boolean IJJ );
     public int[] FindModularArmor();
     public int[] FindExplosiveInstances();
-    public void FlushIllegal( int Era, int Year, boolean Restrict );
+//    public void FlushIllegal( int Era, int Year, boolean Restrict );
+    public void FlushIllegal();
     public boolean UnallocateAll( abPlaceable p, boolean override );
     public void Remove( abPlaceable p );
     public void UnallocateByIndex( int SIndex, abPlaceable[] a );
