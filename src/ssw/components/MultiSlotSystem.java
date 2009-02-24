@@ -42,7 +42,7 @@ public class MultiSlotSystem extends abPlaceable {
                     BasedOnMechTons = false;
     private String CritName,
                    MMName;
-    private Mech Owner;
+    protected Mech Owner;
 
     public MultiSlotSystem( Mech owner, String name, String mname, float tons, boolean xct, boolean xhd, float cost, boolean costtons, AvailableCode a ) {
         Owner = owner;

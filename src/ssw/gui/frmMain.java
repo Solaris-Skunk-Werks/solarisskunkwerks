@@ -2858,6 +2858,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jPanel6 = new javax.swing.JPanel();
         chkEjectionSeat = new javax.swing.JCheckBox();
         chkEnviroSealing = new javax.swing.JCheckBox();
+        chkTracks = new javax.swing.JCheckBox();
         pnlArmor = new javax.swing.JPanel();
         pnlFrontArmor = new javax.swing.JPanel();
         pnlRLArmorBox = new javax.swing.JPanel();
@@ -4552,6 +4553,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         jPanel6.add(chkEnviroSealing);
+
+        chkTracks.setText("Tracks");
+        chkTracks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkTracksActionPerformed(evt);
+            }
+        });
+        jPanel6.add(chkTracks);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -12366,6 +12375,28 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
     CloseProgram();
 }//GEN-LAST:event_formWindowClosing
 
+private void chkTracksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkTracksActionPerformed
+    // is the system already installed?
+    if( chkTracks.isSelected() == CurMech.HasTracks() ) { return; }
+    try {
+        if( chkTracks.isSelected() ) {
+            CurMech.SetTracks( true );
+        } else {
+            CurMech.SetTracks( false );
+        }
+    } catch( Exception e ) {
+        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        // ensure it's not checked when it shouldn't be
+        chkTracks.setSelected( CurMech.HasTracks() );
+        return;
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+
+}//GEN-LAST:event_chkTracksActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -12452,6 +12483,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JCheckBox chkRTCASE2;
     private javax.swing.JCheckBox chkRTTurret;
     private javax.swing.JCheckBox chkSupercharger;
+    private javax.swing.JCheckBox chkTracks;
     private javax.swing.JCheckBox chkUseTC;
     private javax.swing.JCheckBox chkVoidSig;
     private javax.swing.JCheckBox chkYearRestrict;

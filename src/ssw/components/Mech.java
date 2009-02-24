@@ -81,6 +81,7 @@ public class Mech {
                     HasBlueShield = false,
                     HasEnviroSealing = false,
                     HasEjectionSeat = false,
+                    HasTracks = false,
                     HasLAAES = false,
                     HasRAAES = false,
                     HasLegAES = false;
@@ -98,7 +99,8 @@ public class Mech {
                             VoidSig,
                             Chameleon,
                             BlueShield,
-                            EnviroSealing;
+                            EnviroSealing,
+                            Tracks;
     private SimplePlaceable EjectionSeat;
     private AESSystem LAAES = new AESSystem( this, false ),
                       RAAES = new AESSystem( this, false ),
@@ -162,6 +164,8 @@ public class Mech {
         EjectionSeat = new SimplePlaceable( "Ejection Seat", "EjectionSeat", 1, true, AC );
         EjectionSeat.SetTonnage( 0.5f );
         EjectionSeat.SetCost( 25000.0f );
+        AC = new AvailableCode (false, 'C', 'D', 'E', 'E', 2400, 0, 0, "DC", "", false, false, 0, false, "", Constants.TOURNAMENT, Constants.TOURNAMENT);
+        Tracks = new Tracks(this, AC);
     }
 
     public void Recalculate() {
@@ -579,6 +583,36 @@ public class Mech {
             if( rlcase2 ) {
                 CurLoadout.SetRLCASEII( true, -1 );
             }
+
+            // replace fixed-slot equipment
+            if(HasBlueShield){
+                SetBlueShield(false);
+                SetBlueShield(true);
+            }
+            if(HasChameleon){
+                SetChameleon(false);
+                SetChameleon(true);
+            }
+            if(HasEjectionSeat){
+                SetEjectionSeat(false);
+                SetEjectionSeat(true);
+            }
+            if(HasEnviroSealing){
+                SetEnviroSealing(false);
+                SetEnviroSealing(true);
+            }
+            if(HasNullSig){
+                SetNullSig(false);
+                SetNullSig(true);
+            }
+            if(HasTracks){
+                SetTracks(false);
+                SetTracks(true);
+            }
+            if(HasVoidSig){
+                SetVoidSig(false);
+                SetVoidSig(true);
+            }
         } catch( Exception e ) {
             // unhandled at this time, print an error out
             System.err.println( "CASE system not reinstalled:\n" + e.getMessage() );
@@ -707,6 +741,36 @@ public class Mech {
             }
             if( rlcase2 ) {
                 CurLoadout.SetRLCASEII( true, -1 );
+            }
+            
+            // replace fixed-slot equipment
+            if(HasBlueShield){
+                SetBlueShield(false);
+                SetBlueShield(true);
+            }
+            if(HasChameleon){
+                SetChameleon(false);
+                SetChameleon(true);
+            }
+            if(HasEjectionSeat){
+                SetEjectionSeat(false);
+                SetEjectionSeat(true);
+            }
+            if(HasEnviroSealing){
+                SetEnviroSealing(false);
+                SetEnviroSealing(true);
+            }
+            if(HasNullSig){
+                SetNullSig(false);
+                SetNullSig(true);
+            }
+            if(HasTracks){
+                SetTracks(false);
+                SetTracks(true);
+            }
+            if(HasVoidSig){
+                SetVoidSig(false);
+                SetVoidSig(true);
             }
         } catch( Exception e ) {
             // unhandled at this time, print an error out
@@ -1066,6 +1130,7 @@ public class Mech {
         if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
         if( HasEnviroSealing ) { result += EnviroSealing.GetTonnage(); }
         if( HasEjectionSeat ) { result += EjectionSeat.GetTonnage(); }
+        if( HasTracks) { result += Tracks.GetTonnage(); }
         if( Quad ) {
             if( HasLegAES ) { result += RLAES.GetTonnage() * 4.0f; }
         } else {
@@ -2558,6 +2623,63 @@ public class Mech {
 
     public MultiSlotSystem GetEnviroSealing() {
         return EnviroSealing;
+    }
+
+
+    public void SetTracks( boolean set ) throws Exception {
+        if( set == HasTracks ) {
+            return;
+        } else {
+            if( set ) {
+                try {
+                    MainLoadout.CheckExclusions( Tracks );
+                } catch( Exception e ) {
+                    throw e;
+                }
+                if( ! Tracks.Place( MainLoadout ) ) {
+                    MainLoadout.Remove( Tracks );
+                    throw new Exception( "There is no available room for the Tracks!\nIt will not be allocated." );
+                }
+                AddMechModifier( Tracks.GetMechModifier() );
+                HasTracks = true;
+            } else {
+                MainLoadout.Remove( Tracks );
+                HasTracks = false;
+            }
+        }
+    }
+
+    // the following method is added for when we want to load a 'Mech
+    // and have specific locations for the system
+    public void SetTracks( boolean set, LocationIndex[] locs ) throws Exception {
+        if( set == HasTracks ) {
+            return;
+        } else {
+            if( set ) {
+                try {
+                    MainLoadout.CheckExclusions( Tracks );
+                } catch( Exception e ) {
+                    throw e;
+                }
+                if( ! Tracks.Place( MainLoadout, locs ) ) {
+                    MainLoadout.Remove( Tracks );
+                    throw new Exception( "There is no available room for the Tracks!\nIt will not be allocated." );
+                }
+                AddMechModifier( Tracks.GetMechModifier() );
+                HasTracks = true;
+            } else {
+                MainLoadout.Remove( Tracks );
+                HasTracks = false;
+            }
+        }
+    }
+
+    public boolean HasTracks() {
+        return HasTracks;
+    }
+
+    public MultiSlotSystem GetTracks() {
+        return Tracks;
     }
 
     public void SetEjectionSeat( boolean set ) throws Exception {
