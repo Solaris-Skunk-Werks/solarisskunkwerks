@@ -12295,17 +12295,13 @@ private void chkEjectionSeatActionPerformed(java.awt.event.ActionEvent evt) {//G
 private void mnuPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintPreviewActionPerformed
     PrintMech p = new PrintMech( this, CurMech, null, false, false);
     p.SetPilotData( "", 4, 5);
-    p.SetOptions( false, false, CurMech.GetCurrentBV());
+    p.SetOptions( Prefs.getBoolean("UseCharts", false), false, CurMech.GetCurrentBV());
 
-    Paper paper = new Paper();
-    paper.setImageableArea( 18, 18, 576, 756 );
+    Printer printer = new Printer();
+    printer.AddMech(CurMech);
 
-    PageFormat page = new PageFormat();
-    Book pages = new Book();
-    page.setPaper( paper );
-    pages.append(p, page);
-    PreviewDialog dlgPreview = new PreviewDialog(CurMech.GetFullName(), this, pages, 2.0);
-    dlgPreview.setSize(800, 600);
+    PreviewDialog dlgPreview = new PreviewDialog(CurMech.GetFullName(), this, printer.Preview(), 1.25);
+    dlgPreview.setSize(1024, 768);
     dlgPreview.setLocationRelativeTo(null);
     dlgPreview.setModal(true);
     dlgPreview.setResizable(true);

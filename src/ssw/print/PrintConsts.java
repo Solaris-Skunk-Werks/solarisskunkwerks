@@ -48,5 +48,6 @@ public class PrintConsts {
     public final static String RS_TW_BP = "./rs/RS_TW_BP.png",
                                RS_TW_QD = "./rs/RS_TW_QD.png",
                                RS_TO_BP = "",
-                               RS_TO_QD = "";
+                               RS_TO_QD = "",
+                               ChartImage = "./rs/Charts.png";
 }

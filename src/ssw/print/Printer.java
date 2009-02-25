@@ -43,7 +43,7 @@ public class Printer {
     private Book pages = new Book();
     private Paper paper = new Paper();
     private PageFormat page = new PageFormat();
-    private PrinterJob job;
+    private PrinterJob job = PrinterJob.getPrinterJob();
 
     //To convert paper size to pixels is inches / 0.0139 rounded down
     public final static PaperSize Letter = new PaperSize(8.5d, 11d);
@@ -111,7 +111,6 @@ public class Printer {
         //If they didn't provide a mech exit
         if (Mechs.size() == 0) { return; }
 
-        job = PrinterJob.getPrinterJob();
         job.setJobName(jobName);
 
         //Here is where we will show the print dialog, determine if it's a single mech or multiples
@@ -122,13 +121,7 @@ public class Printer {
         }
 
         //start building the print objects necessary
-        page.setPaper( paper );
-
-        for (int index=0; index <= Mechs.size()-1; index++) {
-            PrintMech pm = (PrintMech) Mechs.get(index);
-            pages.append(pm, page);
-            if (Mechs.size() == 1) job.setJobName(pm.CurMech.GetFullName());
-        }
+        GeneratePrints();
 
         job.setPageable(pages);
         boolean DoPrint = job.printDialog();
@@ -144,6 +137,23 @@ public class Printer {
         }
     }
 
+    public Book Preview() {
+        GeneratePrints();
+        return pages;
+    }
+
+    private void GeneratePrints() {
+        //start building the print objects necessary
+        page.setPaper( paper );
+
+        for (int index=0; index <= Mechs.size()-1; index++) {
+            PrintMech pm = (PrintMech) Mechs.get(index);
+            pages.append(pm, page);
+            if (Mechs.size() == 1) job.setJobName(pm.CurMech.GetFullName());
+        }
+
+    }
+
     private Boolean PrintDialog(PrintMech pMech) {
         dlgPrintSavedMechOptions POptions = new dlgPrintSavedMechOptions(Parent, true, pMech);
         POptions.setTitle( "Printing " + pMech.CurMech.GetFullName() );
@@ -155,6 +165,7 @@ public class Printer {
             return false;
         }
 
+        pMech.setPrintPilot(POptions.PrintPilot());
         pMech.setCharts(POptions.PrintCharts());
         pMech.setGunnery(POptions.GetGunnery());
         pMech.setPiloting(POptions.GetPiloting());
