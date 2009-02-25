@@ -54,6 +54,7 @@ Version 0.6.0
 - Added filters to the Open Dialog
 - Added Targeting Computer to the Weapons and Equipment list on printouts.
 - Added ammunition types and total rounds to the Weapons and Equipment list on printouts.
+- You can now print using miniatures scale (from 1 to 5 inches per hex).
 
 + Changed
 - Fixed a load bug with heatsinks.
@@ -165,6 +166,8 @@ Version 0.6.0
 - Fixed some minor equipment bugs.
 - Expanded the Cost/BV Breakdown screen to include more information.
 - Armored components are now available in MTF export.
+- Physical Enhancements now correctly check their exclusion list.
+- Added to the Get Info context menu item to show info on any item in the loadout.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

@@ -98,6 +98,10 @@ public class stPECLNone implements ifPhysEnhance, ifState {
         return null;
     }
 
+    public Exclusion GetExclusions() {
+        return null;
+    }
+
     @Override
     public String toString() {
         return "No Physical Enhancement";

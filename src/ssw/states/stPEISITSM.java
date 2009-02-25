@@ -102,6 +102,10 @@ public class stPEISITSM implements ifPhysEnhance, ifState {
         return null;
     }
 
+    public Exclusion GetExclusions() {
+        return new Exclusion( new String[] { "A.E.S." }, "Industrial TSM" );
+    }
+
     @Override
     public String toString() {
         return "Industrial TSM";

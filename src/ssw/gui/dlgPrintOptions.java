@@ -71,6 +71,13 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         if (Parent.Prefs.getBoolean("UseA4", false)) {
             cmbPaperSize.setSelectedIndex(1);
         }
+        chkUseHexConversion.setEnabled( Parent.Prefs.getBoolean( "UseMiniConversion", false ) );
+        if( chkUseHexConversion.isSelected() ) {
+            lblOneHex.setEnabled( true );
+            cmbHexConvFactor.setEnabled( true );
+            lblInches.setEnabled( true );
+            cmbHexConvFactor.setSelectedIndex( Parent.Prefs.getInt( "MiniConversionRate", 0 ) );
+        }
     }
 
     public boolean Result() {
@@ -113,6 +120,31 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         }
     }
 
+    public boolean UseMiniConversion() {
+        return chkUseHexConversion.isSelected();
+    }
+
+    public float GetMiniConversionRate() {
+        switch( cmbHexConvFactor.getSelectedIndex() ) {
+            case 0:
+                return 0.5f;
+            case 1:
+                return 1.0f;
+            case 2:
+                return 1.5f;
+            case 3:
+                return 2.0f;
+            case 4:
+                return 3.0f;
+            case 5:
+                return 4.0f;
+            case 6:
+                return 5.0f;
+            default:
+                return 1.0f;
+        }
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -144,6 +176,11 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         cmbPrinters = new javax.swing.JComboBox();
+        chkUseHexConversion = new javax.swing.JCheckBox();
+        jPanel5 = new javax.swing.JPanel();
+        lblOneHex = new javax.swing.JLabel();
+        cmbHexConvFactor = new javax.swing.JComboBox();
+        lblInches = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -203,7 +240,7 @@ public class dlgPrintOptions extends javax.swing.JDialog {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
@@ -284,7 +321,7 @@ public class dlgPrintOptions extends javax.swing.JDialog {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
         getContentPane().add(jPanel3, gridBagConstraints);
@@ -296,9 +333,55 @@ public class dlgPrintOptions extends javax.swing.JDialog {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(jPanel4, gridBagConstraints);
+
+        chkUseHexConversion.setText("Convert Hexes to miniature scale");
+        chkUseHexConversion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkUseHexConversionActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        getContentPane().add(chkUseHexConversion, gridBagConstraints);
+
+        jPanel5.setLayout(new java.awt.GridBagLayout());
+
+        lblOneHex.setText("One Hex equals");
+        lblOneHex.setEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
+        jPanel5.add(lblOneHex, gridBagConstraints);
+
+        cmbHexConvFactor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1/2", "1", "1 1/2", "2", "3", "4", "5" }));
+        cmbHexConvFactor.setEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        jPanel5.add(cmbHexConvFactor, gridBagConstraints);
+
+        lblInches.setText("Inches");
+        lblInches.setEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 0);
+        jPanel5.add(lblInches, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        getContentPane().add(jPanel5, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -320,6 +403,8 @@ private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     Parent.Prefs.putBoolean("UseCharts", chkPrintCharts.isSelected());
     Parent.Prefs.putBoolean("AdjustPG", chkAdjustBV.isSelected());
     Parent.Prefs.putBoolean("NoPilot", chkMWStats.isSelected());
+    Parent.Prefs.putBoolean( "UseMiniConversion", chkUseHexConversion.isSelected() );
+    Parent.Prefs.putInt( "MiniConversionRate", cmbHexConvFactor.getSelectedIndex() );
 
     Result = true;
     setVisible( false );
@@ -354,13 +439,27 @@ private void chkMWStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }
 }//GEN-LAST:event_chkMWStatsActionPerformed
 
+private void chkUseHexConversionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkUseHexConversionActionPerformed
+    if( chkUseHexConversion.isSelected() ) {
+        lblOneHex.setEnabled( true );
+        cmbHexConvFactor.setEnabled( true );
+        lblInches.setEnabled( true );
+    } else {
+        lblOneHex.setEnabled( false );
+        cmbHexConvFactor.setEnabled( false );
+        lblInches.setEnabled( false );
+    }
+}//GEN-LAST:event_chkUseHexConversionActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnPrint;
     private javax.swing.JCheckBox chkAdjustBV;
     private javax.swing.JCheckBox chkMWStats;
     private javax.swing.JCheckBox chkPrintCharts;
+    private javax.swing.JCheckBox chkUseHexConversion;
     private javax.swing.JComboBox cmbGunnery;
+    private javax.swing.JComboBox cmbHexConvFactor;
     private javax.swing.JComboBox cmbPaperSize;
     private javax.swing.JComboBox cmbPiloting;
     private javax.swing.JComboBox cmbPrinters;
@@ -373,8 +472,11 @@ private void chkMWStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel lblAdjustBV;
     private javax.swing.JLabel lblAdjustBVLabel;
+    private javax.swing.JLabel lblInches;
+    private javax.swing.JLabel lblOneHex;
     private javax.swing.JTextField txtWarriorName;
     // End of variables declaration//GEN-END:variables
 

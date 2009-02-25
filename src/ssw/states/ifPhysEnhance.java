@@ -47,4 +47,5 @@ public interface ifPhysEnhance {
     public boolean IsCritable();
     public AvailableCode GetAvailability();
     public MechModifier GetMechModifier();
+    public Exclusion GetExclusions();
 }

@@ -37,7 +37,6 @@ import java.awt.Point;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
-import java.util.Hashtable;
 import java.util.Vector;
 import ssw.CommonTools;
 import ssw.Constants;
@@ -56,10 +55,12 @@ public class PrintMech implements Printable {
     private boolean Advanced = false,
                     Charts = false,
                     PrintPilot = true,
-                    UseA4Paper = false;
+                    UseA4Paper = false,
+                    UseMiniConv = false;
     private String PilotName = "";
     private int Piloting = 5,
-                Gunnery = 4;
+                Gunnery = 4,
+                MiniConvRate = 1;
     private float BV = 0.0f;
     private ifPrintPoints points = null;
     private Font BoldFont = new Font( "Arial", Font.BOLD, 8 );
@@ -106,6 +107,11 @@ public class PrintMech implements Printable {
         Charts = charts;
         BV = UseBV;
         PrintPilot = PrintP;
+    }
+
+    public void SetMiniConversion( boolean use, int conv ) {
+        UseMiniConv = use;
+        MiniConvRate = conv;
     }
 
     public void setMechwarrior(String name) {
@@ -914,29 +920,57 @@ public class PrintMech implements Printable {
                 if( ((ifWeapon) item.Item).GetRangeMin() < 1 ) {
                     graphics.drawString( "-", p[5].x, p[5].y + offset );
                 } else {
-                    graphics.drawString( ((ifWeapon) item.Item).GetRangeMin() + "", p[5].x, p[5].y + offset );
+                    if( UseMiniConv ) {
+                        graphics.drawString( (((ifWeapon) item.Item).GetRangeMin() * MiniConvRate ) + "", p[5].x, p[5].y + offset );
+                    } else {
+                        graphics.drawString( ((ifWeapon) item.Item).GetRangeMin() + "", p[5].x, p[5].y + offset );
+                    }
                 }
             } else {
                 graphics.drawString( "-", p[5].x, p[5].y + offset );
             }
             if( item.Item instanceof ifWeapon ) {
-                graphics.drawString( ((ifWeapon) item.Item).GetRangeShort() + "", p[6].x, p[6].y + offset );
+                if( UseMiniConv ) {
+                    graphics.drawString( (((ifWeapon) item.Item).GetRangeShort() * MiniConvRate ) + "", p[6].x, p[6].y + offset );
+                } else {
+                    graphics.drawString( ((ifWeapon) item.Item).GetRangeShort() + "", p[6].x, p[6].y + offset );
+                }
             } else if( item.Item instanceof Equipment ) {
-                graphics.drawString( ((Equipment) item.Item).GetShortRange() + "", p[6].x, p[6].y + offset );
+                if( UseMiniConv ) {
+                    graphics.drawString( (((Equipment) item.Item).GetShortRange() * MiniConvRate ) + "", p[6].x, p[6].y + offset );
+                } else {
+                    graphics.drawString( ((Equipment) item.Item).GetShortRange() + "", p[6].x, p[6].y + offset );
+                }
             } else {
                 graphics.drawString( "-", p[6].x, p[6].y + offset );
             }
             if( item.Item instanceof ifWeapon ) {
-                graphics.drawString( ((ifWeapon) item.Item).GetRangeMedium() + "", p[7].x, p[7].y + offset );
+                if( UseMiniConv ) {
+                    graphics.drawString( (((ifWeapon) item.Item).GetRangeMedium() * MiniConvRate ) + "", p[7].x, p[7].y + offset );
+                } else {
+                    graphics.drawString( ((ifWeapon) item.Item).GetRangeMedium() + "", p[7].x, p[7].y + offset );
+                }
             } else if( item.Item instanceof Equipment ) {
-                graphics.drawString( ((Equipment) item.Item).GetMediumRange() + "", p[7].x, p[7].y + offset );
+                if( UseMiniConv ) {
+                    graphics.drawString( (((Equipment) item.Item).GetMediumRange() * MiniConvRate ) + "", p[7].x, p[7].y + offset );
+                } else {
+                    graphics.drawString( ((Equipment) item.Item).GetMediumRange() + "", p[7].x, p[7].y + offset );
+                }
             } else {
                 graphics.drawString( "-", p[7].x, p[7].y + offset );
             }
             if( item.Item instanceof ifWeapon ) {
-                graphics.drawString( ((ifWeapon) item.Item).GetRangeLong() + "", p[8].x, p[8].y + offset );
+                if( UseMiniConv ) {
+                    graphics.drawString( (((ifWeapon) item.Item).GetRangeLong() * MiniConvRate ) + "", p[8].x, p[8].y + offset );
+                } else {
+                    graphics.drawString( ((ifWeapon) item.Item).GetRangeLong() + "", p[8].x, p[8].y + offset );
+                }
             } else if( item.Item instanceof Equipment ) {
-                graphics.drawString( ((Equipment) item.Item).GetLongRange() + "", p[8].x, p[8].y + offset );
+                if( UseMiniConv ) {
+                    graphics.drawString( (((Equipment) item.Item).GetLongRange() * MiniConvRate ) + "", p[8].x, p[8].y + offset );
+                } else {
+                    graphics.drawString( ((Equipment) item.Item).GetLongRange() + "", p[8].x, p[8].y + offset );
+                }
             } else {
                 graphics.drawString( "-", p[8].x, p[8].y + offset );
             }
@@ -993,28 +1027,56 @@ public class PrintMech implements Printable {
 
         // have to hack the movement to print the correct stuff here.
         if( CurMech.GetAdjustedWalkingMP( false, true ) != CurMech.GetWalkingMP() ) {
-            graphics.drawString( CurMech.GetWalkingMP() + " (" + CurMech.GetAdjustedWalkingMP( false, true ) + ")", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
+            if( UseMiniConv ) {
+                graphics.drawString( ( CurMech.GetWalkingMP() * MiniConvRate ) + " (" + ( CurMech.GetAdjustedWalkingMP( false, true ) * MiniConvRate ) + ")", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
+            } else {
+                graphics.drawString( CurMech.GetWalkingMP() + " (" + CurMech.GetAdjustedWalkingMP( false, true ) + ")", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
+            }
 /*            if( CurMech.GetAdjustedWalkingMP( false, true ) < CurMech.GetWalkingMP() ) {
                 graphics.drawString( CurMech.GetAdjustedWalkingMP( false, true ) + "", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
             } else {
                 graphics.drawString( CurMech.GetWalkingMP() + " (" + CurMech.GetAdjustedWalkingMP( false, true ) + ")", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
             }
 */        } else {
-            graphics.drawString( CurMech.GetWalkingMP() + "", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
+            if( UseMiniConv ) {
+                graphics.drawString( ( CurMech.GetWalkingMP() * MiniConvRate ) + "", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
+            } else {
+                graphics.drawString( CurMech.GetWalkingMP() + "", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
+            }
         }
         if( CurMech.GetAdjustedRunningMP( false, true ) != CurMech.GetRunningMP() ) {
             if( CurMech.GetAdjustedRunningMP( false, true ) < CurMech.GetRunningMP() ) {
-                graphics.drawString( CurMech.GetAdjustedRunningMP( false, true ) + "", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
+                if( UseMiniConv ) {
+                    graphics.drawString( ( CurMech.GetAdjustedRunningMP( false, true ) * MiniConvRate ) + "", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
+                } else {
+                    graphics.drawString( CurMech.GetAdjustedRunningMP( false, true ) + "", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
+                }
             } else {
-                graphics.drawString( CurMech.GetRunningMP() + " (" + CurMech.GetAdjustedRunningMP( false, true ) + ")", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
+                if( UseMiniConv ) {
+                    graphics.drawString( ( CurMech.GetRunningMP() * MiniConvRate ) + " (" + ( CurMech.GetAdjustedRunningMP( false, true ) * MiniConvRate ) + ")", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
+                } else {
+                    graphics.drawString( CurMech.GetRunningMP() + " (" + CurMech.GetAdjustedRunningMP( false, true ) + ")", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
+                }
             }
         } else {
-            graphics.drawString( CurMech.GetRunningMP() + "", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
+            if( UseMiniConv ) {
+                graphics.drawString( ( CurMech.GetRunningMP() * MiniConvRate ) + "", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
+            } else {
+                graphics.drawString( CurMech.GetRunningMP() + "", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
+            }
         }
         if( CurMech.GetAdjustedJumpingMP( false ) != CurMech.GetJumpJets().GetNumJJ() ) {
-            graphics.drawString( CurMech.GetJumpJets().GetNumJJ() + " (" + CurMech.GetAdjustedJumpingMP( false ) + ")", p[PrintConsts.JUMPMP].x, p[PrintConsts.JUMPMP].y );
+            if( UseMiniConv ) {
+                graphics.drawString( ( CurMech.GetJumpJets().GetNumJJ() * MiniConvRate ) + " (" + ( CurMech.GetAdjustedJumpingMP( false ) * MiniConvRate ) + ")", p[PrintConsts.JUMPMP].x, p[PrintConsts.JUMPMP].y );
+            } else {
+                graphics.drawString( CurMech.GetJumpJets().GetNumJJ() + " (" + CurMech.GetAdjustedJumpingMP( false ) + ")", p[PrintConsts.JUMPMP].x, p[PrintConsts.JUMPMP].y );
+            }
         } else {
-            graphics.drawString( CurMech.GetJumpJets().GetNumJJ() + "", p[PrintConsts.JUMPMP].x, p[PrintConsts.JUMPMP].y );
+            if( UseMiniConv ) {
+                graphics.drawString( ( CurMech.GetJumpJets().GetNumJJ() * MiniConvRate ) + "", p[PrintConsts.JUMPMP].x, p[PrintConsts.JUMPMP].y );
+            } else {
+                graphics.drawString( CurMech.GetJumpJets().GetNumJJ() + "", p[PrintConsts.JUMPMP].x, p[PrintConsts.JUMPMP].y );
+            }
         }
         // end hacking of movement.
 

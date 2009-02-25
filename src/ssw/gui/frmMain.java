@@ -1849,6 +1849,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             dlgAmmoInfo AmmoInfo = new dlgAmmoInfo( this, true );
             AmmoInfo.setLocationRelativeTo( this );
             AmmoInfo.setVisible( true );
+        } else {
+            dlgPlaceableInfo ItemInfo = new dlgPlaceableInfo( this, true );
+            ItemInfo.setLocationRelativeTo( this );
+            ItemInfo.setVisible( true );
         }
     }
 
@@ -3767,7 +3771,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         pnlBasicSetup.add(pnlChassis, gridBagConstraints);
@@ -3819,7 +3822,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         pnlBasicSetup.add(pnlHeatSinks, gridBagConstraints);
 
@@ -4393,7 +4395,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         pnlBasicSetup.add(pnlBasicSummary, gridBagConstraints);
 
@@ -6316,13 +6318,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             mnuMountRear.setText( "Mount Rear " );
                         }
                     }
-                    if( ! CurItem.CoreComponent() ) {
-                        mnuInfoItem.setEnabled( true );
-                        mnuRemoveItem.setEnabled( true );
-                    } else {
-                        mnuInfoItem.setEnabled( false );
-                        mnuRemoveItem.setEnabled( false );
-                    }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
                     } else {
@@ -6366,13 +6361,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         } else {
                             mnuMountRear.setText( "Mount Rear " );
                         }
-                    }
-                    if( ! CurItem.CoreComponent() ) {
-                        mnuInfoItem.setEnabled( true );
-                        mnuRemoveItem.setEnabled( true );
-                    } else {
-                        mnuInfoItem.setEnabled( false );
-                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -6469,13 +6457,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             mnuMountRear.setText( "Mount Rear " );
                         }
                     }
-                    if( ! CurItem.CoreComponent() ) {
-                        mnuInfoItem.setEnabled( true );
-                        mnuRemoveItem.setEnabled( true );
-                    } else {
-                        mnuInfoItem.setEnabled( false );
-                        mnuRemoveItem.setEnabled( false );
-                    }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
                     } else {
@@ -6519,13 +6500,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         } else {
                             mnuMountRear.setText( "Mount Rear " );
                         }
-                    }
-                    if( ! CurItem.CoreComponent() ) {
-                        mnuInfoItem.setEnabled( true );
-                        mnuRemoveItem.setEnabled( true );
-                    } else {
-                        mnuInfoItem.setEnabled( false );
-                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -6657,13 +6631,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             mnuMountRear.setText( "Mount Rear " );
                         }
                     }
-                    if( ! CurItem.CoreComponent() ) {
-                        mnuInfoItem.setEnabled( true );
-                        mnuRemoveItem.setEnabled( true );
-                    } else {
-                        mnuInfoItem.setEnabled( false );
-                        mnuRemoveItem.setEnabled( false );
-                    }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
                     } else {
@@ -6707,13 +6674,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         } else {
                             mnuMountRear.setText( "Mount Rear " );
                         }
-                    }
-                    if( ! CurItem.CoreComponent() ) {
-                        mnuInfoItem.setEnabled( true );
-                        mnuRemoveItem.setEnabled( true );
-                    } else {
-                        mnuInfoItem.setEnabled( false );
-                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -6831,13 +6791,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             mnuMountRear.setText( "Mount Rear " );
                         }
                     }
-                    if( ! CurItem.CoreComponent() ) {
-                        mnuInfoItem.setEnabled( true );
-                        mnuRemoveItem.setEnabled( true );
-                    } else {
-                        mnuInfoItem.setEnabled( false );
-                        mnuRemoveItem.setEnabled( false );
-                    }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
                     } else {
@@ -6881,13 +6834,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         } else {
                             mnuMountRear.setText( "Mount Rear " );
                         }
-                    }
-                    if( ! CurItem.CoreComponent() ) {
-                        mnuInfoItem.setEnabled( true );
-                        mnuRemoveItem.setEnabled( true );
-                    } else {
-                        mnuInfoItem.setEnabled( false );
-                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -7004,13 +6950,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     }
                     mnuMountRear.setEnabled( false );
                     mnuMountRear.setText( "Mount Rear " );
-                    if( ! CurItem.CoreComponent() ) {
-                        mnuInfoItem.setEnabled( true );
-                        mnuRemoveItem.setEnabled( true );
-                    } else {
-                        mnuInfoItem.setEnabled( false );
-                        mnuRemoveItem.setEnabled( false );
-                    }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
                     } else {
@@ -7042,13 +6981,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     }
                     mnuMountRear.setEnabled( false );
                     mnuMountRear.setText( "Mount Rear " );
-                    if( ! CurItem.CoreComponent() ) {
-                        mnuInfoItem.setEnabled( true );
-                        mnuRemoveItem.setEnabled( true );
-                    } else {
-                        mnuInfoItem.setEnabled( false );
-                        mnuRemoveItem.setEnabled( false );
-                    }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
                     } else {
@@ -7181,13 +7113,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     }
                     mnuMountRear.setEnabled( false );
                     mnuMountRear.setText( "Mount Rear " );
-                    if( ! CurItem.CoreComponent() ) {
-                        mnuInfoItem.setEnabled( true );
-                        mnuRemoveItem.setEnabled( true );
-                    } else {
-                        mnuInfoItem.setEnabled( false );
-                        mnuRemoveItem.setEnabled( false );
-                    }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
                     } else {
@@ -7219,13 +7144,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     }
                     mnuMountRear.setEnabled( false );
                     mnuMountRear.setText( "Mount Rear " );
-                    if( ! CurItem.CoreComponent() ) {
-                        mnuInfoItem.setEnabled( true );
-                        mnuRemoveItem.setEnabled( true );
-                    } else {
-                        mnuInfoItem.setEnabled( false );
-                        mnuRemoveItem.setEnabled( false );
-                    }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
                     } else {
@@ -7371,13 +7289,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             mnuMountRear.setText( "Mount Rear " );
                         }
                     }
-                    if( ! CurItem.CoreComponent() ) {
-                        mnuInfoItem.setEnabled( true );
-                        mnuRemoveItem.setEnabled( true );
-                    } else {
-                        mnuInfoItem.setEnabled( false );
-                        mnuRemoveItem.setEnabled( false );
-                    }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
                     } else {
@@ -7421,13 +7332,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         } else {
                             mnuMountRear.setText( "Mount Rear " );
                         }
-                    }
-                    if( ! CurItem.CoreComponent() ) {
-                        mnuInfoItem.setEnabled( true );
-                        mnuRemoveItem.setEnabled( true );
-                    } else {
-                        mnuInfoItem.setEnabled( false );
-                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -7534,13 +7438,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             mnuMountRear.setText( "Mount Rear " );
                         }
                     }
-                    if( ! CurItem.CoreComponent() ) {
-                        mnuInfoItem.setEnabled( true );
-                        mnuRemoveItem.setEnabled( true );
-                    } else {
-                        mnuInfoItem.setEnabled( false );
-                        mnuRemoveItem.setEnabled( false );
-                    }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
                     } else {
@@ -7584,13 +7481,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         } else {
                             mnuMountRear.setText( "Mount Rear " );
                         }
-                    }
-                    if( ! CurItem.CoreComponent() ) {
-                        mnuInfoItem.setEnabled( true );
-                        mnuRemoveItem.setEnabled( true );
-                    } else {
-                        mnuInfoItem.setEnabled( false );
-                        mnuRemoveItem.setEnabled( false );
                     }
                     if( CurItem.IsArmored() ) {
                         mnuArmorComponent.setText( "Unarmor Component" );
@@ -7652,11 +7542,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( Index < 0 ) { return; }
                 CurItem = (abPlaceable) v.get( Index );
                 if( e.isPopupTrigger() ) {
-                    if( ! CurItem.CoreComponent() ) {
-                        mnuInfoPlacement.setEnabled( true );
-                    } else {
-                        mnuInfoPlacement.setEnabled( false );
-                    }
                     if( CurItem.Contiguous() ) {
                         mnuSelective.setEnabled( false );
                         mnuAuto.setEnabled( false );
@@ -7681,11 +7566,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( Index < 0 ) { return; }
                 CurItem = (abPlaceable) v.get( Index );
                 if( e.isPopupTrigger() ) {
-                    if( ! CurItem.CoreComponent() ) {
-                        mnuInfoPlacement.setEnabled( true );
-                    } else {
-                        mnuInfoPlacement.setEnabled( false );
-                    }
                     if( CurItem.Contiguous() ) {
                         mnuSelective.setEnabled( false );
                         mnuAuto.setEnabled( false );
@@ -9409,6 +9289,17 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         RecalcEnhancements();
+
+        // check our exclusions
+        try {
+            CurMech.GetLoadout().CheckExclusions( CurMech.GetPhysEnhance() );
+        } catch( Exception e ) {
+            javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+            cmbPhysEnhance.setSelectedItem( "No Enhancement" );
+            RecalcEnhancements();
+            return;
+        }
+
         lblRunMP.setText( "" + CurMech.GetRunningMP() );
 
         // now refresh the information panes
@@ -11757,16 +11648,20 @@ public void LoadMechIntoGUI() {
     cmbTechBase.setEnabled( true );
     txtProdYear.setEnabled( true );
     switch( CurMech.GetEra() ) {
-        case 0:
+        case Constants.STAR_LEAGUE:
             lblEraYears.setText( "2443 ~ 2800" );
             cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere" }));
             break;
-        case 1:
+        case Constants.SUCCESSION:
             lblEraYears.setText( "2801 ~ 3050" );
             cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
             break;
-        case 2:
+        case Constants.CLAN_INVASION:
             lblEraYears.setText( "3051 on" );
+            cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
+            break;
+        case Constants.ALL_ERA:
+            lblEraYears.setText( "Any" );
             cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
             break;
     }

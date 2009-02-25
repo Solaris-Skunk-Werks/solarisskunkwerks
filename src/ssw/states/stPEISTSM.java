@@ -104,6 +104,10 @@ public class stPEISTSM implements ifPhysEnhance, ifState {
         return MechMod;
     }
 
+    public Exclusion GetExclusions() {
+        return new Exclusion( new String[] { "A.E.S." }, "TSM" );
+    }
+
     @Override
     public String toString() {
         return "TSM";

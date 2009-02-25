@@ -158,7 +158,7 @@ public class Printer {
         dlgPrintSavedMechOptions POptions = new dlgPrintSavedMechOptions(Parent, true, pMech);
         POptions.setTitle( "Printing " + pMech.CurMech.GetFullName() );
         POptions.setLocationRelativeTo( Parent );
-       
+
         POptions.setVisible( true );
 
         if( ! POptions.Result() ) {
@@ -170,7 +170,8 @@ public class Printer {
         pMech.setGunnery(POptions.GetGunnery());
         pMech.setPiloting(POptions.GetPiloting());
         pMech.setMechwarrior(POptions.GetWarriorName());
-        
+        pMech.SetMiniConversion( POptions.UseMiniConversion(), POptions.GetMiniConversionRate() );
+
         POptions.dispose();
         return true;
     }

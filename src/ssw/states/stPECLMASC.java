@@ -104,6 +104,10 @@ public class stPECLMASC implements ifPhysEnhance, ifState {
         return MechMod;
     }
 
+    public Exclusion GetExclusions() {
+        return new Exclusion( new String[] { "A.E.S." }, "MASC" );
+    }
+
     @Override
     public String toString() {
         return "MASC";

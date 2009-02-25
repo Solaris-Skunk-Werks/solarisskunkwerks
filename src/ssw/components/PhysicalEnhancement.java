@@ -224,6 +224,11 @@ public class PhysicalEnhancement extends abPlaceable {
     }
 
     @Override
+    public Exclusion GetExclusions() {
+        return CurConfig.GetExclusions();
+    }
+
+    @Override
     public boolean IsCritable() {
         return CurConfig.IsCritable();
     }

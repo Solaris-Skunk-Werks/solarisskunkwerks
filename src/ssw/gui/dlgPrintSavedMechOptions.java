@@ -18,7 +18,6 @@ import java.util.Vector;
 import ssw.components.ifLoadout;
 import ssw.print.PrintMech;
 
-
 public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
     private Mech CurMech;
     private frmMain Parent;
@@ -56,7 +55,13 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         if (Parent.Prefs.getBoolean("UseA4", false)) {
             cmbPaperSize.setSelectedIndex(1);
         }
-
+        chkUseHexConversion.setSelected( Parent.Prefs.getBoolean( "UseMiniConversion", false ) );
+        if( chkUseHexConversion.isSelected() ) {
+            lblOneHex.setEnabled( true );
+            cmbHexConvFactor.setEnabled( true );
+            lblInches.setEnabled( true );
+            cmbHexConvFactor.setSelectedIndex( Parent.Prefs.getInt( "MiniConversionRate", 0 ) );
+        }
     }
 
     public dlgPrintSavedMechOptions(java.awt.Frame parent, boolean modal, Mech m) {
@@ -97,6 +102,11 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         cmbPaperSize = new javax.swing.JComboBox();
         cmbOmniVariant = new javax.swing.JComboBox();
         txtMechName = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        lblOneHex = new javax.swing.JLabel();
+        lblInches = new javax.swing.JLabel();
+        cmbHexConvFactor = new javax.swing.JComboBox();
+        chkUseHexConversion = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Print Saved Mech");
@@ -192,6 +202,34 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
 
         txtMechName.setEditable(false);
 
+        jPanel4.setLayout(new java.awt.GridBagLayout());
+
+        lblOneHex.setText("One Hex equals");
+        lblOneHex.setEnabled(false);
+        jPanel4.add(lblOneHex, new java.awt.GridBagConstraints());
+
+        lblInches.setText("Inches");
+        lblInches.setEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 0);
+        jPanel4.add(lblInches, gridBagConstraints);
+
+        cmbHexConvFactor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
+        cmbHexConvFactor.setEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        jPanel4.add(cmbHexConvFactor, gridBagConstraints);
+
+        chkUseHexConversion.setText("Convert Hexes to miniature scale");
+        chkUseHexConversion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkUseHexConversionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -199,33 +237,46 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtMechName, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
-                    .addComponent(jLabel3)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(chkUseHexConversion)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtWarriorName, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(chkMWStats))
-                        .addGap(4, 4, 4)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(chkAdjustBV)
+                                .addGap(22, 22, 22)
+                                .addComponent(lblAdjustBVLabel))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtMechName, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                                    .addComponent(cmbOmniVariant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(143, 143, 143))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(chkPrintCharts)
+                                .addGap(26, 26, 26)
+                                .addComponent(lblAdjustBV))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(37, 37, 37)
+                                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtWarriorName, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(chkMWStats))
+                                    .addGap(4, 4, 4)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(77, 77, 77))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(chkAdjustBV)
-                        .addGap(22, 22, 22)
-                        .addComponent(lblAdjustBVLabel))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(chkPrintCharts)
-                        .addGap(26, 26, 26)
-                        .addComponent(lblAdjustBV))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cmbOmniVariant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(232, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(txtMechName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbOmniVariant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -246,10 +297,15 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(chkPrintCharts)
                     .addComponent(lblAdjustBV))
-                .addGap(4, 4, 4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkUseHexConversion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -268,6 +324,8 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         Parent.Prefs.putBoolean("UseCharts", chkPrintCharts.isSelected());
         Parent.Prefs.putBoolean("AdjustPG", chkAdjustBV.isSelected());
         Parent.Prefs.putBoolean("NoPilot", chkMWStats.isSelected());
+        Parent.Prefs.putBoolean( "UseMiniConversion", chkUseHexConversion.isSelected() );
+        Parent.Prefs.putInt( "MiniConversionRate", cmbHexConvFactor.getSelectedIndex() );
 
         Result = true;
         setVisible( false );
@@ -312,6 +370,18 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );
     }//GEN-LAST:event_cmbOmniVariantActionPerformed
 
+private void chkUseHexConversionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkUseHexConversionActionPerformed
+    if( chkUseHexConversion.isSelected() ) {
+        lblOneHex.setEnabled( true );
+        cmbHexConvFactor.setEnabled( true );
+        lblInches.setEnabled( true );
+    } else {
+        lblOneHex.setEnabled( false );
+        cmbHexConvFactor.setEnabled( false );
+        lblInches.setEnabled( false );
+    }
+}//GEN-LAST:event_chkUseHexConversionActionPerformed
+
     public boolean Result() {
         return Result;
     }
@@ -352,13 +422,36 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         }
     }
 
+    public boolean UseMiniConversion() {
+        return chkUseHexConversion.isSelected();
+    }
+
+    public int GetMiniConversionRate() {
+        switch( cmbHexConvFactor.getSelectedIndex() ) {
+            case 0:
+                return 1;
+            case 1:
+                return 2;
+            case 2:
+                return 3;
+            case 3:
+                return 4;
+            case 4:
+                return 5;
+            default:
+                return 1;
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnPrint;
     private javax.swing.JCheckBox chkAdjustBV;
     private javax.swing.JCheckBox chkMWStats;
     private javax.swing.JCheckBox chkPrintCharts;
+    private javax.swing.JCheckBox chkUseHexConversion;
     private javax.swing.JComboBox cmbGunnery;
+    private javax.swing.JComboBox cmbHexConvFactor;
     private javax.swing.JComboBox cmbOmniVariant;
     private javax.swing.JComboBox cmbPaperSize;
     private javax.swing.JComboBox cmbPiloting;
@@ -369,8 +462,11 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lblAdjustBV;
     private javax.swing.JLabel lblAdjustBVLabel;
+    private javax.swing.JLabel lblInches;
+    private javax.swing.JLabel lblOneHex;
     private javax.swing.JTextField txtMechName;
     private javax.swing.JTextField txtWarriorName;
     // End of variables declaration//GEN-END:variables

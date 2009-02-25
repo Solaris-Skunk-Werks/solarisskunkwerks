@@ -50,7 +50,11 @@ public class AESSystem extends abPlaceable {
 
     @Override
     public String GetMMName(boolean UseRear) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if( Owner.IsClan() ) {
+            return "CLAES";
+        } else {
+            return "ISAES";
+        }
     }
 
     @Override

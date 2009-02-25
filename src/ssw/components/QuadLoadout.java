@@ -2897,14 +2897,14 @@ public class QuadLoadout implements ifLoadout {
 
     public void SetCTCASE( boolean Add, int index ) throws Exception {
         // adds CASE equipment to the CT
+        if( Add && Owner.IsClan() ) {
+            throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
+        }
         if( ! Add ) {
             Remove( CTCase );
         }
         if( Add && HasCTCASE() ) {
             return;
-        }
-        if( Add && Owner.IsClan() ) {
-            throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
         }
 
         boolean placed = false;
