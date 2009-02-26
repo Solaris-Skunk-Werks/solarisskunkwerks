@@ -28,13 +28,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
-import java.util.Hashtable;
 import ssw.Options;
-import ssw.visitors.*;
 
 public class DataFactory {
     // Class file to make data lookups easier and disconnected from the GUI
-    public Hashtable Lookup = new Hashtable();
     Options GlobalOptions = new Options();
     Object[][] Equipment = { { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null } };
     WeaponFactory Weapons = null;
@@ -43,7 +40,6 @@ public class DataFactory {
 
     public DataFactory(Mech m){
         Weapons = new WeaponFactory( m, GlobalOptions );
-        BuildLookupTable();
         Weapons.RebuildPhysicals( m );
         Equips = new EquipmentFactory (m);
     }
@@ -58,56 +54,5 @@ public class DataFactory {
 
     public AmmoFactory GetAmmo() {
         return Ammo;
-    }
-
-    public ifVisitor Lookup( String s ) {
-        // returns a visitor from the lookup table based on the lookup string
-        return (ifVisitor) Lookup.get( s );
-    }
-
-    private void BuildLookupTable() {
-        // sets up the lookup hashtable with String keys and ifVisitor values
-        Lookup.put( "Standard Armor", new VArmorSetStandard() );
-        Lookup.put( "Ferro-Fibrous", new VArmorSetFF() );
-        Lookup.put( "Stealth Armor", new VArmorSetStealth() );
-        Lookup.put( "Light Ferro-Fibrous", new VArmorSetLightFF() );
-        Lookup.put( "Heavy Ferro-Fibrous", new VArmorSetHeavyFF() );
-        Lookup.put( "Ferro-Lamellor", new VArmorSetFL() );
-        Lookup.put( "Hardened Armor", new VArmorSetHA() );
-        Lookup.put( "Laser-Reflective", new VArmorSetLR() );
-        Lookup.put( "Reactive Armor", new VArmorSetRE() );
-        Lookup.put( "Industrial Armor", new VArmorSetIndustrial() );
-        Lookup.put( "Commercial Armor", new VArmorSetCommercial() );
-        Lookup.put( "Standard Structure", new VChassisSetStandard() );
-        Lookup.put( "Composite Structure", new VChassisSetComposite() );
-        Lookup.put( "Endo-Steel", new VChassisSetEndoSteel() );
-        Lookup.put( "Endo-Composite", new VChassisSetEndoComposite() );
-        Lookup.put( "Reinforced Structure", new VChassisSetReinforced() );
-        Lookup.put( "Industrial Structure", new VChassisSetIndustrial() );
-        Lookup.put( "Standard Cockpit", new VCockpitSetStandard() );
-        Lookup.put( "Industrial Cockpit", new VCockpitSetIndustrial() );
-        Lookup.put( "Industrial w/ Adv. FC", new VCockpitSetIndustrialAFC() );
-        Lookup.put( "Small Cockpit", new VCockpitSetSmall() );
-        Lookup.put( "Fuel-Cell Engine", new VEngineSetFuelCell() );
-        Lookup.put( "Fission Engine", new VEngineSetFission() );
-        Lookup.put( "Fusion Engine", new VEngineSetFusion() );
-        Lookup.put( "XL Engine", new VEngineSetFusionXL() );
-        Lookup.put( "XXL Engine", new VEngineSetFusionXXL() );
-        Lookup.put( "I.C.E. Engine", new VEngineSetICE() );
-        Lookup.put( "Compact Fusion Engine", new VEngineSetCompactFusion() );
-        Lookup.put( "Light Fusion Engine", new VEngineSetLightFusion() );
-        Lookup.put( "Standard Gyro", new VGyroSetStandard() );
-        Lookup.put( "Heavy-Duty Gyro", new VGyroSetHD() );
-        Lookup.put( "Extra-Light Gyro", new VGyroSetXL() );
-        Lookup.put( "Compact Gyro", new VGyroSetCompact() );
-        Lookup.put( "No Enhancement", new VEnhanceSetNone() );
-        Lookup.put( "MASC", new VEnhanceSetMASC() );
-        Lookup.put( "TSM", new VEnhanceSetTSM() );
-        Lookup.put( "Industrial TSM", new VEnhanceSetITSM() );
-        Lookup.put( "Single Heat Sink", new VHeatSinkSetSingle() );
-        Lookup.put( "Double Heat Sink", new VHeatSinkSetDouble() );
-        Lookup.put( "Standard Jump Jet", new VJumpJetSetStandard() );
-        Lookup.put( "Improved Jump Jet", new VJumpJetSetImproved() );
-        Lookup.put( "Mech UMU", new VJumpJetSetUMU() );
     }
 }

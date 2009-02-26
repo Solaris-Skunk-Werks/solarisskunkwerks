@@ -192,7 +192,7 @@ public class XMLReader {
 
         // now load up the structural components
         n = d.getElementsByTagName( "gyro" );
-        ifVisitor v = data.Lookup( n.item( 0 ).getTextContent() );
+        ifVisitor v = m.Lookup( n.item( 0 ).getTextContent() );
         if( v == null ) {
             throw new Exception( "The Gyro type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
         } else {
@@ -213,7 +213,7 @@ public class XMLReader {
             l.Location = Constants.LOC_RT;
             lengine[1] = l;
         }
-        v = data.Lookup( n.item( 0 ).getTextContent() );
+        v = m.Lookup( n.item( 0 ).getTextContent() );
         if( v == null ) {
             throw new Exception( "The Engine type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
         } else {
@@ -224,7 +224,7 @@ public class XMLReader {
         m.SetEngineManufacturer( FileCommon.DecodeFluff( map.getNamedItem( "manufacturer" ).getTextContent() ) );
         n = d.getElementsByTagName( "cockpit" );
         map = n.item( 0 ).getAttributes();
-        v = data.Lookup( n.item( 0 ).getTextContent() );
+        v = m.Lookup( n.item( 0 ).getTextContent() );
         if( v == null ) {
             throw new Exception( "The Cockpit type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
         } else {
@@ -247,7 +247,7 @@ public class XMLReader {
         if( Type == null ) {
             throw new Exception( "The Internal Structure type could not be found (missing type node).\nThe Mech cannot be loaded." );
         } else {
-            v = data.Lookup( Type.getTextContent() );
+            v = m.Lookup( Type.getTextContent() );
             if( v == null ) {
                 throw new Exception( "The Internal Structure type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
             } else {
@@ -294,7 +294,7 @@ public class XMLReader {
         if( Type == null ) {
             throw new Exception( "The Armor type could not be found (missing type node).\nThe Mech cannot be loaded." );
         } else {
-            v = data.Lookup( Type.getTextContent() );
+            v = m.Lookup( Type.getTextContent() );
             if( v == null ) {
                 throw new Exception( "The Armor type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
             } else {
@@ -374,7 +374,7 @@ public class XMLReader {
                 if( Type == null ) {
                     throw new Exception( "The Heat Sink type could not be found (missing type node).\nThe Mech cannot be loaded." );
                 } else {
-                    v = data.Lookup( Type.getTextContent() );
+                    v = m.Lookup( Type.getTextContent() );
                     if( v == null ) {
                         throw new Exception( "The Heat Sink type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
                     } else {
@@ -410,7 +410,7 @@ public class XMLReader {
                 if( Type == null ) {
                     throw new Exception( "The Jump Jet type could not be found (missing type node).\nThe Mech cannot be loaded." );
                 } else {
-                    v = data.Lookup( Type.getTextContent() );
+                    v = m.Lookup( Type.getTextContent() );
                     if( v == null ) {
                         throw new Exception( "The Jump Jet type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
                     } else {
@@ -649,7 +649,7 @@ public class XMLReader {
             if( Type == null ) {
                 throw new Exception( "The Enhancement type could not be found (missing type node).\nThe Mech cannot be loaded." );
             } else {
-                v = data.Lookup( Type.getTextContent() );
+                v = m.Lookup( Type.getTextContent() );
                 if( v == null ) {
                     throw new Exception( "The Enhancement type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
                 } else {
@@ -740,7 +740,7 @@ public class XMLReader {
                         if( Type == null ) {
                             throw new Exception( "The Heat Sink type could not be found (missing type node).\nThe Mech cannot be loaded." );
                         } else {
-                            v = data.Lookup( Type.getTextContent() );
+                            v = m.Lookup( Type.getTextContent() );
                             if( v == null ) {
                                 throw new Exception( "The Heat Sink type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
                             }
@@ -788,7 +788,7 @@ public class XMLReader {
                         if( Type == null ) {
                             throw new Exception( "The Jump Jet type could not be found (missing type node).\nThe Mech cannot be loaded." );
                         } else {
-                            v = data.Lookup( Type.getTextContent() );
+                            v = m.Lookup( Type.getTextContent() );
                             if( v == null ) {
                                 throw new Exception( "The Jump Jet type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
                             } else {
