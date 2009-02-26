@@ -474,6 +474,8 @@ public class Mech {
         boolean racase2 = CurLoadout.HasRACASEII();
         boolean llcase2 = CurLoadout.HasLLCASEII();
         boolean rlcase2 = CurLoadout.HasRLCASEII();
+        String Jumps = GetJumpJets().GetLookupName();
+        String HeatSinks = GetHeatSinks().GetLookupName();
 
         // remember how many heat sinks and jump jets we had
         int NumJJ = GetJumpJets().GetNumJJ();
@@ -535,9 +537,14 @@ public class Mech {
         GetActuators().PlaceActuators();
         CurPhysEnhance.Place( CurLoadout );
         // reset the correct number of heat sinks and jump jets
+        DataFactory d = new DataFactory( this );
+        ifVisitor ResetV = d.Lookup( Jumps );
+        Visit( ResetV );
         for( int i = 0; i < NumJJ; i++ ) {
             GetJumpJets().IncrementNumJJ();
         }
+        ResetV = d.Lookup( HeatSinks );
+        Visit( ResetV );
         for( int i = 0; i < NumHS; i++ ) {
             GetHeatSinks().IncrementNumHS();
         }
@@ -633,6 +640,8 @@ public class Mech {
         boolean racase2 = CurLoadout.HasRACASEII();
         boolean llcase2 = CurLoadout.HasLLCASEII();
         boolean rlcase2 = CurLoadout.HasRLCASEII();
+        String Jumps = GetJumpJets().GetLookupName();
+        String HeatSinks = GetHeatSinks().GetLookupName();
 
         // remember how many heat sinks and jump jets we had
         int NumJJ = GetJumpJets().GetNumJJ();
@@ -694,9 +703,14 @@ public class Mech {
         GetActuators().PlaceActuators();
         CurPhysEnhance.Place( CurLoadout );
         // reset the correct number of heat sinks and jump jets
+        DataFactory d = new DataFactory( this );
+        ifVisitor ResetV = d.Lookup( Jumps );
+        Visit( ResetV );
         for( int i = 0; i < NumJJ; i++ ) {
             GetJumpJets().IncrementNumJJ();
         }
+        ResetV = d.Lookup( HeatSinks );
+        Visit( ResetV );
         for( int i = 0; i < NumHS; i++ ) {
             GetHeatSinks().IncrementNumHS();
         }
