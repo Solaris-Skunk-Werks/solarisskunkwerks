@@ -159,14 +159,18 @@ public class MechList extends AbstractTableModel {
             case 3:
                 return "Cost";
             case 4:
-                return "Era";
+                return "Level";
             case 5:
+                return "Era";
+            case 6:
                 return "Tech";
+            case 7:
+                return "Year";
         }
         return "";
     }
     public int getRowCount() { return List.size(); }
-    public int getColumnCount() { return 6; }
+    public int getColumnCount() { return 8; }
     @Override
     public Class getColumnClass(int c) {
         if (List.size() > 0) {
@@ -188,9 +192,13 @@ public class MechList extends AbstractTableModel {
             case 3:
                 return m.getCost();
             case 4:
-                return m.getEra();
+                return m.getLevel();
             case 5:
+                return m.getEra();
+            case 6:
                 return m.getTech();
+            case 7:
+                return m.getYear();
         }
         return null;
     }
@@ -207,9 +215,13 @@ public class MechList extends AbstractTableModel {
             case 3:
                 return m.getCost();
             case 4:
-                return m.getEra();
+                return m.getLevel();
             case 5:
+                return m.getEra();
+            case 6:
                 return m.getTech();
+            case 7:
+                return m.getYear();
         }
         return null;
     }

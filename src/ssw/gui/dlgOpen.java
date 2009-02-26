@@ -118,7 +118,14 @@ public class dlgOpen extends javax.swing.JFrame {
             setupList(list);
         }
 
-        this.lblLoading.setText(list.Size() + " Mechs loaded from " + dirPath);
+        String displayPath = dirPath;
+        if (! dirPath.isEmpty() ) {
+            if (dirPath.contains(File.separator)) {
+                displayPath = dirPath.substring(0, 3) + "..." + dirPath.substring(dirPath.lastIndexOf(File.separator)) + "";
+            }
+        }
+        this.lblLoading.setText(list.Size() + " Mechs loaded from " + displayPath);
+        this.lblLoading.setToolTipText(dirPath);
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
 
@@ -133,11 +140,13 @@ public class dlgOpen extends javax.swing.JFrame {
         sorter.setSortKeys(sortKeys);
         tblMechData.setRowSorter(sorter);
 
-        tblMechData.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tblMechData.getColumnModel().getColumn(0).setPreferredWidth(30);
         tblMechData.getColumnModel().getColumn(1).setPreferredWidth(150);
         tblMechData.getColumnModel().getColumn(2).setPreferredWidth(40);
         tblMechData.getColumnModel().getColumn(3).setPreferredWidth(80);
-        tblMechData.getColumnModel().getColumn(4).setPreferredWidth(130);
+        tblMechData.getColumnModel().getColumn(4).setPreferredWidth(100);
+        tblMechData.getColumnModel().getColumn(5).setPreferredWidth(100);
+        tblMechData.getColumnModel().getColumn(6).setPreferredWidth(60);
     }
 
     private void checkSelection() {
@@ -335,6 +344,11 @@ public class dlgOpen extends javax.swing.JFrame {
         tblMechData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblMechDataMouseClicked(evt);
+            }
+        });
+        tblMechData.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tblMechDataKeyPressed(evt);
             }
         });
         spnMechTable.setViewportView(tblMechData);
@@ -609,6 +623,10 @@ public class dlgOpen extends javax.swing.JFrame {
     private void btnClearFilterFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearFilterFilter
         setupList(list);
 }//GEN-LAST:event_btnClearFilterFilter
+
+    private void tblMechDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblMechDataKeyPressed
+        javax.swing.JOptionPane.showMessageDialog(this, "You typed a " + evt.getKeyChar());
+    }//GEN-LAST:event_tblMechDataKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd2Force;

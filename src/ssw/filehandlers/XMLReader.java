@@ -89,6 +89,9 @@ public class XMLReader {
         Data.setName( FileCommon.DecodeFluff( map.getNamedItem( "name" ).getTextContent() ) + " " + FileCommon.DecodeFluff( map.getNamedItem( "model" ).getTextContent() ) );
         Data.setTonnage( Integer.parseInt( map.getNamedItem( "tons" ).getTextContent() ) );
 
+        n = d.getElementsByTagName( "rules_level" );
+        Data.setLevel( CommonTools.GetRulesLevelString( Integer.parseInt( n.item( 0 ).getTextContent() ) ) );
+
         n = d.getElementsByTagName( "era" );
         Data.setEra( CommonTools.DecodeEra( Integer.parseInt( n.item( 0 ).getTextContent() ) ) );
 
