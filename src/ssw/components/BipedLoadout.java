@@ -112,6 +112,8 @@ public class BipedLoadout implements ifLoadout {
     // Public Methods
     public void SetName( String s ) {
         Name = s;
+
+        Owner.SetChanged( true );
     }
 
     public String GetName() {
@@ -203,6 +205,8 @@ public class BipedLoadout implements ifLoadout {
                 Owner.AddMechModifier( p.GetMechModifier() );
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public void RemoveFromQueue( abPlaceable p ) {
@@ -214,6 +218,8 @@ public class BipedLoadout implements ifLoadout {
         } else {
             return;
         }
+
+        Owner.SetChanged( true );
     }
 
     public abPlaceable GetFromQueueByIndex( int Index ) {
@@ -244,6 +250,8 @@ public class BipedLoadout implements ifLoadout {
         Equipment.clear();
         TCList.clear();
         MechMods.clear();
+
+        Owner.SetChanged( true );
     }
 
     public void FullUnallocate() {
@@ -279,6 +287,8 @@ public class BipedLoadout implements ifLoadout {
                 Queue.add( NonCore.get(i) );
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public void ClearLoadout() {
@@ -307,6 +317,8 @@ public class BipedLoadout implements ifLoadout {
         Equipment.clear();
         TCList.clear();
         MechMods.clear();
+
+        Owner.SetChanged( true );
     }
 
     public void SafeClearLoadout() {
@@ -317,6 +329,8 @@ public class BipedLoadout implements ifLoadout {
                 Remove( (abPlaceable) NonCore.get( i ) );
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public void SafeMassUnallocate() {
@@ -366,6 +380,8 @@ public class BipedLoadout implements ifLoadout {
                 UnallocateAll( LACrits[i], false );
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public void Transfer( ifLoadout l ) {
@@ -1918,6 +1934,8 @@ public class BipedLoadout implements ifLoadout {
             }
         }
 
+        Owner.SetChanged( true );
+
         // everything worked out fine
         return true;
     }
@@ -1954,6 +1972,8 @@ public class BipedLoadout implements ifLoadout {
                 Owner.RemoveMechMod( p.GetMechModifier() );
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public void UnallocateByIndex( int SIndex, abPlaceable[] a ) {
@@ -2018,6 +2038,8 @@ public class BipedLoadout implements ifLoadout {
                 UnallocateAll( ((MGArray) p).GetMGs()[i], true );
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public void AutoAllocate( abPlaceable p ) {
@@ -2300,6 +2322,8 @@ public class BipedLoadout implements ifLoadout {
             Loc[i] = p;
         }
 
+        Owner.SetChanged( true );
+
         // return the number of crits left to place
         return p.NumCrits() - temp;
     }
@@ -2338,6 +2362,8 @@ public class BipedLoadout implements ifLoadout {
             // finally, allocate the item slot
             Loc[i] = p;
         }
+
+        Owner.SetChanged( true );
     }
 
     public int FirstFree( abPlaceable[] Loc ) {
@@ -2615,6 +2641,8 @@ public class BipedLoadout implements ifLoadout {
                 }
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public boolean IsAllocated( abPlaceable p ) {
@@ -2880,6 +2908,8 @@ public class BipedLoadout implements ifLoadout {
                 throw new Exception( p.GetCritName() + " cannot be allocated because there is not enough space." );
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public int UnplacedCrits() {
@@ -3023,6 +3053,8 @@ public class BipedLoadout implements ifLoadout {
                 RACrits[i].SetLocked( true );
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public ifLoadout Clone() {
@@ -3218,6 +3250,8 @@ public class BipedLoadout implements ifLoadout {
                 throw new Exception( "CASE system could not be allocated to slot " + index + ".\nCASE system was not installed." );
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public void SetLTCASE( boolean Add, int index ) throws Exception {
@@ -3257,6 +3291,8 @@ public class BipedLoadout implements ifLoadout {
                 throw new Exception( "CASE system could not be allocated to slot " + index + ".\nCASE system was not installed." );
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public void SetRTCASE( boolean Add, int index ) throws Exception {
@@ -3296,6 +3332,8 @@ public class BipedLoadout implements ifLoadout {
                 throw new Exception( "CASE system could not be allocated to slot " + index + ".\nCASE system was not installed." );
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public void SetCTCASE( ISCASE c ) {
@@ -3368,6 +3406,8 @@ public class BipedLoadout implements ifLoadout {
                 throw new Exception( "CASE II system could not be allocated to slot " + index + ".\nCASE II system was not installed in the HD." );
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public void SetHDCASEII( CASEII c ) {
@@ -3416,6 +3456,8 @@ public class BipedLoadout implements ifLoadout {
                 throw new Exception( "CASE II system could not be allocated to slot " + index + ".\nCASE II system was not installed in the CT." );
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public void SetCTCASEII( CASEII c ) {
@@ -3464,6 +3506,8 @@ public class BipedLoadout implements ifLoadout {
                 throw new Exception( "CASE II system could not be allocated to slot " + index + ".\nCASE II system was not installed in the LT." );
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public void SetLTCASEII( CASEII c ) {
@@ -3512,6 +3556,8 @@ public class BipedLoadout implements ifLoadout {
                 throw new Exception( "CASE II system could not be allocated to slot " + index + ".\nCASE II system was not installed in the RT." );
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public void SetRTCASEII( CASEII c ) {
@@ -3560,6 +3606,8 @@ public class BipedLoadout implements ifLoadout {
                 throw new Exception( "CASE II system could not be allocated to slot " + index + ".\nCASE II system was not installed in the LA." );
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public void SetLACASEII( CASEII c ) {
@@ -3608,6 +3656,8 @@ public class BipedLoadout implements ifLoadout {
                 throw new Exception( "CASE II system could not be allocated to slot " + index + ".\nCASE II system was not installed in the RA." );
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public void SetRACASEII( CASEII c ) {
@@ -3656,6 +3706,8 @@ public class BipedLoadout implements ifLoadout {
                 throw new Exception( "CASE II system could not be allocated to slot " + index + ".\nCASE II system was not installed in the LL." );
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public void SetLLCASEII( CASEII c ) {
@@ -3704,6 +3756,8 @@ public class BipedLoadout implements ifLoadout {
                 throw new Exception( "CASE II system could not be allocated to slot " + index + ".\nCASE II system was not installed in the RL." );
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public void SetRLCASEII( CASEII c ) {
@@ -3733,6 +3787,8 @@ public class BipedLoadout implements ifLoadout {
                 }
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public void SetA4FCSLRM( boolean b ) throws Exception {
@@ -3749,6 +3805,8 @@ public class BipedLoadout implements ifLoadout {
                 }
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public void SetA4FCSMML( boolean b ) throws Exception {
@@ -3765,6 +3823,8 @@ public class BipedLoadout implements ifLoadout {
                 }
             }
         }
+
+        Owner.SetChanged( true );
     }
 
     public boolean UsingA4SRM() {
@@ -3819,6 +3879,8 @@ public class BipedLoadout implements ifLoadout {
 
         // lastly, see if we need to remove it altogether
         if( CurTC.NumCrits() <= 0 ) { Remove( CurTC ); }
+
+        Owner.SetChanged( true );
     }
 
     public void UnallocateTC() {
@@ -3926,6 +3988,8 @@ public class BipedLoadout implements ifLoadout {
         }
 
         AddMechModifier( SCharger.GetMechModifier() );
+
+        Owner.SetChanged( true );
     }
 
     public void SetSupercharger( Supercharger s ) {

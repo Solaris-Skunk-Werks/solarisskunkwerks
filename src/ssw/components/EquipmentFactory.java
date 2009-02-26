@@ -233,7 +233,7 @@ public class EquipmentFactory {
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(0);
         addEQ.SetStats(5, 5.0f, 1500000.0f, 0.0f, 0.0f, "-");
-        addEQ.SetExclusions(new Exclusion(new String[]{"Improved C3 Computer"}, "C3 Computer (Master)"));
+        addEQ.SetExclusions(new Exclusion(new String[]{"Improved C3 Computer", "Null Signature System", "Void Signature System"}, "C3 Computer (Master)"));
         ISEQ.add(addEQ);
 
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3050, 0, 0, "DC", "", false, false);
@@ -243,7 +243,7 @@ public class EquipmentFactory {
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(0);
         addEQ.SetStats(1, 1.0f, 250000.0f, 0.0f, 0.0f, "-");
-        addEQ.SetExclusions(new Exclusion(new String[]{"Improved C3 Computer"}, "C3 Computer (Slave)"));
+        addEQ.SetExclusions(new Exclusion(new String[]{"Improved C3 Computer", "Null Signature System", "Void Signature System"}, "C3 Computer (Slave)"));
         ISEQ.add(addEQ);
 
         a = new AvailableCode(false, 'E', 'X', 'X', 'E', 3062, 0, 0, "CS", "", false, false);
@@ -253,7 +253,7 @@ public class EquipmentFactory {
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(0);
         addEQ.SetStats(2, 2.5f, 750000.0f, 0.0f, 0.0f, "-");
-        addEQ.SetExclusions(new Exclusion(new String[]{"C3 Computer (Master)", "C3 Computer (Slave)"}, "Improved C3 Computer"));
+        addEQ.SetExclusions(new Exclusion(new String[]{"C3 Computer (Master)", "C3 Computer (Slave)", "Null Signature System", "Void Signature System"}, "Improved C3 Computer"));
         ISEQ.add(addEQ);
 
         a = new AvailableCode(false, 'F', 'F', 'X', 'F', 2751, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED);

@@ -85,7 +85,8 @@ public class Mech {
                     HasTracks = false,
                     HasLAAES = false,
                     HasRAAES = false,
-                    HasLegAES = false;
+                    HasLegAES = false,
+                    Changed = false;
     private Engine CurEngine = new Engine( this );
     private ifLoadout MainLoadout = new BipedLoadout( Constants.BASELOADOUT_NAME, this ),
                     CurLoadout = MainLoadout;
@@ -210,18 +211,23 @@ public class Mech {
         } else {
             CurEngine.SetRating( WalkMP * Tonnage );
         }
+
+        SetChanged( true );
     }
 
     public void SetName( String n ) {
         Name = n;
+        SetChanged( true );
     }
 
     public void SetModel( String m ) {
         Model = m;
+        SetChanged( true );
     }
 
     public void SetEra( int e ) {
         Era = e;
+        SetChanged( true );
     }
 
     public void SetRulesLevel( int r ) {
@@ -231,15 +237,18 @@ public class Mech {
             RulesLevel = r;
             MainLoadout.SetRulesLevel( r );
         }
+        SetChanged( true );
     }
 
     public void SetYear( int y, boolean specified ) {
         Year = y;
         YearSpecified = specified;
+        SetChanged( true );
     }
 
     public void SetYearRestricted( boolean y ) {
         YearRestricted = y;
+        SetChanged( true );
     }
 
     public boolean IsYearRestricted() {
@@ -248,18 +257,22 @@ public class Mech {
 
     public void SetTechBase( int t ) {
         TechBase = t;
+        SetChanged( true );
     }
 
     public void SetSolaris7ID( String ID ) {
         Solaris7ID = ID;
+        SetChanged( true );
     }
 
     public void SetSolaris7ImageID( String ID ) {
         Solaris7ImageID = ID;
+        SetChanged( true );
     }
 
     public void SetSSWImage( String image ) {
         SSWImage = image;
+        SetChanged( true );
     }
 
     public void SetInnerSphere() {
@@ -327,6 +340,8 @@ public class Mech {
         GetJumpJets().ReCalculate();
         CurArmor.Recalculate();
         UseTC( false );
+
+        SetChanged( true );
     }
 
     public void SetClan() {
@@ -394,6 +409,8 @@ public class Mech {
         GetJumpJets().ReCalculate();
         CurArmor.Recalculate();
         UseTC( false );
+
+        SetChanged( true );
     }
 
 /*    public void SetPrimitive() {
@@ -627,6 +644,8 @@ public class Mech {
             // unhandled at this time, print an error out
             System.err.println( "CASE system not reinstalled:\n" + e.getMessage() );
         }
+
+        SetChanged( true );
     }
 
     public void SetQuad() {
@@ -792,6 +811,8 @@ public class Mech {
             // unhandled at this time, print an error out
             System.err.println( "CASE system not reinstalled:\n" + e.getMessage() );
         }
+
+        SetChanged( true );
     }
 
     public boolean IsQuad() {
@@ -812,6 +833,8 @@ public class Mech {
             SetBiped();
         }
         Recalculate();
+
+        SetChanged( true );
     }
 
     public void SetBattlemech() {
@@ -828,6 +851,8 @@ public class Mech {
             SetBiped();
         }
         Recalculate();
+
+        SetChanged( true );
     }
 
     public void SetOmnimech( String name ) {
@@ -877,6 +902,8 @@ public class Mech {
         l.SetName( name );
         Loadouts.add( l );
         CurLoadout = l;
+
+        SetChanged( true );
     }
 
     public void AddLoadout( String Name ) throws Exception {
@@ -899,6 +926,8 @@ public class Mech {
         l.SetName( Name );
         Loadouts.add( l );
         CurLoadout = l;
+
+        SetChanged( true );
     }
 
     public void RemoveLoadout( String Name ) {
@@ -918,6 +947,8 @@ public class Mech {
         } else {
             CurLoadout = MainLoadout;
         }
+
+        SetChanged( true );
     }
 
     public void SetCurLoadout( String Name ) {
@@ -1068,6 +1099,8 @@ public class Mech {
         } else {
             SetWalkMP( 1 );
         }
+
+        SetChanged( true );
     }
 
     public int GetWalkingMP() {
@@ -1086,6 +1119,8 @@ public class Mech {
         if( mp < 1 ) { mp = 1; }
         WalkMP = mp;
         CurEngine.SetRating( WalkMP * Tonnage );
+
+        SetChanged( true );
     }
 
     public int GetRunningMP() {
@@ -2382,6 +2417,8 @@ public class Mech {
                 HasNullSig = false;
             }
         }
+
+        SetChanged( true );
     }
 
     // the following method is added for when we want to load a 'Mech
@@ -2407,6 +2444,8 @@ public class Mech {
                 HasNullSig = false;
             }
         }
+
+        SetChanged( true );
     }
 
     public boolean HasNullSig() {
@@ -2438,6 +2477,8 @@ public class Mech {
                 HasChameleon = false;
             }
         }
+
+        SetChanged( true );
     }
 
     // the following method is added for when we want to load a 'Mech
@@ -2463,6 +2504,8 @@ public class Mech {
                 HasChameleon = false;
             }
         }
+
+        SetChanged( true );
     }
 
     public boolean HasChameleon() {
@@ -2494,6 +2537,8 @@ public class Mech {
                 HasVoidSig = false;
             }
         }
+
+        SetChanged( true );
     }
 
     // the following method is added for when we want to load a 'Mech
@@ -2519,6 +2564,8 @@ public class Mech {
                 HasVoidSig = false;
             }
         }
+
+        SetChanged( true );
     }
 
     public boolean HasVoidSig() {
@@ -2550,6 +2597,8 @@ public class Mech {
                 HasBlueShield = false;
             }
         }
+
+        SetChanged( true );
     }
 
     // the following method is added for when we want to load a 'Mech
@@ -2575,6 +2624,8 @@ public class Mech {
                 HasBlueShield = false;
             }
         }
+
+        SetChanged( true );
     }
 
     public boolean HasBlueShield() {
@@ -2606,6 +2657,8 @@ public class Mech {
                 HasEnviroSealing = false;
             }
         }
+
+        SetChanged( true );
     }
 
     // the following method is added for when we want to load a 'Mech
@@ -2631,6 +2684,8 @@ public class Mech {
                 HasEnviroSealing = false;
             }
         }
+
+        SetChanged( true );
     }
 
     public boolean HasEnviroSealing() {
@@ -2663,6 +2718,8 @@ public class Mech {
                 HasTracks = false;
             }
         }
+
+        SetChanged( true );
     }
 
     // the following method is added for when we want to load a 'Mech
@@ -2688,6 +2745,8 @@ public class Mech {
                 HasTracks = false;
             }
         }
+
+        SetChanged( true );
     }
 
     public boolean HasTracks() {
@@ -2711,6 +2770,8 @@ public class Mech {
                 HasEjectionSeat = false;
             }
         }
+
+        SetChanged( true );
     }
 
     public boolean HasEjectionSeat() {
@@ -2745,6 +2806,8 @@ public class Mech {
             CurLoadout.Remove( CurLAAES );
             HasLAAES = false;
         }
+
+        SetChanged( true );
     }
 
     public boolean HasLAAES() {
@@ -2779,6 +2842,8 @@ public class Mech {
             CurLoadout.Remove( CurRAAES );
             HasRAAES = false;
         }
+
+        SetChanged( true );
     }
 
     public boolean HasRAAES() {
@@ -2961,6 +3026,8 @@ public class Mech {
                 HasLegAES = false;
             }
         }
+
+        SetChanged( true );
     }
 
     public boolean HasLegAES() {
@@ -3258,62 +3325,92 @@ public class Mech {
 
     public void SetOverview( String n ) {
         Overview = n;
+
+        SetChanged( true );
     }
 
     public void SetCapabilities( String n ) {
         Capabilities = n;
+
+        SetChanged( true );
     }
 
     public void SetHistory( String n ) {
         History = n;
+
+        SetChanged( true );
     }
 
     public void SetDeployment( String n ) {
         Deployment = n;
+
+        SetChanged( true );
     }
 
     public void SetVariants( String n ) {
         Variants = n;
+
+        SetChanged( true );
     }
 
     public void SetNotables( String n ) {
         Notables = n;
+
+        SetChanged( true );
     }
 
     public void SetAdditional( String n ) {
         Additional = n;
+
+        SetChanged( true );
     }
 
     public void SetCompany( String n ) {
         Company = n;
+
+        SetChanged( true );
     }
 
     public void SetLocation( String n ) {
         Location = n;
+
+        SetChanged( true );
     }
 
     public void SetEngineManufacturer( String n ) {
         EngineManufacturer = n;
+
+        SetChanged( true );
     }
 
     public void SetArmorModel( String n ) {
         ArmorModel = n;
+
+        SetChanged( true );
     }
 
     public void SetChassisModel( String n ) {
         ChassisModel = n;
+
+        SetChanged( true );
     }
 
     public void SetJJModel( String n ) {
         JJModel = n;
+
+        SetChanged( true );
     }
 
     public void SetCommSystem( String n ) {
         CommSystem = n;
+
+        SetChanged( true );
     }
 
     public void SetTandTSystem( String n ) {
         TandTSystem = n;
+
+        SetChanged( true );
     }
 
     public String GetOverview() {
@@ -3401,6 +3498,14 @@ public class Mech {
             return "Unknown";
         }
         return TandTSystem;
+    }
+
+    public void SetChanged( boolean b ) {
+        Changed = b;
+    }
+
+    public boolean HasChanged() {
+        return Changed;
     }
 
     public ifVisitor Lookup( String s ) {

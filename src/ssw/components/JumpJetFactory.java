@@ -82,6 +82,7 @@ public class JumpJetFactory {
         } else {
             CurConfig = ISNJJ;
         }
+        Owner.GetMech().SetChanged( true );
     }
 
     public void SetClan() {
@@ -92,6 +93,7 @@ public class JumpJetFactory {
         } else {
             CurConfig = CLNJJ;
         }
+        Owner.GetMech().SetChanged( true );
     }
 
     public void SetNormal() {
@@ -100,6 +102,7 @@ public class JumpJetFactory {
         } else {
             CurConfig = ISNJJ;
         }
+        Owner.GetMech().SetChanged( true );
     }
 
     public void SetImproved() {
@@ -108,6 +111,7 @@ public class JumpJetFactory {
         } else {
             CurConfig = ISIJJ;
         }
+        Owner.GetMech().SetChanged( true );
     }
 
     public void SetUMU() {
@@ -116,30 +120,37 @@ public class JumpJetFactory {
         } else {
             CurConfig = ISUMU;
         }
+        Owner.GetMech().SetChanged( true );
     }
 
     public void SetISNormal() {
         CurConfig = ISNJJ;
+        Owner.GetMech().SetChanged( true );
     }
 
     public void SetISImproved() {
         CurConfig = ISIJJ;
+        Owner.GetMech().SetChanged( true );
     }
 
     public void SetISUMU() {
         CurConfig = ISUMU;
+        Owner.GetMech().SetChanged( true );
     }
 
     public void SetCLNormal() {
         CurConfig = CLNJJ;
+        Owner.GetMech().SetChanged( true );
     }
 
     public void SetCLImproved() {
         CurConfig = CLIJJ;
+        Owner.GetMech().SetChanged( true );
     }
 
     public void SetCLUMU() {
         CurConfig = CLUMU;
+        Owner.GetMech().SetChanged( true );
     }
 
     public boolean IsImproved() {
@@ -173,10 +184,12 @@ public class JumpJetFactory {
             j.Place( Owner );
             NumJJ++;
         }
+        Owner.GetMech().SetChanged( true );
     }
 
     public boolean DecrementNumJJ() {
         JumpJet j = (JumpJet) CurrentJumps.getLast();
+        Owner.GetMech().SetChanged( true );
         return RemoveJJ( j );
     }
 
@@ -240,6 +253,7 @@ public class JumpJetFactory {
         j.Remove( Owner );
         CurrentJumps.remove( j );
         NumJJ--;
+        Owner.GetMech().SetChanged( true );
         return true;
     }
 
@@ -252,6 +266,7 @@ public class JumpJetFactory {
             j.Remove( Owner );
         }
         NumJJ = 0;
+        Owner.GetMech().SetChanged( true );
     }
 
     public void ReCalculate() {

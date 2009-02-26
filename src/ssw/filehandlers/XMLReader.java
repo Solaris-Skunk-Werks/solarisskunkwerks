@@ -1003,6 +1003,7 @@ public class XMLReader {
         }
 
         // all done, return the mech
+        m.SetChanged( false );
         return m;
     }
 

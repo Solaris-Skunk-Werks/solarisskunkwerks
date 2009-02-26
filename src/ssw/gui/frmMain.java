@@ -8780,6 +8780,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExitActionPerformed
+        if( CurMech.HasChanged() ) {
+            int choice = javax.swing.JOptionPane.showConfirmDialog( this,
+                "The current 'Mech has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION );
+            if( choice == 1 ) { return; }
+        }
         CloseProgram();
     }//GEN-LAST:event_mnuExitActionPerformed
 
@@ -10780,6 +10785,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_cmbJumpJetTypeActionPerformed
 
     private void mnuNewMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNewMechActionPerformed
+        if( CurMech.HasChanged() ) {
+            int choice = javax.swing.JOptionPane.showConfirmDialog( this,
+                "The current 'Mech has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION );
+            if( choice == 1 ) { return; }
+        }
         GetNewMech();
     }//GEN-LAST:event_mnuNewMechActionPerformed
 
@@ -10961,6 +10971,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void mnuOpenActionPerformed(java.awt.event.ActionEvent evt) {                                        
         //dlgOpen dOpen = new dlgOpen(this, true);
+        if( CurMech.HasChanged() ) {
+            int choice = javax.swing.JOptionPane.showConfirmDialog( this,
+                "The current 'Mech has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION );
+            if( choice == 1 ) { return; }
+        }
         dOpen.setLocationRelativeTo(this);
         dOpen.setSize( 750, 600 );
         dOpen.setVisible(true);
@@ -11179,9 +11194,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbOmniVariantActionPerformed( evt );
 
         setCursor( NormalCursor );
+        CurMech.SetChanged( false );
 	}//GEN-LAST:event_mnuSaveActionPerformed
 
 private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLoadActionPerformed
+    if( CurMech.HasChanged() ) {
+        int choice = javax.swing.JOptionPane.showConfirmDialog( this,
+            "The current 'Mech has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION );
+        if( choice == 1 ) { return; }
+    }
     // Get the mech we're loading
     Mech m = LoadMech();
     if (m == null){
@@ -11278,6 +11299,7 @@ private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         // lastly, if this is an omnimech, reset the display to the last loadout
         cmbOmniVariant.setSelectedItem( CurLoadout );
         cmbOmniVariantActionPerformed( evt );
+        CurMech.SetChanged( false );
 }//GEN-LAST:event_mnuSaveAsActionPerformed
 
 private void lstSelectedEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstSelectedEquipmentValueChanged

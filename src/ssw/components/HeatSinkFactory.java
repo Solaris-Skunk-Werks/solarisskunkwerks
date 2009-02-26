@@ -77,6 +77,7 @@ public class HeatSinkFactory {
         } else {
             CurConfig = ISSHS;
         }
+        Owner.GetMech().SetChanged( true );
     }
 
     public void SetClan() {
@@ -85,6 +86,7 @@ public class HeatSinkFactory {
         } else {
             CurConfig = CLSHS;
         }
+        Owner.GetMech().SetChanged( true );
     }
 
     public void SetSingle() {
@@ -93,6 +95,7 @@ public class HeatSinkFactory {
         } else {
             CurConfig = ISSHS;
         }
+        Owner.GetMech().SetChanged( true );
     }
 
     public void SetDouble() {
@@ -101,22 +104,27 @@ public class HeatSinkFactory {
         } else {
             CurConfig = ISDHS;
         }
+        Owner.GetMech().SetChanged( true );
     }
 
     public void SetISDouble() {
         CurConfig = ISDHS;
+        Owner.GetMech().SetChanged( true );
     }
 
     public void SetISSingle() {
         CurConfig = ISSHS;
+        Owner.GetMech().SetChanged( true );
     }
 
     public void SetCLDouble() {
         CurConfig = CLDHS;
+        Owner.GetMech().SetChanged( true );
     }
 
     public void SetCLSingle() {
         CurConfig = CLSHS;
+        Owner.GetMech().SetChanged( true );
     }
 
     public boolean IsDouble() {
@@ -158,6 +166,7 @@ public class HeatSinkFactory {
             //  nope, just increment the number
             NumHS++;
         }
+        Owner.GetMech().SetChanged( true );
     }
 
     public boolean DecrementNumHS() {
@@ -175,6 +184,7 @@ public class HeatSinkFactory {
         }
 
         NumHS--;
+        Owner.GetMech().SetChanged( true );
         return true;
     }
 

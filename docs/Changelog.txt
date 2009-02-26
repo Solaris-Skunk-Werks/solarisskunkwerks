@@ -170,6 +170,7 @@ Version 0.6.0
 - Added to the Get Info context menu item to show info on any item in the loadout.
 - Fixed a bug where CASE would appear after locking a Clan Quad chassis.
 - Fixed a bug where heat sink and jump jet types would change when changing motive type.
+- Added safeguards and dialogues regarding discarding changes to a 'Mech.
 
 -------------------------------------------------------------------------------
 Version 0.5.0
