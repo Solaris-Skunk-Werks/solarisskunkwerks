@@ -2902,6 +2902,7 @@ public class QuadLoadout implements ifLoadout {
         }
         if( ! Add ) {
             Remove( CTCase );
+            return;
         }
         if( Add && HasCTCASE() ) {
             return;
@@ -2937,6 +2938,7 @@ public class QuadLoadout implements ifLoadout {
         // adds CASE equipment to the LT
         if( ! Add ) {
             Remove( LTCase );
+            return;
         }
         if( Add && HasLTCASE() ) {
             return;
@@ -2975,6 +2977,7 @@ public class QuadLoadout implements ifLoadout {
         // adds CASE equipment to the RT
         if( ! Add ) {
             Remove( RTCase );
+            return;
         }
         if( Add && HasRTCASE() ) {
             return;

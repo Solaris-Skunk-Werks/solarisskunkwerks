@@ -50,7 +50,6 @@ import ssw.filehandlers.*;
 import ssw.visitors.*;
 import ssw.print.*;
 import ssw.states.ifState;
-import java.awt.print.*;
 import java.util.prefs.*;
 
 public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner {
