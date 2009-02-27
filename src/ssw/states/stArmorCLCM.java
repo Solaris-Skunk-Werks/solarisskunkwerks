@@ -43,7 +43,7 @@ public class stArmorCLCM implements ifArmor, ifState {
     }
 
     public String GetMMName() {
-        return "Commercial Armor";
+        return "Commercial";
     }
 
     public boolean IsClan() {

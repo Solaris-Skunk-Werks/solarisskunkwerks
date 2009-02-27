@@ -55,6 +55,7 @@ Version 0.6.0
 - Added Targeting Computer to the Weapons and Equipment list on printouts.
 - Added ammunition types and total rounds to the Weapons and Equipment list on printouts.
 - You can now print using miniatures scale (from 1 to 5 inches per hex).
+- The 'Mech name and model will now appear in the titlebar of SSW after save, load and export.
 
 + Changed
 - Fixed a load bug with heatsinks.
@@ -172,6 +173,7 @@ Version 0.6.0
 - Fixed a bug where heat sink and jump jet types would change when changing motive type.
 - Added safeguards and dialogues regarding discarding changes to a 'Mech.
 - MML Artemis checkbox now correctly disabled during canon eras other than Clan Invasion.
+- ICE and Cell engines, as well as Industrial and Commercial armor now export to MTF correctly.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

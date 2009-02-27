@@ -84,7 +84,7 @@ public class stEngineISIC implements ifEngine, ifState {
     }
     
     public String GetMMName() {
-        return "I.C.E. Engine";
+        return "I.C.E.";
     }
 
     public float GetCost( int MechTonnage, int Rating ) {

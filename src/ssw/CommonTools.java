@@ -51,6 +51,8 @@ public class CommonTools {
                 return "Advanced";
             case Constants.EXPERIMENTAL:
                 return "Experimental";
+            case Constants.UNALLOWED:
+                return "Unallowed";
             default:
                 return "Unknown";
         }

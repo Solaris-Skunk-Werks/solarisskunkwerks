@@ -104,6 +104,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         initComponents();
         setViewToolbar(Prefs.getBoolean("ViewToolbar", true));
+        setTitle( Constants.AppDescription + " " + Constants.Version );
 
         mnuUnallocateAll.addActionListener( new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1846,6 +1847,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             chkYearRestrict.setEnabled( true );
         }
+        CurMech.SetChanged( false );
+        setTitle( Constants.AppDescription + " " + Constants.Version );
     }
 
     private void GetInfoOn() {
@@ -10578,6 +10581,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // if there were no problems, let the user know how it went
         javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully to MTF:\n" + file );
+        setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
     }//GEN-LAST:event_btnExportMTFActionPerformed
 
     private void lstChoosePhysicalValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChoosePhysicalValueChanged
@@ -10634,6 +10638,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // lastly, if this is an omnimech, reset the display to the last loadout
         cmbOmniVariant.setSelectedItem( CurLoadout );
         cmbOmniVariantActionPerformed( evt );
+        setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
     }//GEN-LAST:event_btnExportTXTActionPerformed
 
     private void btnExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportHTMLActionPerformed
@@ -10684,6 +10689,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // lastly, if this is an omnimech, reset the display to the last loadout
         cmbOmniVariant.setSelectedItem( CurLoadout );
         cmbOmniVariantActionPerformed( evt );
+        setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
     }//GEN-LAST:event_btnExportHTMLActionPerformed
 
     private void mnuAboutSSWActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAboutSSWActionPerformed
@@ -11240,6 +11246,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbOmniVariantActionPerformed( evt );
 
         setCursor( NormalCursor );
+        setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
         CurMech.SetChanged( false );
 	}//GEN-LAST:event_mnuSaveActionPerformed
 
@@ -11346,6 +11353,7 @@ private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         // lastly, if this is an omnimech, reset the display to the last loadout
         cmbOmniVariant.setSelectedItem( CurLoadout );
         cmbOmniVariantActionPerformed( evt );
+        setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
         CurMech.SetChanged( false );
 }//GEN-LAST:event_mnuSaveAsActionPerformed
 
@@ -11847,6 +11855,8 @@ public void LoadMechIntoGUI() {
         txtSumPAmpsTon.setVisible( true );
         txtSumPAmpsACode.setVisible( true );
     }
+
+    setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
 }
 
 private void mnuExportClipboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportClipboardActionPerformed

@@ -84,7 +84,7 @@ public class stEngineISFC implements ifEngine, ifState {
     }
     
     public String GetMMName() {
-        return "Fuel-Cell Engine";
+        return "Fuel-Cell";
     }
 
     public float GetCost( int MechTonnage, int Rating ) {

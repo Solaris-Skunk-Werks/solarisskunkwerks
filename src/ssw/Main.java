@@ -88,7 +88,6 @@ public class Main {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 frmMain MainFrame = new frmMain();
-                MainFrame.setTitle( Constants.AppDescription + " " + Constants.Version );
                 MainFrame.setSize( 750, 600 );
                 MainFrame.setLocationRelativeTo( null );
                 MainFrame.setResizable( true );

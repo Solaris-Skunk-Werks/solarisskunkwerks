@@ -317,7 +317,7 @@ public class EquipmentFactory {
         addEQ.SetRange(0, 0, 6);
         addEQ.SetHeat(0);
         addEQ.SetStats(2, 2.0f, 750000.0f, 0.0f, 100.0f, "-");
-        ISEQ.add(addEQ);
+        CLEQ.add(addEQ);
 
         a = new AvailableCode(true, 'F', 'X', 'D', 'C', 2617, 0, 0, "TH", "", false, false);
         addEQ = new Equipment("Anti-Missile System", "PD", a, true);

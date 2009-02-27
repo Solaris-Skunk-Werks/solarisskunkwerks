@@ -290,10 +290,18 @@ public class MTFWriter {
     }
 
     private String GetMMName( abPlaceable p ) {
-        if( p.IsArmored() ) {
-            return p.GetMMName( p.IsMountedRear() ) + " (armored)";
+        if( p instanceof Engine ) {
+            if( p.IsArmored() ) {
+                return "Engine (armored)";
+            } else {
+                return "Engine";
+            }
         } else {
-            return p.GetMMName( p.IsMountedRear() );
+            if( p.IsArmored() ) {
+                return p.GetMMName( p.IsMountedRear() ) + " (armored)";
+            } else {
+                return p.GetMMName( p.IsMountedRear() );
+            }
         }
     }
 }

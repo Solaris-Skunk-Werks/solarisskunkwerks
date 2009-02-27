@@ -44,7 +44,7 @@ public class stArmorISIN implements ifArmor, ifState {
     }
 
     public String GetMMName() {
-        return "Industrial Armor";
+        return "Industrial";
     }
 
     public boolean IsClan() {

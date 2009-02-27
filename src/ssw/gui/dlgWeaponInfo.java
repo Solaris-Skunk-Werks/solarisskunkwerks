@@ -95,6 +95,8 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         }
         lblCost.setText( "" + ((abPlaceable) w).GetCost() );
         lblBV.setText( CommonTools.GetAggregateReportBV( (abPlaceable) w ) );
+        lblRulesBM.setText( CommonTools.GetRulesLevelString( a.GetRulesLevelBM() ) );
+        lblRulesIM.setText( CommonTools.GetRulesLevelString( a.GetRulesLevelIM() ) );
     }
 
     /** This method is called from within the constructor to
@@ -142,6 +144,11 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblInfoBV = new javax.swing.JLabel();
         lblCost = new javax.swing.JLabel();
         lblBV = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblRulesBM = new javax.swing.JLabel();
+        lblRulesIM = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -280,7 +287,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.gridwidth = 9;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 4);
@@ -289,7 +296,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblInfoAVSL.setText("Availability (AoW/SL)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
         getContentPane().add(lblInfoAVSL, gridBagConstraints);
@@ -297,7 +304,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblInfoAVSW.setText("Availability (SW)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
         getContentPane().add(lblInfoAVSW, gridBagConstraints);
@@ -305,7 +312,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblInfoAVCI.setText("Availability (CI)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
         getContentPane().add(lblInfoAVCI, gridBagConstraints);
@@ -313,28 +320,28 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblAVSL.setText("X");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         getContentPane().add(lblAVSL, gridBagConstraints);
 
         lblAVSW.setText("X");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         getContentPane().add(lblAVSW, gridBagConstraints);
 
         lblAVCI.setText("X");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         getContentPane().add(lblAVCI, gridBagConstraints);
 
         lblInfoIntro.setText("Introduction");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
@@ -343,7 +350,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblInfoExtinct.setText("Extinction");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
@@ -352,7 +359,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblInfoReIntro.setText("Reintroduction");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
@@ -361,7 +368,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblIntro.setText("9999 (TH)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
@@ -370,7 +377,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblExtinct.setText("9999 (TH)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
@@ -379,7 +386,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblReIntro.setText("9999 (TH)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
@@ -388,7 +395,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         jSeparator1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
@@ -396,6 +403,8 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
 
         lblInfoCost.setText("Cost");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         getContentPane().add(lblInfoCost, gridBagConstraints);
@@ -403,13 +412,15 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblInfoBV.setText("BV");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         getContentPane().add(lblInfoBV, gridBagConstraints);
 
         lblCost.setText("9999999");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
@@ -418,11 +429,54 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblBV.setText("999");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
         getContentPane().add(lblBV, gridBagConstraints);
+
+        jSeparator2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
+        getContentPane().add(jSeparator2, gridBagConstraints);
+
+        jLabel1.setText("Rules Level (BattleMech)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
+        getContentPane().add(jLabel1, gridBagConstraints);
+
+        jLabel2.setText("Rules Level (IndustrialMech)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
+        getContentPane().add(jLabel2, gridBagConstraints);
+
+        lblRulesBM.setText("Experimental");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 0);
+        getContentPane().add(lblRulesBM, gridBagConstraints);
+
+        lblRulesIM.setText("Experimental");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 0);
+        getContentPane().add(lblRulesIM, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -433,7 +487,10 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblAVCI;
     private javax.swing.JLabel lblAVSL;
     private javax.swing.JLabel lblAVSW;
@@ -465,6 +522,8 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblRange;
     private javax.swing.JLabel lblReIntro;
+    private javax.swing.JLabel lblRulesBM;
+    private javax.swing.JLabel lblRulesIM;
     private javax.swing.JLabel lblSpecials;
     private javax.swing.JLabel lblTonnage;
     private javax.swing.JLabel lblType;
