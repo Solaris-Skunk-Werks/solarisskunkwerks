@@ -172,7 +172,7 @@
         <Component class="javax.swing.JButton" name="btnAdd2Force">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/page_up.gif"/>
+              <Image iconType="3" name="/ssw/Images/mech_add.gif"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Add to Force List"/>
             <Property name="enabled" type="boolean" value="false"/>
@@ -180,6 +180,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdd2ForceActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JToolBar$Separator" name="jSeparator1">
         </Component>

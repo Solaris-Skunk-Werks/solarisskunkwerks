@@ -36,6 +36,7 @@ import java.util.List;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.table.TableRowSorter;
+import ssw.Force.Unit;
 import ssw.Options;
 import ssw.components.Mech;
 import ssw.filehandlers.*;
@@ -63,15 +64,14 @@ public class dlgOpen extends javax.swing.JFrame {
         {
             XMLReader read = new XMLReader();
             Mech m = read.ReadMech(Data.getFilename());
-            parent.CurMech = m;
             if (Data.isOmni()) {
                 m.SetCurLoadout( Data.getConfig() );
             }
+            parent.setMech(m);
 
             parent.Prefs.put( "LastOpenDirectory", Data.getFilename().substring( 0, Data.getFilename().lastIndexOf( File.separator ) ) );
             parent.Prefs.put( "LastOpenFile", Data.getFilename().substring( Data.getFilename().lastIndexOf( File.separator ) ) ); 
 
-            parent.LoadMechIntoGUI();
             this.setVisible(false);
 
         } catch ( Exception e ) {
@@ -280,12 +280,17 @@ public class dlgOpen extends javax.swing.JFrame {
         });
         tlbActions.add(btnPrint);
 
-        btnAdd2Force.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_up.gif"))); // NOI18N
+        btnAdd2Force.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/mech_add.gif"))); // NOI18N
         btnAdd2Force.setToolTipText("Add to Force List");
         btnAdd2Force.setEnabled(false);
         btnAdd2Force.setFocusable(false);
         btnAdd2Force.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAdd2Force.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAdd2Force.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdd2ForceActionPerformed(evt);
+            }
+        });
         tlbActions.add(btnAdd2Force);
         tlbActions.add(jSeparator1);
 
@@ -625,8 +630,22 @@ public class dlgOpen extends javax.swing.JFrame {
 }//GEN-LAST:event_btnClearFilterFilter
 
     private void tblMechDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblMechDataKeyPressed
-        javax.swing.JOptionPane.showMessageDialog(this, "You typed a " + evt.getKeyChar());
+        //javax.swing.JOptionPane.showMessageDialog(this, "You typed a " + evt.getKeyChar());
     }//GEN-LAST:event_tblMechDataKeyPressed
+
+    private void btnAdd2ForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd2ForceActionPerformed
+        if ( tblMechData.getSelectedRowCount() > 0 ) {
+            int[] rows = tblMechData.getSelectedRows();
+            for ( int i=0; i < rows.length; i++ ) {
+                    MechListData data = list.Get(tblMechData.convertRowIndexToModel(rows[i]));
+                    parent.dForce.force.Units.add(data.getUnit());
+            }
+        }
+
+        parent.dForce.setLocationRelativeTo(null);
+        parent.dForce.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnAdd2ForceActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd2Force;

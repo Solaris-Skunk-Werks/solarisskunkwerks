@@ -498,7 +498,7 @@
         <Component class="javax.swing.JButton" name="btnPostToS7">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/page_up.gif"/>
+              <Image iconType="3" name="/ssw/Images/icon_world.gif"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Upload to Solaris7.com"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -509,7 +509,37 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPostToS7ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JToolBar$Separator" name="jSeparator21">
+        <Component class="javax.swing.JToolBar$Separator" name="jSeparator25">
+        </Component>
+        <Component class="javax.swing.JButton" name="btnAddToForceList">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/ssw/Images/mech_add.gif"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Add  to Force List"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddToForceListActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnForceList">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/ssw/Images/mech.gif"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Force List"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnForceListActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JToolBar$Separator" name="jSeparator26">
         </Component>
         <Component class="javax.swing.JButton" name="btnOptionsIcon">
           <Properties>
@@ -524,6 +554,8 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOptionsIconActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JToolBar$Separator" name="jSeparator21">
         </Component>
       </SubComponents>
     </Container>

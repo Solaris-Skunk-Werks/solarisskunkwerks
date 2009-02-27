@@ -51,6 +51,7 @@ import ssw.visitors.*;
 import ssw.print.*;
 import ssw.states.ifState;
 import java.util.prefs.*;
+import ssw.Force.gui.frmForce;
 
 public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner {
 
@@ -86,6 +87,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private dlgPrintBatchMechs BatchWindow = null;
     private dlgOpen dOpen = new dlgOpen(this, true);
+    public ssw.Force.gui.frmForce dForce = new frmForce(this);
 
     final int BALLISTIC = 0,
               ENERGY = 1,
@@ -336,6 +338,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstLLCrits.setListData( CurMech.GetLoadout().GetLLCrits() );
         lstRLCrits.setListData( CurMech.GetLoadout().GetRLCrits() );
         lstCritsToPlace.setListData( CurMech.GetLoadout().GetQueue() );
+    }
+
+    public void setMech( Mech m ) {
+        CurMech = m;
+        LoadMechIntoGUI();
     }
 
     public void CheckActuators() {
@@ -2748,8 +2755,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         btnExportMTFIcon = new javax.swing.JButton();
         jSeparator23 = new javax.swing.JToolBar.Separator();
         btnPostToS7 = new javax.swing.JButton();
-        jSeparator21 = new javax.swing.JToolBar.Separator();
+        jSeparator25 = new javax.swing.JToolBar.Separator();
+        btnAddToForceList = new javax.swing.JButton();
+        btnForceList = new javax.swing.JButton();
+        jSeparator26 = new javax.swing.JToolBar.Separator();
         btnOptionsIcon = new javax.swing.JButton();
+        jSeparator21 = new javax.swing.JToolBar.Separator();
         tbpMainTabPane = new javax.swing.JTabbedPane();
         pnlBasicSetup = new javax.swing.JPanel();
         pnlBasicInformation = new javax.swing.JPanel();
@@ -3388,7 +3399,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         tlbIconBar.add(btnExportMTFIcon);
         tlbIconBar.add(jSeparator23);
 
-        btnPostToS7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_up.gif"))); // NOI18N
+        btnPostToS7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/icon_world.gif"))); // NOI18N
         btnPostToS7.setToolTipText("Upload to Solaris7.com");
         btnPostToS7.setFocusable(false);
         btnPostToS7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -3399,7 +3410,32 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         tlbIconBar.add(btnPostToS7);
-        tlbIconBar.add(jSeparator21);
+        tlbIconBar.add(jSeparator25);
+
+        btnAddToForceList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/mech_add.gif"))); // NOI18N
+        btnAddToForceList.setToolTipText("Add  to Force List");
+        btnAddToForceList.setFocusable(false);
+        btnAddToForceList.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAddToForceList.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAddToForceList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddToForceListActionPerformed(evt);
+            }
+        });
+        tlbIconBar.add(btnAddToForceList);
+
+        btnForceList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/mech.gif"))); // NOI18N
+        btnForceList.setToolTipText("Force List");
+        btnForceList.setFocusable(false);
+        btnForceList.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnForceList.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnForceList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnForceListActionPerformed(evt);
+            }
+        });
+        tlbIconBar.add(btnForceList);
+        tlbIconBar.add(jSeparator26);
 
         btnOptionsIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/icon_settings.gif"))); // NOI18N
         btnOptionsIcon.setToolTipText("View Options");
@@ -3412,6 +3448,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         tlbIconBar.add(btnOptionsIcon);
+        tlbIconBar.add(jSeparator21);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
@@ -8799,6 +8836,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         try {
             if (BatchWindow != null) BatchWindow.dispose();
             if (dOpen != null) dOpen.dispose();
+            if (dForce != null) dForce.dispose();
         } catch (Exception e) {
             //do nothing
         }
@@ -12314,6 +12352,18 @@ private void chkTracksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
 }//GEN-LAST:event_chkTracksActionPerformed
 
+private void btnForceListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForceListActionPerformed
+    dForce.setLocationRelativeTo(this);
+    dForce.setVisible(true);
+}//GEN-LAST:event_btnForceListActionPerformed
+
+private void btnAddToForceListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToForceListActionPerformed
+    SolidifyMech();
+    if (VerifyMech(evt)) {
+        dForce.Add(CurMech);
+    }
+}//GEN-LAST:event_btnAddToForceListActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -12328,6 +12378,7 @@ private void setViewToolbar(boolean Visible)
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddEquip;
+    private javax.swing.JButton btnAddToForceList;
     private javax.swing.JButton btnAddVariant;
     private javax.swing.JButton btnArmorTons;
     private javax.swing.JButton btnAutoAllocate;
@@ -12345,6 +12396,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JButton btnExportMTFIcon;
     private javax.swing.JButton btnExportTXT;
     private javax.swing.JButton btnExportTextIcon;
+    private javax.swing.JButton btnForceList;
     private javax.swing.JButton btnLoadImage;
     private javax.swing.JButton btnLockChassis;
     private javax.swing.JButton btnMaxArmor;
@@ -12540,6 +12592,8 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JToolBar.Separator jSeparator22;
     private javax.swing.JToolBar.Separator jSeparator23;
     private javax.swing.JToolBar.Separator jSeparator24;
+    private javax.swing.JToolBar.Separator jSeparator25;
+    private javax.swing.JToolBar.Separator jSeparator26;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;

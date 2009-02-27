@@ -29,6 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.filehandlers;
 
 import java.util.Vector;
+import ssw.Force.Unit;
 
 public class MechListData {
     private String Name = "",
@@ -90,6 +91,18 @@ public class MechListData {
         } catch ( Exception e ) {
             throw new Exception("[MechListData " + e.getMessage() + "]");
         }
+    }
+
+    public Unit getUnit() {
+        Unit u = new Unit();
+        u.TypeModel = this.Name + " " + this.Model;
+        u.BaseBV = this.BV;
+        u.Tonnage = this.Tonnage;
+        u.UnitType = ssw.Force.Common.Constants.BattleMech;
+        u.Filename = this.filename;
+        u.Refresh();
+
+        return u;
     }
 
     public String getName() {
@@ -172,30 +185,18 @@ public class MechListData {
         this.Model = Model;
     }
 
-    /**
-     * @return the filename
-     */
     public String getFilename() {
         return filename;
     }
 
-    /**
-     * @param filename the filename to set
-     */
     public void setFilename(String filename) {
         this.filename = filename;
     }
 
-    /**
-     * @return the Config
-     */
     public String getConfig() {
         return Config;
     }
 
-    /**
-     * @param Config the Config to set
-     */
     public void setConfig(String Config) {
         this.Config = Config;
     }
