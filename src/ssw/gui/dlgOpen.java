@@ -72,6 +72,7 @@ public class dlgOpen extends javax.swing.JFrame {
             parent.Prefs.put( "LastOpenDirectory", Data.getFilename().substring( 0, Data.getFilename().lastIndexOf( File.separator ) ) );
             parent.Prefs.put( "LastOpenFile", Data.getFilename().substring( Data.getFilename().lastIndexOf( File.separator ) ) ); 
 
+            parent.CurMech.SetChanged( false );
             this.setVisible(false);
 
         } catch ( Exception e ) {

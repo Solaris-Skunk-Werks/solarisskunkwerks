@@ -171,6 +171,7 @@ Version 0.6.0
 - Fixed a bug where CASE would appear after locking a Clan Quad chassis.
 - Fixed a bug where heat sink and jump jet types would change when changing motive type.
 - Added safeguards and dialogues regarding discarding changes to a 'Mech.
+- MML Artemis checkbox now correctly disabled during canon eras other than Clan Invasion.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

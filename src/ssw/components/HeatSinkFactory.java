@@ -227,7 +227,7 @@ public class HeatSinkFactory {
 
     public float GetLoadoutTonnage() {
         // returns the tonnage of heatsinks over the base loadout.
-        float tons = ( NumHS - BaseLoadoutNumHS - Owner.GetMech().GetEngine().FreeHeatSinks() ) * CurConfig.GetTonnage();
+        float tons = ( NumHS - BaseLoadoutNumHS ) * CurConfig.GetTonnage();
         if( tons <= 0.0f ) { 
             // we're still initializing or even.  return a 0 answer.
             tons =  0.0f;

@@ -258,6 +258,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( GlobalOptions.LoadLastMech ) { LoadMechFromPreferences(); }
 
         dOpen.LoadList();
+        CurMech.SetChanged( false );
     }
 
     public OptionsReader GetOptionsReader() {
@@ -690,6 +691,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 chkArtemisSRM.setEnabled( false );
                 chkArtemisLRM.setSelected( false );
                 chkArtemisLRM.setEnabled( false );
+                chkArtemisMML.setSelected( false );
+                chkArtemisMML.setEnabled( false );
             }
         }
 
@@ -11050,6 +11053,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void cmbOmniVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOmniVariantActionPerformed
         String variant = (String) cmbOmniVariant.getSelectedItem();
+        boolean changed = CurMech.HasChanged();
 
         CurMech.SetCurLoadout( variant );
 
@@ -11066,6 +11070,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RefreshOmniChoices();
         RefreshSummary();
         RefreshInfoPane();
+
+        // this prevents the program from setting the changed tag if we simply
+        // open an omnimech for browsing.
+        CurMech.SetChanged( changed );
     }//GEN-LAST:event_cmbOmniVariantActionPerformed
 
 	private void mnuPostS7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPostS7ActionPerformed
@@ -11248,6 +11256,7 @@ private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     }
     CurMech = m;
     LoadMechIntoGUI();
+    CurMech.SetChanged( false );
 }//GEN-LAST:event_mnuLoadActionPerformed
 
 private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSaveAsActionPerformed
