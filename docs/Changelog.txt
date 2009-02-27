@@ -56,6 +56,7 @@ Version 0.6.0
 - Added ammunition types and total rounds to the Weapons and Equipment list on printouts.
 - You can now print using miniatures scale (from 1 to 5 inches per hex).
 - The 'Mech name and model will now appear in the titlebar of SSW after save, load and export.
+- Added a "Source" field for the 'Mech.
 
 + Changed
 - Fixed a load bug with heatsinks.

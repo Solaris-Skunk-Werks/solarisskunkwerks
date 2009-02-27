@@ -56,6 +56,7 @@ public class Mech {
                    JJModel = "",
                    CommSystem = "",
                    TandTSystem = "",
+                   Source = "",
                    Solaris7ID = "0",
                    Solaris7ImageID = "0",
                    SSWImage = Constants.NO_IMAGE;
@@ -3413,6 +3414,11 @@ public class Mech {
         SetChanged( true );
     }
 
+    public void SetSource( String s ) {
+        Source = s;
+        SetChanged( true );
+    }
+
     public String GetOverview() {
         return Overview;
     }
@@ -3498,6 +3504,10 @@ public class Mech {
             return "Unknown";
         }
         return TandTSystem;
+    }
+
+    public String GetSource() {
+        return Source;
     }
 
     public void SetChanged( boolean b ) {

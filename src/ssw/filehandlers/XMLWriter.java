@@ -75,6 +75,9 @@ public class XMLWriter {
         FR.write( tab + "<era>" + CurMech.GetEra() + "</era>" );
         FR.newLine();
 
+        FR.write( tab + "<source>" + FileCommon.EncodeFluff( CurMech.GetSource() ) + "</source>" );
+        FR.newLine();
+
         if( CurMech.IsIndustrialmech() ) {
             FR.write( tab + "<mech_type>IndustrialMech</mech_type>" );
             FR.newLine();

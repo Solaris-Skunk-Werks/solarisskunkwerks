@@ -164,6 +164,10 @@ public class XMLReader {
         m.SetRulesLevel( Integer.parseInt( n.item( 0 ).getTextContent() ) );
         n = d.getElementsByTagName( "era" );
         m.SetEra( Integer.parseInt( n.item( 0 ).getTextContent() ) );
+        n = d.getElementsByTagName( "source" );
+        if( n.getLength() > 0 ) {
+            m.SetSource( FileCommon.DecodeFluff( n.item( 0 ).getTextContent() ) );
+        }
 
         n = d.getElementsByTagName( "mech_type" );
         if( n.getLength() <= 0 ) {

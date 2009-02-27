@@ -1840,6 +1840,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtJJModel.setText( "" );
         txtCommSystem.setText( "" );
         txtTNTSystem.setText( "" );
+        txtSource.setText( "" );
         lblFluffImage.setIcon( null );
 
         if( cmbMechEra.getSelectedIndex() == Constants.ALL_ERA ) {
@@ -2158,6 +2159,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         CurMech.SetCommSystem( txtCommSystem.getText() );
         CurMech.SetTandTSystem( txtTNTSystem.getText() );
+        CurMech.SetSource( txtSource.getText() );
     }
 
     private void EnableJumpJets( boolean enable ) {
@@ -2784,6 +2786,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbTechBase = new javax.swing.JComboBox();
         cmbRulesLevel = new javax.swing.JComboBox();
         lblRulesLevel = new javax.swing.JLabel();
+        jLabel65 = new javax.swing.JLabel();
+        txtSource = new javax.swing.JTextField();
         pnlChassis = new javax.swing.JPanel();
         lblTonnage = new javax.swing.JLabel();
         cmbTonnage = new javax.swing.JComboBox();
@@ -3496,7 +3500,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lblMechEra.setText("Era:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlBasicInformation.add(lblMechEra, gridBagConstraints);
@@ -3512,20 +3516,20 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         pnlBasicInformation.add(cmbMechEra, gridBagConstraints);
 
         lblEraYears.setText("2443~2800");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 0);
         pnlBasicInformation.add(lblEraYears, gridBagConstraints);
 
         lblProdYear.setText("Production Year:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlBasicInformation.add(lblProdYear, gridBagConstraints);
@@ -3537,7 +3541,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtProdYear.setPreferredSize(new java.awt.Dimension(150, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         pnlBasicInformation.add(txtProdYear, gridBagConstraints);
 
         chkYearRestrict.setText("Restrict Availability by Year");
@@ -3548,7 +3552,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 0);
@@ -3557,7 +3561,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lblTechBase.setText("Tech Base:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlBasicInformation.add(lblTechBase, gridBagConstraints);
@@ -3573,7 +3577,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         pnlBasicInformation.add(cmbTechBase, gridBagConstraints);
 
         cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tournament Legal", "Advanced Rules", "Experimental Tech" }));
@@ -3587,16 +3591,32 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         pnlBasicInformation.add(cmbRulesLevel, gridBagConstraints);
 
         lblRulesLevel.setText("Rules Level:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlBasicInformation.add(lblRulesLevel, gridBagConstraints);
+
+        jLabel65.setText("Source:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
+        pnlBasicInformation.add(jLabel65, gridBagConstraints);
+
+        txtSource.setMaximumSize(new java.awt.Dimension(150, 20));
+        txtSource.setMinimumSize(new java.awt.Dimension(150, 20));
+        txtSource.setPreferredSize(new java.awt.Dimension(150, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        pnlBasicInformation.add(txtSource, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridheight = 2;
@@ -11840,6 +11860,8 @@ public void LoadMechIntoGUI() {
     if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
         txtJJModel.setEnabled( true );
     }
+    txtSource.setText( CurMech.GetSource() );
+
     // omnimechs may have jump jets in one loadout and not another.
     txtJJModel.setText( CurMech.GetJJModel() );
     txtCommSystem.setText( CurMech.GetCommSystem() );
@@ -12560,6 +12582,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
+    private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -12877,6 +12900,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JTextField txtMechModel;
     private javax.swing.JTextField txtMechName;
     private javax.swing.JTextField txtProdYear;
+    private javax.swing.JTextField txtSource;
     private javax.swing.JTextField txtSumArmorCrt;
     private javax.swing.JTextField txtSumArmorTon;
     private javax.swing.JTextField txtSumCocACode;
