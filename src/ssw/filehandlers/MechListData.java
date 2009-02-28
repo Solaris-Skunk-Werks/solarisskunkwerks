@@ -37,21 +37,23 @@ public class MechListData {
                    Level= "Tournament Legal",
                    Era = "Age of War",
                    Tech = "Clan",
-                   Config = "";
+                   Config = "",
+                   Source = "";
     private int Tonnage = 0,
                 Year = 2750,
                 BV = 0;
-    private float Cost = 0.0f;
+    private float Cost = 0;
     private boolean Omni = false;
     private String filename = "";
     public Vector Configurations = new Vector();
 
-    public MechListData(String Name, String Model, String Level, String Era, String Tech, int Tonnage, int Year, int BV, float Cost, String filename){
+    public MechListData(String Name, String Model, String Level, String Era, String Tech, String Source, int Tonnage, int Year, int BV, float Cost, String filename){
         this.Name = Name;
         this.Model = Model;
         this.Level = Level;
         this.Era = Era;
         this.Tech = Tech;
+        this.Source = Source;
         this.Tonnage = Tonnage;
         this.Year = Year;
         this.BV = BV;
@@ -60,11 +62,11 @@ public class MechListData {
     }
 
     public MechListData() {
-        this("", "", "", "", "", 0, 2750, 0, 0, "");
+        this("", "", "", "", "", "", 0, 2750, 0, 0, "");
     }
 
     public MechListData( MechListData m ) {
-        this(m.Name, m.Model, m.Level, m.Era, m.Tech, m.Tonnage, m.Year, m.BV, m.Cost, m.filename);
+        this(m.Name, m.Model, m.Level, m.Era, m.Tech, m.Source, m.Tonnage, m.Year, m.BV, m.Cost, m.filename);
     }
 
     public MechListData( String filename ) throws Exception {
@@ -77,6 +79,7 @@ public class MechListData {
             this.Model = tempData.getModel();
             this.Level = tempData.getLevel();
             this.Era = tempData.getEra();
+            this.Source = tempData.getSource();
             this.Tech = tempData.getTech();
             this.Tonnage = tempData.getTonnage();
             this.Year = tempData.getYear();
@@ -199,5 +202,19 @@ public class MechListData {
 
     public void setConfig(String Config) {
         this.Config = Config;
+    }
+
+    /**
+     * @return the Source
+     */
+    public String getSource() {
+        return Source;
+    }
+
+    /**
+     * @param Source the Source to set
+     */
+    public void setSource(String Source) {
+        this.Source = Source;
     }
 }

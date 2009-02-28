@@ -36,7 +36,6 @@ import java.util.List;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.table.TableRowSorter;
-import ssw.Force.Unit;
 import ssw.Options;
 import ssw.components.Mech;
 import ssw.filehandlers.*;
@@ -147,7 +146,8 @@ public class dlgOpen extends javax.swing.JFrame {
         tblMechData.getColumnModel().getColumn(3).setPreferredWidth(80);
         tblMechData.getColumnModel().getColumn(4).setPreferredWidth(100);
         tblMechData.getColumnModel().getColumn(5).setPreferredWidth(100);
-        tblMechData.getColumnModel().getColumn(6).setPreferredWidth(60);
+        tblMechData.getColumnModel().getColumn(6).setPreferredWidth(80);
+        tblMechData.getColumnModel().getColumn(7).setPreferredWidth(40);
     }
 
     private void checkSelection() {

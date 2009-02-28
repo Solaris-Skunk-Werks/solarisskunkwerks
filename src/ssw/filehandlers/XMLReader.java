@@ -101,6 +101,9 @@ public class XMLReader {
         n = d.getElementsByTagName( "year" );
         Data.setYear( Integer.parseInt( n.item( 0 ).getTextContent() ) );
 
+        n = d.getElementsByTagName( "source" );
+        if( n.getLength() > 0 ) {Data.setSource( FileCommon.DecodeFluff( n.item( 0 ).getTextContent() ) );}
+
         n = d.getElementsByTagName( "battle_value" );
         if (n.getLength() >= 1) Data.setBV( Integer.parseInt( n.item(0).getTextContent() ) );
 

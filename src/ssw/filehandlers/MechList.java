@@ -166,11 +166,13 @@ public class MechList extends AbstractTableModel {
                 return "Tech";
             case 7:
                 return "Year";
+            case 8:
+                return "Source";
         }
         return "";
     }
     public int getRowCount() { return List.size(); }
-    public int getColumnCount() { return 8; }
+    public int getColumnCount() { return 9; }
     @Override
     public Class getColumnClass(int c) {
         if (List.size() > 0) {
@@ -199,6 +201,8 @@ public class MechList extends AbstractTableModel {
                 return m.getTech();
             case 7:
                 return m.getYear();
+            case 8:
+                return m.getSource();
         }
         return null;
     }
@@ -222,6 +226,8 @@ public class MechList extends AbstractTableModel {
                 return m.getTech();
             case 7:
                 return m.getYear();
+            case 8:
+                return m.getSource();
         }
         return null;
     }

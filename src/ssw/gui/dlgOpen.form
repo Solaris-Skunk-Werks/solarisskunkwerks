@@ -32,9 +32,9 @@
           <Component id="tlbActions" alignment="0" pref="825" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="txtSelected" pref="573" max="32767" attributes="0"/>
+              <Component id="txtSelected" pref="575" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-              <Component id="lblLoading" pref="194" max="32767" attributes="0"/>
+              <Component id="lblLoading" pref="196" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
               <Component id="btnOpenDir" min="-2" pref="24" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -70,7 +70,7 @@
                       <Component id="btnFilter" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnClearFilter" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="61" max="32767" attributes="0"/>
+                      <EmptySpace pref="117" max="32767" attributes="0"/>
                       <Component id="btnOpenMech" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -78,7 +78,7 @@
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="spnMechTable" pref="801" max="32767" attributes="0"/>
+              <Component id="spnMechTable" pref="805" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>

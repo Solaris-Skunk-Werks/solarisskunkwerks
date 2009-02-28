@@ -110,7 +110,17 @@ public class frmForce extends javax.swing.JFrame {
         force.Units.add(u);
     }
 
-
+    public void updateSkills() {
+        if (tblForce.getSelectedRowCount() > 0) {
+            int[] rows = tblForce.getSelectedRows();
+            for ( int i=0; i < rows.length; i++ ) {
+                Unit data = (Unit) force.Units.get(tblForce.convertRowIndexToModel(rows[i]));
+                data.Gunnery = Integer.parseInt(txtGunnery.getText());
+                data.Piloting = Integer.parseInt(txtPiloting.getText());
+                data.Refresh();
+            }
+        }
+    }
 
 
 
@@ -273,13 +283,51 @@ public class frmForce extends javax.swing.JFrame {
         });
         spnList.setViewportView(tblForce);
 
-        lblUnit.setText("Black Knight BLK-1");
+        txtGunnery.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtGunneryActionPerformed(evt);
+            }
+        });
+        txtGunnery.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtGunneryFocusGained(evt);
+            }
+        });
+        txtGunnery.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                txtGunneryInputMethodTextChanged(evt);
+            }
+        });
+        txtGunnery.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtGunneryKeyTyped(evt);
+            }
+        });
 
-        txtMechwarrior.setText("Mechwarrior George Blouin");
-
-        txtGunnery.setText("2");
-
-        txtPiloting.setText("3");
+        txtPiloting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPilotingActionPerformed(evt);
+            }
+        });
+        txtPiloting.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPilotingFocusGained(evt);
+            }
+        });
+        txtPiloting.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                txtPilotingInputMethodTextChanged(evt);
+            }
+        });
+        txtPiloting.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPilotingKeyTyped(evt);
+            }
+        });
 
         jLabel2.setText("Mechwarrior");
 
@@ -294,24 +342,24 @@ public class frmForce extends javax.swing.JFrame {
             .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(145, 145, 145)
                 .addComponent(lblUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtMechwarrior, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
+                    .addComponent(txtMechwarrior, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtGunnery, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+                    .addComponent(txtGunnery, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, 0, 0, Short.MAX_VALUE)
-                    .addComponent(txtPiloting, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
-                .addContainerGap(419, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE)
-                .addContainerGap())
+                    .addComponent(txtPiloting, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(284, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,7 +374,7 @@ public class frmForce extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUnit, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
+                    .addComponent(lblUnit, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
                     .addComponent(txtMechwarrior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtGunnery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPiloting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -440,6 +488,38 @@ public class frmForce extends javax.swing.JFrame {
            }
        }
     }//GEN-LAST:event_btnPrintForceActionPerformed
+
+    private void txtGunneryInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtGunneryInputMethodTextChanged
+        updateSkills();
+    }//GEN-LAST:event_txtGunneryInputMethodTextChanged
+
+    private void txtPilotingInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtPilotingInputMethodTextChanged
+        updateSkills();
+    }//GEN-LAST:event_txtPilotingInputMethodTextChanged
+
+    private void txtGunneryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGunneryActionPerformed
+        updateSkills();
+    }//GEN-LAST:event_txtGunneryActionPerformed
+
+    private void txtPilotingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPilotingActionPerformed
+        updateSkills();
+    }//GEN-LAST:event_txtPilotingActionPerformed
+
+    private void txtGunneryFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtGunneryFocusGained
+        txtGunnery.selectAll();
+    }//GEN-LAST:event_txtGunneryFocusGained
+
+    private void txtPilotingFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPilotingFocusGained
+        txtPiloting.selectAll();
+    }//GEN-LAST:event_txtPilotingFocusGained
+
+    private void txtPilotingKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPilotingKeyTyped
+        updateSkills();
+    }//GEN-LAST:event_txtPilotingKeyTyped
+
+    private void txtGunneryKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGunneryKeyTyped
+        updateSkills();
+    }//GEN-LAST:event_txtGunneryKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brnClearForce;
