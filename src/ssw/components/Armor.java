@@ -461,6 +461,7 @@ public class Armor  extends abPlaceable {
     public float GetWastedTonnage() {
         // returns the amount of tonnage wasted due to unspent armor points
         float result = GetTonnage() - GetArmorValue() / ( 16 * Config.GetAVMult() );
+        if( result < 0.0f ) { result = 0.0f; }
         return (float) Math.floor( result * 100 ) / 100;
     }
 
@@ -468,7 +469,9 @@ public class Armor  extends abPlaceable {
         // returns the amount of armor points left in the current half-ton lot
         // get the amount of wasted tonnage
         float Waste = 0.5f - ( GetTonnage() - GetArmorValue() / ( 16 * Config.GetAVMult() ) );
-        return (int) Math.floor( ( 8 * Config.GetAVMult() ) - ( Waste * 16 * Config.GetAVMult() ) );
+        int result = (int) Math.floor( ( 8 * Config.GetAVMult() ) - ( Waste * 16 * Config.GetAVMult() ) );
+        if( result < 0 ) { result = 0; }
+        return result;
     }
 
     public float GetCoverage() {
