@@ -114,14 +114,14 @@ public class CCGMech {
         if(walkSpeed <= 3) {
             MovementRate = 'S';
             if(walkSpeed < 3) {
-                SpecialAbilities = SpecialAbilities + Name + AblSlow;
+                SpecialAbilities = SpecialAbilities + Name + AblSlow + "\n";
             }
         } else if(walkSpeed <= 6) {
             MovementRate = 'M';
         } else if (walkSpeed > 6) {
             MovementRate = 'F';
             if(walkSpeed >= 9 ) {
-                SpecialAbilities = SpecialAbilities + AblDasher1 + Name + AblDasher2;
+                SpecialAbilities = SpecialAbilities + AblDasher1 + Name + AblDasher2 + "\n";
             }
         }
     }
@@ -139,7 +139,7 @@ public class CCGMech {
      */
     public void setJump(int jump) {
         if(jump > 0) {
-            SpecialAbilities = SpecialAbilities + AblJump;
+            SpecialAbilities = SpecialAbilities + AblJump + "\n";
         }
     }
 
@@ -225,7 +225,7 @@ public class CCGMech {
                         notRear = false;
                     }else if(currentWeapon.GetName().contains("Machine Gun")) {
                         notMG = false;
-                        SpecialAbilities = SpecialAbilities + AblAP1 + Name + AblAP2;
+                        SpecialAbilities = SpecialAbilities + AblAP1 + Name + AblAP2 + "\n";
                     }else if(currentWeapon instanceof PhysicalWeapon ){
                         physical = true;
                         if(Mass >= 80) {
@@ -233,7 +233,7 @@ public class CCGMech {
                         } else {
                             currentWeaponAttackValue = 1.0;
                         }
-                        SpecialAbilities = SpecialAbilities + AblPA1 + Name + AblPA2 + MovementRate + AblPA3 + Name + AblPA4 + MovementRate + AblPA5;
+                        SpecialAbilities = SpecialAbilities + AblPA1 + Name + AblPA2 + MovementRate + AblPA3 + Name + AblPA4 + MovementRate + AblPA5 + "\n";
                     }else if(currentWeapon instanceof MissileWeapon ){
                         //need to handle NARC in here somehow.
                         missile = true;
@@ -421,7 +421,7 @@ public class CCGMech {
             SpecialAbilities = SpecialAbilities + "AlphaStrike: " + AlphaStrikeDamage + "\n";
         }
         if(LeakDamage > 0 ) {
-            SpecialAbilities = SpecialAbilities + AblLeak1 + Name + AblLeak2 + LeakDamage + AblLeak3;
+            SpecialAbilities = SpecialAbilities + AblLeak1 + Name + AblLeak2 + LeakDamage + AblLeak3 + "\n";
         }
         //System.out.println("Attack value: " + attackValue + " MissileValue: " + missileValue);
         if(MissileDamage > 0) {

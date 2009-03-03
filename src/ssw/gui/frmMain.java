@@ -3247,6 +3247,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuTools = new javax.swing.JMenu();
         mnuSummary = new javax.swing.JMenuItem();
         mnuCostBVBreakdown = new javax.swing.JMenuItem();
+        mnuTextTRO = new javax.swing.JMenuItem();
         mnuUnlock = new javax.swing.JMenuItem();
         jSeparator15 = new javax.swing.JSeparator();
         mnuOptions = new javax.swing.JMenuItem();
@@ -8792,6 +8793,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         mnuTools.add(mnuCostBVBreakdown);
 
+        mnuTextTRO.setText("Show Text TRO Format");
+        mnuTextTRO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuTextTROActionPerformed(evt);
+            }
+        });
+        mnuTools.add(mnuTextTRO);
+
         mnuUnlock.setText("Unlock Chassis");
         mnuUnlock.setEnabled(false);
         mnuTools.add(mnuUnlock);
@@ -12423,6 +12432,13 @@ private void mnuCreateTCGMechActionPerformed(java.awt.event.ActionEvent evt) {//
     ccgMech.setVisible( true );
 }//GEN-LAST:event_mnuCreateTCGMechActionPerformed
 
+private void mnuTextTROActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuTextTROActionPerformed
+    SolidifyMech();
+    dlgTextExport Text = new dlgTextExport( this, true, CurMech );
+    Text.setLocationRelativeTo( this );
+    Text.setVisible( true );
+}//GEN-LAST:event_mnuTextTROActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -12815,6 +12831,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JMenuItem mnuSave;
     private javax.swing.JMenuItem mnuSaveAs;
     private javax.swing.JMenuItem mnuSummary;
+    private javax.swing.JMenuItem mnuTextTRO;
     private javax.swing.JMenu mnuTools;
     private javax.swing.JMenuItem mnuUnlock;
     private javax.swing.JCheckBoxMenuItem mnuViewToolbar;

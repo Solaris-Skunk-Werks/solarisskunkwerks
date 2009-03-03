@@ -49,7 +49,9 @@ public class Main {
         // uncomment the following line before creating a build.
 
         //SetupLogFile( Constants.LogFileName );
-        
+        TextBinaryConvert cv = new TextBinaryConvert();
+        cv.Convert( "weapons.csv", "weapons.dat" );
+
         try {
             // added code to turn off the boldface of Metal L&F.
             // Set System L&F

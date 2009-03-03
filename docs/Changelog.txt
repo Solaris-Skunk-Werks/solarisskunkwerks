@@ -57,6 +57,7 @@ Version 0.6.0
 - You can now print using miniatures scale (from 1 to 5 inches per hex).
 - The 'Mech name and model will now appear in the titlebar of SSW after save, load and export.
 - Added a "Source" field for the 'Mech.
+- Added "Tools -> Show Text TRO Format" menu item.
 
 + Changed
 - Fixed a load bug with heatsinks.
@@ -176,6 +177,7 @@ Version 0.6.0
 - MML Artemis checkbox now correctly disabled during canon eras other than Clan Invasion.
 - ICE and Cell engines, as well as Industrial and Commercial armor now export to MTF correctly.
 - Made a slight change in the GetWastedTonnage and GetWastedAV routines to hopefully report better.
+- When exporting to text, the program will now word-wrap fluff at 80 characters.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

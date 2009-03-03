@@ -224,6 +224,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuCostBVBreakdownActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuTextTRO">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Show Text TRO Format"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuTextTROActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuUnlock">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Unlock Chassis"/>

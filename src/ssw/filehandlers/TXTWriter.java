@@ -31,6 +31,7 @@ package ssw.filehandlers;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.Vector;
 import ssw.*;
 import ssw.components.*;
@@ -139,27 +140,27 @@ public class TXTWriter {
         retval += "================================================================================" + NL;
         if( ! CurMech.GetOverview().equals( "" ) ) {
             retval += "Overview:" + NL;
-            retval += CurMech.GetOverview() + NL + NL;
+            retval += FormatFluff( CurMech.GetOverview() ) + NL + NL;
         }
         if( ! CurMech.GetCapabilities().equals( "" ) ) {
             retval += "Capabilities:" + NL;
-            retval += CurMech.GetCapabilities() + NL + NL;
+            retval += FormatFluff( CurMech.GetCapabilities() ) + NL + NL;
         }
         if( ! CurMech.GetHistory().equals( "" ) ) {
             retval += "Battle History:" + NL;
-            retval += CurMech.GetHistory() + NL + NL;
+            retval += FormatFluff( CurMech.GetHistory() ) + NL + NL;
         }
         if( ! CurMech.GetDeployment().equals( "" ) ) {
             retval += "Deployment:" + NL;
-            retval += CurMech.GetDeployment() + NL + NL;
+            retval += FormatFluff( CurMech.GetDeployment() ) + NL + NL;
         }
         if( ! CurMech.GetVariants().equals( "" ) ) {
             retval += "Variants:" + NL;
-            retval += CurMech.GetVariants() + NL + NL;
+            retval += FormatFluff( CurMech.GetVariants() ) + NL + NL;
         }
         if( ! CurMech.GetNotables().equals( "" ) ) {
             retval += "Notable 'Mechs & MechWarriors: " + NL;
-            retval += CurMech.GetNotables() + NL + NL;
+            retval += FormatFluff( CurMech.GetNotables() ) + NL + NL;
         }
         retval += "================================================================================" + NL;
         retval += CurMech.GetName() + " " + CurMech.GetModel() + NL + NL;
@@ -753,5 +754,75 @@ public class TXTWriter {
         }
 */
         return retval;
+    }
+
+    private String FormatFluff( String s ) {
+        // we're basically checking length here to limit it to 80 chars in length
+        // first, seperate out all the newlines.
+        String[] newline = s.split( NL );
+        String retval = "";
+        for( int i = 0; i < newline.length; i++ ) {
+            String[] temp = wrapText( newline[i], 80 );
+            // put the string back together
+            for( int j = 0; j < temp.length; j++ ) {
+                retval += temp[j] + NL;
+            }
+        }
+        return retval;
+    }
+
+    static String [] wrapText (String text, int len) {
+        // return empty array for null text
+        if (text == null)
+            return new String [] {};
+
+        // return text if len is zero or less
+        if (len <= 0)
+            return new String [] {text};
+
+        // return text if less than length
+        if (text.length() <= len)
+            return new String [] {text};
+
+        char [] chars = text.toCharArray();
+        Vector lines = new Vector();
+        StringBuffer line = new StringBuffer();
+        StringBuffer word = new StringBuffer();
+
+        for (int i = 0; i < chars.length; i++) {
+            word.append(chars[i]);
+
+            if (chars[i] == ' ') {
+                if ((line.length() + word.length()) > len) {
+                    lines.add(line.toString());
+                    line.delete(0, line.length());
+                }
+
+                line.append(word);
+                word.delete(0, word.length());
+            }
+        }
+
+        // handle any extra chars in current word
+        if (word.length() > 0) {
+            if ((line.length() + word.length()) > len) {
+                lines.add(line.toString());
+                line.delete(0, line.length());
+            }
+            line.append(word);
+        }
+
+        // handle extra line
+        if (line.length() > 0) {
+            lines.add(line.toString());
+        }
+
+        String [] ret = new String[lines.size()];
+        int c = 0; // counter
+        for (Enumeration e = lines.elements(); e.hasMoreElements(); c++) {
+            ret[c] = (String) e.nextElement();
+        }
+
+        return ret;
     }
 }
