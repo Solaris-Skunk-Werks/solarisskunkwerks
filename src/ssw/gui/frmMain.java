@@ -3234,6 +3234,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuExportMTF = new javax.swing.JMenuItem();
         mnuExportTXT = new javax.swing.JMenuItem();
         mnuExportClipboard = new javax.swing.JMenuItem();
+        mnuCreateTCGMech = new javax.swing.JMenuItem();
         jSeparator20 = new javax.swing.JSeparator();
         jMenu2 = new javax.swing.JMenu();
         mnuPrintCurrentMech = new javax.swing.JMenuItem();
@@ -8701,6 +8702,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         jMenu1.add(mnuExportClipboard);
 
+        mnuCreateTCGMech.setText("to TCG Format (Card)");
+        mnuCreateTCGMech.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCreateTCGMechActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnuCreateTCGMech);
+
         mnuFile.add(jMenu1);
         mnuFile.add(jSeparator20);
 
@@ -12405,6 +12414,15 @@ private void btnAddToForceListActionPerformed(java.awt.event.ActionEvent evt) {/
     }
 }//GEN-LAST:event_btnAddToForceListActionPerformed
 
+private void mnuCreateTCGMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCreateTCGMechActionPerformed
+    // Create CCG stats for mech
+    // TODO: Add handling code to check if a canon card already exists.
+    SolidifyMech();
+    dlgCCGMech ccgMech = new dlgCCGMech( this, true, CurMech );
+    ccgMech.setLocationRelativeTo( this );
+    ccgMech.setVisible( true );
+}//GEN-LAST:event_mnuCreateTCGMechActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -12775,6 +12793,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JMenuItem mnuAboutSSW;
     private javax.swing.JMenuItem mnuClearUserData;
     private javax.swing.JMenuItem mnuCostBVBreakdown;
+    private javax.swing.JMenuItem mnuCreateTCGMech;
     private javax.swing.JMenuItem mnuCredits;
     private javax.swing.JMenuItem mnuExit;
     private javax.swing.JMenuItem mnuExportClipboard;
