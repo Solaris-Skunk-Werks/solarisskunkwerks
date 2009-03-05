@@ -84,7 +84,11 @@ public class Constants {
                      PW_CLASS_SHIELD = 1,
                      PW_CLASS_SPIKE = 2,
                      PW_CLASS_TALON = 3,
-                     PW_CLASS_INDUSTRIAL = 4;
+                     PW_CLASS_INDUSTRIAL = 4,
+                     BF_SIZE_LIGHT = 1,
+                     BF_SIZE_MEDIUM = 2,
+                     BF_SIZE_HEAVY = 3,
+                     BF_SIZE_ASSAULT = 4;
 
     public final static String strSTAR_LEAGUE = "Age of War/Star League",
                         strSUCCESSION = "Succession Wars",

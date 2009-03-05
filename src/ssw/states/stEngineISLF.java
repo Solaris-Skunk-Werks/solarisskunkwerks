@@ -42,6 +42,7 @@ public class stEngineISLF implements ifEngine, ifState {
         10.0f,10.5f,10.5f,11.0f,12.0f,12.0f,12.5f,13.5f,13.5f,14.5f,15.0f,15.5f,
         16.5f,17.0f,18.0f,18.5f,19.5f,20.5f,21.5f,22.5f,24.0f,25.0f,26.0f,27.5f,
         29.0f,31.0f,33.0f,34.5f,37.0f,39.5f};
+    private final static int[] BFStructure = {1,1,1,1,2,2,2,2,3,3,3,4,4,4,4,5,5,5,5};
 
     public stEngineISLF() {
         AC.SetRulesLevelIM( Constants.UNALLOWED );
@@ -117,6 +118,14 @@ public class stEngineISLF implements ifEngine, ifState {
 
     private int GetIndex( int Rating ) {
         return Rating / 5 - 2;
+    }
+
+    private int GetBFIndex( int tonnage ) {
+        return (tonnage - 10) / 5;
+    }
+
+    public int GetBFStructure( int tonnage ) {
+        return BFStructure[GetBFIndex(tonnage)];
     }
     
     public int MaxMovementHeat() {

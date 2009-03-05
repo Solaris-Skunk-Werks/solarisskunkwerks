@@ -24,6 +24,7 @@ public class stEngineCLXXL implements ifEngine, ifState {
         4.5f,4.5f,4.5f,5.0f,5.0f,5.5f,5.5f,5.5f,6.0f,6.0f,6.5f,6.5f,
         7.0f,7.5f,7.5f,8.0f,8.5f,8.5f,9.0f,9.5f,10.0f,10.5f,11.0f,11.5f,
         12.5f,13.0f,14.0f,14.5f,15.5f,16.5f,17.5f};
+    private final static int[] BFStructure = {1,1,1,1,1,1,2,2,2,2,3,3,3,3,3,3,4,4,4};
 
     public boolean IsClan() {
         return true;
@@ -95,6 +96,14 @@ public class stEngineCLXXL implements ifEngine, ifState {
 
     private int GetIndex( int Rating ) {
         return Rating / 5 - 2;
+    }
+
+    private int GetBFIndex( int tonnage ) {
+        return (tonnage - 10) / 5;
+    }
+
+    public int GetBFStructure( int tonnage ) {
+        return BFStructure[GetBFIndex(tonnage)];
     }
 
     public int MaxMovementHeat() {

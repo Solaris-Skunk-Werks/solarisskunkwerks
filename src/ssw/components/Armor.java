@@ -392,6 +392,43 @@ public class Armor  extends abPlaceable {
         return result;
     }
 
+    public boolean IsCommercial() {
+        if ( Config == ISCM || Config == CLCM )
+            return true;
+        else
+            return false;
+    }
+
+    public boolean IsFerroLamellor() {
+        if ( Config == CLFL )
+            return true;
+        else
+            return false;
+    }
+
+    public boolean IsHardened() {
+        if ( Config == ISHA || Config == CLHA )
+            return true;
+        else
+            return false;
+    }
+
+    public boolean IsReflective() {
+        if ( Config == ISLR || Config == CLLR )
+            return true;
+        else
+            return false;
+    }
+
+    public boolean IsReactive() {
+        if ( Config == ISRE || Config == CLRE )
+            return true;
+        else
+            return false;
+    }
+
+
+
     public boolean IsClan() {
         return ((ifState) Config).IsClan();
     }

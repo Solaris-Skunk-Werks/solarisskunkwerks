@@ -52,6 +52,7 @@ import ssw.print.*;
 import ssw.states.ifState;
 import java.util.prefs.*;
 import ssw.Force.gui.frmForce;
+import ssw.battleforce.BattleForceTools;
 
 public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner {
 
@@ -1313,6 +1314,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lblArmorCoverage.setText( CurMech.GetArmor().GetCoverage() + "% Coverage" );
         lblArmorTonsWasted.setText( CurMech.GetArmor().GetWastedTonnage() + " Tons Wasted" );
         lblAVInLot.setText( CurMech.GetArmor().GetWastedAV() + " Points Left In This 1/2 Ton Lot" );
+
+        // added for Battleforce pane
+        lblBFMV.setText( BattleForceTools.GetMovementString( CurMech ) );
+        lblBFWt.setText( "" + CurMech.GetBFSize() );
+        lblBFArmor.setText( "" + CurMech.GetBFArmor() );
+        lblBFStructure.setText( "" + CurMech.GetBFStructure() );
     }
 
     public void RefreshInfoPane() {
@@ -3212,6 +3219,29 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jPanel3 = new javax.swing.JPanel();
         jLabel41 = new javax.swing.JLabel();
         lblDamagePerTon = new javax.swing.JLabel();
+        pnlBattleforce = new javax.swing.JPanel();
+        pnlBFStats = new javax.swing.JPanel();
+        jLabel66 = new javax.swing.JLabel();
+        jLabel67 = new javax.swing.JLabel();
+        jLabel68 = new javax.swing.JLabel();
+        jLabel69 = new javax.swing.JLabel();
+        jLabel70 = new javax.swing.JLabel();
+        jLabel71 = new javax.swing.JLabel();
+        jLabel72 = new javax.swing.JLabel();
+        jLabel73 = new javax.swing.JLabel();
+        jLabel74 = new javax.swing.JLabel();
+        jLabel75 = new javax.swing.JLabel();
+        lblBFMV = new javax.swing.JLabel();
+        lblBFWt = new javax.swing.JLabel();
+        lblBFOV = new javax.swing.JLabel();
+        lblBFExtreme = new javax.swing.JLabel();
+        lblBFShort = new javax.swing.JLabel();
+        lblBFMedium = new javax.swing.JLabel();
+        lblBFLong = new javax.swing.JLabel();
+        lblBFArmor = new javax.swing.JLabel();
+        lblBFStructure = new javax.swing.JLabel();
+        lblBFSA = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
         pnlInfoPanel = new javax.swing.JPanel();
         txtInfoTonnage = new javax.swing.JTextField();
         txtInfoFreeTons = new javax.swing.JTextField();
@@ -7587,7 +7617,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         jScrollPane18.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        lstCritsToPlace.setFont(new java.awt.Font("Tahoma", 0, 10));
+        lstCritsToPlace.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lstCritsToPlace.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Selected", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -8529,6 +8559,87 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlCharts.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, 230, 50));
 
         tbpMainTabPane.addTab("Charts", pnlCharts);
+
+        pnlBattleforce.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pnlBFStats.setBorder(javax.swing.BorderFactory.createTitledBorder("BattleForce Stats"));
+        pnlBFStats.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel66.setText("MV");
+        pnlBFStats.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+
+        jLabel67.setText("S (+0)");
+        pnlBFStats.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
+
+        jLabel68.setText("M (+2)");
+        pnlBFStats.add(jLabel68, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, -1, -1));
+
+        jLabel69.setText("L (+4)");
+        pnlBFStats.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, -1, -1));
+
+        jLabel70.setText("E (+6)");
+        pnlBFStats.add(jLabel70, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, -1, -1));
+
+        jLabel71.setText("Wt.");
+        pnlBFStats.add(jLabel71, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, -1, -1));
+
+        jLabel72.setText("OV");
+        pnlBFStats.add(jLabel72, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, -1, -1));
+
+        jLabel73.setText("Armor:");
+        pnlBFStats.add(jLabel73, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
+
+        jLabel74.setText("Structure:");
+        pnlBFStats.add(jLabel74, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, -1, -1));
+
+        jLabel75.setText("Special Abilities:");
+        pnlBFStats.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+
+        lblBFMV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBFMV.setText("0");
+        pnlBFStats.add(lblBFMV, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 20, -1));
+
+        lblBFWt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBFWt.setText("1");
+        pnlBFStats.add(lblBFWt, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, 20, -1));
+
+        lblBFOV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBFOV.setText("0");
+        pnlBFStats.add(lblBFOV, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, 20, -1));
+
+        lblBFExtreme.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBFExtreme.setText("0");
+        pnlBFStats.add(lblBFExtreme, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 20, -1));
+
+        lblBFShort.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBFShort.setText("0");
+        pnlBFStats.add(lblBFShort, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 20, -1));
+
+        lblBFMedium.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBFMedium.setText("0");
+        pnlBFStats.add(lblBFMedium, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 20, -1));
+
+        lblBFLong.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBFLong.setText("0");
+        pnlBFStats.add(lblBFLong, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 20, -1));
+
+        lblBFArmor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBFArmor.setText("0");
+        pnlBFStats.add(lblBFArmor, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 20, -1));
+
+        lblBFStructure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBFStructure.setText("0");
+        pnlBFStats.add(lblBFStructure, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, 20, -1));
+
+        lblBFSA.setText("Placeholder");
+        pnlBFStats.add(lblBFSA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 430, 20));
+
+        pnlBattleforce.add(pnlBFStats, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 690, 200));
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Conversion Steps"));
+        pnlBattleforce.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 690, 230));
+
+        tbpMainTabPane.addTab("BattleForce", pnlBattleforce);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -12617,7 +12728,17 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
+    private javax.swing.JLabel jLabel66;
+    private javax.swing.JLabel jLabel67;
+    private javax.swing.JLabel jLabel68;
+    private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
+    private javax.swing.JLabel jLabel73;
+    private javax.swing.JLabel jLabel74;
+    private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
@@ -12628,6 +12749,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
@@ -12682,6 +12804,16 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel lblArmorPoints;
     private javax.swing.JLabel lblArmorTonsWasted;
     private javax.swing.JLabel lblArmorType;
+    private javax.swing.JLabel lblBFArmor;
+    private javax.swing.JLabel lblBFExtreme;
+    private javax.swing.JLabel lblBFLong;
+    private javax.swing.JLabel lblBFMV;
+    private javax.swing.JLabel lblBFMedium;
+    private javax.swing.JLabel lblBFOV;
+    private javax.swing.JLabel lblBFSA;
+    private javax.swing.JLabel lblBFShort;
+    private javax.swing.JLabel lblBFStructure;
+    private javax.swing.JLabel lblBFWt;
     private javax.swing.JLabel lblCTArmorHeader;
     private javax.swing.JLabel lblCTHeader;
     private javax.swing.JLabel lblCTIntPts;
@@ -12842,10 +12974,12 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel pnlArmorInfo;
     private javax.swing.JPanel pnlArmorSetup;
     private javax.swing.JPanel pnlArtillery;
+    private javax.swing.JPanel pnlBFStats;
     private javax.swing.JPanel pnlBallistic;
     private javax.swing.JPanel pnlBasicInformation;
     private javax.swing.JPanel pnlBasicSetup;
     private javax.swing.JPanel pnlBasicSummary;
+    private javax.swing.JPanel pnlBattleforce;
     private javax.swing.JPanel pnlCTArmorBox;
     private javax.swing.JPanel pnlCTCrits;
     private javax.swing.JPanel pnlCTRArmorBox;

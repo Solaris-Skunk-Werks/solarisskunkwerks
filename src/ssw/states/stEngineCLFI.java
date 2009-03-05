@@ -42,6 +42,7 @@ public class stEngineCLFI implements ifEngine, ifState {
         20.5f,21.0f,22.0f,23.0f,24.0f,24.5f,25.5f,27.5f,28.0f,29.0f,31.0f,31.5f,
         33.5f,34.5f,36.0f,38.0f,39.5f,41.5f,43.0f,45.0f,47.5f,50.0f,52.0f,55.5f,
         58.0f,60.5f,64.0f,67.5f,72.0f,76.5f,80.5f,86.0f,92.0f};
+    private final static int[] BFStructure = {1,1,2,2,3,3,3,4,4,5,5,5,6,6,6,7,7,8,8};
 
     public stEngineCLFI() {
         AC.SetRulesLevelBM( Constants.ADVANCED );
@@ -117,6 +118,14 @@ public class stEngineCLFI implements ifEngine, ifState {
 
     private int GetIndex( int Rating ) {
         return Rating / 5 - 2;
+    }
+
+    private int GetBFIndex( int tonnage ) {
+        return (tonnage - 10) / 5;
+    }
+
+    public int GetBFStructure( int tonnage ) {
+        return BFStructure[GetBFIndex(tonnage)];
     }
     
     public int MaxMovementHeat() {

@@ -553,6 +553,10 @@ public class Engine extends abPlaceable {
         return CurConfig.JumpingHeatMultiplier();
     }
 
+    public int GetBFStructure( int tonnage ) {
+        return CurConfig.GetBFStructure( tonnage );
+    }
+
     @Override
     public MechModifier GetMechModifier() {
         return CurConfig.GetMechModifier();

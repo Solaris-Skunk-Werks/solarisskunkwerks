@@ -42,6 +42,7 @@ public class stEngineCLIC implements ifEngine, ifState {
         22.0f,23.0f,24.0f,25.0f,26.0f,27.0f,28.0f,29.0f,31.0f,32.0f,33.0f,35.0f,
         36.0f,38.0f,39.0f,41.0f,43.0f,45.0f,47.0f,49.0f,51.0f,54.0f,57.0f,59.0f,
         63.0f,66.0f,69.0f,73.0f,77.0f,82.0f,87.0f,92.0f,98.0f,105.0f };
+    private final static int[] BFStructure = {1,1,2,2,3,3,3,4,4,5,5,5,6,6,6,7,7,8,8};
 
     public stEngineCLIC() {
         AC.SetRulesLevelBM( Constants.ADVANCED );
@@ -117,6 +118,14 @@ public class stEngineCLIC implements ifEngine, ifState {
 
     private int GetIndex( int Rating ) {
         return Rating / 5 - 2;
+    }
+
+    private int GetBFIndex( int tonnage ) {
+        return (tonnage - 10) / 5;
+    }
+
+    public int GetBFStructure( int tonnage ) {
+        return BFStructure[GetBFIndex(tonnage)];
     }
 
     public int MaxMovementHeat() {

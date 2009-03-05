@@ -28,13 +28,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
+import ssw.battleforce.ifBattleforce;
 import java.util.Hashtable;
 import java.util.Vector;
 import ssw.*;
 import ssw.gui.frmMain;
 import ssw.visitors.*;
 
-public class Mech {
+
+public class Mech implements ifBattleforce{
     // A mech for the designer.  This is a large container class that will
     // handle calculations and settings for the design.
 
@@ -3516,6 +3518,94 @@ public class Mech {
 
     public boolean HasChanged() {
         return Changed;
+    }
+
+    public int GetBFSize(){
+        int mass = GetTonnage();
+        if( mass < 40 ){
+            return Constants.BF_SIZE_LIGHT;
+        }else if( mass < 70 ){
+            return Constants.BF_SIZE_MEDIUM;
+        }else if ( mass < 80 ){
+            return Constants.BF_SIZE_HEAVY;
+        }else{
+            return Constants.BF_SIZE_ASSAULT;
+        }
+    }
+
+    public int GetBFPrimeMovement(){
+        float retval = GetWalkingMP();
+
+        // Adjust retval for MASC and SC
+        if ( CurLoadout.HasSupercharger() && GetPhysEnhance().IsMASC() ){
+            retval *= 1.5f;
+        }else if ( CurLoadout.HasSupercharger() || GetPhysEnhance().IsMASC() ){
+            retval *= 1.25f;
+        }
+
+        return (int) Math.round(retval);
+    }
+    
+    public String GetBFPrimeMovementMode(){
+        int walkMP = GetWalkingMP();
+        int jumpMP = GetAdjustedJumpingMP(false);
+
+        if (walkMP == jumpMP){
+            return "j";
+        }else{
+            return "";
+        }
+    }
+    
+    public int GetBFSecondaryMovement(){
+        int walkMP = GetBFPrimeMovement();
+        int jumpMP = GetAdjustedJumpingMP(false);
+
+        if ( jumpMP > 0 && walkMP != jumpMP ){
+            if ( jumpMP < walkMP && jumpMP*0.66 >= 1 )
+                return jumpMP;
+            else if ( jumpMP > walkMP )
+                return jumpMP;
+            else
+                return 0;
+        }else
+            return 0;
+    }
+
+    public String GetBFSecondaryMovementMode(){
+        int walkMP = GetBFPrimeMovement();
+        int jumpMP = GetAdjustedJumpingMP(false);
+
+        if ( jumpMP > 0 && walkMP != jumpMP )
+            return "j";
+        else
+            return "";
+    }
+
+    public int GetBFArmor() {
+
+        Armor a = GetArmor();
+        float armorpoints = a.GetArmorValue();
+
+        if ( a.IsCommercial() ){
+            armorpoints = (float) Math.floor(armorpoints / 2.0f);
+        }else if ( a.IsFerroLamellor() ){
+            armorpoints = (float) Math.ceil(armorpoints * 1.2f);
+        }else if ( a.IsHardened() ){
+            armorpoints = (float) Math.ceil(armorpoints * 1.5f);
+        }else if ( a.IsReactive() || a.IsReflective() ){
+            armorpoints = (float) Math.ceil(armorpoints * 0.75f);
+        }
+
+        armorpoints += a.GetModularArmorValue();
+        
+        return (int) Math.round(armorpoints / 30);
+    }
+
+    public int GetBFStructure() {
+        Engine e = GetEngine();
+        int t = GetTonnage();
+        return e.GetBFStructure(t);
     }
 
     public ifVisitor Lookup( String s ) {

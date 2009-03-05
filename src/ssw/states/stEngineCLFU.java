@@ -41,7 +41,8 @@ public class stEngineCLFU implements ifEngine, ifState {
         12.5f,13.0f,13.5f,14.0f,14.5f,15.5f,16.0f,16.5f,17.5f,18.0f,19.0f,19.5f,
         20.5f,21.5f,22.5f,23.5f,24.5f,25.5f,27.0f,28.5f,29.5f,31.5f,33.0f,34.5f,
         36.5f,38.5f,41.0f,43.5f,46.0f,49.0f,52.5f};
-
+    private final static int[] BFStructure = {1,1,2,2,3,3,3,4,4,5,5,5,6,6,6,7,7,8,8};
+    
     public boolean IsClan() {
         return true;
     }
@@ -112,6 +113,14 @@ public class stEngineCLFU implements ifEngine, ifState {
 
     private int GetIndex( int Rating ) {
         return Rating / 5 - 2;
+    }
+
+    private int GetBFIndex( int tonnage ) {
+        return (tonnage - 10) / 5;
+    }
+
+    public int GetBFStructure( int tonnage ) {
+        return BFStructure[GetBFIndex(tonnage)];
     }
     
     public int MaxMovementHeat() {

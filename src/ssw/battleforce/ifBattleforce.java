@@ -26,29 +26,19 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package ssw.states;
+package ssw.battleforce;
 
-import ssw.components.*;
 
-public interface ifEngine {
-    public int GetFullCrits();
-    public boolean IsClan();
-    public boolean IsFusion();
-    public boolean IsNuclear();
-    public float GetTonnage( int Rating );
-    public int GetBFStructure( int tonnage );
-    public int GetCTCrits();
-    public int GetSideTorsoCrits();
-    public int NumCTBlocks();
-    public boolean CanSupportRating( int rate );
-    public String GetCritName();
-    public String GetMMName();
-    public float GetCost( int MechTonnage, int Rating );
-    public float GetBVMult();
-    public AvailableCode GetAvailability();
-    public int FreeHeatSinks();
-    public int MaxMovementHeat();
-    public int MinimumHeat();
-    public int JumpingHeatMultiplier();
-    public MechModifier GetMechModifier();
+
+public interface ifBattleforce {
+
+    public int GetBFSize();
+    public int GetBFPrimeMovement();
+    public String GetBFPrimeMovementMode();
+    public int GetBFSecondaryMovement();
+    public String GetBFSecondaryMovementMode();
+    public int GetBFArmor();
+    public int GetBFStructure();
+    //public int GetBFOverheat();
+    //public int GetBFPoints();
 }

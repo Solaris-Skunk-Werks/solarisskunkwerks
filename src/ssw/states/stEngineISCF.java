@@ -42,6 +42,7 @@ public class stEngineISCF implements ifEngine, ifState {
         18.0f,19.0f,19.5f,20.5f,21.0f,22.0f,23.5f,24.0f,25.0f,26.5f,27.0f,28.5f,
         29.5f,31.0f,32.5f,34.0f,35.5f,37.0f,38.5f,40.5f,43.0f,44.5f,47.5f,49.5f,
         52.0f,55.0f,58.0f,61.5f,65.5f,69.0f,73.5f,79.0f};
+    private final static int[] BFStructure = {1,2,2,3,3,4,4,5,5,6,7,7,7,8,8,9,10,10,10};
 
     public stEngineISCF() {
         AC.SetRulesLevelIM( Constants.UNALLOWED );
@@ -118,7 +119,15 @@ public class stEngineISCF implements ifEngine, ifState {
     private int GetIndex( int Rating ) {
         return Rating / 5 - 2;
     }
-    
+
+    private int GetBFIndex( int tonnage ) {
+        return (tonnage - 10) / 5;
+    }
+
+    public int GetBFStructure( int tonnage ) {
+        return BFStructure[GetBFIndex(tonnage)];
+    }
+
     public int MaxMovementHeat() {
         return 2;
     }
