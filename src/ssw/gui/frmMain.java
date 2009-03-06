@@ -104,6 +104,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     public frmMain() {
         Prefs = Preferences.userNodeForPackage(this.getClass());
 
+        // fix for NetBeans stupidity.
+        pnlDamageChart = new DamageChart();
+
         initComponents();
         setViewToolbar(Prefs.getBoolean("ViewToolbar", true));
         setTitle( Constants.AppDescription + " " + Constants.Version );
@@ -3237,6 +3240,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jPanel3 = new javax.swing.JPanel();
         jLabel41 = new javax.swing.JLabel();
         lblDamagePerTon = new javax.swing.JLabel();
+        pnlDamageChart = new DamageChart();
+        lblLegendTitle = new javax.swing.JLabel();
+        lblFALegend = new javax.swing.JLabel();
+        lblRALegened = new javax.swing.JLabel();
+        lblRAALegend = new javax.swing.JLabel();
+        lblLAALegend = new javax.swing.JLabel();
+        lblLegendNote = new javax.swing.JLabel();
         pnlBattleforce = new javax.swing.JPanel();
         pnlBFStats = new javax.swing.JPanel();
         jLabel66 = new javax.swing.JLabel();
@@ -7635,7 +7645,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         jScrollPane18.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        lstCritsToPlace.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lstCritsToPlace.setFont(new java.awt.Font("Tahoma", 0, 10));
         lstCritsToPlace.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Selected", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -8455,51 +8465,51 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlDamageChart.setLayout(null);
         pnlCharts.add(pnlDamageChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 720, 280));
 
-        jLabel37.setText("Chart Legend:");
-        pnlCharts.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 90, -1));
+        lblLegendTitle.setText("Chart Legend:");
+        pnlCharts.add(lblLegendTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 90, -1));
 
-        jLabel38.setBackground(java.awt.Color.red);
-        jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel38.setText("Forward Arc Weapons");
-        jLabel38.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jLabel38.setMaximumSize(new java.awt.Dimension(140, 18));
-        jLabel38.setMinimumSize(new java.awt.Dimension(140, 18));
-        jLabel38.setOpaque(true);
-        jLabel38.setPreferredSize(new java.awt.Dimension(140, 18));
-        pnlCharts.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, 150, -1));
+        lblFALegend.setBackground(java.awt.Color.red);
+        lblFALegend.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblFALegend.setText("Forward Arc Weapons");
+        lblFALegend.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblFALegend.setMaximumSize(new java.awt.Dimension(140, 18));
+        lblFALegend.setMinimumSize(new java.awt.Dimension(140, 18));
+        lblFALegend.setOpaque(true);
+        lblFALegend.setPreferredSize(new java.awt.Dimension(140, 18));
+        pnlCharts.add(lblFALegend, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, 150, -1));
 
-        jLabel40.setBackground(java.awt.Color.pink);
-        jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel40.setText("Rear Arc Weapons");
-        jLabel40.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jLabel40.setMaximumSize(new java.awt.Dimension(140, 18));
-        jLabel40.setMinimumSize(new java.awt.Dimension(140, 18));
-        jLabel40.setOpaque(true);
-        jLabel40.setPreferredSize(new java.awt.Dimension(140, 18));
-        pnlCharts.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 30, 150, -1));
+        lblRALegened.setBackground(java.awt.Color.pink);
+        lblRALegened.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRALegened.setText("Rear Arc Weapons");
+        lblRALegened.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblRALegened.setMaximumSize(new java.awt.Dimension(140, 18));
+        lblRALegened.setMinimumSize(new java.awt.Dimension(140, 18));
+        lblRALegened.setOpaque(true);
+        lblRALegened.setPreferredSize(new java.awt.Dimension(140, 18));
+        pnlCharts.add(lblRALegened, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 30, 150, -1));
 
-        jLabel42.setBackground(java.awt.Color.green);
-        jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel42.setText("Right Arm Arc Weapons");
-        jLabel42.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jLabel42.setMaximumSize(new java.awt.Dimension(140, 18));
-        jLabel42.setMinimumSize(new java.awt.Dimension(140, 18));
-        jLabel42.setOpaque(true);
-        jLabel42.setPreferredSize(new java.awt.Dimension(140, 18));
-        pnlCharts.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 50, 150, -1));
+        lblRAALegend.setBackground(java.awt.Color.green);
+        lblRAALegend.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRAALegend.setText("Right Arm Arc Weapons");
+        lblRAALegend.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblRAALegend.setMaximumSize(new java.awt.Dimension(140, 18));
+        lblRAALegend.setMinimumSize(new java.awt.Dimension(140, 18));
+        lblRAALegend.setOpaque(true);
+        lblRAALegend.setPreferredSize(new java.awt.Dimension(140, 18));
+        pnlCharts.add(lblRAALegend, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 50, 150, -1));
 
-        jLabel44.setBackground(java.awt.Color.orange);
-        jLabel44.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel44.setText("Left Arm Arc Weapons");
-        jLabel44.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jLabel44.setMaximumSize(new java.awt.Dimension(140, 18));
-        jLabel44.setMinimumSize(new java.awt.Dimension(140, 18));
-        jLabel44.setOpaque(true);
-        jLabel44.setPreferredSize(new java.awt.Dimension(140, 18));
-        pnlCharts.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 70, 150, -1));
+        lblLAALegend.setBackground(java.awt.Color.orange);
+        lblLAALegend.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLAALegend.setText("Left Arm Arc Weapons");
+        lblLAALegend.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblLAALegend.setMaximumSize(new java.awt.Dimension(140, 18));
+        lblLAALegend.setMinimumSize(new java.awt.Dimension(140, 18));
+        lblLAALegend.setOpaque(true);
+        lblLAALegend.setPreferredSize(new java.awt.Dimension(140, 18));
+        pnlCharts.add(lblLAALegend, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 70, 150, -1));
 
-        jLabel45.setText("<html>NOTE:<br>Depnding on the damage at a given<br>range, some lines may be hidden.</html>");
-        pnlCharts.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 240, -1));
+        lblLegendNote.setText("<html>NOTE:<br>Depnding on the damage at a given<br>range, some lines may be hidden.</html>");
+        pnlCharts.add(lblLegendNote, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 240, -1));
 
         tbpMainTabPane.addTab("Charts", pnlCharts);
 
@@ -12639,16 +12649,10 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
@@ -12758,6 +12762,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel lblDamagePerTon;
     private javax.swing.JLabel lblEngineType;
     private javax.swing.JLabel lblEraYears;
+    private javax.swing.JLabel lblFALegend;
     private javax.swing.JLabel lblFluffImage;
     private javax.swing.JLabel lblGyroType;
     private javax.swing.JLabel lblHDArmorHeader;
@@ -12786,6 +12791,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel lblInfoType;
     private javax.swing.JLabel lblInternalType;
     private javax.swing.JLabel lblJumpMP;
+    private javax.swing.JLabel lblLAALegend;
     private javax.swing.JLabel lblLAArmorHeader;
     private javax.swing.JLabel lblLAHeader;
     private javax.swing.JLabel lblLAIntPts;
@@ -12796,6 +12802,8 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel lblLTHeader;
     private javax.swing.JLabel lblLTIntPts;
     private javax.swing.JLabel lblLTRArmorHeader;
+    private javax.swing.JLabel lblLegendNote;
+    private javax.swing.JLabel lblLegendTitle;
     private javax.swing.JLabel lblMechEra;
     private javax.swing.JLabel lblMechName;
     private javax.swing.JLabel lblMechType;
@@ -12804,9 +12812,11 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel lblMoveSummary;
     private javax.swing.JLabel lblPhysEnhance;
     private javax.swing.JLabel lblProdYear;
+    private javax.swing.JLabel lblRAALegend;
     private javax.swing.JLabel lblRAArmorHeader;
     private javax.swing.JLabel lblRAHeader;
     private javax.swing.JLabel lblRAIntPts;
+    private javax.swing.JLabel lblRALegened;
     private javax.swing.JLabel lblRLArmorHeader;
     private javax.swing.JLabel lblRLHeader;
     private javax.swing.JLabel lblRLIntPts;
