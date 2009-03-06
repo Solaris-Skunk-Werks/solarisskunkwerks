@@ -58,6 +58,7 @@ Version 0.6.0
 - The 'Mech name and model will now appear in the titlebar of SSW after save, load and export.
 - Added a "Source" field for the 'Mech.
 - Added "Tools -> Show Text TRO Format" menu item.
+- Replaced the old simple chart with a damage at range chart.
 
 + Changed
 - Fixed a load bug with heatsinks.

@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
+import java.awt.Color;
 import ssw.printpreview.PreviewDialog;
 import java.awt.Cursor;
 import java.awt.Image;
@@ -2496,10 +2497,31 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }
 
     private void UpdateBasicChart() {
+        int[] fchart = GetFrontDamageChart();
+        int[] lchart = GetLeftArmDamageChart();
+        int[] rchart = GetRightArmDamageChart();
+        int[] rrchart = GetRearDamageChart();
+        int gridx = 1;
+        int gridy = 1;
+        for( int i = 0; i < fchart.length; i++ ) {
+            if( fchart[i] > 0 ) {
+                if( fchart[i] > gridy ) { gridy = fchart[i]; }
+                gridx = i;
+            }
+            if( rchart[i] > 0 ) {
+                if( rchart[i] > gridy ) { gridy = rchart[i]; }
+                gridx = i;
+            }
+            if( lchart[i] > 0 ) {
+                if( lchart[i] > gridy ) { gridy = lchart[i]; }
+                gridx = i;
+            }
+            if( rrchart[i] > 0 ) {
+                if( rrchart[i] > gridy ) { gridy = rrchart[i]; }
+                gridx = i;
+            }
+        }
         Vector v = CurMech.GetLoadout().GetNonCore();
-        int DamFront = 0, DamLA = 0, DamRA = 0, DamRear = 0, DamCurrent = 0;
-        int RngFront = 0, RngLA = 0, RngRA = 0, RngRear = 0, RngCurrent = 0;
-        int HeatFront = 0, HeatLA = 0, HeatRA = 0, HeatRear = 0, HeatCurrent = 0;
         int TotalDamage = 0;
         float TonsWeapons = 0.0f, TonsEquips = 0.0f;
 
@@ -2507,97 +2529,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             abPlaceable p = (abPlaceable) v.get( i );
 
             // if the item is a weapon...
-            if( v.get( i ) instanceof ifWeapon ) {
+            if( p instanceof ifWeapon ) {
                 // add it's tonnage to the total
                 TonsWeapons += p.GetTonnage();
-
-                // find it in the loadout
-                int loc = CurMech.GetLoadout().Find( p );
-                // make sure it's been placed
-                if( loc < 11 ) {
-                    DamCurrent = GetMaxDamage( (ifWeapon) p );
-                    HeatCurrent = GetMaxHeat( (ifWeapon) p );
-                    RngCurrent = GetMaxRange( (ifWeapon) p );
-                    TotalDamage += DamCurrent;
-                    switch( loc ) {
-                        case 0: case 1: case 2: case 3: case 6: case 7: case 8: case 9: case 10:
-                            // see if it's to the rear
-                            if( p.IsMountedRear() ) {
-                                HeatRear += HeatCurrent;
-                                DamRear += DamCurrent;
-                                if( RngCurrent > RngRear ) {
-                                    RngRear = RngCurrent;
-                                }
-                            } else {
-                                HeatFront += HeatCurrent;
-                                DamFront += DamCurrent;
-                                if( RngCurrent > RngFront ) {
-                                    RngFront = RngCurrent;
-                                }
-                            }
-                            break;
-                        case 4:
-                            // left arm, add to the front as well
-                            if( CurMech.IsQuad() ) {
-                                HeatFront += HeatCurrent;
-                                DamFront += DamCurrent;
-                                if( RngCurrent > RngFront ) {
-                                    RngFront = RngCurrent;
-                                }
-                            } else {
-                                HeatFront += HeatCurrent;
-                                DamFront += DamCurrent;
-                                if( RngCurrent > RngFront ) {
-                                    RngFront = RngCurrent;
-                                }
-                                HeatLA += HeatCurrent;
-                                DamLA += DamCurrent;
-                                if( RngCurrent > RngLA ) {
-                                    RngLA = RngCurrent;
-                                }
-
-                                // can we flip arms?
-                                if( ! CurMech.GetActuators().RightLowerInstalled() &! CurMech.GetActuators().LeftLowerInstalled() ) {
-                                    HeatRear += HeatCurrent;
-                                    DamRear += DamCurrent;
-                                    if( RngCurrent > RngRear ) {
-                                        RngRear = RngCurrent;
-                                    }
-                                }
-                            }
-                            break;
-                        case 5:
-                            // right arm, add to the front as well
-                            if( CurMech.IsQuad() ) {
-                                HeatFront += HeatCurrent;
-                                DamFront += DamCurrent;
-                                if( RngCurrent > RngFront ) {
-                                    RngFront = RngCurrent;
-                                }
-                            } else {
-                                HeatFront += HeatCurrent;
-                                DamFront += DamCurrent;
-                                if( RngCurrent > RngFront ) {
-                                    RngFront = RngCurrent;
-                                }
-                                HeatRA += HeatCurrent;
-                                DamRA += DamCurrent;
-                                if( RngCurrent > RngRA ) {
-                                    RngRA = RngCurrent;
-                                }
-
-                                // can we flip arms?
-                                if( ! CurMech.GetActuators().RightLowerInstalled() &! CurMech.GetActuators().LeftLowerInstalled() ) {
-                                    HeatRear += HeatCurrent;
-                                    DamRear += DamCurrent;
-                                    if( RngCurrent > RngRear ) {
-                                        RngRear = RngCurrent;
-                                    }
-                                }
-                            }
-                            break;
-                    }
-                }
+                TotalDamage += GetMaxDamage( (ifWeapon) p );
             } else {
                 if( p instanceof Ammunition ) {
                     TonsWeapons += p.GetTonnage();
@@ -2606,20 +2541,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 }
             }
         }
-
-        // update the labels
-        lblHeatFront.setText( "" + HeatFront );
-        lblHeatLA.setText( "" + HeatLA );
-        lblHeatRA.setText( "" + HeatRA );
-        lblHeatRear.setText( "" + HeatRear );
-        lblRngFront.setText( "" + RngFront );
-        lblRngLA.setText( "" + RngLA );
-        lblRngRA.setText( "" + RngRA );
-        lblRngRear.setText( "" + RngRear );
-        lblDamFront.setText( "" + DamFront );
-        lblDamLA.setText( "" + DamLA );
-        lblDamRA.setText( "" + DamRA );
-        lblDamRear.setText( "" + DamRear );
+        ((DamageChart) pnlDamageChart).ClearCharts();
+        ((DamageChart) pnlDamageChart).SetGridSize( gridx + 1, gridy + 1 );
+        ((DamageChart) pnlDamageChart).AddChart( rrchart, Color.PINK );
+        ((DamageChart) pnlDamageChart).AddChart( lchart, Color.ORANGE );
+        ((DamageChart) pnlDamageChart).AddChart( rchart, Color.GREEN );
+        ((DamageChart) pnlDamageChart).AddChart( fchart, Color.RED );
         lblTonPercStructure.setText( String.format( "%1$,.2f", ( CurMech.GetIntStruc().GetTonnage() + CurMech.GetCockpit().GetTonnage() + CurMech.GetGyro().GetTonnage() ) / CurMech.GetTonnage() * 100.0f ) + "%" );
         lblTonPercEngine.setText( String.format( "%1$,.2f", CurMech.GetEngine().GetTonnage() / CurMech.GetTonnage() * 100.0f ) + "%" );
         lblTonPercHeatSinks.setText( String.format( "%1$,.2f", CurMech.GetHeatSinks().GetTonnage() / CurMech.GetTonnage() * 100.0f ) + "%" );
@@ -2629,17 +2556,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lblTonPercWeapons.setText( String.format( "%1$,.2f", TonsWeapons / CurMech.GetTonnage() * 100.0f ) + "%" );
         lblTonPercEquips.setText( String.format( "%1$,.2f", TonsEquips / CurMech.GetTonnage() * 100.0f ) + "%" );
         lblDamagePerTon.setText( String.format( "%1$,.2f", (float) TotalDamage / CurMech.GetTonnage() ) );
-    }
-
-    private int GetMaxRange( ifWeapon w ) {
-        if( w instanceof Artillery ) { return 0; }
-        if( w.GetRangeLong() > w.GetRangeMedium() && w.GetRangeLong() > w.GetRangeShort() ) {
-            return w.GetRangeLong();
-        }
-        if( w.GetRangeMedium() > w.GetRangeShort() ) {
-            return w.GetRangeMedium();
-        }
-        return w.GetRangeShort();
     }
 
     private int GetMaxDamage( ifWeapon w ) {
@@ -2669,17 +2585,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             return w.GetDamageShort() * mult;
         }
-    }
-
-    private int GetMaxHeat( ifWeapon w ) {
-        int mult = 1;
-        if( w.IsUltra() ) {
-            mult = 2;
-        }
-        if( w.IsRotary() ) {
-            mult = 6;
-        }
-        return w.GetHeat() * mult;
     }
 
     public void lostOwnership( java.awt.datatransfer.Clipboard aClipboard, java.awt.datatransfer.Transferable aContents ) {
@@ -2741,6 +2646,144 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
         txtJJModel.setText( CurMech.GetJJModel() );
+    }
+
+    private int[] GetFrontDamageChart() {
+        // creates a damage chart for the current mech using the current loadout
+        int[] chart = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        // we're going to use 40 as the max range
+        Vector v = CurMech.GetLoadout().GetNonCore();
+        ifWeapon w;
+        for( int i = 0; i < 40; i++ ) {
+            for( int j = 0; j < v.size(); j++ ) {
+                if( v.get( j ) instanceof ifWeapon ) {
+                    w = (ifWeapon) v.get( j );
+                    if( ! ((abPlaceable) w).IsMountedRear() ) {
+                        if( w.GetRangeLong() <= 0 ) {
+                            if( w.GetRangeMedium() <= 0 ) {
+                                if( w.GetRangeShort() >= i ) {
+                                    chart[i] += GetMaxDamage( w );
+                                }
+                            } else {
+                                if( w.GetRangeMedium() >= i ) {
+                                    chart[i] += GetMaxDamage( w );
+                                }
+                            }
+                        } else {
+                            if( w.GetRangeLong() >= i ) {
+                                chart[i] += GetMaxDamage( w );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return chart;
+    }
+
+    private int[] GetRightArmDamageChart() {
+        // creates a damage chart for the current mech using the current loadout
+        int[] chart = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        // we're going to use 40 as the max range
+        Vector v = CurMech.GetLoadout().GetNonCore();
+        ifWeapon w;
+        for( int i = 0; i < 40; i++ ) {
+            for( int j = 0; j < v.size(); j++ ) {
+                if( v.get( j ) instanceof ifWeapon ) {
+                    w = (ifWeapon) v.get( j );
+                    if( CurMech.GetLoadout().Find( (abPlaceable) w ) == Constants.LOC_RA ) {
+                        if( w.GetRangeLong() <= 0 ) {
+                            if( w.GetRangeMedium() <= 0 ) {
+                                if( w.GetRangeShort() >= i ) {
+                                    chart[i] += GetMaxDamage( w );
+                                }
+                            } else {
+                                if( w.GetRangeMedium() >= i ) {
+                                    chart[i] += GetMaxDamage( w );
+                                }
+                            }
+                        } else {
+                            if( w.GetRangeLong() >= i ) {
+                                chart[i] += GetMaxDamage( w );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return chart;
+    }
+
+    private int[] GetLeftArmDamageChart() {
+        // creates a damage chart for the current mech using the current loadout
+        int[] chart = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        // we're going to use 40 as the max range
+        Vector v = CurMech.GetLoadout().GetNonCore();
+        ifWeapon w;
+        for( int i = 0; i < 40; i++ ) {
+            for( int j = 0; j < v.size(); j++ ) {
+                if( v.get( j ) instanceof ifWeapon ) {
+                    w = (ifWeapon) v.get( j );
+                    if( CurMech.GetLoadout().Find( (abPlaceable) w ) == Constants.LOC_LA ) {
+                        if( w.GetRangeLong() <= 0 ) {
+                            if( w.GetRangeMedium() <= 0 ) {
+                                if( w.GetRangeShort() >= i ) {
+                                    chart[i] += GetMaxDamage( w );
+                                }
+                            } else {
+                                if( w.GetRangeMedium() >= i ) {
+                                    chart[i] += GetMaxDamage( w );
+                                }
+                            }
+                        } else {
+                            if( w.GetRangeLong() >= i ) {
+                                chart[i] += GetMaxDamage( w );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return chart;
+    }
+
+    private int[] GetRearDamageChart() {
+        // creates a damage chart for the current mech using the current loadout
+        int[] chart = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        // we're going to use 40 as the max range
+        Vector v = CurMech.GetLoadout().GetNonCore();
+        boolean flip = ! ( CurMech.GetLoadout().GetActuators().LeftLowerInstalled() && CurMech.GetLoadout().GetActuators().RightLowerInstalled() );
+        ifWeapon w;
+        for( int i = 0; i < 40; i++ ) {
+            for( int j = 0; j < v.size(); j++ ) {
+                if( v.get( j ) instanceof ifWeapon ) {
+                    w = (ifWeapon) v.get( j );
+                    int Loc = CurMech.GetLoadout().Find( (abPlaceable) w );
+                    if( ((abPlaceable) w).IsMountedRear() || (( Loc == Constants.LOC_LA || Loc == Constants.LOC_RA ) && flip ) ) {
+                        if( w.GetRangeLong() <= 0 ) {
+                            if( w.GetRangeMedium() <= 0 ) {
+                                if( w.GetRangeShort() >= i ) {
+                                    chart[i] += GetMaxDamage( w );
+                                }
+                            } else {
+                                if( w.GetRangeMedium() >= i ) {
+                                    chart[i] += GetMaxDamage( w );
+                                }
+                            }
+                        } else {
+                            if( w.GetRangeLong() >= i ) {
+                                chart[i] += GetMaxDamage( w );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return chart;
     }
 
      /** This method is called from within the constructor to
@@ -3174,31 +3217,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         btnExportHTML = new javax.swing.JButton();
         btnExportMTF = new javax.swing.JButton();
         pnlCharts = new javax.swing.JPanel();
-        jLabel38 = new javax.swing.JLabel();
-        lblHeatFront = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
-        lblDamFront = new javax.swing.JLabel();
-        jLabel42 = new javax.swing.JLabel();
-        lblRngFront = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
-        jLabel46 = new javax.swing.JLabel();
-        lblDamRA = new javax.swing.JLabel();
-        lblRngRA = new javax.swing.JLabel();
-        lblHeatRA = new javax.swing.JLabel();
-        jLabel50 = new javax.swing.JLabel();
-        jLabel51 = new javax.swing.JLabel();
-        jLabel52 = new javax.swing.JLabel();
-        lblDamLA = new javax.swing.JLabel();
-        lblRngLA = new javax.swing.JLabel();
-        lblHeatLA = new javax.swing.JLabel();
-        lblHeatRear = new javax.swing.JLabel();
-        lblRngRear = new javax.swing.JLabel();
-        lblDamRear = new javax.swing.JLabel();
-        jLabel47 = new javax.swing.JLabel();
-        jLabel48 = new javax.swing.JLabel();
-        jLabel49 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
         lblTonPercStructure = new javax.swing.JLabel();
@@ -8296,131 +8314,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCharts.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel38.setText("Max Heat");
-        pnlCharts.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, -1, -1));
-
-        lblHeatFront.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblHeatFront.setText("000");
-        lblHeatFront.setMaximumSize(new java.awt.Dimension(26, 15));
-        lblHeatFront.setMinimumSize(new java.awt.Dimension(26, 15));
-        lblHeatFront.setPreferredSize(new java.awt.Dimension(26, 15));
-        pnlCharts.add(lblHeatFront, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, -1, -1));
-
-        jLabel40.setText("Max Range");
-        pnlCharts.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, -1, -1));
-
-        lblDamFront.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblDamFront.setText("000");
-        lblDamFront.setMaximumSize(new java.awt.Dimension(26, 15));
-        lblDamFront.setMinimumSize(new java.awt.Dimension(26, 15));
-        lblDamFront.setPreferredSize(new java.awt.Dimension(26, 15));
-        pnlCharts.add(lblDamFront, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, -1, -1));
-
-        jLabel42.setText("Max Damage");
-        pnlCharts.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, -1, -1));
-
-        lblRngFront.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblRngFront.setText("000");
-        lblRngFront.setMaximumSize(new java.awt.Dimension(26, 15));
-        lblRngFront.setMinimumSize(new java.awt.Dimension(26, 15));
-        lblRngFront.setPreferredSize(new java.awt.Dimension(26, 15));
-        pnlCharts.add(lblRngFront, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, -1, -1));
-
-        jLabel44.setText("Max Heat");
-        pnlCharts.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, -1, -1));
-
-        jLabel45.setText("Max Range");
-        pnlCharts.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, -1, -1));
-
-        jLabel46.setText("Max Damage");
-        pnlCharts.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, -1, -1));
-
-        lblDamRA.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblDamRA.setText("000");
-        lblDamRA.setMaximumSize(new java.awt.Dimension(26, 15));
-        lblDamRA.setMinimumSize(new java.awt.Dimension(26, 15));
-        lblDamRA.setPreferredSize(new java.awt.Dimension(26, 15));
-        pnlCharts.add(lblDamRA, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, -1, -1));
-
-        lblRngRA.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblRngRA.setText("000");
-        lblRngRA.setMaximumSize(new java.awt.Dimension(26, 15));
-        lblRngRA.setMinimumSize(new java.awt.Dimension(26, 15));
-        lblRngRA.setPreferredSize(new java.awt.Dimension(26, 15));
-        pnlCharts.add(lblRngRA, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, -1, -1));
-
-        lblHeatRA.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblHeatRA.setText("000");
-        lblHeatRA.setMaximumSize(new java.awt.Dimension(26, 15));
-        lblHeatRA.setMinimumSize(new java.awt.Dimension(26, 15));
-        lblHeatRA.setPreferredSize(new java.awt.Dimension(26, 15));
-        pnlCharts.add(lblHeatRA, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, -1, -1));
-
-        jLabel50.setText("Max Heat");
-        pnlCharts.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, -1, -1));
-
-        jLabel51.setText("Max Range");
-        pnlCharts.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, -1));
-
-        jLabel52.setText("Max Damage");
-        pnlCharts.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, -1, -1));
-
-        lblDamLA.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblDamLA.setText("000");
-        lblDamLA.setMaximumSize(new java.awt.Dimension(26, 15));
-        lblDamLA.setMinimumSize(new java.awt.Dimension(26, 15));
-        lblDamLA.setPreferredSize(new java.awt.Dimension(26, 15));
-        pnlCharts.add(lblDamLA, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
-
-        lblRngLA.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblRngLA.setText("000");
-        lblRngLA.setMaximumSize(new java.awt.Dimension(26, 15));
-        lblRngLA.setMinimumSize(new java.awt.Dimension(26, 15));
-        lblRngLA.setPreferredSize(new java.awt.Dimension(26, 15));
-        pnlCharts.add(lblRngLA, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
-
-        lblHeatLA.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblHeatLA.setText("000");
-        lblHeatLA.setMaximumSize(new java.awt.Dimension(26, 15));
-        lblHeatLA.setMinimumSize(new java.awt.Dimension(26, 15));
-        lblHeatLA.setPreferredSize(new java.awt.Dimension(26, 15));
-        pnlCharts.add(lblHeatLA, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
-
-        lblHeatRear.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblHeatRear.setText("000");
-        lblHeatRear.setMaximumSize(new java.awt.Dimension(26, 15));
-        lblHeatRear.setMinimumSize(new java.awt.Dimension(26, 15));
-        lblHeatRear.setPreferredSize(new java.awt.Dimension(26, 15));
-        pnlCharts.add(lblHeatRear, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, -1, -1));
-
-        lblRngRear.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblRngRear.setText("000");
-        lblRngRear.setMaximumSize(new java.awt.Dimension(26, 15));
-        lblRngRear.setMinimumSize(new java.awt.Dimension(26, 15));
-        lblRngRear.setPreferredSize(new java.awt.Dimension(26, 15));
-        pnlCharts.add(lblRngRear, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, -1, -1));
-
-        lblDamRear.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblDamRear.setText("000");
-        lblDamRear.setMaximumSize(new java.awt.Dimension(26, 15));
-        lblDamRear.setMinimumSize(new java.awt.Dimension(26, 15));
-        lblDamRear.setPreferredSize(new java.awt.Dimension(26, 15));
-        pnlCharts.add(lblDamRear, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, -1, -1));
-
-        jLabel47.setText("Max Heat");
-        pnlCharts.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, -1, -1));
-
-        jLabel48.setText("Max Range");
-        pnlCharts.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, -1, -1));
-
-        jLabel49.setText("Max Damage");
-        pnlCharts.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, -1, -1));
-
-        jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/charts_basic.png"))); // NOI18N
-        jLabel37.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        pnlCharts.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 380));
-
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Total Tonnage Percentages"));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
@@ -8540,7 +8433,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 0);
         jPanel2.add(lblTonPercEquips, gridBagConstraints);
 
-        pnlCharts.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, 230, 150));
+        pnlCharts.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 230, 150));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Other Statistics"));
         jPanel3.setLayout(new java.awt.GridBagLayout());
@@ -8556,7 +8449,57 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 0);
         jPanel3.add(lblDamagePerTon, gridBagConstraints);
 
-        pnlCharts.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, 230, 50));
+        pnlCharts.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 230, 50));
+
+        pnlDamageChart.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pnlDamageChart.setLayout(null);
+        pnlCharts.add(pnlDamageChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 720, 280));
+
+        jLabel37.setText("Chart Legend:");
+        pnlCharts.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 90, -1));
+
+        jLabel38.setBackground(java.awt.Color.red);
+        jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel38.setText("Forward Arc Weapons");
+        jLabel38.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabel38.setMaximumSize(new java.awt.Dimension(140, 18));
+        jLabel38.setMinimumSize(new java.awt.Dimension(140, 18));
+        jLabel38.setOpaque(true);
+        jLabel38.setPreferredSize(new java.awt.Dimension(140, 18));
+        pnlCharts.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, 150, -1));
+
+        jLabel40.setBackground(java.awt.Color.pink);
+        jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel40.setText("Rear Arc Weapons");
+        jLabel40.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabel40.setMaximumSize(new java.awt.Dimension(140, 18));
+        jLabel40.setMinimumSize(new java.awt.Dimension(140, 18));
+        jLabel40.setOpaque(true);
+        jLabel40.setPreferredSize(new java.awt.Dimension(140, 18));
+        pnlCharts.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 30, 150, -1));
+
+        jLabel42.setBackground(java.awt.Color.green);
+        jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel42.setText("Right Arm Arc Weapons");
+        jLabel42.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabel42.setMaximumSize(new java.awt.Dimension(140, 18));
+        jLabel42.setMinimumSize(new java.awt.Dimension(140, 18));
+        jLabel42.setOpaque(true);
+        jLabel42.setPreferredSize(new java.awt.Dimension(140, 18));
+        pnlCharts.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 50, 150, -1));
+
+        jLabel44.setBackground(java.awt.Color.orange);
+        jLabel44.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel44.setText("Left Arm Arc Weapons");
+        jLabel44.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabel44.setMaximumSize(new java.awt.Dimension(140, 18));
+        jLabel44.setMinimumSize(new java.awt.Dimension(140, 18));
+        jLabel44.setOpaque(true);
+        jLabel44.setPreferredSize(new java.awt.Dimension(140, 18));
+        pnlCharts.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 70, 150, -1));
+
+        jLabel45.setText("<html>NOTE:<br>Depnding on the damage at a given<br>range, some lines may be hidden.</html>");
+        pnlCharts.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 240, -1));
 
         tbpMainTabPane.addTab("Charts", pnlCharts);
 
@@ -12706,14 +12649,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
-    private javax.swing.JLabel jLabel48;
-    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel51;
-    private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
@@ -12819,10 +12755,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel lblCTIntPts;
     private javax.swing.JLabel lblCTRArmorHeader;
     private javax.swing.JLabel lblCockpit;
-    private javax.swing.JLabel lblDamFront;
-    private javax.swing.JLabel lblDamLA;
-    private javax.swing.JLabel lblDamRA;
-    private javax.swing.JLabel lblDamRear;
     private javax.swing.JLabel lblDamagePerTon;
     private javax.swing.JLabel lblEngineType;
     private javax.swing.JLabel lblEraYears;
@@ -12832,10 +12764,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel lblHDHeader;
     private javax.swing.JLabel lblHDIntPts;
     private javax.swing.JLabel lblHSNumber;
-    private javax.swing.JLabel lblHeatFront;
-    private javax.swing.JLabel lblHeatLA;
-    private javax.swing.JLabel lblHeatRA;
-    private javax.swing.JLabel lblHeatRear;
     private javax.swing.JLabel lblHeatSinkType;
     private javax.swing.JLabel lblInfoAVCI;
     private javax.swing.JLabel lblInfoAVSL;
@@ -12886,10 +12814,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel lblRTHeader;
     private javax.swing.JLabel lblRTIntPts;
     private javax.swing.JLabel lblRTRArmorHeader;
-    private javax.swing.JLabel lblRngFront;
-    private javax.swing.JLabel lblRngLA;
-    private javax.swing.JLabel lblRngRA;
-    private javax.swing.JLabel lblRngRear;
     private javax.swing.JLabel lblRulesLevel;
     private javax.swing.JLabel lblRunMP;
     private javax.swing.JLabel lblRunMPLabel;
@@ -12988,6 +12912,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel pnlChassis;
     private javax.swing.JPanel pnlControls;
     private javax.swing.JPanel pnlCriticals;
+    private javax.swing.JPanel pnlDamageChart;
     private javax.swing.JPanel pnlDeployment;
     private javax.swing.JPanel pnlEnergy;
     private javax.swing.JPanel pnlEquipInfo;
