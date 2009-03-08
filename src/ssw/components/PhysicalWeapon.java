@@ -357,6 +357,26 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         return 0;
     }
 
+    public float GetBFDamageShort( boolean TC ) {
+        return 0;
+    }
+
+    public float GetBFDamageMedium( boolean TC ) {
+        return 0;
+    }
+
+    public float GetBFDamageLong( boolean TC ) {
+        return 0;
+    }
+
+    public float GetBFDamageExtreme( boolean TC ) {
+        return 0;
+    }
+
+    public String GetBFDamageString( boolean TC ) {
+        return "0/0/0/0";
+    }
+
     public int ClusterSize() {
         return 1;
     }

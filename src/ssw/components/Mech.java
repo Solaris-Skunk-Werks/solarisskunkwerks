@@ -3608,6 +3608,14 @@ public class Mech implements ifBattleforce{
         return e.GetBFStructure(t);
     }
 
+    public String GetBFConversionStr( boolean TC ) {
+        String retval = "Weapon\t\t\tShort\tMedium\tLong\n\r";
+        retval += CurLoadout.GetBFConversionStr( TC );
+        retval += "________________________________________________________________________________" + System.getProperty( "line.separator" );
+        retval += "Base Damage\n\rHeat\n\rHeat Adjusted";
+        return retval;
+    }
+
     public ifVisitor Lookup( String s ) {
         // returns a visitor from the lookup table based on the lookup string
         return (ifVisitor) Lookup.get( s );

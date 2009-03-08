@@ -39,6 +39,10 @@ public interface ifBattleforce {
     public String GetBFSecondaryMovementMode();
     public int GetBFArmor();
     public int GetBFStructure();
+    //public int GetBFDamageShort( boolean TC );
+    
+    
+    public String GetBFConversionStr( boolean TC );
     //public int GetBFOverheat();
     //public int GetBFPoints();
 }

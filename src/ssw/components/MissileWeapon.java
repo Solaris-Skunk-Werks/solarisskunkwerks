@@ -251,6 +251,49 @@ public class MissileWeapon extends abPlaceable implements ifWeapon {
         return RngLng;
     }
 
+    public float GetBFDamageShort( boolean TC ) {
+        int retval = 0;
+
+        retval = GetDamageShort();
+
+        return retval;
+    }
+
+    public float GetBFDamageMedium( boolean TC ) {
+        float retval = 0;
+
+        if ( GetRangeShort() > 3 )
+            retval = GetDamageShort();
+
+        return retval;
+    }
+
+    public float GetBFDamageLong( boolean TC ) {
+        float retval = 0;
+
+        if ( GetRangeShort() > 15 )
+            retval = GetDamageShort();
+
+        return retval;
+    }
+
+    public float GetBFDamageExtreme( boolean TC ) {
+        float retval = 0;
+
+        if ( GetRangeShort() > 23 )
+            retval = GetDamageShort();
+
+        return retval;
+    }
+
+    public String GetBFDamageString( boolean TC ) {
+        String retval = "";
+
+        retval += GetBFDamageShort(TC);
+
+        return retval;
+    }
+
     public int GetAmmo() {
         return AmmoPerTon;
     }

@@ -30,6 +30,11 @@ package ssw.battleforce;
 
 public class BattleForceTools {
 
+    public static final float[] BFMinRangeModifiers = {1.00f, 0.92f, 0.83f, 0.75f,
+        0.66f, 0.58f, 0.50f};
+    public static final float[] BFToHitModifiers = {1.20f, 1.15f, 1.10f, 1.05f,
+        1.00f, 0.95f, 0.90f, 0.85f, 0.80f};
+
     public static String GetMovementString( ifBattleforce b ){
 
         if (b.GetBFSecondaryMovement() > 0){

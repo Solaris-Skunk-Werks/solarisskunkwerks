@@ -3795,6 +3795,12 @@ public class QuadLoadout implements ifLoadout {
         return MechMods;
     }
 
+    public String GetBFConversionStr( boolean TC ) {
+        String retval = "";
+
+        return retval;
+    }
+
     @Override
     public String toString() {
         return "Loadout " + Name;
