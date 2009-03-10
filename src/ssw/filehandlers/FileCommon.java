@@ -311,17 +311,58 @@ public class FileCommon {
 
     public static String GetCaseLocations( Mech m ) {
         String retval = "";
-
-        if( m.HasCTCase() ) {
-            retval += "1 CT";
-        }
-        if( m.HasLTCase() ) {
-            retval += ", 1 LT";
-            
-        }
-        if( m.HasRTCase() ) {
-            retval += ", 1 RT";
-            
+        if( m.IsClan() ) {
+            int[] check = m.GetLoadout().FindExplosiveInstances();
+            if( check[Constants.LOC_HD] > 0 ) {
+                retval += "HD";
+            }
+            if( check[Constants.LOC_CT] > 0 ) {
+                retval += ", CT";
+            }
+            if( check[Constants.LOC_LT] > 0 ) {
+                retval += ", LT";
+            }
+            if( check[Constants.LOC_RT] > 0 ) {
+                retval += ", RT";
+            }
+            if( check[Constants.LOC_LA] > 0 ) {
+                if( m.IsQuad() ) {
+                    retval += ", FLL";
+                } else {
+                    retval += ", LA";
+                }
+            }
+            if( check[Constants.LOC_RA] > 0 ) {
+                if( m.IsQuad() ) {
+                    retval += ", FRL";
+                } else {
+                    retval += ", RA";
+                }
+            }
+            if( check[Constants.LOC_LL] > 0 ) {
+                if( m.IsQuad() ) {
+                    retval += ", RLL";
+                } else {
+                    retval += ", LL";
+                }
+            }
+            if( check[Constants.LOC_RL] > 0 ) {
+                if( m.IsQuad() ) {
+                    retval += ", RRL";
+                } else {
+                    retval += ", RL";
+                }
+            }
+        } else {
+            if( m.HasCTCase() ) {
+                retval += "1 CT";
+            }
+            if( m.HasLTCase() ) {
+                retval += ", 1 LT";
+            }
+            if( m.HasRTCase() ) {
+                retval += ", 1 RT";
+            }
         }
         if( retval.startsWith( "," ) ) {
             return retval.substring( 2 );

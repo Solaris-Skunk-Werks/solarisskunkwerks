@@ -179,6 +179,7 @@ Version 0.6.0
 - ICE and Cell engines, as well as Industrial and Commercial armor now export to MTF correctly.
 - Made a slight change in the GetWastedTonnage and GetWastedAV routines to hopefully report better.
 - When exporting to text, the program will now word-wrap fluff at 80 characters.
+- CASE locations for Clan 'Mechs is now shown on HTML and TXT exports.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

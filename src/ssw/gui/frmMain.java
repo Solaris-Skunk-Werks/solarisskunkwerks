@@ -2665,21 +2665,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( v.get( j ) instanceof ifWeapon ) {
                     w = (ifWeapon) v.get( j );
                     if( ! ((abPlaceable) w).IsMountedRear() ) {
-                        if( w.GetRangeLong() <= 0 ) {
-                            if( w.GetRangeMedium() <= 0 ) {
-                                if( w.GetRangeShort() >= i ) {
-                                    chart[i] += GetMaxDamage( w );
-                                }
-                            } else {
-                                if( w.GetRangeMedium() >= i ) {
-                                    chart[i] += GetMaxDamage( w );
-                                }
-                            }
-                        } else {
-                            if( w.GetRangeLong() >= i ) {
-                                chart[i] += GetMaxDamage( w );
-                            }
-                        }
+                        chart[i] += GetDamageAtRange( w, i );
                     }
                 }
             }
@@ -2699,21 +2685,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( v.get( j ) instanceof ifWeapon ) {
                     w = (ifWeapon) v.get( j );
                     if( CurMech.GetLoadout().Find( (abPlaceable) w ) == Constants.LOC_RA ) {
-                        if( w.GetRangeLong() <= 0 ) {
-                            if( w.GetRangeMedium() <= 0 ) {
-                                if( w.GetRangeShort() >= i ) {
-                                    chart[i] += GetMaxDamage( w );
-                                }
-                            } else {
-                                if( w.GetRangeMedium() >= i ) {
-                                    chart[i] += GetMaxDamage( w );
-                                }
-                            }
-                        } else {
-                            if( w.GetRangeLong() >= i ) {
-                                chart[i] += GetMaxDamage( w );
-                            }
-                        }
+                        chart[i] += GetDamageAtRange( w, i );
                     }
                 }
             }
@@ -2733,21 +2705,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( v.get( j ) instanceof ifWeapon ) {
                     w = (ifWeapon) v.get( j );
                     if( CurMech.GetLoadout().Find( (abPlaceable) w ) == Constants.LOC_LA ) {
-                        if( w.GetRangeLong() <= 0 ) {
-                            if( w.GetRangeMedium() <= 0 ) {
-                                if( w.GetRangeShort() >= i ) {
-                                    chart[i] += GetMaxDamage( w );
-                                }
-                            } else {
-                                if( w.GetRangeMedium() >= i ) {
-                                    chart[i] += GetMaxDamage( w );
-                                }
-                            }
-                        } else {
-                            if( w.GetRangeLong() >= i ) {
-                                chart[i] += GetMaxDamage( w );
-                            }
-                        }
+                        chart[i] += GetDamageAtRange( w, i );
                     }
                 }
             }
@@ -2769,26 +2727,73 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     w = (ifWeapon) v.get( j );
                     int Loc = CurMech.GetLoadout().Find( (abPlaceable) w );
                     if( ((abPlaceable) w).IsMountedRear() || (( Loc == Constants.LOC_LA || Loc == Constants.LOC_RA ) && flip ) ) {
-                        if( w.GetRangeLong() <= 0 ) {
-                            if( w.GetRangeMedium() <= 0 ) {
-                                if( w.GetRangeShort() >= i ) {
-                                    chart[i] += GetMaxDamage( w );
-                                }
-                            } else {
-                                if( w.GetRangeMedium() >= i ) {
-                                    chart[i] += GetMaxDamage( w );
-                                }
-                            }
-                        } else {
-                            if( w.GetRangeLong() >= i ) {
-                                chart[i] += GetMaxDamage( w );
-                            }
-                        }
+                        chart[i] += GetDamageAtRange( w, i );
                     }
                 }
             }
         }
         return chart;
+    }
+
+    private int GetDamageAtRange( ifWeapon w, int range ) {
+        int mult = 1;
+        if( w.IsUltra() ) {
+            mult = 2;
+        }
+        if( w.IsRotary() ) {
+            mult = 6;
+        }
+        if( w.GetRangeLong() <= 0 ) {
+            if( w.GetRangeMedium() <= 0 ) {
+                if( range <= w.GetRangeShort() ) {
+                    if( w instanceof MissileWeapon ) {
+                        return w.GetDamageShort() * mult * w.ClusterSize();
+                    } else {
+                        return w.GetDamageShort() * mult;
+                    }
+                } else {
+                    return 0;
+                }
+            } else {
+                if( range <= w.GetRangeShort() ) {
+                    if( w instanceof MissileWeapon ) {
+                        return w.GetDamageShort() * mult * w.ClusterSize();
+                    } else {
+                        return w.GetDamageShort() * mult;
+                    }
+                } else if( range <= w.GetRangeMedium() ) {
+                    if( w instanceof MissileWeapon ) {
+                        return w.GetDamageMedium() * mult * w.ClusterSize();
+                    } else {
+                        return w.GetDamageMedium() * mult;
+                    }
+                } else {
+                    return 0;
+                }
+            }
+        } else {
+            if( range <= w.GetRangeShort() ) {
+                if( w instanceof MissileWeapon ) {
+                    return w.GetDamageShort() * mult * w.ClusterSize();
+                } else {
+                    return w.GetDamageShort() * mult;
+                }
+            } else if( range <= w.GetRangeMedium() ) {
+                if( w instanceof MissileWeapon ) {
+                    return w.GetDamageMedium() * mult * w.ClusterSize();
+                } else {
+                    return w.GetDamageMedium() * mult;
+                }
+            } else if( range <= w.GetRangeLong() ) {
+                if( w instanceof MissileWeapon ) {
+                    return w.GetDamageLong() * mult * w.ClusterSize();
+                } else {
+                    return w.GetDamageLong() * mult;
+                }
+            } else {
+                return 0;
+            }
+        }
     }
 
      /** This method is called from within the constructor to
