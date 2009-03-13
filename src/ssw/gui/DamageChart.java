@@ -62,6 +62,7 @@ public class DamageChart extends JPanel {
  */
     public void ClearCharts() {
         charts.clear();
+        colors.clear();
     }
 
     @Override
@@ -83,7 +84,11 @@ public class DamageChart extends JPanel {
             int[] chart = (int[]) charts.get( i );
             g.setColor( ((Color) colors.get( i )) );
             for( int j = 1; j < chart.length; j++ ) {
-                g.draw( new Line2D.Double( (( j - 1 ) * offX), (dy - (chart[j-1] * offY)), (j * offX), (dy - (chart[j] * offY)) ) );
+                if( chart[j] == 0 ) {
+                    g.draw( new Line2D.Double( (( j - 1 ) * offX), (dy - (chart[j-1] * offY)), (( j - 1 ) * offX), (dy - (chart[j] * offY)) ) );
+                } else {
+                    g.draw( new Line2D.Double( (( j - 1 ) * offX), (dy - (chart[j-1] * offY)), (j * offX), (dy - (chart[j] * offY)) ) );
+                }
             }
         }
     }

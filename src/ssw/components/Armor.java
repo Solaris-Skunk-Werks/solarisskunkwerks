@@ -185,6 +185,7 @@ public class Armor  extends abPlaceable {
         if( ArmorPoints[Constants.LOC_RL] > MaxArmor[Constants.LOC_RL] ) {
             SetArmor( Constants.LOC_RL, MaxArmor[Constants.LOC_RL] );
         }
+        Owner.SetChanged( true );
     }
 
     public void SetMaxArmor() {
@@ -225,6 +226,7 @@ public class Armor  extends abPlaceable {
         if( ArmorPoints[Loc] < MaxArmor[Loc] ) {
             ArmorPoints[Loc]++;
         }
+        Owner.SetChanged( true );
     }
 
     private void IncrementDouble( int LocFront, int LocRear ) {
@@ -256,6 +258,7 @@ public class Armor  extends abPlaceable {
                 }
             }
         }
+        Owner.SetChanged( true );
     }
 
     public void DecrementArmor( int Loc ) {
@@ -265,6 +268,7 @@ public class Armor  extends abPlaceable {
         } else {
             ArmorPoints[Loc]--;
         }
+        Owner.SetChanged( true );
     }
 
     public void SetArmor( int Loc, int av ) {
@@ -284,7 +288,7 @@ public class Armor  extends abPlaceable {
                 SetDouble( Loc, rear, av );
                 break;
         }
-       
+        Owner.SetChanged( true );
     }
 
     private void SetSingle( int Loc, int av ) {
@@ -296,6 +300,7 @@ public class Armor  extends abPlaceable {
         } else {
             ArmorPoints[Loc] = av;
         }
+        Owner.SetChanged( true );
     }
 
     private void SetDouble( int LocFront, int LocRear, int av ) {
@@ -335,6 +340,7 @@ public class Armor  extends abPlaceable {
             // finally, set the armor
             ArmorPoints[LocFront] = av;
         }
+        Owner.SetChanged( true );
     }
 
     public int GetLocationArmor( int Loc ) {

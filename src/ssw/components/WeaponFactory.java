@@ -1369,6 +1369,97 @@ public class WeaponFactory {
         addMW.SetToHit( 1, 1, 1 );
         ISMW.add(addMW);
 
+        // lrt-5
+        a = new AvailableCode(false, 'C', 'C', 'C', 'C', 2400, 0, 0, "TH", "", false, false);
+        addMW = new MissileWeapon("LRT-5", "ISLRT5", "M", false, a);
+        addMW.SetPrintName( "LRT-5" );
+        addMW.SetDamage(1, 1, 1);
+        addMW.SetHeat(2);
+        addMW.SetRange(6, 7, 14, 21);
+        addMW.SetSpecials("C/S/C5/5", false, true, 24, 145, false);
+        addMW.SetStats(2.0f, 1, 30000.0f, 45.0f, 0.0f);
+        addMW.SetMissile(5, 5, false, true, false);
+        addMW.SetArtemisType(Constants.ART4_LRM);
+        ISMW.add(addMW);
+
+        // lrt-10
+        a = new AvailableCode(false, 'C', 'C', 'C', 'C', 2400, 0, 0, "TH", "", false, false);
+        addMW = new MissileWeapon("LRT-10", "ISLRT10", "M", false, a);
+        addMW.SetPrintName( "LRT-10" );
+        addMW.SetDamage(1, 1, 1);
+        addMW.SetHeat(4);
+        addMW.SetRange(6, 7, 14, 21);
+        addMW.SetSpecials("C/S/C5/10", false, true, 12, 146, false);
+        addMW.SetStats(5.0f, 2, 100000.0f, 90.0f, 0.0f);
+        addMW.SetMissile(10, 5, false, true, false);
+        addMW.SetArtemisType(Constants.ART4_LRM);
+        ISMW.add(addMW);
+
+        // lrt-15
+        a = new AvailableCode(false, 'C', 'C', 'C', 'C', 2400, 0, 0, "TH", "", false, false);
+        addMW = new MissileWeapon("LRT-15", "ISLRT15", "M", false, a);
+        addMW.SetPrintName( "LRT-15" );
+        addMW.SetDamage(1, 1, 1);
+        addMW.SetHeat(5);
+        addMW.SetRange(6, 7, 14, 21);
+        addMW.SetSpecials("C/S/C5/15", false, true, 8, 147, false);
+        addMW.SetStats(7.0f, 3, 175000.0f, 136.0f, 0.0f);
+        addMW.SetMissile(15, 5, false, true, false);
+        addMW.SetArtemisType(Constants.ART4_LRM);
+        ISMW.add(addMW);
+
+        // lrt-20
+        a = new AvailableCode(false, 'C', 'C', 'C', 'C', 2400, 0, 0, "TH", "", false, false);
+        addMW = new MissileWeapon("LRT-20", "ISLRT20", "M", false, a);
+        addMW.SetPrintName( "LRT-20" );
+        addMW.SetDamage(1, 1, 1);
+        addMW.SetHeat(6);
+        addMW.SetRange(6, 7, 14, 21);
+        addMW.SetSpecials("C/S/C5/20", false, true, 6, 148, false);
+        addMW.SetStats(10.0f, 5, 250000.0f, 181.0f, 0.0f);
+        addMW.SetMissile(20, 5, false, true, false);
+        addMW.SetArtemisType(Constants.ART4_LRM);
+        ISMW.add(addMW);
+
+        // srt-2
+        a = new AvailableCode( false, 'C', 'C', 'C', 'C', 2380, 0, 0, "TH", "", false, false );
+        addMW = new MissileWeapon("SRT-2", "ISSRT2", "M", false, a);
+        addMW.SetPrintName( "SRT-2" );
+        addMW.SetDamage(2, 2, 2);
+        addMW.SetHeat(2);
+        addMW.SetRange(0, 3, 6, 9);
+        addMW.SetSpecials("C/C2/2", false, true, 50, 142, false);
+        addMW.SetStats(1.0f, 1, 10000.0f, 21.0f, 0.0f);
+        addMW.SetMissile(2, 2, false, true, false);
+        addMW.SetArtemisType(Constants.ART4_SRM);
+        ISMW.add(addMW);
+
+        // srt-4
+        a = new AvailableCode( false, 'C', 'C', 'C', 'C', 2380, 0, 0, "TH", "", false, false );
+        addMW = new MissileWeapon("SRT-4", "ISSRT4", "M", false, a);
+        addMW.SetPrintName( "SRT-4" );
+        addMW.SetDamage(2, 2, 2);
+        addMW.SetHeat(3);
+        addMW.SetRange(0, 3, 6, 9);
+        addMW.SetSpecials("C/C2/4", false, true, 25, 143, false);
+        addMW.SetStats(2.0f, 1, 60000.0f, 39.0f, 0.0f);
+        addMW.SetMissile(4, 2, false, true, false);
+        addMW.SetArtemisType(Constants.ART4_SRM);
+        ISMW.add(addMW);
+
+        // srt-6
+        a = new AvailableCode( false, 'C', 'C', 'C', 'C', 2380, 0, 0, "TH", "", false, false );
+        addMW = new MissileWeapon("SRT-6", "ISSRT6", "M", false, a);
+        addMW.SetPrintName( "SRT-6" );
+        addMW.SetDamage(2, 2, 2);
+        addMW.SetHeat(4);
+        addMW.SetRange(0, 3, 6, 9);
+        addMW.SetSpecials("C/C2/6", false, true, 15, 144, false);
+        addMW.SetStats(3.0f, 2, 80000.0f, 59.0f, 0.0f);
+        addMW.SetMissile(6, 2, false, true, false);
+        addMW.SetArtemisType(Constants.ART4_SRM);
+        ISMW.add(addMW);
+
         // mech mortar 1
         a = new AvailableCode( false, 'B', 'D', 'F', 'E', 2531, 2819, 3043, "TH", "FC", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
         addMW = new MissileWeapon("'Mech Mortar 1", "ISMekMortar1", "M", false, a);
@@ -1865,6 +1956,97 @@ public class WeaponFactory {
         addMW.SetStats(12.5f, 7, 175000.0f, 49.0f, 0.0f);
         addMW.SetMissile(40, 5, false, false, true);
         addMW.SetToHit( 1, 1, 1 );
+        ISMW.add(addMW);
+
+        // lrt-5 OS
+        a = new AvailableCode(false, 'C', 'C', 'F', 'C', 2676, 2800, 3030, "TH", "FW", true, true);
+        addMW = new MissileWeapon("LRT-5 (OS)", "ISLRT5 (OS)", "M", false, a);
+        addMW.SetPrintName( "LRT-5 (OS)" );
+        addMW.SetDamage(1, 1, 1);
+        addMW.SetHeat(2);
+        addMW.SetRange(6, 7, 14, 21);
+        addMW.SetSpecials("C/S/C5/5/OS", false, false, 0, 0, false);
+        addMW.SetStats(2.5f, 1, 15000.0f, 9.0f, 0.0f);
+        addMW.SetMissile(5, 5, false, true, true);
+        addMW.SetArtemisType(Constants.ART4_LRM);
+        ISMW.add(addMW);
+
+        // lrt-10 OS
+        a = new AvailableCode(false, 'C', 'C', 'F', 'C', 2676, 2800, 3030, "TH", "FW", true, true);
+        addMW = new MissileWeapon("LRT-10 (OS)", "ISLRT10 (OS)", "M", false, a);
+        addMW.SetPrintName( "LRT-10 (OS)" );
+        addMW.SetDamage(1, 1, 1);
+        addMW.SetHeat(4);
+        addMW.SetRange(6, 7, 14, 21);
+        addMW.SetSpecials("C/S/C5/10/OS", false, false, 0, 0, false);
+        addMW.SetStats(5.5f, 2, 50000.0f, 18.0f, 0.0f);
+        addMW.SetMissile(10, 5, false, true, true);
+        addMW.SetArtemisType(Constants.ART4_LRM);
+        ISMW.add(addMW);
+
+        // lrt-15 OS
+        a = new AvailableCode(false, 'C', 'C', 'F', 'C', 2676, 2800, 3030, "TH", "FW", true, true);
+        addMW = new MissileWeapon("LRT-15 (OS)", "ISLRT15 (OS)", "M", false, a);
+        addMW.SetPrintName( "LRT-15 (OS)" );
+        addMW.SetDamage(1, 1, 1);
+        addMW.SetHeat(5);
+        addMW.SetRange(6, 7, 14, 21);
+        addMW.SetSpecials("C/S/C5/15/OS", false, false, 0, 0, false);
+        addMW.SetStats(7.5f, 3, 87500.0f, 27.0f, 0.0f);
+        addMW.SetMissile(15, 5, false, true, true);
+        addMW.SetArtemisType(Constants.ART4_LRM);
+        ISMW.add(addMW);
+
+        // lrt-20 OS
+        a = new AvailableCode(false, 'C', 'C', 'F', 'C', 2676, 2800, 3030, "TH", "FW", true, true);
+        addMW = new MissileWeapon("LRT-20 (OS)", "ISLRT20 (OS)", "M", false, a);
+        addMW.SetPrintName( "LRT-20 (OS)" );
+        addMW.SetDamage(1, 1, 1);
+        addMW.SetHeat(6);
+        addMW.SetRange(6, 7, 14, 21);
+        addMW.SetSpecials("C/S/C5/20/OS", false, false, 0, 0, false);
+        addMW.SetStats(10.5f, 5, 125000.0f, 36.0f, 0.0f);
+        addMW.SetMissile(20, 5, false, true, true);
+        addMW.SetArtemisType(Constants.ART4_LRM);
+        ISMW.add(addMW);
+
+        // srt-2 OS
+        a = new AvailableCode(false, 'C', 'C', 'F', 'C', 2676, 2800, 3030, "TH", "FW", true, true);
+        addMW = new MissileWeapon("SRT-2 (OS)", "ISSRT2 (OS)", "M", false, a);
+        addMW.SetPrintName( "SRT-2 (OS)" );
+        addMW.SetDamage(2, 2, 2);
+        addMW.SetHeat(2);
+        addMW.SetRange(0, 3, 6, 9);
+        addMW.SetSpecials("C/C2/2/OS", false, false, 0, 0, false);
+        addMW.SetStats(1.5f, 1, 5000.0f, 4.0f, 0.0f);
+        addMW.SetMissile(2, 2, false, true, true);
+        addMW.SetArtemisType(Constants.ART4_SRM);
+        ISMW.add(addMW);
+
+        // srt-4 OS
+        a = new AvailableCode(false, 'C', 'C', 'F', 'C', 2676, 2800, 3030, "TH", "FW", true, true);
+        addMW = new MissileWeapon("SRT-4 (OS)", "ISSRT4 (OS)", "M", false, a);
+        addMW.SetPrintName( "SRT-4 (OS)" );
+        addMW.SetDamage(2, 2, 2);
+        addMW.SetHeat(3);
+        addMW.SetRange(0, 3, 6, 9);
+        addMW.SetSpecials("C/C2/4/OS", false, false, 0, 0, false);
+        addMW.SetStats(2.5f, 1, 30000.0f, 8.0f, 0.0f);
+        addMW.SetMissile(4, 2, false, true, true);
+        addMW.SetArtemisType(Constants.ART4_SRM);
+        ISMW.add(addMW);
+
+        // srt-6 OS
+        a = new AvailableCode(false, 'C', 'C', 'F', 'C', 2676, 2800, 3030, "TH", "FW", true, true);
+        addMW = new MissileWeapon("SRT-6 (OS)", "ISSRT6 (OS)", "M", false, a);
+        addMW.SetPrintName( "SRT-6 (OS)" );
+        addMW.SetDamage(2, 2, 2);
+        addMW.SetHeat(4);
+        addMW.SetRange(0, 3, 6, 9);
+        addMW.SetSpecials("C/C2/6/OS", false, false, 0, 0, false);
+        addMW.SetStats(3.5f, 2, 40000.0f, 12.0f, 0.0f);
+        addMW.SetMissile(6, 2, false, true, true);
+        addMW.SetArtemisType(Constants.ART4_SRM);
         ISMW.add(addMW);
 
         // thunderbolt-5 OS
@@ -3184,6 +3366,97 @@ public class WeaponFactory {
         addMW.SetMissile( 6, 2, true, false, false );
         CLMW.add( addMW  );
 
+        // clan lrt-5
+        a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2400, 0, 0, "TH", "", false, false );
+        addMW = new MissileWeapon( "LRT-5", "CLLRT5", "M", true, a );
+        addMW.SetPrintName( "LRM-5" );
+        addMW.SetDamage( 1, 1, 1 );
+        addMW.SetHeat( 2 );
+        addMW.SetRange( 0, 7, 14, 21 );
+        addMW.SetSpecials( "C/S/C5/5", false, true, 24, 152, false );
+        addMW.SetStats( 1.0f, 1, 30000.0f, 55.0f, 0.0f );
+        addMW.SetMissile( 5, 5, false, true, false );
+        addMW.SetArtemisType( Constants.ART4_LRM );
+        CLMW.add( addMW  );
+
+        // clan lrt-10
+        a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2400, 0, 0, "TH", "", false, false );
+        addMW = new MissileWeapon( "LRT-10", "CLLRT10", "M", true, a );
+        addMW.SetPrintName( "LRT-10" );
+        addMW.SetDamage( 1, 1, 1 );
+        addMW.SetHeat( 4 );
+        addMW.SetRange( 0, 7, 14, 21 );
+        addMW.SetSpecials( "C/S/C5/10", false, true, 12, 153, false );
+        addMW.SetStats( 2.5f, 1, 100000.0f, 109.0f, 0.0f );
+        addMW.SetMissile( 10, 5, false, true, false );
+        addMW.SetArtemisType( Constants.ART4_LRM );
+        CLMW.add( addMW  );
+
+        // clan lrt-15
+        a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2400, 0, 0, "TH", "", false, false );
+        addMW = new MissileWeapon( "LRT-15", "CLLRT15", "M", true, a );
+        addMW.SetPrintName( "LRM-15" );
+        addMW.SetDamage( 1, 1, 1 );
+        addMW.SetHeat( 5 );
+        addMW.SetRange( 0, 7, 14, 21 );
+        addMW.SetSpecials( "C/S/C5/15", false, true, 8, 154, false );
+        addMW.SetStats( 3.5f, 2, 175000.0f, 164.0f, 0.0f );
+        addMW.SetMissile( 15, 5, false, true, false );
+        addMW.SetArtemisType( Constants.ART4_LRM );
+        CLMW.add( addMW  );
+
+        // clan lrt-20
+        a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2400, 0, 0, "TH", "", false, false );
+        addMW = new MissileWeapon( "LRT-20", "CLLRT20", "M", true, a );
+        addMW.SetPrintName( "LRT-20" );
+        addMW.SetDamage( 1, 1, 1 );
+        addMW.SetHeat( 6 );
+        addMW.SetRange( 0, 7, 14, 21 );
+        addMW.SetSpecials( "C/S/C5/20", false, true, 6, 155, false );
+        addMW.SetStats( 5.0f, 4, 250000.0f, 220.0f, 0.0f );
+        addMW.SetMissile( 20, 5, false, true, false );
+        addMW.SetArtemisType( Constants.ART4_LRM );
+        CLMW.add( addMW  );
+
+        // clan srt-2
+        a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2380, 0, 0, "TH", "", false, false );
+        addMW = new MissileWeapon( "SRT-2", "CLSRT2", "M", true, a );
+        addMW.SetPrintName( "SRT-2" );
+        addMW.SetDamage( 2, 2, 2 );
+        addMW.SetHeat( 2 );
+        addMW.SetRange( 0, 3, 6, 9 );
+        addMW.SetSpecials( "C/C2/2", false, true, 50, 149, false );
+        addMW.SetStats( 0.5f, 1, 10000.0f, 21.0f, 0.0f );
+        addMW.SetMissile( 2, 2, false, true, false );
+        addMW.SetArtemisType( Constants.ART4_SRM );
+        CLMW.add( addMW  );
+
+        // clan srt-4
+        a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2380, 0, 0, "TH", "", false, false );
+        addMW = new MissileWeapon( "SRT-4", "CLSRT4", "M", true, a );
+        addMW.SetPrintName( "SRT-4" );
+        addMW.SetDamage( 2, 2, 2 );
+        addMW.SetHeat( 3 );
+        addMW.SetRange( 0, 3, 6, 9 );
+        addMW.SetSpecials( "C/C2/4", false, true, 25, 150, false );
+        addMW.SetStats( 1.0f, 1, 60000.0f, 39.0f, 0.0f );
+        addMW.SetMissile( 4, 2, false, true, false );
+        addMW.SetArtemisType( Constants.ART4_SRM );
+        CLMW.add( addMW  );
+
+        // clan srt-6
+        a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2380, 0, 0, "TH", "", false, false );
+        addMW = new MissileWeapon( "SRT-6", "CLSRT6", "M", true, a );
+        addMW.SetPrintName( "SRT-6" );
+        addMW.SetDamage( 2, 2, 2 );
+        addMW.SetHeat( 4 );
+        addMW.SetRange( 0, 3, 6, 9 );
+        addMW.SetSpecials( "C/C2/6", false, true, 15, 151, false );
+        addMW.SetStats( 1.5f, 1, 80000.0f, 59.0f, 0.0f );
+        addMW.SetMissile( 6, 2, false, true, false );
+        addMW.SetArtemisType( Constants.ART4_SRM );
+        CLMW.add( addMW  );
+
         // clan streak lrm-5
         a = new AvailableCode( true, 'F', 'X', 'X', 'F', 3057, 0, 0, "CCY", "", false, false, 3055, true, "CC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
         addMW = new MissileWeapon( "Streak LRM-5", "CLStreakLRM5", "M", true, a );
@@ -3369,6 +3642,97 @@ public class WeaponFactory {
         addMW.SetSpecials( "C/C2/6/OS", false, false, 0, 0, false );
         addMW.SetStats( 3.5f, 2, 60000.0f, 24.0f, 0.0f );
         addMW.SetMissile( 6, 2, true, false, true );
+        CLMW.add( addMW  );
+
+        // clan lrt-5 OS
+        a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2676, 0, 0, "TH", "", false, false );
+        addMW = new MissileWeapon( "LRT-5 (OS)", "CLLRT5 (OS)", "M", true, a );
+        addMW.SetPrintName( "LRT-5 (OS)" );
+        addMW.SetDamage( 1, 1, 1 );
+        addMW.SetHeat( 2 );
+        addMW.SetRange( 0, 7, 14, 21 );
+        addMW.SetSpecials( "C/S/C5/5/OS", false, false, 0, 0, false );
+        addMW.SetStats( 1.5f, 1, 15000.0f, 11.0f, 0.0f );
+        addMW.SetMissile( 5, 5, false, true, true );
+        addMW.SetArtemisType( Constants.ART4_LRM );
+        CLMW.add( addMW  );
+
+        // clan lrt-10 OS
+        a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2676, 0, 0, "TH", "", false, false );
+        addMW = new MissileWeapon( "LRT-10 (OS)", "CLLRT10 (OS)", "M", true, a );
+        addMW.SetPrintName( "LRT-10 (OS)" );
+        addMW.SetDamage( 1, 1, 1 );
+        addMW.SetHeat( 4 );
+        addMW.SetRange( 0, 7, 14, 21 );
+        addMW.SetSpecials( "C/S/C5/10/OS", false, false, 0, 0, false );
+        addMW.SetStats( 3.0f, 1, 50000.0f, 22.0f, 0.0f );
+        addMW.SetMissile( 10, 5, false, true, true );
+        addMW.SetArtemisType( Constants.ART4_LRM );
+        CLMW.add( addMW  );
+
+        // clan lrt-15 OS
+        a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2676, 0, 0, "TH", "", false, false );
+        addMW = new MissileWeapon( "LRT-15 (OS)", "CLLRT15 (OS)", "M", true, a );
+        addMW.SetPrintName( "LRT-15 (OS)" );
+        addMW.SetDamage( 1, 1, 1 );
+        addMW.SetHeat( 5 );
+        addMW.SetRange( 0, 7, 14, 21 );
+        addMW.SetSpecials( "C/S/C5/15/OS", false, false, 0, 0, false );
+        addMW.SetStats( 4.0f, 2, 87500.0f, 33.0f, 0.0f );
+        addMW.SetMissile( 15, 5, false, true, true );
+        addMW.SetArtemisType( Constants.ART4_LRM );
+        CLMW.add( addMW  );
+
+        // clan lrt-20 OS
+        a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2676, 0, 0, "TH", "", false, false );
+        addMW = new MissileWeapon( "LRT-20 (OS)", "CLLRT20 (OS)", "M", true, a );
+        addMW.SetPrintName( "LRT-20 (OS)" );
+        addMW.SetDamage( 1, 1, 1 );
+        addMW.SetHeat( 6 );
+        addMW.SetRange( 0, 7, 14, 21 );
+        addMW.SetSpecials( "C/S/C5/20/OS", false, false, 0, 0, false );
+        addMW.SetStats( 5.5f, 4, 125000.0f, 44.0f, 0.0f );
+        addMW.SetMissile( 20, 5, false, true, true );
+        addMW.SetArtemisType( Constants.ART4_LRM );
+        CLMW.add( addMW  );
+
+        // clan srt-2 OS
+        a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2676, 0, 0, "TH", "", false, false );
+        addMW = new MissileWeapon( "SRT-2 (OS)", "CLSRT2 (OS)", "M", true, a );
+        addMW.SetPrintName( "SRT-2 (OS)" );
+        addMW.SetDamage( 2, 2, 2 );
+        addMW.SetHeat( 2 );
+        addMW.SetRange( 0, 3, 6, 9 );
+        addMW.SetSpecials( "C/C2/2/OS", false, false, 0, 0, false );
+        addMW.SetStats( 1.0f, 1, 5000.0f, 4.0f, 0.0f );
+        addMW.SetMissile( 2, 2, false, true, true );
+        addMW.SetArtemisType( Constants.ART4_SRM );
+        CLMW.add( addMW  );
+
+        // clan srt-4 OS
+        a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2676, 0, 0, "TH", "", false, false );
+        addMW = new MissileWeapon( "SRT-4 (OS)", "CLSRT4 (OS)", "M", true, a );
+        addMW.SetPrintName( "SRT-4 (OS)" );
+        addMW.SetDamage( 2, 2, 2 );
+        addMW.SetHeat( 3 );
+        addMW.SetRange( 0, 3, 6, 9 );
+        addMW.SetSpecials( "C/C2/4/OS", false, false, 0, 0, false );
+        addMW.SetStats( 1.5f, 1, 30000.0f, 8.0f, 0.0f );
+        addMW.SetMissile( 4, 2, false, true, true );
+        addMW.SetArtemisType( Constants.ART4_SRM );
+        CLMW.add( addMW  );
+
+        // clan srt-6 OS
+        a = new AvailableCode( true, 'F', 'X', 'B', 'B', 2676, 0, 0, "TH", "", false, false );
+        addMW = new MissileWeapon( "SRT-6 (OS)", "CLSRT6 (OS)", "M", true, a );
+        addMW.SetPrintName( "SRT-6 (OS)" );
+        addMW.SetDamage( 2, 2, 2 );
+        addMW.SetHeat( 4 );
+        addMW.SetRange( 0, 3, 6, 9 );
+        addMW.SetSpecials( "C/C2/6/OS", false, false, 0, 0, false );
+        addMW.SetStats( 2.0f, 1, 40000.0f, 12.0f, 0.0f );
+        addMW.SetMissile( 6, 2, false, true, true );
+        addMW.SetArtemisType( Constants.ART4_SRM );
         CLMW.add( addMW  );
 
         // narc missile beacon OS

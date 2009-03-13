@@ -2502,28 +2502,51 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }
 
     private void UpdateBasicChart() {
-        int[] fchart = GetFrontDamageChart();
-        int[] lchart = GetLeftArmDamageChart();
-        int[] rchart = GetRightArmDamageChart();
-        int[] rrchart = GetRearDamageChart();
+        int[] fchart = null, lchart = null, rchart = null, rrchart = null;
+        if( chkChartFront.isSelected() ) {
+            fchart = GetFrontDamageChart();
+        }
+        if( chkChartRear.isSelected() ) {
+            rrchart = GetRearDamageChart();
+        }
+        if( chkChartRight.isSelected() ) {
+            rchart = GetRightArmDamageChart();
+        }
+        if( chkChartLeft.isSelected() ) {
+            lchart = GetLeftArmDamageChart();
+        }
         int gridx = 1;
         int gridy = 1;
-        for( int i = 0; i < fchart.length; i++ ) {
-            if( fchart[i] > 0 ) {
-                if( fchart[i] > gridy ) { gridy = fchart[i]; }
-                gridx = i;
+        if( fchart != null ) {
+            for( int i = 0; i < fchart.length; i++ ) {
+                if( fchart[i] > 0 ) {
+                    if( fchart[i] > gridy ) { gridy = fchart[i]; }
+                    if( i > gridx ) { gridx = i; }
+                }
             }
-            if( rchart[i] > 0 ) {
-                if( rchart[i] > gridy ) { gridy = rchart[i]; }
-                gridx = i;
+        }
+        if( rchart != null ) {
+            for( int i = 0; i < rchart.length; i++ ) {
+                if( rchart[i] > 0 ) {
+                    if( rchart[i] > gridy ) { gridy = rchart[i]; }
+                    if( i > gridx ) { gridx = i; }
+                }
             }
-            if( lchart[i] > 0 ) {
-                if( lchart[i] > gridy ) { gridy = lchart[i]; }
-                gridx = i;
+        }
+        if( lchart != null ) {
+            for( int i = 0; i < lchart.length; i++ ) {
+                if( lchart[i] > 0 ) {
+                    if( lchart[i] > gridy ) { gridy = lchart[i]; }
+                    if( i > gridx ) { gridx = i; }
+                }
             }
-            if( rrchart[i] > 0 ) {
-                if( rrchart[i] > gridy ) { gridy = rrchart[i]; }
-                gridx = i;
+        }
+        if( rrchart != null ) {
+            for( int i = 0; i < rrchart.length; i++ ) {
+                if( rrchart[i] > 0 ) {
+                    if( rrchart[i] > gridy ) { gridy = rrchart[i]; }
+                    if( i > gridx ) { gridx = i; }
+                }
             }
         }
         Vector v = CurMech.GetLoadout().GetNonCore();
@@ -2546,12 +2569,24 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 }
             }
         }
+        TonsEquips += CurMech.GetCaseTonnage();
+        TonsEquips += CurMech.GetCASEIITonnage();
+        TonsEquips += ( CurMech.GetTonnage() - CurMech.GetCurrentTons() );
+
         ((DamageChart) pnlDamageChart).ClearCharts();
         ((DamageChart) pnlDamageChart).SetGridSize( gridx + 1, gridy + 1 );
-        ((DamageChart) pnlDamageChart).AddChart( rrchart, Color.PINK );
-        ((DamageChart) pnlDamageChart).AddChart( lchart, Color.ORANGE );
-        ((DamageChart) pnlDamageChart).AddChart( rchart, Color.GREEN );
-        ((DamageChart) pnlDamageChart).AddChart( fchart, Color.RED );
+        if( chkChartRear.isSelected() ) {
+            ((DamageChart) pnlDamageChart).AddChart( rrchart, Color.PINK );
+        }
+        if( chkChartLeft.isSelected() ) {
+            ((DamageChart) pnlDamageChart).AddChart( lchart, Color.ORANGE );
+        }
+        if( chkChartRight.isSelected() ) {
+            ((DamageChart) pnlDamageChart).AddChart( rchart, Color.GREEN );
+        }
+        if( chkChartFront.isSelected() ) {
+            ((DamageChart) pnlDamageChart).AddChart( fchart, Color.RED );
+        }
         lblTonPercStructure.setText( String.format( "%1$,.2f", ( CurMech.GetIntStruc().GetTonnage() + CurMech.GetCockpit().GetTonnage() + CurMech.GetGyro().GetTonnage() ) / CurMech.GetTonnage() * 100.0f ) + "%" );
         lblTonPercEngine.setText( String.format( "%1$,.2f", CurMech.GetEngine().GetTonnage() / CurMech.GetTonnage() * 100.0f ) + "%" );
         lblTonPercHeatSinks.setText( String.format( "%1$,.2f", CurMech.GetHeatSinks().GetTonnage() / CurMech.GetTonnage() * 100.0f ) + "%" );
@@ -3249,11 +3284,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lblDamagePerTon = new javax.swing.JLabel();
         pnlDamageChart = new DamageChart();
         lblLegendTitle = new javax.swing.JLabel();
-        lblFALegend = new javax.swing.JLabel();
-        lblRALegened = new javax.swing.JLabel();
-        lblRAALegend = new javax.swing.JLabel();
-        lblLAALegend = new javax.swing.JLabel();
-        lblLegendNote = new javax.swing.JLabel();
+        chkChartFront = new javax.swing.JCheckBox();
+        chkChartRear = new javax.swing.JCheckBox();
+        chkChartRight = new javax.swing.JCheckBox();
+        chkChartLeft = new javax.swing.JCheckBox();
         pnlBattleforce = new javax.swing.JPanel();
         pnlBFStats = new javax.swing.JPanel();
         jLabel66 = new javax.swing.JLabel();
@@ -8474,51 +8508,52 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlDamageChart.setLayout(null);
         pnlCharts.add(pnlDamageChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 720, 280));
 
-        lblLegendTitle.setText("Chart Legend:");
-        pnlCharts.add(lblLegendTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 90, -1));
+        lblLegendTitle.setText("Chart Options:");
+        pnlCharts.add(lblLegendTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 140, -1));
 
-        lblFALegend.setBackground(java.awt.Color.red);
-        lblFALegend.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFALegend.setText("Forward Arc Weapons");
-        lblFALegend.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblFALegend.setMaximumSize(new java.awt.Dimension(140, 18));
-        lblFALegend.setMinimumSize(new java.awt.Dimension(140, 18));
-        lblFALegend.setOpaque(true);
-        lblFALegend.setPreferredSize(new java.awt.Dimension(140, 18));
-        pnlCharts.add(lblFALegend, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, 150, -1));
+        chkChartFront.setBackground(java.awt.Color.red);
+        chkChartFront.setSelected(true);
+        chkChartFront.setText("Show Front Arc Weapons");
+        chkChartFront.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        chkChartFront.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkChartFrontActionPerformed(evt);
+            }
+        });
+        pnlCharts.add(chkChartFront, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, 210, -1));
 
-        lblRALegened.setBackground(java.awt.Color.pink);
-        lblRALegened.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblRALegened.setText("Rear Arc Weapons");
-        lblRALegened.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblRALegened.setMaximumSize(new java.awt.Dimension(140, 18));
-        lblRALegened.setMinimumSize(new java.awt.Dimension(140, 18));
-        lblRALegened.setOpaque(true);
-        lblRALegened.setPreferredSize(new java.awt.Dimension(140, 18));
-        pnlCharts.add(lblRALegened, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 30, 150, -1));
+        chkChartRear.setBackground(java.awt.Color.pink);
+        chkChartRear.setSelected(true);
+        chkChartRear.setText("Show Rear Arc Weapons");
+        chkChartRear.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        chkChartRear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkChartRearActionPerformed(evt);
+            }
+        });
+        pnlCharts.add(chkChartRear, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 55, 210, -1));
 
-        lblRAALegend.setBackground(java.awt.Color.green);
-        lblRAALegend.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblRAALegend.setText("Right Arm Arc Weapons");
-        lblRAALegend.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblRAALegend.setMaximumSize(new java.awt.Dimension(140, 18));
-        lblRAALegend.setMinimumSize(new java.awt.Dimension(140, 18));
-        lblRAALegend.setOpaque(true);
-        lblRAALegend.setPreferredSize(new java.awt.Dimension(140, 18));
-        pnlCharts.add(lblRAALegend, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 50, 150, -1));
+        chkChartRight.setBackground(java.awt.Color.green);
+        chkChartRight.setSelected(true);
+        chkChartRight.setText("Show Right Arm Arc Weapons");
+        chkChartRight.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        chkChartRight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkChartRightActionPerformed(evt);
+            }
+        });
+        pnlCharts.add(chkChartRight, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 210, -1));
 
-        lblLAALegend.setBackground(java.awt.Color.orange);
-        lblLAALegend.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblLAALegend.setText("Left Arm Arc Weapons");
-        lblLAALegend.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblLAALegend.setMaximumSize(new java.awt.Dimension(140, 18));
-        lblLAALegend.setMinimumSize(new java.awt.Dimension(140, 18));
-        lblLAALegend.setOpaque(true);
-        lblLAALegend.setPreferredSize(new java.awt.Dimension(140, 18));
-        pnlCharts.add(lblLAALegend, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 70, 150, -1));
-
-        lblLegendNote.setText("<html>NOTE:<br>Depnding on the damage at a given<br>range, some lines may be hidden.</html>");
-        pnlCharts.add(lblLegendNote, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 240, -1));
+        chkChartLeft.setBackground(java.awt.Color.orange);
+        chkChartLeft.setSelected(true);
+        chkChartLeft.setText("Show Left Arm Arc Weapons");
+        chkChartLeft.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        chkChartLeft.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkChartLeftActionPerformed(evt);
+            }
+        });
+        pnlCharts.add(chkChartLeft, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 105, 210, -1));
 
         tbpMainTabPane.addTab("Charts", pnlCharts);
 
@@ -11919,6 +11954,9 @@ public void LoadMechIntoGUI() {
     chkCLPS.setSelected( CurMech.HasChameleon() );
     chkEnviroSealing.setSelected( CurMech.HasEnviroSealing() );
     chkEjectionSeat.setSelected( CurMech.HasEjectionSeat() );
+    chkRAAES.setSelected( CurMech.HasRAAES() );
+    chkLAAES.setSelected( CurMech.HasLAAES() );
+    chkLegAES.setSelected( CurMech.HasLegAES() );
     SetLoadoutArrays();
     RefreshSummary();
     RefreshInfoPane();
@@ -12521,6 +12559,22 @@ private void mnuTextTROActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     Text.setVisible( true );
 }//GEN-LAST:event_mnuTextTROActionPerformed
 
+private void chkChartFrontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkChartFrontActionPerformed
+    UpdateBasicChart();
+}//GEN-LAST:event_chkChartFrontActionPerformed
+
+private void chkChartRearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkChartRearActionPerformed
+    UpdateBasicChart();
+}//GEN-LAST:event_chkChartRearActionPerformed
+
+private void chkChartRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkChartRightActionPerformed
+    UpdateBasicChart();
+}//GEN-LAST:event_chkChartRightActionPerformed
+
+private void chkChartLeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkChartLeftActionPerformed
+    UpdateBasicChart();
+}//GEN-LAST:event_chkChartLeftActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -12581,6 +12635,10 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JCheckBox chkCLPS;
     private javax.swing.JCheckBox chkCTCASE;
     private javax.swing.JCheckBox chkCTCASE2;
+    private javax.swing.JCheckBox chkChartFront;
+    private javax.swing.JCheckBox chkChartLeft;
+    private javax.swing.JCheckBox chkChartRear;
+    private javax.swing.JCheckBox chkChartRight;
     private javax.swing.JCheckBox chkEjectionSeat;
     private javax.swing.JCheckBox chkEnviroSealing;
     private javax.swing.JCheckBox chkFHES;
@@ -12782,7 +12840,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel lblDamagePerTon;
     private javax.swing.JLabel lblEngineType;
     private javax.swing.JLabel lblEraYears;
-    private javax.swing.JLabel lblFALegend;
     private javax.swing.JLabel lblFluffImage;
     private javax.swing.JLabel lblGyroType;
     private javax.swing.JLabel lblHDArmorHeader;
@@ -12811,7 +12868,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel lblInfoType;
     private javax.swing.JLabel lblInternalType;
     private javax.swing.JLabel lblJumpMP;
-    private javax.swing.JLabel lblLAALegend;
     private javax.swing.JLabel lblLAArmorHeader;
     private javax.swing.JLabel lblLAHeader;
     private javax.swing.JLabel lblLAIntPts;
@@ -12822,7 +12878,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel lblLTHeader;
     private javax.swing.JLabel lblLTIntPts;
     private javax.swing.JLabel lblLTRArmorHeader;
-    private javax.swing.JLabel lblLegendNote;
     private javax.swing.JLabel lblLegendTitle;
     private javax.swing.JLabel lblMechEra;
     private javax.swing.JLabel lblMechName;
@@ -12832,11 +12887,9 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel lblMoveSummary;
     private javax.swing.JLabel lblPhysEnhance;
     private javax.swing.JLabel lblProdYear;
-    private javax.swing.JLabel lblRAALegend;
     private javax.swing.JLabel lblRAArmorHeader;
     private javax.swing.JLabel lblRAHeader;
     private javax.swing.JLabel lblRAIntPts;
-    private javax.swing.JLabel lblRALegened;
     private javax.swing.JLabel lblRLArmorHeader;
     private javax.swing.JLabel lblRLHeader;
     private javax.swing.JLabel lblRLIntPts;

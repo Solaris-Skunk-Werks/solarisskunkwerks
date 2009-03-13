@@ -459,10 +459,25 @@ public class HTMLWriter {
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_JUMPJET_TONNAGE-+>" ) ) {
             return "" + CurMech.GetJumpJets().GetTonnage();
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_CASE_TONNAGE-+>" ) ) {
-            if( CurMech.GetCaseTonnage() == 0.0f ) {
-                return "";
+            if( CurMech.IsClan() ) {
+                int[] Locs = CurMech.GetLoadout().FindExplosiveInstances();
+                boolean check = false;
+                for( int i = 0; i < Locs.length; i++ ) {
+                    if( Locs[i] > 0 ) {
+                        check = true;
+                    }
+                }
+                if( check ) {
+                    return "" + CurMech.GetCaseTonnage();
+                } else {
+                    return "";
+                }
             } else {
-                return "" + CurMech.GetCaseTonnage();
+                if( CurMech.GetCaseTonnage() == 0.0f ) {
+                    return "";
+                } else {
+                    return "" + CurMech.GetCaseTonnage();
+                }
             }
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_CASE_LOCATION_LINE-+>" ) ) {
             return FileCommon.GetCaseLocations( CurMech );

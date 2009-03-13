@@ -59,6 +59,7 @@ Version 0.6.0
 - Added a "Source" field for the 'Mech.
 - Added "Tools -> Show Text TRO Format" menu item.
 - Replaced the old simple chart with a damage at range chart.
+- Added Torpedo Launchers as their own seperate weapon types per canon.
 
 + Changed
 - Fixed a load bug with heatsinks.
@@ -180,6 +181,8 @@ Version 0.6.0
 - Made a slight change in the GetWastedTonnage and GetWastedAV routines to hopefully report better.
 - When exporting to text, the program will now word-wrap fluff at 80 characters.
 - CASE locations for Clan 'Mechs is now shown on HTML and TXT exports.
+- AES checkboxes are now correct upon loading a 'Mech.
+- Changing armor now sets the "Mech has changed" tag.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

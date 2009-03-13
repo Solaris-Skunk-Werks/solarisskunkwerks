@@ -372,7 +372,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'C', 'C', 'C', 2380, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ SRM-2 (Torpedo)", "ISSRM2 Ammo", 5, false, a );
+        add = new Ammunition( "@ SRT-2 (Torpedo)", "ISSRT2 Ammo", 142, false, a );
         add.SetStats( 1.0f, 27000.0f, 3.0f, 0.0f );
         add.SetDamage( 2, 2, 2 );
         add.SetRange( 0, 3, 6, 9 );
@@ -381,7 +381,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'C', 'C', 'C', 2380, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ SRM-4 (Torpedo)", "ISSRM4 Ammo", 6, false, a );
+        add = new Ammunition( "@ SRT-4 (Torpedo)", "ISSRT4 Ammo", 143, false, a );
         add.SetStats( 1.0f, 27000.0f, 5.0f, 0.0f );
         add.SetDamage( 2, 4, 2 );
         add.SetRange( 0, 3, 6, 9 );
@@ -390,7 +390,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'C', 'C', 'C', 2380, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ SRM-6 (Torpedo)", "ISSRM6 Ammo", 7, false, a );
+        add = new Ammunition( "@ SRT-6 (Torpedo)", "ISSRT6 Ammo", 144, false, a );
         add.SetStats( 1.0f, 27000.0f, 7.0f, 0.0f );
         add.SetDamage( 2, 6, 2 );
         add.SetRange( 0, 3, 6, 9 );
@@ -1006,7 +1006,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'C', 'C', 'C', 2380, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ LRM-5 (Torpedo)", "ISLRM5 Ammo", 25, false, a );
+        add = new Ammunition( "@ LRT-5 (Torpedo)", "ISLRMT Ammo", 145, false, a );
         add.SetStats( 1.0f, 30000.0f, 6.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 6, 7, 14, 21 );
@@ -1015,7 +1015,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'C', 'C', 'C', 2380, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ LRM-10 (Torpedo)", "ISLRM10 Ammo", 26, false, a );
+        add = new Ammunition( "@ LRT-10 (Torpedo)", "ISLRT10 Ammo", 146, false, a );
         add.SetStats( 1.0f, 30000.0f, 11.0f, 0.0f );
         add.SetDamage( 1, 10, 5 );
         add.SetRange( 6, 7, 14, 21 );
@@ -1024,7 +1024,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'C', 'C', 'C', 2380, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ LRM-15 (Torpedo)", "ISLRM15 Ammo", 27, false, a );
+        add = new Ammunition( "@ LRT-15 (Torpedo)", "ISLRT15 Ammo", 147, false, a );
         add.SetStats( 1.0f, 30000.0f, 17.0f, 0.0f );
         add.SetDamage( 1, 15, 5 );
         add.SetRange( 6, 7, 14, 21 );
@@ -1033,7 +1033,7 @@ public class AmmoFactory {
         ISAM.add( add );
 
         a = new AvailableCode( false, 'C', 'C', 'C', 'C', 2380, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ LRM-20 (Torpedo)", "ISLRM20 Ammo", 28, false, a );
+        add = new Ammunition( "@ LRT-20 (Torpedo)", "ISLRT20 Ammo", 148, false, a );
         add.SetStats( 1.0f, 30000.0f, 23.0f, 0.0f );
         add.SetDamage( 1, 20, 5 );
         add.SetRange( 6, 7, 14, 21 );
@@ -4295,7 +4295,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'C', 'X', 'B', 'B', 2380, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ SRM-2 (Torpedo)", "CLSRM2 Ammo", 8, true, a );
+        add = new Ammunition( "@ SRT-2 (Torpedo)", "CLSRT2 Ammo", 149, true, a );
         add.SetStats( 1.0f, 27000.0f, 3.0f, 0.0f );
         add.SetDamage( 2, 2, 2 );
         add.SetRange( 0, 3, 6, 9 );
@@ -4304,7 +4304,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'C', 'X', 'B', 'B', 2380, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ SRM-4 (Torpedo)", "CLSRM4 Ammo", 9, true, a );
+        add = new Ammunition( "@ SRT-4 (Torpedo)", "CLSRT4 Ammo", 150, true, a );
         add.SetStats( 1.0f, 27000.0f, 5.0f, 0.0f );
         add.SetDamage( 2, 4, 2 );
         add.SetRange( 0, 3, 6, 9 );
@@ -4313,7 +4313,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'C', 'X', 'B', 'B', 2380, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ SRM-6 (Torpedo)", "CLSRM6 Ammo", 10, true, a );
+        add = new Ammunition( "@ SRT-6 (Torpedo)", "CLSRT6 Ammo", 151, true, a );
         add.SetStats( 1.0f, 27000.0f, 7.0f, 0.0f );
         add.SetDamage( 2, 6, 2 );
         add.SetRange( 0, 3, 6, 9 );
@@ -4721,7 +4721,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'C', 'X', 'B', 'B', 2380, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ LRM-5 (Torpedo)", "CLLRM5 Ammo", 29, true, a );
+        add = new Ammunition( "@ LRT-5 (Torpedo)", "CLLRT5 Ammo", 152, true, a );
         add.SetStats( 1.0f, 30000.0f, 7.0f, 0.0f );
         add.SetDamage( 1, 5, 5 );
         add.SetRange( 0, 7, 14, 21 );
@@ -4730,7 +4730,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'C', 'X', 'B', 'B', 2380, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ LRM-10 (Torpedo)", "CLLRM10 Ammo", 30, true, a );
+        add = new Ammunition( "@ LRT-10 (Torpedo)", "CLLRT10 Ammo", 153, true, a );
         add.SetStats( 1.0f, 30000.0f, 14.0f, 0.0f );
         add.SetDamage( 1, 5, 10 );
         add.SetRange( 0, 7, 14, 21 );
@@ -4739,7 +4739,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'C', 'X', 'B', 'B', 2380, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ LRM-15 (Torpedo)", "CLLRM15 Ammo", 31, true, a );
+        add = new Ammunition( "@ LRT-15 (Torpedo)", "CLLRT15 Ammo", 154, true, a );
         add.SetStats( 1.0f, 30000.0f, 21.0f, 0.0f );
         add.SetDamage( 1, 5, 15 );
         add.SetRange( 0, 7, 14, 21 );
@@ -4748,7 +4748,7 @@ public class AmmoFactory {
         CLAM.add( add );
 
         a = new AvailableCode( true, 'C', 'X', 'B', 'B', 2380, 0, 0, "TH", "", false, false );
-        add = new Ammunition( "@ LRM-20 (Torpedo)", "CLLRM20 Ammo", 32, true, a );
+        add = new Ammunition( "@ LRT-20 (Torpedo)", "CLLRT20 Ammo", 155, true, a );
         add.SetStats( 1.0f, 30000.0f, 27.0f, 0.0f );
         add.SetDamage( 1, 5, 20 );
         add.SetRange( 0, 7, 14, 21 );
