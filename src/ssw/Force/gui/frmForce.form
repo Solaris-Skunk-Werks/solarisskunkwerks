@@ -29,10 +29,10 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tlbActions" alignment="0" pref="812" max="32767" attributes="0"/>
+          <Component id="tlbActions" alignment="0" pref="646" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="spnList" pref="788" max="32767" attributes="0"/>
+              <Component id="spnList" pref="626" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
@@ -53,7 +53,9 @@
                   <Component id="jLabel4" min="0" pref="0" max="32767" attributes="1"/>
                   <Component id="txtPiloting" alignment="0" min="-2" pref="40" max="-2" attributes="1"/>
               </Group>
-              <EmptySpace pref="284" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnUpdate" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="74" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -62,7 +64,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="tlbActions" min="-2" pref="25" max="-2" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="spnList" pref="407" max="32767" attributes="0"/>
+              <Component id="spnList" pref="231" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -71,10 +73,11 @@
               </Group>
               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblUnit" alignment="3" pref="20" max="32767" attributes="0"/>
+                  <Component id="lblUnit" alignment="3" pref="23" max="32767" attributes="0"/>
                   <Component id="txtMechwarrior" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtGunnery" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtPiloting" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -226,18 +229,12 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtGunnery">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtGunneryActionPerformed"/>
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtGunneryFocusGained"/>
-        <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="txtGunneryInputMethodTextChanged"/>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtGunneryKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPiloting">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPilotingActionPerformed"/>
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPilotingFocusGained"/>
-        <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="txtPilotingInputMethodTextChanged"/>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPilotingKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -254,6 +251,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Piloting"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnUpdate">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Update"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

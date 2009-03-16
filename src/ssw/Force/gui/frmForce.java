@@ -79,6 +79,10 @@ public class frmForce extends javax.swing.JFrame {
         tblForce.getColumnModel().getColumn(5).setPreferredWidth(50);
     }
 
+    private void sortTable() {
+
+    }
+
     private void LoadMech() {
         Unit Data = (Unit) ((Force) tblForce.getModel()).Units.get( tblForce.convertRowIndexToModel( tblForce.getSelectedRow() ) );
         try
@@ -115,8 +119,21 @@ public class frmForce extends javax.swing.JFrame {
             int[] rows = tblForce.getSelectedRows();
             for ( int i=0; i < rows.length; i++ ) {
                 Unit data = (Unit) force.Units.get(tblForce.convertRowIndexToModel(rows[i]));
-                data.Gunnery = Integer.parseInt(txtGunnery.getText());
-                data.Piloting = Integer.parseInt(txtPiloting.getText());
+                data.Mechwarrior = txtMechwarrior.getText();
+                if (! txtGunnery.getText().isEmpty() ) {
+                    try {
+                        data.Gunnery = Integer.parseInt(txtGunnery.getText());
+                    } catch (Exception e) {
+                    }
+                }
+                
+                if (! txtPiloting.getText().isEmpty() ) {
+                    try {
+                        data.Piloting = Integer.parseInt(txtPiloting.getText());
+                    } catch (Exception e) {
+
+                    }
+                }
                 data.Refresh();
             }
         }
@@ -157,6 +174,7 @@ public class frmForce extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        btnUpdate = new javax.swing.JButton();
 
         setTitle("Force List");
         setMinimumSize(new java.awt.Dimension(800, 500));
@@ -283,49 +301,15 @@ public class frmForce extends javax.swing.JFrame {
         });
         spnList.setViewportView(tblForce);
 
-        txtGunnery.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtGunneryActionPerformed(evt);
-            }
-        });
         txtGunnery.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtGunneryFocusGained(evt);
             }
         });
-        txtGunnery.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                txtGunneryInputMethodTextChanged(evt);
-            }
-        });
-        txtGunnery.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtGunneryKeyTyped(evt);
-            }
-        });
 
-        txtPiloting.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPilotingActionPerformed(evt);
-            }
-        });
         txtPiloting.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtPilotingFocusGained(evt);
-            }
-        });
-        txtPiloting.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                txtPilotingInputMethodTextChanged(evt);
-            }
-        });
-        txtPiloting.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPilotingKeyTyped(evt);
             }
         });
 
@@ -335,14 +319,21 @@ public class frmForce extends javax.swing.JFrame {
 
         jLabel4.setText("Piloting");
 
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE)
+            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE)
+                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(145, 145, 145)
@@ -359,14 +350,16 @@ public class frmForce extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, 0, 0, Short.MAX_VALUE)
                     .addComponent(txtPiloting, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(284, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnUpdate)
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tlbActions, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -374,10 +367,11 @@ public class frmForce extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUnit, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                    .addComponent(lblUnit, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
                     .addComponent(txtMechwarrior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtGunnery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPiloting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPiloting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUpdate))
                 .addContainerGap())
         );
 
@@ -489,21 +483,12 @@ public class frmForce extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_btnPrintForceActionPerformed
 
-    private void txtGunneryInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtGunneryInputMethodTextChanged
-        updateSkills();
-    }//GEN-LAST:event_txtGunneryInputMethodTextChanged
-
-    private void txtPilotingInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtPilotingInputMethodTextChanged
-        updateSkills();
-    }//GEN-LAST:event_txtPilotingInputMethodTextChanged
-
-    private void txtGunneryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGunneryActionPerformed
-        updateSkills();
-    }//GEN-LAST:event_txtGunneryActionPerformed
-
-    private void txtPilotingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPilotingActionPerformed
-        updateSkills();
-    }//GEN-LAST:event_txtPilotingActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        if ((! txtGunnery.getText().isEmpty() ) && (! txtPiloting.getText().isEmpty() )) {
+            updateSkills();
+        }
+        refreshTable();
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtGunneryFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtGunneryFocusGained
         txtGunnery.selectAll();
@@ -513,14 +498,6 @@ public class frmForce extends javax.swing.JFrame {
         txtPiloting.selectAll();
     }//GEN-LAST:event_txtPilotingFocusGained
 
-    private void txtPilotingKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPilotingKeyTyped
-        updateSkills();
-    }//GEN-LAST:event_txtPilotingKeyTyped
-
-    private void txtGunneryKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGunneryKeyTyped
-        updateSkills();
-    }//GEN-LAST:event_txtGunneryKeyTyped
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brnClearForce;
     private javax.swing.JButton btnOpen;
@@ -529,6 +506,7 @@ public class frmForce extends javax.swing.JFrame {
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnRemoveUnit;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
