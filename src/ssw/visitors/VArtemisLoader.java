@@ -29,6 +29,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.visitors;
 
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import ssw.*;
 import ssw.components.*;
 
@@ -62,25 +64,32 @@ public class VArtemisLoader implements ifVisitor {
                         if( ! MW.IsUsingArtemis() ) {
                             // is the launcher already allocated?
                             if( l.IsAllocated( MW ) ) {
-                                //  get the artemis and allocate it?
-                                int Loc = l.Find( MW );
-                                abPlaceable[] crits = GetLoc( Loc, l );
-                                int Art_Loc = l.FirstFree( crits );
-                                if( Art_Loc == crits.length ) {
-                                    if( MW.LocationLocked() ) {
+                                if( MW.LocationLocked() ) {
+                                    int Loc = l.Find( MW );
+                                    abPlaceable[] crits = GetLoc( Loc, l );
+                                    int Art_Loc = l.FirstFree( crits );
+                                    if( Art_Loc == crits.length ) {
                                         // tell whatever called us that we can't do it.
                                         result = false;
                                         return;
                                     } else {
-                                        // can't allocate?  remove the launcher to the queue
-                                        l.UnallocateAll( MW, false );
+                                        // switch on artemis for the launcher
+                                        MW.UseArtemis( true );
+
+                                        // manually allocate the artemis
+                                        crits[Art_Loc] = MW.GetArtemis();
                                     }
                                 } else {
-                                    // switch on artemis for the launcher
+                                    // remove it and add it back in
+                                    LocationIndex Loc = l.FindIndex( MW );
+                                    l.UnallocateAll( MW, false );
                                     MW.UseArtemis( true );
-
-                                    // manually allocate the artemis
-                                    crits[Art_Loc] = MW.GetArtemis();
+                                    try {
+                                        l.AddTo(MW, Loc.Location, Loc.Index);
+                                    } catch (Exception ex) {
+                                        // it's already been removed to the queue
+                                        // leave it alone.
+                                    }
                                 }
                             } else {
                                 MW.UseArtemis( true );
@@ -112,25 +121,32 @@ public class VArtemisLoader implements ifVisitor {
                         if( ! MW.IsUsingArtemis() ) {
                             // is the launcher already allocated?
                             if( l.IsAllocated( MW ) ) {
-                                //  get the artemis and allocate it?
-                                int Loc = l.Find( MW );
-                                abPlaceable[] crits = GetLoc( Loc, l );
-                                int Art_Loc = l.FirstFree( crits );
-                                if( Art_Loc == crits.length ) {
-                                    if( MW.LocationLocked() ) {
+                                if( MW.LocationLocked() ) {
+                                    int Loc = l.Find( MW );
+                                    abPlaceable[] crits = GetLoc( Loc, l );
+                                    int Art_Loc = l.FirstFree( crits );
+                                    if( Art_Loc == crits.length ) {
                                         // tell whatever called us that we can't do it.
                                         result = false;
                                         return;
                                     } else {
-                                        // can't allocate?  remove the launcher to the queue
-                                        l.UnallocateAll( MW, false );
+                                        // switch on artemis for the launcher
+                                        MW.UseArtemis( true );
+
+                                        // manually allocate the artemis
+                                        crits[Art_Loc] = MW.GetArtemis();
                                     }
                                 } else {
-                                    // switch on artemis for the launcher
+                                    // remove it and add it back in
+                                    LocationIndex Loc = l.FindIndex( MW );
+                                    l.UnallocateAll( MW, false );
                                     MW.UseArtemis( true );
-
-                                    // manually allocate the artemis
-                                    crits[Art_Loc] = MW.GetArtemis();
+                                    try {
+                                        l.AddTo(MW, Loc.Location, Loc.Index);
+                                    } catch (Exception ex) {
+                                        // it's already been removed to the queue
+                                        // leave it alone.
+                                    }
                                 }
                             } else {
                                 MW.UseArtemis( true );
@@ -139,7 +155,7 @@ public class VArtemisLoader implements ifVisitor {
                     } else {
                         if( MW.IsUsingArtemis() ) {
                             // is the launcher locked in position?
-                            if( l.GetBaseLoadout().UsingA4LRM() ) {
+                            if( l.GetBaseLoadout().UsingA4SRM() ) {
                                 if( MW.LocationLocked() ) {
                                     result = false;
                                     return;
@@ -162,25 +178,32 @@ public class VArtemisLoader implements ifVisitor {
                         if( ! MW.IsUsingArtemis() ) {
                             // is the launcher already allocated?
                             if( l.IsAllocated( MW ) ) {
-                                //  get the artemis and allocate it?
-                                int Loc = l.Find( MW );
-                                abPlaceable[] crits = GetLoc( Loc, l );
-                                int Art_Loc = l.FirstFree( crits );
-                                if( Art_Loc == crits.length ) {
-                                    if( MW.LocationLocked() ) {
+                                if( MW.LocationLocked() ) {
+                                    int Loc = l.Find( MW );
+                                    abPlaceable[] crits = GetLoc( Loc, l );
+                                    int Art_Loc = l.FirstFree( crits );
+                                    if( Art_Loc == crits.length ) {
                                         // tell whatever called us that we can't do it.
                                         result = false;
                                         return;
                                     } else {
-                                        // can't allocate?  remove the launcher to the queue
-                                        l.UnallocateAll( MW, false );
+                                        // switch on artemis for the launcher
+                                        MW.UseArtemis( true );
+
+                                        // manually allocate the artemis
+                                        crits[Art_Loc] = MW.GetArtemis();
                                     }
                                 } else {
-                                    // switch on artemis for the launcher
+                                    // remove it and add it back in
+                                    LocationIndex Loc = l.FindIndex( MW );
+                                    l.UnallocateAll( MW, false );
                                     MW.UseArtemis( true );
-
-                                    // manually allocate the artemis
-                                    crits[Art_Loc] = MW.GetArtemis();
+                                    try {
+                                        l.AddTo(MW, Loc.Location, Loc.Index);
+                                    } catch (Exception ex) {
+                                        // it's already been removed to the queue
+                                        // leave it alone.
+                                    }
                                 }
                             } else {
                                 MW.UseArtemis( true );
@@ -189,7 +212,7 @@ public class VArtemisLoader implements ifVisitor {
                     } else {
                         if( MW.IsUsingArtemis() ) {
                             // is the launcher locked in position?
-                            if( l.GetBaseLoadout().UsingA4MML() ) {
+                            if( l.GetBaseLoadout().UsingA4SRM() ) {
                                 if( MW.LocationLocked() ) {
                                     result = false;
                                     return;

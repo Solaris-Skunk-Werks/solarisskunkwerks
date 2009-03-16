@@ -260,6 +260,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         } );
 
+        tblWeaponManufacturers.getInputMap( javax.swing.JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put( javax.swing.KeyStroke.getKeyStroke( java.awt.event.KeyEvent.VK_TAB, 0, false ), "selectNextRow" );
+
         // if the user wants, load the last mech.
         if( GlobalOptions.LoadLastMech ) { LoadMechFromPreferences(); }
 
@@ -1990,6 +1992,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
             if( w instanceof MissileWeapon ) {
                 lblInfoDamage.setText( w.GetDamageShort() + "/msl");
+            } else if( w instanceof MGArray ) {
+                lblInfoDamage.setText( w.GetDamageShort() + "/gun" );
             } else if( w.GetDamageShort() == w.GetDamageMedium() && w.GetDamageShort() == w.GetDamageLong() ) {
                 if( w instanceof BallisticWeapon ) {
                     if( w.IsUltra() || w.IsRotary() ) {
@@ -2778,6 +2782,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( w.IsRotary() ) {
             mult = 6;
         }
+        if( w instanceof MGArray ) {
+            mult = ((MGArray) w).GetNumMGs();
+        }
+
         if( w.GetRangeLong() <= 0 ) {
             if( w.GetRangeMedium() <= 0 ) {
                 if( range <= w.GetRangeShort() ) {
@@ -10480,16 +10488,18 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // check exclusions if needed
-        try {
-            CurMech.GetLoadout().CheckExclusions( a );
-            if(a instanceof IndustrialEquipment){
-                if (!((IndustrialEquipment) a).validate(CurMech)){
-                    throw new Exception (((IndustrialEquipment) a).getValidationFalseMessage());
+        if( a != null ) {
+            try {
+                CurMech.GetLoadout().CheckExclusions( a );
+                if(a instanceof IndustrialEquipment){
+                    if (!((IndustrialEquipment) a).validate(CurMech)){
+                        throw new Exception (((IndustrialEquipment) a).getValidationFalseMessage());
+                    }
                 }
+            } catch( Exception e ) {
+                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                a = null;
             }
-        } catch( Exception e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
-            a = null;
         }
 
         // now we can add it to the 'Mech

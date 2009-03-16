@@ -183,6 +183,7 @@ Version 0.6.0
 - CASE locations for Clan 'Mechs is now shown on HTML and TXT exports.
 - AES checkboxes are now correct upon loading a 'Mech.
 - Changing armor now sets the "Mech has changed" tag.
+- Last minute bug fixes (MGArray, A-IV Allocation, Tab Order for Manufacturers table)
 
 -------------------------------------------------------------------------------
 Version 0.5.0
