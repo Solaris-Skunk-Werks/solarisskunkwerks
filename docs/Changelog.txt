@@ -60,6 +60,7 @@ Version 0.6.0
 - Added "Tools -> Show Text TRO Format" menu item.
 - Replaced the old simple chart with a damage at range chart.
 - Added Torpedo Launchers as their own seperate weapon types per canon.
+- Added ability to change the G/P and Mechwarrior for units on the Force List.
 
 + Changed
 - Fixed a load bug with heatsinks.
