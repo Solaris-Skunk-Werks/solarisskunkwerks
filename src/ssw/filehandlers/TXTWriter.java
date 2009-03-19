@@ -497,6 +497,9 @@ public class TXTWriter {
         if( CurMech.UsingTC() ) {
             v.add( CurMech.GetTC() );
         }
+        if( CurMech.HasCommandConsole() ) {
+            v.add( CurMech.GetCommandConsole() );
+        }
         if( CurMech.GetLoadout().HasSupercharger() ) {
             v.add( CurMech.GetLoadout().GetSupercharger() );
         }
@@ -587,6 +590,14 @@ public class TXTWriter {
             retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", CurMech.GetEnviroSealing().GetCritName(), "*", 8, 0.0f ) + NL;
             Special = true;
         }
+        if( CurMech.HasTracks() ) {
+            if( CurMech.IsQuad() ) {
+                retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", CurMech.GetTracks().GetCritName(), "*", 4, CurMech.GetTracks().GetTonnage() ) + NL;
+            } else {
+                retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", CurMech.GetTracks().GetCritName(), "*", 2, CurMech.GetTracks().GetTonnage() ) + NL;
+            }
+            Special = true;
+        }
 
         if( Special ) {
             retval += NL;
@@ -607,6 +618,9 @@ public class TXTWriter {
         }
         if( CurMech.HasEnviroSealing() ) {
             retval += "* The " + CurMech.GetEnviroSealing().GetCritName() + " occupies 1 slot in every location." + NL;
+        }
+        if( CurMech.HasTracks() ) {
+            retval += "* " + CurMech.GetTracks().GetCritName() + " occupy 1 slot in every leg location." + NL;
         }
 
         return retval;

@@ -29,20 +29,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.visitors;
 
 import ssw.components.*;
-import ssw.gui.frmMain;
 
 public class VArmorSetStealth implements ifVisitor {
     // sets the mech's armor to stealth
-    private frmMain Parent;
     private Mech CurMech;
     private LocationIndex[] Locs = null;
 
     public VArmorSetStealth() {
-        Parent = null;
-    }
-
-    public VArmorSetStealth( frmMain p ) {
-        Parent = p;
     }
 
     public void LoadLocations( LocationIndex[] locs ) {
@@ -51,7 +44,7 @@ public class VArmorSetStealth implements ifVisitor {
         Locs = locs;
     }
 
-    public void Visit(Mech m) {
+    public void Visit(Mech m) throws Exception {
         // only the armor changes, so pass us off
         CurMech = m;
         ifLoadout l = CurMech.GetLoadout();
@@ -63,7 +56,6 @@ public class VArmorSetStealth implements ifVisitor {
         // set the armor type
         if( CurMech.IsClan() ) {
             a.SetCLMS();
-            Parent.RevertToStandardArmor();
         } else {
             a.SetISST();
         }
@@ -71,24 +63,14 @@ public class VArmorSetStealth implements ifVisitor {
         if( Locs == null ) {
             // place the armor
             if( ! a.Place( l ) ) {
-                // not enough free space.  tell the user and revert.
-                javax.swing.JOptionPane.showMessageDialog( Parent, "There is no available room for Stealth Armor!\nReseting armor to Military Standard." );
-                a.SetISMS();
-                a.Place( l );
-                Parent.RevertToStandardArmor();
-                Locs = null;
-                return;
+                // not enough free space.  tell the user
+                throw new Exception( "There is no available room for Stealth Armor!" );
             }
         } else {
             // use the location index array given to allocate the armor
             if( ! a.Place( l, Locs ) ) {
-                // not enough free space.  tell the user and revert.
-                javax.swing.JOptionPane.showMessageDialog( Parent, "There is no available room for Stealth Armor!\nReseting armor to Military Standard." );
-                a.SetISMS();
-                a.Place( l );
-                Parent.RevertToStandardArmor();
-                Locs = null;
-                return;
+                // not enough free space.  tell the user
+                throw new Exception( "There is no available room for Stealth Armor!" );
             }
         }
         if( a.GetMechModifier() != null ) {

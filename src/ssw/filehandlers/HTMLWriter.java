@@ -920,6 +920,9 @@ public class HTMLWriter {
             if( CurMech.UsingTC() ) {
                 ret.add( CurMech.GetTC() );
             }
+            if( CurMech.HasCommandConsole() ) {
+                ret.add( CurMech.GetCommandConsole() );
+            }
             if( CurMech.GetLoadout().HasSupercharger() ) {
                 ret.add( CurMech.GetLoadout().GetSupercharger() );
             }
@@ -983,6 +986,9 @@ public class HTMLWriter {
             }
             if( CurMech.HasEnviroSealing() ) {
                 ret.add( CurMech.GetEnviroSealing() );
+            }
+            if( CurMech.HasTracks() ) {
+                ret.add( CurMech.GetTracks() );
             }
         }
 
@@ -1331,6 +1337,9 @@ public class HTMLWriter {
         }
         if( CurMech.HasEnviroSealing() ) {
             retval += "* The " + CurMech.GetEnviroSealing().GetCritName() + " occupies 1 slot in every location." + NL;
+        }
+        if( CurMech.HasTracks() ) {
+            retval += "* " + CurMech.GetTracks().GetCritName() + " occupy 1 slot in every leg location." + NL;
         }
         return retval;
     }

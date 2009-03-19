@@ -61,6 +61,7 @@ Version 0.6.0
 - Replaced the old simple chart with a damage at range chart.
 - Added Torpedo Launchers as their own seperate weapon types per canon.
 - Added ability to change the G/P and Mechwarrior for units on the Force List.
+- Added Coolant Pods, Torso-mounted Cockpits, Command Consoles, 
 
 + Changed
 - Fixed a load bug with heatsinks.
@@ -184,7 +185,7 @@ Version 0.6.0
 - CASE locations for Clan 'Mechs is now shown on HTML and TXT exports.
 - AES checkboxes are now correct upon loading a 'Mech.
 - Changing armor now sets the "Mech has changed" tag.
-- Last minute bug fixes (MGArray, A-IV Allocation, Tab Order for Manufacturers table)
+- Last minute bug fixes (MGArray, A-IV Allocation, Tab Order for Manufacturers table).
 
 -------------------------------------------------------------------------------
 Version 0.5.0

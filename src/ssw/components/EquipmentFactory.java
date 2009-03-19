@@ -69,6 +69,7 @@ public class EquipmentFactory {
             ((Equipment) retval).SetAllocs(e.CanAllocHD(), e.CanAllocCT(), e.CanAllocTorso(), e.CanAllocArms(), e.CanAllocLegs());
             ((Equipment) retval).SetSplitable(e.CanSplit());
             ((Equipment) retval).SetMountableRear(e.CanMountRear());
+            ((Equipment) retval).SetExplosive(e.IsExplosive());
             if (e.GetExclusions() != null) {
                 retval.SetExclusions(e.GetExclusions());
             }
@@ -286,6 +287,16 @@ public class EquipmentFactory {
         addEQ.SetMountableRear(true);
         ISEQ.add(addEQ);
 
+        a = new AvailableCode( false, 'D', 'X', 'X', 'E', 3049, 0, 0, "FC", "", false, false, 3041, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addEQ = new Equipment( "Coolant Pod", "PE", a, false );
+        addEQ.SetAmmo( false, 0, 0 );
+        addEQ.SetLookupName( "ISCoolantPod" );
+        addEQ.SetRange( 0, 0, 0 );
+        addEQ.SetHeat( 0 );
+        addEQ.SetStats( 1, 1.0f, 50000.0f, 0.0f, 0.0f, "OS, X" );
+        addEQ.SetExplosive( true );
+        ISEQ.add( addEQ );
+
         ISEQ.add(new ModularArmor(false));
 
         /*******************************************************************************
@@ -405,6 +416,16 @@ public class EquipmentFactory {
         addEQ.SetHeat(0);
         addEQ.SetStats(2, 1.5f, 600000.0f, 7.0f, 61.0f, "-");
         CLEQ.add(addEQ);
+
+        a = new AvailableCode( true, 'D', 'X', 'X', 'E', 3056, 0, 0, "CSV", "", false, false, 3055, true, "CJF", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+        addEQ = new Equipment( "Coolant Pod", "PE", a, false );
+        addEQ.SetAmmo( false, 0, 0 );
+        addEQ.SetLookupName( "CLCoolantPod" );
+        addEQ.SetRange( 0, 0, 0 );
+        addEQ.SetHeat( 0 );
+        addEQ.SetStats( 1, 1.0f, 50000.0f, 0.0f, 0.0f, "OS, X" );
+        addEQ.SetExplosive( true );
+        CLEQ.add( addEQ );
 
         CLEQ.add(new ModularArmor(true));
 

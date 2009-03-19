@@ -76,18 +76,7 @@ public class Gyro extends abPlaceable {
         try {
             l.AddToCT( this, 3 );
         } catch ( Exception e ) {
-            // No matter what the exception says, this is bad.  Let the mech
-            // handle this (probably by completely clearing the loadout).
-            abPlaceable[] a = l.GetCTCrits();
-            for( int i = 3; i < NumCrits(); i++ ) {
-                l.UnallocateAll( a[i], true );
-            }
-            try {
-                l.AddToCT( this, 3 );
-            } catch ( Exception f ) {
-                // what?  well, report it.
-                return false;
-            }
+            return false;
         }
 
         return true;

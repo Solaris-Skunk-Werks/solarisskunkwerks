@@ -7,7 +7,6 @@ C3 Emergency Master						Equipment
 C3 Remote Sensor Launcher				Equipment
 Chaff Pod								Equipment
 Collapsible Command Module				Equipment
-Coolant Pod								Equipment
 Drone Operating System					Equipment
 Electronic Warfare Equipment			Equipment
 Laser Insulator							Equipment

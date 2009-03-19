@@ -26,34 +26,50 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package ssw.states;
+package ssw.visitors;
+
 import ssw.components.*;
 
-public interface ifCockpit {
-    public String GetReportName();
-    public boolean IsClan();
-    public float GetTonnage();
-    public LocationIndex GetCockpitLoc();
-    public LocationIndex GetFirstSensorLoc();
-    public LocationIndex GetSecondSensorLoc();
-    public LocationIndex GetThirdSensorLoc();
-    public LocationIndex GetFirstLSLoc();
-    public LocationIndex GetSecondLSLoc();
-    public boolean HasSecondLSLoc();
-    public boolean HasThirdSensors();
-    public boolean CanUseCommandConsole();
-    public SimplePlaceable GetLifeSupport();
-    public SimplePlaceable GetSensors();
-    public SimplePlaceable GetSecondLifeSupport();
-    public SimplePlaceable GetSecondSensors();
-    public SimplePlaceable GetThirdSensors();
-    public String GetCritName();
-    public String GetMMName();
-    public float GetCost( int Tonnage );
-    public float BVMod();
-    public boolean HasFireControl();
-    public boolean IsTorsoMounted();
-    public AvailableCode GetAvailability();
-    public MechModifier GetMechModifier();
-    public int ReportCrits();
+public class VCockpitSetTorsoMount implements ifVisitor {
+    private Mech CurMech;
+    LocationIndex[] Locs = null;
+
+    public void LoadLocations( LocationIndex[] locs ) {
+        Locs = locs;
+    }
+
+    public void Visit( Mech m ) throws Exception {
+        // Pass us off to the cockpit
+        CurMech = m;
+        Cockpit c = CurMech.GetCockpit();
+
+        // first, we have to remove it from the loadout
+        ifLoadout l = CurMech.GetLoadout();
+        c.Remove( l );
+
+        // ensure we don't have a command console allocated
+        if( CurMech.HasCommandConsole() ) {
+            CurMech.SetCommandConsole( false );
+        }
+
+        // now set the correct type
+        if( CurMech.IsClan() ) {
+            c.SetCLTorsoMount();
+        } else {
+            c.SetISTorsoMount();
+        }
+
+        // replace the cockpit
+        if( Locs == null ) {
+            // standard placement
+            if( ! c.Place(l) ) {
+                throw new Exception( "Cannot allocate the Torso-Mounted Cockpit!" );
+            }
+        } else {
+            // specific placement
+            if( ! c.Place( l, Locs ) ) {
+                throw new Exception( "Cannot allocate the Torso-Mounted Cockpit!" );
+            }
+        }
+    }
 }

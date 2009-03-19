@@ -124,11 +124,21 @@ public class XMLWriter {
         FR.write( tab + "<gyro>" + CurMech.GetGyro().GetLookupName() + "</gyro>" );
         FR.newLine();
 
-        if( CurMech.HasEjectionSeat() ) {
-            FR.write( tab + "<cockpit ejectionseat=\"true\">" + CurMech.GetCockpit().GetLookupName() + "</cockpit>" );
+        FR.write( tab + "<cockpit>" );
+        FR.newLine();
+        if( CurMech.GetCockpit().IsTorsoMounted() ) {
+            // need to check locations for this.
+            FR.write( tab + tab + "<type>" + CurMech.GetCockpit().GetLookupName() + "</type>" );
+            FR.newLine();
+            FR.write( GetLocationLines( tab + tab, CurMech.GetCockpit() ) );
+            FR.write( GetLocationLines( tab + tab, CurMech.GetCockpit().GetThirdSensors() ) );
+            FR.write( GetLocationLines( tab + tab, CurMech.GetCockpit().GetFirstLS() ) );
+            FR.write( GetLocationLines( tab + tab, CurMech.GetCockpit().GetSecondLS() ) );
         } else {
-            FR.write( tab + "<cockpit>" + CurMech.GetCockpit().GetLookupName() + "</cockpit>" );
+            FR.write( tab + tab + "<type ejectionseat=\"" + GetBoolean( CurMech.HasEjectionSeat() ) + "\" commandconsole=\"" + GetBoolean( CurMech.HasCommandConsole() ) + "\">" + CurMech.GetCockpit().GetLookupName() + "</type>" );
+            FR.newLine();
         }
+        FR.write( tab + "</cockpit>" );
         FR.newLine();
 
         if( CurMech.GetPhysEnhance().IsTSM() || CurMech.GetPhysEnhance().IsMASC() ) {
@@ -241,6 +251,14 @@ public class XMLWriter {
             FR.write( tab + tab + "<multislot name=\"" + CurMech.GetEnviroSealing().GetCritName() + "\">" );
             FR.newLine();
             FR.write( GetLocationLines( tab + tab + tab, CurMech.GetEnviroSealing() ) );
+            FR.write( tab + tab + "</multislot>" );
+            FR.newLine();
+        }
+        if( CurMech.HasTracks() ) {
+            // this can only ever go in the base loadout, so we'll save it here
+            FR.write( tab + tab + "<multislot name=\"" + CurMech.GetTracks().GetCritName() + "\">" );
+            FR.newLine();
+            FR.write( GetLocationLines( tab + tab + tab, CurMech.GetTracks() ) );
             FR.write( tab + tab + "</multislot>" );
             FR.newLine();
         }

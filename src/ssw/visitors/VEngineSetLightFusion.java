@@ -39,7 +39,7 @@ public class VEngineSetLightFusion implements ifVisitor {
         Locs = locs;
     }
 
-    public void Visit(Mech m) {
+    public void Visit(Mech m) throws Exception {
         // only the engine changes here, so pass us off to the engine
         CurMech = m;
         ifLoadout l = CurMech.GetLoadout();
@@ -72,9 +72,13 @@ public class VEngineSetLightFusion implements ifVisitor {
 
         // place the engine
         if( Locs == null ) {
-            e.Place( l );
+            if( ! e.Place( l ) ) {
+                throw new Exception( "Light Fusion engine cannot be allocated!" );
+            }
         } else {
-            e.Place( l, Locs );
+            if( ! e.Place( l, Locs ) ) {
+                throw new Exception( "Light Fusion engine cannot be allocated!" );
+            }
         }
 
         // try to reinstall the Supercharger

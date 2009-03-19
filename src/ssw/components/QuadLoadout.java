@@ -2479,6 +2479,11 @@ public class QuadLoadout implements ifLoadout {
         boolean AddIn = false;
         boolean ArrayGood = false;
 
+        // check for generic placement
+        if( SIndex == -1 ) {
+            SIndex = FirstFree( Loc );
+        }
+
         // do we have space at the requested index?
         try {
             // is the item contiguous?  Note, this will be used for some single

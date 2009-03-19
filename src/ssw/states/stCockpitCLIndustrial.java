@@ -55,12 +55,6 @@ public class stCockpitCLIndustrial implements ifCockpit, ifState {
         return result;
     }
 
-    public int GetSecondSensorLoc() {
-        // This returns the head index number of the second sensor location
-        // it'll be one less than the game says because it's an array index
-        return 4;
-    }
-    
     public boolean HasSecondLSLoc() {
         return true;
     }
@@ -129,5 +123,45 @@ public class stCockpitCLIndustrial implements ifCockpit, ifState {
     @Override
     public String toString() {
         return "Industrial Cockpit";
+    }
+
+    public LocationIndex GetCockpitLoc() {
+        return new LocationIndex( 2, Constants.LOC_HD, -1 );
+    }
+
+    public LocationIndex GetFirstSensorLoc() {
+        return new LocationIndex( 1, Constants.LOC_HD, -1 );
+    }
+
+    public LocationIndex GetSecondSensorLoc() {
+        return new LocationIndex( 4, Constants.LOC_HD, -1 );
+    }
+
+    public LocationIndex GetFirstLSLoc() {
+        return new LocationIndex( 0, Constants.LOC_HD, -1 );
+    }
+
+    public LocationIndex GetSecondLSLoc() {
+        return new LocationIndex( 5, Constants.LOC_HD, -1 );
+    }
+
+    public boolean CanUseCommandConsole() {
+        return true;
+    }
+
+    public boolean HasThirdSensors() {
+        return false;
+    }
+
+    public LocationIndex GetThirdSensorLoc() {
+        return null;
+    }
+
+    public SimplePlaceable GetThirdSensors() {
+        return null;
+    }
+
+    public boolean IsTorsoMounted() {
+        return false;
     }
 }

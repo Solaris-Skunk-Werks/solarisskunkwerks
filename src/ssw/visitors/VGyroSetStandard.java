@@ -38,7 +38,7 @@ public class VGyroSetStandard implements ifVisitor {
         // does nothing here, but may later.
     }
 
-    public void Visit( Mech m ) {
+    public void Visit( Mech m ) throws Exception {
         CurMech = m;
         boolean CASEInstalled = false;
         boolean SChargerInstalled = false;
@@ -81,10 +81,14 @@ public class VGyroSetStandard implements ifVisitor {
         }
 
         // place the gyro
-        g.Place(l);
+        if( ! g.Place(l) ) {
+            throw new Exception( "Standard Gyro cannot be allocated!" );
+        }
 
         // now replace the engine criticals
-        m.GetEngine().Place(l);
+        if( ! m.GetEngine().Place(l) ) {
+            throw new Exception( m.GetEngine().GetLookupName() + " cannot be allocated!" );
+        }
 
         // if we had CASE installed, try to replace it
         if( CASEInstalled ) {

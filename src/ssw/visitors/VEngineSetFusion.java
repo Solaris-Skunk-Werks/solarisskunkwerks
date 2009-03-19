@@ -38,7 +38,7 @@ public class VEngineSetFusion implements ifVisitor {
         // does nothing here, but may later.
     }
 
-    public void Visit(Mech m) {
+    public void Visit(Mech m) throws Exception {
         // only the engine changes here, so pass us off to the engine
         CurMech = m;
         ifLoadout l = CurMech.GetLoadout();
@@ -67,7 +67,9 @@ public class VEngineSetFusion implements ifVisitor {
         }
 
         // place the engine
-        e.Place(l);
+        if( ! e.Place(l) ) {
+            throw new Exception( "Fusion engine cannot be allocated!" );
+        }
 
         // try to reinstall the Supercharger
         if( SChargerInstalled ) {

@@ -54,7 +54,8 @@ public class Equipment extends abPlaceable {
                     alloc_legs = true,
                     CanSplit = false,
                     Rear = false,
-                    CanMountRear = false;
+                    CanMountRear = false,
+                    Explosive = false;
     private AvailableCode AC;
 
     public Equipment() {
@@ -113,6 +114,10 @@ public class Equipment extends abPlaceable {
 
     public void SetSplitable( boolean s ) {
         CanSplit = s;
+    }
+
+    public void SetExplosive( boolean b ) {
+        Explosive = b;
     }
 
     @Override
@@ -270,6 +275,10 @@ public class Equipment extends abPlaceable {
     @Override
     public void SetManufacturer( String n ) {
         Manufacturer = n;
+    }
+
+    public boolean IsExplosive() {
+        return Explosive;
     }
 
     @Override

@@ -106,7 +106,9 @@ public class Mech implements ifBattleforce{
                             BlueShield,
                             EnviroSealing,
                             Tracks;
-    private SimplePlaceable EjectionSeat;
+    private SimplePlaceable EjectionSeat,
+                            ISCommandConsole,
+                            CLCommandConsole;
     private AESSystem LAAES = new AESSystem( this, false ),
                       RAAES = new AESSystem( this, false ),
                       FLLAES = new AESSystem( this, true ),
@@ -174,6 +176,14 @@ public class Mech implements ifBattleforce{
         EjectionSeat.SetCost( 25000.0f );
         AC = new AvailableCode (false, 'C', 'D', 'E', 'E', 2400, 0, 0, "DC", "", false, false, 0, false, "", Constants.TOURNAMENT, Constants.TOURNAMENT);
         Tracks = new Tracks(this, AC);
+        AC = new AvailableCode ( false, 'D', 'C', 'F', 'E', 2631, 2850, 3030, "TH", "??", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        ISCommandConsole = new SimplePlaceable( "Command Console", "CommandConsole", 1, true, AC );
+        ISCommandConsole.SetTonnage( 3.0f );
+        ISCommandConsole.SetCost( 500000.0f );
+        AC = new AvailableCode ( true, 'D', 'X', 'B', 'B', 2631, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
+        CLCommandConsole = new SimplePlaceable( "Command Console", "CommandConsole", 1, true, AC );
+        CLCommandConsole.SetTonnage( 3.0f );
+        CLCommandConsole.SetCost( 500000.0f );
     }
 
     public void Recalculate() {
@@ -561,16 +571,22 @@ public class Mech implements ifBattleforce{
         GetActuators().PlaceActuators();
         CurPhysEnhance.Place( CurLoadout );
         // reset the correct number of heat sinks and jump jets
-        ifVisitor ResetV = Lookup( Jumps );
-        Visit( ResetV );
-        for( int i = 0; i < NumJJ; i++ ) {
-            GetJumpJets().IncrementNumJJ();
+        try {
+            ifVisitor ResetV = Lookup( Jumps );
+            Visit( ResetV );
+            for( int i = 0; i < NumJJ; i++ ) {
+                GetJumpJets().IncrementNumJJ();
+            }
+            ResetV = Lookup( HeatSinks );
+            Visit( ResetV );
+            for( int i = 0; i < NumHS; i++ ) {
+                GetHeatSinks().IncrementNumHS();
+            }
+        } catch( Exception e ) {
+            System.err.println( e.getMessage() );
+            e.printStackTrace();
         }
-        ResetV = Lookup( HeatSinks );
-        Visit( ResetV );
-        for( int i = 0; i < NumHS; i++ ) {
-            GetHeatSinks().IncrementNumHS();
-        }
+
         // it is safe to recalc here because we have the correct number
         GetHeatSinks().ReCalculate();
         GetJumpJets().ReCalculate();
@@ -728,16 +744,23 @@ public class Mech implements ifBattleforce{
         GetActuators().PlaceActuators();
         CurPhysEnhance.Place( CurLoadout );
         // reset the correct number of heat sinks and jump jets
-        ifVisitor ResetV = Lookup( Jumps );
-        Visit( ResetV );
-        for( int i = 0; i < NumJJ; i++ ) {
-            GetJumpJets().IncrementNumJJ();
+        try {
+            ifVisitor ResetV = Lookup( Jumps );
+            Visit( ResetV );
+            for( int i = 0; i < NumJJ; i++ ) {
+                GetJumpJets().IncrementNumJJ();
+            }
+            ResetV = Lookup( HeatSinks );
+            Visit( ResetV );
+            for( int i = 0; i < NumHS; i++ ) {
+                GetHeatSinks().IncrementNumHS();
+            }
+        } catch( Exception e ) {
+            // we shouldn't get an error from these visitors, but log it anyway
+            System.err.println( e.getMessage() );
+            e.printStackTrace();
         }
-        ResetV = Lookup( HeatSinks );
-        Visit( ResetV );
-        for( int i = 0; i < NumHS; i++ ) {
-            GetHeatSinks().IncrementNumHS();
-        }
+
         // it is safe to recalc here because we have the correct number
         GetHeatSinks().ReCalculate();
         GetJumpJets().ReCalculate();
@@ -1162,6 +1185,13 @@ public class Mech implements ifBattleforce{
         result += CurEngine.GetTonnage();
         result += CurGyro.GetTonnage();
         result += CurCockpit.GetTonnage();
+        if( HasCommandConsole() ) {
+            if( IsClan() ) {
+                result += CLCommandConsole.GetTonnage();
+            } else {
+                result += ISCommandConsole.GetTonnage();
+            }
+        }
         result += GetHeatSinks().GetTonnage();
         result += CurPhysEnhance.GetTonnage();
         result += GetJumpJets().GetTonnage();
@@ -1210,6 +1240,13 @@ public class Mech implements ifBattleforce{
         result += CurEngine.GetTonnage();
         result += CurGyro.GetTonnage();
         result += CurCockpit.GetTonnage();
+        if( HasCommandConsole() ) {
+            if( IsClan() ) {
+                result += CLCommandConsole.GetTonnage();
+            } else {
+                result += ISCommandConsole.GetTonnage();
+            }
+        }
         result += GetHeatSinks().GetTonnage();
         result += CurPhysEnhance.GetTonnage();
         result += GetJumpJets().GetTonnage();
@@ -1643,78 +1680,80 @@ public class Mech implements ifBattleforce{
         float result = 0.0f;
         Vector v = CurLoadout.GetNonCore();
         abPlaceable p;
+        boolean Explode;
 
         if( IsClan() ) {
             for( int i = 0; i < v.size(); i++ ) {
                 p = (abPlaceable) v.get( i );
-                if( p instanceof ifWeapon ) {
-                    if( ((ifWeapon) p).IsExplosive() ) {
-                        if( CurEngine.IsISXL() ) {
-                            switch( CurLoadout.Find( p ) ) {
-                                case 0:
-                                    if( ! CurLoadout.HasHDCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 1:
-                                    if( ! CurLoadout.HasCTCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 2:
-                                    if( ! CurLoadout.HasLTCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 3:
-                                    if( ! CurLoadout.HasRTCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 4:
-                                    if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 5:
-                                    if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 6:
-                                    if( ! CurLoadout.HasLLCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 7:
-                                    if( ! CurLoadout.HasRLCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                            }
-                        } else {
-                            switch( CurLoadout.Find( p ) ) {
-                                case 0:
-                                    if( ! CurLoadout.HasHDCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 1:
-                                    if( ! CurLoadout.HasCTCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 6: 
-                                    if( ! CurLoadout.HasLLCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 7:
-                                    if( ! CurLoadout.HasRLCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                            }
+                Explode = false;
+                if( p instanceof ifWeapon ) { Explode = ((ifWeapon) p).IsExplosive(); }
+                if( p instanceof Equipment ) { Explode = ((Equipment) p).IsExplosive(); }
+                if( Explode ) {
+                    if( CurEngine.IsISXL() ) {
+                        switch( CurLoadout.Find( p ) ) {
+                            case 0:
+                                if( ! CurLoadout.HasHDCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 1:
+                                if( ! CurLoadout.HasCTCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 2:
+                                if( ! CurLoadout.HasLTCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 3:
+                                if( ! CurLoadout.HasRTCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 4:
+                                if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 5:
+                                if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 6:
+                                if( ! CurLoadout.HasLLCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 7:
+                                if( ! CurLoadout.HasRLCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                        }
+                    } else {
+                        switch( CurLoadout.Find( p ) ) {
+                            case 0:
+                                if( ! CurLoadout.HasHDCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 1:
+                                if( ! CurLoadout.HasCTCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 6: 
+                                if( ! CurLoadout.HasLLCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 7:
+                                if( ! CurLoadout.HasRLCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
                         }
                     }
                 }
@@ -1722,94 +1761,95 @@ public class Mech implements ifBattleforce{
         } else {
             for( int i = 0; i < v.size(); i++ ) {
                 p = (abPlaceable) v.get( i );
-                if( p instanceof ifWeapon ) {
-                    if( ((ifWeapon) p).IsExplosive() ) {
-                        if( CurEngine.IsISXL() ) {
-                            switch( CurLoadout.Find( p ) ) {
-                                case 0:
-                                    if( ! CurLoadout.HasHDCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 1:
-                                    if( ! CurLoadout.HasCTCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 2:
-                                    if( ! CurLoadout.HasLTCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 3:
-                                    if( ! CurLoadout.HasRTCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 4:
-                                    if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 5:
-                                    if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 6:
-                                    if( ! CurLoadout.HasLLCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 7:
-                                    if( ! CurLoadout.HasRLCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                            }
-                        } else {
-                            switch( CurLoadout.Find( p ) ) {
-                                case 0:
-                                    if( ! CurLoadout.HasHDCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 1:
-                                    if( ! CurLoadout.HasCTCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 2:
-                                    if( ! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 3:
-                                    if( ! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 4:
-                                    if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 5:
-                                    if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 6:
-                                    if( ! CurLoadout.HasLLCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                                case 7:
-                                    if( ! CurLoadout.HasRLCASEII() ) {
-                                        result -= p.NumCrits();
-                                    }
-                                    break;
-                            }
+                Explode = false;
+                if( p instanceof ifWeapon ) { Explode = ((ifWeapon) p).IsExplosive(); }
+                if( p instanceof Equipment ) { Explode = ((Equipment) p).IsExplosive(); }
+                if( Explode ) {
+                    if( CurEngine.IsISXL() ) {
+                        switch( CurLoadout.Find( p ) ) {
+                            case 0:
+                                if( ! CurLoadout.HasHDCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 1:
+                                if( ! CurLoadout.HasCTCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 2:
+                                if( ! CurLoadout.HasLTCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 3:
+                                if( ! CurLoadout.HasRTCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 4:
+                                if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 5:
+                                if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 6:
+                                if( ! CurLoadout.HasLLCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 7:
+                                if( ! CurLoadout.HasRLCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                        }
+                    } else {
+                        switch( CurLoadout.Find( p ) ) {
+                            case 0:
+                                if( ! CurLoadout.HasHDCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 1:
+                                if( ! CurLoadout.HasCTCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 2:
+                                if( ! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 3:
+                                if( ! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 4:
+                                if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 5:
+                                if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 6:
+                                if( ! CurLoadout.HasLLCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
+                            case 7:
+                                if( ! CurLoadout.HasRLCASEII() ) {
+                                    result -= p.NumCrits();
+                                }
+                                break;
                         }
                     }
                 }
@@ -1898,6 +1938,23 @@ public class Mech implements ifBattleforce{
         // now get the mech's heat efficiency and the total heat from weapons
         int heff = 6 + GetHeatSinks().TotalDissipation() - GetBVMovementHeat();
         int wheat = GetBVWeaponHeat();
+
+        if( GetRulesLevel() == Constants.EXPERIMENTAL ) {
+            // check for coolant pods
+            int NumHS = GetHeatSinks().GetNumHS(), MaxHSBonus = NumHS * 2, NumPods = 0;
+            for( int i = 0; i < v.size(); i++ ) {
+                a = (abPlaceable) v.get( i );
+                if( a instanceof Equipment ) {
+                    if( ((Equipment) a).GetCritName().equals( "Coolant Pod" ) ) {
+                        NumPods++;
+                    }
+                }
+            }
+            // get the heat sink bonus
+            int Bonus = (int) Math.ceil( (float) NumHS * ( (float) NumPods * 0.2f ) );
+            if( Bonus > MaxHSBonus ) { Bonus = MaxHSBonus; }
+            heff += Bonus;
+        }
 
         // find out the total BV of rear and forward firing weapons
         for( int i = 0; i < wep.size(); i++ ) {
@@ -2111,6 +2168,13 @@ public class Mech implements ifBattleforce{
         ChassisCost += CurGyro.GetCost();
         ChassisCost += CurIntStruc.GetCost();
         ChassisCost += CurCockpit.GetCost();
+        if( HasCommandConsole() ) {
+            if( IsClan() ) {
+                ChassisCost += CLCommandConsole.GetCost();
+            } else {
+                ChassisCost += ISCommandConsole.GetCost();
+            }
+        }
         ChassisCost += GetActuators().GetCost();
         ChassisCost += CurPhysEnhance.GetCost();
         ChassisCost += GetHeatSinks().GetCost();
@@ -2203,6 +2267,13 @@ public class Mech implements ifBattleforce{
         result += CurGyro.GetCost();
         result += CurIntStruc.GetCost();
         result += CurCockpit.GetCost();
+        if( HasCommandConsole() ) {
+            if( IsClan() ) {
+                result += CLCommandConsole.GetCost();
+            } else {
+                result += ISCommandConsole.GetCost();
+            }
+        }
         result += GetActuators().GetCost();
         result += CurPhysEnhance.GetCost();
         result += GetHeatSinks().GetCost();
@@ -2235,7 +2306,7 @@ public class Mech implements ifBattleforce{
         return result;
     }
 
-    public void Visit( ifVisitor v ) {
+    public void Visit( ifVisitor v ) throws Exception {
         v.Visit( this );
     }
 
@@ -3083,6 +3154,13 @@ public class Mech implements ifBattleforce{
         AC.Combine( CurGyro.GetAvailability() );
         AC.Combine( CurIntStruc.GetAvailability() );
         AC.Combine( CurCockpit.GetAvailability() );
+        if( HasCommandConsole() ) {
+            if( IsClan() ) {
+                AC.Combine( CLCommandConsole.GetAvailability() );
+            } else {
+                AC.Combine( ISCommandConsole.GetAvailability() );
+            }
+        }
         AC.Combine( GetActuators().GetAvailability() );
         AC.Combine( CurPhysEnhance.GetAvailability() );
         AC.Combine( GetHeatSinks().GetAvailability() );
@@ -3273,6 +3351,53 @@ public class Mech implements ifBattleforce{
             return false;
         }
         return false;
+    }
+
+    public SimplePlaceable GetCommandConsole() {
+        if( IsClan() ) {
+            return CLCommandConsole;
+        } else {
+            return ISCommandConsole;
+        }
+    }
+
+    public boolean SetCommandConsole( boolean set ) {
+        if( HasCommandConsole() == set ) { return true; }
+        if( set ) {
+            try {
+                if( IsClan() ) {
+                    CurLoadout.AddToHD( CLCommandConsole );
+                } else {
+                    CurLoadout.AddToHD( ISCommandConsole );
+                }
+            } catch( Exception e ) {
+                return false;
+            }
+        } else {
+            if( IsClan() ) {
+                CurLoadout.Remove( CLCommandConsole );
+            } else {
+                CurLoadout.Remove( ISCommandConsole );
+            }
+        }
+
+        return true;
+    }
+
+    public boolean HasCommandConsole() {
+        if( IsClan() ) {
+            if( CurLoadout.IsAllocated( CLCommandConsole ) ) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if( CurLoadout.IsAllocated( ISCommandConsole ) ) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     public Vector GetMechMods() {
@@ -3644,6 +3769,7 @@ public class Mech implements ifBattleforce{
         Lookup.put( "Industrial Cockpit", new VCockpitSetIndustrial() );
         Lookup.put( "Industrial w/ Adv. FC", new VCockpitSetIndustrialAFC() );
         Lookup.put( "Small Cockpit", new VCockpitSetSmall() );
+        Lookup.put( "Torso-Mounted Cockpit", new VCockpitSetTorsoMount() );
         Lookup.put( "Fuel-Cell Engine", new VEngineSetFuelCell() );
         Lookup.put( "Fission Engine", new VEngineSetFission() );
         Lookup.put( "Fusion Engine", new VEngineSetFusion() );

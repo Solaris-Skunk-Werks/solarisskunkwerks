@@ -433,8 +433,6 @@ public class Armor  extends abPlaceable {
             return false;
     }
 
-
-
     public boolean IsClan() {
         return ((ifState) Config).IsClan();
     }
@@ -561,7 +559,11 @@ public class Armor  extends abPlaceable {
     }
 
     public float GetDefensiveBV() {
-        return ( GetArmorValue() + GetModularArmorValue() ) * Config.GetBVTypeMult() * 2.5f;
+        if( Owner.GetCockpit().IsTorsoMounted() ) {
+            return ( GetArmorValue() + ArmorPoints[Constants.LOC_CT] + ArmorPoints[Constants.LOC_CTR] + GetModularArmorValue() ) * Config.GetBVTypeMult() * 2.5f;
+        } else {
+            return ( GetArmorValue() + GetModularArmorValue() ) * Config.GetBVTypeMult() * 2.5f;
+        }
     }
 
     public int GetBAR() {

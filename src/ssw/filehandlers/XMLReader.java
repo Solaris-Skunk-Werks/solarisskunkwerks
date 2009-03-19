@@ -229,17 +229,49 @@ public class XMLReader {
         }
         m.SetEngineRating( Integer.parseInt( map.getNamedItem( "rating" ).getTextContent() ) );
         m.SetEngineManufacturer( FileCommon.DecodeFluff( map.getNamedItem( "manufacturer" ).getTextContent() ) );
+
         n = d.getElementsByTagName( "cockpit" );
-        map = n.item( 0 ).getAttributes();
         v = m.Lookup( n.item( 0 ).getTextContent() );
+        LocationIndex[] clocs = { null, null, null, null };
         if( v == null ) {
-            throw new Exception( "The Cockpit type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
+            // new style cockpit save, or a bad cockpit.  check for both
+            n = n.item( 0 ).getChildNodes();
+            Node Type = null;
+            int j = 0;
+            for( int i = 0; i < n.getLength(); i++ ) {
+                if( n.item( i ).getNodeName().equals( "location" ) ) {
+                    clocs[j] = DecodeLocation( n.item( i ) );
+                    j++;
+                } else if( n.item( i ).getNodeName().equals( "type" ) ) {
+                    Type = n.item( i );
+                }
+            }
+            if( Type == null ) {
+                throw new Exception( "The Cockpit type could not be found (missing type node).\nThe Mech cannot be loaded." );
+            } else {
+                v = m.Lookup( Type.getTextContent() );
+                if( v == null ) {
+                    throw new Exception( "The Cockpit type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
+                } else {
+                    v.LoadLocations( clocs );
+                    m.Visit( v );
+                }
+            }
+            map = Type.getAttributes();
+            if( map.getNamedItem( "ejectionseat" ) != null ) {
+                m.SetEjectionSeat( ParseBoolean( map.getNamedItem( "ejectionseat" ).getTextContent() ) );
+            }
+            if( map.getNamedItem( "commandconsole" ) != null ) {
+                m.SetCommandConsole( ParseBoolean( map.getNamedItem( "commandconsole" ).getTextContent() ) );
+            }
         } else {
+            // old-style cockpit save
             m.Visit( v );
+            if( map.getNamedItem( "ejectionseat" ) != null ) {
+                m.SetEjectionSeat( ParseBoolean( map.getNamedItem( "ejectionseat" ).getTextContent() ) );
+            }
         }
-        if( map.getNamedItem( "ejectionseat" ) != null ) {
-            m.SetEjectionSeat( true );
-        }
+
         n = d.getElementsByTagName( "structure" );
         map = n.item( 0 ).getAttributes();
         n = n.item( 0 ).getChildNodes();
@@ -567,6 +599,8 @@ public class XMLReader {
                     m.SetChameleon( true, Locs );
                 } else if( type.equals( m.GetEnviroSealing().GetCritName() ) ) {
                     m.SetEnviroSealing( true, Locs );
+                } else if( type.equals( m.GetTracks().GetCritName() ) ) {
+                    m.SetTracks( true, Locs );
                 }
             } else if( n.item( i ).getNodeName().equals( "arm_aes" ) ) {
                 map = n.item( i ).getAttributes();

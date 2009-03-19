@@ -2795,7 +2795,7 @@ public class WeaponFactory {
         addBW.SetSpecials( "AE, S", true, true, 5, 128, false, false );
         addBW.SetStats( 20.0f, 15, 650000.0f, 385.0f, 0.0f );
         addBW.SetBallistics( false, false, false, false );
-        addBW.SetAllocations( false, true, true, false, false, true );
+        addBW.SetAllocations( false, true, true, true, true, true );
         addBW.SetRequiresNuclear( false );
         ISBW.add( addBW );
 
@@ -2809,7 +2809,7 @@ public class WeaponFactory {
         addBW.SetSpecials( "AE, S", true, true, 10, 127, false, false );
         addBW.SetStats( 15.0f, 10, 475000.0f, 77.0f, 0.0f );
         addBW.SetBallistics( false, false, false, false );
-        addBW.SetAllocations( false, true, true, false, false, true );
+        addBW.SetAllocations( false, true, true, true, true, true );
         addBW.SetRequiresNuclear( false );
         ISBW.add( addBW );
 
@@ -2823,7 +2823,7 @@ public class WeaponFactory {
         addBW.SetSpecials( "AE, S", true, true, 20, 126, false, false );
         addBW.SetStats( 10.0f, 7, 200000.0f, 385.0f, 0.0f );
         addBW.SetBallistics( false, false, false, false );
-        addBW.SetAllocations( false, true, true, false, false, true );
+        addBW.SetAllocations( false, true, true, true, true, true );
         addBW.SetRequiresNuclear( false );
         ISBW.add( addBW );
 
@@ -4176,7 +4176,7 @@ public class WeaponFactory {
         addBW.SetSpecials( "AE, S", true, true, 5, 131, false, false );
         addBW.SetStats( 20.0f, 15, 650000.0f, 385.0f, 0.0f );
         addBW.SetBallistics( false, false, false, false );
-        addBW.SetAllocations( false, true, true, false, false, true );
+        addBW.SetAllocations( false, true, true, true, true, true );
         addBW.SetRequiresNuclear( false );
         CLBW.add( addBW );
 
@@ -4190,7 +4190,7 @@ public class WeaponFactory {
         addBW.SetSpecials( "AE, S", true, true, 10, 130, false, false );
         addBW.SetStats( 15.0f, 10, 475000.0f, 77.0f, 0.0f );
         addBW.SetBallistics( false, false, false, false );
-        addBW.SetAllocations( false, true, true, false, false, true );
+        addBW.SetAllocations( false, true, true, true, true, true );
         addBW.SetRequiresNuclear( false );
         CLBW.add( addBW );
 
@@ -4204,7 +4204,7 @@ public class WeaponFactory {
         addBW.SetSpecials( "AE, S", true, true, 20, 129, false, false );
         addBW.SetStats( 10.0f, 7, 200000.0f, 385.0f, 0.0f );
         addBW.SetBallistics( false, false, false, false );
-        addBW.SetAllocations( false, true, true, false, false, true );
+        addBW.SetAllocations( false, true, true, true, true, true );
         addBW.SetRequiresNuclear( false );
         CLBW.add( addBW );
 

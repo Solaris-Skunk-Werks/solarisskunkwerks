@@ -90,7 +90,12 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
             retval += "(Note: BV Calculations include defensive BV for armored components.)" + NL;
         }
         retval += "________________________________________________________________________________" + NL;
-        retval += String.format( "%1$-71s %2$,8.2f", "Total Armor Factor (" + CurMech.GetArmor().GetArmorValue() + ") * Armor Type Modifier (" + CurMech.GetArmor().GetBVTypeMult() + ") * 2.5", CurMech.GetArmor().GetDefensiveBV() ) + NL;
+        if( CurMech.GetCockpit().IsTorsoMounted() ) {
+            retval += String.format( "%1$-71s %2$,8.2f", "Total Armor Factor (" + ( CurMech.GetArmor().GetArmorValue() + CurMech.GetArmor().GetLocationArmor( Constants.LOC_CT) + CurMech.GetArmor().GetLocationArmor( Constants.LOC_CTR) ) + ") * Armor Type Modifier (" + CurMech.GetArmor().GetBVTypeMult() + ") * 2.5", CurMech.GetArmor().GetDefensiveBV() ) + NL;
+            retval += "    (Front and Rear CT armor value doubled due to Torso-Mounted Cockpit)" + NL;
+        } else {
+            retval += String.format( "%1$-71s %2$,8.2f", "Total Armor Factor (" + CurMech.GetArmor().GetArmorValue() + ") * Armor Type Modifier (" + CurMech.GetArmor().GetBVTypeMult() + ") * 2.5", CurMech.GetArmor().GetDefensiveBV() ) + NL;
+        }
         retval += "Total Structure Points (" + CurMech.GetIntStruc().GetTotalPoints() + ") * Structure Type Modifier (" + CurMech.GetIntStruc().GetBVTypeMult() + ") *" + NL;
         retval += String.format( "%1$-71s %2$,8.2f", "    Engine Type Modifier (" + CurMech.GetEngine().GetBVMult() + ") * 1.5", CurMech.GetIntStruc().GetDefensiveBV() ) + NL;
         retval += String.format( "%1$-71s %2$,8.2f", "Mech Tonnage (" + CurMech.GetTonnage() + ") * Gyro Type Modifer (" + CurMech.GetGyro().GetBVTypeMult() + ")", CurMech.GetGyro().GetDefensiveBV() ) + NL;
@@ -104,7 +109,12 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
         retval += NL + NL;
         retval += "Offensive BV Calculation Breakdown" + NL;
         retval += "________________________________________________________________________________" + NL;
-        retval += "Heat Efficiency (6 + " + CurMech.GetHeatSinks().TotalDissipation() + " - " + CurMech.GetBVMovementHeat() + ") = "+ ( 6 + CurMech.GetHeatSinks().TotalDissipation() - CurMech.GetBVMovementHeat() ) + NL;
+        if( HasBonusFromCP() ) {
+            retval += "Heat Efficiency (6 + " + CurMech.GetHeatSinks().TotalDissipation() + " - " + CurMech.GetBVMovementHeat() + " + " + GetBonusFromCP() + ") = " + ( 6 + CurMech.GetHeatSinks().TotalDissipation() - CurMech.GetBVMovementHeat() + GetBonusFromCP() ) + NL;
+            retval += "    (Heat Efficiency calculation includes bonus from Coolant Pods)" + NL;
+        } else {
+            retval += "Heat Efficiency (6 + " + CurMech.GetHeatSinks().TotalDissipation() + " - " + CurMech.GetBVMovementHeat() + ") = "+ ( 6 + CurMech.GetHeatSinks().TotalDissipation() - CurMech.GetBVMovementHeat() ) + NL;
+        }
         retval += String.format( "%1$-71s %2$,8.2f", "Adjusted Weapon BV Total WBV", CurMech.GetHeatAdjustedWeaponBV() ) + NL;
         retval += PrintHeatAdjustedWeaponBV();
         retval += String.format( "%1$-71s %2$,8.2f", "Non-Heat Equipment Total NHBV", CurMech.GetNonHeatEquipBV() ) + NL;
@@ -118,7 +128,7 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
         retval += NL + NL;
         if( CurMech.GetCockpit().BVMod() != 1.0f ) {
             retval += String.format( "%1$-71s %2$,8.2f", CurMech.GetCockpit().GetCritName() + " modifier", CurMech.GetCockpit().BVMod() ) + NL;
-            retval += String.format( "%1$-73s %2$,6d", "Total Battle Value ((DBV + OBV) * " + CurMech.GetCockpit().GetCritName() + " modifier, round off)", CurMech.GetCurrentBV() );
+            retval += String.format( "%1$-73s %2$,6d", "Total Battle Value ((DBV + OBV) * cockpit modifier, round off)", CurMech.GetCurrentBV() );
         } else {
             retval += String.format( "%1$-73s %2$,6d", "Total Battle Value (DBV + OBV, round off)", CurMech.GetCurrentBV() );
         }
@@ -142,38 +152,8 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
                 retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", a.GetCritName(), a.GetDefensiveBV(), a.GetOffensiveBV(), a.GetCost() ) + NL;
             }
         }
-        if( CurMech.HasCTCase() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE", 0.0f, 0.0f, CurMech.GetLoadout().GetCTCase().GetCost() ) + NL;
-        }
-        if( CurMech.HasLTCase() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE", 0.0f, 0.0f, CurMech.GetLoadout().GetLTCase().GetCost() ) + NL;
-        }
-        if( CurMech.HasRTCase() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE", 0.0f, 0.0f, CurMech.GetLoadout().GetRTCase().GetCost() ) + NL;
-        }
-        if( CurMech.GetLoadout().HasHDCASEII() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetHDCaseII().GetCost() ) + NL;
-        }
-        if( CurMech.GetLoadout().HasCTCASEII() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetCTCaseII().GetCost() ) + NL;
-        }
-        if( CurMech.GetLoadout().HasLTCASEII() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetLTCaseII().GetCost() ) + NL;
-        }
-        if( CurMech.GetLoadout().HasRTCASEII() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetRTCaseII().GetCost() ) + NL;
-        }
-        if( CurMech.GetLoadout().HasLACASEII() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetLACaseII().GetCost() ) + NL;
-        }
-        if( CurMech.GetLoadout().HasRACASEII() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetRACaseII().GetCost() ) + NL;
-        }
-        if( CurMech.GetLoadout().HasLLCASEII() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetLLCaseII().GetCost() ) + NL;
-        }
-        if( CurMech.GetLoadout().HasRLCASEII() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetRLCaseII().GetCost() ) + NL;
+        if( CurMech.HasCommandConsole() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetCommandConsole().GetCritName(), CurMech.GetCommandConsole().GetDefensiveBV(), CurMech.GetCommandConsole().GetOffensiveBV(), CurMech.GetCommandConsole().GetCost() ) + NL;
         }
         if( CurMech.UsingTC() ) {
             retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "Targeting Computer", CurMech.GetTC().GetDefensiveBV(), CurMech.GetTC().GetOffensiveBV(), CurMech.GetTC().GetCost() ) + NL;
@@ -209,6 +189,39 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
                 retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
                 retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
             }
+        }
+        if( CurMech.HasCTCase() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE", 0.0f, 0.0f, CurMech.GetLoadout().GetCTCase().GetCost() ) + NL;
+        }
+        if( CurMech.HasLTCase() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE", 0.0f, 0.0f, CurMech.GetLoadout().GetLTCase().GetCost() ) + NL;
+        }
+        if( CurMech.HasRTCase() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE", 0.0f, 0.0f, CurMech.GetLoadout().GetRTCase().GetCost() ) + NL;
+        }
+        if( CurMech.GetLoadout().HasHDCASEII() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetHDCaseII().GetCost() ) + NL;
+        }
+        if( CurMech.GetLoadout().HasCTCASEII() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetCTCaseII().GetCost() ) + NL;
+        }
+        if( CurMech.GetLoadout().HasLTCASEII() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetLTCaseII().GetCost() ) + NL;
+        }
+        if( CurMech.GetLoadout().HasRTCASEII() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetRTCaseII().GetCost() ) + NL;
+        }
+        if( CurMech.GetLoadout().HasLACASEII() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetLACaseII().GetCost() ) + NL;
+        }
+        if( CurMech.GetLoadout().HasRACASEII() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetRACaseII().GetCost() ) + NL;
+        }
+        if( CurMech.GetLoadout().HasLLCASEII() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetLLCaseII().GetCost() ) + NL;
+        }
+        if( CurMech.GetLoadout().HasRLCASEII() ) {
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetRLCaseII().GetCost() ) + NL;
         }
         return retval;
     }
@@ -253,6 +266,7 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
 
         // now get the mech's heat efficiency and the total heat from weapons
         int heff = 6 + CurMech.GetHeatSinks().TotalDissipation() - CurMech.GetBVMovementHeat();
+        heff += GetBonusFromCP();
         int wheat = CurMech.GetBVWeaponHeat();
 
         // find out the total BV of rear and forward firing weapons
@@ -346,7 +360,48 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
         return retval;
     }
 
-     /** This method is called from within the constructor to
+    private boolean HasBonusFromCP() {
+        Vector v = CurMech.GetLoadout().GetNonCore();
+        abPlaceable a;
+        if( CurMech.GetRulesLevel() == Constants.EXPERIMENTAL ) {
+            // check for coolant pods
+            for( int i = 0; i < v.size(); i++ ) {
+                a = (abPlaceable) v.get( i );
+                if( a instanceof Equipment ) {
+                    if( ((Equipment) a).GetCritName().equals( "Coolant Pod" ) ) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private int GetBonusFromCP() {
+        int BonusFromCP, retval = 0;
+        int NumHS = CurMech.GetHeatSinks().GetNumHS(), MaxHSBonus = NumHS * 2, NumPods = 0;
+        Vector v = CurMech.GetLoadout().GetNonCore();
+        abPlaceable a;
+
+        if( CurMech.GetRulesLevel() == Constants.EXPERIMENTAL ) {
+            // check for coolant pods
+            for( int i = 0; i < v.size(); i++ ) {
+                a = (abPlaceable) v.get( i );
+                if( a instanceof Equipment ) {
+                    if( ((Equipment) a).GetCritName().equals( "Coolant Pod" ) ) {
+                        NumPods++;
+                    }
+                }
+            }
+            // get the heat sink bonus
+            BonusFromCP = (int) Math.ceil( (float) NumHS * ( (float) NumPods * 0.2f ) );
+            if( BonusFromCP > MaxHSBonus ) { BonusFromCP = MaxHSBonus; }
+            retval += BonusFromCP;
+        }
+        return retval;
+    }
+
+    /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
      * always regenerated by the Form Editor.

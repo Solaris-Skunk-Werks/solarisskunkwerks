@@ -31,32 +31,25 @@ package ssw.states;
 import ssw.Constants;
 import ssw.components.*;
 
-public class stCockpitCL implements ifCockpit, ifState {
-    private final static AvailableCode AC = new AvailableCode( true, 'D', 'X', 'B', 'B',
-        2300, 0, 0, "TH", "", false, false );
-    private final static SimplePlaceable Sensors = new SimplePlaceable( "Sensors",
-        "Sensors", 1, true, AC );
-    private final static SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support",
-        "Life Support", 1, true, AC );
-    private final static SimplePlaceable SecondSensors = new SimplePlaceable( "Sensors",
-        "Sensors", 1, true, AC );
-    private final static SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support",
-        "Life Support", 1, true, AC );
-
-    public stCockpitCL() {
-        AC.SetRulesLevelIM( Constants.UNALLOWED );
-    }
+public class stCockpitCLTM implements ifCockpit, ifState {
+    private final static AvailableCode AC = new AvailableCode( true, 'E', 'X', 'X', 'F', 3053, 0, 0, "FC", "", false, false, 3044, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+    private final static SimplePlaceable Sensors = new SimplePlaceable( "Sensors", "Sensors", 1, true, AC );
+    private final static SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support", "Life Support", 1, true, AC );
+    private final static SimplePlaceable SecondSensors = new SimplePlaceable( "Sensors", "Sensors", 1, true, AC );
+    private final static SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support", "Life Support", 1, true, AC );
+    private final static SimplePlaceable ThirdSensors = new SimplePlaceable( "Sensors", "Sensors", 1, true, AC );
 
     public boolean IsClan() {
         return true;
     }
-    
+
     public float GetTonnage() {
-        float result = 3.0f;
+        float result = 4.0f;
         result += Sensors.GetTonnage();
         result += SecondSensors.GetTonnage();
         result += LifeSupport.GetTonnage();
         result += SecondLifeSupport.GetTonnage();
+        result += ThirdSensors.GetTonnage();
         return result;
     }
 
@@ -81,44 +74,45 @@ public class stCockpitCL implements ifCockpit, ifState {
     }
 
     public String GetLookupName() {
-        return "Standard Cockpit";
+        return "Torso-Mounted Cockpit";
     }
 
     public String GetCritName() {
-        return "Cockpit";
+        return "Torso-Mounted Cockpit";
     }
-
+    
     public String GetMMName() {
         return "Cockpit";
     }
 
     public String GetReportName() {
-        return "Standard";
+        return "Torso-Mounted";
     }
 
     public float GetCost( int Tonnage ) {
-        float result = 250000.0f + ( 2000.0f * Tonnage );
+        float result = 750000.0f + ( 2000.0f * Tonnage );
         result += Sensors.GetCost();
         result += LifeSupport.GetCost();
         result += SecondSensors.GetCost();
         result += SecondLifeSupport.GetCost();
+        result += ThirdSensors.GetCost();
         return result;
     }
-
+    
     public boolean HasFireControl() {
         return true;
     }
 
     public float BVMod() {
-        return 1.0f;
+        return 0.95f;
     }
 
     public AvailableCode GetAvailability() {
         return AC;
     }
-
+    
     public int ReportCrits() {
-        return 5;
+        return 6;
     }
 
     public MechModifier GetMechModifier() {
@@ -127,11 +121,11 @@ public class stCockpitCL implements ifCockpit, ifState {
 
     @Override
     public String toString() {
-        return "Standard Cockpit";
+        return "Torso-Mounted Cockpit";
     }
 
     public LocationIndex GetCockpitLoc() {
-        return new LocationIndex( 2, Constants.LOC_HD, -1 );
+        return new LocationIndex( -1, Constants.LOC_CT, -1 );
     }
 
     public LocationIndex GetFirstSensorLoc() {
@@ -143,30 +137,30 @@ public class stCockpitCL implements ifCockpit, ifState {
     }
 
     public LocationIndex GetFirstLSLoc() {
-        return new LocationIndex( 0, Constants.LOC_HD, -1 );
+        return new LocationIndex( -1, Constants.LOC_LT, -1 );
     }
 
     public LocationIndex GetSecondLSLoc() {
-        return new LocationIndex( 5, Constants.LOC_HD, -1 );
+        return new LocationIndex( -1, Constants.LOC_RT, -1 );
     }
 
     public boolean CanUseCommandConsole() {
-        return true;
+        return false;
     }
 
     public boolean HasThirdSensors() {
-        return false;
+        return true;
     }
 
     public LocationIndex GetThirdSensorLoc() {
-        return null;
+        return new LocationIndex( -1, Constants.LOC_CT, -1 );
     }
 
     public SimplePlaceable GetThirdSensors() {
-        return null;
+        return ThirdSensors;
     }
 
     public boolean IsTorsoMounted() {
-        return false;
+        return true;
     }
 }

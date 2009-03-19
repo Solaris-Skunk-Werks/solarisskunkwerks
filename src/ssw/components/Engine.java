@@ -239,17 +239,8 @@ public class Engine extends abPlaceable {
         try {
             l.AddToCT( this, 0 );
         } catch ( Exception e ) {
-            // something is taking the engine's spot.  Blow out whatever's there
-            abPlaceable[] a = l.GetCTCrits();
-            for( int i = 0; i < 2; i++ ) {
-                l.UnallocateAll( a[i], true );
-            }
-            try {
-                l.AddToCT( this, 0 );
-            } catch ( Exception f ) {
-                // what?  well, report it.
-                return false;
-            }
+            // something is taking the engine's spot.
+            return false;
         }
 
         // Figure out how many times to place this engine in the CT and do it.
@@ -260,46 +251,19 @@ public class Engine extends abPlaceable {
             } catch ( Exception e1 ) {
                 // Move on to the next index, which is for standard gyros
                 if( ! ( l.GetCTCrits()[5] instanceof Gyro ) ) {
-                    // not a gyro there.  blow it out and reinstall
-                    abPlaceable[] a = l.GetCTCrits();
-                    for( int i = 5; i < NumCrits() + 5; i++ ) {
-                        l.UnallocateAll( a[i], true );
-                    }
-                    try {
-                        l.AddToCT( this, 5 );
-                    } catch ( Exception f ) {
-                        return false;
-                    }
+                    return false;
                 } else {
                     try {
                         l.AddToCT( this, 7 );
                     } catch ( Exception e2 ) {
                         if( ! ( l.GetCTCrits()[7] instanceof Gyro ) ) {
-                            // not a gyro there.  blow it out and reinstall
-                            abPlaceable[] a = l.GetCTCrits();
-                            for( int i = 7; i < NumCrits() + 7; i++ ) {
-                                l.UnallocateAll( a[i], true );
-                            }
-                            try {
-                                l.AddToCT( this, 7 );
-                            } catch ( Exception f ) {
-                                return false;
-                            }
+                            return false;
                         } else {
                             // Move on to the next index, which is for extra-light gyros
                             try {
                                 l.AddToCT( this, 9 );
                             } catch ( Exception e3 ) {
-                                // something is taking the engine's spot. Blow it out
-                                abPlaceable[] a = l.GetCTCrits();
-                                for( int i = 9; i < 12; i++ ) {
-                                    l.UnallocateAll( a[i], true );
-                                }
-                                try {
-                                    l.AddToCT( this, 9 );
-                                } catch ( Exception f ) {
-                                    return false;
-                                }
+                                return false;
                             }
                         }
                     }
@@ -314,38 +278,16 @@ public class Engine extends abPlaceable {
             
             // Allocate the RT engine crits.
             try {
-                l.AddToRT( this, 0 );
+                l.AddTo( this, Constants.LOC_RT, -1 );
             } catch ( Exception e ) {
-                // no matter what the exception says, this is bad.  Let the mech
-                // handle this (probably by completely clearing the loadout).
-                abPlaceable[] a = l.GetRTCrits();
-                for( int i = 0; i < CurConfig.GetSideTorsoCrits(); i++ ) {
-                    l.UnallocateAll( a[i], true );
-                }
-                try {
-                    l.AddToRT( this, 0 );
-                } catch ( Exception f ) {
-                    return false;
-                }
+                return false;
             }
 
             // Now allocate the LT engine crits
             try {
-                l.AddToLT( this, 0 );
+                l.AddTo( this, Constants.LOC_LT, -1 );
             } catch ( Exception e ) {
-                // no matter what the exception says, this is bad.  Let the mech
-                // handle this (probably by completely clearing the loadout).
-                // no matter what the exception says, this is bad.  Let the mech
-                // handle this (probably by completely clearing the loadout).
-                abPlaceable[] a = l.GetLTCrits();
-                for( int i = 0; i < CurConfig.GetSideTorsoCrits(); i++ ) {
-                    l.UnallocateAll( a[i], true );
-                }
-                try {
-                    l.AddToLT( this, 0 );
-                } catch ( Exception f ) {
-                    return false;
-                }
+                return false;
             }
         }
 
@@ -363,17 +305,7 @@ public class Engine extends abPlaceable {
         try {
             l.AddToCT( this, 0 );
         } catch ( Exception e ) {
-            // something is taking the engine's spot.  Blow out whatever's there
-            abPlaceable[] a = l.GetCTCrits();
-            for( int i = 0; i < 2; i++ ) {
-                l.UnallocateAll( a[i], true );
-            }
-            try {
-                l.AddToCT( this, 0 );
-            } catch ( Exception f ) {
-                // what?  well, report it.
-                return false;
-            }
+            return false;
         }
 
         // Figure out how many times to place this engine in the CT and do it.
@@ -384,46 +316,19 @@ public class Engine extends abPlaceable {
             } catch ( Exception e1 ) {
                 // Move on to the next index, which is for standard gyros
                 if( ! ( l.GetCTCrits()[5] instanceof Gyro ) ) {
-                    // not a gyro there.  blow it out and reinstall
-                    abPlaceable[] a = l.GetCTCrits();
-                    for( int i = 5; i < NumCrits() + 5; i++ ) {
-                        l.UnallocateAll( a[i], true );
-                    }
-                    try {
-                        l.AddToCT( this, 5 );
-                    } catch ( Exception f ) {
-                        return false;
-                    }
+                    return false;
                 } else {
                     try {
                         l.AddToCT( this, 7 );
                     } catch ( Exception e2 ) {
                         if( ! ( l.GetCTCrits()[7] instanceof Gyro ) ) {
-                            // not a gyro there.  blow it out and reinstall
-                            abPlaceable[] a = l.GetCTCrits();
-                            for( int i = 7; i < NumCrits() + 7; i++ ) {
-                                l.UnallocateAll( a[i], true );
-                            }
-                            try {
-                                l.AddToCT( this, 7 );
-                            } catch ( Exception f ) {
-                                return false;
-                            }
+                            return false;
                         } else {
                             // Move on to the next index, which is for extra-light gyros
                             try {
                                 l.AddToCT( this, 9 );
                             } catch ( Exception e3 ) {
-                                // something is taking the engine's spot. Blow it out
-                                abPlaceable[] a = l.GetCTCrits();
-                                for( int i = 9; i < 12; i++ ) {
-                                    l.UnallocateAll( a[i], true );
-                                }
-                                try {
-                                    l.AddToCT( this, 9 );
-                                } catch ( Exception f ) {
-                                    return false;
-                                }
+                                return false;
                             }
                         }
                     }
@@ -455,44 +360,18 @@ public class Engine extends abPlaceable {
                 }
             }
 
-            if( rtindex == -1 ) { rtindex = 0; }
-
             // Allocate the RT engine crits.
             try {
                 l.AddToRT( this, rtindex );
             } catch ( Exception e ) {
-                // no matter what the exception says, this is bad.  Let the mech
-                // handle this (probably by completely clearing the loadout).
-                abPlaceable[] a = l.GetRTCrits();
-                for( int i = 0; i < CurConfig.GetSideTorsoCrits(); i++ ) {
-                    l.UnallocateAll( a[i], true );
-                }
-                try {
-                    l.AddToRT( this, 0 );
-                } catch ( Exception f ) {
-                    return false;
-                }
+                return false;
             }
-
-            if( ltindex == -1 ) { ltindex = 0; }
 
             // Now allocate the LT engine crits
             try {
                 l.AddToLT( this, ltindex );
             } catch ( Exception e ) {
-                // no matter what the exception says, this is bad.  Let the mech
-                // handle this (probably by completely clearing the loadout).
-                // no matter what the exception says, this is bad.  Let the mech
-                // handle this (probably by completely clearing the loadout).
-                abPlaceable[] a = l.GetLTCrits();
-                for( int i = 0; i < CurConfig.GetSideTorsoCrits(); i++ ) {
-                    l.UnallocateAll( a[i], true );
-                }
-                try {
-                    l.AddToLT( this, 0 );
-                } catch ( Exception f ) {
-                    return false;
-                }
+                return false;
             }
         }
 

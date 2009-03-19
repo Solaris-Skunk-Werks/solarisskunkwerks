@@ -179,7 +179,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             dispose();
         }
 
-        CurMech.Visit( new VMechFullRecalc() );
+        try {
+            CurMech.Visit( new VMechFullRecalc() );
+        } catch( Exception e ) {
+            // this should never throw an exception, but log it anyway
+            System.err.println( e.getMessage() );
+            e.printStackTrace();
+        }
 
         // set the program options
         cmbRulesLevel.setSelectedIndex( GlobalOptions.DefaultRules );
@@ -746,6 +752,27 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
 
+        // check the command console and ejection seat
+        if( CurMech.GetCockpit().IsTorsoMounted() ) {
+            chkCommandConsole.setEnabled( false );
+            chkCommandConsole.setSelected( false );
+            chkEjectionSeat.setEnabled( false );
+            chkEjectionSeat.setSelected( false );
+        } else {
+            if( CurMech.GetCockpit().CanUseCommandConsole() && CommonTools.IsAllowed( CurMech.GetCommandConsole().GetAvailability(), CurMech ) ) {
+                chkCommandConsole.setEnabled( true );
+            } else {
+                chkCommandConsole.setEnabled( false );
+                chkCommandConsole.setSelected( false );
+            }
+            if( CurMech.IsIndustrialmech() ) {
+                chkEjectionSeat.setEnabled( true );
+            } else {
+                chkEjectionSeat.setEnabled( false );
+                chkEjectionSeat.setSelected( false );
+            }
+        }
+
         // check all multi-slot systems
         if( CommonTools.IsAllowed( CurMech.GetNullSig().GetAvailability(), CurMech ) ) {
             chkNullSig.setEnabled( true );
@@ -773,12 +800,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         if( CurMech.IsIndustrialmech() ) {
             chkEnviroSealing.setEnabled( true );
-            chkEjectionSeat.setEnabled( true );
         } else {
             chkEnviroSealing.setEnabled( false );
-            chkEjectionSeat.setEnabled( false );
             chkEnviroSealing.setSelected( false );
-            chkEjectionSeat.setSelected( false );
         }
         if( CommonTools.IsAllowed( CurMech.GetLoadout().GetSupercharger().GetAvailability(), CurMech ) ) {
             chkSupercharger.setEnabled( true );
@@ -952,6 +976,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkRAAES.setEnabled( false );
             chkLAAES.setEnabled( false );
             chkLegAES.setEnabled( false );
+            chkCommandConsole.setEnabled( false );
 
             // now see if we have a supercharger on the base chassis
             if( CurMech.GetBaseLoadout().HasSupercharger() ) {
@@ -1005,6 +1030,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( ! chkLegAES.isEnabled() ) { CurMech.SetLegAES( false, null ); }
                 if( ! chkRAAES.isEnabled() ) { CurMech.SetRAAES( false, -1 ); }
                 if( ! chkLAAES.isEnabled() ) { CurMech.SetLAAES( false, -1 ); }
+                if( ! chkCommandConsole.isEnabled() ) { CurMech.SetCommandConsole( false ); }
             } catch( Exception e ) {
                 // we should never get this, but report it if we do
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
@@ -1014,48 +1040,156 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void RecalcGyro() {
         // changes the armor type.
+        String OldVal = CurMech.GetGyro().GetLookupName();
         String LookupVal = (String) cmbGyroType.getSelectedItem();
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
-        CurMech.Visit( v );
+        try {
+            CurMech.Visit( v );
+        } catch( Exception e ) {
+            v = (ifVisitor) CurMech.Lookup( OldVal );
+            try {
+                javax.swing.JOptionPane.showMessageDialog( this, "The new gyro type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous gyro type." );
+                CurMech.Visit( v );
+                cmbGyroType.setSelectedItem( OldVal );
+            } catch( Exception e1 ) {
+                // wow, second one?  Get a new 'Mech.
+                javax.swing.JOptionPane.showMessageDialog( this, "Fatal error while attempting to revert to the old gyro type:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
+                GetNewMech();
+            }
+        }
     }
 
     private void RecalcCockpit() {
         // recalculates the cockpit on the mech
+        // get the current lookup in case we can't fit the new one
+        String OldVal = CurMech.GetCockpit().GetLookupName();
         String LookupVal = (String) cmbCockpitType.getSelectedItem();
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
-        CurMech.Visit( v );
+        try {
+            CurMech.Visit( v );
+        } catch( Exception e ) {
+            v = (ifVisitor) CurMech.Lookup( OldVal );
+            try {
+                javax.swing.JOptionPane.showMessageDialog( this, "The new cockpit type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous cockpit type." );
+                CurMech.Visit( v );
+                cmbCockpitType.setSelectedItem( OldVal );
+            } catch( Exception e1 ) {
+                // wow, second one?  Get a new 'Mech.
+                javax.swing.JOptionPane.showMessageDialog( this, "Fatal error while attempting to revert to the old cockpit type:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
+                GetNewMech();
+            }
+        }
+
+        // check the command console and ejection seat
+        if( CurMech.GetCockpit().IsTorsoMounted() ) {
+            chkCommandConsole.setEnabled( false );
+            chkCommandConsole.setSelected( false );
+            chkEjectionSeat.setEnabled( false );
+            chkEjectionSeat.setSelected( false );
+        } else {
+            if( CurMech.GetCockpit().CanUseCommandConsole() && CommonTools.IsAllowed( CurMech.GetCommandConsole().GetAvailability(), CurMech ) ) {
+                chkCommandConsole.setEnabled( true );
+            } else {
+                chkCommandConsole.setEnabled( false );
+                chkCommandConsole.setSelected( false );
+            }
+            if( CurMech.IsIndustrialmech() ) {
+                chkEjectionSeat.setEnabled( true );
+            } else {
+                chkEjectionSeat.setEnabled( false );
+                chkEjectionSeat.setSelected( false );
+            }
+        }
     }
 
     private void RecalcEnhancements() {
         // recalculates the enhancements on the mech
+        String OldVal = CurMech.GetPhysEnhance().GetLookupName();
         String LookupVal = (String) cmbPhysEnhance.getSelectedItem();
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
-        CurMech.Visit( v );
+        try {
+            CurMech.Visit( v );
+        } catch( Exception e ) {
+            v = (ifVisitor) CurMech.Lookup( OldVal );
+            try {
+                javax.swing.JOptionPane.showMessageDialog( this, "The new enhancement type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous enhancement." );
+                CurMech.Visit( v );
+                cmbPhysEnhance.setSelectedItem( OldVal );
+            } catch( Exception e1 ) {
+                // wow, second one?  Get a new 'Mech.
+                javax.swing.JOptionPane.showMessageDialog( this, "Fatal error while attempting to revert to the old enhancement:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
+                GetNewMech();
+            }
+        }
     }
 
     private void RecalcJumpJets() {
         // recalculates the jump jets if things have changed.
+        String OldVal = CurMech.GetJumpJets().GetLookupName();
         String LookupVal = (String) cmbJumpJetType.getSelectedItem();
         if( LookupVal == null ) { return; }
         if( LookupVal.equals( CurMech.GetJumpJets().GetLookupName() ) ) { return; }
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
-        CurMech.Visit( v );
+        try {
+            CurMech.Visit( v );
+        } catch( Exception e ) {
+            v = (ifVisitor) CurMech.Lookup( OldVal );
+            try {
+                javax.swing.JOptionPane.showMessageDialog( this, "The new jump jet type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous jump jet type." );
+                CurMech.Visit( v );
+                cmbJumpJetType.setSelectedItem( OldVal );
+            } catch( Exception e1 ) {
+                // wow, second one?  Get a new 'Mech.
+                javax.swing.JOptionPane.showMessageDialog( this, "Fatal error while attempting to revert to the old jump jets:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
+                GetNewMech();
+                return;
+            }
+        }
         FixJJSpinnerModel();
     }
 
     private void RecalcHeatSinks() {
         // recalculate the heat sinks based on what is selected.
+        String OldVal = CurMech.GetHeatSinks().GetLookupName();
         String LookupVal = (String) cmbHeatSinkType.getSelectedItem();
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
-        CurMech.Visit( v );
+        try {
+            CurMech.Visit( v );
+        } catch( Exception e ) {
+            v = (ifVisitor) CurMech.Lookup( OldVal );
+            try {
+                javax.swing.JOptionPane.showMessageDialog( this, "The new heat sink type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous heat sink type." );
+                CurMech.Visit( v );
+                cmbHeatSinkType.setSelectedItem( OldVal );
+            } catch( Exception e1 ) {
+                // wow, second one?  Get a new 'Mech.
+                javax.swing.JOptionPane.showMessageDialog( this, "Fatal error while attempting to revert to the old heat sinks:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
+                GetNewMech();
+                return;
+            }
+        }
         FixHeatSinkSpinnerModel();
     }
 
     private void RecalcIntStruc() {
         // recalculates the internal structure if anything happened.
+        String OldVal = CurMech.GetIntStruc().GetLookupName();
         String LookupVal = (String) cmbInternalType.getSelectedItem();
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
-        CurMech.Visit( v );
+        try {
+            CurMech.Visit( v );
+        } catch( Exception e ) {
+            v = (ifVisitor) CurMech.Lookup( OldVal );
+            try {
+                javax.swing.JOptionPane.showMessageDialog( this, "The new internal structure is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous internal structure." );
+                CurMech.Visit( v );
+                cmbInternalType.setSelectedItem( OldVal );
+            } catch( Exception e1 ) {
+                // wow, second one?  Get a new 'Mech.
+                javax.swing.JOptionPane.showMessageDialog( this, "Fatal error while attempting to revert to the old internal structure:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
+                GetNewMech();
+            }
+        }
     }
 
     private void RecalcEngine() {
@@ -1064,9 +1198,24 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // changes the engine type.  Changing the type does not change the rating
         // which makes our job here easier.
+        String OldVal = CurMech.GetEngine().GetLookupName();
         String LookupVal = (String) cmbEngineType.getSelectedItem();
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
-        CurMech.Visit( v );
+        try {
+            CurMech.Visit( v );
+        } catch( Exception e ) {
+            v = (ifVisitor) CurMech.Lookup( OldVal );
+            try {
+                javax.swing.JOptionPane.showMessageDialog( this, "The new engine type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous engine." );
+                CurMech.Visit( v );
+                cmbEngineType.setSelectedItem( OldVal );
+            } catch( Exception e1 ) {
+                // wow, second one?  Get a new 'Mech.
+                javax.swing.JOptionPane.showMessageDialog( this, "Fatal error while attempting to revert to the old engine:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
+                GetNewMech();
+                return;
+            }
+        }
 
         // now that the new engine is in, check the number of free sinks and act
         // accordingly
@@ -1094,9 +1243,23 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void RecalcArmor() {
         // changes the armor type.
+        String OldVal = CurMech.GetArmor().GetLookupName();
         String LookupVal = (String) cmbArmorType.getSelectedItem();
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
-        CurMech.Visit( v );
+        try {
+            CurMech.Visit( v );
+        } catch( Exception e ) {
+            v = (ifVisitor) CurMech.Lookup( OldVal );
+            try {
+                javax.swing.JOptionPane.showMessageDialog( this, "The new armor type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous armor." );
+                CurMech.Visit( v );
+                cmbArmorType.setSelectedItem( OldVal );
+            } catch( Exception e1 ) {
+                // wow, second one?  Get a new 'Mech.
+                javax.swing.JOptionPane.showMessageDialog( this, "Fatal error while attempting to revert to the old armor:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
+                GetNewMech();
+            }
+        }
     }
 
     private void RecalcEquipment() {
@@ -1792,7 +1955,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtMechModel.setText( CurMech.GetModel() );
 
         FixTransferHandlers();
-        CurMech.Visit( new VMechFullRecalc() );
+        try {
+            CurMech.Visit( new VMechFullRecalc() );
+        } catch( Exception e ) {
+            // this should never throw an exception, but log it anyway
+            System.err.println( e.getMessage() );
+            e.printStackTrace();
+        }
 
         ResetTonnageSelector();
         BuildChassisSelector();
@@ -2844,7 +3013,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
      * WARNING: Do NOT modify this code. The content of this method is
      * always regenerated by the Form Editor.
      */
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -2910,6 +3079,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkOmnimech = new javax.swing.JCheckBox();
         cmbMechType = new javax.swing.JComboBox();
         lblUnitType = new javax.swing.JLabel();
+        chkCommandConsole = new javax.swing.JCheckBox();
         pnlHeatSinks = new javax.swing.JPanel();
         lblHeatSinkType = new javax.swing.JLabel();
         cmbHeatSinkType = new javax.swing.JComboBox();
@@ -3883,7 +4053,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lblPhysEnhance.setText("Enhancements:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlChassis.add(lblPhysEnhance, gridBagConstraints);
@@ -3899,7 +4069,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.gridwidth = 2;
         pnlChassis.add(cmbPhysEnhance, gridBagConstraints);
 
@@ -3941,9 +4111,24 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlChassis.add(lblUnitType, gridBagConstraints);
 
+        chkCommandConsole.setText("Use Command Console");
+        chkCommandConsole.setEnabled(false);
+        chkCommandConsole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkCommandConsoleActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        pnlChassis.add(chkCommandConsole, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         pnlBasicSetup.add(pnlChassis, gridBagConstraints);
@@ -8983,16 +9168,16 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         setJMenuBar(mnuMainMenu);
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
-    private void mnuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExitActionPerformed
+    private void mnuExitActionPerformed(java.awt.event.ActionEvent evt) {                                        
         if( CurMech.HasChanged() ) {
             int choice = javax.swing.JOptionPane.showConfirmDialog( this,
                 "The current 'Mech has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION );
             if( choice == 1 ) { return; }
         }
         CloseProgram();
-    }//GEN-LAST:event_mnuExitActionPerformed
+    }                                       
 
     private void CloseProgram() {
         try {
@@ -9013,7 +9198,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         dispose();
     }
 
-    private void btnLoadImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadImageActionPerformed
+    private void btnLoadImageActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // Opens a file chooser for the user, then resizes the chosen image to
         // fit in the fluff label and adds it
         JFileChooser fc = new JFileChooser();
@@ -9071,24 +9256,24 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // add the image to the fluff image label
         lblFluffImage.setIcon( newFluffImage );
         CurMech.SetSSWImage( fc.getSelectedFile().getPath() );
-    }//GEN-LAST:event_btnLoadImageActionPerformed
+    }                                            
 
-    private void btnClearImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearImageActionPerformed
+    private void btnClearImageActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // Set the fluff image to default
         lblFluffImage.setIcon( null );
         CurMech.SetSSWImage("");
-    }//GEN-LAST:event_btnClearImageActionPerformed
+    }                                             
 
-    private void cmbHeatSinkTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHeatSinkTypeActionPerformed
+    private void cmbHeatSinkTypeActionPerformed(java.awt.event.ActionEvent evt) {                                                
         if( CurMech.GetHeatSinks().GetLookupName().equals( (String) cmbHeatSinkType.getSelectedItem() ) ) {
             return;
         }
         RecalcHeatSinks();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_cmbHeatSinkTypeActionPerformed
+    }                                               
 
-    private void spnNumberOfHSStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnNumberOfHSStateChanged
+    private void spnNumberOfHSStateChanged(javax.swing.event.ChangeEvent evt) {                                           
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnNumberOfHS.getModel();
         int NumHS = CurMech.GetHeatSinks().GetNumHS();
@@ -9122,9 +9307,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnNumberOfHSStateChanged
+    }                                          
 
-    private void cmbMechEraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMechEraActionPerformed
+    private void cmbMechEraActionPerformed(java.awt.event.ActionEvent evt) {                                           
         if( Load ) { return; }
         // whenever the era is changed we basically need to reset the GUI and
         // most of the mech.  Certain things we will transfer.
@@ -9224,9 +9409,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RefreshInfoPane();
         SetWeaponChoosers();
         ResetAmmo();
-    }//GEN-LAST:event_cmbMechEraActionPerformed
+    }                                          
 
-    private void spnWalkMPStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnWalkMPStateChanged
+    private void spnWalkMPStateChanged(javax.swing.event.ChangeEvent evt) {                                       
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnWalkMP.getModel();
         javax.swing.JComponent editor = spnWalkMP.getEditor();
@@ -9256,9 +9441,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnWalkMPStateChanged
+    }                                      
 
-    private void spnJumpMPStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnJumpMPStateChanged
+    private void spnJumpMPStateChanged(javax.swing.event.ChangeEvent evt) {                                       
         // just change the number of jump jets.
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnJumpMP.getModel();
         javax.swing.JComponent editor = spnJumpMP.getEditor();
@@ -9301,9 +9486,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnJumpMPStateChanged
+    }                                      
 
-    private void cmbTonnageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTonnageActionPerformed
+    private void cmbTonnageActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // We have to decode the selected index to set values.  A bit safer, I
         // think, because we can directly set the values ourselves.
         int Tons = 0;
@@ -9436,9 +9621,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RefreshInternalPoints();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_cmbTonnageActionPerformed
+    }                                          
 
-    private void cmbTechBaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTechBaseActionPerformed
+    private void cmbTechBaseActionPerformed(java.awt.event.ActionEvent evt) {                                            
         if( Load ) { return; }
         // do we really need to do this?
         if( cmbTechBase.getSelectedIndex() == 0 ) {
@@ -9492,9 +9677,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
-    }//GEN-LAST:event_cmbTechBaseActionPerformed
+    }                                           
 
-    private void cmbPhysEnhanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPhysEnhanceActionPerformed
+    private void cmbPhysEnhanceActionPerformed(java.awt.event.ActionEvent evt) {                                               
         if( CurMech.GetPhysEnhance().GetLookupName().equals( (String) cmbPhysEnhance.getSelectedItem() ) ) {
             return;
         }
@@ -9516,9 +9701,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_cmbPhysEnhanceActionPerformed
+    }                                              
 
-    private void cmbCockpitTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCockpitTypeActionPerformed
+    private void cmbCockpitTypeActionPerformed(java.awt.event.ActionEvent evt) {                                               
         if( CurMech.GetCockpit().GetLookupName().equals( (String) cmbCockpitType.getSelectedItem() ) ) {
             return;
         }
@@ -9527,9 +9712,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_cmbCockpitTypeActionPerformed
+    }                                              
 
-    private void cmbGyroTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGyroTypeActionPerformed
+    private void cmbGyroTypeActionPerformed(java.awt.event.ActionEvent evt) {                                            
         if( CurMech.GetGyro().GetLookupName().equals( (String) cmbGyroType.getSelectedItem() ) ) {
             return;
         }
@@ -9538,9 +9723,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_cmbGyroTypeActionPerformed
+    }                                           
 
-    private void cmbEngineTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEngineTypeActionPerformed
+    private void cmbEngineTypeActionPerformed(java.awt.event.ActionEvent evt) {                                              
         if( CurMech.GetEngine().GetLookupName().equals( (String) cmbEngineType.getSelectedItem() ) ) {
             // only nuclear-powered mechs may use jump jets
             if( CurMech.GetEngine().IsNuclear() ) {
@@ -9570,9 +9755,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_cmbEngineTypeActionPerformed
+    }                                             
 
-    private void cmbInternalTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbInternalTypeActionPerformed
+    private void cmbInternalTypeActionPerformed(java.awt.event.ActionEvent evt) {                                                
         if( CurMech.GetIntStruc().GetLookupName().equals( (String) cmbInternalType.getSelectedItem() ) ) {
             return;
         }
@@ -9581,9 +9766,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_cmbInternalTypeActionPerformed
+    }                                               
 
-    private void cmbMotiveTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMotiveTypeActionPerformed
+    private void cmbMotiveTypeActionPerformed(java.awt.event.ActionEvent evt) {                                              
         if( cmbMotiveType.getSelectedIndex() == 0 ) {
             // if the mech is already a biped, forget it
             if( ! CurMech.IsQuad() ) { return; }
@@ -9626,15 +9811,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RefreshInfoPane();
         RefreshInternalPoints();
         SetWeaponChoosers();
-    }//GEN-LAST:event_cmbMotiveTypeActionPerformed
+    }                                             
 
-    private void mnuCreditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCreditsActionPerformed
+    private void mnuCreditsActionPerformed(java.awt.event.ActionEvent evt) {                                           
         dlgCredits Credits = new dlgCredits( this, true );
         Credits.setLocationRelativeTo( this );
         Credits.setVisible( true );
-    }//GEN-LAST:event_mnuCreditsActionPerformed
+    }                                          
 
-    private void cmbArmorTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbArmorTypeActionPerformed
+    private void cmbArmorTypeActionPerformed(java.awt.event.ActionEvent evt) {                                             
         if( CurMech.GetArmor().GetLookupName().equals( (String) cmbArmorType.getSelectedItem() ) ) {
             return;
         }
@@ -9643,9 +9828,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_cmbArmorTypeActionPerformed
+    }                                            
 
-    private void mnuOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOptionsActionPerformed
+    private void mnuOptionsActionPerformed(java.awt.event.ActionEvent evt) {                                           
         dlgOptions Options = new dlgOptions( this, true );
         Options.setLocationRelativeTo( this );
         Options.setVisible( true );
@@ -9653,9 +9838,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         ResetAmmo();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_mnuOptionsActionPerformed
+    }                                          
 
-    private void spnHDArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnHDArmorStateChanged
+    private void spnHDArmorStateChanged(javax.swing.event.ChangeEvent evt) {                                        
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnHDArmor.getModel();
         javax.swing.JComponent editor = spnHDArmor.getEditor();
@@ -9692,9 +9877,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnHDArmorStateChanged
+    }                                       
 
-    private void spnRAArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRAArmorStateChanged
+    private void spnRAArmorStateChanged(javax.swing.event.ChangeEvent evt) {                                        
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRAArmor.getModel();
         javax.swing.JComponent editor = spnRAArmor.getEditor();
@@ -9738,9 +9923,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnRAArmorStateChanged
+    }                                       
 
-    private void spnRTArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRTArmorStateChanged
+    private void spnRTArmorStateChanged(javax.swing.event.ChangeEvent evt) {                                        
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRTArmor.getModel();
         javax.swing.JComponent editor = spnRTArmor.getEditor();
@@ -9789,9 +9974,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
        RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnRTArmorStateChanged
+    }                                       
 
-    private void spnRTRArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRTRArmorStateChanged
+    private void spnRTRArmorStateChanged(javax.swing.event.ChangeEvent evt) {                                         
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRTRArmor.getModel();
         javax.swing.JComponent editor = spnRTRArmor.getEditor();
@@ -9841,9 +10026,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnRTRArmorStateChanged
+    }                                        
 
-    private void spnLAArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnLAArmorStateChanged
+    private void spnLAArmorStateChanged(javax.swing.event.ChangeEvent evt) {                                        
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnLAArmor.getModel();
         javax.swing.JComponent editor = spnLAArmor.getEditor();
@@ -9887,9 +10072,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnLAArmorStateChanged
+    }                                       
 
-    private void spnLTArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnLTArmorStateChanged
+    private void spnLTArmorStateChanged(javax.swing.event.ChangeEvent evt) {                                        
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnLTArmor.getModel();
         javax.swing.JComponent editor = spnLTArmor.getEditor();
@@ -9938,9 +10123,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnLTArmorStateChanged
+    }                                       
 
-    private void spnLTRArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnLTRArmorStateChanged
+    private void spnLTRArmorStateChanged(javax.swing.event.ChangeEvent evt) {                                         
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnLTRArmor.getModel();
         javax.swing.JComponent editor = spnLTRArmor.getEditor();
@@ -9989,9 +10174,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnLTRArmorStateChanged
+    }                                        
 
-    private void spnCTArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnCTArmorStateChanged
+    private void spnCTArmorStateChanged(javax.swing.event.ChangeEvent evt) {                                        
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnCTArmor.getModel();
         javax.swing.JComponent editor = spnCTArmor.getEditor();
@@ -10032,9 +10217,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnCTArmorStateChanged
+    }                                       
 
-    private void spnCTRArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnCTRArmorStateChanged
+    private void spnCTRArmorStateChanged(javax.swing.event.ChangeEvent evt) {                                         
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnCTRArmor.getModel();
         javax.swing.JComponent editor = spnCTRArmor.getEditor();
@@ -10075,9 +10260,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnCTRArmorStateChanged
+    }                                        
 
-    private void spnLLArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnLLArmorStateChanged
+    private void spnLLArmorStateChanged(javax.swing.event.ChangeEvent evt) {                                        
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnLLArmor.getModel();
         javax.swing.JComponent editor = spnLLArmor.getEditor();
@@ -10121,9 +10306,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnLLArmorStateChanged
+    }                                       
 
-    private void spnRLArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRLArmorStateChanged
+    private void spnRLArmorStateChanged(javax.swing.event.ChangeEvent evt) {                                        
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRLArmor.getModel();
         javax.swing.JComponent editor = spnRLArmor.getEditor();
@@ -10167,9 +10352,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnRLArmorStateChanged
+    }                                       
 
-    private void btnMaxArmorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaxArmorActionPerformed
+    private void btnMaxArmorActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // this simply maximizes the mech's armor
         Armor a = CurMech.GetArmor();
 
@@ -10201,9 +10386,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnMaxArmorActionPerformed
+    }                                           
 
-    private void btnArmorTonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArmorTonsActionPerformed
+    private void btnArmorTonsActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // we'll need a new dialogue to get the tonnage
         dlgArmorTonnage ArmorDialogue = new dlgArmorTonnage( this, true );
         ArmorDialogue.setLocationRelativeTo( this );
@@ -10213,7 +10398,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( ArmorDialogue.NewTonnage() ) {
             float result = ArmorDialogue.GetResult();
             ArmorTons.SetArmorTonnage( result );
-            CurMech.Visit( ArmorTons );
+            try {
+                CurMech.Visit( ArmorTons );
+            } catch( Exception e ) {
+                // this should never throw an exception, but log it anyway
+                System.err.println( e.getMessage() );
+                e.printStackTrace();
+            }
+
             ArmorDialogue.dispose();
         } else {
             ArmorDialogue.dispose();
@@ -10229,9 +10421,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnArmorTonsActionPerformed
+    }                                            
 
-    private void chkLAHandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLAHandActionPerformed
+    private void chkLAHandActionPerformed(java.awt.event.ActionEvent evt) {                                          
         if( chkLAHand.isSelected() == CurMech.GetActuators().LeftHandInstalled() ) {
             return;
         }
@@ -10252,9 +10444,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         CheckActuators();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkLAHandActionPerformed
+    }                                         
 
-    private void chkLALowerArmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLALowerArmActionPerformed
+    private void chkLALowerArmActionPerformed(java.awt.event.ActionEvent evt) {                                              
         if( chkLALowerArm.isSelected() == CurMech.GetActuators().LeftLowerInstalled() ) {
             return;
         }
@@ -10275,9 +10467,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         CheckActuators();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkLALowerArmActionPerformed
+    }                                             
 
-    private void chkRAHandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRAHandActionPerformed
+    private void chkRAHandActionPerformed(java.awt.event.ActionEvent evt) {                                          
         if( chkRAHand.isSelected() == CurMech.GetActuators().RightHandInstalled() ) {
             return;
         }
@@ -10298,9 +10490,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         CheckActuators();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkRAHandActionPerformed
+    }                                         
 
-    private void chkRALowerArmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRALowerArmActionPerformed
+    private void chkRALowerArmActionPerformed(java.awt.event.ActionEvent evt) {                                              
         if( chkRALowerArm.isSelected() == CurMech.GetActuators().RightLowerInstalled() ) {
             return;
         }
@@ -10321,9 +10513,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         CheckActuators();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkRALowerArmActionPerformed
+    }                                             
 
-    private void chkCTCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCTCASEActionPerformed
+    private void chkCTCASEActionPerformed(java.awt.event.ActionEvent evt) {                                          
         if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasCTCASE() ) {
             chkCTCASE.setSelected( true );
             return;
@@ -10340,9 +10532,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             CurMech.RemoveCTCase();
         }
         RefreshInfoPane();
-    }//GEN-LAST:event_chkCTCASEActionPerformed
+    }                                         
 
-    private void chkRTCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRTCASEActionPerformed
+    private void chkRTCASEActionPerformed(java.awt.event.ActionEvent evt) {                                          
         if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasRTCASE() ) {
             chkRTCASE.setSelected( true );
             return;
@@ -10359,9 +10551,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             CurMech.RemoveRTCase();
         }
         RefreshInfoPane();
-    }//GEN-LAST:event_chkRTCASEActionPerformed
+    }                                         
 
-    private void chkLTCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLTCASEActionPerformed
+    private void chkLTCASEActionPerformed(java.awt.event.ActionEvent evt) {                                          
         if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasLTCASE() ) {
             chkLTCASE.setSelected( true );
             return;
@@ -10378,9 +10570,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             CurMech.RemoveLTCase();
         }
         RefreshInfoPane();
-    }//GEN-LAST:event_chkLTCASEActionPerformed
+    }                                         
 
-    private void btnRemoveEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveEquipActionPerformed
+    private void btnRemoveEquipActionPerformed(java.awt.event.ActionEvent evt) {                                               
         if( lstSelectedEquipment.getSelectedIndex() < 0 ) { return; }
         abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( lstSelectedEquipment.getSelectedIndex() );
         if( p.LocationLocked() ) {
@@ -10409,9 +10601,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnRemoveEquipActionPerformed
+    }                                              
 
-    private void btnAddEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEquipActionPerformed
+    private void btnAddEquipActionPerformed(java.awt.event.ActionEvent evt) {                                            
         abPlaceable a = null;
         int Index = 0;
         Vector v;
@@ -10534,9 +10726,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             RefreshSummary();
             RefreshInfoPane();
         }
-    }//GEN-LAST:event_btnAddEquipActionPerformed
+    }                                           
 
-    private void btnClearEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearEquipActionPerformed
+    private void btnClearEquipActionPerformed(java.awt.event.ActionEvent evt) {                                              
         CurMech.GetLoadout().SafeClearLoadout();
 
         // refresh the selected equipment listbox
@@ -10558,36 +10750,36 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnClearEquipActionPerformed
+    }                                             
 
-    private void btnClearLoadoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearLoadoutActionPerformed
+    private void btnClearLoadoutActionPerformed(java.awt.event.ActionEvent evt) {                                                
         CurMech.GetLoadout().SafeMassUnallocate();
 
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnClearLoadoutActionPerformed
+    }                                               
 
-    private void lstChooseMissileValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseMissileValueChanged
+    private void lstChooseMissileValueChanged(javax.swing.event.ListSelectionEvent evt) {                                              
         if( lstChooseMissile.getSelectedIndex() < 0 ) { return; }
         abPlaceable p = (abPlaceable) Equipment[MISSILE][lstChooseMissile.getSelectedIndex()];
         ShowInfoOn( p );
-    }//GEN-LAST:event_lstChooseMissileValueChanged
+    }                                             
 
-    private void lstChooseEnergyValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseEnergyValueChanged
+    private void lstChooseEnergyValueChanged(javax.swing.event.ListSelectionEvent evt) {                                             
         if( lstChooseEnergy.getSelectedIndex() < 0 ) { return; }
         abPlaceable p = (abPlaceable) Equipment[ENERGY][lstChooseEnergy.getSelectedIndex()];
         ShowInfoOn( p );
-    }//GEN-LAST:event_lstChooseEnergyValueChanged
+    }                                            
 
-    private void lstChooseAmmunitionValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseAmmunitionValueChanged
+    private void lstChooseAmmunitionValueChanged(javax.swing.event.ListSelectionEvent evt) {                                                 
         if( lstChooseAmmunition.getSelectedIndex() < 0 ) { return; }
         if( ! ( Equipment[AMMUNITION][lstChooseAmmunition.getSelectedIndex()] instanceof Ammunition ) ) { return; }
         abPlaceable p = (abPlaceable) Equipment[AMMUNITION][lstChooseAmmunition.getSelectedIndex()];
         ShowInfoOn( p );
-    }//GEN-LAST:event_lstChooseAmmunitionValueChanged
+    }                                                
 
-    private void chkArtemisSRMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkArtemisSRMActionPerformed
+    private void chkArtemisSRMActionPerformed(java.awt.event.ActionEvent evt) {                                              
         if( CurMech.UsingA4SRM() == chkArtemisSRM.isSelected() ) { return; }
         if( chkArtemisSRM.isSelected() ) {
             try {
@@ -10607,9 +10799,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkArtemisSRMActionPerformed
+    }                                             
 
-    private void chkArtemisLRMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkArtemisLRMActionPerformed
+    private void chkArtemisLRMActionPerformed(java.awt.event.ActionEvent evt) {                                              
         if( CurMech.UsingA4LRM() == chkArtemisLRM.isSelected() ) { return; }
         if( chkArtemisLRM.isSelected() ) {
             try {
@@ -10629,9 +10821,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkArtemisLRMActionPerformed
+    }                                             
 
-    private void chkArtemisMMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkArtemisMMLActionPerformed
+    private void chkArtemisMMLActionPerformed(java.awt.event.ActionEvent evt) {                                              
         if( CurMech.UsingA4MML() == chkArtemisMML.isSelected() ) { return; }
         if( chkArtemisMML.isSelected() ) {
             try {
@@ -10651,15 +10843,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkArtemisMMLActionPerformed
+    }                                             
 
-    private void lstChooseBallisticValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseBallisticValueChanged
+    private void lstChooseBallisticValueChanged(javax.swing.event.ListSelectionEvent evt) {                                                
         if( lstChooseBallistic.getSelectedIndex() < 0 ) { return; }
         abPlaceable p = (abPlaceable) Equipment[BALLISTIC][lstChooseBallistic.getSelectedIndex()];
         ShowInfoOn( p );
-    }//GEN-LAST:event_lstChooseBallisticValueChanged
+    }                                               
 
-    private void chkUseTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkUseTCActionPerformed
+    private void chkUseTCActionPerformed(java.awt.event.ActionEvent evt) {                                         
         if( CurMech.UsingTC() == chkUseTC.isSelected() ) { return; }
         if( chkUseTC.isSelected() ) {
             try {
@@ -10676,30 +10868,30 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkUseTCActionPerformed
+    }                                        
 
-    private void btnCompactCritsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompactCritsActionPerformed
+    private void btnCompactCritsActionPerformed(java.awt.event.ActionEvent evt) {                                                
         CurMech.GetLoadout().Compact();
 
         // now we have to refresh the loadout displays.
         RefreshInfoPane();
-}//GEN-LAST:event_btnCompactCritsActionPerformed
+}                                               
 
-    private void lstChooseEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseEquipmentValueChanged
+    private void lstChooseEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {                                                
         if( lstChooseEquipment.getSelectedIndex() < 0 ) { return; }
         if( ! ( Equipment[EQUIPMENT][lstChooseEquipment.getSelectedIndex()] instanceof Equipment ) ) { return; }
         abPlaceable p = (abPlaceable) Equipment[EQUIPMENT][lstChooseEquipment.getSelectedIndex()];
         ShowInfoOn( p );
-    }//GEN-LAST:event_lstChooseEquipmentValueChanged
+    }                                               
 
-    private void mnuSummaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSummaryActionPerformed
+    private void mnuSummaryActionPerformed(java.awt.event.ActionEvent evt) {                                           
         SolidifyMech();
         dlgSummaryInfo Summary = new dlgSummaryInfo( this, true );
         Summary.setLocationRelativeTo( this );
         Summary.setVisible( true );
-    }//GEN-LAST:event_mnuSummaryActionPerformed
+    }                                          
 
-    private void btnExportMTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportMTFActionPerformed
+    private void btnExportMTFActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // exports the mech to MTF format for use in Megamek
 
         // Solidify the mech first.
@@ -10747,16 +10939,16 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // if there were no problems, let the user know how it went
         javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully to MTF:\n" + file );
         setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
-    }//GEN-LAST:event_btnExportMTFActionPerformed
+    }                                            
 
-    private void lstChoosePhysicalValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChoosePhysicalValueChanged
+    private void lstChoosePhysicalValueChanged(javax.swing.event.ListSelectionEvent evt) {                                               
         if( lstChoosePhysical.getSelectedIndex() < 0 ) { return; }
         if( ! ( Equipment[PHYSICAL][lstChoosePhysical.getSelectedIndex()] instanceof PhysicalWeapon ) ) { return; }
         abPlaceable p = (abPlaceable) Equipment[PHYSICAL][lstChoosePhysical.getSelectedIndex()];
         ShowInfoOn( p );
-    }//GEN-LAST:event_lstChoosePhysicalValueChanged
+    }                                              
 
-    private void btnExportTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportTXTActionPerformed
+    private void btnExportTXTActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // exports the mech to TXT format
         String CurLoadout = "";
         if( CurMech.IsOmnimech() ) {
@@ -10804,9 +10996,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbOmniVariant.setSelectedItem( CurLoadout );
         cmbOmniVariantActionPerformed( evt );
         setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
-    }//GEN-LAST:event_btnExportTXTActionPerformed
+    }                                            
 
-    private void btnExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportHTMLActionPerformed
+    private void btnExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // exports the mech to HTML format
         String CurLoadout = "";
         if( CurMech.IsOmnimech() ) {
@@ -10855,27 +11047,27 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbOmniVariant.setSelectedItem( CurLoadout );
         cmbOmniVariantActionPerformed( evt );
         setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
-    }//GEN-LAST:event_btnExportHTMLActionPerformed
+    }                                             
 
-    private void mnuAboutSSWActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAboutSSWActionPerformed
+    private void mnuAboutSSWActionPerformed(java.awt.event.ActionEvent evt) {                                            
         dlgAboutBox about = new dlgAboutBox( this, true );
         about.setLocationRelativeTo( this );
         about.setVisible( true );
-    }//GEN-LAST:event_mnuAboutSSWActionPerformed
+    }                                           
 
-    private void mnuExportTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportTXTActionPerformed
+    private void mnuExportTXTActionPerformed(java.awt.event.ActionEvent evt) {                                             
         btnExportTXTActionPerformed( evt );
-    }//GEN-LAST:event_mnuExportTXTActionPerformed
+    }                                            
 
-    private void mnuExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportHTMLActionPerformed
+    private void mnuExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {                                              
         btnExportHTMLActionPerformed( evt );
-    }//GEN-LAST:event_mnuExportHTMLActionPerformed
+    }                                             
 
-    private void mnuExportMTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportMTFActionPerformed
+    private void mnuExportMTFActionPerformed(java.awt.event.ActionEvent evt) {                                             
         btnExportMTFActionPerformed( evt );
-    }//GEN-LAST:event_mnuExportMTFActionPerformed
+    }                                            
 
-    private void chkYearRestrictActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkYearRestrictActionPerformed
+    private void chkYearRestrictActionPerformed(java.awt.event.ActionEvent evt) {                                                
         // This locks in the mech's production year, era, and tech base.
         int year = 0;
         if( CurMech.IsYearRestricted() == chkYearRestrict.isSelected() ) { return; }
@@ -10988,24 +11180,24 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RefreshInfoPane();
         SetWeaponChoosers();
         ResetAmmo();
-    }//GEN-LAST:event_chkYearRestrictActionPerformed
+    }                                               
 
-    private void cmbJumpJetTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbJumpJetTypeActionPerformed
+    private void cmbJumpJetTypeActionPerformed(java.awt.event.ActionEvent evt) {                                               
         RecalcJumpJets();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_cmbJumpJetTypeActionPerformed
+    }                                              
 
-    private void mnuNewMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNewMechActionPerformed
+    private void mnuNewMechActionPerformed(java.awt.event.ActionEvent evt) {                                           
         if( CurMech.HasChanged() ) {
             int choice = javax.swing.JOptionPane.showConfirmDialog( this,
                 "The current 'Mech has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION );
             if( choice == 1 ) { return; }
         }
         GetNewMech();
-    }//GEN-LAST:event_mnuNewMechActionPerformed
+    }                                          
 
-    private void cmbRulesLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRulesLevelActionPerformed
+    private void cmbRulesLevelActionPerformed(java.awt.event.ActionEvent evt) {                                              
         if( Load ) { return; }
         int NewLevel = cmbRulesLevel.getSelectedIndex();
         int OldLevel = CurMech.GetLoadout().GetRulesLevel();
@@ -11080,9 +11272,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RefreshInfoPane();
         SetWeaponChoosers();
         ResetAmmo();
-    }//GEN-LAST:event_cmbRulesLevelActionPerformed
+    }                                             
 
-    private void btnLockChassisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLockChassisActionPerformed
+    private void btnLockChassisActionPerformed(java.awt.event.ActionEvent evt) {                                               
         // currently testing right now.
         String VariantName = "";
 
@@ -11133,17 +11325,17 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         SolidifyJJManufacturer();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnLockChassisActionPerformed
+    }                                              
 
-    private void chkOmnimechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkOmnimechActionPerformed
+    private void chkOmnimechActionPerformed(java.awt.event.ActionEvent evt) {                                            
         if( chkOmnimech.isSelected() ) {
             btnLockChassis.setEnabled( true );
         } else {
             btnLockChassis.setEnabled( false );
         }
-    }//GEN-LAST:event_chkOmnimechActionPerformed
+    }                                           
 
-    private void btnAddVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddVariantActionPerformed
+    private void btnAddVariantActionPerformed(java.awt.event.ActionEvent evt) {                                              
         String VariantName = "";
 
         // get the variant name
@@ -11179,7 +11371,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         SolidifyJJManufacturer();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnAddVariantActionPerformed
+    }                                             
 
     private void mnuOpenActionPerformed(java.awt.event.ActionEvent evt) {                                        
         //dlgOpen dOpen = new dlgOpen(this, true);
@@ -11193,7 +11385,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         dOpen.setVisible(true);
     }
 
-    private void btnDeleteVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteVariantActionPerformed
+    private void btnDeleteVariantActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         // see if the user actually wants to delete the variant
         int choice = javax.swing.JOptionPane.showConfirmDialog( this,
             "Are you sure you want to delete this variant?", "Delete Variant?", javax.swing.JOptionPane.YES_NO_OPTION );
@@ -11220,9 +11412,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         SolidifyJJManufacturer();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnDeleteVariantActionPerformed
+    }                                                
 
-    private void cmbOmniVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOmniVariantActionPerformed
+    private void cmbOmniVariantActionPerformed(java.awt.event.ActionEvent evt) {                                               
         String variant = (String) cmbOmniVariant.getSelectedItem();
         boolean changed = CurMech.HasChanged();
 
@@ -11245,9 +11437,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // this prevents the program from setting the changed tag if we simply
         // open an omnimech for browsing.
         CurMech.SetChanged( changed );
-    }//GEN-LAST:event_cmbOmniVariantActionPerformed
+    }                                              
 
-	private void mnuPostS7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPostS7ActionPerformed
+	private void mnuPostS7ActionPerformed(java.awt.event.ActionEvent evt) {                                          
 	    // attempts to post the mech to Solaris7.com
     	// must do all the normal actions for HTML export, then attempt to post
 	    // right now we'll just show the screen so we can see it
@@ -11278,9 +11470,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 	    // lastly, if this is an omnimech, reset the display to the last loadout
 	    cmbOmniVariant.setSelectedItem( CurLoadout );
 	    cmbOmniVariantActionPerformed( evt );
-	}//GEN-LAST:event_mnuPostS7ActionPerformed
+	}                                         
 
-	private void mnuClearUserDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuClearUserDataActionPerformed
+	private void mnuClearUserDataActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         int choice = javax.swing.JOptionPane.showConfirmDialog( this,
             "This will remove all Solaris 7 user data.\nAre you sure you want to continue?", "Clear User Data?", javax.swing.JOptionPane.YES_NO_OPTION );
         if( choice == 1 ) {
@@ -11288,9 +11480,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             GlobalOptions.ClearUserInfo();
         }
-	}//GEN-LAST:event_mnuClearUserDataActionPerformed
+	}                                                
 
-	private void mnuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSaveActionPerformed
+	private void mnuSaveActionPerformed(java.awt.event.ActionEvent evt) {                                        
         // Solidify the mech first.
         setCursor( Hourglass );
         
@@ -11413,9 +11605,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         setCursor( NormalCursor );
         setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
         CurMech.SetChanged( false );
-	}//GEN-LAST:event_mnuSaveActionPerformed
+	}                                       
 
-private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLoadActionPerformed
+private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {                                        
     if( CurMech.HasChanged() ) {
         int choice = javax.swing.JOptionPane.showConfirmDialog( this,
             "The current 'Mech has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION );
@@ -11429,9 +11621,9 @@ private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     CurMech = m;
     LoadMechIntoGUI();
     CurMech.SetChanged( false );
-}//GEN-LAST:event_mnuLoadActionPerformed
+}                                       
 
-private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSaveAsActionPerformed
+private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // Solidify the mech first.
         SolidifyMech();
 
@@ -11520,9 +11712,9 @@ private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         cmbOmniVariantActionPerformed( evt );
         setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
         CurMech.SetChanged( false );
-}//GEN-LAST:event_mnuSaveAsActionPerformed
+}                                         
 
-private void lstSelectedEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstSelectedEquipmentValueChanged
+private void lstSelectedEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {                                                  
         if( lstSelectedEquipment.getSelectedIndex() < 0 ) { return; }
         abPlaceable p;
         try {
@@ -11531,17 +11723,17 @@ private void lstSelectedEquipmentValueChanged(javax.swing.event.ListSelectionEve
             return;
         }
         ShowInfoOn( p );
-}//GEN-LAST:event_lstSelectedEquipmentValueChanged
+}                                                 
 
-private void btnSelectiveAllocateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectiveAllocateActionPerformed
+private void btnSelectiveAllocateActionPerformed(java.awt.event.ActionEvent evt) {                                                     
         SelectiveAllocate();
-}//GEN-LAST:event_btnSelectiveAllocateActionPerformed
+}                                                    
 
-private void btnAutoAllocateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoAllocateActionPerformed
+private void btnAutoAllocateActionPerformed(java.awt.event.ActionEvent evt) {                                                
         AutoAllocate();
-}//GEN-LAST:event_btnAutoAllocateActionPerformed
+}                                               
 
-private void lstCritsToPlaceValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstCritsToPlaceValueChanged
+private void lstCritsToPlaceValueChanged(javax.swing.event.ListSelectionEvent evt) {                                             
         Vector v = CurMech.GetLoadout().GetQueue();
         int Index = lstCritsToPlace.getSelectedIndex();
         if( Index < 0 ) {
@@ -11564,38 +11756,38 @@ private void lstCritsToPlaceValueChanged(javax.swing.event.ListSelectionEvent ev
             btnSelectiveAllocate.setEnabled( true );
             btnRemoveItemCrits.setEnabled( false );
         }
-}//GEN-LAST:event_lstCritsToPlaceValueChanged
+}                                            
 
-private void mnuCostBVBreakdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCostBVBreakdownActionPerformed
+private void mnuCostBVBreakdownActionPerformed(java.awt.event.ActionEvent evt) {                                                   
     SolidifyMech();
     dlgCostBVBreakdown costbv = new dlgCostBVBreakdown( this, true, CurMech );
     costbv.setLocationRelativeTo( this );
     costbv.setVisible( true );
-}//GEN-LAST:event_mnuCostBVBreakdownActionPerformed
+}                                                  
 
-private void lstChooseArtilleryValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseArtilleryValueChanged
+private void lstChooseArtilleryValueChanged(javax.swing.event.ListSelectionEvent evt) {                                                
         if( lstChooseArtillery.getSelectedIndex() < 0 ) { return; }
         if( ! ( Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()] instanceof Artillery ) ) { return; }
         abPlaceable p = (abPlaceable) Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()];
         ShowInfoOn( p );
-}//GEN-LAST:event_lstChooseArtilleryValueChanged
+}                                               
 
-private void mnuPrintCurrentMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintCurrentMechActionPerformed
+private void mnuPrintCurrentMechActionPerformed(java.awt.event.ActionEvent evt) {                                                    
     // Solidify the mech first.
     SolidifyMech();
 
     if( VerifyMech( new ActionEvent( this, 1234567890, null ) ) ) {
         PrintMech( CurMech );
     }
-}//GEN-LAST:event_mnuPrintCurrentMechActionPerformed
+}                                                   
 
-private void mnuPrintSavedMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintSavedMechActionPerformed
+private void mnuPrintSavedMechActionPerformed(java.awt.event.ActionEvent evt) {                                                  
     Mech m = LoadMech();
     if (!(m==null))
         PrintMech(m);
-}//GEN-LAST:event_mnuPrintSavedMechActionPerformed
+}                                                 
 
-private void btnEfficientArmorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfficientArmorActionPerformed
+private void btnEfficientArmorActionPerformed(java.awt.event.ActionEvent evt) {                                                  
     // this routine does an "efficient" armor allocation.  It will find the max
     // armor, then find the wasted tonnage and remove it if it's enough to
     // warrant that.  If the wasted AV is greater than 3 points, the extra half-
@@ -11612,7 +11804,13 @@ private void btnEfficientArmorActionPerformed(java.awt.event.ActionEvent evt) {/
     }
 
    // ArmorTons.SetArmorTonnage( result );
-    CurMech.Visit( ArmorTons );
+    try {
+        CurMech.Visit( ArmorTons );
+    } catch( Exception e ) {
+        // this should never throw an exception, but log it anyway
+        System.err.println( e.getMessage() );
+        e.printStackTrace();
+    }
 
     // if we fix the spinner models, they should refresh the screen
     FixArmorSpinners();
@@ -11624,9 +11822,9 @@ private void btnEfficientArmorActionPerformed(java.awt.event.ActionEvent evt) {/
     // now refresh the information panes
     RefreshSummary();
     RefreshInfoPane();
-}//GEN-LAST:event_btnEfficientArmorActionPerformed
+}                                                 
 
-private void chkNullSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkNullSigActionPerformed
+private void chkNullSigActionPerformed(java.awt.event.ActionEvent evt) {                                           
     // is the system already installed?
     if( chkNullSig.isSelected() == CurMech.HasNullSig() ) { return; }
     try {
@@ -11645,9 +11843,9 @@ private void chkNullSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     // now refresh the information panes
     RefreshSummary();
     RefreshInfoPane();
-}//GEN-LAST:event_chkNullSigActionPerformed
+}                                          
 
-private void chkCLPSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCLPSActionPerformed
+private void chkCLPSActionPerformed(java.awt.event.ActionEvent evt) {                                        
     // is the system already installed?
     if( chkCLPS.isSelected() == CurMech.HasChameleon() ) { return; }
     try {
@@ -11666,9 +11864,9 @@ private void chkCLPSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     // now refresh the information panes
     RefreshSummary();
     RefreshInfoPane();
-}//GEN-LAST:event_chkCLPSActionPerformed
+}                                       
 
-private void chkBSPFDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBSPFDActionPerformed
+private void chkBSPFDActionPerformed(java.awt.event.ActionEvent evt) {                                         
     // is the system already installed?
     if( chkBSPFD.isSelected() == CurMech.HasBlueShield() ) { return; }
     try {
@@ -11687,9 +11885,9 @@ private void chkBSPFDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     // now refresh the information panes
     RefreshSummary();
     RefreshInfoPane();
-}//GEN-LAST:event_chkBSPFDActionPerformed
+}                                        
 
-private void chkVoidSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkVoidSigActionPerformed
+private void chkVoidSigActionPerformed(java.awt.event.ActionEvent evt) {                                           
     // is the system already installed?
     if( chkVoidSig.isSelected() == CurMech.HasVoidSig() ) { return; }
     try {
@@ -11708,9 +11906,9 @@ private void chkVoidSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     // now refresh the information panes
     RefreshSummary();
     RefreshInfoPane();
-}//GEN-LAST:event_chkVoidSigActionPerformed
+}                                          
 
-private void btnRemainingArmorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemainingArmorActionPerformed
+private void btnRemainingArmorActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         // see if we have a good number
     float freetons = CurMech.GetTonnage() - CurMech.GetCurrentTons() + CurMech.GetArmor().GetTonnage();
 
@@ -11719,7 +11917,13 @@ private void btnRemainingArmorActionPerformed(java.awt.event.ActionEvent evt) {/
     }
 
     ArmorTons.SetArmorTonnage( freetons );
-    CurMech.Visit( ArmorTons );
+    try {
+        CurMech.Visit( ArmorTons );
+    } catch( Exception e ) {
+        // this should never throw an exception, but log it anyway
+        System.err.println( e.getMessage() );
+        e.printStackTrace();
+    }
 
     // if we fix the spinner models, they should refresh the screen
     FixArmorSpinners();
@@ -11731,9 +11935,9 @@ private void btnRemainingArmorActionPerformed(java.awt.event.ActionEvent evt) {/
     // now refresh the information panes
     RefreshSummary();
     RefreshInfoPane();
-}//GEN-LAST:event_btnRemainingArmorActionPerformed
+}                                                 
 
-private void cmbSCLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSCLocActionPerformed
+private void cmbSCLocActionPerformed(java.awt.event.ActionEvent evt) {                                         
     int curLoc = CurMech.GetLoadout().Find( CurMech.GetLoadout().GetSupercharger() );
     int DesiredLoc = FileCommon.DecodeLocation( (String) cmbSCLoc.getSelectedItem() );
     if( curLoc == DesiredLoc ) { return; }
@@ -11752,9 +11956,9 @@ private void cmbSCLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     // now refresh the information panes
     RefreshSummary();
     RefreshInfoPane();
-}//GEN-LAST:event_cmbSCLocActionPerformed
+}                                        
 
-private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSuperchargerActionPerformed
+private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {                                                
     if( CurMech.GetLoadout().HasSupercharger() == chkSupercharger.isSelected() ) {
         return;
     }
@@ -11780,7 +11984,7 @@ private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//G
     // now refresh the information panes
     RefreshSummary();
     RefreshInfoPane();
-}//GEN-LAST:event_chkSuperchargerActionPerformed
+}                                               
 
 public Mech LoadMech (){
     Mech m = null;
@@ -11964,6 +12168,8 @@ public void LoadMechIntoGUI() {
     chkCLPS.setSelected( CurMech.HasChameleon() );
     chkEnviroSealing.setSelected( CurMech.HasEnviroSealing() );
     chkEjectionSeat.setSelected( CurMech.HasEjectionSeat() );
+    chkCommandConsole.setSelected( CurMech.HasCommandConsole() );
+    chkTracks.setSelected( CurMech.HasTracks() );
     chkRAAES.setSelected( CurMech.HasRAAES() );
     chkLAAES.setSelected( CurMech.HasLAAES() );
     chkLegAES.setSelected( CurMech.HasLegAES() );
@@ -12029,7 +12235,7 @@ public void LoadMechIntoGUI() {
     setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
 }
 
-private void mnuExportClipboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportClipboardActionPerformed
+private void mnuExportClipboardActionPerformed(java.awt.event.ActionEvent evt) {                                                   
     // takes the text export and copies it to thesystem clipboard.
         String CurLoadout = "";
         String output = "";
@@ -12055,54 +12261,54 @@ private void mnuExportClipboardActionPerformed(java.awt.event.ActionEvent evt) {
 
         java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents( export, this );
-}//GEN-LAST:event_mnuExportClipboardActionPerformed
+}                                                  
 
-private void btnSaveIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveIconActionPerformed
+private void btnSaveIconActionPerformed(java.awt.event.ActionEvent evt) {                                            
     mnuSaveActionPerformed(evt);
-}//GEN-LAST:event_btnSaveIconActionPerformed
+}                                           
 
-private void btnPrintIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintIconActionPerformed
+private void btnPrintIconActionPerformed(java.awt.event.ActionEvent evt) {                                             
     mnuPrintCurrentMechActionPerformed(evt);
-}//GEN-LAST:event_btnPrintIconActionPerformed
+}                                            
 
-private void btnNewIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewIconActionPerformed
+private void btnNewIconActionPerformed(java.awt.event.ActionEvent evt) {                                           
     mnuNewMechActionPerformed(evt);
-}//GEN-LAST:event_btnNewIconActionPerformed
+}                                          
 
-private void btnOptionsIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOptionsIconActionPerformed
+private void btnOptionsIconActionPerformed(java.awt.event.ActionEvent evt) {                                               
     mnuOptionsActionPerformed(evt);
-}//GEN-LAST:event_btnOptionsIconActionPerformed
+}                                              
 
-private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
+private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {                                        
     //mnuLoadActionPerformed(evt);
     mnuOpenActionPerformed(evt);
-}//GEN-LAST:event_btnOpenActionPerformed
+}                                       
 
-private void mnuViewToolbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuViewToolbarActionPerformed
+private void mnuViewToolbarActionPerformed(java.awt.event.ActionEvent evt) {                                               
     setViewToolbar(mnuViewToolbar.getState());
-}//GEN-LAST:event_mnuViewToolbarActionPerformed
+}                                              
 
-private void btnExportHTMLIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportHTMLIconActionPerformed
+private void btnExportHTMLIconActionPerformed(java.awt.event.ActionEvent evt) {                                                  
     mnuExportHTMLActionPerformed(evt);
-}//GEN-LAST:event_btnExportHTMLIconActionPerformed
+}                                                 
 
-private void btnExportTextIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportTextIconActionPerformed
+private void btnExportTextIconActionPerformed(java.awt.event.ActionEvent evt) {                                                  
     mnuExportTXTActionPerformed(evt);
-}//GEN-LAST:event_btnExportTextIconActionPerformed
+}                                                 
 
-private void btnExportMTFIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportMTFIconActionPerformed
+private void btnExportMTFIconActionPerformed(java.awt.event.ActionEvent evt) {                                                 
     mnuExportMTFActionPerformed(evt);
-}//GEN-LAST:event_btnExportMTFIconActionPerformed
+}                                                
 
-private void btnExportClipboardIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportClipboardIconActionPerformed
+private void btnExportClipboardIconActionPerformed(java.awt.event.ActionEvent evt) {                                                       
     mnuExportClipboardActionPerformed(evt);
-}//GEN-LAST:event_btnExportClipboardIconActionPerformed
+}                                                      
 
-private void btnPostToS7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPostToS7ActionPerformed
+private void btnPostToS7ActionPerformed(java.awt.event.ActionEvent evt) {                                            
     mnuPostS7ActionPerformed(evt);
-}//GEN-LAST:event_btnPostToS7ActionPerformed
+}                                           
 
-private void btnRemoveItemCritsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveItemCritsActionPerformed
+private void btnRemoveItemCritsActionPerformed(java.awt.event.ActionEvent evt) {                                                   
     Vector v = CurMech.GetLoadout().GetQueue();
     int Index = lstCritsToPlace.getSelectedIndex();
     if( Index < 0 ) {
@@ -12113,9 +12319,9 @@ private void btnRemoveItemCritsActionPerformed(java.awt.event.ActionEvent evt) {
     }
     CurItem = (abPlaceable) v.get( Index );
     RemoveItemCritTab();
-}//GEN-LAST:event_btnRemoveItemCritsActionPerformed
+}                                                  
 
-private void chkCTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCTCASE2ActionPerformed
+private void chkCTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
         if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasCTCASEII() ) {
             chkCTCASE2.setSelected( true );
             return;
@@ -12138,9 +12344,9 @@ private void chkCTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             }
         }
         RefreshInfoPane();
-}//GEN-LAST:event_chkCTCASE2ActionPerformed
+}                                          
 
-private void chkRACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRACASE2ActionPerformed
+private void chkRACASE2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
         if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasRACASEII() ) {
             chkRACASE2.setSelected( true );
             return;
@@ -12163,9 +12369,9 @@ private void chkRACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             }
         }
         RefreshInfoPane();
-}//GEN-LAST:event_chkRACASE2ActionPerformed
+}                                          
 
-private void chkRTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRTCASE2ActionPerformed
+private void chkRTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
         if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasRTCASEII() ) {
             chkRTCASE2.setSelected( true );
             return;
@@ -12188,9 +12394,9 @@ private void chkRTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             }
         }
         RefreshInfoPane();
-}//GEN-LAST:event_chkRTCASE2ActionPerformed
+}                                          
 
-private void chkRLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRLCASE2ActionPerformed
+private void chkRLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
         if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasRLCASEII() ) {
             chkRLCASE2.setSelected( true );
             return;
@@ -12213,9 +12419,9 @@ private void chkRLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             }
         }
         RefreshInfoPane();
-}//GEN-LAST:event_chkRLCASE2ActionPerformed
+}                                          
 
-private void chkHDCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkHDCASE2ActionPerformed
+private void chkHDCASE2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
         if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasHDCASEII() ) {
             chkHDCASE2.setSelected( true );
             return;
@@ -12238,9 +12444,9 @@ private void chkHDCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             }
         }
         RefreshInfoPane();
-}//GEN-LAST:event_chkHDCASE2ActionPerformed
+}                                          
 
-private void chkLTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLTCASE2ActionPerformed
+private void chkLTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
         if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasLTCASEII() ) {
             chkLTCASE2.setSelected( true );
             return;
@@ -12263,9 +12469,9 @@ private void chkLTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             }
         }
         RefreshInfoPane();
-}//GEN-LAST:event_chkLTCASE2ActionPerformed
+}                                          
 
-private void chkLLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLLCASE2ActionPerformed
+private void chkLLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
         if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasLLCASEII() ) {
             chkLLCASE2.setSelected( true );
             return;
@@ -12288,9 +12494,9 @@ private void chkLLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             }
         }
         RefreshInfoPane();
-}//GEN-LAST:event_chkLLCASE2ActionPerformed
+}                                          
 
-private void chkLACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLACASE2ActionPerformed
+private void chkLACASE2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
         if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasLACASEII() ) {
             chkLACASE2.setSelected( true );
             return;
@@ -12313,27 +12519,27 @@ private void chkLACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             }
         }
         RefreshInfoPane();
-}//GEN-LAST:event_chkLACASE2ActionPerformed
+}                                          
 
-private void mnuFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFileActionPerformed
+private void mnuFileActionPerformed(java.awt.event.ActionEvent evt) {                                        
 // TODO add your handling code here:
-}//GEN-LAST:event_mnuFileActionPerformed
+}                                       
 
-private void mnuPrintBatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintBatchActionPerformed
+private void mnuPrintBatchActionPerformed(java.awt.event.ActionEvent evt) {                                              
     if (BatchWindow == null) {BatchWindow = new dlgPrintBatchMechs (this, true);}
     BatchWindow.setLocationRelativeTo( this );
     BatchWindow.setVisible( true );
-}//GEN-LAST:event_mnuPrintBatchActionPerformed
+}                                             
 
-private void btnPrintSavedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintSavedActionPerformed
+private void btnPrintSavedActionPerformed(java.awt.event.ActionEvent evt) {                                              
     mnuPrintSavedMechActionPerformed(evt);
-}//GEN-LAST:event_btnPrintSavedActionPerformed
+}                                             
 
-private void btnPrintBatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintBatchActionPerformed
+private void btnPrintBatchActionPerformed(java.awt.event.ActionEvent evt) {                                              
     mnuPrintBatchActionPerformed(evt);
-}//GEN-LAST:event_btnPrintBatchActionPerformed
+}                                             
 
-private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMechTypeActionPerformed
+private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {                                            
         if( cmbMechType.getSelectedIndex() == 1 ) {
             if( CurMech.IsIndustrialmech() ) { return; }
         } else {
@@ -12390,9 +12596,9 @@ private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         RefreshInfoPane();
         SetWeaponChoosers();
         ResetAmmo();
-}//GEN-LAST:event_cmbMechTypeActionPerformed
+}                                           
 
-private void chkEnviroSealingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEnviroSealingActionPerformed
+private void chkEnviroSealingActionPerformed(java.awt.event.ActionEvent evt) {                                                 
     // is the system already installed?
     if( chkEnviroSealing.isSelected() == CurMech.HasEnviroSealing() ) { return; }
     try {
@@ -12412,9 +12618,9 @@ private void chkEnviroSealingActionPerformed(java.awt.event.ActionEvent evt) {//
     RefreshSummary();
     RefreshInfoPane();
 
-}//GEN-LAST:event_chkEnviroSealingActionPerformed
+}                                                
 
-private void chkEjectionSeatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEjectionSeatActionPerformed
+private void chkEjectionSeatActionPerformed(java.awt.event.ActionEvent evt) {                                                
     if( chkEjectionSeat.isSelected() == CurMech.HasEjectionSeat() ) { return; }
     try {
         if( chkEjectionSeat.isSelected() ) {
@@ -12433,9 +12639,9 @@ private void chkEjectionSeatActionPerformed(java.awt.event.ActionEvent evt) {//G
     RefreshSummary();
     RefreshInfoPane();
 
-}//GEN-LAST:event_chkEjectionSeatActionPerformed
+}                                               
 
-private void mnuPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintPreviewActionPerformed
+private void mnuPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {                                                
     PrintMech p = new PrintMech( this, CurMech, null, false, false);
     p.SetPilotData( "", 4, 5);
     p.SetOptions( Prefs.getBoolean("UseCharts", false), false, CurMech.GetCurrentBV());
@@ -12449,13 +12655,13 @@ private void mnuPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//G
     dlgPreview.setModal(true);
     dlgPreview.setResizable(true);
     dlgPreview.setVisible(true);
-}//GEN-LAST:event_mnuPrintPreviewActionPerformed
+}                                               
 
-private void btnPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintPreviewActionPerformed
+private void btnPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {                                                
     mnuPrintPreviewActionPerformed(evt);
-}//GEN-LAST:event_btnPrintPreviewActionPerformed
+}                                               
 
-private void chkLegAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLegAESActionPerformed
+private void chkLegAESActionPerformed(java.awt.event.ActionEvent evt) {                                          
     if( chkLegAES.isSelected() == CurMech.HasLegAES() ) { return; }
     try {
         if( chkLegAES.isSelected() ) {
@@ -12473,9 +12679,9 @@ private void chkLegAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     // now refresh the information panes
     RefreshSummary();
     RefreshInfoPane();
-}//GEN-LAST:event_chkLegAESActionPerformed
+}                                         
 
-private void chkLAAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLAAESActionPerformed
+private void chkLAAESActionPerformed(java.awt.event.ActionEvent evt) {                                         
     if( chkLAAES.isSelected() == CurMech.HasLAAES() ) { return; }
     try {
         if( chkLAAES.isSelected() ) {
@@ -12493,9 +12699,9 @@ private void chkLAAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     // now refresh the information panes
     RefreshSummary();
     RefreshInfoPane();
-}//GEN-LAST:event_chkLAAESActionPerformed
+}                                        
 
-private void chkRAAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRAAESActionPerformed
+private void chkRAAESActionPerformed(java.awt.event.ActionEvent evt) {                                         
     if( chkRAAES.isSelected() == CurMech.HasRAAES() ) { return; }
     try {
         if( chkRAAES.isSelected() ) {
@@ -12513,13 +12719,13 @@ private void chkRAAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     // now refresh the information panes
     RefreshSummary();
     RefreshInfoPane();
-}//GEN-LAST:event_chkRAAESActionPerformed
+}                                        
 
-private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
     CloseProgram();
-}//GEN-LAST:event_formWindowClosing
+}                                  
 
-private void chkTracksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkTracksActionPerformed
+private void chkTracksActionPerformed(java.awt.event.ActionEvent evt) {                                          
     // is the system already installed?
     if( chkTracks.isSelected() == CurMech.HasTracks() ) { return; }
     try {
@@ -12539,51 +12745,67 @@ private void chkTracksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     RefreshSummary();
     RefreshInfoPane();
 
-}//GEN-LAST:event_chkTracksActionPerformed
+}                                         
 
-private void btnForceListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForceListActionPerformed
+private void btnForceListActionPerformed(java.awt.event.ActionEvent evt) {                                             
     dForce.setLocationRelativeTo(this);
     dForce.setVisible(true);
-}//GEN-LAST:event_btnForceListActionPerformed
+}                                            
 
-private void btnAddToForceListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToForceListActionPerformed
+private void btnAddToForceListActionPerformed(java.awt.event.ActionEvent evt) {                                                  
     SolidifyMech();
     if (VerifyMech(evt)) {
         dForce.Add(CurMech);
     }
-}//GEN-LAST:event_btnAddToForceListActionPerformed
+}                                                 
 
-private void mnuCreateTCGMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCreateTCGMechActionPerformed
+private void mnuCreateTCGMechActionPerformed(java.awt.event.ActionEvent evt) {                                                 
     // Create CCG stats for mech
     // TODO: Add handling code to check if a canon card already exists.
     SolidifyMech();
     dlgCCGMech ccgMech = new dlgCCGMech( this, true, CurMech );
     ccgMech.setLocationRelativeTo( this );
     ccgMech.setVisible( true );
-}//GEN-LAST:event_mnuCreateTCGMechActionPerformed
+}                                                
 
-private void mnuTextTROActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuTextTROActionPerformed
+private void mnuTextTROActionPerformed(java.awt.event.ActionEvent evt) {                                           
     SolidifyMech();
     dlgTextExport Text = new dlgTextExport( this, true, CurMech );
     Text.setLocationRelativeTo( this );
     Text.setVisible( true );
-}//GEN-LAST:event_mnuTextTROActionPerformed
+}                                          
 
-private void chkChartFrontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkChartFrontActionPerformed
+private void chkChartFrontActionPerformed(java.awt.event.ActionEvent evt) {                                              
     UpdateBasicChart();
-}//GEN-LAST:event_chkChartFrontActionPerformed
+}                                             
 
-private void chkChartRearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkChartRearActionPerformed
+private void chkChartRearActionPerformed(java.awt.event.ActionEvent evt) {                                             
     UpdateBasicChart();
-}//GEN-LAST:event_chkChartRearActionPerformed
+}                                            
 
-private void chkChartRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkChartRightActionPerformed
+private void chkChartRightActionPerformed(java.awt.event.ActionEvent evt) {                                              
     UpdateBasicChart();
-}//GEN-LAST:event_chkChartRightActionPerformed
+}                                             
 
-private void chkChartLeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkChartLeftActionPerformed
+private void chkChartLeftActionPerformed(java.awt.event.ActionEvent evt) {                                             
     UpdateBasicChart();
-}//GEN-LAST:event_chkChartLeftActionPerformed
+}                                            
+
+private void chkCommandConsoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCommandConsoleActionPerformed
+    if( chkCommandConsole.isSelected() == CurMech.HasCommandConsole() ) { return; }
+    if( chkCommandConsole.isSelected() ) {
+        if( ! CurMech.SetCommandConsole( true ) ) {
+            javax.swing.JOptionPane.showMessageDialog( this, "Command Console cannot be allocated." );
+            chkCommandConsole.setSelected( false );
+        }
+    } else {
+        CurMech.SetCommandConsole( false );
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkCommandConsoleActionPerformed
 
 private void setViewToolbar(boolean Visible)
 {
@@ -12597,7 +12819,7 @@ private void setViewToolbar(boolean Visible)
     }
 }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JButton btnAddEquip;
     private javax.swing.JButton btnAddToForceList;
     private javax.swing.JButton btnAddVariant;
@@ -12649,6 +12871,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JCheckBox chkChartLeft;
     private javax.swing.JCheckBox chkChartRear;
     private javax.swing.JCheckBox chkChartRight;
+    private javax.swing.JCheckBox chkCommandConsole;
     private javax.swing.JCheckBox chkEjectionSeat;
     private javax.swing.JCheckBox chkEnviroSealing;
     private javax.swing.JCheckBox chkFHES;
@@ -13115,6 +13338,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JTextField txtSumPAmpsACode;
     private javax.swing.JTextField txtSumPAmpsTon;
     private javax.swing.JTextField txtTNTSystem;
-    // End of variables declaration//GEN-END:variables
-    
+    // End of variables declaration                   
 }
+

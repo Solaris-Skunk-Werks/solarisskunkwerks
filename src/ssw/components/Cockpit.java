@@ -34,6 +34,8 @@ public class Cockpit extends abPlaceable {
     private final static ifCockpit ClanCockpit = new stCockpitCL(),
                                    ISCockpit = new stCockpitIS(),
                                    SmallCockpit = new stCockpitISSmall(),
+                                   ISTorsoMount = new stCockpitISTM(),
+                                   CLTorsoMount = new stCockpitCLTM(),
                                    Primitive = new stCockpitISPrimitive(),
                                    ISIndusCockpit = new stCockpitISIndustrial(),
                                    ISIndusAFCCockpit = new stCockpitISIndustrialAFC(),
@@ -70,6 +72,14 @@ public class Cockpit extends abPlaceable {
         CurConfig = ISIndusAFCCockpit;
     }
 
+    public void SetISTorsoMount() {
+        CurConfig = ISTorsoMount;
+    }
+
+    public void SetCLTorsoMount() {
+        CurConfig = CLTorsoMount;
+    }
+
     public void SetCLIndustrialCockpit() {
         CurConfig = CLIndusCockpit;
     }
@@ -94,8 +104,9 @@ public class Cockpit extends abPlaceable {
     public boolean Place( ifLoadout l ) {
         // Add in the cockpit, life support, and sensors to the head.
         // Cockpit itself first
+        LocationIndex loc = CurConfig.GetCockpitLoc();
         try {
-            l.AddToHD( this, 2 );
+            l.AddTo( this, loc.Location, loc.Index );
         } catch ( Exception e ) {
             // Something bad happened and we can't alloc the cockpit.
             return false;
@@ -103,14 +114,16 @@ public class Cockpit extends abPlaceable {
 
         // Now add in the two Sensor locations
         try {
-            l.AddToHD( CurConfig.GetSensors(), 1 );
+            loc = CurConfig.GetFirstSensorLoc();
+            l.AddTo( CurConfig.GetSensors(), loc.Location, loc.Index );
         } catch ( Exception e ) {
             // Something bad happened and we can't alloc the first sensor.
             return false;
         }
 
         try {
-            l.AddToHD( CurConfig.GetSecondSensors(), CurConfig.GetSecondSensorLoc() );
+            loc = CurConfig.GetSecondSensorLoc();
+            l.AddTo( CurConfig.GetSecondSensors(), loc.Location, loc.Index );
         } catch ( Exception e ) {
             // Something bad happened and we can't alloc the second sensor.
             return false;
@@ -118,7 +131,8 @@ public class Cockpit extends abPlaceable {
 
         // first life support unit
         try {
-            l.AddToHD( CurConfig.GetLifeSupport(), 0 );
+            loc = CurConfig.GetFirstLSLoc();
+            l.AddTo( CurConfig.GetLifeSupport(), loc.Location, loc.Index );
         } catch ( Exception e ) {
             // Something bad happened and we can't alloc the second sensor.
             return false;
@@ -127,14 +141,97 @@ public class Cockpit extends abPlaceable {
         // do we have a second life support unit?
         if( CurConfig.HasSecondLSLoc() ) {
             try {
-                l.AddToHD( CurConfig.GetSecondLifeSupport(), 5 );
+                loc = CurConfig.GetSecondLSLoc();
+                l.AddTo( CurConfig.GetSecondLifeSupport(), loc.Location, loc.Index );
             } catch ( Exception e ) {
                 // Something bad happened and we can't alloc the second sensor.
                 return false;
             }
         }
 
-        // looks like everything worked out fine.
+        // do we have a third sensor location?
+        if( CurConfig.HasThirdSensors() ) {
+            try {
+                loc = CurConfig.GetThirdSensorLoc();
+                l.AddTo( CurConfig.GetThirdSensors(), loc.Location, loc.Index );
+            } catch( Exception e ) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean Place( ifLoadout l, LocationIndex[] locs ) {
+        // Add in the cockpit, life support, and sensors.
+        // Cockpit itself first
+        LocationIndex loc = null;
+        try {
+            if( locs[0] == null ) {
+                l.AddTo( this, loc.Location, loc.Index );
+            } else {
+                l.AddTo( this, locs[0].Location, locs[0].Index);
+            }
+        } catch ( Exception e ) {
+            return false;
+        }
+
+        // Now add in the two Sensor locations
+        try {
+            loc = CurConfig.GetFirstSensorLoc();
+            l.AddTo( CurConfig.GetSensors(), loc.Location, loc.Index );
+        } catch ( Exception e ) {
+            return false;
+        }
+
+        try {
+            loc = CurConfig.GetSecondSensorLoc();
+            l.AddTo( CurConfig.GetSecondSensors(), loc.Location, loc.Index );
+        } catch ( Exception e ) {
+            return false;
+        }
+
+        // first life support unit
+        try {
+            if( locs[2] == null ) {
+                loc = CurConfig.GetFirstLSLoc();
+                l.AddTo( CurConfig.GetLifeSupport(), loc.Location, loc.Index );
+            } else {
+                l.AddTo( CurConfig.GetLifeSupport(), locs[2].Location, locs[2].Index );
+            }
+        } catch ( Exception e ) {
+            return false;
+        }
+
+        // do we have a second life support unit?
+        if( CurConfig.HasSecondLSLoc() ) {
+            try {
+                if( locs[3] == null ) {
+                    loc = CurConfig.GetSecondLSLoc();
+                    l.AddTo( CurConfig.GetSecondLifeSupport(), loc.Location, loc.Index );
+                } else {
+                    l.AddTo( CurConfig.GetSecondLifeSupport(), locs[3].Location, locs[3].Index );
+                }
+            } catch ( Exception e ) {
+                return false;
+            }
+        }
+
+        // do we have a third sensor location?
+        if( CurConfig.HasThirdSensors() ) {
+            try {
+                if( locs[1] == null ) {
+                    loc = CurConfig.GetThirdSensorLoc();
+                    l.AddTo( CurConfig.GetThirdSensors(), loc.Location, loc.Index );
+                } else {
+                    l.AddTo( CurConfig.GetThirdSensors(), locs[1].Location, locs[1].Index );
+                }
+            } catch ( Exception e ) {
+                return false;
+            }
+        }
+
         return true;
     }
 
@@ -146,6 +243,9 @@ public class Cockpit extends abPlaceable {
         l.Remove( CurConfig.GetSensors() );
         l.Remove( CurConfig.GetSecondSensors() );
         l.Remove( this );
+        if( CurConfig.HasThirdSensors() ) {
+            l.Remove( CurConfig.GetThirdSensors() );
+        }
     }
 
     public String GetCritName() {
@@ -215,6 +315,11 @@ public class Cockpit extends abPlaceable {
                     result += 5.0f;
             }
         }
+        if( CurConfig.HasThirdSensors() ) {
+            if( CurConfig.GetThirdSensors().IsArmored() ) {
+                    result += 5.0f;
+            }
+        }
         return result;
     }
 
@@ -227,11 +332,32 @@ public class Cockpit extends abPlaceable {
         return CurConfig.ReportCrits();
     }
 
+    public boolean CanUseCommandConsole() {
+        return CurConfig.CanUseCommandConsole();
+    }
+
     public ifState[] GetStates() {
         ifState[] retval = { (ifState) ClanCockpit, (ifState) ISCockpit,
-            (ifState) SmallCockpit, (ifState) ISIndusCockpit, (ifState) CLIndusCockpit,
-            (ifState) ISIndusAFCCockpit, (ifState) CLIndusAFCCockpit };
+            (ifState) SmallCockpit, (ifState) ISTorsoMount, (ifState) CLTorsoMount, (ifState) ISIndusCockpit,
+            (ifState) CLIndusCockpit, (ifState) ISIndusAFCCockpit, (ifState) CLIndusAFCCockpit };
         return retval;
+    }
+
+    public boolean IsTorsoMounted() {
+        return CurConfig.IsTorsoMounted();
+    }
+
+    // the following 3 methods provided for the torso-mounted cockpit for saving
+    public SimplePlaceable GetThirdSensors() {
+        return CurConfig.GetThirdSensors();
+    }
+
+    public SimplePlaceable GetFirstLS() {
+        return CurConfig.GetLifeSupport();
+    }
+
+    public SimplePlaceable GetSecondLS() {
+        return CurConfig.GetSecondLifeSupport();
     }
 
     @Override
