@@ -4,7 +4,7 @@
   <Properties>
     <Property name="title" type="java.lang.String" value="Force List"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[800, 500]"/>
+      <Dimension value="null"/>
     </Property>
   </Properties>
   <SyntheticProperties>
@@ -29,33 +29,20 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tlbActions" alignment="0" pref="646" max="32767" attributes="0"/>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="spnList" pref="626" max="32767" attributes="0"/>
+          <Component id="tlbActions" alignment="0" pref="557" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Component id="lblTotalUnits" min="-2" pref="135" max="-2" attributes="0"/>
+              <EmptySpace pref="127" max="32767" attributes="0"/>
+              <Component id="lblTotalTons" min="-2" pref="110" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+              <Component id="lblTotalBV" min="-2" pref="89" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
-              <Component id="lblUnit" min="-2" pref="99" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Component id="jLabel2" alignment="0" max="32767" attributes="1"/>
-                  <Component id="txtMechwarrior" alignment="0" min="-2" pref="156" max="-2" attributes="1"/>
-              </Group>
+              <Component id="spnList" pref="537" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jLabel3" max="32767" attributes="1"/>
-                  <Component id="txtGunnery" alignment="0" min="-2" pref="40" max="-2" attributes="1"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jLabel4" min="0" pref="0" max="32767" attributes="1"/>
-                  <Component id="txtPiloting" alignment="0" min="-2" pref="40" max="-2" attributes="1"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnUpdate" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="74" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -63,23 +50,15 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="tlbActions" min="-2" pref="25" max="-2" attributes="0"/>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="spnList" pref="231" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="spnList" pref="161" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblTotalUnits" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblTotalBV" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblTotalTons" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblUnit" alignment="3" pref="23" max="32767" attributes="0"/>
-                  <Component id="txtMechwarrior" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtGunnery" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtPiloting" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -223,42 +202,21 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="lblUnit">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtMechwarrior">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtGunnery">
-      <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtGunneryFocusGained"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtPiloting">
-      <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPilotingFocusGained"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="lblTotalUnits">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Mechwarrior"/>
+        <Property name="text" type="java.lang.String" value="0 Units"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="lblTotalTons">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Gunnery"/>
+        <Property name="text" type="java.lang.String" value="0 Tons"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
+    <Component class="javax.swing.JLabel" name="lblTotalBV">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Piloting"/>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="0 BV"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnUpdate">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Update"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateActionPerformed"/>
-      </Events>
     </Component>
   </SubComponents>
 </Form>

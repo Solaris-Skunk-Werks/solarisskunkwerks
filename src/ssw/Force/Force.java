@@ -207,9 +207,9 @@ public class Force extends AbstractTableModel {
             case 2:
                 return "Tons";
             case 3:
-                return "G";
+                return "Gunnery";
             case 4:
-                return "P";
+                return "Piloting";
             case 5:
                 return "BV";
         }
@@ -265,10 +265,32 @@ public class Force extends AbstractTableModel {
     }
     @Override
     public boolean isCellEditable( int row, int col ) {
+        Unit u = (Unit) Units.get( row );
+        switch( col ) {
+            case 1:
+                return true;
+            case 3:
+                return true;
+            case 4:
+                return true;
+        }
         return false;
     }
     @Override
     public void setValueAt( Object value, int row, int col ) {
-        return;
+        Unit u = (Unit) Units.get( row );
+        switch( col ) {
+            case 1:
+                u.Mechwarrior = value.toString();
+                break;
+            case 3:
+                u.Gunnery = Integer.parseInt(value.toString());
+                break;
+            case 4:
+                u.Piloting = Integer.parseInt(value.toString());
+                break;
+        }
+        u.Refresh();
+        RefreshBV();
     }
 }

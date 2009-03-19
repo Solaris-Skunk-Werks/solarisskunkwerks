@@ -36,6 +36,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.TableRowSorter;
 import ssw.Force.*;
 import ssw.Force.IO.ForceReader;
@@ -56,31 +58,38 @@ public class frmForce extends javax.swing.JFrame {
         initComponents();
 
         this.parent = parent;
+        force.RefreshBV();
+        force.addTableModelListener(new TableModelListener() {
 
+            public void tableChanged(TableModelEvent e) {
+                lblTotalBV.setText(String.format("%1$,.0f", force.TotalAdjustedBV));
+                lblTotalTons.setText(String.format("%1$,.0f", force.TotalTonnage) + " Tons");
+                lblTotalUnits.setText(force.Units.size() + " Units");
+            }
+        });
         refreshTable();
+        sortTable();
     }
 
     private void refreshTable() {
         tblForce.setModel(force);
+    }
 
+    private void sortTable() {
         //Create a sorting class and apply it to the list
         TableRowSorter Leftsorter = new TableRowSorter<Force>(force);
         List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
         sortKeys.add(new RowSorter.SortKey(2, SortOrder.ASCENDING));
-        sortKeys.add(new RowSorter.SortKey(5, SortOrder.ASCENDING));
+        sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
         Leftsorter.setSortKeys(sortKeys);
         tblForce.setRowSorter(Leftsorter);
 
-        tblForce.getColumnModel().getColumn(0).setPreferredWidth(200);
-        tblForce.getColumnModel().getColumn(1).setPreferredWidth(200);
+        //tblForce.getColumnModel().getColumn(0).setPreferredWidth(150);
+        //tblForce.getColumnModel().getColumn(1).setPreferredWidth(150);
         tblForce.getColumnModel().getColumn(2).setPreferredWidth(50);
-        tblForce.getColumnModel().getColumn(3).setPreferredWidth(50);
-        tblForce.getColumnModel().getColumn(4).setPreferredWidth(50);
+        tblForce.getColumnModel().getColumn(3).setPreferredWidth(25);
+        tblForce.getColumnModel().getColumn(4).setPreferredWidth(25);
         tblForce.getColumnModel().getColumn(5).setPreferredWidth(50);
-    }
-
-    private void sortTable() {
-
     }
 
     private void LoadMech() {
@@ -114,31 +123,6 @@ public class frmForce extends javax.swing.JFrame {
         force.Units.add(u);
     }
 
-    public void updateSkills() {
-        if (tblForce.getSelectedRowCount() > 0) {
-            int[] rows = tblForce.getSelectedRows();
-            for ( int i=0; i < rows.length; i++ ) {
-                Unit data = (Unit) force.Units.get(tblForce.convertRowIndexToModel(rows[i]));
-                data.Mechwarrior = txtMechwarrior.getText();
-                if (! txtGunnery.getText().isEmpty() ) {
-                    try {
-                        data.Gunnery = Integer.parseInt(txtGunnery.getText());
-                    } catch (Exception e) {
-                    }
-                }
-                
-                if (! txtPiloting.getText().isEmpty() ) {
-                    try {
-                        data.Piloting = Integer.parseInt(txtPiloting.getText());
-                    } catch (Exception e) {
-
-                    }
-                }
-                data.Refresh();
-            }
-        }
-    }
-
 
 
 
@@ -167,17 +151,12 @@ public class frmForce extends javax.swing.JFrame {
         btnRefresh = new javax.swing.JButton();
         spnList = new javax.swing.JScrollPane();
         tblForce = new javax.swing.JTable();
-        lblUnit = new javax.swing.JLabel();
-        txtMechwarrior = new javax.swing.JTextField();
-        txtGunnery = new javax.swing.JTextField();
-        txtPiloting = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        btnUpdate = new javax.swing.JButton();
+        lblTotalUnits = new javax.swing.JLabel();
+        lblTotalTons = new javax.swing.JLabel();
+        lblTotalBV = new javax.swing.JLabel();
 
         setTitle("Force List");
-        setMinimumSize(new java.awt.Dimension(800, 500));
+        setMinimumSize(null);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
@@ -301,77 +280,42 @@ public class frmForce extends javax.swing.JFrame {
         });
         spnList.setViewportView(tblForce);
 
-        txtGunnery.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtGunneryFocusGained(evt);
-            }
-        });
+        lblTotalUnits.setText("0 Units");
 
-        txtPiloting.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtPilotingFocusGained(evt);
-            }
-        });
+        lblTotalTons.setText("0 Tons");
 
-        jLabel2.setText("Mechwarrior");
-
-        jLabel3.setText("Gunnery");
-
-        jLabel4.setText("Piloting");
-
-        btnUpdate.setText("Update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
+        lblTotalBV.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblTotalBV.setText("0 BV");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
+            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblTotalUnits, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                .addComponent(lblTotalTons, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addComponent(lblTotalBV, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(145, 145, 145)
-                .addComponent(lblUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtMechwarrior, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtGunnery, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4, 0, 0, Short.MAX_VALUE)
-                    .addComponent(txtPiloting, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnUpdate)
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tlbActions, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUnit, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-                    .addComponent(txtMechwarrior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtGunnery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPiloting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdate))
+                    .addComponent(lblTotalUnits)
+                    .addComponent(lblTotalBV)
+                    .addComponent(lblTotalTons))
                 .addContainerGap())
         );
 
@@ -379,14 +323,17 @@ public class frmForce extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        force.RefreshBV();
         refreshTable();
     }//GEN-LAST:event_formWindowOpened
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        force.RefreshBV();
         refreshTable();
 }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        force.RefreshBV();
         refreshTable();
     }//GEN-LAST:event_formWindowGainedFocus
 
@@ -417,12 +364,6 @@ public class frmForce extends javax.swing.JFrame {
 
     private void tblForceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblForceMouseClicked
         if (evt.getClickCount() >= 2) { LoadMech(); }
-
-        Unit u = (Unit) force.Units.get(tblForce.convertRowIndexToModel(tblForce.getSelectedRow()));
-        lblUnit.setText(u.TypeModel);
-        txtMechwarrior.setText(u.Mechwarrior);
-        txtGunnery.setText(u.Gunnery + "");
-        txtPiloting.setText(u.Piloting + "");
     }//GEN-LAST:event_tblForceMouseClicked
 
     private void brnClearForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnClearForceActionPerformed
@@ -483,21 +424,6 @@ public class frmForce extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_btnPrintForceActionPerformed
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        if ((! txtGunnery.getText().isEmpty() ) && (! txtPiloting.getText().isEmpty() )) {
-            updateSkills();
-        }
-        refreshTable();
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
-    private void txtGunneryFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtGunneryFocusGained
-        txtGunnery.selectAll();
-    }//GEN-LAST:event_txtGunneryFocusGained
-
-    private void txtPilotingFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPilotingFocusGained
-        txtPiloting.selectAll();
-    }//GEN-LAST:event_txtPilotingFocusGained
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brnClearForce;
     private javax.swing.JButton btnOpen;
@@ -506,19 +432,14 @@ public class frmForce extends javax.swing.JFrame {
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnRemoveUnit;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton btnUpdate;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
-    private javax.swing.JLabel lblUnit;
+    private javax.swing.JLabel lblTotalBV;
+    private javax.swing.JLabel lblTotalTons;
+    private javax.swing.JLabel lblTotalUnits;
     private javax.swing.JScrollPane spnList;
     private javax.swing.JTable tblForce;
     private javax.swing.JToolBar tlbActions;
-    private javax.swing.JTextField txtGunnery;
-    private javax.swing.JTextField txtMechwarrior;
-    private javax.swing.JTextField txtPiloting;
     // End of variables declaration//GEN-END:variables
 
 }
