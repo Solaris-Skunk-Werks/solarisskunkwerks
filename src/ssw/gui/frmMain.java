@@ -3541,6 +3541,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(750, 515));
         addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -5589,6 +5590,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         MouseListener mlBallistic = new MouseAdapter() {
+            @Override
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     int index = lstChooseBallistic.locationToIndex( e.getPoint() );
@@ -5671,6 +5673,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         MouseListener mlEnergy = new MouseAdapter() {
+            @Override
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     int index = lstChooseEnergy.locationToIndex( e.getPoint() );
@@ -5753,6 +5756,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         MouseListener mlMissile = new MouseAdapter() {
+            @Override
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     int index = lstChooseMissile.locationToIndex( e.getPoint() );
@@ -5847,6 +5851,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         MouseListener mlPhysical = new MouseAdapter() {
+            @Override
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     int index = lstChoosePhysical.locationToIndex( e.getPoint() );
@@ -5932,6 +5937,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         MouseListener mlEquipment = new MouseAdapter() {
+            @Override
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     int index = lstChooseEquipment.locationToIndex( e.getPoint() );
@@ -6026,6 +6032,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         MouseListener mlArtillery = new MouseAdapter() {
+            @Override
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     int index = lstChooseArtillery.locationToIndex( e.getPoint() );
@@ -6102,6 +6109,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         MouseListener mlAmmo = new MouseAdapter() {
+            @Override
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     int index = lstChooseAmmunition.locationToIndex( e.getPoint() );
@@ -6627,6 +6635,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstHDCrits.setTransferHandler( new thHDTransferHandler( this, CurMech ) );
         lstHDCrits.setDropMode( DropMode.ON );
         MouseListener mlHDCrits = new MouseAdapter() {
+            @Override
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     int index = lstHDCrits.locationToIndex( e.getPoint() );
@@ -6641,6 +6650,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     RefreshInfoPane();
                 }
             }
+            @Override
             public void mouseReleased( MouseEvent e ) {
                 if( e.isPopupTrigger() ) {
                     abPlaceable[] a = CurMech.GetLoadout().GetHDCrits();
@@ -6685,6 +6695,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 }
             }
+            @Override
             public void mousePressed( MouseEvent e ) {
                 if( e.isPopupTrigger() ) {
                     abPlaceable[] a = CurMech.GetLoadout().GetHDCrits();
@@ -6766,6 +6777,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstCTCrits.setTransferHandler( new thCTTransferHandler( this, CurMech ) );
         lstCTCrits.setDropMode( DropMode.ON );
         MouseListener mlCTCrits = new MouseAdapter() {
+            @Override
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     int index = lstCTCrits.locationToIndex( e.getPoint() );
@@ -6780,6 +6792,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     RefreshInfoPane();
                 }
             }
+            @Override
             public void mouseReleased( MouseEvent e ) {
                 if( e.isPopupTrigger() ) {
                     abPlaceable[] a = CurMech.GetLoadout().GetCTCrits();
@@ -6824,6 +6837,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 }
             }
+            @Override
             public void mousePressed( MouseEvent e ) {
                 if( e.isPopupTrigger() ) {
                     abPlaceable[] a = CurMech.GetLoadout().GetCTCrits();
@@ -6940,6 +6954,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstLTCrits.setTransferHandler( new thLTTransferHandler( this, CurMech ) );
         lstLTCrits.setDropMode( DropMode.ON );
         MouseListener mlLTCrits = new MouseAdapter() {
+            @Override
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     int index = lstLTCrits.locationToIndex( e.getPoint() );
@@ -6954,6 +6969,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     RefreshInfoPane();
                 }
             }
+            @Override
             public void mouseReleased( MouseEvent e ) {
                 if( e.isPopupTrigger() ) {
                     abPlaceable[] a = CurMech.GetLoadout().GetLTCrits();
@@ -6998,6 +7014,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 }
             }
+            @Override
             public void mousePressed( MouseEvent e ) {
                 if( e.isPopupTrigger() ) {
                     abPlaceable[] a = CurMech.GetLoadout().GetLTCrits();
@@ -7100,6 +7117,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstRTCrits.setTransferHandler( new thRTTransferHandler( this, CurMech ) );
         lstRTCrits.setDropMode( DropMode.ON );
         MouseListener mlRTCrits = new MouseAdapter() {
+            @Override
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     int index = lstRTCrits.locationToIndex( e.getPoint() );
@@ -7114,6 +7132,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     RefreshInfoPane();
                 }
             }
+            @Override
             public void mouseReleased( MouseEvent e ) {
                 if( e.isPopupTrigger() ) {
                     abPlaceable[] a = CurMech.GetLoadout().GetRTCrits();
@@ -7158,6 +7177,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 }
             }
+            @Override
             public void mousePressed( MouseEvent e ) {
                 if( e.isPopupTrigger() ) {
                     abPlaceable[] a = CurMech.GetLoadout().GetRTCrits();
@@ -7272,6 +7292,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstLACrits.setTransferHandler( new thLATransferHandler( this, CurMech ) );
         lstLACrits.setDropMode( DropMode.ON );
         MouseListener mlLACrits = new MouseAdapter() {
+            @Override
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     int index = lstLACrits.locationToIndex( e.getPoint() );
@@ -7286,6 +7307,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     RefreshInfoPane();
                 }
             }
+            @Override
             public void mouseReleased( MouseEvent e ) {
                 if( e.isPopupTrigger() ) {
                     abPlaceable[] a = CurMech.GetLoadout().GetLACrits();
@@ -7317,6 +7339,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 }
             }
+            @Override
             public void mousePressed( MouseEvent e ) {
                 if( e.isPopupTrigger() ) {
                     abPlaceable[] a = CurMech.GetLoadout().GetLACrits();
@@ -7435,6 +7458,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstRACrits.setTransferHandler( new thRATransferHandler( this, CurMech ) );
         lstRACrits.setDropMode( DropMode.ON );
         MouseListener mlRACrits = new MouseAdapter() {
+            @Override
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     int index = lstRACrits.locationToIndex( e.getPoint() );
@@ -7449,6 +7473,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     RefreshInfoPane();
                 }
             }
+            @Override
             public void mouseReleased( MouseEvent e ) {
                 if( e.isPopupTrigger() ) {
                     abPlaceable[] a = CurMech.GetLoadout().GetRACrits();
@@ -7480,6 +7505,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 }
             }
+            @Override
             public void mousePressed( MouseEvent e ) {
                 if( e.isPopupTrigger() ) {
                     abPlaceable[] a = CurMech.GetLoadout().GetRACrits();
@@ -7598,6 +7624,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstLLCrits.setTransferHandler( new thLLTransferHandler( this, CurMech ) );
         lstLLCrits.setDropMode( DropMode.ON );
         MouseListener mlLLCrits = new MouseAdapter() {
+            @Override
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     int index = lstLLCrits.locationToIndex( e.getPoint() );
@@ -7612,6 +7639,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     RefreshInfoPane();
                 }
             }
+            @Override
             public void mouseReleased( MouseEvent e ) {
                 if( e.isPopupTrigger() ) {
                     abPlaceable[] a = CurMech.GetLoadout().GetLLCrits();
@@ -7656,6 +7684,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 }
             }
+            @Override
             public void mousePressed( MouseEvent e ) {
                 if( e.isPopupTrigger() ) {
                     abPlaceable[] a = CurMech.GetLoadout().GetLLCrits();
@@ -7747,6 +7776,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstRLCrits.setTransferHandler( new thRLTransferHandler( this, CurMech ) );
         lstRLCrits.setDropMode( DropMode.ON );
         MouseListener mlRLCrits = new MouseAdapter() {
+            @Override
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     int index = lstRLCrits.locationToIndex( e.getPoint() );
@@ -7761,6 +7791,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     RefreshInfoPane();
                 }
             }
+            @Override
             public void mouseReleased( MouseEvent e ) {
                 if( e.isPopupTrigger() ) {
                     abPlaceable[] a = CurMech.GetLoadout().GetRLCrits();
@@ -7805,6 +7836,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 }
             }
+            @Override
             public void mousePressed( MouseEvent e ) {
                 if( e.isPopupTrigger() ) {
                     abPlaceable[] a = CurMech.GetLoadout().GetRLCrits();
@@ -7894,6 +7926,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstCritsToPlace.setPreferredSize(null);
         lstCritsToPlace.setVisibleRowCount(20);
         MouseListener mlCritsToPlace = new MouseAdapter() {
+            @Override
             public void mouseReleased( MouseEvent e ) {
                 Vector v = CurMech.GetLoadout().GetQueue();
                 int Index = lstCritsToPlace.locationToIndex( e.getPoint() );
@@ -7918,6 +7951,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     }
                 }
             }
+            @Override
             public void mousePressed( MouseEvent e ) {
                 Vector v = CurMech.GetLoadout().GetQueue();
                 int Index = lstCritsToPlace.locationToIndex( e.getPoint() );
@@ -8458,6 +8492,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 false, true
             };
 
+            @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }

@@ -26,28 +26,8 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package ssw.filehandlers;
+package ssw.utilities;
 
-import java.util.Hashtable;
-import ssw.components.*;
-import ssw.visitors.*;
+public class FiringSolutionCalculator {
 
-public class MTFReader {
-    private Hashtable MMLookup = new Hashtable();
-    public MTFReader() {
-        BuildHash();
-    }
-
-    public Mech ReadMech() {
-        Mech m = new Mech();
-        VMechFullRecalc Recalc = new VMechFullRecalc();
-        // m.Visit( Recalc );
-
-        
-        return m;
-    }
-
-    private void BuildHash() {
-        // builds the lookup hash table
-    }
 }

@@ -26,28 +26,19 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package ssw.filehandlers;
+package ssw.utilities;
 
-import java.util.Hashtable;
-import ssw.components.*;
-import ssw.visitors.*;
+public class FiringSolution {
+    // provides a class for containing a firing solution at a set range.
+    private int range = -1;
+    private String NL;
 
-public class MTFReader {
-    private Hashtable MMLookup = new Hashtable();
-    public MTFReader() {
-        BuildHash();
-    }
+// This is a text formating string (80 chars) I keep around for when it's needed
+// "----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+"
+// retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", a.GetCritName(), a.GetDefensiveBV(), a.GetOffensiveBV(), a.GetCost() ) + NL;
 
-    public Mech ReadMech() {
-        Mech m = new Mech();
-        VMechFullRecalc Recalc = new VMechFullRecalc();
-        // m.Visit( Recalc );
-
-        
-        return m;
-    }
-
-    private void BuildHash() {
-        // builds the lookup hash table
+    public FiringSolution( int r ) {
+        range = r;
+        NL = System.getProperty( "line.separator" );
     }
 }

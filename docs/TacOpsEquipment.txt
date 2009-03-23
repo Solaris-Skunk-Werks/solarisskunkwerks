@@ -23,8 +23,6 @@ Improved One-Shot Launcher				Weapon
 New systems to add
 -------------------------------------------------------------------------------
 Mechanical Jump Boosters				? new system  "Jump Booster"
-Cockpit Command Console					Cockpit
-Torso-Mounted Cockpit					Cockpit
 Large ICE								Engine
 Large Fusion							Engine
 Large Light Fusion						Engine
