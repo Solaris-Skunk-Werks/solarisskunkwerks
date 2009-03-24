@@ -61,7 +61,9 @@ Version 0.6.0
 - Replaced the old simple chart with a damage at range chart.
 - Added Torpedo Launchers as their own seperate weapon types per canon.
 - Added ability to change the G/P and Mechwarrior for units on the Force List.
-- Added Coolant Pods, Torso-mounted Cockpits, Command Consoles, 
+- Added Coolant Pods, Torso-mounted Cockpits, Command Consoles.
+- Added the bew missile guidance systems (MRM Apollo and Artemis V).
+- Added a test for overwriting files that already exist when saving.
 
 + Changed
 - Fixed a load bug with heatsinks.
@@ -186,6 +188,9 @@ Version 0.6.0
 - AES checkboxes are now correct upon loading a 'Mech.
 - Changing armor now sets the "Mech has changed" tag.
 - Last minute bug fixes (MGArray, A-IV Allocation, Tab Order for Manufacturers table).
+- Changed the way missile guidance packages are handled (Artemis and Apollo).
+- Fixed an issue with saving the jump jet type (UMU should now load properly).
+- Changed the damage profile chart to not use diagonal lines at all.
 
 -------------------------------------------------------------------------------
 Version 0.5.0

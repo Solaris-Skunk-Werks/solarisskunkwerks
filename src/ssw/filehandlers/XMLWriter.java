@@ -193,11 +193,7 @@ public class XMLWriter {
         if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
             FR.write( tab + tab + "<jumpjets number=\"" + CurMech.GetJumpJets().GetNumJJ() + "\">" );
             FR.newLine();
-            if( CurMech.GetJumpJets().IsImproved() ) {
-                FR.write( tab + tab + tab + "<type>Improved Jump Jet</type>" );
-            } else {
-                FR.write( tab + tab + tab + "<type>Standard Jump Jet</type>" );
-            }
+            FR.write( tab + tab + tab + "<type>" + CurMech.GetJumpJets().GetLookupName() + "</type>" );
             FR.newLine();
             FR.write( GetJumpJetLines( tab + tab + tab, true ) );
             FR.write( tab + tab + "</jumpjets>" );

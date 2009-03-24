@@ -87,7 +87,12 @@ public class DamageChart extends JPanel {
                 if( chart[j] == 0 ) {
                     g.draw( new Line2D.Double( (( j - 1 ) * offX), (dy - (chart[j-1] * offY)), (( j - 1 ) * offX), (dy - (chart[j] * offY)) ) );
                 } else {
-                    g.draw( new Line2D.Double( (( j - 1 ) * offX), (dy - (chart[j-1] * offY)), (j * offX), (dy - (chart[j] * offY)) ) );
+                    if( chart[j] < chart[j-1] ) {
+                        g.draw( new Line2D.Double( (( j - 1 ) * offX), (dy - (chart[j-1] * offY)), (( j - 1 ) * offX), (dy - (chart[j] * offY)) ) );
+                        g.draw( new Line2D.Double( (( j - 1 ) * offX), (dy - (chart[j] * offY)), (j * offX), (dy - (chart[j] * offY)) ) );
+                    } else {
+                        g.draw( new Line2D.Double( (( j - 1 ) * offX), (dy - (chart[j-1] * offY)), (j * offX), (dy - (chart[j] * offY)) ) );
+                    }
                 }
             }
         }

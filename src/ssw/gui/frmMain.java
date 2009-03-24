@@ -11413,6 +11413,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             return;
         }
 
+        boolean overwrite = false;
         String filename = "";
         if( CurMech.GetModel().isEmpty() ) {
             filename = CurMech.GetName() + ".ssw";
@@ -11438,13 +11439,23 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         File testfile = new File( test );
         if( testfile.exists() ) {
-            // this is just a quick save on an existing mech.
+            // this may be a quick save on an existing mech, check.
+            int choice = javax.swing.JOptionPane.showConfirmDialog( this,
+                "A file with this name already exists\n" + testfile + "\nDo you want to overwrite it?", "Overwrite File?", javax.swing.JOptionPane.YES_NO_OPTION );
+            if( choice == 1 ) {
+                overwrite = false;
+            } else {
+                overwrite = true;
+            }
+        }
+        if( overwrite ) {
             savemech = testfile;
         } else {
-            System.err.println( "couldn't find the file: " + test );
             // a new save.  we'll show a dialogue and such.
             // get the filename we're going to save to
-            JFileChooser fc = new JFileChooser( GlobalOptions.SaveLoadPath );
+            File tempFile = new File( Prefs.get( "LastOpenDirectory", "" ) );
+            JFileChooser fc = new JFileChooser();
+            fc.setCurrentDirectory( tempFile );
             fc.addChoosableFileFilter( new javax.swing.filechooser.FileFilter() {
                 public boolean accept( File f ) {
                     if (f.isDirectory()) {
@@ -11476,7 +11487,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 return;
             }
             savemech = fc.getSelectedFile();
-            
+
             //Since we are saving to a new file update the stored prefs
             try {
                 Prefs.put("LastOpenDirectory", savemech.getCanonicalPath().replace(savemech.getName(), ""));
@@ -11567,7 +11578,9 @@ private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         }
 
         // get the filename we're going to save to
-        JFileChooser fc = new JFileChooser( GlobalOptions.SaveLoadPath );
+        File tempFile = new File( Prefs.get( "LastOpenDirectory", "" ) );
+        JFileChooser fc = new JFileChooser();
+        fc.setCurrentDirectory( tempFile );
         fc.addChoosableFileFilter( new javax.swing.filechooser.FileFilter() {
             public boolean accept( File f ) {
                 if (f.isDirectory()) {
@@ -11597,6 +11610,17 @@ private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         if( returnVal != JFileChooser.APPROVE_OPTION ) { return; }
         File savemech = fc.getSelectedFile();
 
+        if( savemech.exists() ) {
+            // this may be a quick save on an existing mech, check.
+            int choice = javax.swing.JOptionPane.showConfirmDialog( this,
+                "A file with this name already exists\n" + savemech + "\nDo you want to overwrite it?", "Overwrite File?", javax.swing.JOptionPane.YES_NO_OPTION );
+            if( choice == 1 ) {
+                javax.swing.JOptionPane.showMessageDialog( this, "The 'Mech was not saved." );
+                setCursor( NormalCursor );
+                return;
+            }
+        }
+
         // exports the mech to XML format
         String CurLoadout = "";
         if( CurMech.IsOmnimech() ) {
@@ -11624,6 +11648,17 @@ private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully:\n" + file );
         } catch( IOException e ) {
             javax.swing.JOptionPane.showMessageDialog( this, "There was a problem writing the file:\n" + e.getMessage() );
+            setCursor( NormalCursor );
+            return;
+        }
+
+        //Since we are saving to a new file update the stored prefs
+        try {
+            Prefs.put("LastOpenDirectory", savemech.getCanonicalPath().replace(savemech.getName(), ""));
+            Prefs.put("LastOpenFile", savemech.getName());
+        } catch (IOException e) {
+            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the file:\n" + e.getMessage() );
+            setCursor( NormalCursor );
             return;
         }
 
@@ -11632,6 +11667,7 @@ private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         cmbOmniVariantActionPerformed( evt );
         setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
         CurMech.SetChanged( false );
+        setCursor( NormalCursor );
 }//GEN-LAST:event_mnuSaveAsActionPerformed
 
 private void lstSelectedEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstSelectedEquipmentValueChanged
@@ -11909,8 +11945,8 @@ private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//G
 public Mech LoadMech (){
     Mech m = null;
     
-    File tempFile = new File(Prefs.get("LastOpenDirectory", ""));
-    JFileChooser fc = new JFileChooser( GlobalOptions.SaveLoadPath );
+    File tempFile = new File( Prefs.get( "LastOpenDirectory", "" ) );
+    JFileChooser fc = new JFileChooser();
     fc.addChoosableFileFilter( new javax.swing.filechooser.FileFilter() {
         public boolean accept( File f ) {
             if (f.isDirectory()) {
@@ -11934,7 +11970,7 @@ public Mech LoadMech (){
         }
     } );
     fc.setAcceptAllFileFilterUsed( false );
-    fc.setCurrentDirectory(tempFile);
+    fc.setCurrentDirectory( tempFile );
     int returnVal = fc.showDialog( this, "Load Mech" );
     if( returnVal != JFileChooser.APPROVE_OPTION ) { return m; }
     File loadmech = fc.getSelectedFile();
