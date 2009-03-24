@@ -541,8 +541,8 @@ public class HTMLWriter {
                             retval += a.GetCritName() + plural;
                         } else if( check.equals( "<+-SSW_EQUIP_FULL_NAME-+>" ) ) {
                             if( a instanceof MissileWeapon ) {
-                                if( ((MissileWeapon) a).IsUsingArtemis() ) {
-                                    retval += a.GetCritName() + plural + " w/ Artemis IV FCS";
+                                if( ((MissileWeapon) a).IsUsingFCS() ) {
+                                    retval += a.GetCritName() + plural + " w/ " + ((abPlaceable) ((MissileWeapon) a).GetFCS()).GetCritName();
                                 } else {
                                     retval += a.GetCritName() + plural;
                                 }
@@ -571,8 +571,8 @@ public class HTMLWriter {
                         retval += a.GetCritName() + plural;
                     } else if( check.equals( "<+-SSW_EQUIP_FULL_NAME-+>" ) ) {
                         if( a instanceof MissileWeapon ) {
-                            if( ((MissileWeapon) a).IsUsingArtemis() ) {
-                                retval += a.GetCritName() + plural + " w/ Artemis IV FCS";
+                            if( ((MissileWeapon) a).IsUsingFCS() ) {
+                                retval += a.GetCritName() + plural + " w/ " + ((abPlaceable) ((MissileWeapon) a).GetFCS()).GetCritName();
                             } else {
                                 retval += a.GetCritName() + plural;
                             }
@@ -627,8 +627,8 @@ public class HTMLWriter {
                             retval += a.GetManufacturer();
                         } else if( check.equals( "<+-SSW_EQUIP_TONNAGE-+>" ) ) {
                             if( a instanceof MissileWeapon ) {
-                                if( ((MissileWeapon) a).IsUsingArtemis() ) {
-                                    retval += ( a.GetTonnage() - 1.0f );
+                                if( ((MissileWeapon) a).IsUsingFCS() ) {
+                                    retval += ( a.GetTonnage() -  ((abPlaceable) ((MissileWeapon) a).GetFCS()).GetTonnage() );
                                 } else {
                                     retval += a.GetTonnage();
                                 }
@@ -757,8 +757,8 @@ public class HTMLWriter {
                             retval += a.GetManufacturer();
                         } else if( check.equals( "<+-SSW_EQUIP_TONNAGE-+>" ) ) {
                             if( a instanceof MissileWeapon ) {
-                                if( ((MissileWeapon) a).IsUsingArtemis() ) {
-                                    retval += ( a.GetTonnage() - 1.0f );
+                                if( ((MissileWeapon) a).IsUsingFCS() ) {
+                                    retval += ( a.GetTonnage() -  ((abPlaceable) ((MissileWeapon) a).GetFCS()).GetTonnage() );
                                 } else {
                                     retval += a.GetTonnage();
                                 }
@@ -952,8 +952,8 @@ public class HTMLWriter {
             // check for artemis and MG arrays
             for( int i = 0; i < ret.size(); i++ ) {
                 if( ret.get( i ) instanceof MissileWeapon ) {
-                    if( ((MissileWeapon) ret.get( i )).IsUsingArtemis() ) {
-                        ret.insertElementAt( ((MissileWeapon) ret.get( i )).GetArtemis(), i + 1 );
+                    if( ((MissileWeapon) ret.get( i )).IsUsingFCS() ) {
+                        ret.insertElementAt( ((MissileWeapon) ret.get( i )).GetFCS(), i + 1 );
                     }
                 } else if( ret.get( i ) instanceof MGArray ) {
                     ret.insertElementAt( ((MGArray) ret.get( i )).GetMGs()[0], i + 1 );

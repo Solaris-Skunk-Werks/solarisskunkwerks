@@ -394,7 +394,7 @@ public class Artillery extends abPlaceable implements ifWeapon {
         return Explosive;
     }
 
-    public boolean IsArtemisCapable() {
+    public boolean IsFCSCapable() {
         return false;
     }
 

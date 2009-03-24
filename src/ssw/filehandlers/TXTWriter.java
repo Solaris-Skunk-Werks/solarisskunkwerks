@@ -381,8 +381,8 @@ public class TXTWriter {
         // do we need to continue?
         if( weapons.length <= 1 ) {
             if( cur instanceof MissileWeapon ) {
-                if( ((MissileWeapon) cur).IsUsingArtemis() ) {
-                    Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + " w/ Artemis IV FCS" + NL;
+                if( ((MissileWeapon) cur).IsUsingFCS() ) {
+                    Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + " w/ " + ((abPlaceable) ((MissileWeapon) cur).GetFCS()).GetCritName() + NL;
                 } else {
                     Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + NL;
                 }
@@ -416,8 +416,8 @@ public class TXTWriter {
             }
 
             if( cur instanceof MissileWeapon ) {
-                if( ((MissileWeapon) cur).IsUsingArtemis() ) {
-                        Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + plural + " w/ Artemis IV FCS" + NL;
+                if( ((MissileWeapon) cur).IsUsingFCS() ) {
+                        Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + plural + " w/ " + ((abPlaceable) ((MissileWeapon) cur).GetFCS()).GetCritName() + NL;
                 } else {
                     Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + plural + NL;
                 }
@@ -544,10 +544,10 @@ public class TXTWriter {
             if( p instanceof Ammunition ) {
                 retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", FileCommon.FormatAmmoPrintName( (Ammunition) p ), loc, crits, p.GetTonnage() ) + NL;
             } else if( p instanceof MissileWeapon ) {
-                if( ((MissileWeapon) p).IsUsingArtemis() ) {
-                    retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, p.GetTonnage() - 1.0f ) + NL;
-                    abPlaceable a = ((MissileWeapon) p).GetArtemis();
-                    retval += String.format( "    %1$-46s %2$-13s %3$-7s %4$6.2f", a.GetCritName(), loc, a.NumCrits(), 1.0f ) + NL;
+                if( ((MissileWeapon) p).IsUsingFCS() ) {
+                    abPlaceable a = (abPlaceable) ((MissileWeapon) p).GetFCS();
+                    retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, p.GetTonnage() - a.GetTonnage() ) + NL;
+                    retval += String.format( "    %1$-46s %2$-13s %3$-7s %4$6.2f", a.GetCritName(), loc, a.NumCrits(), a.GetTonnage() ) + NL;
                 } else {
                     retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, p.GetTonnage() ) + NL;
                 }
@@ -730,10 +730,10 @@ public class TXTWriter {
             if( p instanceof Ammunition ) {
                 retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", FileCommon.FormatAmmoPrintName((Ammunition) p), loc, crits, p.GetTonnage() ) + NL;
             } else if( p instanceof MissileWeapon ) {
-                if( ((MissileWeapon) p).IsUsingArtemis() ) {
-                    retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, p.GetTonnage() - 1.0f ) + NL;
-                    abPlaceable a = ((MissileWeapon) p).GetArtemis();
-                    retval += String.format( "    %1$-46s %2$-13s %3$-7s %4$6.2f", a.GetCritName(), loc, a.NumCrits(), 1.0f ) + NL;
+                if( ((MissileWeapon) p).IsUsingFCS() ) {
+                    abPlaceable a = (abPlaceable) ((MissileWeapon) p).GetFCS();
+                    retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, p.GetTonnage() - a.GetTonnage() ) + NL;
+                    retval += String.format( "    %1$-46s %2$-13s %3$-7s %4$6.2f", a.GetCritName(), loc, a.NumCrits(), a.GetTonnage() ) + NL;
                 } else {
                     retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, p.GetTonnage() ) + NL;
                 }

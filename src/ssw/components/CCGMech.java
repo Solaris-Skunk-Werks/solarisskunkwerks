@@ -249,7 +249,7 @@ public class CCGMech {
                             } else if (clusterSize == 20) {
                                 currentMissileValue = 12;
                             }
-                            if(((MissileWeapon)currentWeapon).GetArtemis() != null) {
+                            if(((MissileWeapon)currentWeapon).GetFCS() != null) {
                                 currentMissileValue = currentMissileValue * 4 / 3;
                             }
                             if(currentWeapon.GetRangeMin() > 0){
@@ -292,7 +292,7 @@ public class CCGMech {
                             }
                             if(((MissileWeapon)currentWeapon).IsStreak()) {
                                 currentMissileValue = clusterSize * 2;
-                            } else if(((MissileWeapon)currentWeapon).GetArtemis() != null) {
+                            } else if(((MissileWeapon)currentWeapon).GetFCS() != null) {
                                 currentMissileValue = currentMissileValue + 2;
                             }
                             currentMissileValue = currentMissileValue / 9;

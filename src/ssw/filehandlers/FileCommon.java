@@ -529,7 +529,9 @@ public class FileCommon {
         for( int i = 0; i < v.size(); i++ ) {
             a = (abPlaceable) v.get( i );
             index = m.GetLoadout().Find( a );
-            sort[index].add( a );
+            if( ! ( index < 0 || index > 7 ) ) {
+                sort[index].add( a );
+            }
         }
 
         // for each vector that has items, add them to the return vector in

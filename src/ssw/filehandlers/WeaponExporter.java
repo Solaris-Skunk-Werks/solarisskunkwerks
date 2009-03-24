@@ -157,7 +157,7 @@ public class WeaponExporter {
             retval += delim + b.IsUltra();
             retval += delim + b.IsRotary();
             retval += delim + b.IsExplosive();
-            retval += delim + b.IsArtemisCapable();
+            retval += delim + b.IsFCSCapable();
             retval += delim + b.IsTCCapable();
             retval += delim + b.IsArrayCapable();
             retval += delim;
@@ -208,7 +208,7 @@ public class WeaponExporter {
             retval += delim + b.IsUltra();
             retval += delim + b.IsRotary();
             retval += delim + b.IsExplosive();
-            retval += delim + b.IsArtemisCapable();
+            retval += delim + b.IsFCSCapable();
             retval += delim + b.IsTCCapable();
             retval += delim + b.IsArrayCapable();
             retval += delim + b.HasCapacitor();
@@ -259,12 +259,12 @@ public class WeaponExporter {
             retval += delim + b.IsUltra();
             retval += delim + b.IsRotary();
             retval += delim + b.IsExplosive();
-            retval += delim + b.IsArtemisCapable();
+            retval += delim + b.IsFCSCapable();
             retval += delim + b.IsTCCapable();
             retval += delim + b.IsArrayCapable();
             retval += delim;
-            retval += delim + b.GetArtemisType();
-            retval += delim + b.IsArtemisCapable();
+            retval += delim + b.GetFCSType();
+            retval += delim + b.IsFCSCapable();
         }
 
         if( ( p instanceof BallisticWeapon ) || ( p instanceof EnergyWeapon ) || ( p instanceof MissileWeapon ) || ( p instanceof Artillery ) ) {

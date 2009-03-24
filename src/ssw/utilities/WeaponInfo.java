@@ -146,8 +146,8 @@ public class WeaponInfo {
         int index = 7; // the average roll
         int size = Weapon.GetDamageShort() * Weapon.ClusterSize();
         if( Weapon instanceof MissileWeapon ) {
-            if( ((MissileWeapon) Weapon).IsUsingArtemis() ) {
-                index += 2;
+            if( ((MissileWeapon) Weapon).IsUsingFCS() ) {
+                index += ((MissileWeapon) Weapon).GetFCS().GetClusterTableBonus();
             }
         }
         if( size > 30 ) {

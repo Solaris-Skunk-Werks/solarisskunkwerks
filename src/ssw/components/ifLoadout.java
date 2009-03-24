@@ -163,12 +163,12 @@ public interface ifLoadout {
     public void SetRLCASEII( CASEII c );
     public boolean HasRLCASEII();
     public CASEII GetRLCaseII();
-    public void SetA4FCSSRM( boolean b ) throws Exception;
-    public void SetA4FCSLRM( boolean b ) throws Exception;
-    public void SetA4FCSMML( boolean b ) throws Exception;
-    public boolean UsingA4SRM();
-    public boolean UsingA4LRM();
-    public boolean UsingA4MML();
+    public void SetFCSArtemisIV( boolean b ) throws Exception;
+    public void SetFCSArtemisV( boolean b ) throws Exception;
+    public void SetFCSApollo( boolean b ) throws Exception;
+    public boolean UsingArtemisIV();
+    public boolean UsingArtemisV();
+    public boolean UsingApollo();
     public boolean UsingTC();
     public TargetingComputer GetTC();
     public void UseTC( boolean use );

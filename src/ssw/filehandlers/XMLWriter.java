@@ -186,7 +186,7 @@ public class XMLWriter {
         if( CurMech.IsOmnimech() ) {
             CurMech.SetCurLoadout( Constants.BASELOADOUT_NAME );
         }
-        FR.write( tab + "<baseloadout a4srm=\"" + GetBoolean( CurMech.UsingA4SRM() ) + "\" a4lrm=\"" + GetBoolean( CurMech.UsingA4LRM() ) + "\" a4mml=\"" + GetBoolean( CurMech.UsingA4MML() ) + "\">" );
+        FR.write( tab + "<baseloadout fcsa4=\"" + GetBoolean( CurMech.UsingArtemisIV() ) + "\" fcsa5=\"" + GetBoolean( CurMech.UsingArtemisV() ) + "\" fcsapollo=\"" + GetBoolean( CurMech.UsingApollo() ) + "\">" );
         FR.newLine();
         FR.write( tab + tab + "<actuators lla=\"" + GetBoolean( CurMech.GetActuators().LeftLowerInstalled() ) + "\" lh=\"" + GetBoolean( CurMech.GetActuators().LeftHandInstalled() ) + "\" rla=\"" + GetBoolean( CurMech.GetActuators().RightLowerInstalled() ) + "\" rh=\"" + GetBoolean( CurMech.GetActuators().RightHandInstalled() ) + "\"/>" );
         FR.newLine();
@@ -295,9 +295,9 @@ public class XMLWriter {
             for( int i = 0; i < v.size(); i++ ) {
                 CurMech.SetCurLoadout( ((ifLoadout) v.get( i )).GetName() );
                 if( CurMech.GetBaseRulesLevel() != CurMech.GetLoadout().GetRulesLevel() ) {
-                    FR.write( tab + "<loadout name=\"" + FileCommon.EncodeFluff( CurMech.GetLoadout().GetName() ) + "\" ruleslevel=\"" + CurMech.GetLoadout().GetRulesLevel() + "\" a4srm=\"" + GetBoolean( CurMech.UsingA4SRM() ) + "\" a4lrm=\"" + GetBoolean( CurMech.UsingA4LRM() ) + "\" a4mml=\"" + GetBoolean( CurMech.UsingA4MML() ) + "\">" );
+                    FR.write( tab + "<loadout name=\"" + FileCommon.EncodeFluff( CurMech.GetLoadout().GetName() ) + "\" ruleslevel=\"" + CurMech.GetLoadout().GetRulesLevel() + "\" fcsa4=\"" + GetBoolean( CurMech.UsingArtemisIV() ) + "\" fcsa5=\"" + GetBoolean( CurMech.UsingArtemisV() ) + "\" fcsapollo=\"" + GetBoolean( CurMech.UsingApollo() ) + "\">" );
                 } else {
-                    FR.write( tab + "<loadout name=\"" + FileCommon.EncodeFluff( CurMech.GetLoadout().GetName() ) + "\" a4srm=\"" + GetBoolean( CurMech.UsingA4SRM() ) + "\" a4lrm=\"" + GetBoolean( CurMech.UsingA4LRM() ) + "\" a4mml=\"" + GetBoolean( CurMech.UsingA4MML() ) + "\">" );
+                    FR.write( tab + "<loadout name=\"" + FileCommon.EncodeFluff( CurMech.GetLoadout().GetName() ) + "\" fcsa4=\"" + GetBoolean( CurMech.UsingArtemisIV() ) + "\" fcsa5=\"" + GetBoolean( CurMech.UsingArtemisV() ) + "\" fcsapollo=\"" + GetBoolean( CurMech.UsingApollo() ) + "\">" );
                 }
                 FR.newLine();
                 // add in the battle value for this loadout

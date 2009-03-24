@@ -30,7 +30,9 @@ package ssw.components;
 
 import java.util.Vector;
 import ssw.*;
-import ssw.visitors.VArtemisLoader;
+import ssw.visitors.VFCSArtemisIVLoader;
+import ssw.visitors.VFCSArtemisVLoader;
+import ssw.visitors.VFCSApolloLoader;
 
 public class QuadLoadout implements ifLoadout {
     // Loadouts provide critical locations for all of a mech's equipment.
@@ -61,9 +63,9 @@ public class QuadLoadout implements ifLoadout {
                    RACaseII = new CASEII( this ),
                    LLCaseII = new CASEII( this ),
                    RLCaseII = new CASEII( this );
-    private boolean A4FCS_SRM = false,
-                    A4FCS_LRM = false,
-                    A4FCS_MML = false,
+    private boolean UseAIVFCS = false,
+                    UseAVFCS = false,
+                    UseApollo = false,
                     Use_TC = false;
     private TargetingComputer CurTC = new TargetingComputer( this );
     private ifLoadout BaseLoadout = null;
@@ -1662,7 +1664,7 @@ public class QuadLoadout implements ifLoadout {
 
         // add the item back into the queue unless is already exists there
         // unless it's an Artemis IV FCS system.
-        if( ! Queue.contains(p) &! ( p instanceof ArtemisIVFCS ) &! ( p instanceof PPCCapacitor ) ) {
+        if( ! Queue.contains(p) &! ( p instanceof ifMissileGuidance ) &! ( p instanceof PPCCapacitor ) ) {
             if( p instanceof BallisticWeapon ) {
                 if( ! ((BallisticWeapon) p).IsInArray() ) {
                     AddToQueue( p );
@@ -1677,8 +1679,8 @@ public class QuadLoadout implements ifLoadout {
 
         // if the item is a Missile Weapon, check for artemis and unallocate
         if( p instanceof MissileWeapon ) {
-            if( ((MissileWeapon) p).IsUsingArtemis() ) {
-                UnallocateAll( ((MissileWeapon) p).GetArtemis(), true );
+            if( ((MissileWeapon) p).IsUsingFCS() ) {
+                UnallocateAll( (abPlaceable) ((MissileWeapon) p).GetFCS(), true );
             }
         }
 
@@ -1782,8 +1784,8 @@ public class QuadLoadout implements ifLoadout {
 
         // if the item is a Missile Weapon, check for artemis and unallocate
         if( p instanceof MissileWeapon ) {
-            if( ((MissileWeapon) p).IsUsingArtemis() ) {
-                UnallocateAll( ((MissileWeapon) p).GetArtemis(), true );
+            if( ((MissileWeapon) p).IsUsingFCS() ) {
+                UnallocateAll( (abPlaceable) ((MissileWeapon) p).GetFCS(), true );
             }
         }
 
@@ -2472,12 +2474,13 @@ public class QuadLoadout implements ifLoadout {
         // stating index.  Throws Exceptions with error messages if things went
         // wrong.
 
-        // Let's get a snapshot of the CT so we can reset it if we have to.
+        // Let's get a snapshot of the location so we can reset it if we have to.
         abPlaceable SnapShot[] = Loc.clone();
 
         // we have to accomodate for Artemis IV systems
         boolean AddIn = false;
         boolean ArrayGood = false;
+        int AddInSize = 1;
 
         // check for generic placement
         if( SIndex == -1 ) {
@@ -2505,16 +2508,26 @@ public class QuadLoadout implements ifLoadout {
                     }
                 }
 
-                // check to see if we have space for the artemis system
+                // check to see if we have space for add-ins
                 if( p instanceof MissileWeapon ) {
-                    if( ((MissileWeapon) p).IsUsingArtemis() ) {
+                    if( ((MissileWeapon) p).IsUsingFCS() ) {
                         // we have a preference for right underneath the launcher
+                        AddInSize = ((abPlaceable) ((MissileWeapon) p).GetFCS()).NumCrits();
                         while( ! AddIn ) {
                             if( Loc[i].LocationLocked() ) {
                                 i++;
                             } else {
-                                AddInLoc = i;
-                                AddIn = true;
+                                if( AddInSize == 2 ) {
+                                    if( Loc[i+1].LocationLocked() ) {
+                                        i++;
+                                    } else {
+                                        AddInLoc = i;
+                                        AddIn = true;
+                                    }
+                                } else {
+                                    AddInLoc = i;
+                                    AddIn = true;
+                                }
                             }
                         }
                     }
@@ -2574,7 +2587,7 @@ public class QuadLoadout implements ifLoadout {
                 // add in the artemis system if this is a missile weapon and is
                 // usiung it.  we've already checked for a good location.
                 if( p instanceof MissileWeapon ) {
-                    if( ((MissileWeapon) p).IsUsingArtemis() ) {
+                    if( ((MissileWeapon) p).IsUsingFCS() ) {
                         if( Loc[AddInLoc] != NoItem ) {
                             // we've already ensured that it is not location locked
                             // above, so put the item back into the queue.
@@ -2584,7 +2597,9 @@ public class QuadLoadout implements ifLoadout {
                                 UnallocateByIndex( AddInLoc, Loc  );
                             }
                         }
-                        Loc[AddInLoc] = ((MissileWeapon) p).GetArtemis();
+                        for( int j = AddInLoc; j < AddInSize + AddInLoc; j++ ) {
+                            Loc[j] = (abPlaceable) ((MissileWeapon) p).GetFCS();
+                        }
                     }
                 }
                 // add in any PPC capacitor
@@ -2661,7 +2676,7 @@ public class QuadLoadout implements ifLoadout {
                         throw new Exception( p.GetCritName() + " cannot be allocated because there is not enough space." );
                     }
                 } else {
-                    throw new Exception( p.GetCritName() + " cannot be allocated because\nthere is no room for its Artemis IV FCS." );
+                    throw new Exception( p.GetCritName() + " cannot be allocated because\nthere is no room for its guidance package." );
                 }
             } else {
                 throw new Exception( p.GetCritName() + " cannot be allocated because there is not enough space." );
@@ -2681,7 +2696,7 @@ public class QuadLoadout implements ifLoadout {
 
             // special handler for Artemis IV FCS
             if( p instanceof MissileWeapon ) {
-                if( ((MissileWeapon) p).IsUsingArtemis() ) {
+                if( ((MissileWeapon) p).IsUsingFCS() ) {
                     Result++;
                 }
             }
@@ -2818,9 +2833,9 @@ public class QuadLoadout implements ifLoadout {
         clone.SetRLCrits( RLCrits.clone() );
         clone.SetLLCrits( LLCrits.clone() );
         try {
-            clone.SetA4FCSSRM( A4FCS_SRM );
-            clone.SetA4FCSLRM( A4FCS_LRM );
-            clone.SetA4FCSMML( A4FCS_MML );
+            clone.SetFCSArtemisIV( UseAIVFCS );
+            clone.SetFCSArtemisV( UseAVFCS );
+            clone.SetFCSApollo( UseApollo );
         } catch( Exception e ) {
             // there shouldn't get any exceptions here since the non-core list
             // will be empty.  Write an event to stderr
@@ -3492,58 +3507,76 @@ public class QuadLoadout implements ifLoadout {
     }
 
     // handlers for Artemis IV operations.
-    public void SetA4FCSSRM( boolean b ) throws Exception {
-        if( b != A4FCS_SRM ) {
-            A4FCS_SRM = b;
-            VArtemisLoader k = new VArtemisLoader();
+    public void SetFCSArtemisIV( boolean b ) throws Exception {
+        if( b != UseAIVFCS ) {
+            if( UseAVFCS && b ) {
+                throw new Exception( "Artemis IV is not compatible with Artemis V.\nDisable Artemis V before enabling Artemis IV." );
+            }
+            UseAIVFCS = b;
+            VFCSArtemisIVLoader k = new VFCSArtemisIVLoader();
             Owner.Visit( k );
             if( k.GetResult() == false ) {
-                A4FCS_SRM = ( ! b );
-                throw new Exception( "Could not enable Artemis IV for SRMs because a locked\nlauncher did not have space for it's Artemis system." );
+                UseAIVFCS = ( ! b );
+                if( UseAIVFCS ) {
+                    throw new Exception( "Could not disable Artemis IV because a\nlocked launcher is using an Artemis system." );
+                } else {
+                    throw new Exception( "Could not enable Artemis IV because a locked\nlauncher did not have space for it's Artemis system." );
+                }
             }
         }
 
         Owner.SetChanged( true );
     }
 
-    public void SetA4FCSLRM( boolean b ) throws Exception {
-        if( b != A4FCS_LRM ) {
-            A4FCS_LRM = b;
-            VArtemisLoader k = new VArtemisLoader();
+    public void SetFCSArtemisV( boolean b ) throws Exception {
+        if( b != UseAVFCS ) {
+            if( UseAIVFCS && b ) {
+                throw new Exception( "Artemis V is not compatible with Artemis IV.\nDisable Artemis IV before enabling Artemis V." );
+            }
+            UseAVFCS = b;
+            VFCSArtemisVLoader k = new VFCSArtemisVLoader();
             Owner.Visit( k );
             if( k.GetResult() == false ) {
-                A4FCS_LRM = ( ! b );
-                throw new Exception( "Could not enable Artemis IV for LRMs because a locked\nlauncher did not have space for it's Artemis system." );
+                UseAVFCS = ( ! b );
+                if( UseAVFCS ) {
+                    throw new Exception( "Could not disable Artemis V because a\nlocked launcher is using an Artemis V system." );
+                } else {
+                    throw new Exception( "Could not enable Artemis V because a locked\nlauncher did not have space for it's Artemis V system." );
+                }
             }
         }
 
         Owner.SetChanged( true );
     }
 
-    public void SetA4FCSMML( boolean b ) throws Exception {
-        if( b != A4FCS_MML ) {
-            A4FCS_MML = b;
-            VArtemisLoader k = new VArtemisLoader();
+    public void SetFCSApollo( boolean b ) throws Exception {
+        if( b != UseApollo ) {
+            UseApollo = b;
+            VFCSApolloLoader k = new VFCSApolloLoader();
             Owner.Visit( k );
             if( k.GetResult() == false ) {
-                A4FCS_MML = ( ! b );
-                throw new Exception( "Could not enable Artemis IV for MMLs because a locked\nlauncher did not have space for it's Artemis system." );
+                UseApollo = ( ! b );
+                if( UseApollo ) {
+                    throw new Exception( "Could not disable Apollo FCS because a\nlocked launcher is using an Apollo system." );
+                } else {
+                    throw new Exception( "Could not enable Apollo because a locked\nlauncher did not have space for it's Apollo system." );
+                }
             }
         }
 
         Owner.SetChanged( true );
     }
 
-    public boolean UsingA4SRM() {
-        return A4FCS_SRM;
+    public boolean UsingArtemisIV() {
+        return UseAIVFCS;
     }
 
-    public boolean UsingA4LRM() {
-        return A4FCS_LRM;
+    public boolean UsingArtemisV() {
+        return UseAVFCS;
     }
 
-    public boolean UsingA4MML() {
-        return A4FCS_MML;
+    public boolean UsingApollo() {
+        return UseApollo;
     }
 
     public boolean UsingTC() {

@@ -346,7 +346,7 @@ public class MGArray extends abPlaceable implements ifWeapon {
         return false;
     }
 
-    public boolean IsArtemisCapable() {
+    public boolean IsFCSCapable() {
         return false;
     }
 

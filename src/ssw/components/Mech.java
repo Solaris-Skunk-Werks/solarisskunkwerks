@@ -2434,28 +2434,28 @@ public class Mech implements ifBattleforce{
     }
 
     // handlers for Artemis IV operations.
-    public void SetA4FCSSRM( boolean b ) throws Exception {
-        CurLoadout.SetA4FCSSRM( b );
+    public void SetFCSArtemisIV( boolean b ) throws Exception {
+        CurLoadout.SetFCSArtemisIV( b );
     }
 
-    public void SetA4FCSLRM( boolean b ) throws Exception {
-        CurLoadout.SetA4FCSLRM( b );
+    public void SetFCSArtemisV( boolean b ) throws Exception {
+        CurLoadout.SetFCSArtemisV( b );
     }
 
-    public void SetA4FCSMML( boolean b ) throws Exception {
-        CurLoadout.SetA4FCSMML( b );
+    public void SetFCSApollo( boolean b ) throws Exception {
+        CurLoadout.SetFCSApollo( b );
     }
 
-    public boolean UsingA4SRM() {
-        return CurLoadout.UsingA4SRM();
+    public boolean UsingArtemisIV() {
+        return CurLoadout.UsingArtemisIV();
     }
 
-    public boolean UsingA4LRM() {
-        return CurLoadout.UsingA4LRM();
+    public boolean UsingArtemisV() {
+        return CurLoadout.UsingArtemisV();
     }
 
-    public boolean UsingA4MML() {
-        return CurLoadout.UsingA4MML();
+    public boolean UsingApollo() {
+        return CurLoadout.UsingApollo();
     }
 
     public void UseTC( boolean use ) {

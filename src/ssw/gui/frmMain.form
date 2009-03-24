@@ -4030,7 +4030,7 @@
                             <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="lstChooseMissileValueChanged"/>
                           </Events>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="MouseListener mlMissile = new MouseAdapter() {&#xa;    public void mouseClicked( MouseEvent e ) {&#xa;        if ( e.getClickCount() == 2 &amp;&amp; e.getButton() == 1 ) {&#xa;            int index = lstChooseMissile.locationToIndex( e.getPoint() );&#xa;            if( index &lt; 0 ) { return; }&#xa;            abPlaceable a = (abPlaceable) Equipment[MISSILE][index];&#xa;            if( ((ifWeapon) a).RequiresNuclear() &amp;! CurMech.GetEngine().IsNuclear() ) {&#xa;                javax.swing.JOptionPane.showMessageDialog( lstChooseMissile.getTopLevelAncestor(), a.GetCritName() + &quot; may not be mounted because the mech\ndoes not use a nuclear engine (fission or fusion).&quot; );&#xa;&#x9;&#x9;return;&#xa;            }&#xa;            if( ((ifWeapon) a).RequiresFusion() &amp;! CurMech.GetEngine().IsFusion() ) {&#xa;                javax.swing.JOptionPane.showMessageDialog( lstChooseMissile.getTopLevelAncestor(), a.GetCritName() + &quot; may not be mounted\nbecause the mech does not use a fusion engine.&quot; );&#xa;&#x9;&#x9;return;&#xa;            }&#xa;            a = Weapons.GetCopy( a );&#xa;            if( ((MissileWeapon) a).IsArtemisCapable() ) {&#xa;                switch( ((MissileWeapon) a).GetArtemisType() ) {&#xa;                case Constants.ART4_SRM:&#xa;                    if( CurMech.UsingA4SRM() ) {&#xa;                        ((MissileWeapon) a).UseArtemis( true );&#xa;                    }&#xa;                    break;&#xa;                case Constants.ART4_LRM:&#xa;                    if( CurMech.UsingA4LRM() ) {&#xa;                        ((MissileWeapon) a).UseArtemis( true );&#xa;                    }&#xa;                    break;&#xa;                case Constants.ART4_MML:&#xa;                    if( CurMech.UsingA4MML() ) {&#xa;                        ((MissileWeapon) a).UseArtemis( true );&#xa;                    }&#xa;                    break;&#xa;                }&#xa;            }&#xa;&#xa;            // add it to the loadout&#xa;            CurMech.GetLoadout().AddToQueue( a );&#xa;&#xa;            // see if we need ammunition and add it if applicable&#xa;            ResetAmmo();&#xa;&#xa;            // refresh the selected equipment listbox&#xa;            if( CurMech.GetLoadout().GetNonCore().toArray().length &lt;= 0 ) {&#xa;                Equipment[SELECTED] = new Object[] { &quot; &quot; };&#xa;            } else {&#xa;                Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();&#xa;            }&#xa;            lstSelectedEquipment.setListData( Equipment[SELECTED] );&#xa;&#xa;            // now refresh the information panes&#xa;            RefreshSummary();&#xa;            RefreshInfoPane();&#xa;        }&#xa;    }&#xa;};&#xa;lstChooseMissile.addMouseListener( mlMissile );"/>
+                            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="MouseListener mlMissile = new MouseAdapter() {&#xa;    public void mouseClicked( MouseEvent e ) {&#xa;        if ( e.getClickCount() == 2 &amp;&amp; e.getButton() == 1 ) {&#xa;            int index = lstChooseMissile.locationToIndex( e.getPoint() );&#xa;            if( index &lt; 0 ) { return; }&#xa;            abPlaceable a = (abPlaceable) Equipment[MISSILE][index];&#xa;            if( ((ifWeapon) a).RequiresNuclear() &amp;! CurMech.GetEngine().IsNuclear() ) {&#xa;                javax.swing.JOptionPane.showMessageDialog( lstChooseMissile.getTopLevelAncestor(), a.GetCritName() + &quot; may not be mounted because the mech\ndoes not use a nuclear engine (fission or fusion).&quot; );&#xa;&#x9;&#x9;return;&#xa;            }&#xa;            if( ((ifWeapon) a).RequiresFusion() &amp;! CurMech.GetEngine().IsFusion() ) {&#xa;                javax.swing.JOptionPane.showMessageDialog( lstChooseMissile.getTopLevelAncestor(), a.GetCritName() + &quot; may not be mounted\nbecause the mech does not use a fusion engine.&quot; );&#xa;&#x9;&#x9;return;&#xa;            }&#xa;            a = Weapons.GetCopy( a );&#xa;            if( ((MissileWeapon) a).IsFCSCapable() ) {&#xa;                if( CurMech.UsingArtemisIV() ) {&#xa;                    if( ((MissileWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisIV || ((MissileWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisV ) {&#xa;                        ((MissileWeapon) a).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV );&#xa;                    }&#xa;                }&#xa;                if( CurMech.UsingArtemisV() ) {&#xa;                    if( ((MissileWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisV ) {&#xa;                        ((MissileWeapon) a).UseFCS( true, ifMissileGuidance.FCS_ArtemisV );&#xa;                    }&#xa;                }&#xa;                if( CurMech.UsingApollo() ) {&#xa;                    if( ((MissileWeapon) a).GetFCSType() == ifMissileGuidance.FCS_Apollo ) {&#xa;                        ((MissileWeapon) a).UseFCS( true, ifMissileGuidance.FCS_Apollo );&#xa;                    }&#xa;                }&#xa;            }&#xa;&#xa;            // add it to the loadout&#xa;            CurMech.GetLoadout().AddToQueue( a );&#xa;&#xa;            // see if we need ammunition and add it if applicable&#xa;            ResetAmmo();&#xa;&#xa;            // refresh the selected equipment listbox&#xa;            if( CurMech.GetLoadout().GetNonCore().toArray().length &lt;= 0 ) {&#xa;                Equipment[SELECTED] = new Object[] { &quot; &quot; };&#xa;            } else {&#xa;                Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();&#xa;            }&#xa;            lstSelectedEquipment.setListData( Equipment[SELECTED] );&#xa;&#xa;            // now refresh the information panes&#xa;            RefreshSummary();&#xa;            RefreshInfoPane();&#xa;        }&#xa;    }&#xa;};&#xa;lstChooseMissile.addMouseListener( mlMissile );"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>
@@ -4362,53 +4362,13 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JCheckBox" name="chkArtemisSRM">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="SRMs"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkArtemisSRMActionPerformed"/>
-                  </Events>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="0" gridY="1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
                 <Component class="javax.swing.JLabel" name="jLabel16">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Use Artemis IV on:"/>
+                    <Property name="text" type="java.lang.String" value="Missile Guidance:"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                       <GridBagConstraints gridX="-1" gridY="-1" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="2" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Component class="javax.swing.JCheckBox" name="chkArtemisLRM">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="LRMs"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkArtemisLRMActionPerformed"/>
-                  </Events>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="0" gridY="2" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Component class="javax.swing.JCheckBox" name="chkArtemisMML">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="MMLs"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkArtemisMMLActionPerformed"/>
-                  </Events>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="0" gridY="3" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -4422,51 +4382,48 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="0" gridY="8" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="2" insetsBottom="0" insetsRight="2" anchor="17" weightX="0.0" weightY="0.0"/>
+                      <GridBagConstraints gridX="0" gridY="4" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="8" insetsLeft="2" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel63">
+                <Component class="javax.swing.JCheckBox" name="chkFCSAIV">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Use Artemis V on:"/>
-                    <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="text" type="java.lang.String" value="Use Artemis IV"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkFCSAIVActionPerformed"/>
+                  </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="0" gridY="4" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="2" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
+                      <GridBagConstraints gridX="0" gridY="1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="8" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="chkArtemisVSRM">
+                <Component class="javax.swing.JCheckBox" name="chkFCSAV">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="SRMs"/>
+                    <Property name="text" type="java.lang.String" value="Use Artemis V"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkFCSAVActionPerformed"/>
+                  </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="0" gridY="5" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
+                      <GridBagConstraints gridX="0" gridY="2" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="8" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="chkArtemisVLRM">
+                <Component class="javax.swing.JCheckBox" name="chkFCSApollo">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="LRMs"/>
+                    <Property name="text" type="java.lang.String" value="Use MRM Apollo"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkFCSApolloActionPerformed"/>
+                  </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="0" gridY="6" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Component class="javax.swing.JCheckBox" name="chkMRMApollo">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="MRM Apollo"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="0" gridY="7" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="2" insetsBottom="0" insetsRight="2" anchor="17" weightX="0.0" weightY="0.0"/>
+                      <GridBagConstraints gridX="0" gridY="3" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="8" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
                     </Constraint>
                   </Constraints>
                 </Component>

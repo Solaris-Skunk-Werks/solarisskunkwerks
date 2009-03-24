@@ -114,8 +114,8 @@ public class MechLoadoutRenderer  extends DefaultListCellRenderer {
         if ( dropLocation != null && dropLocation.getIndex() == index ) {
             int size = Parent.CurItem.NumCrits();
             if( Parent.CurItem instanceof MissileWeapon ) {
-                if( ((MissileWeapon) Parent.CurItem).IsUsingArtemis() ) {
-                    size++;
+                if( ((MissileWeapon) Parent.CurItem).IsUsingFCS() ) {
+                    size += ((abPlaceable) ((MissileWeapon) Parent.CurItem).GetFCS()).NumCrits();
                 }
             }
             if( Parent.CurItem instanceof EnergyWeapon ) {

@@ -143,8 +143,8 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
         for( int i = 0; i < v.size(); i++ ) {
             a = (abPlaceable) v.get( i );
             if( a instanceof MissileWeapon ) {
-                if( ((MissileWeapon) a).IsUsingArtemis() ) {
-                    retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", a.GetCritName() + " w/ Artemis IV FCS", a.GetDefensiveBV(), a.GetOffensiveBV(), a.GetCost() ) + NL;
+                if( ((MissileWeapon) a).IsUsingFCS() ) {
+                    retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", a.GetCritName() + " w/ " + ((abPlaceable) ((MissileWeapon) a).GetFCS()).GetCritName(), a.GetDefensiveBV(), a.GetOffensiveBV(), a.GetCost() ) + NL;
                 } else {
                     retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", a.GetCritName(), a.GetDefensiveBV(), a.GetOffensiveBV(), a.GetCost() ) + NL;
                 }

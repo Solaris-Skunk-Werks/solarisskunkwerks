@@ -364,9 +364,15 @@ public class XMLReader {
         // get the actuators first since that will complete the structural components
         n = d.getElementsByTagName( "baseloadout" );
         map = n.item( 0 ).getAttributes();
-        m.SetA4FCSSRM( ParseBoolean( map.getNamedItem( "a4srm" ).getTextContent() ) );
-        m.SetA4FCSLRM( ParseBoolean( map.getNamedItem( "a4lrm" ).getTextContent() ) );
-        m.SetA4FCSMML( ParseBoolean( map.getNamedItem( "a4mml" ).getTextContent() ) );
+        if( map.getNamedItem( "a4srm" ) != null ) {
+            // old style loading
+            m.SetFCSArtemisIV( ParseBoolean( map.getNamedItem( "a4srm" ).getTextContent() ) || ParseBoolean( map.getNamedItem( "a4lrm" ).getTextContent() ) || ParseBoolean( map.getNamedItem( "a4mml" ).getTextContent() ) );
+        } else {
+            // new style loading
+            m.SetFCSArtemisIV( ParseBoolean( map.getNamedItem( "fcsa4" ).getTextContent() ) );
+            m.SetFCSArtemisV( ParseBoolean( map.getNamedItem( "fcsa5" ).getTextContent() ) );
+            m.SetFCSApollo( ParseBoolean( map.getNamedItem( "fcsapollo" ).getTextContent() ) );
+        }
         n = n.item( 0 ).getChildNodes();
         LocationIndex ltc = new LocationIndex();
         for( int i = 0; i < n.getLength(); i++ ) {
@@ -728,9 +734,15 @@ public class XMLReader {
                 } else {
                     m.AddLoadout( FileCommon.DecodeFluff( map.getNamedItem( "name" ).getTextContent() ) );
                 }
-                m.SetA4FCSSRM( ParseBoolean( map.getNamedItem( "a4srm" ).getTextContent() ) );
-                m.SetA4FCSLRM( ParseBoolean( map.getNamedItem( "a4lrm" ).getTextContent() ) );
-                m.SetA4FCSMML( ParseBoolean( map.getNamedItem( "a4mml" ).getTextContent() ) );
+                if( map.getNamedItem( "a4srm" ) != null ) {
+                    // old style loading
+                    m.SetFCSArtemisIV( ParseBoolean( map.getNamedItem( "a4srm" ).getTextContent() ) || ParseBoolean( map.getNamedItem( "a4lrm" ).getTextContent() ) || ParseBoolean( map.getNamedItem( "a4mml" ).getTextContent() ) );
+                } else {
+                    // new style loading
+                    m.SetFCSArtemisIV( ParseBoolean( map.getNamedItem( "fcsa4" ).getTextContent() ) );
+                    m.SetFCSArtemisV( ParseBoolean( map.getNamedItem( "fcsa5" ).getTextContent() ) );
+                    m.SetFCSApollo( ParseBoolean( map.getNamedItem( "fcsapollo" ).getTextContent() ) );
+                }
                 if( map.getNamedItem( "ruleslevel" ) != null ) {
                     m.GetLoadout().SetRulesLevel( Integer.parseInt( map.getNamedItem( "ruleslevel" ).getTextContent() ) );
                 }
@@ -1082,15 +1094,15 @@ public class XMLReader {
             retval = data.GetWeapons().GetBallisticWeaponByName( name, m.IsClan() );
         } else if( type.equals( "missile" ) ) {
             retval = data.GetWeapons().GetMissileWeaponByName( name, m.IsClan() );
-            switch( ((MissileWeapon) retval).GetArtemisType() ) {
-            case Constants.ART4_SRM:
-                if( m.UsingA4SRM() ) { ((MissileWeapon) retval).UseArtemis( true ); }
+            switch( ((MissileWeapon) retval).GetFCSType() ) {
+            case ifMissileGuidance.FCS_ArtemisIV:
+                if( m.UsingArtemisIV() ) { ((MissileWeapon) retval).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV ); }
+            case ifMissileGuidance.FCS_ArtemisV:
+                if( m.UsingArtemisIV() ) { ((MissileWeapon) retval).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV ); }
+                if( m.UsingArtemisV() ) { ((MissileWeapon) retval).UseFCS( true, ifMissileGuidance.FCS_ArtemisV ); }
                 break;
-            case Constants.ART4_LRM:
-                if( m.UsingA4LRM() ) { ((MissileWeapon) retval).UseArtemis( true ); }
-                break;
-            case Constants.ART4_MML:
-                if( m.UsingA4MML() ) { ((MissileWeapon) retval).UseArtemis( true ); }
+            case ifMissileGuidance.FCS_Apollo:
+                if( m.UsingApollo() ) { ((MissileWeapon) retval).UseFCS( true, ifMissileGuidance.FCS_Apollo ); }
                 break;
             }
         } else if( type.equals( "mgarray" ) ) {

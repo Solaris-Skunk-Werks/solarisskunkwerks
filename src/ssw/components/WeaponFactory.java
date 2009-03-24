@@ -84,9 +84,8 @@ public class WeaponFactory {
             ((MissileWeapon) retval).SetRange( m.GetRangeMin(), m.GetRangeShort(), m.GetRangeMedium(), m.GetRangeLong() );
             ((MissileWeapon) retval).SetStats( m.GetTonnage(), m.NumCrits(), m.GetCost(), m.GetOffensiveBV(), m.GetDefensiveBV() );
             ((MissileWeapon) retval).SetSpecials( m.GetSpecials(), m.OmniRestrictActuators(), m.HasAmmo(), m.GetAmmo(), m.GetAmmoIndex(), m.SwitchableAmmo() );
-            ((MissileWeapon) retval).SetMissile( m.ClusterSize(), m.ClusterGrouping(), m.IsStreak(), m.IsArtemisCapable(), m.IsOneShot() );
+            ((MissileWeapon) retval).SetMissile( m.ClusterSize(), m.ClusterGrouping(), m.IsStreak(), m.GetFCSType(), m.IsOneShot() );
             ((MissileWeapon) retval).SetToHit( m.GetToHitShort(), m.GetToHitMedium(), m.GetToHitLong() );
-            ((MissileWeapon) retval).SetArtemisType( m.GetArtemisType() );
             ((MissileWeapon) retval).SetRequiresFusion( m.RequiresFusion() );
             ((MissileWeapon) retval).SetRequiresNuclear( m.RequiresNuclear());
             ((MissileWeapon) retval).SetPrintName( m.GetPrintName() );
@@ -1147,8 +1146,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/5", false, true, 24, 25, false);
         addMW.SetStats(2.0f, 1, 30000.0f, 45.0f, 0.0f);
-        addMW.SetMissile(5, 5, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(5, 5, false, ifMissileGuidance.FCS_ArtemisV, false);
         ISMW.add(addMW);
 
         // lrm-10
@@ -1160,8 +1158,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/10", false, true, 12, 26, false);
         addMW.SetStats(5.0f, 2, 100000.0f, 90.0f, 0.0f);
-        addMW.SetMissile(10, 5, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(10, 5, false, ifMissileGuidance.FCS_ArtemisV, false);
         ISMW.add(addMW);
 
         // lrm-15
@@ -1173,8 +1170,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/15", false, true, 8, 27, false);
         addMW.SetStats(7.0f, 3, 175000.0f, 136.0f, 0.0f);
-        addMW.SetMissile(15, 5, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(15, 5, false, ifMissileGuidance.FCS_ArtemisV, false);
         ISMW.add(addMW);
 
         // lrm-20
@@ -1186,8 +1182,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/20", false, true, 6, 28, false);
         addMW.SetStats(10.0f, 5, 250000.0f, 181.0f, 0.0f);
-        addMW.SetMissile(20, 5, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(20, 5, false, ifMissileGuidance.FCS_ArtemisV, false);
         ISMW.add(addMW);
 
         // srm-2
@@ -1199,8 +1194,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("C/C2/2", false, true, 50, 5, false);
         addMW.SetStats(1.0f, 1, 10000.0f, 21.0f, 0.0f);
-        addMW.SetMissile(2, 2, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_SRM);
+        addMW.SetMissile(2, 2, false, ifMissileGuidance.FCS_ArtemisV, false);
         ISMW.add(addMW);
 
         // srm-4
@@ -1212,8 +1206,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("C/C2/4", false, true, 25, 6, false);
         addMW.SetStats(2.0f, 1, 60000.0f, 39.0f, 0.0f);
-        addMW.SetMissile(4, 2, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_SRM);
+        addMW.SetMissile(4, 2, false, ifMissileGuidance.FCS_ArtemisV, false);
         ISMW.add(addMW);
 
         // srm-6
@@ -1225,8 +1218,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("C/C2/6", false, true, 15, 7, false);
         addMW.SetStats(3.0f, 2, 80000.0f, 59.0f, 0.0f);
-        addMW.SetMissile(6, 2, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_SRM);
+        addMW.SetMissile(6, 2, false, ifMissileGuidance.FCS_ArtemisV, false);
         ISMW.add(addMW);
 
         // streak srm-2
@@ -1238,7 +1230,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("C/C2/2", false, true, 50, 11, false);
         addMW.SetStats(1.5f, 1, 15000.0f, 30.0f, 0.0f);
-        addMW.SetMissile(2, 2, true, false, false);
+        addMW.SetMissile(2, 2, true, ifMissileGuidance.FCS_NONE, false);
         ISMW.add(addMW);
 
         // streak srm-4
@@ -1250,7 +1242,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("C/C2/4", false, true, 25, 12, false);
         addMW.SetStats(3.0f, 1, 90000.0f, 59.0f, 0.0f);
-        addMW.SetMissile(4, 2, true, false, false);
+        addMW.SetMissile(4, 2, true, ifMissileGuidance.FCS_NONE, false);
         ISMW.add(addMW);
 
         // streak srm-6
@@ -1262,7 +1254,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("C/C2/6", false, true, 15, 13, false);
         addMW.SetStats(4.5f, 2, 120000.0f, 89.0f, 0.0f);
-        addMW.SetMissile(6, 2, true, false, false);
+        addMW.SetMissile(6, 2, true, ifMissileGuidance.FCS_NONE, false);
         ISMW.add(addMW);
 
         // mml-3
@@ -1274,8 +1266,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C3/3", false, true, 40, 33, false);
         addMW.SetStats(1.5f, 2, 45000.0f, 29.0f, 0.0f);
-        addMW.SetMissile(3, 3, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_MML);
+        addMW.SetMissile(3, 3, false, ifMissileGuidance.FCS_ArtemisIV, false);
         ISMW.add(addMW);
 
         // mml-5
@@ -1287,8 +1278,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/5", false, true, 24, 34, false);
         addMW.SetStats(3.0f, 3, 75000.0f, 45.0f, 0.0f);
-        addMW.SetMissile(5, 5, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_MML);
+        addMW.SetMissile(5, 5, false, ifMissileGuidance.FCS_ArtemisIV, false);
         ISMW.add(addMW);
 
         // mml-7
@@ -1300,8 +1290,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/7", false, true, 17, 35, false);
         addMW.SetStats(4.5f, 4, 105000.0f, 67.0f, 0.0f);
-        addMW.SetMissile(7, 5, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_MML);
+        addMW.SetMissile(7, 5, false, ifMissileGuidance.FCS_ArtemisIV, false);
         ISMW.add(addMW);
 
         // mml-9
@@ -1313,8 +1302,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/9", false, true, 13, 36, false);
         addMW.SetStats(6.0f, 5, 125000.0f, 86.0f, 0.0f);
-        addMW.SetMissile(9, 5, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_MML);
+        addMW.SetMissile(9, 5, false, ifMissileGuidance.FCS_ArtemisIV, false);
         ISMW.add(addMW);
 
         // mrm-10
@@ -1326,7 +1314,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 8, 15);
         addMW.SetSpecials("C/C5/10", false, true, 24, 17, false);
         addMW.SetStats(3.0f, 2, 50000.0f, 56.0f, 0.0f);
-        addMW.SetMissile(10, 5, false, false, false);
+        addMW.SetMissile(10, 5, false, ifMissileGuidance.FCS_Apollo, false);
         addMW.SetToHit( 1, 1, 1 );
         ISMW.add(addMW);
 
@@ -1339,7 +1327,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 8, 15);
         addMW.SetSpecials("C/C5/20", false, true, 12, 18, false);
         addMW.SetStats(7.0f, 3, 125000.0f, 112.0f, 0.0f);
-        addMW.SetMissile(20, 5, false, false, false);
+        addMW.SetMissile(20, 5, false, ifMissileGuidance.FCS_Apollo, false);
         addMW.SetToHit( 1, 1, 1 );
         ISMW.add(addMW);
 
@@ -1352,7 +1340,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 8, 15);
         addMW.SetSpecials("C/C5/30", false, true, 8, 19, false);
         addMW.SetStats(10.0f, 5, 225000.0f, 168.0f, 0.0f);
-        addMW.SetMissile(30, 5, false, false, false);
+        addMW.SetMissile(30, 5, false, ifMissileGuidance.FCS_Apollo, false);
         addMW.SetToHit( 1, 1, 1 );
         ISMW.add(addMW);
 
@@ -1365,7 +1353,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 8, 15);
         addMW.SetSpecials("C/C5/40", false, true, 6, 20, false);
         addMW.SetStats(12.0f, 7, 350000.0f, 224.0f, 0.0f);
-        addMW.SetMissile(40, 5, false, false, false);
+        addMW.SetMissile(40, 5, false, ifMissileGuidance.FCS_Apollo, false);
         addMW.SetToHit( 1, 1, 1 );
         ISMW.add(addMW);
 
@@ -1378,8 +1366,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/5", false, true, 24, 145, false);
         addMW.SetStats(2.0f, 1, 30000.0f, 45.0f, 0.0f);
-        addMW.SetMissile(5, 5, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(5, 5, false, ifMissileGuidance.FCS_ArtemisV, false);
         ISMW.add(addMW);
 
         // lrt-10
@@ -1391,8 +1378,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/10", false, true, 12, 146, false);
         addMW.SetStats(5.0f, 2, 100000.0f, 90.0f, 0.0f);
-        addMW.SetMissile(10, 5, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(10, 5, false, ifMissileGuidance.FCS_ArtemisV, false);
         ISMW.add(addMW);
 
         // lrt-15
@@ -1404,8 +1390,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/15", false, true, 8, 147, false);
         addMW.SetStats(7.0f, 3, 175000.0f, 136.0f, 0.0f);
-        addMW.SetMissile(15, 5, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(15, 5, false, ifMissileGuidance.FCS_ArtemisV, false);
         ISMW.add(addMW);
 
         // lrt-20
@@ -1417,8 +1402,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/20", false, true, 6, 148, false);
         addMW.SetStats(10.0f, 5, 250000.0f, 181.0f, 0.0f);
-        addMW.SetMissile(20, 5, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(20, 5, false, ifMissileGuidance.FCS_ArtemisV, false);
         ISMW.add(addMW);
 
         // srt-2
@@ -1430,8 +1414,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("C/C2/2", false, true, 50, 142, false);
         addMW.SetStats(1.0f, 1, 10000.0f, 21.0f, 0.0f);
-        addMW.SetMissile(2, 2, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_SRM);
+        addMW.SetMissile(2, 2, false, ifMissileGuidance.FCS_ArtemisV, false);
         ISMW.add(addMW);
 
         // srt-4
@@ -1443,8 +1426,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("C/C2/4", false, true, 25, 143, false);
         addMW.SetStats(2.0f, 1, 60000.0f, 39.0f, 0.0f);
-        addMW.SetMissile(4, 2, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_SRM);
+        addMW.SetMissile(4, 2, false, ifMissileGuidance.FCS_ArtemisV, false);
         ISMW.add(addMW);
 
         // srt-6
@@ -1456,8 +1438,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("C/C2/6", false, true, 15, 144, false);
         addMW.SetStats(3.0f, 2, 80000.0f, 59.0f, 0.0f);
-        addMW.SetMissile(6, 2, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_SRM);
+        addMW.SetMissile(6, 2, false, ifMissileGuidance.FCS_ArtemisV, false);
         ISMW.add(addMW);
 
         // mech mortar 1
@@ -1469,7 +1450,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/C2/1", false, true, 24, 138, false);
         addMW.SetStats(2.0f, 1, 7000.0f, 10.0f, 0.0f);
-        addMW.SetMissile(1, 5, false, false, false);
+        addMW.SetMissile(1, 5, false, ifMissileGuidance.FCS_NONE, false);
         addMW.SetToHit( 3, 3, 3 );
         ISMW.add(addMW);
 
@@ -1482,7 +1463,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/C2/2", false, true, 12, 139, false);
         addMW.SetStats(5.0f, 2, 15000.0f, 14.0f, 0.0f);
-        addMW.SetMissile(2, 5, false, false, false);
+        addMW.SetMissile(2, 5, false, ifMissileGuidance.FCS_NONE, false);
         addMW.SetToHit( 3, 3, 3 );
         ISMW.add(addMW);
 
@@ -1495,7 +1476,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/C2/4", false, true, 6, 140, false);
         addMW.SetStats(7.0f, 3, 32000.0f, 26.0f, 0.0f);
-        addMW.SetMissile(4, 5, false, false, false);
+        addMW.SetMissile(4, 5, false, ifMissileGuidance.FCS_NONE, false);
         addMW.SetToHit( 3, 3, 3 );
         ISMW.add(addMW);
 
@@ -1508,7 +1489,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/C2/8", false, true, 4, 141, false);
         addMW.SetStats(10.0f, 5, 70000.0f, 50.0f, 0.0f);
-        addMW.SetMissile(8, 5, false, false, false);
+        addMW.SetMissile(8, 5, false, ifMissileGuidance.FCS_NONE, false);
         addMW.SetToHit( 3, 3, 3 );
         ISMW.add(addMW);
 
@@ -1521,7 +1502,7 @@ public class WeaponFactory {
         addMW.SetRange( 5, 6, 12, 18 );
         addMW.SetSpecials( "-", false, true, 12, 97, true );
         addMW.SetStats( 3.0f, 1, 50000.0f, 64.0f, 0.0f );
-        addMW.SetMissile( 1, 1, false, false, false );
+        addMW.SetMissile( 1, 1, false, ifMissileGuidance.FCS_NONE, false );
         ISMW.add(addMW);
 
         // thunderbolt-10
@@ -1533,7 +1514,7 @@ public class WeaponFactory {
         addMW.SetRange( 5, 6, 12, 18 );
         addMW.SetSpecials( "-", false, true, 6, 98, true );
         addMW.SetStats( 7.0f, 2, 175000.0f, 127.0f, 0.0f );
-        addMW.SetMissile( 1, 1, false, false, false );
+        addMW.SetMissile( 1, 1, false, ifMissileGuidance.FCS_NONE, false );
         ISMW.add(addMW);
 
         // thunderbolt-15
@@ -1545,7 +1526,7 @@ public class WeaponFactory {
         addMW.SetRange( 5, 6, 12, 18 );
         addMW.SetSpecials( "-", false, true, 4, 99, true );
         addMW.SetStats( 11.0f, 3, 325000.0f, 229.0f, 0.0f );
-        addMW.SetMissile( 1, 1, false, false, false );
+        addMW.SetMissile( 1, 1, false, ifMissileGuidance.FCS_NONE, false );
         ISMW.add(addMW);
 
         // thunderbolt-20
@@ -1557,7 +1538,7 @@ public class WeaponFactory {
         addMW.SetRange( 5, 6, 12, 18 );
         addMW.SetSpecials( "-", false, true, 3, 100, true );
         addMW.SetStats( 15.0f, 5, 450000.0f, 305.0f, 0.0f );
-        addMW.SetMissile( 1, 1, false, false, false );
+        addMW.SetMissile( 1, 1, false, ifMissileGuidance.FCS_NONE, false );
         ISMW.add(addMW);
 
         // rocket launcher-10
@@ -1569,7 +1550,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 5, 11, 18);
         addMW.SetSpecials("C/OS/C5/10", false, false, 0, 0, false);
         addMW.SetStats(0.5f, 1, 15000.0f, 18.0f, 0.0f);
-        addMW.SetMissile(10, 5, false, false, true);
+        addMW.SetMissile(10, 5, false, ifMissileGuidance.FCS_NONE, true);
         addMW.SetToHit( 1, 1, 1 );
         ISMW.add(addMW);
 
@@ -1582,7 +1563,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 4, 9, 15);
         addMW.SetSpecials("C/OS/C5/15", false, false, 0, 0, false);
         addMW.SetStats(1.0f, 2, 30000.0f, 23.0f, 0.0f);
-        addMW.SetMissile(15, 5, false, false, true);
+        addMW.SetMissile(15, 5, false, ifMissileGuidance.FCS_NONE, true);
         addMW.SetToHit( 1, 1, 1 );
         ISMW.add(addMW);
 
@@ -1595,7 +1576,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 7, 12);
         addMW.SetSpecials("C/OS/C5/20", false, false, 0, 0, false);
         addMW.SetStats(1.5f, 3, 45000.0f, 24.0f, 0.0f);
-        addMW.SetMissile(15, 5, false, false, true);
+        addMW.SetMissile(15, 5, false, ifMissileGuidance.FCS_NONE, true);
         addMW.SetToHit( 1, 1, 1 );
         ISMW.add(addMW);
 
@@ -1608,7 +1589,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("E/S", false, true, 6, 37, false);
         addMW.SetStats(3.0f, 2, 100000.0f, 30.0f, 0.0f);
-        addMW.SetMissile(1, 1, false, false, false);
+        addMW.SetMissile(1, 1, false, ifMissileGuidance.FCS_NONE, false);
         ISMW.add(addMW);
 
         // improved narc missile beacon
@@ -1620,7 +1601,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 4, 9, 15);
         addMW.SetSpecials("E/S", false, true, 4, 38, false);
         addMW.SetStats(5.0f, 3, 250000.0f, 30.0f, 0.0f);
-        addMW.SetMissile(1, 1, false, false, false);
+        addMW.SetMissile(1, 1, false, ifMissileGuidance.FCS_NONE, false);
         ISMW.add(addMW);
 
         // enhanced lrm-5
@@ -1632,8 +1613,7 @@ public class WeaponFactory {
         addMW.SetRange(3, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/5", false, true, 24, 111, false);
         addMW.SetStats(3.0f, 2, 37500.0f, 67.0f, 0.0f);
-        addMW.SetMissile(5, 5, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(5, 5, false, ifMissileGuidance.FCS_ArtemisIV, false);
         ISMW.add(addMW);
 
         // enhanced lrm-10
@@ -1645,8 +1625,7 @@ public class WeaponFactory {
         addMW.SetRange(3, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/10", false, true, 12, 112, false);
         addMW.SetStats(6.0f, 4, 125000.0f, 104.0f, 0.0f);
-        addMW.SetMissile(10, 5, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(10, 5, false, ifMissileGuidance.FCS_Apollo, false);
         ISMW.add(addMW);
 
         // enhanced lrm-15
@@ -1658,8 +1637,7 @@ public class WeaponFactory {
         addMW.SetRange(3, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/15", false, true, 8, 113, false);
         addMW.SetStats(9.0f, 6, 157000.0f, 157.0f, 0.0f);
-        addMW.SetMissile(15, 5, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(15, 5, false, ifMissileGuidance.FCS_Apollo, false);
         ISMW.add(addMW);
 
         // enhanced lrm-20
@@ -1671,8 +1649,7 @@ public class WeaponFactory {
         addMW.SetRange(3, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/20", false, true, 6, 114, false);
         addMW.SetStats(12.0f, 9, 312500.0f, 210.0f, 0.0f);
-        addMW.SetMissile(20, 5, false, true, false);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(20, 5, false, ifMissileGuidance.FCS_Apollo, false);
         ISMW.add(addMW);
 
         // extended lrm-5
@@ -1684,8 +1661,7 @@ public class WeaponFactory {
         addMW.SetRange(10, 12, 22, 38);
         addMW.SetSpecials("C/S/C5/5", false, true, 18, 115, false);
         addMW.SetStats(6.0f, 1, 60000.0f, 52.0f, 0.0f);
-        addMW.SetMissile(5, 5, false, false, false);
-        addMW.SetArtemisType(Constants.ART4_NONE);
+        addMW.SetMissile(5, 5, false, ifMissileGuidance.FCS_NONE, false);
         ISMW.add(addMW);
 
         // extended lrm-10
@@ -1697,8 +1673,7 @@ public class WeaponFactory {
         addMW.SetRange(10, 12, 22, 38);
         addMW.SetSpecials("C/S/C5/10", false, true, 9, 116, false);
         addMW.SetStats(8.0f, 4, 200000.0f, 104.0f, 0.0f);
-        addMW.SetMissile(10, 5, false, false, false);
-        addMW.SetArtemisType(Constants.ART4_NONE);
+        addMW.SetMissile(10, 5, false, ifMissileGuidance.FCS_NONE, false);
         ISMW.add(addMW);
 
         // extended lrm-15
@@ -1710,8 +1685,7 @@ public class WeaponFactory {
         addMW.SetRange(10, 12, 22, 38);
         addMW.SetSpecials("C/S/C5/15", false, true, 6, 117, false);
         addMW.SetStats(12.0f, 6, 350000.0f, 157.0f, 0.0f);
-        addMW.SetMissile(15, 5, false, false, false);
-        addMW.SetArtemisType(Constants.ART4_NONE);
+        addMW.SetMissile(15, 5, false, ifMissileGuidance.FCS_NONE, false);
         ISMW.add(addMW);
 
         // extended lrm-20
@@ -1723,8 +1697,7 @@ public class WeaponFactory {
         addMW.SetRange(10, 12, 22, 38);
         addMW.SetSpecials("C/S/C5/20", false, true, 4, 118, false);
         addMW.SetStats(18.0f, 8, 500000.0f, 210.0f, 0.0f);
-        addMW.SetMissile(20, 5, false, false, false);
-        addMW.SetArtemisType(Constants.ART4_NONE);
+        addMW.SetMissile(20, 5, false, ifMissileGuidance.FCS_NONE, false);
         ISMW.add(addMW);
 
         // lrm-5 OS
@@ -1736,8 +1709,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/5/OS", false, false, 0, 0, false);
         addMW.SetStats(2.5f, 1, 15000.0f, 9.0f, 0.0f);
-        addMW.SetMissile(5, 5, false, true, true);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(5, 5, false, ifMissileGuidance.FCS_ArtemisV, true);
         ISMW.add(addMW);
 
         // lrm-10 OS
@@ -1749,8 +1721,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/10/OS", false, false, 0, 0, false);
         addMW.SetStats(5.5f, 2, 50000.0f, 18.0f, 0.0f);
-        addMW.SetMissile(10, 5, false, true, true);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(10, 5, false, ifMissileGuidance.FCS_ArtemisV, true);
         ISMW.add(addMW);
 
         // lrm-15 OS
@@ -1762,8 +1733,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/15/OS", false, false, 0, 0, false);
         addMW.SetStats(7.5f, 3, 87500.0f, 27.0f, 0.0f);
-        addMW.SetMissile(15, 5, false, true, true);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(15, 5, false, ifMissileGuidance.FCS_ArtemisV, true);
         ISMW.add(addMW);
 
         // lrm-20 OS
@@ -1775,8 +1745,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/20/OS", false, false, 0, 0, false);
         addMW.SetStats(10.5f, 5, 125000.0f, 36.0f, 0.0f);
-        addMW.SetMissile(20, 5, false, true, true);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(20, 5, false, ifMissileGuidance.FCS_ArtemisV, true);
         ISMW.add(addMW);
 
         // srm-2 OS
@@ -1788,8 +1757,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("C/C2/2/OS", false, false, 0, 0, false);
         addMW.SetStats(1.5f, 1, 5000.0f, 4.0f, 0.0f);
-        addMW.SetMissile(2, 2, false, true, true);
-        addMW.SetArtemisType(Constants.ART4_SRM);
+        addMW.SetMissile(2, 2, false, ifMissileGuidance.FCS_ArtemisV, true);
         ISMW.add(addMW);
 
         // srm-4 OS
@@ -1801,8 +1769,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("C/C2/4/OS", false, false, 0, 0, false);
         addMW.SetStats(2.5f, 1, 30000.0f, 8.0f, 0.0f);
-        addMW.SetMissile(4, 2, false, true, true);
-        addMW.SetArtemisType(Constants.ART4_SRM);
+        addMW.SetMissile(4, 2, false, ifMissileGuidance.FCS_ArtemisV, true);
         ISMW.add(addMW);
 
         // srm-6 OS
@@ -1814,8 +1781,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("C/C2/6/OS", false, false, 0, 0, false);
         addMW.SetStats(3.5f, 2, 40000.0f, 12.0f, 0.0f);
-        addMW.SetMissile(6, 2, false, true, true);
-        addMW.SetArtemisType(Constants.ART4_SRM);
+        addMW.SetMissile(6, 2, false, ifMissileGuidance.FCS_ArtemisV, true);
         ISMW.add(addMW);
 
         // streak srm-2 OS
@@ -1827,7 +1793,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("C/C2/2/OS", false, false, 0, 0, false);
         addMW.SetStats(2.0f, 1, 7500.0f, 6.0f, 0.0f);
-        addMW.SetMissile(2, 2, true, false, true);
+        addMW.SetMissile(2, 2, true, ifMissileGuidance.FCS_NONE, true);
         ISMW.add(addMW);
 
         // streak srm-4 OS
@@ -1839,7 +1805,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("C/C2/4/OS", false, false, 0, 0, false);
         addMW.SetStats(3.5f, 1, 45000.0f, 12.0f, 0.0f);
-        addMW.SetMissile(4, 2, true, false, true);
+        addMW.SetMissile(4, 2, true, ifMissileGuidance.FCS_NONE, true);
         ISMW.add(addMW);
 
         // streak srm-6 OS
@@ -1851,7 +1817,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("C/C2/6/OS", false, false, 0, 0, false);
         addMW.SetStats(5.0f, 2, 60000.0f, 18.0f, 0.0f);
-        addMW.SetMissile(6, 2, true, false, true);
+        addMW.SetMissile(6, 2, true, ifMissileGuidance.FCS_NONE, true);
         ISMW.add(addMW);
 
         // mml-3 OS
@@ -1863,8 +1829,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C3/3/OS", false, false, 0, 0, false);
         addMW.SetStats(2.0f, 2, 22500.0f, 6.0f, 0.0f);
-        addMW.SetMissile(3, 3, false, true, true);
-        addMW.SetArtemisType(Constants.ART4_MML);
+        addMW.SetMissile(3, 3, false, ifMissileGuidance.FCS_ArtemisIV, true);
         ISMW.add(addMW);
 
         // mml-5 OS
@@ -1876,8 +1841,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/5/OS", false, false, 0, 0, false);
         addMW.SetStats(3.5f, 3, 37500.0f, 9.0f, 0.0f);
-        addMW.SetMissile(5, 5, false, true, true);
-        addMW.SetArtemisType(Constants.ART4_MML);
+        addMW.SetMissile(5, 5, false, ifMissileGuidance.FCS_ArtemisIV, true);
         ISMW.add(addMW);
 
         // mml-7 OS
@@ -1889,8 +1853,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/7/OS", false, false, 0, 0, false);
         addMW.SetStats(5.0f, 4, 52500.0f, 13.0f, 0.0f);
-        addMW.SetMissile(7, 5, false, true, true);
-        addMW.SetArtemisType(Constants.ART4_MML);
+        addMW.SetMissile(7, 5, false, ifMissileGuidance.FCS_ArtemisIV, true);
         ISMW.add(addMW);
 
         // mml-9 OS
@@ -1902,8 +1865,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/9/OS", false, false, 0, 0, false);
         addMW.SetStats(6.5f, 5, 62500.0f, 17.0f, 0.0f);
-        addMW.SetMissile(9, 5, false, true, true);
-        addMW.SetArtemisType(Constants.ART4_MML);
+        addMW.SetMissile(9, 5, false, ifMissileGuidance.FCS_ArtemisIV, true);
         ISMW.add(addMW);
 
         // mrm-10 OS
@@ -1915,7 +1877,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 8, 15);
         addMW.SetSpecials("C/C5/10/OS", false, false, 0, 0, false);
         addMW.SetStats(3.5f, 2, 25000.0f, 11.0f, 0.0f);
-        addMW.SetMissile(10, 5, false, false, true);
+        addMW.SetMissile(10, 5, false, ifMissileGuidance.FCS_Apollo, true);
         addMW.SetToHit( 1, 1, 1 );
         ISMW.add(addMW);
 
@@ -1928,7 +1890,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 8, 15);
         addMW.SetSpecials("C/C5/20/OS", false, false, 0, 0, false);
         addMW.SetStats(7.5f, 3, 62500.0f, 22.0f, 0.0f);
-        addMW.SetMissile(20, 5, false, false, true);
+        addMW.SetMissile(20, 5, false, ifMissileGuidance.FCS_Apollo, true);
         addMW.SetToHit( 1, 1, 1 );
         ISMW.add(addMW);
 
@@ -1941,7 +1903,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 8, 15);
         addMW.SetSpecials("C/C5/30/OS", false, false, 0, 0, false);
         addMW.SetStats(10.5f, 5, 112500.0f, 34.0f, 0.0f);
-        addMW.SetMissile(30, 5, false, false, true);
+        addMW.SetMissile(30, 5, false, ifMissileGuidance.FCS_Apollo, true);
         addMW.SetToHit( 1, 1, 1 );
         ISMW.add(addMW);
 
@@ -1954,7 +1916,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 8, 15);
         addMW.SetSpecials("C/C5/40/OS", false, false, 0, 0, false);
         addMW.SetStats(12.5f, 7, 175000.0f, 49.0f, 0.0f);
-        addMW.SetMissile(40, 5, false, false, true);
+        addMW.SetMissile(40, 5, false, ifMissileGuidance.FCS_Apollo, true);
         addMW.SetToHit( 1, 1, 1 );
         ISMW.add(addMW);
 
@@ -1967,8 +1929,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/5/OS", false, false, 0, 0, false);
         addMW.SetStats(2.5f, 1, 15000.0f, 9.0f, 0.0f);
-        addMW.SetMissile(5, 5, false, true, true);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(5, 5, false, ifMissileGuidance.FCS_ArtemisV, true);
         ISMW.add(addMW);
 
         // lrt-10 OS
@@ -1980,8 +1941,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/10/OS", false, false, 0, 0, false);
         addMW.SetStats(5.5f, 2, 50000.0f, 18.0f, 0.0f);
-        addMW.SetMissile(10, 5, false, true, true);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(10, 5, false, ifMissileGuidance.FCS_ArtemisV, true);
         ISMW.add(addMW);
 
         // lrt-15 OS
@@ -1993,8 +1953,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/15/OS", false, false, 0, 0, false);
         addMW.SetStats(7.5f, 3, 87500.0f, 27.0f, 0.0f);
-        addMW.SetMissile(15, 5, false, true, true);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(15, 5, false, ifMissileGuidance.FCS_ArtemisV, true);
         ISMW.add(addMW);
 
         // lrt-20 OS
@@ -2006,8 +1965,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/S/C5/20/OS", false, false, 0, 0, false);
         addMW.SetStats(10.5f, 5, 125000.0f, 36.0f, 0.0f);
-        addMW.SetMissile(20, 5, false, true, true);
-        addMW.SetArtemisType(Constants.ART4_LRM);
+        addMW.SetMissile(20, 5, false, ifMissileGuidance.FCS_ArtemisV, true);
         ISMW.add(addMW);
 
         // srt-2 OS
@@ -2019,8 +1977,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("C/C2/2/OS", false, false, 0, 0, false);
         addMW.SetStats(1.5f, 1, 5000.0f, 4.0f, 0.0f);
-        addMW.SetMissile(2, 2, false, true, true);
-        addMW.SetArtemisType(Constants.ART4_SRM);
+        addMW.SetMissile(2, 2, false, ifMissileGuidance.FCS_ArtemisV, true);
         ISMW.add(addMW);
 
         // srt-4 OS
@@ -2032,8 +1989,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("C/C2/4/OS", false, false, 0, 0, false);
         addMW.SetStats(2.5f, 1, 30000.0f, 8.0f, 0.0f);
-        addMW.SetMissile(4, 2, false, true, true);
-        addMW.SetArtemisType(Constants.ART4_SRM);
+        addMW.SetMissile(4, 2, false, ifMissileGuidance.FCS_ArtemisV, true);
         ISMW.add(addMW);
 
         // srt-6 OS
@@ -2045,8 +2001,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("C/C2/6/OS", false, false, 0, 0, false);
         addMW.SetStats(3.5f, 2, 40000.0f, 12.0f, 0.0f);
-        addMW.SetMissile(6, 2, false, true, true);
-        addMW.SetArtemisType(Constants.ART4_SRM);
+        addMW.SetMissile(6, 2, false, ifMissileGuidance.FCS_ArtemisV, true);
         ISMW.add(addMW);
 
         // thunderbolt-5 OS
@@ -2058,7 +2013,7 @@ public class WeaponFactory {
         addMW.SetRange( 5, 6, 12, 18 );
         addMW.SetSpecials( "-", false, false, 0, 0, false );
         addMW.SetStats( 3.5f, 1, 25000.0f, 13.0f, 0.0f );
-        addMW.SetMissile( 1, 1, false, false, true );
+        addMW.SetMissile( 1, 1, false, ifMissileGuidance.FCS_NONE, true );
         ISMW.add(addMW);
 
         // thunderbolt-10 OS
@@ -2070,7 +2025,7 @@ public class WeaponFactory {
         addMW.SetRange( 5, 6, 12, 18 );
         addMW.SetSpecials( "-", false, false, 0, 0, false );
         addMW.SetStats( 7.5f, 2, 87500.0f, 25.0f, 0.0f );
-        addMW.SetMissile( 1, 1, false, false, true );
+        addMW.SetMissile( 1, 1, false, ifMissileGuidance.FCS_NONE, true );
         ISMW.add(addMW);
 
         // thunderbolt-15 OS
@@ -2082,7 +2037,7 @@ public class WeaponFactory {
         addMW.SetRange( 5, 6, 12, 18 );
         addMW.SetSpecials( "-", false, false, 0, 0, false );
         addMW.SetStats( 11.5f, 3, 162500.0f, 46.0f, 0.0f );
-        addMW.SetMissile( 1, 1, false, false, true );
+        addMW.SetMissile( 1, 1, false, ifMissileGuidance.FCS_NONE, true );
         ISMW.add(addMW);
 
         // thunderbolt-20 OS
@@ -2094,7 +2049,7 @@ public class WeaponFactory {
         addMW.SetRange( 5, 6, 12, 18 );
         addMW.SetSpecials( "-", false, false, 0, 0, false );
         addMW.SetStats( 15.5f, 5, 225000.0f, 61.0f, 0.0f );
-        addMW.SetMissile( 1, 1, false, false, true );
+        addMW.SetMissile( 1, 1, false, ifMissileGuidance.FCS_NONE, true );
         ISMW.add(addMW);
 
         // narc missile beacon OS
@@ -2106,7 +2061,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 3, 6, 9);
         addMW.SetSpecials("E/S/OS", false, false, 0, 0, false);
         addMW.SetStats(3.5f, 2, 50000.0f, 6.0f, 0.0f);
-        addMW.SetMissile(1, 1, false, false, true);
+        addMW.SetMissile(1, 1, false, ifMissileGuidance.FCS_NONE, true);
         ISMW.add(addMW);
 
         // improved narc missile beacon OS
@@ -2118,7 +2073,7 @@ public class WeaponFactory {
         addMW.SetRange(0, 4, 9, 15);
         addMW.SetSpecials("E/S/OS", false, false, 0, 0, false);
         addMW.SetStats(5.5f, 3, 125000.0f, 15.0f, 0.0f);
-        addMW.SetMissile(1, 1, false, false, true);
+        addMW.SetMissile(1, 1, false, ifMissileGuidance.FCS_NONE, true);
         ISMW.add(addMW);
 
         // autocannon 2
@@ -3043,7 +2998,7 @@ public class WeaponFactory {
         addMW.SetRange( 4, 5, 10, 15 );
         addMW.SetSpecials( "C/S/C5/3", false, true, 20, 21, true );
         addMW.SetStats( 1.5f, 2, 50000.0f, 53.0f, 0.0f );
-        addMW.SetMissile( 3, 5, false, false, false );
+        addMW.SetMissile( 3, 5, false, ifMissileGuidance.FCS_NONE, false );
         CLMW.add( addMW  );
 
         // clan atm-6
@@ -3055,7 +3010,7 @@ public class WeaponFactory {
         addMW.SetRange( 4, 5, 10, 15 );
         addMW.SetSpecials( "C/S/C5/6", false, true, 10, 22, true );
         addMW.SetStats( 3.5f, 3, 125000.0f, 105.0f, 0.0f );
-        addMW.SetMissile( 6, 5, false, false, false );
+        addMW.SetMissile( 6, 5, false, ifMissileGuidance.FCS_NONE, false );
         CLMW.add( addMW  );
 
         // clan atm-9
@@ -3067,7 +3022,7 @@ public class WeaponFactory {
         addMW.SetRange( 4, 5, 10, 15 );
         addMW.SetSpecials( "C/S/C5/9", false, true, 7, 23, true );
         addMW.SetStats( 5.0f, 4, 225000.0f, 147.0f, 0.0f );
-        addMW.SetMissile( 9, 5, false, false, false );
+        addMW.SetMissile( 9, 5, false, ifMissileGuidance.FCS_NONE, false );
         CLMW.add( addMW  );
 
         // clan atm-12
@@ -3079,7 +3034,7 @@ public class WeaponFactory {
         addMW.SetRange( 4, 5, 10, 15 );
         addMW.SetSpecials( "C/S/C5/12", false, true, 5, 24, true );
         addMW.SetStats( 7.0f, 5, 350000.0f, 212.0f, 0.0f );
-        addMW.SetMissile( 12, 5, false, false, false );
+        addMW.SetMissile( 12, 5, false, ifMissileGuidance.FCS_NONE, false );
         CLMW.add( addMW  );
 
         // clan lrm-5
@@ -3091,8 +3046,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/5", false, true, 24, 29, false );
         addMW.SetStats( 1.0f, 1, 30000.0f, 55.0f, 0.0f );
-        addMW.SetMissile( 5, 5, false, true, false );
-        addMW.SetArtemisType( Constants.ART4_LRM );
+        addMW.SetMissile( 5, 5, false, ifMissileGuidance.FCS_ArtemisV, false );
         CLMW.add( addMW  );
 
         // clan lrm-10
@@ -3104,8 +3058,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/10", false, true, 12, 30, false );
         addMW.SetStats( 2.5f, 1, 100000.0f, 109.0f, 0.0f );
-        addMW.SetMissile( 10, 5, false, true, false );
-        addMW.SetArtemisType( Constants.ART4_LRM );
+        addMW.SetMissile( 10, 5, false, ifMissileGuidance.FCS_ArtemisV, false );
         CLMW.add( addMW  );
 
         // clan lrm-15
@@ -3117,8 +3070,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/15", false, true, 8, 31, false );
         addMW.SetStats( 3.5f, 2, 175000.0f, 164.0f, 0.0f );
-        addMW.SetMissile( 15, 5, false, true, false );
-        addMW.SetArtemisType( Constants.ART4_LRM );
+        addMW.SetMissile( 15, 5, false, ifMissileGuidance.FCS_ArtemisV, false );
         CLMW.add( addMW  );
 
         // clan lrm-20
@@ -3130,8 +3082,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/20", false, true, 6, 32, false );
         addMW.SetStats( 5.0f, 4, 250000.0f, 220.0f, 0.0f );
-        addMW.SetMissile( 20, 5, false, true, false );
-        addMW.SetArtemisType( Constants.ART4_LRM );
+        addMW.SetMissile( 20, 5, false, ifMissileGuidance.FCS_ArtemisV, false );
         CLMW.add( addMW  );
 
         // clan srm-2
@@ -3143,8 +3094,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 3, 6, 9 );
         addMW.SetSpecials( "C/C2/2", false, true, 50, 8, false );
         addMW.SetStats( 0.5f, 1, 10000.0f, 21.0f, 0.0f );
-        addMW.SetMissile( 2, 2, false, true, false );
-        addMW.SetArtemisType( Constants.ART4_SRM );
+        addMW.SetMissile( 2, 2, false, ifMissileGuidance.FCS_ArtemisV, false );
         CLMW.add( addMW  );
 
         // clan srm-4
@@ -3156,8 +3106,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 3, 6, 9 );
         addMW.SetSpecials( "C/C2/4", false, true, 25, 9, false );
         addMW.SetStats( 1.0f, 1, 60000.0f, 39.0f, 0.0f );
-        addMW.SetMissile( 4, 2, false, true, false );
-        addMW.SetArtemisType( Constants.ART4_SRM );
+        addMW.SetMissile( 4, 2, false, ifMissileGuidance.FCS_ArtemisV, false );
         CLMW.add( addMW  );
 
         // clan srm-6
@@ -3169,8 +3118,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 3, 6, 9 );
         addMW.SetSpecials( "C/C2/6", false, true, 15, 10, false );
         addMW.SetStats( 1.5f, 1, 80000.0f, 59.0f, 0.0f );
-        addMW.SetMissile( 6, 2, false, true, false );
-        addMW.SetArtemisType( Constants.ART4_SRM );
+        addMW.SetMissile( 6, 2, false, ifMissileGuidance.FCS_ArtemisV, false );
         CLMW.add( addMW  );
 
         // clan streak srm-2
@@ -3182,7 +3130,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 4, 8, 12 );
         addMW.SetSpecials( "C/C2/2", false, true, 50, 14, false );
         addMW.SetStats( 1.0f, 1, 15000.0f, 40.0f, 0.0f );
-        addMW.SetMissile( 2, 2, true, false, false );
+        addMW.SetMissile( 2, 2, true, ifMissileGuidance.FCS_NONE, false );
         CLMW.add( addMW  );
 
         // clan streak srm-4
@@ -3194,7 +3142,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 4, 8, 12 );
         addMW.SetSpecials( "C/C2/4", false, true, 25, 15, false );
         addMW.SetStats( 2.0f, 1, 90000.0f, 79.0f, 0.0f );
-        addMW.SetMissile( 4, 2, true, false, false );
+        addMW.SetMissile( 4, 2, true, ifMissileGuidance.FCS_NONE, false );
         CLMW.add( addMW  );
 
         // clan streak srm-6
@@ -3206,7 +3154,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 4, 8, 12 );
         addMW.SetSpecials( "C/C2/6", false, true, 15, 16, false );
         addMW.SetStats( 3.0f, 2, 120000.0f, 118.0f, 0.0f );
-        addMW.SetMissile( 6, 2, true, false, false );
+        addMW.SetMissile( 6, 2, true, ifMissileGuidance.FCS_NONE, false );
         CLMW.add( addMW  );
 
         // clan lrt-5
@@ -3218,8 +3166,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/5", false, true, 24, 152, false );
         addMW.SetStats( 1.0f, 1, 30000.0f, 55.0f, 0.0f );
-        addMW.SetMissile( 5, 5, false, true, false );
-        addMW.SetArtemisType( Constants.ART4_LRM );
+        addMW.SetMissile( 5, 5, false, ifMissileGuidance.FCS_ArtemisV, false );
         CLMW.add( addMW  );
 
         // clan lrt-10
@@ -3231,8 +3178,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/10", false, true, 12, 153, false );
         addMW.SetStats( 2.5f, 1, 100000.0f, 109.0f, 0.0f );
-        addMW.SetMissile( 10, 5, false, true, false );
-        addMW.SetArtemisType( Constants.ART4_LRM );
+        addMW.SetMissile( 10, 5, false, ifMissileGuidance.FCS_ArtemisV, false );
         CLMW.add( addMW  );
 
         // clan lrt-15
@@ -3244,8 +3190,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/15", false, true, 8, 154, false );
         addMW.SetStats( 3.5f, 2, 175000.0f, 164.0f, 0.0f );
-        addMW.SetMissile( 15, 5, false, true, false );
-        addMW.SetArtemisType( Constants.ART4_LRM );
+        addMW.SetMissile( 15, 5, false, ifMissileGuidance.FCS_ArtemisV, false );
         CLMW.add( addMW  );
 
         // clan lrt-20
@@ -3257,8 +3202,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/20", false, true, 6, 155, false );
         addMW.SetStats( 5.0f, 4, 250000.0f, 220.0f, 0.0f );
-        addMW.SetMissile( 20, 5, false, true, false );
-        addMW.SetArtemisType( Constants.ART4_LRM );
+        addMW.SetMissile( 20, 5, false, ifMissileGuidance.FCS_ArtemisV, false );
         CLMW.add( addMW  );
 
         // clan srt-2
@@ -3270,8 +3214,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 3, 6, 9 );
         addMW.SetSpecials( "C/C2/2", false, true, 50, 149, false );
         addMW.SetStats( 0.5f, 1, 10000.0f, 21.0f, 0.0f );
-        addMW.SetMissile( 2, 2, false, true, false );
-        addMW.SetArtemisType( Constants.ART4_SRM );
+        addMW.SetMissile( 2, 2, false, ifMissileGuidance.FCS_ArtemisV, false );
         CLMW.add( addMW  );
 
         // clan srt-4
@@ -3283,8 +3226,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 3, 6, 9 );
         addMW.SetSpecials( "C/C2/4", false, true, 25, 150, false );
         addMW.SetStats( 1.0f, 1, 60000.0f, 39.0f, 0.0f );
-        addMW.SetMissile( 4, 2, false, true, false );
-        addMW.SetArtemisType( Constants.ART4_SRM );
+        addMW.SetMissile( 4, 2, false, ifMissileGuidance.FCS_ArtemisV, false );
         CLMW.add( addMW  );
 
         // clan srt-6
@@ -3296,8 +3238,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 3, 6, 9 );
         addMW.SetSpecials( "C/C2/6", false, true, 15, 151, false );
         addMW.SetStats( 1.5f, 1, 80000.0f, 59.0f, 0.0f );
-        addMW.SetMissile( 6, 2, false, true, false );
-        addMW.SetArtemisType( Constants.ART4_SRM );
+        addMW.SetMissile( 6, 2, false, ifMissileGuidance.FCS_ArtemisV, false );
         CLMW.add( addMW  );
 
         // clan streak lrm-5
@@ -3309,7 +3250,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/5", false, true, 24, 119, false );
         addMW.SetStats( 2.0f, 1, 75000.0f, 86.0f, 0.0f );
-        addMW.SetMissile( 5, 5, false, true, false );
+        addMW.SetMissile( 5, 5, false, ifMissileGuidance.FCS_NONE, false );
         CLMW.add( addMW  );
 
         // clan streak lrm-10
@@ -3321,7 +3262,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/10", false, true, 12, 120, false );
         addMW.SetStats( 5.0f, 2, 225000.0f, 173.0f, 0.0f );
-        addMW.SetMissile( 10, 5, false, true, false );
+        addMW.SetMissile( 10, 5, false, ifMissileGuidance.FCS_NONE, false );
         CLMW.add( addMW  );
 
         // clan streak lrm-15
@@ -3333,7 +3274,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/15", false, true, 8, 121, false );
         addMW.SetStats( 7.0f, 3, 400000.0f, 259.0f, 0.0f );
-        addMW.SetMissile( 15, 5, false, false, false );
+        addMW.SetMissile( 15, 5, false, ifMissileGuidance.FCS_NONE, false );
         CLMW.add( addMW  );
 
         // clan streak lrm-20
@@ -3345,7 +3286,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/20", false, true, 6, 122, false );
         addMW.SetStats( 10.0f, 5, 600000.0f, 345.0f, 0.0f );
-        addMW.SetMissile( 20, 5, false, false, false );
+        addMW.SetMissile( 20, 5, false, ifMissileGuidance.FCS_NONE, false );
         CLMW.add( addMW  );
 
         // narc missile beacon
@@ -3357,7 +3298,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 4, 8, 12 );
         addMW.SetSpecials( "E/S", false, true, 6, 39, false );
         addMW.SetStats( 2.0f, 1, 100000.0f, 30.0f, 0.0f );
-        addMW.SetMissile( 1, 1, false, false, false );
+        addMW.SetMissile( 1, 1, false, ifMissileGuidance.FCS_NONE, false );
         CLMW.add( addMW  );
 
         // clan lrm-5 OS
@@ -3369,8 +3310,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/5/OS", false, false, 0, 0, false );
         addMW.SetStats( 1.5f, 1, 15000.0f, 11.0f, 0.0f );
-        addMW.SetMissile( 5, 5, false, true, true );
-        addMW.SetArtemisType( Constants.ART4_LRM );
+        addMW.SetMissile( 5, 5, false, ifMissileGuidance.FCS_ArtemisV, true );
         CLMW.add( addMW  );
 
         // clan lrm-10 OS
@@ -3382,8 +3322,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/10/OS", false, false, 0, 0, false );
         addMW.SetStats( 3.0f, 1, 50000.0f, 22.0f, 0.0f );
-        addMW.SetMissile( 10, 5, false, true, true );
-        addMW.SetArtemisType( Constants.ART4_LRM );
+        addMW.SetMissile( 10, 5, false, ifMissileGuidance.FCS_ArtemisV, true );
         CLMW.add( addMW  );
 
         // clan lrm-15 OS
@@ -3395,8 +3334,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/15/OS", false, false, 0, 0, false );
         addMW.SetStats( 4.0f, 2, 87500.0f, 33.0f, 0.0f );
-        addMW.SetMissile( 15, 5, false, true, true );
-        addMW.SetArtemisType( Constants.ART4_LRM );
+        addMW.SetMissile( 15, 5, false, ifMissileGuidance.FCS_ArtemisV, true );
         CLMW.add( addMW  );
 
         // clan lrm-20 OS
@@ -3408,8 +3346,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/20/OS", false, false, 0, 0, false );
         addMW.SetStats( 5.5f, 4, 125000.0f, 44.0f, 0.0f );
-        addMW.SetMissile( 20, 5, false, true, true );
-        addMW.SetArtemisType( Constants.ART4_LRM );
+        addMW.SetMissile( 20, 5, false, ifMissileGuidance.FCS_ArtemisV, true );
         CLMW.add( addMW  );
 
         // clan srm-2 OS
@@ -3421,8 +3358,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 3, 6, 9 );
         addMW.SetSpecials( "C/C2/2/OS", false, false, 0, 0, false );
         addMW.SetStats( 1.0f, 1, 5000.0f, 4.0f, 0.0f );
-        addMW.SetMissile( 2, 2, false, true, true );
-        addMW.SetArtemisType( Constants.ART4_SRM );
+        addMW.SetMissile( 2, 2, false, ifMissileGuidance.FCS_ArtemisV, true );
         CLMW.add( addMW  );
 
         // clan srm-4 OS
@@ -3434,8 +3370,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 3, 6, 9 );
         addMW.SetSpecials( "C/C2/4/OS", false, false, 0, 0, false );
         addMW.SetStats( 1.5f, 1, 30000.0f, 8.0f, 0.0f );
-        addMW.SetMissile( 4, 2, false, true, true );
-        addMW.SetArtemisType( Constants.ART4_SRM );
+        addMW.SetMissile( 4, 2, false, ifMissileGuidance.FCS_ArtemisV, true );
         CLMW.add( addMW  );
 
         // clan srm-6 OS
@@ -3447,8 +3382,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 3, 6, 9 );
         addMW.SetSpecials( "C/C2/6/OS", false, false, 0, 0, false );
         addMW.SetStats( 2.0f, 1, 40000.0f, 12.0f, 0.0f );
-        addMW.SetMissile( 6, 2, false, true, true );
-        addMW.SetArtemisType( Constants.ART4_SRM );
+        addMW.SetMissile( 6, 2, false, ifMissileGuidance.FCS_ArtemisV, true );
         CLMW.add( addMW  );
 
         // clan streak srm-2 OS
@@ -3460,7 +3394,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 4, 8, 12 );
         addMW.SetSpecials( "C/C2/2/OS", false, false, 0, 0, false );
         addMW.SetStats( 1.5f, 1, 7500.0f, 8.0f, 0.0f );
-        addMW.SetMissile( 2, 2, true, false, true );
+        addMW.SetMissile( 2, 2, true, ifMissileGuidance.FCS_NONE, true );
         CLMW.add( addMW  );
 
         // clan streak srm-4 OS
@@ -3472,7 +3406,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 4, 8, 12 );
         addMW.SetSpecials( "C/C2/4/OS", false, false, 0, 0, false );
         addMW.SetStats( 2.5f, 1, 45000.0f, 16.0f, 0.0f );
-        addMW.SetMissile( 4, 2, true, false, true );
+        addMW.SetMissile( 4, 2, true, ifMissileGuidance.FCS_NONE, true );
         CLMW.add( addMW  );
 
         // clan streak srm-6 OS
@@ -3484,7 +3418,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 4, 8, 12 );
         addMW.SetSpecials( "C/C2/6/OS", false, false, 0, 0, false );
         addMW.SetStats( 3.5f, 2, 60000.0f, 24.0f, 0.0f );
-        addMW.SetMissile( 6, 2, true, false, true );
+        addMW.SetMissile( 6, 2, true, ifMissileGuidance.FCS_NONE, true );
         CLMW.add( addMW  );
 
         // clan lrt-5 OS
@@ -3496,8 +3430,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/5/OS", false, false, 0, 0, false );
         addMW.SetStats( 1.5f, 1, 15000.0f, 11.0f, 0.0f );
-        addMW.SetMissile( 5, 5, false, true, true );
-        addMW.SetArtemisType( Constants.ART4_LRM );
+        addMW.SetMissile( 5, 5, false, ifMissileGuidance.FCS_ArtemisV, true );
         CLMW.add( addMW  );
 
         // clan lrt-10 OS
@@ -3509,8 +3442,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/10/OS", false, false, 0, 0, false );
         addMW.SetStats( 3.0f, 1, 50000.0f, 22.0f, 0.0f );
-        addMW.SetMissile( 10, 5, false, true, true );
-        addMW.SetArtemisType( Constants.ART4_LRM );
+        addMW.SetMissile( 10, 5, false, ifMissileGuidance.FCS_ArtemisV, true );
         CLMW.add( addMW  );
 
         // clan lrt-15 OS
@@ -3522,8 +3454,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/15/OS", false, false, 0, 0, false );
         addMW.SetStats( 4.0f, 2, 87500.0f, 33.0f, 0.0f );
-        addMW.SetMissile( 15, 5, false, true, true );
-        addMW.SetArtemisType( Constants.ART4_LRM );
+        addMW.SetMissile( 15, 5, false, ifMissileGuidance.FCS_ArtemisV, true );
         CLMW.add( addMW  );
 
         // clan lrt-20 OS
@@ -3535,8 +3466,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 7, 14, 21 );
         addMW.SetSpecials( "C/S/C5/20/OS", false, false, 0, 0, false );
         addMW.SetStats( 5.5f, 4, 125000.0f, 44.0f, 0.0f );
-        addMW.SetMissile( 20, 5, false, true, true );
-        addMW.SetArtemisType( Constants.ART4_LRM );
+        addMW.SetMissile( 20, 5, false, ifMissileGuidance.FCS_ArtemisV, true );
         CLMW.add( addMW  );
 
         // clan srt-2 OS
@@ -3548,8 +3478,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 3, 6, 9 );
         addMW.SetSpecials( "C/C2/2/OS", false, false, 0, 0, false );
         addMW.SetStats( 1.0f, 1, 5000.0f, 4.0f, 0.0f );
-        addMW.SetMissile( 2, 2, false, true, true );
-        addMW.SetArtemisType( Constants.ART4_SRM );
+        addMW.SetMissile( 2, 2, false, ifMissileGuidance.FCS_ArtemisV, true );
         CLMW.add( addMW  );
 
         // clan srt-4 OS
@@ -3561,8 +3490,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 3, 6, 9 );
         addMW.SetSpecials( "C/C2/4/OS", false, false, 0, 0, false );
         addMW.SetStats( 1.5f, 1, 30000.0f, 8.0f, 0.0f );
-        addMW.SetMissile( 4, 2, false, true, true );
-        addMW.SetArtemisType( Constants.ART4_SRM );
+        addMW.SetMissile( 4, 2, false, ifMissileGuidance.FCS_ArtemisV, true );
         CLMW.add( addMW  );
 
         // clan srt-6 OS
@@ -3574,8 +3502,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 3, 6, 9 );
         addMW.SetSpecials( "C/C2/6/OS", false, false, 0, 0, false );
         addMW.SetStats( 2.0f, 1, 40000.0f, 12.0f, 0.0f );
-        addMW.SetMissile( 6, 2, false, true, true );
-        addMW.SetArtemisType( Constants.ART4_SRM );
+        addMW.SetMissile( 6, 2, false, ifMissileGuidance.FCS_ArtemisV, true );
         CLMW.add( addMW  );
 
         // narc missile beacon OS
@@ -3587,7 +3514,7 @@ public class WeaponFactory {
         addMW.SetRange( 0, 4, 8, 12 );
         addMW.SetSpecials( "E/S/OS", false, false, 0, 0, false );
         addMW.SetStats( 2.5f, 1, 50000.0f, 6.0f, 0.0f );
-        addMW.SetMissile( 1, 1, false, false, true );
+        addMW.SetMissile( 1, 1, false, ifMissileGuidance.FCS_NONE, true );
         CLMW.add( addMW  );
 
         // autocannon 2
@@ -4063,7 +3990,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/C2/1", false, true, 24, 142, false);
         addMW.SetStats(1.0f, 1, 7000.0f, 10.0f, 0.0f);
-        addMW.SetMissile(1, 5, false, false, false);
+        addMW.SetMissile(1, 5, false, ifMissileGuidance.FCS_NONE, false);
         addMW.SetToHit( 3, 3, 3 );
         CLMW.add(addMW);
 
@@ -4076,7 +4003,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/C2/2", false, true, 12, 143, false);
         addMW.SetStats(2.5f, 1, 15000.0f, 14.0f, 0.0f);
-        addMW.SetMissile(2, 5, false, false, false);
+        addMW.SetMissile(2, 5, false, ifMissileGuidance.FCS_NONE, false);
         addMW.SetToHit( 3, 3, 3 );
         CLMW.add(addMW);
 
@@ -4089,7 +4016,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/C2/4", false, true, 6, 144, false);
         addMW.SetStats(3.5f, 2, 32000.0f, 26.0f, 0.0f);
-        addMW.SetMissile(4, 5, false, false, false);
+        addMW.SetMissile(4, 5, false, ifMissileGuidance.FCS_NONE, false);
         addMW.SetToHit( 3, 3, 3 );
         CLMW.add(addMW);
 
@@ -4102,7 +4029,7 @@ public class WeaponFactory {
         addMW.SetRange(6, 7, 14, 21);
         addMW.SetSpecials("C/C2/8", false, true, 4, 145, false);
         addMW.SetStats(5.0f, 3, 70000.0f, 50.0f, 0.0f);
-        addMW.SetMissile(8, 5, false, false, false);
+        addMW.SetMissile(8, 5, false, ifMissileGuidance.FCS_NONE, false);
         addMW.SetToHit( 3, 3, 3 );
         CLMW.add(addMW);
     }

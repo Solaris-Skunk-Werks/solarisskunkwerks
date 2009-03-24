@@ -28,48 +28,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
-public interface ifWeapon {
-    // an abstract class for weapons of all types.  This provides a basic
-    // functionality for most weapon types and can be overriden if needed.
-
-    public String GetName();
-    public String GetMMName( boolean UseRear );
-    public String GetType();
-    public String GetSpecials();
-    public int GetHeat();
-    public int GetBVHeat();
-    public int GetDamageShort();
-    public int GetDamageMedium();
-    public int GetDamageLong();
-    public int GetRangeMin();
-    public int GetRangeShort();
-    public int GetRangeMedium();
-    public int GetRangeLong();
+public interface ifMissileGuidance {
+    public final static int FCS_NONE = 0,
+                            FCS_ArtemisIV = 1,
+                            FCS_ArtemisV = 2,
+                            FCS_Apollo = 3;
+    public int GetAIVClass();
     public int GetToHitShort();
     public int GetToHitMedium();
     public int GetToHitLong();
-    public float GetBFDamageShort( boolean TC );
-    public float GetBFDamageMedium( boolean TC );
-    public float GetBFDamageLong( boolean TC );
-    public float GetBFDamageExtreme( boolean TC );
-    public String GetBFDamageString( boolean TC );
-    public int ClusterSize();
-    public int ClusterGrouping();
-    public int GetAmmo();
-    public int GetAmmoIndex();
-    public boolean IsClan();
-    public boolean IsCluster();
-    public boolean IsOneShot();
-    public boolean IsStreak();
-    public boolean IsUltra();
-    public boolean IsRotary();
-    public boolean IsExplosive();
-    public boolean IsFCSCapable();
-    public boolean IsTCCapable();
-    public boolean IsArrayCapable();
-    public boolean OmniRestrictActuators();
-    public boolean HasAmmo();
-    public boolean SwitchableAmmo();
-    public boolean RequiresFusion();
-    public boolean RequiresNuclear();
+    public int GetClusterTableBonus();
+    public float GetBVMultiplier();
 }

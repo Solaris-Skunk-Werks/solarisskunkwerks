@@ -316,7 +316,7 @@ public class BallisticWeapon extends abPlaceable implements ifWeapon {
         return Clan;
     }
 
-    public boolean IsArtemisCapable() {
+    public boolean IsFCSCapable() {
         return false;
     }
 

@@ -28,11 +28,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
-import ssw.*;
-
 public class MissileWeapon extends abPlaceable implements ifWeapon {
     private AvailableCode AC;
-    private ArtemisIVFCS A4FCS = null;
+    private ifMissileGuidance FCS = null;
     private String Name,
                    LookupName,
                    Specials = "",
@@ -45,10 +43,9 @@ public class MissileWeapon extends abPlaceable implements ifWeapon {
                     MountedRear = false,
                     IsCluster = true,
                     SAmmo = false,
-                    Artemis = false,
                     Streak = false,
                     OneShot = false,
-                    UseArtemis = false,
+                    UseFCS = false,
                     Fusion = false,
                     Nuclear = false;
     private int Heat = 0,
@@ -67,7 +64,7 @@ public class MissileWeapon extends abPlaceable implements ifWeapon {
                 AmmoIndex = 0,
                 Cluster = 1,
                 Group = 1,
-                ArtemisType = Constants.ART4_NONE;
+                FCSType = ifMissileGuidance.FCS_NONE;
     private float Tonnage = 0.0f,
                   Cost = 0.0f,
                   OffBV = 0.0f,
@@ -105,15 +102,27 @@ public class MissileWeapon extends abPlaceable implements ifWeapon {
     }
 
     public int GetToHitShort() {
-        return ToHitShort;
+        if( UseFCS ) {
+            return ToHitShort + FCS.GetToHitShort();
+        } else {
+            return ToHitShort;
+        }
     }
 
     public int GetToHitMedium() {
-        return ToHitMedium;
+        if( UseFCS ) {
+            return ToHitMedium + FCS.GetToHitMedium();
+        } else {
+            return ToHitMedium;
+        }
     }
 
     public int GetToHitLong() {
-        return ToHitLong;
+        if( UseFCS ) {
+            return ToHitLong + FCS.GetToHitLong();
+        } else {
+            return ToHitLong;
+        }
     }
 
     public void SetSpecials( String spec, boolean or, boolean ammo, int apt, int ind, boolean sa ) {
@@ -133,39 +142,65 @@ public class MissileWeapon extends abPlaceable implements ifWeapon {
         DefBV = dbv;
     }
 
-    public void SetMissile( int clstr, int grp, boolean strk, boolean art, boolean os ) {
+    public void SetMissile( int clstr, int grp, boolean strk, int fcs, boolean os ) {
         Cluster = clstr;
         Group = grp;
         Streak = strk;
-        Artemis = art;
+        FCSType = fcs;
         OneShot = os;
     }
 
-    public void SetArtemisType( int a ) {
-        ArtemisType = a;
+    public int GetFCSType() {
+        return FCSType;
     }
 
-    public int GetArtemisType() {
-        return ArtemisType;
-    }
-
-    public void UseArtemis( boolean b ) {
-        if( b != UseArtemis ) {
-            UseArtemis = b;
-            if( UseArtemis ) {
-                A4FCS = new ArtemisIVFCS( this );
+    public void UseFCS( boolean b, int type ) {
+        if( b != UseFCS ) {
+            UseFCS = b;
+            if( UseFCS ) {
+                switch( type ) {
+                    case ifMissileGuidance.FCS_ArtemisIV:
+                        if( FCSType == ifMissileGuidance.FCS_ArtemisIV || FCSType == ifMissileGuidance.FCS_ArtemisV ) {
+                            FCS = new ArtemisIVFCS( this );
+                        } else {
+                            FCS = null;
+                            UseFCS = false;
+                        }
+                        break;
+                    case ifMissileGuidance.FCS_ArtemisV:
+                        if( FCSType == ifMissileGuidance.FCS_ArtemisV ) {
+                            FCS = new ArtemisVFCS( this );
+                        } else {
+                            FCS = null;
+                            UseFCS = false;
+                        }
+                        break;
+                    case ifMissileGuidance.FCS_Apollo:
+                        if( FCSType == ifMissileGuidance.FCS_Apollo ) {
+                            FCS = new ApolloFCS( this );
+                        } else {
+                            FCS = null;
+                            UseFCS = false;
+                        }
+                        break;
+                    default:
+                        FCS = null;
+                        UseFCS = false;
+                        break;
+                }
             } else {
-                A4FCS = null;
+                FCS = null;
+                UseFCS = false;
             }
         }
     }
 
-    public boolean IsUsingArtemis() {
-        return UseArtemis;
+    public boolean IsUsingFCS() {
+        return UseFCS;
     }
 
-    public ArtemisIVFCS GetArtemis() {
-        return A4FCS;
+    public ifMissileGuidance GetFCS() {
+        return FCS;
     }
 
     public void SetRequiresFusion( boolean b ) {
@@ -329,8 +364,12 @@ public class MissileWeapon extends abPlaceable implements ifWeapon {
         return Clan;
     }
 
-    public boolean IsArtemisCapable() {
-        return Artemis;
+    public boolean IsFCSCapable() {
+        if( FCSType != ifMissileGuidance.FCS_NONE ) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean IsTCCapable() {
@@ -366,11 +405,8 @@ public class MissileWeapon extends abPlaceable implements ifWeapon {
         if( IsArmored() ) {
             result += NumCrits * 0.5f;
         }
-        if( UseArtemis ) {
-            result += 1.0f;
-            if( A4FCS.IsArmored() ) {
-                result += 0.5f;
-            }
+        if( UseFCS ) {
+            result += ((abPlaceable) FCS).GetTonnage();
         }
         return result;
     }
@@ -380,18 +416,15 @@ public class MissileWeapon extends abPlaceable implements ifWeapon {
         if( IsArmored() ) {
             result += 150000.0f * NumCrits;
         }
-        if( UseArtemis ) {
-            result += 100000.0f;
-            if( A4FCS.IsArmored() ) {
-                result += 150000.0f;
-            }
+        if( UseFCS ) {
+            result += ((abPlaceable) FCS).GetCost();
         }
         return result;
     }
 
     public float GetOffensiveBV() {
-        if( UseArtemis ) {
-            return ( Math.round( OffBV * 120.0f ) ) * 0.01f;
+        if( UseFCS ) {
+            return ( Math.round( OffBV * FCS.GetBVMultiplier() * 100.0f ) ) * 0.01f;
         } else {
             return OffBV;
         }
@@ -405,8 +438,8 @@ public class MissileWeapon extends abPlaceable implements ifWeapon {
         if( UseTC && IsTCCapable() ) {
             retval *= 1.25f;
         }
-        if( UseArtemis ) {
-            retval = Math.round( retval * 120.0f ) * 0.01f;
+        if( UseFCS ) {
+            retval = ( Math.round( OffBV * FCS.GetBVMultiplier() * 100.0f ) ) * 0.01f;
         }
         if( UseRear ) {
             if( MountedRear ) {
@@ -425,9 +458,9 @@ public class MissileWeapon extends abPlaceable implements ifWeapon {
 
     public float GetDefensiveBV() {
         float result = 0.0f;
-        if( UseArtemis ) {
-            result = ( Math.round( DefBV * 120.0f ) ) * 0.01f;
-            result += A4FCS.GetDefensiveBV();
+        if( UseFCS ) {
+            result = ( Math.round( DefBV * FCS.GetBVMultiplier() * 100.0f ) ) * 0.01f;
+            result += ((abPlaceable) FCS).GetDefensiveBV();
         } else {
             result = DefBV;
         }

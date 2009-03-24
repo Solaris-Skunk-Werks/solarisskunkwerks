@@ -28,12 +28,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
-public class ArtemisIVFCS extends abPlaceable implements ifMissileGuidance {
-    public final static AvailableCode ISAC = new AvailableCode( false, 'E', 'E', 'F', 'D', 2598, 2855, 3035, "TH", "FW", true, true );
-    public final static AvailableCode CLAC = new AvailableCode( true, 'E', 'X', 'D', 'C', 2598, 0, 0, "TH", "", false, false );
+import ssw.Constants;
+
+public class ApolloFCS extends abPlaceable implements ifMissileGuidance {
+    public final static AvailableCode ISAC = new AvailableCode( false, 'E', 'E', 'F', 'D', 3071, 0, 0, "DC", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
     private MissileWeapon Owner;
 
-    public ArtemisIVFCS( MissileWeapon m ) {
+    public ApolloFCS( MissileWeapon m ) {
         Owner = m;
     }
 
@@ -52,15 +53,11 @@ public class ArtemisIVFCS extends abPlaceable implements ifMissileGuidance {
     }
 
     public String GetCritName() {
-        return "Artemis IV FCS";
+        return "MRM Apollo FCS";
     }
 
     public String GetMMName( boolean UseRear ) {
-        if( Owner.IsClan() ) {
-            return "CLArtemisIV";
-        } else {
-            return "ISArtemisIV";
-        }
+        return "ISApollo";
     }
 
     public int NumCrits() {
@@ -92,25 +89,17 @@ public class ArtemisIVFCS extends abPlaceable implements ifMissileGuidance {
 
     public float GetCost() {
         if( IsArmored() ) {
-            return 250000.0f;
+            return 275000.0f;
         } else {
-            return 100000.0f;
+            return 125000.0f;
         }
     }
 
     public AvailableCode GetAvailability() {
-        if( Owner.IsClan() ) {
-            if( IsArmored() ) {
-                return CLArmoredAC;
-            } else {
-                return CLAC;
-            }
+        if( IsArmored() ) {
+            return ISArmoredAC;
         } else {
-            if( IsArmored() ) {
-                return ISArmoredAC;
-            } else {
-                return ISAC;
-            }
+            return ISAC;
         }
     }
 
@@ -121,30 +110,30 @@ public class ArtemisIVFCS extends abPlaceable implements ifMissileGuidance {
 
     @Override
     public String toString() {
-        return "Artemis IV FCS";
+        return "MRM Apollo FCS";
     }
 
     public int GetAIVClass() {
-        return ifMissileGuidance.FCS_ArtemisIV;
+        return ifMissileGuidance.FCS_Apollo;
     }
 
     public int GetToHitShort() {
-        return 0;
+        return -1;
     }
 
     public int GetToHitMedium() {
-        return 0;
+        return -1;
     }
 
     public int GetToHitLong() {
-        return 0;
+        return -1;
     }
 
     public int GetClusterTableBonus() {
-        return 2;
+        return -1;
     }
 
     public float GetBVMultiplier() {
-        return 1.2f;
+        return 1.15f;
     }
 }
