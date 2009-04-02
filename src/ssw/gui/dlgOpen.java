@@ -702,7 +702,7 @@ public class dlgOpen extends javax.swing.JFrame {
         if ( tblMechData.getSelectedRowCount() > 0 ) {
             int[] rows = tblMechData.getSelectedRows();
             for ( int i=0; i < rows.length; i++ ) {
-                    MechListData data = list.Get(tblMechData.convertRowIndexToModel(rows[i]));
+                    MechListData data = ((MechList) tblMechData.getModel()).Get(tblMechData.convertRowIndexToModel(rows[i]));
                     parent.dForce.force.Units.add(data.getUnit());
             }
         }
