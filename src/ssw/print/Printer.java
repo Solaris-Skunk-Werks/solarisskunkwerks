@@ -170,7 +170,7 @@ public class Printer {
         pMech.setGunnery(POptions.GetGunnery());
         pMech.setPiloting(POptions.GetPiloting());
         pMech.setMechwarrior(POptions.GetWarriorName());
-        pMech.SetMiniConversion( POptions.UseMiniConversion(), POptions.GetMiniConversionRate() );
+        if ( POptions.UseMiniConversion() ) { pMech.SetMiniConversion( POptions.GetMiniConversionRate() );}
 
         POptions.dispose();
         return true;
