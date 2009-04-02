@@ -36,6 +36,7 @@ import ssw.components.*;
 public class FileCommon {
     // contains common filehandler routines (mostly those shared between TXT and
     // HTML exporters).
+    public final static String tab = "    ";
 
     public static String GetSafeFilename( String s ) {
         s = s.replaceAll( "%", "%25" );

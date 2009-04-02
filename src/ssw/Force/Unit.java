@@ -34,10 +34,13 @@ import ssw.Force.Common.Constants;
 import org.w3c.dom.Node;
 import ssw.Force.IO.PrintSheet;
 import ssw.components.Mech;
+import ssw.filehandlers.FileCommon;
 import ssw.filehandlers.XMLReader;
 
 public class Unit {
     public String TypeModel = "",
+                  Type = "",
+                  Model = "",
                   Mechwarrior = "",
                   Filename = "";
     public float BaseBV = 0.0f,
@@ -135,4 +138,21 @@ public class Unit {
         file.newLine();
     }
 
+    public void SerializeMUL(BufferedWriter file) throws IOException {
+        if ( this.Type.contains("(") && this.Type.contains(")") ) {
+            this.Type = this.Type.substring(0, this.Type.indexOf(" (")).trim();
+        }
+
+        this.Model.replace("Alternate Configuration", "");
+        this.Model.replace("Alternate", "");
+        this.Model.replace("Alt", "");
+        this.Model.trim();
+        
+        file.write(FileCommon.tab + "<entity chassis=\"" + this.Type + "\" model=\"" + this.Model + "\">");
+        file.newLine();
+        file.write(FileCommon.tab + FileCommon.tab + "<pilot name=\"" + this.Mechwarrior + "\" gunnery=\"" + this.Gunnery + "\" piloting=\"" + this.Piloting + "\" />");
+        file.newLine();
+        file.write(FileCommon.tab + "</entity>");
+        file.newLine();
+    }
 }

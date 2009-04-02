@@ -141,6 +141,19 @@ public class Force extends AbstractTableModel {
         isDirty = false;
     }
 
+    public void SerializeMUL(BufferedWriter file) throws IOException {
+        file.write("<unit>");
+        file.newLine();
+
+        for (int i = 0; i <= this.Units.size() - 1; i++) {
+            Unit u = (Unit) Units.get(i);
+            u.SerializeMUL(file);
+        }
+        
+        file.write("</unit>");
+        file.newLine();
+    }
+
     public void RenderPrint(PrintSheet p) {
         p.setFont(CommonTools.SectionHeaderFont);
         p.WriteStr(ForceName, 0);

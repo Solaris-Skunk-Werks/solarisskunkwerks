@@ -48,9 +48,9 @@ public class CommonTools {
             case Constants.TOURNAMENT:
                 return "Tournament Legal";
             case Constants.ADVANCED:
-                return "Advanced";
+                return "Advanced Rules";
             case Constants.EXPERIMENTAL:
-                return "Experimental";
+                return "Experimental Tech";
             case Constants.UNALLOWED:
                 return "Unallowed";
             default:

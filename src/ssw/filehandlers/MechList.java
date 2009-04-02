@@ -133,11 +133,17 @@ public class MechList extends AbstractTableModel {
             if ( ! filter.getEra().isEmpty() ) {
                 if (! mData.getEra().equals(filter.getEra()) ) remove = true;
             }
+            if ( ! filter.getLevel().isEmpty() ) {
+                if (! mData.getLevel().equals(filter.getLevel()) ) remove = true;
+            }
             if ( filter.getMaxBV() > 0 ) {
-                if ((filter.getMinBV() >= mData.getBV()) || (mData.getBV() >= filter.getMaxBV())) remove = true;
+                if ((filter.getMinBV() > mData.getBV()) || (mData.getBV() > filter.getMaxBV())) remove = true;
             }
             if ( filter.getMaxCost() > 0 ) {
-                if ((filter.getMinCost() >= mData.getCost()) || (mData.getCost() >= filter.getMaxCost())) remove = true;
+                if ((filter.getMinCost() > mData.getCost()) || (mData.getCost() > filter.getMaxCost())) remove = true;
+            }
+            if ( filter.getMaxTonnage() > 0 ) {
+                if ((filter.getMinTonnage() > mData.getTonnage()) || (mData.getTonnage() > filter.getMaxTonnage())) remove = true;
             }
             
             if (remove) m.Remove(mData);
@@ -214,7 +220,7 @@ public class MechList extends AbstractTableModel {
             case 0:
                 return m.getTonnage();
             case 1:
-                return m.getName();
+                return (m.getName() + " " + m.getModel()).trim();
             case 2:
                 return m.getBV();
             case 3:

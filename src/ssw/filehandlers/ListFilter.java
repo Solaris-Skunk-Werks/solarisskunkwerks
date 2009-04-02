@@ -13,7 +13,8 @@ public class ListFilter {
     private String Name = "",
                    Model = "",
                    Era = "",
-                   Tech = "";
+                   Tech = "",
+                   Level = "";
     private int MinTonnage = 0,
                 MaxTonnage = 0,
                 MinYear = 2750,
@@ -40,6 +41,12 @@ public class ListFilter {
     }
     public void setEra(String Era) {
         this.Era = Era;
+    }
+    public String getLevel() {
+        return Level;
+    }
+    public void setLevel(String Level) {
+        this.Level = Level;
     }
     public String getTech() {
         return Tech;

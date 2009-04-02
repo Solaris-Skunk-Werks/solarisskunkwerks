@@ -39,8 +39,36 @@ import ssw.gui.frmMain;
 public class Media {
     MediaTracker Tracker = new MediaTracker(new JLabel());
     Toolkit toolkit = Toolkit.getDefaultToolkit();
+    JFileChooser fileChooser = new JFileChooser();
 
     public Media() {
+    }
+
+    public File SelectFile(String defaultDirectory, String Extension, String commandName) {
+        File tempFile = new File(defaultDirectory);
+        fileChooser.addChoosableFileFilter(new ExtensionFilter(Extension));
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setCurrentDirectory(tempFile);
+        int returnVal = fileChooser.showDialog(null, commandName);
+        if (returnVal != JFileChooser.APPROVE_OPTION) {
+            return null;
+        }
+        return fileChooser.getSelectedFile();
+    }
+
+    public File[] SelectFiles(String defaultDirectory, String Extension, String commandName) {
+        File[] files = null;
+        File tempFile = new File(defaultDirectory);
+
+        fileChooser.setMultiSelectionEnabled(true);
+        fileChooser.addChoosableFileFilter(new ExtensionFilter(Extension));
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setCurrentDirectory(tempFile);
+        int returnVal = fileChooser.showDialog(null, commandName);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            files = fileChooser.getSelectedFiles();
+        }
+        return files;
     }
 
     public Image GetImage(String filename) {
@@ -76,5 +104,24 @@ public class Media {
             path = fc.getSelectedFile().getPath();
         }
         return path;
+    }
+
+    private class ExtensionFilter extends javax.swing.filechooser.FileFilter {
+        String Extension = "";
+
+        private ExtensionFilter(String Extension) {
+            this.Extension = Extension.toLowerCase();
+        }
+
+        @Override
+        public boolean accept(File f) {
+            return f.isDirectory() || f.getName().toLowerCase().endsWith("." + Extension);
+        }
+
+        @Override
+        public String getDescription() {
+            return "*." + Extension;
+        }
+
     }
 }

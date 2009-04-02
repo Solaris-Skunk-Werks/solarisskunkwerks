@@ -98,7 +98,10 @@ public class MechListData {
 
     public Unit getUnit() {
         Unit u = new Unit();
-        u.TypeModel = this.Name + " " + this.Model;
+        u.TypeModel = this.Name + " " + this.getModel();
+        u.Type = this.Name;
+        u.Model = this.getModel();
+        if ( this.isOmni() ) { u.Model = this.Config; }
         u.BaseBV = this.BV;
         u.Tonnage = this.Tonnage;
         u.UnitType = ssw.Force.Common.Constants.BattleMech;
@@ -204,17 +207,12 @@ public class MechListData {
         this.Config = Config;
     }
 
-    /**
-     * @return the Source
-     */
     public String getSource() {
         return Source;
     }
 
-    /**
-     * @param Source the Source to set
-     */
     public void setSource(String Source) {
         this.Source = Source;
     }
+
 }

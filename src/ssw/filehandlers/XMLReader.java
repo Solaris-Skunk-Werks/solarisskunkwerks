@@ -86,7 +86,8 @@ public class XMLReader {
         boolean isOmni = ParseBoolean( map.getNamedItem( "omnimech" ).getTextContent() );
         Data.setOmni( isOmni );
 
-        Data.setName( FileCommon.DecodeFluff( map.getNamedItem( "name" ).getTextContent() ) + " " + FileCommon.DecodeFluff( map.getNamedItem( "model" ).getTextContent() ) );
+        Data.setName( FileCommon.DecodeFluff( map.getNamedItem( "name" ).getTextContent() ) );
+        Data.setModel( FileCommon.DecodeFluff( map.getNamedItem( "model" ).getTextContent() ) );
         Data.setTonnage( Integer.parseInt( map.getNamedItem( "tons" ).getTextContent() ) );
 
         n = d.getElementsByTagName( "rules_level" );
@@ -117,7 +118,8 @@ public class XMLReader {
                 Config.setOmni(true);
                 map = OmniLoads.item( k ).getAttributes();
                 if( map.getNamedItem( "name" ) != null ) {
-                    Config.setName( Config.getName() + " " + FileCommon.DecodeFluff( map.getNamedItem( "name" ).getTextContent() ) );
+                    Config.setName( Config.getName());
+                    Config.setModel( FileCommon.DecodeFluff( map.getNamedItem( "name" ).getTextContent() ) );
                     Config.setConfig(FileCommon.DecodeFluff( map.getNamedItem( "name" ).getTextContent() ));
                 }
                 

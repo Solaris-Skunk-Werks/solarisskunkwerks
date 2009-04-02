@@ -31,9 +31,12 @@ import java.awt.print.PageFormat;
 import java.awt.print.Paper;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.event.TableModelEvent;
@@ -43,7 +46,9 @@ import ssw.Force.*;
 import ssw.Force.IO.ForceReader;
 import ssw.Force.IO.ForceWriter;
 import ssw.Force.IO.PrintSheet;
+import ssw.Options;
 import ssw.components.Mech;
+import ssw.filehandlers.MULWriter;
 import ssw.filehandlers.XMLReader;
 import ssw.gui.frmMain;
 import ssw.print.Printer;
@@ -146,6 +151,8 @@ public class frmForce extends javax.swing.JFrame {
         btnPrintForce = new javax.swing.JButton();
         btnPrintUnits = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
+        btnExportMUL = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
         btnRemoveUnit = new javax.swing.JButton();
         brnClearForce = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
@@ -222,6 +229,19 @@ public class frmForce extends javax.swing.JFrame {
         });
         tlbActions.add(btnPrintUnits);
         tlbActions.add(jSeparator1);
+
+        btnExportMUL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_tag_blue.gif"))); // NOI18N
+        btnExportMUL.setToolTipText("Export MUL");
+        btnExportMUL.setFocusable(false);
+        btnExportMUL.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExportMUL.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnExportMUL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportMULActionPerformed(evt);
+            }
+        });
+        tlbActions.add(btnExportMUL);
+        tlbActions.add(jSeparator3);
 
         btnRemoveUnit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/mech_delete.gif"))); // NOI18N
         btnRemoveUnit.setToolTipText("Remove Unit");
@@ -424,8 +444,24 @@ public class frmForce extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_btnPrintForceActionPerformed
 
+    private void btnExportMULActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportMULActionPerformed
+        MULWriter mw = new MULWriter(force);
+        ssw.filehandlers.Media media = new ssw.filehandlers.Media();
+        Options opts = new Options();
+        File mulFile = media.SelectFile(opts.MegamekPath, "mul", "Select MUL file");
+        try {
+            String filename = mulFile.getCanonicalPath();
+            if ( ! filename.endsWith(".mul") ) { filename += ".mul"; }
+            mw.WriteXML(filename);
+            javax.swing.JOptionPane.showMessageDialog(this, filename + " saved.");
+        } catch (IOException ex) {
+            Logger.getLogger(frmForce.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnExportMULActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brnClearForce;
+    private javax.swing.JButton btnExportMUL;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnPrintForce;
     private javax.swing.JButton btnPrintUnits;
@@ -434,6 +470,7 @@ public class frmForce extends javax.swing.JFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
+    private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JLabel lblTotalBV;
     private javax.swing.JLabel lblTotalTons;
     private javax.swing.JLabel lblTotalUnits;
