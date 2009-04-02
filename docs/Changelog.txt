@@ -64,6 +64,9 @@ Version 0.6.0
 - Added Coolant Pods, Torso-mounted Cockpits, Command Consoles.
 - Added the bew missile guidance systems (MRM Apollo and Artemis V).
 - Added a test for overwriting files that already exist when saving.
+- Added Armor Type to the print page under Tech Base and Year.
+- Added more filters to the Open dialog
+- Added BASIC MUL exporter to Force dialog
 
 + Changed
 - Fixed a load bug with heatsinks.
