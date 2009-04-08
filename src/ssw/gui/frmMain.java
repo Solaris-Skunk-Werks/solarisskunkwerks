@@ -88,7 +88,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     DataFactory data = new DataFactory(CurMech);
 
     private dlgPrintBatchMechs BatchWindow = null;
-    private dlgOpen dOpen = new dlgOpen(this, true);
+    public dlgOpen dOpen = new dlgOpen(this, true);
     public ssw.Force.gui.frmForce dForce = new frmForce(this);
 
     final int BALLISTIC = 0,
@@ -3038,8 +3038,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         btnPrintPreview = new javax.swing.JButton();
         jSeparator24 = new javax.swing.JToolBar.Separator();
         btnPrintIcon = new javax.swing.JButton();
-        btnPrintSaved = new javax.swing.JButton();
-        btnPrintBatch = new javax.swing.JButton();
         jSeparator22 = new javax.swing.JToolBar.Separator();
         btnExportClipboardIcon = new javax.swing.JButton();
         btnExportHTMLIcon = new javax.swing.JButton();
@@ -3623,30 +3621,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         tlbIconBar.add(btnPrintIcon);
-
-        btnPrintSaved.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/action_print_saved.gif"))); // NOI18N
-        btnPrintSaved.setToolTipText("Print Saved Mech");
-        btnPrintSaved.setFocusable(false);
-        btnPrintSaved.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnPrintSaved.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnPrintSaved.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintSavedActionPerformed(evt);
-            }
-        });
-        tlbIconBar.add(btnPrintSaved);
-
-        btnPrintBatch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/action_print_batch.gif"))); // NOI18N
-        btnPrintBatch.setToolTipText("Print Batch");
-        btnPrintBatch.setFocusable(false);
-        btnPrintBatch.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnPrintBatch.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnPrintBatch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintBatchActionPerformed(evt);
-            }
-        });
-        tlbIconBar.add(btnPrintBatch);
         tlbIconBar.add(jSeparator22);
 
         btnExportClipboardIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_tag_blue.gif"))); // NOI18N
@@ -12487,14 +12461,6 @@ private void mnuPrintBatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     BatchWindow.setVisible( true );
 }//GEN-LAST:event_mnuPrintBatchActionPerformed
 
-private void btnPrintSavedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintSavedActionPerformed
-    mnuPrintSavedMechActionPerformed(evt);
-}//GEN-LAST:event_btnPrintSavedActionPerformed
-
-private void btnPrintBatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintBatchActionPerformed
-    mnuPrintBatchActionPerformed(evt);
-}//GEN-LAST:event_btnPrintBatchActionPerformed
-
 private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMechTypeActionPerformed
         if( cmbMechType.getSelectedIndex() == 1 ) {
             if( CurMech.IsIndustrialmech() ) { return; }
@@ -12869,10 +12835,8 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnOptionsIcon;
     private javax.swing.JButton btnPostToS7;
-    private javax.swing.JButton btnPrintBatch;
     private javax.swing.JButton btnPrintIcon;
     private javax.swing.JButton btnPrintPreview;
-    private javax.swing.JButton btnPrintSaved;
     private javax.swing.JButton btnRemainingArmor;
     private javax.swing.JButton btnRemoveEquip;
     private javax.swing.JButton btnRemoveItemCrits;

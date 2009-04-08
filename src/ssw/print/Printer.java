@@ -64,7 +64,7 @@ public class Printer {
     }
 
     public void setJobName(String jobName) {
-        this.jobName = jobName;
+        this.jobName = jobName.trim();
     }
 
     public PrinterJob getJob() {
@@ -111,13 +111,13 @@ public class Printer {
         //If they didn't provide a mech exit
         if (Mechs.size() == 0) { return; }
 
-        job.setJobName(jobName);
+        job.setJobName(jobName.trim());
 
         //Here is where we will show the print dialog, determine if it's a single mech or multiples
         if (Mechs.size() == 1) {
-            if ( ! PrintDialog((PrintMech) Mechs.get(0))) return;
+            if ( ! PrintDialog( (PrintMech) Mechs.get(0) ) ) return;
         } else {
-
+            if ( ! BatchDialog() ) return;
         }
 
         //start building the print objects necessary
@@ -149,7 +149,7 @@ public class Printer {
         for (int index=0; index <= Mechs.size()-1; index++) {
             PrintMech pm = (PrintMech) Mechs.get(index);
             pages.append(pm, page);
-            if (Mechs.size() == 1) job.setJobName(pm.CurMech.GetFullName());
+            if (Mechs.size() == 1) job.setJobName(pm.CurMech.GetFullName().trim());
         }
 
     }
@@ -170,7 +170,33 @@ public class Printer {
         pMech.setGunnery(POptions.GetGunnery());
         pMech.setPiloting(POptions.GetPiloting());
         pMech.setMechwarrior(POptions.GetWarriorName());
+        pMech.setMechImage(POptions.getImage());
+        pMech.setLogoImage(POptions.getLogo());
         if ( POptions.UseMiniConversion() ) { pMech.SetMiniConversion( POptions.GetMiniConversionRate() );}
+
+        POptions.dispose();
+        return true;
+    }
+
+    private Boolean BatchDialog() {
+        dlgPrintSavedMechOptions POptions = new dlgPrintSavedMechOptions(Parent, true);
+        POptions.setTitle( "Printing Batched Units");
+        POptions.setLocationRelativeTo( Parent );
+
+        POptions.setVisible( true );
+
+        if( ! POptions.Result() ) {
+            return false;
+        }
+        
+        for ( int m=0; m <= Mechs.size()-1; m++ ) {
+            PrintMech pMech = (PrintMech) Mechs.get(m);
+            pMech.setPrintPilot(POptions.PrintPilot());
+            pMech.setCharts(POptions.PrintCharts());
+            pMech.setMechImage(POptions.getImage());
+            pMech.setLogoImage(POptions.getLogo());
+            if ( POptions.UseMiniConversion() ) { pMech.SetMiniConversion( POptions.GetMiniConversionRate() );}
+        }
 
         POptions.dispose();
         return true;

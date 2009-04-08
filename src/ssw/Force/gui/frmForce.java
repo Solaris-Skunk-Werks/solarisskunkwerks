@@ -153,6 +153,7 @@ public class frmForce extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnExportMUL = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
+        btnAddMech = new javax.swing.JButton();
         btnRemoveUnit = new javax.swing.JButton();
         brnClearForce = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
@@ -242,6 +243,17 @@ public class frmForce extends javax.swing.JFrame {
         });
         tlbActions.add(btnExportMUL);
         tlbActions.add(jSeparator3);
+
+        btnAddMech.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/mech_add.gif"))); // NOI18N
+        btnAddMech.setFocusable(false);
+        btnAddMech.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAddMech.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAddMech.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddMechActionPerformed(evt);
+            }
+        });
+        tlbActions.add(btnAddMech);
 
         btnRemoveUnit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/mech_delete.gif"))); // NOI18N
         btnRemoveUnit.setToolTipText("Remove Unit");
@@ -358,8 +370,12 @@ public class frmForce extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void btnPrintUnitsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintUnitsActionPerformed
+        if ( tblForce.getSelectedRowCount() == 0 ) {
+            tblForce.selectAll();
+        }
+
         if ( tblForce.getSelectedRowCount() > 0 ) {
-            Printer print = new Printer();
+            Printer print = new Printer( parent );
 
             try
             {
@@ -368,9 +384,6 @@ public class frmForce extends javax.swing.JFrame {
                 for ( int i=0; i < rows.length; i++ ) {
                     Unit data = (Unit) force.Units.get(tblForce.convertRowIndexToModel(rows[i]));
                     Mech m = read.ReadMech(data.Filename);
-                    //if (data.isOmni()) {
-                    //    m.SetCurLoadout(data.getConfig());
-                    //}
                     print.AddMech(m);
                 }
                 print.Print();
@@ -459,8 +472,13 @@ public class frmForce extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExportMULActionPerformed
 
+    private void btnAddMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMechActionPerformed
+        parent.dOpen.setVisible(true);
+}//GEN-LAST:event_btnAddMechActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brnClearForce;
+    private javax.swing.JButton btnAddMech;
     private javax.swing.JButton btnExportMUL;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnPrintForce;

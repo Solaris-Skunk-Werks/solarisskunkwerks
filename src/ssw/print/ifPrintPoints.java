@@ -65,4 +65,5 @@ public interface ifPrintPoints {
     public Point[] GetDataChartPoints();
     public Point[] GetHeatSinkPoints();
     public Point GetMechImageLoc();
+    public Point GetLogoImageLoc();
 }

@@ -423,34 +423,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrintIconActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnPrintSaved">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/action_print_saved.gif"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Print Saved Mech"/>
-            <Property name="focusable" type="boolean" value="false"/>
-            <Property name="horizontalTextPosition" type="int" value="0"/>
-            <Property name="verticalTextPosition" type="int" value="3"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrintSavedActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnPrintBatch">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/action_print_batch.gif"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Print Batch"/>
-            <Property name="focusable" type="boolean" value="false"/>
-            <Property name="horizontalTextPosition" type="int" value="0"/>
-            <Property name="verticalTextPosition" type="int" value="3"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrintBatchActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JToolBar$Separator" name="jSeparator22">
         </Component>
         <Component class="javax.swing.JButton" name="btnExportClipboardIcon">

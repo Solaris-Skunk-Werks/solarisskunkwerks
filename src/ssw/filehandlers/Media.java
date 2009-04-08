@@ -34,6 +34,8 @@ import java.awt.Toolkit;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import ssw.gui.ImageFilter;
+import ssw.gui.ImagePreview;
 import ssw.gui.frmMain;
 
 public class Media {
@@ -71,6 +73,18 @@ public class Media {
         return files;
     }
 
+    public File SelectImage(String defaultDirectory, String commandName) {
+        File tempFile = new File(defaultDirectory);
+        fileChooser.addChoosableFileFilter(new ImageFilter());
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setCurrentDirectory(tempFile);
+        fileChooser.setAccessory(new ImagePreview(fileChooser));
+        int returnVal = fileChooser.showDialog(null, commandName);
+        if (returnVal != JFileChooser.APPROVE_OPTION) {
+            return null;
+        }
+        return fileChooser.getSelectedFile();
+    }
     public Image GetImage(String filename) {
         Image retval = toolkit.getImage( filename );
         Tracker.addImage( retval, 0 );

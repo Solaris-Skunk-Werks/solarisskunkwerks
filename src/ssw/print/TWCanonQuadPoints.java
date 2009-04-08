@@ -427,4 +427,8 @@ public class TWCanonQuadPoints implements ifPrintPoints {
     public Point GetMechImageLoc() {
         return new Point( 230, 160 );
     }
+
+    public Point GetLogoImageLoc() {
+        return new Point( 300, 160 );
+    }
 }

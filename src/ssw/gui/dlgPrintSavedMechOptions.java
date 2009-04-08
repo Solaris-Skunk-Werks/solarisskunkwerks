@@ -1,66 +1,81 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/*
- * dlgPrintSavedMechOptions.java
- *
- * Created on Jan 14, 2009, 6:37:10 PM
- * * @author Michael Mills
- */
 
 package ssw.gui;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import ssw.CommonTools;
 import ssw.components.Mech;
 import java.util.Vector;
+import javax.swing.ImageIcon;
 import ssw.components.ifLoadout;
+import ssw.filehandlers.Media;
 import ssw.print.PrintMech;
 
 public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
     private Mech CurMech;
     private frmMain Parent;
     private boolean Result = false;
+    private File MechImage = null;
+    private File LogoImage = null;
 
     /** Creates new form dlgPrintSavedMechOptions */
     public dlgPrintSavedMechOptions(java.awt.Frame parent, boolean modal, Mech m, String Warrior, int Gunnery, int Piloting) {
         super(parent, modal);
         initComponents();
         Parent = (frmMain) parent;
-        CurMech = m;
-        txtWarriorName.setText( Warrior );
-        cmbGunnery.setSelectedIndex( Gunnery );
-        cmbPiloting.setSelectedIndex( Piloting );
-        txtMechName.setText(CurMech.GetFullName());
-        if( CurMech.IsOmnimech()){
-            Vector Loadouts = CurMech.GetLoadouts();
-            ifLoadout tempLoadout;
-            cmbOmniVariant.setMaximumRowCount(Loadouts.size()+1);
-            for (int i = 0; i < Loadouts.size();  ++i){
-                tempLoadout = (ifLoadout) Loadouts.get(i);
-                cmbOmniVariant.addItem(tempLoadout.GetName());
-                if (CurMech.GetLoadout().GetName().equals(tempLoadout.GetName())) {cmbOmniVariant.setSelectedItem(tempLoadout.GetName());}
-                //CurMech.SetCurLoadout((String) cmbOmniVariant.getSelectedItem());
+
+        if (m == null) {
+            CurMech = null;
+            pnlBattleMech.setVisible(false);
+            this.setSize(this.getWidth(), this.getHeight()-pnlBattleMech.getHeight());
+        } else {
+            CurMech = m;
+            if ( ! m.GetSSWImage().isEmpty() ) {this.setImage(new File(m.GetSSWImage()));}
+            pnlBattleMech.setBorder(javax.swing.BorderFactory.createTitledBorder(CurMech.GetFullName() + " Information"));
+            lblBaseBV.setText( String.format( "%1$,d", CurMech.GetCurrentBV()) );
+            lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );
+            txtWarriorName.setText( Warrior );
+            cmbGunnery.setSelectedIndex( Gunnery );
+            cmbPiloting.setSelectedIndex( Piloting );
+
+            if( CurMech.IsOmnimech()){
+                Vector Loadouts = CurMech.GetLoadouts();
+                ifLoadout tempLoadout;
+                cmbOmniVariant.setMaximumRowCount(Loadouts.size()+1);
+                for (int i = 0; i < Loadouts.size();  ++i){
+                    tempLoadout = (ifLoadout) Loadouts.get(i);
+                    cmbOmniVariant.addItem(tempLoadout.GetName());
+                    if (CurMech.GetLoadout().GetName().equals(tempLoadout.GetName())) {cmbOmniVariant.setSelectedItem(tempLoadout.GetName());}
+                }
+                cmbOmniVariant.removeItem("Not an Omni-Mech");
             }
-            cmbOmniVariant.removeItem("Not an Omni-Mech");
+            else{
+                cmbOmniVariant.setVisible(false);
+            }
         }
-        else{
-            cmbOmniVariant.setEnabled(false);
-        }
-        lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );
-        chkPrintCharts.setSelected(Parent.Prefs.getBoolean("UseCharts", false));
-        chkAdjustBV.setSelected(Parent.Prefs.getBoolean("AdjustPG", false));
-        chkMWStats.setSelected(Parent.Prefs.getBoolean("NoPilot", false));
-        if (Parent.Prefs.getBoolean("UseA4", false)) {
-            cmbPaperSize.setSelectedIndex(1);
-        }
-        chkUseHexConversion.setSelected( Parent.Prefs.getBoolean( "UseMiniConversion", false ) );
-        if( chkUseHexConversion.isSelected() ) {
-            lblOneHex.setEnabled( true );
-            cmbHexConvFactor.setEnabled( true );
-            lblInches.setEnabled( true );
-            cmbHexConvFactor.setSelectedIndex( Parent.Prefs.getInt( "MiniConversionRate", 0 ) );
+
+        if ( Parent != null ) {
+            chkPrintCharts.setSelected(Parent.Prefs.getBoolean("UseCharts", false));
+            chkMWStats.setSelected(Parent.Prefs.getBoolean("NoPilot", false));
+            if ( Parent.Prefs.getBoolean("NoPilot", false) ) {
+                chkMWStatsActionPerformed(null);
+            }
+            if (Parent.Prefs.getBoolean("UseA4", false)) {
+                cmbPaperSize.setSelectedIndex(1);
+            }
+            chkUseHexConversion.setSelected( Parent.Prefs.getBoolean( "UseMiniConversion", false ) );
+            if( chkUseHexConversion.isSelected() ) {
+                lblOneHex.setEnabled( true );
+                cmbHexConvFactor.setEnabled( true );
+                lblInches.setEnabled( true );
+                cmbHexConvFactor.setSelectedIndex( Parent.Prefs.getInt( "MiniConversionRate", 0 ) );
+            }
+
+            if ( Parent.Prefs.get("LastLogo", "").length() > 0 ) {
+                setLogo(new File(Parent.Prefs.get("LastLogo", "")));
+            }
         }
     }
 
@@ -72,6 +87,10 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         this(parent, modal, m.CurMech, m.getMechwarrior(), m.getGunnery(), m.getPiloting());
     }
 
+    public dlgPrintSavedMechOptions(java.awt.Frame parent, boolean modal) {
+        this(parent, modal, null, "", 4, 5);
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -80,51 +99,46 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
-        txtWarriorName = new javax.swing.JTextField();
-        chkAdjustBV = new javax.swing.JCheckBox();
-        chkPrintCharts = new javax.swing.JCheckBox();
-        lblAdjustBVLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnPrint = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        pnlBattleMech = new javax.swing.JPanel();
+        cmbOmniVariant = new javax.swing.JComboBox();
+        txtWarriorName = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
+        lblAdjustBVLabel = new javax.swing.JLabel();
+        lblAdjustBV = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblBaseBV = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         cmbGunnery = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         cmbPiloting = new javax.swing.JComboBox();
-        jLabel3 = new javax.swing.JLabel();
-        lblAdjustBV = new javax.swing.JLabel();
-        chkMWStats = new javax.swing.JCheckBox();
+        pnlPrintOptions = new javax.swing.JPanel();
+        chkPrintCharts = new javax.swing.JCheckBox();
+        chkUseHexConversion = new javax.swing.JCheckBox();
+        lblOneHex = new javax.swing.JLabel();
+        cmbHexConvFactor = new javax.swing.JComboBox();
+        lblInches = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         cmbPaperSize = new javax.swing.JComboBox();
-        cmbOmniVariant = new javax.swing.JComboBox();
-        txtMechName = new javax.swing.JTextField();
-        jPanel4 = new javax.swing.JPanel();
-        lblOneHex = new javax.swing.JLabel();
-        lblInches = new javax.swing.JLabel();
-        cmbHexConvFactor = new javax.swing.JComboBox();
-        chkUseHexConversion = new javax.swing.JCheckBox();
+        chkMWStats = new javax.swing.JCheckBox();
+        pnlImageOptions = new javax.swing.JPanel();
+        chkPrintImage = new javax.swing.JCheckBox();
+        btnChooseImage = new javax.swing.JButton();
+        lblImage = new javax.swing.JLabel();
+        chkLogo = new javax.swing.JCheckBox();
+        chkStats = new javax.swing.JCheckBox();
+        lblLogo = new javax.swing.JLabel();
+        lblStats = new javax.swing.JLabel();
+        btnChooseLogo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Print Saved Mech");
-
-        txtWarriorName.setMaximumSize(new java.awt.Dimension(150, 20));
-        txtWarriorName.setMinimumSize(new java.awt.Dimension(150, 20));
-        txtWarriorName.setPreferredSize(new java.awt.Dimension(150, 20));
-
-        chkAdjustBV.setText("Adjust BV for Gunnery/Piloting");
-        chkAdjustBV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkAdjustBVActionPerformed(evt);
-            }
-        });
-
-        chkPrintCharts.setText("Print helpful charts on the sheet");
-
-        lblAdjustBVLabel.setText("Adjusted BV:");
 
         btnPrint.setText("Print");
         btnPrint.addActionListener(new java.awt.event.ActionListener() {
@@ -142,55 +156,9 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         });
         jPanel1.add(btnCancel);
 
-        jPanel2.setLayout(new java.awt.GridBagLayout());
+        jPanel4.setLayout(new java.awt.GridBagLayout());
 
-        cmbGunnery.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8" }));
-        cmbGunnery.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbGunneryActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        jPanel2.add(cmbGunnery, gridBagConstraints);
-
-        jLabel1.setText("Gunnery");
-        jPanel2.add(jLabel1, new java.awt.GridBagConstraints());
-
-        jLabel2.setText("Piloting");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
-        jPanel2.add(jLabel2, gridBagConstraints);
-
-        cmbPiloting.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8" }));
-        cmbPiloting.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbPilotingActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
-        jPanel2.add(cmbPiloting, gridBagConstraints);
-
-        jLabel3.setText("MechWarrior Name");
-
-        lblAdjustBV.setText("00,000");
-
-        chkMWStats.setText("Do not print MechWarrior stats");
-        chkMWStats.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkMWStatsActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setText("Paper Size:");
-        jPanel3.add(jLabel5);
-
-        cmbPaperSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Letter", "A4" }));
-        jPanel3.add(cmbPaperSize);
+        pnlBattleMech.setBorder(javax.swing.BorderFactory.createTitledBorder("Battlemech Information"));
 
         cmbOmniVariant.setMaximumRowCount(1);
         cmbOmniVariant.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Not an Omni-Mech" }));
@@ -200,35 +168,275 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
             }
         });
 
-        txtMechName.setEditable(false);
+        txtWarriorName.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        txtWarriorName.setMaximumSize(new java.awt.Dimension(150, 20));
+        txtWarriorName.setMinimumSize(new java.awt.Dimension(150, 20));
+        txtWarriorName.setPreferredSize(new java.awt.Dimension(150, 20));
 
-        jPanel4.setLayout(new java.awt.GridBagLayout());
+        jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        lblOneHex.setText("One Hex equals");
-        lblOneHex.setEnabled(false);
-        jPanel4.add(lblOneHex, new java.awt.GridBagConstraints());
+        lblAdjustBVLabel.setText("Adjusted BV:");
 
-        lblInches.setText("Inches");
-        lblInches.setEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 0);
-        jPanel4.add(lblInches, gridBagConstraints);
+        lblAdjustBV.setText("00,000");
 
-        cmbHexConvFactor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
-        cmbHexConvFactor.setEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        jPanel4.add(cmbHexConvFactor, gridBagConstraints);
+        jLabel3.setText("Base BV:");
 
-        chkUseHexConversion.setText("Convert Hexes to miniature scale");
+        lblBaseBV.setText("00,000");
+
+        jLabel4.setText("Mechwarrior");
+
+        cmbGunnery.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8" }));
+        cmbGunnery.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbGunneryActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Gunnery");
+
+        jLabel2.setText("Piloting");
+
+        cmbPiloting.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8" }));
+        cmbPiloting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPilotingActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlBattleMechLayout = new javax.swing.GroupLayout(pnlBattleMech);
+        pnlBattleMech.setLayout(pnlBattleMechLayout);
+        pnlBattleMechLayout.setHorizontalGroup(
+            pnlBattleMechLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBattleMechLayout.createSequentialGroup()
+                .addGroup(pnlBattleMechLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBattleMechLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlBattleMechLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(cmbOmniVariant, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlBattleMechLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlBattleMechLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(133, 133, 133)
+                                .addComponent(jLabel1))
+                            .addGroup(pnlBattleMechLayout.createSequentialGroup()
+                                .addComponent(txtWarriorName, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbGunnery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlBattleMechLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(cmbPiloting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addGroup(pnlBattleMechLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlBattleMechLayout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblBaseBV))
+                            .addGroup(pnlBattleMechLayout.createSequentialGroup()
+                                .addComponent(lblAdjustBVLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblAdjustBV)))))
+                .addContainerGap())
+        );
+        pnlBattleMechLayout.setVerticalGroup(
+            pnlBattleMechLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBattleMechLayout.createSequentialGroup()
+                .addGroup(pnlBattleMechLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBattleMechLayout.createSequentialGroup()
+                        .addGroup(pnlBattleMechLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(1, 1, 1)
+                        .addGroup(pnlBattleMechLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtWarriorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbOmniVariant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbGunnery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbPiloting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlBattleMechLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pnlBattleMechLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(lblBaseBV))
+                        .addGap(1, 1, 1)
+                        .addGroup(pnlBattleMechLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblAdjustBVLabel)
+                            .addComponent(lblAdjustBV))
+                        .addGap(145, 145, 145)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pnlPrintOptions.setBorder(javax.swing.BorderFactory.createTitledBorder("Print Options"));
+
+        chkPrintCharts.setText("Print Tables and Movement Grid");
+
+        chkUseHexConversion.setText("Use Miniatures Scale for Movement");
         chkUseHexConversion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkUseHexConversionActionPerformed(evt);
             }
         });
+
+        lblOneHex.setText("One Hex equals");
+        lblOneHex.setEnabled(false);
+
+        cmbHexConvFactor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
+        cmbHexConvFactor.setEnabled(false);
+
+        lblInches.setText("Inches");
+        lblInches.setEnabled(false);
+
+        jLabel5.setText("Paper Size:");
+        jPanel3.add(jLabel5);
+
+        cmbPaperSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Letter", "A4" }));
+        jPanel3.add(cmbPaperSize);
+
+        chkMWStats.setText("Do NOT print MechWarrior stats");
+        chkMWStats.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkMWStatsActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlPrintOptionsLayout = new javax.swing.GroupLayout(pnlPrintOptions);
+        pnlPrintOptions.setLayout(pnlPrintOptionsLayout);
+        pnlPrintOptionsLayout.setHorizontalGroup(
+            pnlPrintOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPrintOptionsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlPrintOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chkMWStats)
+                    .addGroup(pnlPrintOptionsLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(lblOneHex)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbHexConvFactor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblInches))
+                    .addComponent(chkPrintCharts)
+                    .addComponent(chkUseHexConversion)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlPrintOptionsLayout.setVerticalGroup(
+            pnlPrintOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPrintOptionsLayout.createSequentialGroup()
+                .addComponent(chkPrintCharts)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkUseHexConversion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlPrintOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlPrintOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cmbHexConvFactor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblOneHex))
+                    .addGroup(pnlPrintOptionsLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(lblInches)))
+                .addGap(18, 18, 18)
+                .addComponent(chkMWStats)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        pnlImageOptions.setBorder(javax.swing.BorderFactory.createTitledBorder("Image Options"));
+
+        chkPrintImage.setText("Print Mech");
+        chkPrintImage.setToolTipText("From Mech file");
+        chkPrintImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkPrintImageActionPerformed(evt);
+            }
+        });
+
+        btnChooseImage.setText("Choose Image");
+        btnChooseImage.setEnabled(false);
+        btnChooseImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChooseImageActionPerformed(evt);
+            }
+        });
+
+        lblImage.setBackground(new java.awt.Color(255, 255, 255));
+        lblImage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lblImage.setOpaque(true);
+
+        chkLogo.setText("Print Logo");
+        chkLogo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkLogoActionPerformed(evt);
+            }
+        });
+
+        chkStats.setText("Print Statistics");
+        chkStats.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkStatsActionPerformed(evt);
+            }
+        });
+
+        lblLogo.setBackground(new java.awt.Color(255, 255, 255));
+        lblLogo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lblLogo.setOpaque(true);
+
+        lblStats.setBackground(new java.awt.Color(255, 255, 255));
+        lblStats.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lblStats.setOpaque(true);
+
+        btnChooseLogo.setText("Choose Logo");
+        btnChooseLogo.setEnabled(false);
+        btnChooseLogo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChooseLogoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlImageOptionsLayout = new javax.swing.GroupLayout(pnlImageOptions);
+        pnlImageOptions.setLayout(pnlImageOptionsLayout);
+        pnlImageOptionsLayout.setHorizontalGroup(
+            pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlImageOptionsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnChooseImage)
+                    .addComponent(chkPrintImage, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                    .addComponent(lblImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(chkLogo)
+                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnChooseLogo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblStats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(chkStats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        pnlImageOptionsLayout.setVerticalGroup(
+            pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlImageOptionsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(chkLogo)
+                        .addComponent(chkStats))
+                    .addComponent(chkPrintImage))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblStats, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnChooseImage)
+                    .addComponent(btnChooseLogo)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -236,96 +444,48 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(chkUseHexConversion)
+                        .addComponent(pnlBattleMech, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(chkAdjustBV)
-                                .addGap(22, 22, 22)
-                                .addComponent(lblAdjustBVLabel))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtMechName, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
-                                    .addComponent(cmbOmniVariant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(143, 143, 143))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(chkPrintCharts)
-                                .addGap(26, 26, 26)
-                                .addComponent(lblAdjustBV))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(37, 37, 37)
-                                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtWarriorName, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(chkMWStats))
-                                    .addGap(4, 4, 4)
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(77, 77, 77))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(232, Short.MAX_VALUE))))
+                                .addComponent(pnlPrintOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(pnlImageOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(10, 10, 10))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtMechName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlBattleMech, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbOmniVariant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlPrintOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtWarriorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(chkMWStats))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chkAdjustBV)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(lblAdjustBVLabel)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chkPrintCharts)
-                    .addComponent(lblAdjustBV))
+                        .addGap(166, 166, 166)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlImageOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chkUseHexConversion)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void chkAdjustBVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdjustBVActionPerformed
-        if( chkAdjustBV.isSelected() ) {
-            lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );
-        } else {
-            lblAdjustBV.setText( String.format( "%1$,d", CurMech.GetCurrentBV() ) );
-        }
-}//GEN-LAST:event_chkAdjustBVActionPerformed
-
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-        Parent.Prefs.putBoolean("UseA4", UseA4Paper());
-        Parent.Prefs.putBoolean("UseCharts", chkPrintCharts.isSelected());
-        Parent.Prefs.putBoolean("AdjustPG", chkAdjustBV.isSelected());
-        Parent.Prefs.putBoolean("NoPilot", chkMWStats.isSelected());
-        Parent.Prefs.putBoolean( "UseMiniConversion", chkUseHexConversion.isSelected() );
-        Parent.Prefs.putInt( "MiniConversionRate", cmbHexConvFactor.getSelectedIndex() );
+        if ( Parent != null ) {
+            Parent.Prefs.putBoolean("UseA4", UseA4Paper());
+            Parent.Prefs.putBoolean("UseCharts", chkPrintCharts.isSelected());
+            Parent.Prefs.putBoolean("NoPilot", chkMWStats.isSelected());
+            Parent.Prefs.putBoolean( "UseMiniConversion", chkUseHexConversion.isSelected() );
+            Parent.Prefs.putInt( "MiniConversionRate", cmbHexConvFactor.getSelectedIndex() );
+        }
 
         Result = true;
         setVisible( false );
@@ -336,22 +496,18 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
 }//GEN-LAST:event_btnCancelActionPerformed
 
     private void cmbGunneryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGunneryActionPerformed
-        if( chkAdjustBV.isSelected() ) {
-            lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );
-        }
+        lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );
 }//GEN-LAST:event_cmbGunneryActionPerformed
 
     private void cmbPilotingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPilotingActionPerformed
-        if( chkAdjustBV.isSelected() ) {
-            lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );
-        }
+        lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );
 }//GEN-LAST:event_cmbPilotingActionPerformed
 
     private void chkMWStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkMWStatsActionPerformed
         if( chkMWStats.isSelected() ) {
             lblAdjustBV.setText( String.format( "%1$,d", CurMech.GetCurrentBV() ) );
-            chkAdjustBV.setSelected( false );
-            chkAdjustBV.setEnabled( false );
+            cmbGunnery.setSelectedItem("4");
+            cmbPiloting.setSelectedItem("5");
             cmbGunnery.setEnabled( false );
             cmbPiloting.setEnabled( false );
             txtWarriorName.setEnabled( false );
@@ -360,13 +516,12 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
             cmbGunnery.setEnabled( true );
             cmbPiloting.setEnabled( true );
             txtWarriorName.setEnabled( true );
-            chkAdjustBV.setEnabled( true );
         }
 }//GEN-LAST:event_chkMWStatsActionPerformed
 
     private void cmbOmniVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOmniVariantActionPerformed
-        // TODO add your handling code here:
         CurMech.SetCurLoadout((String) cmbOmniVariant.getSelectedItem());
+        lblBaseBV.setText( String.format( "%1$,d", CurMech.GetCurrentBV()) );
         lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );
     }//GEN-LAST:event_cmbOmniVariantActionPerformed
 
@@ -381,6 +536,59 @@ private void chkUseHexConversionActionPerformed(java.awt.event.ActionEvent evt) 
         lblInches.setEnabled( false );
     }
 }//GEN-LAST:event_chkUseHexConversionActionPerformed
+
+private void btnChooseImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseImageActionPerformed
+    String defaultDir = "";
+    if ( Parent != null ) {defaultDir = Parent.Prefs.get("LastImagePath", "");}
+    Media media = new Media();
+    MechImage = media.SelectImage(defaultDir, "Select Image");
+
+    try {
+        if ( Parent != null ) {
+            Parent.Prefs.put("LastImage", MechImage.getCanonicalPath());
+            Parent.Prefs.put("LastImagePath", MechImage.getCanonicalPath().replace(MechImage.getName(), ""));
+            Parent.Prefs.put("LastImageFile", MechImage.getName());
+        }
+
+        setImage(MechImage);
+
+    } catch ( Exception e ) {
+        //do nothing
+    }
+}//GEN-LAST:event_btnChooseImageActionPerformed
+
+private void chkPrintImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkPrintImageActionPerformed
+    btnChooseImage.setEnabled(chkPrintImage.isSelected());
+}//GEN-LAST:event_chkPrintImageActionPerformed
+
+private void chkLogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLogoActionPerformed
+    btnChooseLogo.setEnabled(chkLogo.isSelected());
+}//GEN-LAST:event_chkLogoActionPerformed
+
+private void chkStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkStatsActionPerformed
+    chkPrintImage.setEnabled(!chkStats.isSelected());
+    btnChooseImage.setEnabled(!chkStats.isSelected());
+}//GEN-LAST:event_chkStatsActionPerformed
+
+private void btnChooseLogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseLogoActionPerformed
+    String defaultDir = "";
+    if ( Parent != null ) {defaultDir = Parent.Prefs.get("LastLogo", "");}
+    Media media = new Media();
+    LogoImage = media.SelectImage(defaultDir, "Select Logo");
+
+    try {
+        if ( Parent != null ) {
+            Parent.Prefs.put("LastLogo", LogoImage.getCanonicalPath());
+            Parent.Prefs.put("LastLogoPath", LogoImage.getCanonicalPath().replace(LogoImage.getName(), ""));
+            Parent.Prefs.put("LastLogoFile", LogoImage.getName());
+        }
+
+        setLogo(LogoImage);
+
+    } catch ( Exception e ) {
+        //do nothing
+    }
+}//GEN-LAST:event_btnChooseLogoActionPerformed
 
     public boolean Result() {
         return Result;
@@ -403,7 +611,7 @@ private void chkUseHexConversionActionPerformed(java.awt.event.ActionEvent evt) 
     }
 
     public boolean AdjustBV() {
-        return chkAdjustBV.isSelected();
+        return true;
     }
 
     public float GetAdjustedBV() {
@@ -443,12 +651,93 @@ private void chkUseHexConversionActionPerformed(java.awt.event.ActionEvent evt) 
         }
     }
 
+    public void setImage(File image) {
+        try {
+            this.MechImage = image;
+            ImageIcon icon = new ImageIcon(MechImage.getPath());
+
+            if( icon == null ) { return; }
+
+            // See if we need to scale
+            int h = icon.getIconHeight();
+            int w = icon.getIconWidth();
+            if ( w > lblImage.getWidth() || h > lblImage.getHeight() ) {
+                if ( w > h ) { // resize based on width
+                    icon = new ImageIcon(icon.getImage().
+                        getScaledInstance(lblImage.getWidth(), -1, Image.SCALE_DEFAULT));
+                } else { // resize based on height
+                    icon = new ImageIcon(icon.getImage().
+                        getScaledInstance(-1, lblImage.getHeight(), Image.SCALE_DEFAULT));
+                }
+            }
+
+            lblImage.setIcon(icon);
+        } catch (Exception e) {
+            //do nothing
+        }
+    }
+
+    public Image getImage() {
+        if (chkPrintImage.isSelected()) {
+            Media media = new Media();
+            try {
+                return media.GetImage(MechImage.getCanonicalPath());
+            } catch (IOException ex) {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public void setLogo(File image) {
+        try {
+            this.LogoImage = image;
+            ImageIcon icon = new ImageIcon(LogoImage.getPath());
+
+            if( icon == null ) { return; }
+
+            // See if we need to scale
+            int h = icon.getIconHeight();
+            int w = icon.getIconWidth();
+            if ( w > lblLogo.getWidth() || h > lblLogo.getHeight() ) {
+                if ( w > h ) { // resize based on width
+                    icon = new ImageIcon(icon.getImage().
+                        getScaledInstance(lblLogo.getWidth(), -1, Image.SCALE_DEFAULT));
+                } else { // resize based on height
+                    icon = new ImageIcon(icon.getImage().
+                        getScaledInstance(-1, lblLogo.getHeight(), Image.SCALE_DEFAULT));
+                }
+            }
+
+            lblLogo.setIcon(icon);
+        } catch (Exception e) {
+            //do nothing
+        }
+    }
+
+    public Image getLogo() {
+        if (chkLogo.isSelected()) {
+            Media media = new Media();
+            try {
+                return media.GetImage(LogoImage.getCanonicalPath());
+            } catch (IOException ex) {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnChooseImage;
+    private javax.swing.JButton btnChooseLogo;
     private javax.swing.JButton btnPrint;
-    private javax.swing.JCheckBox chkAdjustBV;
+    private javax.swing.JCheckBox chkLogo;
     private javax.swing.JCheckBox chkMWStats;
     private javax.swing.JCheckBox chkPrintCharts;
+    private javax.swing.JCheckBox chkPrintImage;
+    private javax.swing.JCheckBox chkStats;
     private javax.swing.JCheckBox chkUseHexConversion;
     private javax.swing.JComboBox cmbGunnery;
     private javax.swing.JComboBox cmbHexConvFactor;
@@ -458,6 +747,7 @@ private void chkUseHexConversionActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -465,9 +755,15 @@ private void chkUseHexConversionActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lblAdjustBV;
     private javax.swing.JLabel lblAdjustBVLabel;
+    private javax.swing.JLabel lblBaseBV;
+    private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblInches;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblOneHex;
-    private javax.swing.JTextField txtMechName;
+    private javax.swing.JLabel lblStats;
+    private javax.swing.JPanel pnlBattleMech;
+    private javax.swing.JPanel pnlImageOptions;
+    private javax.swing.JPanel pnlPrintOptions;
     private javax.swing.JTextField txtWarriorName;
     // End of variables declaration//GEN-END:variables
 

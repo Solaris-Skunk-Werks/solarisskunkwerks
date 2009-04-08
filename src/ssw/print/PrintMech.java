@@ -50,6 +50,7 @@ public class PrintMech implements Printable {
     private frmMain Parent;
     public Mech CurMech;
     private Image MechImage = null,
+                  LogoImage = null,
                   RecordSheet = null,
                   ChartImage = null;
     private boolean Advanced = false,
@@ -100,11 +101,12 @@ public class PrintMech implements Printable {
         PilotName = pname;
         Piloting = ppilot;
         Gunnery = pgun;
+        setBV(CommonTools.GetAdjustedBV(BV, Gunnery, Piloting));
     }
 
     public void SetOptions( boolean charts, boolean PrintP, float UseBV ) {
         Charts = charts;
-        BV = UseBV;
+        setBV(UseBV);
         PrintPilot = PrintP;
     }
 
@@ -155,6 +157,8 @@ public class PrintMech implements Printable {
     }
     
     private void PreparePrint( Graphics2D graphics ) {
+        this.BV = CommonTools.GetAdjustedBV(CurMech.GetCurrentBV(), Gunnery, Piloting);
+
         // adjust the printable area for A4 paper size
         if( UseA4Paper ) {
             graphics.scale( 0.9705d, 0.9705d );
@@ -167,43 +171,13 @@ public class PrintMech implements Printable {
 
         graphics.drawImage( RecordSheet, 0, 0, 576, 756, null );
 
-        if( MechImage != null ) {
-            // See if we need to scale
-            int h = MechImage.getHeight( null );
-            int w = MechImage.getWidth( null );
-            if ( w > 145 || h > 200 ) {
-                if ( w > h ) { // resize based on width
-                    double resize = 145.0d / w;
-                    h = (int) ( h * resize );
-                    w = (int) ( w * resize );
-                    if( h > 200 ) {
-                        // resize again, this time based on height
-                        resize = 200.0d / h;
-                        h = (int) ( h * resize );
-                        w = (int) ( w * resize );
-                    }
-                } else { // resize based on height
-                    double resize = 200.0d / h;
-                    h = (int) ( h * resize );
-                    w = (int) ( w * resize );
-                    if( w > 145 ) {
-                        // resize again, this time based on width
-                        resize = 145.0d / w;
-                        h = (int) ( h * resize );
-                        w = (int) ( w * resize );
-                    }
-                }
-            }
-            // get the offsets to print the image more or less centered
-            int offx = (int) ( ( 145 - w ) / 2 );
-            int offy = (int) ( ( 200 - h ) / 2 );
-            graphics.drawImage( MechImage, points.GetMechImageLoc().x + offx, points.GetMechImageLoc().y + offy, w, h, null );
-        }
+
 
         DrawArmorCircles( graphics );
         DrawInternalCircles( graphics );
         DrawCriticals( graphics );
         DrawMechData( graphics );
+        DrawImages( graphics );
 
         if( Charts ) {
             // reset the scale and add the charts
@@ -1015,7 +989,7 @@ public class PrintMech implements Printable {
 
         graphics.drawString( CurMech.GetTonnage() + "", p[PrintConsts.TONNAGE].x, p[PrintConsts.TONNAGE].y );
         graphics.drawString( String.format( "%1$,.0f C-Bills", Math.floor( CurMech.GetTotalCost() + 0.5f ) ), p[PrintConsts.COST].x, p[PrintConsts.COST].y );
-        graphics.drawString( String.format( "%1$,.0f", BV ), p[PrintConsts.BV2].x, p[PrintConsts.BV2].y );
+        graphics.drawString( String.format( "%1$,.0f (Base: %2$,d)", BV, CurMech.GetCurrentBV() ), p[PrintConsts.BV2].x, p[PrintConsts.BV2].y );
         graphics.drawString( "Weapon Heat (" + CurMech.GetWeaponHeat() + ")", p[PrintConsts.MAX_HEAT].x, p[PrintConsts.MAX_HEAT].y );
         graphics.setFont(SmallFont);
         graphics.drawString( "Armor Pts: " + CurMech.GetArmor().GetArmorValue(), p[PrintConsts.TOTAL_ARMOR].x, p[PrintConsts.TOTAL_ARMOR].y );
@@ -1101,6 +1075,46 @@ public class PrintMech implements Printable {
         graphics.drawString( Item, X, Y );
         graphics.setFont( OldFont );
         graphics.setColor( Black );
+    }
+
+    private void DrawImages( Graphics2D graphics ) {
+        //Mech Image
+        if( getMechImage() != null ) {
+            // See if we need to scale
+            int h = getMechImage().getHeight( null );
+            int w = getMechImage().getWidth( null );
+            if ( w > 145 || h > 200 ) {
+                if ( w > h ) { // resize based on width
+                    double resize = 145.0d / w;
+                    h = (int) ( h * resize );
+                    w = (int) ( w * resize );
+                    if( h > 200 ) {
+                        // resize again, this time based on height
+                        resize = 200.0d / h;
+                        h = (int) ( h * resize );
+                        w = (int) ( w * resize );
+                    }
+                } else { // resize based on height
+                    double resize = 200.0d / h;
+                    h = (int) ( h * resize );
+                    w = (int) ( w * resize );
+                    if( w > 145 ) {
+                        // resize again, this time based on width
+                        resize = 145.0d / w;
+                        h = (int) ( h * resize );
+                        w = (int) ( w * resize );
+                    }
+                }
+            }
+            // get the offsets to print the image more or less centered
+            int offx = 0; // (int) ( ( 145 - w ) / 2 );
+            int offy = 0; // (int) ( ( 200 - h ) / 2 );
+            graphics.drawImage( getMechImage(), points.GetMechImageLoc().x + offx, points.GetMechImageLoc().y + offy, w, h, null );
+        }
+
+        if ( LogoImage != null ) {
+            graphics.drawImage( LogoImage, points.GetLogoImageLoc().x, points.GetLogoImageLoc().y, 50, 50, null );
+        }
     }
 
     private Vector GetAmmo() {
@@ -1196,14 +1210,24 @@ public class PrintMech implements Printable {
         }
     }
 
-    private int[][] GetCheck( Point p ) {
-        int[][] retval = { { 0, 1, 1, 2, 8, 9, 3, 0 }, { 3, 3, 6, 6, 0, 0, 7, 7 } };
-        // use the given point as a transform to create the checkbox
-        for( int i = 0; i < 8; i++ ) {
-            retval[0][i] += p.x;
-            retval[1][i] += p.y;
-        }
-        return retval;
+    public Image getMechImage() {
+        return MechImage;
+    }
+
+    public void setMechImage(Image MechImage) {
+        this.MechImage = MechImage;
+    }
+
+    public Image getLogoImage() {
+        return LogoImage;
+    }
+
+    public void setLogoImage(Image LogoImage) {
+        this.LogoImage = LogoImage;
+    }
+
+    public void setBV(float BV) {
+        this.BV = BV;
     }
 
     private class PlaceableInfo {
