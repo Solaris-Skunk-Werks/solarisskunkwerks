@@ -67,6 +67,7 @@ Version 0.6.0
 - Added Armor Type to the print page under Tech Base and Year.
 - Added more filters to the Open dialog
 - Added BASIC MUL exporter to Force dialog
+- Added ability to print the mech image AND a faction/unit logo at the same time.
 
 + Changed
 - Fixed a load bug with heatsinks.
@@ -194,6 +195,7 @@ Version 0.6.0
 - Changed the way missile guidance packages are handled (Artemis and Apollo).
 - Fixed an issue with saving the jump jet type (UMU should now load properly).
 - Changed the damage profile chart to not use diagonal lines at all.
+- Changed the print dialog to give more options and better organize the information.
 
 -------------------------------------------------------------------------------
 Version 0.5.0
