@@ -28,21 +28,22 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
-import ssw.Constants;
 import ssw.components.*;
 
 public class stGyroISXL implements ifGyro, ifState {
-    private final static AvailableCode AC = new AvailableCode( false, 'E', 'X', 'X', 'E',
-        3067, 0, 0, "CS", "", false, false );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stGyroISXL() {
-        AC.SetRulesLevelIM( Constants.UNALLOWED );
+        AC.SetISCodes( 'E', 'X', 'X', 'E' );
+        AC.SetISDates( 0, 0, false, 3067, 0, 0, false, false );
+        AC.SetISFactions( "", "", "CS", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
-    public boolean IsClan() {
+    public boolean HasCounterpart() {
         return false;
     }
-    
+
     public float GetTonnage( int rating ) {
         return (float) (((int) ( rating * 0.01f + 0.99f )) * 0.5);
     }

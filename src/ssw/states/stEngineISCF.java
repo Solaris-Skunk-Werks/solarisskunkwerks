@@ -28,13 +28,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
-import ssw.Constants;
 import ssw.components.*;
 
 public class stEngineISCF implements ifEngine, ifState {
     // An Inner Sphere Compact Fusion Engine
-    private final static AvailableCode AC = new AvailableCode( false, 'E', 'X', 'X', 'E',
-        3068, 0, 0, "LA", "", false, false );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final static float[] Masses = {1.0f,1.0f,1.0f,1.0f,1.5f,1.5f,1.5f,
         1.5f,2.5f,2.5f,2.5f,3.0f,3.0f,3.0f,4.0f,4.0f,4.5f,4.5f,4.5f,5.5f,5.5f,
         6.0f,6.0f,6.0f,7.0f,7.0f,7.5f,7.5f,8.5f,8.5f,9.0f,9.0f,9.0f,10.5f,10.5f,
@@ -45,13 +43,16 @@ public class stEngineISCF implements ifEngine, ifState {
     private final static int[] BFStructure = {1,2,2,3,3,4,4,5,5,6,7,7,7,8,8,9,10,10,10};
 
     public stEngineISCF() {
-        AC.SetRulesLevelIM( Constants.UNALLOWED );
+        AC.SetISCodes( 'E', 'X', 'X', 'E' );
+        AC.SetISDates( 0, 0, false, 3068, 0, 0, false, false );
+        AC.SetISFactions( "", "", "LA", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED );
     }
 
-    public boolean IsClan() {
+    public boolean HasCounterpart() {
         return false;
     }
-    
+
     public float GetTonnage( int Rating ) {
         return Masses[GetIndex( Rating )];
     }

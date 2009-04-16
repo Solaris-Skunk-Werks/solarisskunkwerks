@@ -33,6 +33,9 @@ import ssw.components.*;
 public class VCockpitSetSmall implements ifVisitor {
     private Mech CurMech;
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
@@ -47,11 +50,7 @@ public class VCockpitSetSmall implements ifVisitor {
         c.Remove(l);
 
         // now set the correct type
-        if( CurMech.IsClan() ) {
-            c.SetClanCockpit();
-        } else {
-            c.SetSmallCockpit();
-        }
+        c.SetSmallCockpit();
 
         // replace the cockpit
         c.Place(l);

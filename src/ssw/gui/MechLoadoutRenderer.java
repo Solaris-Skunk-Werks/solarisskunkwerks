@@ -105,7 +105,11 @@ public class MechLoadoutRenderer  extends DefaultListCellRenderer {
                 label.setForeground( CurOptions.fg_NORMAL );
                 BorderCol = CurOptions.bg_NORMAL;
             }
-            Text = a.GetCritName();
+            if( Parent.CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                Text = a.GetLookupName();
+            } else {
+                Text = a.GetCritName();
+            }
         }
 
         label.setText( Text );
@@ -113,13 +117,11 @@ public class MechLoadoutRenderer  extends DefaultListCellRenderer {
         JList.DropLocation dropLocation = list.getDropLocation();
         if ( dropLocation != null && dropLocation.getIndex() == index ) {
             int size = Parent.CurItem.NumCrits();
-            if( Parent.CurItem instanceof MissileWeapon ) {
-                if( ((MissileWeapon) Parent.CurItem).IsUsingFCS() ) {
-                    size += ((abPlaceable) ((MissileWeapon) Parent.CurItem).GetFCS()).NumCrits();
+            if( Parent.CurItem instanceof RangedWeapon ) {
+                if( ((RangedWeapon) Parent.CurItem).IsUsingFCS() ) {
+                    size += ((abPlaceable) ((RangedWeapon) Parent.CurItem).GetFCS()).NumCrits();
                 }
-            }
-            if( Parent.CurItem instanceof EnergyWeapon ) {
-                if( ((EnergyWeapon) Parent.CurItem).HasCapacitor() ) {
+                if( ((RangedWeapon) Parent.CurItem).IsUsingCapacitor() ) {
                     size++;
                 }
             }
@@ -131,13 +133,18 @@ public class MechLoadoutRenderer  extends DefaultListCellRenderer {
             }
             label.setBackground( CurOptions.bg_HILITE );
             label.setForeground( CurOptions.fg_HILITE );
-            if( size <= 1 ) {
-                label.setText( Parent.CurItem.GetCritName() );
+            if( Parent.CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                Text =  Parent.CurItem.GetLookupName();
             } else {
-                label.setText( "(" + size + ")" + Parent.CurItem.GetCritName() );
+                Text =  Parent.CurItem.GetCritName();
+            }
+            if( size <= 1 ) {
+                label.setText( Text );
+            } else {
+                label.setText( "(" + size + ")" + Text );
             }
         }
-        
+
         if( Loc == null ) {
             label.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         } else {

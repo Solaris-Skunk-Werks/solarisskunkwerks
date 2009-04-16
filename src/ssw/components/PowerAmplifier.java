@@ -33,9 +33,16 @@ import java.util.Vector;
 public class PowerAmplifier {
 
     private ifLoadout CurLoadout;
-    private static final AvailableCode AC = new AvailableCode( false, 'D', 'B', 'C', 'B', 1950, 0, 0, "PS", "", false, false );
+    private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
     public PowerAmplifier( ifLoadout l ) {
+        AC.SetISCodes( 'D', 'B', 'C', 'B' );
+        AC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
+        AC.SetISFactions( "", "", "PS", "" );
+        AC.SetCLCodes( 'D', 'X', 'C', 'B' );
+        AC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "PS", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         CurLoadout = l;
     }
 
@@ -47,9 +54,9 @@ public class PowerAmplifier {
         float tons = 0.0f;
         Vector v = CurLoadout.GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
-            if( v.get( i ) instanceof EnergyWeapon ) {
-                if ( ((EnergyWeapon)v.get( i ) ).GetPowerAmp() )
-                    tons += ((EnergyWeapon) v.get( i )).GetTonnage();
+            if( v.get( i ) instanceof RangedWeapon ) {
+                if ( ((RangedWeapon)v.get( i ) ).RequiresPowerAmps() )
+                    tons += ((RangedWeapon) v.get( i )).GetTonnage();
             }
         }
         if( tons <= 0.0f ) {

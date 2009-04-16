@@ -44,6 +44,14 @@ public class dlgTextExport extends javax.swing.JDialog {
         setTitle( m.GetName() );
     }
 
+    public dlgTextExport( java.awt.Frame parent, boolean modal, String msg ) {
+        super(parent, modal);
+        initComponents();
+        txtTextExport.setText( msg );
+        txtTextExport.setCaretPosition( 0 );
+        setTitle( "Batch Resave Error List" );
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

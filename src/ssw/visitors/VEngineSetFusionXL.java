@@ -34,6 +34,11 @@ import ssw.components.*;
 public class VEngineSetFusionXL implements ifVisitor {
     private Mech CurMech;
     LocationIndex[] Locs = null;
+    private boolean Clan = false;
+
+    public void SetClan( boolean clan ) {
+        Clan = clan;
+    }
 
     public void LoadLocations(LocationIndex[] locs) {
         Locs = locs;
@@ -63,10 +68,20 @@ public class VEngineSetFusionXL implements ifVisitor {
         e.Remove(l);
 
         // change the engine type
-        if( CurMech.IsClan() ) {
-            e.SetCLXLEngine();
-        } else {
-            e.SetISXLEngine();
+        switch( CurMech.GetTechBase() ) {
+            case AvailableCode.TECH_INNER_SPHERE:
+                e.SetISXLEngine();
+                break;
+            case AvailableCode.TECH_CLAN:
+                e.SetCLXLEngine();
+                break;
+            case AvailableCode.TECH_BOTH:
+                if( Clan ) {
+                    e.SetCLXLEngine();
+                } else {
+                    e.SetISXLEngine();
+                }
+                break;
         }
 
         // place the engine

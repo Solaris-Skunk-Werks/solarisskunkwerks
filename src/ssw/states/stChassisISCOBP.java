@@ -28,7 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
-import ssw.Constants;
 import ssw.components.AvailableCode;
 import ssw.components.MechModifier;
 
@@ -57,14 +56,19 @@ public class stChassisISCOBP implements ifChassis, ifState {
         { 29, 19, 15, 19 },
         { 30, 20, 16, 20 },
         { 31, 21, 17, 21 } };
-    private final static AvailableCode AC = new AvailableCode( false, 'E', 'X',
-            'X', 'E', 3061, 0, 0, "FS", "", false, false, 3056, true, "FC",
-            Constants.EXPERIMENTAL, Constants.UNALLOWED );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
-    public boolean IsClan() {
+    public stChassisISCOBP() {
+        AC.SetISCodes( 'E', 'X', 'X', 'E' );
+        AC.SetISDates( 3056, 3061, true, 3061, 0, 0, false, false );
+        AC.SetISFactions( "FC", "FS", "", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+    }
+
+    public boolean HasCounterpart() {
         return false;
     }
-    
+
     public int GetCrits() {
         return 0;
     }

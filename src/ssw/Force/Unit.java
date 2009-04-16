@@ -76,7 +76,7 @@ public class Unit {
                 ssw.filehandlers.XMLReader read = new XMLReader();
                 try
                 {
-                    m = read.ReadMech(Filename);
+                    m = read.ReadMech( Filename, null );
                 } catch (Exception e) {
                     //do nothing
                 }

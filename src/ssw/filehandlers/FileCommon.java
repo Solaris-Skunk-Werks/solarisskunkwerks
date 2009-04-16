@@ -132,7 +132,7 @@ public class FileCommon {
     public static String GetHeatSinkLocations( Mech m ) {
         // returns a string formated with the internal structure locations
         String retval = "";
-        int[] locs = m.GetLoadout().FindHeatSinks( m.GetHeatSinks().IsDouble(), m.IsClan() );
+        int[] locs = m.GetLoadout().FindHeatSinks();
 
         if( locs[Constants.LOC_HD] > 0 ) {
             retval += locs[Constants.LOC_HD] + " " + EncodeLocation( Constants.LOC_HD, m.IsQuad() );
@@ -312,7 +312,7 @@ public class FileCommon {
 
     public static String GetCaseLocations( Mech m ) {
         String retval = "";
-        if( m.IsClan() ) {
+        if( m.GetLoadout().IsUsingClanCASE() ) {
             int[] check = m.GetLoadout().FindExplosiveInstances();
             if( check[Constants.LOC_HD] > 0 ) {
                 retval += "HD";

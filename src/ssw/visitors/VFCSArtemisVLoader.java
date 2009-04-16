@@ -37,6 +37,9 @@ public class VFCSArtemisVLoader implements ifVisitor {
     // another matter entirely.
     boolean result = true;
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
@@ -47,8 +50,8 @@ public class VFCSArtemisVLoader implements ifVisitor {
         abPlaceable FCS;
         for( int i = 0; i < test.size(); i++ ) {
             p = (abPlaceable) test.get( i );
-            if( p instanceof MissileWeapon ) {
-                MissileWeapon MW = (MissileWeapon) p;
+            if( p instanceof RangedWeapon ) {
+                RangedWeapon MW = (RangedWeapon) p;
                 if( MW.GetFCSType() == ifMissileGuidance.FCS_ArtemisV ) {
                     if( m.UsingArtemisV() ) {
                         if( MW.IsUsingFCS() ) {
@@ -107,7 +110,7 @@ public class VFCSArtemisVLoader implements ifVisitor {
         return result;
     }
 
-    private void SwitchSystem( MissileWeapon MW, Mech m ) {
+    private void SwitchSystem( RangedWeapon MW, Mech m ) {
         abPlaceable FCS = (abPlaceable) MW.GetFCS();
         m.GetLoadout().UnallocateAll( FCS, true );
         MW.UseFCS( false, ifMissileGuidance.FCS_ArtemisV );

@@ -30,6 +30,7 @@ package ssw;
 
 import java.awt.Color;
 import java.io.IOException;
+import ssw.components.AvailableCode;
 import ssw.filehandlers.OptionsReader;
 
 public class Options {
@@ -60,9 +61,9 @@ public class Options {
                Armor_Priority = PRIORITY_TORSO,
                Armor_Head = HEAD_MAX,
                Export_Sort = EXPORT_SORT_OUT,
-               DefaultRules = Constants.TOURNAMENT,
-               DefaultEra = Constants.STAR_LEAGUE,
-               DefaultTechbase = Constants.INNER_SPHERE,
+               DefaultRules = AvailableCode.RULES_TOURNAMENT,
+               DefaultEra = AvailableCode.ERA_STAR_LEAGUE,
+               DefaultTechbase = AvailableCode.TECH_INNER_SPHERE,
                DefaultHeatSinks = Constants.SINGLE_HEATSINK,
                S7UserID = -1;
     public Color bg_LOCKED = new Color( 0, 0, 0 ),
@@ -109,9 +110,9 @@ public class Options {
         Armor_STRPercent = 25;
         Armor_Priority = PRIORITY_TORSO;
         Armor_Head = HEAD_MAX;
-        DefaultRules = Constants.TOURNAMENT;
-        DefaultEra = Constants.STAR_LEAGUE;
-        DefaultTechbase = Constants.INNER_SPHERE;
+        DefaultRules = AvailableCode.RULES_TOURNAMENT;
+        DefaultEra = AvailableCode.ERA_STAR_LEAGUE;
+        DefaultTechbase = AvailableCode.TECH_INNER_SPHERE;
         DefaultHeatSinks = Constants.SINGLE_HEATSINK;
         Equip_AllowRBlade = false;
         Export_Sort = EXPORT_SORT_OUT;

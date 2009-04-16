@@ -44,6 +44,9 @@ public class VArmorSetCommercial implements ifVisitor {
         Parent = p;
     }
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
@@ -63,11 +66,7 @@ public class VArmorSetCommercial implements ifVisitor {
         l.Remove( a );
 
         // set the armor type
-        if( CurMech.IsClan() ) {
-            a.SetCLCM();
-        } else {
-            a.SetISCM();
-        }
+        a.SetCommercial();
 
         // place the armor
         a.Place( l );

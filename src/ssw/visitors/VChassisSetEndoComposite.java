@@ -32,6 +32,11 @@ import ssw.components.*;
 
 public class VChassisSetEndoComposite implements ifVisitor {
     private Mech CurMech;
+    private boolean Clan = false;
+
+    public void SetClan( boolean clan ) {
+        Clan = clan;
+    }
 
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
@@ -50,22 +55,44 @@ public class VChassisSetEndoComposite implements ifVisitor {
         i.Remove(l);
 
         // change the internal structure type
-        if( CurMech.IsClan() ) {
-            if( CurMech.IsQuad() ) {
-                // standard quad
-                i.SetCLECQD();
-            } else {
-                // standard biped
-                i.SetCLECBP();
-            }
-        } else {
-            if( CurMech.IsQuad() ) {
-                // standard quad
-                i.SetISECQD();
-            } else {
-                // standard biped
-                i.SetISECBP();
-            }
+        switch( CurMech.GetTechBase() ) {
+            case AvailableCode.TECH_INNER_SPHERE:
+                if( CurMech.IsQuad() ) {
+                    // standard quad
+                    i.SetISECQD();
+                } else {
+                    // standard biped
+                    i.SetISECBP();
+                }
+                break;
+            case AvailableCode.TECH_CLAN:
+                if( CurMech.IsQuad() ) {
+                    // standard quad
+                    i.SetCLECQD();
+                } else {
+                    // standard biped
+                    i.SetCLECBP();
+                }
+                break;
+            case AvailableCode.TECH_BOTH:
+                if( Clan ) {
+                    if( CurMech.IsQuad() ) {
+                        // standard quad
+                        i.SetCLECQD();
+                    } else {
+                        // standard biped
+                        i.SetCLECBP();
+                    }
+                } else {
+                    if( CurMech.IsQuad() ) {
+                        // standard quad
+                        i.SetISECQD();
+                    } else {
+                        // standard biped
+                        i.SetISECBP();
+                    }
+                }
+                break;
         }
 
         // place the internal structure

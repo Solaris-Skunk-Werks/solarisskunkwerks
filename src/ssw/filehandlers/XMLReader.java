@@ -45,33 +45,67 @@ public class XMLReader {
     Document load;
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     DocumentBuilder db;
+    int SaveFileVersion = 1;
 
     public XMLReader() throws Exception {
         db = dbf.newDocumentBuilder();
     }
 
-    public Mech ReadMech( String filename ) throws Exception {
+/**
+ * This version of ReadMech is used when frmMain is NOT present.  This method has
+ * been provided for external programs using the SSW code base.
+ * 
+ * @param filename The canonical filename to load this 'Mech from.
+ * @param f The DataFactory to use.  This can be set to null, in which case it
+ *          will load a new DataFactory from file.
+ * @return The specified 'Mech
+ * @throws java.lang.Exception Throws a variety of exceptions that should explain
+ *                             what went wrong while loading the 'Mech.
+ */
+    public Mech ReadMech( String filename, DataFactory f ) throws Exception {
         Parent = null;
         Mech retval = new Mech();
         filename = FileCommon.GetSafeFilename( filename );
         load = db.parse( filename );
 
-        retval = BuildMech( retval, load );
+        retval = BuildMech( retval, load, f );
         return retval;
     }
 
-    public Mech ReadMech( frmMain parent, String filename ) throws Exception {
+/**
+ * This version of ReadMech is used when frmMain is present.  It should be the
+ * prefered method of loading a Mech when running from SSW itself.
+ * 
+ * @param parent frmMain from SSW proper.
+ * @param filename The canonical filename to load this 'Mech from.
+ * @param f The DataFactory to use.  This can be set to null, in which case it
+ *          will load a new DataFactory from file.
+ * @return The specified 'Mech
+ * @throws java.lang.Exception Throws a variety of exceptions that should explain
+ *                             what went wrong while loading the 'Mech.
+ */
+    public Mech ReadMech( frmMain parent, String filename, DataFactory f ) throws Exception {
         Parent = parent;
         Mech retval = new Mech( Parent );
         filename = FileCommon.GetSafeFilename( filename );
         load = db.parse( filename );
 
-        retval = BuildMech( retval, load );
+        retval = BuildMech( retval, load, f );
         return retval;
     }
 
+/**
+ * ReadMechData is used for loading basic mech info from a saved Mech file.  This
+ * should be used only when the basics of a 'Mech are needed, not the entire
+ * thing (cost, BV, tonnage, techbase, production year, etc...)
+ * 
+ * @param filename The 'Mech file to collect the data from
+ * @return A completed MechListData containing the information
+ * @throws java.lang.Exception Throws a variety of exceptions that should explain
+ *                             what went wrong while loading the 'Mech data.
+ */
     public MechListData ReadMechData( String filename ) throws Exception {
-        MechListData mData = new MechListData();
+       MechListData mData = new MechListData();
         mData.setFilename(filename);
         filename = FileCommon.GetSafeFilename( filename );
         load = db.parse( filename );
@@ -122,7 +156,7 @@ public class XMLReader {
                     Config.setModel( FileCommon.DecodeFluff( map.getNamedItem( "name" ).getTextContent() ) );
                     Config.setConfig(FileCommon.DecodeFluff( map.getNamedItem( "name" ).getTextContent() ));
                 }
-                
+
                 n = OmniLoads.item( k ).getChildNodes();
                 for ( int dex=0; dex < n.getLength(); dex++ ) {
                     Node node = n.item(dex);
@@ -136,8 +170,12 @@ public class XMLReader {
         return Data;
     }
 
-    private Mech BuildMech( Mech m, Document d ) throws Exception {
-        data = new DataFactory( m );
+    private Mech BuildMech( Mech m, Document d, DataFactory f ) throws Exception {
+        if( f == null ) {
+            data = new DataFactory( m );
+        } else {
+            data = f;
+        }
 
         NodeList n = d.getElementsByTagName( "mech" );
         NamedNodeMap map = n.item( 0 ).getAttributes();
@@ -165,10 +203,30 @@ public class XMLReader {
         m.SetSolaris7ImageID( map.getNamedItem( "solaris7imageid" ).getTextContent() );
         m.SetSSWImage( map.getNamedItem( "sswimage" ).getTextContent() );
 
+        n = d.getElementsByTagName( "ssw_savefile_version" );
+        if( n.getLength() <= 0 ) {
+            // first version of the save file.
+            SaveFileVersion = 0;
+        } else {
+            // a newer version
+            SaveFileVersion = Integer.parseInt( n.item( 0 ).getTextContent() );
+        }
+
         n = d.getElementsByTagName( "rules_level" );
-        m.SetRulesLevel( Integer.parseInt( n.item( 0 ).getTextContent() ) );
+        int ruleslevel = Integer.parseInt( n.item( 0 ).getTextContent() );
+        if( SaveFileVersion == 0 ) {
+            // alter the rules level since we've added the Introductory rules.
+            ruleslevel += 1;
+        }
+        m.SetRulesLevel( ruleslevel );
         n = d.getElementsByTagName( "era" );
-        m.SetEra( Integer.parseInt( n.item( 0 ).getTextContent() ) );
+        int era = Integer.parseInt( n.item( 0 ).getTextContent() );
+        if( SaveFileVersion == 0 ) {
+            // alter the rules level since we've added the Dark Ages rules
+            if( era == 3 )
+            era += 1;
+        }
+        m.SetEra( era );
         n = d.getElementsByTagName( "source" );
         if( n.getLength() > 0 ) {
             m.SetSource( FileCommon.DecodeFluff( n.item( 0 ).getTextContent() ) );
@@ -189,8 +247,10 @@ public class XMLReader {
         }
         n = d.getElementsByTagName( "techbase" );
         map = n.item( 0 ).getAttributes();
-        if( n.item( 0 ).getTextContent().equals( "Clan" ) ) {
+        if( n.item( 0 ).getTextContent().equals( Constants.strCLAN ) ) {
             m.SetClan();
+        } else if( n.item( 0 ).getTextContent().equals( Constants.strMIXED ) ) {
+            m.SetMixed();
         }
         m.SetCompany( FileCommon.DecodeFluff( map.getNamedItem( "manufacturer" ).getTextContent() ) );
         m.SetLocation( FileCommon.DecodeFluff( map.getNamedItem( "location" ).getTextContent() ) );
@@ -201,10 +261,21 @@ public class XMLReader {
 
         // now load up the structural components
         n = d.getElementsByTagName( "gyro" );
+        map = n.item( 0 ).getAttributes();
         ifVisitor v = m.Lookup( n.item( 0 ).getTextContent() );
         if( v == null ) {
             throw new Exception( "The Gyro type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
         } else {
+            if( map.getNamedItem( "techbase" ) == null ) {
+                // old style save file, set the gyro based on the 'Mech's techbase
+                if( m.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                    v.SetClan( true );
+                }
+            } else {
+                if( Integer.parseInt( map.getNamedItem( "techbase" ).getTextContent() ) == AvailableCode.TECH_CLAN ) {
+                    v.SetClan( true );
+                }
+            }
             m.Visit( v );
         }
         n = d.getElementsByTagName( "engine" );
@@ -226,6 +297,16 @@ public class XMLReader {
         if( v == null ) {
             throw new Exception( "The Engine type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
         } else {
+            if( map.getNamedItem( "techbase" ) == null ) {
+                // old style save file, set the engine based on the 'Mech's techbase
+                if( m.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                    v.SetClan( true );
+                }
+            } else {
+                if( Integer.parseInt( map.getNamedItem( "techbase" ).getTextContent() ) == AvailableCode.TECH_CLAN ) {
+                    v.SetClan( true );
+                }
+            }
             v.LoadLocations( lengine );
             m.Visit( v );
         }
@@ -292,6 +373,16 @@ public class XMLReader {
             if( v == null ) {
                 throw new Exception( "The Internal Structure type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
             } else {
+                if( map.getNamedItem( "techbase" ) == null ) {
+                    // old style save file, set the internal structure based on the 'Mech's techbase
+                    if( m.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                        v.SetClan( true );
+                    }
+                } else {
+                    if( Integer.parseInt( map.getNamedItem( "techbase" ).getTextContent() ) == AvailableCode.TECH_CLAN ) {
+                        v.SetClan( true );
+                   }
+                }
                 m.Visit( v );
             }
         }
@@ -342,6 +433,16 @@ public class XMLReader {
                 LocationIndex[] Locs = new LocationIndex[armLoc.size()];
                 for( int j = 0; j < armLoc.size(); j++ ) {
                     Locs[j] = (LocationIndex) armLoc.get( j );
+                }
+                if( map.getNamedItem( "techbase" ) == null ) {
+                    // old style save file, set the armor based on the 'Mech's techbase
+                    if( m.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                        v.SetClan( true );
+                    }
+                } else {
+                    if( Integer.parseInt( map.getNamedItem( "techbase" ).getTextContent() ) == AvailableCode.TECH_CLAN ) {
+                        v.SetClan( true );
+                    }
                 }
                 v.LoadLocations( Locs );
                 m.Visit( v );
@@ -425,6 +526,16 @@ public class XMLReader {
                     if( v == null ) {
                         throw new Exception( "The Heat Sink type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
                     } else {
+                        if( map.getNamedItem( "techbase" ) == null ) {
+                            // old style save file, set the armor based on the 'Mech's techbase
+                            if( m.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                                v.SetClan( true );
+                            }
+                        } else {
+                            if( Integer.parseInt( map.getNamedItem( "techbase" ).getTextContent() ) == AvailableCode.TECH_CLAN ) {
+                                v.SetClan( true );
+                            }
+                        }
                         m.Visit( v );
                     }
                 }
@@ -502,7 +613,19 @@ public class XMLReader {
                 }
                 if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" ) || eType.equals( "CASEII" ) || eType.equals( "Supercharger" ) ) {
                     if( eType.equals( "TargetingComputer") ) {
-                        m.UseTC( true );
+                        if( SaveFileVersion == 0 ) {
+                            if( m.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                                m.UseTC( true, true );
+                            } else {
+                                m.UseTC( true, false );
+                            }
+                        } else {
+                            if( eName.contains( "(CL)" ) ) {
+                                m.UseTC( true, true );
+                            } else {
+                                m.UseTC( true, false );
+                            }
+                        }
                         ltc = l;
                     } else if( eType.equals( "CASE" ) ) {
                         if( l.Location == Constants.LOC_CT ) {
@@ -515,29 +638,35 @@ public class XMLReader {
                             m.GetLoadout().SetRTCASE( true, l.Index );
                         }
                     } else if( eType.equals( "CASEII" ) ) {
+                        boolean clan;
+                        if( eName.contains( "(CL)" ) ) {
+                            clan = true;
+                        } else {
+                            clan = false;
+                        }
                         if( l.Location == Constants.LOC_HD ) {
-                            m.GetLoadout().SetHDCASEII( true, l.Index );
+                            m.GetLoadout().SetHDCASEII( true, l.Index, clan );
                         }
                         if( l.Location == Constants.LOC_CT ) {
-                            m.GetLoadout().SetCTCASEII( true, l.Index );
+                            m.GetLoadout().SetCTCASEII( true, l.Index, clan );
                         }
                         if( l.Location == Constants.LOC_LT ) {
-                            m.GetLoadout().SetLTCASEII( true, l.Index );
+                            m.GetLoadout().SetLTCASEII( true, l.Index, clan );
                         }
                         if( l.Location == Constants.LOC_RT ) {
-                            m.GetLoadout().SetRTCASEII( true, l.Index );
+                            m.GetLoadout().SetRTCASEII( true, l.Index, clan );
                         }
                         if( l.Location == Constants.LOC_LA ) {
-                            m.GetLoadout().SetLACASEII( true, l.Index );
+                            m.GetLoadout().SetLACASEII( true, l.Index, clan );
                         }
                         if( l.Location == Constants.LOC_RA ) {
-                            m.GetLoadout().SetRACASEII( true, l.Index );
+                            m.GetLoadout().SetRACASEII( true, l.Index, clan );
                         }
                         if( l.Location == Constants.LOC_LL ) {
-                            m.GetLoadout().SetLLCASEII( true, l.Index );
+                            m.GetLoadout().SetLLCASEII( true, l.Index, clan );
                         }
                         if( l.Location == Constants.LOC_RL ) {
-                            m.GetLoadout().SetRLCASEII( true, l.Index );
+                            m.GetLoadout().SetRLCASEII( true, l.Index, clan );
                         }
                     } else if( eType.equals( "Supercharger" ) ) {
                         m.GetLoadout().SetSupercharger( true, l.Location, l.Index );
@@ -894,7 +1023,19 @@ public class XMLReader {
                         }
                         if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" ) || eType.equals( "CASEII" ) || eType.equals( "Supercharger" ) ) {
                             if( eType.equals( "TargetingComputer") ) {
-                                m.UseTC( true );
+                                if( SaveFileVersion == 0 ) {
+                                    if( m.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                                        m.UseTC( true, true );
+                                    } else {
+                                        m.UseTC( true, false );
+                                    }
+                                } else {
+                                    if( eName.contains( "(CL)" ) ) {
+                                        m.UseTC( true, true );
+                                    } else {
+                                        m.UseTC( true, false );
+                                    }
+                                }
                                 ltc = l;
                             } else if( eType.equals( "CASE" ) ) {
                                 if( l.Location == Constants.LOC_CT ) {
@@ -907,29 +1048,35 @@ public class XMLReader {
                                     m.GetLoadout().SetRTCASE( true, l.Index );
                                 }
                             } else if( eType.equals( "CASEII" ) ) {
+                                boolean clan;
+                                if( eName.contains( "(CL)" ) ) {
+                                    clan = true;
+                                } else {
+                                    clan = false;
+                                }
                                 if( l.Location == Constants.LOC_HD ) {
-                                    m.GetLoadout().SetHDCASEII( true, l.Index );
+                                    m.GetLoadout().SetHDCASEII( true, l.Index, clan );
                                 }
                                 if( l.Location == Constants.LOC_CT ) {
-                                    m.GetLoadout().SetCTCASEII( true, l.Index );
+                                    m.GetLoadout().SetCTCASEII( true, l.Index, clan );
                                 }
                                 if( l.Location == Constants.LOC_LT ) {
-                                    m.GetLoadout().SetLTCASEII( true, l.Index );
+                                    m.GetLoadout().SetLTCASEII( true, l.Index, clan );
                                 }
                                 if( l.Location == Constants.LOC_RT ) {
-                                    m.GetLoadout().SetRTCASEII( true, l.Index );
+                                    m.GetLoadout().SetRTCASEII( true, l.Index, clan );
                                 }
                                 if( l.Location == Constants.LOC_LA ) {
-                                    m.GetLoadout().SetLACASEII( true, l.Index );
+                                    m.GetLoadout().SetLACASEII( true, l.Index, clan );
                                 }
                                 if( l.Location == Constants.LOC_RA ) {
-                                    m.GetLoadout().SetRACASEII( true, l.Index );
+                                    m.GetLoadout().SetRACASEII( true, l.Index, clan );
                                 }
                                 if( l.Location == Constants.LOC_LL ) {
-                                    m.GetLoadout().SetLLCASEII( true, l.Index );
+                                    m.GetLoadout().SetLLCASEII( true, l.Index, clan );
                                 }
                                 if( l.Location == Constants.LOC_RL ) {
-                                    m.GetLoadout().SetRLCASEII( true, l.Index );
+                                    m.GetLoadout().SetRLCASEII( true, l.Index, clan );
                                 }
                             } else if( eType.equals( "Supercharger" ) ) {
                                 m.GetLoadout().SetSupercharger( true, l.Location, l.Index );
@@ -1084,44 +1231,123 @@ public class XMLReader {
     private abPlaceable GetEquipmentByName( String name, String type, Mech m ) {
         boolean rear = false;
         abPlaceable retval = null;
+        String prepend = "";
         if( name.length() > 4 ) {
-            if( name.substring( 0, 4).equals( "(R) ") ) {
+            if( name.substring( 0, 4).equals( "(R) " ) ) {
                 name = name.substring( 4 );
                 rear = true;
             }
         }
+        if( ! name.contains( "(CL)" ) |! name.contains( "(IS)" ) ) {
+            // old style save file or an item that can be used by both techbases
+            // we'll need to check.
+            if( m.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                prepend = "(CL) ";
+            } else {
+                prepend = "(IS) ";
+            }
+        }
         if( type.equals( "energy" ) ) {
-            retval = data.GetWeapons().GetEnergyWeaponByName( name, m.IsClan() );
+            boolean ppccap = false;
+            boolean insulated = false;
+            if( name.contains( " + PPC Capacitor" ) ) {
+                name = name.substring( 0, name.length() - 16 );
+                ppccap = true;
+            }
+            if( name.contains( " w/ Capacitor" ) ) {
+                name = name.substring( 0, name.length() - 13 );
+                ppccap = true;
+            }
+            if( name.contains( " (Insulated)" ) ) {
+                name = name.substring( 0, name.length() - 12 );
+                insulated = true;
+            }
+            retval = data.GetEquipment().GetRangedWeaponByName( name, m );
+            if( retval == null ) {
+                // try again with the prepend
+                retval = data.GetEquipment().GetRangedWeaponByName( prepend + name, m );
+            }
+            if( retval != null ) {
+                ((RangedWeapon) retval).UseCapacitor( ppccap );
+            }
         } else if( type.equals( "ballistic" ) ) {
-            retval = data.GetWeapons().GetBallisticWeaponByName( name, m.IsClan() );
+            retval = data.GetEquipment().GetRangedWeaponByName( name, m );
+            if( retval == null ) {
+                // try again with the prepend
+                retval = data.GetEquipment().GetRangedWeaponByName( prepend + name, m );
+            }
         } else if( type.equals( "missile" ) ) {
-            retval = data.GetWeapons().GetMissileWeaponByName( name, m.IsClan() );
-            switch( ((MissileWeapon) retval).GetFCSType() ) {
-            case ifMissileGuidance.FCS_ArtemisIV:
-                if( m.UsingArtemisIV() ) { ((MissileWeapon) retval).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV ); }
-            case ifMissileGuidance.FCS_ArtemisV:
-                if( m.UsingArtemisIV() ) { ((MissileWeapon) retval).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV ); }
-                if( m.UsingArtemisV() ) { ((MissileWeapon) retval).UseFCS( true, ifMissileGuidance.FCS_ArtemisV ); }
-                break;
-            case ifMissileGuidance.FCS_Apollo:
-                if( m.UsingApollo() ) { ((MissileWeapon) retval).UseFCS( true, ifMissileGuidance.FCS_Apollo ); }
-                break;
+            retval = data.GetEquipment().GetRangedWeaponByName( name, m );
+            if( retval == null ) {
+                // try again with the prepend
+                retval = data.GetEquipment().GetRangedWeaponByName( prepend + name, m );
+            }
+            // we'll use a try here so that the correct error message will be
+            // sent if we still have a null retval.
+            try {
+                switch( ((RangedWeapon) retval).GetFCSType() ) {
+                case ifMissileGuidance.FCS_ArtemisIV:
+                    if( m.UsingArtemisIV() ) { ((RangedWeapon) retval).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV ); }
+                case ifMissileGuidance.FCS_ArtemisV:
+                    if( m.UsingArtemisIV() ) { ((RangedWeapon) retval).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV ); }
+                    if( m.UsingArtemisV() ) { ((RangedWeapon) retval).UseFCS( true, ifMissileGuidance.FCS_ArtemisV ); }
+                    break;
+                case ifMissileGuidance.FCS_Apollo:
+                    if( m.UsingApollo() ) { ((RangedWeapon) retval).UseFCS( true, ifMissileGuidance.FCS_Apollo ); }
+                    break;
+                }
+            } catch( Exception e ) {
+                return null;
             }
         } else if( type.equals( "mgarray" ) ) {
-            retval = data.GetWeapons().GetMGArrayByName( name, m.IsClan() );
+            retval = data.GetEquipment().GetRangedWeaponByName( name, m );
+            if( retval == null ) {
+                // try again with the prepend
+                retval = data.GetEquipment().GetRangedWeaponByName( prepend + name, m );
+            }
         } else if( type.equals( "equipment" ) ) {
-            retval = data.GetEquipment().GetEquipmentByName( name, m.IsClan() );
+            if( name.equals( "Nail/Rivet Gun") ) {
+                // just load the nail gun as default
+                name = "Nail Gun";
+            }
+            retval = data.GetEquipment().GetEquipmentByName( name, m );
+            if( retval == null ) {
+                // try again with the prepend
+                retval = data.GetEquipment().GetEquipmentByName( prepend + name, m );
+            }
         } else if( type.equals( "ammunition" ) ) {
-            retval = data.GetAmmo().GetAmmoByName( name, m.IsClan() );
+            if( SaveFileVersion == 0 ) {
+                if( name.contains( "Artemis Capable" ) ) {
+                    name = name.replace( "Artemis Capable", "Artemis IV Capable" );
+                }
+            }
+            retval = data.GetEquipment().GetAmmoByName( name, m );
+            if( retval == null ) {
+                // try again with the prepend
+                retval = data.GetEquipment().GetAmmoByName( prepend + name, m );
+            }
         } else if( type.equals( "physical" ) ) {
-            retval = data.GetWeapons().GetPhysicalWeaponByName( name, m );
+            retval = data.GetEquipment().GetPhysicalWeaponByName( name, m );
+            if( retval == null ) {
+                // try again with the prepend
+                retval = data.GetEquipment().GetPhysicalWeaponByName( prepend + name, m );
+            }
         } else if( type.equals( "artillery" ) ) {
-            retval = data.GetWeapons().GetArtilleryByName( name, m.IsClan() );
+            retval = data.GetEquipment().GetRangedWeaponByName( name, m );
+            if( retval == null ) {
+                // try again with the prepend
+                retval = data.GetEquipment().GetRangedWeaponByName( prepend + name, m );
+            }
         } else {
             return null;
         }
-        if( rear ) {
-            retval.MountRear( true );
+        // again, use a try statement for the correct error message
+        try {
+            if( rear ) {
+                retval.MountRear( true );
+            }
+        } catch( Exception e ) {
+            return null;
         }
         return retval;
     }

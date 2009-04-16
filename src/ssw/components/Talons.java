@@ -28,22 +28,22 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
-import ssw.Constants;
-
-
 public class Talons extends PhysicalWeapon {
 
-    private final static AvailableCode CLTALONS = new AvailableCode( true, 'E', 'X', 'X', 'F', 3072, 0, 0, "CJF", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+    private AvailableCode AC = new AvailableCode( AvailableCode.TECH_CLAN );
     private int Placed = 0;
 
-    public Talons ( Mech m )
-    {
+    public Talons ( Mech m ) {
+        AC.SetCLCodes( 'E', 'X', 'X', 'F' );
+        AC.SetCLDates( 0, 0, false, 3072, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "CJF", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = m;
     }
 
     @Override
     public int GetPWClass () {
-        return Constants.PW_CLASS_TALON;
+        return PhysicalWeapon.PW_CLASS_TALON;
     }
     
     @Override
@@ -54,6 +54,11 @@ public class Talons extends PhysicalWeapon {
     @Override
     public String GetCritName() {
         return "Talons";
+    }
+
+    @Override
+    public String GetLookupName() {
+        return  "Talons";
     }
 
     @Override
@@ -102,9 +107,9 @@ public class Talons extends PhysicalWeapon {
 
     @Override
     public AvailableCode GetAvailability() {
-        AvailableCode retval = CLTALONS;
+        AvailableCode retval = AC.Clone();
         if( IsArmored() ) {
-            retval.Combine( CLArmoredAC );
+            retval.Combine( ArmoredAC );
         }
         return retval;
     }
@@ -140,8 +145,8 @@ public class Talons extends PhysicalWeapon {
     }
 
     @Override
-    public boolean IsClan() {
-        return true;
+    public int GetTechBase() {
+        return AC.GetTechBase();
     }
 
     @Override

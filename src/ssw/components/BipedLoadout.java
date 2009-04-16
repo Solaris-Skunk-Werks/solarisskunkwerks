@@ -55,23 +55,25 @@ public class BipedLoadout implements ifLoadout {
     private ISCASE CTCase = new ISCASE(),
                    LTCase = new ISCASE(),
                    RTCase = new ISCASE();
-    private CASEII HDCaseII = new CASEII( this ),
-                   CTCaseII = new CASEII( this ),
-                   LTCaseII = new CASEII( this ),
-                   RTCaseII = new CASEII( this ),
-                   LACaseII = new CASEII( this ),
-                   RACaseII = new CASEII( this ),
-                   LLCaseII = new CASEII( this ),
-                   RLCaseII = new CASEII( this );
+    private CASEII HDCaseII = new CASEII( this, false ),
+                   CTCaseII = new CASEII( this, false ),
+                   LTCaseII = new CASEII( this, false ),
+                   RTCaseII = new CASEII( this, false ),
+                   LACaseII = new CASEII( this, false ),
+                   RACaseII = new CASEII( this, false ),
+                   LLCaseII = new CASEII( this, false ),
+                   RLCaseII = new CASEII( this, false );
     private boolean UseAIVFCS = false,
                     UseAVFCS = false,
                     UseApollo = false,
-                    Use_TC = false;
-    private TargetingComputer CurTC = new TargetingComputer( this );
+                    Use_TC = false,
+                    UsingClanCASE = false;
+    private TargetingComputer CurTC = new TargetingComputer( this, false );
     private ifLoadout BaseLoadout = null;
     private PowerAmplifier PowerAmp = new PowerAmplifier( this );
     private Supercharger SCharger = new Supercharger( this );
-    private int RulesLevel = Constants.TOURNAMENT;
+    private int RulesLevel = AvailableCode.RULES_TOURNAMENT;
+    private int TechBase = AvailableCode.TECH_INNER_SPHERE;
 
     // Fill up and initialize the critical space arrays.  This is where all the
     // stuff in the loadout will get placed.
@@ -153,6 +155,24 @@ public class BipedLoadout implements ifLoadout {
     public boolean SetRulesLevel( int NewLevel ) {
         if( Owner.IsOmnimech() ) {
             if( NewLevel < Owner.GetBaseRulesLevel() ) {
+                return false;
+            } else {
+                RulesLevel = NewLevel;
+                return true;
+            }
+        } else {
+            RulesLevel = NewLevel;
+            return true;
+        }
+    }
+
+    public int GetTechBase() {
+        return TechBase;
+    }
+
+    public boolean SetTechBase( int NewLevel ) {
+        if( Owner.IsOmnimech() ) {
+            if( NewLevel != Owner.GetTechBase() || NewLevel != AvailableCode.TECH_BOTH ) {
                 return false;
             } else {
                 RulesLevel = NewLevel;
@@ -782,7 +802,7 @@ public class BipedLoadout implements ifLoadout {
            // Ensure that no other physical weapons are mounted in this location
                 for( int i = 0; i < NonCore.size(); i++ ){
                     if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_RL)
-                        if ( ((PhysicalWeapon)p).GetPWClass() != Constants.PW_CLASS_TALON )
+                        if ( ((PhysicalWeapon)p).GetPWClass() != PhysicalWeapon.PW_CLASS_TALON )
                             throw new Exception( p.GetCritName() +
                                 " cannot be allocated to the right leg because\nthe leg already mounts a physical weapon." );
                 }
@@ -805,7 +825,7 @@ public class BipedLoadout implements ifLoadout {
            // Ensure that no other physical weapons are mounted in this location
                 for( int i = 0; i < NonCore.size(); i++ ){
                     if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_LL)
-                        if ( ((PhysicalWeapon)p).GetPWClass() != Constants.PW_CLASS_TALON )
+                        if ( ((PhysicalWeapon)p).GetPWClass() != PhysicalWeapon.PW_CLASS_TALON )
                             throw new Exception( p.GetCritName() +
                                 " cannot be allocated to the left leg because\nthe leg already mounts a physical weapon." );
                 }
@@ -1420,7 +1440,7 @@ public class BipedLoadout implements ifLoadout {
         return v;
     }
 
-    public int[] FindHeatSinks( boolean DHS, boolean Clan ) {
+    public int[] FindHeatSinks() {
         // this routine is used mainly by the text and html writers to find the
         // locations of heat sinks specifically.  returns an int[] with the
         // number in each location
@@ -1467,28 +1487,6 @@ public class BipedLoadout implements ifLoadout {
             }
             if( RACrits[i] instanceof HeatSink ) {
                 retval[Constants.LOC_RA]++;
-            }
-        }
-
-        if( DHS ) {
-            if( Clan ) {
-                retval[Constants.LOC_HD] /= 2;
-                retval[Constants.LOC_CT] /= 2;
-                retval[Constants.LOC_LT] /= 2;
-                retval[Constants.LOC_RT] /= 2;
-                retval[Constants.LOC_LA] /= 2;
-                retval[Constants.LOC_RA] /= 2;
-                retval[Constants.LOC_LL] /= 2;
-                retval[Constants.LOC_RL] /= 2;
-            } else {
-                retval[Constants.LOC_HD] /= 3;
-                retval[Constants.LOC_CT] /= 3;
-                retval[Constants.LOC_LT] /= 3;
-                retval[Constants.LOC_RT] /= 3;
-                retval[Constants.LOC_LA] /= 3;
-                retval[Constants.LOC_RA] /= 3;
-                retval[Constants.LOC_LL] /= 3;
-                retval[Constants.LOC_RL] /= 3;
             }
         }
 
@@ -1903,8 +1901,8 @@ public class BipedLoadout implements ifLoadout {
         // add the item back into the queue unless is already exists there
         // unless it's an Artemis IV FCS system.
         if( ! Queue.contains(p) &! ( p instanceof ifMissileGuidance ) &! ( p instanceof PPCCapacitor ) ) {
-            if( p instanceof BallisticWeapon ) {
-                if( ! ((BallisticWeapon) p).IsInArray() ) {
+            if( p instanceof RangedWeapon ) {
+                if( ! ((RangedWeapon) p).IsInArray() ) {
                     AddToQueue( p );
                 }
             } else {
@@ -1915,17 +1913,13 @@ public class BipedLoadout implements ifLoadout {
         // is the item was mounted rear, set it to normal
         p.MountRear( false );
 
-        // if the item is a Missile Weapon, check for artemis and unallocate
-        if( p instanceof MissileWeapon ) {
-            if( ((MissileWeapon) p).IsUsingFCS() ) {
-                UnallocateAll( (abPlaceable) ((MissileWeapon) p).GetFCS(), true );
+        // handler for FCS and Capacitors
+        if( p instanceof RangedWeapon ) {
+            if( ((RangedWeapon) p).IsUsingFCS() ) {
+                UnallocateAll( (abPlaceable) ((RangedWeapon) p).GetFCS(), true );
             }
-        }
-
-        // handler for PPC Capacitors
-        if( p instanceof EnergyWeapon ) {
-            if( ((EnergyWeapon) p).HasCapacitor() ) {
-                UnallocateAll( ((EnergyWeapon) p).GetCapacitor(), true );
+            if( ((RangedWeapon) p).IsUsingCapacitor() ) {
+                UnallocateAll( ((RangedWeapon) p).GetCapacitor(), true );
             }
         }
 
@@ -2020,17 +2014,13 @@ public class BipedLoadout implements ifLoadout {
             p.MountRear( false );
         }
 
-        // if the item is a Missile Weapon, check for artemis and unallocate
-        if( p instanceof MissileWeapon ) {
-            if( ((MissileWeapon) p).IsUsingFCS() ) {
-                UnallocateAll( (abPlaceable) ((MissileWeapon) p).GetFCS(), true );
+        // handler for FCS and Capacitors
+        if( p instanceof RangedWeapon ) {
+            if( ((RangedWeapon) p).IsUsingFCS() ) {
+                UnallocateAll( (abPlaceable) ((RangedWeapon) p).GetFCS(), true );
             }
-        }
-
-        // handler for PPC Capacitors
-        if( p instanceof EnergyWeapon ) {
-            if( ((EnergyWeapon) p).HasCapacitor() ) {
-                UnallocateAll( ((EnergyWeapon) p).GetCapacitor(), true );
+            if( ((RangedWeapon) p).IsUsingCapacitor() ) {
+                UnallocateAll( ((RangedWeapon) p).GetCapacitor(), true );
             }
         }
 
@@ -2755,10 +2745,10 @@ public class BipedLoadout implements ifLoadout {
                 }
 
                 // check to see if we have space for add-ins
-                if( p instanceof MissileWeapon ) {
-                    if( ((MissileWeapon) p).IsUsingFCS() ) {
+                if( p instanceof RangedWeapon ) {
+                    if( ((RangedWeapon) p).IsUsingFCS() ) {
                         // we have a preference for right underneath the launcher
-                        AddInSize = ((abPlaceable) ((MissileWeapon) p).GetFCS()).NumCrits();
+                        AddInSize = ((abPlaceable) ((RangedWeapon) p).GetFCS()).NumCrits();
                         while( ! AddIn ) {
                             if( Loc[i].LocationLocked() ) {
                                 i++;
@@ -2777,8 +2767,7 @@ public class BipedLoadout implements ifLoadout {
                             }
                         }
                     }
-                } else if( p instanceof EnergyWeapon ) {
-                    if( ((EnergyWeapon) p).HasCapacitor() ) {
+                    if( ((RangedWeapon) p).IsUsingCapacitor() ) {
                         // we have a preference for right underneath the launcher
                         while( ! AddIn ) {
                             if( Loc[i].LocationLocked() ) {
@@ -2832,8 +2821,8 @@ public class BipedLoadout implements ifLoadout {
 
                 // add in the artemis system if this is a missile weapon and is
                 // usiung it.  we've already checked for a good location.
-                if( p instanceof MissileWeapon ) {
-                    if( ((MissileWeapon) p).IsUsingFCS() ) {
+                if( p instanceof RangedWeapon ) {
+                    if( ((RangedWeapon) p).IsUsingFCS() ) {
                         if( Loc[AddInLoc] != NoItem ) {
                             // we've already ensured that it is not location locked
                             // above, so put the item back into the queue.
@@ -2844,13 +2833,10 @@ public class BipedLoadout implements ifLoadout {
                             }
                         }
                         for( int j = AddInLoc; j < AddInSize + AddInLoc; j++ ) {
-                            Loc[j] = (abPlaceable) ((MissileWeapon) p).GetFCS();
+                            Loc[j] = (abPlaceable) ((RangedWeapon) p).GetFCS();
                         }
                     }
-                }
-                // add in any PPC capacitor
-                if( p instanceof EnergyWeapon ) {
-                    if( ((EnergyWeapon) p).HasCapacitor() ) {
+                    if( ((RangedWeapon) p).IsUsingCapacitor() ) {
                         if( Loc[AddInLoc] != NoItem ) {
                             // we've already ensured that it is not location locked
                             // above, so put the item back into the queue.
@@ -2860,7 +2846,7 @@ public class BipedLoadout implements ifLoadout {
                                 UnallocateByIndex( AddInLoc, Loc  );
                             }
                         }
-                        Loc[AddInLoc] = ((EnergyWeapon) p).GetCapacitor();
+                        Loc[AddInLoc] = ((RangedWeapon) p).GetCapacitor();
                     }
                 }
 
@@ -2914,7 +2900,7 @@ public class BipedLoadout implements ifLoadout {
             Loc = SnapShot;
 
             // tell the user what happened.
-            if( p instanceof MissileWeapon ) {
+            if( p instanceof RangedWeapon ) {
                 if( AddIn ) {
                     if( ArrayGood ) {
                         throw new Exception( p.GetCritName() + " cannot be allocated because\nthere is no room for its machine guns." );
@@ -2940,16 +2926,12 @@ public class BipedLoadout implements ifLoadout {
             p = (abPlaceable) Queue.get( i );
             Result += ( p.NumCrits() - p.NumPlaced() );
 
-            // special handler for Artemis IV FCS
-            if( p instanceof MissileWeapon ) {
-                if( ((MissileWeapon) p).IsUsingFCS() ) {
-                    Result += ((abPlaceable) ((MissileWeapon) p).GetFCS()).NumCrits();
+            // special handler for FCS and PPC Capacitors
+            if( p instanceof RangedWeapon ) {
+                if( ((RangedWeapon) p).IsUsingFCS() ) {
+                    Result += ((abPlaceable) ((RangedWeapon) p).GetFCS()).NumCrits();
                 }
-            }
-
-            // special handler for PPC Capacitors
-            if( p instanceof EnergyWeapon ) {
-                if( ((EnergyWeapon) p).HasCapacitor() ) {
+                if( ((RangedWeapon) p).IsUsingCapacitor() ) {
                     Result++;
                 }
             }
@@ -3082,6 +3064,7 @@ public class BipedLoadout implements ifLoadout {
         ifLoadout clone = new BipedLoadout( "", Owner, HeatSinks.GetNumHS(),
             HeatSinks, Jumps );
         clone.SetRulesLevel( RulesLevel );
+        clone.SetTechBase( TechBase );
         clone.SetHDCrits( HDCrits.clone() );
         clone.SetCTCrits( CTCrits.clone() );
         clone.SetLTCrits( LTCrits.clone() );
@@ -3217,6 +3200,26 @@ public class BipedLoadout implements ifLoadout {
         Equipment = v;
     }
 
+    public boolean CanUseClanCASE() {
+        if( TechBase == AvailableCode.TECH_INNER_SPHERE ) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean IsUsingClanCASE() {
+        return UsingClanCASE;
+    }
+
+    public void SetClanCASE( boolean b ) {
+        if( CanUseClanCASE() ) {
+            UsingClanCASE = b;
+        } else {
+            UsingClanCASE = false;
+        }
+    }
+
     public void SetCTCASE( boolean Add, int index ) throws Exception {
         // adds CASE equipment to the CT
         if( ! Add ) {
@@ -3226,7 +3229,7 @@ public class BipedLoadout implements ifLoadout {
         if( Add && HasCTCASE() ) {
             return;
         }
-        if( Add && Owner.IsClan() ) {
+        if( Add && Owner.GetTechBase() == AvailableCode.TECH_CLAN ) {
             throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
         }
 
@@ -3267,7 +3270,7 @@ public class BipedLoadout implements ifLoadout {
         if( Add && HasLTCASE() ) {
             return;
         }
-        if( Add && Owner.IsClan() ) {
+        if( Add && Owner.GetTechBase() == AvailableCode.TECH_CLAN ) {
             throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
         }
 
@@ -3308,7 +3311,7 @@ public class BipedLoadout implements ifLoadout {
         if( Add && HasRTCASE() ) {
             return;
         }
-        if( Add && Owner.IsClan() ) {
+        if( Add && Owner.GetTechBase() == AvailableCode.TECH_CLAN ) {
             throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
         }
 
@@ -3376,7 +3379,7 @@ public class BipedLoadout implements ifLoadout {
         return RTCase;
     }
 
-    public void SetHDCASEII( boolean Add, int index ) throws Exception {
+    public void SetHDCASEII( boolean Add, int index, boolean clan ) throws Exception {
         // adds CASE II equipment to the HD
         if( ! Add ) {
             Remove( HDCaseII );
@@ -3411,6 +3414,7 @@ public class BipedLoadout implements ifLoadout {
             }
         }
 
+        HDCaseII.SetClan( clan );
         Owner.SetChanged( true );
     }
 
@@ -3426,7 +3430,7 @@ public class BipedLoadout implements ifLoadout {
         return HDCaseII;
     }
 
-    public void SetCTCASEII( boolean Add, int index ) throws Exception {
+    public void SetCTCASEII( boolean Add, int index, boolean clan ) throws Exception {
         // adds CASE II equipment to the CT
         if( ! Add ) {
             Remove( CTCaseII );
@@ -3461,6 +3465,7 @@ public class BipedLoadout implements ifLoadout {
             }
         }
 
+        CTCaseII.SetClan( clan );
         Owner.SetChanged( true );
     }
 
@@ -3476,7 +3481,7 @@ public class BipedLoadout implements ifLoadout {
         return CTCaseII;
     }
 
-    public void SetLTCASEII( boolean Add, int index ) throws Exception {
+    public void SetLTCASEII( boolean Add, int index, boolean clan ) throws Exception {
         // adds CASE II equipment to the LT
         if( ! Add ) {
             Remove( LTCaseII );
@@ -3511,6 +3516,7 @@ public class BipedLoadout implements ifLoadout {
             }
         }
 
+        LTCaseII.SetClan( clan );
         Owner.SetChanged( true );
     }
 
@@ -3526,7 +3532,7 @@ public class BipedLoadout implements ifLoadout {
         return LTCaseII;
     }
 
-    public void SetRTCASEII( boolean Add, int index ) throws Exception {
+    public void SetRTCASEII( boolean Add, int index, boolean clan ) throws Exception {
         // adds CASE II equipment to the RT
         if( ! Add ) {
             Remove( RTCaseII );
@@ -3561,6 +3567,7 @@ public class BipedLoadout implements ifLoadout {
             }
         }
 
+        RTCaseII.SetClan( clan );
         Owner.SetChanged( true );
     }
 
@@ -3576,7 +3583,7 @@ public class BipedLoadout implements ifLoadout {
         return RTCaseII;
     }
 
-    public void SetLACASEII( boolean Add, int index ) throws Exception {
+    public void SetLACASEII( boolean Add, int index, boolean clan ) throws Exception {
         // adds CASE II equipment to the LA
         if( ! Add ) {
             Remove( LACaseII );
@@ -3611,6 +3618,7 @@ public class BipedLoadout implements ifLoadout {
             }
         }
 
+        LACaseII.SetClan( clan );
         Owner.SetChanged( true );
     }
 
@@ -3626,7 +3634,7 @@ public class BipedLoadout implements ifLoadout {
         return LACaseII;
     }
 
-    public void SetRACASEII( boolean Add, int index ) throws Exception {
+    public void SetRACASEII( boolean Add, int index, boolean clan ) throws Exception {
         // adds CASE II equipment to the RA
         if( ! Add ) {
             Remove( RACaseII );
@@ -3661,6 +3669,7 @@ public class BipedLoadout implements ifLoadout {
             }
         }
 
+        RACaseII.SetClan( clan );
         Owner.SetChanged( true );
     }
 
@@ -3676,7 +3685,7 @@ public class BipedLoadout implements ifLoadout {
         return RACaseII;
     }
 
-    public void SetLLCASEII( boolean Add, int index ) throws Exception {
+    public void SetLLCASEII( boolean Add, int index, boolean clan ) throws Exception {
         // adds CASE II equipment to the LL
         if( ! Add ) {
             Remove( LLCaseII );
@@ -3711,6 +3720,7 @@ public class BipedLoadout implements ifLoadout {
             }
         }
 
+        LLCaseII.SetClan( clan );
         Owner.SetChanged( true );
     }
 
@@ -3726,7 +3736,7 @@ public class BipedLoadout implements ifLoadout {
         return LLCaseII;
     }
 
-    public void SetRLCASEII( boolean Add, int index ) throws Exception {
+    public void SetRLCASEII( boolean Add, int index, boolean clan ) throws Exception {
         // adds CASE II equipment to the RL
         if( ! Add ) {
             Remove( RLCaseII );
@@ -3761,6 +3771,7 @@ public class BipedLoadout implements ifLoadout {
             }
         }
 
+        RLCaseII.SetClan( clan );
         Owner.SetChanged( true );
     }
 
@@ -3857,14 +3868,16 @@ public class BipedLoadout implements ifLoadout {
         return CurTC;
     }
 
-    public void UseTC( boolean use ) {
+    public void UseTC( boolean use, boolean clan ) {
         if( use == Use_TC ) {
             return;
         } else {
             Use_TC = use;
         }
 
+        CurTC.SetClan( clan );
         CheckTC();
+        Owner.SetChanged( true );
     }
 
     public void CheckTC() {

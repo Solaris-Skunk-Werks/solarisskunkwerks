@@ -32,8 +32,7 @@ import ssw.Constants;
 import ssw.components.*;
 
 public class stCockpitISPrimitive implements ifCockpit, ifState {
-    private final static AvailableCode AC = new AvailableCode( false, 'D', 'C', 'C', 'C',
-        2300, 0, 0, "TH", "", false, false );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final static SimplePlaceable Sensors = new SimplePlaceable( "Sensors",
         "Sensors", 1, true, AC );
     private final static SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support",
@@ -43,10 +42,18 @@ public class stCockpitISPrimitive implements ifCockpit, ifState {
     private final static SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support",
         "Life Support", 1, true, AC );
 
-    public boolean IsClan() {
+    public stCockpitISPrimitive() {
+        AC.SetISCodes( 'D', 'C', 'C', 'C' );
+        AC.SetISDates( 0, 0, false, 2300, 0, 0, false, false );
+        AC.SetISFactions( "", "", "TH", "" );
+        AC.SetEraSpecific( true );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+    }
+
+    public boolean HasCounterpart() {
         return false;
     }
-    
+
     public float GetTonnage() {
         float result = 5.0f;
         result += Sensors.GetTonnage();

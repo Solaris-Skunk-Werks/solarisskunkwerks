@@ -34,6 +34,9 @@ import ssw.components.*;
 public class VGyroSetCompact implements ifVisitor {
     private Mech CurMech;
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
@@ -72,13 +75,7 @@ public class VGyroSetCompact implements ifVisitor {
         g.Remove(l);
 
         // change the gyro
-        if( CurMech.IsClan() ) {
-            // Clans are always set to standard gyro
-            g.SetCLStandard();
-        } else {
-            // compact gyro
-            g.SetISCompact();
-        }
+        g.SetISCompact();
 
         // place the gyro
         if( ! g.Place(l) ) {

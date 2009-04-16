@@ -34,6 +34,9 @@ import ssw.components.*;
 public class VEngineSetFuelCell implements ifVisitor {
     private Mech CurMech;
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
@@ -60,11 +63,7 @@ public class VEngineSetFuelCell implements ifVisitor {
         e.Remove(l);
 
         // change the engine type
-        if( CurMech.IsClan() ) {
-            e.SetCLFCEngine();
-        } else {
-            e.SetISFCEngine();
-        }
+        e.SetFCEngine();
 
         // place the engine
         if( ! e.Place(l) ) {

@@ -28,17 +28,19 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
-import ssw.Constants;
-
 public class ApolloFCS extends abPlaceable implements ifMissileGuidance {
-    public final static AvailableCode ISAC = new AvailableCode( false, 'E', 'E', 'F', 'D', 3071, 0, 0, "DC", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-    private MissileWeapon Owner;
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+    private RangedWeapon Owner;
 
-    public ApolloFCS( MissileWeapon m ) {
+    public ApolloFCS( RangedWeapon m ) {
+        AC.SetISCodes( 'D', 'X', 'X', 'E' );
+        AC.SetISDates( 0, 0, false, 3071, 0, 0, false, false );
+        AC.SetISFactions( "", "", "DC", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = m;
     }
 
-    public MissileWeapon GetOwner() {
+    public RangedWeapon GetOwner() {
         return Owner;
     }
 
@@ -54,6 +56,10 @@ public class ApolloFCS extends abPlaceable implements ifMissileGuidance {
 
     public String GetCritName() {
         return "MRM Apollo FCS";
+    }
+
+    public String GetLookupName() {
+        return GetCritName();
     }
 
     public String GetMMName( boolean UseRear ) {
@@ -97,9 +103,9 @@ public class ApolloFCS extends abPlaceable implements ifMissileGuidance {
 
     public AvailableCode GetAvailability() {
         if( IsArmored() ) {
-            return ISArmoredAC;
+            return ArmoredAC;
         } else {
-            return ISAC;
+            return AC;
         }
     }
 

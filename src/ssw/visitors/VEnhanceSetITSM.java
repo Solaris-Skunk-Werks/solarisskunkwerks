@@ -33,6 +33,9 @@ import ssw.components.*;
 public class VEnhanceSetITSM implements ifVisitor {
     private Mech CurMech;
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
@@ -43,11 +46,7 @@ public class VEnhanceSetITSM implements ifVisitor {
         PhysicalEnhancement p = CurMech.GetPhysEnhance();
 
         CurMech.GetLoadout().Remove( p );
-        if( CurMech.IsClan() ) {
-            p.SetCLNone();
-        } else {
-            p.SetISITSM();
-        }
+        p.SetISITSM();
 
         p.Recalculate();
     }

@@ -35,6 +35,7 @@ public class VArmorSetRE implements ifVisitor {
     // sets the mech's armor to reactive
     private frmMain Parent;
     private Mech CurMech;
+    boolean Clan = false;
 
     public VArmorSetRE() {
         Parent = null;
@@ -42,6 +43,10 @@ public class VArmorSetRE implements ifVisitor {
 
     public VArmorSetRE( frmMain p ) {
         Parent = p;
+    }
+
+    public void SetClan( boolean clan ) {
+        Clan = clan;
     }
 
     public void LoadLocations(LocationIndex[] locs) {
@@ -58,10 +63,20 @@ public class VArmorSetRE implements ifVisitor {
         l.Remove( a );
 
         // set the armor type
-        if( CurMech.IsClan() ) {
-            a.SetCLRE();
-        } else {
-            a.SetISRE();
+        switch( CurMech.GetTechBase() ) {
+            case AvailableCode.TECH_INNER_SPHERE:
+                a.SetISRE();
+                break;
+            case AvailableCode.TECH_CLAN:
+                a.SetCLRE();
+                break;
+            case AvailableCode.TECH_BOTH:
+                if( Clan ) {
+                    a.SetCLRE();
+                } else {
+                    a.SetISRE();
+                }
+                break;
         }
 
         // place the armor

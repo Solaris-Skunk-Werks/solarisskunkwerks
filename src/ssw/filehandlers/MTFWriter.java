@@ -79,10 +79,16 @@ public class MTFWriter {
             }
         }
         FR.newLine();
-        if( CurMech.IsClan() ) {
-            FR.write( "TechBase:Clan" );
-        } else {
-            FR.write( "TechBase:Inner Sphere" );
+        switch( CurMech.GetTechBase() ) {
+            case AvailableCode.TECH_INNER_SPHERE:
+                FR.write( "TechBase:Inner Sphere" );
+                break;
+            case AvailableCode.TECH_CLAN:
+                FR.write( "TechBase:Clan" );
+                break;
+            case AvailableCode.TECH_BOTH:
+                FR.write( "TechBase:Mixed" );
+                break;
         }
         FR.newLine();
         FR.write( "Era:" + CurMech.GetYear() );
@@ -186,7 +192,7 @@ public class MTFWriter {
                     for( int j = ammo.size() - 1; j >= 0; j-- ) {
                         // we're using the literal ammo lot size, not what the ammo says.
                         if( ((Ammunition) ammo.get( j )).GetAmmoIndex() == ammoindex ) {
-                            ammoamount += ((ifWeapon) p).GetAmmo();
+                            ammoamount += ((ifWeapon) p).GetAmmoLotSize();
                             ammo.remove( j );
                         }
                     }

@@ -32,12 +32,11 @@ import ssw.states.*;
 
 public class Gyro extends abPlaceable {
     private Mech Owner;
-    private final static ifGyro ClanStandard = new stGyroCLStandard(),
-                                ISStandard = new stGyroISStandard(),
+    private final static ifGyro Standard = new stGyroStandard(),
                                 ISCompact = new stGyroISCompact(),
                                 ISHeavy = new stGyroISHeavy(),
                                 ISXL = new stGyroISXL();
-    private ifGyro CurConfig = ISStandard;
+    private ifGyro CurConfig = Standard;
 
     public Gyro( Mech m ) {
         // Gyros are intimately tied to the engine in the mech, so we need a
@@ -45,12 +44,8 @@ public class Gyro extends abPlaceable {
         Owner = m;
     }
     
-    public void SetISStandard() {
-        CurConfig = ISStandard;
-    }
-    
-    public void SetCLStandard() {
-        CurConfig = ClanStandard;
+    public void SetStandard() {
+        CurConfig = Standard;
     }
     
     public void SetISCompact() {
@@ -64,11 +59,15 @@ public class Gyro extends abPlaceable {
     public void SetISXL() {
         CurConfig = ISXL;
     }
-    
-    public boolean IsClan() {
-        return CurConfig.IsClan();
+
+    public int GetTechBase() {
+        return CurConfig.GetAvailability().GetTechBase();
     }
-    
+
+    public ifState GetCurrentState() {
+        return (ifState) CurConfig;
+    }
+
     @Override
     public boolean Place( ifLoadout l ) {
         // Gyros always start at index 3, right after the first (or only)
@@ -146,7 +145,7 @@ public class Gyro extends abPlaceable {
     }
 
     public ifState[] GetStates() {
-        ifState[] retval = { (ifState) ClanStandard, (ifState) ISStandard,
+        ifState[] retval = { (ifState) Standard,
             (ifState) ISCompact, (ifState) ISHeavy, (ifState) ISXL };
         return retval;
     }
@@ -157,14 +156,9 @@ public class Gyro extends abPlaceable {
     }
 
     public AvailableCode GetAvailability() {
-        AvailableCode AC = CurConfig.GetAvailability();
-        AvailableCode retval = new AvailableCode( AC.IsClan(), AC.GetTechRating(), AC.GetSLCode(), AC.GetSWCode(), AC.GetCICode(), AC.GetIntroDate(), AC.GetExtinctDate(), AC.GetReIntroDate(), AC.GetIntroFaction(), AC.GetReIntroFaction(), AC.WentExtinct(), AC.WasReIntroduced(), AC.GetRandDStart(), AC.IsPrototype(), AC.GetRandDFaction(), AC.GetRulesLevelBM(), AC.GetRulesLevelIM() );
+        AvailableCode retval = CurConfig.GetAvailability().Clone();
         if( IsArmored() ) {
-            if( AC.IsClan() ) {
-                retval.Combine( CLArmoredAC );
-            } else {
-                retval.Combine( ISArmoredAC );
-            }
+            retval.Combine( ArmoredAC );
         }
         return retval;
     }

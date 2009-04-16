@@ -28,13 +28,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
-import ssw.Constants;
 import ssw.components.*;
 
 public class stArmorCLRE implements ifArmor, ifState {
     boolean locked = false;
-    private final static AvailableCode AC = new AvailableCode( true, 'F', 'X', 'X', 'F',
-        3065, 0, 0, "CGB", "", false, false, 3061, true, "CGB", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL  );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_CLAN );
+
+    public stArmorCLRE() {
+        AC.SetCLCodes( 'F', 'X', 'X', 'F' );
+        AC.SetCLDates( 3061, 3065, true, 3065, 0, 0, false, false );
+        AC.SetCLFactions( "CGB", "CGB", "", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
+    }
 
     public String GetLookupName() {
         return "Reactive Armor";
@@ -48,7 +53,7 @@ public class stArmorCLRE implements ifArmor, ifState {
         return "Reactive";
     }
 
-    public boolean IsClan() {
+    public boolean HasCounterpart() {
         return true;
     }
 

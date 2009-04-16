@@ -28,13 +28,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
-import ssw.Constants;
 import ssw.components.*;
 
 public class stEngineCLXL implements ifEngine, ifState {
     // A Clan XL Fusion Engine
-    private final static AvailableCode AC = new AvailableCode( true, 'E', 'X', 'C', 'D',
-        2579, 0, 0, "TH", "", false, false );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_CLAN );
     private final static float[] Masses = {0.5f,0.5f,0.5f,0.5f,0.5f,0.5f,0.5f,
         0.5f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.5f,1.5f,1.5f,1.5f,1.5f,2.0f,2.0f,
         2.0f,2.0f,2.0f,2.5f,2.5f,2.5f,2.5f,3.0f,3.0f,3.0f,3.0f,3.0f,3.5f,3.5f,
@@ -45,13 +43,16 @@ public class stEngineCLXL implements ifEngine, ifState {
     private final static int[] BFStructure = {1,1,1,1,2,2,2,2,3,3,3,4,4,4,4,5,5,5,5};
 
     public stEngineCLXL() {
-        AC.SetRulesLevelIM( Constants.UNALLOWED );
+        AC.SetCLCodes( 'E', 'X', 'C', 'D' );
+        AC.SetCLDates( 0, 0, false, 2579, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "TH", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED );
     }
 
-    public boolean IsClan() {
+    public boolean HasCounterpart() {
         return true;
     }
-    
+
     public float GetTonnage( int Rating ) {
         return Masses[GetIndex( Rating )];
     }

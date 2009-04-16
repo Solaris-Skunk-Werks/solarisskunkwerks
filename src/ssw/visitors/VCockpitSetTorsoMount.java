@@ -34,6 +34,9 @@ public class VCockpitSetTorsoMount implements ifVisitor {
     private Mech CurMech;
     LocationIndex[] Locs = null;
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations( LocationIndex[] locs ) {
         Locs = locs;
     }
@@ -53,11 +56,7 @@ public class VCockpitSetTorsoMount implements ifVisitor {
         }
 
         // now set the correct type
-        if( CurMech.IsClan() ) {
-            c.SetCLTorsoMount();
-        } else {
-            c.SetISTorsoMount();
-        }
+        c.SetTorsoMount();
 
         // replace the cockpit
         if( Locs == null ) {

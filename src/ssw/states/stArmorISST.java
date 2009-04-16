@@ -28,16 +28,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
-import ssw.Constants;
 import ssw.components.*;
 
 public class stArmorISST implements ifArmor, ifState {
-    private final static AvailableCode AC = new AvailableCode( false, 'E', 'X', 'X', 'E',
-        3063, 0, 0, "CC", "", false, false );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final MechModifier MechMod = new MechModifier( 0, 0, 0, 0.0f, 0, 0, 10, 0.2f, 0.0f, 0.0f, 0.0f, true );
 
     public stArmorISST() {
-        AC.SetRulesLevelIM( Constants.EXPERIMENTAL );
+        AC.SetISCodes( 'E', 'X', 'X', 'E' );
+        AC.SetISDates( 0, 0, false, 3063, 0, 0, false, false );
+        AC.SetISFactions( "", "", "CC", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
     }
 
     public String GetLookupName() {
@@ -45,14 +46,14 @@ public class stArmorISST implements ifArmor, ifState {
     }
 
     public String GetCritName() {
-        return "Stealth Armor";
+        return "Stealth";
     }
 
     public String GetMMName() {
         return "Stealth Armor";
     }
 
-    public boolean IsClan() {
+    public boolean HasCounterpart() {
         return false;
     }
 

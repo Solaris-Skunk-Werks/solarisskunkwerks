@@ -40,6 +40,9 @@ public class VSetArmorTonnage implements ifVisitor {
         CurOpts = o;
     }
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }

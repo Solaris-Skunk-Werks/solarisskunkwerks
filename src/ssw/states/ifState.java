@@ -35,5 +35,5 @@ public interface ifState {
     // suitability for a given time period.
     public AvailableCode GetAvailability();
     public String GetLookupName();
-    public boolean IsClan();
+    public boolean HasCounterpart();
 }

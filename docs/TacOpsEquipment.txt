@@ -43,16 +43,6 @@ Full-Head Ejection System				? new system
 Mechwarrior Aquatic Survival System		? new system
 
 
-New missile systems to add
--------------------------------------------------------------------------------
-Artemis V FCS							? New System
-MRM Apollo FCS							? new system   ISApollo
-
-
-New ammunition to add
--------------------------------------------------------------------------------
-
-
 New rules to be implemented
 -------------------------------------------------------------------------------
 Fractional Accounting

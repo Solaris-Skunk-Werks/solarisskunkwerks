@@ -41,13 +41,15 @@ public class MultiSlotSystem extends abPlaceable {
                     CostTons,
                     BasedOnMechTons = false;
     private String CritName,
+                   LookupName,
                    MMName;
     protected Mech Owner;
 
-    public MultiSlotSystem( Mech owner, String name, String mname, float tons, boolean xct, boolean xhd, float cost, boolean costtons, AvailableCode a ) {
+    public MultiSlotSystem( Mech owner, String name, String lookupname, String mname, float tons, boolean xct, boolean xhd, float cost, boolean costtons, AvailableCode a ) {
         Owner = owner;
         CritName = name;
         MMName = mname;
+        LookupName = lookupname;
         Tonnage = tons;
         ExcludeCT = xct;
         ExcludeHD = xhd;
@@ -59,6 +61,10 @@ public class MultiSlotSystem extends abPlaceable {
     @Override
     public String GetCritName() {
         return CritName;
+    }
+
+    public String GetLookupName() {
+        return LookupName;
     }
 
     @Override

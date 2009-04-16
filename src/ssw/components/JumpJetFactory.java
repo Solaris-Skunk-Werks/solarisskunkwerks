@@ -37,13 +37,10 @@ public class JumpJetFactory {
                 BaseLoadoutNumJJ = 0;
     private ifLoadout Owner;
     private LinkedList CurrentJumps = new LinkedList();
-    private static ifJumpJetFactory ISNJJ = new stJumpJetISNJJ(),
-                                    ISIJJ = new stJumpJetISIJJ(),
-                                    ISUMU = new stJumpJetISUMU(),
-                                    CLNJJ = new stJumpJetCLNJJ(),
-                                    CLIJJ = new stJumpJetCLIJJ(),
-                                    CLUMU = new stJumpJetCLUMU();
-    private ifJumpJetFactory CurConfig = ISNJJ;
+    private static ifJumpJetFactory NJJ = new stJumpJetStandard(),
+                                    IJJ = new stJumpJetImproved(),
+                                    UMU = new stJumpJetUMU();
+    private ifJumpJetFactory CurConfig = NJJ;
 
     public JumpJetFactory( ifLoadout l ) {
         // the basic constructor
@@ -74,82 +71,18 @@ public class JumpJetFactory {
         }
     }
 
-    public void SetInnerSphere() {
-        if( CurConfig.IsImproved() ) {
-            CurConfig = ISIJJ;
-        } else if( CurConfig.IsUMU() ) {
-            CurConfig = ISUMU;
-        } else {
-            CurConfig = ISNJJ;
-        }
-        Owner.GetMech().SetChanged( true );
-    }
-
-    public void SetClan() {
-        if( CurConfig.IsImproved() ) {
-            CurConfig = CLIJJ;
-        } else if( CurConfig.IsUMU() ) {
-            CurConfig = CLUMU;
-        } else {
-            CurConfig = CLNJJ;
-        }
-        Owner.GetMech().SetChanged( true );
-    }
-
     public void SetNormal() {
-        if( Owner.GetMech().IsClan() ) {
-            CurConfig = CLNJJ;
-        } else {
-            CurConfig = ISNJJ;
-        }
+        CurConfig = NJJ;
         Owner.GetMech().SetChanged( true );
     }
 
     public void SetImproved() {
-        if( Owner.GetMech().IsClan() ) {
-            CurConfig = CLIJJ;
-        } else {
-            CurConfig = ISIJJ;
-        }
+        CurConfig = IJJ;
         Owner.GetMech().SetChanged( true );
     }
 
     public void SetUMU() {
-        if( Owner.GetMech().IsClan() ) {
-            CurConfig = CLUMU;
-        } else {
-            CurConfig = ISUMU;
-        }
-        Owner.GetMech().SetChanged( true );
-    }
-
-    public void SetISNormal() {
-        CurConfig = ISNJJ;
-        Owner.GetMech().SetChanged( true );
-    }
-
-    public void SetISImproved() {
-        CurConfig = ISIJJ;
-        Owner.GetMech().SetChanged( true );
-    }
-
-    public void SetISUMU() {
-        CurConfig = ISUMU;
-        Owner.GetMech().SetChanged( true );
-    }
-
-    public void SetCLNormal() {
-        CurConfig = CLNJJ;
-        Owner.GetMech().SetChanged( true );
-    }
-
-    public void SetCLImproved() {
-        CurConfig = CLIJJ;
-        Owner.GetMech().SetChanged( true );
-    }
-
-    public void SetCLUMU() {
-        CurConfig = CLUMU;
+        CurConfig = UMU;
         Owner.GetMech().SetChanged( true );
     }
 
@@ -301,8 +234,7 @@ public class JumpJetFactory {
     }
 
     public ifState[] GetStates() {
-        ifState[] retval = { (ifState) ISNJJ, (ifState) ISIJJ, (ifState) ISUMU, 
-                             (ifState) CLNJJ, (ifState) CLIJJ, (ifState) CLUMU };
+        ifState[] retval = { (ifState) NJJ, (ifState) IJJ, (ifState) UMU };
         return retval;
     }
 

@@ -28,20 +28,22 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
-import ssw.Constants;
 import ssw.components.AvailableCode;
 import ssw.components.HeatSink;
 import ssw.components.MechModifier;
 
 public class stHeatSinkCLDHS implements ifHeatSinkFactory, ifState {
 
-    private AvailableCode AC = new AvailableCode( true, 'E', 'X', 'B', 'C', 2567, 0, 0, "TH", "", false, false );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_CLAN );
 
     public stHeatSinkCLDHS() {
-        AC.SetRulesLevelIM( Constants.UNALLOWED );
+        AC.SetCLCodes( 'E', 'X', 'B', 'C' );
+        AC.SetCLDates( 0, 0, false, 2567, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "TH", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
-    public boolean IsClan() {
+    public boolean HasCounterpart() {
         return true;
     }
 

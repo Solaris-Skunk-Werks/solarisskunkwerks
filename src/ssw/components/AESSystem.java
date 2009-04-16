@@ -28,16 +28,20 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
-import ssw.Constants;
-
 public class AESSystem extends abPlaceable {
-    AvailableCode ISAC = new AvailableCode( false, 'E', 'X', 'X', 'F', 3070, 0, 0, "KH", "", false, false, 3067, true, "BC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-    AvailableCode CLAC = new AvailableCode( true, 'E', 'X', 'X', 'F', 3070, 0, 0, "WD", "", false, false, 3067, true, "WD", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+    private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
     private Mech Owner;
     private boolean LegSystem;
     private static MechModifier LegMod = new MechModifier( 0, 0, 0, 0, 0, -2, 0, 0.0f, 0.0f, 0.0f, 0.0f, false );
 
     public AESSystem( Mech m, boolean legs ) {
+        AC.SetISCodes( 'E', 'X', 'X', 'F' );
+        AC.SetISDates( 3067, 3070, true, 3070, 0, 0, false, false );
+        AC.SetISFactions( "KH", "BC", "", "" );
+        AC.SetCLCodes( 'E', 'X', 'X', 'F' );
+        AC.SetCLDates( 3067, 3070, true, 3070, 0, 0, false, false );
+        AC.SetCLFactions( "WD", "WD", "", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = m;
         LegSystem = legs;
         SetExclusions( new Exclusion( new String[] { "Targeting Computer", "MASC", "TSM" }, "A.E.S." ) );
@@ -48,9 +52,13 @@ public class AESSystem extends abPlaceable {
         return "A.E.S.";
     }
 
+    public String GetLookupName() {
+        return GetCritName();
+    }
+
     @Override
-    public String GetMMName(boolean UseRear) {
-        if( Owner.IsClan() ) {
+    public String GetMMName( boolean UseRear ) {
+        if( Owner.GetTechBase() >= AvailableCode.TECH_CLAN ) {
             return "CLAES";
         } else {
             return "ISAES";
@@ -146,10 +154,6 @@ public class AESSystem extends abPlaceable {
 
     @Override
     public AvailableCode GetAvailability() {
-        if( Owner.IsClan() ) {
-            return CLAC;
-        } else {
-            return ISAC;
-        }
+        return AC;
     }
 }

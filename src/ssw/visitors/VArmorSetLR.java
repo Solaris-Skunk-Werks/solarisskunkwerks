@@ -35,6 +35,7 @@ public class VArmorSetLR implements ifVisitor {
     // sets the mech's armor to laser-reflective
     private frmMain Parent;
     private Mech CurMech;
+    private boolean Clan = false;
 
     public VArmorSetLR(){
         Parent = null;
@@ -42,6 +43,10 @@ public class VArmorSetLR implements ifVisitor {
 
     public VArmorSetLR( frmMain p ) {
         Parent = p;
+    }
+
+    public void SetClan( boolean clan ) {
+        Clan = clan;
     }
 
     public void LoadLocations(LocationIndex[] locs) {
@@ -58,10 +63,20 @@ public class VArmorSetLR implements ifVisitor {
         l.Remove( a );
 
         // set the armor type
-        if( CurMech.IsClan() ) {
-            a.SetCLLR();
-        } else {
-            a.SetISLR();
+        switch( CurMech.GetTechBase() ) {
+            case AvailableCode.TECH_INNER_SPHERE:
+                a.SetISLR();
+                break;
+            case AvailableCode.TECH_CLAN:
+                a.SetCLLR();
+                break;
+            case AvailableCode.TECH_BOTH:
+                if( Clan ) {
+                    a.SetCLLR();
+                } else {
+                    a.SetISLR();
+                }
+                break;
         }
 
         // place the armor

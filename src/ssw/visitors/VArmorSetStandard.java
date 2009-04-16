@@ -44,6 +44,9 @@ public class VArmorSetStandard implements ifVisitor {
         Parent = p;
     }
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
@@ -58,11 +61,7 @@ public class VArmorSetStandard implements ifVisitor {
         l.Remove( a );
 
         // set the armor type
-        if( CurMech.IsClan() ) {
-            a.SetCLMS();
-        } else {
-            a.SetISMS();
-        }
+        a.SetStandard();
 
         // place the armor
         a.Place( l );

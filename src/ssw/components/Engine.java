@@ -38,27 +38,23 @@ public class Engine extends abPlaceable {
     private int EngineRating;
     private boolean FoolLoadoutCT = true;
     private ifEngine CurConfig;
-    private final static ifEngine ISICEngine = new stEngineISIC(),
-                                      ISFCEngine = new stEngineISFC(),
-                                      ISFIEngine = new stEngineISFI(),
-                                      ISCFEngine = new stEngineISCF(),
-                                      ISFUEngine = new stEngineISFU(),
-                                      ISLFEngine = new stEngineISLF(),
-                                      ISXLEngine = new stEngineISXL(),
-                                      ISXXLEngine = new stEngineISXXL(),
-                                      CLICEngine = new stEngineCLIC(),
-                                      CLFCEngine = new stEngineCLFC(),
-                                      CLFIEngine = new stEngineCLFI(),
-                                      CLFUEngine = new stEngineCLFU(),
-                                      CLXLEngine = new stEngineCLXL(),
-                                      CLXXLEngine = new stEngineCLXXL();
+    private final static ifEngine ICEngine = new stEngineICE(),
+                                  FCEngine = new stEngineFuelCell(),
+                                  FIEngine = new stEngineFission(),
+                                  ISCFEngine = new stEngineISCF(),
+                                  FUEngine = new stEngineFusion(),
+                                  ISLFEngine = new stEngineISLF(),
+                                  ISXLEngine = new stEngineISXL(),
+                                  ISXXLEngine = new stEngineISXXL(),
+                                  CLXLEngine = new stEngineCLXL(),
+                                  CLXXLEngine = new stEngineCLXXL();
     private Mech Owner;
 
     // Constructor
     public Engine( Mech m ) {
         // Set it to a 20 rated standard fusion to start.
         EngineRating = 20;
-        CurConfig = ISFUEngine;
+        CurConfig = FUEngine;
         Owner = m;
     }
 
@@ -68,36 +64,20 @@ public class Engine extends abPlaceable {
         EngineRating = rate;
     }
 
-    public void SetISICEngine() {
-        CurConfig = ISICEngine;
+    public void SetICEngine() {
+        CurConfig = ICEngine;
     }
 
-    public void SetCLICEngine() {
-        CurConfig = CLICEngine;
+    public void SetFCEngine() {
+        CurConfig = FCEngine;
     }
 
-    public void SetISFCEngine() {
-        CurConfig = ISFCEngine;
+    public void SetFIEngine() {
+        CurConfig = FIEngine;
     }
 
-    public void SetCLFCEngine() {
-        CurConfig = CLFCEngine;
-    }
-
-    public void SetISFIEngine() {
-        CurConfig = ISFIEngine;
-    }
-
-    public void SetCLFIEngine() {
-        CurConfig = CLFIEngine;
-    }
-
-    public void SetISFUEngine() {
-        CurConfig = ISFUEngine;
-    }
-
-    public void SetCLFUEngine() {
-        CurConfig = CLFUEngine;
+    public void SetFUEngine() {
+        CurConfig = FUEngine;
     }
 
     public void SetISXLEngine() {
@@ -124,8 +104,12 @@ public class Engine extends abPlaceable {
         CurConfig = ISCFEngine;
     }
 
-    public boolean IsClan() {
-        return CurConfig.IsClan();
+    public int GetTechBase() {
+        return CurConfig.GetAvailability().GetTechBase();
+    }
+
+    public ifState GetCurrentState() {
+        return (ifState) CurConfig;
     }
 
     public boolean IsISXL() {
@@ -208,24 +192,18 @@ public class Engine extends abPlaceable {
     }
 
     public AvailableCode GetAvailability() {
-        AvailableCode AC = CurConfig.GetAvailability();
-        AvailableCode retval = new AvailableCode( AC.IsClan(), AC.GetTechRating(), AC.GetSLCode(), AC.GetSWCode(), AC.GetCICode(), AC.GetIntroDate(), AC.GetExtinctDate(), AC.GetReIntroDate(), AC.GetIntroFaction(), AC.GetReIntroFaction(), AC.WentExtinct(), AC.WasReIntroduced(), AC.GetRandDStart(), AC.IsPrototype(), AC.GetRandDFaction(), AC.GetRulesLevelBM(), AC.GetRulesLevelIM() );
+        AvailableCode retval = CurConfig.GetAvailability().Clone();
         if( IsArmored() ) {
-            if( AC.IsClan() ) {
-                retval.Combine( CLArmoredAC );
-            } else {
-                retval.Combine( ISArmoredAC );
-            }
+            retval.Combine( ArmoredAC );
         }
         return retval;
     }
 
     public ifState[] GetStates() {
-        ifState[] retval = { (ifState) ISICEngine, (ifState) ISFCEngine,
-            (ifState) ISFIEngine, (ifState) ISCFEngine, (ifState) ISFUEngine,
+        ifState[] retval = { (ifState) ICEngine, (ifState) FCEngine,
+            (ifState) FIEngine, (ifState) ISCFEngine, (ifState) FUEngine,
             (ifState) ISLFEngine, (ifState) ISXLEngine, (ifState) ISXXLEngine, 
-            (ifState) CLICEngine, (ifState) CLFCEngine, (ifState) CLFIEngine,
-            (ifState) CLFUEngine, (ifState) CLXLEngine, (ifState) CLXXLEngine };
+            (ifState) CLXLEngine, (ifState) CLXXLEngine };
         return retval;
     }
 

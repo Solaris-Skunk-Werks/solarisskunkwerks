@@ -29,11 +29,11 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tlbActions" alignment="0" pref="557" max="32767" attributes="0"/>
+          <Component id="tlbActions" alignment="0" pref="561" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Component id="lblTotalUnits" min="-2" pref="135" max="-2" attributes="0"/>
-              <EmptySpace pref="127" max="32767" attributes="0"/>
+              <EmptySpace pref="129" max="32767" attributes="0"/>
               <Component id="lblTotalTons" min="-2" pref="110" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
               <Component id="lblTotalBV" min="-2" pref="89" max="-2" attributes="0"/>

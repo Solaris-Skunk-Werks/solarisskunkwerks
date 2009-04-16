@@ -31,7 +31,6 @@ package ssw.states;
 import ssw.components.*;
 
 public interface ifChassis {
-    public boolean IsClan();
     public int GetCrits();
     public String GetCritName();
     public String GetMMName();

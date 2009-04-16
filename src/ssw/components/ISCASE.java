@@ -30,7 +30,14 @@ package ssw.components;
 
 public class ISCASE extends abPlaceable {
     // A simple class for Inner Sphere CASE.
-    private AvailableCode AC = new AvailableCode( false, 'D', 'C', 'F', 'D', 2476, 2840, 3036, "TH", "DC", true, true );
+    private AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+
+    public ISCASE() {
+        AC.SetISCodes( 'D', 'C', 'F', 'D' );
+        AC.SetISDates( 0, 0, false, 2476, 2840, 3036, true, true );
+        AC.SetISFactions( "", "", "TH", "DC" );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+    }
 
     @Override
     public boolean LocationLocked() {
@@ -44,6 +51,10 @@ public class ISCASE extends abPlaceable {
 
     public String GetCritName() {
         return "C.A.S.E.";
+    }
+
+    public String GetLookupName() {
+        return GetCritName();
     }
 
     public String GetMMName( boolean UseRear ) {

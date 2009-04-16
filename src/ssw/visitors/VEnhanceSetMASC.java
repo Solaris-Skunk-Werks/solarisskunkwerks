@@ -32,6 +32,11 @@ import ssw.components.*;
 
 public class VEnhanceSetMASC implements ifVisitor {
     private Mech CurMech;
+    private boolean Clan = false;
+
+    public void SetClan( boolean clan ) {
+        Clan = clan;
+    }
 
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
@@ -43,10 +48,20 @@ public class VEnhanceSetMASC implements ifVisitor {
         PhysicalEnhancement p = CurMech.GetPhysEnhance();
 
         CurMech.GetLoadout().Remove( p );
-        if( CurMech.IsClan() ) {
-            p.SetCLMASC();
-        } else {
-            p.SetISMASC();
+        switch( CurMech.GetTechBase() ) {
+            case AvailableCode.TECH_INNER_SPHERE:
+                p.SetISMASC();
+                break;
+            case AvailableCode.TECH_CLAN:
+                p.SetCLMASC();
+                break;
+            case AvailableCode.TECH_BOTH:
+                if( Clan ) {
+                    p.SetCLMASC();
+                } else {
+                    p.SetISMASC();
+                }
+                break;
         }
 
         p.Recalculate();

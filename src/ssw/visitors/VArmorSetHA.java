@@ -44,6 +44,9 @@ public class VArmorSetHA implements ifVisitor {
         Parent = p;
     }
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
@@ -58,11 +61,7 @@ public class VArmorSetHA implements ifVisitor {
         l.Remove( a );
 
         // set the armor type
-        if( CurMech.IsClan() ) {
-            a.SetCLHA();
-        } else {
-            a.SetISHA();
-        }
+        a.SetHardened();
 
         // place the armor
         a.Place( l );

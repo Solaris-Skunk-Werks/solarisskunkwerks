@@ -122,6 +122,4 @@ public class ListFilter {
         this.MinYear = Min;
         this.MaxYear = Max;
     }
-
-
 }

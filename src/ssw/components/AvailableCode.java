@@ -28,294 +28,578 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
-import ssw.Constants;
-
 public class AvailableCode {
     // Provides a class for availability codes for CBT equipment.
-    
+    public static final int ERA_STAR_LEAGUE = 0,
+                            ERA_SUCCESSION = 1,
+                            ERA_CLAN_INVASION = 2,
+                            ERA_DARK_AGES = 3,
+                            ERA_ALL = 4,
+                            TECH_INNER_SPHERE = 0,
+                            TECH_CLAN = 1,
+                            TECH_BOTH = 2,
+                            RULES_UNALLOWED = -1,
+                            RULES_INTRODUCTORY = 0,
+                            RULES_TOURNAMENT = 1,
+                            RULES_ADVANCED = 2,
+                            RULES_EXPERIMENTAL = 3,
+                            RULES_ERA_SPECIFIC = 4,
+                            UNIT_BATTLEMECH = 0,
+                            UNIT_INDUSTRIALMECH = 1,
+                            UNIT_COMBATVEHICLE = 2,
+                            UNIT_AEROFIGHTER = 3,
+                            UNIT_CONVFIGHTER = 4;
+
     // Declares
-    private char SL,
-                 SW,
-                 CI,
-                 TechRating;
-    private int Intro,
-                Extinct,
-                ReIntro,
-                RulesLevelBM,
-                RulesLevelIM,
-                RulesLevelVee,
-                RandDStart;
-    private String IntroFaction,
-                   ReIntroFaction,
-                   RandDFaction;
-    private boolean WentExtinct,
-                    ReIntroduced,
-                    Clan,
-                    Prototype,
-                    // in general, we want to allow all components to be allowed for primitive 'Mechs
-                    // use the setter routine later if a component is not allowed.
-                    PrimitiveAllowed = true;
+    private char IS_SL = 'X',
+                 IS_SW = 'X',
+                 IS_CI = 'X',
+                 //IS_DA = 'X',
+                 IS_TechRating = 'X',
+                 CL_SL = 'X',
+                 CL_SW = 'X',
+                 CL_CI = 'X',
+                 //CL_DA ='X',
+                 CL_TechRating = 'X';
+    private int IS_RandDStartDate = 0,
+                IS_PrototypeDate = 0,
+                IS_IntroDate = 0,
+                IS_ExtinctDate = 0,
+                IS_ReIntroDate = 0,
+                CL_RandDStartDate = 0,
+                CL_PrototypeDate = 0,
+                CL_IntroDate = 0,
+                CL_ExtinctDate = 0,
+                CL_ReIntroDate = 0,
+                RulesLevelBM = 0,
+                RulesLevelIM = 0,
+                RulesLevelCV = 0,
+                RulesLevelAF = 0,
+                RulesLevelCF = 0,
+                TechBase = 2;
+    private String IS_IntroFaction = "",
+                   IS_ReIntroFaction = "",
+                   IS_RandDFaction = "",
+                   IS_PrototypeFaction = "",
+                   CL_IntroFaction = "",
+                   CL_ReIntroFaction = "",
+                   CL_RandDFaction = "",
+                   CL_PrototypeFaction = "";
+    private boolean IS_WentExtinct = false,
+                    IS_ReIntroduced = false,
+                    IS_IsPrototype = false,
+                    CL_WentExtinct = false,
+                    CL_ReIntroduced = false,
+                    CL_IsPrototype = false,
+                    PrimitiveAllowed = false,
+                    EraSpecific = false;
 
-    // Constructor
-    public AvailableCode( boolean c, char TR, char SL_Era, char SW_Era, char CI_Era, int IntDate, int ExtDate, int ReIDate, String IntFaction, String ReIFaction, boolean Ext_TF, boolean ReI_TF ) {
-        Clan = c;
-        SL = SL_Era;
-        SW = SW_Era;
-        CI = CI_Era;
-        TechRating = TR;
+/*
+ *  Constructor
+ */
+    public AvailableCode( int tech ) {
+        TechBase = tech;
+    }
 
-        // Now check the values for validity.  If not, assign defaults.
-        if( SL < 65 || SL > 70 ) {
-            if( SL != 88 ) {
-                SL ='X';
-            }
+/*
+ *  Setters
+ */
+    public void SetCodes( char istech, char isSL, char isSW, char isCI, char cltech, char clSL, char clSW, char clCI ) {
+        IS_TechRating = istech;
+        IS_SL = isSL;
+        IS_SW = isSW;
+        IS_CI = isCI;
+        //IS_DA = isDA;
+        CL_TechRating = istech;
+        CL_SL = isSL;
+        CL_SW = isSW;
+        CL_CI = isCI;
+        //CL_DA = clDA;
+    }
+
+    public void SetISCodes( char tech, char SL, char SW, char CI ) {
+        IS_TechRating = tech;
+        IS_SL = SL;
+        IS_SW = SW;
+        IS_CI = CI;
+        //IS_DA = DA;
+    }
+
+    public void SetCLCodes( char tech, char SL, char SW, char CI ) {
+        CL_TechRating = tech;
+        CL_SL = SL;
+        CL_SW = SW;
+        CL_CI = CI;
+        //CL_DA = DA;
+    }
+
+    public void SetISDates( int RDStart, int Proto, boolean IsProto, int Intro, int Extinct, int ReIntro, boolean wentExtinct, boolean WasReIntrod ) {
+        IS_RandDStartDate = RDStart;
+        IS_PrototypeDate = Proto;
+        IS_IsPrototype = IsProto;
+        IS_IntroDate = Intro;
+        IS_ExtinctDate = Extinct;
+        IS_ReIntroDate = ReIntro;
+        IS_WentExtinct = wentExtinct;
+        IS_ReIntroduced = WasReIntrod;
+    }
+
+    public void SetCLDates( int RDStart, int Proto, boolean IsProto, int Intro, int Extinct, int ReIntro, boolean wentExtinct, boolean WasReIntrod ) {
+        CL_RandDStartDate = RDStart;
+        CL_PrototypeDate = Proto;
+        CL_IsPrototype = IsProto;
+        CL_IntroDate = Intro;
+        CL_ExtinctDate = Extinct;
+        CL_ReIntroDate = ReIntro;
+        CL_WentExtinct = wentExtinct;
+        CL_ReIntroduced = WasReIntrod;
+    }
+
+    public void SetISFactions( String RandDfac, String protofac, String introfac, String reintrofac ) {
+        IS_IntroFaction = introfac;
+        IS_ReIntroFaction = reintrofac;
+        IS_RandDFaction = RandDfac;
+        IS_PrototypeFaction = protofac;
+    }
+
+    public void SetCLFactions( String RandDfac, String protofac, String introfac, String reintrofac ) {
+        CL_IntroFaction = introfac;
+        CL_ReIntroFaction = reintrofac;
+        CL_RandDFaction = RandDfac;
+        CL_PrototypeFaction = protofac;
+    }
+
+    public void SetFactions( String ISRandDfac, String ISprotofac, String ISintrofac, String ISreintrofac, String CLRandDfac, String CLprotofac, String CLintrofac, String CLreintrofac ) {
+        IS_IntroFaction = ISintrofac;
+        IS_ReIntroFaction = ISreintrofac;
+        IS_RandDFaction = ISRandDfac;
+        IS_PrototypeFaction = ISprotofac;
+        CL_IntroFaction = CLintrofac;
+        CL_ReIntroFaction = CLreintrofac;
+        CL_RandDFaction = CLRandDfac;
+        CL_PrototypeFaction = CLprotofac;
+    }
+
+    public void SetRulesLevels( int BM, int IM, int CV, int AF, int CF ) {
+        RulesLevelBM = BM;
+        RulesLevelIM = IM;
+        RulesLevelCV = CV;
+        RulesLevelAF = AF;
+        RulesLevelCF = CF;
+    }
+
+    public void SetPrimitiveAllowed( boolean b ) {
+        PrimitiveAllowed = b;
+    }
+
+    public void SetEraSpecific( boolean b ) {
+        EraSpecific = b;
+    }
+
+/*
+ *  Getters
+ */
+    public char GetISTechRating() {
+        return IS_TechRating;
+    }
+
+    public char GetISSLCode() {
+        return IS_SL;
+    }
+
+    public char GetISSWCode() {
+        return IS_SW;
+    }
+
+    public char GetISCICode() {
+        return IS_CI;
+    }
+
+    public char GetCLTechRating() {
+        return CL_TechRating;
+    }
+
+    public char GetCLSLCode() {
+        return CL_SL;
+    }
+
+    public char GetCLSWCode() {
+        return CL_SW;
+    }
+
+    public char GetCLCICode() {
+        return CL_CI;
+    }
+
+    public int GetISRandDStartDate() {
+        return IS_RandDStartDate;
+    }
+
+    public int GetISPrototypeDate() {
+        return IS_PrototypeDate;
+    }
+
+    public int GetISIntroDate() {
+        return IS_IntroDate;
+    }
+
+    public int GetISExtinctDate() {
+        return IS_ExtinctDate;
+    }
+
+    public int GetISReIntroDate() {
+        return IS_ReIntroDate;
+    }
+
+    public boolean Is_ISPrototype() {
+        return IS_IsPrototype;
+    }
+
+    public boolean WentExtinctIS() {
+        return IS_WentExtinct;
+    }
+
+    public boolean WasReIntrodIS() {
+        return IS_ReIntroduced;
+    }
+
+    public int GetCLRandDStartDate() {
+        return CL_RandDStartDate;
+    }
+
+    public int GetCLPrototypeDate() {
+        return CL_PrototypeDate;
+    }
+
+    public int GetCLIntroDate() {
+        return CL_IntroDate;
+    }
+
+    public int GetCLExtinctDate() {
+        return CL_ExtinctDate;
+    }
+
+    public int GetCLReIntroDate() {
+        return CL_ReIntroDate;
+    }
+
+    public boolean Is_CLPrototype() {
+        return CL_IsPrototype;
+    }
+
+    public boolean WentExtinctCL() {
+        return CL_WentExtinct;
+    }
+
+    public boolean WasReIntrodCL() {
+        return CL_ReIntroduced;
+    }
+
+    public String GetISRandDFaction() {
+        return IS_RandDFaction;
+    }
+
+    public String GetISPrototypeFaction() {
+        return IS_PrototypeFaction;
+    }
+
+    public String GetISIntroFaction() {
+        return IS_IntroFaction;
+    }
+
+    public String GetISReIntroFaction() {
+        if( IS_ReIntroduced ) {
+            return IS_ReIntroFaction;
+        } else {
+            return "--";
         }
+    }
 
-        if( SW < 65 || SW > 70 ) {
-            if( SW != 88 ) {
-                SW ='X';
-            }
+    public String GetCLRandDFaction() {
+        return CL_RandDFaction;
+    }
+
+    public String GetCLPrototypeFaction() {
+        return CL_PrototypeFaction;
+    }
+
+    public String GetCLIntroFaction() {
+        return CL_IntroFaction;
+    }
+
+    public String GetCLReIntroFaction() {
+        if( CL_ReIntroduced ) {
+            return CL_ReIntroFaction;
+        } else {
+            return "--";
         }
-
-        if( CI < 65 || CI > 70 ) {
-            if( CI != 88 ) {
-                CI ='X';
-            }
-        }
-
-        // Assign dates and factions
-        Intro = IntDate;
-        Extinct = ExtDate;
-        ReIntro = ReIDate;
-        IntroFaction = IntFaction;
-        ReIntroFaction = ReIFaction;
-        WentExtinct = Ext_TF;
-        ReIntroduced = ReI_TF;
-        RulesLevelBM = Constants.TOURNAMENT;
-        RulesLevelIM = Constants.TOURNAMENT;
-        RulesLevelVee = Constants.TOURNAMENT;
-        RandDStart = 0;
-        RandDFaction = "";
-        Prototype = false;
     }
 
-    public AvailableCode( boolean c, char TR, char SL_Era, char SW_Era, char CI_Era, int IntDate, int ExtDate, int ReIDate, String IntFaction, String ReIFaction, boolean Ext_TF, boolean ReI_TF, int RDDate, boolean Proto, String RDFaction, int RulesBM, int RulesIM ) {
-        this( c, TR, SL_Era, SW_Era, CI_Era, IntDate, ExtDate, ReIDate, IntFaction, ReIFaction, Ext_TF, ReI_TF );
-
-        // this constructor added for static available codes.
-        RandDStart = RDDate;
-        Prototype = Proto;
-        RandDFaction = RDFaction;
-        RulesLevelBM = RulesBM;
-        RulesLevelIM = RulesIM;
-    }
-
-    // Public Methods
-    public void SetRulesLevelBM( int a ) {
-        // sets the rules level
-        RulesLevelBM = a;
-    }
-
-    public void SetRulesLevelIM( int a ) {
-        // sets the rules level
-        RulesLevelIM = a;
-    }
-
-    public void SetRulesLevelVee( int a ) {
-        RulesLevelVee = a;
-    }
-
-    public void SetPrimitiveAllowed( boolean pa ) {
-        PrimitiveAllowed = pa;
-    }
-
-    public void SetRandDStart( int i ) {
-        RandDStart = i;
-    }
-
-    public void SetRandDFaction( String f ) {
-        RandDFaction = f;
-    }
-
-    public void SetPrototype( boolean p ) {
-        Prototype = p;
-    }
-
-    public int GetRulesLevelBM() {
+    public int GetRulesLevel_BM() {
         return RulesLevelBM;
     }
 
-    public int GetRulesLevelIM() {
+    public int GetRulesLevel_IM() {
         return RulesLevelIM;
     }
 
-    public int GetRulesLevelVee() {
-        return RulesLevelVee;
+    public int GetRulesLevel_CV() {
+        return RulesLevelCV;
     }
 
-    public char GetTechRating() {
-        return TechRating;
+    public int GetRulesLevel_AF() {
+        return RulesLevelAF;
     }
 
-    public char GetSLCode() {
-        return SL;
+    public int GetRulesLevel_CF() {
+        return RulesLevelCF;
     }
 
-    public char GetSWCode() {
-        return SW;
-    }
-
-    public char GetCICode() {
-        return CI;
-    }
-
-    public int GetIntroDate() {
-        return Intro;
-    }
-    
-    public int GetExtinctDate() {
-        if( WentExtinct ) {
-            return Extinct;
-        } else {
-            return 0;
-        }
-    }
-    
-    public int GetReIntroDate() {
-        if( ReIntroduced ) {
-            return ReIntro;
-        } else {
-            return 0;
-        }
-    }
-
-    public int GetRandDStart() {
-        return RandDStart;
-    }
-
-    public boolean IsPrototype() {
-        return Prototype;
+    public int GetTechBase() {
+        return TechBase;
     }
 
     public boolean IsPrimitiveAllowed() {
         return PrimitiveAllowed;
     }
 
-    public String GetRandDFaction() {
-        return RandDFaction;
+    public boolean IsEraSpecific() {
+        return EraSpecific;
     }
 
-    public boolean WentExtinct() {
-        return WentExtinct;
-    }
-    
-    public boolean WasReIntroduced() {
-        return ReIntroduced;
-    }
-    
-    public String GetIntroFaction() {
-        return IntroFaction;
+/*
+ *  Informational
+ */
+    public String GetISCombinedCode() {
+        return IS_TechRating + "/" + IS_SL + "-" + IS_SW + "-" + IS_CI;
     }
 
-    public String GetReIntroFaction() {
-        if( ReIntroduced ) {
-            return ReIntroFaction;
+    public String GetCLCombinedCode() {
+        return CL_TechRating + "/" + CL_SL + "-" + CL_SW + "-" + CL_CI;
+    }
+
+    public char GetBestTechRating() {
+        if( IS_TechRating > CL_TechRating ) {
+            if( IS_TechRating == 'X' ) {
+                return CL_TechRating;
+            } else{
+                return IS_TechRating;
+            }
         } else {
-            return "--";
-        }
-    }
-
-    public boolean IsClan() {
-        return Clan;
-    }
-
-    public void Combine( AvailableCode a ) {
-        // Alters this code from the given AvailableCode.  Mainly used for final
-        // availability, does not include faction stuff, only dates and codes.
-
-        if( a.SL > SL ) {
-            SL = a.SL;
-        }
-        if( a.SW > SW ) {
-            SW = a.SW;
-        }
-        if( a.CI > CI ) {
-            CI = a.CI;
-        }
-        if( a.TechRating > TechRating ) {
-            TechRating = a.TechRating;
-        }
-        if( a.Intro > Intro ) {
-            Intro = a.Intro;
-            IntroFaction = a.GetIntroFaction();
-        }
-        if( a.Extinct > 0 ) {
-            if( Extinct > 0 ) {
-                if( a.Extinct < Extinct ) {
-                    Extinct = a.Extinct;
-                }
-            } else {
-                Extinct = a.Extinct;
+            if( CL_TechRating == 'X' ) {
+                return IS_TechRating;
+            } else{
+                return CL_TechRating;
             }
         }
-        if( a.ReIntro > ReIntro ) {
-            ReIntro = a.ReIntro;
-            ReIntroFaction = a.GetReIntroFaction();
+    }
+
+    public char GetBestSLCode() {
+        // Clan Star League codes should ALWAYS be X
+        return IS_SL;
+    }
+
+    public char GetBestSWCode() {
+        if( IS_SW < CL_SW ) {
+            return IS_SW;
+        } else {
+            return CL_SW;
         }
-        if( a.GetRandDStart() > RandDStart ) {
-            RandDStart = a.GetRandDStart();
-            RandDFaction = a.GetRandDFaction();
+    }
+
+    public char GetBestCICode() {
+        if( IS_CI < CL_CI ) {
+            return IS_CI;
+        } else {
+            return CL_CI;
+        }
+    }
+
+    public String GetBestCombinedCode() {
+        return GetBestTechRating() + "/" + GetBestSLCode() + "-" + GetBestSWCode() + "-" + GetBestCICode();
+    }
+
+/*
+ *  Utility
+ */
+    public void Combine( AvailableCode a ) {
+        // Alters this code from the given AvailableCode.  Mainly used for final
+        // availability.
+
+        if( a.GetISTechRating() > IS_TechRating ) {
+            IS_TechRating = a.GetISTechRating();
+        }
+        if( a.GetISSLCode() > IS_SL ) {
+            IS_SL = a.GetISSLCode();
+        }
+        if( a.GetISSWCode() > IS_SW ) {
+            IS_SW = a.GetISSWCode();
+        }
+        if( a.GetISCICode() > IS_CI ) {
+            IS_CI = a.GetISCICode();
+        }
+        if( a.GetCLTechRating() > CL_TechRating ) {
+            CL_TechRating = a.GetCLTechRating();
+        }
+        if( a.GetCLSLCode() > CL_SL ) {
+            CL_SL = a.GetCLSLCode();
+        }
+        if( a.GetCLSWCode() > CL_SW ) {
+            CL_SW = a.GetCLSWCode();
+        }
+        if( a.GetCLCICode() > CL_CI ) {
+            CL_CI = a.GetCLCICode();
         }
 
-        if( a.WentExtinct ) {
-            WentExtinct = true;
+        if( a.GetISIntroDate() > IS_IntroDate ) {
+            IS_IntroDate = a.GetISIntroDate();
+            IS_IntroFaction = a.GetISIntroFaction();
         }
-        if( a.WasReIntroduced() ) {
-            ReIntroduced = true;
+        if( a.GetCLIntroDate() > CL_IntroDate ) {
+            CL_IntroDate = a.GetCLIntroDate();
+            CL_IntroFaction = a.GetCLIntroFaction();
         }
-        if( a.GetRulesLevelBM() > RulesLevelBM ) {
-            RulesLevelBM = a.GetRulesLevelBM();
+        if( a.GetISExtinctDate() > 0 ) {
+            if( IS_ExtinctDate > 0 ) {
+                if( a.GetISExtinctDate() < IS_ExtinctDate ) {
+                    IS_ExtinctDate = a.GetISExtinctDate();
+                }
+            } else {
+                IS_ExtinctDate = a.GetISExtinctDate();
+            }
         }
-        if( a.GetRulesLevelIM() > RulesLevelIM ) {
-            RulesLevelIM = a.GetRulesLevelIM();
+        if( a.GetCLExtinctDate() > 0 ) {
+            if( CL_ExtinctDate > 0 ) {
+                if( a.GetCLExtinctDate() < CL_ExtinctDate ) {
+                    CL_ExtinctDate = a.GetCLExtinctDate();
+                }
+            } else {
+                CL_ExtinctDate = a.GetCLExtinctDate();
+            }
         }
-        if( a.GetRulesLevelVee() > RulesLevelVee ) {
-            RulesLevelVee = a.GetRulesLevelVee();
+        if( a.GetISReIntroDate() > IS_ReIntroDate ) {
+            IS_ReIntroDate = a.GetISReIntroDate();
+            IS_ReIntroFaction = a.GetISReIntroFaction();
         }
-        if( a.IsPrototype() ) {
-            Prototype = true;
+        if( a.GetISRandDStartDate() > IS_RandDStartDate ) {
+            IS_RandDStartDate = a.GetISRandDStartDate();
+            IS_RandDFaction = a.GetISRandDFaction();
+        }
+        if( a.GetCLReIntroDate() > CL_ReIntroDate ) {
+            CL_ReIntroDate = a.GetCLReIntroDate();
+            CL_ReIntroFaction = a.GetCLReIntroFaction();
+        }
+        if( a.GetCLRandDStartDate() > CL_RandDStartDate ) {
+            CL_RandDStartDate = a.GetCLRandDStartDate();
+            CL_RandDFaction = a.GetCLRandDFaction();
+        }
+
+        if( a.Is_ISPrototype() ) {
+            IS_IsPrototype = true;
+        }
+        if( a.WentExtinctIS() ) {
+            IS_WentExtinct = true;
+        }
+        if( a.WasReIntrodIS() ) {
+            IS_ReIntroduced = true;
+        }
+        if( a.Is_CLPrototype() ) {
+            CL_IsPrototype = true;
+        }
+        if( a.WentExtinctCL() ) {
+            CL_WentExtinct = true;
+        }
+        if( a.WasReIntrodCL() ) {
+            CL_ReIntroduced = true;
+        }
+
+        if( a.GetRulesLevel_BM() > RulesLevelBM ) {
+            RulesLevelBM = a.GetRulesLevel_BM();
+        }
+        if( a.GetRulesLevel_IM() > RulesLevelIM ) {
+            RulesLevelIM = a.GetRulesLevel_IM();
+        }
+        if( a.GetRulesLevel_CV() > RulesLevelCV ) {
+            RulesLevelCV = a.GetRulesLevel_CV();
+        }
+        if( a.GetRulesLevel_AF() > RulesLevelAF ) {
+            RulesLevelAF = a.GetRulesLevel_AF();
+        }
+        if( a.GetRulesLevel_CF() > RulesLevelCF ) {
+            RulesLevelCF = a.GetRulesLevel_CF();
+        }
+
+        if( a.IsEraSpecific() ) {
+            EraSpecific = true;
         }
 
         // double checking routines.
-        if( Intro > Extinct ) {
-            Extinct = 0;
-            ReIntro = 0;
-            WentExtinct = false;
-            ReIntroduced = false;
-            ReIntroFaction = "";
+        if( IS_IntroDate > IS_ExtinctDate ) {
+            IS_ExtinctDate = 0;
+            IS_ReIntroDate = 0;
+            IS_WentExtinct = false;
+            IS_ReIntroduced = false;
+            IS_ReIntroFaction = "";
+        }
+        if( CL_IntroDate > CL_ExtinctDate ) {
+            CL_ExtinctDate = 0;
+            CL_ReIntroDate = 0;
+            CL_WentExtinct = false;
+            CL_ReIntroduced = false;
+            CL_ReIntroFaction = "";
         }
     }
 
-    public String GetShortenedCode() {
-        return TechRating + "/" + SL + "-" + SW + "-" + CI;
+    public AvailableCode Clone() {
+        AvailableCode retval = new AvailableCode( TechBase );
+        retval.SetRulesLevels( RulesLevelBM, RulesLevelIM, RulesLevelCV, RulesLevelAF, RulesLevelCF );
+        retval.SetISCodes( IS_TechRating, IS_SL, IS_SW, IS_CI );
+        retval.SetISDates( IS_RandDStartDate, IS_PrototypeDate, IS_IsPrototype, IS_IntroDate, IS_ExtinctDate, IS_ReIntroDate, IS_WentExtinct, IS_ReIntroduced );
+        retval.SetISFactions( IS_RandDFaction, IS_PrototypeFaction, IS_IntroFaction, IS_ReIntroFaction );
+        retval.SetCLCodes( CL_TechRating, CL_SL, CL_SW, CL_CI );
+        retval.SetCLDates( CL_RandDStartDate, CL_PrototypeDate, CL_IsPrototype, CL_IntroDate, CL_ExtinctDate, CL_ReIntroDate, CL_WentExtinct, CL_ReIntroduced );
+        retval.SetCLFactions( CL_RandDFaction, CL_PrototypeFaction, CL_IntroFaction, CL_ReIntroFaction );
+        retval.SetEraSpecific( EraSpecific );
+        retval.SetPrimitiveAllowed( PrimitiveAllowed );
+        return retval;
     }
 
-    // toString
     @Override
     public String toString() {
         String retval = "";
-        if( Prototype ) {
-            retval = TechRating + "/" + SL + "-" + SW + "-" + CI + ", Intro Date: " + Intro + "P (" + IntroFaction + "), R&D Start Date: " + RandDStart + " (" + RandDFaction + ")";
-        } else {
-            retval = TechRating + "/" + SL + "-" + SW + "-" + CI + ", Intro Date: " + Intro + " (" + IntroFaction + ")";
+        switch( TechBase ) {
+            case TECH_INNER_SPHERE:
+                if( IS_IsPrototype ) {
+                    retval = GetISCombinedCode() + ", Intro Date: " + IS_IntroDate + "P (" + IS_IntroFaction + "), R&D Start Date: " + IS_RandDStartDate + " (" + IS_RandDFaction + ")";
+                } else {
+                    retval = GetISCombinedCode() + ", Intro Date: " + IS_IntroDate + " (" + IS_IntroFaction + ")";
+                }
+                if( IS_WentExtinct ) {
+                    if( IS_ReIntroduced ) {
+                        retval += ", Extinct By: " + GetISExtinctDate() + ", Reintroduced By: " + GetISReIntroDate() + " (" + GetISReIntroFaction() + ")";
+                    } else {
+                        retval += ", Extinct By: " + GetISExtinctDate();
+                    }
+                }
+                return retval;
+            case TECH_CLAN:
+                if( CL_IsPrototype ) {
+                    retval = GetCLCombinedCode() + ", Intro Date: " + CL_IntroDate + "P (" + CL_IntroFaction + "), R&D Start Date: " + CL_RandDStartDate + " (" + CL_RandDFaction + ")";
+                } else {
+                    retval = GetCLCombinedCode() + ", Intro Date: " + CL_IntroDate + " (" + CL_IntroFaction + ")";
+                }
+                if( CL_WentExtinct ) {
+                    if( CL_ReIntroduced ) {
+                        retval += ", Extinct By: " + GetCLExtinctDate() + ", Reintroduced By: " + GetCLReIntroDate() + " (" + GetCLReIntroFaction() + ")";
+                    } else {
+                        retval += ", Extinct By: " + GetCLExtinctDate();
+                    }
+                }
+                return retval;
+            case TECH_BOTH:
+                return GetBestCombinedCode();
+            default:
+                return "??";
         }
-        if( WentExtinct ) {
-            if( ReIntroduced ) {
-                retval += ", Extinct By: " + GetExtinctDate() + ", Reintroduced By: " + GetReIntroDate() + " (" + GetReIntroFaction() + ")";
-            } else {
-                retval += ", Extinct By: " + GetExtinctDate();
-            }
-        }
-        return retval;
     }
 }

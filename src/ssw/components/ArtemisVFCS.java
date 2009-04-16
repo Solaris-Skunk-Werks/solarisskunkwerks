@@ -28,17 +28,19 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
-import ssw.Constants;
-
 public class ArtemisVFCS extends abPlaceable implements ifMissileGuidance {
-    public final static AvailableCode CLAC = new AvailableCode( true, 'F', 'X', 'X', 'F', 3061, 0, 0, "CGS", "", false, false, 3058, true, "CGS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-    private MissileWeapon Owner;
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_CLAN );
+    private RangedWeapon Owner;
 
-    public ArtemisVFCS( MissileWeapon m ) {
+    public ArtemisVFCS( RangedWeapon m ) {
+        AC.SetCLCodes( 'F', 'X', 'X', 'F' );
+        AC.SetCLDates( 3058, 3061, true, 3061, 0, 0, false, false );
+        AC.SetCLFactions( "CGS", "CGS", "", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
         Owner = m;
     }
 
-    public MissileWeapon GetOwner() {
+    public RangedWeapon GetOwner() {
         return Owner;
     }
 
@@ -54,6 +56,10 @@ public class ArtemisVFCS extends abPlaceable implements ifMissileGuidance {
 
     public String GetCritName() {
         return "Artemis V FCS";
+    }
+
+    public String GetLookupName() {
+        return GetCritName();
     }
 
     public String GetMMName( boolean UseRear ) {
@@ -97,9 +103,9 @@ public class ArtemisVFCS extends abPlaceable implements ifMissileGuidance {
 
     public AvailableCode GetAvailability() {
         if( IsArmored() ) {
-            return CLArmoredAC;
+            return ArmoredAC;
         } else {
-            return CLAC;
+            return AC;
         }
     }
 

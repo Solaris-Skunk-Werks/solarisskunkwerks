@@ -31,7 +31,6 @@ import ssw.components.*;
 
 public interface ifCockpit {
     public String GetReportName();
-    public boolean IsClan();
     public float GetTonnage();
     public LocationIndex GetCockpitLoc();
     public LocationIndex GetFirstSensorLoc();

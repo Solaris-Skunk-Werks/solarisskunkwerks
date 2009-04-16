@@ -28,31 +28,29 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
+import java.util.Vector;
+import ssw.Constants;
 import ssw.Options;
+import ssw.filehandlers.BinaryReader;
 
 public class DataFactory {
     // Class file to make data lookups easier and disconnected from the GUI
     Options GlobalOptions = new Options();
     Object[][] Equipment = { { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null } };
-    WeaponFactory Weapons = null;
     EquipmentFactory Equips;
-    AmmoFactory Ammo = new AmmoFactory();
 
-    public DataFactory(Mech m){
-        Weapons = new WeaponFactory( m, GlobalOptions );
-        Weapons.RebuildPhysicals( m );
-        Equips = new EquipmentFactory (m);
-    }
-
-    public WeaponFactory GetWeapons() {
-        return Weapons;
+    public DataFactory( Mech m ) throws Exception {
+        BinaryReader b = new BinaryReader();
+        Vector ammo = b.ReadAmmo( Constants.AMMOFILE );
+        Vector weapons = b.ReadWeapons( Constants.WEAPONSFILE );
+        Equips = new EquipmentFactory( weapons, ammo, m );
     }
 
     public EquipmentFactory GetEquipment() {
         return Equips;
     }
 
-    public AmmoFactory GetAmmo() {
-        return Ammo;
+    public void Rebuild( Mech m ) {
+        Equips.BuildPhysicals( m );
     }
 }

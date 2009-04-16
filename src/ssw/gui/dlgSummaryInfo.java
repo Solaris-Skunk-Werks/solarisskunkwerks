@@ -48,25 +48,55 @@ public class dlgSummaryInfo extends javax.swing.JDialog {
         AvailableCode AC = Parent.CurMech.GetAvailability();
         lblName.setText( Parent.CurMech.GetName() );
         lblModel.setText( Parent.CurMech.GetModel() );
-        lblAvailability.setText( AC.GetShortenedCode() );
         lblActualProdYear.setText( "" + Parent.CurMech.GetYear() );
-        if( AC.WentExtinct() && AC.WasReIntroduced() ) {
-            if( AC.GetIntroDate() >= AC.GetReIntroDate() ) {
-                lblEarliestProdYear.setText( "" + AC.GetIntroDate() );
-            } else {
-                lblEarliestProdYear.setText( AC.GetIntroDate() + " or " + AC.GetReIntroDate() );
-            }
-        } else {
-            lblEarliestProdYear.setText( "" + AC.GetIntroDate() );
-        }
-        if( AC.WentExtinct() ) {
-            if( AC.GetIntroDate() >= AC.GetReIntroDate() ) {
+        switch( Parent.CurMech.GetTechBase() ) {
+            case AvailableCode.TECH_INNER_SPHERE:
+                lblAvailability.setText( AC.GetISCombinedCode() );
+                if( AC.WentExtinctIS() && AC.WasReIntrodIS() ) {
+                    if( AC.GetISIntroDate() >= AC.GetISReIntroDate() ) {
+                        lblEarliestProdYear.setText( "" + AC.GetISIntroDate() );
+                    } else {
+                        lblEarliestProdYear.setText( AC.GetISIntroDate() + " or " + AC.GetISReIntroDate() );
+                    }
+                } else {
+                    lblEarliestProdYear.setText( "" + AC.GetISIntroDate() );
+                }
+                if( AC.WentExtinctIS() ) {
+                    if( AC.GetISIntroDate() >= AC.GetISReIntroDate() ) {
+                        lblExtinctBy.setText( "NA" );
+                    } else {
+                        lblExtinctBy.setText( "" + AC.GetISExtinctDate() );
+                    }
+                } else {
+                    lblExtinctBy.setText( "NA" );
+                }
+                break;
+            case AvailableCode.TECH_CLAN:
+                lblAvailability.setText( AC.GetCLCombinedCode() );
+                if( AC.WentExtinctCL() && AC.WasReIntrodCL() ) {
+                    if( AC.GetCLIntroDate() >= AC.GetCLReIntroDate() ) {
+                        lblEarliestProdYear.setText( "" + AC.GetCLIntroDate() );
+                    } else {
+                        lblEarliestProdYear.setText( AC.GetCLIntroDate() + " or " + AC.GetCLReIntroDate() );
+                    }
+                } else {
+                    lblEarliestProdYear.setText( "" + AC.GetCLIntroDate() );
+                }
+                if( AC.WentExtinctCL() ) {
+                    if( AC.GetCLIntroDate() >= AC.GetCLReIntroDate() ) {
+                        lblExtinctBy.setText( "NA" );
+                    } else {
+                        lblExtinctBy.setText( "" + AC.GetCLExtinctDate() );
+                    }
+                } else {
+                    lblExtinctBy.setText( "NA" );
+                }
+                break;
+            case AvailableCode.TECH_BOTH:
+                lblAvailability.setText( AC.GetBestCombinedCode() );
+                lblEarliestProdYear.setText( "" + Parent.CurMech.GetYear() );
                 lblExtinctBy.setText( "NA" );
-            } else {
-                lblExtinctBy.setText( "" + AC.GetExtinctDate() );
-            }
-        } else {
-            lblExtinctBy.setText( "NA" );
+                break;
         }
 
         lblDefensiveBV.setText( String.format( "%1$.2f", Parent.CurMech.GetDefensiveBV() ) );

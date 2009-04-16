@@ -29,8 +29,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.components;
 
 public class PhysicalWeapon extends abPlaceable implements ifWeapon {
+    public static final int PW_CLASS_NORMAL = 0,
+                     PW_CLASS_SHIELD = 1,
+                     PW_CLASS_SPIKE = 2,
+                     PW_CLASS_TALON = 3,
+                     PW_CLASS_INDUSTRIAL = 4;
+
     private String Name,
                    MMName,
+                   LookupName,
                    Type,
                    Specials,
                    Manufacturer = "";
@@ -42,7 +49,7 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
                 ToHitLong = 0,
                 DamageAdd = 0,
                 CritAdd = 0,
-                PWClass = ssw.Constants.PW_CLASS_NORMAL;
+                PWClass = PW_CLASS_NORMAL;
     private float TonMult = 0.0f,
                   CritMult = 0.0f,
                   TonAdd = 0.0f,
@@ -65,9 +72,10 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
                     Alloc_Legs = false,
                     CanSplit = false;
 
-    public PhysicalWeapon( String name, String lookup, Mech m, AvailableCode a ) {
+    public PhysicalWeapon( String name, String lookupname, String mname, Mech m, AvailableCode a ) {
         Name = name;
-        MMName = lookup;
+        LookupName = lookupname;
+        MMName = mname;
         Owner = m;
         AC = a;
     }
@@ -165,6 +173,14 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         return PWClass;
     }
 
+    public int GetWeaponClass() {
+        return ifWeapon.W_PHYSICAL;
+    }
+
+    public int GetFCSType() {
+        return ifMissileGuidance.FCS_NONE;
+    }
+
     public void SetOwner( Mech m ) {
         // convenience method since physical weapons are based on tonnage
         Owner = m;
@@ -243,6 +259,10 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         return Name;
     }
 
+    public String GetLookupName() {
+        return LookupName;
+    }
+
     @Override
     public String GetMMName(boolean UseRear) {
         return MMName;
@@ -298,13 +318,9 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
 
     @Override
     public AvailableCode GetAvailability() {
-        AvailableCode retval = new AvailableCode( AC.IsClan(), AC.GetTechRating(), AC.GetSLCode(), AC.GetSWCode(), AC.GetCICode(), AC.GetIntroDate(), AC.GetExtinctDate(), AC.GetReIntroDate(), AC.GetIntroFaction(), AC.GetReIntroFaction(), AC.WentExtinct(), AC.WasReIntroduced(), AC.GetRandDStart(), AC.IsPrototype(), AC.GetRandDFaction(), AC.GetRulesLevelBM(), AC.GetRulesLevelIM() );
+        AvailableCode retval = AC.Clone();
         if( IsArmored() ) {
-            if( AC.IsClan() ) {
-                retval.Combine( CLArmoredAC );
-            } else {
-                retval.Combine( ISArmoredAC );
-            }
+            retval.Combine( ArmoredAC );
         }
         return retval;
     }
@@ -385,7 +401,7 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         return 0;
     }
 
-    public int GetAmmo() {
+    public int GetAmmoLotSize() {
         return 0;
     }
 
@@ -393,8 +409,8 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         return 0;
     }
 
-    public boolean IsClan() {
-        return Owner.IsClan();
+    public int GetTechBase() {
+        return AC.GetTechBase();
     }
 
     public boolean IsCluster() {

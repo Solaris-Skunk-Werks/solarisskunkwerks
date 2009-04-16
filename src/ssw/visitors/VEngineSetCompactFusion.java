@@ -34,6 +34,9 @@ import ssw.components.*;
 public class VEngineSetCompactFusion implements ifVisitor {
     private Mech CurMech;
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
@@ -60,11 +63,7 @@ public class VEngineSetCompactFusion implements ifVisitor {
         e.Remove(l);
 
         // change the engine type
-        if( CurMech.IsClan() ) {
-            e.SetCLFUEngine();
-        } else {
-            e.SetISCFEngine();
-        }
+        e.SetISCFEngine();
 
         // place the engine
         if( ! e.Place(l) ) {

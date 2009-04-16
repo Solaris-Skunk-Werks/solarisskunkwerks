@@ -57,6 +57,10 @@ public class Actuator extends abPlaceable {
         return CritName;
     }
 
+    public String GetLookupName() {
+        return GetCritName();
+    }
+
     public String GetMMName( boolean UseRear ) {
         return MMName;
     }
@@ -107,13 +111,9 @@ public class Actuator extends abPlaceable {
 
     // All placeables should be able to return their AvailabileCode
     public AvailableCode GetAvailability() {
-        AvailableCode retval = new AvailableCode( AC.IsClan(), AC.GetTechRating(), AC.GetSLCode(), AC.GetSWCode(), AC.GetCICode(), AC.GetIntroDate(), AC.GetExtinctDate(), AC.GetReIntroDate(), AC.GetIntroFaction(), AC.GetReIntroFaction(), AC.WentExtinct(), AC.WasReIntroduced(), AC.GetRandDStart(), AC.IsPrototype(), AC.GetRandDFaction(), AC.GetRulesLevelBM(), AC.GetRulesLevelIM() );
+        AvailableCode retval = AC.Clone();
         if( IsArmored() ) {
-            if( AC.IsClan() ) {
-                retval.Combine( CLArmoredAC );
-            } else {
-                retval.Combine( ISArmoredAC );
-            }
+            retval.Combine( ArmoredAC );
         }
         return retval;
     }

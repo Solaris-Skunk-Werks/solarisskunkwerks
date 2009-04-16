@@ -1,22 +1,39 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+Copyright (c) 2008~2009, Justin R. Bengtson (poopshotgun@yahoo.com)
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+        this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+        this list of conditions and the following disclaimer in the
+        documentation and/or other materials provided with the distribution.
+    * Neither the name of Justin R. Bengtson nor the names of contributors may
+        be used to endorse or promote products derived from this software
+        without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
 
 package ssw.states;
 
-import ssw.Constants;
 import ssw.components.AvailableCode;
 import ssw.components.MechModifier;
 
-/**
- *
- * @author justin
- */
 public class stEngineCLXXL implements ifEngine, ifState {
     // A Clan XXL Fusion Engine
-    private final static AvailableCode AC = new AvailableCode( true, 'F', 'X', 'X', 'F',
-        2954, 0, 0, "CDS", "", false, false, 2582, true, "TH", Constants.EXPERIMENTAL, Constants.UNALLOWED );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_CLAN );
     private final static float[] Masses = {0.5f,0.5f,0.5f,0.5f,0.5f,0.5f,0.5f,
         0.5f,0.5f,0.5f,0.5f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.5f,1.5f,
         1.5f,1.5f,1.5f,1.5f,1.5f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.5f,2.5f,
@@ -26,10 +43,17 @@ public class stEngineCLXXL implements ifEngine, ifState {
         12.5f,13.0f,14.0f,14.5f,15.5f,16.5f,17.5f};
     private final static int[] BFStructure = {1,1,1,1,1,1,2,2,2,2,3,3,3,3,3,3,4,4,4};
 
-    public boolean IsClan() {
+    public stEngineCLXXL() {
+        AC.SetCLCodes( 'F', 'X', 'F', 'F' );
+        AC.SetCLDates( 2582, 2954, true, 2954, 0, 0, false, false );
+        AC.SetCLFactions( "TH", "CDS", "", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
+    }
+
+    public boolean HasCounterpart() {
         return true;
     }
-    
+
     public float GetTonnage( int Rating ) {
         return Masses[GetIndex( Rating )];
     }

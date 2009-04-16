@@ -32,11 +32,19 @@ import java.util.Vector;
 
 public class TargetingComputer extends abPlaceable {
     private ifLoadout Owner;
-    private final static AvailableCode ISAC = new AvailableCode( false, 'E', 'X', 'X', 'E', 3062, 0, 0, "FC", "", false, false );
-    private final static AvailableCode CLAC = new AvailableCode( true, 'E', 'X', 'D', 'C', 2860, 0, 0, "CMN", "", false, false );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
+    private boolean Clan;
 
-    public TargetingComputer( ifLoadout l ) {
+    public TargetingComputer( ifLoadout l, boolean clan ) {
+        AC.SetISCodes( 'E', 'X', 'X', 'E' );
+        AC.SetISDates( 0, 0, false, 3062, 0, 0, false, false );
+        AC.SetISFactions( "", "", "FC", "" );
+        AC.SetCLCodes( 'E', 'X', 'D', 'C' );
+        AC.SetCLDates( 0, 0, false, 2860, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "CMN", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = l;
+        Clan = clan;
         SetExclusions( new Exclusion( new String[] { "A.E.S." }, "Targeting Computer" ) );
     }
 
@@ -45,12 +53,28 @@ public class TargetingComputer extends abPlaceable {
         return "Targeting Computer";
     }
 
+    public String GetLookupName() {
+        if( Clan ) {
+            return "(CL) Targeting Computer";
+        } else {
+            return "(IS) Targeting Computer";
+        }
+    }
+
     public String GetMMName( boolean UseRear ) {
-        if( Owner.GetMech().IsClan() ) {
+        if( Clan ) {
             return "CLTargeting Computer";
         } else {
             return "ISTargeting Computer";
         }
+    }
+
+    public void SetClan( boolean b ) {
+        Clan = b;
+    }
+
+    public boolean IsClan() {
+        return Clan;
     }
 
     @Override
@@ -99,18 +123,9 @@ public class TargetingComputer extends abPlaceable {
 
     @Override
     public AvailableCode GetAvailability() {
-        AvailableCode retval;
-        if( Owner.GetMech().IsClan() ) {
-            retval = new AvailableCode( CLAC.IsClan(), CLAC.GetTechRating(), CLAC.GetSLCode(), CLAC.GetSWCode(), CLAC.GetCICode(), CLAC.GetIntroDate(), CLAC.GetExtinctDate(), CLAC.GetReIntroDate(), CLAC.GetIntroFaction(), CLAC.GetReIntroFaction(), CLAC.WentExtinct(), CLAC.WasReIntroduced(), CLAC.GetRandDStart(), CLAC.IsPrototype(), CLAC.GetRandDFaction(), CLAC.GetRulesLevelBM(), CLAC.GetRulesLevelIM() );
-        } else {
-            retval = new AvailableCode( ISAC.IsClan(), ISAC.GetTechRating(), ISAC.GetSLCode(), ISAC.GetSWCode(), ISAC.GetCICode(), ISAC.GetIntroDate(), ISAC.GetExtinctDate(), ISAC.GetReIntroDate(), ISAC.GetIntroFaction(), ISAC.GetReIntroFaction(), ISAC.WentExtinct(), ISAC.WasReIntroduced(), ISAC.GetRandDStart(), ISAC.IsPrototype(), ISAC.GetRandDFaction(), ISAC.GetRulesLevelBM(), ISAC.GetRulesLevelIM()  );
-        }
+        AvailableCode retval = AC.Clone();
         if( IsArmored() ) {
-            if( retval.IsClan() ) {
-                retval.Combine( CLArmoredAC );
-            } else {
-                retval.Combine( ISArmoredAC );
-            }
+            retval.Combine( ArmoredAC );
         }
         return retval;
     }
@@ -124,8 +139,8 @@ public class TargetingComputer extends abPlaceable {
         }
 
         for( int i = 0; i < V.size(); i++ ) {
-            if( V.get( i ) instanceof EnergyWeapon ) {
-                if( ((EnergyWeapon) V.get( i )).HasCapacitor() ) {
+            if( V.get( i ) instanceof RangedWeapon ) {
+                if( ((RangedWeapon) V.get( i )).IsUsingCapacitor() ) {
                     Build += ((abPlaceable) V.get( i )).GetTonnage() - 1.0f;
                 } else {
                     Build += ((abPlaceable) V.get( i )).GetTonnage();
@@ -135,7 +150,7 @@ public class TargetingComputer extends abPlaceable {
             }
         }
 
-        if( Owner.GetMech().IsClan() ) {
+        if( Clan ) {
             return (int) Math.floor( Build * 0.2f + 0.999f );
         } else {
             return (int) Math.floor( Build * 0.25f + 0.999f );

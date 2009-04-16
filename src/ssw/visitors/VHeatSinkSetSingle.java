@@ -33,6 +33,9 @@ import ssw.components.*;
 public class VHeatSinkSetSingle implements ifVisitor {
     private Mech CurMech;
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
@@ -42,13 +45,7 @@ public class VHeatSinkSetSingle implements ifVisitor {
         CurMech = m;
         HeatSinkFactory h = CurMech.GetHeatSinks();
 
-        if( CurMech.IsClan() ) {
-            h.SetClan();
-            h.SetSingle();
-        } else {
-            h.SetInnerSphere();
-            h.SetSingle();
-        }
+        h.SetSingle();
 
         // now let's blow out the heat sinks and recalculate
         h.ReCalculate();

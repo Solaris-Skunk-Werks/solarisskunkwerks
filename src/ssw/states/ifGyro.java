@@ -32,7 +32,6 @@ import ssw.components.*;
 
 public interface ifGyro {
     public String GetReportName();
-    public boolean IsClan();
     public float GetTonnage( int rating );
     public int GetCrits();
     public String GetCritName();

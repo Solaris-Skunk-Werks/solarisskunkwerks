@@ -30,8 +30,17 @@ package ssw.components;
 
 public class EmptyItem extends abPlaceable {
     // this is an empty item.  it takes up space in the loadout
-    private final static AvailableCode AC = new AvailableCode( false, 'A', 'A', 'A', 'A',
-        1900, 0, 0, "", "", false, false );
+    private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
+
+    public EmptyItem() {
+        AC.SetISCodes( 'A', 'A', 'A', 'A' );
+        AC.SetISDates( 0, 0, false, 1900, 0, 0, false, false );
+        AC.SetISFactions( "", "", "", "" );
+        AC.SetCLCodes( 'A', 'A', 'A', 'A' );
+        AC.SetCLDates( 0, 0, false, 1900, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+    }
 
     @Override
     public boolean LocationLocked() {
@@ -41,6 +50,10 @@ public class EmptyItem extends abPlaceable {
     // returns the name of this item in the Loadout.
     public String GetCritName() {
         return "Roll Again";
+    }
+
+    public String GetLookupName() {
+        return GetCritName();
     }
 
     public String GetMMName( boolean UseRear ) {

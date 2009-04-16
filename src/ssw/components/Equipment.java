@@ -32,6 +32,7 @@ public class Equipment extends abPlaceable {
     private String CritName,
                    Type,
                    LookupName,
+                   MegaMekName,
                    Specials = "",
                    Manufacturer = "";
     private int Crits = 0,
@@ -46,7 +47,6 @@ public class Equipment extends abPlaceable {
                   OffBV = 0.0f,
                   DefBV = 0.0f;
     private boolean HasAmmo = false,
-                    Clan = false,
                     alloc_head = true,
                     alloc_ct = true,
                     alloc_torsos = true,
@@ -63,17 +63,16 @@ public class Equipment extends abPlaceable {
         // for regular equipment
     }
 
-    public Equipment( String name, String t, AvailableCode a, boolean c ) {
+    public Equipment( String name, String lookupname, String t, AvailableCode a ) {
         CritName = name;
-        LookupName = name;
+        LookupName = lookupname;
         Type = t;
         AC = a;
-        Clan = c;
     }
 
-    public void SetLookupName( String n ) {
+    public void SetMegaMekName( String n ) {
         // provided if it's anything different than the CritName
-        LookupName = n;
+        MegaMekName = n;
     }
 
     public void SetStats( int crits, float tons, float cost, float obv, float dbv, String spec ) {
@@ -126,6 +125,14 @@ public class Equipment extends abPlaceable {
             return "(R) " + CritName;
         } else {
             return CritName;
+        }
+    }
+
+    public String GetLookupName() {
+        if( Rear ) {
+            return "(R) " + LookupName;
+        } else {
+            return LookupName;
         }
     }
 
@@ -204,9 +211,9 @@ public class Equipment extends abPlaceable {
 
     public String GetMMName( boolean UseRear ) {
         if( Rear ) {
-            return LookupName + " (R)";
+            return MegaMekName + " (R)";
         } else {
-            return LookupName;
+            return MegaMekName;
         }
     }
 
@@ -239,8 +246,8 @@ public class Equipment extends abPlaceable {
         return CanSplit;
     }
 
-    public boolean IsClan() {
-        return Clan;
+    public int GetTechBase() {
+        return AC.GetTechBase();
     }
 
     @Override
@@ -283,13 +290,9 @@ public class Equipment extends abPlaceable {
 
     @Override
     public AvailableCode GetAvailability() {
-        AvailableCode retval = new AvailableCode( AC.IsClan(), AC.GetTechRating(), AC.GetSLCode(), AC.GetSWCode(), AC.GetCICode(), AC.GetIntroDate(), AC.GetExtinctDate(), AC.GetReIntroDate(), AC.GetIntroFaction(), AC.GetReIntroFaction(), AC.WentExtinct(), AC.WasReIntroduced(), AC.GetRandDStart(), AC.IsPrototype(), AC.GetRandDFaction(), AC.GetRulesLevelBM(), AC.GetRulesLevelIM() );
+        AvailableCode retval = AC.Clone();
         if( IsArmored() ) {
-            if( AC.IsClan() ) {
-                retval.Combine( CLArmoredAC );
-            } else {
-                retval.Combine( ISArmoredAC );
-            }
+            retval.Combine( ArmoredAC );
         }
         return retval;
     }

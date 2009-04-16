@@ -44,6 +44,9 @@ public class VArmorSetStealth implements ifVisitor {
         Locs = locs;
     }
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void Visit(Mech m) throws Exception {
         // only the armor changes, so pass us off
         CurMech = m;
@@ -53,12 +56,7 @@ public class VArmorSetStealth implements ifVisitor {
         // remove the old armor, if needed
         l.Remove( a );
 
-        // set the armor type
-        if( CurMech.IsClan() ) {
-            a.SetCLMS();
-        } else {
-            a.SetISST();
-        }
+        a.SetISST();
 
         if( Locs == null ) {
             // place the armor

@@ -35,8 +35,7 @@ import ssw.*;
 import ssw.gui.frmMain;
 import ssw.visitors.*;
 
-
-public class Mech implements ifBattleforce{
+public class Mech implements ifBattleforce {
     // A mech for the designer.  This is a large container class that will
     // handle calculations and settings for the design.
 
@@ -107,8 +106,7 @@ public class Mech implements ifBattleforce{
                             EnviroSealing,
                             Tracks;
     private SimplePlaceable EjectionSeat,
-                            ISCommandConsole,
-                            CLCommandConsole;
+                            CommandConsole;
     private AESSystem LAAES = new AESSystem( this, false ),
                       RAAES = new AESSystem( this, false ),
                       FLLAES = new AESSystem( this, true ),
@@ -119,6 +117,7 @@ public class Mech implements ifBattleforce{
                       CurRAAES;
     private Options options = new Options();
     private Hashtable Lookup = new Hashtable();
+    private AvailableCode OmniAvailable = new AvailableCode( AvailableCode.TECH_BOTH );
 
     // Constructors
     public Mech() {
@@ -134,9 +133,9 @@ public class Mech implements ifBattleforce{
 
         // Set the names and years to blank so the user doesn't have to overtype
         Name = "";
-        Era = Constants.STAR_LEAGUE;
-        TechBase = Constants.INNER_SPHERE;
-        RulesLevel = Constants.TOURNAMENT;
+        Era = AvailableCode.ERA_STAR_LEAGUE;
+        TechBase = AvailableCode.TECH_INNER_SPHERE;
+        RulesLevel = AvailableCode.RULES_TOURNAMENT;
         Year = 2750;
         YearRestricted = false;
 
@@ -151,39 +150,95 @@ public class Mech implements ifBattleforce{
         CurLAAES = LAAES;
         CurRAAES = RAAES;
 
+        // finish off the OmniMech availability
+        OmniAvailable.SetISCodes( 'E', 'X', 'X', 'E' );
+        OmniAvailable.SetISDates( 0, 0, false, 3052, 0, 0, false, false );
+        OmniAvailable.SetISFactions( "", "", "", "" );
+        OmniAvailable.SetISCodes( 'E', 'X', 'E', 'E' );
+        OmniAvailable.SetISDates( 0, 0, false, 2854, 0, 0, false, false );
+        OmniAvailable.SetISFactions( "", "", "", "" );
+        OmniAvailable.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+
         // load up some special equipment
-        AvailableCode AC = new AvailableCode( false, 'E', 'E', 'X', 'X', 2630, 2790, 0, "TH", "", true, false, 0, false, "", Constants.EXPERIMENTAL, Constants.UNALLOWED );
-        NullSig = new MultiSlotSystem( this, "Null Signature System", "NullSignatureSystem", 0.0f, false, true, 1400000.0f, false, AC );
+        AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+        AC.SetISCodes( 'E', 'E', 'X', 'X' );
+        AC.SetISDates( 0, 0, false, 2630, 2790, 0, true, false );
+        AC.SetISFactions( "", "", "TH", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        NullSig = new MultiSlotSystem( this, "Null Signature System", "Null Signature System", "NullSignatureSystem", 0.0f, false, true, 1400000.0f, false, AC );
         NullSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 10, 0.2f, 0.0f, 0.0f, 0.0f, true ) );
         NullSig.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Void Signature System", "Stealth Armor", "C3" }, "Null Signature System" ) );
-        AC = new AvailableCode( false, 'E', 'F', 'X', 'X', 2630, 2790, 0, "TH", "", true, false, 0, false, "", Constants.EXPERIMENTAL, Constants.UNALLOWED );
-        Chameleon = new MultiSlotSystem( this, "Chameleon LPS", "ChameleonLightPolarizationField", 0.0f, true, true, 600000.0f, false, AC );
+
+        AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+        AC.SetISCodes( 'E', 'F', 'X', 'X' );
+        AC.SetISDates( 0, 0, false, 2630, 2790, 0, true, false );
+        AC.SetISFactions( "", "", "TH", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        Chameleon = new MultiSlotSystem( this, "Chameleon LPS", "Chameleon LPS", "ChameleonLightPolarizationField", 0.0f, true, true, 600000.0f, false, AC );
         Chameleon.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 6, 0.2f, 0.0f, 0.0f, 0.0f, true ) );
         Chameleon.SetExclusions( new Exclusion( new String[] { "Void Signature System", "Stealth Armor" }, "Chameleon LPS" ) );
-        AC = new AvailableCode( false, 'E', 'X', 'X', 'F', 3053, 0, 0, "FS", "", false, false, 3051, true, "FS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-        BlueShield = new MultiSlotSystem( this, "Blue Shield PFD", "BlueShieldPFD", 3.0f, false, true, 1000000.0f, false, AC );
+
+        AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+        AC.SetISCodes( 'E', 'X', 'X', 'F' );
+        AC.SetISDates( 3051, 3053, true, 3053, 0, 0, false, false );
+        AC.SetISFactions( "FS", "FS", "", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        BlueShield = new MultiSlotSystem( this, "Blue Shield PFD", "Blue Shield PFD", "BlueShieldPFD", 3.0f, false, true, 1000000.0f, false, AC );
         BlueShield.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 0, 0.0f, 0.0f, 0.2f, 0.2f, true ) );
-        AC = new AvailableCode( false, 'E', 'X', 'X', 'E', 3070, 0, 0, "WB", "", false, false, 3060, true, "WB", Constants.EXPERIMENTAL, Constants.UNALLOWED );
-        VoidSig = new MultiSlotSystem( this, "Void Signature System", "VoidSignatureSystem", 0.0f, false, true, 2000000.0f, false, AC );
+
+        AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+        AC.SetISCodes( 'E', 'X', 'X', 'E' );
+        AC.SetISDates( 3060, 3070, true, 3070, 0, 0, false, false );
+        AC.SetISFactions( "WB", "WB", "", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        VoidSig = new MultiSlotSystem( this, "Void Signature System", "Void Signature System", "VoidSignatureSystem", 0.0f, false, true, 2000000.0f, false, AC );
         VoidSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 10, 0.0f, 1.3f, 0.0f, 0.0f, true ) );
         VoidSig.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Null Signature System", "Stealth Armor", "C3", "Chameleon LPS" }, "Void Signature System" ) );
-        AC = new AvailableCode( false, 'C', 'C', 'C', 'C', 1950, 0, 0, "PS", "", false, false, 0, false, "", Constants.UNALLOWED, Constants.TOURNAMENT );
-        EnviroSealing = new MultiSlotSystem( this, "Environmental Sealing", "Environmental Sealing", 0.1f, false, false, 225.0f, true, AC );
+
+        AC = new AvailableCode( AvailableCode.TECH_BOTH );
+        AC.SetISCodes( 'C', 'C', 'C', 'C' );
+        AC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
+        AC.SetISFactions( "", "", "PS", "" );
+        AC.SetCLCodes( 'C', 'X', 'C', 'C' );
+        AC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "PS", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        EnviroSealing = new MultiSlotSystem( this, "Environmental Sealing", "Environmental Sealing", "Environmental Sealing", 0.1f, false, false, 225.0f, true, AC );
         EnviroSealing.SetWeightBasedOnMechTonnage( true );
-        AC = new AvailableCode( false, 'B', 'D', 'E', 'F', 2445, 0, 0, "TH", "", false, false, 0, false, "", Constants.UNALLOWED, Constants.TOURNAMENT );
+
+        AC = new AvailableCode( AvailableCode.TECH_BOTH );
+        AC.SetISCodes( 'B', 'D', 'E', 'F' );
+        AC.SetISDates( 0, 0, false, 2445, 0, 0, false, false );
+        AC.SetISFactions( "", "", "TH", "" );
+        AC.SetCLCodes( 'B', 'X', 'D', 'F' );
+        AC.SetCLDates( 0, 0, false, 2445, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "TH", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         EjectionSeat = new SimplePlaceable( "Ejection Seat", "EjectionSeat", 1, true, AC );
         EjectionSeat.SetTonnage( 0.5f );
         EjectionSeat.SetCost( 25000.0f );
-        AC = new AvailableCode (false, 'C', 'D', 'E', 'E', 2400, 0, 0, "DC", "", false, false, 0, false, "", Constants.TOURNAMENT, Constants.TOURNAMENT);
-        Tracks = new Tracks(this, AC);
-        AC = new AvailableCode ( false, 'D', 'C', 'F', 'E', 2631, 2850, 3030, "TH", "??", true, true, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        ISCommandConsole = new SimplePlaceable( "Command Console", "CommandConsole", 1, true, AC );
-        ISCommandConsole.SetTonnage( 3.0f );
-        ISCommandConsole.SetCost( 500000.0f );
-        AC = new AvailableCode ( true, 'D', 'X', 'B', 'B', 2631, 0, 0, "TH", "", false, false, 0, false, "", Constants.ADVANCED, Constants.ADVANCED );
-        CLCommandConsole = new SimplePlaceable( "Command Console", "CommandConsole", 1, true, AC );
-        CLCommandConsole.SetTonnage( 3.0f );
-        CLCommandConsole.SetCost( 500000.0f );
+
+        AC = new AvailableCode( AvailableCode.TECH_BOTH );
+        AC.SetISCodes( 'C', 'D', 'E', 'E' );
+        AC.SetISDates( 0, 0, false, 2400, 0, 0, false, false );
+        AC.SetISFactions( "", "", "DC", "" );
+        AC.SetCLCodes( 'C', 'X', 'D', 'E' );
+        AC.SetCLDates( 0, 0, false, 2400, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "DC", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        Tracks = new Tracks( this, AC );
+
+        AC = new AvailableCode( AvailableCode.TECH_BOTH );
+        AC.SetISCodes( 'D', 'C', 'F', 'E' );
+        AC.SetISDates( 0, 0, false, 2631, 2850, 3030, true, true );
+        AC.SetISFactions( "", "", "TH", "??" );
+        AC.SetCLCodes( 'D', 'X', 'B', 'B' );
+        AC.SetCLDates( 0, 0, false, 2631, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "TH", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        CommandConsole = new SimplePlaceable( "Command Console", "CommandConsole", 1, true, AC );
+        CommandConsole.SetTonnage( 3.0f );
+        CommandConsole.SetCost( 500000.0f );
     }
 
     public void Recalculate() {
@@ -269,7 +324,12 @@ public class Mech implements ifBattleforce{
     }
 
     public void SetTechBase( int t ) {
-        TechBase = t;
+        if( Omnimech ) {
+            CurLoadout.SetTechBase( t );
+        } else {
+            TechBase = t;
+            MainLoadout.SetTechBase( t );
+        }
         SetChanged( true );
     }
 
@@ -291,7 +351,7 @@ public class Mech implements ifBattleforce{
     public void SetInnerSphere() {
         // performs all the neccesary actions to switch this to Inner Sphere
         // set the tech base
-        TechBase = Constants.INNER_SPHERE;
+        TechBase = AvailableCode.TECH_INNER_SPHERE;
 
         // clear out any MechModifiers in the chassis and loadout
         MechMods.clear();
@@ -301,46 +361,44 @@ public class Mech implements ifBattleforce{
         CurLoadout.ClearLoadout();
 
         // switch the engine over to a military Standard
-        CurEngine.SetISFUEngine();
+        CurEngine.SetFUEngine();
 
         // switch the gyro
-        CurGyro.SetISStandard();
+        CurGyro.SetStandard();
 
         // switch the internal structure
         if( IsQuad() ) {
             if( IndustrialMech ) {
-                CurIntStruc.SetISIMQD();
+                CurIntStruc.SetIMQD();
             } else {
-                CurIntStruc.SetISMSQD();
+                CurIntStruc.SetMSQD();
             }
         } else {
             if( IndustrialMech ) {
-                CurIntStruc.SetISIMBP();
+                CurIntStruc.SetIMBP();
             } else {
-                CurIntStruc.SetISMSBP();
+                CurIntStruc.SetMSBP();
             }
         }
 
         // switch the cockpit
         if( IndustrialMech ) {
-            CurCockpit.SetISIndustrialCockpit();
+            CurCockpit.SetIndustrialCockpit();
         } else {
-            CurCockpit.SetISCockpit();
+            CurCockpit.SetStandardCockpit();
         }
 
         // switch the heat sinks
-        GetHeatSinks().SetInnerSphere();
         GetHeatSinks().SetSingle();
 
         // switch the jump jets
-        GetJumpJets().SetInnerSphere();
         GetJumpJets().SetNormal();
 
         // switch the physical enhancement
-        CurPhysEnhance.SetISNone();
+        CurPhysEnhance.SetNone();
 
         // set the armor type
-        CurArmor.SetISMS();
+        CurArmor.SetStandard();
 
         // replace everything in the loadout
         CurGyro.Place( CurLoadout );
@@ -352,7 +410,7 @@ public class Mech implements ifBattleforce{
         GetHeatSinks().ReCalculate();
         GetJumpJets().ReCalculate();
         CurArmor.Recalculate();
-        UseTC( false );
+        UseTC( false, false );
 
         SetChanged( true );
     }
@@ -360,7 +418,7 @@ public class Mech implements ifBattleforce{
     public void SetClan() {
         // performs all the neccesary actions to switch this to Clan
         // set the tech base
-        TechBase = Constants.CLAN;
+        TechBase = AvailableCode.TECH_CLAN;
 
         // clear out any MechModifiers in the chassis and loadout
         MechMods.clear();
@@ -370,46 +428,44 @@ public class Mech implements ifBattleforce{
         CurLoadout.ClearLoadout();
 
         // switch the engine over to a military Standard Clan
-        CurEngine.SetCLFUEngine();
+        CurEngine.SetFUEngine();
 
         // switch the gyro
-        CurGyro.SetCLStandard();
+        CurGyro.SetStandard();
 
         // switch the internal structure
         if( IsQuad() ) {
             if( IndustrialMech ) {
-                CurIntStruc.SetCLIMQD();
+                CurIntStruc.SetIMQD();
             } else {
-                CurIntStruc.SetCLMSQD();
+                CurIntStruc.SetMSQD();
             }
         } else {
             if( IndustrialMech ) {
-                CurIntStruc.SetCLIMBP();
+                CurIntStruc.SetIMBP();
             } else {
-                CurIntStruc.SetCLMSBP();
+                CurIntStruc.SetMSBP();
             }
         }
 
         // switch the cockpit
         if( IndustrialMech ) {
-            CurCockpit.SetCLIndustrialCockpit();
+            CurCockpit.SetIndustrialCockpit();
         } else {
-            CurCockpit.SetClanCockpit();
+            CurCockpit.SetStandardCockpit();
         }
 
         // switch the heat sinks
-        GetHeatSinks().SetClan();
         GetHeatSinks().SetSingle();
 
         // switch the jump jets
-        GetJumpJets().SetClan();
         GetJumpJets().SetNormal();
 
         // switch the physical enhancement
-        CurPhysEnhance.SetCLNone();
+        CurPhysEnhance.SetNone();
 
         // set the armor type
-        CurArmor.SetCLMS();
+        CurArmor.SetStandard();
 
         // replace everything iun the loadout
         CurGyro.Place( CurLoadout );
@@ -421,15 +477,15 @@ public class Mech implements ifBattleforce{
         GetHeatSinks().ReCalculate();
         GetJumpJets().ReCalculate();
         CurArmor.Recalculate();
-        UseTC( false );
+        UseTC( false, false );
 
         SetChanged( true );
     }
 
-/*    public void SetPrimitive() {
-        // performs all the neccesary actions to switch the Tech Base over to Primitive.
+    public void SetMixed() {
+        // performs all the neccesary actions to switch this to Mixed Tech
         // set the tech base
-        TechBase = Constants.INNER_SPHERE;
+        TechBase = AvailableCode.TECH_BOTH;
 
         // clear out any MechModifiers in the chassis and loadout
         MechMods.clear();
@@ -439,36 +495,46 @@ public class Mech implements ifBattleforce{
         CurLoadout.ClearLoadout();
 
         // switch the engine over to a military Standard Clan
-        CurEngine.SetISFUEngine();
+        CurEngine.SetFUEngine();
 
         // switch the gyro
-        CurGyro.SetISStandard();
+        CurGyro.SetStandard();
 
         // switch the internal structure
         if( IsQuad() ) {
-            CurIntStruc.SetISPRQD();
+            if( IndustrialMech ) {
+                CurIntStruc.SetIMQD();
+            } else {
+                CurIntStruc.SetMSQD();
+            }
         } else {
-            CurIntStruc.SetISPRBP();
+            if( IndustrialMech ) {
+                CurIntStruc.SetIMBP();
+            } else {
+                CurIntStruc.SetMSBP();
+            }
         }
 
         // switch the cockpit
-        CurCockpit.SetPrimitiveCockpit();
+        if( IndustrialMech ) {
+            CurCockpit.SetIndustrialCockpit();
+        } else {
+            CurCockpit.SetStandardCockpit();
+        }
 
         // switch the heat sinks
-        GetHeatSinks().SetInnerSphere();
         GetHeatSinks().SetSingle();
 
         // switch the jump jets
-        GetJumpJets().SetInnerSphere();
         GetJumpJets().SetNormal();
 
         // switch the physical enhancement
-        CurPhysEnhance.SetISNone();
+        CurPhysEnhance.SetNone();
 
         // set the armor type
-        CurArmor.SetISIN();
+        CurArmor.SetStandard();
 
-        // replace everything in the loadout
+        // replace everything iun the loadout
         CurGyro.Place( CurLoadout );
         CurEngine.Place( CurLoadout );
         CurIntStruc.Place( CurLoadout );
@@ -478,20 +544,13 @@ public class Mech implements ifBattleforce{
         GetHeatSinks().ReCalculate();
         GetJumpJets().ReCalculate();
         CurArmor.Recalculate();
-        UseTC( false );
+        UseTC( false, false );
 
-        Primitive = true;
+        SetChanged( true );
+    }
 
-        // recalculate to get the correct engine tonnage and rating
-        Recalculate();
-    }*/
-
-    public boolean IsClan() {
-        if( TechBase == Constants.CLAN ) {
-            return true;
-        } else {
-            return false;
-        }
+    public int GetTechBase() {
+        return TechBase;
     }
 
     public void SetBiped() {
@@ -501,13 +560,21 @@ public class Mech implements ifBattleforce{
         boolean ltcase = HasLTCase();
         boolean rtcase = HasRTCase();
         boolean hdcase2 = CurLoadout.HasHDCASEII();
+        boolean hdcase2clan = CurLoadout.GetHDCaseII().IsClan();
         boolean ctcase2 = CurLoadout.HasCTCASEII();
+        boolean ctcase2clan = CurLoadout.GetCTCaseII().IsClan();
         boolean ltcase2 = CurLoadout.HasLTCASEII();
+        boolean ltcase2clan = CurLoadout.GetLTCaseII().IsClan();
         boolean rtcase2 = CurLoadout.HasRTCASEII();
+        boolean rtcase2clan = CurLoadout.GetRTCaseII().IsClan();
         boolean lacase2 = CurLoadout.HasLACASEII();
+        boolean lacase2clan = CurLoadout.GetLACaseII().IsClan();
         boolean racase2 = CurLoadout.HasRACASEII();
+        boolean racase2clan = CurLoadout.GetRACaseII().IsClan();
         boolean llcase2 = CurLoadout.HasLLCASEII();
+        boolean llcase2clan = CurLoadout.GetLLCaseII().IsClan();
         boolean rlcase2 = CurLoadout.HasRLCASEII();
+        boolean rlcase2clan = CurLoadout.GetRLCaseII().IsClan();
         String Jumps = GetJumpJets().GetLookupName();
         String HeatSinks = GetHeatSinks().GetLookupName();
 
@@ -526,18 +593,10 @@ public class Mech implements ifBattleforce{
         CurLoadout.SetBaseLoadout( MainLoadout );
 
         // next, change the internal structure to a default standard biped
-        if( IsClan() ) {
-            if( IndustrialMech ) {
-                CurIntStruc.SetCLIMBP();
-            } else {
-                CurIntStruc.SetCLMSBP();
-            }
+        if( IndustrialMech ) {
+            CurIntStruc.SetIMBP();
         } else {
-            if( IndustrialMech ) {
-                CurIntStruc.SetISIMBP();
-            } else {
-                CurIntStruc.SetISMSBP();
-            }
+            CurIntStruc.SetMSBP();
         }
 
         // set the mech to a biped
@@ -606,28 +665,28 @@ public class Mech implements ifBattleforce{
                 AddRTCase();
             }
             if( hdcase2 ) {
-                CurLoadout.SetHDCASEII( true, -1 );
+                CurLoadout.SetHDCASEII( true, -1, hdcase2clan );
             }
             if( ctcase2 ) {
-                CurLoadout.SetCTCASEII( true, -1 );
+                CurLoadout.SetCTCASEII( true, -1, ctcase2clan );
             }
             if( ltcase2 ) {
-                CurLoadout.SetLTCASEII( true, -1 );
+                CurLoadout.SetLTCASEII( true, -1, ltcase2clan );
             }
             if( rtcase2 ) {
-                CurLoadout.SetRTCASEII( true, -1 );
+                CurLoadout.SetRTCASEII( true, -1, rtcase2clan );
             }
             if( lacase2 ) {
-                CurLoadout.SetLACASEII( true, -1 );
+                CurLoadout.SetLACASEII( true, -1, lacase2clan );
             }
             if( racase2 ) {
-                CurLoadout.SetRACASEII( true, -1 );
+                CurLoadout.SetRACASEII( true, -1, racase2clan );
             }
             if( llcase2 ) {
-                CurLoadout.SetLLCASEII( true, -1 );
+                CurLoadout.SetLLCASEII( true, -1, llcase2clan );
             }
             if( rlcase2 ) {
-                CurLoadout.SetRLCASEII( true, -1 );
+                CurLoadout.SetRLCASEII( true, -1, rlcase2clan );
             }
 
             // replace fixed-slot equipment
@@ -674,13 +733,21 @@ public class Mech implements ifBattleforce{
         boolean ltcase = HasLTCase();
         boolean rtcase = HasRTCase();
         boolean hdcase2 = CurLoadout.HasHDCASEII();
+        boolean hdcase2clan = CurLoadout.GetHDCaseII().IsClan();
         boolean ctcase2 = CurLoadout.HasCTCASEII();
+        boolean ctcase2clan = CurLoadout.GetCTCaseII().IsClan();
         boolean ltcase2 = CurLoadout.HasLTCASEII();
+        boolean ltcase2clan = CurLoadout.GetLTCaseII().IsClan();
         boolean rtcase2 = CurLoadout.HasRTCASEII();
+        boolean rtcase2clan = CurLoadout.GetRTCaseII().IsClan();
         boolean lacase2 = CurLoadout.HasLACASEII();
+        boolean lacase2clan = CurLoadout.GetLACaseII().IsClan();
         boolean racase2 = CurLoadout.HasRACASEII();
+        boolean racase2clan = CurLoadout.GetRACaseII().IsClan();
         boolean llcase2 = CurLoadout.HasLLCASEII();
+        boolean llcase2clan = CurLoadout.GetLLCaseII().IsClan();
         boolean rlcase2 = CurLoadout.HasRLCASEII();
+        boolean rlcase2clan = CurLoadout.GetRLCaseII().IsClan();
         String Jumps = GetJumpJets().GetLookupName();
         String HeatSinks = GetHeatSinks().GetLookupName();
 
@@ -699,18 +766,10 @@ public class Mech implements ifBattleforce{
         CurLoadout.SetBaseLoadout( MainLoadout );
 
         // next, change the internal structure to a default standard quad
-        if( IsClan() ) {
-            if( IndustrialMech ) {
-                CurIntStruc.SetCLIMQD();
-            } else {
-                CurIntStruc.SetCLMSQD();
-            }
+        if( IndustrialMech ) {
+            CurIntStruc.SetIMQD();
         } else {
-            if( IndustrialMech ) {
-                CurIntStruc.SetISIMQD();
-            } else {
-                CurIntStruc.SetISMSQD();
-            }
+            CurIntStruc.SetMSQD();
         }
 
         // set the mech to a quad
@@ -780,28 +839,28 @@ public class Mech implements ifBattleforce{
                 AddRTCase();
             }
             if( hdcase2 ) {
-                CurLoadout.SetHDCASEII( true, -1 );
+                CurLoadout.SetHDCASEII( true, -1, hdcase2clan );
             }
             if( ctcase2 ) {
-                CurLoadout.SetCTCASEII( true, -1 );
+                CurLoadout.SetCTCASEII( true, -1, ctcase2clan );
             }
             if( ltcase2 ) {
-                CurLoadout.SetLTCASEII( true, -1 );
+                CurLoadout.SetLTCASEII( true, -1, ltcase2clan );
             }
             if( rtcase2 ) {
-                CurLoadout.SetRTCASEII( true, -1 );
+                CurLoadout.SetRTCASEII( true, -1, rtcase2clan );
             }
             if( lacase2 ) {
-                CurLoadout.SetLACASEII( true, -1 );
+                CurLoadout.SetLACASEII( true, -1, lacase2clan );
             }
             if( racase2 ) {
-                CurLoadout.SetRACASEII( true, -1 );
+                CurLoadout.SetRACASEII( true, -1, racase2clan );
             }
             if( llcase2 ) {
-                CurLoadout.SetLLCASEII( true, -1 );
+                CurLoadout.SetLLCASEII( true, -1, llcase2clan );
             }
             if( rlcase2 ) {
-                CurLoadout.SetRLCASEII( true, -1 );
+                CurLoadout.SetRLCASEII( true, -1, rlcase2clan );
             }
             
             // replace fixed-slot equipment
@@ -848,10 +907,16 @@ public class Mech implements ifBattleforce{
     public void SetIndustrialmech() {
         // do all the neccesary things to change over to an IndustrialMech
         IndustrialMech = true;
-        if( IsClan() ) {
-            SetClan();
-        } else {
-            SetInnerSphere();
+        switch( TechBase ) {
+            case AvailableCode.TECH_INNER_SPHERE:
+                SetInnerSphere();
+                break;
+            case AvailableCode.TECH_CLAN:
+                SetClan();
+                break;
+            case AvailableCode.TECH_BOTH:
+                SetMixed();
+                break;
         }
         if( Quad ) {
             SetQuad();
@@ -866,10 +931,16 @@ public class Mech implements ifBattleforce{
     public void SetBattlemech() {
         // do all the neccesary things to change over to a BattleMech
         IndustrialMech = false;
-        if( IsClan() ) {
-            SetClan();
-        } else {
-            SetInnerSphere();
+        switch( TechBase ) {
+            case AvailableCode.TECH_INNER_SPHERE:
+                SetInnerSphere();
+                break;
+            case AvailableCode.TECH_CLAN:
+                SetClan();
+                break;
+            case AvailableCode.TECH_BOTH:
+                SetMixed();
+                break;
         }
         if( Quad ) {
             SetQuad();
@@ -887,7 +958,7 @@ public class Mech implements ifBattleforce{
 
         // remove any targeting computers from the base chassis.  they vary too
         // much to be fixed equipment
-        UseTC( false );
+        UseTC( false, false );
 
         // before we unallocate the actuators, we need to make sure that
         // there are no physical weapons located there.
@@ -1050,13 +1121,13 @@ public class Mech implements ifBattleforce{
     public int GetDeprecatedLevel() {
         // returns the mech's "level" according to the older rules
         // this is used by Solaris7.com
-        if( GetRulesLevel() >= Constants.ADVANCED ) {
+        if( GetRulesLevel() >= AvailableCode.RULES_ADVANCED ) {
             return 3;
         } else {
-            if( IsClan() ) {
+            if( TechBase == AvailableCode.TECH_CLAN ) {
                 return 2;
             }
-            if( GetAvailability().GetSWCode() < 'F' ) {
+            if( GetAvailability().GetISSWCode() < 'F' ) {
                 if( GetHeatSinks().IsDouble() ) {
                     return 2;
                 } else {
@@ -1071,11 +1142,11 @@ public class Mech implements ifBattleforce{
     public int GetMegaMekLevel() {
         // returns the mech's tech level according to MegaMek
         switch( GetRulesLevel() ) {
-            case Constants.TOURNAMENT:
-                if( IsClan() ) {
+            case AvailableCode.RULES_TOURNAMENT:
+                if( TechBase == AvailableCode.TECH_CLAN ) {
                     return 2;
                 }
-                if( GetAvailability().GetSWCode() < 'F' ) {
+                if( GetAvailability().GetISSWCode() < 'F' ) {
                     if( GetHeatSinks().IsDouble() ) {
                         return 2;
                     } else {
@@ -1084,9 +1155,9 @@ public class Mech implements ifBattleforce{
                 } else {
                     return 2;
                 }
-            case Constants.ADVANCED:
+            case AvailableCode.RULES_ADVANCED:
                 return 3;
-            case Constants.EXPERIMENTAL:
+            case AvailableCode.RULES_EXPERIMENTAL:
                 return 4;
             default:
                 // only added for code completeness, we should never reach this
@@ -1100,10 +1171,6 @@ public class Mech implements ifBattleforce{
 
     public boolean YearWasSpecified() {
         return YearSpecified;
-    }
-
-    public int GetTechBase() {
-        return TechBase;
     }
 
     public String GetSolaris7ID() {
@@ -1186,11 +1253,7 @@ public class Mech implements ifBattleforce{
         result += CurGyro.GetTonnage();
         result += CurCockpit.GetTonnage();
         if( HasCommandConsole() ) {
-            if( IsClan() ) {
-                result += CLCommandConsole.GetTonnage();
-            } else {
-                result += ISCommandConsole.GetTonnage();
-            }
+            result += CommandConsole.GetTonnage();
         }
         result += GetHeatSinks().GetTonnage();
         result += CurPhysEnhance.GetTonnage();
@@ -1241,11 +1304,7 @@ public class Mech implements ifBattleforce{
         result += CurGyro.GetTonnage();
         result += CurCockpit.GetTonnage();
         if( HasCommandConsole() ) {
-            if( IsClan() ) {
-                result += CLCommandConsole.GetTonnage();
-            } else {
-                result += ISCommandConsole.GetTonnage();
-            }
+            result += CommandConsole.GetTonnage();
         }
         result += GetHeatSinks().GetTonnage();
         result += CurPhysEnhance.GetTonnage();
@@ -1396,11 +1455,11 @@ public class Mech implements ifBattleforce{
                         }
                     }
                 } else {
-                    if( a instanceof BallisticWeapon ) {
-                        if( FullRate ) {
-                            if( ((BallisticWeapon) a).IsUltra() ) {
+                    if( FullRate ) {
+                        if( a instanceof RangedWeapon ) {
+                            if( ((RangedWeapon) a).IsUltra() ) {
                                 result += ((ifWeapon) a).GetHeat() * 2;
-                            } else if( ((BallisticWeapon) a).IsRotary() ) {
+                            } else if( ((RangedWeapon) a).IsRotary() ) {
                                 result += ((ifWeapon) a).GetHeat() * 6;
                             } else {
                                 result += ((ifWeapon) a).GetHeat();
@@ -1474,7 +1533,7 @@ public class Mech implements ifBattleforce{
 
         // now get the defensive BV for any armored components that weren't
         // already covered.
-        if( RulesLevel == Constants.EXPERIMENTAL && Era == Constants.CLAN_INVASION ) {
+        if( RulesLevel == AvailableCode.RULES_EXPERIMENTAL && Era == AvailableCode.ERA_CLAN_INVASION ) {
             defresult += CurEngine.GetDefensiveBV();
             defresult += CurCockpit.GetDefensiveBV();
         }
@@ -1500,7 +1559,103 @@ public class Mech implements ifBattleforce{
         Vector v = CurLoadout.GetNonCore();
         abPlaceable p;
 
-        if( IsClan() ) {
+        for( int i = 0; i < v.size(); i++ ) {
+            p = (abPlaceable) v.get( i );
+            if( p instanceof Ammunition ) {
+                if( ((Ammunition) p).IsExplosive() ) {
+                    if( CurEngine.IsISXL() ) {
+                        switch( CurLoadout.Find( p ) ) {
+                            case 0:
+                                if( ! CurLoadout.HasHDCASEII() ) {
+                                    result -= 15.0f;
+                                }
+                                break;
+                            case 1:
+                                if( ! CurLoadout.HasCTCASEII() ) {
+                                    result -= 15.0f;
+                                }
+                                break;
+                            case 2:
+                                if( ! CurLoadout.HasLTCASEII() ) {
+                                    result -= 15.0f;
+                                }
+                                break;
+                            case 3:
+                                if( ! CurLoadout.HasRTCASEII() ) {
+                                    result -= 15.0f;
+                                }
+                                break;
+                            case 4:
+                                if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.IsUsingClanCASE() ) {
+                                    result -= 15.0f;
+                                }
+                                break;
+                            case 5:
+                                if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.IsUsingClanCASE() ) {
+                                    result -= 15.0f;
+                                }
+                                break;
+                            case 6:
+                                if( ! CurLoadout.HasLLCASEII() ) {
+                                    result -= 15.0f;
+                                }
+                                break;
+                            case 7:
+                                if( ! CurLoadout.HasRLCASEII() ) {
+                                    result -= 15.0f;
+                                }
+                                break;
+                        }
+                    } else {
+                        switch( CurLoadout.Find( p ) ) {
+                            case 0:
+                                if( ! CurLoadout.HasHDCASEII() ) {
+                                    result -= 15.0f;
+                                }
+                                break;
+                            case 1:
+                                if( ! CurLoadout.HasCTCASEII() ) {
+                                    result -= 15.0f;
+                                }
+                                break;
+                            case 2:
+                                if( ! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                                    result -= 15.0f;
+                                }
+                                break;
+                            case 3:
+                                if( ! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                                    result -= 15.0f;
+                                }
+                                break;
+                            case 4:
+                                if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                                    result -= 15.0f;
+                                }
+                                break;
+                            case 5:
+                                if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                                    result -= 15.0f;
+                                }
+                                break;
+                            case 6:
+                                if( ! CurLoadout.HasLLCASEII() ) {
+                                    result -= 15.0f;
+                                }
+                                break;
+                            case 7:
+                                if( ! CurLoadout.HasRLCASEII() ) {
+                                    result -= 15.0f;
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+/*
+        if( CurLoadout.UsingClanCASE() ) {
             for( int i = 0; i < v.size(); i++ ) {
                 p = (abPlaceable) v.get( i );
                 if( p instanceof Ammunition ) {
@@ -1672,7 +1827,7 @@ public class Mech implements ifBattleforce{
                 }
             }
         }
-
+*/
         return result;
     }
 
@@ -1682,7 +1837,103 @@ public class Mech implements ifBattleforce{
         abPlaceable p;
         boolean Explode;
 
-        if( IsClan() ) {
+        for( int i = 0; i < v.size(); i++ ) {
+            p = (abPlaceable) v.get( i );
+            Explode = false;
+            if( p instanceof ifWeapon ) { Explode = ((ifWeapon) p).IsExplosive(); }
+            if( p instanceof Equipment ) { Explode = ((Equipment) p).IsExplosive(); }
+            if( Explode ) {
+                if( CurEngine.IsISXL() ) {
+                    switch( CurLoadout.Find( p ) ) {
+                        case 0:
+                            if( ! CurLoadout.HasHDCASEII() ) {
+                                result -= p.NumCrits();
+                            }
+                            break;
+                        case 1:
+                            if( ! CurLoadout.HasCTCASEII() ) {
+                                result -= p.NumCrits();
+                            }
+                            break;
+                        case 2:
+                            if( ! CurLoadout.HasLTCASEII() ) {
+                                result -= p.NumCrits();
+                            }
+                            break;
+                        case 3:
+                            if( ! CurLoadout.HasRTCASEII() ) {
+                                result -= p.NumCrits();
+                            }
+                            break;
+                        case 4:
+                            if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() ) {
+                                result -= p.NumCrits();
+                            }
+                            break;
+                        case 5:
+                            if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() ) {
+                                result -= p.NumCrits();
+                            }
+                            break;
+                        case 6:
+                            if( ! CurLoadout.HasLLCASEII() ) {
+                                result -= p.NumCrits();
+                            }
+                            break;
+                        case 7:
+                            if( ! CurLoadout.HasRLCASEII() ) {
+                                result -= p.NumCrits();
+                            }
+                            break;
+                    }
+                } else {
+                    switch( CurLoadout.Find( p ) ) {
+                        case 0:
+                            if( ! CurLoadout.HasHDCASEII() ) {
+                                result -= p.NumCrits();
+                            }
+                            break;
+                        case 1:
+                            if( ! CurLoadout.HasCTCASEII() ) {
+                                result -= p.NumCrits();
+                            }
+                            break;
+                        case 2:
+                            if( ! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                                result -= p.NumCrits();
+                            }
+                            break;
+                        case 3:
+                            if( ! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                                result -= p.NumCrits();
+                            }
+                            break;
+                        case 4:
+                            if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                                result -= p.NumCrits();
+                            }
+                            break;
+                        case 5:
+                            if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                                result -= p.NumCrits();
+                            }
+                            break;
+                        case 6:
+                            if( ! CurLoadout.HasLLCASEII() ) {
+                                result -= p.NumCrits();
+                            }
+                            break;
+                        case 7:
+                            if( ! CurLoadout.HasRLCASEII() ) {
+                                result -= p.NumCrits();
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+/*
+        if( CurLoadout.CanUseClanCASE() ) {
             for( int i = 0; i < v.size(); i++ ) {
                 p = (abPlaceable) v.get( i );
                 Explode = false;
@@ -1855,7 +2106,7 @@ public class Mech implements ifBattleforce{
                 }
             }
         }
-
+*/
         return result;
     }
 
@@ -1939,7 +2190,7 @@ public class Mech implements ifBattleforce{
         int heff = 6 + GetHeatSinks().TotalDissipation() - GetBVMovementHeat();
         int wheat = GetBVWeaponHeat();
 
-        if( GetRulesLevel() == Constants.EXPERIMENTAL ) {
+        if( GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
             // check for coolant pods
             int NumHS = GetHeatSinks().GetNumHS(), MaxHSBonus = NumHS * 2, NumPods = 0;
             for( int i = 0; i < v.size(); i++ ) {
@@ -2169,11 +2420,7 @@ public class Mech implements ifBattleforce{
         ChassisCost += CurIntStruc.GetCost();
         ChassisCost += CurCockpit.GetCost();
         if( HasCommandConsole() ) {
-            if( IsClan() ) {
-                ChassisCost += CLCommandConsole.GetCost();
-            } else {
-                ChassisCost += ISCommandConsole.GetCost();
-            }
+            ChassisCost += CommandConsole.GetCost();
         }
         ChassisCost += GetActuators().GetCost();
         ChassisCost += CurPhysEnhance.GetCost();
@@ -2183,18 +2430,17 @@ public class Mech implements ifBattleforce{
 
         // check for Misc equipment.  We're going to add it to chassis cost
         // instead of equipment costs.  It all evens out in the end
-        if( IsClan() ) {
+        if( CurLoadout.IsUsingClanCASE() ) {
             int[] test = CurLoadout.FindExplosiveInstances();
             for( int i = 0; i < test.length; i++ ) {
                 if( test[i] > 0 ) {
                     ChassisCost += CurLoadout.GetCTCase().GetCost();
                 }
             }
-        } else {
-            if( HasCTCase() ) { ChassisCost += CurLoadout.GetCTCase().GetCost(); }
-            if( HasLTCase() ) { ChassisCost += CurLoadout.GetCTCase().GetCost(); }
-            if( HasRTCase() ) { ChassisCost += CurLoadout.GetCTCase().GetCost(); }
         }
+        if( HasCTCase() ) { ChassisCost += CurLoadout.GetCTCase().GetCost(); }
+        if( HasLTCase() ) { ChassisCost += CurLoadout.GetCTCase().GetCost(); }
+        if( HasRTCase() ) { ChassisCost += CurLoadout.GetCTCase().GetCost(); }
         if( CurLoadout.HasHDCASEII() ) { ChassisCost += CurLoadout.GetHDCaseII().GetCost(); }
         if( CurLoadout.HasCTCASEII() ) { ChassisCost += CurLoadout.GetCTCaseII().GetCost(); }
         if( CurLoadout.HasLTCASEII() ) { ChassisCost += CurLoadout.GetLTCaseII().GetCost(); }
@@ -2268,11 +2514,7 @@ public class Mech implements ifBattleforce{
         result += CurIntStruc.GetCost();
         result += CurCockpit.GetCost();
         if( HasCommandConsole() ) {
-            if( IsClan() ) {
-                result += CLCommandConsole.GetCost();
-            } else {
-                result += ISCommandConsole.GetCost();
-            }
+            result += CommandConsole.GetCost();
         }
         result += GetActuators().GetCost();
         result += CurPhysEnhance.GetCost();
@@ -2282,18 +2524,17 @@ public class Mech implements ifBattleforce{
         if( HasEjectionSeat ) {
             result += EjectionSeat.GetCost();
         }
-        if( IsClan() ) {
+        if( CurLoadout.IsUsingClanCASE() ) {
             int[] test = CurLoadout.FindExplosiveInstances();
             for( int i = 0; i < test.length; i++ ) {
                 if( test[i] > 0 ) {
                     result += CurLoadout.GetCTCase().GetCost();
                 }
             }
-        } else {
-            if( HasCTCase() ) { result += CurLoadout.GetCTCase().GetCost(); }
-            if( HasLTCase() ) { result += CurLoadout.GetCTCase().GetCost(); }
-            if( HasRTCase() ) { result += CurLoadout.GetCTCase().GetCost(); }
         }
+        if( HasCTCase() ) { result += CurLoadout.GetCTCase().GetCost(); }
+        if( HasLTCase() ) { result += CurLoadout.GetCTCase().GetCost(); }
+        if( HasRTCase() ) { result += CurLoadout.GetCTCase().GetCost(); }
         if( CurLoadout.HasHDCASEII() ) { result += CurLoadout.GetHDCaseII().GetCost(); }
         if( CurLoadout.HasCTCASEII() ) { result += CurLoadout.GetCTCaseII().GetCost(); }
         if( CurLoadout.HasLTCASEII() ) { result += CurLoadout.GetLTCaseII().GetCost(); }
@@ -2458,8 +2699,8 @@ public class Mech implements ifBattleforce{
         return CurLoadout.UsingApollo();
     }
 
-    public void UseTC( boolean use ) {
-        CurLoadout.UseTC( use );
+    public void UseTC( boolean use, boolean clan ) {
+        CurLoadout.UseTC( use, clan );
     }
 
     public void CheckTC() {
@@ -3136,87 +3377,95 @@ public class Mech implements ifBattleforce{
         }
     }
 
+    public AvailableCode GetOmniMechAvailability() {
+        return OmniAvailable;
+    }
+
     public AvailableCode GetAvailability() {
         // returns the availability code for this mech based on all components
-        AvailableCode AC;
+        AvailableCode Base = new AvailableCode( TechBase );
+        Base.SetCodes( 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A' );
+        Base.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
+        Base.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
+        Base.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         if( Omnimech ) {
-            if( IsClan() ) {
-                AC = new AvailableCode( IsClan(), 'E', 'X', 'E', 'E', 2854, 10000, 0, "NA", "NA", false, false );
-            } else {
-                AC = new AvailableCode( IsClan(), 'E', 'X', 'X', 'E', 3052, 10000, 0, "NA", "NA", false, false );
-            }
-        } else {
-            AC = new AvailableCode( IsClan(), 'A', 'A', 'A', 'A', 0, 10000, 0, "NA", "NA", false, false );
+            Base.Combine( OmniAvailable );
         }
 
         // combine the availability codes from all equipment
-        AC.Combine( CurEngine.GetAvailability() );
-        AC.Combine( CurGyro.GetAvailability() );
-        AC.Combine( CurIntStruc.GetAvailability() );
-        AC.Combine( CurCockpit.GetAvailability() );
+        Base.Combine( CurEngine.GetAvailability() );
+        Base.Combine( CurGyro.GetAvailability() );
+        Base.Combine( CurIntStruc.GetAvailability() );
+        Base.Combine( CurCockpit.GetAvailability() );
         if( HasCommandConsole() ) {
-            if( IsClan() ) {
-                AC.Combine( CLCommandConsole.GetAvailability() );
-            } else {
-                AC.Combine( ISCommandConsole.GetAvailability() );
-            }
+            Base.Combine( CommandConsole.GetAvailability() );
         }
-        AC.Combine( GetActuators().GetAvailability() );
-        AC.Combine( CurPhysEnhance.GetAvailability() );
-        AC.Combine( GetHeatSinks().GetAvailability() );
+        Base.Combine( GetActuators().GetAvailability() );
+        Base.Combine( CurPhysEnhance.GetAvailability() );
+        Base.Combine( GetHeatSinks().GetAvailability() );
         if( GetJumpJets().GetNumJJ() > 0 ) {
-            AC.Combine( GetJumpJets().GetAvailability() );
+            Base.Combine( GetJumpJets().GetAvailability() );
         }
-        AC.Combine( CurArmor.GetAvailability() );
+        Base.Combine( CurArmor.GetAvailability() );
         if( CurLoadout.UsingTC() ) {
-            AC.Combine( GetTC().GetAvailability() );
+            Base.Combine( GetTC().GetAvailability() );
         }
         if( HasCTCase() || HasRTCase() || HasLTCase() ) {
-            AC.Combine( CurLoadout.GetCTCase().GetAvailability() );
+            Base.Combine( CurLoadout.GetCTCase().GetAvailability() );
         }
         if( CurLoadout.HasHDCASEII() || CurLoadout.HasCTCASEII() || CurLoadout.HasLTCASEII() || CurLoadout.HasRTCASEII() ||
             CurLoadout.HasLACASEII() || CurLoadout.HasRACASEII() || CurLoadout.HasLLCASEII() || CurLoadout.HasRLCASEII() ) {
-            AC.Combine( CurLoadout.GetCTCaseII().GetAvailability() );
+            Base.Combine( CurLoadout.GetCTCaseII().GetAvailability() );
         }
-        if( ! CurEngine.IsNuclear() ) { AC.Combine( CurLoadout.GetPowerAmplifier().GetAvailability() ); }
+        if( ! CurEngine.IsNuclear() ) { Base.Combine( CurLoadout.GetPowerAmplifier().GetAvailability() ); }
         Vector v = CurLoadout.GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
-            AC.Combine( ((abPlaceable) v.get( i )).GetAvailability() );
+            Base.Combine( ((abPlaceable) v.get( i )).GetAvailability() );
         }
         if( CurLoadout.HasSupercharger() ) {
-            AC.Combine( CurLoadout.GetSupercharger().GetAvailability() );
+            Base.Combine( CurLoadout.GetSupercharger().GetAvailability() );
         }
 
         if( HasBlueShield() ) {
-            AC.Combine( BlueShield.GetAvailability() );
+            Base.Combine( BlueShield.GetAvailability() );
         }
         if( HasNullSig() ) {
-            AC.Combine( NullSig.GetAvailability() );
+            Base.Combine( NullSig.GetAvailability() );
         }
         if( HasVoidSig() ) {
-            AC.Combine( VoidSig.GetAvailability() );
+            Base.Combine( VoidSig.GetAvailability() );
         }
         if( HasChameleon() ) {
-            AC.Combine( Chameleon.GetAvailability() );
+            Base.Combine( Chameleon.GetAvailability() );
         }
         if( HasEnviroSealing() ) {
-            AC.Combine( EnviroSealing.GetAvailability() );
+            Base.Combine( EnviroSealing.GetAvailability() );
         }
         if( HasEjectionSeat() ) {
-            AC.Combine( EjectionSeat.GetAvailability() );
+            Base.Combine( EjectionSeat.GetAvailability() );
         }
 
         // now adjust for the era.
-        if( Era == Constants.SUCCESSION ) {
+        if( Era == AvailableCode.ERA_SUCCESSION ) {
             // cut out the Star League stuff.
-            AC.Combine( new AvailableCode( IsClan(), 'A', 'X', 'A', 'A', 2801, 10000, 0, "NA", "NA", false, false ) );
+            AvailableCode SW = new AvailableCode( Base.GetTechBase() );
+            SW.SetCodes( 'A', 'X', 'A', 'A', 'A', 'X', 'A', 'A' );
+            SW.SetISDates( 0, 0, false, 2801, 10000, 0, false, false );
+            SW.SetCLDates( 0, 0, false, 2801, 10000, 0, false, false );
+            SW.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+            Base.Combine( SW );
         }
-        if( Era == Constants.CLAN_INVASION ) {
+        if( Era == AvailableCode.ERA_CLAN_INVASION ) {
             // cut out the Star League and Succession Wars stuff.
-            AC.Combine( new AvailableCode( IsClan(), 'A', 'X', 'X', 'A', 3051, 10000, 0, "NA", "NA", false, false ) );
+            AvailableCode CI = new AvailableCode( Base.GetTechBase() );
+            CI.SetCodes( 'A', 'X', 'X', 'A', 'A', 'X', 'X', 'A' );
+            CI.SetISDates( 0, 0, false, 3051, 10000, 0, false, false );
+            CI.SetCLDates( 0, 0, false, 3051, 10000, 0, false, false );
+            CI.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+            Base.Combine( CI );
         }
 
-        return AC;
+        return Base;
     }
 
     // sorting routine for weapon BV calculation. this is undoubtedly slow
@@ -3354,49 +3603,29 @@ public class Mech implements ifBattleforce{
     }
 
     public SimplePlaceable GetCommandConsole() {
-        if( IsClan() ) {
-            return CLCommandConsole;
-        } else {
-            return ISCommandConsole;
-        }
+        return CommandConsole;
     }
 
     public boolean SetCommandConsole( boolean set ) {
         if( HasCommandConsole() == set ) { return true; }
         if( set ) {
             try {
-                if( IsClan() ) {
-                    CurLoadout.AddToHD( CLCommandConsole );
-                } else {
-                    CurLoadout.AddToHD( ISCommandConsole );
-                }
+                CurLoadout.AddToHD( CommandConsole );
             } catch( Exception e ) {
                 return false;
             }
         } else {
-            if( IsClan() ) {
-                CurLoadout.Remove( CLCommandConsole );
-            } else {
-                CurLoadout.Remove( ISCommandConsole );
-            }
+            CurLoadout.Remove( CommandConsole );
         }
 
         return true;
     }
 
     public boolean HasCommandConsole() {
-        if( IsClan() ) {
-            if( CurLoadout.IsAllocated( CLCommandConsole ) ) {
-                return true;
-            } else {
-                return false;
-            }
+        if( CurLoadout.IsAllocated( CommandConsole ) ) {
+            return true;
         } else {
-            if( CurLoadout.IsAllocated( ISCommandConsole ) ) {
-                return true;
-            } else {
-                return false;
-            }
+            return false;
         }
     }
 
@@ -3750,19 +3979,29 @@ public class Mech implements ifBattleforce{
         // sets up the lookup hashtable with String keys and ifVisitor values
         Lookup.put( "Standard Armor", new VArmorSetStandard() );
         Lookup.put( "Ferro-Fibrous", new VArmorSetFF() );
+        Lookup.put( "(IS) Ferro-Fibrous", new VArmorSetFF() );
+        Lookup.put( "(CL) Ferro-Fibrous", new VArmorSetFF() );
         Lookup.put( "Stealth Armor", new VArmorSetStealth() );
         Lookup.put( "Light Ferro-Fibrous", new VArmorSetLightFF() );
         Lookup.put( "Heavy Ferro-Fibrous", new VArmorSetHeavyFF() );
         Lookup.put( "Ferro-Lamellor", new VArmorSetFL() );
         Lookup.put( "Hardened Armor", new VArmorSetHA() );
         Lookup.put( "Laser-Reflective", new VArmorSetLR() );
+        Lookup.put( "(IS) Laser-Reflective", new VArmorSetLR() );
+        Lookup.put( "(CL) Laser-Reflective", new VArmorSetLR() );
         Lookup.put( "Reactive Armor", new VArmorSetRE() );
+        Lookup.put( "(IS) Reactive Armor", new VArmorSetRE() );
+        Lookup.put( "(CL) Reactive Armor", new VArmorSetRE() );
         Lookup.put( "Industrial Armor", new VArmorSetIndustrial() );
         Lookup.put( "Commercial Armor", new VArmorSetCommercial() );
         Lookup.put( "Standard Structure", new VChassisSetStandard() );
         Lookup.put( "Composite Structure", new VChassisSetComposite() );
         Lookup.put( "Endo-Steel", new VChassisSetEndoSteel() );
+        Lookup.put( "(IS) Endo-Steel", new VChassisSetEndoSteel() );
+        Lookup.put( "(CL) Endo-Steel", new VChassisSetEndoSteel() );
         Lookup.put( "Endo-Composite", new VChassisSetEndoComposite() );
+        Lookup.put( "(IS) Endo-Composite", new VChassisSetEndoComposite() );
+        Lookup.put( "(CL) Endo-Composite", new VChassisSetEndoComposite() );
         Lookup.put( "Reinforced Structure", new VChassisSetReinforced() );
         Lookup.put( "Industrial Structure", new VChassisSetIndustrial() );
         Lookup.put( "Standard Cockpit", new VCockpitSetStandard() );
@@ -3774,7 +4013,11 @@ public class Mech implements ifBattleforce{
         Lookup.put( "Fission Engine", new VEngineSetFission() );
         Lookup.put( "Fusion Engine", new VEngineSetFusion() );
         Lookup.put( "XL Engine", new VEngineSetFusionXL() );
+        Lookup.put( "(IS) XL Engine", new VEngineSetFusionXL() );
+        Lookup.put( "(CL) XL Engine", new VEngineSetFusionXL() );
         Lookup.put( "XXL Engine", new VEngineSetFusionXXL() );
+        Lookup.put( "(IS) XXL Engine", new VEngineSetFusionXXL() );
+        Lookup.put( "(CL) XXL Engine", new VEngineSetFusionXXL() );
         Lookup.put( "I.C.E. Engine", new VEngineSetICE() );
         Lookup.put( "Compact Fusion Engine", new VEngineSetCompactFusion() );
         Lookup.put( "Light Fusion Engine", new VEngineSetLightFusion() );
@@ -3784,14 +4027,30 @@ public class Mech implements ifBattleforce{
         Lookup.put( "Compact Gyro", new VGyroSetCompact() );
         Lookup.put( "No Enhancement", new VEnhanceSetNone() );
         Lookup.put( "MASC", new VEnhanceSetMASC() );
+        Lookup.put( "(IS) MASC", new VEnhanceSetMASC() );
+        Lookup.put( "(CL) MASC", new VEnhanceSetMASC() );
         Lookup.put( "TSM", new VEnhanceSetTSM() );
         Lookup.put( "Industrial TSM", new VEnhanceSetITSM() );
         Lookup.put( "Single Heat Sink", new VHeatSinkSetSingle() );
         Lookup.put( "Double Heat Sink", new VHeatSinkSetDouble() );
+        Lookup.put( "(IS) Double Heat Sink", new VHeatSinkSetDouble() );
+        Lookup.put( "(CL) Double Heat Sink", new VHeatSinkSetDouble() );
         Lookup.put( "Standard Jump Jet", new VJumpJetSetStandard() );
         Lookup.put( "Improved Jump Jet", new VJumpJetSetImproved() );
         Lookup.put( "Mech UMU", new VJumpJetSetUMU() );
+
+        // now to fix all the visitors with counterparts to use Clan tech if needed
+        ((ifVisitor) Lookup.get( "(CL) Ferro-Fibrous" )).SetClan( true );
+        ((ifVisitor) Lookup.get( "(CL) Laser-Reflective" )).SetClan( true );
+        ((ifVisitor) Lookup.get( "(CL) Reactive Armor" )).SetClan( true );
+        ((ifVisitor) Lookup.get( "(CL) Endo-Steel" )).SetClan( true );
+        ((ifVisitor) Lookup.get( "(CL) Endo-Composite" )).SetClan( true );
+        ((ifVisitor) Lookup.get( "(CL) XL Engine" )).SetClan( true );
+        ((ifVisitor) Lookup.get( "(CL) XXL Engine" )).SetClan( true );
+        ((ifVisitor) Lookup.get( "(CL) MASC" )).SetClan( true );
+        ((ifVisitor) Lookup.get( "(CL) Double Heat Sink" )).SetClan( true );
     }
+
     // toString
     @Override
     public String toString() {

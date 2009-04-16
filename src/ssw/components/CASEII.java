@@ -28,20 +28,26 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
-import ssw.Constants;
-
 /**
  *
  * @author justin
  */
 public class CASEII extends abPlaceable {
     // A simple class for CASE II.
-    private AvailableCode ISAC = new AvailableCode( false, 'E', 'X', 'X', 'F', 3064, 0, 0, "FW", "", false, false, 3057, true, "FW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL ),
-                          CLAC = new AvailableCode( true, 'F', 'X', 'X', 'F', 3062, 0, 0, "CCY", "", false, false, 3059, true, "CCY", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+    private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
     private ifLoadout Owner;
+    private boolean Clan;
 
-    public CASEII( ifLoadout l ) {
+    public CASEII( ifLoadout l, boolean clan ) {
+        AC.SetISCodes( 'E', 'X', 'X', 'F' );
+        AC.SetISDates( 3057, 3064, true, 3064, 0, 0, false, false );
+        AC.SetISFactions( "FW", "FW", "", "" );
+        AC.SetCLCodes( 'F', 'X', 'X', 'F' );
+        AC.SetCLDates( 3059, 3062, true, 3062, 0, 0, false, false );
+        AC.SetCLFactions( "CCY", "CCY", "", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = l;
+        Clan = clan;
     }
 
     @Override
@@ -58,12 +64,28 @@ public class CASEII extends abPlaceable {
         return "C.A.S.E. II";
     }
 
+    public String GetLookupName() {
+        if( Clan ) {
+            return "(CL) C.A.S.E. II";
+        } else {
+            return "(IS) C.A.S.E. II";
+        }
+    }
+
     public String GetMMName( boolean UseRear ) {
-        if( Owner.GetMech().IsClan() ) {
+        if( Clan ) {
             return "CLCASEII";
         } else {
             return "ISCASEII";
         }
+    }
+
+    public void SetClan( boolean b ) {
+        Clan = b;
+    }
+
+    public boolean IsClan() {
+        return Clan;
     }
 
     public int NumCrits() {
@@ -71,7 +93,7 @@ public class CASEII extends abPlaceable {
     }
 
     public float GetTonnage() {
-        if( Owner.GetMech().IsClan() ) {
+        if( Clan ) {
             return 0.5f;
         } else {
             return 1.0f;
@@ -106,11 +128,7 @@ public class CASEII extends abPlaceable {
 
     // All placeables should be able to return their AvailabileCode
     public AvailableCode GetAvailability() {
-        if( Owner.GetMech().IsClan() ) {
-            return CLAC;
-        } else {
-            return ISAC;
-        }
+        return AC;
     }
 
     @Override

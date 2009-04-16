@@ -33,6 +33,9 @@ import ssw.components.*;
 public class VChassisSetReinforced implements ifVisitor {
     private Mech CurMech;
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
@@ -50,22 +53,12 @@ public class VChassisSetReinforced implements ifVisitor {
         i.Remove(l);
 
         // change the internal structure type
-        if( CurMech.IsClan() ) {
-            if( CurMech.IsQuad() ) {
-                // standard quad
-                i.SetCLREQD();
-            } else {
-                // standard biped
-                i.SetCLREBP();
-            }
+        if( CurMech.IsQuad() ) {
+            // standard quad
+            i.SetREQD();
         } else {
-            if( CurMech.IsQuad() ) {
-                // standard quad
-                i.SetISREQD();
-            } else {
-                // standard biped
-                i.SetISREBP();
-            }
+            // standard biped
+            i.SetREBP();
         }
 
         // place the internal structure

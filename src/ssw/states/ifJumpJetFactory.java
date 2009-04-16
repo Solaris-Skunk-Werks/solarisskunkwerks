@@ -33,7 +33,6 @@ import ssw.components.JumpJet;
 import ssw.components.MechModifier;
 
 public interface ifJumpJetFactory {
-    public boolean IsClan();
     public boolean IsImproved();
     public boolean IsUMU();
     public JumpJet GetJumpJet();

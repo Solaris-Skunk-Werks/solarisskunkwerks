@@ -39,64 +39,196 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setResizable( false );
-        setTitle( "Weapon Information" );
         Parent= (frmMain) parent;
         SetState();
     }
 
     private void SetState() {
-        // fills in all the information for the given weapon
-        ifWeapon w = (ifWeapon) Parent.CurItem;
-        AvailableCode a = ((abPlaceable) w).GetAvailability();
-        lblName.setText( w.GetName() );
-        lblType.setText( w.GetType() );
-        lblHeat.setText( "" + w.GetHeat() );
-        if( w instanceof MissileWeapon ) {
-            lblDamage.setText( w.GetDamageShort() + "/msl" );
-        } else if( w.GetDamageShort() == w.GetDamageMedium() && w.GetDamageShort() == w.GetDamageLong() ) {
-            lblDamage.setText( "" + w.GetDamageShort() );
-        } else {
-            lblDamage.setText( w.GetDamageShort() + "/" + w.GetDamageMedium() + "/" + w.GetDamageLong() );
-        }
-        if( w.GetRangeLong() < 1 ) {
-            if( w.GetRangeMedium() < 1 ) {
-                if( w instanceof Artillery ) {
-                    lblRange.setText( w.GetRangeShort() + " boards" );
+        // fills in all the information for the given weapon or ammo
+        ifWeapon w = null;
+        Ammunition a = null;
+        AvailableCode AC = Parent.CurItem.GetAvailability();
+        if( Parent.CurItem instanceof Ammunition ) {
+            setTitle( "Ammunition Information" );
+            a = (Ammunition) Parent.CurItem;
+            lblName.setText( a.GetCritName() );
+            lblType.setText( "Ammo" );
+            lblHeat.setText( "--" );
+            if( a.GetWeaponClass() == ifWeapon.W_MISSILE ) {
+                lblDamage.setText( a.GetDamageShort() + "/msl" );
+            } else if( a.GetWeaponClass() == ifWeapon.W_ARTILLERY ) {
+                lblDamage.setText( a.GetDamageShort() + "A" );
+            } else if( a.GetDamageShort() == a.GetDamageMedium() && a.GetDamageShort() == a.GetDamageLong() ) {
+                lblDamage.setText( "" + a.GetDamageShort() );
+            } else {
+                lblDamage.setText( a.GetDamageShort() + "/" + a.GetDamageMedium() + "/" + a.GetDamageLong() );
+            }
+            if( a.GetLongRange() < 1 ) {
+                if( a.GetMediumRange() < 1 ) {
+                    if( a.GetWeaponClass() == ifWeapon.W_ARTILLERY ) {
+                        lblRange.setText( a.GetShortRange() + " boards" );
+                    } else {
+                        lblRange.setText( a.GetShortRange() + "" );
+                    }
                 } else {
-                    lblRange.setText( w.GetRangeShort() + "" );
+                    lblRange.setText( a.GetMinRange() + "/" + a.GetShortRange() + "/" + a.GetMediumRange() + "/-" );
                 }
             } else {
-                lblRange.setText( w.GetRangeMin() + "/" + w.GetRangeShort() + "/" + w.GetRangeMedium() + "/-" );
+                lblRange.setText( a.GetMinRange() + "/" + a.GetShortRange() + "/" + a.GetMediumRange() + "/" + a.GetLongRange() );
             }
+            lblAmmo.setText( "" + a.GetLotSize() );
+            lblToHit.setText( a.GetToHitShort() + "/" + a.GetToHitMedium() + "/" + a.GetToHitLong() );
+            lblFCSClass.setText( ifMissileGuidance.FCS_NAMES[a.GetFCSType()] );
+            lblSpecials.setText( "--" );
         } else {
-            lblRange.setText( w.GetRangeMin() + "/" + w.GetRangeShort() + "/" + w.GetRangeMedium() + "/" + w.GetRangeLong() );
+            setTitle( "Weapon Information" );
+            w = (ifWeapon) Parent.CurItem;
+            lblName.setText( w.GetName() );
+            lblType.setText( w.GetType() );
+            lblHeat.setText( "" + w.GetHeat() );
+            if( w.GetWeaponClass() == ifWeapon.W_MISSILE ) {
+                lblDamage.setText( w.GetDamageShort() + "/msl" );
+            } else if( w.GetWeaponClass() == ifWeapon.W_ARTILLERY ) {
+                lblDamage.setText( w.GetDamageShort() + "A" );
+            } else if( w.GetDamageShort() == w.GetDamageMedium() && w.GetDamageShort() == w.GetDamageLong() ) {
+                if( w.IsUltra() || w.IsRotary() ) {
+                    lblDamage.setText( w.GetDamageShort() + "/shot" );
+                } else {
+                    lblDamage.setText( "" + w.GetDamageShort() );
+                }
+            } else {
+                lblDamage.setText( w.GetDamageShort() + "/" + w.GetDamageMedium() + "/" + w.GetDamageLong() );
+            }
+            if( w.GetRangeLong() < 1 ) {
+                if( w.GetRangeMedium() < 1 ) {
+                    if( w.GetWeaponClass() == ifWeapon.W_ARTILLERY ) {
+                        lblRange.setText( w.GetRangeShort() + " boards" );
+                    } else {
+                        lblRange.setText( w.GetRangeShort() + "" );
+                    }
+                } else {
+                    lblRange.setText( w.GetRangeMin() + "/" + w.GetRangeShort() + "/" + w.GetRangeMedium() + "/-" );
+                }
+            } else {
+                lblRange.setText( w.GetRangeMin() + "/" + w.GetRangeShort() + "/" + w.GetRangeMedium() + "/" + w.GetRangeLong() );
+            }
+            if( w.HasAmmo() ) {
+                lblAmmo.setText( "" + w.GetAmmoLotSize() );
+            } else {
+                lblAmmo.setText( "--" );
+            }
+            String tohit = "";
+            if( w.GetToHitShort() >= 0 ) {
+                tohit += "+";
+            }
+            tohit += w.GetToHitShort() + "/";
+            if( w.GetToHitMedium() >= 0 ) {
+                tohit += "+";
+            }
+            tohit += w.GetToHitMedium() + "/";
+            if( w.GetToHitLong() >= 0 ) {
+                tohit += "+";
+            }
+            tohit += w.GetToHitLong();
+            lblToHit.setText( tohit );
+            lblFCSClass.setText( ifMissileGuidance.FCS_NAMES[w.GetFCSType()] );
+            lblSpecials.setText( w.GetSpecials() );
         }
-        if( w.HasAmmo() ) {
-            lblAmmo.setText( "" + w.GetAmmo() );
-        } else {
-            lblAmmo.setText( "--" );
-        }
+
         lblTonnage.setText( "" + ((abPlaceable) w).GetTonnage() );
         lblCrits.setText( "" + ((abPlaceable) w).NumCrits() );
-        lblSpecials.setText( w.GetSpecials() );
-        lblAVSL.setText( "" + a.GetSLCode() );
-        lblAVSW.setText( "" + a.GetSWCode() );
-        lblAVCI.setText( "" + a.GetCICode() );
-        lblIntro.setText( a.GetIntroDate() + " (" + a.GetIntroFaction() + ")" );
-        if( a.WentExtinct() ) {
-            lblExtinct.setText( "" + a.GetExtinctDate() );
-        } else {
-            lblExtinct.setText( "--" );
+
+        switch( AC.GetTechBase() ) {
+            case AvailableCode.TECH_INNER_SPHERE:
+                pnlClanAvailability.setVisible( false );
+                break;
+            case AvailableCode.TECH_CLAN:
+                pnlISAvailability.setVisible( false );
+                break;
         }
-        if( a.WasReIntroduced() ) {
-            lblReIntro.setText( a.GetReIntroDate() + " (" + a.GetReIntroFaction() + ")" );
+
+        lblISTechRating.setText( "" + AC.GetISTechRating() );
+        lblISAVSL.setText( "" + AC.GetISSLCode() );
+        lblISAVSW.setText( "" + AC.GetISSWCode() );
+        lblISAVCI.setText( "" + AC.GetISCICode() );
+        lblISIntro.setText( AC.GetISIntroDate() + " (" + AC.GetISIntroFaction() + ")" );
+        if( AC.WentExtinctIS() ) {
+            lblISExtinct.setText( "" + AC.GetISExtinctDate() );
         } else {
-            lblReIntro.setText( "--" );
+            lblISExtinct.setText( "--" );
         }
+        if( AC.WasReIntrodIS() ) {
+            lblISReIntro.setText( AC.GetISReIntroDate() + " (" + AC.GetISReIntroFaction() + ")" );
+        } else {
+            lblISReIntro.setText( "--" );
+        }
+        if( AC.Is_ISPrototype() ){
+            String temp = "Status: R&D Start Date: " + AC.GetISRandDStartDate() + " (" + AC.GetISRandDFaction() + "), ";
+            temp += "Prototype: " + AC.GetISPrototypeDate() + " (" + AC.GetISPrototypeFaction() + ")";
+            lblISExtraInfo.setText( temp );
+        } else {
+            lblISExtraInfo.setText( "Status: Production Equipment" );
+        }
+
+        lblClanTechRating.setText( "" + AC.GetCLTechRating() );
+        lblClanAVSL.setText( "" + AC.GetCLSLCode() );
+        lblClanAVSW.setText( "" + AC.GetCLSWCode() );
+        lblClanAVCI.setText( "" + AC.GetCLCICode() );
+        lblClanIntro.setText( AC.GetCLIntroDate() + " (" + AC.GetCLIntroFaction() + ")" );
+        if( AC.WentExtinctCL() ) {
+            lblClanExtinct.setText( "" + AC.GetCLExtinctDate() );
+        } else {
+            lblClanExtinct.setText( "--" );
+        }
+        if( AC.WasReIntrodCL() ) {
+            lblClanReIntro.setText( AC.GetCLReIntroDate() + " (" + AC.GetCLReIntroFaction() + ")" );
+        } else {
+            lblClanReIntro.setText( "--" );
+        }
+        if( AC.Is_CLPrototype() ){
+            String temp = "Status: R&D Start Date: " + AC.GetCLRandDStartDate() + " (" + AC.GetCLRandDFaction() + "), ";
+            temp += "Prototype: " + AC.GetCLPrototypeDate() + " (" + AC.GetCLPrototypeFaction() + ")";
+            lblClanExtraInfo.setText( temp );
+        } else {
+            lblClanExtraInfo.setText( "Status: Production Equipment" );
+        }
+
         lblCost.setText( "" + ((abPlaceable) w).GetCost() );
         lblBV.setText( CommonTools.GetAggregateReportBV( (abPlaceable) w ) );
-        lblRulesBM.setText( CommonTools.GetRulesLevelString( a.GetRulesLevelBM() ) );
-        lblRulesIM.setText( CommonTools.GetRulesLevelString( a.GetRulesLevelIM() ) );
+        lblRulesBM.setText( CommonTools.GetRulesLevelString( AC.GetRulesLevel_BM() ) );
+        lblRulesIM.setText( CommonTools.GetRulesLevelString( AC.GetRulesLevel_IM() ) );
+
+        String restrict = "";
+        if( ! ((abPlaceable) w).CanAllocHD() ) {
+            restrict += "No Head, ";
+        }
+        if( ! ((abPlaceable) w).CanAllocCT() ) {
+            restrict += "No Center Torso, ";
+        }
+        if( ! ((abPlaceable) w).CanAllocTorso() ) {
+            restrict += "No Side Torsos, ";
+        }
+        if( ! ((abPlaceable) w).CanAllocArms() ) {
+            restrict += "No Arms, ";
+        }
+        if( ! ((abPlaceable) w).CanAllocLegs() ) {
+            restrict += "No Legs, ";
+        }
+        if( ((abPlaceable) w).CanSplit() ) {
+            restrict += "Can Split, ";
+        }
+        if( w.OmniRestrictActuators() ) {
+            restrict += "Omni Actuator Restricted";
+        }
+
+        if( restrict.length() > 0 ) {
+            if( restrict.endsWith( ", ") ) {
+                restrict = restrict.substring( 0, restrict.length() - 2 );
+            }
+            lblMountingRestrictions.setText( restrict );
+        } else {
+            lblMountingRestrictions.setText( "None" );
+        }
     }
 
     /** This method is called from within the constructor to
@@ -127,18 +259,6 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblInfoDamage = new javax.swing.JLabel();
         lblDamage = new javax.swing.JLabel();
         btnClose = new javax.swing.JButton();
-        lblInfoAVSL = new javax.swing.JLabel();
-        lblInfoAVSW = new javax.swing.JLabel();
-        lblInfoAVCI = new javax.swing.JLabel();
-        lblAVSL = new javax.swing.JLabel();
-        lblAVSW = new javax.swing.JLabel();
-        lblAVCI = new javax.swing.JLabel();
-        lblInfoIntro = new javax.swing.JLabel();
-        lblInfoExtinct = new javax.swing.JLabel();
-        lblInfoReIntro = new javax.swing.JLabel();
-        lblIntro = new javax.swing.JLabel();
-        lblExtinct = new javax.swing.JLabel();
-        lblReIntro = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         lblInfoCost = new javax.swing.JLabel();
         lblInfoBV = new javax.swing.JLabel();
@@ -149,6 +269,47 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         lblRulesBM = new javax.swing.JLabel();
         lblRulesIM = new javax.swing.JLabel();
+        pnlClanAvailability = new javax.swing.JPanel();
+        lblInfoAVCI = new javax.swing.JLabel();
+        lblInfoAVSW = new javax.swing.JLabel();
+        lblInfoAVSL = new javax.swing.JLabel();
+        lblClanAVSL = new javax.swing.JLabel();
+        lblClanAVSW = new javax.swing.JLabel();
+        lblClanAVCI = new javax.swing.JLabel();
+        lblInfoReIntro = new javax.swing.JLabel();
+        lblInfoExtinct = new javax.swing.JLabel();
+        lblInfoIntro = new javax.swing.JLabel();
+        lblClanReIntro = new javax.swing.JLabel();
+        lblClanExtinct = new javax.swing.JLabel();
+        lblClanIntro = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblClanExtraInfo = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        lblClanTechRating = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        pnlISAvailability = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        lblISExtraInfo = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        lblISAVSL = new javax.swing.JLabel();
+        lblISAVSW = new javax.swing.JLabel();
+        lblISAVCI = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        lblISIntro = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        lblISReIntro = new javax.swing.JLabel();
+        lblISExtinct = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        lblISTechRating = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
+        lblToHit = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        lblFCSClass = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        lblMountingRestrictions = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -156,49 +317,49 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblInfoName.setText("Name");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 1, 3);
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 1, 3);
         getContentPane().add(lblInfoName, gridBagConstraints);
 
         lblInfoHeat.setText("Heat");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
+        gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
         getContentPane().add(lblInfoHeat, gridBagConstraints);
 
         lblInfoRange.setText("Range");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
+        gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
         getContentPane().add(lblInfoRange, gridBagConstraints);
 
         lblInfoAmmo.setText("Ammo");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
+        gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
         getContentPane().add(lblInfoAmmo, gridBagConstraints);
 
         lblInfoTonnage.setText("Tonnage");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
+        gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
         getContentPane().add(lblInfoTonnage, gridBagConstraints);
 
         lblInfoCrits.setText("Crits");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
+        gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
         getContentPane().add(lblInfoCrits, gridBagConstraints);
 
         lblInfoSpecial.setText("Specials");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 4);
         getContentPane().add(lblInfoSpecial, gridBagConstraints);
 
         lblName.setText("Hyper Assault Gauss 40");
@@ -206,7 +367,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 3);
         getContentPane().add(lblName, gridBagConstraints);
 
         lblHeat.setText("999");
@@ -248,14 +409,14 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 4);
         getContentPane().add(lblSpecials, gridBagConstraints);
 
         lblInfoType.setText("Type");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
+        gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
         getContentPane().add(lblInfoType, gridBagConstraints);
 
         lblType.setText("DB");
@@ -269,7 +430,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
+        gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
         getContentPane().add(lblInfoDamage, gridBagConstraints);
 
         lblDamage.setText("999/999/999");
@@ -287,124 +448,25 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridy = 13;
         gridBagConstraints.gridwidth = 9;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 4);
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         getContentPane().add(btnClose, gridBagConstraints);
-
-        lblInfoAVSL.setText("Availability (AoW/SL)");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
-        getContentPane().add(lblInfoAVSL, gridBagConstraints);
-
-        lblInfoAVSW.setText("Availability (SW)");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
-        getContentPane().add(lblInfoAVSW, gridBagConstraints);
-
-        lblInfoAVCI.setText("Availability (CI)");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
-        getContentPane().add(lblInfoAVCI, gridBagConstraints);
-
-        lblAVSL.setText("X");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        getContentPane().add(lblAVSL, gridBagConstraints);
-
-        lblAVSW.setText("X");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        getContentPane().add(lblAVSW, gridBagConstraints);
-
-        lblAVCI.setText("X");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        getContentPane().add(lblAVCI, gridBagConstraints);
-
-        lblInfoIntro.setText("Introduction");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        getContentPane().add(lblInfoIntro, gridBagConstraints);
-
-        lblInfoExtinct.setText("Extinction");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        getContentPane().add(lblInfoExtinct, gridBagConstraints);
-
-        lblInfoReIntro.setText("Reintroduction");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        getContentPane().add(lblInfoReIntro, gridBagConstraints);
-
-        lblIntro.setText("9999 (TH)");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        getContentPane().add(lblIntro, gridBagConstraints);
-
-        lblExtinct.setText("9999 (TH)");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        getContentPane().add(lblExtinct, gridBagConstraints);
-
-        lblReIntro.setText("9999 (TH)");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        getContentPane().add(lblReIntro, gridBagConstraints);
 
         jSeparator1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 11;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         getContentPane().add(jSeparator1, gridBagConstraints);
 
         lblInfoCost.setText("Cost");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         getContentPane().add(lblInfoCost, gridBagConstraints);
@@ -412,7 +474,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblInfoBV.setText("BV");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
         getContentPane().add(lblInfoBV, gridBagConstraints);
@@ -420,63 +482,394 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblCost.setText("9999999");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 4);
         getContentPane().add(lblCost, gridBagConstraints);
 
         lblBV.setText("999");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 4);
         getContentPane().add(lblBV, gridBagConstraints);
 
         jSeparator2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 9;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         getContentPane().add(jSeparator2, gridBagConstraints);
 
         jLabel1.setText("Rules Level (BattleMech)");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
         getContentPane().add(jLabel1, gridBagConstraints);
 
         jLabel2.setText("Rules Level (IndustrialMech)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
         getContentPane().add(jLabel2, gridBagConstraints);
 
-        lblRulesBM.setText("Experimental");
+        lblRulesBM.setText("Tournament Legal");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 0);
         getContentPane().add(lblRulesBM, gridBagConstraints);
 
-        lblRulesIM.setText("Experimental");
+        lblRulesIM.setText("Tournament Legal");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 0);
         getContentPane().add(lblRulesIM, gridBagConstraints);
+
+        pnlClanAvailability.setLayout(new java.awt.GridBagLayout());
+
+        lblInfoAVCI.setText("Availability (CI)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
+        pnlClanAvailability.add(lblInfoAVCI, gridBagConstraints);
+
+        lblInfoAVSW.setText("Availability (SW)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
+        pnlClanAvailability.add(lblInfoAVSW, gridBagConstraints);
+
+        lblInfoAVSL.setText("Availability (AoW/SL)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
+        pnlClanAvailability.add(lblInfoAVSL, gridBagConstraints);
+
+        lblClanAVSL.setText("X");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 4);
+        pnlClanAvailability.add(lblClanAVSL, gridBagConstraints);
+
+        lblClanAVSW.setText("X");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 4);
+        pnlClanAvailability.add(lblClanAVSW, gridBagConstraints);
+
+        lblClanAVCI.setText("X");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 4);
+        pnlClanAvailability.add(lblClanAVCI, gridBagConstraints);
+
+        lblInfoReIntro.setText("Reintroduction");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        pnlClanAvailability.add(lblInfoReIntro, gridBagConstraints);
+
+        lblInfoExtinct.setText("Extinction");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        pnlClanAvailability.add(lblInfoExtinct, gridBagConstraints);
+
+        lblInfoIntro.setText("Introduction");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        pnlClanAvailability.add(lblInfoIntro, gridBagConstraints);
+
+        lblClanReIntro.setText("9999 (TH)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 0);
+        pnlClanAvailability.add(lblClanReIntro, gridBagConstraints);
+
+        lblClanExtinct.setText("9999 (TH)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 0);
+        pnlClanAvailability.add(lblClanExtinct, gridBagConstraints);
+
+        lblClanIntro.setText("9999 (TH)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 0);
+        pnlClanAvailability.add(lblClanIntro, gridBagConstraints);
+
+        jLabel3.setText("Clan Availability");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlClanAvailability.add(jLabel3, gridBagConstraints);
+
+        lblClanExtraInfo.setText("Status: R&D Start Date: 9999 (CJF), Prototype: 9999 (CJF)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 0);
+        pnlClanAvailability.add(lblClanExtraInfo, gridBagConstraints);
+
+        jLabel18.setText("Tech Rating");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
+        pnlClanAvailability.add(jLabel18, gridBagConstraints);
+
+        lblClanTechRating.setText("X");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 4);
+        pnlClanAvailability.add(lblClanTechRating, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        getContentPane().add(pnlClanAvailability, gridBagConstraints);
+
+        jSeparator3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        getContentPane().add(jSeparator3, gridBagConstraints);
+
+        pnlISAvailability.setLayout(new java.awt.GridBagLayout());
+
+        jLabel4.setText("Inner Sphere Availability");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlISAvailability.add(jLabel4, gridBagConstraints);
+
+        lblISExtraInfo.setText("Status: R&D Start Date: 9999 (CJF), Prototype: 9999 (CJF)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 0);
+        pnlISAvailability.add(lblISExtraInfo, gridBagConstraints);
+
+        jLabel6.setText("Availability (AoW/SL)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
+        pnlISAvailability.add(jLabel6, gridBagConstraints);
+
+        jLabel7.setText("Availability (SW)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
+        pnlISAvailability.add(jLabel7, gridBagConstraints);
+
+        jLabel8.setText("Availability (CI)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
+        pnlISAvailability.add(jLabel8, gridBagConstraints);
+
+        lblISAVSL.setText("X");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 4);
+        pnlISAvailability.add(lblISAVSL, gridBagConstraints);
+
+        lblISAVSW.setText("X");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 4);
+        pnlISAvailability.add(lblISAVSW, gridBagConstraints);
+
+        lblISAVCI.setText("X");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 4);
+        pnlISAvailability.add(lblISAVCI, gridBagConstraints);
+
+        jLabel12.setText("Reintroduction");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        pnlISAvailability.add(jLabel12, gridBagConstraints);
+
+        lblISIntro.setText("9999 (TH)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 0);
+        pnlISAvailability.add(lblISIntro, gridBagConstraints);
+
+        jLabel14.setText("Extinction");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        pnlISAvailability.add(jLabel14, gridBagConstraints);
+
+        jLabel15.setText("Introduction");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        pnlISAvailability.add(jLabel15, gridBagConstraints);
+
+        lblISReIntro.setText("9999 (TH)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 0);
+        pnlISAvailability.add(lblISReIntro, gridBagConstraints);
+
+        lblISExtinct.setText("9999 (TH)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 0);
+        pnlISAvailability.add(lblISExtinct, gridBagConstraints);
+
+        jLabel20.setText("Tech Rating");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
+        pnlISAvailability.add(jLabel20, gridBagConstraints);
+
+        lblISTechRating.setText("X");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 4);
+        pnlISAvailability.add(lblISTechRating, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        getContentPane().add(pnlISAvailability, gridBagConstraints);
+
+        jSeparator4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        getContentPane().add(jSeparator4, gridBagConstraints);
+
+        lblToHit.setText("+10/+10/+10");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
+        getContentPane().add(lblToHit, gridBagConstraints);
+
+        jLabel21.setText("To-Hit");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 0);
+        getContentPane().add(jLabel21, gridBagConstraints);
+
+        lblFCSClass.setText("Artemis IV");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
+        getContentPane().add(lblFCSClass, gridBagConstraints);
+
+        jLabel23.setText("Missile FCS Class");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
+        getContentPane().add(jLabel23, gridBagConstraints);
+
+        lblMountingRestrictions.setText("Mounting Restrictions: No HD, No CT, No Side Torsos, No Arms, No Legs, Omni Actuator Restricted");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 0, 0);
+        getContentPane().add(lblMountingRestrictions, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -488,19 +881,46 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel lblAVCI;
-    private javax.swing.JLabel lblAVSL;
-    private javax.swing.JLabel lblAVSW;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel lblAmmo;
     private javax.swing.JLabel lblBV;
+    private javax.swing.JLabel lblClanAVCI;
+    private javax.swing.JLabel lblClanAVSL;
+    private javax.swing.JLabel lblClanAVSW;
+    private javax.swing.JLabel lblClanExtinct;
+    private javax.swing.JLabel lblClanExtraInfo;
+    private javax.swing.JLabel lblClanIntro;
+    private javax.swing.JLabel lblClanReIntro;
+    private javax.swing.JLabel lblClanTechRating;
     private javax.swing.JLabel lblCost;
     private javax.swing.JLabel lblCrits;
     private javax.swing.JLabel lblDamage;
-    private javax.swing.JLabel lblExtinct;
+    private javax.swing.JLabel lblFCSClass;
     private javax.swing.JLabel lblHeat;
+    private javax.swing.JLabel lblISAVCI;
+    private javax.swing.JLabel lblISAVSL;
+    private javax.swing.JLabel lblISAVSW;
+    private javax.swing.JLabel lblISExtinct;
+    private javax.swing.JLabel lblISExtraInfo;
+    private javax.swing.JLabel lblISIntro;
+    private javax.swing.JLabel lblISReIntro;
+    private javax.swing.JLabel lblISTechRating;
     private javax.swing.JLabel lblInfoAVCI;
     private javax.swing.JLabel lblInfoAVSL;
     private javax.swing.JLabel lblInfoAVSW;
@@ -518,15 +938,17 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
     private javax.swing.JLabel lblInfoSpecial;
     private javax.swing.JLabel lblInfoTonnage;
     private javax.swing.JLabel lblInfoType;
-    private javax.swing.JLabel lblIntro;
+    private javax.swing.JLabel lblMountingRestrictions;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblRange;
-    private javax.swing.JLabel lblReIntro;
     private javax.swing.JLabel lblRulesBM;
     private javax.swing.JLabel lblRulesIM;
     private javax.swing.JLabel lblSpecials;
+    private javax.swing.JLabel lblToHit;
     private javax.swing.JLabel lblTonnage;
     private javax.swing.JLabel lblType;
+    private javax.swing.JPanel pnlClanAvailability;
+    private javax.swing.JPanel pnlISAvailability;
     // End of variables declaration//GEN-END:variables
     
 }

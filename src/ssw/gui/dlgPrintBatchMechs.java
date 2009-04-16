@@ -323,7 +323,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
         Mech m = null;
         try {
             XMLReader XMLr = new XMLReader();
-            m = XMLr.ReadMech( parent, file.getCanonicalPath() );
+            m = XMLr.ReadMech( parent, file.getCanonicalPath(), parent.data );
         } catch( Exception e ) {
             // had a problem loading the mech.  let the user know.
             javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );

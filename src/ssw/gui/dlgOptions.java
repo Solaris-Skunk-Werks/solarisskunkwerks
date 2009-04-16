@@ -34,6 +34,7 @@ import java.io.IOException;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import ssw.*;
+import ssw.components.AvailableCode;
 import ssw.filehandlers.FileCommon;
 
 public class dlgOptions extends javax.swing.JDialog {
@@ -1144,16 +1145,16 @@ public class dlgOptions extends javax.swing.JDialog {
 
     private void cmbDefaultEraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDefaultEraActionPerformed
         switch( cmbDefaultEra.getSelectedIndex() ) {
-        case Constants.STAR_LEAGUE:
+        case AvailableCode.ERA_STAR_LEAGUE:
             cmbDefaultTechbase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere" }));
             break;
-        case Constants.SUCCESSION:
+        case AvailableCode.ERA_SUCCESSION:
             cmbDefaultTechbase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
             break;
-        case Constants.CLAN_INVASION:
+        case AvailableCode.ERA_CLAN_INVASION:
             cmbDefaultTechbase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
             break;
-        case Constants.ALL_ERA:
+        case AvailableCode.ERA_ALL:
             cmbDefaultTechbase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
             break;
         }

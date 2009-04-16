@@ -29,15 +29,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.components;
 
 public class ArtemisIVFCS extends abPlaceable implements ifMissileGuidance {
-    public final static AvailableCode ISAC = new AvailableCode( false, 'E', 'E', 'F', 'D', 2598, 2855, 3035, "TH", "FW", true, true );
-    public final static AvailableCode CLAC = new AvailableCode( true, 'E', 'X', 'D', 'C', 2598, 0, 0, "TH", "", false, false );
-    private MissileWeapon Owner;
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
+    private RangedWeapon Owner;
 
-    public ArtemisIVFCS( MissileWeapon m ) {
+    public ArtemisIVFCS( RangedWeapon m ) {
+        AC.SetISCodes( 'E', 'E', 'F', 'D' );
+        AC.SetISDates( 0, 0, false, 2598, 2855, 3035, true, true );
+        AC.SetISFactions( "", "", "TH", "FW" );
+        AC.SetCLCodes( 'E', 'X', 'D', 'C' );
+        AC.SetCLDates( 0, 0, false, 2598, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "TH", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );
         Owner = m;
     }
 
-    public MissileWeapon GetOwner() {
+    public RangedWeapon GetOwner() {
         return Owner;
     }
 
@@ -55,8 +61,12 @@ public class ArtemisIVFCS extends abPlaceable implements ifMissileGuidance {
         return "Artemis IV FCS";
     }
 
+    public String GetLookupName() {
+        return GetCritName();
+    }
+
     public String GetMMName( boolean UseRear ) {
-        if( Owner.IsClan() ) {
+        if( Owner.GetAvailability().GetTechBase() >= AvailableCode.TECH_CLAN ) {
             return "CLArtemisIV";
         } else {
             return "ISArtemisIV";
@@ -99,18 +109,10 @@ public class ArtemisIVFCS extends abPlaceable implements ifMissileGuidance {
     }
 
     public AvailableCode GetAvailability() {
-        if( Owner.IsClan() ) {
-            if( IsArmored() ) {
-                return CLArmoredAC;
-            } else {
-                return CLAC;
-            }
+        if( IsArmored() ) {
+            return ArmoredAC;
         } else {
-            if( IsArmored() ) {
-                return ISArmoredAC;
-            } else {
-                return ISAC;
-            }
+            return AC;
         }
     }
 

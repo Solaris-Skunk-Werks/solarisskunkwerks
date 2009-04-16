@@ -28,16 +28,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
-import ssw.Constants;
 import ssw.components.*;
 
 public class stArmorISHF implements ifArmor, ifState {
     boolean locked = false;
-    private final static AvailableCode AC = new AvailableCode( false, 'E', 'X', 'X', 'E',
-        3069, 0, 0, "LA", "", false, false );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stArmorISHF() {
-        AC.SetRulesLevelIM( Constants.EXPERIMENTAL );
+        AC.SetISCodes( 'E', 'X', 'X', 'E' );
+        AC.SetISDates( 0, 0, false, 3069, 0, 0, false, false );
+        AC.SetISFactions( "", "", "LA", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );
     }
 
     public String GetLookupName() {
@@ -52,7 +53,7 @@ public class stArmorISHF implements ifArmor, ifState {
         return "Heavy Ferro-Fibrous";
     }
 
-    public boolean IsClan() {
+    public boolean HasCounterpart() {
         return false;
     }
 

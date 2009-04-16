@@ -33,6 +33,9 @@ import ssw.components.*;
 public class VChassisSetStandard implements ifVisitor {
     private Mech CurMech;
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
@@ -50,22 +53,12 @@ public class VChassisSetStandard implements ifVisitor {
         i.Remove(l);
 
         // change the internal structure type
-        if( CurMech.IsClan() ) {
-            if( CurMech.IsQuad() ) {
-                // standard quad
-                i.SetCLMSQD();
-            } else {
-                // standard biped
-                i.SetCLMSBP();
-            }
+        if( CurMech.IsQuad() ) {
+            // standard quad
+            i.SetMSQD();
         } else {
-            if( CurMech.IsQuad() ) {
-                // standard quad
-                i.SetISMSQD();
-            } else {
-                // standard biped
-                i.SetISMSBP();
-            }
+            // standard biped
+            i.SetMSBP();
         }
 
         // place the internal structure

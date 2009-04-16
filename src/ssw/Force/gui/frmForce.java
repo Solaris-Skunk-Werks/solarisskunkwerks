@@ -102,7 +102,7 @@ public class frmForce extends javax.swing.JFrame {
         try
         {
             XMLReader read = new XMLReader();
-            Mech m = read.ReadMech(Data.Filename);
+            Mech m = read.ReadMech( Data.Filename, parent.data );
             //if (m.isOmni()) {
                 //m.SetCurLoadout( Data.getConfig() );
             //}
@@ -383,7 +383,7 @@ public class frmForce extends javax.swing.JFrame {
                 int[] rows = tblForce.getSelectedRows();
                 for ( int i=0; i < rows.length; i++ ) {
                     Unit data = (Unit) force.Units.get(tblForce.convertRowIndexToModel(rows[i]));
-                    Mech m = read.ReadMech(data.Filename);
+                    Mech m = read.ReadMech( data.Filename, parent.data );
                     print.AddMech(m);
                 }
                 print.Print();

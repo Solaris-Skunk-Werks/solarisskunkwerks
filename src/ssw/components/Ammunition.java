@@ -39,40 +39,85 @@ public class Ammunition extends abPlaceable {
                 srtrng = 0,
                 medrng = 0,
                 lngrng = 0,
-                damage = 0,
+                damsht = 0,
+                dammed = 0,
+                damlng = 0,
                 ToHitShort = 0,
                 ToHitMedium = 0,
                 ToHitLong = 0,
                 group = 1,
-                cluster = 1;
+                cluster = 1,
+                WeaponClass = ifWeapon.W_BALLISTIC,
+                FCSType = ifMissileGuidance.FCS_NONE;
     private boolean Explosive = true,
-                    Clan;
+                    IsCluster = false;
     private AvailableCode AC;
     private String Name,
                    PrintName,
-                   LookupName;
+                   LookupName,
+                   MegaMekName;
 
-    public Ammunition( String n, String l, int i, boolean c, AvailableCode a ) {
+    public Ammunition( String name, String lookupname, String mname, int idx, AvailableCode a ) {
         // some things of note here:
         // Name is the visible name in the program
         // LookupName is the name used when saved to MegaMek
         AC = a;
-        Name = n;
+        Name = name;
         // set the print name the same as the critname.  if it needs to be
         // changed a method is provided.
-        PrintName = n;
-        LookupName = l;
-        AmmoIndex = i;
-        Clan = c;
+        PrintName = name;
+        LookupName = lookupname;
+        MegaMekName = mname;
+        AmmoIndex = idx;
+    }
+
+    public void SetStats( float tons, float cost, float obv, float dbv ) {
+        Tonnage = tons;
+        Cost = cost;
+        OffBV = obv;
+        DefBV = dbv;
+    }
+
+    public void SetToHit( int thsrt, int thmed, int thlng ) {
+        ToHitShort = thsrt;
+        ToHitMedium = thmed;
+        ToHitLong = thlng;
+    }
+
+    public void SetDamage( int dsht, int dmed, int dlng, boolean clustered, int clstr, int grp ) {
+        damsht = dsht;
+        dammed = dmed;
+        damlng = dlng;
+        IsCluster = clustered;
+        cluster = clstr;
+        group = grp;
+    }
+
+    public void SetRange( int min, int srt, int med, int lng ) {
+        minrng = min;
+        srtrng = srt;
+        medrng = med;
+        lngrng = lng;
+    }
+
+    public void SetAmmo( int size, boolean explode, int wclass, int fcsclass ) {
+        LotSize = size;
+        Explosive = explode;
+        WeaponClass = wclass;
+        FCSType = fcsclass;
+    }
+
+    public void SetPrintName( String p ) {
+        // for ammos that have huge names you can override the normal name
+        PrintName = p;
     }
 
     public String GetCritName() {
         return Name;
     }
 
-    public void SetPrintName( String p ) {
-        // for ammos that have huge names you can override the normal name
-        PrintName = p;
+    public String GetLookupName() {
+        return LookupName;
     }
 
     public String GetBasePrintName() {
@@ -87,7 +132,7 @@ public class Ammunition extends abPlaceable {
     }
 
     public String GetMMName( boolean UseRear ) {
-        return LookupName;
+        return MegaMekName;
     }
 
     public int GetAmmoIndex() {
@@ -97,13 +142,6 @@ public class Ammunition extends abPlaceable {
     public int NumCrits() {
         // ammunition only ever takes up one critical slot
         return 1;
-    }
-
-    public void SetStats( float t, float c, float obv, float dbv ) {
-        Tonnage = t;
-        Cost = c;
-        OffBV = obv;
-        DefBV = dbv;
     }
 
     public float GetTonnage() {
@@ -129,17 +167,8 @@ public class Ammunition extends abPlaceable {
         return DefBV;
     }
 
-    public void SetLotSize( int s ) {
-        // sets the amount of ammunition in this lot
-        LotSize = s;
-    }
-
     public int GetLotSize() {
         return LotSize;
-    }
-
-    public void SetExplosive( boolean b ) {
-        Explosive = b;
     }
 
     public boolean IsExplosive() {
@@ -147,14 +176,12 @@ public class Ammunition extends abPlaceable {
         return Explosive;
     }
 
-    public boolean IsClan() {
-        return Clan;
+    public int GetWeaponClass() {
+        return WeaponClass;
     }
 
-    public void SetToHit( int thsrt, int thmed, int thlng ) {
-        ToHitShort = thsrt;
-        ToHitMedium = thmed;
-        ToHitLong = thlng;
+    public int GetFCSType() {
+        return FCSType;
     }
 
     public int GetToHitShort() {
@@ -169,14 +196,20 @@ public class Ammunition extends abPlaceable {
         return ToHitLong;
     }
 
-    public void SetDamage( int dam, int clstr, int grp ) {
-        damage = dam;
-        cluster = clstr;
-        group = grp;
+    public int GetDamageShort() {
+        return damsht;
     }
 
-    public int GetDamage() {
-        return damage;
+    public int GetDamageMedium() {
+        return dammed;
+    }
+
+    public int GetDamageLong() {
+        return damlng;
+    }
+
+    public boolean IsCluster() {
+        return IsCluster;
     }
 
     public int ClusterSize() {
@@ -185,13 +218,6 @@ public class Ammunition extends abPlaceable {
 
     public int ClusterGrouping() {
         return group;
-    }
-
-    public void SetRange( int min, int srt, int med, int lng ) {
-        minrng = min;
-        srtrng = srt;
-        medrng = med;
-        lngrng = lng;
     }
 
     public int GetMinRange() {

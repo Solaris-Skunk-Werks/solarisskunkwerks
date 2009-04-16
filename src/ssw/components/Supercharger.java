@@ -28,14 +28,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
-import ssw.Constants;
-
 public class Supercharger extends abPlaceable {
     private ifLoadout Owner;
-    private AvailableCode ISAC = new AvailableCode( false, 'C', 'F', 'F', 'F', 1950, 0, 0, "ES", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL ),
-                          CLAC = new AvailableCode( true, 'C', 'F', 'F', 'F', 1950, 0, 0, "ES", "", false, false, 0, false, "", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
+    private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
     public Supercharger( ifLoadout l ) {
+        AC.SetISCodes( 'C', 'F', 'F', 'F' );
+        AC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
+        AC.SetISFactions( "", "", "ES", "" );
+        AC.SetCLCodes( 'C', 'X', 'F', 'F' );
+        AC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "ES", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = l;
         AddMechModifier( new MechModifier( 0, 0, 0, 0.5f, 0, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true ) );
     }
@@ -45,9 +49,13 @@ public class Supercharger extends abPlaceable {
         return "Supercharger";
     }
 
+    public String GetLookupName() {
+        return GetCritName();
+    }
+
     @Override
     public String GetMMName(boolean UseRear) {
-        if( Owner.GetMech().IsClan() ) {
+        if( Owner.GetTechBase() >= AvailableCode.TECH_CLAN ) {
             return "CL Super Charger";
         } else {
             return "IS Super Charger";
@@ -113,10 +121,10 @@ public class Supercharger extends abPlaceable {
 
     @Override
     public AvailableCode GetAvailability() {
-        if( Owner.GetMech().IsClan() ) {
-            return CLAC;
-        } else {
-            return ISAC;
+        AvailableCode retval = AC.Clone();
+        if( IsArmored() ) {
+            retval.Combine( ArmoredAC );
         }
+        return retval;
     }
 }

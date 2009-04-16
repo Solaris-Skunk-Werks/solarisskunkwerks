@@ -41,11 +41,15 @@ public class TXTWriter {
     private Mech CurMech;
     private Options MyOptions;
     private String NL;
+    private boolean Mixed = false;
 
     public TXTWriter( Mech m, Options o ) {
         CurMech = m;
         MyOptions = o;
         NL = System.getProperty( "line.separator" );
+        if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+            Mixed = true;
+        }
     }
 
 // This is a text formating string (80 chars) I keep around for when it's needed
@@ -68,22 +72,9 @@ public class TXTWriter {
             CurMech.SetCurLoadout( Constants.BASELOADOUT_NAME );
         }
         retval += CurMech.GetName() + " " + CurMech.GetModel() + NL + NL;
-        switch( CurMech.GetBaseRulesLevel() ) {
-        case Constants.TOURNAMENT:
-            retval += "Rules Level: Tournament Legal" + NL;
-            break;
-        case Constants.ADVANCED:
-            retval += "Rules Level: Advanced" + NL;
-            break;
-        case Constants.EXPERIMENTAL:
-            retval += "Rules Level: Experimental Tech" + NL;
-            break;
-        }
-        if( CurMech.IsClan() ) {
-            retval += "Tech Base: Clan" + NL;
-        } else {
-            retval += "Tech Base: Inner Sphere" + NL;
-        }
+        retval += "Rules Level: " + CommonTools.GetRulesLevelString( CurMech.GetRulesLevel() ) + NL;
+        retval += "Tech Base: " + CommonTools.GetTechbaseString( CurMech.GetTechBase() ) + NL;
+        retval += "Era: " + CommonTools.DecodeEra( CurMech.GetEra() ) + NL;
         if( CurMech.IsQuad() ) {
             if( CurMech.IsOmnimech() ) {
                 retval += "Chassis Config: Quad Omnimech" + NL;
@@ -164,11 +155,7 @@ public class TXTWriter {
         }
         retval += "================================================================================" + NL;
         retval += CurMech.GetName() + " " + CurMech.GetModel() + NL + NL;
-        if( CurMech.IsClan() ) {
-            retval += "Tech Base: Clan" + NL;
-        } else {
-            retval += "Tech Base: Inner Sphere" + NL;
-        }
+        retval += "Tech Base: " + CommonTools.GetTechbaseString( CurMech.GetTechBase() ) + NL;
         if( CurMech.IsQuad() ) {
             if( CurMech.IsOmnimech() ) {
                 retval += "Chassis Config: Quad Omnimech" + NL;
@@ -190,8 +177,8 @@ public class TXTWriter {
                 }
             }
         }
-        retval += String.format( "Era: %1$-56s Cost: %2$,.0f", DecodeEra(), Math.floor( CurMech.GetTotalCost() + 0.5f ) ) + NL;
-        retval += String.format( "Tech Rating/Era Availability: %1$-32s BV2: %2$,d", CurMech.GetAvailability().GetShortenedCode(), CurMech.GetCurrentBV() ) + NL + NL;
+        retval += String.format( "Era: %1$-56s Cost: %2$,.0f", CommonTools.DecodeEra( CurMech.GetEra() ), Math.floor( CurMech.GetTotalCost() + 0.5f ) ) + NL;
+        retval += String.format( "Tech Rating/Era Availability: %1$-32s BV2: %2$,d", CurMech.GetAvailability().GetBestCombinedCode(), CurMech.GetCurrentBV() ) + NL + NL;
         retval += "Equipment           Type                         Rating                   Mass  " + NL;
         retval += "--------------------------------------------------------------------------------" + NL;
         retval += String.format( "Internal Structure: %1$-28s %2$3s points              %3$6.2f", CurMech.GetIntStruc().GetCritName(), CurMech.GetIntStruc().GetTotalPoints(), CurMech.GetIntStruc().GetTonnage() ) + NL;
@@ -247,7 +234,7 @@ public class TXTWriter {
         if( CurMech.GetArmor().NumCrits() > 0 ) {
             retval += "    Armor Locations: " + FileCommon.GetArmorLocations( CurMech ) + NL;
         }
-        if( CurMech.IsClan() ) {
+        if( CurMech.GetLoadout().IsUsingClanCASE() ) {
             int[] Locs = CurMech.GetLoadout().FindExplosiveInstances();
             boolean check = false;
             for( int i = 0; i < Locs.length; i++ ) {
@@ -380,14 +367,26 @@ public class TXTWriter {
 
         // do we need to continue?
         if( weapons.length <= 1 ) {
-            if( cur instanceof MissileWeapon ) {
-                if( ((MissileWeapon) cur).IsUsingFCS() ) {
-                    Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + " w/ " + ((abPlaceable) ((MissileWeapon) cur).GetFCS()).GetCritName() + NL;
+            if( cur instanceof RangedWeapon ) {
+                if( Mixed ) {
+                    if( ((RangedWeapon) cur).IsUsingFCS() ) {
+                        Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetLookupName() + " w/ " + ((abPlaceable) ((RangedWeapon) cur).GetFCS()).GetLookupName() + NL;
+                    } else {
+                        Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetLookupName() + NL;
+                    }
+                } else {
+                    if( ((RangedWeapon) cur).IsUsingFCS() ) {
+                        Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + " w/ " + ((abPlaceable) ((RangedWeapon) cur).GetFCS()).GetCritName() + NL;
+                    } else {
+                        Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + NL;
+                    }
+                }
+            } else {
+                if( Mixed ) { 
+                    Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetLookupName() + NL;
                 } else {
                     Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + NL;
                 }
-            } else {
-                Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + NL;
             }
             if( CurMech.IsOmnimech() ) {
                 Armament += "    " + ( CurMech.GetTonnage() - CurMech.GetCurrentTons() ) + " tons of pod space." + NL;
@@ -401,7 +400,7 @@ public class TXTWriter {
             // find any other weapons of this type
             for( int j = 0; j < weapons.length; j++ ) {
                 if( weapons[j] != null ) {
-                    if( weapons[j].GetCritName().matches( cur.GetCritName() ) && weapons[j].GetManufacturer().matches( cur.GetManufacturer() ) ) {
+                    if( weapons[j].GetLookupName().matches( cur.GetLookupName() ) && weapons[j].GetManufacturer().matches( cur.GetManufacturer() ) ) {
                         numthistype++;
                         weapons[j] = null;
                     }
@@ -415,14 +414,26 @@ public class TXTWriter {
                 plural = "";
             }
 
-            if( cur instanceof MissileWeapon ) {
-                if( ((MissileWeapon) cur).IsUsingFCS() ) {
-                        Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + plural + " w/ " + ((abPlaceable) ((MissileWeapon) cur).GetFCS()).GetCritName() + NL;
+            if( cur instanceof RangedWeapon ) {
+                if( Mixed ) {
+                    if( ((RangedWeapon) cur).IsUsingFCS() ) {
+                            Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetLookupName() + plural + " w/ " + ((abPlaceable) ((RangedWeapon) cur).GetFCS()).GetLookupName() + NL;
+                    } else {
+                        Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetLookupName() + plural + NL;
+                    }
+                } else {
+                    if( ((RangedWeapon) cur).IsUsingFCS() ) {
+                            Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + plural + " w/ " + ((abPlaceable) ((RangedWeapon) cur).GetFCS()).GetCritName() + NL;
+                    } else {
+                        Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + plural + NL;
+                    }
+                }
+            } else {
+                if( Mixed ) {
+                    Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetLookupName() + plural + NL;
                 } else {
                     Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + plural + NL;
                 }
-            } else {
-                Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + plural + NL;
             }
 
             // find the next weapon type and set it to current
@@ -447,22 +458,6 @@ public class TXTWriter {
 
         // all done
         return Armament;
-    }
-
-    private String DecodeEra() {
-        // sends the correct era string for the mech
-        switch( CurMech.GetEra() ) {
-        case Constants.STAR_LEAGUE:
-            return Constants.strSTAR_LEAGUE;
-        case Constants.SUCCESSION:
-            return Constants.strSUCCESSION;
-        case Constants.CLAN_INVASION:
-            return Constants.strCLAN_INVASION;
-        case Constants.ALL_ERA:
-            return Constants.strALL_ERA;
-        default:
-            return "Unknown";
-        }
     }
 
     private String GetHSType() {
@@ -543,28 +538,48 @@ public class TXTWriter {
             // build the string based on the type of equipment
             if( p instanceof Ammunition ) {
                 retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", FileCommon.FormatAmmoPrintName( (Ammunition) p ), loc, crits, p.GetTonnage() ) + NL;
-            } else if( p instanceof MissileWeapon ) {
-                if( ((MissileWeapon) p).IsUsingFCS() ) {
-                    abPlaceable a = (abPlaceable) ((MissileWeapon) p).GetFCS();
-                    retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, p.GetTonnage() - a.GetTonnage() ) + NL;
-                    retval += String.format( "    %1$-46s %2$-13s %3$-7s %4$6.2f", a.GetCritName(), loc, a.NumCrits(), a.GetTonnage() ) + NL;
+            } else if( p instanceof RangedWeapon ) {
+                float tons = p.GetTonnage();
+                String add = "";
+                if( ((RangedWeapon) p).IsUsingFCS() ) {
+                    abPlaceable a = (abPlaceable) ((RangedWeapon) p).GetFCS();
+                    tons -= a.GetTonnage();
+                    if( Mixed ) {
+                        add += String.format( "    %1$-46s %2$-13s %3$-7s %4$6.2f", a.GetLookupName(), loc, a.NumCrits(), a.GetTonnage() ) + NL;
+                    } else {
+                        add += String.format( "    %1$-46s %2$-13s %3$-7s %4$6.2f", a.GetCritName(), loc, a.NumCrits(), a.GetTonnage() ) + NL;
+                    }
+                }
+                if( ((RangedWeapon) p).IsUsingCapacitor() ) {
+                    tons -= 1.0f;
+                    abPlaceable a = ((RangedWeapon) p).GetCapacitor();
+                    if( Mixed ) {
+                        add += String.format( "    %1$-46s %2$-13s %3$-7s %4$6.2f", a.GetLookupName(), loc, a.NumCrits(), a.GetTonnage() ) + NL;
+                    } else {
+                        add += String.format( "    %1$-46s %2$-13s %3$-7s %4$6.2f", a.GetCritName(), loc, a.NumCrits(), a.GetTonnage() ) + NL;
+                    }
+                }
+                if( Mixed ) {
+                    retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetLookupName(), loc, crits, tons ) + NL + add;
                 } else {
-                    retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, p.GetTonnage() ) + NL;
+                    retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, tons ) + NL + add;
                 }
             } else if ( p instanceof MGArray ) {
-                retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, ((MGArray) p).GetBaseTons() ) + NL;
-                abPlaceable a = ((MGArray) p).GetMGType();
-                retval += String.format( "    %1$-46s %2$-13s %3$-7s %4$6.2f", ((MGArray) p).GetNumMGs() + " " + a.GetCritName(), loc, ((MGArray) p).GetNumMGs(), ( ((MGArray) p).GetMGTons() * ((MGArray) p).GetNumMGs() ) ) + NL;
-            } else if( p instanceof EnergyWeapon ) {
-                if( ((EnergyWeapon) p).HasCapacitor() ) {
-                    retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, p.GetTonnage() - 1.0f ) + NL;
-                    abPlaceable a = ((EnergyWeapon) p).GetCapacitor();
-                    retval += String.format( "    %1$-46s %2$-13s %3$-7s %4$6.2f", a.GetCritName(), loc, a.NumCrits(), a.GetTonnage() ) + NL;
+                if( Mixed ) {
+                    retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetLookupName(), loc, crits, ((MGArray) p).GetBaseTons() ) + NL;
+                    abPlaceable a = ((MGArray) p).GetMGType();
+                    retval += String.format( "    %1$-46s %2$-13s %3$-7s %4$6.2f", ((MGArray) p).GetNumMGs() + " " + a.GetLookupName(), loc, ((MGArray) p).GetNumMGs(), ( ((MGArray) p).GetMGTons() * ((MGArray) p).GetNumMGs() ) ) + NL;
+                } else {
+                    retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, ((MGArray) p).GetBaseTons() ) + NL;
+                    abPlaceable a = ((MGArray) p).GetMGType();
+                    retval += String.format( "    %1$-46s %2$-13s %3$-7s %4$6.2f", ((MGArray) p).GetNumMGs() + " " + a.GetCritName(), loc, ((MGArray) p).GetNumMGs(), ( ((MGArray) p).GetMGTons() * ((MGArray) p).GetNumMGs() ) ) + NL;
+                }
+            } else {
+                if( Mixed ) {
+                    retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetLookupName(), loc, crits, p.GetTonnage() ) + NL;
                 } else {
                     retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, p.GetTonnage() ) + NL;
                 }
-            } else {
-                retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, p.GetTonnage() ) + NL;
             }
         }
 
@@ -634,20 +649,10 @@ public class TXTWriter {
         Vector v = (Vector) CurMech.GetLoadout().GetNonCore().clone();
 
         if( CurMech.GetBaseRulesLevel() != CurMech.GetLoadout().GetRulesLevel() ) {
-            switch( CurMech.GetLoadout().GetRulesLevel() ) {
-            case Constants.TOURNAMENT:
-                retval += "Rules Level: Tournament Legal" + NL;
-                break;
-            case Constants.ADVANCED:
-                retval += "Rules Level: Advanced" + NL;
-                break;
-            case Constants.EXPERIMENTAL:
-                retval += "Rules Level: Experimental Tech" + NL;
-                break;
-            }
+            retval += "Rules Level: " + CommonTools.GetRulesLevelString( CurMech.GetLoadout().GetRulesLevel() );
         }
         retval += String.format( "Loadout: %1$-52s Cost: %2$,.0f", CurMech.GetLoadout().GetName(), Math.floor( CurMech.GetTotalCost() + 0.5f ) ) + NL;
-        retval += String.format( "Tech Rating/Era Availability: %1$-32s BV2: %2$,d", CurMech.GetAvailability().GetShortenedCode(), CurMech.GetCurrentBV() ) + NL;
+        retval += String.format( "Tech Rating/Era Availability: %1$-32s BV2: %2$,d", CurMech.GetAvailability().GetBestCombinedCode(), CurMech.GetCurrentBV() ) + NL;
 
         // build the starting block for the loadout information
         retval += NL + "Equipment           Type                         Rating                   Mass  " + NL;
@@ -668,7 +673,7 @@ public class TXTWriter {
                 retval += "    Heat Sink Locations: " + FileCommon.GetHeatSinkLocations( CurMech ) + NL;
             }
         }
-        if( CurMech.IsClan() ) {
+        if( CurMech.GetLoadout().IsUsingClanCASE() ) {
             int[] Locs = CurMech.GetLoadout().FindExplosiveInstances();
             boolean check = false;
             for( int i = 0; i < Locs.length; i++ ) {
@@ -729,20 +734,39 @@ public class TXTWriter {
             // build the string based on the type of equipment
             if( p instanceof Ammunition ) {
                 retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", FileCommon.FormatAmmoPrintName((Ammunition) p), loc, crits, p.GetTonnage() ) + NL;
-            } else if( p instanceof MissileWeapon ) {
-                if( ((MissileWeapon) p).IsUsingFCS() ) {
-                    abPlaceable a = (abPlaceable) ((MissileWeapon) p).GetFCS();
-                    retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, p.GetTonnage() - a.GetTonnage() ) + NL;
-                    retval += String.format( "    %1$-46s %2$-13s %3$-7s %4$6.2f", a.GetCritName(), loc, a.NumCrits(), a.GetTonnage() ) + NL;
+            } else if( p instanceof RangedWeapon ) {
+                if( ((RangedWeapon) p).IsUsingFCS() ) {
+                    abPlaceable a = (abPlaceable) ((RangedWeapon) p).GetFCS();
+                    if( Mixed ) {
+                        retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetLookupName(), loc, crits, p.GetTonnage() - a.GetTonnage() ) + NL;
+                        retval += String.format( "    %1$-46s %2$-13s %3$-7s %4$6.2f", a.GetLookupName(), loc, a.NumCrits(), a.GetTonnage() ) + NL;
+                    } else {
+                        retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, p.GetTonnage() - a.GetTonnage() ) + NL;
+                        retval += String.format( "    %1$-46s %2$-13s %3$-7s %4$6.2f", a.GetCritName(), loc, a.NumCrits(), a.GetTonnage() ) + NL;
+                    }
+                } else {
+                    if( Mixed ) {
+                        retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetLookupName(), loc, crits, p.GetTonnage() ) + NL;
+                    } else {
+                        retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, p.GetTonnage() ) + NL;
+                    }
+                }
+            } else if ( p instanceof MGArray ) {
+                if( Mixed ) {
+                    retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetLookupName(), loc, crits, ((MGArray) p).GetBaseTons() ) + NL;
+                    abPlaceable a = ((MGArray) p).GetMGType();
+                    retval += String.format( "    %1$-46s %2$-13s %3$-7s %4$6.2f", ((MGArray) p).GetNumMGs() + " " + a.GetLookupName(), loc, ((MGArray) p).GetNumMGs(), ( ((MGArray) p).GetMGTons() * ((MGArray) p).GetNumMGs() ) ) + NL;
+                } else {
+                    retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, ((MGArray) p).GetBaseTons() ) + NL;
+                    abPlaceable a = ((MGArray) p).GetMGType();
+                    retval += String.format( "    %1$-46s %2$-13s %3$-7s %4$6.2f", ((MGArray) p).GetNumMGs() + " " + a.GetCritName(), loc, ((MGArray) p).GetNumMGs(), ( ((MGArray) p).GetMGTons() * ((MGArray) p).GetNumMGs() ) ) + NL;
+                }
+            } else {
+                if( Mixed ) {
+                    retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetLookupName(), loc, crits, p.GetTonnage() ) + NL;
                 } else {
                     retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, p.GetTonnage() ) + NL;
                 }
-            } else if ( p instanceof MGArray ) {
-                retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, ((MGArray) p).GetBaseTons() ) + NL;
-                abPlaceable a = ((MGArray) p).GetMGType();
-                retval += String.format( "    %1$-46s %2$-13s %3$-7s %4$6.2f", ((MGArray) p).GetNumMGs() + " " + a.GetCritName(), loc, ((MGArray) p).GetNumMGs(), ( ((MGArray) p).GetMGTons() * ((MGArray) p).GetNumMGs() ) ) + NL;
-            } else {
-                retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", p.GetCritName(), loc, crits, p.GetTonnage() ) + NL;
             }
         }
 

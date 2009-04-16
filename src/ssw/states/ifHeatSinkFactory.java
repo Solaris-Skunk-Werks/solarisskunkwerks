@@ -33,7 +33,6 @@ import ssw.components.AvailableCode;
 import ssw.components.MechModifier;
 
 public interface ifHeatSinkFactory {
-    public boolean IsClan();
     public boolean IsDouble();
     public float GetTonnage();
     public int GetCost();

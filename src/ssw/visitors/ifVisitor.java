@@ -32,5 +32,6 @@ import ssw.components.*;
 
 public interface ifVisitor {
     public void LoadLocations( LocationIndex[] locs );
+    public void SetClan( boolean clan );
     public void Visit(Mech m) throws Exception;
 }

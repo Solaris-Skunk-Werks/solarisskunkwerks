@@ -28,7 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
-import ssw.Constants;
 import ssw.components.*;
 
 public class stChassisISPRBP implements ifChassis, ifState {
@@ -56,17 +55,20 @@ public class stChassisISPRBP implements ifChassis, ifState {
         { 29, 19, 15, 19 },
         { 30, 20, 16, 20 },
         { 31, 21, 17, 21 } };
-    private final static AvailableCode AC = new AvailableCode( false, 'D', 'C', 'C', 'C',
-        2443, 0, 0, "TH", "", false, false );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stChassisISPRBP() {
-        AC.SetRulesLevelIM( Constants.UNALLOWED );
+        AC.SetISCodes( 'D', 'C', 'C', 'C' );
+        AC.SetISDates( 0, 0, false, 2443, 0, 0, false, false );
+        AC.SetISFactions( "", "", "TH", "" );
+        AC.SetEraSpecific( true );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
-    public boolean IsClan() {
+    public boolean HasCounterpart() {
         return false;
     }
-    
+
     public int GetCrits() {
         return 0;
     }

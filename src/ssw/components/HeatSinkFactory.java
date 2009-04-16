@@ -37,11 +37,10 @@ public class HeatSinkFactory {
                 BaseLoadoutNumHS = 0;
     private ifLoadout Owner;
     private LinkedList CurrentSinks = new LinkedList();
-    private static ifHeatSinkFactory ISSHS = new stHeatSinkISSHS(),
+    private static ifHeatSinkFactory SHS = new stHeatSinkSingle(),
                                      ISDHS = new stHeatSinkISDHS(),
-                                     CLSHS = new stHeatSinkCLSHS(),
                                      CLDHS = new stHeatSinkCLDHS();
-    private ifHeatSinkFactory CurConfig = ISSHS;
+    private ifHeatSinkFactory CurConfig = SHS;
 
     public HeatSinkFactory( ifLoadout l ) {
         // the basic constructor
@@ -71,64 +70,31 @@ public class HeatSinkFactory {
         }
     }
 
-    public void SetInnerSphere() {
-        if( CurConfig.IsDouble() ) {
-            CurConfig = ISDHS;
-        } else {
-            CurConfig = ISSHS;
-        }
-        Owner.GetMech().SetChanged( true );
-    }
-
-    public void SetClan() {
-        if( CurConfig.IsDouble() ) {
-            CurConfig = CLDHS;
-        } else {
-            CurConfig = CLSHS;
-        }
-        Owner.GetMech().SetChanged( true );
-    }
-
     public void SetSingle() {
-        if( CurConfig.IsClan() ) {
-            CurConfig = CLSHS;
-        } else {
-            CurConfig = ISSHS;
-        }
+        CurConfig = SHS;
         Owner.GetMech().SetChanged( true );
     }
 
-    public void SetDouble() {
-        if( CurConfig.IsClan() ) {
-            CurConfig = CLDHS;
-        } else {
-            CurConfig = ISDHS;
-        }
-        Owner.GetMech().SetChanged( true );
-    }
-
-    public void SetISDouble() {
-        CurConfig = ISDHS;
-        Owner.GetMech().SetChanged( true );
-    }
-
-    public void SetISSingle() {
-        CurConfig = ISSHS;
-        Owner.GetMech().SetChanged( true );
-    }
-
-    public void SetCLDouble() {
+    public void SetClanDHS() {
         CurConfig = CLDHS;
         Owner.GetMech().SetChanged( true );
     }
 
-    public void SetCLSingle() {
-        CurConfig = CLSHS;
+    public void SetISDHS() {
+        CurConfig = ISDHS;
         Owner.GetMech().SetChanged( true );
     }
 
     public boolean IsDouble() {
         return CurConfig.IsDouble();
+    }
+
+    public int GetTechBase() {
+        return CurConfig.GetAvailability().GetTechBase();
+    }
+
+    public ifState GetCurrentState() {
+        return (ifState) CurConfig;
     }
 
     public int GetNumHS() {
@@ -152,7 +118,7 @@ public class HeatSinkFactory {
     }
 
     public ifState[] GetStates() {
-        ifState[] retval = { (ifState) ISSHS, (ifState) ISDHS, (ifState) CLSHS, (ifState) CLDHS };
+        ifState[] retval = { (ifState) SHS, (ifState) ISDHS, (ifState) CLDHS };
         return retval;
     }
 

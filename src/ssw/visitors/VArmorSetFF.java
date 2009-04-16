@@ -35,6 +35,7 @@ public class VArmorSetFF implements ifVisitor {
     // sets the mech's armor to ferro-fibrous
     private frmMain Parent;
     private Mech CurMech;
+    private boolean Clan = false;
 
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
@@ -48,6 +49,10 @@ public class VArmorSetFF implements ifVisitor {
         Parent = p;
     }
 
+    public void SetClan( boolean clan ) {
+        Clan = clan;
+    }
+
     public void Visit(Mech m) {
         // only the armor changes, so pass us off
         CurMech = m;
@@ -58,10 +63,20 @@ public class VArmorSetFF implements ifVisitor {
         l.Remove( a );
 
         // set the armor type
-        if( CurMech.IsClan() ) {
-            a.SetCLFF();
-        } else {
-            a.SetISFF();
+        switch( CurMech.GetTechBase() ) {
+            case AvailableCode.TECH_INNER_SPHERE:
+                a.SetISFF();
+                break;
+            case AvailableCode.TECH_CLAN:
+                a.SetCLFF();
+                break;
+            case AvailableCode.TECH_BOTH:
+                if( Clan ) {
+                    a.SetCLFF();
+                } else {
+                    a.SetISFF();
+                }
+                break;
         }
 
         // place the armor

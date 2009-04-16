@@ -37,6 +37,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Vector;
+import ssw.CommonTools;
 import ssw.Options;
 
 public class HTMLWriter {
@@ -45,6 +46,7 @@ public class HTMLWriter {
     private Hashtable lookup = new Hashtable<String, String>( 90 );
     private String NL = "<BR />";
     private Options MyOptions;
+    private boolean Mixed = false;
 
     public HTMLWriter( Mech m, Options o ) {
         CurMech = m;
@@ -53,6 +55,9 @@ public class HTMLWriter {
         // before we build the hash table
         if( CurMech.IsOmnimech() ) {
             CurMech.SetCurLoadout( Constants.BASELOADOUT_NAME );
+        }
+        if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+            Mixed = true;
         }
         BuildHash();
     }
@@ -261,7 +266,7 @@ public class HTMLWriter {
                 // find any other weapons of this type
                 for( int j = 0; j < equips.length; j++ ) {
                     if( equips[j] != null ) {
-                        if( equips[j].GetCritName().equals( cur.GetCritName() ) && equips[j].GetManufacturer().equals( cur.GetManufacturer() ) ) {
+                        if( equips[j].GetLookupName().equals( cur.GetLookupName() ) && equips[j].GetManufacturer().equals( cur.GetManufacturer() ) ) {
                             numthistype++;
                             equips[j] = null;
                         }
@@ -419,16 +424,7 @@ public class HTMLWriter {
             if( CurMech.GetBaseRulesLevel() == CurMech.GetLoadout().GetRulesLevel() ) {
                 return "";
             } else {
-                switch( CurMech.GetLoadout().GetRulesLevel() ) {
-                case Constants.TOURNAMENT:
-                    return "Tournament Legal";
-                case Constants.ADVANCED:
-                    return "Advanced";
-                case Constants.EXPERIMENTAL:
-                    return "Experimental Tech";
-                default:
-                    return "";
-                }
+                return CommonTools.GetRulesLevelString( CurMech.GetLoadout().GetRulesLevel() );
             }
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_COST-+>" ) ) {
             return String.format( "%1$,.0f", CurMech.GetTotalCost() );
@@ -459,7 +455,7 @@ public class HTMLWriter {
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_JUMPJET_TONNAGE-+>" ) ) {
             return "" + CurMech.GetJumpJets().GetTonnage();
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_CASE_TONNAGE-+>" ) ) {
-            if( CurMech.IsClan() ) {
+            if( CurMech.GetLoadout().IsUsingClanCASE() ) {
                 int[] Locs = CurMech.GetLoadout().FindExplosiveInstances();
                 boolean check = false;
                 for( int i = 0; i < Locs.length; i++ ) {
@@ -490,7 +486,7 @@ public class HTMLWriter {
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_CASEII_LOCATION_LINE-+>" ) ) {
             return FileCommon.GetCaseIILocations( CurMech );
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_AVAILABILITY-+>" ) ) {
-            return CurMech.GetAvailability().GetShortenedCode();
+            return CurMech.GetAvailability().GetBestCombinedCode();
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_JUMPJET_TYPE-+>" ) ) {
             if( CurMech.GetJumpJets().IsImproved() ) {
                 return "Improved";
@@ -538,16 +534,32 @@ public class HTMLWriter {
                         if( check.equals( "<+-SSW_EQUIP_COUNT_THIS_TYPE-+>" ) ) {
                             retval += "" + num;
                         } else if( check.equals( "<+-SSW_EQUIP_NAME-+>" ) ) {
-                            retval += a.GetCritName() + plural;
+                            if( Mixed ) {
+                                retval += a.GetLookupName() + plural;
+                            } else {
+                                retval += a.GetCritName() + plural;
+                            }
                         } else if( check.equals( "<+-SSW_EQUIP_FULL_NAME-+>" ) ) {
-                            if( a instanceof MissileWeapon ) {
-                                if( ((MissileWeapon) a).IsUsingFCS() ) {
-                                    retval += a.GetCritName() + plural + " w/ " + ((abPlaceable) ((MissileWeapon) a).GetFCS()).GetCritName();
+                            if( Mixed ) {
+                                if( a instanceof RangedWeapon ) {
+                                    if( ((RangedWeapon) a).IsUsingFCS() ) {
+                                        retval += a.GetLookupName() + plural + " w/ " + ((abPlaceable) ((RangedWeapon) a).GetFCS()).GetLookupName();
+                                    } else {
+                                        retval += a.GetLookupName() + plural;
+                                    }
+                                } else {
+                                    retval += a.GetLookupName() + plural;
+                                }
+                            } else {
+                                if( a instanceof RangedWeapon ) {
+                                    if( ((RangedWeapon) a).IsUsingFCS() ) {
+                                        retval += a.GetCritName() + plural + " w/ " + ((abPlaceable) ((RangedWeapon) a).GetFCS()).GetCritName();
+                                    } else {
+                                        retval += a.GetCritName() + plural;
+                                    }
                                 } else {
                                     retval += a.GetCritName() + plural;
                                 }
-                            } else {
-                                retval += a.GetCritName() + plural;
                             }
                         } else if( check.equals( "<+-SSW_EQUIP_MANUFACTURER-+>" ) ) {
                             retval += a.GetManufacturer();
@@ -568,16 +580,32 @@ public class HTMLWriter {
                     if( check.equals( "<+-SSW_EQUIP_COUNT_THIS_TYPE-+>" ) ) {
                         retval += "" + num;
                     } else if( check.equals( "<+-SSW_EQUIP_NAME-+>" ) ) {
-                        retval += a.GetCritName() + plural;
+                        if( Mixed ) {
+                            retval += a.GetLookupName() + plural;
+                        } else {
+                            retval += a.GetCritName() + plural;
+                        }
                     } else if( check.equals( "<+-SSW_EQUIP_FULL_NAME-+>" ) ) {
-                        if( a instanceof MissileWeapon ) {
-                            if( ((MissileWeapon) a).IsUsingFCS() ) {
-                                retval += a.GetCritName() + plural + " w/ " + ((abPlaceable) ((MissileWeapon) a).GetFCS()).GetCritName();
+                        if( Mixed ) {
+                            if( a instanceof RangedWeapon ) {
+                                if( ((RangedWeapon) a).IsUsingFCS() ) {
+                                    retval += a.GetLookupName() + plural + " w/ " + ((abPlaceable) ((RangedWeapon) a).GetFCS()).GetLookupName();
+                                } else {
+                                    retval += a.GetLookupName() + plural;
+                                }
+                            } else {
+                                retval += a.GetLookupName() + plural;
+                            }
+                        } else {
+                            if( a instanceof RangedWeapon ) {
+                                if( ((RangedWeapon) a).IsUsingFCS() ) {
+                                    retval += a.GetCritName() + plural + " w/ " + ((abPlaceable) ((RangedWeapon) a).GetFCS()).GetCritName();
+                                } else {
+                                    retval += a.GetCritName() + plural;
+                                }
                             } else {
                                 retval += a.GetCritName() + plural;
                             }
-                        } else {
-                            retval += a.GetCritName() + plural;
                         }
                     } else if( check.equals( "<+-SSW_EQUIP_MANUFACTURER-+>" ) ) {
                         retval += a.GetManufacturer();
@@ -621,32 +649,29 @@ public class HTMLWriter {
                             if( a instanceof Ammunition ) {
                                 retval += FileCommon.FormatAmmoPrintName( ((Ammunition) a) );
                             } else {
-                                retval += a.GetCritName();
+                                if( Mixed ) {
+                                    retval += a.GetLookupName();
+                                } else {
+                                    retval += a.GetCritName();
+                                }
                             }
                         } else if( check.equals( "<+-SSW_EQUIP_MANUFACTURER-+>" ) ) {
                             retval += a.GetManufacturer();
                         } else if( check.equals( "<+-SSW_EQUIP_TONNAGE-+>" ) ) {
-                            if( a instanceof MissileWeapon ) {
-                                if( ((MissileWeapon) a).IsUsingFCS() ) {
-                                    retval += ( a.GetTonnage() -  ((abPlaceable) ((MissileWeapon) a).GetFCS()).GetTonnage() );
-                                } else {
-                                    retval += a.GetTonnage();
+                            if( a instanceof RangedWeapon ) {
+                                if( ((RangedWeapon) a).IsUsingFCS() ) {
+                                    retval += ( a.GetTonnage() -  ((abPlaceable) ((RangedWeapon) a).GetFCS()).GetTonnage() );
                                 }
-                            } else if( a instanceof BallisticWeapon ) {
-                                if( ((BallisticWeapon) a).IsInArray() ) {
-                                    MGArray m = ((BallisticWeapon) a).GetMyArray();
+                                if( ((RangedWeapon) a).IsInArray() ) {
+                                    MGArray m = ((RangedWeapon) a).GetMyArray();
                                     retval += m.GetMGTons();
-                                } else {
-                                    retval += a.GetTonnage();
                                 }
-                            } else if( a instanceof EnergyWeapon ) {
-                                if( ((EnergyWeapon) a).HasCapacitor() ) {
+                                if( ((RangedWeapon) a).IsUsingCapacitor() ) {
                                     retval += ( a.GetTonnage() - 1.0f );
-                                } else {
-                                    retval += a.GetTonnage();
                                 }
-                            } else if( a instanceof ArtemisIVFCS ) {
-                                retval += 1.0f;
+                                retval += a.GetTonnage();
+                            } else if( a instanceof ifMissileGuidance ) {
+                                retval += a.GetTonnage();
                             } else if( a instanceof MGArray ) {
                                 retval += ((MGArray) a).GetBaseTons();
                             } else {
@@ -689,15 +714,15 @@ public class HTMLWriter {
                         } else if( check.equals( "<+-SSW_EQUIP_DAMAGE-+>" ) ) {
                             if( a instanceof ifWeapon ) {
                                 ifWeapon w = (ifWeapon) a;
-                                if( a instanceof MissileWeapon ) {
-                                    retval += w.GetDamageShort() + "/msl";
+                                if( w.GetWeaponClass() == ifWeapon.W_MISSILE ) {
+                                    if( w.IsCluster() ) {
+                                        retval += w.GetDamageShort() + "/msl";
+                                    } else {
+                                        retval += w.GetDamageShort() + "";
+                                    }
                                 } else if( w.GetDamageShort() == w.GetDamageMedium() && w.GetDamageShort() == w.GetDamageLong() ) {
-                                    if( w instanceof BallisticWeapon ) {
-                                        if( w.IsUltra() || w.IsRotary() ) {
-                                            retval += w.GetDamageShort() + "/shot";
-                                        } else {
-                                            retval += w.GetDamageShort();
-                                        }
+                                    if( w.IsUltra() || w.IsRotary() ) {
+                                        retval += w.GetDamageShort() + "/shot";
                                     } else {
                                         retval += w.GetDamageShort();
                                     }
@@ -751,32 +776,29 @@ public class HTMLWriter {
                             if( a instanceof Ammunition ) {
                                 retval += FileCommon.FormatAmmoPrintName( ((Ammunition) a) );
                             } else {
-                                retval += a.GetCritName();
+                                if( Mixed ) {
+                                    retval += a.GetLookupName();
+                                } else {
+                                    retval += a.GetCritName();
+                                }
                             }
                         } else if( check.equals( "<+-SSW_EQUIP_MANUFACTURER-+>" ) ) {
                             retval += a.GetManufacturer();
                         } else if( check.equals( "<+-SSW_EQUIP_TONNAGE-+>" ) ) {
-                            if( a instanceof MissileWeapon ) {
-                                if( ((MissileWeapon) a).IsUsingFCS() ) {
-                                    retval += ( a.GetTonnage() -  ((abPlaceable) ((MissileWeapon) a).GetFCS()).GetTonnage() );
-                                } else {
-                                    retval += a.GetTonnage();
+                            if( a instanceof RangedWeapon ) {
+                                if( ((RangedWeapon) a).IsUsingFCS() ) {
+                                    retval += ( a.GetTonnage() -  ((abPlaceable) ((RangedWeapon) a).GetFCS()).GetTonnage() );
                                 }
-                            } else if( a instanceof BallisticWeapon ) {
-                                if( ((BallisticWeapon) a).IsInArray() ) {
-                                    MGArray m = ((BallisticWeapon) a).GetMyArray();
+                                if( ((RangedWeapon) a).IsInArray() ) {
+                                    MGArray m = ((RangedWeapon) a).GetMyArray();
                                     retval += m.GetMGTons();
-                                } else {
-                                    retval += a.GetTonnage();
                                 }
-                            } else if( a instanceof EnergyWeapon ) {
-                                if( ((EnergyWeapon) a).HasCapacitor() ) {
+                                if( ((RangedWeapon) a).IsUsingCapacitor() ) {
                                     retval += ( a.GetTonnage() - 1.0f );
-                                } else {
-                                    retval += a.GetTonnage();
                                 }
-                            } else if( a instanceof ArtemisIVFCS ) {
-                                retval += 1.0f;
+                                retval += a.GetTonnage();
+                            } else if( a instanceof ifMissileGuidance ) {
+                                retval += a.GetTonnage();
                             } else if( a instanceof MGArray ) {
                                 retval += ((MGArray) a).GetBaseTons();
                             } else {
@@ -819,15 +841,15 @@ public class HTMLWriter {
                         } else if( check.equals( "<+-SSW_EQUIP_DAMAGE-+>" ) ) {
                             if( a instanceof ifWeapon ) {
                                 ifWeapon w = (ifWeapon) a;
-                                if( a instanceof MissileWeapon ) {
-                                    retval += w.GetDamageShort() + "/msl";
+                                if( w.GetWeaponClass() == ifWeapon.W_MISSILE ) {
+                                    if( w.IsCluster() ) {
+                                        retval += w.GetDamageShort() + "/msl";
+                                    } else {
+                                        retval += w.GetDamageShort() + "";
+                                    }
                                 } else if( w.GetDamageShort() == w.GetDamageMedium() && w.GetDamageShort() == w.GetDamageLong() ) {
-                                    if( w instanceof BallisticWeapon ) {
-                                        if( w.IsUltra() || w.IsRotary() ) {
-                                            retval += w.GetDamageShort() + "/shot";
-                                        } else {
-                                            retval += w.GetDamageShort();
-                                        }
+                                    if( w.IsUltra() || w.IsRotary() ) {
+                                        retval += w.GetDamageShort() + "/shot";
                                     } else {
                                         retval += w.GetDamageShort();
                                     }
@@ -951,9 +973,12 @@ public class HTMLWriter {
 
             // check for artemis and MG arrays
             for( int i = 0; i < ret.size(); i++ ) {
-                if( ret.get( i ) instanceof MissileWeapon ) {
-                    if( ((MissileWeapon) ret.get( i )).IsUsingFCS() ) {
-                        ret.insertElementAt( ((MissileWeapon) ret.get( i )).GetFCS(), i + 1 );
+                if( ret.get( i ) instanceof RangedWeapon ) {
+                    if( ((RangedWeapon) ret.get( i )).IsUsingFCS() ) {
+                        ret.insertElementAt( ((RangedWeapon) ret.get( i )).GetFCS(), i + 1 );
+                    }
+                    if( ((RangedWeapon) ret.get( i )).IsUsingCapacitor() ) {
+                        ret.insertElementAt( ((RangedWeapon) ret.get( i )).GetCapacitor(), i + 1 );
                     }
                 } else if( ret.get( i ) instanceof MGArray ) {
                     ret.insertElementAt( ((MGArray) ret.get( i )).GetMGs()[0], i + 1 );
@@ -963,10 +988,6 @@ public class HTMLWriter {
                     }
                     if( ((MGArray) ret.get( i )).GetMGs()[3] != null ) {
                         ret.insertElementAt( ((MGArray) ret.get( i )).GetMGs()[3], i + 4 );
-                    }
-                } else if( ret.get( i ) instanceof EnergyWeapon ) {
-                    if( ((EnergyWeapon) ret.get( i )).HasCapacitor() ) {
-                        ret.insertElementAt( ((EnergyWeapon) ret.get( i )).GetCapacitor(), i + 1 );
                     }
                 }
             }
@@ -1004,48 +1025,87 @@ public class HTMLWriter {
         // creates the hash table from values from the mech.
         lookup.put( "<+-SSW_NAME-+>", CurMech.GetName() );
         lookup.put( "<+-SSW_MODEL-+>", CurMech.GetModel() );
-        if( CurMech.IsClan() ) {
-            lookup.put( "<+-SSW_TECHBASE-+>", "Clan" );
-        } else {
-            lookup.put( "<+-SSW_TECHBASE-+>", "Inner Sphere" );
-        }
+        lookup.put( "<+-SSW_TECHBASE-+>", CommonTools.GetTechbaseString( CurMech.GetTechBase() ) );
         lookup.put( "<+-SSW_TONNAGE-+>", "" + CurMech.GetTonnage() );
         lookup.put( "<+-SSW_DRY_TONNAGE-+>", "" + CurMech.GetCurrentDryTons() );
         AvailableCode AC = CurMech.GetAvailability();
-        lookup.put( "<+-SSW_AVAILABILITY-+>", AC.GetShortenedCode() );
+        lookup.put( "<+-SSW_AVAILABILITY-+>", AC.GetBestCombinedCode() );
         lookup.put( "<+-SSW_PROD_YEAR-+>", "" + CurMech.GetYear() );
-        if( AC.WentExtinct() ) {
-            if( AC.WasReIntroduced() ) {
-                if( AC.GetIntroDate() >= AC.GetReIntroDate() ) {
+        switch( AC.GetTechBase() ) {
+            case AvailableCode.TECH_INNER_SPHERE:
+                if( AC.WentExtinctIS() ) {
+                    if( AC.WasReIntrodIS() ) {
+                        if( AC.GetISIntroDate() >= AC.GetISReIntroDate() ) {
+                            if( CurMech.YearWasSpecified() ) {
+                                lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" );
+                            } else {
+                                lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" + AC.GetISIntroDate() );
+                            }
+                            lookup.put( "<+-SSW_EXTINCT_BY-+>", "Never" );
+                        } else {
+                            if( CurMech.YearWasSpecified() ) {
+                                lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" );
+                            } else {
+                                lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" + AC.GetISIntroDate() );
+                            }
+                            lookup.put( "<+-SSW_EXTINCT_BY-+>", "" + AC.GetISExtinctDate() );
+                        }
+                    } else {
+                        if( CurMech.YearWasSpecified() ) {
+                            lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" );
+                        } else {
+                            lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" + AC.GetISIntroDate() );
+                        }
+                        lookup.put( "<+-SSW_EXTINCT_BY-+>", "" + AC.GetISExtinctDate() );
+                    }
+                } else {
                     if( CurMech.YearWasSpecified() ) {
                         lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" );
                     } else {
-                        lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" + AC.GetIntroDate() );
+                        lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" + AC.GetISIntroDate() );
                     }
                     lookup.put( "<+-SSW_EXTINCT_BY-+>", "Never" );
+                }
+                break;
+            case AvailableCode.TECH_CLAN:
+                if( AC.WentExtinctCL() ) {
+                    if( AC.WasReIntrodCL() ) {
+                        if( AC.GetCLIntroDate() >= AC.GetCLReIntroDate() ) {
+                            if( CurMech.YearWasSpecified() ) {
+                                lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" );
+                            } else {
+                                lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" + AC.GetCLIntroDate() );
+                            }
+                            lookup.put( "<+-SSW_EXTINCT_BY-+>", "Never" );
+                        } else {
+                            if( CurMech.YearWasSpecified() ) {
+                                lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" );
+                            } else {
+                                lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" + AC.GetCLIntroDate() );
+                            }
+                            lookup.put( "<+-SSW_EXTINCT_BY-+>", "" + AC.GetCLExtinctDate() );
+                        }
+                    } else {
+                        if( CurMech.YearWasSpecified() ) {
+                            lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" );
+                        } else {
+                            lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" + AC.GetCLIntroDate() );
+                        }
+                        lookup.put( "<+-SSW_EXTINCT_BY-+>", "" + AC.GetCLExtinctDate() );
+                    }
                 } else {
                     if( CurMech.YearWasSpecified() ) {
                         lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" );
                     } else {
-                        lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" + AC.GetIntroDate() );
+                        lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" + AC.GetCLIntroDate() );
                     }
-                    lookup.put( "<+-SSW_EXTINCT_BY-+>", "" + AC.GetExtinctDate() );
+                    lookup.put( "<+-SSW_EXTINCT_BY-+>", "Never" );
                 }
-            } else {
-                if( CurMech.YearWasSpecified() ) {
-                    lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" );
-                } else {
-                    lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" + AC.GetIntroDate() );
-                }
-                lookup.put( "<+-SSW_EXTINCT_BY-+>", "" + AC.GetExtinctDate() );
-            }
-        } else {
-            if( CurMech.YearWasSpecified() ) {
+                break;
+            case AvailableCode.TECH_BOTH:
                 lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" );
-            } else {
-                lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" + AC.GetIntroDate() );
-            }
-            lookup.put( "<+-SSW_EXTINCT_BY-+>", "Never" );
+                lookup.put( "<+-SSW_EXTINCT_BY-+>", "Unknown" );
+                break;
         }
         lookup.put( "<+-SSW_OVERVIEW-+>", ProcessFluffString( CurMech.GetOverview() ) );
         lookup.put( "<+-SSW_CAPABILITIES-+>", ProcessFluffString( CurMech.GetCapabilities() ) );
@@ -1199,20 +1259,7 @@ public class HTMLWriter {
             lookup.put( "<+-SSW_ARM_LOCATION_LONGNAME-+>", "Right/Left Arm" );
             lookup.put( "<+-SSW_LEG_LOCATION_LONGNAME-+>", "Right/Left Leg" );
         }
-        switch( CurMech.GetRulesLevel() ) {
-        case Constants.TOURNAMENT:
-            lookup.put( "<+-SSW_RULES_LEVEL-+>", "Tournament Legal" );
-            break;
-        case Constants.ADVANCED:
-            lookup.put( "<+-SSW_RULES_LEVEL-+>", "Advanced" );
-            break;
-        case Constants.EXPERIMENTAL:
-            lookup.put( "<+-SSW_RULES_LEVEL-+>", "Experimental Tech" );
-            break;
-        case Constants.ALL_ERA:
-            lookup.put( "<+-SSW_RULES_LEVEL-+>", "Non-Canon" );
-            break;
-        }
+        lookup.put( "<+-SSW_RULES_LEVEL-+>", CommonTools.GetRulesLevelString( CurMech.GetRulesLevel() ) );
         if( CurMech.IsOmnimech() ) {
             lookup.put( "<+-SSW_POD_TONNAGE-+>", "" + ( CurMech.GetTonnage() - CurMech.GetCurrentTons() ) );
         } else {

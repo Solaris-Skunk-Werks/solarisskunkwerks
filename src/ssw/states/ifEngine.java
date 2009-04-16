@@ -32,7 +32,6 @@ import ssw.components.*;
 
 public interface ifEngine {
     public int GetFullCrits();
-    public boolean IsClan();
     public boolean IsFusion();
     public boolean IsNuclear();
     public float GetTonnage( int Rating );

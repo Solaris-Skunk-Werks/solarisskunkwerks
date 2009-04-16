@@ -28,22 +28,23 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
-import ssw.Constants;
 import ssw.components.*;
 
 public class stPEISTSM implements ifPhysEnhance, ifState {
-    private final static AvailableCode AC = new AvailableCode( false, 'E', 'X', 'X', 'D',
-        3050, 0, 0, "CC", "", false, false );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final MechModifier MechMod = new MechModifier( 1, 0, 0, 0.0f, 0, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true );
 
     public stPEISTSM() {
-        AC.SetRulesLevelIM( Constants.UNALLOWED );
+        AC.SetISCodes( 'E', 'X', 'X', 'D' );
+        AC.SetISDates( 0, 0, false, 3050, 0, 0, false, false );
+        AC.SetISFactions( "", "", "CC", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
-    public boolean IsClan() {
+    public boolean HasCounterpart() {
         return false;
     }
-    
+
     public int GetTonnage( int mechtons ) {
         return 0;
     }

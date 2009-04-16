@@ -28,16 +28,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
-import ssw.Constants;
 import ssw.components.*;
 
 public class stArmorCLFF implements ifArmor, ifState {
     boolean locked = false;
-    private final static AvailableCode AC = new AvailableCode( true, 'E', 'X', 'C', 'C',
-        2571, 0, 0, "TH", "", false, false );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_CLAN );
 
     public stArmorCLFF() {
-        AC.SetRulesLevelIM( Constants.EXPERIMENTAL );
+        AC.SetCLCodes( 'E', 'X', 'C', 'C' );
+        AC.SetCLDates( 0, 0, false, 2571, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "TH", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );
     }
 
     public String GetLookupName() {
@@ -52,7 +53,7 @@ public class stArmorCLFF implements ifArmor, ifState {
         return "Ferro-Fibrous";
     }
 
-    public boolean IsClan() {
+    public boolean HasCounterpart() {
         return true;
     }
 

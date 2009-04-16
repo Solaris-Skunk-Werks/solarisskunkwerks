@@ -32,8 +32,7 @@ import ssw.Constants;
 import ssw.components.*;
 
 public class stCockpitISSmall implements ifCockpit, ifState {
-    private final static AvailableCode AC = new AvailableCode( false, 'E', 'X', 'X', 'E',
-        3067, 0, 0, "FS", "", false, false );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final static SimplePlaceable Sensors = new SimplePlaceable( "Sensors",
         "Sensors", 1, true, AC );
     private final static SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support",
@@ -45,13 +44,16 @@ public class stCockpitISSmall implements ifCockpit, ifState {
     private final MechModifier MechMod = new MechModifier( 0, 0, 0, 0.0f, 1, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true );
 
     public stCockpitISSmall() {
-        AC.SetRulesLevelIM( Constants.UNALLOWED );
+        AC.SetISCodes( 'E', 'X', 'X', 'E' );
+        AC.SetISDates( 0, 0, false, 3067, 0, 0, false, false );
+        AC.SetISFactions( "", "", "FS", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
-    public boolean IsClan() {
+    public boolean HasCounterpart() {
         return false;
     }
-    
+
     public float GetTonnage() {
         float result = 2.0f;
         result += Sensors.GetTonnage();

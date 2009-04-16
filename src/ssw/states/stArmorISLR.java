@@ -28,13 +28,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
-import ssw.Constants;
 import ssw.components.*;
 
 public class stArmorISLR implements ifArmor, ifState {
     boolean locked = false;
-    private final static AvailableCode AC = new AvailableCode( false, 'E', 'X', 'X', 'F',
-        3058, 0, 0, "LA", "", false, false, 3055, true, "FC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL  );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+
+    public stArmorISLR() {
+        AC.SetISCodes( 'E', 'X', 'X', 'F' );
+        AC.SetISDates( 3055, 3058, true, 3058, 0, 0, false, false );
+        AC.SetISFactions( "FC", "LA", "", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
+    }
 
     public String GetLookupName() {
         return "Laser-Reflective";
@@ -48,8 +53,8 @@ public class stArmorISLR implements ifArmor, ifState {
         return "Reflective";
     }
 
-    public boolean IsClan() {
-        return false;
+    public boolean HasCounterpart() {
+        return true;
     }
 
     public boolean Place( Armor a, ifLoadout l ) {

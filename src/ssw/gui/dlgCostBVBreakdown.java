@@ -86,7 +86,7 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
         retval += String.format( "Total Cost                                                         %1$,13.0f", CurMech.GetTotalCost() ) + NL;
         retval += NL + NL;
         retval += "Defensive BV Calculation Breakdown" + NL;
-        if( CurMech.GetRulesLevel() == Constants.EXPERIMENTAL ) {
+        if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
             retval += "(Note: BV Calculations include defensive BV for armored components.)" + NL;
         }
         retval += "________________________________________________________________________________" + NL;
@@ -142,9 +142,9 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
         abPlaceable a;
         for( int i = 0; i < v.size(); i++ ) {
             a = (abPlaceable) v.get( i );
-            if( a instanceof MissileWeapon ) {
-                if( ((MissileWeapon) a).IsUsingFCS() ) {
-                    retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", a.GetCritName() + " w/ " + ((abPlaceable) ((MissileWeapon) a).GetFCS()).GetCritName(), a.GetDefensiveBV(), a.GetOffensiveBV(), a.GetCost() ) + NL;
+            if( a instanceof RangedWeapon ) {
+                if( ((RangedWeapon) a).IsUsingFCS() ) {
+                    retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", a.GetCritName() + " w/ " + ((abPlaceable) ((RangedWeapon) a).GetFCS()).GetCritName(), a.GetDefensiveBV(), a.GetOffensiveBV(), a.GetCost() ) + NL;
                 } else {
                     retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", a.GetCritName(), a.GetDefensiveBV(), a.GetOffensiveBV(), a.GetCost() ) + NL;
                 }
@@ -363,7 +363,7 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
     private boolean HasBonusFromCP() {
         Vector v = CurMech.GetLoadout().GetNonCore();
         abPlaceable a;
-        if( CurMech.GetRulesLevel() == Constants.EXPERIMENTAL ) {
+        if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
             // check for coolant pods
             for( int i = 0; i < v.size(); i++ ) {
                 a = (abPlaceable) v.get( i );
@@ -383,7 +383,7 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
         Vector v = CurMech.GetLoadout().GetNonCore();
         abPlaceable a;
 
-        if( CurMech.GetRulesLevel() == Constants.EXPERIMENTAL ) {
+        if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
             // check for coolant pods
             for( int i = 0; i < v.size(); i++ ) {
                 a = (abPlaceable) v.get( i );

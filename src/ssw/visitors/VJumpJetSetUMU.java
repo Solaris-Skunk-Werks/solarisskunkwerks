@@ -32,6 +32,9 @@ import ssw.components.*;
 public class VJumpJetSetUMU implements ifVisitor {
     private Mech CurMech;
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }

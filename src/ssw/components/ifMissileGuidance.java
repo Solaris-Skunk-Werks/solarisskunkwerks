@@ -33,10 +33,13 @@ public interface ifMissileGuidance {
                             FCS_ArtemisIV = 1,
                             FCS_ArtemisV = 2,
                             FCS_Apollo = 3;
+    public static final String[] FCS_NAMES = {
+        "None", "Artemis IV", "Artemis V", "MRM Apollo" };
     public int GetAIVClass();
     public int GetToHitShort();
     public int GetToHitMedium();
     public int GetToHitLong();
     public int GetClusterTableBonus();
     public float GetBVMultiplier();
+    public AvailableCode GetAvailability();
 }

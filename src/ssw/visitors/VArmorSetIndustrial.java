@@ -44,6 +44,9 @@ public class VArmorSetIndustrial implements ifVisitor {
         Parent = p;
     }
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
@@ -62,12 +65,7 @@ public class VArmorSetIndustrial implements ifVisitor {
         // remove the old armor, if needed
         l.Remove( a );
 
-        // set the armor type
-        if( CurMech.IsClan() ) {
-            a.SetCLIN();
-        } else {
-            a.SetISIN();
-        }
+        a.SetIndustrial();
 
         // place the armor
         a.Place( l );

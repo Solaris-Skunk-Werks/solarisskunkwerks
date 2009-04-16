@@ -57,6 +57,10 @@ public class XMLWriter {
         FR.write( "<mech name=\"" + FileCommon.EncodeFluff( CurMech.GetName() ) + "\" model=\"" + FileCommon.EncodeFluff( CurMech.GetModel() ) + "\" tons=\"" + CurMech.GetTonnage() + "\" omnimech=\"" + GetBoolean( CurMech.IsOmnimech() ) + "\" solaris7id=\"" + CurMech.GetSolaris7ID() + "\" solaris7imageid=\"" + CurMech.GetSolaris7ImageID() + "\" sswimage=\"" + CurMech.GetSSWImage() + "\">" );
         FR.newLine();
 
+        // version number for new files
+        FR.write( tab + "<ssw_savefile_version>1</ssw_savefile_version>" );
+        FR.newLine();
+
         // add the battle value if this is not an omnimech.  otherwise, we'll
         // add the battle value for each omni loadout.  NOTE: This value is never
         // used by SSW since the BV is dynamically calculated.  This is purely for
@@ -95,7 +99,7 @@ public class XMLWriter {
         FR.write( tab + "<motive_type>" + GetMotiveType() + "</motive_type>" );
         FR.newLine();
 
-        FR.write( tab + "<structure manufacturer=\"" + FileCommon.EncodeFluff( CurMech.GetChassisModel() ) + "\">" );
+        FR.write( tab + "<structure manufacturer=\"" + FileCommon.EncodeFluff( CurMech.GetChassisModel() ) + "\" techbase=\"" + CurMech.GetIntStruc().GetTechBase() + "\">" );
         FR.newLine();
         FR.write( tab + tab + "<type>" + CurMech.GetIntStruc().GetLookupName() + "</type>" );
         FR.newLine();
@@ -118,10 +122,10 @@ public class XMLWriter {
         }
         if( ls.Index == 12 ) { ls.Index = -1; }
         if( rs.Index == 12 ) { rs.Index = -1; }
-        FR.write( tab + "<engine rating=\"" + CurMech.GetEngine().GetRating() + "\" manufacturer=\"" + FileCommon.EncodeFluff( CurMech.GetEngineManufacturer() ) + "\" lsstart=\"" + ls.Index + "\" rsstart=\"" + rs.Index + "\">" + CurMech.GetEngine().GetLookupName() + "</engine>" );
+        FR.write( tab + "<engine rating=\"" + CurMech.GetEngine().GetRating() + "\" manufacturer=\"" + FileCommon.EncodeFluff( CurMech.GetEngineManufacturer() ) + "\" lsstart=\"" + ls.Index + "\" rsstart=\"" + rs.Index + "\" techbase=\"" + CurMech.GetEngine().GetTechBase() + "\">" + CurMech.GetEngine().GetLookupName() + "</engine>" );
         FR.newLine();
 
-        FR.write( tab + "<gyro>" + CurMech.GetGyro().GetLookupName() + "</gyro>" );
+        FR.write( tab + "<gyro techbase=\"" + CurMech.GetGyro().GetTechBase() + "\">" + CurMech.GetGyro().GetLookupName() + "</gyro>" );
         FR.newLine();
 
         FR.write( tab + "<cockpit>" );
@@ -142,7 +146,7 @@ public class XMLWriter {
         FR.newLine();
 
         if( CurMech.GetPhysEnhance().IsTSM() || CurMech.GetPhysEnhance().IsMASC() ) {
-            FR.write( tab + "<enhancement>" );
+            FR.write( tab + "<enhancement techbase=\"" + CurMech.GetPhysEnhance().GetTechBase() + "\">" );
             FR.newLine();
             FR.write( tab + tab + "<type>" + CurMech.GetPhysEnhance().GetLookupName() + "</type>" );
             FR.newLine();
@@ -151,7 +155,7 @@ public class XMLWriter {
             FR.newLine();
         }
 
-        FR.write( tab + "<armor manufacturer=\"" + FileCommon.EncodeFluff( CurMech.GetArmorModel() ) + "\">" );
+        FR.write( tab + "<armor manufacturer=\"" + FileCommon.EncodeFluff( CurMech.GetArmorModel() ) + "\" techbase=\"" + CurMech.GetArmor().GetTechBase() + "\">" );
         FR.newLine();
         FR.write( tab + tab + "<type>" + CurMech.GetArmor().GetLookupName() + "</type>" );
         FR.newLine();
@@ -199,7 +203,7 @@ public class XMLWriter {
             FR.write( tab + tab + "</jumpjets>" );
             FR.newLine();
         }
-        FR.write( tab + tab + "<heatsinks number=\"" + CurMech.GetHeatSinks().GetNumHS() + "\">" );
+        FR.write( tab + tab + "<heatsinks number=\"" + CurMech.GetHeatSinks().GetNumHS() + "\" techbase=\"" + CurMech.GetHeatSinks().GetTechBase() + "\">" );
         FR.newLine();
         if( CurMech.GetHeatSinks().IsDouble() ) {
             FR.write( tab + tab + tab + "<type>Double Heat Sink</type>" );
@@ -279,7 +283,7 @@ public class XMLWriter {
             FR.newLine();
         }
         FR.write( GetEquipmentLines( tab + tab ) );
-        if( CurMech.GetRulesLevel() == Constants.EXPERIMENTAL && CurMech.GetEra() == Constants.CLAN_INVASION ) {
+        if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
             // check for armored components
             FR.write( GetArmoredLocations( tab + tab ) );
         }
@@ -317,7 +321,7 @@ public class XMLWriter {
                     FR.newLine();
                 }
                 if( CurMech.GetLoadout().GetHeatSinks().GetNumHS() > CurMech.GetLoadout().GetHeatSinks().GetBaseLoadoutNumHS() ) {
-                    FR.write( tab + tab + "<heatsinks number=\"" + CurMech.GetHeatSinks().GetNumHS() + "\">" );
+                    FR.write( tab + tab + "<heatsinks number=\"" + CurMech.GetHeatSinks().GetNumHS() + "\" techbase=\"" + CurMech.GetHeatSinks().GetTechBase() + "\">" );
                     FR.newLine();
                     if( CurMech.GetHeatSinks().IsDouble() ) {
                         FR.write( tab + tab + tab + "<type>Double Heat Sink</type>" );
@@ -330,7 +334,7 @@ public class XMLWriter {
                     FR.newLine();
                 }
                 FR.write( GetEquipmentLines( tab + tab ) );
-                if( CurMech.GetRulesLevel() == Constants.EXPERIMENTAL && CurMech.GetEra() == Constants.CLAN_INVASION ) {
+                if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
                     // check for armored components
                     FR.write( GetArmoredLocations( tab + tab ) );
                 }
@@ -378,10 +382,13 @@ public class XMLWriter {
     }
 
     private String GetTechbase() {
-        if( CurMech.IsClan() ) {
-            return Constants.strCLAN;
-        } else {
-            return Constants.strINNER_SPHERE;
+        switch( CurMech.GetTechBase() ) {
+            case AvailableCode.TECH_INNER_SPHERE:
+                return Constants.strINNER_SPHERE;
+            case AvailableCode.TECH_CLAN:
+                return Constants.strCLAN;
+            default:
+                return Constants.strMIXED;
         }
     }
 
@@ -494,7 +501,7 @@ public class XMLWriter {
                 // the logic escapes me.  do nothing here.
             } else {
                 retval += prefix + "<equipment>" + NL;
-                retval += prefix + tab + "<name manufacturer=\"" + FileCommon.EncodeFluff( p.GetManufacturer() ) + "\">" + FileCommon.EncodeFluff( p.GetCritName() ) + "</name>" + NL;
+                retval += prefix + tab + "<name manufacturer=\"" + FileCommon.EncodeFluff( p.GetManufacturer() ) + "\">" + FileCommon.EncodeFluff( p.GetLookupName() ) + "</name>" + NL;
                 retval += prefix + tab + "<type>" + GetEquipmentType( p ) + "</type>" + NL;
                 retval += GetLocationLines( prefix + tab, p );
                 retval += prefix + "</equipment>" + NL;
@@ -527,7 +534,7 @@ public class XMLWriter {
         if( CurMech.GetLoadout().HasHDCASEII() ) {
             abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetHDCaseII();
             retval += prefix + "<equipment>" + NL;
-            retval += prefix + tab + "<name manufacturer=\"\">CASEII</name>" + NL;
+            retval += prefix + tab + "<name manufacturer=\"\">" + p.GetLookupName() + "</name>" + NL;
             retval += prefix + tab + "<type>CASEII</type>" + NL;
             retval += GetLocationLines( prefix + tab, p );
             retval += prefix + "</equipment>" + NL;
@@ -535,7 +542,7 @@ public class XMLWriter {
         if( CurMech.GetLoadout().HasCTCASEII() ) {
             abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetCTCaseII();
             retval += prefix + "<equipment>" + NL;
-            retval += prefix + tab + "<name manufacturer=\"\">CASEII</name>" + NL;
+            retval += prefix + tab + "<name manufacturer=\"\">" + p.GetLookupName() + "</name>" + NL;
             retval += prefix + tab + "<type>CASEII</type>" + NL;
             retval += GetLocationLines( prefix + tab, p );
             retval += prefix + "</equipment>" + NL;
@@ -543,7 +550,7 @@ public class XMLWriter {
         if( CurMech.GetLoadout().HasLTCASEII() ) {
             abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetLTCaseII();
             retval += prefix + "<equipment>" + NL;
-            retval += prefix + tab + "<name manufacturer=\"\">CASEII</name>" + NL;
+            retval += prefix + tab + "<name manufacturer=\"\">" + p.GetLookupName() + "</name>" + NL;
             retval += prefix + tab + "<type>CASEII</type>" + NL;
             retval += GetLocationLines( prefix + tab, p );
             retval += prefix + "</equipment>" + NL;
@@ -551,7 +558,7 @@ public class XMLWriter {
         if( CurMech.GetLoadout().HasRTCASEII() ) {
             abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetRTCaseII();
             retval += prefix + "<equipment>" + NL;
-            retval += prefix + tab + "<name manufacturer=\"\">CASEII</name>" + NL;
+            retval += prefix + tab + "<name manufacturer=\"\">" + p.GetLookupName() + "</name>" + NL;
             retval += prefix + tab + "<type>CASEII</type>" + NL;
             retval += GetLocationLines( prefix + tab, p );
             retval += prefix + "</equipment>" + NL;
@@ -559,7 +566,7 @@ public class XMLWriter {
         if( CurMech.GetLoadout().HasLACASEII() ) {
             abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetLACaseII();
             retval += prefix + "<equipment>" + NL;
-            retval += prefix + tab + "<name manufacturer=\"\">CASEII</name>" + NL;
+            retval += prefix + tab + "<name manufacturer=\"\">" + p.GetLookupName() + "</name>" + NL;
             retval += prefix + tab + "<type>CASEII</type>" + NL;
             retval += GetLocationLines( prefix + tab, p );
             retval += prefix + "</equipment>" + NL;
@@ -567,7 +574,7 @@ public class XMLWriter {
         if( CurMech.GetLoadout().HasRACASEII() ) {
             abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetRACaseII();
             retval += prefix + "<equipment>" + NL;
-            retval += prefix + tab + "<name manufacturer=\"\">CASEII</name>" + NL;
+            retval += prefix + tab + "<name manufacturer=\"\">" + p.GetLookupName() + "</name>" + NL;
             retval += prefix + tab + "<type>CASEII</type>" + NL;
             retval += GetLocationLines( prefix + tab, p );
             retval += prefix + "</equipment>" + NL;
@@ -575,7 +582,7 @@ public class XMLWriter {
         if( CurMech.GetLoadout().HasLLCASEII() ) {
             abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetLLCaseII();
             retval += prefix + "<equipment>" + NL;
-            retval += prefix + tab + "<name manufacturer=\"\">CASEII</name>" + NL;
+            retval += prefix + tab + "<name manufacturer=\"\">" + p.GetLookupName() + "</name>" + NL;
             retval += prefix + tab + "<type>CASEII</type>" + NL;
             retval += GetLocationLines( prefix + tab, p );
             retval += prefix + "</equipment>" + NL;
@@ -583,7 +590,7 @@ public class XMLWriter {
         if( CurMech.GetLoadout().HasRLCASEII() ) {
             abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetRLCaseII();
             retval += prefix + "<equipment>" + NL;
-            retval += prefix + tab + "<name manufacturer=\"\">CASEII</name>" + NL;
+            retval += prefix + tab + "<name manufacturer=\"\">" + p.GetLookupName() + "</name>" + NL;
             retval += prefix + tab + "<type>CASEII</type>" + NL;
             retval += GetLocationLines( prefix + tab, p );
             retval += prefix + "</equipment>" + NL;
@@ -591,7 +598,7 @@ public class XMLWriter {
         if( CurMech.UsingTC() ) {
             abPlaceable p = (abPlaceable) CurMech.GetTC();
             retval += prefix + "<equipment>" + NL;
-            retval += prefix + tab + "<name manufacturer=\"\">TargetingComputer</name>" + NL;
+            retval += prefix + tab + "<name manufacturer=\"\">" + p.GetLookupName() + "</name>" + NL;
             retval += prefix + tab + "<type>TargetingComputer</type>" + NL;
             retval += GetLocationLines( prefix + tab, p );
             retval += prefix + "</equipment>" + NL;
@@ -608,12 +615,19 @@ public class XMLWriter {
     }
 
     private String GetEquipmentType( abPlaceable p ) {
-        if( p instanceof BallisticWeapon ) {
-            return "ballistic";
-        } else if( p instanceof EnergyWeapon ) {
-            return "energy";
-        } else if( p instanceof MissileWeapon ) {
-            return "missile";
+        if( p instanceof RangedWeapon ) {
+            switch( ((RangedWeapon) p).GetWeaponClass() ) {
+                case RangedWeapon.W_BALLISTIC:
+                    return "ballistic";
+                case RangedWeapon.W_ENERGY:
+                    return "energy";
+                case RangedWeapon.W_MISSILE:
+                    return "missile";
+                case RangedWeapon.W_ARTILLERY:
+                    return "artillery";
+                default:
+                    return "unknown";
+            }
         } else if( p instanceof MGArray ) {
             return "mgarray";
         } else if( p instanceof PhysicalWeapon ) {
@@ -622,8 +636,6 @@ public class XMLWriter {
             return "equipment";
         } else if( p instanceof Ammunition ) {
             return "ammunition";
-        } else if( p instanceof Artillery ) {
-            return "artillery";
         } else {
             return "unknown";
         }

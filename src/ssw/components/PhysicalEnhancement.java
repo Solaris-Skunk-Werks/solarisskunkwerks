@@ -31,13 +31,12 @@ package ssw.components;
 import ssw.states.*;
 
 public class PhysicalEnhancement extends abPlaceable {
-    private final static ifPhysEnhance ISNone = new stPEISNone(),
-                                       CLNone = new stPECLNone(),
+    private final static ifPhysEnhance None = new stPENone(),
                                        ISMASC = new stPEISMASC(),
                                        ISTSM = new stPEISTSM(),
                                        ISITSM = new stPEISITSM(),
                                        CLMASC = new stPECLMASC();
-    private ifPhysEnhance CurConfig = ISNone;
+    private ifPhysEnhance CurConfig = None;
     private Mech Owner;
     private int Placed = 0;
 
@@ -46,12 +45,8 @@ public class PhysicalEnhancement extends abPlaceable {
         Owner = m;
     }
 
-    public void SetISNone() {
-        CurConfig = ISNone;
-    }
-    
-    public void SetCLNone() {
-        CurConfig = CLNone;
+    public void SetNone() {
+        CurConfig = None;
     }
     
     public void SetISMASC() {
@@ -69,9 +64,13 @@ public class PhysicalEnhancement extends abPlaceable {
     public void SetCLMASC() {
         CurConfig = CLMASC;
     }
-    
-    public boolean IsClan() {
-        return CurConfig.IsClan();
+
+    public int GetTechBase() {
+        return CurConfig.GetAvailability().GetTechBase();
+    }
+
+    public ifState GetCurrentState() {
+        return (ifState) CurConfig;
     }
 
     public void Recalculate() {
@@ -200,20 +199,15 @@ public class PhysicalEnhancement extends abPlaceable {
     }
 
     public AvailableCode GetAvailability() {
-        AvailableCode AC = CurConfig.GetAvailability();
-        AvailableCode retval = new AvailableCode( AC.IsClan(), AC.GetTechRating(), AC.GetSLCode(), AC.GetSWCode(), AC.GetCICode(), AC.GetIntroDate(), AC.GetExtinctDate(), AC.GetReIntroDate(), AC.GetIntroFaction(), AC.GetReIntroFaction(), AC.WentExtinct(), AC.WasReIntroduced(), AC.GetRandDStart(), AC.IsPrototype(), AC.GetRandDFaction(), AC.GetRulesLevelBM(), AC.GetRulesLevelIM() );
+        AvailableCode retval = CurConfig.GetAvailability().Clone();
         if( IsArmored() ) {
-            if( AC.IsClan() ) {
-                retval.Combine( CLArmoredAC );
-            } else {
-                retval.Combine( ISArmoredAC );
-            }
+            retval.Combine( ArmoredAC );
         }
         return retval;
     }
 
     public ifState[] GetStates() {
-        ifState[] retval = { (ifState) ISNone, (ifState) CLNone,
+        ifState[] retval = { (ifState) None,
             (ifState) ISMASC, (ifState) ISTSM, (ifState) CLMASC, (ifState) ISITSM };
         return retval;
     }

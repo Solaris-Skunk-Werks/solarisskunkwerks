@@ -28,31 +28,29 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
-import ssw.Constants;
-
 public class ModularArmor extends abPlaceable {
     private final static MechModifier Modifier = new MechModifier( -1, 0, -1, 0.0f, 0, 1, 0, 0.0f, 0.0f, 0.0f, 0.0f, false );
     private String CritName,
-                   LookupName,
+                   MegaMekName,
                    Manufacturer = "";
-    private static final AvailableCode ISAC = new AvailableCode( false, 'D', 'X', 'X', 'F', 3072, 0, 0, "CS", "", false, false, 3070, true, "CS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL ),
-                                       CLAC = new AvailableCode( true, 'D', 'X', 'X', 'F', 3074, 0, 0, "CWX", "", false, false, 3073, true, "CWX", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-    private AvailableCode AC;
+    private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
     private boolean Rear = false;
 
-    public ModularArmor( boolean c ) {
+    public ModularArmor() {
         CritName = "Modular Armor";
-        LookupName = "";
-        if( c ) {
-            AC = CLAC;
-        } else {
-            AC = ISAC;
-        }
+        MegaMekName = "";
+        AC.SetISCodes( 'D', 'X', 'X', 'F' );
+        AC.SetISDates( 3070, 3072, true, 3072, 0, 0, false, false );
+        AC.SetISFactions( "CS", "CS", "", "" );
+        AC.SetCLCodes( 'D', 'X', 'X', 'F' );
+        AC.SetCLDates( 3073, 3074, true, 3074, 0, 0, false, false );
+        AC.SetCLFactions( "CWX", "CWX", "", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
-   public void SetLookupName( String n ) {
+   public void SetMegaMekName( String n ) {
         // provided if it's anything different than the CritName
-        LookupName = n;
+        MegaMekName = n;
     }
 
     @Override
@@ -62,6 +60,10 @@ public class ModularArmor extends abPlaceable {
         } else {
             return CritName;
         }
+    }
+
+    public String GetLookupName() {
+        return GetCritName();
     }
 
     @Override
@@ -105,9 +107,9 @@ public class ModularArmor extends abPlaceable {
 
     public String GetMMName( boolean UseRear ) {
         if( Rear ) {
-            return LookupName + " (R)";
+            return MegaMekName + " (R)";
         } else {
-            return LookupName;
+            return MegaMekName;
         }
     }
 
@@ -134,10 +136,6 @@ public class ModularArmor extends abPlaceable {
     @Override
     public boolean CanSplit() {
         return false;
-    }
-
-    public boolean IsClan() {
-        return AC.IsClan();
     }
 
     @Override
@@ -172,13 +170,9 @@ public class ModularArmor extends abPlaceable {
 
     @Override
     public AvailableCode GetAvailability() {
-        AvailableCode retval = new AvailableCode( AC.IsClan(), AC.GetTechRating(), AC.GetSLCode(), AC.GetSWCode(), AC.GetCICode(), AC.GetIntroDate(), AC.GetExtinctDate(), AC.GetReIntroDate(), AC.GetIntroFaction(), AC.GetReIntroFaction(), AC.WentExtinct(), AC.WasReIntroduced(), AC.GetRandDStart(), AC.IsPrototype(), AC.GetRandDFaction(), AC.GetRulesLevelBM(), AC.GetRulesLevelIM() );
+        AvailableCode retval = AC.Clone();
         if( IsArmored() ) {
-            if( AC.IsClan() ) {
-                retval.Combine( CLArmoredAC );
-            } else {
-                retval.Combine( ISArmoredAC );
-            }
+            retval.Combine( ArmoredAC );
         }
         return retval;
     }

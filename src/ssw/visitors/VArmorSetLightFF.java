@@ -44,6 +44,9 @@ public class VArmorSetLightFF implements ifVisitor {
         Parent = p;
     }
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
@@ -58,13 +61,7 @@ public class VArmorSetLightFF implements ifVisitor {
         l.Remove( a );
 
         // set the armor type
-        if( CurMech.IsClan() ) {
-            // we should never get this if things are done right.
-            a.SetCLMS();
-            Parent.RevertToStandardArmor();
-        } else {
-            a.SetISLF();
-        }
+        a.SetISLF();
 
         // place the armor
         a.Place( l );

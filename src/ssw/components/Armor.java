@@ -39,39 +39,39 @@ public class Armor  extends abPlaceable {
     private int Placed = 0;
     private int[] ArmorPoints = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     private int[] MaxArmor = { 0, 0, 0, 0, 0, 0, 0, 0 };
-    private ifArmor ISIN = new stArmorISIN(),
-                    ISMS = new stArmorISMS(),
+    private ifArmor Industrial = new stArmorIN(),
+                    Standard = new stArmorMS(),
                     ISFF = new stArmorISFF(),
                     ISST = new stArmorISST(),
                     ISLF = new stArmorISLF(),
                     ISHF = new stArmorISHF(),
-                    ISHA = new stArmorISHA(),
+                    Hardened = new stArmorHA(),
                     ISLR = new stArmorISLR(),
                     ISRE = new stArmorISRE(),
-                    ISCM = new stArmorISCM(),
-                    CLIN = new stArmorCLIN(),
-                    CLMS = new stArmorCLMS(),
+                    Commercial = new stArmorCM(),
                     CLFF = new stArmorCLFF(),
                     CLFL = new stArmorCLFL(),
-                    CLHA = new stArmorCLHA(),
                     CLLR = new stArmorCLLR(),
-                    CLRE = new stArmorCLRE(),
-                    CLCM = new stArmorCLCM();
-    private ifArmor Config = ISMS;
+                    CLRE = new stArmorCLRE();
+    private ifArmor Config = Standard;
 
     public Armor( Mech m ) {
         Owner = m;
         SetMaxArmor();
     }
 
-    public void SetISIN() {
-        // set the armor to Inner Sphere Industrial
-        Config = ISIN;
+    public ifState GetCurrentState() {
+        return (ifState) Config;
     }
 
-    public void SetISMS() {
+    public void SetIndustrial() {
+        // set the armor to Inner Sphere Industrial
+        Config = Industrial;
+    }
+
+    public void SetStandard() {
         // set the armor to Inner Sphere Military Standard
-        Config = ISMS;
+        Config = Standard;
     }
 
     public void SetISFF() {
@@ -94,9 +94,9 @@ public class Armor  extends abPlaceable {
         Config = ISHF;
     }
 
-    public void SetISHA() {
+    public void SetHardened() {
         // set the armor to Inner Sphere Hardened
-        Config = ISHA;
+        Config = Hardened;
     }
 
     public void SetISLR() {
@@ -109,18 +109,8 @@ public class Armor  extends abPlaceable {
         Config = ISRE;
     }
 
-    public void SetISCM() {
-        Config = ISCM;
-    }
-
-    public void SetCLIN() {
-        // sets the armor to Clan Industrial
-        Config = CLIN;
-    }
-
-    public void SetCLMS() {
-        // set the armor to Clan Military Standard
-        Config = CLMS;
+    public void SetCommercial() {
+        Config = Commercial;
     }
 
     public void SetCLFF() {
@@ -133,11 +123,6 @@ public class Armor  extends abPlaceable {
         Config = CLFL;
     }
 
-    public void SetCLHA() {
-        // set the armor to Clan Hardened
-        Config = CLHA;
-    }
-
     public void SetCLLR() {
         // set the armor to Inner Sphere Laser-Reflective
         Config = CLLR;
@@ -146,10 +131,6 @@ public class Armor  extends abPlaceable {
     public void SetCLRE() {
         // set the armor to Inner Sphere Reactive
         Config = CLRE;
-    }
-
-    public void SetCLCM() {
-        Config = CLCM;
     }
 
     public void Recalculate() {
@@ -399,7 +380,7 @@ public class Armor  extends abPlaceable {
     }
 
     public boolean IsCommercial() {
-        if ( Config == ISCM || Config == CLCM )
+        if ( Config == Commercial )
             return true;
         else
             return false;
@@ -413,7 +394,7 @@ public class Armor  extends abPlaceable {
     }
 
     public boolean IsHardened() {
-        if ( Config == ISHA || Config == CLHA )
+        if ( Config == Hardened )
             return true;
         else
             return false;
@@ -433,8 +414,8 @@ public class Armor  extends abPlaceable {
             return false;
     }
 
-    public boolean IsClan() {
-        return ((ifState) Config).IsClan();
+    public int GetTechBase() {
+        return Config.GetAvailability().GetTechBase();
     }
 
     public boolean IsStealth() {
@@ -539,9 +520,9 @@ public class Armor  extends abPlaceable {
     }
 
     public ifState[] GetStates() {
-        ifState[] retval = { (ifState) ISIN, (ifState) ISMS, (ifState) ISFF,
-            (ifState) ISST, (ifState) ISLF, (ifState) ISHF, (ifState) ISHA, (ifState) ISLR, (ifState) ISRE, (ifState) ISCM,
-            (ifState) CLIN, (ifState) CLMS, (ifState) CLFF, (ifState) CLFL, (ifState) CLHA, (ifState) CLLR, (ifState) CLRE, (ifState) CLCM };
+        ifState[] retval = { (ifState) Industrial, (ifState) Standard, (ifState) ISFF,
+            (ifState) ISST, (ifState) ISLF, (ifState) ISHF, (ifState) Hardened, (ifState) ISLR, (ifState) ISRE, (ifState) Commercial,
+            (ifState) CLFF, (ifState) CLFL, (ifState) CLLR, (ifState) CLRE };
         return retval;
     }
 

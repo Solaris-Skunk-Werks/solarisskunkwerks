@@ -28,17 +28,19 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
-import ssw.Constants;
 import ssw.components.*;
 
 public class stPEISITSM implements ifPhysEnhance, ifState {
-    private final static AvailableCode AC = new AvailableCode( false, 'E', 'X', 'F', 'E', 3045, 0, 0, "FC", "", false, false );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stPEISITSM() {
-        AC.SetRulesLevelBM( Constants.UNALLOWED );
+        AC.SetISCodes( 'E', 'X', 'F', 'E' );
+        AC.SetISDates( 0, 0, false, 3045, 0, 0, false, false );
+        AC.SetISFactions( "", "", "FC", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
-    public boolean IsClan() {
+    public boolean HasCounterpart() {
         return false;
     }
 

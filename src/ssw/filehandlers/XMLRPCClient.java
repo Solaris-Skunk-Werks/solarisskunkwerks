@@ -39,6 +39,7 @@ import java.util.Vector;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.*;
+import ssw.components.AvailableCode;
 import ssw.components.Mech;
 
 public class XMLRPCClient {
@@ -205,10 +206,16 @@ public class XMLRPCClient {
         send += "\t\t</param>\r\n";
         send += "\t\t<param>\r\n";
         send += "\t\t\t<value>\r\n";
-        if( m.IsClan() ) {
-            send += "\t\t\t\t<string>Clan</string>\r\n";
-        } else {
-            send += "\t\t\t\t<string>Inner Sphere</string>\r\n";
+        switch( m.GetTechBase() ) {
+            case AvailableCode.TECH_INNER_SPHERE:
+                send += "\t\t\t\t<string>Inner Sphere</string>\r\n";
+                break;
+            case AvailableCode.TECH_CLAN:
+                send += "\t\t\t\t<string>Clan</string>\r\n";
+                break;
+            case AvailableCode.TECH_BOTH:
+                send += "\t\t\t\t<string>Mixed</string>\r\n";
+                break;
         }
         send += "\t\t\t</value>\r\n";
         send += "\t\t</param>\r\n";

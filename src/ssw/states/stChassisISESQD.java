@@ -28,7 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
-import ssw.Constants;
 import ssw.components.*;
 
 public class stChassisISESQD implements ifChassis, ifState {
@@ -56,17 +55,19 @@ public class stChassisISESQD implements ifChassis, ifState {
         { 29, 19, 15, 19 },
         { 30, 20, 16, 20 },
         { 31, 21, 17, 21 } };
-    private final static AvailableCode AC = new AvailableCode( false, 'E', 'D', 'F', 'E',
-        2487, 2850, 3035, "TH", "DC", true, true );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stChassisISESQD() {
-        AC.SetRulesLevelIM( Constants.UNALLOWED );
+        AC.SetISCodes( 'E', 'D', 'F', 'E' );
+        AC.SetISDates( 0, 0, false, 2487, 2850, 3035, true, true );
+        AC.SetISFactions( "", "", "TH", "DC" );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
-    public boolean IsClan() {
-        return false;
+    public boolean HasCounterpart() {
+        return true;
     }
-    
+
     public int GetCrits() {
         return 14;
     }

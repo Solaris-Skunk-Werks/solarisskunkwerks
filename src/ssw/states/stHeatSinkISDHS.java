@@ -28,21 +28,23 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
-import ssw.Constants;
 import ssw.components.AvailableCode;
 import ssw.components.HeatSink;
 import ssw.components.MechModifier;
 
 public class stHeatSinkISDHS implements ifHeatSinkFactory, ifState {
 
-    private AvailableCode AC = new AvailableCode( false, 'E', 'C', 'E', 'D', 2567, 2865, 3040, "TH", "FS", true, true );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stHeatSinkISDHS() {
-        AC.SetRulesLevelIM( Constants.UNALLOWED );
+        AC.SetISCodes( 'E', 'C', 'E', 'D' );
+        AC.SetISDates( 0, 0, false, 2567, 2865, 3040, true, true );
+        AC.SetISFactions( "", "", "TH", "FS" );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
-    public boolean IsClan() {
-        return false;
+    public boolean HasCounterpart() {
+        return true;
     }
 
     public boolean IsDouble() {

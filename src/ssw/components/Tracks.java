@@ -35,11 +35,9 @@ import ssw.Constants;
  * @author Michael Mills
  */
 public class Tracks extends MultiSlotSystem{
-    private AvailableCode ISAC = new AvailableCode (false, 'C', 'D', 'E', 'E', 2400, 0, 0, "DC", "", false, false, 0, false, "", Constants.TOURNAMENT, Constants.TOURNAMENT);
-    private AvailableCode CLAC = new AvailableCode (true, 'C', 'X', 'E', 'E', 2400, 0, 0, "DC", "", false, false, 0, false, "", Constants.TOURNAMENT, Constants.TOURNAMENT);
 
-    public Tracks(Mech m, AvailableCode a){
-        super (m, "Tracks", "Tracks", 0.1f, true, true, 0.0f, false, a);
+    public Tracks( Mech m, AvailableCode a ){
+        super ( m, "Tracks", "Tracks", "Tracks", 0.1f, true, true, 0.0f, false, a );
         this.SetWeightBasedOnMechTonnage(true);
     }
 
@@ -57,11 +55,7 @@ public class Tracks extends MultiSlotSystem{
 
     @Override
     public AvailableCode GetAvailability() {
-        if( Owner.IsClan() ) {
-            return CLAC;
-        } else {
-            return ISAC;
-        }
+        return super.GetAvailability();
     }
 
     @Override

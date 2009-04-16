@@ -37,8 +37,8 @@ public class InternalStructure extends abPlaceable {
     // Declares
     private Mech Owner;
     private ifChassis Config;
-    private static ifChassis ISMSBP = new stChassisISMSBP(),
-                             ISMSQD = new stChassisISMSQD(),
+    private static ifChassis MSBP = new stChassisMSBP(),
+                             MSQD = new stChassisMSQD(),
                              ISESBP = new stChassisISESBP(),
                              ISESQD = new stChassisISESQD(),
                              ISCOBP = new stChassisISCOBP(),
@@ -47,38 +47,32 @@ public class InternalStructure extends abPlaceable {
                              ISECQD = new stChassisISECQD(),
                              ISPRBP = new stChassisISPRBP(),
                              ISPRQD = new stChassisISPRQD(),
-                             ISREBP = new stChassisISREBP(),
-                             ISREQD = new stChassisISREQD(),
-                             ISIMBP = new stChassisISIMBP(),
-                             ISIMQD = new stChassisISIMQD(),
-                             CLMSBP = new stChassisCLMSBP(),
-                             CLMSQD = new stChassisCLMSQD(),
+                             REBP = new stChassisREBP(),
+                             REQD = new stChassisREQD(),
+                             IMBP = new stChassisIMBP(),
+                             IMQD = new stChassisIMQD(),
                              CLESBP = new stChassisCLESBP(),
                              CLESQD = new stChassisCLESQD(),
                              CLECBP = new stChassisCLECBP(),
-                             CLECQD = new stChassisCLECQD(),
-                             CLREBP = new stChassisCLREBP(),
-                             CLREQD = new stChassisCLREQD(),
-                             CLIMBP = new stChassisCLIMBP(),
-                             CLIMQD = new stChassisCLIMQD();
+                             CLECQD = new stChassisCLECQD();
     private int Placed = 0;
     
     // Constructor
     public InternalStructure( Mech m ) {
         // We'll assume an Inner Sphere standard military bipedal chassis to start.
         Owner = m;
-        Config = ISMSBP;
+        Config = MSBP;
     }
 
     // Public Methods
-    public void SetISMSBP() {
+    public void SetMSBP() {
         // Set this chassis to an Inner Sphere Standard Biped
-        Config = ISMSBP;
+        Config = MSBP;
     }
 
-    public void SetISMSQD() {
+    public void SetMSQD() {
         // Set this chassis to an Inner Sphere Standard Quad
-        Config = ISMSQD;
+        Config = MSQD;
     }
 
     public void SetISESBP() {
@@ -89,11 +83,6 @@ public class InternalStructure extends abPlaceable {
     public void SetISESQD() {
         // Set this chassis to an Inner Sphere Endo Steel Quad
         Config = ISESQD;
-    }
-
-    public void SetCLMSBP() {
-        // Set this chassis to a Clan Standard Biped
-        Config = CLMSBP;
     }
 
     public void SetISCOBP() {
@@ -126,29 +115,24 @@ public class InternalStructure extends abPlaceable {
         Config = ISPRQD;
     }
 
-    public void SetISREBP() {
+    public void SetREBP() {
         // Set this chassis to an Inner Sphere Reinforced Biped
-        Config = ISREBP;
+        Config = REBP;
     }
 
-    public void SetISREQD() {
+    public void SetREQD() {
         // Set this chassis to an Inner Sphere Reinforced Quad
-        Config = ISREQD;
+        Config = REQD;
     }
 
-    public void SetISIMBP() {
+    public void SetIMBP() {
         // Set this chassis to an Inner Sphere Reinforced Biped
-        Config = ISIMBP;
+        Config = IMBP;
     }
 
-    public void SetISIMQD() {
+    public void SetIMQD() {
         // Set this chassis to an Inner Sphere Reinforced Quad
-        Config = ISIMQD;
-    }
-
-    public void SetCLMSQD() {
-        // Set this chassis to a Clan Standard Quad
-        Config = CLMSQD;
+        Config = IMQD;
     }
 
     public void SetCLESBP() {
@@ -171,31 +155,14 @@ public class InternalStructure extends abPlaceable {
         Config = CLECQD;
     }
 
-    public void SetCLREBP() {
-        // Set this chassis to a Clan Reinforced Biped
-        Config = CLREBP;
+    public int GetTechBase() {
+        return Config.GetAvailability().GetTechBase();
     }
 
-    public void SetCLREQD() {
-        // Set this chassis to a Clan Reinforced Quad
-        Config = CLREQD;
+    public ifState GetCurrentState() {
+        return (ifState) Config;
     }
 
-    public void SetCLIMBP() {
-        // Set this chassis to an Inner Sphere Reinforced Biped
-        Config = CLIMBP;
-    }
-
-    public void SetCLIMQD() {
-        // Set this chassis to an Inner Sphere Reinforced Quad
-        Config = CLIMQD;
-    }
-
-
-    public boolean IsClan() {
-        return Config.IsClan();
-    }
-    
     public int NumCrits() {
         return Config.GetCrits();
     }
@@ -287,32 +254,26 @@ public class InternalStructure extends abPlaceable {
     }
 
     public ifState[] GetStates( boolean biped ) {
-        ifState[] retval = { null, null, null, null, null, null, null, null, null, null, null };
+        ifState[] retval = { null, null, null, null, null, null, null, null };
         if( biped ) {
-            retval[0] = (ifState) ISMSBP;
+            retval[0] = (ifState) MSBP;
             retval[1] = (ifState) ISESBP;
-            retval[2] = (ifState) CLMSBP;
-            retval[3] = (ifState) CLESBP;
-            retval[4] = (ifState) ISCOBP;
-            retval[5] = (ifState) ISECBP;
-            retval[6] = (ifState) CLECBP;
-            retval[7] = (ifState) ISREBP;
-            retval[8] = (ifState) CLREBP;
-            retval[9] = (ifState) ISIMBP;
-            retval[10] = (ifState) CLIMBP;
+            retval[2] = (ifState) CLESBP;
+            retval[3] = (ifState) ISCOBP;
+            retval[4] = (ifState) ISECBP;
+            retval[5] = (ifState) CLECBP;
+            retval[6] = (ifState) REBP;
+            retval[7] = (ifState) IMBP;
             //retval[11] = (ifState) ISPRBP;
         } else {
-            retval[0] = (ifState) ISMSQD;
+            retval[0] = (ifState) MSQD;
             retval[1] = (ifState) ISESQD;
-            retval[2] = (ifState) CLMSQD;
-            retval[3] = (ifState) CLESQD;
-            retval[4] = (ifState) ISCOQD;
-            retval[5] = (ifState) ISECQD;
-            retval[6] = (ifState) CLECQD;
-            retval[7] = (ifState) ISREQD;
-            retval[8] = (ifState) CLREQD;
-            retval[9] = (ifState) ISIMQD;
-            retval[10] = (ifState) CLIMQD;
+            retval[2] = (ifState) CLESQD;
+            retval[3] = (ifState) ISCOQD;
+            retval[4] = (ifState) ISECQD;
+            retval[5] = (ifState) CLECQD;
+            retval[6] = (ifState) REQD;
+            retval[7] = (ifState) IMQD;
             //retval[11] = (ifState) ISPRQD;
         }
         return retval;

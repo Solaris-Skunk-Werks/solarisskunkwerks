@@ -28,18 +28,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
-import ssw.Constants;
-
 public class PPCCapacitor extends abPlaceable {
+    private AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+    private RangedWeapon Owner;
+    private float OffBV = 0.0f;
 
-    private final static AvailableCode ISPPCC = new AvailableCode( false, 'E', 'X', 'X', 'E', 3060, 0, 0, "DC", "", false, false, 3057, true, "DC", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL );
-    private EnergyWeapon Owner;
-
-    public PPCCapacitor( EnergyWeapon w ) {
+    public PPCCapacitor( RangedWeapon w ) {
+        AC.SetISCodes( 'E', 'X', 'X', 'E' );
+        AC.SetISDates( 3057, 3060, true, 3060, 0, 0, false, false );
+        AC.SetISFactions( "DC", "DC", "", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = w;
+        BuildOffensiveBV();
     }
 
-    public EnergyWeapon GetOwner() {
+    public RangedWeapon GetOwner() {
         return Owner;
     }
 
@@ -56,6 +59,10 @@ public class PPCCapacitor extends abPlaceable {
     @Override
     public String GetCritName() {
         return "PPC Capacitor";
+    }
+
+    public String GetLookupName() {
+        return GetCritName();
     }
 
     @Override
@@ -88,12 +95,12 @@ public class PPCCapacitor extends abPlaceable {
 
     @Override
     public float GetOffensiveBV() {
-        return 0.0f;
+        return OffBV;
     }
 
     @Override
     public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
-        return 0.0f;
+        return GetOffensiveBV();
     }
 
     @Override
@@ -107,9 +114,37 @@ public class PPCCapacitor extends abPlaceable {
     @Override
     public AvailableCode GetAvailability() {
         if( IsArmored() ) {
-            return ISArmoredAC;
+            return ArmoredAC;
         } else {
-            return ISPPCC;
+            return AC;
         }
+    }
+
+    private void BuildOffensiveBV() {
+        // the calculations here ARE NOT canon, but they should work for the
+        // normal, canon PPCs, including the Enhanced ER PPC (we hope).  We add
+        // 2.5 to the damage because the PPC Cap fires only every other round.
+        float basemult = 0.0f;
+        if( Owner.GetDamageShort() != Owner.GetDamageMedium() || Owner.GetDamageShort() != Owner.GetDamageMedium() ) {
+            float mult1 = ( Owner.GetDamageShort() + 2.5f ) / Owner.GetDamageShort();
+            if( Owner.GetDamageShort() < 12 && ( Owner.GetDamageShort() + 5 ) >= 12 ) {
+                mult1 *= 1.2f;
+            }
+            float mult2 = ( Owner.GetDamageMedium() + 2.5f ) / Owner.GetDamageMedium();
+            if( Owner.GetDamageMedium() < 12 && ( Owner.GetDamageMedium() + 5 ) >= 12 ) {
+                mult1 *= 1.2f;
+            }
+            float mult3 = ( Owner.GetDamageLong() + 2.5f ) / Owner.GetDamageLong();
+            if( Owner.GetDamageLong() < 12 && ( Owner.GetDamageLong() + 5 ) >= 12 ) {
+                mult1 *= 1.2f;
+            }
+            basemult = ( mult1 + mult2 + mult3 ) / 3.0f;
+        } else {
+            basemult = ( Owner.GetDamageShort() + 2.5f ) / Owner.GetDamageShort();
+            if( Owner.GetDamageShort() < 12 && ( Owner.GetDamageShort() + 5 ) >= 12 ) {
+                basemult *= 1.2f;
+            }
+        }
+        OffBV = Owner.GetOffensiveBV() * ( basemult - 1.0f );
     }
 }

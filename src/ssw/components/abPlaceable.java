@@ -28,14 +28,22 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
-import ssw.Constants;
-
 public abstract class abPlaceable {
     // An abstract class for items that can be placed inside a loadout.
     private boolean Locked = false,  Armored = false;
     private Exclusion Exclusions = null;
-    public final static AvailableCode ISArmoredAC = new AvailableCode(false, 'E', 'X', 'X', 'F', 3061, 0, 0, "FW", "", false, false, 3059, true, "FW", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL),  CLArmoredAC = new AvailableCode(true, 'E', 'X', 'X', 'F', 3061, 0, 0, "CDS", "", false, false, 3060, true, "CDS", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL);
+    public final static AvailableCode ArmoredAC = new AvailableCode( AvailableCode.TECH_BOTH );
     private MechModifier Modifier = null;
+
+    public abPlaceable() {
+        ArmoredAC.SetISCodes( 'E', 'X', 'X', 'F' );
+        ArmoredAC.SetISDates( 3059, 3061, true, 3061, 0, 0, false, false );
+        ArmoredAC.SetISFactions( "FW", "FW", "", "" );
+        ArmoredAC.SetCLCodes( 'E', 'X', 'X', 'F' );
+        ArmoredAC.SetCLDates( 3060, 3061, true, 3061, 0, 0, false, false );
+        ArmoredAC.SetCLFactions( "CDS", "CDS", "", "" );
+        ArmoredAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+    }
 
     public boolean Place(ifLoadout l) {
         // By default, the item will be placed in the Loadout's unplaced area.
@@ -117,6 +125,9 @@ public abstract class abPlaceable {
 
     // returns the name of this item in the Loadout.
     public abstract String GetCritName();
+
+    // returns the lookup name for this piece of equipment
+    public abstract String GetLookupName();
 
     // returns the name of this item for printing
     public String GetPrintName(){

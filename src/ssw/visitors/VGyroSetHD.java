@@ -34,6 +34,9 @@ import ssw.components.*;
 public class VGyroSetHD implements ifVisitor {
     private Mech CurMech;
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
@@ -72,13 +75,7 @@ public class VGyroSetHD implements ifVisitor {
         g.Remove(l);
 
         // change the gyro
-        if( CurMech.IsClan() ) {
-            // Clans will always be set to standard.
-            g.SetCLStandard();
-        } else {
-            // heavy duty gyro
-            g.SetISHeavy();
-        }
+        g.SetISHeavy();
 
         // place the gyro
         if( ! g.Place(l) ) {

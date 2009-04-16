@@ -234,10 +234,10 @@ public class CCGMech {
                             currentWeaponAttackValue = 1.0;
                         }
                         SpecialAbilities = SpecialAbilities + AblPA1 + Name + AblPA2 + MovementRate + AblPA3 + Name + AblPA4 + MovementRate + AblPA5 + "\n";
-                    }else if(currentWeapon instanceof MissileWeapon ){
+                    }else if(currentWeapon.GetWeaponClass() == ifWeapon.W_MISSILE ){
                         //need to handle NARC in here somehow.
                         missile = true;
-                        int clusterSize = ((MissileWeapon)currentWeapon).ClusterSize();
+                        int clusterSize = currentWeapon.ClusterSize();
                         if(currentWeapon.GetRangeLong() > 15) {
                             //LRMS
                             if(clusterSize == 5) {
@@ -249,7 +249,7 @@ public class CCGMech {
                             } else if (clusterSize == 20) {
                                 currentMissileValue = 12;
                             }
-                            if(((MissileWeapon)currentWeapon).GetFCS() != null) {
+                            if(((RangedWeapon)currentWeapon).GetFCS() != null) {
                                 currentMissileValue = currentMissileValue * 4 / 3;
                             }
                             if(currentWeapon.GetRangeMin() > 0){
@@ -290,15 +290,15 @@ public class CCGMech {
                             } else if (clusterSize == 6) {
                                 currentMissileValue = 4;
                             }
-                            if(((MissileWeapon)currentWeapon).IsStreak()) {
+                            if(currentWeapon.IsStreak()) {
                                 currentMissileValue = clusterSize * 2;
-                            } else if(((MissileWeapon)currentWeapon).GetFCS() != null) {
+                            } else if(((RangedWeapon)currentWeapon).GetFCS() != null) {
                                 currentMissileValue = currentMissileValue + 2;
                             }
                             currentMissileValue = currentMissileValue / 9;
                             attackValue = attackValue + currentMissileValue;
                         }
-                    } else if((currentWeapon instanceof BallisticWeapon) ){
+                    } else if((currentWeapon.GetWeaponClass() == ifWeapon.W_BALLISTIC) ){
                         if(currentWeapon.GetDamageLong() == 20) {
                             AlphaStrikeDamage = AlphaStrikeDamage + 2;
                             if(currentWeapon.GetRangeLong() >= 12) {
@@ -359,7 +359,7 @@ public class CCGMech {
                         if(currentWeapon.GetRangeMin() > 0) {
                             currentWeaponAttackValue = currentWeaponAttackValue * 0.75;
                         }
-                        if(currentWeapon instanceof EnergyWeapon ) {
+                        if(currentWeapon.GetWeaponClass() == ifWeapon.W_ENERGY ) {
                             currentWeaponAttackValue = currentWeaponAttackValue * 1.3;
                         }
 

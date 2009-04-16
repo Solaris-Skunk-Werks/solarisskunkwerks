@@ -30,8 +30,8 @@ package ssw.components;
 
 public class MGArray extends abPlaceable implements ifWeapon {
 
-    private BallisticWeapon MGType;
-    private BallisticWeapon[] MGs = { null, null, null, null };
+    private RangedWeapon MGType;
+    private RangedWeapon[] MGs = { null, null, null, null };
     private int NumMGs;
     private boolean Clan,
                     Rear = false,
@@ -42,7 +42,7 @@ public class MGArray extends abPlaceable implements ifWeapon {
     private String Manufacturer = "";
     private AvailableCode AC;
 
-    public MGArray( BallisticWeapon type, int num, float tons, boolean c, AvailableCode a ) {
+    public MGArray( RangedWeapon type, int num, float tons, boolean c, AvailableCode a ) {
         MGType = type;
         NumMGs = num;
         MGTons = tons;
@@ -51,6 +51,7 @@ public class MGArray extends abPlaceable implements ifWeapon {
         for( int i = 0; i < NumMGs; i++ ) {
             MGs[i] = Copy( MGType );
             MGs[i].AddToArray( this );
+            MGs[i].SetLocationLinked( true );
         }
 
         if( Clan ) {
@@ -82,6 +83,22 @@ public class MGArray extends abPlaceable implements ifWeapon {
             return "(R) " + GetName();
         } else {
             return GetName();
+        }
+    }
+
+    public String GetLookupName() {
+        if( Rear ) {
+            if( Clan ) {
+                return "(R) (CL) " + GetCritName();
+            } else {
+                return "(R) (IS) " + GetCritName();
+            }
+        } else {
+            if( Clan ) {
+                return "(CL) " + GetCritName();
+            } else {
+                return "(IS) " + GetCritName();
+            }
         }
     }
 
@@ -118,7 +135,7 @@ public class MGArray extends abPlaceable implements ifWeapon {
         // now for the MGs.
         for( int i = 0; i < MGs.length; i++ ) {
             if( MGs[i] != null ) {
-                result += MGs[i].GetTonnage() + MGTons;
+                result += MGs[i].GetTonnage();
             }
         }
         return result;
@@ -169,7 +186,7 @@ public class MGArray extends abPlaceable implements ifWeapon {
         return result;
     }
 
-    public BallisticWeapon GetMGType() {
+    public RangedWeapon GetMGType() {
         return MGType;
     }
 
@@ -177,19 +194,15 @@ public class MGArray extends abPlaceable implements ifWeapon {
         return NumMGs;
     }
 
-    public BallisticWeapon[] GetMGs() {
+    public RangedWeapon[] GetMGs() {
         return MGs;
     }
 
     @Override
     public AvailableCode GetAvailability() {
-        AvailableCode retval = new AvailableCode( AC.IsClan(), AC.GetTechRating(), AC.GetSLCode(), AC.GetSWCode(), AC.GetCICode(), AC.GetIntroDate(), AC.GetExtinctDate(), AC.GetReIntroDate(), AC.GetIntroFaction(), AC.GetReIntroFaction(), AC.WentExtinct(), AC.WasReIntroduced(), AC.GetRandDStart(), AC.IsPrototype(), AC.GetRandDFaction(), AC.GetRulesLevelBM(), AC.GetRulesLevelIM() );
+        AvailableCode retval = AC.Clone();
         if( IsArmored() ) {
-            if( AC.IsClan() ) {
-                retval.Combine( CLArmoredAC );
-            } else {
-                retval.Combine( ISArmoredAC );
-            }
+            retval.Combine( ArmoredAC );
         }
         return retval;
     }
@@ -209,6 +222,14 @@ public class MGArray extends abPlaceable implements ifWeapon {
 
     public String GetSpecials() {
         return "-";
+    }
+
+    public int GetWeaponClass() {
+        return ifWeapon.W_BALLISTIC;
+    }
+
+    public int GetFCSType() {
+        return ifMissileGuidance.FCS_NONE;
     }
 
     public int GetHeat() {
@@ -310,12 +331,16 @@ public class MGArray extends abPlaceable implements ifWeapon {
         return MGType.GetDamageShort();
     }
 
-    public int GetAmmo() {
-        return MGType.GetAmmo();
+    public int GetAmmoLotSize() {
+        return MGType.GetAmmoLotSize();
     }
 
     public int GetAmmoIndex() {
         return MGType.GetAmmoIndex();
+    }
+
+    public int GetTechBase() {
+        return AC.GetTechBase();
     }
 
     public boolean IsClan() {
@@ -398,20 +423,19 @@ public class MGArray extends abPlaceable implements ifWeapon {
         return Manufacturer;
     }
 
-    private BallisticWeapon Copy( BallisticWeapon b ) {
-        BallisticWeapon retval = new BallisticWeapon( b.GetName(), b.GetMMName( false ), b.GetType(), b.IsClan(), b.GetAvailability() );
-        ((BallisticWeapon) retval).SetHeat( b.GetHeat() );
-        ((BallisticWeapon) retval).SetDamage( b.GetDamageShort(), b.GetDamageMedium(), b.GetDamageLong() );
-        ((BallisticWeapon) retval).SetRange( b.GetRangeMin(), b.GetRangeShort(), b.GetRangeMedium(), b.GetRangeLong() );
-        ((BallisticWeapon) retval).SetSpecials( b.GetSpecials(), b.OmniRestrictActuators(), b.HasAmmo(), b.GetAmmo(), b.GetAmmoIndex(), b.IsTCCapable(), b.SwitchableAmmo() );
-        ((BallisticWeapon) retval).SetStats( b.GetTonnage(), b.NumCrits(), b.GetCost(), b.GetOffensiveBV(), b.GetDefensiveBV() );
-        ((BallisticWeapon) retval).SetBallistics( b.IsExplosive(), b.IsUltra(), b.IsRotary(), b.IsCluster() );
-        ((BallisticWeapon) retval).SetAllocations( b.CanAllocHD(), b.CanAllocCT(), b.CanAllocTorso(), b.CanAllocArms(), b.CanAllocLegs(), b.CanSplit() );
-        ((BallisticWeapon) retval).SetToHit( b.GetToHitShort(), b.GetToHitMedium(), b.GetToHitLong() );
-        ((BallisticWeapon) retval).SetPrintName( b.GetPrintName() );
-        if( b.LocationLinked() ) {
-            ((BallisticWeapon) retval).SetLocationLinked( true );
-        }
+    private RangedWeapon Copy( RangedWeapon b ) {
+        RangedWeapon retval = new RangedWeapon( b.GetName(), b.GetLookupName(), b.GetMMName( false ), b.GetType(), b.GetSpecials(), b.GetAvailability().Clone(), b.GetWeaponClass() );
+        retval.SetStats( b.GetTonnage(), b.NumCrits(), b.GetCost(), b.GetOffensiveBV(), b.GetDefensiveBV() );
+        retval.SetHeat( b.GetHeat() );
+        retval.SetToHit( b.GetToHitShort(), b.GetToHitMedium(), b.GetToHitMedium() );
+        retval.SetRange( b.GetRangeMin(), b.GetRangeShort(), b.GetRangeMedium(), b.GetRangeLong() );
+        retval.SetDamage( b.GetDamageShort(), b.GetDamageMedium(), b.GetDamageLong(), b.IsCluster(), b.ClusterSize(), b.ClusterGrouping() );
+        retval.SetAmmo( b.HasAmmo(), b.GetAmmoLotSize(), b.GetAmmoIndex(), b.SwitchableAmmo() );
+        retval.SetAllocations(b.CanAllocHD(), b.CanAllocCT(), b.CanAllocTorso(), b.CanAllocArms(), b.CanAllocLegs(), b.CanSplit(), b.OmniRestrictActuators() );
+        retval.SetWeapon( b.IsOneShot(), b.IsStreak(), b.IsUltra(), b.IsRotary(), b.IsExplosive(), b.IsTCCapable(), b.IsArrayCapable(), b.CanUseCapacitor(), false );
+        retval.SetMissileFCS( b.IsFCSCapable(), b.GetFCSType() );
+        retval.SetRequirements( b.RequiresFusion(), b.RequiresNuclear(), b.RequiresPowerAmps() );
+        retval.SetPrintName( b.GetPrintName() );
         return retval;
     }
 

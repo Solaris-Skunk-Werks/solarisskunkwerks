@@ -857,7 +857,7 @@ public class PrintMech implements Printable {
                 graphics.drawString( "-", p[3].x, p[3].y + offset );
             }
             if( item.Item instanceof ifWeapon ) {
-                if( item.Item instanceof MissileWeapon ) {
+                if( ((ifWeapon) item.Item).GetWeaponClass() == ifWeapon.W_MISSILE ) {
                     graphics.drawString( ((ifWeapon) item.Item).GetDamageShort() + "/m", p[4].x, p[4].y + offset );
                     PrintSpecials = true;
                 } else {
@@ -1007,8 +1007,7 @@ public class PrintMech implements Printable {
         if( CurMech.GetHeatSinks().IsDouble() ) { temp = "Double"; }
         graphics.drawString( temp, p[PrintConsts.HEATSINK_NUMBER].x, p[PrintConsts.HEATSINK_NUMBER].y + 11 );
 
-        temp = "Inner Sphere";
-        if( CurMech.IsClan() ) { temp = "Clan"; }
+        temp = CommonTools.GetTechbaseString( CurMech.GetTechBase() );
         graphics.drawString( temp, p[PrintConsts.TECH_IS].x, p[PrintConsts.TECH_IS].y );
 
         graphics.drawString( CurMech.GetYear() + "", p[PrintConsts.TECH_IS].x, p[PrintConsts.TECH_IS].y + 10 );

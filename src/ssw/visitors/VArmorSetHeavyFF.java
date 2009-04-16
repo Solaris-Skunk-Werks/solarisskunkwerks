@@ -44,6 +44,9 @@ public class VArmorSetHeavyFF implements ifVisitor {
         Parent = p;
     }
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
@@ -58,12 +61,7 @@ public class VArmorSetHeavyFF implements ifVisitor {
         l.Remove( a );
 
         // set the armor type
-        if( CurMech.IsClan() ) {
-            a.SetCLMS();
-            Parent.RevertToStandardArmor();
-        } else {
-            a.SetISHF();
-        }
+        a.SetISHF();
 
         // place the armor
         a.Place( l );

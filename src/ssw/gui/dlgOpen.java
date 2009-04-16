@@ -33,11 +33,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.table.TableRowSorter;
 import ssw.Options;
 import ssw.components.Mech;
+import ssw.components.ifLoadout;
 import ssw.filehandlers.*;
 import ssw.print.Printer;
 
@@ -47,15 +49,17 @@ public class dlgOpen extends javax.swing.JFrame {
     private MechList list;
     private Media media = new Media();
     private String dirPath = "";
+    private String NL = "";
 
     /** Creates new form dlgOpen */
     public dlgOpen(java.awt.Frame parent, boolean modal) {
         initComponents();
         this.parent = (frmMain) parent;
 
-        cmbTech.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Tech", "Clan", "Inner Sphere" }));
-        cmbEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Era", "Age of War/Star League", "Succession Wars", "Clan Invasion", "All Eras (non-canon)" }));
-        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Level", "Tournament Legal", "Advanced Rules", "Experimental Tech" }));
+        cmbTech.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Tech", "Clan", "Inner Sphere", "Mixed" }));
+        cmbEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Era", "Age of War/Star League", "Succession Wars", "Clan Invasion", "Dark Ages", "All Eras (non-canon)" }));
+        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Level", "Introductory", "Tournament Legal", "Advanced Rules", "Experimental Tech", "Era Specific" }));
+        NL = System.getProperty( "line.separator" );
     }
 
     private void LoadMech() {
@@ -63,7 +67,7 @@ public class dlgOpen extends javax.swing.JFrame {
         try
         {
             XMLReader read = new XMLReader();
-            Mech m = read.ReadMech(Data.getFilename());
+            Mech m = read.ReadMech( Data.getFilename(), parent.data );
             if (Data.isOmni()) {
                 m.SetCurLoadout( Data.getConfig() );
             }
@@ -168,6 +172,7 @@ public class dlgOpen extends javax.swing.JFrame {
     }
 
     private void batchUpdateMechs() {
+        String msg = "";
         int Response = javax.swing.JOptionPane.showConfirmDialog(this, "This will open and re-save each file in the current directory so that all files are updated with current BV and Cost calculations.\nThis process could take a few minutes, are you ready?", "Batch Mech Processing", javax.swing.JOptionPane.YES_NO_OPTION);
         if (Response == javax.swing.JOptionPane.YES_OPTION) {
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -182,17 +187,28 @@ public class dlgOpen extends javax.swing.JFrame {
                     if (file.isFile() && file.getCanonicalPath().endsWith(".ssw")) {
                         try
                         {
-                            Mech m = read.ReadMech(file.getCanonicalPath());
+                            Mech m = read.ReadMech( file.getCanonicalPath(), parent.data );
 
                             // save the mech to XML in the current location
                             XMLWriter writer = new XMLWriter( m );
                             try {
                                 writer.WriteXML( file.getCanonicalPath() );
                             } catch( IOException e ) {
-                                //do nothing
+                                msg += "Could not load the following file:" + NL;
+                                msg += file.getCanonicalPath() + NL + NL;
                             }
                         } catch ( Exception e ) {
-                            //do nothing
+                            // log the error
+                            msg += file.getCanonicalPath() + NL;
+                            if( e.getMessage() == null ) {
+                                StackTraceElement[] trace = e.getStackTrace();
+                                for( int j = 0; j < trace.length; j++ ) {
+                                    msg += trace[j].toString() + NL;
+                                }
+                                msg += NL;
+                            } else {
+                                msg += e.getMessage() + NL + NL;
+                            }
                         }
                     }
                 }
@@ -200,9 +216,22 @@ public class dlgOpen extends javax.swing.JFrame {
                 LoadList();
 
             } catch (Exception e) {
-                //do nothing
+                if( e.getMessage() == null ) {
+                    StackTraceElement[] trace = e.getStackTrace();
+                    for( int j = 0; j < trace.length; j++ ) {
+                        msg += trace[j].toString() + NL;
+                    }
+                    msg += NL;
+                } else {
+                    msg += e.getMessage() + NL + NL;
+                }
             }
             this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            if( msg.length() > 0 ) {
+                dlgTextExport Message = new dlgTextExport( this, true, msg );
+                Message.setLocationRelativeTo( this );
+                Message.setVisible( true );
+            }
         }
     }
 
@@ -620,7 +649,7 @@ public class dlgOpen extends javax.swing.JFrame {
                 int[] rows = tblMechData.getSelectedRows();
                 for ( int i=0; i < rows.length; i++ ) {
                     MechListData data = list.Get(tblMechData.convertRowIndexToModel(rows[i]));
-                    Mech m = read.ReadMech(data.getFilename());
+                    Mech m = read.ReadMech( data.getFilename(), parent.data );
                     if (data.isOmni()) {
                         m.SetCurLoadout(data.getConfig());
                     }

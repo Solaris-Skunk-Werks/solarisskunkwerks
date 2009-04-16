@@ -65,9 +65,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     java.awt.Color RedCol = new java.awt.Color( 200, 0, 0 ),
                    GreenCol = new java.awt.Color( 0, 40, 0 );
     Object[][] Equipment = { { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null } };
-    WeaponFactory Weapons = new WeaponFactory( CurMech, GlobalOptions );
-    EquipmentFactory Equips = new EquipmentFactory(CurMech);
-    AmmoFactory Ammo = new AmmoFactory();
     abPlaceable CurItem;
     JPopupMenu mnuCrits = new JPopupMenu();
     JMenuItem mnuUnallocateAll = new JMenuItem( "Unallocate All" );
@@ -85,7 +82,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private Cursor Hourglass = new Cursor( Cursor.WAIT_CURSOR );
     private Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
     ImageIcon FluffImage = Utils.createImageIcon( Constants.NO_IMAGE );
-    DataFactory data = new DataFactory(CurMech);
+    public DataFactory data;
 
     private dlgPrintBatchMechs BatchWindow = null;
     public dlgOpen dOpen = new dlgOpen(this, true);
@@ -183,6 +180,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             CurMech.Visit( new VMechFullRecalc() );
         } catch( Exception e ) {
             // this should never throw an exception, but log it anyway
+            System.err.println( e.getMessage() );
+            e.printStackTrace();
+        }
+
+        // get the data factory ready
+        try {
+            data = new DataFactory( CurMech );
+        } catch( Exception e ) {
             System.err.println( e.getMessage() );
             e.printStackTrace();
         }
@@ -287,27 +292,24 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // sets the weapon choosers up.  first, get the user's choices.
 
         // get the equipment lists for the choices.
-        Weapons.RebuildPhysicals(CurMech);
-        Equipment[ENERGY] = Weapons.GetEnergyWeapons( CurMech );
-        Equipment[MISSILE] = Weapons.GetMissileWeapons( CurMech );
-        Equipment[BALLISTIC] = Weapons.GetBallisticWeapons( CurMech );
-        Equipment[PHYSICAL] = Weapons.GetPhysicalWeapons( CurMech );
-        Equipment[ARTILLERY] = Weapons.GetArtillery( CurMech );
-        if( Equipment[PHYSICAL] == null ) {
-            Equipment[PHYSICAL] = new Object[] { " " };
-        }
-        Equipment[EQUIPMENT] = Equips.GetEquipment( CurMech );
-        if( Equipment[EQUIPMENT] == null ) {
-            Equipment[EQUIPMENT] = new Object[] { " " };
-        }
+        data.Rebuild( CurMech );
+        Equipment[ENERGY] = data.GetEquipment().GetEnergyWeapons( CurMech );
+        Equipment[MISSILE] = data.GetEquipment().GetMissileWeapons( CurMech );
+        Equipment[BALLISTIC] = data.GetEquipment().GetBallisticWeapons( CurMech );
+        Equipment[PHYSICAL] = data.GetEquipment().GetPhysicalWeapons( CurMech );
+        Equipment[ARTILLERY] = data.GetEquipment().GetArtillery( CurMech );
+        Equipment[EQUIPMENT] = data.GetEquipment().GetEquipment( CurMech );
         Equipment[AMMUNITION] = new Object[] { " " };
         if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
             Equipment[SELECTED] = new Object[] { " " };
         } else {
             Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
         }
-        if( Equipment[ARTILLERY] == null ) {
-            Equipment[ARTILLERY] = new Object[] { " " };
+
+        for( int i = 0; i < Equipment.length; i++ ) {
+            if( Equipment[i] == null ) {
+                Equipment[i] = new Object[] { " " };
+            }
         }
 
         // now fill in the list boxes
@@ -434,7 +436,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         ifState[] check = CurMech.GetIntStruc().GetStates( CurMech.IsQuad() );
         for( int i = 0; i < check.length; i++ ) {
             if( CommonTools.IsAllowed( check[i].GetAvailability(), CurMech ) ) {
-                list.add( check[i].GetLookupName() );
+                list.add( BuildLookupName( check[i] ) );
             }
         }
 
@@ -457,7 +459,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         ifState[] check = CurMech.GetEngine().GetStates();
         for( int i = 0; i < check.length; i++ ) {
             if( CommonTools.IsAllowed( check[i].GetAvailability(), CurMech ) ) {
-                list.add( check[i].GetLookupName() );
+                list.add( BuildLookupName( check[i] ) );
             }
         }
 
@@ -480,7 +482,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         ifState[] check = CurMech.GetGyro().GetStates();
         for( int i = 0; i < check.length; i++ ) {
             if( CommonTools.IsAllowed( check[i].GetAvailability(), CurMech ) ) {
-                list.add( check[i].GetLookupName() );
+                list.add( BuildLookupName( check[i] ) );
             }
         }
 
@@ -526,7 +528,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         ifState[] check = CurMech.GetPhysEnhance().GetStates();
         for( int i = 0; i < check.length; i++ ) {
             if( CommonTools.IsAllowed( check[i].GetAvailability(), CurMech ) ) {
-                list.add( check[i].GetLookupName() );
+                list.add( BuildLookupName( check[i] ) );
             }
         }
 
@@ -635,14 +637,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         ifState[] check = CurMech.GetHeatSinks().GetStates();
         for( int i = 0; i < check.length; i++ ) {
             if( CommonTools.IsAllowed( check[i].GetAvailability(), CurMech ) ) {
-                list.add( check[i].GetLookupName() );
+                list.add( BuildLookupName( check[i] ) );
             }
         }
 
         // turn the vector into a string array
         String[] temp = new String[list.size()];
         for( int i = 0; i < list.size(); i++ ) {
-            temp[i] = (String) list.get(i);
+            temp[i] = (String) list.get( i );
         }
 
         // now set the heat sink chooser
@@ -658,7 +660,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         ifState[] check = CurMech.GetArmor().GetStates();
         for( int i = 0; i < check.length; i++ ) {
             if( CommonTools.IsAllowed( check[i].GetAvailability(), CurMech ) ) {
-                list.add( check[i].GetLookupName() );
+                list.add( BuildLookupName( check[i] ) );
             }
         }
 
@@ -672,47 +674,84 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbArmorType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
     }
 
+    private void BuildTechBaseSelector() {
+        switch( CurMech.GetEra() ) {
+            case AvailableCode.ERA_STAR_LEAGUE:
+                cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere" } ) );
+                break;
+            case AvailableCode.ERA_SUCCESSION:
+                if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
+                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan", "Mixed" } ) );
+                } else {
+                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan" } ) );
+                }
+                break;
+            case AvailableCode.ERA_CLAN_INVASION:
+                if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
+                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan", "Mixed" } ) );
+                } else {
+                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan" } ) );
+                }
+                break;
+            case AvailableCode.ERA_DARK_AGES:
+                if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
+                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan", "Mixed" } ) );
+                } else {
+                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan" } ) );
+                }
+                break;
+            case AvailableCode.ERA_ALL:
+                if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
+                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan", "Mixed" } ) );
+                } else {
+                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan" } ) );
+                }
+                break;
+        }
+    }
+
+    private String BuildLookupName( ifState s ) {
+        String retval = s.GetLookupName();
+        if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+            if( s.HasCounterpart() ) {
+                if( s.GetAvailability().GetTechBase() == AvailableCode.TECH_CLAN ) {
+                    return "(CL) " + retval;
+                } else {
+                    return "(IS) " + retval;
+                }
+            } else {
+                return retval;
+            }
+        } else {
+            return retval;
+        }
+    }
+
     private void RefreshEquipment() {
         // refreshes the equipment selectors
 
         // fix Artemis IV controls
-        if( CurMech.IsClan() ) {
-            if( CommonTools.IsAllowed( ArtemisIVFCS.CLAC, CurMech ) ) {
-                chkFCSAIV.setEnabled( true );
-            } else {
-                chkFCSAIV.setSelected( false );
-                chkFCSAIV.setEnabled( false );
-            }
+        ifMissileGuidance ArtCheck = new ArtemisIVFCS( null );
+        if( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurMech ) ) {
+            chkFCSAIV.setEnabled( true );
         } else {
-            if( CommonTools.IsAllowed( ArtemisIVFCS.ISAC, CurMech ) ) {
-                chkFCSAIV.setEnabled( true );
-            } else {
-                chkFCSAIV.setSelected( false );
-                chkFCSAIV.setEnabled( false );
-            }
+            chkFCSAIV.setSelected( false );
+            chkFCSAIV.setEnabled( false );
         }
 
-        // fix Artemis IV controls
-        if( CurMech.IsClan() ) {
-            if( CommonTools.IsAllowed( ArtemisVFCS.CLAC, CurMech ) ) {
-                chkFCSAV.setEnabled( true );
-            } else {
-                chkFCSAV.setSelected( false );
-                chkFCSAV.setEnabled( false );
-            }
+        // fix Artemis V controls
+        ArtCheck = new ArtemisVFCS( null );
+        if( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurMech ) ) {
+            chkFCSAV.setEnabled( true );
         } else {
             chkFCSAV.setSelected( false );
             chkFCSAV.setEnabled( false );
         }
 
         // fix Artemis IV controls
-        if( ! CurMech.IsClan() ) {
-            if( CommonTools.IsAllowed( ApolloFCS.ISAC, CurMech ) ) {
-                chkFCSApollo.setEnabled( true );
-            } else {
-                chkFCSApollo.setSelected( false );
-                chkFCSApollo.setEnabled( false );
-            }
+        ArtCheck = new ApolloFCS( null );
+        if( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurMech ) ) {
+            chkFCSApollo.setEnabled( true );
         } else {
             chkFCSApollo.setSelected( false );
             chkFCSApollo.setEnabled( false );
@@ -746,18 +785,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // fix armor component menu item
-        if( CurMech.IsClan() ) {
-            if( CommonTools.IsAllowed( abPlaceable.CLArmoredAC, CurMech ) )  {
-                mnuArmorComponent.setVisible( true );
-            } else {
-                mnuArmorComponent.setVisible( false );
-            }
+        if( CommonTools.IsAllowed( abPlaceable.ArmoredAC, CurMech ) )  {
+            mnuArmorComponent.setVisible( true );
         } else {
-            if( CommonTools.IsAllowed( abPlaceable.ISArmoredAC, CurMech ) )  {
-                mnuArmorComponent.setVisible( true );
-            } else {
-                mnuArmorComponent.setVisible( false );
-            }
+            mnuArmorComponent.setVisible( false );
         }
 
         // check the command console and ejection seat
@@ -851,63 +882,28 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             try {
                 chkHDCASE2.setEnabled( false );
                 chkHDCASE2.setSelected( false );
-                CurMech.GetLoadout().SetHDCASEII( false, -1 );
-            } catch( Exception e ) {
-                // no reason we should get exceptions when unallocating CASE.
-                System.err.println( e.getMessage() );
-            }
-            try {
+                CurMech.GetLoadout().SetHDCASEII( false, -1, false );
                 chkCTCASE2.setEnabled( false );
                 chkCTCASE2.setSelected( false );
-                CurMech.GetLoadout().SetCTCASEII( false, -1 );
-            } catch( Exception e ) {
-                // no reason we should get exceptions when unallocating CASE.
-                System.err.println( e.getMessage() );
-            }
-            try {
+                CurMech.GetLoadout().SetCTCASEII( false, -1, false );
                 chkLTCASE2.setEnabled( false );
                 chkLTCASE2.setSelected( false );
-                CurMech.GetLoadout().SetLTCASEII( false, -1 );
-            } catch( Exception e ) {
-                // no reason we should get exceptions when unallocating CASE.
-                System.err.println( e.getMessage() );
-            }
-            try {
+                CurMech.GetLoadout().SetLTCASEII( false, -1, false );
                 chkRTCASE2.setEnabled( false );
                 chkRTCASE2.setSelected( false );
-                CurMech.GetLoadout().SetRTCASEII( false, -1 );
-            } catch( Exception e ) {
-                // no reason we should get exceptions when unallocating CASE.
-                System.err.println( e.getMessage() );
-            }
-            try {
+                CurMech.GetLoadout().SetRTCASEII( false, -1, false );
                 chkLACASE2.setEnabled( false );
                 chkLACASE2.setSelected( false );
-                CurMech.GetLoadout().SetLACASEII( false, -1 );
-            } catch( Exception e ) {
-                // no reason we should get exceptions when unallocating CASE.
-                System.err.println( e.getMessage() );
-            }
-            try {
+                CurMech.GetLoadout().SetLACASEII( false, -1, false );
                 chkRACASE2.setEnabled( false );
                 chkRACASE2.setSelected( false );
-                CurMech.GetLoadout().SetRACASEII( false, -1 );
-            } catch( Exception e ) {
-                // no reason we should get exceptions when unallocating CASE.
-                System.err.println( e.getMessage() );
-            }
-            try {
+                CurMech.GetLoadout().SetRACASEII( false, -1, false );
                 chkLLCASE2.setEnabled( false );
                 chkLLCASE2.setSelected( false );
-                CurMech.GetLoadout().SetLLCASEII( false, -1 );
-            } catch( Exception e ) {
-                // no reason we should get exceptions when unallocating CASE.
-                System.err.println( e.getMessage() );
-            }
-            try {
+                CurMech.GetLoadout().SetLLCASEII( false, -1, false );
                 chkRLCASE2.setEnabled( false );
                 chkRLCASE2.setSelected( false );
-                CurMech.GetLoadout().SetRLCASEII( false, -1 );
+                CurMech.GetLoadout().SetRLCASEII( false, -1, false );
             } catch( Exception e ) {
                 // no reason we should get exceptions when unallocating CASE.
                 System.err.println( e.getMessage() );
@@ -970,7 +966,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 chkSupercharger.setSelected( false );
             }
         }
-        if( ! chkUseTC.isEnabled() ) { CurMech.UseTC( false ); }
+        if( ! chkUseTC.isEnabled() ) { CurMech.UseTC( false, false ); }
         if( ! chkCTCASE.isEnabled() ) { CurMech.RemoveCTCase(); }
         if( ! chkLTCASE.isEnabled() ) { CurMech.RemoveLTCase(); }
         if( ! chkRTCASE.isEnabled() ) { CurMech.RemoveRTCase(); }
@@ -1051,7 +1047,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void RecalcGyro() {
         // changes the armor type.
-        String OldVal = CurMech.GetGyro().GetLookupName();
+        String OldVal = BuildLookupName( CurMech.GetGyro().GetCurrentState() );
         String LookupVal = (String) cmbGyroType.getSelectedItem();
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
         try {
@@ -1115,7 +1111,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void RecalcEnhancements() {
         // recalculates the enhancements on the mech
-        String OldVal = CurMech.GetPhysEnhance().GetLookupName();
+        String OldVal = BuildLookupName( CurMech.GetPhysEnhance().GetCurrentState() );
         String LookupVal = (String) cmbPhysEnhance.getSelectedItem();
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
         try {
@@ -1161,7 +1157,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void RecalcHeatSinks() {
         // recalculate the heat sinks based on what is selected.
-        String OldVal = CurMech.GetHeatSinks().GetLookupName();
+        String OldVal = BuildLookupName( CurMech.GetHeatSinks().GetCurrentState() );
         String LookupVal = (String) cmbHeatSinkType.getSelectedItem();
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
         try {
@@ -1184,7 +1180,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void RecalcIntStruc() {
         // recalculates the internal structure if anything happened.
-        String OldVal = CurMech.GetIntStruc().GetLookupName();
+        String OldVal = BuildLookupName( CurMech.GetIntStruc().GetCurrentState() );
         String LookupVal = (String) cmbInternalType.getSelectedItem();
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
         try {
@@ -1209,7 +1205,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // changes the engine type.  Changing the type does not change the rating
         // which makes our job here easier.
-        String OldVal = CurMech.GetEngine().GetLookupName();
+        String OldVal = BuildLookupName( CurMech.GetEngine().GetCurrentState() );
         String LookupVal = (String) cmbEngineType.getSelectedItem();
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
         try {
@@ -1254,7 +1250,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void RecalcArmor() {
         // changes the armor type.
-        String OldVal = CurMech.GetArmor().GetLookupName();
+        String OldVal = BuildLookupName( CurMech.GetArmor().GetCurrentState() );
         String LookupVal = (String) cmbArmorType.getSelectedItem();
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
         try {
@@ -1275,6 +1271,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void RecalcEquipment() {
         // recalculates the equipment if anything changes
+        boolean clan = false;
+        switch( CurMech.GetTechBase() ) {
+            case AvailableCode.TECH_CLAN: case AvailableCode.TECH_BOTH:
+                // this is the default value to use assuming that during mixed
+                // tech operations the user will use the best.
+                clan = true;
+        }
         if( chkCTCASE.isSelected() ) {
             try {
                 CurMech.AddCTCase();
@@ -1302,7 +1305,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         if( chkHDCASE2.isSelected() ) {
             try {
-                CurMech.GetLoadout().SetHDCASEII( true, -1 );
+                if( ! CurMech.GetLoadout().HasHDCASEII() ) {
+                    CurMech.GetLoadout().SetHDCASEII( true, -1, clan );
+                }
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkHDCASE2.setSelected( false );
@@ -1310,7 +1315,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         if( chkCTCASE2.isSelected() ) {
             try {
-                CurMech.GetLoadout().SetCTCASEII( true, -1 );
+                if( ! CurMech.GetLoadout().HasCTCASEII() ) {
+                    CurMech.GetLoadout().SetCTCASEII( true, -1, clan );
+                }
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkCTCASE2.setSelected( false );
@@ -1318,7 +1325,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         if( chkLTCASE2.isSelected() ) {
             try {
-                CurMech.GetLoadout().SetLTCASEII( true, -1 );
+                if( ! CurMech.GetLoadout().HasLTCASEII() ) {
+                    CurMech.GetLoadout().SetLTCASEII( true, -1, clan );
+                }
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkLTCASE2.setSelected( false );
@@ -1326,7 +1335,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         if( chkRTCASE2.isSelected() ) {
             try {
-                CurMech.GetLoadout().SetRTCASEII( true, -1 );
+                if( ! CurMech.GetLoadout().HasRTCASEII() ) {
+                    CurMech.GetLoadout().SetRTCASEII( true, -1, clan );
+                }
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkRTCASE2.setSelected( false );
@@ -1334,7 +1345,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         if( chkLACASE2.isSelected() ) {
             try {
-                CurMech.GetLoadout().SetLACASEII( true, -1 );
+                if( ! CurMech.GetLoadout().HasLACASEII() ) {
+                    CurMech.GetLoadout().SetLACASEII( true, -1, clan );
+                }
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkLACASE2.setSelected( false );
@@ -1342,7 +1355,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         if( chkRACASE2.isSelected() ) {
             try {
-                CurMech.GetLoadout().SetRACASEII( true, -1 );
+                if( ! CurMech.GetLoadout().HasRACASEII() ) {
+                    CurMech.GetLoadout().SetRACASEII( true, -1, clan );
+                }
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkRACASE2.setSelected( false );
@@ -1350,7 +1365,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         if( chkLLCASE2.isSelected() ) {
             try {
-                CurMech.GetLoadout().SetLLCASEII( true, -1 );
+                if( ! CurMech.GetLoadout().HasLLCASEII() ) {
+                    CurMech.GetLoadout().SetLLCASEII( true, -1, clan );
+                }
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkLLCASE2.setSelected( false );
@@ -1358,7 +1375,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         if( chkRLCASE2.isSelected() ) {
             try {
-                CurMech.GetLoadout().SetRLCASEII( true, -1 );
+                if( ! CurMech.GetLoadout().HasRLCASEII() ) {
+                    CurMech.GetLoadout().SetRLCASEII( true, -1, clan );
+                }
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkRLCASE2.setSelected( false );
@@ -1368,73 +1387,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void CheckOmnimech() {
         // deals with the omnimech checkbox if needed
-        int ProdYear = 0;
-        if( ! txtProdYear.getText().isEmpty() ) {
-            ProdYear = Integer.parseInt( txtProdYear.getText() );
-        }
-
-        if( chkYearRestrict.isSelected() ) {
-            if( cmbTechBase.getSelectedIndex() == 1 ) {
-                if( ProdYear >= 2854 ) {
-                    if( CurMech.IsIndustrialmech() ) {
-                        chkOmnimech.setEnabled( false );
-                        chkOmnimech.setSelected( false );
-                    } else {
-                        chkOmnimech.setEnabled( true );
-                    }
-                } else {
-                    chkOmnimech.setEnabled( false );
-                    chkOmnimech.setSelected( false );
-                }
-            } else {
-                if( ProdYear >= 3052 ) {
-                    if( CurMech.IsIndustrialmech() ) {
-                        chkOmnimech.setEnabled( false );
-                        chkOmnimech.setSelected( false );
-                    } else {
-                        chkOmnimech.setEnabled( true );
-                    }
-                } else {
-                    chkOmnimech.setEnabled( false );
-                    chkOmnimech.setSelected( false );
-                }
-            }
+        if( CommonTools.IsAllowed( CurMech.GetOmniMechAvailability(), CurMech ) ) {
+            chkOmnimech.setEnabled( true );
         } else {
-            switch( cmbMechEra.getSelectedIndex() ) {
-                case 0:
-                    chkOmnimech.setEnabled( false );
-                    chkOmnimech.setSelected( false );
-                    break;
-                case 1:
-                    if( cmbTechBase.getSelectedIndex() == 1 ) {
-                        if( CurMech.IsIndustrialmech() ) {
-                            chkOmnimech.setEnabled( false );
-                            chkOmnimech.setSelected( false );
-                        } else {
-                            chkOmnimech.setEnabled( true );
-                        }
-                    } else {
-                        chkOmnimech.setEnabled( false );
-                        chkOmnimech.setSelected( false );
-                    }
-                    break;
-                case 2:
-                    if( CurMech.IsIndustrialmech() ) {
-                        chkOmnimech.setEnabled( false );
-                        chkOmnimech.setSelected( false );
-                    } else {
-                        chkOmnimech.setEnabled( true );
-                    }
-                    break;
-                case 3:
-                    if( CurMech.IsIndustrialmech() ) {
-                        chkOmnimech.setEnabled( false );
-                        chkOmnimech.setSelected( false );
-                    } else {
-                        chkOmnimech.setEnabled( true );
-                    }
-                    break;
-            }
+            chkOmnimech.setEnabled( false );
+            chkOmnimech.setSelected( false );
         }
 
         // now let's ensure that all the omni controls are enabled or disabled
@@ -1480,14 +1437,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtSumHSCrt.setText( "" + CurMech.GetHeatSinks().NumCrits() );
         txtSumJJCrt.setText( "" + CurMech.GetJumpJets().ReportCrits() );
         txtSumArmorCrt.setText( "" + CurMech.GetArmor().NumCrits() );
-        txtSumIntACode.setText( CurMech.GetIntStruc().GetAvailability().GetShortenedCode() );
-        txtSumEngACode.setText( CurMech.GetEngine().GetAvailability().GetShortenedCode() );
-        txtSumGyrACode.setText( CurMech.GetGyro().GetAvailability().GetShortenedCode() );
-        txtSumCocACode.setText( CurMech.GetCockpit().GetAvailability().GetShortenedCode() );
-        txtSumHSACode.setText( CurMech.GetHeatSinks().GetAvailability().GetShortenedCode() );
-        txtSumEnhACode.setText( CurMech.GetPhysEnhance().GetAvailability().GetShortenedCode() );
-        txtSumJJACode.setText( CurMech.GetJumpJets().GetAvailability().GetShortenedCode() );
-        txtSumPAmpsACode.setText( CurMech.GetLoadout().GetPowerAmplifier().GetAvailability().GetShortenedCode() );
+        txtSumIntACode.setText( CurMech.GetIntStruc().GetAvailability().GetBestCombinedCode() );
+        txtSumEngACode.setText( CurMech.GetEngine().GetAvailability().GetBestCombinedCode() );
+        txtSumGyrACode.setText( CurMech.GetGyro().GetAvailability().GetBestCombinedCode() );
+        txtSumCocACode.setText( CurMech.GetCockpit().GetAvailability().GetBestCombinedCode() );
+        txtSumHSACode.setText( CurMech.GetHeatSinks().GetAvailability().GetBestCombinedCode() );
+        txtSumEnhACode.setText( CurMech.GetPhysEnhance().GetAvailability().GetBestCombinedCode() );
+        txtSumJJACode.setText( CurMech.GetJumpJets().GetAvailability().GetBestCombinedCode() );
+        txtSumPAmpsACode.setText( CurMech.GetLoadout().GetPowerAmplifier().GetAvailability().GetBestCombinedCode() );
 
         // added for the armor pane
         lblArmorPoints.setText( CurMech.GetArmor().GetArmorValue() + " of " + CurMech.GetArmor().GetMaxArmor() + " Armor Points" );
@@ -1832,7 +1789,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     key[i] = ((Equipment) wep.get( i )).GetAmmoIndex();
                 }
             }
-            result = Ammo.GetAmmo( key, CurMech );
+            result = data.GetEquipment().GetAmmo( key, CurMech );
         }
 
         // put the results into the chooser
@@ -1939,23 +1896,33 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         CurMech.SetEra( cmbMechEra.getSelectedIndex() );
         CurMech.SetRulesLevel( cmbRulesLevel.getSelectedIndex() );
         switch( CurMech.GetEra() ) {
-        case Constants.STAR_LEAGUE:
+        case AvailableCode.ERA_STAR_LEAGUE:
             CurMech.SetYear( 2750, false );
             break;
-        case Constants.SUCCESSION:
+        case AvailableCode.ERA_SUCCESSION:
             CurMech.SetYear( 3025, false );
             break;
-        case Constants.CLAN_INVASION:
+        case AvailableCode.ERA_CLAN_INVASION:
             CurMech.SetYear( 3070, false );
             break;
-        case Constants.ALL_ERA:
+        case AvailableCode.ERA_DARK_AGES:
+            CurMech.SetYear( 3130, false );
+            break;
+        case AvailableCode.ERA_ALL:
             CurMech.SetYear( 0, false );
             break;
         }
-        if( cmbTechBase.getSelectedIndex() == Constants.CLAN ) {
-            CurMech.SetClan();
-        } else {
-            CurMech.SetInnerSphere();
+        BuildTechBaseSelector();
+        switch( cmbTechBase.getSelectedIndex() ) {
+            case AvailableCode.TECH_INNER_SPHERE:
+                CurMech.SetInnerSphere();
+                break;
+            case AvailableCode.TECH_CLAN:
+                CurMech.SetClan();
+                break;
+            case AvailableCode.TECH_BOTH:
+                CurMech.SetMixed();
+                break;
         }
         if( CurMech.IsIndustrialmech() ) {
             cmbMechType.setSelectedIndex( 1 );
@@ -1997,7 +1964,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         FixHeatSinkSpinnerModel();
         RefreshInternalPoints();
         FixArmorSpinners();
-        Weapons.RebuildPhysicals( CurMech );
+        data.Rebuild( CurMech );
         RefreshEquipment();
         chkCTCASE.setSelected( false );
         chkLTCASE.setSelected( false );
@@ -2038,7 +2005,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtSource.setText( "" );
         lblFluffImage.setIcon( null );
 
-        if( cmbMechEra.getSelectedIndex() == Constants.ALL_ERA ) {
+        if( cmbMechEra.getSelectedIndex() == AvailableCode.ERA_ALL ) {
             chkYearRestrict.setEnabled( false );
         } else {
             chkYearRestrict.setEnabled( true );
@@ -2049,14 +2016,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void GetInfoOn() {
         // throws up a window detailing the current item
-        if( CurItem instanceof ifWeapon ) {
+        if( CurItem instanceof ifWeapon || CurItem instanceof Ammunition ) {
             dlgWeaponInfo WepInfo = new dlgWeaponInfo( this, true );
             WepInfo.setLocationRelativeTo( this );
             WepInfo.setVisible( true );
-        } else if( CurItem instanceof Ammunition ) {
-            dlgAmmoInfo AmmoInfo = new dlgAmmoInfo( this, true );
-            AmmoInfo.setLocationRelativeTo( this );
-            AmmoInfo.setVisible( true );
         } else {
             dlgPlaceableInfo ItemInfo = new dlgPlaceableInfo( this, true );
             ItemInfo.setLocationRelativeTo( this );
@@ -2085,44 +2048,96 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // item.  Depending on what the item is, more or less info is provided
         AvailableCode AC = p.GetAvailability();
 
-        lblInfoAVSL.setText( "" + AC.GetSLCode() );
-        lblInfoAVSW.setText( "" + AC.GetSWCode() );
-        lblInfoAVCI.setText( "" + AC.GetCICode() );
-        lblInfoIntro.setText( AC.GetIntroDate() + " (" + AC.GetIntroFaction() + ")" );
-        if( AC.WentExtinct() ) {
-            lblInfoExtinct.setText( "" + AC.GetExtinctDate() );
-        } else {
-            lblInfoExtinct.setText( "--" );
-        }
-        if( AC.WasReIntroduced() ) {
-            lblInfoReintro.setText( AC.GetReIntroDate() + " (" + AC.GetReIntroFaction() + ")" );
-        } else {
-            lblInfoReintro.setText( "--" );
+        lblInfoAVSL.setText( AC.GetISSLCode() + " / " + AC.GetCLSLCode() );
+        lblInfoAVSW.setText( AC.GetISSWCode() + " / " + AC.GetCLSWCode() );
+        lblInfoAVCI.setText( AC.GetISCICode() + " / " + AC.GetCLCICode() );
+        switch( AC.GetTechBase() ){
+            case AvailableCode.TECH_INNER_SPHERE:
+                lblInfoIntro.setText( AC.GetISIntroDate() + " (" + AC.GetISIntroFaction() + ")" );
+                if( AC.WentExtinctIS() ) {
+                    lblInfoExtinct.setText( "" + AC.GetISExtinctDate() );
+                } else {
+                    lblInfoExtinct.setText( "--" );
+                }
+                if( AC.WasReIntrodIS() ) {
+                    lblInfoReintro.setText( AC.GetISReIntroDate() + " (" + AC.GetISReIntroFaction() + ")" );
+                } else {
+                    lblInfoReintro.setText( "--" );
+                }
+                break;
+            case AvailableCode.TECH_CLAN:
+                lblInfoIntro.setText( AC.GetCLIntroDate() + " (" + AC.GetCLIntroFaction() + ")" );
+                if( AC.WentExtinctCL() ) {
+                    lblInfoExtinct.setText( "" + AC.GetCLExtinctDate() );
+                } else {
+                    lblInfoExtinct.setText( "--" );
+                }
+                if( AC.WasReIntrodCL() ) {
+                    lblInfoReintro.setText( AC.GetCLReIntroDate() + " (" + AC.GetCLReIntroFaction() + ")" );
+                } else {
+                    lblInfoReintro.setText( "--" );
+                }
+                break;
+            case AvailableCode.TECH_BOTH:
+                lblInfoIntro.setText( AC.GetISIntroDate() + " (" + AC.GetISIntroFaction() + ") / " + AC.GetCLIntroDate() + " (" + AC.GetCLIntroFaction() + ")" );
+                if( AC.WentExtinctIS() ) {
+                    lblInfoExtinct.setText( "" + AC.GetISExtinctDate() );
+                } else {
+                    lblInfoExtinct.setText( "--" );
+                }
+                if( AC.WentExtinctCL() ) {
+                    lblInfoExtinct.setText( lblInfoExtinct.getText() + " / " + AC.GetCLExtinctDate() );
+                } else {
+                    lblInfoExtinct.setText( lblInfoExtinct.getText() + " / --" );
+                }
+                if( AC.WasReIntrodIS() ) {
+                    lblInfoReintro.setText( AC.GetISReIntroDate() + " (" + AC.GetISReIntroFaction() + ")" );
+                } else {
+                    lblInfoReintro.setText( "--" );
+                }
+                if( AC.WasReIntrodCL() ) {
+                    lblInfoReintro.setText( lblInfoReintro.getText() + " / " + AC.GetCLReIntroDate() + " (" + AC.GetCLReIntroFaction() + ")" );
+                } else {
+                    lblInfoReintro.setText( lblInfoReintro.getText() + " / --" );
+                }
+                break;
         }
         if( CurMech.IsIndustrialmech() ) {
-            switch( AC.GetRulesLevelIM() ) {
-                case Constants.TOURNAMENT:
+            switch( AC.GetRulesLevel_IM() ) {
+                case AvailableCode.RULES_INTRODUCTORY:
+                    lblInfoRulesLevel.setText( "Introductory" );
+                    break;
+                case AvailableCode.RULES_TOURNAMENT:
                     lblInfoRulesLevel.setText( "Tournament" );
                     break;
-                case Constants.ADVANCED:
+                case AvailableCode.RULES_ADVANCED:
                     lblInfoRulesLevel.setText( "Advanced" );
                     break;
-                case Constants.EXPERIMENTAL:
+                case AvailableCode.RULES_EXPERIMENTAL:
                     lblInfoRulesLevel.setText( "Experimental" );
+                    break;
+                case AvailableCode.RULES_ERA_SPECIFIC:
+                    lblInfoRulesLevel.setText( "Era Specific" );
                     break;
                 default:
                     lblInfoRulesLevel.setText( "??" );
             }
         } else {
-            switch( AC.GetRulesLevelBM() ) {
-                case Constants.TOURNAMENT:
+            switch( AC.GetRulesLevel_BM() ) {
+                case AvailableCode.RULES_INTRODUCTORY:
+                    lblInfoRulesLevel.setText( "Introductory" );
+                    break;
+                case AvailableCode.RULES_TOURNAMENT:
                     lblInfoRulesLevel.setText( "Tournament" );
                     break;
-                case Constants.ADVANCED:
+                case AvailableCode.RULES_ADVANCED:
                     lblInfoRulesLevel.setText( "Advanced" );
                     break;
-                case Constants.EXPERIMENTAL:
+                case AvailableCode.RULES_EXPERIMENTAL:
                     lblInfoRulesLevel.setText( "Experimental" );
+                    break;
+                case AvailableCode.RULES_ERA_SPECIFIC:
+                    lblInfoRulesLevel.setText( "Era Specific" );
                     break;
                 default:
                     lblInfoRulesLevel.setText( "??" );
@@ -2159,40 +2174,46 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( p instanceof ifWeapon ) {
             ifWeapon w = (ifWeapon) p;
             lblInfoType.setText( w.GetType() );
+
             if( w.IsUltra() || w.IsRotary() ) {
                 lblInfoHeat.setText( w.GetHeat() + "/shot" );
-            } else if( w instanceof EnergyWeapon ) {
-                if( ((EnergyWeapon) w).HasCapacitor() ) {
-                    lblInfoHeat.setText( w.GetHeat() + "*" );
+            } else {
+                if( w instanceof RangedWeapon ) {
+                    if( ((RangedWeapon) w).IsUsingCapacitor() ) {
+                        lblInfoHeat.setText( w.GetHeat() + "*" );
+                    } else if( ((RangedWeapon) w).IsUsingInsulator() ) {
+                        lblInfoHeat.setText( w.GetHeat() + " (I)" );
+                    } else {
+                        lblInfoHeat.setText( "" + w.GetHeat() );
+                    }
                 } else {
                     lblInfoHeat.setText( "" + w.GetHeat() );
                 }
-            } else {
-                lblInfoHeat.setText( "" + w.GetHeat() );
             }
-            if( w instanceof MissileWeapon ) {
-                lblInfoDamage.setText( w.GetDamageShort() + "/msl");
+
+            if( w.GetWeaponClass() == ifWeapon.W_MISSILE ) {
+                lblInfoDamage.setText( w.GetDamageShort() + "/msl" );
+            } else if( w.GetWeaponClass() == ifWeapon.W_ARTILLERY ) {
+                lblInfoDamage.setText( w.GetDamageShort() + "A" );
             } else if( w instanceof MGArray ) {
                 lblInfoDamage.setText( w.GetDamageShort() + "/gun" );
             } else if( w.GetDamageShort() == w.GetDamageMedium() && w.GetDamageShort() == w.GetDamageLong() ) {
-                if( w instanceof BallisticWeapon ) {
-                    if( w.IsUltra() || w.IsRotary() ) {
-                        lblInfoDamage.setText( w.GetDamageShort() + "/shot" );
-                    } else {
-                        lblInfoDamage.setText( "" + w.GetDamageShort() );
-                    }
-                } else if( w instanceof EnergyWeapon ) {
-                    if( ((EnergyWeapon) w).HasCapacitor() ) {
-                        lblInfoDamage.setText( w.GetDamageShort() + "*" );
-                    } else {
-                        lblInfoDamage.setText( "" + w.GetDamageShort() );
-                    }
+                if( w.IsUltra() || w.IsRotary() ) {
+                    lblInfoDamage.setText( w.GetDamageShort() + "/shot" );
                 } else {
-                    lblInfoDamage.setText( "" + w.GetDamageShort() );
+                    if( w instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) w).IsUsingCapacitor() ) {
+                            lblInfoDamage.setText( w.GetDamageShort() + "*" );
+                        } else {
+                            lblInfoDamage.setText( "" + w.GetDamageShort() );
+                        }
+                    } else {
+                        lblInfoDamage.setText( "" + w.GetDamageShort() );
+                    }
                 }
             } else {
-                if( w instanceof EnergyWeapon ) {
-                    if( ((EnergyWeapon) w).HasCapacitor() ) {
+                if( w instanceof RangedWeapon ) {
+                    if( ((RangedWeapon) w).IsUsingCapacitor() ) {
                         lblInfoDamage.setText( w.GetDamageShort() + "/" + w.GetDamageMedium() + "/" + w.GetDamageLong() + "*" );
                     } else {
                         lblInfoDamage.setText( w.GetDamageShort() + "/" + w.GetDamageMedium() + "/" + w.GetDamageLong() );
@@ -2201,21 +2222,23 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     lblInfoDamage.setText( w.GetDamageShort() + "/" + w.GetDamageMedium() + "/" + w.GetDamageLong() );
                 }
             }
+
             if( w.GetRangeLong() < 1 ) {
                 if( w.GetRangeMedium() < 1 ) {
-                    if( w instanceof Artillery ) {
+                    if( w.GetWeaponClass() == ifWeapon.W_ARTILLERY ) {
                         lblInfoRange.setText( w.GetRangeShort() + " boards" );
                     } else {
                         lblInfoRange.setText( w.GetRangeShort() + "" );
-                    }   
+                    }
                 } else {
                     lblInfoRange.setText( w.GetRangeMin() + "/" + w.GetRangeShort() + "/" + w.GetRangeMedium() + "/-" );
                 }
             } else {
                 lblInfoRange.setText( w.GetRangeMin() + "/" + w.GetRangeShort() + "/" + w.GetRangeMedium() + "/" + w.GetRangeLong() );
             }
+
             if( w.HasAmmo() ) {
-                lblInfoAmmo.setText( "" + w.GetAmmo() );
+                lblInfoAmmo.setText( "" + w.GetAmmoLotSize() );
             } else {
                 lblInfoAmmo.setText( "--" );
             }
@@ -2227,10 +2250,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             Ammunition a = (Ammunition) p;
             lblInfoType.setText( "--" );
             lblInfoHeat.setText( "--" );
-            if( a.ClusterSize() > 1 ) {
-                lblInfoDamage.setText( a.GetDamage() + "/hit" );
+            if( a.ClusterGrouping() > 1 ) {
+                lblInfoDamage.setText( a.GetDamageShort() + "/hit" );
             } else {
-                lblInfoDamage.setText( a.GetDamage() + "" );
+                lblInfoDamage.setText( a.GetDamageShort() + "" );
             }
             if( a.GetLongRange() < 1 ) {
                 if( a.GetMediumRange() < 1 ) {
@@ -2278,9 +2301,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // set the restrictions label
         if( restrict.length() > 0 ) {
+            if( restrict.endsWith( ", ") ) {
+                restrict = restrict.substring( 0, restrict.length() - 2 );
+            }
             lblInfoMountRestrict.setText( restrict );
         } else {
-            lblInfoMountRestrict.setText( "none" );
+            lblInfoMountRestrict.setText( "None" );
         }
     }
 
@@ -2318,14 +2344,17 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         CurMech.SetModel( txtMechModel.getText() );
         if( txtProdYear.getText().isEmpty() ) {
             switch( cmbMechEra.getSelectedIndex() ) {
-            case 0:
+            case AvailableCode.ERA_STAR_LEAGUE:
                 CurMech.SetYear( 2750, false );
                 break;
-            case 1:
+            case AvailableCode.ERA_SUCCESSION:
                 CurMech.SetYear( 3025, false );
                 break;
-            case 2:
+            case AvailableCode.ERA_CLAN_INVASION:
                 CurMech.SetYear( 3070, false );
+                break;
+            case AvailableCode.ERA_DARK_AGES:
+                CurMech.SetYear( 3132, false );
                 break;
             }
         } else {
@@ -2791,20 +2820,20 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             mult = 6;
         }
         if( w.GetDamageLong() >= w.GetDamageMedium() && w.GetDamageLong() >= w.GetDamageShort() ) {
-            if( w instanceof MissileWeapon ) {
+            if( w.GetWeaponClass() == ifWeapon.W_MISSILE ) {
                 return w.GetDamageLong() * mult * w.ClusterSize();
             } else {
                 return w.GetDamageLong() * mult;
             }
         }
         if( w.GetDamageMedium() >= w.GetDamageLong() && w.GetDamageMedium() >= w.GetDamageShort() ) {
-            if( w instanceof MissileWeapon ) {
+            if( w.GetWeaponClass() == ifWeapon.W_MISSILE ) {
                 return w.GetDamageMedium() * mult * w.ClusterSize();
             } else {
                 return w.GetDamageMedium() * mult;
             }
         }
-        if( w instanceof MissileWeapon ) {
+        if( w.GetWeaponClass() == ifWeapon.W_MISSILE ) {
             return w.GetDamageShort() * mult * w.ClusterSize();
         } else {
             return w.GetDamageShort() * mult;
@@ -2833,7 +2862,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     public void CheckTonnage( boolean RulesChange ) {
         if( RulesChange ) {
             if( ! CurMech.IsIndustrialmech() ) {
-                if( CurMech.GetRulesLevel() < Constants.EXPERIMENTAL && CurMech.GetTonnage() < 20 ) {
+                if( CurMech.GetRulesLevel() < AvailableCode.RULES_EXPERIMENTAL && CurMech.GetTonnage() < 20 ) {
                     cmbTonnage.setSelectedItem( "20" );
                 }
             }
@@ -2841,9 +2870,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             // a change in mech type or tonnage
             if( ! CurMech.IsIndustrialmech() ) {
                 // this is really the only time tonnage needs to be restricted
-                if( CurMech.GetRulesLevel() < Constants.EXPERIMENTAL && CurMech.GetTonnage() < 20 ) {
+                if( CurMech.GetRulesLevel() < AvailableCode.RULES_EXPERIMENTAL && CurMech.GetTonnage() < 20 ) {
                     if( CurMech.GetTonnage() < 20 ) {
-                        cmbRulesLevel.setSelectedIndex( Constants.EXPERIMENTAL );
+                        cmbRulesLevel.setSelectedIndex( AvailableCode.RULES_EXPERIMENTAL );
                     }
                 }
             }
@@ -2969,7 +2998,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( w.GetRangeLong() <= 0 ) {
             if( w.GetRangeMedium() <= 0 ) {
                 if( range <= w.GetRangeShort() ) {
-                    if( w instanceof MissileWeapon ) {
+                    if( w.GetWeaponClass() == ifWeapon.W_MISSILE ) {
                         return w.GetDamageShort() * mult * w.ClusterSize();
                     } else {
                         return w.GetDamageShort() * mult;
@@ -2979,13 +3008,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 }
             } else {
                 if( range <= w.GetRangeShort() ) {
-                    if( w instanceof MissileWeapon ) {
+                    if( w.GetWeaponClass() == ifWeapon.W_MISSILE ) {
                         return w.GetDamageShort() * mult * w.ClusterSize();
                     } else {
                         return w.GetDamageShort() * mult;
                     }
                 } else if( range <= w.GetRangeMedium() ) {
-                    if( w instanceof MissileWeapon ) {
+                    if( w.GetWeaponClass() == ifWeapon.W_MISSILE ) {
                         return w.GetDamageMedium() * mult * w.ClusterSize();
                     } else {
                         return w.GetDamageMedium() * mult;
@@ -2996,19 +3025,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         } else {
             if( range <= w.GetRangeShort() ) {
-                if( w instanceof MissileWeapon ) {
+                if( w.GetWeaponClass() == ifWeapon.W_MISSILE ) {
                     return w.GetDamageShort() * mult * w.ClusterSize();
                 } else {
                     return w.GetDamageShort() * mult;
                 }
             } else if( range <= w.GetRangeMedium() ) {
-                if( w instanceof MissileWeapon ) {
+                if( w.GetWeaponClass() == ifWeapon.W_MISSILE ) {
                     return w.GetDamageMedium() * mult * w.ClusterSize();
                 } else {
                     return w.GetDamageMedium() * mult;
                 }
             } else if( range <= w.GetRangeLong() ) {
-                if( w instanceof MissileWeapon ) {
+                if( w.GetWeaponClass() == ifWeapon.W_MISSILE ) {
                     return w.GetDamageLong() * mult * w.ClusterSize();
                 } else {
                     return w.GetDamageLong() * mult;
@@ -3768,7 +3797,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         pnlBasicInformation.add(lblMechEra, gridBagConstraints);
 
-        cmbMechEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War/Star League", "Succession Wars", "Clan Invasion", "All Eras (non-canon)" }));
+        cmbMechEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War/Star League", "Succession Wars", "Clan Invasion", "Dark Ages", "All Eras (non-canon)" }));
         cmbMechEra.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbMechEra.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbMechEra.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -3843,7 +3872,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridy = 5;
         pnlBasicInformation.add(cmbTechBase, gridBagConstraints);
 
-        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tournament Legal", "Advanced Rules", "Experimental Tech" }));
+        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Introductory", "Tournament Legal", "Advanced Rules", "Experimental Tech", "Era Specific" }));
+        cmbRulesLevel.setSelectedIndex(1);
         cmbRulesLevel.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbRulesLevel.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbRulesLevel.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -5584,7 +5614,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         javax.swing.JOptionPane.showMessageDialog( lstChooseBallistic.getTopLevelAncestor(), a.GetCritName() + " may not be mounted\nbecause the mech does not use a fusion engine." );
                         return;
                     }
-                    a = Weapons.GetCopy( a );
+                    a = data.GetEquipment().GetCopy( a, CurMech );
 
                     // add it to the loadout
                     CurMech.GetLoadout().AddToQueue( a );
@@ -5614,6 +5644,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         };
         lstChooseBallistic.addMouseListener( mlBallistic );
+        lstChooseBallistic.setCellRenderer( new ssw.gui.EquipmentListRenderer( this ) );
         jScrollPane8.setViewportView(lstChooseBallistic);
 
         pnlBallistic.add(jScrollPane8);
@@ -5666,7 +5697,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         javax.swing.JOptionPane.showMessageDialog( lstChooseEnergy.getTopLevelAncestor(), a.GetCritName() + " may not be mounted\nbecause the mech does not use a fusion engine." );
                         return;
                     }
-                    a = Weapons.GetCopy( a );
+                    a = data.GetEquipment().GetCopy( a, CurMech );
 
                     // add it to the loadout
                     CurMech.GetLoadout().AddToQueue( a );
@@ -5696,6 +5727,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         };
         lstChooseEnergy.addMouseListener( mlEnergy );
+        lstChooseEnergy.setCellRenderer( new ssw.gui.EquipmentListRenderer( this ) );
         jScrollPane9.setViewportView(lstChooseEnergy);
 
         pnlEnergy.add(jScrollPane9);
@@ -5748,21 +5780,21 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         javax.swing.JOptionPane.showMessageDialog( lstChooseMissile.getTopLevelAncestor(), a.GetCritName() + " may not be mounted\nbecause the mech does not use a fusion engine." );
                         return;
                     }
-                    a = Weapons.GetCopy( a );
-                    if( ((MissileWeapon) a).IsFCSCapable() ) {
+                    a = data.GetEquipment().GetCopy( a, CurMech );
+                    if( ((RangedWeapon) a).IsFCSCapable() ) {
                         if( CurMech.UsingArtemisIV() ) {
-                            if( ((MissileWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisIV || ((MissileWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisV ) {
-                                ((MissileWeapon) a).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV );
+                            if( ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisIV || ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisV ) {
+                                ((RangedWeapon) a).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV );
                             }
                         }
                         if( CurMech.UsingArtemisV() ) {
-                            if( ((MissileWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisV ) {
-                                ((MissileWeapon) a).UseFCS( true, ifMissileGuidance.FCS_ArtemisV );
+                            if( ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisV ) {
+                                ((RangedWeapon) a).UseFCS( true, ifMissileGuidance.FCS_ArtemisV );
                             }
                         }
                         if( CurMech.UsingApollo() ) {
-                            if( ((MissileWeapon) a).GetFCSType() == ifMissileGuidance.FCS_Apollo ) {
-                                ((MissileWeapon) a).UseFCS( true, ifMissileGuidance.FCS_Apollo );
+                            if( ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_Apollo ) {
+                                ((RangedWeapon) a).UseFCS( true, ifMissileGuidance.FCS_Apollo );
                             }
                         }
                     }
@@ -5788,6 +5820,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         };
         lstChooseMissile.addMouseListener( mlMissile );
+        lstChooseMissile.setCellRenderer( new ssw.gui.EquipmentListRenderer( this ) );
         jScrollPane19.setViewportView(lstChooseMissile);
 
         pnlMissile.add(jScrollPane19);
@@ -5832,7 +5865,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     int index = lstChoosePhysical.locationToIndex( e.getPoint() );
                     if( index < 0 ) { return; }
                     abPlaceable a = (abPlaceable) Equipment[PHYSICAL][index];
-                    a = Weapons.GetCopy( a );
+                    a = data.GetEquipment().GetCopy( a, CurMech );
 
                     // check to ensure that no more than two physical weapons are in the mech
                     Vector v = CurMech.GetLoadout().GetNonCore();
@@ -5873,6 +5906,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         };
         lstChoosePhysical.addMouseListener( mlPhysical );
+        lstChoosePhysical.setCellRenderer( new ssw.gui.EquipmentListRenderer( this ) );
         jScrollPane20.setViewportView(lstChoosePhysical);
 
         pnlPhysical.add(jScrollPane20);
@@ -5944,7 +5978,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             }
                         }
                     }
-                    a = Equips.GetCopy( a );
+                    a = data.GetEquipment().GetCopy( a, CurMech );
 
                     // add it to the loadout
                     CurMech.GetLoadout().AddToQueue( a );
@@ -5967,6 +6001,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         };
         lstChooseEquipment.addMouseListener( mlEquipment );
+        lstChooseEquipment.setCellRenderer( new ssw.gui.EquipmentListRenderer( this ) );
         jScrollPane21.setViewportView(lstChooseEquipment);
 
         pnlEquipmentChooser.add(jScrollPane21);
@@ -6011,7 +6046,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     int index = lstChooseArtillery.locationToIndex( e.getPoint() );
                     if( index < 0 ) { return; }
                     abPlaceable a = (abPlaceable) Equipment[ARTILLERY][index];
-                    a = Weapons.GetCopy( a );
+                    a = data.GetEquipment().GetCopy( a, CurMech );
 
                     if( ((ifWeapon) a).RequiresNuclear() &! CurMech.GetEngine().IsNuclear() ) {
                         javax.swing.JOptionPane.showMessageDialog( lstChooseArtillery.getTopLevelAncestor(), a.GetCritName() + " may not be mounted because the mech\ndoes not use a nuclear engine (fission or fusion)." );
@@ -6043,6 +6078,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         };
         lstChooseArtillery.addMouseListener( mlArtillery );
+        lstChooseArtillery.setCellRenderer( new ssw.gui.EquipmentListRenderer( this ) );
         jScrollPane24.setViewportView(lstChooseArtillery);
 
         pnlArtillery.add(jScrollPane24);
@@ -6087,7 +6123,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     int index = lstChooseAmmunition.locationToIndex( e.getPoint() );
                     if( index < 0 ) { return; }
                     abPlaceable a = (abPlaceable) Equipment[AMMUNITION][index];
-                    a = Ammo.GetCopy( a );
+                    a = data.GetEquipment().GetCopy( a, CurMech );
 
                     // add it to the loadout
                     CurMech.GetLoadout().AddToQueue( a );
@@ -6111,6 +6147,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         };
         lstChooseAmmunition.addMouseListener( mlAmmo );
+        lstChooseAmmunition.setCellRenderer( new ssw.gui.EquipmentListRenderer( this ) );
         jScrollPane22.setViewportView(lstChooseAmmunition);
 
         pnlAmmunition.add(jScrollPane22);
@@ -6216,7 +6253,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 lstSelectedEquipmentValueChanged(evt);
             }
         });
-        lstSelectedEquipment.setCellRenderer( new EquipmentListRenderer( this ) );
+        lstSelectedEquipment.setCellRenderer( new ssw.gui.EquipmentSelectedRenderer( this ) );
         jScrollPane23.setViewportView(lstSelectedEquipment);
 
         pnlSelected.add(jScrollPane23);
@@ -7844,6 +7881,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstCritsToPlace.setDragEnabled(true);
         lstCritsToPlace.setMaximumSize(new java.awt.Dimension(150, 10000));
         lstCritsToPlace.setMinimumSize(new java.awt.Dimension(150, 80));
+        lstCritsToPlace.setName("[150, 80]"); // NOI18N
         lstCritsToPlace.setPreferredSize(null);
         lstCritsToPlace.setVisibleRowCount(20);
         MouseListener mlCritsToPlace = new MouseAdapter() {
@@ -7898,6 +7936,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         };
         lstCritsToPlace.addMouseListener( mlCritsToPlace );
         lstCritsToPlace.setTransferHandler( new thQueueTransferHandler() );
+        lstCritsToPlace.setCellRenderer( new ssw.gui.EquipmentListRenderer( this ) );
         lstCritsToPlace.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 lstCritsToPlaceValueChanged(evt);
@@ -9218,7 +9257,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_btnClearImageActionPerformed
 
     private void cmbHeatSinkTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHeatSinkTypeActionPerformed
-        if( CurMech.GetHeatSinks().GetLookupName().equals( (String) cmbHeatSinkType.getSelectedItem() ) ) {
+        if( BuildLookupName( CurMech.GetHeatSinks().GetCurrentState() ).equals( (String) cmbHeatSinkType.getSelectedItem() ) ) {
             return;
         }
         RecalcHeatSinks();
@@ -9276,36 +9315,44 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // change the year range and tech base options
         switch( cmbMechEra.getSelectedIndex() ) {
-            case 0:
+            case AvailableCode.ERA_STAR_LEAGUE:
                 lblEraYears.setText( "2443 ~ 2800" );
-                cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere" }));
                 txtProdYear.setText( "" );
-                CurMech.SetEra( Constants.STAR_LEAGUE );
+                CurMech.SetEra( AvailableCode.ERA_STAR_LEAGUE );
                 CurMech.SetYear( 2750, false );
+                chkYearRestrict.setEnabled( true );
                 break;
-            case 1:
+            case AvailableCode.ERA_SUCCESSION:
                 lblEraYears.setText( "2801 ~ 3050" );
-                cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
                 txtProdYear.setText( "" );
-                CurMech.SetEra( Constants.SUCCESSION );
+                CurMech.SetEra( AvailableCode.ERA_SUCCESSION );
                 CurMech.SetYear( 3025, false );
+                chkYearRestrict.setEnabled( true );
                 break;
-            case 2:
-                lblEraYears.setText( "3051 on" );
-                cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
+            case AvailableCode.ERA_CLAN_INVASION:
+                lblEraYears.setText( "3051 ~ 3131" );
                 txtProdYear.setText( "" );
-                CurMech.SetEra( Constants.CLAN_INVASION );
-                CurMech.SetYear( 3070, false );
+                CurMech.SetEra( AvailableCode.ERA_CLAN_INVASION );
+                CurMech.SetYear( 3075, false );
+                chkYearRestrict.setEnabled( true );
                 break;
-            case 3:
+            case AvailableCode.ERA_DARK_AGES:
+                lblEraYears.setText( "3132 on" );
+                txtProdYear.setText( "" );
+                CurMech.SetEra( AvailableCode.ERA_DARK_AGES );
+                CurMech.SetYear( 3132, false );
+                chkYearRestrict.setEnabled( true );
+                break;
+            case AvailableCode.ERA_ALL:
                 lblEraYears.setText( "Any" );
-                cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
                 txtProdYear.setText( "" );
-                CurMech.SetEra( Constants.ALL_ERA );
+                CurMech.SetEra( AvailableCode.ERA_ALL );
                 CurMech.SetYear( 0, false );
                 chkYearRestrict.setEnabled( false );
                 break;
         }
+
+        BuildTechBaseSelector();
 
         // reset the tech base if it's still allowed
         if( tbsave < cmbTechBase.getItemCount() ) {
@@ -9445,7 +9492,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // We have to decode the selected index to set values.  A bit safer, I
         // think, because we can directly set the values ourselves.
         int Tons = 0;
-        int CurTons = CurMech.GetTonnage();
         switch ( cmbTonnage.getSelectedIndex() ) {
             case 0:
                 // 10 ton 'Mech.  Need to check the settings first
@@ -9579,23 +9625,25 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void cmbTechBaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTechBaseActionPerformed
         if( Load ) { return; }
         // do we really need to do this?
-        if( cmbTechBase.getSelectedIndex() == 0 ) {
-            if( ! CurMech.IsClan() ) { return; }
-        } else {
-            if( CurMech.IsClan() ) { return; }
-        }
+        if( CurMech.GetTechBase() == cmbTechBase.getSelectedIndex() ) { return; }
 
         // save the current selections
         SaveSelections();
 
         // now change the mech over to the new techbase
-        if( cmbTechBase.getSelectedIndex() == 0 ) {
-            CurMech.SetInnerSphere();
-        } else {
-            CurMech.SetClan();
+        switch( cmbTechBase.getSelectedIndex() ) {
+            case AvailableCode.TECH_INNER_SPHERE:
+                CurMech.SetInnerSphere();
+                break;
+            case AvailableCode.TECH_CLAN:
+                CurMech.SetClan();
+                break;
+            case AvailableCode.TECH_BOTH:
+                CurMech.SetMixed();
+                break;
         }
 
-        data.GetEquipment().rebuildIndustrialEquipment( CurMech );
+        data.Rebuild( CurMech );
 
         // refresh all the combo boxes.
         BuildChassisSelector();
@@ -9633,7 +9681,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_cmbTechBaseActionPerformed
 
     private void cmbPhysEnhanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPhysEnhanceActionPerformed
-        if( CurMech.GetPhysEnhance().GetLookupName().equals( (String) cmbPhysEnhance.getSelectedItem() ) ) {
+        if( BuildLookupName( CurMech.GetPhysEnhance().GetCurrentState() ).equals( (String) cmbPhysEnhance.getSelectedItem() ) ) {
             return;
         }
 
@@ -9668,7 +9716,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_cmbCockpitTypeActionPerformed
 
     private void cmbGyroTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGyroTypeActionPerformed
-        if( CurMech.GetGyro().GetLookupName().equals( (String) cmbGyroType.getSelectedItem() ) ) {
+        if( BuildLookupName( CurMech.GetGyro().GetCurrentState() ).equals( (String) cmbGyroType.getSelectedItem() ) ) {
             return;
         }
         RecalcGyro();
@@ -9679,7 +9727,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_cmbGyroTypeActionPerformed
 
     private void cmbEngineTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEngineTypeActionPerformed
-        if( CurMech.GetEngine().GetLookupName().equals( (String) cmbEngineType.getSelectedItem() ) ) {
+        if( BuildLookupName( CurMech.GetEngine().GetCurrentState() ).equals( (String) cmbEngineType.getSelectedItem() ) ) {
             // only nuclear-powered mechs may use jump jets
             if( CurMech.GetEngine().IsNuclear() ) {
                 if( cmbJumpJetType.getSelectedItem() == null ) {
@@ -9711,7 +9759,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_cmbEngineTypeActionPerformed
 
     private void cmbInternalTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbInternalTypeActionPerformed
-        if( CurMech.GetIntStruc().GetLookupName().equals( (String) cmbInternalType.getSelectedItem() ) ) {
+        if( BuildLookupName( CurMech.GetIntStruc().GetCurrentState() ).equals( (String) cmbInternalType.getSelectedItem() ) ) {
             return;
         }
         RecalcIntStruc();
@@ -9773,7 +9821,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_mnuCreditsActionPerformed
 
     private void cmbArmorTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbArmorTypeActionPerformed
-        if( CurMech.GetArmor().GetLookupName().equals( (String) cmbArmorType.getSelectedItem() ) ) {
+        if( BuildLookupName( CurMech.GetArmor().GetCurrentState() ).equals( (String) cmbArmorType.getSelectedItem() ) ) {
             return;
         }
         RecalcArmor();
@@ -10566,31 +10614,31 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         case BALLISTIC:
             if( lstChooseBallistic.getSelectedIndex() < 0 ) { break; }
             a = (abPlaceable) Equipment[BALLISTIC][lstChooseBallistic.getSelectedIndex()];
-            a = Weapons.GetCopy( a );
+            a = data.GetEquipment().GetCopy( a, CurMech );
             break;
         case ENERGY:
             if( lstChooseEnergy.getSelectedIndex() < 0 ) { break; }
             a = (abPlaceable) Equipment[ENERGY][lstChooseEnergy.getSelectedIndex()];
-            a = Weapons.GetCopy( a );
+            a = data.GetEquipment().GetCopy( a, CurMech );
             break;
         case MISSILE:
             if( lstChooseMissile.getSelectedIndex() < 0 ) { break; }
             a = (abPlaceable) Equipment[MISSILE][lstChooseMissile.getSelectedIndex()];
-            a = Weapons.GetCopy( a );
-            if( ((MissileWeapon) a).IsFCSCapable() ) {
+            a = data.GetEquipment().GetCopy( a, CurMech );
+            if( ((RangedWeapon) a).IsFCSCapable() ) {
                 if( CurMech.UsingArtemisIV() ) {
-                    if( ((MissileWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisIV || ((MissileWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisV ) {
-                        ((MissileWeapon) a).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV );
+                    if( ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisIV || ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisV ) {
+                        ((RangedWeapon) a).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV );
                     }
                 }
                 if( CurMech.UsingArtemisV() ) {
-                    if( ((MissileWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisV ) {
-                        ((MissileWeapon) a).UseFCS( true, ifMissileGuidance.FCS_ArtemisV );
+                    if( ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisV ) {
+                        ((RangedWeapon) a).UseFCS( true, ifMissileGuidance.FCS_ArtemisV );
                     }
                 }
                 if( CurMech.UsingApollo() ) {
-                    if( ((MissileWeapon) a).GetFCSType() == ifMissileGuidance.FCS_Apollo ) {
-                        ((MissileWeapon) a).UseFCS( true, ifMissileGuidance.FCS_Apollo );
+                    if( ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_Apollo ) {
+                        ((RangedWeapon) a).UseFCS( true, ifMissileGuidance.FCS_Apollo );
                     }
                 }
             }
@@ -10601,7 +10649,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 break;
             }
             a = (abPlaceable) Equipment[PHYSICAL][lstChoosePhysical.getSelectedIndex()];
-            a = Weapons.GetCopy( a );
+            a = data.GetEquipment().GetCopy( a, CurMech );
             break;
         case ARTILLERY:
             if( lstChooseArtillery.getSelectedIndex() < 0 ) { break; }
@@ -10609,7 +10657,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 break;
             }
             a = (abPlaceable) Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()];
-            a = Weapons.GetCopy( a );
+            a = data.GetEquipment().GetCopy( a, CurMech );
             break;
         case EQUIPMENT:
             if( lstChooseEquipment.getSelectedIndex() < 0 ) { break; }
@@ -10617,7 +10665,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 break;
             }
             a = (abPlaceable) Equipment[EQUIPMENT][lstChooseEquipment.getSelectedIndex()];
-            a = Equips.GetCopy( a );
+            a = data.GetEquipment().GetCopy( a, CurMech );
             break;
         case AMMUNITION:
             if( lstChooseAmmunition.getSelectedIndex() < 0 ) { break; }
@@ -10626,7 +10674,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 break;
             }
             a = (abPlaceable) Equipment[AMMUNITION][Index];
-            a = Ammo.GetCopy( a );
+            a = data.GetEquipment().GetCopy( a, CurMech );
             break;
         }
 
@@ -10750,13 +10798,22 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( chkUseTC.isSelected() ) {
             try {
                 CurMech.GetLoadout().CheckExclusions( CurMech.GetTC() );
-                CurMech.UseTC( true );
+                if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                    dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
+                    tech.setLocationRelativeTo( this );
+                    tech.setVisible( true );
+                    CurMech.UseTC( true, tech.IsClan() );
+                } else if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                    CurMech.UseTC( true, true );
+                } else {
+                    CurMech.UseTC( true, false );
+                }
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
-                CurMech.UseTC( false );
+                CurMech.UseTC( false, false );
             }
         } else {
-            CurMech.UseTC( false );
+            CurMech.UseTC( false, false );
         }
 
         // now refresh the information panes
@@ -10973,15 +11030,21 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             txtProdYear.setEnabled( true );
             CurMech.SetYearRestricted( false );
             switch( cmbMechEra.getSelectedIndex() ) {
-            case Constants.STAR_LEAGUE:
-                CurMech.SetYear( 2750, false );
-                break;
-            case Constants.SUCCESSION:
-                CurMech.SetYear( 3025, false );
-                break;
-            case Constants.CLAN_INVASION:
-                CurMech.SetYear( 3070, false );
-                break;
+                case AvailableCode.ERA_STAR_LEAGUE:
+                    CurMech.SetYear( 2750, false );
+                    break;
+                case AvailableCode.ERA_SUCCESSION:
+                    CurMech.SetYear( 3025, false );
+                    break;
+                case AvailableCode.ERA_CLAN_INVASION:
+                    CurMech.SetYear( 3070, false );
+                    break;
+                case AvailableCode.ERA_DARK_AGES:
+                    CurMech.SetYear( 3132, false );
+                    break;
+                case AvailableCode.ERA_ALL:
+                    CurMech.SetYear( 0, false );
+                    break;
             }
         } else {
             // ensure we have a good year.
@@ -10996,7 +11059,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
             // ensure the year is between the era years.
             switch ( cmbMechEra.getSelectedIndex() ) {
-                case 0:
+                case AvailableCode.ERA_STAR_LEAGUE:
                     // Star League era
                     if( year < 2443 || year > 2800 ) {
                         javax.swing.JOptionPane.showMessageDialog( this, "The year does not fall within this era." );
@@ -11005,7 +11068,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         return;
                     }
                     break;
-                case 1:
+                case AvailableCode.ERA_SUCCESSION:
                     // Succession Wars era
                     if( year < 2801 || year > 3050 ) {
                         javax.swing.JOptionPane.showMessageDialog( this, "The year does not fall within this era." );
@@ -11014,16 +11077,25 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         return;
                     }
                     break;
-                case 2:
+                case AvailableCode.ERA_CLAN_INVASION:
                     // Clan Invasion Era
-                    if( year < 3051 ) {
+                    if( year < 3051 || year > 3131 ) {
                         javax.swing.JOptionPane.showMessageDialog( this, "The year does not fall within this era." );
                         txtProdYear.setText( "" );
                         chkYearRestrict.setSelected( false );
                         return;
                     }
                     break;
-                case 3:
+                case AvailableCode.ERA_DARK_AGES:
+                    // Clan Invasion Era
+                    if( year < 3132 ) {
+                        javax.swing.JOptionPane.showMessageDialog( this, "The year does not fall within this era." );
+                        txtProdYear.setText( "" );
+                        chkYearRestrict.setSelected( false );
+                        return;
+                    }
+                    break;
+                case AvailableCode.ERA_ALL:
                     // all era
                     chkYearRestrict.setSelected( false );
                     chkYearRestrict.setEnabled( false );
@@ -11124,6 +11196,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
             // get the currently chosen selections
             SaveSelections();
+            BuildTechBaseSelector();
 
             // since you can only ever change the rules level when not restricted,
             // we're not doing it here.  Pass in default values.
@@ -11697,7 +11770,7 @@ private void mnuCostBVBreakdownActionPerformed(java.awt.event.ActionEvent evt) {
 
 private void lstChooseArtilleryValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseArtilleryValueChanged
         if( lstChooseArtillery.getSelectedIndex() < 0 ) { return; }
-        if( ! ( Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()] instanceof Artillery ) ) { return; }
+        if( ! ( Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()] instanceof RangedWeapon ) ) { return; }
         abPlaceable p = (abPlaceable) Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()];
         ShowInfoOn( p );
 }//GEN-LAST:event_lstChooseArtilleryValueChanged
@@ -11960,10 +12033,15 @@ public Mech LoadMech (){
 
     try {
         XMLReader XMLr = new XMLReader();
-        m = XMLr.ReadMech( this, filename );
+        m = XMLr.ReadMech( this, filename, data );
     } catch( Exception e ) {
         // had a problem loading the mech.  let the user know.
-        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        if( e.getMessage() == null ) {
+            javax.swing.JOptionPane.showMessageDialog( this, "An unknown error has occured.  The log file has been updated." );
+            e.printStackTrace();
+        } else {
+            javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        }
         return m;
     }
 
@@ -11977,7 +12055,7 @@ private void LoadMechFromPreferences()
     if (! filename.isEmpty() ) {
         try {
             XMLReader XMLr = new XMLReader();
-            m = XMLr.ReadMech( this, filename );
+            m = XMLr.ReadMech( this, filename, data );
             CurMech = m;
             LoadMechIntoGUI();
         } catch( Exception e ) {
@@ -12023,24 +12101,24 @@ public void LoadMechIntoGUI() {
     cmbTechBase.setEnabled( true );
     txtProdYear.setEnabled( true );
     switch( CurMech.GetEra() ) {
-        case Constants.STAR_LEAGUE:
+        case AvailableCode.ERA_STAR_LEAGUE:
             lblEraYears.setText( "2443 ~ 2800" );
-            cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere" }));
             break;
-        case Constants.SUCCESSION:
+        case AvailableCode.ERA_SUCCESSION:
             lblEraYears.setText( "2801 ~ 3050" );
-            cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
             break;
-        case Constants.CLAN_INVASION:
-            lblEraYears.setText( "3051 on" );
-            cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
+        case AvailableCode.ERA_CLAN_INVASION:
+            lblEraYears.setText( "3051 ~ 3131" );
             break;
-        case Constants.ALL_ERA:
+        case AvailableCode.ERA_DARK_AGES:
+            lblEraYears.setText( "3132 on" );
+            break;
+        case AvailableCode.ERA_ALL:
             lblEraYears.setText( "Any" );
-            cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan" }));
             break;
     }
 
+    BuildTechBaseSelector();
     cmbRulesLevel.setSelectedIndex( CurMech.GetRulesLevel() );
     cmbMechEra.setSelectedIndex( CurMech.GetEra() );
     cmbTechBase.setSelectedIndex( CurMech.GetTechBase() );
@@ -12073,20 +12151,20 @@ public void LoadMechIntoGUI() {
     BuildHeatsinkSelector();
     BuildJumpJetSelector();
     BuildArmorSelector();
-    cmbInternalType.setSelectedItem( CurMech.GetIntStruc().GetLookupName() );
-    cmbEngineType.setSelectedItem( CurMech.GetEngine().GetLookupName() );
-    cmbGyroType.setSelectedItem( CurMech.GetGyro().GetLookupName() );
+    cmbInternalType.setSelectedItem( BuildLookupName( CurMech.GetIntStruc().GetCurrentState() ) );
+    cmbEngineType.setSelectedItem( BuildLookupName( CurMech.GetEngine().GetCurrentState() ) );
+    cmbGyroType.setSelectedItem( BuildLookupName( CurMech.GetGyro().GetCurrentState() ) );
     cmbCockpitType.setSelectedItem( CurMech.GetCockpit().GetLookupName() );
-    cmbPhysEnhance.setSelectedItem( CurMech.GetPhysEnhance().GetLookupName() );
-    cmbHeatSinkType.setSelectedItem( CurMech.GetHeatSinks().GetLookupName() );
+    cmbPhysEnhance.setSelectedItem( BuildLookupName( CurMech.GetPhysEnhance().GetCurrentState() ) );
+    cmbHeatSinkType.setSelectedItem( BuildLookupName( CurMech.GetHeatSinks().GetCurrentState() ) );
     cmbJumpJetType.setSelectedItem( CurMech.GetJumpJets().GetLookupName() );
-    cmbArmorType.setSelectedItem( CurMech.GetArmor().GetLookupName() );
+    cmbArmorType.setSelectedItem( BuildLookupName( CurMech.GetArmor().GetCurrentState() ) );
     FixWalkMPSpinner();
     FixHeatSinkSpinnerModel();
     FixJJSpinnerModel();
     RefreshInternalPoints();
     FixArmorSpinners();
-    Weapons.RebuildPhysicals( CurMech );
+    data.Rebuild( CurMech );
     RefreshEquipment();
     chkCTCASE.setSelected( CurMech.HasCTCase() );
     chkLTCASE.setSelected( CurMech.HasLTCase() );
@@ -12259,14 +12337,23 @@ private void chkCTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         if( CurMech.GetLoadout().HasCTCASEII() == chkCTCASE2.isSelected() ) { return; }
         if( chkCTCASE2.isSelected() ) {
             try {
-                CurMech.GetLoadout().SetCTCASEII( true, -1 );
+                if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                    dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
+                    tech.setLocationRelativeTo( this );
+                    tech.setVisible( true );
+                    CurMech.GetLoadout().SetCTCASEII( true, -1, tech.IsClan() );
+                } else if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                    CurMech.GetLoadout().SetCTCASEII( true, -1, true );
+                } else {
+                    CurMech.GetLoadout().SetCTCASEII( true, -1, false );
+                }
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkCTCASE2.setSelected( false );
             }
         } else {
             try {
-                CurMech.GetLoadout().SetCTCASEII( false, -1 );
+                CurMech.GetLoadout().SetCTCASEII( false, -1, false );
             } catch( Exception e ) {
                 // removing CASE II should never return an exception.  log it.
                 System.err.println( "Received an error removing CT CASE II:" );
@@ -12284,14 +12371,23 @@ private void chkRACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         if( CurMech.GetLoadout().HasRACASEII() == chkRACASE2.isSelected() ) { return; }
         if( chkRACASE2.isSelected() ) {
             try {
-                CurMech.GetLoadout().SetRACASEII( true, -1 );
+                if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                    dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
+                    tech.setLocationRelativeTo( this );
+                    tech.setVisible( true );
+                    CurMech.GetLoadout().SetRACASEII( true, -1, tech.IsClan() );
+                } else if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                    CurMech.GetLoadout().SetRACASEII( true, -1, true );
+                } else {
+                    CurMech.GetLoadout().SetRACASEII( true, -1, false );
+                }
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkRACASE2.setSelected( false );
             }
         } else {
             try {
-                CurMech.GetLoadout().SetRACASEII( false, -1 );
+                CurMech.GetLoadout().SetRACASEII( false, -1, false );
             } catch( Exception e ) {
                 // removing CASE II should never return an exception.  log it.
                 System.err.println( "Received an error removing RA CASE II:" );
@@ -12309,14 +12405,23 @@ private void chkRTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         if( CurMech.GetLoadout().HasRTCASEII() == chkRTCASE2.isSelected() ) { return; }
         if( chkRTCASE2.isSelected() ) {
             try {
-                CurMech.GetLoadout().SetRTCASEII( true, -1 );
+                if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                    dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
+                    tech.setLocationRelativeTo( this );
+                    tech.setVisible( true );
+                    CurMech.GetLoadout().SetRTCASEII( true, -1, tech.IsClan() );
+                } else if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                    CurMech.GetLoadout().SetRTCASEII( true, -1, true );
+                } else {
+                    CurMech.GetLoadout().SetRTCASEII( true, -1, false );
+                }
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkRTCASE2.setSelected( false );
             }
         } else {
             try {
-                CurMech.GetLoadout().SetRTCASEII( false, -1 );
+                CurMech.GetLoadout().SetRTCASEII( false, -1, false );
             } catch( Exception e ) {
                 // removing CASE II should never return an exception.  log it.
                 System.err.println( "Received an error removing RT CASE II:" );
@@ -12334,14 +12439,23 @@ private void chkRLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         if( CurMech.GetLoadout().HasRLCASEII() == chkRLCASE2.isSelected() ) { return; }
         if( chkRLCASE2.isSelected() ) {
             try {
-                CurMech.GetLoadout().SetRLCASEII( true, -1 );
+                if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                    dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
+                    tech.setLocationRelativeTo( this );
+                    tech.setVisible( true );
+                    CurMech.GetLoadout().SetRLCASEII( true, -1, tech.IsClan() );
+                } else if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                    CurMech.GetLoadout().SetRLCASEII( true, -1, true );
+                } else {
+                    CurMech.GetLoadout().SetRLCASEII( true, -1, false );
+                }
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkRLCASE2.setSelected( false );
             }
         } else {
             try {
-                CurMech.GetLoadout().SetRLCASEII( false, -1 );
+                CurMech.GetLoadout().SetRLCASEII( false, -1, false );
             } catch( Exception e ) {
                 // removing CASE II should never return an exception.  log it.
                 System.err.println( "Received an error removing RL CASE II:" );
@@ -12359,14 +12473,23 @@ private void chkHDCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         if( CurMech.GetLoadout().HasHDCASEII() == chkHDCASE2.isSelected() ) { return; }
         if( chkHDCASE2.isSelected() ) {
             try {
-                CurMech.GetLoadout().SetHDCASEII( true, -1 );
+                if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                    dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
+                    tech.setLocationRelativeTo( this );
+                    tech.setVisible( true );
+                    CurMech.GetLoadout().SetHDCASEII( true, -1, tech.IsClan() );
+                } else if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                    CurMech.GetLoadout().SetHDCASEII( true, -1, true );
+                } else {
+                    CurMech.GetLoadout().SetHDCASEII( true, -1, false );
+                }
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkHDCASE2.setSelected( false );
             }
         } else {
             try {
-                CurMech.GetLoadout().SetHDCASEII( false, -1 );
+                CurMech.GetLoadout().SetHDCASEII( false, -1, false );
             } catch( Exception e ) {
                 // removing CASE II should never return an exception.  log it.
                 System.err.println( "Received an error removing HD CASE II:" );
@@ -12384,14 +12507,23 @@ private void chkLTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         if( CurMech.GetLoadout().HasLTCASEII() == chkLTCASE2.isSelected() ) { return; }
         if( chkLTCASE2.isSelected() ) {
             try {
-                CurMech.GetLoadout().SetLTCASEII( true, -1 );
+                if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                    dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
+                    tech.setLocationRelativeTo( this );
+                    tech.setVisible( true );
+                    CurMech.GetLoadout().SetLTCASEII( true, -1, tech.IsClan() );
+                } else if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                    CurMech.GetLoadout().SetLTCASEII( true, -1, true );
+                } else {
+                    CurMech.GetLoadout().SetLTCASEII( true, -1, false );
+                }
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkLTCASE2.setSelected( false );
             }
         } else {
             try {
-                CurMech.GetLoadout().SetLTCASEII( false, -1 );
+                CurMech.GetLoadout().SetLTCASEII( false, -1, false );
             } catch( Exception e ) {
                 // removing CASE II should never return an exception.  log it.
                 System.err.println( "Received an error removing LT CASE II:" );
@@ -12409,14 +12541,23 @@ private void chkLLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         if( CurMech.GetLoadout().HasLLCASEII() == chkLLCASE2.isSelected() ) { return; }
         if( chkLLCASE2.isSelected() ) {
             try {
-                CurMech.GetLoadout().SetLLCASEII( true, -1 );
+                if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                    dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
+                    tech.setLocationRelativeTo( this );
+                    tech.setVisible( true );
+                    CurMech.GetLoadout().SetLLCASEII( true, -1, tech.IsClan() );
+                } else if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                    CurMech.GetLoadout().SetLLCASEII( true, -1, true );
+                } else {
+                    CurMech.GetLoadout().SetLLCASEII( true, -1, false );
+                }
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkLLCASE2.setSelected( false );
             }
         } else {
             try {
-                CurMech.GetLoadout().SetLLCASEII( false, -1 );
+                CurMech.GetLoadout().SetLLCASEII( false, -1, false );
             } catch( Exception e ) {
                 // removing CASE II should never return an exception.  log it.
                 System.err.println( "Received an error removing LL CASE II:" );
@@ -12434,14 +12575,23 @@ private void chkLACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         if( CurMech.GetLoadout().HasLACASEII() == chkLACASE2.isSelected() ) { return; }
         if( chkLACASE2.isSelected() ) {
             try {
-                CurMech.GetLoadout().SetLACASEII( true, -1 );
+                if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                    dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
+                    tech.setLocationRelativeTo( this );
+                    tech.setVisible( true );
+                    CurMech.GetLoadout().SetLACASEII( true, -1, tech.IsClan() );
+                } else if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                    CurMech.GetLoadout().SetLACASEII( true, -1, true );
+                } else {
+                    CurMech.GetLoadout().SetLACASEII( true, -1, false );
+                }
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 chkLACASE2.setSelected( false );
             }
         } else {
             try {
-                CurMech.GetLoadout().SetLACASEII( false, -1 );
+                CurMech.GetLoadout().SetLACASEII( false, -1, false );
             } catch( Exception e ) {
                 // removing CASE II should never return an exception.  log it.
                 System.err.println( "Received an error removing LA CASE II:" );

@@ -28,13 +28,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
-import ssw.Constants;
 import ssw.components.*;
 
 public class stArmorCLFL implements ifArmor, ifState {
     boolean locked = false;
-    private final static AvailableCode AC = new AvailableCode( true, 'F', 'X', 'X', 'F',
-        3070, 0, 0, "CSR", "", false, false, 3066, true, "CSR", Constants.EXPERIMENTAL, Constants.EXPERIMENTAL  );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_CLAN );
+
+    public stArmorCLFL() {
+        AC.SetCLCodes( 'F', 'X', 'X', 'F' );
+        AC.SetCLDates( 3066, 3070, true, 3070, 0, 0, false, false );
+        AC.SetCLFactions( "CSR", "CSR", "", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
+    }
 
     public String GetLookupName() {
         return "Ferro-Lamellor";
@@ -48,8 +53,8 @@ public class stArmorCLFL implements ifArmor, ifState {
         return "Ferro-Lamellor";
     }
 
-    public boolean IsClan() {
-        return true;
+    public boolean HasCounterpart() {
+        return false;
     }
 
     public boolean Place( Armor a, ifLoadout l ) {

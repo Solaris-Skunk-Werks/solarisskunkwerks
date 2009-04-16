@@ -31,8 +31,7 @@ package ssw.components;
 public class ActuatorSet {
     // this is a little class to encapsulate all the actuators on a mech.  It's
     // here to keep things clean within the mech.
-    private final static AvailableCode AC = new AvailableCode( false, 'C', 'C', 'C', 'C',
-        2300, 0, 0, "TH", "", false, false );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
     private boolean LHInstalled = true,
                     RHInstalled = true,
                     LLAInstalled = true,
@@ -66,6 +65,13 @@ public class ActuatorSet {
     private ifLoadout Owner;
     
     public ActuatorSet( ifLoadout l, Mech m ) {
+        AC.SetISCodes( 'C', 'C', 'C', 'C' );
+        AC.SetISDates( 0, 0, false, 2300, 0, 0, false, false );
+        AC.SetISFactions( "", "", "TH", "" );
+        AC.SetCLCodes( 'C', 'X', 'C', 'C' );
+        AC.SetCLDates( 0, 0, false, 2300, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "TH", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = l;
         LeftHip = new Actuator( "Hip", "Hip", true, AC, 0.0f, m );
         RightHip = new Actuator( "Hip", "Hip", true, AC, 0.0f, m );
@@ -643,7 +649,7 @@ public class ActuatorSet {
 
     public AvailableCode GetAvailability() {
         // returns an availablecode for all actuators
-        AvailableCode retval = new AvailableCode( Owner.GetMech().IsClan(), 'C', 'C', 'C', 'C', 2300, 0, 0, "TH", "", false, false );
+        AvailableCode retval = AC.Clone();
         if( Owner.IsQuad() ) {
             // This is easy since no actuators will ever be removed
             retval.Combine( LeftHip.GetAvailability() );

@@ -33,18 +33,20 @@ import ssw.components.*;
 public class VChassisSetComposite implements ifVisitor {
     private Mech CurMech;
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
 
-    public void Visit(Mech m) {
+    public void Visit( Mech m ) {
         // Since all we're doing is changing the internal structure type, send
         // us to the internal structure and we're done here.
         CurMech = m;
         InternalStructure i = CurMech.GetIntStruc();
 
         // recalculates the internal structure if anything happened.
-        if( CurMech.IsClan() ){ return; }
         ifLoadout l = CurMech.GetLoadout();
 
         // remove the internal structure from the loadout

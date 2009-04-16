@@ -35,6 +35,9 @@ public class VEngineSetLightFusion implements ifVisitor {
     private Mech CurMech;
     LocationIndex[] Locs = null;
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations( LocationIndex[] locs ) {
         Locs = locs;
     }
@@ -63,12 +66,7 @@ public class VEngineSetLightFusion implements ifVisitor {
         e.Remove(l);
 
         // change the engine type
-        if( CurMech.IsClan() ) {
-            // set clans to standard in case this is ever called for a clan mech
-            e.SetCLFUEngine();
-        } else {
-            e.SetISLFEngine();
-        }
+        e.SetISLFEngine();
 
         // place the engine
         if( Locs == null ) {

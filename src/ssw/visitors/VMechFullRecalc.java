@@ -34,6 +34,9 @@ public class VMechFullRecalc implements ifVisitor {
     // this visitor does a full recalculation of the mech.  This is usually done
     // when the mech is initialized or the techbase changes.
 
+    public void SetClan( boolean clan ) {
+    }
+
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }

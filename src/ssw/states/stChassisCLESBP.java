@@ -28,7 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
-import ssw.Constants;
 import ssw.components.*;
 
 public class stChassisCLESBP implements ifChassis, ifState {
@@ -56,17 +55,19 @@ public class stChassisCLESBP implements ifChassis, ifState {
         { 29, 19, 15, 19 },
         { 30, 20, 16, 20 },
         { 31, 21, 17, 21 } };
-    private final static AvailableCode AC = new AvailableCode( true, 'E', 'X', 'C', 'D',
-        2487, 0, 0, "TH", "", false, false );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_CLAN );
 
     public stChassisCLESBP() {
-        AC.SetRulesLevelIM( Constants.UNALLOWED );
+        AC.SetCLCodes( 'E', 'X', 'C', 'D' );
+        AC.SetCLDates( 0, 0, false, 2487, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "TH", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
-    public boolean IsClan() {
+    public boolean HasCounterpart() {
         return true;
     }
-    
+
     public int GetCrits() {
         return 7;
     }

@@ -31,7 +31,7 @@ package ssw.utilities;
 import java.util.Vector;
 import ssw.components.ifWeapon;
 import ssw.components.Ammunition;
-import ssw.components.MissileWeapon;
+import ssw.components.RangedWeapon;
 
 public class WeaponInfo {
     // contains a weapon and ammo pairing (may hold multiple ammos)
@@ -145,9 +145,9 @@ public class WeaponInfo {
     private int GetAverageClusterSize() {
         int index = 7; // the average roll
         int size = Weapon.GetDamageShort() * Weapon.ClusterSize();
-        if( Weapon instanceof MissileWeapon ) {
-            if( ((MissileWeapon) Weapon).IsUsingFCS() ) {
-                index += ((MissileWeapon) Weapon).GetFCS().GetClusterTableBonus();
+        if( Weapon instanceof RangedWeapon ) {
+            if( ((RangedWeapon) Weapon).IsUsingFCS() ) {
+                index += ((RangedWeapon) Weapon).GetFCS().GetClusterTableBonus();
             }
         }
         if( size > 30 ) {

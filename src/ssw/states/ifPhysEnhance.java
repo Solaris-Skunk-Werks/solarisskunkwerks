@@ -32,7 +32,6 @@ import ssw.components.*;
 
 public interface ifPhysEnhance {
     // An interface for the two physical enhancements a mech can mount
-    public boolean IsClan();
     public int GetTonnage( int mechtons );
     public int GetCrits( int mechtons );
     public String GetCritName();

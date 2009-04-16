@@ -31,31 +31,27 @@ package ssw.components;
 import ssw.states.*;
 
 public class Cockpit extends abPlaceable {
-    private final static ifCockpit ClanCockpit = new stCockpitCL(),
-                                   ISCockpit = new stCockpitIS(),
+    private final static ifCockpit StandardCockpit = new stCockpitStandard(),
                                    SmallCockpit = new stCockpitISSmall(),
-                                   ISTorsoMount = new stCockpitISTM(),
-                                   CLTorsoMount = new stCockpitCLTM(),
+                                   TorsoCockpit = new stCockpitTorsoMount(),
                                    Primitive = new stCockpitISPrimitive(),
-                                   ISIndusCockpit = new stCockpitISIndustrial(),
-                                   ISIndusAFCCockpit = new stCockpitISIndustrialAFC(),
-                                   CLIndusCockpit = new stCockpitCLIndustrial(),
-                                   CLIndusAFCCockpit = new stCockpitCLIndustrialAFC();
-    private ifCockpit CurConfig = ISCockpit;
+                                   IndustrialCockpit = new stCockpitIndustrial(),
+                                   IndusAFCCockpit = new stCockpitIndustrialAFC();
+    private ifCockpit CurConfig = StandardCockpit;
     private Mech Owner;
 
     public Cockpit( Mech m ) {
         Owner = m;
     }
 
-    public void SetISCockpit() {
-        CurConfig = ISCockpit;
+    public int GetTechBase() {
+        return CurConfig.GetAvailability().GetTechBase();
     }
-    
-    public void SetClanCockpit() {
-        CurConfig = ClanCockpit;
+
+    public void SetStandardCockpit() {
+        CurConfig = StandardCockpit;
     }
-    
+
     public void SetSmallCockpit() {
         CurConfig = SmallCockpit;
     }
@@ -64,32 +60,16 @@ public class Cockpit extends abPlaceable {
         CurConfig = Primitive;
     }
 
-    public void SetISIndustrialCockpit() {
-        CurConfig = ISIndusCockpit;
+    public void SetIndustrialCockpit() {
+        CurConfig = IndustrialCockpit;
     }
 
-    public void SetISIndustrialAFCCockpit() {
-        CurConfig = ISIndusAFCCockpit;
+    public void SetIndustrialAFCCockpit() {
+        CurConfig = IndusAFCCockpit;
     }
 
-    public void SetISTorsoMount() {
-        CurConfig = ISTorsoMount;
-    }
-
-    public void SetCLTorsoMount() {
-        CurConfig = CLTorsoMount;
-    }
-
-    public void SetCLIndustrialCockpit() {
-        CurConfig = CLIndusCockpit;
-    }
-
-    public void SetCLIndustrialAFCCockpit() {
-        CurConfig = CLIndusAFCCockpit;
-    }
-
-    public boolean IsClan() {
-        return CurConfig.IsClan();
+    public void SetTorsoMount() {
+        CurConfig = TorsoCockpit;
     }
 
     public float GetTonnage() {
@@ -337,9 +317,8 @@ public class Cockpit extends abPlaceable {
     }
 
     public ifState[] GetStates() {
-        ifState[] retval = { (ifState) ClanCockpit, (ifState) ISCockpit,
-            (ifState) SmallCockpit, (ifState) ISTorsoMount, (ifState) CLTorsoMount, (ifState) ISIndusCockpit,
-            (ifState) CLIndusCockpit, (ifState) ISIndusAFCCockpit, (ifState) CLIndusAFCCockpit };
+        ifState[] retval = { (ifState) StandardCockpit, (ifState) SmallCockpit,
+            (ifState) TorsoCockpit, (ifState) IndustrialCockpit, (ifState) IndusAFCCockpit };
         return retval;
     }
 
@@ -371,14 +350,9 @@ public class Cockpit extends abPlaceable {
     }
 
     public AvailableCode GetAvailability() {
-        AvailableCode AC = CurConfig.GetAvailability();
-        AvailableCode retval = new AvailableCode( AC.IsClan(), AC.GetTechRating(), AC.GetSLCode(), AC.GetSWCode(), AC.GetCICode(), AC.GetIntroDate(), AC.GetExtinctDate(), AC.GetReIntroDate(), AC.GetIntroFaction(), AC.GetReIntroFaction(), AC.WentExtinct(), AC.WasReIntroduced(), AC.GetRandDStart(), AC.IsPrototype(), AC.GetRandDFaction(), AC.GetRulesLevelBM(), AC.GetRulesLevelIM() );
+        AvailableCode retval = CurConfig.GetAvailability().Clone();
         if( IsArmored() ) {
-            if( AC.IsClan() ) {
-                retval.Combine( CLArmoredAC );
-            } else {
-                retval.Combine( ISArmoredAC );
-            }
+            retval.Combine( ArmoredAC );
         }
         return retval;
     }
