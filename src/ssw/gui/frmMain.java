@@ -76,6 +76,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     JMenuItem mnuSelective = new JMenuItem( "Selective Allocate" );
     JMenuItem mnuAuto = new JMenuItem( "Auto-Allocate" );
     JMenuItem mnuArmorComponent = new JMenuItem( "Armor Component" );
+    JMenuItem mnuAddCapacitorPlace = new JMenuItem( "Add Capacitor" );
+    JMenuItem mnuAddCapacitorCrits = new JMenuItem( "Add Capacitor" );
+    JMenuItem mnuAddCapacitorSelect = new JMenuItem( "Add Capacitor" );
+    
     MechLoadoutRenderer Mechrender = new MechLoadoutRenderer( this, GlobalOptions );
     Preferences Prefs;
     boolean Load = false;
@@ -96,10 +100,17 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
               AMMUNITION = 6,
               SELECTED = 7,
               ARTILLERY = 5;
+    private final AvailableCode PPCCapAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     /** Creates new form frmMain */
     public frmMain() {
         Prefs = Preferences.userNodeForPackage(this.getClass());
+
+        // added for easy checking
+        PPCCapAC.SetISCodes( 'E', 'X', 'X', 'E' );
+        PPCCapAC.SetISDates( 3057, 3060, true, 3060, 0, 0, false, false );
+        PPCCapAC.SetISFactions( "DC", "DC", "", "" );
+        PPCCapAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
 
         // fix for NetBeans stupidity.
         pnlDamageChart = new DamageChart();
@@ -138,18 +149,32 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
 
+        mnuAddCapacitorCrits.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                PPCCapacitor();
+            }
+        });
+
         mnuCrits.add( mnuInfoItem );
         mnuCrits.add( mnuMountRear );
         mnuCrits.add( mnuUnallocateAll );
+        mnuCrits.add( mnuAddCapacitorCrits );
         // not at all finished implementing this.  Need to add support for Omnis
         // as well as unallocating takes the armoring off.
         mnuCrits.add( mnuArmorComponent );
         mnuCrits.add( mnuRemoveItem );
         mnuArmorComponent.setVisible( false );
+        mnuAddCapacitorCrits.setVisible( false );
 
         mnuInfoPlacement.addActionListener( new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 GetInfoOn();
+            }
+        });
+
+        mnuAddCapacitorPlace.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                PPCCapacitor();
             }
         });
 
@@ -166,6 +191,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
 
         mnuPlacement.add( mnuInfoPlacement );
+        mnuPlacement.add( mnuAddCapacitorPlace );
         mnuPlacement.add( mnuAuto );
         mnuPlacement.add( mnuSelective );
 
@@ -791,6 +817,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             mnuArmorComponent.setVisible( false );
         }
 
+        // fix ppc capacitor 
+        if( CommonTools.IsAllowed( PPCCapAC, CurMech ) )  {
+            mnuAddCapacitorCrits.setVisible( true );
+            mnuAddCapacitorPlace.setVisible( true );
+        } else {
+            mnuAddCapacitorCrits.setVisible( false );
+            mnuAddCapacitorPlace.setVisible( false );
+        }
+
         // check the command console and ejection seat
         if( CurMech.GetCockpit().IsTorsoMounted() ) {
             chkCommandConsole.setEnabled( false );
@@ -908,6 +943,17 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 // no reason we should get exceptions when unallocating CASE.
                 System.err.println( e.getMessage() );
             }
+        }
+
+        // Clan CASE checkbox
+        if( CurMech.GetTechBase() > AvailableCode.TECH_INNER_SPHERE ) {
+            chkClanCASE.setEnabled( true );
+            if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                chkClanCASE.setSelected( true );
+            }
+        } else {
+            chkClanCASE.setSelected( false );
+            chkClanCASE.setEnabled( false );
         }
 
         // now set all the equipment if needed
@@ -1604,6 +1650,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             cmbSCLoc.setSelectedItem( FileCommon.EncodeLocation( CurMech.GetLoadout().Find( CurMech.GetLoadout().GetSupercharger() ), false ) );
         } else {
             chkSupercharger.setSelected( false );
+        }
+        if( CurMech.GetLoadout().IsUsingClanCASE() ) {
+            chkClanCASE.setSelected( true );
+        } else {
+            chkClanCASE.setSelected( false );
         }
     }
 
@@ -2690,6 +2741,40 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RefreshInfoPane();
     }
 
+    private void PPCCapacitor() {
+        // if the current item can support a capacitor, adds one on
+        if( CurItem instanceof RangedWeapon ) {
+            if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                abPlaceable p = ((RangedWeapon) CurItem).GetCapacitor();
+                ((RangedWeapon) CurItem).UseCapacitor( false );
+                CurMech.GetLoadout().Remove( p );
+            } else {
+                ((RangedWeapon) CurItem).UseCapacitor( true );
+                abPlaceable p = ((RangedWeapon) CurItem).GetCapacitor();
+                LocationIndex Loc = CurMech.GetLoadout().FindIndex( CurItem );
+                if( Loc.Location != -1 ) {
+                    try {
+                        CurMech.GetLoadout().AddTo( CurMech.GetLoadout().GetCrits( Loc.Location ), p, Loc.Index + CurItem.NumCrits(), 1 );
+                    } catch( Exception e ) {
+                        // couldn't allocate the capacitor?  Unallocate the PPC.
+                        try {
+                            CurMech.GetLoadout().UnallocateAll( CurItem, false );
+                            // remove the capacitor if it's in the queue
+                            if( CurMech.GetLoadout().GetQueue().contains( p ) ) {
+                                CurMech.GetLoadout().GetQueue().remove( p );
+                            }
+                        } catch( Exception e1 ) {
+                            // failed big.  no problem
+                            javax.swing.JOptionPane.showMessageDialog( this, "Fatal error adding a PPC Capacitor:\n" + e.getMessage() + "\nThe Capacitor will be removed." );
+                            ((RangedWeapon) CurItem).UseCapacitor( false );
+                        }
+                    }
+                }
+            }
+        }
+        RefreshInfoPane();
+    }
+
     public boolean LegalArmoring( abPlaceable p ) {
         // This tells us whether it is legal to armor a particular component
         if( p.CanArmor() ) {
@@ -2699,7 +2784,22 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( p instanceof Engine ) { return false; }
                 if( p instanceof Gyro ) { return false; }
                 if( p instanceof Cockpit ) { return false; }
-                if( p instanceof Actuator ) { return false; }
+                if( p instanceof Actuator ) {
+                    if( ! ((Actuator) p).IsOmniArmorable() ) { return false; }
+                    LocationIndex Loc = CurMech.GetLoadout().FindIndex( p );
+                    if( Loc.Location == Constants.LOC_LA && Loc.Index == 2 ) {
+                        if( CurMech.GetBaseLoadout().GetActuators().LeftLowerInstalled() ) { return false; }
+                    }
+                    if( Loc.Location == Constants.LOC_RA && Loc.Index == 2 ) {
+                        if( CurMech.GetBaseLoadout().GetActuators().RightLowerInstalled() ) { return false; }
+                    }
+                    if( Loc.Location == Constants.LOC_LA && Loc.Index == 3 ) {
+                        if( CurMech.GetBaseLoadout().GetActuators().LeftHandInstalled() ) { return false; }
+                    }
+                    if( Loc.Location == Constants.LOC_RA && Loc.Index == 3 ) {
+                        if( CurMech.GetBaseLoadout().GetActuators().RightHandInstalled() ) { return false; }
+                    }
+                }
                 if( p instanceof SimplePlaceable ) { return false; }
                 if( CurMech.GetBaseLoadout().GetNonCore().contains( p ) ) { return false; }
                 return true;
@@ -2707,6 +2807,21 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             return false;
         }
+    }
+
+    public boolean LegalCapacitor( abPlaceable p ) {
+        if( ! ( p instanceof RangedWeapon ) ) { return false; }
+        return ((RangedWeapon) p).CanUseCapacitor();
+    }
+
+    public boolean LegalInsulator( abPlaceable p ) {
+        if( ! ( p instanceof RangedWeapon ) ) { return false; }
+        return ((RangedWeapon) p).CanUseInsulator();
+    }
+
+    public boolean LegalCaseless( abPlaceable p ) {
+        if( ! ( p instanceof RangedWeapon ) ) { return false; }
+        return ((RangedWeapon) p).CanUseCaselessAmmo();
     }
 
     private void PrintMech( Mech m) {
@@ -3307,6 +3422,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkFCSAIV = new javax.swing.JCheckBox();
         chkFCSAV = new javax.swing.JCheckBox();
         chkFCSApollo = new javax.swing.JCheckBox();
+        chkClanCASE = new javax.swing.JCheckBox();
         pnlSelected = new javax.swing.JPanel();
         jScrollPane23 = new javax.swing.JScrollPane();
         lstSelectedEquipment = new javax.swing.JList();
@@ -6226,6 +6342,20 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         pnlSpecials.add(chkFCSApollo, gridBagConstraints);
 
+        chkClanCASE.setText("Use Clan CASE");
+        chkClanCASE.setEnabled(false);
+        chkClanCASE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkClanCASEActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 2, 0, 0);
+        pnlSpecials.add(chkClanCASE, gridBagConstraints);
+
         pnlEquipment.add(pnlSpecials, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, 160, 220));
 
         pnlSelected.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Selected Equipment"));
@@ -6671,6 +6801,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     } else {
                         mnuArmorComponent.setText( "Armor Component" );
                     }
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
+                        }
+                    }
+                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
                     mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 }
@@ -6715,6 +6853,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     } else {
                         mnuArmorComponent.setText( "Armor Component" );
                     }
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
+                        }
+                    }
+                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
                     mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
@@ -6810,6 +6956,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     } else {
                         mnuArmorComponent.setText( "Armor Component" );
                     }
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
+                        }
+                    }
+                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
                     mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 }
@@ -6854,6 +7008,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     } else {
                         mnuArmorComponent.setText( "Armor Component" );
                     }
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
+                        }
+                    }
+                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
                     mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
@@ -6984,6 +7146,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     } else {
                         mnuArmorComponent.setText( "Armor Component" );
                     }
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
+                        }
+                    }
+                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
                     mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 }
@@ -7028,6 +7198,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     } else {
                         mnuArmorComponent.setText( "Armor Component" );
                     }
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
+                        }
+                    }
+                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
                     mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
@@ -7144,6 +7322,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     } else {
                         mnuArmorComponent.setText( "Armor Component" );
                     }
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
+                        }
+                    }
+                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
                     mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 }
@@ -7188,6 +7374,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     } else {
                         mnuArmorComponent.setText( "Armor Component" );
                     }
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
+                        }
+                    }
+                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
                     mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
@@ -7303,6 +7497,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     } else {
                         mnuArmorComponent.setText( "Armor Component" );
                     }
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
+                        }
+                    }
+                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
                     mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 }
@@ -7334,6 +7536,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     } else {
                         mnuArmorComponent.setText( "Armor Component" );
                     }
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
+                        }
+                    }
+                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
                     mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
@@ -7466,6 +7676,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     } else {
                         mnuArmorComponent.setText( "Armor Component" );
                     }
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
+                        }
+                    }
+                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
                     mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 }
@@ -7497,6 +7715,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     } else {
                         mnuArmorComponent.setText( "Armor Component" );
                     }
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
+                        }
+                    }
+                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
                     mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
@@ -7642,6 +7868,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     } else {
                         mnuArmorComponent.setText( "Armor Component" );
                     }
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
+                        }
+                    }
+                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
                     mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 }
@@ -7686,6 +7920,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     } else {
                         mnuArmorComponent.setText( "Armor Component" );
                     }
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
+                        }
+                    }
+                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
                     mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
@@ -7791,6 +8033,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     } else {
                         mnuArmorComponent.setText( "Armor Component" );
                     }
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
+                        }
+                    }
+                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
                     mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 }
@@ -7835,6 +8085,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     } else {
                         mnuArmorComponent.setText( "Armor Component" );
                     }
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
+                        }
+                    }
+                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
                     mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
                     mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
@@ -7898,6 +8156,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         mnuSelective.setEnabled( true );
                         mnuAuto.setEnabled( true );
                     }
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorPlace.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorPlace.setText( "Add Capacitor" );
+                        }
+                    }
+                    mnuAddCapacitorPlace.setEnabled( LegalCapacitor( CurItem ) );
                     mnuPlacement.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     if( CurItem.Contiguous() ) {
@@ -7922,6 +8188,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         mnuSelective.setEnabled( true );
                         mnuAuto.setEnabled( true );
                     }
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorPlace.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorPlace.setText( "Add Capacitor" );
+                        }
+                    }
+                    mnuAddCapacitorPlace.setEnabled( LegalCapacitor( CurItem ) );
                     mnuPlacement.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     if( CurItem.Contiguous() ) {
@@ -12945,6 +13219,12 @@ private void chkFCSApolloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         RefreshInfoPane();
 }//GEN-LAST:event_chkFCSApolloActionPerformed
 
+private void chkClanCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkClanCASEActionPerformed
+    CurMech.GetLoadout().SetClanCASE( chkClanCASE.isSelected() );
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkClanCASEActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -13002,6 +13282,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JCheckBox chkChartLeft;
     private javax.swing.JCheckBox chkChartRear;
     private javax.swing.JCheckBox chkChartRight;
+    private javax.swing.JCheckBox chkClanCASE;
     private javax.swing.JCheckBox chkCommandConsole;
     private javax.swing.JCheckBox chkEjectionSeat;
     private javax.swing.JCheckBox chkEnviroSealing;

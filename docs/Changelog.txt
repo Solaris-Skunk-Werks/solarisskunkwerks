@@ -3,12 +3,15 @@ SSW Changelog
 Version 0.7.0
 + Added
 - You can now control whether Clan CASE is used in the 'Mech, affecting cost and BV.
+- Mixed Technology.
+- Added the rest of the missing Tac Ops ammunition types.
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.
 - Consolidated components that have the same stats between tech bases.
 - Information screens have been redone, more information is available.
 - Removed the independent ammo information pop-up, now it uses the weapon pop-up.
+- Weapons and ammunition now load from binary files.
 
 -------------------------------------------------------------------------------
 Version 0.6.0

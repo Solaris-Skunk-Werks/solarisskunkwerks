@@ -658,6 +658,10 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         return FCS;
     }
 
+    public boolean CanUseCaselessAmmo() {
+        return CanUseCaseless;
+    }
+
     public void AddToArray( MGArray a ) {
         CurArray = a;
         InArray = true;

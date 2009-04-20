@@ -194,6 +194,8 @@ public class XMLWriter {
         FR.newLine();
         FR.write( tab + tab + "<actuators lla=\"" + GetBoolean( CurMech.GetActuators().LeftLowerInstalled() ) + "\" lh=\"" + GetBoolean( CurMech.GetActuators().LeftHandInstalled() ) + "\" rla=\"" + GetBoolean( CurMech.GetActuators().RightLowerInstalled() ) + "\" rh=\"" + GetBoolean( CurMech.GetActuators().RightHandInstalled() ) + "\"/>" );
         FR.newLine();
+        FR.write( tab + tab + "<clancase>" + GetBoolean( CurMech.GetLoadout().IsUsingClanCASE() ) + "</clancase>" );
+        FR.newLine();
         if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
             FR.write( tab + tab + "<jumpjets number=\"" + CurMech.GetJumpJets().GetNumJJ() + "\">" );
             FR.newLine();
@@ -306,6 +308,8 @@ public class XMLWriter {
                 FR.write( tab + tab + "<cost>" + CurMech.GetTotalCost() + "</cost>" );
                 FR.newLine();
                 FR.write( tab + tab + "<actuators lla=\"" + GetBoolean( CurMech.GetActuators().LeftLowerInstalled() ) + "\" lh=\"" + GetBoolean( CurMech.GetActuators().LeftHandInstalled() ) + "\" rla=\"" + GetBoolean( CurMech.GetActuators().RightLowerInstalled() ) + "\" rh=\"" + GetBoolean( CurMech.GetActuators().RightHandInstalled() ) + "\"/>" );
+                FR.newLine();
+                FR.write( tab + tab + "<clancase>" + GetBoolean( CurMech.GetLoadout().IsUsingClanCASE() ) + "</clancase>" );
                 FR.newLine();
                 if( CurMech.GetJumpJets().GetNumJJ() > CurMech.GetJumpJets().GetBaseLoadoutNumJJ() ) {
                     FR.write( tab + tab + "<jumpjets number=\"" + CurMech.GetJumpJets().GetNumJJ() + "\">" );

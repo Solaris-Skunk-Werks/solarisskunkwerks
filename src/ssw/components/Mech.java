@@ -154,9 +154,9 @@ public class Mech implements ifBattleforce {
         OmniAvailable.SetISCodes( 'E', 'X', 'X', 'E' );
         OmniAvailable.SetISDates( 0, 0, false, 3052, 0, 0, false, false );
         OmniAvailable.SetISFactions( "", "", "", "" );
-        OmniAvailable.SetISCodes( 'E', 'X', 'E', 'E' );
-        OmniAvailable.SetISDates( 0, 0, false, 2854, 0, 0, false, false );
-        OmniAvailable.SetISFactions( "", "", "", "" );
+        OmniAvailable.SetCLCodes( 'E', 'X', 'E', 'E' );
+        OmniAvailable.SetCLDates( 0, 0, false, 2854, 0, 0, false, false );
+        OmniAvailable.SetCLFactions( "", "", "", "" );
         OmniAvailable.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
 
         // load up some special equipment
@@ -351,7 +351,7 @@ public class Mech implements ifBattleforce {
     public void SetInnerSphere() {
         // performs all the neccesary actions to switch this to Inner Sphere
         // set the tech base
-        TechBase = AvailableCode.TECH_INNER_SPHERE;
+        SetTechBase( AvailableCode.TECH_INNER_SPHERE );
 
         // clear out any MechModifiers in the chassis and loadout
         MechMods.clear();
@@ -418,7 +418,7 @@ public class Mech implements ifBattleforce {
     public void SetClan() {
         // performs all the neccesary actions to switch this to Clan
         // set the tech base
-        TechBase = AvailableCode.TECH_CLAN;
+        SetTechBase( AvailableCode.TECH_CLAN );
 
         // clear out any MechModifiers in the chassis and loadout
         MechMods.clear();
@@ -485,7 +485,7 @@ public class Mech implements ifBattleforce {
     public void SetMixed() {
         // performs all the neccesary actions to switch this to Mixed Tech
         // set the tech base
-        TechBase = AvailableCode.TECH_BOTH;
+        SetTechBase( AvailableCode.TECH_BOTH );
 
         // clear out any MechModifiers in the chassis and loadout
         MechMods.clear();
@@ -1866,12 +1866,12 @@ public class Mech implements ifBattleforce {
                             }
                             break;
                         case 4:
-                            if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() ) {
+                            if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.IsUsingClanCASE() ) {
                                 result -= p.NumCrits();
                             }
                             break;
                         case 5:
-                            if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() ) {
+                            if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.IsUsingClanCASE() ) {
                                 result -= p.NumCrits();
                             }
                             break;

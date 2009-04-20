@@ -172,14 +172,14 @@ public class QuadLoadout implements ifLoadout {
 
     public boolean SetTechBase( int NewLevel ) {
         if( Owner.IsOmnimech() ) {
-            if( NewLevel != Owner.GetTechBase() || NewLevel != AvailableCode.TECH_BOTH ) {
+            if( NewLevel != Owner.GetTechBase() && NewLevel != AvailableCode.TECH_BOTH ) {
                 return false;
             } else {
-                RulesLevel = NewLevel;
+                TechBase = NewLevel;
                 return true;
             }
         } else {
-            RulesLevel = NewLevel;
+            TechBase = NewLevel;
             return true;
         }
     }
@@ -2815,6 +2815,7 @@ public class QuadLoadout implements ifLoadout {
         clone.SetRACrits( RACrits.clone() );
         clone.SetRLCrits( RLCrits.clone() );
         clone.SetLLCrits( LLCrits.clone() );
+        clone.SetClanCASE( UsingClanCASE );
         try {
             clone.SetFCSArtemisIV( UseAIVFCS );
             clone.SetFCSArtemisV( UseAVFCS );

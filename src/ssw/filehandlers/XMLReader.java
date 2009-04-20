@@ -476,6 +476,11 @@ public class XMLReader {
             m.SetFCSArtemisV( ParseBoolean( map.getNamedItem( "fcsa5" ).getTextContent() ) );
             m.SetFCSApollo( ParseBoolean( map.getNamedItem( "fcsapollo" ).getTextContent() ) );
         }
+        // take care of Clan CASE on previous save file versions
+        if( SaveFileVersion < 1 ) {
+            // this will fail if Inner Sphere, so we're safe
+            m.GetLoadout().SetClanCASE( true );
+        }
         n = n.item( 0 ).getChildNodes();
         LocationIndex ltc = new LocationIndex();
         for( int i = 0; i < n.getLength(); i++ ) {
@@ -506,6 +511,8 @@ public class XMLReader {
                         m.GetActuators().RemoveRightHand();
                     }
                 }
+            } else if( n.item( i ).getNodeName().equals( "clancase" ) ) {
+                m.GetLoadout().SetClanCASE( ParseBoolean( n.item( 0 ).getTextContent() ) );
             } else if( n.item( i ).getNodeName().equals( "heatsinks" ) ) {
                 map = n.item( i ).getAttributes();
                 int numhs = Integer.parseInt( map.getNamedItem( "number" ).getTextContent() );
@@ -877,6 +884,11 @@ public class XMLReader {
                 if( map.getNamedItem( "ruleslevel" ) != null ) {
                     m.GetLoadout().SetRulesLevel( Integer.parseInt( map.getNamedItem( "ruleslevel" ).getTextContent() ) );
                 }
+                // take care of Clan CASE on previous save file versions
+                if( SaveFileVersion < 1 ) {
+                    // this will fail if Inner Sphere, so we're safe
+                    m.GetLoadout().SetClanCASE( true );
+                }
                 n = OmniLoads.item( k ).getChildNodes();
                 ltc = new LocationIndex();
                 for( int i = 0; i < n.getLength(); i++ ) {
@@ -907,6 +919,8 @@ public class XMLReader {
                                 m.GetActuators().RemoveRightHand();
                             }
                         }
+                    } else if( n.item( i ).getNodeName().equals( "clancase" ) ) {
+                        m.GetLoadout().SetClanCASE( ParseBoolean( n.item( i ).getTextContent() ) );
                     } else if( n.item( i ).getNodeName().equals( "heatsinks" ) ) {
                         hsLoc.clear();
                         map = n.item( i ).getAttributes();

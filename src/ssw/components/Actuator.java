@@ -31,15 +31,17 @@ package ssw.components;
 public class Actuator extends abPlaceable {
     // This is a class extending abPlaceable to provide for actuators.
     // Actuators only ever use one crit.
-    private boolean LocLocked;
+    private boolean LocLocked,
+                    OmniArmorable;
     private float CostMult;
     private String CritName,
                    MMName;
     private AvailableCode AC;
     private Mech Owner;
 
-    public Actuator( String name, String mname, boolean locked, AvailableCode A, float Multiplier, Mech m ) {
+    public Actuator( String name, String mname, boolean locked, boolean omniarmor, AvailableCode A, float Multiplier, Mech m ) {
         LocLocked = locked;
+        OmniArmorable = omniarmor;
         CritName = name;
         AC = A;
         CostMult = Multiplier;
@@ -107,6 +109,10 @@ public class Actuator extends abPlaceable {
     @Override
     public boolean CoreComponent() {
         return true;
+    }
+
+    public boolean IsOmniArmorable() {
+        return OmniArmorable;
     }
 
     // All placeables should be able to return their AvailabileCode
