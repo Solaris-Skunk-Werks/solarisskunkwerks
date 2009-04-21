@@ -2815,6 +2815,8 @@ public class QuadLoadout implements ifLoadout {
         clone.SetRACrits( RACrits.clone() );
         clone.SetRLCrits( RLCrits.clone() );
         clone.SetLLCrits( LLCrits.clone() );
+        // set the new actuators
+        Actuators.Transfer( clone.GetActuators() );
         clone.SetClanCASE( UsingClanCASE );
         try {
             clone.SetFCSArtemisIV( UseAIVFCS );

@@ -242,7 +242,18 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
 
     @Override
     public String GetPrintName() {
-        return PrintName;
+        String retval = PrintName;
+        if( UsingCapacitor ) {
+            retval += " + PPC Capacitor";
+        }
+        if( UsingInsulator ) {
+            retval += "(Insulated)";
+        }
+        if( MountedRear ) {
+            return "(R) " + retval;
+        } else {
+            return retval;
+        }
     }
 
     public String GetType() {

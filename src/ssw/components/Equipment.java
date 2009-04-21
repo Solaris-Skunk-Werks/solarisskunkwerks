@@ -129,11 +129,7 @@ public class Equipment extends abPlaceable {
     }
 
     public String GetLookupName() {
-        if( Rear ) {
-            return "(R) " + LookupName;
-        } else {
-            return LookupName;
-        }
+        return LookupName;
     }
 
     @Override

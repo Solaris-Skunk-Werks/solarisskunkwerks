@@ -38,7 +38,7 @@ public class ActuatorSet {
                     RLAInstalled = true,
                     LockedLeft = false,
                     LockedRight = false;
-    private static Actuator LeftHip,
+    public Actuator LeftHip,
                             RightHip,
                             LeftFrontHip,
                             RightFrontHip,
@@ -57,13 +57,13 @@ public class ActuatorSet {
                             LeftShoulder,
                             RightShoulder,
                             LeftUpperArm,
-                            RightUpperArm;
-    private Actuator LeftLowerArm,
-                     LeftHand,
-                     RightLowerArm,
-                     RightHand;
+                            RightUpperArm,
+                            LeftLowerArm,
+                            LeftHand,
+                            RightLowerArm,
+                            RightHand;
     private ifLoadout Owner;
-    
+
     public ActuatorSet( ifLoadout l, Mech m ) {
         AC.SetISCodes( 'C', 'C', 'C', 'C' );
         AC.SetISDates( 0, 0, false, 2300, 0, 0, false, false );
@@ -698,6 +698,40 @@ public class ActuatorSet {
             }
         }
         return retval;
+    }
+
+    public void Transfer( ActuatorSet a ) {
+        // this method is provided for OmniMechs and ensures that certain
+        // actuators are included in new loadouts.  This should normally only be
+        // used from the main loadout
+        a.LeftHip = LeftHip;
+        a.RightHip = RightHip;
+        a.LeftFrontHip = LeftFrontHip;
+        a.RightFrontHip = RightFrontHip;
+        a.LeftLowerLeg = LeftLowerLeg;
+        a.RightLowerLeg = RightLowerLeg;
+        a.LeftFrontLowerLeg = LeftFrontLowerLeg;
+        a.RightFrontLowerLeg = RightFrontLowerLeg;
+        a.LeftUpperLeg = LeftUpperLeg;
+        a.RightUpperLeg = RightUpperLeg;
+        a.LeftFrontUpperLeg = LeftFrontUpperLeg;
+        a.RightFrontUpperLeg = RightFrontUpperLeg;
+        a.LeftFoot = LeftFoot;
+        a.RightFoot = RightFoot;
+        a.LeftFrontFoot = LeftFrontFoot;
+        a.RightFrontFoot = RightFrontFoot;
+        a.LeftShoulder = LeftShoulder;
+        a.RightShoulder = RightShoulder;
+        a.LeftUpperArm = LeftUpperArm;
+        a.RightUpperArm = RightUpperArm;
+        if( LockedLeft ) {
+            a.LeftLowerArm = LeftLowerArm;
+            a.LeftHand = LeftHand;
+        }
+        if( LockedRight ) {
+            a.RightLowerArm = RightLowerArm;
+            a.RightHand = RightHand;
+        }
     }
 
     @Override
