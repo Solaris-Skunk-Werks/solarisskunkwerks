@@ -4216,7 +4216,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 2);
         pnlChassis.add(chkOmnimech, gridBagConstraints);
 
-        cmbMechType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Battlemech", "IndustrialMech" }));
+        cmbMechType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "BattleMech", "IndustrialMech" }));
         cmbMechType.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbMechType.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbMechType.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -11445,6 +11445,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( OldLevel == NewLevel ) {
             // we're already at the correct rules level.
             return;
+        }
+
+        if( NewLevel == AvailableCode.RULES_INTRODUCTORY ) {
+            cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech" } ) );
+        } else {
+            cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech", "IndustrialMech" } ) );
         }
 
         // do we have an OmniMech?

@@ -33,13 +33,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.table.TableRowSorter;
 import ssw.Options;
 import ssw.components.Mech;
-import ssw.components.ifLoadout;
 import ssw.filehandlers.*;
 import ssw.print.Printer;
 
@@ -73,8 +71,8 @@ public class dlgOpen extends javax.swing.JFrame {
             }
             parent.setMech(m);
 
-            parent.Prefs.put( "LastOpenDirectory", Data.getFilename().substring( 0, Data.getFilename().lastIndexOf( File.separator ) ) );
-            parent.Prefs.put( "LastOpenFile", Data.getFilename().substring( Data.getFilename().lastIndexOf( File.separator ) ) ); 
+            parent.Prefs.put( "LastOpenDirectory", Data.getFilename().substring( 0, Data.getFilename().lastIndexOf( File.separator ) + 1 ) );
+            parent.Prefs.put( "LastOpenFile", Data.getFilename().substring( Data.getFilename().lastIndexOf( File.separator ) + 1 ) ); 
 
             parent.CurMech.SetChanged( false );
             this.setVisible(false);

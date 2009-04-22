@@ -80,4 +80,5 @@ public interface ifWeapon {
     public boolean SwitchableAmmo();
     public boolean RequiresFusion();
     public boolean RequiresNuclear();
+    public boolean RequiresPowerAmps();
 }

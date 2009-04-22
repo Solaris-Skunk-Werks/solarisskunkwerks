@@ -39,6 +39,7 @@ public class MTFWriter {
     // writes the given mech to an MTF file supported by MegaMek.
 
     private Mech CurMech;
+    private String Prepend = "";
 
     public MTFWriter( Mech m ) {
         CurMech = m;
@@ -47,6 +48,16 @@ public class MTFWriter {
     public void WriteMTF( String filename ) throws IOException {
         BufferedWriter FR = new BufferedWriter( new FileWriter( filename ) );
 
+        // get the prepend string for stuff that needs it
+        switch( CurMech.GetTechBase() ) {
+            case AvailableCode.TECH_INNER_SPHERE:
+                Prepend = "IS";
+            case AvailableCode.TECH_CLAN:
+                Prepend = "CL";
+            case AvailableCode.TECH_BOTH:
+                // use the best equipment, there is no difference between them
+                Prepend = "CL";
+        }
         // first block for vesioning and name
         FR.write( "Version:1.1" );
         FR.newLine();
@@ -302,12 +313,14 @@ public class MTFWriter {
             } else {
                 return "Engine";
             }
-        } else {
-            if( p.IsArmored() ) {
-                return p.GetMMName( p.IsMountedRear() ) + " (armored)";
-            } else {
-                return p.GetMMName( p.IsMountedRear() );
-            }
         }
+        String retval = p.GetMMName( p.IsMountedRear() );
+        if( ( ! retval.contains( "IS" ) ) || ( ! retval.contains( "CL" ) ) ) {
+            retval = Prepend + retval;
+        }
+        if( p.IsArmored() ) {
+            retval += " (armored)";
+        }
+        return retval;
     }
 }

@@ -33,7 +33,8 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
                      PW_CLASS_SHIELD = 1,
                      PW_CLASS_SPIKE = 2,
                      PW_CLASS_TALON = 3,
-                     PW_CLASS_INDUSTRIAL = 4;
+                     PW_CLASS_INDUSTRIAL = 4,
+                     PW_CLASS_SPOTWELDER = 5;
 
     private String Name,
                    MMName,
@@ -70,7 +71,8 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
                     Alloc_Torso = false,
                     Alloc_Arms = true,
                     Alloc_Legs = false,
-                    CanSplit = false;
+                    CanSplit = false,
+                    PowerAmps = false;
 
     public PhysicalWeapon( String name, String lookupname, String mname, Mech m, AvailableCode a ) {
         Name = name;
@@ -139,12 +141,10 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         return ToHitLong;
     }
 
-    public void SetRequiresFusion( boolean b ) {
-        Fusion = b;
-    }
-
-    public void SetRequiresNuclear( boolean b ) {
-        Nuclear = b;
+    public void SetRequirements( boolean nuc, boolean fus, boolean amps ) {
+        Nuclear = nuc;
+        Fusion = fus;
+        PowerAmps = amps;
     }
 
     public void SetRequiresHand( boolean b ) {
@@ -192,6 +192,10 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
 
     public boolean RequiresNuclear() {
         return Nuclear;
+    }
+
+    public boolean RequiresPowerAmps() {
+        return PowerAmps;
     }
 
     public boolean RequiresHand() {

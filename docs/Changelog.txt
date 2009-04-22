@@ -12,6 +12,9 @@ Version 0.7.0
 - Information screens have been redone, more information is available.
 - Removed the independent ammo information pop-up, now it uses the weapon pop-up.
 - Weapons and ammunition now load from binary files.
+- Spot welders now require power amplifiers and can be installed alongside other Industrial Physical Weapons
+- Fixed an issue with the Open dialogue and not saving the last load name correctly.
+- IndustrialMechs no longer available under Introductory Rules.
 
 -------------------------------------------------------------------------------
 Version 0.6.0

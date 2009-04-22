@@ -117,6 +117,7 @@ public class EquipmentFactory {
                     ((PhysicalWeapon) retval).SetRequiresLowerArm( w.RequiresLowerArm() );
                     ((PhysicalWeapon) retval).SetReplacesHand( w.ReplacesHand() );
                     ((PhysicalWeapon) retval).SetPWClass( w.GetPWClass() );
+                    ((PhysicalWeapon) retval).SetRequirements( w.RequiresNuclear(), w.RequiresFusion(), w.RequiresPowerAmps() );
                     ((PhysicalWeapon) retval).SetAllocations( w.CanAllocHD(), w.CanAllocCT(), w.CanAllocTorso(), w.CanAllocArms(), w.CanAllocLegs(), false );
                     break;
             }
@@ -874,7 +875,9 @@ public class EquipmentFactory {
         addPW = new IndustrialPhysicalWeapon("Spot Welder","Spot Welder", "SpotWelder", m, a);
         addPW.SetStats(0.0F, 0.0F, 2, 1);
         addPW.SetDamage(0.0f, 5);
-        addPW.SetHeat(2);
+        addPW.SetHeat( 2 );
+        addPW.SetRequirements( false, false, true );
+        addPW.SetPWClass( PhysicalWeapon.PW_CLASS_SPOTWELDER );
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(75000, 5, 0);
         PhysicalWeapons.add(addPW);
         

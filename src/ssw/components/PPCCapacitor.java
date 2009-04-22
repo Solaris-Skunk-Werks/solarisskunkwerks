@@ -126,25 +126,29 @@ public class PPCCapacitor extends abPlaceable {
         // 2.5 to the damage because the PPC Cap fires only every other round.
         float basemult = 0.0f;
         if( Owner.GetDamageShort() != Owner.GetDamageMedium() || Owner.GetDamageShort() != Owner.GetDamageMedium() ) {
-            float mult1 = ( Owner.GetDamageShort() + 2.5f ) / Owner.GetDamageShort();
+            float mult1 = ( ((float) Owner.GetDamageShort()) + 2.5f ) / ((float) Owner.GetDamageShort());
             if( Owner.GetDamageShort() < 12 && ( Owner.GetDamageShort() + 5 ) >= 12 ) {
-                mult1 *= 1.2f;
+                mult1 *= 1.1985f;
             }
-            float mult2 = ( Owner.GetDamageMedium() + 2.5f ) / Owner.GetDamageMedium();
+            float mult2 = ( ((float) Owner.GetDamageMedium()) + 2.5f ) / ((float) Owner.GetDamageMedium());
             if( Owner.GetDamageMedium() < 12 && ( Owner.GetDamageMedium() + 5 ) >= 12 ) {
-                mult1 *= 1.2f;
+                mult1 *= 1.1985f;
             }
-            float mult3 = ( Owner.GetDamageLong() + 2.5f ) / Owner.GetDamageLong();
+            float mult3 = ( ((float) Owner.GetDamageLong()) + 2.5f ) / ((float) Owner.GetDamageLong());
             if( Owner.GetDamageLong() < 12 && ( Owner.GetDamageLong() + 5 ) >= 12 ) {
-                mult1 *= 1.2f;
+                mult1 *= 1.1985f;
             }
-            basemult = ( mult1 + mult2 + mult3 ) / 3.0f;
+            basemult = ( mult1 + mult2 + mult3 ) * 0.332f;
         } else {
-            basemult = ( Owner.GetDamageShort() + 2.5f ) / Owner.GetDamageShort();
+            basemult = ( ((float) Owner.GetDamageShort()) + 2.5f ) / ((float) Owner.GetDamageShort());
             if( Owner.GetDamageShort() < 12 && ( Owner.GetDamageShort() + 5 ) >= 12 ) {
                 basemult *= 1.2f;
             }
         }
         OffBV = Owner.GetOffensiveBV() * ( basemult - 1.0f );
+        // minor modification since the math doesn't work (damn you, TPTB!!!)
+        if( Owner.GetLookupName().equals( "(IS) ER PPC" ) ) {
+            OffBV -= 0.49f;
+        }
     }
 }

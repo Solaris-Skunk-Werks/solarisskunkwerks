@@ -77,6 +77,10 @@ public class MGArray extends abPlaceable implements ifWeapon {
         return Nuclear;
     }
 
+    public boolean RequiresPowerAmps() {
+        return false;
+    }
+
     @Override
     public String GetCritName() {
         if( Rear ) {

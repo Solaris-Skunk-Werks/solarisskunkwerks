@@ -54,9 +54,9 @@ public class PowerAmplifier {
         float tons = 0.0f;
         Vector v = CurLoadout.GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
-            if( v.get( i ) instanceof RangedWeapon ) {
-                if ( ((RangedWeapon)v.get( i ) ).RequiresPowerAmps() )
-                    tons += ((RangedWeapon) v.get( i )).GetTonnage();
+            if( v.get( i ) instanceof ifWeapon ) {
+                if ( ((ifWeapon)v.get( i ) ).RequiresPowerAmps() )
+                    tons += ((abPlaceable) v.get( i )).GetTonnage();
             }
         }
         if( tons <= 0.0f ) {
