@@ -176,6 +176,9 @@ public class XMLReader {
                     Config.setModel( FileCommon.DecodeFluff( map.getNamedItem( "name" ).getTextContent() ) );
                     Config.setConfig(FileCommon.DecodeFluff( map.getNamedItem( "name" ).getTextContent() ));
                 }
+                if( map.getNamedItem( "ruleslevel" ) != null ) {
+                    Config.setLevel( CommonTools.GetRulesLevelString( Integer.parseInt( map.getNamedItem( "ruleslevel" ).getTextContent() ) ) );
+                }
 
                 n = OmniLoads.item( k ).getChildNodes();
                 for ( int dex=0; dex < n.getLength(); dex++ ) {
