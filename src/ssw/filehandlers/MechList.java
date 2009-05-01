@@ -43,28 +43,19 @@ public class MechList extends AbstractTableModel {
     
     public MechList(String directory) {
         this();
-        FileList fl = new FileList(FileCommon.GetSafeFilename(directory));
-        for ( int i=0; i <= fl.getFiles().length-1; i++ ) {
-            File f = fl.getFiles()[i];
-            try
-            {
-                if (f.isFile() && f.getCanonicalPath().endsWith(".ssw")) {
-                    try
-                    {
-                        MechListData mData = new MechListData( f.getCanonicalPath() );
-                        if (mData.isOmni()) {
-                            for ( int d=0; d < mData.Configurations.size(); d++ ) {
-                                List.add((MechListData) mData.Configurations.get(d));
-                            }
-                        } else {
-                            List.add(mData);
-                        }
-                    } catch (Exception e) {
-                        //do nothing
-                    }
-                }
-            } catch (IOException ie ) {
+        Load(directory);
+    }
 
+    void Load( String Directory ) {
+        File d = new File(Directory);
+        if ( d.isDirectory() ) {
+            for (File f : d.listFiles() ) {
+                if ( f.isFile() && f.getPath().endsWith(".ssw") ) {
+                    Add(f);
+                }
+                if ( f.isDirectory() ) {
+                    Load( f.getPath() );
+                }
             }
         }
     }
@@ -144,6 +135,9 @@ public class MechList extends AbstractTableModel {
             }
             if ( filter.getMaxTonnage() > 0 ) {
                 if ((filter.getMinTonnage() > mData.getTonnage()) || (mData.getTonnage() > filter.getMaxTonnage())) remove = true;
+            }
+            if ( ! filter.getName().isEmpty() ) {
+                if (! mData.getName().toUpperCase().startsWith( filter.getName().toUpperCase() ) ) remove = true;
             }
             
             if (remove) m.Remove(mData);
