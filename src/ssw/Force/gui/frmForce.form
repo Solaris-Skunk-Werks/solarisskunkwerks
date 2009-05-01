@@ -33,7 +33,7 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Component id="lblTotalUnits" min="-2" pref="135" max="-2" attributes="0"/>
-              <EmptySpace pref="129" max="32767" attributes="0"/>
+              <EmptySpace pref="131" max="32767" attributes="0"/>
               <Component id="lblTotalTons" min="-2" pref="110" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
               <Component id="lblTotalBV" min="-2" pref="89" max="-2" attributes="0"/>
@@ -41,7 +41,7 @@
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="spnList" pref="537" max="32767" attributes="0"/>
+              <Component id="spnList" pref="541" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -50,9 +50,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="tlbActions" min="-2" pref="25" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="spnList" pref="161" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="spnList" min="-2" pref="184" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblTotalUnits" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblTotalBV" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -75,7 +75,7 @@
         <Component class="javax.swing.JButton" name="btnOpen">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/folder.gif"/>
+              <Image iconType="3" name="/ssw/Images/folder-open-document.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Open Force"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -89,9 +89,9 @@
         <Component class="javax.swing.JButton" name="btnSave">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/action_save.gif"/>
+              <Image iconType="3" name="/ssw/Images/disk-black.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Save"/>
+            <Property name="toolTipText" type="java.lang.String" value="Save Force"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -105,7 +105,7 @@
         <Component class="javax.swing.JButton" name="btnPrintForce">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/action_print.gif"/>
+              <Image iconType="3" name="/ssw/Images/printer.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Print Force List"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -119,7 +119,7 @@
         <Component class="javax.swing.JButton" name="btnPrintUnits">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/action_print_batch.gif"/>
+              <Image iconType="3" name="/ssw/Images/printer--plus.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Print Selected Units"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -135,7 +135,7 @@
         <Component class="javax.swing.JButton" name="btnExportMUL">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/page_tag_blue.gif"/>
+              <Image iconType="3" name="/ssw/Images/document--arrow.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Export MUL"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -151,8 +151,9 @@
         <Component class="javax.swing.JButton" name="btnAddMech">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/mech_add.gif"/>
+              <Image iconType="3" name="/ssw/Images/clipboard--plus.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Add Unit"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -164,7 +165,7 @@
         <Component class="javax.swing.JButton" name="btnRemoveUnit">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/mech_delete.gif"/>
+              <Image iconType="3" name="/ssw/Images/clipboard--minus.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Remove Unit"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -178,7 +179,7 @@
         <Component class="javax.swing.JButton" name="brnClearForce">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/action_stop.gif"/>
+              <Image iconType="3" name="/ssw/Images/clipboard-empty.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Clear Force List"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -192,7 +193,7 @@
         <Component class="javax.swing.JButton" name="btnRefresh">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/action_refresh_blue.gif"/>
+              <Image iconType="3" name="/ssw/Images/arrow-circle-double.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Refresh Force List"/>
             <Property name="focusable" type="boolean" value="false"/>
