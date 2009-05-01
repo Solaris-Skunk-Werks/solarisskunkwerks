@@ -42,6 +42,7 @@ public class TXTWriter {
     private Options MyOptions;
     private String NL;
     private boolean Mixed = false;
+    public boolean CurrentLoadoutOnly = false;
 
     public TXTWriter( Mech m, Options o ) {
         CurMech = m;
@@ -157,32 +158,27 @@ public class TXTWriter {
             retval += "Notable 'Mechs & MechWarriors: " + NL;
             retval += FormatFluff( CurMech.GetNotables() ) + NL + NL;
         }
-        retval += "================================================================================" + NL + NL;
-/*        retval += CurMech.GetName() + " " + CurMech.GetModel() + NL + NL;
-        retval += "Tech Base: " + CommonTools.GetTechbaseString( CurMech.GetTechBase() ) + NL;
-        if( CurMech.IsQuad() ) {
-            if( CurMech.IsOmnimech() ) {
-                retval += "Chassis Config: Quad Omnimech" + NL;
-            } else {
-                if( CurMech.IsIndustrialmech() ) {
-                    retval += "Chassis Config: Quad IndustrialMech" + NL;
-                } else {
-                    retval += "Chassis Config: Quad" + NL;
-                }
-            }
-        } else {
-            if( CurMech.IsOmnimech() ) {
-                retval += "Chassis Config: Biped Omnimech" + NL;
-            } else {
-                if( CurMech.IsIndustrialmech() ) {
-                    retval += "Chassis Config: Biped IndustrialMech" + NL;
-                } else {
-                    retval += "Chassis Config: Biped" + NL;
-                }
-            }
-        }*/
-//        retval += String.format( "Era: %1$-56s Cost: %2$,.0f", CommonTools.DecodeEra( CurMech.GetEra() ), Math.floor( CurMech.GetTotalCost() + 0.5f ) ) + NL;
-//        retval += String.format( "Tech Rating/Era Availability: %1$-32s BV2: %2$,d", CurMech.GetAvailability().GetBestCombinedCode(), CurMech.GetCurrentBV() ) + NL + NL;
+        retval += "================================================================================" + NL;
+        retval += GetMiniTextExport();
+
+        return retval;
+    }
+
+    public String GetMiniTextExport() {
+        String retval = "";
+
+        if ( CurrentLoadoutOnly ) {
+            retval += CurMech.GetName() + " " + CurMech.GetModel() + NL + NL;
+            retval += "Tech Base: " + CommonTools.GetTechbaseString( CurMech.GetTechBase() ) + NL;
+            retval += "Chassis Config: ";
+            String chassisString = "Biped";
+            if ( CurMech.IsQuad() ) { chassisString.replace("Biped", "Quad"); }
+            if ( CurMech.IsOmnimech() ) { chassisString += " Omnimech"; }
+            if ( CurMech.IsIndustrialmech() ) { chassisString += " IndustrialMech"; }
+            retval += chassisString + NL;
+            retval += String.format( "Era: %1$-56s Cost: %2$,.0f", CommonTools.DecodeEra( CurMech.GetEra() ), Math.floor( CurMech.GetTotalCost() + 0.5f ) ) + NL;
+            retval += String.format( "Tech Rating/Era Availability: %1$-32s BV2: %2$,d", CurMech.GetAvailability().GetBestCombinedCode(), CurMech.GetCurrentBV() ) + NL + NL;
+        }
         retval += "Equipment           Type                         Rating                   Mass  " + NL;
         retval += "--------------------------------------------------------------------------------" + NL;
         retval += String.format( "Internal Structure: %1$-28s %2$3s points              %3$6.2f", CurMech.GetIntStruc().GetCritName(), CurMech.GetIntStruc().GetTotalPoints(), CurMech.GetIntStruc().GetTonnage() ) + NL;
@@ -306,12 +302,16 @@ public class TXTWriter {
         }
         if( CurMech.IsOmnimech() ) {
             Vector l = CurMech.GetLoadouts();
-            CurMech.SetCurLoadout( Constants.BASELOADOUT_NAME );
-            //retval += NL + "================================================================================" + NL;
-            retval += NL;
-            retval += BuildEquipmentBlock() + NL;
-            for( int i = 0; i < l.size(); i++ ) {
-                CurMech.SetCurLoadout( ((ifLoadout) l.get( i )).GetName() );
+            if ( !CurrentLoadoutOnly ) {
+                CurMech.SetCurLoadout( Constants.BASELOADOUT_NAME );
+                retval += NL + "================================================================================" + NL;
+                retval += BuildEquipmentBlock() + NL;
+                for( int i = 0; i < l.size(); i++ ) {
+                    CurMech.SetCurLoadout( ((ifLoadout) l.get( i )).GetName() );
+                    retval += NL + "================================================================================" + NL;
+                    retval += BuildOmniLoadout() + NL;
+                }
+            } else {
                 retval += NL + "================================================================================" + NL;
                 retval += BuildOmniLoadout() + NL;
             }
