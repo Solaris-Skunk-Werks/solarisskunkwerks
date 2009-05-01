@@ -520,9 +520,9 @@ public class Armor  extends abPlaceable {
     }
 
     public ifState[] GetStates() {
-        ifState[] retval = { (ifState) Industrial, (ifState) Standard, (ifState) ISFF,
-            (ifState) ISST, (ifState) ISLF, (ifState) ISHF, (ifState) Hardened, (ifState) ISLR, (ifState) ISRE, (ifState) Commercial,
-            (ifState) CLFF, (ifState) CLFL, (ifState) CLLR, (ifState) CLRE };
+        ifState[] retval = { (ifState) Industrial, (ifState) Commercial, (ifState) Standard, (ifState) ISFF, (ifState) CLFF,
+            (ifState) ISLF, (ifState) ISHF, (ifState) ISST, (ifState) Hardened, (ifState) ISLR, (ifState) CLLR, (ifState) ISRE, (ifState) CLRE,
+             (ifState) CLFL };
         return retval;
     }
 

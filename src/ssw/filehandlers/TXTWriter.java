@@ -75,6 +75,7 @@ public class TXTWriter {
         retval += "Rules Level: " + CommonTools.GetRulesLevelString( CurMech.GetRulesLevel() ) + NL;
         retval += "Tech Base: " + CommonTools.GetTechbaseString( CurMech.GetTechBase() ) + NL;
         retval += "Era: " + CommonTools.DecodeEra( CurMech.GetEra() ) + NL;
+        retval += "Tech Rating/Era Availability: " + CurMech.GetAvailability().GetBestCombinedCode() + NL;
         if( CurMech.IsQuad() ) {
             if( CurMech.IsOmnimech() ) {
                 retval += "Chassis Config: Quad Omnimech" + NL;
@@ -97,7 +98,10 @@ public class TXTWriter {
             }
         }
         retval += "Production Year: " + CurMech.GetYear() + NL;
-        retval += "Mass: " + CurMech.GetTonnage() + " tons" + NL + NL;
+        retval += "Mass: " + CurMech.GetTonnage() + " tons" + NL;
+        retval += "Cost: " + String.format( "%1$,.0f", Math.floor( CurMech.GetTotalCost() + 0.5f ) ) + " C-Bills" + NL;
+        retval += "Battle Value: " + String.format( "%1$,d", CurMech.GetCurrentBV() ) + NL + NL;
+
         retval += "Chassis: " + CurMech.GetChassisModel() + " " + CurMech.GetIntStruc().GetCritName() + NL;
         retval += "Power Plant: " + CurMech.GetEngineManufacturer() + " " + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine() + NL;
         if( CurMech.GetAdjustedWalkingMP( false, true ) != CurMech.GetWalkingMP() ) {
@@ -128,7 +132,7 @@ public class TXTWriter {
         retval += "Manufacturer: " + CurMech.GetCompany() + NL;
         retval += "    Primary Factory: " + CurMech.GetLocation() + NL;
         retval += BuildComputerBlock() + NL + NL;
-        retval += "================================================================================" + NL;
+//        retval += "================================================================================" + NL;
         if( ! CurMech.GetOverview().equals( "" ) ) {
             retval += "Overview:" + NL;
             retval += FormatFluff( CurMech.GetOverview() ) + NL + NL;
@@ -153,8 +157,8 @@ public class TXTWriter {
             retval += "Notable 'Mechs & MechWarriors: " + NL;
             retval += FormatFluff( CurMech.GetNotables() ) + NL + NL;
         }
-        retval += "================================================================================" + NL;
-        retval += CurMech.GetName() + " " + CurMech.GetModel() + NL + NL;
+        retval += "================================================================================" + NL + NL;
+/*        retval += CurMech.GetName() + " " + CurMech.GetModel() + NL + NL;
         retval += "Tech Base: " + CommonTools.GetTechbaseString( CurMech.GetTechBase() ) + NL;
         if( CurMech.IsQuad() ) {
             if( CurMech.IsOmnimech() ) {
@@ -176,9 +180,9 @@ public class TXTWriter {
                     retval += "Chassis Config: Biped" + NL;
                 }
             }
-        }
-        retval += String.format( "Era: %1$-56s Cost: %2$,.0f", CommonTools.DecodeEra( CurMech.GetEra() ), Math.floor( CurMech.GetTotalCost() + 0.5f ) ) + NL;
-        retval += String.format( "Tech Rating/Era Availability: %1$-32s BV2: %2$,d", CurMech.GetAvailability().GetBestCombinedCode(), CurMech.GetCurrentBV() ) + NL + NL;
+        }*/
+//        retval += String.format( "Era: %1$-56s Cost: %2$,.0f", CommonTools.DecodeEra( CurMech.GetEra() ), Math.floor( CurMech.GetTotalCost() + 0.5f ) ) + NL;
+//        retval += String.format( "Tech Rating/Era Availability: %1$-32s BV2: %2$,d", CurMech.GetAvailability().GetBestCombinedCode(), CurMech.GetCurrentBV() ) + NL + NL;
         retval += "Equipment           Type                         Rating                   Mass  " + NL;
         retval += "--------------------------------------------------------------------------------" + NL;
         retval += String.format( "Internal Structure: %1$-28s %2$3s points              %3$6.2f", CurMech.GetIntStruc().GetCritName(), CurMech.GetIntStruc().GetTotalPoints(), CurMech.GetIntStruc().GetTonnage() ) + NL;
@@ -303,7 +307,8 @@ public class TXTWriter {
         if( CurMech.IsOmnimech() ) {
             Vector l = CurMech.GetLoadouts();
             CurMech.SetCurLoadout( Constants.BASELOADOUT_NAME );
-            retval += NL + "================================================================================" + NL;
+            //retval += NL + "================================================================================" + NL;
+            retval += NL;
             retval += BuildEquipmentBlock() + NL;
             for( int i = 0; i < l.size(); i++ ) {
                 CurMech.SetCurLoadout( ((ifLoadout) l.get( i )).GetName() );
@@ -311,7 +316,8 @@ public class TXTWriter {
                 retval += BuildOmniLoadout() + NL;
             }
         } else {
-            retval += NL + "================================================================================" + NL;
+            //retval += NL + "================================================================================" + NL;
+            retval += NL;
             retval += BuildEquipmentBlock() + NL;
         }
 
@@ -400,7 +406,7 @@ public class TXTWriter {
             // find any other weapons of this type
             for( int j = 0; j < weapons.length; j++ ) {
                 if( weapons[j] != null ) {
-                    if( weapons[j].GetLookupName().matches( cur.GetLookupName() ) && weapons[j].GetManufacturer().matches( cur.GetManufacturer() ) ) {
+                    if( weapons[j].GetLookupName().equals( cur.GetLookupName() ) && weapons[j].GetManufacturer().equals( cur.GetManufacturer() ) ) {
                         numthistype++;
                         weapons[j] = null;
                     }

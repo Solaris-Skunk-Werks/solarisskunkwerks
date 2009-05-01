@@ -29,6 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.components;
 
 import java.util.Vector;
+import ssw.gui.EquipmentCollection;
 
 public interface ifLoadout {
     public void SetName( String s );
@@ -46,6 +47,8 @@ public interface ifLoadout {
     public void AddToQueue( abPlaceable p );
     public void RemoveFromQueue( abPlaceable p );
     public abPlaceable GetFromQueueByIndex( int Index );
+    public boolean QueueContains( abPlaceable p );
+    public EquipmentCollection GetCollection( abPlaceable p );
     public Vector GetQueue();
     public Vector GetNonCore();
     public Vector GetEquipment();
@@ -98,6 +101,7 @@ public interface ifLoadout {
     public void Remove( abPlaceable p );
     public void UnallocateByIndex( int SIndex, abPlaceable[] a );
     public void AutoAllocate( abPlaceable p );
+    public void AutoAllocate( EquipmentCollection e );
     public void SplitAllocate( abPlaceable p, int FirstLoc, int FirstIndex, int SecondLoc ) throws Exception;
     public int FreeFrom( abPlaceable [] Loc, int index );
     public void Compact();

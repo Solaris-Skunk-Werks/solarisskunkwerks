@@ -39,7 +39,10 @@ public class MTFWriter {
     // writes the given mech to an MTF file supported by MegaMek.
 
     private Mech CurMech;
-    private String Prepend = "";
+    private String Prepend = "",
+                   IS = "(Inner Sphere)",
+                   CL = "(Clan)";
+    private boolean mixed = false;
 
     public MTFWriter( Mech m ) {
         CurMech = m;
@@ -52,11 +55,15 @@ public class MTFWriter {
         switch( CurMech.GetTechBase() ) {
             case AvailableCode.TECH_INNER_SPHERE:
                 Prepend = "IS";
+                break;
             case AvailableCode.TECH_CLAN:
                 Prepend = "CL";
+                break;
             case AvailableCode.TECH_BOTH:
                 // use the best equipment, there is no difference between them
                 Prepend = "CL";
+                mixed = true;
+                break;
         }
         // first block for vesioning and name
         FR.write( "Version:1.1" );
@@ -98,7 +105,12 @@ public class MTFWriter {
                 FR.write( "TechBase:Clan" );
                 break;
             case AvailableCode.TECH_BOTH:
-                FR.write( "TechBase:Mixed" );
+                // for that wierd-ass MegaMek reasoning
+                if( CurMech.GetIntStruc().GetTechBase() == AvailableCode.TECH_INNER_SPHERE ) {
+                    FR.write( "TechBase:Mixed (IS Chassis)" );
+                } else{
+                    FR.write( "TechBase:Mixed (Clan Chassis)" );
+                }
                 break;
         }
         FR.newLine();
@@ -111,7 +123,15 @@ public class MTFWriter {
         FR.newLine();
         FR.write( "Mass:" + CurMech.GetTonnage() );
         FR.newLine();
-        FR.write( "Engine:" + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine().GetCritName() );
+        if( mixed ) {
+            if( CurMech.GetEngine().GetTechBase() == AvailableCode.TECH_INNER_SPHERE ) {
+                FR.write( "Engine:" + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine().GetCritName() + " (Inner Sphere)" );
+            } else {
+                FR.write( "Engine:" + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine().GetCritName() + " (Clan)" );
+            }
+        } else {
+            FR.write( "Engine:" + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine().GetCritName() );
+        }
         FR.newLine();
         FR.write( "Structure:" + CurMech.GetIntStruc().GetMMName( false ) );
         FR.newLine();
@@ -132,7 +152,15 @@ public class MTFWriter {
         // fourth block for movement and heat
         FR.newLine();
         if( CurMech.GetHeatSinks().IsDouble() ) {
-            FR.write( "Heat Sinks:" + CurMech.GetHeatSinks().GetNumHS() + " Double" );
+            if( mixed ) {
+                if( CurMech.GetHeatSinks().GetTechBase() == AvailableCode.TECH_INNER_SPHERE ) {
+                    FR.write( "Heat Sinks:" + CurMech.GetHeatSinks().GetNumHS() + " Double (Inner Sphere)" );
+                } else {
+                    FR.write( "Heat Sinks:" + CurMech.GetHeatSinks().GetNumHS() + " Double (Clan)" );
+                }
+            } else {
+                FR.write( "Heat Sinks:" + CurMech.GetHeatSinks().GetNumHS() + " Double" );
+            }
         } else {
             FR.write( "Heat Sinks:" + CurMech.GetHeatSinks().GetNumHS() + " Single" );
         }
@@ -148,7 +176,15 @@ public class MTFWriter {
 
         // fifth block for armor information
         FR.newLine();
-        FR.write( "Armor:" + CurMech.GetArmor().GetMMName( false ) );
+        if( mixed ) {
+            if( CurMech.GetArmor().GetTechBase() == AvailableCode.TECH_INNER_SPHERE ) {
+                FR.write( "Armor:" + CurMech.GetArmor().GetMMName( false ) + " (Inner Sphere)" );
+            } else {
+                FR.write( "Armor:" + CurMech.GetArmor().GetMMName( false ) + " (Clan)" );
+            }
+        } else {
+            FR.write( "Armor:" + CurMech.GetArmor().GetMMName( false ) );
+        }
         FR.newLine();
         FR.write( "LA Armor:" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA) );
         FR.newLine();
@@ -214,9 +250,9 @@ public class MTFWriter {
                     }
                     // now that we have the amount, add the line in
                     if( ammoamount > 0 ) {
-                        FR.write( "1 " + p.GetMMName( false ) + ", " + Constants.Locs[l.Find( p )] + rear + ", Ammo:" + ammoamount );
+                        FR.write( "1 " + GetMMName( p ) + ", " + Constants.Locs[l.Find( p )] + rear + ", Ammo:" + ammoamount );
                     } else {
-                        FR.write( "1 " + p.GetMMName( false ) + ", " + Constants.Locs[l.Find( p )] + rear );
+                        FR.write( "1 " + GetMMName( p ) + ", " + Constants.Locs[l.Find( p )] + rear );
                     }
                 } else {
                     // check for a rear-facing weapon
@@ -225,12 +261,12 @@ public class MTFWriter {
                         rear = " (R)";
                     }
                     // no ammo checking needed
-                    FR.write( "1 " + p.GetMMName( false ) + ", " + Constants.Locs[l.Find( p )] + rear );
+                    FR.write( "1 " + GetMMName( p ) + ", " + Constants.Locs[l.Find( p )] + rear );
                 }
                 FR.newLine();
             } else {
                 // not a weapon so no ammo checking.  Add it to the file
-                FR.write( "1 " + p.GetMMName( false ) + ", " + Constants.Locs[l.Find( p )] );
+                FR.write( "1 " + GetMMName( p ) + ", " + Constants.Locs[l.Find( p )] );
                 FR.newLine();
             }
             // format is:
@@ -315,8 +351,10 @@ public class MTFWriter {
             }
         }
         String retval = p.GetMMName( p.IsMountedRear() );
-        if( ( ! retval.contains( "IS" ) ) || ( ! retval.contains( "CL" ) ) ) {
-            retval = Prepend + retval;
+        if( ! p.CoreComponent() ) {
+            if( ( ! retval.contains( "IS" ) ) && ( ! retval.contains( "CL" ) ) ) {
+                retval = Prepend + retval;
+            }
         }
         if( p.IsArmored() ) {
             retval += " (armored)";

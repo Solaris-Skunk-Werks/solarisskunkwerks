@@ -15,11 +15,6 @@ Recon Camera							Equipment
 Vehicular Drop Chute (Reusable)			Equipment
 
 
-New weapons to be added
--------------------------------------------------------------------------------
-Improved One-Shot Launcher				Weapon
-
-
 New systems to add
 -------------------------------------------------------------------------------
 Mechanical Jump Boosters				? new system  "Jump Booster"
@@ -46,5 +41,4 @@ Mechwarrior Aquatic Survival System		? new system
 New rules to be implemented
 -------------------------------------------------------------------------------
 Fractional Accounting
-Mixed Technologies
 Patchwork Armor

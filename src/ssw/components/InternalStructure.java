@@ -259,9 +259,9 @@ public class InternalStructure extends abPlaceable {
             retval[0] = (ifState) MSBP;
             retval[1] = (ifState) ISESBP;
             retval[2] = (ifState) CLESBP;
-            retval[3] = (ifState) ISCOBP;
-            retval[4] = (ifState) ISECBP;
-            retval[5] = (ifState) CLECBP;
+            retval[3] = (ifState) ISECBP;
+            retval[4] = (ifState) CLECBP;
+            retval[5] = (ifState) ISCOBP;
             retval[6] = (ifState) REBP;
             retval[7] = (ifState) IMBP;
             //retval[11] = (ifState) ISPRBP;
@@ -269,9 +269,9 @@ public class InternalStructure extends abPlaceable {
             retval[0] = (ifState) MSQD;
             retval[1] = (ifState) ISESQD;
             retval[2] = (ifState) CLESQD;
-            retval[3] = (ifState) ISCOQD;
-            retval[4] = (ifState) ISECQD;
-            retval[5] = (ifState) CLECQD;
+            retval[3] = (ifState) ISECQD;
+            retval[4] = (ifState) CLECQD;
+            retval[5] = (ifState) ISCOQD;
             retval[6] = (ifState) REQD;
             retval[7] = (ifState) IMQD;
             //retval[11] = (ifState) ISPRQD;

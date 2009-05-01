@@ -47,6 +47,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         // fills in all the information for the given weapon or ammo
         ifWeapon w = null;
         Ammunition a = null;
+        String restrict = "";
         AvailableCode AC = Parent.CurItem.GetAvailability();
         if( Parent.CurItem instanceof Ammunition ) {
             setTitle( "Ammunition Information" );
@@ -80,6 +81,29 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
             lblToHit.setText( a.GetToHitShort() + "/" + a.GetToHitMedium() + "/" + a.GetToHitLong() );
             lblFCSClass.setText( ifMissileGuidance.FCS_NAMES[a.GetFCSType()] );
             lblSpecials.setText( "--" );
+            lblTonnage.setText( "" + ((abPlaceable) a).GetTonnage() );
+            lblCrits.setText( "" + ((abPlaceable) a).NumCrits() );
+            lblCost.setText( "" + ((abPlaceable) a).GetCost() );
+            lblBV.setText( CommonTools.GetAggregateReportBV( (abPlaceable) a ) );
+
+            if( ! ((abPlaceable) a).CanAllocHD() ) {
+                restrict += "No Head, ";
+            }
+            if( ! ((abPlaceable) a).CanAllocCT() ) {
+                restrict += "No Center Torso, ";
+            }
+            if( ! ((abPlaceable) a).CanAllocTorso() ) {
+                restrict += "No Side Torsos, ";
+            }
+            if( ! ((abPlaceable) a).CanAllocArms() ) {
+                restrict += "No Arms, ";
+            }
+            if( ! ((abPlaceable) a).CanAllocLegs() ) {
+                restrict += "No Legs, ";
+            }
+            if( ((abPlaceable) a).CanSplit() ) {
+                restrict += "Can Split, ";
+            }
         } else {
             setTitle( "Weapon Information" );
             w = (ifWeapon) Parent.CurItem;
@@ -133,10 +157,33 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
             lblToHit.setText( tohit );
             lblFCSClass.setText( ifMissileGuidance.FCS_NAMES[w.GetFCSType()] );
             lblSpecials.setText( w.GetSpecials() );
-        }
+            lblTonnage.setText( "" + ((abPlaceable) w).GetTonnage() );
+            lblCrits.setText( "" + ((abPlaceable) w).NumCrits() );
+            lblCost.setText( "" + ((abPlaceable) w).GetCost() );
+            lblBV.setText( CommonTools.GetAggregateReportBV( (abPlaceable) w ) );
 
-        lblTonnage.setText( "" + ((abPlaceable) w).GetTonnage() );
-        lblCrits.setText( "" + ((abPlaceable) w).NumCrits() );
+            if( ! ((abPlaceable) w).CanAllocHD() ) {
+                restrict += "No Head, ";
+            }
+            if( ! ((abPlaceable) w).CanAllocCT() ) {
+                restrict += "No Center Torso, ";
+            }
+            if( ! ((abPlaceable) w).CanAllocTorso() ) {
+                restrict += "No Side Torsos, ";
+            }
+            if( ! ((abPlaceable) w).CanAllocArms() ) {
+                restrict += "No Arms, ";
+            }
+            if( ! ((abPlaceable) w).CanAllocLegs() ) {
+                restrict += "No Legs, ";
+            }
+            if( ((abPlaceable) w).CanSplit() ) {
+                restrict += "Can Split, ";
+            }
+            if( w.OmniRestrictActuators() ) {
+                restrict += "Omni Actuator Restricted";
+            }
+        }
 
         switch( AC.GetTechBase() ) {
             case AvailableCode.TECH_INNER_SPHERE:
@@ -193,33 +240,8 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
             lblClanExtraInfo.setText( "Status: Production Equipment" );
         }
 
-        lblCost.setText( "" + ((abPlaceable) w).GetCost() );
-        lblBV.setText( CommonTools.GetAggregateReportBV( (abPlaceable) w ) );
         lblRulesBM.setText( CommonTools.GetRulesLevelString( AC.GetRulesLevel_BM() ) );
         lblRulesIM.setText( CommonTools.GetRulesLevelString( AC.GetRulesLevel_IM() ) );
-
-        String restrict = "";
-        if( ! ((abPlaceable) w).CanAllocHD() ) {
-            restrict += "No Head, ";
-        }
-        if( ! ((abPlaceable) w).CanAllocCT() ) {
-            restrict += "No Center Torso, ";
-        }
-        if( ! ((abPlaceable) w).CanAllocTorso() ) {
-            restrict += "No Side Torsos, ";
-        }
-        if( ! ((abPlaceable) w).CanAllocArms() ) {
-            restrict += "No Arms, ";
-        }
-        if( ! ((abPlaceable) w).CanAllocLegs() ) {
-            restrict += "No Legs, ";
-        }
-        if( ((abPlaceable) w).CanSplit() ) {
-            restrict += "Can Split, ";
-        }
-        if( w.OmniRestrictActuators() ) {
-            restrict += "Omni Actuator Restricted";
-        }
 
         if( restrict.length() > 0 ) {
             if( restrict.endsWith( ", ") ) {

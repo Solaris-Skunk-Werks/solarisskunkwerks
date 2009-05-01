@@ -192,7 +192,7 @@ public class Mech implements ifBattleforce {
         AC.SetISFactions( "WB", "WB", "", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         VoidSig = new MultiSlotSystem( this, "Void Signature System", "Void Signature System", "VoidSignatureSystem", 0.0f, false, true, 2000000.0f, false, AC );
-        VoidSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 10, 0.0f, 1.3f, 0.0f, 0.0f, true ) );
+        VoidSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 10, 0.3f, 0.0f, 0.0f, 0.0f, true ) );
         VoidSig.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Null Signature System", "Stealth Armor", "C3", "Chameleon LPS" }, "Void Signature System" ) );
 
         AC = new AvailableCode( AvailableCode.TECH_BOTH );
@@ -3627,6 +3627,18 @@ public class Mech implements ifBattleforce {
         } else {
             return false;
         }
+    }
+
+    public boolean HasC3() {
+        // checks for C3 systems.
+        SimplePlaceable p = new SimplePlaceable( "C3Test", "C3Test", 0, false, null );
+        p.SetExclusions( new Exclusion( new String[] { "C3" }, "C3Test" ) );
+        try {
+            CurLoadout.CheckExclusions( p );
+        } catch( Exception e ) {
+            return true;
+        }
+        return false;
     }
 
     public Vector GetMechMods() {

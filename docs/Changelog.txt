@@ -15,6 +15,9 @@ Version 0.7.0
 - Spot welders now require power amplifiers and can be installed alongside other Industrial Physical Weapons
 - Fixed an issue with the Open dialogue and not saving the last load name correctly.
 - IndustrialMechs no longer available under Introductory Rules.
+- (Hopefully) Fixed Clan CASE checkbox behavior and saving.
+- (Hopefully) Fixed incorrect MegaMek lookupnames for mtf export.
+- Made some slight formatting changes to the Text Export.
 
 -------------------------------------------------------------------------------
 Version 0.6.0

@@ -30,6 +30,7 @@ package ssw.components;
 
 import java.util.Vector;
 import ssw.*;
+import ssw.gui.EquipmentCollection;
 import ssw.visitors.VFCSArtemisIVLoader;
 import ssw.visitors.VFCSArtemisVLoader;
 import ssw.visitors.VFCSApolloLoader;
@@ -186,13 +187,37 @@ public class BipedLoadout implements ifLoadout {
 
     public void AddToQueue( abPlaceable p ) {
         // Adds the specified placeable to the general queue for manual placement
-        // ensure the item isn't already in the queue
-        if( Queue.contains( p ) ) { return ; }
 
         // if this component has 0 total crits, we'll simply ignore it
-        if( p.NumCrits() > 0 ) {
-            Queue.add( p );
+        if( p.NumCrits() <= 0 ) {
+            return;
         }
+
+        // ensure the item isn't already in the queue
+        boolean add = false;
+        for( int i = 0; i < Queue.size(); i++ ) {
+            if( Queue.get( i ) instanceof EquipmentCollection ) {
+                if( ((EquipmentCollection) Queue.get( i )).Add( p ) ) {
+                    add = true;
+                    break;
+                }
+            } else {
+                if( p == Queue.get( i ) ) { return; }
+                if( p.GetLookupName().equals( ((abPlaceable) Queue.get( i )).GetLookupName() ) ) {
+                    // create a new equipment collection for these items.
+                    EquipmentCollection e = new EquipmentCollection( this );
+                    e.Add( p );
+                    abPlaceable exist = (abPlaceable) Queue.get( i );
+                    e.Add( exist );
+                    Queue.remove( exist );
+                    Queue.add( e );
+                    add = true;
+                    break;
+                }
+            }
+        }
+
+        if( ! add ) { Queue.add( p ); }
 
         // check to see if this is a core component
         if( ! p.CoreComponent() ) {
@@ -216,16 +241,11 @@ public class BipedLoadout implements ifLoadout {
                     }
                 }
             }
+        }
 
-            // if the component has a modifier, add it to the loadout
-            if( p.GetMechModifier() != null ) {
-                AddMechModifier( p.GetMechModifier() );
-            }
-        } else {
-            // if the component has a modifier, add it to the 'Mech
-            if( p.GetMechModifier() != null ) {
-                Owner.AddMechModifier( p.GetMechModifier() );
-            }
+        // if the component has a modifier, add it to the 'Mech
+        if( p.GetMechModifier() != null ) {
+            Owner.AddMechModifier( p.GetMechModifier() );
         }
 
         Owner.SetChanged( true );
@@ -235,17 +255,55 @@ public class BipedLoadout implements ifLoadout {
         // removes the selected item from the queue.  This makes the object
         // completely disappear from the loadout so should only be used after
         // placing it or when actually removing it from the loadout.
-        if( Queue.contains(p) ) {
-            Queue.remove(p);
+        if( Queue.contains( p ) ) {
+            Queue.remove( p );
         } else {
-            return;
+            for( int i = 0; i < Queue.size(); i++ ) {
+                if( Queue.get( i ) instanceof EquipmentCollection ) {
+                    EquipmentCollection e = (EquipmentCollection) Queue.get( i );
+                    if( e.SameType( p ) ) {
+                        e.Remove( p );
+                        if( e.IsEmpty() ) {
+                            Queue.remove( e );
+                        }
+                        break;
+                    }
+                }
+            }
         }
 
         Owner.SetChanged( true );
     }
 
     public abPlaceable GetFromQueueByIndex( int Index ) {
-        return (abPlaceable) Queue.get( Index );
+        if( Queue.get( Index ) instanceof EquipmentCollection ) {
+            return ((EquipmentCollection) Queue.get( Index )).GetType();
+        } else {
+            return (abPlaceable) Queue.get( Index );
+        }
+    }
+
+    public boolean QueueContains( abPlaceable p ) {
+        if( Queue.contains( p ) ) { return true; }
+        for( int i = 0; i < Queue.size(); i++ ) {
+            if( Queue.get( i ) instanceof EquipmentCollection ) {
+                if( ((EquipmentCollection) Queue.get( i )).Contains( p ) ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public EquipmentCollection GetCollection( abPlaceable p ) {
+        for( int i = 0; i < Queue.size(); i++ ) {
+            if( Queue.get( i ) instanceof EquipmentCollection ) {
+                if( ((EquipmentCollection) Queue.get( i )).Contains( p ) ) {
+                    return (EquipmentCollection) Queue.get( i );
+                }
+            }
+        }
+        return null;
     }
 
     public Vector GetQueue() {
@@ -1779,42 +1837,6 @@ public class BipedLoadout implements ifLoadout {
             if( ! CommonTools.IsAllowed( AC, Owner ) ) {
                 Remove( p );
             }
-/*
-            if( Restrict ) {
-                if( AC.WentExtinct() ) {
-                    if( AC.WasReIntroduced() ) {
-                        if( Year < AC.GetIntroDate() || ( Year >= AC.GetExtinctDate() && Year < AC.GetReIntroDate() ) ) {
-                            Remove( p );
-                        }
-                    } else {
-                        if( Year < AC.GetIntroDate() || Year >= AC.GetExtinctDate() ) {
-                            Remove( p );
-                        }
-                    }
-                } else {
-                    if( Year < AC.GetIntroDate() ) {
-                        Remove( p );
-                    }
-                }
-            } else {
-                switch( Era ) {
-                case Constants.STAR_LEAGUE:
-                    if( AC.GetSLCode() == 'X' ) {
-                        Remove( p );
-                    }
-                    break;
-                case Constants.SUCCESSION:
-                    if( AC.GetSWCode() >= 'F' ) {
-                        Remove( p );
-                    }
-                    break;
-                case Constants.CLAN_INVASION:
-                    if( AC.GetCICode() == 'X' ) {
-                        Remove( p );
-                    }
-                    break;
-                }
-            }*/
         }
     }
 
@@ -1900,7 +1922,7 @@ public class BipedLoadout implements ifLoadout {
 
         // add the item back into the queue unless is already exists there
         // unless it's an Artemis IV FCS system.
-        if( ! Queue.contains(p) &! ( p instanceof ifMissileGuidance ) &! ( p instanceof PPCCapacitor ) ) {
+        if( ! QueueContains(p) &! ( p instanceof ifMissileGuidance ) &! ( p instanceof PPCCapacitor ) ) {
             if( p instanceof RangedWeapon ) {
                 if( ! ((RangedWeapon) p).IsInArray() ) {
                     AddToQueue( p );
@@ -2004,7 +2026,7 @@ public class BipedLoadout implements ifLoadout {
             p.DecrementPlaced();
 
             // now see if it's still in the Queue.  If not, add it back in.
-            if( ! Queue.contains( p ) ) {
+            if( ! QueueContains( p ) ) {
                 AddToQueue( p );
             }
         }
@@ -2078,6 +2100,67 @@ public class BipedLoadout implements ifLoadout {
                 if( FreeCrits() <= 0 ) { break; }
             } catch ( Exception e ) {
                 // just move on.  we probably couldn't allocate it to that location.
+            }
+        }
+    }
+
+    public void AutoAllocate( EquipmentCollection e ) {
+        int Loc = Constants.LOC_CT, NumItems = e.GetSize(), DefCount;
+        abPlaceable p;
+        boolean Placed;
+        for( int i = 0; i < NumItems; i++ ) {
+            p = e.GetType();
+            Placed = false;
+            DefCount = 0;
+            // we'll go round-robin like before, but in a different direction.
+            while( ! Placed ) {
+                try {
+                    switch( Loc ) {
+                        case Constants.LOC_CT:
+                            AddToCT( p, FirstFree( CTCrits ) );
+                            Loc++;
+                            Placed = true;
+                            break;
+                        case Constants.LOC_LT:
+                            AddToLT( p, FirstFree( LTCrits ) );
+                            Loc++;
+                            Placed = true;
+                            break;
+                        case Constants.LOC_RT:
+                            AddToRT( p, FirstFree( RTCrits ) );
+                            Loc++;
+                            Placed = true;
+                            break;
+                        case Constants.LOC_LA:
+                            AddToLA( p, FirstFree( LACrits ) );
+                            Loc++;
+                            Placed = true;
+                            break;
+                        case Constants.LOC_RA:
+                            AddToRA( p, FirstFree( RACrits ) );
+                            Loc++;
+                            Placed = true;
+                            break;
+                        case Constants.LOC_LL:
+                            AddToLL( p, FirstFree( LLCrits ) );
+                            Loc++;
+                            Placed = true;
+                            break;
+                        case Constants.LOC_RL:
+                            AddToRL( p, FirstFree( RLCrits ) );
+                            Loc++;
+                            Placed = true;
+                            break;
+                        default:
+                            Loc = Constants.LOC_CT;
+                            DefCount++;
+                    }
+                } catch( Exception x ) {
+                    Loc++;
+                }
+                if( DefCount > 1 ) {
+                    return;
+                }
             }
         }
     }
@@ -2921,24 +3004,32 @@ public class BipedLoadout implements ifLoadout {
     public int UnplacedCrits() {
         // returns the number of unplaced criticals in the loadout
         int Result = 0;
+        int NumThisType = 1;
         abPlaceable p;
         for( int i = Queue.size() - 1; i >= 0; i-- ) {
-            p = (abPlaceable) Queue.get( i );
-            Result += ( p.NumCrits() - p.NumPlaced() );
+            if( Queue.get( i ) instanceof EquipmentCollection ) {
+                p = ((EquipmentCollection) Queue.get( i )).GetType();
+                NumThisType = ((EquipmentCollection) Queue.get( i )).GetSize();
+                Result += (( p.NumCrits() - p.NumPlaced() ) * NumThisType );
+            } else {
+                p = (abPlaceable) Queue.get( i );
+                NumThisType = 1;
+                Result += ( p.NumCrits() - p.NumPlaced() );
+            }
 
             // special handler for FCS and PPC Capacitors
             if( p instanceof RangedWeapon ) {
                 if( ((RangedWeapon) p).IsUsingFCS() ) {
-                    Result += ((abPlaceable) ((RangedWeapon) p).GetFCS()).NumCrits();
+                    Result += ((abPlaceable) ((RangedWeapon) p).GetFCS()).NumCrits() * NumThisType;
                 }
                 if( ((RangedWeapon) p).IsUsingCapacitor() ) {
-                    Result++;
+                    Result += NumThisType;
                 }
             }
 
             // special handler for MG Arrays
             if( p instanceof MGArray ) {
-                Result += ((MGArray) p).GetNumMGs();
+                Result += ((MGArray) p).GetNumMGs() * NumThisType;
             }
         }
         return Result;
@@ -3216,11 +3307,7 @@ public class BipedLoadout implements ifLoadout {
     }
 
     public void SetClanCASE( boolean b ) {
-        if( CanUseClanCASE() ) {
-            UsingClanCASE = b;
-        } else {
-            UsingClanCASE = false;
-        }
+         UsingClanCASE = b;
     }
 
     public void SetCTCASE( boolean Add, int index ) throws Exception {
@@ -3892,7 +3979,7 @@ public class BipedLoadout implements ifLoadout {
             return;
         }
 
-        if( ! GetQueue().contains( CurTC ) ) {
+        if( ! QueueContains( CurTC ) ) {
             if( ! IsAllocated( CurTC ) ) {
                 // TC not allocated or in the queue, let's see if we can add it
                 if( CurTC.NumCrits() > 0 ) {
@@ -4049,8 +4136,14 @@ public class BipedLoadout implements ifLoadout {
 
         for( int i = 0; i < exclude.length; i++ ) {
             // queue first
+            abPlaceable test;
             for( int j = 0; j < Queue.size(); j++ ) {
-                if( ((abPlaceable) Queue.get( j )).GetCritName().contains( exclude[i] ) ) {
+                if( Queue.get( i ) instanceof EquipmentCollection ) {
+                    test = ((EquipmentCollection) Queue.get( i )).GetType();
+                } else {
+                    test = (abPlaceable) Queue.get( i );
+                }
+                if( test.GetCritName().contains( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.GetCritName() + " if it\nalready mounts an " + ((abPlaceable) Queue.get( j )).GetCritName() );
                 }
             }

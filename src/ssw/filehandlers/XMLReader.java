@@ -512,7 +512,7 @@ public class XMLReader {
                     }
                 }
             } else if( n.item( i ).getNodeName().equals( "clancase" ) ) {
-                m.GetLoadout().SetClanCASE( ParseBoolean( n.item( 0 ).getTextContent() ) );
+                m.GetLoadout().SetClanCASE( ParseBoolean( n.item( i ).getTextContent() ) );
             } else if( n.item( i ).getNodeName().equals( "heatsinks" ) ) {
                 map = n.item( i ).getAttributes();
                 int numhs = Integer.parseInt( map.getNamedItem( "number" ).getTextContent() );
@@ -689,7 +689,7 @@ public class XMLReader {
                             m.GetLoadout().AddToQueue( p );
                             // have to do a hack here because we're using non-standard
                             // allocation methods.
-                            m.GetLoadout().GetQueue().remove( p );
+                            m.GetLoadout().RemoveFromQueue( p );
                             for( int j = 0; j < splitLoc.size(); j++ ) {
                                 LocationIndex li = (LocationIndex) splitLoc.get( j );
                                 m.GetLoadout().AddTo( m.GetLoadout().GetCrits( li.Location ), p, li.Index, li.Number );
@@ -1106,7 +1106,7 @@ public class XMLReader {
                                     m.GetLoadout().AddToQueue( p );
                                     // have to do a hack here because we're using non-standard
                                     // allocation methods.
-                                    m.GetLoadout().GetQueue().remove( p );
+                                    m.GetLoadout().RemoveFromQueue( p );
                                     for( int j = 0; j < splitLoc.size(); j++ ) {
                                         LocationIndex li = (LocationIndex) splitLoc.get( j );
                                         m.GetLoadout().AddTo( m.GetLoadout().GetCrits( li.Location ), p, li.Index, li.Number );

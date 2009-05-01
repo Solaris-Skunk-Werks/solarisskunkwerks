@@ -796,7 +796,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkUseTC.setEnabled( false );
         }
 
-        // lastly, fix the CASE controls
+        // fix the CASE controls
         if( CommonTools.IsAllowed( CurMech.GetLoadout().GetCTCase().GetAvailability(), CurMech ) ) {
             chkCTCASE.setEnabled( true );
             chkLTCASE.setEnabled( true );
@@ -948,10 +948,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // Clan CASE checkbox
         if( CurMech.GetTechBase() > AvailableCode.TECH_INNER_SPHERE ) {
             chkClanCASE.setEnabled( true );
-            if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
-                chkClanCASE.setSelected( true );
-            }
         } else {
+            CurMech.GetLoadout().SetClanCASE( false );
             chkClanCASE.setSelected( false );
             chkClanCASE.setEnabled( false );
         }
@@ -1016,6 +1014,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( ! chkCTCASE.isEnabled() ) { CurMech.RemoveCTCase(); }
         if( ! chkLTCASE.isEnabled() ) { CurMech.RemoveLTCase(); }
         if( ! chkRTCASE.isEnabled() ) { CurMech.RemoveRTCase(); }
+        chkClanCASE.setSelected( CurMech.GetLoadout().IsUsingClanCASE() );
 
         if( CurMech.IsOmnimech() ) {
             // these items can only be loaded into the base chassis, so they
@@ -1858,7 +1857,16 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }
 
     private void AutoAllocate() {
-        CurMech.GetLoadout().AutoAllocate( CurItem );
+        if( CurItem.Contiguous() ) {
+            EquipmentCollection e = CurMech.GetLoadout().GetCollection( CurItem );
+            if( e == null ) {
+                return;
+            } else {
+                CurMech.GetLoadout().AutoAllocate( e );
+            }
+        } else {
+            CurMech.GetLoadout().AutoAllocate( CurItem );
+        }
         RefreshSummary();
         RefreshInfoPane();
     }
@@ -2760,9 +2768,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         try {
                             CurMech.GetLoadout().UnallocateAll( CurItem, false );
                             // remove the capacitor if it's in the queue
-                            if( CurMech.GetLoadout().GetQueue().contains( p ) ) {
-                                CurMech.GetLoadout().GetQueue().remove( p );
-                            }
+                            //if( CurMech.GetLoadout().QueueContains( p ) ) {
+                            //    CurMech.GetLoadout().GetQueue().remove( p );
+                            //}
                         } catch( Exception e1 ) {
                             // failed big.  no problem
                             javax.swing.JOptionPane.showMessageDialog( this, "Fatal error adding a PPC Capacitor:\n" + e.getMessage() + "\nThe Capacitor will be removed." );
@@ -8144,14 +8152,18 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstCritsToPlace.setVisibleRowCount(20);
         MouseListener mlCritsToPlace = new MouseAdapter() {
             public void mouseReleased( MouseEvent e ) {
-                Vector v = CurMech.GetLoadout().GetQueue();
                 int Index = lstCritsToPlace.locationToIndex( e.getPoint() );
                 if( Index < 0 ) { return; }
-                CurItem = (abPlaceable) v.get( Index );
+                CurItem = CurMech.GetLoadout().GetFromQueueByIndex( Index );
                 if( e.isPopupTrigger() ) {
                     if( CurItem.Contiguous() ) {
+                        EquipmentCollection C = CurMech.GetLoadout().GetCollection( CurItem );
+                        if( C == null ) {
+                            mnuAuto.setEnabled( false );
+                        } else {
+                            mnuAuto.setEnabled( true );
+                        }
                         mnuSelective.setEnabled( false );
-                        mnuAuto.setEnabled( false );
                     } else {
                         mnuSelective.setEnabled( true );
                         mnuAuto.setEnabled( true );
@@ -8167,7 +8179,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     mnuPlacement.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     if( CurItem.Contiguous() ) {
-                        btnAutoAllocate.setEnabled( false );
+                        EquipmentCollection C = CurMech.GetLoadout().GetCollection( CurItem );
+                        if( C == null ) {
+                            btnAutoAllocate.setEnabled( false );
+                        } else {
+                            btnAutoAllocate.setEnabled( true );
+                        }
                         btnSelectiveAllocate.setEnabled( false );
                     } else {
                         btnAutoAllocate.setEnabled( true );
@@ -8176,14 +8193,18 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 }
             }
             public void mousePressed( MouseEvent e ) {
-                Vector v = CurMech.GetLoadout().GetQueue();
                 int Index = lstCritsToPlace.locationToIndex( e.getPoint() );
                 if( Index < 0 ) { return; }
-                CurItem = (abPlaceable) v.get( Index );
+                CurItem = CurMech.GetLoadout().GetFromQueueByIndex( Index );
                 if( e.isPopupTrigger() ) {
                     if( CurItem.Contiguous() ) {
+                        EquipmentCollection C = CurMech.GetLoadout().GetCollection( CurItem );
+                        if( C == null ) {
+                            mnuAuto.setEnabled( false );
+                        } else {
+                            mnuAuto.setEnabled( true );
+                        }
                         mnuSelective.setEnabled( false );
-                        mnuAuto.setEnabled( false );
                     } else {
                         mnuSelective.setEnabled( true );
                         mnuAuto.setEnabled( true );
@@ -8199,7 +8220,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     mnuPlacement.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     if( CurItem.Contiguous() ) {
-                        btnAutoAllocate.setEnabled( false );
+                        EquipmentCollection C = CurMech.GetLoadout().GetCollection( CurItem );
+                        if( C == null ) {
+                            btnAutoAllocate.setEnabled( false );
+                        } else {
+                            btnAutoAllocate.setEnabled( true );
+                        }
                         btnSelectiveAllocate.setEnabled( false );
                     } else {
                         btnAutoAllocate.setEnabled( true );
@@ -9930,6 +9956,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         BuildArmorSelector();
         RefreshEquipment();
         CheckOmnimech();
+
+        // for Clan machines (only) ensure that Clan CASE is selected by default
+        if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+            CurMech.GetLoadout().SetClanCASE( true );
+        }
 
         // now reset the combo boxes to the closest choices we previously selected
         LoadSelections();
@@ -12017,7 +12048,6 @@ private void btnAutoAllocateActionPerformed(java.awt.event.ActionEvent evt) {//G
 }//GEN-LAST:event_btnAutoAllocateActionPerformed
 
 private void lstCritsToPlaceValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstCritsToPlaceValueChanged
-        Vector v = CurMech.GetLoadout().GetQueue();
         int Index = lstCritsToPlace.getSelectedIndex();
         if( Index < 0 ) {
             btnAutoAllocate.setEnabled( false );
@@ -12025,7 +12055,7 @@ private void lstCritsToPlaceValueChanged(javax.swing.event.ListSelectionEvent ev
             btnRemoveItemCrits.setEnabled( false );
             return;
         }
-        CurItem = (abPlaceable) v.get( Index );
+        CurItem = CurMech.GetLoadout().GetFromQueueByIndex( Index );
         if( CurItem.Contiguous() ) {
             btnAutoAllocate.setEnabled( false );
             btnSelectiveAllocate.setEnabled( false );
@@ -12450,6 +12480,7 @@ public void LoadMechIntoGUI() {
     chkLTCASE.setSelected( CurMech.HasLTCase() );
     chkRTCASE.setSelected( CurMech.HasRTCase() );
     chkUseTC.setSelected( CurMech.UsingTC() );
+    chkClanCASE.setSelected( CurMech.GetLoadout().IsUsingClanCASE() );
     chkNullSig.setSelected( CurMech.HasNullSig() );
     chkVoidSig.setSelected( CurMech.HasVoidSig() );
     chkBSPFD.setSelected( CurMech.HasBlueShield() );
@@ -12597,7 +12628,6 @@ private void btnPostToS7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_btnPostToS7ActionPerformed
 
 private void btnRemoveItemCritsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveItemCritsActionPerformed
-    Vector v = CurMech.GetLoadout().GetQueue();
     int Index = lstCritsToPlace.getSelectedIndex();
     if( Index < 0 ) {
         btnAutoAllocate.setEnabled( false );
@@ -12605,7 +12635,7 @@ private void btnRemoveItemCritsActionPerformed(java.awt.event.ActionEvent evt) {
         btnRemoveItemCrits.setEnabled( false );
         return;
     }
-    CurItem = (abPlaceable) v.get( Index );
+    CurItem = CurMech.GetLoadout().GetFromQueueByIndex( Index );
     RemoveItemCritTab();
 }//GEN-LAST:event_btnRemoveItemCritsActionPerformed
 

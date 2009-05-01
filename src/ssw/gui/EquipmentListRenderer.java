@@ -30,11 +30,17 @@ public class EquipmentListRenderer extends DefaultListCellRenderer {
         String Text = "";
         if( value instanceof abPlaceable ) {
             a = (abPlaceable) value;
-            if( Parent.CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
-                Text = a.GetLookupName();
+            if( a.Contiguous() ) {
+                if( Parent.CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                    Text = a.GetLookupName();
+                } else {
+                    Text = a.GetCritName();
+                }
             } else {
-                Text = a.GetCritName();
+                Text = a.toString();
             }
+        } else if( value instanceof EquipmentCollection ) {
+            Text = value.toString();
         }
 
         label.setText( Text );
