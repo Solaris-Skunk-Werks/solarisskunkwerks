@@ -103,19 +103,9 @@ public class dlgOpen extends javax.swing.JFrame {
             dirPath = parent.Prefs.get("ListPath", opts.SaveLoadPath);
         }
 
-        list = new MechList();
-
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        FileList fl = new FileList(dirPath);
-        for ( int i=0; i <= fl.length()-1; i++ ) {
-            File f = fl.getFiles()[i];
-            try
-            {
-                list.Add(f);
-            } catch (Exception e) {
-                
-            }
-        }
+        
+        list = new MechList(dirPath);
 
         if (list.Size() > 0) {
             setupList(list);
@@ -275,6 +265,8 @@ public class dlgOpen extends javax.swing.JFrame {
         txtMaxTon = new javax.swing.JTextField();
         cmbRulesLevel = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Select Mech(s)");
@@ -288,7 +280,7 @@ public class dlgOpen extends javax.swing.JFrame {
         tlbActions.setFloatable(false);
         tlbActions.setRollover(true);
 
-        btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/folder.gif"))); // NOI18N
+        btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/folder-open-document.png"))); // NOI18N
         btnOpen.setToolTipText("Open Mech");
         btnOpen.setEnabled(false);
         btnOpen.setFocusable(false);
@@ -301,7 +293,7 @@ public class dlgOpen extends javax.swing.JFrame {
         });
         tlbActions.add(btnOpen);
 
-        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/action_print.gif"))); // NOI18N
+        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/printer.png"))); // NOI18N
         btnPrint.setToolTipText("Print Selected Mechs");
         btnPrint.setEnabled(false);
         btnPrint.setFocusable(false);
@@ -314,7 +306,7 @@ public class dlgOpen extends javax.swing.JFrame {
         });
         tlbActions.add(btnPrint);
 
-        btnAdd2Force.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/mech_add.gif"))); // NOI18N
+        btnAdd2Force.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/clipboard--plus.png"))); // NOI18N
         btnAdd2Force.setToolTipText("Add to Force List");
         btnAdd2Force.setEnabled(false);
         btnAdd2Force.setFocusable(false);
@@ -328,7 +320,7 @@ public class dlgOpen extends javax.swing.JFrame {
         tlbActions.add(btnAdd2Force);
         tlbActions.add(jSeparator1);
 
-        btnOptions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/icon_settings.gif"))); // NOI18N
+        btnOptions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/gear.png"))); // NOI18N
         btnOptions.setToolTipText("Change Options");
         btnOptions.setFocusable(false);
         btnOptions.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -340,7 +332,7 @@ public class dlgOpen extends javax.swing.JFrame {
         });
         tlbActions.add(btnOptions);
 
-        btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/action_refresh_blue.gif"))); // NOI18N
+        btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/arrow-circle-double.png"))); // NOI18N
         btnRefresh.setToolTipText("Refresh Mech List");
         btnRefresh.setFocusable(false);
         btnRefresh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -353,7 +345,7 @@ public class dlgOpen extends javax.swing.JFrame {
         tlbActions.add(btnRefresh);
         tlbActions.add(jSeparator2);
 
-        btnMagic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/icon_wand.gif"))); // NOI18N
+        btnMagic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/wand.png"))); // NOI18N
         btnMagic.setToolTipText("Update Mech Files (Long Process!)");
         btnMagic.setFocusable(false);
         btnMagic.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -482,22 +474,35 @@ public class dlgOpen extends javax.swing.JFrame {
 
         jLabel6.setText("Rules Level");
 
+        txtName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNameActionPerformed(evt);
+            }
+        });
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNameKeyTyped(evt);
+            }
+        });
+
+        jLabel7.setText("Name");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE)
+            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtSelected, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
+                .addComponent(txtSelected, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
                 .addGap(4, 4, 4)
-                .addComponent(lblLoading, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                .addComponent(lblLoading, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
                 .addGap(6, 6, 6)
                 .addComponent(btnOpenDir, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 805, Short.MAX_VALUE)
+                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 846, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
@@ -530,16 +535,20 @@ public class dlgOpen extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtMinCost, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtMaxCost, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(txtMaxCost, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnClearFilter)
                     .addComponent(btnFilter, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
+                .addGap(270, 270, 270)
                 .addComponent(btnOpenMech)
                 .addContainerGap())
         );
@@ -570,33 +579,32 @@ public class dlgOpen extends javax.swing.JFrame {
                                 .addComponent(cmbRulesLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(21, 21, 21))
+                            .addComponent(jLabel5)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(15, 15, 15)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtMaxTon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtMinTon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(21, 21, 21))
+                            .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(15, 15, 15)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtMaxBV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtMinBV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel7))
                                 .addGap(1, 1, 1)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtMinCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtMaxCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(txtMaxCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnFilter)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnClearFilter)))
-                .addContainerGap())
+                .addGap(12, 12, 12))
         );
 
         pack();
@@ -697,6 +705,7 @@ public class dlgOpen extends javax.swing.JFrame {
                 filters.setTonnage(Integer.parseInt( txtMinTon.getText() ), Integer.parseInt( txtMaxTon.getText() ));
             }
         }
+        if (! txtName.getText().isEmpty() ) { filters.setName(txtName.getText().trim()); }
 
         MechList filtered = list.Filter(filters);
         setupList(filtered);
@@ -740,12 +749,20 @@ public class dlgOpen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdd2ForceActionPerformed
 
     private void txtMaxTonFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaxTonFilter
-        // TODO add your handling code here:
+        Filter(null);
 }//GEN-LAST:event_txtMaxTonFilter
 
     private void cmbRulesLevelFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRulesLevelFilter
-        // TODO add your handling code here:
+        Filter(null);
 }//GEN-LAST:event_cmbRulesLevelFilter
+
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+        Filter(null);
+    }//GEN-LAST:event_txtNameActionPerformed
+
+    private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
+        Filter(null);
+    }//GEN-LAST:event_txtNameKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd2Force;
@@ -767,6 +784,7 @@ public class dlgOpen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
@@ -780,6 +798,7 @@ public class dlgOpen extends javax.swing.JFrame {
     private javax.swing.JTextField txtMinBV;
     private javax.swing.JTextField txtMinCost;
     private javax.swing.JTextField txtMinTon;
+    private javax.swing.JTextField txtName;
     private javax.swing.JLabel txtSelected;
     // End of variables declaration//GEN-END:variables
 

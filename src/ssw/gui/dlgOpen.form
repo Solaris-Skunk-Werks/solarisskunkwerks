@@ -32,16 +32,16 @@
           <Component id="tlbActions" alignment="0" pref="866" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="txtSelected" pref="593" max="32767" attributes="0"/>
+              <Component id="txtSelected" pref="595" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-              <Component id="lblLoading" pref="215" max="32767" attributes="0"/>
+              <Component id="lblLoading" pref="217" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
               <Component id="btnOpenDir" min="-2" pref="24" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="spnMechTable" pref="842" max="32767" attributes="0"/>
+              <Component id="spnMechTable" pref="846" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
@@ -83,12 +83,17 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="1"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="txtMinCost" min="-2" pref="80" max="-2" attributes="1"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtMaxCost" min="-2" pref="80" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="1"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel7" min="-2" max="-2" attributes="1"/>
+                          <Component id="txtName" alignment="0" pref="78" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -97,7 +102,7 @@
                   <Component id="btnClearFilter" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="btnFilter" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="229" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="270" max="-2" attributes="0"/>
               <Component id="btnOpenMech" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -151,11 +156,15 @@
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="txtMinCost" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtMaxCost" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtName" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -183,7 +192,7 @@
         <Component class="javax.swing.JButton" name="btnOpen">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/folder.gif"/>
+              <Image iconType="3" name="/ssw/Images/folder-open-document.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Open Mech"/>
             <Property name="enabled" type="boolean" value="false"/>
@@ -198,7 +207,7 @@
         <Component class="javax.swing.JButton" name="btnPrint">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/action_print.gif"/>
+              <Image iconType="3" name="/ssw/Images/printer.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Print Selected Mechs"/>
             <Property name="enabled" type="boolean" value="false"/>
@@ -213,7 +222,7 @@
         <Component class="javax.swing.JButton" name="btnAdd2Force">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/mech_add.gif"/>
+              <Image iconType="3" name="/ssw/Images/clipboard--plus.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Add to Force List"/>
             <Property name="enabled" type="boolean" value="false"/>
@@ -230,7 +239,7 @@
         <Component class="javax.swing.JButton" name="btnOptions">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/icon_settings.gif"/>
+              <Image iconType="3" name="/ssw/Images/gear.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Change Options"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -244,7 +253,7 @@
         <Component class="javax.swing.JButton" name="btnRefresh">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/action_refresh_blue.gif"/>
+              <Image iconType="3" name="/ssw/Images/arrow-circle-double.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Refresh Mech List"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -260,7 +269,7 @@
         <Component class="javax.swing.JButton" name="btnMagic">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/icon_wand.gif"/>
+              <Image iconType="3" name="/ssw/Images/wand.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Update Mech Files (Long Process!)"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -427,6 +436,17 @@
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
         <Property name="text" type="java.lang.String" value="Rules Level"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtName">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNameActionPerformed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNameKeyTyped"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel7">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Name"/>
       </Properties>
     </Component>
   </SubComponents>
