@@ -30,6 +30,7 @@ package ssw.print;
 
 import java.util.Vector;
 import java.awt.print.*;
+import java.io.File;
 import ssw.CommonTools;
 import ssw.components.Mech;
 import ssw.gui.*;
@@ -37,7 +38,8 @@ import ssw.gui.*;
 public class Printer {
     private frmMain Parent;
     private Vector Mechs = new Vector();
-    private String jobName = "SSW Batch Print";
+    private String jobName = "SSW Batch Print",
+                    logoPath = "";
     private Boolean Charts = true;
 
     private Book pages = new Book();
@@ -95,11 +97,11 @@ public class Printer {
     }
 
     public void AddMech(Mech m, String Mechwarrior, int Gunnery, int Piloting) {
-        AddMech(m, Mechwarrior, Gunnery, Piloting, true, true, true);
+        AddMech(m, Mechwarrior, Gunnery, Piloting, Charts, true, true);
     }
 
     public void AddMech(Mech m){
-        AddMech(m, "", 4, 5, true, true, true);
+        AddMech(m, "", 4, 5, Charts, true, true);
     }
 
     public void Print(Mech m) {
@@ -183,6 +185,10 @@ public class Printer {
         POptions.setTitle( "Printing Batched Units");
         POptions.setLocationRelativeTo( Parent );
 
+        if ( !this.logoPath.isEmpty() ) {
+            POptions.setLogo(new File(this.logoPath));
+        }
+        
         POptions.setVisible( true );
 
         if( ! POptions.Result() ) {
@@ -200,5 +206,13 @@ public class Printer {
 
         POptions.dispose();
         return true;
+    }
+
+    public String getLogoPath() {
+        return logoPath;
+    }
+
+    public void setLogoPath(String logoPath) {
+        this.logoPath = logoPath;
     }
 }
