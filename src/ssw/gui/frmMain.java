@@ -3724,7 +3724,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         tlbIconBar.setRequestFocusEnabled(false);
         tlbIconBar.setVerifyInputWhenFocusTarget(false);
 
-        btnNewIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_new.gif"))); // NOI18N
+        btnNewIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/document--plus.png"))); // NOI18N
         btnNewIcon.setToolTipText("New Mech");
         btnNewIcon.setFocusable(false);
         btnNewIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -3736,7 +3736,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         tlbIconBar.add(btnNewIcon);
 
-        btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/folder.gif"))); // NOI18N
+        btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/folder-open-document.png"))); // NOI18N
         btnOpen.setToolTipText("Open Mech");
         btnOpen.setFocusable(false);
         btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -3748,7 +3748,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         tlbIconBar.add(btnOpen);
 
-        btnSaveIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/action_save.gif"))); // NOI18N
+        btnSaveIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/disk-black.png"))); // NOI18N
         btnSaveIcon.setToolTipText("Save Mech");
         btnSaveIcon.setFocusable(false);
         btnSaveIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -3760,7 +3760,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         tlbIconBar.add(btnSaveIcon);
 
-        btnPrintPreview.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/image.gif"))); // NOI18N
+        btnPrintPreview.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/projection-screen.png"))); // NOI18N
         btnPrintPreview.setToolTipText("Print Preview");
         btnPrintPreview.setFocusable(false);
         btnPrintPreview.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -3773,7 +3773,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         tlbIconBar.add(btnPrintPreview);
         tlbIconBar.add(jSeparator24);
 
-        btnPrintIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/action_print.gif"))); // NOI18N
+        btnPrintIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/printer.png"))); // NOI18N
         btnPrintIcon.setToolTipText("Print Current Mech");
         btnPrintIcon.setFocusable(false);
         btnPrintIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -3786,7 +3786,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         tlbIconBar.add(btnPrintIcon);
         tlbIconBar.add(jSeparator22);
 
-        btnExportClipboardIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_tag_blue.gif"))); // NOI18N
+        btnExportClipboardIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/document-clipboard.png"))); // NOI18N
         btnExportClipboardIcon.setToolTipText("Export Text to Clipboard");
         btnExportClipboardIcon.setFocusable(false);
         btnExportClipboardIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -3798,7 +3798,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         tlbIconBar.add(btnExportClipboardIcon);
 
-        btnExportHTMLIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_code.gif"))); // NOI18N
+        btnExportHTMLIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/document-image.png"))); // NOI18N
         btnExportHTMLIcon.setToolTipText("Export HTML");
         btnExportHTMLIcon.setFocusable(false);
         btnExportHTMLIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -3810,7 +3810,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         tlbIconBar.add(btnExportHTMLIcon);
 
-        btnExportTextIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_edit.gif"))); // NOI18N
+        btnExportTextIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/document-text.png"))); // NOI18N
         btnExportTextIcon.setToolTipText("Export Text");
         btnExportTextIcon.setFocusable(false);
         btnExportTextIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -3822,7 +3822,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         tlbIconBar.add(btnExportTextIcon);
 
-        btnExportMTFIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/page_favourites.gif"))); // NOI18N
+        btnExportMTFIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/document--arrow.png"))); // NOI18N
         btnExportMTFIcon.setToolTipText("Export MTF");
         btnExportMTFIcon.setFocusable(false);
         btnExportMTFIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -3835,7 +3835,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         tlbIconBar.add(btnExportMTFIcon);
         tlbIconBar.add(jSeparator23);
 
-        btnPostToS7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/icon_world.gif"))); // NOI18N
+        btnPostToS7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/server.png"))); // NOI18N
         btnPostToS7.setToolTipText("Upload to Solaris7.com");
         btnPostToS7.setFocusable(false);
         btnPostToS7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -3848,7 +3848,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         tlbIconBar.add(btnPostToS7);
         tlbIconBar.add(jSeparator25);
 
-        btnAddToForceList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/mech_add.gif"))); // NOI18N
+        btnAddToForceList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/clipboard--plus.png"))); // NOI18N
         btnAddToForceList.setToolTipText("Add  to Force List");
         btnAddToForceList.setFocusable(false);
         btnAddToForceList.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -3860,7 +3860,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         tlbIconBar.add(btnAddToForceList);
 
-        btnForceList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/mech.gif"))); // NOI18N
+        btnForceList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/clipboard.png"))); // NOI18N
         btnForceList.setToolTipText("Force List");
         btnForceList.setFocusable(false);
         btnForceList.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -3873,7 +3873,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         tlbIconBar.add(btnForceList);
         tlbIconBar.add(jSeparator26);
 
-        btnOptionsIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/icon_settings.gif"))); // NOI18N
+        btnOptionsIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/gear.png"))); // NOI18N
         btnOptionsIcon.setToolTipText("View Options");
         btnOptionsIcon.setFocusable(false);
         btnOptionsIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -12386,8 +12386,6 @@ private void LoadMechFromPreferences()
             // had a problem loading the mech.  let the user know.
             javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
         }
-        CurMech = m;
-        LoadMechIntoGUI();
     }
 }
 
@@ -13038,11 +13036,8 @@ private void chkEjectionSeatActionPerformed(java.awt.event.ActionEvent evt) {//G
 }//GEN-LAST:event_chkEjectionSeatActionPerformed
 
 private void mnuPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintPreviewActionPerformed
-    PrintMech p = new PrintMech( this, CurMech, null, false, false);
-    p.SetPilotData( "", 4, 5);
-    p.SetOptions( Prefs.getBoolean("UseCharts", false), false, CurMech.GetCurrentBV());
-
     Printer printer = new Printer();
+    printer.setCharts(Prefs.getBoolean("UseCharts", false));
     printer.AddMech(CurMech);
 
     PreviewDialog dlgPreview = new PreviewDialog(CurMech.GetFullName(), this, printer.Preview(), 1.25);

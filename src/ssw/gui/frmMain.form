@@ -354,7 +354,7 @@
         <Component class="javax.swing.JButton" name="btnNewIcon">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/page_new.gif"/>
+              <Image iconType="3" name="/ssw/Images/document--plus.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="New Mech"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -368,7 +368,7 @@
         <Component class="javax.swing.JButton" name="btnOpen">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/folder.gif"/>
+              <Image iconType="3" name="/ssw/Images/folder-open-document.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Open Mech"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -382,7 +382,7 @@
         <Component class="javax.swing.JButton" name="btnSaveIcon">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/action_save.gif"/>
+              <Image iconType="3" name="/ssw/Images/disk-black.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Save Mech"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -396,7 +396,7 @@
         <Component class="javax.swing.JButton" name="btnPrintPreview">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/image.gif"/>
+              <Image iconType="3" name="/ssw/Images/projection-screen.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Print Preview"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -412,7 +412,7 @@
         <Component class="javax.swing.JButton" name="btnPrintIcon">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/action_print.gif"/>
+              <Image iconType="3" name="/ssw/Images/printer.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Print Current Mech"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -428,7 +428,7 @@
         <Component class="javax.swing.JButton" name="btnExportClipboardIcon">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/page_tag_blue.gif"/>
+              <Image iconType="3" name="/ssw/Images/document-clipboard.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Export Text to Clipboard"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -442,7 +442,7 @@
         <Component class="javax.swing.JButton" name="btnExportHTMLIcon">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/page_code.gif"/>
+              <Image iconType="3" name="/ssw/Images/document-image.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Export HTML"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -456,7 +456,7 @@
         <Component class="javax.swing.JButton" name="btnExportTextIcon">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/page_edit.gif"/>
+              <Image iconType="3" name="/ssw/Images/document-text.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Export Text"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -470,7 +470,7 @@
         <Component class="javax.swing.JButton" name="btnExportMTFIcon">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/page_favourites.gif"/>
+              <Image iconType="3" name="/ssw/Images/document--arrow.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Export MTF"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -486,7 +486,7 @@
         <Component class="javax.swing.JButton" name="btnPostToS7">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/icon_world.gif"/>
+              <Image iconType="3" name="/ssw/Images/server.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Upload to Solaris7.com"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -502,7 +502,7 @@
         <Component class="javax.swing.JButton" name="btnAddToForceList">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/mech_add.gif"/>
+              <Image iconType="3" name="/ssw/Images/clipboard--plus.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Add  to Force List"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -516,7 +516,7 @@
         <Component class="javax.swing.JButton" name="btnForceList">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/mech.gif"/>
+              <Image iconType="3" name="/ssw/Images/clipboard.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Force List"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -532,7 +532,7 @@
         <Component class="javax.swing.JButton" name="btnOptionsIcon">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ssw/Images/icon_settings.gif"/>
+              <Image iconType="3" name="/ssw/Images/gear.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="View Options"/>
             <Property name="focusable" type="boolean" value="false"/>
