@@ -52,6 +52,26 @@ public class XMLReader {
     }
 
 /**
+ * This version of ReadMech is used when frmMain AND DataFactory are NOT present.
+ * This method has been provided for external programs using the SSW code base.
+ *
+ * @param filename The canonical filename to load this 'Mech from.
+ * @return The specified 'Mech
+ * @throws java.lang.Exception Throws a variety of exceptions that should explain
+ *                             what went wrong while loading the 'Mech.
+ */
+    public Mech ReadMech( String filename ) throws Exception {
+        Parent = null;
+        data = null;
+        Mech retval = new Mech();
+        filename = FileCommon.GetSafeFilename( filename );
+        load = db.parse( filename );
+
+        retval = BuildMech( retval, load, data );
+        return retval;
+    }
+
+ /**
  * This version of ReadMech is used when frmMain is NOT present.  This method has
  * been provided for external programs using the SSW code base.
  * 
