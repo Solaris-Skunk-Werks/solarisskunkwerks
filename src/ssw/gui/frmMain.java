@@ -1849,7 +1849,17 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }
 
     private void SelectiveAllocate() {
-        dlgSelectiveAllocate Selec = new dlgSelectiveAllocate( this, true, CurItem );
+        dlgSelectiveAllocate Selec;
+        if( CurItem.Contiguous() ) {
+            EquipmentCollection e = CurMech.GetLoadout().GetCollection( CurItem );
+            if( e == null ) {
+                return;
+            } else {
+                Selec = new dlgSelectiveAllocate( this, true, e );
+            }
+        } else {
+            Selec = new dlgSelectiveAllocate( this, true, CurItem );
+        }
         Selec.setLocationRelativeTo( this );
         Selec.setVisible( true );
         RefreshSummary();
@@ -8160,10 +8170,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         EquipmentCollection C = CurMech.GetLoadout().GetCollection( CurItem );
                         if( C == null ) {
                             mnuAuto.setEnabled( false );
+                            mnuSelective.setEnabled( false );
                         } else {
                             mnuAuto.setEnabled( true );
+                            mnuSelective.setEnabled( true );
                         }
-                        mnuSelective.setEnabled( false );
                     } else {
                         mnuSelective.setEnabled( true );
                         mnuAuto.setEnabled( true );
@@ -8182,10 +8193,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         EquipmentCollection C = CurMech.GetLoadout().GetCollection( CurItem );
                         if( C == null ) {
                             btnAutoAllocate.setEnabled( false );
+                            btnSelectiveAllocate.setEnabled( false );
                         } else {
                             btnAutoAllocate.setEnabled( true );
+                            btnSelectiveAllocate.setEnabled( true );
                         }
-                        btnSelectiveAllocate.setEnabled( false );
                     } else {
                         btnAutoAllocate.setEnabled( true );
                         btnSelectiveAllocate.setEnabled( true );
@@ -8201,10 +8213,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         EquipmentCollection C = CurMech.GetLoadout().GetCollection( CurItem );
                         if( C == null ) {
                             mnuAuto.setEnabled( false );
+                            mnuSelective.setEnabled( false );
                         } else {
                             mnuAuto.setEnabled( true );
+                            mnuSelective.setEnabled( true );
                         }
-                        mnuSelective.setEnabled( false );
                     } else {
                         mnuSelective.setEnabled( true );
                         mnuAuto.setEnabled( true );
@@ -8223,10 +8236,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         EquipmentCollection C = CurMech.GetLoadout().GetCollection( CurItem );
                         if( C == null ) {
                             btnAutoAllocate.setEnabled( false );
+                            btnSelectiveAllocate.setEnabled( false );
                         } else {
                             btnAutoAllocate.setEnabled( true );
+                            btnSelectiveAllocate.setEnabled( true );
                         }
-                        btnSelectiveAllocate.setEnabled( false );
                     } else {
                         btnAutoAllocate.setEnabled( true );
                         btnSelectiveAllocate.setEnabled( true );

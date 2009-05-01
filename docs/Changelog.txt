@@ -5,6 +5,7 @@ Version 0.7.0
 - You can now control whether Clan CASE is used in the 'Mech, affecting cost and BV.
 - Mixed Technology.
 - Added the rest of the missing Tac Ops ammunition types.
+- Added EquipmentCollections, equipment is now consolidated on the Crits to Placed list.
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.
@@ -18,6 +19,8 @@ Version 0.7.0
 - (Hopefully) Fixed Clan CASE checkbox behavior and saving.
 - (Hopefully) Fixed incorrect MegaMek lookupnames for mtf export.
 - Made some slight formatting changes to the Text Export.
+- You can now auto-allocate anything that is in a collection.
+- You can now selective allocate anything that is in a collection.
 
 -------------------------------------------------------------------------------
 Version 0.6.0

@@ -36,7 +36,8 @@ import ssw.components.*;
 public class dlgSelectiveAllocate extends javax.swing.JDialog {
 
     frmMain Parent;
-    abPlaceable Item;
+    abPlaceable Item = null;
+    EquipmentCollection Items = null;
     ifLoadout CurLoadout;
     int total = 0;
     int[] Crits = { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -51,12 +52,21 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
         Parent = (frmMain) parent;
         Item = p;
         CurLoadout = Parent.CurMech.GetLoadout();
-        Initialize();
+        InitializeSingle();
     }
 
-    private void Initialize() {
-        // sets the spinners and labels.  Selective allocate may only be used on
-        // non-contiguous items and should have already been checked.
+    public dlgSelectiveAllocate( java.awt.Frame parent, boolean modal, EquipmentCollection e ) {
+        super(parent, modal);
+        initComponents();
+        setTitle( "Selective Allocation" );
+        setResizable( false );
+        Parent = (frmMain) parent;
+        Items = e;
+        CurLoadout = Parent.CurMech.GetLoadout();
+        InitializeCollection();
+    }
+
+    private void InitializeSingle() {
         if( Parent.CurMech.IsQuad() ) {
             ((TitledBorder) pnlRA.getBorder()).setTitle( "RFL" );
             ((TitledBorder) pnlLA.getBorder()).setTitle( "LFL" );
@@ -102,6 +112,61 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
 
         // set the total to the item's currently placed crits
         total = Item.NumPlaced();
+    }
+
+    private void InitializeCollection() {
+        abPlaceable CurItem = Items.GetType();
+        int size = CurItem.NumCrits();
+        
+        if( Parent.CurMech.IsQuad() ) {
+            ((TitledBorder) pnlRA.getBorder()).setTitle( "RFL" );
+            ((TitledBorder) pnlLA.getBorder()).setTitle( "LFL" );
+            ((TitledBorder) pnlRL.getBorder()).setTitle( "RRL" );
+            ((TitledBorder) pnlLL.getBorder()).setTitle( "LRL" );
+        } else {
+            ((TitledBorder) pnlRA.getBorder()).setTitle( "RA" );
+            ((TitledBorder) pnlLA.getBorder()).setTitle( "LA" );
+            ((TitledBorder) pnlRL.getBorder()).setTitle( "RL" );
+            ((TitledBorder) pnlLL.getBorder()).setTitle( "LL" );
+        }
+
+        // first, get the available crits for each location
+        Crits[Constants.LOC_HD] = GetNumSlots( size, CurLoadout.FreeCrits( CurLoadout.GetHDCrits() ) );
+        Crits[Constants.LOC_CT] = GetNumSlots( size, CurLoadout.FreeCrits( CurLoadout.GetCTCrits() ) );
+        Crits[Constants.LOC_LT] = GetNumSlots( size, CurLoadout.FreeCrits( CurLoadout.GetLTCrits() ) );
+        Crits[Constants.LOC_RT] = GetNumSlots( size, CurLoadout.FreeCrits( CurLoadout.GetRTCrits() ) );
+        Crits[Constants.LOC_LA] = GetNumSlots( size, CurLoadout.FreeCrits( CurLoadout.GetLACrits() ) );
+        Crits[Constants.LOC_RA] = GetNumSlots( size, CurLoadout.FreeCrits( CurLoadout.GetRACrits() ) );
+        Crits[Constants.LOC_LL] = GetNumSlots( size, CurLoadout.FreeCrits( CurLoadout.GetLLCrits() ) );
+        Crits[Constants.LOC_RL] = GetNumSlots( size, CurLoadout.FreeCrits( CurLoadout.GetRLCrits() ) );
+
+        lblAllocateItem.setText( "Allocating " + CurItem.GetCritName() );
+        lblItemCrits.setText( "0 of " + Items.GetSize() + " Allocated" );
+        lblHDQuant.setText( "0 of " + Crits[Constants.LOC_HD] );
+        lblCTQuant.setText( "0 of " + Crits[Constants.LOC_CT] );
+        lblLTQuant.setText( "0 of " + Crits[Constants.LOC_LT] );
+        lblRTQuant.setText( "0 of " + Crits[Constants.LOC_RT] );
+        lblLAQuant.setText( "0 of " + Crits[Constants.LOC_LA] );
+        lblRAQuant.setText( "0 of " + Crits[Constants.LOC_RA] );
+        lblLLQuant.setText( "0 of " + Crits[Constants.LOC_LL] );
+        lblRLQuant.setText( "0 of " + Crits[Constants.LOC_RL] );
+
+        // now set all the spinners
+        spnHDCrits.setModel( new javax.swing.SpinnerNumberModel( 0, 0, Crits[Constants.LOC_HD], 1 ) );
+        spnCTCrits.setModel( new javax.swing.SpinnerNumberModel( 0, 0, Crits[Constants.LOC_CT], 1 ) );
+        spnLTCrits.setModel( new javax.swing.SpinnerNumberModel( 0, 0, Crits[Constants.LOC_LT], 1 ) );
+        spnRTCrits.setModel( new javax.swing.SpinnerNumberModel( 0, 0, Crits[Constants.LOC_RT], 1 ) );
+        spnLACrits.setModel( new javax.swing.SpinnerNumberModel( 0, 0, Crits[Constants.LOC_LA], 1 ) );
+        spnRACrits.setModel( new javax.swing.SpinnerNumberModel( 0, 0, Crits[Constants.LOC_RA], 1 ) );
+        spnLLCrits.setModel( new javax.swing.SpinnerNumberModel( 0, 0, Crits[Constants.LOC_LL], 1 ) );
+        spnRLCrits.setModel( new javax.swing.SpinnerNumberModel( 0, 0, Crits[Constants.LOC_RL], 1 ) );
+
+        // set the total to the item's currently placed crits
+        total = 0;
+    }
+
+    private int GetNumSlots( int size, int free ) {
+        return (int) Math.floor( ((double) free) / ((double) size) );
     }
 
     /** This method is called from within the constructor to
@@ -376,28 +441,60 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
         // allocate the item into the loadout with the given values
         try {
             for( int i = 0; i < Alloc[Constants.LOC_HD]; i++ ) {
-                CurLoadout.AddToHD( Item );
+                if( Item == null ) {
+                    CurLoadout.AddToHD( Items.GetType() );
+                } else {
+                    CurLoadout.AddToHD( Item );
+                }
             }
             for( int i = 0; i < Alloc[Constants.LOC_CT]; i++ ) {
-                CurLoadout.AddToCT( Item );
+                if( Item == null ) {
+                    CurLoadout.AddToCT( Items.GetType() );
+                } else {
+                    CurLoadout.AddToCT( Item );
+                }
             }
             for( int i = 0; i < Alloc[Constants.LOC_LT]; i++ ) {
-                CurLoadout.AddToLT( Item );
+                if( Item == null ) {
+                    CurLoadout.AddToLT( Items.GetType() );
+                } else {
+                    CurLoadout.AddToLT( Item );
+                }
             }
             for( int i = 0; i < Alloc[Constants.LOC_RT]; i++ ) {
-                CurLoadout.AddToRT( Item );
+                if( Item == null ) {
+                    CurLoadout.AddToRT( Items.GetType() );
+                } else {
+                    CurLoadout.AddToRT( Item );
+                }
             }
             for( int i = 0; i < Alloc[Constants.LOC_LA]; i++ ) {
-                CurLoadout.AddToLA( Item );
+                if( Item == null ) {
+                    CurLoadout.AddToLA( Items.GetType() );
+                } else {
+                    CurLoadout.AddToLA( Item );
+                }
             }
             for( int i = 0; i < Alloc[Constants.LOC_RA]; i++ ) {
-                CurLoadout.AddToRA( Item );
+                if( Item == null ) {
+                    CurLoadout.AddToRA( Items.GetType() );
+                } else {
+                    CurLoadout.AddToRA( Item );
+                }
             }
             for( int i = 0; i < Alloc[Constants.LOC_LL]; i++ ) {
-                CurLoadout.AddToLL( Item );
+                if( Item == null ) {
+                    CurLoadout.AddToLL( Items.GetType() );
+                } else {
+                    CurLoadout.AddToLL( Item );
+                }
             }
             for( int i = 0; i < Alloc[Constants.LOC_RL]; i++ ) {
-                CurLoadout.AddToRL( Item );
+                if( Item == null ) {
+                    CurLoadout.AddToRL( Items.GetType() );
+                } else {
+                    CurLoadout.AddToRL( Item );
+                }
             }
         } catch ( Exception e ) {
             // found a problem, report it
@@ -424,13 +521,24 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
             return;
         }
 
-        // is it over the maximum allocatable for this item?
-        int change = n.getNumber().intValue() - Alloc[Constants.LOC_HD];
-        if( change + total > Item.NumCrits() ) {
-            int diff = change + total - Item.NumCrits();
-            change -= diff;
-            spnHDCrits.setValue( change + Alloc[Constants.LOC_HD] );
-            tf.setValue( spnHDCrits.getValue() );
+        int change = 0;
+        if( Item == null ) {
+            change = n.getNumber().intValue() - Alloc[Constants.LOC_HD];
+            if( change + total > Items.GetSize() ) {
+                int diff = change + total - Items.GetSize();
+                change -= diff;
+                spnHDCrits.setValue( change + Alloc[Constants.LOC_HD] );
+                tf.setValue( spnHDCrits.getValue() );
+            }
+        } else {
+            // is it over the maximum allocatable for this item?
+            change = n.getNumber().intValue() - Alloc[Constants.LOC_HD];
+            if( change + total > Item.NumCrits() ) {
+                int diff = change + total - Item.NumCrits();
+                change -= diff;
+                spnHDCrits.setValue( change + Alloc[Constants.LOC_HD] );
+                tf.setValue( spnHDCrits.getValue() );
+            }
         }
 
         // update the allocated number and the running total.
@@ -439,7 +547,11 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
 
         // update the labels to reflect the new values.
         lblHDQuant.setText( Alloc[Constants.LOC_HD] + " of " + Crits[Constants.LOC_HD] );
-        lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );
+        if( Item == null ) {
+            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );            
+        } else {
+            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );            
+        }
     }//GEN-LAST:event_spnHDCritsStateChanged
 
     private void spnRTCritsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRTCritsStateChanged
@@ -460,13 +572,24 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
             return;
         }
 
-        // is it over the maximum allocatable for this item?
-        int change = n.getNumber().intValue() - Alloc[Constants.LOC_RT];
-        if( change + total > Item.NumCrits() ) {
-            int diff = change + total - Item.NumCrits();
-            change -= diff;
-            spnRTCrits.setValue( change + Alloc[Constants.LOC_RT] );
-            tf.setValue( spnRTCrits.getValue() );
+        int change = 0;
+        if( Item == null ) {
+            change = n.getNumber().intValue() - Alloc[Constants.LOC_RT];
+            if( change + total > Items.GetSize() ) {
+                int diff = change + total - Items.GetSize();
+                change -= diff;
+                spnRTCrits.setValue( change + Alloc[Constants.LOC_RT] );
+                tf.setValue( spnRTCrits.getValue() );
+            }
+        } else {
+            // is it over the maximum allocatable for this item?
+            change = n.getNumber().intValue() - Alloc[Constants.LOC_RT];
+            if( change + total > Item.NumCrits() ) {
+                int diff = change + total - Item.NumCrits();
+                change -= diff;
+                spnRTCrits.setValue( change + Alloc[Constants.LOC_RT] );
+                tf.setValue( spnRTCrits.getValue() );
+            }
         }
 
         // update the allocated number and the running total.
@@ -475,7 +598,11 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
 
         // update the labels to reflect the new values.
         lblRTQuant.setText( Alloc[Constants.LOC_RT] + " of " + Crits[Constants.LOC_RT] );
-        lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );
+        if( Item == null ) {
+            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );            
+        } else {
+            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );            
+        }
     }//GEN-LAST:event_spnRTCritsStateChanged
 
     private void spnLTCritsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnLTCritsStateChanged
@@ -496,13 +623,24 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
             return;
         }
 
-        // is it over the maximum allocatable for this item?
-        int change = n.getNumber().intValue() - Alloc[Constants.LOC_LT];
-        if( change + total > Item.NumCrits() ) {
-            int diff = change + total - Item.NumCrits();
-            change -= diff;
-            spnLTCrits.setValue( change + Alloc[Constants.LOC_LT] );
-            tf.setValue( spnLTCrits.getValue() );
+        int change = 0;
+        if( Item == null ) {
+            change = n.getNumber().intValue() - Alloc[Constants.LOC_LT];
+            if( change + total > Items.GetSize() ) {
+                int diff = change + total - Items.GetSize();
+                change -= diff;
+                spnLTCrits.setValue( change + Alloc[Constants.LOC_LT] );
+                tf.setValue( spnLTCrits.getValue() );
+            }
+        } else {
+            // is it over the maximum allocatable for this item?
+            change = n.getNumber().intValue() - Alloc[Constants.LOC_LT];
+            if( change + total > Item.NumCrits() ) {
+                int diff = change + total - Item.NumCrits();
+                change -= diff;
+                spnLTCrits.setValue( change + Alloc[Constants.LOC_LT] );
+                tf.setValue( spnLTCrits.getValue() );
+            }
         }
 
         // update the allocated number and the running total.
@@ -511,7 +649,11 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
 
         // update the labels to reflect the new values.
         lblLTQuant.setText( Alloc[Constants.LOC_LT] + " of " + Crits[Constants.LOC_LT] );
-        lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );
+        if( Item == null ) {
+            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );            
+        } else {
+            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );            
+        }
     }//GEN-LAST:event_spnLTCritsStateChanged
 
     private void spnCTCritsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnCTCritsStateChanged
@@ -532,13 +674,24 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
             return;
         }
 
-        // is it over the maximum allocatable for this item?
-        int change = n.getNumber().intValue() - Alloc[Constants.LOC_CT];
-        if( change + total > Item.NumCrits() ) {
-            int diff = change + total - Item.NumCrits();
-            change -= diff;
-            spnCTCrits.setValue( change + Alloc[Constants.LOC_CT] );
-            tf.setValue( spnCTCrits.getValue() );
+        int change = 0;
+        if( Item == null ) {
+            change = n.getNumber().intValue() - Alloc[Constants.LOC_CT];
+            if( change + total > Items.GetSize() ) {
+                int diff = change + total - Items.GetSize();
+                change -= diff;
+                spnCTCrits.setValue( change + Alloc[Constants.LOC_CT] );
+                tf.setValue( spnCTCrits.getValue() );
+            }
+        } else {
+            // is it over the maximum allocatable for this item?
+            change = n.getNumber().intValue() - Alloc[Constants.LOC_CT];
+            if( change + total > Item.NumCrits() ) {
+                int diff = change + total - Item.NumCrits();
+                change -= diff;
+                spnCTCrits.setValue( change + Alloc[Constants.LOC_CT] );
+                tf.setValue( spnCTCrits.getValue() );
+            }
         }
 
         // update the allocated number and the running total.
@@ -547,7 +700,11 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
 
         // update the labels to reflect the new values.
         lblCTQuant.setText( Alloc[Constants.LOC_CT] + " of " + Crits[Constants.LOC_CT] );
-        lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );
+        if( Item == null ) {
+            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );            
+        } else {
+            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );            
+        }
     }//GEN-LAST:event_spnCTCritsStateChanged
 
     private void spnLACritsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnLACritsStateChanged
@@ -568,13 +725,24 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
             return;
         }
 
-        // is it over the maximum allocatable for this item?
-        int change = n.getNumber().intValue() - Alloc[Constants.LOC_LA];
-        if( change + total > Item.NumCrits() ) {
-            int diff = change + total - Item.NumCrits();
-            change -= diff;
-            spnLACrits.setValue( change + Alloc[Constants.LOC_LA] );
-            tf.setValue( spnLACrits.getValue() );
+        int change = 0;
+        if( Item == null ) {
+            change = n.getNumber().intValue() - Alloc[Constants.LOC_LA];
+            if( change + total > Items.GetSize() ) {
+                int diff = change + total - Items.GetSize();
+                change -= diff;
+                spnLACrits.setValue( change + Alloc[Constants.LOC_LA] );
+                tf.setValue( spnLACrits.getValue() );
+            }
+        } else {
+            // is it over the maximum allocatable for this item?
+            change = n.getNumber().intValue() - Alloc[Constants.LOC_LA];
+            if( change + total > Item.NumCrits() ) {
+                int diff = change + total - Item.NumCrits();
+                change -= diff;
+                spnLACrits.setValue( change + Alloc[Constants.LOC_LA] );
+                tf.setValue( spnLACrits.getValue() );
+            }
         }
 
         // update the allocated number and the running total.
@@ -583,7 +751,11 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
 
         // update the labels to reflect the new values.
         lblLAQuant.setText( Alloc[Constants.LOC_LA] + " of " + Crits[Constants.LOC_LA] );
-        lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );
+        if( Item == null ) {
+            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );            
+        } else {
+            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );            
+        }
     }//GEN-LAST:event_spnLACritsStateChanged
 
     private void spnRACritsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRACritsStateChanged
@@ -604,13 +776,24 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
             return;
         }
 
-        // is it over the maximum allocatable for this item?
-        int change = n.getNumber().intValue() - Alloc[Constants.LOC_RA];
-        if( change + total > Item.NumCrits() ) {
-            int diff = change + total - Item.NumCrits();
-            change -= diff;
-            spnRACrits.setValue( change + Alloc[Constants.LOC_RA] );
-            tf.setValue( spnRACrits.getValue() );
+        int change = 0;
+        if( Item == null ) {
+            change = n.getNumber().intValue() - Alloc[Constants.LOC_RA];
+            if( change + total > Items.GetSize() ) {
+                int diff = change + total - Items.GetSize();
+                change -= diff;
+                spnRACrits.setValue( change + Alloc[Constants.LOC_RA] );
+                tf.setValue( spnRACrits.getValue() );
+            }
+        } else {
+            // is it over the maximum allocatable for this item?
+            change = n.getNumber().intValue() - Alloc[Constants.LOC_RA];
+            if( change + total > Item.NumCrits() ) {
+                int diff = change + total - Item.NumCrits();
+                change -= diff;
+                spnRACrits.setValue( change + Alloc[Constants.LOC_RA] );
+                tf.setValue( spnRACrits.getValue() );
+            }
         }
 
         // update the allocated number and the running total.
@@ -619,7 +802,11 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
 
         // update the labels to reflect the new values.
         lblRAQuant.setText( Alloc[Constants.LOC_RA] + " of " + Crits[Constants.LOC_RA] );
-        lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );
+        if( Item == null ) {
+            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );            
+        } else {
+            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );            
+        }
     }//GEN-LAST:event_spnRACritsStateChanged
 
     private void spnLLCritsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnLLCritsStateChanged
@@ -640,13 +827,24 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
             return;
         }
 
-        // is it over the maximum allocatable for this item?
-        int change = n.getNumber().intValue() - Alloc[Constants.LOC_LL];
-        if( change + total > Item.NumCrits() ) {
-            int diff = change + total - Item.NumCrits();
-            change -= diff;
-            spnLLCrits.setValue( change + Alloc[Constants.LOC_LL] );
-            tf.setValue( spnLLCrits.getValue() );
+        int change = 0;
+        if( Item == null ) {
+            change = n.getNumber().intValue() - Alloc[Constants.LOC_LL];
+            if( change + total > Items.GetSize() ) {
+                int diff = change + total - Items.GetSize();
+                change -= diff;
+                spnLLCrits.setValue( change + Alloc[Constants.LOC_LL] );
+                tf.setValue( spnLLCrits.getValue() );
+            }
+        } else {
+            // is it over the maximum allocatable for this item?
+            change = n.getNumber().intValue() - Alloc[Constants.LOC_LL];
+            if( change + total > Item.NumCrits() ) {
+                int diff = change + total - Item.NumCrits();
+                change -= diff;
+                spnLLCrits.setValue( change + Alloc[Constants.LOC_LL] );
+                tf.setValue( spnLLCrits.getValue() );
+            }
         }
 
         // update the allocated number and the running total.
@@ -655,7 +853,11 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
 
         // update the labels to reflect the new values.
         lblLLQuant.setText( Alloc[Constants.LOC_LL] + " of " + Crits[Constants.LOC_LL] );
-        lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );
+        if( Item == null ) {
+            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );            
+        } else {
+            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );            
+        }
     }//GEN-LAST:event_spnLLCritsStateChanged
 
     private void spnRLCritsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRLCritsStateChanged
@@ -676,13 +878,24 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
             return;
         }
 
-        // is it over the maximum allocatable for this item?
-        int change = n.getNumber().intValue() - Alloc[Constants.LOC_RL];
-        if( change + total > Item.NumCrits() ) {
-            int diff = change + total - Item.NumCrits();
-            change -= diff;
-            spnRLCrits.setValue( change + Alloc[Constants.LOC_RL] );
-            tf.setValue( spnRLCrits.getValue() );
+        int change = 0;
+        if( Item == null ) {
+            change = n.getNumber().intValue() - Alloc[Constants.LOC_RL];
+            if( change + total > Items.GetSize() ) {
+                int diff = change + total - Items.GetSize();
+                change -= diff;
+                spnRLCrits.setValue( change + Alloc[Constants.LOC_RL] );
+                tf.setValue( spnRLCrits.getValue() );
+            }
+        } else {
+            // is it over the maximum allocatable for this item?
+            change = n.getNumber().intValue() - Alloc[Constants.LOC_RL];
+            if( change + total > Item.NumCrits() ) {
+                int diff = change + total - Item.NumCrits();
+                change -= diff;
+                spnRLCrits.setValue( change + Alloc[Constants.LOC_RL] );
+                tf.setValue( spnRLCrits.getValue() );
+            }
         }
 
         // update the allocated number and the running total.
@@ -691,7 +904,11 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
 
         // update the labels to reflect the new values.
         lblRLQuant.setText( Alloc[Constants.LOC_RL] + " of " + Crits[Constants.LOC_RL] );
-        lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );
+        if( Item == null ) {
+            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );            
+        } else {
+            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );            
+        }
     }//GEN-LAST:event_spnRLCritsStateChanged
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
