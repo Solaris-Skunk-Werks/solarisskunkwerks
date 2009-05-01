@@ -67,10 +67,13 @@ public class TWBipedPoints implements ifPrintPoints {
         new Point( 447, 84 ), new Point( 441, 84 ), new Point( 435, 84 ), new Point( 429, 84 ), new Point( 423, 84 ),
         new Point( 447, 90 ), new Point( 441, 90 ), new Point( 435, 90 ), new Point( 429, 90 ),
         new Point( 447, 96 ), new Point( 441, 96 ), new Point( 435, 96 ), new Point( 429, 96 ),
-        new Point( 447, 102 ), new Point( 441, 102 ), new Point( 447, 108 ), new Point( 441, 108 ),
-        new Point( 447, 114 ), new Point( 441, 114 ), new Point( 443, 120 ), new Point( 447, 120 ),
-        new Point( 449, 126 ), new Point( 443, 126 ), new Point( 450, 138 ), new Point( 449, 138 ),
-        new Point( 450, 144 ), new Point( 449, 144 ) };
+        new Point( 444, 102 ), new Point( 438, 102 ),
+        new Point( 445, 108 ), new Point( 439, 108 ),
+        new Point( 446, 114 ), new Point( 440, 114 ),
+        new Point( 441, 120 ), new Point( 447, 120 ),
+        new Point( 449, 126 ), new Point( 443, 126 ), 
+        new Point( 450, 138 ), new Point( 443, 138 ),
+        new Point( 450, 144 ), new Point( 443, 144 ) };
     private final static Point[] RTArmorPoints = {
         new Point( 491, 66 ), new Point( 497, 66 ), new Point( 503, 66 ), new Point( 509, 66 ), new Point( 515, 66 ),
         new Point( 491, 72 ), new Point( 497, 72 ), new Point( 503, 72 ), new Point( 509, 72 ), new Point( 515, 72 ),
@@ -78,10 +81,13 @@ public class TWBipedPoints implements ifPrintPoints {
         new Point( 491, 84 ), new Point( 497, 84 ), new Point( 503, 84 ), new Point( 509, 84 ), new Point( 515, 84 ),
         new Point( 491, 90 ), new Point( 497, 90 ), new Point( 503, 90 ), new Point( 509, 90 ),
         new Point( 491, 96 ), new Point( 497, 96 ), new Point( 503, 96 ), new Point( 509, 96 ),
-        new Point( 491, 102 ), new Point( 497, 102 ), new Point( 491, 108 ), new Point( 497, 108 ),
-        new Point( 491, 114 ), new Point( 497, 114 ), new Point( 498, 120 ), new Point( 504, 120 ),
-        new Point( 489, 126 ), new Point( 495, 126 ), new Point( 480, 138 ), new Point( 496, 138 ),
-        new Point( 480, 144 ), new Point( 496, 144 ) };
+        new Point( 494, 102 ), new Point( 500, 102 ),
+        new Point( 493, 108 ), new Point( 499, 108 ),
+        new Point( 492, 114 ), new Point( 498, 114 ),
+        new Point( 491, 120 ), new Point( 497, 120 ),
+        new Point( 489, 126 ), new Point( 495, 126 ), 
+        new Point( 490, 138 ), new Point( 496, 138 ),
+        new Point( 490, 144 ), new Point( 496, 144 ) };
     private final static Point[] HDArmorPoints = {
         new Point( 469, 66 ), new Point( 469, 60 ), new Point( 469, 54 ), new Point( 463, 66 ), new Point( 475, 66 ),
         new Point( 463, 60 ), new Point( 475, 60 ), new Point( 463, 54 ), new Point( 475, 54 ) };

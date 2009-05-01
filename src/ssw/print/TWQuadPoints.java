@@ -53,8 +53,8 @@ public class TWQuadPoints implements ifPrintPoints {
         new Point( 451, 110 ), new Point( 457, 110 ), new Point( 463, 110 ), new Point( 469, 110 ), new Point( 475, 110 ), new Point( 481, 110 ), new Point( 487, 110 ),
         new Point( 451, 116 ), new Point( 457, 116 ), new Point( 463, 116 ), new Point( 469, 116 ), new Point( 475, 116 ), new Point( 481, 116 ), new Point( 487, 116 ),
         new Point( 451, 122 ), new Point( 457, 122 ), new Point( 463, 122 ), new Point( 469, 122 ), new Point( 475, 122 ), new Point( 481, 122 ), new Point( 487, 122 ),
-        new Point( 454, 128 ), new Point( 460, 128 ), new Point( 466, 128 ), new Point( 472, 128 ), new Point( 469, 128 ), new Point( 484, 128 ),
-        new Point( 454, 134 ), new Point( 460, 134 ), new Point( 466, 134 ), new Point( 472, 134 ), new Point( 469, 134 ), new Point( 484, 134 ),
+        new Point( 454, 128 ), new Point( 460, 128 ), new Point( 466, 128 ), new Point( 472, 128 ), new Point( 478, 128 ), new Point( 484, 128 ),
+        new Point( 454, 134 ), new Point( 460, 134 ), new Point( 466, 134 ), new Point( 472, 134 ), new Point( 478, 134 ), new Point( 484, 134 ),
         new Point( 469, 140 ) };
     private final static Point[] LTArmorPoints = {
         new Point( 439, 44 ), new Point( 433, 44 ), new Point( 427, 44 ), new Point( 421, 44 ), new Point( 415, 44 ),
