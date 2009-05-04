@@ -192,5 +192,4 @@ public interface ifLoadout {
     public void AddMechModifier( MechModifier m );
     public void RemoveMechMod( MechModifier m );
     public Vector GetMechMods();
-    public String GetBFConversionStr( boolean TC );
 }

@@ -71,7 +71,13 @@ public class Constants {
                      BF_SIZE_LIGHT = 1,
                      BF_SIZE_MEDIUM = 2,
                      BF_SIZE_HEAVY = 3,
-                     BF_SIZE_ASSAULT = 4;
+                     BF_SIZE_ASSAULT = 4,
+                     BF_SHORT = 0,
+                     BF_MEDIUM = 1,
+                     BF_LONG = 2,
+                     BF_EXTREME = 3,
+                     BF_OV = 4;
+
 
     public final static String strSTAR_LEAGUE = "Age of War/Star League",
                         strSUCCESSION = "Succession Wars",

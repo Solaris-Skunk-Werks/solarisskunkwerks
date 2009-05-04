@@ -4216,20 +4216,6 @@ public class BipedLoadout implements ifLoadout {
         return MechMods;
     }
 
-    public String GetBFConversionStr( boolean TC ) {
-        String retval = "";
-
-        // For each ifWeapon in NonCore, add damage string
-        for (int i = 0; i < NonCore.size(); i++) {
-            if ( NonCore.get(i) instanceof ifWeapon ) {
-                retval += String.format("%1$-21s", ( (abPlaceable)NonCore.get(i) ).GetPrintName() );
-                retval += ( (ifWeapon)NonCore.get(i) ).GetBFDamageString(TC) + "\n\r";
-            }
-        }
-
-        return retval;
-    }
-
     @Override
     public String toString() {
         return "Loadout: " + Name;

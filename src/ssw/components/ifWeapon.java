@@ -55,11 +55,6 @@ public interface ifWeapon {
     public int GetToHitShort();
     public int GetToHitMedium();
     public int GetToHitLong();
-    public float GetBFDamageShort( boolean TC );
-    public float GetBFDamageMedium( boolean TC );
-    public float GetBFDamageLong( boolean TC );
-    public float GetBFDamageExtreme( boolean TC );
-    public String GetBFDamageString( boolean TC );
     public int ClusterSize();
     public int ClusterGrouping();
     public int GetAmmoLotSize();

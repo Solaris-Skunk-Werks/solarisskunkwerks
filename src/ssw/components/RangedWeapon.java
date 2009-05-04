@@ -28,8 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
-import ssw.battleforce.*;
-
 public class RangedWeapon extends abPlaceable implements ifWeapon {
     private AvailableCode AC;
     private PPCCapacitor Capacitor = null;
@@ -699,71 +697,6 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     public void SetLocationLinked( boolean b ) {
         LocationLinked = b;
         SetLocked( b );
-    }
-
-    public float GetBFDamageShort( boolean TC ) {
-        float retval = 0;
-
-        // this logic seems wierd.
-        if ( GetDamageLong() >= 3 ) {          
-            retval = GetDamageShort();
-        } else {
-            // should it still be 0?
-        }
-
-        // Adjust for minimum range
-        retval *= BattleForceTools.BFMinRangeModifiers[GetRangeMin()];
-
-        // Adjust for to-hit modifier
-        retval *= BattleForceTools.BFToHitModifiers[GetToHitShort() + 4];
-
-        // Adjust for capacitors
-        if ( UsingCapacitor ) { retval *= 0.50f; }
-
-        // Adjust for Targeting Computer
-        if ( TC ) { retval *= 1.10f; }
-
-        // Adjust for AES
-        //TODO: Add code
-
-        return retval;
-    }
-
-    public float GetBFDamageMedium( boolean TC ) {
-        float retval = 0;
-
-        if ( GetRangeShort() > 3 )
-            retval = GetDamageShort();
-
-        return retval;
-    }
-
-    public float GetBFDamageLong( boolean TC ) {
-        float retval = 0;
-
-        if ( GetRangeLong() > 15 )
-            retval = GetDamageLong();
-
-        return retval;
-    }
-
-    public float GetBFDamageExtreme( boolean TC ) {
-        float retval = 0;
-
-        if ( GetRangeLong() > 23 )
-            retval = GetDamageLong();
-
-        return retval;
-    }
-
-    public String GetBFDamageString( boolean TC ) {
-        String retval = "";
-
-        retval += String.format("%1$,8.2f", GetBFDamageShort(TC) ) + "\t";
-        retval += GetBFDamageMedium(TC) + "\t";
-        retval += GetBFDamageLong(TC);
-
-        return retval;
     }
 
     @Override

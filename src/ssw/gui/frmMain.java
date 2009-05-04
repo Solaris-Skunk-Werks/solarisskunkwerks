@@ -1502,8 +1502,16 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lblBFWt.setText( "" + CurMech.GetBFSize() );
         lblBFArmor.setText( "" + CurMech.GetBFArmor() );
         lblBFStructure.setText( "" + CurMech.GetBFStructure() );
+        lblBFPoints.setText("" + CurMech.GetBFPoints() );
 
-        jTextAreaBFConversion.setText( CurMech.GetBFConversionStr( CurMech.UsingTC() ) );
+        int [] BFdmg = CurMech.GetBFDamage();
+        lblBFShort.setText("" + BFdmg[Constants.BF_SHORT]);
+        lblBFMedium.setText("" + BFdmg[Constants.BF_MEDIUM]);
+        lblBFLong.setText("" + BFdmg[Constants.BF_LONG]);
+        lblBFExtreme.setText("" + BFdmg[Constants.BF_EXTREME]);
+        lblBFOV.setText("" + BFdmg[Constants.BF_OV]);
+
+        jTextAreaBFConversion.setText( CurMech.GetBFConversionStr( ) );
     }
 
     public void RefreshInfoPane() {
@@ -3657,6 +3665,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lblBFArmor = new javax.swing.JLabel();
         lblBFStructure = new javax.swing.JLabel();
         lblBFSA = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        lblBFPoints = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane14 = new javax.swing.JScrollPane();
         jTextAreaBFConversion = new javax.swing.JTextArea();
@@ -9013,7 +9023,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkChartFront.setBackground(java.awt.Color.red);
         chkChartFront.setSelected(true);
         chkChartFront.setText("Show Front Arc Weapons");
-        chkChartFront.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         chkChartFront.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkChartFrontActionPerformed(evt);
@@ -9024,7 +9033,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkChartRear.setBackground(java.awt.Color.pink);
         chkChartRear.setSelected(true);
         chkChartRear.setText("Show Rear Arc Weapons");
-        chkChartRear.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         chkChartRear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkChartRearActionPerformed(evt);
@@ -9035,7 +9043,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkChartRight.setBackground(java.awt.Color.green);
         chkChartRight.setSelected(true);
         chkChartRight.setText("Show Right Arm Arc Weapons");
-        chkChartRight.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         chkChartRight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkChartRightActionPerformed(evt);
@@ -9046,7 +9053,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkChartLeft.setBackground(java.awt.Color.orange);
         chkChartLeft.setSelected(true);
         chkChartLeft.setText("Show Left Arm Arc Weapons");
-        chkChartLeft.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         chkChartLeft.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkChartLeftActionPerformed(evt);
@@ -9129,6 +9135,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         lblBFSA.setText("Placeholder");
         pnlBFStats.add(lblBFSA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 430, 20));
+
+        jLabel37.setText("Points:");
+        pnlBFStats.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
+
+        lblBFPoints.setText("0");
+        pnlBFStats.add(lblBFPoints, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
 
         pnlBattleforce.add(pnlBFStats, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 690, 200));
 
@@ -13417,6 +13429,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel41;
@@ -13519,6 +13532,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel lblBFMV;
     private javax.swing.JLabel lblBFMedium;
     private javax.swing.JLabel lblBFOV;
+    private javax.swing.JLabel lblBFPoints;
     private javax.swing.JLabel lblBFSA;
     private javax.swing.JLabel lblBFShort;
     private javax.swing.JLabel lblBFStructure;

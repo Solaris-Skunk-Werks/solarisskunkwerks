@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
-import ssw.battleforce.ifBattleforce;
+import ssw.battleforce.*;
 import java.util.Hashtable;
 import java.util.Vector;
 import ssw.*;
@@ -3886,6 +3886,10 @@ public class Mech implements ifBattleforce {
         return Changed;
     }
 
+    public int GetBFPoints(){
+        return GetCurrentBV() / 100;
+    }
+
     public int GetBFSize(){
         int mass = GetTonnage();
         if( mass < 40 ){
@@ -3974,9 +3978,96 @@ public class Mech implements ifBattleforce {
         return e.GetBFStructure(t);
     }
 
-    public String GetBFConversionStr( boolean TC ) {
+    public int [] GetBFDamage() {
+        int [] retval = {0,0,0,0,0};
+
+        // TODO Loop through all weapons in non-core
+        // and convert all weapon dmg
+        Vector nc = GetLoadout().GetNonCore();
+
+        float dmgShort = 0.0f;
+        float dmgMedium = 0.0f;
+        float dmgLong = 0.0f;
+        float dmgExtreme = 0.0f;
+        int heatShort = 0;
+        int heatMedium = 0;
+        int heatLong = 0;
+        int heatExtreme = 0;
+        int totalHeat = 0;
+
+        for ( int i = 0; i < nc.size(); i++ ) {
+            float [] temp = BattleForceTools.GetDamage((ifWeapon)nc.get(i), (ifBattleforce)this);
+            
+            dmgShort += temp[Constants.BF_SHORT];
+            dmgMedium += temp[Constants.BF_MEDIUM];
+            dmgLong += temp[Constants.BF_LONG];
+            dmgExtreme += temp[Constants.BF_EXTREME];
+            
+            totalHeat += (int) temp[Constants.BF_OV];
+
+            if ( dmgMedium == 0 ) {
+                heatShort += (int) temp[Constants.BF_OV];
+            } else if ( dmgLong == 0 ) {
+                heatShort += (int) temp[Constants.BF_OV];
+                heatMedium += (int) temp[Constants.BF_OV];
+            } else if ( dmgExtreme == 0 ) {
+                heatShort += (int) temp[Constants.BF_OV];
+                heatMedium += (int) temp[Constants.BF_OV];
+                heatLong += (int) temp[Constants.BF_OV];
+            } else {
+                heatShort += (int) temp[Constants.BF_OV];
+                heatMedium += (int) temp[Constants.BF_OV];
+                heatLong += (int) temp[Constants.BF_OV];
+                heatExtreme += (int) temp[Constants.BF_OV];
+            }
+
+        }
+
+        // Add in heat for movement
+        if ( GetAdjustedJumpingMP(false) > 2 ) {
+            totalHeat += GetAdjustedJumpingMP(false);
+        } else {
+            totalHeat += 2;
+        }
+
+        // Subtract 4 because Joel says so...
+        // and besides, Joel is awesome and we should trust him
+        totalHeat -= 4;
+
+        // What is the max damage?
+        int maxShort = (int) Math.ceil(dmgShort / 10);
+        int maxMedium = (int) Math.ceil(dmgMedium / 10);
+
+        // Will this ifBattleForce overheat?
+        int heatcap = this.GetHeatSinks().TotalDissipation();
+        System.out.println("" + heatcap + " " + totalHeat);
+        
+        if ( totalHeat - heatcap > 0) {
+            dmgShort = (dmgShort * heatcap) / totalHeat;
+            dmgMedium = (dmgMedium * heatcap) / totalHeat;
+            dmgLong = (dmgLong * heatcap) / totalHeat;
+            dmgExtreme = (dmgExtreme * heatcap) / totalHeat;
+        }
+
+        // Convert to BF scale
+        retval[Constants.BF_SHORT] = (int) Math.ceil(dmgShort / 10);
+        retval[Constants.BF_MEDIUM] = (int) Math.ceil(dmgMedium / 10);
+        retval[Constants.BF_LONG] = (int) Math.ceil(dmgLong / 10);
+        retval[Constants.BF_EXTREME] = (int) Math.ceil(dmgExtreme / 10);
+
+        // Determine OverHeat
+        if ( maxMedium != 0 ) {
+            retval[Constants.BF_OV] = maxMedium - retval[Constants.BF_MEDIUM];
+        } else {
+            retval[Constants.BF_OV] = maxShort - retval[Constants.BF_SHORT];
+        }
+
+        return retval;
+    }
+
+    public String GetBFConversionStr( ) {
         String retval = "Weapon\t\t\tShort\tMedium\tLong\n\r";
-        retval += CurLoadout.GetBFConversionStr( TC );
+        //TODO Add in conversion steps if possible
         retval += "________________________________________________________________________________" + System.getProperty( "line.separator" );
         retval += "Base Damage\n\rHeat\n\rHeat Adjusted";
         return retval;

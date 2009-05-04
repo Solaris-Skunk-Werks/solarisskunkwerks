@@ -28,6 +28,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.battleforce;
 
+import ssw.Constants;
+import ssw.components.*;
+
 public class BattleForceTools {
 
     public static final float[] BFMinRangeModifiers = {1.00f, 0.92f, 0.83f, 0.75f,
@@ -44,6 +47,71 @@ public class BattleForceTools {
             return b.GetBFPrimeMovement() + "" + b.GetBFPrimeMovementMode();
         }
 
+    }
+
+    /**
+     * Convert any weapon to Battleforce
+     *
+     * @param w A weapon to convert
+     * @param b The ifBatleForce object that uses the ifWeapon
+     * @return Array with short - extreme dmg values and heat as floats
+     */
+    public static float [] GetDamage( ifWeapon w, ifBattleforce b ){
+        float [] retval = {0.0f,0.0f,0.0f,0.0f,0.0f};
+
+        // Heat is easy
+        retval[Constants.BF_OV] = w.GetHeat();
+
+        // Set base damage by range
+        if ( w.GetRangeLong() <= 3 ) {
+            if ( w instanceof RangedWeapon )
+                retval[Constants.BF_SHORT] = w.GetDamageShort();
+        } else if ( w.GetRangeLong() > 3 && w.GetRangeLong() <= 15 ) {
+            retval[Constants.BF_SHORT] = w.GetDamageShort();
+            retval[Constants.BF_MEDIUM] = w.GetDamageMedium();
+        } else if ( w.GetRangeLong() > 15 && w.GetRangeLong() <= 23 )
+        {
+            retval[Constants.BF_SHORT] = w.GetDamageShort();
+            retval[Constants.BF_MEDIUM] = w.GetDamageMedium();
+            retval[Constants.BF_LONG] = w.GetDamageLong();
+        } else {
+            retval[Constants.BF_SHORT] = w.GetDamageShort();
+            retval[Constants.BF_MEDIUM] = w.GetDamageMedium();
+            retval[Constants.BF_LONG] = w.GetDamageLong();
+            retval[Constants.BF_EXTREME] = w.GetDamageLong();
+        }
+
+        // Adjust for minimum range
+        retval[Constants.BF_SHORT] *= BattleForceTools.BFMinRangeModifiers[w.GetRangeMin()];
+
+
+        if ( w instanceof RangedWeapon ) {
+
+            // Adjust for capacitors
+            if ( ((RangedWeapon)w).IsUsingCapacitor() ) {
+                retval[Constants.BF_SHORT] *= 0.5f;
+                retval[Constants.BF_MEDIUM] *= 0.5f;
+                retval[Constants.BF_LONG] *= 0.5f;
+                retval[Constants.BF_EXTREME] *= 0.5f;
+            }
+
+            // Adjust for Targeting Computer
+            if ( ((Mech)b).UsingTC() ) {
+                retval[Constants.BF_SHORT] *= 0.5f;
+                retval[Constants.BF_MEDIUM] *= 0.5f;
+                retval[Constants.BF_LONG] *= 0.5f;
+                retval[Constants.BF_EXTREME] *= 0.5f;
+            }
+
+        }
+
+        // Adjust for AES
+        // TODO add AES if applicable to the to-hit modifier
+
+        // Adjust for to-hit modifier
+        //retval *= BattleForceTools.BFToHitModifiers[w.GetToHitShort() + 4];
+        
+        return retval;
     }
 
 }
