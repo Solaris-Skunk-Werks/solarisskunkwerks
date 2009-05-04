@@ -3996,29 +3996,31 @@ public class Mech implements ifBattleforce {
         int totalHeat = 0;
 
         for ( int i = 0; i < nc.size(); i++ ) {
-            float [] temp = BattleForceTools.GetDamage((ifWeapon)nc.get(i), (ifBattleforce)this);
-            
-            dmgShort += temp[Constants.BF_SHORT];
-            dmgMedium += temp[Constants.BF_MEDIUM];
-            dmgLong += temp[Constants.BF_LONG];
-            dmgExtreme += temp[Constants.BF_EXTREME];
-            
-            totalHeat += (int) temp[Constants.BF_OV];
+            if ( nc.get(i) instanceof ifWeapon ) {
+                float [] temp = BattleForceTools.GetDamage((ifWeapon)nc.get(i), (ifBattleforce)this);
 
-            if ( dmgMedium == 0 ) {
-                heatShort += (int) temp[Constants.BF_OV];
-            } else if ( dmgLong == 0 ) {
-                heatShort += (int) temp[Constants.BF_OV];
-                heatMedium += (int) temp[Constants.BF_OV];
-            } else if ( dmgExtreme == 0 ) {
-                heatShort += (int) temp[Constants.BF_OV];
-                heatMedium += (int) temp[Constants.BF_OV];
-                heatLong += (int) temp[Constants.BF_OV];
-            } else {
-                heatShort += (int) temp[Constants.BF_OV];
-                heatMedium += (int) temp[Constants.BF_OV];
-                heatLong += (int) temp[Constants.BF_OV];
-                heatExtreme += (int) temp[Constants.BF_OV];
+                dmgShort += temp[Constants.BF_SHORT];
+                dmgMedium += temp[Constants.BF_MEDIUM];
+                dmgLong += temp[Constants.BF_LONG];
+                dmgExtreme += temp[Constants.BF_EXTREME];
+
+                totalHeat += (int) temp[Constants.BF_OV];
+
+                if ( dmgMedium == 0 ) {
+                    heatShort += (int) temp[Constants.BF_OV];
+                } else if ( dmgLong == 0 ) {
+                    heatShort += (int) temp[Constants.BF_OV];
+                    heatMedium += (int) temp[Constants.BF_OV];
+                } else if ( dmgExtreme == 0 ) {
+                    heatShort += (int) temp[Constants.BF_OV];
+                    heatMedium += (int) temp[Constants.BF_OV];
+                    heatLong += (int) temp[Constants.BF_OV];
+                } else {
+                    heatShort += (int) temp[Constants.BF_OV];
+                    heatMedium += (int) temp[Constants.BF_OV];
+                    heatLong += (int) temp[Constants.BF_OV];
+                    heatExtreme += (int) temp[Constants.BF_OV];
+                }
             }
 
         }
@@ -4040,7 +4042,6 @@ public class Mech implements ifBattleforce {
 
         // Will this ifBattleForce overheat?
         int heatcap = this.GetHeatSinks().TotalDissipation();
-        System.out.println("" + heatcap + " " + totalHeat);
         
         if ( totalHeat - heatcap > 0) {
             dmgShort = (dmgShort * heatcap) / totalHeat;
