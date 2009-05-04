@@ -4036,6 +4036,15 @@ public class Mech implements ifBattleforce {
         // and besides, Joel is awesome and we should trust him
         totalHeat -= 4;
 
+        // Also include Stealth heat, which is ALWAYS on in BF
+        if ( GetArmor().IsStealth() ) {
+            heatShort += 10;
+            heatMedium += 10;
+            heatLong += 10;
+            heatExtreme += 10;
+            totalHeat += 10;
+        }
+
         // What is the max damage?
         int maxShort = (int) Math.ceil(dmgShort / 10);
         int maxMedium = (int) Math.ceil(dmgMedium / 10);

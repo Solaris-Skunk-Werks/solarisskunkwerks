@@ -59,9 +59,26 @@ public class BattleForceTools {
     public static float [] GetDamage( ifWeapon w, ifBattleforce b ){
         float [] retval = {0.0f,0.0f,0.0f,0.0f,0.0f};
 
-        // Heat is easy
+        // Ignore rear facing weapons
+        if ( ((abPlaceable)w).IsMountedRear() ) {
+            return retval;
+        }
+
+        // Adjust heat appropriately
         retval[Constants.BF_OV] = w.GetHeat();
 
+        if ( w.IsOneShot() ) {
+            retval[Constants.BF_OV] = 0;
+        }
+
+        if ( w.IsRotary() ) {
+            retval[Constants.BF_OV] *= 6;
+        }
+
+        if ( w.IsUltra() ) {
+            retval[Constants.BF_OV] *= 2;
+        }
+        
         // Set base damage by range
         if ( w.GetRangeLong() <= 3 ) {
             if ( w instanceof RangedWeapon )
