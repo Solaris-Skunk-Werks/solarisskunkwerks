@@ -905,7 +905,12 @@ public class XMLReader {
                     m.SetFCSApollo( ParseBoolean( map.getNamedItem( "fcsapollo" ).getTextContent() ) );
                 }
                 if( map.getNamedItem( "ruleslevel" ) != null ) {
-                    m.GetLoadout().SetRulesLevel( Integer.parseInt( map.getNamedItem( "ruleslevel" ).getTextContent() ) );
+                    ruleslevel = Integer.parseInt( map.getNamedItem( "ruleslevel" ).getTextContent() );
+                    if( SaveFileVersion == 0 ) {
+                        // alter the rules level since we've added the Introductory rules.
+                        ruleslevel += 1;
+                    }
+                    m.GetLoadout().SetRulesLevel( ruleslevel );
                 }
                 // take care of Clan CASE on previous save file versions
                 if( SaveFileVersion < 1 ) {

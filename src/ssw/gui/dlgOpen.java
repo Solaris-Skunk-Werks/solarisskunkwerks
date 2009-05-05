@@ -29,25 +29,29 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.gui;
 
 import java.awt.Cursor;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
+import javax.swing.SwingWorker;
 import javax.swing.table.TableRowSorter;
 import ssw.Options;
 import ssw.components.Mech;
 import ssw.filehandlers.*;
 import ssw.print.Printer;
 
-public class dlgOpen extends javax.swing.JFrame {
+public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListener {
     private frmMain parent;
     private Options opts = new Options();
     private MechList list;
     private Media media = new Media();
     private String dirPath = "";
     private String NL = "";
+    private String msg = "";
 
     /** Creates new form dlgOpen */
     public dlgOpen(java.awt.Frame parent, boolean modal) {
@@ -160,66 +164,87 @@ public class dlgOpen extends javax.swing.JFrame {
     }
 
     private void batchUpdateMechs() {
-        String msg = "";
+        //String msg = "";
         int Response = javax.swing.JOptionPane.showConfirmDialog(this, "This will open and re-save each file in the current directory so that all files are updated with current BV and Cost calculations.\nThis process could take a few minutes, are you ready?", "Batch Mech Processing", javax.swing.JOptionPane.YES_NO_OPTION);
         if (Response == javax.swing.JOptionPane.YES_OPTION) {
-            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            try
-            {
-                XMLReader read = new XMLReader();
-                FileList List = new FileList(dirPath);
-                File[] Files = List.getFiles();
+            msg = "";
+            setCursor( Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR ) );
+            try {
+                Resaver Saving = new Resaver( this );
+                Saving.addPropertyChangeListener( this );
+                Saving.execute();
+            } catch( Exception e ) {
+                // fatal error.  let the user know
+                javax.swing.JOptionPane.showMessageDialog( this, "A fatal error occured while processing the 'Mechs:\n" + e.getMessage() );
+                e.printStackTrace();
+                setCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) );
+            }
+        }
+    }
 
-                for ( int i=0; i < Files.length; i++ ) {
-                    File file = Files[i];
-                    if (file.isFile() && file.getCanonicalPath().endsWith(".ssw")) {
-                        try
-                        {
-                            Mech m = read.ReadMech( file.getCanonicalPath(), parent.data );
+    public void propertyChange( PropertyChangeEvent e ) {
+       prgResaving.setValue( ((Resaver) e.getSource()).getProgress() );
+    }
 
-                            // save the mech to XML in the current location
-                            XMLWriter writer = new XMLWriter( m );
-                            try {
-                                writer.WriteXML( file.getCanonicalPath() );
-                            } catch( IOException e ) {
-                                msg += "Could not load the following file:" + NL;
-                                msg += file.getCanonicalPath() + NL + NL;
+    private class Resaver extends SwingWorker<Void,Void> {
+        dlgOpen Owner;
+        public Resaver( dlgOpen owner ) {
+            Owner = owner;
+        }
+
+        @Override
+        public void done() {
+            setCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) );
+            if( msg.length() > 0 ) {
+                dlgTextExport Message = new dlgTextExport( Owner, true, msg );
+                Message.setLocationRelativeTo( Owner );
+                Message.setVisible( true );
+            } else {
+                javax.swing.JOptionPane.showMessageDialog( Owner, "Finished the operation without errors." );
+            }
+            LoadList();
+            prgResaving.setValue( 0 );
+        }
+
+        @Override
+        protected Void doInBackground() throws Exception {
+            XMLReader read = new XMLReader();
+            FileList List = new FileList(dirPath);
+            File[] Files = List.getFiles();
+
+            for ( int i=0; i < Files.length; i++ ) {
+                File file = Files[i];
+                if (file.isFile() && file.getCanonicalPath().endsWith(".ssw")) {
+                    try {
+                        Mech m = read.ReadMech( file.getCanonicalPath(), parent.data );
+
+                        // save the mech to XML in the current location
+                        XMLWriter writer = new XMLWriter( m );
+                        try {
+                            writer.WriteXML( file.getCanonicalPath() );
+                        } catch( IOException e ) {
+                            msg += "Could not load the following file:" + NL;
+                            msg += file.getCanonicalPath() + NL + NL;
+                        }
+                    } catch ( Exception e ) {
+                        // log the error
+                        msg += file.getCanonicalPath() + NL;
+                        if( e.getMessage() == null ) {
+                            StackTraceElement[] trace = e.getStackTrace();
+                            for( int j = 0; j < trace.length; j++ ) {
+                                msg += trace[j].toString() + NL;
                             }
-                        } catch ( Exception e ) {
-                            // log the error
-                            msg += file.getCanonicalPath() + NL;
-                            if( e.getMessage() == null ) {
-                                StackTraceElement[] trace = e.getStackTrace();
-                                for( int j = 0; j < trace.length; j++ ) {
-                                    msg += trace[j].toString() + NL;
-                                }
-                                msg += NL;
-                            } else {
-                                msg += e.getMessage() + NL + NL;
-                            }
+                            msg += NL;
+                        } else {
+                            msg += e.getMessage() + NL + NL;
                         }
                     }
                 }
-
-                LoadList();
-
-            } catch (Exception e) {
-                if( e.getMessage() == null ) {
-                    StackTraceElement[] trace = e.getStackTrace();
-                    for( int j = 0; j < trace.length; j++ ) {
-                        msg += trace[j].toString() + NL;
-                    }
-                    msg += NL;
-                } else {
-                    msg += e.getMessage() + NL + NL;
-                }
+                int progress = ((int) (( (float) i / (float) Files.length ) * 100.0 ) ) + 1;
+                setProgress( progress );
             }
-            this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-            if( msg.length() > 0 ) {
-                dlgTextExport Message = new dlgTextExport( this, true, msg );
-                Message.setLocationRelativeTo( this );
-                Message.setVisible( true );
-            }
+
+            return null;
         }
     }
 
@@ -267,6 +292,7 @@ public class dlgOpen extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        prgResaving = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Select Mech(s)");
@@ -491,18 +517,18 @@ public class dlgOpen extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
+            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 917, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtSelected, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
+                .addComponent(txtSelected, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
                 .addGap(4, 4, 4)
-                .addComponent(lblLoading, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                .addComponent(lblLoading, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
                 .addGap(6, 6, 6)
                 .addComponent(btnOpenDir, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 846, Short.MAX_VALUE)
+                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 893, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
@@ -543,13 +569,15 @@ public class dlgOpen extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))))
+                            .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnClearFilter)
-                    .addComponent(btnFilter, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(270, 270, 270)
-                .addComponent(btnOpenMech)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnFilter)
+                    .addComponent(btnClearFilter))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnOpenMech)
+                    .addComponent(prgResaving, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -562,7 +590,7 @@ public class dlgOpen extends javax.swing.JFrame {
                     .addComponent(btnOpenDir)
                     .addComponent(lblLoading, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -570,13 +598,14 @@ public class dlgOpen extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnOpenMech, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cmbTech, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbEra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbRulesLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnFilter)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnOpenMech, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(cmbTech, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cmbEra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cmbRulesLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
@@ -599,12 +628,12 @@ public class dlgOpen extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtMinCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtMaxCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnClearFilter)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnFilter)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnClearFilter)))
-                .addGap(12, 12, 12))
+                        .addGap(25, 25, 25)
+                        .addComponent(prgResaving, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -673,9 +702,9 @@ public class dlgOpen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPrintActionPerformed
 
     private void btnMagicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMagicActionPerformed
-        parent.setCursor( Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR) );
+        //setCursor( Cursor.getPredefinedCursor( Cursor.WAIT_CURSOR ) );
         batchUpdateMechs();
-        parent.setCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) );
+        //setCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) );
     }//GEN-LAST:event_btnMagicActionPerformed
 
     private void Filter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filter
@@ -789,6 +818,7 @@ public class dlgOpen extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JLabel lblLoading;
+    private javax.swing.JProgressBar prgResaving;
     private javax.swing.JScrollPane spnMechTable;
     private javax.swing.JTable tblMechData;
     private javax.swing.JToolBar tlbActions;

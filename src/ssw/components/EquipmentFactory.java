@@ -99,6 +99,28 @@ public class EquipmentFactory {
             ((RangedWeapon) retval).SetWeapon( r.IsOneShot(), r.IsStreak(), r.IsUltra(), r.IsRotary(), r.IsExplosive(), r.IsTCCapable(), r.IsArrayCapable(), r.CanUseCapacitor(), r.CanUseInsulator() );
             ((RangedWeapon) retval).SetMissileFCS( r.IsFCSCapable(), r.GetFCSType() );
             ((RangedWeapon) retval).SetPrintName( r.GetPrintName() );
+        } else if( p instanceof IndustrialPhysicalWeapon ) {
+            IndustrialPhysicalWeapon w = (IndustrialPhysicalWeapon) p;
+            switch( w.GetPWClass() ) {
+                case PhysicalWeapon.PW_CLASS_TALON:
+                    retval = new Talons ( m );
+                    break;
+                default:
+                    retval = new IndustrialPhysicalWeapon( w.GetName(), w.GetLookupName(), w.GetMMName( false ), m, w.GetAvailability() );
+                    ((PhysicalWeapon) retval).SetStats( w.GetTonMult(), w.GetCritMult(), w.GetTonAdd(), w.GetCritAdd() );
+                    ((PhysicalWeapon) retval).SetDamage( w.GetDamageMult(), w.GetDamageAdd() );
+                    ((PhysicalWeapon) retval).SetSpecials( w.GetType(), w.GetSpecials(), w.GetCostMult(), w.GetCostAdd(), w.GetBVMult(), w.GetBVAdd(), w.GetDefBV(), w.GetRounding() );
+                    ((PhysicalWeapon) retval).SetToHit( w.GetToHitShort(), w.GetToHitMedium(), w.GetToHitLong() );
+                    (retval).AddMechModifier( w.GetMechModifier() );
+                    ((PhysicalWeapon) retval).SetHeat( w.GetHeat() );
+                    ((PhysicalWeapon) retval).SetRequiresHand( w.RequiresHand() );
+                    ((PhysicalWeapon) retval).SetRequiresLowerArm( w.RequiresLowerArm() );
+                    ((PhysicalWeapon) retval).SetReplacesHand( w.ReplacesHand() );
+                    ((PhysicalWeapon) retval).SetPWClass( w.GetPWClass() );
+                    ((PhysicalWeapon) retval).SetRequirements( w.RequiresNuclear(), w.RequiresFusion(), w.RequiresPowerAmps() );
+                    ((PhysicalWeapon) retval).SetAllocations( w.CanAllocHD(), w.CanAllocCT(), w.CanAllocTorso(), w.CanAllocArms(), w.CanAllocLegs(), false );
+                    break;
+            }
         } else if( p instanceof PhysicalWeapon ) {
             PhysicalWeapon w = (PhysicalWeapon) p;
             switch( w.GetPWClass() ) {
@@ -386,6 +408,9 @@ public class EquipmentFactory {
             if( ((abPlaceable) PhysicalWeapons.get( i )).GetLookupName().equals( name ) ) {
                 PhysicalWeapon p = (PhysicalWeapon) GetCopy( (abPlaceable) PhysicalWeapons.get( i ), m );
                 p.SetOwner( m );
+                if( p instanceof IndustrialPhysicalWeapon ) {
+                    ((IndustrialPhysicalWeapon) p).resetAllocations( m );
+                }
                 return p;
             }
         }

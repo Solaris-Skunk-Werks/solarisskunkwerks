@@ -1834,7 +1834,12 @@ public class BipedLoadout implements ifLoadout {
         for( int i = NonCore.size() - 1; i >= 0; i-- ) {
             p = (abPlaceable) NonCore.get( i );
             AC = p.GetAvailability();
-            if( ! CommonTools.IsAllowed( AC, Owner ) ) {
+            try { 
+                CheckExclusions( p );
+                if( ! CommonTools.IsAllowed( AC, Owner ) ) {
+                    Remove( p );
+                }
+            } catch( Exception e ) {
                 Remove( p );
             }
         }
@@ -2495,6 +2500,14 @@ public class BipedLoadout implements ifLoadout {
                             AddToQueue( p );
                         }
                         break;
+                    } else {
+                        if( ! Owner.IsOmnimech() && ( HDCrits[j] instanceof CASEII || HDCrits[j] instanceof MultiSlotSystem ) ) {
+                            // we're not going to unallocate it.  Instead, just
+                            // move the reference up.
+                            HDCrits[i] = HDCrits[j];
+                            HDCrits[j] = NoItem;
+                            break;
+                        }
                     }
                 }
             }
@@ -2526,6 +2539,14 @@ public class BipedLoadout implements ifLoadout {
                             }
                         }
                         break;
+                    } else {
+                        if( ! Owner.IsOmnimech() && ( CTCrits[j] instanceof ISCASE || CTCrits[j] instanceof CASEII || CTCrits[j] instanceof MultiSlotSystem || CTCrits[j] instanceof Supercharger || CTCrits[j] instanceof SimplePlaceable || CTCrits[j] instanceof Cockpit ) ) {
+                            // we're not going to unallocate it.  Instead, just
+                            // move the reference up.
+                            CTCrits[i] = CTCrits[j];
+                            CTCrits[j] = NoItem;
+                            break;
+                        }
                     }
                 }
             }
@@ -2557,6 +2578,14 @@ public class BipedLoadout implements ifLoadout {
                             }
                         }
                         break;
+                    } else {
+                        if( ! Owner.IsOmnimech() && ( LTCrits[j] instanceof ISCASE || LTCrits[j] instanceof CASEII || LTCrits[j] instanceof MultiSlotSystem || LTCrits[j] instanceof Supercharger || LTCrits[j] instanceof Engine || LTCrits[j] instanceof SimplePlaceable ) ) {
+                            // we're not going to unallocate it.  Instead, just
+                            // move the reference up.
+                            LTCrits[i] = LTCrits[j];
+                            LTCrits[j] = NoItem;
+                            break;
+                        }
                     }
                 }
             }
@@ -2588,6 +2617,14 @@ public class BipedLoadout implements ifLoadout {
                             }
                         }
                         break;
+                    } else {
+                        if( ! Owner.IsOmnimech() && ( RTCrits[j] instanceof ISCASE || RTCrits[j] instanceof CASEII || RTCrits[j] instanceof MultiSlotSystem || RTCrits[j] instanceof Supercharger || RTCrits[j] instanceof Engine || RTCrits[j] instanceof SimplePlaceable ) ) {
+                            // we're not going to unallocate it.  Instead, just
+                            // move the reference up.
+                            RTCrits[i] = RTCrits[j];
+                            RTCrits[j] = NoItem;
+                            break;
+                        }
                     }
                 }
             }
@@ -2619,6 +2656,14 @@ public class BipedLoadout implements ifLoadout {
                             }
                         }
                         break;
+                    } else {
+                        if( ! Owner.IsOmnimech() && ( LACrits[j] instanceof CASEII || LACrits[j] instanceof MultiSlotSystem ) ) {
+                            // we're not going to unallocate it.  Instead, just
+                            // move the reference up.
+                            LACrits[i] = LACrits[j];
+                            LACrits[j] = NoItem;
+                            break;
+                        }
                     }
                 }
             }
@@ -2650,6 +2695,14 @@ public class BipedLoadout implements ifLoadout {
                             }
                         }
                         break;
+                    } else {
+                        if( ! Owner.IsOmnimech() && ( RACrits[j] instanceof CASEII || RACrits[j] instanceof MultiSlotSystem ) ) {
+                            // we're not going to unallocate it.  Instead, just
+                            // move the reference up.
+                            RACrits[i] = RACrits[j];
+                            RACrits[j] = NoItem;
+                            break;
+                        }
                     }
                 }
             }
@@ -2681,6 +2734,14 @@ public class BipedLoadout implements ifLoadout {
                             }
                         }
                         break;
+                    } else {
+                        if( ! Owner.IsOmnimech() && ( LLCrits[j] instanceof CASEII || LLCrits[j] instanceof MultiSlotSystem ) ) {
+                            // we're not going to unallocate it.  Instead, just
+                            // move the reference up.
+                            LLCrits[i] = LLCrits[j];
+                            LLCrits[j] = NoItem;
+                            break;
+                        }
                     }
                 }
             }
@@ -2712,6 +2773,14 @@ public class BipedLoadout implements ifLoadout {
                             }
                         }
                         break;
+                    } else {
+                        if( ! Owner.IsOmnimech() && ( RLCrits[j] instanceof CASEII || RLCrits[j] instanceof MultiSlotSystem ) ) {
+                            // we're not going to unallocate it.  Instead, just
+                            // move the reference up.
+                            RLCrits[i] = RLCrits[j];
+                            RLCrits[j] = NoItem;
+                            break;
+                        }
                     }
                 }
             }
@@ -4131,6 +4200,16 @@ public class BipedLoadout implements ifLoadout {
     public void CheckExclusions( abPlaceable p ) throws Exception {
         // this checks all the items in the loadout vs. the placeable's exclusions
         // not worried about a return value since we're tossing exceptions
+
+        // check basic requirements first
+        if( p instanceof RangedWeapon ) {
+            if( ((RangedWeapon) p).RequiresNuclear() &! Owner.GetEngine().IsNuclear() ) {
+                throw new Exception( p.GetCritName() + " may not be mounted as it requires a nuclear engine." );
+            }
+            if( ((RangedWeapon) p).RequiresFusion() &! Owner.GetEngine().IsFusion() ) {
+                throw new Exception( p.GetCritName() + " may not be mounted as it requires a fusion engine." );
+            }
+        }
         if( p.GetExclusions() == null ) { return; }
         String[] exclude = p.GetExclusions().GetExclusions();
 
@@ -4138,10 +4217,10 @@ public class BipedLoadout implements ifLoadout {
             // queue first
             abPlaceable test;
             for( int j = 0; j < Queue.size(); j++ ) {
-                if( Queue.get( i ) instanceof EquipmentCollection ) {
-                    test = ((EquipmentCollection) Queue.get( i )).GetType();
+                if( Queue.get( j ) instanceof EquipmentCollection ) {
+                    test = ((EquipmentCollection) Queue.get( j )).GetType();
                 } else {
-                    test = (abPlaceable) Queue.get( i );
+                    test = (abPlaceable) Queue.get( j );
                 }
                 if( test.GetCritName().contains( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.GetCritName() + " if it\nalready mounts an " + ((abPlaceable) Queue.get( j )).GetCritName() );

@@ -881,6 +881,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkEnviroSealing.setSelected( false );
             chkEjectionSeat.setSelected( false );
         }
+        if( CommonTools.IsAllowed( CurMech.GetTracks().GetAvailability(), CurMech ) ) {
+            chkTracks.setEnabled( true );
+        } else {
+            chkTracks.setEnabled( false );
+            chkTracks.setSelected( false );
+        }
         if( CommonTools.IsAllowed( CurMech.GetLoadout().GetSupercharger().GetAvailability(), CurMech ) ) {
             chkSupercharger.setEnabled( true );
             cmbSCLoc.setEnabled( true );
@@ -1029,6 +1035,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkLAAES.setEnabled( false );
             chkLegAES.setEnabled( false );
             chkCommandConsole.setEnabled( false );
+            chkTracks.setEnabled( false );
 
             // now see if we have a supercharger on the base chassis
             if( CurMech.GetBaseLoadout().HasSupercharger() ) {
@@ -1083,6 +1090,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( ! chkRAAES.isEnabled() ) { CurMech.SetRAAES( false, -1 ); }
                 if( ! chkLAAES.isEnabled() ) { CurMech.SetLAAES( false, -1 ); }
                 if( ! chkCommandConsole.isEnabled() ) { CurMech.SetCommandConsole( false ); }
+                if( ! chkTracks.isEnabled() ) { CurMech.SetTracks( false ); }
             } catch( Exception e ) {
                 // we should never get this, but report it if we do
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
@@ -2058,6 +2066,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkVoidSig.setSelected( false );
         chkBSPFD.setSelected( false );
         chkCLPS.setSelected( false );
+        chkTracks.setSelected( false );
         SetLoadoutArrays();
         RefreshSummary();
         RefreshInfoPane();
@@ -10084,6 +10093,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             EnableJumpJets( false );
         }
 
+        // refresh the selected equipment listbox
+        if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
+            Equipment[SELECTED] = new Object[] { " " };
+        } else {
+            Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
+        }
+        lstSelectedEquipment.setListData( Equipment[SELECTED] );
+
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
@@ -11685,7 +11702,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             if( choice == 1 ) { return; }
         }
         dOpen.setLocationRelativeTo(this);
-        dOpen.setSize( 750, 600 );
+        //dOpen.setSize( 750, 600 );
         dOpen.setVisible(true);
     }
 

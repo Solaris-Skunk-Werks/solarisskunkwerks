@@ -79,6 +79,9 @@ public class VEngineSetLightFusion implements ifVisitor {
             }
         }
 
+        // flush illegal equipment
+        m.GetLoadout().FlushIllegal();
+
         // try to reinstall the Supercharger
         if( SChargerInstalled ) {
             try {

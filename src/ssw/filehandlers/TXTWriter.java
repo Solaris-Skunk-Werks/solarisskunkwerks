@@ -65,6 +65,16 @@ public class TXTWriter {
         FR.close();
     }
 
+    public String GetChatStats( Mech m ) {
+        // a fun convenience routine for those who talk in chat or forums.
+        String retval = "";
+
+        // pondering some sort of GetChatName() for abplaceables.
+        retval += m.GetTonnage() + " tons, " + m.GetAdjustedWalkingMP( false, true ) + "/" + m.GetAdjustedRunningMP( false, true ) + "/" + m.GetAdjustedJumpingMP( false );
+
+        return retval;
+    }
+
     public String GetTextExport() {
         String retval = "";
 

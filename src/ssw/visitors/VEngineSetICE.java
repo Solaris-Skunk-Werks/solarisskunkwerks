@@ -70,6 +70,9 @@ public class VEngineSetICE implements ifVisitor {
             throw new Exception( "I.C.E. engine cannot be allocated!" );
         }
 
+        // flush illegal equipment
+        m.GetLoadout().FlushIllegal();
+
         // try to reinstall the Supercharger
         if( SChargerInstalled ) {
             try {

@@ -70,6 +70,9 @@ public class VEngineSetFuelCell implements ifVisitor {
             throw new Exception( "Fuel Cell engine cannot be allocated!" );
         }
 
+        // flush illegal equipment
+        m.GetLoadout().FlushIllegal();
+
         // try to reinstall the Supercharger
         if( SChargerInstalled ) {
             try {

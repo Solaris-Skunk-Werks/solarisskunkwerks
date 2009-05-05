@@ -70,6 +70,9 @@ public class VEngineSetCompactFusion implements ifVisitor {
             throw new Exception( "Compact Fusion engine cannot be allocated!" );
         }
 
+        // flush illegal equipment
+        m.GetLoadout().FlushIllegal();
+
         // try to reinstall the Supercharger
         if( SChargerInstalled ) {
             try {

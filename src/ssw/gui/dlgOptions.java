@@ -502,7 +502,7 @@ public class dlgOptions extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
         pnlEquipOptions.add(jLabel8, gridBagConstraints);
 
-        cmbDefaultEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War/Star League", "Succession Wars", "Clan Invasion", "All Eras (non canon)" }));
+        cmbDefaultEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War/Star League", "Succession Wars", "Clan Invasion", "Dark Ages", "All Eras (non canon)" }));
         cmbDefaultEra.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbDefaultEra.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbDefaultEra.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -545,7 +545,8 @@ public class dlgOptions extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
         pnlEquipOptions.add(jLabel10, gridBagConstraints);
 
-        cmbDefaultRules.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tournament Legal", "Advanced Rules", "Experimental Tech" }));
+        cmbDefaultRules.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Introductory", "Tournament Legal", "Advanced Rules", "Experimental Tech", "Era Specific" }));
+        cmbDefaultRules.setSelectedIndex(1);
         cmbDefaultRules.setMaximumSize(new java.awt.Dimension(150, 20));
         cmbDefaultRules.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbDefaultRules.setPreferredSize(new java.awt.Dimension(150, 20));
