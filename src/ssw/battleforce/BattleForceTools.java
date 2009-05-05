@@ -114,19 +114,24 @@ public class BattleForceTools {
 
             // Adjust for Targeting Computer
             if ( ((Mech)b).UsingTC() ) {
-                retval[Constants.BF_SHORT] *= 0.5f;
-                retval[Constants.BF_MEDIUM] *= 0.5f;
-                retval[Constants.BF_LONG] *= 0.5f;
-                retval[Constants.BF_EXTREME] *= 0.5f;
+                retval[Constants.BF_SHORT] *= 1.1f;
+                retval[Constants.BF_MEDIUM] *= 1.1f;
+                retval[Constants.BF_LONG] *= 1.1f;
+                retval[Constants.BF_EXTREME] *= 1.1f;
             }
 
         }
 
         // Adjust for AES
         // TODO add AES if applicable to the to-hit modifier
+        int aes = 0;
+        
 
         // Adjust for to-hit modifier
-        //retval *= BattleForceTools.BFToHitModifiers[w.GetToHitShort() + 4];
+        retval[Constants.BF_SHORT] *= BattleForceTools.BFToHitModifiers[w.GetToHitShort() + 4 + aes];
+        retval[Constants.BF_MEDIUM] *= BattleForceTools.BFToHitModifiers[w.GetToHitMedium() + 4 + aes];
+        retval[Constants.BF_LONG] *= BattleForceTools.BFToHitModifiers[w.GetToHitLong() + 4 + aes];
+        retval[Constants.BF_EXTREME] *= BattleForceTools.BFToHitModifiers[w.GetToHitLong() + 4 + aes];
         
         return retval;
     }
