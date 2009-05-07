@@ -5756,7 +5756,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         MouseListener mlBallistic = new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    int index = lstChooseBallistic.locationToIndex( e.getPoint() );
+                    btnAddEquipActionPerformed( null );
+                    /*            int index = lstChooseBallistic.locationToIndex( e.getPoint() );
                     if( index < 0 ) { return; }
                     abPlaceable a = (abPlaceable) Equipment[BALLISTIC][index];
                     if( ((ifWeapon) a).RequiresNuclear() &! CurMech.GetEngine().IsNuclear() ) {
@@ -5793,7 +5794,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     // now refresh the information panes
                     RefreshSummary();
                     RefreshInfoPane();
-                }
+                    */        }
             }
         };
         lstChooseBallistic.addMouseListener( mlBallistic );
@@ -5839,7 +5840,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         MouseListener mlEnergy = new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    int index = lstChooseEnergy.locationToIndex( e.getPoint() );
+                    btnAddEquipActionPerformed( null );
+                    /*            int index = lstChooseEnergy.locationToIndex( e.getPoint() );
                     if( index < 0 ) { return; }
                     abPlaceable a = (abPlaceable) Equipment[ENERGY][index];
                     if( ((ifWeapon) a).RequiresNuclear() &! CurMech.GetEngine().IsNuclear() ) {
@@ -5876,7 +5878,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     // now refresh the information panes
                     RefreshSummary();
                     RefreshInfoPane();
-                }
+                    */        }
             }
         };
         lstChooseEnergy.addMouseListener( mlEnergy );
@@ -5922,7 +5924,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         MouseListener mlMissile = new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    int index = lstChooseMissile.locationToIndex( e.getPoint() );
+                    btnAddEquipActionPerformed( null );
+                    /*            int index = lstChooseMissile.locationToIndex( e.getPoint() );
                     if( index < 0 ) { return; }
                     abPlaceable a = (abPlaceable) Equipment[MISSILE][index];
                     if( ((ifWeapon) a).RequiresNuclear() &! CurMech.GetEngine().IsNuclear() ) {
@@ -5969,7 +5972,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     // now refresh the information panes
                     RefreshSummary();
                     RefreshInfoPane();
-                }
+                    */        }
             }
         };
         lstChooseMissile.addMouseListener( mlMissile );
@@ -6015,7 +6018,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         MouseListener mlPhysical = new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    int index = lstChoosePhysical.locationToIndex( e.getPoint() );
+                    btnAddEquipActionPerformed( null );
+                    /*            int index = lstChoosePhysical.locationToIndex( e.getPoint() );
                     if( index < 0 ) { return; }
                     abPlaceable a = (abPlaceable) Equipment[PHYSICAL][index];
                     a = data.GetEquipment().GetCopy( a, CurMech );
@@ -6055,7 +6059,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     // now refresh the information panes
                     RefreshSummary();
                     RefreshInfoPane();
-                }
+                    */        }
             }
         };
         lstChoosePhysical.addMouseListener( mlPhysical );
@@ -6101,7 +6105,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         MouseListener mlEquipment = new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    int index = lstChooseEquipment.locationToIndex( e.getPoint() );
+                    btnAddEquipActionPerformed( null );
+                    /*            int index = lstChooseEquipment.locationToIndex( e.getPoint() );
                     if( index < 0 ) { return; }
                     abPlaceable a = (abPlaceable) Equipment[EQUIPMENT][index];
                     Vector v;
@@ -6150,7 +6155,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     // now refresh the information panes
                     RefreshSummary();
                     RefreshInfoPane();
-                }
+                    */        }
             }
         };
         lstChooseEquipment.addMouseListener( mlEquipment );
@@ -6196,7 +6201,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         MouseListener mlArtillery = new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    int index = lstChooseArtillery.locationToIndex( e.getPoint() );
+                    btnAddEquipActionPerformed( null );
+                    /*            int index = lstChooseArtillery.locationToIndex( e.getPoint() );
                     if( index < 0 ) { return; }
                     abPlaceable a = (abPlaceable) Equipment[ARTILLERY][index];
                     a = data.GetEquipment().GetCopy( a, CurMech );
@@ -6227,7 +6233,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     // now refresh the information panes
                     RefreshSummary();
                     RefreshInfoPane();
-                }
+                    */        }
             }
         };
         lstChooseArtillery.addMouseListener( mlArtillery );
@@ -6273,7 +6279,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         MouseListener mlAmmo = new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    int index = lstChooseAmmunition.locationToIndex( e.getPoint() );
+                    btnAddEquipActionPerformed( null );
+                    /*            int index = lstChooseAmmunition.locationToIndex( e.getPoint() );
                     if( index < 0 ) { return; }
                     abPlaceable a = (abPlaceable) Equipment[AMMUNITION][index];
                     a = data.GetEquipment().GetCopy( a, CurMech );
@@ -6296,7 +6303,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     // now refresh the information panes
                     RefreshSummary();
                     RefreshInfoPane();
-                }
+                    */        }
             }
         };
         lstChooseAmmunition.addMouseListener( mlAmmo );

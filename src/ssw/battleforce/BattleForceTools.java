@@ -99,7 +99,10 @@ public class BattleForceTools {
         }
 
         // Adjust for minimum range
-        retval[Constants.BF_SHORT] *= BattleForceTools.BFMinRangeModifiers[w.GetRangeMin()];
+        // fixed for minimum ranges greater than 6 (ELRMs)
+        int minrange = w.GetRangeMin();
+        if( minrange > 6 ) { minrange = 6; }
+        retval[Constants.BF_SHORT] *= BattleForceTools.BFMinRangeModifiers[minrange];
 
 
         if ( w instanceof RangedWeapon ) {
