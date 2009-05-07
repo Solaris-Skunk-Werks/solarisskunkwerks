@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.battleforce;
 
+import java.util.Vector;
 
 
 public interface ifBattleforce {
@@ -40,7 +41,7 @@ public interface ifBattleforce {
     public int GetBFArmor();
     public int GetBFStructure();
     public int [] GetBFDamage();
-    // public ???? GetBFAbilities();
+    public Vector GetBFAbilities();
     public String GetBFConversionStr( );
     public int GetBFPoints();
 }

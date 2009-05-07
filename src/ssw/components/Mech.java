@@ -3981,7 +3981,7 @@ public class Mech implements ifBattleforce {
     public int [] GetBFDamage() {
         int [] retval = {0,0,0,0,0};
 
-        // TODO Loop through all weapons in non-core
+        // Loop through all weapons in non-core
         // and convert all weapon dmg
         Vector nc = GetLoadout().GetNonCore();
 
@@ -4071,6 +4071,34 @@ public class Mech implements ifBattleforce {
         } else {
             retval[Constants.BF_OV] = maxShort - retval[Constants.BF_SHORT];
         }
+
+        return retval;
+    }
+
+    public Vector GetBFAbilities() {
+        Vector retval = new Vector();
+
+        // First search all equipment for BF Abilities
+        Vector nc = GetLoadout().GetNonCore();
+        boolean isENE = true;
+
+        for ( int i = 0; i < nc.size(); i++ ) {
+
+            //TODO Add BF constants to all weapons files...?
+
+            if ( nc.get(i) instanceof ifWeapon ) {
+                if ( ((ifWeapon)nc.get(i)).GetWeaponClass() != ifWeapon.W_ENERGY ) {
+                    isENE = false;
+                }
+            }
+        }
+
+
+        // Now deal with all the funny stuff
+        if (isENE) {
+            retval.add(1); // I need to think about this some...
+        }
+        
 
         return retval;
     }

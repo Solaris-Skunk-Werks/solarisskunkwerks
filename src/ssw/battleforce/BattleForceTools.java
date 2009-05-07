@@ -125,7 +125,16 @@ public class BattleForceTools {
         // Adjust for AES
         // TODO add AES if applicable to the to-hit modifier
         int aes = 0;
-        
+
+        int location = ((Mech)b).GetLoadout().Find((abPlaceable)w);
+        if ( location == Constants.LOC_RA && ((Mech)b).HasRAAES() ) {
+            aes = -1;
+        } else if ( ( location == Constants.LOC_LA && ((Mech)b).HasLAAES() ) ) {
+            aes = -1;
+        } else if ( ( location == Constants.LOC_LL || location == Constants.LOC_RL ) && ((Mech)b).HasLegAES() ) {
+            aes = -1;
+        }
+
 
         // Adjust for to-hit modifier
         retval[Constants.BF_SHORT] *= BattleForceTools.BFToHitModifiers[w.GetToHitShort() + 4 + aes];
