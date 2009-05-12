@@ -1076,7 +1076,7 @@ public class EquipmentFactory {
         a.SetCLDates( 0, 0, false, 3059, 0, 0, false, false );
         a.SetCLFactions( "", "", "CSJ", "" );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Light Active Probe","Light Active Probe", "E", a );
+        addEQ = new Equipment("Light Active Probe","Light Active Probe", "Light Active Probe", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("Light Active Probe");
         addEQ.SetRange(0, 0, 3);

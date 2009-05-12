@@ -6,7 +6,8 @@ Version 0.7.0
 - Mixed Technology.
 - Added the rest of the missing Tac Ops ammunition types.
 - Added EquipmentCollections; equipment is now consolidated on the Crits to Placed list.
-- BattleForce weapons and overheat now calculated
+- BattleForce weapons and overheat now calculated.
+- The loadout now pushes items out of the way instead of unallocating them by default.
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.

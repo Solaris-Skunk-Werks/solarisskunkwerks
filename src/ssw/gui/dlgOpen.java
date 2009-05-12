@@ -240,7 +240,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                         }
                     }
                 }
-                int progress = ((int) (( (float) i / (float) Files.length ) * 100.0 ) ) + 1;
+                int progress = ((int) (( ((float) i + 1) / (float) Files.length ) * 100.0 ) );
                 setProgress( progress );
             }
 

@@ -2869,6 +2869,7 @@ public class BipedLoadout implements ifLoadout {
         boolean AddIn = false;
         boolean ArrayGood = false;
         int AddInSize = 1;
+        Vector removed = new Vector();
 
         // check for generic placement
         if( SIndex == -1 ) {
@@ -2962,8 +2963,10 @@ public class BipedLoadout implements ifLoadout {
                         // we've already ensured that it is not location locked
                         // above, so put the item back into the queue.
                         if( Loc[i].CanSplit() && Loc[i].Contiguous() ) {
+                            removed.add( Loc[i] );
                             UnallocateAll( Loc[i], false );
                         } else {
+                            removed.add( Loc[i] );
                             UnallocateByIndex( i, Loc );
                         }
                     }
@@ -2979,8 +2982,10 @@ public class BipedLoadout implements ifLoadout {
                             // we've already ensured that it is not location locked
                             // above, so put the item back into the queue.
                             if( Loc[i].CanSplit() && Loc[i].Contiguous() ) {
+                                removed.add( Loc[i] );
                                 UnallocateAll( Loc[i], false );
                             } else {
+                                removed.add( Loc[i] );
                                 UnallocateByIndex( AddInLoc, Loc  );
                             }
                         }
@@ -2993,8 +2998,10 @@ public class BipedLoadout implements ifLoadout {
                             // we've already ensured that it is not location locked
                             // above, so put the item back into the queue.
                             if( Loc[i].CanSplit() && Loc[i].Contiguous() ) {
+                                removed.add( Loc[i] );
                                 UnallocateAll( Loc[i], false );
                             } else {
+                                removed.add( Loc[i] );
                                 UnallocateByIndex( AddInLoc, Loc  );
                             }
                         }
@@ -3008,8 +3015,10 @@ public class BipedLoadout implements ifLoadout {
                         if( Loc[MGLocs[i]] != NoItem ) {
                             // we know it's not location locked, so kick it out
                             if( Loc[MGLocs[i]].CanSplit() && Loc[MGLocs[i]].Contiguous() ) {
+                                removed.add( Loc[i] );
                                 UnallocateAll( Loc[MGLocs[i]], false );
                             } else {
+                                removed.add( Loc[i] );
                                 UnallocateByIndex( MGLocs[i], Loc );
                             }
                         }
@@ -3031,8 +3040,10 @@ public class BipedLoadout implements ifLoadout {
                     if( Loc[SIndex] != NoItem ) {
                         // put the item back into the queue
                         if( Loc[SIndex].CanSplit() && Loc[SIndex].Contiguous() ) {
+                            removed.add( Loc[SIndex] );
                             UnallocateAll( Loc[SIndex], false );
                         } else {
+                            removed.add( Loc[SIndex] );
                             UnallocateByIndex( SIndex, Loc );
                         }
                     }
@@ -3047,6 +3058,14 @@ public class BipedLoadout implements ifLoadout {
                         RemoveFromQueue( p );
                     }
             }
+
+            // now that allocation is finished, add in the removed items if possible
+            for( int i = 0; i < removed.size(); i++ ) {
+                // no error handling here since the items are already in the queue
+                try {
+                    Allocate( (abPlaceable) removed.get( i ), -1, Loc );
+                } catch( Exception e1 ) { }
+            }
         } catch ( ArrayIndexOutOfBoundsException e ) {
             // reset the location
             Loc = SnapShot;
@@ -3060,7 +3079,7 @@ public class BipedLoadout implements ifLoadout {
                         throw new Exception( p.GetCritName() + " cannot be allocated because there is not enough space." );
                     }
                 } else {
-                    throw new Exception( p.GetCritName() + " cannot be allocated because\nthere is no room for its guidance package." );
+                    throw new Exception( p.GetCritName() + " cannot be allocated because\nthere is no room for its additional equipment." );
                 }
             } else {
                 throw new Exception( p.GetCritName() + " cannot be allocated because there is not enough space." );
