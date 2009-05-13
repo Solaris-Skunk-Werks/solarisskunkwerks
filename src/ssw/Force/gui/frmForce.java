@@ -385,6 +385,9 @@ public class frmForce extends javax.swing.JFrame {
                 for ( int i=0; i < rows.length; i++ ) {
                     Unit data = (Unit) force.Units.get(tblForce.convertRowIndexToModel(rows[i]));
                     Mech m = read.ReadMech( data.Filename, parent.data );
+                    if ( data.isOmni() ) {
+                        m.SetCurLoadout( data.Configuration );
+                    }
                     print.AddMech(m);
                 }
                 print.Print();

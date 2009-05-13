@@ -1115,7 +1115,7 @@ public class Mech implements ifBattleforce {
     }
 
     public String GetFullName() {
-        return String.format("%1$s %2$s %3$s", GetName(), GetModel(), GetLoadout().GetName()).replace(" " + Constants.BASELOADOUT_NAME, "").replace("  " , " ");
+        return String.format("%1$s %2$s %3$s", GetName(), GetModel(), GetLoadout().GetName()).replace(" " + Constants.BASELOADOUT_NAME, "").trim();
     }
 
     public int GetDeprecatedLevel() {

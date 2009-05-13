@@ -41,6 +41,10 @@ public class XMLWriter {
     private String tab = "    ";
     private String NL = System.getProperty( "line.separator" );
 
+    public XMLWriter( ) {
+
+    }
+
     public XMLWriter( Mech m ) {
         CurMech = m;
     }
@@ -375,6 +379,14 @@ public class XMLWriter {
         FR.write( "</mech>" );
         FR.newLine();
         FR.close();
+    }
+
+    public Mech getMech() {
+        return CurMech;
+    }
+
+    public void setMech( Mech m ) {
+        this.CurMech = m;
     }
 
     private String GetBoolean( boolean b ) {

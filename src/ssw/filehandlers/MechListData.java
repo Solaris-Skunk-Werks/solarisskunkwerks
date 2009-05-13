@@ -101,7 +101,11 @@ public class MechListData {
         u.TypeModel = this.Name + " " + this.getModel();
         u.Type = this.Name;
         u.Model = this.getModel();
-        if ( this.isOmni() ) { u.Model = this.Config; }
+        u.setOmni(this.isOmni());
+        if ( this.isOmni() ) {
+            u.Model = this.Config;
+            u.Configuration = this.Config;
+        }
         u.BaseBV = this.BV;
         u.Tonnage = this.Tonnage;
         u.UnitType = ssw.Force.Common.Constants.BattleMech;
@@ -117,6 +121,10 @@ public class MechListData {
 
     public void setName(String Name) {
         this.Name = Name;
+    }
+
+    public String getFullName() {
+        return Name + " " + Model;
     }
 
     public String getLevel() {

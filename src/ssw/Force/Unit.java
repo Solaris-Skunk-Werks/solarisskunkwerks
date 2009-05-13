@@ -42,7 +42,8 @@ public class Unit {
                   Type = "",
                   Model = "",
                   Mechwarrior = "",
-                  Filename = "";
+                  Filename = "",
+                  Configuration = "";
     public float BaseBV = 0.0f,
                  MiscMod = 1.0f,
                  Tonnage = 20.0f,
@@ -54,6 +55,7 @@ public class Unit {
                Piloting = 5,
                UnitType = Constants.BattleMech;
     public boolean UsingC3 = false;
+    private boolean Omni = false;
     public Mech m = new Mech();
 
     public Unit(){
@@ -154,5 +156,19 @@ public class Unit {
         file.newLine();
         file.write(FileCommon.tab + "</entity>");
         file.newLine();
+    }
+
+    /**
+     * @return the Omni
+     */
+    public boolean isOmni() {
+        return Omni;
+    }
+
+    /**
+     * @param Omni the Omni to set
+     */
+    public void setOmni(boolean Omni) {
+        this.Omni = Omni;
     }
 }

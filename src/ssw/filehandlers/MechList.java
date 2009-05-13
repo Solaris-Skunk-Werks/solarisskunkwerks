@@ -95,6 +95,10 @@ public class MechList extends AbstractTableModel {
         List.remove(m);
     }
 
+    public void RemoveAll() {
+        List.removeAllElements();
+    }
+
     public int Size() {
         return List.size();
     }
