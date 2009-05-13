@@ -26,6 +26,7 @@ Version 0.7.0
   - An engine change now triggers a FlushIllegal action.
 - Compacting crits now compacts anything that can be dragged.
 - Fixed an issue with loading IndustrialPhysicalWeapons.
+- Fixed an issue with the Force dialog printing Prime omnis rather then the selected configuration
 
 -------------------------------------------------------------------------------
 Version 0.6.0
