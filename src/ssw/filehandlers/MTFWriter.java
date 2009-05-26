@@ -44,6 +44,10 @@ public class MTFWriter {
                    CL = "(Clan)";
     private boolean mixed = false;
 
+    public MTFWriter( ) {
+
+    }
+
     public MTFWriter( Mech m ) {
         CurMech = m;
     }
@@ -342,6 +346,10 @@ public class MTFWriter {
         FR.close();
     }
 
+    public void setMech( Mech m ) {
+        CurMech = m;
+    }
+
     private String GetMMName( abPlaceable p ) {
         if( p instanceof Engine ) {
             if( p.IsArmored() ) {
@@ -361,4 +369,5 @@ public class MTFWriter {
         }
         return retval;
     }
+
 }

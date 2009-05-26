@@ -37,17 +37,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.activation.FileTypeMap;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableRowSorter;
+import ssw.CommonTools;
 import ssw.Force.*;
 import ssw.Force.IO.ForceReader;
 import ssw.Force.IO.ForceWriter;
 import ssw.Force.IO.PrintSheet;
 import ssw.Options;
 import ssw.components.Mech;
+import ssw.filehandlers.FileCommon;
+import ssw.filehandlers.MTFWriter;
 import ssw.filehandlers.MULWriter;
 import ssw.filehandlers.XMLReader;
 import ssw.gui.frmMain;
@@ -152,6 +156,7 @@ public class frmForce extends javax.swing.JFrame {
         btnPrintUnits = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnExportMUL = new javax.swing.JButton();
+        btnExportMTFs = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         btnAddMech = new javax.swing.JButton();
         btnRemoveUnit = new javax.swing.JButton();
@@ -242,6 +247,18 @@ public class frmForce extends javax.swing.JFrame {
             }
         });
         tlbActions.add(btnExportMUL);
+
+        btnExportMTFs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/documents--arrow.png"))); // NOI18N
+        btnExportMTFs.setToolTipText("Export All to MTF");
+        btnExportMTFs.setFocusable(false);
+        btnExportMTFs.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExportMTFs.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnExportMTFs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportMTFsActionPerformed(evt);
+            }
+        });
+        tlbActions.add(btnExportMTFs);
         tlbActions.add(jSeparator3);
 
         btnAddMech.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/clipboard--plus.png"))); // NOI18N
@@ -480,9 +497,38 @@ public class frmForce extends javax.swing.JFrame {
         parent.dOpen.setVisible(true);
 }//GEN-LAST:event_btnAddMechActionPerformed
 
+    private void btnExportMTFsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportMTFsActionPerformed
+        String error = "",
+               filename = "";
+        MTFWriter mtf = new MTFWriter();
+        ssw.filehandlers.Media media = new ssw.filehandlers.Media();
+        Options opts = new Options();
+        String mtfDir = media.GetDirectorySelection(null, opts.MegamekPath);
+        if (!mtfDir.endsWith(File.separator)) { mtfDir += File.separator; }
+        
+        for ( int i = 0; i < force.Units.size(); i++ ) {
+            Unit u = (Unit) force.Units.get(i);
+            u.LoadMech();
+            mtf.setMech(u.m);
+            try {
+                filename = mtfDir + u.m.GetFullName() + ".mtf";
+                mtf.WriteMTF(filename);
+            } catch (IOException ie) {
+                error += "Attempted " + filename + ": " + ie.getMessage() + "\n";
+            }
+        }
+        
+        if ( !error.isEmpty() ) {
+            javax.swing.JOptionPane.showMessageDialog(this, error);
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "All units have been saved to MTF.");
+        }
+    }//GEN-LAST:event_btnExportMTFsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brnClearForce;
     private javax.swing.JButton btnAddMech;
+    private javax.swing.JButton btnExportMTFs;
     private javax.swing.JButton btnExportMUL;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnPrintForce;

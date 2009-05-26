@@ -56,7 +56,7 @@ public class Unit {
                UnitType = Constants.BattleMech;
     public boolean UsingC3 = false;
     private boolean Omni = false;
-    public Mech m = new Mech();
+    public Mech m = null;
 
     public Unit(){
     }
@@ -156,6 +156,20 @@ public class Unit {
         file.newLine();
         file.write(FileCommon.tab + "</entity>");
         file.newLine();
+    }
+
+    public void LoadMech() {
+        if ( m == null ) {
+            try {
+                XMLReader reader = new XMLReader();
+                this.m = reader.ReadMech( this.Filename );
+                if ( ! this.Configuration.isEmpty() ) {
+                    this.m.SetCurLoadout(this.Configuration.trim());
+                }
+            } catch (Exception ex) {
+                //do nothing
+            }
+        }
     }
 
     /**
