@@ -83,6 +83,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     JMenuItem mnuAddCapacitorSelect = new JMenuItem( "Add Capacitor" );
     JMenuItem mnuAddInsulatorPlace = new JMenuItem( "Add Insulator" );
     JMenuItem mnuAddInsulatorCrits = new JMenuItem( "Add Insulator" );
+    JMenuItem mnuAddInsulatorSelect = new JMenuItem( "Add Insulator" );
+    JPopupMenu mnuSelect = new JPopupMenu();
 
     MechLoadoutRenderer Mechrender = new MechLoadoutRenderer( this, GlobalOptions );
     Preferences Prefs;
@@ -221,6 +223,23 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuPlacement.add( mnuAddCapacitorPlace );
         mnuPlacement.add( mnuAuto );
         mnuPlacement.add( mnuSelective );
+
+        mnuAddCapacitorSelect.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                PPCCapacitor();
+            }
+        });
+
+        mnuAddInsulatorSelect.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                LaserInsulator();
+            }
+        });
+
+        mnuSelect.add( mnuAddInsulatorSelect );
+        mnuSelect.add( mnuAddCapacitorSelect );
+        mnuAddInsulatorSelect.setVisible( false );
+        mnuAddCapacitorSelect.setVisible( false );
 
         try {
             OReader.ReadOptions( Constants.OptionsFileName, GlobalOptions );
@@ -848,17 +867,21 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( CommonTools.IsAllowed( PPCCapAC, CurMech ) )  {
             mnuAddCapacitorCrits.setVisible( true );
             mnuAddCapacitorPlace.setVisible( true );
+            mnuAddCapacitorSelect.setVisible( true );
         } else {
             mnuAddCapacitorCrits.setVisible( false );
             mnuAddCapacitorPlace.setVisible( false );
+            mnuAddCapacitorSelect.setVisible( false );
         }
 
         if( CommonTools.IsAllowed( LIAC, CurMech ) )  {
             mnuAddInsulatorCrits.setVisible( true );
             mnuAddInsulatorPlace.setVisible( true );
+            mnuAddInsulatorSelect.setVisible( true );
         } else {
             mnuAddInsulatorCrits.setVisible( false );
             mnuAddInsulatorPlace.setVisible( false );
+            mnuAddInsulatorSelect.setVisible( false );
         }
 
         // check the command console and ejection seat
@@ -1605,6 +1628,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstRACrits.repaint();
         lstLLCrits.repaint();
         lstRLCrits.repaint();
+        lstSelectedEquipment.repaint();
         javax.swing.table.AbstractTableModel m = (javax.swing.table.AbstractTableModel) tblWeaponManufacturers.getModel();
         m.fireTableDataChanged();
 
@@ -6496,6 +6520,53 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 lstSelectedEquipmentValueChanged(evt);
             }
         });
+        MouseListener mlSelect = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                int Index = lstSelectedEquipment.locationToIndex( e.getPoint() );
+                if( Index < 0 ) { return; }
+                CurItem = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( Index );
+                if( e.isPopupTrigger() ) {
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorSelect.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorSelect.setText( "Add Capacitor" );
+                        }
+                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
+                            mnuAddInsulatorSelect.setText( "Remove Insulator" );
+                        } else {
+                            mnuAddInsulatorSelect.setText( "Add Insulator" );
+                        }
+                    }
+                    mnuAddCapacitorSelect.setEnabled( LegalCapacitor( CurItem ) );
+                    mnuAddInsulatorSelect.setEnabled( LegalInsulator( CurItem ) );
+                    mnuSelect.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                int Index = lstSelectedEquipment.locationToIndex( e.getPoint() );
+                if( Index < 0 ) { return; }
+                CurItem = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( Index );
+                if( e.isPopupTrigger() ) {
+                    if( CurItem instanceof RangedWeapon ) {
+                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                            mnuAddCapacitorSelect.setText( "Remove Capacitor" );
+                        } else {
+                            mnuAddCapacitorSelect.setText( "Add Capacitor" );
+                        }
+                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
+                            mnuAddInsulatorSelect.setText( "Remove Insulator" );
+                        } else {
+                            mnuAddInsulatorSelect.setText( "Add Insulator" );
+                        }
+                    }
+                    mnuAddCapacitorSelect.setEnabled( LegalCapacitor( CurItem ) );
+                    mnuAddInsulatorSelect.setEnabled( LegalInsulator( CurItem ) );
+                    mnuSelect.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        lstSelectedEquipment.addMouseListener( mlSelect );
         lstSelectedEquipment.setCellRenderer( new ssw.gui.EquipmentSelectedRenderer( this ) );
         jScrollPane23.setViewportView(lstSelectedEquipment);
 

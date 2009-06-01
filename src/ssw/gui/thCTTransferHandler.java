@@ -147,6 +147,7 @@ public class thCTTransferHandler extends TransferHandler {
         }
 
         LocationDragDatagram DropItem = null;
+        boolean rear = false;
         // get the item data
         try {
             DropItem = (LocationDragDatagram) info.getTransferable().getTransferData( new DataFlavor( ssw.gui.LocationDragDatagram.class, "Location Drag Datagram" ) );
@@ -166,6 +167,7 @@ public class thCTTransferHandler extends TransferHandler {
         } else {
             // from another location
             a = CurMech.GetLoadout().GetCrits( DropItem.Location )[DropItem.SourceIndex];
+            rear = a.IsMountedRear();
             if( a.CanSplit() && a.Contiguous() ) {
                 CurMech.GetLoadout().UnallocateAll( a, false );
             } else {
@@ -211,6 +213,7 @@ public class thCTTransferHandler extends TransferHandler {
         if( a.NumPlaced() <= 0 ) {
             CurMech.GetLoadout().RemoveFromQueue( a );
         }
+        a.MountRear( rear );
         Parent.RefreshInfoPane();
         return true;
     }

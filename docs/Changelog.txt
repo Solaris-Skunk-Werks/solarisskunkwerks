@@ -8,6 +8,9 @@ Version 0.7.0
 - Added EquipmentCollections; equipment is now consolidated on the Crits to Placed list.
 - BattleForce weapons and overheat now calculated.
 - The loadout now pushes items out of the way instead of unallocating them by default.
+- You can now armor Multi-Slot Systems (Null-Sig, Void Sig, etc...)
+- Added in Laser Insulators.
+- Added a context menu on the Equipment list for PPC Caps and Insulators.
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.
