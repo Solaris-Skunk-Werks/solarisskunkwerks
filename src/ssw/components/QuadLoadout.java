@@ -2621,7 +2621,7 @@ public class QuadLoadout implements ifLoadout {
         boolean AddIn = false;
         boolean ArrayGood = false;
         int AddInSize = 1;
-        Vector removed = new Vector();
+        Vector removed = new Vector(), rears = new Vector();
 
         // check for generic placement
         if( SIndex == -1 ) {
@@ -2716,9 +2716,11 @@ public class QuadLoadout implements ifLoadout {
                         // above, so put the item back into the queue.
                         if( Loc[i].CanSplit() && Loc[i].Contiguous() ) {
                             removed.add( Loc[i] );
+                            rears.add( new Boolean( Loc[i].IsMountedRear() ) );
                             UnallocateAll( Loc[i], false );
                         } else {
                             removed.add( Loc[i] );
+                            rears.add( new Boolean( Loc[i].IsMountedRear() ) );
                             UnallocateByIndex( i, Loc );
                         }
                     }
@@ -2735,9 +2737,11 @@ public class QuadLoadout implements ifLoadout {
                             // above, so put the item back into the queue.
                             if( Loc[i].CanSplit() && Loc[i].Contiguous() ) {
                                 removed.add( Loc[i] );
+                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
                                 UnallocateAll( Loc[i], false );
                             } else {
                                 removed.add( Loc[i] );
+                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
                                 UnallocateByIndex( AddInLoc, Loc  );
                             }
                         }
@@ -2751,9 +2755,11 @@ public class QuadLoadout implements ifLoadout {
                             // above, so put the item back into the queue.
                             if( Loc[i].CanSplit() && Loc[i].Contiguous() ) {
                                 removed.add( Loc[i] );
+                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
                                 UnallocateAll( Loc[i], false );
                             } else {
                                 removed.add( Loc[i] );
+                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
                                 UnallocateByIndex( AddInLoc, Loc  );
                             }
                         }
@@ -2768,9 +2774,11 @@ public class QuadLoadout implements ifLoadout {
                             // we know it's not location locked, so kick it out
                             if( Loc[MGLocs[i]].CanSplit() && Loc[MGLocs[i]].Contiguous() ) {
                                 removed.add( Loc[i] );
+                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
                                 UnallocateAll( Loc[MGLocs[i]], false );
                             } else {
                                 removed.add( Loc[i] );
+                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
                                 UnallocateByIndex( MGLocs[i], Loc );
                             }
                         }
@@ -2793,9 +2801,11 @@ public class QuadLoadout implements ifLoadout {
                         // put the item back into the queue
                         if( Loc[SIndex].CanSplit() && Loc[SIndex].Contiguous() ) {
                             removed.add( Loc[SIndex] );
+                            rears.add( new Boolean( Loc[SIndex].IsMountedRear() ) );
                             UnallocateAll( Loc[SIndex], false );
                         } else {
                             removed.add( Loc[SIndex] );
+                            rears.add( new Boolean( Loc[SIndex].IsMountedRear() ) );
                             UnallocateByIndex( SIndex, Loc );
                         }
                     }
@@ -2816,6 +2826,7 @@ public class QuadLoadout implements ifLoadout {
                 // no error handling here since the items are already in the queue
                 try {
                     Allocate( (abPlaceable) removed.get( i ), -1, Loc );
+                    ((abPlaceable) removed.get( i )).MountRear( ((Boolean) rears.get( i )));
                 } catch( Exception e1 ) { }
             }
         } catch ( ArrayIndexOutOfBoundsException e ) {

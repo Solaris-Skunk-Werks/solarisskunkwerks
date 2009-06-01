@@ -1078,7 +1078,7 @@ public class EquipmentFactory {
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         addEQ = new Equipment("Light Active Probe","Light Active Probe", "Light Active Probe", a );
         addEQ.SetAmmo(false, 0, 0);
-        addEQ.SetMegaMekName("Light Active Probe");
+        addEQ.SetMegaMekName("LightActiveProbe");
         addEQ.SetRange(0, 0, 3);
         addEQ.SetHeat(0);
         addEQ.SetStats(1, 0.5f, 50000.0f, 0.0f, 7.0f, "-");

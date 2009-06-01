@@ -360,7 +360,7 @@ public class MTFWriter {
         }
         String retval = p.GetMMName( p.IsMountedRear() );
         if( ! p.CoreComponent() ) {
-            if( ( ! retval.contains( "IS" ) ) && ( ! retval.contains( "CL" ) ) ) {
+            if( ( ! retval.contains( "IS" ) ) && ( ! retval.contains( "CL" ) ) && ( ! retval.contains( "Clan" ) ) ) {
                 retval = Prepend + retval;
             }
         }

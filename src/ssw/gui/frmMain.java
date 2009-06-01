@@ -11522,6 +11522,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( Load ) { return; }
         int NewLevel = cmbRulesLevel.getSelectedIndex();
         int OldLevel = CurMech.GetLoadout().GetRulesLevel();
+        int OldType = cmbMechType.getSelectedIndex();
 
         if( OldLevel == NewLevel ) {
             // we're already at the correct rules level.
@@ -11532,6 +11533,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech" } ) );
         } else {
             cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech", "IndustrialMech" } ) );
+            cmbMechType.setSelectedIndex( OldType );
         }
 
         // do we have an OmniMech?

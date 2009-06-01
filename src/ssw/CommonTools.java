@@ -304,10 +304,18 @@ public class CommonTools {
             case AvailableCode.ERA_SUCCESSION:
                 switch( m.GetTechBase() ) {
                     case AvailableCode.TECH_INNER_SPHERE:
-                        if( AC.GetISSWCode() < 'F' ) {
-                            return true;
+                        if( m.GetRulesLevel() > AvailableCode.RULES_TOURNAMENT ) {
+                            if( AC.GetISSWCode() < 'X' ) {
+                                return true;
+                            } else {
+                                return false;
+                            }
                         } else {
-                            return false;
+                            if( AC.GetISSWCode() < 'F' ) {
+                                return true;
+                            } else {
+                                return false;
+                            }
                         }
                     case AvailableCode.TECH_CLAN:
                         if( AC.GetCLSWCode() < 'X' ) {

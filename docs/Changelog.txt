@@ -26,7 +26,11 @@ Version 0.7.0
   - An engine change now triggers a FlushIllegal action.
 - Compacting crits now compacts anything that can be dragged.
 - Fixed an issue with loading IndustrialPhysicalWeapons.
-- Fixed an issue with the Force dialog printing Prime omnis rather then the selected configuration
+- Printnames for Mixed Tech 'Mechs changed to include techbase.
+- Fixed an issue with the Force dialog printing Prime omnis rather then the selected configuration.
+- Fixed the Availability filter code for Succession Era tech and advanced or higher rules.
+- Items shifted by placement of other items now retain their facing.
+- Fixed some problems with the current weapons data.
 
 -------------------------------------------------------------------------------
 Version 0.6.0

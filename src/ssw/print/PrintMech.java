@@ -313,9 +313,9 @@ public class PrintMech implements Printable {
                         graphics.drawLine( p[j].x, p[j].y - 3, p[j].x, p[j].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     } else if( j == End - 1 ) {
                         // end the line
@@ -323,18 +323,18 @@ public class PrintMech implements Printable {
                         graphics.drawLine( p[j].x, p[j].y - 2, p[j].x, p[j-1].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     } else {
                         // continue the line
                         graphics.drawLine( p[j].x, p[j].y, p[j].x, p[j-1].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     }
                 }
@@ -342,15 +342,15 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    DrawNonCritable( graphics, a[i].GetPrintName(), p[i].x, p[i].y );
+                    DrawNonCritable( graphics, GetPrintName( a[i] ), p[i].x, p[i].y );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                        graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                        graphics.drawString( GetPrintName( a[i] ), p[i].x + 7, p[i].y );
                     } else if( a[i] instanceof Ammunition ) {
                         graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
                     } else {
-                        graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                        graphics.drawString( GetPrintName( a[i] ), p[i].x, p[i].y );
                     }
                 }
             }
@@ -380,9 +380,9 @@ public class PrintMech implements Printable {
                         graphics.drawLine( p[j].x, p[j].y - 3, p[j].x, p[j].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     } else if( j == End - 1 ) {
                         // end the line
@@ -390,18 +390,18 @@ public class PrintMech implements Printable {
                         graphics.drawLine( p[j].x, p[j].y - 2, p[j].x, p[j-1].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     } else {
                         // continue the line
                         graphics.drawLine( p[j].x, p[j].y, p[j].x, p[j-1].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     }
                 }
@@ -409,15 +409,15 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    DrawNonCritable( graphics, a[i].GetPrintName(), p[i].x, p[i].y );
+                    DrawNonCritable( graphics, GetPrintName( a[i] ), p[i].x, p[i].y );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                        graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                        graphics.drawString( GetPrintName( a[i] ), p[i].x + 7, p[i].y );
                     } else if( a[i] instanceof Ammunition ) {
                         graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
                     } else {
-                        graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                        graphics.drawString( GetPrintName( a[i] ), p[i].x, p[i].y );
                     }
                 }
             }
@@ -447,9 +447,9 @@ public class PrintMech implements Printable {
                         graphics.drawLine( p[j].x, p[j].y - 3, p[j].x, p[j].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     } else if( j == End - 1 ) {
                         // end the line
@@ -457,18 +457,18 @@ public class PrintMech implements Printable {
                         graphics.drawLine( p[j].x, p[j].y - 2, p[j].x, p[j-1].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     } else {
                         // continue the line
                         graphics.drawLine( p[j].x, p[j].y, p[j].x, p[j-1].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     }
                 }
@@ -476,15 +476,15 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    DrawNonCritable( graphics, a[i].GetPrintName(), p[i].x, p[i].y );
+                    DrawNonCritable( graphics,GetPrintName( a[i] ), p[i].x, p[i].y );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                        graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                        graphics.drawString( GetPrintName( a[i] ), p[i].x + 7, p[i].y );
                     } else if( a[i] instanceof Ammunition ) {
                         graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
                     } else {
-                        graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                        graphics.drawString( GetPrintName( a[i] ), p[i].x, p[i].y );
                     }
                 }
             }
@@ -514,9 +514,9 @@ public class PrintMech implements Printable {
                         graphics.drawLine( p[j].x, p[j].y - 3, p[j].x, p[j].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     } else if( j == End - 1 ) {
                         // end the line
@@ -524,18 +524,18 @@ public class PrintMech implements Printable {
                         graphics.drawLine( p[j].x, p[j].y - 2, p[j].x, p[j-1].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     } else {
                         // continue the line
                         graphics.drawLine( p[j].x, p[j].y, p[j].x, p[j-1].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     }
                 }
@@ -543,15 +543,15 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    DrawNonCritable( graphics, a[i].GetPrintName(), p[i].x, p[i].y );
+                    DrawNonCritable( graphics, GetPrintName( a[i] ), p[i].x, p[i].y );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                        graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                        graphics.drawString( GetPrintName( a[i] ), p[i].x + 7, p[i].y );
                     } else if( a[i] instanceof Ammunition ) {
                         graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
                     } else {
-                        graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                        graphics.drawString( GetPrintName( a[i] ), p[i].x, p[i].y );
                     }
                 }
             }
@@ -581,9 +581,9 @@ public class PrintMech implements Printable {
                         graphics.drawLine( p[j].x, p[j].y - 3, p[j].x, p[j].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     } else if( j == End - 1 ) {
                         // end the line
@@ -591,18 +591,18 @@ public class PrintMech implements Printable {
                         graphics.drawLine( p[j].x, p[j].y - 2, p[j].x, p[j-1].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     } else {
                         // continue the line
                         graphics.drawLine( p[j].x, p[j].y, p[j].x, p[j-1].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     }
                 }
@@ -610,15 +610,15 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    DrawNonCritable( graphics, a[i].GetPrintName(), p[i].x, p[i].y );
+                    DrawNonCritable( graphics, GetPrintName( a[i] ), p[i].x, p[i].y );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                        graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                        graphics.drawString( GetPrintName( a[i] ), p[i].x + 7, p[i].y );
                     } else if( a[i] instanceof Ammunition ) {
                         graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
                     } else {
-                        graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                        graphics.drawString( GetPrintName( a[i] ), p[i].x, p[i].y );
                     }
                 }
             }
@@ -648,9 +648,9 @@ public class PrintMech implements Printable {
                         graphics.drawLine( p[j].x, p[j].y - 3, p[j].x, p[j].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     } else if( j == End - 1 ) {
                         // end the line
@@ -658,18 +658,18 @@ public class PrintMech implements Printable {
                         graphics.drawLine( p[j].x, p[j].y - 2, p[j].x, p[j-1].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     } else {
                         // continue the line
                         graphics.drawLine( p[j].x, p[j].y, p[j].x, p[j-1].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     }
                 }
@@ -677,15 +677,15 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    DrawNonCritable( graphics, a[i].GetPrintName(), p[i].x, p[i].y );
+                    DrawNonCritable( graphics, GetPrintName( a[i] ), p[i].x, p[i].y );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                        graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                        graphics.drawString( GetPrintName( a[i] ), p[i].x + 7, p[i].y );
                     } else if( a[i] instanceof Ammunition ) {
                         graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
                     } else {
-                        graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                        graphics.drawString( GetPrintName( a[i] ), p[i].x, p[i].y );
                     }
                 }
             }
@@ -715,9 +715,9 @@ public class PrintMech implements Printable {
                         graphics.drawLine( p[j].x, p[j].y - 3, p[j].x, p[j].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     } else if( j == End - 1 ) {
                         // end the line
@@ -725,18 +725,18 @@ public class PrintMech implements Printable {
                         graphics.drawLine( p[j].x, p[j].y - 2, p[j].x, p[j-1].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     } else {
                         // continue the line
                         graphics.drawLine( p[j].x, p[j].y, p[j].x, p[j-1].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     }
                 }
@@ -744,15 +744,15 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    DrawNonCritable( graphics, a[i].GetPrintName(), p[i].x, p[i].y );
+                    DrawNonCritable( graphics, GetPrintName( a[i] ), p[i].x, p[i].y );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                        graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                        graphics.drawString( GetPrintName( a[i] ), p[i].x + 7, p[i].y );
                     } else if( a[i] instanceof Ammunition ) {
                         graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
                     } else {
-                        graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                        graphics.drawString( GetPrintName( a[i] ), p[i].x, p[i].y );
                     }
                 }
             }
@@ -782,9 +782,9 @@ public class PrintMech implements Printable {
                         graphics.drawLine( p[j].x, p[j].y - 3, p[j].x, p[j].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     } else if( j == End - 1 ) {
                         // end the line
@@ -792,18 +792,18 @@ public class PrintMech implements Printable {
                         graphics.drawLine( p[j].x, p[j].y - 2, p[j].x, p[j-1].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     } else {
                         // continue the line
                         graphics.drawLine( p[j].x, p[j].y, p[j].x, p[j-1].y );
                         if( a[j].IsArmored() ) {
                             graphics.drawOval( p[j].x + 3, p[j].y - 5, 5, 5 );
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 10, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 10, p[j].y );
                         } else {
-                            graphics.drawString( a[j].GetPrintName(), p[j].x + 3, p[j].y );
+                            graphics.drawString( GetPrintName( a[j] ), p[j].x + 3, p[j].y );
                         }
                     }
                 }
@@ -811,15 +811,15 @@ public class PrintMech implements Printable {
             } else {
                 // single slot item
                 if( ! a[i].IsCritable() ) {
-                    DrawNonCritable( graphics, a[i].GetPrintName(), p[i].x, p[i].y );
+                    DrawNonCritable( graphics, GetPrintName( a[i] ), p[i].x, p[i].y );
                 } else {
                     if( a[i].IsArmored() ) {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
-                        graphics.drawString( a[i].GetPrintName(), p[i].x + 7, p[i].y );
+                        graphics.drawString( GetPrintName( a[i] ), p[i].x + 7, p[i].y );
                     } else if( a[i] instanceof Ammunition ) {
                         graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
                     } else {
-                        graphics.drawString( a[i].GetPrintName(), p[i].x, p[i].y );
+                        graphics.drawString( GetPrintName( a[i] ), p[i].x, p[i].y );
                     }
                 }
             }
@@ -843,7 +843,7 @@ public class PrintMech implements Printable {
         for( int i = 0; i < a.length; i++ ) {
             PlaceableInfo item = a[i];
             graphics.drawString( item.Count + "", p[0].x, p[0].y + offset );
-            graphics.drawString( item.Item.GetPrintName(), p[1].x, p[1].y + offset );
+            graphics.drawString( GetPrintName( item.Item ), p[1].x, p[1].y + offset );
             graphics.drawString( FileCommon.EncodeLocation( item.Location, CurMech.IsQuad() ), p[2].x, p[2].y + offset );
             if( item.Item instanceof Equipment ) {
                 graphics.drawString( ((Equipment) item.Item).GetHeat() + "", p[3].x, p[3].y + offset );
@@ -1227,6 +1227,23 @@ public class PrintMech implements Printable {
 
     public void setBV(float BV) {
         this.BV = BV;
+    }
+
+    private String GetPrintName( abPlaceable a ) {
+        // returns a modified PrintName, useful for special situations such as
+        // mixed-tech mechs.
+        String retval = a.GetPrintName();
+        if( a instanceof RangedWeapon && CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+            switch( ((RangedWeapon) a).GetTechBase() ) {
+                case AvailableCode.TECH_INNER_SPHERE:
+                    retval = "(IS) " + retval;
+                    break;
+                case AvailableCode.TECH_CLAN:
+                    retval = "(CL) " + retval;
+                    break;
+            }
+        }
+        return retval;
     }
 
     private class PlaceableInfo {
