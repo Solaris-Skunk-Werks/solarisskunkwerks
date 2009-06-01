@@ -50,10 +50,12 @@ public class MechLoadoutRenderer  extends DefaultListCellRenderer {
         JLabel label = (JLabel)super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
         String Text = "";
         abPlaceable[] Loc = null;
+        int LocNum = -1;
         abPlaceable a = null;
         Color BorderCol = new Color( 0, 0, 0 );
         // find the location
-        switch( Parent.GetLocation( list ) ) {
+        LocNum =  Parent.GetLocation( list );
+        switch( LocNum ) {
             case Constants.LOC_HD:
                 Loc = Parent.CurMech.GetLoadout().GetHDCrits();
                 break;
@@ -122,6 +124,9 @@ public class MechLoadoutRenderer  extends DefaultListCellRenderer {
                     size += ((abPlaceable) ((RangedWeapon) Parent.CurItem).GetFCS()).NumCrits();
                 }
                 if( ((RangedWeapon) Parent.CurItem).IsUsingCapacitor() ) {
+                    size++;
+                }
+                if( ((RangedWeapon) Parent.CurItem).IsUsingInsulator() ) {
                     size++;
                 }
             }

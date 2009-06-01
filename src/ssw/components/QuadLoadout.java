@@ -1687,7 +1687,7 @@ public class QuadLoadout implements ifLoadout {
 
         // add the item back into the queue unless is already exists there
         // unless it's an Artemis IV FCS system.
-        if( ! QueueContains(p) &! ( p instanceof ifMissileGuidance ) &! ( p instanceof PPCCapacitor ) ) {
+        if( ! QueueContains(p) &! ( p instanceof ifMissileGuidance ) &! ( p instanceof PPCCapacitor ) &! ( p instanceof LaserInsulator ) ) {
             if( p instanceof RangedWeapon ) {
                 if( ! ((RangedWeapon) p).IsInArray() ) {
                     AddToQueue( p );
@@ -1707,6 +1707,9 @@ public class QuadLoadout implements ifLoadout {
             }
             if( ((RangedWeapon) p).IsUsingCapacitor() ) {
                 UnallocateAll( ((RangedWeapon) p).GetCapacitor(), true );
+            }
+            if( ((RangedWeapon) p).IsUsingInsulator() ) {
+                UnallocateAll( ((RangedWeapon) p).GetInsulator(), true );
             }
         }
 
@@ -1808,6 +1811,9 @@ public class QuadLoadout implements ifLoadout {
             }
             if( ((RangedWeapon) p).IsUsingCapacitor() ) {
                 UnallocateAll( ((RangedWeapon) p).GetCapacitor(), true );
+            }
+            if( ((RangedWeapon) p).IsUsingInsulator() ) {
+                UnallocateAll( ((RangedWeapon) p).GetInsulator(), true );
             }
         }
 
@@ -2683,6 +2689,17 @@ public class QuadLoadout implements ifLoadout {
                             }
                         }
                     }
+                    if( ((RangedWeapon) p).IsUsingInsulator() ) {
+                        // we have a preference for right underneath the launcher
+                        while( ! AddIn ) {
+                            if( Loc[i].LocationLocked() ) {
+                                i++;
+                            } else {
+                                AddInLoc = i;
+                                AddIn = true;
+                            }
+                        }
+                    }
                 } else {
                     AddIn = true;
                 }
@@ -2764,6 +2781,22 @@ public class QuadLoadout implements ifLoadout {
                             }
                         }
                         Loc[AddInLoc] = ((RangedWeapon) p).GetCapacitor();
+                    }
+                    if( ((RangedWeapon) p).IsUsingInsulator() ) {
+                        if( Loc[AddInLoc] != NoItem ) {
+                            // we've already ensured that it is not location locked
+                            // above, so put the item back into the queue.
+                            if( Loc[i].CanSplit() && Loc[i].Contiguous() ) {
+                                removed.add( Loc[i] );
+                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
+                                UnallocateAll( Loc[i], false );
+                            } else {
+                                removed.add( Loc[i] );
+                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
+                                UnallocateByIndex( AddInLoc, Loc  );
+                            }
+                        }
+                        Loc[AddInLoc] = ((RangedWeapon) p).GetInsulator();
                     }
                 }
 
@@ -2874,6 +2907,9 @@ public class QuadLoadout implements ifLoadout {
                     Result += ((abPlaceable) ((RangedWeapon) p).GetFCS()).NumCrits() * NumThisType;
                 }
                 if( ((RangedWeapon) p).IsUsingCapacitor() ) {
+                    Result += NumThisType;
+                }
+                if( ((RangedWeapon) p).IsUsingInsulator() ) {
                     Result += NumThisType;
                 }
             }

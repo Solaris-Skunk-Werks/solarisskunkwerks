@@ -80,9 +80,17 @@ public class MultiSlotSystem extends abPlaceable {
 
     public int ReportCrits() {
         if( ExcludeCT ) {
-            return 6;
+            if( ExcludeHD ) {
+                return 6;
+            } else {
+                return 7;
+            }
         } else {
-            return 7;
+            if( ExcludeHD ) {
+                return 7;
+            } else {
+                return 8;
+            }
         }
     }
 
@@ -92,20 +100,30 @@ public class MultiSlotSystem extends abPlaceable {
 
     @Override
     public float GetTonnage() {
-        if( BasedOnMechTons ) {
-            return Owner.GetTonnage() * Tonnage;
-        } else {
-            return Tonnage;
+        float retval = 0.0f;
+        if( IsArmored() ) {
+            retval += 0.5f * ReportCrits();
         }
+        if( BasedOnMechTons ) {
+            retval += Owner.GetTonnage() * Tonnage;
+        } else {
+            retval += Tonnage;
+        }
+        return retval;
     }
 
     @Override
     public float GetCost() {
-        if( CostTons ) {
-            return Owner.GetTonnage() * Cost;
-        } else {
-            return Cost;
+        float retval = 0.0f;
+        if( IsArmored() ) {
+            retval += 150000.0f * ReportCrits();
         }
+        if( CostTons ) {
+            retval += Owner.GetTonnage() * Cost;
+        } else {
+            retval += Cost;
+        }
+        return retval;
     }
 
     @Override
@@ -120,7 +138,11 @@ public class MultiSlotSystem extends abPlaceable {
 
     @Override
     public float GetDefensiveBV() {
-        return 0.0f;
+        float retval = 0.0f;
+        if( IsArmored() ) {
+            retval += 5.0f * ReportCrits();
+        }
+        return retval;
     }
 
     public int GetDefensiveBonus() {

@@ -31,6 +31,7 @@ package ssw.components;
 public class RangedWeapon extends abPlaceable implements ifWeapon {
     private AvailableCode AC;
     private PPCCapacitor Capacitor = null;
+    private LaserInsulator Insulator = null;
     private MGArray CurArray = null;
     private ifMissileGuidance FCS = null;
     private String Name,
@@ -201,7 +202,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
             retval += " + PPC Capacitor";
         }
         if( UsingInsulator ) {
-            retval += "(Insulated)";
+            retval += " (Insulated)";
         }
         if( MountedRear ) {
             return "(R) " + retval;
@@ -245,7 +246,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
             retval += " + PPC Capacitor";
         }
         if( UsingInsulator ) {
-            retval += "(Insulated)";
+            retval += " (Insulated)";
         }
         if( MountedRear ) {
             return "(R) " + retval;
@@ -284,6 +285,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( UsingCapacitor ) {
             retval.Combine( Capacitor.GetAvailability() );
         }
+        if( UsingInsulator ) {
+            retval.Combine( Insulator.GetAvailability() );
+        }
         return retval;
     }
 
@@ -301,6 +305,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( UsingCapacitor ) {
             retval += Capacitor.GetTonnage();
         }
+        if( UsingInsulator ) {
+            retval += Insulator.GetTonnage();
+        }
         if( UsingFCS ) {
             retval += ((abPlaceable) FCS).GetTonnage();
         }
@@ -314,6 +321,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         }
         if( UsingCapacitor ) {
             retval += Capacitor.GetCost();
+        }
+        if( UsingInsulator ) {
+            retval += Insulator.GetCost();
         }
         if( UsingFCS ) {
             retval += ((abPlaceable) FCS).GetCost();
@@ -380,6 +390,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( UsingCapacitor ) {
             return Heat + 5;
         }
+        if( UsingInsulator ) {
+            return Heat - 1;
+        }
         return Heat;
     }
 
@@ -388,10 +401,14 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( UsingCapacitor ) {
             retval += 5;
         }
+        if( UsingInsulator ) {
+            retval -= 1;
+        }
         if( Rotary ) { retval *= 6; }
         if( Ultra ) { retval *= 2; }
         if( OneShot ) { retval = Math.round( retval * 0.25f ); }
         if( Streak ) { retval =  Math.round( retval * 0.5f ); }
+        if( retval < 0 ) { retval = 0; }
         return retval;
     }
 
@@ -606,8 +623,22 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         return CanUseInsulator;
     }
 
+    public void UseInsulator( boolean l ) {
+        if( l ) {
+            Insulator = new LaserInsulator( this );
+            UsingInsulator = true;
+        } else {
+            Insulator = null;
+            UsingInsulator = false;
+        }
+    }
+
     public boolean IsUsingInsulator() {
         return UsingInsulator;
+    }
+
+    public LaserInsulator GetInsulator() {
+        return Insulator;
     }
 
     public boolean IsFCSCapable() {

@@ -876,7 +876,8 @@ public class XMLReader {
         if( acLoc.size() > 0 ) {
             for( int i = 0; i < acLoc.size(); i++ ) {
                 l = (LocationIndex) acLoc.get( i );
-                m.GetLoadout().GetCrits( l.Location )[l.Index].ArmorComponent( true );
+                abPlaceable a = m.GetLoadout().GetCrits( l.Location )[l.Index];
+                a.ArmorComponent( true );
             }
         }
 
@@ -1311,6 +1312,7 @@ public class XMLReader {
             }
             if( retval != null ) {
                 ((RangedWeapon) retval).UseCapacitor( ppccap );
+                ((RangedWeapon) retval).UseInsulator( insulated );
             }
         } else if( type.equals( "ballistic" ) ) {
             retval = data.GetEquipment().GetRangedWeaponByName( name, m );

@@ -1274,6 +1274,9 @@ public class Mech implements ifBattleforce {
         if( CurLoadout.UsingTC() ) { result += GetTC().GetTonnage(); }
         if( ! CurEngine.IsNuclear() ) { result += CurLoadout.GetPowerAmplifier().GetTonnage(); }
         if( HasBlueShield ) { result += BlueShield.GetTonnage(); }
+        if( HasVoidSig ) { result += VoidSig.GetTonnage(); }
+        if( HasNullSig ) { result += NullSig.GetTonnage(); }
+        if( HasChameleon ) { result += Chameleon.GetTonnage(); }
         if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
         if( HasEnviroSealing ) { result += EnviroSealing.GetTonnage(); }
         if( HasEjectionSeat ) { result += EjectionSeat.GetTonnage(); }
@@ -1325,6 +1328,9 @@ public class Mech implements ifBattleforce {
         if( CurLoadout.UsingTC() ) { result += GetTC().GetTonnage(); }
         if( ! CurEngine.IsNuclear() ) { result += CurLoadout.GetPowerAmplifier().GetTonnage(); }
         if( HasBlueShield ) { result += BlueShield.GetTonnage(); }
+        if( HasVoidSig ) { result += VoidSig.GetTonnage(); }
+        if( HasNullSig ) { result += NullSig.GetTonnage(); }
+        if( HasChameleon ) { result += Chameleon.GetTonnage(); }
         if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
         if( HasEnviroSealing ) { result += EnviroSealing.GetTonnage(); }
         if( HasEjectionSeat ) { result += EjectionSeat.GetTonnage(); }
@@ -1536,6 +1542,12 @@ public class Mech implements ifBattleforce {
         if( RulesLevel == AvailableCode.RULES_EXPERIMENTAL && Era == AvailableCode.ERA_CLAN_INVASION ) {
             defresult += CurEngine.GetDefensiveBV();
             defresult += CurCockpit.GetDefensiveBV();
+            defresult += NullSig.GetDefensiveBV();
+            defresult += Chameleon.GetDefensiveBV();
+            defresult += BlueShield.GetDefensiveBV();
+            defresult += VoidSig.GetDefensiveBV();
+            defresult += EnviroSealing.GetDefensiveBV();
+            defresult += Tracks.GetDefensiveBV();
         }
         return defresult;
     }
