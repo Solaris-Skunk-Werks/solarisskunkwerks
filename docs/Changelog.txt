@@ -35,6 +35,8 @@ Version 0.7.0
 - Fixed the Availability filter code for Succession Era tech and advanced or higher rules.
 - Items shifted by placement of other items now retain their facing.
 - Fixed some problems with the current weapons data.
+- Fixed Force loading into dialog not refreshing the list
+- Fixed Force dialog Unit printing to include Mechwarrior and G/P skills
 
 -------------------------------------------------------------------------------
 Version 0.6.0
