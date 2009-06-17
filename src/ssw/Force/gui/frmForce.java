@@ -68,14 +68,6 @@ public class frmForce extends javax.swing.JFrame {
 
         this.parent = parent;
         force.RefreshBV();
-        force.addTableModelListener(new TableModelListener() {
-
-            public void tableChanged(TableModelEvent e) {
-                lblTotalBV.setText(String.format("%1$,.0f", force.TotalAdjustedBV));
-                lblTotalTons.setText(String.format("%1$,.0f", force.TotalTonnage) + " Tons");
-                lblTotalUnits.setText(force.Units.size() + " Units");
-            }
-        });
         refreshTable();
         sortTable();
     }
@@ -85,6 +77,15 @@ public class frmForce extends javax.swing.JFrame {
     }
 
     private void sortTable() {
+        force.addTableModelListener(new TableModelListener() {
+
+            public void tableChanged(TableModelEvent e) {
+                lblTotalBV.setText(String.format("%1$,.0f", force.TotalAdjustedBV));
+                lblTotalTons.setText(String.format("%1$,.0f", force.TotalTonnage) + " Tons");
+                lblTotalUnits.setText(force.Units.size() + " Units");
+            }
+        });
+
         //Create a sorting class and apply it to the list
         TableRowSorter Leftsorter = new TableRowSorter<Force>(force);
         List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
@@ -405,7 +406,7 @@ public class frmForce extends javax.swing.JFrame {
                     if ( data.isOmni() ) {
                         m.SetCurLoadout( data.Configuration );
                     }
-                    print.AddMech(m);
+                    print.AddMech(m, data.Mechwarrior, data.Gunnery, data.Piloting);
                 }
                 print.Print();
                 tblForce.clearSelection();
@@ -454,8 +455,10 @@ public class frmForce extends javax.swing.JFrame {
 
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
         ForceReader reader = new ForceReader();
+        reader.setForce(force);
         force = reader.Load();
         refreshTable();
+        sortTable();
     }//GEN-LAST:event_btnOpenActionPerformed
 
     private void btnPrintForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintForceActionPerformed

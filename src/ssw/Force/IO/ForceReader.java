@@ -37,9 +37,9 @@ import org.w3c.dom.*;
 
 public class ForceReader {
 
-    public Force Load() {
-        Force loadedForce = new Force();
+    private Force curForce = new Force();
 
+    public Force Load() {
         JFileChooser fc = new JFileChooser();
         fc.addChoosableFileFilter(new javax.swing.filechooser.FileFilter() {
 
@@ -69,7 +69,7 @@ public class ForceReader {
          fc.setAcceptAllFileFilterUsed( false );
          //fc.setCurrentDirectory(tempFile);
          int returnVal = fc.showDialog( null, "Load Force List" );
-           if( returnVal != JFileChooser.APPROVE_OPTION ) { return loadedForce; }
+           if( returnVal != JFileChooser.APPROVE_OPTION ) { return curForce; }
            File ForceFile = fc.getSelectedFile();
            String filename = "";
            try {
@@ -77,7 +77,7 @@ public class ForceReader {
                return ReadFile(filename);
            } catch( Exception e ) {
                javax.swing.JOptionPane.showMessageDialog( null, "There was a problem opening the file:\n" + e.getMessage() );
-               return loadedForce;
+               return curForce;
            }
     }
 
@@ -93,4 +93,12 @@ public class ForceReader {
 
         return new Force(n.item(0));
     }
+
+    /**
+     * @param curForce the curForce to set
+     */
+    public void setForce(Force force) {
+        this.curForce = force;
+    }
+
 }
