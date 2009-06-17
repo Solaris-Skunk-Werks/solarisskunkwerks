@@ -31,6 +31,7 @@ package ssw.gui;
 import java.awt.Point;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+import java.util.Vector;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
@@ -150,6 +151,7 @@ public class thRATransferHandler extends TransferHandler {
 
         // get the item
         abPlaceable a;
+        Vector v = new Vector();
         if( DropItem.Location == -1 ) {
             // from the queue
             a = CurMech.GetLoadout().GetFromQueueByIndex( DropItem.SourceIndex );
@@ -157,6 +159,8 @@ public class thRATransferHandler extends TransferHandler {
             // from another location
             a = CurMech.GetLoadout().GetCrits( DropItem.Location )[DropItem.SourceIndex];
             if( a.CanSplit() && a.Contiguous() ) {
+                // find all locations before unallocating
+                v = CurMech.GetLoadout().FindSplitIndex( a );
                 CurMech.GetLoadout().UnallocateAll( a, false );
             } else {
                 CurMech.GetLoadout().UnallocateByIndex( DropItem.SourceIndex, CurMech.GetLoadout().GetCrits( DropItem.Location ) );
@@ -166,28 +170,35 @@ public class thRATransferHandler extends TransferHandler {
         // now put it in where it needs to go
         try {
             if( a.CanSplit() && a.Contiguous() ) {
-                // we need to figure out how many crits will be placed here
-                int ToPlace = CurMech.GetLoadout().FreeFrom( CurMech.GetLoadout().GetRACrits(), dindex );
-                if( ToPlace < a.NumCrits() ) {
-                    dlgSplitCrits dlgSplit = new dlgSplitCrits( Parent, true, a, Constants.LOC_RA, dindex );
-                    Point p = Parent.getLocationOnScreen();
-                    dlgSplit.setLocation( p.x + 100, p.y + 100 );
-                    dlgSplit.setVisible( true );
-                    if( dlgSplit.GetResult() ) {
-                        if( a.NumPlaced() <= 0 ) {
-                            CurMech.GetLoadout().RemoveFromQueue( a );
+                if( DropItem.Location == Constants.LOC_RA ) {
+                    LocationIndex loc1 = null;
+                    LocationIndex loc2 = null;
+                    for( int i = 0; i < v.size(); i++ ) {
+                        if( ((LocationIndex) v.get( i )).Location == Constants.LOC_RA ) {
+                            loc1 = (LocationIndex) v.get( i );
+                        } else {
+                            loc2 = (LocationIndex) v.get( i );
                         }
-                        Parent.RefreshInfoPane();
-                        dlgSplit.dispose();
-                        return true;
+                    }
+                    if( loc1 == null ) { return false; }
+
+                    // only allocate as many crits as were originally here.
+                    if( loc2 == null ) {
+                        if( loc1.Number + dindex > CurMech.GetLoadout().GetCrits( loc1.Location ).length ) {
+                            return SplitAllocate( a, dindex );
+                        } else {
+                            CurMech.GetLoadout().AddTo( CurMech.GetLoadout().GetCrits( loc1.Location ), a, dindex, loc1.Number );
+                        }
                     } else {
-                        CurMech.GetLoadout().AddToQueue( a );
-                        Parent.RefreshInfoPane();
-                        dlgSplit.dispose();
-                        return false;
+                        if( loc1.Number + dindex > CurMech.GetLoadout().GetCrits( loc1.Location ).length ) {
+                            return SplitAllocate( a, dindex );
+                        } else {
+                            CurMech.GetLoadout().AddTo( CurMech.GetLoadout().GetCrits( loc1.Location ), a, dindex, loc1.Number );
+                            CurMech.GetLoadout().AddTo( CurMech.GetLoadout().GetCrits( loc2.Location ), a, loc2.Index, loc2.Number );
+                        }
                     }
                 } else {
-                    CurMech.GetLoadout().AddToRA( a, dindex );
+                    return SplitAllocate( a, dindex );
                 }
             } else {
                 CurMech.GetLoadout().AddToRA( a, dindex );
@@ -203,5 +214,32 @@ public class thRATransferHandler extends TransferHandler {
         }
         Parent.RefreshInfoPane();
         return true;
+    }
+
+    private boolean SplitAllocate( abPlaceable a, int dindex ) throws Exception {
+        int ToPlace = CurMech.GetLoadout().FreeFrom( CurMech.GetLoadout().GetRACrits(), dindex );
+        if( ToPlace < a.NumCrits() ) {
+            dlgSplitCrits dlgSplit = new dlgSplitCrits( Parent, true, a, Constants.LOC_RA, dindex );
+            Point p = Parent.getLocationOnScreen();
+            dlgSplit.setLocation( p.x + 100, p.y + 100 );
+            dlgSplit.setVisible( true );
+            if( dlgSplit.GetResult() ) {
+                if( a.NumPlaced() <= 0 ) {
+                   CurMech.GetLoadout().RemoveFromQueue( a );
+                }
+                Parent.RefreshInfoPane();
+                dlgSplit.dispose();
+                return true;
+            } else {
+                CurMech.GetLoadout().AddToQueue( a );
+                Parent.RefreshInfoPane();
+                dlgSplit.dispose();
+                return false;
+            }
+        } else {
+            CurMech.GetLoadout().AddToRA( a, dindex );
+            Parent.RefreshInfoPane();
+            return true;
+        }
     }
 }

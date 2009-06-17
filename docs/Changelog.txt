@@ -11,6 +11,7 @@ Version 0.7.0
 - You can now armor Multi-Slot Systems (Null-Sig, Void Sig, etc...)
 - Added in Laser Insulators.
 - Added a context menu on the Equipment list for PPC Caps and Insulators.
+- You can now shift splittable items around in their location without unallocating.
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.
