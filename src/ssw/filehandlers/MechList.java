@@ -28,7 +28,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.filehandlers;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Vector;
 import javax.swing.table.AbstractTableModel;
@@ -36,14 +40,41 @@ import javax.swing.table.AbstractTableModel;
 
 public class MechList extends AbstractTableModel {
     private Vector List = new Vector();
+    private String Directory = "";
 
     public MechList() {
 
     }
     
     public MechList(String directory) {
+        this(directory, true);
+    }
+    
+    public MechList( String directory, boolean useIndex ) {
         this();
-        Load(directory);
+        Directory = directory;
+
+        if (! useIndex ) {
+            Load(directory);
+
+            //Index this information for faster reloading
+            try {
+                Write();
+            } catch ( IOException e ) {
+                //do nothing
+            }
+        } else {
+            if (! Read() ) {
+                Load(directory);
+
+                //Index this information for faster reloading
+                try {
+                    Write();
+                } catch ( IOException e ) {
+                    //do nothing
+                }
+            }
+        }
     }
 
     void Load( String Directory ) {
@@ -63,22 +94,15 @@ public class MechList extends AbstractTableModel {
     public void Add( File f ) {
         try
         {
-            if (f.isFile() && f.getCanonicalPath().endsWith(".ssw")) {
-                try
-                {
-                    MechListData mData = new MechListData( f.getCanonicalPath() );
-                    if (mData.isOmni()) {
-                        for ( int d=0; d < mData.Configurations.size(); d++ ) {
-                            List.add((MechListData) mData.Configurations.get(d));
-                        }
-                    } else {
-                        List.add(mData);
-                    }
-                } catch (Exception e) {
-                    //do nothing
+            MechListData mData = new MechListData( f.getCanonicalPath() );
+            if (mData.isOmni()) {
+                for ( int d=0; d < mData.Configurations.size(); d++ ) {
+                    List.add((MechListData) mData.Configurations.get(d));
                 }
+            } else {
+                List.add(mData);
             }
-        } catch (IOException ie) {
+        } catch (Exception e) {
             //do nothing
         }
     }
@@ -149,6 +173,56 @@ public class MechList extends AbstractTableModel {
 
         return m;
     }
+    
+    public void Write() throws IOException {
+        if (List.size() > 0) {
+            BufferedWriter FR = new BufferedWriter( new FileWriter( Directory + File.separator + "index.ssi" ) );
+
+            for (int i=0; i < List.size(); i++ ) {
+                MechListData m = (MechListData) List.get(i);
+                FR.write(m.SerializeIndex());
+                FR.newLine();
+            }
+
+            FR.close();
+        }
+    }
+
+    public boolean Read() {
+        try {
+            BufferedReader FR = new BufferedReader( new FileReader( Directory + File.separator + "index.ssi" ) );
+            boolean EOF = false;
+            String read = "";
+            while( EOF == false ) {
+                try {
+                    read = FR.readLine();
+                    if( read == null ) {
+                        // We've hit the end of the file.
+                        EOF = true;
+                    } else {
+                        if( read.equals( "EOF" ) ) {
+                            // end of file.
+                            EOF = true;
+                        } else {
+                            String[] Items = read.split(",");
+                            if (Items.length == 11) {
+                                List.add(new MechListData(Items));
+                            }
+                        }
+                    }
+                } catch (IOException e ) {
+                    // probably just reached the end of the file
+                    System.out.println( "had an ioexception reading options:\n" + read + "\n\n" );
+                    EOF = true;
+                    return false;
+                }
+            }
+            FR.close();
+            return true;
+        } catch ( IOException e ) {
+            return false;
+        }
+    }
 
     //Fields required for AbstractTableModel
     @Override
@@ -212,6 +286,11 @@ public class MechList extends AbstractTableModel {
         return null;
     }
 
+    @Override
+    public void fireTableDataChanged() {
+        super.fireTableDataChanged();
+    }
+    
     public Object getValueAt( int row, int col ) {
         MechListData m = (MechListData) List.get( row );
         switch( col ) {

@@ -47,7 +47,7 @@ import ssw.print.Printer;
 public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListener {
     private frmMain parent;
     private Options opts = new Options();
-    private MechList list;
+    private MechList list = new MechList();
     private Media media = new Media();
     private String dirPath = "";
     private String NL = "";
@@ -104,13 +104,16 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     }
 
     public void LoadList() {
+        LoadList(true);
+    }
+    public void LoadList(boolean useIndex) {
         if (dirPath.isEmpty()) {
             dirPath = parent.Prefs.get("ListPath", opts.SaveLoadPath);
         }
 
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         
-        list = new MechList(dirPath);
+        list = new MechList(dirPath, useIndex);
 
         if (list.Size() > 0) {
             setupList(list);
@@ -582,30 +585,27 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                                 .addComponent(txtSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(prgResaving, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblLoading, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(245, 245, 245)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnOpenMech)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblLoading, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnOpenDir, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGap(148, 148, 148)
-                        .addComponent(btnOpenMech)))
+                                .addComponent(btnOpenDir, javax.swing.GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tlbActions, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtSelected)
-                            .addComponent(prgResaving, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnOpenDir)
-                            .addComponent(lblLoading, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtSelected)
+                        .addComponent(prgResaving, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnOpenDir)
+                    .addComponent(lblLoading, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -686,7 +686,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     }//GEN-LAST:event_btnOptionsActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        LoadList();
+        LoadList(false);
         Filter(evt);
         this.setVisible(true);
 }//GEN-LAST:event_btnRefreshActionPerformed
@@ -761,7 +761,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         dirPath = media.GetDirectorySelection( parent, dirPath );
         this.setVisible(true);
         parent.Prefs.put("ListPath", dirPath);
-        LoadList();
+        LoadList(false);
     }//GEN-LAST:event_btnOpenDirActionPerformed
 
     private void txtMinCostFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMinCostFilter

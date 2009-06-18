@@ -96,6 +96,20 @@ public class MechListData {
         }
     }
 
+    public MechListData( String[] Items ) {
+        this.Name = Items[0];
+        this.Model = Items[1];
+        this.Level = Items[2];
+        this.Era = Items[3];
+        this.Tech = Items[4];
+        this.Source = Items[5];
+        this.Tonnage = Integer.parseInt(Items[6]);
+        this.Year = Integer.parseInt(Items[7]);
+        this.BV = Integer.parseInt(Items[8]);
+        this.Cost = Float.parseFloat(Items[9]);
+        this.filename = Items[10];
+    }
+
     public Unit getUnit() {
         Unit u = new Unit();
         u.TypeModel = this.Name + " " + this.getModel();
@@ -113,6 +127,20 @@ public class MechListData {
         u.Refresh();
 
         return u;
+    }
+
+    public String SerializeIndex() {
+        return  this.Name + "," +
+                this.Model + "," +
+                this.Level + "," +
+                this.Era + "," +
+                this.Tech + "," +
+                this.Source + "," +
+                this.Tonnage + "," +
+                this.Year + "," +
+                this.BV + "," +
+                this.Cost + "," +
+                this.filename;
     }
 
     public String getName() {

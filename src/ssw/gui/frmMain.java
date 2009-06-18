@@ -348,7 +348,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // if the user wants, load the last mech.
         if( GlobalOptions.LoadLastMech ) { LoadMechFromPreferences(); }
 
-        dOpen.LoadList();
+        //dOpen.LoadList();
         CurMech.SetChanged( false );
     }
 
@@ -9559,6 +9559,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         mnuFile.add(mnuLoad);
 
+        mnuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
         mnuOpen.setText("Open");
         mnuOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -9577,6 +9578,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         mnuFile.add(mnuSave);
 
+        mnuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         mnuSaveAs.setText("Save Mech As...");
         mnuSaveAs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -9661,6 +9663,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         mnuFile.add(jMenu2);
 
+        mnuPrintPreview.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         mnuPrintPreview.setText("Print Preview");
         mnuPrintPreview.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
