@@ -12,6 +12,8 @@ Version 0.7.0
 - Added in Laser Insulators.
 - Added a context menu on the Equipment list for PPC Caps and Insulators.
 - You can now shift splittable items around in their location without unallocating.
+- Added index file output to MechList for Open dialog use
+- Added ability to refresh/reload and ignore the indexing file.
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.
@@ -37,6 +39,7 @@ Version 0.7.0
 - Fixed some problems with the current weapons data.
 - Fixed Force loading into dialog not refreshing the list
 - Fixed Force dialog Unit printing to include Mechwarrior and G/P skills
+- Removed pre-loading from Open dialog to increase initial load speed
 
 -------------------------------------------------------------------------------
 Version 0.6.0
