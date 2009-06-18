@@ -645,12 +645,15 @@ public class QuadLoadout implements ifLoadout {
         if( ! p.CanAllocHD() ) {
             throw new Exception( p.GetCritName() +
                 " cannot be allocated to the head." );
-        } else {
-            try {
-                Allocate( p, SIndex, HDCrits );
-            } catch( Exception e ) {
-                throw e;
+        } else if( p.GetLookupName().equals( "HarJel" ) ) {
+            if( Find( Owner.GetCockpit() ) == Constants.LOC_HD ) {
+                throw new Exception( p.GetCritName() + " cannot be allocated to the head\nbecause the head contains the cockpit." );
             }
+        }
+        try {
+            Allocate( p, SIndex, HDCrits );
+        } catch( Exception e ) {
+            throw e;
         }
     }
 
@@ -659,12 +662,15 @@ public class QuadLoadout implements ifLoadout {
         if( ! p.CanAllocCT() ) {
             throw new Exception( p.GetCritName() +
                 " cannot be allocated to the center torso." );
-        } else {
-            try {
-                Allocate( p, SIndex, CTCrits );
-            } catch( Exception e ) {
-                throw e;
+        } else if( p.GetLookupName().equals( "HarJel" ) ) {
+            if( Find( Owner.GetCockpit() ) == Constants.LOC_CT ) {
+                throw new Exception( p.GetCritName() + " cannot be allocated to the center torso\nbecause the center torso contains the cockpit." );
             }
+        }
+        try {
+            Allocate( p, SIndex, CTCrits );
+        } catch( Exception e ) {
+            throw e;
         }
     }
 

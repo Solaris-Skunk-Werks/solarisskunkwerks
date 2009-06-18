@@ -80,7 +80,8 @@ public class MechList extends AbstractTableModel {
     void Load( String Directory ) {
         File d = new File(Directory);
         if ( d.isDirectory() ) {
-            for (File f : d.listFiles() ) {
+            if( d.listFiles() == null ) { return; }
+            for ( File f : d.listFiles() ) {
                 if ( f.isFile() && f.getPath().endsWith(".ssw") ) {
                     Add(f);
                 }

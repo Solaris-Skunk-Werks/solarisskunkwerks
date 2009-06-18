@@ -654,6 +654,10 @@ public class BipedLoadout implements ifLoadout {
         if( ! p.CanAllocHD() ) {
             throw new Exception( p.GetCritName() +
                 " cannot be allocated to the head." );
+        } else if( p.GetLookupName().equals( "HarJel" ) ) {
+            if( Find( Owner.GetCockpit() ) == Constants.LOC_HD ) {
+                throw new Exception( p.GetCritName() + " cannot be allocated to the head\nbecause the head contains the cockpit." );
+            }
         } else {
            if( p instanceof PhysicalWeapon ) {
            // Ensure that no other physical weapons are mounted in this location
@@ -663,11 +667,11 @@ public class BipedLoadout implements ifLoadout {
                             " cannot be allocated to the head because\nthe head already mounts a physical weapon." );
                 }
            }
-            try {
-                Allocate( p, SIndex, HDCrits );
-            } catch( Exception e ) {
-                throw e;
-            }
+        }
+        try {
+            Allocate( p, SIndex, HDCrits );
+        } catch( Exception e ) {
+            throw e;
         }
     }
 
@@ -676,6 +680,10 @@ public class BipedLoadout implements ifLoadout {
         if( ! p.CanAllocCT() ) {
             throw new Exception( p.GetCritName() +
                 " cannot be allocated to the center torso." );
+        } else if( p.GetLookupName().equals( "HarJel" ) ) {
+            if( Find( Owner.GetCockpit() ) == Constants.LOC_CT ) {
+                throw new Exception( p.GetCritName() + " cannot be allocated to the center torso\nbecause the center torso contains the cockpit." );
+            }
         } else {
            if( p instanceof PhysicalWeapon ) {
            // Ensure that no other physical weapons are mounted in this location
@@ -685,11 +693,11 @@ public class BipedLoadout implements ifLoadout {
                             " cannot be allocated to the center torso because\nthe torso already mounts a physical weapon." );
                 }
            }
-            try {
-                Allocate( p, SIndex, CTCrits );
-            } catch( Exception e ) {
-                throw e;
-            }
+        }
+        try {
+            Allocate( p, SIndex, CTCrits );
+        } catch( Exception e ) {
+            throw e;
         }
     }
 

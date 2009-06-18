@@ -1041,7 +1041,7 @@ public class EquipmentFactory {
         addEQ.SetMegaMekName("CLLaserAntiMissileSystem");
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(5);
-        addEQ.SetStats(1, 1.0f, 225000.0f, 0.0f, 45.0f, "-");
+        addEQ.SetStats(2, 1.0f, 225000.0f, 0.0f, 45.0f, "-");
         addEQ.SetMountableRear(true);
         Equipment.add(addEQ);
 
@@ -1169,6 +1169,22 @@ public class EquipmentFactory {
         addEQ.SetHeat(0);
         addEQ.SetStats(2, 1.5f, 200000.0f, 0.0f, 61.0f, "-");
         Equipment.add(addEQ);
+
+        a = new AvailableCode( AvailableCode.TECH_BOTH );
+        a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        a.SetISCodes( 'E', 'X', 'X', 'E');
+        a.SetISDates( 3062, 3067, true, 3067, 0, 0, false, false );
+        a.SetISFactions( "LA", "LA", "", "" );
+        a.SetCLCodes( 'E', 'X', 'X', 'E');
+        a.SetCLDates( 3056, 3059, true, 3059, 0, 0, false, false );
+        a.SetCLFactions( "CDS", "CDS", "", "" );
+        addEQ = new Equipment("HarJel","HarJel", "PE", a );
+        addEQ.SetAmmo(false, 0, 0);
+        addEQ.SetMegaMekName("HarJel");
+        addEQ.SetRange(0, 0, 0);
+        addEQ.SetHeat(0);
+        addEQ.SetStats(1, 1.0f, 120000.0f, 0.0f, 0.0f, "-");
+        Equipment.add( addEQ );
 
         a = new AvailableCode( AvailableCode.TECH_CLAN );
         a.SetCLCodes( 'F', 'X', 'D', 'C' );
