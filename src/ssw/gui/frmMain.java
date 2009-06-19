@@ -6510,7 +6510,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 //    public Object getElementAt(int i) { return strings[i]; }
                 // }
         );
-        lstSelectedEquipment.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstSelectedEquipment.setMaximumSize(new java.awt.Dimension(180, 225));
         lstSelectedEquipment.setMinimumSize(new java.awt.Dimension(180, 225));
         lstSelectedEquipment.setPreferredSize(null);
@@ -8433,7 +8432,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         jScrollPane18.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        lstCritsToPlace.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lstCritsToPlace.setFont(new java.awt.Font("Tahoma", 0, 10));
         lstCritsToPlace.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Selected", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -11205,12 +11204,18 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void btnRemoveEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveEquipActionPerformed
         if( lstSelectedEquipment.getSelectedIndex() < 0 ) { return; }
-        abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( lstSelectedEquipment.getSelectedIndex() );
-        if( p.LocationLocked() ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "You may not remove a locked item from the loadout." );
-            return;
-        } else {
-            CurMech.GetLoadout().Remove( p );
+        int[] selected = lstSelectedEquipment.getSelectedIndices();
+        if( selected.length == 0 ) { return; }
+        // we work in reverse so we can properly manage the items in the queue
+        for( int i = selected.length - 1; i >= 0; i-- ) {
+            // abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( lstSelectedEquipment.getSelectedIndex() );
+            abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( i );
+            if( p.LocationLocked() ) {
+                javax.swing.JOptionPane.showMessageDialog( this, "You may not remove a locked item from the loadout." );
+                return;
+            } else {
+                CurMech.GetLoadout().Remove( p );
+            }
         }
 
         // refresh the selected equipment listbox
