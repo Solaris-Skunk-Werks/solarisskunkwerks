@@ -36,6 +36,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
@@ -45,6 +46,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.DefaultListModel;
 import ssw.*;
 import ssw.components.*;
 import ssw.filehandlers.*;
@@ -6519,6 +6521,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 lstSelectedEquipmentValueChanged(evt);
             }
         });
+        lstSelectedEquipment.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                lstSelectedEquipmentKeyPressed(evt);
+            }
+        });
         MouseListener mlSelect = new MouseAdapter() {
             public void mouseReleased( MouseEvent e ) {
                 int Index = lstSelectedEquipment.locationToIndex( e.getPoint() );
@@ -11209,7 +11216,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // we work in reverse so we can properly manage the items in the queue
         for( int i = selected.length - 1; i >= 0; i-- ) {
             // abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( lstSelectedEquipment.getSelectedIndex() );
-            abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( i );
+            abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( selected[i] );
             if( p.LocationLocked() ) {
                 javax.swing.JOptionPane.showMessageDialog( this, "You may not remove a locked item from the loadout." );
                 return;
@@ -11217,7 +11224,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 CurMech.GetLoadout().Remove( p );
             }
         }
-
         // refresh the selected equipment listbox
         if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
             Equipment[SELECTED] = new Object[] { " " };
@@ -13587,6 +13593,12 @@ private void chkClanCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_chkClanCASEActionPerformed
+
+private void lstSelectedEquipmentKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstSelectedEquipmentKeyPressed
+    if ( evt.getKeyCode() == KeyEvent.VK_DELETE ) {
+        btnRemoveEquipActionPerformed(new ActionEvent(evt.getSource(), evt.getID(), null));
+    }
+}//GEN-LAST:event_lstSelectedEquipmentKeyPressed
 
 private void setViewToolbar(boolean Visible)
 {
