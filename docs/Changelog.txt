@@ -14,6 +14,8 @@ Version 0.7.0
 - You can now shift splittable items around in their location without unallocating.
 - Added index file output to MechList for Open dialog use
 - Added ability to refresh/reload and ignore the indexing file.
+- Added ability to select multiple items in the equipment list
+- Added ability to use the delete key on multiple items in the Equipment list
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.
