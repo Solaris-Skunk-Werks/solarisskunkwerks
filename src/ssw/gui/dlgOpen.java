@@ -183,8 +183,9 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 // fatal error.  let the user know
                 javax.swing.JOptionPane.showMessageDialog( this, "A fatal error occured while processing the 'Mechs:\n" + e.getMessage() );
                 e.printStackTrace();
-                setCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) );
             }
+            setCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) );
+            LoadList(false);
         } else {
             prgResaving.setVisible(false);
         }
