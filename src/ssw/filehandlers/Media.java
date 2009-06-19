@@ -108,7 +108,7 @@ public class Media {
         //(Accept All) file filter.
         fc.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY );
         fc.setAcceptAllFileFilterUsed(false);
-        fc.setCurrentDirectory(new File(FileCommon.GetSafeFilename(defaultPath)));
+        fc.setCurrentDirectory(new File(defaultPath));
 
         //Show it.
         int returnVal = fc.showDialog( Parent, "Choose directory");
