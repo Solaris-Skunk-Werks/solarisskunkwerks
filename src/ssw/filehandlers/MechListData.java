@@ -108,6 +108,10 @@ public class MechListData {
         this.BV = Integer.parseInt(Items[8]);
         this.Cost = Float.parseFloat(Items[9]);
         this.filename = Items[10];
+        if (Items.length == 12) {
+            this.Config = Items[11];
+            this.Omni = true;
+        }
     }
 
     public Unit getUnit() {
@@ -140,7 +144,8 @@ public class MechListData {
                 this.Year + "," +
                 this.BV + "," +
                 this.Cost + "," +
-                this.filename;
+                this.filename + "," +
+                this.Config;
     }
 
     public String getName() {

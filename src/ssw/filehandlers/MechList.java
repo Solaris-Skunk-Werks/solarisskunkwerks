@@ -206,7 +206,7 @@ public class MechList extends AbstractTableModel {
                             EOF = true;
                         } else {
                             String[] Items = read.split(",");
-                            if (Items.length == 11) {
+                            if (Items.length >= 11) {
                                 List.add(new MechListData(Items));
                             }
                         }
