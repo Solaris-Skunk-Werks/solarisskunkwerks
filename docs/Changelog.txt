@@ -15,10 +15,9 @@ Version 0.7.0
 - Added index file output to MechList for Open dialog use
 - Added ability to refresh/reload and ignore the indexing file.
 - Added ability to select multiple items in the equipment list
+  - You can use shift- and ctrl-click to do this
 - Added ability to use the delete key on multiple items in the Equipment list
 - Maelwys added some more equipment, like Boosted and Emergency C3 systems
-- Added the ability to remove multiple items from the equipment list at the same time
-  - You can use shift- and ctrl-click to select multiple pieces of equipment
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.
