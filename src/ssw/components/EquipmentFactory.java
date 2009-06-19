@@ -1139,6 +1139,98 @@ public class EquipmentFactory {
         addEQ.SetExclusions(new Exclusion(new String[]{"C3 Computer (Master)", "C3 Computer (Slave)", "Null Signature System", "Void Signature System"}, "Improved C3 Computer"));
         Equipment.add(addEQ);
 
+	// Birdie
+        a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+        a.SetISCodes( 'E', 'X', 'X', 'F' );
+        a.SetISDates( 3069, 3073, true, 3073, 0, 0, false, false );
+        a.SetISFactions( "FS", "FS", "", "" );
+        a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        addEQ = new Equipment("C3 Boosted Computer (Master)","C3 Boosted Computer (Master)", "E", a );
+        addEQ.SetAmmo(false, 0, 0);
+        addEQ.SetMegaMekName("ISBC3MasterComputer");
+        addEQ.SetRange(0, 0, 0);
+        addEQ.SetHeat(0);
+        addEQ.SetStats(6, 6.0f, 3000000.0f, 0.0f, 0.0f, "CE/T");
+        addEQ.SetExclusions(new Exclusion(new String[]{"Improved C3 Computer", "Null Signature System", "Void Signature System"}, "C3 Boosted Computer (Master)"));
+        Equipment.add(addEQ);
+
+	// Birdie
+        a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+        a.SetISCodes( 'E', 'X', 'X', 'F' );
+        a.SetISDates( 3069, 3073, true, 3073, 0, 0, false, false );
+        a.SetISFactions( "FS", "FS", "", "" );
+        a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        addEQ = new Equipment("C3 Boosted Computer (Slave)","C3 Boosted Computer (Slave)", "E", a );
+        addEQ.SetAmmo(false, 0, 0);
+        addEQ.SetMegaMekName("ISBC3SlaveUnit");
+        addEQ.SetRange(0, 0, 0);
+        addEQ.SetHeat(0);
+        addEQ.SetStats(2, 3.0f, 500000.0f, 0.0f, 0.0f, "CE/T");
+        addEQ.SetExclusions(new Exclusion(new String[]{"Improved C3 Computer", "Null Signature System", "Void Signature System"}, "C3 Boosted Computer (Slave)"));
+        Equipment.add(addEQ);
+
+	// Birdie
+	a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+        a.SetISCodes( 'E', 'X', 'X', 'F' );
+        a.SetISDates( 3066, 3071, true, 3071, 0, 0, false, false );
+        a.SetISFactions( "DC", "DC", "", "" );
+        a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        addEQ = new Equipment("C3 Emergency Master","C3 Emergency Master", "E", a );
+        addEQ.SetAmmo(false, 0, 0);
+        addEQ.SetMegaMekName("ISEC3MasterComputer");
+        addEQ.SetRange(0, 0, 0);
+        addEQ.SetHeat(0);
+        addEQ.SetStats(2, 2.0f, 2800000.0f, 0.0f, 0.0f, "T");
+        addEQ.SetExclusions(new Exclusion(new String[]{"Improved C3 Computer", "Null Signature System", "Void Signature System"}, "C3 Emergency Master"));
+        Equipment.add(addEQ);
+
+	// Birdie
+	a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+        a.SetISCodes( 'E', 'X', 'X', 'F' );
+        a.SetISDates( 3070, 3072, true, 3072, 0, 0, false, false );
+        a.SetISFactions( "DC", "DC", "", "" );
+        a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        addEQ = new Equipment("C3 Remote Sensor Launcher","C3 Remote Sensor Launcher", "E", a );
+        addEQ.SetAmmo(true, 4, 507);
+        addEQ.SetMegaMekName("C3RemoteSensorLauncher");
+        addEQ.SetRange(3, 6, 9);
+        addEQ.SetHeat(0);
+        addEQ.SetStats(3, 4.0f, 400000.0f, 30.0f, 0.0f, "M");
+        addEQ.SetMountableRear(true);
+        Equipment.add(addEQ);
+
+	// Birdie
+	a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+        a.SetISCodes( 'C', 'X', 'X', 'E' );
+        a.SetISDates( 3066, 3069, true, 3069, 0, 0, false, false );
+        a.SetISFactions( "LA", "LA", "", "" );
+        a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        addEQ = new Equipment("Chaff Pod","Chaff Pod", "E", a );
+        addEQ.SetAmmo(false, 0, 0);
+        addEQ.SetMegaMekName("ChaffPod");
+        addEQ.SetRange(0, 0, 0);
+        addEQ.SetHeat(0);
+        addEQ.SetStats(1, 1.0f, 2000.0f, 0.0f, 19.0f, "OS/PD");
+	addEQ.SetExplosive( true );        
+	Equipment.add(addEQ);
+	
+        // Birdie
+	a = new AvailableCode( AvailableCode.TECH_BOTH );
+        a.SetISCodes( 'D', 'E', 'F', 'E' );
+        a.SetISDates( 0, 0, false, 2710, 0, 0, false, false );
+        a.SetISFactions( "", "", "TH", "" );
+        a.SetCLCodes( 'D', 'X', 'E', 'E' );
+        a.SetCLDates( 0, 0, false, 2710, 0, 0, false, false );
+        a.SetCLFactions( "", "", "TH", "" );
+        a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        addEQ = new Equipment("Collapsible Command Module (CCM)","Collapsible Command Module (CCM)", "E", a );
+        addEQ.SetAmmo(false, 0, 0);
+        addEQ.SetMegaMekName("CollapsibleCommandModule");
+        addEQ.SetRange(0, 0, 0);
+        addEQ.SetHeat(0);
+        addEQ.SetStats(12, 16.0f, 500000.0f, 0.0f, 0.0f, "-");
+        Equipment.add(addEQ);
+
         a = new AvailableCode( AvailableCode.TECH_BOTH );
         a.SetISCodes( 'F', 'F', 'X', 'F' );
         a.SetISDates( 0, 0, false, 2751, 0, 0, false, false );
