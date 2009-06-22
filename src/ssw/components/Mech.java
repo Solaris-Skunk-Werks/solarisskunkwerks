@@ -2489,18 +2489,18 @@ public class Mech implements ifBattleforce {
     public float GetTotalCost() {
         // final cost calculations
         if( Omnimech ) {
-            return ( GetEquipCost() + GetChassisCost() ) * 1.25f * MechMult;
+            return ( GetEquipCost() + GetChassisCost() ) * 1.25f * MechMult + GetAmmoCosts();
         } else {
-            return ( ( GetEquipCost() + GetChassisCost() ) * MechMult );
+            return ( ( GetEquipCost() + GetChassisCost() ) * MechMult ) + GetAmmoCosts();
         }
     }
 
     public float GetDryCost() {
         // returns the total cost of the mech without ammunition
         if( Omnimech ) {
-            return ( GetDryEquipCost() + GetChassisCost() ) * 1.25f * MechMult;
+            return ( GetEquipCost() + GetChassisCost() ) * 1.25f * MechMult;
         } else {
-            return ( ( GetDryEquipCost() + GetChassisCost() ) * MechMult );
+            return ( ( GetEquipCost() + GetChassisCost() ) * MechMult );
         }
     }
 
@@ -2567,7 +2567,7 @@ public class Mech implements ifBattleforce {
         // provided for the components that may be governed by options
         return options;
     }
-
+/*
     public float GetEquipCost() {
         // gets the cost for all non-core items.  Anything that's not intrinsically
         // part of the chassis is kept in a seperate vector for this purpose.
@@ -2583,8 +2583,8 @@ public class Mech implements ifBattleforce {
             return retval;
         }
     }
-
-    public float GetDryEquipCost() {
+*/
+    public float GetEquipCost() {
         // gets the cost for all non-core items minus ammuntion.
         Vector v = CurLoadout.GetNonCore();
         float retval = 0.0f;
@@ -2595,6 +2595,22 @@ public class Mech implements ifBattleforce {
                 }
             }
             if( ! CurEngine.IsNuclear() ) { retval += CurLoadout.GetPowerAmplifier().GetCost(); }
+            return retval;
+        } else {
+            return retval;
+        }
+    }
+
+    public float GetAmmoCosts() {
+        // gets the cost for all non-core items minus ammuntion.
+        Vector v = CurLoadout.GetNonCore();
+        float retval = 0.0f;
+        if( v.size() > 0 ) {
+            for( int i = 0; i < v.size(); i++ ) {
+                if( (v.get( i ) instanceof Ammunition ) ) {
+                    retval += ( (abPlaceable) v.get( i ) ).GetCost();
+                }
+            }
             return retval;
         } else {
             return retval;

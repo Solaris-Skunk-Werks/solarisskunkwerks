@@ -75,7 +75,7 @@ public class CostBVBreakdown {
         retval += GetEquipmentCostLines();
         retval += NL;
         retval += String.format( "Cost Multiplier                                                            %1$,1.3f", CurMech.GetCostMult() ) + NL;
-        retval += String.format( "Dry Cosst                                                           %1$,13.0f", CurMech.GetDryCost() ) + NL;
+        retval += String.format( "Dry Cost                                                           %1$,13.0f", CurMech.GetDryCost() ) + NL;
         retval += String.format( "Total Cost                                                         %1$,13.0f", CurMech.GetTotalCost() ) + NL;
         retval += NL + NL;
         retval += "Defensive BV Calculation Breakdown" + NL;
