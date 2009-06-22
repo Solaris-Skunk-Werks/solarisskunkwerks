@@ -94,7 +94,7 @@ public class stEngineICE implements ifEngine, ifState {
     }
 
     public float GetCost( int MechTonnage, int Rating ) {
-        return ( 1250 * MechTonnage * Rating ) / 75;
+        return ( 1250.0f * (float) MechTonnage * (float) Rating ) / 75.0f;
     }
     
     public AvailableCode GetAvailability() {

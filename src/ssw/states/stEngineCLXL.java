@@ -90,7 +90,7 @@ public class stEngineCLXL implements ifEngine, ifState {
     }
 
     public float GetCost( int MechTonnage, int Rating ) {
-        return ( 20000 * MechTonnage * Rating ) / 75;
+        return ( 20000.0f * (float) MechTonnage * (float) Rating ) / 75.0f;
     }
     
     public AvailableCode GetAvailability() {

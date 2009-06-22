@@ -165,7 +165,7 @@ public class Engine extends abPlaceable {
 
     public float GetCost() {
         if( IsArmored() ) {
-            return CurConfig.GetCost( Owner.GetTonnage(), EngineRating ) + ReportCrits() * 150000.0f;
+            return CurConfig.GetCost( Owner.GetTonnage(), EngineRating ) + (float) ReportCrits() * 150000.0f;
         } else {
             return CurConfig.GetCost( Owner.GetTonnage(), EngineRating );
         }

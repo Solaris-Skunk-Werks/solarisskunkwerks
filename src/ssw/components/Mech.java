@@ -2488,20 +2488,12 @@ public class Mech implements ifBattleforce {
 
     public float GetTotalCost() {
         // final cost calculations
-        if( Omnimech ) {
-            return ( GetEquipCost() + GetChassisCost() ) * 1.25f * MechMult + GetAmmoCosts();
-        } else {
-            return ( ( GetEquipCost() + GetChassisCost() ) * MechMult ) + GetAmmoCosts();
-        }
+        return ( GetEquipCost() + GetChassisCost() ) * GetCostMult() + GetAmmoCosts();
     }
 
     public float GetDryCost() {
         // returns the total cost of the mech without ammunition
-        if( Omnimech ) {
-            return ( GetEquipCost() + GetChassisCost() ) * 1.25f * MechMult;
-        } else {
-            return ( ( GetEquipCost() + GetChassisCost() ) * MechMult );
-        }
+        return ( GetEquipCost() + GetChassisCost() ) * GetCostMult();
     }
 
     public float GetCostMult() {
