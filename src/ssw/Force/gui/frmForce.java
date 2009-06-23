@@ -70,13 +70,7 @@ public class frmForce extends javax.swing.JFrame {
         force.RefreshBV();
         refreshTable();
         sortTable();
-    }
 
-    private void refreshTable() {
-        tblForce.setModel(force);
-    }
-
-    private void sortTable() {
         force.addTableModelListener(new TableModelListener() {
 
             public void tableChanged(TableModelEvent e) {
@@ -85,7 +79,13 @@ public class frmForce extends javax.swing.JFrame {
                 lblTotalUnits.setText(force.Units.size() + " Units");
             }
         });
+    }
 
+    private void refreshTable() {
+        tblForce.setModel(force);
+    }
+
+    private void sortTable() {
         //Create a sorting class and apply it to the list
         TableRowSorter Leftsorter = new TableRowSorter<Force>(force);
         List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
@@ -100,6 +100,11 @@ public class frmForce extends javax.swing.JFrame {
         tblForce.getColumnModel().getColumn(3).setPreferredWidth(25);
         tblForce.getColumnModel().getColumn(4).setPreferredWidth(25);
         tblForce.getColumnModel().getColumn(5).setPreferredWidth(50);
+
+        force.RefreshBV();
+        lblTotalBV.setText(String.format("%1$,.0f", force.TotalAdjustedBV));
+        lblTotalTons.setText(String.format("%1$,.0f", force.TotalTonnage) + " Tons");
+        lblTotalUnits.setText(force.Units.size() + " Units");
     }
 
     private void LoadMech() {
@@ -168,6 +173,10 @@ public class frmForce extends javax.swing.JFrame {
         lblTotalUnits = new javax.swing.JLabel();
         lblTotalTons = new javax.swing.JLabel();
         lblTotalBV = new javax.swing.JLabel();
+        txtGunnery = new javax.swing.JTextField();
+        txtPiloting = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setTitle("Force List");
         setMinimumSize(null);
@@ -338,22 +347,58 @@ public class frmForce extends javax.swing.JFrame {
         lblTotalBV.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTotalBV.setText("0 BV");
 
+        txtGunnery.setText("4");
+        txtGunnery.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtGunneryFocusGained(evt);
+            }
+        });
+        txtGunnery.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtGunneryKeyReleased(evt);
+            }
+        });
+
+        txtPiloting.setText("5");
+        txtPiloting.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPilotingFocusGained(evt);
+            }
+        });
+        txtPiloting.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPilotingKeyReleased(evt);
+            }
+        });
+
+        jLabel1.setText("G");
+
+        jLabel2.setText("P");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(lblTotalUnits, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
-                .addComponent(lblTotalTons, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66)
-                .addComponent(lblTotalBV, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblTotalUnits, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                .addComponent(lblTotalTons, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtGunnery, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPiloting, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTotalBV, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -362,12 +407,16 @@ public class frmForce extends javax.swing.JFrame {
                 .addComponent(tlbActions, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(spnList, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTotalUnits)
                     .addComponent(lblTotalBV)
-                    .addComponent(lblTotalTons))
-                .addContainerGap())
+                    .addComponent(lblTotalTons)
+                    .addComponent(txtGunnery, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPiloting, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -528,6 +577,36 @@ public class frmForce extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExportMTFsActionPerformed
 
+    private void txtGunneryKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGunneryKeyReleased
+        if ( !txtGunnery.getText().isEmpty() ) {
+            for ( int i = 0; i < force.Units.size(); i++ ) {
+                Unit u = (Unit) force.Units.get(i);
+                u.Gunnery = Integer.parseInt(txtGunnery.getText());
+                u.Refresh();
+            }
+        }
+        sortTable();
+    }//GEN-LAST:event_txtGunneryKeyReleased
+
+    private void txtPilotingKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPilotingKeyReleased
+        if ( !txtPiloting.getText().isEmpty() ) {
+            for ( int i = 0; i < force.Units.size(); i++ ) {
+                Unit u = (Unit) force.Units.get(i);
+                u.Piloting = Integer.parseInt(txtPiloting.getText());
+                u.Refresh();
+            }
+        }
+        sortTable();
+    }//GEN-LAST:event_txtPilotingKeyReleased
+
+    private void txtGunneryFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtGunneryFocusGained
+        txtGunnery.selectAll();
+    }//GEN-LAST:event_txtGunneryFocusGained
+
+    private void txtPilotingFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPilotingFocusGained
+        txtPiloting.selectAll();
+    }//GEN-LAST:event_txtPilotingFocusGained
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brnClearForce;
     private javax.swing.JButton btnAddMech;
@@ -539,6 +618,8 @@ public class frmForce extends javax.swing.JFrame {
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnRemoveUnit;
     private javax.swing.JButton btnSave;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
@@ -548,6 +629,8 @@ public class frmForce extends javax.swing.JFrame {
     private javax.swing.JScrollPane spnList;
     private javax.swing.JTable tblForce;
     private javax.swing.JToolBar tlbActions;
+    private javax.swing.JTextField txtGunnery;
+    private javax.swing.JTextField txtPiloting;
     // End of variables declaration//GEN-END:variables
 
 }
