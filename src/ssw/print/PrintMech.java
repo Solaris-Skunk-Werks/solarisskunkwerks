@@ -68,12 +68,14 @@ public class PrintMech implements Printable {
     private Font PlainFont = new Font( "Arial", Font.PLAIN, 8 );
     private Font ItalicFont = new Font( "Arial", Font.ITALIC, 8 );
     private Font SmallFont = new Font( "Arial", Font.PLAIN, 7 );
+    private Font ReallySmallFont = new Font( "Arial", Font.PLAIN, 6 );
     private Font XtraSmallFont = new Font( "Arial", Font.PLAIN, 6 );
     private Font SmallItalicFont = new Font( "Arial", Font.ITALIC, 7 );
     private Color Black = new Color( 0, 0, 0 ),
                   Grey = new Color( 128, 128, 128 );
     private Media media = new Media();
 
+    // <editor-fold desc="Constructors">
     public PrintMech( frmMain parent, Mech m, Image i, boolean adv, boolean A4) {
         Parent = parent;
         CurMech = m;
@@ -97,7 +99,9 @@ public class PrintMech implements Printable {
         this(null, m, null, false, false);
         SetPilotData(Warrior, Gun, Pilot);
     }
-
+    // </editor-fold>
+    
+    // <editor-fold desc="Settor Methods">
     public void SetPilotData( String pname, int pgun, int ppilot ) {
         PilotName = pname;
         Piloting = ppilot;
@@ -135,6 +139,20 @@ public class PrintMech implements Printable {
         PrintPilot = b;
     }
 
+    public void setMechImage(Image MechImage) {
+        this.MechImage = MechImage;
+    }
+
+    public void setLogoImage(Image LogoImage) {
+        this.LogoImage = LogoImage;
+    }
+
+    public void setBV(float BV) {
+        this.BV = BV;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Gettor Methods">
     public String getMechwarrior(){
         return PilotName;
     }
@@ -146,6 +164,15 @@ public class PrintMech implements Printable {
     public int getPiloting(){
         return Piloting;
     }
+    
+    public Image getMechImage() {
+        return MechImage;
+    }
+    
+    public Image getLogoImage() {
+        return LogoImage;
+    }
+    // </editor-fold>
 
     public int print( Graphics graphics, PageFormat pageFormat, int pageIndex ) throws PrinterException {
         ((Graphics2D) graphics).translate( pageFormat.getImageableX(), pageFormat.getImageableY() );
@@ -186,9 +213,14 @@ public class PrintMech implements Printable {
             graphics.drawImage( ChartImage, 0, 0, 576, 756, null );
             //AddCharts( graphics );
         }
+        //DrawGrid( graphics );
     }
 
     private void DrawArmorCircles( Graphics2D graphics ) {
+        ArmorPrinter ap = new ArmorPrinter(graphics, CurMech, true);
+        ap.Render();
+        
+        /*
         Point[] p = null;
 
         // for testing purposes
@@ -281,6 +313,8 @@ public class PrintMech implements Printable {
         for( int i = 0; i < CurMech.GetArmor().GetLocationArmor( Constants.LOC_RTR ); i++ ) {
             graphics.drawOval( p[i].x, p[i].y, 5, 5 );
         }
+
+         */
     }
 
     private void DrawInternalCircles( Graphics2D graphics ) {
@@ -1153,6 +1187,22 @@ public class PrintMech implements Printable {
         }
     }
 
+    private void DrawGrid( Graphics2D graphics ) {
+        graphics.setFont( ReallySmallFont );
+        boolean bPrint = true;
+        for (int x = 0; x <= 576; x += 10) {
+            if (bPrint) { graphics.drawString(x+"", x-5, 5); }
+            bPrint = !bPrint;
+            graphics.drawLine(x, 0, x, 756);
+        }
+        bPrint = false;
+        for (int y = 0; y <= 756; y += 10) {
+            if (bPrint) { graphics.drawString(y+"", 0, y+5); }
+            bPrint = !bPrint;
+            graphics.drawLine(0, y, 576, y);
+        }
+    }
+
     private Vector GetAmmo() {
         //Output the list of Ammunition
         Vector all = CurMech.GetLoadout().GetNonCore();
@@ -1229,41 +1279,17 @@ public class PrintMech implements Printable {
 
     private void GetRecordSheet() {
         // loads the correct record sheet and points based on the information given
-        if( CurMech.IsQuad() ) {
-            if( Advanced ) {
-                RecordSheet = media.GetImage(PrintConsts.RS_TO_QD );
-            } else {
-                RecordSheet = media.GetImage( PrintConsts.RS_TW_QD );
-                points = new TWQuadPoints();
-            }
-        } else {
-            if( Advanced ) {
-                RecordSheet = media.GetImage( PrintConsts.RS_TO_BP );
-            } else {
-                RecordSheet = media.GetImage( PrintConsts.RS_TW_BP );
-                points = new TWCanonBipedPoints();
-            }
+        RecordSheet = media.GetImage( PrintConsts.RS_TW_BP );
+        points = new TWBipedPoints();
+
+        if ( CurMech.IsQuad() ) {
+            RecordSheet = media.GetImage( PrintConsts.RS_TW_QD );
+            points = new TWQuadPoints();
         }
-    }
 
-    public Image getMechImage() {
-        return MechImage;
-    }
-
-    public void setMechImage(Image MechImage) {
-        this.MechImage = MechImage;
-    }
-
-    public Image getLogoImage() {
-        return LogoImage;
-    }
-
-    public void setLogoImage(Image LogoImage) {
-        this.LogoImage = LogoImage;
-    }
-
-    public void setBV(float BV) {
-        this.BV = BV;
+        if ( Advanced ) {
+            RecordSheet = media.GetImage( PrintConsts.RS_TO_BP );
+        }
     }
 
     private String GetPrintName( abPlaceable a ) {
