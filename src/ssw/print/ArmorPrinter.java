@@ -99,9 +99,9 @@ public class ArmorPrinter {
         Locations.put(Constants.LOC_RA, new ArmorSettings(Constants.LOC_RA, new Point(556,55), new Point(-30,98), "LA_", Points.GetArmorRAPoints()));
         Locations.put(Constants.LOC_LL, new ArmorSettings(Constants.LOC_LL, new Point(0,0), new Point(0,0), "LL_", Points.GetArmorLLPoints()));
         Locations.put(Constants.LOC_RL, new ArmorSettings(Constants.LOC_RL, new Point(0,0), new Point(0,0), "RL_", Points.GetArmorRLPoints()));
-        Locations.put(Constants.LOC_CTR, new ArmorSettings(Constants.LOC_CTR, new Point(0,0), new Point(0,0), "CTR_", Points.GetArmorCTRPoints()));
-        Locations.put(Constants.LOC_LTR, new ArmorSettings(Constants.LOC_LTR, new Point(0,0), new Point(0,0), "LTR_", Points.GetArmorLTRPoints()));
-        Locations.put(Constants.LOC_RTR, new ArmorSettings(Constants.LOC_RTR, new Point(0,0), new Point(0,0), "RTR_", Points.GetArmorRTRPoints()));
+        Locations.put(Constants.LOC_CTR, new ArmorSettings(Constants.LOC_CTR, new Point(459,283), new Point(23,70), "CTR_", Points.GetArmorCTRPoints()));
+        Locations.put(Constants.LOC_LTR, new ArmorSettings(Constants.LOC_LTR, new Point(423,297), new Point(30,38), "LTR_", Points.GetArmorLTRPoints()));
+        Locations.put(Constants.LOC_RTR, new ArmorSettings(Constants.LOC_RTR, new Point(520,297), new Point(-30,38), "LTR_", Points.GetArmorRTRPoints()));
     }
     // </editor-fold>
 
