@@ -56,7 +56,8 @@ public class PrintMech implements Printable {
     private boolean Advanced = false,
                     Charts = false,
                     PrintPilot = true,
-                    UseA4Paper = false;
+                    UseA4Paper = false,
+                    Canon = false;
     private String PilotName = "";
     private int Piloting = 5,
                 Gunnery = 4,
@@ -190,6 +191,14 @@ public class PrintMech implements Printable {
     private void DrawArmorCircles( Graphics2D graphics ) {
         Point[] p = null;
 
+        // for testing purposes
+        String Motive = "BP";
+        String filename = "";
+        Canon = true;
+        if( CurMech.IsQuad() ) {
+            Motive = "QD";
+        }
+
         p = points.GetArmorHDPoints();
         for( int i = 0; i < CurMech.GetArmor().GetLocationArmor( Constants.LOC_HD ); i++ ) {
             graphics.drawOval( p[i].x, p[i].y, 5, 5 );
@@ -210,14 +219,42 @@ public class PrintMech implements Printable {
             graphics.drawOval( p[i].x, p[i].y, 5, 5 );
         }
 
-        p = points.GetArmorLAPoints();
-        for( int i = 0; i < CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 5, 5 );
+        // left arm dots
+        if( Canon ) {
+            int LANum = CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA );
+            if( LANum > 0 ) {
+                if( LANum < 10 ) {
+                    filename = "./rs/patterns/TW_" + Motive + "_LA_0" + LANum + ".gif";
+                } else {
+                    filename = "./rs/patterns/TW_" + Motive + "_LA_" + LANum + ".gif";
+                }
+                Image LADots = media.GetImage( filename );
+                graphics.drawImage( LADots, 387, 55, 30, 98, null );
+            }
+        } else {
+            p = points.GetArmorLAPoints();
+            for( int i = 0; i < CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ); i++ ) {
+                graphics.drawOval( p[i].x, p[i].y, 5, 5 );
+            }
         }
 
-        p = points.GetArmorRAPoints();
-        for( int i = 0; i < CurMech.GetArmor().GetLocationArmor( Constants.LOC_RA ); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 5, 5 );
+        if( Canon ) {
+            int RANum = CurMech.GetArmor().GetLocationArmor( Constants.LOC_RA );
+            if( RANum > 0 ) {
+                if( RANum < 10 ) {
+                    filename = "./rs/patterns/TW_" + Motive + "_LA_0" + RANum + ".gif";
+                } else {
+                    filename = "./rs/patterns/TW_" + Motive + "_LA_" + RANum + ".gif";
+                }
+                Image RADots = media.GetImage( filename );
+                
+                graphics.drawImage( RADots, 556, 55, -30, 98, null );
+            }
+        } else {
+            p = points.GetArmorRAPoints();
+            for( int i = 0; i < CurMech.GetArmor().GetLocationArmor( Constants.LOC_RA ); i++ ) {
+                graphics.drawOval( p[i].x, p[i].y, 5, 5 );
+            }
         }
 
         p = points.GetArmorLLPoints();
@@ -1204,7 +1241,7 @@ public class PrintMech implements Printable {
                 RecordSheet = media.GetImage( PrintConsts.RS_TO_BP );
             } else {
                 RecordSheet = media.GetImage( PrintConsts.RS_TW_BP );
-                points = new TWBipedPoints();
+                points = new TWCanonBipedPoints();
             }
         }
     }
