@@ -18,6 +18,7 @@ Version 0.7.0
   - You can use shift- and ctrl-click to do this
 - Added ability to use the delete key on multiple items in the Equipment list
 - Maelwys added some more equipment, like Boosted and Emergency C3 systems
+- Added ArmorPrinter class to handle a choice between canon or non-canon dots
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.
