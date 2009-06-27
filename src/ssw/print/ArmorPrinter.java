@@ -91,14 +91,14 @@ public class ArmorPrinter {
         Points = new TWBipedPoints();
         if ( CurMech.IsQuad() ) { Points = new TWQuadPoints(); }
         
-        Locations.put(Constants.LOC_HD, new ArmorSettings(Constants.LOC_HD, new Point(0,0), new Point(0,0), "H_", Points.GetArmorHDPoints()));
-        Locations.put(Constants.LOC_CT, new ArmorSettings(Constants.LOC_CT, new Point(0,0), new Point(0,0), "CT_", Points.GetArmorCTPoints()));
+        Locations.put(Constants.LOC_HD, new ArmorSettings(Constants.LOC_HD, new Point(463,52), new Point(17,20), "HD_", Points.GetArmorHDPoints()));
+        Locations.put(Constants.LOC_CT, new ArmorSettings(Constants.LOC_CT, new Point(457,83), new Point(28,88), "CT_", Points.GetArmorCTPoints()));
         Locations.put(Constants.LOC_LT, new ArmorSettings(Constants.LOC_LT, new Point(0,0), new Point(0,0), "LT_", Points.GetArmorLTPoints()));
-        Locations.put(Constants.LOC_RT, new ArmorSettings(Constants.LOC_RT, new Point(0,0), new Point(0,0), "RT_", Points.GetArmorRTPoints()));
+        Locations.put(Constants.LOC_RT, new ArmorSettings(Constants.LOC_RT, new Point(0,0), new Point(0,0), "LT_", Points.GetArmorRTPoints()));
         Locations.put(Constants.LOC_LA, new ArmorSettings(Constants.LOC_LA, new Point(387,55), new Point(30,98), "LA_", Points.GetArmorLAPoints()));
         Locations.put(Constants.LOC_RA, new ArmorSettings(Constants.LOC_RA, new Point(556,55), new Point(-30,98), "LA_", Points.GetArmorRAPoints()));
-        Locations.put(Constants.LOC_LL, new ArmorSettings(Constants.LOC_LL, new Point(0,0), new Point(0,0), "LL_", Points.GetArmorLLPoints()));
-        Locations.put(Constants.LOC_RL, new ArmorSettings(Constants.LOC_RL, new Point(0,0), new Point(0,0), "RL_", Points.GetArmorRLPoints()));
+        Locations.put(Constants.LOC_LL, new ArmorSettings(Constants.LOC_LL, new Point(400,161), new Point(51,125), "LL_", Points.GetArmorLLPoints()));
+        Locations.put(Constants.LOC_RL, new ArmorSettings(Constants.LOC_RL, new Point(542,161), new Point(-51,125), "LL_", Points.GetArmorRLPoints()));
         Locations.put(Constants.LOC_CTR, new ArmorSettings(Constants.LOC_CTR, new Point(459,283), new Point(23,70), "CTR_", Points.GetArmorCTRPoints()));
         Locations.put(Constants.LOC_LTR, new ArmorSettings(Constants.LOC_LTR, new Point(423,297), new Point(30,38), "LTR_", Points.GetArmorLTRPoints()));
         Locations.put(Constants.LOC_RTR, new ArmorSettings(Constants.LOC_RTR, new Point(520,297), new Point(-30,38), "LTR_", Points.GetArmorRTRPoints()));
