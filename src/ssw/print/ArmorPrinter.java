@@ -39,7 +39,8 @@ public class ArmorPrinter {
     private Graphics2D graphics = null;
     private boolean useCanon = true;
     private Mech CurMech = null;
-    private Hashtable<Integer, ArmorSettings> Locations = new Hashtable<Integer, ArmorSettings>();
+    private Hashtable<Integer, ArmorSettings> ArmorLocs = new Hashtable<Integer, ArmorSettings>();
+    private Hashtable<Integer, ArmorSettings> InternalLocs = new Hashtable<Integer, ArmorSettings>();
     private String filePath = "./rs/patterns/";
     private String Source = "TW";
     private String Chassis = "BP";
@@ -90,18 +91,26 @@ public class ArmorPrinter {
 
         Points = new TWBipedPoints();
         if ( CurMech.IsQuad() ) { Points = new TWQuadPoints(); }
-        
-        Locations.put(Constants.LOC_HD, new ArmorSettings(Constants.LOC_HD, new Point(463,52), new Point(17,20), "HD_", Points.GetArmorHDPoints()));
-        Locations.put(Constants.LOC_CT, new ArmorSettings(Constants.LOC_CT, new Point(457,83), new Point(28,88), "CT_", Points.GetArmorCTPoints()));
-        Locations.put(Constants.LOC_LT, new ArmorSettings(Constants.LOC_LT, new Point(0,0), new Point(0,0), "LT_", Points.GetArmorLTPoints()));
-        Locations.put(Constants.LOC_RT, new ArmorSettings(Constants.LOC_RT, new Point(0,0), new Point(0,0), "LT_", Points.GetArmorRTPoints()));
-        Locations.put(Constants.LOC_LA, new ArmorSettings(Constants.LOC_LA, new Point(387,55), new Point(30,98), "LA_", Points.GetArmorLAPoints()));
-        Locations.put(Constants.LOC_RA, new ArmorSettings(Constants.LOC_RA, new Point(556,55), new Point(-30,98), "LA_", Points.GetArmorRAPoints()));
-        Locations.put(Constants.LOC_LL, new ArmorSettings(Constants.LOC_LL, new Point(400,161), new Point(51,125), "LL_", Points.GetArmorLLPoints()));
-        Locations.put(Constants.LOC_RL, new ArmorSettings(Constants.LOC_RL, new Point(542,161), new Point(-51,125), "LL_", Points.GetArmorRLPoints()));
-        Locations.put(Constants.LOC_CTR, new ArmorSettings(Constants.LOC_CTR, new Point(459,283), new Point(23,70), "CTR_", Points.GetArmorCTRPoints()));
-        Locations.put(Constants.LOC_LTR, new ArmorSettings(Constants.LOC_LTR, new Point(423,297), new Point(30,38), "LTR_", Points.GetArmorLTRPoints()));
-        Locations.put(Constants.LOC_RTR, new ArmorSettings(Constants.LOC_RTR, new Point(520,297), new Point(-30,38), "LTR_", Points.GetArmorRTRPoints()));
+
+        ArmorLocs.put(Constants.LOC_HD, new ArmorSettings(Constants.LOC_HD, false, new Point(463,52), new Point(17,20), "HD_", Points.GetArmorHDPoints()));
+        ArmorLocs.put(Constants.LOC_CT, new ArmorSettings(Constants.LOC_CT, false, new Point(457,83), new Point(28,88), "CT_", Points.GetArmorCTPoints()));
+        ArmorLocs.put(Constants.LOC_LT, new ArmorSettings(Constants.LOC_LT, false, new Point(0,0), new Point(0,0), "LT_", Points.GetArmorLTPoints()));
+        ArmorLocs.put(Constants.LOC_RT, new ArmorSettings(Constants.LOC_RT, false, new Point(0,0), new Point(0,0), "LT_", Points.GetArmorRTPoints()));
+        ArmorLocs.put(Constants.LOC_LA, new ArmorSettings(Constants.LOC_LA, false, new Point(387,55), new Point(30,98), "LA_", Points.GetArmorLAPoints()));
+        ArmorLocs.put(Constants.LOC_RA, new ArmorSettings(Constants.LOC_RA, false, new Point(556,55), new Point(-30,98), "LA_", Points.GetArmorRAPoints()));
+        ArmorLocs.put(Constants.LOC_LL, new ArmorSettings(Constants.LOC_LL, false, new Point(400,160), new Point(51,125), "LL_", Points.GetArmorLLPoints()));
+        ArmorLocs.put(Constants.LOC_RL, new ArmorSettings(Constants.LOC_RL, false, new Point(542,160), new Point(-51,125), "LL_", Points.GetArmorRLPoints()));
+        ArmorLocs.put(Constants.LOC_CTR, new ArmorSettings(Constants.LOC_CTR, false, new Point(459,283), new Point(23,70), "CTR_", Points.GetArmorCTRPoints()));
+        ArmorLocs.put(Constants.LOC_LTR, new ArmorSettings(Constants.LOC_LTR, false, new Point(423,297), new Point(30,38), "LTR_", Points.GetArmorLTRPoints()));
+        ArmorLocs.put(Constants.LOC_RTR, new ArmorSettings(Constants.LOC_RTR, false, new Point(520,297), new Point(-30,38), "LTR_", Points.GetArmorRTRPoints()));
+        InternalLocs.put(Constants.LOC_HD, new ArmorSettings(Constants.LOC_HD, true, new Point(452,389), new Point(13,13), "INT_HD_", Points.GetInternalHDPoints()));
+        InternalLocs.put(Constants.LOC_CT, new ArmorSettings(Constants.LOC_CT, true, new Point(450,410), new Point(17,61), "INT_CT_", Points.GetInternalCTPoints()));
+        InternalLocs.put(Constants.LOC_LT, new ArmorSettings(Constants.LOC_LT, true, new Point(426,401), new Point(21,59), "INT_LT_", Points.GetInternalLTPoints()));
+        InternalLocs.put(Constants.LOC_RT, new ArmorSettings(Constants.LOC_RT, true, new Point(490,401), new Point(-21,59), "INT_LT_", Points.GetInternalRTPoints()));
+        InternalLocs.put(Constants.LOC_LA, new ArmorSettings(Constants.LOC_LA, true, new Point(402,400), new Point(14,75), "INT_LA_", Points.GetInternalLAPoints()));
+        InternalLocs.put(Constants.LOC_RA, new ArmorSettings(Constants.LOC_RA, true, new Point(514,400), new Point(-14,75), "INT_LA_", Points.GetInternalRAPoints()));
+        InternalLocs.put(Constants.LOC_LL, new ArmorSettings(Constants.LOC_LL, true, new Point(418,463), new Point(25,89), "INT_LL_", Points.GetInternalLLPoints()));
+        InternalLocs.put(Constants.LOC_RL, new ArmorSettings(Constants.LOC_RL, true, new Point(498,463), new Point(-25,89), "INT_LL_", Points.GetInternalRLPoints()));
     }
     // </editor-fold>
 
@@ -136,12 +145,22 @@ public class ArmorPrinter {
 
         if ( CurMech.IsQuad() ) { Chassis = "QD"; }
 
-        for ( int key : Locations.keySet() ) {
-            ArmorSettings settings = (ArmorSettings) Locations.get(key);
+        for ( int key : ArmorLocs.keySet() ) {
+            ArmorSettings settings = (ArmorSettings) ArmorLocs.get(key);
             if ( useCanon && !settings.startingPoint.equals(new Point(0,0)) ) {
                 graphics.drawImage(media.GetImage(filePath + Source + "_" + Chassis + "_" + settings.locationPrefix + settings.GetFileNumber() + fileExtension), settings.startingPoint.x, settings.startingPoint.y, settings.imageSize.x, settings.imageSize.y, null);
             } else {
                for( int i = 0; i < settings.GetArmor(); i++ ) {
+                    graphics.drawOval( settings.points[i].x, settings.points[i].y, 5, 5 );
+                }
+            }
+        }
+        for ( int key : InternalLocs.keySet() ) {
+            ArmorSettings settings = (ArmorSettings) InternalLocs.get(key);
+            if ( useCanon && !settings.startingPoint.equals(new Point(0,0)) ) {
+                graphics.drawImage(media.GetImage(filePath + Source + "_" + Chassis + "_" + settings.locationPrefix + settings.GetFileNumber() + fileExtension), settings.startingPoint.x, settings.startingPoint.y, settings.imageSize.x, settings.imageSize.y, null);
+            } else {
+               for( int i = 0; i < settings.GetInternals(); i++ ) {
                     graphics.drawOval( settings.points[i].x, settings.points[i].y, 5, 5 );
                 }
             }
@@ -184,22 +203,45 @@ public class ArmorPrinter {
         public String locationPrefix = "";
         public int max = 0;
         public Point[] points = null;
+        public boolean Internal = false;
 
-        public ArmorSettings(int LocationID, Point startingPoint, Point imageSize, String locationPrefix, Point[] Points) {
+        public ArmorSettings(int LocationID, boolean internal, Point startingPoint, Point imageSize, String locationPrefix, Point[] Points) {
             this.LocationID = LocationID;
             this.startingPoint = startingPoint;
             this.imageSize = imageSize;
             this.locationPrefix = locationPrefix;
             this.points = Points;
             this.max = Points.length;
+            this.Internal = internal;
         }
 
         public int GetArmor() {
             return CurMech.GetArmor().GetLocationArmor(LocationID);
         }
 
+        public int GetInternals() {
+            switch( LocationID ) {
+                case Constants.LOC_HD:
+                    return CurMech.GetIntStruc().GetHeadPoints();
+                case Constants.LOC_CT:
+                    return CurMech.GetIntStruc().GetCTPoints();
+                case Constants.LOC_LT: case Constants.LOC_RT:
+                    return CurMech.GetIntStruc().GetSidePoints();
+                case Constants.LOC_LA: case Constants.LOC_RA:
+                    return CurMech.GetIntStruc().GetArmPoints();
+                case Constants.LOC_LL: case Constants.LOC_RL:
+                    return CurMech.GetIntStruc().GetLegPoints();
+            }
+            return 0;
+        }
+
         public String GetFileNumber() {
-            String FileNumber = GetArmor() + "";
+            String FileNumber = "";
+            if( Internal ) {
+                FileNumber = GetInternals() + "";
+            } else {
+                FileNumber = GetArmor() + "";
+            }
             if ( FileNumber.length() == 1 ) { FileNumber = "0" + FileNumber; }
             return FileNumber;
         }

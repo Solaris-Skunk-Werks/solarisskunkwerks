@@ -318,7 +318,7 @@ public class PrintMech implements Printable {
     }
 
     private void DrawInternalCircles( Graphics2D graphics ) {
-        Point[] p = null;
+/*        Point[] p = null;
 
         p = points.GetInternalHDPoints();
         for( int i = 0; i < CurMech.GetIntStruc().GetHeadPoints(); i++ ) {
@@ -358,7 +358,7 @@ public class PrintMech implements Printable {
         p = points.GetInternalRLPoints();
         for( int i = 0; i < CurMech.GetIntStruc().GetLegPoints(); i++ ) {
             graphics.drawOval( p[i].x, p[i].y, 4, 4 );
-        }
+        }*/
     }
 
     private void DrawCriticals( Graphics2D graphics ) {
