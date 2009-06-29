@@ -50,5 +50,6 @@ public class PrintConsts {
                                RS_TW_QD = "./rs/RS_TW_QD.png",
                                RS_TO_BP = "",
                                RS_TO_QD = "",
-                               ChartImage = "./rs/Charts.png";
+                               BP_ChartImage = "./rs/Charts.png",
+                               QD_ChartImage = "./rs/ChartsQD.png";
 }

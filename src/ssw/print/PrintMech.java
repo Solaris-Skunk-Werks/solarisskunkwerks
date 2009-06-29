@@ -84,7 +84,8 @@ public class PrintMech implements Printable {
         BV = CommonTools.GetAdjustedBV(CurMech.GetCurrentBV(), Gunnery, Piloting);
         UseA4Paper = A4;
         GetRecordSheet();
-        ChartImage = media.GetImage(PrintConsts.ChartImage );
+        ChartImage = media.GetImage(PrintConsts.BP_ChartImage );
+        if ( CurMech.IsQuad() ) { ChartImage = media.GetImage(PrintConsts.QD_ChartImage); }
     }
 
     public PrintMech( Mech m, Image i, boolean adv, boolean A4) {
