@@ -90,7 +90,6 @@ public class PIPPrinter {
         this.useCanon = useCanon;
 
         Points = new TWBipedPoints();
-        if ( CurMech.IsQuad() ) { Points = new TWQuadPoints(); }
 
         ArmorLocs.put(Constants.LOC_HD, new ArmorSettings(Constants.LOC_HD, false, new Point(463,52), new Point(17,20), "HD_", Points.GetArmorHDPoints()));
         ArmorLocs.put(Constants.LOC_CT, new ArmorSettings(Constants.LOC_CT, false, new Point(457,83), new Point(28,88), "CT_", Points.GetArmorCTPoints()));
@@ -103,6 +102,23 @@ public class PIPPrinter {
         ArmorLocs.put(Constants.LOC_CTR, new ArmorSettings(Constants.LOC_CTR, false, new Point(460,283), new Point(23,70), "CTR_", Points.GetArmorCTRPoints()));
         ArmorLocs.put(Constants.LOC_LTR, new ArmorSettings(Constants.LOC_LTR, false, new Point(423,297), new Point(30,38), "LTR_", Points.GetArmorLTRPoints()));
         ArmorLocs.put(Constants.LOC_RTR, new ArmorSettings(Constants.LOC_RTR, false, new Point(520,297), new Point(-30,38), "LTR_", Points.GetArmorRTRPoints()));
+
+        if ( CurMech.IsQuad() ) {
+            Points = new TWQuadPoints();
+            Chassis = "QD";
+
+            ArmorLocs.get(Constants.LOC_HD).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorHDPoints());
+            ArmorLocs.get(Constants.LOC_CT).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorCTPoints());
+            ArmorLocs.get(Constants.LOC_LT).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorLTPoints());
+            ArmorLocs.get(Constants.LOC_RT).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorRTPoints());
+            ArmorLocs.get(Constants.LOC_LA).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorLAPoints());
+            ArmorLocs.get(Constants.LOC_RA).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorRAPoints());
+            ArmorLocs.get(Constants.LOC_LL).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorLLPoints());
+            ArmorLocs.get(Constants.LOC_RL).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorRLPoints());
+            ArmorLocs.get(Constants.LOC_CTR).setStartAndSize(new Point(457,292), new Point(30,53), Points.GetArmorCTRPoints());
+            ArmorLocs.get(Constants.LOC_LTR).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorLTRPoints());
+            ArmorLocs.get(Constants.LOC_RTR).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorRTRPoints());
+        }
 
         InternalLocs.put(Constants.LOC_HD, new ArmorSettings(Constants.LOC_HD, true, new Point(452,389), new Point(13,13), "INT_HD_", Points.GetInternalHDPoints()));
         InternalLocs.put(Constants.LOC_CT, new ArmorSettings(Constants.LOC_CT, true, new Point(450,410), new Point(17,61), "INT_CT_", Points.GetInternalCTPoints()));
@@ -143,8 +159,6 @@ public class PIPPrinter {
     public void Render( ) {
         if ( graphics == null ) { return; }
         if ( CurMech == null ) { return; }
-
-        if ( CurMech.IsQuad() ) { Chassis = "QD"; }
 
         for ( int key : ArmorLocs.keySet() ) {
             ArmorSettings settings = (ArmorSettings) ArmorLocs.get(key);
@@ -245,6 +259,12 @@ public class PIPPrinter {
             }
             if ( FileNumber.length() == 1 ) { FileNumber = "0" + FileNumber; }
             return FileNumber;
+        }
+
+        public void setStartAndSize( Point newStart, Point newSize, Point[] Points ) {
+            this.startingPoint = newStart;
+            this.imageSize = newSize;
+            this.points = Points;
         }
     }
 }
