@@ -217,7 +217,7 @@ public class PrintMech implements Printable {
     }
 
     private void DrawArmorCircles( Graphics2D graphics ) {
-        ArmorPrinter ap = new ArmorPrinter(graphics, CurMech, true);
+        PIPPrinter ap = new PIPPrinter(graphics, CurMech, true);
         ap.Render();
         
         /*

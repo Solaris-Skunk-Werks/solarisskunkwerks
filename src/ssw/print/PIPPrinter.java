@@ -35,7 +35,7 @@ import ssw.components.*;
 import ssw.Constants;
 import ssw.filehandlers.Media;
 
-public class ArmorPrinter {
+public class PIPPrinter {
     private Graphics2D graphics = null;
     private boolean useCanon = true;
     private Mech CurMech = null;
@@ -51,40 +51,40 @@ public class ArmorPrinter {
 
     // <editor-fold desc="Constructors">
     /**
-     * Creates an ArmorPrinter object with the default settings
+     * Creates an PIPPrinter object with the default settings
      *
      */
-    public ArmorPrinter() {
+    public PIPPrinter() {
         this(null, null, true);
     }
 
     /**
-     * Creates an ArmorPrinter object with the given graphics object
+     * Creates an PIPPrinter object with the given graphics object
      *
      * @param  graphics  the graphics object to use when rendering
      */
-    public ArmorPrinter(Graphics2D graphics) {
+    public PIPPrinter(Graphics2D graphics) {
         this(graphics, null, true);
     }
     
     /**
-     * Creates an ArmorPrinter object with the given objects
+     * Creates an PIPPrinter object with the given objects
      *
      * @param  graphics  the graphics object to use when rendering
      * @param  curMech   the Mech object to use
      */
-    public ArmorPrinter( Graphics2D graphics, Mech curMech ) {
+    public PIPPrinter( Graphics2D graphics, Mech curMech ) {
         this(graphics, curMech, true);
     }
     
     /**
-     * Creates an ArmorPrinter object with the given objects
+     * Creates an PIPPrinter object with the given objects
      *
      * @param  graphics  the graphics object to use when rendering
      * @param  curMech   the Mech object to use
      * @param  useCanon  boolean determining whether or not to use canon points
      */
-    public ArmorPrinter( Graphics2D graphics, Mech curMech, boolean useCanon ) {
+    public PIPPrinter( Graphics2D graphics, Mech curMech, boolean useCanon ) {
         this.graphics = graphics;
         this.CurMech = curMech;
         this.useCanon = useCanon;
@@ -94,15 +94,16 @@ public class ArmorPrinter {
 
         ArmorLocs.put(Constants.LOC_HD, new ArmorSettings(Constants.LOC_HD, false, new Point(463,52), new Point(17,20), "HD_", Points.GetArmorHDPoints()));
         ArmorLocs.put(Constants.LOC_CT, new ArmorSettings(Constants.LOC_CT, false, new Point(457,83), new Point(28,88), "CT_", Points.GetArmorCTPoints()));
-        ArmorLocs.put(Constants.LOC_LT, new ArmorSettings(Constants.LOC_LT, false, new Point(0,0), new Point(0,0), "LT_", Points.GetArmorLTPoints()));
-        ArmorLocs.put(Constants.LOC_RT, new ArmorSettings(Constants.LOC_RT, false, new Point(0,0), new Point(0,0), "LT_", Points.GetArmorRTPoints()));
+        ArmorLocs.put(Constants.LOC_LT, new ArmorSettings(Constants.LOC_LT, false, new Point(422,66), new Point(32,86), "LT_", Points.GetArmorLTPoints()));
+        ArmorLocs.put(Constants.LOC_RT, new ArmorSettings(Constants.LOC_RT, false, new Point(520,66), new Point(-32,86), "LT_", Points.GetArmorRTPoints()));
         ArmorLocs.put(Constants.LOC_LA, new ArmorSettings(Constants.LOC_LA, false, new Point(387,55), new Point(30,98), "LA_", Points.GetArmorLAPoints()));
         ArmorLocs.put(Constants.LOC_RA, new ArmorSettings(Constants.LOC_RA, false, new Point(556,55), new Point(-30,98), "LA_", Points.GetArmorRAPoints()));
         ArmorLocs.put(Constants.LOC_LL, new ArmorSettings(Constants.LOC_LL, false, new Point(400,160), new Point(51,125), "LL_", Points.GetArmorLLPoints()));
         ArmorLocs.put(Constants.LOC_RL, new ArmorSettings(Constants.LOC_RL, false, new Point(542,160), new Point(-51,125), "LL_", Points.GetArmorRLPoints()));
-        ArmorLocs.put(Constants.LOC_CTR, new ArmorSettings(Constants.LOC_CTR, false, new Point(459,283), new Point(23,70), "CTR_", Points.GetArmorCTRPoints()));
+        ArmorLocs.put(Constants.LOC_CTR, new ArmorSettings(Constants.LOC_CTR, false, new Point(460,283), new Point(23,70), "CTR_", Points.GetArmorCTRPoints()));
         ArmorLocs.put(Constants.LOC_LTR, new ArmorSettings(Constants.LOC_LTR, false, new Point(423,297), new Point(30,38), "LTR_", Points.GetArmorLTRPoints()));
         ArmorLocs.put(Constants.LOC_RTR, new ArmorSettings(Constants.LOC_RTR, false, new Point(520,297), new Point(-30,38), "LTR_", Points.GetArmorRTRPoints()));
+
         InternalLocs.put(Constants.LOC_HD, new ArmorSettings(Constants.LOC_HD, true, new Point(452,389), new Point(13,13), "INT_HD_", Points.GetInternalHDPoints()));
         InternalLocs.put(Constants.LOC_CT, new ArmorSettings(Constants.LOC_CT, true, new Point(450,410), new Point(17,61), "INT_CT_", Points.GetInternalCTPoints()));
         InternalLocs.put(Constants.LOC_LT, new ArmorSettings(Constants.LOC_LT, true, new Point(426,401), new Point(21,59), "INT_LT_", Points.GetInternalLTPoints()));
