@@ -116,26 +116,26 @@ public class PIPPrinter {
             Points = new TWQuadPoints();
             Chassis = "QD";
 
-            ArmorLocs.get(Constants.LOC_HD).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorHDPoints());
+            ArmorLocs.get(Constants.LOC_HD).setStartAndSize(new Point(458,60), new Point(27,20), Points.GetArmorHDPoints());
             ArmorLocs.get(Constants.LOC_CT).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorCTPoints());
             ArmorLocs.get(Constants.LOC_LT).setStartAndSize(new Point(415,44), new Point(28,66), Points.GetArmorLTPoints());
             ArmorLocs.get(Constants.LOC_RT).setStartAndSize(new Point(527,44), new Point(-28,66), Points.GetArmorRTPoints());
-            ArmorLocs.get(Constants.LOC_LA).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorLAPoints());
-            ArmorLocs.get(Constants.LOC_RA).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorRAPoints());
-            ArmorLocs.get(Constants.LOC_LL).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorLLPoints());
-            ArmorLocs.get(Constants.LOC_RL).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorRLPoints());
+            ArmorLocs.get(Constants.LOC_LA).setStartAndSize(new Point(402,122), new Point(25,140), Points.GetArmorLAPoints());
+            ArmorLocs.get(Constants.LOC_RA).setStartAndSize(new Point(541,122), new Point(-25,140), Points.GetArmorRAPoints());
+            ArmorLocs.get(Constants.LOC_LL).setStartAndSize(new Point(430,119), new Point(27,134), Points.GetArmorLLPoints());
+            ArmorLocs.get(Constants.LOC_RL).setStartAndSize(new Point(513,119), new Point(-27,134), Points.GetArmorRLPoints());
             ArmorLocs.get(Constants.LOC_CTR).setStartAndSize(new Point(457,292), new Point(30,53), Points.GetArmorCTRPoints());
             ArmorLocs.get(Constants.LOC_LTR).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorLTRPoints());
             ArmorLocs.get(Constants.LOC_RTR).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorRTRPoints());
 
-            InternalLocs.get(Constants.LOC_HD).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetInternalHDPoints());
-            InternalLocs.get(Constants.LOC_CT).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetInternalCTPoints());
-            InternalLocs.get(Constants.LOC_LT).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetInternalLTPoints());
-            InternalLocs.get(Constants.LOC_RT).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetInternalRTPoints());
-            InternalLocs.get(Constants.LOC_LA).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetInternalLAPoints());
-            InternalLocs.get(Constants.LOC_RA).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetInternalRAPoints());
-            InternalLocs.get(Constants.LOC_LL).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetInternalLLPoints());
-            InternalLocs.get(Constants.LOC_RL).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetInternalRLPoints());
+            InternalLocs.get(Constants.LOC_HD).setStartAndSize(new Point(450,400), new Point(14,13), Points.GetInternalHDPoints());
+            InternalLocs.get(Constants.LOC_CT).setStartAndSize(new Point(446,420), new Point(23,41), Points.GetInternalCTPoints());
+            InternalLocs.get(Constants.LOC_LT).setStartAndSize(new Point(417,403), new Point(23,36), Points.GetInternalLTPoints());
+            InternalLocs.get(Constants.LOC_RT).setStartAndSize(new Point(498,403), new Point(-23,36), Points.GetInternalRTPoints());
+            InternalLocs.get(Constants.LOC_LA).setStartAndSize(new Point(411,456), new Point(16,86), Points.GetInternalLAPoints());
+            InternalLocs.get(Constants.LOC_RA).setStartAndSize(new Point(504,456), new Point(-16,86), Points.GetInternalRAPoints());
+            InternalLocs.get(Constants.LOC_LL).setStartAndSize(new Point(433,453), new Point(10,86), Points.GetInternalLLPoints());
+            InternalLocs.get(Constants.LOC_RL).setStartAndSize(new Point(482,453), new Point(-10,86), Points.GetInternalRLPoints());
         }
     }
     // </editor-fold>
