@@ -40,7 +40,8 @@ public class Printer {
     private Vector Mechs = new Vector();
     private String jobName = "SSW Batch Print",
                     logoPath = "";
-    private Boolean Charts = true;
+    private Boolean Charts = true,
+                    Canon = true;
 
     private Book pages = new Book();
     private Paper paper = new Paper();
@@ -86,6 +87,14 @@ public class Printer {
         this.Charts = Charts;
     }
 
+    public void setCanon( boolean Canon ) {
+        this.Canon = Canon;
+    }
+
+    public Boolean getCanon() {
+        return Canon;
+    }
+
     public void AddMech(Mech m, String Mechwarrior, int Gunnery, int Piloting, boolean Charts, boolean PilotInfo, boolean AdjBV) {
         float BV = (float) m.GetCurrentBV();
         if (AdjBV) BV = CommonTools.GetAdjustedBV(m.GetCurrentBV(), Gunnery, Piloting);
@@ -93,6 +102,7 @@ public class Printer {
         PrintMech pm = new PrintMech(m);
         pm.SetPilotData(Mechwarrior, Gunnery, Piloting);
         pm.SetOptions(Charts, PilotInfo, BV);
+        pm.setCanon(Canon);
         Mechs.add(pm);
     }
 

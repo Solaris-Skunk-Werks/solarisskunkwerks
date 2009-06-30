@@ -36,6 +36,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -52,13 +53,24 @@ public class PreviewDialog extends JDialog implements ActionListener {
         JScrollPane scrollPane = new JScrollPane(preview);
         getContentPane().add(scrollPane, "Center");
         JToolBar toolbar = new JToolBar();
+        JCheckBox chkCanon = new JCheckBox("Use Canon Dots", true);
+        ActionListener checked = new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                Refresh();
+            }
+        };
+
+        chkCanon.addActionListener(checked);
+
         //toolbar.setRollover(true);
         getContentPane().add(toolbar, "North");
-        toolbar.add(getButton( "Back", "Back24.gif", new BrowseAction(preview, -1)));
-        toolbar.add(getButton( "Forward", "Forward24.gif", new BrowseAction(preview, 1)));
+        toolbar.add(getButton( "Back", "Back24.gif", new BrowseAction(preview, -10)));
+        toolbar.add(getButton( "Forward", "Forward24.gif", new BrowseAction(preview, 10)));
         toolbar.add(new JToolBar.Separator());
         toolbar.add(getButton( "Zoom +", "ZoomIn24.gif", new ZoomAction(preview, DEFAULT_ZOOM_FACTOR_STEP))); 
-        toolbar.add(getButton( "Zoom -", "ZoomOut24.gif", new ZoomAction(preview, -DEFAULT_ZOOM_FACTOR_STEP))); 
+        toolbar.add(getButton( "Zoom -", "ZoomOut24.gif", new ZoomAction(preview, -DEFAULT_ZOOM_FACTOR_STEP)));
+        toolbar.add(new JCheckBox("Use Canon Dots", true));
         toolbar.add(new JToolBar.Separator());
         JPanel dialog = new JPanel();
         dialog.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -129,7 +141,11 @@ public class PreviewDialog extends JDialog implements ActionListener {
         
         return result;
     }
-    
+
+    private void Refresh() {
+        this.repaint();
+    }
+
     public void actionPerformed(ActionEvent e) {
         dispose();
     }

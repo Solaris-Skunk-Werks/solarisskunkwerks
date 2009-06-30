@@ -13362,9 +13362,10 @@ private void chkEjectionSeatActionPerformed(java.awt.event.ActionEvent evt) {//G
 private void mnuPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintPreviewActionPerformed
     Printer printer = new Printer();
     printer.setCharts(Prefs.getBoolean("UseCharts", false));
+    printer.setCanon(Prefs.getBoolean("UseCanonDots", false));
     printer.AddMech(CurMech);
 
-    PreviewDialog dlgPreview = new PreviewDialog(CurMech.GetFullName(), this, printer.Preview(), 1.25);
+    PreviewDialog dlgPreview = new PreviewDialog(CurMech.GetFullName(), this, printer.Preview(), 1.0);
     dlgPreview.setSize(1024, 768);
     dlgPreview.setLocationRelativeTo(null);
     dlgPreview.setModal(true);

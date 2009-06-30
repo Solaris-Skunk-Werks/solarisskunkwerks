@@ -898,6 +898,9 @@ public class PrintMech implements Printable {
         graphics.setFont( BoldFont );
         p = points.GetDataChartPoints();
         graphics.drawString( CurMech.GetFullName(), p[PrintConsts.MECHNAME].x, p[PrintConsts.MECHNAME].y );
+        graphics.setFont(PlainFont);
+        graphics.drawString(CurMech.GetAvailability().GetBestCombinedCode(), p[PrintConsts.MECHNAME].x+150, p[PrintConsts.MECHNAME].y-11);
+        graphics.setFont(BoldFont);
 
         // have to hack the movement to print the correct stuff here.
         if( CurMech.GetAdjustedWalkingMP( false, true ) != CurMech.GetWalkingMP() ) {
