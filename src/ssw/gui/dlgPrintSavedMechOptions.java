@@ -127,6 +127,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         cmbPaperSize = new javax.swing.JComboBox();
         chkMWStats = new javax.swing.JCheckBox();
+        chkPrintCanon = new javax.swing.JCheckBox();
         pnlImageOptions = new javax.swing.JPanel();
         chkPrintImage = new javax.swing.JCheckBox();
         btnChooseImage = new javax.swing.JButton();
@@ -229,7 +230,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
                         .addGroup(pnlBattleMechLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(cmbPiloting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                         .addGroup(pnlBattleMechLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBattleMechLayout.createSequentialGroup()
                                 .addGap(20, 20, 20)
@@ -304,6 +305,8 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
             }
         });
 
+        chkPrintCanon.setText("Print Canon Dot Patterns");
+
         javax.swing.GroupLayout pnlPrintOptionsLayout = new javax.swing.GroupLayout(pnlPrintOptions);
         pnlPrintOptions.setLayout(pnlPrintOptionsLayout);
         pnlPrintOptionsLayout.setHorizontalGroup(
@@ -311,7 +314,6 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
             .addGroup(pnlPrintOptionsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlPrintOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chkMWStats)
                     .addGroup(pnlPrintOptionsLayout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(lblOneHex)
@@ -319,15 +321,21 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
                         .addComponent(cmbHexConvFactor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblInches))
-                    .addComponent(chkPrintCharts)
                     .addComponent(chkUseHexConversion)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(chkPrintCanon)
+                    .addComponent(chkPrintCharts)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlPrintOptionsLayout.createSequentialGroup()
+                        .addComponent(chkMWStats)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         pnlPrintOptionsLayout.setVerticalGroup(
             pnlPrintOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPrintOptionsLayout.createSequentialGroup()
                 .addComponent(chkPrintCharts)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkPrintCanon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkUseHexConversion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -338,9 +346,9 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
                     .addGroup(pnlPrintOptionsLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(lblInches)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(chkMWStats)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -432,7 +440,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
                     .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblStats, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnChooseImage)
                     .addComponent(btnChooseLogo)))
@@ -485,6 +493,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
             Parent.Prefs.putBoolean("NoPilot", chkMWStats.isSelected());
             Parent.Prefs.putBoolean( "UseMiniConversion", chkUseHexConversion.isSelected() );
             Parent.Prefs.putInt( "MiniConversionRate", cmbHexConvFactor.getSelectedIndex() );
+            Parent.Prefs.putBoolean("UseCanonDots", chkPrintCanon.isSelected());
         }
 
         Result = true;
@@ -653,6 +662,10 @@ private void btnChooseLogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         }
     }
 
+    public boolean getCanon() {
+        return chkPrintCanon.isSelected();
+    }
+
     public void setImage(File image) {
         try {
             this.MechImage = image;
@@ -737,6 +750,7 @@ private void btnChooseLogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     private javax.swing.JButton btnPrint;
     private javax.swing.JCheckBox chkLogo;
     private javax.swing.JCheckBox chkMWStats;
+    private javax.swing.JCheckBox chkPrintCanon;
     private javax.swing.JCheckBox chkPrintCharts;
     private javax.swing.JCheckBox chkPrintImage;
     private javax.swing.JCheckBox chkStats;

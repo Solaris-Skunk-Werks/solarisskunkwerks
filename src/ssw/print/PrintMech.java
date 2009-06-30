@@ -151,6 +151,10 @@ public class PrintMech implements Printable {
     public void setBV(float BV) {
         this.BV = BV;
     }
+
+    public void setCanon( boolean Canon ) {
+        this.Canon = Canon;
+    }
     // </editor-fold>
 
     // <editor-fold desc="Gettor Methods">
@@ -201,9 +205,7 @@ public class PrintMech implements Printable {
         graphics.drawImage( RecordSheet, 0, 0, 576, 756, null );
 
 
-
-        DrawArmorCircles( graphics );
-        DrawInternalCircles( graphics );
+        DrawPips( graphics );
         DrawCriticals( graphics );
         DrawMechData( graphics );
         DrawImages( graphics );
@@ -217,149 +219,9 @@ public class PrintMech implements Printable {
         //DrawGrid( graphics );
     }
 
-    private void DrawArmorCircles( Graphics2D graphics ) {
-        PIPPrinter ap = new PIPPrinter(graphics, CurMech, true);
+    private void DrawPips( Graphics2D graphics ) {
+        PIPPrinter ap = new PIPPrinter(graphics, CurMech, Canon);
         ap.Render();
-        
-        /*
-        Point[] p = null;
-
-        // for testing purposes
-        String Motive = "BP";
-        String filename = "";
-        Canon = true;
-        if( CurMech.IsQuad() ) {
-            Motive = "QD";
-        }
-
-        p = points.GetArmorHDPoints();
-        for( int i = 0; i < CurMech.GetArmor().GetLocationArmor( Constants.LOC_HD ); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 5, 5 );
-        }
-
-        p = points.GetArmorCTPoints();
-        for( int i = 0; i < CurMech.GetArmor().GetLocationArmor( Constants.LOC_CT ); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 5, 5 );
-        }
-
-        p = points.GetArmorLTPoints();
-        for( int i = 0; i < CurMech.GetArmor().GetLocationArmor( Constants.LOC_LT ); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 5, 5 );
-        }
-
-        p = points.GetArmorRTPoints();
-        for( int i = 0; i < CurMech.GetArmor().GetLocationArmor( Constants.LOC_RT ); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 5, 5 );
-        }
-
-        // left arm dots
-        if( Canon ) {
-            int LANum = CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA );
-            if( LANum > 0 ) {
-                if( LANum < 10 ) {
-                    filename = "./rs/patterns/TW_" + Motive + "_LA_0" + LANum + ".gif";
-                } else {
-                    filename = "./rs/patterns/TW_" + Motive + "_LA_" + LANum + ".gif";
-                }
-                Image LADots = media.GetImage( filename );
-                graphics.drawImage( LADots, 387, 55, 30, 98, null );
-            }
-        } else {
-            p = points.GetArmorLAPoints();
-            for( int i = 0; i < CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ); i++ ) {
-                graphics.drawOval( p[i].x, p[i].y, 5, 5 );
-            }
-        }
-
-        if( Canon ) {
-            int RANum = CurMech.GetArmor().GetLocationArmor( Constants.LOC_RA );
-            if( RANum > 0 ) {
-                if( RANum < 10 ) {
-                    filename = "./rs/patterns/TW_" + Motive + "_LA_0" + RANum + ".gif";
-                } else {
-                    filename = "./rs/patterns/TW_" + Motive + "_LA_" + RANum + ".gif";
-                }
-                Image RADots = media.GetImage( filename );
-                
-                graphics.drawImage( RADots, 556, 55, -30, 98, null );
-            }
-        } else {
-            p = points.GetArmorRAPoints();
-            for( int i = 0; i < CurMech.GetArmor().GetLocationArmor( Constants.LOC_RA ); i++ ) {
-                graphics.drawOval( p[i].x, p[i].y, 5, 5 );
-            }
-        }
-
-        p = points.GetArmorLLPoints();
-        for( int i = 0; i < CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 5, 5 );
-        }
-
-        p = points.GetArmorRLPoints();
-        for( int i = 0; i < CurMech.GetArmor().GetLocationArmor( Constants.LOC_RL ); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 5, 5 );
-        }
-
-        p = points.GetArmorCTRPoints();
-        for( int i = 0; i < CurMech.GetArmor().GetLocationArmor( Constants.LOC_CTR ); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 5, 5 );
-        }
-
-        p = points.GetArmorLTRPoints();
-        for( int i = 0; i < CurMech.GetArmor().GetLocationArmor( Constants.LOC_LTR ); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 5, 5 );
-        }
-
-        p = points.GetArmorRTRPoints();
-        for( int i = 0; i < CurMech.GetArmor().GetLocationArmor( Constants.LOC_RTR ); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 5, 5 );
-        }
-
-         */
-    }
-
-    private void DrawInternalCircles( Graphics2D graphics ) {
-/*        Point[] p = null;
-
-        p = points.GetInternalHDPoints();
-        for( int i = 0; i < CurMech.GetIntStruc().GetHeadPoints(); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 4, 4 );
-        }
-
-        p = points.GetInternalCTPoints();
-        for( int i = 0; i < CurMech.GetIntStruc().GetCTPoints(); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 4, 4 );
-        }
-
-        p = points.GetInternalLTPoints();
-        for( int i = 0; i < CurMech.GetIntStruc().GetSidePoints(); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 4, 4 );
-        }
-
-        p = points.GetInternalRTPoints();
-        for( int i = 0; i < CurMech.GetIntStruc().GetSidePoints(); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 4, 4 );
-        }
-
-        p = points.GetInternalLAPoints();
-        for( int i = 0; i < CurMech.GetIntStruc().GetArmPoints(); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 4, 4 );
-        }
-
-        p = points.GetInternalRAPoints();
-        for( int i = 0; i < CurMech.GetIntStruc().GetArmPoints(); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 4, 4 );
-        }
-
-        p = points.GetInternalLLPoints();
-        for( int i = 0; i < CurMech.GetIntStruc().GetLegPoints(); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 4, 4 );
-        }
-
-        p = points.GetInternalRLPoints();
-        for( int i = 0; i < CurMech.GetIntStruc().GetLegPoints(); i++ ) {
-            graphics.drawOval( p[i].x, p[i].y, 4, 4 );
-        }*/
     }
 
     private void DrawCriticals( Graphics2D graphics ) {

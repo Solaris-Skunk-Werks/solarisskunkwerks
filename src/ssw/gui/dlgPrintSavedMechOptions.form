@@ -317,7 +317,6 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="chkMWStats" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="21" pref="21" max="21" attributes="0"/>
                           <Component id="lblOneHex" min="-2" max="-2" attributes="0"/>
@@ -326,11 +325,16 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblInches" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="chkPrintCharts" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="chkUseHexConversion" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="chkPrintCanon" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="chkPrintCharts" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jPanel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="chkMWStats" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="14" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -338,6 +342,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <Component id="chkPrintCharts" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="chkPrintCanon" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="chkUseHexConversion" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -351,9 +357,9 @@
                           <Component id="lblInches" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace pref="18" max="32767" attributes="0"/>
                   <Component id="chkMWStats" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="27" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -429,6 +435,11 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkMWStatsActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JCheckBox" name="chkPrintCanon">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Print Canon Dot Patterns"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="pnlImageOptions">
@@ -483,7 +494,7 @@
                       <Component id="lblImage" min="-2" pref="116" max="-2" attributes="0"/>
                       <Component id="lblStats" min="-2" pref="116" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="9" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnChooseImage" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnChooseLogo" alignment="3" min="-2" max="-2" attributes="0"/>

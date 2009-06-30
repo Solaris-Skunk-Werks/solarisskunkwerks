@@ -174,6 +174,7 @@ public class Printer {
         pMech.setMechwarrior(POptions.GetWarriorName());
         pMech.setMechImage(POptions.getImage());
         pMech.setLogoImage(POptions.getLogo());
+        pMech.setCanon(POptions.getCanon());
         if ( POptions.UseMiniConversion() ) { pMech.SetMiniConversion( POptions.GetMiniConversionRate() );}
 
         POptions.dispose();
