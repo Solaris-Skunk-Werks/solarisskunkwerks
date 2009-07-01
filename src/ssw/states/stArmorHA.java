@@ -61,6 +61,10 @@ public class stArmorHA implements ifArmor, ifState {
         return "Hardened";
     }
 
+    public String GetPrintName() {
+        return GetCritName();
+    }
+
     public boolean HasCounterpart() {
         return false;
     }

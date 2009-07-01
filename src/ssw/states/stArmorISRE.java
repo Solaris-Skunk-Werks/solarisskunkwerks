@@ -53,6 +53,10 @@ public class stArmorISRE implements ifArmor, ifState {
         return "Reactive";
     }
 
+    public String GetPrintName() {
+        return "Reactive";
+    }
+
     public boolean HasCounterpart() {
         return true;
     }

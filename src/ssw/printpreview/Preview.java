@@ -34,7 +34,7 @@ import javax.swing.JComponent;
 class Preview extends JComponent {
     private final static int DEFAULT_PREVIEW_SIZE = 300;
     private final static double MINIMUM_ZOOM_FACTOR = 0.1;
-    
+
     public Preview(Pageable pageable, double zoom) {
         this.pageable = pageable;
         PageFormat format = pageable.getPageFormat(index);

@@ -53,6 +53,10 @@ public class stArmorCLLR implements ifArmor, ifState {
         return "Reflective";
     }
 
+    public String GetPrintName() {
+        return GetCritName();
+    }
+
     public boolean HasCounterpart() {
         return true;
     }

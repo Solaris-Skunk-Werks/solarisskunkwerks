@@ -53,6 +53,10 @@ public class stArmorISST implements ifArmor, ifState {
         return "Stealth Armor";
     }
 
+    public String GetPrintName() {
+        return GetCritName();
+    }
+
     public boolean HasCounterpart() {
         return false;
     }

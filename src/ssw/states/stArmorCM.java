@@ -60,6 +60,10 @@ public class stArmorCM implements ifArmor, ifState {
         return "Commercial";
     }
 
+    public String GetPrintName() {
+        return GetCritName();
+    }
+
     public boolean HasCounterpart() {
         return false;
     }

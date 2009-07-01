@@ -60,6 +60,10 @@ public class stArmorMS implements ifArmor, ifState {
         return "Standard Armor";
     }
 
+    public String GetPrintName() {
+        return GetCritName();
+    }
+
     public boolean HasCounterpart() {
         return false;
     }

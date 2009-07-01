@@ -37,6 +37,7 @@ public interface ifArmor {
     public float GetAVMult();
     public boolean IsStealth();
     public String GetMMName();
+    public String GetPrintName();
     public float GetCostMult();
     public float GetBVTypeMult();
     public int GetBAR();

@@ -53,6 +53,10 @@ public class stArmorCLFL implements ifArmor, ifState {
         return "Ferro-Lamellor";
     }
 
+    public String GetPrintName() {
+        return GetCritName();
+    }
+
     public boolean HasCounterpart() {
         return false;
     }

@@ -68,9 +68,10 @@ public class PrintMech implements Printable {
     private Font PlainFont = new Font( "Arial", Font.PLAIN, 8 );
     private Font ItalicFont = new Font( "Arial", Font.ITALIC, 8 );
     private Font SmallFont = new Font( "Arial", Font.PLAIN, 7 );
+    private Font SmallItalicFont = new Font( "Arial", Font.ITALIC, 7 );
+    private Font SmallBoldFont = new Font( "Arial", Font.BOLD, 7 );
     private Font ReallySmallFont = new Font( "Arial", Font.PLAIN, 6 );
     private Font XtraSmallFont = new Font( "Arial", Font.PLAIN, 6 );
-    private Font SmallItalicFont = new Font( "Arial", Font.ITALIC, 7 );
     private Color Black = new Color( 0, 0, 0 ),
                   Grey = new Color( 128, 128, 128 );
     private Media media = new Media();
@@ -898,9 +899,6 @@ public class PrintMech implements Printable {
         graphics.setFont( BoldFont );
         p = points.GetDataChartPoints();
         graphics.drawString( CurMech.GetFullName(), p[PrintConsts.MECHNAME].x, p[PrintConsts.MECHNAME].y );
-        graphics.setFont(PlainFont);
-        graphics.drawString(CurMech.GetAvailability().GetBestCombinedCode(), p[PrintConsts.MECHNAME].x+150, p[PrintConsts.MECHNAME].y-11);
-        graphics.setFont(BoldFont);
 
         // have to hack the movement to print the correct stuff here.
         if( CurMech.GetAdjustedWalkingMP( false, true ) != CurMech.GetWalkingMP() ) {
@@ -950,10 +948,23 @@ public class PrintMech implements Printable {
         graphics.drawString( CurMech.GetYear() + "", p[PrintConsts.TECH_IS].x, p[PrintConsts.TECH_IS].y + 10 );
 
         //Armor Type
-        temp = CurMech.GetArmor().GetPrintName() + "";
-        int xCoord = p[PrintConsts.TECH_IS].x;
-        if ( temp.length() > 14 ) { xCoord -= ((temp.length()-14)*4); }
-        graphics.drawString( temp, xCoord, p[PrintConsts.TECH_IS].y + 20 );
+        graphics.setFont(SmallFont);
+        int baseX = points.GetArmorInfoPoints()[Constants.LOC_CT].x;
+        int baseY = points.GetArmorInfoPoints()[Constants.LOC_CT].y + 15;
+        if ( CurMech.GetArmor().RequiresExtraRules() ) { graphics.setFont(SmallBoldFont); }
+
+        String[] parts = CurMech.GetArmor().GetPrintName().trim().split(" ");
+        for (String part: parts) {
+            if ( !part.trim().isEmpty() ) {
+                int xCoord = baseX - ((part.trim().length() / 2) * 3);
+                graphics.drawString( part, xCoord, baseY );
+                baseY += 10;
+            }
+        }
+        graphics.setFont(PlainFont);
+
+        //Availability Codes
+        graphics.drawString(CurMech.GetAvailability().GetBestCombinedCode(), p[PrintConsts.TECH_IS].x, p[PrintConsts.TECH_IS].y+20);
 
         //heat sinks
         graphics.setFont( PlainFont );

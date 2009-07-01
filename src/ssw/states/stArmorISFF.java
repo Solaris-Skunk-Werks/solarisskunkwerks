@@ -53,6 +53,10 @@ public class stArmorISFF implements ifArmor, ifState {
         return "Ferro-Fibrous";
     }
 
+    public String GetPrintName() {
+        return GetCritName();
+    }
+
     public boolean HasCounterpart() {
         return true;
     }

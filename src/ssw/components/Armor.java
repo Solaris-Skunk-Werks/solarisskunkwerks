@@ -414,6 +414,14 @@ public class Armor  extends abPlaceable {
             return false;
     }
 
+    public boolean RequiresExtraRules() {
+        if (IsHardened() || IsReactive() || IsReflective() || IsStealth() ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public int GetTechBase() {
         return Config.GetAvailability().GetTechBase();
     }
@@ -445,6 +453,10 @@ public class Armor  extends abPlaceable {
 
     public String GetMMName( boolean UseRear ) {
         return Config.GetMMName();
+    }
+
+    public String GetPrintName() {
+        return Config.GetPrintName();
     }
 
     public String GetLookupName() {

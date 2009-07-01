@@ -53,6 +53,10 @@ public class stArmorISLR implements ifArmor, ifState {
         return "Reflective";
     }
 
+    public String GetPrintName() {
+        return "Laser Reflective";
+    }
+
     public boolean HasCounterpart() {
         return true;
     }

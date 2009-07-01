@@ -60,6 +60,10 @@ public class stArmorIN implements ifArmor, ifState {
         return "Industrial";
     }
 
+    public String GetPrintName() {
+        return GetCritName();
+    }
+
     public boolean HasCounterpart() {
         return false;
     }

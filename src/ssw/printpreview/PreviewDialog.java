@@ -44,7 +44,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 
 public class PreviewDialog extends JDialog implements ActionListener {
-    private final static double DEFAULT_ZOOM_FACTOR_STEP = 0.1;
+    private final static double DEFAULT_ZOOM_FACTOR_STEP = .5;
 
     public PreviewDialog(String title, JFrame owner, Pageable pageable, double zoom) {
         super(owner, title, true);
@@ -65,8 +65,8 @@ public class PreviewDialog extends JDialog implements ActionListener {
 
         //toolbar.setRollover(true);
         getContentPane().add(toolbar, "North");
-        toolbar.add(getButton( "Back", "Back24.gif", new BrowseAction(preview, -10)));
-        toolbar.add(getButton( "Forward", "Forward24.gif", new BrowseAction(preview, 10)));
+        toolbar.add(getButton( "Back", "Back24.gif", new BrowseAction(preview, -1)));
+        toolbar.add(getButton( "Forward", "Forward24.gif", new BrowseAction(preview, 1)));
         toolbar.add(new JToolBar.Separator());
         toolbar.add(getButton( "Zoom +", "ZoomIn24.gif", new ZoomAction(preview, DEFAULT_ZOOM_FACTOR_STEP))); 
         toolbar.add(getButton( "Zoom -", "ZoomOut24.gif", new ZoomAction(preview, -DEFAULT_ZOOM_FACTOR_STEP)));
