@@ -53,15 +53,6 @@ public class PreviewDialog extends JDialog implements ActionListener {
         JScrollPane scrollPane = new JScrollPane(preview);
         getContentPane().add(scrollPane, "Center");
         JToolBar toolbar = new JToolBar();
-        JCheckBox chkCanon = new JCheckBox("Use Canon Dots", true);
-        ActionListener checked = new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                Refresh();
-            }
-        };
-
-        chkCanon.addActionListener(checked);
 
         //toolbar.setRollover(true);
         getContentPane().add(toolbar, "North");
@@ -70,7 +61,6 @@ public class PreviewDialog extends JDialog implements ActionListener {
         toolbar.add(new JToolBar.Separator());
         toolbar.add(getButton( "Zoom +", "ZoomIn24.gif", new ZoomAction(preview, DEFAULT_ZOOM_FACTOR_STEP))); 
         toolbar.add(getButton( "Zoom -", "ZoomOut24.gif", new ZoomAction(preview, -DEFAULT_ZOOM_FACTOR_STEP)));
-        toolbar.add(new JCheckBox("Use Canon Dots", true));
         toolbar.add(new JToolBar.Separator());
         JPanel dialog = new JPanel();
         dialog.setLayout(new FlowLayout(FlowLayout.RIGHT));
