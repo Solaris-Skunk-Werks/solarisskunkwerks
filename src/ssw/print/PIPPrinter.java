@@ -30,6 +30,7 @@ package ssw.print;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.io.File;
 import java.util.Hashtable;
 import ssw.components.*;
 import ssw.Constants;
@@ -44,7 +45,8 @@ public class PIPPrinter {
     private String filePath = "./rs/patterns/";
     private String Source = "TW";
     private String Chassis = "BP";
-    private String fileExtension = ".gif";
+    private String ExtensionGIF = ".gif";
+    private String ExtensionPNG = ".png";
     private ifPrintPoints Points = null;
 
     private Media media = new Media();
@@ -168,11 +170,27 @@ public class PIPPrinter {
     public void Render( ) {
         if ( graphics == null ) { return; }
         if ( CurMech == null ) { return; }
+        String filename = "";
+        File check = null;
 
         for ( int key : Armor.keySet() ) {
             PIPSettings settings = (PIPSettings) Armor.get(key);
             if ( useCanon && !settings.startingPoint.equals(new Point(0,0)) ) {
-                graphics.drawImage(media.GetImage(filePath + Source + "_" + Chassis + "_" + settings.locationPrefix + settings.GetFileNumber() + fileExtension), settings.startingPoint.x, settings.startingPoint.y, settings.imageSize.x, settings.imageSize.y, null);
+                filename = filePath + Source + "_" + Chassis + "_" + settings.locationPrefix + settings.GetFileNumber() + ExtensionGIF;
+                check = new File( filename  );
+                if( ! check.exists() ) {
+                    filename = filePath + Source + "_" + Chassis + "_" + settings.locationPrefix + settings.GetFileNumber() + ExtensionPNG;
+                    check = new File( filename  );
+                    if( ! check.exists() ) {
+                       for( int i = 0; i < settings.GetArmor(); i++ ) {
+                            graphics.drawOval( settings.points[i].x, settings.points[i].y, 5, 5 );
+                        }
+                    } else {
+                        graphics.drawImage(media.GetImage( filename  ), settings.startingPoint.x, settings.startingPoint.y, settings.imageSize.x, settings.imageSize.y, null);
+                    }
+                } else {
+                    graphics.drawImage(media.GetImage( filename  ), settings.startingPoint.x, settings.startingPoint.y, settings.imageSize.x, settings.imageSize.y, null);
+                }
             } else {
                for( int i = 0; i < settings.GetArmor(); i++ ) {
                     graphics.drawOval( settings.points[i].x, settings.points[i].y, 5, 5 );
@@ -182,7 +200,21 @@ public class PIPPrinter {
         for ( int key : Internal.keySet() ) {
             PIPSettings settings = (PIPSettings) Internal.get(key);
             if ( useCanon && !settings.startingPoint.equals(new Point(0,0)) ) {
-                graphics.drawImage(media.GetImage(filePath + Source + "_" + Chassis + "_" + settings.locationPrefix + settings.GetFileNumber() + fileExtension), settings.startingPoint.x, settings.startingPoint.y, settings.imageSize.x, settings.imageSize.y, null);
+                filename = filePath + Source + "_" + Chassis + "_" + settings.locationPrefix + settings.GetFileNumber() + ExtensionGIF;
+                check = new File( filename  );
+                if( ! check.exists() ) {
+                    filename = filePath + Source + "_" + Chassis + "_" + settings.locationPrefix + settings.GetFileNumber() + ExtensionPNG;
+                    check = new File( filename  );
+                    if( ! check.exists() ) {
+                       for( int i = 0; i < settings.GetInternals(); i++ ) {
+                            graphics.drawOval( settings.points[i].x, settings.points[i].y, 5, 5 );
+                        }
+                    } else {
+                        graphics.drawImage(media.GetImage( filename ), settings.startingPoint.x, settings.startingPoint.y, settings.imageSize.x, settings.imageSize.y, null);
+                    }
+                } else {
+                    graphics.drawImage(media.GetImage( filename ), settings.startingPoint.x, settings.startingPoint.y, settings.imageSize.x, settings.imageSize.y, null);
+                }
             } else {
                for( int i = 0; i < settings.GetInternals(); i++ ) {
                     graphics.drawOval( settings.points[i].x, settings.points[i].y, 5, 5 );
