@@ -21,6 +21,7 @@ Version 0.7.0
 - Added ArmorPrinter class to handle a choice between canon or non-canon dots.
 - Added Quad specific charts and code to use this chart automatically for Quad sheets.
 - Added the ability to choose between Canon dots or not on the print dialog.
+- Added Availability Code to the print sheet
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.
@@ -50,6 +51,8 @@ Version 0.7.0
 - Removed pre-loading from Open dialog to increase initial load speed.
 - Fixed an issue with arm actuators and OmniMechs.
 - Fixed up some equipment names and MTF export errors.
+- Moved Armor Type on the print sheet to be under the CT points
+- Updated Armor Type to be BOLD when armor type requires extra rules (Hardened, Reflective, Reactive, Stealth)
 
 -------------------------------------------------------------------------------
 Version 0.6.0
