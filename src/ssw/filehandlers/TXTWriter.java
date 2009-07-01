@@ -839,7 +839,8 @@ public class TXTWriter {
     private String FormatFluff( String s ) {
         // we're basically checking length here to limit it to 80 chars in length
         // first, seperate out all the newlines.
-        String[] newline = s.split( NL );
+        s = s.replaceAll( "\n\r", "\n" );
+        String[] newline = s.split( "\n" );
         String retval = "";
         for( int i = 0; i < newline.length; i++ ) {
             String[] temp = wrapText( newline[i], 80 );

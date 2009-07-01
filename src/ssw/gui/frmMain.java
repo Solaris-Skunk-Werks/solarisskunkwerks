@@ -46,7 +46,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.DefaultListModel;
 import ssw.*;
 import ssw.components.*;
 import ssw.filehandlers.*;
@@ -3327,8 +3326,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jScrollPane25 = new javax.swing.JScrollPane();
-        jEditorPane1 = new javax.swing.JEditorPane();
         tlbIconBar = new javax.swing.JToolBar();
         btnNewIcon = new javax.swing.JButton();
         btnOpen = new javax.swing.JButton();
@@ -3842,8 +3839,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuHelp = new javax.swing.JMenu();
         mnuCredits = new javax.swing.JMenuItem();
         mnuAboutSSW = new javax.swing.JMenuItem();
-
-        jScrollPane25.setViewportView(jEditorPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(750, 515));
@@ -8717,6 +8712,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         pnlFluff.add(pnlImage, gridBagConstraints);
 
@@ -9146,7 +9142,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridheight = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 6);
         pnlFluff.add(tbpFluffEditors, gridBagConstraints);
@@ -9186,7 +9182,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         pnlFluff.add(pnlExport, gridBagConstraints);
 
@@ -12930,7 +12926,7 @@ public void LoadMechIntoGUI() {
     }
     lblFluffImage.setIcon( newFluffImage );
 
-    edtOverview.setText( CurMech.GetOverview() );
+    edtOverview.setText( FileCommon.FormatFluffHTML( CurMech.GetOverview() ) );
     edtCapabilities.setText( CurMech.GetCapabilities() );
     edtHistory.setText( CurMech.GetHistory() );
     edtDeployment.setText( CurMech.GetDeployment() );
@@ -13793,7 +13789,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JEditorPane edtNotables;
     private javax.swing.JEditorPane edtOverview;
     private javax.swing.JEditorPane edtVariants;
-    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -13881,7 +13876,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JScrollPane jScrollPane22;
     private javax.swing.JScrollPane jScrollPane23;
     private javax.swing.JScrollPane jScrollPane24;
-    private javax.swing.JScrollPane jScrollPane25;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;

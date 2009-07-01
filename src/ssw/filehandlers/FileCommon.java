@@ -646,6 +646,9 @@ public class FileCommon {
         retval = retval.replaceAll( ">", "&gt;" );
         retval = retval.replaceAll( "\'", "&apos;" );
         retval = retval.replaceAll( "\"", "&quot;" );
+        retval = retval.replaceAll( "\n\r", ":br:" );
+        retval = retval.replaceAll( "\n", ":br:" );
+        retval = retval.replaceAll( "\r", ":br:" );
         return retval;
     }
 
@@ -655,6 +658,17 @@ public class FileCommon {
         retval = retval.replaceAll( "&gt;", ">" );
         retval = retval.replaceAll( "&apos;", "\'" );
         retval = retval.replaceAll( "&quot;", "\"" );
+        retval = retval.replaceAll( ":br:", "\n" );
+        return retval;
+    }
+
+    public static String FormatFluffHTML( String s ) {
+        String retval = s.replaceAll( "\n", "<br />" );
+        return retval;
+    }
+
+    public static String FormatFluffTXT( String s ) {
+        String retval = "";
         return retval;
     }
 

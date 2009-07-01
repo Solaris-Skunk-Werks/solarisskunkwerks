@@ -51,6 +51,7 @@ Version 0.7.0
 - Removed pre-loading from Open dialog to increase initial load speed.
 - Fixed an issue with arm actuators and OmniMechs.
 - Fixed up some equipment names and MTF export errors.
+- Fixed a problem with returns and newlines in the exporters for fluff.
 - Moved Armor Type on the print sheet to be under the CT points
 - Updated Armor Type to be BOLD when armor type requires extra rules (Hardened, Reflective, Reactive, Stealth)
 

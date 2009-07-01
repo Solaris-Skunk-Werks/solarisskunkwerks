@@ -1359,7 +1359,8 @@ public class HTMLWriter {
             return "";
         }
         String retval = "";
-        String[] s = fluff.split( System.getProperty( "line.separator" ), -1 );
+        retval = retval.replaceAll( "\n\r", "\n" );
+        String[] s = fluff.split( "\n", -1 );
 
         for( int i = 0; i < s.length; i++ ) {
             retval += s[i] + NL;
