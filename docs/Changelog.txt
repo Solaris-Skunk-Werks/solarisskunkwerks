@@ -12,13 +12,13 @@ Version 0.7.0
 - Added in Laser Insulators.
 - Added a context menu on the Equipment list for PPC Caps and Insulators.
 - You can now shift splittable items around in their location without unallocating.
-- Added index file output to MechList for Open dialog use
+- Added index file output to MechList for Open dialog use.
 - Added ability to refresh/reload and ignore the indexing file.
-- Added ability to select multiple items in the equipment list
-  - You can use shift- and ctrl-click to do this
-- Added ability to use the delete key on multiple items in the Equipment list
-- Maelwys added some more equipment, like Boosted and Emergency C3 systems
-- Added ArmorPrinter class to handle a choice between canon or non-canon dots
+- Added ability to select multiple items in the equipment list.
+  - You can use shift- and ctrl-click to do this.
+- Added ability to use the delete key on multiple items in the Equipment list.
+- Maelwys added some more equipment, like Boosted and Emergency C3 systems.
+- Added ArmorPrinter class to handle a choice between canon or non-canon dots.
 - Added Quad specific charts and code to use this chart automatically for Quad sheets.
 - Added the ability to choose between Canon dots or not on the print dialog.
 
@@ -28,7 +28,7 @@ Version 0.7.0
 - Information screens have been redone, more information is available.
 - Removed the independent ammo information pop-up, now it uses the weapon pop-up.
 - Weapons and ammunition now load from binary files.
-- Spot welders now require power amplifiers and can be installed alongside other Industrial Physical Weapons
+- Spot welders now require power amplifiers and can be installed alongside other Industrial Physical Weapons.
 - Fixed an issue with the Open dialogue and not saving the last load name correctly.
 - IndustrialMechs no longer available under Introductory Rules.
 - (Hopefully) Fixed Clan CASE checkbox behavior and saving.
@@ -45,9 +45,11 @@ Version 0.7.0
 - Items shifted by placement of other items now retain their facing.
 - Fixed some problems with the current weapons data.
 - Fixed an error where a directory with no files causes a lock-up on load.
-- Fixed Force loading into dialog not refreshing the list
-- Fixed Force dialog Unit printing to include Mechwarrior and G/P skills
-- Removed pre-loading from Open dialog to increase initial load speed
+- Fixed Force loading into dialog not refreshing the list.
+- Fixed Force dialog Unit printing to include Mechwarrior and G/P skills.
+- Removed pre-loading from Open dialog to increase initial load speed.
+- Fixed an issue with arm actuators and OmniMechs.
+- Fixed up some equipment names and MTF export errors.
 
 -------------------------------------------------------------------------------
 Version 0.6.0

@@ -117,7 +117,7 @@ public class PIPPrinter {
             Chassis = "QD";
 
             Armor.get(Constants.LOC_HD).setStartAndSize(new Point(458,60), new Point(27,20), Points.GetArmorHDPoints());
-            Armor.get(Constants.LOC_CT).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorCTPoints());
+            Armor.get(Constants.LOC_CT).setStartAndSize(new Point(454,85), new Point(35,68), Points.GetArmorCTPoints());
             Armor.get(Constants.LOC_LT).setStartAndSize(new Point(415,44), new Point(28,66), Points.GetArmorLTPoints());
             Armor.get(Constants.LOC_RT).setStartAndSize(new Point(527,44), new Point(-28,66), Points.GetArmorRTPoints());
             Armor.get(Constants.LOC_LA).setStartAndSize(new Point(402,122), new Point(25,140), Points.GetArmorLAPoints());
@@ -125,8 +125,8 @@ public class PIPPrinter {
             Armor.get(Constants.LOC_LL).setStartAndSize(new Point(430,119), new Point(27,134), Points.GetArmorLLPoints());
             Armor.get(Constants.LOC_RL).setStartAndSize(new Point(513,119), new Point(-27,134), Points.GetArmorRLPoints());
             Armor.get(Constants.LOC_CTR).setStartAndSize(new Point(457,292), new Point(30,53), Points.GetArmorCTRPoints());
-            Armor.get(Constants.LOC_LTR).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorLTRPoints());
-            Armor.get(Constants.LOC_RTR).setStartAndSize(new Point(0,0), new Point(0,0), Points.GetArmorRTRPoints());
+            Armor.get(Constants.LOC_LTR).setStartAndSize(new Point(424,294), new Point(30,48), Points.GetArmorLTRPoints());
+            Armor.get(Constants.LOC_RTR).setStartAndSize(new Point(519,294), new Point(-30,48), Points.GetArmorRTRPoints());
 
             Internal.get(Constants.LOC_HD).setStartAndSize(new Point(450,400), new Point(14,13), Points.GetInternalHDPoints());
             Internal.get(Constants.LOC_CT).setStartAndSize(new Point(446,420), new Point(23,41), Points.GetInternalCTPoints());

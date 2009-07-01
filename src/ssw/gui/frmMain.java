@@ -1732,6 +1732,30 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             chkClanCASE.setSelected( false );
         }
+
+        // check the actuators as well.
+        if( ! CurMech.IsQuad() ) {
+            if( CurMech.GetActuators().LeftLowerInstalled() ) {
+                chkLALowerArm.setSelected( true );
+            } else {
+                chkLALowerArm.setSelected( false );
+            }
+            if( CurMech.GetActuators().LeftHandInstalled() ) {
+                chkLAHand.setSelected( true );
+            } else {
+                chkLAHand.setSelected( false );
+            }
+            if( CurMech.GetActuators().RightLowerInstalled() ) {
+                chkRALowerArm.setSelected( true );
+            } else {
+                chkRALowerArm.setSelected( false );
+            }
+            if( CurMech.GetActuators().RightHandInstalled() ) {
+                chkRAHand.setSelected( true );
+            } else {
+                chkRAHand.setSelected( false );
+            }
+        }
     }
 
     private void CheckAES() {
@@ -11065,6 +11089,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             return;
         }
         if( chkLAHand.isSelected() ) {
+            if( CurMech.IsOmnimech() &! CurMech.IsQuad() ) {
+                // check each crit and ensure we don't have an item that precludes this
+                abPlaceable[] check = CurMech.GetLoadout().GetLACrits();
+                for( int i = 0; i < check.length; i++ ) {
+                    if( check[i] instanceof ifWeapon ) {
+                        if( ((ifWeapon) check[i]).OmniRestrictActuators() ) {
+                            javax.swing.JOptionPane.showMessageDialog( this, "A currently placed item prevents the installation of the hand." );
+                            chkLAHand.setSelected( false );
+                            return;
+                        }
+                    }
+                }
+            }
             CurMech.GetActuators().AddLeftHand();
         } else {
             CurMech.GetActuators().RemoveLeftHand();
@@ -11088,6 +11125,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             return;
         }
         if( chkLALowerArm.isSelected() ) {
+            if( CurMech.IsOmnimech() &! CurMech.IsQuad() ) {
+                // check each crit and ensure we don't have an item that precludes this
+                abPlaceable[] check = CurMech.GetLoadout().GetLACrits();
+                for( int i = 0; i < check.length; i++ ) {
+                    if( check[i] instanceof ifWeapon ) {
+                        if( ((ifWeapon) check[i]).OmniRestrictActuators() ) {
+                            javax.swing.JOptionPane.showMessageDialog( this, "A currently placed item prevents the installation of the lower arm." );
+                            chkLALowerArm.setSelected( false );
+                            return;
+                        }
+                    }
+                }
+            }
             CurMech.GetActuators().AddLeftLowerArm();
         } else {
             CurMech.GetActuators().RemoveLeftLowerArm();
@@ -11111,6 +11161,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             return;
         }
         if( chkRAHand.isSelected() ) {
+            if( CurMech.IsOmnimech() &! CurMech.IsQuad() ) {
+                // check each crit and ensure we don't have an item that precludes this
+                abPlaceable[] check = CurMech.GetLoadout().GetRACrits();
+                for( int i = 0; i < check.length; i++ ) {
+                    if( check[i] instanceof ifWeapon ) {
+                        if( ((ifWeapon) check[i]).OmniRestrictActuators() ) {
+                            javax.swing.JOptionPane.showMessageDialog( this, "A currently placed item prevents the installation of the hand." );
+                            chkRAHand.setSelected( false );
+                            return;
+                        }
+                    }
+                }
+            }
             CurMech.GetActuators().AddRightHand();
         } else {
             CurMech.GetActuators().RemoveRightHand();
@@ -11134,6 +11197,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             return;
         }
         if( chkRALowerArm.isSelected() ) {
+            if( CurMech.IsOmnimech() &! CurMech.IsQuad() ) {
+                // check each crit and ensure we don't have an item that precludes this
+                abPlaceable[] check = CurMech.GetLoadout().GetRACrits();
+                for( int i = 0; i < check.length; i++ ) {
+                    if( check[i] instanceof ifWeapon ) {
+                        if( ((ifWeapon) check[i]).OmniRestrictActuators() ) {
+                            javax.swing.JOptionPane.showMessageDialog( this, "A currently placed item prevents the installation of the lower arm." );
+                            chkRALowerArm.setSelected( false );
+                            return;
+                        }
+                    }
+                }
+            }
             CurMech.GetActuators().AddRightLowerArm();
         } else {
             CurMech.GetActuators().RemoveRightLowerArm();

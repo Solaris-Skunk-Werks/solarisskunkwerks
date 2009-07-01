@@ -1594,6 +1594,20 @@ public class EquipmentFactory {
         addEQ.SetMegaMekName("CargoInsulated");
         addEQ.SetStats(1, 1, 0, 0, 0, "-");
         IndustrialEquipment.add(addEQ);
+
+        // Cargo, Livestock Maelwys
+        a = new AvailableCode( AvailableCode.TECH_BOTH );
+        a.SetISCodes( 'A', 'A', 'A', 'A' );
+        a.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
+        a.SetISFactions( "", "", "PS", "" );
+        a.SetCLCodes( 'A', 'X', 'A', 'A' );
+        a.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
+        a.SetCLFactions( "", "", "PS", "" );
+        a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        addEQ = new IndustrialEquipment("Cargo, Livestock","Cargo, Livestock", "IE", a, new SimpleValidator(), "");
+        addEQ.SetMegaMekName("CargoLivestock");
+        addEQ.SetStats(1, 1, 0, 0, 0, "-");
+        IndustrialEquipment.add(addEQ);
     }
 
     // Classes to validate equipment

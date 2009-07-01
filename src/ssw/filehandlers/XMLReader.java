@@ -1305,6 +1305,9 @@ public class XMLReader {
                 name = name.substring( 0, name.length() - 12 );
                 insulated = true;
             }
+            if( name.contains( "Variable Speed Laser" ) ) {
+                name.replace( "Variable Speed Laser", "Variable Speed Pulse Laser" );
+            }
             retval = data.GetEquipment().GetRangedWeaponByName( name, m );
             if( retval == null ) {
                 // try again with the prepend
