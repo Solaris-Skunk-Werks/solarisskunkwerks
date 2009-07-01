@@ -54,7 +54,7 @@ public class stArmorCLLR implements ifArmor, ifState {
     }
 
     public String GetPrintName() {
-        return GetCritName();
+        return "Laser Reflective";
     }
 
     public boolean HasCounterpart() {

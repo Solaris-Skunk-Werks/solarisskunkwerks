@@ -54,7 +54,7 @@ public class stArmorISLF implements ifArmor, ifState {
     }
 
     public String GetPrintName() {
-        return GetCritName();
+        return "Light Ferro Fibrous";
     }
 
     public boolean HasCounterpart() {

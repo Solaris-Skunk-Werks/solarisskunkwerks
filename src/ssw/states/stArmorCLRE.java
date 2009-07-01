@@ -54,7 +54,7 @@ public class stArmorCLRE implements ifArmor, ifState {
     }
 
     public String GetPrintName() {
-        return GetCritName();
+        return "Reactive";
     }
 
     public boolean HasCounterpart() {

@@ -71,6 +71,7 @@ public class PrintMech implements Printable {
     private Font SmallItalicFont = new Font( "Arial", Font.ITALIC, 7 );
     private Font SmallBoldFont = new Font( "Arial", Font.BOLD, 7 );
     private Font ReallySmallFont = new Font( "Arial", Font.PLAIN, 6 );
+    private Font XtraSmallBoldFont = new Font( "Arial", Font.BOLD, 6 );
     private Font XtraSmallFont = new Font( "Arial", Font.PLAIN, 6 );
     private Color Black = new Color( 0, 0, 0 ),
                   Grey = new Color( 128, 128, 128 );
@@ -949,9 +950,15 @@ public class PrintMech implements Printable {
 
         //Armor Type
         graphics.setFont(SmallFont);
+        if ( CurMech.IsQuad() ) { graphics.setFont(XtraSmallFont); }
+
         int baseX = points.GetArmorInfoPoints()[Constants.LOC_CT].x;
         int baseY = points.GetArmorInfoPoints()[Constants.LOC_CT].y + 15;
-        if ( CurMech.GetArmor().RequiresExtraRules() ) { graphics.setFont(SmallBoldFont); }
+
+        if ( CurMech.GetArmor().RequiresExtraRules() ) {
+            graphics.setFont(SmallBoldFont);
+            if ( CurMech.IsQuad() ) { graphics.setFont(XtraSmallBoldFont); }
+        }
 
         String[] parts = CurMech.GetArmor().GetPrintName().trim().split(" ");
         for (String part: parts) {
