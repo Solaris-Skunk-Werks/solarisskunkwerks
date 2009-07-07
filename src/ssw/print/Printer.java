@@ -43,7 +43,8 @@ public class Printer {
                     logoPath = "",
                     MechImagePath = "";
     private Boolean Charts = true,
-                    Canon = true;
+                    Canon = true,
+                    useDialog = true;
 
     private Book pages = new Book();
     private Paper paper = new Paper();
@@ -136,6 +137,11 @@ public class Printer {
         Print();
     }
 
+    public void Print( boolean useDialog ) {
+        this.useDialog = useDialog;
+        Print();
+    }
+
     public void Print() {
         //If they didn't provide a mech exit
         if (Mechs.size() == 0) { return; }
@@ -143,10 +149,12 @@ public class Printer {
         job.setJobName(jobName.trim());
 
         //Here is where we will show the print dialog, determine if it's a single mech or multiples
-        if (Mechs.size() == 1) {
-            if ( ! PrintDialog( (PrintMech) Mechs.get(0) ) ) return;
-        } else {
-            if ( ! BatchDialog() ) return;
+        if ( useDialog ) {
+            if (Mechs.size() == 1) {
+                if ( ! PrintDialog( (PrintMech) Mechs.get(0) ) ) return;
+            } else {
+                if ( ! BatchDialog() ) return;
+            }
         }
 
         //start building the print objects necessary

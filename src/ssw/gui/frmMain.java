@@ -13433,7 +13433,7 @@ private void chkEjectionSeatActionPerformed(java.awt.event.ActionEvent evt) {//G
 }//GEN-LAST:event_chkEjectionSeatActionPerformed
 
 private void mnuPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintPreviewActionPerformed
-    Printer printer = new Printer();
+    Printer printer = new Printer(this);
     printer.setCharts(Prefs.getBoolean("UseCharts", false));
     printer.setCanon(Prefs.getBoolean("UseCanonDots", false));
     printer.AddMech(CurMech);

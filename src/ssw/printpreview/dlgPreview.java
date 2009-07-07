@@ -514,7 +514,7 @@ public class dlgPreview extends javax.swing.JDialog implements ActionListener {
             Parent.Prefs.putInt( "MiniConversionRate", cmbHexConvFactor.getSelectedIndex() );
             Parent.Prefs.putBoolean("UseCanonDots", chkPrintCanon.isSelected());
         }
-        printer.Print();
+        printer.Print(false);
     }//GEN-LAST:event_btnPrintActionPerformed
 
 
