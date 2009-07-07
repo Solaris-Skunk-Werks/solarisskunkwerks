@@ -22,12 +22,28 @@ package ssw.printpreview;
 
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
 
 class BrowseAction extends AbstractAction {
-    public BrowseAction(Preview preview, int pageStep) {
+    public BrowseAction( String name, String iconName, Preview preview, int pageStep ) {
         super();
+        if ( !name.isEmpty() ) {
+            this.putValue(Action.NAME, name);
+        }
+
+        if ( !iconName.isEmpty() ) {
+            ImageIcon icon = null;
+            icon = new ImageIcon(getClass().getResource("/ssw/Images/" + iconName));
+            this.putValue(Action.SMALL_ICON, icon);
+        }
+
         this.preview = preview;
         this.pageStep = pageStep;
+    }
+
+    public BrowseAction(Preview preview, int pageStep) {
+        this("", "", preview, pageStep);
     }
     
     public void actionPerformed(ActionEvent e) {

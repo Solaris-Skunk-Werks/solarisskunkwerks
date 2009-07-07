@@ -22,21 +22,44 @@ package ssw.printpreview;
 
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
 
 class ZoomAction extends AbstractAction {
-    public ZoomAction(Preview preview, double zoomStep) {
+    public ZoomAction(String name, String iconName, Preview preview, double zoomStep, boolean resetZoom) {
         super();
+
+        if ( !iconName.isEmpty() ) {
+            ImageIcon icon = null;
+            icon = new ImageIcon(getClass().getResource("/ssw/Images/" + iconName));
+            this.putValue(Action.SMALL_ICON, icon);
+        }
+
+        if ( !name.isEmpty() ) {
+            this.putValue(Action.NAME, name);
+        }
+
         this.preview = preview;
         this.zoomStep = zoomStep;
+        this.resetZoom = resetZoom;
+
+    }
+    public ZoomAction(Preview preview, double zoomStep) {
+        this("", "", preview, zoomStep, false);
     }
     
     public void actionPerformed(ActionEvent e) {
-        preview.changeZoom(zoomStep);
+        if ( resetZoom ) {
+            preview.setZoom(zoomStep);
+        } else {
+            preview.changeZoom(zoomStep);
+        }
         preview.repaint();
     }
     
     protected Preview preview;
     protected double zoomStep;
+    protected boolean resetZoom;
 }
 
 

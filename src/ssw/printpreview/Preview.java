@@ -32,20 +32,17 @@ import java.awt.print.PrinterException;
 import javax.swing.JComponent;
 
 class Preview extends JComponent {
-    private final static int DEFAULT_PREVIEW_SIZE = 300;
+    private final static int DEFAULT_PREVIEW_SIZE = 1024;
     private final static double MINIMUM_ZOOM_FACTOR = 0.1;
+    private Dimension viewportSize;
+
+    public Preview(Pageable pageable, double zoom, Dimension viewport) {
+        this.viewportSize = viewport;
+        setPageable(pageable);
+    }
 
     public Preview(Pageable pageable, double zoom) {
-        this.pageable = pageable;
-        PageFormat format = pageable.getPageFormat(index);
-        if (zoom == 0.0) {
-            if (format.getOrientation() == PageFormat.PORTRAIT)
-                this.zoom = DEFAULT_PREVIEW_SIZE / format.getHeight();
-            else 
-                this.zoom = DEFAULT_PREVIEW_SIZE / format.getWidth();
-        } else
-            this.zoom = zoom;
-        resize();
+        this(pageable, zoom, new Dimension(1024,768));
     }
     
     protected void paintPaper(Graphics g, PageFormat format) {
@@ -68,6 +65,16 @@ class Preview extends JComponent {
         }
     }
 
+    public void setPageable( Pageable pageable ) {
+        this.pageable = pageable;
+        PageFormat format = pageable.getPageFormat(index);
+        if (zoom == 0.0) {
+            this.zoom = viewportSize.width / format.getWidth();
+        } else
+            this.zoom = zoom;
+        resize();
+    }
+
     public void moveIndex(int indexStep) {
         int newIndex = index + indexStep;
         try {
@@ -81,6 +88,25 @@ class Preview extends JComponent {
     public void changeZoom(double zoom) {
         this.zoom = Math.max(MINIMUM_ZOOM_FACTOR, this.zoom + zoom);
         resize();
+    }
+
+    public void setZoom(double zoom) {
+        this.zoom = Math.max(MINIMUM_ZOOM_FACTOR, zoom);
+        resize();
+    }
+
+    public String getZoom() {
+        return this.zoom + "";
+    }
+
+    public double getWidthZoom() {
+        PageFormat format = pageable.getPageFormat(index);
+        return viewportSize.width / format.getWidth();
+    }
+
+    public double getHeightZoom() {
+        PageFormat format = pageable.getPageFormat(index);
+        return viewportSize.height / format.getHeight();
     }
     
     public void resize() {
