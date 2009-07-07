@@ -140,6 +140,7 @@ public class dlgPreview extends javax.swing.JDialog implements ActionListener {
         btnZoomIn = new javax.swing.JButton();
         btnZoomOut = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
+        btnPrint = new javax.swing.JButton();
         btnCloseDialog = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -330,6 +331,18 @@ public class dlgPreview extends javax.swing.JDialog implements ActionListener {
         jToolBar1.add(btnZoomOut);
         jToolBar1.add(jSeparator2);
 
+        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/printer.png"))); // NOI18N
+        btnPrint.setText("Print");
+        btnPrint.setFocusable(false);
+        btnPrint.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPrint.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnPrint);
+
         btnCloseDialog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/home.png"))); // NOI18N
         btnCloseDialog.setText("Close");
         btnCloseDialog.setFocusable(false);
@@ -351,7 +364,7 @@ public class dlgPreview extends javax.swing.JDialog implements ActionListener {
                 .addComponent(pnlPrintOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlImageOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -370,7 +383,7 @@ public class dlgPreview extends javax.swing.JDialog implements ActionListener {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(spnPreview, javax.swing.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE)
+            .addComponent(spnPreview, javax.swing.GroupLayout.DEFAULT_SIZE, 843, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -494,6 +507,16 @@ public class dlgPreview extends javax.swing.JDialog implements ActionListener {
         dispose();
 }//GEN-LAST:event_btnCloseDialogActionPerformed
 
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        if ( Parent != null ) {
+            Parent.Prefs.putBoolean("UseCharts", chkPrintCharts.isSelected());
+            Parent.Prefs.putBoolean( "UseMiniConversion", chkUseHexConversion.isSelected() );
+            Parent.Prefs.putInt( "MiniConversionRate", cmbHexConvFactor.getSelectedIndex() );
+            Parent.Prefs.putBoolean("UseCanonDots", chkPrintCanon.isSelected());
+        }
+        printer.Print();
+    }//GEN-LAST:event_btnPrintActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
@@ -503,6 +526,7 @@ public class dlgPreview extends javax.swing.JDialog implements ActionListener {
     private javax.swing.JButton btnForward;
     private javax.swing.JButton btnPageHeight;
     private javax.swing.JButton btnPageWidth;
+    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnZoomIn;
     private javax.swing.JButton btnZoomOut;
     private javax.swing.JCheckBox chkLogo;

@@ -58,6 +58,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
 
         if ( Parent != null ) {
             chkPrintCharts.setSelected(Parent.Prefs.getBoolean("UseCharts", false));
+            chkPrintCanon.setSelected(Parent.Prefs.getBoolean("UseCanonDots", false));
             chkMWStats.setSelected(Parent.Prefs.getBoolean("NoPilot", false));
             if ( Parent.Prefs.getBoolean("NoPilot", false) ) {
                 chkMWStatsActionPerformed(null);
@@ -325,9 +326,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
                     .addComponent(chkPrintCanon)
                     .addComponent(chkPrintCharts)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlPrintOptionsLayout.createSequentialGroup()
-                        .addComponent(chkMWStats)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(chkMWStats))
                 .addContainerGap())
         );
         pnlPrintOptionsLayout.setVerticalGroup(

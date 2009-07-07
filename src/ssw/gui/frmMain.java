@@ -55,6 +55,7 @@ import ssw.states.ifState;
 import java.util.prefs.*;
 import ssw.Force.gui.frmForce;
 import ssw.battleforce.BattleForceTools;
+import ssw.printpreview.dlgPreview;
 
 public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner {
 
@@ -88,7 +89,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     JPopupMenu mnuSelect = new JPopupMenu();
 
     MechLoadoutRenderer Mechrender = new MechLoadoutRenderer( this, GlobalOptions );
-    Preferences Prefs;
+    public Preferences Prefs;
     boolean Load = false;
     private Cursor Hourglass = new Cursor( Cursor.WAIT_CURSOR );
     private Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
@@ -13437,12 +13438,11 @@ private void mnuPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//G
     printer.setCanon(Prefs.getBoolean("UseCanonDots", false));
     printer.AddMech(CurMech);
 
-    PreviewDialog dlgPreview = new PreviewDialog(CurMech.GetFullName(), this, printer.Preview(), 1.0);
-    dlgPreview.setSize(1024, 768);
-    dlgPreview.setLocationRelativeTo(null);
-    dlgPreview.setModal(true);
-    dlgPreview.setResizable(true);
-    dlgPreview.setVisible(true);
+    //PreviewDialog dlgPreview = new PreviewDialog(CurMech.GetFullName(), this, printer.Preview(), 1.0);
+    dlgPreview preview = new dlgPreview(CurMech.GetFullName(), this, printer, printer.Preview(), 0.0);
+    preview.setSize(1024, 768);
+    preview.setLocationRelativeTo(null);
+    preview.setVisible(true);
 }//GEN-LAST:event_mnuPrintPreviewActionPerformed
 
 private void btnPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintPreviewActionPerformed
