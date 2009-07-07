@@ -33,13 +33,15 @@ import java.awt.print.*;
 import java.io.File;
 import ssw.CommonTools;
 import ssw.components.Mech;
+import ssw.filehandlers.Media;
 import ssw.gui.*;
 
 public class Printer {
     private frmMain Parent;
     private Vector Mechs = new Vector();
     private String jobName = "SSW Batch Print",
-                    logoPath = "";
+                    logoPath = "",
+                    MechImagePath = "";
     private Boolean Charts = true,
                     Canon = true;
 
@@ -85,14 +87,29 @@ public class Printer {
 
     public void setCharts(Boolean Charts) {
         this.Charts = Charts;
+        for (int index=0; index <= Mechs.size()-1; index++) {
+            PrintMech pm = (PrintMech) Mechs.get(index);
+            pm.setCharts(Charts);
+        }
     }
 
     public void setCanon( boolean Canon ) {
         this.Canon = Canon;
+        for (int index=0; index <= Mechs.size()-1; index++) {
+            PrintMech pm = (PrintMech) Mechs.get(index);
+            pm.setCanon(Canon);
+        }
     }
 
     public Boolean getCanon() {
         return Canon;
+    }
+
+    public void setHexConversion( int Rate ) {
+        for (int index=0; index <= Mechs.size()-1; index++) {
+            PrintMech pm = (PrintMech) Mechs.get(index);
+            pm.SetMiniConversion( Rate );
+        }
     }
 
     public void AddMech(Mech m, String Mechwarrior, int Gunnery, int Piloting, boolean Charts, boolean PilotInfo, boolean AdjBV) {
@@ -225,5 +242,33 @@ public class Printer {
 
     public void setLogoPath(String logoPath) {
         this.logoPath = logoPath;
+        if ( !logoPath.isEmpty() ) {
+            Media media = new Media();
+            for (int index=0; index <= Mechs.size()-1; index++) {
+                PrintMech pm = (PrintMech) Mechs.get(index);
+                pm.setLogoImage(media.GetImage(logoPath));
+            }
+        } else {
+            for (int index=0; index <= Mechs.size()-1; index++) {
+                PrintMech pm = (PrintMech) Mechs.get(index);
+                pm.setLogoImage(null);
+            }
+        }
+    }
+
+    public void setMechImagePath(String MechImagePath) {
+        this.MechImagePath = MechImagePath;
+        if ( !MechImagePath.isEmpty() ) {
+            Media media = new Media();
+            for (int index=0; index <= Mechs.size()-1; index++) {
+                PrintMech pm = (PrintMech) Mechs.get(index);
+                pm.setMechImage(media.GetImage(MechImagePath));
+            }
+        } else {
+            for (int index=0; index <= Mechs.size()-1; index++) {
+                PrintMech pm = (PrintMech) Mechs.get(index);
+                pm.setMechImage(null);
+            }
+        }
     }
 }
