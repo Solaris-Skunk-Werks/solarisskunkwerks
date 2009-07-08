@@ -604,7 +604,7 @@ public class EquipmentFactory {
         a.SetISDates( 0, 0, false, 3060, 0, 0, false, false );
         a.SetISFactions( "", "", "LA", "" );
         a.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new PhysicalWeapon( "Claws", "Claws", "Claws", m, a );
+        addPW = new PhysicalWeapon( "Claws", "Claws", "Claw", m, a );
         addPW.SetStats(0.06666f, 0.06666f, 0.0f, 0);
         addPW.SetDamage(0.1428f, 0);
         addPW.SetSpecials("PA", "-", 2800.0f, 0.0f, 1.275f, 0.0f, 0.0f, false);
@@ -648,7 +648,7 @@ public class EquipmentFactory {
         a.SetISDates( 0, 0, false, 3061, 0, 0, false, false );
         a.SetISFactions( "", "", "LA", "" );
         a.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new PhysicalWeapon( "Mace", "Mace", "ISMace", m, a );
+        addPW = new PhysicalWeapon( "Mace", "Mace", "Mace", m, a );
         addPW.SetStats(0.1f, 0.1f, 0.0f, 0);
         addPW.SetDamage(0.25f, 0);
         addPW.SetSpecials("PA", "-", 0.0f, 130000.0f, 1.0f, 0.0f, 0.0f, false);
@@ -703,7 +703,7 @@ public class EquipmentFactory {
         a.SetISDates( 0, 0, false, 3051, 0, 0, false, false );
         a.SetISFactions( "", "", "FC", "" );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new PhysicalWeapon( "Spikes", "Spikes", "ISSpikes", m, a );
+        addPW = new PhysicalWeapon( "Spikes", "Spikes", "Spikes", m, a );
         addPW.SetStats(0.0f, 0.0f, 0.5f, 1);
         addPW.SetDamage(0.0f, 2);
         addPW.SetSpecials("PA", "PB", 50.0f, 0.0f, 0.0f, 0.0f, 4.0f, false);

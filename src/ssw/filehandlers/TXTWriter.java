@@ -865,6 +865,9 @@ public class TXTWriter {
         if (text.length() <= len)
             return new String [] {text};
 
+        // before the wrapping, replace any special characters
+        text = text.replace( "\t", "    " );
+
         char [] chars = text.toCharArray();
         Vector lines = new Vector();
         StringBuffer line = new StringBuffer();

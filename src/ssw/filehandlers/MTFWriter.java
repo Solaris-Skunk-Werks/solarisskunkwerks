@@ -359,8 +359,15 @@ public class MTFWriter {
             }
         }
         String retval = p.GetMMName( p.IsMountedRear() );
-        if( ! p.CoreComponent() ) {
-            if( ( ! retval.contains( "IS" ) ) && ( ! retval.contains( "CL" ) ) && ( ! retval.contains( "Clan" ) ) ) {
+        // check for some specific named instances.
+        if( retval.contains( "Searchlight" ) ) {
+            // do nothing here
+        } else if( retval.contains( "ImprovedJump Jet" ) ) {
+            retval = Prepend + retval;
+        } else if( ! p.CoreComponent() ) {
+            if( p instanceof PhysicalWeapon || p instanceof IndustrialPhysicalWeapon ) {
+                // do nothing here
+            } else if( ( ! retval.contains( "IS" ) ) && ( ! retval.contains( "CL" ) ) && ( ! retval.contains( "Clan" ) ) ) {
                 retval = Prepend + retval;
             }
         }

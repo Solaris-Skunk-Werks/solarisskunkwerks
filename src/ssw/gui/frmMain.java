@@ -12927,7 +12927,7 @@ public void LoadMechIntoGUI() {
     }
     lblFluffImage.setIcon( newFluffImage );
 
-    edtOverview.setText( FileCommon.FormatFluffHTML( CurMech.GetOverview() ) );
+    edtOverview.setText( CurMech.GetOverview() );
     edtCapabilities.setText( CurMech.GetCapabilities() );
     edtHistory.setText( CurMech.GetHistory() );
     edtDeployment.setText( CurMech.GetDeployment() );

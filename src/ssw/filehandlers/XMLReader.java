@@ -1306,7 +1306,8 @@ public class XMLReader {
                 insulated = true;
             }
             if( name.contains( "Variable Speed Laser" ) ) {
-                name.replace( "Variable Speed Laser", "Variable Speed Pulse Laser" );
+                name = name.replace( "Variable Speed Laser", "Variable Speed Pulse Laser" );
+                System.out.println( name );
             }
             retval = data.GetEquipment().GetRangedWeaponByName( name, m );
             if( retval == null ) {

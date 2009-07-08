@@ -63,7 +63,7 @@ public class Talons extends PhysicalWeapon {
 
     @Override
     public String GetMMName(boolean UseRear) {
-        return "CLTalons";
+        return "Talons";
     }
 
     @Override
