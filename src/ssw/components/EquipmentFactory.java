@@ -431,6 +431,25 @@ public class EquipmentFactory {
         return null;
     }
 
+    public abPlaceable GetByName( String name, Mech m ) {
+        // This is a catch-all for certain parts of the program, especially for
+        // things like the HMPReader and MTFReader
+
+        // because the ammo table will inevitably be bigger than anything else
+        if( name.contains( "@" ) ) {
+            return GetAmmoByName( name, m );
+        } else {
+            // check the other tables
+            abPlaceable retval = null;
+            retval = GetRangedWeaponByName( name, m );
+            if( retval != null ) { return retval; }
+            retval = GetEquipmentByName( name, m );
+            if( retval != null ) { return retval; }
+            retval = GetPhysicalWeaponByName( name, m );
+            return retval;
+        }
+    }
+
     public void BuildMGArrays() {
         abPlaceable addBW;
         MGArray addMGA;

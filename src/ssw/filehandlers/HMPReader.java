@@ -38,10 +38,12 @@ import java.util.Hashtable;
 import java.util.Vector;
 import ssw.Constants;
 import ssw.components.AvailableCode;
+import ssw.components.DataFactory;
 import ssw.components.HeatSink;
 import ssw.components.JumpJet;
 import ssw.components.LocationIndex;
 import ssw.components.Mech;
+import ssw.components.abPlaceable;
 import ssw.visitors.ifVisitor;
 
 public class HMPReader {
@@ -55,8 +57,12 @@ public class HMPReader {
         BuildHash();
     }
 
-    public Vector GetCurrentErrors() {
-        return Errors;
+    public String GetErrors() {
+        String retval = "";
+        for( int i = 0; i < Errors.size(); i++ ) {
+            retval += ((ErrorReport) Errors.get( i )).GetErrorReport() + "\n\n";
+        }
+        return retval;
     }
 
     public Mech GetMech( String filename ) throws Exception {
@@ -440,8 +446,14 @@ public class HMPReader {
 
         // non printing notes
         // could probably put these in Additional, but I'm not sure of the file format.
-        FR.skipBytes(readUnsignedShort(FR));
-        FR.skipBytes(readUnsignedShort(FR));
+        buffer = new byte[readUnsignedShort(FR)];
+        FR.read(buffer);
+        Fluff = new String(buffer);
+
+        buffer = new byte[readUnsignedShort(FR)];
+        FR.read(buffer);
+        Fluff += "\n" + new String(buffer);
+        m.SetAdditional( Fluff );
 
         FR.skipBytes(8); // mechs with supercharger have an 01 in here, but we can identify from the criticals  // Sounds good, MM dudes.
 
@@ -532,10 +544,10 @@ public class HMPReader {
             m.GetActuators().RemoveLeftLowerArm();
         }
         if( Criticals[Constants.LOC_RA][3] != 0x04 ) {
-            m.GetActuators().RemoveRightLowerArm();
+            m.GetActuators().RemoveRightHand();
         }
         if( Criticals[Constants.LOC_RA][2] != 0x03 ) {
-            m.GetActuators().RemoveRightHand();
+            m.GetActuators().RemoveRightLowerArm();
         }
 
         // we need a special check here for Stealth armor, since you can move the
@@ -617,12 +629,6 @@ public class HMPReader {
         m.GetArmor().SetArmor( Constants.LOC_LTR, Armor[Constants.LOC_LTR] );
         m.GetArmor().SetArmor( Constants.LOC_RTR, Armor[Constants.LOC_RTR] );
 
-        BuildEquipment( m, WeaponArray, Criticals, IntStrucTechBase );
-
-        return m;
-    }
-
-    private void BuildEquipment( Mech m, int[][] weapons, long[][] crits, int basetech ) throws Exception {
         // first, let's find all the instances of base chassis items.  Structure first
         if( m.GetIntStruc().NumCrits() > 0 ) {
             // since the only structure that HMP has with more than 1 crit is
@@ -632,9 +638,9 @@ public class HMPReader {
             for( int i = 0; i < 8; i++ ) {
                 for( int j = 0; j < 12; j++ ) {
                     // for every instance of Endo-Steel, mark the location
-                    if( crits[i][j] == test ) {
+                    if( Criticals[i][j] == test ) {
                         ISLocs.add( new LocationIndex( j, i, 1 ) );
-                        crits[i][j] = 0x00;
+                        Criticals[i][j] = 0x00;
                     }
                 }
             }
@@ -648,27 +654,27 @@ public class HMPReader {
         // armor next
         if( m.GetArmor().NumCrits() > 0 &! m.GetArmor().IsStealth() ) {
             // find out what kind of armor we have.
-            long ArmorType = 0;
+            long ArmorNum = 0;
             String test = m.GetArmor().GetLookupName();
             if( test.equals( "Ferro-Fibrous" ) ) {
-                ArmorType = 0x15;
+                ArmorNum = 0x15;
             } else if( test.equals( "Reactive Armor" ) ) {
-                ArmorType = 0x1c;
+                ArmorNum = 0x1c;
             } else if( test.equals( "Laser-Reflective" ) ) {
-                ArmorType = 0x1d;
+                ArmorNum = 0x1d;
             } else if( test.equals( "Light Ferro-Fibrous" ) ) {
-                ArmorType = 0x21;
+                ArmorNum = 0x21;
             } else if( test.equals( "Heavy Ferro-Fibrous" ) ) {
-                ArmorType = 0x23;
+                ArmorNum = 0x23;
             }
-            if( ArmorType == 0 ) { throw new Exception( "An armor type with critical spaces was specified but we can't find where to put them.\nLoading aborted." ); }
+            if( ArmorNum == 0 ) { throw new Exception( "An armor type with critical spaces was specified but we can't find where to put them.\nLoading aborted." ); }
             Vector ARLocs = new Vector();
             for( int i = 0; i < 8; i++ ) {
                 for( int j = 0; j < 12; j++ ) {
                     // for every instance of Endo-Steel, mark the location
-                    if( crits[i][j] == ArmorType ) {
+                    if( Criticals[i][j] == ArmorNum ) {
                         ARLocs.add( new LocationIndex( j, i, 1 ) );
-                        crits[i][j] = 0x00;
+                        Criticals[i][j] = 0x00;
                     }
                 }
             }
@@ -686,13 +692,10 @@ public class HMPReader {
             boolean improved = m.GetJumpJets().IsImproved();
             for( int i = 0; i < 8; i++ ) {
                 for( int j = 0; j < 12; j++ ) {
-                    if( crits[i][j] == test ) {
+                    if( Criticals[i][j] == test ) {
                         JJLocs.add( new LocationIndex( j, i, 1 ) );
-                        crits[i][j] = 0x00;
-                        if( improved ) {
-                            j++;
-                            crits[i][j] = 0x00;
-                        }
+                        Criticals[i][j] = 0x00;
+                        if( improved ) { j++; Criticals[i][j] = 0x00; }
                     }
                 }
             }
@@ -710,7 +713,7 @@ public class HMPReader {
 
         // heat sinks next
         if( m.GetHeatSinks().GetPlacedHeatSinks().length > 0 ) {
-            long test = 0x0B;
+            long test = 0x00;
             int size = 0;
             if( m.GetHeatSinks().IsDouble() ) {
                 test = 0x0A;
@@ -725,13 +728,13 @@ public class HMPReader {
             Vector HSLocs = new Vector();
             for( int i = 0; i < 8; i++ ) {
                 for( int j = 0; j < 12; j++ ) {
-                    if( crits[i][j] == test ) {
+                    if( Criticals[i][j] == test ) {
                         HSLocs.add( new LocationIndex( j, i, 1 ) );
-                        crits[i][j] = 0x00;
-                        if( j > 0 ) {
-                            crits[i][j+1] = 0x00;
-                            if( j > 1 ) {
-                                crits[i][j+2] = 0x00;
+                        Criticals[i][j] = 0x00;
+                        if( size > 0 ) {
+                            Criticals[i][j+1] = 0x00;
+                            if( size > 1 ) {
+                                Criticals[i][j+2] = 0x00;
                             }
                         }
                         j += size;
@@ -757,10 +760,10 @@ public class HMPReader {
                 boolean found = false;
                 for( int i = 0; i < 8; i ++ ) {
                     for( int j = 0; j < 12; j++ ) {
-                        if( crits[i][j] == test ) {
+                        if( Criticals[i][j] == test ) {
                             m.GetLoadout().AddTo( m.GetPhysEnhance(), i, j );
                             for( int x = j; x < m.GetPhysEnhance().NumCrits() + j; x++ ) {
-                                crits[i][x] = 0x00;
+                                Criticals[i][x] = 0x00;
                             }
                             found = true;
                             break;
@@ -769,13 +772,13 @@ public class HMPReader {
                     if( found ) { break; }
                 }
             } else {
-                test = 0x16; // TSM (of either sort, apparently
+                test = 0x16; // TSM (of either sort, apparently)
                 Vector TSMLocs = new Vector();
                 for( int i = 0; i < 8; i++ ) {
                     for( int j = 0; j < 12; j++ ) {
-                        if( crits[i][j] == test ) {
+                        if( Criticals[i][j] == test ) {
                             TSMLocs.add( new LocationIndex( j, i, 1 ) );
-                            crits[i][j] = 0x00;
+                            Criticals[i][j] = 0x00;
                         }
                     }
                 }
@@ -789,70 +792,191 @@ public class HMPReader {
             }
         }
 
+        // figure out if we have any CASE crits to handle
+        for( int i = 0; i < 8; i++ ) {
+            for( int j = 0; j < 12; j++ ) {
+                if( Criticals[i][j] == 0x19 ) {
+                    // IS CASE
+                    switch( i ) {
+                        case Constants.LOC_CT:
+                            m.GetLoadout().SetCTCASE( true, j );
+                            break;
+                        case Constants.LOC_LT:
+                            m.GetLoadout().SetLTCASE( true, j );
+                            break;
+                        case Constants.LOC_RT:
+                            m.GetLoadout().SetRTCASE( true, j );
+                            break;
+                        default:
+                            Errors.add( new ErrorReport( "Inner Sphere CASE was specified for the " + Constants.Locs[i] + "\nThis is not allowed and the item will not be added." ) );
+                            break;
+                    }
+                }
+                if( Criticals[i][j] == 0x26 ) {
+                    // CASE II
+                    switch( i ) {
+                        case Constants.LOC_HD:
+                            m.GetLoadout().SetHDCASEII( true, j, false );
+                            break;
+                        case Constants.LOC_CT:
+                            m.GetLoadout().SetCTCASEII( true, j, false );
+                            break;
+                        case Constants.LOC_LT:
+                            m.GetLoadout().SetLTCASEII( true, j, false );
+                            break;
+                        case Constants.LOC_RT:
+                            m.GetLoadout().SetRTCASEII( true, j, false );
+                            break;
+                        case Constants.LOC_LA:
+                            m.GetLoadout().SetLACASEII( true, j, false );
+                            break;
+                        case Constants.LOC_RA:
+                            m.GetLoadout().SetRACASEII( true, j, false );
+                            break;
+                        case Constants.LOC_LL:
+                            m.GetLoadout().SetLLCASEII( true, j, false );
+                            break;
+                        case Constants.LOC_RL:
+                            m.GetLoadout().SetRLCASEII( true, j, false );
+                            break;
+                        default:
+                            Errors.add( new ErrorReport( "CASE II was specified for an invalid location.\nThe item will not be added." ) );
+                            break;
+                    }
+                }
+            }
+        }
+
+        // see if we have a targeting computer
+        int TCLoc = -1;
+        int TCIdx = -1;
+        boolean HasTC = false;
+        for( int i = 0; i < 8; i++ ) {
+            for( int j = 0; j < 8; j++ ) {
+                if( Criticals[i][j] == 0x12 ) {
+                    // found the start location.
+                    TCLoc = i;
+                    TCIdx = j;
+                    HasTC = true;
+                    break;
+                }
+            }
+            if( HasTC ) { break; }
+        }
+
+        // do we have Missile FCS
+        boolean HasFCS = false;
+        for( int i = 0; i < 8; i++ ) {
+            for( int j = 0; j < 8; j++ ) {
+                if( Criticals[i][j] == 0x18 ) {
+                    m.GetLoadout().SetFCSArtemisIV( true );
+                    HasFCS = true;
+                    break;
+                }
+            }
+            if( HasFCS ) { break; }
+        }
+
+        // clear out all of the engine, gyro, cockpit, and actuator locations
+        // needed for later lookups since we don't load each critical slot
+        // independently, we do it per item
+        for( int i = 0; i < 8; i++ ) {
+            for( int j = 0; j < 12; j++ ) {
+                if( Criticals[i][j] > 0x00 && Criticals[i][j] < 0x11 || Criticals[i][j] == 0x12 || Criticals[i][j] == 0x18 || Criticals[i][j] == 0x19 || Criticals[i][j] == 0x26 ) {
+                    Criticals[i][j] = 0x00;
+                }
+            }
+        }
+
         // now for equipment.
         // get the secondary hash table for lookups
         Hashtable Other = null;
-        if( basetech == AvailableCode.TECH_CLAN ) {
+        if( IntStrucTechBase == AvailableCode.TECH_CLAN ) {
             Other = Clan;
         } else {
             Other = Sphere;
         }
         // now we get to fish through the loadout trying to figure out what
         // equipment this 'Mech has.
-        for( int i = 0; i < weapons.length; i++ ) {
-            
+        DataFactory df = new DataFactory( m );
+        for( int i = 0; i < 8; i++ ) {
+            for( int j = 0; j < 12; j++ ) {
+                if( Criticals[i][j] != 0x00 ) {
+                    // transform the lookup number.  we'll also find out if it was rear-mounted
+                    Long lookup = GetLookupNum( Criticals[i][j] );
+                    boolean rear = IsRearMounted( Criticals[i][j] );
+                    boolean found = true;
+
+                    // for each critical, we'll need to find the appropriate item
+                    // if we can't find it, create an error to let the user know
+                    String Name = Common.get( lookup );
+                    if( Name == null ) {
+                        Name = (String) Other.get( lookup );
+                        if( Name == null ) {
+                            found = false;
+                        }
+                    }
+
+                    if( found ) {
+                        // fetch the item from the database
+                        abPlaceable neweq = df.GetEquipment().GetByName( Name, m );
+                        if( neweq != null ) {
+                            // is the item splittable?
+                            if( neweq.CanSplit() ) {
+                                // if it is splittable, figure out how many criticals are here
+
+                                // next, figure out where the other criticals start and allocate
+                            } else {
+                                // easier.
+                                int size = neweq.NumCrits();
+                                m.GetLoadout().AddToQueue( neweq );
+                                m.GetLoadout().AddTo( neweq, i, j );
+                                Criticals[i][j] = 0x00;
+                                if( size > 1 ) {
+                                    // we'll need to clear out the rest of the
+                                    // criticals so we don't "find" this again
+                                    for( int k = 1; k < size; k++ ) {
+                                        Criticals[i][j + k] = 0x00;
+                                    }
+                                }
+                            }
+                        } else {
+                            Errors.add( new ErrorReport( lookup, Name ) );
+                        }
+                    } else {
+                        String name = Unused.get( lookup );
+                        if( name == null ) {
+                            Errors.add( new ErrorReport( "The equipment specified by HMP_REF: " + lookup + " could not be found.\nSkipping that item." ) );
+                        } else {
+                            Errors.add( new ErrorReport( name + "\nis unused by SSW or is not a valid piece of equipment.\nSkipping that item." ) );
+                        }
+                    }
+                }
+            }
         }
+
+        // do we have a targeting computer
+        if( HasTC ) {
+            boolean TCTB = false;
+            if( TCTechBase == AvailableCode.TECH_CLAN ) { TCTB = true; }
+            m.GetLoadout().UseTC( true, TCTB );
+            m.GetLoadout().AddTo( m.GetLoadout().GetTC(), TCLoc, TCIdx );
+        }
+
+        return m;
     }
 
     private void BuildHash() {
-        // actuators
-        // Common.put(new Long(0x00), "Empty");
-//        Common.put(new Long(0x01), "Shoulder");
-//        Common.put(new Long(0x02), "Upper Arm Actuator");
-//        Common.put(new Long(0x03), "Lower Arm Actuator");
-//        Common.put(new Long(0x04), "Hand Actuator");
-        // Common.put(new Long(0x05), "Hip");
-        // Common.put(new Long(0x06), "Upper Leg Actuator");
-        // Common.put(new Long(0x07), "Lower Leg Actuator");
-        // Common.put(new Long(0x08), "Foot Actuator");
-
-        // engine
-//        Common.put(new Long(0x0F), "Fusion Engine");
-
-        // internal structure
-//        Common.put(new Long(0x14), "Endo-Steel");
-
-        // armor
-//        Common.put(new Long(0x15), "Ferro-Fibrous");
-//        Common.put(new Long(0x1c), "Reactive Armor");
-//        Common.put(new Long(0x1d), "Laser-Reflective");
-//        Common.put(new Long(0x21), "Light Ferro-Fibrous");
-//        Common.put(new Long(0x22), "Heavy Ferro-Fibrous");
-//        Sphere.put(new Long(0x23), "Stealth Armor");
-
-        // heat sinks
-        // Common.put(new Long(0x09), "Heat Sink");
-        // Common.put(new Long(0x0A), "Double Heat Sink");
         Unused.put(new Long(0x25), "IS2 Compact Heat Sinks");
 
         // cockpit
-        Common.put(new Long(0x0C), "Life Support");
-        Common.put(new Long(0x0D), "Sensors");
-        Common.put(new Long(0x0E), "Cockpit");
-
-        // gyro, jump jets, and enhancements
-//        Common.put(new Long(0x0B), "Jump Jet");
-        // Common.put(new Long(0x10), "Gyro");
-//        Common.put(new Long(0x16), "TSM");
-//        Common.put(new Long(0x17), "MASC");
+//        Common.put(new Long(0x0C), "Life Support");
+//        Common.put(new Long(0x0D), "Sensors");
+//        Common.put(new Long(0x0E), "Cockpit");
 
         // targeting computers and FCS
-        Common.put(new Long(0x12), "Targeting Computer");
-        Common.put(new Long(0x18), "Artemis IV");
-
-        // CASE
-        Sphere.put(new Long(0x19), "CASE");
-        Common.put(new Long(0x26), "CASEII");
+//        Common.put(new Long(0x12), "Targeting Computer");
+//        Common.put(new Long(0x18), "Artemis IV");
 
         // specialty equipment
         Common.put(new Long(0x20), "Supercharger");
@@ -884,7 +1008,7 @@ public class HMPReader {
         Sphere.put(new Long(0xCB), "CLActiveProbe");
         Sphere.put(new Long(0x72), "ISAngelECMSuite");
         Sphere.put(new Long(0xB3), "CLAngelECMSuite");
-        Sphere.put(new Long(0x78), "ISGuardianECM");
+        Sphere.put(new Long(0x78), "Guardian ECM Suite");
         Sphere.put(new Long(0xCC), "CLECMSuite");
         Sphere.put(new Long(0x7A), "ISTAG");
         Sphere.put(new Long(0xCE), "CLTAG");
@@ -914,17 +1038,17 @@ public class HMPReader {
         Clan.put(new Long(0xC7), "ISImprovedC3CPU");
 
         // Energy Weapons
-        Common.put(new Long(0x128), "CLPlasmaRifle");
-        Sphere.put(new Long(0x33), "ISERLargeLaser");
-        Sphere.put(new Long(0x34), "ISERPPC");
-        Sphere.put(new Long(0x35), "ISFlamer");
-        Sphere.put(new Long(0x37), "ISLargeLaser");
-        Sphere.put(new Long(0x38), "ISMediumLaser");
-        Sphere.put(new Long(0x39), "ISSmallLaser");
-        Sphere.put(new Long(0x3A), "ISPPC");
-        Sphere.put(new Long(0x3B), "ISLargePulseLaser");
-        Sphere.put(new Long(0x3C), "ISMediumPulseLaser");
-        Sphere.put(new Long(0x3D), "ISSmallPulseLaser");
+        Unused.put(new Long(0x128), "CLPlasmaRifle");
+        Sphere.put(new Long(0x33), "(IS) ER Large Laser");
+        Sphere.put(new Long(0x34), "(IS) ER PPC");
+        Sphere.put(new Long(0x35), "(IS) Flamer");
+        Sphere.put(new Long(0x37), "(IS) Large Laser");
+        Sphere.put(new Long(0x38), "(IS) Medium Laser");
+        Sphere.put(new Long(0x39), "(IS) Small Laser");
+        Sphere.put(new Long(0x3A), "(IS) PPC");
+        Sphere.put(new Long(0x3B), "(IS) Large Pulse Laser");
+        Sphere.put(new Long(0x3C), "(IS) Medium Pulse Laser");
+        Sphere.put(new Long(0x3D), "(IS) Small Pulse Laser");
         Sphere.put(new Long(0x48), "ISLargeXPulseLaser");
         Sphere.put(new Long(0x49), "ISMediumXPulseLaser");
         Sphere.put(new Long(0x4A), "ISSmallXPulseLaser");
@@ -932,12 +1056,12 @@ public class HMPReader {
         Sphere.put(new Long(0x53), "ISPPCCapacitor"); // HMP uses this code for ERPPC
         Sphere.put(new Long(0x58), "CLERMicroLaser");
         Sphere.put(new Long(0x59), "ISPPCCapacitor"); // HMP uses this code for standard PPC
-        Sphere.put(new Long(0x5A), "ISERMediumLaser");
-        Sphere.put(new Long(0x5B), "ISERSmallLaser");
+        Sphere.put(new Long(0x5A), "(IS) ER Medium Laser");
+        Sphere.put(new Long(0x5B), "(IS) ER Small Laser");
         Sphere.put(new Long(0x85), "ISVehicleFlamer");
-        Sphere.put(new Long(0xA7), "CLERLargeLaser");
-        Sphere.put(new Long(0xA8), "CLERMediumLaser");
-        Sphere.put(new Long(0xA9), "CLERSmallLaser");
+        Sphere.put(new Long(0xA7), "(CL) ER Large Laser");
+        Sphere.put(new Long(0xA8), "(CL) ER Medium Laser");
+        Sphere.put(new Long(0xA9), "(CL) ER Small Laser");
         Sphere.put(new Long(0xAA), "CLERPPC");
         Sphere.put(new Long(0xAB), "CLFlamer");
         Sphere.put(new Long(0xB0), "CLLargePulseLaser");
@@ -946,11 +1070,12 @@ public class HMPReader {
         Sphere.put(new Long(0xF4), "CLHeavyLargeLaser");
         Sphere.put(new Long(0xF5), "CLHeavyMediumLaser");
         Sphere.put(new Long(0xF6), "CLHeavySmallLaser");
+        Sphere.put(new Long(0xDA), "CLVehicleFlamer");
         Clan.put(new Long(0x33), "CLERLargeLaser");
         Clan.put(new Long(0x34), "CLERMediumLaser");
         Clan.put(new Long(0x35), "CLERSmallLaser");
-        Clan.put(new Long(0x36), "CLERPPC");
-        Clan.put(new Long(0x37), "CLFlamer");
+        Clan.put(new Long(0x36), "(CL) ER PPC");
+        Clan.put(new Long(0x37), "(CL) Flamer");
         Clan.put(new Long(0x38), "CLERLargePulseLaser");
         Clan.put(new Long(0x39), "CLERMediumPulseLaser");
         Clan.put(new Long(0x3A), "CLERSmallPulseLaser");
@@ -962,36 +1087,35 @@ public class HMPReader {
         Clan.put(new Long(0x80), "CLHeavyLargeLaser");
         Clan.put(new Long(0x81), "CLHeavyMediumLaser");
         Clan.put(new Long(0x82), "CLHeavySmallLaser");
-        Clan.put(new Long(0x83), "ISERLargeLaser");
-        Clan.put(new Long(0x84), "ISERPPC");
-        Clan.put(new Long(0x85), "ISFlamer");
-        Clan.put(new Long(0x87), "ISLargeLaser");
-        Clan.put(new Long(0x88), "ISMediumLaser");
-        Clan.put(new Long(0x89), "ISSmallLaser");
-        Clan.put(new Long(0x8A), "ISPPC");
-        Clan.put(new Long(0x8B), "ISLargePulseLaser");
-        Clan.put(new Long(0x8C), "ISMediumPulseLaser");
-        Clan.put(new Long(0x8D), "ISSmallPulseLaser");
+        Clan.put(new Long(0x83), "(IS) ER Large Laser");
+        Clan.put(new Long(0x84), "(IS) ER PPC");
+        Clan.put(new Long(0x85), "(IS) Flamer");
+        Clan.put(new Long(0x87), "(IS) Large Laser");
+        Clan.put(new Long(0x88), "(IS) Medium Laser");
+        Clan.put(new Long(0x89), "(IS) Small Laser");
+        Clan.put(new Long(0x8A), "(IS) PPC");
+        Clan.put(new Long(0x8B), "(IS) Large Pulse Laser");
+        Clan.put(new Long(0x8C), "(IS) Medium Pulse Laser");
+        Clan.put(new Long(0x8D), "(IS) Small Pulse Laser");
         Clan.put(new Long(0x98), "ISLargeXPulseLaser");
         Clan.put(new Long(0x99), "ISMediumXPulseLaser");
         Clan.put(new Long(0x9A), "ISSmallXPulseLaser");
         Clan.put(new Long(0xA3), "ISPPCCapacitor"); // HMP uses this code for ERPPC
         Clan.put(new Long(0xA8), "CLMicroPulseLaser");
         Clan.put(new Long(0xA9), "ISPPCCapacitor"); // HMP uses this code for PPC
-        Clan.put(new Long(0xAA), "ISERMediumLaser");
-        Clan.put(new Long(0xAB), "ISERSmallLaser");
+        Clan.put(new Long(0xAA), "(IS) ER Medium Laser");
+        Clan.put(new Long(0xAB), "(IS) ER Small Laser");
         Clan.put(new Long(0xD5), "ISVehicleFlamer");
-        Sphere.put(new Long(0xDA), "CLVehicleFlamer");
 
         // Ballistics
         Common.put(new Long(0x121), "ISRotaryAC2");
         Common.put(new Long(0x122), "ISRotaryAC5");
         Common.put(new Long(0x124), "CLRotaryAC2");
         Common.put(new Long(0x125), "CLRotaryAC5");
-        Sphere.put(new Long(0x3E), "ISAC2");
-        Sphere.put(new Long(0x3F), "ISAC5");
-        Sphere.put(new Long(0x40), "ISAC10");
-        Sphere.put(new Long(0x41), "ISAC20");
+        Sphere.put(new Long(0x3E), "(IS) Autocannon/2");
+        Sphere.put(new Long(0x3F), "(IS) Autocannon/5");
+        Sphere.put(new Long(0x40), "(IS) Autocannon/10");
+        Sphere.put(new Long(0x41), "(IS) Autocannon/20");
         Sphere.put(new Long(0x43), "Long Tom Cannon");
         Sphere.put(new Long(0x44), "Sniper Cannon");
         Sphere.put(new Long(0x45), "Thumper Cannon");
@@ -1062,16 +1186,16 @@ public class HMPReader {
         Common.put(new Long(0x129), "ISRocketLauncher10");
         Common.put(new Long(0x12A), "ISRocketLauncher15");
         Common.put(new Long(0x12B), "ISRocketLauncher20");
-        Sphere.put(new Long(0x60), "ISLRM5");
-        Sphere.put(new Long(0x61), "ISLRM10");
-        Sphere.put(new Long(0x62), "ISLRM15");
-        Sphere.put(new Long(0x63), "ISLRM20");
-        Sphere.put(new Long(0x67), "ISSRM2");
-        Sphere.put(new Long(0x68), "ISSRM4");
-        Sphere.put(new Long(0x69), "ISSRM6");
-        Sphere.put(new Long(0x6A), "ISStreakSRM2");
-        Sphere.put(new Long(0x6B), "ISStreakSRM4");
-        Sphere.put(new Long(0x6C), "ISStreakSRM6");
+        Sphere.put(new Long(0x60), "(IS) LRM-5");
+        Sphere.put(new Long(0x61), "(IS) LRM-10");
+        Sphere.put(new Long(0x62), "(IS) LRM-15");
+        Sphere.put(new Long(0x63), "(IS) LRM-20");
+        Sphere.put(new Long(0x67), "(IS) SRM-2");
+        Sphere.put(new Long(0x68), "(IS) SRM-4");
+        Sphere.put(new Long(0x69), "(IS) SRM-6");
+        Sphere.put(new Long(0x6A), "(IS) Streak SRM-2");
+        Sphere.put(new Long(0x6B), "(IS) Streak SRM-4");
+        Sphere.put(new Long(0x6C), "(IS) Streak SRM-6");
         Sphere.put(new Long(0x89), "ISMRM10");
         Sphere.put(new Long(0x8A), "ISMRM20");
         Sphere.put(new Long(0x8B), "ISMRM30");
@@ -1292,10 +1416,10 @@ public class HMPReader {
         Common.put(new Long(0x100000298L), "ISLBXAC2 Ammo (THB)");
         Common.put(new Long(0x100000299L), "ISLBXAC5 Ammo (THB)");
         Common.put(new Long(0x10000029AL), "ISLBXAC20 Ammo (THB)");
-        Sphere.put(new Long(0x01CE), "ISAC2 Ammo");
-        Sphere.put(new Long(0x01CF), "ISAC5 Ammo");
-        Sphere.put(new Long(0x01D0), "ISAC10 Ammo");
-        Sphere.put(new Long(0x01d1), "ISAC20 Ammo");
+        Sphere.put(new Long(0x01CE), "(IS) @ AC/2");
+        Sphere.put(new Long(0x01CF), "(IS) @ AC/5");
+        Sphere.put(new Long(0x01D0), "(IS) @ AC/10");
+        Sphere.put(new Long(0x01d1), "(IS) @ AC/20");
         Sphere.put(new Long(0x01d2), "ISAMS Ammo");
         Sphere.put(new Long(0x01d3), "Long Tom Cannon Ammo");
         Sphere.put(new Long(0x01d4), "Sniper Cannon Ammo");
@@ -1316,17 +1440,17 @@ public class HMPReader {
         Sphere.put(new Long(0x01e7), "ISUltraAC20 Ammo");
         Sphere.put(new Long(0x01EE), "CLLightMG Ammo");
         Sphere.put(new Long(0x01EF), "CLHeavyMG Ammo");
-        Sphere.put(new Long(0x01f0), "ISLRM5 Ammo");
-        Sphere.put(new Long(0x01f1), "ISLRM10 Ammo");
-        Sphere.put(new Long(0x01f2), "ISLRM15 Ammo");
-        Sphere.put(new Long(0x01f3), "ISLRM20 Ammo");
+        Sphere.put(new Long(0x01f0), "(IS) @ LRM-5");
+        Sphere.put(new Long(0x01f1), "(IS) @ LRM-10");
+        Sphere.put(new Long(0x01f2), "(IS) @ LRM-15");
+        Sphere.put(new Long(0x01f3), "(IS) @ LRM-20");
         Sphere.put(new Long(0x01f6), "ISiNarc Pods");
-        Sphere.put(new Long(0x01f7), "ISSRM2 Ammo");
-        Sphere.put(new Long(0x01f8), "ISSRM4 Ammo");
-        Sphere.put(new Long(0x01f9), "ISSRM6 Ammo");
-        Sphere.put(new Long(0x01fa), "ISStreakSRM2 Ammo");
-        Sphere.put(new Long(0x01fb), "ISStreakSRM4 Ammo");
-        Sphere.put(new Long(0x01FC), "ISStreakSRM6 Ammo");
+        Sphere.put(new Long(0x01f7), "@ SRM-2");
+        Sphere.put(new Long(0x01f8), "@ SRM-4");
+        Sphere.put(new Long(0x01f9), "@ SRM-6");
+        Sphere.put(new Long(0x01fa), "(IS) @ Streak SRM-2");
+        Sphere.put(new Long(0x01fb), "(IS) @ Streak SRM-4");
+        Sphere.put(new Long(0x01FC), "(IS) @ Streak SRM-6");
         Sphere.put(new Long(0x01FD), "Thunderbolt-5 Ammo");
         Sphere.put(new Long(0x01FE), "Thunderbolt-10 Ammo");
         Sphere.put(new Long(0x01FF), "Thunderbolt-15 Ammo");
@@ -1649,6 +1773,17 @@ public class HMPReader {
         b1 <<= 32;
 
         return b1 + b2 + b3 + b4;
+    }
+
+    private boolean IsRearMounted( long critical ) {
+        return ( critical & 0xFFFF0000 ) != 0;
+    }
+
+    private Long GetLookupNum( long l ) {
+        // According to HMPFile.java, this will return the actual lookup number.
+        // the first two bytes of the critical location number are the type.
+        Long retval = new Long( l & 0xFFFF );
+        return retval;
     }
 
     private String BuildLookupName( String name, int mechbase, int techbase ) {

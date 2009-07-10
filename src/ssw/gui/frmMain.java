@@ -29,7 +29,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.gui;
 
 import java.awt.Color;
-import ssw.printpreview.PreviewDialog;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -93,7 +92,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     boolean Load = false;
     private Cursor Hourglass = new Cursor( Cursor.WAIT_CURSOR );
     private Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
-    ImageIcon FluffImage = Utils.createImageIcon( Constants.NO_IMAGE );
+    // ImageIcon FluffImage = Utils.createImageIcon( Constants.NO_IMAGE );
     public DataFactory data;
 
     private dlgPrintBatchMechs BatchWindow = null;
@@ -13736,9 +13735,11 @@ private void mnuImportHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         return;
     }
 
+    String Messages = "";
     try {
         HMPReader HMPr = new HMPReader();
         m = HMPr.GetMech( filename );
+        Messages = HMPr.GetErrors();
     } catch( Exception e ) {
         // had a problem loading the mech.  let the user know.
         if( e.getMessage() == null ) {
@@ -13748,6 +13749,12 @@ private void mnuImportHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
         }
         return;
+    }
+
+    if( Messages.length() > 0 ) {
+        dlgTextExport msgs = new dlgTextExport( this, false, Messages );
+        msgs.setLocationRelativeTo( this );
+        msgs.setVisible( true );
     }
 
     CurMech = m;
