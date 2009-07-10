@@ -3810,6 +3810,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuNewMech = new javax.swing.JMenuItem();
         mnuLoad = new javax.swing.JMenuItem();
         mnuOpen = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        mnuImportHMP = new javax.swing.JMenuItem();
         jSeparator16 = new javax.swing.JSeparator();
         mnuSave = new javax.swing.JMenuItem();
         mnuSaveAs = new javax.swing.JMenuItem();
@@ -9594,6 +9596,18 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         mnuFile.add(mnuOpen);
+
+        jMenu3.setText("Import Mech...");
+
+        mnuImportHMP.setText("from Heavy Metal Pro (HMP)");
+        mnuImportHMP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuImportHMPActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mnuImportHMP);
+
+        mnuFile.add(jMenu3);
         mnuFile.add(jSeparator16);
 
         mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
@@ -13673,6 +13687,74 @@ private void lstSelectedEquipmentKeyPressed(java.awt.event.KeyEvent evt) {//GEN-
     }
 }//GEN-LAST:event_lstSelectedEquipmentKeyPressed
 
+private void mnuImportHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuImportHMPActionPerformed
+    if( CurMech.HasChanged() ) {
+        int choice = javax.swing.JOptionPane.showConfirmDialog( this,
+            "The current 'Mech has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION );
+        if( choice == 1 ) { return; }
+    }
+
+    // Get the mech we're loading
+    Mech m = null;
+
+    File tempFile = new File( Prefs.get( "LastOpenDirectory", "" ) );
+    JFileChooser fc = new JFileChooser();
+    fc.addChoosableFileFilter( new javax.swing.filechooser.FileFilter() {
+        public boolean accept( File f ) {
+            if (f.isDirectory()) {
+                return true;
+            }
+
+            String extension = Utils.getExtension( f );
+            if ( extension != null ) {
+                if ( extension.equals( "hmp" ) ) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        //The description of this filter
+        public String getDescription() {
+            return "*.hmp";
+        }
+    } );
+    fc.setAcceptAllFileFilterUsed( false );
+    fc.setCurrentDirectory( tempFile );
+    int returnVal = fc.showDialog( this, "Import HMP File" );
+    if( returnVal != JFileChooser.APPROVE_OPTION ) { return; }
+    File loadmech = fc.getSelectedFile();
+    String filename = "";
+    try {
+        filename = loadmech.getCanonicalPath();
+        Prefs.put("LastOpenDirectory", loadmech.getCanonicalPath().replace(loadmech.getName(), ""));
+        Prefs.put("LastOpenFile", loadmech.getName());
+    } catch( Exception e ) {
+        javax.swing.JOptionPane.showMessageDialog( this, "There was a problem opening the file:\n" + e.getMessage() );
+        return;
+    }
+
+    try {
+        HMPReader HMPr = new HMPReader();
+        m = HMPr.GetMech( filename );
+    } catch( Exception e ) {
+        // had a problem loading the mech.  let the user know.
+        if( e.getMessage() == null ) {
+            javax.swing.JOptionPane.showMessageDialog( this, "An unknown error has occured.  The log file has been updated." );
+            e.printStackTrace();
+        } else {
+            javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        }
+        return;
+    }
+
+    CurMech = m;
+    LoadMechIntoGUI();
+    CurMech.SetChanged( false );
+}//GEN-LAST:event_mnuImportHMPActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -13853,6 +13935,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -14051,6 +14134,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JMenuItem mnuExportTXT;
     private javax.swing.JMenu mnuFile;
     private javax.swing.JMenu mnuHelp;
+    private javax.swing.JMenuItem mnuImportHMP;
     private javax.swing.JMenuItem mnuLoad;
     private javax.swing.JMenuBar mnuMainMenu;
     private javax.swing.JMenuItem mnuNewMech;
