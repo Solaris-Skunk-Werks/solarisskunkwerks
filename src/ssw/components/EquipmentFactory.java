@@ -1060,7 +1060,7 @@ public class EquipmentFactory {
         addEQ.SetMegaMekName("CLLaserAntiMissileSystem");
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(5);
-        addEQ.SetStats(2, 1.0f, 225000.0f, 0.0f, 45.0f, "-");
+        addEQ.SetStats(1, 1.0f, 225000.0f, 0.0f, 45.0f, "-");
         addEQ.SetMountableRear(true);
         Equipment.add(addEQ);
 

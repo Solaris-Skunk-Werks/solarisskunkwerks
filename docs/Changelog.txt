@@ -23,6 +23,7 @@ Version 0.7.0
 - Added the ability to choose between Canon dots or not on the print dialog.
 - Added Availability Code to the print sheet
 - Rewrote the Print Preview dialog for easier viewing and included tons of print options for previewing.
+- Added the ability to import HMP files (UNSUPPORTED!)
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.

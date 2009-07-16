@@ -43,7 +43,9 @@ import ssw.components.HeatSink;
 import ssw.components.JumpJet;
 import ssw.components.LocationIndex;
 import ssw.components.Mech;
+import ssw.components.RangedWeapon;
 import ssw.components.abPlaceable;
+import ssw.components.ifMissileGuidance;
 import ssw.visitors.ifVisitor;
 
 public class HMPReader {
@@ -869,7 +871,7 @@ public class HMPReader {
         for( int i = 0; i < 8; i++ ) {
             for( int j = 0; j < 8; j++ ) {
                 if( Criticals[i][j] == 0x18 ) {
-                    m.GetLoadout().SetFCSArtemisIV( true );
+                    m.SetFCSArtemisIV( true );
                     HasFCS = true;
                     break;
                 }
@@ -919,16 +921,190 @@ public class HMPReader {
 
                     if( found ) {
                         // fetch the item from the database
+                        if( m.UsingArtemisIV() ) {
+                            if( Name.contains( "@ LRM" ) || Name.contains( "@ SRM" ) ) { Name += " (Artemis IV Capable)"; }
+                        }
                         abPlaceable neweq = df.GetEquipment().GetByName( Name, m );
                         if( neweq != null ) {
                             // is the item splittable?
                             if( neweq.CanSplit() ) {
                                 // if it is splittable, figure out how many criticals are here
-
-                                // next, figure out where the other criticals start and allocate
+                                int S1Index = j;
+                                int S1Num = 0;
+                                for( int k = j; k < 12; k++ ) {
+                                    if( ( Criticals[i][k] & 0x0000FFFF ) == ( 0x0000FFFF & lookup ) ) { S1Num++; }
+                                }
+                                // do we need to check adjacent locations?
+                                if( S1Num == neweq.NumCrits() ) {
+                                    // nope just allocate it
+                                    m.GetLoadout().AddToQueue( neweq );
+                                    m.GetLoadout().AddTo( neweq, i, S1Index );
+                                    Criticals[i][j] = 0x00;
+                                    if( neweq.NumCrits() > 1 ) {
+                                        // we'll need to clear out the rest of the
+                                        // criticals so we don't "find" this again
+                                        for( int k = 1; k < neweq.NumCrits(); k++ ) {
+                                            Criticals[i][j + k] = 0x00;
+                                        }
+                                    }
+                                } else {
+                                    // find the other criticals in an adjacent location
+                                    int SecondLoc = -1;
+                                    int ThirdLoc = -1;
+                                    int FourthLoc = -1;
+                                    switch( i ) {
+                                        case Constants.LOC_CT:
+                                            SecondLoc = Constants.LOC_LT;
+                                            ThirdLoc = Constants.LOC_RT;
+                                            break;
+                                        case Constants.LOC_LT:
+                                            SecondLoc = Constants.LOC_LA;
+                                            ThirdLoc = Constants.LOC_CT;
+                                            FourthLoc = Constants.LOC_LL;
+                                            break;
+                                        case Constants.LOC_RT:
+                                            SecondLoc = Constants.LOC_RA;
+                                            ThirdLoc = Constants.LOC_CT;
+                                            FourthLoc = Constants.LOC_RL;
+                                            break;
+                                        case Constants.LOC_LA:
+                                            SecondLoc = Constants.LOC_LT;
+                                            break;
+                                        case Constants.LOC_RA:
+                                            SecondLoc = Constants.LOC_RT;
+                                            break;
+                                        case Constants.LOC_LL:
+                                            SecondLoc = Constants.LOC_LT;
+                                            break;
+                                        case Constants.LOC_RL:
+                                            SecondLoc = Constants.LOC_RT;
+                                            break;
+                                    }
+                                    // how many locations do we have to check?
+                                    // this whole process is retarded.  Keeping the criticals in a series of arrays
+                                    // is so backwards...  How do you differentiate between two items of the same type?
+                                    // Suppose we'll just have to keep count before we annihalate the item in the Criticals...
+                                    int S2Num = 0;
+                                    int S2Index = -1;
+                                    int S2Loc = -1;
+                                    int NumLeft = neweq.NumCrits() - S1Num;
+                                    if( SecondLoc > 0 ) {
+                                        if( ThirdLoc > 0 ) {
+                                            if( FourthLoc > 0 ) {
+                                                // Check all three locations
+                                                for( int k = 0; k < 12; k++ ) {
+                                                    if( S2Index < 0 ) {
+                                                        if( ( Criticals[SecondLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                            S2Num++;
+                                                            S2Index = k;
+                                                            S2Loc = SecondLoc;
+                                                        }
+                                                    } else {
+                                                        if( ( Criticals[SecondLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                            S2Num++;
+                                                        }
+                                                    }
+                                                }
+                                                for( int k = 0; k < 12; k++ ) {
+                                                    if( S2Index < 0 ) {
+                                                        if( ( Criticals[ThirdLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                            S2Num++;
+                                                            S2Index = k;
+                                                            S2Loc = ThirdLoc;
+                                                        }
+                                                    } else {
+                                                        if( ( Criticals[ThirdLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                            S2Num++;
+                                                        }
+                                                    }
+                                                }
+                                                for( int k = 0; k < 12; k++ ) {
+                                                    if( S2Index < 0 ) {
+                                                        if( ( Criticals[FourthLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                            S2Num++;
+                                                            S2Index = k;
+                                                            S2Loc = FourthLoc;
+                                                        }
+                                                    } else {
+                                                        if( ( Criticals[FourthLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                            S2Num++;
+                                                        }
+                                                    }
+                                                }
+                                            } else {
+                                                // Check both locations
+                                                for( int k = 0; k < 12; k++ ) {
+                                                    if( S2Index < 0 ) {
+                                                        if( ( Criticals[SecondLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                            S2Num++;
+                                                            S2Index = k;
+                                                            S2Loc = SecondLoc;
+                                                        }
+                                                    } else {
+                                                        if( ( Criticals[SecondLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                            S2Num++;
+                                                        }
+                                                    }
+                                                }
+                                                for( int k = 0; k < 12; k++ ) {
+                                                    if( S2Index < 0 ) {
+                                                        if( ( Criticals[ThirdLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                            S2Num++;
+                                                            S2Index = k;
+                                                            S2Loc = ThirdLoc;
+                                                        }
+                                                    } else {
+                                                        if( ( Criticals[ThirdLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                            S2Num++;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        } else {
+                                            // check the other location
+                                            for( int k = 0; k < 12; k++ ) {
+                                                if( S2Index < 0 ) {
+                                                    if( ( Criticals[SecondLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                        S2Num++;
+                                                        S2Index = k;
+                                                        S2Loc = SecondLoc;
+                                                    }
+                                                } else {
+                                                    if( ( Criticals[SecondLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                        S2Num++;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if( S2Num < NumLeft ) {
+                                            // Specified but not enough crits to fit
+                                            Errors.add( new ErrorReport( Name + "\nHas too many crits to fit in the " + Constants.Locs[i] + "\n and we could not find another location for it.\nAdd and place the item normally." ) );
+                                        } else {
+                                            if( S2Num > NumLeft ) {
+                                                // we have another item.  This one goes on top, I guess.
+                                                S2Num = NumLeft;
+                                            }
+                                            // now we can allocate the stupid item
+                                            m.GetLoadout().AddToQueue( neweq );
+                                            m.GetLoadout().RemoveFromQueue( neweq );
+                                            m.GetLoadout().AddTo( m.GetLoadout().GetCrits( i ), neweq, S1Index, S1Num );
+                                            m.GetLoadout().AddTo( m.GetLoadout().GetCrits( S2Loc ), neweq, S2Index, S2Num );
+                                            // Clear out the old slots in the retarded criticals array
+                                            for( int k = S1Index; k < S1Index + S1Num; k++ ) {
+                                                Criticals[i][k] = 0x00;
+                                            }
+                                            for( int k = S2Index; k < S2Index + S2Num; k++ ) {
+                                                Criticals[S2Loc][k] = 0x00;
+                                            }
+                                        }
+                                    }
+                                }
                             } else {
                                 // easier.
                                 int size = neweq.NumCrits();
+                                if( m.UsingArtemisIV() && neweq instanceof RangedWeapon ) {
+                                    if( m.UsingArtemisIV() ) { ((RangedWeapon) neweq).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV ); }
+                                }
                                 m.GetLoadout().AddToQueue( neweq );
                                 m.GetLoadout().AddTo( neweq, i, j );
                                 Criticals[i][j] = 0x00;
@@ -996,49 +1172,49 @@ public class HMPReader {
         Sphere.put(new Long(0x1F), "Sword");
 
         // generic equipment
-        Sphere.put(new Long(0x36), "ISLaserAntiMissileSystem");
-        Sphere.put(new Long(0xAF), "CLLaserAntiMissileSystem");
-        Sphere.put(new Long(0x42), "ISAntiMissileSystem");
-        Sphere.put(new Long(0xB4), "CLAntiMissileSystem");
-        Sphere.put(new Long(0x5C), "ISAntiPersonnelPod");
-        Sphere.put(new Long(0xCA), "CLAntiPersonnelPod");
-        Sphere.put(new Long(0x64), "CLLightActiveProbe");
-        Sphere.put(new Long(0x73), "ISBeagleActiveProbe");
-        Sphere.put(new Long(0x74), "ISBloodhoundActiveProbe");
-        Sphere.put(new Long(0xCB), "CLActiveProbe");
-        Sphere.put(new Long(0x72), "ISAngelECMSuite");
-        Sphere.put(new Long(0xB3), "CLAngelECMSuite");
+        Sphere.put(new Long(0x36), "(IS) Laser Anti-Missile System");
+        Sphere.put(new Long(0xAF), "(CL) Laser Anti-Missile System");
+        Sphere.put(new Long(0x42), "(IS) Anti-Missile System");
+        Sphere.put(new Long(0xB4), "(CL) Anti-Missile System");
+        Sphere.put(new Long(0x5C), "A-Pod");
+        Sphere.put(new Long(0xCA), "A-Pod");
+        Sphere.put(new Long(0x64), "Light Active Probe");
+        Sphere.put(new Long(0x73), "Beagle Active Probe");
+        Sphere.put(new Long(0x74), "Bloodhound Active Probe");
+        Sphere.put(new Long(0xCB), "Active Probe");
+        Sphere.put(new Long(0x72), "Angel ECM");
+        Sphere.put(new Long(0xB3), "Angel ECM");
         Sphere.put(new Long(0x78), "Guardian ECM Suite");
-        Sphere.put(new Long(0xCC), "CLECMSuite");
-        Sphere.put(new Long(0x7A), "ISTAG");
-        Sphere.put(new Long(0xCE), "CLTAG");
-        Sphere.put(new Long(0x65), "CLLightTAG");
-        Sphere.put(new Long(0x75), "ISC3MasterComputer");
-        Sphere.put(new Long(0x76), "ISC3SlaveUnit");
-        Sphere.put(new Long(0x77), "ISImprovedC3CPU");
-        Clan.put(new Long(0x86), "ISLaserAMS");
-        Clan.put(new Long(0x3B), "CLLaserAMS");
-        Clan.put(new Long(0x92), "ISAntiMissileSystem");
-        Clan.put(new Long(0x40), "CLAntiMissileSystem");
-        Clan.put(new Long(0xAC), "ISAntiPersonnelPod");
-        Clan.put(new Long(0x56), "CLAntiPersonnelPod");
-        Clan.put(new Long(0x57), "CLActiveProbe");
-        Clan.put(new Long(0xAF), "CLLightActiveProbe");
-        Clan.put(new Long(0xC3), "ISBeagleActiveProbe");
-        Clan.put(new Long(0xC4), "ISBloodhoundActiveProbe");
-        Clan.put(new Long(0xC2), "ISAngelECMSuite");
-        Clan.put(new Long(0x3F), "CLAngelECMSuite");
-        Clan.put(new Long(0xC8), "ISGuardianECM");
-        Clan.put(new Long(0x58), "CLECMSuite");
-        Clan.put(new Long(0xCA), "ISTAG");
-        Clan.put(new Long(0x5A), "CLTAG");
-        Clan.put(new Long(0xB4), "CLLightTAG");
-        Clan.put(new Long(0xC5), "ISC3MasterComputer");
-        Clan.put(new Long(0xC6), "ISC3SlaveUnit");
-        Clan.put(new Long(0xC7), "ISImprovedC3CPU");
+        Sphere.put(new Long(0xCC), "ECM Suite");
+        Sphere.put(new Long(0x7A), "TAG");
+        Sphere.put(new Long(0xCE), "TAG");
+        Sphere.put(new Long(0x65), "Light TAG");
+        Sphere.put(new Long(0x75), "C3 Computer (Master)");
+        Sphere.put(new Long(0x76), "C3 Computer (Slave)");
+        Sphere.put(new Long(0x77), "Improved C3 Computer");
+        Clan.put(new Long(0x86), "(IS) Laser Anti-Missile System");
+        Clan.put(new Long(0x3B), "(CL) Laser Anti-Missile System");
+        Clan.put(new Long(0x92), "(IS) Anti-Missile System");
+        Clan.put(new Long(0x40), "(CL) Anti-Missile System");
+        Clan.put(new Long(0xAC), "A-Pod");
+        Clan.put(new Long(0x56), "A-Pod");
+        Clan.put(new Long(0x57), "Active Probe");
+        Clan.put(new Long(0xAF), "Light Active Probe");
+        Clan.put(new Long(0xC3), "Beagle Active Probe");
+        Clan.put(new Long(0xC4), "Bloodhound Active Probe");
+        Clan.put(new Long(0xC2), "Angel ECM");
+        Clan.put(new Long(0x3F), "Angel ECM");
+        Clan.put(new Long(0xC8), "Guardian ECM Suite");
+        Clan.put(new Long(0x58), "ECM Suite");
+        Clan.put(new Long(0xCA), "TAG");
+        Clan.put(new Long(0x5A), "TAG");
+        Clan.put(new Long(0xB4), "Light TAG");
+        Clan.put(new Long(0xC5), "C3 Computer (Master)");
+        Clan.put(new Long(0xC6), "C3 Computer (Slave)");
+        Clan.put(new Long(0xC7), "Improved C3 Computer");
 
         // Energy Weapons
-        Unused.put(new Long(0x128), "CLPlasmaRifle");
+        Unused.put(new Long(0x128), "Clan Plasma Rifle");
         Sphere.put(new Long(0x33), "(IS) ER Large Laser");
         Sphere.put(new Long(0x34), "(IS) ER PPC");
         Sphere.put(new Long(0x35), "(IS) Flamer");
@@ -1049,44 +1225,44 @@ public class HMPReader {
         Sphere.put(new Long(0x3B), "(IS) Large Pulse Laser");
         Sphere.put(new Long(0x3C), "(IS) Medium Pulse Laser");
         Sphere.put(new Long(0x3D), "(IS) Small Pulse Laser");
-        Sphere.put(new Long(0x48), "ISLargeXPulseLaser");
-        Sphere.put(new Long(0x49), "ISMediumXPulseLaser");
-        Sphere.put(new Long(0x4A), "ISSmallXPulseLaser");
-        Sphere.put(new Long(0x52), "ISHeavyFlamer");
-        Sphere.put(new Long(0x53), "ISPPCCapacitor"); // HMP uses this code for ERPPC
-        Sphere.put(new Long(0x58), "CLERMicroLaser");
-        Sphere.put(new Long(0x59), "ISPPCCapacitor"); // HMP uses this code for standard PPC
+        Sphere.put(new Long(0x48), "(IS) Large X-Pulse Laser");
+        Sphere.put(new Long(0x49), "(IS) Medium X-Pulse Laser");
+        Sphere.put(new Long(0x4A), "(IS) Small X-Pulse Laser");
+        Sphere.put(new Long(0x52), "Heavy Flamer");
+        //Sphere.put(new Long(0x53), "ISPPCCapacitor"); // HMP uses this code for ERPPC
+        Sphere.put(new Long(0x58), "(CL) ER Micro Laser");
+        //Sphere.put(new Long(0x59), "ISPPCCapacitor"); // HMP uses this code for standard PPC
         Sphere.put(new Long(0x5A), "(IS) ER Medium Laser");
         Sphere.put(new Long(0x5B), "(IS) ER Small Laser");
-        Sphere.put(new Long(0x85), "ISVehicleFlamer");
+        Sphere.put(new Long(0x85), "Vehicle Flamer");
         Sphere.put(new Long(0xA7), "(CL) ER Large Laser");
         Sphere.put(new Long(0xA8), "(CL) ER Medium Laser");
         Sphere.put(new Long(0xA9), "(CL) ER Small Laser");
-        Sphere.put(new Long(0xAA), "CLERPPC");
-        Sphere.put(new Long(0xAB), "CLFlamer");
-        Sphere.put(new Long(0xB0), "CLLargePulseLaser");
-        Sphere.put(new Long(0xB1), "CLMediumPulseLaser");
-        Sphere.put(new Long(0xB2), "CLSmallPulseLaser");
-        Sphere.put(new Long(0xF4), "CLHeavyLargeLaser");
-        Sphere.put(new Long(0xF5), "CLHeavyMediumLaser");
-        Sphere.put(new Long(0xF6), "CLHeavySmallLaser");
-        Sphere.put(new Long(0xDA), "CLVehicleFlamer");
-        Clan.put(new Long(0x33), "CLERLargeLaser");
-        Clan.put(new Long(0x34), "CLERMediumLaser");
-        Clan.put(new Long(0x35), "CLERSmallLaser");
+        Sphere.put(new Long(0xAA), "(CL) ER PPC");
+        Sphere.put(new Long(0xAB), "(CL) Flamer");
+        Sphere.put(new Long(0xB0), "(CL) Large Pulse Laser");
+        Sphere.put(new Long(0xB1), "(CL) Medium Pulse Laser");
+        Sphere.put(new Long(0xB2), "(CL) Small Pulse Laser");
+        Sphere.put(new Long(0xF4), "(CL) Heavy Large Laser");
+        Sphere.put(new Long(0xF5), "(CL) Heavy Medium Laser");
+        Sphere.put(new Long(0xF6), "(CL) Heavy Small Laser");
+        Sphere.put(new Long(0xDA), "Vehicle Flamer");
+        Clan.put(new Long(0x33), "(CL) ER Large Laser");
+        Clan.put(new Long(0x34), "(CL) ER Medium Laser");
+        Clan.put(new Long(0x35), "(CL) ER Small Laser");
         Clan.put(new Long(0x36), "(CL) ER PPC");
         Clan.put(new Long(0x37), "(CL) Flamer");
-        Clan.put(new Long(0x38), "CLERLargePulseLaser");
-        Clan.put(new Long(0x39), "CLERMediumPulseLaser");
-        Clan.put(new Long(0x3A), "CLERSmallPulseLaser");
-        Clan.put(new Long(0x3C), "CLLargePulseLaser");
-        Clan.put(new Long(0x3D), "CLMediumPulseLaser");
-        Clan.put(new Long(0x3E), "CLSmallPulseLaser");
-        Clan.put(new Long(0x5B), "CLERMicroLaser");
-        Clan.put(new Long(0x66), "CLVehicleFlamer");
-        Clan.put(new Long(0x80), "CLHeavyLargeLaser");
-        Clan.put(new Long(0x81), "CLHeavyMediumLaser");
-        Clan.put(new Long(0x82), "CLHeavySmallLaser");
+        Clan.put(new Long(0x38), "(CL) ER Large Pulse Laser");
+        Clan.put(new Long(0x39), "(CL) ER Medium Pulse Laser");
+        Clan.put(new Long(0x3A), "(CL) ER Small Pulse Laser");
+        Clan.put(new Long(0x3C), "(CL) Large Pulse Laser");
+        Clan.put(new Long(0x3D), "(CL) Medium Pulse Laser");
+        Clan.put(new Long(0x3E), "(CL) Small Pulse Laser");
+        Clan.put(new Long(0x5B), "(CL) ER Micro Laser");
+        Clan.put(new Long(0x66), "Vehicle Flamer");
+        Clan.put(new Long(0x80), "(CL) Heavy Large Laser");
+        Clan.put(new Long(0x81), "(CL) Heavy Medium Laser");
+        Clan.put(new Long(0x82), "(CL) Heavy Small Laser");
         Clan.put(new Long(0x83), "(IS) ER Large Laser");
         Clan.put(new Long(0x84), "(IS) ER PPC");
         Clan.put(new Long(0x85), "(IS) Flamer");
@@ -1097,95 +1273,95 @@ public class HMPReader {
         Clan.put(new Long(0x8B), "(IS) Large Pulse Laser");
         Clan.put(new Long(0x8C), "(IS) Medium Pulse Laser");
         Clan.put(new Long(0x8D), "(IS) Small Pulse Laser");
-        Clan.put(new Long(0x98), "ISLargeXPulseLaser");
-        Clan.put(new Long(0x99), "ISMediumXPulseLaser");
-        Clan.put(new Long(0x9A), "ISSmallXPulseLaser");
-        Clan.put(new Long(0xA3), "ISPPCCapacitor"); // HMP uses this code for ERPPC
-        Clan.put(new Long(0xA8), "CLMicroPulseLaser");
-        Clan.put(new Long(0xA9), "ISPPCCapacitor"); // HMP uses this code for PPC
+        Clan.put(new Long(0x98), "(IS) Large X-Pulse Laser");
+        Clan.put(new Long(0x99), "(IS) Medium X-Pulse Laser");
+        Clan.put(new Long(0x9A), "(IS) Small X-Pulse Laser");
+        //Clan.put(new Long(0xA3), "ISPPCCapacitor"); // HMP uses this code for ERPPC
+        Clan.put(new Long(0xA8), "(CL) Micro Pulse Laser");
+        //Clan.put(new Long(0xA9), "ISPPCCapacitor"); // HMP uses this code for PPC
         Clan.put(new Long(0xAA), "(IS) ER Medium Laser");
         Clan.put(new Long(0xAB), "(IS) ER Small Laser");
-        Clan.put(new Long(0xD5), "ISVehicleFlamer");
+        Clan.put(new Long(0xD5), "Vehicle Flamer");
 
         // Ballistics
-        Common.put(new Long(0x121), "ISRotaryAC2");
-        Common.put(new Long(0x122), "ISRotaryAC5");
-        Common.put(new Long(0x124), "CLRotaryAC2");
-        Common.put(new Long(0x125), "CLRotaryAC5");
+        Common.put(new Long(0x121), "(IS) Rotary AC/2");
+        Common.put(new Long(0x122), "(IS) Rotary AC/5");
+        Common.put(new Long(0x124), "(CL) Rotary AC/2");
+        Common.put(new Long(0x125), "(CL) Rotary AC/5");
         Sphere.put(new Long(0x3E), "(IS) Autocannon/2");
         Sphere.put(new Long(0x3F), "(IS) Autocannon/5");
         Sphere.put(new Long(0x40), "(IS) Autocannon/10");
         Sphere.put(new Long(0x41), "(IS) Autocannon/20");
-        Sphere.put(new Long(0x43), "Long Tom Cannon");
-        Sphere.put(new Long(0x44), "Sniper Cannon");
-        Sphere.put(new Long(0x45), "Thumper Cannon");
-        Sphere.put(new Long(0x46), "ISLightGaussRifle");
-        Sphere.put(new Long(0x47), "ISGaussRifle");
-        Sphere.put(new Long(0x4B), "ISLBXAC2");
-        Sphere.put(new Long(0x4C), "ISLBXAC5");
-        Sphere.put(new Long(0x4D), "ISLBXAC10");
-        Sphere.put(new Long(0x4E), "ISLBXAC20");
-        Sphere.put(new Long(0x4F), "ISMachine Gun");
-        Sphere.put(new Long(0x50), "ISLAC2");
-        Sphere.put(new Long(0x51), "ISLAC5");
-        Sphere.put(new Long(0x54), "ISUltraAC2");
-        Sphere.put(new Long(0x55), "ISUltraAC5");
-        Sphere.put(new Long(0x56), "ISUltraAC10");
-        Sphere.put(new Long(0x57), "ISUltraAC20");
-        Sphere.put(new Long(0x5E), "CLLightMG");
-        Sphere.put(new Long(0x5F), "CLHeavyMG");
-        Sphere.put(new Long(0xB5), "CLGaussRifle");
-        Sphere.put(new Long(0xB6), "CLLBXAC2");
-        Sphere.put(new Long(0xB7), "CLLBXAC5");
-        Sphere.put(new Long(0xB8), "CLLBXAC10");
-        Sphere.put(new Long(0xB9), "CLLBXAC20");
-        Sphere.put(new Long(0xBA), "CLMG");
-        Sphere.put(new Long(0xBB), "CLUltraAC2");
-        Sphere.put(new Long(0xBC), "CLUltraAC5");
-        Sphere.put(new Long(0xBD), "CLUltraAC10");
-        Sphere.put(new Long(0xBE), "CLUltraAC20");
-        Sphere.put(new Long(0x123), "ISHeavyGaussRifle");
-        Clan.put(new Long(0x41), "CLGaussRifle");
-        Clan.put(new Long(0x42), "CLLBXAC2");
-        Clan.put(new Long(0x43), "CLLBXAC5");
-        Clan.put(new Long(0x44), "CLLBXAC10");
-        Clan.put(new Long(0x45), "CLLBXAC20");
-        Clan.put(new Long(0x46), "CLMG");
-        Clan.put(new Long(0x47), "CLUltraAC2");
-        Clan.put(new Long(0x48), "CLUltraAC5");
-        Clan.put(new Long(0x49), "CLUltraAC10");
-        Clan.put(new Long(0x4A), "CLUltraAC20");
-        Clan.put(new Long(0x8E), "ISAC2");
-        Clan.put(new Long(0x8F), "ISAC5");
-        Clan.put(new Long(0x90), "ISAC10");
-        Clan.put(new Long(0x91), "ISAC20");
-        Clan.put(new Long(0x96), "ISLightGaussRifle");
-        Clan.put(new Long(0x97), "ISGaussRifle");
-        Clan.put(new Long(0x9B), "ISLBXAC2");
-        Clan.put(new Long(0x9C), "ISLBXAC5");
-        Clan.put(new Long(0x9D), "ISLBXAC10");
-        Clan.put(new Long(0x9E), "ISLBXAC20");
-        Clan.put(new Long(0x9F), "ISMachine Gun");
-        Clan.put(new Long(0xA0), "ISLAC2");
-        Clan.put(new Long(0xA1), "ISLAC5");
-        Clan.put(new Long(0xA4), "ISUltraAC2");
-        Clan.put(new Long(0xA5), "ISUltraAC5");
-        Clan.put(new Long(0xA6), "ISUltraAC10");
-        Clan.put(new Long(0xA7), "ISUltraAC20");
-        Clan.put(new Long(0xAD), "CLLightMG");
-        Clan.put(new Long(0xAE), "CLHeavyMG");
-        Clan.put(new Long(0x93), "Long Tom Cannon");
-        Clan.put(new Long(0x94), "Sniper Cannon");
-        Clan.put(new Long(0x95), "Thumper Cannon");
+        Sphere.put(new Long(0x43), "Long Tom Artillery Cannon");
+        Sphere.put(new Long(0x44), "Sniper Artillery Cannon");
+        Sphere.put(new Long(0x45), "Thumper Artillery Cannon");
+        Sphere.put(new Long(0x46), "(IS) Light Gauss Rifle");
+        Sphere.put(new Long(0x47), "(IS) Gauss Rifle");
+        Sphere.put(new Long(0x4B), "(IS) LB 2-X AC");
+        Sphere.put(new Long(0x4C), "(IS) LB 5-X AC");
+        Sphere.put(new Long(0x4D), "(IS) LB 10-X AC");
+        Sphere.put(new Long(0x4E), "(IS) LB 20-X AC");
+        Sphere.put(new Long(0x4F), "(IS) Machine Gun");
+        Sphere.put(new Long(0x50), "(IS) Light AC/2");
+        Sphere.put(new Long(0x51), "(IS) Light AC/5");
+        Sphere.put(new Long(0x54), "(IS) Ultra AC/2");
+        Sphere.put(new Long(0x55), "(IS) Ultra AC/5");
+        Sphere.put(new Long(0x56), "(IS) Ultra AC/10");
+        Sphere.put(new Long(0x57), "(IS) Ultra AC/20");
+        Sphere.put(new Long(0x5E), "(CL) Light Machine Gun");
+        Sphere.put(new Long(0x5F), "(CL) Heavy Machine Gun");
+        Sphere.put(new Long(0xB5), "(CL) Gauss Rifle");
+        Sphere.put(new Long(0xB6), "(CL) LB 2-X AC");
+        Sphere.put(new Long(0xB7), "(CL) LB 5-X AC");
+        Sphere.put(new Long(0xB8), "(CL) LB 10-X AC");
+        Sphere.put(new Long(0xB9), "(CL) LB 20-X AC");
+        Sphere.put(new Long(0xBA), "(CL) Machine Gun");
+        Sphere.put(new Long(0xBB), "(CL) Ultra AC/2");
+        Sphere.put(new Long(0xBC), "(CL) Ultra AC/5");
+        Sphere.put(new Long(0xBD), "(CL) Ultra AC/10");
+        Sphere.put(new Long(0xBE), "(CL) Ultra AC/20");
+        Sphere.put(new Long(0x123), "(IS) Heavy Gauss Rifle");
+        Clan.put(new Long(0x41), "(CL) Gauss Rifle");
+        Clan.put(new Long(0x42), "(CL) LB 2-X AC");
+        Clan.put(new Long(0x43), "(CL) LB 5-X AC");
+        Clan.put(new Long(0x44), "(CL) LB 10-X AC");
+        Clan.put(new Long(0x45), "(CL) LB 20-X AC");
+        Clan.put(new Long(0x46), "(CL) Machine Gun");
+        Clan.put(new Long(0x47), "(CL) Ultra AC/2");
+        Clan.put(new Long(0x48), "(CL) Ultra AC/5");
+        Clan.put(new Long(0x49), "(CL) Ultra AC/10");
+        Clan.put(new Long(0x4A), "(CL) Ultra AC/20");
+        Clan.put(new Long(0x8E), "(IS) Autocannon/2");
+        Clan.put(new Long(0x8F), "(IS) Autocannon/5");
+        Clan.put(new Long(0x90), "(IS) Autocannon/10");
+        Clan.put(new Long(0x91), "(IS) Autocannon/20");
+        Clan.put(new Long(0x96), "(IS) Light Gauss Rifle");
+        Clan.put(new Long(0x97), "(IS) Gauss Rifle");
+        Clan.put(new Long(0x9B), "(IS) LB 2-X AC");
+        Clan.put(new Long(0x9C), "(IS) LB 5-X AC");
+        Clan.put(new Long(0x9D), "(IS) LB 10-X AC");
+        Clan.put(new Long(0x9E), "(IS) LB 20-X AC");
+        Clan.put(new Long(0x9F), "(IS) Machine Gun");
+        Clan.put(new Long(0xA0), "(IS) Light AC/2");
+        Clan.put(new Long(0xA1), "(IS) Light AC/5");
+        Clan.put(new Long(0xA4), "(IS) Ultra AC/2");
+        Clan.put(new Long(0xA5), "(IS) Ultra AC/5");
+        Clan.put(new Long(0xA6), "(IS) Ultra AC/10");
+        Clan.put(new Long(0xA7), "(IS) Ultra AC/20");
+        Clan.put(new Long(0xAD), "(CL) Light Machine Gun");
+        Clan.put(new Long(0xAE), "(CL) Heavy Machine Gun");
+        Clan.put(new Long(0x93), "Long Tom Artillery Cannon");
+        Clan.put(new Long(0x94), "Sniper Artillery Cannon");
+        Clan.put(new Long(0x95), "Thumper Artillery Cannon");
 
         // missile weapons
-        Common.put(new Long(0xFC), "CLATM3");
-        Common.put(new Long(0xFD), "CLATM6");
-        Common.put(new Long(0xFE), "CLATM9");
-        Common.put(new Long(0xFF), "CLATM12");
-        Common.put(new Long(0x129), "ISRocketLauncher10");
-        Common.put(new Long(0x12A), "ISRocketLauncher15");
-        Common.put(new Long(0x12B), "ISRocketLauncher20");
+        Common.put(new Long(0xFC), "(CL) ATM-3");
+        Common.put(new Long(0xFD), "(CL) ATM-6");
+        Common.put(new Long(0xFE), "(CL) ATM-9");
+        Common.put(new Long(0xFF), "(CL) ATM-12");
+        Common.put(new Long(0x129), "(IS) Rocket Launcher 10");
+        Common.put(new Long(0x12A), "(IS) Rocket Launcher 15");
+        Common.put(new Long(0x12B), "(IS) Rocket Launcher 20");
         Sphere.put(new Long(0x60), "(IS) LRM-5");
         Sphere.put(new Long(0x61), "(IS) LRM-10");
         Sphere.put(new Long(0x62), "(IS) LRM-15");
@@ -1196,438 +1372,438 @@ public class HMPReader {
         Sphere.put(new Long(0x6A), "(IS) Streak SRM-2");
         Sphere.put(new Long(0x6B), "(IS) Streak SRM-4");
         Sphere.put(new Long(0x6C), "(IS) Streak SRM-6");
-        Sphere.put(new Long(0x89), "ISMRM10");
-        Sphere.put(new Long(0x8A), "ISMRM20");
-        Sphere.put(new Long(0x8B), "ISMRM30");
-        Sphere.put(new Long(0x8C), "ISMRM40");
-        Sphere.put(new Long(0x6D), "Thunderbolt-5");
-        Sphere.put(new Long(0x6E), "Thunderbolt-10");
-        Sphere.put(new Long(0x6F), "Thunderbolt-15");
-        Sphere.put(new Long(0x70), "Thunderbolt-20");
-        Sphere.put(new Long(0x66), "ISImprovedNarc");
-        Sphere.put(new Long(0x79), "ISNarcBeacon");
-        Sphere.put(new Long(0x92), "ISLRTorpedo5");
-        Sphere.put(new Long(0x93), "ISLRTorpedo10");
-        Sphere.put(new Long(0x94), "ISLRTorpedo15");
-        Sphere.put(new Long(0x95), "ISLRTorpedo20");
-        Sphere.put(new Long(0x96), "ISSRT2");
-        Sphere.put(new Long(0x97), "ISSRT4");
-        Sphere.put(new Long(0x98), "ISSRT6");
-        Sphere.put(new Long(0x7B), "ISLRM5 (OS)");
-        Sphere.put(new Long(0x7C), "ISLRM10 (OS)");
-        Sphere.put(new Long(0x7D), "ISLRM15 (OS)");
-        Sphere.put(new Long(0x7E), "ISLRM20 (OS)");
-        Sphere.put(new Long(0x7F), "ISSRM2 (OS)");
-        Sphere.put(new Long(0x80), "ISSRM4 (OS)");
-        Sphere.put(new Long(0x81), "ISSRM6 (OS)");
-        Sphere.put(new Long(0x82), "ISStreakSRM2 (OS)");
-        Sphere.put(new Long(0x83), "ISStreakSRM4 (OS)");
-        Sphere.put(new Long(0x84), "ISStreakSRM6 (OS)");
-        Sphere.put(new Long(0x8E), "ISMRM10 (OS)");
-        Sphere.put(new Long(0x8F), "ISMRM20 (OS)");
-        Sphere.put(new Long(0x90), "ISMRM30 (OS)");
-        Sphere.put(new Long(0x91), "ISMRM40 (OS)");
-        Sphere.put(new Long(0x99), "ISLRM5 (I-OS)");
-        Sphere.put(new Long(0x9A), "ISLRM10 (I-OS)");
-        Sphere.put(new Long(0x9B), "ISLRM15 (I-OS)");
-        Sphere.put(new Long(0x9C), "ISLRM20 (I-OS)");
-        Sphere.put(new Long(0x9D), "ISSRM2 (I-OS)");
-        Sphere.put(new Long(0x9E), "ISSRM4 (I-OS)");
-        Sphere.put(new Long(0x9f), "ISSRM6 (I-OS)");
-        Sphere.put(new Long(0xA0), "ISStreakSRM2 (I-OS)");
-        Sphere.put(new Long(0xA1), "ISStreakSRM4 (I-OS)");
-        Sphere.put(new Long(0xA2), "ISStreakSRM6 (I-OS)");
-        Sphere.put(new Long(0xA3), "ISMRM10 (I-OS)");
-        Sphere.put(new Long(0xA4), "ISMRM20 (I-OS)");
-        Sphere.put(new Long(0xA5), "ISMRM30 (I-OS)");
-        Sphere.put(new Long(0xA6), "ISMRM40 (I-OS)");
-        Sphere.put(new Long(0xBF), "CLLRM5");
-        Sphere.put(new Long(0xC0), "CLLRM10");
-        Sphere.put(new Long(0xC1), "CLLRM15");
-        Sphere.put(new Long(0xC2), "CLLRM20");
-        Sphere.put(new Long(0xC3), "CLSRM2");
-        Sphere.put(new Long(0xC4), "CLSRM4");
-        Sphere.put(new Long(0xC5), "CLSRM6");
-        Sphere.put(new Long(0xC6), "CLStreakSRM2");
-        Sphere.put(new Long(0xC7), "CLStreakSRM4");
-        Sphere.put(new Long(0xC8), "CLStreakSRM6");
-        Sphere.put(new Long(0xCD), "CLNarcBeacon");
-        Sphere.put(new Long(0xD0), "CLLRM5 (OS)");
-        Sphere.put(new Long(0xD1), "CLLRM10 (OS)");
-        Sphere.put(new Long(0xD2), "CLLRM15 (OS)");
-        Sphere.put(new Long(0xD3), "CLLRM20 (OS)");
-        Sphere.put(new Long(0xD4), "CLSRM2 (OS)");
-        Sphere.put(new Long(0xD5), "CLSRM2 (OS)");
-        Sphere.put(new Long(0xD6), "CLSRM2 (OS)");
-        Sphere.put(new Long(0xD7), "CLStreakSRM2 (OS)");
-        Sphere.put(new Long(0xD8), "CLStreakSRM4 (OS)");
-        Sphere.put(new Long(0xD9), "CLStreakSRM6 (OS)");
-        Sphere.put(new Long(0xDE), "CLLRTorpedo5");
-        Sphere.put(new Long(0xDF), "CLLRTorpedo10");
-        Sphere.put(new Long(0xE0), "CLLRTorpedo15");
-        Sphere.put(new Long(0xE1), "CLLRTorpedo20");
-        Sphere.put(new Long(0xE2), "CLSRT2");
-        Sphere.put(new Long(0xE3), "CLSRT4");
-        Sphere.put(new Long(0xE4), "CLSRT6");
-        Sphere.put(new Long(0xE5), "CLStreakLRM5");
-        Sphere.put(new Long(0xE6), "CLStreakLRM10");
-        Sphere.put(new Long(0xE7), "CLStreakLRM15");
-        Sphere.put(new Long(0xE8), "CLStreakLRM20");
-        Sphere.put(new Long(0xEA), "CLLRM5 (I-OS)");
-        Sphere.put(new Long(0xEB), "CLLRM10 (I-OS)");
-        Sphere.put(new Long(0xEC), "CLLRM15 (I-OS)");
-        Sphere.put(new Long(0xED), "CLLRM20 (I-OS)");
-        Sphere.put(new Long(0xEE), "CLSRM2 (I-OS)");
-        Sphere.put(new Long(0xEF), "CLSRM4 (I-OS)");
-        Sphere.put(new Long(0xF0), "CLSRM6 (I=OS)");
-        Sphere.put(new Long(0xF1), "CLStreakSRM2 (I-OS)");
-        Sphere.put(new Long(0xF2), "CLStreakSRM4 (I-OS)");
-        Sphere.put(new Long(0xF3), "CLStreakSRM6 (I=OS)");
-        Clan.put(new Long(0x4B), "CLLRM5");
-        Clan.put(new Long(0x4C), "CLLRM10");
-        Clan.put(new Long(0x4D), "CLLRM15");
-        Clan.put(new Long(0x4E), "CLLRM20");
-        Clan.put(new Long(0x4F), "CLSRM2");
-        Clan.put(new Long(0x50), "CLSRM4");
-        Clan.put(new Long(0x51), "CLSRM6");
-        Clan.put(new Long(0x52), "CLStreakSRM2");
-        Clan.put(new Long(0x53), "CLStreakSRM4");
-        Clan.put(new Long(0x54), "CLStreakSRM6");
-        Clan.put(new Long(0x59), "CLNarcBeacon");
-        Clan.put(new Long(0x5C), "CLLRM5 (OS)");
-        Clan.put(new Long(0x5D), "CLLRM10 (OS)");
-        Clan.put(new Long(0x5E), "CLLRM15 (OS)");
-        Clan.put(new Long(0x5F), "CLLRM20 (OS)");
-        Clan.put(new Long(0x60), "CLSRM2 (OS)");
-        Clan.put(new Long(0x61), "CLSRM4 (OS)");
-        Clan.put(new Long(0x62), "CLSRM6 (OS)");
-        Clan.put(new Long(0x63), "CLStreakSRM2 (OS)");
-        Clan.put(new Long(0x64), "CLStreakSRM4 (OS)");
-        Clan.put(new Long(0x65), "CLStreakSRM6 (OS)");
-        Clan.put(new Long(0x6A), "CLLRTorpedo5");
-        Clan.put(new Long(0x6B), "CLLRTorpedo10");
-        Clan.put(new Long(0x6C), "CLLRTorpedo15");
-        Clan.put(new Long(0x6D), "CLLRTorpedo20");
-        Clan.put(new Long(0x6E), "CLSRT2");
-        Clan.put(new Long(0x6F), "CLSRT4");
-        Clan.put(new Long(0x70), "CLSRT6");
-        Clan.put(new Long(0x71), "CLStreakLRM5");
-        Clan.put(new Long(0x72), "CLStreakLRM10");
-        Clan.put(new Long(0x73), "CLStreakLRM15");
-        Clan.put(new Long(0x74), "CLStreakLRM20");
-        Clan.put(new Long(0x76), "CLLRM5 (I-OS)");
-        Clan.put(new Long(0x77), "CLLRM10 (I-OS)");
-        Clan.put(new Long(0x78), "CLLRM15 (I-OS)");
-        Clan.put(new Long(0x79), "CLLRM20 (I-OS)");
-        Clan.put(new Long(0x7a), "CLSRM2 (I-OS)");
-        Clan.put(new Long(0x7b), "CLSRM4 (I-OS)");
-        Clan.put(new Long(0x7c), "CLSRM6 (I=OS)");
-        Clan.put(new Long(0x7d), "CLStreakSRM2 (I-OS)");
-        Clan.put(new Long(0x7e), "CLStreakSRM4 (I-OS)");
-        Clan.put(new Long(0x7f), "CLStreakSRM6 (I=OS)");
-        Clan.put(new Long(0xB0), "ISLRM5");
-        Clan.put(new Long(0xB1), "ISLRM10");
-        Clan.put(new Long(0xB2), "ISLRM15");
-        Clan.put(new Long(0xB3), "ISLRM20");
-        Clan.put(new Long(0xB6), "ISImprovedNarc");
-        Clan.put(new Long(0xB7), "ISSRM2");
-        Clan.put(new Long(0xB8), "ISSRM4");
-        Clan.put(new Long(0xB9), "ISSRM6");
-        Clan.put(new Long(0xBA), "ISStreakSRM2");
-        Clan.put(new Long(0xBB), "ISStreakSRM4");
-        Clan.put(new Long(0xBC), "ISStreakSRM6");
-        Clan.put(new Long(0xBD), "ISThunderbolt5");
-        Clan.put(new Long(0xBE), "ISThunderbolt10");
-        Clan.put(new Long(0xBF), "ISThunderbolt15");
-        Clan.put(new Long(0xC0), "ISThunderbolt20");
-        Clan.put(new Long(0xC9), "ISNarcBeacon");
-        Clan.put(new Long(0xCB), "ISLRM5 (OS)");
-        Clan.put(new Long(0xCC), "ISLRM10 (OS)");
-        Clan.put(new Long(0xCD), "ISLRM15 (OS)");
-        Clan.put(new Long(0xCE), "ISLRM20 (OS)");
-        Clan.put(new Long(0xCF), "ISSRM2 (OS)");
-        Clan.put(new Long(0xD0), "ISSRM4 (OS)");
-        Clan.put(new Long(0xD1), "ISSRM6 (OS)");
-        Clan.put(new Long(0xD2), "ISStreakSRM2 (OS)");
-        Clan.put(new Long(0xD3), "ISStreakSRM4 (OS)");
-        Clan.put(new Long(0xD4), "ISStreakSRM6 (OS)");
-        Clan.put(new Long(0xD9), "ISMRM10");
-        Clan.put(new Long(0xDA), "ISMRM20");
-        Clan.put(new Long(0xDB), "ISMRM30");
-        Clan.put(new Long(0xDC), "ISMRM40");
-        Clan.put(new Long(0xDE), "ISMRM10 (OS)");
-        Clan.put(new Long(0xDF), "ISMRM20 (OS)");
-        Clan.put(new Long(0xE0), "ISMRM30 (OS)");
-        Clan.put(new Long(0xE1), "ISMRM40 (OS)");
-        Clan.put(new Long(0xE2), "ISLRTorpedo5");
-        Clan.put(new Long(0xE3), "ISLRTorpedo10");
-        Clan.put(new Long(0xE4), "ISLRTorpedo15");
-        Clan.put(new Long(0xE5), "ISLRTorpedo20");
-        Clan.put(new Long(0xE6), "ISSRT2");
-        Clan.put(new Long(0xE7), "ISSRT4");
-        Clan.put(new Long(0xE8), "ISSRT6");
-        Clan.put(new Long(0xE9), "ISLRM5 (I-OS)");
-        Clan.put(new Long(0xEA), "ISLRM10 (I-OS)");
-        Clan.put(new Long(0xEB), "ISLRM15 (I-OS)");
-        Clan.put(new Long(0xEC), "ISLRM20 (I-OS)");
-        Clan.put(new Long(0xED), "ISSRM2 (I-OS)");
-        Clan.put(new Long(0xEE), "ISSRM4 (I-OS)");
-        Clan.put(new Long(0xEf), "ISSRM6 (I-OS)");
-        Clan.put(new Long(0xF0), "ISStreakSRM2 (I-OS)");
-        Clan.put(new Long(0xF1), "ISStreakSRM4 (I-OS)");
-        Clan.put(new Long(0xF2), "ISStreakSRM6 (I-OS)");
-        Clan.put(new Long(0xF3), "ISMRM10 (I-OS)");
-        Clan.put(new Long(0xF4), "ISMRM20 (I-OS)");
-        Clan.put(new Long(0xF5), "ISMRM30 (I-OS)");
-        Clan.put(new Long(0xF6), "ISMRM40 (I-OS)");
+        Sphere.put(new Long(0x89), "(IS) MRM-10");
+        Sphere.put(new Long(0x8A), "(IS) MRM-20");
+        Sphere.put(new Long(0x8B), "(IS) MRM-30");
+        Sphere.put(new Long(0x8C), "(IS) MRM-40");
+        Sphere.put(new Long(0x6D), "(IS) Thunderbolt-5");
+        Sphere.put(new Long(0x6E), "(IS) Thunderbolt-10");
+        Sphere.put(new Long(0x6F), "(IS) Thunderbolt-15");
+        Sphere.put(new Long(0x70), "(IS) Thunderbolt-20");
+        Sphere.put(new Long(0x66), "(IS) iNarc Launcher");
+        Sphere.put(new Long(0x79), "(IS) Narc Missile Beacon");
+        Sphere.put(new Long(0x92), "(IS) LRT-5");
+        Sphere.put(new Long(0x93), "(IS) LRT-10");
+        Sphere.put(new Long(0x94), "(IS) LRT-15");
+        Sphere.put(new Long(0x95), "(IS) LRT-20");
+        Sphere.put(new Long(0x96), "(IS) SRT-2");
+        Sphere.put(new Long(0x97), "(IS) SRT-4");
+        Sphere.put(new Long(0x98), "(IS) SRT-6");
+        Sphere.put(new Long(0x7B), "(IS) LRM-5 (OS)");
+        Sphere.put(new Long(0x7C), "(IS) LRM-10 (OS)");
+        Sphere.put(new Long(0x7D), "(IS) LRM-15 (OS)");
+        Sphere.put(new Long(0x7E), "(IS) LRM-20 (OS)");
+        Sphere.put(new Long(0x7F), "(IS) SRM-2 (OS)");
+        Sphere.put(new Long(0x80), "(IS) SRM-4 (OS)");
+        Sphere.put(new Long(0x81), "(IS) SRM-6 (OS)");
+        Sphere.put(new Long(0x82), "(IS) Streak SRM-2 (OS)");
+        Sphere.put(new Long(0x83), "(IS) Streak SRM-4 (OS)");
+        Sphere.put(new Long(0x84), "(IS) Streak SRM-6 (OS)");
+        Sphere.put(new Long(0x8E), "(IS) MRM-10 (OS)");
+        Sphere.put(new Long(0x8F), "(IS) MRM-20 (OS)");
+        Sphere.put(new Long(0x90), "(IS) MRM-30 (OS)");
+        Sphere.put(new Long(0x91), "(IS) MRM-40 (OS)");
+        Sphere.put(new Long(0x99), "(IS) LRM-5 (iOS)");
+        Sphere.put(new Long(0x9A), "(IS) LRM-10 (iOS)");
+        Sphere.put(new Long(0x9B), "(IS) LRM-15 (iOS)");
+        Sphere.put(new Long(0x9C), "(IS) LRM-20 (iOS)");
+        Sphere.put(new Long(0x9D), "(IS) SRM-2 (iOS)");
+        Sphere.put(new Long(0x9E), "(IS) SRM-4 (iOS)");
+        Sphere.put(new Long(0x9f), "(IS) SRM-6 (iOS)");
+        Sphere.put(new Long(0xA0), "(IS) Streak SRM-2 (iOS)");
+        Sphere.put(new Long(0xA1), "(IS) Streak SRM-4 (iOS)");
+        Sphere.put(new Long(0xA2), "(IS) Streak SRM-6 (iOS)");
+        Sphere.put(new Long(0xA3), "(IS) MRM-10 (iOS)");
+        Sphere.put(new Long(0xA4), "(IS) MRM-20 (iOS)");
+        Sphere.put(new Long(0xA5), "(IS) MRM-30 (iOS)");
+        Sphere.put(new Long(0xA6), "(IS) MRM-40 (iOS)");
+        Sphere.put(new Long(0xBF), "(CL) LRM-5");
+        Sphere.put(new Long(0xC0), "(CL) LRM-10");
+        Sphere.put(new Long(0xC1), "(CL) LRM-15");
+        Sphere.put(new Long(0xC2), "(CL) LRM-20");
+        Sphere.put(new Long(0xC3), "(CL) SRM-2");
+        Sphere.put(new Long(0xC4), "(CL) SRM-4");
+        Sphere.put(new Long(0xC5), "(CL) SRM-6");
+        Sphere.put(new Long(0xC6), "(CL) Streak SRM-2");
+        Sphere.put(new Long(0xC7), "(CL) Streak SRM-4");
+        Sphere.put(new Long(0xC8), "(CL) Streak SRM-6");
+        Sphere.put(new Long(0xCD), "(CL) Narc Missile Beacon");
+        Sphere.put(new Long(0xD0), "(CL) LRM-5 (OS)");
+        Sphere.put(new Long(0xD1), "(CL) LRM-10 (OS)");
+        Sphere.put(new Long(0xD2), "(CL) LRM-15 (OS)");
+        Sphere.put(new Long(0xD3), "(CL) LRM-20 (OS)");
+        Sphere.put(new Long(0xD4), "(CL) SRM-2 (OS)");
+        Sphere.put(new Long(0xD5), "(CL) SRM-4 (OS)");
+        Sphere.put(new Long(0xD6), "(CL) SRM-6 (OS)");
+        Sphere.put(new Long(0xD7), "(CL) Streak SRM-2 (OS)");
+        Sphere.put(new Long(0xD8), "(CL) Streak SRM-4 (OS)");
+        Sphere.put(new Long(0xD9), "(CL) Streak SRM-6 (OS)");
+        Sphere.put(new Long(0xDE), "(CL) LRT-5");
+        Sphere.put(new Long(0xDF), "(CL) LRT-10");
+        Sphere.put(new Long(0xE0), "(CL) LRT-15");
+        Sphere.put(new Long(0xE1), "(CL) LRT-20");
+        Sphere.put(new Long(0xE2), "(CL) SRT-2");
+        Sphere.put(new Long(0xE3), "(CL) SRT-4");
+        Sphere.put(new Long(0xE4), "(CL) SRT-6");
+        Sphere.put(new Long(0xE5), "(CL) Streak LRM-5");
+        Sphere.put(new Long(0xE6), "(CL) Streak LRM-10");
+        Sphere.put(new Long(0xE7), "(CL) Streak LRM-15");
+        Sphere.put(new Long(0xE8), "(CL) Streak LRM-20");
+        Sphere.put(new Long(0xEA), "(CL) LRM-5 (iOS)");
+        Sphere.put(new Long(0xEB), "(CL) LRM-10 (iOS)");
+        Sphere.put(new Long(0xEC), "(CL) LRM-15 (iOS)");
+        Sphere.put(new Long(0xED), "(CL) LRM-20 (iOS)");
+        Sphere.put(new Long(0xEE), "(CL) SRM-2 (iOS)");
+        Sphere.put(new Long(0xEF), "(CL) SRM-4 (iOS)");
+        Sphere.put(new Long(0xF0), "(CL) SRM-6 (iOS)");
+        Sphere.put(new Long(0xF1), "(CL) Streak SRM-2 (iOS)");
+        Sphere.put(new Long(0xF2), "(CL) Streak SRM-4 (iOS)");
+        Sphere.put(new Long(0xF3), "(CL) Streak SRM-6 (iOS)");
+        Clan.put(new Long(0x4B), "(CL) LRM-5");
+        Clan.put(new Long(0x4C), "(CL) LRM-10");
+        Clan.put(new Long(0x4D), "(CL) LRM-15");
+        Clan.put(new Long(0x4E), "(CL) LRM-20");
+        Clan.put(new Long(0x4F), "(CL) SRM-2");
+        Clan.put(new Long(0x50), "(CL) SRM-4");
+        Clan.put(new Long(0x51), "(CL) SRM-6");
+        Clan.put(new Long(0x52), "(CL) Streak SRM-2");
+        Clan.put(new Long(0x53), "(CL) Streak SRM-4");
+        Clan.put(new Long(0x54), "(CL) Streak SRM-6");
+        Clan.put(new Long(0x59), "(CL) Narc Missile Beacon");
+        Clan.put(new Long(0x5C), "(CL) LRM-5 (OS)");
+        Clan.put(new Long(0x5D), "(CL) LRM-10 (OS)");
+        Clan.put(new Long(0x5E), "(CL) LRM-15 (OS)");
+        Clan.put(new Long(0x5F), "(CL) LRM-20 (OS)");
+        Clan.put(new Long(0x60), "(CL) SRM-2 (OS)");
+        Clan.put(new Long(0x61), "(CL) SRM-4 (OS)");
+        Clan.put(new Long(0x62), "(CL) SRM-6 (OS)");
+        Clan.put(new Long(0x63), "(CL) Streak SRM-2 (OS)");
+        Clan.put(new Long(0x64), "(CL) Streak SRM-4 (OS)");
+        Clan.put(new Long(0x65), "(CL) Streak SRM-6 (OS)");
+        Clan.put(new Long(0x6A), "(CL) LRT-5");
+        Clan.put(new Long(0x6B), "(CL) LRT-10");
+        Clan.put(new Long(0x6C), "(CL) LRT-15");
+        Clan.put(new Long(0x6D), "(CL) LRT-20");
+        Clan.put(new Long(0x6E), "(CL) SRT-2");
+        Clan.put(new Long(0x6F), "(CL) SRT-4");
+        Clan.put(new Long(0x70), "(CL) SRT-6");
+        Clan.put(new Long(0x71), "(CL) Streak LRM-5");
+        Clan.put(new Long(0x72), "(CL) Streak LRM-10");
+        Clan.put(new Long(0x73), "(CL) Streak LRM-15");
+        Clan.put(new Long(0x74), "(CL) Streak LRM-20");
+        Clan.put(new Long(0x76), "(CL) LRM-5 (iOS)");
+        Clan.put(new Long(0x77), "(CL) LRM-10 (iOS)");
+        Clan.put(new Long(0x78), "(CL) LRM-15 (iOS)");
+        Clan.put(new Long(0x79), "(CL) LRM-20 (iOS)");
+        Clan.put(new Long(0x7a), "(CL) SRM-2 (iOS)");
+        Clan.put(new Long(0x7b), "(CL) SRM-4 (iOS)");
+        Clan.put(new Long(0x7c), "(CL) SRM-6 (iOS)");
+        Clan.put(new Long(0x7d), "(CL) Streak SRM-2 (iOS)");
+        Clan.put(new Long(0x7e), "(CL) Streak SRM-4 (iOS)");
+        Clan.put(new Long(0x7f), "(CL) Streak SRM-6 (iOS)");
+        Clan.put(new Long(0xB0), "(IS) LRM-5");
+        Clan.put(new Long(0xB1), "(IS) LRM-10");
+        Clan.put(new Long(0xB2), "(IS) LRM-15");
+        Clan.put(new Long(0xB3), "(IS) LRM-20");
+        Clan.put(new Long(0xB6), "(IS) iNarc Launcher");
+        Clan.put(new Long(0xB7), "(IS) SRM-2");
+        Clan.put(new Long(0xB8), "(IS) SRM-4");
+        Clan.put(new Long(0xB9), "(IS) SRM-6");
+        Clan.put(new Long(0xBA), "(IS) Streak SRM-2");
+        Clan.put(new Long(0xBB), "(IS) Streak SRM-4");
+        Clan.put(new Long(0xBC), "(IS) Streak SRM-6");
+        Clan.put(new Long(0xBD), "(IS) Thunderbolt-5");
+        Clan.put(new Long(0xBE), "(IS) Thunderbolt-10");
+        Clan.put(new Long(0xBF), "(IS) Thunderbolt-15");
+        Clan.put(new Long(0xC0), "(IS) Thunderbolt-20");
+        Clan.put(new Long(0xC9), "(IS) Narc Missile Beacon");
+        Clan.put(new Long(0xCB), "(IS) LRM-5 (OS)");
+        Clan.put(new Long(0xCC), "(IS) LRM-10 (OS)");
+        Clan.put(new Long(0xCD), "(IS) LRM-15 (OS)");
+        Clan.put(new Long(0xCE), "(IS) LRM-20 (OS)");
+        Clan.put(new Long(0xCF), "(IS) SRM-2 (OS)");
+        Clan.put(new Long(0xD0), "(IS) SRM-4 (OS)");
+        Clan.put(new Long(0xD1), "(IS) SRM-6 (OS)");
+        Clan.put(new Long(0xD2), "(IS) Streak SRM-2 (OS)");
+        Clan.put(new Long(0xD3), "(IS) Streak SRM-4 (OS)");
+        Clan.put(new Long(0xD4), "(IS) Streak SRM-6 (OS)");
+        Clan.put(new Long(0xD9), "(IS) MRM-10");
+        Clan.put(new Long(0xDA), "(IS) MRM-20");
+        Clan.put(new Long(0xDB), "(IS) MRM-30");
+        Clan.put(new Long(0xDC), "(IS) MRM-40");
+        Clan.put(new Long(0xDE), "(IS) MRM-10 (OS)");
+        Clan.put(new Long(0xDF), "(IS) MRM-20 (OS)");
+        Clan.put(new Long(0xE0), "(IS) MRM-30 (OS)");
+        Clan.put(new Long(0xE1), "(IS) MRM-40 (OS)");
+        Clan.put(new Long(0xE2), "(IS) LRT-5");
+        Clan.put(new Long(0xE3), "(IS) LRT-10");
+        Clan.put(new Long(0xE4), "(IS) LRT-15");
+        Clan.put(new Long(0xE5), "(IS) LRT-20");
+        Clan.put(new Long(0xE6), "(IS) SRT-2");
+        Clan.put(new Long(0xE7), "(IS) SRT-4");
+        Clan.put(new Long(0xE8), "(IS) SRT-6");
+        Clan.put(new Long(0xE9), "(IS) LRM-5 (iOS)");
+        Clan.put(new Long(0xEA), "(IS) LRM-10 (iOS)");
+        Clan.put(new Long(0xEB), "(IS) LRM-15 (iOS)");
+        Clan.put(new Long(0xEC), "(IS) LRM-20 (iOS)");
+        Clan.put(new Long(0xED), "(IS) SRM-2 (iOS)");
+        Clan.put(new Long(0xEE), "(IS) SRM-4 (iOS)");
+        Clan.put(new Long(0xEf), "(IS) SRM-6 (iOS)");
+        Clan.put(new Long(0xF0), "(IS) Streak SRM-2 (iOS)");
+        Clan.put(new Long(0xF1), "(IS) Streak SRM-4 (iOS)");
+        Clan.put(new Long(0xF2), "(IS) Streak SRM-6 (iOS)");
+        Clan.put(new Long(0xF3), "(IS) MRM-10 (iOS)");
+        Clan.put(new Long(0xF4), "(IS) MRM-20 (iOS)");
+        Clan.put(new Long(0xF5), "(IS) MRM-30 (iOS)");
+        Clan.put(new Long(0xF6), "(IS) MRM-40 (iOS)");
 
         // Artillery
-        Clan.put(new Long(0xD7), "ISSniperArtillery");
-        Clan.put(new Long(0xD8), "ISThumperArtillery");
-        Clan.put(new Long(0x55), "CLArrowIVSystem");
-        Clan.put(new Long(0x68), "CLSniperArtillery");
-        Clan.put(new Long(0x69), "CLThumperArtillery");
-        Sphere.put(new Long(0x87), "ISSniperArtillery");
-        Sphere.put(new Long(0x88), "ISThumperArtillery");
-        Sphere.put(new Long(0x71), "ISArrowIVSystem");
-        Sphere.put(new Long(0xC9), "CLArrowIVSystem");
-        Sphere.put(new Long(0xDC), "CLSniperArtillery");
-        Sphere.put(new Long(0xDD), "CLThumperArtillery");
+        Clan.put(new Long(0xD7), "(IS) Sniper");
+        Clan.put(new Long(0xD8), "(IS) Thumper");
+        Clan.put(new Long(0x55), "(CL) Arrow IV Missile");
+        Clan.put(new Long(0x68), "(IS) Sniper");
+        Clan.put(new Long(0x69), "(IS) Thumper");
+        Sphere.put(new Long(0x87), "(IS) Sniper");
+        Sphere.put(new Long(0x88), "(IS) Thumper");
+        Sphere.put(new Long(0x71), "(IS) Arrow IV Missile");
+        Sphere.put(new Long(0xC9), "(CL) Arrow IV Missile");
+        Sphere.put(new Long(0xDC), "(IS) Sniper");
+        Sphere.put(new Long(0xDD), "(IS) Thumper");
 
         // ammunition
-        Common.put(new Long(0x28c), "CLATM3 Ammo");
-        Common.put(new Long(0x28d), "CLATM6 Ammo");
-        Common.put(new Long(0x28e), "CLATM9 Ammo");
-        Common.put(new Long(0x28f), "CLATM12 Ammo");
-        Common.put(new Long(0x2B1), "ISRotaryAC2 Ammo");
-        Common.put(new Long(0x2B2), "ISRotaryAC5 Ammo");
-        Common.put(new Long(0x2b4), "CLRotaryAC2 Ammo");
-        Common.put(new Long(0x2b5), "CLRotaryAC5 Ammo");
+        Common.put(new Long(0x10000028cL), "(CL) @ ATM-3 (ER)");
+        Common.put(new Long(0x20000028cL), "(CL) @ ATM-3 (HE)");
+        Common.put(new Long(0x10000028dL), "(CL) @ ATM-6 (ER)");
+        Common.put(new Long(0x20000028dL), "(CL) @ ATM-6 (HE)");
+        Common.put(new Long(0x10000028eL), "(CL) @ ATM-9 (ER)");
+        Common.put(new Long(0x20000028eL), "(CL) @ ATM-9 (HE)");
+        Common.put(new Long(0x10000028fL), "(CL) @ ATM-12 (ER)");
+        Common.put(new Long(0x20000028fL), "(CL) @ ATM-12 (HE)");
+        Common.put(new Long(0x28c), "(CL) @ ATM-3");
+        Common.put(new Long(0x28d), "(CL) @ ATM-6");
+        Common.put(new Long(0x28e), "(CL) @ ATM-9");
+        Common.put(new Long(0x28f), "(CL) @ ATM-12");
+        Common.put(new Long(0x2B1), "(IS) @ Rotary AC/2");
+        Common.put(new Long(0x2B2), "(IS) @ Rotary AC/5");
+        Common.put(new Long(0x2b4), "(CL) @ Rotary AC/2");
+        Common.put(new Long(0x2b5), "(CL) @ Rotary AC/5");
         // special for ammo mutator
         // 28c-28f = atm
-        Common.put(new Long(0x10000028cL), "CLATM3 ER Ammo");
-        Common.put(new Long(0x20000028cL), "CLATM3 HE Ammo");
-        Common.put(new Long(0x10000028dL), "CLATM6 ER Ammo");
-        Common.put(new Long(0x20000028dL), "CLATM6 HE Ammo");
-        Common.put(new Long(0x10000028eL), "CLATM9 ER Ammo");
-        Common.put(new Long(0x20000028eL), "CLATM9 HE Ammo");
-        Common.put(new Long(0x10000028fL), "CLATM12 ER Ammo");
-        Common.put(new Long(0x20000028fL), "CLATM12 HE Ammo");
-        Common.put(new Long(0x100000298L), "ISLBXAC2 Ammo (THB)");
-        Common.put(new Long(0x100000299L), "ISLBXAC5 Ammo (THB)");
-        Common.put(new Long(0x10000029AL), "ISLBXAC20 Ammo (THB)");
+        //Common.put(new Long(0x100000298L), "ISLBXAC2 Ammo (THB)");
+        //Common.put(new Long(0x100000299L), "ISLBXAC5 Ammo (THB)");
+        //Common.put(new Long(0x10000029AL), "ISLBXAC20 Ammo (THB)");
         Sphere.put(new Long(0x01CE), "(IS) @ AC/2");
         Sphere.put(new Long(0x01CF), "(IS) @ AC/5");
         Sphere.put(new Long(0x01D0), "(IS) @ AC/10");
         Sphere.put(new Long(0x01d1), "(IS) @ AC/20");
-        Sphere.put(new Long(0x01d2), "ISAMS Ammo");
-        Sphere.put(new Long(0x01d3), "Long Tom Cannon Ammo");
-        Sphere.put(new Long(0x01d4), "Sniper Cannon Ammo");
-        Sphere.put(new Long(0x01d5), "Thumper Cannon Ammo");
-        Sphere.put(new Long(0x01d6), "ISLightGauss Ammo");
-        Sphere.put(new Long(0x01d7), "ISGauss Ammo");
-        Sphere.put(new Long(0x01db), "ISLBXAC2 Ammo");
-        Sphere.put(new Long(0x01dc), "ISLBXAC5 Ammo");
-        Sphere.put(new Long(0x01dd), "ISLBXAC10 Ammo");
-        Sphere.put(new Long(0x01de), "ISLBXAC20 Ammo");
-        Sphere.put(new Long(0x01df), "ISMG Ammo");
-        Sphere.put(new Long(0x1e0), "ISLAC2 Ammo");
-        Sphere.put(new Long(0x1e1), "ISLAC5 Ammo");
-        Sphere.put(new Long(0x1e2), "ISHeavyFlamer Ammo");
-        Sphere.put(new Long(0x01e4), "ISUltraAC2 Ammo");
-        Sphere.put(new Long(0x01e5), "ISUltraAC5 Ammo");
-        Sphere.put(new Long(0x01e6), "ISUltraAC10 Ammo");
-        Sphere.put(new Long(0x01e7), "ISUltraAC20 Ammo");
-        Sphere.put(new Long(0x01EE), "CLLightMG Ammo");
-        Sphere.put(new Long(0x01EF), "CLHeavyMG Ammo");
+        Sphere.put(new Long(0x01d2), "(IS) @ Anti-Missile System");
+        Sphere.put(new Long(0x01d3), "@ Long Tom Cannon");
+        Sphere.put(new Long(0x01d4), "@ Sniper Cannon");
+        Sphere.put(new Long(0x01d5), "@ Thumper Cannon");
+        Sphere.put(new Long(0x01d6), "(IS) @ Light Gauss Rifle");
+        Sphere.put(new Long(0x01d7), "@ Gauss Rifle");
+        Sphere.put(new Long(0x01db), "(IS) @ LB 2-X AC (Slug)");
+        Sphere.put(new Long(0x01dc), "(IS) @ LB 5-X AC (Slug)");
+        Sphere.put(new Long(0x01dd), "(IS) @ LB 10-X AC (Slug)");
+        Sphere.put(new Long(0x01de), "(IS) @ LB 20-X AC (Slug)");
+        Sphere.put(new Long(0x01df), "@ Machine Gun");
+        Sphere.put(new Long(0x1e0), "@ Light AC/2");
+        Sphere.put(new Long(0x1e1), "@ Light AC/5");
+        Sphere.put(new Long(0x1e2), "@ Heavy Flamer");
+        Sphere.put(new Long(0x01e4), "(IS) @ Ultra AC/2");
+        Sphere.put(new Long(0x01e5), "(IS) @ Ultra AC/5");
+        Sphere.put(new Long(0x01e6), "(IS) @ Ultra AC/10");
+        Sphere.put(new Long(0x01e7), "(IS) @ Ultra AC/20");
+        Sphere.put(new Long(0x01EE), "@ Light Machine Gun");
+        Sphere.put(new Long(0x01EF), "@ Heavy Machine Gun");
         Sphere.put(new Long(0x01f0), "(IS) @ LRM-5");
         Sphere.put(new Long(0x01f1), "(IS) @ LRM-10");
         Sphere.put(new Long(0x01f2), "(IS) @ LRM-15");
         Sphere.put(new Long(0x01f3), "(IS) @ LRM-20");
-        Sphere.put(new Long(0x01f6), "ISiNarc Pods");
+        Sphere.put(new Long(0x01f6), "@ iNarc (Homing)");
         Sphere.put(new Long(0x01f7), "@ SRM-2");
         Sphere.put(new Long(0x01f8), "@ SRM-4");
         Sphere.put(new Long(0x01f9), "@ SRM-6");
         Sphere.put(new Long(0x01fa), "(IS) @ Streak SRM-2");
         Sphere.put(new Long(0x01fb), "(IS) @ Streak SRM-4");
         Sphere.put(new Long(0x01FC), "(IS) @ Streak SRM-6");
-        Sphere.put(new Long(0x01FD), "Thunderbolt-5 Ammo");
-        Sphere.put(new Long(0x01FE), "Thunderbolt-10 Ammo");
-        Sphere.put(new Long(0x01FF), "Thunderbolt-15 Ammo");
-        Sphere.put(new Long(0x0200), "Thunderbolt-20 Ammo");
-        Sphere.put(new Long(0x0201), "ISArrowIV Ammo");
-        Sphere.put(new Long(0x0209), "ISNarc Pods");
-        Sphere.put(new Long(0x0215), "ISVehicleFlamer Ammo");
-        Sphere.put(new Long(0x0217), "ISSniper Ammo");
-        Sphere.put(new Long(0x0218), "ISThumper Ammo");
-        Sphere.put(new Long(0x0219), "ISMRM10 Ammo");
-        Sphere.put(new Long(0x021a), "ISMRM20 Ammo");
-        Sphere.put(new Long(0x021b), "ISMRM30 Ammo");
-        Sphere.put(new Long(0x021c), "ISMRM40 Ammo");
-        Sphere.put(new Long(0x0222), "ISLRTorpedo5 Ammo");
-        Sphere.put(new Long(0x0223), "ISLRTorpedo10 Ammo");
-        Sphere.put(new Long(0x0224), "ISLRTorpedo15 Ammo");
-        Sphere.put(new Long(0x0225), "ISLRTorpedo20 Ammo");
-        Sphere.put(new Long(0x0226), "ISSRT2 Ammo");
-        Sphere.put(new Long(0x0227), "ISSRT4 Ammo");
-        Sphere.put(new Long(0x0228), "ISSRT6 Ammo");
-        Sphere.put(new Long(0x0244), "CLAMS Ammo");
-        Sphere.put(new Long(0x0245), "CLGauss Ammo");
-        Sphere.put(new Long(0x0246), "CLLBXAC2 Ammo");
-        Sphere.put(new Long(0x0247), "CLLBXAC5 Ammo");
-        Sphere.put(new Long(0x0248), "CLLBXAC10 Ammo");
-        Sphere.put(new Long(0x0249), "CLLBXAC20 Ammo");
-        Sphere.put(new Long(0x024A), "CLMG Ammo");
-        Sphere.put(new Long(0x024B), "CLUltraAC2 Ammo");
-        Sphere.put(new Long(0x024C), "CLUltraAC5 Ammo");
-        Sphere.put(new Long(0x024D), "CLUltraAC10 Ammo");
-        Sphere.put(new Long(0x024E), "CLUltraAC20 Ammo");
-        Sphere.put(new Long(0x024F), "CLLRM5 Ammo");
-        Sphere.put(new Long(0x0250), "CLLRM10 Ammo");
-        Sphere.put(new Long(0x0251), "CLLRM15 Ammo");
-        Sphere.put(new Long(0x0252), "CLLRM20 Ammo");
-        Sphere.put(new Long(0x0253), "CLSRM2 Ammo");
-        Sphere.put(new Long(0x0254), "CLSRM4 Ammo");
-        Sphere.put(new Long(0x0255), "CLSRM6 Ammo");
-        Sphere.put(new Long(0x0256), "CLStreakSRM2 Ammo");
-        Sphere.put(new Long(0x0257), "CLStreakSRM4 Ammo");
-        Sphere.put(new Long(0x0258), "CLStreakSRM6 Ammo");
-        Sphere.put(new Long(0x0259), "CLArrowIV Ammo");
-        Sphere.put(new Long(0x025D), "CLNarc Pods");
-        Sphere.put(new Long(0x026A), "CLVehicleFlamer Ammo");
-        Sphere.put(new Long(0x026C), "CLSniper Ammo");
-        Sphere.put(new Long(0x026D), "CLThumper Ammo");
-        Sphere.put(new Long(0x026E), "CLLRTorpedo5 Ammo");
-        Sphere.put(new Long(0x026F), "CLLRTorpedo10 Ammo");
-        Sphere.put(new Long(0x0270), "CLLRTorpedo15 Ammo");
-        Sphere.put(new Long(0x0271), "CLLRTorpedo20 Ammo");
-        Sphere.put(new Long(0x0272), "CLSRT2 Ammo");
-        Sphere.put(new Long(0x0273), "CLSRT4 Ammo");
-        Sphere.put(new Long(0x0274), "CLSRT6 Ammo");
-        Sphere.put(new Long(0x0275), "CLStreakLRM5 Ammo");
-        Sphere.put(new Long(0x0276), "CLStreakLRM10 Ammo");
-        Sphere.put(new Long(0x0277), "CLStreakLRM15 Ammo");
-        Sphere.put(new Long(0x0278), "CLStreakLRM20 Ammo");
-        Sphere.put(new Long(0x02b3), "ISHeavyGauss Ammo");
+        Sphere.put(new Long(0x01FD), "@ Thunderbolt-5");
+        Sphere.put(new Long(0x01FE), "@ Thunderbolt-10");
+        Sphere.put(new Long(0x01FF), "@ Thunderbolt-15");
+        Sphere.put(new Long(0x0200), "@ Thunderbolt-20");
+        Sphere.put(new Long(0x0201), "(IS) @ Arrow IV (Homing)");
+        Sphere.put(new Long(0x0209), "(IS) @ Narc (Homing)");
+        Sphere.put(new Long(0x0215), "@ Vehicle Flamer");
+        Sphere.put(new Long(0x0217), "(IS) @ Sniper");
+        Sphere.put(new Long(0x0218), "(IS) @ Thumper");
+        Sphere.put(new Long(0x0219), "(IS) @ MRM-10");
+        Sphere.put(new Long(0x021a), "(IS) @ MRM-20");
+        Sphere.put(new Long(0x021b), "(IS) @ MRM-30");
+        Sphere.put(new Long(0x021c), "(IS) @ MRM-40");
+        Sphere.put(new Long(0x0222), "(IS) @ LRT-5 (Torpedo)");
+        Sphere.put(new Long(0x0223), "(IS) @ LRT-10 (Torpedo)");
+        Sphere.put(new Long(0x0224), "(IS) @ LRT-15 (Torpedo)");
+        Sphere.put(new Long(0x0225), "(IS) @ LRT-20 (Torpedo)");
+        Sphere.put(new Long(0x0226), "@ SRT-2 (Torpedo)");
+        Sphere.put(new Long(0x0227), "@ SRT-4 (Torpedo)");
+        Sphere.put(new Long(0x0228), "@ SRT-6 (Torpedo)");
+        Sphere.put(new Long(0x0244), "(CL) @ Anti-Missile System");
+        Sphere.put(new Long(0x0245), "@ Gauss Rifle");
+        Sphere.put(new Long(0x0246), "(CL) @ LB 2-X AC (Slug)");
+        Sphere.put(new Long(0x0247), "(CL) @ LB 5-X AC (Slug)");
+        Sphere.put(new Long(0x0248), "(CL) @ LB 10-X AC (Slug)");
+        Sphere.put(new Long(0x0249), "(CL) @ LB 20-X AC (Slug)");
+        Sphere.put(new Long(0x024A), "@ Machine Gun");
+        Sphere.put(new Long(0x024B), "(CL) @ Ultra AC/2");
+        Sphere.put(new Long(0x024C), "(CL) @ Ultra AC/5");
+        Sphere.put(new Long(0x024D), "(CL) @ Ultra AC/10");
+        Sphere.put(new Long(0x024E), "(CL) @ Ultra AC/20");
+        Sphere.put(new Long(0x024F), "(CL) @ LRM-5");
+        Sphere.put(new Long(0x0250), "(CL) @ LRM-10");
+        Sphere.put(new Long(0x0251), "(CL) @ LRM-15");
+        Sphere.put(new Long(0x0252), "(CL) @ LRM-20");
+        Sphere.put(new Long(0x0253), "@ SRM-2");
+        Sphere.put(new Long(0x0254), "@ SRM-4");
+        Sphere.put(new Long(0x0255), "@ SRM-6");
+        Sphere.put(new Long(0x0256), "(CL) @ Streak SRM-2");
+        Sphere.put(new Long(0x0257), "(CL) @ Streak SRM-4");
+        Sphere.put(new Long(0x0258), "(CL) @ Streak SRM-6");
+        Sphere.put(new Long(0x0259), "(CL) @ Arrow IV (Homing)");
+        Sphere.put(new Long(0x025D), "(CL) @ Narc (Homing)");
+        Sphere.put(new Long(0x026A), "@ Vehicle Flamer");
+        Sphere.put(new Long(0x026C), "@ Sniper");
+        Sphere.put(new Long(0x026D), "@ Thumper");
+        Sphere.put(new Long(0x026E), "(CL) @ LRT-5 (Torpedo)");
+        Sphere.put(new Long(0x026F), "(CL) @ LRT-10 (Torpedo)");
+        Sphere.put(new Long(0x0270), "(CL) @ LRT-15 (Torpedo)");
+        Sphere.put(new Long(0x0271), "(CL) @ LRT-20 (Torpedo)");
+        Sphere.put(new Long(0x0272), "@ SRT-2");
+        Sphere.put(new Long(0x0273), "@ SRT-4");
+        Sphere.put(new Long(0x0274), "@ SRT-6");
+        Sphere.put(new Long(0x0275), "@ Streak LRM-5");
+        Sphere.put(new Long(0x0276), "@ Streak LRM-10");
+        Sphere.put(new Long(0x0277), "@ Streak LRM-15");
+        Sphere.put(new Long(0x0278), "@ Streak LRM-20");
+        Sphere.put(new Long(0x02b3), "(IS) @ Heavy Gauss Rifle");
         // 1db-1de = is
         // 1d2-1d5 = cl
         // 298-299 = thb
         // 22B-22E = IS on clan
         // 246-249 = clan on IS
-        Sphere.put(new Long(0x1000001dbL), "ISLBXAC2 CL Ammo");
-        Sphere.put(new Long(0x1000001dcL), "ISLBXAC5 CL Ammo");
-        Sphere.put(new Long(0x1000001ddL), "ISLBXAC10 CL Ammo");
-        Sphere.put(new Long(0x1000001deL), "ISLBXAC20 CL Ammo");
-        Sphere.put(new Long(0x100000246L), "CLLBXAC2 CL Ammo");
-        Sphere.put(new Long(0x100000247L), "CLLBXAC5 CL Ammo");
-        Sphere.put(new Long(0x100000248L), "CLLBXAC10 CL Ammo");
-        Sphere.put(new Long(0x100000249L), "CLLBXAC20 CL Ammo");
+        Sphere.put(new Long(0x1000001dbL), "(IS) @ LB 2-X AC (Cluster)");
+        Sphere.put(new Long(0x1000001dcL), "(IS) @ LB 5-X AC (Cluster)");
+        Sphere.put(new Long(0x1000001ddL), "(IS) @ LB 10-X AC (Cluster)");
+        Sphere.put(new Long(0x1000001deL), "(IS) @ LB 20-X AC (Cluster)");
+        Sphere.put(new Long(0x100000246L), "(CL) @ LB 2-X AC (Cluster)");
+        Sphere.put(new Long(0x100000247L), "(CL) @ LB 5-X AC (Cluster)");
+        Sphere.put(new Long(0x100000248L), "(CL) @ LB 10-X AC (Cluster)");
+        Sphere.put(new Long(0x100000249L), "(CL) @ LB 20-X AC (Cluster)");
         // Clan.put(new Long(0x01ce), "CLAC2 Ammo");
-        Clan.put(new Long(0x01d0), "CLAMS Ammo");
+        Clan.put(new Long(0x01d0), "(CL) @ Anti-Missile System");
         // Clan.put(new Long(0x01cf), "CLAC5 Ammo");
-        Clan.put(new Long(0x01d1), "CLGauss Ammo");
-        Clan.put(new Long(0x01d2), "CLLBXAC2 Ammo");
-        Clan.put(new Long(0x01d3), "CLLBXAC5 Ammo");
-        Clan.put(new Long(0x01d4), "CLLBXAC10 Ammo");
-        Clan.put(new Long(0x01d5), "CLLBXAC20 Ammo");
-        Clan.put(new Long(0x01d6), "CLMG Ammo");
-        Clan.put(new Long(0x01d7), "CLUltraAC2 Ammo");
-        Clan.put(new Long(0x01d8), "CLUltraAC5 Ammo");
-        Clan.put(new Long(0x01d9), "CLUltraAC10 Ammo");
-        Clan.put(new Long(0x01da), "CLUltraAC20 Ammo");
-        Clan.put(new Long(0x01db), "CLLRM5 Ammo");
-        Clan.put(new Long(0x01dc), "CLLRM10 Ammo");
-        Clan.put(new Long(0x01dd), "CLLRM15 Ammo");
-        Clan.put(new Long(0x01de), "CLLRM20 Ammo");
-        Clan.put(new Long(0x01df), "CLSRM2 Ammo");
-        Clan.put(new Long(0x01e0), "CLSRM4 Ammo");
-        Clan.put(new Long(0x01e1), "CLSRM6 Ammo");
-        Clan.put(new Long(0x01e2), "CLStreakSRM2 Ammo");
-        Clan.put(new Long(0x01e3), "CLStreakSRM4 Ammo");
-        Clan.put(new Long(0x01e4), "CLStreakSRM6 Ammo");
-        Clan.put(new Long(0x01e5), "CLArrowIV Ammo");
-        Clan.put(new Long(0x01e9), "CLNarc Pods");
+        Clan.put(new Long(0x01d1), "@ Gauss Rifle");
+        Clan.put(new Long(0x01d2), "(CL) @ LB 2-X AC (Slug)");
+        Clan.put(new Long(0x01d3), "(CL) @ LB 5-X AC (Slug)");
+        Clan.put(new Long(0x01d4), "(CL) @ LB 10-X AC (Slug)");
+        Clan.put(new Long(0x01d5), "(CL) @ LB 20-X AC (Slug)");
+        Clan.put(new Long(0x01d6), "@ Machine Gun");
+        Clan.put(new Long(0x01d7), "(CL) @ Ultra AC/2");
+        Clan.put(new Long(0x01d8), "(CL) @ Ultra AC/5");
+        Clan.put(new Long(0x01d9), "(CL) @ Ultra AC/10");
+        Clan.put(new Long(0x01da), "(CL) @ Ultra AC/20");
+        Clan.put(new Long(0x01db), "(CL) @ LRM-5");
+        Clan.put(new Long(0x01dc), "(CL) @ LRM-10");
+        Clan.put(new Long(0x01dd), "(CL) @ LRM-15");
+        Clan.put(new Long(0x01de), "(CL) @ LRM-20");
+        Clan.put(new Long(0x01df), "@ SRM-2");
+        Clan.put(new Long(0x01e0), "@ SRM-4");
+        Clan.put(new Long(0x01e1), "@ SRM-6");
+        Clan.put(new Long(0x01e2), "(CL) @ Streak SRM-2");
+        Clan.put(new Long(0x01e3), "(CL) @ Streak SRM-4");
+        Clan.put(new Long(0x01e4), "(CL) @ Streak SRM-6");
+        Clan.put(new Long(0x01e5), "(CL) @ Arrow IV (Homing)");
+        Clan.put(new Long(0x01e9), "(CL) @ Narc (Homing)");
         // Clan.put(new Long(0x0215), "CLFlamer Ammo");
-        Clan.put(new Long(0x01f0), "CLLRM5 Ammo");
-        Clan.put(new Long(0x01f1), "CLLRM10 Ammo");
-        Clan.put(new Long(0x01f2), "CLLRM15 Ammo");
-        Clan.put(new Long(0x01f3), "CLLRM20 Ammo");
-        Clan.put(new Long(0x01f6), "CLVehicleFlamer Ammo");
-        Clan.put(new Long(0x01f8), "CLSniper Ammo");
-        Clan.put(new Long(0x01f9), "CLThumper Ammo");
-        Clan.put(new Long(0x01fa), "CLLRTorpedo5 Ammo");
-        Clan.put(new Long(0x01fb), "CLLRTorpedo10 Ammo");
-        Clan.put(new Long(0x01fc), "CLLRTorpedo15 Ammo");
-        Clan.put(new Long(0x01fd), "CLLRTorpedo20 Ammo");
-        Clan.put(new Long(0x01fe), "CLSRT2 Ammo");
-        Clan.put(new Long(0x01ff), "CLSRT4 Ammo");
-        Clan.put(new Long(0x0200), "CLSRT6 Ammo");
-        Clan.put(new Long(0x0201), "CLStreakLRM5 Ammo");
-        Clan.put(new Long(0x0202), "CLStreakLRM10 Ammo");
-        Clan.put(new Long(0x0203), "CLStreakLRM15 Ammo");
-        Clan.put(new Long(0x0204), "CLStreakLRM20 Ammo");
-        Clan.put(new Long(0x021E), "ISAC2 Ammo");
-        Clan.put(new Long(0x021F), "ISAC5 Ammo");
-        Clan.put(new Long(0x0220), "ISAC10 Ammo");
-        Clan.put(new Long(0x0221), "ISAC20 Ammo");
-        Clan.put(new Long(0x0222), "ISAMS Ammo");
-        Clan.put(new Long(0x0223), "Long Tom Cannon Ammo");
-        Clan.put(new Long(0x0224), "Sniper Cannon Ammo");
-        Clan.put(new Long(0x0225), "Thumper Cannon Ammo");
-        Clan.put(new Long(0x0226), "ISLightGauss Ammo");
-        Clan.put(new Long(0x0227), "ISGauss Ammo");
+        Clan.put(new Long(0x01f0), "(CL) @ LRM-5");
+        Clan.put(new Long(0x01f1), "(CL) @ LRM-10");
+        Clan.put(new Long(0x01f2), "(CL) @ LRM-15");
+        Clan.put(new Long(0x01f3), "(CL) @ LRM-20");
+        Clan.put(new Long(0x01f6), "@ Vehicle Flamer");
+        Clan.put(new Long(0x01f8), "@ Sniper");
+        Clan.put(new Long(0x01f9), "@ Thumper");
+        Clan.put(new Long(0x01fa), "(CL) @ LRT-5 (Torpedo)");
+        Clan.put(new Long(0x01fb), "(CL) @ LRT-10 (Torpedo)");
+        Clan.put(new Long(0x01fc), "(CL) @ LRT-15 (Torpedo)");
+        Clan.put(new Long(0x01fd), "(CL) @ LRT-20 (Torpedo)");
+        Clan.put(new Long(0x01fe), "@ SRT-2");
+        Clan.put(new Long(0x01ff), "@ SRT-4");
+        Clan.put(new Long(0x0200), "@ SRT-6");
+        Clan.put(new Long(0x0201), "@ Streak LRM-5");
+        Clan.put(new Long(0x0202), "@ Streak LRM-10");
+        Clan.put(new Long(0x0203), "@ Streak LRM-15");
+        Clan.put(new Long(0x0204), "@ Streak LRM-20");
+        Clan.put(new Long(0x021E), "@ AC/2");
+        Clan.put(new Long(0x021F), "@ AC/5");
+        Clan.put(new Long(0x0220), "@ AC/10");
+        Clan.put(new Long(0x0221), "@ AC/20");
+        Clan.put(new Long(0x0222), "(IS) @ Anti-Missile System");
+        Clan.put(new Long(0x0223), "@ Long Tom Cannon");
+        Clan.put(new Long(0x0224), "@ Sniper Cannon");
+        Clan.put(new Long(0x0225), "@ Thumper Cannon");
+        Clan.put(new Long(0x0226), "(IS) @ Light Gauss Rifle");
+        Clan.put(new Long(0x0227), "@ Gauss Rifle");
         // Clan.put(new Long(0x0228), "CLSRTorpedo6 Ammo");
-        Clan.put(new Long(0x022B), "ISLBXAC2 Ammo");
-        Clan.put(new Long(0x022C), "ISLBXAC5 Ammo");
-        Clan.put(new Long(0x022D), "ISLBXAC10 Ammo");
-        Clan.put(new Long(0x022E), "ISLBXAC20 Ammo");
-        Clan.put(new Long(0x022F), "ISMG Ammo");
-        Clan.put(new Long(0x0230), "ISLAC2 Ammo");
-        Clan.put(new Long(0x0231), "ISLAC5 Ammo");
-        Clan.put(new Long(0x0234), "ISUltraAC2 Ammo");
-        Clan.put(new Long(0x0235), "ISUltraAC5 Ammo");
-        Clan.put(new Long(0x0236), "ISUltraAC10 Ammo");
-        Clan.put(new Long(0x0237), "ISUltraAC20 Ammo");
-        Clan.put(new Long(0x023d), "CLLightMG Ammo");
-        Clan.put(new Long(0x023e), "CLHeavyMG Ammo");
-        Clan.put(new Long(0x0240), "ISLRM5 Ammo");
-        Clan.put(new Long(0x0241), "ISLRM10 Ammo");
-        Clan.put(new Long(0x0242), "ISLRM15 Ammo");
-        Clan.put(new Long(0x0243), "ISLRM20 Ammo");
-        Clan.put(new Long(0x0246), "ISiNarc Pods");
-        Clan.put(new Long(0x0247), "ISSRM2 Ammo");
-        Clan.put(new Long(0x0248), "ISSRM4 Ammo");
-        Clan.put(new Long(0x0249), "ISSRM6 Ammo");
-        Clan.put(new Long(0x024A), "ISStreakSRM2 Ammo");
-        Clan.put(new Long(0x024B), "ISStreakSRM4 Ammo");
-        Clan.put(new Long(0x024C), "ISStreakSRM6 Ammo");
-        Clan.put(new Long(0x024D), "ISThunderbolt5 Ammo");
-        Clan.put(new Long(0x024E), "ISThunderbolt10 Ammo");
-        Clan.put(new Long(0x024F), "ISThunderbolt15 Ammo");
-        Clan.put(new Long(0x0250), "ISThunderbolt20 Ammo");
-        Clan.put(new Long(0x0259), "ISNarc Pods");
-        Clan.put(new Long(0x0265), "ISVehicleFlamer Ammo");
-        Clan.put(new Long(0x0267), "ISSniperArtillery Ammo");
-        Clan.put(new Long(0x0268), "ISThumperArtillery Ammo");
-        Clan.put(new Long(0x0269), "ISMRM10 Ammo");
-        Clan.put(new Long(0x026A), "ISMRM20 Ammo");
-        Clan.put(new Long(0x026B), "ISMRM30 Ammo");
-        Clan.put(new Long(0x026C), "ISMRM40 Ammo");
-        Clan.put(new Long(0x0272), "ISLRTorpedo15 Ammo");
-        Clan.put(new Long(0x0273), "ISLRTorpedo20 Ammo");
-        Clan.put(new Long(0x0274), "ISLRTorpedo5 Ammo");
-        Clan.put(new Long(0x0275), "ISLRTorpedo10 Ammo");
-        Clan.put(new Long(0x0276), "ISSRT4 Ammo");
-        Clan.put(new Long(0x0277), "ISSRT2 Ammo");
-        Clan.put(new Long(0x0278), "ISSRT6 Ammo");
-        Clan.put(new Long(0x10000022bL), "ISLBXAC2 CL Ammo");
-        Clan.put(new Long(0x10000022cL), "ISLBXAC5 CL Ammo");
-        Clan.put(new Long(0x10000022dL), "ISLBXAC10 CL Ammo");
-        Clan.put(new Long(0x10000022eL), "ISLBXAC20 CL Ammo");
-        Clan.put(new Long(0x1000001d2L), "CLLBXAC2 CL Ammo");
-        Clan.put(new Long(0x1000001d3L), "CLLBXAC5 CL Ammo");
-        Clan.put(new Long(0x1000001d4L), "CLLBXAC10 CL Ammo");
-        Clan.put(new Long(0x1000001d5L), "CLLBXAC20 CL Ammo");
+        Clan.put(new Long(0x022B), "(IS) @ LB 2-X AC (Slug)");
+        Clan.put(new Long(0x022C), "(IS) @ LB 5-X AC (Slug)");
+        Clan.put(new Long(0x022D), "(IS) @ LB 10-X AC (Slug)");
+        Clan.put(new Long(0x022E), "(IS) @ LB 20-X AC (Slug)");
+        Clan.put(new Long(0x022F), "@ Machine Gun");
+        Clan.put(new Long(0x0230), "@ Light AC/2");
+        Clan.put(new Long(0x0231), "@ Light AC/5");
+        Clan.put(new Long(0x0234), "(IS) @ Ultra AC/2");
+        Clan.put(new Long(0x0235), "(IS) @ Ultra AC/5");
+        Clan.put(new Long(0x0236), "(IS) @ Ultra AC/10");
+        Clan.put(new Long(0x0237), "(IS) @ Ultra AC/20");
+        Clan.put(new Long(0x023d), "@ Light Machine Gun");
+        Clan.put(new Long(0x023e), "@ Heavy Machine Gun");
+        Clan.put(new Long(0x0240), "(IS) @ LRM-5");
+        Clan.put(new Long(0x0241), "(IS) @ LRM-10");
+        Clan.put(new Long(0x0242), "(IS) @ LRM-15");
+        Clan.put(new Long(0x0243), "(IS) @ LRM-20");
+        Clan.put(new Long(0x0246), "@ iNarc (Homing)");
+        Clan.put(new Long(0x0247), "@ SRM-2");
+        Clan.put(new Long(0x0248), "@ SRM-4");
+        Clan.put(new Long(0x0249), "@ SRM-6");
+        Clan.put(new Long(0x024A), "(IS) @ Streak SRM-2");
+        Clan.put(new Long(0x024B), "(IS) @ Streak SRM-4");
+        Clan.put(new Long(0x024C), "(IS) @ Streak SRM-6");
+        Clan.put(new Long(0x024D), "@ Thunderbolt-5");
+        Clan.put(new Long(0x024E), "@ Thunderbolt-10");
+        Clan.put(new Long(0x024F), "@ Thunderbolt-15");
+        Clan.put(new Long(0x0250), "@ Thunderbolt-20");
+        Clan.put(new Long(0x0259), "(IS) @ Narc (Homing)");
+        Clan.put(new Long(0x0265), "@ Vehicle Flamer");
+        Clan.put(new Long(0x0267), "@ Sniper");
+        Clan.put(new Long(0x0268), "@ Thumper");
+        Clan.put(new Long(0x0269), "(IS) @ MRM-10");
+        Clan.put(new Long(0x026A), "(IS) @ MRM-20");
+        Clan.put(new Long(0x026B), "(IS) @ MRM-30");
+        Clan.put(new Long(0x026C), "(IS) @ MRM-40");
+        Clan.put(new Long(0x0272), "(IS) @ LRT-15 (Torpedo)");
+        Clan.put(new Long(0x0273), "(IS) @ LRT-20 (Torpedo)");
+        Clan.put(new Long(0x0274), "(IS) @ LRT-5 (Torpedo)");
+        Clan.put(new Long(0x0275), "(IS) @ LRT-10 (Torpedo)");
+        Clan.put(new Long(0x0276), "@ SRT-4");
+        Clan.put(new Long(0x0277), "@ SRT-2");
+        Clan.put(new Long(0x0278), "@ SRT-6");
+        Clan.put(new Long(0x10000022bL), "(IS) @ LB 2-X AC (Slug)");
+        Clan.put(new Long(0x10000022cL), "(IS) @ LB 5-X AC (Slug)");
+        Clan.put(new Long(0x10000022dL), "(IS) @ LB 10-X AC (Slug)");
+        Clan.put(new Long(0x10000022eL), "(IS) @ LB 20-X AC (Slug)");
+        Clan.put(new Long(0x1000001d2L), "(CL) @ LB 2-X AC (Cluster)");
+        Clan.put(new Long(0x1000001d3L), "(CL) @ LB 5-X AC (Cluster)");
+        Clan.put(new Long(0x1000001d4L), "(CL) @ LB 10-X AC (Cluster)");
+        Clan.put(new Long(0x1000001d5L), "(CL) @ LB 20-X AC (Cluster)");
 
         // unused items, from older books usually
         Unused.put(new Long(0x11D), "ISTHBAngelECMSuite");
