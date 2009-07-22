@@ -83,7 +83,7 @@ public class thLTTransferHandler extends TransferHandler {
 
         if( DropItem.Locked ) {
             abPlaceable a = CurMech.GetLoadout().GetCrits( DropItem.Location )[DropItem.SourceIndex];
-            if( a instanceof ISCASE || a instanceof CASEII || a instanceof MultiSlotSystem || a instanceof Supercharger || a instanceof Engine || a instanceof SimplePlaceable ) {
+            if( a instanceof CASE || a instanceof CASEII || a instanceof MultiSlotSystem || a instanceof Supercharger || a instanceof Engine || a instanceof SimplePlaceable ) {
                 if( DropItem.Location != Constants.LOC_LT ) {
                     return false;
                 } else {
@@ -93,7 +93,7 @@ public class thLTTransferHandler extends TransferHandler {
                     if( ( CurMech.GetLoadout().GetCrits( Constants.LOC_LT )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( Constants.LOC_LT )[dindex].LocationLinked() ) && a != CurMech.GetLoadout().GetCrits( Constants.LOC_LT )[dindex] ) {
                         return false;
                     }
-                    if( a instanceof ISCASE ) {
+                    if( a instanceof CASE ) {
                         if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().GetLTCase() == a ) {
                             return false;
                         }

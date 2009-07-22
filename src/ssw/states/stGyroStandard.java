@@ -41,6 +41,8 @@ public class stGyroStandard implements ifGyro, ifState {
         AC.SetCLCodes( 'D', 'X', 'B', 'B' );
         AC.SetCLDates( 0, 0, false, 2443, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
+        AC.SetPBMAllowed( true );
+        AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 

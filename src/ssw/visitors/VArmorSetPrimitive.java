@@ -26,64 +26,51 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package ssw.states;
+package ssw.visitors;
 
-import ssw.components.AvailableCode;
-import ssw.components.JumpJet;
-import ssw.components.MechModifier;
+import ssw.components.*;
+import ssw.gui.frmMain;
 
-public class stJumpJetStandard implements ifJumpJetFactory, ifState {
-    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
+public class VArmorSetPrimitive implements ifVisitor {
+    // sets the mech's armor to industrial
+    private frmMain Parent;
+    private Mech CurMech;
 
-    public stJumpJetStandard() {
-        AC.SetISCodes( 'D', 'C', 'C', 'C' );
-        AC.SetISDates( 0, 0, false, 2471, 0, 0, false, false );
-        AC.SetISFactions( "", "", "TH", "" );
-        AC.SetCLCodes( 'D', 'X', 'B', 'B' );
-        AC.SetCLDates( 0, 0, false, 2471, 0, 0, false, false );
-        AC.SetCLFactions( "", "", "TH", "" );
-        AC.SetPBMAllowed( true );
-        AC.SetPIMAllowed( true );
-        AC.SetRulesLevels( AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+    public VArmorSetPrimitive() {
+        Parent = null;
     }
 
-    public boolean HasCounterpart() {
-        return false;
+    public VArmorSetPrimitive( frmMain p ) {
+        Parent = p;
     }
 
-    public boolean IsImproved() {
-        return false;
+    public void SetClan( boolean clan ) {
     }
 
-    public boolean IsUMU() {
-        return false;
+    public void LoadLocations(LocationIndex[] locs) {
+        // does nothing here, but may later.
     }
 
-    public JumpJet GetJumpJet() {
-        return new JumpJet( "Jump Jet", "Jump Jet", 1, AC );
-    }
+//    public VRecalcArmor( int type, frmMain p ) {
+//        ArmorType = type;
+//        Parent = p;
+//    }
 
-    public float GetCost() {
-        return 200.0f;
-    }
+    public void Visit(Mech m) {
+        // only the armor changes, so pass us off
+        CurMech = m;
+        ifLoadout l = CurMech.GetLoadout();
+        Armor a = CurMech.GetArmor();
 
-    public float GetTonnage() {
-        return 1.0f;
-    }
+        // remove the old armor, if needed
+        l.Remove( a );
 
-    public int GetNumCrits() {
-        return 1;
-    }
+        a.SetPrimitive();
 
-    public AvailableCode GetAvailability() {
-        return AC;
-    }
-
-    public MechModifier GetMechModifier() {
-        return null;
-    }
-
-    public String GetLookupName() {
-        return "Standard Jump Jet";
+        // place the armor
+        a.Place( l );
+        if( a.GetMechModifier() != null ) {
+            CurMech.AddMechModifier( a.GetMechModifier() );
+        }
     }
 }

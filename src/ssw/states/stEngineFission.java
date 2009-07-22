@@ -50,6 +50,7 @@ public class stEngineFission implements ifEngine, ifState {
         AC.SetCLCodes( 'D', 'X', 'E', 'D' );
         AC.SetCLDates( 0, 0, false, 1960, 0, 0, false, false );
         AC.SetCLFactions( "", "", "ES", "" );
+        AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_ADVANCED );
     }
 
@@ -73,7 +74,10 @@ public class stEngineFission implements ifEngine, ifState {
         return 2;
     }
     
-    public boolean CanSupportRating( int rate ) {
+    public boolean CanSupportRating( int rate, boolean primitive ) {
+        if( primitive ) {
+            rate = (int) ( Math.floor( ( ( rate * 1.2f ) + 4.5f ) / 5 ) * 5 );
+        }
         if( rate < 5 || rate > 400 || rate % 5 != 0 ) {
             return false;
         } else {

@@ -36,7 +36,9 @@ public class Cockpit extends abPlaceable {
                                    TorsoCockpit = new stCockpitTorsoMount(),
                                    Primitive = new stCockpitISPrimitive(),
                                    IndustrialCockpit = new stCockpitIndustrial(),
-                                   IndusAFCCockpit = new stCockpitIndustrialAFC();
+                                   IndusAFCCockpit = new stCockpitIndustrialAFC(),
+                                   PrimIndustrial = new stCockpitPrimIndustrial(),
+                                   PrimIndusAFC = new stCockpitPrimIndustrialAFC();
     private ifCockpit CurConfig = StandardCockpit;
     private Mech Owner;
 
@@ -58,6 +60,14 @@ public class Cockpit extends abPlaceable {
 
     public void SetPrimitiveCockpit() {
         CurConfig = Primitive;
+    }
+
+    public void SetPrimIndustrialCockpit() {
+        CurConfig = PrimIndustrial;
+    }
+
+    public void SetPrimIndustrialAFCCockpit() {
+        CurConfig = PrimIndusAFC;
     }
 
     public void SetIndustrialCockpit() {
@@ -318,7 +328,8 @@ public class Cockpit extends abPlaceable {
 
     public ifState[] GetStates() {
         ifState[] retval = { (ifState) StandardCockpit, (ifState) SmallCockpit,
-            (ifState) TorsoCockpit, (ifState) IndustrialCockpit, (ifState) IndusAFCCockpit };
+            (ifState) TorsoCockpit, (ifState) IndustrialCockpit, (ifState) IndusAFCCockpit,
+            (ifState) Primitive, (ifState) PrimIndustrial, (ifState) PrimIndusAFC };
         return retval;
     }
 

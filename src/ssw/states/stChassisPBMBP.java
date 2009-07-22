@@ -30,11 +30,11 @@ package ssw.states;
 
 import ssw.components.*;
 
-public class stChassisISPRQD implements ifChassis, ifState {
-    // An Inner Sphere Standard Military Quad chassis
-    private final static float[] Masses = { 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f,
-        8.0f, 9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f, 17.0f, 18.0f, 19.0f,
-        20.0f };
+public class stChassisPBMBP implements ifChassis, ifState {
+    // An Inner Sphere Primitive Biped chassis
+    private final static float[] Masses = { 1.0f, 1.5f, 2.0f, 2.5f, 3.0f, 3.5f,
+        4.0f, 4.5f, 5.0f, 5.5f, 6.0f, 6.5f, 7.0f, 7.5f, 8.0f, 8.5f, 9.0f, 9.5f,
+        10.0f };
     private final static int[][] IntPoints = {
         { 4, 3, 1, 2 },
         { 5, 4, 2, 3 },
@@ -57,12 +57,13 @@ public class stChassisISPRQD implements ifChassis, ifState {
         { 31, 21, 17, 21 } };
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
-    public stChassisISPRQD() {
-        AC.SetISCodes( 'D', 'C', 'C', 'C' );
+    public stChassisPBMBP() {
+        AC.SetISCodes( 'C', 'E', 'X', 'F' );
         AC.SetISDates( 0, 0, false, 2443, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
-        AC.SetEraSpecific( true );
-        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        AC.SetPBMAllowed( true );
+        AC.SetPrimitiveOnly( true );
+        AC.SetRulesLevels( AvailableCode.RULES_ERA_SPECIFIC, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
     public boolean HasCounterpart() {
@@ -90,7 +91,7 @@ public class stChassisISPRQD implements ifChassis, ifState {
     }
     
     public boolean IsQuad() {
-        return true;
+        return false;
     }
     
     public int GetHeadPoints() {
@@ -107,14 +108,13 @@ public class stChassisISPRQD implements ifChassis, ifState {
     }
     
     public int GetArmPoints( int Tonnage ) {
-        // Quads have legs for "arms" so we return the leg points
-        return IntPoints[GetIndex(Tonnage)][3];
+        return IntPoints[GetIndex(Tonnage)][2];
     }
 
     public int GetLegPoints( int Tonnage ) {
         return IntPoints[GetIndex(Tonnage)][3];
     }
-
+    
     public float GetCost( int Tonnage ) {
         return 400 * Tonnage;
     }

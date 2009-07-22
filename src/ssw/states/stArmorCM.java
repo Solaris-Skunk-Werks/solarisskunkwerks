@@ -45,6 +45,7 @@ public class stArmorCM implements ifArmor, ifState {
         AC.SetCLCodes( 'B', 'X', 'B', 'A' );
         AC.SetCLDates( 0, 0, false, 2400, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
+        AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED );
     }
 

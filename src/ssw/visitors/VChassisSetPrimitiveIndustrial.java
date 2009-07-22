@@ -26,64 +26,42 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package ssw.states;
+package ssw.visitors;
 
-import ssw.components.AvailableCode;
-import ssw.components.JumpJet;
-import ssw.components.MechModifier;
+import ssw.components.*;
 
-public class stJumpJetStandard implements ifJumpJetFactory, ifState {
-    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
+public class VChassisSetPrimitiveIndustrial implements ifVisitor {
+    private Mech CurMech;
 
-    public stJumpJetStandard() {
-        AC.SetISCodes( 'D', 'C', 'C', 'C' );
-        AC.SetISDates( 0, 0, false, 2471, 0, 0, false, false );
-        AC.SetISFactions( "", "", "TH", "" );
-        AC.SetCLCodes( 'D', 'X', 'B', 'B' );
-        AC.SetCLDates( 0, 0, false, 2471, 0, 0, false, false );
-        AC.SetCLFactions( "", "", "TH", "" );
-        AC.SetPBMAllowed( true );
-        AC.SetPIMAllowed( true );
-        AC.SetRulesLevels( AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+    public void SetClan( boolean clan ) {
     }
 
-    public boolean HasCounterpart() {
-        return false;
+    public void LoadLocations(LocationIndex[] locs) {
+        // does nothing here, but may later.
     }
 
-    public boolean IsImproved() {
-        return false;
-    }
+    public void Visit(Mech m) {
+        // Since all we're doing is changing the internal structure type, send
+        // us to the internal structure and we're done here.
+        CurMech = m;
+        InternalStructure i = CurMech.GetIntStruc();
 
-    public boolean IsUMU() {
-        return false;
-    }
+        // recalculates the internal structure if anything happened.
+        ifLoadout l = CurMech.GetLoadout();
 
-    public JumpJet GetJumpJet() {
-        return new JumpJet( "Jump Jet", "Jump Jet", 1, AC );
-    }
+        // remove the internal structure from the loadout
+        i.Remove(l);
 
-    public float GetCost() {
-        return 200.0f;
-    }
+        // change the internal structure type
+        if( CurMech.IsQuad() ) {
+            // standard quad
+            i.SetPIMQD();
+        } else {
+            // standard biped
+            i.SetPIMBP();
+        }
 
-    public float GetTonnage() {
-        return 1.0f;
-    }
-
-    public int GetNumCrits() {
-        return 1;
-    }
-
-    public AvailableCode GetAvailability() {
-        return AC;
-    }
-
-    public MechModifier GetMechModifier() {
-        return null;
-    }
-
-    public String GetLookupName() {
-        return "Standard Jump Jet";
+        // place the internal structure
+        i.Place(l);
     }
 }

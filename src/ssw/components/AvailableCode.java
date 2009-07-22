@@ -91,8 +91,9 @@ public class AvailableCode {
                     CL_WentExtinct = false,
                     CL_ReIntroduced = false,
                     CL_IsPrototype = false,
-                    PrimitiveAllowed = false,
-                    EraSpecific = false;
+                    PBMAllowed = false,
+                    PIMAllowed = false,
+                    PrimitiveOnly = false;
 
 /*
  *  Constructor
@@ -188,14 +189,17 @@ public class AvailableCode {
         RulesLevelCF = CF;
     }
 
-    public void SetPrimitiveAllowed( boolean b ) {
-        PrimitiveAllowed = b;
+    public void SetPBMAllowed( boolean b ) {
+        PBMAllowed = b;
     }
 
-    public void SetEraSpecific( boolean b ) {
-        EraSpecific = b;
+    public void SetPIMAllowed( boolean b ) {
+        PIMAllowed = b;
     }
 
+    public void SetPrimitiveOnly ( boolean b ) {
+        PrimitiveOnly = b;
+    }
 /*
  *  Getters
  */
@@ -359,12 +363,16 @@ public class AvailableCode {
         return TechBase;
     }
 
-    public boolean IsPrimitiveAllowed() {
-        return PrimitiveAllowed;
+    public boolean IsPBMAllowed() {
+        return PBMAllowed;
     }
 
-    public boolean IsEraSpecific() {
-        return EraSpecific;
+    public boolean IsPIMAllowed() {
+        return PIMAllowed;
+    }
+
+    public boolean IsPrimitiveOnly() {
+        return PrimitiveOnly;
     }
 
 /*
@@ -529,10 +537,6 @@ public class AvailableCode {
             RulesLevelCF = a.GetRulesLevel_CF();
         }
 
-        if( a.IsEraSpecific() ) {
-            EraSpecific = true;
-        }
-
         // double checking routines.
         if( IS_IntroDate > IS_ExtinctDate ) {
             IS_ExtinctDate = 0;
@@ -559,8 +563,9 @@ public class AvailableCode {
         retval.SetCLCodes( CL_TechRating, CL_SL, CL_SW, CL_CI );
         retval.SetCLDates( CL_RandDStartDate, CL_PrototypeDate, CL_IsPrototype, CL_IntroDate, CL_ExtinctDate, CL_ReIntroDate, CL_WentExtinct, CL_ReIntroduced );
         retval.SetCLFactions( CL_RandDFaction, CL_PrototypeFaction, CL_IntroFaction, CL_ReIntroFaction );
-        retval.SetEraSpecific( EraSpecific );
-        retval.SetPrimitiveAllowed( PrimitiveAllowed );
+        retval.SetPBMAllowed( PBMAllowed );
+        retval.SetPIMAllowed( PIMAllowed );
+        retval.SetPrimitiveOnly( PrimitiveOnly );
         return retval;
     }
 

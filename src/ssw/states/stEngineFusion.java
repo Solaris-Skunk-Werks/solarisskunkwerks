@@ -50,6 +50,8 @@ public class stEngineFusion implements ifEngine, ifState {
         AC.SetCLCodes( 'D', 'X', 'B', 'C' );
         AC.SetCLDates( 0, 0, false, 2021, 0, 0, false, false );
         AC.SetCLFactions( "", "", "WA", "" );
+        AC.SetPBMAllowed( true );
+        AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );
     }
 
@@ -73,7 +75,10 @@ public class stEngineFusion implements ifEngine, ifState {
         return 2;
     }
     
-    public boolean CanSupportRating( int rate ) {
+    public boolean CanSupportRating( int rate, boolean primitive ) {
+        if( primitive ) {
+            rate = (int) ( Math.floor( ( ( rate * 1.2f ) + 4.5f ) / 5 ) * 5 );
+        }
         if( rate < 5 || rate > 400 || rate % 5 != 0 ) {
             return false;
         } else {

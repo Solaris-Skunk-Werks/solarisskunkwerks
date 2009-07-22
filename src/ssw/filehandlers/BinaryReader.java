@@ -164,6 +164,9 @@ public class BinaryReader {
         strings[3] = FR.readUTF();
         AC.SetCLDates( ints[3], ints[4], bools[2], ints[0], ints[1], ints[2], bools[0], bools[1] );
         AC.SetCLFactions( strings[2], strings[3], strings[0], strings[1] );
+        // hack for primitive 'Mechs.  We're assuming everything can be used by them
+        AC.SetPIMAllowed( true );
+        AC.SetPBMAllowed( true );
         return AC;
     }
 }

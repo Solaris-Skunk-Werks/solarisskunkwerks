@@ -41,6 +41,8 @@ public class AESSystem extends abPlaceable {
         AC.SetCLCodes( 'E', 'X', 'X', 'F' );
         AC.SetCLDates( 3067, 3070, true, 3070, 0, 0, false, false );
         AC.SetCLFactions( "WD", "WD", "", "" );
+        AC.SetPBMAllowed( true );
+        AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = m;
         LegSystem = legs;

@@ -39,6 +39,8 @@ public class LaserInsulator extends abPlaceable {
         AC.SetCLCodes( 'E', 'X', 'E', 'F' );
         AC.SetCLDates( 0, 0, false, 2575, 0, 0, false, false );
         AC.SetCLFactions( "TH", "", "", "" );
+        AC.SetPBMAllowed( true );
+        AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = w;
     }

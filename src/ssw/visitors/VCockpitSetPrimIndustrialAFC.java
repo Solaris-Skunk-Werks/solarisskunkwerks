@@ -26,64 +26,33 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package ssw.states;
+package ssw.visitors;
 
-import ssw.components.AvailableCode;
-import ssw.components.JumpJet;
-import ssw.components.MechModifier;
+import ssw.components.*;
 
-public class stJumpJetStandard implements ifJumpJetFactory, ifState {
-    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
+public class VCockpitSetPrimIndustrialAFC implements ifVisitor {
+    private Mech CurMech;
 
-    public stJumpJetStandard() {
-        AC.SetISCodes( 'D', 'C', 'C', 'C' );
-        AC.SetISDates( 0, 0, false, 2471, 0, 0, false, false );
-        AC.SetISFactions( "", "", "TH", "" );
-        AC.SetCLCodes( 'D', 'X', 'B', 'B' );
-        AC.SetCLDates( 0, 0, false, 2471, 0, 0, false, false );
-        AC.SetCLFactions( "", "", "TH", "" );
-        AC.SetPBMAllowed( true );
-        AC.SetPIMAllowed( true );
-        AC.SetRulesLevels( AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+    public void SetClan( boolean clan ) {
     }
 
-    public boolean HasCounterpart() {
-        return false;
+    public void LoadLocations(LocationIndex[] locs) {
+        // does nothing here, but may later.
     }
 
-    public boolean IsImproved() {
-        return false;
-    }
+    public void Visit(Mech m) {
+        // Pass us off to the cockpit
+        CurMech = m;
+        Cockpit c = CurMech.GetCockpit();
 
-    public boolean IsUMU() {
-        return false;
-    }
+        // first, we have to remove it from the loadout
+        ifLoadout l = CurMech.GetLoadout();
+        c.Remove(l);
 
-    public JumpJet GetJumpJet() {
-        return new JumpJet( "Jump Jet", "Jump Jet", 1, AC );
-    }
+        // now set the correct type
+        c.SetPrimIndustrialAFCCockpit();
 
-    public float GetCost() {
-        return 200.0f;
-    }
-
-    public float GetTonnage() {
-        return 1.0f;
-    }
-
-    public int GetNumCrits() {
-        return 1;
-    }
-
-    public AvailableCode GetAvailability() {
-        return AC;
-    }
-
-    public MechModifier GetMechModifier() {
-        return null;
-    }
-
-    public String GetLookupName() {
-        return "Standard Jump Jet";
+        // replace the cockpit
+        c.Place(l);
     }
 }

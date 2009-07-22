@@ -69,7 +69,10 @@ public class stEngineCLXL implements ifEngine, ifState {
         return 2;
     }
     
-    public boolean CanSupportRating( int rate ) {
+    public boolean CanSupportRating( int rate, boolean primitive ) {
+        if( primitive ) {
+            rate = (int) ( Math.floor( ( ( rate * 1.2f ) + 4.5f ) / 5 ) * 5 );
+        }
         if( rate < 5 || rate > 400 || rate % 5 != 0 ) {
             return false;
         } else {

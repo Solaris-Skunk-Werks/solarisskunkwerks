@@ -45,8 +45,10 @@ public class InternalStructure extends abPlaceable {
                              ISCOQD = new stChassisISCOQD(),
                              ISECBP = new stChassisISECBP(),
                              ISECQD = new stChassisISECQD(),
-                             ISPRBP = new stChassisISPRBP(),
-                             ISPRQD = new stChassisISPRQD(),
+                             PBMBP = new stChassisPBMBP(),
+                             PBMQD = new stChassisPBMQD(),
+                             PIMBP = new stChassisPIMBP(),
+                             PIMQD = new stChassisPIMQD(),
                              REBP = new stChassisREBP(),
                              REQD = new stChassisREQD(),
                              IMBP = new stChassisIMBP(),
@@ -105,14 +107,24 @@ public class InternalStructure extends abPlaceable {
         Config = ISECQD;
     }
 
-    public void SetISPRBP() {
+    public void SetPBMBP() {
         // Set this chassis to an Inner Sphere Primitive Biped
-        Config = ISPRBP;
+        Config = PBMBP;
     }
 
-    public void SetISPRQD() {
+    public void SetPBMQD() {
         // Set this chassis to an Inner Sphere Primitive Quad
-        Config = ISPRQD;
+        Config = PBMQD;
+    }
+
+    public void SetPIMBP() {
+        // Set this chassis to an Inner Sphere Primitive Biped
+        Config = PIMBP;
+    }
+
+    public void SetPIMQD() {
+        // Set this chassis to an Inner Sphere Primitive Quad
+        Config = PIMQD;
     }
 
     public void SetREBP() {
@@ -254,7 +266,7 @@ public class InternalStructure extends abPlaceable {
     }
 
     public ifState[] GetStates( boolean biped ) {
-        ifState[] retval = { null, null, null, null, null, null, null, null };
+        ifState[] retval = { null, null, null, null, null, null, null, null, null, null };
         if( biped ) {
             retval[0] = (ifState) MSBP;
             retval[1] = (ifState) ISESBP;
@@ -264,7 +276,8 @@ public class InternalStructure extends abPlaceable {
             retval[5] = (ifState) ISCOBP;
             retval[6] = (ifState) REBP;
             retval[7] = (ifState) IMBP;
-            //retval[11] = (ifState) ISPRBP;
+            retval[8] = (ifState) PBMBP;
+            retval[9] = (ifState) PIMBP;
         } else {
             retval[0] = (ifState) MSQD;
             retval[1] = (ifState) ISESQD;
@@ -274,7 +287,8 @@ public class InternalStructure extends abPlaceable {
             retval[5] = (ifState) ISCOQD;
             retval[6] = (ifState) REQD;
             retval[7] = (ifState) IMQD;
-            //retval[11] = (ifState) ISPRQD;
+            retval[8] = (ifState) PBMQD;
+            retval[9] = (ifState) PIMQD;
         }
         return retval;
     }

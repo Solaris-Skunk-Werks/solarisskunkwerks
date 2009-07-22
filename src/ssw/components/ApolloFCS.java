@@ -36,6 +36,8 @@ public class ApolloFCS extends abPlaceable implements ifMissileGuidance {
         AC.SetISCodes( 'D', 'X', 'X', 'E' );
         AC.SetISDates( 0, 0, false, 3071, 0, 0, false, false );
         AC.SetISFactions( "", "", "DC", "" );
+        AC.SetPBMAllowed( true );
+        AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = m;
     }

@@ -29,26 +29,25 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.states;
 
 import ssw.Constants;
-import ssw.components.*;
+import ssw.components.AvailableCode;
+import ssw.components.LocationIndex;
+import ssw.components.MechModifier;
+import ssw.components.SimplePlaceable;
 
-public class stCockpitISPrimitive implements ifCockpit, ifState {
+public class stCockpitPrimIndustrialAFC implements ifCockpit, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
-    private final static SimplePlaceable Sensors = new SimplePlaceable( "Sensors",
-        "Sensors", 1, true, AC );
-    private final static SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support",
-        "Life Support", 1, true, AC );
-    private final static SimplePlaceable SecondSensors = new SimplePlaceable( "Sensors",
-        "Sensors", 1, true, AC );
-    private final static SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support",
-        "Life Support", 1, true, AC );
+    private final static SimplePlaceable Sensors = new SimplePlaceable( "Sensors", "Sensors", 1, true, AC );
+    private final static SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support", "Life Support", 1, true, AC );
+    private final static SimplePlaceable SecondSensors = new SimplePlaceable( "Sensors", "Sensors", 1, true, AC );
+    private final static SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support", "Life Support", 1, true, AC );
 
-    public stCockpitISPrimitive() {
+    public stCockpitPrimIndustrialAFC() {
         AC.SetISCodes( 'C', 'E', 'X', 'F' );
         AC.SetISDates( 0, 0, false, 2300, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
-        AC.SetPBMAllowed( true );
+        AC.SetPIMAllowed( true );
         AC.SetPrimitiveOnly( true );
-        AC.SetRulesLevels( AvailableCode.RULES_ERA_SPECIFIC, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_ERA_SPECIFIC, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
     public boolean HasCounterpart() {
@@ -85,11 +84,11 @@ public class stCockpitISPrimitive implements ifCockpit, ifState {
     }
 
     public String GetLookupName() {
-        return "Primitive Cockpit";
+        return "Primitive Industrial w/ Adv. FC";
     }
 
     public String GetCritName() {
-        return "Primitive Cockpit";
+        return "Prtimitive Cockpit (AFC)";
     }
     
     public String GetMMName() {
@@ -97,11 +96,11 @@ public class stCockpitISPrimitive implements ifCockpit, ifState {
     }
 
     public String GetReportName() {
-        return "Primitive";
+        return "Primitive Industrial w/ Adv. Fire Control";
     }
 
     public float GetCost( int Tonnage ) {
-        float result = 150000.0f + ( 2000.0f * Tonnage );
+        float result = 200000.0f + ( 2000.0f * Tonnage );
         result += Sensors.GetCost();
         result += LifeSupport.GetCost();
         result += SecondSensors.GetCost();
@@ -110,11 +109,11 @@ public class stCockpitISPrimitive implements ifCockpit, ifState {
     }
 
     public boolean HasFireControl() {
-        return false;
+        return true;
     }
 
     public float BVMod() {
-        return 1.0f;
+        return 0.9f;
     }
 
     public AvailableCode GetAvailability() {
@@ -131,7 +130,7 @@ public class stCockpitISPrimitive implements ifCockpit, ifState {
 
     @Override
     public String toString() {
-        return "Primitive Cockpit";
+        return "Industrial Cockpit (AFC)";
     }
 
     public LocationIndex GetCockpitLoc() {

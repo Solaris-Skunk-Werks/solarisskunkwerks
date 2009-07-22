@@ -91,25 +91,7 @@ public class CommonTools {
                 return "Unknown";
         }
     }
-/*
-    public static String GetCorrectLookupName( Mech m, ifState s ) {
-        switch( m.GetTechBase() ) {
-            case AvailableCode.TECH_INNER_SPHERE: case AvailableCode.TECH_CLAN:
-                return s.GetLookupName();
-            case AvailableCode.TECH_BOTH:
-                if( s.HasCounterpart() ) {
-                    if( s.GetAvailability().GetTechBase() == AvailableCode.TECH_INNER_SPHERE ) {
-                        return "(IS) " + s.GetLookupName();
-                    } else {
-                        return "(CL) " + s.GetLookupName();
-                    }
-                } else {
-                    return s.GetLookupName();
-                }
-        }
-        return "";
-    }
-*/
+
     public static String GetAggregateReportBV( abPlaceable p ) {
         // since an item may have both offensive and defensive BV, this gives us
         // an aggregate battle value string for reporting
@@ -164,6 +146,13 @@ public class CommonTools {
                     if( AC.GetRulesLevel_BM() > AvailableCode.RULES_EXPERIMENTAL || AC.GetRulesLevel_BM() < AvailableCode.RULES_INTRODUCTORY ) { return false; }
                 }
                 break;
+            case AvailableCode.RULES_ERA_SPECIFIC:
+                if( m.IsIndustrialmech() ) {
+                    if( AC.GetRulesLevel_IM() > AvailableCode.RULES_ERA_SPECIFIC || AC.GetRulesLevel_IM() < AvailableCode.RULES_INTRODUCTORY ) { return false; }
+                } else {
+                    if( AC.GetRulesLevel_BM() > AvailableCode.RULES_ERA_SPECIFIC || AC.GetRulesLevel_BM() < AvailableCode.RULES_INTRODUCTORY ) { return false; }
+                }
+                break;
             default:
                 // Unallowed or Era Specific.  everything allowed until we know better.
                 if( m.IsIndustrialmech() ) {
@@ -187,6 +176,17 @@ public class CommonTools {
                 break;
             default:
                 return false;
+        }
+
+        // is the 'Mech primitive and is this equipment allowed?
+        if( m.IsPrimitive() ) {
+            if( m.IsIndustrialmech() ) {
+                if( ! AC.IsPIMAllowed() ) { return false; }
+            } else {
+                if( ! AC.IsPBMAllowed() ) { return false; }
+            }
+        } else {
+            if( AC.IsPrimitiveOnly() ) { return false; }
         }
 
         // are we restricting by year?

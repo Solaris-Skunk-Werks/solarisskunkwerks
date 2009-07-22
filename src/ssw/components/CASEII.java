@@ -45,6 +45,8 @@ public class CASEII extends abPlaceable {
         AC.SetCLCodes( 'F', 'X', 'X', 'F' );
         AC.SetCLDates( 3059, 3062, true, 3062, 0, 0, false, false );
         AC.SetCLFactions( "CCY", "CCY", "", "" );
+        AC.SetPBMAllowed( true );
+        AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = l;
         Clan = clan;

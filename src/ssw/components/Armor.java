@@ -48,6 +48,7 @@ public class Armor  extends abPlaceable {
                     Hardened = new stArmorHA(),
                     ISLR = new stArmorISLR(),
                     ISRE = new stArmorISRE(),
+                    PBM = new stArmorPBM(),
                     Commercial = new stArmorCM(),
                     CLFF = new stArmorCLFF(),
                     CLFL = new stArmorCLFL(),
@@ -111,6 +112,10 @@ public class Armor  extends abPlaceable {
 
     public void SetCommercial() {
         Config = Commercial;
+    }
+
+    public void SetPrimitive() {
+        Config = PBM;
     }
 
     public void SetCLFF() {
@@ -455,6 +460,7 @@ public class Armor  extends abPlaceable {
         return Config.GetMMName();
     }
 
+    @Override
     public String GetPrintName() {
         return Config.GetPrintName();
     }
@@ -532,7 +538,7 @@ public class Armor  extends abPlaceable {
     }
 
     public ifState[] GetStates() {
-        ifState[] retval = { (ifState) Industrial, (ifState) Commercial, (ifState) Standard, (ifState) ISFF, (ifState) CLFF,
+        ifState[] retval = { (ifState) Industrial, (ifState) Commercial, (ifState) PBM, (ifState) Standard, (ifState) ISFF, (ifState) CLFF,
             (ifState) ISLF, (ifState) ISHF, (ifState) ISST, (ifState) Hardened, (ifState) ISLR, (ifState) CLLR, (ifState) ISRE, (ifState) CLRE,
              (ifState) CLFL };
         return retval;

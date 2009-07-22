@@ -37,6 +37,8 @@ public class PPCCapacitor extends abPlaceable {
         AC.SetISCodes( 'E', 'X', 'X', 'E' );
         AC.SetISDates( 3057, 3060, true, 3060, 0, 0, false, false );
         AC.SetISFactions( "DC", "DC", "", "" );
+        AC.SetPBMAllowed( true );
+        AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = w;
         BuildOffensiveBV();

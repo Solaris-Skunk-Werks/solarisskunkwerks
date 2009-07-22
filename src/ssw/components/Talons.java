@@ -37,6 +37,8 @@ public class Talons extends PhysicalWeapon {
         AC.SetCLCodes( 'E', 'X', 'X', 'F' );
         AC.SetCLDates( 0, 0, false, 3072, 0, 0, false, false );
         AC.SetCLFactions( "", "", "CJF", "" );
+        AC.SetPBMAllowed( true );
+        AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = m;
     }

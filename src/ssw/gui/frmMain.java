@@ -118,6 +118,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         PPCCapAC.SetISCodes( 'E', 'X', 'X', 'E' );
         PPCCapAC.SetISDates( 3057, 3060, true, 3060, 0, 0, false, false );
         PPCCapAC.SetISFactions( "DC", "DC", "", "" );
+        PPCCapAC.SetPBMAllowed( true );
+        PPCCapAC.SetPIMAllowed( true );
         PPCCapAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         LIAC.SetISCodes( 'E', 'F', 'F', 'X' );
         LIAC.SetISDates( 0, 0, false, 2575, 2820, 0, true, false );
@@ -125,6 +127,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         LIAC.SetCLCodes( 'E', 'X', 'E', 'F' );
         LIAC.SetCLDates( 0, 0, false, 2575, 0, 0, false, false );
         LIAC.SetCLFactions( "TH", "", "", "" );
+        LIAC.SetPBMAllowed( true );
+        LIAC.SetPIMAllowed( true );
         LIAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
 
         // fix for NetBeans stupidity.
@@ -493,7 +497,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // since this should only ever happen when the tonnage changes, we'll
         // deal with the mech's engine rating here.  Reset the Run MP label too
         if( CurWalk > MaxWalk ) { CurWalk = MaxWalk; }
-        CurMech.GetEngine().SetRating( CurWalk * CurMech.GetTonnage() );
+        CurMech.GetEngine().SetRating( CurWalk * CurMech.GetTonnage(), CurMech.IsPrimitive() );
         lblRunMP.setText( "" + CurMech.GetRunningMP() );
 
         // reset the spinner model and we're done.
@@ -752,33 +756,26 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             case AvailableCode.ERA_STAR_LEAGUE:
                 cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere" } ) );
                 break;
-            case AvailableCode.ERA_SUCCESSION:
-                if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
+            default:
+                if( CurMech.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
                     cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan", "Mixed" } ) );
                 } else {
                     cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan" } ) );
                 }
                 break;
-            case AvailableCode.ERA_CLAN_INVASION:
-                if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
-                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan", "Mixed" } ) );
-                } else {
-                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan" } ) );
-                }
+        }
+    }
+
+    private void BuildMechTypeSelector() {
+        switch( CurMech.GetRulesLevel() ) {
+            case AvailableCode.RULES_INTRODUCTORY:
+                cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech" } ) );
                 break;
-            case AvailableCode.ERA_DARK_AGES:
-                if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
-                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan", "Mixed" } ) );
-                } else {
-                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan" } ) );
-                }
+            case AvailableCode.RULES_ERA_SPECIFIC:
+                cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech", "IndustrialMech", "Primitive", "Primitive IndustrialMech" } ) );
                 break;
-            case AvailableCode.ERA_ALL:
-                if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
-                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan", "Mixed" } ) );
-                } else {
-                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan" } ) );
-                }
+            default:
+                cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech", "IndustrialMech" } ) );
                 break;
         }
     }
@@ -11901,13 +11898,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             return;
         }
 
-        if( NewLevel == AvailableCode.RULES_INTRODUCTORY ) {
-            cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech" } ) );
-        } else {
-            cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech", "IndustrialMech" } ) );
-            cmbMechType.setSelectedIndex( OldType );
-        }
-
         // do we have an OmniMech?
         if( CurMech.IsOmnimech() ) {
             // see if we can set to the new rules level.
@@ -11927,6 +11917,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         } else {
             CurMech.SetRulesLevel( NewLevel );
+            BuildMechTypeSelector();
             CheckTonnage( true );
 
             // get the currently chosen selections
@@ -12823,9 +12814,17 @@ public void LoadMechIntoGUI() {
         scrLACrits.setPreferredSize( new java.awt.Dimension( 105, 170 ) );
     }
     if( CurMech.IsIndustrialmech() ) {
-        cmbMechType.setSelectedIndex( 1 );
+        if( CurMech.IsPrimitive() ) {
+            cmbMechType.setSelectedIndex( 3 );
+        } else {
+            cmbMechType.setSelectedIndex( 1 );
+        }
     } else {
-        cmbMechType.setSelectedIndex( 0 );
+        if( CurMech.IsPrimitive() ) {
+            cmbMechType.setSelectedIndex( 2 );
+        } else {
+            cmbMechType.setSelectedIndex( 0 );
+        }
     }
     chkYearRestrict.setSelected( CurMech.IsYearRestricted() );
     txtProdYear.setText( "" + CurMech.GetYear() );
@@ -13344,7 +13343,29 @@ private void mnuPrintBatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 }//GEN-LAST:event_mnuPrintBatchActionPerformed
 
 private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMechTypeActionPerformed
-        if( cmbMechType.getSelectedIndex() == 1 ) {
+    switch( cmbMechType.getSelectedIndex() ) {
+        case 0:
+            if( ! CurMech.IsIndustrialmech() &! CurMech.IsPrimitive() ) { return; }
+            CurMech.SetModern();
+            CurMech.SetBattlemech();
+            break;
+        case 1:
+            if( CurMech.IsIndustrialmech() &! CurMech.IsPrimitive() ) { return; }
+            CurMech.SetModern();
+            CurMech.SetIndustrialmech();
+            break;
+        case 2:
+            if( ! CurMech.IsIndustrialmech() && CurMech.IsPrimitive() ) { return; }
+            CurMech.SetPrimitive();
+            CurMech.SetBattlemech();
+            break;
+        case 3:
+            if( CurMech.IsIndustrialmech() && CurMech.IsPrimitive() ) { return; }
+            CurMech.SetPrimitive();
+            CurMech.SetIndustrialmech();
+            break;
+    }
+/*    if( cmbMechType.getSelectedIndex() == 1 ) {
             if( CurMech.IsIndustrialmech() ) { return; }
         } else {
             if( ! CurMech.IsIndustrialmech() ) { return; }
@@ -13354,7 +13375,7 @@ private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         } else {
             CurMech.SetIndustrialmech();
         }
-
+*/
         // check the tonnage
         CheckTonnage( false );
 

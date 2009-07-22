@@ -28,10 +28,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
-import ssw.components.*;
+import ssw.components.AvailableCode;
+import ssw.components.MechModifier;
 
-public class stChassisISPRBP implements ifChassis, ifState {
-    // An Inner Sphere Primitive Biped chassis
+public class stChassisPIMQD implements ifChassis, ifState {
+    // An Inner Sphere Standard Military Quad chassis
     private final static float[] Masses = { 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f,
         8.0f, 9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f, 17.0f, 18.0f, 19.0f,
         20.0f };
@@ -57,12 +58,13 @@ public class stChassisISPRBP implements ifChassis, ifState {
         { 31, 21, 17, 21 } };
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
-    public stChassisISPRBP() {
-        AC.SetISCodes( 'D', 'C', 'C', 'C' );
-        AC.SetISDates( 0, 0, false, 2443, 0, 0, false, false );
+    public stChassisPIMQD() {
+        AC.SetISCodes( 'C', 'E', 'X', 'F' );
+        AC.SetISDates( 0, 0, false, 2300, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
-        AC.SetEraSpecific( true );
-        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        AC.SetPIMAllowed( true );
+        AC.SetPrimitiveOnly( true );
+        AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_ERA_SPECIFIC, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
     public boolean HasCounterpart() {
@@ -74,15 +76,15 @@ public class stChassisISPRBP implements ifChassis, ifState {
     }
     
     public String GetLookupName() {
-        return "Primitive Structure";
+        return "Primitive Industrial Structure";
     }
 
     public String GetCritName() {
-        return "";
+        return "Primitive Industrial";
     }
 
     public String GetMMName() {
-        return "Primitive";
+        return "PrimitiveIndustrial";
     }
 
     public float GetStrucTon( int Tonnage ) {
@@ -90,7 +92,7 @@ public class stChassisISPRBP implements ifChassis, ifState {
     }
     
     public boolean IsQuad() {
-        return false;
+        return true;
     }
     
     public int GetHeadPoints() {
@@ -107,21 +109,22 @@ public class stChassisISPRBP implements ifChassis, ifState {
     }
     
     public int GetArmPoints( int Tonnage ) {
-        return IntPoints[GetIndex(Tonnage)][2];
+        // Quads have legs for "arms" so we return the leg points
+        return IntPoints[GetIndex(Tonnage)][3];
     }
 
     public int GetLegPoints( int Tonnage ) {
         return IntPoints[GetIndex(Tonnage)][3];
     }
-    
+
     public float GetCost( int Tonnage ) {
-        return 400 * Tonnage;
+        return 300 * Tonnage;
     }
-    
+
     public float GetBVMult() {
-        return 1.0f;
+        return 0.5f;
     }
-    
+
     public boolean IncrementPlaced() {
         return false;
     }
@@ -145,6 +148,6 @@ public class stChassisISPRBP implements ifChassis, ifState {
     // toString
     @Override
     public String toString() {
-        return "Primitive";
+        return "Primitive Industrial";
     }
 }

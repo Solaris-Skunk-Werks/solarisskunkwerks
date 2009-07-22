@@ -39,6 +39,8 @@ public class EmptyItem extends abPlaceable {
         AC.SetCLCodes( 'A', 'A', 'A', 'A' );
         AC.SetCLDates( 0, 0, false, 1900, 0, 0, false, false );
         AC.SetCLFactions( "", "", "", "" );
+        AC.SetPBMAllowed( true );
+        AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 

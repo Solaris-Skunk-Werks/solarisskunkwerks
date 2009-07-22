@@ -53,9 +53,9 @@ public class BipedLoadout implements ifLoadout {
     private JumpJetFactory Jumps;
     private HeatSinkFactory HeatSinks;
     private ActuatorSet Actuators;
-    private ISCASE CTCase = new ISCASE(),
-                   LTCase = new ISCASE(),
-                   RTCase = new ISCASE();
+    private CASE CTCase = new CASE(),
+                   LTCase = new CASE(),
+                   RTCase = new CASE();
     private CASEII HDCaseII = new CASEII( this, false ),
                    CTCaseII = new CASEII( this, false ),
                    LTCaseII = new CASEII( this, false ),
@@ -2554,7 +2554,7 @@ public class BipedLoadout implements ifLoadout {
                         }
                         break;
                     } else {
-                        if( ! Owner.IsOmnimech() && ( CTCrits[j] instanceof ISCASE || CTCrits[j] instanceof CASEII || CTCrits[j] instanceof MultiSlotSystem || CTCrits[j] instanceof Supercharger || CTCrits[j] instanceof SimplePlaceable || CTCrits[j] instanceof Cockpit ) ) {
+                        if( ! Owner.IsOmnimech() && ( CTCrits[j] instanceof CASE || CTCrits[j] instanceof CASEII || CTCrits[j] instanceof MultiSlotSystem || CTCrits[j] instanceof Supercharger || CTCrits[j] instanceof SimplePlaceable || CTCrits[j] instanceof Cockpit ) ) {
                             // we're not going to unallocate it.  Instead, just
                             // move the reference up.
                             CTCrits[i] = CTCrits[j];
@@ -2593,7 +2593,7 @@ public class BipedLoadout implements ifLoadout {
                         }
                         break;
                     } else {
-                        if( ! Owner.IsOmnimech() && ( LTCrits[j] instanceof ISCASE || LTCrits[j] instanceof CASEII || LTCrits[j] instanceof MultiSlotSystem || LTCrits[j] instanceof Supercharger || LTCrits[j] instanceof Engine || LTCrits[j] instanceof SimplePlaceable ) ) {
+                        if( ! Owner.IsOmnimech() && ( LTCrits[j] instanceof CASE || LTCrits[j] instanceof CASEII || LTCrits[j] instanceof MultiSlotSystem || LTCrits[j] instanceof Supercharger || LTCrits[j] instanceof Engine || LTCrits[j] instanceof SimplePlaceable ) ) {
                             // we're not going to unallocate it.  Instead, just
                             // move the reference up.
                             LTCrits[i] = LTCrits[j];
@@ -2632,7 +2632,7 @@ public class BipedLoadout implements ifLoadout {
                         }
                         break;
                     } else {
-                        if( ! Owner.IsOmnimech() && ( RTCrits[j] instanceof ISCASE || RTCrits[j] instanceof CASEII || RTCrits[j] instanceof MultiSlotSystem || RTCrits[j] instanceof Supercharger || RTCrits[j] instanceof Engine || RTCrits[j] instanceof SimplePlaceable ) ) {
+                        if( ! Owner.IsOmnimech() && ( RTCrits[j] instanceof CASE || RTCrits[j] instanceof CASEII || RTCrits[j] instanceof MultiSlotSystem || RTCrits[j] instanceof Supercharger || RTCrits[j] instanceof Engine || RTCrits[j] instanceof SimplePlaceable ) ) {
                             // we're not going to unallocate it.  Instead, just
                             // move the reference up.
                             RTCrits[i] = RTCrits[j];
@@ -3576,15 +3576,15 @@ public class BipedLoadout implements ifLoadout {
         Owner.SetChanged( true );
     }
 
-    public void SetCTCASE( ISCASE c ) {
+    public void SetCTCASE( CASE c ) {
         CTCase = c;
     }
 
-    public void SetLTCASE( ISCASE c ) {
+    public void SetLTCASE( CASE c ) {
         LTCase = c;
     }
 
-    public void SetRTCASE( ISCASE c ) {
+    public void SetRTCASE( CASE c ) {
         RTCase = c;
     }
 
@@ -3600,15 +3600,15 @@ public class BipedLoadout implements ifLoadout {
         return IsAllocated( RTCase );
     }
 
-    public ISCASE GetCTCase() {
+    public CASE GetCTCase() {
         return CTCase;
     }
 
-    public ISCASE GetLTCase() {
+    public CASE GetLTCase() {
         return LTCase;
     }
 
-    public ISCASE GetRTCase() {
+    public CASE GetRTCase() {
         return RTCase;
     }
 

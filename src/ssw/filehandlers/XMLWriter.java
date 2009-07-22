@@ -611,7 +611,7 @@ public class XMLWriter {
             retval += GetLocationLines( prefix + tab, p );
             retval += prefix + "</equipment>" + NL;
         }
-        if( CurMech.UsingTC() ) {
+        if( CurMech.UsingTC() && CurMech.GetTC().NumCrits() > 0 ) {
             abPlaceable p = (abPlaceable) CurMech.GetTC();
             retval += prefix + "<equipment>" + NL;
             retval += prefix + tab + "<name manufacturer=\"\">" + p.GetLookupName() + "</name>" + NL;

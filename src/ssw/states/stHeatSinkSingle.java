@@ -42,6 +42,8 @@ public class stHeatSinkSingle implements ifHeatSinkFactory, ifState {
         AC.SetCLCodes( 'D', 'X', 'A', 'A' );
         AC.SetCLDates( 0, 0, false, 2022, 0, 0, false, false );
         AC.SetCLFactions( "", "", "WA", "" );
+        AC.SetPBMAllowed( true );
+        AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 

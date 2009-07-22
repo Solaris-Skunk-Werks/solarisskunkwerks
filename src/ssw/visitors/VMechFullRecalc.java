@@ -47,7 +47,7 @@ public class VMechFullRecalc implements ifVisitor {
         l.FullUnallocate();
 
         // Recalculate the Engine and the multipliers
-        m.GetEngine().SetRating( m.GetWalkingMP() * m.GetTonnage() );
+        m.GetEngine().SetRating( m.GetWalkingMP() * m.GetTonnage(), m.IsPrimitive() );
         m.Recalculate();
 
         // Place the Engine and Gyro

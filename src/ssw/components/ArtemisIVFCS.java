@@ -39,6 +39,8 @@ public class ArtemisIVFCS extends abPlaceable implements ifMissileGuidance {
         AC.SetCLCodes( 'E', 'X', 'D', 'C' );
         AC.SetCLDates( 0, 0, false, 2598, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
+        AC.SetPBMAllowed( true );
+        AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );
         Owner = m;
     }

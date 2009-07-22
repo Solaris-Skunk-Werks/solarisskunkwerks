@@ -71,6 +71,8 @@ public class ActuatorSet {
         AC.SetCLCodes( 'C', 'X', 'C', 'C' );
         AC.SetCLDates( 0, 0, false, 2300, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
+        AC.SetPBMAllowed( true );
+        AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = l;
         LeftHip = new Actuator( "Hip", "Hip", true, false, AC, 0.0f, m );

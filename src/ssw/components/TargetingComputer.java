@@ -42,6 +42,8 @@ public class TargetingComputer extends abPlaceable {
         AC.SetCLCodes( 'E', 'X', 'D', 'C' );
         AC.SetCLDates( 0, 0, false, 2860, 0, 0, false, false );
         AC.SetCLFactions( "", "", "CMN", "" );
+        AC.SetPBMAllowed( true );
+        AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = l;
         Clan = clan;

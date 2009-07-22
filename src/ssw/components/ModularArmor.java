@@ -45,6 +45,8 @@ public class ModularArmor extends abPlaceable {
         AC.SetCLCodes( 'D', 'X', 'X', 'F' );
         AC.SetCLDates( 3073, 3074, true, 3074, 0, 0, false, false );
         AC.SetCLFactions( "CWX", "CWX", "", "" );
+        AC.SetPBMAllowed( true );
+        AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 

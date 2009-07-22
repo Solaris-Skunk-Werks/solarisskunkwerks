@@ -28,95 +28,92 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.states;
 
+import ssw.components.Armor;
 import ssw.components.AvailableCode;
-import ssw.components.Exclusion;
+import ssw.components.LocationIndex;
 import ssw.components.MechModifier;
+import ssw.components.ifLoadout;
 
-public class stPENone implements ifPhysEnhance, ifState {
-    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
+public class stArmorPBM implements ifArmor, ifState {
+    boolean locked = false;
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
-    public stPENone() {
-        AC.SetISCodes( 'A', 'A', 'A', 'A' );
-        AC.SetISDates( 0, 0, false, 2443, 0, 0, false, false );
+    public stArmorPBM() {
+        AC.SetISCodes( 'C', 'E', 'X', 'F' );
+        AC.SetISDates( 0, 0, false, 2439, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
-        AC.SetCLCodes( 'A', 'X', 'A', 'A' );
-        AC.SetCLDates( 0, 0, false, 2443, 0, 0, false, false );
-        AC.SetCLFactions( "", "", "TH", "" );
         AC.SetPBMAllowed( true );
-        AC.SetPIMAllowed( true );
-        AC.SetRulesLevels( AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        AC.SetPrimitiveOnly( true );
+        AC.SetRulesLevels( AvailableCode.RULES_ERA_SPECIFIC, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+    }
+
+    public String GetLookupName() {
+        return "Primitive Armor";
+    }
+
+    public String GetCritName() {
+        return "Primitive";
+    }
+
+    public String GetMMName() {
+        return "Primitive";
+    }
+
+    public String GetPrintName() {
+        return GetCritName();
     }
 
     public boolean HasCounterpart() {
         return false;
     }
 
-    public int GetTonnage( int mechtons ) {
+    public boolean Place( Armor a, ifLoadout l ) {
+        // Industrial armor takes no extra crits.
+        return true;
+    }
+
+    public boolean Place( Armor a, ifLoadout l, LocationIndex[] Locs ) {
+        // not implemented yet, just place as normal
+        return Place( a, l );
+    }
+
+    public int NumCrits() {
         return 0;
     }
-    
-    public int GetCrits( int mechtons ) {
-        return 0;
+
+    public float GetAVMult() {
+        return 0.67f;
     }
 
-    public String GetLookupName() {
-        return "No Enhancement";
+    public float GetCostMult() {
+        return 5000.0f;
     }
 
-    public String GetCritName() {
-        return "";
-    }
-    
-    public String GetMMName() {
-        return "Standard";
-    }
-
-    public boolean Contiguous() {
+    public boolean IsStealth() {
         return false;
     }
 
-    public boolean CanArmor() {
-        return false;
+    public float GetBVTypeMult() {
+        return 1.0f;
     }
 
-    public float GetCost( int mechtons, float enginetons ) {
-        return 0.0f;
-    }
-    
-    public float GetOffensiveBV( int Tonnage ) {
-        return 0.0f;
+    public int GetBAR() {
+        return 10;
     }
 
-    public float GetDefensiveBV( int Tonnage ) {
-        return 0.0f;
+    public boolean LocationLocked() {
+        return locked;
     }
 
-    public boolean IncrementPlaced() {
-        return false;
-    }
-
-    public boolean DecrementPlaced() {
-        return false;
-    }
-
-    public AvailableCode GetAvailability() {
-        return AC;
-    }
-    
-    public boolean IsCritable() {
-        return false;
+    public void SetLocked( boolean l ) {
+        locked = l;
     }
 
     public MechModifier GetMechModifier() {
         return null;
     }
 
-    public Exclusion GetExclusions() {
-        return null;
-    }
-
-    @Override
-    public String toString() {
-        return "No Physical Enhancement";
+    public AvailableCode GetAvailability() {
+        return AC;
     }
 }

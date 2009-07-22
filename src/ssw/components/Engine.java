@@ -59,9 +59,13 @@ public class Engine extends abPlaceable {
     }
 
     // Public Methods
-    public void SetRating( int rate ) {
+    public void SetRating( int rate, boolean primitive ) {
         // Set the current values
-        EngineRating = rate;
+        if( primitive ) {
+            EngineRating = (int) ( Math.floor( ( ( rate * 1.2f ) + 4.5f ) / 5 ) * 5 );
+        } else {
+            EngineRating = rate;
+        }
     }
 
     public void SetICEngine() {
@@ -136,8 +140,8 @@ public class Engine extends abPlaceable {
         return CurConfig.GetSideTorsoCrits();
     }
 
-    public boolean CanSupportRating( int rate ) {
-        return CurConfig.CanSupportRating( rate );
+    public boolean CanSupportRating( int rate, boolean primitive ) {
+        return CurConfig.CanSupportRating( rate, primitive );
     }
 
     public int NumCrits() {

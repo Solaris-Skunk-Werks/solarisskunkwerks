@@ -89,7 +89,7 @@ public class stCockpitIndustrialAFC implements ifCockpit, ifState {
     }
 
     public String GetCritName() {
-        return "Cockpit";
+        return "Cockpit (AFC)";
     }
     
     public String GetMMName() {
