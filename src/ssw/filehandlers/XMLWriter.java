@@ -87,12 +87,19 @@ public class XMLWriter {
         FR.newLine();
 
         if( CurMech.IsIndustrialmech() ) {
-            FR.write( tab + "<mech_type>IndustrialMech</mech_type>" );
-            FR.newLine();
+            if( CurMech.IsPrimitive() ) {
+                FR.write( tab + "<mech_type>PrimitiveIndustrialMech</mech_type>" );
+            } else {
+                FR.write( tab + "<mech_type>IndustrialMech</mech_type>" );
+            }
         } else {
-            FR.write( tab + "<mech_type>BattleMech</mech_type>" );
-            FR.newLine();
+            if( CurMech.IsPrimitive() ) {
+                FR.write( tab + "<mech_type>PrimitiveBattleMech</mech_type>" );
+            } else {
+                FR.write( tab + "<mech_type>BattleMech</mech_type>" );
+            }
         }
+        FR.newLine();
 
         FR.write( tab + "<techbase manufacturer=\"" + FileCommon.EncodeFluff( CurMech.GetCompany() ) + "\" location=\"" + FileCommon.EncodeFluff( CurMech.GetLocation() ) + "\">" + GetTechbase() + "</techbase>" );
         FR.newLine();
@@ -126,7 +133,8 @@ public class XMLWriter {
         }
         if( ls.Index == 12 ) { ls.Index = -1; }
         if( rs.Index == 12 ) { rs.Index = -1; }
-        FR.write( tab + "<engine rating=\"" + CurMech.GetEngine().GetRating() + "\" manufacturer=\"" + FileCommon.EncodeFluff( CurMech.GetEngineManufacturer() ) + "\" lsstart=\"" + ls.Index + "\" rsstart=\"" + rs.Index + "\" techbase=\"" + CurMech.GetEngine().GetTechBase() + "\">" + CurMech.GetEngine().GetLookupName() + "</engine>" );
+//        FR.write( tab + "<engine rating=\"" + CurMech.GetEngine().GetRating() + "\" manufacturer=\"" + FileCommon.EncodeFluff( CurMech.GetEngineManufacturer() ) + "\" lsstart=\"" + ls.Index + "\" rsstart=\"" + rs.Index + "\" techbase=\"" + CurMech.GetEngine().GetTechBase() + "\">" + CurMech.GetEngine().GetLookupName() + "</engine>" );
+        FR.write( tab + "<engine rating=\"" + GetBaseEngineRating() + "\" manufacturer=\"" + FileCommon.EncodeFluff( CurMech.GetEngineManufacturer() ) + "\" lsstart=\"" + ls.Index + "\" rsstart=\"" + rs.Index + "\" techbase=\"" + CurMech.GetEngine().GetTechBase() + "\">" + CurMech.GetEngine().GetLookupName() + "</engine>" );
         FR.newLine();
 
         FR.write( tab + "<gyro techbase=\"" + CurMech.GetGyro().GetTechBase() + "\">" + CurMech.GetGyro().GetLookupName() + "</gyro>" );
@@ -676,5 +684,11 @@ public class XMLWriter {
             retval = prefix + "<armored_locations>" + NL + retval + prefix + "</armored_locations>" + NL;
         }
         return retval;
+    }
+
+    private int GetBaseEngineRating() {
+        // provided for primitive 'Mechs.  Since the engine rating is handled by
+        // the 'Mech and engine, we need to know what the base is.
+        return CurMech.GetWalkingMP() * CurMech.GetTonnage();
     }
 }

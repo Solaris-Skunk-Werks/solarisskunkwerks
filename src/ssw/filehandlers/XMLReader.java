@@ -46,6 +46,7 @@ public class XMLReader {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     DocumentBuilder db;
     int SaveFileVersion = 1;
+    String Messages = "";
 
     public XMLReader() throws Exception {
         db = dbf.newDocumentBuilder();
@@ -194,6 +195,7 @@ public class XMLReader {
     }
 
     private Mech BuildMech( Mech m, Document d, DataFactory f ) throws Exception {
+        Messages = "";
         if( f == null ) {
             data = new DataFactory( m );
         } else {
@@ -258,10 +260,15 @@ public class XMLReader {
         n = d.getElementsByTagName( "mech_type" );
         if( n.getLength() <= 0 ) {
             // old files are always BattleMechs
-        } else if( n.item( 0 ).getTextContent().equals( "IndustrialMech" ) ) {
-            // industrialmech.  we're not worried about BattleMechs since the
-            // mech defaults to them anyway
-            m.SetIndustrialmech();
+        } else {
+            // 'Mechs always default to BattleMechs, here we're checking otherwise
+            String type = n.item( 0 ).getTextContent();
+            if( type.contains( "Industrial" ) ) {
+                m.SetIndustrialmech();
+            }
+            if( type.contains( "Primitive" ) ) {
+                m.SetPrimitive();
+            }
         }
 
         n = d.getElementsByTagName( "motive_type" );
@@ -492,7 +499,7 @@ public class XMLReader {
         map = n.item( 0 ).getAttributes();
         if( map.getNamedItem( "a4srm" ) != null ) {
             // old style loading
-            m.SetFCSArtemisIV( ParseBoolean( map.getNamedItem( "a4srm" ).getTextContent() ) || ParseBoolean( map.getNamedItem( "a4lrm" ).getTextContent() ) || ParseBoolean( map.getNamedItem( "a4mml" ).getTextContent() ) );
+            Messages += "This save file is an earlier version and may not safely load Artemis-IV systems.\nAll Artemis-IV systems have been removed from the 'Mech.\nPlease add Artemis-IV systems back in safely and resave the 'Mech.\nAIV-SRM = " + ParseBoolean( map.getNamedItem( "a4srm" ).getTextContent() ) + ", AIV-LRM = " + ParseBoolean( map.getNamedItem( "a4lrm" ).getTextContent() ) + ", AIV-MML = " + ParseBoolean( map.getNamedItem( "a4mml" ).getTextContent() ) + "\n\n";
         } else {
             // new style loading
             m.SetFCSArtemisIV( ParseBoolean( map.getNamedItem( "fcsa4" ).getTextContent() ) );
@@ -1398,5 +1405,9 @@ public class XMLReader {
             return null;
         }
         return retval;
+    }
+
+    public String GetMessages() {
+        return Messages;
     }
 }

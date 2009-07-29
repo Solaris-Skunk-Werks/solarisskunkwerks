@@ -12759,6 +12759,11 @@ public Mech LoadMech (){
     try {
         XMLReader XMLr = new XMLReader();
         m = XMLr.ReadMech( this, filename, data );
+        if( XMLr.GetMessages().length() > 0 ) {
+            dlgTextExport Message = new dlgTextExport( this, true, XMLr.GetMessages() );
+            Message.setLocationRelativeTo( this );
+            Message.setVisible( true );
+        }
     } catch( Exception e ) {
         // had a problem loading the mech.  let the user know.
         if( e.getMessage() == null ) {
@@ -12796,6 +12801,7 @@ public void LoadMechIntoGUI() {
 
     // Put it in the gui.
     UnlockGUIFromOmni();
+    BuildMechTypeSelector();
     if( CurMech.IsQuad() ) {
         cmbMotiveType.setSelectedIndex( 1 );
         ((javax.swing.border.TitledBorder) pnlLAArmorBox.getBorder()).setTitle( "FLL" );
