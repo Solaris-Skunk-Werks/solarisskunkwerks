@@ -1025,7 +1025,11 @@ public class HTMLWriter {
         // creates the hash table from values from the mech.
         lookup.put( "<+-SSW_NAME-+>", CurMech.GetName() );
         lookup.put( "<+-SSW_MODEL-+>", CurMech.GetModel() );
-        lookup.put( "<+-SSW_TECHBASE-+>", CommonTools.GetTechbaseString( CurMech.GetTechBase() ) );
+        if( CurMech.IsPrimitive() ) {
+            lookup.put( "<+-SSW_TECHBASE-+>", CommonTools.GetTechbaseString( CurMech.GetTechBase() ) + " (Primitive)" );
+        } else {
+            lookup.put( "<+-SSW_TECHBASE-+>", CommonTools.GetTechbaseString( CurMech.GetTechBase() ) );
+        }
         lookup.put( "<+-SSW_TONNAGE-+>", "" + CurMech.GetTonnage() );
         lookup.put( "<+-SSW_DRY_TONNAGE-+>", "" + CurMech.GetCurrentDryTons() );
         AvailableCode AC = CurMech.GetAvailability();

@@ -31,7 +31,7 @@ package ssw.states;
 import ssw.components.AvailableCode;
 import ssw.components.MechModifier;
 
-public class stEngineFusion implements ifEngine, ifState {
+public class stEnginePrimitiveFusion implements ifEngine, ifState {
     // An Inner Sphere Fusion Engine
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
     private final static float[] Masses = {0.5f,0.5f,0.5f,0.5f,1.0f,1.0f,1.0f,
@@ -43,13 +43,15 @@ public class stEngineFusion implements ifEngine, ifState {
         36.5f,38.5f,41.0f,43.5f,46.0f,49.0f,52.5f};
     private final static int[] BFStructure = {1,1,2,2,3,3,3,4,4,5,5,5,6,6,6,7,7,8,8};
     
-    public stEngineFusion() {
+    public stEnginePrimitiveFusion() {
         AC.SetISCodes( 'D', 'C', 'E', 'D' );
         AC.SetISDates( 0, 0, false, 2021, 0, 0, false, false );
         AC.SetISFactions( "", "", "WA", "" );
         AC.SetCLCodes( 'D', 'X', 'B', 'C' );
         AC.SetCLDates( 0, 0, false, 2021, 0, 0, false, false );
         AC.SetCLFactions( "", "", "WA", "" );
+        AC.SetPBMAllowed( true );
+        AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );
     }
 
@@ -74,6 +76,7 @@ public class stEngineFusion implements ifEngine, ifState {
     }
     
     public boolean CanSupportRating( int rate ) {
+        rate = (int) ( Math.floor( ( ( rate * 1.2f ) + 4.5f ) / 5 ) * 5 );
         if( rate < 5 || rate > 400 || rate % 5 != 0 ) {
             return false;
         } else {
@@ -82,15 +85,15 @@ public class stEngineFusion implements ifEngine, ifState {
     }
 
     public String GetLookupName() {
-        return "Fusion Engine";
+        return "Primitive Fusion Engine";
     }
 
     public String GetCritName() {
-        return "Fusion Engine";
+        return "Primitive Fusion Engine";
     }
     
     public String GetMMName() {
-        return "Fusion Engine";
+        return "Primitive Fusion Engine";
     }
 
     public float GetCost( int MechTonnage, int Rating ) {
@@ -150,11 +153,11 @@ public class stEngineFusion implements ifEngine, ifState {
     }
 
     public boolean IsPrimitive() {
-        return false;
+        return true;
     }
 
     @Override
     public String toString() {
-        return "Fusion Engine";
+        return "Primitive Fusion Engine";
     }
 }

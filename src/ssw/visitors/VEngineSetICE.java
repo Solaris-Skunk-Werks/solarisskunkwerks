@@ -64,6 +64,7 @@ public class VEngineSetICE implements ifVisitor {
 
         // change the engine type
         e.SetICEngine();
+        m.SetWalkMP( m.GetWalkingMP() );
 
         // place the engine
         if( ! e.Place(l) ) {

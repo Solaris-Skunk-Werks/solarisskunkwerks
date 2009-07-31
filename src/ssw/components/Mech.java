@@ -143,7 +143,7 @@ public class Mech implements ifBattleforce {
         Quad = false;
         Omnimech = false;
         WalkMP = 1;
-        CurEngine.SetRating( 20, Primitive );
+        CurEngine.SetRating( 20 );
         CurLoadout.SetBaseLoadout( MainLoadout );
 
         // Set the AES Systems to the default
@@ -266,10 +266,11 @@ public class Mech implements ifBattleforce {
         } else  {
             JJMult = 2.0f;
         }
-        if ( IndustrialMech == false )
+        if ( IndustrialMech == false ) {
             MechMult = 1.0f + ( Tonnage * 0.01f );
-        else
+        } else {
             MechMult = 1.0f + ( Tonnage * 0.0025f );
+        }
     }
 
     public int GetTonnage() {
@@ -289,7 +290,7 @@ public class Mech implements ifBattleforce {
         }
         if( WalkMP < 1 ) { WalkMP = 1; }
         if( WalkMP > MaxWalk ) { WalkMP = MaxWalk; }
-        CurEngine.SetRating( WalkMP * Tonnage, Primitive );
+        CurEngine.SetRating( WalkMP * Tonnage );
 
         SetChanged( true );
     }
@@ -1213,8 +1214,8 @@ public class Mech implements ifBattleforce {
     }
 
     public void SetEngineRating( int rate ) {
-        if( CurEngine.CanSupportRating( rate, Primitive ) ) {
-            CurEngine.SetRating( rate, Primitive );
+        if( CurEngine.CanSupportRating( rate ) ) {
+            CurEngine.SetRating( rate );
             WalkMP = (int) rate / Tonnage;
         } else {
             SetWalkMP( 1 );
@@ -1227,6 +1228,14 @@ public class Mech implements ifBattleforce {
         return WalkMP;
     }
 
+    public int GetMaxWalkMP() {
+        if( CurEngine.IsPrimitive() ) {
+            return (int) Math.floor( 400 / Tonnage / 1.2f );
+        } else {
+            return (int) Math.floor( 400 / Tonnage );
+        }
+    }
+
     public int GetAdjustedWalkingMP( boolean BV, boolean MASCTSM ) {
         int retval = WalkMP;
         retval += GetTotalModifiers( BV, MASCTSM ).WalkingAdder();
@@ -1234,11 +1243,11 @@ public class Mech implements ifBattleforce {
     }
 
     public void SetWalkMP( int mp ) {
-        int MaxWalk = (int) Math.floor( 400 / Tonnage );
+        int MaxWalk = GetMaxWalkMP();
         if( mp > MaxWalk ) { mp = MaxWalk; }
         if( mp < 1 ) { mp = 1; }
         WalkMP = mp;
-        CurEngine.SetRating( WalkMP * Tonnage, Primitive );
+        CurEngine.SetRating( WalkMP * Tonnage );
 
         SetChanged( true );
     }
@@ -3814,6 +3823,9 @@ public class Mech implements ifBattleforce {
         Lookup.put( "Fuel-Cell Engine", new VEngineSetFuelCell() );
         Lookup.put( "Fission Engine", new VEngineSetFission() );
         Lookup.put( "Fusion Engine", new VEngineSetFusion() );
+        Lookup.put( "Primitive Fuel-Cell Engine", new VEngineSetPrimitiveFuelCell() );
+        Lookup.put( "Primitive Fission Engine", new VEngineSetPrimitiveFission() );
+        Lookup.put( "Primitive Fusion Engine", new VEngineSetPrimitiveFusion() );
         Lookup.put( "XL Engine", new VEngineSetFusionXL() );
         Lookup.put( "(IS) XL Engine", new VEngineSetFusionXL() );
         Lookup.put( "(CL) XL Engine", new VEngineSetFusionXL() );
@@ -3821,6 +3833,7 @@ public class Mech implements ifBattleforce {
         Lookup.put( "(IS) XXL Engine", new VEngineSetFusionXXL() );
         Lookup.put( "(CL) XXL Engine", new VEngineSetFusionXXL() );
         Lookup.put( "I.C.E. Engine", new VEngineSetICE() );
+        Lookup.put( "Primitive I.C.E. Engine", new VEngineSetPrimitiveICE() );
         Lookup.put( "Compact Fusion Engine", new VEngineSetCompactFusion() );
         Lookup.put( "Light Fusion Engine", new VEngineSetLightFusion() );
         Lookup.put( "Standard Gyro", new VGyroSetStandard() );

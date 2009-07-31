@@ -87,6 +87,7 @@ public class VEngineSetFusionXXL implements ifVisitor {
                 }
                 break;
         }
+        m.SetWalkMP( m.GetWalkingMP() );
 
         // place the engine
         if( Locs == null ) {

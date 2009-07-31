@@ -64,6 +64,7 @@ public class VEngineSetFusion implements ifVisitor {
 
         // change the engine type
         e.SetFUEngine();
+        m.SetWalkMP( m.GetWalkingMP() );
 
         // place the engine
         if( ! e.Place(l) ) {

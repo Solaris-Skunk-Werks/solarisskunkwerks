@@ -39,7 +39,7 @@ public interface ifEngine {
     public int GetCTCrits();
     public int GetSideTorsoCrits();
     public int NumCTBlocks();
-    public boolean CanSupportRating( int rate, boolean primitive );
+    public boolean CanSupportRating( int rate );
     public String GetCritName();
     public String GetMMName();
     public float GetCost( int MechTonnage, int Rating );
@@ -49,5 +49,6 @@ public interface ifEngine {
     public int MaxMovementHeat();
     public int MinimumHeat();
     public int JumpingHeatMultiplier();
+    public boolean IsPrimitive();
     public MechModifier GetMechModifier();
 }

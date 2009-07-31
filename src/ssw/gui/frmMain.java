@@ -491,13 +491,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void FixWalkMPSpinner() {
         // This fixes the walking MP spinner if the mech's tonnage changes.
-        int MaxWalk = (int) Math.floor( 400 / CurMech.GetTonnage());
+        int MaxWalk = CurMech.GetMaxWalkMP();
         int CurWalk = CurMech.GetWalkingMP();
 
         // since this should only ever happen when the tonnage changes, we'll
         // deal with the mech's engine rating here.  Reset the Run MP label too
         if( CurWalk > MaxWalk ) { CurWalk = MaxWalk; }
-        CurMech.GetEngine().SetRating( CurWalk * CurMech.GetTonnage(), CurMech.IsPrimitive() );
+        //CurMech.GetEngine().SetRating( CurWalk * CurMech.GetTonnage(), CurMech.IsPrimitive() );
+        CurMech.SetWalkMP( CurWalk );
         lblRunMP.setText( "" + CurMech.GetRunningMP() );
 
         // reset the spinner model and we're done.
@@ -770,12 +771,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         switch( CurMech.GetRulesLevel() ) {
             case AvailableCode.RULES_INTRODUCTORY:
                 cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech" } ) );
+                CurMech.SetModern();
                 break;
             case AvailableCode.RULES_ERA_SPECIFIC:
-                cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech", "IndustrialMech", "Primitive", "Primitive IndustrialMech" } ) );
+                if( CurMech.GetEra() == AvailableCode.ERA_SUCCESSION ) {
+                    cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech", "IndustrialMech" } ) );
+                    CurMech.SetModern();
+                } else {
+                    cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech", "IndustrialMech", "Primitive", "Primitive IndustrialMech" } ) );
+                }
                 break;
             default:
                 cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech", "IndustrialMech" } ) );
+                CurMech.SetModern();
                 break;
         }
     }
@@ -10007,6 +10015,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         BuildTechBaseSelector();
+        BuildMechTypeSelector();
 
         // reset the tech base if it's still allowed
         if( tbsave < cmbTechBase.getItemCount() ) {
@@ -13371,18 +13380,8 @@ private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             CurMech.SetIndustrialmech();
             break;
     }
-/*    if( cmbMechType.getSelectedIndex() == 1 ) {
-            if( CurMech.IsIndustrialmech() ) { return; }
-        } else {
-            if( ! CurMech.IsIndustrialmech() ) { return; }
-        }
-        if( cmbMechType.getSelectedIndex() == 0 ) {
-            CurMech.SetBattlemech();
-        } else {
-            CurMech.SetIndustrialmech();
-        }
-*/
-        // check the tonnage
+
+    // check the tonnage
         CheckTonnage( false );
 
         // set the loadout arrays
@@ -13407,6 +13406,7 @@ private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         LoadSelections();
 
         RecalcEngine();
+        FixWalkMPSpinner();
         RecalcGyro();
         RecalcIntStruc();
         RecalcCockpit();

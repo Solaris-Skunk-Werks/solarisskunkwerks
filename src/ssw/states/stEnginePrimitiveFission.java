@@ -31,26 +31,27 @@ package ssw.states;
 import ssw.components.AvailableCode;
 import ssw.components.MechModifier;
 
-public class stEngineFusion implements ifEngine, ifState {
-    // An Inner Sphere Fusion Engine
+public class stEnginePrimitiveFission implements ifEngine, ifState {
+    // An Inner Sphere Fission Engine
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
-    private final static float[] Masses = {0.5f,0.5f,0.5f,0.5f,1.0f,1.0f,1.0f,
-        1.0f,1.5f,1.5f,1.5f,2.0f,2.0f,2.0f,2.5f,2.5f,3.0f,3.0f,3.0f,3.5f,3.5f,
-        4.0f,4.0f,4.0f,4.5f,4.5f,5.0f,5.0f,5.5f,5.5f,6.0f,6.0f,6.0f,7.0f,7.0f,
-        7.5f,7.5f,8.0f,8.5f,8.5f,9.0f,9.5f,10.0f,10.0f,10.5f,11.0f,11.5f,12.0f,
-        12.5f,13.0f,13.5f,14.0f,14.5f,15.5f,16.0f,16.5f,17.5f,18.0f,19.0f,19.5f,
-        20.5f,21.5f,22.5f,23.5f,24.5f,25.5f,27.0f,28.5f,29.5f,31.5f,33.0f,34.5f,
-        36.5f,38.5f,41.0f,43.5f,46.0f,49.0f,52.5f};
+    private final static float[] Masses = {5.0f,5.0f,5.0f,5.0f,5.0f,5.0f,5.0f,
+        5.0f,5.0f,5.0f,5.0f,5.0f,5.0f,5.0f,5.0f,5.0f,5.5f,5.5f,5.5f,6.5f,6.5f,
+        7.0f,7.0f,7.0f,8.0f,8.0f,9.0f,9.0f,10.0f,10.0f,10.5f,10.5f,10.5f,12.5f,
+        12.5f,13.5f,13.5f,14.0f,15.0f,15.0f,16.0f,17.0f,17.5f,17.5f,18.5f,19.5f,
+        20.5f,21.0f,22.0f,23.0f,24.0f,24.5f,25.5f,27.5f,28.0f,29.0f,31.0f,31.5f,
+        33.5f,34.5f,36.0f,38.0f,39.5f,41.5f,43.0f,45.0f,47.5f,50.0f,52.0f,55.5f,
+        58.0f,60.5f,64.0f,67.5f,72.0f,76.5f,80.5f,86.0f,92.0f};
     private final static int[] BFStructure = {1,1,2,2,3,3,3,4,4,5,5,5,6,6,6,7,7,8,8};
-    
-    public stEngineFusion() {
-        AC.SetISCodes( 'D', 'C', 'E', 'D' );
-        AC.SetISDates( 0, 0, false, 2021, 0, 0, false, false );
-        AC.SetISFactions( "", "", "WA", "" );
-        AC.SetCLCodes( 'D', 'X', 'B', 'C' );
-        AC.SetCLDates( 0, 0, false, 2021, 0, 0, false, false );
-        AC.SetCLFactions( "", "", "WA", "" );
-        AC.SetRulesLevels( AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );
+
+    public stEnginePrimitiveFission() {
+        AC.SetISCodes( 'D', 'E', 'E', 'D' );
+        AC.SetISDates( 0, 0, false, 1960, 0, 0, false, false );
+        AC.SetISFactions( "", "", "ES", "" );
+        AC.SetCLCodes( 'D', 'X', 'E', 'D' );
+        AC.SetCLDates( 0, 0, false, 1960, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "ES", "" );
+        AC.SetPIMAllowed( true );
+        AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_ADVANCED );
     }
 
     public boolean HasCounterpart() {
@@ -72,8 +73,9 @@ public class stEngineFusion implements ifEngine, ifState {
     public int NumCTBlocks() {
         return 2;
     }
-    
+
     public boolean CanSupportRating( int rate ) {
+        rate = (int) ( Math.floor( ( ( rate * 1.2f ) + 4.5f ) / 5 ) * 5 );
         if( rate < 5 || rate > 400 || rate % 5 != 0 ) {
             return false;
         } else {
@@ -82,19 +84,19 @@ public class stEngineFusion implements ifEngine, ifState {
     }
 
     public String GetLookupName() {
-        return "Fusion Engine";
+        return "Primitive Fission Engine";
     }
 
     public String GetCritName() {
-        return "Fusion Engine";
+        return "Primitive Fission Engine";
     }
     
     public String GetMMName() {
-        return "Fusion Engine";
+        return "Primitive Fission Engine";
     }
 
     public float GetCost( int MechTonnage, int Rating ) {
-        return ( 5000.0f * (float) MechTonnage * (float) Rating ) / 75.0f;
+        return ( 7500.0f * (float) MechTonnage * (float) Rating ) / 75.0f;
     }
     
     public AvailableCode GetAvailability() {
@@ -102,7 +104,7 @@ public class stEngineFusion implements ifEngine, ifState {
     }
     
     public int FreeHeatSinks() {
-        return 10;
+        return 5;
     }
 
     public float GetBVMult() {
@@ -110,7 +112,7 @@ public class stEngineFusion implements ifEngine, ifState {
     }
     
     public boolean IsFusion() {
-        return true;
+        return false;
     }
 
     public boolean IsNuclear() {
@@ -133,6 +135,7 @@ public class stEngineFusion implements ifEngine, ifState {
         return BFStructure[GetBFIndex(tonnage)];
     }
 
+
     public int MaxMovementHeat() {
         return 2;
     }
@@ -150,11 +153,11 @@ public class stEngineFusion implements ifEngine, ifState {
     }
 
     public boolean IsPrimitive() {
-        return false;
+        return true;
     }
 
     @Override
     public String toString() {
-        return "Fusion Engine";
+        return "Primitive Fission Engine";
     }
 }

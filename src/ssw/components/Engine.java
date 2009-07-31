@@ -39,10 +39,14 @@ public class Engine extends abPlaceable {
     private boolean FoolLoadoutCT = true;
     private ifEngine CurConfig;
     private final static ifEngine ICEngine = new stEngineICE(),
+                                  PICEngine = new stEnginePrimitiveICE(),
                                   FCEngine = new stEngineFuelCell(),
+                                  PFCEngine = new stEnginePrimitiveFuelCell(),
                                   FIEngine = new stEngineFission(),
+                                  PFIEngine = new stEnginePrimitiveFission(),
                                   ISCFEngine = new stEngineISCF(),
                                   FUEngine = new stEngineFusion(),
+                                  PFUEngine = new stEnginePrimitiveFusion(),
                                   ISLFEngine = new stEngineISLF(),
                                   ISXLEngine = new stEngineISXL(),
                                   ISXXLEngine = new stEngineISXXL(),
@@ -59,9 +63,9 @@ public class Engine extends abPlaceable {
     }
 
     // Public Methods
-    public void SetRating( int rate, boolean primitive ) {
+    public void SetRating( int rate ) {
         // Set the current values
-        if( primitive ) {
+        if( CurConfig.IsPrimitive() ) {
             EngineRating = (int) ( Math.floor( ( ( rate * 1.2f ) + 4.5f ) / 5 ) * 5 );
         } else {
             EngineRating = rate;
@@ -82,6 +86,22 @@ public class Engine extends abPlaceable {
 
     public void SetFUEngine() {
         CurConfig = FUEngine;
+    }
+
+    public void SetPrimitiveICEngine() {
+        CurConfig = PICEngine;
+    }
+
+    public void SetPrimitiveFCEngine() {
+        CurConfig = PFCEngine;
+    }
+
+    public void SetPrimitiveFIEngine() {
+        CurConfig = PFIEngine;
+    }
+
+    public void SetPrimitiveFUEngine() {
+        CurConfig = PFUEngine;
     }
 
     public void SetISXLEngine() {
@@ -140,8 +160,8 @@ public class Engine extends abPlaceable {
         return CurConfig.GetSideTorsoCrits();
     }
 
-    public boolean CanSupportRating( int rate, boolean primitive ) {
-        return CurConfig.CanSupportRating( rate, primitive );
+    public boolean CanSupportRating( int rate ) {
+        return CurConfig.CanSupportRating( rate );
     }
 
     public int NumCrits() {
@@ -204,10 +224,21 @@ public class Engine extends abPlaceable {
     }
 
     public ifState[] GetStates() {
-        ifState[] retval = { (ifState) ICEngine, (ifState) FCEngine,
-            (ifState) FIEngine, (ifState) ISCFEngine, (ifState) FUEngine,
-            (ifState) ISLFEngine, (ifState) ISXLEngine, (ifState) ISXXLEngine, 
-            (ifState) CLXLEngine, (ifState) CLXXLEngine };
+        ifState[] retval = { 
+            (ifState) ICEngine,
+            (ifState) PICEngine,
+            (ifState) FCEngine,
+            (ifState) PFCEngine,
+            (ifState) FIEngine,
+            (ifState) PFIEngine,
+            (ifState) ISCFEngine,
+            (ifState) FUEngine,
+            (ifState) PFUEngine,
+            (ifState) ISLFEngine,
+            (ifState) ISXLEngine,
+            (ifState) ISXXLEngine,
+            (ifState) CLXLEngine,
+            (ifState) CLXXLEngine };
         return retval;
     }
 
@@ -421,6 +452,10 @@ public class Engine extends abPlaceable {
     @Override
     public MechModifier GetMechModifier() {
         return CurConfig.GetMechModifier();
+    }
+
+    public boolean IsPrimitive() {
+        return CurConfig.IsPrimitive();
     }
 
     @Override

@@ -64,6 +64,7 @@ public class VEngineSetCompactFusion implements ifVisitor {
 
         // change the engine type
         e.SetISCFEngine();
+        m.SetWalkMP( m.GetWalkingMP() );
 
         // place the engine
         if( ! e.Place(l) ) {

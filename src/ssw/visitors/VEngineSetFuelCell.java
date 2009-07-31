@@ -64,6 +64,7 @@ public class VEngineSetFuelCell implements ifVisitor {
 
         // change the engine type
         e.SetFCEngine();
+        m.SetWalkMP( m.GetWalkingMP() );
 
         // place the engine
         if( ! e.Place(l) ) {

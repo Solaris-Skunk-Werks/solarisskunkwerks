@@ -69,10 +69,7 @@ public class stEngineISXL implements ifEngine, ifState {
         return 2;
     }
 
-    public boolean CanSupportRating( int rate, boolean primitive ) {
-        if( primitive ) {
-            rate = (int) ( Math.floor( ( ( rate * 1.2f ) + 4.5f ) / 5 ) * 5 );
-        }
+    public boolean CanSupportRating( int rate ) {
         if( rate < 5 || rate > 400 || rate % 5 != 0 ) {
             return false;
         } else {
@@ -146,6 +143,10 @@ public class stEngineISXL implements ifEngine, ifState {
 
     public MechModifier GetMechModifier() {
         return null;
+    }
+
+    public boolean IsPrimitive() {
+        return false;
     }
 
     @Override

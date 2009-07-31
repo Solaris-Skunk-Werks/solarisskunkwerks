@@ -84,7 +84,11 @@ public class TXTWriter {
         }
         retval += CurMech.GetName() + " " + CurMech.GetModel() + NL + NL;
         retval += "Rules Level: " + CommonTools.GetRulesLevelString( CurMech.GetRulesLevel() ) + NL;
-        retval += "Tech Base: " + CommonTools.GetTechbaseString( CurMech.GetTechBase() ) + NL;
+        if( CurMech.IsPrimitive() )  {
+            retval += "Tech Base: " + CommonTools.GetTechbaseString( CurMech.GetTechBase() ) + " (Primitive)" + NL;
+        } else {
+            retval += "Tech Base: " + CommonTools.GetTechbaseString( CurMech.GetTechBase() ) + NL;
+        }
         retval += "Era: " + CommonTools.DecodeEra( CurMech.GetEra() ) + NL;
         retval += "Tech Rating/Era Availability: " + CurMech.GetAvailability().GetBestCombinedCode() + NL;
         if( CurMech.IsQuad() ) {

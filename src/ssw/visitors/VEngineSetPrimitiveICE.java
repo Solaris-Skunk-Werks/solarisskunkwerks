@@ -28,18 +28,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.visitors;
 
-import ssw.Constants;
 import ssw.components.*;
 
-public class VEngineSetLightFusion implements ifVisitor {
+public class VEngineSetPrimitiveICE implements ifVisitor {
     private Mech CurMech;
-    LocationIndex[] Locs = null;
 
     public void SetClan( boolean clan ) {
     }
 
-    public void LoadLocations( LocationIndex[] locs ) {
-        Locs = locs;
+    public void LoadLocations(LocationIndex[] locs) {
+        // does nothing here, but may later.
     }
 
     public void Visit(Mech m) throws Exception {
@@ -47,13 +45,10 @@ public class VEngineSetLightFusion implements ifVisitor {
         CurMech = m;
         ifLoadout l = CurMech.GetLoadout();
         Engine e = CurMech.GetEngine();
-        boolean SChargerInstalled = false;
-        int SChargerLoc = -1;
 
         // see if we have a supercharger installed
         if( l.HasSupercharger() ) {
-            SChargerInstalled = true;
-            SChargerLoc = l.Find( l.GetSupercharger() );
+            // can't use a supercharger, just remove it
             try {
                 CurMech.GetLoadout().SetSupercharger( false, -1, -1 );
             } catch ( Exception ex ) {
@@ -65,33 +60,16 @@ public class VEngineSetLightFusion implements ifVisitor {
         // remove the engine
         e.Remove(l);
 
-        // change the engine type
-        e.SetISLFEngine();
+        // change the engine type and re-calculate the walking MP
+        e.SetPrimitiveICEngine();
         m.SetWalkMP( m.GetWalkingMP() );
 
         // place the engine
-        if( Locs == null ) {
-            if( ! e.Place( l ) ) {
-                throw new Exception( "Light Fusion engine cannot be allocated!" );
-            }
-        } else {
-            if( ! e.Place( l, Locs ) ) {
-                throw new Exception( "Light Fusion engine cannot be allocated!" );
-            }
+        if( ! e.Place(l) ) {
+            throw new Exception( "Primitive I.C.E. engine cannot be allocated!" );
         }
 
         // flush illegal equipment
         m.GetLoadout().FlushIllegal();
-
-        // try to reinstall the Supercharger
-        if( SChargerInstalled ) {
-            try {
-                // we're not interested in where the suypercharger was since it
-                // can only go in the same spot as an engine.
-                CurMech.GetLoadout().SetSupercharger( true, Constants.LOC_CT, SChargerLoc );
-            } catch ( Exception ex ) {
-                System.err.println( ex.getMessage() );
-            }
-        }
     }
 }

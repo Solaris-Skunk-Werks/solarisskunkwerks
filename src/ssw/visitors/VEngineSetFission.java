@@ -64,6 +64,7 @@ public class VEngineSetFission implements ifVisitor {
 
         // change the engine type
         e.SetFIEngine();
+        m.SetWalkMP( m.GetWalkingMP() );
 
         // place the engine
         if( ! e.Place(l) ) {
