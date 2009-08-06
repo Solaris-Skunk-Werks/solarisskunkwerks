@@ -29,10 +29,10 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tlbActions" alignment="0" pref="561" max="32767" attributes="0"/>
+          <Component id="tlbActions" alignment="0" pref="590" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="spnList" pref="541" max="32767" attributes="0"/>
+              <Component id="spnList" pref="566" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">

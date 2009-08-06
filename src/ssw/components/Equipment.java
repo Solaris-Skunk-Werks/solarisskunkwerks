@@ -42,10 +42,15 @@ public class Equipment extends abPlaceable {
                 MedRange = 0,
                 LngRange = 0,
                 Heat = 0;
-    private float Tonnage = 0.0f,
-                  Cost = 0.0f,
-                  OffBV = 0.0f,
-                  DefBV = 0.0f;
+    private double Tonnage = 0.0,
+                  Cost = 0.0,
+                  OffBV = 0.0,
+                  DefBV = 0.0,
+                  MinTons = 0.0,
+                  MaxTons = 0.0,
+                  VariableIncrement = 0.0,
+                  TonsPerCrit = 0.0,
+                  CostPerTon = 0.0;
     private boolean HasAmmo = false,
                     alloc_head = true,
                     alloc_ct = true,
@@ -55,7 +60,8 @@ public class Equipment extends abPlaceable {
                     CanSplit = false,
                     Rear = false,
                     CanMountRear = false,
-                    Explosive = false;
+                    Explosive = false,
+                    VariableSize = false;
     private AvailableCode AC;
 
     public Equipment() {
@@ -75,7 +81,7 @@ public class Equipment extends abPlaceable {
         MegaMekName = n;
     }
 
-    public void SetStats( int crits, float tons, float cost, float obv, float dbv, String spec ) {
+    public void SetStats( int crits, double tons, double cost, double obv, double dbv, String spec ) {
         Crits = crits;
         Tonnage = tons;
         Cost = cost;
@@ -119,12 +125,25 @@ public class Equipment extends abPlaceable {
         Explosive = b;
     }
 
+    public void SetVariableSize( boolean s, double min, double max, double increment, double tpc, double cpt ) {
+        VariableSize = s;
+        MinTons = min;
+        MaxTons = max;
+        VariableIncrement = increment;
+        TonsPerCrit = tpc;
+        CostPerTon = cpt;
+    }
+
     @Override
     public String GetCritName() {
+        String retval = CritName;
+        if( VariableSize ) {
+            retval += " (" + Tonnage + " tons)";
+        }
         if( Rear ) {
-            return "(R) " + CritName;
+            return "(R) " + retval;
         } else {
-            return CritName;
+            return retval;
         }
     }
 
@@ -134,38 +153,47 @@ public class Equipment extends abPlaceable {
 
     @Override
     public int NumCrits() {
+        if( VariableSize ) {
+            return (int) Math.ceil( Tonnage / TonsPerCrit );
+        }
         return Crits;
     }
 
     @Override
-    public float GetTonnage() {
+    public double GetTonnage() {
         if( IsArmored() ) {
-            return Tonnage + ( Crits * 0.5f );
+            return Tonnage + ( NumCrits() * 0.5 );
         } else {
             return Tonnage;
         }
     }
 
     @Override
-    public float GetCost() {
-        if( IsArmored() ) {
-            return Cost + ( Crits * 150000.0f );
+    public double GetCost() {
+        double retval = 0.0;
+        if( VariableSize ) {
+            retval = Tonnage * CostPerTon;
         } else {
-            return Cost;
+            retval = Cost;
+        }
+        if( IsArmored() ) {
+            return retval + ( NumCrits() * 150000.0 );
+        } else {
+            return retval;
         }
     }
 
-    public float GetOffensiveBV() {
+    public double GetOffensiveBV() {
         return OffBV;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         return GetOffensiveBV();
     }
 
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         if( IsArmored() ) {
-            return (( OffBV + DefBV ) * 0.5f * NumCrits() ) + DefBV;
+            return (( OffBV + DefBV ) * 0.5 * NumCrits() ) + DefBV;
         }
         return DefBV;
     }
@@ -284,6 +312,35 @@ public class Equipment extends abPlaceable {
         return Explosive;
     }
 
+    public boolean IsVariableSize() {
+        return VariableSize;
+    }
+
+    public double GetVariableIncrement() {
+        return VariableIncrement;
+    }
+
+    public double GetMaxTons() {
+        return MaxTons;
+    }
+
+    public double GetMinTons() {
+        return MinTons;
+    }
+
+    public double GetCostPerTon() {
+        return CostPerTon;
+    }
+
+    public double GetTonsPerCrit() {
+        return TonsPerCrit;
+    }
+
+    public void SetTonnage( double d ) {
+        if( d < MinTons || d > MaxTons ) { return; }
+        Tonnage = d;
+    }
+
     @Override
     public AvailableCode GetAvailability() {
         AvailableCode retval = AC.Clone();
@@ -295,6 +352,6 @@ public class Equipment extends abPlaceable {
 
     @Override
     public String toString() {
-        return CritName;
+        return GetCritName();
     }
 }

@@ -51,15 +51,15 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
                 DamageAdd = 0,
                 CritAdd = 0,
                 PWClass = PW_CLASS_NORMAL;
-    private float TonMult = 0.0f,
-                  CritMult = 0.0f,
-                  TonAdd = 0.0f,
-                  DamageMult = 0.0f,
-                  CostMult = 0.0f,
-                  CostAdd= 0.0f,
-                  BVMult = 0.0f,
-                  BVAdd = 0.0f,
-                  DefBV = 0.0f;
+    private double TonMult = 0.0,
+                  CritMult = 0.0,
+                  TonAdd = 0.0,
+                  DamageMult = 0.0,
+                  CostMult = 0.0,
+                  CostAdd= 0.0,
+                  BVMult = 0.0,
+                  BVAdd = 0.0,
+                  DefBV = 0.0;
     private boolean Fusion = false,
                     Nuclear = false,
                     RoundToHalfTon = false,
@@ -85,7 +85,7 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
     // Required to allow Talons to extend PhysicalWeapon
     public PhysicalWeapon(){}
 
-    public void SetStats( float tmult, float cmult, float tadder, int cadder ) {
+    public void SetStats( double tmult, double cmult, double tadder, int cadder ) {
         // sets the weapon's tonnage and critical statistics
         TonMult = tmult;
         CritMult = cmult;
@@ -102,7 +102,7 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         CanSplit = split;
     }
 
-    public void SetDamage( float dmult, int dadder ) {
+    public void SetDamage( double dmult, int dadder ) {
         // sets the weapons damage potential
         DamageMult = dmult;
         DamageAdd = dadder;
@@ -112,7 +112,7 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         Heat = h;
     }
 
-    public void SetSpecials( String type, String spec, float cmult, float cadd, float bmult, float badd, float dbv, boolean round ) {
+    public void SetSpecials( String type, String spec, double cmult, double cadd, double bmult, double badd, double dbv, boolean round ) {
         Type = type;
         Specials = spec;
         CostMult = cmult;
@@ -210,35 +210,35 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         return RequiresLowerArm;
     }
 
-    public float GetCostMult() {
+    public double GetCostMult() {
         return CostMult;
     }
 
-    public float GetCostAdd() {
+    public double GetCostAdd() {
         return CostAdd;
     }
 
-    public float GetBVMult() {
+    public double GetBVMult() {
         return BVMult;
     }
 
-    public float GetBVAdd() {
+    public double GetBVAdd() {
         return BVAdd;
     }
 
-    public float GetDefBV() {
+    public double GetDefBV() {
         return DefBV;
     }
 
-    public float GetTonMult() {
+    public double GetTonMult() {
         return TonMult;
     }
 
-    public float GetTonAdd() {
+    public double GetTonAdd() {
         return TonAdd;
     }
 
-    public float GetCritMult() {
+    public double GetCritMult() {
         return CritMult;
     }
 
@@ -250,7 +250,7 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         return RoundToHalfTon;
     }
 
-    public float GetDamageMult() {
+    public double GetDamageMult() {
         return DamageMult;
     }
 
@@ -278,44 +278,44 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
     }
 
     @Override
-    public float GetTonnage() {
-        float result = 0.0f;
+    public double GetTonnage() {
+        double result = 0.0;
         if( RoundToHalfTon ) {
-            result = ((int) ( Math.ceil( Owner.GetTonnage() * TonMult * 2 ))) * 0.5f + TonAdd;
+            result = ((int) ( Math.ceil( Owner.GetTonnage() * TonMult * 2 ))) * 0.5 + TonAdd;
         } else {
             result = (int) Math.ceil( Owner.GetTonnage() * TonMult ) + TonAdd;
         }
         if( IsArmored() ) {
-            return result + ( NumCrits() * 0.5f );
+            return result + ( NumCrits() * 0.5 );
         } else {
             return result;
         }
     }
 
     @Override
-    public float GetCost() {
+    public double GetCost() {
         if( IsArmored() ) {
-            return ( GetTonnage() * CostMult + CostAdd + ( NumCrits() * 150000.0f ) );
+            return ( GetTonnage() * CostMult + CostAdd + ( NumCrits() * 150000.0 ) );
         } else {
             return GetTonnage() * CostMult + CostAdd;
         }
     }
 
-    public float GetOffensiveBV() {
+    public double GetOffensiveBV() {
         return GetDamageShort() * BVMult + BVAdd;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         if( UseAES ) {
-            return GetOffensiveBV() * 1.5f;
+            return GetOffensiveBV() * 1.5;
         } else {
             return GetOffensiveBV();
         }
     }
 
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         if( IsArmored() ) {
-            return GetOffensiveBV() * 0.05f * NumCrits() + DefBV;
+            return GetOffensiveBV() * 0.05 * NumCrits() + DefBV;
         }
         return DefBV;
     }

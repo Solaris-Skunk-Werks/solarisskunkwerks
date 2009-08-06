@@ -59,38 +59,38 @@ public class JumpJet extends abPlaceable {
         return Crits;
     }
 
-    public float GetTonnage() {
+    public double GetTonnage() {
         // Heat sinks are calculated from the HeatSinkFactory, not from the
         // individual heat sink
         if( IsArmored() ) {
-            return Crits * 0.5f;
+            return Crits * 0.5;
         } else {
-            return 0.0f;
+            return 0.0;
         }
     }
 
-    public float GetOffensiveBV() {
-        return 0.0f;
+    public double GetOffensiveBV() {
+        return 0.0;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
-        return 0.0f;
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+        return 0.0;
     }
 
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         if( IsArmored() ) {
-            return 5.0f * Crits;
+            return 5.0 * Crits;
         }
-        return 0.0f;
+        return 0.0;
     }
 
-    public float GetCost() {
+    public double GetCost() {
         // Heat sinks are calculated from the HeatSinkFactory, not from the
         // individual heat sink
         if( IsArmored() ) {
-            return Crits * 150000.0f;
+            return Crits * 150000.0;
         } else {
-            return 0.0f;
+            return 0.0;
         }
     }
 

@@ -44,13 +44,13 @@ public class Unit {
                   Mechwarrior = "",
                   Filename = "",
                   Configuration = "";
-    public float BaseBV = 0.0f,
-                 MiscMod = 1.0f,
-                 Tonnage = 20.0f,
-                 SkillsBV = 0.0f,
-                 ModifierBV = 0.0f,
-                 C3BV = 0.0f,
-                 TotalBV = 0.0f;
+    public double BaseBV = 0.0,
+                 MiscMod = 1.0,
+                 Tonnage = 20.0,
+                 SkillsBV = 0.0,
+                 ModifierBV = 0.0,
+                 C3BV = 0.0,
+                 TotalBV = 0.0;
     public int Gunnery = 4,
                Piloting = 5,
                UnitType = Constants.BattleMech;
@@ -65,9 +65,9 @@ public class Unit {
         for (int i=0; i < n.getChildNodes().getLength(); i++) {
             String nodeName = n.getChildNodes().item(i).getNodeName();
             if (nodeName.equals("model")) {TypeModel = n.getChildNodes().item(i).getTextContent();}
-            if (nodeName.equals("tonnage")) {Tonnage = Float.parseFloat(n.getChildNodes().item(i).getTextContent());}
-            if (nodeName.equals("basebv")) {BaseBV = Float.parseFloat(n.getChildNodes().item(i).getTextContent());}
-            if (nodeName.equals("modifier")) {MiscMod = Float.parseFloat(n.getChildNodes().item(i).getTextContent());}
+            if (nodeName.equals("tonnage")) {Tonnage = Double.parseDouble(n.getChildNodes().item(i).getTextContent());}
+            if (nodeName.equals("basebv")) {BaseBV = Double.parseDouble(n.getChildNodes().item(i).getTextContent());}
+            if (nodeName.equals("modifier")) {MiscMod = Double.parseDouble(n.getChildNodes().item(i).getTextContent());}
             if (nodeName.equals("piloting")) {Piloting = Integer.parseInt(n.getChildNodes().item(i).getTextContent());}
             if (nodeName.equals("gunnery")) {Gunnery = Integer.parseInt(n.getChildNodes().item(i).getTextContent());}
             if (nodeName.equals("unittype")) {UnitType = Integer.parseInt(n.getChildNodes().item(i).getTextContent());}
@@ -94,7 +94,7 @@ public class Unit {
         SkillsBV += CommonTools.GetSkillBV(BaseBV, Gunnery, Piloting);
         ModifierBV += CommonTools.GetModifierBV(SkillsBV, MiscMod);
         TotalBV += CommonTools.GetFullAdjustedBV(BaseBV, Gunnery, Piloting, MiscMod);
-        if (UsingC3) { C3BV += TotalBV * .05;}
+        if (UsingC3) { C3BV += TotalBV * 0.05;}
     }
 
     public String GetSkills(){

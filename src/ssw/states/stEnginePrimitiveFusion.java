@@ -34,7 +34,7 @@ import ssw.components.MechModifier;
 public class stEnginePrimitiveFusion implements ifEngine, ifState {
     // An Inner Sphere Fusion Engine
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
-    private final static float[] Masses = {0.5f,0.5f,0.5f,0.5f,1.0f,1.0f,1.0f,
+    private final static double[] Masses = {0.5f,0.5f,0.5f,0.5f,1.0f,1.0f,1.0f,
         1.0f,1.5f,1.5f,1.5f,2.0f,2.0f,2.0f,2.5f,2.5f,3.0f,3.0f,3.0f,3.5f,3.5f,
         4.0f,4.0f,4.0f,4.5f,4.5f,5.0f,5.0f,5.5f,5.5f,6.0f,6.0f,6.0f,7.0f,7.0f,
         7.5f,7.5f,8.0f,8.5f,8.5f,9.0f,9.5f,10.0f,10.0f,10.5f,11.0f,11.5f,12.0f,
@@ -52,6 +52,7 @@ public class stEnginePrimitiveFusion implements ifEngine, ifState {
         AC.SetCLFactions( "", "", "WA", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
+        AC.SetPrimitiveOnly( true );
         AC.SetRulesLevels( AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );
     }
 
@@ -59,7 +60,7 @@ public class stEnginePrimitiveFusion implements ifEngine, ifState {
         return false;
     }
 
-    public float GetTonnage( int Rating ) {
+    public double GetTonnage( int Rating ) {
         return Masses[GetIndex( Rating )];
     }
     
@@ -96,8 +97,8 @@ public class stEnginePrimitiveFusion implements ifEngine, ifState {
         return "Primitive Fusion Engine";
     }
 
-    public float GetCost( int MechTonnage, int Rating ) {
-        return ( 5000.0f * (float) MechTonnage * (float) Rating ) / 75.0f;
+    public double GetCost( int MechTonnage, int Rating ) {
+        return ( 5000.0f * ((double) MechTonnage) * ((double) Rating )) / 75.0f;
     }
     
     public AvailableCode GetAvailability() {
@@ -108,7 +109,7 @@ public class stEnginePrimitiveFusion implements ifEngine, ifState {
         return 10;
     }
 
-    public float GetBVMult() {
+    public double GetBVMult() {
         return 1.0f;
     }
     

@@ -52,8 +52,8 @@ public class PowerAmplifier {
         return AC;
     }
 
-    public float GetTonnage() {
-        float tons = 0.0f;
+    public double GetTonnage() {
+        double tons = 0.0;
         Vector v = CurLoadout.GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
             if( v.get( i ) instanceof ifWeapon ) {
@@ -61,16 +61,16 @@ public class PowerAmplifier {
                     tons += ((abPlaceable) v.get( i )).GetTonnage();
             }
         }
-        if( tons <= 0.0f ) {
-            return 0.0f;
+        if( tons <= 0.0 ) {
+            return 0.0;
         } else {
-            float result = (float) Math.ceil( tons * 0.2f );
-            return result * 0.5f;
+            double result = (double) Math.ceil( tons * 0.2 );
+            return result * 0.5;
         }
     }
 
-    public float GetCost() {
-        return GetTonnage() * 20000.0f;
+    public double GetCost() {
+        return GetTonnage() * 20000.0;
     }
 
     @Override

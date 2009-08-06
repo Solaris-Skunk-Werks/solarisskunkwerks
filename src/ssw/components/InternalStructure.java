@@ -191,7 +191,7 @@ public class InternalStructure extends abPlaceable {
         return ((ifState) Config).GetLookupName();
     }
 
-    public float GetTonnage() {
+    public double GetTonnage() {
         return Config.GetStrucTon( Owner.GetTonnage() );
     }
 
@@ -238,30 +238,30 @@ public class InternalStructure extends abPlaceable {
         return Config.GetLegPoints( Owner.GetTonnage() );
     }
 
-    public float GetCost() {
+    public double GetCost() {
         return Config.GetCost( Owner.GetTonnage() );
     }
 
-    public float GetOffensiveBV() {
+    public double GetOffensiveBV() {
         // internal strucutre only has a defensive BV
-        return 0.0f;
+        return 0.0;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         // BV will not change for this item, so just return the normal value
-        return 0.0f;
+        return 0.0;
     }
 
-    public float GetDefensiveBV() {
-        float result = GetHeadPoints() + GetCTPoints() + ( GetSidePoints() * 2.0f )
-                + ( GetArmPoints() * 2.0f ) + ( GetLegPoints() * 2.0f );
-        result *= 1.5f;
+    public double GetDefensiveBV() {
+        double result = GetHeadPoints() + GetCTPoints() + ( GetSidePoints() * 2.0 )
+                + ( GetArmPoints() * 2.0 ) + ( GetLegPoints() * 2.0 );
+        result *= 1.5;
         result *= GetBVTypeMult();
         result *= Owner.GetEngine().GetBVMult();
         return result;
     }
 
-    public float GetBVTypeMult() {
+    public double GetBVTypeMult() {
         return Config.GetBVMult() + Owner.GetTotalModifiers( false, true ).InternalMultiplier();
     }
 

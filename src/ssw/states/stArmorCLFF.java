@@ -76,7 +76,7 @@ public class stArmorCLFF implements ifArmor, ifState {
         return 7;
     }
 
-    public float GetAVMult() {
+    public double GetAVMult() {
         return 1.2f;
     }
 
@@ -84,11 +84,11 @@ public class stArmorCLFF implements ifArmor, ifState {
         return false;
     }
 
-    public float GetCostMult() {
+    public double GetCostMult() {
         return 20000.0f;
     }
 
-    public float GetBVTypeMult() {
+    public double GetBVTypeMult() {
         return 1.0f;
     }
 

@@ -42,12 +42,12 @@ public class MechListData {
     private int Tonnage = 0,
                 Year = 2750,
                 BV = 0;
-    private float Cost = 0;
+    private double Cost = 0;
     private boolean Omni = false;
     private String filename = "";
     public Vector Configurations = new Vector();
 
-    public MechListData(String Name, String Model, String Level, String Era, String Tech, String Source, int Tonnage, int Year, int BV, float Cost, String filename){
+    public MechListData(String Name, String Model, String Level, String Era, String Tech, String Source, int Tonnage, int Year, int BV, double Cost, String filename){
         this.Name = Name;
         this.Model = Model;
         this.Level = Level;
@@ -106,7 +106,7 @@ public class MechListData {
         this.Tonnage = Integer.parseInt(Items[6]);
         this.Year = Integer.parseInt(Items[7]);
         this.BV = Integer.parseInt(Items[8]);
-        this.Cost = Float.parseFloat(Items[9]);
+        this.Cost = Double.parseDouble(Items[9]);
         this.filename = Items[10];
         if (Items.length == 12) {
             this.Config = Items[11];
@@ -208,11 +208,11 @@ public class MechListData {
         this.BV = BV;
     }
 
-    public float getCost() {
+    public double getCost() {
         return Cost;
     }
 
-    public void setCost(float Cost) {
+    public void setCost(double Cost) {
         this.Cost = Cost;
     }
 

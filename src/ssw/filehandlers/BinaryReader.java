@@ -59,7 +59,7 @@ public class BinaryReader {
                     wclass = FR.readInt();
                     AvailableCode AC = GetAvailability( FR );
                     RangedWeapon rw = new RangedWeapon( name, lname, mname, type, special, AC, wclass );
-                    rw.SetStats( FR.readFloat(), FR.readInt(), FR.readFloat(), FR.readFloat(), FR.readFloat() );
+                    rw.SetStats( FR.readDouble(), FR.readInt(), FR.readDouble(), FR.readDouble(), FR.readDouble() );
                     rw.SetHeat( FR.readInt() );
                     rw.SetToHit( FR.readInt(), FR.readInt(), FR.readInt() );
                     rw.SetDamage( FR.readInt(), FR.readInt(), FR.readInt(), FR.readBoolean(), FR.readInt(), FR.readInt() );
@@ -102,7 +102,7 @@ public class BinaryReader {
                     idx = FR.readInt();
                     AC = GetAvailability( FR );
                     Ammunition a = new Ammunition( name, lname, mname, idx, AC );
-                    a.SetStats( FR.readFloat(), FR.readFloat(), FR.readFloat(), FR.readFloat() );
+                    a.SetStats( FR.readDouble(), FR.readDouble(), FR.readDouble(), FR.readDouble() );
                     a.SetToHit( FR.readInt(), FR.readInt(), FR.readInt() );
                     a.SetDamage( FR.readInt(), FR.readInt(), FR.readInt(), FR.readBoolean(), FR.readInt(), FR.readInt() );
                     a.SetRange( FR.readInt(), FR.readInt(), FR.readInt(), FR.readInt() );

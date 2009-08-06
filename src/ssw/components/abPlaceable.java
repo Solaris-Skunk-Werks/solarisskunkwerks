@@ -141,20 +141,20 @@ public abstract class abPlaceable {
     public abstract int NumCrits();
 
     // returns the mass of the component
-    public abstract float GetTonnage();
+    public abstract double GetTonnage();
 
     // return the cost of the item
-    public abstract float GetCost();
+    public abstract double GetCost();
 
     // return the offensive battle value of the item
-    public abstract float GetOffensiveBV();
+    public abstract double GetOffensiveBV();
 
     // return the current offensive battle value of the item.  This is useful
     // for weapons since they may be mounted to the rear.
-    public abstract float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES );
+    public abstract double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES );
 
     // return the defensive battle value of the item
-    public abstract float GetDefensiveBV();
+    public abstract double GetDefensiveBV();
 
     // placement counter for non-contiguous items.  This method should only be
     // over-ridden by items that are non-contiguous.

@@ -40,6 +40,6 @@ public interface ifMissileGuidance {
     public int GetToHitMedium();
     public int GetToHitLong();
     public int GetClusterTableBonus();
-    public float GetBVMultiplier();
+    public double GetBVMultiplier();
     public AvailableCode GetAvailability();
 }

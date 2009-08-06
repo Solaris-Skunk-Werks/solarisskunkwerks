@@ -34,7 +34,7 @@ import ssw.components.MechModifier;
 public class stEngineICE implements ifEngine, ifState {
     // An Inner Sphere I.C.E. Engine
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
-    private final static float[] Masses = { 1.0f,1.0f,1.0f,1.0f,2.0f,2.0f,2.0f,
+    private final static double[] Masses = { 1.0f,1.0f,1.0f,1.0f,2.0f,2.0f,2.0f,
         2.0f,3.0f,3.0f,3.0f,4.0f,4.0f,4.0f,5.0f,5.0f,6.0f,6.0f,6.0f,7.0f,7.0f,
         8.0f,8.0f,8.0f,9.0f,9.0f,10.0f,10.0f,11.0f,11.0f,12.0f,12.0f,12.0f,
         14.0f,14.0f,15.0f,15.0f,16.0f,17.0f,17.0f,18.0f,19.0f,20.0f,20.0f,21.0f,
@@ -57,7 +57,7 @@ public class stEngineICE implements ifEngine, ifState {
         return false;
     }
 
-    public float GetTonnage( int Rating ) {
+    public double GetTonnage( int Rating ) {
         return Masses[GetIndex( Rating )];
     }
     
@@ -93,8 +93,8 @@ public class stEngineICE implements ifEngine, ifState {
         return "I.C.E.";
     }
 
-    public float GetCost( int MechTonnage, int Rating ) {
-        return ( 1250.0f * (float) MechTonnage * (float) Rating ) / 75.0f;
+    public double GetCost( int MechTonnage, int Rating ) {
+        return ( 1250.0f * ((double) MechTonnage) * ((double) Rating )) / 75.0f;
     }
     
     public AvailableCode GetAvailability() {
@@ -105,7 +105,7 @@ public class stEngineICE implements ifEngine, ifState {
         return 0;
     }
 
-    public float GetBVMult() {
+    public double GetBVMult() {
         return 1.0f;
     }
     

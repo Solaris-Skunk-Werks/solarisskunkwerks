@@ -29,10 +29,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.components;
 
 public class Ammunition extends abPlaceable {
-    private float Tonnage = 1.0f,
-                  Cost = 0.0f,
-                  OffBV = 0.0f,
-                  DefBV = 0.0f;
+    private double Tonnage = 1.0,
+                  Cost = 0.0,
+                  OffBV = 0.0,
+                  DefBV = 0.0;
     private int LotSize = 0,
                 AmmoIndex,
                 minrng = 0,
@@ -71,7 +71,7 @@ public class Ammunition extends abPlaceable {
         AmmoIndex = idx;
     }
 
-    public void SetStats( float tons, float cost, float obv, float dbv ) {
+    public void SetStats( double tons, double cost, double obv, double dbv ) {
         Tonnage = tons;
         Cost = cost;
         OffBV = obv;
@@ -144,26 +144,26 @@ public class Ammunition extends abPlaceable {
         return 1;
     }
 
-    public float GetTonnage() {
+    public double GetTonnage() {
         // Only certain types of ammo comes in less or more than one ton lots
         // but we'll have to set this regardless
         return Tonnage;
     }
 
     // return the cost of the item
-    public float GetCost() {
+    public double GetCost() {
         return Cost;
     }
 
-    public float GetOffensiveBV() {
+    public double GetOffensiveBV() {
         return OffBV;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         return GetOffensiveBV();
     }
 
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         return DefBV;
     }
 

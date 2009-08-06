@@ -34,7 +34,7 @@ public interface ifEngine {
     public int GetFullCrits();
     public boolean IsFusion();
     public boolean IsNuclear();
-    public float GetTonnage( int Rating );
+    public double GetTonnage( int Rating );
     public int GetBFStructure( int tonnage );
     public int GetCTCrits();
     public int GetSideTorsoCrits();
@@ -42,8 +42,8 @@ public interface ifEngine {
     public boolean CanSupportRating( int rate );
     public String GetCritName();
     public String GetMMName();
-    public float GetCost( int MechTonnage, int Rating );
-    public float GetBVMult();
+    public double GetCost( int MechTonnage, int Rating );
+    public double GetBVMult();
     public AvailableCode GetAvailability();
     public int FreeHeatSinks();
     public int MaxMovementHeat();

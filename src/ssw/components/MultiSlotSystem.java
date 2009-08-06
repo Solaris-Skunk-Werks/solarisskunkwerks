@@ -33,8 +33,8 @@ public class MultiSlotSystem extends abPlaceable {
     // stuff like the Blue Shield, Null Signature System, etc...
 
     private AvailableCode AC;
-    private float Tonnage,
-                  Cost = 0.0f;
+    private double Tonnage,
+                  Cost = 0.0;
     private int DefensiveBonus = 0;
     private boolean ExcludeCT,
                     ExcludeHD,
@@ -45,7 +45,7 @@ public class MultiSlotSystem extends abPlaceable {
                    MMName;
     protected Mech Owner;
 
-    public MultiSlotSystem( Mech owner, String name, String lookupname, String mname, float tons, boolean xct, boolean xhd, float cost, boolean costtons, AvailableCode a ) {
+    public MultiSlotSystem( Mech owner, String name, String lookupname, String mname, double tons, boolean xct, boolean xhd, double cost, boolean costtons, AvailableCode a ) {
         Owner = owner;
         CritName = name;
         MMName = mname;
@@ -99,10 +99,10 @@ public class MultiSlotSystem extends abPlaceable {
     }
 
     @Override
-    public float GetTonnage() {
-        float retval = 0.0f;
+    public double GetTonnage() {
+        double retval = 0.0;
         if( IsArmored() ) {
-            retval += 0.5f * ReportCrits();
+            retval += 0.5 * ReportCrits();
         }
         if( BasedOnMechTons ) {
             retval += Owner.GetTonnage() * Tonnage;
@@ -113,10 +113,10 @@ public class MultiSlotSystem extends abPlaceable {
     }
 
     @Override
-    public float GetCost() {
-        float retval = 0.0f;
+    public double GetCost() {
+        double retval = 0.0;
         if( IsArmored() ) {
-            retval += 150000.0f * ReportCrits();
+            retval += 150000.0 * ReportCrits();
         }
         if( CostTons ) {
             retval += Owner.GetTonnage() * Cost;
@@ -127,20 +127,20 @@ public class MultiSlotSystem extends abPlaceable {
     }
 
     @Override
-    public float GetOffensiveBV() {
-        return 0.0f;
+    public double GetOffensiveBV() {
+        return 0.0;
     }
 
     @Override
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
-        return 0.0f;
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+        return 0.0;
     }
 
     @Override
-    public float GetDefensiveBV() {
-        float retval = 0.0f;
+    public double GetDefensiveBV() {
+        double retval = 0.0;
         if( IsArmored() ) {
-            retval += 5.0f * ReportCrits();
+            retval += 5.0 * ReportCrits();
         }
         return retval;
     }

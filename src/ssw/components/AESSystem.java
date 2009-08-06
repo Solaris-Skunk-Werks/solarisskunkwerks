@@ -32,7 +32,7 @@ public class AESSystem extends abPlaceable {
     private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
     private Mech Owner;
     private boolean LegSystem;
-    private static MechModifier LegMod = new MechModifier( 0, 0, 0, 0, 0, -2, 0, 0.0f, 0.0f, 0.0f, 0.0f, false );
+    private static MechModifier LegMod = new MechModifier( 0, 0, 0, 0, 0, -2, 0, 0.0, 0.0, 0.0, 0.0, false );
 
     public AESSystem( Mech m, boolean legs ) {
         AC.SetISCodes( 'E', 'X', 'X', 'F' );
@@ -82,51 +82,51 @@ public class AESSystem extends abPlaceable {
     }
 
     @Override
-    public float GetTonnage() {
-        float retval = 0.0f;
+    public double GetTonnage() {
+        double retval = 0.0;
         if( IsArmored() ) {
-            retval += NumCrits() * 0.5f;
+            retval += NumCrits() * 0.5;
         }
         if( Owner.IsQuad() ) {
-            retval += ((int) ( Math.ceil( Owner.GetTonnage() * 0.02f * 2.0f ))) * 0.5f;
+            retval += ((int) ( Math.ceil( Owner.GetTonnage() * 0.02 * 2.0 ))) * 0.5;
         } else {
-            retval += ((int) ( Math.ceil( Owner.GetTonnage() * 0.02857f * 2.0f ))) * 0.5f;
+            retval += ((int) ( Math.ceil( Owner.GetTonnage() * 0.02857 * 2.0 ))) * 0.5;
         }
         return retval;
     }
 
     @Override
-    public float GetCost() {
-        float retval = 0.0f;
+    public double GetCost() {
+        double retval = 0.0;
         if( IsArmored() ) {
-            retval += NumCrits() * 150000.0f;
+            retval += NumCrits() * 150000.0;
         }
         if( LegSystem ) {
-            retval += Owner.GetTonnage() * 700.0f;
+            retval += Owner.GetTonnage() * 700.0;
         } else {
-            retval += Owner.GetTonnage() * 500.0f;
+            retval += Owner.GetTonnage() * 500.0;
         }
         return retval;
     }
 
     @Override
-    public float GetOffensiveBV() {
+    public double GetOffensiveBV() {
         // AES modifies BV, but doesn't have one of its own
-        return 0.0f;
+        return 0.0;
     }
 
     @Override
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         // AES modifies BV, but doesn't have one of its own
-        return 0.0f;
+        return 0.0;
     }
 
     @Override
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         if( IsArmored() ) {
-            return 5.0f * NumCrits();
+            return 5.0 * NumCrits();
         } else {
-            return 0.0f;
+            return 0.0;
         }
     }
 

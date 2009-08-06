@@ -32,7 +32,7 @@ import ssw.components.*;
 
 public class stChassisCLESBP implements ifChassis, ifState {
     // A Clan EndoSteel Biped chassis
-    private final static float[] Masses = { 0.5f, 1.0f, 1.0f, 1.5f, 1.5f, 2.0f,
+    private final static double[] Masses = { 0.5f, 1.0f, 1.0f, 1.5f, 1.5f, 2.0f,
         2.0f, 2.5f, 2.5f, 3.0f, 3.0f, 3.5f, 3.5f, 4.0f, 4.0f, 4.5f, 4.5f, 5.0f,
         5.0f };
     private final static int[][] IntPoints = {
@@ -84,7 +84,7 @@ public class stChassisCLESBP implements ifChassis, ifState {
         return "Endo-Steel";
     }
 
-    public float GetStrucTon( int Tonnage ) {
+    public double GetStrucTon( int Tonnage ) {
         return Masses[GetIndex(Tonnage)];
     }
     
@@ -113,11 +113,11 @@ public class stChassisCLESBP implements ifChassis, ifState {
         return IntPoints[GetIndex(Tonnage)][3];
     }
 
-    public float GetCost( int Tonnage ) {
+    public double GetCost( int Tonnage ) {
         return 1600 * Tonnage;
     }
     
-    public float GetBVMult() {
+    public double GetBVMult() {
         return 1.0f;
     }
 

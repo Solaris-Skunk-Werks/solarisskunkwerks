@@ -59,8 +59,8 @@ public class stCockpitStandard implements ifCockpit, ifState {
         return false;
     }
 
-    public float GetTonnage() {
-        float result = 3.0f;
+    public double GetTonnage() {
+        double result = 3.0f;
         result += Sensors.GetTonnage();
         result += SecondSensors.GetTonnage();
         result += LifeSupport.GetTonnage();
@@ -104,8 +104,8 @@ public class stCockpitStandard implements ifCockpit, ifState {
         return "Standard";
     }
 
-    public float GetCost( int Tonnage ) {
-        float result = 250000.0f + ( 2000.0f * Tonnage );
+    public double GetCost( int Tonnage ) {
+        double result = 250000.0f + ( 2000.0f * Tonnage );
         result += Sensors.GetCost();
         result += LifeSupport.GetCost();
         result += SecondSensors.GetCost();
@@ -117,7 +117,7 @@ public class stCockpitStandard implements ifCockpit, ifState {
         return true;
     }
 
-    public float BVMod() {
+    public double BVMod() {
         return 1.0f;
     }
 

@@ -76,11 +76,11 @@ public class stArmorISHF implements ifArmor, ifState {
         return 21;
     }
 
-    public float GetAVMult() {
+    public double GetAVMult() {
         return 1.24f;
     }
 
-    public float GetCostMult() {
+    public double GetCostMult() {
         return 25000.0f;
     }
 
@@ -88,7 +88,7 @@ public class stArmorISHF implements ifArmor, ifState {
         return false;
     }
 
-    public float GetBVTypeMult() {
+    public double GetBVTypeMult() {
         return 1.0f;
     }
 

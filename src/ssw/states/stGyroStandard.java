@@ -50,8 +50,8 @@ public class stGyroStandard implements ifGyro, ifState {
         return false;
     }
 
-    public float GetTonnage( int rating ) {
-        return (float) ((int) ( rating * 0.01f + 0.99f ));
+    public double GetTonnage( int rating ) {
+        return (double) ((int) ( rating * 0.01f + 0.99f ));
     }
 
     public int GetCrits() {
@@ -74,11 +74,11 @@ public class stGyroStandard implements ifGyro, ifState {
         return "Standard";
     }
 
-    public float GetBVMult() {
+    public double GetBVMult() {
         return 0.5f;
     }
     
-    public float GetCostMult() {
+    public double GetCostMult() {
         return 300000.0f;
     }
     

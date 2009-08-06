@@ -41,7 +41,7 @@ public class Supercharger extends abPlaceable {
         AC.SetCLFactions( "", "", "ES", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = l;
-        AddMechModifier( new MechModifier( 0, 0, 0, 0.5f, 0, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true ) );
+        AddMechModifier( new MechModifier( 0, 0, 0, 0.5, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, true ) );
     }
 
     @Override
@@ -68,39 +68,39 @@ public class Supercharger extends abPlaceable {
     }
 
     @Override
-    public float GetTonnage() {
-        float retval = ((int) ( Math.ceil( Owner.GetMech().GetEngine().GetTonnage() * 0.1f * 2 ))) * 0.5f;
+    public double GetTonnage() {
+        double retval = ((int) ( Math.ceil( Owner.GetMech().GetEngine().GetTonnage() * 0.1 * 2 ))) * 0.5;
         if( IsArmored() ) {
-            retval += 0.5f;
+            retval += 0.5;
         }
         return retval;
     }
 
     @Override
-    public float GetCost() {
-        float retval = Owner.GetMech().GetEngine().GetRating() * 10000.0f;
+    public double GetCost() {
+        double retval = Owner.GetMech().GetEngine().GetRating() * 10000.0;
         if( IsArmored() ) {
-            retval += 150000.f;
+            retval += 150000.;
         }
         return retval;
     }
 
     @Override
-    public float GetOffensiveBV() {
-        return 0.0f;
+    public double GetOffensiveBV() {
+        return 0.0;
     }
 
     @Override
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
-        return 0.0f;
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+        return 0.0;
     }
 
     @Override
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         if( IsArmored() ) {
-            return 5.0f;
+            return 5.0;
         } else {
-            return 0.0f;
+            return 0.0;
         }
     }
 

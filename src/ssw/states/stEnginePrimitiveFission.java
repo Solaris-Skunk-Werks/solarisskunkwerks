@@ -34,7 +34,7 @@ import ssw.components.MechModifier;
 public class stEnginePrimitiveFission implements ifEngine, ifState {
     // An Inner Sphere Fission Engine
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
-    private final static float[] Masses = {5.0f,5.0f,5.0f,5.0f,5.0f,5.0f,5.0f,
+    private final static double[] Masses = {5.0f,5.0f,5.0f,5.0f,5.0f,5.0f,5.0f,
         5.0f,5.0f,5.0f,5.0f,5.0f,5.0f,5.0f,5.0f,5.0f,5.5f,5.5f,5.5f,6.5f,6.5f,
         7.0f,7.0f,7.0f,8.0f,8.0f,9.0f,9.0f,10.0f,10.0f,10.5f,10.5f,10.5f,12.5f,
         12.5f,13.5f,13.5f,14.0f,15.0f,15.0f,16.0f,17.0f,17.5f,17.5f,18.5f,19.5f,
@@ -51,6 +51,7 @@ public class stEnginePrimitiveFission implements ifEngine, ifState {
         AC.SetCLDates( 0, 0, false, 1960, 0, 0, false, false );
         AC.SetCLFactions( "", "", "ES", "" );
         AC.SetPIMAllowed( true );
+        AC.SetPrimitiveOnly( true );
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_ADVANCED );
     }
 
@@ -58,7 +59,7 @@ public class stEnginePrimitiveFission implements ifEngine, ifState {
         return false;
     }
 
-    public float GetTonnage( int Rating ) {
+    public double GetTonnage( int Rating ) {
         return Masses[GetIndex( Rating )];
     }
     
@@ -95,8 +96,8 @@ public class stEnginePrimitiveFission implements ifEngine, ifState {
         return "Primitive Fission Engine";
     }
 
-    public float GetCost( int MechTonnage, int Rating ) {
-        return ( 7500.0f * (float) MechTonnage * (float) Rating ) / 75.0f;
+    public double GetCost( int MechTonnage, int Rating ) {
+        return ( 7500.0f * ((double) MechTonnage) * ((double) Rating )) / 75.0f;
     }
     
     public AvailableCode GetAvailability() {
@@ -107,7 +108,7 @@ public class stEnginePrimitiveFission implements ifEngine, ifState {
         return 5;
     }
 
-    public float GetBVMult() {
+    public double GetBVMult() {
         return 1.0f;
     }
     

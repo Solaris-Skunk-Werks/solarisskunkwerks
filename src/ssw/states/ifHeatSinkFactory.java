@@ -34,7 +34,9 @@ import ssw.components.MechModifier;
 
 public interface ifHeatSinkFactory {
     public boolean IsDouble();
-    public float GetTonnage();
+    public boolean IsCompact();
+    public boolean IsLaser();
+    public double GetTonnage();
     public int GetCost();
     public int GetDissipation();
     public HeatSink GetHeatSink();

@@ -88,9 +88,9 @@ public class PhysicalEnhancement extends abPlaceable {
         return CurConfig.Contiguous();
     }
 
-    public float GetTonnage() {
+    public double GetTonnage() {
         if( IsArmored() ) {
-            return CurConfig.GetTonnage( Owner.GetTonnage() ) + NumCrits() * 0.5f;
+            return CurConfig.GetTonnage( Owner.GetTonnage() ) + NumCrits() * 0.5;
         } else {
             return CurConfig.GetTonnage( Owner.GetTonnage() );
         }
@@ -112,21 +112,21 @@ public class PhysicalEnhancement extends abPlaceable {
         return CurConfig.GetMMName();
     }
 
-    public float GetOffensiveBV() {
+    public double GetOffensiveBV() {
         return CurConfig.GetOffensiveBV( Owner.GetTonnage() );
     }
 
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         // BV will not change for this item, so just return the normal value
         return GetOffensiveBV();
     }
 
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         if( IsArmored() ) {
-            if( CurConfig.GetDefensiveBV( Owner.GetTonnage() ) > 0.0f ) {
-                return ( ( CurConfig.GetDefensiveBV( Owner.GetTonnage() ) + CurConfig.GetOffensiveBV( Owner.GetTonnage() ) ) * 0.05f * NumCrits() ) + CurConfig.GetDefensiveBV( Owner.GetTonnage() );
+            if( CurConfig.GetDefensiveBV( Owner.GetTonnage() ) > 0.0 ) {
+                return ( ( CurConfig.GetDefensiveBV( Owner.GetTonnage() ) + CurConfig.GetOffensiveBV( Owner.GetTonnage() ) ) * 0.05 * NumCrits() ) + CurConfig.GetDefensiveBV( Owner.GetTonnage() );
             } else {
-                return 5.0f * NumCrits();
+                return 5.0 * NumCrits();
             }
         }
         return CurConfig.GetDefensiveBV( Owner.GetTonnage() );
@@ -177,16 +177,16 @@ public class PhysicalEnhancement extends abPlaceable {
         Placed = 0;
     }
 
-    public float GetCost() {
+    public double GetCost() {
         if( CurConfig == ISMASC || CurConfig == CLMASC ) {
             if( IsArmored() ) {
-                return CurConfig.GetCost( Owner.GetTonnage(), Owner.GetEngine().GetRating() ) + NumCrits() * 150000.0f;
+                return CurConfig.GetCost( Owner.GetTonnage(), Owner.GetEngine().GetRating() ) + NumCrits() * 150000.0;
             } else {
                 return CurConfig.GetCost( Owner.GetTonnage(), Owner.GetEngine().GetRating() );
             }
         } else {
             if( IsArmored() ) {
-                return CurConfig.GetCost( Owner.GetTonnage(), Owner.GetEngine().GetTonnage() ) + NumCrits() * 150000.0f;
+                return CurConfig.GetCost( Owner.GetTonnage(), Owner.GetEngine().GetTonnage() ) + NumCrits() * 150000.0;
             } else {
                 return CurConfig.GetCost( Owner.GetTonnage(), Owner.GetEngine().GetTonnage() );
             }

@@ -32,12 +32,12 @@ import ssw.components.*;
 
 public interface ifGyro {
     public String GetReportName();
-    public float GetTonnage( int rating );
+    public double GetTonnage( int rating );
     public int GetCrits();
     public String GetCritName();
     public String GetMMName();
-    public float GetBVMult();
-    public float GetCostMult();
+    public double GetBVMult();
+    public double GetCostMult();
     public AvailableCode GetAvailability();
     public MechModifier GetMechModifier();
 }

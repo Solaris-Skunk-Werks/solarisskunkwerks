@@ -82,28 +82,28 @@ public class Talons extends PhysicalWeapon {
     }
 
     @Override
-    public float GetTonnage() {
-        float result = 0.0f;
-            result = (int) Math.ceil( Owner.GetTonnage() * 0.0666f );
+    public double GetTonnage() {
+        double result = 0.0;
+            result = (int) Math.ceil( Owner.GetTonnage() * 0.0666 );
 
         if( IsArmored() ) {
-            return result + ( NumCrits() * 0.5f );
+            return result + ( NumCrits() * 0.5 );
         } else {
             return result;
         }
     }
 
     @Override
-    public float GetCost() {
+    public double GetCost() {
         if( IsArmored() ) {
-            return ( Owner.GetTonnage() * 300.0f + ( NumCrits() * 150000.0f ) );
+            return ( Owner.GetTonnage() * 300.0 + ( NumCrits() * 150000.0 ) );
         } else {
-            return Owner.GetTonnage() * 300.0f;
+            return Owner.GetTonnage() * 300.0;
         }
     }
 
     @Override
-    public float GetOffensiveBV() {
+    public double GetOffensiveBV() {
         return GetDamageShort();
     }
 
@@ -133,17 +133,17 @@ public class Talons extends PhysicalWeapon {
 
     @Override
     public int GetDamageShort() {
-        return (int) Math.ceil( Owner.GetTonnage() * 0.2f * 1.5f );
+        return (int) Math.ceil( Owner.GetTonnage() * 0.2 * 1.5 );
     }
 
     @Override
     public int GetDamageMedium() {
-        return (int) Math.ceil( Owner.GetTonnage() * 0.2f * 1.5f );
+        return (int) Math.ceil( Owner.GetTonnage() * 0.2 * 1.5 );
     }
 
     @Override
     public int GetDamageLong() {
-        return (int) Math.ceil( Owner.GetTonnage() * 0.2f * 1.5f );
+        return (int) Math.ceil( Owner.GetTonnage() * 0.2 * 1.5 );
     }
 
     @Override

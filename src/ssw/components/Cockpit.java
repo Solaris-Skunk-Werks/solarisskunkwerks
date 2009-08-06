@@ -82,9 +82,9 @@ public class Cockpit extends abPlaceable {
         CurConfig = TorsoCockpit;
     }
 
-    public float GetTonnage() {
+    public double GetTonnage() {
         if( IsArmored() ) {
-            return CurConfig.GetTonnage() + 0.5f;
+            return CurConfig.GetTonnage() + 0.5;
         } else {
             return CurConfig.GetTonnage();
         }
@@ -260,9 +260,9 @@ public class Cockpit extends abPlaceable {
         return 1;
     }
 
-    public float GetCost() {
+    public double GetCost() {
         if( IsArmored() ) {
-            return 150000.0f + CurConfig.GetCost( Owner.GetTonnage() );
+            return 150000.0 + CurConfig.GetCost( Owner.GetTonnage() );
         } else {
             return CurConfig.GetCost( Owner.GetTonnage() );
         }
@@ -272,42 +272,42 @@ public class Cockpit extends abPlaceable {
         return CurConfig.HasFireControl();
     }
 
-    public float BVMod() {
+    public double BVMod() {
         return CurConfig.BVMod();
     }
 
-    public float GetOffensiveBV() {
+    public double GetOffensiveBV() {
         return 0.0f;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         return 0.0f;
     }
 
     // return the defensive battle value of the item
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         // a cockpit has no battle value unless it is armored
-        float result = 0.0f;
+        double result = 0.0;
         if( IsArmored() ) {
-            result += 5.0f;
+            result += 5.0;
         }
         if( CurConfig.GetSensors().IsArmored() ) {
-            result += 5.0f;
+            result += 5.0;
         }
         if( CurConfig.GetSecondSensors().IsArmored() ) {
-            result += 5.0f;
+            result += 5.0;
         }
         if( CurConfig.GetLifeSupport().IsArmored() ) {
-            result += 5.0f;
+            result += 5.0;
         }
         if( CurConfig.HasSecondLSLoc() ) {
             if( CurConfig.GetSecondLifeSupport().IsArmored() ) {
-                    result += 5.0f;
+                    result += 5.0;
             }
         }
         if( CurConfig.HasThirdSensors() ) {
             if( CurConfig.GetThirdSensors().IsArmored() ) {
-                    result += 5.0f;
+                    result += 5.0;
             }
         }
         return result;

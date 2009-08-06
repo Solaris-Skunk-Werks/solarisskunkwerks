@@ -72,34 +72,34 @@ public class ArtemisVFCS extends abPlaceable implements ifMissileGuidance {
         return 2;
     }
 
-    public float GetTonnage() {
+    public double GetTonnage() {
         if( IsArmored() ) {
-            return 2.5f;
+            return 2.5;
         } else {
-            return 1.5f;
+            return 1.5;
         }
     }
 
-    public float GetOffensiveBV() {
-        return 0.0f;
+    public double GetOffensiveBV() {
+        return 0.0;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         return GetOffensiveBV();
     }
 
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         if( IsArmored() ) {
-            return 10.0f;
+            return 10.0;
         }
-        return 0.0f;
+        return 0.0;
     }
 
-    public float GetCost() {
+    public double GetCost() {
         if( IsArmored() ) {
-            return 550000.0f;
+            return 550000.0;
         } else {
-            return 250000.0f;
+            return 250000.0;
         }
     }
 
@@ -141,7 +141,7 @@ public class ArtemisVFCS extends abPlaceable implements ifMissileGuidance {
         return 3;
     }
 
-    public float GetBVMultiplier() {
-        return 1.3f;
+    public double GetBVMultiplier() {
+        return 1.3;
     }
 }

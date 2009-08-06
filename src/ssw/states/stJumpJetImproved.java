@@ -61,11 +61,11 @@ public class stJumpJetImproved implements ifJumpJetFactory, ifState {
         return new JumpJet( "Improved Jump Jet", "ImprovedJump Jet", 2, AC );
     }
 
-    public float GetCost() {
+    public double GetCost() {
         return 500.0f;
     }
 
-    public float GetTonnage() {
+    public double GetTonnage() {
         return 2.0f;
     }
 

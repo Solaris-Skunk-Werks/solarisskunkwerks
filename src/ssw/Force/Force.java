@@ -38,15 +38,15 @@ import ssw.Force.IO.PrintSheet;
 public class Force extends AbstractTableModel {
     public Vector Units = new Vector();
     public String ForceName = "";
-    public float TotalBaseBV = 0.0f,
-                 TotalModifier = 0.0f,
-                 TotalTonnage = 0.0f,
-                 TotalC3BV = 0.0f,
-                 TotalSkillBV = 0.0f,
-                 TotalModifierBV = 0.0f,
-                 TotalAdjustedBV = 0.0f,
-                 TotalForceBV = 0.0f,
-                 TotalForceBVAdjusted = 0.0f;
+    public double TotalBaseBV = 0.0,
+                 TotalModifier = 0.0,
+                 TotalTonnage = 0.0,
+                 TotalC3BV = 0.0,
+                 TotalSkillBV = 0.0,
+                 TotalModifierBV = 0.0,
+                 TotalAdjustedBV = 0.0,
+                 TotalForceBV = 0.0,
+                 TotalForceBVAdjusted = 0.0;
     public int  NumC3 = 0,
                 OpForSize = 0;
     public boolean isDirty = false;
@@ -72,14 +72,14 @@ public class Force extends AbstractTableModel {
     public void RefreshBV() {
         Unit u;
         NumC3 = 0;
-        TotalBaseBV = 0.0f;
-        TotalModifier = 0.0f;
-        TotalTonnage = 0.0f;
-        TotalC3BV = 0.0f;
-        TotalSkillBV = 0.0f;
-        TotalModifierBV = 0.0f;
-        TotalAdjustedBV = 0.0f;
-        TotalForceBV = 0.0f;
+        TotalBaseBV = 0.0;
+        TotalModifier = 0.0;
+        TotalTonnage = 0.0;
+        TotalC3BV = 0.0;
+        TotalSkillBV = 0.0;
+        TotalModifierBV = 0.0;
+        TotalAdjustedBV = 0.0;
+        TotalForceBV = 0.0;
         for( int i = 0; i < Units.size(); i++ ) {
             u = (Unit) Units.get( i );
             TotalBaseBV += u.BaseBV;

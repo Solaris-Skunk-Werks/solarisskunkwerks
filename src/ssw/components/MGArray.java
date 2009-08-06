@@ -37,12 +37,12 @@ public class MGArray extends abPlaceable implements ifWeapon {
                     Rear = false,
                     Fusion = false,
                     Nuclear = false;
-    private float BaseTons,
+    private double BaseTons,
                   MGTons;
     private String Manufacturer = "";
     private AvailableCode AC;
 
-    public MGArray( RangedWeapon type, int num, float tons, boolean c, AvailableCode a ) {
+    public MGArray( RangedWeapon type, int num, double tons, boolean c, AvailableCode a ) {
         MGType = type;
         NumMGs = num;
         MGTons = tons;
@@ -55,9 +55,9 @@ public class MGArray extends abPlaceable implements ifWeapon {
         }
 
         if( Clan ) {
-            BaseTons = 0.25f;
+            BaseTons = 0.25;
         } else {
-            BaseTons = 0.5f;
+            BaseTons = 0.5;
         }
     }
 
@@ -129,10 +129,10 @@ public class MGArray extends abPlaceable implements ifWeapon {
     }
 
     @Override
-    public float GetTonnage() {
-        float result = 0.0f;
+    public double GetTonnage() {
+        double result = 0.0;
         if( IsArmored() ) {
-            result += BaseTons + 0.5f;
+            result += BaseTons + 0.5;
         } else {
             result += BaseTons;
         }
@@ -145,19 +145,19 @@ public class MGArray extends abPlaceable implements ifWeapon {
         return result;
     }
 
-    public float GetMGTons() {
+    public double GetMGTons() {
         return MGTons;
     }
 
-    public float GetBaseTons() {
+    public double GetBaseTons() {
         return BaseTons;
     }
 
     @Override
-    public float GetCost() {
-        float result = 1250.0f;
+    public double GetCost() {
+        double result = 1250.0;
         if( IsArmored() ) {
-            result += 150000.0f;
+            result += 150000.0;
         }
         // now for the MGs.
         for( int i = 0; i < MGs.length; i++ ) {
@@ -168,18 +168,18 @@ public class MGArray extends abPlaceable implements ifWeapon {
         return result;
     }
 
-    public float GetOffensiveBV() {
-        return (float) Math.floor( ( 67.0f * NumMGs * MGType.GetOffensiveBV() ) ) * 0.01f + NumMGs * MGType.GetOffensiveBV();
+    public double GetOffensiveBV() {
+        return (double) Math.floor( ( 67.0 * NumMGs * MGType.GetOffensiveBV() ) ) * 0.01 + NumMGs * MGType.GetOffensiveBV();
     }
 
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
-        return (float) Math.floor( ( 67.0f * NumMGs * MGType.GetOffensiveBV() ) ) * 0.01f + NumMGs * MGType.GetCurOffensiveBV( UseRear, UseTC, UseAES );
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+        return (double) Math.floor( ( 67.0 * NumMGs * MGType.GetOffensiveBV() ) ) * 0.01 + NumMGs * MGType.GetCurOffensiveBV( UseRear, UseTC, UseAES );
     }
 
-    public float GetDefensiveBV() {
-        float result = 0.0f;
+    public double GetDefensiveBV() {
+        double result = 0.0f;
         if( IsArmored() ) {
-            result += ( Math.floor( ( 67.0f * NumMGs * MGType.GetOffensiveBV() ) ) * 0.01f ) * 0.05f;
+            result += ( Math.floor( ( 67.0 * NumMGs * MGType.GetOffensiveBV() ) ) * 0.01 ) * 0.05;
         }
         // get each MGs defensive BV
         for( int i = 0; i < MGs.length; i++ ) {
@@ -284,16 +284,16 @@ public class MGArray extends abPlaceable implements ifWeapon {
         return MGType.GetToHitLong();
     }
 
-    public float GetBFDamageShort( boolean TC ) {
-        float retval = 0;
+    public double GetBFDamageShort( boolean TC ) {
+        double retval = 0;
 
         retval = GetDamageShort();
 
         return retval;
     }
 
-    public float GetBFDamageMedium( boolean TC ) {
-        float retval = 0;
+    public double GetBFDamageMedium( boolean TC ) {
+        double retval = 0;
 
         if ( GetRangeShort() > 3 )
             retval = GetDamageShort();
@@ -301,8 +301,8 @@ public class MGArray extends abPlaceable implements ifWeapon {
         return retval;
     }
 
-    public float GetBFDamageLong( boolean TC ) {
-        float retval = 0;
+    public double GetBFDamageLong( boolean TC ) {
+        double retval = 0;
 
         if ( GetRangeShort() > 15 )
             retval = GetDamageShort();
@@ -310,8 +310,8 @@ public class MGArray extends abPlaceable implements ifWeapon {
         return retval;
     }
 
-    public float GetBFDamageExtreme( boolean TC ) {
-        float retval = 0;
+    public double GetBFDamageExtreme( boolean TC ) {
+        double retval = 0;
 
         if ( GetRangeShort() > 23 )
             retval = GetDamageShort();

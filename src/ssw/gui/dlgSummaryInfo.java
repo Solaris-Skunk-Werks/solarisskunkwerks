@@ -103,15 +103,15 @@ public class dlgSummaryInfo extends javax.swing.JDialog {
         lblOffensiveBV.setText( String.format( "%1$.2f", Parent.CurMech.GetOffensiveBV() ) );
         lblTotalBV.setText( String.format( "%1$,d", Parent.CurMech.GetCurrentBV() ) );
 
-        lblBaseChassisCost.setText( "" + (int) Math.floor( Parent.CurMech.GetBaseChassisCost() + 0.5f ) );
-        lblBaseEngineCost.setText( "" + (int) Math.floor( Parent.CurMech.GetEngine().GetCost() + 0.5f ) );
-        float BEC = Parent.CurMech.GetEquipCost();
+        lblBaseChassisCost.setText( "" + (int) Math.floor( Parent.CurMech.GetBaseChassisCost() + 0.5 ) );
+        lblBaseEngineCost.setText( "" + (int) Math.floor( Parent.CurMech.GetEngine().GetCost() + 0.5 ) );
+        double BEC = Parent.CurMech.GetEquipCost();
         if( Parent.CurMech.UsingTC() ) {
             BEC += Parent.CurMech.GetTC().GetCost();
         }
-        lblBaseEquipmentCost.setText( "" + (int) Math.floor( BEC + 0.5f ) );
-        lblTotalDryCost.setText( "" + (int) Math.floor( Parent.CurMech.GetDryCost() + 0.5f ) );
-        lblTotalCost.setText( "" + (int) Math.floor( Parent.CurMech.GetTotalCost() + 0.5f ) );
+        lblBaseEquipmentCost.setText( "" + (int) Math.floor( BEC + 0.5 ) );
+        lblTotalDryCost.setText( "" + (int) Math.floor( Parent.CurMech.GetDryCost() + 0.5 ) );
+        lblTotalCost.setText( "" + (int) Math.floor( Parent.CurMech.GetTotalCost() + 0.5 ) );
 
         lblTotalDryWeight.setText( Parent.CurMech.GetCurrentDryTons() + " tons" );
         lblTotalWeight.setText( Parent.CurMech.GetCurrentTons() + " tons" );

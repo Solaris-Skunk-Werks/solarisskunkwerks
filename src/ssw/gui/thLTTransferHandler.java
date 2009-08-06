@@ -237,6 +237,10 @@ public class thLTTransferHandler extends TransferHandler {
             CurMech.GetLoadout().RemoveFromQueue( a );
         }
         a.MountRear( rear );
+        if( a instanceof VehicularGrenadeLauncher ) {
+            // reset the arc as it may not be appropriate
+            ((VehicularGrenadeLauncher ) a).SetArcFore();
+        }
         Parent.RefreshInfoPane();
         return true;
     }

@@ -241,6 +241,11 @@ public class QuadLoadout implements ifLoadout {
                     }
                 }
             }
+
+            // if a VGL, reset the arc
+            if( p instanceof VehicularGrenadeLauncher ) {
+                ((VehicularGrenadeLauncher) p).SetArcFore();
+            }
         }
 
         // if the component has a modifier, add it to the 'Mech

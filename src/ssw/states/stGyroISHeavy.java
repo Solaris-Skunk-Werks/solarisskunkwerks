@@ -44,8 +44,8 @@ public class stGyroISHeavy implements ifGyro, ifState {
         return false;
     }
 
-    public float GetTonnage( int rating ) {
-        return (float) (((int) ( rating * 0.01f + 0.99f )) * 2);
+    public double GetTonnage( int rating ) {
+        return (double) (((int) ( rating * 0.01f + 0.99f )) * 2);
     }
     
     public int GetCrits() {
@@ -68,11 +68,11 @@ public class stGyroISHeavy implements ifGyro, ifState {
         return "Heavy-Duty";
     }
 
-    public float GetBVMult() {
+    public double GetBVMult() {
         return 1.0f;
     }
     
-    public float GetCostMult() {
+    public double GetCostMult() {
         return 500000.0f;
     }
     

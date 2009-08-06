@@ -44,8 +44,8 @@ public class stGyroISXL implements ifGyro, ifState {
         return false;
     }
 
-    public float GetTonnage( int rating ) {
-        return (float) (((int) ( rating * 0.01f + 0.99f )) * 0.5);
+    public double GetTonnage( int rating ) {
+        return (double) (((int) ( rating * 0.01f + 0.99f )) * 0.5);
     }
     
     public int GetCrits() {
@@ -68,11 +68,11 @@ public class stGyroISXL implements ifGyro, ifState {
         return "XL";
     }
 
-    public float GetBVMult() {
+    public double GetBVMult() {
         return 0.5f;
     }
     
-    public float GetCostMult() {
+    public double GetCostMult() {
         return 750000.0f;
     }
     

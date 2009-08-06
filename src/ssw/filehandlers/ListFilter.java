@@ -21,8 +21,8 @@ public class ListFilter {
                 MaxYear = 2750,
                 MinBV = 0,
                 MaxBV = 0;
-    private float MinCost = 0.0f,
-                  MaxCost = 0.0f;
+    private double MinCost = 0.0,
+                  MaxCost = 0.0;
 
     public String getName() {
         return Name;
@@ -90,16 +90,16 @@ public class ListFilter {
     public void setMaxBV(int MaxBV) {
         this.MaxBV = MaxBV;
     }
-    public float getMinCost() {
+    public double getMinCost() {
         return MinCost;
     }
-    public void setMinCost(float MinCost) {
+    public void setMinCost(double MinCost) {
         this.MinCost = MinCost;
     }
-    public float getMaxCost() {
+    public double getMaxCost() {
         return MaxCost;
     }
-    public void setMaxCost(float MaxCost) {
+    public void setMaxCost(double MaxCost) {
         this.MaxCost = MaxCost;
     }
 
@@ -113,7 +113,7 @@ public class ListFilter {
         this.MaxBV = Max;
     }
 
-    public void setCost(float Min, float Max) {
+    public void setCost(double Min, double Max) {
         this.MinCost = Min;
         this.MaxCost = Max;
     }

@@ -63,11 +63,11 @@ public class stJumpJetStandard implements ifJumpJetFactory, ifState {
         return new JumpJet( "Jump Jet", "Jump Jet", 1, AC );
     }
 
-    public float GetCost() {
+    public double GetCost() {
         return 200.0f;
     }
 
-    public float GetTonnage() {
+    public double GetTonnage() {
         return 1.0f;
     }
 

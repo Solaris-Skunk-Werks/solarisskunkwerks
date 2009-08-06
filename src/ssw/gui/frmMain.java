@@ -69,23 +69,27 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     abPlaceable CurItem;
     // this variable is used for armoring multi-slot systems.
     int CurLocation = -1;
-    JPopupMenu mnuCrits = new JPopupMenu();
-    JMenuItem mnuUnallocateAll = new JMenuItem( "Unallocate All" );
+    JPopupMenu mnuUtilities = new JPopupMenu();
+    JMenuItem mnuDetails = new JMenuItem( "Details" );
     JMenuItem mnuMountRear = new JMenuItem( "Mount Rear" );
-    JMenuItem mnuInfoItem = new JMenuItem( "Get Info" );
-    JMenuItem mnuRemoveItem = new JMenuItem( "Remove Item" );
-    JPopupMenu mnuPlacement = new JPopupMenu();
-    JMenuItem mnuInfoPlacement = new JMenuItem( "Get Info" );
+    JMenuItem mnuSetVariable = new JMenuItem( "Set Tonnage" );
+    JMenuItem mnuArmorComponent = new JMenuItem( "Armor Component" );
+    JMenuItem mnuAddCapacitor = new JMenuItem( "Add Capacitor" );
+    JMenuItem mnuAddInsulator = new JMenuItem( "Add Insulator" );
     JMenuItem mnuSelective = new JMenuItem( "Selective Allocate" );
     JMenuItem mnuAuto = new JMenuItem( "Auto-Allocate" );
-    JMenuItem mnuArmorComponent = new JMenuItem( "Armor Component" );
-    JMenuItem mnuAddCapacitorPlace = new JMenuItem( "Add Capacitor" );
-    JMenuItem mnuAddCapacitorCrits = new JMenuItem( "Add Capacitor" );
-    JMenuItem mnuAddCapacitorSelect = new JMenuItem( "Add Capacitor" );
-    JMenuItem mnuAddInsulatorPlace = new JMenuItem( "Add Insulator" );
-    JMenuItem mnuAddInsulatorCrits = new JMenuItem( "Add Insulator" );
-    JMenuItem mnuAddInsulatorSelect = new JMenuItem( "Add Insulator" );
-    JPopupMenu mnuSelect = new JPopupMenu();
+    JMenuItem mnuUnallocateAll = new JMenuItem( "Unallocate All" );
+    JMenuItem mnuRemoveItem = new JMenuItem( "Remove Item" );
+    javax.swing.JMenu mnuVGLArc = new javax.swing.JMenu();
+    JMenuItem mnuVGLArcFore = new JMenuItem( "Fore" );
+    JMenuItem mnuVGLArcForeSide = new JMenuItem( "Fore-Side" );
+    JMenuItem mnuVGLArcRear = new JMenuItem( "Rear" );
+    JMenuItem mnuVGLArcRearSide = new JMenuItem( "Rear-Side" );
+    javax.swing.JMenu mnuVGLAmmo = new javax.swing.JMenu();
+    JMenuItem mnuVGLAmmoFrag = new JMenuItem( "Fragmentation" );
+    JMenuItem mnuVGLAmmoChaff = new JMenuItem( "Chaff" );
+    JMenuItem mnuVGLAmmoIncen = new JMenuItem( "Incendiary" );
+    JMenuItem mnuVGLAmmoSmoke = new JMenuItem( "Smoke" );
 
     MechLoadoutRenderer Mechrender = new MechLoadoutRenderer( this, GlobalOptions );
     public Preferences Prefs;
@@ -138,9 +142,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         setViewToolbar(Prefs.getBoolean("ViewToolbar", true));
         setTitle( Constants.AppDescription + " " + Constants.Version );
 
-        mnuUnallocateAll.addActionListener( new java.awt.event.ActionListener() {
+        mnuDetails.addActionListener( new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UnallocateAll();
+                GetInfoOn();
             }
         });
 
@@ -150,9 +154,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
 
-        mnuInfoItem.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GetInfoOn();
+        mnuSetVariable.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SetVariableSize();
             }
         });
 
@@ -162,52 +166,63 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
 
-        mnuRemoveItem.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                RemoveItemCritTab();
-            }
-        });
-
-        mnuAddCapacitorCrits.addActionListener( new java.awt.event.ActionListener() {
+        mnuAddCapacitor.addActionListener( new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 PPCCapacitor();
             }
         });
 
-        mnuAddInsulatorCrits.addActionListener( new java.awt.event.ActionListener() {
+        mnuAddInsulator.addActionListener( new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 LaserInsulator();
             }
         });
 
-        mnuCrits.add( mnuInfoItem );
-        mnuCrits.add( mnuMountRear );
-        mnuCrits.add( mnuUnallocateAll );
-        mnuCrits.add( mnuAddInsulatorCrits );
-        mnuCrits.add( mnuAddCapacitorCrits );
-        // not at all finished implementing this.  Need to add support for Omnis
-        // as well as unallocating takes the armoring off.
-        mnuCrits.add( mnuArmorComponent );
-        mnuCrits.add( mnuRemoveItem );
-        mnuArmorComponent.setVisible( false );
-        mnuAddInsulatorCrits.setVisible( false );
-        mnuAddCapacitorCrits.setVisible( false );
-
-        mnuInfoPlacement.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                GetInfoOn();
+        mnuVGLArcFore.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SetVGLArcFore();
             }
         });
 
-        mnuAddCapacitorPlace.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                PPCCapacitor();
+        mnuVGLArcForeSide.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SetVGLArcForeSide();
             }
         });
 
-        mnuAddInsulatorPlace.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                LaserInsulator();
+        mnuVGLArcRear.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SetVGLArcRear();
+            }
+        });
+
+        mnuVGLArcRearSide.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SetVGLArcRearSide();
+            }
+        });
+
+        mnuVGLAmmoFrag.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SetVGLAmmoFrag();
+            }
+        });
+
+        mnuVGLAmmoChaff.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SetVGLAmmoChaff();
+            }
+        });
+
+        mnuVGLAmmoIncen.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SetVGLAmmoIncendiary();
+            }
+        });
+
+        mnuVGLAmmoSmoke.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SetVGLAmmoSmoke();
             }
         });
 
@@ -223,28 +238,49 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
 
-        mnuPlacement.add( mnuInfoPlacement );
-        mnuPlacement.add( mnuAddInsulatorPlace );
-        mnuPlacement.add( mnuAddCapacitorPlace );
-        mnuPlacement.add( mnuAuto );
-        mnuPlacement.add( mnuSelective );
-
-        mnuAddCapacitorSelect.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                PPCCapacitor();
+        mnuUnallocateAll.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UnallocateAll();
             }
         });
 
-        mnuAddInsulatorSelect.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                LaserInsulator();
+        mnuRemoveItem.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                RemoveItemCritTab();
             }
         });
 
-        mnuSelect.add( mnuAddInsulatorSelect );
-        mnuSelect.add( mnuAddCapacitorSelect );
-        mnuAddInsulatorSelect.setVisible( false );
-        mnuAddCapacitorSelect.setVisible( false );
+        mnuVGLArc.setText( "Set VGL Arc" );
+        mnuVGLArc.add( mnuVGLArcFore );
+        mnuVGLArc.add( mnuVGLArcForeSide );
+        mnuVGLArc.add( mnuVGLArcRear );
+        mnuVGLArc.add( mnuVGLArcRearSide );
+
+        mnuVGLAmmo.setText( "Set VGL Ammo" );
+        mnuVGLAmmo.add( mnuVGLAmmoFrag );
+        mnuVGLAmmo.add( mnuVGLAmmoChaff );
+        mnuVGLAmmo.add( mnuVGLAmmoIncen );
+        mnuVGLAmmo.add( mnuVGLAmmoSmoke );
+
+        mnuUtilities.add( mnuDetails );
+        mnuUtilities.add( mnuMountRear );
+        mnuUtilities.add( mnuSetVariable );
+        mnuUtilities.add( mnuArmorComponent );
+        mnuUtilities.add( mnuAddCapacitor );
+        mnuUtilities.add( mnuAddInsulator );
+        mnuUtilities.add( mnuVGLArc );
+        mnuUtilities.add( mnuVGLAmmo );
+        mnuUtilities.add( mnuSelective );
+        mnuUtilities.add( mnuAuto );
+        mnuUtilities.add( mnuUnallocateAll );
+        mnuUtilities.add( mnuRemoveItem );
+
+        mnuSetVariable.setVisible( false );
+        mnuArmorComponent.setVisible( false );
+        mnuAddCapacitor.setVisible( false );
+        mnuAddInsulator.setVisible( false );
+        mnuVGLArc.setVisible( false );
+        mnuVGLAmmo.setVisible( false );
 
         try {
             OReader.ReadOptions( Constants.OptionsFileName, GlobalOptions );
@@ -662,7 +698,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         if( CurMech.GetJumpJets().IsImproved() ) {
-            max = CurMech.GetRunningMP();
+            if( CurMech.GetArmor().IsHardened() ) {
+                max = CurMech.GetRunningMP() - 1;
+            } else {
+                max = CurMech.GetRunningMP();
+            }
         } else {
             max = CurMech.GetWalkingMP();
         }
@@ -860,34 +900,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkLTCASE.setEnabled( false );
             chkRTCASE.setSelected( false );
             chkRTCASE.setEnabled( false );
-        }
-
-        // fix armor component menu item
-        if( CommonTools.IsAllowed( abPlaceable.ArmoredAC, CurMech ) )  {
-            mnuArmorComponent.setVisible( true );
-        } else {
-            mnuArmorComponent.setVisible( false );
-        }
-
-        // fix ppc capacitor 
-        if( CommonTools.IsAllowed( PPCCapAC, CurMech ) )  {
-            mnuAddCapacitorCrits.setVisible( true );
-            mnuAddCapacitorPlace.setVisible( true );
-            mnuAddCapacitorSelect.setVisible( true );
-        } else {
-            mnuAddCapacitorCrits.setVisible( false );
-            mnuAddCapacitorPlace.setVisible( false );
-            mnuAddCapacitorSelect.setVisible( false );
-        }
-
-        if( CommonTools.IsAllowed( LIAC, CurMech ) )  {
-            mnuAddInsulatorCrits.setVisible( true );
-            mnuAddInsulatorPlace.setVisible( true );
-            mnuAddInsulatorSelect.setVisible( true );
-        } else {
-            mnuAddInsulatorCrits.setVisible( false );
-            mnuAddInsulatorPlace.setVisible( false );
-            mnuAddInsulatorSelect.setVisible( false );
         }
 
         // check the command console and ejection seat
@@ -2855,6 +2867,170 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         return true;
     }
 
+    private void ConfigureUtilsMenu( java.awt.Component c ) {
+        // configures the utilities popup menu
+        boolean armor = LegalArmoring( CurItem ) && CommonTools.IsAllowed( abPlaceable.ArmoredAC, CurMech );
+        boolean cap = LegalCapacitor( CurItem ) && CommonTools.IsAllowed( PPCCapAC, CurMech );
+        boolean insul = LegalInsulator( CurItem ) && CommonTools.IsAllowed( LIAC, CurMech );
+        mnuArmorComponent.setEnabled( armor );
+        mnuAddCapacitor.setEnabled( cap );
+        mnuAddInsulator.setEnabled( insul );
+        mnuArmorComponent.setVisible( armor );
+        mnuAddCapacitor.setVisible( cap );
+        mnuAddInsulator.setVisible( insul );
+        if( armor ) {
+            if( CurItem.IsArmored() ) {
+                mnuArmorComponent.setText( "Unarmor Component" );
+            } else {
+                mnuArmorComponent.setText( "Armor Component" );
+            }
+        }
+        if( cap || insul ) {
+            if( CurItem instanceof RangedWeapon ) {
+                if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
+                    mnuAddCapacitor.setText( "Remove Capacitor" );
+                } else {
+                    mnuAddCapacitor.setText( "Add Capacitor" );
+                }
+                if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
+                    mnuAddInsulator.setText( "Remove Insulator" );
+                } else {
+                    mnuAddInsulator.setText( "Add Insulator" );
+                }
+            }
+        }
+        if( c == lstCTCrits || c == lstLTCrits || c == lstRTCrits ) {
+            if( CurItem instanceof VehicularGrenadeLauncher ) {
+                mnuVGLAmmo.setVisible( true );
+                mnuVGLArc.setVisible( true );
+                switch( ((VehicularGrenadeLauncher) CurItem).GetAmmoType() ) {
+                    case VehicularGrenadeLauncher.AMMO_CHAFF:
+                        mnuVGLAmmoFrag.setText( "Fragmentation" );
+                        mnuVGLAmmoChaff.setText( "* Chaff" );
+                        mnuVGLAmmoIncen.setText( "Incendiary" );
+                        mnuVGLAmmoSmoke.setText( "Smoke" );
+                        break;
+                    case VehicularGrenadeLauncher.AMMO_FRAG:
+                        mnuVGLAmmoFrag.setText( "* Fragmentation" );
+                        mnuVGLAmmoChaff.setText( "Chaff" );
+                        mnuVGLAmmoIncen.setText( "Incendiary" );
+                        mnuVGLAmmoSmoke.setText( "Smoke" );
+                        break;
+                    case VehicularGrenadeLauncher.AMMO_INCEN:
+                        mnuVGLAmmoFrag.setText( "Fragmentation" );
+                        mnuVGLAmmoChaff.setText( "Chaff" );
+                        mnuVGLAmmoIncen.setText( "* Incendiary" );
+                        mnuVGLAmmoSmoke.setText( "Smoke" );
+                        break;
+                    case VehicularGrenadeLauncher.AMMO_SMOKE:
+                        mnuVGLAmmoFrag.setText( "Fragmentation" );
+                        mnuVGLAmmoChaff.setText( "Chaff" );
+                        mnuVGLAmmoIncen.setText( "Incendiary" );
+                        mnuVGLAmmoSmoke.setText( "* Smoke" );
+                        break;
+                }
+                switch( ((VehicularGrenadeLauncher) CurItem).GetCurrentArc() ) {
+                    case VehicularGrenadeLauncher.ARC_FORE:
+                        mnuVGLArcFore.setText( "* Fore" );
+                        mnuVGLArcForeSide.setText( "Fore-Side" );
+                        mnuVGLArcRear.setText( "Rear" );
+                        mnuVGLArcRearSide.setText( "Rear-Side" );
+                        break;
+                    case VehicularGrenadeLauncher.ARC_FORE_SIDE:
+                        mnuVGLArcFore.setText( "Fore" );
+                        mnuVGLArcForeSide.setText( "* Fore-Side" );
+                        mnuVGLArcRear.setText( "Rear" );
+                        mnuVGLArcRearSide.setText( "Rear-Side" );
+                        break;
+                    case VehicularGrenadeLauncher.ARC_REAR:
+                        mnuVGLArcFore.setText( "Fore" );
+                        mnuVGLArcForeSide.setText( "Fore-Side" );
+                        mnuVGLArcRear.setText( "* Rear" );
+                        mnuVGLArcRearSide.setText( "Rear-Side" );
+                        break;
+                    case VehicularGrenadeLauncher.ARC_REAR_SIDE:
+                        mnuVGLArcFore.setText( "Fore" );
+                        mnuVGLArcForeSide.setText( "Fore-Side" );
+                        mnuVGLArcRear.setText( "Rear" );
+                        mnuVGLArcRearSide.setText( "* Rear-Side" );
+                        break;
+                }
+            } else {
+                mnuVGLAmmo.setVisible( false );
+                mnuVGLArc.setVisible( false );
+            }
+        } else {
+            mnuVGLAmmo.setVisible( false );
+            mnuVGLArc.setVisible( false );
+        }
+        if( CurMech.GetLoadout().Find( CurItem ) < 11 ) {
+            if( CurItem instanceof EmptyItem ) {
+                mnuUnallocateAll.setText( "Unallocate All" );
+                mnuUnallocateAll.setEnabled( false );
+            } else if( ! CurItem.LocationLocked() ) {
+                if( CurItem.Contiguous() ) {
+                    mnuUnallocateAll.setText( "Unallocate " + CurItem.GetCritName() );
+                } else {
+                    mnuUnallocateAll.setText( "Unallocate All" );
+                }
+                mnuUnallocateAll.setEnabled( true );
+            } else {
+                mnuUnallocateAll.setText( "Unallocate All" );
+                mnuUnallocateAll.setEnabled( false );
+            }
+            if( c == lstHDCrits || c == lstCTCrits || c == lstLTCrits || c == lstRTCrits || c == lstLLCrits || c == lstRLCrits ) {
+                if( CurItem.CanMountRear() ) {
+                    mnuMountRear.setEnabled( true );
+                    if( CurItem.IsMountedRear() ) {
+                        mnuMountRear.setText( "Unmount Rear " );
+                    } else {
+                        mnuMountRear.setText( "Mount Rear " );
+                    }
+                } else {
+                    mnuMountRear.setEnabled( false );
+                    mnuMountRear.setText( "Mount Rear " );
+                }
+            } else {
+                mnuMountRear.setEnabled( false );
+                mnuMountRear.setText( "Mount Rear " );
+            }
+            mnuAuto.setEnabled( false );
+            mnuSelective.setEnabled( false );
+        } else {
+            if( CurItem.Contiguous() ) {
+                EquipmentCollection C = CurMech.GetLoadout().GetCollection( CurItem );
+                if( C == null ) {
+                    mnuAuto.setEnabled( false );
+                    mnuSelective.setEnabled( false );
+                } else {
+                    mnuAuto.setEnabled( true );
+                    mnuSelective.setEnabled( true );
+                }
+            } else {
+                mnuSelective.setEnabled( true );
+                mnuAuto.setEnabled( true );
+            }
+            mnuUnallocateAll.setText( "Unallocate All" );
+            mnuUnallocateAll.setEnabled( false );
+            mnuMountRear.setEnabled( false );
+            mnuMountRear.setText( "Mount Rear " );
+        }
+        if( CurItem instanceof Equipment ) {
+            if( ((Equipment) CurItem).IsVariableSize() ) {
+                mnuSetVariable.setVisible( true );
+            } else {
+                mnuSetVariable.setVisible( false );
+            }
+        } else {
+            mnuSetVariable.setVisible( false );
+        }
+        if( CurItem.CoreComponent() ) {
+            mnuRemoveItem.setEnabled( false );
+        } else {
+            mnuRemoveItem.setEnabled( true );
+        }
+    }
+
     private void ArmorComponent() {
         // armors the component in question
         if( CurItem.IsArmored() ) {
@@ -2931,6 +3107,82 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
         RefreshInfoPane();
+    }
+
+    public void SetVGLArcFore() {
+        if( CurItem instanceof VehicularGrenadeLauncher ) {
+            ((VehicularGrenadeLauncher) CurItem).SetArcFore();
+            RefreshInfoPane();
+        }
+    }
+
+    public void SetVGLArcRear() {
+        if( CurItem instanceof VehicularGrenadeLauncher ) {
+            ((VehicularGrenadeLauncher) CurItem).SetArcRear();
+            RefreshInfoPane();
+        }
+    }
+
+    public void SetVGLArcForeSide() {
+        if( CurItem instanceof VehicularGrenadeLauncher ) {
+            ((VehicularGrenadeLauncher) CurItem).SetArcForeSide();
+            RefreshInfoPane();
+        }
+    }
+
+    public void SetVGLArcRearSide() {
+        if( CurItem instanceof VehicularGrenadeLauncher ) {
+            ((VehicularGrenadeLauncher) CurItem).SetArcRearSide();
+            RefreshInfoPane();
+        }
+    }
+
+    public void SetVGLAmmoFrag() {
+        if( CurItem instanceof VehicularGrenadeLauncher ) {
+            ((VehicularGrenadeLauncher) CurItem).SetAmmoFrag();
+            RefreshInfoPane();
+        }
+    }
+
+    public void SetVGLAmmoChaff() {
+        if( CurItem instanceof VehicularGrenadeLauncher ) {
+            ((VehicularGrenadeLauncher) CurItem).SetAmmoChaff();
+            RefreshInfoPane();
+        }
+    }
+
+    public void SetVGLAmmoIncendiary() {
+        if( CurItem instanceof VehicularGrenadeLauncher ) {
+            ((VehicularGrenadeLauncher) CurItem).SetAmmoIncen();
+            RefreshInfoPane();
+        }
+    }
+
+    public void SetVGLAmmoSmoke() {
+        if( CurItem instanceof VehicularGrenadeLauncher ) {
+            ((VehicularGrenadeLauncher) CurItem).SetAmmoSmoke();
+            RefreshInfoPane();
+        }
+    }
+
+    public void SetVariableSize() {
+        if( CurItem instanceof Equipment ) {
+            if( ((Equipment) CurItem).IsVariableSize() ) {
+                dlgVariableSize SetTons = new dlgVariableSize( this, true, (Equipment) CurItem );
+                SetTons.setLocationRelativeTo( this );
+                SetTons.setVisible( true );
+                LocationIndex li = CurMech.GetLoadout().FindIndex( CurItem );
+                if( li.Location >= 0 ) {
+                    try {
+                        CurMech.GetLoadout().UnallocateAll( CurItem, false );
+                        CurMech.GetLoadout().AddTo( CurItem, li.Location, li.Index );
+                    } catch( Exception e ) {
+                        CurMech.GetLoadout().UnallocateAll( CurItem, true );
+                    }
+                }
+                RefreshInfoPane();
+            }
+        }
     }
 
     public boolean LegalArmoring( abPlaceable p ) {
@@ -3037,7 +3289,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         Vector v = CurMech.GetLoadout().GetNonCore();
         int TotalDamage = 0;
-        float TonsWeapons = 0.0f, TonsEquips = 0.0f;
+        double TonsWeapons = 0.0f, TonsEquips = 0.0f;
 
         for( int i = 0; i < v.size(); i++ ) {
             abPlaceable p = (abPlaceable) v.get( i );
@@ -3074,14 +3326,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             ((DamageChart) pnlDamageChart).AddChart( fchart, Color.RED );
         }
         lblTonPercStructure.setText( String.format( "%1$,.2f", ( CurMech.GetIntStruc().GetTonnage() + CurMech.GetCockpit().GetTonnage() + CurMech.GetGyro().GetTonnage() ) / CurMech.GetTonnage() * 100.0f ) + "%" );
-        lblTonPercEngine.setText( String.format( "%1$,.2f", CurMech.GetEngine().GetTonnage() / CurMech.GetTonnage() * 100.0f ) + "%" );
-        lblTonPercHeatSinks.setText( String.format( "%1$,.2f", CurMech.GetHeatSinks().GetTonnage() / CurMech.GetTonnage() * 100.0f ) + "%" );
-        lblTonPercEnhance.setText( String.format( "%1$,.2f", CurMech.GetPhysEnhance().GetTonnage() / CurMech.GetTonnage() * 100.0f ) + "%" );
-        lblTonPercArmor.setText( String.format( "%1$,.2f", CurMech.GetArmor().GetTonnage() / CurMech.GetTonnage() * 100.0f ) + "%" );
-        lblTonPercJumpJets.setText( String.format( "%1$,.2f", CurMech.GetJumpJets().GetTonnage() / CurMech.GetTonnage() * 100.0f ) + "%" );
-        lblTonPercWeapons.setText( String.format( "%1$,.2f", TonsWeapons / CurMech.GetTonnage() * 100.0f ) + "%" );
-        lblTonPercEquips.setText( String.format( "%1$,.2f", TonsEquips / CurMech.GetTonnage() * 100.0f ) + "%" );
-        lblDamagePerTon.setText( String.format( "%1$,.2f", (float) TotalDamage / CurMech.GetTonnage() ) );
+        lblTonPercEngine.setText( String.format( "%1$,.2f", CurMech.GetEngine().GetTonnage() / CurMech.GetTonnage() * 100.0 ) + "%" );
+        lblTonPercHeatSinks.setText( String.format( "%1$,.2f", CurMech.GetHeatSinks().GetTonnage() / CurMech.GetTonnage() * 100.0 ) + "%" );
+        lblTonPercEnhance.setText( String.format( "%1$,.2f", CurMech.GetPhysEnhance().GetTonnage() / CurMech.GetTonnage() * 100.0 ) + "%" );
+        lblTonPercArmor.setText( String.format( "%1$,.2f", CurMech.GetArmor().GetTonnage() / CurMech.GetTonnage() * 100.0 ) + "%" );
+        lblTonPercJumpJets.setText( String.format( "%1$,.2f", CurMech.GetJumpJets().GetTonnage() / CurMech.GetTonnage() * 100.0 ) + "%" );
+        lblTonPercWeapons.setText( String.format( "%1$,.2f", TonsWeapons / CurMech.GetTonnage() * 100.0 ) + "%" );
+        lblTonPercEquips.setText( String.format( "%1$,.2f", TonsEquips / CurMech.GetTonnage() * 100.0 ) + "%" );
+        lblDamagePerTon.setText( String.format( "%1$,.2f", (double) TotalDamage / CurMech.GetTonnage() ) );
     }
 
     private int GetMaxDamage( ifWeapon w ) {
@@ -6558,21 +6810,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( Index < 0 ) { return; }
                 CurItem = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( Index );
                 if( e.isPopupTrigger() ) {
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorSelect.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorSelect.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorSelect.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorSelect.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddCapacitorSelect.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuAddInsulatorSelect.setEnabled( LegalInsulator( CurItem ) );
-                    mnuSelect.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 }
             }
             public void mousePressed( MouseEvent e ) {
@@ -6580,21 +6819,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( Index < 0 ) { return; }
                 CurItem = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( Index );
                 if( e.isPopupTrigger() ) {
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorSelect.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorSelect.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorSelect.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorSelect.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddCapacitorSelect.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuAddInsulatorSelect.setEnabled( LegalInsulator( CurItem ) );
-                    mnuSelect.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 }
             }
         };
@@ -6983,57 +7209,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     int index = lstHDCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
                     CurLocation = Constants.LOC_HD;
-                    // now, based on what was clicked, show the menu
-                    if( CurItem instanceof EmptyItem ) {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    } else if( ! CurItem.LocationLocked() ) {
-                        if( CurItem.Contiguous() ) {
-                            mnuUnallocateAll.setText( "Unallocate " + CurItem.GetCritName() );
-                        } else {
-                            mnuUnallocateAll.setText( "Unallocate All" );
-                        }
-                        mnuUnallocateAll.setEnabled( true );
-                    } else {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    }
-                    if( CurItem.CanMountRear() ) {
-                        mnuMountRear.setEnabled( true );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    } else {
-                        mnuMountRear.setEnabled( false );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    }
-                    if( CurItem.IsArmored() ) {
-                        mnuArmorComponent.setText( "Unarmor Component" );
-                    } else {
-                        mnuArmorComponent.setText( "Armor Component" );
-                    }
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorCrits.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorCrits.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddInsulatorCrits.setEnabled( LegalInsulator( CurItem ) );
-                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
-                    mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 }
             }
             public void mousePressed( MouseEvent e ) {
@@ -7042,57 +7219,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     int index = lstHDCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
                     CurLocation = Constants.LOC_HD;
-                    // now, based on what was clicked, show the menu
-                    if( CurItem instanceof EmptyItem ) {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    } else if( ! CurItem.LocationLocked() ) {
-                        if( CurItem.Contiguous() ) {
-                            mnuUnallocateAll.setText( "Unallocate " + CurItem.GetCritName() );
-                        } else {
-                            mnuUnallocateAll.setText( "Unallocate All" );
-                        }
-                        mnuUnallocateAll.setEnabled( true );
-                    } else {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    }
-                    if( CurItem.CanMountRear() ) {
-                        mnuMountRear.setEnabled( true );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    } else {
-                        mnuMountRear.setEnabled( false );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    }
-                    if( CurItem.IsArmored() ) {
-                        mnuArmorComponent.setText( "Unarmor Component" );
-                    } else {
-                        mnuArmorComponent.setText( "Armor Component" );
-                    }
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorCrits.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorCrits.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddInsulatorCrits.setEnabled( LegalInsulator( CurItem ) );
-                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
-                    mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     int index = lstHDCrits.locationToIndex( e.getPoint() );
                     CurItem = CurMech.GetLoadout().GetHDCrits()[index];
@@ -7153,57 +7281,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     int index = lstCTCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
                     CurLocation = Constants.LOC_CT;
-                    // now, based on what was clicked, show the menu
-                    if( CurItem instanceof EmptyItem ) {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    } else if( ! CurItem.LocationLocked() ) {
-                        if( CurItem.Contiguous() ) {
-                            mnuUnallocateAll.setText( "Unallocate " + CurItem.GetCritName() );
-                        } else {
-                            mnuUnallocateAll.setText( "Unallocate All" );
-                        }
-                        mnuUnallocateAll.setEnabled( true );
-                    } else {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    }
-                    if( CurItem.CanMountRear() ) {
-                        mnuMountRear.setEnabled( true );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    } else {
-                        mnuMountRear.setEnabled( false );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    }
-                    if( CurItem.IsArmored() ) {
-                        mnuArmorComponent.setText( "Unarmor Component" );
-                    } else {
-                        mnuArmorComponent.setText( "Armor Component" );
-                    }
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorCrits.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorCrits.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddInsulatorCrits.setEnabled( LegalInsulator( CurItem ) );
-                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
-                    mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 }
             }
             public void mousePressed( MouseEvent e ) {
@@ -7212,57 +7291,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     int index = lstCTCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
                     CurLocation = Constants.LOC_CT;
-                    // now, based on what was clicked, show the menu
-                    if( CurItem instanceof EmptyItem ) {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    } else if( ! CurItem.LocationLocked() ) {
-                        if( CurItem.Contiguous() ) {
-                            mnuUnallocateAll.setText( "Unallocate " + CurItem.GetCritName() );
-                        } else {
-                            mnuUnallocateAll.setText( "Unallocate All" );
-                        }
-                        mnuUnallocateAll.setEnabled( true );
-                    } else {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    }
-                    if( CurItem.CanMountRear() ) {
-                        mnuMountRear.setEnabled( true );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    } else {
-                        mnuMountRear.setEnabled( false );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    }
-                    if( CurItem.IsArmored() ) {
-                        mnuArmorComponent.setText( "Unarmor Component" );
-                    } else {
-                        mnuArmorComponent.setText( "Armor Component" );
-                    }
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorCrits.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorCrits.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddInsulatorCrits.setEnabled( LegalInsulator( CurItem ) );
-                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
-                    mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     int index = lstCTCrits.locationToIndex( e.getPoint() );
                     CurItem = CurMech.GetLoadout().GetCTCrits()[index];
@@ -7358,57 +7388,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     int index = lstLTCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
                     CurLocation = Constants.LOC_LT;
-                    // now, based on what was clicked, show the menu
-                    if( CurItem instanceof EmptyItem ) {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    } else if( ! CurItem.LocationLocked() ) {
-                        if( CurItem.Contiguous() ) {
-                            mnuUnallocateAll.setText( "Unallocate " + CurItem.GetCritName() );
-                        } else {
-                            mnuUnallocateAll.setText( "Unallocate All" );
-                        }
-                        mnuUnallocateAll.setEnabled( true );
-                    } else {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    }
-                    if( CurItem.CanMountRear() ) {
-                        mnuMountRear.setEnabled( true );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    } else {
-                        mnuMountRear.setEnabled( false );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    }
-                    if( CurItem.IsArmored() ) {
-                        mnuArmorComponent.setText( "Unarmor Component" );
-                    } else {
-                        mnuArmorComponent.setText( "Armor Component" );
-                    }
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorCrits.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorCrits.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddInsulatorCrits.setEnabled( LegalInsulator( CurItem ) );
-                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
-                    mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 }
             }
             public void mousePressed( MouseEvent e ) {
@@ -7417,57 +7398,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     int index = lstLTCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
                     CurLocation = Constants.LOC_LT;
-                    // now, based on what was clicked, show the menu
-                    if( CurItem instanceof EmptyItem ) {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    } else if( ! CurItem.LocationLocked() ) {
-                        if( CurItem.Contiguous() ) {
-                            mnuUnallocateAll.setText( "Unallocate " + CurItem.GetCritName() );
-                        } else {
-                            mnuUnallocateAll.setText( "Unallocate All" );
-                        }
-                        mnuUnallocateAll.setEnabled( true );
-                    } else {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    }
-                    if( CurItem.CanMountRear() ) {
-                        mnuMountRear.setEnabled( true );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    } else {
-                        mnuMountRear.setEnabled( false );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    }
-                    if( CurItem.IsArmored() ) {
-                        mnuArmorComponent.setText( "Unarmor Component" );
-                    } else {
-                        mnuArmorComponent.setText( "Armor Component" );
-                    }
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorCrits.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorCrits.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddInsulatorCrits.setEnabled( LegalInsulator( CurItem ) );
-                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
-                    mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     int index = lstLTCrits.locationToIndex( e.getPoint() );
                     CurItem = CurMech.GetLoadout().GetLTCrits()[index];
@@ -7549,57 +7481,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     int index = lstRTCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
                     CurLocation = Constants.LOC_RT;
-                    // now, based on what was clicked, show the menu
-                    if( CurItem instanceof EmptyItem ) {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    } else if( ! CurItem.LocationLocked() ) {
-                        if( CurItem.Contiguous() ) {
-                            mnuUnallocateAll.setText( "Unallocate " + CurItem.GetCritName() );
-                        } else {
-                            mnuUnallocateAll.setText( "Unallocate All" );
-                        }
-                        mnuUnallocateAll.setEnabled( true );
-                    } else {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    }
-                    if( CurItem.CanMountRear() ) {
-                        mnuMountRear.setEnabled( true );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    } else {
-                        mnuMountRear.setEnabled( false );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    }
-                    if( CurItem.IsArmored() ) {
-                        mnuArmorComponent.setText( "Unarmor Component" );
-                    } else {
-                        mnuArmorComponent.setText( "Armor Component" );
-                    }
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorCrits.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorCrits.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddInsulatorCrits.setEnabled( LegalInsulator( CurItem ) );
-                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
-                    mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu( e.getComponent() );
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 }
             }
             public void mousePressed( MouseEvent e ) {
@@ -7608,57 +7491,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     int index = lstRTCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
                     CurLocation = Constants.LOC_RT;
-                    // now, based on what was clicked, show the menu
-                    if( CurItem instanceof EmptyItem ) {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    } else if( ! CurItem.LocationLocked() ) {
-                        if( CurItem.Contiguous() ) {
-                            mnuUnallocateAll.setText( "Unallocate " + CurItem.GetCritName() );
-                        } else {
-                            mnuUnallocateAll.setText( "Unallocate All" );
-                        }
-                        mnuUnallocateAll.setEnabled( true );
-                    } else {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    }
-                    if( CurItem.CanMountRear() ) {
-                        mnuMountRear.setEnabled( true );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    } else {
-                        mnuMountRear.setEnabled( false );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    }
-                    if( CurItem.IsArmored() ) {
-                        mnuArmorComponent.setText( "Unarmor Component" );
-                    } else {
-                        mnuArmorComponent.setText( "Armor Component" );
-                    }
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorCrits.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorCrits.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddInsulatorCrits.setEnabled( LegalInsulator( CurItem ) );
-                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
-                    mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     int index = lstRTCrits.locationToIndex( e.getPoint() );
                     CurItem = CurMech.GetLoadout().GetRTCrits()[index];
@@ -7752,44 +7586,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     int index = lstLACrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
                     CurLocation = Constants.LOC_LA;
-                    // now, based on what was clicked, show the menu
-                    if( CurItem instanceof EmptyItem ) {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    } else if( ! CurItem.LocationLocked() ) {
-                        if( CurItem.Contiguous() ) {
-                            mnuUnallocateAll.setText( "Unallocate " + CurItem.GetCritName() );
-                        } else {
-                            mnuUnallocateAll.setText( "Unallocate All" );
-                        }
-                        mnuUnallocateAll.setEnabled( true );
-                    } else {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    }
-                    mnuMountRear.setEnabled( false );
-                    mnuMountRear.setText( "Mount Rear " );
-                    if( CurItem.IsArmored() ) {
-                        mnuArmorComponent.setText( "Unarmor Component" );
-                    } else {
-                        mnuArmorComponent.setText( "Armor Component" );
-                    }
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorCrits.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorCrits.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddInsulatorCrits.setEnabled( LegalInsulator( CurItem ) );
-                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
-                    mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 }
             }
             public void mousePressed( MouseEvent e ) {
@@ -7798,44 +7596,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     int index = lstLACrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
                     CurLocation = Constants.LOC_LA;
-                    // now, based on what was clicked, show the menu
-                    if( CurItem instanceof EmptyItem ) {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    } else if( ! CurItem.LocationLocked() ) {
-                        if( CurItem.Contiguous() ) {
-                            mnuUnallocateAll.setText( "Unallocate " + CurItem.GetCritName() );
-                        } else {
-                            mnuUnallocateAll.setText( "Unallocate All" );
-                        }
-                        mnuUnallocateAll.setEnabled( true );
-                    } else {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    }
-                    mnuMountRear.setEnabled( false );
-                    mnuMountRear.setText( "Mount Rear " );
-                    if( CurItem.IsArmored() ) {
-                        mnuArmorComponent.setText( "Unarmor Component" );
-                    } else {
-                        mnuArmorComponent.setText( "Armor Component" );
-                    }
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorCrits.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorCrits.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddInsulatorCrits.setEnabled( LegalInsulator( CurItem ) );
-                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
-                    mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     int index = lstLACrits.locationToIndex( e.getPoint() );
                     CurItem = CurMech.GetLoadout().GetLACrits()[index];
@@ -7946,44 +7708,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     int index = lstRACrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
                     CurLocation = Constants.LOC_RA;
-                    // now, based on what was clicked, show the menu
-                    if( CurItem instanceof EmptyItem ) {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    } else if( ! CurItem.LocationLocked() ) {
-                        if( CurItem.Contiguous() ) {
-                            mnuUnallocateAll.setText( "Unallocate " + CurItem.GetCritName() );
-                        } else {
-                            mnuUnallocateAll.setText( "Unallocate All" );
-                        }
-                        mnuUnallocateAll.setEnabled( true );
-                    } else {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    }
-                    mnuMountRear.setEnabled( false );
-                    mnuMountRear.setText( "Mount Rear " );
-                    if( CurItem.IsArmored() ) {
-                        mnuArmorComponent.setText( "Unarmor Component" );
-                    } else {
-                        mnuArmorComponent.setText( "Armor Component" );
-                    }
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorCrits.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorCrits.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddInsulatorCrits.setEnabled( LegalInsulator( CurItem ) );
-                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
-                    mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 }
             }
             public void mousePressed( MouseEvent e ) {
@@ -7992,44 +7718,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     int index = lstRACrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
                     CurLocation = Constants.LOC_RA;
-                    // now, based on what was clicked, show the menu
-                    if( CurItem instanceof EmptyItem ) {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    } else if( ! CurItem.LocationLocked() ) {
-                        if( CurItem.Contiguous() ) {
-                            mnuUnallocateAll.setText( "Unallocate " + CurItem.GetCritName() );
-                        } else {
-                            mnuUnallocateAll.setText( "Unallocate All" );
-                        }
-                        mnuUnallocateAll.setEnabled( true );
-                    } else {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    }
-                    mnuMountRear.setEnabled( false );
-                    mnuMountRear.setText( "Mount Rear " );
-                    if( CurItem.IsArmored() ) {
-                        mnuArmorComponent.setText( "Unarmor Component" );
-                    } else {
-                        mnuArmorComponent.setText( "Armor Component" );
-                    }
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorCrits.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorCrits.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddInsulatorCrits.setEnabled( LegalInsulator( CurItem ) );
-                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
-                    mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     int index = lstRACrits.locationToIndex( e.getPoint() );
                     CurItem = CurMech.GetLoadout().GetRACrits()[index];
@@ -8140,57 +7830,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     int index = lstLLCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
                     CurLocation = Constants.LOC_LL;
-                    // now, based on what was clicked, show the menu
-                    if( CurItem instanceof EmptyItem ) {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    } else if( ! CurItem.LocationLocked() ) {
-                        if( CurItem.Contiguous() ) {
-                            mnuUnallocateAll.setText( "Unallocate " + CurItem.GetCritName() );
-                        } else {
-                            mnuUnallocateAll.setText( "Unallocate All" );
-                        }
-                        mnuUnallocateAll.setEnabled( true );
-                    } else {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    }
-                    if( CurItem.CanMountRear() ) {
-                        mnuMountRear.setEnabled( true );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    } else {
-                        mnuMountRear.setEnabled( false );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    }
-                    if( CurItem.IsArmored() ) {
-                        mnuArmorComponent.setText( "Unarmor Component" );
-                    } else {
-                        mnuArmorComponent.setText( "Armor Component" );
-                    }
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorCrits.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorCrits.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddInsulatorCrits.setEnabled( LegalInsulator( CurItem ) );
-                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
-                    mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 }
             }
             public void mousePressed( MouseEvent e ) {
@@ -8199,57 +7840,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     int index = lstLLCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
                     CurLocation = Constants.LOC_LL;
-                    // now, based on what was clicked, show the menu
-                    if( CurItem instanceof EmptyItem ) {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    } else if( ! CurItem.LocationLocked() ) {
-                        if( CurItem.Contiguous() ) {
-                            mnuUnallocateAll.setText( "Unallocate " + CurItem.GetCritName() );
-                        } else {
-                            mnuUnallocateAll.setText( "Unallocate All" );
-                        }
-                        mnuUnallocateAll.setEnabled( true );
-                    } else {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    }
-                    if( CurItem.CanMountRear() ) {
-                        mnuMountRear.setEnabled( true );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    } else {
-                        mnuMountRear.setEnabled( false );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    }
-                    if( CurItem.IsArmored() ) {
-                        mnuArmorComponent.setText( "Unarmor Component" );
-                    } else {
-                        mnuArmorComponent.setText( "Armor Component" );
-                    }
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorCrits.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorCrits.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddInsulatorCrits.setEnabled( LegalInsulator( CurItem ) );
-                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
-                    mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     int index = lstLLCrits.locationToIndex( e.getPoint() );
                     CurItem = CurMech.GetLoadout().GetLLCrits()[index];
@@ -8320,57 +7912,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     int index = lstRLCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
                     CurLocation = Constants.LOC_RL;
-                    // now, based on what was clicked, show the menu
-                    if( CurItem instanceof EmptyItem ) {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    } else if( ! CurItem.LocationLocked() ) {
-                        if( CurItem.Contiguous() ) {
-                            mnuUnallocateAll.setText( "Unallocate " + CurItem.GetCritName() );
-                        } else {
-                            mnuUnallocateAll.setText( "Unallocate All" );
-                        }
-                        mnuUnallocateAll.setEnabled( true );
-                    } else {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    }
-                    if( CurItem.CanMountRear() ) {
-                        mnuMountRear.setEnabled( true );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    } else {
-                        mnuMountRear.setEnabled( false );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    }
-                    if( CurItem.IsArmored() ) {
-                        mnuArmorComponent.setText( "Unarmor Component" );
-                    } else {
-                        mnuArmorComponent.setText( "Armor Component" );
-                    }
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorCrits.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorCrits.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddInsulatorCrits.setEnabled( LegalInsulator( CurItem ) );
-                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
-                    mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 }
             }
             public void mousePressed( MouseEvent e ) {
@@ -8379,57 +7922,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     int index = lstRLCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
                     CurLocation = Constants.LOC_RL;
-                    // now, based on what was clicked, show the menu
-                    if( CurItem instanceof EmptyItem ) {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    } else if( ! CurItem.LocationLocked() ) {
-                        if( CurItem.Contiguous() ) {
-                            mnuUnallocateAll.setText( "Unallocate " + CurItem.GetCritName() );
-                        } else {
-                            mnuUnallocateAll.setText( "Unallocate All" );
-                        }
-                        mnuUnallocateAll.setEnabled( true );
-                    } else {
-                        mnuUnallocateAll.setText( "Unallocate All" );
-                        mnuUnallocateAll.setEnabled( false );
-                    }
-                    if( CurItem.CanMountRear() ) {
-                        mnuMountRear.setEnabled( true );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    } else {
-                        mnuMountRear.setEnabled( false );
-                        if( CurItem.IsMountedRear() ) {
-                            mnuMountRear.setText( "Unmount Rear " );
-                        } else {
-                            mnuMountRear.setText( "Mount Rear " );
-                        }
-                    }
-                    if( CurItem.IsArmored() ) {
-                        mnuArmorComponent.setText( "Unarmor Component" );
-                    } else {
-                        mnuArmorComponent.setText( "Armor Component" );
-                    }
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorCrits.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorCrits.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorCrits.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorCrits.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddInsulatorCrits.setEnabled( LegalInsulator( CurItem ) );
-                    mnuAddCapacitorCrits.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuArmorComponent.setEnabled( LegalArmoring( CurItem ) );
-                    mnuCrits.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     int index = lstRLCrits.locationToIndex( e.getPoint() );
                     CurItem = CurMech.GetLoadout().GetRLCrits()[index];
@@ -8484,34 +7978,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( Index < 0 ) { return; }
                 CurItem = CurMech.GetLoadout().GetFromQueueByIndex( Index );
                 if( e.isPopupTrigger() ) {
-                    if( CurItem.Contiguous() ) {
-                        EquipmentCollection C = CurMech.GetLoadout().GetCollection( CurItem );
-                        if( C == null ) {
-                            mnuAuto.setEnabled( false );
-                            mnuSelective.setEnabled( false );
-                        } else {
-                            mnuAuto.setEnabled( true );
-                            mnuSelective.setEnabled( true );
-                        }
-                    } else {
-                        mnuSelective.setEnabled( true );
-                        mnuAuto.setEnabled( true );
-                    }
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorPlace.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorPlace.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorPlace.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorPlace.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddCapacitorPlace.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuAddInsulatorPlace.setEnabled( LegalInsulator( CurItem ) );
-                    mnuPlacement.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     if( CurItem.Contiguous() ) {
                         EquipmentCollection C = CurMech.GetLoadout().GetCollection( CurItem );
@@ -8533,34 +8001,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( Index < 0 ) { return; }
                 CurItem = CurMech.GetLoadout().GetFromQueueByIndex( Index );
                 if( e.isPopupTrigger() ) {
-                    if( CurItem.Contiguous() ) {
-                        EquipmentCollection C = CurMech.GetLoadout().GetCollection( CurItem );
-                        if( C == null ) {
-                            mnuAuto.setEnabled( false );
-                            mnuSelective.setEnabled( false );
-                        } else {
-                            mnuAuto.setEnabled( true );
-                            mnuSelective.setEnabled( true );
-                        }
-                    } else {
-                        mnuSelective.setEnabled( true );
-                        mnuAuto.setEnabled( true );
-                    }
-                    if( CurItem instanceof RangedWeapon ) {
-                        if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
-                            mnuAddCapacitorPlace.setText( "Remove Capacitor" );
-                        } else {
-                            mnuAddCapacitorPlace.setText( "Add Capacitor" );
-                        }
-                        if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
-                            mnuAddInsulatorPlace.setText( "Remove Insulator" );
-                        } else {
-                            mnuAddInsulatorPlace.setText( "Add Insulator" );
-                        }
-                    }
-                    mnuAddCapacitorPlace.setEnabled( LegalCapacitor( CurItem ) );
-                    mnuAddInsulatorPlace.setEnabled( LegalInsulator( CurItem ) );
-                    mnuPlacement.show( e.getComponent(), e.getX(), e.getY() );
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     if( CurItem.Contiguous() ) {
                         EquipmentCollection C = CurMech.GetLoadout().GetCollection( CurItem );
@@ -10501,6 +9943,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             return;
         }
         RecalcArmor();
+        // we check for hardened armor, you can only have so many IJJs
+        FixJJSpinnerModel();
 
         // now refresh the information panes
         RefreshSummary();
@@ -11073,7 +10517,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // see if we have a good number
         if( ArmorDialogue.NewTonnage() ) {
-            float result = ArmorDialogue.GetResult();
+            double result = ArmorDialogue.GetResult();
             ArmorTons.SetArmorTonnage( result );
             try {
                 CurMech.Visit( ArmorTons );
@@ -11428,6 +10872,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // now we can add it to the 'Mech
         if( a != null ) {
+            if( a instanceof Equipment ) {
+                if( ((Equipment) a).IsVariableSize() ) {
+                    dlgVariableSize SetTons = new dlgVariableSize( this, true, (Equipment) a );
+                    SetTons.setLocationRelativeTo( this );
+                    SetTons.setVisible( true );
+                }
+            }
+
             CurMech.GetLoadout().AddToQueue( a );
 
             // unallocate the TC if needed (if the size changes)
@@ -12647,7 +12099,7 @@ private void chkVoidSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
 private void btnRemainingArmorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemainingArmorActionPerformed
         // see if we have a good number
-    float freetons = CurMech.GetTonnage() - CurMech.GetCurrentTons() + CurMech.GetArmor().GetTonnage();
+    double freetons = CurMech.GetTonnage() - CurMech.GetCurrentTons() + CurMech.GetArmor().GetTonnage();
 
     if( freetons > CurMech.GetArmor().GetMaxTonnage() ) {
         freetons = CurMech.GetArmor().GetMaxTonnage();

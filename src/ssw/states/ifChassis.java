@@ -34,15 +34,15 @@ public interface ifChassis {
     public int GetCrits();
     public String GetCritName();
     public String GetMMName();
-    public float GetStrucTon( int Tonnage );
+    public double GetStrucTon( int Tonnage );
     public boolean IsQuad();
     public int GetHeadPoints();
     public int GetCTPoints( int Tonnage );
     public int GetSidePoints( int Tonnage );
     public int GetArmPoints( int Tonnage );
     public int GetLegPoints( int Tonnage );
-    public float GetCost( int Tonnage );
-    public float GetBVMult();
+    public double GetCost( int Tonnage );
+    public double GetBVMult();
     public boolean IncrementPlaced();
     public boolean DecrementPlaced();
     public MechModifier GetMechModifier();

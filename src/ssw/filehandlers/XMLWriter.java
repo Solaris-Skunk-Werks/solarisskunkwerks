@@ -221,6 +221,10 @@ public class XMLWriter {
         FR.newLine();
         if( CurMech.GetHeatSinks().IsDouble() ) {
             FR.write( tab + tab + tab + "<type>Double Heat Sink</type>" );
+        } else if( CurMech.GetHeatSinks().IsCompact() ) {
+            FR.write( tab + tab + tab + "<type>Compact Heat Sink</type>" );
+        } else if( CurMech.GetHeatSinks().IsLaser() ) {
+            FR.write( tab + tab + tab + "<type>Laser Heat Sink</type>" );
         } else {
             FR.write( tab + tab + tab + "<type>Single Heat Sink</type>" );
         }
@@ -527,6 +531,10 @@ public class XMLWriter {
                 retval += prefix + "<equipment>" + NL;
                 retval += prefix + tab + "<name manufacturer=\"" + FileCommon.EncodeFluff( p.GetManufacturer() ) + "\">" + FileCommon.EncodeFluff( p.GetLookupName() ) + "</name>" + NL;
                 retval += prefix + tab + "<type>" + GetEquipmentType( p ) + "</type>" + NL;
+                if( p instanceof VehicularGrenadeLauncher ) {
+                    retval += prefix + tab + "<vglarc>" + ((VehicularGrenadeLauncher) p).GetAmmoType() + "</vglarc>";
+                    retval += prefix + tab + "<vglammo>" + ((VehicularGrenadeLauncher) p).GetAmmoType() + "</vglammo>";
+                }
                 retval += GetLocationLines( prefix + tab, p );
                 retval += prefix + "</equipment>" + NL;
             }
@@ -652,6 +660,8 @@ public class XMLWriter {
                 default:
                     return "unknown";
             }
+        } else if( p instanceof VehicularGrenadeLauncher ) {
+            return "artillery";
         } else if( p instanceof MGArray ) {
             return "mgarray";
         } else if( p instanceof PhysicalWeapon ) {

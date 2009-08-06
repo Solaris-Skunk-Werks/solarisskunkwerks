@@ -73,15 +73,15 @@ public class stPECLMASC implements ifPhysEnhance, ifState {
         return true;
     }
 
-    public float GetCost( int mechtons, float enginetons ) {
+    public double GetCost( int mechtons, double enginetons ) {
         return 1000 * enginetons * GetTonnage( mechtons );
     }
 
-    public float GetOffensiveBV( int Tonnage ) {
+    public double GetOffensiveBV( int Tonnage ) {
         return 0.0f;
     }
 
-    public float GetDefensiveBV( int Tonnage ) {
+    public double GetDefensiveBV( int Tonnage ) {
         return 0.0f;
     }
 

@@ -302,7 +302,7 @@ public class MechList extends AbstractTableModel {
             case 2:
                 return m.getBV();
             case 3:
-                return String.format( "%1$,.0f", m.getCost() );
+                return String.format( "%1$,.2f", m.getCost() );
             case 4:
                 return m.getLevel();
             case 5:

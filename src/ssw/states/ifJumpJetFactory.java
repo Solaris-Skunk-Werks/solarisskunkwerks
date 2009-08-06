@@ -36,8 +36,8 @@ public interface ifJumpJetFactory {
     public boolean IsImproved();
     public boolean IsUMU();
     public JumpJet GetJumpJet();
-    public float GetCost();
-    public float GetTonnage();
+    public double GetCost();
+    public double GetTonnage();
     public int GetNumCrits();
     public AvailableCode GetAvailability();
     public MechModifier GetMechModifier();

@@ -114,7 +114,7 @@ public class Printer {
     }
 
     public void AddMech(Mech m, String Mechwarrior, int Gunnery, int Piloting, boolean Charts, boolean PilotInfo, boolean AdjBV) {
-        float BV = (float) m.GetCurrentBV();
+        double BV = (double) m.GetCurrentBV();
         if (AdjBV) BV = CommonTools.GetAdjustedBV(m.GetCurrentBV(), Gunnery, Piloting);
 
         PrintMech pm = new PrintMech(m);

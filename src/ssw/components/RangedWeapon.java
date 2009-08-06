@@ -91,10 +91,10 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                 OriginalAmmoIDX = 0,
                 FCSType = ifMissileGuidance.FCS_NONE,
                 WeaponClass = ifWeapon.W_BALLISTIC;
-    private float Tonnage = 0.0f,
-                  Cost = 0.0f,
-                  OffBV = 0.0f,
-                  DefBV = 0.0f;
+    private double Tonnage = 0.0,
+                  Cost = 0.0,
+                  OffBV = 0.0,
+                  DefBV = 0.0;
 
     public RangedWeapon( String name, String lookupname, String mmname, String type, String spec, AvailableCode a, int wepclass ) {
         Name = name;
@@ -106,7 +106,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         WeaponClass = wepclass;
     }
 
-    public void SetStats( float tons, int crits, float cost, float obv, float dbv ) {
+    public void SetStats( double tons, int crits, double cost, double obv, double dbv ) {
         Tonnage = tons;
         NumCrits = crits;
         Cost = cost;
@@ -297,10 +297,10 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     }
 
     @Override
-    public float GetTonnage() {
-        float retval = Tonnage;
+    public double GetTonnage() {
+        double retval = Tonnage;
         if( IsArmored() ) {
-            retval += NumCrits * 0.5f;
+            retval += NumCrits * 0.5;
         }
         if( UsingCapacitor ) {
             retval += Capacitor.GetTonnage();
@@ -314,10 +314,10 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         return retval;
     }
 
-    public float GetCost() {
-        float retval = Cost;
+    public double GetCost() {
+        double retval = Cost;
         if( IsArmored() ) {
-            retval += ( 150000.0f * NumCrits );
+            retval += ( 150000.0 * NumCrits );
         }
         if( UsingCapacitor ) {
             retval += Capacitor.GetCost();
@@ -332,10 +332,10 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     }
 
     @Override
-    public float GetOffensiveBV() {
-        float retval = OffBV;
+    public double GetOffensiveBV() {
+        double retval = OffBV;
         if( UsingFCS ) {
-            retval = ( Math.round( OffBV * FCS.GetBVMultiplier() * 100.0f ) ) * 0.01f;
+            retval = ( Math.round( OffBV * FCS.GetBVMultiplier() * 100.0 ) ) * 0.01;
         }
         if( UsingCapacitor ) {
             // round off the capacitor BV total, as this is how Tac Ops does it.
@@ -345,34 +345,33 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     }
 
     @Override
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
-        // artillery is unaffected by targeting computers, so we'll just ignore
-        float retval = GetOffensiveBV();
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+        double retval = GetOffensiveBV();
         if( UseAES ) {
-            retval *= 1.5f;
+            retval *= 1.5;
         }
         if( UseTC && TCCapable ) {
-            retval *= 1.25f;
+            retval *= 1.25;
         }
         if( UseRear ) {
             if( MountedRear ) {
                 return retval;
             } else {
-                return retval * 0.5f;
+                return retval * 0.5;
             }
         } else {
             if( MountedRear ) {
-                return retval * 0.5f;
+                return retval * 0.5;
             } else {
                 return retval;
             }
         }
     }
 
-    public float GetDefensiveBV() {
-        float retval = 0.0f;
+    public double GetDefensiveBV() {
+        double retval = 0.0;
         if( UsingFCS ) {
-            retval = ( Math.round( DefBV * FCS.GetBVMultiplier() * 100.0f ) ) * 0.01f;
+            retval = ( Math.round( DefBV * FCS.GetBVMultiplier() * 100.0 ) ) * 0.01;
             retval += ((abPlaceable) FCS).GetDefensiveBV();
         } else {
             retval = DefBV;
@@ -381,7 +380,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
             retval += Capacitor.GetDefensiveBV();
         }
         if( IsArmored() ) {
-            retval += (( GetOffensiveBV() + retval ) * 0.05f * NumCrits() );
+            retval += (( GetOffensiveBV() + retval ) * 0.05 * NumCrits() );
         }
         return retval;
     }
@@ -406,8 +405,8 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         }
         if( Rotary ) { retval *= 6; }
         if( Ultra ) { retval *= 2; }
-        if( OneShot ) { retval = Math.round( retval * 0.25f ); }
-        if( Streak ) { retval =  Math.round( retval * 0.5f ); }
+        if( OneShot ) { retval = (int) Math.round( retval * 0.25 ); }
+        if( Streak ) { retval =  (int) Math.round( retval * 0.5 ); }
         if( retval < 0 ) { retval = 0; }
         return retval;
     }

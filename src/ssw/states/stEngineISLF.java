@@ -33,7 +33,7 @@ import ssw.components.*;
 public class stEngineISLF implements ifEngine, ifState {
     // An Inner Sphere Light Fusion Engine
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
-    private final static float[] Masses = {0.5f,0.5f,0.5f,0.5f,1.0f,1.0f,1.0f,
+    private final static double[] Masses = {0.5f,0.5f,0.5f,0.5f,1.0f,1.0f,1.0f,
         1.0f,1.5f,1.5f,1.5f,1.5f,1.5f,1.5f,2.0f,2.0f,2.5f,2.5f,2.5f,3.0f,3.0f,
         3.0f,3.0f,3.0f,3.5f,3.5f,4.0f,4.0f,4.5f,4.5f,4.5f,4.5f,4.5f,5.5f,5.5f,
         6.0f,6.0f,6.0f,6.5f,6.5f,7.0f,7.5f,7.5f,7.5f,8.0f,8.5f,9.0f,9.0f,9.5f,
@@ -53,7 +53,7 @@ public class stEngineISLF implements ifEngine, ifState {
         return false;
     }
 
-    public float GetTonnage( int Rating ) {
+    public double GetTonnage( int Rating ) {
         return Masses[GetIndex( Rating )];
     }
     
@@ -89,8 +89,8 @@ public class stEngineISLF implements ifEngine, ifState {
         return "Fusion Engine";
     }
 
-    public float GetCost( int MechTonnage, int Rating ) {
-        return ( 15000.0f * (float) MechTonnage * (float) Rating ) / 75.0f;
+    public double GetCost( int MechTonnage, int Rating ) {
+        return ( 15000.0f * ((double) MechTonnage) * ((double) Rating )) / 75.0f;
     }
     
     public AvailableCode GetAvailability() {
@@ -101,7 +101,7 @@ public class stEngineISLF implements ifEngine, ifState {
         return 10;
     }
 
-    public float GetBVMult() {
+    public double GetBVMult() {
         return 0.75f;
     }
     

@@ -73,15 +73,15 @@ public class stPEISTSM implements ifPhysEnhance, ifState {
         return false;
     }
 
-    public float GetCost( int mechtons, float enginetons ) {
+    public double GetCost( int mechtons, double enginetons ) {
         return 16000 * mechtons;
     }
     
-    public float GetOffensiveBV( int Tonnage ) {
+    public double GetOffensiveBV( int Tonnage ) {
         return Tonnage * 1.5f;
     }
 
-    public float GetDefensiveBV( int Tonnage ) {
+    public double GetDefensiveBV( int Tonnage ) {
         return 0.0f;
     }
 

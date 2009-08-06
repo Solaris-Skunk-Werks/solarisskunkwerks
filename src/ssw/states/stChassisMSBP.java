@@ -33,7 +33,7 @@ import ssw.components.MechModifier;
 
 public class stChassisMSBP implements ifChassis, ifState {
     // An Inner Sphere Standard Military Biped chassis
-    private final static float[] Masses = { 1.0f, 1.5f, 2.0f, 2.5f, 3.0f, 3.5f,
+    private final static double[] Masses = { 1.0f, 1.5f, 2.0f, 2.5f, 3.0f, 3.5f,
         4.0f, 4.5f, 5.0f, 5.5f, 6.0f, 6.5f, 7.0f, 7.5f, 8.0f, 8.5f, 9.0f, 9.5f,
         10.0f };
     private final static int[][] IntPoints = {
@@ -88,7 +88,7 @@ public class stChassisMSBP implements ifChassis, ifState {
         return "Standard";
     }
 
-    public float GetStrucTon( int Tonnage ) {
+    public double GetStrucTon( int Tonnage ) {
         return Masses[GetIndex(Tonnage)];
     }
     
@@ -117,11 +117,11 @@ public class stChassisMSBP implements ifChassis, ifState {
         return IntPoints[GetIndex(Tonnage)][3];
     }
     
-    public float GetCost( int Tonnage ) {
+    public double GetCost( int Tonnage ) {
         return 400 * Tonnage;
     }
     
-    public float GetBVMult() {
+    public double GetBVMult() {
         return 1.0f;
     }
     

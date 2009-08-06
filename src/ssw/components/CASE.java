@@ -67,24 +67,24 @@ public class CASE extends abPlaceable {
         return 1;
     }
 
-    public float GetTonnage() {
-        return 0.5f;
+    public double GetTonnage() {
+        return 0.5;
     }
 
-    public float GetOffensiveBV() {
-        return 0.0f;
+    public double GetOffensiveBV() {
+        return 0.0;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
-        return 0.0f;
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+        return 0.0;
     }
 
-    public float GetDefensiveBV() {
-        return 0.0f;
+    public double GetDefensiveBV() {
+        return 0.0;
     }
 
-    public float GetCost() {
-        return 50000.0f;
+    public double GetCost() {
+        return 50000.0;
     }
 
     @Override

@@ -67,11 +67,11 @@ public class Mech implements ifBattleforce {
                 RulesLevel,
                 Tonnage = 20,
                 WalkMP;
-    private float JJMult,
+    private double JJMult,
                   MechMult;
-    public final static float[] DefensiveFactor = { 1.0f, 1.0f, 1.1f, 1.1f, 1.2f, 1.2f,
-        1.3f, 1.3f, 1.3f, 1.4f, 1.4f, 1.4f, 1.4f, 1.4f, 1.4f, 1.4f, 1.4f, 1.5f,
-        1.5f, 1.5f, 1.5f, 1.5f, 1.5f, 1.5f, 1.6f, 1.6f, 1.6f, 1.6f, 1.6f, 1.6f };
+    public final static double[] DefensiveFactor = { 1.0, 1.0, 1.1, 1.1, 1.2, 1.2,
+        1.3, 1.3, 1.3, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.5,
+        1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.6, 1.6, 1.6, 1.6, 1.6, 1.6 };
     private boolean Quad,
                     Omnimech,
                     Primitive = false,
@@ -167,8 +167,8 @@ public class Mech implements ifBattleforce {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        NullSig = new MultiSlotSystem( this, "Null Signature System", "Null Signature System", "NullSignatureSystem", 0.0f, false, true, 1400000.0f, false, AC );
-        NullSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 10, 0.2f, 0.0f, 0.0f, 0.0f, true ) );
+        NullSig = new MultiSlotSystem( this, "Null Signature System", "Null Signature System", "NullSignatureSystem", 0.0, false, true, 1400000.0, false, AC );
+        NullSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 10, 0.2, 0.0, 0.0, 0.0, true ) );
         NullSig.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Void Signature System", "Stealth Armor", "C3" }, "Null Signature System" ) );
 
         AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -178,8 +178,8 @@ public class Mech implements ifBattleforce {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        Chameleon = new MultiSlotSystem( this, "Chameleon LPS", "Chameleon LPS", "ChameleonLightPolarizationField", 0.0f, true, true, 600000.0f, false, AC );
-        Chameleon.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 6, 0.2f, 0.0f, 0.0f, 0.0f, true ) );
+        Chameleon = new MultiSlotSystem( this, "Chameleon LPS", "Chameleon LPS", "ChameleonLightPolarizationField", 0.0, true, true, 600000.0, false, AC );
+        Chameleon.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 6, 0.2, 0.0, 0.0, 0.0, true ) );
         Chameleon.SetExclusions( new Exclusion( new String[] { "Void Signature System", "Stealth Armor" }, "Chameleon LPS" ) );
 
         AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -189,8 +189,8 @@ public class Mech implements ifBattleforce {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        BlueShield = new MultiSlotSystem( this, "Blue Shield PFD", "Blue Shield PFD", "BlueShieldPFD", 3.0f, false, true, 1000000.0f, false, AC );
-        BlueShield.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 0, 0.0f, 0.0f, 0.2f, 0.2f, true ) );
+        BlueShield = new MultiSlotSystem( this, "Blue Shield PFD", "Blue Shield PFD", "BlueShieldPFD", 3.0, false, true, 1000000.0, false, AC );
+        BlueShield.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 0, 0.0, 0.0, 0.2, 0.2, true ) );
 
         AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
         AC.SetISCodes( 'E', 'X', 'X', 'E' );
@@ -199,8 +199,8 @@ public class Mech implements ifBattleforce {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        VoidSig = new MultiSlotSystem( this, "Void Signature System", "Void Signature System", "VoidSignatureSystem", 0.0f, false, true, 2000000.0f, false, AC );
-        VoidSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0f, 0, 0, 10, 0.3f, 0.0f, 0.0f, 0.0f, true ) );
+        VoidSig = new MultiSlotSystem( this, "Void Signature System", "Void Signature System", "VoidSignatureSystem", 0.0, false, true, 2000000.0, false, AC );
+        VoidSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 10, 0.3, 0.0, 0.0, 0.0, true ) );
         VoidSig.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Null Signature System", "Stealth Armor", "C3", "Chameleon LPS" }, "Void Signature System" ) );
 
         AC = new AvailableCode( AvailableCode.TECH_BOTH );
@@ -213,7 +213,7 @@ public class Mech implements ifBattleforce {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        EnviroSealing = new MultiSlotSystem( this, "Environmental Sealing", "Environmental Sealing", "Environmental Sealing", 0.1f, false, false, 225.0f, true, AC );
+        EnviroSealing = new MultiSlotSystem( this, "Environmental Sealing", "Environmental Sealing", "Environmental Sealing", 0.1, false, false, 225.0, true, AC );
         EnviroSealing.SetWeightBasedOnMechTonnage( true );
 
         AC = new AvailableCode( AvailableCode.TECH_BOTH );
@@ -227,8 +227,8 @@ public class Mech implements ifBattleforce {
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         EjectionSeat = new SimplePlaceable( "Ejection Seat", "EjectionSeat", 1, true, AC );
-        EjectionSeat.SetTonnage( 0.5f );
-        EjectionSeat.SetCost( 25000.0f );
+        EjectionSeat.SetTonnage( 0.5 );
+        EjectionSeat.SetCost( 25000.0 );
 
         AC = new AvailableCode( AvailableCode.TECH_BOTH );
         AC.SetISCodes( 'C', 'D', 'E', 'E' );
@@ -253,23 +253,23 @@ public class Mech implements ifBattleforce {
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         CommandConsole = new SimplePlaceable( "Command Console", "CommandConsole", 1, true, AC );
-        CommandConsole.SetTonnage( 3.0f );
-        CommandConsole.SetCost( 500000.0f );
+        CommandConsole.SetTonnage( 3.0 );
+        CommandConsole.SetCost( 500000.0 );
     }
 
     public void Recalculate() {
         // recalculates the Mech Mult and the Jump Jet Mult
         if( Tonnage < 60 ) {
-            JJMult = 0.5f;
+            JJMult = 0.5;
         } else if( Tonnage > 55 && Tonnage < 90 ) {
-            JJMult = 1.0f;
+            JJMult = 1.0;
         } else  {
-            JJMult = 2.0f;
+            JJMult = 2.0;
         }
         if ( IndustrialMech == false ) {
-            MechMult = 1.0f + ( Tonnage * 0.01f );
+            MechMult = 1.0 + ( Tonnage * 0.01f );
         } else {
-            MechMult = 1.0f + ( Tonnage * 0.0025f );
+            MechMult = 1.0 + ( Tonnage * 0.0025f );
         }
     }
 
@@ -284,7 +284,7 @@ public class Mech implements ifBattleforce {
         // also need to redo the engine if tonnage changes.
         int MaxWalk = 0;
         if( Primitive ) {
-            MaxWalk = (int) Math.floor( 400 / Tonnage / 1.2f );
+            MaxWalk = (int) Math.floor( 400 / Tonnage / 1.2 );
         } else {
             MaxWalk = (int) Math.floor( 400 / Tonnage );
         }
@@ -1230,7 +1230,7 @@ public class Mech implements ifBattleforce {
 
     public int GetMaxWalkMP() {
         if( CurEngine.IsPrimitive() ) {
-            return (int) Math.floor( 400 / Tonnage / 1.2f );
+            return (int) Math.floor( 400 / Tonnage / 1.2 );
         } else {
             return (int) Math.floor( 400 / Tonnage );
         }
@@ -1253,7 +1253,7 @@ public class Mech implements ifBattleforce {
     }
 
     public int GetRunningMP() {
-        return (int) Math.floor( GetWalkingMP() * 1.5f + 0.5f );
+        return (int) Math.floor( GetWalkingMP() * 1.5 + 0.5 );
     }
 
     public int GetAdjustedRunningMP( boolean BV, boolean MASCTSM ) {
@@ -1261,8 +1261,8 @@ public class Mech implements ifBattleforce {
         // idiosyncracies of the BV system.  Stupid.
         MechModifier m = GetTotalModifiers( BV, MASCTSM );
         int WalkValue = GetAdjustedWalkingMP( BV, MASCTSM );
-        float Multiplier = 1.5f + m.RunningMultiplier();
-        return (int) Math.floor( WalkValue * Multiplier + 0.5f ) + m.RunningAdder();
+        double Multiplier = 1.5 + m.RunningMultiplier();
+        return (int) Math.floor( WalkValue * Multiplier + 0.5 ) + m.RunningAdder();
     }
 
     public int GetAdjustedJumpingMP( boolean BV ) {
@@ -1277,13 +1277,13 @@ public class Mech implements ifBattleforce {
         }
     }
 
-    public float GetJJMult() {
+    public double GetJJMult() {
         return JJMult;
     }
 
-    public float GetCurrentTons() {
+    public double GetCurrentTons() {
         // returns the current total tonnage of the mech
-        float result = 0.0f;
+        double result = 0.0;
         result += CurIntStruc.GetTonnage();
         result += CurEngine.GetTonnage();
         result += CurGyro.GetTonnage();
@@ -1318,11 +1318,11 @@ public class Mech implements ifBattleforce {
         if( HasEjectionSeat ) { result += EjectionSeat.GetTonnage(); }
         if( HasTracks) { result += Tracks.GetTonnage(); }
         if( Quad ) {
-            if( HasLegAES ) { result += RLAES.GetTonnage() * 4.0f; }
+            if( HasLegAES ) { result += RLAES.GetTonnage() * 4.0; }
         } else {
             if( HasRAAES ) { result += CurRAAES.GetTonnage(); }
             if( HasLAAES ) { result += CurLAAES.GetTonnage(); }
-            if( HasLegAES ) { result += RLAES.GetTonnage() * 2.0f; }
+            if( HasLegAES ) { result += RLAES.GetTonnage() * 2.0; }
         }
 
         Vector v = CurLoadout.GetNonCore();
@@ -1334,10 +1334,10 @@ public class Mech implements ifBattleforce {
         return result;
     }
 
-    public float GetCurrentDryTons() {
+    public double GetCurrentDryTons() {
         // returns the tonnage without ammunition
         // returns the current total tonnage of the mech
-        float result = 0.0f;
+        double result = 0.0;
         result += CurIntStruc.GetTonnage();
         result += CurEngine.GetTonnage();
         result += CurGyro.GetTonnage();
@@ -1371,11 +1371,11 @@ public class Mech implements ifBattleforce {
         if( HasEnviroSealing ) { result += EnviroSealing.GetTonnage(); }
         if( HasEjectionSeat ) { result += EjectionSeat.GetTonnage(); }
         if( Quad ) {
-            if( HasLegAES ) { result += RLAES.GetTonnage() * 4.0f; }
+            if( HasLegAES ) { result += RLAES.GetTonnage() * 4.0; }
         } else {
             if( HasRAAES ) { result += CurRAAES.GetTonnage(); }
             if( HasLAAES ) { result += CurLAAES.GetTonnage(); }
-            if( HasLegAES ) { result += RLAES.GetTonnage() * 2.0f; }
+            if( HasLegAES ) { result += RLAES.GetTonnage() * 2.0; }
         }
 
         Vector v = CurLoadout.GetNonCore();
@@ -1402,12 +1402,12 @@ public class Mech implements ifBattleforce {
         int walk = CurEngine.MaxMovementHeat();
         int jump = 0;
         int minjumpheat = 3 * CurEngine.JumpingHeatMultiplier();
-        float heatperjj = 0.0f;
+        double heatperjj = 0.0;
 
         if( GetJumpJets().IsImproved() ) {
-            heatperjj = 0.5f * CurEngine.JumpingHeatMultiplier();
+            heatperjj = 0.5 * CurEngine.JumpingHeatMultiplier();
         } else {
-            heatperjj = 1.0f * CurEngine.JumpingHeatMultiplier();
+            heatperjj = 1.0 * CurEngine.JumpingHeatMultiplier();
         }
 
         if( GetJumpJets().GetNumJJ() > 0 ) {
@@ -1436,12 +1436,12 @@ public class Mech implements ifBattleforce {
         int walk = CurEngine.MaxMovementHeat();
         int jump = 0;
         int minjumpheat = 3 * CurEngine.JumpingHeatMultiplier();
-        float heatperjj = 0.0f;
+        double heatperjj = 0.0;
 
         if( GetJumpJets().IsImproved() ) {
-            heatperjj = 0.5f * CurEngine.JumpingHeatMultiplier();
+            heatperjj = 0.5 * CurEngine.JumpingHeatMultiplier();
         } else {
-            heatperjj = 1.0f * CurEngine.JumpingHeatMultiplier();
+            heatperjj = 1.0 * CurEngine.JumpingHeatMultiplier();
         }
 
         if( GetJumpJets().GetNumJJ() > 0 ) {
@@ -1548,19 +1548,19 @@ public class Mech implements ifBattleforce {
 
     public int GetCurrentBV() {
         // returns the final battle value of the mech
-        float tempmod = 0.0f;
-        tempmod += CurCockpit.BVMod() * Math.floor( ( GetDefensiveBV() + GetOffensiveBV() + 0.5f ) ) - Math.floor( ( GetDefensiveBV() + GetOffensiveBV() + 0.5f ) );
-        return (int) Math.floor( ( GetDefensiveBV() + GetOffensiveBV() + tempmod + 0.5f ) );
+        double tempmod = 0.0;
+        tempmod += CurCockpit.BVMod() * Math.floor( ( GetDefensiveBV() + GetOffensiveBV() + 0.5 ) ) - Math.floor( ( GetDefensiveBV() + GetOffensiveBV() + 0.5 ) );
+        return (int) Math.floor( ( GetDefensiveBV() + GetOffensiveBV() + tempmod + 0.5 ) );
     }
 
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         // modify the result by the defensive factor and send it out
         return GetUnmodifiedDefensiveBV() * GetDefensiveFactor();
     }
 
-    public float GetUnmodifiedDefensiveBV() {
+    public double GetUnmodifiedDefensiveBV() {
         // returns the defensive battle value of the mech
-        float defresult = 0.0f;
+        double defresult = 0.0;
 
         // defensive battle value calculations start here
         defresult += CurIntStruc.GetDefensiveBV();
@@ -1569,8 +1569,8 @@ public class Mech implements ifBattleforce {
         defresult += GetDefensiveEquipBV();
         defresult += GetExplosiveAmmoPenalty();
         defresult += GetExplosiveWeaponPenalty();
-        if( defresult < 1.0f ) {
-            defresult = 1.0f;
+        if( defresult < 1.0 ) {
+            defresult = 1.0;
         }
 
         // now get the defensive BV for any armored components that weren't
@@ -1588,9 +1588,9 @@ public class Mech implements ifBattleforce {
         return defresult;
     }
 
-    public float GetDefensiveEquipBV() {
+    public double GetDefensiveEquipBV() {
         // return the BV of all defensive equipment
-        float result = 0.0f;
+        double result = 0.0;
         Vector v = CurLoadout.GetNonCore();
 
         for( int i = 0; i < v.size(); i++ ) {
@@ -1602,8 +1602,8 @@ public class Mech implements ifBattleforce {
         return result;
     }
 
-    public float GetExplosiveAmmoPenalty() {
-        float result = 0.0f;
+    public double GetExplosiveAmmoPenalty() {
+        double result = 0.0;
         Vector v = CurLoadout.GetNonCore();
         abPlaceable p;
 
@@ -1615,42 +1615,42 @@ public class Mech implements ifBattleforce {
                         switch( CurLoadout.Find( p ) ) {
                             case 0:
                                 if( ! CurLoadout.HasHDCASEII() ) {
-                                    result -= 15.0f;
+                                    result -= 15.0;
                                 }
                                 break;
                             case 1:
                                 if( ! CurLoadout.HasCTCASEII() ) {
-                                    result -= 15.0f;
+                                    result -= 15.0;
                                 }
                                 break;
                             case 2:
                                 if( ! CurLoadout.HasLTCASEII() ) {
-                                    result -= 15.0f;
+                                    result -= 15.0;
                                 }
                                 break;
                             case 3:
                                 if( ! CurLoadout.HasRTCASEII() ) {
-                                    result -= 15.0f;
+                                    result -= 15.0;
                                 }
                                 break;
                             case 4:
                                 if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.IsUsingClanCASE() ) {
-                                    result -= 15.0f;
+                                    result -= 15.0;
                                 }
                                 break;
                             case 5:
                                 if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.IsUsingClanCASE() ) {
-                                    result -= 15.0f;
+                                    result -= 15.0;
                                 }
                                 break;
                             case 6:
                                 if( ! CurLoadout.HasLLCASEII() ) {
-                                    result -= 15.0f;
+                                    result -= 15.0;
                                 }
                                 break;
                             case 7:
                                 if( ! CurLoadout.HasRLCASEII() ) {
-                                    result -= 15.0f;
+                                    result -= 15.0;
                                 }
                                 break;
                         }
@@ -1658,42 +1658,42 @@ public class Mech implements ifBattleforce {
                         switch( CurLoadout.Find( p ) ) {
                             case 0:
                                 if( ! CurLoadout.HasHDCASEII() ) {
-                                    result -= 15.0f;
+                                    result -= 15.0;
                                 }
                                 break;
                             case 1:
                                 if( ! CurLoadout.HasCTCASEII() ) {
-                                    result -= 15.0f;
+                                    result -= 15.0;
                                 }
                                 break;
                             case 2:
                                 if( ! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() &! CurLoadout.IsUsingClanCASE() ) {
-                                    result -= 15.0f;
+                                    result -= 15.0;
                                 }
                                 break;
                             case 3:
                                 if( ! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() &! CurLoadout.IsUsingClanCASE() ) {
-                                    result -= 15.0f;
+                                    result -= 15.0;
                                 }
                                 break;
                             case 4:
                                 if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() &! CurLoadout.IsUsingClanCASE() ) {
-                                    result -= 15.0f;
+                                    result -= 15.0;
                                 }
                                 break;
                             case 5:
                                 if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() &! CurLoadout.IsUsingClanCASE() ) {
-                                    result -= 15.0f;
+                                    result -= 15.0;
                                 }
                                 break;
                             case 6:
                                 if( ! CurLoadout.HasLLCASEII() ) {
-                                    result -= 15.0f;
+                                    result -= 15.0;
                                 }
                                 break;
                             case 7:
                                 if( ! CurLoadout.HasRLCASEII() ) {
-                                    result -= 15.0f;
+                                    result -= 15.0;
                                 }
                                 break;
                         }
@@ -1705,8 +1705,8 @@ public class Mech implements ifBattleforce {
         return result;
     }
 
-    public float GetExplosiveWeaponPenalty() {
-        float result = 0.0f;
+    public double GetExplosiveWeaponPenalty() {
+        double result = 0.0;
         Vector v = CurLoadout.GetNonCore();
         abPlaceable p;
         boolean Explode;
@@ -1810,7 +1810,7 @@ public class Mech implements ifBattleforce {
         return result;
     }
 
-    public float GetDefensiveFactor() {
+    public double GetDefensiveFactor() {
         // returns the defensive factor for this mech based on it's highest
         // target number for speed.
 
@@ -1825,14 +1825,14 @@ public class Mech implements ifBattleforce {
         if( RunMP < 0 ) { RunMP = 0; }
 
         // Get the defensive factors for jumping and running movement
-        float ground = DefensiveFactor[RunMP];
-        float jump = 0.0f;
+        double ground = DefensiveFactor[RunMP];
+        double jump = 0.0;
         if( GetJumpJets().GetNumJJ() > 0 ) {
             JumpMP = GetAdjustedJumpingMP( true ) - 1;
-                jump = DefensiveFactor[JumpMP] + 0.1f;
+                jump = DefensiveFactor[JumpMP] + 0.1;
         }
 
-        float retval = 0.0f;
+        double retval = 0.0;
         // return the best one.
         if( jump > ground ) {
             retval = jump;
@@ -1849,13 +1849,13 @@ public class Mech implements ifBattleforce {
         return retval;
     }
 
-    public float GetOffensiveBV() {
+    public double GetOffensiveBV() {
         // returns the offensive battle value of the mech
         return GetUnmodifiedOffensiveBV() * GetOffensiveFactor();
     }
 
-    public float GetUnmodifiedOffensiveBV() {
-        float offresult = 0.0f;
+    public double GetUnmodifiedOffensiveBV() {
+        double offresult = 0.0;
 
         offresult += GetHeatAdjustedWeaponBV();
         offresult += GetNonHeatEquipBV();
@@ -1864,9 +1864,9 @@ public class Mech implements ifBattleforce {
         return offresult;
     }
 
-    public float GetHeatAdjustedWeaponBV() {
+    public double GetHeatAdjustedWeaponBV() {
         Vector v = CurLoadout.GetNonCore(), wep = new Vector();
-        float result = 0.0f, foreBV = 0.0f, rearBV = 0.0f;
+        double result = 0.0, foreBV = 0.0, rearBV = 0.0;
         boolean UseRear = false, TC = UsingTC(), UseAESMod = false;
         abPlaceable a;
 
@@ -1902,7 +1902,7 @@ public class Mech implements ifBattleforce {
                 }
             }
             // get the heat sink bonus
-            int Bonus = (int) Math.ceil( (float) NumHS * ( (float) NumPods * 0.2f ) );
+            int Bonus = (int) Math.ceil( (double) NumHS * ( (double) NumPods * 0.2 ) );
             if( Bonus > MaxHSBonus ) { Bonus = MaxHSBonus; }
             heff += Bonus;
         }
@@ -1943,7 +1943,7 @@ public class Mech implements ifBattleforce {
                 if( ((ifWeapon) sorted[i]).GetBVHeat() <= 0 ) {
                     result += sorted[i].GetCurOffensiveBV( UseRear, UsingTC(), UseAESMod );
                 } else {
-                    result += sorted[i].GetCurOffensiveBV( UseRear, UsingTC(), UseAESMod ) * 0.5f;
+                    result += sorted[i].GetCurOffensiveBV( UseRear, UsingTC(), UseAESMod ) * 0.5;
                 }
             }
             curheat += ((ifWeapon) sorted[i]).GetBVHeat();
@@ -1951,9 +1951,9 @@ public class Mech implements ifBattleforce {
         return result;
     }
 
-    public float GetNonHeatEquipBV() {
+    public double GetNonHeatEquipBV() {
         // return the BV of all offensive equipment
-        float result = 0.0f;
+        double result = 0.0;
         Vector v = CurLoadout.GetNonCore();
 
         for( int i = 0; i < v.size(); i++ ) {
@@ -1964,8 +1964,8 @@ public class Mech implements ifBattleforce {
         return result;
     }
 
-    public float GetExcessiveAmmoPenalty() {
-        float result = 0.0f;
+    public double GetExcessiveAmmoPenalty() {
+        double result = 0.0;
         Vector v = CurLoadout.GetNonCore();
         Vector Ammo = new Vector(),
                Wep = new Vector();
@@ -2014,12 +2014,12 @@ public class Mech implements ifBattleforce {
 
             // now find out if the ammo is excessive
             if( NumAmmos != 0 && ammo != null ) {
-                float ammoBV = ( NumAmmos * ammo.GetOffensiveBV() );
-                if( ammoBV <= 0.0f ) {
+                double ammoBV = ( NumAmmos * ammo.GetOffensiveBV() );
+                if( ammoBV <= 0.0 ) {
                     ammoBV = ( NumAmmos * ammo.GetDefensiveBV() );
                 }
-                float wepBV = ( NumWeps * ((abPlaceable) test).GetOffensiveBV() );
-                if( wepBV <= 0.0f ) {
+                double wepBV = ( NumWeps * ((abPlaceable) test).GetOffensiveBV() );
+                if( wepBV <= 0.0 ) {
                     wepBV = ( NumWeps * ((abPlaceable) test).GetDefensiveBV() );
                 }
                 if( ammoBV > wepBV ) {
@@ -2031,34 +2031,34 @@ public class Mech implements ifBattleforce {
         return result;
     }
 
-    public float GetTonnageBV() {
+    public double GetTonnageBV() {
         if( CurPhysEnhance.IsTSM() ) {
             return CurPhysEnhance.GetOffensiveBV();
         } else {
             if( Quad ) {
                 if( HasLegAES ) {
-                    return Tonnage * 1.4f;
+                    return Tonnage * 1.4;
                 } else {
                     return Tonnage;
                 }
             } else {
-                float AESMod = 1.0f;
-                if( HasLAAES ) { AESMod += 0.1f; }
-                if( HasRAAES ) { AESMod += 0.1f; }
-                if( HasLegAES ) { AESMod += 0.2f; }
+                double AESMod = 1.0;
+                if( HasLAAES ) { AESMod += 0.1; }
+                if( HasRAAES ) { AESMod += 0.1; }
+                if( HasLegAES ) { AESMod += 0.2; }
                 return Tonnage * AESMod;
             }
         }
     }
 
-    public float GetOffensiveFactor() {
-        float result = 0.0f;
-        result += GetAdjustedRunningMP( true, true ) + ( Math.floor( GetAdjustedJumpingMP( true ) * 0.5f + 0.5f )  ) - 5.0f;
-        result = result * 0.1f + 1.0f;
-        result = (float) Math.pow( result, 1.2f ) ;
+    public double GetOffensiveFactor() {
+        double result = 0.0;
+        result += GetAdjustedRunningMP( true, true ) + ( Math.floor( GetAdjustedJumpingMP( true ) * 0.5 + 0.5 )  ) - 5.0;
+        result = result * 0.1 + 1.0;
+        result = (double) Math.pow( result, 1.2 ) ;
 
         // round off to the nearest two digits
-        result = (float) Math.floor( result * 100 + 0.5f ) / 100;
+        result = (double) Math.floor( result * 100 + 0.5 ) / 100;
 
         return result;
     }
@@ -2107,10 +2107,10 @@ public class Mech implements ifBattleforce {
         return CurLoadout.GetTC();
     }
 
-    public float GetChassisCost() {
+    public double GetChassisCost() {
         // this method sets the cost variable by calculating the base cost.
         // this is usually only done whenever a chassis component changes.
-        float result = GetBaseChassisCost();
+        double result = GetBaseChassisCost();
         result += CurEngine.GetCost();
 
         if( HasNullSig() ) { result += NullSig.GetCost(); }
@@ -2119,11 +2119,11 @@ public class Mech implements ifBattleforce {
         if( HasBlueShield() ) { result += BlueShield.GetCost(); }
         if( HasEnviroSealing() ) { result += EnviroSealing.GetCost(); }
         if( Quad ) {
-            if( HasLegAES ) { result += RLAES.GetCost() * 4.0f; }
+            if( HasLegAES ) { result += RLAES.GetCost() * 4.0; }
         } else {
             if( HasRAAES ) { result += CurRAAES.GetCost(); }
             if( HasLAAES ) { result += CurLAAES.GetCost(); }
-            if( HasLegAES ) { result += RLAES.GetCost() * 2.0f; }
+            if( HasLegAES ) { result += RLAES.GetCost() * 2.0; }
         }
 
         // same goes for the targeting computer and supercharger
@@ -2137,30 +2137,34 @@ public class Mech implements ifBattleforce {
         return result;
     }
 
-    public float GetTotalCost() {
+    public double GetTotalCost() {
         // final cost calculations
-        return ( GetEquipCost() + GetChassisCost() ) * GetCostMult() + GetAmmoCosts();
+        double base = ( GetEquipCost() + GetChassisCost() ) * GetCostMult();
+        if( base - (int) base > 0.998 ) { base = (int) base; }
+        return base + GetAmmoCosts();
     }
 
-    public float GetDryCost() {
+    public double GetDryCost() {
         // returns the total cost of the mech without ammunition
-        return ( GetEquipCost() + GetChassisCost() ) * GetCostMult();
+        double base = ( GetEquipCost() + GetChassisCost() ) * GetCostMult();
+        if( base - (int) base > 0.998 ) { base = (int) base; }
+        return base;
     }
 
-    public float GetCostMult() {
+    public double GetCostMult() {
         if( Omnimech ) {
-            return 1.25f * MechMult;
+            return 1.25 * MechMult;
         } else {
             return MechMult;
         }
     }
 
-    public float GetBaseChassisCost() {
+    public double GetBaseChassisCost() {
         // chassis cost in this context is different than the ChassisCost
         // variable.  It includes all components except engine, TC, and 
         // equipment without multiple calculation ("base" cost)
 
-        float result = 0.0f;
+        double result = 0.0;
         if( ! CurPhysEnhance.IsTSM() ) {
             // this is standard musculature.  If we have TSM, it's handled later
             // hack here for very early Primitive 'Mech costs
@@ -2180,9 +2184,9 @@ public class Mech implements ifBattleforce {
         // cockpit hack here for very early Primitive 'Mech costs
         if( Primitive && Year < 2450 ) {
             if( IndustrialMech ) {
-                result += 50000.0f;
+                result += 50000.0;
             } else {
-                result += 100000.0f;
+                result += 100000.0;
             }
         }
         result += GetActuators().GetCost();
@@ -2226,10 +2230,10 @@ public class Mech implements ifBattleforce {
         return options;
     }
 
-    public float GetEquipCost() {
+    public double GetEquipCost() {
         // gets the cost for all non-core items minus ammuntion.
         Vector v = CurLoadout.GetNonCore();
-        float retval = 0.0f;
+        double retval = 0.0;
         if( v.size() > 0 ) {
             for( int i = 0; i < v.size(); i++ ) {
                 if( ! (v.get( i ) instanceof Ammunition ) ) {
@@ -2243,10 +2247,10 @@ public class Mech implements ifBattleforce {
         }
     }
 
-    public float GetAmmoCosts() {
+    public double GetAmmoCosts() {
         // gets the cost for all non-core items minus ammuntion.
         Vector v = CurLoadout.GetNonCore();
-        float retval = 0.0f;
+        double retval = 0.0;
         if( v.size() > 0 ) {
             for( int i = 0; i < v.size(); i++ ) {
                 if( (v.get( i ) instanceof Ammunition ) ) {
@@ -2319,18 +2323,18 @@ public class Mech implements ifBattleforce {
         }
     }
 
-    public float GetCaseTonnage() {
-        float retval = 0.0f;
+    public double GetCaseTonnage() {
+        double retval = 0.0;
 
-        if( HasCTCase() ) { retval += 0.5f; }
-        if( HasLTCase() ) { retval += 0.5f; }
-        if( HasRTCase() ) { retval += 0.5f; }
+        if( HasCTCase() ) { retval += 0.5; }
+        if( HasLTCase() ) { retval += 0.5; }
+        if( HasRTCase() ) { retval += 0.5; }
 
         return retval;
     }
 
-    public float GetCASEIITonnage() {
-        float retval = 0.0f;
+    public double GetCASEIITonnage() {
+        double retval = 0.0;
 
         if( CurLoadout.HasHDCASEII() ) { retval += CurLoadout.GetHDCaseII().GetTonnage(); }
         if( CurLoadout.HasCTCASEII() ) { retval += CurLoadout.GetCTCaseII().GetTonnage(); }
@@ -3328,7 +3332,7 @@ public class Mech implements ifBattleforce {
     }
 
     public MechModifier GetTotalModifiers( boolean BVMovement, boolean MASCTSM ) {
-        MechModifier retval = new MechModifier( 0, 0, 0, 0.0f, 0, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true );
+        MechModifier retval = new MechModifier( 0, 0, 0, 0.0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, true );
         if( MechMods.size() > 0 ) {
             for( int i = 0; i < MechMods.size(); i++ ) {
                 if( BVMovement ) {
@@ -3574,11 +3578,11 @@ public class Mech implements ifBattleforce {
     }
 
     public int GetBFPrimeMovement(){
-        float retval = GetWalkingMP();
+        double retval = GetWalkingMP();
 
         // Adjust retval for MASC and SC
         if ( CurLoadout.HasSupercharger() && GetPhysEnhance().IsMASC() ){
-            retval *= 1.5f;
+            retval *= 1.5;
         }else if ( CurLoadout.HasSupercharger() || GetPhysEnhance().IsMASC() ){
             retval *= 1.25f;
         }
@@ -3625,16 +3629,16 @@ public class Mech implements ifBattleforce {
     public int GetBFArmor() {
 
         Armor a = GetArmor();
-        float armorpoints = a.GetArmorValue();
+        double armorpoints = a.GetArmorValue();
 
         if ( a.IsCommercial() ){
-            armorpoints = (float) Math.floor(armorpoints / 2.0f);
+            armorpoints = (double) Math.floor(armorpoints / 2.0);
         }else if ( a.IsFerroLamellor() ){
-            armorpoints = (float) Math.ceil(armorpoints * 1.2f);
+            armorpoints = (double) Math.ceil(armorpoints * 1.2);
         }else if ( a.IsHardened() ){
-            armorpoints = (float) Math.ceil(armorpoints * 1.5f);
+            armorpoints = (double) Math.ceil(armorpoints * 1.5);
         }else if ( a.IsReactive() || a.IsReflective() ){
-            armorpoints = (float) Math.ceil(armorpoints * 0.75f);
+            armorpoints = (double) Math.ceil(armorpoints * 0.75f);
         }
 
         armorpoints += a.GetModularArmorValue();
@@ -3655,10 +3659,10 @@ public class Mech implements ifBattleforce {
         // and convert all weapon dmg
         Vector nc = GetLoadout().GetNonCore();
 
-        float dmgShort = 0.0f;
-        float dmgMedium = 0.0f;
-        float dmgLong = 0.0f;
-        float dmgExtreme = 0.0f;
+        double dmgShort = 0.0;
+        double dmgMedium = 0.0;
+        double dmgLong = 0.0;
+        double dmgExtreme = 0.0;
         int heatShort = 0;
         int heatMedium = 0;
         int heatLong = 0;
@@ -3667,7 +3671,7 @@ public class Mech implements ifBattleforce {
 
         for ( int i = 0; i < nc.size(); i++ ) {
             if ( nc.get(i) instanceof ifWeapon ) {
-                float [] temp = BattleForceTools.GetDamage((ifWeapon)nc.get(i), (ifBattleforce)this);
+                double [] temp = BattleForceTools.GetDamage((ifWeapon)nc.get(i), (ifBattleforce)this);
 
                 dmgShort += temp[Constants.BF_SHORT];
                 dmgMedium += temp[Constants.BF_MEDIUM];
@@ -3850,6 +3854,8 @@ public class Mech implements ifBattleforce {
         Lookup.put( "Double Heat Sink", new VHeatSinkSetDouble() );
         Lookup.put( "(IS) Double Heat Sink", new VHeatSinkSetDouble() );
         Lookup.put( "(CL) Double Heat Sink", new VHeatSinkSetDouble() );
+        Lookup.put( "Compact Heat Sink", new VHeatSinkSetCompact() );
+        Lookup.put( "Laser Heat Sink", new VHeatSinkSetLaser() );
         Lookup.put( "Standard Jump Jet", new VJumpJetSetStandard() );
         Lookup.put( "Improved Jump Jet", new VJumpJetSetImproved() );
         Lookup.put( "Mech UMU", new VJumpJetSetUMU() );

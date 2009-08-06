@@ -32,7 +32,7 @@ import ssw.*;
 import ssw.components.*;
 
 public class VSetArmorTonnage implements ifVisitor {
-    private float ArmorTons;
+    private double ArmorTons;
     private int Armor[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     private Options CurOpts;
 
@@ -47,7 +47,7 @@ public class VSetArmorTonnage implements ifVisitor {
         // does nothing here, but may later.
     }
 
-    public void SetArmorTonnage( float tons ) {
+    public void SetArmorTonnage( double tons ) {
         ArmorTons = tons;
     }
 
@@ -106,7 +106,7 @@ public class VSetArmorTonnage implements ifVisitor {
     private void AllocateArmor( Armor a ) {
         // testing out a new allocation routine
         // round the armor tonnage up to the nearest half ton
-        float MidTons = ( (float) Math.floor( ArmorTons * 2.0f ) ) * 0.5f;
+        double MidTons = ( (double) Math.floor( ArmorTons * 2.0f ) ) * 0.5f;
 
         // find the AV we get from this tonnage amount
         int AV = (int) ( Math.floor( MidTons * 16 * a.GetAVMult() ) );

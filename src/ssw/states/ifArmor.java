@@ -34,12 +34,12 @@ public interface ifArmor {
     public boolean Place( Armor a, ifLoadout l );
     public boolean Place( Armor a, ifLoadout l, LocationIndex[] Locs );
     public int NumCrits();
-    public float GetAVMult();
+    public double GetAVMult();
     public boolean IsStealth();
     public String GetMMName();
     public String GetPrintName();
-    public float GetCostMult();
-    public float GetBVTypeMult();
+    public double GetCostMult();
+    public double GetBVTypeMult();
     public int GetBAR();
     public boolean LocationLocked();
     public void SetLocked( boolean l );

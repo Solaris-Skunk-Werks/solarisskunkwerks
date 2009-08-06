@@ -73,26 +73,26 @@ public class EmptyItem extends abPlaceable {
         return false;
     }
 
-    public float GetTonnage() {
-        return 0.0f;
+    public double GetTonnage() {
+        return 0.0;
     }
 
-    public float GetOffensiveBV() {
+    public double GetOffensiveBV() {
         // small items such as these do not have battle balues
-        return 0.0f;
+        return 0.0;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         // BV will not change for this item, so just return the normal value
-        return 0.0f;
+        return 0.0;
     }
 
-    public float GetDefensiveBV() {
-        return 0.0f;
+    public double GetDefensiveBV() {
+        return 0.0;
     }
 
-    public float GetCost() {
-        return 0.0f;
+    public double GetCost() {
+        return 0.0;
     }
 
     // All placeables should be able to return their AvailabileCode

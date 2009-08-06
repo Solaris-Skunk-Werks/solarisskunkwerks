@@ -104,7 +104,7 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         return chkAdjustBV.isSelected();
     }
 
-    public float GetAdjustedBV() {
+    public double GetAdjustedBV() {
         return CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() );
     }
 
@@ -124,24 +124,24 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         return chkUseHexConversion.isSelected();
     }
 
-    public float GetMiniConversionRate() {
+    public double GetMiniConversionRate() {
         switch( cmbHexConvFactor.getSelectedIndex() ) {
             case 0:
-                return 0.5f;
+                return 0.5;
             case 1:
-                return 1.0f;
+                return 1.0;
             case 2:
-                return 1.5f;
+                return 1.5;
             case 3:
-                return 2.0f;
+                return 2.0;
             case 4:
-                return 3.0f;
+                return 3.0;
             case 5:
-                return 4.0f;
+                return 4.0;
             case 6:
-                return 5.0f;
+                return 5.0;
             default:
-                return 1.0f;
+                return 1.0;
         }
     }
 

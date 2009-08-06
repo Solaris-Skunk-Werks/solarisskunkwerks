@@ -75,30 +75,30 @@ public class ActuatorSet {
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = l;
-        LeftHip = new Actuator( "Hip", "Hip", true, false, AC, 0.0f, m );
-        RightHip = new Actuator( "Hip", "Hip", true, false, AC, 0.0f, m );
-        LeftFrontHip = new Actuator( "Hip", "Hip", true, false, AC, 0.0f, m );
-        RightFrontHip = new Actuator( "Hip", "Hip", true, false, AC, 0.0f, m );
-        LeftLowerLeg = new Actuator( "Lower Leg", "Lower Leg Actuator", true, false, AC, 80.0f, m );
-        RightLowerLeg = new Actuator( "Lower Leg", "Lower Leg Actuator", true, false, AC, 80.0f, m );
-        LeftFrontLowerLeg = new Actuator( "Lower Leg", "Lower Leg Actuator", true, false, AC, 80.0f, m );
-        RightFrontLowerLeg = new Actuator( "Lower Leg", "Lower Leg Actuator", true, false, AC, 80.0f, m );
-        LeftUpperLeg = new Actuator( "Upper Leg", "Upper Leg Actuator", true, false, AC, 150.0f, m );
-        RightUpperLeg = new Actuator( "Upper Leg", "Upper Leg Actuator", true, false, AC, 150.0f, m );
-        LeftFrontUpperLeg = new Actuator( "Upper Leg", "Upper Leg Actuator", true, false, AC, 150.0f, m );
-        RightFrontUpperLeg = new Actuator( "Upper Leg", "Upper Leg Actuator", true, false, AC, 150.0f, m );
-        LeftFoot = new Actuator( "Foot", "Foot Actuator", true, false, AC, 120.0f, m );
-        RightFoot = new Actuator( "Foot", "Foot Actuator", true, false, AC, 120.0f, m );
-        LeftFrontFoot = new Actuator( "Foot", "Foot Actuator", true, false, AC, 120.0f, m );
-        RightFrontFoot = new Actuator( "Foot", "Foot Actuator", true, false, AC, 120.0f, m );
-        LeftShoulder = new Actuator( "Shoulder", "Shoulder", true, false, AC, 0.0f, m );
-        RightShoulder = new Actuator( "Shoulder", "Shoulder", true, false, AC, 0.0f, m );
-        LeftUpperArm = new Actuator( "Upper Arm", "Upper Arm Actuator", true, false, AC, 100.0f, m );
-        RightUpperArm = new Actuator( "Upper Arm", "Upper Arm Actuator", true, false, AC, 100.0f, m );
-        LeftLowerArm = new Actuator( "Lower Arm", "Lower Arm Actuator", true, true, AC, 50.0f, m );
-        LeftHand = new Actuator( "Hand", "Hand Actuator", true, true, AC, 80.0f, m );
-        RightLowerArm = new Actuator( "Lower Arm", "Lower Arm Actuator", true, true, AC, 50.0f, m );
-        RightHand = new Actuator( "Hand", "Hand Actuator", true, true, AC, 80.0f, m );
+        LeftHip = new Actuator( "Hip", "Hip", true, false, AC, 0.0, m );
+        RightHip = new Actuator( "Hip", "Hip", true, false, AC, 0.0, m );
+        LeftFrontHip = new Actuator( "Hip", "Hip", true, false, AC, 0.0, m );
+        RightFrontHip = new Actuator( "Hip", "Hip", true, false, AC, 0.0, m );
+        LeftLowerLeg = new Actuator( "Lower Leg", "Lower Leg Actuator", true, false, AC, 80.0, m );
+        RightLowerLeg = new Actuator( "Lower Leg", "Lower Leg Actuator", true, false, AC, 80.0, m );
+        LeftFrontLowerLeg = new Actuator( "Lower Leg", "Lower Leg Actuator", true, false, AC, 80.0, m );
+        RightFrontLowerLeg = new Actuator( "Lower Leg", "Lower Leg Actuator", true, false, AC, 80.0, m );
+        LeftUpperLeg = new Actuator( "Upper Leg", "Upper Leg Actuator", true, false, AC, 150.0, m );
+        RightUpperLeg = new Actuator( "Upper Leg", "Upper Leg Actuator", true, false, AC, 150.0, m );
+        LeftFrontUpperLeg = new Actuator( "Upper Leg", "Upper Leg Actuator", true, false, AC, 150.0, m );
+        RightFrontUpperLeg = new Actuator( "Upper Leg", "Upper Leg Actuator", true, false, AC, 150.0, m );
+        LeftFoot = new Actuator( "Foot", "Foot Actuator", true, false, AC, 120.0, m );
+        RightFoot = new Actuator( "Foot", "Foot Actuator", true, false, AC, 120.0, m );
+        LeftFrontFoot = new Actuator( "Foot", "Foot Actuator", true, false, AC, 120.0, m );
+        RightFrontFoot = new Actuator( "Foot", "Foot Actuator", true, false, AC, 120.0, m );
+        LeftShoulder = new Actuator( "Shoulder", "Shoulder", true, false, AC, 0.0, m );
+        RightShoulder = new Actuator( "Shoulder", "Shoulder", true, false, AC, 0.0, m );
+        LeftUpperArm = new Actuator( "Upper Arm", "Upper Arm Actuator", true, false, AC, 100.0, m );
+        RightUpperArm = new Actuator( "Upper Arm", "Upper Arm Actuator", true, false, AC, 100.0, m );
+        LeftLowerArm = new Actuator( "Lower Arm", "Lower Arm Actuator", true, true, AC, 50.0, m );
+        LeftHand = new Actuator( "Hand", "Hand Actuator", true, true, AC, 80.0, m );
+        RightLowerArm = new Actuator( "Lower Arm", "Lower Arm Actuator", true, true, AC, 50.0, m );
+        RightHand = new Actuator( "Hand", "Hand Actuator", true, true, AC, 80.0, m );
     }
 
     public void RemoveAll() {
@@ -466,9 +466,9 @@ public class ActuatorSet {
         return true;
     }
 
-    public float GetCost() {
+    public double GetCost() {
         // NOTE: Hips and shoulders do not have a cost, so we skip them
-        float result = 0.0f;
+        double result = 0.0;
         if( Owner.IsQuad() ) {
             // This is easy since no actuators will ever be removed
             result += LeftHip.GetCost();
@@ -519,9 +519,9 @@ public class ActuatorSet {
         return result;
     }
 
-    public float GetTonnage() {
+    public double GetTonnage() {
         // gets the tonnage of the actuators.  Mostly added for armored support
-        float result = 0.0f;
+        double result = 0.0;
         if( Owner.IsQuad() ) {
             // This is easy since no actuators will ever be removed
             result += LeftHip.GetTonnage();
@@ -572,17 +572,17 @@ public class ActuatorSet {
         return result;
     }
 
-    public float GetOffensiveBV() {
-        return 0.0f;
+    public double GetOffensiveBV() {
+        return 0.0;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear ) {
-        return 0.0f;
+    public double GetCurOffensiveBV( boolean UseRear ) {
+        return 0.0;
     }
 
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         // gets the BV of the actuators.  Mostly added for armored support
-        float result = 0.0f;
+        double result = 0.0;
         if( Owner.IsQuad() ) {
             // This is easy since no actuators will ever be removed
             result += LeftHip.GetDefensiveBV();

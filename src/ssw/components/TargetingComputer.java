@@ -85,40 +85,40 @@ public class TargetingComputer extends abPlaceable {
     }
 
     @Override
-    public float GetTonnage() {
+    public double GetTonnage() {
         if( IsArmored() ) {
-            return GetSize() + GetSize() * 0.5f;
+            return GetSize() + GetSize() * 0.5;
         } else {
             return GetSize();
         }
     }
 
     @Override
-    public float GetCost() {
+    public double GetCost() {
         if( IsArmored() ) {
-            return GetSize() * 10000.0f + GetSize() * 150000.0f;
+            return GetSize() * 10000.0 + GetSize() * 150000.0;
         } else {
-            return GetSize() * 10000.0f;
+            return GetSize() * 10000.0;
         }
     }
 
-    public float GetOffensiveBV() {
+    public double GetOffensiveBV() {
         // we can't really control this one, so we should always call the TC
         // with UseCurOffensiveBV().  Since almost all of the time a 'Mech will
         // mount it's weapons forward, we'll call it without using rear.
         return GetCurOffensiveBV( false, false, false );
     }
 
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         // BV calculations for the targeting computer are based on modified
         // weapon BV, which we won't know until later.
-        return 0.0f;
+        return 0.0;
     }
 
-    public float GetDefensiveBV() {
-        float retval = 0.0f;
+    public double GetDefensiveBV() {
+        double retval = 0.0;
         if( IsArmored() ) {
-            retval = 5.0f * NumCrits();
+            retval = 5.0 * NumCrits();
         }
         return retval;
     }
@@ -133,7 +133,7 @@ public class TargetingComputer extends abPlaceable {
     }
 
     private int GetSize() {
-        float Build = 0.0f;
+        double Build = 0.0;
         Vector V = Owner.GetTCList();
 
         if( V.size() == 0 ) {
@@ -143,7 +143,7 @@ public class TargetingComputer extends abPlaceable {
         for( int i = 0; i < V.size(); i++ ) {
             if( V.get( i ) instanceof RangedWeapon ) {
                 if( ((RangedWeapon) V.get( i )).IsUsingCapacitor() ) {
-                    Build += ((abPlaceable) V.get( i )).GetTonnage() - 1.0f;
+                    Build += ((abPlaceable) V.get( i )).GetTonnage() - 1.0;
                 } else {
                     Build += ((abPlaceable) V.get( i )).GetTonnage();
                 }
@@ -153,9 +153,9 @@ public class TargetingComputer extends abPlaceable {
         }
 
         if( Clan ) {
-            return (int) Math.floor( Build * 0.2f + 0.999f );
+            return (int) Math.floor( Build * 0.2 + 0.999 );
         } else {
-            return (int) Math.floor( Build * 0.25f + 0.999f );
+            return (int) Math.floor( Build * 0.25 + 0.999 );
         }
     }
 

@@ -79,39 +79,39 @@ public class LaserInsulator extends abPlaceable {
     }
 
     @Override
-    public float GetTonnage() {
+    public double GetTonnage() {
         if( IsArmored() ) {
-            return 1.0f;
+            return 1.0;
         } else {
-            return 0.5f;
+            return 0.5;
         }
     }
 
     @Override
-    public float GetCost() {
+    public double GetCost() {
         if( IsArmored() ) {
-            return 153000.0f;
+            return 153000.0;
         } else {
-            return 3000.0f;
+            return 3000.0;
         }
     }
 
     @Override
-    public float GetOffensiveBV() {
-        return 0.0f;
+    public double GetOffensiveBV() {
+        return 0.0;
     }
 
     @Override
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         return GetOffensiveBV();
     }
 
     @Override
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         if( IsArmored() ) {
-            return 5.0f;
+            return 5.0;
         }
-        return 0.0f;
+        return 0.0;
     }
 
     @Override

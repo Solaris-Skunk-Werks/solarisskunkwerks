@@ -81,11 +81,11 @@ public class stArmorPBM implements ifArmor, ifState {
         return 0;
     }
 
-    public float GetAVMult() {
+    public double GetAVMult() {
         return 0.67f;
     }
 
-    public float GetCostMult() {
+    public double GetCostMult() {
         return 5000.0f;
     }
 
@@ -93,7 +93,7 @@ public class stArmorPBM implements ifArmor, ifState {
         return false;
     }
 
-    public float GetBVTypeMult() {
+    public double GetBVTypeMult() {
         return 1.0f;
     }
 

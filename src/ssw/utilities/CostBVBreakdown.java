@@ -50,53 +50,53 @@ public class CostBVBreakdown {
         retval += String.format( "Tech Base:   %1$-41s Total BV:   %2$,d", CommonTools.GetTechbaseString( CurMech.GetTechBase() ), CurMech.GetCurrentBV() ) + NL;
         retval += NL;
         retval +=                "Item                                            DefBV     OffBV             Cost" + NL;
-        retval += String.format( "Internal Structure - %1$-25s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetIntStruc().toString(), CurMech.GetIntStruc().GetDefensiveBV(), CurMech.GetIntStruc().GetOffensiveBV(), CurMech.GetIntStruc().GetCost() ) + NL;
-        retval += String.format( "Engine - %1$-37s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetEngine().GetCritName(), CurMech.GetEngine().GetDefensiveBV(), CurMech.GetEngine().GetOffensiveBV(), CurMech.GetEngine().GetCost() ) + NL;
-        retval += String.format( "Gyro - %1$-39s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetGyro().GetLookupName(), CurMech.GetGyro().GetDefensiveBV(), CurMech.GetGyro().GetOffensiveBV(), CurMech.GetGyro().GetCost() ) + NL;
+        retval += String.format( "Internal Structure - %1$-22s %2$,6.0f    %3$,6.0f    %4$,16.2f", CurMech.GetIntStruc().toString(), CurMech.GetIntStruc().GetDefensiveBV(), CurMech.GetIntStruc().GetOffensiveBV(), CurMech.GetIntStruc().GetCost() ) + NL;
+        retval += String.format( "Engine - %1$-34s %2$,6.0f    %3$,6.0f    %4$,16.2f", CurMech.GetEngine().GetCritName(), CurMech.GetEngine().GetDefensiveBV(), CurMech.GetEngine().GetOffensiveBV(), CurMech.GetEngine().GetCost() ) + NL;
+        retval += String.format( "Gyro - %1$-36s %2$,6.0f    %3$,6.0f    %4$,16.2f", CurMech.GetGyro().GetLookupName(), CurMech.GetGyro().GetDefensiveBV(), CurMech.GetGyro().GetOffensiveBV(), CurMech.GetGyro().GetCost() ) + NL;
         if( CurMech.IsPrimitive() && CurMech.GetYear() < 2450 ) {
             if( CurMech.IsIndustrialmech() ) {
-                retval += String.format( "Cockpit - %1$-36s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetCockpit().GetLookupName() + " (early)", CurMech.GetCockpit().GetDefensiveBV(), CurMech.GetCockpit().GetOffensiveBV(), CurMech.GetCockpit().GetCost() + 50000.0f ) + NL;
+                retval += String.format( "Cockpit - %1$-33s %2$,6.0f    %3$,6.0f    %4$,16.2f", CurMech.GetCockpit().GetLookupName() + " (early)", CurMech.GetCockpit().GetDefensiveBV(), CurMech.GetCockpit().GetOffensiveBV(), CurMech.GetCockpit().GetCost() + 50000.0f ) + NL;
             } else {
-                retval += String.format( "Cockpit - %1$-36s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetCockpit().GetLookupName() + " (early)", CurMech.GetCockpit().GetDefensiveBV(), CurMech.GetCockpit().GetOffensiveBV(), CurMech.GetCockpit().GetCost() + 100000.0f ) + NL;
+                retval += String.format( "Cockpit - %1$-33s %2$,6.0f    %3$,6.0f    %4$,16.2f", CurMech.GetCockpit().GetLookupName() + " (early)", CurMech.GetCockpit().GetDefensiveBV(), CurMech.GetCockpit().GetOffensiveBV(), CurMech.GetCockpit().GetCost() + 100000.0f ) + NL;
             }
         } else {
-            retval += String.format( "Cockpit - %1$-36s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetCockpit().GetLookupName(), CurMech.GetCockpit().GetDefensiveBV(), CurMech.GetCockpit().GetOffensiveBV(), CurMech.GetCockpit().GetCost() ) + NL;
+            retval += String.format( "Cockpit - %1$-33s %2$,6.0f    %3$,6.0f    %4$,16.2f", CurMech.GetCockpit().GetLookupName(), CurMech.GetCockpit().GetDefensiveBV(), CurMech.GetCockpit().GetOffensiveBV(), CurMech.GetCockpit().GetCost() ) + NL;
         }
-        retval += String.format( "Heat Sinks - %1$-33s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetHeatSinks().GetLookupName(), CurMech.GetHeatSinks().GetDefensiveBV(), CurMech.GetHeatSinks().GetOffensiveBV(), CurMech.GetHeatSinks().GetCost() ) + NL;
+        retval += String.format( "Heat Sinks - %1$-30s %2$,6.0f    %3$,6.0f    %4$,16.2f", CurMech.GetHeatSinks().GetLookupName(), CurMech.GetHeatSinks().GetDefensiveBV(), CurMech.GetHeatSinks().GetOffensiveBV(), CurMech.GetHeatSinks().GetCost() ) + NL;
         if( CurMech.GetPhysEnhance().IsTSM() ) {
-            retval += String.format( "Musculature - %1$-32s %2$,6.0f    %3$,6.0f    %4$,13.0f", "Triple-Strength", CurMech.GetPhysEnhance().GetDefensiveBV(), CurMech.GetPhysEnhance().GetOffensiveBV(), CurMech.GetPhysEnhance().GetCost() ) + NL;
+            retval += String.format( "Musculature - %1$-29s %2$,6.0f    %3$,6.0f    %4$,16.2f", "Triple-Strength", CurMech.GetPhysEnhance().GetDefensiveBV(), CurMech.GetPhysEnhance().GetOffensiveBV(), CurMech.GetPhysEnhance().GetCost() ) + NL;
         } else {
             if( CurMech.IsPrimitive() ) {
                 if( CurMech.GetYear() < 2450 ) {
-                    retval += String.format( "Musculature - %1$-32s %2$,6.0f    %3$,6.0f    %4$,13.0f", "Primitive (early)", 0.0f, CurMech.GetTonnage() * 1.0f, CurMech.GetTonnage() * 2000.0f ) + NL;
+                    retval += String.format( "Musculature - %1$-29s %2$,6.0f    %3$,6.0f    %4$,16.2f", "Primitive (early)", 0.0f, CurMech.GetTonnage() * 1.0f, CurMech.GetTonnage() * 2000.0f ) + NL;
                 } else {
-                    retval += String.format( "Musculature - %1$-32s %2$,6.0f    %3$,6.0f    %4$,13.0f", "Primitive", 0.0f, CurMech.GetTonnage() * 1.0f, CurMech.GetTonnage() * 1000.0f ) + NL;
+                    retval += String.format( "Musculature - %1$-29s %2$,6.0f    %3$,6.0f    %4$,16.2f", "Primitive", 0.0f, CurMech.GetTonnage() * 1.0f, CurMech.GetTonnage() * 1000.0f ) + NL;
                 }
             } else {
-                retval += String.format( "Musculature - %1$-32s %2$,6.0f    %3$,6.0f    %4$,13.0f", "Standard", 0.0f, CurMech.GetTonnage() * 1.0f, CurMech.GetTonnage() * 2000.0f ) + NL;
+                retval += String.format( "Musculature - %1$-29s %2$,6.0f    %3$,6.0f    %4$,16.2f", "Standard", 0.0f, CurMech.GetTonnage() * 1.0f, CurMech.GetTonnage() * 2000.0f ) + NL;
             }
         }
-        retval += String.format( "Actuators %1$-36s %2$,6.0f    %3$,6.0f    %4$,13.0f", "", CurMech.GetActuators().GetDefensiveBV(), CurMech.GetActuators().GetOffensiveBV(), CurMech.GetActuators().GetCost() ) + NL;
+        retval += String.format( "Actuators %1$-33s %2$,6.0f    %3$,6.0f    %4$,16.2f", "", CurMech.GetActuators().GetDefensiveBV(), CurMech.GetActuators().GetOffensiveBV(), CurMech.GetActuators().GetCost() ) + NL;
         if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
-            retval += String.format( "Jump Jets - %1$-34s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetJumpJets().GetLookupName(), CurMech.GetJumpJets().GetDefensiveBV(), CurMech.GetJumpJets().GetOffensiveBV(), CurMech.GetJumpJets().GetCost() ) + NL;
+            retval += String.format( "Jump Jets - %1$-31s %2$,6.0f    %3$,6.0f    %4$,16.2f", CurMech.GetJumpJets().GetLookupName(), CurMech.GetJumpJets().GetDefensiveBV(), CurMech.GetJumpJets().GetOffensiveBV(), CurMech.GetJumpJets().GetCost() ) + NL;
         }
         if( CurMech.GetPhysEnhance().IsMASC() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "MASC", CurMech.GetPhysEnhance().GetDefensiveBV(), CurMech.GetPhysEnhance().GetOffensiveBV(), CurMech.GetPhysEnhance().GetCost() ) + NL;
+            retval += String.format( "%1$-43s %2$,6.0f    %3$,6.0f    %4$,16.2f", "MASC", CurMech.GetPhysEnhance().GetDefensiveBV(), CurMech.GetPhysEnhance().GetOffensiveBV(), CurMech.GetPhysEnhance().GetCost() ) + NL;
         }
         if( ! CurMech.GetEngine().IsNuclear() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "Power Amplifiers", 0.0f, 0.0f, CurMech.GetLoadout().GetPowerAmplifier().GetCost() ) + NL;
+            retval += String.format( "%1$-43s %2$,6.0f    %3$,6.0f    %4$,16.2f", "Power Amplifiers", 0.0f, 0.0f, CurMech.GetLoadout().GetPowerAmplifier().GetCost() ) + NL;
         }
         if( CurMech.IsPrimitive() && CurMech.GetYear() < 2450 ) {
-            retval += String.format( "Armor - %1$-38s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetArmor().GetLookupName() + " (early)", CurMech.GetArmor().GetDefensiveBV(), CurMech.GetArmor().GetOffensiveBV(), CurMech.GetArmor().GetCost() * 2.0f ) + NL;
+            retval += String.format( "Armor - %1$-35s %2$,6.0f    %3$,6.0f    %4$,16.2f", CurMech.GetArmor().GetLookupName() + " (early)", CurMech.GetArmor().GetDefensiveBV(), CurMech.GetArmor().GetOffensiveBV(), CurMech.GetArmor().GetCost() * 2.0f ) + NL;
         } else {
-            retval += String.format( "Armor - %1$-38s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetArmor().GetLookupName(), CurMech.GetArmor().GetDefensiveBV(), CurMech.GetArmor().GetOffensiveBV(), CurMech.GetArmor().GetCost() ) + NL;
+            retval += String.format( "Armor - %1$-35s %2$,6.0f    %3$,6.0f    %4$,16.2f", CurMech.GetArmor().GetLookupName(), CurMech.GetArmor().GetDefensiveBV(), CurMech.GetArmor().GetOffensiveBV(), CurMech.GetArmor().GetCost() ) + NL;
         }
         retval += NL;
         retval += GetEquipmentCostLines();
         retval += NL;
         retval += String.format( "Cost Multiplier                                                            %1$,1.3f", CurMech.GetCostMult() ) + NL;
-        retval += String.format( "Dry Cost                                                           %1$,13.2f", CurMech.GetDryCost() ) + NL;
-        retval += String.format( "Total Cost                                                         %1$,13.2f", CurMech.GetTotalCost() ) + NL;
+        retval += String.format( "Dry Cost                                                           %1$,13.0f", CurMech.GetDryCost() ) + NL;
+        retval += String.format( "Total Cost                                                         %1$,13.0f", CurMech.GetTotalCost() ) + NL;
         retval += NL + NL;
         retval += "Defensive BV Calculation Breakdown" + NL;
         if( CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
@@ -157,84 +157,84 @@ public class CostBVBreakdown {
             a = (abPlaceable) v.get( i );
             if( a instanceof RangedWeapon ) {
                 if( ((RangedWeapon) a).IsUsingFCS() ) {
-                    retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", a.GetCritName() + " w/ " + ((abPlaceable) ((RangedWeapon) a).GetFCS()).GetCritName(), a.GetDefensiveBV(), a.GetOffensiveBV(), a.GetCost() ) + NL;
+                    retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", a.GetCritName() + " w/ " + ((abPlaceable) ((RangedWeapon) a).GetFCS()).GetCritName(), a.GetDefensiveBV(), a.GetOffensiveBV(), a.GetCost() ) + NL;
                 } else {
-                    retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", a.GetCritName(), a.GetDefensiveBV(), a.GetOffensiveBV(), a.GetCost() ) + NL;
+                    retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", a.GetCritName(), a.GetDefensiveBV(), a.GetOffensiveBV(), a.GetCost() ) + NL;
                 }
             } else {
-                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", a.GetCritName(), a.GetDefensiveBV(), a.GetOffensiveBV(), a.GetCost() ) + NL;
+                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", a.GetCritName(), a.GetDefensiveBV(), a.GetOffensiveBV(), a.GetCost() ) + NL;
             }
         }
         if( CurMech.HasCommandConsole() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetCommandConsole().GetCritName(), CurMech.GetCommandConsole().GetDefensiveBV(), CurMech.GetCommandConsole().GetOffensiveBV(), CurMech.GetCommandConsole().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", CurMech.GetCommandConsole().GetCritName(), CurMech.GetCommandConsole().GetDefensiveBV(), CurMech.GetCommandConsole().GetOffensiveBV(), CurMech.GetCommandConsole().GetCost() ) + NL;
         }
         if( CurMech.UsingTC() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "Targeting Computer", CurMech.GetTC().GetDefensiveBV(), CurMech.GetTC().GetOffensiveBV(), CurMech.GetTC().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", "Targeting Computer", CurMech.GetTC().GetDefensiveBV(), CurMech.GetTC().GetOffensiveBV(), CurMech.GetTC().GetCost() ) + NL;
         }
         if( CurMech.HasNullSig() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetNullSig().GetCritName(), CurMech.GetNullSig().GetDefensiveBV(), CurMech.GetNullSig().GetOffensiveBV(), CurMech.GetNullSig().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", CurMech.GetNullSig().GetCritName(), CurMech.GetNullSig().GetDefensiveBV(), CurMech.GetNullSig().GetOffensiveBV(), CurMech.GetNullSig().GetCost() ) + NL;
         }
         if( CurMech.HasChameleon() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetChameleon().GetCritName(), CurMech.GetChameleon().GetDefensiveBV(), CurMech.GetChameleon().GetOffensiveBV(), CurMech.GetChameleon().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", CurMech.GetChameleon().GetCritName(), CurMech.GetChameleon().GetDefensiveBV(), CurMech.GetChameleon().GetOffensiveBV(), CurMech.GetChameleon().GetCost() ) + NL;
         }
         if( CurMech.HasVoidSig() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetVoidSig().GetCritName(), CurMech.GetVoidSig().GetDefensiveBV(), CurMech.GetVoidSig().GetOffensiveBV(), CurMech.GetVoidSig().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", CurMech.GetVoidSig().GetCritName(), CurMech.GetVoidSig().GetDefensiveBV(), CurMech.GetVoidSig().GetOffensiveBV(), CurMech.GetVoidSig().GetCost() ) + NL;
         }
         if( CurMech.HasBlueShield() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetBlueShield().GetCritName(), CurMech.GetBlueShield().GetDefensiveBV(), CurMech.GetBlueShield().GetOffensiveBV(), CurMech.GetBlueShield().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", CurMech.GetBlueShield().GetCritName(), CurMech.GetBlueShield().GetDefensiveBV(), CurMech.GetBlueShield().GetOffensiveBV(), CurMech.GetBlueShield().GetCost() ) + NL;
         }
         if( CurMech.GetLoadout().HasSupercharger() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetLoadout().GetSupercharger().GetCritName(), CurMech.GetLoadout().GetSupercharger().GetDefensiveBV(), CurMech.GetLoadout().GetSupercharger().GetOffensiveBV(), CurMech.GetLoadout().GetSupercharger().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", CurMech.GetLoadout().GetSupercharger().GetCritName(), CurMech.GetLoadout().GetSupercharger().GetDefensiveBV(), CurMech.GetLoadout().GetSupercharger().GetOffensiveBV(), CurMech.GetLoadout().GetSupercharger().GetCost() ) + NL;
         }
         if( CurMech.HasLAAES() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetLAAES().GetCritName(), CurMech.GetLAAES().GetDefensiveBV(), CurMech.GetLAAES().GetOffensiveBV(), CurMech.GetLAAES().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", CurMech.GetLAAES().GetCritName(), CurMech.GetLAAES().GetDefensiveBV(), CurMech.GetLAAES().GetOffensiveBV(), CurMech.GetLAAES().GetCost() ) + NL;
         }
         if( CurMech.HasRAAES() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetRAAES().GetCritName(), CurMech.GetRAAES().GetDefensiveBV(), CurMech.GetRAAES().GetOffensiveBV(), CurMech.GetRAAES().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", CurMech.GetRAAES().GetCritName(), CurMech.GetRAAES().GetDefensiveBV(), CurMech.GetRAAES().GetOffensiveBV(), CurMech.GetRAAES().GetCost() ) + NL;
         }
         if( CurMech.HasLegAES() ) {
             if( CurMech.IsQuad() ) {
-                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
-                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
-                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
-                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
+                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
+                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
+                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
+                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
             } else {
-                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
-                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
+                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
+                retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", CurMech.GetRLAES().GetCritName(), CurMech.GetRLAES().GetDefensiveBV(), CurMech.GetRLAES().GetOffensiveBV(), CurMech.GetRLAES().GetCost() ) + NL;
             }
         }
         if( CurMech.HasCTCase() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE", 0.0f, 0.0f, CurMech.GetLoadout().GetCTCase().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", "CASE", 0.0f, 0.0f, CurMech.GetLoadout().GetCTCase().GetCost() ) + NL;
         }
         if( CurMech.HasLTCase() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE", 0.0f, 0.0f, CurMech.GetLoadout().GetLTCase().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", "CASE", 0.0f, 0.0f, CurMech.GetLoadout().GetLTCase().GetCost() ) + NL;
         }
         if( CurMech.HasRTCase() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE", 0.0f, 0.0f, CurMech.GetLoadout().GetRTCase().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", "CASE", 0.0f, 0.0f, CurMech.GetLoadout().GetRTCase().GetCost() ) + NL;
         }
         if( CurMech.GetLoadout().HasHDCASEII() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetHDCaseII().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetHDCaseII().GetCost() ) + NL;
         }
         if( CurMech.GetLoadout().HasCTCASEII() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetCTCaseII().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetCTCaseII().GetCost() ) + NL;
         }
         if( CurMech.GetLoadout().HasLTCASEII() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetLTCaseII().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetLTCaseII().GetCost() ) + NL;
         }
         if( CurMech.GetLoadout().HasRTCASEII() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetRTCaseII().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetRTCaseII().GetCost() ) + NL;
         }
         if( CurMech.GetLoadout().HasLACASEII() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetLACaseII().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetLACaseII().GetCost() ) + NL;
         }
         if( CurMech.GetLoadout().HasRACASEII() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetRACaseII().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetRACaseII().GetCost() ) + NL;
         }
         if( CurMech.GetLoadout().HasLLCASEII() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetLLCaseII().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetLLCaseII().GetCost() ) + NL;
         }
         if( CurMech.GetLoadout().HasRLCASEII() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetRLCaseII().GetCost() ) + NL;
+            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", "CASE II", 0.0f, 0.0f, CurMech.GetLoadout().GetRLCaseII().GetCost() ) + NL;
         }
         return retval;
     }
@@ -256,7 +256,7 @@ public class CostBVBreakdown {
 
     public String PrintHeatAdjustedWeaponBV() {
         Vector v = CurMech.GetLoadout().GetNonCore(), wep = new Vector();
-        float foreBV = 0.0f, rearBV = 0.0f;
+        double foreBV = 0.0f, rearBV = 0.0f;
         boolean UseRear = false, TC = CurMech.UsingTC(), UseAESMod = false;
         String retval = "";
         abPlaceable a;
@@ -343,8 +343,8 @@ public class CostBVBreakdown {
         if( RunMP < 0 ) { RunMP = 0; }
 
         // Get the defensive factors for jumping and running movement
-        float ground = Mech.DefensiveFactor[RunMP];
-        float jump = 0.0f;
+        double ground = Mech.DefensiveFactor[RunMP];
+        double jump = 0.0f;
         if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
             JumpMP = CurMech.GetAdjustedJumpingMP( true ) - 1;
                 jump = Mech.DefensiveFactor[JumpMP] + 0.1f;
@@ -364,11 +364,11 @@ public class CostBVBreakdown {
     public String PrintOffensiveFactorCalculations() {
         String retval = "";
 
-        float temp = (float) (CurMech.GetAdjustedRunningMP(true, true) + (Math.floor(CurMech.GetAdjustedJumpingMP(true) * 0.5f + 0.5f)) - 5.0f);
+        double temp = (double) (CurMech.GetAdjustedRunningMP(true, true) + (Math.floor(CurMech.GetAdjustedJumpingMP(true) * 0.5f + 0.5f)) - 5.0f);
         retval += "    Adjusted Running MP (" + CurMech.GetAdjustedRunningMP( true, true ) + ") + ( Adjusted Jumping MP (" + CurMech.GetAdjustedJumpingMP( true ) + ") / 2 ) - 5 = " + String.format( "%1$,.2f", CurMech.GetAdjustedRunningMP( true, true ) + ( Math.floor( CurMech.GetAdjustedJumpingMP( true ) * 0.5f + 0.5f )  ) - 5.0f ) + NL;
         retval += "    " + String.format( "%1$,.2f", temp ) + " / 10 + 1 = " + ( temp * 0.1f + 1.0f ) + NL;
         temp = temp * 0.1f + 1.0f;
-        retval += "    " + String.format( "%1$,.2f", temp ) + " ^ 1.2 = " + (float) Math.floor( ( Math.pow( temp, 1.2f ) ) * 100 + 0.5f ) / 100 + " (rounded off to two digits)" + NL;
+        retval += "    " + String.format( "%1$,.2f", temp ) + " ^ 1.2 = " + (double) Math.floor( ( Math.pow( temp, 1.2f ) ) * 100 + 0.5f ) / 100 + " (rounded off to two digits)" + NL;
 
         return retval;
     }
@@ -407,7 +407,7 @@ public class CostBVBreakdown {
                 }
             }
             // get the heat sink bonus
-            BonusFromCP = (int) Math.ceil( (float) NumHS * ( (float) NumPods * 0.2f ) );
+            BonusFromCP = (int) Math.ceil( (double) NumHS * ( (double) NumPods * 0.2f ) );
             if( BonusFromCP > MaxHSBonus ) { BonusFromCP = MaxHSBonus; }
             retval += BonusFromCP;
         }

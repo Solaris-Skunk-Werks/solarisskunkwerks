@@ -33,7 +33,7 @@ import java.awt.event.ActionListener;
 
 public class dlgArmorTonnage extends javax.swing.JDialog {
     private boolean NewTonnage = false;
-    private float result;
+    private double result;
     
     /** Creates new form dlgArmorTonnage */
     public dlgArmorTonnage(java.awt.Frame parent, boolean modal) {
@@ -42,11 +42,11 @@ public class dlgArmorTonnage extends javax.swing.JDialog {
         setResizable( false );
         setTitle( "Set Armor Tonnage" );
         setDefaultCloseOperation( javax.swing.JDialog.HIDE_ON_CLOSE );
-        float max = ((frmMain) parent).CurMech.GetArmor().GetMaxTonnage();
+        double max = ((frmMain) parent).CurMech.GetArmor().GetMaxTonnage();
         lblMaxArmor.setText( "Max Armor Tonnage: " + max );
     }
 
-    public float GetResult() {
+    public double GetResult() {
         return result;
     }
 
@@ -140,7 +140,7 @@ public class dlgArmorTonnage extends javax.swing.JDialog {
     private void btnOkayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkayActionPerformed
         // validate the text.
         try{//GEN-LAST:event_btnOkayActionPerformed
-            result = Float.parseFloat( txtArmorTons.getText() );
+            result = Double.parseDouble( txtArmorTons.getText() );
         } catch( NumberFormatException n ) {
             javax.swing.JOptionPane.showMessageDialog( this, "Please enter a valid number" );
             txtArmorTons.setText( "" );

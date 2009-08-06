@@ -37,7 +37,7 @@ import ssw.Constants;
 public class Tracks extends MultiSlotSystem{
 
     public Tracks( Mech m, AvailableCode a ){
-        super ( m, "Tracks", "Tracks", "Tracks", 0.1f, true, true, 0.0f, false, a );
+        super ( m, "Tracks", "Tracks", "Tracks", 0.1, true, true, 0.0, false, a );
         this.SetWeightBasedOnMechTonnage(true);
     }
 
@@ -49,7 +49,7 @@ public class Tracks extends MultiSlotSystem{
     }
 
     @Override
-    public float GetCost() {
+    public double GetCost() {
         return 500 * Owner.GetTonnage() * Owner.GetEngine().GetRating() / 75;
     }
 

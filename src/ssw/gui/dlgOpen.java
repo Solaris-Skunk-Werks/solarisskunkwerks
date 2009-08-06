@@ -91,7 +91,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         txtSelected.setText("0 Units Selected for 0 BV and 0 C-Bills");
 
         int BV = 0;
-        float Cost = 0;
+        double Cost = 0;
 
         int[] rows = tblMechData.getSelectedRows();
         for ( int i=0; i < rows.length; i++ ) {
@@ -252,7 +252,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                         }
                     }
                 }
-                int progress = ((int) (( ((float) i + 1) / (float) Files.length ) * 100.0 ) );
+                int progress = ((int) (( ((double) i + 1) / (double) Files.length ) * 100.0 ) );
                 setProgress( progress );
             }
 
@@ -740,9 +740,9 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         }
         if (! txtMinCost.getText().isEmpty() ) {
             if ( txtMaxCost.getText().isEmpty() ) {
-                filters.setCost(0, Float.parseFloat(txtMinCost.getText()));
+                filters.setCost(0, Double.parseDouble(txtMinCost.getText()));
             } else {
-                filters.setCost(Float.parseFloat(txtMinCost.getText()), Float.parseFloat(txtMaxCost.getText()));
+                filters.setCost(Double.parseDouble(txtMinCost.getText()), Double.parseDouble(txtMaxCost.getText()));
             }
         }
         if (! txtMinTon.getText().isEmpty() ) {

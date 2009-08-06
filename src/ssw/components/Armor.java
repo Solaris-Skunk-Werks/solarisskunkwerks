@@ -490,50 +490,50 @@ public class Armor  extends abPlaceable {
     }
 
     @Override
-    public float GetTonnage() {
+    public double GetTonnage() {
         // this has to return the nearest half-ton.
-        float result = GetArmorValue() / ( 8 * Config.GetAVMult() );
-        int mid = (int) Math.floor( result + 0.9999f );
-        result = mid * 0.5f;
+        double result = GetArmorValue() / ( 8 * Config.GetAVMult() );
+        int mid = (int) Math.floor( result + 0.9999 );
+        result = mid * 0.5;
         return result;
     }
 
-    public float GetWastedTonnage() {
+    public double GetWastedTonnage() {
         // returns the amount of tonnage wasted due to unspent armor points
-        float result = GetTonnage() - GetArmorValue() / ( 16 * Config.GetAVMult() );
-        if( result < 0.0f ) { result = 0.0f; }
-        return (float) Math.floor( result * 100 ) / 100;
+        double result = GetTonnage() - GetArmorValue() / ( 16 * Config.GetAVMult() );
+        if( result < 0.0 ) { result = 0.0; }
+        return (double) Math.floor( result * 100 ) / 100;
     }
 
     public int GetWastedAV() {
         // returns the amount of armor points left in the current half-ton lot
         // get the amount of wasted tonnage
-        float Waste = 0.5f - ( GetTonnage() - GetArmorValue() / ( 16 * Config.GetAVMult() ) );
+        double Waste = 0.5 - ( GetTonnage() - GetArmorValue() / ( 16 * Config.GetAVMult() ) );
         int result = (int) Math.floor( ( 8 * Config.GetAVMult() ) - ( Waste * 16 * Config.GetAVMult() ) );
         if( result < 0 ) { result = 0; }
         return result;
     }
 
-    public float GetCoverage() {
+    public double GetCoverage() {
         // returns the amount of max armor coverage on this mech as a percentage
-        float result = (float) GetArmorValue() / (float) GetMaxArmor();
-        return (float) Math.floor( result * 10000 ) / 100;
+        double result = (double) GetArmorValue() / (double) GetMaxArmor();
+        return (double) Math.floor( result * 10000 ) / 100;
     }
 
-    public float GetMaxTonnage() {
+    public double GetMaxTonnage() {
         // returns the maximum armor tonnage supported by this mech.
-        float result = GetMaxArmor() / ( 8 * Config.GetAVMult() );
-        int mid = Math.round( result + 0.4999f );
-        result = mid * 0.5f;
+        double result = GetMaxArmor() / ( 8 * Config.GetAVMult() );
+        int mid = (int) Math.round( result + 0.4999 );
+        result = mid * 0.5;
         return result;
     }
 
-    public float GetAVMult() {
+    public double GetAVMult() {
         // convenience method for armor placement
         return Config.GetAVMult();
     }
 
-    public float GetBVTypeMult() {
+    public double GetBVTypeMult() {
         return Config.GetBVTypeMult() + Owner.GetTotalModifiers( false, true ).ArmorMultiplier();
     }
 
@@ -545,23 +545,23 @@ public class Armor  extends abPlaceable {
     }
 
     @Override
-    public float GetCost() {
+    public double GetCost() {
         return GetTonnage() * Config.GetCostMult();
     }
 
-    public float GetOffensiveBV() {
+    public double GetOffensiveBV() {
         return 0.0f;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         return GetOffensiveBV();
     }
 
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         if( Owner.GetCockpit().IsTorsoMounted() ) {
-            return ( GetArmorValue() + ArmorPoints[Constants.LOC_CT] + ArmorPoints[Constants.LOC_CTR] + GetModularArmorValue() ) * Config.GetBVTypeMult() * 2.5f;
+            return ( GetArmorValue() + ArmorPoints[Constants.LOC_CT] + ArmorPoints[Constants.LOC_CTR] + GetModularArmorValue() ) * Config.GetBVTypeMult() * 2.5;
         } else {
-            return ( GetArmorValue() + GetModularArmorValue() ) * Config.GetBVTypeMult() * 2.5f;
+            return ( GetArmorValue() + GetModularArmorValue() ) * Config.GetBVTypeMult() * 2.5;
         }
     }
 

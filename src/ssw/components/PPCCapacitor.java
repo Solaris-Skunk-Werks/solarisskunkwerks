@@ -31,7 +31,7 @@ package ssw.components;
 public class PPCCapacitor extends abPlaceable {
     private AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private RangedWeapon Owner;
-    private float OffBV = 0.0f;
+    private double OffBV = 0.0;
 
     public PPCCapacitor( RangedWeapon w ) {
         AC.SetISCodes( 'E', 'X', 'X', 'E' );
@@ -78,39 +78,39 @@ public class PPCCapacitor extends abPlaceable {
     }
 
     @Override
-    public float GetTonnage() {
+    public double GetTonnage() {
         if( IsArmored() ) {
-            return 1.5f;
+            return 1.5;
         } else {
-            return 1.0f;
+            return 1.0;
         }
     }
 
     @Override
-    public float GetCost() {
+    public double GetCost() {
         if( IsArmored() ) {
-            return 300000.0f;
+            return 300000.0;
         } else {
-            return 150000.0f;
+            return 150000.0;
         }
     }
 
     @Override
-    public float GetOffensiveBV() {
+    public double GetOffensiveBV() {
         return OffBV;
     }
 
     @Override
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         return GetOffensiveBV();
     }
 
     @Override
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         if( IsArmored() ) {
-            return 5.0f;
+            return 5.0;
         }
-        return 0.0f;
+        return 0.0;
     }
 
     @Override
@@ -126,31 +126,31 @@ public class PPCCapacitor extends abPlaceable {
         // the calculations here ARE NOT canon, but they should work for the
         // normal, canon PPCs, including the Enhanced ER PPC (we hope).  We add
         // 2.5 to the damage because the PPC Cap fires only every other round.
-        float basemult = 0.0f;
+        double basemult = 0.0;
         if( Owner.GetDamageShort() != Owner.GetDamageMedium() || Owner.GetDamageShort() != Owner.GetDamageMedium() ) {
-            float mult1 = ( ((float) Owner.GetDamageShort()) + 2.5f ) / ((float) Owner.GetDamageShort());
+            double mult1 = ( ((double) Owner.GetDamageShort()) + 2.5 ) / ((double) Owner.GetDamageShort());
             if( Owner.GetDamageShort() < 12 && ( Owner.GetDamageShort() + 5 ) >= 12 ) {
-                mult1 *= 1.1985f;
+                mult1 *= 1.2;
             }
-            float mult2 = ( ((float) Owner.GetDamageMedium()) + 2.5f ) / ((float) Owner.GetDamageMedium());
+            double mult2 = ( ((double) Owner.GetDamageMedium()) + 2.5 ) / ((double) Owner.GetDamageMedium());
             if( Owner.GetDamageMedium() < 12 && ( Owner.GetDamageMedium() + 5 ) >= 12 ) {
-                mult1 *= 1.1985f;
+                mult2 *= 1.2;
             }
-            float mult3 = ( ((float) Owner.GetDamageLong()) + 2.5f ) / ((float) Owner.GetDamageLong());
+            double mult3 = ( ((double) Owner.GetDamageLong()) + 2.5 ) / ((double) Owner.GetDamageLong());
             if( Owner.GetDamageLong() < 12 && ( Owner.GetDamageLong() + 5 ) >= 12 ) {
-                mult1 *= 1.1985f;
+                mult3 *= 1.2;
             }
-            basemult = ( mult1 + mult2 + mult3 ) * 0.332f;
+            basemult = ( mult1 + mult2 + mult3 ) * 0.33333;
         } else {
-            basemult = ( ((float) Owner.GetDamageShort()) + 2.5f ) / ((float) Owner.GetDamageShort());
+            basemult = ( ((double) Owner.GetDamageShort()) + 2.5 ) / ((double) Owner.GetDamageShort());
             if( Owner.GetDamageShort() < 12 && ( Owner.GetDamageShort() + 5 ) >= 12 ) {
-                basemult *= 1.2f;
+                basemult *= 1.2;
             }
         }
-        OffBV = Owner.GetOffensiveBV() * ( basemult - 1.0f );
+        OffBV = Owner.GetOffensiveBV() * ( basemult - 1.0 );
         // minor modification since the math doesn't work (damn you, TPTB!!!)
         if( Owner.GetLookupName().equals( "(IS) ER PPC" ) ) {
-            OffBV -= 0.49f;
+            OffBV -= 0.49;
         }
     }
 }

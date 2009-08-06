@@ -33,13 +33,13 @@ public class Actuator extends abPlaceable {
     // Actuators only ever use one crit.
     private boolean LocLocked,
                     OmniArmorable;
-    private float CostMult;
+    private double CostMult;
     private String CritName,
                    MMName;
     private AvailableCode AC;
     private Mech Owner;
 
-    public Actuator( String name, String mname, boolean locked, boolean omniarmor, AvailableCode A, float Multiplier, Mech m ) {
+    public Actuator( String name, String mname, boolean locked, boolean omniarmor, AvailableCode A, double Multiplier, Mech m ) {
         LocLocked = locked;
         OmniArmorable = omniarmor;
         CritName = name;
@@ -72,35 +72,35 @@ public class Actuator extends abPlaceable {
         return 1;
     }
 
-    public float GetTonnage() {
+    public double GetTonnage() {
         if( IsArmored() ) {
-            return 0.5f;
+            return 0.5;
         } else {
-            return 0.0f;
+            return 0.0;
         }
     }
 
-    public float GetOffensiveBV() {
+    public double GetOffensiveBV() {
         // an actuator only has a BV if it is armored
-        return 0.0f;
+        return 0.0;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         // BV will not change for this item, so just return the normal value
-        return 0.0f;
+        return 0.0;
     }
 
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         // an actuator only has a BV if it is armored
         if( IsArmored() ) {
-            return NumCrits() * 5.0f;
+            return NumCrits() * 5.0;
         }
-        return 0.0f;
+        return 0.0;
     }
 
-    public float GetCost() {
+    public double GetCost() {
         if( IsArmored() ) {
-            return Owner.GetTonnage() * CostMult + 150000.0f;
+            return Owner.GetTonnage() * CostMult + 150000.0;
         } else {
             return Owner.GetTonnage() * CostMult;
         }

@@ -34,7 +34,7 @@ import ssw.components.MechModifier;
 public class stEngineCLXXL implements ifEngine, ifState {
     // A Clan XXL Fusion Engine
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_CLAN );
-    private final static float[] Masses = {0.5f,0.5f,0.5f,0.5f,0.5f,0.5f,0.5f,
+    private final static double[] Masses = {0.5f,0.5f,0.5f,0.5f,0.5f,0.5f,0.5f,
         0.5f,0.5f,0.5f,0.5f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.5f,1.5f,
         1.5f,1.5f,1.5f,1.5f,1.5f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.0f,2.5f,2.5f,
         2.5f,2.5f,3.0f,3.0f,3.0f,3.0f,3.5f,3.5f,3.5f,3.5f,4.0f,4.0f,4.0f,
@@ -54,7 +54,7 @@ public class stEngineCLXXL implements ifEngine, ifState {
         return true;
     }
 
-    public float GetTonnage( int Rating ) {
+    public double GetTonnage( int Rating ) {
         return Masses[GetIndex( Rating )];
     }
     
@@ -90,8 +90,8 @@ public class stEngineCLXXL implements ifEngine, ifState {
         return "Fusion Engine";
     }
 
-    public float GetCost( int MechTonnage, int Rating ) {
-        return ( 100000.0f * (float) MechTonnage * (float) Rating ) / 75.0f;
+    public double GetCost( int MechTonnage, int Rating ) {
+        return ( 100000.0f * ((double) MechTonnage) * ((double) Rating )) / 75.0f;
    }
     
     public AvailableCode GetAvailability() {
@@ -102,7 +102,7 @@ public class stEngineCLXXL implements ifEngine, ifState {
         return 10;
     }
 
-    public float GetBVMult() {
+    public double GetBVMult() {
         return 0.75f;
     }
     

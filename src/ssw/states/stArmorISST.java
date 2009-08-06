@@ -201,7 +201,7 @@ public class stArmorISST implements ifArmor, ifState {
         return 12;
     }
 
-    public float GetAVMult() {
+    public double GetAVMult() {
         return 1.0f;
     }
 
@@ -209,11 +209,11 @@ public class stArmorISST implements ifArmor, ifState {
         return true;
     }
 
-    public float GetCostMult() {
+    public double GetCostMult() {
         return 50000.0f;
     }
 
-    public float GetBVTypeMult() {
+    public double GetBVTypeMult() {
         return 1.0f;
     }
 

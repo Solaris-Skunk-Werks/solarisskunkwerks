@@ -37,9 +37,9 @@ public interface ifPhysEnhance {
     public String GetCritName();
     public String GetMMName();
     public boolean Contiguous();
-    public float GetCost( int mechtons, float enginetons );
-    public float GetOffensiveBV( int Tonnage );
-    public float GetDefensiveBV( int Tonnage );
+    public double GetCost( int mechtons, double enginetons );
+    public double GetOffensiveBV( int Tonnage );
+    public double GetDefensiveBV( int Tonnage );
     public boolean IncrementPlaced();
     public boolean DecrementPlaced();
     public boolean CanArmor();

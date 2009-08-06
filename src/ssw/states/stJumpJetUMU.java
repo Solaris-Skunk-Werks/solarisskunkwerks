@@ -61,11 +61,11 @@ public class stJumpJetUMU implements ifJumpJetFactory, ifState {
         return new JumpJet( "Mech UMU", "Mech UMU", 1, AC );
     }
 
-    public float GetCost() {
+    public double GetCost() {
         return 200.0f;
     }
 
-    public float GetTonnage() {
+    public double GetTonnage() {
         return 1.0f;
     }
 

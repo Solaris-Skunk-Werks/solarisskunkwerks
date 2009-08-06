@@ -44,8 +44,8 @@ public class stGyroISCompact implements ifGyro, ifState {
         return false;
     }
 
-    public float GetTonnage( int rating ) {
-        return (float) (((int) ( rating * 0.01f + 0.99f )) * 1.5);
+    public double GetTonnage( int rating ) {
+        return (double) (((int) ( rating * 0.01f + 0.99f )) * 1.5);
     }
     
     public int GetCrits() {
@@ -68,11 +68,11 @@ public class stGyroISCompact implements ifGyro, ifState {
         return "Compact";
     }
 
-    public float GetBVMult() {
+    public double GetBVMult() {
         return 0.5f;
     }
     
-    public float GetCostMult() {
+    public double GetCostMult() {
         return 400000.0f;
     }
     

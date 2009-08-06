@@ -66,7 +66,7 @@ public class Engine extends abPlaceable {
     public void SetRating( int rate ) {
         // Set the current values
         if( CurConfig.IsPrimitive() ) {
-            EngineRating = (int) ( Math.floor( ( ( rate * 1.2f ) + 4.5f ) / 5 ) * 5 );
+            EngineRating = (int) ( Math.floor( ( ( rate * 1.2 ) + 4.5 ) / 5 ) * 5 );
         } else {
             EngineRating = rate;
         }
@@ -144,9 +144,9 @@ public class Engine extends abPlaceable {
         }
     }
 
-    public float GetTonnage() {
+    public double GetTonnage() {
         if( IsArmored() ) {
-            return CurConfig.GetTonnage( EngineRating ) + ReportCrits() * 0.5f;
+            return CurConfig.GetTonnage( EngineRating ) + ReportCrits() * 0.5;
         } else {
             return CurConfig.GetTonnage( EngineRating );
         }
@@ -187,9 +187,9 @@ public class Engine extends abPlaceable {
         return CurConfig.GetMMName();
     }
 
-    public float GetCost() {
+    public double GetCost() {
         if( IsArmored() ) {
-            return CurConfig.GetCost( Owner.GetTonnage(), EngineRating ) + (float) ReportCrits() * 150000.0f;
+            return CurConfig.GetCost( Owner.GetTonnage(), EngineRating ) + (double) ReportCrits() * 150000.0;
         } else {
             return CurConfig.GetCost( Owner.GetTonnage(), EngineRating );
         }
@@ -399,24 +399,24 @@ public class Engine extends abPlaceable {
         return true;
     }
 
-    public float GetOffensiveBV() {
-        return 0.0f;
+    public double GetOffensiveBV() {
+        return 0.0;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
-        return 0.0f;
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+        return 0.0;
     }
 
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         if( IsArmored() ) {
-            return 5.0f * NumCrits();
+            return 5.0 * NumCrits();
         }
-        return 0.0f;
+        return 0.0;
     }
 
     // but an engine does have a type multiplier which the internal structure
     // will use to calculate it's own battle value.
-    public float GetBVMult() {
+    public double GetBVMult() {
         return CurConfig.GetBVMult();
     }
 

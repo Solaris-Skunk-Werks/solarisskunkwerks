@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.components;
 
 public class ModularArmor extends abPlaceable {
-    private final static MechModifier Modifier = new MechModifier( -1, 0, -1, 0.0f, 0, 1, 0, 0.0f, 0.0f, 0.0f, 0.0f, false );
+    private final static MechModifier Modifier = new MechModifier( -1, 0, -1, 0.0, 0, 1, 0, 0.0, 0.0, 0.0, 0.0, false );
     private String CritName,
                    MegaMekName,
                    Manufacturer = "";
@@ -74,37 +74,37 @@ public class ModularArmor extends abPlaceable {
     }
 
     @Override
-    public float GetTonnage() {
+    public double GetTonnage() {
         if( IsArmored() ) {
-            return 1.5f;
+            return 1.5;
         } else {
-            return 1.0f;
+            return 1.0;
         }
     }
 
     @Override
-    public float GetCost() {
+    public double GetCost() {
         if( IsArmored() ) {
-            return 160000.0f;
+            return 160000.0;
         } else {
-            return 10000.0f;
+            return 10000.0;
         }
     }
 
     @Override
-    public float GetOffensiveBV() {
-        return 0.0f;
+    public double GetOffensiveBV() {
+        return 0.0;
     }
 
     @Override
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         return GetOffensiveBV();
     }
 
     @Override
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         // modular armor is handled by the armor BV code.
-        return 0.0f;
+        return 0.0;
     }
 
     public String GetMMName( boolean UseRear ) {

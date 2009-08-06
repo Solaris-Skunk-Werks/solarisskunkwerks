@@ -62,7 +62,7 @@ public class PrintMech implements Printable {
     private int Piloting = 5,
                 Gunnery = 4,
                 MiniConvRate = 1;
-    private float BV = 0.0f;
+    private double BV = 0.0;
     private ifPrintPoints points = null;
     private Font BoldFont = new Font( "Arial", Font.BOLD, 8 );
     private Font PlainFont = new Font( "Arial", Font.PLAIN, 8 );
@@ -112,7 +112,7 @@ public class PrintMech implements Printable {
         setBV(CommonTools.GetAdjustedBV(BV, Gunnery, Piloting));
     }
 
-    public void SetOptions( boolean charts, boolean PrintP, float UseBV ) {
+    public void SetOptions( boolean charts, boolean PrintP, double UseBV ) {
         Charts = charts;
         setBV(UseBV);
         PrintPilot = PrintP;
@@ -150,7 +150,7 @@ public class PrintMech implements Printable {
         this.LogoImage = LogoImage;
     }
 
-    public void setBV(float BV) {
+    public void setBV(double BV) {
         this.BV = BV;
     }
 

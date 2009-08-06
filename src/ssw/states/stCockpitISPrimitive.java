@@ -55,8 +55,8 @@ public class stCockpitISPrimitive implements ifCockpit, ifState {
         return false;
     }
 
-    public float GetTonnage() {
-        float result = 5.0f;
+    public double GetTonnage() {
+        double result = 5.0f;
         result += Sensors.GetTonnage();
         result += SecondSensors.GetTonnage();
         result += LifeSupport.GetTonnage();
@@ -100,8 +100,8 @@ public class stCockpitISPrimitive implements ifCockpit, ifState {
         return "Primitive";
     }
 
-    public float GetCost( int Tonnage ) {
-        float result = 150000.0f + ( 2000.0f * Tonnage );
+    public double GetCost( int Tonnage ) {
+        double result = 150000.0f + ( 2000.0f * Tonnage );
         result += Sensors.GetCost();
         result += LifeSupport.GetCost();
         result += SecondSensors.GetCost();
@@ -113,7 +113,7 @@ public class stCockpitISPrimitive implements ifCockpit, ifState {
         return false;
     }
 
-    public float BVMod() {
+    public double BVMod() {
         return 1.0f;
     }
 

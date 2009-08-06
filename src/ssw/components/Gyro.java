@@ -86,9 +86,9 @@ public class Gyro extends abPlaceable {
         return true;
     }
 
-    public float GetTonnage() {
+    public double GetTonnage() {
         if( IsArmored() ) {
-            return CurConfig.GetTonnage( Owner.GetEngine().GetRating() ) + ( NumCrits() * 0.5f );
+            return CurConfig.GetTonnage( Owner.GetEngine().GetRating() ) + ( NumCrits() * 0.5 );
         } else {
             return CurConfig.GetTonnage( Owner.GetEngine().GetRating() );
         }
@@ -114,33 +114,33 @@ public class Gyro extends abPlaceable {
         return CurConfig.GetMMName();
     }
 
-    public float GetCost() {
+    public double GetCost() {
         if( IsArmored() ) {
-            return ( CurConfig.GetTonnage( Owner.GetEngine().GetRating() ) * CurConfig.GetCostMult() ) + ( NumCrits() * 150000.0f );
+            return ( CurConfig.GetTonnage( Owner.GetEngine().GetRating() ) * CurConfig.GetCostMult() ) + ( NumCrits() * 150000.0 );
         } else {
             return GetTonnage() * CurConfig.GetCostMult();
         }
     }
 
-    public float GetOffensiveBV() {
+    public double GetOffensiveBV() {
         return 0.0f;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         return 0.0f;
     }
 
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         if( IsArmored() ) {
-            float result = Owner.GetTonnage() * CurConfig.GetBVMult();
-            result += result * NumCrits() * 0.05f;
+            double result = Owner.GetTonnage() * CurConfig.GetBVMult();
+            result += result * NumCrits() * 0.05;
             return result;
         } else {
             return Owner.GetTonnage() * CurConfig.GetBVMult();
         }
     }
 
-    public float GetBVTypeMult() {
+    public double GetBVTypeMult() {
         return CurConfig.GetBVMult();
     }
 

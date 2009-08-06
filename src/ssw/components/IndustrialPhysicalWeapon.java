@@ -55,8 +55,7 @@ public class IndustrialPhysicalWeapon extends PhysicalWeapon {
         }
     }
 
-    public void SetSpecials(int cost, int obv, int dbv)
-    {
-        this.SetSpecials("PA", "-", 0, cost, 0, obv, dbv, false);
+    public void SetSpecials( int cost, int obv, int dbv ) {
+        this.SetSpecials( "PA", "-", 0, (double) cost, 0, (double) obv, (double) dbv, false );
     }
 }

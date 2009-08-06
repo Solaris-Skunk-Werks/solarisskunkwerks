@@ -55,7 +55,15 @@ public class stHeatSinkSingle implements ifHeatSinkFactory, ifState {
         return false;
     }
 
-    public float GetTonnage() {
+    public boolean IsCompact() {
+        return false;
+    }
+
+    public boolean IsLaser() {
+        return false;
+    }
+
+    public double GetTonnage() {
         return 1.0f;
     }
 
@@ -68,7 +76,7 @@ public class stHeatSinkSingle implements ifHeatSinkFactory, ifState {
     }
 
     public HeatSink GetHeatSink() {
-        return new HeatSink( "Heat Sink", "Heat Sink", 1, AC );
+        return new HeatSink( "Heat Sink", "Heat Sink", 1, false, AC );
     }
 
     public int GetNumCrits() {

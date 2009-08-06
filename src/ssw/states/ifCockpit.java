@@ -31,7 +31,7 @@ import ssw.components.*;
 
 public interface ifCockpit {
     public String GetReportName();
-    public float GetTonnage();
+    public double GetTonnage();
     public LocationIndex GetCockpitLoc();
     public LocationIndex GetFirstSensorLoc();
     public LocationIndex GetSecondSensorLoc();
@@ -48,8 +48,8 @@ public interface ifCockpit {
     public SimplePlaceable GetThirdSensors();
     public String GetCritName();
     public String GetMMName();
-    public float GetCost( int Tonnage );
-    public float BVMod();
+    public double GetCost( int Tonnage );
+    public double BVMod();
     public boolean HasFireControl();
     public boolean IsTorsoMounted();
     public AvailableCode GetAvailability();

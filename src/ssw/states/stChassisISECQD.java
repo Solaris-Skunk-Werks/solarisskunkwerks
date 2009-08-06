@@ -32,7 +32,7 @@ import ssw.components.*;
 
 public class stChassisISECQD implements ifChassis, ifState {
     // An Inner Sphere Endo-Composite Biped chassis
-    private final static float[] Masses = { 1.0f, 1.5f, 1.5f, 2.0f, 2.5f, 3.0f,
+    private final static double[] Masses = { 1.0f, 1.5f, 1.5f, 2.0f, 2.5f, 3.0f,
         3.0f, 3.5f, 4.0f, 4.5f, 4.5f, 5.0f, 5.5f, 6.0f, 6.0f, 6.5f, 7.0f, 7.5f,
         7.5f };
     private final static int[][] IntPoints = {
@@ -84,7 +84,7 @@ public class stChassisISECQD implements ifChassis, ifState {
         return "Endo-Composite";
     }
 
-    public float GetStrucTon( int Tonnage ) {
+    public double GetStrucTon( int Tonnage ) {
         return Masses[GetIndex( Tonnage )];
     }
     
@@ -114,11 +114,11 @@ public class stChassisISECQD implements ifChassis, ifState {
         return IntPoints[GetIndex(Tonnage)][3];
     }
 
-    public float GetCost( int Tonnage ) {
+    public double GetCost( int Tonnage ) {
         return 3200 * Tonnage;
     }
     
-    public float GetBVMult() {
+    public double GetBVMult() {
         return 1.0f;
     }
 

@@ -29,12 +29,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.components;
 
 public class HeatSink extends abPlaceable {
-    private int Crits;
+    private boolean Compact;
+    private int Crits,
+                NumHS = 1;
     private String CritName,
                    MMName;
     private AvailableCode AC;
 
-    public HeatSink( String name, String mname, int numCrits, AvailableCode A ) {
+    public HeatSink( String name, String mname, int numCrits, boolean compact, AvailableCode A ) {
+        Compact = compact;
         Crits = numCrits;
         CritName = name;
         AC = A;
@@ -43,6 +46,9 @@ public class HeatSink extends abPlaceable {
 
     // returns the name of this item in the Loadout.
     public String GetCritName() {
+        if( Compact ) {
+            return "[" + NumHS + "] " + CritName;
+        }
         return CritName;
     }
 
@@ -51,6 +57,9 @@ public class HeatSink extends abPlaceable {
     }
 
     public String GetMMName( boolean UseRear ) {
+        if( Compact ) {
+            return "IS" + NumHS + " " + MMName;
+        }
         return MMName;
     }
 
@@ -59,43 +68,57 @@ public class HeatSink extends abPlaceable {
         return Crits;
     }
 
-    public float GetTonnage() {
+    public int NumHeatSinks() {
+        // provided for Compact heat sinks
+        return NumHS;
+    }
+
+    public void SetNumHS( int i ) {
+        // sets the number of heat sinks in this slot (compact HS)
+        NumHS = i;
+    }
+
+    public boolean IsCompact() {
+        return Compact;
+    }
+
+    public double GetTonnage() {
         // Heat sinks are calculated from the HeatSinkFactory, not from the
         // individual heat sink
         if( IsArmored() ) {
-            return Crits * 0.5f;
+            return Crits * 0.5;
         } else {
-            return 0.0f;
+            return 0.0;
         }
     }
 
     // Heat sinks are calculated from the HeatSinkFactory, not from the
     // individual heat sink
-    public float GetOffensiveBV() {
-        return 0.0f;
+    public double GetOffensiveBV() {
+        return 0.0;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
-        return 0.0f;
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+        return 0.0;
     }
 
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         if( IsArmored() ) {
-            return 5.0f * Crits;
+            return 5.0 * Crits;
         }
-        return 0.0f;
+        return 0.0;
     }
 
-    public float GetCost() {
+    public double GetCost() {
         // Heat sinks are calculated from the HeatSinkFactory, not from the
         // individual heat sink
         if( IsArmored() ) {
-            return Crits * 150000.0f;
+            return Crits * 150000.0;
         } else {
-            return 0.0f;
+            return 0.0;
         }
     }
-    
+
     @Override
     public boolean CoreComponent() {
         return true;
@@ -112,6 +135,6 @@ public class HeatSink extends abPlaceable {
 
     @Override
     public String toString() {
-        return CritName;
+        return GetCritName();
     }
 }

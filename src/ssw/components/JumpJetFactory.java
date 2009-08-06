@@ -126,24 +126,24 @@ public class JumpJetFactory {
         return RemoveJJ( j );
     }
 
-    public float GetTonnage() {
+    public double GetTonnage() {
         // returns the total tonnage of jump jets we have installed
-        float result = ( NumJJ * Owner.GetMech().GetJJMult() * CurConfig.GetTonnage() );
+        double result = ( NumJJ * Owner.GetMech().GetJJMult() * CurConfig.GetTonnage() );
         for( int i = 0; i < CurrentJumps.size(); i++ ) {
             result += ((JumpJet) CurrentJumps.get( i )).GetTonnage();
         }
         return result;
     }
 
-    public float GetOmniTonnage() {
+    public double GetOmniTonnage() {
         // returns the total tonnage of jump jets we have installed
         return ( ( NumJJ - BaseLoadoutNumJJ ) * Owner.GetMech().GetJJMult() * CurConfig.GetTonnage() );
     }
 
-    public float GetCost() {
+    public double GetCost() {
         // returns the cost of these jump jets
-        if( NumJJ <= 0 ) { return 0.0f; }
-        float result = ( CurConfig.GetCost() * ( NumJJ * NumJJ ) * Owner.GetMech().GetTonnage() );
+        if( NumJJ <= 0 ) { return 0.0; }
+        double result = ( CurConfig.GetCost() * ( NumJJ * NumJJ ) * Owner.GetMech().GetTonnage() );
         for( int i = 0; i < CurrentJumps.size(); i++ ) {
             result += ((JumpJet) CurrentJumps.get( i )).GetCost();
         }
@@ -247,16 +247,16 @@ public class JumpJetFactory {
         return retval;
     }
 
-    public float GetOffensiveBV() {
-        float result = 0.0f;
+    public double GetOffensiveBV() {
+        double result = 0.0;
         for( int i = 0; i < CurrentJumps.size(); i++ ) {
             result += ((JumpJet) CurrentJumps.get( i )).GetOffensiveBV();
         }
         return result;
     }
 
-    public float GetDefensiveBV() {
-        float result = 0.0f;
+    public double GetDefensiveBV() {
+        double result = 0.0;
         for( int i = 0; i < CurrentJumps.size(); i++ ) {
             result += ((JumpJet) CurrentJumps.get( i )).GetDefensiveBV();
         }

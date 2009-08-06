@@ -72,34 +72,34 @@ public class ApolloFCS extends abPlaceable implements ifMissileGuidance {
         return 1;
     }
 
-    public float GetTonnage() {
+    public double GetTonnage() {
         if( IsArmored() ) {
-            return 1.5f;
+            return 1.5;
         } else {
-            return 1.0f;
+            return 1.0;
         }
     }
 
-    public float GetOffensiveBV() {
-        return 0.0f;
+    public double GetOffensiveBV() {
+        return 0.0;
     }
 
-    public float GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+    public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
         return GetOffensiveBV();
     }
 
-    public float GetDefensiveBV() {
+    public double GetDefensiveBV() {
         if( IsArmored() ) {
-            return 5.0f;
+            return 5.0;
         }
-        return 0.0f;
+        return 0.0;
     }
 
-    public float GetCost() {
+    public double GetCost() {
         if( IsArmored() ) {
-            return 275000.0f;
+            return 275000.0;
         } else {
-            return 125000.0f;
+            return 125000.0;
         }
     }
 
@@ -141,7 +141,7 @@ public class ApolloFCS extends abPlaceable implements ifMissileGuidance {
         return -1;
     }
 
-    public float GetBVMultiplier() {
-        return 1.15f;
+    public double GetBVMultiplier() {
+        return 1.15;
     }
 }

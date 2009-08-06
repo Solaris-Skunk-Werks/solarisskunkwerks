@@ -114,20 +114,20 @@ public class TXTWriter {
         }
         retval += "Production Year: " + CurMech.GetYear() + NL;
         retval += "Mass: " + CurMech.GetTonnage() + " tons" + NL;
-        retval += "Cost: " + String.format( "%1$,.0f", Math.floor( CurMech.GetTotalCost() + 0.5f ) ) + " C-Bills" + NL;
+        retval += "Cost: " + String.format( "%1$,.0f", Math.floor( CurMech.GetTotalCost() + 0.5 ) ) + " C-Bills" + NL;
         retval += "Battle Value: " + String.format( "%1$,d", CurMech.GetCurrentBV() ) + NL + NL;
 
         retval += "Chassis: " + CurMech.GetChassisModel() + " " + CurMech.GetIntStruc().GetCritName() + NL;
         retval += "Power Plant: " + CurMech.GetEngineManufacturer() + " " + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine() + NL;
         if( CurMech.GetAdjustedWalkingMP( false, true ) != CurMech.GetWalkingMP() ) {
-            retval += "Walking Speed: " + ( CurMech.GetWalkingMP() * 10.75f ) + " km/h (" + ( CurMech.GetAdjustedWalkingMP( false, true ) * 10.75f ) + " km/h)" + NL;
+            retval += "Walking Speed: " + ( CurMech.GetWalkingMP() * 10.75 ) + " km/h (" + ( CurMech.GetAdjustedWalkingMP( false, true ) * 10.75 ) + " km/h)" + NL;
         } else {
-            retval += "Walking Speed: " + ( CurMech.GetWalkingMP() * 10.75f ) + " km/h" + NL;
+            retval += "Walking Speed: " + ( CurMech.GetWalkingMP() * 10.75 ) + " km/h" + NL;
         }
         if( CurMech.GetAdjustedRunningMP( false, true ) != CurMech.GetRunningMP() ) {
-            retval += "Maximum Speed: " + ( CurMech.GetRunningMP() * 10.75f ) + " km/h (" + ( CurMech.GetAdjustedRunningMP( false, true ) * 10.75f ) + " km/h)" + NL;
+            retval += "Maximum Speed: " + ( CurMech.GetRunningMP() * 10.75 ) + " km/h (" + ( CurMech.GetAdjustedRunningMP( false, true ) * 10.75 ) + " km/h)" + NL;
         } else {
-            retval += "Maximum Speed: " + ( CurMech.GetRunningMP() * 10.75f ) + " km/h" + NL;
+            retval += "Maximum Speed: " + ( CurMech.GetRunningMP() * 10.75 ) + " km/h" + NL;
         }
         retval += "Jump Jets: " + CurMech.GetJJModel() + NL;
         if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
@@ -190,7 +190,7 @@ public class TXTWriter {
             if ( CurMech.IsOmnimech() ) { chassisString += " Omnimech"; }
             if ( CurMech.IsIndustrialmech() ) { chassisString += " IndustrialMech"; }
             retval += chassisString + NL;
-            retval += String.format( "Era: %1$-56s Cost: %2$,.0f", CommonTools.DecodeEra( CurMech.GetEra() ), Math.floor( CurMech.GetTotalCost() + 0.5f ) ) + NL;
+            retval += String.format( "Era: %1$-56s Cost: %2$,.0f", CommonTools.DecodeEra( CurMech.GetEra() ), Math.floor( CurMech.GetTotalCost() + 0.5 ) ) + NL;
             retval += String.format( "Tech Rating/Era Availability: %1$-32s BV2: %2$,d", CurMech.GetAvailability().GetBestCombinedCode(), CurMech.GetCurrentBV() ) + NL + NL;
         }
         retval += "Equipment           Type                         Rating                   Mass  " + NL;
@@ -559,7 +559,7 @@ public class TXTWriter {
             if( p instanceof Ammunition ) {
                 retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", FileCommon.FormatAmmoPrintName( (Ammunition) p ), loc, crits, p.GetTonnage() ) + NL;
             } else if( p instanceof RangedWeapon ) {
-                float tons = p.GetTonnage();
+                double tons = p.GetTonnage();
                 String add = "";
                 if( ((RangedWeapon) p).IsUsingFCS() ) {
                     abPlaceable a = (abPlaceable) ((RangedWeapon) p).GetFCS();
@@ -606,23 +606,23 @@ public class TXTWriter {
         // add in any special systems
         boolean Special = false;
         if( CurMech.HasNullSig() ) {
-            retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", CurMech.GetNullSig().GetCritName(), "*", 7, 0.0f ) + NL;
+            retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", CurMech.GetNullSig().GetCritName(), "*", 7, 0.0 ) + NL;
             Special = true;
         }
         if( CurMech.HasVoidSig() ) {
-            retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", CurMech.GetVoidSig().GetCritName(), "*", 7, 0.0f ) + NL;
+            retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", CurMech.GetVoidSig().GetCritName(), "*", 7, 0.0 ) + NL;
             Special = true;
         }
         if( CurMech.HasChameleon() ) {
-            retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", CurMech.GetChameleon().GetCritName(), "*", 6, 0.0f ) + NL;
+            retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", CurMech.GetChameleon().GetCritName(), "*", 6, 0.0 ) + NL;
             Special = true;
         }
         if( CurMech.HasBlueShield() ) {
-            retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", CurMech.GetBlueShield().GetCritName(), "*", 7, 3.0f ) + NL;
+            retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", CurMech.GetBlueShield().GetCritName(), "*", 7, 3.0 ) + NL;
             Special = true;
         }
         if( CurMech.HasEnviroSealing() ) {
-            retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", CurMech.GetEnviroSealing().GetCritName(), "*", 8, 0.0f ) + NL;
+            retval += String.format( "%1$-50s %2$-13s %3$-7s %4$6.2f", CurMech.GetEnviroSealing().GetCritName(), "*", 8, 0.0 ) + NL;
             Special = true;
         }
         if( CurMech.HasTracks() ) {
@@ -671,7 +671,7 @@ public class TXTWriter {
         if( CurMech.GetBaseRulesLevel() != CurMech.GetLoadout().GetRulesLevel() ) {
             retval += "Rules Level: " + CommonTools.GetRulesLevelString( CurMech.GetLoadout().GetRulesLevel() );
         }
-        retval += String.format( "Loadout: %1$-52s Cost: %2$,.0f", CurMech.GetLoadout().GetName(), Math.floor( CurMech.GetTotalCost() + 0.5f ) ) + NL;
+        retval += String.format( "Loadout: %1$-52s Cost: %2$,.0f", CurMech.GetLoadout().GetName(), Math.floor( CurMech.GetTotalCost() + 0.5 ) ) + NL;
         retval += String.format( "Tech Rating/Era Availability: %1$-32s BV2: %2$,d", CurMech.GetAvailability().GetBestCombinedCode(), CurMech.GetCurrentBV() ) + NL;
 
         // build the starting block for the loadout information

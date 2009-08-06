@@ -624,7 +624,7 @@ private void btnChooseLogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         return true;
     }
 
-    public float GetAdjustedBV() {
+    public double GetAdjustedBV() {
         return CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() );
     }
 

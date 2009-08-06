@@ -33,10 +33,10 @@ import ssw.components.*;
 
 public class BattleForceTools {
 
-    public static final float[] BFMinRangeModifiers = {1.00f, 0.92f, 0.83f, 0.75f,
-        0.66f, 0.58f, 0.50f};
-    public static final float[] BFToHitModifiers = {1.20f, 1.15f, 1.10f, 1.05f,
-        1.00f, 0.95f, 0.90f, 0.85f, 0.80f};
+    public static final double[] BFMinRangeModifiers = {1.00, 0.92, 0.83, 0.75,
+        0.66, 0.58, 0.50};
+    public static final double[] BFToHitModifiers = {1.20, 1.15, 1.10, 1.05,
+        1.00, 0.95, 0.90, 0.85, 0.80};
 
     public static String GetMovementString( ifBattleforce b ){
 
@@ -54,10 +54,10 @@ public class BattleForceTools {
      *
      * @param w A weapon to convert
      * @param b The ifBatleForce object that uses the ifWeapon
-     * @return Array with short - extreme dmg values and heat as floats
+     * @return Array with short - extreme dmg values and heat as doubles
      */
-    public static float [] GetDamage( ifWeapon w, ifBattleforce b ){
-        float [] retval = {0.0f,0.0f,0.0f,0.0f,0.0f};
+    public static double [] GetDamage( ifWeapon w, ifBattleforce b ){
+        double [] retval = {0.0, 0.0, 0.0, 0.0, 0.0};
 
         // Ignore rear facing weapons
         if ( ((abPlaceable)w).IsMountedRear() ) {
@@ -109,18 +109,18 @@ public class BattleForceTools {
 
             // Adjust for capacitors
             if ( ((RangedWeapon)w).IsUsingCapacitor() ) {
-                retval[Constants.BF_SHORT] *= 0.5f;
-                retval[Constants.BF_MEDIUM] *= 0.5f;
-                retval[Constants.BF_LONG] *= 0.5f;
-                retval[Constants.BF_EXTREME] *= 0.5f;
+                retval[Constants.BF_SHORT] *= 0.5;
+                retval[Constants.BF_MEDIUM] *= 0.5;
+                retval[Constants.BF_LONG] *= 0.5;
+                retval[Constants.BF_EXTREME] *= 0.5;
             }
 
             // Adjust for Targeting Computer
             if ( ((Mech)b).UsingTC() ) {
-                retval[Constants.BF_SHORT] *= 1.1f;
-                retval[Constants.BF_MEDIUM] *= 1.1f;
-                retval[Constants.BF_LONG] *= 1.1f;
-                retval[Constants.BF_EXTREME] *= 1.1f;
+                retval[Constants.BF_SHORT] *= 1.1;
+                retval[Constants.BF_MEDIUM] *= 1.1;
+                retval[Constants.BF_LONG] *= 1.1;
+                retval[Constants.BF_EXTREME] *= 1.1;
             }
 
         }
