@@ -59,7 +59,7 @@
 <+-SSW_REMOVE_IF_BLANK-+><tr><td colspan="2">&nbsp&nbsp&nbsp&nbsp <+-SSW_POD_TONNAGE-+> tons of pod space.</td></tr>
 <+-SSW_START_EQUIPMENT_FLUFF_BLOCK-+>
 	<tr>
-		<td colspan="2">&nbsp&nbsp&nbsp&nbsp <+-SSW_EQUIP_COUNT_THIS_TYPE-+> <+-SSW_EQUIP_MANUFACTURER-+> <+-SSW_EQUIP_FULL_NAME-+></td>
+		<td colspan="2">&nbsp&nbsp&nbsp&nbsp <+-SSW_EQUIP_COUNT_THIS_TYPE-+><+-SSW_EQUIP_MANUFACTURER-+> <+-SSW_EQUIP_FULL_NAME-+></td>
 	</tr>
 <+-SSW_END_EQUIPMENT_FLUFF_BLOCK-+>
 	<tr>
@@ -221,11 +221,12 @@
 </table>
 <br>
 <table cellspacing="1" cellpadding="1" border="0" width="100%">
-<+-SSW_REMOVE_IF_OMNI_NO_FIXED-+><tr><td><strong>Weapons and Ammo</strong></td><td align="center"><strong>Location</strong></td><td align="center"><strong>Criticals</strong></td><td align="right"><strong>Tonnage</strong></td></tr>
+<+-SSW_REMOVE_IF_OMNI_NO_FIXED-+><tr><td><strong>Weapons and Ammo</strong></td><td align="center"><strong>Location</strong></td><td align="center"><strong>Heat</strong></td><td align="center"><strong>Criticals</strong></td><td align="right"><strong>Tonnage</strong></td></tr>
 <+-SSW_START_EQUIPMENT_STAT_BLOCK-+>
 	<tr>
-		<td><+-SSW_EQUIP_NAME-+></td>
+		<td><+-SSW_EQUIP_COUNT_THIS_LOC-+><+-SSW_EQUIP_NAME-+></td>
 		<td align="center"><+-SSW_EQUIP_LOCATION-+></td>
+		<td align="center"><+-SSW_EQUIP_HEAT-+></td>
 		<td align="center"><+-SSW_EQUIP_CRITS-+></td>
 		<td align="right"><+-SSW_EQUIP_TONNAGE-+></td>
 	</tr>
@@ -254,13 +255,15 @@
 	<tr>
 		<td><strong>Weapons and Ammo</strong></td>
 		<td align="center"><strong>Location</strong></td>
+                <td align="center"><strong>Heat</strong></td>
 		<td align="center"><strong>Criticals</strong></td>
 		<td align="right"><strong>Tonnage</strong></td>
 	</tr>
 <+-SSW_START_EQUIPMENT_STAT_BLOCK-+>
 	<tr>
-		<td><+-SSW_EQUIP_NAME-+></td>
+		<td><+-SSW_EQUIP_COUNT_THIS_LOC-+><+-SSW_EQUIP_NAME-+></td>
 		<td align="center"><+-SSW_EQUIP_LOCATION-+></td>
+		<td align="center"><+-SSW_EQUIP_HEAT-+></td>
 		<td align="center"><+-SSW_EQUIP_CRITS-+></td>
 		<td align="right"><+-SSW_EQUIP_TONNAGE-+></td>
 	</tr>

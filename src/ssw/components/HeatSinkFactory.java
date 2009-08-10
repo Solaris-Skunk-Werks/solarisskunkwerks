@@ -310,7 +310,7 @@ public class HeatSinkFactory {
         }
     }
 
-    private HeatSink FindOpenCompact() {
+    public HeatSink FindOpenCompact() {
         // this routine finds the next available single Compact Heat Sink
         // if it cannot find a single compact, it returns null
         for( int i = 0; i < CurrentSinks.size(); i++ ) {

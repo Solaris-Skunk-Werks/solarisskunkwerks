@@ -1026,26 +1026,6 @@ public class EquipmentFactory {
         Equipment addEQ;
 
         a = new AvailableCode( AvailableCode.TECH_BOTH );
-        a.SetISCodes( 'B', 'D', 'D', 'D' );
-        a.SetISDates( 0, 0, false, 2443, 0, 0, false, false );
-        a.SetISFactions( "", "", "CS", "" );
-        a.SetCLCodes( 'B', 'X', 'D', 'C' );
-        a.SetCLDates( 0, 0, false, 2850, 0, 0, false, false );
-        a.SetCLFactions( "", "", "CGB", "" );
-        a.SetPBMAllowed( true );
-        a.SetPIMAllowed( true );
-        a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Variable Test","Variable Test", "PD", a);
-        addEQ.SetAmmo(false, 0, 0);
-        addEQ.SetMegaMekName("AntiPersonnelPod");
-        addEQ.SetRange(0, 0, 0);
-        addEQ.SetHeat(0);
-        addEQ.SetStats( 1, 0.5, 0.0, 0.0, 1.0, "OS/AI" );
-        addEQ.SetAllocs( true, true, true, true, true );
-        addEQ.SetVariableSize( true, 0.5, 7.0, 0.5, 1.0, 1000.0 );
-        Equipment.add(addEQ);
-
-        a = new AvailableCode( AvailableCode.TECH_BOTH );
         a.SetISCodes( 'B', 'X', 'X', 'D' );
         a.SetISDates( 0, 0, false, 3055, 0, 0, false, false );
         a.SetISFactions( "", "", "CS", "" );

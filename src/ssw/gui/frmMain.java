@@ -373,12 +373,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     a.SetManufacturer( (String) value );
                     fireTableCellUpdated( row, col );
                 } else {
-                        Vector v = CurMech.GetLoadout().GetEquipment();
-                        for( int i = 0; i < v.size(); i++ ) {
-                            if( ((abPlaceable) v.get( i )).GetCritName().equals( a.GetCritName() ) ) {
-                                ((abPlaceable) v.get( i )).SetManufacturer( (String) value );
-                            }
+                    Vector v = CurMech.GetLoadout().GetEquipment();
+                    for( int i = 0; i < v.size(); i++ ) {
+                        if( FileCommon.LookupStripArc( ((abPlaceable) v.get( i )).GetCritName() ).equals( FileCommon.LookupStripArc( a.GetCritName() ) ) ) {
+                            ((abPlaceable) v.get( i )).SetManufacturer( (String) value );
                         }
+                    }
                     fireTableDataChanged();
                 }
             }

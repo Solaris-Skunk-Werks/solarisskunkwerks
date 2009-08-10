@@ -284,7 +284,7 @@ public class PrintMech implements Printable {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                         graphics.drawString( GetPrintName( a[i] ), p[i].x + 7, p[i].y );
                     } else if( a[i] instanceof Ammunition ) {
-                        graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
+                        graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i], 1 ), p[i].x, p[i].y );
                     } else {
                         graphics.drawString( GetPrintName( a[i] ), p[i].x, p[i].y );
                     }
@@ -351,7 +351,7 @@ public class PrintMech implements Printable {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                         graphics.drawString( GetPrintName( a[i] ), p[i].x + 7, p[i].y );
                     } else if( a[i] instanceof Ammunition ) {
-                        graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
+                        graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i], 1 ), p[i].x, p[i].y );
                     } else {
                         graphics.drawString( GetPrintName( a[i] ), p[i].x, p[i].y );
                     }
@@ -418,7 +418,7 @@ public class PrintMech implements Printable {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                         graphics.drawString( GetPrintName( a[i] ), p[i].x + 7, p[i].y );
                     } else if( a[i] instanceof Ammunition ) {
-                        graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
+                        graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i], 1 ), p[i].x, p[i].y );
                     } else {
                         graphics.drawString( GetPrintName( a[i] ), p[i].x, p[i].y );
                     }
@@ -485,7 +485,7 @@ public class PrintMech implements Printable {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                         graphics.drawString( GetPrintName( a[i] ), p[i].x + 7, p[i].y );
                     } else if( a[i] instanceof Ammunition ) {
-                        graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
+                        graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i], 1 ), p[i].x, p[i].y );
                     } else {
                         graphics.drawString( GetPrintName( a[i] ), p[i].x, p[i].y );
                     }
@@ -552,7 +552,7 @@ public class PrintMech implements Printable {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                         graphics.drawString( GetPrintName( a[i] ), p[i].x + 7, p[i].y );
                     } else if( a[i] instanceof Ammunition ) {
-                        graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
+                        graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i], 1 ), p[i].x, p[i].y );
                     } else {
                         graphics.drawString( GetPrintName( a[i] ), p[i].x, p[i].y );
                     }
@@ -619,7 +619,7 @@ public class PrintMech implements Printable {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                         graphics.drawString( GetPrintName( a[i] ), p[i].x + 7, p[i].y );
                     } else if( a[i] instanceof Ammunition ) {
-                        graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
+                        graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i], 1 ), p[i].x, p[i].y );
                     } else {
                         graphics.drawString( GetPrintName( a[i] ), p[i].x, p[i].y );
                     }
@@ -686,7 +686,7 @@ public class PrintMech implements Printable {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                         graphics.drawString( GetPrintName( a[i] ), p[i].x + 7, p[i].y );
                     } else if( a[i] instanceof Ammunition ) {
-                        graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
+                        graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i], 1 ), p[i].x, p[i].y );
                     } else {
                         graphics.drawString( GetPrintName( a[i] ), p[i].x, p[i].y );
                     }
@@ -753,7 +753,7 @@ public class PrintMech implements Printable {
                         graphics.drawOval( p[i].x, p[i].y - 5, 5, 5 );
                         graphics.drawString( GetPrintName( a[i] ), p[i].x + 7, p[i].y );
                     } else if( a[i] instanceof Ammunition ) {
-                        graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i] ), p[i].x, p[i].y );
+                        graphics.drawString( FileCommon.FormatAmmoPrintName( (Ammunition) a[i], 1 ), p[i].x, p[i].y );
                     } else {
                         graphics.drawString( GetPrintName( a[i] ), p[i].x, p[i].y );
                     }

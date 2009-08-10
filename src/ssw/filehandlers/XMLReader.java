@@ -498,8 +498,13 @@ public class XMLReader {
         n = d.getElementsByTagName( "baseloadout" );
         map = n.item( 0 ).getAttributes();
         if( map.getNamedItem( "a4srm" ) != null ) {
-            // old style loading
-            Messages += "This save file is an earlier version and may not safely load Artemis-IV systems.\nAll Artemis-IV systems have been removed from the 'Mech.\nPlease add Artemis-IV systems back in safely and resave the 'Mech.\nAIV-SRM = " + ParseBoolean( map.getNamedItem( "a4srm" ).getTextContent() ) + ", AIV-LRM = " + ParseBoolean( map.getNamedItem( "a4lrm" ).getTextContent() ) + ", AIV-MML = " + ParseBoolean( map.getNamedItem( "a4mml" ).getTextContent() ) + "\n\n";
+            // old style loading, see if we need to add the message in
+            boolean A4SRM = ParseBoolean( map.getNamedItem( "a4srm" ).getTextContent() );
+            boolean A4LRM = ParseBoolean( map.getNamedItem( "a4lrm" ).getTextContent() );
+            boolean A4MML = ParseBoolean( map.getNamedItem( "a4mml" ).getTextContent() );
+            if( A4SRM || A4LRM || A4MML ) {
+                Messages += "This save file is an earlier version and may not safely load Artemis-IV systems.\nAll Artemis-IV systems have been removed from the 'Mech.\nPlease add Artemis-IV systems back in safely and resave the 'Mech.\nAIV-SRM = " + ParseBoolean( map.getNamedItem( "a4srm" ).getTextContent() ) + ", AIV-LRM = " + ParseBoolean( map.getNamedItem( "a4lrm" ).getTextContent() ) + ", AIV-MML = " + ParseBoolean( map.getNamedItem( "a4mml" ).getTextContent() ) + "\n\n";
+            }
         } else {
             // new style loading
             m.SetFCSArtemisIV( ParseBoolean( map.getNamedItem( "fcsa4" ).getTextContent() ) );
@@ -915,7 +920,13 @@ public class XMLReader {
                 }
                 if( map.getNamedItem( "a4srm" ) != null ) {
                     // old style loading
-                    m.SetFCSArtemisIV( ParseBoolean( map.getNamedItem( "a4srm" ).getTextContent() ) || ParseBoolean( map.getNamedItem( "a4lrm" ).getTextContent() ) || ParseBoolean( map.getNamedItem( "a4mml" ).getTextContent() ) );
+                    // old style loading, see if we need to add the message in
+                    boolean A4SRM = ParseBoolean( map.getNamedItem( "a4srm" ).getTextContent() );
+                    boolean A4LRM = ParseBoolean( map.getNamedItem( "a4lrm" ).getTextContent() );
+                    boolean A4MML = ParseBoolean( map.getNamedItem( "a4mml" ).getTextContent() );
+                    if( A4SRM || A4LRM || A4MML ) {
+                        Messages += "This save file is an earlier version and may not safely load Artemis-IV systems.\nAll Artemis-IV systems have been removed from the 'Mech.\nPlease add Artemis-IV systems back into the " + m.GetLoadout().GetName() + " loadout and resave the 'Mech.\nAIV-SRM = " + ParseBoolean( map.getNamedItem( "a4srm" ).getTextContent() ) + ", AIV-LRM = " + ParseBoolean( map.getNamedItem( "a4lrm" ).getTextContent() ) + ", AIV-MML = " + ParseBoolean( map.getNamedItem( "a4mml" ).getTextContent() ) + "\n\n";
+                    }
                 } else {
                     // new style loading
                     m.SetFCSArtemisIV( ParseBoolean( map.getNamedItem( "fcsa4" ).getTextContent() ) );
@@ -1293,8 +1304,8 @@ public class XMLReader {
         abPlaceable retval = null;
         String prepend = "";
         if( name.length() > 4 ) {
-            if( name.substring( 0, 4).equals( "(R) " ) ) {
-                name = name.substring( 4 );
+            if( name.substring( 0, 4 ).equals( "(R) " ) ) {
+                name = FileCommon.LookupStripArc( name );
                 rear = true;
             }
         }

@@ -65,6 +65,7 @@ Version 0.7.0
 - Primitive engines are no longer available to all unit types.
 - Maximum jump MP for IJJs now restricted if using Hardened Armor.
 - Right-click context menu is now consolidated, most options available anywhere.
+- Text TRO format (HTML and TEXT) now consolidates equipment by location.
 
 -------------------------------------------------------------------------------
 Version 0.6.0

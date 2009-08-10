@@ -113,7 +113,7 @@ public class VehicularGrenadeLauncher extends abPlaceable implements ifWeapon {
 
     @Override
     public String GetCritName() {
-        return ARCDESCSHORT[CurrentArc] + " Vehicular Grenade Launcher " + AMMODESCSHORT[CurrentAmmo];
+        return ARCDESCSHORT[CurrentArc] + " Vehicular Grenade Launcher ";
     }
 
     public String GetLookupName() {

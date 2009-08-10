@@ -702,13 +702,34 @@ public class FileCommon {
         }
     }
 
-    public static String FormatAmmoPrintName( Ammunition a ) {
+    public static String FormatAmmoPrintName( Ammunition a, int tons ) {
         // this routine returns a user-defined ammunition name based on a user-
         // defined ammunition filter.
         String retval = (new Options()).AmmoNameFormat;
         retval = retval.replace( "%F", a.GetCritName() );
         retval = retval.replace( "%P", a.GetPrintName() );
-        retval = retval.replace( "%L", "" + a.GetLotSize() );
+        if( tons > 1 ) {
+            retval = retval.replace( "%L", "" + ( a.GetLotSize() * tons ) );
+        } else {
+            retval = retval.replace( "%L", "" + a.GetLotSize() );
+        }
+        return retval;
+    }
+
+    public static String LookupStripArc( String s ) {
+        // removes the arc from the lookupname for more precise grouping
+        String retval = "";
+        if( s.length() > 3 ) {
+            if( s.substring( 0, 4 ).equals( "(R) " ) || s.substring( 0, 4 ).equals( "(F) " ) ) {
+                retval = s.substring( 4 );
+            } else if( s.substring( 0, 5 ).equals( "(RS) " ) || s.substring( 0, 5 ).equals( "(FS) " ) ) {
+                retval = s.substring( 5 );
+            } else {
+                retval = s;
+            }
+        } else {
+            retval = s;
+        }
         return retval;
     }
 }

@@ -1561,6 +1561,38 @@ public class BipedLoadout implements ifLoadout {
             }
         }
 
+        if( HeatSinks.IsDouble() ) {
+            if( HeatSinks.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                for( int i = 0; i < 8; i++ ) {
+                    retval[i] /= 2;
+                }
+            } else {
+                for( int i = 0; i < 8; i++ ) {
+                    retval[i] /= 3;
+                }
+            }
+        } else if( HeatSinks.IsLaser() ) {
+            // same as Clan DHS
+            for( int i = 0; i < 8; i++ ) {
+                retval[i] /= 2;
+            }
+        } else if( HeatSinks.IsCompact() ) {
+            // crazy, have to find if we have a free compact, otherwise it's easy
+            HeatSink test = HeatSinks.FindOpenCompact();
+            int cloc = 11;
+            if( test != null ) {
+                cloc = Find( test );
+            }
+            for( int i = 0; i < 8; i++ ) {
+                if( cloc == i ) {
+                    retval[i] *= 2;
+                    retval[i] -= 1;
+                } else {
+                    retval[i] *= 2;
+                }
+            }
+        }
+
         return retval;
     }
 
