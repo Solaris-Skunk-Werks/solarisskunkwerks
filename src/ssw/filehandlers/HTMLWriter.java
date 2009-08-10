@@ -313,7 +313,7 @@ public class HTMLWriter {
                     int loc = CurMech.GetLoadout().Find( cur );
                     for( int j = 0; j < equips.length; j++ ) {
                         if( equips[j] != null ) {
-                            if( FileCommon.LookupStripArc( equips[j].GetLookupName() ).equals( FileCommon.LookupStripArc( cur.GetLookupName() ) ) && CurMech.GetLoadout().Find( equips[j] ) == loc ) {
+                            if( equips[j].GetLookupName().equals( cur.GetLookupName() ) && CurMech.GetLoadout().Find( equips[j] ) == loc ) {
                                 numthisloc++;
                                 equips[j] = null;
                             }
