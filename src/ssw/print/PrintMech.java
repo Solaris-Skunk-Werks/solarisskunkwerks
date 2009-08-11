@@ -206,7 +206,6 @@ public class PrintMech implements Printable {
 
         graphics.drawImage( RecordSheet, 0, 0, 576, 756, null );
 
-
         DrawPips( graphics );
         DrawCriticals( graphics );
         DrawMechData( graphics );

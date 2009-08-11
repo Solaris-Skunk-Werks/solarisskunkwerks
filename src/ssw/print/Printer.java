@@ -28,9 +28,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.print;
 
+import java.awt.JobAttributes;
 import java.util.Vector;
 import java.awt.print.*;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import ssw.CommonTools;
 import ssw.components.Mech;
 import ssw.filehandlers.Media;
@@ -137,6 +140,31 @@ public class Printer {
         Print();
     }
 
+    public void PrintSingles() {
+        if (Mechs.size() == 0) { return;}
+
+        page.setPaper( paper );
+
+        if ( useDialog ) {
+            if (Mechs.size() == 1) {
+                if ( ! PrintDialog( (PrintMech) Mechs.get(0) ) ) return;
+            } else {
+                if ( ! BatchDialog() ) return;
+            }
+        }
+        
+        for (int index=0; index <= Mechs.size()-1; index++) {
+            PrintMech pm = (PrintMech) Mechs.get(index);
+            job.setJobName( pm.CurMech.GetFullName().trim() );
+            job.setPrintable(pm);
+            try {
+                job.print();
+            } catch (PrinterException ex) {
+                Logger.getLogger(Printer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     public void Print( boolean useDialog ) {
         this.useDialog = useDialog;
         Print();
@@ -237,6 +265,7 @@ public class Printer {
             pMech.setCharts(POptions.PrintCharts());
             pMech.setMechImage(POptions.getImage());
             pMech.setLogoImage(POptions.getLogo());
+            pMech.setCanon(POptions.getCanon());
             if ( POptions.UseMiniConversion() ) { pMech.SetMiniConversion( POptions.GetMiniConversionRate() );}
         }
 

@@ -29,8 +29,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.print;
 
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
-import java.io.File;
 import java.util.Hashtable;
 import ssw.components.*;
 import ssw.Constants;
@@ -170,27 +170,11 @@ public class PIPPrinter {
     public void Render( ) {
         if ( graphics == null ) { return; }
         if ( CurMech == null ) { return; }
-        String filename = "";
-        File check = null;
 
         for ( int key : Armor.keySet() ) {
             PIPSettings settings = (PIPSettings) Armor.get(key);
             if ( useCanon && !settings.startingPoint.equals(new Point(0,0)) ) {
-                filename = filePath + Source + "_" + Chassis + "_" + settings.locationPrefix + settings.GetFileNumber() + ExtensionGIF;
-                check = new File( filename  );
-                if( ! check.exists() ) {
-                    filename = filePath + Source + "_" + Chassis + "_" + settings.locationPrefix + settings.GetFileNumber() + ExtensionPNG;
-                    check = new File( filename  );
-                    if( ! check.exists() ) {
-                       for( int i = 0; i < settings.GetArmor(); i++ ) {
-                            graphics.drawOval( settings.points[i].x, settings.points[i].y, 5, 5 );
-                        }
-                    } else {
-                        graphics.drawImage(media.GetImage( filename  ), settings.startingPoint.x, settings.startingPoint.y, settings.imageSize.x, settings.imageSize.y, null);
-                    }
-                } else {
-                    graphics.drawImage(media.GetImage( filename  ), settings.startingPoint.x, settings.startingPoint.y, settings.imageSize.x, settings.imageSize.y, null);
-                }
+                renderImage(settings);
             } else {
                for( int i = 0; i < settings.GetArmor(); i++ ) {
                     graphics.drawOval( settings.points[i].x, settings.points[i].y, 5, 5 );
@@ -200,27 +184,23 @@ public class PIPPrinter {
         for ( int key : Internal.keySet() ) {
             PIPSettings settings = (PIPSettings) Internal.get(key);
             if ( useCanon && !settings.startingPoint.equals(new Point(0,0)) ) {
-                filename = filePath + Source + "_" + Chassis + "_" + settings.locationPrefix + settings.GetFileNumber() + ExtensionGIF;
-                check = new File( filename  );
-                if( ! check.exists() ) {
-                    filename = filePath + Source + "_" + Chassis + "_" + settings.locationPrefix + settings.GetFileNumber() + ExtensionPNG;
-                    check = new File( filename  );
-                    if( ! check.exists() ) {
-                       for( int i = 0; i < settings.GetInternals(); i++ ) {
-                            graphics.drawOval( settings.points[i].x, settings.points[i].y, 5, 5 );
-                        }
-                    } else {
-                        graphics.drawImage(media.GetImage( filename ), settings.startingPoint.x, settings.startingPoint.y, settings.imageSize.x, settings.imageSize.y, null);
-                    }
-                } else {
-                    graphics.drawImage(media.GetImage( filename ), settings.startingPoint.x, settings.startingPoint.y, settings.imageSize.x, settings.imageSize.y, null);
-                }
+                renderImage(settings);
             } else {
                for( int i = 0; i < settings.GetInternals(); i++ ) {
                     graphics.drawOval( settings.points[i].x, settings.points[i].y, 5, 5 );
                 }
             }
         }
+    }
+
+    private void renderImage( PIPSettings pip ) {
+        String filename = "";
+        Image pattern = null;
+        filename = filePath + Source + "_" + Chassis + "_" + pip.locationPrefix + pip.GetFileNumber();
+        pattern = media.GetImage(filename + ExtensionGIF);
+        if ( pattern == null ) { pattern = media.GetImage(filename + ExtensionPNG); }
+        graphics.drawImage(pattern, pip.startingPoint.x, pip.startingPoint.y, pip.imageSize.x, pip.imageSize.y, null);
+        pattern.flush();
     }
 
 // <editor-fold desc="Settor Methods">
@@ -260,6 +240,7 @@ public class PIPPrinter {
         public int max = 0;
         public Point[] points = null;
         public boolean Internal = false;
+        public Image pattern = null;
 
         public PIPSettings(int LocationID, boolean internal, Point startingPoint, Point imageSize, String locationPrefix, Point[] Points) {
             this.LocationID = LocationID;
