@@ -93,7 +93,12 @@ public class Media {
         } catch (InterruptedException ie) {
             // do nothing
         }
+        Tracker.removeImage(retval);
         return retval;
+    }
+
+    public void RemoveImage(Image image ) {
+        Tracker.removeImage(image);
     }
 
     public String GetDirectorySelection( frmMain Parent ) {
