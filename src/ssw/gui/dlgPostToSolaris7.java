@@ -59,18 +59,13 @@ public class dlgPostToSolaris7 extends javax.swing.JDialog {
         CurMech = Parent.CurMech;
         setTitle( "Post to Solaris7.com" );
         initComponents();
-        txtCallsign.setText(Parent.Prefs.get("S7Callsign", ""));
-        txtPassword.setText(Parent.Prefs.get("S7Password", ""));
-        
-        if( ! CurMech.GetOptions().S7Callsign.equals( "null" ) ) {
-            txtCallsign.setText( CurMech.GetOptions().S7Callsign );
-            if( ! CurMech.GetOptions().S7Password.equals( "null" ) ) {
-                // decode password
-                txtPassword.setText( CurMech.GetOptions().S7Password );
-            }
-            if( CurMech.GetOptions().S7UserID != -1 ) {
-                UserID = CurMech.GetOptions().S7UserID;
-            }
+        Callsign = Parent.Prefs.get("S7Callsign", "");
+        Password = Parent.Prefs.get("S7Password", "");
+        UserID = Parent.Prefs.getInt( "S7UserID", -1 );
+        txtCallsign.setText( Callsign );
+        txtPassword.setText( Password );
+
+        if( ! Callsign.equals( "" ) &! Password.equals( "" ) ) {
             chkSaveInfo.setSelected( true );
         }
 
@@ -353,7 +348,7 @@ private void btnGetArmoriesActionPerformed(java.awt.event.ActionEvent evt) {//GE
     Password = String.copyValueOf( txtPassword.getPassword() );
 
     try {
-        if( CurMech.GetOptions().S7UserID == -1 ) {
+        if( UserID == -1 ) {
             UserID = serve.GetMemberID( Callsign, Password );
             Parent.Prefs.put("S7Callsign", Callsign);
             Parent.Prefs.put("S7Password", Password);
@@ -393,9 +388,12 @@ private void btnPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     // see if we need to save the username, password, and user ID
     setCursor( Hourglass );
     if( chkSaveInfo.isSelected() ) {
-        CurMech.GetOptions().S7Callsign = txtCallsign.getText();
-        CurMech.GetOptions().S7UserID = UserID;
-        CurMech.GetOptions().S7Password = String.copyValueOf( txtPassword.getPassword() );
+        Callsign = txtCallsign.getText();
+        UserID = UserID;
+        Password = String.copyValueOf( txtPassword.getPassword() );
+        Parent.Prefs.put( "S7Callsign", Callsign );
+        Parent.Prefs.put( "S7Password", Password );
+        Parent.Prefs.putInt( "S7UserID", UserID );
     }
 
     // export the mech to HTML
@@ -407,11 +405,11 @@ private void btnPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     } else {
         file = CurMech.GetName() + " " + CurMech.GetModel() + ".html";
     }
-    if( ! CurMech.GetOptions().HTMLPath.equals( "none" ) ) {
-        file = CurMech.GetOptions().HTMLPath + File.separator + file;
+    if( ! Parent.Prefs.get( "HTMLExportPath", "none" ).equals( "none" ) ) {
+        file = Parent.Prefs.get( "HTMLExportPath", "none" ) + File.separator + file;
     }
 
-    HTMLWriter HTMw = new HTMLWriter( CurMech, CurMech.GetOptions() );
+    HTMLWriter HTMw = new HTMLWriter( CurMech );
     String HTMLout = "";
 
     try {

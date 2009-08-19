@@ -48,7 +48,7 @@ public class stPEISMASC implements ifPhysEnhance, ifState {
     public int GetTonnage( int mechtons ) {
         return (int) (mechtons * 0.05f + 0.51f);
     }
-    
+
     public int GetCrits( int mechtons ) {
         return (int) (mechtons * 0.05f + 0.51f);
     }

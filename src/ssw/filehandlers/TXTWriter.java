@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.filehandlers;
 
+import ssw.utilities.CommonTools;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -39,14 +40,12 @@ import ssw.components.*;
 public class TXTWriter {
 
     private Mech CurMech;
-    private Options MyOptions;
     private String NL;
     private boolean Mixed = false;
     public boolean CurrentLoadoutOnly = false;
 
-    public TXTWriter( Mech m, Options o ) {
+    public TXTWriter( Mech m ) {
         CurMech = m;
-        MyOptions = o;
         NL = System.getProperty( "line.separator" );
         if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
             Mixed = true;
@@ -543,7 +542,7 @@ public class TXTWriter {
         retval += "--------------------------------------------------------------------------------" + NL;
 
         // now sort the equipment by location
-        v = FileCommon.SortEquipmentForStats( CurMech, v, MyOptions );
+        v = FileCommon.SortEquipmentForStats( CurMech, v );
 
         // turn the equipment into an array
         abPlaceable[] equips = new abPlaceable[v.size()];
@@ -736,7 +735,7 @@ public class TXTWriter {
         }
 
         // now sort the equipment by location
-        v = FileCommon.SortEquipmentForStats( CurMech, v, MyOptions );
+        v = FileCommon.SortEquipmentForStats( CurMech, v );
 
         // turn the equipment into an array
         abPlaceable[] equips = new abPlaceable[v.size()];
@@ -875,7 +874,7 @@ public class TXTWriter {
 
         // build the string based on the type of equipment
         if( p instanceof Ammunition ) {
-            retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", FileCommon.FormatAmmoPrintName( (Ammunition) p, numthisloc ), loc, "-", crits, p.GetTonnage() * numthisloc ) + NL;
+            retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", FileCommon.FormatAmmoExportName( (Ammunition) p, numthisloc ), loc, "-", crits, p.GetTonnage() * numthisloc ) + NL;
         } else if( p instanceof RangedWeapon ) {
             double tons = p.GetTonnage();
             String add = "";

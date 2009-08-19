@@ -36,13 +36,40 @@ import javax.swing.JList;
 import ssw.*;
 import ssw.components.*;
 
-public class MechLoadoutRenderer  extends DefaultListCellRenderer {
-    private Options CurOptions;
+public class MechLoadoutRenderer extends DefaultListCellRenderer {
     private frmMain Parent;
+    private Color EmptyFG,
+                  EmptyBG,
+                  NormalFG,
+                  NormalBG,
+                  ArmoredFG,
+                  ArmoredBG,
+                  LinkedFG,
+                  LinkedBG,
+                  LockedFG,
+                  LockedBG,
+                  HiliteFG,
+                  HiliteBG;
 
-    public MechLoadoutRenderer( frmMain p, Options o ) {
+    public MechLoadoutRenderer( frmMain p ) {
         Parent = p;
-        CurOptions = o;
+        Reset();
+    }
+
+    public void Reset() {
+        // resets the colors on prefs change
+        EmptyFG = new Color( Parent.Prefs.getInt( "ColorEmptyItemFG", -16777216 ) );
+        EmptyBG = new Color( Parent.Prefs.getInt( "ColorEmptyItemBG", -6684775 ) );
+        NormalFG = new Color( Parent.Prefs.getInt( "ColorNormalItemFG", -16777216 ) );
+        NormalBG = new Color( Parent.Prefs.getInt( "ColorNormalItemBG", -10027009 ) );
+        ArmoredFG = new Color( Parent.Prefs.getInt( "ColorArmoredItemFG", -1 ) );
+        ArmoredBG = new Color( Parent.Prefs.getInt( "ColorArmoredItemBG", -6710887 ) );
+        LinkedFG = new Color( Parent.Prefs.getInt( "ColorLinkedItemFG", -16777216 ) );
+        LinkedBG = new Color( Parent.Prefs.getInt( "ColorLinkedItemBG", -3618616 ) );
+        LockedFG = new Color( Parent.Prefs.getInt( "ColorLockedItemFG", -3342337 ) );
+        LockedBG = new Color( Parent.Prefs.getInt( "ColorLockedItemBG", -16777216 ) );
+        HiliteFG = new Color( Parent.Prefs.getInt( "ColorHiLiteItemFG", -16777216 ) );
+        HiliteBG = new Color( Parent.Prefs.getInt( "ColorHiLiteItemBG", -52 ) );
     }
 
     @Override
@@ -87,25 +114,25 @@ public class MechLoadoutRenderer  extends DefaultListCellRenderer {
         if( value instanceof abPlaceable ) {
             a = (abPlaceable) value;
             if( a.IsArmored() ) {
-                label.setBackground( CurOptions.bg_ARMORED );
-                label.setForeground( CurOptions.fg_ARMORED );
-                BorderCol = CurOptions.bg_ARMORED;
+                label.setBackground( ArmoredBG );
+                label.setForeground( ArmoredFG );
+                BorderCol = ArmoredBG;
             } else if( a.LocationLinked() ) {
-                label.setBackground( CurOptions.bg_LINKED );
-                label.setForeground( CurOptions.fg_LINKED );
-                BorderCol = CurOptions.bg_LINKED;
+                label.setBackground( LinkedBG );
+                label.setForeground( LinkedFG );
+                BorderCol = LinkedBG;
             } else if( a.LocationLocked() ) {
-                label.setBackground( CurOptions.bg_LOCKED );
-                label.setForeground( CurOptions.fg_LOCKED );
-                BorderCol = CurOptions.bg_LOCKED;
+                label.setBackground( LockedBG );
+                label.setForeground( LockedFG );
+                BorderCol = LockedBG;
             } else if( a instanceof EmptyItem ) {
-                label.setBackground( CurOptions.bg_EMPTY );
-                label.setForeground( CurOptions.fg_EMPTY );
-                BorderCol = CurOptions.bg_EMPTY;
+                label.setBackground( EmptyBG );
+                label.setForeground( EmptyFG );
+                BorderCol = EmptyBG;
             } else {
-                label.setBackground( CurOptions.bg_NORMAL );
-                label.setForeground( CurOptions.fg_NORMAL );
-                BorderCol = CurOptions.bg_NORMAL;
+                label.setBackground( NormalBG );
+                label.setForeground( NormalFG );
+                BorderCol = NormalBG;
             }
             if( Parent.CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
                 Text = a.GetLookupName();
@@ -136,8 +163,8 @@ public class MechLoadoutRenderer  extends DefaultListCellRenderer {
             if( ! Parent.CurItem.Contiguous() ) {
                 size = 1;
             }
-            label.setBackground( CurOptions.bg_HILITE );
-            label.setForeground( CurOptions.fg_HILITE );
+            label.setBackground( HiliteBG );
+            label.setForeground( HiliteFG );
             if( Parent.CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
                 Text =  Parent.CurItem.GetLookupName();
             } else {

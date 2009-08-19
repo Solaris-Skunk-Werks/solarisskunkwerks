@@ -38,7 +38,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.util.Vector;
-import ssw.CommonTools;
+import ssw.utilities.CommonTools;
 import ssw.Constants;
 import ssw.components.*;
 import ssw.filehandlers.FileCommon;
@@ -938,8 +938,8 @@ public class PrintMech implements Printable {
 
         // check boxes
         graphics.setFont( PlainFont );
-        String temp = "Single";
-        if( CurMech.GetHeatSinks().IsDouble() ) { temp = "Double"; }
+        String temp = CurMech.GetHeatSinks().GetLookupName();
+        temp = temp.split( " " )[0];
         graphics.drawString( temp, p[PrintConsts.HEATSINK_NUMBER].x, p[PrintConsts.HEATSINK_NUMBER].y + 11 );
 
         temp = CommonTools.GetTechbaseString( CurMech.GetTechBase() );

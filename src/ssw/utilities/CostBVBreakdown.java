@@ -29,7 +29,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.utilities;
 
 import java.util.Vector;
-import ssw.CommonTools;
 import ssw.Constants;
 import ssw.components.*;
 

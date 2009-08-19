@@ -34,7 +34,7 @@ import ssw.gui.frmMain;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.*;
-import ssw.CommonTools;
+import ssw.utilities.CommonTools;
 import ssw.Constants;
 import ssw.visitors.VMechFullRecalc;
 import ssw.visitors.ifVisitor;

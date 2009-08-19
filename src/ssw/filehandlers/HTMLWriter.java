@@ -37,20 +37,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Vector;
-import ssw.CommonTools;
-import ssw.Options;
+import java.util.prefs.Preferences;
+import ssw.utilities.CommonTools;
 
 public class HTMLWriter {
 
     private Mech CurMech;
     private Hashtable lookup = new Hashtable<String, String>( 90 );
     private String NL = "<BR />";
-    private Options MyOptions;
     private boolean Mixed = false;
+    private Preferences Prefs;
 
-    public HTMLWriter( Mech m, Options o ) {
+    public HTMLWriter( Mech m ) {
         CurMech = m;
-        MyOptions = o;
+        Prefs = m.GetPrefs();
         // if the current mech is an omnimech, set the loadout to the base
         // before we build the hash table
         if( CurMech.IsOmnimech() ) {
@@ -692,7 +692,7 @@ public class HTMLWriter {
 
                         if( check.equals( "<+-SSW_EQUIP_NAME-+>" ) ) {
                             if( a instanceof Ammunition ) {
-                                retval += FileCommon.FormatAmmoPrintName( ((Ammunition) a), numthisloc );
+                                retval += FileCommon.FormatAmmoExportName( ((Ammunition) a), numthisloc );
                             } else {
                                 if( Mixed ) {
                                     retval += a.GetLookupName();
@@ -875,7 +875,7 @@ public class HTMLWriter {
 
                         if( check.equals( "<+-SSW_EQUIP_NAME-+>" ) ) {
                             if( a instanceof Ammunition ) {
-                                retval += FileCommon.FormatAmmoPrintName( ((Ammunition) a), numthisloc );
+                                retval += FileCommon.FormatAmmoExportName( ((Ammunition) a), numthisloc );
                             } else {
                                 if( Mixed ) {
                                     retval += a.GetLookupName();
@@ -1126,7 +1126,7 @@ public class HTMLWriter {
             }
 
             // sort the weapons by location
-            ret = FileCommon.SortEquipmentForStats( CurMech, ret, MyOptions );
+            ret = FileCommon.SortEquipmentForStats( CurMech, ret );
 
             // check for artemis and MG arrays
             for( int i = 0; i < ret.size(); i++ ) {

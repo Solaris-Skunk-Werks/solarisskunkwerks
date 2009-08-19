@@ -57,6 +57,9 @@ public class Constants {
                      DOUBLE_HEATSINK = 1,
                      DEFAULT_CTR_ARMOR_PERCENT = 25,
                      DEFAULT_STR_ARMOR_PERCENT = 25,
+                     ARMOR_PRIORITY_TORSO = 0,
+                     ARMOR_PRIORITY_ARMS = 1,
+                     ARMOR_PRIORITY_LEGS = 2,
                      LOC_HD = 0,
                      LOC_CT = 1,
                      LOC_LT = 2,
@@ -77,7 +80,6 @@ public class Constants {
                      BF_LONG = 2,
                      BF_EXTREME = 3,
                      BF_OV = 4;
-
 
     public final static String strSTAR_LEAGUE = "Age of War/Star League",
                         strSUCCESSION = "Succession Wars",

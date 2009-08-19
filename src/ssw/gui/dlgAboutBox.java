@@ -150,7 +150,7 @@ public class dlgAboutBox extends javax.swing.JDialog {
         getContentPane().add(lblEmailLabel, gridBagConstraints);
 
         lblEmail.setFont(new java.awt.Font("Arial", 0, 11));
-        lblEmail.setText("poopshotgun@yahoo.com");
+        lblEmail.setText("LostInSpace@SolarisSkunkWerks.com");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;

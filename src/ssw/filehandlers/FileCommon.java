@@ -29,9 +29,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.filehandlers;
 
 import java.util.Vector;
+import java.util.prefs.Preferences;
 import ssw.Constants;
-import ssw.Options;
 import ssw.components.*;
+import ssw.gui.frmMain;
 
 public class FileCommon {
     // contains common filehandler routines (mostly those shared between TXT and
@@ -516,12 +517,14 @@ public class FileCommon {
         return retval;
     }
 
-    public static Vector SortEquipmentForStats( Mech m, Vector v, Options o ) {
+    public static Vector SortEquipmentForStats( Mech m, Vector v ) {
         // this routine takes the given vector of equipment and sorts it by
         // location, starting with the head and working down to legs.
         Vector[] sort = { new Vector(), new Vector(), new Vector(), new Vector(),
             new Vector(), new Vector(), new Vector(), new Vector() };
         Vector retval = new Vector();
+        boolean ExportOut = m.GetPrefs().getBoolean( "ExportSortOut", false );
+        boolean AmmoEnd = m.GetPrefs().getBoolean( "AmmoGroupAtBottom", true );
 
         // for each item in the given vector, find it's innermost location and
         // place it into the appropriate vector
@@ -537,7 +540,7 @@ public class FileCommon {
 
         // for each vector that has items, add them to the return vector in
         // the correct order, based on options.
-        if( o.Export_Sort == o.EXPORT_SORT_OUT ) {
+        if( ExportOut ) {
             if( sort[0].size() > 0 ) {
                 for( int j = 0; j < sort[0].size(); j++ ) {
                     retval.add( sort[0].get( j ) );
@@ -622,7 +625,7 @@ public class FileCommon {
         }
 
         // if we need to put ammunition at the end, do it now.
-        if( o.Export_AmmoAtEnd ) {
+        if( AmmoEnd ) {
             Vector Ammo = new Vector();
             for( int i = retval.size() - 1; i >= 0; i-- ) {
                 if( retval.get( i ) instanceof Ammunition ) {
@@ -705,7 +708,23 @@ public class FileCommon {
     public static String FormatAmmoPrintName( Ammunition a, int tons ) {
         // this routine returns a user-defined ammunition name based on a user-
         // defined ammunition filter.
-        String retval = (new Options()).AmmoNameFormat;
+        Preferences Prefs = Preferences.userNodeForPackage( frmMain.class );
+        String retval = Prefs.get( "AmmoNamePrintFormat", "@%P (%L)" );
+        retval = retval.replace( "%F", a.GetCritName() );
+        retval = retval.replace( "%P", a.GetPrintName() );
+        if( tons > 1 ) {
+            retval = retval.replace( "%L", "" + ( a.GetLotSize() * tons ) );
+        } else {
+            retval = retval.replace( "%L", "" + a.GetLotSize() );
+        }
+        return retval;
+    }
+
+    public static String FormatAmmoExportName( Ammunition a, int tons ) {
+        // this routine returns a user-defined ammunition name based on a user-
+        // defined ammunition filter.
+        Preferences Prefs = Preferences.userNodeForPackage( frmMain.class );
+        String retval = Prefs.get( "AmmoNameExportFormat", "@%P (%L)" );
         retval = retval.replace( "%F", a.GetCritName() );
         retval = retval.replace( "%P", a.GetPrintName() );
         if( tons > 1 ) {

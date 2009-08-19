@@ -31,6 +31,7 @@ package ssw.components;
 import ssw.battleforce.*;
 import java.util.Hashtable;
 import java.util.Vector;
+import java.util.prefs.Preferences;
 import ssw.*;
 import ssw.gui.frmMain;
 import ssw.visitors.*;
@@ -115,16 +116,19 @@ public class Mech implements ifBattleforce {
                       RLAES = new AESSystem( this, true ),
                       CurLAAES,
                       CurRAAES;
-    private Options options = new Options();
     private Hashtable Lookup = new Hashtable();
     private AvailableCode OmniAvailable = new AvailableCode( AvailableCode.TECH_BOTH );
+    private Preferences Prefs;
 
     // Constructors
     public Mech() {
+        // no prefs file, create one
+        Prefs = Preferences.userNodeForPackage( frmMain.class );
         Load();
     }
 
     public Mech( frmMain window ) {
+        Prefs = window.Prefs;
         Load();
     }
 
@@ -1394,7 +1398,9 @@ public class Mech implements ifBattleforce {
         int result = 0;
         result += GetMovementHeat();
         result += GetWeaponHeat();
-        result += GetTotalModifiers( false, true ).HeatAdder();
+        if( ! Prefs.getBoolean( "HeatExcludeSystems", false ) ) {
+            result += GetTotalModifiers( false, true ).HeatAdder();
+        }
         return result;
     }
 
@@ -1415,8 +1421,8 @@ public class Mech implements ifBattleforce {
             if( jump < minjumpheat ) { jump = minjumpheat; }
         }
 
-        if( options.Heat_RemoveJumps ) {
-            if( options.Heat_RemoveMovement ) {
+        if( Prefs.getBoolean( "HeatExcludeJumpMP", false ) ) {
+            if( Prefs.getBoolean( "HeatExcludeAllMP", false ) ) {
                 walk = CurEngine.MinimumHeat();
                 jump = 0;
             } else {
@@ -1466,17 +1472,18 @@ public class Mech implements ifBattleforce {
         }
 
         abPlaceable a;
-        boolean UseOS = options.Heat_RemoveOSWeapons;
-        boolean UseRear = options.Heat_RemoveRearWeapons;
-        boolean FullRate = options.Heat_UAC_RAC_FullRate;
+        boolean ExcludeOS = Prefs.getBoolean( "HeatExcludeOS", false );
+        boolean ExcludeRear = Prefs.getBoolean( "HeatExcludeRear", false );
+        boolean FullRate = Prefs.getBoolean( "HeatACFullRate", false );
+        boolean ExcludeEquip = Prefs.getBoolean( "HeatExcludeEquips", false );
         for( int i = 0; i < v.size(); i++ ) {
             a = (abPlaceable) v.get( i );
             if( a instanceof ifWeapon ) {
                 boolean OS = ((ifWeapon) a).IsOneShot();
                 boolean Rear = a.IsMountedRear();
-                if( UseOS || UseRear ) {
-                    if( UseOS ) {
-                        if( UseRear ) {
+                if( ExcludeOS || ExcludeRear ) {
+                    if( ExcludeOS ) {
+                        if( ExcludeRear ) {
                             if( ! OS &! Rear ) {
                                 result += ((ifWeapon) a).GetHeat();
                             }
@@ -1485,8 +1492,8 @@ public class Mech implements ifBattleforce {
                                 result += ((ifWeapon) a).GetHeat();
                             }
                         }
-                    } else if( UseRear ) {
-                        if( UseOS ) {
+                    } else if( ExcludeRear ) {
+                        if( ExcludeOS ) {
                             if( ! OS &! Rear ) {
                                 result += ((ifWeapon) a).GetHeat();
                             }
@@ -1514,7 +1521,7 @@ public class Mech implements ifBattleforce {
                     }
                 }
             } else if( a instanceof Equipment ) {
-                if( ! options.Heat_RemoveEquipment ) {
+                if( ! ExcludeEquip ) {
                     result += ((Equipment) a).GetHeat();
                 }
             }
@@ -2225,9 +2232,9 @@ public class Mech implements ifBattleforce {
         v.Visit( this );
     }
 
-    public Options GetOptions() {
+    public Preferences GetPrefs() {
         // provided for the components that may be governed by options
-        return options;
+        return Prefs;
     }
 
     public double GetEquipCost() {

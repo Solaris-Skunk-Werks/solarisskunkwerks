@@ -34,7 +34,7 @@ import java.awt.print.*;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import ssw.CommonTools;
+import ssw.utilities.CommonTools;
 import ssw.components.Mech;
 import ssw.filehandlers.Media;
 import ssw.gui.*;
@@ -87,6 +87,10 @@ public class Printer {
 
     public Boolean getCharts() {
         return Charts;
+    }
+
+    public Vector GetMechs() {
+        return Mechs;
     }
 
     public void setCharts(Boolean Charts) {

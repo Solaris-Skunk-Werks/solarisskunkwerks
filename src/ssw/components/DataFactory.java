@@ -30,12 +30,10 @@ package ssw.components;
 
 import java.util.Vector;
 import ssw.Constants;
-import ssw.Options;
 import ssw.filehandlers.BinaryReader;
 
 public class DataFactory {
     // Class file to make data lookups easier and disconnected from the GUI
-    Options GlobalOptions = new Options();
     Object[][] Equipment = { { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null } };
     EquipmentFactory Equips;
 

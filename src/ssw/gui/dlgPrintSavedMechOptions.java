@@ -5,7 +5,7 @@ package ssw.gui;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import ssw.CommonTools;
+import ssw.utilities.CommonTools;
 import ssw.components.Mech;
 import java.util.Vector;
 import javax.swing.ImageIcon;

@@ -285,8 +285,8 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
 
     private File[] SelectMechs(){
         File[] files = null;
-        File tempFile = new File(parent.Prefs.get("LastOpenDirectory", ""));
-        JFileChooser fc = new JFileChooser( parent.GlobalOptions.SaveLoadPath );
+        File tempFile = new File( parent.Prefs.get("LastOpenDirectory", "" ) );
+        JFileChooser fc = new JFileChooser();
         fc.setMultiSelectionEnabled(true);
         fc.addChoosableFileFilter( new javax.swing.filechooser.FileFilter() {
             public boolean accept( File f ) {

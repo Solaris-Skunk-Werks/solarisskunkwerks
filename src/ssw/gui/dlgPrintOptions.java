@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.gui;
 
 import java.util.Vector;
-import ssw.CommonTools;
+import ssw.utilities.CommonTools;
 import ssw.components.Mech;
 import javax.print.*;
 

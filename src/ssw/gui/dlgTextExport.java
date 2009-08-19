@@ -28,7 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
-import ssw.Options;
 import ssw.components.Mech;
 import ssw.filehandlers.TXTWriter;
 
@@ -38,7 +37,7 @@ public class dlgTextExport extends javax.swing.JDialog {
     public dlgTextExport(java.awt.Frame parent, boolean modal, Mech m ) {
         super(parent, modal);
         initComponents();
-        TXTWriter t = new TXTWriter( m, new Options() );
+        TXTWriter t = new TXTWriter( m );
         txtTextExport.setText( t.GetTextExport() );
         txtTextExport.setCaretPosition( 0 );
         setTitle( m.GetName() );

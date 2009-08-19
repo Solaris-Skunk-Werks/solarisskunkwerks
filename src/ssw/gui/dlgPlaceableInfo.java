@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
-import ssw.CommonTools;
+import ssw.utilities.CommonTools;
 import ssw.components.*;
 
 public class dlgPlaceableInfo extends javax.swing.JDialog {

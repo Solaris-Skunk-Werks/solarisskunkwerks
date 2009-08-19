@@ -27,6 +27,8 @@ Version 0.7.0
 - Added support for Primitive 'Mechs.
 - Added VGLs (in Artillery) along with their context menus (on the Crits tab, after placement).
 - Added compact and laser heat sinks, and support for variable tonnage equipment.
+- Added an ammo chooser to the printing functions.
+- Added an ammo name formatter for export in addition to the print format.
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.
@@ -66,6 +68,11 @@ Version 0.7.0
 - Maximum jump MP for IJJs now restricted if using Hardened Armor.
 - Right-click context menu is now consolidated, most options available anywhere.
 - Text TRO format (HTML and TEXT) now consolidates equipment by location.
+- Allowed variable-tonnage equipment to act as such.
+- Fixed VGL information on the Equipment tab.
+- The correct heat sink type is now printed on the recordsheet.
+- Saving and exporting 'Mechs now works in a consistent manner.
+- Revamped the Options screen and migrated to java.utils.prefs.* fully.
 
 -------------------------------------------------------------------------------
 Version 0.6.0

@@ -28,16 +28,20 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.visitors;
 
+import java.util.prefs.Preferences;
 import ssw.*;
 import ssw.components.*;
 
 public class VSetArmorTonnage implements ifVisitor {
     private double ArmorTons;
     private int Armor[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    private Options CurOpts;
+    private int CTRPerc = Constants.DEFAULT_CTR_ARMOR_PERCENT,
+                STRPerc = Constants.DEFAULT_STR_ARMOR_PERCENT,
+                ArmorPriority = Constants.ARMOR_PRIORITY_TORSO;
+    private Preferences Prefs;
 
-    public VSetArmorTonnage( Options o ) {
-        CurOpts = o;
+    public VSetArmorTonnage( Preferences p ) {
+        Prefs = p;
     }
 
     public void SetClan( boolean clan ) {
@@ -53,6 +57,9 @@ public class VSetArmorTonnage implements ifVisitor {
 
     public void Visit(Mech m) {
         // only the armor changes, so pass us off
+        CTRPerc = Prefs.getInt( "ArmorCTRPercent", Constants.DEFAULT_CTR_ARMOR_PERCENT );
+        STRPerc = Prefs.getInt( "ArmorSTRPercent", Constants.DEFAULT_STR_ARMOR_PERCENT );
+        ArmorPriority = Prefs.getInt( "ArmorPriority", Constants.ARMOR_PRIORITY_TORSO );
         Armor a = m.GetArmor();
 
         // set the armor tonnage
@@ -76,13 +83,13 @@ public class VSetArmorTonnage implements ifVisitor {
             a.SetArmor( Constants.LOC_RA, a.GetLocationMax( Constants.LOC_RA ) );
             a.SetArmor( Constants.LOC_LL, a.GetLocationMax( Constants.LOC_LL ) );
             a.SetArmor( Constants.LOC_RL, a.GetLocationMax( Constants.LOC_RL ) );
-            int rear = Math.round( a.GetLocationMax( Constants.LOC_CT ) * CurOpts.Armor_CTRPercent / 100 );
+            int rear = Math.round( a.GetLocationMax( Constants.LOC_CT ) * CTRPerc / 100 );
             a.SetArmor( Constants.LOC_CTR, rear );
             a.SetArmor( Constants.LOC_CT, a.GetLocationMax( Constants.LOC_CT ) - rear );
-            rear = Math.round( a.GetLocationMax( Constants.LOC_LT ) * CurOpts.Armor_STRPercent / 100 );
+            rear = Math.round( a.GetLocationMax( Constants.LOC_LT ) * STRPerc / 100 );
             a.SetArmor( Constants.LOC_LTR, rear );
             a.SetArmor( Constants.LOC_LT, a.GetLocationMax( Constants.LOC_LT ) - rear );
-            rear = Math.round( a.GetLocationMax( Constants.LOC_RT ) * CurOpts.Armor_STRPercent / 100 );
+            rear = Math.round( a.GetLocationMax( Constants.LOC_RT ) * STRPerc / 100 );
             a.SetArmor( Constants.LOC_RTR, rear );
             a.SetArmor( Constants.LOC_RT, a.GetLocationMax( Constants.LOC_RT ) - rear );
         } else if( ArmorTons <= 0 ) {
@@ -113,14 +120,14 @@ public class VSetArmorTonnage implements ifVisitor {
 
         Armor[Constants.LOC_HD] = (int) Math.floor( AV * 0.06f );
         Armor[Constants.LOC_CT] = (int) Math.floor( AV * 0.15f );
-        Armor[Constants.LOC_CTR] = (int) Math.round( Armor[Constants.LOC_CT] * CurOpts.Armor_CTRPercent / 100 );
-        switch( CurOpts.Armor_Priority ) {
+        Armor[Constants.LOC_CTR] = (int) Math.round( Armor[Constants.LOC_CT] * CTRPerc / 100 );
+        switch( Prefs.getInt( "ArmorPriority", Constants.ARMOR_PRIORITY_TORSO ) ) {
         case 0:
             // torsos
             Armor[Constants.LOC_LT] = (int) Math.floor( AV * 0.13f );
-            Armor[Constants.LOC_LTR] = (int) Math.round( Armor[Constants.LOC_LT] * CurOpts.Armor_STRPercent / 100 );
+            Armor[Constants.LOC_LTR] = (int) Math.round( Armor[Constants.LOC_LT] * STRPerc / 100 );
             Armor[Constants.LOC_RT] = (int) Math.floor( AV * 0.13f );
-            Armor[Constants.LOC_RTR] = (int) Math.round( Armor[Constants.LOC_RT] * CurOpts.Armor_STRPercent / 100 );
+            Armor[Constants.LOC_RTR] = (int) Math.round( Armor[Constants.LOC_RT] * STRPerc / 100 );
             Armor[Constants.LOC_RA] = (int) Math.floor( AV * 0.09f );
             Armor[Constants.LOC_LA] = (int) Math.floor( AV * 0.09f );
             Armor[Constants.LOC_LL] = (int) Math.floor( AV * 0.12f );
@@ -129,9 +136,9 @@ public class VSetArmorTonnage implements ifVisitor {
         case 1:
             // arms
             Armor[Constants.LOC_LT] = (int) Math.floor( AV * 0.13f );
-            Armor[Constants.LOC_LTR] = (int) Math.round( Armor[Constants.LOC_LT] * CurOpts.Armor_STRPercent / 100 );
+            Armor[Constants.LOC_LTR] = (int) Math.round( Armor[Constants.LOC_LT] * STRPerc / 100 );
             Armor[Constants.LOC_RT] = (int) Math.floor( AV * 0.13f );
-            Armor[Constants.LOC_RTR] = (int) Math.round( Armor[Constants.LOC_RT] * CurOpts.Armor_STRPercent / 100 );
+            Armor[Constants.LOC_RTR] = (int) Math.round( Armor[Constants.LOC_RT] * STRPerc / 100 );
             Armor[Constants.LOC_RA] = (int) Math.floor( AV * 0.12f );
             Armor[Constants.LOC_LA] = (int) Math.floor( AV * 0.12f );
             Armor[Constants.LOC_LL] = (int) Math.floor( AV * 0.09f );
@@ -140,9 +147,9 @@ public class VSetArmorTonnage implements ifVisitor {
         case 2:
             // legs
             Armor[Constants.LOC_LT] = (int) Math.floor( AV * 0.12f );
-            Armor[Constants.LOC_LTR] = (int) Math.round( Armor[Constants.LOC_LT] * CurOpts.Armor_STRPercent / 100 );
+            Armor[Constants.LOC_LTR] = (int) Math.round( Armor[Constants.LOC_LT] * STRPerc / 100 );
             Armor[Constants.LOC_RT] = (int) Math.floor( AV * 0.12f );
-            Armor[Constants.LOC_RTR] = (int) Math.round( Armor[Constants.LOC_RT] * CurOpts.Armor_STRPercent / 100 );
+            Armor[Constants.LOC_RTR] = (int) Math.round( Armor[Constants.LOC_RT] * STRPerc / 100 );
             Armor[Constants.LOC_RA] = (int) Math.floor( AV * 0.09f );
             Armor[Constants.LOC_LA] = (int) Math.floor( AV * 0.09f );
             Armor[Constants.LOC_LL] = (int) Math.floor( AV * 0.13f );
@@ -176,7 +183,7 @@ public class VSetArmorTonnage implements ifVisitor {
         if( Armor[Constants.LOC_CT] + Armor[Constants.LOC_CTR] > a.GetLocationMax( Constants.LOC_CT ) ) {
             // find out how much we are over, correct, and then add the excess to the AV
             int mid = Armor[Constants.LOC_CT] + Armor[Constants.LOC_CTR] - a.GetLocationMax( Constants.LOC_CT );
-            int rear = Math.round( a.GetLocationMax( Constants.LOC_CT ) * CurOpts.Armor_CTRPercent * 0.01f + 0.49f );
+            int rear = Math.round( a.GetLocationMax( Constants.LOC_CT ) * CTRPerc * 0.01f + 0.49f );
             Armor[Constants.LOC_CTR] = rear;
             Armor[Constants.LOC_CT] = a.GetLocationMax( Constants.LOC_CT ) - rear;
             result += mid;
@@ -186,7 +193,7 @@ public class VSetArmorTonnage implements ifVisitor {
         if( Armor[Constants.LOC_LT] + Armor[Constants.LOC_LTR] > a.GetLocationMax( Constants.LOC_LT ) ) {
             // find out how much we are over, correct, and then add the excess to the AV
             int mid = Armor[Constants.LOC_LT] + Armor[Constants.LOC_LTR] - a.GetLocationMax( Constants.LOC_LT );
-            int rear = Math.round( a.GetLocationMax( Constants.LOC_LT ) * CurOpts.Armor_STRPercent * 0.01f + 0.49f );
+            int rear = Math.round( a.GetLocationMax( Constants.LOC_LT ) * STRPerc * 0.01f + 0.49f );
             Armor[Constants.LOC_LTR] = rear;
             Armor[Constants.LOC_LT] = a.GetLocationMax( Constants.LOC_LT ) - rear;
             result += mid;
@@ -196,7 +203,7 @@ public class VSetArmorTonnage implements ifVisitor {
         if( Armor[Constants.LOC_RT] + Armor[Constants.LOC_RTR] > a.GetLocationMax( Constants.LOC_RT ) ) {
             // find out how much we are over, correct, and then add the excess to the AV
             int mid = Armor[Constants.LOC_RT] + Armor[Constants.LOC_RTR] - a.GetLocationMax( Constants.LOC_RT );
-            int rear = Math.round( a.GetLocationMax( Constants.LOC_RT ) * CurOpts.Armor_STRPercent * 0.01f + 0.49f );
+            int rear = Math.round( a.GetLocationMax( Constants.LOC_RT ) * STRPerc * 0.01f + 0.49f );
             Armor[Constants.LOC_RTR] = rear;
             Armor[Constants.LOC_RT] = a.GetLocationMax( Constants.LOC_RT ) - rear;
             result += mid;
@@ -240,11 +247,12 @@ public class VSetArmorTonnage implements ifVisitor {
     private void AllocateExtra( Armor a, int AV ) {
         // recursive routine for allocating the armor.  Pass in the AV we have
         // to distribute.   We'll do it round-robin style by priority
+        boolean HeadMax = Prefs.getBoolean( "ArmorMaxHead", true );
 
         // head first
         if( Armor[Constants.LOC_HD] < a.GetLocationMax( Constants.LOC_HD ) ) {
             if( AV > 0 ) {
-                if( CurOpts.Armor_Head == CurOpts.HEAD_MAX ) {
+                if( HeadMax ) {
                     // head maximum
                     if( AV > 9 - Armor[Constants.LOC_HD] ) {
                         // enough to do the job
@@ -272,7 +280,7 @@ public class VSetArmorTonnage implements ifVisitor {
             // haven't exceeded the maximum yet
             if( AV > 0 ) {
                 // some AV to distribute.  See who deserves it on this round
-                if( ( Math.round( Armor[Constants.LOC_CT] * CurOpts.Armor_CTRPercent * 0.01f + 0.49f ) ) > Armor[Constants.LOC_CTR] ) {
+                if( ( Math.round( Armor[Constants.LOC_CT] * CTRPerc * 0.01f + 0.49f ) ) > Armor[Constants.LOC_CTR] ) {
                     // allocate to the rear torso
                     Armor[Constants.LOC_CTR]++;
                     AV--;
@@ -292,7 +300,7 @@ public class VSetArmorTonnage implements ifVisitor {
             // haven't exceeded the maximum yet
             if( AV > 0 ) {
                 // some AV to distribute.  See who deserves it on this round
-                if( ( Math.round( Armor[Constants.LOC_LT] * CurOpts.Armor_STRPercent * 0.01f + 0.49f ) ) > Armor[Constants.LOC_LTR] ) {
+                if( ( Math.round( Armor[Constants.LOC_LT] * STRPerc * 0.01f + 0.49f ) ) > Armor[Constants.LOC_LTR] ) {
                     // allocate to the rear torso
                     Armor[Constants.LOC_LTR]++;
                     AV--;
@@ -312,7 +320,7 @@ public class VSetArmorTonnage implements ifVisitor {
             // haven't exceeded the maximum yet
             if( AV > 0 ) {
                 // some AV to distribute.  See who deserves it on this round
-                if( ( Math.round( Armor[Constants.LOC_RT] * CurOpts.Armor_STRPercent * 0.01f + 0.49f ) ) > Armor[Constants.LOC_RTR] ) {
+                if( ( Math.round( Armor[Constants.LOC_RT] * STRPerc * 0.01f + 0.49f ) ) > Armor[Constants.LOC_RTR] ) {
                     // allocate to the rear torso
                     Armor[Constants.LOC_RTR]++;
                     AV--;

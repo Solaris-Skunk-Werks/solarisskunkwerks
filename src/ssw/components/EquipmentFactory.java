@@ -27,6 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package ssw.components;
 
+import ssw.utilities.CommonTools;
 import java.util.Vector;
 import ssw.*;
 
@@ -165,6 +166,43 @@ public class EquipmentFactory {
             retval.SetExclusions( p.GetExclusions() );
         }
         return retval;
+    }
+
+    public Object[] GetAllAmmo( int key, int RulesLevel ) {
+        // returns an array containing all the ammunition for the specified
+        // weapon key regardless of whether it is available (for printing)
+        Vector v = new Vector(),
+                test;
+
+        // find the ammunition
+        for( int i = 0; i < Ammo.size(); i++ ) {
+            if( key == ((Ammunition) Ammo.get( i )).GetAmmoIndex() ) {
+                Ammunition a = (Ammunition) Ammo.get( i );
+                if( v.contains( a ) ) { break; }
+                v.add( a );
+            }
+        }
+
+        return v.toArray();
+    }
+
+    public Object[] GetAmmoByYear( int key, int Year, int RulesLevel, Mech m ) {
+        // returns an array containing all the ammunition for the specified
+        // weapon key regardless of whether it is available (for printing)
+        Vector v = new Vector(),
+                test;
+
+        // find the ammunition
+        for( int i = 0; i < Ammo.size(); i++ ) {
+            if( key == ((Ammunition) Ammo.get( i )).GetAmmoIndex() ) {
+                Ammunition a = (Ammunition) Ammo.get( i );
+                AvailableCode AC = a.GetAvailability();
+                if( v.contains( a ) ) { break; }
+                if( CommonTools.IsAllowed(AC, RulesLevel, m.GetTechBase(), m.IsPrimitive(), m.IsIndustrialmech(), 0, true, Year ) ) { v.add( a ); }
+            }
+        }
+
+        return v.toArray();
     }
 
     public Object[] GetAmmo( int key, Mech m ) {
@@ -1392,6 +1430,22 @@ public class EquipmentFactory {
         addEQ.SetStats(12, 12.0, 4000000000.0, 0.0, 0.0, "-");
         Equipment.add(addEQ);
 
+        a = new AvailableCode( AvailableCode.TECH_BOTH );
+        a.SetISCodes( 'D', 'C', 'D', 'C' );
+        a.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
+        a.SetISFactions( "", "", "PS", "" );
+        a.SetCLCodes( 'D', 'C', 'D', 'C' );
+        a.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
+        a.SetCLFactions( "", "", "PS", "" );
+        a.SetPBMAllowed( true );
+        a.SetPIMAllowed( true );
+        a.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        addEQ = new Equipment("Communications Equipment","Communications Equipment", "E", a );
+        addEQ.SetMegaMekName("CommunicationsEquipment");
+        addEQ.SetStats( 1, 1, 0, 0, 0, "-" );
+        addEQ.SetVariableSize( true, 1.0, 12.0, 1.0, 1.0, 10000.0 );
+        Equipment.add(addEQ);
+
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
         a.SetISCodes( 'E', 'E', 'F', 'D' );
         a.SetISDates( 0, 0, false, 2597, 2845, 3045, true, true );
@@ -1745,9 +1799,10 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new IndustrialEquipment("Cargo, Standard","Cargo, Standard", "IE", a, new SimpleValidator(), "");
+        addEQ = new Equipment("Cargo, Standard","Cargo, Standard", "IE", a);
         addEQ.SetMegaMekName("CargoStandard");
-        addEQ.SetStats(1, 1, 0, 0, 0, "-");
+        addEQ.SetStats(1, 0.5, 0, 0, 0, "-");
+        addEQ.SetVariableSize( true, 0.5, 12.0, 0.5, 1.0, 0.0 );
         IndustrialEquipment.add(addEQ);
 
         // Cargo, Standard
@@ -1761,9 +1816,10 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new IndustrialEquipment("Cargo, Liquid","Cargo, Liquid", "IE", a, new SimpleValidator(), "");
+        addEQ = new Equipment("Cargo, Liquid","Cargo, Liquid", "IE", a);
         addEQ.SetMegaMekName("CargoLiquid");
-        addEQ.SetStats(1, 1, 0, 0, 0, "-");
+        addEQ.SetStats(1, 0.5, 0, 0, 0, "-");
+        addEQ.SetVariableSize( true, 0.5, 12.0, 0.5, 1.0, 100.0 );
         IndustrialEquipment.add(addEQ);
 
         // Cargo, Standard
@@ -1777,9 +1833,10 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new IndustrialEquipment("Cargo, Insulated","Cargo, Insulated", "IE", a, new SimpleValidator(), "");
+        addEQ = new Equipment("Cargo, Insulated","Cargo, Insulated", "IE", a);
         addEQ.SetMegaMekName("CargoInsulated");
-        addEQ.SetStats(1, 1, 0, 0, 0, "-");
+        addEQ.SetStats(1, 0.5, 0, 0, 0, "-");
+        addEQ.SetVariableSize( true, 0.5, 12.0, 0.5, 1.0, 250.0 );
         IndustrialEquipment.add(addEQ);
 
         // Cargo, Livestock Maelwys
@@ -1793,9 +1850,10 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new IndustrialEquipment("Cargo, Livestock","Cargo, Livestock", "IE", a, new SimpleValidator(), "");
+        addEQ = new Equipment("Cargo, Livestock","Cargo, Livestock", "IE", a);
         addEQ.SetMegaMekName("CargoLivestock");
-        addEQ.SetStats(1, 1, 0, 0, 0, "-");
+        addEQ.SetStats(1, 0.5, 0, 0, 0, "-");
+        addEQ.SetVariableSize( true, 0.5, 12.0, 0.5, 1.0, 2500.0 );
         IndustrialEquipment.add(addEQ);
     }
 

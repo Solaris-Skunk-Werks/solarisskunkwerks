@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
+import ssw.utilities.CommonTools;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
@@ -59,10 +60,8 @@ import ssw.printpreview.dlgPreview;
 public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner {
 
     String[] Selections = { "", "", "", "", "", "", "", "", "", "", "" };
-    Mech CurMech = new Mech( this );
-    OptionsReader OReader = new OptionsReader();
-    Options GlobalOptions = new Options();
-    VSetArmorTonnage ArmorTons = new VSetArmorTonnage( GlobalOptions );
+    Mech CurMech;
+    VSetArmorTonnage ArmorTons;
     java.awt.Color RedCol = new java.awt.Color( 200, 0, 0 ),
                    GreenCol = new java.awt.Color( 0, 40, 0 );
     Object[][] Equipment = { { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null } };
@@ -91,7 +90,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     JMenuItem mnuVGLAmmoIncen = new JMenuItem( "Incendiary" );
     JMenuItem mnuVGLAmmoSmoke = new JMenuItem( "Smoke" );
 
-    MechLoadoutRenderer Mechrender = new MechLoadoutRenderer( this, GlobalOptions );
+    MechLoadoutRenderer Mechrender;
     public Preferences Prefs;
     boolean Load = false;
     private Cursor Hourglass = new Cursor( Cursor.WAIT_CURSOR );
@@ -116,7 +115,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     /** Creates new form frmMain */
     public frmMain() {
-        Prefs = Preferences.userNodeForPackage(this.getClass());
+        Prefs = Preferences.userNodeForPackage( this.getClass() );
+        CurMech = new Mech( this );
+        ArmorTons = new VSetArmorTonnage( Prefs );
+        Mechrender = new MechLoadoutRenderer( this );
 
         // added for easy checking
         PPCCapAC.SetISCodes( 'E', 'X', 'X', 'E' );
@@ -139,7 +141,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlDamageChart = new DamageChart();
 
         initComponents();
-        setViewToolbar(Prefs.getBoolean("ViewToolbar", true));
+        setViewToolbar( Prefs.getBoolean( "ViewToolbar", true ) );
         setTitle( Constants.AppDescription + " " + Constants.Version );
 
         mnuDetails.addActionListener( new java.awt.event.ActionListener() {
@@ -283,13 +285,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuVGLAmmo.setVisible( false );
 
         try {
-            OReader.ReadOptions( Constants.OptionsFileName, GlobalOptions );
-        } catch( IOException e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "Could not access or modify the options file!\n" + e );
-            dispose();
-        }
-
-        try {
             CurMech.Visit( new VMechFullRecalc() );
         } catch( Exception e ) {
             // this should never throw an exception, but log it anyway
@@ -306,9 +301,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // set the program options
-        cmbRulesLevel.setSelectedIndex( GlobalOptions.DefaultRules );
-        cmbMechEra.setSelectedIndex( GlobalOptions.DefaultEra );
-        cmbTechBase.setSelectedIndex( GlobalOptions.DefaultTechbase );
+        cmbRulesLevel.setSelectedItem( Prefs.get( "NewMech_RulesLevel", "Tournament Legal" ) );
+        cmbMechEra.setSelectedItem( Prefs.get( "NewMech_Era", "Age of War/Star League" ) );
+        BuildTechBaseSelector();
+        cmbTechBase.setSelectedItem( Prefs.get( "NewMech_Techbase", "Inner Sphere" ) );
 
         BuildChassisSelector();
         BuildEngineSelector();
@@ -329,7 +325,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbGyroType.setSelectedItem( Constants.DEFAULT_GYRO );
         cmbCockpitType.setSelectedItem( Constants.DEFAULT_COCKPIT );
         cmbPhysEnhance.setSelectedItem( Constants.DEFAULT_ENHANCEMENT );
-        cmbHeatSinkType.setSelectedIndex( GlobalOptions.DefaultHeatSinks );
+        cmbHeatSinkType.setSelectedItem( Prefs.get( "NewMech_Heatsinks", "Single Heat Sink" ) );
         cmbJumpJetType.setSelectedItem( Constants.DEFAULT_JUMPJET );
         cmbArmorType.setSelectedItem( Constants.DEFAULT_ARMOR );
         cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( new String[] { CurMech.GetLoadout().GetName() } ) );
@@ -387,18 +383,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         tblWeaponManufacturers.getInputMap( javax.swing.JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put( javax.swing.KeyStroke.getKeyStroke( java.awt.event.KeyEvent.VK_TAB, 0, false ), "selectNextRow" );
 
         // if the user wants, load the last mech.
-        if( GlobalOptions.LoadLastMech ) { LoadMechFromPreferences(); }
+        if( Prefs.getBoolean( "LoadLastMech", false ) ) { LoadMechFromPreferences(); }
 
         //dOpen.LoadList();
         CurMech.SetChanged( false );
-    }
-
-    public OptionsReader GetOptionsReader() {
-        return OReader;
-    }
-
-    public Options GetOptions() {
-        return GlobalOptions;
     }
 
     private void SetWeaponChoosers() {
@@ -2071,9 +2059,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbTechBase.setEnabled( true );
         txtProdYear.setEnabled( true );
 
-        cmbRulesLevel.setSelectedIndex( GlobalOptions.DefaultRules );
-        cmbMechEra.setSelectedIndex( GlobalOptions.DefaultEra );
-        cmbTechBase.setSelectedIndex( GlobalOptions.DefaultTechbase );
+        cmbRulesLevel.setSelectedItem( Prefs.get( "NewMech_RulesLevel", "Tournament Legal" ) );
+        cmbMechEra.setSelectedItem( Prefs.get( "NewMech_Era", "Age of War/Star League" ) );
 
         if( Omni ) {
             UnlockGUIFromOmni();
@@ -2099,6 +2086,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             break;
         }
         BuildTechBaseSelector();
+        cmbTechBase.setSelectedItem( Prefs.get( "NewMech_Techbase", "Inner Sphere" ) );
         switch( cmbTechBase.getSelectedIndex() ) {
             case AvailableCode.TECH_INNER_SPHERE:
                 CurMech.SetInnerSphere();
@@ -2142,7 +2130,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbGyroType.setSelectedItem( Constants.DEFAULT_GYRO );
         cmbCockpitType.setSelectedItem( Constants.DEFAULT_COCKPIT );
         cmbPhysEnhance.setSelectedItem( Constants.DEFAULT_ENHANCEMENT );
-        cmbHeatSinkType.setSelectedIndex( GlobalOptions.DefaultHeatSinks );
+        cmbHeatSinkType.setSelectedItem( Prefs.get( "NewMech_Heatsinks", "Single Heat Sink" ) );
         cmbJumpJetType.setSelectedItem( Constants.DEFAULT_JUMPJET );
         cmbArmorType.setSelectedItem( Constants.DEFAULT_ARMOR );
         FixWalkMPSpinner();
@@ -3571,6 +3559,105 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 return 0;
             }
         }
+    }
+
+    private File GetSaveFile( final String extension, String path, boolean autooverwrite, boolean singleloadout ) {
+        String filename = "";
+        boolean overwrite = false;
+
+        // perform standard actions required before saving
+        SolidifyMech();
+	if( ! VerifyMech( null ) ) {
+            return null;
+        }
+
+        // build the filename
+        if( CurMech.IsOmnimech() &! singleloadout ) {
+            if( CurMech.GetModel().isEmpty() ) {
+                filename = CurMech.GetName() + " " + CurMech.GetLoadout().GetName() + "." + extension;
+            } else {
+                filename = CurMech.GetName() + " " + CurMech.GetModel() + " " +
+                    CurMech.GetLoadout().GetName() + "." + extension;
+            }
+        } else {
+            if( CurMech.GetModel().isEmpty() ) {
+                filename = CurMech.GetName() + "." + extension;
+            } else {
+                filename = CurMech.GetName() + " " + CurMech.GetModel() + "." + extension;
+            }
+        }
+
+        // ensure we have a good filename
+        try {
+            CheckFileName( filename );
+        } catch( Exception e ) {
+            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the filename:\n" +
+                e.getMessage() + "\nSaving will continue but you should change the filename." );
+        }
+
+        // check for auto overwrite.  sometimes you don't want to do this
+        if( autooverwrite ) {
+            File testfile = new File( path + File.separator + filename );
+            if( testfile.exists() ) {
+                int choice = javax.swing.JOptionPane.showConfirmDialog( this, "A file with the specified " +
+                    "name already exists\n" + testfile + "\nDo you want to overwrite it?", "Overwrite file",
+                    javax.swing.JOptionPane.YES_NO_OPTION );
+                if( choice != 1 ) {
+                    overwrite = true;
+                }
+            }
+        }
+
+        File retval = null;
+        if( autooverwrite && overwrite ) {
+            retval = new File( path + File.separator + filename );
+        } else {
+            // build the filechooser dialogue
+            File directory = new File( path );
+            JFileChooser fc = new JFileChooser();
+            fc.setCurrentDirectory( directory );
+            fc.addChoosableFileFilter( new javax.swing.filechooser.FileFilter() {
+                @Override
+                public boolean accept( File f ) {
+                    if( f.isDirectory() ) {
+                        return true;
+                    }
+
+                    String checkext = Utils.getExtension( f );
+                    if( checkext != null ) {
+                        if( checkext.equals( extension ) ) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                    return false;
+                }
+
+                @Override
+                public String getDescription() {
+                    return "*." + extension;
+                }
+            } );
+            fc.setAcceptAllFileFilterUsed( false );
+            fc.setSelectedFile( new File( filename ) );
+
+            // what does the user want to do?
+            int returnval = fc.showDialog( this, "Save to " + extension );
+            if( returnval != JFileChooser.APPROVE_OPTION ) { return null; }
+            retval = fc.getSelectedFile();
+            if( retval.exists() ) {
+                int choice = javax.swing.JOptionPane.showConfirmDialog( this, "A file with the specified " +
+                    "name already exists\n" + retval + "\nDo you want to overwrite it?", "Overwrite file",
+                    javax.swing.JOptionPane.YES_NO_OPTION );
+                if( choice == 1 ) {
+                    javax.swing.JOptionPane.showMessageDialog( this, "The 'Mech was not saved." );
+                    return null;
+                }
+            }
+        }
+
+        return retval;
     }
 
      /** This method is called from within the constructor to
@@ -9213,7 +9300,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuTools.add(jSeparator15);
 
         mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
-        mnuOptions.setText("Options");
+        mnuOptions.setText("Preferences");
         mnuOptions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuOptionsActionPerformed(evt);
@@ -9276,13 +9363,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_mnuExitActionPerformed
 
     private void CloseProgram() {
-        try {
-            GlobalOptions.Save();
-        } catch( IOException e ) {
-            //do nothing
-            //javax.swing.JOptionPane.showMessageDialog( this, "Could not save the options!  File operation problem (save, close):\n" + e );
-        }
-
         try {
             if (BatchWindow != null) BatchWindow.dispose();
             if (dOpen != null) dOpen.dispose();
@@ -9952,10 +10032,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_cmbArmorTypeActionPerformed
 
     private void mnuOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOptionsActionPerformed
-        dlgOptions Options = new dlgOptions( this, true );
-        Options.setLocationRelativeTo( this );
-        Options.setVisible( true );
-        SetWeaponChoosers();
+        dlgPrefs preferences = new dlgPrefs( this, true );
+        preferences.setLocationRelativeTo( this );
+        preferences.setVisible( true );
+        Mechrender.Reset();
         ResetAmmo();
         RefreshSummary();
         RefreshInfoPane();
@@ -10487,13 +10567,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         a.SetArmor( Constants.LOC_RL, a.GetLocationMax( Constants.LOC_RL ) );
 
         // now to set the torsos
-        int rear = Math.round( a.GetLocationMax( Constants.LOC_CT ) * GlobalOptions.Armor_CTRPercent / 100 );
+        int rear = Math.round( a.GetLocationMax( Constants.LOC_CT ) * Prefs.getInt( "ArmorCTRPercent", Constants.DEFAULT_CTR_ARMOR_PERCENT ) / 100 );
         a.SetArmor( Constants.LOC_CTR, rear );
         a.SetArmor( Constants.LOC_CT, a.GetLocationMax( Constants.LOC_CT ) - rear );
-        rear = Math.round( a.GetLocationMax( Constants.LOC_LT ) * GlobalOptions.Armor_STRPercent / 100 );
+        rear = Math.round( a.GetLocationMax( Constants.LOC_LT ) * Prefs.getInt( "ArmorSTRPercent", Constants.DEFAULT_STR_ARMOR_PERCENT ) / 100 );
         a.SetArmor( Constants.LOC_LTR, rear );
         a.SetArmor( Constants.LOC_LT, a.GetLocationMax( Constants.LOC_LT ) - rear );
-        rear = Math.round( a.GetLocationMax( Constants.LOC_RT ) * GlobalOptions.Armor_STRPercent / 100 );
+        rear = Math.round( a.GetLocationMax( Constants.LOC_RT ) * Prefs.getInt( "ArmorSTRPercent", Constants.DEFAULT_STR_ARMOR_PERCENT ) / 100 );
         a.SetArmor( Constants.LOC_RTR, rear );
         a.SetArmor( Constants.LOC_RT, a.GetLocationMax( Constants.LOC_RT ) - rear );
 
@@ -11030,50 +11110,27 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void btnExportMTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportMTFActionPerformed
         // exports the mech to MTF format for use in Megamek
 
-        // Solidify the mech first.
-        SolidifyMech();
-
-        if( ! VerifyMech( evt ) ) {
+        String dir = Prefs.get( "MTFExportPath", "none" );
+        if( dir.equals( "none" ) ) {
+            dir = Prefs.get( "LastOpenDirectory", "" );
+        }
+        File savemech = GetSaveFile( "mtf", dir, false, true );
+        if( savemech == null ) {
             return;
         }
 
-        // save the mech to MTF in the current location
-        String file = "";
-        if( CurMech.IsOmnimech() ) {
-            if( CurMech.GetModel().isEmpty() ) {
-                file = CurMech.GetName() + " " + CurMech.GetLoadout().GetName() + ".mtf";
-            } else {
-                file = CurMech.GetName() + " " + CurMech.GetModel() + " " + CurMech.GetLoadout().GetName() + ".mtf";
-            }
-        } else {
-            if( CurMech.GetModel().isEmpty() ) {
-                file = CurMech.GetName() + ".mtf";
-            } else {
-                file = CurMech.GetName() + " " + CurMech.GetModel() + ".mtf";
-            }
-        }
-        // need to double-check the filename and warn the user if there are 
-        // special character
-        try {
-            CheckFileName( file );
-        } catch( Exception e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the file name:\n" + e.getMessage() );
-            return;
-        }
-
-        if( ! GlobalOptions.MegamekPath.equals( "none" ) ) {
-            file = GlobalOptions.MegamekPath + File.separator + file;
-        }
+        String filename = "";
         MTFWriter mtfw = new MTFWriter( CurMech );
         try {
-            mtfw.WriteMTF( file );
+            filename = savemech.getCanonicalPath();
+            mtfw.WriteMTF( filename );
         } catch( IOException e ) {
             javax.swing.JOptionPane.showMessageDialog( this, "There was a problem writing the file:\n" + e.getMessage() );
             return;
         }
 
         // if there were no problems, let the user know how it went
-        javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully to MTF:\n" + file );
+        javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully to MTF:\n" + filename );
         setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
     }//GEN-LAST:event_btnExportMTFActionPerformed
 
@@ -11091,42 +11148,27 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             CurLoadout = CurMech.GetLoadout().GetName();
         }
 
-        // Solidify the mech first.
-        SolidifyMech();
-
-        if( ! VerifyMech( evt ) ) {
+        String dir = Prefs.get( "TXTExportPath", "none" );
+        if( dir.equals( "none" ) ) {
+            dir = Prefs.get( "LastOpenDirectory", "" );
+        }
+        File savemech = GetSaveFile( "txt", dir, false, false );
+        if( savemech == null ) {
             return;
         }
 
-        // save the mech to TXT in the current location
-        String file = "";
-        if( CurMech.GetModel().isEmpty() ) {
-            file = CurMech.GetName() + ".txt";
-        } else {
-            file = CurMech.GetName() + " " + CurMech.GetModel() + ".txt";
-        }
-        // need to double-check the filename and warn the user if there are 
-        // special character
+        String filename = "";
+        TXTWriter txtw = new TXTWriter( CurMech );
         try {
-            CheckFileName( file );
-        } catch( Exception e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the file name:\n" + e.getMessage() );
-            return;
-        }
-
-        if( ! GlobalOptions.TXTPath.equals( "none" ) ) {
-            file = GlobalOptions.TXTPath + File.separator + file;
-        }
-        TXTWriter txtw = new TXTWriter( CurMech, GlobalOptions );
-        try {
-            txtw.WriteTXT( file );
+            filename = savemech.getCanonicalPath();
+            txtw.WriteTXT( filename );
         } catch( IOException e ) {
             javax.swing.JOptionPane.showMessageDialog( this, "There was a problem writing the file:\n" + e.getMessage() );
             return;
         }
 
         // if there were no problems, let the user know how it went
-        javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully to TXT:\n" + file );
+        javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully to TXT:\n" + filename );
 
         // lastly, if this is an omnimech, reset the display to the last loadout
         cmbOmniVariant.setSelectedItem( CurLoadout );
@@ -11141,43 +11183,27 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             CurLoadout = CurMech.GetLoadout().GetName();
         }
 
-        // Solidify the mech first.
-        SolidifyMech();
-
-        if( ! VerifyMech( evt ) ) {
+        String dir = Prefs.get( "HTMLExportPath", "none" );
+        if( dir.equals( "none" ) ) {
+            dir = Prefs.get( "LastOpenDirectory", "" );
+        }
+        File savemech = GetSaveFile( "html", dir, false, false );
+        if( savemech == null ) {
             return;
         }
 
-        // save the mech to HTML in the current location
-        String file = "";
-        if( CurMech.GetModel().isEmpty() ) {
-            file = CurMech.GetName() + ".html";
-        } else {
-            file = CurMech.GetName() + " " + CurMech.GetModel() + ".html";
-        }
-
-        // need to double-check the filename and warn the user if there are 
-        // special character
+        String filename = "";
+        HTMLWriter HTMw = new HTMLWriter( CurMech );
         try {
-            CheckFileName( file );
-        } catch( Exception e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the file name:\n" + e.getMessage() );
-            return;
-        }
-
-        if( ! GlobalOptions.HTMLPath.equals( "none" ) ) {
-            file = GlobalOptions.HTMLPath + File.separator + file;
-        }
-        HTMLWriter HTMw = new HTMLWriter( CurMech, GlobalOptions );
-        try {
-            HTMw.WriteHTML( Constants.HTMLTemplateName, file );
+            filename = savemech.getCanonicalPath();
+            HTMw.WriteHTML( Constants.HTMLTemplateName, filename );
         } catch( IOException e ) {
             javax.swing.JOptionPane.showMessageDialog( this, "There was a problem writing the file:\n" + e.getMessage() );
             return;
         }
 
         // if there were no problems, let the user know how it went
-        javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully to HTML:\n" + file );
+        javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully to HTML:\n" + filename );
 
         // lastly, if this is an omnimech, reset the display to the last loadout
         cmbOmniVariant.setSelectedItem( CurLoadout );
@@ -11632,105 +11658,30 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( choice == 1 ) {
             return;
         } else {
-            GlobalOptions.ClearUserInfo();
+            Prefs.put( "S7Callsign", "" );
+            Prefs.put( "S7Password", "" );
+            Prefs.put( "S7UserID", "" );
         }
 	}//GEN-LAST:event_mnuClearUserDataActionPerformed
 
 	private void mnuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSaveActionPerformed
         // Solidify the mech first.
         setCursor( Hourglass );
-        
-        SolidifyMech();
 
-        if( ! VerifyMech( evt ) ) {
+        File savemech = GetSaveFile( "ssw", Prefs.get( "LastOpenDirectory", "" ), true, false );
+        if( savemech == null ) {
             setCursor( NormalCursor );
             return;
         }
 
-        boolean overwrite = false;
-        String filename = "";
-        if( CurMech.GetModel().isEmpty() ) {
-            filename = CurMech.GetName() + ".ssw";
-        } else {
-            filename = CurMech.GetName() + " " + CurMech.GetModel() + ".ssw";
-        }
-
-        // need to double-check the filename and warn the user if there are 
-        // special character
+        //Since we are saving to a new file update the stored prefs
         try {
-            CheckFileName( filename );
-        } catch( Exception e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the file name:\n" + e.getMessage() );
+            Prefs.put("LastOpenDirectory", savemech.getCanonicalPath().replace(savemech.getName(), ""));
+            Prefs.put("LastOpenFile", savemech.getName());
+        } catch (IOException e) {
+            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the file:\n" + e.getMessage() );
             setCursor( NormalCursor );
             return;
-        }
-
-        // save the 'Mech
-        File savemech;
-        String test = GlobalOptions.SaveLoadPath + File.separator + filename;
-        if (filename.equals(Prefs.get("LastOpenFile", ""))) {
-            test = Prefs.get("LastOpenDirectory", "") + File.separator + Prefs.get("LastOpenFile", "");
-        }
-        File testfile = new File( test );
-        if( testfile.exists() ) {
-            // this may be a quick save on an existing mech, check.
-            int choice = javax.swing.JOptionPane.showConfirmDialog( this,
-                "A file with this name already exists\n" + testfile + "\nDo you want to overwrite it?", "Overwrite File?", javax.swing.JOptionPane.YES_NO_OPTION );
-            if( choice == 1 ) {
-                overwrite = false;
-            } else {
-                overwrite = true;
-            }
-        }
-        if( overwrite ) {
-            savemech = testfile;
-        } else {
-            // a new save.  we'll show a dialogue and such.
-            // get the filename we're going to save to
-            File tempFile = new File( Prefs.get( "LastOpenDirectory", "" ) );
-            JFileChooser fc = new JFileChooser();
-            fc.setCurrentDirectory( tempFile );
-            fc.addChoosableFileFilter( new javax.swing.filechooser.FileFilter() {
-                public boolean accept( File f ) {
-                    if (f.isDirectory()) {
-                        return true;
-                    }
-
-                    String extension = Utils.getExtension( f );
-                    if ( extension != null ) {
-                        if ( extension.equals( "ssw" ) ) {
-                            return true;
-                        } else {
-                            return false;
-                        }   
-                    }
-
-                    return false;
-                }
-
-                //The description of this filter
-                public String getDescription() {
-                    return "*.ssw";
-                }
-            } );
-            fc.setAcceptAllFileFilterUsed( false );
-            fc.setSelectedFile( new File( filename ) );
-            int returnVal = fc.showDialog( this, "Save Mech" );
-            if( returnVal != JFileChooser.APPROVE_OPTION ) {
-                setCursor( NormalCursor );
-                return;
-            }
-            savemech = fc.getSelectedFile();
-
-            //Since we are saving to a new file update the stored prefs
-            try {
-                Prefs.put("LastOpenDirectory", savemech.getCanonicalPath().replace(savemech.getName(), ""));
-                Prefs.put("LastOpenFile", savemech.getName());
-            } catch (IOException e) {
-                javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the file:\n" + e.getMessage() );
-                setCursor( NormalCursor );
-                return;
-            }
         }
 
         // exports the mech to XML format
@@ -11789,119 +11740,60 @@ private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 }//GEN-LAST:event_mnuLoadActionPerformed
 
 private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSaveAsActionPerformed
-        // Solidify the mech first.
-        SolidifyMech();
-
-        if( ! VerifyMech( evt ) ) {
-            return;
-        }
-
-        String filename = "";
-        if( CurMech.GetModel().isEmpty() ) {
-            filename = CurMech.GetName() + ".ssw";
-        } else {
-            filename = CurMech.GetName() + " " + CurMech.GetModel() + ".ssw";
-        }
-
-        // need to double-check the filename and warn the user if there are 
-        // special character
-        try {
-            CheckFileName( filename );
-        } catch( Exception e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the file name:\n" + e.getMessage() + "\nSaving will continue, but you should cahnge the filename." );
-        }
-
-        // get the filename we're going to save to
-        File tempFile = new File( Prefs.get( "LastOpenDirectory", "" ) );
-        JFileChooser fc = new JFileChooser();
-        fc.setCurrentDirectory( tempFile );
-        fc.addChoosableFileFilter( new javax.swing.filechooser.FileFilter() {
-            public boolean accept( File f ) {
-                if (f.isDirectory()) {
-                    return true;
-                }
-
-                String extension = Utils.getExtension( f );
-                if ( extension != null ) {
-                    if ( extension.equals( "ssw" ) ) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-
-                return false;
-            }
-
-            //The description of this filter
-            public String getDescription() {
-                return "*.ssw";
-            }
-        } );
-        fc.setAcceptAllFileFilterUsed( false );
-        fc.setSelectedFile( new File( filename ) );
-        int returnVal = fc.showDialog( this, "Save Mech" );
-        if( returnVal != JFileChooser.APPROVE_OPTION ) { return; }
-        File savemech = fc.getSelectedFile();
-
-        if( savemech.exists() ) {
-            // this may be a quick save on an existing mech, check.
-            int choice = javax.swing.JOptionPane.showConfirmDialog( this,
-                "A file with this name already exists\n" + savemech + "\nDo you want to overwrite it?", "Overwrite File?", javax.swing.JOptionPane.YES_NO_OPTION );
-            if( choice == 1 ) {
-                javax.swing.JOptionPane.showMessageDialog( this, "The 'Mech was not saved." );
-                setCursor( NormalCursor );
-                return;
-            }
-        }
-
-        // exports the mech to XML format
-        String CurLoadout = "";
-        if( CurMech.IsOmnimech() ) {
-            CurLoadout = CurMech.GetLoadout().GetName();
-        }
-
-        // since we're doing a Save As...  we'll clear the S7 ID so that you can
-        // post a variant without creating an entirely new 'Mech
-        CurMech.SetSolaris7ID( "0" );
-
-        // save the mech to XML in the current location
-        XMLWriter XMLw = new XMLWriter( CurMech );
-        try {
-            String file = savemech.getCanonicalPath();
-            String ext = Utils.getExtension( savemech );
-            if( ext == null || ext.equals( "" ) ) {
-                file += ".ssw";
-            } else {
-                if( ! ext.equals( "ssw" ) ) {
-                    file.replace( "." + ext, ".ssw" );
-                }
-            }
-            XMLw.WriteXML( file );
-            // if there were no problems, let the user know how it went
-            javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully:\n" + file );
-        } catch( IOException e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem writing the file:\n" + e.getMessage() );
-            setCursor( NormalCursor );
-            return;
-        }
-
-        //Since we are saving to a new file update the stored prefs
-        try {
-            Prefs.put("LastOpenDirectory", savemech.getCanonicalPath().replace(savemech.getName(), ""));
-            Prefs.put("LastOpenFile", savemech.getName());
-        } catch (IOException e) {
-            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the file:\n" + e.getMessage() );
-            setCursor( NormalCursor );
-            return;
-        }
-
-        // lastly, if this is an omnimech, reset the display to the last loadout
-        cmbOmniVariant.setSelectedItem( CurLoadout );
-        cmbOmniVariantActionPerformed( evt );
-        setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
-        CurMech.SetChanged( false );
+    setCursor( Hourglass );
+    File savemech = GetSaveFile( "ssw", Prefs.get( "LastOpenDirectory", "" ), false, false );
+    if( savemech == null ) {
         setCursor( NormalCursor );
+        return;
+    }
+
+    // exports the mech to XML format
+    String CurLoadout = "";
+    if( CurMech.IsOmnimech() ) {
+        CurLoadout = CurMech.GetLoadout().GetName();
+    }
+
+    // since we're doing a Save As...  we'll clear the S7 ID so that you can
+    // post a variant without creating an entirely new 'Mech
+    CurMech.SetSolaris7ID( "0" );
+
+    // save the mech to XML in the current location
+    XMLWriter XMLw = new XMLWriter( CurMech );
+    try {
+        String file = savemech.getCanonicalPath();
+        String ext = Utils.getExtension( savemech );
+        if( ext == null || ext.equals( "" ) ) {
+            file += ".ssw";
+        } else {
+            if( ! ext.equals( "ssw" ) ) {
+                file.replace( "." + ext, ".ssw" );
+            }
+        }
+        XMLw.WriteXML( file );
+        // if there were no problems, let the user know how it went
+        javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully:\n" + file );
+    } catch( IOException e ) {
+        javax.swing.JOptionPane.showMessageDialog( this, "There was a problem writing the file:\n" + e.getMessage() );
+        setCursor( NormalCursor );
+        return;
+    }
+
+    //Since we are saving to a new file update the stored prefs
+    try {
+        Prefs.put("LastOpenDirectory", savemech.getCanonicalPath().replace(savemech.getName(), ""));
+        Prefs.put("LastOpenFile", savemech.getName());
+    } catch (IOException e) {
+        javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the file:\n" + e.getMessage() );
+        setCursor( NormalCursor );
+        return;
+    }
+
+    // lastly, if this is an omnimech, reset the display to the last loadout
+    cmbOmniVariant.setSelectedItem( CurLoadout );
+    cmbOmniVariantActionPerformed( evt );
+    setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
+    CurMech.SetChanged( false );
+    setCursor( NormalCursor );
 }//GEN-LAST:event_mnuSaveAsActionPerformed
 
 private void lstSelectedEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstSelectedEquipmentValueChanged
@@ -11956,7 +11848,7 @@ private void mnuCostBVBreakdownActionPerformed(java.awt.event.ActionEvent evt) {
 
 private void lstChooseArtilleryValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseArtilleryValueChanged
         if( lstChooseArtillery.getSelectedIndex() < 0 ) { return; }
-        if( ! ( Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()] instanceof RangedWeapon ) ) { return; }
+        if( ( ! ( Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()] instanceof RangedWeapon ) && ( ! ( Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()] instanceof VehicularGrenadeLauncher ) ) ) ) { return; }
         abPlaceable p = (abPlaceable) Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()];
         ShowInfoOn( p );
 }//GEN-LAST:event_lstChooseArtilleryValueChanged
@@ -12458,7 +12350,7 @@ private void mnuExportClipboardActionPerformed(java.awt.event.ActionEvent evt) {
             return;
         }
 
-        TXTWriter txtw = new TXTWriter( CurMech, GlobalOptions );
+        TXTWriter txtw = new TXTWriter( CurMech );
         output = txtw.GetTextExport();
         java.awt.datatransfer.StringSelection export = new java.awt.datatransfer.StringSelection( output );
 

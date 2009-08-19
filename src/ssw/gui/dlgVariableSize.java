@@ -111,7 +111,7 @@ public class dlgVariableSize extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         getContentPane().add(jPanel2, gridBagConstraints);
 
-        jLabel1.setText("Choose an initial tonnage:");
+        jLabel1.setText("Choose a tonnage:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -142,7 +142,11 @@ public class dlgVariableSize extends javax.swing.JDialog {
     }//GEN-LAST:event_spnTonnageStateChanged
 
     private void btnOkayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkayActionPerformed
-        CurEquip.SetTonnage( CurTons );
+        // now round to the nearest increment (up)
+        double value = Math.ceil( CurTons / CurEquip.GetVariableIncrement() ) * CurEquip.GetVariableIncrement();
+        if( value > CurEquip.GetMaxTons() ) { value = CurEquip.GetMaxTons(); }
+        if( value < CurEquip.GetMinTons() ) { value = CurEquip.GetMinTons(); }
+        CurEquip.SetTonnage( value );
         dispose();
     }//GEN-LAST:event_btnOkayActionPerformed
 

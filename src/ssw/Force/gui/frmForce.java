@@ -46,11 +46,11 @@ import ssw.Force.*;
 import ssw.Force.IO.ForceReader;
 import ssw.Force.IO.ForceWriter;
 import ssw.Force.IO.PrintSheet;
-import ssw.Options;
 import ssw.components.Mech;
 import ssw.filehandlers.MTFWriter;
 import ssw.filehandlers.MULWriter;
 import ssw.filehandlers.XMLReader;
+import ssw.gui.dlgAmmoChooser;
 import ssw.gui.frmMain;
 import ssw.print.Printer;
 
@@ -165,6 +165,8 @@ public class frmForce extends javax.swing.JFrame {
         btnRemoveUnit = new javax.swing.JButton();
         brnClearForce = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JToolBar.Separator();
+        btnAmmoChooser = new javax.swing.JButton();
         spnList = new javax.swing.JScrollPane();
         tblForce = new javax.swing.JTable();
         lblTotalUnits = new javax.swing.JLabel();
@@ -315,6 +317,18 @@ public class frmForce extends javax.swing.JFrame {
             }
         });
         tlbActions.add(btnRefresh);
+        tlbActions.add(jSeparator4);
+
+        btnAmmoChooser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/ammo.png"))); // NOI18N
+        btnAmmoChooser.setFocusable(false);
+        btnAmmoChooser.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAmmoChooser.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAmmoChooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAmmoChooserActionPerformed(evt);
+            }
+        });
+        tlbActions.add(btnAmmoChooser);
 
         tblForce.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -376,10 +390,10 @@ public class frmForce extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
+                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(20, 20, 20)
@@ -444,11 +458,12 @@ public class frmForce extends javax.swing.JFrame {
 
             try
             {
-                XMLReader read = new XMLReader();
+                //XMLReader read = new XMLReader();
                 int[] rows = tblForce.getSelectedRows();
                 for ( int i=0; i < rows.length; i++ ) {
                     Unit data = (Unit) force.Units.get(tblForce.convertRowIndexToModel(rows[i]));
-                    Mech m = read.ReadMech( data.Filename, parent.data );
+                    //Mech m = read.ReadMech( data.Filename, parent.data );
+                    Mech m = data.m;
                     if ( data.isOmni() ) {
                         m.SetCurLoadout( data.Configuration );
                     }
@@ -458,7 +473,8 @@ public class frmForce extends javax.swing.JFrame {
                 tblForce.clearSelection();
 
             } catch ( Exception e ) {
-
+                System.err.println( e.getMessage() );
+                e.printStackTrace();
             }
         }
     }//GEN-LAST:event_btnPrintUnitsActionPerformed
@@ -530,8 +546,7 @@ public class frmForce extends javax.swing.JFrame {
     private void btnExportMULActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportMULActionPerformed
         MULWriter mw = new MULWriter(force);
         ssw.filehandlers.Media media = new ssw.filehandlers.Media();
-        Options opts = new Options();
-        File mulFile = media.SelectFile(opts.MegamekPath, "mul", "Select MUL file");
+        File mulFile = media.SelectFile( parent.Prefs.get( "MTFExportPath", "" ), "mul", "Select MUL file" );
         try {
             String filename = mulFile.getCanonicalPath();
             if ( ! filename.endsWith(".mul") ) { filename += ".mul"; }
@@ -551,8 +566,7 @@ public class frmForce extends javax.swing.JFrame {
                filename = "";
         MTFWriter mtf = new MTFWriter();
         ssw.filehandlers.Media media = new ssw.filehandlers.Media();
-        Options opts = new Options();
-        String mtfDir = media.GetDirectorySelection(null, opts.MegamekPath);
+        String mtfDir = media.GetDirectorySelection(null, parent.Prefs.get( "MTFExportPath", "" ) );
         if (!mtfDir.endsWith(File.separator)) { mtfDir += File.separator; }
         
         for ( int i = 0; i < force.Units.size(); i++ ) {
@@ -604,9 +618,32 @@ public class frmForce extends javax.swing.JFrame {
         txtPiloting.selectAll();
     }//GEN-LAST:event_txtPilotingFocusGained
 
+    private void btnAmmoChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmmoChooserActionPerformed
+        if ( tblForce.getSelectedRowCount() > 0 ) {
+            int[] rows = tblForce.getSelectedRows();
+            for ( int i=0; i < rows.length; i++ ) {
+                try {
+                    Unit data = (Unit) force.Units.get( tblForce.convertRowIndexToModel( rows[i] ) );
+                    dlgAmmoChooser Ammo = new dlgAmmoChooser( this, false, data.m, parent.data );
+                    Ammo.setLocationRelativeTo( this );
+                    if( Ammo.HasAmmo() ) {
+                        Ammo.setVisible( true );
+                    } else {
+                        javax.swing.JOptionPane.showMessageDialog( this, "This 'Mech has no ammunition to exchange." );
+                        Ammo.dispose();
+                    }
+                } catch( Exception e ) {
+                    javax.swing.JOptionPane.showMessageDialog(this, "There was an error altering the ammunition on this 'Mech:\n" + e.getMessage() );
+                }
+            }
+            refreshTable();
+        }
+    }//GEN-LAST:event_btnAmmoChooserActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brnClearForce;
     private javax.swing.JButton btnAddMech;
+    private javax.swing.JButton btnAmmoChooser;
     private javax.swing.JButton btnExportMTFs;
     private javax.swing.JButton btnExportMUL;
     private javax.swing.JButton btnOpen;
@@ -620,6 +657,7 @@ public class frmForce extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
+    private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JLabel lblTotalBV;
     private javax.swing.JLabel lblTotalTons;
     private javax.swing.JLabel lblTotalUnits;

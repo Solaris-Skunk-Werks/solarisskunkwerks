@@ -39,14 +39,12 @@ import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.SwingWorker;
 import javax.swing.table.TableRowSorter;
-import ssw.Options;
 import ssw.components.Mech;
 import ssw.filehandlers.*;
 import ssw.print.Printer;
 
 public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListener {
     private frmMain parent;
-    private Options opts = new Options();
     private MechList list = new MechList();
     private Media media = new Media();
     private String dirPath = "";
@@ -108,7 +106,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     }
     public void LoadList(boolean useIndex) {
         if (dirPath.isEmpty()) {
-            dirPath = parent.Prefs.get("ListPath", opts.SaveLoadPath);
+            dirPath = parent.Prefs.get("ListPath", parent.Prefs.get( "LastOpenDirectory", "" ) );
         }
 
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -678,11 +676,11 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     }//GEN-LAST:event_btnOpenMechActionPerformed
 
     private void btnOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOptionsActionPerformed
-        dlgOptions dgOptions = new dlgOptions( parent, true );
-        dgOptions.setLocationRelativeTo( this );
-        dgOptions.setVisible( true );
-        opts = new Options();
+        dlgPrefs preferences = new dlgPrefs( parent, true );
+        preferences.setLocationRelativeTo( this );
+        preferences.setVisible( true );
         this.setVisible(true);
+        parent.Mechrender.Reset();
         LoadList();
     }//GEN-LAST:event_btnOptionsActionPerformed
 

@@ -26,7 +26,7 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package ssw;
+package ssw.utilities;
 
 import ssw.components.*;
 
@@ -357,6 +357,284 @@ public class CommonTools {
                 }
             case AvailableCode.ERA_DARK_AGES:
                 switch( m.GetTechBase() ) {
+                    case AvailableCode.TECH_INNER_SPHERE:
+                        if( AC.GetISCICode() < 'X' ) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    case AvailableCode.TECH_CLAN:
+                        if( AC.GetCLCICode() < 'X' ) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    case AvailableCode.TECH_BOTH:
+                        if( AC.GetBestCICode() < 'X' ) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    default:
+                        return false;
+                }
+            case AvailableCode.ERA_ALL:
+                // the "All" era.
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean IsAllowed( AvailableCode AC, int RulesLevel, int TechBase, boolean Primitive, boolean Industrial, int Era, boolean Restrict, int Year ) {
+        // check an available code to see if it can be used legally
+
+        // ensure it's within our rules-level first
+        switch( RulesLevel ) {
+            case AvailableCode.RULES_INTRODUCTORY:
+                // tournament legal
+                if( Industrial ) {
+                    if( AC.GetRulesLevel_IM() != AvailableCode.RULES_INTRODUCTORY ) { return false; }
+                } else {
+                    if( AC.GetRulesLevel_BM() != AvailableCode.RULES_INTRODUCTORY ) { return false; }
+                }
+                break;
+            case AvailableCode.RULES_TOURNAMENT:
+                // tournament legal
+                if( Industrial ) {
+                    if( AC.GetRulesLevel_IM() > AvailableCode.RULES_TOURNAMENT || AC.GetRulesLevel_IM() < AvailableCode.RULES_INTRODUCTORY ) { return false; }
+                } else {
+                    if( AC.GetRulesLevel_BM() > AvailableCode.RULES_TOURNAMENT || AC.GetRulesLevel_BM() < AvailableCode.RULES_INTRODUCTORY ) { return false; }
+                }
+                break;
+            case AvailableCode.RULES_ADVANCED:
+                // advanced rules
+                if( Industrial ) {
+                    if( AC.GetRulesLevel_IM() > AvailableCode.RULES_ADVANCED || AC.GetRulesLevel_IM() < AvailableCode.RULES_INTRODUCTORY ) { return false; }
+                } else {
+                    if( AC.GetRulesLevel_BM() > AvailableCode.RULES_ADVANCED || AC.GetRulesLevel_BM() < AvailableCode.RULES_INTRODUCTORY ) { return false; }
+                }
+                break;
+            case AvailableCode.RULES_EXPERIMENTAL:
+                // experimental rules.  everything allowed.
+                if( Industrial ) {
+                    if( AC.GetRulesLevel_IM() > AvailableCode.RULES_EXPERIMENTAL || AC.GetRulesLevel_IM() < AvailableCode.RULES_INTRODUCTORY ) { return false; }
+                } else {
+                    if( AC.GetRulesLevel_BM() > AvailableCode.RULES_EXPERIMENTAL || AC.GetRulesLevel_BM() < AvailableCode.RULES_INTRODUCTORY ) { return false; }
+                }
+                break;
+            case AvailableCode.RULES_ERA_SPECIFIC:
+                if( Industrial ) {
+                    if( AC.GetRulesLevel_IM() > AvailableCode.RULES_ERA_SPECIFIC || AC.GetRulesLevel_IM() < AvailableCode.RULES_INTRODUCTORY ) { return false; }
+                } else {
+                    if( AC.GetRulesLevel_BM() > AvailableCode.RULES_ERA_SPECIFIC || AC.GetRulesLevel_BM() < AvailableCode.RULES_INTRODUCTORY ) { return false; }
+                }
+                break;
+            default:
+                // Unallowed or Era Specific.  everything allowed until we know better.
+                if( Industrial ) {
+                    if( AC.GetRulesLevel_IM() > AvailableCode.RULES_EXPERIMENTAL || AC.GetRulesLevel_IM() < AvailableCode.RULES_INTRODUCTORY ) { return false; }
+                } else {
+                    if( AC.GetRulesLevel_BM() > AvailableCode.RULES_EXPERIMENTAL || AC.GetRulesLevel_BM() < AvailableCode.RULES_INTRODUCTORY ) { return false; }
+                }
+                break;
+        }
+
+        // is this within our techbase?
+        switch( TechBase ) {
+            case AvailableCode.TECH_INNER_SPHERE:
+                if( AC.GetTechBase() == AvailableCode.TECH_CLAN ) { return false; }
+                break;
+            case AvailableCode.TECH_CLAN:
+                if( AC.GetTechBase() == AvailableCode.TECH_INNER_SPHERE ) { return false; }
+                break;
+            case AvailableCode.TECH_BOTH:
+                // this does nothing, put here to avoid default
+                break;
+            default:
+                return false;
+        }
+
+        // is the 'Mech primitive and is this equipment allowed?
+        if( Primitive ) {
+            if( Industrial ) {
+                if( ! AC.IsPIMAllowed() ) { return false; }
+            } else {
+                if( ! AC.IsPBMAllowed() ) { return false; }
+            }
+        } else {
+            if( AC.IsPrimitiveOnly() ) { return false; }
+        }
+
+        // are we restricting by year?
+        if( Restrict ) {
+            // we are.
+            switch( TechBase ) {
+                case AvailableCode.TECH_INNER_SPHERE:
+                    if( AC.WentExtinctIS() ) {
+                        if( AC.WasReIntrodIS() ) {
+                            if( ( Year >= AC.GetISIntroDate() && Year < AC.GetISExtinctDate() ) || Year >= AC.GetISReIntroDate() ) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        } else {
+                            if( Year >= AC.GetISIntroDate() && Year < AC.GetISExtinctDate() ) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                    } else {
+                        if( Year >= AC.GetISIntroDate() ) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                case AvailableCode.TECH_CLAN:
+                    if( AC.WentExtinctCL() ) {
+                        if( AC.WasReIntrodCL() ) {
+                            if( ( Year >= AC.GetCLIntroDate() && Year < AC.GetCLExtinctDate() ) || Year >= AC.GetCLReIntroDate() ) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        } else {
+                            if( Year >= AC.GetCLIntroDate() && Year < AC.GetCLExtinctDate() ) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                    } else {
+                        if( Year >= AC.GetCLIntroDate() ) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                case AvailableCode.TECH_BOTH:
+                    boolean Okay_IS = false, Okay_CL = false;
+                    if( AC.WentExtinctIS() ) {
+                        if( AC.WasReIntrodIS() ) {
+                            if( ( Year >= AC.GetISIntroDate() && Year < AC.GetISExtinctDate() ) || Year >= AC.GetISReIntroDate() ) {
+                                Okay_IS = true;
+                            } else {
+                                Okay_IS = false;
+                            }
+                        } else {
+                            if( Year >= AC.GetISIntroDate() && Year < AC.GetISExtinctDate() ) {
+                                Okay_IS = true;
+                            } else {
+                                Okay_IS = false;
+                            }
+                        }
+                    } else {
+                        if( Year >= AC.GetISIntroDate() ) {
+                            Okay_IS = true;
+                        } else {
+                            Okay_IS = false;
+                        }
+                    }
+                    if( AC.WentExtinctCL() ) {
+                        if( AC.WasReIntrodCL() ) {
+                            if( ( Year >= AC.GetCLIntroDate() && Year < AC.GetCLExtinctDate() ) || Year >= AC.GetCLReIntroDate() ) {
+                                Okay_CL = true;
+                            } else {
+                                Okay_CL = false;
+                            }
+                        } else {
+                            if( Year >= AC.GetCLIntroDate() && Year < AC.GetCLExtinctDate() ) {
+                                Okay_CL = true;
+                            } else {
+                                Okay_CL = false;
+                            }
+                        }
+                    } else {
+                        if( Year >= AC.GetCLIntroDate() ) {
+                            Okay_CL = true;
+                        } else {
+                            Okay_CL = false;
+                        }
+                    }
+                    if( Okay_IS || Okay_CL ) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+            }
+        } else {
+            // we aren't, go by the era
+            switch( Era ) {
+            case AvailableCode.ERA_STAR_LEAGUE:
+                switch( TechBase ) {
+                    case AvailableCode.TECH_INNER_SPHERE: case AvailableCode.TECH_BOTH:
+                        if( AC.GetISSLCode() < 'X' ) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    case AvailableCode.TECH_CLAN:
+                        return false;
+                }
+            case AvailableCode.ERA_SUCCESSION:
+                switch( TechBase ) {
+                    case AvailableCode.TECH_INNER_SPHERE:
+                        if( RulesLevel > AvailableCode.RULES_TOURNAMENT ) {
+                            if( AC.GetISSWCode() < 'X' ) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        } else {
+                            if( AC.GetISSWCode() < 'F' ) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                    case AvailableCode.TECH_CLAN:
+                        if( AC.GetCLSWCode() < 'X' ) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    case AvailableCode.TECH_BOTH:
+                        if( AC.GetBestSWCode() < 'X' ) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    default:
+                        return false;
+                }
+            case AvailableCode.ERA_CLAN_INVASION:
+                switch( TechBase ) {
+                    case AvailableCode.TECH_INNER_SPHERE:
+                        if( AC.GetISCICode() < 'X' ) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    case AvailableCode.TECH_CLAN:
+                        if( AC.GetCLCICode() < 'X' ) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    case AvailableCode.TECH_BOTH:
+                        if( AC.GetBestCICode() < 'X' ) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    default:
+                        return false;
+                }
+            case AvailableCode.ERA_DARK_AGES:
+                switch( TechBase ) {
                     case AvailableCode.TECH_INNER_SPHERE:
                         if( AC.GetISCICode() < 'X' ) {
                             return true;
