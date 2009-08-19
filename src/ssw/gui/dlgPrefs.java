@@ -73,6 +73,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         }
         chkHeatUAC.setSelected( Prefs.getBoolean( "HeatACFullRate", false ) );
 
+        chkMaxNotInt.setSelected( Prefs.getBoolean( "UseMaxArmorInstead", false ) );
         chkCustomPercents.setSelected( Prefs.getBoolean( "ArmorUseCustomPercent", false ) );
         chkCustomPercentsActionPerformed( null );
         if( Prefs.getBoolean( "ArmorMaxHead", true ) ) {
@@ -132,6 +133,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         Prefs.putBoolean( "HeatExcludeJumpMP", chkHeatJumpMP.isSelected() );
         Prefs.putBoolean( "HeatExcludeAllMP", chkHeatAllMP.isSelected() );
         Prefs.putBoolean( "HeatACFullRate", chkHeatUAC.isSelected() );
+        Prefs.putBoolean( "UseMaxArmorInstead", chkMaxNotInt.isSelected() );
         Prefs.putBoolean( "ArmorUseCustomPercent", chkCustomPercents.isSelected() );
         Prefs.putBoolean( "ArmorMaxHead", rdoArmorMaxHead.isSelected() );
         Prefs.putBoolean( "ExportSortOut", rdoExportSortOut.isSelected() );
@@ -186,6 +188,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         Prefs.putBoolean( "HeatExcludeJumpMP", false );
         Prefs.putBoolean( "HeatExcludeAllMP", false );
         Prefs.putBoolean( "HeatACFullRate", false );
+        Prefs.putBoolean( "UseMaxArmorInstead", false );
         Prefs.putBoolean( "ArmorUseCustomPercent", false );
         Prefs.putBoolean( "ArmorMaxHead", true );
         Prefs.putBoolean( "ExportSortOut", false );
@@ -250,6 +253,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         rdoArmorArmPriority = new javax.swing.JRadioButton();
         rdoArmorLegPriority = new javax.swing.JRadioButton();
         jLabel8 = new javax.swing.JLabel();
+        chkMaxNotInt = new javax.swing.JCheckBox();
         jPanel8 = new javax.swing.JPanel();
         chkHeatOSWeapons = new javax.swing.JCheckBox();
         chkHeatRearWeapons = new javax.swing.JCheckBox();
@@ -411,7 +415,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         pnlConstruction.add(jPanel1, gridBagConstraints);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Armor Distribution"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Armor Options"));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         chkCustomPercents.setText("Use Custom Distribution Percentages");
@@ -421,15 +425,18 @@ public class dlgPrefs extends javax.swing.JDialog {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
         jPanel2.add(chkCustomPercents, gridBagConstraints);
 
         lblCTRArmor.setText("Percentage CTR to CT:");
         lblCTRArmor.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
         jPanel2.add(lblCTRArmor, gridBagConstraints);
@@ -438,7 +445,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         lblSTRArmor.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel2.add(lblSTRArmor, gridBagConstraints);
 
@@ -450,7 +457,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         txtCTRArmor.setPreferredSize(new java.awt.Dimension(45, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 0, 0);
         jPanel2.add(txtCTRArmor, gridBagConstraints);
@@ -463,7 +470,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         txtSTRArmor.setPreferredSize(new java.awt.Dimension(45, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 0);
         jPanel2.add(txtSTRArmor, gridBagConstraints);
@@ -471,7 +478,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         jLabel7.setText("When automatically allocating armor:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
@@ -482,7 +489,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         rdoArmorTorsoPriority.setText("Prioritize Torso Armor");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
@@ -493,7 +500,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         rdoArmorMaxHead.setText("Maximize Head Armor");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
@@ -503,7 +510,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         rdoArmorEqualHead.setText("Allocate Head armor equally");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
@@ -513,7 +520,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         rdoArmorArmPriority.setText("Prioritize Arm Armor");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
@@ -523,7 +530,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         rdoArmorLegPriority.setText("Prioritize Leg Armor");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridy = 10;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
@@ -532,11 +539,17 @@ public class dlgPrefs extends javax.swing.JDialog {
         jLabel8.setText("and...");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
         jPanel2.add(jLabel8, gridBagConstraints);
+
+        chkMaxNotInt.setText("<html>Show maximum armor instead of<br />internal points on Armor tab.</html>");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel2.add(chkMaxNotInt, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -1460,6 +1473,7 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JCheckBox chkHeatSystems;
     private javax.swing.JCheckBox chkHeatUAC;
     private javax.swing.JCheckBox chkLoadLastMech;
+    private javax.swing.JCheckBox chkMaxNotInt;
     private javax.swing.JCheckBox chkUpdateStartup;
     private javax.swing.JComboBox cmbEra;
     private javax.swing.JComboBox cmbHeatSinks;

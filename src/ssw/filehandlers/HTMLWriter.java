@@ -478,7 +478,7 @@ public class HTMLWriter {
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_HEATSINK_LOCATION_LINE-+>" ) ) {
             return FileCommon.GetHeatSinkLocations( CurMech );
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_HEATSINK_TONNAGE-+>" ) ) {
-            return "" + CurMech.GetHeatSinks().GetLoadoutTonnage();
+            return FormatTonnage( CurMech.GetHeatSinks().GetLoadoutTonnage(), 1 );
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_HEATSINK_COUNT-+>" ) ) {
             return "" + CurMech.GetHeatSinks().GetNumHS();
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_HEATSINK_DISSIPATION-+>" ) ) {
@@ -496,9 +496,9 @@ public class HTMLWriter {
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_JUMPJET_LOCATION_LINE-+>" ) ) {
             return FileCommon.GetJumpJetLocations( CurMech );
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_JUMPJET_TONNAGE-+>" ) ) {
-            return "" + CurMech.GetJumpJets().GetTonnage();
+            return FormatTonnage( CurMech.GetJumpJets().GetTonnage(), 1 );
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_CASE_TONNAGE-+>" ) ) {
-            if( CurMech.GetLoadout().IsUsingClanCASE() ) {
+            if( CurMech.GetTechBase() >= AvailableCode.TECH_CLAN && CurMech.GetLoadout().IsUsingClanCASE() ) {
                 int[] Locs = CurMech.GetLoadout().FindExplosiveInstances();
                 boolean check = false;
                 for( int i = 0; i < Locs.length; i++ ) {
@@ -507,24 +507,24 @@ public class HTMLWriter {
                     }
                 }
                 if( check ) {
-                    return "" + CurMech.GetCaseTonnage();
+                    return FormatTonnage( CurMech.GetCaseTonnage(), 1 );
                 } else {
                     return "";
                 }
             } else {
-                if( CurMech.GetCaseTonnage() == 0.0f ) {
+                if( CurMech.GetCaseTonnage() <= 0.0 ) {
                     return "";
                 } else {
-                    return "" + CurMech.GetCaseTonnage();
+                    return FormatTonnage( CurMech.GetCaseTonnage(), 1 );
                 }
             }
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_CASE_LOCATION_LINE-+>" ) ) {
             return FileCommon.GetCaseLocations( CurMech );
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_CASEII_TONNAGE-+>" ) ) {
-            if( CurMech.GetCASEIITonnage() == 0.0f ) {
+            if( CurMech.GetCASEIITonnage() <= 0.0 ) {
                 return "";
             } else {
-                return "" + CurMech.GetCASEIITonnage();
+                return FormatTonnage( CurMech.GetCASEIITonnage(), 1 );
             }
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_CASEII_LOCATION_LINE-+>" ) ) {
             return FileCommon.GetCaseIILocations( CurMech );
@@ -541,7 +541,7 @@ public class HTMLWriter {
                 return "";
             } else {
                 if( CurMech.GetLoadout().GetPowerAmplifier().GetTonnage() > 0 ) {
-                    return "" + CurMech.GetLoadout().GetPowerAmplifier().GetTonnage();
+                    return FormatTonnage( CurMech.GetLoadout().GetPowerAmplifier().GetTonnage(), 1 );
                 } else {
                     return "";
                 }
@@ -713,48 +713,21 @@ public class HTMLWriter {
                             if( a instanceof RangedWeapon ) {
                                 if( ((RangedWeapon) a).IsUsingFCS() ) {
                                     double tons = a.GetTonnage() -  ((abPlaceable) ((RangedWeapon) a).GetFCS()).GetTonnage();
-                                    if( numthisloc > 1 ) {
-                                        tons *= numthisloc;
-                                    }
-                                    retval += "" + tons;
+                                    retval += FormatTonnage( tons, numthisloc );
                                 } else if( ((RangedWeapon) a).IsInArray() ) {
                                     MGArray m = ((RangedWeapon) a).GetMyArray();
-                                    if( numthisloc > 1 ) {
-                                        retval += "" + ( m.GetMGTons() * numthisloc );
-                                    } else {
-                                        retval += m.GetMGTons();
-                                    }
+                                    retval += FormatTonnage( m.GetMGTons(), numthisloc );
                                 } else if( ((RangedWeapon) a).IsUsingCapacitor() ) {
-                                    if( numthisloc > 1 ) {
-                                        retval += "" + ( ( a.GetTonnage() - 1.0f ) * numthisloc );
-                                    } else {
-                                        retval += ( a.GetTonnage() - 1.0f );
-                                    }
+                                    retval += FormatTonnage( ( a.GetTonnage() - 1.0f ), numthisloc );
                                 } else {
-                                    if( numthisloc > 1 ) {
-                                        retval += String.format( "%1$6.2f", a.GetTonnage() * numthisloc );
-                                    } else {
-                                        retval += a.GetTonnage();
-                                    }
+                                    retval += FormatTonnage( a.GetTonnage(), numthisloc );
                                 }
                             } else if( a instanceof ifMissileGuidance ) {
-                                if( numthisloc > 1 ) {
-                                    retval += "" + ( a.GetTonnage() * numthisloc );
-                                } else {
-                                    retval += a.GetTonnage();
-                                }
+                                retval += FormatTonnage( a.GetTonnage(), numthisloc );
                             } else if( a instanceof MGArray ) {
-                                if( numthisloc > 1 ) {
-                                    retval += "" + ( ((MGArray) a).GetBaseTons() * numthisloc );
-                                } else {
-                                    retval += ((MGArray) a).GetBaseTons();
-                                }
+                                retval += FormatTonnage( ((MGArray) a).GetBaseTons(), numthisloc );
                             } else {
-                                if( numthisloc > 1 ) {
-                                    retval += String.format( "%1$6.2f", a.GetTonnage() * numthisloc );
-                                } else {
-                                    retval += a.GetTonnage();
-                                }
+                                retval += FormatTonnage( a.GetTonnage(), numthisloc );
                             }
                         } else if( check.equals( "<+-SSW_EQUIP_CRITS-+>" ) ) {
                             if( a.CanSplit() ) {
@@ -788,25 +761,15 @@ public class HTMLWriter {
                             }
                         } else if( check.equals( "<+-SSW_EQUIP_HEAT-+>" ) ) {
                             if( a instanceof ifWeapon ) {
-                                if( ((ifWeapon) a).IsUltra() || ((ifWeapon) a).IsRotary() ) {
-                                    if( numthisloc > 1 ) {
-                                        retval += "" + ((ifWeapon) a).GetBVHeat() * numthisloc + " /shot";
-                                    } else {
-                                        retval += "" + ((ifWeapon) a).GetBVHeat() + " /shot";
-                                    }
+                                if( ((ifWeapon) a).IsUltra() ) {
+                                    retval += ((ifWeapon) a).GetBVHeat() + " /shot (" + ( ((ifWeapon) a).GetBVHeat() * numthisloc * 2 ) + " max)";
+                                } else if( ((ifWeapon) a).IsRotary() ) {
+                                    retval += ((ifWeapon) a).GetBVHeat() + " /shot (" + ( ((ifWeapon) a).GetBVHeat() * numthisloc * 6 ) + " max)";
                                 } else {
-                                    if( numthisloc > 1 ) {
-                                        retval += "" + ((ifWeapon) a).GetBVHeat() * numthisloc;
-                                    } else {
-                                        retval += "" + ((ifWeapon) a).GetBVHeat();
-                                    }
+                                    retval += "" + ((ifWeapon) a).GetBVHeat() * numthisloc;
                                 }
                             } else if( a instanceof Equipment ) {
-                                if( numthisloc > 1 ) {
-                                    retval += "" + ((Equipment) a).GetHeat() * numthisloc;
-                                } else {
-                                    retval += "" + ((Equipment) a).GetHeat();
-                                }
+                                retval += "" + ((Equipment) a).GetHeat() * numthisloc;
                             } else if( a.GetMechModifier() != null ) {
                                 retval += a.GetMechModifier().HeatAdder();
                             } else {
@@ -896,48 +859,21 @@ public class HTMLWriter {
                             if( a instanceof RangedWeapon ) {
                                 if( ((RangedWeapon) a).IsUsingFCS() ) {
                                     double tons = a.GetTonnage() -  ((abPlaceable) ((RangedWeapon) a).GetFCS()).GetTonnage();
-                                    if( numthisloc > 1 ) {
-                                        tons *= numthisloc;
-                                    }
-                                    retval += "" + tons;
+                                    retval += FormatTonnage( tons, numthisloc );
                                 } else if( ((RangedWeapon) a).IsInArray() ) {
                                     MGArray m = ((RangedWeapon) a).GetMyArray();
-                                    if( numthisloc > 1 ) {
-                                        retval += "" + ( m.GetMGTons() * numthisloc );
-                                    } else {
-                                        retval += m.GetMGTons();
-                                    }
+                                    retval += FormatTonnage( m.GetMGTons(), numthisloc );
                                 } else if( ((RangedWeapon) a).IsUsingCapacitor() ) {
-                                    if( numthisloc > 1 ) {
-                                        retval += "" + ( ( a.GetTonnage() - 1.0f ) * numthisloc );
-                                    } else {
-                                        retval += ( a.GetTonnage() - 1.0f );
-                                    }
+                                    retval += FormatTonnage( ( a.GetTonnage() - 1.0f ), numthisloc );
                                 } else {
-                                    if( numthisloc > 1 ) {
-                                        retval += a.GetTonnage() * numthisloc;
-                                    } else {
-                                        retval += a.GetTonnage();
-                                    }
+                                    retval += FormatTonnage( a.GetTonnage(), numthisloc );
                                 }
                             } else if( a instanceof ifMissileGuidance ) {
-                                if( numthisloc > 1 ) {
-                                    retval += "" + ( a.GetTonnage() * numthisloc );
-                                } else {
-                                    retval += a.GetTonnage();
-                                }
+                                retval += FormatTonnage( a.GetTonnage(), numthisloc );
                             } else if( a instanceof MGArray ) {
-                                if( numthisloc > 1 ) {
-                                    retval += "" + ( ((MGArray) a).GetBaseTons() * numthisloc );
-                                } else {
-                                    retval += ((MGArray) a).GetBaseTons();
-                                }
+                                retval += FormatTonnage( ((MGArray) a).GetBaseTons(), numthisloc );
                             } else {
-                                if( numthisloc > 1 ) {
-                                    retval += String.format( "%1$6.2f", a.GetTonnage() * numthisloc );
-                                } else {
-                                    retval += a.GetTonnage();
-                                }
+                                retval += FormatTonnage( a.GetTonnage(), numthisloc );
                             }
                         } else if( check.equals( "<+-SSW_EQUIP_CRITS-+>" ) ) {
                             if( a.CanSplit() ) {
@@ -971,25 +907,15 @@ public class HTMLWriter {
                             }
                         } else if( check.equals( "<+-SSW_EQUIP_HEAT-+>" ) ) {
                             if( a instanceof ifWeapon ) {
-                                if( ((ifWeapon) a).IsUltra() || ((ifWeapon) a).IsRotary() ) {
-                                    if( numthisloc > 1 ) {
-                                        retval += "" + ((ifWeapon) a).GetBVHeat() * numthisloc + " /shot";
-                                    } else {
-                                        retval += "" + ((ifWeapon) a).GetBVHeat() + " /shot";
-                                    }
+                                if( ((ifWeapon) a).IsUltra() ) {
+                                    retval += ((ifWeapon) a).GetBVHeat() + " /shot (" + ( ((ifWeapon) a).GetBVHeat() * numthisloc * 2 ) + " max)";
+                                } else if( ((ifWeapon) a).IsRotary() ) {
+                                    retval += ((ifWeapon) a).GetBVHeat() + " /shot (" + ( ((ifWeapon) a).GetBVHeat() * numthisloc * 6 ) + " max)";
                                 } else {
-                                    if( numthisloc > 1 ) {
-                                        retval += "" + ((ifWeapon) a).GetBVHeat() * numthisloc;
-                                    } else {
-                                        retval += "" + ((ifWeapon) a).GetBVHeat();
-                                    }
+                                    retval += "" + ((ifWeapon) a).GetBVHeat() * numthisloc;
                                 }
                             } else if( a instanceof Equipment ) {
-                                if( numthisloc > 1 ) {
-                                    retval += "" + ((Equipment) a).GetHeat() * numthisloc;
-                                } else {
-                                    retval += "" + ((Equipment) a).GetHeat();
-                                }
+                                retval += "" + ((Equipment) a).GetHeat() * numthisloc;
                             } else if( a.GetMechModifier() != null ) {
                                 retval += a.GetMechModifier().HeatAdder();
                             } else {
@@ -1187,8 +1113,8 @@ public class HTMLWriter {
         } else {
             lookup.put( "<+-SSW_TECHBASE-+>", CommonTools.GetTechbaseString( CurMech.GetTechBase() ) );
         }
-        lookup.put( "<+-SSW_TONNAGE-+>", "" + CurMech.GetTonnage() );
-        lookup.put( "<+-SSW_DRY_TONNAGE-+>", "" + CurMech.GetCurrentDryTons() );
+        lookup.put( "<+-SSW_TONNAGE-+>", FormatTonnage( CurMech.GetTonnage(), 1 ) );
+        lookup.put( "<+-SSW_DRY_TONNAGE-+>", FormatTonnage( CurMech.GetCurrentDryTons(), 1 ) );
         AvailableCode AC = CurMech.GetAvailability();
         lookup.put( "<+-SSW_AVAILABILITY-+>", AC.GetBestCombinedCode() );
         lookup.put( "<+-SSW_PROD_YEAR-+>", "" + CurMech.GetYear() );
@@ -1287,14 +1213,14 @@ public class HTMLWriter {
         lookup.put( "<+-SSW_MANUFACTURER_JUMPJETS-+>", CurMech.GetJJModel() );
         lookup.put( "<+-SSW_MANUFACTURER_COMM_SYSTEM-+>", GetCommSystem() );
         lookup.put( "<+-SSW_MANUFACTURER_T_AND_T_SYSTEM-+>", GetTandTSystem() );
-        lookup.put( "<+-SSW_CHASSIS_TONNAGE-+>", "" + CurMech.GetIntStruc().GetTonnage() );
-        lookup.put( "<+-SSW_ARMOR_TONNAGE-+>", "" + CurMech.GetArmor().GetTonnage() );
-        lookup.put( "<+-SSW_ENGINE_TONNAGE-+>", "" + CurMech.GetEngine().GetTonnage() );
-        lookup.put( "<+-SSW_GYRO_TONNAGE-+>", "" + CurMech.GetGyro().GetTonnage() );
-        lookup.put( "<+-SSW_COCKPIT_TONNAGE-+>", "" + CurMech.GetCockpit().GetTonnage() );
-        lookup.put( "<+-SSW_HEATSINK_TONNAGE-+>", "" + CurMech.GetHeatSinks().GetTonnage() );
-        lookup.put( "<+-SSW_JUMPJET_TONNAGE-+>", "" + CurMech.GetJumpJets().GetTonnage() );
-        lookup.put( "<+-SSW_ENHANCEMENT_TONNAGE-+>", "" + CurMech.GetPhysEnhance().GetTonnage() );
+        lookup.put( "<+-SSW_CHASSIS_TONNAGE-+>", FormatTonnage( CurMech.GetIntStruc().GetTonnage(), 1 ) );
+        lookup.put( "<+-SSW_ARMOR_TONNAGE-+>", FormatTonnage( CurMech.GetArmor().GetTonnage(), 1 ) );
+        lookup.put( "<+-SSW_ENGINE_TONNAGE-+>", FormatTonnage( CurMech.GetEngine().GetTonnage(), 1 ) );
+        lookup.put( "<+-SSW_GYRO_TONNAGE-+>", FormatTonnage( CurMech.GetGyro().GetTonnage(), 1 ) );
+        lookup.put( "<+-SSW_COCKPIT_TONNAGE-+>", FormatTonnage( CurMech.GetCockpit().GetTonnage(), 1 ) );
+        lookup.put( "<+-SSW_HEATSINK_TONNAGE-+>", FormatTonnage( CurMech.GetHeatSinks().GetTonnage(), 1 ) );
+        lookup.put( "<+-SSW_JUMPJET_TONNAGE-+>", FormatTonnage( CurMech.GetJumpJets().GetTonnage(), 1 ) );
+        lookup.put( "<+-SSW_ENHANCEMENT_TONNAGE-+>", FormatTonnage( CurMech.GetPhysEnhance().GetTonnage(), 1 ) );
         // need a routine for this...
         lookup.put( "<+-SSW_EQUIPMENT_TOTAL_TONNAGE-+>", "" );
         lookup.put( "<+-SSW_HD_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_HD ) );
@@ -1396,9 +1322,9 @@ public class HTMLWriter {
         lookup.put( "<+-SSW_HEATSINK_DISSIPATION-+>", "" + CurMech.GetHeatSinks().TotalDissipation() );
         lookup.put( "<+-SSW_INTERNAL_TYPE-+>", CurMech.GetIntStruc().GetCritName() );
         lookup.put( "<+-SSW_CASE_LOCATION_LINE-+>", FileCommon.GetCaseLocations( CurMech ) );
-        lookup.put( "<+-SSW_CASE_TONNAGE-+>", "" + CurMech.GetCaseTonnage() );
+        lookup.put( "<+-SSW_CASE_TONNAGE-+>", FormatTonnage( CurMech.GetCaseTonnage(), 1 ) );
         lookup.put( "<+-SSW_CASEII_LOCATION_LINE-+>", FileCommon.GetCaseIILocations( CurMech ) );
-        lookup.put( "<+-SSW_CASEII_TONNAGE-+>", "" + CurMech.GetCASEIITonnage() );
+        lookup.put( "<+-SSW_CASEII_TONNAGE-+>", FormatTonnage( CurMech.GetCASEIITonnage(), 1 ) );
         if( CurMech.IsQuad() ) {
             if( CurMech.IsIndustrialmech() ) {
                 lookup.put( "<+-SSW_CHASSIS_CONFIG-+>", "Quad IndustrialMech" );
@@ -1422,7 +1348,7 @@ public class HTMLWriter {
         }
         lookup.put( "<+-SSW_RULES_LEVEL-+>", CommonTools.GetRulesLevelString( CurMech.GetRulesLevel() ) );
         if( CurMech.IsOmnimech() ) {
-            lookup.put( "<+-SSW_POD_TONNAGE-+>", "" + ( CurMech.GetTonnage() - CurMech.GetCurrentTons() ) );
+            lookup.put( "<+-SSW_POD_TONNAGE-+>", FormatTonnage( ( CurMech.GetTonnage() - CurMech.GetCurrentTons() ), 1 ) );
         } else {
             lookup.put( "<+-SSW_POD_TONNAGE-+>", "" );
         }
@@ -1430,7 +1356,7 @@ public class HTMLWriter {
             lookup.put( "<+-SSW_POWER_AMP_TONNAGE-+>", "" );
         } else {
             if( CurMech.GetLoadout().GetPowerAmplifier().GetTonnage() > 0 ) {
-                lookup.put( "<+-SSW_POWER_AMP_TONNAGE-+>", "" + CurMech.GetLoadout().GetPowerAmplifier().GetTonnage() );
+                lookup.put( "<+-SSW_POWER_AMP_TONNAGE-+>", FormatTonnage( CurMech.GetLoadout().GetPowerAmplifier().GetTonnage(), 1 ) );
             } else {
                 lookup.put( "<+-SSW_POWER_AMP_TONNAGE-+>", "" );
             }
@@ -1551,5 +1477,9 @@ public class HTMLWriter {
             retval += "* " + CurMech.GetTracks().GetCritName() + " occupy 1 slot in every leg location." + NL;
         }
         return retval;
+    }
+
+    private String FormatTonnage( double d, int num ) {
+        return String.format( "%1$6.2f", d * num );
     }
 }

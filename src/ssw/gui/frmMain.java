@@ -1525,14 +1525,41 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }
 
     private void RefreshInternalPoints() {
-        lblHDIntPts.setText( "" + CurMech.GetIntStruc().GetHeadPoints() );
-        lblCTIntPts.setText( "" + CurMech.GetIntStruc().GetCTPoints() );
-        lblLTIntPts.setText( "" + CurMech.GetIntStruc().GetSidePoints() );
-        lblRTIntPts.setText( "" + CurMech.GetIntStruc().GetSidePoints() );
-        lblLAIntPts.setText( "" + CurMech.GetIntStruc().GetArmPoints() );
-        lblRAIntPts.setText( "" + CurMech.GetIntStruc().GetArmPoints() );
-        lblLLIntPts.setText( "" + CurMech.GetIntStruc().GetLegPoints() );
-        lblRLIntPts.setText( "" + CurMech.GetIntStruc().GetLegPoints() );
+        if( Prefs.getBoolean( "UseMaxArmorInstead", false ) ) {
+            lblHDHeader.setText( "Max" );
+            lblCTHeader.setText( "Max" );
+            lblLTHeader.setText( "Max" );
+            lblRTHeader.setText( "Max" );
+            lblLAHeader.setText( "Max" );
+            lblRAHeader.setText( "Max" );
+            lblLLHeader.setText( "Max" );
+            lblRLHeader.setText( "Max" );
+            lblHDIntPts.setText( "" + CurMech.GetIntStruc().GetHeadPoints() * 3 );
+            lblCTIntPts.setText( "" + CurMech.GetIntStruc().GetCTPoints() * 2 );
+            lblLTIntPts.setText( "" + CurMech.GetIntStruc().GetSidePoints() * 2 );
+            lblRTIntPts.setText( "" + CurMech.GetIntStruc().GetSidePoints() * 2 );
+            lblLAIntPts.setText( "" + CurMech.GetIntStruc().GetArmPoints() * 2 );
+            lblRAIntPts.setText( "" + CurMech.GetIntStruc().GetArmPoints() * 2 );
+            lblLLIntPts.setText( "" + CurMech.GetIntStruc().GetLegPoints() * 2 );
+            lblRLIntPts.setText( "" + CurMech.GetIntStruc().GetLegPoints() * 2 );
+        } else {
+            lblHDHeader.setText( "Internal" );
+            lblCTHeader.setText( "Internal" );
+            lblLTHeader.setText( "Internal" );
+            lblRTHeader.setText( "Internal" );
+            lblLAHeader.setText( "Internal" );
+            lblRAHeader.setText( "Internal" );
+            lblLLHeader.setText( "Internal" );
+            lblRLHeader.setText( "Internal" );
+            lblHDIntPts.setText( "" + CurMech.GetIntStruc().GetHeadPoints() );
+            lblCTIntPts.setText( "" + CurMech.GetIntStruc().GetCTPoints() );
+            lblLTIntPts.setText( "" + CurMech.GetIntStruc().GetSidePoints() );
+            lblRTIntPts.setText( "" + CurMech.GetIntStruc().GetSidePoints() );
+            lblLAIntPts.setText( "" + CurMech.GetIntStruc().GetArmPoints() );
+            lblRAIntPts.setText( "" + CurMech.GetIntStruc().GetArmPoints() );
+            lblLLIntPts.setText( "" + CurMech.GetIntStruc().GetLegPoints() );
+            lblRLIntPts.setText( "" + CurMech.GetIntStruc().GetLegPoints() );
+        }
     }
 
     private void RefreshSummary() {
@@ -3572,7 +3599,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // build the filename
-        if( CurMech.IsOmnimech() &! singleloadout ) {
+        if( CurMech.IsOmnimech() && singleloadout ) {
             if( CurMech.GetModel().isEmpty() ) {
                 filename = CurMech.GetName() + " " + CurMech.GetLoadout().GetName() + "." + extension;
             } else {
@@ -10037,6 +10064,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         preferences.setVisible( true );
         Mechrender.Reset();
         ResetAmmo();
+        RefreshInternalPoints();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_mnuOptionsActionPerformed

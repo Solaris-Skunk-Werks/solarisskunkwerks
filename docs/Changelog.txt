@@ -29,6 +29,7 @@ Version 0.7.0
 - Added compact and laser heat sinks, and support for variable tonnage equipment.
 - Added an ammo chooser to the printing functions.
 - Added an ammo name formatter for export in addition to the print format.
+- You can now view either the internal points or maximum armor on the Armor tab.
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.
