@@ -134,7 +134,7 @@ public class MechLoadoutRenderer extends DefaultListCellRenderer {
                 label.setForeground( NormalFG );
                 BorderCol = NormalBG;
             }
-            if( Parent.CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+            if( Parent.CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                 if( a instanceof Equipment ) {
                     if( ((Equipment) a).IsVariableSize() ) {
                         Text = a.GetCritName();
@@ -173,7 +173,7 @@ public class MechLoadoutRenderer extends DefaultListCellRenderer {
             }
             label.setBackground( HiliteBG );
             label.setForeground( HiliteFG );
-            if( Parent.CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+            if( Parent.CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                 if( Parent.CurItem instanceof Equipment ) {
                     if( ((Equipment) Parent.CurItem).IsVariableSize() ) {
                         Text =  Parent.CurItem.GetCritName();

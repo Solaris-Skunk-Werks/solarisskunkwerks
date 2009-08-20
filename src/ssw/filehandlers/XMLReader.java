@@ -217,6 +217,7 @@ public class XMLReader {
         Vector jjLoc = new Vector();
         Vector enhLoc = new Vector();
         Vector acLoc = new Vector();
+        String Source = "";
 
         VMechFullRecalc Recalc = new VMechFullRecalc();
         m.Visit( Recalc );
@@ -258,11 +259,14 @@ public class XMLReader {
             era += 1;
         }
         m.SetEra( era );
-        n = d.getElementsByTagName( "source" );
-        if( n.getLength() > 0 ) {
-            m.SetSource( FileCommon.DecodeFluff( n.item( 0 ).getTextContent() ) );
-        }
 
+        if( SaveFileVersion < 2 ) {
+            n = d.getElementsByTagName( "source" );
+            if( n.getLength() > 0 ) {
+                m.SetSource( FileCommon.DecodeFluff( n.item( 0 ).getTextContent() ) );
+            }
+            Source = m.GetSource();
+        }
         n = d.getElementsByTagName( "mech_type" );
         if( n.getLength() <= 0 ) {
             // old files are always BattleMechs
@@ -526,7 +530,9 @@ public class XMLReader {
         LocationIndex ltc = new LocationIndex();
         for( int i = 0; i < n.getLength(); i++ ) {
             // the main loadout routine
-            if( n.item( i ).getNodeName().equals( "actuators" ) ) {
+            if( n.item( i ).getNodeName().equals( "source" ) ) {
+                m.SetSource( n.item( i ).getTextContent() );
+            } else if( n.item( i ).getNodeName().equals( "actuators" ) ) {
                 map = n.item( i ).getAttributes();
                 boolean usella = ParseBoolean( map.getNamedItem( "lla" ).getTextContent() );
                 boolean uselh = ParseBoolean( map.getNamedItem( "lh" ).getTextContent() );
@@ -933,7 +939,6 @@ public class XMLReader {
                     m.AddLoadout( FileCommon.DecodeFluff( map.getNamedItem( "name" ).getTextContent() ) );
                 }
                 if( map.getNamedItem( "a4srm" ) != null ) {
-                    // old style loading
                     // old style loading, see if we need to add the message in
                     boolean A4SRM = ParseBoolean( map.getNamedItem( "a4srm" ).getTextContent() );
                     boolean A4LRM = ParseBoolean( map.getNamedItem( "a4lrm" ).getTextContent() );
@@ -960,11 +965,18 @@ public class XMLReader {
                     // this will fail if Inner Sphere, so we're safe
                     m.GetLoadout().SetClanCASE( true );
                 }
+                if( SaveFileVersion < 2 ) {
+                    m.SetSource( Source );
+                }
                 n = OmniLoads.item( k ).getChildNodes();
                 ltc = new LocationIndex();
                 for( int i = 0; i < n.getLength(); i++ ) {
                     // the main loadout routine
-                    if( n.item( i ).getNodeName().equals( "actuators" ) ) {
+                    if( n.item( i ).getNodeName().equals( "source" ) ) {
+                        m.SetSource( n.item( i ).getTextContent() );
+                    } else if( n.item( i ).getNodeName().equals( "techbase" ) ) {
+                        m.SetTechBase( Integer.parseInt( n.item( i ).getTextContent() ) );
+                    } else if( n.item( i ).getNodeName().equals( "actuators" ) ) {
                         map = n.item( i ).getAttributes();
                         boolean usella = ParseBoolean( map.getNamedItem( "lla" ).getTextContent() );
                         boolean uselh = ParseBoolean( map.getNamedItem( "lh" ).getTextContent() );
@@ -1367,7 +1379,6 @@ public class XMLReader {
             }
             if( name.contains( "Variable Speed Laser" ) ) {
                 name = name.replace( "Variable Speed Laser", "Variable Speed Pulse Laser" );
-                System.out.println( name );
             }
             retval = data.GetEquipment().GetRangedWeaponByName( name, m );
             if( retval == null ) {

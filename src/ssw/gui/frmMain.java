@@ -818,7 +818,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private String BuildLookupName( ifState s ) {
         String retval = s.GetLookupName();
-        if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+        if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
             if( s.HasCounterpart() ) {
                 if( s.GetAvailability().GetTechBase() == AvailableCode.TECH_CLAN ) {
                     return "(CL) " + retval;
@@ -1016,7 +1016,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // Clan CASE checkbox
-        if( CurMech.GetTechBase() > AvailableCode.TECH_INNER_SPHERE ) {
+        if( CurMech.GetLoadout().GetTechBase() > AvailableCode.TECH_INNER_SPHERE ) {
             chkClanCASE.setEnabled( true );
         } else {
             CurMech.GetLoadout().SetClanCASE( false );
@@ -1389,7 +1389,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void RecalcEquipment() {
         // recalculates the equipment if anything changes
         boolean clan = false;
-        switch( CurMech.GetTechBase() ) {
+        switch( CurMech.GetLoadout().GetTechBase() ) {
             case AvailableCode.TECH_CLAN: case AvailableCode.TECH_BOTH:
                 // this is the default value to use assuming that during mixed
                 // tech operations the user will use the best.
@@ -2621,7 +2621,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkOmnimech.setEnabled( false );
         //cmbRulesLevel.setEnabled( false );
         cmbMechEra.setEnabled( false );
-        cmbTechBase.setEnabled( false );
+        //cmbTechBase.setEnabled( false );
         cmbTonnage.setEnabled( false );
         cmbMechType.setEnabled( false );
         cmbMotiveType.setEnabled( false );
@@ -2728,7 +2728,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkOmnimech.setEnabled( true );
         //cmbRulesLevel.setEnabled( true );
         cmbMechEra.setEnabled( true );
-        cmbTechBase.setEnabled( true );
+        //cmbTechBase.setEnabled( true );
         cmbTonnage.setEnabled( true );
         cmbMechType.setEnabled( true );
         cmbMotiveType.setEnabled( true );
@@ -2807,6 +2807,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
 
+        // set the current loadout source before changing
+        txtSource.setText( CurMech.GetSource() );
         cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( variants ) );
         cmbOmniVariant.setSelectedItem( CurMech.GetLoadout().GetName() );
     }
@@ -9837,56 +9839,71 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void cmbTechBaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTechBaseActionPerformed
         if( Load ) { return; }
         // do we really need to do this?
-        if( CurMech.GetTechBase() == cmbTechBase.getSelectedIndex() ) { return; }
+        if( CurMech.IsOmnimech() ) {
+            if( CurMech.GetLoadout().GetTechBase() == cmbTechBase.getSelectedIndex() ) { return; }
+        } else {
+            if( CurMech.GetTechBase() == cmbTechBase.getSelectedIndex() ) { return; }
+        }
 
         // save the current selections
         SaveSelections();
 
-        // now change the mech over to the new techbase
-        switch( cmbTechBase.getSelectedIndex() ) {
-            case AvailableCode.TECH_INNER_SPHERE:
-                CurMech.SetInnerSphere();
-                break;
-            case AvailableCode.TECH_CLAN:
-                CurMech.SetClan();
-                break;
-            case AvailableCode.TECH_BOTH:
-                CurMech.SetMixed();
-                break;
+        if( CurMech.IsOmnimech() ) {
+            boolean check = CurMech.SetTechBase( cmbTechBase.getSelectedIndex() );
+            if( ! check ) {
+                javax.swing.JOptionPane.showMessageDialog( this, "An OmniMech can only use the base chassis' Tech Base\nor Mixed Tech.  Resetting." );
+                cmbTechBase.setSelectedIndex( CurMech.GetLoadout().GetTechBase() );
+                return;
+            }
+            RefreshEquipment();
+        } else {
+            // now change the mech over to the new techbase
+            switch( cmbTechBase.getSelectedIndex() ) {
+                case AvailableCode.TECH_INNER_SPHERE:
+                    CurMech.SetInnerSphere();
+                    break;
+                case AvailableCode.TECH_CLAN:
+                    CurMech.SetClan();
+                    break;
+                case AvailableCode.TECH_BOTH:
+                    CurMech.SetMixed();
+                    break;
+            }
+
+            data.Rebuild( CurMech );
+
+            // refresh all the combo boxes.
+            BuildChassisSelector();
+            BuildEngineSelector();
+            BuildGyroSelector();
+            BuildCockpitSelector();
+            BuildEnhancementSelector();
+            BuildHeatsinkSelector();
+            BuildJumpJetSelector();
+            BuildArmorSelector();
+            RefreshEquipment();
+            CheckOmnimech();
+
+            // for Clan machines (only) ensure that Clan CASE is selected by default
+            if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
+                CurMech.GetLoadout().SetClanCASE( true );
+            }
+
+            // now reset the combo boxes to the closest choices we previously selected
+            LoadSelections();
+
+            // recalculate the mech.
+            RecalcEngine();
+            RecalcGyro();
+            RecalcIntStruc();
+            RecalcCockpit();
+            CurMech.GetActuators().PlaceActuators();
+            RecalcHeatSinks();
+            RecalcJumpJets();
+            RecalcEnhancements();
+            RecalcArmor();
         }
 
-        data.Rebuild( CurMech );
-
-        // refresh all the combo boxes.
-        BuildChassisSelector();
-        BuildEngineSelector();
-        BuildGyroSelector();
-        BuildCockpitSelector();
-        BuildEnhancementSelector();
-        BuildHeatsinkSelector();
-        BuildJumpJetSelector();
-        BuildArmorSelector();
-        RefreshEquipment();
-        CheckOmnimech();
-
-        // for Clan machines (only) ensure that Clan CASE is selected by default
-        if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
-            CurMech.GetLoadout().SetClanCASE( true );
-        }
-
-        // now reset the combo boxes to the closest choices we previously selected
-        LoadSelections();
-
-        // recalculate the mech.
-        RecalcEngine();
-        RecalcGyro();
-        RecalcIntStruc();
-        RecalcCockpit();
-        CurMech.GetActuators().PlaceActuators();
-        RecalcHeatSinks();
-        RecalcJumpJets();
-        RecalcEnhancements();
-        RecalcArmor();
         RecalcEquipment();
         SetWeaponChoosers();
         chkUseTC.setSelected( false );
@@ -11091,12 +11108,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( chkUseTC.isSelected() ) {
             try {
                 CurMech.GetLoadout().CheckExclusions( CurMech.GetTC() );
-                if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
                     tech.setLocationRelativeTo( this );
                     tech.setVisible( true );
                     CurMech.UseTC( true, tech.IsClan() );
-                } else if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
                     CurMech.UseTC( true, true );
                 } else {
                     CurMech.UseTC( true, false );
@@ -11422,6 +11439,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     //CurMech.GetLoadout().FlushIllegal( NewLevel, 0, false );
                     CurMech.GetLoadout().FlushIllegal();
                 }
+                BuildTechBaseSelector();
+                cmbTechBase.setSelectedIndex( CurMech.GetLoadout().GetTechBase() );
                 RefreshEquipment();
                 RecalcEquipment();
             } else {
@@ -11484,6 +11503,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void btnLockChassisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLockChassisActionPerformed
         // currently testing right now.
+        CurMech.SetSource( txtSource.getText() );
         String VariantName = "";
 
         // ensure there are no unplaced crits
@@ -11544,6 +11564,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_chkOmnimechActionPerformed
 
     private void btnAddVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddVariantActionPerformed
+        CurMech.SetSource( txtSource.getText() );
         String VariantName = "";
 
         // get the variant name
@@ -11626,10 +11647,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         String variant = (String) cmbOmniVariant.getSelectedItem();
         boolean changed = CurMech.HasChanged();
 
+        CurMech.SetSource( txtSource.getText() );
         CurMech.SetCurLoadout( variant );
 
         // now fix the GUI
         cmbRulesLevel.setSelectedIndex( CurMech.GetLoadout().GetRulesLevel() );
+        BuildTechBaseSelector();
+        cmbTechBase.setSelectedIndex( CurMech.GetLoadout().GetTechBase() );
+        txtSource.setText( CurMech.GetSource() );
         FixTransferHandlers();
         SetLoadoutArrays();
         SetWeaponChoosers();
@@ -12236,10 +12261,8 @@ public void LoadMechIntoGUI() {
             break;
     }
 
-    BuildTechBaseSelector();
     cmbRulesLevel.setSelectedIndex( CurMech.GetRulesLevel() );
     cmbMechEra.setSelectedIndex( CurMech.GetEra() );
-    cmbTechBase.setSelectedIndex( CurMech.GetTechBase() );
 
     // now that we're done with the special stuff...
     Load = false;
@@ -12257,6 +12280,9 @@ public void LoadMechIntoGUI() {
         RefreshOmniVariants();
         RefreshOmniChoices();
     }
+
+    BuildTechBaseSelector();
+    cmbTechBase.setSelectedIndex( CurMech.GetLoadout().GetTechBase() );
 
     FixTransferHandlers();
 
@@ -12455,12 +12481,12 @@ private void chkCTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         if( CurMech.GetLoadout().HasCTCASEII() == chkCTCASE2.isSelected() ) { return; }
         if( chkCTCASE2.isSelected() ) {
             try {
-                if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
                     tech.setLocationRelativeTo( this );
                     tech.setVisible( true );
                     CurMech.GetLoadout().SetCTCASEII( true, -1, tech.IsClan() );
-                } else if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
                     CurMech.GetLoadout().SetCTCASEII( true, -1, true );
                 } else {
                     CurMech.GetLoadout().SetCTCASEII( true, -1, false );
@@ -12489,12 +12515,12 @@ private void chkRACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         if( CurMech.GetLoadout().HasRACASEII() == chkRACASE2.isSelected() ) { return; }
         if( chkRACASE2.isSelected() ) {
             try {
-                if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
                     tech.setLocationRelativeTo( this );
                     tech.setVisible( true );
                     CurMech.GetLoadout().SetRACASEII( true, -1, tech.IsClan() );
-                } else if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
                     CurMech.GetLoadout().SetRACASEII( true, -1, true );
                 } else {
                     CurMech.GetLoadout().SetRACASEII( true, -1, false );
@@ -12523,12 +12549,12 @@ private void chkRTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         if( CurMech.GetLoadout().HasRTCASEII() == chkRTCASE2.isSelected() ) { return; }
         if( chkRTCASE2.isSelected() ) {
             try {
-                if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
                     tech.setLocationRelativeTo( this );
                     tech.setVisible( true );
                     CurMech.GetLoadout().SetRTCASEII( true, -1, tech.IsClan() );
-                } else if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
                     CurMech.GetLoadout().SetRTCASEII( true, -1, true );
                 } else {
                     CurMech.GetLoadout().SetRTCASEII( true, -1, false );
@@ -12557,12 +12583,12 @@ private void chkRLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         if( CurMech.GetLoadout().HasRLCASEII() == chkRLCASE2.isSelected() ) { return; }
         if( chkRLCASE2.isSelected() ) {
             try {
-                if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
                     tech.setLocationRelativeTo( this );
                     tech.setVisible( true );
                     CurMech.GetLoadout().SetRLCASEII( true, -1, tech.IsClan() );
-                } else if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
                     CurMech.GetLoadout().SetRLCASEII( true, -1, true );
                 } else {
                     CurMech.GetLoadout().SetRLCASEII( true, -1, false );
@@ -12591,12 +12617,12 @@ private void chkHDCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         if( CurMech.GetLoadout().HasHDCASEII() == chkHDCASE2.isSelected() ) { return; }
         if( chkHDCASE2.isSelected() ) {
             try {
-                if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
                     tech.setLocationRelativeTo( this );
                     tech.setVisible( true );
                     CurMech.GetLoadout().SetHDCASEII( true, -1, tech.IsClan() );
-                } else if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
                     CurMech.GetLoadout().SetHDCASEII( true, -1, true );
                 } else {
                     CurMech.GetLoadout().SetHDCASEII( true, -1, false );
@@ -12625,12 +12651,12 @@ private void chkLTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         if( CurMech.GetLoadout().HasLTCASEII() == chkLTCASE2.isSelected() ) { return; }
         if( chkLTCASE2.isSelected() ) {
             try {
-                if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
                     tech.setLocationRelativeTo( this );
                     tech.setVisible( true );
                     CurMech.GetLoadout().SetLTCASEII( true, -1, tech.IsClan() );
-                } else if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
                     CurMech.GetLoadout().SetLTCASEII( true, -1, true );
                 } else {
                     CurMech.GetLoadout().SetLTCASEII( true, -1, false );
@@ -12659,12 +12685,12 @@ private void chkLLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         if( CurMech.GetLoadout().HasLLCASEII() == chkLLCASE2.isSelected() ) { return; }
         if( chkLLCASE2.isSelected() ) {
             try {
-                if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
                     tech.setLocationRelativeTo( this );
                     tech.setVisible( true );
                     CurMech.GetLoadout().SetLLCASEII( true, -1, tech.IsClan() );
-                } else if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
                     CurMech.GetLoadout().SetLLCASEII( true, -1, true );
                 } else {
                     CurMech.GetLoadout().SetLLCASEII( true, -1, false );
@@ -12693,12 +12719,12 @@ private void chkLACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         if( CurMech.GetLoadout().HasLACASEII() == chkLACASE2.isSelected() ) { return; }
         if( chkLACASE2.isSelected() ) {
             try {
-                if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
                     tech.setLocationRelativeTo( this );
                     tech.setVisible( true );
                     CurMech.GetLoadout().SetLACASEII( true, -1, tech.IsClan() );
-                } else if( CurMech.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
                     CurMech.GetLoadout().SetLACASEII( true, -1, true );
                 } else {
                     CurMech.GetLoadout().SetLACASEII( true, -1, false );

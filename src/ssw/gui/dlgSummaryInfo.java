@@ -49,7 +49,7 @@ public class dlgSummaryInfo extends javax.swing.JDialog {
         lblName.setText( Parent.CurMech.GetName() );
         lblModel.setText( Parent.CurMech.GetModel() );
         lblActualProdYear.setText( "" + Parent.CurMech.GetYear() );
-        switch( Parent.CurMech.GetTechBase() ) {
+        switch( Parent.CurMech.GetLoadout().GetTechBase() ) {
             case AvailableCode.TECH_INNER_SPHERE:
                 lblAvailability.setText( AC.GetISCombinedCode() );
                 if( AC.WentExtinctIS() && AC.WasReIntrodIS() ) {

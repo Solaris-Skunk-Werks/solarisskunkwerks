@@ -43,7 +43,8 @@ public class QuadLoadout implements ifLoadout {
     // space inside a mech is fixed.
     
     // Declares
-    private String Name;
+    private String Name,
+                   Source = "";
     private final static EmptyItem NoItem = new EmptyItem();
     private Vector Queue = new Vector(),
                    NonCore = new Vector(),
@@ -126,6 +127,14 @@ public class QuadLoadout implements ifLoadout {
         return Name;
     }
 
+    public void SetSource( String s ) {
+        Source = s;
+    }
+
+    public String GetSource() {
+        return Source;
+    }
+
     public Mech GetMech() {
         return Owner;
     }
@@ -172,18 +181,8 @@ public class QuadLoadout implements ifLoadout {
         return TechBase;
     }
 
-    public boolean SetTechBase( int NewLevel ) {
-        if( Owner.IsOmnimech() ) {
-            if( NewLevel != Owner.GetTechBase() && NewLevel != AvailableCode.TECH_BOTH ) {
-                return false;
-            } else {
-                TechBase = NewLevel;
-                return true;
-            }
-        } else {
-            TechBase = NewLevel;
-            return true;
-        }
+    public void SetTechBase( int NewLevel ) {
+        TechBase = NewLevel;
     }
 
     public void AddToQueue( abPlaceable p ) {
@@ -3219,7 +3218,7 @@ public class QuadLoadout implements ifLoadout {
 
     public void SetCTCASE( boolean Add, int index ) throws Exception {
         // adds CASE equipment to the CT
-        if( Add && Owner.GetTechBase() == AvailableCode.TECH_CLAN ) {
+        if( Add && TechBase == AvailableCode.TECH_CLAN ) {
             throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
         }
         if( ! Add ) {
@@ -3267,7 +3266,7 @@ public class QuadLoadout implements ifLoadout {
         if( Add && HasLTCASE() ) {
             return;
         }
-        if( Add &&Owner.GetTechBase() == AvailableCode.TECH_CLAN ) {
+        if( Add && TechBase == AvailableCode.TECH_CLAN ) {
             throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
         }
 
@@ -3308,7 +3307,7 @@ public class QuadLoadout implements ifLoadout {
         if( Add && HasRTCASE() ) {
             return;
         }
-        if( Add && Owner.GetTechBase() == AvailableCode.TECH_CLAN ) {
+        if( Add && TechBase == AvailableCode.TECH_CLAN ) {
             throw new Exception( "A Clan 'Mech may not mount Inner Sphere CASE equipment." );
         }
 

@@ -32,6 +32,7 @@ Version 0.7.0
 - You can now view either the internal points or maximum armor on the Armor tab.
 - Fully implemented variable tonnage equipment.
 - Added Chassis (Battlemech/IndustrialMech) and Motive (Biped/Quad) to the Open dialog.
+- You can now change the techbase of an OmniMech loadout to Mixed (requires Experimental Rules).
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.

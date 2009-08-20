@@ -942,7 +942,7 @@ public class PrintMech implements Printable {
         temp = temp.split( " " )[0];
         graphics.drawString( temp, p[PrintConsts.HEATSINK_NUMBER].x, p[PrintConsts.HEATSINK_NUMBER].y + 11 );
 
-        temp = CommonTools.GetTechbaseString( CurMech.GetTechBase() );
+        temp = CommonTools.GetTechbaseString( CurMech.GetLoadout().GetTechBase() );
         graphics.drawString( temp, p[PrintConsts.TECH_IS].x, p[PrintConsts.TECH_IS].y );
 
         graphics.drawString( CurMech.GetYear() + "", p[PrintConsts.TECH_IS].x, p[PrintConsts.TECH_IS].y + 10 );
@@ -1179,7 +1179,7 @@ public class PrintMech implements Printable {
         // returns a modified PrintName, useful for special situations such as
         // mixed-tech mechs.
         String retval = a.GetPrintName();
-        if( a instanceof RangedWeapon && CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+        if( a instanceof RangedWeapon && CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
             switch( ((RangedWeapon) a).GetTechBase() ) {
                 case AvailableCode.TECH_INNER_SPHERE:
                     retval = "(IS) " + retval;

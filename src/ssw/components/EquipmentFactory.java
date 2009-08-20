@@ -197,7 +197,7 @@ public class EquipmentFactory {
                 Ammunition a = (Ammunition) Ammo.get( i );
                 AvailableCode AC = a.GetAvailability();
                 if( v.contains( a ) ) { break; }
-                if( CommonTools.IsAllowed(AC, RulesLevel, m.GetTechBase(), m.IsPrimitive(), m.IsIndustrialmech(), 0, true, Year ) ) { v.add( a ); }
+                if( CommonTools.IsAllowed(AC, RulesLevel, m.GetLoadout().GetTechBase(), m.IsPrimitive(), m.IsIndustrialmech(), 0, true, Year ) ) { v.add( a ); }
             }
         }
 
@@ -391,7 +391,7 @@ public class EquipmentFactory {
         }
 
         if( m.GetEra() >= AvailableCode.ERA_SUCCESSION ) {
-            if( m.GetTechBase() == AvailableCode.TECH_BOTH || m.GetTechBase() == AvailableCode.TECH_INNER_SPHERE ) {
+            if( m.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH || m.GetLoadout().GetTechBase() == AvailableCode.TECH_INNER_SPHERE ) {
                 if( m.IsYearRestricted() ) {
                     if( m.GetYear() > 3021 ) {
                         if( ! RetVal.contains( hatchet ) ) {

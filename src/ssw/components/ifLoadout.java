@@ -34,6 +34,8 @@ import ssw.gui.EquipmentCollection;
 public interface ifLoadout {
     public void SetName( String s );
     public String GetName();
+    public void SetSource( String s );
+    public String GetSource();
     public Mech GetMech();
     public boolean IsQuad();
     public abPlaceable GetNoItem();
@@ -43,7 +45,7 @@ public interface ifLoadout {
     public int GetRulesLevel();
     public boolean SetRulesLevel( int NewLevel );
     public int GetTechBase();
-    public boolean SetTechBase( int NewLevel );
+    public void SetTechBase( int NewLevel );
     public void AddToQueue( abPlaceable p );
     public void RemoveFromQueue( abPlaceable p );
     public abPlaceable GetFromQueueByIndex( int Index );

@@ -37,7 +37,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Vector;
-import java.util.prefs.Preferences;
 import ssw.utilities.CommonTools;
 
 public class HTMLWriter {
@@ -45,7 +44,6 @@ public class HTMLWriter {
     private Mech CurMech;
     private Hashtable lookup = new Hashtable<String, String>( 90 );
     private String NL = "<BR />";
-    private boolean Mixed = false;
 
     public HTMLWriter( Mech m ) {
         CurMech = m;
@@ -53,9 +51,6 @@ public class HTMLWriter {
         // before we build the hash table
         if( CurMech.IsOmnimech() ) {
             CurMech.SetCurLoadout( Constants.BASELOADOUT_NAME );
-        }
-        if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
-            Mixed = true;
         }
         BuildHash();
     }
@@ -495,6 +490,12 @@ public class HTMLWriter {
             } else {
                 return CommonTools.GetRulesLevelString( CurMech.GetLoadout().GetRulesLevel() );
             }
+        } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_TECHBASE-+>" ) ) {
+            if( CurMech.GetLoadout().GetTechBase() != CurMech.GetTechBase() ) {
+                return CommonTools.GetTechbaseString( CurMech.GetLoadout().GetTechBase() );
+            } else {
+                return "";
+            }
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_COST-+>" ) ) {
             return String.format( "%1$,.0f", CurMech.GetTotalCost() );
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_ACTUATOR_LINE-+>" ) ) {
@@ -524,7 +525,7 @@ public class HTMLWriter {
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_JUMPJET_TONNAGE-+>" ) ) {
             return FormatTonnage( CurMech.GetJumpJets().GetTonnage(), 1 );
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_CASE_TONNAGE-+>" ) ) {
-            if( CurMech.GetTechBase() >= AvailableCode.TECH_CLAN && CurMech.GetLoadout().IsUsingClanCASE() ) {
+            if( CurMech.GetLoadout().GetTechBase() >= AvailableCode.TECH_CLAN && CurMech.GetLoadout().IsUsingClanCASE() ) {
                 int[] Locs = CurMech.GetLoadout().FindExplosiveInstances();
                 boolean check = false;
                 for( int i = 0; i < Locs.length; i++ ) {
@@ -603,13 +604,21 @@ public class HTMLWriter {
                         if( check.equals( "<+-SSW_EQUIP_COUNT_THIS_TYPE-+>" ) ) {
                             retval += "" + num;
                         } else if( check.equals( "<+-SSW_EQUIP_NAME-+>" ) ) {
-                            if( Mixed ) {
-                                retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural;
+                            if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
+                                if( a instanceof Equipment ) {
+                                    if( ((Equipment) a).IsVariableSize() ) {
+                                        retval += FileCommon.LookupStripArc( a.GetCritName() );
+                                    } else {
+                                        retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural;
+                                    }
+                                } else {
+                                    retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural;
+                                }
                             } else {
                                 retval += FileCommon.LookupStripArc( a.GetCritName() ) + plural;
                             }
                         } else if( check.equals( "<+-SSW_EQUIP_FULL_NAME-+>" ) ) {
-                            if( Mixed ) {
+                            if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                                 if( a instanceof RangedWeapon ) {
                                     if( ((RangedWeapon) a).IsUsingFCS() ) {
                                         retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural + " w/ " + ((abPlaceable) ((RangedWeapon) a).GetFCS()).GetLookupName();
@@ -618,7 +627,7 @@ public class HTMLWriter {
                                     }
                                 } else if( a instanceof Equipment ) {
                                     if( ((Equipment) a).IsVariableSize() ) {
-                                        retval += FileCommon.LookupStripArc( a.GetCritName() ) + plural;
+                                        retval += FileCommon.LookupStripArc( a.GetCritName() );
                                     } else {
                                         retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural;
                                     }
@@ -657,13 +666,21 @@ public class HTMLWriter {
                             retval += num + " ";
                         }
                     } else if( check.equals( "<+-SSW_EQUIP_NAME-+>" ) ) {
-                        if( Mixed ) {
-                            retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural;
+                        if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
+                            if( a instanceof Equipment ) {
+                                if( ((Equipment) a).IsVariableSize() ) {
+                                    retval += FileCommon.LookupStripArc( a.GetCritName() );
+                                } else {
+                                    retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural;
+                                }
+                            } else {
+                                retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural;
+                            }
                         } else {
                             retval += FileCommon.LookupStripArc( a.GetCritName() ) + plural;
                         }
                     } else if( check.equals( "<+-SSW_EQUIP_FULL_NAME-+>" ) ) {
-                        if( Mixed ) {
+                        if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                             if( a instanceof RangedWeapon ) {
                                 if( ((RangedWeapon) a).IsUsingFCS() ) {
                                     retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural + " w/ " + ((abPlaceable) ((RangedWeapon) a).GetFCS()).GetLookupName();
@@ -672,12 +689,12 @@ public class HTMLWriter {
                                 }
                             } else if( a instanceof Equipment ) {
                                 if( ((Equipment) a).IsVariableSize() ) {
-                                    retval += FileCommon.LookupStripArc( a.GetCritName() ) + plural;
+                                    retval += FileCommon.LookupStripArc( a.GetCritName() );
                                 } else {
                                     retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural;
                                 }
                             } else {
-                                    retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural;
+                                retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural;
                             }
                         } else {
                             if( a instanceof RangedWeapon ) {
@@ -729,13 +746,18 @@ public class HTMLWriter {
                         String check = "<+-SSW_" + s1[0] + "-+>";
 
                         if( check.equals( "<+-SSW_EQUIP_NAME-+>" ) ) {
+                            String plural = "";
+                            if( numthisloc > 1 ) {
+                                plural = "s";
+                            }
                             if( a instanceof Ammunition ) {
                                 retval += FileCommon.FormatAmmoExportName( ((Ammunition) a), numthisloc );
                             } else {
-                                if( Mixed ) {
+                                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                                     if( a instanceof Equipment ) {
                                         if( ((Equipment) a).IsVariableSize() ) {
                                             retval += a.GetCritName();
+                                            plural = "";
                                         } else {
                                             retval += a.GetLookupName();
                                         }
@@ -745,10 +767,8 @@ public class HTMLWriter {
                                 } else {
                                     retval += a.GetCritName();
                                 }
-                                if( numthisloc > 1 ) {
-                                    retval += "s";
-                                }
                             }
+                            retval += plural;
                         } else if( check.equals( "<+-SSW_EQUIP_COUNT_THIS_LOC-+>" ) ) {
                             if( numthisloc > 1 ) {
                                 retval += numthisloc + " ";
@@ -886,10 +906,15 @@ public class HTMLWriter {
                             if( a instanceof Ammunition ) {
                                 retval += FileCommon.FormatAmmoExportName( ((Ammunition) a), numthisloc );
                             } else {
-                                if( Mixed ) {
+                                String plural = "";
+                                if( numthisloc > 1 ) {
+                                    plural = "s";
+                                }
+                                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                                     if( a instanceof Equipment ) {
                                         if( ((Equipment) a).IsVariableSize() ) {
                                             retval += a.GetCritName();
+                                            plural = "";
                                         } else {
                                             retval += a.GetLookupName();
                                         }
@@ -899,9 +924,7 @@ public class HTMLWriter {
                                 } else {
                                     retval += a.GetCritName();
                                 }
-                                if( numthisloc > 1 ) {
-                                    retval += "s";
-                                }
+                                retval += plural;
                             }
                         } else if( check.equals( "<+-SSW_EQUIP_COUNT_THIS_LOC-+>" ) ) {
                             if( numthisloc > 1 ) {

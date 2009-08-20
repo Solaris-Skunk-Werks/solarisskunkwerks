@@ -313,7 +313,7 @@ public class FileCommon {
 
     public static String GetCaseLocations( Mech m ) {
         String retval = "";
-        if( m.GetTechBase() >= AvailableCode.TECH_CLAN && m.GetLoadout().IsUsingClanCASE() ) {
+        if( m.GetLoadout().GetTechBase() >= AvailableCode.TECH_CLAN && m.GetLoadout().IsUsingClanCASE() ) {
             int[] check = m.GetLoadout().FindExplosiveInstances();
             if( check[Constants.LOC_HD] > 0 ) {
                 retval += "HD";

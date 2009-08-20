@@ -56,7 +56,7 @@ public class MTFWriter {
         BufferedWriter FR = new BufferedWriter( new FileWriter( filename ) );
 
         // get the prepend string for stuff that needs it
-        switch( CurMech.GetTechBase() ) {
+        switch( CurMech.GetLoadout().GetTechBase() ) {
             case AvailableCode.TECH_INNER_SPHERE:
                 Prepend = "IS";
                 break;
@@ -101,7 +101,7 @@ public class MTFWriter {
             }
         }
         FR.newLine();
-        switch( CurMech.GetTechBase() ) {
+        switch( CurMech.GetLoadout().GetTechBase() ) {
             case AvailableCode.TECH_INNER_SPHERE:
                 FR.write( "TechBase:Inner Sphere" );
                 break;

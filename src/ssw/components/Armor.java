@@ -145,17 +145,17 @@ public class Armor  extends abPlaceable {
         // now that we've set the maximums, make sure we're not exceeding them
         // the head max never changes during a recalc so we'll ignore it
         if( ArmorPoints[Constants.LOC_CT] + ArmorPoints[Constants.LOC_CTR] > MaxArmor[Constants.LOC_CT] ) {
-            int rear = Math.round( MaxArmor[Constants.LOC_CT] * Owner.GetOptions().Armor_CTRPercent / 100 );
+            int rear = Math.round( MaxArmor[Constants.LOC_CT] * Owner.GetPrefs().getInt( "ArmorCTRPercent", Constants.DEFAULT_CTR_ARMOR_PERCENT ) / 100 );
             SetArmor( Constants.LOC_CTR, rear );
             SetArmor( Constants.LOC_CT, MaxArmor[Constants.LOC_CT] - rear );
         }
         if( ArmorPoints[Constants.LOC_LT] + ArmorPoints[Constants.LOC_LTR] > MaxArmor[Constants.LOC_LT] ) {
-            int rear = Math.round( MaxArmor[Constants.LOC_LT] * Owner.GetOptions().Armor_STRPercent / 100 );
+            int rear = Math.round( MaxArmor[Constants.LOC_LT] * Owner.GetPrefs().getInt( "ArmorSTRPercent", Constants.DEFAULT_CTR_ARMOR_PERCENT ) / 100 );
             SetArmor( Constants.LOC_LTR, rear );
             SetArmor( Constants.LOC_LT, MaxArmor[Constants.LOC_LT] - rear );
         }
         if( ArmorPoints[Constants.LOC_RT] + ArmorPoints[Constants.LOC_RTR] > MaxArmor[Constants.LOC_RT] ) {
-            int rear = Math.round( MaxArmor[Constants.LOC_RT] * Owner.GetOptions().Armor_STRPercent / 100 );
+            int rear = Math.round( MaxArmor[Constants.LOC_RT] * Owner.GetPrefs().getInt( "ArmorSTRPercent", Constants.DEFAULT_CTR_ARMOR_PERCENT ) / 100 );
             SetArmor( Constants.LOC_RTR, rear );
             SetArmor( Constants.LOC_RT, ( MaxArmor[Constants.LOC_RT] - rear ) );
         }

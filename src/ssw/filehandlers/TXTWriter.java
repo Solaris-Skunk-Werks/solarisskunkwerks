@@ -41,15 +41,11 @@ public class TXTWriter {
 
     private Mech CurMech;
     private String NL;
-    private boolean Mixed = false;
     public boolean CurrentLoadoutOnly = false;
 
     public TXTWriter( Mech m ) {
         CurMech = m;
         NL = System.getProperty( "line.separator" );
-        if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
-            Mixed = true;
-        }
     }
 
 // This is a text formating string (80 chars) I keep around for when it's needed
@@ -387,7 +383,7 @@ public class TXTWriter {
         // do we need to continue?
         if( weapons.length <= 1 ) {
             if( cur instanceof RangedWeapon ) {
-                if( Mixed ) {
+                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     if( ((RangedWeapon) cur).IsUsingFCS() ) {
                         Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetLookupName() + " w/ " + ((abPlaceable) ((RangedWeapon) cur).GetFCS()).GetLookupName() + NL;
                     } else {
@@ -401,7 +397,7 @@ public class TXTWriter {
                     }
                 }
             } else {
-                if( Mixed ) {
+                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     if( cur instanceof Equipment ) {
                         if( ((Equipment) cur).IsVariableSize() ) {
                             Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + NL;
@@ -456,21 +452,21 @@ public class TXTWriter {
             }
 
             if( cur instanceof RangedWeapon ) {
-                if( Mixed ) {
+                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     if( ((RangedWeapon) cur).IsUsingFCS() ) {
-                            Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.GetLookupName() ) + plural + " w/ " + ((abPlaceable) ((RangedWeapon) cur).GetFCS()).GetLookupName() + NL;
+                        Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.GetLookupName() ) + plural + " w/ " + ((abPlaceable) ((RangedWeapon) cur).GetFCS()).GetLookupName() + NL;
                     } else {
                         Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.GetLookupName() ) + plural + NL;
                     }
                 } else {
                     if( ((RangedWeapon) cur).IsUsingFCS() ) {
-                            Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.GetCritName() ) + plural + " w/ " + ((abPlaceable) ((RangedWeapon) cur).GetFCS()).GetCritName() + NL;
+                        Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.GetCritName() ) + plural + " w/ " + ((abPlaceable) ((RangedWeapon) cur).GetFCS()).GetCritName() + NL;
                     } else {
                         Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.GetCritName() ) + plural + NL;
                     }
                 }
             } else {
-                if( Mixed ) {
+                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     if( cur instanceof Equipment ) {
                         if( ((Equipment) cur).IsVariableSize() ) {
                             Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + NL;
@@ -716,11 +712,15 @@ public class TXTWriter {
         String crits = "";
         Vector v = (Vector) CurMech.GetLoadout().GetNonCore().clone();
 
+        retval += String.format( "Loadout Name: %1$-46s Cost: %2$,.0f", CurMech.GetLoadout().GetName(), Math.floor( CurMech.GetTotalCost() + 0.5 ) ) + NL;
+        retval += String.format( "Tech Rating/Era Availability: %1$-31s BV2: %2$,d", CurMech.GetAvailability().GetBestCombinedCode(), CurMech.GetCurrentBV() ) + NL;
         if( CurMech.GetBaseRulesLevel() != CurMech.GetLoadout().GetRulesLevel() ) {
-            retval += "Rules Level: " + CommonTools.GetRulesLevelString( CurMech.GetLoadout().GetRulesLevel() );
+            if( CurMech.GetTechBase() != CurMech.GetLoadout().GetTechBase() ) {
+                retval += String.format( "Rules Level: %1$-42s %2$s", CommonTools.GetRulesLevelString( CurMech.GetLoadout().GetRulesLevel() ), "Tech Base: " + CommonTools.GetTechbaseString( CurMech.GetLoadout().GetTechBase() ) ) + NL;
+            } else {
+                retval += "Rules Level: " + CommonTools.GetRulesLevelString( CurMech.GetLoadout().GetRulesLevel() ) + NL;
+            }
         }
-        retval += String.format( "Loadout: %1$-52s Cost: %2$,.0f", CurMech.GetLoadout().GetName(), Math.floor( CurMech.GetTotalCost() + 0.5 ) ) + NL;
-        retval += String.format( "Tech Rating/Era Availability: %1$-32s BV2: %2$,d", CurMech.GetAvailability().GetBestCombinedCode(), CurMech.GetCurrentBV() ) + NL;
 
         // build the starting block for the loadout information
         retval += NL + "Equipment           Type                         Rating                   Mass  " + NL;
@@ -916,7 +916,7 @@ public class TXTWriter {
     private String ProcessEquipStatLines( abPlaceable p, String loc, String crits, int numthisloc ) {
         String retval = "";
         String name = "";
-        if( Mixed ) {
+        if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
             if( p instanceof Equipment ) {
                 if( ((Equipment) p).IsVariableSize() ) {
                     if( numthisloc > 1 ) {
@@ -966,7 +966,7 @@ public class TXTWriter {
         } else if( p instanceof MGArray ) {
             retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", name, loc, "-", crits, ((MGArray) p).GetBaseTons() ) + NL;
             abPlaceable a = ((MGArray) p).GetMGType();
-            if( Mixed ) {
+            if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                 retval += String.format( "    %1$-40s %2$-9s %3$-9s %4$-7s %5$6.2f", ((MGArray) p).GetNumMGs() + " " + a.GetLookupName() + "s", loc, ((RangedWeapon) a).GetHeat() * ((MGArray) p).GetNumMGs(), ((MGArray) p).GetNumMGs(), ( ((MGArray) p).GetMGTons() * ((MGArray) p).GetNumMGs() ) ) + NL;
             } else{
                 retval += String.format( "    %1$-40s %2$-9s %3$-9s %4$-7s %5$6.2f", ((MGArray) p).GetNumMGs() + " " + a.GetCritName() + "s", loc, ((RangedWeapon) a).GetHeat() * ((MGArray) p).GetNumMGs(), ((MGArray) p).GetNumMGs(), ( ((MGArray) p).GetMGTons() * ((MGArray) p).GetNumMGs() ) ) + NL;

@@ -58,13 +58,11 @@ public class Mech implements ifBattleforce {
                    JJModel = "",
                    CommSystem = "",
                    TandTSystem = "",
-                   Source = "",
                    Solaris7ID = "0",
                    Solaris7ImageID = "0",
                    SSWImage = Constants.NO_IMAGE;
     private int Era,
                 Year,
-                TechBase,
                 RulesLevel,
                 Tonnage = 20,
                 WalkMP;
@@ -138,7 +136,7 @@ public class Mech implements ifBattleforce {
         // Set the names and years to blank so the user doesn't have to overtype
         Name = "";
         Era = AvailableCode.ERA_STAR_LEAGUE;
-        TechBase = AvailableCode.TECH_INNER_SPHERE;
+        MainLoadout.SetTechBase( AvailableCode.TECH_INNER_SPHERE );
         RulesLevel = AvailableCode.RULES_TOURNAMENT;
         Year = 2750;
         YearRestricted = false;
@@ -339,14 +337,18 @@ public class Mech implements ifBattleforce {
         return YearRestricted;
     }
 
-    public void SetTechBase( int t ) {
+    public boolean SetTechBase( int t ) {
         if( Omnimech ) {
-            CurLoadout.SetTechBase( t );
+            if( t != MainLoadout.GetTechBase() && t != AvailableCode.TECH_BOTH ) {
+                return false;
+            } else {
+                CurLoadout.SetTechBase( t );
+            }
         } else {
-            TechBase = t;
             MainLoadout.SetTechBase( t );
         }
         SetChanged( true );
+        return true;
     }
 
     public void SetSolaris7ID( String ID ) {
@@ -566,7 +568,7 @@ public class Mech implements ifBattleforce {
     }
 
     public int GetTechBase() {
-        return TechBase;
+        return MainLoadout.GetTechBase();
     }
 
     public void SetBiped() {
@@ -923,7 +925,7 @@ public class Mech implements ifBattleforce {
     public void SetIndustrialmech() {
         // do all the neccesary things to change over to an IndustrialMech
         IndustrialMech = true;
-        switch( TechBase ) {
+        switch( MainLoadout.GetTechBase() ) {
             case AvailableCode.TECH_INNER_SPHERE:
                 SetInnerSphere();
                 break;
@@ -947,7 +949,7 @@ public class Mech implements ifBattleforce {
     public void SetBattlemech() {
         // do all the neccesary things to change over to a BattleMech
         IndustrialMech = false;
-        switch( TechBase ) {
+        switch( MainLoadout.GetTechBase() ) {
             case AvailableCode.TECH_INNER_SPHERE:
                 SetInnerSphere();
                 break;
@@ -1156,7 +1158,7 @@ public class Mech implements ifBattleforce {
         if( GetRulesLevel() >= AvailableCode.RULES_ADVANCED ) {
             return 3;
         } else {
-            if( TechBase == AvailableCode.TECH_CLAN ) {
+            if( MainLoadout.GetTechBase() == AvailableCode.TECH_CLAN ) {
                 return 2;
             }
             if( GetAvailability().GetISSWCode() < 'F' ) {
@@ -1175,7 +1177,7 @@ public class Mech implements ifBattleforce {
         // returns the mech's tech level according to MegaMek
         switch( GetRulesLevel() ) {
             case AvailableCode.RULES_TOURNAMENT:
-                if( TechBase == AvailableCode.TECH_CLAN ) {
+                if( CurLoadout.GetTechBase() == AvailableCode.TECH_CLAN ) {
                     return 2;
                 }
                 if( GetAvailability().GetISSWCode() < 'F' ) {
@@ -3064,7 +3066,7 @@ public class Mech implements ifBattleforce {
 
     public AvailableCode GetAvailability() {
         // returns the availability code for this mech based on all components
-        AvailableCode Base = new AvailableCode( TechBase );
+        AvailableCode Base = new AvailableCode( CurLoadout.GetTechBase() );
         Base.SetCodes( 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A' );
         Base.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
         Base.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
@@ -3464,7 +3466,7 @@ public class Mech implements ifBattleforce {
     }
 
     public void SetSource( String s ) {
-        Source = s;
+        CurLoadout.SetSource( s );
         SetChanged( true );
     }
 
@@ -3556,7 +3558,7 @@ public class Mech implements ifBattleforce {
     }
 
     public String GetSource() {
-        return Source;
+        return CurLoadout.GetSource();
     }
 
     public void SetChanged( boolean b ) {

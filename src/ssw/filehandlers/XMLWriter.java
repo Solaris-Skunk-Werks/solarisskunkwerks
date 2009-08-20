@@ -62,7 +62,7 @@ public class XMLWriter {
         FR.newLine();
 
         // version number for new files
-        FR.write( tab + "<ssw_savefile_version>1</ssw_savefile_version>" );
+        FR.write( tab + "<ssw_savefile_version>2</ssw_savefile_version>" );
         FR.newLine();
 
         // add the battle value if this is not an omnimech.  otherwise, we'll
@@ -82,10 +82,10 @@ public class XMLWriter {
 
         FR.write( tab + "<era>" + CurMech.GetEra() + "</era>" );
         FR.newLine();
-
+/*
         FR.write( tab + "<source>" + FileCommon.EncodeFluff( CurMech.GetSource() ) + "</source>" );
         FR.newLine();
-
+*/
         if( CurMech.IsIndustrialmech() ) {
             if( CurMech.IsPrimitive() ) {
                 FR.write( tab + "<mech_type>PrimitiveIndustrialMech</mech_type>" );
@@ -204,6 +204,10 @@ public class XMLWriter {
         }
         FR.write( tab + "<baseloadout fcsa4=\"" + GetBoolean( CurMech.UsingArtemisIV() ) + "\" fcsa5=\"" + GetBoolean( CurMech.UsingArtemisV() ) + "\" fcsapollo=\"" + GetBoolean( CurMech.UsingApollo() ) + "\">" );
         FR.newLine();
+
+        FR.write( tab + tab + "<source>" + FileCommon.EncodeFluff( CurMech.GetSource() ) + "</source>" );
+        FR.newLine();
+
         FR.write( tab + tab + "<actuators lla=\"" + GetBoolean( CurMech.GetActuators().LeftLowerInstalled() ) + "\" lh=\"" + GetBoolean( CurMech.GetActuators().LeftHandInstalled() ) + "\" rla=\"" + GetBoolean( CurMech.GetActuators().RightLowerInstalled() ) + "\" rh=\"" + GetBoolean( CurMech.GetActuators().RightHandInstalled() ) + "\"/>" );
         FR.newLine();
         FR.write( tab + tab + "<clancase>" + GetBoolean( CurMech.GetLoadout().IsUsingClanCASE() ) + "</clancase>" );
@@ -219,15 +223,8 @@ public class XMLWriter {
         }
         FR.write( tab + tab + "<heatsinks number=\"" + CurMech.GetHeatSinks().GetNumHS() + "\" techbase=\"" + CurMech.GetHeatSinks().GetTechBase() + "\">" );
         FR.newLine();
-        if( CurMech.GetHeatSinks().IsDouble() ) {
-            FR.write( tab + tab + tab + "<type>Double Heat Sink</type>" );
-        } else if( CurMech.GetHeatSinks().IsCompact() ) {
-            FR.write( tab + tab + tab + "<type>Compact Heat Sink</type>" );
-        } else if( CurMech.GetHeatSinks().IsLaser() ) {
-            FR.write( tab + tab + tab + "<type>Laser Heat Sink</type>" );
-        } else {
-            FR.write( tab + tab + tab + "<type>Single Heat Sink</type>" );
-        }
+        FR.write( tab + tab + tab + "<type>" + CurMech.GetHeatSinks().GetLookupName() + "</type>" );
+        FR.newLine();
         FR.newLine();
         FR.write( GetHeatsinkLines( tab + tab + tab, true ) );
         FR.write( tab + tab + "</heatsinks>" );
@@ -318,6 +315,13 @@ public class XMLWriter {
                     FR.write( tab + "<loadout name=\"" + FileCommon.EncodeFluff( CurMech.GetLoadout().GetName() ) + "\" fcsa4=\"" + GetBoolean( CurMech.UsingArtemisIV() ) + "\" fcsa5=\"" + GetBoolean( CurMech.UsingArtemisV() ) + "\" fcsapollo=\"" + GetBoolean( CurMech.UsingApollo() ) + "\">" );
                 }
                 FR.newLine();
+                FR.write( tab + tab + "<source>" + FileCommon.EncodeFluff( CurMech.GetSource() ) + "</source>" );
+                FR.newLine();
+                if( CurMech.GetTechBase() != CurMech.GetLoadout().GetTechBase() ) {
+                    FR.write( tab + tab + "<techbase>" + CurMech.GetLoadout().GetTechBase() + "</techbase>" );
+                    FR.newLine();
+                }
+
                 // add in the battle value for this loadout
                 FR.write( tab + tab + "<battle_value>" + CurMech.GetCurrentBV() + "</battle_value>" );
                 FR.newLine();
@@ -343,11 +347,7 @@ public class XMLWriter {
                 if( CurMech.GetLoadout().GetHeatSinks().GetNumHS() > CurMech.GetLoadout().GetHeatSinks().GetBaseLoadoutNumHS() ) {
                     FR.write( tab + tab + "<heatsinks number=\"" + CurMech.GetHeatSinks().GetNumHS() + "\" techbase=\"" + CurMech.GetHeatSinks().GetTechBase() + "\">" );
                     FR.newLine();
-                    if( CurMech.GetHeatSinks().IsDouble() ) {
-                        FR.write( tab + tab + tab + "<type>Double Heat Sink</type>" );
-                    } else {
-                        FR.write( tab + tab + tab + "<type>Single Heat Sink</type>" );
-                    }
+                    FR.write( tab + tab + tab + "<type>" + CurMech.GetHeatSinks().GetLookupName() + "</type>" );
                     FR.newLine();
                     FR.write( GetHeatsinkLines( tab + tab + tab, false ) );
                     FR.write( tab + tab + "</heatsinks>" );

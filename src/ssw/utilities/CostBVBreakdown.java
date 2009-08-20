@@ -46,7 +46,7 @@ public class CostBVBreakdown {
         String retval = "";
         retval += String.format( "Mech Name:   %1$-41s Tonnage:    %2$d", CurMech.GetName() + " " + CurMech.GetModel(), CurMech.GetTonnage() ) + NL;
         retval += String.format( "Rules Level: %1$-41s Total Cost: %2$,.0f", CommonTools.GetRulesLevelString( CurMech.GetRulesLevel() ), CurMech.GetTotalCost() ) + NL;
-        retval += String.format( "Tech Base:   %1$-41s Total BV:   %2$,d", CommonTools.GetTechbaseString( CurMech.GetTechBase() ), CurMech.GetCurrentBV() ) + NL;
+        retval += String.format( "Tech Base:   %1$-41s Total BV:   %2$,d", CommonTools.GetTechbaseString( CurMech.GetLoadout().GetTechBase() ), CurMech.GetCurrentBV() ) + NL;
         retval += NL;
         retval +=                "Item                                            DefBV     OffBV             Cost" + NL;
         retval += String.format( "Internal Structure - %1$-22s %2$,6.0f    %3$,6.0f    %4$,16.2f", CurMech.GetIntStruc().toString(), CurMech.GetIntStruc().GetDefensiveBV(), CurMech.GetIntStruc().GetOffensiveBV(), CurMech.GetIntStruc().GetCost() ) + NL;

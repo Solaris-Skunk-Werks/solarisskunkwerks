@@ -164,7 +164,7 @@ public class CommonTools {
         }
 
         // is this within our techbase?
-        switch( m.GetTechBase() ) {
+        switch( m.GetLoadout().GetTechBase() ) {
             case AvailableCode.TECH_INNER_SPHERE:
                 if( AC.GetTechBase() == AvailableCode.TECH_CLAN ) { return false; }
                 break;
@@ -192,7 +192,7 @@ public class CommonTools {
         // are we restricting by year?
         if( m.IsYearRestricted() ) {
             // we are.
-            switch( m.GetTechBase() ) {
+            switch( m.GetLoadout().GetTechBase() ) {
                 case AvailableCode.TECH_INNER_SPHERE:
                     if( AC.WentExtinctIS() ) {
                         if( AC.WasReIntrodIS() ) {
@@ -291,7 +291,7 @@ public class CommonTools {
             // we aren't, go by the era
             switch( m.GetEra() ) {
             case AvailableCode.ERA_STAR_LEAGUE:
-                switch( m.GetTechBase() ) {
+                switch( m.GetLoadout().GetTechBase() ) {
                     case AvailableCode.TECH_INNER_SPHERE: case AvailableCode.TECH_BOTH:
                         if( AC.GetISSLCode() < 'X' ) {
                             return true;
@@ -302,7 +302,7 @@ public class CommonTools {
                         return false;
                 }
             case AvailableCode.ERA_SUCCESSION:
-                switch( m.GetTechBase() ) {
+                switch( m.GetLoadout().GetTechBase() ) {
                     case AvailableCode.TECH_INNER_SPHERE:
                         if( m.GetRulesLevel() > AvailableCode.RULES_TOURNAMENT ) {
                             if( AC.GetISSWCode() < 'X' ) {
@@ -333,7 +333,7 @@ public class CommonTools {
                         return false;
                 }
             case AvailableCode.ERA_CLAN_INVASION:
-                switch( m.GetTechBase() ) {
+                switch( m.GetLoadout().GetTechBase() ) {
                     case AvailableCode.TECH_INNER_SPHERE:
                         if( AC.GetISCICode() < 'X' ) {
                             return true;
@@ -356,7 +356,7 @@ public class CommonTools {
                         return false;
                 }
             case AvailableCode.ERA_DARK_AGES:
-                switch( m.GetTechBase() ) {
+                switch( m.GetLoadout().GetTechBase() ) {
                     case AvailableCode.TECH_INNER_SPHERE:
                         if( AC.GetISCICode() < 'X' ) {
                             return true;

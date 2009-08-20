@@ -51,7 +51,7 @@ public class EquipmentListRenderer extends DefaultListCellRenderer {
         if( value instanceof abPlaceable ) {
             a = (abPlaceable) value;
             if( a.Contiguous() ) {
-                if( Parent.CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+                if( Parent.CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     if( a instanceof Equipment ) {
                         if( ((Equipment) a).IsVariableSize() ) {
                             Text = a.GetCritName();
