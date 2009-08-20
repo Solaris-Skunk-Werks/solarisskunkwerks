@@ -31,6 +31,7 @@ Version 0.7.0
 - Added an ammo name formatter for export in addition to the print format.
 - You can now view either the internal points or maximum armor on the Armor tab.
 - Fully implemented variable tonnage equipment.
+- Added Chassis (Battlemech/IndustrialMech) and Motive (Biped/Quad) to the Open dialog.
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.
@@ -77,6 +78,7 @@ Version 0.7.0
 - Revamped the Options screen and migrated to java.utils.prefs.* fully.
 - Fixed problems with HTML tonnage and heat formatting.
 - Fixed an issue with CASE tonnage and location on export.
+- Updated preview dialog to track window size changes and adjust the width/page options as necessary.
 
 -------------------------------------------------------------------------------
 Version 0.6.0
