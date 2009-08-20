@@ -14,7 +14,9 @@ public class ListFilter {
                    Model = "",
                    Era = "",
                    Tech = "",
-                   Level = "";
+                   Level = "",
+                   Type = "",
+                   Motive = "";
     private int MinTonnage = 0,
                 MaxTonnage = 0,
                 MinYear = 2750,
@@ -47,6 +49,18 @@ public class ListFilter {
     }
     public void setLevel(String Level) {
         this.Level = Level;
+    }
+    public String getType(){
+        return this.Type;
+    }
+    public void setType(String Type) {
+        this.Type = Type;
+    }
+    public String getMotive(){
+        return this.Motive;
+    }
+    public void setMotive(String Motive) {
+        this.Motive = Motive;
     }
     public String getTech() {
         return Tech;

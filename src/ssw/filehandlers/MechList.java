@@ -156,6 +156,12 @@ public class MechList extends AbstractTableModel {
             if ( ! filter.getLevel().isEmpty() ) {
                 if (! mData.getLevel().equals(filter.getLevel()) ) remove = true;
             }
+            if ( ! filter.getType().isEmpty() ) {
+                if (! mData.getType().equals(filter.getType()) ) remove = true;
+            }
+            if ( ! filter.getMotive().isEmpty() ) {
+                if (! mData.getMotive().equals(filter.getMotive()) ) remove = true;
+            }
             if ( filter.getMaxBV() > 0 ) {
                 if ((filter.getMinBV() > mData.getBV()) || (mData.getBV() > filter.getMaxBV())) remove = true;
             }
@@ -246,12 +252,16 @@ public class MechList extends AbstractTableModel {
             case 7:
                 return "Year";
             case 8:
+                return "Type";
+            case 9:
+                return "Motive";
+            case 10:
                 return "Source";
         }
         return "";
     }
     public int getRowCount() { return List.size(); }
-    public int getColumnCount() { return 9; }
+    public int getColumnCount() { return 11; }
     @Override
     public Class getColumnClass(int c) {
         if (List.size() > 0) {
@@ -282,6 +292,10 @@ public class MechList extends AbstractTableModel {
             case 7:
                 return m.getYear();
             case 8:
+                return m.getType();
+            case 9:
+                return m.getMotive();
+            case 10:
                 return m.getSource();
         }
         return null;
@@ -312,6 +326,10 @@ public class MechList extends AbstractTableModel {
             case 7:
                 return m.getYear();
             case 8:
+                return m.getType();
+            case 9:
+                return m.getMotive();
+            case 10:
                 return m.getSource();
         }
         return null;
