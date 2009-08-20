@@ -33,18 +33,16 @@ import java.awt.Point;
 public class TWQuadPoints implements ifPrintPoints {
 
     private final static Point[] HeatSinkPoints = {
-        new Point( 500, 610 ), new Point( 506, 610 ), new Point( 512, 610 ), new Point( 518, 610 ), new Point( 524, 610 ),
-        new Point( 500, 616 ), new Point( 506, 616 ), new Point( 512, 616 ), new Point( 518, 616 ), new Point( 524, 616 ),
-        new Point( 500, 622 ), new Point( 506, 622 ), new Point( 512, 622 ), new Point( 518, 622 ), new Point( 524, 622 ),
-        new Point( 500, 628 ), new Point( 506, 628 ), new Point( 512, 628 ), new Point( 518, 628 ), new Point( 524, 628 ),
-        new Point( 500, 634 ), new Point( 506, 634 ), new Point( 512, 634 ), new Point( 518, 634 ), new Point( 524, 634 ),
-        new Point( 500, 640 ), new Point( 506, 640 ), new Point( 512, 640 ), new Point( 518, 640 ), new Point( 524, 640 ),
-        new Point( 500, 646 ), new Point( 506, 646 ), new Point( 512, 646 ), new Point( 518, 646 ), new Point( 524, 646 ),
-        new Point( 500, 652 ), new Point( 506, 652 ), new Point( 512, 652 ), new Point( 518, 652 ), new Point( 524, 652 ),
-        new Point( 500, 658 ), new Point( 506, 658 ), new Point( 512, 658 ), new Point( 518, 658 ), new Point( 524, 658 ),
-        new Point( 500, 664 ), new Point( 506, 664 ), new Point( 512, 664 ), new Point( 518, 664 ), new Point( 524, 664 ),
-        new Point( 500, 670 ), new Point( 506, 670 ), new Point( 512, 670 ), new Point( 518, 670 ), new Point( 524, 670 ),
-        new Point( 500, 676 ), new Point( 506, 676 ), new Point( 512, 676 ), new Point( 518, 676 ), new Point( 524, 676 ), };
+        new Point( 500, 610 ), new Point( 500, 616 ), new Point( 500, 622 ), new Point( 500, 628 ), new Point( 500, 634 ),
+        new Point( 500, 640 ), new Point( 500, 646 ), new Point( 500, 652 ), new Point( 500, 658 ), new Point( 500, 664 ),
+        new Point( 506, 610 ), new Point( 506, 616 ), new Point( 506, 622 ), new Point( 506, 628 ), new Point( 506, 634 ),
+        new Point( 506, 640 ), new Point( 506, 646 ), new Point( 506, 652 ), new Point( 506, 658 ), new Point( 506, 664 ),
+        new Point( 512, 610 ), new Point( 512, 616 ), new Point( 512, 622 ), new Point( 512, 628 ), new Point( 512, 634 ),
+        new Point( 512, 640 ), new Point( 512, 646 ), new Point( 512, 652 ), new Point( 512, 658 ), new Point( 512, 664 ),
+        new Point( 518, 610 ), new Point( 518, 616 ), new Point( 518, 622 ), new Point( 518, 628 ), new Point( 518, 634 ),
+        new Point( 518, 640 ), new Point( 518, 646 ), new Point( 518, 652 ), new Point( 518, 658 ), new Point( 518, 664 ),
+        new Point( 524, 610 ), new Point( 524, 616 ), new Point( 524, 622 ), new Point( 524, 628 ), new Point( 524, 634 ),
+        new Point( 524, 640 ), new Point( 524, 646 ), new Point( 524, 652 ), new Point( 524, 658 ), new Point( 524, 664 ) };
     private final static Point[] CTArmorPoints = {
         new Point( 451, 86 ), new Point( 457, 86 ), new Point( 463, 86 ), new Point( 469, 86 ), new Point( 475, 86 ), new Point( 481, 86 ), new Point( 487, 86 ),
         new Point( 451, 92 ), new Point( 457, 92 ), new Point( 463, 92 ), new Point( 469, 92 ), new Point( 475, 92 ), new Point( 481, 92 ), new Point( 487, 92 ),

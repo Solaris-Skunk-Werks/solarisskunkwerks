@@ -33,18 +33,20 @@ import java.awt.Point;
 public class TWBipedPoints implements ifPrintPoints {
 
     private final static Point[] HeatSinkPoints = {
-        new Point( 500, 610 ), new Point( 506, 610 ), new Point( 512, 610 ), new Point( 518, 610 ), new Point( 524, 610 ),
-        new Point( 500, 616 ), new Point( 506, 616 ), new Point( 512, 616 ), new Point( 518, 616 ), new Point( 524, 616 ),
-        new Point( 500, 622 ), new Point( 506, 622 ), new Point( 512, 622 ), new Point( 518, 622 ), new Point( 524, 622 ),
-        new Point( 500, 628 ), new Point( 506, 628 ), new Point( 512, 628 ), new Point( 518, 628 ), new Point( 524, 628 ),
-        new Point( 500, 634 ), new Point( 506, 634 ), new Point( 512, 634 ), new Point( 518, 634 ), new Point( 524, 634 ),
-        new Point( 500, 640 ), new Point( 506, 640 ), new Point( 512, 640 ), new Point( 518, 640 ), new Point( 524, 640 ),
-        new Point( 500, 646 ), new Point( 506, 646 ), new Point( 512, 646 ), new Point( 518, 646 ), new Point( 524, 646 ),
-        new Point( 500, 652 ), new Point( 506, 652 ), new Point( 512, 652 ), new Point( 518, 652 ), new Point( 524, 652 ),
-        new Point( 500, 658 ), new Point( 506, 658 ), new Point( 512, 658 ), new Point( 518, 658 ), new Point( 524, 658 ),
-        new Point( 500, 664 ), new Point( 506, 664 ), new Point( 512, 664 ), new Point( 518, 664 ), new Point( 524, 664 ),
-        new Point( 500, 670 ), new Point( 506, 670 ), new Point( 512, 670 ), new Point( 518, 670 ), new Point( 524, 670 ),
-        new Point( 500, 676 ), new Point( 506, 676 ), new Point( 512, 676 ), new Point( 518, 676 ), new Point( 524, 676 ), };
+        new Point( 500, 610 ), new Point( 500, 616 ), new Point( 500, 622 ), new Point( 500, 628 ), new Point( 500, 634 ),
+        new Point( 500, 640 ), new Point( 500, 646 ), new Point( 500, 652 ), new Point( 500, 658 ), new Point( 500, 664 ),
+
+        new Point( 506, 610 ), new Point( 506, 616 ), new Point( 506, 622 ), new Point( 506, 628 ), new Point( 506, 634 ),
+        new Point( 506, 640 ), new Point( 506, 646 ), new Point( 506, 652 ), new Point( 506, 658 ), new Point( 506, 664 ),
+
+        new Point( 512, 610 ), new Point( 512, 616 ), new Point( 512, 622 ), new Point( 512, 628 ), new Point( 512, 634 ),
+        new Point( 512, 640 ), new Point( 512, 646 ), new Point( 512, 652 ), new Point( 512, 658 ), new Point( 512, 664 ),
+        
+        new Point( 518, 610 ), new Point( 518, 616 ), new Point( 518, 622 ), new Point( 518, 628 ), new Point( 518, 634 ),
+        new Point( 518, 640 ), new Point( 518, 646 ), new Point( 518, 652 ), new Point( 518, 658 ), new Point( 518, 664 ),
+
+        new Point( 524, 610 ), new Point( 524, 616 ), new Point( 524, 622 ), new Point( 524, 628 ), new Point( 524, 634 ),
+        new Point( 524, 640 ), new Point( 524, 646 ), new Point( 524, 652 ), new Point( 524, 658 ), new Point( 524, 664 ) };
     private final static Point[] CTArmorPoints = {
         new Point( 457, 84 ), new Point( 463, 84 ), new Point( 469, 84 ), new Point( 475, 84 ), new Point( 481, 84 ),
         new Point( 457, 90 ), new Point( 463, 90 ), new Point( 469, 90 ), new Point( 475, 90 ), new Point( 481, 90 ),
@@ -239,13 +241,13 @@ public class TWBipedPoints implements ifPrintPoints {
         new Point( 437, 476 ), new Point( 431, 476 ), new Point( 436, 482 ), new Point( 430, 482 ),
         new Point( 435, 488 ), new Point( 429, 488 ), new Point( 434, 494 ), new Point( 428, 494 ),
         new Point( 433, 500 ), new Point( 427, 500 ), new Point( 431, 506 ), new Point( 425, 506 ),
-        new Point( 431, 512 ), new Point( 425, 512 ), new Point( 431, 518 ), new Point( 425, 518 ), new Point( 425, 524 ) };
+        new Point( 431, 518 ), new Point( 425, 518 ), new Point( 431, 518 ), new Point( 425, 518 ), new Point( 425, 524 ) };
     private final static Point[] RLInternalPoints = {
         new Point( 473, 464 ), new Point( 479, 464 ), new Point( 474, 470 ), new Point( 480, 470 ),
         new Point( 475, 476 ), new Point( 481, 476 ), new Point( 476, 482 ), new Point( 482, 482 ),
         new Point( 477, 488 ), new Point( 483, 488 ), new Point( 478, 494 ), new Point( 484, 494 ),
         new Point( 479, 500 ), new Point( 485, 500 ), new Point( 481, 506 ), new Point( 487, 506 ),
-        new Point( 481, 512 ), new Point( 487, 512 ), new Point( 481, 518 ), new Point( 487, 518 ), new Point( 487, 524 ) };
+        new Point( 481, 518 ), new Point( 487, 518 ), new Point( 481, 518 ), new Point( 487, 518 ), new Point( 487, 524 ) };
     private final static Point[] LAInternalPoints = {
         new Point( 413, 401 ), new Point( 407, 401 ), new Point( 412, 407 ), new Point( 406, 407 ),
         new Point( 411, 413 ), new Point( 405, 413 ), new Point( 410, 419 ), new Point( 404, 419 ),
