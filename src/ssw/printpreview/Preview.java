@@ -119,6 +119,10 @@ class Preview extends JComponent {
     public Dimension getMinimumSize() {
         return getPreferredSize();
     }
+
+    public void setViewportSize( Dimension viewportSize ) {
+        this.viewportSize = viewportSize;
+    }
     
     protected Pageable pageable;
     protected int index = 0;
