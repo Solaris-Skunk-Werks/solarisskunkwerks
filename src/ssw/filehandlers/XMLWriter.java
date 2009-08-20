@@ -532,8 +532,13 @@ public class XMLWriter {
                 retval += prefix + tab + "<name manufacturer=\"" + FileCommon.EncodeFluff( p.GetManufacturer() ) + "\">" + FileCommon.EncodeFluff( p.GetLookupName() ) + "</name>" + NL;
                 retval += prefix + tab + "<type>" + GetEquipmentType( p ) + "</type>" + NL;
                 if( p instanceof VehicularGrenadeLauncher ) {
-                    retval += prefix + tab + "<vglarc>" + ((VehicularGrenadeLauncher) p).GetAmmoType() + "</vglarc>";
-                    retval += prefix + tab + "<vglammo>" + ((VehicularGrenadeLauncher) p).GetAmmoType() + "</vglammo>";
+                    retval += prefix + tab + "<vglarc>" + ((VehicularGrenadeLauncher) p).GetAmmoType() + "</vglarc>" + NL;
+                    retval += prefix + tab + "<vglammo>" + ((VehicularGrenadeLauncher) p).GetAmmoType() + "</vglammo>" + NL;
+                }
+                if( p instanceof Equipment ) {
+                    if( ((Equipment) p).IsVariableSize() ) {
+                        retval += prefix + tab + "<tons>" + p.GetTonnage() + "</tons>" + NL;
+                    }
                 }
                 retval += GetLocationLines( prefix + tab, p );
                 retval += prefix + "</equipment>" + NL;

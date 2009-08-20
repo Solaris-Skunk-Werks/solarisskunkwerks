@@ -46,11 +46,9 @@ public class HTMLWriter {
     private Hashtable lookup = new Hashtable<String, String>( 90 );
     private String NL = "<BR />";
     private boolean Mixed = false;
-    private Preferences Prefs;
 
     public HTMLWriter( Mech m ) {
         CurMech = m;
-        Prefs = m.GetPrefs();
         // if the current mech is an omnimech, set the loadout to the base
         // before we build the hash table
         if( CurMech.IsOmnimech() ) {
@@ -266,9 +264,23 @@ public class HTMLWriter {
                 // find any other weapons of this type
                 for( int j = 0; j < equips.length; j++ ) {
                     if( equips[j] != null ) {
-                        if( FileCommon.LookupStripArc( equips[j].GetLookupName() ).equals( FileCommon.LookupStripArc( cur.GetLookupName() ) ) && equips[j].GetManufacturer().equals( cur.GetManufacturer() ) ) {
-                            numthistype++;
-                            equips[j] = null;
+                        if( equips[j] instanceof Equipment ) {
+                            if( ((Equipment) equips[j]).IsVariableSize() ) {
+                                if( equips[j].GetCritName().equals( cur.GetCritName() ) && equips[j].GetManufacturer().equals( cur.GetManufacturer() ) ) {
+                                    numthistype++;
+                                    equips[j] = null;
+                                }
+                            } else {
+                                if( FileCommon.LookupStripArc( equips[j].GetLookupName() ).equals( FileCommon.LookupStripArc( cur.GetLookupName() ) ) && equips[j].GetManufacturer().equals( cur.GetManufacturer() ) ) {
+                                    numthistype++;
+                                    equips[j] = null;
+                                }
+                            }
+                        } else {
+                            if( FileCommon.LookupStripArc( equips[j].GetLookupName() ).equals( FileCommon.LookupStripArc( cur.GetLookupName() ) ) && equips[j].GetManufacturer().equals( cur.GetManufacturer() ) ) {
+                                numthistype++;
+                                equips[j] = null;
+                            }
                         }
                     }
                 }
@@ -313,9 +325,23 @@ public class HTMLWriter {
                     int loc = CurMech.GetLoadout().Find( cur );
                     for( int j = 0; j < equips.length; j++ ) {
                         if( equips[j] != null ) {
-                            if( equips[j].GetLookupName().equals( cur.GetLookupName() ) && CurMech.GetLoadout().Find( equips[j] ) == loc ) {
-                                numthisloc++;
-                                equips[j] = null;
+                            if( equips[j] instanceof Equipment ) {
+                                if( ((Equipment) equips[j]).IsVariableSize() ) {
+                                    if( equips[j].GetCritName().equals( cur.GetCritName() ) && CurMech.GetLoadout().Find( equips[j] ) == loc ) {
+                                        numthisloc++;
+                                        equips[j] = null;
+                                    }
+                                } else {
+                                    if( equips[j].GetLookupName().equals( cur.GetLookupName() ) && CurMech.GetLoadout().Find( equips[j] ) == loc ) {
+                                        numthisloc++;
+                                        equips[j] = null;
+                                    }
+                                }
+                            } else {
+                                if( equips[j].GetLookupName().equals( cur.GetLookupName() ) && CurMech.GetLoadout().Find( equips[j] ) == loc ) {
+                                    numthisloc++;
+                                    equips[j] = null;
+                                }
                             }
                         }
                     }
@@ -590,8 +616,14 @@ public class HTMLWriter {
                                     } else {
                                         retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural;
                                     }
+                                } else if( a instanceof Equipment ) {
+                                    if( ((Equipment) a).IsVariableSize() ) {
+                                        retval += FileCommon.LookupStripArc( a.GetCritName() ) + plural;
+                                    } else {
+                                        retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural;
+                                    }
                                 } else {
-                                    retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural;
+                                        retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural;
                                 }
                             } else {
                                 if( a instanceof RangedWeapon ) {
@@ -638,8 +670,14 @@ public class HTMLWriter {
                                 } else {
                                     retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural;
                                 }
+                            } else if( a instanceof Equipment ) {
+                                if( ((Equipment) a).IsVariableSize() ) {
+                                    retval += FileCommon.LookupStripArc( a.GetCritName() ) + plural;
+                                } else {
+                                    retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural;
+                                }
                             } else {
-                                retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural;
+                                    retval += FileCommon.LookupStripArc( a.GetLookupName() ) + plural;
                             }
                         } else {
                             if( a instanceof RangedWeapon ) {
@@ -695,7 +733,15 @@ public class HTMLWriter {
                                 retval += FileCommon.FormatAmmoExportName( ((Ammunition) a), numthisloc );
                             } else {
                                 if( Mixed ) {
-                                    retval += a.GetLookupName();
+                                    if( a instanceof Equipment ) {
+                                        if( ((Equipment) a).IsVariableSize() ) {
+                                            retval += a.GetCritName();
+                                        } else {
+                                            retval += a.GetLookupName();
+                                        }
+                                    } else {
+                                        retval += a.GetLookupName();
+                                    }
                                 } else {
                                     retval += a.GetCritName();
                                 }
@@ -841,7 +887,15 @@ public class HTMLWriter {
                                 retval += FileCommon.FormatAmmoExportName( ((Ammunition) a), numthisloc );
                             } else {
                                 if( Mixed ) {
-                                    retval += a.GetLookupName();
+                                    if( a instanceof Equipment ) {
+                                        if( ((Equipment) a).IsVariableSize() ) {
+                                            retval += a.GetCritName();
+                                        } else {
+                                            retval += a.GetLookupName();
+                                        }
+                                    } else {
+                                        retval += a.GetLookupName();
+                                    }
                                 } else {
                                     retval += a.GetCritName();
                                 }

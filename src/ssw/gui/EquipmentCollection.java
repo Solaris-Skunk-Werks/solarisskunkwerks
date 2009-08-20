@@ -30,6 +30,7 @@ package ssw.gui;
 
 import java.util.Vector;
 import ssw.components.AvailableCode;
+import ssw.components.Equipment;
 import ssw.components.abPlaceable;
 import ssw.components.ifLoadout;
 
@@ -98,7 +99,15 @@ public class EquipmentCollection {
             return "EquipmentCollection - 0 elements";
         } else {
             if( Owner.GetTechBase() == AvailableCode.TECH_BOTH ) {
-                return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).GetLookupName();
+                if( equips.get( 0 ) instanceof Equipment ) {
+                    if( ((Equipment) equips.get( 0 )).IsVariableSize() ) {
+                        return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).GetCritName();
+                    } else {
+                        return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).GetLookupName();
+                    }
+                } else {
+                    return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).GetLookupName();
+                }
             } else {
                 return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).GetCritName();
             }

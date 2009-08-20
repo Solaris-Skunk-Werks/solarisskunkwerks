@@ -29,7 +29,6 @@ package ssw.components;
 
 import ssw.utilities.CommonTools;
 import java.util.Vector;
-import ssw.*;
 
 public class EquipmentFactory {
     // big class for holding and farming out equipment

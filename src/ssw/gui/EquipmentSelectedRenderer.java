@@ -51,7 +51,15 @@ public class EquipmentSelectedRenderer extends DefaultListCellRenderer {
             a = (abPlaceable) value;
             int Loc = Parent.CurMech.GetLoadout().Find( a );
             if( Parent.CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
-                Text = a.GetLookupName();
+                if( a instanceof Equipment ) {
+                    if( ((Equipment) a).IsVariableSize() ) {
+                        Text = a.GetCritName();
+                    } else {
+                        Text = a.GetLookupName();
+                    }
+                } else {
+                    Text = a.GetLookupName();
+                }
             } else {
                 Text = a.GetCritName();
             }

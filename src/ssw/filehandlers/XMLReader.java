@@ -641,6 +641,7 @@ public class XMLReader {
                 String eName = "";
                 int VGLArc = 0;
                 int VGLAmmo = 0;
+                double vtons = 0.0;
                 l = new LocationIndex();
                 for( int j = 0; j < nl.getLength(); j++ ) {
                     if( nl.item( j ).getNodeName().equals( "name" ) ) {
@@ -657,6 +658,8 @@ public class XMLReader {
                         VGLArc = Integer.parseInt( nl.item( j ).getTextContent() );
                     } else if( nl.item( j ).getNodeName().equals( "vglammo" ) ) {
                         VGLAmmo = Integer.parseInt( nl.item( j ).getTextContent() );
+                    } else if( nl.item( j ).getNodeName().equals( "tons" ) ) {
+                        vtons = Double.parseDouble( nl.item( j ).getTextContent() );
                     }
                 }
                 if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" ) || eType.equals( "CASEII" ) || eType.equals( "Supercharger" ) ) {
@@ -725,6 +728,11 @@ public class XMLReader {
                         throw new Exception( "Could not find " + eName + " as a piece of equipment.\nThe Mech cannot be loaded." );
                     }
                     p.SetManufacturer( eMan );
+                    if( p instanceof Equipment ) {
+                        if( ((Equipment) p).IsVariableSize() ) {
+                            ((Equipment) p).SetTonnage( vtons );
+                        }
+                    }
                     if( p.CanSplit() ) {
                         if( splitLoc.size() > 0 ) {
                             m.GetLoadout().AddToQueue( p );
@@ -1078,6 +1086,9 @@ public class XMLReader {
                         String eMan = "";
                         String eType = "";
                         String eName = "";
+                        int VGLArc = 0;
+                        int VGLAmmo = 0;
+                        double vtons = 0.0;
                         l = new LocationIndex();
                         for( int j = 0; j < nl.getLength(); j++ ) {
                             if( nl.item( j ).getNodeName().equals( "name" ) ) {
@@ -1090,6 +1101,12 @@ public class XMLReader {
                                 l = DecodeLocation( nl.item( j ) );
                             } else if( nl.item( j ).getNodeName().equals( "splitlocation" ) ) {
                                 splitLoc.add( DecodeLocation( nl.item( j ) ) );
+                            } else if( nl.item( j ).getNodeName().equals( "vglarc" ) ) {
+                                VGLArc = Integer.parseInt( nl.item( j ).getTextContent() );
+                            } else if( nl.item( j ).getNodeName().equals( "vglammo" ) ) {
+                                VGLAmmo = Integer.parseInt( nl.item( j ).getTextContent() );
+                            } else if( nl.item( j ).getNodeName().equals( "tons" ) ) {
+                                vtons = Double.parseDouble( nl.item( j ).getTextContent() );
                             }
                         }
                         if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" ) || eType.equals( "CASEII" ) || eType.equals( "Supercharger" ) ) {
@@ -1158,6 +1175,11 @@ public class XMLReader {
                                 throw new Exception( "Could not find " + eName + " as a piece of equipment.\nThe Mech cannot be loaded." );
                             }
                             p.SetManufacturer( eMan );
+                            if( p instanceof Equipment ) {
+                                if( ((Equipment) p).IsVariableSize() ) {
+                                    ((Equipment) p).SetTonnage( vtons );
+                                }
+                            }
                             if( p.CanSplit() ) {
                                 if( splitLoc.size() > 0 ) {
                                     m.GetLoadout().AddToQueue( p );
@@ -1175,6 +1197,10 @@ public class XMLReader {
                             } else {
                                 m.GetLoadout().AddToQueue( p );
                                 m.GetLoadout().AddTo( p, l.Location, l.Index );
+                            }
+                            if( p instanceof VehicularGrenadeLauncher ) {
+                                ((VehicularGrenadeLauncher) p).SetArc( VGLArc );
+                                ((VehicularGrenadeLauncher) p).SetAmmoType( VGLAmmo );
                             }
                         }
                     } else if( n.item( i ).getNodeName().equals( "armored_locations" ) ) {

@@ -401,8 +401,16 @@ public class TXTWriter {
                     }
                 }
             } else {
-                if( Mixed ) { 
-                    Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetLookupName() + NL;
+                if( Mixed ) {
+                    if( cur instanceof Equipment ) {
+                        if( ((Equipment) cur).IsVariableSize() ) {
+                            Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + NL;
+                        } else {
+                            Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetLookupName() + NL;
+                        }
+                    } else {
+                        Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetLookupName() + NL;
+                    }
                 } else {
                     Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + NL;
                 }
@@ -419,9 +427,23 @@ public class TXTWriter {
             // find any other weapons of this type
             for( int j = 0; j < weapons.length; j++ ) {
                 if( weapons[j] != null ) {
-                    if( FileCommon.LookupStripArc( weapons[j].GetLookupName() ).equals( FileCommon.LookupStripArc( cur.GetLookupName() ) ) && weapons[j].GetManufacturer().equals( cur.GetManufacturer() ) ) {
-                        numthistype++;
-                        weapons[j] = null;
+                    if( cur instanceof Equipment ) {
+                        if( ((Equipment) cur).IsVariableSize() ) {
+                            if( weapons[j].GetCritName().equals( cur.GetCritName() ) && weapons[j].GetManufacturer().equals( cur.GetManufacturer() ) ) {
+                                numthistype++;
+                                weapons[j] = null;
+                            }
+                        } else {
+                            if( FileCommon.LookupStripArc( weapons[j].GetLookupName() ).equals( FileCommon.LookupStripArc( cur.GetLookupName() ) ) && weapons[j].GetManufacturer().equals( cur.GetManufacturer() ) ) {
+                                numthistype++;
+                                weapons[j] = null;
+                            }
+                        }
+                    } else {
+                        if( FileCommon.LookupStripArc( weapons[j].GetLookupName() ).equals( FileCommon.LookupStripArc( cur.GetLookupName() ) ) && weapons[j].GetManufacturer().equals( cur.GetManufacturer() ) ) {
+                            numthistype++;
+                            weapons[j] = null;
+                        }
                     }
                 }
             }
@@ -449,7 +471,15 @@ public class TXTWriter {
                 }
             } else {
                 if( Mixed ) {
-                    Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.GetLookupName() ) + plural + NL;
+                    if( cur instanceof Equipment ) {
+                        if( ((Equipment) cur).IsVariableSize() ) {
+                            Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + NL;
+                        } else {
+                            Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.GetLookupName() ) + plural + NL;
+                        }
+                    } else {
+                        Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.GetLookupName() ) + plural + NL;
+                    }
                 } else {
                     Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.GetCritName() ) + plural + NL;
                 }
@@ -574,9 +604,23 @@ public class TXTWriter {
                 int locint = CurMech.GetLoadout().Find( cur );
                 for( int j = 0; j < equips.length; j++ ) {
                     if( equips[j] != null ) {
-                        if( equips[j].GetLookupName().equals( cur.GetLookupName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
-                            numthisloc++;
-                            equips[j] = null;
+                        if( cur instanceof Equipment ) {
+                            if( ((Equipment) cur).IsVariableSize() ) {
+                                if( equips[j].GetCritName().equals( cur.GetCritName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
+                                    numthisloc++;
+                                    equips[j] = null;
+                                }
+                            } else {
+                                if( equips[j].GetLookupName().equals( cur.GetLookupName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
+                                    numthisloc++;
+                                    equips[j] = null;
+                                }
+                            }
+                        } else {
+                            if( equips[j].GetLookupName().equals( cur.GetLookupName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
+                                numthisloc++;
+                                equips[j] = null;
+                            }
                         }
                     }
                 }
@@ -771,9 +815,23 @@ public class TXTWriter {
                 int locint = CurMech.GetLoadout().Find( cur );
                 for( int j = 0; j < equips.length; j++ ) {
                     if( equips[j] != null ) {
-                        if( equips[j].GetLookupName().equals( cur.GetLookupName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
-                            numthisloc++;
-                            equips[j] = null;
+                        if( cur instanceof Equipment ) {
+                            if( ((Equipment) cur).IsVariableSize() ) {
+                                if( equips[j].GetCritName().equals( cur.GetCritName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
+                                    numthisloc++;
+                                    equips[j] = null;
+                                }
+                            } else {
+                                if( equips[j].GetLookupName().equals( cur.GetLookupName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
+                                    numthisloc++;
+                                    equips[j] = null;
+                                }
+                            }
+                        } else {
+                            if( equips[j].GetLookupName().equals( cur.GetLookupName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
+                                numthisloc++;
+                                equips[j] = null;
+                            }
                         }
                     }
                 }
@@ -859,10 +917,26 @@ public class TXTWriter {
         String retval = "";
         String name = "";
         if( Mixed ) {
-            if( numthisloc > 1 ) {
-                name = numthisloc + " " + p.GetLookupName() + "s";
+            if( p instanceof Equipment ) {
+                if( ((Equipment) p).IsVariableSize() ) {
+                    if( numthisloc > 1 ) {
+                        name = numthisloc + " " + p.GetCritName();
+                    } else {
+                        name = p.GetCritName();
+                    }
+                } else {
+                    if( numthisloc > 1 ) {
+                        name = numthisloc + " " + p.GetLookupName() + "s";
+                    } else {
+                        name = p.GetLookupName();
+                    }
+                }
             } else {
-                name = p.GetLookupName();
+                if( numthisloc > 1 ) {
+                    name = numthisloc + " " + p.GetLookupName() + "s";
+                } else {
+                    name = p.GetLookupName();
+                }
             }
         } else {
             if( numthisloc > 1 ) {
