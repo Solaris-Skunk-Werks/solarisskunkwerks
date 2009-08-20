@@ -79,6 +79,7 @@ Version 0.7.0
 - Fixed problems with HTML tonnage and heat formatting.
 - Fixed an issue with CASE tonnage and location on export.
 - Updated preview dialog to track window size changes and adjust the width/page options as necessary.
+- Changed heat sink dots in printouts to vertical orientation.
 
 -------------------------------------------------------------------------------
 Version 0.6.0
