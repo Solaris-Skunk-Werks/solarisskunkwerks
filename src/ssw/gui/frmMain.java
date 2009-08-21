@@ -3783,6 +3783,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         btnExportHTMLIcon = new javax.swing.JButton();
         btnExportTextIcon = new javax.swing.JButton();
         btnExportMTFIcon = new javax.swing.JButton();
+        btnChatInfo = new javax.swing.JButton();
         jSeparator23 = new javax.swing.JToolBar.Separator();
         btnPostToS7 = new javax.swing.JButton();
         jSeparator25 = new javax.swing.JToolBar.Separator();
@@ -4413,6 +4414,18 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         tlbIconBar.add(btnExportMTFIcon);
+
+        btnChatInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/balloon.png"))); // NOI18N
+        btnChatInfo.setToolTipText("Copy Chat Line");
+        btnChatInfo.setFocusable(false);
+        btnChatInfo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnChatInfo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnChatInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChatInfoActionPerformed(evt);
+            }
+        });
+        tlbIconBar.add(btnChatInfo);
         tlbIconBar.add(jSeparator23);
 
         btnPostToS7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/server.png"))); // NOI18N
@@ -13259,6 +13272,14 @@ private void mnuImportHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     CurMech.SetChanged( false );
 }//GEN-LAST:event_mnuImportHMPActionPerformed
 
+private void btnChatInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChatInfoActionPerformed
+    java.awt.datatransfer.StringSelection export = new java.awt.datatransfer.StringSelection( CurMech.GetChatInfo() );
+    java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
+    clipboard.setContents( export, this );
+    
+    javax.swing.JOptionPane.showMessageDialog(this, CurMech.GetChatInfo() + " saved to your clipboard");
+}//GEN-LAST:event_btnChatInfoActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -13278,6 +13299,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JButton btnArmorTons;
     private javax.swing.JButton btnAutoAllocate;
     private javax.swing.JCheckBox btnBalanceArmor;
+    private javax.swing.JButton btnChatInfo;
     private javax.swing.JButton btnClearEquip;
     private javax.swing.JButton btnClearImage;
     private javax.swing.JButton btnClearLoadout;

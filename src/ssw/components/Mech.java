@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
+import java.util.Enumeration;
 import ssw.battleforce.*;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -1150,6 +1151,60 @@ public class Mech implements ifBattleforce {
 
     public String GetFullName() {
         return String.format("%1$s %2$s %3$s", GetName(), GetModel(), GetLoadout().GetName()).replace(" " + Constants.BASELOADOUT_NAME, "").trim();
+    }
+
+    public String GetChatInfo() {
+        String info = "";
+        info += GetTonnage() + "T ";
+        // MP
+        info += GetWalkingMP() + "/";
+        info += GetRunningMP();
+        if ( GetPhysEnhance().IsMASC() || GetPhysEnhance().IsTSM() ) {
+            info += " (" + GetAdjustedRunningMP(false, true) + ")";
+        }
+        info += "/" + GetAdjustedJumpingMP(false) + " ";
+
+        // Engine
+        info += GetEngine().GetPrintName().replace(" Engine", "") + ", ";
+        
+        // Gyro
+        if (!GetGyro().GetCritName().equals("Gyro")) {
+            info += GetGyro().GetCritName() + " Gyro, ";
+        }
+        
+        // Internal Stucture
+        if (!GetIntStruc().GetCritName().trim().isEmpty()) {
+            info += GetIntStruc().GetCritName().trim() + ", ";
+        }
+        
+        // Armor
+        info += GetArmor().GetTonnage() + "T " + GetArmor().GetCritName() + ", ";
+
+        //Weapons and Equip
+        Hashtable<String, Integer> list = new Hashtable<String, Integer>();
+        abPlaceable item;
+        for( int i = 0; i < CurLoadout.GetNonCore().size(); i++ ) {
+            item = (abPlaceable) CurLoadout.GetNonCore().get( i );
+            if( ! (item instanceof Ammunition ) ) {
+                if (list.containsKey(item.GetCritName())) {
+                    int curVal = (Integer) list.get(item.GetCritName()).intValue();
+                    curVal++;
+                    list.remove(item.GetCritName());
+                    list.put(item.GetCritName(), curVal);
+                } else {
+                    list.put(item.GetCritName(), new Integer(1));
+                }
+            }
+        }
+
+        Enumeration e = list.keys();
+        while( e.hasMoreElements() ) {
+            String name = (String) e.nextElement();
+            int count = (Integer) list.get(name).intValue();
+            info += count + " " + name + ", ";
+        }
+
+        return info.trim().substring(0, info.length()-1);
     }
 
     public int GetDeprecatedLevel() {
