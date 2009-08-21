@@ -1390,10 +1390,18 @@ public class XMLReader {
                 ((RangedWeapon) retval).UseInsulator( insulated );
             }
         } else if( type.equals( "ballistic" ) ) {
+            boolean caseless = false;
+            if( name.contains( " (Caseless)" ) ) {
+                name = name.substring( 0, name.length() - 11 );
+                caseless = true;
+            }
             retval = data.GetEquipment().GetRangedWeaponByName( name, m );
             if( retval == null ) {
                 // try again with the prepend
                 retval = data.GetEquipment().GetRangedWeaponByName( prepend + name, m );
+            }
+            if( retval != null ) {
+                ((RangedWeapon) retval).SetCaseless( caseless );
             }
         } else if( type.equals( "missile" ) ) {
             retval = data.GetEquipment().GetRangedWeaponByName( name, m );

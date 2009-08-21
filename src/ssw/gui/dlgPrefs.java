@@ -1087,6 +1087,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         jPanel11.setLayout(new java.awt.GridBagLayout());
 
         chkUpdateStartup.setText("Check for updates on startup");
+        chkUpdateStartup.setEnabled(false);
         jPanel11.add(chkUpdateStartup, new java.awt.GridBagConstraints());
 
         gridBagConstraints = new java.awt.GridBagConstraints();

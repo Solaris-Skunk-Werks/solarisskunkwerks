@@ -75,6 +75,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     JMenuItem mnuArmorComponent = new JMenuItem( "Armor Component" );
     JMenuItem mnuAddCapacitor = new JMenuItem( "Add Capacitor" );
     JMenuItem mnuAddInsulator = new JMenuItem( "Add Insulator" );
+    JMenuItem mnuCaseless = new JMenuItem( "Switch to Caseless" );
     JMenuItem mnuSelective = new JMenuItem( "Selective Allocate" );
     JMenuItem mnuAuto = new JMenuItem( "Auto-Allocate" );
     JMenuItem mnuUnallocateAll = new JMenuItem( "Unallocate All" );
@@ -112,6 +113,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
               ARTILLERY = 5;
     private final AvailableCode PPCCapAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final AvailableCode LIAC = new AvailableCode( AvailableCode.TECH_BOTH );
+    private final AvailableCode CaselessAmmoAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     /** Creates new form frmMain */
     public frmMain() {
@@ -136,6 +138,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         LIAC.SetPBMAllowed( true );
         LIAC.SetPIMAllowed( true );
         LIAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        CaselessAmmoAC.SetISCodes( 'D', 'X', 'X', 'E' );
+        CaselessAmmoAC.SetISDates( 3055, 3056, true, 3056, 0, 0, false, false );
+        CaselessAmmoAC.SetISFactions( "FC", "FC", "", "" );
+        CaselessAmmoAC.SetPBMAllowed( true );
+        CaselessAmmoAC.SetPIMAllowed( true );
+        CaselessAmmoAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
 
         // fix for NetBeans stupidity.
         pnlDamageChart = new DamageChart();
@@ -177,6 +185,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuAddInsulator.addActionListener( new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 LaserInsulator();
+            }
+        });
+
+        mnuCaseless.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SwitchCaseless();
             }
         });
 
@@ -270,6 +284,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuUtilities.add( mnuArmorComponent );
         mnuUtilities.add( mnuAddCapacitor );
         mnuUtilities.add( mnuAddInsulator );
+        mnuUtilities.add( mnuCaseless );
         mnuUtilities.add( mnuVGLArc );
         mnuUtilities.add( mnuVGLAmmo );
         mnuUtilities.add( mnuSelective );
@@ -281,6 +296,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuArmorComponent.setVisible( false );
         mnuAddCapacitor.setVisible( false );
         mnuAddInsulator.setVisible( false );
+        mnuCaseless.setVisible( false );
         mnuVGLArc.setVisible( false );
         mnuVGLAmmo.setVisible( false );
 
@@ -2889,12 +2905,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         boolean armor = LegalArmoring( CurItem ) && CommonTools.IsAllowed( abPlaceable.ArmoredAC, CurMech );
         boolean cap = LegalCapacitor( CurItem ) && CommonTools.IsAllowed( PPCCapAC, CurMech );
         boolean insul = LegalInsulator( CurItem ) && CommonTools.IsAllowed( LIAC, CurMech );
+        boolean caseless = LegalCaseless( CurItem ) && CommonTools.IsAllowed( CaselessAmmoAC, CurMech );
         mnuArmorComponent.setEnabled( armor );
         mnuAddCapacitor.setEnabled( cap );
         mnuAddInsulator.setEnabled( insul );
+        mnuCaseless.setEnabled( caseless );
         mnuArmorComponent.setVisible( armor );
         mnuAddCapacitor.setVisible( cap );
         mnuAddInsulator.setVisible( insul );
+        mnuCaseless.setVisible( caseless );
         if( armor ) {
             if( CurItem.IsArmored() ) {
                 mnuArmorComponent.setText( "Unarmor Component" );
@@ -2902,7 +2921,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuArmorComponent.setText( "Armor Component" );
             }
         }
-        if( cap || insul ) {
+        if( cap || insul || caseless ) {
             if( CurItem instanceof RangedWeapon ) {
                 if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
                     mnuAddCapacitor.setText( "Remove Capacitor" );
@@ -2913,6 +2932,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     mnuAddInsulator.setText( "Remove Insulator" );
                 } else {
                     mnuAddInsulator.setText( "Add Insulator" );
+                }
+                if( ((RangedWeapon) CurItem).IsCaseless() ) {
+                    mnuCaseless.setText( "Switch from Caseless" );
+                } else {
+                    mnuCaseless.setText( "Switch to Caseless" );
                 }
             }
         }
@@ -3093,7 +3117,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }
 
     private void LaserInsulator() {
-        // if the current item can support a capacitor, adds one on
+        // if the current item can support an insulator, adds one on
         if( CurItem instanceof RangedWeapon ) {
             if( ((RangedWeapon) CurItem).IsUsingInsulator() ) {
                 abPlaceable p = ((RangedWeapon) CurItem).GetInsulator();
@@ -3107,10 +3131,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     try {
                         CurMech.GetLoadout().AddTo( CurMech.GetLoadout().GetCrits( Loc.Location ), p, Loc.Index + CurItem.NumCrits(), 1 );
                     } catch( Exception e ) {
-                        // couldn't allocate the capacitor?  Unallocate the PPC.
+                        // couldn't allocate the insulator?  Unallocate the PPC.
                         try {
                             CurMech.GetLoadout().UnallocateAll( CurItem, false );
-                            // remove the capacitor if it's in the queue
+                            // remove the insulator if it's in the queue
                             //if( CurMech.GetLoadout().QueueContains( p ) ) {
                             //    CurMech.GetLoadout().GetQueue().remove( p );
                             //}
@@ -3124,6 +3148,54 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
         RefreshInfoPane();
+    }
+
+    private void SwitchCaseless() {
+        if( CurItem instanceof RangedWeapon ) {
+            RangedWeapon r = (RangedWeapon) CurItem;
+            // get the original ammo index
+            int origIDX = r.GetAmmoIndex();
+
+            // switch over to caseless
+            r.SetCaseless( ! r.IsCaseless() );
+            int newIDX = r.GetAmmoIndex();
+
+            // check for other weapons with the original ammo index
+            Vector check = CurMech.GetLoadout().GetNonCore();
+            Vector replace = new Vector();
+            abPlaceable p;
+            boolean HasOrig = false;
+            for( int i = 0; i < check.size(); i++ ) {
+                p = (abPlaceable) check.get( i );
+                if( p instanceof RangedWeapon ) {
+                    if( ((RangedWeapon) p).GetAmmoIndex() == origIDX ) {
+                        HasOrig = true;
+                    }
+                }
+                if( p instanceof Ammunition ) {
+                    replace.add( p );
+                }
+            }
+
+            // replace any ammo with the new stuff if there are no other original weapons
+            if( ! HasOrig ) {
+                Object[] newammo = data.GetEquipment().GetAmmo( newIDX, CurMech );
+                for( int i = 0; i < replace.size(); i++ ) {
+                    p = (abPlaceable) replace.get( i );
+                    if( ((Ammunition) p).GetAmmoIndex() == origIDX ) {
+                        CurMech.GetLoadout().Remove( p );
+                        if( newammo.length > 0 ) {
+                            p = data.GetEquipment().GetCopy( (abPlaceable) newammo[0], CurMech);
+                            CurMech.GetLoadout().AddToQueue( p );
+                        }
+                    }
+                }
+            }
+        }
+        RefreshSummary();
+        RefreshInfoPane();
+        SetWeaponChoosers();
+        ResetAmmo();
     }
 
     public void SetVGLArcFore() {

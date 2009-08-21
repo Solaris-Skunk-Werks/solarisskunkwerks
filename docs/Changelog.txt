@@ -33,6 +33,8 @@ Version 0.7.0
 - Fully implemented variable tonnage equipment.
 - Added Chassis (Battlemech/IndustrialMech) and Motive (Biped/Quad) to the Open dialog.
 - You can now change the techbase of an OmniMech loadout to Mixed (requires Experimental Rules).
+- You can now change the Source field for an OmniMech loadout.
+- Added Caseless ACs (from right-click menu, like PPC caps and laser insulators)
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.

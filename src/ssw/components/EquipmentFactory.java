@@ -107,6 +107,7 @@ public class EquipmentFactory {
             ((RangedWeapon) retval).SetRequirements( r.RequiresFusion(), r.RequiresNuclear(), r.RequiresPowerAmps() );
             ((RangedWeapon) retval).SetWeapon( r.IsOneShot(), r.IsStreak(), r.IsUltra(), r.IsRotary(), r.IsExplosive(), r.IsTCCapable(), r.IsArrayCapable(), r.CanUseCapacitor(), r.CanUseInsulator() );
             ((RangedWeapon) retval).SetMissileFCS( r.IsFCSCapable(), r.GetFCSType() );
+            ((RangedWeapon) retval).SetCaselessAmmo( r.CanUseCaselessAmmo(), r.GetCaselessAmmoIDX() );
             ((RangedWeapon) retval).SetPrintName( r.GetPrintName() );
         } else if( p instanceof VehicularGrenadeLauncher ) {
             retval = new VehicularGrenadeLauncher();

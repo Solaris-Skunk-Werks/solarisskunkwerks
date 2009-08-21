@@ -70,6 +70,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                     UsingInsulator = false,
                     InArray = false,
                     CanUseCaseless = false,
+                    UsingCaseless = false,
                     UsingFCS = false;
     private int Heat = 0,
                 DamSht = 0,
@@ -88,7 +89,6 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                 ClusterSize = 1,
                 ClusterGroup = 1,
                 CaselessAmmoIDX = 0,
-                OriginalAmmoIDX = 0,
                 FCSType = ifMissileGuidance.FCS_NONE,
                 WeaponClass = ifWeapon.W_BALLISTIC;
     private double Tonnage = 0.0,
@@ -143,7 +143,6 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     public void SetAmmo( boolean has, int size, int idx, boolean Switch ) {
         HasAmmo = has;
         AmmoIndex = idx;
-        OriginalAmmoIDX = idx;
         AmmoLotSize = size;
         SwitchableAmmo = Switch;
     }
@@ -204,6 +203,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( UsingInsulator ) {
             retval += " (Insulated)";
         }
+        if( UsingCaseless ) {
+            retval += " (Caseless)";
+        }
         if( MountedRear ) {
             return "(R) " + retval;
         } else {
@@ -218,6 +220,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         }
         if( UsingInsulator ) {
             retval += " (Insulated)";
+        }
+        if( UsingCaseless ) {
+            retval += " (Caseless)";
         }
         if( MountedRear ) {
             return "(R) " + retval;
@@ -248,6 +253,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( UsingInsulator ) {
             retval += " (Insulated)";
         }
+        if( UsingCaseless ) {
+            retval += " (Caseless)";
+        }
         if( MountedRear ) {
             return "(R) " + retval;
         } else {
@@ -260,7 +268,11 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     }
 
     public String GetSpecials() {
-        return Specials;
+        if( UsingCaseless ) {
+            return "-";
+        } else {
+            return Specials;
+        }
     }
 
     @Override
@@ -534,11 +546,19 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     }
 
     public int GetAmmoLotSize() {
-        return AmmoLotSize;
+        if( UsingCaseless ) {
+            return AmmoLotSize * 2;
+        } else {
+            return AmmoLotSize;
+        }
     }
 
     public int GetAmmoIndex() {
-        return AmmoIndex;
+        if( UsingCaseless ) {
+            return CaselessAmmoIDX;
+        } else {
+            return AmmoIndex;
+        }
     }
 
     public boolean SwitchableAmmo() {
@@ -699,6 +719,19 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
 
     public boolean CanUseCaselessAmmo() {
         return CanUseCaseless;
+    }
+
+    public boolean IsCaseless() {
+        return UsingCaseless;
+    }
+
+    public void SetCaseless( boolean b ) {
+        if( ! CanUseCaseless ) { return; }
+        UsingCaseless = b;
+    }
+
+    public int GetCaselessAmmoIDX() {
+        return CaselessAmmoIDX;
     }
 
     public void AddToArray( MGArray a ) {
