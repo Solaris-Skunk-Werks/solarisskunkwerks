@@ -222,7 +222,7 @@ public class TXTWriter {
             retval += "    Heat Sink Locations: " + FileCommon.GetHeatSinkLocations( CurMech ) + NL;
         }
         retval += String.format( "Gyro:               %1$-52s %2$6.2f", CurMech.GetGyro().GetLookupName(), CurMech.GetGyro().GetTonnage() ) + NL;
-        retval += String.format( "Cockpit:            %1$-52s %2$6.2f", CurMech.GetCockpit().GetLookupName(), CurMech.GetCockpit().GetTonnage() ) + NL;
+        retval += String.format( "Cockpit:            %1$-52s %2$6.2f", CurMech.GetCockpit().GetReportName(), CurMech.GetCockpit().GetTonnage() ) + NL;
         if( CurMech.HasEjectionSeat() ) {
             retval += String.format( "    %1$-68s %2$6.2f", "Ejection Seat:", CurMech.GetEjectionSeat().GetTonnage() ) + NL;
         }

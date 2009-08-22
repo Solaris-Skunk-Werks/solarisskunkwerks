@@ -251,7 +251,11 @@ public class Cockpit extends abPlaceable {
     }
 
     public String GetReportName() {
-        return CurConfig.GetReportName();
+        if( Owner.HasFHES() ) {
+            return CurConfig.GetReportName() + " w/ Full Head Ejection System";
+        } else {
+            return CurConfig.GetReportName();
+        }
     }
 
     public int NumCrits() {
@@ -323,7 +327,7 @@ public class Cockpit extends abPlaceable {
     }
 
     public boolean CanUseCommandConsole() {
-        return CurConfig.CanUseCommandConsole();
+        return CurConfig.CanUseCommandConsole() &! Owner.HasFHES();
     }
 
     public ifState[] GetStates() {

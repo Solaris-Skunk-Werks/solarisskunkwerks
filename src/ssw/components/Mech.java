@@ -88,6 +88,7 @@ public class Mech implements ifBattleforce {
                     HasLAAES = false,
                     HasRAAES = false,
                     HasLegAES = false,
+                    HasFHES = false,
                     Changed = false;
     private Engine CurEngine = new Engine( this );
     private ifLoadout MainLoadout = new BipedLoadout( Constants.BASELOADOUT_NAME, this ),
@@ -115,6 +116,7 @@ public class Mech implements ifBattleforce {
                       RLAES = new AESSystem( this, true ),
                       CurLAAES,
                       CurRAAES;
+    private AvailableCode FHESAC = new AvailableCode( AvailableCode.TECH_BOTH );
     private Hashtable Lookup = new Hashtable();
     private AvailableCode OmniAvailable = new AvailableCode( AvailableCode.TECH_BOTH );
     private Preferences Prefs;
@@ -258,6 +260,14 @@ public class Mech implements ifBattleforce {
         CommandConsole = new SimplePlaceable( "Command Console", "CommandConsole", 1, true, AC );
         CommandConsole.SetTonnage( 3.0 );
         CommandConsole.SetCost( 500000.0 );
+
+        FHESAC.SetISCodes( 'D', 'X', 'F', 'E' );
+        FHESAC.SetISDates( 0, 0, false, 3023, 0, 0, false, false );
+        FHESAC.SetISFactions( "", "", "LC", "" );
+        FHESAC.SetCLCodes( 'D', 'X', 'X', 'E' );
+        FHESAC.SetCLDates( 0, 0, false, 3052, 0, 0, false, false );
+        FHESAC.SetCLFactions( "", "", "CWF", "" );
+        FHESAC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
     public void Recalculate() {
@@ -1202,6 +1212,19 @@ public class Mech implements ifBattleforce {
             String name = (String) e.nextElement();
             int count = (Integer) list.get(name).intValue();
             info += count + " " + name + ", ";
+        }
+
+        if( HasNullSig() ) {
+            info += "Null-Sig, ";
+        }
+        if( HasChameleon() ) {
+            info += "CLPS, ";
+        }
+        if( HasBlueShield() ) {
+            info += "BlueShield, ";
+        }
+        if( HasVoidSig() ) {
+            info += "Void-Sig, ";
         }
 
         return info.trim().substring(0, info.length()-1);
@@ -3103,6 +3126,26 @@ public class Mech implements ifBattleforce {
         return LLAES;
     }
 
+    public boolean CanUseFHES() {
+        if( HasCommandConsole() || CurCockpit.IsTorsoMounted() ) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void SetFHES( boolean b ) {
+        HasFHES = b;
+    }
+
+    public boolean HasFHES() {
+        return HasFHES;
+    }
+
+    public AvailableCode GetFHESAC() {
+        return FHESAC;
+    }
+
     public void CheckPhysicals() {
         // unallocates physical weapons, especially if the tonnage changes
         // we'll also check to see if the mech is a quad and remove the weapons
@@ -3181,6 +3224,9 @@ public class Mech implements ifBattleforce {
         }
         if( HasEjectionSeat() ) {
             Base.Combine( EjectionSeat.GetAvailability() );
+        }
+        if( HasFHES() ) {
+            Base.Combine( FHESAC );
         }
 
         // now adjust for the era.

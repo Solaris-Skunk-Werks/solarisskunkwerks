@@ -44,6 +44,12 @@ public class VCockpitSetTorsoMount implements ifVisitor {
     public void Visit( Mech m ) throws Exception {
         // Pass us off to the cockpit
         CurMech = m;
+
+        // ensure we're not using a FHES
+        if( m.HasFHES() ) {
+            throw new Exception( "A 'Mech cannot use a torso-mounted cockpit if it is\nalready using a Full-Head Ejection System." );
+        }
+
         Cockpit c = CurMech.GetCockpit();
 
         // first, we have to remove it from the loadout

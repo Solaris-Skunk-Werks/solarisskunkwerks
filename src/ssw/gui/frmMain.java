@@ -906,18 +906,26 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkRTCASE.setEnabled( false );
         }
 
-        // check the command console and ejection seat
+        // check the command console, ejection seat, and FHES
         if( CurMech.GetCockpit().IsTorsoMounted() ) {
             chkCommandConsole.setEnabled( false );
             chkCommandConsole.setSelected( false );
             chkEjectionSeat.setEnabled( false );
             chkEjectionSeat.setSelected( false );
+            chkFHES.setEnabled( false );
+            chkFHES.setSelected( false );
         } else {
-            if( CurMech.GetCockpit().CanUseCommandConsole() && CommonTools.IsAllowed( CurMech.GetCommandConsole().GetAvailability(), CurMech ) ) {
+            if( CurMech.GetCockpit().CanUseCommandConsole() && CommonTools.IsAllowed( CurMech.GetCommandConsole().GetAvailability(), CurMech ) &! chkFHES.isSelected() ) {
                 chkCommandConsole.setEnabled( true );
             } else {
                 chkCommandConsole.setEnabled( false );
                 chkCommandConsole.setSelected( false );
+            }
+            if( CurMech.CanUseFHES() && CommonTools.IsAllowed( CurMech.GetFHESAC(), CurMech ) ) {
+                chkFHES.setEnabled( true );
+            } else {
+                chkFHES.setEnabled( false );
+                chkFHES.setSelected( false );
             }
             if( CurMech.IsIndustrialmech() ) {
                 chkEjectionSeat.setEnabled( true );
@@ -1115,6 +1123,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkLAAES.setEnabled( false );
             chkLegAES.setEnabled( false );
             chkCommandConsole.setEnabled( false );
+            chkFHES.setEnabled( false );
             chkTracks.setEnabled( false );
 
             // now see if we have a supercharger on the base chassis
@@ -1170,6 +1179,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( ! chkRAAES.isEnabled() ) { CurMech.SetRAAES( false, -1 ); }
                 if( ! chkLAAES.isEnabled() ) { CurMech.SetLAAES( false, -1 ); }
                 if( ! chkCommandConsole.isEnabled() ) { CurMech.SetCommandConsole( false ); }
+                if( ! chkFHES.isEnabled() ) { CurMech.SetFHES( false ); }
                 if( ! chkTracks.isEnabled() ) { CurMech.SetTracks( false ); }
             } catch( Exception e ) {
                 // we should never get this, but report it if we do
@@ -1226,12 +1236,20 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkCommandConsole.setSelected( false );
             chkEjectionSeat.setEnabled( false );
             chkEjectionSeat.setSelected( false );
+            chkFHES.setEnabled( false );
+            chkFHES.setSelected( false );
         } else {
             if( CurMech.GetCockpit().CanUseCommandConsole() && CommonTools.IsAllowed( CurMech.GetCommandConsole().GetAvailability(), CurMech ) ) {
                 chkCommandConsole.setEnabled( true );
             } else {
                 chkCommandConsole.setEnabled( false );
                 chkCommandConsole.setSelected( false );
+            }
+            if( CurMech.CanUseFHES() && CommonTools.IsAllowed( CurMech.GetFHESAC(), CurMech ) ) {
+                chkFHES.setEnabled( true );
+            } else {
+                chkFHES.setSelected( false );
+                chkFHES.setSelected( false );
             }
             if( CurMech.IsIndustrialmech() ) {
                 chkEjectionSeat.setEnabled( true );
@@ -5603,6 +5621,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         chkFHES.setText("Full-Head Ejection System");
         chkFHES.setEnabled(false);
+        chkFHES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkFHESActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -12407,6 +12430,7 @@ public void LoadMechIntoGUI() {
     chkEnviroSealing.setSelected( CurMech.HasEnviroSealing() );
     chkEjectionSeat.setSelected( CurMech.HasEjectionSeat() );
     chkCommandConsole.setSelected( CurMech.HasCommandConsole() );
+    chkFHES.setSelected( CurMech.HasFHES() );
     chkTracks.setSelected( CurMech.HasTracks() );
     chkRAAES.setSelected( CurMech.HasRAAES() );
     chkLAAES.setSelected( CurMech.HasLAAES() );
@@ -13114,6 +13138,7 @@ private void chkCommandConsoleActionPerformed(java.awt.event.ActionEvent evt) {/
     }
 
     // now refresh the information panes
+    RefreshEquipment();
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_chkCommandConsoleActionPerformed
@@ -13279,6 +13304,20 @@ private void btnChatInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     
     javax.swing.JOptionPane.showMessageDialog(this, CurMech.GetChatInfo() + " saved to your clipboard");
 }//GEN-LAST:event_btnChatInfoActionPerformed
+
+private void chkFHESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFHESActionPerformed
+    if( chkFHES.isSelected() == CurMech.HasFHES() ) { return; }
+    if( chkFHES.isSelected() ) {
+        CurMech.SetFHES( true );
+    } else {
+        CurMech.SetFHES( false );
+    }
+
+    // now refresh the information panes
+    RefreshEquipment();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkFHESActionPerformed
 
 private void setViewToolbar(boolean Visible)
 {

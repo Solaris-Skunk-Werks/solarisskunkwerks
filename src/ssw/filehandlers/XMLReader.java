@@ -387,6 +387,9 @@ public class XMLReader {
             if( map.getNamedItem( "commandconsole" ) != null ) {
                 m.SetCommandConsole( ParseBoolean( map.getNamedItem( "commandconsole" ).getTextContent() ) );
             }
+            if( map.getNamedItem( "fhes" ) != null ) {
+                m.SetFHES( ParseBoolean( map.getNamedItem( "fhes" ).getTextContent() ) );
+            }
         } else {
             // old-style cockpit save
             m.Visit( v );

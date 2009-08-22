@@ -151,7 +151,7 @@ public class XMLWriter {
             FR.write( GetLocationLines( tab + tab, CurMech.GetCockpit().GetFirstLS() ) );
             FR.write( GetLocationLines( tab + tab, CurMech.GetCockpit().GetSecondLS() ) );
         } else {
-            FR.write( tab + tab + "<type ejectionseat=\"" + GetBoolean( CurMech.HasEjectionSeat() ) + "\" commandconsole=\"" + GetBoolean( CurMech.HasCommandConsole() ) + "\">" + CurMech.GetCockpit().GetLookupName() + "</type>" );
+            FR.write( tab + tab + "<type ejectionseat=\"" + GetBoolean( CurMech.HasEjectionSeat() ) + "\" commandconsole=\"" + GetBoolean( CurMech.HasCommandConsole() ) + "\" fhes=\"" + GetBoolean( CurMech.HasFHES() ) + "\">" + CurMech.GetCockpit().GetLookupName() + "</type>" );
             FR.newLine();
         }
         FR.write( tab + "</cockpit>" );
