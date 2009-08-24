@@ -60,7 +60,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         cmbTech.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Tech", "Clan", "Inner Sphere", "Mixed" }));
         cmbEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Era", "Age of War/Star League", "Succession Wars", "Clan Invasion", "Dark Ages", "All Eras (non-canon)" }));
         cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Level", "Introductory", "Tournament Legal", "Advanced Rules", "Experimental Tech", "Era Specific" }));
-        cmbType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Type", "BattleMech", "IndustrialMech" }));
+        cmbType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Type", "BattleMech", "IndustrialMech", "Primitive BattleMech", "Primitive IndustrialMech" }));
         cmbMotive.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Motive", "Biped", "Quad" }));
         NL = System.getProperty( "line.separator" );
     }
@@ -767,7 +767,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         if (cmbTech.getSelectedIndex() > 0) {filters.setTech(cmbTech.getSelectedItem().toString());}
         if (cmbEra.getSelectedIndex() > 0) {filters.setEra(cmbEra.getSelectedItem().toString());}
-        if (cmbType.getSelectedIndex() > 0) {filters.setType(cmbType.getSelectedItem().toString());}
+        if (cmbType.getSelectedIndex() > 0) {filters.setType(cmbType.getSelectedItem().toString().replace(" ", ""));}
         if (cmbMotive.getSelectedIndex() > 0) {filters.setMotive(cmbMotive.getSelectedItem().toString());}
         if (cmbRulesLevel.getSelectedIndex() > 0) {filters.setLevel(cmbRulesLevel.getSelectedItem().toString());}
         if (! txtMinBV.getText().isEmpty() ) {
