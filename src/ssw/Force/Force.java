@@ -47,8 +47,7 @@ public class Force extends AbstractTableModel {
                  TotalAdjustedBV = 0.0,
                  TotalForceBV = 0.0,
                  TotalForceBVAdjusted = 0.0;
-    public int  NumC3 = 0,
-                OpForSize = 0;
+    public int  NumC3 = 0;
     public boolean isDirty = false;
 
     public Force(){
@@ -67,6 +66,7 @@ public class Force extends AbstractTableModel {
                 }
             }
         }
+        RefreshBV();
     }
 
     public void RefreshBV() {
@@ -164,17 +164,12 @@ public class Force extends AbstractTableModel {
         //Output column Headers
         p.WriteStr("Name", 60);
         p.WriteStr("Pilot", 140);
-        p.WriteStr("Type", 60);
         p.WriteStr("Tonnage", 50);
         p.WriteStr("Base BV", 50);
         p.WriteStr("G/P", 30);
-        p.WriteStr("Skills BV", 50);
         p.WriteStr("Modifier", 40);
-        p.WriteStr("Pre-C3 BV", 50);
         p.WriteStr("Use C3", 50);
-        p.WriteStr("C3 BV", 30);
         p.WriteStr("Total BV", 50);
-        p.WriteStr("Force BV", 0);
         p.NewLine();
         p.setFont(CommonTools.PlainFont);
 
@@ -189,24 +184,31 @@ public class Force extends AbstractTableModel {
         p.setFont(CommonTools.ItalicFont);
         p.WriteStr(Units.size() + " Units", 60);
         p.WriteStr("", 140);
-        p.WriteStr("", 60);
         p.WriteStr(String.format("%1$,.2f", TotalTonnage), 50);
         p.WriteStr(String.format("%1$,.0f", TotalBaseBV), 50);
         p.WriteStr("", 30);
-        p.WriteStr(String.format("%1$,.0f", TotalSkillBV), 50);
         p.WriteStr("", 40);
-        p.WriteStr(String.format("%1$,.0f", TotalAdjustedBV ), 50);
         p.WriteStr("", 50);
-        p.WriteStr(String.format("%1$,.0f", TotalC3BV), 30);
         p.setFont(CommonTools.BoldFont);
         p.WriteStr(String.format("%1$,.0f", TotalForceBV), 50);
-        p.WriteStr(String.format("%1$,.0f", TotalForceBVAdjusted), 0);
         p.NewLine();
         p.setFont(CommonTools.PlainFont);
     }
 
     public void Clear() {
         Units.removeAllElements();
+        ForceName = "";
+        TotalBaseBV = 0.0f;
+        TotalModifier = 0.0f;
+        TotalTonnage = 0.0f;
+        TotalC3BV = 0.0f;
+        TotalSkillBV = 0.0f;
+        TotalModifierBV = 0.0f;
+        TotalAdjustedBV = 0.0f;
+        TotalForceBV = 0.0f;
+        TotalForceBVAdjusted = 0.0f;
+        NumC3 = 0;
+        isDirty = false;
         RefreshBV();
     }
 

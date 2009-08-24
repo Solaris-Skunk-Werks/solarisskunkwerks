@@ -64,7 +64,9 @@ public class Unit {
     public Unit(Node n) throws Exception {
         for (int i=0; i < n.getChildNodes().getLength(); i++) {
             String nodeName = n.getChildNodes().item(i).getNodeName();
-            if (nodeName.equals("model")) {TypeModel = n.getChildNodes().item(i).getTextContent();}
+            if (nodeName.equals("type")) {Type = n.getChildNodes().item(i).getTextContent();}
+            if (nodeName.equals("model")) {Model = n.getChildNodes().item(i).getTextContent();}
+            if (nodeName.equals("config")) {Configuration = n.getChildNodes().item(i).getTextContent();}
             if (nodeName.equals("tonnage")) {Tonnage = Double.parseDouble(n.getChildNodes().item(i).getTextContent());}
             if (nodeName.equals("basebv")) {BaseBV = Double.parseDouble(n.getChildNodes().item(i).getTextContent());}
             if (nodeName.equals("modifier")) {MiscMod = Double.parseDouble(n.getChildNodes().item(i).getTextContent());}
@@ -84,7 +86,9 @@ public class Unit {
                 }
             }
         }
-        this.Refresh();
+        TypeModel = Type + " " + Model;
+        if (!Configuration.isEmpty()) { Omni = true; }
+        Refresh();
     }
 
     public void Refresh() {
@@ -102,27 +106,27 @@ public class Unit {
     }
 
     public void RenderPrint(PrintSheet p) {
-        p.WriteStr(TypeModel, 60);
+        p.WriteStr(Type + " " + Model, 60);
         p.WriteStr(Mechwarrior, 140);
-        p.WriteStr(Constants.UnitTypes[UnitType], 60);
         p.WriteStr(String.format("%1$,.2f", Tonnage), 50);
         p.WriteStr(String.format("%1$,.0f", BaseBV), 50);
         p.WriteStr(GetSkills(), 30);
-        //p.WriteStr(String.format("%1$,.0f", SkillsBV), 50);
         p.WriteStr(String.format("%1$,.2f", MiscMod), 40);
-        //p.WriteStr(String.format("%1$,.0f", TotalBV), 50);
         p.WriteStr(Boolean.valueOf(UsingC3).toString(), 50);
-        //p.WriteStr(String.format("%1$,.0f", C3BV), 30);
         p.WriteStr(String.format("%1$,.0f", TotalBV), 0);
         p.NewLine();
     }
 
     public void SerializeXML(BufferedWriter file) throws IOException {
-        file.write(CommonTools.tab + CommonTools.tab + CommonTools.tab + "<model>" + this.TypeModel + "</model>");
+        file.write(CommonTools.tab + CommonTools.tab + CommonTools.tab + "<type>" + this.Type.trim() + "</type>");
+        file.newLine();
+        file.write(CommonTools.tab + CommonTools.tab + CommonTools.tab + "<model>" + this.Model.trim() + "</model>");
+        file.newLine();
+        file.write(CommonTools.tab + CommonTools.tab + CommonTools.tab + "<config>" + this.Configuration.trim() + "</config>");
         file.newLine();
         file.write(CommonTools.tab + CommonTools.tab + CommonTools.tab + "<tonnage>" + this.Tonnage + "</tonnage>");
         file.newLine();
-        file.write(CommonTools.tab + CommonTools.tab + CommonTools.tab + "<mechwarrior>" + this.Mechwarrior + "</mechwarrior>");
+        file.write(CommonTools.tab + CommonTools.tab + CommonTools.tab + "<mechwarrior>" + this.Mechwarrior.trim() + "</mechwarrior>");
         file.newLine();
         file.write(CommonTools.tab + CommonTools.tab + CommonTools.tab + "<basebv>" + this.BaseBV + "</basebv>");
         file.newLine();
@@ -136,7 +140,7 @@ public class Unit {
         file.newLine();
         file.write(CommonTools.tab + CommonTools.tab + CommonTools.tab + "<usingc3>" + this.UsingC3 + "</usingc3>");
         file.newLine();
-        file.write(CommonTools.tab + CommonTools.tab + CommonTools.tab + "<ssw>" + this.Filename + "</ssw>");
+        file.write(CommonTools.tab + CommonTools.tab + CommonTools.tab + "<ssw>" + this.Filename.trim() + "</ssw>");
         file.newLine();
     }
 

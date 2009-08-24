@@ -62,7 +62,7 @@ public class ForceWriter {
     }
 
     public void SerializeForce(Force f) throws IOException {
-        String filename = CommonTools.FormatFileName(f.ForceName) + ".xml";
+        String filename = CommonTools.FormatFileName(f.ForceName) + ".force";
 
         BufferedWriter FR = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( filename ), "UTF-8" ) );
 

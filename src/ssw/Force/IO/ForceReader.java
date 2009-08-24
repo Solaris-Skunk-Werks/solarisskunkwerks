@@ -28,49 +28,20 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.Force.IO;
 
 import java.io.File;
-import javax.swing.JFileChooser;
 import ssw.Force.*;
 import ssw.Force.Common.CommonTools;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.*;
+import ssw.filehandlers.Media;
 
 public class ForceReader {
 
+    private Media media = new Media();
     private Force curForce = new Force();
 
     public Force Load() {
-        JFileChooser fc = new JFileChooser();
-        fc.addChoosableFileFilter(new javax.swing.filechooser.FileFilter() {
-
-                @Override
-                public boolean accept(File f) {
-                    if (f.isDirectory()){
-                        return true;
-                    }
-
-                    if (f.getName().indexOf(".") > 0) {
-                        String extension = "" + f.getName().substring(f.getName().indexOf("."));
-                        if (extension.equals(".xml")){
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        return false;
-                    }
-                }
-
-                @Override
-                public String getDescription() {
-                    return "*.xml";
-                }
-            });
-         fc.setAcceptAllFileFilterUsed( false );
-         //fc.setCurrentDirectory(tempFile);
-         int returnVal = fc.showDialog( null, "Load Force List" );
-           if( returnVal != JFileChooser.APPROVE_OPTION ) { return curForce; }
-           File ForceFile = fc.getSelectedFile();
+           File ForceFile = media.SelectFile("", "force", "Load Force List");
            String filename = "";
            try {
                filename = ForceFile.getCanonicalPath();

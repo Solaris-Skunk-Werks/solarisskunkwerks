@@ -110,14 +110,10 @@ public class frmForce extends javax.swing.JFrame {
         {
             XMLReader read = new XMLReader();
             Mech m = read.ReadMech( Data.Filename, parent.data );
-            //if (m.isOmni()) {
-                //m.SetCurLoadout( Data.getConfig() );
-            //}
+            if (Data.isOmni()) {
+                m.SetCurLoadout(Data.Configuration);
+            }
             parent.setMech(m);
-
-            //parent.Prefs.put( "LastOpenDirectory", Data.getFilename().substring( 0, Data.getFilename().lastIndexOf( File.separator ) ) );
-            //parent.Prefs.put( "LastOpenFile", Data.getFilename().substring( Data.getFilename().lastIndexOf( File.separator ) ) );
-
             parent.LoadMechIntoGUI();
             this.setVisible(false);
 
@@ -128,6 +124,8 @@ public class frmForce extends javax.swing.JFrame {
 
     public void Add( Mech m ) {
         Unit u = new Unit();
+        u.Type = m.GetName();
+        u.Model = m.GetModel();
         u.TypeModel = m.GetFullName();
         u.Tonnage = m.GetTonnage();
         u.BaseBV = m.GetCurrentBV();
@@ -169,13 +167,14 @@ public class frmForce extends javax.swing.JFrame {
         btnAmmoChooser = new javax.swing.JButton();
         spnList = new javax.swing.JScrollPane();
         tblForce = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
         lblTotalUnits = new javax.swing.JLabel();
-        lblTotalTons = new javax.swing.JLabel();
-        lblTotalBV = new javax.swing.JLabel();
-        txtGunnery = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         txtPiloting = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        txtGunnery = new javax.swing.JTextField();
+        lblTotalBV = new javax.swing.JLabel();
+        lblTotalTons = new javax.swing.JLabel();
 
         setTitle("Force List");
         setMinimumSize(null);
@@ -353,22 +352,7 @@ public class frmForce extends javax.swing.JFrame {
 
         lblTotalUnits.setText("0 Units");
 
-        lblTotalTons.setText("0 Tons");
-
-        lblTotalBV.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblTotalBV.setText("0 BV");
-
-        txtGunnery.setText("4");
-        txtGunnery.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtGunneryFocusGained(evt);
-            }
-        });
-        txtGunnery.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtGunneryKeyReleased(evt);
-            }
-        });
+        jLabel2.setText("P");
 
         txtPiloting.setText("5");
         txtPiloting.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -384,21 +368,31 @@ public class frmForce extends javax.swing.JFrame {
 
         jLabel1.setText("G");
 
-        jLabel2.setText("P");
+        txtGunnery.setText("4");
+        txtGunnery.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtGunneryFocusGained(evt);
+            }
+        });
+        txtGunnery.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtGunneryKeyReleased(evt);
+            }
+        });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+        lblTotalBV.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblTotalBV.setText("0 BV");
+
+        lblTotalTons.setText("0 Tons");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addComponent(lblTotalUnits, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
                 .addComponent(lblTotalTons, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
@@ -412,14 +406,11 @@ public class frmForce extends javax.swing.JFrame {
                 .addComponent(lblTotalBV, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(tlbActions, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnList, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTotalUnits)
                     .addComponent(lblTotalBV)
                     .addComponent(lblTotalTons)
@@ -427,7 +418,31 @@ public class frmForce extends javax.swing.JFrame {
                     .addComponent(txtPiloting, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(tlbActions, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -654,6 +669,7 @@ public class frmForce extends javax.swing.JFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
