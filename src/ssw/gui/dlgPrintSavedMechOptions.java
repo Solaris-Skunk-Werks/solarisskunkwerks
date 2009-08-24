@@ -382,6 +382,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         });
 
         chkStats.setText("Print Statistics");
+        chkStats.setEnabled(false);
         chkStats.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkStatsActionPerformed(evt);
@@ -394,6 +395,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
 
         lblStats.setBackground(new java.awt.Color(255, 255, 255));
         lblStats.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lblStats.setEnabled(false);
         lblStats.setOpaque(true);
 
         btnChooseLogo.setText("Choose Logo");
