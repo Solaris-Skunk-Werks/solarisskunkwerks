@@ -856,7 +856,7 @@ public class EquipmentFactory {
         addPW.SetToHit(-3, -3, -3);
         addPW.SetRequiresLowerArm(false);
         addPW.SetPWClass( PhysicalWeapon.PW_CLASS_SHIELD );
-        addPW.AddMechModifier( new MechModifier( -1, 0, 0, 0.0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, true ));
+        addPW.AddMechModifier( new MechModifier( -1, 0, 0, 0.0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, true, false ));
         PhysicalWeapons.add(addPW);
 
         // large shield
@@ -874,7 +874,7 @@ public class EquipmentFactory {
         addPW.SetToHit(-4, -4, -4);
         addPW.SetRequiresLowerArm(false);
         addPW.SetPWClass( PhysicalWeapon.PW_CLASS_SHIELD );
-        MechModifier addMod = new MechModifier( -1, 0, 0, 0.0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, true );
+        MechModifier addMod = new MechModifier( -1, 0, 0, 0.0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, true, false );
         addMod.SetCanJump(false);
         addPW.AddMechModifier( addMod );
         PhysicalWeapons.add(addPW);

@@ -37,7 +37,7 @@ import ssw.components.ifLoadout;
 public class stArmorHA implements ifArmor, ifState {
     boolean locked = false;
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
-    private final MechModifier MechMod = new MechModifier( 0, -1, 0, 0.0f, 1, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true );
+    private final MechModifier MechMod = new MechModifier( 0, -1, 0, 0.0f, 1, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true, false );
 
     public stArmorHA() {
         AC.SetISCodes( 'D', 'X', 'X', 'F' );

@@ -212,7 +212,11 @@ public class HeatSinkFactory {
     }
 
     public int TotalDissipation() {
-        return NumHS * CurConfig.GetDissipation();
+        if( Owner.GetMech().UsingPartialWing() ) {
+            return NumHS * CurConfig.GetDissipation() + 3;
+        } else {
+            return NumHS * CurConfig.GetDissipation();
+        }
     }
 
     public double GetTonnage() {

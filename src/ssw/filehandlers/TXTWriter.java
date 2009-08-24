@@ -205,7 +205,11 @@ public class TXTWriter {
         } else {
             retval += "    Running MP: " + CurMech.GetRunningMP() + NL;
         }
-        retval += "    Jumping MP: " + CurMech.GetJumpJets().GetNumJJ();
+        if( CurMech.GetAdjustedJumpingMP( false ) != CurMech.GetJumpJets().GetNumJJ() ) {
+            retval += "    Jumping MP: " + CurMech.GetJumpJets().GetNumJJ() + " (" + CurMech.GetAdjustedJumpingMP( false ) + ")";
+        } else {
+            retval += "    Jumping MP: " + CurMech.GetJumpJets().GetNumJJ();
+        }
         if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
             if( CurMech.GetJumpJets().IsImproved() ) {
                 retval += "  (Improved)";
@@ -539,6 +543,9 @@ public class TXTWriter {
         if( CurMech.HasCommandConsole() ) {
             v.add( CurMech.GetCommandConsole() );
         }
+        if( CurMech.UsingPartialWing() ) {
+            v.add( CurMech.GetPartialWing() );
+        }
         if( CurMech.GetLoadout().HasSupercharger() ) {
             v.add( CurMech.GetLoadout().GetSupercharger() );
         }
@@ -727,9 +734,21 @@ public class TXTWriter {
         retval += "--------------------------------------------------------------------------------" + NL;
         if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
             if( CurMech.GetJumpJets().IsImproved() ) {
-                retval += "    Jumping MP: " + CurMech.GetJumpJets().GetNumJJ() + "  (Improved)" + NL;
+                if( CurMech.GetAdjustedJumpingMP( false ) != CurMech.GetJumpJets().GetNumJJ() ) {
+                    retval += "    Jumping MP: " + CurMech.GetJumpJets().GetNumJJ() + " (" + CurMech.GetAdjustedJumpingMP( false ) + ")  (Improved)" + NL;
+                } else {
+                    retval += "    Jumping MP: " + CurMech.GetJumpJets().GetNumJJ() + "  (Improved)" + NL;
+                }
             } else {
-                retval += "    Jumping MP: " + CurMech.GetJumpJets().GetNumJJ() + "  (Standard)" + NL;
+                if( CurMech.GetJumpJets().IsUMU() ) {
+                    retval += "    Jumping MP: " + CurMech.GetJumpJets().GetNumJJ() + "  (UMU)" + NL;
+                } else {
+                    if( CurMech.GetAdjustedJumpingMP( false ) != CurMech.GetJumpJets().GetNumJJ() ) {
+                        retval += "    Jumping MP: " + CurMech.GetJumpJets().GetNumJJ() + " (" + CurMech.GetAdjustedJumpingMP( false ) + ")  (Standard)" + NL;
+                    } else {
+                        retval += "    Jumping MP: " + CurMech.GetJumpJets().GetNumJJ() + "  (Standard)" + NL;
+                    }
+                }
             }
         }
         if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {

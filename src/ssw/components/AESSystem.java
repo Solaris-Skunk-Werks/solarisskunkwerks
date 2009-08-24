@@ -32,7 +32,7 @@ public class AESSystem extends abPlaceable {
     private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
     private Mech Owner;
     private boolean LegSystem;
-    private static MechModifier LegMod = new MechModifier( 0, 0, 0, 0, 0, -2, 0, 0.0, 0.0, 0.0, 0.0, false );
+    private static MechModifier LegMod = new MechModifier( 0, 0, 0, 0, 0, -2, 0, 0.0, 0.0, 0.0, 0.0, false, false );
 
     public AESSystem( Mech m, boolean legs ) {
         AC.SetISCodes( 'E', 'X', 'X', 'F' );

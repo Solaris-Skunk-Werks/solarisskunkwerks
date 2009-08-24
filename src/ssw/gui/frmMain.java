@@ -116,6 +116,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private final AvailableCode PPCCapAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final AvailableCode LIAC = new AvailableCode( AvailableCode.TECH_BOTH );
     private final AvailableCode CaselessAmmoAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+    private final AvailableCode PWAC = new AvailableCode( AvailableCode.TECH_CLAN );
 
     /** Creates new form frmMain */
     public frmMain() {
@@ -146,6 +147,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         CaselessAmmoAC.SetPBMAllowed( true );
         CaselessAmmoAC.SetPIMAllowed( true );
         CaselessAmmoAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        PWAC.SetCLCodes( 'F', 'X', 'X', 'E' );
+        PWAC.SetCLDates( 3061, 3067, true, 3067, 0, 0, false, false );
+        PWAC.SetCLFactions( "CJF", "CJF", "", "" );
+        PWAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
 
         // fix for NetBeans stupidity.
         pnlDamageChart = new DamageChart();
@@ -986,6 +991,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             cmbSCLoc.setEnabled( false );
             lblSupercharger.setEnabled( false );
         }
+        if( CommonTools.IsAllowed( PWAC, CurMech ) &! CurMech.IsOmnimech() ) {
+            chkPartialWing.setEnabled( true );
+        } else {
+            chkPartialWing.setEnabled( false );
+        }
+        chkPartialWing.setSelected( CurMech.UsingPartialWing() );
         if( CommonTools.IsAllowed( CurMech.GetLLAES().GetAvailability(), CurMech ) ) {
             chkRAAES.setEnabled( true );
             chkLAAES.setEnabled( true );
@@ -5614,6 +5625,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         chkPartialWing.setText("Partial Wing");
         chkPartialWing.setEnabled(false);
+        chkPartialWing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkPartialWingActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
@@ -13321,6 +13337,20 @@ private void chkFHESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_chkFHESActionPerformed
+
+private void chkPartialWingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkPartialWingActionPerformed
+    if( chkPartialWing.isSelected() == CurMech.UsingPartialWing() ) { return; }
+    try {
+        CurMech.SetPartialWing( chkPartialWing.isSelected() );
+    } catch( Exception e ) {
+        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+    }
+
+    // now refresh the information panes
+    RefreshEquipment();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkPartialWingActionPerformed
 
 private void setViewToolbar(boolean Visible)
 {

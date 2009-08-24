@@ -817,6 +817,22 @@ public class XMLReader {
                 } else if( type.equals( m.GetTracks().GetCritName() ) ) {
                     m.SetTracks( true, Locs );
                 }
+            } else if( n.item( i ).getNodeName().equals( "partialwing" ) ) {
+                map = n.item( i ).getAttributes();
+                LocationIndex[] lpw = { null, null };
+                if( map.getNamedItem( "lsstart" ) != null ) {
+                    l = new LocationIndex();
+                    l.Index = Integer.parseInt( map.getNamedItem( "lsstart" ).getTextContent() );
+                    l.Location = Constants.LOC_LT;
+                    lpw[0] = l;
+                }
+                if( map.getNamedItem( "rsstart" ) != null ) {
+                    l = new LocationIndex();
+                    l.Index = Integer.parseInt( map.getNamedItem( "rsstart" ).getTextContent() );
+                    l.Location = Constants.LOC_RT;
+                    lpw[1] = l;
+                }
+                m.SetPartialWing( true, lpw );
             } else if( n.item( i ).getNodeName().equals( "arm_aes" ) ) {
                 map = n.item( i ).getAttributes();
                 String Loc = map.getNamedItem( "location" ).getTextContent();

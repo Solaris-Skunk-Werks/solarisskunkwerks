@@ -28,95 +28,165 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.components;
 
-public class Supercharger extends abPlaceable {
-    private ifLoadout Owner;
-    private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
+public class PartialWing extends abPlaceable {
 
-    public Supercharger( ifLoadout l ) {
-        AC.SetISCodes( 'C', 'F', 'F', 'F' );
-        AC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
-        AC.SetISFactions( "", "", "ES", "" );
-        AC.SetCLCodes( 'C', 'X', 'F', 'F' );
-        AC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
-        AC.SetCLFactions( "", "", "ES", "" );
+    private Mech Owner;
+    private AvailableCode AC = new AvailableCode( AvailableCode.TECH_CLAN );
+    String Manufacturer = "";
+
+    public PartialWing( Mech m ) {
+        Owner = m;
+        AC.SetCLCodes( 'F', 'X', 'X', 'E' );
+        AC.SetCLDates( 3061, 3067, true, 3067, 0, 0, false, false );
+        AC.SetCLFactions( "CJF", "CJF", "", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        Owner = l;
-        AddMechModifier( new MechModifier( 0, 0, 0, 0.5, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, true, false ) );
+        SetLocked( true );
     }
 
     @Override
     public String GetCritName() {
-        return "Supercharger";
+        return "Partial Wing";
     }
 
+    @Override
     public String GetLookupName() {
-        return GetCritName();
+        return "Partial Wing";
     }
 
     @Override
     public String GetMMName(boolean UseRear) {
-        if( Owner.GetTechBase() >= AvailableCode.TECH_CLAN ) {
-            return "CL Super Charger";
-        } else {
-            return "IS Super Charger";
-        }
+        return "BattlemechPartialWing";
     }
 
     @Override
     public int NumCrits() {
-        return 1;
+        // like the engine, this will only return the number of crits in one location
+        return 3;
     }
 
     @Override
     public double GetTonnage() {
-        double retval = ((int) ( Math.ceil( Owner.GetMech().GetEngine().GetTonnage() * 0.1 * 2 ))) * 0.5;
+        double result = Math.ceil( Owner.GetTonnage() * 0.1 ) * 0.5;
         if( IsArmored() ) {
-            retval += 0.5;
+            result += 3.0;
         }
-        return retval;
+        return result;
     }
 
     @Override
     public double GetCost() {
-        double retval = Owner.GetMech().GetEngine().GetRating() * 10000.0;
+        double retval = 50000.0 * ( Math.ceil( Owner.GetTonnage() * 0.1 ) * 0.5 );
         if( IsArmored() ) {
-            retval += 150000.;
+            retval += 900000.0;
         }
         return retval;
     }
 
     @Override
     public double GetOffensiveBV() {
+        // partial wings modify the battlemech's BV in other ways.
         return 0.0;
     }
 
     @Override
     public double GetCurOffensiveBV( boolean UseRear, boolean UseTC, boolean UseAES ) {
+        // partial wings modify the battlemech's BV in other ways.
         return 0.0;
     }
 
     @Override
     public double GetDefensiveBV() {
         if( IsArmored() ) {
-            return 5.0;
-        } else {
-            return 0.0;
+            return 30.0;
         }
+        return 0.0;
     }
 
     @Override
-    public boolean LocationLocked() {
+    public boolean Place( ifLoadout l ) {
+        try {
+            l.AddToLT( this );
+        } catch( Exception e ) {
+            return false;
+        }
+
+        try {
+            l.AddToRT( this );
+        } catch( Exception e ) {
+            l.Remove( this );
+            return false;
+        }
+
         return true;
     }
 
     @Override
-    public boolean LocationLinked() {
+    public boolean Place( ifLoadout l, LocationIndex[] locs ) {
+        // we should have two location indexes
+        if( locs.length != 2 ) { return false; }
+
+        try {
+            l.AddTo( this, locs[0].Location, locs[0].Index );
+        } catch( Exception e ) {
+            return false;
+        }
+
+        try {
+            l.AddTo( this, locs[1].Location, locs[1].Index );
+        } catch( Exception e ) {
+            l.Remove( this );
+            return false;
+        }
+
         return true;
     }
 
     @Override
-    public boolean CoreComponent() {
+    public boolean CanAllocHD() {
+        return false;
+    }
+
+    @Override
+    public boolean CanAllocCT() {
+        return false;
+    }
+
+    @Override
+    public boolean CanAllocTorso() {
         return true;
+    }
+
+    @Override
+    public boolean CanAllocArms() {
+        return false;
+    }
+
+    @Override
+    public boolean CanAllocLegs() {
+        return false;
+    }
+
+    @Override
+    public boolean CanSplit() {
+        return true;
+    }
+
+    @Override
+    public String GetManufacturer() {
+        return Manufacturer;
+    }
+
+    @Override
+    public void SetManufacturer( String n ) {
+        Manufacturer = n;
+    }
+
+    public int GetJumpBonus() {
+        if( Owner.GetTonnage() < 60 ) {
+            return 2;
+        } else {
+            return 1;
+        }
     }
 
     @Override

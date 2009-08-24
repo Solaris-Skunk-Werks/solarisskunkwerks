@@ -32,7 +32,7 @@ import ssw.components.*;
 
 public class stPEISTSM implements ifPhysEnhance, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
-    private final MechModifier MechMod = new MechModifier( 1, 0, 0, 0.0f, 0, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true );
+    private final MechModifier MechMod = new MechModifier( 1, 0, 0, 0.0f, 0, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true, false );
 
     public stPEISTSM() {
         AC.SetISCodes( 'E', 'X', 'X', 'D' );

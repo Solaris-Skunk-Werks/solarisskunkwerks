@@ -518,7 +518,11 @@ public class HTMLWriter {
             if( CurMech.GetJumpJets().GetNumJJ() == 0 ) {
                 return "";
             } else {
-                return "" + CurMech.GetJumpJets().GetNumJJ();
+                if( CurMech.UsingPartialWing() ) {
+                    return CurMech.GetJumpJets().GetNumJJ() + " (" + CurMech.GetAdjustedJumpingMP( true ) + ")";
+                } else {
+                    return "" + CurMech.GetJumpJets().GetNumJJ();
+                }
             }
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_JUMPJET_LOCATION_LINE-+>" ) ) {
             return FileCommon.GetJumpJetLocations( CurMech );
@@ -1105,6 +1109,9 @@ public class HTMLWriter {
             if( CurMech.HasCommandConsole() ) {
                 ret.add( CurMech.GetCommandConsole() );
             }
+            if( CurMech.UsingPartialWing() ) {
+                ret.add( CurMech.GetPartialWing() );
+            }
             if( CurMech.GetLoadout().HasSupercharger() ) {
                 ret.add( CurMech.GetLoadout().GetSupercharger() );
             }
@@ -1338,7 +1345,11 @@ public class HTMLWriter {
         lookup.put( "<+-SSW_LEG_INTERNAL-+>", "" + CurMech.GetIntStruc().GetLegPoints() );
         lookup.put( "<+-SSW_ARMOR_COVERAGE-+>", "" + CurMech.GetArmor().GetCoverage() );
         lookup.put( "<+-SSW_JUMPJET_COUNT-+>", "" + CurMech.GetJumpJets().GetNumJJ() );
-        lookup.put( "<+-SSW_JUMPJET_DISTANCE-+>", "" + ( CurMech.GetJumpJets().GetNumJJ() * 30 ) + " meters" );
+        if( CurMech.GetAdjustedJumpingMP( false ) != CurMech.GetJumpJets().GetNumJJ() ) {
+            lookup.put( "<+-SSW_JUMPJET_DISTANCE-+>", ( CurMech.GetJumpJets().GetNumJJ() * 30 ) + " meters (" + ( CurMech.GetAdjustedJumpingMP( true ) * 30 ) + " meters)" );
+        } else {
+            lookup.put( "<+-SSW_JUMPJET_DISTANCE-+>", ( CurMech.GetJumpJets().GetNumJJ() * 30 ) + " meters" );
+        }
         lookup.put( "<+-SSW_SPEED_WALK_KMPH-+>", "" + ( CurMech.GetWalkingMP() * 10.75f ) + " km/h" );
         if( CurMech.GetAdjustedRunningMP( false, true ) != CurMech.GetRunningMP() ) {
             lookup.put( "<+-SSW_SPEED_RUN_KMPH-+>", "" + ( CurMech.GetRunningMP() * 10.75f ) + " km/h (" + ( CurMech.GetAdjustedRunningMP( false, true ) * 10.75f ) + " km/h)" );
@@ -1351,7 +1362,11 @@ public class HTMLWriter {
         } else {
             lookup.put( "<+-SSW_SPEED_RUN_MP-+>", "" + CurMech.GetRunningMP() );
         }
-        lookup.put( "<+-SSW_SPEED_JUMP_MP-+>", "" + CurMech.GetJumpJets().GetNumJJ() );
+        if( CurMech.GetAdjustedJumpingMP( false ) != CurMech.GetJumpJets().GetNumJJ() ) {
+            lookup.put( "<+-SSW_SPEED_JUMP_MP-+>", CurMech.GetJumpJets().GetNumJJ() + " (" + CurMech.GetAdjustedJumpingMP( true ) + ")" );
+        } else {
+            lookup.put( "<+-SSW_SPEED_JUMP_MP-+>", "" + CurMech.GetJumpJets().GetNumJJ() );
+        }
         lookup.put( "<+-SSW_COST-+>", String.format( "%1$,.0f", CurMech.GetTotalCost() ) );
         lookup.put( "<+-SSW_DRY_COST-+>", String.format( "%1$,.0f", CurMech.GetDryCost() ) );
         lookup.put( "<+-SSW_BV2-+>", String.format( "%1$,d", CurMech.GetCurrentBV() ) );
@@ -1392,7 +1407,11 @@ public class HTMLWriter {
             if( CurMech.GetJumpJets().IsImproved() ) {
                 lookup.put( "<+-SSW_JUMPJET_TYPE-+>", "Improved" );
             } else {
-                lookup.put( "<+-SSW_JUMPJET_TYPE-+>", "Standard" );
+                if( CurMech.GetJumpJets().IsUMU() ) {
+                    lookup.put( "<+-SSW_JUMPJET_TYPE-+>", "UMU" );
+                } else{
+                    lookup.put( "<+-SSW_JUMPJET_TYPE-+>", "Standard" );
+                }
             }
         }
         lookup.put( "<+-SSW_HEATSINK_COUNT-+>", "" + CurMech.GetHeatSinks().GetNumHS() );

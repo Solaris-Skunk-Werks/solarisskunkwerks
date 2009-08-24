@@ -41,7 +41,7 @@ public class stCockpitISSmall implements ifCockpit, ifState {
         "Sensors", 1, true, AC );
     private final static SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support",
         "Life Support", 1, true, AC );
-    private final MechModifier MechMod = new MechModifier( 0, 0, 0, 0.0f, 1, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true );
+    private final MechModifier MechMod = new MechModifier( 0, 0, 0, 0.0f, 1, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true, false );
 
     public stCockpitISSmall() {
         AC.SetISCodes( 'E', 'X', 'X', 'E' );

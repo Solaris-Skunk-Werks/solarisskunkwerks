@@ -89,6 +89,7 @@ public class Mech implements ifBattleforce {
                     HasRAAES = false,
                     HasLegAES = false,
                     HasFHES = false,
+                    HasPartialWing = false,
                     Changed = false;
     private Engine CurEngine = new Engine( this );
     private ifLoadout MainLoadout = new BipedLoadout( Constants.BASELOADOUT_NAME, this ),
@@ -116,6 +117,7 @@ public class Mech implements ifBattleforce {
                       RLAES = new AESSystem( this, true ),
                       CurLAAES,
                       CurRAAES;
+    private PartialWing Wing = new PartialWing( this );
     private AvailableCode FHESAC = new AvailableCode( AvailableCode.TECH_BOTH );
     private Hashtable Lookup = new Hashtable();
     private AvailableCode OmniAvailable = new AvailableCode( AvailableCode.TECH_BOTH );
@@ -173,7 +175,7 @@ public class Mech implements ifBattleforce {
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         NullSig = new MultiSlotSystem( this, "Null Signature System", "Null Signature System", "NullSignatureSystem", 0.0, false, true, 1400000.0, false, AC );
-        NullSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 10, 0.2, 0.0, 0.0, 0.0, true ) );
+        NullSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 10, 0.2, 0.0, 0.0, 0.0, true, false ) );
         NullSig.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Void Signature System", "Stealth Armor", "C3" }, "Null Signature System" ) );
 
         AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -184,7 +186,7 @@ public class Mech implements ifBattleforce {
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Chameleon = new MultiSlotSystem( this, "Chameleon LPS", "Chameleon LPS", "ChameleonLightPolarizationField", 0.0, true, true, 600000.0, false, AC );
-        Chameleon.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 6, 0.2, 0.0, 0.0, 0.0, true ) );
+        Chameleon.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 6, 0.2, 0.0, 0.0, 0.0, true, false ) );
         Chameleon.SetExclusions( new Exclusion( new String[] { "Void Signature System", "Stealth Armor" }, "Chameleon LPS" ) );
 
         AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -195,7 +197,7 @@ public class Mech implements ifBattleforce {
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         BlueShield = new MultiSlotSystem( this, "Blue Shield PFD", "Blue Shield PFD", "BlueShieldPFD", 3.0, false, true, 1000000.0, false, AC );
-        BlueShield.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 0, 0.0, 0.0, 0.2, 0.2, true ) );
+        BlueShield.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 0, 0.0, 0.0, 0.2, 0.2, true, false ) );
 
         AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
         AC.SetISCodes( 'E', 'X', 'X', 'E' );
@@ -205,7 +207,7 @@ public class Mech implements ifBattleforce {
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         VoidSig = new MultiSlotSystem( this, "Void Signature System", "Void Signature System", "VoidSignatureSystem", 0.0, false, true, 2000000.0, false, AC );
-        VoidSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 10, 0.3, 0.0, 0.0, 0.0, true ) );
+        VoidSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 10, 0.3, 0.0, 0.0, 0.0, true, false ) );
         VoidSig.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Null Signature System", "Stealth Armor", "C3", "Chameleon LPS" }, "Void Signature System" ) );
 
         AC = new AvailableCode( AvailableCode.TECH_BOTH );
@@ -291,7 +293,13 @@ public class Mech implements ifBattleforce {
     }
 
     public void SetTonnage( int t ) {
+        // check for a partial wing and remove the MechModifer
+        if( UsingPartialWing() ) {
+            RemoveMechMod( Wing.GetMechModifier() );
+        }
         Tonnage = t;
+        // now add the partial wing MechMod back in
+        AddMechModifier( Wing.GetMechModifier() );
         Recalculate();
 
         // also need to redo the engine if tonnage changes.
@@ -747,9 +755,13 @@ public class Mech implements ifBattleforce {
                 SetVoidSig(false);
                 SetVoidSig(true);
             }
+            if(HasPartialWing) {
+                SetPartialWing( false );
+                SetPartialWing( true );
+            }
         } catch( Exception e ) {
             // unhandled at this time, print an error out
-            System.err.println( "CASE system not reinstalled:\n" + e.getMessage() );
+            System.err.println( "System not reinstalled:\n" + e.getMessage() );
         }
 
         SetChanged( true );
@@ -921,9 +933,13 @@ public class Mech implements ifBattleforce {
                 SetVoidSig(false);
                 SetVoidSig(true);
             }
+            if(HasPartialWing) {
+                SetPartialWing( false );
+                SetPartialWing( true );
+            }
         } catch( Exception e ) {
             // unhandled at this time, print an error out
-            System.err.println( "CASE system not reinstalled:\n" + e.getMessage() );
+            System.err.println( "System not reinstalled:\n" + e.getMessage() );
         }
 
         SetChanged( true );
@@ -1226,6 +1242,9 @@ public class Mech implements ifBattleforce {
         if( HasVoidSig() ) {
             info += "Void-Sig, ";
         }
+        if( HasPartialWing ) {
+            info += "P-Wing, ";
+        }
 
         return info.trim().substring(0, info.length()-1);
     }
@@ -1353,9 +1372,9 @@ public class Mech implements ifBattleforce {
         // Large Shields restrict jumping ability but do affect BV movement modifiers
         if ( ! BV && ! GetTotalModifiers( BV, true ).CanJump() ) {
             return 0;
-        }
-        else {
+        } else {
             int retval = CurLoadout.GetJumpJets().GetNumJJ();
+            if( HasPartialWing && retval > 0 &! CurLoadout.GetJumpJets().IsUMU() ) { retval += Wing.GetJumpBonus(); }
             retval += GetTotalModifiers( BV, true ).JumpingAdder();
             return retval;
         }
@@ -1397,6 +1416,7 @@ public class Mech implements ifBattleforce {
         if( HasVoidSig ) { result += VoidSig.GetTonnage(); }
         if( HasNullSig ) { result += NullSig.GetTonnage(); }
         if( HasChameleon ) { result += Chameleon.GetTonnage(); }
+        if( HasPartialWing ) { result += Wing.GetTonnage(); }
         if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
         if( HasEnviroSealing ) { result += EnviroSealing.GetTonnage(); }
         if( HasEjectionSeat ) { result += EjectionSeat.GetTonnage(); }
@@ -1451,6 +1471,7 @@ public class Mech implements ifBattleforce {
         if( HasVoidSig ) { result += VoidSig.GetTonnage(); }
         if( HasNullSig ) { result += NullSig.GetTonnage(); }
         if( HasChameleon ) { result += Chameleon.GetTonnage(); }
+        if( HasPartialWing ) { result += Wing.GetTonnage(); }
         if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
         if( HasEnviroSealing ) { result += EnviroSealing.GetTonnage(); }
         if( HasEjectionSeat ) { result += EjectionSeat.GetTonnage(); }
@@ -1669,6 +1690,7 @@ public class Mech implements ifBattleforce {
             defresult += Chameleon.GetDefensiveBV();
             defresult += BlueShield.GetDefensiveBV();
             defresult += VoidSig.GetDefensiveBV();
+            defresult += Wing.GetDefensiveBV();
             defresult += EnviroSealing.GetDefensiveBV();
             defresult += Tracks.GetDefensiveBV();
         }
@@ -2205,6 +2227,7 @@ public class Mech implements ifBattleforce {
         if( HasChameleon() ) { result += Chameleon.GetCost(); }
         if( HasBlueShield() ) { result += BlueShield.GetCost(); }
         if( HasEnviroSealing() ) { result += EnviroSealing.GetCost(); }
+        if( HasPartialWing ) { result += Wing.GetCost(); }
         if( Quad ) {
             if( HasLegAES ) { result += RLAES.GetCost() * 4.0; }
         } else {
@@ -2858,6 +2881,38 @@ public class Mech implements ifBattleforce {
         return EjectionSeat;
     }
 
+    public void SetPartialWing( boolean b ) throws Exception {
+        if( Omnimech ) { return; }
+        if( b ) {
+            if( ! Wing.Place( MainLoadout ) ) {
+                throw new Exception( "There is no available room for the Partial Wing!\nIt will not be allocated." );
+            }
+        } else {
+            Wing.Remove( MainLoadout );
+        }
+        HasPartialWing = b;
+    }
+
+    public void SetPartialWing( boolean b, LocationIndex[] lpw ) throws Exception {
+        if( Omnimech ) { return; }
+        if( b ) {
+            if( ! Wing.Place( MainLoadout, lpw ) ) {
+                throw new Exception( "There is no available room for the Partial Wing!\nIt will not be allocated." );
+            }
+        } else {
+            Wing.Remove( MainLoadout );
+        }
+        HasPartialWing = b;
+    }
+
+    public boolean UsingPartialWing() {
+        return HasPartialWing;
+    }
+
+    public PartialWing GetPartialWing() {
+        return Wing;
+    }
+
     public void SetLAAES( boolean set, int index ) throws Exception {
         if( set == HasLAAES ) { return; }
         if( IsQuad() ) {
@@ -3441,11 +3496,11 @@ public class Mech implements ifBattleforce {
         MechMods.remove( m );
     }
 
-    public MechModifier GetTotalModifiers( boolean BVMovement, boolean MASCTSM ) {
-        MechModifier retval = new MechModifier( 0, 0, 0, 0.0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, true );
+    public MechModifier GetTotalModifiers( boolean BV, boolean MASCTSM ) {
+        MechModifier retval = new MechModifier( 0, 0, 0, 0.0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, BV, BV );
         if( MechMods.size() > 0 ) {
             for( int i = 0; i < MechMods.size(); i++ ) {
-                if( BVMovement ) {
+                if( BV ) {
                     if( MASCTSM ) {
                         retval.BVCombine( ((MechModifier) MechMods.get( i )) );
                     } else {
@@ -3466,7 +3521,7 @@ public class Mech implements ifBattleforce {
         }
         if( CurLoadout.GetMechMods().size() > 0 ) {
             for( int i = 0; i < CurLoadout.GetMechMods().size(); i++ ) {
-                if( BVMovement ) {
+                if( BV ) {
                     retval.BVCombine( ((MechModifier) CurLoadout.GetMechMods().get( i )) );
                 } else {
                     retval.Combine( ((MechModifier) CurLoadout.GetMechMods().get( i )) );

@@ -281,6 +281,24 @@ public class XMLWriter {
             FR.write( tab + tab + "</multislot>" );
             FR.newLine();
         }
+        if( CurMech.UsingPartialWing() ) {
+            // this can only ever go in the base loadout, so we'll save it here
+            Vector pwlocs = CurMech.GetLoadout().FindIndexes( CurMech.GetPartialWing() );
+            ls = new LocationIndex();
+            rs = new LocationIndex();
+            ls.Location = Constants.LOC_LT;
+            ls.Index = 12;
+            rs.Location = Constants.LOC_RT;
+            rs.Index = 12;
+            for( int i = 0; i < pwlocs.size(); i++ ) {
+                ls.SetFirst( ((LocationIndex) pwlocs.get( i )) );
+                rs.SetFirst( ((LocationIndex) pwlocs.get( i )) );
+            }
+            if( ls.Index == 12 ) { ls.Index = -1; }
+            if( rs.Index == 12 ) { rs.Index = -1; }
+            FR.write( tab + tab + "<partialwing lsstart=\"" + ls.Index + "\" rsstart=\"" + rs.Index + "\" />" );
+            FR.newLine();
+        }
         if( CurMech.HasLegAES() ) {
             FR.write( tab + tab + "<leg_aes>" );
             FR.newLine();
