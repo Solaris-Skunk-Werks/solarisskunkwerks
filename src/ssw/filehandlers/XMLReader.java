@@ -167,7 +167,7 @@ public class XMLReader {
         Data.setMotive( n.item( 0 ).getTextContent() );
 
         n = d.getElementsByTagName( "chat_info" );
-        Data.setInfo( n.item( 0 ).getTextContent() );
+        if ( n.getLength() > 0 ) { Data.setInfo( n.item( 0 ).getTextContent() ); }
 
         n = d.getElementsByTagName( "battle_value" );
         if (n.getLength() >= 1) Data.setBV( Integer.parseInt( n.item(0).getTextContent() ) );
