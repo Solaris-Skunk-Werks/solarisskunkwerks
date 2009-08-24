@@ -114,7 +114,7 @@ public class MechListData {
         this.Source = Items[5];
         this.Type = Items[11];
         this.Motive = Items[12];
-        this.Info = Items[13];
+        if (Items.length >= 14) this.Info = Items[13];
         this.Tonnage = Integer.parseInt(Items[6]);
         this.Year = Integer.parseInt(Items[7]);
         this.BV = Integer.parseInt(Items[8]);

@@ -257,11 +257,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel7" min="-2" max="-2" attributes="1"/>
-                                  <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="txtName" pref="326" max="32767" attributes="0"/>
+                              <Component id="txtName" min="-2" pref="241" max="-2" attributes="0"/>
+                              <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -287,9 +284,11 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="cmbMotive" alignment="0" min="-2" pref="118" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                  <Component id="chkOmni" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cmbMotive" alignment="1" min="-2" pref="118" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
@@ -361,10 +360,13 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btnClearFilter" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btnClearFilter" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="chkOmni" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="6" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -510,6 +512,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Mech Type"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="chkOmni">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Omni Only"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkOmniActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

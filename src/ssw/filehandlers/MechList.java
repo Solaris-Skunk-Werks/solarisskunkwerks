@@ -147,6 +147,9 @@ public class MechList extends AbstractTableModel {
             remove = false;
             MechListData mData = (MechListData) List.get(i-1);
 
+            if ( filter.getIsOmni() ) {
+                if (! mData.isOmni() ) remove = true;
+            }
             if ( ! filter.getTech().isEmpty() ) {
                 if (! mData.getTech().equals(filter.getTech()) ) remove = true;
             }

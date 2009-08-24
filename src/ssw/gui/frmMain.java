@@ -32,6 +32,8 @@ import ssw.utilities.CommonTools;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -11717,7 +11719,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 "The current 'Mech has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION );
             if( choice == 1 ) { return; }
         }
-        dOpen.setLocationRelativeTo(this);
+        dOpen.setLocationRelativeTo(null);
+
         //dOpen.setSize( 750, 600 );
         dOpen.setVisible(true);
     }

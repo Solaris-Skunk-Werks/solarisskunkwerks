@@ -25,6 +25,7 @@ public class ListFilter {
                 MaxBV = 0;
     private double MinCost = 0.0,
                   MaxCost = 0.0;
+    private boolean isOmni = false;
 
     public String getName() {
         return Name;
@@ -135,5 +136,11 @@ public class ListFilter {
     public void setYear(int Min, int Max ) {
         this.MinYear = Min;
         this.MaxYear = Max;
+    }
+    public void setIsOmni(boolean isOmni) {
+        this.isOmni = isOmni;
+    }
+    public boolean getIsOmni() {
+        return this.isOmni;
     }
 }

@@ -311,6 +311,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         jLabel2 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        chkOmni = new javax.swing.JCheckBox();
         lblStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -544,6 +545,13 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         jLabel8.setText("Mech Type");
 
+        chkOmni.setText("Omni Only");
+        chkOmni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkOmniActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -574,10 +582,8 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(77, 77, 77))
-                            .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)))
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmbTech, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -597,8 +603,9 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
-                            .addComponent(cmbMotive, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(chkOmni)
+                                .addComponent(cmbMotive, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnFilter)
@@ -652,8 +659,10 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                             .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnClearFilter)))
-                .addContainerGap(6, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnClearFilter)
+                            .addComponent(chkOmni))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         lblStatus.setText("Loading Mechs....");
@@ -791,6 +800,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             }
         }
         if (! txtName.getText().isEmpty() ) { filters.setName(txtName.getText().trim()); }
+        filters.setIsOmni(chkOmni.isSelected());
 
         MechList filtered = list.Filter(filters);
         setupList(filtered);
@@ -806,6 +816,23 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
     private void btnClearFilterFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearFilterFilter
         setupList(list);
+        
+        //clear the dropdowns
+        cmbEra.setSelectedIndex(0);
+        cmbMotive.setSelectedIndex(0);
+        cmbRulesLevel.setSelectedIndex(0);
+        cmbTech.setSelectedIndex(0);
+        cmbType.setSelectedIndex(0);
+
+        //clear text fields
+        txtMinBV.setText("");
+        txtMaxBV.setText("");
+        txtMinCost.setText("");
+        txtMaxCost.setText("");
+        txtMinTon.setText("");
+        txtMaxTon.setText("");
+        txtName.setText("");
+        chkOmni.setSelected(false);
 }//GEN-LAST:event_btnClearFilterFilter
 
     private void tblMechDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblMechDataKeyPressed
@@ -857,6 +884,10 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         LoadList(false);
     }//GEN-LAST:event_btnChangeDirActionPerformed
 
+    private void chkOmniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkOmniActionPerformed
+        Filter(null);
+    }//GEN-LAST:event_chkOmniActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd2Force;
     private javax.swing.JButton btnChangeDir;
@@ -867,6 +898,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private javax.swing.JButton btnOptions;
     private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnRefresh;
+    private javax.swing.JCheckBox chkOmni;
     private javax.swing.JComboBox cmbEra;
     private javax.swing.JComboBox cmbMotive;
     private javax.swing.JComboBox cmbRulesLevel;
