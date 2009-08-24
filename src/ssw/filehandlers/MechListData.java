@@ -40,7 +40,8 @@ public class MechListData {
                    Config = "",
                    Source = "",
                    Type = "BattleMech",
-                   Motive = "Biped";
+                   Motive = "Biped",
+                   Info = "";
     private int Tonnage = 0,
                 Year = 2750,
                 BV = 0;
@@ -49,7 +50,7 @@ public class MechListData {
     private String filename = "";
     public Vector Configurations = new Vector();
 
-    public MechListData(String Name, String Model, String Level, String Era, String Tech, String Source, String Type, String Motive, int Tonnage, int Year, int BV, double Cost, String filename){
+    public MechListData(String Name, String Model, String Level, String Era, String Tech, String Source, String Type, String Motive, String Info, int Tonnage, int Year, int BV, double Cost, String filename){
         this.Name = Name;
         this.Model = Model;
         this.Level = Level;
@@ -58,6 +59,7 @@ public class MechListData {
         this.Source = Source;
         this.Type = Type;
         this.Motive = Motive;
+        this.Info = Info;
         this.Tonnage = Tonnage;
         this.Year = Year;
         this.BV = BV;
@@ -66,11 +68,11 @@ public class MechListData {
     }
 
     public MechListData() {
-        this("", "", "", "", "", "", "BattleMech", "Biped", 0, 2750, 0, 0, "");
+        this("", "", "", "", "", "", "BattleMech", "Biped", "", 0, 2750, 0, 0, "");
     }
 
     public MechListData( MechListData m ) {
-        this(m.Name, m.Model, m.Level, m.Era, m.Tech, m.Source, m.Type, m.Motive, m.Tonnage, m.Year, m.BV, m.Cost, m.filename);
+        this(m.Name, m.Model, m.Level, m.Era, m.Tech, m.Source, m.Type, m.Motive, m.Info, m.Tonnage, m.Year, m.BV, m.Cost, m.filename);
     }
 
     public MechListData( String filename ) throws Exception {
@@ -87,6 +89,7 @@ public class MechListData {
             this.Tech = tempData.getTech();
             this.Type = tempData.getType();
             this.Motive = tempData.getMotive();
+            this.Info = tempData.getInfo();
             this.Tonnage = tempData.getTonnage();
             this.Year = tempData.getYear();
             this.BV = tempData.getBV();
@@ -111,13 +114,14 @@ public class MechListData {
         this.Source = Items[5];
         this.Type = Items[11];
         this.Motive = Items[12];
+        this.Info = Items[13];
         this.Tonnage = Integer.parseInt(Items[6]);
         this.Year = Integer.parseInt(Items[7]);
         this.BV = Integer.parseInt(Items[8]);
         this.Cost = Double.parseDouble(Items[9]);
         this.filename = Items[10];
-        if (Items.length == 14) {
-            this.Config = Items[13];
+        if (Items.length == 15) {
+            this.Config = Items[14];
             this.Omni = true;
         }
     }
@@ -155,6 +159,7 @@ public class MechListData {
                 this.filename + "," +
                 this.Type + "," +
                 this.Motive + "," +
+                this.Info.replace(",", " ") + "," +
                 this.Config;
     }
 
@@ -208,6 +213,14 @@ public class MechListData {
 
     public void setMotive(String Motive) {
         this.Motive = Motive;
+    }
+
+    public String getInfo() {
+        return Info;
+    }
+
+    public void setInfo(String Info) {
+        this.Info = Info;
     }
 
     public int getTonnage() {

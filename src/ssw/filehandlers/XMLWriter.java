@@ -65,6 +65,10 @@ public class XMLWriter {
         FR.write( tab + "<ssw_savefile_version>2</ssw_savefile_version>" );
         FR.newLine();
 
+        // chat information
+        FR.write( tab + "<chat_info>" + CurMech.GetChatInfo() + "</chat_info>" );
+        FR.newLine();
+
         // add the battle value if this is not an omnimech.  otherwise, we'll
         // add the battle value for each omni loadout.  NOTE: This value is never
         // used by SSW since the BV is dynamically calculated.  This is purely for
