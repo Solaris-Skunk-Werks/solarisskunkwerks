@@ -87,6 +87,7 @@ Version 0.7.0
 - Changed heat sink dots in printouts to vertical orientation.
 - Reworked the Open dialog a bit to better fit into a more squarish size
 - Reworked the Force dialog to handle Omnis, printing, saving and loading of information to match BFB.
+- Updated Mech List to include the source per the omni configuration.
 
 -------------------------------------------------------------------------------
 Version 0.6.0
