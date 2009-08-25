@@ -131,6 +131,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         }
         this.lblStatus.setText(list.Size() + " Mechs loaded from " + displayPath);
         this.lblStatus.setToolTipText(dirPath);
+        Filter(null);
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
 
@@ -188,7 +189,6 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             }
             setCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) );
             LoadList(false);
-            Filter(null);
         } else {
             prgResaving.setVisible(false);
         }
