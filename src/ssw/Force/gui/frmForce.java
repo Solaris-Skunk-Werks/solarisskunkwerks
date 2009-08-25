@@ -130,6 +130,7 @@ public class frmForce extends javax.swing.JFrame {
         u.Tonnage = m.GetTonnage();
         u.BaseBV = m.GetCurrentBV();
         u.m = m;
+        u.Refresh();
         force.Units.add(u);
     }
 
