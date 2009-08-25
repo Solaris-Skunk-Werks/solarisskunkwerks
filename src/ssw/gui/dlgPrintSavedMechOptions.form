@@ -24,45 +24,55 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Group type="102" alignment="0" attributes="1">
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Component id="pnlBattleMech" max="32767" attributes="1"/>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jPanel1" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="1">
+                              <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="pnlPrintOptions" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="pnlImageOptions" min="-2" max="-2" attributes="1"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="pnlBattleMech" min="-2" pref="85" max="-2" attributes="1"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="pnlBattleMech" min="-2" pref="85" max="-2" attributes="1"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="pnlPrintOptions" max="32767" attributes="1"/>
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
-                      <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="pnlImageOptions" min="-2" max="-2" attributes="1"/>
                   </Group>
-                  <Component id="pnlImageOptions" alignment="0" max="32767" attributes="1"/>
+                  <Group type="102" attributes="1">
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                      <Component id="pnlPrintOptions" max="32767" attributes="1"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -133,7 +143,7 @@
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <Component id="cmbPiloting" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="24" max="32767" attributes="0"/>
+                          <EmptySpace pref="61" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="20" pref="20" max="20" attributes="0"/>
@@ -207,9 +217,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtWarriorName">
           <Properties>
-            <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-              <Insets value="[0, 0, 0, 0]"/>
-            </Property>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[150, 20]"/>
             </Property>
@@ -354,7 +361,7 @@
                           <Component id="lblInches" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
                   <Component id="chkMWStats" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
@@ -455,8 +462,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnChooseImage" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="chkPrintImage" alignment="0" pref="101" max="32767" attributes="1"/>
-                      <Component id="lblImage" alignment="1" pref="101" max="32767" attributes="3"/>
+                      <Component id="chkPrintImage" alignment="0" pref="123" max="32767" attributes="1"/>
+                      <Component id="lblImage" alignment="1" pref="123" max="32767" attributes="3"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
@@ -491,7 +498,7 @@
                       <Component id="lblImage" min="-2" pref="116" max="-2" attributes="0"/>
                       <Component id="lblStats" min="-2" pref="116" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="9" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnChooseImage" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnChooseLogo" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -583,6 +590,20 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnChooseLogoActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanel5">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="btnChangeAmmo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Change Ammo"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnChangeAmmoActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

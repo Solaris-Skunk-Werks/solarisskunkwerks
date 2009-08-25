@@ -35,9 +35,10 @@ public class dlgVariableSize extends javax.swing.JDialog {
 
     private Equipment CurEquip;
     private double CurTons;
+    private boolean result = true;
 
     /** Creates new form dlgVariableSize */
-    public dlgVariableSize(java.awt.Frame parent, boolean modal, Equipment e ) {
+    public dlgVariableSize( java.awt.Frame parent, boolean modal, Equipment e ) {
         super( parent, modal );
         initComponents();
         CurEquip = e;
@@ -49,6 +50,10 @@ public class dlgVariableSize extends javax.swing.JDialog {
         spnTonnage.setModel( new javax.swing.SpinnerNumberModel(
             CurTons, CurEquip.GetMinTons(), CurEquip.GetMaxTons(), CurEquip.GetVariableIncrement() ) );
         setTitle( "Setting tonnage for " + CurEquip );
+    }
+
+    public boolean GetResult() {
+        return result;
     }
 
     /** This method is called from within the constructor to
@@ -147,11 +152,13 @@ public class dlgVariableSize extends javax.swing.JDialog {
         if( value > CurEquip.GetMaxTons() ) { value = CurEquip.GetMaxTons(); }
         if( value < CurEquip.GetMinTons() ) { value = CurEquip.GetMinTons(); }
         CurEquip.SetTonnage( value );
-        dispose();
+        result = true;
+        setVisible( false );
     }//GEN-LAST:event_btnOkayActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        dispose();
+        result = false;
+        setVisible( false );
     }//GEN-LAST:event_btnCancelActionPerformed
 
 

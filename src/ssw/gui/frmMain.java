@@ -6352,6 +6352,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane8.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane8.setMaximumSize(new java.awt.Dimension(200, 260));
         jScrollPane8.setMinimumSize(new java.awt.Dimension(200, 260));
+        jScrollPane8.setPreferredSize(new java.awt.Dimension(200, 260));
 
         lstChooseBallistic.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Placeholder" };
@@ -6436,6 +6437,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane9.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane9.setMaximumSize(new java.awt.Dimension(200, 260));
         jScrollPane9.setMinimumSize(new java.awt.Dimension(200, 260));
+        jScrollPane9.setPreferredSize(new java.awt.Dimension(200, 260));
 
         lstChooseEnergy.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Placeholder" };
@@ -6520,6 +6522,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane19.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane19.setMaximumSize(new java.awt.Dimension(200, 260));
         jScrollPane19.setMinimumSize(new java.awt.Dimension(200, 260));
+        jScrollPane19.setPreferredSize(new java.awt.Dimension(200, 260));
 
         lstChooseMissile.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Placeholder" };
@@ -6614,6 +6617,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane20.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane20.setMaximumSize(new java.awt.Dimension(200, 260));
         jScrollPane20.setMinimumSize(new java.awt.Dimension(200, 260));
+        jScrollPane20.setPreferredSize(new java.awt.Dimension(200, 260));
 
         lstChoosePhysical.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Placeholder" };
@@ -6701,6 +6705,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane21.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane21.setMaximumSize(new java.awt.Dimension(200, 260));
         jScrollPane21.setMinimumSize(new java.awt.Dimension(200, 260));
+        jScrollPane21.setPreferredSize(new java.awt.Dimension(200, 260));
 
         lstChooseEquipment.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Placeholder" };
@@ -6797,6 +6802,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane24.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane24.setMaximumSize(new java.awt.Dimension(200, 260));
         jScrollPane24.setMinimumSize(new java.awt.Dimension(200, 260));
+        jScrollPane24.setPreferredSize(new java.awt.Dimension(200, 260));
 
         lstChooseArtillery.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Placeholder" };
@@ -6875,6 +6881,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane22.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane22.setMaximumSize(new java.awt.Dimension(200, 260));
         jScrollPane22.setMinimumSize(new java.awt.Dimension(200, 260));
+        jScrollPane22.setPreferredSize(new java.awt.Dimension(200, 260));
 
         lstChooseAmmunition.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Placeholder" };
@@ -11123,39 +11130,42 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // now we can add it to the 'Mech
         if( a != null ) {
+            boolean result = true;
             if( a instanceof Equipment ) {
                 if( ((Equipment) a).IsVariableSize() ) {
                     dlgVariableSize SetTons = new dlgVariableSize( this, true, (Equipment) a );
                     SetTons.setLocationRelativeTo( this );
                     SetTons.setVisible( true );
+                    result = SetTons.GetResult();
                 }
             }
+            if( result ) {
+                CurMech.GetLoadout().AddToQueue( a );
 
-            CurMech.GetLoadout().AddToQueue( a );
-
-            // unallocate the TC if needed (if the size changes)
-            if( a instanceof ifWeapon ) {
-                if( ((ifWeapon) a).IsTCCapable() && CurMech.UsingTC() ) {
-                    CurMech.UnallocateTC();
+                // unallocate the TC if needed (if the size changes)
+                if( a instanceof ifWeapon ) {
+                    if( ((ifWeapon) a).IsTCCapable() && CurMech.UsingTC() ) {
+                        CurMech.UnallocateTC();
+                    }
                 }
-            }
 
-            // see if we need ammunition and add it if applicable
-            ResetAmmo();
+                // see if we need ammunition and add it if applicable
+                ResetAmmo();
 
-            if( a instanceof Ammunition ) {
-                // added for support if the user selected ammo.  The ResetAmmo()
-                // method clears the selected index.
-                lstChooseAmmunition.setSelectedIndex(Index);
-            }
+                if( a instanceof Ammunition ) {
+                    // added for support if the user selected ammo.  The ResetAmmo()
+                    // method clears the selected index.
+                    lstChooseAmmunition.setSelectedIndex(Index);
+                }
 
-            // refresh the selected equipment listbox
-            if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
-                Equipment[SELECTED] = new Object[] { " " };
-            } else {
-                Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
+                // refresh the selected equipment listbox
+                if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
+                    Equipment[SELECTED] = new Object[] { " " };
+                } else {
+                    Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
+                }
+                lstSelectedEquipment.setListData( Equipment[SELECTED] );
             }
-            lstSelectedEquipment.setListData( Equipment[SELECTED] );
 
             // now refresh the information panes
             RefreshSummary();

@@ -50,6 +50,7 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
     }
 
     private void SetState() {
+        lstInstalledAmmo.setCellRenderer( new AmmoChooserRenderer( this ) );
         setTitle( "Configuring Ammo for " + CurMech.GetName() + " " + CurMech.GetModel() );
         cmbRulesLevel.setSelectedIndex( CurMech.GetRulesLevel() );
         txtAmmoYear.setText( "" + CurMech.GetYear() );
@@ -78,6 +79,10 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
         } else {
             return true;
         }
+    }
+
+    public Mech GetMech() {
+        return CurMech;
     }
 
     /** This method is called from within the constructor to
