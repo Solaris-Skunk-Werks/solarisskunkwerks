@@ -435,81 +435,6 @@ public class XMLReader {
         }
         m.SetChassisModel( FileCommon.DecodeFluff( map.getNamedItem( "manufacturer" ).getTextContent() ) );
 
-        // armor next
-        n = d.getElementsByTagName( "armor" );
-        map = n.item( 0 ).getAttributes();
-        n = n.item( 0 ).getChildNodes();
-        int[] ArmorPoints = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        Type = null;
-        for( int i = 0; i < n.getLength(); i++ ) {
-            if( n.item( i ).getNodeName().equals( "location" ) ) {
-                armLoc.add( DecodeLocation( n.item( i ) ) );
-            } else if( n.item( i ).getNodeName().equals( "hd" ) ) {
-                ArmorPoints[Constants.LOC_HD] = Integer.parseInt( n.item( i ).getTextContent() );
-            } else if( n.item( i ).getNodeName().equals( "ct" ) ) {
-                ArmorPoints[Constants.LOC_CT] = Integer.parseInt( n.item( i ).getTextContent() );
-            } else if( n.item( i ).getNodeName().equals( "ctr" ) ) {
-                ArmorPoints[Constants.LOC_CTR] = Integer.parseInt( n.item( i ).getTextContent() );
-            } else if( n.item( i ).getNodeName().equals( "lt" ) ) {
-                ArmorPoints[Constants.LOC_LT] = Integer.parseInt( n.item( i ).getTextContent() );
-            } else if( n.item( i ).getNodeName().equals( "ltr" ) ) {
-                ArmorPoints[Constants.LOC_LTR] = Integer.parseInt( n.item( i ).getTextContent() );
-            } else if( n.item( i ).getNodeName().equals( "rt" ) ) {
-                ArmorPoints[Constants.LOC_RT] = Integer.parseInt( n.item( i ).getTextContent() );
-            } else if( n.item( i ).getNodeName().equals( "rtr" ) ) {
-                ArmorPoints[Constants.LOC_RTR] = Integer.parseInt( n.item( i ).getTextContent() );
-            } else if( n.item( i ).getNodeName().equals( "la" ) ) {
-                ArmorPoints[Constants.LOC_LA] = Integer.parseInt( n.item( i ).getTextContent() );
-            } else if( n.item( i ).getNodeName().equals( "ra" ) ) {
-                ArmorPoints[Constants.LOC_RA] = Integer.parseInt( n.item( i ).getTextContent() );
-            } else if( n.item( i ).getNodeName().equals( "ll" ) ) {
-                ArmorPoints[Constants.LOC_LL] = Integer.parseInt( n.item( i ).getTextContent() );
-            } else if( n.item( i ).getNodeName().equals( "rl" ) ) {
-                ArmorPoints[Constants.LOC_RL] = Integer.parseInt( n.item( i ).getTextContent() );
-            } else if( n.item( i ).getNodeName().equals( "type" ) ) {
-                Type = n.item( i );
-            }
-        }
-        if( Type == null ) {
-            throw new Exception( "The Armor type could not be found (missing type node).\nThe Mech cannot be loaded." );
-        } else {
-            v = m.Lookup( Type.getTextContent() );
-            if( v == null ) {
-                throw new Exception( "The Armor type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
-            } else {
-                LocationIndex[] Locs = new LocationIndex[armLoc.size()];
-                for( int j = 0; j < armLoc.size(); j++ ) {
-                    Locs[j] = (LocationIndex) armLoc.get( j );
-                }
-                if( map.getNamedItem( "techbase" ) == null ) {
-                    // old style save file, set the armor based on the 'Mech's techbase
-                    if( m.GetTechBase() == AvailableCode.TECH_CLAN ) {
-                        v.SetClan( true );
-                    }
-                } else {
-                    if( Integer.parseInt( map.getNamedItem( "techbase" ).getTextContent() ) == AvailableCode.TECH_CLAN ) {
-                        v.SetClan( true );
-                    }
-                }
-                v.LoadLocations( Locs );
-                m.Visit( v );
-            }
-        }
-        m.SetArmorModel( FileCommon.DecodeFluff( map.getNamedItem( "manufacturer" ).getTextContent() ) );
-        m.GetArmor().Recalculate();
-        // set the armor points
-        m.GetArmor().SetArmor( Constants.LOC_HD, ArmorPoints[Constants.LOC_HD] );
-        m.GetArmor().SetArmor( Constants.LOC_CT, ArmorPoints[Constants.LOC_CT] );
-        m.GetArmor().SetArmor( Constants.LOC_CTR, ArmorPoints[Constants.LOC_CTR] );
-        m.GetArmor().SetArmor( Constants.LOC_LT, ArmorPoints[Constants.LOC_LT] );
-        m.GetArmor().SetArmor( Constants.LOC_LTR, ArmorPoints[Constants.LOC_LTR] );
-        m.GetArmor().SetArmor( Constants.LOC_RT, ArmorPoints[Constants.LOC_RT] );
-        m.GetArmor().SetArmor( Constants.LOC_RTR, ArmorPoints[Constants.LOC_RTR] );
-        m.GetArmor().SetArmor( Constants.LOC_LA, ArmorPoints[Constants.LOC_LA] );
-        m.GetArmor().SetArmor( Constants.LOC_RA, ArmorPoints[Constants.LOC_RA] );
-        m.GetArmor().SetArmor( Constants.LOC_LL, ArmorPoints[Constants.LOC_LL] );
-        m.GetArmor().SetArmor( Constants.LOC_RL, ArmorPoints[Constants.LOC_RL] );
-
         // base loadout
         // get the actuators first since that will complete the structural components
         n = d.getElementsByTagName( "baseloadout" );
@@ -894,6 +819,81 @@ public class XMLReader {
                 loadout.AddTo( is, l.Location, l.Index );
             }
         }
+
+        // armor next
+        n = d.getElementsByTagName( "armor" );
+        map = n.item( 0 ).getAttributes();
+        n = n.item( 0 ).getChildNodes();
+        int[] ArmorPoints = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        Type = null;
+        for( int i = 0; i < n.getLength(); i++ ) {
+            if( n.item( i ).getNodeName().equals( "location" ) ) {
+                armLoc.add( DecodeLocation( n.item( i ) ) );
+            } else if( n.item( i ).getNodeName().equals( "hd" ) ) {
+                ArmorPoints[Constants.LOC_HD] = Integer.parseInt( n.item( i ).getTextContent() );
+            } else if( n.item( i ).getNodeName().equals( "ct" ) ) {
+                ArmorPoints[Constants.LOC_CT] = Integer.parseInt( n.item( i ).getTextContent() );
+            } else if( n.item( i ).getNodeName().equals( "ctr" ) ) {
+                ArmorPoints[Constants.LOC_CTR] = Integer.parseInt( n.item( i ).getTextContent() );
+            } else if( n.item( i ).getNodeName().equals( "lt" ) ) {
+                ArmorPoints[Constants.LOC_LT] = Integer.parseInt( n.item( i ).getTextContent() );
+            } else if( n.item( i ).getNodeName().equals( "ltr" ) ) {
+                ArmorPoints[Constants.LOC_LTR] = Integer.parseInt( n.item( i ).getTextContent() );
+            } else if( n.item( i ).getNodeName().equals( "rt" ) ) {
+                ArmorPoints[Constants.LOC_RT] = Integer.parseInt( n.item( i ).getTextContent() );
+            } else if( n.item( i ).getNodeName().equals( "rtr" ) ) {
+                ArmorPoints[Constants.LOC_RTR] = Integer.parseInt( n.item( i ).getTextContent() );
+            } else if( n.item( i ).getNodeName().equals( "la" ) ) {
+                ArmorPoints[Constants.LOC_LA] = Integer.parseInt( n.item( i ).getTextContent() );
+            } else if( n.item( i ).getNodeName().equals( "ra" ) ) {
+                ArmorPoints[Constants.LOC_RA] = Integer.parseInt( n.item( i ).getTextContent() );
+            } else if( n.item( i ).getNodeName().equals( "ll" ) ) {
+                ArmorPoints[Constants.LOC_LL] = Integer.parseInt( n.item( i ).getTextContent() );
+            } else if( n.item( i ).getNodeName().equals( "rl" ) ) {
+                ArmorPoints[Constants.LOC_RL] = Integer.parseInt( n.item( i ).getTextContent() );
+            } else if( n.item( i ).getNodeName().equals( "type" ) ) {
+                Type = n.item( i );
+            }
+        }
+        if( Type == null ) {
+            throw new Exception( "The Armor type could not be found (missing type node).\nThe Mech cannot be loaded." );
+        } else {
+            v = m.Lookup( Type.getTextContent() );
+            if( v == null ) {
+                throw new Exception( "The Armor type could not be found (lookup name missing or incorrect).\nThe Mech cannot be loaded." );
+            } else {
+                LocationIndex[] Locs = new LocationIndex[armLoc.size()];
+                for( int j = 0; j < armLoc.size(); j++ ) {
+                    Locs[j] = (LocationIndex) armLoc.get( j );
+                }
+                if( map.getNamedItem( "techbase" ) == null ) {
+                    // old style save file, set the armor based on the 'Mech's techbase
+                    if( m.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                        v.SetClan( true );
+                    }
+                } else {
+                    if( Integer.parseInt( map.getNamedItem( "techbase" ).getTextContent() ) == AvailableCode.TECH_CLAN ) {
+                        v.SetClan( true );
+                    }
+                }
+                v.LoadLocations( Locs );
+                m.Visit( v );
+            }
+        }
+        m.SetArmorModel( FileCommon.DecodeFluff( map.getNamedItem( "manufacturer" ).getTextContent() ) );
+        m.GetArmor().Recalculate();
+        // set the armor points
+        m.GetArmor().SetArmor( Constants.LOC_HD, ArmorPoints[Constants.LOC_HD] );
+        m.GetArmor().SetArmor( Constants.LOC_CT, ArmorPoints[Constants.LOC_CT] );
+        m.GetArmor().SetArmor( Constants.LOC_CTR, ArmorPoints[Constants.LOC_CTR] );
+        m.GetArmor().SetArmor( Constants.LOC_LT, ArmorPoints[Constants.LOC_LT] );
+        m.GetArmor().SetArmor( Constants.LOC_LTR, ArmorPoints[Constants.LOC_LTR] );
+        m.GetArmor().SetArmor( Constants.LOC_RT, ArmorPoints[Constants.LOC_RT] );
+        m.GetArmor().SetArmor( Constants.LOC_RTR, ArmorPoints[Constants.LOC_RTR] );
+        m.GetArmor().SetArmor( Constants.LOC_LA, ArmorPoints[Constants.LOC_LA] );
+        m.GetArmor().SetArmor( Constants.LOC_RA, ArmorPoints[Constants.LOC_RA] );
+        m.GetArmor().SetArmor( Constants.LOC_LL, ArmorPoints[Constants.LOC_LL] );
+        m.GetArmor().SetArmor( Constants.LOC_RL, ArmorPoints[Constants.LOC_RL] );
 
         // place the armor
         if( ! m.GetArmor().IsStealth() ) {

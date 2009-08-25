@@ -32,8 +32,6 @@ import ssw.utilities.CommonTools;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -811,6 +809,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             default:
                 if( CurMech.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
                     cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan", "Mixed" } ) );
+                } else if( CurMech.GetRulesLevel() == AvailableCode.RULES_INTRODUCTORY ) {
+                    cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere" } ) );
                 } else {
                     cmbTechBase.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Inner Sphere", "Clan" } ) );
                 }
@@ -11342,8 +11342,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully to TXT:\n" + filename );
 
         // lastly, if this is an omnimech, reset the display to the last loadout
-        cmbOmniVariant.setSelectedItem( CurLoadout );
-        cmbOmniVariantActionPerformed( evt );
+        if( CurMech.IsOmnimech() ) {
+            cmbOmniVariant.setSelectedItem( CurLoadout );
+            cmbOmniVariantActionPerformed( evt );
+        }
         setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
     }//GEN-LAST:event_btnExportTXTActionPerformed
 
@@ -11377,8 +11379,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully to HTML:\n" + filename );
 
         // lastly, if this is an omnimech, reset the display to the last loadout
-        cmbOmniVariant.setSelectedItem( CurLoadout );
-        cmbOmniVariantActionPerformed( evt );
+        if( CurMech.IsOmnimech() ) {
+            cmbOmniVariant.setSelectedItem( CurLoadout );
+            cmbOmniVariantActionPerformed( evt );
+        }
         setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
     }//GEN-LAST:event_btnExportHTMLActionPerformed
 
@@ -11550,6 +11554,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         int NewLevel = cmbRulesLevel.getSelectedIndex();
         int OldLevel = CurMech.GetLoadout().GetRulesLevel();
         int OldType = cmbMechType.getSelectedIndex();
+        int OldTech = CurMech.GetTechBase();
 
         if( OldLevel == NewLevel ) {
             // we're already at the correct rules level.
@@ -11583,6 +11588,20 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             // get the currently chosen selections
             SaveSelections();
             BuildTechBaseSelector();
+            if( OldTech >= cmbTechBase.getItemCount() ) {
+                // ooooh fun, we can't set it correctly.
+                switch( OldTech ) {
+                    case AvailableCode.TECH_INNER_SPHERE:
+                        // WTF???
+                        System.err.println( "Fatal Error when reseting techbase, Inner Sphere not available." );
+                        break;
+                    default:
+                        // set it to Inner Sphere
+                        cmbTechBase.setSelectedIndex( 0 );
+                        cmbTechBaseActionPerformed( null );
+                        break;
+                }
+            }
 
             // since you can only ever change the rules level when not restricted,
             // we're not doing it here.  Pass in default values.
@@ -11895,8 +11914,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // lastly, if this is an omnimech, reset the display to the last loadout
-        cmbOmniVariant.setSelectedItem( CurLoadout );
-        cmbOmniVariantActionPerformed( evt );
+        if( CurMech.IsOmnimech() ) {
+            cmbOmniVariant.setSelectedItem( CurLoadout );
+            cmbOmniVariantActionPerformed( evt );
+        }
 
         setCursor( NormalCursor );
         setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
@@ -11969,8 +11990,10 @@ private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
 
     // lastly, if this is an omnimech, reset the display to the last loadout
-    cmbOmniVariant.setSelectedItem( CurLoadout );
-    cmbOmniVariantActionPerformed( evt );
+    if( CurMech.IsOmnimech() ) {
+        cmbOmniVariant.setSelectedItem( CurLoadout );
+        cmbOmniVariantActionPerformed( evt );
+    }
     setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
     CurMech.SetChanged( false );
     setCursor( NormalCursor );
@@ -12537,9 +12560,10 @@ private void mnuExportClipboardActionPerformed(java.awt.event.ActionEvent evt) {
         java.awt.datatransfer.StringSelection export = new java.awt.datatransfer.StringSelection( output );
 
         // lastly, if this is an omnimech, reset the display to the last loadout
-        cmbOmniVariant.setSelectedItem( CurLoadout );
-        cmbOmniVariantActionPerformed( evt );
-
+        if( CurMech.IsOmnimech() ) {
+            cmbOmniVariant.setSelectedItem( CurLoadout );
+            cmbOmniVariantActionPerformed( evt );
+        }
         java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents( export, this );
 }//GEN-LAST:event_mnuExportClipboardActionPerformed

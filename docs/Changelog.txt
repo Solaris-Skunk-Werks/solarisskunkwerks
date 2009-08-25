@@ -36,7 +36,7 @@ Version 0.7.0
 - You can now change the Source field for an OmniMech loadout.
 - Added Caseless ACs (from right-click menu, like PPC caps and laser insulators)
 - Added a Chat Line output like 90T 4/6/0 Fusion, Endo-Steel, 15.0T Ferro-Fibrous, 1 LRM-10, 1 Gauss Rifle, 1 Streak SRM-4, 2 ER Medium Laser
-- Added Full-Head Ejection System and Partial Wing
+- Added Full-Head Ejection System and Partial Wing.
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.
@@ -88,6 +88,7 @@ Version 0.7.0
 - Reworked the Open dialog a bit to better fit into a more squarish size
 - Reworked the Force dialog to handle Omnis, printing, saving and loading of information to match BFB.
 - Updated Mech List to include the source per the omni configuration.
+- Fixed some major issues with Rules Level and Techbase choosers.
 
 -------------------------------------------------------------------------------
 Version 0.6.0

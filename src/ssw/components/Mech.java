@@ -29,6 +29,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.components;
 
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import ssw.battleforce.*;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -293,13 +295,7 @@ public class Mech implements ifBattleforce {
     }
 
     public void SetTonnage( int t ) {
-        // check for a partial wing and remove the MechModifer
-        if( UsingPartialWing() ) {
-            RemoveMechMod( Wing.GetMechModifier() );
-        }
         Tonnage = t;
-        // now add the partial wing MechMod back in
-        AddMechModifier( Wing.GetMechModifier() );
         Recalculate();
 
         // also need to redo the engine if tonnage changes.
@@ -448,6 +444,42 @@ public class Mech implements ifBattleforce {
         GetJumpJets().ReCalculate();
         CurArmor.Recalculate();
         UseTC( false, false );
+        try {
+            // replace fixed-slot equipment
+            if(HasBlueShield){
+                SetBlueShield(false);
+                SetBlueShield(true);
+            }
+            if(HasChameleon){
+                SetChameleon(false);
+                SetChameleon(true);
+            }
+            if(HasEjectionSeat){
+                SetEjectionSeat(false);
+                SetEjectionSeat(true);
+            }
+            if(HasEnviroSealing){
+                SetEnviroSealing(false);
+                SetEnviroSealing(true);
+            }
+            if(HasNullSig){
+                SetNullSig(false);
+                SetNullSig(true);
+            }
+            if(HasTracks){
+                SetTracks(false);
+                SetTracks(true);
+            }
+            if(HasVoidSig){
+                SetVoidSig(false);
+                SetVoidSig(true);
+            }
+            if(HasPartialWing) {
+                SetPartialWing( false );
+            }
+        } catch( Exception e ) {
+            e.printStackTrace();
+        }
 
         SetChanged( true );
     }
@@ -515,6 +547,39 @@ public class Mech implements ifBattleforce {
         GetJumpJets().ReCalculate();
         CurArmor.Recalculate();
         UseTC( false, false );
+        try {
+            // replace fixed-slot equipment
+            if(HasBlueShield){
+                SetBlueShield(false);
+            }
+            if(HasChameleon){
+                SetChameleon(false);
+            }
+            if(HasEjectionSeat){
+                SetEjectionSeat(false);
+                SetEjectionSeat(true);
+            }
+            if(HasEnviroSealing){
+                SetEnviroSealing(false);
+                SetEnviroSealing(true);
+            }
+            if(HasNullSig){
+                SetNullSig(false);
+            }
+            if(HasTracks){
+                SetTracks(false);
+                SetTracks(true);
+            }
+            if(HasVoidSig){
+                SetVoidSig(false);
+            }
+            if(HasPartialWing) {
+                SetPartialWing( false );
+                SetPartialWing( true );
+            }
+        } catch( Exception e ) {
+            e.printStackTrace();
+        }
 
         SetChanged( true );
     }
@@ -582,6 +647,43 @@ public class Mech implements ifBattleforce {
         GetJumpJets().ReCalculate();
         CurArmor.Recalculate();
         UseTC( false, false );
+        try {
+            // replace fixed-slot equipment
+            if(HasBlueShield){
+                SetBlueShield(false);
+                SetBlueShield(true);
+            }
+            if(HasChameleon){
+                SetChameleon(false);
+                SetChameleon(true);
+            }
+            if(HasEjectionSeat){
+                SetEjectionSeat(false);
+                SetEjectionSeat(true);
+            }
+            if(HasEnviroSealing){
+                SetEnviroSealing(false);
+                SetEnviroSealing(true);
+            }
+            if(HasNullSig){
+                SetNullSig(false);
+                SetNullSig(true);
+            }
+            if(HasTracks){
+                SetTracks(false);
+                SetTracks(true);
+            }
+            if(HasVoidSig){
+                SetVoidSig(false);
+                SetVoidSig(true);
+            }
+            if(HasPartialWing) {
+                SetPartialWing( false );
+                SetPartialWing( true );
+            }
+        } catch( Exception e ) {
+            e.printStackTrace();
+        }
 
         SetChanged( true );
     }

@@ -83,7 +83,7 @@ public class thRTTransferHandler extends TransferHandler {
 
         if( DropItem.Locked ) {
             abPlaceable a = CurMech.GetLoadout().GetCrits( DropItem.Location )[DropItem.SourceIndex];
-            if( a instanceof CASE || a instanceof CASEII || a instanceof MultiSlotSystem || a instanceof Supercharger || a instanceof Engine || a instanceof SimplePlaceable ) {
+            if( a instanceof CASE || a instanceof CASEII || a instanceof MultiSlotSystem || a instanceof Supercharger || a instanceof Engine || a instanceof SimplePlaceable || a instanceof PartialWing || a instanceof Armor ) {
                 if( DropItem.Location != Constants.LOC_RT ) {
                     return false;
                 } else {
@@ -111,6 +111,25 @@ public class thRTTransferHandler extends TransferHandler {
                         }
                     } else if( a instanceof SimplePlaceable ) {
                         if( CurMech.IsOmnimech() ) {
+                            return false;
+                        }
+                    } else if( a instanceof PartialWing ) {
+                        int Size = CurMech.GetPartialWing().NumCrits();
+                        abPlaceable[] Loc = CurMech.GetLoadout().GetRTCrits();
+                        try {
+                            for( int i = 0; i < Size; i++ ) {
+                                if( ( Loc[dindex + i].LocationLocked() || Loc[dindex + i].LocationLinked() ) && a != Loc[dindex + i] ) {
+                                    return false;
+                                }
+                            }
+                        } catch( Exception e ) {
+                            return false;
+                        }
+                    } else if( a instanceof Armor ) {
+                        if( CurMech.IsOmnimech() ) {
+                            return false;
+                        }
+                        if( CurMech.GetLoadout().GetRTCrits()[dindex].LocationLocked() || CurMech.GetLoadout().GetRTCrits()[dindex].LocationLocked() ) {
                             return false;
                         }
                     } else if( a instanceof Engine ) {
@@ -194,35 +213,44 @@ public class thRTTransferHandler extends TransferHandler {
         // now put it in where it needs to go
         try {
             if( a.CanSplit() && a.Contiguous() ) {
-                if( DropItem.Location == Constants.LOC_RT ) {
-                    LocationIndex loc1 = null;
-                    LocationIndex loc2 = null;
-                    for( int i = 0; i < v.size(); i++ ) {
-                        if( ((LocationIndex) v.get( i )).Location == Constants.LOC_RT ) {
-                            loc1 = (LocationIndex) v.get( i );
-                        } else {
-                            loc2 = (LocationIndex) v.get( i );
-                        }
+                if( a instanceof PartialWing ) {
+                    // have to do this manually
+                    abPlaceable[] loc = CurMech.GetLoadout().GetRTCrits();
+                    for( int i = 0; i < loc.length; i++ ) {
+                        if( loc[i] == a ) { loc[i] = CurMech.GetLoadout().GetNoItem(); }
                     }
-                    if( loc1 == null ) { return false; }
+                    CurMech.GetLoadout().AddToRT( a, dindex );
+                } else {
+                    if( DropItem.Location == Constants.LOC_RT ) {
+                        LocationIndex loc1 = null;
+                        LocationIndex loc2 = null;
+                        for( int i = 0; i < v.size(); i++ ) {
+                            if( ((LocationIndex) v.get( i )).Location == Constants.LOC_RT ) {
+                                loc1 = (LocationIndex) v.get( i );
+                            } else {
+                                loc2 = (LocationIndex) v.get( i );
+                            }
+                        }
+                        if( loc1 == null ) { return false; }
 
-                    // only allocate as many crits as were originally here.
-                    if( loc2 == null ) {
-                        if( loc1.Number + dindex > CurMech.GetLoadout().GetCrits( loc1.Location ).length ) {
-                            return SplitAllocate( a, dindex );
+                        // only allocate as many crits as were originally here.
+                        if( loc2 == null ) {
+                            if( loc1.Number + dindex > CurMech.GetLoadout().GetCrits( loc1.Location ).length ) {
+                                return SplitAllocate( a, dindex );
+                            } else {
+                                CurMech.GetLoadout().AddTo( CurMech.GetLoadout().GetCrits( loc1.Location ), a, dindex, loc1.Number );
+                            }
                         } else {
-                            CurMech.GetLoadout().AddTo( CurMech.GetLoadout().GetCrits( loc1.Location ), a, dindex, loc1.Number );
+                            if( loc1.Number + dindex > CurMech.GetLoadout().GetCrits( loc1.Location ).length ) {
+                                return SplitAllocate( a, dindex );
+                            } else {
+                                CurMech.GetLoadout().AddTo( CurMech.GetLoadout().GetCrits( loc1.Location ), a, dindex, loc1.Number );
+                                CurMech.GetLoadout().AddTo( CurMech.GetLoadout().GetCrits( loc2.Location ), a, loc2.Index, loc2.Number );
+                            }
                         }
                     } else {
-                        if( loc1.Number + dindex > CurMech.GetLoadout().GetCrits( loc1.Location ).length ) {
-                            return SplitAllocate( a, dindex );
-                        } else {
-                            CurMech.GetLoadout().AddTo( CurMech.GetLoadout().GetCrits( loc1.Location ), a, dindex, loc1.Number );
-                            CurMech.GetLoadout().AddTo( CurMech.GetLoadout().GetCrits( loc2.Location ), a, loc2.Index, loc2.Number );
-                        }
+                        return SplitAllocate( a, dindex );
                     }
-                } else {
-                    return SplitAllocate( a, dindex );
                 }
             } else {
                 CurMech.GetLoadout().AddToRT( a, dindex );
