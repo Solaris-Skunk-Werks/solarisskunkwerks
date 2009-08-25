@@ -188,6 +188,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             }
             setCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) );
             LoadList(false);
+            Filter(null);
         } else {
             prgResaving.setVisible(false);
         }
@@ -767,7 +768,6 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private void btnMagicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMagicActionPerformed
         //setCursor( Cursor.getPredefinedCursor( Cursor.WAIT_CURSOR ) );
         batchUpdateMechs();
-        Filter(null);
         //setCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) );
     }//GEN-LAST:event_btnMagicActionPerformed
 
