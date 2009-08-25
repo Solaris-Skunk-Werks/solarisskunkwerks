@@ -195,6 +195,7 @@ public class XMLReader {
                     Node node = n.item(dex);
                     if (node.getNodeName().equals("battle_value")) {Config.setBV( Integer.parseInt( node.getTextContent() ) );}
                     if (node.getNodeName().equals("cost")) {Config.setCost( Double.parseDouble( node.getTextContent() ) );}
+                    if (node.getNodeName().equals("source")) {Config.setSource( node.getTextContent() );}
                 }
 
                 Data.Configurations.add(Config);
