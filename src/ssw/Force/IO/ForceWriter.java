@@ -30,6 +30,7 @@ package ssw.Force.IO;
 import ssw.Force.*;
 import ssw.Force.Common.CommonTools;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -61,8 +62,8 @@ public class ForceWriter {
         FR.close();
     }
 
-    public void SerializeForce(Force f) throws IOException {
-        String filename = CommonTools.FormatFileName(f.ForceName) + ".force";
+    public void SerializeForce(Force f, String path) throws IOException {
+        String filename = path + File.separator + CommonTools.FormatFileName(f.ForceName) + ".force";
 
         BufferedWriter FR = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( filename ), "UTF-8" ) );
 

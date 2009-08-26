@@ -27,6 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.Force.gui;
 
+import java.awt.Cursor;
 import java.awt.print.PageFormat;
 import java.awt.print.Paper;
 import java.awt.print.PrinterException;
@@ -49,6 +50,7 @@ import ssw.Force.IO.PrintSheet;
 import ssw.components.Mech;
 import ssw.filehandlers.MTFWriter;
 import ssw.filehandlers.MULWriter;
+import ssw.filehandlers.Media;
 import ssw.filehandlers.XMLReader;
 import ssw.gui.dlgAmmoChooser;
 import ssw.gui.frmMain;
@@ -176,6 +178,9 @@ public class frmForce extends javax.swing.JFrame {
         txtGunnery = new javax.swing.JTextField();
         lblTotalBV = new javax.swing.JLabel();
         lblTotalTons = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        lblForceName = new javax.swing.JLabel();
+        txtForceName = new javax.swing.JTextField();
 
         setTitle("Force List");
         setMinimumSize(null);
@@ -410,7 +415,6 @@ public class frmForce extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTotalUnits)
                     .addComponent(lblTotalBV)
@@ -419,7 +423,37 @@ public class frmForce extends javax.swing.JFrame {
                     .addComponent(txtPiloting, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addContainerGap())
+                .addContainerGap(7, Short.MAX_VALUE))
+        );
+
+        lblForceName.setText("Force Name:");
+
+        txtForceName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtForceNameFocusLost(evt);
+            }
+        });
+        txtForceName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtForceNameKeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(lblForceName)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtForceName, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(324, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(lblForceName)
+                .addComponent(txtForceName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -433,6 +467,10 @@ public class frmForce extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -441,9 +479,11 @@ public class frmForce extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tlbActions, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -518,25 +558,34 @@ public class frmForce extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemoveUnitActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        String forceName = javax.swing.JOptionPane.showInputDialog("What would you like to name this force?");
-        if (! forceName.isEmpty() ) {
-            force.ForceName = forceName;
-            ForceWriter writer = new ForceWriter(force);
-            try
-            {
-                writer.SerializeForce(force);
-            } catch ( IOException ie ) {
-                javax.swing.JOptionPane.showMessageDialog(this, ie.getMessage());
+        Media media = new Media();
+
+        if (! force.ForceName.isEmpty() ) {
+            String filePath = media.GetDirectorySelection(parent, parent.Prefs.get("LastOpenForce", ""));
+            if ( !filePath.isEmpty() ) {
+                parent.Prefs.put("LastOpenForce", filePath);
+                ForceWriter writer = new ForceWriter(force);
+                try
+                {
+                    writer.SerializeForce(force, filePath);
+                    javax.swing.JOptionPane.showMessageDialog(this, "Your force has been saved to " + filePath + File.separator + force.ForceName);
+                } catch ( IOException ie ) {
+                    javax.swing.JOptionPane.showMessageDialog(this, ie.getMessage());
+                }
             }
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "You must enter a force name before saving.");
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
-        ForceReader reader = new ForceReader();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        ForceReader reader = new ForceReader(parent.Prefs);
         reader.setForce(force);
         force = reader.Load();
         refreshTable();
         sortTable();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnOpenActionPerformed
 
     private void btnPrintForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintForceActionPerformed
@@ -578,8 +627,8 @@ public class frmForce extends javax.swing.JFrame {
 }//GEN-LAST:event_btnAddMechActionPerformed
 
     private void btnExportMTFsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportMTFsActionPerformed
-        String error = "",
-               filename = "";
+        String  error = "",
+                filename = "";
         MTFWriter mtf = new MTFWriter();
         ssw.filehandlers.Media media = new ssw.filehandlers.Media();
         String mtfDir = media.GetDirectorySelection(null, parent.Prefs.get( "MTFExportPath", "" ) );
@@ -656,6 +705,14 @@ public class frmForce extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAmmoChooserActionPerformed
 
+    private void txtForceNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtForceNameFocusLost
+        force.ForceName = txtForceName.getText();
+    }//GEN-LAST:event_txtForceNameFocusLost
+
+    private void txtForceNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtForceNameKeyTyped
+        force.ForceName = txtForceName.getText();
+    }//GEN-LAST:event_txtForceNameKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brnClearForce;
     private javax.swing.JButton btnAddMech;
@@ -671,16 +728,19 @@ public class frmForce extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
+    private javax.swing.JLabel lblForceName;
     private javax.swing.JLabel lblTotalBV;
     private javax.swing.JLabel lblTotalTons;
     private javax.swing.JLabel lblTotalUnits;
     private javax.swing.JScrollPane spnList;
     private javax.swing.JTable tblForce;
     private javax.swing.JToolBar tlbActions;
+    private javax.swing.JTextField txtForceName;
     private javax.swing.JTextField txtGunnery;
     private javax.swing.JTextField txtPiloting;
     // End of variables declaration//GEN-END:variables

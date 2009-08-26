@@ -34,17 +34,23 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.*;
 import ssw.filehandlers.Media;
+import java.util.prefs.*;
 
 public class ForceReader {
-
+    private Preferences prefs;
     private Media media = new Media();
     private Force curForce = new Force();
 
+    public ForceReader( java.util.prefs.Preferences Prefs ) {
+        prefs = Prefs;
+    }
+
     public Force Load() {
-           File ForceFile = media.SelectFile("", "force", "Load Force List");
+           File ForceFile = media.SelectFile(prefs.get("LastOpenForce", ""), "force", "Load Force List");
            String filename = "";
            try {
                filename = ForceFile.getCanonicalPath();
+               prefs.put("LastOpenForce", ForceFile.getCanonicalPath().replace(ForceFile.getName(), ""));
                return ReadFile(filename);
            } catch( Exception e ) {
                javax.swing.JOptionPane.showMessageDialog( null, "There was a problem opening the file:\n" + e.getMessage() );
