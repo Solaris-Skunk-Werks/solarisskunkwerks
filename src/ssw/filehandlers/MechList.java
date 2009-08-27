@@ -41,6 +41,7 @@ import javax.swing.table.AbstractTableModel;
 public class MechList extends AbstractTableModel {
     private Vector List = new Vector();
     private String Directory = "";
+    private int IndexVersion = 3;
 
     public MechList() {
 
@@ -187,7 +188,8 @@ public class MechList extends AbstractTableModel {
     public void Write() throws IOException {
         if (List.size() > 0) {
             BufferedWriter FR = new BufferedWriter( new FileWriter( Directory + File.separator + "index.ssi" ) );
-
+            FR.write("version:" + IndexVersion);
+            FR.newLine();
             for (int i=0; i < List.size(); i++ ) {
                 MechListData m = (MechListData) List.get(i);
                 FR.write(m.SerializeIndex());
@@ -210,7 +212,12 @@ public class MechList extends AbstractTableModel {
                         // We've hit the end of the file.
                         EOF = true;
                     } else {
-                        if( read.equals( "EOF" ) ) {
+                        if( read.contains("version:") ) {
+                            int Version = Integer.parseInt(read.replace("version:", ""));
+                            if ( Version != IndexVersion ) {
+                                return false;
+                            }
+                        } else if( read.equals( "EOF" ) ) {
                             // end of file.
                             EOF = true;
                         } else {

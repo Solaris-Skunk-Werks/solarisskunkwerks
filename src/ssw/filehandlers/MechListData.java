@@ -112,14 +112,16 @@ public class MechListData {
         this.Era = Items[3];
         this.Tech = Items[4];
         this.Source = Items[5];
-        this.Type = Items[11];
-        this.Motive = Items[12];
-        if (Items.length >= 14) this.Info = Items[13];
         this.Tonnage = Integer.parseInt(Items[6]);
         this.Year = Integer.parseInt(Items[7]);
         this.BV = Integer.parseInt(Items[8]);
         this.Cost = Double.parseDouble(Items[9]);
         this.filename = Items[10];
+        if (Items.length >= 12) {
+            this.Type = Items[11];
+            this.Motive = Items[12];
+        }
+        if (Items.length >= 14) this.Info = Items[13];
         if (Items.length == 15) {
             this.Config = Items[14];
             this.Omni = true;
