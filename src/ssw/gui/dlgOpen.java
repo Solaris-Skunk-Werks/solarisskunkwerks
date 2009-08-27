@@ -80,6 +80,8 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             parent.Prefs.put( "LastOpenFile", Data.getFilename().substring( Data.getFilename().lastIndexOf( File.separator ) + 1 ) ); 
 
             parent.CurMech.SetChanged( false );
+
+            tblMechData.clearSelection();
             this.setVisible(false);
 
         } catch ( Exception e ) {
@@ -132,6 +134,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         this.lblStatus.setText(list.Size() + " Mechs loaded from " + displayPath);
         this.lblStatus.setToolTipText(dirPath);
         Filter(null);
+        spnMechTable.getVerticalScrollBar().setValue(0);
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
 
@@ -848,6 +851,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                     parent.dForce.force.Units.add(data.getUnit());
             }
         }
+        tblMechData.clearSelection();
 
         parent.dForce.setLocationRelativeTo(null);
         parent.dForce.setVisible(true);
