@@ -176,7 +176,7 @@ public class MechList extends AbstractTableModel {
                 if ((filter.getMinTonnage() > mData.getTonnage()) || (mData.getTonnage() > filter.getMaxTonnage())) remove = true;
             }
             if ( ! filter.getName().isEmpty() ) {
-                if (! mData.getName().toUpperCase().startsWith( filter.getName().toUpperCase() ) ) remove = true;
+                if (! mData.getTypeModel().toUpperCase().contains( filter.getName().toUpperCase() ) ) remove = true;
             }
             
             if (remove) m.Remove(mData);

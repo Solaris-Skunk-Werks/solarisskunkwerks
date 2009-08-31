@@ -34,6 +34,7 @@ import ssw.Force.Unit;
 public class MechListData {
     private String Name = "",
                    Model = "",
+                   TypeModel = "",
                    Level= "Tournament Legal",
                    Era = "Age of War",
                    Tech = "Clan",
@@ -53,6 +54,7 @@ public class MechListData {
     public MechListData(String Name, String Model, String Level, String Era, String Tech, String Source, String Type, String Motive, String Info, int Tonnage, int Year, int BV, double Cost, String filename){
         this.Name = Name;
         this.Model = Model;
+        this.TypeModel = Name + " " + Model;
         this.Level = Level;
         this.Era = Era;
         this.Tech = Tech;
@@ -68,7 +70,7 @@ public class MechListData {
     }
 
     public MechListData() {
-        this("", "", "", "", "", "", "BattleMech", "Biped", "", 0, 2750, 0, 0, "");
+        this("", "",  "", "", "", "", "BattleMech", "Biped", "", 0, 2750, 0, 0, "");
     }
 
     public MechListData( MechListData m ) {
@@ -83,6 +85,7 @@ public class MechListData {
             tempData = read.ReadMechData(filename);
             this.Name = tempData.getName();
             this.Model = tempData.getModel();
+            this.TypeModel = tempData.getTypeModel();
             this.Level = tempData.getLevel();
             this.Era = tempData.getEra();
             this.Source = tempData.getSource();
@@ -108,6 +111,7 @@ public class MechListData {
     public MechListData( String[] Items ) {
         this.Name = Items[0];
         this.Model = Items[1];
+        this.TypeModel = this.Name + " " + this.Model;
         this.Level = Items[2];
         this.Era = Items[3];
         this.Tech = Items[4];
@@ -295,6 +299,20 @@ public class MechListData {
 
     public void setSource(String Source) {
         this.Source = Source;
+    }
+
+    /**
+     * @return the TypeModel
+     */
+    public String getTypeModel() {
+        return TypeModel;
+    }
+
+    /**
+     * @param TypeModel the TypeModel to set
+     */
+    public void setTypeModel(String TypeModel) {
+        this.TypeModel = TypeModel;
     }
 
 }
