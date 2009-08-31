@@ -1411,6 +1411,56 @@ public class EquipmentFactory {
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_BOTH );
+        a.SetISCodes( 'D', 'C', 'D', 'C' );
+        a.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
+        a.SetISFactions( "", "", "PS", "" );
+        a.SetCLCodes( 'D', 'C', 'D', 'C' );
+        a.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
+        a.SetCLFactions( "", "", "PS", "" );
+        a.SetPBMAllowed( true );
+        a.SetPIMAllowed( true );
+        a.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        addEQ = new Equipment("Communications Equipment","Communications Equipment", "E", a );
+        addEQ.SetMegaMekName("CommunicationsEquipment");
+        addEQ.SetStats( 1, 1, 0, 0, 0, "-" );
+        addEQ.SetVariableSize( true, 1.0, 12.0, 1.0, 1.0, 10000.0 );
+        Equipment.add(addEQ);
+
+        a = new AvailableCode( AvailableCode.TECH_BOTH );
+        a.SetISCodes( 'D', 'X', 'X', 'E' );
+        a.SetISDates( 3041, 3049, true, 3049, 0, 0, false, false );
+        a.SetISFactions( "FC", "FC", "", "" );
+        a.SetCLCodes( 'D', 'X', 'X', 'E' );
+        a.SetCLDates( 3055, 3056, true, 3056, 0, 0, false, false );
+        a.SetCLFactions( "CJF", "CSV", "", "" );
+        a.SetPBMAllowed( true );
+        a.SetPIMAllowed( true );
+        a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        addEQ = new Equipment( "Coolant Pod", "Coolant Pod","PE", a );
+        addEQ.SetAmmo( false, 0, 0 );
+        addEQ.SetMegaMekName( "CoolantPod" );
+        addEQ.SetRange( 0, 0, 0 );
+        addEQ.SetHeat( 0 );
+        addEQ.SetStats( 1, 1.0, 50000.0, 0.0, 0.0, "OS, X" );
+        addEQ.SetExplosive( true );
+        Equipment.add( addEQ );
+
+        a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+        a.SetISCodes( 'E', 'X', 'F', 'E' );
+        a.SetISDates( 0, 0, false, 3025, 0, 0, false, false );
+        a.SetISFactions( "", "", "CC", "" );
+        a.SetPBMAllowed( true );
+        a.SetPIMAllowed( true );
+        a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        addEQ = new Equipment("Electronic Warfare Equipment","EW Equipment", "E", a );
+        addEQ.SetAmmo(false, 0, 0);
+        addEQ.SetMegaMekName("EWEquipment");
+        addEQ.SetRange( 0, 0, 3 );
+        addEQ.SetHeat( 0 );
+        addEQ.SetStats( 4, 7.5, 500000.0, 8.0, 31.0, "-");
+        Equipment.add(addEQ);
+
+        a = new AvailableCode( AvailableCode.TECH_BOTH );
         a.SetISCodes( 'F', 'F', 'X', 'F' );
         a.SetISDates( 0, 0, false, 2751, 0, 0, false, false );
         a.SetISFactions( "", "", "TH", "" );
@@ -1430,22 +1480,6 @@ public class EquipmentFactory {
         addEQ.SetStats(12, 12.0, 4000000000.0, 0.0, 0.0, "-");
         Equipment.add(addEQ);
 
-        a = new AvailableCode( AvailableCode.TECH_BOTH );
-        a.SetISCodes( 'D', 'C', 'D', 'C' );
-        a.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
-        a.SetISFactions( "", "", "PS", "" );
-        a.SetCLCodes( 'D', 'C', 'D', 'C' );
-        a.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
-        a.SetCLFactions( "", "", "PS", "" );
-        a.SetPBMAllowed( true );
-        a.SetPIMAllowed( true );
-        a.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Communications Equipment","Communications Equipment", "E", a );
-        addEQ.SetMegaMekName("CommunicationsEquipment");
-        addEQ.SetStats( 1, 1, 0, 0, 0, "-" );
-        addEQ.SetVariableSize( true, 1.0, 12.0, 1.0, 1.0, 10000.0 );
-        Equipment.add(addEQ);
-
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
         a.SetISCodes( 'E', 'E', 'F', 'D' );
         a.SetISDates( 0, 0, false, 2597, 2845, 3045, true, true );
@@ -1459,6 +1493,21 @@ public class EquipmentFactory {
         addEQ.SetRange(0, 0, 6);
         addEQ.SetHeat(0);
         addEQ.SetStats(2, 1.5, 200000.0, 0.0, 61.0, "-");
+        Equipment.add(addEQ);
+
+        a = new AvailableCode( AvailableCode.TECH_CLAN );
+        a.SetCLCodes( 'F', 'X', 'D', 'C' );
+        a.SetCLDates( 0, 0, false, 2597, 0, 0, false, false );
+        a.SetCLFactions( "", "", "TH", "" );
+        a.SetPBMAllowed( true );
+        a.SetPIMAllowed( true );
+        a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        addEQ = new Equipment("ECM Suite","ECM Suite", "E", a );
+        addEQ.SetAmmo(false, 0, 0);
+        addEQ.SetMegaMekName("CLECMSuite");
+        addEQ.SetRange(0, 0, 6);
+        addEQ.SetHeat(0);
+        addEQ.SetStats(1, 1.0, 200000.0, 0.0, 61.0, "-");
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_BOTH );
@@ -1479,20 +1528,7 @@ public class EquipmentFactory {
         addEQ.SetStats(1, 1.0, 120000.0, 0.0, 0.0, "-");
         Equipment.add( addEQ );
 
-        a = new AvailableCode( AvailableCode.TECH_CLAN );
-        a.SetCLCodes( 'F', 'X', 'D', 'C' );
-        a.SetCLDates( 0, 0, false, 2597, 0, 0, false, false );
-        a.SetCLFactions( "", "", "TH", "" );
-        a.SetPBMAllowed( true );
-        a.SetPIMAllowed( true );
-        a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("ECM Suite","ECM Suite", "E", a );
-        addEQ.SetAmmo(false, 0, 0);
-        addEQ.SetMegaMekName("CLECMSuite");
-        addEQ.SetRange(0, 0, 6);
-        addEQ.SetHeat(0);
-        addEQ.SetStats(1, 1.0, 200000.0, 0.0, 61.0, "-");
-        Equipment.add(addEQ);
+        Equipment.add( new ModularArmor() );
 
         a = new AvailableCode( AvailableCode.TECH_BOTH );
         a.SetISCodes( 'E', 'E', 'F', 'D' );
@@ -1544,26 +1580,6 @@ public class EquipmentFactory {
         addEQ.SetStats(2, 1.5, 600000.0, 7.0, 61.0, "-");
         Equipment.add(addEQ);
 
-        a = new AvailableCode( AvailableCode.TECH_BOTH );
-        a.SetISCodes( 'D', 'X', 'X', 'E' );
-        a.SetISDates( 3041, 3049, true, 3049, 0, 0, false, false );
-        a.SetISFactions( "FC", "FC", "", "" );
-        a.SetCLCodes( 'D', 'X', 'X', 'E' );
-        a.SetCLDates( 3055, 3056, true, 3056, 0, 0, false, false );
-        a.SetCLFactions( "CJF", "CSV", "", "" );
-        a.SetPBMAllowed( true );
-        a.SetPIMAllowed( true );
-        a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment( "Coolant Pod", "Coolant Pod","PE", a );
-        addEQ.SetAmmo( false, 0, 0 );
-        addEQ.SetMegaMekName( "CoolantPod" );
-        addEQ.SetRange( 0, 0, 0 );
-        addEQ.SetHeat( 0 );
-        addEQ.SetStats( 1, 1.0, 50000.0, 0.0, 0.0, "OS, X" );
-        addEQ.SetExplosive( true );
-        Equipment.add( addEQ );
-
-        Equipment.add( new ModularArmor() );
     }
 
     public void BuildIndustrialEquipment() {

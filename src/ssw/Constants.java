@@ -34,7 +34,7 @@ public class Constants {
     // here is the versioning and program name
     public final static String AppName = "SSW",
                         AppDescription = "Solaris Skunk Werks",
-                        Version = "0.6.25",
+                        Version = "0.6.26",
                         AppRelease = "Beta 2",
                         OptionsFileName = "SSWoptions",
                         ImageListFileName = "S7Images",

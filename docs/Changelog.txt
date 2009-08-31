@@ -37,6 +37,7 @@ Version 0.7.0
 - Added Caseless ACs (from right-click menu, like PPC caps and laser insulators)
 - Added a Chat Line output like 90T 4/6/0 Fusion, Endo-Steel, 15.0T Ferro-Fibrous, 1 LRM-10, 1 Gauss Rifle, 1 Streak SRM-4, 2 ER Medium Laser
 - Added Full-Head Ejection System and Partial Wing.
+- Ammo chooser added to single print, also shows location and index of the ammo to replace.
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.

@@ -78,14 +78,12 @@ public class TXTWriter {
             CurMech.SetCurLoadout( Constants.BASELOADOUT_NAME );
         }
         retval += CurMech.GetName() + " " + CurMech.GetModel() + NL + NL;
-        retval += "Rules Level: " + CommonTools.GetRulesLevelString( CurMech.GetRulesLevel() ) + NL;
+        retval += "Mass: " + CurMech.GetTonnage() + " tons" + NL;
         if( CurMech.IsPrimitive() )  {
             retval += "Tech Base: " + CommonTools.GetTechbaseString( CurMech.GetTechBase() ) + " (Primitive)" + NL;
         } else {
             retval += "Tech Base: " + CommonTools.GetTechbaseString( CurMech.GetTechBase() ) + NL;
         }
-        retval += "Era: " + CommonTools.DecodeEra( CurMech.GetEra() ) + NL;
-        retval += "Tech Rating/Era Availability: " + CurMech.GetAvailability().GetBestCombinedCode() + NL;
         if( CurMech.IsQuad() ) {
             if( CurMech.IsOmnimech() ) {
                 retval += "Chassis Config: Quad Omnimech" + NL;
@@ -107,8 +105,10 @@ public class TXTWriter {
                 }
             }
         }
+        retval += "Rules Level: " + CommonTools.GetRulesLevelString( CurMech.GetRulesLevel() ) + NL;
+        retval += "Era: " + CommonTools.DecodeEra( CurMech.GetEra() ) + NL;
+        retval += "Tech Rating/Era Availability: " + CurMech.GetAvailability().GetBestCombinedCode() + NL;
         retval += "Production Year: " + CurMech.GetYear() + NL;
-        retval += "Mass: " + CurMech.GetTonnage() + " tons" + NL;
         retval += "Cost: " + String.format( "%1$,.0f", Math.floor( CurMech.GetTotalCost() + 0.5 ) ) + " C-Bills" + NL;
         retval += "Battle Value: " + String.format( "%1$,d", CurMech.GetCurrentBV() ) + NL + NL;
 

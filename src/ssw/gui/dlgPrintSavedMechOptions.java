@@ -620,7 +620,7 @@ private void btnChooseLogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 
 private void btnChangeAmmoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeAmmoActionPerformed
     try {
-        dlgAmmoChooser Ammo = new dlgAmmoChooser( Parent, false, CurMech, Parent.data );
+        dlgAmmoChooser Ammo = new dlgAmmoChooser( this, false, CurMech, Parent.data );
         Ammo.setLocationRelativeTo( this );
         if( Ammo.HasAmmo() ) {
             Ammo.setVisible( true );

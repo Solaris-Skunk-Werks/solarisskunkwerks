@@ -49,6 +49,14 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
         SetState();
     }
 
+    dlgAmmoChooser( dlgPrintSavedMechOptions parent, boolean modal, Mech m, DataFactory d ) {
+        super( parent, modal );
+        CurMech = m;
+        Data = d;
+        initComponents();
+        SetState();
+    }
+
     private void SetState() {
         lstInstalledAmmo.setCellRenderer( new AmmoChooserRenderer( this ) );
         setTitle( "Configuring Ammo for " + CurMech.GetName() + " " + CurMech.GetModel() );
