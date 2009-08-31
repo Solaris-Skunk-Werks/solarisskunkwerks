@@ -16,7 +16,8 @@ public class ListFilter {
                    Tech = "",
                    Level = "",
                    Type = "",
-                   Motive = "";
+                   Motive = "",
+                   Source = "";
     private int MinTonnage = 0,
                 MaxTonnage = 0,
                 MinYear = 2750,
@@ -142,5 +143,19 @@ public class ListFilter {
     }
     public boolean getIsOmni() {
         return this.isOmni;
+    }
+
+    /**
+     * @return the Source
+     */
+    public String getSource() {
+        return Source;
+    }
+
+    /**
+     * @param Source the Source to set
+     */
+    public void setSource(String Source) {
+        this.Source = Source;
     }
 }

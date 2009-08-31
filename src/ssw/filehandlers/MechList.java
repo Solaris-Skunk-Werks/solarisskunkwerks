@@ -178,6 +178,9 @@ public class MechList extends AbstractTableModel {
             if ( ! filter.getName().isEmpty() ) {
                 if (! mData.getTypeModel().toUpperCase().contains( filter.getName().toUpperCase() ) ) remove = true;
             }
+            if ( ! filter.getSource().isEmpty() ) {
+                if (! mData.getSource().toUpperCase().contains( filter.getSource().toUpperCase() ) ) remove = true;
+            }
             
             if (remove) m.Remove(mData);
         }
