@@ -13355,7 +13355,7 @@ private void btnChatInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
     clipboard.setContents( export, this );
     
-    javax.swing.JOptionPane.showMessageDialog(this, CurMech.GetChatInfo() + " saved to your clipboard");
+    //javax.swing.JOptionPane.showMessageDialog(this, CurMech.GetChatInfo() + " saved to your clipboard");
 }//GEN-LAST:event_btnChatInfoActionPerformed
 
 private void chkFHESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFHESActionPerformed
