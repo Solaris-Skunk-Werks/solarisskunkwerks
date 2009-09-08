@@ -33,20 +33,21 @@ import java.awt.Point;
 public class TWBipedPoints implements ifPrintPoints {
 
     private final static Point[] HeatSinkPoints = {
-        new Point( 500, 610 ), new Point( 500, 616 ), new Point( 500, 622 ), new Point( 500, 628 ), new Point( 500, 634 ),
-        new Point( 500, 640 ), new Point( 500, 646 ), new Point( 500, 652 ), new Point( 500, 658 ), new Point( 500, 664 ),
+        new Point( 500, 610 ), new Point( 500, 618 ), new Point( 500, 626 ), new Point( 500, 634 ), new Point( 500, 642 ),
+        new Point( 500, 650 ), new Point( 500, 658 ), new Point( 500, 666 ), new Point( 500, 674 ), new Point( 500, 682 ),
 
-        new Point( 506, 610 ), new Point( 506, 616 ), new Point( 506, 622 ), new Point( 506, 628 ), new Point( 506, 634 ),
-        new Point( 506, 640 ), new Point( 506, 646 ), new Point( 506, 652 ), new Point( 506, 658 ), new Point( 506, 664 ),
+        new Point( 508, 610 ), new Point( 508, 618 ), new Point( 508, 626 ), new Point( 508, 634 ), new Point( 508, 642 ),
+        new Point( 508, 650 ), new Point( 508, 658 ), new Point( 508, 666 ), new Point( 508, 674 ), new Point( 508, 682 ),
 
-        new Point( 512, 610 ), new Point( 512, 616 ), new Point( 512, 622 ), new Point( 512, 628 ), new Point( 512, 634 ),
-        new Point( 512, 640 ), new Point( 512, 646 ), new Point( 512, 652 ), new Point( 512, 658 ), new Point( 512, 664 ),
+        new Point( 516, 610 ), new Point( 516, 618 ), new Point( 516, 626 ), new Point( 516, 634 ), new Point( 516, 642 ),
+        new Point( 516, 650 ), new Point( 516, 658 ), new Point( 516, 666 ), new Point( 516, 674 ), new Point( 516, 682 ),
         
-        new Point( 518, 610 ), new Point( 518, 616 ), new Point( 518, 622 ), new Point( 518, 628 ), new Point( 518, 634 ),
-        new Point( 518, 640 ), new Point( 518, 646 ), new Point( 518, 652 ), new Point( 518, 658 ), new Point( 518, 664 ),
+        new Point( 524, 610 ), new Point( 524, 618 ), new Point( 524, 626 ), new Point( 524, 634 ), new Point( 524, 642 ),
+        new Point( 524, 650 ), new Point( 524, 658 ), new Point( 524, 666 ), new Point( 524, 674 ), new Point( 524, 682 ),
 
-        new Point( 524, 610 ), new Point( 524, 616 ), new Point( 524, 622 ), new Point( 524, 628 ), new Point( 524, 634 ),
-        new Point( 524, 640 ), new Point( 524, 646 ), new Point( 524, 652 ), new Point( 524, 658 ), new Point( 524, 664 ) };
+        new Point( 532, 610 ), new Point( 532, 618 ), new Point( 532, 626 ), new Point( 532, 634 ), new Point( 532, 642 ),
+        new Point( 532, 650 ), new Point( 532, 658 ), new Point( 532, 666 ), new Point( 532, 674 ), new Point( 532, 682 ) };
+    
     private final static Point[] CTArmorPoints = {
         new Point( 457, 84 ), new Point( 463, 84 ), new Point( 469, 84 ), new Point( 475, 84 ), new Point( 481, 84 ),
         new Point( 457, 90 ), new Point( 463, 90 ), new Point( 469, 90 ), new Point( 475, 90 ), new Point( 481, 90 ),
