@@ -56,7 +56,6 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
@@ -64,7 +63,6 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
         txtCostBV = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         btnClose.setText("Close");
         btnClose.addActionListener(new java.awt.event.ActionListener() {
@@ -74,29 +72,39 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
         });
         jPanel1.add(btnClose);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 4);
-        getContentPane().add(jPanel1, gridBagConstraints);
-
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setMaximumSize(new java.awt.Dimension(600, 300));
         jScrollPane1.setMinimumSize(new java.awt.Dimension(600, 300));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(600, 300));
 
-        txtCostBV.setFont(new java.awt.Font("Lucida Sans Typewriter", 0, 12));
+        txtCostBV.setFont(new java.awt.Font("Lucida Sans Typewriter", 0, 12)); // NOI18N
         txtCostBV.setText("################################################################################");
         txtCostBV.setMaximumSize(new java.awt.Dimension(575, 100000));
         txtCostBV.setMinimumSize(new java.awt.Dimension(575, 300));
         txtCostBV.setPreferredSize(new java.awt.Dimension(575, 300));
         jScrollPane1.setViewportView(txtCostBV);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 0, 4);
-        getContentPane().add(jScrollPane1, gridBagConstraints);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(9, 9, 9))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(539, 539, 539)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
