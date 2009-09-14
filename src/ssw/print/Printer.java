@@ -28,12 +28,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.print;
 
-import java.awt.JobAttributes;
 import java.util.Vector;
 import java.awt.print.*;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import ssw.Force.Force;
+import ssw.battleforce.BattleForce;
 import ssw.utilities.CommonTools;
 import ssw.components.Mech;
 import ssw.filehandlers.Media;
@@ -42,12 +43,14 @@ import ssw.gui.*;
 public class Printer {
     private frmMain Parent;
     private Vector Mechs = new Vector();
+    private BattleForce battleforce;
     private String jobName = "SSW Batch Print",
                     logoPath = "",
                     MechImagePath = "";
     private Boolean Charts = true,
                     Canon = true,
-                    useDialog = true;
+                    useDialog = true,
+                    TRO = false;
 
     private Book pages = new Book();
     private Paper paper = new Paper();
@@ -113,6 +116,18 @@ public class Printer {
         return Canon;
     }
 
+    public Boolean getTRO() {
+        return TRO;
+    }
+
+    public void setTRO(Boolean TRO) {
+        this.TRO = TRO;
+        for (int index=0; index <= Mechs.size()-1; index++) {
+            PrintMech pm = (PrintMech) Mechs.get(index);
+            pm.setTRO(TRO);
+        }
+    }
+
     public void setHexConversion( int Rate ) {
         for (int index=0; index <= Mechs.size()-1; index++) {
             PrintMech pm = (PrintMech) Mechs.get(index);
@@ -137,6 +152,15 @@ public class Printer {
 
     public void AddMech(Mech m){
         AddMech(m, "", 4, 5, Charts, true, true);
+    }
+
+    public void AddForce( BattleForce f ) {
+        battleforce = f;
+    }
+
+    public void Clear() {
+        Mechs.removeAllElements();
+        battleforce.BattleForceStats.removeAllElements();
     }
 
     public void Print(Mech m) {
@@ -212,6 +236,9 @@ public class Printer {
     }
 
     private void GeneratePrints() {
+        //reset the book so we don't get extra pages!
+        pages = new Book();
+
         //start building the print objects necessary
         page.setPaper( paper );
 
@@ -309,6 +336,33 @@ public class Printer {
             for (int index=0; index <= Mechs.size()-1; index++) {
                 PrintMech pm = (PrintMech) Mechs.get(index);
                 pm.setMechImage(null);
+            }
+        }
+    }
+
+
+    public Book PreviewBattleforce() {
+        if ( battleforce.BattleForceStats.size() == 0 ) { return new Book(); }
+        pages = new Book();
+        page.setPaper( paper );
+        pages.append(new PrintBattleforce(battleforce), page);
+        return pages;
+    }
+
+    public void PrintBattleforce() {
+        if ( battleforce.BattleForceStats.size() == 0 ) { return; }
+        pages = new Book();
+        page.setPaper( paper );
+        pages.append(new PrintBattleforce(battleforce), page);
+        job.setJobName(battleforce.ForceName.trim());
+        job.setPageable(pages);
+        boolean DoPrint = job.printDialog();
+        if( DoPrint ) {
+            try {
+                job.print();
+            } catch( PrinterException e ) {
+                System.err.println( e.getMessage() );
+                System.out.println( e.getStackTrace() );
             }
         }
     }

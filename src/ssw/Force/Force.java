@@ -34,6 +34,8 @@ import java.util.Vector;
 import javax.swing.table.AbstractTableModel;
 import org.w3c.dom.Node;
 import ssw.Force.IO.PrintSheet;
+import ssw.battleforce.BattleForce;
+import ssw.battleforce.BattleForceStats;
 
 public class Force extends AbstractTableModel {
     public Vector Units = new Vector();
@@ -152,6 +154,18 @@ public class Force extends AbstractTableModel {
         
         file.write("</unit>");
         file.newLine();
+    }
+
+    public BattleForce toBattleForce() {
+        BattleForce bf = new BattleForce();
+        bf.ForceName = ForceName;
+        for ( int i=0; i < Units.size(); i++ ) {
+            Unit u = (Unit) Units.get(i);
+            u.LoadMech();
+            BattleForceStats stat = new BattleForceStats(u.m, ForceName, u.Gunnery, u.Piloting);
+            bf.BattleForceStats.add(stat);
+        }
+        return bf;
     }
 
     public void RenderPrint(PrintSheet p) {
