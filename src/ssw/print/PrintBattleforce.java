@@ -80,6 +80,16 @@ public class PrintBattleforce implements Printable {
         Unit = media.GetImage( item );
     }
 
+    public void setType( String Type ) {
+        if ( Type.equals(BattleForce.InnerSphere) ) {
+            setInnerSphere();
+        } else if ( Type.equals(BattleForce.Clan) ) {
+            setClan();
+        } else {
+            setComstar();
+        }
+    }
+
     public void setInnerSphere() {
         RecordSheet = media.GetImage(PrintConsts.BF_IS);
         Unit = media.GetImage( PrintConsts.BF_IS_Unit);

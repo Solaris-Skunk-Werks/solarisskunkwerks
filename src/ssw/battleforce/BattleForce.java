@@ -39,7 +39,20 @@ public class BattleForce {
     private Image Logo = null;
     private int PointValue = 0;
 
-    private static final String InnerSphere = "Inner Sphere",
+    public static final String InnerSphere = "Inner Sphere",
                                 Clan = "Clan",
                                 Comstar = "Comstar";
+
+    private void setInnerSphere() {
+        Type = InnerSphere;
+    }
+
+    private void setClan() {
+        Type = Clan;
+    }
+
+    private void setComstar() {
+        Type = Comstar;
+    }
+
 }

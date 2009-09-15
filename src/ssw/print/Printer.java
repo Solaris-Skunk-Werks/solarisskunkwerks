@@ -44,6 +44,7 @@ public class Printer {
     private frmMain Parent;
     private Vector Mechs = new Vector();
     private BattleForce battleforce;
+    private PrintBattleforce printForce;
     private String jobName = "SSW Batch Print",
                     logoPath = "",
                     MechImagePath = "";
@@ -156,6 +157,7 @@ public class Printer {
 
     public void AddForce( BattleForce f ) {
         battleforce = f;
+        printForce = new PrintBattleforce(f);
     }
 
     public void Clear() {
@@ -340,21 +342,42 @@ public class Printer {
         }
     }
 
+    public void setBattleForceSheet( String Type ) {
+        printForce.setType(Type);
+    }
 
     public Book PreviewBattleforce() {
         if ( battleforce.BattleForceStats.size() == 0 ) { return new Book(); }
         pages = new Book();
         page.setPaper( paper );
-        pages.append(new PrintBattleforce(battleforce), page);
+        pages.append(printForce, page);
         return pages;
+    }
+
+    public void PrintBattleforce( boolean useDialog ) {
+        this.useDialog = useDialog;
+        PrintBattleforce();
     }
 
     public void PrintBattleforce() {
         if ( battleforce.BattleForceStats.size() == 0 ) { return; }
         pages = new Book();
         page.setPaper( paper );
-        pages.append(new PrintBattleforce(battleforce), page);
         job.setJobName(battleforce.ForceName.trim());
+
+        if ( useDialog ) {
+            dlgPrintBattleforce pForce = new dlgPrintBattleforce(Parent, true, battleforce);
+            pForce.setLocationRelativeTo(Parent);
+            pForce.setVisible(true);
+            if ( !pForce.Result ) {
+                return;
+            }
+
+            printForce.setType(pForce.Sheet);
+        }
+
+        pages.append(printForce, page);
+
         job.setPageable(pages);
         boolean DoPrint = job.printDialog();
         if( DoPrint ) {

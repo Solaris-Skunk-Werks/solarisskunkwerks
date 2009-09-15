@@ -47,7 +47,6 @@ import ssw.Force.*;
 import ssw.Force.IO.ForceReader;
 import ssw.Force.IO.ForceWriter;
 import ssw.Force.IO.PrintSheet;
-import ssw.battleforce.BattleForce;
 import ssw.components.Mech;
 import ssw.filehandlers.MTFWriter;
 import ssw.filehandlers.MULWriter;
@@ -55,9 +54,8 @@ import ssw.filehandlers.Media;
 import ssw.filehandlers.XMLReader;
 import ssw.gui.dlgAmmoChooser;
 import ssw.gui.frmMain;
-import ssw.print.PrintBattleforce;
 import ssw.print.Printer;
-import ssw.printpreview.dlgPreview;
+import ssw.printpreview.dlgBFPreview;
 
 
 public class frmForce extends javax.swing.JFrame {
@@ -739,28 +737,15 @@ public class frmForce extends javax.swing.JFrame {
     }//GEN-LAST:event_txtForceNameFocusLost
 
     private void btnPrintBattleForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintBattleForceActionPerformed
-       PrinterJob job = PrinterJob.getPrinterJob();
-       PrintBattleforce p = new PrintBattleforce(force.toBattleForce());
-       Paper paper = new Paper();
-       paper.setImageableArea(18, 18, 576, 756 );
-       PageFormat page = new PageFormat();
-       page.setPaper( paper );
-       job.setPrintable( p, page );
-       boolean DoPrint = job.printDialog();
-       if( DoPrint ) {
-           try {
-               job.print();
-           } catch( PrinterException e ) {
-               System.err.println( e.getMessage() );
-               System.out.println( e.getStackTrace() );
-           }
-       }
+        Printer printer = new Printer();
+        printer.AddForce(force.toBattleForce());
+        printer.PrintBattleforce();
     }//GEN-LAST:event_btnPrintBattleForceActionPerformed
 
     private void btnPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviewActionPerformed
         Printer printer = new Printer();
         printer.AddForce(force.toBattleForce());
-        dlgPreview preview = new dlgPreview("BattleForce", this.parent, printer, printer.PreviewBattleforce());
+        dlgBFPreview preview = new dlgBFPreview("BattleForce", this.parent, printer, printer.PreviewBattleforce());
         preview.setLocationRelativeTo(this);
         preview.setVisible(true);
     }//GEN-LAST:event_btnPreviewActionPerformed
