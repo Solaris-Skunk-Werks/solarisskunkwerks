@@ -28,6 +28,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.print;
 
+import java.awt.Font;
+
 public class PrintConsts {
     public final static int MECHNAME = 0,
                             WALKMP = 1,
@@ -46,10 +48,29 @@ public class PrintConsts {
                             MAX_HEAT = 16,
                             TOTAL_ARMOR = 17,
                             STATS = 18;
+
     public final static String RS_TW_BP = "./rs/RS_TW_BP.png",
                                RS_TW_QD = "./rs/RS_TW_QD.png",
                                RS_TO_BP = "",
                                RS_TO_QD = "",
                                BP_ChartImage = "./rs/Charts.png",
-                               QD_ChartImage = "./rs/ChartsQD.png";
+                               QD_ChartImage = "./rs/ChartsQD.png",
+                               BF_IS = "rs/BF_IS.png",
+                               BF_IS_Unit = "rs/BF_IS_Unit.png",
+                               BF_CS = "rs/BF_CS.png",
+                               BF_CS_Unit = "rs/BF_CS_Unit.png",
+                               BF_CL = "rs/BF_CL.png",
+                               BF_CL_Unit = "rs/BF_CL_Unit.png";
+
+    public final static Font BoldFont = new Font( "Arial", Font.BOLD, 8 );
+    public final static Font PlainFont = new Font( "Arial", Font.PLAIN, 8 );
+    public final static Font RegularFont = new Font( "Arial", Font.PLAIN, 10 );
+    public final static Font ItalicFont = new Font( "Arial", Font.ITALIC, 8 );
+    public final static Font SmallFont = new Font( "Arial", Font.PLAIN, 7 );
+    public final static Font SmallItalicFont = new Font( "Arial", Font.ITALIC, 7 );
+    public final static Font SmallBoldFont = new Font( "Arial", Font.BOLD, 7 );
+    public final static Font ReallySmallFont = new Font( "Arial", Font.PLAIN, 6 );
+    public final static Font XtraSmallBoldFont = new Font( "Arial", Font.BOLD, 6 );
+    public final static Font XtraSmallFont = new Font( "Arial", Font.PLAIN, 6 );
+    
 }
