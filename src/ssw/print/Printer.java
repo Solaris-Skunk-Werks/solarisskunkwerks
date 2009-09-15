@@ -363,7 +363,11 @@ public class Printer {
         if ( battleforce.BattleForceStats.size() == 0 ) { return; }
         pages = new Book();
         page.setPaper( paper );
-        job.setJobName(battleforce.ForceName.trim());
+
+        jobName = "BattleForce";
+        if ( !battleforce.ForceName.isEmpty() ) { jobName = battleforce.ForceName.trim(); }
+
+        job.setJobName(jobName);
 
         if ( useDialog ) {
             dlgPrintBattleforce pForce = new dlgPrintBattleforce(Parent, true, battleforce);

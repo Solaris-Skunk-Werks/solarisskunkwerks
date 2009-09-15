@@ -92,6 +92,7 @@ public class dlgBFPreview extends javax.swing.JDialog implements ActionListener 
         btnCL = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("BattleForce Print Preview");
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
