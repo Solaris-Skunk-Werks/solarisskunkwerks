@@ -370,7 +370,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( col == 1 ) {
                     return ((abPlaceable) o).GetManufacturer();
                 } else {
-                    return ((abPlaceable) o).GetCritName();
+                    return ((abPlaceable) o).CritName();
                 }
             }
             @Override
@@ -392,7 +392,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 } else {
                     Vector v = CurMech.GetLoadout().GetEquipment();
                     for( int i = 0; i < v.size(); i++ ) {
-                        if( FileCommon.LookupStripArc( ((abPlaceable) v.get( i )).GetCritName() ).equals( FileCommon.LookupStripArc( a.GetCritName() ) ) ) {
+                        if( FileCommon.LookupStripArc( ((abPlaceable) v.get( i )).LookupName() ).equals( FileCommon.LookupStripArc( a.LookupName() ) ) ) {
                             ((abPlaceable) v.get( i )).SetManufacturer( (String) value );
                         }
                     }
@@ -628,7 +628,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         ifState[] check = CurMech.GetCockpit().GetStates();
         for( int i = 0; i < check.length; i++ ) {
             if( CommonTools.IsAllowed( check[i].GetAvailability(), CurMech ) ) {
-                list.add( check[i].GetLookupName() );
+                list.add( check[i].LookupName() );
             }
         }
 
@@ -674,7 +674,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         ifState[] check = CurMech.GetJumpJets().GetStates();
         for( int i = 0; i < check.length; i++ ) {
             if( CommonTools.IsAllowed( check[i].GetAvailability(), CurMech ) ) {
-                list.add( check[i].GetLookupName() );
+                list.add( check[i].LookupName() );
             }
         }
 
@@ -688,7 +688,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbJumpJetType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
         if( temp.length > 0 ) {
             EnableJumpJets( true );
-            cmbJumpJetType.setSelectedItem( CurMech.GetJumpJets().GetLookupName() );
+            cmbJumpJetType.setSelectedItem( CurMech.GetJumpJets().LookupName() );
         } else {
             EnableJumpJets( false );
         }
@@ -840,7 +840,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }
 
     private String BuildLookupName( ifState s ) {
-        String retval = s.GetLookupName();
+        String retval = s.LookupName();
         if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
             if( s.HasCounterpart() ) {
                 if( s.GetAvailability().GetTechBase() == AvailableCode.TECH_CLAN ) {
@@ -1225,7 +1225,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void RecalcCockpit() {
         // recalculates the cockpit on the mech
         // get the current lookup in case we can't fit the new one
-        String OldVal = CurMech.GetCockpit().GetLookupName();
+        String OldVal = CurMech.GetCockpit().LookupName();
         String LookupVal = (String) cmbCockpitType.getSelectedItem();
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
         try {
@@ -1296,10 +1296,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void RecalcJumpJets() {
         // recalculates the jump jets if things have changed.
-        String OldVal = CurMech.GetJumpJets().GetLookupName();
+        String OldVal = CurMech.GetJumpJets().LookupName();
         String LookupVal = (String) cmbJumpJetType.getSelectedItem();
         if( LookupVal == null ) { return; }
-        if( LookupVal.equals( CurMech.GetJumpJets().GetLookupName() ) ) { return; }
+        if( LookupVal.equals( CurMech.GetJumpJets().LookupName() ) ) { return; }
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
         try {
             CurMech.Visit( v );
@@ -2392,7 +2392,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     lblInfoRulesLevel.setText( "??" );
             }
         }
-        lblInfoName.setText( p.GetCritName() );
+        lblInfoName.setText( p.CritName() );
         lblInfoTonnage.setText( "" + p.GetTonnage() );
         lblInfoCrits.setText( "" + p.NumCrits() );
         lblInfoCost.setText( "" + String.format( "%1$,.0f", p.GetCost() ) );
@@ -3041,7 +3041,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuUnallocateAll.setEnabled( false );
             } else if( ! CurItem.LocationLocked() ) {
                 if( CurItem.Contiguous() ) {
-                    mnuUnallocateAll.setText( "Unallocate " + CurItem.GetCritName() );
+                    mnuUnallocateAll.setText( "Unallocate " + CurItem.CritName() );
                 } else {
                     mnuUnallocateAll.setText( "Unallocate All" );
                 }
@@ -10072,7 +10072,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_cmbPhysEnhanceActionPerformed
 
     private void cmbCockpitTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCockpitTypeActionPerformed
-        if( CurMech.GetCockpit().GetLookupName().equals( (String) cmbCockpitType.getSelectedItem() ) ) {
+        if( CurMech.GetCockpit().LookupName().equals( (String) cmbCockpitType.getSelectedItem() ) ) {
             return;
         }
         RecalcCockpit();
@@ -11814,7 +11814,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         FixTransferHandlers();
         SetLoadoutArrays();
         SetWeaponChoosers();
-        cmbJumpJetType.setSelectedItem( CurMech.GetJumpJets().GetLookupName() );
+        cmbJumpJetType.setSelectedItem( CurMech.GetJumpJets().LookupName() );
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
         RefreshOmniVariants();
@@ -12458,10 +12458,10 @@ public void LoadMechIntoGUI() {
     cmbInternalType.setSelectedItem( BuildLookupName( CurMech.GetIntStruc().GetCurrentState() ) );
     cmbEngineType.setSelectedItem( BuildLookupName( CurMech.GetEngine().GetCurrentState() ) );
     cmbGyroType.setSelectedItem( BuildLookupName( CurMech.GetGyro().GetCurrentState() ) );
-    cmbCockpitType.setSelectedItem( CurMech.GetCockpit().GetLookupName() );
+    cmbCockpitType.setSelectedItem( CurMech.GetCockpit().LookupName() );
     cmbPhysEnhance.setSelectedItem( BuildLookupName( CurMech.GetPhysEnhance().GetCurrentState() ) );
     cmbHeatSinkType.setSelectedItem( BuildLookupName( CurMech.GetHeatSinks().GetCurrentState() ) );
-    cmbJumpJetType.setSelectedItem( CurMech.GetJumpJets().GetLookupName() );
+    cmbJumpJetType.setSelectedItem( CurMech.GetJumpJets().LookupName() );
     cmbArmorType.setSelectedItem( BuildLookupName( CurMech.GetArmor().GetCurrentState() ) );
     FixWalkMPSpinner();
     FixHeatSinkSpinnerModel();

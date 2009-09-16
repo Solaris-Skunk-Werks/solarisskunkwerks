@@ -81,8 +81,29 @@ public class MGArray extends abPlaceable implements ifWeapon {
         return false;
     }
 
-    @Override
-    public String GetCritName() {
+    public String ActualName() {
+        return "Machine Gun Array";
+    }
+
+    // the lookup name is used when we are trying to find the piece of equipment.
+    public String LookupName() {
+        if( Rear ) {
+            if( Clan ) {
+                return "(R) (CL) " + CritName();
+            } else {
+                return "(R) (IS) " + CritName();
+            }
+        } else {
+            if( Clan ) {
+                return "(CL) " + CritName();
+            } else {
+                return "(IS) " + CritName();
+            }
+        }
+    }
+
+    // the crit name is how the item appears in the loadout when allocated.
+    public String CritName() {
         if( Rear ) {
             return "(R) " + GetName();
         } else {
@@ -90,24 +111,13 @@ public class MGArray extends abPlaceable implements ifWeapon {
         }
     }
 
-    public String GetLookupName() {
-        if( Rear ) {
-            if( Clan ) {
-                return "(R) (CL) " + GetCritName();
-            } else {
-                return "(R) (IS) " + GetCritName();
-            }
-        } else {
-            if( Clan ) {
-                return "(CL) " + GetCritName();
-            } else {
-                return "(IS) " + GetCritName();
-            }
-        }
+    // the name to be used when expoerting this equipment to a chat line.
+    public String ChatName() {
+        return "MGA";
     }
 
-    @Override
-    public String GetMMName( boolean UseRear ) {
+    // the name to be used when exporting to MegaMek
+    public String MegaMekName( boolean UseRear ) {
         if( Clan ) {
             if( Rear ) {
                 return "CLMGA" + " (R)";
@@ -121,6 +131,11 @@ public class MGArray extends abPlaceable implements ifWeapon {
                 return "ISMGA";
             }
         }
+    }
+
+    // reference for the book that the equipment comes from
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     @Override
@@ -212,12 +227,7 @@ public class MGArray extends abPlaceable implements ifWeapon {
     }
 
     public String GetName() {
-        return "MG Array (" + NumMGs + " " + MGType.GetCritName() + ")";
-    }
-
-    @Override
-    public String GetPrintName() {
-        return "MG Array (" + NumMGs + " " + MGType.GetPrintName() + ")";
+        return "MG Array (" + NumMGs + " " + MGType.CritName() + ")";
     }
 
     public String GetType() {
@@ -428,7 +438,7 @@ public class MGArray extends abPlaceable implements ifWeapon {
     }
 
     private RangedWeapon Copy( RangedWeapon b ) {
-        RangedWeapon retval = new RangedWeapon( b.GetName(), b.GetLookupName(), b.GetMMName( false ), b.GetType(), b.GetSpecials(), b.GetAvailability().Clone(), b.GetWeaponClass() );
+        RangedWeapon retval = new RangedWeapon( b.ActualName(), b.CritName(), b.LookupName(), b.MegaMekName( false ), b.GetType(), b.GetSpecials(), b.GetAvailability().Clone(), b.GetWeaponClass() );
         retval.SetStats( b.GetTonnage(), b.NumCrits(), b.GetCost(), b.GetOffensiveBV(), b.GetDefensiveBV() );
         retval.SetHeat( b.GetHeat() );
         retval.SetToHit( b.GetToHitShort(), b.GetToHitMedium(), b.GetToHitMedium() );
@@ -439,7 +449,8 @@ public class MGArray extends abPlaceable implements ifWeapon {
         retval.SetWeapon( b.IsOneShot(), b.IsStreak(), b.IsUltra(), b.IsRotary(), b.IsExplosive(), b.IsTCCapable(), b.IsArrayCapable(), b.CanUseCapacitor(), false );
         retval.SetMissileFCS( b.IsFCSCapable(), b.GetFCSType() );
         retval.SetRequirements( b.RequiresFusion(), b.RequiresNuclear(), b.RequiresPowerAmps() );
-        retval.SetPrintName( b.GetPrintName() );
+        retval.SetChatName( b.ChatName() );
+        retval.SetBookReference( b.BookReference() );
         return retval;
     }
 

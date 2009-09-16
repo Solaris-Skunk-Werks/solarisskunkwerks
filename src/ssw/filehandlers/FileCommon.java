@@ -275,7 +275,7 @@ public class FileCommon {
         ifLoadout l = m.GetLoadout();
         Vector v = l.GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
-            if( ((abPlaceable) v.get( i )).GetCritName().contains( "ECM Suite" ) ) {
+            if( ((abPlaceable) v.get( i )).LookupName().contains( "ECM Suite" ) || ((abPlaceable) v.get( i )).LookupName().contains( "CEWS" ) ) {
                 return (abPlaceable) v.get( i );
             }
         }
@@ -286,7 +286,7 @@ public class FileCommon {
         ifLoadout l = m.GetLoadout();
         Vector v = l.GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
-            if( ((abPlaceable) v.get( i )).GetCritName().contains( "Probe" ) ) {
+            if( ((abPlaceable) v.get( i )).LookupName().contains( "Probe" ) || ((abPlaceable) v.get( i )).LookupName().contains( "CEWS" ) ) {
                 return (abPlaceable) v.get( i );
             }
         }
@@ -299,7 +299,7 @@ public class FileCommon {
         Vector retval = new Vector();
         Vector v = m.GetLoadout().GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
-            if( ((abPlaceable) v.get( i )).GetCritName().contains( "Computer" ) ) {
+            if( ((abPlaceable) v.get( i )).LookupName().contains( "C3" ) ) {
                 retval.add( v.get( i ) );
             }
         }
@@ -710,8 +710,8 @@ public class FileCommon {
         // defined ammunition filter.
         Preferences Prefs = Preferences.userNodeForPackage( frmMain.class );
         String retval = Prefs.get( "AmmoNamePrintFormat", "@%P (%L)" );
-        retval = retval.replace( "%F", a.GetCritName() );
-        retval = retval.replace( "%P", a.GetPrintName() );
+        retval = retval.replace( "%F", a.LookupName() );
+        retval = retval.replace( "%P", a.CritName() );
         if( tons > 1 ) {
             retval = retval.replace( "%L", "" + ( a.GetLotSize() * tons ) );
         } else {
@@ -725,8 +725,8 @@ public class FileCommon {
         // defined ammunition filter.
         Preferences Prefs = Preferences.userNodeForPackage( frmMain.class );
         String retval = Prefs.get( "AmmoNameExportFormat", "@%P (%L)" );
-        retval = retval.replace( "%F", a.GetCritName() );
-        retval = retval.replace( "%P", a.GetPrintName() );
+        retval = retval.replace( "%F", a.LookupName() );
+        retval = retval.replace( "%P", a.CritName() );
         if( tons > 1 ) {
             retval = retval.replace( "%L", "" + ( a.GetLotSize() * tons ) );
         } else {

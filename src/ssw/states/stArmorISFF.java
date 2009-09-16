@@ -41,20 +41,28 @@ public class stArmorISFF implements ifArmor, ifState {
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
+        return "Ferro-Fibrous Armor";
+    }
+
+    public String CritName() {
         return "Ferro-Fibrous";
     }
 
-    public String GetCritName() {
+    public String LookupName() {
         return "Ferro-Fibrous";
     }
 
-    public String GetMMName() {
+    public String ChatName() {
+        return "FF Armor";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Ferro-Fibrous";
     }
 
-    public String GetPrintName() {
-        return "Ferro Fibrous";
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public boolean HasCounterpart() {

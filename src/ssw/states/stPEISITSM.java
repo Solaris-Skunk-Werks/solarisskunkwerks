@@ -52,16 +52,28 @@ public class stPEISITSM implements ifPhysEnhance, ifState {
         return 12;
     }
 
-    public String GetLookupName() {
-        return "Industrial TSM";
-    }
-
-    public String GetCritName() {
-        return "Industrial TSM";
-    }
-
-    public String GetMMName() {
+    public String ActualName() {
         return "Industrial Triple Strength Myomer";
+    }
+
+    public String CritName() {
+        return "Industrial TSM";
+    }
+
+    public String LookupName() {
+        return "Industrial TSM";
+    }
+
+    public String ChatName() {
+        return "ITSM";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
+        return "Industrial Triple Strength Myomer";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public boolean Contiguous() {

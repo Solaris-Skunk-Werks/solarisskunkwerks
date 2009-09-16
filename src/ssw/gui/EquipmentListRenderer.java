@@ -54,15 +54,15 @@ public class EquipmentListRenderer extends DefaultListCellRenderer {
                 if( Parent.CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     if( a instanceof Equipment ) {
                         if( ((Equipment) a).IsVariableSize() ) {
-                            Text = a.GetCritName();
+                            Text = a.CritName();
                         } else {
-                            Text = a.GetLookupName();
+                            Text = a.LookupName();
                         }
                     } else {
-                        Text = a.GetLookupName();
+                        Text = a.LookupName();
                     }
                 } else {
-                    Text = a.GetCritName();
+                    Text = a.CritName();
                 }
             } else {
                 Text = a.toString();

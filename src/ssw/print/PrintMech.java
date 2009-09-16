@@ -889,7 +889,7 @@ public class PrintMech implements Printable {
         if (CurMech.GetLoadout().UsingTC()) {
             TargetingComputer tc = CurMech.GetLoadout().GetTC();
             graphics.drawString("1", p[0].x, p[0].y + offset);
-            graphics.drawString(tc.GetPrintName(), p[1].x, p[1].y + offset);
+            graphics.drawString(tc.CritName(), p[1].x, p[1].y + offset);
             offset += graphics.getFont().getSize();
         }
         offset += (graphics.getFont().getSize() * 2);
@@ -961,7 +961,7 @@ public class PrintMech implements Printable {
 
         // check boxes
         graphics.setFont( PlainFont );
-        String temp = CurMech.GetHeatSinks().GetLookupName();
+        String temp = CurMech.GetHeatSinks().LookupName();
         temp = temp.split( " " )[0];
         graphics.drawString( temp, p[PrintConsts.HEATSINK_NUMBER].x, p[PrintConsts.HEATSINK_NUMBER].y + 11 );
 
@@ -983,7 +983,7 @@ public class PrintMech implements Printable {
                 if ( CurMech.IsQuad() ) { graphics.setFont(XtraSmallBoldFont); }
             }
 
-            String[] parts = CurMech.GetArmor().GetPrintName().trim().split(" ");
+            String[] parts = CurMech.GetArmor().CritName().trim().split(" ");
             for (String part: parts) {
                 if ( !part.trim().isEmpty() ) {
                     int xCoord = baseX - ((part.trim().length() / 2) * 3);
@@ -1161,7 +1161,7 @@ public class PrintMech implements Printable {
                 // search for other matching weapons in the same location
                 for( int j = 0; j < a.length; j++ ) {
                     if( a[j] != null ) {
-                        if( a[j].GetPrintName().equals( b.GetPrintName() ) ) {
+                        if( a[j].CritName().equals( b.CritName() ) ) {
                             if( CurMech.GetLoadout().Find( a[j] ) == p.Location ) {
                                 count++;
                                 a[j] = null;
@@ -1203,7 +1203,7 @@ public class PrintMech implements Printable {
     private String GetPrintName( abPlaceable a ) {
         // returns a modified PrintName, useful for special situations such as
         // mixed-tech mechs.
-        String retval = a.GetPrintName();
+        String retval = a.CritName();
         if( a instanceof RangedWeapon && CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
             switch( ((RangedWeapon) a).GetTechBase() ) {
                 case AvailableCode.TECH_INNER_SPHERE:
@@ -1261,7 +1261,7 @@ public class PrintMech implements Printable {
         public int LotSize;
 
         public AmmoData( Ammunition ammo ) {
-            this.PrintName = ammo.GetPrintName();
+            this.PrintName = ammo.CritName();
             this.LotSize = ammo.GetLotSize();
         }
     }

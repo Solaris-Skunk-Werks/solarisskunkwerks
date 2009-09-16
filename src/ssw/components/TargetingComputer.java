@@ -50,12 +50,15 @@ public class TargetingComputer extends abPlaceable {
         SetExclusions( new Exclusion( new String[] { "A.E.S." }, "Targeting Computer" ) );
     }
 
-    @Override
-    public String GetCritName() {
+    public String ActualName() {
         return "Targeting Computer";
     }
 
-    public String GetLookupName() {
+    public String CritName() {
+        return "Targeting Computer";
+    }
+
+    public String LookupName() {
         if( Clan ) {
             return "(CL) Targeting Computer";
         } else {
@@ -63,12 +66,20 @@ public class TargetingComputer extends abPlaceable {
         }
     }
 
-    public String GetMMName( boolean UseRear ) {
+    public String ChatName() {
+        return "TC";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         if( Clan ) {
             return "CLTargeting Computer";
         } else {
             return "ISTargeting Computer";
         }
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public void SetClan( boolean b ) {
@@ -166,6 +177,6 @@ public class TargetingComputer extends abPlaceable {
 
     @Override
     public String toString() {
-        return GetCritName();
+        return CritName();
     }
 }

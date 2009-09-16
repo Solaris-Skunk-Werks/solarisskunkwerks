@@ -31,27 +31,45 @@ package ssw.components;
 public class JumpJet extends abPlaceable {
     private int Crits;
     private String CritName,
+                   ActualName,
+                   LookupName,
+                   BookReference,
                    MMName;
     private AvailableCode AC;
 
-    public JumpJet( String name, String mname, int numCrits, AvailableCode A ) {
+    public JumpJet( String actualname, String lookupname, String critname, String mname, String bookref, int numCrits, AvailableCode A ) {
         Crits = numCrits;
-        CritName = name;
+        CritName = critname;
+        ActualName = actualname;
+        LookupName = lookupname;
+        BookReference = bookref;
         AC = A;
         MMName = mname;
     }
 
-    // returns the name of this item in the Loadout.
-    public String GetCritName() {
+    public String ActualName() {
+        return ActualName;
+    }
+
+    public String CritName() {
         return CritName;
     }
 
-    public String GetLookupName() {
-        return GetCritName();
+    public String LookupName() {
+        return LookupName;
     }
 
-    public String GetMMName( boolean UseRear ) {
+    public String ChatName() {
+        // individual jump jets aren't used in the chat
+        return "";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return MMName;
+    }
+
+    public String BookReference() {
+        return BookReference;
     }
 
     // returns the number of crits this item takes in the Loadout.

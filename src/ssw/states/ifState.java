@@ -34,6 +34,6 @@ public interface ifState {
     // an interface for states, used to get information for sorting and
     // suitability for a given time period.
     public AvailableCode GetAvailability();
-    public String GetLookupName();
+    public String LookupName();
     public boolean HasCounterpart();
 }

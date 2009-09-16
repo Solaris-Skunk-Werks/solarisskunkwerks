@@ -62,11 +62,15 @@ public class CASEII extends abPlaceable {
         return false;
     }
 
-    public String GetCritName() {
+    public String ActualName() {
+        return "Cellular Ammunition Storage Equipment II";
+    }
+
+    public String CritName() {
         return "C.A.S.E. II";
     }
 
-    public String GetLookupName() {
+    public String LookupName() {
         if( Clan ) {
             return "(CL) C.A.S.E. II";
         } else {
@@ -74,12 +78,20 @@ public class CASEII extends abPlaceable {
         }
     }
 
-    public String GetMMName( boolean UseRear ) {
+    public String ChatName() {
+        return "CASE2";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         if( Clan ) {
             return "CLCASEII";
         } else {
             return "ISCASEII";
         }
+    }
+
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     public void SetClan( boolean b ) {

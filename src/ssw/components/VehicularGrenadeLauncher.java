@@ -107,20 +107,23 @@ public class VehicularGrenadeLauncher extends abPlaceable implements ifWeapon {
         return CurrentArc;
     }
 
-    public String GetName() {
+    public String ActualName() {
         return "Vehicular Grenade Launcher";
     }
 
-    @Override
-    public String GetCritName() {
+    public String CritName() {
         return ARCDESCSHORT[CurrentArc] + " Vehicular Grenade Launcher ";
     }
 
-    public String GetLookupName() {
+    public String LookupName() {
         return "Vehicular Grenade Launcher";
     }
 
-    public String GetMMName( boolean UseRear ) {
+    public String ChatName() {
+        return "VGL";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         if( UseRear && ( CurrentArc == ARC_FORE || CurrentArc == ARC_FORE_SIDE ) ) {
             return "VehicularGrenadeLauncher (R)";
         }
@@ -128,6 +131,10 @@ public class VehicularGrenadeLauncher extends abPlaceable implements ifWeapon {
             return "VehicularGrenadeLauncher (R)";
         }
         return "VehicularGrenadeLauncher";
+    }
+
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     @Override
@@ -179,11 +186,6 @@ public class VehicularGrenadeLauncher extends abPlaceable implements ifWeapon {
             }
         }
         return retval;
-    }
-
-    @Override
-    public String GetPrintName() {
-        return "VGL " + ARCDESCSHORT[CurrentArc] + AMMODESCSHORT[CurrentAmmo];
     }
 
     @Override

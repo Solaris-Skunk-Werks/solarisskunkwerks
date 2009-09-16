@@ -38,8 +38,7 @@ public interface ifWeapon {
                             W_PHYSICAL = 4,
                             W_EQUIPMENT = 5;
 
-    public String GetName();
-    public String GetMMName( boolean UseRear );
+    public String LookupName();
     public String GetType();
     public String GetSpecials();
     public int GetWeaponClass();

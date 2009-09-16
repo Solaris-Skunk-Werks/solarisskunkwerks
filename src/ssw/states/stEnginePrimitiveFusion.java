@@ -85,16 +85,28 @@ public class stEnginePrimitiveFusion implements ifEngine, ifState {
         }
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Primitive Fusion Engine";
     }
 
-    public String GetCritName() {
+    public String CritName() {
+        return "Primitive Fusion";
+    }
+
+    public String LookupName() {
         return "Primitive Fusion Engine";
     }
-    
-    public String GetMMName() {
+
+    public String ChatName() {
+        return "Pr FE";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Primitive Fusion Engine";
+    }
+
+    public String BookReference() {
+        return "Jihad Secrets: The Blake Documents";
     }
 
     public double GetCost( int MechTonnage, int Rating ) {

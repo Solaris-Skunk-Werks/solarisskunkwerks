@@ -77,16 +77,28 @@ public class stEngineISCF implements ifEngine, ifState {
         }
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Compact Fusion Engine";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "Compact Engine";
     }
-    
-    public String GetMMName() {
+
+    public String LookupName() {
+        return "Compact Fusion Engine";
+    }
+
+    public String ChatName() {
+        return "CFE";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Fusion Engine";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public double GetCost( int MechTonnage, int Rating ) {

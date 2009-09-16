@@ -74,16 +74,28 @@ public class stChassisPBMQD implements ifChassis, ifState {
         return 0;
     }
     
-    public String GetLookupName() {
+    public String ActualName() {
+        return "Primitive Structure (Quad)";
+    }
+
+    public String CritName() {
         return "Primitive Structure";
     }
 
-    public String GetCritName() {
-        return "";
+    public String LookupName() {
+        return "Primitive Structure";
     }
 
-    public String GetMMName() {
+    public String ChatName() {
+        return "Prm QD";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Primitive";
+    }
+
+    public String BookReference() {
+        return "Jihad Secrets: The Blake Documents";
     }
 
     public double GetStrucTon( int Tonnage ) {

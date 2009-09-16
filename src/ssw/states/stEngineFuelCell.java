@@ -81,16 +81,28 @@ public class stEngineFuelCell implements ifEngine, ifState {
         }
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Fuel-Cell Engine";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "Fuel-Cell Engine";
     }
-    
-    public String GetMMName() {
+
+    public String LookupName() {
+        return "Fuel-Cell Engine";
+    }
+
+    public String ChatName() {
+        return "FCE";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Fuel-Cell";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public double GetCost( int MechTonnage, int Rating ) {

@@ -451,22 +451,28 @@ public class Armor  extends abPlaceable {
         return false;
     }
 
-    @Override
-    public String GetCritName() {
-        return Config.GetCritName();
+    public String ActualName() {
+        return Config.ActualName();
     }
 
-    public String GetMMName( boolean UseRear ) {
-        return Config.GetMMName();
+    public String CritName() {
+        return Config.CritName();
     }
 
-    @Override
-    public String GetPrintName() {
-        return Config.GetPrintName();
+    public String LookupName() {
+        return Config.LookupName();
     }
 
-    public String GetLookupName() {
-        return ((ifState) Config).GetLookupName();
+    public String ChatName() {
+        return Config.ChatName();
+    }
+
+    public String MegaMekName( boolean UseRear ) {
+        return Config.MegaMekName( UseRear );
+    }
+
+    public String BookReference() {
+        return Config.BookReference();
     }
 
     @Override
@@ -614,14 +620,14 @@ public class Armor  extends abPlaceable {
         if( Config.NumCrits() > 0 ) {
             if( Config.NumCrits() > Placed ) {
                 if( Config.IsStealth() ) {
-                    return Config.GetCritName();
+                    return Config.CritName();
                 } else {
-                    return Config.GetCritName() + " (" + ( Config.NumCrits() - Placed ) + ")";
+                    return Config.CritName() + " (" + ( Config.NumCrits() - Placed ) + ")";
                 }
             } else {
-                return Config.GetCritName();
+                return Config.CritName();
             }
         }
-        return Config.GetCritName();
+        return Config.CritName();
     }
 }

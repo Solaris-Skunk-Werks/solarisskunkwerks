@@ -81,16 +81,28 @@ public class stEngineFusion implements ifEngine, ifState {
         }
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Fusion Engine";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "Fusion Engine";
     }
-    
-    public String GetMMName() {
+
+    public String LookupName() {
         return "Fusion Engine";
+    }
+
+    public String ChatName() {
+        return "Std FE";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
+        return "Fusion Engine";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public double GetCost( int MechTonnage, int Rating ) {

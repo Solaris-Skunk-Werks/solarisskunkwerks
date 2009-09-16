@@ -223,7 +223,7 @@ public class CCGMech {
                     boolean missile = false;
                     if(((abPlaceable)currentWeapon).IsMountedRear()) {
                         notRear = false;
-                    }else if(currentWeapon.GetName().contains("Machine Gun")) {
+                    }else if(currentWeapon.LookupName().contains("Machine Gun")) {
                         notMG = false;
                         SpecialAbilities = SpecialAbilities + AblAP1 + Name + AblAP2 + "\n";
                     }else if(currentWeapon instanceof PhysicalWeapon ){

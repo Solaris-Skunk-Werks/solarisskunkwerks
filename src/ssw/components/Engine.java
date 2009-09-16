@@ -175,16 +175,28 @@ public class Engine extends abPlaceable {
         }
     }
 
-    public String GetCritName() {
-        return CurConfig.GetCritName();
+    public String ActualName() {
+        return CurConfig.ActualName();
     }
 
-    public String GetLookupName() {
-        return ((ifState) CurConfig).GetLookupName();
+    public String CritName() {
+        return CurConfig.CritName();
     }
 
-    public String GetMMName( boolean UseRear ) {
-        return CurConfig.GetMMName();
+    public String LookupName() {
+        return CurConfig.LookupName();
+    }
+
+    public String ChatName() {
+        return CurConfig.ChatName();
+    }
+
+    public String MegaMekName( boolean UseRear ) {
+        return CurConfig.MegaMekName( UseRear );
+    }
+
+    public String BookReference() {
+        return CurConfig.BookReference();
     }
 
     public double GetCost() {

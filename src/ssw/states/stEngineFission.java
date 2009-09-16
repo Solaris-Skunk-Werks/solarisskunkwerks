@@ -81,16 +81,28 @@ public class stEngineFission implements ifEngine, ifState {
         }
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Fission Engine";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "Fission Engine";
     }
-    
-    public String GetMMName() {
+
+    public String LookupName() {
         return "Fission Engine";
+    }
+
+    public String ChatName() {
+        return "FIE";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
+        return "Fission Engine";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public double GetCost( int MechTonnage, int Rating ) {

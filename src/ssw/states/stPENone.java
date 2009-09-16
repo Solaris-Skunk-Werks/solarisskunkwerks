@@ -59,16 +59,28 @@ public class stPENone implements ifPhysEnhance, ifState {
         return 0;
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "No Enhancement";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "";
     }
-    
-    public String GetMMName() {
+
+    public String LookupName() {
+        return "No Enhancement";
+    }
+
+    public String ChatName() {
+        return "";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Standard";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public boolean Contiguous() {

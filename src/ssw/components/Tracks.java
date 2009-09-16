@@ -37,7 +37,7 @@ import ssw.Constants;
 public class Tracks extends MultiSlotSystem{
 
     public Tracks( Mech m, AvailableCode a ){
-        super ( m, "Tracks", "Tracks", "Tracks", 0.1, true, true, 0.0, false, a );
+        super ( m, "Tracks", "Tracks", "Tracks", "Tracks", 0.1, true, true, 0.0, false, a );
         this.SetWeightBasedOnMechTonnage(true);
     }
 

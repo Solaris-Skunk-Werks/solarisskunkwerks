@@ -58,7 +58,7 @@ public class stJumpJetUMU implements ifJumpJetFactory, ifState {
     }
 
     public JumpJet GetJumpJet() {
-        return new JumpJet( "Mech UMU", "Mech UMU", 1, AC );
+        return new JumpJet( "BattleMech Underwater Maneuvering Unit", "Mech UMU", "Mech UMU", "Mech UMU", "Tactical Operations", 1, AC );
     }
 
     public double GetCost() {
@@ -81,7 +81,11 @@ public class stJumpJetUMU implements ifJumpJetFactory, ifState {
         return null;
     }
 
-    public String GetLookupName() {
+    public String LookupName() {
         return "Mech UMU";
+    }
+
+    public String ChatName() {
+        return "UMU";
     }
 }

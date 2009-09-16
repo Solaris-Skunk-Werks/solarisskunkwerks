@@ -48,7 +48,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
         initComponents();
         setTitle( "Split Criticals" );
         setResizable( false );
-        lblItemName.setText( "Allocating " + p.GetCritName() );
+        lblItemName.setText( "Allocating " + p.CritName() );
         FirstLoc = first;
         FirstIndex = findex;
 
@@ -56,27 +56,27 @@ public class dlgSplitCrits extends javax.swing.JDialog {
         switch( FirstLoc ) {
             case Constants.LOC_HD:
                 if( ! p.CanAllocHD() ) {
-                    throw new Exception( p.GetCritName() + " cannot be allocated to the head." );
+                    throw new Exception( p.CritName() + " cannot be allocated to the head." );
                 }
                 break;
             case Constants.LOC_CT:
                 if( ! p.CanAllocCT() ) {
-                    throw new Exception( p.GetCritName() + " cannot be allocated to the center torso." );
+                    throw new Exception( p.CritName() + " cannot be allocated to the center torso." );
                 }
                 break;
             case Constants.LOC_LT: case Constants.LOC_RT:
                 if( ! p.CanAllocTorso() ) {
-                    throw new Exception( p.GetCritName() + " cannot be allocated to a side torso." );
+                    throw new Exception( p.CritName() + " cannot be allocated to a side torso." );
                 }
                 break;
             case Constants.LOC_LA: case Constants.LOC_RA:
                 if( ! p.CanAllocArms() ) {
-                    throw new Exception( p.GetCritName() + " cannot be allocated to the arms." );
+                    throw new Exception( p.CritName() + " cannot be allocated to the arms." );
                 }
                 break;
             case Constants.LOC_LL: case Constants.LOC_RL:
                 if( ! p.CanAllocLegs() ) {
-                    throw new Exception( p.GetCritName() + " cannot be allocated to the legs." );
+                    throw new Exception( p.CritName() + " cannot be allocated to the legs." );
                 }
                 break;
         }

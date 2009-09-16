@@ -33,29 +33,40 @@ package ssw.components;
  * @author Michael Mills
  */
 public class IndustrialPhysicalWeapon extends PhysicalWeapon {
-    public IndustrialPhysicalWeapon (String name, String lookup, String mname, Mech m, AvailableCode a){
-        super(name, lookup, mname, m, a);
-        this.resetAllocations(m);
-        this.SetReplacesHand(true);
-        this.SetRequiresLowerArm(true);
-        this.SetPWClass( PhysicalWeapon.PW_CLASS_INDUSTRIAL );
+    public IndustrialPhysicalWeapon( String actualname, String lookup, String critname, String mname, Mech m, AvailableCode a ){
+        super(actualname, lookup, critname, mname, m, a);
+        resetAllocations( m );
+        SetReplacesHand( true );
+        SetRequiresLowerArm( true );
+        SetPWClass( PhysicalWeapon.PW_CLASS_INDUSTRIAL );
     }
 
-    public void resetAllocations(Mech m)
-    {
-        if(m.IsQuad()){
-            this.SetAllocations(false, false, true, false, false, false);
-            this.SetReplacesHand(false);
-            this.SetRequiresLowerArm(false);
-        }
-        else{
-            this.SetAllocations(false, false, false, true, false, false);
-            this.SetReplacesHand(true);
-            this.SetRequiresLowerArm(true);
+    private IndustrialPhysicalWeapon( IndustrialPhysicalWeapon i ) {
+        super( i );
+        resetAllocations( i.Owner );
+        SetReplacesHand( true );
+        SetRequiresLowerArm( true );
+        SetPWClass( PhysicalWeapon.PW_CLASS_INDUSTRIAL );
+    }
+
+    public void resetAllocations(Mech m) {
+        if( m.IsQuad() ){
+            this.SetAllocations( false, false, true, false, false, false );
+            this.SetReplacesHand( false );
+            this.SetRequiresLowerArm( false );
+        } else {
+            this.SetAllocations( false, false, false, true, false, false );
+            this.SetReplacesHand( true );
+            this.SetRequiresLowerArm( true );
         }
     }
 
     public void SetSpecials( int cost, int obv, int dbv ) {
         this.SetSpecials( "PA", "-", 0, (double) cost, 0, (double) obv, (double) dbv, false );
+    }
+
+    @Override
+    public IndustrialPhysicalWeapon Clone() {
+        return new IndustrialPhysicalWeapon( this );
     }
 }

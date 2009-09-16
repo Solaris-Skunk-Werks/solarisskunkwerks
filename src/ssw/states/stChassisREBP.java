@@ -76,16 +76,28 @@ public class stChassisREBP implements ifChassis, ifState {
         return 0;
     }
     
-    public String GetLookupName() {
-        return "Reinforced Structure";
+    public String ActualName() {
+        return "Reinforced Structure (Biped)";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "Reinforced";
     }
 
-    public String GetMMName() {
+    public String LookupName() {
         return "Reinforced";
+    }
+
+    public String ChatName() {
+        return "Rnfrcd BP";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
+        return "Reinforced";
+    }
+
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     public double GetStrucTon( int Tonnage ) {

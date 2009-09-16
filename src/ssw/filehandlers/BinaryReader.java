@@ -42,7 +42,8 @@ public class BinaryReader {
         DataInputStream FR;
         try {
             FR = new DataInputStream( new FileInputStream( inputfile ) );
-            String name = "";
+            String aname = "";
+            String cname = "";
             String lname = "";
             String mname = "";
             String type = "";
@@ -51,14 +52,15 @@ public class BinaryReader {
             //AvailableCode AC;
             while( true ) {
                 try {
-                    name = FR.readUTF();
+                    aname = FR.readUTF();
+                    cname = FR.readUTF();
                     lname = FR.readUTF();
                     mname = FR.readUTF();
                     type = FR.readUTF();
                     special = FR.readUTF();
                     wclass = FR.readInt();
                     AvailableCode AC = GetAvailability( FR );
-                    RangedWeapon rw = new RangedWeapon( name, lname, mname, type, special, AC, wclass );
+                    RangedWeapon rw = new RangedWeapon( aname, cname, lname, mname, type, special, AC, wclass );
                     rw.SetStats( FR.readDouble(), FR.readInt(), FR.readDouble(), FR.readDouble(), FR.readDouble() );
                     rw.SetHeat( FR.readInt() );
                     rw.SetToHit( FR.readInt(), FR.readInt(), FR.readInt() );
@@ -70,7 +72,8 @@ public class BinaryReader {
                     rw.SetWeapon( FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean() );
                     rw.SetCaselessAmmo( FR.readBoolean(), FR.readInt() );
                     rw.SetMissileFCS( FR.readBoolean(), FR.readInt() );
-                    rw.SetPrintName( FR.readUTF() );
+                    rw.SetChatName( FR.readUTF() );
+                    rw.SetBookReference( FR.readUTF() );
                     finished.add( rw );
                 } catch( EOFException e1 ) {
                     break;
@@ -89,25 +92,27 @@ public class BinaryReader {
         DataInputStream FR;
         try {
             FR = new DataInputStream( new FileInputStream( inputfile ) );
-            String name = "";
+            String aname = "";
+            String cname = "";
             String lname = "";
             String mname = "";
             int idx = 0;
             AvailableCode AC;
             while( true ) {
                 try {
-                    name = FR.readUTF();
+                    aname = FR.readUTF();
+                    cname = FR.readUTF();
                     lname = FR.readUTF();
                     mname = FR.readUTF();
                     idx = FR.readInt();
                     AC = GetAvailability( FR );
-                    Ammunition a = new Ammunition( name, lname, mname, idx, AC );
+                    Ammunition a = new Ammunition( aname, cname, lname, mname, idx, AC );
                     a.SetStats( FR.readDouble(), FR.readDouble(), FR.readDouble(), FR.readDouble() );
                     a.SetToHit( FR.readInt(), FR.readInt(), FR.readInt() );
                     a.SetDamage( FR.readInt(), FR.readInt(), FR.readInt(), FR.readBoolean(), FR.readInt(), FR.readInt() );
                     a.SetRange( FR.readInt(), FR.readInt(), FR.readInt(), FR.readInt() );
                     a.SetAmmo( FR.readInt(), FR.readBoolean(), FR.readInt(), FR.readInt() );
-                    a.SetPrintName( FR.readUTF() );
+                    a.SetBookReference( FR.readUTF() );
                     finished.add( a );
                 } catch( EOFException e1 ) {
                     break;

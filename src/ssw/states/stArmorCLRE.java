@@ -41,20 +41,28 @@ public class stArmorCLRE implements ifArmor, ifState {
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Reactive Armor";
     }
 
-    public String GetCritName() {
+    public String CritName() {
+        return "Reactive";
+    }
+
+    public String LookupName() {
         return "Reactive Armor";
     }
 
-    public String GetMMName() {
+    public String ChatName() {
+        return "Rctv Armor";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Reactive";
     }
 
-    public String GetPrintName() {
-        return "Reactive";
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     public boolean HasCounterpart() {

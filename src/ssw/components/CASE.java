@@ -51,16 +51,28 @@ public class CASE extends abPlaceable {
         return false;
     }
 
-    public String GetCritName() {
+    public String ActualName() {
+        return "Cellular Ammunition Storage Equipment";
+    }
+
+    public String CritName() {
         return "C.A.S.E.";
     }
 
-    public String GetLookupName() {
-        return GetCritName();
+    public String LookupName() {
+        return "C.A.S.E.";
     }
 
-    public String GetMMName( boolean UseRear ) {
+    public String ChatName() {
+        return "CASE";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "ISCASE";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public int NumCrits() {

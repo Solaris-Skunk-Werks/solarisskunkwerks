@@ -31,6 +31,12 @@ package ssw.states;
 import ssw.components.*;
 
 public interface ifEngine {
+    public String ActualName();
+    public String CritName();
+    public String LookupName();
+    public String ChatName();
+    public String MegaMekName( boolean UseRear );
+    public String BookReference();
     public int GetFullCrits();
     public boolean IsFusion();
     public boolean IsNuclear();
@@ -40,8 +46,6 @@ public interface ifEngine {
     public int GetSideTorsoCrits();
     public int NumCTBlocks();
     public boolean CanSupportRating( int rate );
-    public String GetCritName();
-    public String GetMMName();
     public double GetCost( int MechTonnage, int Rating );
     public double GetBVMult();
     public AvailableCode GetAvailability();

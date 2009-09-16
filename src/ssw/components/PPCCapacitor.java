@@ -58,18 +58,28 @@ public class PPCCapacitor extends abPlaceable {
         return true;
     }
 
-    @Override
-    public String GetCritName() {
+    public String ActualName() {
         return "PPC Capacitor";
     }
 
-    public String GetLookupName() {
-        return GetCritName();
+    public String CritName() {
+        return "PPC Capacitor";
     }
 
-    @Override
-    public String GetMMName(boolean UseRear) {
-        return Owner.GetMMName( UseRear ) + "Capacitor";
+    public String LookupName() {
+        return "PPC Capacitor";
+    }
+
+    public String ChatName() {
+        return "PPC-Cap";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
+        return Owner.MegaMekName( UseRear ) + "Capacitor";
+    }
+
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     @Override
@@ -149,7 +159,7 @@ public class PPCCapacitor extends abPlaceable {
         }
         OffBV = Owner.GetOffensiveBV() * ( basemult - 1.0 );
         // minor modification since the math doesn't work (damn you, TPTB!!!)
-        if( Owner.GetLookupName().equals( "(IS) ER PPC" ) ) {
+        if( Owner.LookupName().equals( "(IS) ER PPC" ) ) {
             OffBV -= 0.49;
         }
     }

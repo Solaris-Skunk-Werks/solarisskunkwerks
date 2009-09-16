@@ -33,14 +33,10 @@ import ssw.components.*;
 
 public class stCockpitISSmall implements ifCockpit, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
-    private final static SimplePlaceable Sensors = new SimplePlaceable( "Sensors",
-        "Sensors", 1, true, AC );
-    private final static SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support",
-        "Life Support", 1, true, AC );
-    private final static SimplePlaceable SecondSensors = new SimplePlaceable( "Sensors",
-        "Sensors", 1, true, AC );
-    private final static SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support",
-        "Life Support", 1, true, AC );
+    private final static SimplePlaceable Sensors = new SimplePlaceable( "Sensors", "Sensors", "Sensors", "Sensors", "Tech Manual", 1, true, AC );
+    private final static SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
+    private final static SimplePlaceable SecondSensors = new SimplePlaceable( "Sensors", "Sensors", "Sensors", "Sensors", "Tech Manual", 1, true, AC );
+    private final static SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
     private final MechModifier MechMod = new MechModifier( 0, 0, 0, 0.0f, 1, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true, false );
 
     public stCockpitISSmall() {
@@ -82,16 +78,28 @@ public class stCockpitISSmall implements ifCockpit, ifState {
         return SecondSensors;
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Small Cockpit";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "Small Cockpit";
     }
 
-    public String GetMMName() {
+    public String LookupName() {
+        return "Small Cockpit";
+    }
+
+    public String ChatName() {
+        return "Sml Cockpit";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Cockpit";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public String GetReportName() {

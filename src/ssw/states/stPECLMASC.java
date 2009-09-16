@@ -53,16 +53,28 @@ public class stPECLMASC implements ifPhysEnhance, ifState {
         return (int) (mechtons * 0.04f + 0.51f);
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
+        return "Myomer Accelerator Signal Circuitry";
+    }
+
+    public String CritName() {
         return "MASC";
     }
 
-    public String GetCritName() {
+    public String LookupName() {
         return "MASC";
     }
 
-    public String GetMMName() {
+    public String ChatName() {
+        return "MASC";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "CLMASC";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public boolean Contiguous() {

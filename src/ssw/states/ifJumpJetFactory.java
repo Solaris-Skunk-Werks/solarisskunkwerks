@@ -33,6 +33,7 @@ import ssw.components.JumpJet;
 import ssw.components.MechModifier;
 
 public interface ifJumpJetFactory {
+    public String ChatName();
     public boolean IsImproved();
     public boolean IsUMU();
     public JumpJet GetJumpJet();

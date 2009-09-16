@@ -35,10 +35,16 @@ package ssw.components;
 public class IndustrialEquipment extends Equipment{
     private EquipmentValidationInterface validator;
     private String validationFalseMessage;
-    public IndustrialEquipment (String name, String lookupname, String t, AvailableCode a, EquipmentValidationInterface validator, String vf){
-        super( name, lookupname, t, a );
+    public IndustrialEquipment ( String actualname, String lookupname, String critname, String t, AvailableCode a, EquipmentValidationInterface validator, String vf){
+        super( actualname, lookupname, critname, t, a );
         this.validator = validator;
         validationFalseMessage = vf;
+    }
+
+    private IndustrialEquipment( IndustrialEquipment i ) {
+        super( (Equipment) i );
+        validator = i.validator;
+        validationFalseMessage = i.validationFalseMessage;
     }
 
     public EquipmentValidationInterface getValidator(){
@@ -51,5 +57,10 @@ public class IndustrialEquipment extends Equipment{
 
     public String getValidationFalseMessage(){
             return validationFalseMessage;
+    }
+
+    @Override
+    public IndustrialEquipment Clone() {
+        return new IndustrialEquipment( this );
     }
 }

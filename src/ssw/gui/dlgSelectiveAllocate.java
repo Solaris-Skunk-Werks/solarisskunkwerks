@@ -89,7 +89,7 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
         Crits[Constants.LOC_LL] = CurLoadout.FreeCrits( CurLoadout.GetLLCrits() );
         Crits[Constants.LOC_RL] = CurLoadout.FreeCrits( CurLoadout.GetRLCrits() );
 
-        lblAllocateItem.setText( "Allocating " + Item.GetCritName() );
+        lblAllocateItem.setText( "Allocating " + Item.CritName() );
         lblItemCrits.setText( Item.NumPlaced() + " of " + Item.NumCrits() + " Allocated" );
         lblHDQuant.setText( "0 of " + Crits[Constants.LOC_HD] );
         lblCTQuant.setText( "0 of " + Crits[Constants.LOC_CT] );
@@ -140,7 +140,7 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
         Crits[Constants.LOC_LL] = GetNumSlots( size, CurLoadout.FreeCrits( CurLoadout.GetLLCrits() ) );
         Crits[Constants.LOC_RL] = GetNumSlots( size, CurLoadout.FreeCrits( CurLoadout.GetRLCrits() ) );
 
-        lblAllocateItem.setText( "Allocating " + CurItem.GetCritName() );
+        lblAllocateItem.setText( "Allocating " + CurItem.CritName() );
         lblItemCrits.setText( "0 of " + Items.GetSize() + " Allocated" );
         lblHDQuant.setText( "0 of " + Crits[Constants.LOC_HD] );
         lblCTQuant.setText( "0 of " + Crits[Constants.LOC_CT] );

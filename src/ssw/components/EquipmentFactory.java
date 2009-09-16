@@ -54,105 +54,28 @@ public class EquipmentFactory {
         abPlaceable retval = null;
 
         if( p instanceof IndustrialEquipment ) {
-            IndustrialEquipment e = (IndustrialEquipment) p;
-            retval = new IndustrialEquipment( e.GetCritName(), e.GetLookupName(), e.GetType(), e.GetAvailability(), e.getValidator(), e.getValidationFalseMessage() );
-            ((Equipment) retval).SetAmmo(e.HasAmmo(), e.GetAmmo(), e.GetAmmoIndex());
-            ((Equipment) retval).SetMegaMekName(e.GetMMName(false));
-            ((Equipment) retval).SetHeat(e.GetHeat());
-            ((Equipment) retval).SetRange(e.GetShortRange(), e.GetMediumRange(), e.GetLongRange());
-            ((Equipment) retval).SetStats(e.NumCrits(), e.GetTonnage(), e.GetCost(), e.GetOffensiveBV(), e.GetDefensiveBV(), e.GetSpecials());
-            ((Equipment) retval).SetAllocs(e.CanAllocHD(), e.CanAllocCT(), e.CanAllocTorso(), e.CanAllocArms(), e.CanAllocLegs());
-            ((Equipment) retval).SetSplitable(e.CanSplit());
-            ((Equipment) retval).SetMountableRear(e.CanMountRear());
+            retval = ((IndustrialEquipment) p).Clone();
         } else if( p instanceof Equipment ) {
-            Equipment e = (Equipment) p;
-            if( e.IsVariableSize() ) {
-                // have to remove the tonnage display from the name
-                String name = e.GetCritName().split( " \\(" )[0];
-                retval = new Equipment( name, e.GetLookupName(), e.GetType(), e.GetAvailability() );
-            } else {
-                retval = new Equipment( e.GetCritName(), e.GetLookupName(), e.GetType(), e.GetAvailability() );
-            }
-            ((Equipment) retval).SetAmmo(e.HasAmmo(), e.GetAmmo(), e.GetAmmoIndex());
-            ((Equipment) retval).SetMegaMekName(e.GetMMName(false));
-            ((Equipment) retval).SetHeat(e.GetHeat());
-            ((Equipment) retval).SetRange(e.GetShortRange(), e.GetMediumRange(), e.GetLongRange());
-            ((Equipment) retval).SetStats(e.NumCrits(), e.GetTonnage(), e.GetCost(), e.GetOffensiveBV(), e.GetDefensiveBV(), e.GetSpecials());
-            ((Equipment) retval).SetAllocs(e.CanAllocHD(), e.CanAllocCT(), e.CanAllocTorso(), e.CanAllocArms(), e.CanAllocLegs());
-            ((Equipment) retval).SetSplitable(e.CanSplit());
-            ((Equipment) retval).SetMountableRear(e.CanMountRear());
-            ((Equipment) retval).SetExplosive(e.IsExplosive());
-            ((Equipment) retval).SetVariableSize( e.IsVariableSize(), e.GetMinTons(), e.GetMaxTons(), e.GetVariableIncrement(), e.GetTonsPerCrit(), e.GetCostPerTon() );
+            retval = ((Equipment) p).Clone();
         } else if( p instanceof ModularArmor ) {
             retval = new ModularArmor();
         } else if( p instanceof Ammunition ) {
-            Ammunition c = (Ammunition) p;
-            retval = new Ammunition( c.GetCritName(), c.GetLookupName(), c.GetMMName( false ), c.GetAmmoIndex(), c.GetAvailability() );
-            ((Ammunition) retval).SetStats( c.GetTonnage(), c.GetCost(), c.GetOffensiveBV(), c.GetDefensiveBV() );
-            ((Ammunition) retval).SetToHit( c.GetToHitShort(), c.GetToHitMedium(), c.GetToHitLong() );
-            ((Ammunition) retval).SetDamage( c.GetDamageShort(), c.GetDamageMedium(), c.GetDamageLong(), c.IsCluster(), c.ClusterSize(), c.ClusterGrouping() );
-            ((Ammunition) retval).SetRange( c.GetMinRange(), c.GetShortRange(), c.GetMediumRange(), c.GetLongRange() );
-            ((Ammunition) retval).SetAmmo( c.GetLotSize(), c.IsExplosive(), c.GetWeaponClass(), c.GetFCSType() );
-            ((Ammunition) retval).SetPrintName( c.GetBasePrintName() );
+            retval = ((Ammunition) p).Clone();
         } else if( p instanceof RangedWeapon ) {
-            RangedWeapon r = (RangedWeapon) p;
-            retval = new RangedWeapon( r.GetCritName(), r.GetLookupName(), r.GetMMName( false ), r.GetType(), r.GetSpecials(), r.GetAvailability(), r.GetWeaponClass() );
-            ((RangedWeapon) retval).SetStats( r.GetTonnage(), r.NumCrits(), r.GetCost(), r.GetOffensiveBV(), r.GetDefensiveBV() );
-            ((RangedWeapon) retval).SetHeat( r.GetHeat() );
-            ((RangedWeapon) retval).SetToHit( r.GetToHitShort(), r.GetToHitMedium(), r.GetToHitLong() );
-            ((RangedWeapon) retval).SetDamage( r.GetDamageShort(), r.GetDamageMedium(), r.GetDamageLong(), r.IsCluster(), r.ClusterSize(), r.ClusterGrouping() );
-            ((RangedWeapon) retval).SetRange( r.GetRangeMin(), r.GetRangeShort(), r.GetRangeMedium(), r.GetRangeLong() );
-            ((RangedWeapon) retval).SetAmmo( r.HasAmmo(), r.GetAmmoLotSize(), r.GetAmmoIndex(), r.SwitchableAmmo() );
-            ((RangedWeapon) retval).SetAllocations( r.CanAllocHD(), r.CanAllocCT(), r.CanAllocTorso(), r.CanAllocArms(), r.CanAllocLegs(), r.CanSplit(), r.OmniRestrictActuators() );
-            ((RangedWeapon) retval).SetRequirements( r.RequiresFusion(), r.RequiresNuclear(), r.RequiresPowerAmps() );
-            ((RangedWeapon) retval).SetWeapon( r.IsOneShot(), r.IsStreak(), r.IsUltra(), r.IsRotary(), r.IsExplosive(), r.IsTCCapable(), r.IsArrayCapable(), r.CanUseCapacitor(), r.CanUseInsulator() );
-            ((RangedWeapon) retval).SetMissileFCS( r.IsFCSCapable(), r.GetFCSType() );
-            ((RangedWeapon) retval).SetCaselessAmmo( r.CanUseCaselessAmmo(), r.GetCaselessAmmoIDX() );
-            ((RangedWeapon) retval).SetPrintName( r.GetPrintName() );
+            retval = ((RangedWeapon) p).Clone();
         } else if( p instanceof VehicularGrenadeLauncher ) {
             retval = new VehicularGrenadeLauncher();
-        } else if( p instanceof IndustrialPhysicalWeapon ) {
-            IndustrialPhysicalWeapon w = (IndustrialPhysicalWeapon) p;
-            switch( w.GetPWClass() ) {
-                case PhysicalWeapon.PW_CLASS_TALON:
-                    retval = new Talons ( m );
-                    break;
-                default:
-                    retval = new IndustrialPhysicalWeapon( w.GetName(), w.GetLookupName(), w.GetMMName( false ), m, w.GetAvailability() );
-                    ((PhysicalWeapon) retval).SetStats( w.GetTonMult(), w.GetCritMult(), w.GetTonAdd(), w.GetCritAdd() );
-                    ((PhysicalWeapon) retval).SetDamage( w.GetDamageMult(), w.GetDamageAdd() );
-                    ((PhysicalWeapon) retval).SetSpecials( w.GetType(), w.GetSpecials(), w.GetCostMult(), w.GetCostAdd(), w.GetBVMult(), w.GetBVAdd(), w.GetDefBV(), w.GetRounding() );
-                    ((PhysicalWeapon) retval).SetToHit( w.GetToHitShort(), w.GetToHitMedium(), w.GetToHitLong() );
-                    (retval).AddMechModifier( w.GetMechModifier() );
-                    ((PhysicalWeapon) retval).SetHeat( w.GetHeat() );
-                    ((PhysicalWeapon) retval).SetRequiresHand( w.RequiresHand() );
-                    ((PhysicalWeapon) retval).SetRequiresLowerArm( w.RequiresLowerArm() );
-                    ((PhysicalWeapon) retval).SetReplacesHand( w.ReplacesHand() );
-                    ((PhysicalWeapon) retval).SetPWClass( w.GetPWClass() );
-                    ((PhysicalWeapon) retval).SetRequirements( w.RequiresNuclear(), w.RequiresFusion(), w.RequiresPowerAmps() );
-                    ((PhysicalWeapon) retval).SetAllocations( w.CanAllocHD(), w.CanAllocCT(), w.CanAllocTorso(), w.CanAllocArms(), w.CanAllocLegs(), false );
-                    break;
-            }
         } else if( p instanceof PhysicalWeapon ) {
             PhysicalWeapon w = (PhysicalWeapon) p;
             switch( w.GetPWClass() ) {
                 case PhysicalWeapon.PW_CLASS_TALON:
                     retval = new Talons ( m );
                     break;
+                case PhysicalWeapon.PW_CLASS_INDUSTRIAL:
+                    retval = ((IndustrialPhysicalWeapon) p).Clone();
+                    break;
                 default:
-                    retval = new PhysicalWeapon( w.GetName(), w.GetLookupName(), w.GetMMName( false ), m, w.GetAvailability() );
-                    ((PhysicalWeapon) retval).SetStats( w.GetTonMult(), w.GetCritMult(), w.GetTonAdd(), w.GetCritAdd() );
-                    ((PhysicalWeapon) retval).SetDamage( w.GetDamageMult(), w.GetDamageAdd() );
-                    ((PhysicalWeapon) retval).SetSpecials( w.GetType(), w.GetSpecials(), w.GetCostMult(), w.GetCostAdd(), w.GetBVMult(), w.GetBVAdd(), w.GetDefBV(), w.GetRounding() );
-                    ((PhysicalWeapon) retval).SetToHit( w.GetToHitShort(), w.GetToHitMedium(), w.GetToHitLong() );
-                    (retval).AddMechModifier( w.GetMechModifier() );
-                    ((PhysicalWeapon) retval).SetHeat( w.GetHeat() );
-                    ((PhysicalWeapon) retval).SetRequiresHand( w.RequiresHand() );
-                    ((PhysicalWeapon) retval).SetRequiresLowerArm( w.RequiresLowerArm() );
-                    ((PhysicalWeapon) retval).SetReplacesHand( w.ReplacesHand() );
-                    ((PhysicalWeapon) retval).SetPWClass( w.GetPWClass() );
-                    ((PhysicalWeapon) retval).SetRequirements( w.RequiresNuclear(), w.RequiresFusion(), w.RequiresPowerAmps() );
-                    ((PhysicalWeapon) retval).SetAllocations( w.CanAllocHD(), w.CanAllocCT(), w.CanAllocTorso(), w.CanAllocArms(), w.CanAllocLegs(), false );
+                    retval = w.Clone();
                     break;
             }
         } else if( p instanceof MGArray ) {
@@ -382,7 +305,7 @@ public class EquipmentFactory {
             abPlaceable a = (abPlaceable) RetVal.get( i );
             AvailableCode AC = a.GetAvailability();
 
-            if( a.GetCritName().equals( "Hatchet" ) ) {
+            if( a.LookupName().equals( "Hatchet" ) ) {
                 // grab the Hatchet, we'll want to filter it specifically
                 hatchet = a;
             }
@@ -445,7 +368,7 @@ public class EquipmentFactory {
     public Ammunition GetAmmoByName( String name, Mech m ) {
         // returns an ammunition based on the given name
         for( int i = 0; i < Ammo.size(); i++ ) {
-            if( ((abPlaceable) Ammo.get( i )).GetLookupName().equals( name ) ) {
+            if( ((abPlaceable) Ammo.get( i )).LookupName().equals( name ) ) {
                 return (Ammunition) GetCopy( (abPlaceable) Ammo.get( i ), m );
             }
         }
@@ -454,13 +377,13 @@ public class EquipmentFactory {
 
     public Equipment GetEquipmentByName(String name, Mech m ) {
         for (int i = 0; i < Equipment.size(); i++) {
-            if (((abPlaceable) Equipment.get(i)).GetLookupName().equals(name)) {
+            if (((abPlaceable) Equipment.get(i)).LookupName().equals(name)) {
                 return (Equipment) GetCopy((abPlaceable) Equipment.get(i), m);
             }
         }
 
         for (int i = 0; i < IndustrialEquipment.size(); i++) {
-            if (((abPlaceable) IndustrialEquipment.get(i)).GetLookupName().equals(name)) {
+            if (((abPlaceable) IndustrialEquipment.get(i)).LookupName().equals(name)) {
                 return (Equipment) GetCopy((abPlaceable) IndustrialEquipment.get(i), m);
             }
         }
@@ -469,7 +392,7 @@ public class EquipmentFactory {
 
     public PhysicalWeapon GetPhysicalWeaponByName( String name, Mech m ) {
         for( int i = 0; i < PhysicalWeapons.size(); i++ ) {
-            if( ((abPlaceable) PhysicalWeapons.get( i )).GetLookupName().equals( name ) ) {
+            if( ((abPlaceable) PhysicalWeapons.get( i )).LookupName().equals( name ) ) {
                 PhysicalWeapon p = (PhysicalWeapon) GetCopy( (abPlaceable) PhysicalWeapons.get( i ), m );
                 p.SetOwner( m );
                 if( p instanceof IndustrialPhysicalWeapon ) {
@@ -486,7 +409,7 @@ public class EquipmentFactory {
     public abPlaceable GetRangedWeaponByName( String name, Mech m ) {
         // searches the weapon database for the named item and returns it
         for( int i = 0; i < RangedWeapons.size(); i++ ) {
-            if( ((abPlaceable) RangedWeapons.get( i )).GetLookupName().equals( name ) ) {
+            if( ((abPlaceable) RangedWeapons.get( i )).LookupName().equals( name ) ) {
                 return (abPlaceable) GetCopy( (abPlaceable) RangedWeapons.get( i ), m );
             }
         }
@@ -641,11 +564,13 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new PhysicalWeapon( "Hatchet", "Hatchet", "Hatchet", m, a );
+        addPW = new PhysicalWeapon( "Hatchet", "Hatchet", "Hatchet", "Hatchet", m, a );
         addPW.SetStats( 0.06666, 0.06666, 0.0, 0 );
         addPW.SetDamage( 0.2, 0 );
         addPW.SetSpecials( "PA", "-", 5000.0, 0.0, 1.5, 0.0, 0.0, false );
         addPW.SetToHit( -1, -1, -1 );
+        addPW.SetBookReference( "Tech Manual" );
+        addPW.SetChatName( "Htcht" );
         PhysicalWeapons.add( addPW );
 
         // sword
@@ -656,11 +581,13 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new PhysicalWeapon( "Sword", "Sword", "Sword", m, a );
+        addPW = new PhysicalWeapon( "Sword", "Sword", "Sword", "Sword", m, a );
         addPW.SetStats( 0.05, 0.06666, 0.0, 0 );
         addPW.SetDamage( 0.1, 1 );
         addPW.SetSpecials( "PA", "-", 10000.0, 0.0, 1.725, 0.0, 0.0, true );
         addPW.SetToHit( -2, -2, -2 );
+        addPW.SetBookReference( "Tech Manual" );
+        addPW.SetChatName( "Swrd" );
         PhysicalWeapons.add( addPW );
 
         // retractable blade
@@ -671,11 +598,13 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new PhysicalWeapon( "Retractable Blade", "Retractable Blade", "Retractable Blade", m, a );
+        addPW = new PhysicalWeapon( "Retractable Blade", "Retractable Blade", "Retractable Blade", "Retractable Blade", m, a );
         addPW.SetStats( 0.05, 0.05, 0.5, 1 );
         addPW.SetDamage( 0.1, 0 );
         addPW.SetSpecials( "PA", "-", 10000.0, 10000.0, 1.725, 0.0, 0.0, true );
         addPW.SetToHit( -2, -2, -2 );
+        addPW.SetBookReference( "Tech Manual" );
+        addPW.SetChatName( "RBlde" );
         PhysicalWeapons.add( addPW );
 
         // chain whip
@@ -686,11 +615,13 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new PhysicalWeapon( "Chain Whip", "Chain Whip", "Chain Whip", m, a );
+        addPW = new PhysicalWeapon( "Chain Whip", "Chain Whip", "Chain Whip", "Chain Whip", m, a );
         addPW.SetStats(0.0, 0.0, 3.0, 2);
         addPW.SetDamage(0.0, 1);
         addPW.SetSpecials("PA", "-", 0.0, 120000.0, 1.725, 0.0, 0.0, false);
         addPW.SetToHit(-2, -2, -2);
+        addPW.SetBookReference( "Tactical Operations" );
+        addPW.SetChatName( "ChnWhp" );
         PhysicalWeapons.add( addPW );
 
         // claws
@@ -701,13 +632,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new PhysicalWeapon( "Claws", "Claws", "Claw", m, a );
+        addPW = new PhysicalWeapon( "Claws", "Claws", "Claws", "Claw", m, a );
         addPW.SetStats(0.06666, 0.06666, 0.0, 0);
         addPW.SetDamage(0.1428, 0);
         addPW.SetSpecials("PA", "-", 2800.0, 0.0, 1.275, 0.0, 0.0, false);
         addPW.SetToHit(1, 1, 1);
         addPW.SetReplacesHand(true);
         addPW.SetRequiresLowerArm( true );
+        addPW.SetBookReference( "Tactical Operations" );
+        addPW.SetChatName( "Clw" );
         PhysicalWeapons.add( addPW );
 
         // flail
@@ -718,13 +651,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new PhysicalWeapon( "Flail", "Flail", "Flail", m, a );
+        addPW = new PhysicalWeapon( "Flail", "Flail", "Flail", "Flail", m, a );
         addPW.SetStats(0.0, 0.0, 5.0, 4);
         addPW.SetDamage(0.0, 9);
         addPW.SetSpecials("PA", "-", 0.0, 110000.0, 0.0, 11.0, 0.0, false);
         addPW.SetToHit(1, 1, 1);
         addPW.SetReplacesHand(true);
         addPW.SetRequiresLowerArm( true );
+        addPW.SetBookReference( "Tactical Operations" );
+        addPW.SetChatName( "Flail" );
         PhysicalWeapons.add( addPW );
 
         // lance
@@ -735,12 +670,14 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new PhysicalWeapon( "Lance", "Lance", "Lance", m, a );
+        addPW = new PhysicalWeapon( "Lance", "Lance", "Lance", "Lance", m, a );
         addPW.SetStats(0.05, 0.05, 0.0, 0);
         addPW.SetDamage(0.2, 0);
         addPW.SetSpecials("PA", "-", 3000.0, 0.0, 1.0, 0.0, 0.0, false);
         addPW.SetToHit(2, 2, 2);
         addPW.SetRequiresHand(false);
+        addPW.SetBookReference( "Tactical Operations" );
+        addPW.SetChatName( "Lnc" );
         PhysicalWeapons.add( addPW );
 
         // mace
@@ -751,11 +688,13 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new PhysicalWeapon( "Mace", "Mace", "Mace", m, a );
+        addPW = new PhysicalWeapon( "Mace", "Mace", "Mace", "Mace", m, a );
         addPW.SetStats(0.1, 0.1, 0.0, 0);
         addPW.SetDamage(0.25, 0);
         addPW.SetSpecials("PA", "-", 0.0, 130000.0, 1.0, 0.0, 0.0, false);
         addPW.SetToHit(1, 1, 1);
+        addPW.SetBookReference( "Tactical Operations" );
+        addPW.SetChatName( "Mace" );
         PhysicalWeapons.add(addPW);
 
         // vibroblade small
@@ -766,12 +705,14 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new PhysicalWeapon( "Small Vibroblade", "Small Vibroblade", "ISSmallVibroBlade", m, a );
+        addPW = new PhysicalWeapon( "Small Vibroblade", "Small Vibroblade", "Small Vibroblade", "ISSmallVibroBlade", m, a );
         addPW.SetStats(0.0, 0.0, 3.0, 1);
         addPW.SetDamage(0.0, 7);
         addPW.SetHeat(3);
         addPW.SetSpecials("PA", "V", 0.0, 150000.0, 0.0, 12.0, 0.0, false);
         addPW.SetToHit(-1, -1, -1);
+        addPW.SetBookReference( "Tactical Operations" );
+        addPW.SetChatName( "SmlVbrBld" );
         PhysicalWeapons.add(addPW);
 
         // vibroblade medium
@@ -782,12 +723,14 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new PhysicalWeapon( "Medium Vibroblade", "Medium Vibroblade", "ISMediumVibroBlade", m, a );
+        addPW = new PhysicalWeapon( "Medium Vibroblade", "Medium Vibroblade", "Medium Vibroblade", "ISMediumVibroBlade", m, a );
         addPW.SetStats(0.0, 0.0, 5.0, 2);
         addPW.SetDamage(0.0, 10);
         addPW.SetHeat(5);
         addPW.SetSpecials("PA", "V", 0.0, 400000.0, 0.0, 17.0, 0.0, false);
         addPW.SetToHit(-1, -1, -1);
+        addPW.SetBookReference( "Tactical Operations" );
+        addPW.SetChatName( "MedVbrBld" );
         PhysicalWeapons.add(addPW);
 
         // vibroblade large
@@ -798,12 +741,14 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new PhysicalWeapon( "Large Vibroblade", "Large Vibroblade", "ISLargeVibroBlade", m, a );
+        addPW = new PhysicalWeapon( "Large Vibroblade", "Large Vibroblade", "Large Vibroblade", "ISLargeVibroBlade", m, a );
         addPW.SetStats(0.0, 0.0, 7.0, 4);
         addPW.SetDamage(0.0, 14);
         addPW.SetHeat(7);
         addPW.SetSpecials("PA", "V", 0.0, 750000.0, 0.0, 24.0, 0.0, false);
         addPW.SetToHit(-1, -1, -1);
+        addPW.SetBookReference( "Tactical Operations" );
+        addPW.SetChatName( "LrgVbrBld" );
         PhysicalWeapons.add(addPW);
 
         // spikes
@@ -814,7 +759,7 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new PhysicalWeapon( "Spikes", "Spikes", "Spikes", m, a );
+        addPW = new PhysicalWeapon( "Spikes", "Spikes", "Spikes", "Spikes", m, a );
         addPW.SetStats(0.0, 0.0, 0.5, 1);
         addPW.SetDamage(0.0, 2);
         addPW.SetSpecials("PA", "PB", 50.0, 0.0, 0.0, 0.0, 4.0, false);
@@ -822,6 +767,8 @@ public class EquipmentFactory {
         addPW.SetRequiresLowerArm( false );
         addPW.SetPWClass( PhysicalWeapon.PW_CLASS_SPIKE );
         addPW.SetAllocations(true, true, true, true, true, false);
+        addPW.SetBookReference( "Tactical Operations" );
+        addPW.SetChatName( "Spk" );
         PhysicalWeapons.add(addPW);
 
         // small shield
@@ -832,13 +779,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new PhysicalWeapon( "Small Shield", "Small Shield", "ISSmallShield", m, a );
+        addPW = new PhysicalWeapon( "Small Shield", "Small Shield", "Small Shield", "ISSmallShield", m, a );
         addPW.SetStats(0.0, 0.0, 2.0, 3);
         addPW.SetDamage(0.0, 3);
         addPW.SetSpecials("PA", "PB", 0.0, 50000.0, 0.0, 0.0, 50.0, false);
         addPW.SetToHit(-2, -2, -2);
         addPW.SetRequiresLowerArm(false);
         addPW.SetPWClass( PhysicalWeapon.PW_CLASS_SHIELD );
+        addPW.SetBookReference( "Tactical Operations" );
+        addPW.SetChatName( "SmlShld" );
         PhysicalWeapons.add(addPW);
 
         // medium shield
@@ -849,7 +798,7 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new PhysicalWeapon( "Medium Shield", "Medium Shield", "ISMediumShield", m, a );
+        addPW = new PhysicalWeapon( "Medium Shield", "Medium Shield", "Medium Shield", "ISMediumShield", m, a );
         addPW.SetStats(0.0, 0.0, 4.0, 5);
         addPW.SetDamage(0.0, 5);
         addPW.SetSpecials("PA", "PB", 0.0, 100000.0, 0.0, 0.0, 135.0, false);
@@ -857,6 +806,8 @@ public class EquipmentFactory {
         addPW.SetRequiresLowerArm(false);
         addPW.SetPWClass( PhysicalWeapon.PW_CLASS_SHIELD );
         addPW.AddMechModifier( new MechModifier( -1, 0, 0, 0.0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, true, false ));
+        addPW.SetBookReference( "Tactical Operations" );
+        addPW.SetChatName( "MedShld" );
         PhysicalWeapons.add(addPW);
 
         // large shield
@@ -867,7 +818,7 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new PhysicalWeapon( "Large Shield", "Large Shield", "ISLargeShield", m, a );
+        addPW = new PhysicalWeapon( "Large Shield", "Large Shield", "Large Shield", "ISLargeShield", m, a );
         addPW.SetStats(0.0, 0.0, 6.0, 7);
         addPW.SetDamage(0.0, 7);
         addPW.SetSpecials("PA", "PB", 0.0, 300000.0, 0.0, 0.0, 263.0, false);
@@ -877,6 +828,8 @@ public class EquipmentFactory {
         MechModifier addMod = new MechModifier( -1, 0, 0, 0.0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, true, false );
         addMod.SetCanJump(false);
         addPW.AddMechModifier( addMod );
+        addPW.SetBookReference( "Tactical Operations" );
+        addPW.SetChatName( "LrgShld" );
         PhysicalWeapons.add(addPW);
 
         // Talons
@@ -894,10 +847,12 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new IndustrialPhysicalWeapon("Backhoe", "Backhoe", "Backhoe", m, a);
+        addPW = new IndustrialPhysicalWeapon( "Backhoe", "Backhoe", "Backhoe", "Backhoe", m, a );
         addPW.SetStats(0.0, 0.0, 5, 6);
         addPW.SetDamage(0.0, 6);
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(50000, 8, 0);
+        addPW.SetBookReference( "Tech Manual" );
+        addPW.SetChatName( "BckHo" );
         PhysicalWeapons.add(addPW);
 
         // Chainsaw
@@ -911,10 +866,12 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new IndustrialPhysicalWeapon("Chainsaw","Chainsaw", "Chainsaw", m, a);
+        addPW = new IndustrialPhysicalWeapon("Chainsaw","Chainsaw","Chainsaw", "Chainsaw", m, a);
         addPW.SetStats(0.0, 0.0, 5, 5);
         addPW.SetDamage(0.0, 5);
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 7, 0);
+        addPW.SetBookReference( "Tech Manual" );
+        addPW.SetChatName( "ChnSw" );
         PhysicalWeapons.add(addPW);
 
         // Combine
@@ -928,10 +885,12 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new IndustrialPhysicalWeapon("Combine","Combine", "Combine", m, a);
+        addPW = new IndustrialPhysicalWeapon("Combine","Combine","Combine", "Combine", m, a);
         addPW.SetStats(0.0, 0.0, 2.5, 4);
         addPW.SetDamage(0.0, 3);
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(75000, 5, 0);
+        addPW.SetBookReference( "Tech Manual" );
+        addPW.SetChatName( "Cmbn" );
         PhysicalWeapons.add(addPW);
         
         // Dual Saw
@@ -945,10 +904,12 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new IndustrialPhysicalWeapon("Dual Saw","Dual Saw", "DualSaw", m, a);
+        addPW = new IndustrialPhysicalWeapon("Dual Saw","Dual Saw","Dual Saw", "DualSaw", m, a);
         addPW.SetStats(0.0, 0.0, 7, 7);
         addPW.SetDamage(0.0, 7);
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 9, 0);
+        addPW.SetBookReference( "Tech Manual" );
+        addPW.SetChatName( "2Saw" );
         PhysicalWeapons.add(addPW);
         
         // Heavy Duty Pile-Driver
@@ -962,10 +923,12 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new IndustrialPhysicalWeapon("Heavy Duty Pile-Driver","Heavy Duty Pile-Driver", "HeavyDutyPile-Driver", m, a);
+        addPW = new IndustrialPhysicalWeapon("Heavy Duty Pile-Driver","Heavy Duty Pile-Driver","Heavy Duty Pile-Driver", "HeavyDutyPile-Driver", m, a);
         addPW.SetStats(0.0, 0.0, 10, 8);
         addPW.SetDamage(0.0, 9);
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 9, 0);
+        addPW.SetBookReference( "Tech Manual" );
+        addPW.SetChatName( "HDPD" );
         PhysicalWeapons.add(addPW);
         
         // Mining Drill
@@ -979,10 +942,12 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new IndustrialPhysicalWeapon("Mining Drill","Mining Drill", "MiningDrill", m, a);
+        addPW = new IndustrialPhysicalWeapon("Mining Drill","Mining Drill","Mining Drill", "MiningDrill", m, a);
         addPW.SetStats(0.0, 0.0, 3, 4);
         addPW.SetDamage(0.0, 4);
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 6, 0);
+        addPW.SetBookReference( "Tech Manual" );
+        addPW.SetChatName( "MngDrl" );
         PhysicalWeapons.add(addPW);
         
         // Rock Cutter
@@ -996,10 +961,12 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new IndustrialPhysicalWeapon("Rock Cutter","Rock Cutter", "RockCutter", m, a);
+        addPW = new IndustrialPhysicalWeapon("Rock Cutter","Rock Cutter","Rock Cutter", "RockCutter", m, a);
         addPW.SetStats(0.0, 0.0, 5, 5);
         addPW.SetDamage(0.0, 5);
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 6, 0);
+        addPW.SetBookReference( "Tech Manual" );
+        addPW.SetChatName( "RckCut" );
         PhysicalWeapons.add(addPW);
 
         // Salvage Arm
@@ -1014,10 +981,12 @@ public class EquipmentFactory {
             a.SetPBMAllowed( true );
             a.SetPIMAllowed( true );
             a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-            addPW = new IndustrialPhysicalWeapon("Salvage Arm","Salvage Arm", "SalvageArm", m, a);
+            addPW = new IndustrialPhysicalWeapon("Salvage Arm","Salvage Arm","Salvage Arm", "SalvageArm", m, a);
             addPW.SetStats(0.0, 0.0, 3, 2);
             addPW.SetDamage(0.0, 0);
             ((IndustrialPhysicalWeapon)addPW).SetSpecials(50000, 0,0);
+            addPW.SetBookReference( "Tech Manual" );
+            addPW.SetChatName( "SlvgArm" );
             PhysicalWeapons.add(addPW);
         }
 
@@ -1032,13 +1001,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new IndustrialPhysicalWeapon("Spot Welder","Spot Welder", "SpotWelder", m, a);
+        addPW = new IndustrialPhysicalWeapon("Spot Welder","Spot Welder","Spot Welder", "SpotWelder", m, a);
         addPW.SetStats(0.0, 0.0, 2, 1);
         addPW.SetDamage(0.0, 5);
         addPW.SetHeat( 2 );
         addPW.SetRequirements( false, false, true );
         addPW.SetPWClass( PhysicalWeapon.PW_CLASS_SPOTWELDER );
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(75000, 5, 0);
+        addPW.SetBookReference( "Tech Manual" );
+        addPW.SetChatName( "SptWeld" );
         PhysicalWeapons.add(addPW);
         
         // Wrecking Ball
@@ -1052,10 +1023,12 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addPW = new IndustrialPhysicalWeapon("Wrecking Ball","Wrecking Ball", "WreckingBall", m, a);
+        addPW = new IndustrialPhysicalWeapon("Wrecking Ball","Wrecking Ball","Wrecking Ball", "WreckingBall", m, a);
         addPW.SetStats(0.0, 0.0, 4, 5);
         addPW.SetDamage(0.0, 8);
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(80000, 8,0);
+        addPW.SetBookReference( "Tech Manual" );
+        addPW.SetChatName( "WrkBll" );
         PhysicalWeapons.add(addPW);
     }
 
@@ -1073,13 +1046,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("A-Pod","A-Pod", "PD", a);
+        addEQ = new Equipment( "Anti-Personnel Pod", "A-Pod","A-Pod", "PD", a);
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("AntiPersonnelPod");
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(0);
         addEQ.SetStats(1, 0.5, 1500.0, 0.0, 1.0, "OS/AI");
         addEQ.SetAllocs(false, false, false, false, true);
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "APod" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_BOTH );
@@ -1092,12 +1067,14 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("B-Pod","B-Pod", "PD", a);
+        addEQ = new Equipment("Anti-BattleArmor Pod", "B-Pod","B-Pod", "PD", a);
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("BPod");
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(0);
         addEQ.SetStats(1, 1.0, 2500.0, 0.0, 2.0, "OS/AI");
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "BPod" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -1107,13 +1084,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("M-Pod","M-Pod", "PD", a );
+        addEQ = new Equipment("Anti-Mech Pod", "M-Pod","M-Pod", "PD", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("ISMPod");
         addEQ.SetRange(1, 2, 3);
         addEQ.SetHeat(0);
         addEQ.SetStats(1, 1.0, 6000.0, 5.0, 0.0, "C/V/X/OS");
         addEQ.SetMountableRear(true);
+        addEQ.SetBookReference( "Tactical Operations" );
+        addEQ.SetChatName( "MPod" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_BOTH );
@@ -1126,12 +1105,14 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Angel ECM","Angel ECM", "E", a );
+        addEQ = new Equipment("Angel Electronic Countermeasure Suite", "Angel ECM","Angel ECM", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("AngelECM");
         addEQ.SetRange(0, 0, 6);
         addEQ.SetHeat(0);
         addEQ.SetStats(2, 2.0, 750000.0, 0.0, 100.0, "-");
+        addEQ.SetBookReference( "Tactical Operations" );
+        addEQ.SetChatName( "AECM" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -1141,13 +1122,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Anti-Missile System","(IS) Anti-Missile System", "PD", a );
+        addEQ = new Equipment("Anti-Missile System", "(IS) Anti-Missile System","Anti-Missile System", "PD", a );
         addEQ.SetAmmo(true, 12, 501);
         addEQ.SetMegaMekName("ISAntiMissileSystem");
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(1);
         addEQ.SetStats(1, 0.5, 100000.0, 0.0, 32.0, "-");
         addEQ.SetMountableRear(true);
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "AMS" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_CLAN );
@@ -1157,13 +1140,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Anti-Missile System","(CL) Anti-Missile System", "PD", a );
+        addEQ = new Equipment("Anti-Missile System","(CL) Anti-Missile System", "Anti-Missile System", "PD", a );
         addEQ.SetAmmo(true, 24, 502);
         addEQ.SetMegaMekName("CLAntiMissileSystem");
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(1);
         addEQ.SetStats(1, 0.5, 100000.0, 0.0, 32.0, "-");
         addEQ.SetMountableRear(true);
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "AMS" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -1173,13 +1158,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Laser Anti-Missile System","(IS) Laser Anti-Missile System", "PD", a );
+        addEQ = new Equipment("Laser Anti-Missile System","(IS) Laser Anti-Missile System", "Laser Anti-Missile System", "PD", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("ISLaserAntiMissileSystem");
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(7);
         addEQ.SetStats(2, 1.5, 225000.0, 0.0, 45.0, "-");
         addEQ.SetMountableRear(true);
+        addEQ.SetBookReference( "Tactical Operations" );
+        addEQ.SetChatName( "LAMS" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_CLAN );
@@ -1189,13 +1176,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Laser Anti-Missile System","(CL) Laser Anti-Missile System", "PD", a );
+        addEQ = new Equipment("Laser Anti-Missile System","(CL) Laser Anti-Missile System", "Laser Anti-Missile System", "PD", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("CLLaserAntiMissileSystem");
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(5);
         addEQ.SetStats(1, 1.0, 225000.0, 0.0, 45.0, "-");
         addEQ.SetMountableRear(true);
+        addEQ.SetBookReference( "Tactical Operations" );
+        addEQ.SetChatName( "LAMS" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -1205,12 +1194,14 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Beagle Active Probe","Beagle Active Probe", "E", a );
+        addEQ = new Equipment("Beagle Active Probe", "Beagle Active Probe","Beagle Active Probe", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("ISBeagleActiveProbe");
         addEQ.SetRange(0, 0, 4);
         addEQ.SetHeat(0);
         addEQ.SetStats(2, 1.5, 200000.0, 0.0, 10.0, "-");
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "BAP" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_CLAN );
@@ -1220,12 +1211,14 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Active Probe","Active Probe", "E", a );
+        addEQ = new Equipment("Active Probe", "Active Probe","Active Probe", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("CLActiveProbe");
         addEQ.SetRange(0, 0, 5);
         addEQ.SetHeat(0);
         addEQ.SetStats(1, 1.0, 200000.0, 0.0, 12.0, "-");
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "BAP" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_CLAN );
@@ -1235,12 +1228,14 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Light Active Probe","Light Active Probe", "Light Active Probe", a );
+        addEQ = new Equipment("Light Active Probe","Light Active Probe","Light Active Probe", "Light Active Probe", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("LightActiveProbe");
         addEQ.SetRange(0, 0, 3);
         addEQ.SetHeat(0);
         addEQ.SetStats(1, 0.5, 50000.0, 0.0, 7.0, "-");
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "LAP" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -1250,12 +1245,14 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Bloodhound Active Probe","Bloodhound Active Probe", "E", a );
+        addEQ = new Equipment("Bloodhound Active Probe","Bloodhound Active Probe","Bloodhound Active Probe", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("ISBloodhoundActiveProbe");
         addEQ.SetRange(0, 0, 8);
         addEQ.SetHeat(0);
         addEQ.SetStats(3, 2.0, 500000.0, 0.0, 25.0, "-");
+        addEQ.SetBookReference( "Tactical Operations" );
+        addEQ.SetChatName( "BlAP" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -1265,13 +1262,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("C3 Computer (Master)","C3 Computer (Master)", "E", a );
+        addEQ = new Equipment("C3 Computer (Master)","C3 Computer (Master)","C3 Computer (Master)", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("ISC3MasterComputer");
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(0);
         addEQ.SetStats(5, 5.0, 1500000.0, 0.0, 0.0, "-");
         addEQ.SetExclusions(new Exclusion(new String[]{"Improved C3 Computer", "Null Signature System", "Void Signature System"}, "C3 Computer (Master)"));
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "C3M" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -1281,13 +1280,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("C3 Computer (Slave)","C3 Computer (Slave)", "E", a );
+        addEQ = new Equipment("C3 Computer (Slave)","C3 Computer (Slave)","C3 Computer (Slave)", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("ISC3SlaveUnit");
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(0);
         addEQ.SetStats(1, 1.0, 250000.0, 0.0, 0.0, "-");
         addEQ.SetExclusions(new Exclusion(new String[]{"Improved C3 Computer", "Null Signature System", "Void Signature System"}, "C3 Computer (Slave)"));
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "C3S" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -1297,13 +1298,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Improved C3 Computer", "Improved C3 Computer","E", a );
+        addEQ = new Equipment("Improved C3 Computer","Improved C3 Computer", "Improved C3 Computer","E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("ISImprovedC3CPU");
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(0);
         addEQ.SetStats(2, 2.5, 750000.0, 0.0, 0.0, "-");
         addEQ.SetExclusions(new Exclusion(new String[]{"C3 Computer (Master)", "C3 Computer (Slave)", "Null Signature System", "Void Signature System"}, "Improved C3 Computer"));
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "iC3" );
         Equipment.add(addEQ);
 
 	// Birdie
@@ -1314,13 +1317,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("C3 Boosted Computer (Master)","C3 Boosted Computer (Master)", "E", a );
+        addEQ = new Equipment("C3 Boosted Computer (Master)","C3 Boosted Computer (Master)","C3 Boosted Computer (Master)", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("ISBC3MasterComputer");
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(0);
         addEQ.SetStats(6, 6.0, 3000000.0, 0.0, 0.0, "CE/T");
         addEQ.SetExclusions(new Exclusion(new String[]{"Improved C3 Computer", "Null Signature System", "Void Signature System"}, "C3 Boosted Computer (Master)"));
+        addEQ.SetBookReference( "Tactical Operations" );
+        addEQ.SetChatName( "BC3M" );
         Equipment.add(addEQ);
 
 	// Birdie
@@ -1331,13 +1336,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("C3 Boosted Computer (Slave)","C3 Boosted Computer (Slave)", "E", a );
+        addEQ = new Equipment("C3 Boosted Computer (Slave)","C3 Boosted Computer (Slave)","C3 Boosted Computer (Slave)", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("ISBC3SlaveUnit");
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(0);
         addEQ.SetStats(2, 3.0, 500000.0, 0.0, 0.0, "CE/T");
         addEQ.SetExclusions(new Exclusion(new String[]{"Improved C3 Computer", "Null Signature System", "Void Signature System"}, "C3 Boosted Computer (Slave)"));
+        addEQ.SetBookReference( "Tactical Operations" );
+        addEQ.SetChatName( "BC3S" );
         Equipment.add(addEQ);
 
 	// Birdie
@@ -1348,13 +1355,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("C3 Emergency Master","C3 Emergency Master", "E", a );
+        addEQ = new Equipment("C3 Emergency Master","C3 Emergency Master","C3 Emergency Master", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("ISEC3MasterComputer");
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(0);
         addEQ.SetStats(2, 2.0, 2800000.0, 0.0, 0.0, "T");
         addEQ.SetExclusions(new Exclusion(new String[]{"Improved C3 Computer", "Null Signature System", "Void Signature System"}, "C3 Emergency Master"));
+        addEQ.SetBookReference( "Tactical Operations" );
+        addEQ.SetChatName( "EC3M" );
         Equipment.add(addEQ);
 
 	// Birdie
@@ -1365,13 +1374,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("C3 Remote Sensor Launcher","C3 Remote Sensor Launcher", "E", a );
+        addEQ = new Equipment("C3 Remote Sensor Launcher","C3 Remote Sensor Launcher","C3 Remote Sensor Launcher", "E", a );
         addEQ.SetAmmo(true, 4, 507);
         addEQ.SetMegaMekName("C3RemoteSensorLauncher");
         addEQ.SetRange(3, 6, 9);
         addEQ.SetHeat(0);
         addEQ.SetStats(3, 4.0, 400000.0, 30.0, 0.0, "M");
         addEQ.SetMountableRear(true);
+        addEQ.SetBookReference( "Tactical Operations" );
+        addEQ.SetChatName( "C3RLnch" );
         Equipment.add(addEQ);
 
 	// Birdie
@@ -1382,13 +1393,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Chaff Pod","Chaff Pod", "E", a );
+        addEQ = new Equipment("Chaff Pod","Chaff Pod","Chaff Pod", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("ChaffPod");
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(0);
         addEQ.SetStats(1, 1.0, 2000.0, 0.0, 19.0, "OS/PD");
 	addEQ.SetExplosive( true );        
+        addEQ.SetBookReference( "Tactical Operations" );
+        addEQ.SetChatName( "ChfPd" );
 	Equipment.add(addEQ);
 	
         // Birdie
@@ -1402,12 +1415,14 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Collapsible Command Module (CCM)","Collapsible Command Module (CCM)", "E", a );
+        addEQ = new Equipment("Collapsible Command Module (CCM)","Collapsible Command Module (CCM)","Collapsible Command Module (CCM)", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("CollapsibleCommandModule");
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(0);
         addEQ.SetStats(12, 16.0, 500000.0, 0.0, 0.0, "-");
+        addEQ.SetBookReference( "Tactical Operations" );
+        addEQ.SetChatName( "CCM" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_BOTH );
@@ -1420,10 +1435,12 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Communications Equipment","Communications Equipment", "E", a );
+        addEQ = new Equipment("Communications Equipment","Communications Equipment","Communications Equipment", "E", a );
         addEQ.SetMegaMekName("CommunicationsEquipment");
         addEQ.SetStats( 1, 1, 0, 0, 0, "-" );
         addEQ.SetVariableSize( true, 1.0, 12.0, 1.0, 1.0, 10000.0 );
+        addEQ.SetBookReference( "Tactical Operations" );
+        addEQ.SetChatName( "CommEqp" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_BOTH );
@@ -1436,13 +1453,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment( "Coolant Pod", "Coolant Pod","PE", a );
+        addEQ = new Equipment( "Coolant Pod", "Coolant Pod", "Coolant Pod","PE", a );
         addEQ.SetAmmo( false, 0, 0 );
         addEQ.SetMegaMekName( "CoolantPod" );
         addEQ.SetRange( 0, 0, 0 );
         addEQ.SetHeat( 0 );
         addEQ.SetStats( 1, 1.0, 50000.0, 0.0, 0.0, "OS, X" );
         addEQ.SetExplosive( true );
+        addEQ.SetBookReference( "Tactical Operations" );
+        addEQ.SetChatName( "CoolPd" );
         Equipment.add( addEQ );
 
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -1452,12 +1471,14 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Electronic Warfare Equipment","EW Equipment", "E", a );
+        addEQ = new Equipment("Electronic Warfare Equipment","Electronic Warfare Equipment","EW Equipment", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("EWEquipment");
         addEQ.SetRange( 0, 0, 3 );
         addEQ.SetHeat( 0 );
         addEQ.SetStats( 4, 7.5, 500000.0, 8.0, 31.0, "-");
+        addEQ.SetBookReference( "Tactical Operations" );
+        addEQ.SetChatName( "EWEqp" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_BOTH );
@@ -1470,7 +1491,7 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Ground Mobile HPG","Ground Mobile HPG", "PE", a );
+        addEQ = new Equipment("Ground Mobile Hyper Pulse Generator","Ground Mobile HPG","Ground Mobile HPG", "PE", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("GroundMobileHPG");
         addEQ.SetRange(0, 0, 0);
@@ -1478,6 +1499,8 @@ public class EquipmentFactory {
         addEQ.SetAllocs(false, true, true, false, false);
         addEQ.SetSplitable(true);
         addEQ.SetStats(12, 12.0, 4000000000.0, 0.0, 0.0, "-");
+        addEQ.SetBookReference( "Tactical Operations" );
+        addEQ.SetChatName( "HPG" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -1487,12 +1510,14 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Guardian ECM Suite","Guardian ECM Suite", "E", a );
+        addEQ = new Equipment("Guardian Electronic Countermeasure Suite","Guardian ECM Suite","Guardian ECM Suite", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("ISGuardianECM");
         addEQ.SetRange(0, 0, 6);
         addEQ.SetHeat(0);
         addEQ.SetStats(2, 1.5, 200000.0, 0.0, 61.0, "-");
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "ECM" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_CLAN );
@@ -1502,12 +1527,14 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("ECM Suite","ECM Suite", "E", a );
+        addEQ = new Equipment("Electronic Countermeasure Suite", "ECM Suite","ECM Suite", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("CLECMSuite");
         addEQ.SetRange(0, 0, 6);
         addEQ.SetHeat(0);
         addEQ.SetStats(1, 1.0, 200000.0, 0.0, 61.0, "-");
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "ECM" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_BOTH );
@@ -1520,12 +1547,14 @@ public class EquipmentFactory {
         a.SetCLCodes( 'E', 'X', 'X', 'E');
         a.SetCLDates( 3056, 3059, true, 3059, 0, 0, false, false );
         a.SetCLFactions( "CDS", "CDS", "", "" );
-        addEQ = new Equipment("HarJel","HarJel", "PE", a );
+        addEQ = new Equipment("HarJel","HarJel","HarJel", "PE", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("HarJel");
         addEQ.SetRange(0, 0, 0);
         addEQ.SetHeat(0);
         addEQ.SetStats(1, 1.0, 120000.0, 0.0, 0.0, "-");
+        addEQ.SetBookReference( "Tactical Operations" );
+        addEQ.SetChatName( "HrJl" );
         Equipment.add( addEQ );
 
         Equipment.add( new ModularArmor() );
@@ -1540,13 +1569,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("TAG","TAG", "E", a );
+        addEQ = new Equipment("Target Acquisition Gear","TAG","TAG", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("TAG");
         addEQ.SetRange(5, 9, 15);
         addEQ.SetHeat(0);
         addEQ.SetStats(1, 1.0, 50000.0, 0.0, 0.0, "-");
         addEQ.SetMountableRear(true);
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "TAG" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_CLAN );
@@ -1556,13 +1587,15 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Light TAG","Light TAG", "E", a );
+        addEQ = new Equipment("Light Target Acquisition Gear","Light TAG","Light TAG", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("CLLightTAG");
         addEQ.SetRange(3, 6, 9);
         addEQ.SetHeat(0);
         addEQ.SetStats(1, 0.5, 40000.0, 0.0, 0.0, "-");
         addEQ.SetMountableRear(true);
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "LTAG" );
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_CLAN );
@@ -1572,12 +1605,14 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Watchdog CEWS","Watchdog CEWS", "E", a );
+        addEQ = new Equipment("Watchdog Composite Electronic Warfare System","Watchdog CEWS","Watchdog CEWS", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("CLWatchdogECM");
         addEQ.SetRange(0, 0, 4);
         addEQ.SetHeat(0);
         addEQ.SetStats(2, 1.5, 600000.0, 7.0, 61.0, "-");
+        addEQ.SetBookReference( "Tactical Operations" );
+        addEQ.SetChatName( "WDCEWS" );
         Equipment.add(addEQ);
 
     }
@@ -1598,11 +1633,13 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new IndustrialEquipment("Bridgelayer, Light","Bridgelayer, Light", "IE", a, new BridgelayerValidator(), "Bipedal Mechs cannot carry bridgelayers.");
+        addEQ = new IndustrialEquipment("Bridgelayer, Light","Bridgelayer, Light","Bridgelayer, Light", "IE", a, new BridgelayerValidator(), "Bipedal Mechs cannot carry bridgelayers.");
         addEQ.SetMegaMekName( "LightBridgelayer");
         addEQ.SetStats(2, 1, 40000, 0, 5, "-");
         addEQ.SetAllocs(false, false, true, false, false);
         addEQ.SetMountableRear(true);
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "LtBrgLyr" );
         IndustrialEquipment.add(addEQ);
 
         // Medium Bridgelayer
@@ -1616,11 +1653,13 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new IndustrialEquipment("Bridgelayer, Medium","Bridgelayer, Medium", "IE", a, new BridgelayerValidator(), "Bipedal Mechs cannot carry bridgelayers.");
+        addEQ = new IndustrialEquipment("Bridgelayer, Medium","Bridgelayer, Medium","Bridgelayer, Medium", "IE", a, new BridgelayerValidator(), "Bipedal Mechs cannot carry bridgelayers.");
         addEQ.SetMegaMekName( "MediumBridgelayer");
         addEQ.SetStats(4, 2, 75000, 0, 10, "-");
         addEQ.SetAllocs(false, false, true, false, false);
         addEQ.SetMountableRear(true);
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "MdBrgLyr" );
         IndustrialEquipment.add(addEQ);
 
         // Heavy Bridgelayer
@@ -1634,11 +1673,13 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new IndustrialEquipment( "Bridgelayer, Heavy","Bridgelayer, Heavy", "IE", a, new BridgelayerValidator(), "Bipedal Mechs cannot carry bridgelayers.");
+        addEQ = new IndustrialEquipment( "Bridgelayer, Heavy","Bridgelayer, Heavy","Bridgelayer, Heavy", "IE", a, new BridgelayerValidator(), "Bipedal Mechs cannot carry bridgelayers.");
         addEQ.SetMegaMekName( "HeavyBridgelayer");
         addEQ.SetStats(12, 6, 100000, 0, 20, "-");
         addEQ.SetAllocs(false, false, true, false, false);
         addEQ.SetMountableRear(true);
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "HvBrgLyr" );
         IndustrialEquipment.add(addEQ);
 
         // Fluid Suction System, Standard
@@ -1652,11 +1693,13 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new IndustrialEquipment("Fluid Suction System, Standard","Fluid Suction System, Standard", "IE", a, new SimpleValidator(), "");
+        addEQ = new IndustrialEquipment("Fluid Suction System, Standard","Fluid Suction System, Standard","Fluid Suction System, Standard", "IE", a, new SimpleValidator(), "");
         addEQ.SetMegaMekName("StandardFluidSuctionSystem");
         addEQ.SetStats(1, 1, 25000, 0, 0, "-");
         addEQ.SetAmmo(true, 10, 0);
         addEQ.SetMountableRear(true);
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "FldSuk" );
         IndustrialEquipment.add(addEQ);
 
         // Fluid Suction System, Light
@@ -1670,11 +1713,13 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new IndustrialEquipment("Fluid Suction System, Light","Fluid Suction System, Light", "IE", a, new SimpleValidator(), "");
+        addEQ = new IndustrialEquipment("Fluid Suction System, Light","Fluid Suction System, Light","Fluid Suction System, Light", "IE", a, new SimpleValidator(), "");
         addEQ.SetMegaMekName("LightFluidSuctionSystem");
         addEQ.SetStats(1, 0.5, 1000, 0, 0, "-");
         addEQ.SetAmmo(true, 10, 0);
         addEQ.SetMountableRear(true);
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "LFldSuk" );
         IndustrialEquipment.add(addEQ);
 
         // Lift Hoist
@@ -1688,11 +1733,13 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new IndustrialEquipment("Lift Hoist","Lift Hoist", "IE", a, new LiftHoistValidator(), "Mech cannot have more than 2 lift hoists.");
+        addEQ = new IndustrialEquipment("Lift Hoist","Lift Hoist","Lift Hoist", "IE", a, new LiftHoistValidator(), "Mech cannot have more than 2 lift hoists.");
         addEQ.SetMegaMekName("LiftHoist");
         addEQ.SetStats(3, 3, 50000, 0, 0, "-");
         addEQ.SetAllocs(false, false, true, true, false);
         addEQ.SetMountableRear(true);
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "LftHst" );
         IndustrialEquipment.add(addEQ);
 
         // Nail/Rivet Gun
@@ -1706,12 +1753,14 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new IndustrialEquipment("Nail Gun","Nail Gun", "IE", a, new SimpleValidator(), "");
+        addEQ = new IndustrialEquipment("Nail Gun","Nail Gun","Nail Gun", "IE", a, new SimpleValidator(), "");
         addEQ.SetMegaMekName("NailGun");
         addEQ.SetStats(1, 0.5, 7000, 1, 0, "-");
         addEQ.SetAmmo(true, 300, 503);
         addEQ.SetMountableRear(true);
         addEQ.SetRange(1, 0, 0);
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "NlGn" );
         IndustrialEquipment.add(addEQ);
 
         // Nail/Rivet Gun
@@ -1725,12 +1774,14 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new IndustrialEquipment("Rivet Gun","Rivet Gun", "IE", a, new SimpleValidator(), "");
+        addEQ = new IndustrialEquipment("Rivet Gun","Rivet Gun","Rivet Gun", "IE", a, new SimpleValidator(), "");
         addEQ.SetMegaMekName("RivetGun");
         addEQ.SetStats(1, 0.5, 7000, 1, 0, "-");
         addEQ.SetAmmo(true, 300, 504);
         addEQ.SetMountableRear(true);
         addEQ.SetRange(1, 0, 0);
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "RvtGn" );
         IndustrialEquipment.add(addEQ);
 
         // Remote Sensor Dispenser
@@ -1744,11 +1795,13 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new IndustrialEquipment("Remote Sensor Dispenser", "Remote Sensor Dispenser","IE", a, new SimpleValidator(), "");
+        addEQ = new IndustrialEquipment("Remote Sensor Dispenser", "Remote Sensor Dispenser", "Remote Sensor Dispenser","IE", a, new SimpleValidator(), "");
         addEQ.SetMegaMekName("RemoteSensorDispenser");
         addEQ.SetStats(1, 0.5, 30000, 0, 0, "-");
         addEQ.SetAmmo(true, 60, 505);
         addEQ.SetMountableRear(true);
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "RSnsDisp" );
         IndustrialEquipment.add(addEQ);
 
         // Searchlight
@@ -1762,11 +1815,13 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new IndustrialEquipment("Searchlight","Searchlight", "IE", a, new SimpleValidator(), "");
+        addEQ = new IndustrialEquipment("Searchlight","Searchlight","Searchlight", "IE", a, new SimpleValidator(), "");
         addEQ.SetMegaMekName("Searchlight");
         addEQ.SetStats(1, 0.5, 2000, 0, 0, "-");
         addEQ.SetRange(0, 0, 170);
         addEQ.SetMountableRear(true);
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "SrchLt" );
         IndustrialEquipment.add(addEQ);
 
         // Sprayer
@@ -1780,12 +1835,14 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new IndustrialEquipment("Sprayer","Sprayer", "IE", a, new SimpleValidator(), "");
+        addEQ = new IndustrialEquipment("Sprayer","Sprayer","Sprayer", "IE", a, new SimpleValidator(), "");
         addEQ.SetMegaMekName("Sprayer");
         addEQ.SetStats(1, 0.5, 1000, 0, 0, "-");
         addEQ.SetRange(0, 0, 1);
         addEQ.SetAmmo(true, 10, 506);
         addEQ.SetMountableRear(true);
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "Spryr" );
         IndustrialEquipment.add(addEQ);
 
         // Cargo Container
@@ -1799,9 +1856,11 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new IndustrialEquipment("Cargo Container","Cargo Container", "IE", a, new SimpleValidator(), "");
+        addEQ = new IndustrialEquipment("Cargo Container","Cargo Container","Cargo Container", "IE", a, new SimpleValidator(), "");
         addEQ.SetMegaMekName("CargoContainer");
         addEQ.SetStats(1, 10, 0, 0, 0, "-");
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "CrgCntnr" );
         IndustrialEquipment.add(addEQ);
 
         // Cargo, Standard
@@ -1815,10 +1874,12 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Cargo, Standard","Cargo, Standard", "IE", a);
+        addEQ = new Equipment("Cargo, Standard","Cargo, Standard","Cargo, Standard", "IE", a);
         addEQ.SetMegaMekName("CargoStandard");
         addEQ.SetStats(1, 0.5, 0, 0, 0, "-");
         addEQ.SetVariableSize( true, 0.5, 12.0, 0.5, 1.0, 0.0 );
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "StndrdCrgo" );
         IndustrialEquipment.add(addEQ);
 
         // Cargo, Standard
@@ -1832,10 +1893,12 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Cargo, Liquid","Cargo, Liquid", "IE", a);
+        addEQ = new Equipment("Cargo, Liquid","Cargo, Liquid","Cargo, Liquid", "IE", a);
         addEQ.SetMegaMekName("CargoLiquid");
         addEQ.SetStats(1, 0.5, 0, 0, 0, "-");
         addEQ.SetVariableSize( true, 0.5, 12.0, 0.5, 1.0, 100.0 );
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "LqdCrgo" );
         IndustrialEquipment.add(addEQ);
 
         // Cargo, Standard
@@ -1849,10 +1912,12 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Cargo, Insulated","Cargo, Insulated", "IE", a);
+        addEQ = new Equipment("Cargo, Insulated","Cargo, Insulated","Cargo, Insulated", "IE", a);
         addEQ.SetMegaMekName("CargoInsulated");
         addEQ.SetStats(1, 0.5, 0, 0, 0, "-");
         addEQ.SetVariableSize( true, 0.5, 12.0, 0.5, 1.0, 250.0 );
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "InslCrgo" );
         IndustrialEquipment.add(addEQ);
 
         // Cargo, Livestock Maelwys
@@ -1866,10 +1931,12 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Cargo, Livestock","Cargo, Livestock", "IE", a);
+        addEQ = new Equipment("Cargo, Livestock","Cargo, Livestock","Cargo, Livestock", "IE", a);
         addEQ.SetMegaMekName("CargoLivestock");
         addEQ.SetStats(1, 0.5, 0, 0, 0, "-");
         addEQ.SetVariableSize( true, 0.5, 12.0, 0.5, 1.0, 2500.0 );
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "LvStkCrgo" );
         IndustrialEquipment.add(addEQ);
     }
 
@@ -1899,7 +1966,7 @@ public class EquipmentFactory {
             Vector currentEquipment = m.GetLoadout().GetEquipment();
             for (int i = 0, c = 0; i < currentEquipment.size(); ++i) {
                 abPlaceable currentItem = (abPlaceable) currentEquipment.get(i);
-                if (currentItem.GetCritName().equals("Lift Hoist")) {
+                if (currentItem.LookupName().equals("Lift Hoist")) {
                     ++c;
                     if (c == 2) {
                         return false;

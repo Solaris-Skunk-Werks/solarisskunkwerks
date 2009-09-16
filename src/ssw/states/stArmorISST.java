@@ -41,20 +41,28 @@ public class stArmorISST implements ifArmor, ifState {
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Stealth Armor";
     }
 
-    public String GetCritName() {
-        return "Stealth";
-    }
-
-    public String GetMMName() {
+    public String CritName() {
         return "Stealth Armor";
     }
 
-    public String GetPrintName() {
-        return GetCritName();
+    public String LookupName() {
+        return "Stealth Armor";
+    }
+
+    public String ChatName() {
+        return "Stlth Armor";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
+        return "Stealth Armor";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public boolean HasCounterpart() {

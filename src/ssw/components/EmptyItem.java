@@ -49,17 +49,28 @@ public class EmptyItem extends abPlaceable {
         return false;
     }
 
-    // returns the name of this item in the Loadout.
-    public String GetCritName() {
+    public String ActualName() {
+        return "An empty critical slot.";
+    }
+
+    public String CritName() {
         return "Roll Again";
     }
 
-    public String GetLookupName() {
-        return GetCritName();
+    public String LookupName() {
+        return "Roll Again";
     }
 
-    public String GetMMName( boolean UseRear ) {
+    public String ChatName() {
+        return "";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "-Empty-";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     // returns the number of crits this item takes in the Loadout.

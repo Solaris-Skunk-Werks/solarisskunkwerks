@@ -106,8 +106,12 @@ public class JumpJetFactory {
         BaseLoadoutNumJJ = j;
     }
 
-    public String GetLookupName() {
-        return ((ifState) CurConfig).GetLookupName();
+    public String LookupName() {
+        return ((ifState) CurConfig).LookupName();
+    }
+
+    public String ChatName() {
+        return CurConfig.ChatName();
     }
 
     public void IncrementNumJJ() {

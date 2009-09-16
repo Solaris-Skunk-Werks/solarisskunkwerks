@@ -49,7 +49,7 @@ public class EquipmentCollection {
     }
 
     public boolean SameType( abPlaceable p ) {
-        if( ((abPlaceable) equips.get( 0 )).GetLookupName().equals( p.GetLookupName() ) ) {
+        if( ((abPlaceable) equips.get( 0 )).LookupName().equals( p.LookupName() ) ) {
             return true;
         } else {
             return false;
@@ -101,15 +101,15 @@ public class EquipmentCollection {
             if( Owner.GetTechBase() == AvailableCode.TECH_BOTH ) {
                 if( equips.get( 0 ) instanceof Equipment ) {
                     if( ((Equipment) equips.get( 0 )).IsVariableSize() ) {
-                        return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).GetCritName();
+                        return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).CritName();
                     } else {
-                        return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).GetLookupName();
+                        return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).LookupName();
                     }
                 } else {
-                    return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).GetLookupName();
+                    return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).LookupName();
                 }
             } else {
-                return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).GetCritName();
+                return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).CritName();
             }
         }
     }

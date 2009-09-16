@@ -33,14 +33,10 @@ import ssw.components.*;
 
 public class stCockpitISPrimitive implements ifCockpit, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
-    private final static SimplePlaceable Sensors = new SimplePlaceable( "Sensors",
-        "Sensors", 1, true, AC );
-    private final static SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support",
-        "Life Support", 1, true, AC );
-    private final static SimplePlaceable SecondSensors = new SimplePlaceable( "Sensors",
-        "Sensors", 1, true, AC );
-    private final static SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support",
-        "Life Support", 1, true, AC );
+    private final static SimplePlaceable Sensors = new SimplePlaceable( "Sensors", "Sensors", "Sensors", "Sensors", "Tech Manual", 1, true, AC );
+    private final static SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
+    private final static SimplePlaceable SecondSensors = new SimplePlaceable( "Sensors", "Sensors", "Sensors", "Sensors", "Tech Manual", 1, true, AC );
+    private final static SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
 
     public stCockpitISPrimitive() {
         AC.SetISCodes( 'C', 'E', 'X', 'F' );
@@ -84,16 +80,28 @@ public class stCockpitISPrimitive implements ifCockpit, ifState {
         return SecondSensors;
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Primitive Cockpit";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "Primitive Cockpit";
     }
-    
-    public String GetMMName() {
+
+    public String LookupName() {
+        return "Primitive Cockpit";
+    }
+
+    public String ChatName() {
+        return "Prm Cockpit";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Cockpit";
+    }
+
+    public String BookReference() {
+        return "Jihad Secrets: The Blake Documents";
     }
 
     public String GetReportName() {

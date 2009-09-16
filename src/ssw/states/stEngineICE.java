@@ -81,16 +81,28 @@ public class stEngineICE implements ifEngine, ifState {
         }
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
+        return "Internal Combustion Engine";
+    }
+
+    public String CritName() {
         return "I.C.E. Engine";
     }
 
-    public String GetCritName() {
+    public String LookupName() {
         return "I.C.E. Engine";
     }
-    
-    public String GetMMName() {
+
+    public String ChatName() {
+        return "ICE";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "I.C.E.";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public double GetCost( int MechTonnage, int Rating ) {

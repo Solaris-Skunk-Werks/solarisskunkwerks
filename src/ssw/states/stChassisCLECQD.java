@@ -72,16 +72,28 @@ public class stChassisCLECQD implements ifChassis, ifState {
         return 4;
     }
     
-    public String GetLookupName() {
+    public String ActualName() {
+        return "Endo-Composite Structure (Quad)";
+    }
+
+    public String CritName() {
         return "Endo-Composite";
     }
 
-    public String GetCritName() {
+    public String LookupName() {
         return "Endo-Composite";
     }
 
-    public String GetMMName() {
+    public String ChatName() {
+        return "E-Comp QD";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Endo-Composite";
+    }
+
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     public double GetStrucTon( int Tonnage ) {

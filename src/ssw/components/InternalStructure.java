@@ -179,16 +179,28 @@ public class InternalStructure extends abPlaceable {
         return Config.GetCrits();
     }
     
-    public String GetCritName() {
-        return Config.GetCritName();
+    public String ActualName() {
+        return Config.ActualName();
     }
 
-    public String GetMMName( boolean UseRear ) {
-        return Config.GetMMName();
+    public String CritName() {
+        return Config.CritName();
     }
 
-    public String GetLookupName() {
-        return ((ifState) Config).GetLookupName();
+    public String LookupName() {
+        return Config.LookupName();
+    }
+
+    public String ChatName() {
+        return Config.ChatName();
+    }
+
+    public String MegaMekName( boolean UseRear ) {
+        return Config.MegaMekName( UseRear );
+    }
+
+    public String BookReference() {
+        return Config.BookReference();
     }
 
     public double GetTonnage() {

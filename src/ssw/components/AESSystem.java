@@ -49,22 +49,32 @@ public class AESSystem extends abPlaceable {
         SetExclusions( new Exclusion( new String[] { "Targeting Computer", "MASC", "TSM" }, "A.E.S." ) );
     }
 
-    @Override
-    public String GetCritName() {
+    public String ActualName() {
+        return "Actuator Enhancement System";
+    }
+
+    public String LookupName() {
+        return CritName();
+    }
+
+    public String CritName() {
         return "A.E.S.";
     }
 
-    public String GetLookupName() {
-        return GetCritName();
+    public String ChatName() {
+        return "AES";
     }
 
-    @Override
-    public String GetMMName( boolean UseRear ) {
+    public String MegaMekName( boolean UseRear ) {
         if( Owner.GetTechBase() >= AvailableCode.TECH_CLAN ) {
             return "CLAES";
         } else {
             return "ISAES";
         }
+    }
+
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     @Override

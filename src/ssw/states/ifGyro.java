@@ -31,11 +31,15 @@ package ssw.states;
 import ssw.components.*;
 
 public interface ifGyro {
+    public String ActualName();
+    public String CritName();
+    public String LookupName();
+    public String ChatName();
+    public String MegaMekName( boolean UseRear );
+    public String BookReference();
     public String GetReportName();
     public double GetTonnage( int rating );
     public int GetCrits();
-    public String GetCritName();
-    public String GetMMName();
     public double GetBVMult();
     public double GetCostMult();
     public AvailableCode GetAvailability();

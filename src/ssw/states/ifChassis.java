@@ -31,9 +31,13 @@ package ssw.states;
 import ssw.components.*;
 
 public interface ifChassis {
+    public String ActualName();
+    public String CritName();
+    public String LookupName();
+    public String ChatName();
+    public String MegaMekName( boolean UseRear );
+    public String BookReference();
     public int GetCrits();
-    public String GetCritName();
-    public String GetMMName();
     public double GetStrucTon( int Tonnage );
     public boolean IsQuad();
     public int GetHeadPoints();

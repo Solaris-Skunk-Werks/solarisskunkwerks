@@ -58,7 +58,7 @@ public class stJumpJetImproved implements ifJumpJetFactory, ifState {
     }
 
     public JumpJet GetJumpJet() {
-        return new JumpJet( "Improved Jump Jet", "ImprovedJump Jet", 2, AC );
+        return new JumpJet( "Improved Jump Jet", "Improved Jump Jet", "Improved Jump Jet", "ImprovedJump Jet", "Tech Manual", 2, AC );
     }
 
     public double GetCost() {
@@ -81,7 +81,11 @@ public class stJumpJetImproved implements ifJumpJetFactory, ifState {
         return null;
     }
 
-    public String GetLookupName() {
+    public String LookupName() {
         return "Improved Jump Jet";
+    }
+
+    public String ChatName() {
+        return "IJJ";
     }
 }

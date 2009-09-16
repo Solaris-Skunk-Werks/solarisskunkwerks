@@ -52,23 +52,53 @@ public class Ammunition extends abPlaceable {
     private boolean Explosive = true,
                     IsCluster = false;
     private AvailableCode AC;
-    private String Name,
-                   PrintName,
+    private String ActualName,
+                   CritName,
                    LookupName,
-                   MegaMekName;
+                   MegaMekName,
+                   BookRef = "";
 
-    public Ammunition( String name, String lookupname, String mname, int idx, AvailableCode a ) {
+    public Ammunition( String actualname, String critname, String lookupname, String mmname, int idx, AvailableCode a ) {
         // some things of note here:
         // Name is the visible name in the program
         // LookupName is the name used when saved to MegaMek
         AC = a;
-        Name = name;
-        // set the print name the same as the critname.  if it needs to be
-        // changed a method is provided.
-        PrintName = name;
+        ActualName = actualname;
+        CritName = critname;
         LookupName = lookupname;
-        MegaMekName = mname;
+        MegaMekName = mmname;
         AmmoIndex = idx;
+    }
+
+    private Ammunition( Ammunition a ) {
+        AC = a.AC.Clone();
+        ActualName = a.ActualName;
+        CritName = a.CritName;
+        LookupName = a.LookupName;
+        MegaMekName = a.MegaMekName;
+        AmmoIndex = a.AmmoIndex;
+        Tonnage = a.Tonnage;
+        Cost = a.Cost;
+        OffBV = a.OffBV;
+        DefBV = a.DefBV;
+        ToHitShort = a.ToHitShort;
+        ToHitMedium = a.ToHitMedium;
+        ToHitLong = a.ToHitLong;
+        damsht = a.damsht;
+        dammed = a.dammed;
+        damlng = a.damlng;
+        IsCluster = a.IsCluster;
+        cluster = a.cluster;
+        group = a.group;
+        minrng = a.minrng;
+        srtrng = a.srtrng;
+        medrng = a.medrng;
+        lngrng = a.lngrng;
+        LotSize = a.LotSize;
+        Explosive = a.Explosive;
+        WeaponClass = a.WeaponClass;
+        FCSType = a.FCSType;
+        BookRef = a.BookRef;
     }
 
     public void SetStats( double tons, double cost, double obv, double dbv ) {
@@ -107,32 +137,38 @@ public class Ammunition extends abPlaceable {
         FCSType = fcsclass;
     }
 
-    public void SetPrintName( String p ) {
-        // for ammos that have huge names you can override the normal name
-        PrintName = p;
+    public void SetBookReference( String b ) {
+        BookRef = b;
     }
 
-    public String GetCritName() {
-        return Name;
+    public String ActualName() {
+        return ActualName;
     }
 
-    public String GetLookupName() {
+    public String CritName() {
+        return CritName;
+    }
+
+    public String LookupName() {
         return LookupName;
     }
 
-    public String GetBasePrintName() {
-        // returns the base printname for cloning purposes
-        return PrintName;
+    public String ChatName() {
+        // ammo isn't included in the chat
+        return "";
     }
 
-    @Override
-    public String GetPrintName() {
-        //return "@" + PrintName.replace( "@ ", "" ) + " (" + GetLotSize() + ")";
-        return PrintName.replace( "@ ", "" );
-    }
-
-    public String GetMMName( boolean UseRear ) {
+    public String MegaMekName( boolean UseRear ) {
         return MegaMekName;
+    }
+
+    public String BookReference() {
+        return BookRef;
+    }
+
+    public String GetBaseCritName() {
+        // returns the base printname for cloning purposes
+        return CritName;
     }
 
     public int GetAmmoIndex() {
@@ -241,12 +277,17 @@ public class Ammunition extends abPlaceable {
         // Ammunition can never be armored
         return false;
     }
+
+    public Ammunition Clone() {
+        return new Ammunition( this );
+    }
+
     public AvailableCode GetAvailability() {
         return AC;
     }
 
     @Override
     public String toString() {
-        return Name;
+        return ActualName;
     }
 }

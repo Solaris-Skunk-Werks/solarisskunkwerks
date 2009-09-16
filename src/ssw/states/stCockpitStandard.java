@@ -36,14 +36,10 @@ import ssw.components.SimplePlaceable;
 
 public class stCockpitStandard implements ifCockpit, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
-    private final static SimplePlaceable Sensors = new SimplePlaceable( "Sensors",
-        "Sensors", 1, true, AC );
-    private final static SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support",
-        "Life Support", 1, true, AC );
-    private final static SimplePlaceable SecondSensors = new SimplePlaceable( "Sensors",
-        "Sensors", 1, true, AC );
-    private final static SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support",
-        "Life Support", 1, true, AC );
+    private final static SimplePlaceable Sensors = new SimplePlaceable( "Sensors", "Sensors", "Sensors", "Sensors", "Tech Manual", 1, true, AC );
+    private final static SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
+    private final static SimplePlaceable SecondSensors = new SimplePlaceable( "Sensors", "Sensors", "Sensors", "Sensors", "Tech Manual", 1, true, AC );
+    private final static SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
 
     public stCockpitStandard() {
         AC.SetISCodes( 'D', 'C', 'C', 'C' );
@@ -88,16 +84,28 @@ public class stCockpitStandard implements ifCockpit, ifState {
         return SecondSensors;
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Standard Cockpit";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "Cockpit";
     }
-    
-    public String GetMMName() {
+
+    public String LookupName() {
+        return "Standard Cockpit";
+    }
+
+    public String ChatName() {
+        return "";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Cockpit";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public String GetReportName() {

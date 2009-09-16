@@ -84,16 +84,28 @@ public class stEnginePrimitiveFission implements ifEngine, ifState {
         }
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Primitive Fission Engine";
     }
 
-    public String GetCritName() {
+    public String CritName() {
+        return "Primitive Fission";
+    }
+
+    public String LookupName() {
         return "Primitive Fission Engine";
     }
-    
-    public String GetMMName() {
+
+    public String ChatName() {
+        return "Pr FIE";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Primitive Fission Engine";
+    }
+
+    public String BookReference() {
+        return "Jihad Secrets: The Blake Documents";
     }
 
     public double GetCost( int MechTonnage, int Rating ) {

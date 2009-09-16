@@ -72,7 +72,7 @@ public class stHeatSinkCLLaser implements ifHeatSinkFactory, ifState {
     }
 
     public HeatSink GetHeatSink() {
-        return new HeatSink( "Laser Heat Sink", "CLLaser Heat Sink", 2, false, AC );
+        return new HeatSink( "Laser Heat Sink", "Laser Heat Sink", "Laser Heat Sink", "CLLaser Heat Sink", "Tactical Operations", 2, false, AC );
     }
 
     public int GetNumCrits() {
@@ -87,7 +87,11 @@ public class stHeatSinkCLLaser implements ifHeatSinkFactory, ifState {
         return null;
     }
 
-    public String GetLookupName() {
+    public String LookupName() {
         return "Laser Heat Sink";
+    }
+
+    public String ChatName() {
+        return "LHS";
     }
 }

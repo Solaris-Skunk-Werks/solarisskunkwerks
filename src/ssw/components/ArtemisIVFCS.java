@@ -59,20 +59,32 @@ public class ArtemisIVFCS extends abPlaceable implements ifMissileGuidance {
         return true;
     }
 
-    public String GetCritName() {
+    public String ActualName() {
         return "Artemis IV FCS";
     }
 
-    public String GetLookupName() {
-        return GetCritName();
+    public String CritName() {
+        return "Artemis IV FCS";
     }
 
-    public String GetMMName( boolean UseRear ) {
+    public String LookupName() {
+        return "Artemis IV FCS";
+    }
+
+    public String ChatName() {
+        return "A-IV";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         if( Owner.GetAvailability().GetTechBase() >= AvailableCode.TECH_CLAN ) {
             return "CLArtemisIV";
         } else {
             return "ISArtemisIV";
         }
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public int NumCrits() {

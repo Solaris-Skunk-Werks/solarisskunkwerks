@@ -123,19 +123,24 @@ public abstract class abPlaceable {
         return false;
     }
 
-    // returns the name of this item in the Loadout.
-    public abstract String GetCritName();
+    // actual name is the Battletech name for the equipment, from the books
+    // we use other names elsewhere because this can get extremely long.
+    public abstract String ActualName();
 
-    // returns the lookup name for this piece of equipment
-    public abstract String GetLookupName();
+    // the lookup name is used when we are trying to find the piece of equipment.
+    public abstract String LookupName();
 
-    // returns the name of this item for printing
-    public String GetPrintName(){
-        return GetCritName();
-    }
+    // the crit name is how the item appears in the loadout when allocated.
+    public abstract String CritName();
 
-    // returns the reporting name for Megamek (needed for compatibility)
-    public abstract String GetMMName(boolean UseRear);
+    // the name to be used when expoerting this equipment to a chat line.
+    public abstract String ChatName();
+
+    // the name to be used when exporting to MegaMek
+    public abstract String MegaMekName( boolean UseRear );
+
+    // reference for the book that the equipment comes from 
+    public abstract String BookReference();
 
     // returns the number of crits this item takes in the Loadout.
     public abstract int NumCrits();

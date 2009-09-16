@@ -77,16 +77,28 @@ public class stEngineISLF implements ifEngine, ifState {
         }
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Light Fusion Engine";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "Light Fusion Engine";
     }
-    
-    public String GetMMName() {
+
+    public String LookupName() {
+        return "Light Fusion Engine";
+    }
+
+    public String ChatName() {
+        return "LFE";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Fusion Engine";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public double GetCost( int MechTonnage, int Rating ) {

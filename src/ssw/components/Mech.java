@@ -29,8 +29,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.components;
 
 import java.util.Enumeration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import ssw.battleforce.*;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -176,9 +174,11 @@ public class Mech implements ifBattleforce {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        NullSig = new MultiSlotSystem( this, "Null Signature System", "Null Signature System", "NullSignatureSystem", 0.0, false, true, 1400000.0, false, AC );
+        NullSig = new MultiSlotSystem( this, "Null Signature System", "Null Signature System", "Null Sig", "NullSignatureSystem", 0.0, false, true, 1400000.0, false, AC );
         NullSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 10, 0.2, 0.0, 0.0, 0.0, true, false ) );
         NullSig.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Void Signature System", "Stealth Armor", "C3" }, "Null Signature System" ) );
+        NullSig.SetBookReference( "Tactical Operations" );
+        NullSig.SetChatName( "NullSig" );
 
         AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
         AC.SetISCodes( 'E', 'F', 'X', 'X' );
@@ -187,9 +187,11 @@ public class Mech implements ifBattleforce {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        Chameleon = new MultiSlotSystem( this, "Chameleon LPS", "Chameleon LPS", "ChameleonLightPolarizationField", 0.0, true, true, 600000.0, false, AC );
+        Chameleon = new MultiSlotSystem( this, "Chameleon LPS", "Chameleon LPS", "Chameleon", "ChameleonLightPolarizationField", 0.0, true, true, 600000.0, false, AC );
         Chameleon.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 6, 0.2, 0.0, 0.0, 0.0, true, false ) );
         Chameleon.SetExclusions( new Exclusion( new String[] { "Void Signature System", "Stealth Armor" }, "Chameleon LPS" ) );
+        Chameleon.SetBookReference( "Tactical Operations" );
+        Chameleon.SetChatName( "Chameleon" );
 
         AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
         AC.SetISCodes( 'E', 'X', 'X', 'F' );
@@ -198,8 +200,10 @@ public class Mech implements ifBattleforce {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        BlueShield = new MultiSlotSystem( this, "Blue Shield PFD", "Blue Shield PFD", "BlueShieldPFD", 3.0, false, true, 1000000.0, false, AC );
+        BlueShield = new MultiSlotSystem( this, "Blue Shield PFD", "Blue Shield PFD", "Blue Shield", "BlueShieldPFD", 3.0, false, true, 1000000.0, false, AC );
         BlueShield.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 0, 0.0, 0.0, 0.2, 0.2, true, false ) );
+        BlueShield.SetBookReference( "Tactical Operations" );
+        BlueShield.SetChatName( "BlueShld" );
 
         AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
         AC.SetISCodes( 'E', 'X', 'X', 'E' );
@@ -208,9 +212,11 @@ public class Mech implements ifBattleforce {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        VoidSig = new MultiSlotSystem( this, "Void Signature System", "Void Signature System", "VoidSignatureSystem", 0.0, false, true, 2000000.0, false, AC );
+        VoidSig = new MultiSlotSystem( this, "Void Signature System", "Void Signature System", "Void Sig", "VoidSignatureSystem", 0.0, false, true, 2000000.0, false, AC );
         VoidSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 10, 0.3, 0.0, 0.0, 0.0, true, false ) );
         VoidSig.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Null Signature System", "Stealth Armor", "C3", "Chameleon LPS" }, "Void Signature System" ) );
+        VoidSig.SetBookReference( "Tactical Operations" );
+        VoidSig.SetChatName( "VoidSig" );
 
         AC = new AvailableCode( AvailableCode.TECH_BOTH );
         AC.SetISCodes( 'C', 'C', 'C', 'C' );
@@ -222,8 +228,10 @@ public class Mech implements ifBattleforce {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        EnviroSealing = new MultiSlotSystem( this, "Environmental Sealing", "Environmental Sealing", "Environmental Sealing", 0.1, false, false, 225.0, true, AC );
+        EnviroSealing = new MultiSlotSystem( this, "Environmental Sealing", "Environmental Sealing", "Env. Sealing", "Environmental Sealing", 0.1, false, false, 225.0, true, AC );
         EnviroSealing.SetWeightBasedOnMechTonnage( true );
+        EnviroSealing.SetBookReference( "Tech Manual" );
+        EnviroSealing.SetChatName( "EnvSlng" );
 
         AC = new AvailableCode( AvailableCode.TECH_BOTH );
         AC.SetISCodes( 'B', 'D', 'E', 'F' );
@@ -235,7 +243,7 @@ public class Mech implements ifBattleforce {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        EjectionSeat = new SimplePlaceable( "Ejection Seat", "EjectionSeat", 1, true, AC );
+        EjectionSeat = new SimplePlaceable( "Ejection Seat", "Ejection Seat", "Ejection Seat", "EjectionSeat", "Tech Manual", 1, true, AC );
         EjectionSeat.SetTonnage( 0.5 );
         EjectionSeat.SetCost( 25000.0 );
 
@@ -261,7 +269,7 @@ public class Mech implements ifBattleforce {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        CommandConsole = new SimplePlaceable( "Command Console", "CommandConsole", 1, true, AC );
+        CommandConsole = new SimplePlaceable( "Command Console", "Command Console", "Command Console", "CommandConsole", "Tactical Operations", 1, true, AC );
         CommandConsole.SetTonnage( 3.0 );
         CommandConsole.SetCost( 500000.0 );
 
@@ -714,8 +722,8 @@ public class Mech implements ifBattleforce {
         boolean llcase2clan = CurLoadout.GetLLCaseII().IsClan();
         boolean rlcase2 = CurLoadout.HasRLCASEII();
         boolean rlcase2clan = CurLoadout.GetRLCaseII().IsClan();
-        String Jumps = GetJumpJets().GetLookupName();
-        String HeatSinks = GetHeatSinks().GetLookupName();
+        String Jumps = GetJumpJets().LookupName();
+        String HeatSinks = GetHeatSinks().LookupName();
 
         // remember how many heat sinks and jump jets we had
         int NumJJ = GetJumpJets().GetNumJJ();
@@ -891,8 +899,8 @@ public class Mech implements ifBattleforce {
         boolean llcase2clan = CurLoadout.GetLLCaseII().IsClan();
         boolean rlcase2 = CurLoadout.HasRLCASEII();
         boolean rlcase2clan = CurLoadout.GetRLCaseII().IsClan();
-        String Jumps = GetJumpJets().GetLookupName();
-        String HeatSinks = GetHeatSinks().GetLookupName();
+        String Jumps = GetJumpJets().LookupName();
+        String HeatSinks = GetHeatSinks().LookupName();
 
         // remember how many heat sinks and jump jets we had
         int NumJJ = GetJumpJets().GetNumJJ();
@@ -1288,39 +1296,37 @@ public class Mech implements ifBattleforce {
         info += GetWalkingMP() + "/";
         info += GetRunningMP();
         if ( GetPhysEnhance().IsMASC() || GetPhysEnhance().IsTSM() ) {
-            info += " (" + GetAdjustedRunningMP(false, true) + ")";
+            info += " (" + GetAdjustedRunningMP( false, true ) + ")";
         }
-        info += "/" + GetAdjustedJumpingMP(false) + " ";
+        info += "/" + GetAdjustedJumpingMP( false ) + " ";
 
         // Engine
-        info += GetEngine().GetPrintName().replace(" Engine", "") + ", ";
-        
-        // Gyro
-        if (!GetGyro().GetCritName().equals("Gyro")) {
-            info += GetGyro().GetCritName() + " Gyro, ";
-        }
-        
+        info += GetEngine().ChatName() + ", ";
+
         // Internal Stucture
-        if (!GetIntStruc().GetCritName().trim().isEmpty()) {
-            info += GetIntStruc().GetCritName().trim() + ", ";
+        info += GetIntStruc().ChatName() + ", ";
+
+        // Gyro
+        if ( ! GetGyro().LookupName().equals( "Standard Gyro" ) ) {
+            info += GetGyro().ChatName() + ", ";
         }
-        
+
         // Armor
-        info += GetArmor().GetTonnage() + "T " + GetArmor().GetCritName() + ", ";
+        info += GetArmor().GetTonnage() + "T " + GetArmor().ChatName() + ", ";
 
         //Weapons and Equip
         Hashtable<String, Integer> list = new Hashtable<String, Integer>();
         abPlaceable item;
         for( int i = 0; i < CurLoadout.GetNonCore().size(); i++ ) {
             item = (abPlaceable) CurLoadout.GetNonCore().get( i );
-            if( ! (item instanceof Ammunition ) ) {
-                if (list.containsKey(item.GetCritName())) {
-                    int curVal = (Integer) list.get(item.GetCritName()).intValue();
+            if( ! ( item instanceof Ammunition ) ) {
+                if ( list.containsKey( item.ChatName() ) ) {
+                    int curVal = (Integer) list.get( item.ChatName() ).intValue();
                     curVal++;
-                    list.remove(item.GetCritName());
-                    list.put(item.GetCritName(), curVal);
+                    list.remove( item.ChatName() );
+                    list.put( item.ChatName(), curVal );
                 } else {
-                    list.put(item.GetCritName(), new Integer(1));
+                    list.put( item.ChatName(), new Integer( 1 ) );
                 }
             }
         }
@@ -1333,16 +1339,16 @@ public class Mech implements ifBattleforce {
         }
 
         if( HasNullSig() ) {
-            info += "Null-Sig, ";
+            info += NullSig.ChatName() + ", ";
         }
         if( HasChameleon() ) {
-            info += "CLPS, ";
+            info += Chameleon.ChatName() + ", ";
         }
         if( HasBlueShield() ) {
-            info += "BlueShield, ";
+            info += BlueShield.ChatName() + ", ";
         }
         if( HasVoidSig() ) {
-            info += "Void-Sig, ";
+            info += VoidSig.ChatName() + ", ";
         }
         if( HasPartialWing ) {
             info += "P-Wing, ";
@@ -2107,7 +2113,7 @@ public class Mech implements ifBattleforce {
             for( int i = 0; i < v.size(); i++ ) {
                 a = (abPlaceable) v.get( i );
                 if( a instanceof Equipment ) {
-                    if( ((Equipment) a).GetCritName().equals( "Coolant Pod" ) ) {
+                    if( ((Equipment) a).LookupName().equals( "Coolant Pod" ) ) {
                         NumPods++;
                     }
                 }
@@ -3572,7 +3578,7 @@ public class Mech implements ifBattleforce {
 
     public boolean HasC3() {
         // checks for C3 systems.
-        SimplePlaceable p = new SimplePlaceable( "C3Test", "C3Test", 0, false, null );
+        SimplePlaceable p = new SimplePlaceable( "C3Test", "C3Test", "C3Test", "C3Test", "none", 0, false, null );
         p.SetExclusions( new Exclusion( new String[] { "C3" }, "C3Test" ) );
         try {
             CurLoadout.CheckExclusions( p );

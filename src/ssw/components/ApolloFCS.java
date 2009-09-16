@@ -56,16 +56,28 @@ public class ApolloFCS extends abPlaceable implements ifMissileGuidance {
         return true;
     }
 
-    public String GetCritName() {
+    public String ActualName() {
         return "MRM Apollo FCS";
     }
 
-    public String GetLookupName() {
-        return GetCritName();
+    public String CritName() {
+        return "Apollo FCS";
     }
 
-    public String GetMMName( boolean UseRear ) {
+    public String LookupName() {
+        return "MRM Apollo FCS";
+    }
+
+    public String ChatName() {
+        return "Apollo";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "ISApollo";
+    }
+
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     public int NumCrits() {

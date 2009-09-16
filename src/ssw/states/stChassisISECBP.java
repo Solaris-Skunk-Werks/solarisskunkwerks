@@ -72,16 +72,28 @@ public class stChassisISECBP implements ifChassis, ifState {
         return 7;
     }
     
-    public String GetLookupName() {
+    public String ActualName() {
+        return "Endo-Composite Structure (Biped)";
+    }
+
+    public String CritName() {
         return "Endo-Composite";
     }
 
-    public String GetCritName() {
+    public String LookupName() {
         return "Endo-Composite";
     }
 
-    public String GetMMName() {
+    public String ChatName() {
+        return "E-Comp BP";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Endo-Composite";
+    }
+
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     public double GetStrucTon( int Tonnage ) {

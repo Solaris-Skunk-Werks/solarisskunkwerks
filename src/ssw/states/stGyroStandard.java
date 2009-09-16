@@ -58,16 +58,28 @@ public class stGyroStandard implements ifGyro, ifState {
         return 4;
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Standard Gyro";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "Gyro";
     }
 
-    public String GetMMName() {
+    public String LookupName() {
+        return "Standard Gyro";
+    }
+
+    public String ChatName() {
+        return "";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Gyro";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public String GetReportName() {

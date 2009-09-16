@@ -41,20 +41,28 @@ public class stArmorCLFL implements ifArmor, ifState {
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
+        return "Ferro-Lamellor Armor";
+    }
+
+    public String CritName() {
         return "Ferro-Lamellor";
     }
 
-    public String GetCritName() {
+    public String LookupName() {
         return "Ferro-Lamellor";
     }
 
-    public String GetMMName() {
+    public String ChatName() {
+        return "FL Armor";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Ferro-Lamellor";
     }
 
-    public String GetPrintName() {
-        return "Ferro Lamellor";
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     public boolean HasCounterpart() {

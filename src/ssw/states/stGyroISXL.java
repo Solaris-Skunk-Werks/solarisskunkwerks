@@ -52,16 +52,28 @@ public class stGyroISXL implements ifGyro, ifState {
         return 6;
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Extra-Light Gyro";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "XL Gyro";
     }
 
-    public String GetMMName() {
+    public String LookupName() {
+        return "Extra-Light Gyro";
+    }
+
+    public String ChatName() {
+        return "XL Gyro";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Gyro";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public String GetReportName() {

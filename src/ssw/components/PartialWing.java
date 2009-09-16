@@ -43,19 +43,28 @@ public class PartialWing extends abPlaceable {
         SetLocked( true );
     }
 
-    @Override
-    public String GetCritName() {
+    public String ActualName() {
+        return "BattleMech Partial Wing";
+    }
+
+    public String CritName() {
         return "Partial Wing";
     }
 
-    @Override
-    public String GetLookupName() {
+    public String LookupName() {
         return "Partial Wing";
     }
 
-    @Override
-    public String GetMMName(boolean UseRear) {
+    public String ChatName() {
+        return "P-Wing";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "BattlemechPartialWing";
+    }
+
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     @Override

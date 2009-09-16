@@ -34,13 +34,15 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     private LaserInsulator Insulator = null;
     private MGArray CurArray = null;
     private ifMissileGuidance FCS = null;
-    private String Name,
+    private String ActualName,
+                   CritName,
                    MegaMekName,
                    LookupName,
+                   ChatName,
                    Specials = "",
                    Type,
                    Manufacturer = "",
-                   PrintName = "";
+                   BookReference = "";
     private boolean HasAmmo = false,
                     SwitchableAmmo = false,
                     RequiresFusion = false,
@@ -96,14 +98,74 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                   OffBV = 0.0,
                   DefBV = 0.0;
 
-    public RangedWeapon( String name, String lookupname, String mmname, String type, String spec, AvailableCode a, int wepclass ) {
-        Name = name;
+    public RangedWeapon( String actualname, String critname, String lookupname, String mmname, String type, String spec, AvailableCode a, int wepclass ) {
+        CritName = critname;
+        ActualName = actualname;
         LookupName = lookupname;
         MegaMekName = mmname;
         Type = type;
         AC = a;
         Specials = spec;
         WeaponClass = wepclass;
+    }
+
+    private RangedWeapon( RangedWeapon r ) {
+        CritName = r.CritName;
+        ActualName = r.ActualName;
+        LookupName = r.LookupName;
+        MegaMekName = r.MegaMekName;
+        Type = r.Type;
+        AC = r.AC.Clone();
+        Specials = r.Specials;
+        WeaponClass = r.WeaponClass;
+        Tonnage = r.Tonnage;
+        NumCrits = r.NumCrits;
+        Cost = r.Cost;
+        OffBV = r.OffBV;
+        DefBV = r.DefBV;
+        Heat = r.Heat;
+        ToHitShort = r.ToHitShort;
+        ToHitMedium = r.ToHitMedium;
+        ToHitLong = r.ToHitLong;
+        DamSht = r.DamSht;
+        DamMed = r.DamMed;
+        DamLng = r.DamLng;
+        IsCluster = r.IsCluster;
+        ClusterSize = r.ClusterSize;
+        ClusterGroup = r.ClusterGroup;
+        RngMin = r.RngMin;
+        RngSht = r.RngSht;
+        RngMed = r.RngMed;
+        RngLng = r.RngLng;
+        HasAmmo = r.HasAmmo;
+        AmmoIndex = r.AmmoIndex;
+        AmmoLotSize = r.AmmoLotSize;
+        SwitchableAmmo = r.SwitchableAmmo;
+        Alloc_HD = r.Alloc_HD;
+        Alloc_CT = r.Alloc_CT;
+        Alloc_Torso = r.Alloc_Torso;
+        Alloc_Arms = r.Alloc_Arms;
+        Alloc_Legs = r.Alloc_Legs;
+        CanSplit = r.CanSplit;
+        OmniRestrict = r.OmniRestrict;
+        RequiresFusion = r.RequiresFusion;
+        RequiresNuclear = r.RequiresNuclear;
+        RequiresPowerAmps = r.RequiresPowerAmps;
+        OneShot = r.OneShot;
+        Streak = r.Streak;
+        Ultra = r.Ultra;
+        Rotary = r.Rotary;
+        Explosive = r.Explosive;
+        TCCapable = r.TCCapable;
+        CanUseCapacitor = r.CanUseCapacitor;
+        ArrayCapable = r.ArrayCapable;
+        CanUseInsulator = r.CanUseInsulator;
+        CanUseCaseless = r.CanUseCaseless;
+        CaselessAmmoIDX = r.CaselessAmmoIDX;
+        CanUseFCS = r.CanUseFCS;
+        FCSType = r.FCSType;
+        BookReference = r.BookReference;
+        ChatName = r.ChatName;
     }
 
     public void SetStats( double tons, int crits, double cost, double obv, double dbv ) {
@@ -185,18 +247,25 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         FCSType = fcstype;
     }
 
-    public void SetPrintName( String s ) {
-        PrintName = s;
-    }
-
     @Override
     public void SetManufacturer( String n ) {
         Manufacturer = n;
     }
 
-    @Override
-    public String GetCritName() {
-        String retval = Name;
+    public void SetBookReference( String s ) {
+        BookReference = s;
+    }
+
+    public void SetChatName( String s ) {
+        ChatName = s;
+    }
+
+    public String ActualName() {
+        return ActualName;
+    }
+
+    public String CritName() {
+        String retval = CritName;
         if( UsingCapacitor ) {
             retval += " + PPC Capacitor";
         }
@@ -213,7 +282,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         }
     }
 
-    public String GetLookupName() {
+    public String LookupName() {
         String retval = LookupName;
         if( UsingCapacitor ) {
             retval += " + PPC Capacitor";
@@ -231,8 +300,11 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         }
     }
 
-    @Override
-    public String GetMMName(boolean UseRear) {
+    public String ChatName() {
+        return ChatName;
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         if( UseRear ) {
             return MegaMekName + " (R)";
         } else {
@@ -240,27 +312,8 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         }
     }
 
-    public String GetName() {
-        return Name;
-    }
-
-    @Override
-    public String GetPrintName() {
-        String retval = PrintName;
-        if( UsingCapacitor ) {
-            retval += " + PPC Capacitor";
-        }
-        if( UsingInsulator ) {
-            retval += " (Insulated)";
-        }
-        if( UsingCaseless ) {
-            retval += " (Caseless)";
-        }
-        if( MountedRear ) {
-            return "(R) " + retval;
-        } else {
-            return retval;
-        }
+    public String BookReference() {
+        return BookReference;
     }
 
     public String GetType() {
@@ -762,12 +815,16 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         SetLocked( b );
     }
 
+    public RangedWeapon Clone() {
+        return new RangedWeapon( this );
+    }
+
     @Override
     public String toString() {
         if( MountedRear ) {
-            return "(R) " + Name;
+            return "(R) " + CritName;
         } else {
-            return Name;
+            return CritName;
         }
     }
 }

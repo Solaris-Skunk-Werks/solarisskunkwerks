@@ -39,7 +39,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         Parent = (frmMain) parent;
-        setTitle( Parent.CurItem.GetCritName() + " Information" );
+        setTitle( "Item Information" );
         SetState();
     }
 
@@ -61,7 +61,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
                 break;
         }
 
-        lblName.setText( a.GetCritName() );
+        lblName.setText( a.ActualName() );
         lblTonnage.setText( "" + a.GetTonnage() );
         lblCost.setText( "" + a.GetCost() );
         lblBV.setText( CommonTools.GetAggregateReportBV( a ) );
@@ -123,7 +123,6 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
 
         jLabel4 = new javax.swing.JLabel();
         lblTechRating = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         lblBV = new javax.swing.JLabel();
@@ -175,67 +174,62 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
 
         jLabel4.setText("Tech Rating");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(4, 2, 0, 2);
         getContentPane().add(jLabel4, gridBagConstraints);
 
         lblTechRating.setText("X (IS)/X (CL)");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         getContentPane().add(lblTechRating, gridBagConstraints);
 
-        jLabel5.setText("Name");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 4, 0, 2);
-        getContentPane().add(jLabel5, gridBagConstraints);
-
+        lblName.setFont(new java.awt.Font("Dialog", 1, 14));
         lblName.setText("Hyper Assault Gauss-40");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 0, 2);
         getContentPane().add(lblName, gridBagConstraints);
 
         jLabel10.setText("Tonnage");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(4, 2, 0, 4);
         getContentPane().add(jLabel10, gridBagConstraints);
 
         lblBV.setText("000.00/000.00");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         getContentPane().add(lblBV, gridBagConstraints);
 
         jLabel12.setText("BV");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(4, 2, 0, 2);
         getContentPane().add(jLabel12, gridBagConstraints);
 
         lblTonnage.setText("000.00");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 6);
         getContentPane().add(lblTonnage, gridBagConstraints);
 
         jSeparator1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         getContentPane().add(jSeparator1, gridBagConstraints);
@@ -248,8 +242,8 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         getContentPane().add(btnClose, gridBagConstraints);
@@ -257,7 +251,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         jLabel14.setText("Cost:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
@@ -266,8 +260,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         lblCost.setText("000,000,000,000.00");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         getContentPane().add(lblCost, gridBagConstraints);
@@ -275,7 +268,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         jLabel6.setText("Rules Level (BattleMech):");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
@@ -284,8 +277,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         lblRulesBM.setText("Experimental");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         getContentPane().add(lblRulesBM, gridBagConstraints);
@@ -293,8 +285,8 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         jSeparator2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         getContentPane().add(jSeparator2, gridBagConstraints);
@@ -302,8 +294,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         lblRulesIM.setText("Experimental");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         getContentPane().add(lblRulesIM, gridBagConstraints);
@@ -311,7 +302,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         jLabel13.setText("Rules Level (IndustrialMech):");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
@@ -320,8 +311,8 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         jSeparator3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         getContentPane().add(jSeparator3, gridBagConstraints);
@@ -374,7 +365,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 4);
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 6);
         pnlClan.add(lblClanACCI, gridBagConstraints);
 
         lblClanACSW.setText("X");
@@ -382,7 +373,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 4);
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 6);
         pnlClan.add(lblClanACSW, gridBagConstraints);
 
         lblClanACSL.setText("X");
@@ -390,7 +381,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 4);
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 6);
         pnlClan.add(lblClanACSL, gridBagConstraints);
 
         jLabel9.setText("Reintroduction");
@@ -398,7 +389,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 2);
         pnlClan.add(jLabel9, gridBagConstraints);
 
         jLabel8.setText("Extinction");
@@ -406,7 +397,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 2);
         pnlClan.add(jLabel8, gridBagConstraints);
 
         jLabel7.setText("Introduction");
@@ -414,7 +405,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 2);
         pnlClan.add(jLabel7, gridBagConstraints);
 
         lblClanReIntro.setText("9999 (TH)");
@@ -443,8 +434,8 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         getContentPane().add(pnlClan, gridBagConstraints);
@@ -464,7 +455,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 4);
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 6);
         pnlInnerSphere.add(lblISACSL, gridBagConstraints);
 
         lblISACSW.setText("X");
@@ -472,7 +463,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 4);
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 6);
         pnlInnerSphere.add(lblISACSW, gridBagConstraints);
 
         lblISACCI.setText("X");
@@ -480,7 +471,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 4);
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 6);
         pnlInnerSphere.add(lblISACCI, gridBagConstraints);
 
         jLabel24.setText("Introduction");
@@ -488,7 +479,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 2);
         pnlInnerSphere.add(jLabel24, gridBagConstraints);
 
         jLabel25.setText("Extinction");
@@ -496,7 +487,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 2);
         pnlInnerSphere.add(jLabel25, gridBagConstraints);
 
         jLabel26.setText("Reintroduction");
@@ -504,7 +495,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 2);
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 2);
         pnlInnerSphere.add(jLabel26, gridBagConstraints);
 
         lblISIntro.setText("9999 (TH)");
@@ -566,8 +557,8 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         getContentPane().add(pnlInnerSphere, gridBagConstraints);
@@ -597,7 +588,6 @@ private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

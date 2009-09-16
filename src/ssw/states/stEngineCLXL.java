@@ -77,16 +77,28 @@ public class stEngineCLXL implements ifEngine, ifState {
         }
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
+        return "Extra-Light Fusion Engine";
+    }
+
+    public String CritName() {
         return "XL Engine";
     }
 
-    public String GetCritName() {
+    public String LookupName() {
         return "XL Engine";
     }
-    
-    public String GetMMName() {
+
+    public String ChatName() {
+        return "XLFE";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Fusion Engine";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public double GetCost( int MechTonnage, int Rating ) {

@@ -41,20 +41,28 @@ public class stArmorISLR implements ifArmor, ifState {
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
+        return "Laser-Reflective Armor";
+    }
+
+    public String CritName() {
         return "Laser-Reflective";
     }
 
-    public String GetCritName() {
+    public String LookupName() {
         return "Laser-Reflective";
     }
 
-    public String GetMMName() {
+    public String ChatName() {
+        return "LsrRflc Armor";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Reflective";
     }
 
-    public String GetPrintName() {
-        return "Laser Reflective";
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     public boolean HasCounterpart() {

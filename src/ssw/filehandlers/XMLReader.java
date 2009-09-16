@@ -730,17 +730,17 @@ public class XMLReader {
                 }
 
                 // now add the system in
-                if( type.equals( m.GetNullSig().GetCritName() ) ) {
+                if( type.equals( m.GetNullSig().LookupName() ) ) {
                     m.SetNullSig( true, Locs );
-                } else if( type.equals( m.GetBlueShield().GetCritName() ) ) {
+                } else if( type.equals( m.GetBlueShield().LookupName() ) ) {
                     m.SetBlueShield( true, Locs );
-                } else if( type.equals( m.GetVoidSig().GetCritName() ) ) {
+                } else if( type.equals( m.GetVoidSig().LookupName() ) ) {
                     m.SetVoidSig( true, Locs );
-                } else if( type.equals( m.GetChameleon().GetCritName() ) ) {
+                } else if( type.equals( m.GetChameleon().LookupName() ) ) {
                     m.SetChameleon( true, Locs );
-                } else if( type.equals( m.GetEnviroSealing().GetCritName() ) ) {
+                } else if( type.equals( m.GetEnviroSealing().LookupName() ) ) {
                     m.SetEnviroSealing( true, Locs );
-                } else if( type.equals( m.GetTracks().GetCritName() ) ) {
+                } else if( type.equals( m.GetTracks().LookupName() ) ) {
                     m.SetTracks( true, Locs );
                 }
             } else if( n.item( i ).getNodeName().equals( "partialwing" ) ) {

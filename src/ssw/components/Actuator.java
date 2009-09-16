@@ -54,17 +54,28 @@ public class Actuator extends abPlaceable {
         return LocLocked;
     }
 
-    // returns the name of this item in the Loadout.
-    public String GetCritName() {
+    public String ActualName() {
         return CritName;
     }
 
-    public String GetLookupName() {
-        return GetCritName();
+    public String CritName() {
+        return CritName;
     }
 
-    public String GetMMName( boolean UseRear ) {
+    public String LookupName() {
+        return CritName;
+    }
+
+    public String ChatName() {
+        return CritName;
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return MMName;
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     // returns the number of crits this item takes in the Loadout.

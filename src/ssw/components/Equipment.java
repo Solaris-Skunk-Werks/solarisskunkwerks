@@ -29,10 +29,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.components;
 
 public class Equipment extends abPlaceable {
-    private String CritName,
+    private String ActualName,
+                   CritName,
                    Type,
                    LookupName,
-                   MegaMekName,
+                   MegaMekName = "",
+                   BookReference = "",
+                   ChatName = "",
                    Specials = "",
                    Manufacturer = "";
     private int Crits = 0,
@@ -69,11 +72,51 @@ public class Equipment extends abPlaceable {
         // for regular equipment
     }
 
-    public Equipment( String name, String lookupname, String t, AvailableCode a ) {
-        CritName = name;
+    public Equipment( String actualname, String lookupname, String critname, String t, AvailableCode a ) {
+        ActualName = actualname;
+        CritName = critname;
         LookupName = lookupname;
         Type = t;
         AC = a;
+    }
+
+    public Equipment( Equipment e ) {
+        ActualName = e.ActualName;
+        CritName = e.CritName;
+        LookupName = e.LookupName;
+        Type = e.Type;
+        AC = e.AC.Clone();
+        MegaMekName = e.MegaMekName;
+        Crits = e.Crits;
+        Tonnage = e.Tonnage;
+        Cost = e.Cost;
+        OffBV = e.OffBV;
+        DefBV = e.DefBV;
+        Specials = e.Specials;
+        ShtRange = e.ShtRange;
+        MedRange = e.MedRange;
+        LngRange = e.LngRange;
+        HasAmmo = e.HasAmmo;
+        LotSize = e.LotSize;
+        AmmoIndex = e.AmmoIndex;
+        Heat = e.Heat;
+        alloc_head = e.alloc_head;
+        alloc_ct = e.alloc_ct;
+        alloc_torsos = e.alloc_torsos;
+        alloc_arms = e.alloc_arms;
+        alloc_legs = e.alloc_legs;
+        CanSplit = e.CanSplit;
+        Explosive = e.Explosive;
+        VariableSize = e.VariableSize;
+        MinTons = e.MinTons;
+        MaxTons = e.MaxTons;
+        VariableIncrement = e.VariableIncrement;
+        TonsPerCrit = e.TonsPerCrit;
+        CostPerTon = e.CostPerTon;
+        BookReference = e.BookReference;
+        ChatName = e.ChatName;
+        Manufacturer = e.Manufacturer;
+        SetExclusions( e.GetExclusions() );
     }
 
     public void SetMegaMekName( String n ) {
@@ -134,8 +177,19 @@ public class Equipment extends abPlaceable {
         CostPerTon = cpt;
     }
 
-    @Override
-    public String GetCritName() {
+    public void SetBookReference( String b ) {
+        BookReference = b;
+    }
+
+    public void SetChatName( String c ) {
+        ChatName = c;
+    }
+
+    public String ActualName() {
+        return ActualName;
+    }
+
+    public String CritName() {
         String retval = CritName;
         if( VariableSize ) {
             retval += " (" + Tonnage + " tons)";
@@ -147,8 +201,24 @@ public class Equipment extends abPlaceable {
         }
     }
 
-    public String GetLookupName() {
+    public String LookupName() {
         return LookupName;
+    }
+
+    public String ChatName() {
+        return ChatName;
+    }
+
+    public String MegaMekName( boolean UseRear ) {
+        if( Rear ) {
+            return MegaMekName + " (R)";
+        } else {
+            return MegaMekName;
+        }
+    }
+
+    public String BookReference() {
+        return BookReference;
     }
 
     @Override
@@ -231,14 +301,6 @@ public class Equipment extends abPlaceable {
 
     public String GetType() {
         return Type;
-    }
-
-    public String GetMMName( boolean UseRear ) {
-        if( Rear ) {
-            return MegaMekName + " (R)";
-        } else {
-            return MegaMekName;
-        }
     }
 
     public int GetHeat() {
@@ -341,6 +403,10 @@ public class Equipment extends abPlaceable {
         Tonnage = d;
     }
 
+    public Equipment Clone() {
+        return new Equipment( this );
+    }
+
     @Override
     public AvailableCode GetAvailability() {
         AvailableCode retval = AC.Clone();
@@ -352,6 +418,6 @@ public class Equipment extends abPlaceable {
 
     @Override
     public String toString() {
-        return GetCritName();
+        return CritName();
     }
 }

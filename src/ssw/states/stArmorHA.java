@@ -49,20 +49,28 @@ public class stArmorHA implements ifArmor, ifState {
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Hardened Armor";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "Hardened";
     }
 
-    public String GetMMName() {
+    public String LookupName() {
+        return "Hardened Armor";
+    }
+
+    public String ChatName() {
+        return "Hrdnd Armor";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Hardened";
     }
 
-    public String GetPrintName() {
-        return GetCritName();
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     public boolean HasCounterpart() {
@@ -72,6 +80,7 @@ public class stArmorHA implements ifArmor, ifState {
     public boolean Place( Armor a, ifLoadout l ) {
         return true;
     }
+
 
     public boolean Place( Armor a, ifLoadout l, LocationIndex[] Locs ) {
         // not implemented yet, just place as normal

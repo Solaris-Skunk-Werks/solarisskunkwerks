@@ -30,6 +30,12 @@ package ssw.states;
 import ssw.components.*;
 
 public interface ifCockpit {
+    public String ActualName();
+    public String CritName();
+    public String LookupName();
+    public String ChatName();
+    public String MegaMekName( boolean UseRear );
+    public String BookReference();
     public String GetReportName();
     public double GetTonnage();
     public LocationIndex GetCockpitLoc();
@@ -46,8 +52,6 @@ public interface ifCockpit {
     public SimplePlaceable GetSecondLifeSupport();
     public SimplePlaceable GetSecondSensors();
     public SimplePlaceable GetThirdSensors();
-    public String GetCritName();
-    public String GetMMName();
     public double GetCost( int Tonnage );
     public double BVMod();
     public boolean HasFireControl();

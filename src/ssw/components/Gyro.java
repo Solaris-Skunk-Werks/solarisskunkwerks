@@ -98,20 +98,32 @@ public class Gyro extends abPlaceable {
         return CurConfig.GetCrits();
     }
     
-    public String GetCritName() {
-        return CurConfig.GetCritName();
+    public String ActualName() {
+        return CurConfig.ActualName();
     }
 
-    public String GetLookupName() {
-        return ((ifState) CurConfig).GetLookupName();
+    public String CritName() {
+        return CurConfig.CritName();
+    }
+
+    public String LookupName() {
+        return CurConfig.LookupName();
+    }
+
+    public String ChatName() {
+        return CurConfig.ChatName();
+    }
+
+    public String MegaMekName( boolean UseRear ) {
+        return CurConfig.MegaMekName( UseRear );
+    }
+
+    public String BookReference() {
+        return CurConfig.BookReference();
     }
 
     public String GetReportName() {
         return CurConfig.GetReportName();
-    }
-
-    public String GetMMName( boolean UseRear ) {
-        return CurConfig.GetMMName();
     }
 
     public double GetCost() {
@@ -170,6 +182,6 @@ public class Gyro extends abPlaceable {
 
     @Override
     public String toString() {
-        return CurConfig.GetCritName();
+        return CurConfig.CritName();
     }
 }

@@ -76,16 +76,28 @@ public class stChassisIMBP implements ifChassis, ifState {
         return 0;
     }
     
-    public String GetLookupName() {
+    public String ActualName() {
+        return "Industrial Structure (Biped)";
+    }
+
+    public String CritName() {
+        return "Industrial";
+    }
+
+    public String LookupName() {
         return "Industrial Structure";
     }
 
-    public String GetCritName() {
+    public String ChatName() {
+        return "Ind BP";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Industrial";
     }
 
-    public String GetMMName() {
-        return "Industrial";
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public double GetStrucTon( int Tonnage ) {

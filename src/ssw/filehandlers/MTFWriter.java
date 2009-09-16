@@ -129,28 +129,28 @@ public class MTFWriter {
         FR.newLine();
         if( mixed ) {
             if( CurMech.GetEngine().GetTechBase() == AvailableCode.TECH_INNER_SPHERE ) {
-                FR.write( "Engine:" + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine().GetCritName() + " (Inner Sphere)" );
+                FR.write( "Engine:" + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine().CritName() + " (Inner Sphere)" );
             } else {
-                FR.write( "Engine:" + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine().GetCritName() + " (Clan)" );
+                FR.write( "Engine:" + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine().CritName() + " (Clan)" );
             }
         } else {
-            FR.write( "Engine:" + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine().GetCritName() );
+            FR.write( "Engine:" + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine().CritName() );
         }
         FR.newLine();
-        FR.write( "Structure:" + CurMech.GetIntStruc().GetMMName( false ) );
+        FR.write( "Structure:" + CurMech.GetIntStruc().MegaMekName( false ) );
         FR.newLine();
         // check for a wierd gyro config, since MM always wants to see "Gyro" in
         // the crit slots.
-        if( ! CurMech.GetGyro().GetCritName().matches( "Gyro" ) ) {
-            FR.write( "Gyro:" + CurMech.GetGyro().GetCritName() );
+        if( ! CurMech.GetGyro().CritName().matches( "Gyro" ) ) {
+            FR.write( "Gyro:" + CurMech.GetGyro().CritName() );
             FR.newLine();
         }
         // check for a small cockpit.
-        if( ! CurMech.GetCockpit().GetCritName().equals( "Cockpit") ) {
-            FR.write( "Cockpit:" + CurMech.GetCockpit().GetCritName() );
+        if( ! CurMech.GetCockpit().CritName().equals( "Cockpit") ) {
+            FR.write( "Cockpit:" + CurMech.GetCockpit().CritName() );
             FR.newLine();
         }
-        FR.write( "Myomer:" + CurMech.GetPhysEnhance().GetMMName( false ) );
+        FR.write( "Myomer:" + CurMech.GetPhysEnhance().MegaMekName( false ) );
         FR.newLine();
 
         // fourth block for movement and heat
@@ -182,12 +182,12 @@ public class MTFWriter {
         FR.newLine();
         if( mixed ) {
             if( CurMech.GetArmor().GetTechBase() == AvailableCode.TECH_INNER_SPHERE ) {
-                FR.write( "Armor:" + CurMech.GetArmor().GetMMName( false ) + " (Inner Sphere)" );
+                FR.write( "Armor:" + CurMech.GetArmor().MegaMekName( false ) + " (Inner Sphere)" );
             } else {
-                FR.write( "Armor:" + CurMech.GetArmor().GetMMName( false ) + " (Clan)" );
+                FR.write( "Armor:" + CurMech.GetArmor().MegaMekName( false ) + " (Clan)" );
             }
         } else {
-            FR.write( "Armor:" + CurMech.GetArmor().GetMMName( false ) );
+            FR.write( "Armor:" + CurMech.GetArmor().MegaMekName( false ) );
         }
         FR.newLine();
         FR.write( "LA Armor:" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA) );
@@ -358,7 +358,7 @@ public class MTFWriter {
                 return "Engine";
             }
         }
-        String retval = p.GetMMName( p.IsMountedRear() );
+        String retval = p.MegaMekName( p.IsMountedRear() );
         // check for some specific named instances.
         if( retval.contains( "Searchlight" ) ) {
             // do nothing here

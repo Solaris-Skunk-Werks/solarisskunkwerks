@@ -137,15 +137,15 @@ public class MechLoadoutRenderer extends DefaultListCellRenderer {
             if( Parent.CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                 if( a instanceof Equipment ) {
                     if( ((Equipment) a).IsVariableSize() ) {
-                        Text = a.GetCritName();
+                        Text = a.CritName();
                     } else {
-                        Text = a.GetLookupName();
+                        Text = a.LookupName();
                     }
                 } else {
-                    Text = a.GetLookupName();
+                    Text = a.LookupName();
                 }
             } else {
-                Text = a.GetCritName();
+                Text = a.CritName();
             }
         }
 
@@ -176,15 +176,15 @@ public class MechLoadoutRenderer extends DefaultListCellRenderer {
             if( Parent.CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                 if( Parent.CurItem instanceof Equipment ) {
                     if( ((Equipment) Parent.CurItem).IsVariableSize() ) {
-                        Text =  Parent.CurItem.GetCritName();
+                        Text =  Parent.CurItem.CritName();
                     } else {
-                        Text =  Parent.CurItem.GetLookupName();
+                        Text =  Parent.CurItem.LookupName();
                     }
                 } else {
-                    Text =  Parent.CurItem.GetLookupName();
+                    Text =  Parent.CurItem.LookupName();
                 }
             } else {
-                Text =  Parent.CurItem.GetCritName();
+                Text =  Parent.CurItem.CritName();
             }
             if( size <= 1 ) {
                 label.setText( Text );

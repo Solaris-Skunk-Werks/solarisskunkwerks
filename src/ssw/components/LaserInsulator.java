@@ -59,18 +59,28 @@ public class LaserInsulator extends abPlaceable {
         return true;
     }
 
-    @Override
-    public String GetCritName() {
+    public String ActualName() {
         return "Laser Insulator";
     }
 
-    public String GetLookupName() {
-        return GetCritName();
+    public String CritName() {
+        return "Laser Insulator";
     }
 
-    @Override
-    public String GetMMName(boolean UseRear) {
-        return Owner.GetMMName( UseRear ) + "Insulator";
+    public String LookupName() {
+        return "Laser Insulator";
+    }
+
+    public String ChatName() {
+        return "Insulator";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
+        return Owner.MegaMekName( UseRear ) + "Insulator";
+    }
+
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     @Override

@@ -52,16 +52,28 @@ public class stGyroISCompact implements ifGyro, ifState {
         return 2;
     }
     
-    public String GetLookupName() {
+    public String ActualName() {
         return "Compact Gyro";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "Compact Gyro";
     }
 
-    public String GetMMName() {
+    public String LookupName() {
+        return "Compact Gyro";
+    }
+
+    public String ChatName() {
+        return "Cmp Gyro";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Gyro";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public String GetReportName() {

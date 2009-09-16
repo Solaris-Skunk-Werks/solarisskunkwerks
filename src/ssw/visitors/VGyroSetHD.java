@@ -84,7 +84,7 @@ public class VGyroSetHD implements ifVisitor {
 
         // now replace the engine criticals
         if( ! m.GetEngine().Place(l) ) {
-            throw new Exception( m.GetEngine().GetLookupName() + " cannot be allocated!" );
+            throw new Exception( m.GetEngine().LookupName() + " cannot be allocated!" );
         }
 
         // if we had CASE installed, try to replace it

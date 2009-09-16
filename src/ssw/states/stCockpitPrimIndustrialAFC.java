@@ -36,10 +36,10 @@ import ssw.components.SimplePlaceable;
 
 public class stCockpitPrimIndustrialAFC implements ifCockpit, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
-    private final static SimplePlaceable Sensors = new SimplePlaceable( "Sensors", "Sensors", 1, true, AC );
-    private final static SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support", "Life Support", 1, true, AC );
-    private final static SimplePlaceable SecondSensors = new SimplePlaceable( "Sensors", "Sensors", 1, true, AC );
-    private final static SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support", "Life Support", 1, true, AC );
+    private final static SimplePlaceable Sensors = new SimplePlaceable( "Sensors", "Sensors", "Sensors", "Sensors", "Tech Manual", 1, true, AC );
+    private final static SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
+    private final static SimplePlaceable SecondSensors = new SimplePlaceable( "Sensors", "Sensors", "Sensors", "Sensors", "Tech Manual", 1, true, AC );
+    private final static SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
 
     public stCockpitPrimIndustrialAFC() {
         AC.SetISCodes( 'C', 'E', 'X', 'F' );
@@ -83,16 +83,28 @@ public class stCockpitPrimIndustrialAFC implements ifCockpit, ifState {
         return SecondSensors;
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
+        return "Primitive Industrial Cockpit w/ Advanced Fire Control";
+    }
+
+    public String CritName() {
+        return "Primitive Cockpit (AFC)";
+    }
+
+    public String LookupName() {
         return "Primitive Industrial w/ Adv. FC";
     }
 
-    public String GetCritName() {
-        return "Prtimitive Cockpit (AFC)";
+    public String ChatName() {
+        return "PrmInd/AFC Cockpit";
     }
-    
-    public String GetMMName() {
+
+    public String MegaMekName( boolean UseRear ) {
         return "Cockpit";
+    }
+
+    public String BookReference() {
+        return "Jihad Secrets: The Blake Documents";
     }
 
     public String GetReportName() {

@@ -56,16 +56,28 @@ public class ArtemisVFCS extends abPlaceable implements ifMissileGuidance {
         return true;
     }
 
-    public String GetCritName() {
+    public String ActualName() {
         return "Artemis V FCS";
     }
 
-    public String GetLookupName() {
-        return GetCritName();
+    public String CritName() {
+        return "Artemis V FCS";
     }
 
-    public String GetMMName( boolean UseRear ) {
+    public String LookupName() {
+        return "Artemis V FCS";
+    }
+
+    public String ChatName() {
+        return "A-V";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "CLArtemisV";
+    }
+
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     public int NumCrits() {

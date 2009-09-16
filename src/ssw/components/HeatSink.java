@@ -33,34 +33,54 @@ public class HeatSink extends abPlaceable {
     private int Crits,
                 NumHS = 1;
     private String CritName,
+                   ActualName,
+                   LookupName,
+                   BookReference,
                    MMName;
     private AvailableCode AC;
 
-    public HeatSink( String name, String mname, int numCrits, boolean compact, AvailableCode A ) {
+    public HeatSink( String actualname, String lookupname, String critname, String mname, String bookref, int numCrits, boolean compact, AvailableCode A ) {
         Compact = compact;
         Crits = numCrits;
-        CritName = name;
+        CritName = critname;
+        LookupName = lookupname;
+        BookReference = bookref;
         AC = A;
         MMName = mname;
     }
 
-    // returns the name of this item in the Loadout.
-    public String GetCritName() {
+    public String ActualName() {
+        if( Compact ) {
+            return "[" + NumHS + "] " + ActualName;
+        }
+        return ActualName;
+    }
+
+    public String CritName() {
         if( Compact ) {
             return "[" + NumHS + "] " + CritName;
         }
         return CritName;
     }
 
-    public String GetLookupName() {
-        return GetCritName();
+    public String LookupName() {
+        return LookupName;
     }
 
-    public String GetMMName( boolean UseRear ) {
+    public String ChatName() {
+        // individual heatsinks aren't included in the chat
+        return "";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         if( Compact ) {
             return "IS" + NumHS + " " + MMName;
         }
         return MMName;
+    }
+
+    public String BookReference() {
+        return BookReference;
     }
 
     // returns the number of crits this item takes in the Loadout.
@@ -135,6 +155,6 @@ public class HeatSink extends abPlaceable {
 
     @Override
     public String toString() {
-        return GetCritName();
+        return CritName();
     }
 }

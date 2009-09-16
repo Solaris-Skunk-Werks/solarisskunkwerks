@@ -52,16 +52,28 @@ public class stGyroISHeavy implements ifGyro, ifState {
         return 4;
     }
     
-    public String GetLookupName() {
+    public String ActualName() {
         return "Heavy-Duty Gyro";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "Heavy Duty Gyro";
     }
 
-    public String GetMMName() {
+    public String LookupName() {
+        return "Heavy-Duty Gyro";
+    }
+
+    public String ChatName() {
+        return "HD Gyro";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Gyro";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public String GetReportName() {

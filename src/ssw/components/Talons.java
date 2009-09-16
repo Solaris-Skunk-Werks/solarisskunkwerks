@@ -54,18 +54,33 @@ public class Talons extends PhysicalWeapon {
     }
 
     @Override
-    public String GetCritName() {
+    public String ActualName() {
         return "Talons";
     }
 
     @Override
-    public String GetLookupName() {
-        return  "Talons";
+    public String LookupName() {
+        return "Talons";
     }
 
     @Override
-    public String GetMMName(boolean UseRear) {
+    public String CritName() {
         return "Talons";
+    }
+
+    @Override
+    public String ChatName() {
+        return "Talons";
+    }
+
+    @Override
+    public String MegaMekName( boolean UseRear ) {
+        return "Talons";
+    }
+
+    @Override
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     @Override
@@ -114,11 +129,6 @@ public class Talons extends PhysicalWeapon {
             retval.Combine( ArmoredAC );
         }
         return retval;
-    }
-
-    @Override
-    public String GetName() {
-        return "Talons";
     }
 
     @Override

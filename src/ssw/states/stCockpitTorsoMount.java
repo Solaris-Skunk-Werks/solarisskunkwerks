@@ -36,11 +36,11 @@ import ssw.components.SimplePlaceable;
 
 public class stCockpitTorsoMount implements ifCockpit, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
-    private final static SimplePlaceable Sensors = new SimplePlaceable( "Sensors", "Sensors", 1, true, AC );
-    private final static SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support", "Life Support", 1, true, AC );
-    private final static SimplePlaceable SecondSensors = new SimplePlaceable( "Sensors", "Sensors", 1, true, AC );
-    private final static SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support", "Life Support", 1, true, AC );
-    private final static SimplePlaceable ThirdSensors = new SimplePlaceable( "Sensors", "Sensors", 1, true, AC );
+    private final static SimplePlaceable Sensors = new SimplePlaceable( "Sensors", "Sensors", "Sensors", "Sensors", "Tech Manual", 1, true, AC );
+    private final static SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
+    private final static SimplePlaceable SecondSensors = new SimplePlaceable( "Sensors", "Sensors", "Sensors", "Sensors", "Tech Manual", 1, true, AC );
+    private final static SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
+    private final static SimplePlaceable ThirdSensors = new SimplePlaceable( "Sensors", "Sensors", "Sensors", "Sensors", "Tech Manual", 1, true, AC );
 
     public stCockpitTorsoMount() {
         AC.SetISCodes( 'E', 'X', 'X', 'F' );
@@ -86,16 +86,28 @@ public class stCockpitTorsoMount implements ifCockpit, ifState {
         return SecondSensors;
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Torso-Mounted Cockpit";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "Torso-Mounted Cockpit";
     }
-    
-    public String GetMMName() {
+
+    public String LookupName() {
+        return "Torso-Mounted Cockpit";
+    }
+
+    public String ChatName() {
+        return "Torso Cockpit";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Cockpit";
+    }
+
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     public String GetReportName() {

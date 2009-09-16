@@ -30,14 +30,17 @@ package ssw.states;
 import ssw.components.*;
 
 public interface ifArmor {
-    public String GetCritName();
+    public String ActualName();
+    public String CritName();
+    public String LookupName();
+    public String ChatName();
+    public String MegaMekName( boolean UseRear );
+    public String BookReference();
     public boolean Place( Armor a, ifLoadout l );
     public boolean Place( Armor a, ifLoadout l, LocationIndex[] Locs );
     public int NumCrits();
     public double GetAVMult();
     public boolean IsStealth();
-    public String GetMMName();
-    public String GetPrintName();
     public double GetCostMult();
     public double GetBVTypeMult();
     public int GetBAR();

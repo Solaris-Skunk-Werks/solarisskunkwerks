@@ -84,16 +84,28 @@ public class stEnginePrimitiveFuelCell implements ifEngine, ifState {
         }
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Primitive Fuel-Cell Engine";
     }
 
-    public String GetCritName() {
+    public String CritName() {
+        return "Primitive Fuel-Cell";
+    }
+
+    public String LookupName() {
         return "Primitive Fuel-Cell Engine";
     }
-    
-    public String GetMMName() {
+
+    public String ChatName() {
+        return "Pr FCE";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Primitive Fuel-Cell";
+    }
+
+    public String BookReference() {
+        return "Jihad Secrets: The Blake Documents";
     }
 
     public double GetCost( int MechTonnage, int Rating ) {

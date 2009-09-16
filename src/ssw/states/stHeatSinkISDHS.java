@@ -72,7 +72,7 @@ public class stHeatSinkISDHS implements ifHeatSinkFactory, ifState {
     }
 
     public HeatSink GetHeatSink() {
-        return new HeatSink( "Double Heat Sink", "ISDouble Heat Sink", 3, false, AC );
+        return new HeatSink( "Double Heat Sink", "Double Heat Sink", "Double Heat Sink", "ISDouble Heat Sink", "Tech Manual", 3, false, AC );
     }
 
     public int GetNumCrits() {
@@ -87,7 +87,11 @@ public class stHeatSinkISDHS implements ifHeatSinkFactory, ifState {
         return null;
     }
 
-    public String GetLookupName() {
+    public String LookupName() {
         return "Double Heat Sink";
+    }
+
+    public String ChatName() {
+        return "DHS";
     }
 }

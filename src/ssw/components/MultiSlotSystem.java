@@ -40,15 +40,19 @@ public class MultiSlotSystem extends abPlaceable {
                     ExcludeHD,
                     CostTons,
                     BasedOnMechTons = false;
-    private String CritName,
+    private String ActualName,
+                   CritName,
                    LookupName,
-                   MMName;
+                   MegaMekName,
+                   ChatName ="",
+                   BookReference ="";
     protected Mech Owner;
 
-    public MultiSlotSystem( Mech owner, String name, String lookupname, String mname, double tons, boolean xct, boolean xhd, double cost, boolean costtons, AvailableCode a ) {
+    public MultiSlotSystem( Mech owner, String actualname, String lookupname, String critname, String mname, double tons, boolean xct, boolean xhd, double cost, boolean costtons, AvailableCode a ) {
         Owner = owner;
-        CritName = name;
-        MMName = mname;
+        ActualName = actualname;
+        CritName = critname;
+        MegaMekName = mname;
         LookupName = lookupname;
         Tonnage = tons;
         ExcludeCT = xct;
@@ -58,18 +62,36 @@ public class MultiSlotSystem extends abPlaceable {
         AC = a;
     }
 
-    @Override
-    public String GetCritName() {
-        return CritName;
+    public void SetChatName( String s ) {
+        ChatName = s;
     }
 
-    public String GetLookupName() {
+    public void SetBookReference( String s ) {
+        BookReference = s;
+    }
+
+    public String ActualName() {
+        return ActualName;
+    }
+
+    public String LookupName() {
         return LookupName;
     }
 
-    @Override
-    public String GetMMName(boolean UseRear) {
-        return MMName;
+    public String CritName() {
+        return CritName;
+    }
+
+    public String ChatName() {
+        return ChatName;
+    }
+
+    public String MegaMekName( boolean UseRear ) {
+        return MegaMekName;
+    }
+
+    public String BookReference() {
+        return BookReference;
     }
 
     @Override

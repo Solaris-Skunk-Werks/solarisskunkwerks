@@ -36,11 +36,14 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
                      PW_CLASS_INDUSTRIAL = 4,
                      PW_CLASS_SPOTWELDER = 5;
 
-    private String Name,
-                   MMName,
+    private String ActualName,
+                   CritName,
+                   MegaMekName,
                    LookupName,
+                   ChatName = "",
                    Type,
                    Specials,
+                   BookReference = "",
                    Manufacturer = "";
     protected Mech Owner;
     private AvailableCode AC;
@@ -74,16 +77,62 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
                     CanSplit = false,
                     PowerAmps = false;
 
-    public PhysicalWeapon( String name, String lookupname, String mname, Mech m, AvailableCode a ) {
-        Name = name;
+    public PhysicalWeapon( String actualname, String lookupname, String critname, String mname, Mech m, AvailableCode a ) {
+        ActualName= actualname;
         LookupName = lookupname;
-        MMName = mname;
+        CritName = critname;
+        MegaMekName = mname;
         Owner = m;
         AC = a;
     }
 
     // Required to allow Talons to extend PhysicalWeapon
-    public PhysicalWeapon(){}
+    public PhysicalWeapon() { }
+
+    public PhysicalWeapon( PhysicalWeapon p ) {
+        ActualName= p.ActualName;
+        LookupName = p.LookupName;
+        CritName = p.CritName;
+        MegaMekName = p.MegaMekName;
+        Owner = p.Owner;
+        AC = p.AC.Clone();
+        TonMult = p.TonMult;
+        CritMult = p.CritMult;
+        TonAdd = p.TonAdd;
+        CritAdd = p.CritAdd;
+        Alloc_HD = p.Alloc_HD;
+        Alloc_CT = p.Alloc_CT;
+        Alloc_Torso = p.Alloc_Torso;
+        Alloc_Arms = p.Alloc_Arms;
+        Alloc_Legs = p.Alloc_Legs;
+        CanSplit = p.CanSplit;
+        DamageMult = p.DamageMult;
+        DamageAdd = p.DamageAdd;
+        Heat = p.Heat;
+        Type = p.Type;
+        Specials = p.Specials;
+        CostMult = p.CostMult;
+        CostAdd = p.CostAdd;
+        BVMult = p.BVMult;
+        BVAdd = p.BVAdd;
+        DefBV = p.DefBV;
+        RoundToHalfTon = p.RoundToHalfTon;
+        ChatName = p.ChatName;
+        BookReference = p.BookReference;
+        ToHitShort = p.ToHitShort;
+        ToHitMedium = p.ToHitMedium;
+        ToHitLong = p.ToHitLong;
+        Nuclear = p.Nuclear;
+        Fusion = p.Fusion;
+        PowerAmps = p.PowerAmps;
+        RequiresHand = p.RequiresHand;
+        if ( RequiresHand == true ) { RequiresLowerArm = true; }
+        ReplacesHand = p.ReplacesHand;
+        if ( ReplacesHand == true ) { RequiresHand = false; }
+        RequiresLowerArm = p.RequiresLowerArm;
+        if ( RequiresLowerArm == false ) { RequiresHand = false; }
+        PWClass = p.PWClass;
+    }
 
     public void SetStats( double tmult, double cmult, double tadder, int cadder ) {
         // sets the weapon's tonnage and critical statistics
@@ -121,6 +170,14 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         BVAdd = badd;
         DefBV = dbv;
         RoundToHalfTon = round;
+    }
+
+    public void SetChatName( String s ) {
+        ChatName = s;
+    }
+
+    public void SetBookReference( String s ) {
+        BookReference = s;
     }
 
     public void SetToHit( int thsrt, int thmed, int thlng ) {
@@ -258,18 +315,28 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         return DamageAdd;
     }
 
-    @Override
-    public String GetCritName() {
-        return Name;
+    public String ActualName() {
+        return ActualName;
     }
 
-    public String GetLookupName() {
+    public String LookupName() {
         return LookupName;
     }
 
-    @Override
-    public String GetMMName(boolean UseRear) {
-        return MMName;
+    public String CritName() {
+        return CritName;
+    }
+
+    public String ChatName() {
+        return ChatName;
+    }
+
+    public String MegaMekName( boolean UseRear ) {
+        return MegaMekName;
+    }
+
+    public String BookReference() {
+        return BookReference;
     }
 
     @Override
@@ -327,10 +394,6 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
             retval.Combine( ArmoredAC );
         }
         return retval;
-    }
-
-    public String GetName() {
-        return Name;
     }
 
     public String GetType() {
@@ -475,8 +538,12 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         Manufacturer = n;
     }
 
+    public PhysicalWeapon Clone() {
+        return new PhysicalWeapon( this );
+    }
+
     @Override
     public String toString() {
-        return Name;
+        return CritName;
     }
 }

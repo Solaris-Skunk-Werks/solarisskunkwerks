@@ -47,20 +47,28 @@ public class stArmorPBM implements ifArmor, ifState {
         AC.SetRulesLevels( AvailableCode.RULES_ERA_SPECIFIC, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Primitive Armor";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "Primitive";
     }
 
-    public String GetMMName() {
+    public String LookupName() {
+        return "Primitive Armor";
+    }
+
+    public String ChatName() {
+        return "Pr. Armor";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Primitive";
     }
 
-    public String GetPrintName() {
-        return GetCritName();
+    public String BookReference() {
+        return "Jihad Secrets: The Blake Documents";
     }
 
     public boolean HasCounterpart() {

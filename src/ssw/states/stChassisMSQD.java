@@ -76,16 +76,28 @@ public class stChassisMSQD implements ifChassis, ifState {
         return 0;
     }
     
-    public String GetLookupName() {
+    public String ActualName() {
+        return "Military Standard Structure (Quad)";
+    }
+
+    public String CritName() {
+        return "Standard";
+    }
+
+    public String LookupName() {
         return "Standard Structure";
     }
 
-    public String GetCritName() {
-        return "";
+    public String ChatName() {
+        return "Std QD";
     }
 
-    public String GetMMName() {
+    public String MegaMekName( boolean UseRear ) {
         return "Standard";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public double GetStrucTon( int Tonnage ) {

@@ -30,15 +30,11 @@ package ssw.components;
 
 public class ModularArmor extends abPlaceable {
     private final static MechModifier Modifier = new MechModifier( -1, 0, -1, 0.0, 0, 1, 0, 0.0, 0.0, 0.0, 0.0, false, false );
-    private String CritName,
-                   MegaMekName,
-                   Manufacturer = "";
+    private String Manufacturer = "";
     private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
     private boolean Rear = false;
 
     public ModularArmor() {
-        CritName = "Modular Armor";
-        MegaMekName = "";
         AC.SetISCodes( 'D', 'X', 'X', 'F' );
         AC.SetISDates( 3070, 3072, true, 3072, 0, 0, false, false );
         AC.SetISFactions( "CS", "CS", "", "" );
@@ -51,21 +47,38 @@ public class ModularArmor extends abPlaceable {
     }
 
    public void SetMegaMekName( String n ) {
-        // provided if it's anything different than the CritName
-        MegaMekName = n;
     }
 
-    @Override
-    public String GetCritName() {
+    public String ActualName() {
+        return "Modular Armor";
+    }
+
+    public String CritName() {
         if( Rear ) {
-            return "(R) " + CritName;
+            return "(R) Modular Armor";
         } else {
-            return CritName;
+            return "Modular Armor";
         }
     }
 
-    public String GetLookupName() {
-        return GetCritName();
+    public String LookupName() {
+        return "Modular Armor";
+    }
+
+    public String ChatName() {
+        return "ModArmor";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
+        if( Rear ) {
+            return "" + " (R)";
+        } else {
+            return "";
+        }
+    }
+
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     @Override
@@ -105,14 +118,6 @@ public class ModularArmor extends abPlaceable {
     public double GetDefensiveBV() {
         // modular armor is handled by the armor BV code.
         return 0.0;
-    }
-
-    public String GetMMName( boolean UseRear ) {
-        if( Rear ) {
-            return MegaMekName + " (R)";
-        } else {
-            return MegaMekName;
-        }
     }
 
     @Override
@@ -181,7 +186,7 @@ public class ModularArmor extends abPlaceable {
 
     @Override
     public String toString() {
-        return CritName;
+        return "Modular Armor";
     }
 
     @Override

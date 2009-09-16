@@ -60,7 +60,7 @@ public class stJumpJetStandard implements ifJumpJetFactory, ifState {
     }
 
     public JumpJet GetJumpJet() {
-        return new JumpJet( "Jump Jet", "Jump Jet", 1, AC );
+        return new JumpJet( "Jump Jet", "Standard Jump Jet", "Jump Jet", "Jump Jet", "Tech Manual", 1, AC );
     }
 
     public double GetCost() {
@@ -83,7 +83,11 @@ public class stJumpJetStandard implements ifJumpJetFactory, ifState {
         return null;
     }
 
-    public String GetLookupName() {
+    public String LookupName() {
         return "Standard Jump Jet";
+    }
+
+    public String ChatName() {
+        return "JJ";
     }
 }

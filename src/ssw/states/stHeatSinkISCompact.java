@@ -71,7 +71,7 @@ public class stHeatSinkISCompact implements ifHeatSinkFactory, ifState {
     }
 
     public HeatSink GetHeatSink() {
-        return new HeatSink( "Compact Heat Sink", "Compact Heat Sink", 1, true, AC );
+        return new HeatSink( "Compact Heat Sink","Compact Heat Sink", "Compact Heat Sink", "Compact Heat Sink", "Tactical Operations", 1, true, AC );
     }
 
     public int GetNumCrits() {
@@ -86,7 +86,11 @@ public class stHeatSinkISCompact implements ifHeatSinkFactory, ifState {
         return null;
     }
 
-    public String GetLookupName() {
+    public String LookupName() {
         return "Compact Heat Sink";
+    }
+
+    public String ChatName() {
+        return "CHS";
     }
 }

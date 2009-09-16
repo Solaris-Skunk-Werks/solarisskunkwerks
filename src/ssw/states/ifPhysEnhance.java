@@ -32,10 +32,14 @@ import ssw.components.*;
 
 public interface ifPhysEnhance {
     // An interface for the two physical enhancements a mech can mount
+    public String ActualName();
+    public String CritName();
+    public String LookupName();
+    public String ChatName();
+    public String MegaMekName( boolean UseRear );
+    public String BookReference();
     public int GetTonnage( int mechtons );
     public int GetCrits( int mechtons );
-    public String GetCritName();
-    public String GetMMName();
     public boolean Contiguous();
     public double GetCost( int mechtons, double enginetons );
     public double GetOffensiveBV( int Tonnage );

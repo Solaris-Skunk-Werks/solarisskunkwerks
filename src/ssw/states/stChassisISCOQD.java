@@ -73,16 +73,28 @@ public class stChassisISCOQD implements ifChassis, ifState {
         return 0;
     }
     
-    public String GetLookupName() {
+    public String ActualName() {
+        return "Composite Structure (Quad)";
+    }
+
+    public String CritName() {
         return "Composite Structure";
     }
 
-    public String GetCritName() {
-        return "";
+    public String LookupName() {
+        return "Composite Structure";
     }
 
-    public String GetMMName() {
+    public String ChatName() {
+        return "Comp QD";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Composite";
+    }
+
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     public double GetStrucTon( int Tonnage ) {

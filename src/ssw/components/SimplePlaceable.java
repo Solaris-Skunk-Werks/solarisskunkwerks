@@ -38,16 +38,23 @@ public class SimplePlaceable extends abPlaceable {
     private int Crits;
     private double Tonnage = 0.0,
                   Cost = 0.0;
-    private String CritName,
-                   MMName;
+    private String ActualName,
+                   LookupName,
+                   CritName,
+                   ChatName,
+                   BookReference,
+                   MegaMekName;
     private AvailableCode AC;
 
-    public SimplePlaceable( String name, String mname, int numCrits, boolean locked, AvailableCode A ) {
+    public SimplePlaceable( String actualname, String critname, String lookupname, String mname, String bookref, int numCrits, boolean locked, AvailableCode A ) {
         LocLocked = locked;
         Crits = numCrits;
-        CritName = name;
+        ActualName = actualname;
+        CritName = critname;
+        LookupName = lookupname;
+        MegaMekName = mname;
+        BookReference = bookref;
         AC = A;
-        MMName = mname;
     }
 
     @Override
@@ -55,17 +62,29 @@ public class SimplePlaceable extends abPlaceable {
         return LocLocked;
     }
 
-    // returns the name of this item in the Loadout.
-    public String GetCritName() {
+    public String ActualName() {
+        return ActualName;
+    }
+
+    public String CritName() {
         return CritName;
     }
 
-    public String GetLookupName() {
-        return GetCritName();
+    public String LookupName() {
+        return LookupName;
     }
 
-    public String GetMMName( boolean UseRear ) {
-        return MMName;
+    public String ChatName() {
+        // simpleplaceables aren't included in the chat
+        return "";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
+        return MegaMekName;
+    }
+
+    public String BookReference() {
+        return BookReference;
     }
 
     // returns the number of crits this item takes in the Loadout.

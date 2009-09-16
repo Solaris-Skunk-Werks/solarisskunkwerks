@@ -75,16 +75,28 @@ public class stChassisPIMBP implements ifChassis, ifState {
         return 0;
     }
     
-    public String GetLookupName() {
-        return "Primitive Industrial Structure";
+    public String ActualName() {
+        return "Primitive Industrial Structure (Biped)";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "Primitive Industrial";
     }
 
-    public String GetMMName() {
+    public String LookupName() {
+        return "Primitive Industrial Structure";
+    }
+
+    public String ChatName() {
+        return "PrmInd BP";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "PrimitiveIndustrial";
+    }
+
+    public String BookReference() {
+        return "Jihad Secrets: The Blake Documents";
     }
 
     public double GetStrucTon( int Tonnage ) {

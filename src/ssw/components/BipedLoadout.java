@@ -203,7 +203,7 @@ public class BipedLoadout implements ifLoadout {
                 }
             } else {
                 if( p == Queue.get( i ) ) { return; }
-                if( p.GetLookupName().equals( ((abPlaceable) Queue.get( i )).GetLookupName() ) ) {
+                if( p.LookupName().equals( ((abPlaceable) Queue.get( i )).LookupName() ) ) {
                     // create a new equipment collection for these items.
                     EquipmentCollection e = new EquipmentCollection( this );
                     e.Add( p );
@@ -507,7 +507,7 @@ public class BipedLoadout implements ifLoadout {
                 AddToRL( p, SIndex );
                 break;
             default:
-                throw new Exception( "Location not recognized or not an integer\nwhile placing " + p.GetCritName() );
+                throw new Exception( "Location not recognized or not an integer\nwhile placing " + p.CritName() );
         }
     }
 
@@ -657,18 +657,18 @@ public class BipedLoadout implements ifLoadout {
     public void AddToHD( abPlaceable p, int SIndex ) throws Exception {
         // Can we allocate the item here?
         if( ! p.CanAllocHD() ) {
-            throw new Exception( p.GetCritName() +
+            throw new Exception( p.CritName() +
                 " cannot be allocated to the head." );
-        } else if( p.GetLookupName().equals( "HarJel" ) ) {
+        } else if( p.LookupName().equals( "HarJel" ) ) {
             if( Find( Owner.GetCockpit() ) == Constants.LOC_HD ) {
-                throw new Exception( p.GetCritName() + " cannot be allocated to the head\nbecause the head contains the cockpit." );
+                throw new Exception( p.CritName() + " cannot be allocated to the head\nbecause the head contains the cockpit." );
             }
         } else {
            if( p instanceof PhysicalWeapon ) {
            // Ensure that no other physical weapons are mounted in this location
                 for( int i = 0; i < NonCore.size(); i++ ){
                     if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_HD)
-                        throw new Exception( p.GetCritName() +
+                        throw new Exception( p.CritName() +
                             " cannot be allocated to the head because\nthe head already mounts a physical weapon." );
                 }
            }
@@ -683,18 +683,18 @@ public class BipedLoadout implements ifLoadout {
     public void AddToCT( abPlaceable p, int SIndex ) throws Exception {
         // Can we allocate the item here?
         if( ! p.CanAllocCT() ) {
-            throw new Exception( p.GetCritName() +
+            throw new Exception( p.CritName() +
                 " cannot be allocated to the center torso." );
-        } else if( p.GetLookupName().equals( "HarJel" ) ) {
+        } else if( p.LookupName().equals( "HarJel" ) ) {
             if( Find( Owner.GetCockpit() ) == Constants.LOC_CT ) {
-                throw new Exception( p.GetCritName() + " cannot be allocated to the center torso\nbecause the center torso contains the cockpit." );
+                throw new Exception( p.CritName() + " cannot be allocated to the center torso\nbecause the center torso contains the cockpit." );
             }
         } else {
            if( p instanceof PhysicalWeapon ) {
            // Ensure that no other physical weapons are mounted in this location
                 for( int i = 0; i < NonCore.size(); i++ ){
                     if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_CT)
-                        throw new Exception( p.GetCritName() +
+                        throw new Exception( p.CritName() +
                             " cannot be allocated to the center torso because\nthe torso already mounts a physical weapon." );
                 }
            }
@@ -709,14 +709,14 @@ public class BipedLoadout implements ifLoadout {
     public void AddToRT( abPlaceable p, int SIndex ) throws Exception {
         // Can we allocate the item here?
         if( ! p.CanAllocTorso() ) {
-            throw new Exception( p.GetCritName() +
+            throw new Exception( p.CritName() +
                 " cannot be allocated to the right torso." );
         } else {
            if( p instanceof PhysicalWeapon ) {
            // Ensure that no other physical weapons are mounted in this location
                 for( int i = 0; i < NonCore.size(); i++ ){
                     if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_RT)
-                        throw new Exception( p.GetCritName() +
+                        throw new Exception( p.CritName() +
                             " cannot be allocated to the right torso because\nthe torso already mounts a physical weapon." );
                 }
            }
@@ -731,14 +731,14 @@ public class BipedLoadout implements ifLoadout {
     public void AddToLT( abPlaceable p, int SIndex ) throws Exception {
         // Can we allocate the item here?
         if( ! p.CanAllocTorso() ) {
-            throw new Exception( p.GetCritName() +
+            throw new Exception( p.CritName() +
                 " cannot be allocated to the left torso." );
         } else {
            if( p instanceof PhysicalWeapon ) {
            // Ensure that no other physical weapons are mounted in this location
                 for( int i = 0; i < NonCore.size(); i++ ){
                     if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_LT)
-                        throw new Exception( p.GetCritName() +
+                        throw new Exception( p.CritName() +
                             " cannot be allocated to the left torso because\nthe torso already mounts a physical weapon." );
                 }
            }
@@ -753,7 +753,7 @@ public class BipedLoadout implements ifLoadout {
     public void AddToRA( abPlaceable p, int SIndex ) throws Exception {
         // Can we allocate the item here?
         if( ! p.CanAllocArms() ) {
-            throw new Exception( p.GetCritName() +
+            throw new Exception( p.CritName() +
                 " cannot be allocated to the right arm." );
         } else {
             if( p instanceof PhysicalWeapon ) {
@@ -761,22 +761,22 @@ public class BipedLoadout implements ifLoadout {
                 for( int i = 0; i < NonCore.size(); i++ ){
                     if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_RA) {
                         if ( ((PhysicalWeapon)p).GetPWClass() == ((PhysicalWeapon)NonCore.get( i )).GetPWClass() )
-                            throw new Exception( p.GetCritName() +
+                            throw new Exception( p.CritName() +
                                 " cannot be allocated to the right arm because\nthe arm already mounts a physical weapon of the same class." );
                     }
                 }
 
                 // Check for proper actuators
                 if ( ((PhysicalWeapon)p).RequiresHand() && ! ( RACrits[3] instanceof Actuator ) ) {
-                    throw new Exception( p.GetCritName() +
+                    throw new Exception( p.CritName() +
                         " cannot be allocated to the right arm because\nthe arm does not have a hand actuator." );
                 }
                 if ( ((PhysicalWeapon)p).RequiresLowerArm() && ! ( RACrits[2] instanceof Actuator ) ) {
-                    throw new Exception( p.GetCritName() +
+                    throw new Exception( p.CritName() +
                         " cannot be allocated to the right arm because\nthe arm does not have a lower arm actuator." );
                 }
                 if ( ((PhysicalWeapon)p).ReplacesHand() && ( RACrits[3] instanceof Actuator ) ) {
-                    throw new Exception( p.GetCritName() +
+                    throw new Exception( p.CritName() +
                         " cannot be allocated to the right arm because\nthe arm contains a hand actuator." );
                 }
 
@@ -789,7 +789,7 @@ public class BipedLoadout implements ifLoadout {
                         for( int i = 0; i < NonCore.size(); i++ ) {
                             if( NonCore.get( i ) instanceof PhysicalWeapon ) {
                                 if( Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_RA ) {
-                                    throw new Exception( p.GetCritName() +
+                                    throw new Exception( p.CritName() +
                                         " cannot be allocated to the right arm\n" +
                                         "because the arm contains lower arm or hand actuators." );
                                 }
@@ -810,7 +810,7 @@ public class BipedLoadout implements ifLoadout {
     public void AddToLA( abPlaceable p, int SIndex ) throws Exception {
         // Can we allocate the item here?
         if( ! p.CanAllocArms() ) {
-            throw new Exception( p.GetCritName() +
+            throw new Exception( p.CritName() +
                 " cannot be allocated to the left arm." );
         } else {
             if( p instanceof PhysicalWeapon ) {
@@ -818,22 +818,22 @@ public class BipedLoadout implements ifLoadout {
                 for( int i = 0; i < NonCore.size(); i++ ){
                     if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_LA) {
                         if ( ((PhysicalWeapon)p).GetPWClass() == ((PhysicalWeapon)NonCore.get( i )).GetPWClass() )
-                            throw new Exception( p.GetCritName() +
+                            throw new Exception( p.CritName() +
                                 " cannot be allocated to the left arm because\nthe arm already mounts a physical weapon of the same class." );
                     }
                 }
 
                 // Check for proper actuators
                 if ( ((PhysicalWeapon)p).RequiresHand() && ! ( LACrits[3] instanceof Actuator ) ) {
-                    throw new Exception( p.GetCritName() +
+                    throw new Exception( p.CritName() +
                         " cannot be allocated to the left arm because\nthe arm does not have a hand actuator." );
                 }
                 if ( ((PhysicalWeapon)p).RequiresLowerArm() && ! ( LACrits[2] instanceof Actuator ) ) {
-                    throw new Exception( p.GetCritName() +
+                    throw new Exception( p.CritName() +
                         " cannot be allocated to the left arm because\nthe arm does not have a lower arm actuator." );
                 }
                 if ( ((PhysicalWeapon)p).ReplacesHand() && ( LACrits[3] instanceof Actuator ) ) {
-                    throw new Exception( p.GetCritName() +
+                    throw new Exception( p.CritName() +
                         " cannot be allocated to the left arm because\nthe arm contains a hand actuator." );
                 }
             }
@@ -845,7 +845,7 @@ public class BipedLoadout implements ifLoadout {
                         for( int i = 0; i < NonCore.size(); i++ ) {
                             if( NonCore.get( i ) instanceof PhysicalWeapon ) {
                                 if( Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_LA ) {
-                                    throw new Exception( p.GetCritName() +
+                                    throw new Exception( p.CritName() +
                                         " cannot be allocated to the right arm\n" +
                                         "because the arm contains lower arm or hand actuators." );
                                 }
@@ -866,7 +866,7 @@ public class BipedLoadout implements ifLoadout {
     public void AddToRL( abPlaceable p, int SIndex ) throws Exception {
         // Can we allocate the item here?
         if( ! p.CanAllocLegs() ) {
-            throw new Exception( p.GetCritName() +
+            throw new Exception( p.CritName() +
                 " cannot be allocated to the right leg." );
         } else {
            if( p instanceof PhysicalWeapon ) {
@@ -874,7 +874,7 @@ public class BipedLoadout implements ifLoadout {
                 for( int i = 0; i < NonCore.size(); i++ ){
                     if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_RL)
                         if ( ((PhysicalWeapon)p).GetPWClass() != PhysicalWeapon.PW_CLASS_TALON )
-                            throw new Exception( p.GetCritName() +
+                            throw new Exception( p.CritName() +
                                 " cannot be allocated to the right leg because\nthe leg already mounts a physical weapon." );
                 }
            }
@@ -889,7 +889,7 @@ public class BipedLoadout implements ifLoadout {
     public void AddToLL( abPlaceable p, int SIndex ) throws Exception {
         // Can we allocate the item here?
         if( ! p.CanAllocLegs() ) {
-            throw new Exception( p.GetCritName() +
+            throw new Exception( p.CritName() +
                 " cannot be allocated to the left leg." );
         } else {
            if( p instanceof PhysicalWeapon ) {
@@ -897,7 +897,7 @@ public class BipedLoadout implements ifLoadout {
                 for( int i = 0; i < NonCore.size(); i++ ){
                     if ( NonCore.get( i ) instanceof PhysicalWeapon && Find( (abPlaceable) NonCore.get( i ) ) == Constants.LOC_LL)
                         if ( ((PhysicalWeapon)p).GetPWClass() != PhysicalWeapon.PW_CLASS_TALON )
-                            throw new Exception( p.GetCritName() +
+                            throw new Exception( p.CritName() +
                                 " cannot be allocated to the left leg because\nthe leg already mounts a physical weapon." );
                 }
            }
@@ -2250,7 +2250,7 @@ public class BipedLoadout implements ifLoadout {
                 }
             } catch( ArrayIndexOutOfBoundsException a ) {
                 UnallocateAll( p, true );
-                throw new Exception( p.GetCritName() + " cannot be allocated because there is not enough space." );
+                throw new Exception( p.CritName() + " cannot be allocated because there is not enough space." );
             } catch( Exception e ) {
                 UnallocateAll( p, true );
                 throw e;
@@ -2284,7 +2284,7 @@ public class BipedLoadout implements ifLoadout {
                 }
             } catch( ArrayIndexOutOfBoundsException a ) {
                 UnallocateAll( p, true );
-                throw new Exception( p.GetCritName() + " cannot be allocated because there is not enough space." );
+                throw new Exception( p.CritName() + " cannot be allocated because there is not enough space." );
             } catch( Exception e ) {
                 UnallocateAll( p, true );
                 throw e;
@@ -2318,7 +2318,7 @@ public class BipedLoadout implements ifLoadout {
                 }
             } catch( ArrayIndexOutOfBoundsException a ) {
                 UnallocateAll( p, true );
-                throw new Exception( p.GetCritName() + " cannot be allocated because there is not enough space." );
+                throw new Exception( p.CritName() + " cannot be allocated because there is not enough space." );
             } catch( Exception e ) {
                 UnallocateAll( p, true );
                 throw e;
@@ -2342,7 +2342,7 @@ public class BipedLoadout implements ifLoadout {
                 AddTo( LTCrits, p, SecondIndex, NumSecond );
             } catch( ArrayIndexOutOfBoundsException a ) {
                 UnallocateAll( p, true );
-                throw new Exception( p.GetCritName() + " cannot be allocated because there is not enough space." );
+                throw new Exception( p.CritName() + " cannot be allocated because there is not enough space." );
             } catch( Exception e ) {
                 UnallocateAll( p, true );
                 throw e;
@@ -2366,7 +2366,7 @@ public class BipedLoadout implements ifLoadout {
                 AddTo( RTCrits, p, SecondIndex, NumSecond );
             } catch( ArrayIndexOutOfBoundsException a ) {
                 UnallocateAll( p, true );
-                throw new Exception( p.GetCritName() + " cannot be allocated because there is not enough space." );
+                throw new Exception( p.CritName() + " cannot be allocated because there is not enough space." );
             } catch( Exception e ) {
                 UnallocateAll( p, true );
                 throw e;
@@ -2390,7 +2390,7 @@ public class BipedLoadout implements ifLoadout {
                 AddTo( LTCrits, p, SecondIndex, NumSecond );
             } catch( ArrayIndexOutOfBoundsException a ) {
                 UnallocateAll( p, true );
-                throw new Exception( p.GetCritName() + " cannot be allocated because there is not enough space." );
+                throw new Exception( p.CritName() + " cannot be allocated because there is not enough space." );
             } catch( Exception e ) {
                 UnallocateAll( p, true );
                 throw e;
@@ -2414,7 +2414,7 @@ public class BipedLoadout implements ifLoadout {
                 AddTo( RTCrits, p, SecondIndex, NumSecond );
             } catch( ArrayIndexOutOfBoundsException a ) {
                 UnallocateAll( p, true );
-                throw new Exception( p.GetCritName() + " cannot be allocated because there is not enough space." );
+                throw new Exception( p.CritName() + " cannot be allocated because there is not enough space." );
             } catch( Exception e ) {
                 UnallocateAll( p, true );
                 throw e;
@@ -2479,7 +2479,7 @@ public class BipedLoadout implements ifLoadout {
         // do we have enough contiguous space?
         if( temp < numcrits ) {
             // nope.
-            throw new Exception( p.GetCritName() + " cannot be allocated because there is not enough space." );
+            throw new Exception( p.CritName() + " cannot be allocated because there is not enough space." );
         }
 
         // allocate the item in question
@@ -2942,7 +2942,7 @@ public class BipedLoadout implements ifLoadout {
                     // if the item in the location is location locked, there is
                     // no space.
                     if( Loc[i].LocationLocked() ) {
-                        throw new Exception( p.GetCritName() + " cannot be" +
+                        throw new Exception( p.CritName() + " cannot be" +
                             " allocated to that location because a non-movable" +
                             " item already exists there." );
                     }
@@ -3117,7 +3117,7 @@ public class BipedLoadout implements ifLoadout {
             } else {
                     // is there a non-location locked item there?
                     if( Loc[SIndex].LocationLocked() ) {
-                        throw new Exception( p.GetCritName() + " cannot be" +
+                        throw new Exception( p.CritName() + " cannot be" +
                             " allocated to that location because a non-movable" +
                             " item already exists there." );
                     }
@@ -3163,15 +3163,15 @@ public class BipedLoadout implements ifLoadout {
             if( p instanceof RangedWeapon ) {
                 if( AddIn ) {
                     if( ArrayGood ) {
-                        throw new Exception( p.GetCritName() + " cannot be allocated because\nthere is no room for its machine guns." );
+                        throw new Exception( p.CritName() + " cannot be allocated because\nthere is no room for its machine guns." );
                     } else {
-                        throw new Exception( p.GetCritName() + " cannot be allocated because there is not enough space." );
+                        throw new Exception( p.CritName() + " cannot be allocated because there is not enough space." );
                     }
                 } else {
-                    throw new Exception( p.GetCritName() + " cannot be allocated because\nthere is no room for its additional equipment." );
+                    throw new Exception( p.CritName() + " cannot be allocated because\nthere is no room for its additional equipment." );
                 }
             } else {
-                throw new Exception( p.GetCritName() + " cannot be allocated because there is not enough space." );
+                throw new Exception( p.CritName() + " cannot be allocated because there is not enough space." );
             }
         }
 
@@ -4315,10 +4315,10 @@ public class BipedLoadout implements ifLoadout {
         // check basic requirements first
         if( p instanceof RangedWeapon ) {
             if( ((RangedWeapon) p).RequiresNuclear() &! Owner.GetEngine().IsNuclear() ) {
-                throw new Exception( p.GetCritName() + " may not be mounted as it requires a nuclear engine." );
+                throw new Exception( p.CritName() + " may not be mounted as it requires a nuclear engine." );
             }
             if( ((RangedWeapon) p).RequiresFusion() &! Owner.GetEngine().IsFusion() ) {
-                throw new Exception( p.GetCritName() + " may not be mounted as it requires a fusion engine." );
+                throw new Exception( p.CritName() + " may not be mounted as it requires a fusion engine." );
             }
         }
         if( p.GetExclusions() == null ) { return; }
@@ -4333,58 +4333,58 @@ public class BipedLoadout implements ifLoadout {
                 } else {
                     test = (abPlaceable) Queue.get( j );
                 }
-                if( test.GetCritName().contains( exclude[i] ) ) {
-                    throw new Exception( "A mech may not mount an " + p.GetCritName() + " if it\nalready mounts an " + ((abPlaceable) Queue.get( j )).GetCritName() );
+                if( test.CritName().contains( exclude[i] ) ) {
+                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + ((abPlaceable) Queue.get( j )).CritName() );
                 }
             }
             // check the loadout proper
             for( int j = 0; j < 6; j++ ) {
-                if( HDCrits[j].GetCritName().contains( exclude[i] ) ) {
-                    throw new Exception( "A mech may not mount an " + p.GetCritName() + " if it\nalready mounts an " + HDCrits[j].GetCritName() );
+                if( HDCrits[j].CritName().contains( exclude[i] ) ) {
+                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + HDCrits[j].CritName() );
                 }
-                if( CTCrits[j].GetCritName().contains( exclude[i] ) ) {
-                    throw new Exception( "A mech may not mount an " + p.GetCritName() + " if it\nalready mounts an " + CTCrits[j].GetCritName() );
+                if( CTCrits[j].CritName().contains( exclude[i] ) ) {
+                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + CTCrits[j].CritName() );
                 }
-                if( LTCrits[j].GetCritName().contains( exclude[i] ) ) {
-                    throw new Exception( "A mech may not mount an " + p.GetCritName() + " if it\nalready mounts an " + LTCrits[j].GetCritName() );
+                if( LTCrits[j].CritName().contains( exclude[i] ) ) {
+                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + LTCrits[j].CritName() );
                 }
-                if( RTCrits[j].GetCritName().contains( exclude[i] ) ) {
-                    throw new Exception( "A mech may not mount an " + p.GetCritName() + " if it\nalready mounts an " + RTCrits[j].GetCritName() );
+                if( RTCrits[j].CritName().contains( exclude[i] ) ) {
+                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + RTCrits[j].CritName() );
                 }
-                if( LACrits[j].GetCritName().contains( exclude[i] ) ) {
-                    throw new Exception( "A mech may not mount an " + p.GetCritName() + " if it\nalready mounts an " + LACrits[j].GetCritName() );
+                if( LACrits[j].CritName().contains( exclude[i] ) ) {
+                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + LACrits[j].CritName() );
                 }
-                if( RACrits[j].GetCritName().contains( exclude[i] ) ) {
-                    throw new Exception( "A mech may not mount an " + p.GetCritName() + " if it\nalready mounts an " + RACrits[j].GetCritName() );
+                if( RACrits[j].CritName().contains( exclude[i] ) ) {
+                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + RACrits[j].CritName() );
                 }
-                if( LLCrits[j].GetCritName().contains( exclude[i] ) ) {
-                    throw new Exception( "A mech may not mount an " + p.GetCritName() + " if it\nalready mounts an " + LLCrits[j].GetCritName() );
+                if( LLCrits[j].CritName().contains( exclude[i] ) ) {
+                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + LLCrits[j].CritName() );
                 }
-                if( RLCrits[j].GetCritName().contains( exclude[i] ) ) {
-                    throw new Exception( "A mech may not mount an " + p.GetCritName() + " if it\nalready mounts an " + RLCrits[j].GetCritName() );
+                if( RLCrits[j].CritName().contains( exclude[i] ) ) {
+                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + RLCrits[j].CritName() );
                 }
             }
             for( int j = 6; j < 11; j++ ) {
-                if( CTCrits[j].GetCritName().contains( exclude[i] ) ) {
-                    throw new Exception( "A mech may not mount an " + p.GetCritName() + " if it\nalready mounts an " + CTCrits[j].GetCritName() );
+                if( CTCrits[j].CritName().contains( exclude[i] ) ) {
+                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + CTCrits[j].CritName() );
                 }
-                if( LTCrits[j].GetCritName().contains( exclude[i] ) ) {
-                    throw new Exception( "A mech may not mount an " + p.GetCritName() + " if it\nalready mounts an " + LTCrits[j].GetCritName() );
+                if( LTCrits[j].CritName().contains( exclude[i] ) ) {
+                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + LTCrits[j].CritName() );
                 }
-                if( RTCrits[j].GetCritName().contains( exclude[i] ) ) {
-                    throw new Exception( "A mech may not mount an " + p.GetCritName() + " if it\nalready mounts an " + RTCrits[j].GetCritName() );
+                if( RTCrits[j].CritName().contains( exclude[i] ) ) {
+                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + RTCrits[j].CritName() );
                 }
-                if( LACrits[j].GetCritName().contains( exclude[i] ) ) {
-                    throw new Exception( "A mech may not mount an " + p.GetCritName() + " if it\nalready mounts an " + LACrits[j].GetCritName() );
+                if( LACrits[j].CritName().contains( exclude[i] ) ) {
+                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + LACrits[j].CritName() );
                 }
-                if( RACrits[j].GetCritName().contains( exclude[i] ) ) {
-                    throw new Exception( "A mech may not mount an " + p.GetCritName() + " if it\nalready mounts an " + RACrits[j].GetCritName() );
+                if( RACrits[j].CritName().contains( exclude[i] ) ) {
+                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + RACrits[j].CritName() );
                 }
             }
             // special addition for a targeting computer that is not in the loadout yet
             if( Use_TC ) {
-                if( CurTC.GetCritName().contains( exclude[i] ) ) {
-                    throw new Exception( "A mech may not mount an " + p.GetCritName() + " if it\nalready mounts an " + CurTC.GetCritName() );
+                if( CurTC.CritName().contains( exclude[i] ) ) {
+                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + CurTC.CritName() );
                 }
             }
         }

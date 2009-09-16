@@ -657,7 +657,7 @@ public class HMPReader {
         if( m.GetArmor().NumCrits() > 0 &! m.GetArmor().IsStealth() ) {
             // find out what kind of armor we have.
             long ArmorNum = 0;
-            String test = m.GetArmor().GetLookupName();
+            String test = m.GetArmor().LookupName();
             if( test.equals( "Ferro-Fibrous" ) ) {
                 ArmorNum = 0x15;
             } else if( test.equals( "Reactive Armor" ) ) {

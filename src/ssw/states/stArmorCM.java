@@ -49,20 +49,28 @@ public class stArmorCM implements ifArmor, ifState {
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED );
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Commercial Armor";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "Commercial";
     }
 
-    public String GetMMName() {
+    public String LookupName() {
+        return "Commercial Armor";
+    }
+
+    public String ChatName() {
+        return "Cmrcl Armor";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Commercial";
     }
 
-    public String GetPrintName() {
-        return GetCritName();
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public boolean HasCounterpart() {

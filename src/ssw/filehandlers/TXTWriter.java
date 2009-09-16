@@ -112,7 +112,7 @@ public class TXTWriter {
         retval += "Cost: " + String.format( "%1$,.0f", Math.floor( CurMech.GetTotalCost() + 0.5 ) ) + " C-Bills" + NL;
         retval += "Battle Value: " + String.format( "%1$,d", CurMech.GetCurrentBV() ) + NL + NL;
 
-        retval += "Chassis: " + CurMech.GetChassisModel() + " " + CurMech.GetIntStruc().GetCritName() + NL;
+        retval += "Chassis: " + CurMech.GetChassisModel() + " " + CurMech.GetIntStruc().CritName() + NL;
         retval += "Power Plant: " + CurMech.GetEngineManufacturer() + " " + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine() + NL;
         if( CurMech.GetAdjustedWalkingMP( false, true ) != CurMech.GetWalkingMP() ) {
             retval += "Walking Speed: " + ( CurMech.GetWalkingMP() * 10.75 ) + " km/h (" + ( CurMech.GetAdjustedWalkingMP( false, true ) * 10.75 ) + " km/h)" + NL;
@@ -133,9 +133,9 @@ public class TXTWriter {
             }
         }
         if( CurMech.HasCTCase()|| CurMech.HasLTCase() || CurMech.HasRTCase() ) {
-            retval += "Armor: " + CurMech.GetArmorModel() + " " + CurMech.GetArmor().GetCritName() + " w/ CASE" + NL;
+            retval += "Armor: " + CurMech.GetArmorModel() + " " + CurMech.GetArmor().CritName() + " w/ CASE" + NL;
         } else {
-            retval += "Armor: " + CurMech.GetArmorModel() + " " + CurMech.GetArmor().GetCritName() + NL;
+            retval += "Armor: " + CurMech.GetArmorModel() + " " + CurMech.GetArmor().CritName() + NL;
         }
         retval += "Armament:" + NL;
         retval += GetArmament();
@@ -190,11 +190,11 @@ public class TXTWriter {
         }
         retval += "Equipment           Type                         Rating                   Mass  " + NL;
         retval += "--------------------------------------------------------------------------------" + NL;
-        retval += String.format( "Internal Structure: %1$-28s %2$3s points              %3$6.2f", CurMech.GetIntStruc().GetCritName(), CurMech.GetIntStruc().GetTotalPoints(), CurMech.GetIntStruc().GetTonnage() ) + NL;
+        retval += String.format( "Internal Structure: %1$-28s %2$3s points              %3$6.2f", CurMech.GetIntStruc().CritName(), CurMech.GetIntStruc().GetTotalPoints(), CurMech.GetIntStruc().GetTonnage() ) + NL;
         if( CurMech.GetIntStruc().NumCrits() > 0 ) {
             retval += "    Internal Locations: " + FileCommon.GetInternalLocations( CurMech ) + NL;
         }
-        retval += String.format( "Engine:             %1$-28s %2$3s                     %3$6.2f", CurMech.GetEngine().GetCritName(), CurMech.GetEngine().GetRating(), CurMech.GetEngine().GetTonnage() ) + NL;
+        retval += String.format( "Engine:             %1$-28s %2$3s                     %3$6.2f", CurMech.GetEngine().CritName(), CurMech.GetEngine().GetRating(), CurMech.GetEngine().GetTonnage() ) + NL;
         if( CurMech.GetWalkingMP() != CurMech.GetAdjustedWalkingMP( false , true ) ) {
             retval += "    Walking MP: " + CurMech.GetWalkingMP() + " (" + CurMech.GetAdjustedWalkingMP( false, true ) + ")" + NL;
         } else {
@@ -225,7 +225,7 @@ public class TXTWriter {
         if( CurMech.GetHeatSinks().GetNumHS() > CurMech.GetEngine().InternalHeatSinks() ) {
             retval += "    Heat Sink Locations: " + FileCommon.GetHeatSinkLocations( CurMech ) + NL;
         }
-        retval += String.format( "Gyro:               %1$-52s %2$6.2f", CurMech.GetGyro().GetLookupName(), CurMech.GetGyro().GetTonnage() ) + NL;
+        retval += String.format( "Gyro:               %1$-52s %2$6.2f", CurMech.GetGyro().LookupName(), CurMech.GetGyro().GetTonnage() ) + NL;
         retval += String.format( "Cockpit:            %1$-52s %2$6.2f", CurMech.GetCockpit().GetReportName(), CurMech.GetCockpit().GetTonnage() ) + NL;
         if( CurMech.HasEjectionSeat() ) {
             retval += String.format( "    %1$-68s %2$6.2f", "Ejection Seat:", CurMech.GetEjectionSeat().GetTonnage() ) + NL;
@@ -240,9 +240,9 @@ public class TXTWriter {
             retval += "    TSM Locations: " + FileCommon.GetTSMLocations( CurMech ) + NL;
         }
         if( CurMech.GetArmor().GetBAR() < 10 ) {
-            retval += String.format( "Armor:              %1$-28s AV - %2$3s                %3$6.2f", CurMech.GetArmor().GetCritName() + " (BAR: " + CurMech.GetArmor().GetBAR() +")", CurMech.GetArmor().GetArmorValue(), CurMech.GetArmor().GetTonnage() ) + NL;
+            retval += String.format( "Armor:              %1$-28s AV - %2$3s                %3$6.2f", CurMech.GetArmor().CritName() + " (BAR: " + CurMech.GetArmor().GetBAR() +")", CurMech.GetArmor().GetArmorValue(), CurMech.GetArmor().GetTonnage() ) + NL;
         } else {
-            retval += String.format( "Armor:              %1$-28s AV - %2$3s                %3$6.2f", CurMech.GetArmor().GetCritName(), CurMech.GetArmor().GetArmorValue(), CurMech.GetArmor().GetTonnage() ) + NL;
+            retval += String.format( "Armor:              %1$-28s AV - %2$3s                %3$6.2f", CurMech.GetArmor().CritName(), CurMech.GetArmor().GetArmorValue(), CurMech.GetArmor().GetTonnage() ) + NL;
         }
         if( CurMech.GetArmor().NumCrits() > 0 ) {
             retval += "    Armor Locations: " + FileCommon.GetArmorLocations( CurMech ) + NL;
@@ -389,30 +389,30 @@ public class TXTWriter {
             if( cur instanceof RangedWeapon ) {
                 if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     if( ((RangedWeapon) cur).IsUsingFCS() ) {
-                        Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetLookupName() + " w/ " + ((abPlaceable) ((RangedWeapon) cur).GetFCS()).GetLookupName() + NL;
+                        Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.LookupName() + " w/ " + ((abPlaceable) ((RangedWeapon) cur).GetFCS()).LookupName() + NL;
                     } else {
-                        Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetLookupName() + NL;
+                        Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.LookupName() + NL;
                     }
                 } else {
                     if( ((RangedWeapon) cur).IsUsingFCS() ) {
-                        Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + " w/ " + ((abPlaceable) ((RangedWeapon) cur).GetFCS()).GetCritName() + NL;
+                        Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.CritName() + " w/ " + ((abPlaceable) ((RangedWeapon) cur).GetFCS()).CritName() + NL;
                     } else {
-                        Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + NL;
+                        Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.CritName() + NL;
                     }
                 }
             } else {
                 if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     if( cur instanceof Equipment ) {
                         if( ((Equipment) cur).IsVariableSize() ) {
-                            Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + NL;
+                            Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.CritName() + NL;
                         } else {
-                            Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetLookupName() + NL;
+                            Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.LookupName() + NL;
                         }
                     } else {
-                        Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetLookupName() + NL;
+                        Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.LookupName() + NL;
                     }
                 } else {
-                    Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + NL;
+                    Armament = "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.CritName() + NL;
                 }
             }
             if( CurMech.IsOmnimech() ) {
@@ -429,18 +429,18 @@ public class TXTWriter {
                 if( weapons[j] != null ) {
                     if( cur instanceof Equipment ) {
                         if( ((Equipment) cur).IsVariableSize() ) {
-                            if( weapons[j].GetCritName().equals( cur.GetCritName() ) && weapons[j].GetManufacturer().equals( cur.GetManufacturer() ) ) {
+                            if( weapons[j].CritName().equals( cur.CritName() ) && weapons[j].GetManufacturer().equals( cur.GetManufacturer() ) ) {
                                 numthistype++;
                                 weapons[j] = null;
                             }
                         } else {
-                            if( FileCommon.LookupStripArc( weapons[j].GetLookupName() ).equals( FileCommon.LookupStripArc( cur.GetLookupName() ) ) && weapons[j].GetManufacturer().equals( cur.GetManufacturer() ) ) {
+                            if( FileCommon.LookupStripArc( weapons[j].LookupName() ).equals( FileCommon.LookupStripArc( cur.LookupName() ) ) && weapons[j].GetManufacturer().equals( cur.GetManufacturer() ) ) {
                                 numthistype++;
                                 weapons[j] = null;
                             }
                         }
                     } else {
-                        if( FileCommon.LookupStripArc( weapons[j].GetLookupName() ).equals( FileCommon.LookupStripArc( cur.GetLookupName() ) ) && weapons[j].GetManufacturer().equals( cur.GetManufacturer() ) ) {
+                        if( FileCommon.LookupStripArc( weapons[j].LookupName() ).equals( FileCommon.LookupStripArc( cur.LookupName() ) ) && weapons[j].GetManufacturer().equals( cur.GetManufacturer() ) ) {
                             numthistype++;
                             weapons[j] = null;
                         }
@@ -458,30 +458,30 @@ public class TXTWriter {
             if( cur instanceof RangedWeapon ) {
                 if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     if( ((RangedWeapon) cur).IsUsingFCS() ) {
-                        Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.GetLookupName() ) + plural + " w/ " + ((abPlaceable) ((RangedWeapon) cur).GetFCS()).GetLookupName() + NL;
+                        Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.LookupName() ) + plural + " w/ " + ((abPlaceable) ((RangedWeapon) cur).GetFCS()).LookupName() + NL;
                     } else {
-                        Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.GetLookupName() ) + plural + NL;
+                        Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.LookupName() ) + plural + NL;
                     }
                 } else {
                     if( ((RangedWeapon) cur).IsUsingFCS() ) {
-                        Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.GetCritName() ) + plural + " w/ " + ((abPlaceable) ((RangedWeapon) cur).GetFCS()).GetCritName() + NL;
+                        Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.CritName() ) + plural + " w/ " + ((abPlaceable) ((RangedWeapon) cur).GetFCS()).CritName() + NL;
                     } else {
-                        Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.GetCritName() ) + plural + NL;
+                        Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.CritName() ) + plural + NL;
                     }
                 }
             } else {
                 if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     if( cur instanceof Equipment ) {
                         if( ((Equipment) cur).IsVariableSize() ) {
-                            Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.GetCritName() + NL;
+                            Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + cur.CritName() + NL;
                         } else {
-                            Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.GetLookupName() ) + plural + NL;
+                            Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.LookupName() ) + plural + NL;
                         }
                     } else {
-                        Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.GetLookupName() ) + plural + NL;
+                        Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.LookupName() ) + plural + NL;
                     }
                 } else {
-                    Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.GetCritName() ) + plural + NL;
+                    Armament += "    " + numthistype + " " + cur.GetManufacturer() + " " + FileCommon.LookupStripArc( cur.CritName() ) + plural + NL;
                 }
             }
 
@@ -609,18 +609,18 @@ public class TXTWriter {
                     if( equips[j] != null ) {
                         if( cur instanceof Equipment ) {
                             if( ((Equipment) cur).IsVariableSize() ) {
-                                if( equips[j].GetCritName().equals( cur.GetCritName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
+                                if( equips[j].CritName().equals( cur.CritName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
                                     numthisloc++;
                                     equips[j] = null;
                                 }
                             } else {
-                                if( equips[j].GetLookupName().equals( cur.GetLookupName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
+                                if( equips[j].LookupName().equals( cur.LookupName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
                                     numthisloc++;
                                     equips[j] = null;
                                 }
                             }
                         } else {
-                            if( equips[j].GetLookupName().equals( cur.GetLookupName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
+                            if( equips[j].LookupName().equals( cur.LookupName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
                                 numthisloc++;
                                 equips[j] = null;
                             }
@@ -657,30 +657,30 @@ public class TXTWriter {
         // add in any special systems
         boolean Special = false;
         if( CurMech.HasNullSig() ) {
-            retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", CurMech.GetNullSig().GetCritName(), "*", "10", 7, 0.0 ) + NL;
+            retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", CurMech.GetNullSig().CritName(), "*", "10", 7, 0.0 ) + NL;
             Special = true;
         }
         if( CurMech.HasVoidSig() ) {
-            retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", CurMech.GetVoidSig().GetCritName(), "*", "10", 7, 0.0 ) + NL;
+            retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", CurMech.GetVoidSig().CritName(), "*", "10", 7, 0.0 ) + NL;
             Special = true;
         }
         if( CurMech.HasChameleon() ) {
-            retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", CurMech.GetChameleon().GetCritName(), "*", "6", 6, 0.0 ) + NL;
+            retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", CurMech.GetChameleon().CritName(), "*", "6", 6, 0.0 ) + NL;
             Special = true;
         }
         if( CurMech.HasBlueShield() ) {
-            retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", CurMech.GetBlueShield().GetCritName(), "*", "-", 7, 3.0 ) + NL;
+            retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", CurMech.GetBlueShield().CritName(), "*", "-", 7, 3.0 ) + NL;
             Special = true;
         }
         if( CurMech.HasEnviroSealing() ) {
-            retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", CurMech.GetEnviroSealing().GetCritName(), "*", "-", 8, 0.0 ) + NL;
+            retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", CurMech.GetEnviroSealing().CritName(), "*", "-", 8, 0.0 ) + NL;
             Special = true;
         }
         if( CurMech.HasTracks() ) {
             if( CurMech.IsQuad() ) {
-                retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", CurMech.GetTracks().GetCritName(), "*", "-", 4, CurMech.GetTracks().GetTonnage() ) + NL;
+                retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", CurMech.GetTracks().CritName(), "*", "-", 4, CurMech.GetTracks().GetTonnage() ) + NL;
             } else {
-                retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", CurMech.GetTracks().GetCritName(), "*", "-", 2, CurMech.GetTracks().GetTonnage() ) + NL;
+                retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", CurMech.GetTracks().CritName(), "*", "-", 2, CurMech.GetTracks().GetTonnage() ) + NL;
             }
             Special = true;
         }
@@ -691,22 +691,22 @@ public class TXTWriter {
 
         // add in the equipment footers if needed
         if( CurMech.HasNullSig() ) {
-            retval += "* The " + CurMech.GetNullSig().GetCritName() + " occupies 1 slot in every location except the HD." + NL;
+            retval += "* The " + CurMech.GetNullSig().LookupName() + " occupies 1 slot in every location except the HD." + NL;
         }
         if( CurMech.HasVoidSig() ) {
-            retval += "* The " + CurMech.GetVoidSig().GetCritName() + " occupies 1 slot in every location except the HD." + NL;
+            retval += "* The " + CurMech.GetVoidSig().LookupName() + " occupies 1 slot in every location except the HD." + NL;
         }
         if( CurMech.HasChameleon() ) {
-            retval += "* The " + CurMech.GetChameleon().GetCritName() + " occupies 1 slot in every location except the HD and CT." + NL;
+            retval += "* The " + CurMech.GetChameleon().LookupName() + " occupies 1 slot in every location except the HD and CT." + NL;
         }
         if( CurMech.HasBlueShield() ) {
-            retval += "* The " + CurMech.GetBlueShield().GetCritName() + " occupies 1 slot in every location except the HD." + NL;
+            retval += "* The " + CurMech.GetBlueShield().LookupName() + " occupies 1 slot in every location except the HD." + NL;
         }
         if( CurMech.HasEnviroSealing() ) {
-            retval += "* The " + CurMech.GetEnviroSealing().GetCritName() + " occupies 1 slot in every location." + NL;
+            retval += "* The " + CurMech.GetEnviroSealing().LookupName() + " occupies 1 slot in every location." + NL;
         }
         if( CurMech.HasTracks() ) {
-            retval += "* " + CurMech.GetTracks().GetCritName() + " occupy 1 slot in every leg location." + NL;
+            retval += "* " + CurMech.GetTracks().LookupName() + " occupy 1 slot in every leg location." + NL;
         }
 
         return retval;
@@ -836,18 +836,18 @@ public class TXTWriter {
                     if( equips[j] != null ) {
                         if( cur instanceof Equipment ) {
                             if( ((Equipment) cur).IsVariableSize() ) {
-                                if( equips[j].GetCritName().equals( cur.GetCritName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
+                                if( equips[j].CritName().equals( cur.CritName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
                                     numthisloc++;
                                     equips[j] = null;
                                 }
                             } else {
-                                if( equips[j].GetLookupName().equals( cur.GetLookupName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
+                                if( equips[j].LookupName().equals( cur.LookupName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
                                     numthisloc++;
                                     equips[j] = null;
                                 }
                             }
                         } else {
-                            if( equips[j].GetLookupName().equals( cur.GetLookupName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
+                            if( equips[j].LookupName().equals( cur.LookupName() ) && CurMech.GetLoadout().Find( equips[j] ) == locint ) {
                                 numthisloc++;
                                 equips[j] = null;
                             }
@@ -939,29 +939,29 @@ public class TXTWriter {
             if( p instanceof Equipment ) {
                 if( ((Equipment) p).IsVariableSize() ) {
                     if( numthisloc > 1 ) {
-                        name = numthisloc + " " + p.GetCritName();
+                        name = numthisloc + " " + p.CritName();
                     } else {
-                        name = p.GetCritName();
+                        name = p.CritName();
                     }
                 } else {
                     if( numthisloc > 1 ) {
-                        name = numthisloc + " " + p.GetLookupName() + "s";
+                        name = numthisloc + " " + p.LookupName() + "s";
                     } else {
-                        name = p.GetLookupName();
+                        name = p.LookupName();
                     }
                 }
             } else {
                 if( numthisloc > 1 ) {
-                    name = numthisloc + " " + p.GetLookupName() + "s";
+                    name = numthisloc + " " + p.LookupName() + "s";
                 } else {
-                    name = p.GetLookupName();
+                    name = p.LookupName();
                 }
             }
         } else {
             if( numthisloc > 1 ) {
-                name = numthisloc + " " + p.GetCritName() + "s";
+                name = numthisloc + " " + p.CritName() + "s";
             } else {
-                name = p.GetCritName();
+                name = p.CritName();
             }
         }
 
@@ -974,21 +974,21 @@ public class TXTWriter {
             if( ((RangedWeapon) p).IsUsingFCS() ) {
                 abPlaceable a = (abPlaceable) ((RangedWeapon) p).GetFCS();
                 tons -= a.GetTonnage();
-                add += String.format( "    %1$-40s %2$-9s %3$-9s %4$-7s %5$6.2f", a.GetCritName(), loc, "-", a.NumCrits(), a.GetTonnage() * numthisloc ) + NL;
+                add += String.format( "    %1$-40s %2$-9s %3$-9s %4$-7s %5$6.2f", a.CritName(), loc, "-", a.NumCrits(), a.GetTonnage() * numthisloc ) + NL;
             }
             if( ((RangedWeapon) p).IsUsingCapacitor() ) {
                 tons -= 1.0f;
                 abPlaceable a = ((RangedWeapon) p).GetCapacitor();
-                add += String.format( "    %1$-40s %2$-9s %3$-9s %4$-7s %5$6.2f", a.GetCritName(), loc, numthisloc * 5 + "*", a.NumCrits(), a.GetTonnage() * numthisloc ) + NL;
+                add += String.format( "    %1$-40s %2$-9s %3$-9s %4$-7s %5$6.2f", a.CritName(), loc, numthisloc * 5 + "*", a.NumCrits(), a.GetTonnage() * numthisloc ) + NL;
             }
             retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", name, loc, ((RangedWeapon) p).GetHeat() * numthisloc, crits, tons * numthisloc ) + NL + add;
         } else if( p instanceof MGArray ) {
             retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", name, loc, "-", crits, ((MGArray) p).GetBaseTons() ) + NL;
             abPlaceable a = ((MGArray) p).GetMGType();
             if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
-                retval += String.format( "    %1$-40s %2$-9s %3$-9s %4$-7s %5$6.2f", ((MGArray) p).GetNumMGs() + " " + a.GetLookupName() + "s", loc, ((RangedWeapon) a).GetHeat() * ((MGArray) p).GetNumMGs(), ((MGArray) p).GetNumMGs(), ( ((MGArray) p).GetMGTons() * ((MGArray) p).GetNumMGs() ) ) + NL;
+                retval += String.format( "    %1$-40s %2$-9s %3$-9s %4$-7s %5$6.2f", ((MGArray) p).GetNumMGs() + " " + a.LookupName() + "s", loc, ((RangedWeapon) a).GetHeat() * ((MGArray) p).GetNumMGs(), ((MGArray) p).GetNumMGs(), ( ((MGArray) p).GetMGTons() * ((MGArray) p).GetNumMGs() ) ) + NL;
             } else{
-                retval += String.format( "    %1$-40s %2$-9s %3$-9s %4$-7s %5$6.2f", ((MGArray) p).GetNumMGs() + " " + a.GetCritName() + "s", loc, ((RangedWeapon) a).GetHeat() * ((MGArray) p).GetNumMGs(), ((MGArray) p).GetNumMGs(), ( ((MGArray) p).GetMGTons() * ((MGArray) p).GetNumMGs() ) ) + NL;
+                retval += String.format( "    %1$-40s %2$-9s %3$-9s %4$-7s %5$6.2f", ((MGArray) p).GetNumMGs() + " " + a.CritName() + "s", loc, ((RangedWeapon) a).GetHeat() * ((MGArray) p).GetNumMGs(), ((MGArray) p).GetNumMGs(), ( ((MGArray) p).GetMGTons() * ((MGArray) p).GetNumMGs() ) ) + NL;
             }
        } else if( p instanceof Equipment ) {
             retval += String.format( "%1$-44s %2$-9s %3$-9s %4$-7s %5$6.2f", name, loc, ((Equipment) p).GetHeat() * numthisloc, crits, p.GetTonnage() * numthisloc ) + NL;

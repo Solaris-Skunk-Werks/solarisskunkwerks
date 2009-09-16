@@ -44,22 +44,33 @@ public class Supercharger extends abPlaceable {
         AddMechModifier( new MechModifier( 0, 0, 0, 0.5, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, true, false ) );
     }
 
-    @Override
-    public String GetCritName() {
+    public String ActualName() {
         return "Supercharger";
     }
 
-    public String GetLookupName() {
-        return GetCritName();
+    public String CritName() {
+        return "Supercharger";
     }
 
-    @Override
-    public String GetMMName(boolean UseRear) {
+    public String LookupName() {
+        return "Supercharger";
+    }
+
+    public String ChatName() {
+        // ammo isn't included in the chat
+        return "SuperC";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         if( Owner.GetTechBase() >= AvailableCode.TECH_CLAN ) {
             return "CL Super Charger";
         } else {
             return "IS Super Charger";
         }
+    }
+
+    public String BookReference() {
+        return "Tactical Operations";
     }
 
     @Override

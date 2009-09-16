@@ -33,6 +33,7 @@ import ssw.components.AvailableCode;
 import ssw.components.MechModifier;
 
 public interface ifHeatSinkFactory {
+    public String ChatName();
     public boolean IsDouble();
     public boolean IsCompact();
     public boolean IsLaser();

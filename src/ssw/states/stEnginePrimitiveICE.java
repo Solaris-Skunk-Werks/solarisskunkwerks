@@ -84,16 +84,28 @@ public class stEnginePrimitiveICE implements ifEngine, ifState {
         }
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
+        return "Primitive Internal Combustion Engine";
+    }
+
+    public String CritName() {
+        return "Primitive I.C.E.";
+    }
+
+    public String LookupName() {
         return "Primitive I.C.E. Engine";
     }
 
-    public String GetCritName() {
-        return "Primitive I.C.E. Engine";
+    public String ChatName() {
+        return "Pr ICE";
     }
-    
-    public String GetMMName() {
+
+    public String MegaMekName( boolean UseRear ) {
         return "Primitive I.C.E.";
+    }
+
+    public String BookReference() {
+        return "Jihad Secrets: The Blake Documents";
     }
 
     public double GetCost( int MechTonnage, int Rating ) {

@@ -48,20 +48,28 @@ public class stArmorMS implements ifArmor, ifState {
         AC.SetRulesLevels( AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
+        return "Military Standard Armor";
+    }
+
+    public String CritName() {
         return "Standard Armor";
     }
 
-    public String GetCritName() {
-        return "Standard";
-    }
-
-    public String GetMMName() {
+    public String LookupName() {
         return "Standard Armor";
     }
 
-    public String GetPrintName() {
-        return GetCritName();
+    public String ChatName() {
+        return "Armor";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
+        return "Standard Armor";
+    }
+
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public boolean HasCounterpart() {

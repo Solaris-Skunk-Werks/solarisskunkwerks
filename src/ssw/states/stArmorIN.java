@@ -48,20 +48,28 @@ public class stArmorIN implements ifArmor, ifState {
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );
     }
 
-    public String GetLookupName() {
+    public String ActualName() {
         return "Industrial Armor";
     }
 
-    public String GetCritName() {
+    public String CritName() {
         return "Industrial";
     }
 
-    public String GetMMName() {
+    public String LookupName() {
+        return "Industrial Armor";
+    }
+
+    public String ChatName() {
+        return "Ind. Armor";
+    }
+
+    public String MegaMekName( boolean UseRear ) {
         return "Industrial";
     }
 
-    public String GetPrintName() {
-        return GetCritName();
+    public String BookReference() {
+        return "Tech Manual";
     }
 
     public boolean HasCounterpart() {
