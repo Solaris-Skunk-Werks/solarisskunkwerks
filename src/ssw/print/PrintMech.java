@@ -57,7 +57,8 @@ public class PrintMech implements Printable {
                     Charts = false,
                     PrintPilot = true,
                     UseA4Paper = false,
-                    Canon = false;
+                    Canon = false,
+                    TRO = false;
     private String PilotName = "";
     private int Piloting = 5,
                 Gunnery = 4,
@@ -143,11 +144,11 @@ public class PrintMech implements Printable {
     }
 
     public void setMechImage(Image MechImage) {
-        this.MechImage = MechImage;
+        if ( MechImage != null) { this.MechImage = MechImage; }
     }
 
     public void setLogoImage(Image LogoImage) {
-        this.LogoImage = LogoImage;
+        if ( LogoImage != null) { this.LogoImage = LogoImage; }
     }
 
     public void setBV(double BV) {
@@ -157,6 +158,15 @@ public class PrintMech implements Printable {
     public void setCanon( boolean Canon ) {
         this.Canon = Canon;
     }
+
+    public void setTRO(boolean TRO) {
+        this.TRO = TRO;
+        setCanon(true);
+        setCharts(false);
+        SetMiniConversion(1);
+        setPrintPilot(false);
+    }
+
     // </editor-fold>
 
     // <editor-fold desc="Gettor Methods">
@@ -178,6 +188,10 @@ public class PrintMech implements Printable {
     
     public Image getLogoImage() {
         return LogoImage;
+    }
+
+    public boolean isTRO() {
+        return TRO;
     }
     // </editor-fold>
 
@@ -924,13 +938,22 @@ public class PrintMech implements Printable {
 
         graphics.drawString( CurMech.GetTonnage() + "", p[PrintConsts.TONNAGE].x, p[PrintConsts.TONNAGE].y );
         graphics.drawString( String.format( "%1$,.0f C-Bills", Math.floor( CurMech.GetTotalCost() + 0.5f ) ), p[PrintConsts.COST].x, p[PrintConsts.COST].y );
-        graphics.drawString( String.format( "%1$,.0f (Base: %2$,d)", BV, CurMech.GetCurrentBV() ), p[PrintConsts.BV2].x, p[PrintConsts.BV2].y );
-        graphics.drawString( "Weapon Heat (" + CurMech.GetWeaponHeat() + ")", p[PrintConsts.MAX_HEAT].x, p[PrintConsts.MAX_HEAT].y );
-        graphics.setFont(SmallFont);
-        graphics.drawString( "Armor Pts: " + CurMech.GetArmor().GetArmorValue(), p[PrintConsts.TOTAL_ARMOR].x, p[PrintConsts.TOTAL_ARMOR].y );
-        graphics.setFont(BoldFont);
+        
+        if ( !TRO ) {
+            graphics.drawString( String.format( "%1$,.0f (Base: %2$,d)", BV, CurMech.GetCurrentBV() ), p[PrintConsts.BV2].x, p[PrintConsts.BV2].y );
+            graphics.drawString( "Weapon Heat (" + CurMech.GetWeaponHeat() + ")", p[PrintConsts.MAX_HEAT].x, p[PrintConsts.MAX_HEAT].y );
+            graphics.setFont(SmallFont);
+            graphics.drawString( "Armor Pts: " + CurMech.GetArmor().GetArmorValue(), p[PrintConsts.TOTAL_ARMOR].x, p[PrintConsts.TOTAL_ARMOR].y );
+            graphics.setFont(BoldFont);
+        } else {
+            graphics.drawString( String.format( "%1$,d", CurMech.GetCurrentBV() ), p[PrintConsts.BV2].x, p[PrintConsts.BV2].y );
+        }
 
-        if( PrintPilot ) {
+        if ( TRO ) {
+            graphics.drawString( "_______________________", p[PrintConsts.PILOT_NAME].x, p[PrintConsts.PILOT_NAME].y );
+            graphics.drawString( "___", p[PrintConsts.PILOT_GUN].x, p[PrintConsts.PILOT_GUN].y);
+            graphics.drawString( "___", p[PrintConsts.PILOT_PILOT].x-4, p[PrintConsts.PILOT_PILOT].y);
+        } else if( PrintPilot ) {
             graphics.drawString( PilotName, p[PrintConsts.PILOT_NAME].x, p[PrintConsts.PILOT_NAME].y );
             graphics.drawString( Gunnery + "", p[PrintConsts.PILOT_GUN].x, p[PrintConsts.PILOT_GUN].y );
             graphics.drawString( Piloting + "", p[PrintConsts.PILOT_PILOT].x, p[PrintConsts.PILOT_PILOT].y );
@@ -947,30 +970,32 @@ public class PrintMech implements Printable {
 
         graphics.drawString( CurMech.GetYear() + "", p[PrintConsts.TECH_IS].x, p[PrintConsts.TECH_IS].y + 10 );
 
-        //Armor Type
-        graphics.setFont(SmallFont);
-        if ( CurMech.IsQuad() ) { graphics.setFont(XtraSmallFont); }
+        if ( !TRO ) {
+            //Armor Type
+            graphics.setFont(SmallFont);
+            if ( CurMech.IsQuad() ) { graphics.setFont(XtraSmallFont); }
 
-        int baseX = points.GetArmorInfoPoints()[Constants.LOC_CT].x;
-        int baseY = points.GetArmorInfoPoints()[Constants.LOC_CT].y + 15;
+            int baseX = points.GetArmorInfoPoints()[Constants.LOC_CT].x;
+            int baseY = points.GetArmorInfoPoints()[Constants.LOC_CT].y + 15;
 
-        if ( CurMech.GetArmor().RequiresExtraRules() ) {
-            graphics.setFont(SmallBoldFont);
-            if ( CurMech.IsQuad() ) { graphics.setFont(XtraSmallBoldFont); }
-        }
-
-        String[] parts = CurMech.GetArmor().GetPrintName().trim().split(" ");
-        for (String part: parts) {
-            if ( !part.trim().isEmpty() ) {
-                int xCoord = baseX - ((part.trim().length() / 2) * 3);
-                graphics.drawString( part, xCoord, baseY );
-                baseY += 10;
+            if ( CurMech.GetArmor().RequiresExtraRules() ) {
+                graphics.setFont(SmallBoldFont);
+                if ( CurMech.IsQuad() ) { graphics.setFont(XtraSmallBoldFont); }
             }
-        }
-        graphics.setFont(PlainFont);
 
-        //Availability Codes
-        graphics.drawString(CurMech.GetAvailability().GetBestCombinedCode(), p[PrintConsts.TECH_IS].x, p[PrintConsts.TECH_IS].y+20);
+            String[] parts = CurMech.GetArmor().GetPrintName().trim().split(" ");
+            for (String part: parts) {
+                if ( !part.trim().isEmpty() ) {
+                    int xCoord = baseX - ((part.trim().length() / 2) * 3);
+                    graphics.drawString( part, xCoord, baseY );
+                    baseY += 10;
+                }
+            }
+            graphics.setFont(PlainFont);
+
+            //Availability Codes
+            graphics.drawString(CurMech.GetAvailability().GetBestCombinedCode(), p[PrintConsts.TECH_IS].x, p[PrintConsts.TECH_IS].y+20);
+        }
 
         //heat sinks
         graphics.setFont( PlainFont );
@@ -1191,6 +1216,7 @@ public class PrintMech implements Printable {
         }
         return retval;
     }
+
 
 /*    private void RandomArmorDotsLA( Graphics2D graphics, int AV, Point top, Point bottom ) {
         int cols = 3; // using three columns for the left arm.
