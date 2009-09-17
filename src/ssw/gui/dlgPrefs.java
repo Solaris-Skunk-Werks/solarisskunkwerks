@@ -30,12 +30,19 @@ package ssw.gui;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import ssw.filehandlers.FileCommon;
 import java.util.prefs.*;
 import ssw.Constants;
 import ssw.components.AvailableCode;
+import ssw.filehandlers.Media;
 
 public class dlgPrefs extends javax.swing.JDialog {
 
@@ -315,6 +322,9 @@ public class dlgPrefs extends javax.swing.JDialog {
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         btnSetDefaults = new javax.swing.JButton();
+        jPanel12 = new javax.swing.JPanel();
+        btnExport = new javax.swing.JButton();
+        btnImport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -1099,7 +1109,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         jTabbedPane1.addTab("Program", jPanel7);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridwidth = 3;
         getContentPane().add(jTabbedPane1, gridBagConstraints);
 
         btnSave.setText("Save");
@@ -1119,7 +1129,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         jPanel9.add(btnCancel);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
@@ -1137,6 +1147,28 @@ public class dlgPrefs extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
         getContentPane().add(btnSetDefaults, gridBagConstraints);
+
+        btnExport.setText("Export");
+        btnExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportActionPerformed(evt);
+            }
+        });
+        jPanel12.add(btnExport);
+
+        btnImport.setText("Import");
+        btnImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportActionPerformed(evt);
+            }
+        });
+        jPanel12.add(btnImport);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(4, 8, 0, 6);
+        getContentPane().add(jPanel12, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1167,7 +1199,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         msg += "Returns: @SRM-6 (15)\n";
         msg += "Example: [Ammo]%P (%L)\n";
         msg += "Returns: [Ammo]SRM-6 (15)\n";
-        javax.swing.JOptionPane.showMessageDialog( this, msg );
+        Media.Messager(this, msg);
     }//GEN-LAST:event_btnAmmoNameInfoActionPerformed
 
     private void btnAmmoNameExportInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmmoNameExportInfoActionPerformed
@@ -1440,6 +1472,50 @@ public class dlgPrefs extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_cmbTechbaseActionPerformed
 
+    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
+        FileOutputStream fos = null;
+        Media media = new Media();
+        File prefFile = media.SelectFile("prefs.xml", "xml", "Export Preferences To...");
+        SaveState();
+        try {
+            fos = new FileOutputStream(prefFile.getCanonicalPath());
+            Prefs.exportSubtree(fos);
+            fos.close();
+            Media.Messager(this, "Preferences Exported.");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(dlgPrefs.class.getName()).log(Level.SEVERE, null, ex);
+        } catch ( Exception e ) {
+            Logger.getLogger(dlgPrefs.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException ex) {
+                Logger.getLogger(dlgPrefs.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnExportActionPerformed
+
+    @SuppressWarnings("static-access")
+    private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
+        FileInputStream fis = null;
+        Media media = new Media();
+        try {
+            File prefPath = media.SelectFile("prefs.xml", "xml", "Select Preferences File");
+            fis = new FileInputStream(prefPath);
+            try {
+                Prefs.importPreferences(fis);
+                SetState();
+                Media.Messager(this, "Preferences Imported.");
+            } catch (IOException ex) {
+                Logger.getLogger(dlgPrefs.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidPreferencesFormatException ex) {
+                Logger.getLogger(dlgPrefs.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(dlgPrefs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnImportActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btgArmorPriority;
     private javax.swing.ButtonGroup btgExportSort;
@@ -1459,7 +1535,9 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JButton btnColorLockedFG;
     private javax.swing.JButton btnColorNormalBG;
     private javax.swing.JButton btnColorNormalFG;
+    private javax.swing.JButton btnExport;
     private javax.swing.JButton btnHTMLPath;
+    private javax.swing.JButton btnImport;
     private javax.swing.JButton btnMTFPath;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSetDefaults;
@@ -1498,6 +1576,7 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

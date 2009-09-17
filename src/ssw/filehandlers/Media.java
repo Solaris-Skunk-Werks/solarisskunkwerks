@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.filehandlers;
 
+import java.awt.Component;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Toolkit;
@@ -101,11 +102,15 @@ public class Media {
         Tracker.removeImage(image);
     }
 
-    public String GetDirectorySelection( frmMain Parent ) {
-        return GetDirectorySelection( Parent, "" );
+    public String GetDirectorySelection( Component Parent ) {
+        return GetDirectorySelection( Parent, "", "Choose directory" );
     }
 
-    public String GetDirectorySelection(frmMain Parent, String defaultPath ) {
+    public String GetDirectorySelection( Component Parent, String defaultPath ) {
+        return GetDirectorySelection( Parent, defaultPath, "Choose directory" );
+    }
+
+    public String GetDirectorySelection( Component Parent, String defaultPath, String CommandName ) {
         String path = defaultPath;
         JFileChooser fc = new JFileChooser();
 
@@ -116,7 +121,7 @@ public class Media {
         fc.setCurrentDirectory(new File(defaultPath));
 
         //Show it.
-        int returnVal = fc.showDialog( Parent, "Choose directory");
+        int returnVal = fc.showDialog( Parent, CommandName);
 
         //Process the results.  If no file is chosen, the default is used.
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -125,6 +130,14 @@ public class Media {
         return path;
     }
 
+    public static void Messager(String message) {
+        javax.swing.JOptionPane.showMessageDialog(null, message);
+    }
+
+    public static void Messager(Component component, String message) {
+        javax.swing.JOptionPane.showMessageDialog(component, message);
+    }
+    
     private class ExtensionFilter extends javax.swing.filechooser.FileFilter {
         String Extension = "";
 
@@ -141,6 +154,7 @@ public class Media {
         public String getDescription() {
             return "*." + Extension;
         }
-
     }
+
+
 }
