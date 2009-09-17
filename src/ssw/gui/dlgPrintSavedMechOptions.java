@@ -30,6 +30,9 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
             CurMech = null;
             pnlBattleMech.setVisible(false);
             this.setSize(this.getWidth(), this.getHeight()-pnlBattleMech.getHeight());
+            btnChooseLogo.setEnabled(false);
+            btnChooseImage.setEnabled(false);
+            lblImage.setText("The Mech Image must be set already.");
         } else {
             CurMech = m;
             if ( ! m.GetSSWImage().isEmpty() ) {this.setImage(new File(m.GetSSWImage()));}
@@ -232,7 +235,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
                         .addGroup(pnlBattleMechLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(cmbPiloting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                         .addGroup(pnlBattleMechLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBattleMechLayout.createSequentialGroup()
                                 .addGap(20, 20, 20)
@@ -277,6 +280,11 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         pnlPrintOptions.setBorder(javax.swing.BorderFactory.createTitledBorder("Print Options"));
 
         chkPrintCharts.setText("Print Tables and Movement Grid");
+        chkPrintCharts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkPrintChartsActionPerformed(evt);
+            }
+        });
 
         chkUseHexConversion.setText("Use Miniatures Scale for Movement");
         chkUseHexConversion.addActionListener(new java.awt.event.ActionListener() {
@@ -346,7 +354,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
                     .addGroup(pnlPrintOptionsLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(lblInches)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(chkMWStats)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -416,17 +424,18 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
                 .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnChooseImage)
                     .addComponent(chkPrintImage, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                    .addComponent(lblImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
+                    .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(chkLogo)
-                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnChooseLogo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblStats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chkStats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlImageOptionsLayout.createSequentialGroup()
+                        .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(chkLogo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblLogo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblStats, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(chkStats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(btnChooseLogo)))
         );
         pnlImageOptionsLayout.setVerticalGroup(
             pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -440,8 +449,8 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblStats, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblStats, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnChooseImage)
@@ -483,21 +492,19 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnlBattleMech, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pnlImageOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(pnlPrintOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(pnlPrintOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlImageOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(66, 66, 66))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
@@ -586,11 +593,11 @@ private void btnChooseImageActionPerformed(java.awt.event.ActionEvent evt) {//GE
 }//GEN-LAST:event_btnChooseImageActionPerformed
 
 private void chkPrintImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkPrintImageActionPerformed
-    btnChooseImage.setEnabled(chkPrintImage.isSelected());
+    if ( CurMech != null ) { btnChooseImage.setEnabled(chkPrintImage.isSelected()); }
 }//GEN-LAST:event_chkPrintImageActionPerformed
 
 private void chkLogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLogoActionPerformed
-    btnChooseLogo.setEnabled(chkLogo.isSelected());
+    if ( CurMech != null ) { btnChooseLogo.setEnabled(chkLogo.isSelected()); }
 }//GEN-LAST:event_chkLogoActionPerformed
 
 private void chkStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkStatsActionPerformed
@@ -632,6 +639,10 @@ private void btnChangeAmmoActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         javax.swing.JOptionPane.showMessageDialog(this, "There was an error altering the ammunition on this 'Mech:\n" + e.getMessage() );
     }
 }//GEN-LAST:event_btnChangeAmmoActionPerformed
+
+private void chkPrintChartsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkPrintChartsActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_chkPrintChartsActionPerformed
 
     public boolean Result() {
         return Result;
@@ -725,11 +736,13 @@ private void btnChangeAmmoActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     }
 
     public Image getImage() {
-        if (chkPrintImage.isSelected()) {
+        if (chkPrintImage.isSelected() && MechImage != null) {
             Media media = new Media();
             try {
                 return media.GetImage(MechImage.getCanonicalPath());
             } catch (IOException ex) {
+                return null;
+            } catch (NullPointerException np) {
                 return null;
             }
         } else {
@@ -764,11 +777,13 @@ private void btnChangeAmmoActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     }
 
     public Image getLogo() {
-        if (chkLogo.isSelected()) {
+        if (chkLogo.isSelected() && LogoImage != null) {
             Media media = new Media();
             try {
                 return media.GetImage(LogoImage.getCanonicalPath());
             } catch (IOException ex) {
+                return null;
+            } catch ( NullPointerException np ) {
                 return null;
             }
         } else {
