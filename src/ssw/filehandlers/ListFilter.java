@@ -23,7 +23,8 @@ public class ListFilter {
                 MinYear = 2750,
                 MaxYear = 2750,
                 MinBV = 0,
-                MaxBV = 0;
+                MaxBV = 0,
+                MinMP = 0;
     private double MinCost = 0.0,
                   MaxCost = 0.0;
     private boolean isOmni = false;
@@ -144,18 +145,16 @@ public class ListFilter {
     public boolean getIsOmni() {
         return this.isOmni;
     }
-
-    /**
-     * @return the Source
-     */
     public String getSource() {
         return Source;
     }
-
-    /**
-     * @param Source the Source to set
-     */
     public void setSource(String Source) {
         this.Source = Source;
+    }
+    public int getMinMP() {
+        return MinMP;
+    }
+    public void setMinMP(int MinMP) {
+        this.MinMP = MinMP;
     }
 }

@@ -28,28 +28,28 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.filehandlers;
 
-import java.util.Vector;
 import ssw.Force.Unit;
 
-public class MechListData {
-    private String Name = "",
-                   Model = "",
-                   TypeModel = "",
-                   Level= "Tournament Legal",
-                   Era = "Age of War",
-                   Tech = "Clan",
-                   Config = "",
-                   Source = "",
-                   Type = "BattleMech",
-                   Motive = "Biped",
-                   Info = "";
-    private int Tonnage = 0,
-                Year = 2750,
-                BV = 0;
-    private double Cost = 0;
-    private boolean Omni = false;
-    private String filename = "";
-    public Vector Configurations = new Vector();
+public class MechListData extends abUnitData {
+//    private String Name = "",
+//                   Model = "",
+//                   TypeModel = "",
+//                   Level= "Tournament Legal",
+//                   Era = "Age of War",
+//                   Tech = "Clan",
+//                   Config = "",
+//                   Source = "",
+//                   Type = "BattleMech",
+//                   Motive = "Biped",
+//                   Info = "";
+//    private int Tonnage = 0,
+//                Year = 2750,
+//                BV = 0,
+//                MinMP = 1;
+//    private double Cost = 0;
+//    private boolean Omni = false;
+//    private String filename = "";
+//    public Vector Configurations = new Vector();
 
     public MechListData(String Name, String Model, String Level, String Era, String Tech, String Source, String Type, String Motive, String Info, int Tonnage, int Year, int BV, double Cost, String filename){
         this.Name = Name;
@@ -168,151 +168,4 @@ public class MechListData {
                 this.Info.replace(",", " ") + "," +
                 this.Config;
     }
-
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String Name) {
-        this.Name = Name;
-    }
-
-    public String getFullName() {
-        return Name + " " + Model;
-    }
-
-    public String getLevel() {
-        return Level;
-    }
-
-    public void setLevel(String Level) {
-        this.Level = Level;
-    }
-
-    public String getEra() {
-        return Era;
-    }
-
-    public void setEra(String Era) {
-        this.Era = Era;
-    }
-
-    public String getTech() {
-        return Tech;
-    }
-
-    public void setTech(String Tech) {
-        this.Tech = Tech;
-    }
-
-    public String getType() {
-        return Type;
-    }
-
-    public void setType(String Type) {
-        this.Type = Type;
-    }
-
-    public String getMotive() {
-        return Motive;
-    }
-
-    public void setMotive(String Motive) {
-        this.Motive = Motive;
-    }
-
-    public String getInfo() {
-        return Info;
-    }
-
-    public void setInfo(String Info) {
-        this.Info = Info;
-    }
-
-    public int getTonnage() {
-        return Tonnage;
-    }
-
-    public void setTonnage(int Tonnage) {
-        this.Tonnage = Tonnage;
-    }
-
-    public int getYear() {
-        return Year;
-    }
-
-    public void setYear(int Year) {
-        this.Year = Year;
-    }
-
-    public int getBV() {
-        return BV;
-    }
-
-    public void setBV(int BV) {
-        this.BV = BV;
-    }
-
-    public double getCost() {
-        return Cost;
-    }
-
-    public void setCost(double Cost) {
-        this.Cost = Cost;
-    }
-
-    public boolean isOmni() {
-        return Omni;
-    }
-
-    public void setOmni(boolean Omni) {
-        this.Omni = Omni;
-    }
-
-    public String getModel() {
-        return Model;
-    }
-
-    public void setModel(String Model) {
-        this.Model = Model;
-    }
-
-    public String getFilename() {
-        return filename;
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
-
-    public String getConfig() {
-        return Config;
-    }
-
-    public void setConfig(String Config) {
-        this.Config = Config;
-    }
-
-    public String getSource() {
-        return Source;
-    }
-
-    public void setSource(String Source) {
-        this.Source = Source;
-    }
-
-    /**
-     * @return the TypeModel
-     */
-    public String getTypeModel() {
-        return TypeModel;
-    }
-
-    /**
-     * @param TypeModel the TypeModel to set
-     */
-    public void setTypeModel(String TypeModel) {
-        this.TypeModel = TypeModel;
-    }
-
 }

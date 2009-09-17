@@ -41,7 +41,7 @@ import javax.swing.table.AbstractTableModel;
 public class MechList extends AbstractTableModel {
     private Vector List = new Vector();
     private String Directory = "";
-    private int IndexVersion = 3;
+    private int IndexVersion = 4;
 
     public MechList() {
 
@@ -174,6 +174,18 @@ public class MechList extends AbstractTableModel {
             }
             if ( filter.getMaxTonnage() > 0 ) {
                 if ((filter.getMinTonnage() > mData.getTonnage()) || (mData.getTonnage() > filter.getMaxTonnage())) remove = true;
+            }
+            if ( filter.getMinMP() > 0 ) {
+                if ( !mData.getInfo().isEmpty() ) {
+                    String[] parts = mData.getInfo().split(" ");
+                    if ( parts[1].contains("/") ) {
+                        String[] mp = parts[1].split("/");
+                        int Walk = Integer.parseInt(mp[0]);
+                        if (filter.getMinMP() > Walk) remove = true;
+                    }
+                } else {
+                    remove = true;
+                }
             }
             if ( ! filter.getName().isEmpty() ) {
                 if (! mData.getTypeModel().toUpperCase().contains( filter.getName().toUpperCase() ) ) remove = true;
