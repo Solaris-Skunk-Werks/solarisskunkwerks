@@ -13,6 +13,8 @@ package ssw.printpreview;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.print.PageFormat;
 import java.awt.print.Pageable;
 import java.awt.print.Printable;
@@ -30,13 +32,13 @@ public class dlgBFPreview extends javax.swing.JDialog implements ActionListener 
     protected Pageable pageable;
     private Printer printer;
     private Preview preview;
-    private frmMain Parent;
+    //private frmMain Parent;
 
     /** Creates new form dlgBFPreview */
     public dlgBFPreview(String title, JFrame owner, Printer printer, Pageable pageable, double zoom) {
         super(owner, title, true);
         initComponents();
-        this.Parent = (frmMain) owner;
+        //this.Parent = (frmMain) owner;
         this.printer = printer;
         preview = new Preview(pageable, zoom, spnPreview.getSize());
         spnPreview.setViewportView(preview);
@@ -49,6 +51,15 @@ public class dlgBFPreview extends javax.swing.JDialog implements ActionListener 
 
         btnPageWidth.setAction(new ZoomAction("Width", "document-resize.png", preview, preview.getWidthZoom(), true));
         btnPageHeight.setAction(new ZoomAction("Page", "document-resize-actual.png", preview, preview.getHeightZoom(), true));
+
+        spnPreview.addComponentListener( new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                preview.setViewportSize( e.getComponent().getSize() );
+                btnPageWidth.setAction(new ZoomAction("Width", "document-resize.png", preview, preview.getWidthZoom(), true));
+                btnPageHeight.setAction(new ZoomAction("Page", "document-resize-actual.png", preview, preview.getHeightZoom(), true));
+            }
+        });
     }
 
     public dlgBFPreview(String title, JFrame owner, Printer printer, Pageable pageable) {
@@ -244,9 +255,9 @@ public class dlgBFPreview extends javax.swing.JDialog implements ActionListener 
     }
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-        if ( Parent != null ) {
+        //if ( Parent != null ) {
             //Parent.Prefs.putBoolean("UseCharts", chkPrintCharts.isSelected());
-        }
+        //}
         refresh();
         printer.Print(false);
 }//GEN-LAST:event_btnPrintActionPerformed

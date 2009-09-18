@@ -182,7 +182,7 @@
                       <Component id="btnCL" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="btnIS" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="24" max="32767" attributes="0"/>
+                  <EmptySpace pref="28" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
