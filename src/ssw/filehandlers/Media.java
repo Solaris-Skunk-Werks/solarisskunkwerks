@@ -29,15 +29,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.filehandlers;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Toolkit;
 import java.io.File;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import ssw.gui.ImageFilter;
 import ssw.gui.ImagePreview;
-import ssw.gui.frmMain;
 
 public class Media {
     MediaTracker Tracker = new MediaTracker(new JLabel());
@@ -100,6 +101,60 @@ public class Media {
 
     public void RemoveImage(Image image ) {
         Tracker.removeImage(image);
+    }
+    
+    public void setLogo( javax.swing.JLabel lblLogo, File Logo ) {
+        if ( Logo != null && ! Logo.getPath().isEmpty() ) {
+            try {
+               ImageIcon icon = new ImageIcon(Logo.getPath());
+
+                if( icon == null ) { return; }
+
+                // See if we need to scale
+                int lblH = lblLogo.getHeight()-lblLogo.getIconTextGap();
+                int lblW = lblLogo.getWidth()-lblLogo.getIconTextGap();
+
+                int h = icon.getIconHeight();
+                int w = icon.getIconWidth();
+                if ( w > lblW || h > lblH ) {
+                    if ( h > lblH ) {
+                        icon = new ImageIcon(icon.getImage().
+                            getScaledInstance(-1, lblH, Image.SCALE_SMOOTH));
+                        w = icon.getIconWidth();
+                    }
+                    if ( w > lblW ) {
+                        icon = new ImageIcon(icon.getImage().
+                            getScaledInstance(lblW, -1, Image.SCALE_SMOOTH));
+                    }
+                }
+
+                lblLogo.setIcon(icon);
+            } catch ( Exception e ) {
+
+            }
+        }
+    }
+
+    public Dimension reScale( Dimension d, double resize ) {
+        d.height = (int) (d.height * resize);
+        d.width = (int) (d.width * resize);
+        return d;
+    }
+
+    public Dimension reSize(Image image, double MaxWidth, double MaxHeight ) {
+        Dimension imageSize = new Dimension(image.getWidth(null), image.getHeight(null) );
+
+        if ( imageSize.width > MaxWidth || imageSize.height > MaxHeight ) {
+            if ( imageSize.width > imageSize.height ) {
+                imageSize = reScale(imageSize, (double)(MaxWidth / (double) imageSize.width));
+                if ( imageSize.height > MaxHeight ) { imageSize = reScale(imageSize, (double)(MaxHeight / (double) imageSize.height)); }
+            } else {
+                imageSize = reScale(imageSize, (double)(MaxHeight / (double) imageSize.height));
+                if ( imageSize.width > MaxWidth ) { imageSize = reScale(imageSize, (double)(MaxWidth / (double) imageSize.width)); }
+            }
+        }
+
+        return imageSize;
     }
 
     public String GetDirectorySelection( Component Parent ) {
