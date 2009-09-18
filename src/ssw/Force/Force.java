@@ -27,6 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.Force;
 
+import java.awt.Image;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import ssw.Force.Common.*;
@@ -39,7 +40,9 @@ import ssw.battleforce.BattleForceStats;
 
 public class Force extends AbstractTableModel {
     public Vector Units = new Vector();
-    public String ForceName = "";
+    public String ForceName = "",
+                  LogoPath = "",
+                  Type = BattleForce.InnerSphere;
     public double TotalBaseBV = 0.0,
                  TotalModifier = 0.0,
                  TotalTonnage = 0.0,
@@ -159,6 +162,8 @@ public class Force extends AbstractTableModel {
     public BattleForce toBattleForce() {
         BattleForce bf = new BattleForce();
         bf.ForceName = ForceName;
+        bf.Type = Type;
+        bf.LogoPath = LogoPath;
         for ( int i=0; i < Units.size(); i++ ) {
             Unit u = (Unit) Units.get(i);
             u.LoadMech();

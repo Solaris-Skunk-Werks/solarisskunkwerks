@@ -28,14 +28,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.battleforce;
 
+import java.util.Vector;
 import ssw.Constants;
 import ssw.components.Mech;
 
 public class BattleForceStats {
     private String Element = "",
                     MV = "",
-                    Unit = "";
-    private String[] Abilities = new String[]{};
+                    Unit = "",
+                    Image = "";
+    private Vector Abilities = new Vector();
     private int S = 0,
                 M = 0,
                 L = 0,
@@ -58,6 +60,11 @@ public class BattleForceStats {
         E = Data[Constants.BF_EXTREME];
         OV = Data[Constants.BF_OV];
         PV = m.GetBFPoints();
+        Abilities = m.GetBFAbilities();
+
+        //ONLY FOR TESTING OF PRINTING PURPOISES!!!
+        Abilities.add("ENE");
+        Abilities.add("ECM");
 
         Wt = m.GetBFSize();
         Armor = m.GetBFArmor();
@@ -67,6 +74,8 @@ public class BattleForceStats {
         if ( m.GetBFSecondaryMovement() != 0 ) {
             MV += "/" + m.GetBFSecondaryMovement() + m.GetBFSecondaryMovementMode();
         }
+
+        Image = m.GetSSWImage();
     }
 
     public BattleForceStats( Mech m, String Unit, int Gunnery, int Piloting ) {
@@ -76,8 +85,8 @@ public class BattleForceStats {
         this.Piloting = Piloting;
     }
 
-    public String[] getAbilities() {
-        return Abilities;
+    public String getAbilities() {
+        return Abilities.toString();
     }
 
     public int getShort() {
@@ -168,5 +177,13 @@ public class BattleForceStats {
 
     public void setPiloting(int Piloting) {
         this.Piloting = Piloting;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String Image) {
+        this.Image = Image;
     }
 }

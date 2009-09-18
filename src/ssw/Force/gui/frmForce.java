@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.Force.gui;
 
 import java.awt.Cursor;
+import java.awt.Image;
 import java.awt.print.PageFormat;
 import java.awt.print.Paper;
 import java.awt.print.PrinterException;
@@ -47,6 +48,7 @@ import ssw.Force.*;
 import ssw.Force.IO.ForceReader;
 import ssw.Force.IO.ForceWriter;
 import ssw.Force.IO.PrintSheet;
+import ssw.battleforce.BattleForce;
 import ssw.components.Mech;
 import ssw.filehandlers.MTFWriter;
 import ssw.filehandlers.MULWriter;
@@ -153,6 +155,7 @@ public class frmForce extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGrpType = new javax.swing.ButtonGroup();
         tlbActions = new javax.swing.JToolBar();
         btnOpen = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
@@ -171,6 +174,7 @@ public class frmForce extends javax.swing.JFrame {
         btnRefresh = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
         btnAmmoChooser = new javax.swing.JButton();
+        btnImages = new javax.swing.JButton();
         spnList = new javax.swing.JScrollPane();
         tblForce = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -184,6 +188,13 @@ public class frmForce extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lblForceName = new javax.swing.JLabel();
         txtForceName = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        rdoIS = new javax.swing.JRadioButton();
+        rdoCL = new javax.swing.JRadioButton();
+        rdoCS = new javax.swing.JRadioButton();
+        jLabel6 = new javax.swing.JLabel();
 
         setTitle("Force List");
         setMinimumSize(null);
@@ -362,6 +373,18 @@ public class frmForce extends javax.swing.JFrame {
         });
         tlbActions.add(btnAmmoChooser);
 
+        btnImages.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/images-stack.png"))); // NOI18N
+        btnImages.setToolTipText("Manage Images");
+        btnImages.setFocusable(false);
+        btnImages.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnImages.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnImages.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImagesActionPerformed(evt);
+            }
+        });
+        tlbActions.add(btnImages);
+
         tblForce.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -466,39 +489,107 @@ public class frmForce extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Unit Logo:");
+
+        lblLogo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        lblLogo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLogoMouseClicked(evt);
+            }
+        });
+
+        jLabel5.setText("Unit Type:");
+
+        btnGrpType.add(rdoIS);
+        rdoIS.setSelected(true);
+        rdoIS.setText("Inner Sphere");
+        rdoIS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoISActionPerformed(evt);
+            }
+        });
+
+        btnGrpType.add(rdoCL);
+        rdoCL.setText("Clan");
+        rdoCL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoCLActionPerformed(evt);
+            }
+        });
+
+        btnGrpType.add(rdoCS);
+        rdoCS.setText("Comstar/Word of Blake");
+        rdoCS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoCSActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel6.setText("Battletech Force Balancer can be used to manage and balance two forces at once.");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(lblForceName)
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblForceName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtForceName, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rdoIS)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rdoCL)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rdoCS))
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtForceName, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(324, Short.MAX_VALUE))
+                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(lblForceName)
-                .addComponent(txtForceName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblForceName)
+                    .addComponent(txtForceName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(rdoIS)
+                    .addComponent(rdoCL)
+                    .addComponent(rdoCS))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addGap(15, 15, 15))
+            .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
+            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -506,9 +597,9 @@ public class frmForce extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tlbActions, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -754,12 +845,48 @@ public class frmForce extends javax.swing.JFrame {
         force.ForceName = txtForceName.getText();
     }//GEN-LAST:event_txtForceNameKeyReleased
 
+    private void lblLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseClicked
+        Media media = new Media();
+        File logo = media.SelectImage(parent.Prefs.get("LastLogo", ""), "Select Logo");
+        try {
+            if ( logo != null ) {
+                parent.Prefs.put("LastOpenLogo", logo.getPath().toString());
+                force.LogoPath = logo.getCanonicalPath();
+                media.setLogo(lblLogo, logo);
+            }
+        } catch (IOException ex) {
+            //do nothing
+        }
+}//GEN-LAST:event_lblLogoMouseClicked
+
+    private void rdoISActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoISActionPerformed
+        force.Type = BattleForce.InnerSphere;
+}//GEN-LAST:event_rdoISActionPerformed
+
+    private void rdoCLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoCLActionPerformed
+        force.Type = BattleForce.Clan;
+    }//GEN-LAST:event_rdoCLActionPerformed
+
+    private void rdoCSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoCSActionPerformed
+        force.Type = BattleForce.Comstar;
+    }//GEN-LAST:event_rdoCSActionPerformed
+
+    private void btnImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagesActionPerformed
+        dlgImages img = new dlgImages(parent, force);
+        if ( img.hasWork ) {
+            img.setLocationRelativeTo(this);
+            img.setVisible(true);
+        }
+    }//GEN-LAST:event_btnImagesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brnClearForce;
     private javax.swing.JButton btnAddMech;
     private javax.swing.JButton btnAmmoChooser;
     private javax.swing.JButton btnExportMTFs;
     private javax.swing.JButton btnExportMUL;
+    private javax.swing.ButtonGroup btnGrpType;
+    private javax.swing.JButton btnImages;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnPreview;
     private javax.swing.JButton btnPrintBattleForce;
@@ -770,6 +897,9 @@ public class frmForce extends javax.swing.JFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JToolBar.Separator jSeparator1;
@@ -777,9 +907,13 @@ public class frmForce extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JLabel lblForceName;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblTotalBV;
     private javax.swing.JLabel lblTotalTons;
     private javax.swing.JLabel lblTotalUnits;
+    private javax.swing.JRadioButton rdoCL;
+    private javax.swing.JRadioButton rdoCS;
+    private javax.swing.JRadioButton rdoIS;
     private javax.swing.JScrollPane spnList;
     private javax.swing.JTable tblForce;
     private javax.swing.JToolBar tlbActions;

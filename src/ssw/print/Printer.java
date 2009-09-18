@@ -33,7 +33,6 @@ import java.awt.print.*;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import ssw.Force.Force;
 import ssw.battleforce.BattleForce;
 import ssw.utilities.CommonTools;
 import ssw.components.Mech;
@@ -43,6 +42,7 @@ import ssw.gui.*;
 public class Printer {
     private frmMain Parent;
     private Vector Mechs = new Vector();
+    private Vector battleforces = new Vector();
     private BattleForce battleforce;
     private PrintBattleforce printForce;
     private String jobName = "SSW Batch Print",
@@ -156,13 +156,12 @@ public class Printer {
     }
 
     public void AddForce( BattleForce f ) {
-        battleforce = f;
-        printForce = new PrintBattleforce(f);
+        battleforces.add( new PrintBattleforce(f) );
     }
 
     public void Clear() {
         Mechs.removeAllElements();
-        battleforce.BattleForceStats.removeAllElements();
+        battleforces.removeAllElements();
     }
 
     public void Print(Mech m) {
@@ -343,14 +342,18 @@ public class Printer {
     }
 
     public void setBattleForceSheet( String Type ) {
-        printForce.setType(Type);
+        for ( int i=0; i < battleforces.size(); i++ ) {
+            ((PrintBattleforce) battleforces.get(i)).setType(Type);
+        }
     }
 
     public Book PreviewBattleforce() {
-        if ( battleforce.BattleForceStats.size() == 0 ) { return new Book(); }
+        if ( battleforces.size() == 0 ) { return new Book(); }
         pages = new Book();
         page.setPaper( paper );
-        pages.append(printForce, page);
+        for ( int i=0; i < battleforces.size(); i++ ) {
+            pages.append(((PrintBattleforce) battleforces.get(i)), page);
+        }
         return pages;
     }
 
@@ -360,27 +363,35 @@ public class Printer {
     }
 
     public void PrintBattleforce() {
-        if ( battleforce.BattleForceStats.size() == 0 ) { return; }
+        if ( battleforces.size() == 0 ) { return; }
         pages = new Book();
         page.setPaper( paper );
 
-        jobName = "BattleForce";
-        if ( !battleforce.ForceName.isEmpty() ) { jobName = battleforce.ForceName.trim(); }
+        if ( jobName.isEmpty() ) { jobName = "BattleForce"; }
+        if ( battleforces.size() == 1 ) {
+            BattleForce bf = ((PrintBattleforce) battleforces.get(0)).getBattleforce();
+            if ( !bf.ForceName.isEmpty() ) { jobName = bf.ForceName.trim(); }
+        }
 
         job.setJobName(jobName);
 
         if ( useDialog ) {
-            dlgPrintBattleforce pForce = new dlgPrintBattleforce(Parent, true, battleforce);
-            pForce.setLocationRelativeTo(Parent);
-            pForce.setVisible(true);
-            if ( !pForce.Result ) {
-                return;
-            }
+            for ( int i=0; i < battleforces.size(); i++ ) {
+                PrintBattleforce bf = (PrintBattleforce) battleforces.get(i);
+                dlgPrintBattleforce pForce = new dlgPrintBattleforce(Parent, true, bf.getBattleforce());
+                pForce.setLocationRelativeTo(Parent);
+                pForce.setVisible(true);
+                if ( !pForce.Result ) {
+                    return;
+                }
 
-            printForce.setType(pForce.Sheet);
+                bf.setType(pForce.Sheet);
+            }
         }
 
-        pages.append(printForce, page);
+        for ( int i=0; i < battleforces.size(); i++ ) {
+            pages.append((PrintBattleforce) battleforces.get(i), page);
+        }
 
         job.setPageable(pages);
         boolean DoPrint = job.printDialog();

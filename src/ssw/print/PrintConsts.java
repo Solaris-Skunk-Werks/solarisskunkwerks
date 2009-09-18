@@ -55,13 +55,14 @@ public class PrintConsts {
                                RS_TO_QD = "",
                                BP_ChartImage = "./rs/Charts.png",
                                QD_ChartImage = "./rs/ChartsQD.png",
-                               BF_IS = "rs/BF_IS.png",
+                               BF_IS = "rs/BF_BG.png",
                                BF_IS_Unit = "rs/BF_IS_Unit.png",
-                               BF_CS = "rs/BF_CS.png",
+                               BF_CS = "rs/BF_BG.png",
                                BF_CS_Unit = "rs/BF_CS_Unit.png",
-                               BF_CL = "rs/BF_CL.png",
+                               BF_CL = "rs/BF_BG.png",
                                BF_CL_Unit = "rs/BF_CL_Unit.png";
 
+    public final static Font TitleFont = new Font( "Verdana", Font.BOLD, 12 );
     public final static Font BoldFont = new Font( "Arial", Font.BOLD, 8 );
     public final static Font PlainFont = new Font( "Arial", Font.PLAIN, 8 );
     public final static Font RegularFont = new Font( "Arial", Font.PLAIN, 10 );
