@@ -1262,7 +1262,7 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("C3 Computer (Master)","C3 Computer (Master)","C3 Computer (Master)", "E", a );
+        addEQ = new Equipment("Command/Control/Communication Computer (Master)","C3 Computer (Master)","C3 Computer (Master)", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("ISC3MasterComputer");
         addEQ.SetRange(0, 0, 0);
@@ -1280,7 +1280,7 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("C3 Computer (Slave)","C3 Computer (Slave)","C3 Computer (Slave)", "E", a );
+        addEQ = new Equipment("Command/Control/Communication Computer (Slave)","C3 Computer (Slave)","C3 Computer (Slave)", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("ISC3SlaveUnit");
         addEQ.SetRange(0, 0, 0);
@@ -1298,7 +1298,7 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("Improved C3 Computer","Improved C3 Computer", "Improved C3 Computer","E", a );
+        addEQ = new Equipment("Improved Command/Control/Communication Computer","Improved C3 Computer", "Improved C3 Computer","E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("ISImprovedC3CPU");
         addEQ.SetRange(0, 0, 0);
@@ -1317,7 +1317,7 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("C3 Boosted Computer (Master)","C3 Boosted Computer (Master)","C3 Boosted Computer (Master)", "E", a );
+        addEQ = new Equipment("Command/Control/Communication Boosted Computer (Master)","C3 Boosted Computer (Master)","C3 Boosted Computer (Master)", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("ISBC3MasterComputer");
         addEQ.SetRange(0, 0, 0);
@@ -1336,7 +1336,7 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("C3 Boosted Computer (Slave)","C3 Boosted Computer (Slave)","C3 Boosted Computer (Slave)", "E", a );
+        addEQ = new Equipment("Command/Control/Communication Boosted Computer (Slave)","C3 Boosted Computer (Slave)","C3 Boosted Computer (Slave)", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("ISBC3SlaveUnit");
         addEQ.SetRange(0, 0, 0);
@@ -1355,7 +1355,7 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("C3 Emergency Master","C3 Emergency Master","C3 Emergency Master", "E", a );
+        addEQ = new Equipment("Command/Control/Communication Emergency Master","C3 Emergency Master","C3 Emergency Master", "E", a );
         addEQ.SetAmmo(false, 0, 0);
         addEQ.SetMegaMekName("ISEC3MasterComputer");
         addEQ.SetRange(0, 0, 0);
@@ -1374,7 +1374,7 @@ public class EquipmentFactory {
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        addEQ = new Equipment("C3 Remote Sensor Launcher","C3 Remote Sensor Launcher","C3 Remote Sensor Launcher", "E", a );
+        addEQ = new Equipment("Command/Control/Communication Remote Sensor Launcher","C3 Remote Sensor Launcher","C3 Remote Sensor Launcher", "E", a );
         addEQ.SetAmmo(true, 4, 507);
         addEQ.SetMegaMekName("C3RemoteSensorLauncher");
         addEQ.SetRange(3, 6, 9);
@@ -1938,7 +1938,99 @@ public class EquipmentFactory {
         addEQ.SetBookReference( "Tech Manual" );
         addEQ.SetChatName( "LvStkCrgo" );
         IndustrialEquipment.add(addEQ);
-    }
+
+        // Infantry, Foot Compartment
+        a = new AvailableCode( AvailableCode.TECH_BOTH );
+        a.SetISCodes( 'A', 'B', 'B', 'B' );
+        a.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
+        a.SetISFactions( "", "", "PS", "" );
+        a.SetCLCodes( 'A', 'X', 'A', 'A' );
+        a.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
+        a.SetCLFactions( "", "", "PS", "" );
+        a.SetPBMAllowed( true );
+        a.SetPIMAllowed( true );
+        a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        addEQ = new Equipment("Infantry, Foot Compartment (28 Troopers, Foot Infantry)","Infantry, Foot Compartment","Foot Platoon", "IE", a);
+        addEQ.SetMegaMekName("InfantryCompartment");
+        addEQ.SetStats( 5, 5.0, 75000.0, 0, 0, "-" );
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "InfFtComp" );
+        IndustrialEquipment.add(addEQ);
+
+        // Infantry, Jump Compartment
+        a = new AvailableCode( AvailableCode.TECH_BOTH );
+        a.SetISCodes( 'A', 'B', 'B', 'B' );
+        a.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
+        a.SetISFactions( "", "", "PS", "" );
+        a.SetCLCodes( 'A', 'X', 'A', 'A' );
+        a.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
+        a.SetCLFactions( "", "", "PS", "" );
+        a.SetPBMAllowed( true );
+        a.SetPIMAllowed( true );
+        a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        addEQ = new Equipment("Infantry, Jump Compartment (28 Troopers, Jump Infantry)","Infantry, Jump Compartment","Jump Platoon", "IE", a);
+        addEQ.SetMegaMekName("InfantryCompartment");
+        addEQ.SetStats( 6, 6.0, 90000.0, 0, 0, "-" );
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "InfJmpComp" );
+        IndustrialEquipment.add(addEQ);
+
+        // Infantry, Motorized Compartment
+        a = new AvailableCode( AvailableCode.TECH_BOTH );
+        a.SetISCodes( 'A', 'B', 'B', 'B' );
+        a.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
+        a.SetISFactions( "", "", "PS", "" );
+        a.SetCLCodes( 'A', 'X', 'A', 'A' );
+        a.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
+        a.SetCLFactions( "", "", "PS", "" );
+        a.SetPBMAllowed( true );
+        a.SetPIMAllowed( true );
+        a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        addEQ = new Equipment("Infantry, Motorized Compartment (28 Troopers, Motorized Infantry)","Infantry, Motorized Compartment","Motor Platoon", "IE", a);
+        addEQ.SetMegaMekName("InfantryCompartment");
+        addEQ.SetStats( 7, 7.0, 105000.0, 0, 0, "-" );
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "InfMtrComp" );
+        IndustrialEquipment.add(addEQ);
+
+        // Infantry, Mechanized Compartment
+        a = new AvailableCode( AvailableCode.TECH_BOTH );
+        a.SetISCodes( 'A', 'B', 'B', 'B' );
+        a.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
+        a.SetISFactions( "", "", "PS", "" );
+        a.SetCLCodes( 'A', 'X', 'A', 'A' );
+        a.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
+        a.SetCLFactions( "", "", "PS", "" );
+        a.SetPBMAllowed( true );
+        a.SetPIMAllowed( true );
+        a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        addEQ = new Equipment("Infantry, Mechanized Compartment (5 Troopers, Mechanized Infantry)","Infantry, Mechanized Compartment","Mechanized Squad", "IE", a);
+        addEQ.SetMegaMekName("InfantryCompartment");
+        addEQ.SetStats( 8, 8.0, 120000.0, 0, 0, "-" );
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "InfMchnzdComp" );
+        IndustrialEquipment.add(addEQ);
+
+        // Battle Armor Compartment
+        a = new AvailableCode( AvailableCode.TECH_BOTH );
+        a.SetISCodes( 'D', 'X', 'F', 'C' );
+        a.SetISDates( 0, 0, false, 3050, 0, 0, false, false );
+        a.SetISFactions( "", "", "FC", "" );
+        a.SetCLCodes( 'D', 'X', 'D', 'C' );
+        a.SetCLDates( 0, 0, false, 2868, 0, 0, false, false );
+        a.SetCLFactions( "", "", "CWF", "" );
+        a.SetPBMAllowed( true );
+        a.SetPIMAllowed( true );
+        a.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        addEQ = new Equipment("Battle Armor Compartment","Battle Armor Compartment","Battle Armor", "IE", a);
+        addEQ.SetMegaMekName("BattleArmorCompartment");
+        addEQ.SetStats( 2, 2.0, 0, 0, 0, "-" );
+        addEQ.SetVariableSize( true, 2.0, 12.0, 2.0, 1.0, 15000.0 );
+        addEQ.SetBookReference( "Tech Manual" );
+        addEQ.SetChatName( "BAComp" );
+        IndustrialEquipment.add(addEQ);
+
+}
 
     // Classes to validate equipment
     // This is why java needs closures so I could do this an inline function

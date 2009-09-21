@@ -277,11 +277,12 @@ public class Cockpit extends abPlaceable {
     }
 
     public double GetCost() {
-        if( IsArmored() ) {
-            return 150000.0 + CurConfig.GetCost( Owner.GetTonnage() );
-        } else {
-            return CurConfig.GetCost( Owner.GetTonnage() );
-        }
+        double retval = CurConfig.GetCost( Owner.GetTonnage(), Owner.GetYear() );
+
+        if( IsArmored() ) { retval += 150000.0; }
+        if( Owner.HasFHES() ) { retval += 1725000.0; }
+
+        return retval;
     }
 
     public boolean HasFireControl() {

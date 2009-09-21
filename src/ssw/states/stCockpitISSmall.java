@@ -106,7 +106,7 @@ public class stCockpitISSmall implements ifCockpit, ifState {
         return "Small";
     }
 
-    public double GetCost( int Tonnage ) {
+    public double GetCost( int Tonnage, int year ) {
         double result = 225000.0f + ( 2000.0f * Tonnage );
         result += Sensors.GetCost();
         result += LifeSupport.GetCost();

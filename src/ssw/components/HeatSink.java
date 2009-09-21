@@ -40,6 +40,7 @@ public class HeatSink extends abPlaceable {
     private AvailableCode AC;
 
     public HeatSink( String actualname, String lookupname, String critname, String mname, String bookref, int numCrits, boolean compact, AvailableCode A ) {
+        ActualName = actualname;
         Compact = compact;
         Crits = numCrits;
         CritName = critname;

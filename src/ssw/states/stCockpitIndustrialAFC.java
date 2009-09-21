@@ -112,7 +112,7 @@ public class stCockpitIndustrialAFC implements ifCockpit, ifState {
         return "Industrial w/ Adv. Fire Control";
     }
 
-    public double GetCost( int Tonnage ) {
+    public double GetCost( int Tonnage, int year ) {
         double result = 250000.0f + ( 2000.0f * Tonnage );
         result += Sensors.GetCost();
         result += LifeSupport.GetCost();

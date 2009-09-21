@@ -554,7 +554,7 @@ public class XMLWriter {
                 retval += prefix + tab + "<name manufacturer=\"" + FileCommon.EncodeFluff( p.GetManufacturer() ) + "\">" + FileCommon.EncodeFluff( p.LookupName() ) + "</name>" + NL;
                 retval += prefix + tab + "<type>" + GetEquipmentType( p ) + "</type>" + NL;
                 if( p instanceof VehicularGrenadeLauncher ) {
-                    retval += prefix + tab + "<vglarc>" + ((VehicularGrenadeLauncher) p).GetAmmoType() + "</vglarc>" + NL;
+                    retval += prefix + tab + "<vglarc>" + ((VehicularGrenadeLauncher) p).GetCurrentArc() + "</vglarc>" + NL;
                     retval += prefix + tab + "<vglammo>" + ((VehicularGrenadeLauncher) p).GetAmmoType() + "</vglammo>" + NL;
                 }
                 if( p instanceof Equipment ) {

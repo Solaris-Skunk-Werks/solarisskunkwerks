@@ -552,7 +552,11 @@ public class Armor  extends abPlaceable {
 
     @Override
     public double GetCost() {
-        return GetTonnage() * Config.GetCostMult();
+        if( Owner.IsPrimitive() && Owner.GetYear() < 2450 ) {
+            return GetTonnage() * Config.GetCostMult() * 2.0;
+        } else {
+            return GetTonnage() * Config.GetCostMult();
+        }
     }
 
     public double GetOffensiveBV() {

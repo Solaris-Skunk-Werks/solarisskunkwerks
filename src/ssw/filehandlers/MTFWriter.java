@@ -39,9 +39,7 @@ public class MTFWriter {
     // writes the given mech to an MTF file supported by MegaMek.
 
     private Mech CurMech;
-    private String Prepend = "",
-                   IS = "(Inner Sphere)",
-                   CL = "(Clan)";
+    private String Prepend = "";
     private boolean mixed = false;
 
     public MTFWriter( ) {
@@ -365,7 +363,7 @@ public class MTFWriter {
         } else if( retval.contains( "ImprovedJump Jet" ) ) {
             retval = Prepend + retval;
         } else if( ! p.CoreComponent() ) {
-            if( p instanceof PhysicalWeapon || p instanceof IndustrialPhysicalWeapon ) {
+            if( p instanceof PhysicalWeapon || p instanceof IndustrialPhysicalWeapon || p instanceof PartialWing ) {
                 // do nothing here
             } else if( ( ! retval.contains( "IS" ) ) && ( ! retval.contains( "CL" ) ) && ( ! retval.contains( "Clan" ) ) ) {
                 retval = Prepend + retval;

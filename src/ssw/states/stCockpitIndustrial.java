@@ -112,7 +112,7 @@ public class stCockpitIndustrial implements ifCockpit, ifState {
         return "Industrial";
     }
 
-    public double GetCost( int Tonnage ) {
+    public double GetCost( int Tonnage, int year ) {
         double result = 150000.0f + ( 2000.0f * Tonnage );
         result += Sensors.GetCost();
         result += LifeSupport.GetCost();

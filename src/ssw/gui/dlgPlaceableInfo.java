@@ -41,6 +41,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         Parent = (frmMain) parent;
         setTitle( "Item Information" );
         SetState();
+        pack();
     }
 
     private void SetState() {
@@ -109,6 +110,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         }
         lblRulesBM.setText( CommonTools.GetRulesLevelString( AC.GetRulesLevel_BM() ) );
         lblRulesIM.setText( CommonTools.GetRulesLevelString( AC.GetRulesLevel_IM() ) );
+        lblBookRef.setText( a.BookReference() );
     }
 
     /** This method is called from within the constructor to
@@ -168,6 +170,9 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         lblISReIntro = new javax.swing.JLabel();
         lblISExtraInfo = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
+        jLabel5 = new javax.swing.JLabel();
+        lblBookRef = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -242,7 +247,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridy = 13;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
@@ -437,6 +442,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         gridBagConstraints.gridy = 10;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         getContentPane().add(pnlClan, gridBagConstraints);
 
@@ -560,8 +566,33 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         getContentPane().add(pnlInnerSphere, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        getContentPane().add(jSeparator4, gridBagConstraints);
+
+        jLabel5.setText("Book Reference:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        getContentPane().add(jLabel5, gridBagConstraints);
+
+        lblBookRef.setText("jLabel15");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 4);
+        getContentPane().add(lblBookRef, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -588,6 +619,7 @@ private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -595,7 +627,9 @@ private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel lblBV;
+    private javax.swing.JLabel lblBookRef;
     private javax.swing.JLabel lblClanACCI;
     private javax.swing.JLabel lblClanACSL;
     private javax.swing.JLabel lblClanACSW;

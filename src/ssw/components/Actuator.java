@@ -34,15 +34,17 @@ public class Actuator extends abPlaceable {
     private boolean LocLocked,
                     OmniArmorable;
     private double CostMult;
-    private String CritName,
+    private String ActualName,
+                   CritName,
                    MMName;
     private AvailableCode AC;
     private Mech Owner;
 
-    public Actuator( String name, String mname, boolean locked, boolean omniarmor, AvailableCode A, double Multiplier, Mech m ) {
+    public Actuator( String aname, String cname, String mname, boolean locked, boolean omniarmor, AvailableCode A, double Multiplier, Mech m ) {
+        ActualName = aname;
         LocLocked = locked;
         OmniArmorable = omniarmor;
-        CritName = name;
+        CritName = cname;
         AC = A;
         CostMult = Multiplier;
         Owner = m;
@@ -55,7 +57,7 @@ public class Actuator extends abPlaceable {
     }
 
     public String ActualName() {
-        return CritName;
+        return ActualName;
     }
 
     public String CritName() {

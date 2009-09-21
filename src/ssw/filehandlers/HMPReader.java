@@ -1089,6 +1089,9 @@ public class HMPReader {
                                             m.GetLoadout().RemoveFromQueue( neweq );
                                             m.GetLoadout().AddTo( m.GetLoadout().GetCrits( i ), neweq, S1Index, S1Num );
                                             m.GetLoadout().AddTo( m.GetLoadout().GetCrits( S2Loc ), neweq, S2Index, S2Num );
+                                            if( rear ) {
+                                                neweq.MountRear( rear );
+                                            }
                                             // Clear out the old slots in the retarded criticals array
                                             for( int k = S1Index; k < S1Index + S1Num; k++ ) {
                                                 Criticals[i][k] = 0x00;
@@ -1107,6 +1110,9 @@ public class HMPReader {
                                 }
                                 m.GetLoadout().AddToQueue( neweq );
                                 m.GetLoadout().AddTo( neweq, i, j );
+                                if( rear ) {
+                                    neweq.MountRear( rear );
+                                }
                                 Criticals[i][j] = 0x00;
                                 if( size > 1 ) {
                                     // we'll need to clear out the rest of the

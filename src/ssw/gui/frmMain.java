@@ -30,8 +30,10 @@ package ssw.gui;
 
 import ssw.utilities.CommonTools;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Image;
+import java.awt.datatransfer.DataFlavor;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -53,6 +55,8 @@ import ssw.visitors.*;
 import ssw.print.*;
 import ssw.states.ifState;
 import java.util.prefs.*;
+import javax.swing.JEditorPane;
+import javax.swing.JTextField;
 import ssw.Force.gui.frmForce;
 import ssw.battleforce.BattleForceTools;
 import ssw.printpreview.dlgPreview;
@@ -90,6 +94,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     JMenuItem mnuVGLAmmoChaff = new JMenuItem( "Chaff" );
     JMenuItem mnuVGLAmmoIncen = new JMenuItem( "Incendiary" );
     JMenuItem mnuVGLAmmoSmoke = new JMenuItem( "Smoke" );
+    JPopupMenu mnuFluff = new JPopupMenu();
+    JMenuItem mnuFluffCut = new JMenuItem( "Cut" );
+    JMenuItem mnuFluffCopy = new JMenuItem( "Copy" );
+    JMenuItem mnuFluffPaste = new JMenuItem( "Paste" );
 
     MechLoadoutRenderer Mechrender;
     public Preferences Prefs;
@@ -304,6 +312,28 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuCaseless.setVisible( false );
         mnuVGLArc.setVisible( false );
         mnuVGLAmmo.setVisible( false );
+
+        mnuFluffCut.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed( ActionEvent e ) {
+                FluffCut( mnuFluff.getInvoker() );
+            }
+        });
+
+        mnuFluffCopy.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                FluffCopy( mnuFluff.getInvoker() );
+            }
+        });
+
+        mnuFluffPaste.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                FluffPaste( mnuFluff.getInvoker() );
+            }
+        });
+
+        mnuFluff.add( mnuFluffCut );
+        mnuFluff.add( mnuFluffCopy );
+        mnuFluff.add( mnuFluffPaste );
 
         try {
             CurMech.Visit( new VMechFullRecalc() );
@@ -3096,7 +3126,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             mnuSetVariable.setVisible( false );
         }
-        if( CurItem.CoreComponent() ) {
+        if( CurItem.CoreComponent() || CurItem.LocationLinked() ) {
             mnuRemoveItem.setEnabled( false );
         } else {
             mnuRemoveItem.setEnabled( true );
@@ -3790,6 +3820,90 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         return retval;
+    }
+
+    private void FluffCut( Component c ) {
+        String cut = "";
+        if( c instanceof JEditorPane ) {
+            JEditorPane j = (JEditorPane) c;
+            if( j.getSelectedText() == null ) {
+                // get everything and remove it
+                cut = j.getText();
+                j.setText( "" );
+            } else {
+                // get the selection
+                cut = j.getSelectedText();
+                j.setText( j.getText().replace( cut, "" ) );
+            }
+        }
+        if( c instanceof JTextField ) {
+            JTextField j = (JTextField) c;
+            if( j.getSelectedText() == null ) {
+                // get everything and remove it
+                cut = j.getText();
+                j.setText( "" );
+            } else {
+                // get the selection
+                cut = j.getSelectedText();
+                j.setText( j.getText().replace( cut, "" ) );
+            }
+        }
+        java.awt.datatransfer.StringSelection export = new java.awt.datatransfer.StringSelection( cut );
+        java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents( export, this );
+    }
+
+    private void FluffCopy( Component c ) {
+        String copy = "";
+        if( c instanceof JEditorPane ) {
+            JEditorPane j = (JEditorPane) c;
+            if( j.getSelectedText() == null ) {
+                // get everything and remove it
+                copy = j.getText();
+            } else {
+                // get the selection
+                copy = j.getSelectedText();
+            }
+        }
+        if( c instanceof JTextField ) {
+            JTextField j = (JTextField) c;
+            if( j.getSelectedText() == null ) {
+                // get everything and remove it
+                copy = j.getText();
+            } else {
+                // get the selection
+                copy = j.getSelectedText();
+            }
+        }
+        java.awt.datatransfer.StringSelection export = new java.awt.datatransfer.StringSelection( copy );
+        java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents( export, this );
+    }
+
+    private void FluffPaste( Component c ) {
+        // ensure we have the correct data flavor from the clipboard
+        java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
+        String txtimport = null;
+        try {
+            txtimport = (String) clipboard.getData( DataFlavor.stringFlavor );
+        } catch( Exception e ) {
+            System.err.println( e.getMessage() );
+            e.printStackTrace();
+            return;
+        }
+        if( txtimport == null ) { return; }
+        if( c instanceof JEditorPane ) {
+            JEditorPane j = (JEditorPane) c;
+            int insert = j.getCaretPosition();
+            String paste = j.getText().substring( 0, insert ) + txtimport + j.getText().substring( insert );
+            j.setText( paste );
+        }
+        if( c instanceof JTextField ) {
+            JTextField j = (JTextField) c;
+            int insert = j.getCaretPosition();
+            String paste = j.getText().substring( 0, insert ) + txtimport + j.getText().substring( insert );
+            j.setText( paste );
+        }
     }
 
      /** This method is called from within the constructor to
@@ -7696,7 +7810,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane13.setMinimumSize(new java.awt.Dimension(105, 183));
         jScrollPane13.setPreferredSize(new java.awt.Dimension(105, 170));
 
-        lstRTCrits.setFont(new java.awt.Font("Tahoma", 0, 10));
+        lstRTCrits.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lstRTCrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Right Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
@@ -8436,6 +8550,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane1.setMinimumSize(new java.awt.Dimension(310, 420));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(310, 420));
         jScrollPane1.setViewportView(edtOverview);
+        MouseListener mlOverview = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        edtOverview.addMouseListener( mlOverview );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -8465,6 +8592,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         edtCapabilities.setMaximumSize(new java.awt.Dimension(106, 20));
         jScrollPane2.setViewportView(edtCapabilities);
+        MouseListener mlCapabilities = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        edtCapabilities.addMouseListener( mlCapabilities );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -8490,6 +8630,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane3.setMinimumSize(new java.awt.Dimension(310, 420));
         jScrollPane3.setPreferredSize(new java.awt.Dimension(310, 420));
         jScrollPane3.setViewportView(edtHistory);
+        MouseListener mlHistory = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        edtHistory.addMouseListener( mlHistory );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -8515,6 +8668,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane4.setMinimumSize(new java.awt.Dimension(310, 420));
         jScrollPane4.setPreferredSize(new java.awt.Dimension(310, 420));
         jScrollPane4.setViewportView(edtDeployment);
+        MouseListener mlDeployment = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        edtDeployment.addMouseListener( mlDeployment );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -8540,6 +8706,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane5.setMinimumSize(new java.awt.Dimension(310, 420));
         jScrollPane5.setPreferredSize(new java.awt.Dimension(310, 420));
         jScrollPane5.setViewportView(edtVariants);
+        MouseListener mlVariants = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        edtVariants.addMouseListener( mlVariants );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -8565,6 +8744,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane6.setMinimumSize(new java.awt.Dimension(310, 420));
         jScrollPane6.setPreferredSize(new java.awt.Dimension(310, 420));
         jScrollPane6.setViewportView(edtNotables);
+        MouseListener mlNotables = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        edtNotables.addMouseListener( mlNotables );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -8590,6 +8782,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane7.setMinimumSize(new java.awt.Dimension(310, 420));
         jScrollPane7.setPreferredSize(new java.awt.Dimension(310, 420));
         jScrollPane7.setViewportView(edtAdditionalFluff);
+        MouseListener mlAdditional = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        edtAdditionalFluff.addMouseListener( mlAdditional );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -8696,7 +8901,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         pnlManufacturers.add(jLabel15, gridBagConstraints);
 
-        txtManufacturer.setFont(new java.awt.Font("Arial", 0, 11));
+        txtManufacturer.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -8705,6 +8910,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 2, 0, 11);
         pnlManufacturers.add(txtManufacturer, gridBagConstraints);
+        MouseListener mlManufacturer = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        txtManufacturer.addMouseListener( mlManufacturer );
 
         txtEngineManufacturer.setFont(new java.awt.Font("Arial", 0, 11));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -8715,6 +8933,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
         pnlManufacturers.add(txtEngineManufacturer, gridBagConstraints);
+        MouseListener mlEngineManufacturer = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        txtEngineManufacturer.addMouseListener( mlEngineManufacturer );
 
         txtArmorModel.setFont(new java.awt.Font("Arial", 0, 11));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -8725,6 +8956,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
         pnlManufacturers.add(txtArmorModel, gridBagConstraints);
+        MouseListener mlArmorModel = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        txtArmorModel.addMouseListener( mlArmorModel );
 
         txtChassisModel.setFont(new java.awt.Font("Arial", 0, 11));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -8735,6 +8979,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
         pnlManufacturers.add(txtChassisModel, gridBagConstraints);
+        MouseListener mlChassisModel = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        txtChassisModel.addMouseListener( mlChassisModel );
 
         txtCommSystem.setFont(new java.awt.Font("Arial", 0, 11));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -8745,6 +9002,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
         pnlManufacturers.add(txtCommSystem, gridBagConstraints);
+        MouseListener mlCommSystem = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        txtCommSystem.addMouseListener( mlCommSystem );
 
         txtTNTSystem.setFont(new java.awt.Font("Arial", 0, 11));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -8755,6 +9025,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
         pnlManufacturers.add(txtTNTSystem, gridBagConstraints);
+        MouseListener mlTNTSystem = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        txtTNTSystem.addMouseListener( mlTNTSystem );
 
         pnlWeaponsManufacturers.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Weapons Manufacturers", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
         pnlWeaponsManufacturers.setFont(new java.awt.Font("Arial", 0, 11));
@@ -8812,6 +9095,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
         pnlManufacturers.add(txtManufacturerLocation, gridBagConstraints);
+        MouseListener mlManufacturerLocation = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        txtManufacturerLocation.addMouseListener( mlManufacturerLocation );
 
         jLabel35.setFont(new java.awt.Font("Arial", 0, 11));
         jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -8834,6 +9130,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
         pnlManufacturers.add(txtJJModel, gridBagConstraints);
+        MouseListener mlJJModel = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        txtJJModel.addMouseListener( mlJJModel );
 
         tbpFluffEditors.addTab("Manufacturers", pnlManufacturers);
 

@@ -38,6 +38,10 @@ Version 0.7.0
 - Added a Chat Line output like 90T 4/6/0 Fusion, Endo-Steel, 15.0T Ferro-Fibrous, 1 LRM-10, 1 Gauss Rifle, 1 Streak SRM-4, 2 ER Medium Laser
 - Added Full-Head Ejection System and Partial Wing.
 - Ammo chooser added to single print, also shows location and index of the ammo to replace.
+- Added a context menu for copy and paste operations on the Fluff tab.
+- Added infantry compartments to Industrial Equipment.
+- Added heat sink type and number to the chat line.
+- Added a Book Reference String to all equipment.
 - Added the ability to print BattleForce sheets
 - Added the ability to Export and Import your settings using the Options window
 
@@ -92,6 +96,10 @@ Version 0.7.0
 - Reworked the Force dialog to handle Omnis, printing, saving and loading of information to match BFB.
 - Updated Mech List to include the source per the omni configuration.
 - Fixed some major issues with Rules Level and Techbase choosers.
+- HMP import should now correctly set rear facing weapons to rear.
+- Full-Head Ejection System should now reflect the correct cost.
+- Fixed an issue allowing one to remove a laser insulator without the change in weapon stats.
+- Changed internal naming scheme for better consistency and information.
 - Fixed issue with Preview window printing many sheets instead of one.
 
 -------------------------------------------------------------------------------

@@ -52,7 +52,7 @@ public interface ifCockpit {
     public SimplePlaceable GetSecondLifeSupport();
     public SimplePlaceable GetSecondSensors();
     public SimplePlaceable GetThirdSensors();
-    public double GetCost( int Tonnage );
+    public double GetCost( int Tonnage, int year );
     public double BVMod();
     public boolean HasFireControl();
     public boolean IsTorsoMounted();

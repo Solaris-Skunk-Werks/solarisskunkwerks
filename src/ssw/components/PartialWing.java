@@ -60,7 +60,7 @@ public class PartialWing extends abPlaceable {
     }
 
     public String MegaMekName( boolean UseRear ) {
-        return "BattlemechPartialWing";
+        return "PartialWing";
     }
 
     public String BookReference() {

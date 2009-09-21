@@ -114,7 +114,7 @@ public class stCockpitTorsoMount implements ifCockpit, ifState {
         return "Torso-Mounted";
     }
 
-    public double GetCost( int Tonnage ) {
+    public double GetCost( int Tonnage, int year ) {
         double result = 750000.0f + ( 2000.0f * Tonnage );
         result += Sensors.GetCost();
         result += LifeSupport.GetCost();

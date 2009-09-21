@@ -38,9 +38,10 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
     public dlgWeaponInfo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setResizable( false );
+        //setResizable( false );
         Parent= (frmMain) parent;
         SetState();
+        pack();
     }
 
     private void SetState() {
@@ -251,6 +252,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         } else {
             lblMountingRestrictions.setText( "None" );
         }
+        lblBookRef.setText( Parent.CurItem.BookReference() );
     }
 
     /** This method is called from within the constructor to
@@ -332,6 +334,9 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         jLabel23 = new javax.swing.JLabel();
         lblMountingRestrictions = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        jLabel9 = new javax.swing.JLabel();
+        lblBookRef = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -378,7 +383,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 4);
         getContentPane().add(lblInfoSpecial, gridBagConstraints);
 
-        lblName.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblName.setFont(new java.awt.Font("Dialog", 1, 14));
         lblName.setText("Hyper Assault Gauss 40");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -467,7 +472,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 14;
+        gridBagConstraints.gridy = 16;
         gridBagConstraints.gridwidth = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
@@ -900,6 +905,32 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 0, 0);
         getContentPane().add(jLabel5, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 14;
+        gridBagConstraints.gridwidth = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        getContentPane().add(jSeparator5, gridBagConstraints);
+
+        jLabel9.setText("Book Reference:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 15;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 0);
+        getContentPane().add(jLabel9, gridBagConstraints);
+
+        lblBookRef.setText("jLabel10");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 15;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 4);
+        getContentPane().add(lblBookRef, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -925,12 +956,15 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JLabel lblAmmo;
     private javax.swing.JLabel lblBV;
+    private javax.swing.JLabel lblBookRef;
     private javax.swing.JLabel lblClanAVCI;
     private javax.swing.JLabel lblClanAVSL;
     private javax.swing.JLabel lblClanAVSW;

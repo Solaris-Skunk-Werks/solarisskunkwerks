@@ -174,7 +174,7 @@ public class Mech implements ifBattleforce {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        NullSig = new MultiSlotSystem( this, "Null Signature System", "Null Signature System", "Null Sig", "NullSignatureSystem", 0.0, false, true, 1400000.0, false, AC );
+        NullSig = new MultiSlotSystem( this, "Null Signature System", "Null Signature System", "Null Signature System", "NullSignatureSystem", 0.0, false, true, 1400000.0, false, AC );
         NullSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 10, 0.2, 0.0, 0.0, 0.0, true, false ) );
         NullSig.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Void Signature System", "Stealth Armor", "C3" }, "Null Signature System" ) );
         NullSig.SetBookReference( "Tactical Operations" );
@@ -187,11 +187,11 @@ public class Mech implements ifBattleforce {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        Chameleon = new MultiSlotSystem( this, "Chameleon LPS", "Chameleon LPS", "Chameleon", "ChameleonLightPolarizationField", 0.0, true, true, 600000.0, false, AC );
+        Chameleon = new MultiSlotSystem( this, "Chameleon LPS", "Chameleon LPS", "Chameleon LPS", "ChameleonLightPolarizationField", 0.0, true, true, 600000.0, false, AC );
         Chameleon.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 6, 0.2, 0.0, 0.0, 0.0, true, false ) );
         Chameleon.SetExclusions( new Exclusion( new String[] { "Void Signature System", "Stealth Armor" }, "Chameleon LPS" ) );
         Chameleon.SetBookReference( "Tactical Operations" );
-        Chameleon.SetChatName( "Chameleon" );
+        Chameleon.SetChatName( "CLPS" );
 
         AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
         AC.SetISCodes( 'E', 'X', 'X', 'F' );
@@ -200,10 +200,10 @@ public class Mech implements ifBattleforce {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        BlueShield = new MultiSlotSystem( this, "Blue Shield PFD", "Blue Shield PFD", "Blue Shield", "BlueShieldPFD", 3.0, false, true, 1000000.0, false, AC );
+        BlueShield = new MultiSlotSystem( this, "Blue Shield PFD", "Blue Shield PFD", "Blue Shield PFD", "BlueShieldPFD", 3.0, false, true, 1000000.0, false, AC );
         BlueShield.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 0, 0.0, 0.0, 0.2, 0.2, true, false ) );
         BlueShield.SetBookReference( "Tactical Operations" );
-        BlueShield.SetChatName( "BlueShld" );
+        BlueShield.SetChatName( "BluShld" );
 
         AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
         AC.SetISCodes( 'E', 'X', 'X', 'E' );
@@ -212,7 +212,7 @@ public class Mech implements ifBattleforce {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        VoidSig = new MultiSlotSystem( this, "Void Signature System", "Void Signature System", "Void Sig", "VoidSignatureSystem", 0.0, false, true, 2000000.0, false, AC );
+        VoidSig = new MultiSlotSystem( this, "Void Signature System", "Void Signature System", "Void Signature System", "VoidSignatureSystem", 0.0, false, true, 2000000.0, false, AC );
         VoidSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 10, 0.3, 0.0, 0.0, 0.0, true, false ) );
         VoidSig.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Null Signature System", "Stealth Armor", "C3", "Chameleon LPS" }, "Void Signature System" ) );
         VoidSig.SetBookReference( "Tactical Operations" );
@@ -228,7 +228,7 @@ public class Mech implements ifBattleforce {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        EnviroSealing = new MultiSlotSystem( this, "Environmental Sealing", "Environmental Sealing", "Env. Sealing", "Environmental Sealing", 0.1, false, false, 225.0, true, AC );
+        EnviroSealing = new MultiSlotSystem( this, "Environmental Sealing", "Environmental Sealing", "Environmental Sealing", "Environmental Sealing", 0.1, false, false, 225.0, true, AC );
         EnviroSealing.SetWeightBasedOnMechTonnage( true );
         EnviroSealing.SetBookReference( "Tech Manual" );
         EnviroSealing.SetChatName( "EnvSlng" );
@@ -1300,6 +1300,11 @@ public class Mech implements ifBattleforce {
         }
         info += "/" + GetAdjustedJumpingMP( false ) + " ";
 
+        // movement info
+        if( GetPhysEnhance().IsMASC() || GetPhysEnhance().IsTSM() ) {
+            info += "(" + GetPhysEnhance().ChatName() + ") ";
+        }
+
         // Engine
         info += GetEngine().ChatName() + ", ";
 
@@ -1313,6 +1318,9 @@ public class Mech implements ifBattleforce {
 
         // Armor
         info += GetArmor().GetTonnage() + "T " + GetArmor().ChatName() + ", ";
+
+        // heat sinks
+        info += GetHeatSinks().GetNumHS() + " " + GetHeatSinks().ChatName() + ", ";
 
         //Weapons and Equip
         Hashtable<String, Integer> list = new Hashtable<String, Integer>();
@@ -1351,10 +1359,10 @@ public class Mech implements ifBattleforce {
             info += VoidSig.ChatName() + ", ";
         }
         if( HasPartialWing ) {
-            info += "P-Wing, ";
+            info += "PartWing, ";
         }
 
-        return info.trim().substring(0, info.length()-1);
+        return info.trim().substring( 0, info.length() - 2 );
     }
 
     public int GetDeprecatedLevel() {
@@ -2399,23 +2407,11 @@ public class Mech implements ifBattleforce {
             result += CommandConsole.GetCost();
         }
         if( HasEjectionSeat ) { result += EjectionSeat.GetCost(); }
-        // cockpit hack here for very early Primitive 'Mech costs
-        if( Primitive && Year < 2450 ) {
-            if( IndustrialMech ) {
-                result += 50000.0;
-            } else {
-                result += 100000.0;
-            }
-        }
         result += GetActuators().GetCost();
         result += CurPhysEnhance.GetCost();
         result += GetHeatSinks().GetCost();
         result += GetJumpJets().GetCost();
         result += CurArmor.GetCost();
-        // armor hack for very primitive 'Mech costs.
-        if( Primitive && Year < 2450 ) {
-            result += CurArmor.GetCost();
-        }
         if( CurLoadout.IsUsingClanCASE() ) {
             int[] test = CurLoadout.FindExplosiveInstances();
             for( int i = 0; i < test.length; i++ ) {
