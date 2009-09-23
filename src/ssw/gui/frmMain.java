@@ -63,7 +63,7 @@ import ssw.printpreview.dlgPreview;
 
 public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner {
 
-    String[] Selections = { "", "", "", "", "", "", "", "", "", "", "" };
+    String[] Selections = { "", "", "", "", "", "", "", "" };
     Mech CurMech;
     VSetArmorTonnage ArmorTons;
     java.awt.Color RedCol = new java.awt.Color( 200, 0, 0 ),
@@ -1423,12 +1423,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( CurMech.GetEngine().FreeHeatSinks() != OldFreeHS ) {
             // set the current number of heat sinks to the new free heat sinks
             CurMech.GetHeatSinks().SetNumHS( CurMech.GetEngine().FreeHeatSinks() );
+            // redo the heat sinks because the engine affects them
+            CurMech.GetHeatSinks().ReCalculate();
+            spnNumberOfHS.setModel( new javax.swing.SpinnerNumberModel(
+                CurMech.GetHeatSinks().GetNumHS(), CurMech.GetEngine().FreeHeatSinks(), 65, 1) );
         }
-
-        // redo the heat sinks because the engine affects them
-        CurMech.GetHeatSinks().ReCalculate();
-        spnNumberOfHS.setModel( new javax.swing.SpinnerNumberModel(
-            CurMech.GetHeatSinks().GetNumHS(), CurMech.GetEngine().FreeHeatSinks(), 65, 1) );
 
         // see if we should enable the Power Amplifier display
         if( CurMech.GetEngine().IsNuclear() ) {
@@ -1941,73 +1940,43 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         Selections[5] = (String) cmbHeatSinkType.getSelectedItem();
         Selections[6] = (String) cmbJumpJetType.getSelectedItem();
         Selections[7] = (String) cmbArmorType.getSelectedItem();
-        if( chkCTCASE.isSelected() ) {
-            Selections[8] = "y";
-        } else {
-            Selections[8] = "n";
-        }
-        if( chkLTCASE.isSelected() ) {
-            Selections[9] = "y";
-        } else {
-            Selections[9] = "n";
-        }
-        if( chkRTCASE.isSelected() ) {
-            Selections[10] = "y";
-        } else {
-            Selections[10] = "n";
-        }
     }
 
     private void LoadSelections() {
         // sets the current selections to the last saved selections or to the
-        // default selections.
+        // default selections.  We'll do some validation here as well.
 
         cmbInternalType.setSelectedItem( Selections[0] );
         if( cmbInternalType.getSelectedItem() != Selections[0] ) {
-            cmbInternalType.setSelectedItem( Constants.DEFAULT_CHASSIS );
+            cmbInternalType.setSelectedIndex( 0 );
         }
         cmbEngineType.setSelectedItem( Selections[1] );
         if( cmbEngineType.getSelectedItem() != Selections[1] ) {
-            cmbEngineType.setSelectedItem( Constants.DEFAULT_ENGINE );
+            cmbEngineType.setSelectedIndex( 0 );
         }
         cmbGyroType.setSelectedItem( Selections[2] );
         if( cmbGyroType.getSelectedItem() != Selections[2] ) {
-            cmbGyroType.setSelectedItem( Constants.DEFAULT_GYRO );
+            cmbGyroType.setSelectedIndex( 0 );
         }
         cmbCockpitType.setSelectedItem( Selections[3] );
         if( cmbCockpitType.getSelectedItem() != Selections[3] ) {
-            cmbCockpitType.setSelectedItem( Constants.DEFAULT_COCKPIT );
+            cmbCockpitType.setSelectedIndex( 0 );
         }
         cmbPhysEnhance.setSelectedItem( Selections[4] );
         if( cmbPhysEnhance.getSelectedItem() != Selections[4] ) {
-            cmbPhysEnhance.setSelectedItem( Constants.DEFAULT_ENHANCEMENT );
+            cmbPhysEnhance.setSelectedIndex( 0 );
         }
         cmbHeatSinkType.setSelectedItem( Selections[5] );
         if( cmbHeatSinkType.getSelectedItem() != Selections[5] ) {
-            cmbHeatSinkType.setSelectedItem( Constants.DEFAULT_HEATSINK );
+            cmbHeatSinkType.setSelectedIndex( 0 );
         }
         cmbJumpJetType.setSelectedItem( Selections[6] );
         if( cmbJumpJetType.getSelectedItem() != Selections[6] ) {
-            cmbJumpJetType.setSelectedItem( Constants.DEFAULT_JUMPJET );
+            cmbJumpJetType.setSelectedIndex( 0 );
         }
         cmbArmorType.setSelectedItem( Selections[7] );
         if( cmbArmorType.getSelectedItem() != Selections[7] ) {
-            cmbArmorType.setSelectedItem( Constants.DEFAULT_ARMOR );
-        }
-        if( Selections[8].equals( "y" ) ) {
-            if( chkCTCASE.isEnabled() ) { chkCTCASE.setSelected( true ); }
-        } else {
-            chkCTCASE.setSelected( false );
-        }
-        if( Selections[9].equals( "y" ) ) {
-            if( chkLTCASE.isEnabled() ) { chkLTCASE.setSelected( true ); }
-        } else {
-            chkLTCASE.setSelected( false );
-        }
-        if( Selections[10].equals( "y" ) ) {
-            if( chkRTCASE.isEnabled() ) { chkRTCASE.setSelected( true ); }
-        } else {
-            chkRTCASE.setSelected( false );
+            cmbArmorType.setSelectedIndex( 0 );
         }
     }
 
@@ -11941,11 +11910,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             // now reset the combo boxes to the closest choices we previously selected
             LoadSelections();
 
-            // when a new rules level is selected, we have to recalculate the mech
-            /*
-             * We're testing this for the next few builds to see what happens.
-            CurMech.GetLoadout().FullUnallocate();
-            */
             RecalcEngine();
             RecalcGyro();
             RecalcIntStruc();
@@ -13260,6 +13224,7 @@ private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         FixArmorSpinners();
 
         // refresh all the combo boxes.
+        SaveSelections();
         BuildChassisSelector();
         BuildEngineSelector();
         BuildGyroSelector();

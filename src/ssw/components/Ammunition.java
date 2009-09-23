@@ -288,6 +288,6 @@ public class Ammunition extends abPlaceable {
 
     @Override
     public String toString() {
-        return ActualName;
+        return CritName;
     }
 }

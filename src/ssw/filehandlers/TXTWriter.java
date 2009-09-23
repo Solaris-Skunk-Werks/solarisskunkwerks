@@ -685,6 +685,8 @@ public class TXTWriter {
             Special = true;
         }
 
+        retval += String.format( "%1$s %2$-2s", "                                            Free Critical Slots:", CurMech.GetLoadout().FreeCrits() + NL );
+
         if( Special ) {
             retval += NL;
         }
@@ -881,6 +883,7 @@ public class TXTWriter {
             if( cur == null ) { break; }
         }
 
+        retval += String.format( "%1$s %2$-2s", "                                            Free Critical Slots:", CurMech.GetLoadout().FreeCrits() + NL );
 
         return retval;
     }

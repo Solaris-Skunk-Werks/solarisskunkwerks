@@ -301,7 +301,7 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
         if( lstInstalledAmmo.getSelectedIndex() < 0 || lstAvailableAmmo.getSelectedIndex() < 0 ) { return; }
         int OldAmmoIndex = lstInstalledAmmo.getSelectedIndex();
         Ammunition OldAmmo = (Ammunition) lstInstalledAmmo.getSelectedValue();
-        Ammunition NewAmmo = (Ammunition) lstAvailableAmmo.getSelectedValue();
+        Ammunition NewAmmo = ((Ammunition) lstAvailableAmmo.getSelectedValue()).Clone();
         if( OldAmmo.GetTonnage() != NewAmmo.GetTonnage() ) {
             javax.swing.JOptionPane.showMessageDialog( this, "You cannot exchange ammunition of differing tonnages." );
             return;
@@ -313,6 +313,7 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
             CurMech.GetLoadout().AddTo( NewAmmo, l.Location, l.Index );
         } catch( Exception e ) {
             // whoa, didn't expect that.  well, let's handle it somehow later
+            e.printStackTrace();
         }
         BuildInstalledAmmoList();
         lstInstalledAmmo.setSelectedIndex( OldAmmoIndex );

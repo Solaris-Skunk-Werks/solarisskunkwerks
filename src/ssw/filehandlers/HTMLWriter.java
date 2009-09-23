@@ -771,11 +771,13 @@ public class HTMLWriter {
                                 } else {
                                     retval += a.CritName();
                                 }
+                                retval += plural;
                             }
-                            retval += plural;
                         } else if( check.equals( "<+-SSW_EQUIP_COUNT_THIS_LOC-+>" ) ) {
-                            if( numthisloc > 1 ) {
-                                retval += numthisloc + " ";
+                            if( ! ( a instanceof Ammunition ) ) {
+                                if( numthisloc > 1 ) {
+                                    retval += numthisloc + " ";
+                                }
                             }
                         } else if( check.equals( "<+-SSW_EQUIP_MANUFACTURER-+>" ) ) {
                             retval += a.GetManufacturer();
@@ -832,9 +834,9 @@ public class HTMLWriter {
                         } else if( check.equals( "<+-SSW_EQUIP_HEAT-+>" ) ) {
                             if( a instanceof ifWeapon ) {
                                 if( ((ifWeapon) a).IsUltra() ) {
-                                    retval += ((ifWeapon) a).GetBVHeat() + " /shot (" + ( ((ifWeapon) a).GetBVHeat() * numthisloc * 2 ) + " max)";
+                                    retval += ((ifWeapon) a).GetHeat() + " /shot (" + ( ((ifWeapon) a).GetBVHeat() * numthisloc ) + " max)";
                                 } else if( ((ifWeapon) a).IsRotary() ) {
-                                    retval += ((ifWeapon) a).GetBVHeat() + " /shot (" + ( ((ifWeapon) a).GetBVHeat() * numthisloc * 6 ) + " max)";
+                                    retval += ((ifWeapon) a).GetHeat() + " /shot (" + ( ((ifWeapon) a).GetBVHeat() * numthisloc ) + " max)";
                                 } else {
                                     retval += "" + ((ifWeapon) a).GetBVHeat() * numthisloc;
                                 }
@@ -931,8 +933,10 @@ public class HTMLWriter {
                                 retval += plural;
                             }
                         } else if( check.equals( "<+-SSW_EQUIP_COUNT_THIS_LOC-+>" ) ) {
-                            if( numthisloc > 1 ) {
-                                retval += numthisloc + " ";
+                            if( ! ( a instanceof Ammunition ) ) {
+                                if( numthisloc > 1 ) {
+                                    retval += numthisloc + " ";
+                                }
                             }
                         } else if( check.equals( "<+-SSW_EQUIP_MANUFACTURER-+>" ) ) {
                             retval += a.GetManufacturer();
@@ -989,9 +993,9 @@ public class HTMLWriter {
                         } else if( check.equals( "<+-SSW_EQUIP_HEAT-+>" ) ) {
                             if( a instanceof ifWeapon ) {
                                 if( ((ifWeapon) a).IsUltra() ) {
-                                    retval += ((ifWeapon) a).GetBVHeat() + " /shot (" + ( ((ifWeapon) a).GetBVHeat() * numthisloc * 2 ) + " max)";
+                                    retval += ((ifWeapon) a).GetHeat() + " /shot (" + ( ((ifWeapon) a).GetBVHeat() * numthisloc ) + " max)";
                                 } else if( ((ifWeapon) a).IsRotary() ) {
-                                    retval += ((ifWeapon) a).GetBVHeat() + " /shot (" + ( ((ifWeapon) a).GetBVHeat() * numthisloc * 6 ) + " max)";
+                                    retval += ((ifWeapon) a).GetHeat() + " /shot (" + ( ((ifWeapon) a).GetBVHeat() * numthisloc ) + " max)";
                                 } else {
                                     retval += "" + ((ifWeapon) a).GetBVHeat() * numthisloc;
                                 }
@@ -1477,56 +1481,6 @@ public class HTMLWriter {
         }
         return retval;
     }
-
-    /*private String GetCommSystem() {
-    String retval = "";
-    abPlaceable ECM = FileCommon.HasECM( CurMech );
-    Object[] C3 = FileCommon.HasC3( CurMech );
-    
-    // start communications system line
-    retval += CurMech.GetCommSystem();
-    
-    if( ! ( ECM instanceof EmptyItem ) ) {
-    retval += NL + "    w/ " + ECM.GetManufacturer() + " " + ECM.GetCritName(); 
-    if( C3 != null ) {
-    for( int i = 0; i < C3.length; i++ ) {
-    retval += NL + "    and " + ((abPlaceable) C3[i]).GetManufacturer() + " " + ((abPlaceable) C3[i]).GetCritName();
-    }
-    }
-    } else {
-    if( C3 != null ) {
-    for( int i = 0; i < C3.length; i++ ) {
-    if( i == 0 ) {
-    retval += NL + "    w/ " + ((abPlaceable) C3[i]).GetManufacturer() + " " + ((abPlaceable) C3[i]).GetCritName();
-    } else {
-    retval += NL + "    and " + ((abPlaceable) C3[i]).GetManufacturer() + " " + ((abPlaceable) C3[i]).GetCritName();
-    }
-    }
-    }
-    }
-    return retval;
-    }*/
-
-    /*private String GetTandTSystem() {
-    String retval = "";
-    abPlaceable BAP = FileCommon.HasBAP( CurMech );
-    
-    // start targeting and tracking system line
-    retval += CurMech.GetTandTSystem();
-    if( ! ( BAP instanceof EmptyItem ) ) {
-    if( CurMech.UsingTC() ) {
-    retval += NL + "    w/ " + BAP.GetManufacturer() + " " + BAP.GetCritName() + NL + "    and " + CurMech.GetTC().GetCritName();
-    } else {
-    retval += NL + "    w/ " + BAP.GetManufacturer() + " " + BAP.GetCritName();
-    }
-    } else {
-    if( CurMech.UsingTC() ) {
-    retval += NL + "    w/ " + CurMech.GetTC().GetCritName();
-    }
-    }
-    
-    return retval;
-    }*/
 
     private String GetCommSystem() {
         return CurMech.GetCommSystem();

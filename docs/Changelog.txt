@@ -101,6 +101,10 @@ Version 0.7.0
 - Fixed an issue allowing one to remove a laser insulator without the change in weapon stats.
 - Changed internal naming scheme for better consistency and information.
 - Fixed issue with Preview window printing many sheets instead of one.
+- Text exports now show free critical slots at the bottom of each loadout.
+- Fixed an issue with the ammo chooser (Ammunition was not being properly cloned.
+- Fixed an issue with Primitive 'Mechs and the selection boxes.
+- Fixed some small issues with the HTML export, ammo, and multi-shot AC/s.
 
 -------------------------------------------------------------------------------
 Version 0.6.0

@@ -710,8 +710,8 @@ public class FileCommon {
         // defined ammunition filter.
         Preferences Prefs = Preferences.userNodeForPackage( frmMain.class );
         String retval = Prefs.get( "AmmoNamePrintFormat", "@%P (%L)" );
-        retval = retval.replace( "%F", a.LookupName() );
-        retval = retval.replace( "%P", a.CritName() );
+        retval = retval.replace( "%F", a.LookupName().replace( "@", "" ) );
+        retval = retval.replace( "%P", a.CritName().replace( "@", "" ) );
         if( tons > 1 ) {
             retval = retval.replace( "%L", "" + ( a.GetLotSize() * tons ) );
         } else {
@@ -725,8 +725,8 @@ public class FileCommon {
         // defined ammunition filter.
         Preferences Prefs = Preferences.userNodeForPackage( frmMain.class );
         String retval = Prefs.get( "AmmoNameExportFormat", "@%P (%L)" );
-        retval = retval.replace( "%F", a.LookupName() );
-        retval = retval.replace( "%P", a.CritName() );
+        retval = retval.replace( "%F", a.ActualName().replace( "@", "" ) );
+        retval = retval.replace( "%P", a.CritName().replace( "@", "" ) );
         if( tons > 1 ) {
             retval = retval.replace( "%L", "" + ( a.GetLotSize() * tons ) );
         } else {

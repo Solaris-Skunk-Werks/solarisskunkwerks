@@ -756,7 +756,7 @@ public class Mech implements ifBattleforce {
         HasLAAES = false;
         HasLegAES = false;
 
-        // remove the any existing  physical weapons, and industrial equipment
+        // remove the any existing physical weapons, and industrial equipment
         Vector v = CurLoadout.GetNonCore();
         for( int i = v.size() - 1; i >= 0; i-- ) {
             abPlaceable p = (abPlaceable) v.get( i );
@@ -768,7 +768,6 @@ public class Mech implements ifBattleforce {
             }
         }
 
-        
         // replace everything into the new loadout
         CurGyro.Place( CurLoadout );
         CurEngine.Place( CurLoadout );
@@ -1073,6 +1072,7 @@ public class Mech implements ifBattleforce {
                 SetMixed();
                 break;
         }
+
         if( Quad ) {
             SetQuad();
         } else {
@@ -1097,6 +1097,7 @@ public class Mech implements ifBattleforce {
                 SetMixed();
                 break;
         }
+
         if( Quad ) {
             SetQuad();
         } else {
