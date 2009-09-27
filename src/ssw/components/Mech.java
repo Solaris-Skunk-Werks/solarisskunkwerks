@@ -4002,26 +4002,6 @@ public class Mech implements ifBattleforce {
 
         }
 
-        // Exclude special ability damage if it applies
-        if ( dmgACMedium >= 10.0 )
-        {
-            dmgShort -= dmgACShort;
-            dmgMedium -= dmgACMedium;
-            dmgLong -= dmgACLong;
-        }
-        if ( dmgLRMMedium >= 10.0 )
-        {
-            dmgShort -= dmgLRMShort;
-            dmgMedium -= dmgLRMMedium;
-            dmgLong -= dmgLRMLong;
-        }
-        if ( dmgSRMMedium >= 10 )
-        {
-            dmgShort -= dmgSRMShort;
-            dmgMedium -= dmgSRMMedium;
-            dmgLong -= dmgSRMLong;
-        }
-
 
         // Add in heat for movement
         if ( GetAdjustedJumpingMP(false) > 2 ) {
@@ -4043,33 +4023,87 @@ public class Mech implements ifBattleforce {
             totalHeat += 10;
         }
 
-        // What is the max damage?
+        // What is the max damage? Used later for overheat calc
         int maxShort = (int) Math.ceil(dmgShort / 10);
         int maxMedium = (int) Math.ceil(dmgMedium / 10);
 
         // Will this ifBattleForce overheat?
         int heatcap = this.GetHeatSinks().TotalDissipation();
-        
-        if ( totalHeat - heatcap > 0) {
-            dmgShort = (dmgShort * heatcap) / totalHeat;
-            dmgMedium = (dmgMedium * heatcap) / totalHeat;
-            dmgLong = (dmgLong * heatcap) / totalHeat;
-            dmgExtreme = (dmgExtreme * heatcap) / totalHeat;
+        if ( heatcap < totalHeat )
+        {
+            // We must adjust weapon damage for heat...
+            // Adjust SA damage first and subtract if it lowers below 10
+            if ( dmgACMedium > 9 )
+            {
+                // We need to save the non-heat adjusted dmg values to subtract
+                // from the base damage if the adjusted damage remains > 10
+                double s = dmgACShort;
+                double m = dmgACMedium;
+                double l = dmgACLong;
+
+                dmgACShort = (dmgACShort * heatcap) / totalHeat;
+                dmgACMedium = (dmgACMedium * heatcap) / totalHeat;
+                dmgACLong = (dmgACLong * heatcap) / totalHeat;
+                if (dmgACMedium > 9)
+                {
+                    dmgShort -= s;
+                    dmgMedium -= m;
+                    dmgLong -= l;
+                }
+
+            }
+            if ( dmgLRMMedium > 9 )
+            {
+
+            }
+            if ( dmgSRMMedium > 9 )
+            {
+
+            }
+
+            // Determine OverHeat
+            if ( maxMedium != 0 )
+            {
+                retval[Constants.BF_OV] = maxMedium - (int) Math.ceil(dmgMedium / 10) - (int) Math.round(dmgACMedium / 10);
+            }
+            else
+            {
+                retval[Constants.BF_OV] = maxShort - retval[Constants.BF_SHORT];
+            }
+            
+        }
+        else
+        {
+            // No heat adjustment is required
+            // Remove non-heat adjusted SA dmg from base damage if applicable
+            if (dmgACMedium > 9)
+                {
+                    dmgShort -= dmgACShort;
+                    dmgMedium -= dmgACMedium;
+                    dmgLong -= dmgACLong;
+                }
         }
 
-        // Convert to BF scale
+        // Convert all damage to BF scale
         retval[Constants.BF_SHORT] = (int) Math.ceil(dmgShort / 10);
         retval[Constants.BF_MEDIUM] = (int) Math.ceil(dmgMedium / 10);
         retval[Constants.BF_LONG] = (int) Math.ceil(dmgLong / 10);
         retval[Constants.BF_EXTREME] = (int) Math.ceil(dmgExtreme / 10);
 
-        // Determine OverHeat
-        if ( maxMedium != 0 ) {
-            retval[Constants.BF_OV] = maxMedium - retval[Constants.BF_MEDIUM];
-        } else {
-            retval[Constants.BF_OV] = maxShort - retval[Constants.BF_SHORT];
+        // Add Special Abilities to BattleForceStats if applicable
+        if ( dmgACMedium > 9 )
+        {
+            dmgACShort = (int) Math.round(dmgACShort / 10);
+            dmgACMedium = (int) Math.round(dmgACMedium / 10);
+            dmgACLong = (int) Math.round(dmgACLong / 10);
+            bfs.addAbility("AC "+(int)dmgACShort+"/"+(int)dmgACMedium+"/"+(int)dmgACLong);
         }
+        if ( dmgLRMMedium > 9 )
+            bfs.addAbility("LRM "+dmgLRMShort+"/"+dmgLRMMedium+"/"+dmgLRMLong);
+        if ( dmgSRMMedium > 9 )
+            bfs.addAbility("SRM "+dmgSRMShort+"/"+dmgSRMMedium+"/"+dmgSRMLong);
 
+        // Return final values
         return retval;
     }
 

@@ -150,7 +150,7 @@ public class BattleForceTools {
 
     public static boolean isBFAutocannon(ifWeapon w)
     {
-        if (((abPlaceable)w).CritName().contains("AutoCannon"))
+        if (((abPlaceable)w).CritName().contains("Autocannon"))
             return true;
         else if (((abPlaceable)w).CritName().contains("Light AC"))
             return true;

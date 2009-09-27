@@ -55,6 +55,7 @@ public class BattleForceStats {
 
     public BattleForceStats( Mech m ) {
         Element = m.GetFullName();
+        Abilities = m.GetBFAbilities();
         int[] Data = m.GetBFDamage( this );
         S = Data[Constants.BF_SHORT];
         M = Data[Constants.BF_MEDIUM];
@@ -62,11 +63,6 @@ public class BattleForceStats {
         E = Data[Constants.BF_EXTREME];
         OV = Data[Constants.BF_OV];
         PV = m.GetBFPoints();
-        Abilities = m.GetBFAbilities();
-
-        //ONLY FOR TESTING OF PRINTING PURPOISES!!!
-        Abilities.add("ENE");
-        Abilities.add("ECM");
 
         Wt = m.GetBFSize();
         Armor = m.GetBFArmor();
@@ -105,6 +101,11 @@ public class BattleForceStats {
         }
 
         return retval;
+    }
+
+    public void addAbility(String s)
+    {
+        Abilities.add(s);
     }
 
     public int getShort() {
