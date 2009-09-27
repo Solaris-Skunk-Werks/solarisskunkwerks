@@ -35,6 +35,8 @@ import java.util.Vector;
 import java.util.prefs.Preferences;
 import ssw.*;
 import ssw.gui.frmMain;
+import ssw.states.ifArmor;
+import ssw.utilities.CommonTools;
 import ssw.visitors.*;
 
 public class Mech implements ifBattleforce {
@@ -4077,33 +4079,163 @@ public class Mech implements ifBattleforce {
         // First search all equipment for BF Abilities
         Vector nc = GetLoadout().GetNonCore();
         boolean isENE = true;
-        boolean hasPRB = false;
-        boolean hasAngelECM = false;
-        boolean hasAMS = false;
+        int Taser = 0,
+            RSD = 0;
+        double MHQTons = 0;
+
+        //TSM Check
+        if ( GetPhysEnhance().IsTSM() )
+            if ( !retval.contains("TSM") ) retval.add("TSM");
+
+        //Mimetic Armor System
+        if ( this.HasVoidSig )
+            if ( !retval.contains("MAS") ) retval.add("MAS");
+
+        //Omni
+        if ( this.IsOmnimech() )
+            if ( !retval.contains("OMNI") ) retval.add("OMNI");
+
+        //Stealth (also adds ECM)
+        if ( (this.GetArmor().IsStealth()) || (this.HasChameleon) || this.HasNullSig ) {
+            if ( !retval.contains("ECM") ) retval.add("ECM");
+            if ( !retval.contains("STL") ) retval.add("STL");
+        }
+
+        //Command Console (affect Mobile Headquarters)
+        if ( this.GetCockpit().CritName().contains("Command Console"))
+            MHQTons += 1.0d;
 
         for ( int i = 0; i < nc.size(); i++ ) {
 
             // Check equipment for special abilities
 
             // Check for Active Probes
-            if ( ((abPlaceable)nc.get(i)).CritName().contains("Probe") )
-                hasPRB = true;
-
-            // Check for Angel ECM
-            if ( ((abPlaceable)nc.get(i)).CritName().contains("Angel") )
-                hasAngelECM = true;
-
-            // Check for Anti Missile System
-            if ( ((abPlaceable)nc.get(i)).CritName().contains("Anti-Missile") )
-                hasAMS = true;
-
-            // ENE for mechs without ammo dependant weapons
-            if ( nc.get(i) instanceof ifWeapon ) {
-                if ( ((ifWeapon)nc.get(i)).GetWeaponClass() != ifWeapon.W_ENERGY ) {
-                    isENE = false;
+            if ( ((abPlaceable)nc.get(i)).CritName().contains("Active Probe") ) {
+                if ( !retval.contains("RCN") ) retval.add("RCN");
+                if ( ((abPlaceable)nc.get(i)).CritName().contains("Light") ) {
+                    if ( !retval.contains("LPRB") ) retval.add("LPRB");
+                } else {
+                    if ( !retval.contains("PRB") ) retval.add("PRB");
                 }
             }
 
+            // Check for Angel ECM
+            if ( ((abPlaceable)nc.get(i)).CritName().contains("ECM") )
+                if ( ((abPlaceable)nc.get(i)).CritName().contains("Angel") ) {
+                    if ( !retval.contains("AECM") ) retval.add("AECM");
+                } else if ( ((abPlaceable)nc.get(i)).CritName().contains("Bloodhound") ) {
+                    if ( !retval.contains("BH") ) retval.add("BH");
+                } else {
+                    if ( ((abPlaceable)nc.get(i)).CritName().contains("Light") ) {
+                        if ( !retval.contains("LECM") ) retval.add("LECM");
+                    } else {
+                        if ( !retval.contains("ECM") ) retval.add("ECM");
+                    }
+                }
+
+            // Check for TAG
+            if ( ((abPlaceable)nc.get(i)).CritName().contains("TAG") )
+                if ( ((abPlaceable)nc.get(i)).CritName().contains("Light") ) {
+                    if ( !retval.contains("LTAG") ) retval.add("LTAG");
+                } else {
+                    if ( !retval.contains("TAG") ) retval.add("TAG");
+                }
+
+            //Watchdog
+            if ( ((abPlaceable)nc.get(i)).CritName().contains("Watchdog CEWS") )
+                if ( !retval.contains("WAT") ) retval.add("WAT");
+
+            // Check for Anti Missile System
+            if ( ((abPlaceable)nc.get(i)).CritName().contains("Anti-Missile") )
+                if ( !retval.contains("AMS") ) retval.add("AMS");
+                //hasAMS = true;
+
+            // BattleMech Taser
+            if ( ((abPlaceable)nc.get(i)).CritName().equals("Mech Taser") )
+                Taser += 1;
+
+            if ( nc.get(i) instanceof ifWeapon ) {
+                // ENE for mechs without ammo dependant weapons
+                if ( ((ifWeapon)nc.get(i)).GetWeaponClass() != ifWeapon.W_ENERGY ) {
+                    isENE = false;
+                }
+
+                // CASE / CASE II for mechs with Explodable Ammo or Weapons
+                if ( ((ifWeapon)nc.get(i)).IsExplosive() || ((ifWeapon)nc.get(i)).HasAmmo() ) {
+                    // Clans get CASE by default as long as they have ammo or an explodable weapon
+                    if ( CommonTools.GetTechbaseString(GetTechBase()).equals(Constants.strCLAN) ) {
+                        if ( !retval.contains("CASE") ) retval.add("CASE");
+                    }
+
+                    //TODO need to add IS checks for CASE or CASEII
+                }
+            }
+
+            //HarJel
+            //TODO need to check for LT, CT, RT combo
+            if ( ((abPlaceable)nc.get(i)).CritName().contains("HarJel") )
+                if ( !retval.contains("BHJ") ) retval.add("BHJ");
+
+            //Remote Sensor Dispenser RDS
+            if ( ((abPlaceable)nc.get(i)).CritName().contains("Remote Sensor Dispenser") )
+                RSD += 1;
+
+            //Saws
+            if ( ((abPlaceable)nc.get(i)).CritName().contains("Retractable Blade") ||
+                 ((abPlaceable)nc.get(i)).CritName().contains("Chainsaw") ||
+                 ((abPlaceable)nc.get(i)).CritName().contains("Dual Saw") ) {
+                if ( !retval.contains("SAW") ) retval.add("SAW");
+                if ( !retval.contains("MEL") ) retval.add("MEL");
+            }
+
+            //Other Melee Weapons
+            if ( ((abPlaceable)nc.get(i)).CritName().contains("Backhoe") ||
+                 ((abPlaceable)nc.get(i)).CritName().contains("Chain Whip") ||
+                 ((abPlaceable)nc.get(i)).CritName().contains("Claws") ||
+                 ((abPlaceable)nc.get(i)).CritName().contains("Combine") ||
+                 ((abPlaceable)nc.get(i)).CritName().contains("Flail") ||
+                 ((abPlaceable)nc.get(i)).CritName().contains("Hatchet") ||
+                 ((abPlaceable)nc.get(i)).CritName().contains("Heavy Duty Pile Driver") ||
+                 ((abPlaceable)nc.get(i)).CritName().contains("Lance") ||
+                 ((abPlaceable)nc.get(i)).CritName().contains("Mace") ||
+                 ((abPlaceable)nc.get(i)).CritName().contains("Mining Drill") ||
+                 ((abPlaceable)nc.get(i)).CritName().contains("Rock Cutter") ||
+                 ((abPlaceable)nc.get(i)).CritName().contains("Shield") ||
+                 ((abPlaceable)nc.get(i)).CritName().contains("Spikes") ||
+                 ((abPlaceable)nc.get(i)).CritName().contains("Spot Welder") ||
+                 ((abPlaceable)nc.get(i)).CritName().contains("Sword") ||
+                 ((abPlaceable)nc.get(i)).CritName().contains("Talons") ||
+                 ((abPlaceable)nc.get(i)).CritName().contains("Vibroblade") ||
+                 ((abPlaceable)nc.get(i)).CritName().contains("Wrecking Ball") )
+                if ( !retval.contains("MEL") ) retval.add("MEL");
+
+            //C3 Variations
+            if ( ((abPlaceable)nc.get(i)).CritName().contains("C3 Computer (Master)") ) {
+                if ( !retval.contains("C3M") ) retval.add("C3M");
+                if ( !retval.contains("TAG") ) retval.add("TAG");
+                MHQTons += 5.0d;
+            }
+
+            if ( ((abPlaceable)nc.get(i)).CritName().contains("C3 Computer (Slave)") )
+                if ( !retval.contains("C3S") ) retval.add("C3S");
+
+            if ( ((abPlaceable)nc.get(i)).CritName().contains("Improved C3 Computer") ) {
+                if ( !retval.contains("C3I") ) retval.add("C3I");
+                MHQTons += 2.5d;
+            }
+
+            //Boosted versions
+            if ( ((abPlaceable)nc.get(i)).CritName().contains("C3 Boosted Computer (Master)") ) {
+                if ( !retval.contains("C3BSM") ) retval.add("C3BSM");
+                if ( !retval.contains("TAG") ) retval.add("TAG");
+                MHQTons += 6.0d;
+            }
+
+            if ( ((abPlaceable)nc.get(i)).CritName().contains("C3 Boosted Computer (Slave)") )
+                if ( !retval.contains("C3BSS") ) retval.add("C3BSS");
+
+            if ( ((abPlaceable)nc.get(i)).CritName().contains("Boosted Improved C3 Computer") )
+                if ( !retval.contains("C3BSI") ) retval.add("C3BSI");
 
         }
 
@@ -4112,15 +4244,18 @@ public class Mech implements ifBattleforce {
         if ( isENE ) {
             retval.add("ENE");
         }
-        if ( hasPRB ) {
-            retval.add("PRB");
+        if ( Taser > 0 ) {
+            retval.add("BTAS" + Taser);
         }
-        if ( hasAngelECM ) {
-            retval.add("AECM");
+        if ( MHQTons > 0 ) {
+            retval.add("MHQ" + (int) MHQTons);
         }
-        if ( hasAMS ) {
-            retval.add("AMS");
+        if ( RSD > 0 ) {
+            retval.add("RSD" + RSD);
         }
+
+        //ALL Mechs get SRCH
+        retval.add("SRCH");
 
         return retval;
     }
