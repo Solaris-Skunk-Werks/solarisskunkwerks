@@ -148,4 +148,41 @@ public class BattleForceTools {
         return retval;
     }
 
+    public static boolean isBFAutocannon(ifWeapon w)
+    {
+        if (((abPlaceable)w).CritName().contains("AutoCannon"))
+            return true;
+        else if (((abPlaceable)w).CritName().contains("Light AC"))
+            return true;
+        else
+            return false;
+    }
+
+    public static boolean isBFSRM(ifWeapon w)
+    {
+        if (((abPlaceable)w).CritName().contains("SRM"))
+        {
+            if (!w.IsStreak() && !w.IsOneShot())
+                return true;
+            else
+                return false;
+        }
+        else
+            return false;
+
+    }
+
+    public static boolean isBFLRM(ifWeapon w)
+    {
+        if (((abPlaceable)w).CritName().contains("LRM"))
+        {
+            if (w.GetFCSType() == ifMissileGuidance.FCS_NONE && !w.IsOneShot())
+                return true;
+            else
+                return false;
+        }
+        else
+            return false;
+    }
+
 }

@@ -3877,7 +3877,7 @@ public class Mech implements ifBattleforce {
 
         if ( jumpMP > 0 && walkMP != jumpMP ){
             if ( jumpMP < walkMP && jumpMP*0.66 >= 1 )
-                return jumpMP;
+                return (int)(jumpMP*0.66);
             else if ( jumpMP > walkMP )
                 return jumpMP;
             else
@@ -3922,7 +3922,7 @@ public class Mech implements ifBattleforce {
         return e.GetBFStructure(t);
     }
 
-    public int [] GetBFDamage() {
+    public int [] GetBFDamage( BattleForceStats bfs ) {
         int [] retval = {0,0,0,0,0};
 
         // Loop through all weapons in non-core
@@ -3938,6 +3938,18 @@ public class Mech implements ifBattleforce {
         int heatLong = 0;
         int heatExtreme = 0;
         int totalHeat = 0;
+
+        double dmgACShort = 0.0;
+        double dmgACMedium = 0.0;
+        double dmgACLong = 0.0;
+
+        double dmgLRMShort = 0.0;
+        double dmgLRMMedium = 0.0;
+        double dmgLRMLong = 0.0;
+
+        double dmgSRMShort = 0.0;
+        double dmgSRMMedium = 0.0;
+        double dmgSRMLong = 0.0;
 
         for ( int i = 0; i < nc.size(); i++ ) {
             if ( nc.get(i) instanceof ifWeapon ) {
@@ -3965,9 +3977,49 @@ public class Mech implements ifBattleforce {
                     heatLong += (int) temp[Constants.BF_OV];
                     heatExtreme += (int) temp[Constants.BF_OV];
                 }
+            
+                if ( BattleForceTools.isBFAutocannon((ifWeapon)nc.get(i)) )
+                {
+                    dmgACShort += temp[Constants.BF_SHORT];
+                    dmgACMedium += temp[Constants.BF_MEDIUM];
+                    dmgACLong += temp[Constants.BF_LONG];
+                }
+                else if ( BattleForceTools.isBFLRM((ifWeapon)nc.get(i)) )
+                {
+                    dmgLRMShort += temp[Constants.BF_SHORT];
+                    dmgLRMMedium += temp[Constants.BF_MEDIUM];
+                    dmgLRMLong += temp[Constants.BF_LONG];
+                }
+                else if ( BattleForceTools.isBFSRM((ifWeapon)nc.get(i)) )
+                {
+                    dmgSRMShort += temp[Constants.BF_SHORT];
+                    dmgSRMMedium += temp[Constants.BF_MEDIUM];
+                    dmgSRMLong += temp[Constants.BF_LONG];
+                }
             }
 
         }
+
+        // Exclude special ability damage if it applies
+        if ( dmgACMedium >= 10.0 )
+        {
+            dmgShort -= dmgACShort;
+            dmgMedium -= dmgACMedium;
+            dmgLong -= dmgACLong;
+        }
+        if ( dmgLRMMedium >= 10.0 )
+        {
+            dmgShort -= dmgLRMShort;
+            dmgMedium -= dmgLRMMedium;
+            dmgLong -= dmgLRMLong;
+        }
+        if ( dmgSRMMedium >= 10 )
+        {
+            dmgShort -= dmgSRMShort;
+            dmgMedium -= dmgSRMMedium;
+            dmgLong -= dmgSRMLong;
+        }
+
 
         // Add in heat for movement
         if ( GetAdjustedJumpingMP(false) > 2 ) {
@@ -4019,30 +4071,56 @@ public class Mech implements ifBattleforce {
         return retval;
     }
 
-    public Vector GetBFAbilities() {
-        Vector retval = new Vector();
+    public Vector <String> GetBFAbilities() {
+        Vector <String> retval = new Vector();
 
         // First search all equipment for BF Abilities
         Vector nc = GetLoadout().GetNonCore();
         boolean isENE = true;
+        boolean hasPRB = false;
+        boolean hasAngelECM = false;
+        boolean hasAMS = false;
 
         for ( int i = 0; i < nc.size(); i++ ) {
 
-            //TODO Add BF constants to all weapons files...?
+            // Check equipment for special abilities
 
+            // Check for Active Probes
+            if ( ((abPlaceable)nc.get(i)).CritName().contains("Probe") )
+                hasPRB = true;
+
+            // Check for Angel ECM
+            if ( ((abPlaceable)nc.get(i)).CritName().contains("Angel") )
+                hasAngelECM = true;
+
+            // Check for Anti Missile System
+            if ( ((abPlaceable)nc.get(i)).CritName().contains("Anti-Missile") )
+                hasAMS = true;
+
+            // ENE for mechs without ammo dependant weapons
             if ( nc.get(i) instanceof ifWeapon ) {
                 if ( ((ifWeapon)nc.get(i)).GetWeaponClass() != ifWeapon.W_ENERGY ) {
                     isENE = false;
                 }
             }
+
+
         }
 
 
         // Now deal with all the funny stuff
-        if (isENE) {
-            retval.add(1); // I need to think about this some...
+        if ( isENE ) {
+            retval.add("ENE");
         }
-        
+        if ( hasPRB ) {
+            retval.add("PRB");
+        }
+        if ( hasAngelECM ) {
+            retval.add("AECM");
+        }
+        if ( hasAMS ) {
+            retval.add("AMS");
+        }
 
         return retval;
     }

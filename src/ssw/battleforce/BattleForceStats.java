@@ -37,7 +37,9 @@ public class BattleForceStats {
                     MV = "",
                     Unit = "",
                     Image = "";
-    private Vector Abilities = new Vector();
+
+    private Vector <String> Abilities = new Vector();
+
     private int S = 0,
                 M = 0,
                 L = 0,
@@ -53,7 +55,7 @@ public class BattleForceStats {
 
     public BattleForceStats( Mech m ) {
         Element = m.GetFullName();
-        int[] Data = m.GetBFDamage();
+        int[] Data = m.GetBFDamage( this );
         S = Data[Constants.BF_SHORT];
         M = Data[Constants.BF_MEDIUM];
         L = Data[Constants.BF_LONG];
@@ -69,6 +71,7 @@ public class BattleForceStats {
         Wt = m.GetBFSize();
         Armor = m.GetBFArmor();
         Internal = m.GetBFStructure();
+        Abilities = m.GetBFAbilities();
 
         MV = m.GetBFPrimeMovement() + m.GetBFPrimeMovementMode();
         if ( m.GetBFSecondaryMovement() != 0 ) {
@@ -85,8 +88,23 @@ public class BattleForceStats {
         this.Piloting = Piloting;
     }
 
-    public String getAbilities() {
-        return Abilities.toString();
+
+    public Vector <String> getAbilities() {
+        return Abilities;
+    }
+
+
+    public String getAbilitiesString() {
+        String retval = "";
+
+        for ( int i = 0; i < Abilities.size(); i++ )
+        {
+            retval += Abilities.get(i);
+            if ( i != Abilities.size() - 1 )
+                retval += ", ";
+        }
+
+        return retval;
     }
 
     public int getShort() {

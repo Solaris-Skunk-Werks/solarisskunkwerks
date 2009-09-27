@@ -58,6 +58,7 @@ import java.util.prefs.*;
 import javax.swing.JEditorPane;
 import javax.swing.JTextField;
 import ssw.Force.gui.frmForce;
+import ssw.battleforce.BattleForceStats;
 import ssw.battleforce.BattleForceTools;
 import ssw.printpreview.dlgPreview;
 
@@ -1673,20 +1674,22 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lblAVInLot.setText( CurMech.GetArmor().GetWastedAV() + " Points Left In This 1/2 Ton Lot" );
 
         // added for Battleforce pane
+        BattleForceStats bfs = new BattleForceStats(CurMech);
+
         lblBFMV.setText( BattleForceTools.GetMovementString( CurMech ) );
         lblBFWt.setText( "" + CurMech.GetBFSize() );
         lblBFArmor.setText( "" + CurMech.GetBFArmor() );
         lblBFStructure.setText( "" + CurMech.GetBFStructure() );
         lblBFPoints.setText("" + CurMech.GetBFPoints() );
 
-        int [] BFdmg = CurMech.GetBFDamage();
+        int [] BFdmg = CurMech.GetBFDamage( bfs );
         lblBFShort.setText("" + BFdmg[Constants.BF_SHORT]);
         lblBFMedium.setText("" + BFdmg[Constants.BF_MEDIUM]);
         lblBFLong.setText("" + BFdmg[Constants.BF_LONG]);
         lblBFExtreme.setText("" + BFdmg[Constants.BF_EXTREME]);
         lblBFOV.setText("" + BFdmg[Constants.BF_OV]);
 
-        jTextAreaBFConversion.setText( CurMech.GetBFConversionStr( ) );
+        lblBFSA.setText( bfs.getAbilitiesString() );
     }
 
     public void RefreshInfoPane() {

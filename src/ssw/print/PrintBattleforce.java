@@ -262,7 +262,7 @@ public class PrintBattleforce implements Printable {
             }
 
             //Abilities
-            graphic.drawString(stats.getAbilities().replace("[", "").replace("]", ""), setX+72, y2+18);
+            //graphic.drawString(stats.getAbilities().replace("[", "").replace("]", ""), setX+72, y2+18);
 
             x = 20;
             y += 49;

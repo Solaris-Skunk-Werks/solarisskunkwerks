@@ -40,7 +40,7 @@ public interface ifBattleforce {
     public String GetBFSecondaryMovementMode();
     public int GetBFArmor();
     public int GetBFStructure();
-    public int [] GetBFDamage();
+    public int [] GetBFDamage( BattleForceStats bfs );
     public Vector GetBFAbilities();
     public String GetBFConversionStr( );
     public int GetBFPoints();
