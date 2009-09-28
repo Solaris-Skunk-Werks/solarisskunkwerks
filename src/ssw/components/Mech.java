@@ -35,7 +35,6 @@ import java.util.Vector;
 import java.util.prefs.Preferences;
 import ssw.*;
 import ssw.gui.frmMain;
-import ssw.states.ifArmor;
 import ssw.utilities.CommonTools;
 import ssw.visitors.*;
 
@@ -4122,31 +4121,32 @@ public class Mech implements ifBattleforce {
             if ( !retval.contains("TSM") ) retval.add("TSM");
 
         //Mimetic Armor System
-        if ( this.HasVoidSig )
+        if ( HasVoidSig )
             if ( !retval.contains("MAS") ) retval.add("MAS");
 
         //Omni
-        if ( this.IsOmnimech() )
+        if ( IsOmnimech() )
             if ( !retval.contains("OMNI") ) retval.add("OMNI");
 
         //Stealth (also adds ECM)
-        if ( (this.GetArmor().IsStealth()) || (this.HasChameleon) || this.HasNullSig ) {
+        if ( (GetArmor().IsStealth()) || (this.HasChameleon) || this.HasNullSig ) {
             if ( !retval.contains("ECM") ) retval.add("ECM");
             if ( !retval.contains("STL") ) retval.add("STL");
         }
 
         //Command Console (affect Mobile Headquarters)
-        if ( this.GetCockpit().CritName().contains("Command Console"))
+        if ( GetCockpit().CritName().contains("Command Console"))
             MHQTons += 1.0d;
 
         for ( int i = 0; i < nc.size(); i++ ) {
+            abPlaceable item = (abPlaceable)nc.get(i);
 
             // Check equipment for special abilities
 
             // Check for Active Probes
-            if ( ((abPlaceable)nc.get(i)).CritName().contains("Active Probe") ) {
+            if ( item.CritName().contains("Active Probe") ) {
                 if ( !retval.contains("RCN") ) retval.add("RCN");
-                if ( ((abPlaceable)nc.get(i)).CritName().contains("Light") ) {
+                if ( item.CritName().contains("Light") ) {
                     if ( !retval.contains("LPRB") ) retval.add("LPRB");
                 } else {
                     if ( !retval.contains("PRB") ) retval.add("PRB");
@@ -4154,13 +4154,13 @@ public class Mech implements ifBattleforce {
             }
 
             // Check for Angel ECM
-            if ( ((abPlaceable)nc.get(i)).CritName().contains("ECM") )
-                if ( ((abPlaceable)nc.get(i)).CritName().contains("Angel") ) {
+            if ( item.CritName().contains("ECM") )
+                if ( item.CritName().contains("Angel") ) {
                     if ( !retval.contains("AECM") ) retval.add("AECM");
-                } else if ( ((abPlaceable)nc.get(i)).CritName().contains("Bloodhound") ) {
+                } else if ( item.CritName().contains("Bloodhound") ) {
                     if ( !retval.contains("BH") ) retval.add("BH");
                 } else {
-                    if ( ((abPlaceable)nc.get(i)).CritName().contains("Light") ) {
+                    if ( item.CritName().contains("Light") ) {
                         if ( !retval.contains("LECM") ) retval.add("LECM");
                     } else {
                         if ( !retval.contains("ECM") ) retval.add("ECM");
@@ -4168,24 +4168,24 @@ public class Mech implements ifBattleforce {
                 }
 
             // Check for TAG
-            if ( ((abPlaceable)nc.get(i)).CritName().contains("TAG") )
-                if ( ((abPlaceable)nc.get(i)).CritName().contains("Light") ) {
+            if ( item.CritName().contains("TAG") )
+                if ( item.CritName().contains("Light") ) {
                     if ( !retval.contains("LTAG") ) retval.add("LTAG");
                 } else {
                     if ( !retval.contains("TAG") ) retval.add("TAG");
                 }
 
             //Watchdog
-            if ( ((abPlaceable)nc.get(i)).CritName().contains("Watchdog CEWS") )
+            if ( item.CritName().contains("Watchdog CEWS") )
                 if ( !retval.contains("WAT") ) retval.add("WAT");
 
             // Check for Anti Missile System
-            if ( ((abPlaceable)nc.get(i)).CritName().contains("Anti-Missile") )
+            if ( item.CritName().contains("Anti-Missile") )
                 if ( !retval.contains("AMS") ) retval.add("AMS");
                 //hasAMS = true;
 
             // BattleMech Taser
-            if ( ((abPlaceable)nc.get(i)).CritName().equals("Mech Taser") )
+            if ( item.CritName().equals("Mech Taser") )
                 Taser += 1;
 
             if ( nc.get(i) instanceof ifWeapon ) {
@@ -4207,68 +4207,70 @@ public class Mech implements ifBattleforce {
 
             //HarJel
             //TODO need to check for LT, CT, RT combo
-            if ( ((abPlaceable)nc.get(i)).CritName().contains("HarJel") )
+            if ( item.CritName().contains("HarJel") )
                 if ( !retval.contains("BHJ") ) retval.add("BHJ");
 
             //Remote Sensor Dispenser RDS
-            if ( ((abPlaceable)nc.get(i)).CritName().contains("Remote Sensor Dispenser") )
+            if ( item.CritName().contains("Remote Sensor Dispenser") ) {
+                if ( !retval.contains("RCN") ) retval.add("RCN");
                 RSD += 1;
+            }
 
             //Saws
-            if ( ((abPlaceable)nc.get(i)).CritName().contains("Retractable Blade") ||
-                 ((abPlaceable)nc.get(i)).CritName().contains("Chainsaw") ||
-                 ((abPlaceable)nc.get(i)).CritName().contains("Dual Saw") ) {
+            if ( item.CritName().contains("Retractable Blade") ||
+                 item.CritName().contains("Chainsaw") ||
+                 item.CritName().contains("Dual Saw") ) {
                 if ( !retval.contains("SAW") ) retval.add("SAW");
                 if ( !retval.contains("MEL") ) retval.add("MEL");
             }
 
             //Other Melee Weapons
-            if ( ((abPlaceable)nc.get(i)).CritName().contains("Backhoe") ||
-                 ((abPlaceable)nc.get(i)).CritName().contains("Chain Whip") ||
-                 ((abPlaceable)nc.get(i)).CritName().contains("Claws") ||
-                 ((abPlaceable)nc.get(i)).CritName().contains("Combine") ||
-                 ((abPlaceable)nc.get(i)).CritName().contains("Flail") ||
-                 ((abPlaceable)nc.get(i)).CritName().contains("Hatchet") ||
-                 ((abPlaceable)nc.get(i)).CritName().contains("Heavy Duty Pile Driver") ||
-                 ((abPlaceable)nc.get(i)).CritName().contains("Lance") ||
-                 ((abPlaceable)nc.get(i)).CritName().contains("Mace") ||
-                 ((abPlaceable)nc.get(i)).CritName().contains("Mining Drill") ||
-                 ((abPlaceable)nc.get(i)).CritName().contains("Rock Cutter") ||
-                 ((abPlaceable)nc.get(i)).CritName().contains("Shield") ||
-                 ((abPlaceable)nc.get(i)).CritName().contains("Spikes") ||
-                 ((abPlaceable)nc.get(i)).CritName().contains("Spot Welder") ||
-                 ((abPlaceable)nc.get(i)).CritName().contains("Sword") ||
-                 ((abPlaceable)nc.get(i)).CritName().contains("Talons") ||
-                 ((abPlaceable)nc.get(i)).CritName().contains("Vibroblade") ||
-                 ((abPlaceable)nc.get(i)).CritName().contains("Wrecking Ball") )
+            if ( item.CritName().contains("Backhoe") ||
+                 item.CritName().contains("Chain Whip") ||
+                 item.CritName().contains("Claws") ||
+                 item.CritName().contains("Combine") ||
+                 item.CritName().contains("Flail") ||
+                 item.CritName().contains("Hatchet") ||
+                 item.CritName().contains("Heavy Duty Pile Driver") ||
+                 item.CritName().contains("Lance") ||
+                 item.CritName().contains("Mace") ||
+                 item.CritName().contains("Mining Drill") ||
+                 item.CritName().contains("Rock Cutter") ||
+                 item.CritName().contains("Shield") ||
+                 item.CritName().contains("Spikes") ||
+                 item.CritName().contains("Spot Welder") ||
+                 item.CritName().contains("Sword") ||
+                 item.CritName().contains("Talons") ||
+                 item.CritName().contains("Vibroblade") ||
+                 item.CritName().contains("Wrecking Ball") )
                 if ( !retval.contains("MEL") ) retval.add("MEL");
 
             //C3 Variations
-            if ( ((abPlaceable)nc.get(i)).CritName().contains("C3 Computer (Master)") ) {
+            if ( item.CritName().contains("C3 Computer (Master)") ) {
                 if ( !retval.contains("C3M") ) retval.add("C3M");
                 if ( !retval.contains("TAG") ) retval.add("TAG");
                 MHQTons += 5.0d;
             }
 
-            if ( ((abPlaceable)nc.get(i)).CritName().contains("C3 Computer (Slave)") )
+            if ( item.CritName().contains("C3 Computer (Slave)") )
                 if ( !retval.contains("C3S") ) retval.add("C3S");
 
-            if ( ((abPlaceable)nc.get(i)).CritName().contains("Improved C3 Computer") ) {
+            if ( item.CritName().contains("Improved C3 Computer") ) {
                 if ( !retval.contains("C3I") ) retval.add("C3I");
                 MHQTons += 2.5d;
             }
 
             //Boosted versions
-            if ( ((abPlaceable)nc.get(i)).CritName().contains("C3 Boosted Computer (Master)") ) {
+            if ( item.CritName().contains("C3 Boosted Computer (Master)") ) {
                 if ( !retval.contains("C3BSM") ) retval.add("C3BSM");
                 if ( !retval.contains("TAG") ) retval.add("TAG");
                 MHQTons += 6.0d;
             }
 
-            if ( ((abPlaceable)nc.get(i)).CritName().contains("C3 Boosted Computer (Slave)") )
+            if ( item.CritName().contains("C3 Boosted Computer (Slave)") )
                 if ( !retval.contains("C3BSS") ) retval.add("C3BSS");
 
-            if ( ((abPlaceable)nc.get(i)).CritName().contains("Boosted Improved C3 Computer") )
+            if ( item.CritName().contains("Boosted Improved C3 Computer") )
                 if ( !retval.contains("C3BSI") ) retval.add("C3BSI");
 
         }
