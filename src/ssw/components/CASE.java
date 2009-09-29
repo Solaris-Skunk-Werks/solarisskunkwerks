@@ -39,6 +39,7 @@ public class CASE extends abPlaceable {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        this.SetBattleForceAbilities(new String[]{"CASE"});
     }
 
     @Override

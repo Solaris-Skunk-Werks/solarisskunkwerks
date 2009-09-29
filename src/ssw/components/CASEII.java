@@ -50,6 +50,7 @@ public class CASEII extends abPlaceable {
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = l;
         Clan = clan;
+        this.SetBattleForceAbilities(new String[]{"CASEII"});
     }
 
     @Override
