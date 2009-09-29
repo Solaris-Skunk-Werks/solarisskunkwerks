@@ -123,7 +123,7 @@ public class frmForce extends javax.swing.JFrame {
             this.setVisible(false);
 
         } catch ( Exception e ) {
-            javax.swing.JOptionPane.showMessageDialog( this.parent, e.getMessage() );
+            Media.Messager(e.getMessage());
         }
     }
 
@@ -679,7 +679,7 @@ public class frmForce extends javax.swing.JFrame {
         Media media = new Media();
 
         if (! force.ForceName.isEmpty() ) {
-            String filePath = media.GetDirectorySelection(parent, parent.Prefs.get("LastOpenForce", ""));
+            String filePath = media.GetDirectorySelection(this, parent.Prefs.get("LastOpenForce", ""));
             if ( !filePath.isEmpty() ) {
                 parent.Prefs.put("LastOpenForce", filePath);
                 ForceWriter writer = new ForceWriter(force);
@@ -836,7 +836,7 @@ public class frmForce extends javax.swing.JFrame {
     private void btnPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviewActionPerformed
         Printer printer = new Printer();
         printer.AddForce(force.toBattleForce());
-        dlgBFPreview preview = new dlgBFPreview("BattleForce", this.parent, printer, printer.PreviewBattleforce());
+        dlgBFPreview preview = new dlgBFPreview("BattleForce", this, printer, printer.PreviewBattleforce());
         preview.setLocationRelativeTo(this);
         preview.setVisible(true);
     }//GEN-LAST:event_btnPreviewActionPerformed
