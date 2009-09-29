@@ -2,7 +2,6 @@
 
 package ssw.printpreview;
 
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -12,7 +11,6 @@ import java.awt.print.Pageable;
 import java.awt.print.Printable;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import ssw.filehandlers.Media;
 import ssw.gui.dlgAmmoChooser;
@@ -20,7 +18,7 @@ import ssw.gui.frmMain;
 import ssw.print.PrintMech;
 import ssw.print.Printer;
 
-public class dlgPreview extends javax.swing.JDialog implements ActionListener {
+public class dlgPreview extends javax.swing.JFrame implements ActionListener {
     private final static double DEFAULT_ZOOM_FACTOR_STEP = .5;
     protected Pageable pageable;
     private Printer printer;
@@ -30,7 +28,7 @@ public class dlgPreview extends javax.swing.JDialog implements ActionListener {
     private File LogoImage = null;
 
     public dlgPreview(String title, JFrame owner, Printer printer, Pageable pageable, double zoom) {
-        super(owner, title, true);
+        super(title);
         initComponents();
         this.Parent = (frmMain) owner;
         this.printer = printer;
@@ -49,6 +47,7 @@ public class dlgPreview extends javax.swing.JDialog implements ActionListener {
         chkPrintCanon.setSelected(Parent.Prefs.getBoolean("UseCanonDots", false));
         chkPrintCharts.setSelected(Parent.Prefs.getBoolean("UseCharts", false));
         chkRS.setSelected(Parent.Prefs.getBoolean("UseRS", false));
+        if ( chkRS.isSelected() ) { chkRSActionPerformed(null); }
         
         chkUseHexConversion.setSelected( Parent.Prefs.getBoolean( "UseMiniConversion", false ) );
         if( chkUseHexConversion.isSelected() ) {
@@ -559,6 +558,7 @@ public class dlgPreview extends javax.swing.JDialog implements ActionListener {
         }
         refresh();
         printer.Print(false);
+        this.setVisible(false);
     }//GEN-LAST:event_btnPrintActionPerformed
 
     private void btnnChangeAmmoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnChangeAmmoActionPerformed
@@ -575,8 +575,13 @@ public class dlgPreview extends javax.swing.JDialog implements ActionListener {
 
     private void chkRSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRSActionPerformed
         chkPrintCanon.setEnabled(!chkRS.isSelected());
+        chkPrintCanon.setSelected(true);
         chkPrintCharts.setEnabled(!chkRS.isSelected());
+        chkPrintCharts.setSelected(false);
         chkUseHexConversion.setEnabled(!chkRS.isSelected());
+        chkUseHexConversion.setSelected(false);
+        chkUseHexConversionActionPerformed(evt);
+        cmbHexConvFactor.setSelectedIndex(0);
         printer.setTRO(chkRS.isSelected());
         refresh();
 }//GEN-LAST:event_chkRSActionPerformed

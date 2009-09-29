@@ -20,14 +20,13 @@ import java.awt.print.Pageable;
 import java.awt.print.Printable;
 import javax.swing.JFrame;
 import ssw.battleforce.BattleForce;
-import ssw.gui.frmMain;
 import ssw.print.Printer;
 
 /**
  *
  * @author gblouin
  */
-public class dlgBFPreview extends javax.swing.JDialog implements ActionListener {
+public class dlgBFPreview extends javax.swing.JFrame implements ActionListener {
     private final static double DEFAULT_ZOOM_FACTOR_STEP = .5;
     protected Pageable pageable;
     private Printer printer;
@@ -36,7 +35,7 @@ public class dlgBFPreview extends javax.swing.JDialog implements ActionListener 
 
     /** Creates new form dlgBFPreview */
     public dlgBFPreview(String title, JFrame owner, Printer printer, Pageable pageable, double zoom) {
-        super(owner, title, true);
+        super(title);
         initComponents();
         //this.Parent = (frmMain) owner;
         this.printer = printer;
