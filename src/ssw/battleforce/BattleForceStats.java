@@ -100,7 +100,7 @@ public class BattleForceStats {
                 retval += ", ";
         }
 
-        return retval;
+        return retval.replace("[", "").replace("]", "");
     }
 
     public void addAbility(String s)

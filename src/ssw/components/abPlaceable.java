@@ -34,6 +34,7 @@ public abstract class abPlaceable {
     private Exclusion Exclusions = null;
     public final static AvailableCode ArmoredAC = new AvailableCode( AvailableCode.TECH_BOTH );
     private MechModifier Modifier = null;
+    private String[] BattleForceAbilities = new String[]{};
 
     public abPlaceable() {
         ArmoredAC.SetISCodes( 'E', 'X', 'X', 'F' );
@@ -210,6 +211,16 @@ public abstract class abPlaceable {
     }
 
     public void SetManufacturer(String n) {
+    }
+
+    // added for BattleForce special abilities that could be part of the
+    // equipment being added.  Defaulting to a blank string array.
+    public String[] GetBattleForceAbilities() {
+        return BattleForceAbilities;
+    }
+
+    public void SetBattleForceAbilities( String[] a ) {
+        BattleForceAbilities = a;
     }
 
     // added for armored components in tech manual

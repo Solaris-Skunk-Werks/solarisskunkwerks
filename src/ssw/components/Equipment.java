@@ -116,6 +116,7 @@ public class Equipment extends abPlaceable {
         BookReference = e.BookReference;
         ChatName = e.ChatName;
         Manufacturer = e.Manufacturer;
+        SetBattleForceAbilities( e.GetBattleForceAbilities() );
         SetExclusions( e.GetExclusions() );
     }
 

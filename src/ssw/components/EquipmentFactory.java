@@ -571,6 +571,7 @@ public class EquipmentFactory {
         addPW.SetToHit( -1, -1, -1 );
         addPW.SetBookReference( "Tech Manual" );
         addPW.SetChatName( "Htcht" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL"});
         PhysicalWeapons.add( addPW );
 
         // sword
@@ -588,6 +589,7 @@ public class EquipmentFactory {
         addPW.SetToHit( -2, -2, -2 );
         addPW.SetBookReference( "Tech Manual" );
         addPW.SetChatName( "Swrd" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL"});
         PhysicalWeapons.add( addPW );
 
         // retractable blade
@@ -605,6 +607,7 @@ public class EquipmentFactory {
         addPW.SetToHit( -2, -2, -2 );
         addPW.SetBookReference( "Tech Manual" );
         addPW.SetChatName( "RBlde" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL","SAW"});
         PhysicalWeapons.add( addPW );
 
         // chain whip
@@ -622,6 +625,7 @@ public class EquipmentFactory {
         addPW.SetToHit(-2, -2, -2);
         addPW.SetBookReference( "Tactical Operations" );
         addPW.SetChatName( "ChnWhp" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL"});
         PhysicalWeapons.add( addPW );
 
         // claws
@@ -641,6 +645,7 @@ public class EquipmentFactory {
         addPW.SetRequiresLowerArm( true );
         addPW.SetBookReference( "Tactical Operations" );
         addPW.SetChatName( "Clw" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL"});
         PhysicalWeapons.add( addPW );
 
         // flail
@@ -660,6 +665,7 @@ public class EquipmentFactory {
         addPW.SetRequiresLowerArm( true );
         addPW.SetBookReference( "Tactical Operations" );
         addPW.SetChatName( "Flail" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL"});
         PhysicalWeapons.add( addPW );
 
         // lance
@@ -678,6 +684,7 @@ public class EquipmentFactory {
         addPW.SetRequiresHand(false);
         addPW.SetBookReference( "Tactical Operations" );
         addPW.SetChatName( "Lnc" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL"});
         PhysicalWeapons.add( addPW );
 
         // mace
@@ -695,6 +702,7 @@ public class EquipmentFactory {
         addPW.SetToHit(1, 1, 1);
         addPW.SetBookReference( "Tactical Operations" );
         addPW.SetChatName( "Mace" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL"});
         PhysicalWeapons.add(addPW);
 
         // vibroblade small
@@ -713,6 +721,7 @@ public class EquipmentFactory {
         addPW.SetToHit(-1, -1, -1);
         addPW.SetBookReference( "Tactical Operations" );
         addPW.SetChatName( "SmlVbrBld" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL"});
         PhysicalWeapons.add(addPW);
 
         // vibroblade medium
@@ -731,6 +740,7 @@ public class EquipmentFactory {
         addPW.SetToHit(-1, -1, -1);
         addPW.SetBookReference( "Tactical Operations" );
         addPW.SetChatName( "MedVbrBld" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL"});
         PhysicalWeapons.add(addPW);
 
         // vibroblade large
@@ -749,6 +759,7 @@ public class EquipmentFactory {
         addPW.SetToHit(-1, -1, -1);
         addPW.SetBookReference( "Tactical Operations" );
         addPW.SetChatName( "LrgVbrBld" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL"});
         PhysicalWeapons.add(addPW);
 
         // spikes
@@ -769,6 +780,7 @@ public class EquipmentFactory {
         addPW.SetAllocations(true, true, true, true, true, false);
         addPW.SetBookReference( "Tactical Operations" );
         addPW.SetChatName( "Spk" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL"});
         PhysicalWeapons.add(addPW);
 
         // small shield
@@ -788,6 +800,7 @@ public class EquipmentFactory {
         addPW.SetPWClass( PhysicalWeapon.PW_CLASS_SHIELD );
         addPW.SetBookReference( "Tactical Operations" );
         addPW.SetChatName( "SmlShld" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL","SHLD"});
         PhysicalWeapons.add(addPW);
 
         // medium shield
@@ -808,6 +821,7 @@ public class EquipmentFactory {
         addPW.AddMechModifier( new MechModifier( -1, 0, 0, 0.0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, true, false ));
         addPW.SetBookReference( "Tactical Operations" );
         addPW.SetChatName( "MedShld" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL","SHLD"});
         PhysicalWeapons.add(addPW);
 
         // large shield
@@ -830,10 +844,12 @@ public class EquipmentFactory {
         addPW.AddMechModifier( addMod );
         addPW.SetBookReference( "Tactical Operations" );
         addPW.SetChatName( "LrgShld" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL","SHLD"});
         PhysicalWeapons.add(addPW);
 
         // Talons
         addPW = new Talons( m );
+        addPW.SetBattleForceAbilities(new String[]{"MEL"});
         PhysicalWeapons.add( addPW );
 
         // Backhoe
@@ -853,6 +869,7 @@ public class EquipmentFactory {
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(50000, 8, 0);
         addPW.SetBookReference( "Tech Manual" );
         addPW.SetChatName( "BckHo" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL"});
         PhysicalWeapons.add(addPW);
 
         // Chainsaw
@@ -872,6 +889,7 @@ public class EquipmentFactory {
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 7, 0);
         addPW.SetBookReference( "Tech Manual" );
         addPW.SetChatName( "ChnSw" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL","SAW"});
         PhysicalWeapons.add(addPW);
 
         // Combine
@@ -891,6 +909,7 @@ public class EquipmentFactory {
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(75000, 5, 0);
         addPW.SetBookReference( "Tech Manual" );
         addPW.SetChatName( "Cmbn" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL"});
         PhysicalWeapons.add(addPW);
         
         // Dual Saw
@@ -910,6 +929,7 @@ public class EquipmentFactory {
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 9, 0);
         addPW.SetBookReference( "Tech Manual" );
         addPW.SetChatName( "2Saw" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL","SAW"});
         PhysicalWeapons.add(addPW);
         
         // Heavy Duty Pile-Driver
@@ -929,6 +949,7 @@ public class EquipmentFactory {
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 9, 0);
         addPW.SetBookReference( "Tech Manual" );
         addPW.SetChatName( "HDPD" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL"});
         PhysicalWeapons.add(addPW);
         
         // Mining Drill
@@ -948,6 +969,7 @@ public class EquipmentFactory {
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 6, 0);
         addPW.SetBookReference( "Tech Manual" );
         addPW.SetChatName( "MngDrl" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL"});
         PhysicalWeapons.add(addPW);
         
         // Rock Cutter
@@ -967,6 +989,7 @@ public class EquipmentFactory {
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(100000, 6, 0);
         addPW.SetBookReference( "Tech Manual" );
         addPW.SetChatName( "RckCut" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL"});
         PhysicalWeapons.add(addPW);
 
         // Salvage Arm
@@ -1010,6 +1033,7 @@ public class EquipmentFactory {
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(75000, 5, 0);
         addPW.SetBookReference( "Tech Manual" );
         addPW.SetChatName( "SptWeld" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL"});
         PhysicalWeapons.add(addPW);
         
         // Wrecking Ball
@@ -1029,6 +1053,7 @@ public class EquipmentFactory {
         ((IndustrialPhysicalWeapon)addPW).SetSpecials(80000, 8,0);
         addPW.SetBookReference( "Tech Manual" );
         addPW.SetChatName( "WrkBll" );
+        addPW.SetBattleForceAbilities(new String[]{"MEL"});
         PhysicalWeapons.add(addPW);
     }
 
@@ -1113,6 +1138,7 @@ public class EquipmentFactory {
         addEQ.SetStats(2, 2.0, 750000.0, 0.0, 100.0, "-");
         addEQ.SetBookReference( "Tactical Operations" );
         addEQ.SetChatName( "AECM" );
+        addEQ.SetBattleForceAbilities(new String[]{"AECM","ECM"});
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -1131,6 +1157,7 @@ public class EquipmentFactory {
         addEQ.SetMountableRear(true);
         addEQ.SetBookReference( "Tech Manual" );
         addEQ.SetChatName( "AMS" );
+        addEQ.SetBattleForceAbilities(new String[]{"AMS"});
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_CLAN );
@@ -1149,6 +1176,7 @@ public class EquipmentFactory {
         addEQ.SetMountableRear(true);
         addEQ.SetBookReference( "Tech Manual" );
         addEQ.SetChatName( "AMS" );
+        addEQ.SetBattleForceAbilities(new String[]{"AMS"});
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -1167,6 +1195,7 @@ public class EquipmentFactory {
         addEQ.SetMountableRear(true);
         addEQ.SetBookReference( "Tactical Operations" );
         addEQ.SetChatName( "LAMS" );
+        addEQ.SetBattleForceAbilities(new String[]{"AMS"});
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_CLAN );
@@ -1185,6 +1214,7 @@ public class EquipmentFactory {
         addEQ.SetMountableRear(true);
         addEQ.SetBookReference( "Tactical Operations" );
         addEQ.SetChatName( "LAMS" );
+        addEQ.SetBattleForceAbilities(new String[]{"AMS"});
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -1202,6 +1232,7 @@ public class EquipmentFactory {
         addEQ.SetStats(2, 1.5, 200000.0, 0.0, 10.0, "-");
         addEQ.SetBookReference( "Tech Manual" );
         addEQ.SetChatName( "BAP" );
+        addEQ.SetBattleForceAbilities(new String[]{"PRB","RCN"});
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_CLAN );
@@ -1219,6 +1250,7 @@ public class EquipmentFactory {
         addEQ.SetStats(1, 1.0, 200000.0, 0.0, 12.0, "-");
         addEQ.SetBookReference( "Tech Manual" );
         addEQ.SetChatName( "BAP" );
+        addEQ.SetBattleForceAbilities(new String[]{"PRB","RCN"});
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_CLAN );
@@ -1236,6 +1268,7 @@ public class EquipmentFactory {
         addEQ.SetStats(1, 0.5, 50000.0, 0.0, 7.0, "-");
         addEQ.SetBookReference( "Tech Manual" );
         addEQ.SetChatName( "LAP" );
+        addEQ.SetBattleForceAbilities(new String[]{"LPRB","RCN"});
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -1253,6 +1286,7 @@ public class EquipmentFactory {
         addEQ.SetStats(3, 2.0, 500000.0, 0.0, 25.0, "-");
         addEQ.SetBookReference( "Tactical Operations" );
         addEQ.SetChatName( "BlAP" );
+        addEQ.SetBattleForceAbilities(new String[]{"BH","PRB","RCN"});
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -1271,6 +1305,7 @@ public class EquipmentFactory {
         addEQ.SetExclusions(new Exclusion(new String[]{"Improved C3 Computer", "Null Signature System", "Void Signature System"}, "C3 Computer (Master)"));
         addEQ.SetBookReference( "Tech Manual" );
         addEQ.SetChatName( "C3M" );
+        addEQ.SetBattleForceAbilities(new String[]{"C3M","TAG"});
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -1289,6 +1324,7 @@ public class EquipmentFactory {
         addEQ.SetExclusions(new Exclusion(new String[]{"Improved C3 Computer", "Null Signature System", "Void Signature System"}, "C3 Computer (Slave)"));
         addEQ.SetBookReference( "Tech Manual" );
         addEQ.SetChatName( "C3S" );
+        addEQ.SetBattleForceAbilities(new String[]{"C3S"});
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -1306,7 +1342,8 @@ public class EquipmentFactory {
         addEQ.SetStats(2, 2.5, 750000.0, 0.0, 0.0, "-");
         addEQ.SetExclusions(new Exclusion(new String[]{"C3 Computer (Master)", "C3 Computer (Slave)", "Null Signature System", "Void Signature System"}, "Improved C3 Computer"));
         addEQ.SetBookReference( "Tech Manual" );
-        addEQ.SetChatName( "iC3" );
+        addEQ.SetChatName( "C3I" );
+        addEQ.SetBattleForceAbilities(new String[]{"C3I"});
         Equipment.add(addEQ);
 
 	// Birdie
@@ -1326,6 +1363,7 @@ public class EquipmentFactory {
         addEQ.SetExclusions(new Exclusion(new String[]{"Improved C3 Computer", "Null Signature System", "Void Signature System"}, "C3 Boosted Computer (Master)"));
         addEQ.SetBookReference( "Tactical Operations" );
         addEQ.SetChatName( "BC3M" );
+        addEQ.SetBattleForceAbilities(new String[]{"C3BSM","TAG"});
         Equipment.add(addEQ);
 
 	// Birdie
@@ -1345,6 +1383,7 @@ public class EquipmentFactory {
         addEQ.SetExclusions(new Exclusion(new String[]{"Improved C3 Computer", "Null Signature System", "Void Signature System"}, "C3 Boosted Computer (Slave)"));
         addEQ.SetBookReference( "Tactical Operations" );
         addEQ.SetChatName( "BC3S" );
+        addEQ.SetBattleForceAbilities(new String[]{"C3BSS"});
         Equipment.add(addEQ);
 
 	// Birdie
@@ -1364,6 +1403,7 @@ public class EquipmentFactory {
         addEQ.SetExclusions(new Exclusion(new String[]{"Improved C3 Computer", "Null Signature System", "Void Signature System"}, "C3 Emergency Master"));
         addEQ.SetBookReference( "Tactical Operations" );
         addEQ.SetChatName( "EC3M" );
+        addEQ.SetBattleForceAbilities(new String[]{"C3EM"});
         Equipment.add(addEQ);
 
 	// Birdie
@@ -1383,6 +1423,7 @@ public class EquipmentFactory {
         addEQ.SetMountableRear(true);
         addEQ.SetBookReference( "Tactical Operations" );
         addEQ.SetChatName( "C3RLnch" );
+        addEQ.SetBattleForceAbilities(new String[]{"C3RS"});
         Equipment.add(addEQ);
 
 	// Birdie
@@ -1501,6 +1542,7 @@ public class EquipmentFactory {
         addEQ.SetStats(12, 12.0, 4000000000.0, 0.0, 0.0, "-");
         addEQ.SetBookReference( "Tactical Operations" );
         addEQ.SetChatName( "HPG" );
+        addEQ.SetBattleForceAbilities(new String[]{"HPG"});
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
@@ -1518,6 +1560,7 @@ public class EquipmentFactory {
         addEQ.SetStats(2, 1.5, 200000.0, 0.0, 61.0, "-");
         addEQ.SetBookReference( "Tech Manual" );
         addEQ.SetChatName( "ECM" );
+        addEQ.SetBattleForceAbilities(new String[]{"ECM"});
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_CLAN );
@@ -1535,6 +1578,7 @@ public class EquipmentFactory {
         addEQ.SetStats(1, 1.0, 200000.0, 0.0, 61.0, "-");
         addEQ.SetBookReference( "Tech Manual" );
         addEQ.SetChatName( "ECM" );
+        addEQ.SetBattleForceAbilities(new String[]{"ECM"});
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_BOTH );
@@ -1555,6 +1599,7 @@ public class EquipmentFactory {
         addEQ.SetStats(1, 1.0, 120000.0, 0.0, 0.0, "-");
         addEQ.SetBookReference( "Tactical Operations" );
         addEQ.SetChatName( "HrJl" );
+        addEQ.SetBattleForceAbilities(new String[]{"BHJ"});
         Equipment.add( addEQ );
 
         Equipment.add( new ModularArmor() );
@@ -1578,6 +1623,7 @@ public class EquipmentFactory {
         addEQ.SetMountableRear(true);
         addEQ.SetBookReference( "Tech Manual" );
         addEQ.SetChatName( "TAG" );
+        addEQ.SetBattleForceAbilities(new String[]{"TAG"});
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_CLAN );
@@ -1596,6 +1642,7 @@ public class EquipmentFactory {
         addEQ.SetMountableRear(true);
         addEQ.SetBookReference( "Tech Manual" );
         addEQ.SetChatName( "LTAG" );
+        addEQ.SetBattleForceAbilities(new String[]{"LTAG"});
         Equipment.add(addEQ);
 
         a = new AvailableCode( AvailableCode.TECH_CLAN );
@@ -1613,6 +1660,7 @@ public class EquipmentFactory {
         addEQ.SetStats(2, 1.5, 600000.0, 7.0, 61.0, "-");
         addEQ.SetBookReference( "Tactical Operations" );
         addEQ.SetChatName( "WDCEWS" );
+        addEQ.SetBattleForceAbilities(new String[]{"WAT","LPRB","LECM"});
         Equipment.add(addEQ);
 
     }
@@ -1822,6 +1870,7 @@ public class EquipmentFactory {
         addEQ.SetMountableRear(true);
         addEQ.SetBookReference( "Tech Manual" );
         addEQ.SetChatName( "SrchLt" );
+        addEQ.SetBattleForceAbilities(new String[]{"SRCH"});
         IndustrialEquipment.add(addEQ);
 
         // Sprayer

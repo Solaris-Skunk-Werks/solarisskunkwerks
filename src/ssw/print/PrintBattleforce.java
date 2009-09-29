@@ -114,20 +114,18 @@ public class PrintBattleforce implements Printable {
     }
 
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+        if( RecordSheet == null) { return Printable.NO_SUCH_PAGE; }
         ((Graphics2D) graphics).translate( pageFormat.getImageableX(), pageFormat.getImageableY() );
         graphic = (Graphics2D) graphics;
-        if( RecordSheet == null || pageIndex > 0) {
-            return Printable.NO_SUCH_PAGE;
-        } else {
-            Render();
-            return Printable.PAGE_EXISTS;
-        }
+        Render();
+        return Printable.PAGE_EXISTS;
     }
     
     public void Render() {
         x = 20;
         y = 91;
-        int Groups = 1;
+        int Groups = 1,
+            PointTotal = 0;
         int y2 = 0;
         boolean groupChanged = false;
 
@@ -186,6 +184,9 @@ public class PrintBattleforce implements Printable {
             BattleForceStats stats = (BattleForceStats) getBattleforce().BattleForceStats.get(i);
 
             if ( i == (Groups * UnitSize) ) {
+                //Output Group Totals for previous group
+                graphic.drawString(PointTotal + "", x+460, y-UnitImageHeight+27);
+
                 graphic.drawImage( Unit, 0, 67 + ( UnitImageHeight * Groups ), 576, UnitImageHeight, null);
 
                 x = 20;
@@ -193,20 +194,22 @@ public class PrintBattleforce implements Printable {
                 Groups += 1;
 
                 groupChanged = true;
+                PointTotal = 0;
             }
             
             if ( groupChanged || i == 0 ) {
                 //Force Name
                 graphic.drawString(stats.getUnit(), x+49, y-13);
             }
-            
+
+            PointTotal += stats.getPointValue();
             //Unit Name
             graphic.drawString(stats.getElement(), x, y);
 
             //Image
             if ( !stats.getImage().isEmpty() ) {
                 Image image = media.GetImage(stats.getImage());
-                Dimension d = media.reSize(image, 36d, 34d);
+                Dimension d = media.reSize(image, 35d, 33d);
                 image.getScaledInstance(d.width, d.height, Image.SCALE_SMOOTH);
                 graphic.drawImage(image, x, y, d.width, d.height, null);
             }
@@ -214,29 +217,29 @@ public class PrintBattleforce implements Printable {
             //Movement (MV)
             //graphic.setFont( PrintConsts.BoldFont );
             y2 = y + 25;
-            x += 39;
+            x += 42;
             graphic.drawString(stats.getMovement(), x, y2);
 
             //Damage Values (S,M,L,E)
-            x += 38;
+            x += 35;
             graphic.drawString(stats.getShort()+"", x, y2);
             x += 32;
             graphic.drawString(stats.getMedium()+"", x, y2);
-            x += 32;
+            x += 35;
             graphic.drawString(stats.getLong()+"", x, y2);
-            x += 32;
+            x += 36;
             graphic.drawString(stats.getExtreme()+"", x, y2);
-            x += 32;
+            x += 30;
 
             //Weight Class
             graphic.drawString(stats.getWeight()+"", x, y2);
 
             //Skill
-            x += 30;
+            x += 28;
             graphic.drawString(stats.getSkill()+"", x, y2);
 
             //Overheat (OV)
-            x += 25;
+            x += 23;
             graphic.drawString(stats.getOverheat()+"", x, y2);
 
             //Armor
@@ -262,11 +265,16 @@ public class PrintBattleforce implements Printable {
             }
 
             //Abilities
-            //graphic.drawString(stats.getAbilities().replace("[", "").replace("]", ""), setX+72, y2+18);
+            graphic.setFont(PrintConsts.SmallFont);
+            graphic.drawString(stats.getAbilitiesString(), setX+72, y2+17);
 
             x = 20;
             y += 49;
         }
+
+        graphic.setFont( PrintConsts.RegularFont );
+        //Output Group Totals for previous group
+        graphic.drawString(PointTotal + "", x+460, y-UnitImageHeight+27);
     }
 
     public BattleForce getBattleforce() {
