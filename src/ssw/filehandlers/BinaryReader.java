@@ -74,6 +74,7 @@ public class BinaryReader {
                     rw.SetMissileFCS( FR.readBoolean(), FR.readInt() );
                     rw.SetChatName( FR.readUTF() );
                     rw.SetBookReference( FR.readUTF() );
+                    rw.SetBattleForceAbilities( FR.readUTF().split(",") );
                     finished.add( rw );
                 } catch( EOFException e1 ) {
                     break;

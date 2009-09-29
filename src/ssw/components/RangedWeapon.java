@@ -166,6 +166,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         FCSType = r.FCSType;
         BookReference = r.BookReference;
         ChatName = r.ChatName;
+        SetBattleForceAbilities( r.GetBattleForceAbilities() );
     }
 
     public void SetStats( double tons, int crits, double cost, double obv, double dbv ) {
