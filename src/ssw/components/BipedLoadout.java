@@ -4364,7 +4364,7 @@ public class BipedLoadout implements ifLoadout {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + RLCrits[j].CritName() );
                 }
             }
-            for( int j = 6; j < 11; j++ ) {
+            for( int j = 6; j < 12; j++ ) {
                 if( CTCrits[j].CritName().contains( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + CTCrits[j].CritName() );
                 }
