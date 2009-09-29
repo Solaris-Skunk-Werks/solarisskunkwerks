@@ -126,6 +126,7 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         Fusion = p.Fusion;
         PowerAmps = p.PowerAmps;
         RequiresHand = p.RequiresHand;
+        SetBattleForceAbilities( p.GetBattleForceAbilities() );
         if ( RequiresHand == true ) { RequiresLowerArm = true; }
         ReplacesHand = p.ReplacesHand;
         if ( ReplacesHand == true ) { RequiresHand = false; }
