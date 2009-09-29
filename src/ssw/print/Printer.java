@@ -125,7 +125,7 @@ public class Printer {
         this.TRO = TRO;
         for (int index=0; index <= Mechs.size()-1; index++) {
             PrintMech pm = (PrintMech) Mechs.get(index);
-            //pm.setTRO(TRO);
+            pm.setTRO(TRO);
         }
     }
 
