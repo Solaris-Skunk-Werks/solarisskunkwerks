@@ -166,7 +166,7 @@ public class XMLReader {
         n = d.getElementsByTagName( "motive_type" );
         Data.setMotive( n.item( 0 ).getTextContent() );
 
-        n = d.getElementsByTagName( "chat_info" );
+        n = d.getElementsByTagName( "info" );
         if ( n.getLength() > 0 ) { Data.setInfo( n.item( 0 ).getTextContent() ); }
 
         n = d.getElementsByTagName( "battle_value" );
@@ -196,6 +196,7 @@ public class XMLReader {
                     if (node.getNodeName().equals("battle_value")) {Config.setBV( Integer.parseInt( node.getTextContent() ) );}
                     if (node.getNodeName().equals("cost")) {Config.setCost( Double.parseDouble( node.getTextContent() ) );}
                     if (node.getNodeName().equals("source")) {Config.setSource( node.getTextContent() );}
+                    if (node.getNodeName().equals("info")) {Config.setInfo( node.getTextContent() );}
                 }
 
                 Data.Configurations.add(Config);

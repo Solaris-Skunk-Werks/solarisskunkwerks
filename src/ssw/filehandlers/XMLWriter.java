@@ -65,10 +65,6 @@ public class XMLWriter {
         FR.write( tab + "<ssw_savefile_version>2</ssw_savefile_version>" );
         FR.newLine();
 
-        // chat information
-        FR.write( tab + "<chat_info>" + CurMech.GetChatInfo() + "</chat_info>" );
-        FR.newLine();
-
         // add the battle value if this is not an omnimech.  otherwise, we'll
         // add the battle value for each omni loadout.  NOTE: This value is never
         // used by SSW since the BV is dynamically calculated.  This is purely for
@@ -212,6 +208,10 @@ public class XMLWriter {
         FR.write( tab + tab + "<source>" + FileCommon.EncodeFluff( CurMech.GetSource() ) + "</source>" );
         FR.newLine();
 
+        // chat information
+        FR.write( tab + tab + "<info>" + CurMech.GetChatInfo() + "</info>" );
+        FR.newLine();
+
         FR.write( tab + tab + "<actuators lla=\"" + GetBoolean( CurMech.GetActuators().LeftLowerInstalled() ) + "\" lh=\"" + GetBoolean( CurMech.GetActuators().LeftHandInstalled() ) + "\" rla=\"" + GetBoolean( CurMech.GetActuators().RightLowerInstalled() ) + "\" rh=\"" + GetBoolean( CurMech.GetActuators().RightHandInstalled() ) + "\"/>" );
         FR.newLine();
         FR.write( tab + tab + "<clancase>" + GetBoolean( CurMech.GetLoadout().IsUsingClanCASE() ) + "</clancase>" );
@@ -338,6 +338,9 @@ public class XMLWriter {
                 }
                 FR.newLine();
                 FR.write( tab + tab + "<source>" + FileCommon.EncodeFluff( CurMech.GetSource() ) + "</source>" );
+                FR.newLine();
+                // chat information
+                FR.write( tab + tab + "<info>" + CurMech.GetChatInfo() + "</info>" );
                 FR.newLine();
                 if( CurMech.GetTechBase() != CurMech.GetLoadout().GetTechBase() ) {
                     FR.write( tab + tab + "<techbase>" + CurMech.GetLoadout().GetTechBase() + "</techbase>" );
