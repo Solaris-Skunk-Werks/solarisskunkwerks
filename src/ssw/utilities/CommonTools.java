@@ -683,10 +683,10 @@ public class CommonTools {
         return BV * BVMods[Gunnery][Piloting];
     }
 
-    public static int GetAverageClusterHits( ifWeapon w ) {
+    public static int GetAverageClusterHits( ifWeapon w, int manualmodifier ) {
         if( ! w.IsCluster() ) { return 1; }
         int size = w.ClusterSize() - 1; // subtract one for array indexing
-        int roll = 5; // subtracting 2 because we're indexing an array
+        int roll = 5 + manualmodifier; // subtracting 2 because we're indexing an array
         if( w instanceof RangedWeapon ) {
             if( ((RangedWeapon) w).IsUsingFCS() ) {
                 roll += ((RangedWeapon) w).GetFCS().GetClusterTableBonus();
