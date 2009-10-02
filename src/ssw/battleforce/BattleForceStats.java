@@ -38,7 +38,8 @@ public class BattleForceStats {
                     Unit = "",
                     Image = "";
 
-    private Vector <String> Abilities = new Vector();
+    private Vector<String> Abilities = new Vector<String>();
+    private Vector<String> AltMunitions = new Vector<String>();
 
     private int S = 0,
                 M = 0,
@@ -85,7 +86,7 @@ public class BattleForceStats {
     }
 
 
-    public Vector <String> getAbilities() {
+    public Vector<String> getAbilities() {
         return Abilities;
     }
 
@@ -106,6 +107,22 @@ public class BattleForceStats {
     public void addAbility(String s)
     {
         Abilities.add(s);
+    }
+
+    public Vector<String> getAltMunitions() {
+        return AltMunitions;
+    }
+
+    public String getAltMunitionsString() {
+        String retval = "";
+        for ( String munition : AltMunitions ) {
+            retval += munition;
+        }
+        return retval;
+    }
+
+    public void addAltMunition(String s) {
+        AltMunitions.add(s);
     }
 
     public int getShort() {
