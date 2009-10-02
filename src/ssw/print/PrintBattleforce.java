@@ -50,6 +50,8 @@ public class PrintBattleforce implements Printable {
                     Unit;
     private int UnitSize = 4,
                 UnitImageHeight = 225;
+    private boolean printMechs = true,
+                    printLogo = true;
 
     private int x = 0,
                 y = 0;
@@ -132,7 +134,7 @@ public class PrintBattleforce implements Printable {
         graphic.drawImage( RecordSheet, 0, 0, 576, 756, null );
         graphic.drawImage( Unit, 0, 67, 576, UnitImageHeight, null);
 
-        if ( !battleforce.LogoPath.isEmpty() ) {
+        if ( !battleforce.LogoPath.isEmpty() && printLogo ) {
             Image icon = media.GetImage(getBattleforce().LogoPath);
             Dimension d = media.reSize(icon, 50, 50);
             graphic.drawImage(icon, 300, 5, d.width, d.height, null);
@@ -203,11 +205,12 @@ public class PrintBattleforce implements Printable {
             }
 
             PointTotal += stats.getPointValue();
+
             //Unit Name
             graphic.drawString(stats.getElement(), x, y);
 
             //Image
-            if ( !stats.getImage().isEmpty() ) {
+            if ( !stats.getImage().isEmpty() && printMechs ) {
                 Image image = media.GetImage(stats.getImage());
                 Dimension d = media.reSize(image, 35d, 33d);
                 image.getScaledInstance(d.width, d.height, Image.SCALE_SMOOTH);
@@ -283,6 +286,14 @@ public class PrintBattleforce implements Printable {
 
     public void setBattleforce(BattleForce battleforce) {
         this.battleforce = battleforce;
+    }
+
+    public void setPrintMechs(boolean printMechs) {
+        this.printMechs = printMechs;
+    }
+
+    public void setPrintLogo(boolean printLogo) {
+        this.printLogo = printLogo;
     }
 
 }
