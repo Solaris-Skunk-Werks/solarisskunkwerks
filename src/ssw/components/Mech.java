@@ -3997,6 +3997,13 @@ public class Mech implements ifBattleforce {
                     dmgSRMMedium += temp[Constants.BF_MEDIUM];
                     dmgSRMLong += temp[Constants.BF_LONG];
                 }
+                else if ( BattleForceTools.isBFMML((ifWeapon)nc.get(i)) )
+                {
+                    dmgSRMShort += temp[Constants.BF_SHORT];
+                    dmgSRMMedium += temp[Constants.BF_MEDIUM] / 2.0;
+                    dmgLRMMedium += temp[Constants.BF_MEDIUM] / 2.0;
+                    dmgLRMLong += temp[Constants.BF_LONG];
+                }
             }
 
         }
@@ -4053,34 +4060,69 @@ public class Mech implements ifBattleforce {
             }
             if ( dmgLRMMedium > 9 )
             {
+                // We need to save the non-heat adjusted dmg values to subtract
+                // from the base damage if the adjusted damage remains > 10
+                double s = dmgLRMShort;
+                double m = dmgLRMMedium;
+                double l = dmgLRMLong;
 
+                dmgLRMShort = (dmgLRMShort * heatcap) / totalHeat;
+                dmgLRMMedium = (dmgLRMMedium * heatcap) / totalHeat;
+                dmgLRMLong = (dmgLRMLong * heatcap) / totalHeat;
+                if (dmgLRMMedium > 9)
+                {
+                    dmgShort -= s;
+                    dmgMedium -= m;
+                    dmgLong -= l;
+                }
             }
             if ( dmgSRMMedium > 9 )
             {
+                // We need to save the non-heat adjusted dmg values to subtract
+                // from the base damage if the adjusted damage remains > 10
+                double s = dmgSRMShort;
+                double m = dmgSRMMedium;
+                double l = dmgSRMLong;
 
+                dmgSRMShort = (dmgSRMShort * heatcap) / totalHeat;
+                dmgSRMMedium = (dmgSRMMedium * heatcap) / totalHeat;
+                dmgSRMLong = (dmgSRMLong * heatcap) / totalHeat;
+                if (dmgSRMMedium > 9)
+                {
+                    dmgShort -= s;
+                    dmgMedium -= m;
+                    dmgLong -= l;
+                }
             }
 
-            // Determine OverHeat
-            if ( maxMedium != 0 )
-            {
-                retval[Constants.BF_OV] = maxMedium - (int) Math.ceil(dmgMedium / 10) - (int) Math.round(dmgACMedium / 10);
-            }
-            else
-            {
-                retval[Constants.BF_OV] = maxShort - retval[Constants.BF_SHORT];
-            }
-            
+            // Now adjust base damage
+            dmgShort = (dmgShort * heatcap) / totalHeat;
+            dmgMedium = (dmgMedium * heatcap) / totalHeat;
+            dmgLong = (dmgLong * heatcap) / totalHeat;
+
         }
         else
         {
             // No heat adjustment is required
             // Remove non-heat adjusted SA dmg from base damage if applicable
             if (dmgACMedium > 9)
-                {
-                    dmgShort -= dmgACShort;
-                    dmgMedium -= dmgACMedium;
-                    dmgLong -= dmgACLong;
-                }
+            {
+                dmgShort -= dmgACShort;
+                dmgMedium -= dmgACMedium;
+                dmgLong -= dmgACLong;
+            }
+            if (dmgLRMMedium > 9)
+            {
+                dmgShort -= dmgLRMShort;
+                dmgMedium -= dmgLRMMedium;
+                dmgLong -= dmgLRMLong;
+            }
+            if (dmgSRMMedium > 9)
+            {
+                dmgShort -= dmgSRMShort;
+                dmgMedium -= dmgSRMMedium;
+                dmgLong -= dmgSRMLong;
+            }
         }
 
         // Convert all damage to BF scale
@@ -4098,9 +4140,35 @@ public class Mech implements ifBattleforce {
             bfs.addAbility("AC "+(int)dmgACShort+"/"+(int)dmgACMedium+"/"+(int)dmgACLong);
         }
         if ( dmgLRMMedium > 9 )
-            bfs.addAbility("LRM "+dmgLRMShort+"/"+dmgLRMMedium+"/"+dmgLRMLong);
+        {
+            dmgLRMShort = (int) Math.round(dmgLRMShort / 10);
+            dmgLRMMedium = (int) Math.round(dmgLRMMedium / 10);
+            dmgLRMLong = (int) Math.round(dmgLRMLong / 10);
+            bfs.addAbility("LRM "+(int)dmgLRMShort+"/"+(int)dmgLRMMedium+"/"+(int)dmgLRMLong);
+        }
         if ( dmgSRMMedium > 9 )
-            bfs.addAbility("SRM "+dmgSRMShort+"/"+dmgSRMMedium+"/"+dmgSRMLong);
+        {
+            dmgSRMShort = (int) Math.round(dmgSRMShort / 10);
+            dmgSRMMedium = (int) Math.round(dmgSRMMedium / 10);
+            dmgSRMLong = (int) Math.round(dmgSRMLong / 10);
+            bfs.addAbility("SRM "+(int)dmgSRMShort+"/"+(int)dmgSRMMedium+"/"+(int)dmgSRMLong);
+        }
+
+        // Determine OverHeat
+        if ( maxMedium != 0 )
+        {
+            int DmgMedium = retval[Constants.BF_MEDIUM] + (int)dmgSRMMedium + (int)dmgLRMMedium + (int)dmgACMedium;
+            retval[Constants.BF_OV] = maxMedium - DmgMedium;
+        }
+        else
+        {
+            int DmgShort = retval[Constants.BF_SHORT] + (int)dmgSRMShort + (int)dmgLRMShort + (int)dmgACShort;
+            retval[Constants.BF_OV] = maxShort - DmgShort;
+        }
+
+        // Maximum OV value is 4
+        if (retval[Constants.BF_OV] > 4)
+            retval[Constants.BF_OV] = 4;
 
         // Return final values
         return retval;

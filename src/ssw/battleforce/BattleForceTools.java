@@ -80,30 +80,62 @@ public class BattleForceTools {
         }
         
         // Set base damage by range
-        if ( w.GetRangeLong() <= 3 ) {
-            if ( w instanceof RangedWeapon )
-                retval[Constants.BF_SHORT] = w.GetDamageShort();
-        } else if ( w.GetRangeLong() > 3 && w.GetRangeLong() <= 15 ) {
-            retval[Constants.BF_SHORT] = w.GetDamageShort();
-            retval[Constants.BF_MEDIUM] = w.GetDamageMedium();
-        } else if ( w.GetRangeLong() > 15 && w.GetRangeLong() <= 23 )
+        // LRM SRM MML and HAG needs to be handled here too due to cluster damage
+        if (w.IsCluster())
         {
-            retval[Constants.BF_SHORT] = w.GetDamageShort();
-            retval[Constants.BF_MEDIUM] = w.GetDamageMedium();
-            retval[Constants.BF_LONG] = w.GetDamageLong();
-        } else {
-            retval[Constants.BF_SHORT] = w.GetDamageShort();
-            retval[Constants.BF_MEDIUM] = w.GetDamageMedium();
-            retval[Constants.BF_LONG] = w.GetDamageLong();
-            retval[Constants.BF_EXTREME] = w.GetDamageLong();
+            if ( w.GetRangeLong() <= 3 ) {
+                if ( w instanceof RangedWeapon )
+                    retval[Constants.BF_SHORT] = w.GetDamageShort() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
+            } else if ( w.GetRangeLong() > 3 && w.GetRangeLong() <= 15 ) {
+                retval[Constants.BF_SHORT] = w.GetDamageShort() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
+                retval[Constants.BF_MEDIUM] = w.GetDamageMedium() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
+            } else if ( w.GetRangeLong() > 15 && w.GetRangeLong() <= 23 )
+            {
+                retval[Constants.BF_SHORT] = w.GetDamageShort() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
+                retval[Constants.BF_MEDIUM] = w.GetDamageMedium() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
+                retval[Constants.BF_LONG] = w.GetDamageLong() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
+            } else {
+                retval[Constants.BF_SHORT] = w.GetDamageShort() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
+                retval[Constants.BF_MEDIUM] = w.GetDamageMedium() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
+                retval[Constants.BF_LONG] = w.GetDamageLong() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
+                retval[Constants.BF_EXTREME] = w.GetDamageLong() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
+            }
+
+            if (isBFMML(w))
+            {
+                retval[Constants.BF_SHORT] *= 2;
+                retval[Constants.BF_MEDIUM] *= 1.5;
+            }
+        }
+        else
+        {
+            if ( w.GetRangeLong() <= 3 ) {
+                if ( w instanceof RangedWeapon )
+                    retval[Constants.BF_SHORT] = w.GetDamageShort();
+            } else if ( w.GetRangeLong() > 3 && w.GetRangeLong() <= 15 ) {
+                retval[Constants.BF_SHORT] = w.GetDamageShort();
+                retval[Constants.BF_MEDIUM] = w.GetDamageMedium();
+            } else if ( w.GetRangeLong() > 15 && w.GetRangeLong() <= 23 )
+            {
+                retval[Constants.BF_SHORT] = w.GetDamageShort();
+                retval[Constants.BF_MEDIUM] = w.GetDamageMedium();
+                retval[Constants.BF_LONG] = w.GetDamageLong();
+            } else {
+                retval[Constants.BF_SHORT] = w.GetDamageShort();
+                retval[Constants.BF_MEDIUM] = w.GetDamageMedium();
+                retval[Constants.BF_LONG] = w.GetDamageLong();
+                retval[Constants.BF_EXTREME] = w.GetDamageLong();
+            }
         }
 
+
         // Adjust for minimum range
-        // fixed for minimum ranges greater than 6 (ELRMs)
         int minrange = w.GetRangeMin();
         if( minrange > 6 ) { minrange = 6; }
-        retval[Constants.BF_SHORT] *= BattleForceTools.BFMinRangeModifiers[minrange];
-
+        {
+            if (!isBFMML(w))
+                retval[Constants.BF_SHORT] *= BattleForceTools.BFMinRangeModifiers[minrange];
+        }
 
         if ( w instanceof RangedWeapon ) {
 
@@ -176,10 +208,20 @@ public class BattleForceTools {
     {
         if (((abPlaceable)w).CritName().contains("LRM"))
         {
-            if (w.GetFCSType() == ifMissileGuidance.FCS_NONE && !w.IsOneShot())
+            if (!w.IsOneShot())
                 return true;
             else
                 return false;
+        }
+        else
+            return false;
+    }
+
+    public static boolean isBFMML(ifWeapon w)
+    {
+        if (((abPlaceable)w).CritName().contains("MML"))
+        {
+            return true;
         }
         else
             return false;
