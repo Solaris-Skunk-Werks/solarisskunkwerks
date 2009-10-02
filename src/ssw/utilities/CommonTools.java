@@ -43,6 +43,20 @@ public class CommonTools {
         { 1.28, 1.19, 1.1, 1.01, 0.86, 0.75, 0.71, 0.68, 0.64 }
     };
 
+    private static int[][] ClusterTable = {
+        { 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 7, 7, 7, 8, 8, 9, 9, 9, 10, 10, 12 },
+        { 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 7, 7, 7, 8, 8, 9, 9, 9, 10, 10, 12 },
+        { 1, 1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 9, 10, 10, 10, 11, 11, 11, 12, 12, 18 },
+        { 1, 1, 2, 2, 3, 3, 4, 4, 5, 6, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 13, 14, 15, 16, 16, 17, 17, 17, 18, 18, 24 },
+        { 1, 1, 2, 2, 3, 4, 4, 5, 5, 6, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 13, 14, 15, 16, 16, 17, 17, 17, 18, 18, 24 },
+        { 1, 1, 2, 3, 3, 4, 4, 5, 5, 6, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 13, 14, 15, 16, 16, 17, 17, 17, 18, 18, 24 },
+        { 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 13, 14, 15, 16, 16, 17, 17, 17, 18, 18, 24 },
+        { 1, 2, 2, 3, 4, 5, 6, 6, 7, 8, 9, 10, 11, 11, 12, 13, 14, 14, 15, 16, 17, 18, 19, 20, 21, 21, 22, 23, 23, 24, 32 },
+        { 1, 2, 3, 3, 4, 5, 6, 6, 7, 8, 9, 10, 11, 11, 12, 13, 14, 14, 15, 16, 17, 18, 19, 20, 21, 21, 22, 23, 23, 24, 32 },
+        { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 40 },
+        { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 40 },
+    };
+
     public static String DecodeEra( int era ) {
         switch( era ) {
             case AvailableCode.ERA_STAR_LEAGUE:
@@ -667,5 +681,21 @@ public class CommonTools {
 
     public static double GetAdjustedBV( double BV, int Gunnery, int Piloting ) {
         return BV * BVMods[Gunnery][Piloting];
+    }
+
+    public static int GetAverageClusterHits( ifWeapon w ) {
+        if( ! w.IsCluster() ) { return 1; }
+        int size = w.ClusterSize() - 1; // subtract one for array indexing
+        int roll = 5; // subtracting 2 because we're indexing an array
+        if( w instanceof RangedWeapon ) {
+            if( ((RangedWeapon) w).IsUsingFCS() ) {
+                roll += ((RangedWeapon) w).GetFCS().GetClusterTableBonus();
+            }
+        }
+        if( roll > 10 ) { roll = 10; }
+        if( roll < 0 ) { roll = 0; }
+        if( size > 30 ) { size = 30; }
+        if( size < 0 ) { return 0; }
+        return ClusterTable[roll][size];
     }
 }
