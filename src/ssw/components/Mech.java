@@ -4111,7 +4111,8 @@ public class Mech implements ifBattleforce {
 
         // First search all equipment for BF Abilities
         Vector nc = GetLoadout().GetNonCore();
-        boolean isENE = true;
+        boolean isENE = true,
+                hasExplodable = false;
         int Taser = 0,
             RSD = 0;
         double MHQTons = 0;
@@ -4127,6 +4128,11 @@ public class Mech implements ifBattleforce {
         //Mimetic Armor System
         if ( HasVoidSig )
             if ( !retval.contains("MAS") ) retval.add("MAS");
+
+        //Underwater Movement
+        if ( GetJumpJets().IsUMU() ) {
+            if ( !retval.contains("UMU") ) retval.add("UMU");
+        }
 
         //Omni
         if ( IsOmnimech() )
@@ -4160,20 +4166,16 @@ public class Mech implements ifBattleforce {
             }
 
             // Check equipment for special abilities
-            if ( nc.get(i) instanceof ifWeapon ) {
+            if ( item instanceof ifWeapon ) {
                 // ENE for mechs without ammo dependant weapons
-                if ( ((ifWeapon)nc.get(i)).GetWeaponClass() != ifWeapon.W_ENERGY ) {
+                if ( ((ifWeapon)item).GetWeaponClass() != ifWeapon.W_ENERGY &&
+                     ((ifWeapon)item).GetWeaponClass() != ifWeapon.W_PHYSICAL) {
                     isENE = false;
                 }
 
-                // CASE / CASE II for mechs with Explodable Ammo or Weapons
+                // Does the mech carry an explodable weapon?
                 if ( ((ifWeapon)nc.get(i)).IsExplosive() || ((ifWeapon)nc.get(i)).HasAmmo() ) {
-                    // Clans get CASE by default as long as they have ammo or an explodable weapon
-                    if ( CommonTools.GetTechbaseString(GetTechBase()).equals(Constants.strCLAN) ) {
-                        if ( !retval.contains("CASE") ) retval.add("CASE");
-                    }
-
-                    //TODO need to add IS checks for CASE or CASEII
+                    hasExplodable = true;
                 }
             }
         }
@@ -4194,9 +4196,17 @@ public class Mech implements ifBattleforce {
             retval.remove("RSD");
             retval.add("RSD" + RSD);
         }
+        if ( !hasExplodable ) {
+            //They don't have anything that blows up so remove any traces of CASE or CASEII
+            retval.remove("CASE");
+            retval.remove("CASEII");
+        }
+
+        //Remove a - that is a result of the file needing data
+        retval.remove("-");
 
         //ALL Mechs get SRCH (Industrials?)
-        retval.add("SRCH");
+        //retval.add("SRCH");
 
         return retval;
     }
