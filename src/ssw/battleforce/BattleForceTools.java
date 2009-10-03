@@ -81,24 +81,29 @@ public class BattleForceTools {
         
         // Set base damage by range
         // LRM SRM MML and HAG needs to be handled here too due to cluster damage
-        if (w.IsCluster())
+        if ( w.IsCluster() )
         {
+            int dmgModifier = 1;
+            if ( w.GetWeaponClass() == ifWeapon.W_BALLISTIC ){
+                dmgModifier = w.GetDamageMedium();
+            }
+
             if ( w.GetRangeLong() <= 3 ) {
                 if ( w instanceof RangedWeapon )
-                    retval[Constants.BF_SHORT] = w.GetDamageShort() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
+                    retval[Constants.BF_SHORT] = w.GetDamageShort() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0) / dmgModifier;
             } else if ( w.GetRangeLong() > 3 && w.GetRangeLong() <= 15 ) {
-                retval[Constants.BF_SHORT] = w.GetDamageShort() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
-                retval[Constants.BF_MEDIUM] = w.GetDamageMedium() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
+                retval[Constants.BF_SHORT] = w.GetDamageShort() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0) / dmgModifier;
+                retval[Constants.BF_MEDIUM] = w.GetDamageMedium() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0) / dmgModifier;
             } else if ( w.GetRangeLong() > 15 && w.GetRangeLong() <= 23 )
             {
-                retval[Constants.BF_SHORT] = w.GetDamageShort() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
-                retval[Constants.BF_MEDIUM] = w.GetDamageMedium() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
-                retval[Constants.BF_LONG] = w.GetDamageLong() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
+                retval[Constants.BF_SHORT] = w.GetDamageShort() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0) / dmgModifier;
+                retval[Constants.BF_MEDIUM] = w.GetDamageMedium() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0) / dmgModifier;
+                retval[Constants.BF_LONG] = w.GetDamageLong() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0) / dmgModifier;
             } else {
-                retval[Constants.BF_SHORT] = w.GetDamageShort() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
-                retval[Constants.BF_MEDIUM] = w.GetDamageMedium() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
-                retval[Constants.BF_LONG] = w.GetDamageLong() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
-                retval[Constants.BF_EXTREME] = w.GetDamageLong() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0);
+                retval[Constants.BF_SHORT] = w.GetDamageShort() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0) / dmgModifier;
+                retval[Constants.BF_MEDIUM] = w.GetDamageMedium() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0) / dmgModifier;
+                retval[Constants.BF_LONG] = w.GetDamageLong() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0) / dmgModifier;
+                retval[Constants.BF_EXTREME] = w.GetDamageLong() * ssw.utilities.CommonTools.GetAverageClusterHits(w,0) / dmgModifier;
             }
 
             if (isBFMML(w))

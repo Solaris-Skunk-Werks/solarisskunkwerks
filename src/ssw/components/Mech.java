@@ -3934,10 +3934,6 @@ public class Mech implements ifBattleforce {
         double dmgMedium = 0.0;
         double dmgLong = 0.0;
         double dmgExtreme = 0.0;
-        int heatShort = 0;
-        int heatMedium = 0;
-        int heatLong = 0;
-        int heatExtreme = 0;
         int totalHeat = 0;
 
         double dmgACShort = 0.0;
@@ -3962,22 +3958,6 @@ public class Mech implements ifBattleforce {
                 dmgExtreme += temp[Constants.BF_EXTREME];
 
                 totalHeat += (int) temp[Constants.BF_OV];
-
-                if ( dmgMedium == 0 ) {
-                    heatShort += (int) temp[Constants.BF_OV];
-                } else if ( dmgLong == 0 ) {
-                    heatShort += (int) temp[Constants.BF_OV];
-                    heatMedium += (int) temp[Constants.BF_OV];
-                } else if ( dmgExtreme == 0 ) {
-                    heatShort += (int) temp[Constants.BF_OV];
-                    heatMedium += (int) temp[Constants.BF_OV];
-                    heatLong += (int) temp[Constants.BF_OV];
-                } else {
-                    heatShort += (int) temp[Constants.BF_OV];
-                    heatMedium += (int) temp[Constants.BF_OV];
-                    heatLong += (int) temp[Constants.BF_OV];
-                    heatExtreme += (int) temp[Constants.BF_OV];
-                }
             
                 if ( BattleForceTools.isBFAutocannon((ifWeapon)nc.get(i)) )
                 {
@@ -4022,10 +4002,6 @@ public class Mech implements ifBattleforce {
 
         // Also include Stealth heat, which is ALWAYS on in BF
         if ( GetArmor().IsStealth() ) {
-            heatShort += 10;
-            heatMedium += 10;
-            heatLong += 10;
-            heatExtreme += 10;
             totalHeat += 10;
         }
 
@@ -4056,7 +4032,6 @@ public class Mech implements ifBattleforce {
                     dmgMedium -= m;
                     dmgLong -= l;
                 }
-
             }
             if ( dmgLRMMedium > 9 )
             {
