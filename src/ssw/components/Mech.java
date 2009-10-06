@@ -4252,6 +4252,11 @@ public class Mech implements ifBattleforce {
         //Remove a - that is a result of the file needing data
         retval.remove("-");
 
+        // Remove extra LRM, SRM, and AC if included
+        retval.remove("LRM");
+        retval.remove("SRM");
+        retval.remove("AC");
+
         //ALL Mechs get SRCH (Industrials?)
         //retval.add("SRCH");
 
