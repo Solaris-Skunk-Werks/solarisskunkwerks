@@ -68,7 +68,6 @@ public class BattleForceStats {
         Wt = m.GetBFSize();
         Armor = m.GetBFArmor();
         Internal = m.GetBFStructure();
-        Abilities = m.GetBFAbilities();
 
         MV = m.GetBFPrimeMovement() + m.GetBFPrimeMovementMode();
         if ( m.GetBFSecondaryMovement() != 0 ) {
@@ -106,7 +105,16 @@ public class BattleForceStats {
 
     public void addAbility(String s)
     {
-        Abilities.add(s);
+        // Make sure we dont double add...
+        boolean found = false;
+        for ( int i = 0; i < Abilities.size(); i++ )
+        {
+            if ( s.equals(Abilities.get(i)) )
+                found = true;
+        }
+        
+        if ( !found )
+            Abilities.add(s);
     }
 
     public Vector<String> getAltMunitions() {

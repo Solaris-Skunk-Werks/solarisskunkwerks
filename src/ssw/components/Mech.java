@@ -3832,7 +3832,7 @@ public class Mech implements ifBattleforce {
     }
 
     public int GetBFPoints(){
-        return GetCurrentBV() / 100;
+        return Math.round( GetCurrentBV() / 100 );
     }
 
     public int GetBFSize(){
@@ -4141,9 +4141,11 @@ public class Mech implements ifBattleforce {
             retval[Constants.BF_OV] = maxShort - DmgShort;
         }
 
-        // Maximum OV value is 4
+        // Maximum OV value is 4, minimum is 0
         if (retval[Constants.BF_OV] > 4)
             retval[Constants.BF_OV] = 4;
+        if (retval[Constants.BF_OV] < 0)
+            retval[Constants.BF_OV] = 0;
 
         // Return final values
         return retval;
@@ -4228,6 +4230,8 @@ public class Mech implements ifBattleforce {
         if ( isENE ) {
             retval.add("ENE");
         }
+        if ( !isENE && GetTechBase() == AvailableCode.TECH_CLAN )
+            retval.add("CASE");
         if ( Taser > 0 ) {
             retval.remove("MTAS");
             retval.add("MTAS" + Taser);
