@@ -91,7 +91,7 @@ public class BattleForceTools {
             if ( ((abPlaceable)w).CritName().contains("HAG") )
             {
                 dmgModifier = w.GetDamageMedium();
-                shortMod = +2;
+                  shortMod = +2;
                 longMod = -2;
             }
 
@@ -200,39 +200,61 @@ public class BattleForceTools {
 
     public static boolean isBFSRM(ifWeapon w)
     {
-        if (((abPlaceable)w).CritName().contains("SRM"))
+        String[] abilities = ((abPlaceable)w).GetBattleForceAbilities();
+        for( int i = 0; i < abilities.length; i++ )
         {
-            if (!w.IsStreak() && !w.IsOneShot())
+            if ( abilities[i].contains("SRM") )
                 return true;
-            else
-                return false;
         }
-        else
-            return false;
 
+        return false;
     }
 
     public static boolean isBFLRM(ifWeapon w)
     {
-        if (((abPlaceable)w).CritName().contains("LRM"))
+        String[] abilities = ((abPlaceable)w).GetBattleForceAbilities();
+        for( int i = 0; i < abilities.length; i++ )
         {
-            if (!w.IsOneShot())
+            if ( abilities[i].contains("LRM") )
                 return true;
-            else
-                return false;
         }
-        else
-            return false;
+
+        return false;
     }
 
     public static boolean isBFMML(ifWeapon w)
     {
-        if (((abPlaceable)w).CritName().contains("MML"))
+        String[] abilities = ((abPlaceable)w).GetBattleForceAbilities();
+        for( int i = 0; i < abilities.length; i++ )
         {
-            return true;
+            if ( abilities[i].contains("MML") )
+                return true;
         }
-        else
-            return false;
+
+        return false;
     }
 
+    public static boolean isBFIF(ifWeapon w)
+    {
+        String[] abilities = ((abPlaceable)w).GetBattleForceAbilities();
+        for( int i = 0; i < abilities.length; i++ )
+        {
+            if ( abilities[i].contains("IF") )
+                return true;
+        }
+
+        return false;
+    }
+
+        public static boolean isBFFLK(ifWeapon w)
+    {
+        String[] abilities = ((abPlaceable)w).GetBattleForceAbilities();
+        for( int i = 0; i < abilities.length; i++ )
+        {
+            if ( abilities[i].contains("FLK") )
+                return true;
+        }
+
+        return false;
+    }
 }

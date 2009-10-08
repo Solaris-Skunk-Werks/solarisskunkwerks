@@ -3948,6 +3948,9 @@ public class Mech implements ifBattleforce {
         double dmgSRMMedium = 0.0;
         double dmgSRMLong = 0.0;
 
+        double dmgIF = 0.0;
+        double dmgFLK = 0.0;
+
         for ( int i = 0; i < nc.size(); i++ ) {
             if ( nc.get(i) instanceof ifWeapon ) {
                 double [] temp = BattleForceTools.GetDamage((ifWeapon)nc.get(i), (ifBattleforce)this);
@@ -3983,6 +3986,14 @@ public class Mech implements ifBattleforce {
                     dmgSRMMedium += temp[Constants.BF_MEDIUM] / 2.0;
                     dmgLRMMedium += temp[Constants.BF_MEDIUM] / 2.0;
                     dmgLRMLong += temp[Constants.BF_LONG];
+                }
+                if ( BattleForceTools.isBFIF((ifWeapon)nc.get(i)) )
+                {
+                    dmgIF += temp[Constants.BF_MEDIUM];
+                }
+                if ( BattleForceTools.isBFFLK((ifWeapon)nc.get(i)) )
+                {
+                    dmgFLK += temp[Constants.BF_MEDIUM];
                 }
             }
 
@@ -4128,6 +4139,18 @@ public class Mech implements ifBattleforce {
             dmgSRMLong = (int) Math.round(dmgSRMLong / 10);
             bfs.addAbility("SRM "+(int)dmgSRMShort+"/"+(int)dmgSRMMedium+"/"+(int)dmgSRMLong);
         }
+        if ( dmgIF > 0 )
+        {
+            dmgIF = Math.ceil(dmgIF / 10);
+            bfs.addAbility( "IF "+(int)dmgIF );
+        }
+        // FLK is heat adjusted
+        dmgFLK = (dmgFLK * heatcap) / totalHeat;
+        if ( dmgFLK > 0 )
+        {
+            dmgFLK = Math.ceil(dmgFLK / 10);
+            bfs.addAbility( "FLK "+(int)dmgFLK );
+        }
 
         // Determine OverHeat
         if ( maxMedium != 0 )
@@ -4252,10 +4275,12 @@ public class Mech implements ifBattleforce {
         //Remove a - that is a result of the file needing data
         retval.remove("-");
 
-        // Remove extra LRM, SRM, and AC if included
+        // Remove extra base LRM, SRM, and AC if included
         retval.remove("LRM");
         retval.remove("SRM");
         retval.remove("AC");
+        retval.remove("IF");
+        retval.remove("FLK");
 
         //ALL Mechs get SRCH (Industrials?)
         //retval.add("SRCH");
@@ -4266,8 +4291,6 @@ public class Mech implements ifBattleforce {
     public String GetBFConversionStr( ) {
         String retval = "Weapon\t\t\tShort\tMedium\tLong\n\r";
         //TODO Add in conversion steps if possible
-        retval += "________________________________________________________________________________" + System.getProperty( "line.separator" );
-        retval += "Base Damage\n\rHeat\n\rHeat Adjusted";
         return retval;
     }
 
