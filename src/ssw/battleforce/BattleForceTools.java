@@ -200,38 +200,26 @@ public class BattleForceTools {
 
     public static boolean isBFSRM(ifWeapon w)
     {
-        String[] abilities = ((abPlaceable)w).GetBattleForceAbilities();
-        for( int i = 0; i < abilities.length; i++ )
-        {
-            if ( abilities[i].contains("SRM") )
-                return true;
-        }
-
-        return false;
+        if (((abPlaceable)w).CritName().contains("SRM"))
+            return true;
+        else
+            return false;
     }
 
     public static boolean isBFLRM(ifWeapon w)
     {
-        String[] abilities = ((abPlaceable)w).GetBattleForceAbilities();
-        for( int i = 0; i < abilities.length; i++ )
-        {
-            if ( abilities[i].contains("LRM") )
-                return true;
-        }
-
-        return false;
+        if (((abPlaceable)w).CritName().contains("LRM"))
+            return true;
+        else
+            return false;
     }
 
     public static boolean isBFMML(ifWeapon w)
     {
-        String[] abilities = ((abPlaceable)w).GetBattleForceAbilities();
-        for( int i = 0; i < abilities.length; i++ )
-        {
-            if ( abilities[i].contains("MML") )
-                return true;
-        }
-
-        return false;
+        if (((abPlaceable)w).CritName().contains("MML"))
+            return true;
+        else
+            return false;
     }
 
     public static boolean isBFIF(ifWeapon w)
