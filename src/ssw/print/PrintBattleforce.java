@@ -131,9 +131,11 @@ public class PrintBattleforce implements Printable {
         int y2 = 0;
         boolean groupChanged = false;
 
+        //Recordsheet and First Unit BG
         graphic.drawImage( RecordSheet, 0, 0, 576, 756, null );
         graphic.drawImage( Unit, 0, 67, 576, UnitImageHeight, null);
 
+        //Unit Logo
         if ( !battleforce.LogoPath.isEmpty() && printLogo ) {
             Image icon = media.GetImage(getBattleforce().LogoPath);
             Dimension d = media.reSize(icon, 50, 50);
@@ -160,7 +162,6 @@ public class PrintBattleforce implements Printable {
             title = title.replace(pTitle[0], "").trim();
             pTitle[1] = title;
             titleY = 20;
-            //graphic.setFont( PrintConsts.TitleFont.deriveFont( 10 ) );
         } else {
             pTitle[0] = title.substring(0, title.lastIndexOf(" ", 20) );
             title = title.replace(pTitle[0], "").trim();
@@ -208,6 +209,9 @@ public class PrintBattleforce implements Printable {
 
             //Unit Name
             graphic.drawString(stats.getElement(), x, y);
+
+            //PV
+            graphic.drawString(stats.getPointValue() + " (" + stats.getBasePV() + ")", x + 180, y);
 
             //Image
             if ( !stats.getImage().isEmpty() && printMechs ) {
