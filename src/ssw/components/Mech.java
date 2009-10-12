@@ -4115,7 +4115,7 @@ public class Mech implements ifBattleforce {
         retval[Constants.BF_SHORT] = (int) Math.ceil(dmgShort / 10);
         retval[Constants.BF_MEDIUM] = (int) Math.ceil(dmgMedium / 10);
         retval[Constants.BF_LONG] = (int) Math.ceil(dmgLong / 10);
-        retval[Constants.BF_EXTREME] = (int) Math.ceil(dmgExtreme / 10);
+        retval[Constants.BF_EXTREME] = 0;   // Mechs dont have extreme range ever
 
         // Add Special Abilities to BattleForceStats if applicable
         if ( dmgACMedium > 9 )
