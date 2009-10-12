@@ -3878,7 +3878,7 @@ public class Mech implements ifBattleforce {
 
         if ( jumpMP > 0 && walkMP != jumpMP ){
             if ( jumpMP < walkMP && jumpMP*0.66 >= 1 )
-                return (int)(jumpMP*0.66);
+                return (int)(Math.round(jumpMP*0.66));
             else if ( jumpMP > walkMP )
                 return jumpMP;
             else
