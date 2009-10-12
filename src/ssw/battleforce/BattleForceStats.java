@@ -37,6 +37,7 @@ public class BattleForceStats {
                     MV = "",
                     Unit = "",
                     Image = "";
+    private double[] Mods = {2.63, 2.24, 1.82, 1.38, 1.00, 0.86, 0.77, 0.68};
 
     private Vector<String> Abilities = new Vector<String>();
     private Vector<String> AltMunitions = new Vector<String>();
@@ -50,6 +51,7 @@ public class BattleForceStats {
                 OV = 0,
                 Armor = 0,
                 Internal = 0,
+                BasePV = 0,
                 PV = 0,
                 Gunnery = 4,
                 Piloting = 5;
@@ -63,7 +65,8 @@ public class BattleForceStats {
         L = Data[Constants.BF_LONG];
         E = Data[Constants.BF_EXTREME];
         OV = Data[Constants.BF_OV];
-        PV = m.GetBFPoints();
+        BasePV = m.GetBFPoints();
+        PV = BasePV;
 
         Wt = m.GetBFSize();
         Armor = m.GetBFArmor();
@@ -80,10 +83,56 @@ public class BattleForceStats {
     public BattleForceStats( Mech m, String Unit, int Gunnery, int Piloting ) {
         this(m);
         this.Unit = Unit;
-        this.Gunnery = Gunnery;
-        this.Piloting = Piloting;
+        setGunnery(Gunnery);
+        setPiloting(Piloting);
     }
 
+    private void updateSkill() {
+        int Total = Gunnery + Piloting;
+        if ( Total <= 1 ) {
+            Skill = 0;
+        } else if ( Total <= 3 ) {
+            Skill = 1;
+        } else if ( Total <= 5 ) {
+            Skill = 2;
+        } else if ( Total <= 7 ) {
+            Skill = 3;
+        } else if ( Total <= 9 ) {
+            Skill = 4;
+        } else if ( Total <= 11 ) {
+            Skill = 5;
+        } else if ( Total <= 13 ) {
+            Skill = 6;
+        } else {
+            Skill = 7;
+        }
+        updatePointValue();
+    }
+
+    private void updatePointValue() {
+        PV = (int)((int) BasePV * Mods[Skill]);
+    }
+
+    public String SerializeCSV() {
+        String data = "";
+
+        data += CSVFormat(Element);
+        data += CSVFormat(PV + "");
+        data += CSVFormat(Wt + "");
+        data += CSVFormat(MV + "");
+        data += CSVFormat(getShort() + "");
+        data += CSVFormat(getMedium() + "");
+        data += CSVFormat(getLong() + "");
+        data += CSVFormat(getExtreme() + "");
+        data += CSVFormat(getOverheat() + "");
+        data += CSVFormat(getAbilities().toString().replace("[", "").replace("]", ""));
+
+        return data.substring(0, data.length()-2);
+    }
+
+    public String CSVFormat( String data ) {
+        return "\"" + data + "\", ";
+    }
 
     public Vector<String> getAbilities() {
         return Abilities;
@@ -105,16 +154,7 @@ public class BattleForceStats {
 
     public void addAbility(String s)
     {
-        // Make sure we dont double add...
-        boolean found = false;
-        for ( int i = 0; i < Abilities.size(); i++ )
-        {
-            if ( s.equals(Abilities.get(i)) )
-                found = true;
-        }
-        
-        if ( !found )
-            Abilities.add(s);
+        if ( !Abilities.contains(s) ) { Abilities.add(s); }
     }
 
     public Vector<String> getAltMunitions() {
@@ -178,24 +218,6 @@ public class BattleForceStats {
     }
 
     public int getSkill() {
-        int Total = Gunnery + Piloting;
-        if ( Total <= 1 ) {
-            Skill = 0;
-        } else if ( Total <= 3 ) {
-            Skill = 1;
-        } else if ( Total <= 5 ) {
-            Skill = 2;
-        } else if ( Total <= 7 ) {
-            Skill = 3;
-        } else if ( Total <= 9 ) {
-            Skill = 4;
-        } else if ( Total <= 11 ) {
-            Skill = 5;
-        } else if ( Total <= 13 ) {
-            Skill = 6;
-        } else {
-            Skill = 7;
-        }
         return Skill;
     }
 
@@ -213,6 +235,7 @@ public class BattleForceStats {
 
     public void setGunnery(int Gunnery) {
         this.Gunnery = Gunnery;
+        updateSkill();
     }
 
     public int getPiloting() {
@@ -221,6 +244,7 @@ public class BattleForceStats {
 
     public void setPiloting(int Piloting) {
         this.Piloting = Piloting;
+        updateSkill();
     }
 
     public String getImage() {
@@ -229,5 +253,9 @@ public class BattleForceStats {
 
     public void setImage(String Image) {
         this.Image = Image;
+    }
+
+    public int getBasePV() {
+        return BasePV;
     }
 }
