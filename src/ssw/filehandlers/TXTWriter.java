@@ -35,6 +35,8 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Vector;
 import ssw.*;
+import ssw.battleforce.BattleForceStats;
+import ssw.battleforce.BattleForceTools;
 import ssw.components.*;
 
 public class TXTWriter {
@@ -711,6 +713,13 @@ public class TXTWriter {
             retval += "* " + CurMech.GetTracks().LookupName() + " occupy 1 slot in every leg location." + NL;
         }
 
+        BattleForceStats bfs = new BattleForceStats( CurMech );
+        int [] BFdmg = CurMech.GetBFDamage( bfs );
+        retval += NL + "BattleForce Statistics" + NL;
+        retval += String.format( "MV      S (+0)  M (+2)  L (+4)  E (+6)   Wt.   Ov   Armor:     %1$2s    Points: " + CurMech.GetBFPoints(), CurMech.GetBFArmor() ) + NL;
+        retval += String.format( "%1$-6s    %2$2s      %3$2s      %4$2s      %5$2s      %6$1s     %7$1s   Structure: %8$2s", BattleForceTools.GetMovementString( CurMech ), BFdmg[Constants.BF_SHORT], BFdmg[Constants.BF_MEDIUM], BFdmg[Constants.BF_LONG], BFdmg[Constants.BF_EXTREME], CurMech.GetBFSize(), BFdmg[Constants.BF_OV], CurMech.GetBFStructure() ) + NL;
+        retval += "Special Abilities: " + bfs.getAbilitiesString() + NL;
+
         return retval;
     }
 
@@ -884,6 +893,13 @@ public class TXTWriter {
         }
 
         retval += String.format( "%1$s %2$-2s", "                                            Free Critical Slots:", CurMech.GetLoadout().FreeCrits() + NL );
+
+        BattleForceStats bfs = new BattleForceStats( CurMech );
+        int [] BFdmg = CurMech.GetBFDamage( bfs );
+        retval += NL + "BattleForce Statistics" + NL;
+        retval += String.format( "MV      S (+0)  M (+2)  L (+4)  E (+6)   Wt.   Ov   Armor:     %1$2s    Points: " + CurMech.GetBFPoints(), CurMech.GetBFArmor() ) + NL;
+        retval += String.format( "%1$-6s    %2$2s      %3$2s      %4$2s      %5$2s      %6$1s     %7$1s   Structure: %8$2s", BattleForceTools.GetMovementString( CurMech ), BFdmg[Constants.BF_SHORT], BFdmg[Constants.BF_MEDIUM], BFdmg[Constants.BF_LONG], BFdmg[Constants.BF_EXTREME], CurMech.GetBFSize(), BFdmg[Constants.BF_OV], CurMech.GetBFStructure() ) + NL;
+        retval += "Special Abilities: " + bfs.getAbilitiesString() + NL;
 
         return retval;
     }

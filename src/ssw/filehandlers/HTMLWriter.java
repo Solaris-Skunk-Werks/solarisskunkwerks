@@ -37,6 +37,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Vector;
+import ssw.battleforce.BattleForceStats;
+import ssw.battleforce.BattleForceTools;
 import ssw.utilities.CommonTools;
 
 public class HTMLWriter {
@@ -480,6 +482,7 @@ public class HTMLWriter {
 
     private String GetOmniValue( String tag ) {
         // provides a current value based on the tag provided
+        BattleForceStats bfs = new BattleForceStats( CurMech );
         if( tag.equals( "<+-SSW_OMNI_LOADOUT_NAME-+>" ) ) {
             return CurMech.GetLoadout().GetName();
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BV-+>" ) ) {
@@ -577,6 +580,31 @@ public class HTMLWriter {
                     return "";
                 }
             }
+        } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_DAMAGE_STRING-+>" ) ) {
+            int [] BFdmg = CurMech.GetBFDamage( bfs );
+            return BFdmg[Constants.BF_SHORT] + "/" + BFdmg[Constants.BF_MEDIUM] + "/" + BFdmg[Constants.BF_LONG] + "/" + BFdmg[Constants.BF_EXTREME];
+        } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_DAMAGE_SHORT-+>" ) ) {
+            return "" + CurMech.GetBFDamage( bfs )[Constants.BF_SHORT];
+        } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_DAMAGE_MEDIUM-+>" ) ) {
+            return "" + CurMech.GetBFDamage( bfs )[Constants.BF_MEDIUM];
+        } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_DAMAGE_LONG-+>" ) ) {
+            return "" + CurMech.GetBFDamage( bfs )[Constants.BF_LONG];
+        } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_DAMAGE_EXTREME-+>" ) ) {
+            return "" + CurMech.GetBFDamage( bfs )[Constants.BF_EXTREME];
+        } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_OVERHEAT-+>" ) ) {
+            return "" + CurMech.GetBFDamage( bfs )[Constants.BF_OV];
+        } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_ARMOR-+>" ) ) {
+            return "" + CurMech.GetBFArmor();
+        } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_STRUCTURE-+>" ) ) {
+            return "" + CurMech.GetBFStructure();
+        } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_POINTS-+>" ) ) {
+            return "" + CurMech.GetBFPoints();
+        } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_SIZE-+>" ) ) {
+            return "" + CurMech.GetBFSize();
+        } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_MOVEMENT-+>" ) ) {
+            return BattleForceTools.GetMovementString( CurMech );
+        } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_SPECIALS-+>" ) ) {
+            return "" + bfs.getAbilitiesString();
         } else {
             return "";
         }
@@ -1469,7 +1497,21 @@ public class HTMLWriter {
         } else {
             lookup.put( "<+-SSW_EJECTIONSEAT_TONNAGE-+>", "" );
         }
-//        lookup.put( "<+-SSW_", CurMech );
+        BattleForceStats bfs = new BattleForceStats( CurMech );
+        int [] BFdmg = CurMech.GetBFDamage( bfs );
+        lookup.put( "<+-SSW_BF_DAMAGE_STRING-+>", BFdmg[Constants.BF_SHORT] + "/" + BFdmg[Constants.BF_MEDIUM] + "/" + BFdmg[Constants.BF_LONG] + "/" + BFdmg[Constants.BF_EXTREME] );
+        lookup.put( "<+-SSW_BF_DAMAGE_SHORT-+>", "" + BFdmg[Constants.BF_SHORT] );
+        lookup.put( "<+-SSW_BF_DAMAGE_MEDIUM-+>", "" + BFdmg[Constants.BF_MEDIUM] );
+        lookup.put( "<+-SSW_BF_DAMAGE_LONG-+>", "" + BFdmg[Constants.BF_LONG] );
+        lookup.put( "<+-SSW_BF_DAMAGE_EXTREME-+>", "" + BFdmg[Constants.BF_EXTREME] );
+        lookup.put( "<+-SSW_BF_OVERHEAT-+>", "" + BFdmg[Constants.BF_OV] );
+        lookup.put( "<+-SSW_BF_ARMOR-+>", "" + CurMech.GetBFArmor() );
+        lookup.put( "<+-SSW_BF_STRUCTURE-+>", "" + CurMech.GetBFStructure() );
+        lookup.put( "<+-SSW_BF_POINTS-+>", "" + CurMech.GetBFPoints() );
+        lookup.put( "<+-SSW_BF_SIZE-+>", "" + CurMech.GetBFSize() );
+        lookup.put( "<+-SSW_BF_MOVEMENT-+>", BattleForceTools.GetMovementString( CurMech ) );
+        lookup.put( "<+-SSW_BF_SPECIALS-+>", bfs.getAbilitiesString() );
+//        lookup.put( "<+-SSW_+->", CurMech );
     }
 
     private String GetHeatSinkLine() {

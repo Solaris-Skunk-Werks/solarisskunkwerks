@@ -105,6 +105,7 @@ Version 0.7.0
 - Fixed an issue with the ammo chooser (Ammunition was not being properly cloned.
 - Fixed an issue with Primitive 'Mechs and the selection boxes.
 - Fixed some small issues with the HTML export, ammo, and multi-shot AC/s.
+- Added BattleForce statistics to HTML and TXT Exports.
 
 -------------------------------------------------------------------------------
 Version 0.6.0
