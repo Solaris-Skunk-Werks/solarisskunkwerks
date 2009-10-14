@@ -1785,7 +1785,7 @@ public class EquipmentFactory {
         addEQ.SetMegaMekName("LiftHoist");
         addEQ.SetStats(3, 3, 50000, 0, 0, "-");
         addEQ.SetAllocs(false, false, true, true, false);
-        addEQ.SetMountableRear(true);
+        addEQ.SetMountableRear( true );
         addEQ.SetBookReference( "Tech Manual" );
         addEQ.SetChatName( "LftHst" );
         IndustrialEquipment.add(addEQ);

@@ -106,6 +106,7 @@ public class Equipment extends abPlaceable {
         alloc_arms = e.alloc_arms;
         alloc_legs = e.alloc_legs;
         CanSplit = e.CanSplit;
+        CanMountRear = e.CanMountRear;
         Explosive = e.Explosive;
         VariableSize = e.VariableSize;
         MinTons = e.MinTons;

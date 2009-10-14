@@ -636,6 +636,9 @@
                       <Dimension value="[150, 20]"/>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="MouseListener mlMechName = new MouseAdapter() {&#xa;    public void mouseReleased( MouseEvent e ) {&#xa;        if( e.isPopupTrigger() ) {&#xa;            mnuFluff.show( e.getComponent(), e.getX(), e.getY() );&#xa;        }&#xa;    }&#xa;    public void mousePressed( MouseEvent e ) {&#xa;        if( e.isPopupTrigger() ) {&#xa;            mnuFluff.show( e.getComponent(), e.getX(), e.getY() );&#xa;        }&#xa;    }&#xa;};&#xa;txtMechName.addMouseListener( mlMechName );"/>
+                  </AuxValues>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                       <GridBagConstraints gridX="-1" gridY="-1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
@@ -664,6 +667,9 @@
                       <Dimension value="[150, 20]"/>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="MouseListener mlMechModel = new MouseAdapter() {&#xa;    public void mouseReleased( MouseEvent e ) {&#xa;        if( e.isPopupTrigger() ) {&#xa;            mnuFluff.show( e.getComponent(), e.getX(), e.getY() );&#xa;        }&#xa;    }&#xa;    public void mousePressed( MouseEvent e ) {&#xa;        if( e.isPopupTrigger() ) {&#xa;            mnuFluff.show( e.getComponent(), e.getX(), e.getY() );&#xa;        }&#xa;    }&#xa;};&#xa;txtMechModel.addMouseListener( mlMechModel );"/>
+                  </AuxValues>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                       <GridBagConstraints gridX="1" gridY="1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
@@ -746,6 +752,9 @@
                       <Dimension value="[150, 20]"/>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="MouseListener mlProdYear = new MouseAdapter() {&#xa;    public void mouseReleased( MouseEvent e ) {&#xa;        if( e.isPopupTrigger() ) {&#xa;            mnuFluff.show( e.getComponent(), e.getX(), e.getY() );&#xa;        }&#xa;    }&#xa;    public void mousePressed( MouseEvent e ) {&#xa;        if( e.isPopupTrigger() ) {&#xa;            mnuFluff.show( e.getComponent(), e.getX(), e.getY() );&#xa;        }&#xa;    }&#xa;};&#xa;txtProdYear.addMouseListener( mlProdYear );"/>
+                  </AuxValues>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                       <GridBagConstraints gridX="1" gridY="7" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
@@ -864,6 +873,9 @@
                       <Dimension value="[150, 20]"/>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="MouseListener mlSource = new MouseAdapter() {&#xa;    public void mouseReleased( MouseEvent e ) {&#xa;        if( e.isPopupTrigger() ) {&#xa;            mnuFluff.show( e.getComponent(), e.getX(), e.getY() );&#xa;        }&#xa;    }&#xa;    public void mousePressed( MouseEvent e ) {&#xa;        if( e.isPopupTrigger() ) {&#xa;            mnuFluff.show( e.getComponent(), e.getX(), e.getY() );&#xa;        }&#xa;    }&#xa;};&#xa;txtSource.addMouseListener( mlSource );"/>
+                  </AuxValues>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                       <GridBagConstraints gridX="1" gridY="2" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>

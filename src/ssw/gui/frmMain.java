@@ -860,7 +860,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech", "IndustrialMech" } ) );
                     CurMech.SetModern();
                 } else {
-                    cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech", "IndustrialMech", "Primitive", "Primitive IndustrialMech" } ) );
+                    cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech", "IndustrialMech", "Primitive BattleMech", "Primitive IndustrialMech" } ) );
                 }
                 break;
             default:
@@ -4616,6 +4616,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtMechName.setMinimumSize(new java.awt.Dimension(150, 20));
         txtMechName.setPreferredSize(new java.awt.Dimension(150, 20));
         pnlBasicInformation.add(txtMechName, new java.awt.GridBagConstraints());
+        MouseListener mlMechName = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        txtMechName.addMouseListener( mlMechName );
 
         lblModel.setText("Model:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -4632,6 +4645,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         pnlBasicInformation.add(txtMechModel, gridBagConstraints);
+        MouseListener mlMechModel = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        txtMechModel.addMouseListener( mlMechModel );
 
         lblMechEra.setText("Era:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -4679,6 +4705,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 7;
         pnlBasicInformation.add(txtProdYear, gridBagConstraints);
+        MouseListener mlProdYear = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        txtProdYear.addMouseListener( mlProdYear );
 
         chkYearRestrict.setText("Restrict Availability by Year");
         chkYearRestrict.addActionListener(new java.awt.event.ActionListener() {
@@ -4754,6 +4793,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         pnlBasicInformation.add(txtSource, gridBagConstraints);
+        MouseListener mlSource = new MouseAdapter() {
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+        };
+        txtSource.addMouseListener( mlSource );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridheight = 2;
@@ -7782,7 +7834,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane13.setMinimumSize(new java.awt.Dimension(105, 183));
         jScrollPane13.setPreferredSize(new java.awt.Dimension(105, 170));
 
-        lstRTCrits.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lstRTCrits.setFont(new java.awt.Font("Tahoma", 0, 10));
         lstRTCrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Right Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
@@ -8873,7 +8925,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         pnlManufacturers.add(jLabel15, gridBagConstraints);
 
-        txtManufacturer.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        txtManufacturer.setFont(new java.awt.Font("Arial", 0, 11));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
