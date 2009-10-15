@@ -30,6 +30,7 @@ package ssw;
 
 import java.awt.Font;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import javax.swing.UIDefaults;
@@ -45,6 +46,19 @@ public class Main {
      */
 
     public static void main(String[] args) {
+        Runtime runtime = Runtime.getRuntime();
+        System.out.println("Memory Allocated [" + runtime.maxMemory() / 1000 + "]");
+        
+        //Requires 256mb of memory for canon dot pattern printing.
+//        if (runtime.maxMemory() < 256000000) {
+//            try {
+//                String[] call = { "java", "-Xmx256m", "-jar", "dist/SSW.jar" };
+//                runtime.exec(call);
+//                System.exit(0);
+//            } catch (Exception ex) {
+//                //ex.printStackTrace();
+//            }
+//        }
 
         // uncomment the following line before creating a build.
 
