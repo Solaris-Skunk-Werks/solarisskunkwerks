@@ -16,9 +16,7 @@ To-Do List, in order by what needs to be done
 (4) Include spell-checker
 (5) Variant controls (like OmniMech controls)
 (5) Shift loadout equipment to differ from base chassis (OmniMechs)
-(5) Battleforce stats
 (6) Load 'Mech from .mtf file
-(7) 'Mech image from Fluff panel gets printed
 (7) Expanded Charts screen (layered firepower, etc...)
 (8) Quirks from Strategic Operations
 (9) Expanded MegaMek interoperability

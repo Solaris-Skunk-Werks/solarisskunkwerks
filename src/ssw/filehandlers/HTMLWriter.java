@@ -1427,6 +1427,10 @@ public class HTMLWriter {
         }
         if( CurMech.GetHeatSinks().IsDouble() ) {
             lookup.put( "<+-SSW_HEATSINK_TYPE-+>", "Double" );
+        } else if( CurMech.GetHeatSinks().IsCompact() ) {
+            lookup.put( "<+-SSW_HEATSINK_TYPE-+>", "Compact" );
+        } else if( CurMech.GetHeatSinks().IsLaser() ) {
+            lookup.put( "<+-SSW_HEATSINK_TYPE-+>", "Laser" );
         } else {
             lookup.put( "<+-SSW_HEATSINK_TYPE-+>", "Single" );
         }

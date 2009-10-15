@@ -1,15 +1,6 @@
 New equipment to be added
 -------------------------------------------------------------------------------
-BattleMech Harjel						Equipment  "IS Harjel" "Clan Harjel"
-C3 Boosted Master						Equipment
-C3 Boosted Slave						Equipment
-C3 Emergency Master						Equipment
-C3 Remote Sensor Launcher				Equipment
-Chaff Pod								Equipment
-Collapsible Command Module				Equipment
 Drone Operating System					Equipment
-Electronic Warfare Equipment			Equipment
-Laser Insulator							Equipment
 Mine Dispenser							Equipment
 Recon Camera							Equipment
 Vehicular Drop Chute (Reusable)			Equipment
@@ -23,8 +14,6 @@ Large Fusion							Engine
 Large Light Fusion						Engine
 Large XL Fusion							Engine
 Large XXL Fusion						Engine
-Compact Heat Sinks						Heat Sink  "IS1 Compact Heat Sink" "IS2 Compact Heat Sink"
-Laser Heat Sinks						Heat Sink  "CLLaser Heat Sink"
 Turret, Shoulder						? new system
 Turret, Head							? new system
 Turret, Quad							? new system
@@ -32,9 +21,7 @@ Turret, Quad							? new system
 
 Experimental equipment checkboxes to add
 -------------------------------------------------------------------------------
-Partial Wing							? new system
 Booby Trap								? new system
-Full-Head Ejection System				? new system
 Mechwarrior Aquatic Survival System		? new system
 
 

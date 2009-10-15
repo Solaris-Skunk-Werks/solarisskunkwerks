@@ -44,6 +44,8 @@ Version 0.7.0
 - Added a Book Reference String to all equipment.
 - Added the ability to print BattleForce sheets
 - Added the ability to Export and Import your settings using the Options window
+- You can unlock an OmniMech's chassis, but will lose all current loadouts.
+- Added a range-bracketing chart screen on the Charts tab.
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.
@@ -106,6 +108,7 @@ Version 0.7.0
 - Fixed an issue with Primitive 'Mechs and the selection boxes.
 - Fixed some small issues with the HTML export, ammo, and multi-shot AC/s.
 - Added BattleForce statistics to HTML and TXT Exports.
+- Fixed issues with equipment not able to be mounted or loaded rear-facing.
 
 -------------------------------------------------------------------------------
 Version 0.6.0

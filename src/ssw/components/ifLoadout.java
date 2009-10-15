@@ -113,6 +113,7 @@ public interface ifLoadout {
     public int FreeCrits( abPlaceable[] Loc );
     public int FirstFree( abPlaceable[] Loc );
     public void LockChassis();
+    public void UnlockChassis();
     public ifLoadout Clone();
     public void SetBaseLoadout( ifLoadout l );
     public ifLoadout GetBaseLoadout();

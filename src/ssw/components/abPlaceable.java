@@ -113,7 +113,7 @@ public abstract class abPlaceable {
         return Locked;
     }
 
-    public void SetLocked(boolean l) {
+    public void SetLocked( boolean l ) {
         Locked = l;
     }
 

@@ -35,7 +35,6 @@ import java.util.Vector;
 import java.util.prefs.Preferences;
 import ssw.*;
 import ssw.gui.frmMain;
-import ssw.utilities.CommonTools;
 import ssw.visitors.*;
 
 public class Mech implements ifBattleforce {
@@ -1170,6 +1169,14 @@ public class Mech implements ifBattleforce {
         CurLoadout = l;
 
         SetChanged( true );
+    }
+
+    public void UnlockChassis() {
+        // before we unlock, clear out all the loadouts except for Main
+        Loadouts.clear();
+        Omnimech = false;
+        MainLoadout.UnlockChassis();
+        CurLoadout = MainLoadout;
     }
 
     public void AddLoadout( String Name ) throws Exception {

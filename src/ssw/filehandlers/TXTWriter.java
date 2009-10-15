@@ -512,11 +512,16 @@ public class TXTWriter {
     }
 
     private String GetHSType() {
+        if( CurMech.GetHeatSinks().IsCompact() ) {
+            return "Compact";
+        }
+        if( CurMech.GetHeatSinks().IsLaser() ) {
+            return "Laser";
+        }
         if( CurMech.GetHeatSinks().IsDouble() ) {
             return "Double";
-        } else {
-            return "Single";
         }
+        return "Single";
     }
 
     private String GetHSNum() {

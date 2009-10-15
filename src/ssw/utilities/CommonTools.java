@@ -698,4 +698,207 @@ public class CommonTools {
         if( size < 0 ) { return 0; }
         return ClusterTable[roll][size];
     }
+
+    /**
+     * Returns the average damage of the given weapon at the given range.
+     * We say "average" here as some weapons use a clustered system and may only
+     * do partial damage, otherwise we return the maximum damage.  If the range
+     * specified is less than 0 or greater than the maximum range of the weapon
+     * we return -1.
+     *
+     * @param w The weapon in question.
+     * @param range The range that the weapon will be hitting a target at
+     * @return The average damage of the weapon at that range.
+     */
+    public static int GetAverageDamageAtRange( ifWeapon w, int range ) {
+        if( w.IsCluster() ) {
+            boolean HAG = w.CritName().contains( "HAG" );
+            boolean Streak = w.IsStreak();
+            boolean Ultra = w.IsUltra();
+            boolean Rotary = w.IsRotary();
+            boolean Ballistic = false;
+            if( w.GetWeaponClass() == ifWeapon.W_BALLISTIC ) { Ballistic = true; }
+            if( range > w.GetRangeLong() ) {
+                return 0;
+            } else if( range > w.GetRangeMedium() ) {
+                if( Streak ) {
+                    return w.GetDamageLong() * w.ClusterSize();
+                } else if( Ultra ) {
+                    // don't even bother with the cluster table, it'll always
+                    // return 1 in this case.
+                    return w.GetDamageLong();
+                } else if( HAG ) {
+                    return GetAverageClusterHits( w, -2 );
+                } else if( Ballistic &! Rotary ) {
+                    // this covers LB-X cannons in general
+                    return GetAverageClusterHits( w, 0 );
+                } else {
+                    return w.GetDamageLong() * GetAverageClusterHits( w, 0 );
+                }
+            } else if( range > w.GetRangeShort() ) {
+                if( Streak ) {
+                    return w.GetDamageMedium() * w.ClusterSize();
+                } else if( Ultra ) {
+                    return w.GetDamageMedium();
+                } else if( HAG || ( Ballistic &! Rotary ) ) {
+                    return GetAverageClusterHits( w, 0 );
+                } else {
+                    return w.GetDamageMedium() * GetAverageClusterHits( w, 0 );
+                }
+            } else {
+                if( Streak ) {
+                    return w.GetDamageShort() * w.ClusterSize();
+                } else if( Ultra ) {
+                    return w.GetDamageShort();
+                } else if( HAG ) {
+                    return GetAverageClusterHits( w, 2 );
+                } else if( Ballistic &! Rotary ) {
+                    return GetAverageClusterHits( w, 0 );
+                } else {
+                    return w.GetDamageShort() * GetAverageClusterHits( w, 0 );
+                }
+            }
+        } else {
+            if( range > w.GetRangeLong() ) {
+                return 0;
+            } else if( range > w.GetRangeMedium() ) {
+                return w.GetDamageLong();
+            } else if( range > w.GetRangeShort() ) {
+                return w.GetDamageMedium();
+            } else {
+                return w.GetDamageShort();
+            }
+        }
+    }
+
+    /**
+     * Returns the average damage of the given weapon at the given range using
+     * the ammunition specified.  This routine is provided to support LB-X ACs,
+     * ATMs, and MMLs. We say "average" here as some weapons use a clustered
+     * system and may only do partial damage, otherwise we return the maximum
+     * damage.  If the range specified is less than 0 or greater than the
+     * maximum range of the weapon we return -1.
+     *
+     * @param w The weapon in question.
+     * @param a The ammunition that the weapon will use.
+     * @param range The range that the weapon will be hitting a target at.
+     * @return The average damage of the weapon at that range.
+     */
+    public static int GetAverageDamageAtRange( ifWeapon w, Ammunition a, int range ) {
+        if( a.IsCluster() ) {
+            boolean HAG = w.CritName().contains( "HAG" );
+            boolean Streak = w.IsStreak();
+            boolean Ultra = w.IsUltra();
+            boolean Rotary = w.IsRotary();
+            boolean Ballistic = false;
+            if( w.GetWeaponClass() == ifWeapon.W_BALLISTIC && a.IsCluster() ) { Ballistic = true; }
+            if( range > a.GetLongRange() ) {
+                return 0;
+            } else if( range > a.GetMediumRange() ) {
+                if( Streak ) {
+                    return a.GetDamageLong() * a.ClusterSize();
+                } else if( Ultra ) {
+                    // don't even bother with the cluster table, it'll always
+                    // return 1 in this case.
+                    return a.GetDamageLong();
+                } else if( HAG ) {
+                    return GetAverageClusterHits( w, -2 );
+                } else if( Ballistic &! Rotary ) {
+                    // this covers LB-X cannons in general
+                    return GetAverageClusterHits( w, 0 );
+                } else {
+                    return a.GetDamageLong() * GetAverageClusterHits( w, 0 );
+                }
+            } else if( range > a.GetShortRange() ) {
+                if( Streak ) {
+                    return a.GetDamageMedium() * a.ClusterSize();
+                } else if( Ultra ) {
+                    return a.GetDamageMedium();
+                } else if( HAG || ( Ballistic &! Rotary ) ) {
+                    return GetAverageClusterHits( w, 0 );
+                } else {
+                    return a.GetDamageMedium() * GetAverageClusterHits( w, 0 );
+                }
+            } else {
+                if( Streak ) {
+                    return a.GetDamageShort() * a.ClusterSize();
+                } else if( Ultra ) {
+                    return a.GetDamageShort();
+                } else if( HAG ) {
+                    return GetAverageClusterHits( w, 2 );
+                } else if( Ballistic &! Rotary ) {
+                    return GetAverageClusterHits( w, 0 );
+                } else {
+                    return a.GetDamageShort() * GetAverageClusterHits( w, 0 );
+                }
+            }
+        } else {
+            if( range > a.GetLongRange() ) {
+                return 0;
+            } else if( range > a.GetMediumRange() ) {
+                return a.GetDamageLong();
+            } else if( range > a.GetShortRange() ) {
+                return a.GetDamageMedium();
+            } else {
+                return a.GetDamageShort();
+            }
+        }
+    }
+
+    /**
+     * Returns the to-hit modifier of the weapon at the given range.  This is
+     * only weapon-specific, it does not account for target or firer movement,
+     * or other modifiers.  If the weapon cannot hit at the given range, we
+     * return 12.
+     *
+     * @param w The weapon in question.
+     * @param range The range that the weapon will be hitting a target at.
+     * @return The to-hit modifier for the weapon at the given range.
+     */
+    public static int GetToHitAtRange( ifWeapon w, int range ) {
+        if( range > w.GetRangeLong() ) {
+            return 12;
+        } else if( range > w.GetRangeMedium() ) {
+            return 4 + w.GetToHitLong();
+        } else if( range > w.GetRangeShort() ) {
+            return 2 + w.GetToHitMedium();
+        } else {
+            if( range <= w.GetRangeMin() && w.GetRangeMin() > 0 ) {
+                int min = w.GetRangeMin() - range + 1;
+                return 0 + min + w.GetToHitShort();
+            } else {
+                return 0 + w.GetToHitShort();
+            }
+        }
+    }
+
+    /**
+     * Returns the to-hit modifier of the weapon at the given range using the
+     * specified ammunition.  Some ammunition may affect the to-hit modifiers
+     * for a specific weapon, in general ATMs, MMLs, and LB-X ACs.  This is only
+     * weapon-specific, it does not account for target or firer movement, or
+     * other modifiers.  If the weapon cannot hit at the given range, we return
+     * 12.
+     * 
+     * @param w The weapon in question.
+     * @param a The ammunition that the weapon will be using.
+     * @param range The range that the weapon will be hitting a target at.
+     * @return The to-hit modifier for the weapon at the given range.
+     */
+    public static int GetToHitAtRange( Ammunition a, int range ) {
+        if( range > a.GetLongRange() ) {
+            return 12;
+        } else if( range > a.GetMediumRange() ) {
+            return 4 + a.GetToHitLong();
+        } else if( range > a.GetShortRange() ) {
+            return 2 + a.GetToHitMedium();
+        } else {
+            if( range <= a.GetMinRange() && a.GetMinRange() > 0 ) {
+                int min = a.GetMinRange() - range + 1;
+                return 0 + min + a.GetToHitShort();
+            } else {
+                return 0 + a.GetToHitShort();
+            }
+        }
+    }
 }

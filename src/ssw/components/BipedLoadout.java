@@ -3330,6 +3330,55 @@ public class BipedLoadout implements ifLoadout {
         Owner.SetChanged( true );
     }
 
+    public void UnlockChassis() {
+        // this goes through the loadout and unlocks all the items that need it.
+        for( int i = 0; i < 6; i++ ) {
+            if( ! ( HDCrits[i] instanceof EmptyItem ) ) {
+                HDCrits[i].SetLocked( false );
+            }
+            if( ! ( CTCrits[i] instanceof EmptyItem ) ) {
+                CTCrits[i].SetLocked( false );
+            }
+            if( ! ( LTCrits[i] instanceof EmptyItem ) ) {
+                LTCrits[i].SetLocked( false );
+            }
+            if( ! ( RTCrits[i] instanceof EmptyItem ) ) {
+                RTCrits[i].SetLocked( false );
+            }
+            if( ! ( LACrits[i] instanceof EmptyItem ) ) {
+                LACrits[i].SetLocked( false );
+            }
+            if( ! ( RACrits[i] instanceof EmptyItem ) ) {
+                RACrits[i].SetLocked( false );
+            }
+            if( ! ( LLCrits[i] instanceof EmptyItem ) ) {
+                LLCrits[i].SetLocked( false );
+            }
+            if( ! ( RLCrits[i] instanceof EmptyItem ) ) {
+                RLCrits[i].SetLocked( false );
+            }
+        }
+        for( int i = 6; i < 12; i++ ) {
+            if( ! ( CTCrits[i] instanceof EmptyItem ) ) {
+                CTCrits[i].SetLocked( false );
+            }
+            if( ! ( LTCrits[i] instanceof EmptyItem ) ) {
+                LTCrits[i].SetLocked( false );
+            }
+            if( ! ( RTCrits[i] instanceof EmptyItem ) ) {
+                RTCrits[i].SetLocked( false );
+            }
+            if( ! ( LACrits[i] instanceof EmptyItem ) ) {
+                LACrits[i].SetLocked( false );
+            }
+            if( ! ( RACrits[i] instanceof EmptyItem ) ) {
+                RACrits[i].SetLocked( false );
+            }
+        }
+
+        Owner.SetChanged( true );
+    }
+
     public ifLoadout Clone() {
         // Returns a clone of this loadout.  Normally used for omnimechs.
         ifLoadout clone = new BipedLoadout( "", Owner, HeatSinks.GetNumHS(),

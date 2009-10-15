@@ -39,6 +39,7 @@ public interface ifWeapon {
                             W_EQUIPMENT = 5;
 
     public String LookupName();
+    public String CritName();
     public String GetType();
     public String GetSpecials();
     public int GetWeaponClass();

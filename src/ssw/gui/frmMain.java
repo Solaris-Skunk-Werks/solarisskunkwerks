@@ -2668,6 +2668,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // this locks most of the GUI controls.  Used mainly by Omnimechs.
         chkOmnimech.setSelected( true );
         chkOmnimech.setEnabled( false );
+        mnuUnlock.setEnabled( true );
         //cmbRulesLevel.setEnabled( false );
         cmbMechEra.setEnabled( false );
         //cmbTechBase.setEnabled( false );
@@ -2775,6 +2776,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // an omnimech.
         chkOmnimech.setSelected( false );
         chkOmnimech.setEnabled( true );
+        mnuUnlock.setEnabled( false );
         //cmbRulesLevel.setEnabled( true );
         cmbMechEra.setEnabled( true );
         //cmbTechBase.setEnabled( true );
@@ -4331,6 +4333,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkChartRear = new javax.swing.JCheckBox();
         chkChartRight = new javax.swing.JCheckBox();
         chkChartLeft = new javax.swing.JCheckBox();
+        btnBracketChart = new javax.swing.JButton();
         pnlBattleforce = new javax.swing.JPanel();
         pnlBFStats = new javax.swing.JPanel();
         jLabel66 = new javax.swing.JLabel();
@@ -9405,6 +9408,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         pnlCharts.add(chkChartLeft, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 105, 210, -1));
 
+        btnBracketChart.setText("Show Weapon Bracket Chart");
+        btnBracketChart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBracketChartActionPerformed(evt);
+            }
+        });
+        pnlCharts.add(btnBracketChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 210, -1));
+
         tbpMainTabPane.addTab("Charts", pnlCharts);
 
         pnlBattleforce.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -9790,7 +9801,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuTools.add(mnuTextTRO);
 
         mnuUnlock.setText("Unlock Chassis");
-        mnuUnlock.setEnabled(false);
+        mnuUnlock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuUnlockActionPerformed(evt);
+            }
+        });
         mnuTools.add(mnuUnlock);
         mnuTools.add(jSeparator15);
 
@@ -13715,6 +13730,30 @@ private void chkPartialWingActionPerformed(java.awt.event.ActionEvent evt) {//GE
     RefreshInfoPane();
 }//GEN-LAST:event_chkPartialWingActionPerformed
 
+private void mnuUnlockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuUnlockActionPerformed
+        int choice = javax.swing.JOptionPane.showConfirmDialog( this,
+            "Are you sure you want to unlock the chassis?\nAll omnimech loadouts" +
+            " will be deleted\nand the 'Mech will revert to its base loadout.",
+            "Unlock Chassis?", javax.swing.JOptionPane.YES_NO_OPTION );
+        if( choice == 1 ) {
+            return;
+        }
+
+        // make it an omni
+        CurMech.UnlockChassis();
+        FixTransferHandlers();
+        SetLoadoutArrays();
+        FixJJSpinnerModel();
+        FixHeatSinkSpinnerModel();
+        LoadMechIntoGUI();
+}//GEN-LAST:event_mnuUnlockActionPerformed
+
+private void btnBracketChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBracketChartActionPerformed
+    dlgBracketCharts charts = new dlgBracketCharts( this, true, CurMech );
+    charts.setLocationRelativeTo( this );
+    charts.setVisible( true );
+}//GEN-LAST:event_btnBracketChartActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -13734,6 +13773,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JButton btnArmorTons;
     private javax.swing.JButton btnAutoAllocate;
     private javax.swing.JCheckBox btnBalanceArmor;
+    private javax.swing.JButton btnBracketChart;
     private javax.swing.JButton btnChatInfo;
     private javax.swing.JButton btnClearEquip;
     private javax.swing.JButton btnClearImage;
