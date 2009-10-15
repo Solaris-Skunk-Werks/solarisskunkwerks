@@ -1217,39 +1217,6 @@ public class PrintMech implements Printable {
         return retval;
     }
 
-
-/*    private void RandomArmorDotsLA( Graphics2D graphics, int AV, Point top, Point bottom ) {
-        int cols = 3; // using three columns for the left arm.
-
-        // find the number of dots per column
-        int numcols = cols;
-        int numpercol = AV / cols;
-        int overflow = AV % cols;
-        boolean centerline = false;
-        if( overflow % 2 > 0 ) { centerline = true; }
-
-        // how many columns are we going to use?
-        if( numpercol < 2 ) {
-            numcols = 1;
-            numpercol = AV;
-            overflow = 0;
-            // overlfow always goes to the centerline
-            centerline = true;
-        } else if( numpercol < 4 ) {
-            numcols = 2;
-            numpercol = AV / numcols;
-            overflow = AV % numcols;
-            // overlfow always goes to the centerline
-            centerline = true;
-        }
-
-        // find the acceptable offset for each column
-        int offx = 
-
-        // draw the circles
-        graphics.drawOval( p[i].x, p[i].y, 5, 5 );
-    }*/
-
     private class PlaceableInfo {
         public int Location,
                    Count;
