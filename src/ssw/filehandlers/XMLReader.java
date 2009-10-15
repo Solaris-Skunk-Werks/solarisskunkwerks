@@ -36,6 +36,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.*;
 import ssw.utilities.CommonTools;
 import ssw.Constants;
+import ssw.battleforce.BattleForceStats;
 import ssw.visitors.VMechFullRecalc;
 import ssw.visitors.ifVisitor;
 
@@ -169,6 +170,9 @@ public class XMLReader {
         n = d.getElementsByTagName( "info" );
         if ( n.getLength() > 0 ) { Data.setInfo( n.item( 0 ).getTextContent() ); }
 
+        n = d.getElementsByTagName( "battleforce" );
+        if ( n.getLength() > 0 ) { Data.setBattleForceStats( new BattleForceStats(n.item(0)) ); }
+
         n = d.getElementsByTagName( "battle_value" );
         if (n.getLength() >= 1) Data.setBV( Integer.parseInt( n.item(0).getTextContent() ) );
 
@@ -197,6 +201,7 @@ public class XMLReader {
                     if (node.getNodeName().equals("cost")) {Config.setCost( Double.parseDouble( node.getTextContent() ) );}
                     if (node.getNodeName().equals("source")) {Config.setSource( node.getTextContent() );}
                     if (node.getNodeName().equals("info")) {Config.setInfo( node.getTextContent() );}
+                    if (node.getNodeName().equals("battleforce")) {Config.setBattleForceStats( new BattleForceStats( node ) );}
                 }
 
                 Data.Configurations.add(Config);

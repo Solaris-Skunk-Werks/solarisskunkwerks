@@ -29,28 +29,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.filehandlers;
 
 import ssw.Force.Unit;
+import ssw.battleforce.BattleForceStats;
 
 public class MechListData extends abUnitData {
-//    private String Name = "",
-//                   Model = "",
-//                   TypeModel = "",
-//                   Level= "Tournament Legal",
-//                   Era = "Age of War",
-//                   Tech = "Clan",
-//                   Config = "",
-//                   Source = "",
-//                   Type = "BattleMech",
-//                   Motive = "Biped",
-//                   Info = "";
-//    private int Tonnage = 0,
-//                Year = 2750,
-//                BV = 0,
-//                MinMP = 1;
-//    private double Cost = 0;
-//    private boolean Omni = false;
-//    private String filename = "";
-//    public Vector Configurations = new Vector();
-
     public MechListData(String Name, String Model, String Level, String Era, String Tech, String Source, String Type, String Motive, String Info, int Tonnage, int Year, int BV, double Cost, String filename){
         this.Name = Name;
         this.Model = Model;
@@ -103,33 +84,33 @@ public class MechListData extends abUnitData {
             for ( int i=0; i < tempData.Configurations.size(); i++ ){
                 this.Configurations.add(tempData.Configurations.get(i));
             }
+            this.bfstat = tempData.getBattleForceStats();
         } catch ( Exception e ) {
             throw new Exception("[MechListData " + e.getMessage() + "]");
         }
     }
 
     public MechListData( String[] Items ) {
-        this.Name = Items[0];
-        this.Model = Items[1];
+        this.Name = Items[name];
+        this.Model = Items[model];
         this.TypeModel = this.Name + " " + this.Model;
-        this.Level = Items[2];
-        this.Era = Items[3];
-        this.Tech = Items[4];
-        this.Source = Items[5];
-        this.Tonnage = Integer.parseInt(Items[6]);
-        this.Year = Integer.parseInt(Items[7]);
-        this.BV = Integer.parseInt(Items[8]);
-        this.Cost = Double.parseDouble(Items[9]);
-        this.filename = Items[10];
-        if (Items.length >= 12) {
-            this.Type = Items[11];
-            this.Motive = Items[12];
-        }
-        if (Items.length >= 14) this.Info = Items[13];
-        if (Items.length == 15) {
-            this.Config = Items[14];
-            this.Omni = true;
-        }
+        this.Level = Items[level];
+        this.Era = Items[era];
+        this.Tech = Items[tech];
+        this.Source = Items[source];
+        this.Tonnage = Integer.parseInt(Items[tonnage]);
+        this.Year = Integer.parseInt(Items[year]);
+        this.BV = Integer.parseInt(Items[bv]);
+        this.Cost = Double.parseDouble(Items[cost]);
+        this.filename = Items[Filename];
+        this.Type = Items[type];
+        this.Motive = Items[motive];
+        this.Info = Items[info];
+        this.Config = Items[config];
+        if ( !Config.isEmpty() ) { this.Omni = true; }
+
+        this.bfstat = new BattleForceStats( new String[]{this.TypeModel, Items[pv], Items[mv], Items[s], Items[m], Items[l], Items[e], Items[ov], Items[armor], Items[internal], Items[abilities]} );
+
     }
 
     public Unit getUnit() {
@@ -152,20 +133,34 @@ public class MechListData extends abUnitData {
     }
 
     public String SerializeIndex() {
-        return  this.Name + "," +
-                this.Model + "," +
-                this.Level + "," +
-                this.Era + "," +
-                this.Tech + "," +
-                this.Source + "," +
-                this.Tonnage + "," +
-                this.Year + "," +
-                this.BV + "," +
-                this.Cost + "," +
-                this.filename + "," +
-                this.Type + "," +
-                this.Motive + "," +
-                this.Info.replace(",", " ") + "," +
-                this.Config;
+        String data = "";
+
+        data += this.Name + ",";
+        data += this.Model + ",";
+        data += this.Level + ",";
+        data += this.Era + ",";
+        data += this.Tech + ",";
+        data += this.Source + ",";
+        data += this.Tonnage + ",";
+        data += this.Year + ",";
+        data += this.BV + ",";
+        data += this.Cost + ",";
+        data += this.filename + ",";
+        data += this.Type + ",";
+        data += this.Motive + ",";
+        data += this.Info.replace(",", " ") + ",";
+        data += this.Config + ",";
+        data += this.bfstat.getPointValue() + ",";
+        data += this.bfstat.getAbilitiesString().replace(",", "~") + ",";
+        data += this.bfstat.getMovement() + ",";
+        data += this.bfstat.getShort() + ",";
+        data += this.bfstat.getMedium() + ",";
+        data += this.bfstat.getLong() + ",";
+        data += this.bfstat.getExtreme() + ",";
+        data += this.bfstat.getOverheat() + ",";
+        data += this.bfstat.getArmor() + ",";
+        data += this.bfstat.getInternal();
+
+        return data;
     }
 }

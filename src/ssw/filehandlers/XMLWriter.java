@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Vector;
 import ssw.Constants;
+import ssw.battleforce.BattleForceStats;
 import ssw.components.*;
 
 public class XMLWriter {
@@ -212,6 +213,9 @@ public class XMLWriter {
         FR.write( tab + tab + "<info>" + CurMech.GetChatInfo() + "</info>" );
         FR.newLine();
 
+        BattleForceStats stat = new BattleForceStats(CurMech);
+        FR.write( tab + tab + stat.SerializeXML());
+
         FR.write( tab + tab + "<actuators lla=\"" + GetBoolean( CurMech.GetActuators().LeftLowerInstalled() ) + "\" lh=\"" + GetBoolean( CurMech.GetActuators().LeftHandInstalled() ) + "\" rla=\"" + GetBoolean( CurMech.GetActuators().RightLowerInstalled() ) + "\" rh=\"" + GetBoolean( CurMech.GetActuators().RightHandInstalled() ) + "\"/>" );
         FR.newLine();
         FR.write( tab + tab + "<clancase>" + GetBoolean( CurMech.GetLoadout().IsUsingClanCASE() ) + "</clancase>" );
@@ -342,6 +346,10 @@ public class XMLWriter {
                 // chat information
                 FR.write( tab + tab + "<info>" + CurMech.GetChatInfo() + "</info>" );
                 FR.newLine();
+
+                stat = new BattleForceStats(CurMech);
+                FR.write( tab + tab + stat.SerializeXML());
+
                 if( CurMech.GetTechBase() != CurMech.GetLoadout().GetTechBase() ) {
                     FR.write( tab + tab + "<techbase>" + CurMech.GetLoadout().GetTechBase() + "</techbase>" );
                     FR.newLine();

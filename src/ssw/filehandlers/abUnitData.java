@@ -29,6 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.filehandlers;
 
 import java.util.Vector;
+import ssw.battleforce.BattleForceStats;
 
 /**
  *
@@ -54,6 +55,35 @@ public abstract class abUnitData implements ifUnitData {
     boolean Omni = false;
     String filename = "";
     public Vector Configurations = new Vector();
+    public BattleForceStats bfstat = new BattleForceStats();
+    private String[] indexFields = new String[]{"Name", "Model", "Level", "Era",
+    "Tech", "Source", "Tonnage", "Year", "BV", "Cost", "Filename", "Type",
+    "Motive", "Info", "Config"};
+    static final int name = 0,
+                model = 1,
+                level = 2,
+                era = 3,
+                tech = 4,
+                source = 5,
+                tonnage = 6,
+                year = 7,
+                bv = 8,
+                cost = 9,
+                Filename = 10,
+                type = 11,
+                motive = 12,
+                info = 13,
+                config = 14,
+                pv = 15,
+                abilities = 16,
+                mv = 17,
+                s = 18,
+                m = 19,
+                l = 20,
+                e = 21,
+                ov = 22,
+                armor = 23,
+                internal = 24;
 
     public String getName() {
         return Name;
@@ -201,5 +231,13 @@ public abstract class abUnitData implements ifUnitData {
 
     public void setMinMP(int MinMP) {
         this.MinMP = MinMP;
+    }
+
+    public void setBattleForceStats( BattleForceStats stat ) {
+        this.bfstat = stat;
+    }
+    
+    public BattleForceStats getBattleForceStats() {
+        return bfstat;
     }
 }

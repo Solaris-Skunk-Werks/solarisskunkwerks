@@ -29,6 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.battleforce;
 
 import java.util.Vector;
+import org.w3c.dom.Node;
 import ssw.Constants;
 import ssw.components.Mech;
 
@@ -56,6 +57,10 @@ public class BattleForceStats {
                 Gunnery = 4,
                 Piloting = 5;
 
+    public BattleForceStats() {
+
+    }
+    
     public BattleForceStats( Mech m ) {
         Element = m.GetFullName();
         Abilities = m.GetBFAbilities();
@@ -87,6 +92,45 @@ public class BattleForceStats {
         setPiloting(Piloting);
     }
 
+    public BattleForceStats( Node n ) {
+        BasePV = Integer.parseInt(n.getAttributes().getNamedItem("pv").getTextContent());
+        PV = BasePV;
+        MV = n.getAttributes().getNamedItem("mv").getTextContent();
+        S = Integer.parseInt(n.getAttributes().getNamedItem("s").getTextContent());
+        M = Integer.parseInt(n.getAttributes().getNamedItem("m").getTextContent());
+        L = Integer.parseInt(n.getAttributes().getNamedItem("l").getTextContent());
+        E = Integer.parseInt(n.getAttributes().getNamedItem("e").getTextContent());
+        OV = Integer.parseInt(n.getAttributes().getNamedItem("ov").getTextContent());
+        Armor = Integer.parseInt(n.getAttributes().getNamedItem("armor").getTextContent());
+        Internal = Integer.parseInt(n.getAttributes().getNamedItem("internal").getTextContent());
+        String abilities = n.getAttributes().getNamedItem("abilities").getTextContent();
+        if ( !abilities.isEmpty() && abilities.contains(",") ) {
+            String[] ability = abilities.split(",");
+            for ( String item : ability ) {
+                Abilities.add(item.trim());
+            }
+        }
+    }
+
+    public BattleForceStats( String[] items ) {
+        Element = items[0];
+        BasePV = Integer.parseInt(items[1]);
+        MV = items[2];
+        S = Integer.parseInt(items[3]);
+        M = Integer.parseInt(items[4]);
+        L = Integer.parseInt(items[5]);
+        E = Integer.parseInt(items[6]);
+        OV = Integer.parseInt(items[7]);
+        Armor = Integer.parseInt(items[8]);
+        Internal = Integer.parseInt(items[9]);
+        if ( items[10].contains("~") ) {
+            String[] Ability = items[10].split("~");
+            for ( String item : Ability ) {
+                Abilities.add(item.trim());
+            }
+        }
+    }
+
     private void updateSkill() {
         int Total = Gunnery + Piloting;
         if ( Total <= 1 ) {
@@ -111,6 +155,24 @@ public class BattleForceStats {
 
     private void updatePointValue() {
         PV = (int)((int) BasePV * Mods[Skill]);
+    }
+
+    public String SerializeXML() {
+        String data = "";
+
+        data += "<battleforce ";
+        data += "pv=\"" + getPointValue() + "\" ";
+        data += "mv=\"" + getMovement() + "\" ";
+        data += "s=\"" + getShort() + "\" ";
+        data += "m=\"" + getMedium() + "\" ";
+        data += "l=\"" + getLong() + "\" ";
+        data += "e=\"" + getExtreme() + "\" ";
+        data += "ov=\"" + getOverheat() + "\" ";
+        data += "armor=\"" + getArmor() + "\" ";
+        data += "internal=\"" + getInternal() + "\" ";
+        data += "abilities=\"" + getAbilitiesString() + "\" />\n";
+
+        return data;
     }
 
     public String SerializeCSV() {

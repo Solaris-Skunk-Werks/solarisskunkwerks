@@ -41,7 +41,7 @@ import javax.swing.table.AbstractTableModel;
 public class MechList extends AbstractTableModel {
     private Vector List = new Vector();
     private String Directory = "";
-    private int IndexVersion = 4;
+    private int IndexVersion = 5;
 
     public MechList() {
 
@@ -218,7 +218,8 @@ public class MechList extends AbstractTableModel {
     public boolean Read() {
         try {
             BufferedReader FR = new BufferedReader( new FileReader( Directory + File.separator + "index.ssi" ) );
-            boolean EOF = false;
+            boolean EOF = false,
+                    hasData = false;
             String read = "";
             while( EOF == false ) {
                 try {
@@ -236,6 +237,7 @@ public class MechList extends AbstractTableModel {
                             // end of file.
                             EOF = true;
                         } else {
+                            hasData = true;
                             String[] Items = read.split(",");
                             if (Items.length >= 11) {
                                 List.add(new MechListData(Items));
@@ -250,7 +252,7 @@ public class MechList extends AbstractTableModel {
                 }
             }
             FR.close();
-            return true;
+            return hasData;
         } catch ( IOException e ) {
             return false;
         }
