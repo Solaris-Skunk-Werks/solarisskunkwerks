@@ -32,8 +32,8 @@
           <Component id="tlbActions" alignment="0" pref="1033" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="txtSelected" min="-2" pref="386" max="-2" attributes="0"/>
-              <EmptySpace pref="439" max="32767" attributes="0"/>
+              <Component id="txtSelected" min="-2" pref="687" max="-2" attributes="0"/>
+              <EmptySpace pref="138" max="32767" attributes="0"/>
               <Component id="prgResaving" min="-2" pref="188" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -215,6 +215,7 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblMechDataMouseClicked"/>
+            <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="tblMechDataMouseMoved"/>
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tblMechDataKeyPressed"/>
           </Events>
         </Component>

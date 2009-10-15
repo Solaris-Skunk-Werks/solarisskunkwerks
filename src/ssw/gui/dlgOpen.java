@@ -128,6 +128,10 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         if (list.Size() > 0) {
             setupList(list);
+        } else {
+            dirPath = media.GetDirectorySelection(this, "", "Select SSW File Directory");
+            parent.Prefs.put("ListPath", dirPath);
+            LoadList(false);
         }
 
         String displayPath = dirPath;
@@ -202,6 +206,10 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         }
     }
 
+    private void setTooltip( MechListData data ) {
+        //spnMechTable.setToolTipText( data.getInfo() );
+        txtSelected.setText(data.getInfo());
+    }
     public void propertyChange( PropertyChangeEvent e ) {
        prgResaving.setValue( ((Resaver) e.getSource()).getProgress() );
     }
@@ -451,6 +459,11 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 tblMechDataMouseClicked(evt);
             }
         });
+        tblMechData.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                tblMechDataMouseMoved(evt);
+            }
+        });
         tblMechData.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tblMechDataKeyPressed(evt);
@@ -695,7 +708,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                             .addComponent(chkOmni)
                             .addComponent(txtSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFiltersLayout.createSequentialGroup()
                 .addContainerGap(27, Short.MAX_VALUE)
                 .addComponent(btnFilter)
@@ -707,7 +720,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 .addComponent(lblMinMP)
                 .addGap(1, 1, 1)
                 .addComponent(cmbMinMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         lblStatus.setText("Loading Mechs....");
@@ -718,20 +731,20 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
+            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 1033, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 430, Short.MAX_VALUE)
+                .addComponent(txtSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
                 .addComponent(prgResaving, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
+                .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 1013, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
+                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1013, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -954,6 +967,10 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private void cmbMinMPFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMinMPFilter
         Filter(null);
 }//GEN-LAST:event_cmbMinMPFilter
+
+    private void tblMechDataMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMechDataMouseMoved
+        setTooltip( (MechListData) ((MechList) tblMechData.getModel()).Get(tblMechData.convertRowIndexToModel(tblMechData.rowAtPoint(evt.getPoint()))) );
+    }//GEN-LAST:event_tblMechDataMouseMoved
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd2Force;
