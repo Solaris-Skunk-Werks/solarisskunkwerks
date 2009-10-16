@@ -4191,6 +4191,7 @@ public class Mech implements ifBattleforce {
         int Taser = 0,
             RSD = 0;
         double MHQTons = 0;
+        int Heat = 0;
 
         //TSM Check
         if ( GetPhysEnhance().IsTSM() )
@@ -4236,6 +4237,9 @@ public class Mech implements ifBattleforce {
                 if ( ability.equals("C3BM") ) MHQTons += 6.0d;
                 if ( ability.equals("MTAS") ) Taser += 1;
                 if ( ability.equals("RSD") ) RSD += 1;
+                if ( ability.equals("HT2") ) Heat += 2;
+                if ( ability.equals("HT3") ) Heat += 3;
+                if ( ability.equals("HT7") ) Heat += 7;
 
                 if ( !retval.contains(ability) ) retval.add(ability);
             }
@@ -4255,6 +4259,10 @@ public class Mech implements ifBattleforce {
             }
         }
 
+        // Remove heat abilities if present, will add proper values later
+        retval.remove("HT2");
+        retval.remove("HT3");
+        retval.remove("HT7");
 
         // Now deal with all the funny stuff
         if ( isENE ) {
@@ -4278,6 +4286,10 @@ public class Mech implements ifBattleforce {
             retval.remove("CASE");
             retval.remove("CASEII");
         }
+        if ( Heat > 10 )
+            retval.add("HT2");
+        else if ( Heat > 5 )
+            retval.add("HT1");
 
         //Remove a - that is a result of the file needing data
         retval.remove("-");
