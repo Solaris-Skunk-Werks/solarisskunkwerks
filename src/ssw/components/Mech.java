@@ -4311,7 +4311,12 @@ public class Mech implements ifBattleforce {
         retval.remove("FLK");
 
         //ALL Mechs get SRCH (Industrials?)
-        //retval.add("SRCH");
+        if ( !IsIndustrialmech() ) {
+            retval.add("SRCH");     //Searchlight
+            retval.add("EEE");     //Electric Engine
+            retval.add("ES");       //Ejection Seat
+            retval.add("SOA");      //Space Operations Adaptation
+        }
 
         return retval;
     }
