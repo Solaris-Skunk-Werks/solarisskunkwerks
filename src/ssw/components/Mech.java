@@ -3839,7 +3839,7 @@ public class Mech implements ifBattleforce {
     }
 
     public int GetBFPoints(){
-        return Math.round( GetCurrentBV() / 100 );
+        return Math.round( GetCurrentBV() / 100.0f );
     }
 
     public int GetBFSize(){
