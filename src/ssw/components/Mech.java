@@ -3956,7 +3956,9 @@ public class Mech implements ifBattleforce {
         double dmgSRMLong = 0.0;
 
         double dmgIF = 0.0;
-        double dmgFLK = 0.0;
+        double dmgFLKShort = 0.0;
+        double dmgFLKMedium = 0.0;
+        double dmgFLKLong = 0.0;
 
         for ( int i = 0; i < nc.size(); i++ ) {
             if ( nc.get(i) instanceof ifWeapon ) {
@@ -4000,12 +4002,13 @@ public class Mech implements ifBattleforce {
                 }
                 if ( BattleForceTools.isBFFLK((ifWeapon)nc.get(i)) )
                 {
-                    dmgFLK += temp[Constants.BF_MEDIUM];
+                    dmgFLKShort += temp[Constants.BF_SHORT];
+                    dmgFLKMedium += temp[Constants.BF_MEDIUM];
+                    dmgFLKLong += temp[Constants.BF_LONG];
                 }
             }
 
         }
-
 
         // Add in heat for movement
         if ( GetAdjustedJumpingMP(false) > 2 ) {
@@ -4088,6 +4091,12 @@ public class Mech implements ifBattleforce {
                 }
             }
 
+            // Adjust IF and FLK dmg accordingly
+            dmgIF = (dmgIF * heatcap) / totalHeat;
+            dmgFLKShort = (dmgFLKShort * heatcap) / totalHeat;
+            dmgFLKMedium = (dmgFLKMedium * heatcap) / totalHeat;
+            dmgFLKLong = (dmgFLKLong * heatcap) / totalHeat;
+
             // Now adjust base damage
             dmgShort = (dmgShort * heatcap) / totalHeat;
             dmgMedium = (dmgMedium * heatcap) / totalHeat;
@@ -4148,15 +4157,15 @@ public class Mech implements ifBattleforce {
         }
         if ( dmgIF > 0 )
         {
-            dmgIF = Math.ceil(dmgIF / 10);
+            dmgIF = Math.round(dmgIF / 10);
             bfs.addAbility( "IF "+(int)dmgIF );
         }
-        // FLK is heat adjusted
-        dmgFLK = (dmgFLK * heatcap) / totalHeat;
-        if ( dmgFLK > 0 )
+        if ( dmgFLKMedium > 5 )
         {
-            dmgFLK = Math.ceil(dmgFLK / 10);
-            bfs.addAbility( "FLK "+(int)dmgFLK );
+            dmgFLKShort = Math.round(dmgFLKShort / 10);
+            dmgFLKMedium = Math.round(dmgFLKMedium / 10);
+            dmgFLKLong = Math.round(dmgFLKLong / 10);
+            bfs.addAbility("FLK "+(int)dmgFLKShort+"/"+(int)dmgFLKMedium+"/"+(int)dmgFLKLong);
         }
 
         // Determine OverHeat
