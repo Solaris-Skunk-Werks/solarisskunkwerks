@@ -696,6 +696,7 @@ public class CommonTools {
         if( roll < 0 ) { roll = 0; }
         if( size > 30 ) { size = 30; }
         if( size < 0 ) { return 0; }
+        if( w.IsStreak() ) { roll = 10; }
         return ClusterTable[roll][size];
     }
 
