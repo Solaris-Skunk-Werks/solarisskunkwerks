@@ -31,7 +31,7 @@ import java.awt.Image;
 import java.io.File;
 import java.util.Vector;
 import javax.swing.JFileChooser;
-import ssw.components.Mech;
+import components.Mech;
 import ssw.filehandlers.XMLReader;
 import ssw.print.*;
 

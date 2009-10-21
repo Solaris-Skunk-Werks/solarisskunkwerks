@@ -35,8 +35,7 @@ import java.util.Vector;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
-import ssw.*;
-import ssw.components.*;
+import components.*;
 
 public class thRLTransferHandler extends TransferHandler {
     private frmMain Parent;
@@ -53,7 +52,7 @@ public class thRLTransferHandler extends TransferHandler {
     public Transferable createTransferable( JComponent comp ) {
         // all we want to do is transfer the index in the queue
         LocationDragDatagram d = new LocationDragDatagram();
-        d.Location = Constants.LOC_RL;
+        d.Location = LocationIndex.MECH_LOC_RL;
         d.SourceIndex = ((JList) comp).getSelectedIndex();
         d.Locked = CurMech.GetLoadout().GetRLCrits()[d.SourceIndex].LocationLocked();
         if( CurMech.GetLoadout().GetRLCrits()[d.SourceIndex] instanceof EmptyItem ) {
@@ -84,13 +83,13 @@ public class thRLTransferHandler extends TransferHandler {
         if( DropItem.Locked ) {
             abPlaceable a = CurMech.GetLoadout().GetCrits( DropItem.Location )[DropItem.SourceIndex];
             if( a instanceof CASEII || a instanceof MultiSlotSystem || a instanceof AESSystem ) {
-                if( DropItem.Location != Constants.LOC_RL ) {
+                if( DropItem.Location != LocationIndex.MECH_LOC_RL ) {
                     return false;
                 } else {
                     // get the drop location
                     JList.DropLocation dl = (JList.DropLocation) info.getDropLocation();
                     int dindex = dl.getIndex();
-                    if( CurMech.GetLoadout().GetCrits( Constants.LOC_RL )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( Constants.LOC_RL )[dindex].LocationLinked() ) {
+                    if( CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_RL )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_RL )[dindex].LocationLinked() ) {
                         return false;
                     }
                     if( a instanceof CASEII ) {
@@ -105,7 +104,7 @@ public class thRLTransferHandler extends TransferHandler {
                         if( CurMech.IsOmnimech() ) {
                             return false;
                         }
-                        if( a.NumCrits() + dindex > CurMech.GetLoadout().GetCrits( Constants.LOC_RL ).length ) {
+                        if( a.NumCrits() + dindex > CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_RL ).length ) {
                             return false;
                         }
                     } else {
@@ -172,11 +171,11 @@ public class thRLTransferHandler extends TransferHandler {
         // now put it in where it needs to go
         try {
             if( a.CanSplit() && a.Contiguous() ) {
-                if( DropItem.Location == Constants.LOC_RL ) {
+                if( DropItem.Location == LocationIndex.MECH_LOC_RL ) {
                     LocationIndex loc1 = null;
                     LocationIndex loc2 = null;
                     for( int i = 0; i < v.size(); i++ ) {
-                        if( ((LocationIndex) v.get( i )).Location == Constants.LOC_RL ) {
+                        if( ((LocationIndex) v.get( i )).Location == LocationIndex.MECH_LOC_RL ) {
                             loc1 = (LocationIndex) v.get( i );
                         } else {
                             loc2 = (LocationIndex) v.get( i );
@@ -222,7 +221,7 @@ public class thRLTransferHandler extends TransferHandler {
     private boolean SplitAllocate( abPlaceable a, int dindex ) throws Exception {
         int ToPlace = CurMech.GetLoadout().FreeFrom( CurMech.GetLoadout().GetRLCrits(), dindex );
         if( ToPlace < a.NumCrits() ) {
-            dlgSplitCrits dlgSplit = new dlgSplitCrits( Parent, true, a, Constants.LOC_RL, dindex );
+            dlgSplitCrits dlgSplit = new dlgSplitCrits( Parent, true, a, LocationIndex.MECH_LOC_RL, dindex );
             Point p = Parent.getLocationOnScreen();
             dlgSplit.setLocation( p.x + 100, p.y + 100 );
             dlgSplit.setVisible( true );

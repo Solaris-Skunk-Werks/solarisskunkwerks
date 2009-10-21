@@ -5,6 +5,10 @@
 
 package ssw.components;
 
+import components.PhysicalWeapon;
+import components.RangedWeapon;
+import components.abPlaceable;
+import components.ifWeapon;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

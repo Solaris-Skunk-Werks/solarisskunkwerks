@@ -5,11 +5,11 @@ package ssw.gui;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import ssw.utilities.CommonTools;
-import ssw.components.Mech;
+import common.CommonTools;
+import components.Mech;
+import components.ifMechLoadout;
 import java.util.Vector;
 import javax.swing.ImageIcon;
-import ssw.components.ifLoadout;
 import ssw.filehandlers.Media;
 import ssw.print.PrintMech;
 
@@ -45,10 +45,10 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
 
             if( CurMech.IsOmnimech()){
                 Vector Loadouts = CurMech.GetLoadouts();
-                ifLoadout tempLoadout;
+                ifMechLoadout tempLoadout;
                 cmbOmniVariant.setMaximumRowCount(Loadouts.size()+1);
                 for (int i = 0; i < Loadouts.size();  ++i){
-                    tempLoadout = (ifLoadout) Loadouts.get(i);
+                    tempLoadout = (ifMechLoadout) Loadouts.get(i);
                     cmbOmniVariant.addItem(tempLoadout.GetName());
                     if (CurMech.GetLoadout().GetName().equals(tempLoadout.GetName())) {cmbOmniVariant.setSelectedItem(tempLoadout.GetName());}
                 }

@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.filehandlers;
 
 import java.util.Vector;
-import ssw.battleforce.BattleForceStats;
+import battleforce.BattleForceStats;
 
 /**
  *

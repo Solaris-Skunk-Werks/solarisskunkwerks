@@ -26,33 +26,26 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package ssw.battleforce;
+package ssw;
 
-import java.awt.Image;
-import java.util.Vector;
+public class SSWConstants {
+    // SSWConstants for the program
 
-public class BattleForce {
-    public Vector BattleForceStats = new Vector();
-    public String ForceName = "",
-                  LogoPath = "",
-                  Type = InnerSphere;
-    private Image Logo = null;
-    private int PointValue = 0;
-
-    public static final String InnerSphere = "Inner Sphere",
-                                Clan = "Clan",
-                                Comstar = "Comstar";
-
-    private void setInnerSphere() {
-        Type = InnerSphere;
-    }
-
-    private void setClan() {
-        Type = Clan;
-    }
-
-    private void setComstar() {
-        Type = Comstar;
-    }
-
+    // here is the versioning and program name
+    public final static String AppName = "SSW",
+                        AppDescription = "Solaris Skunk Werks",
+                        Version = "0.6.30",
+                        AppRelease = "Beta 2",
+                        ImageListFileName = "S7Images",
+                        LogFileName = "SSW_Log.txt",
+                        HTMLTemplateName = "HTML_Template.html",
+                        DEFAULT_CHASSIS = "Standard Structure",
+                        DEFAULT_ENGINE = "Fusion Engine",
+                        DEFAULT_GYRO = "Standard Gyro",
+                        DEFAULT_COCKPIT = "Standard Cockpit",
+                        DEFAULT_ENHANCEMENT = "No Enhancement",
+                        DEFAULT_HEATSINK = "Single Heat Sink",
+                        DEFAULT_JUMPJET = "Standard Jump Jet",
+                        DEFAULT_ARMOR = "Standard Armor",
+                        Solaris7URL = "http://www.solaris7.com/service/index.asp";
 }

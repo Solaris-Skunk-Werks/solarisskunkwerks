@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
-import ssw.Constants;
+import ssw.SSWConstants;
 
 public class dlgLicense extends javax.swing.JDialog {
 
@@ -37,7 +37,7 @@ public class dlgLicense extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setResizable( false );
-        setTitle( Constants.AppName + " License Agreement" );
+        setTitle( SSWConstants.AppName + " License Agreement" );
     }
 
     /** This method is called from within the constructor to

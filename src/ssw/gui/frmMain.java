@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
-import ssw.utilities.CommonTools;
+import common.CommonTools;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -49,18 +49,19 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SpinnerNumberModel;
 import ssw.*;
-import ssw.components.*;
+import components.*;
 import ssw.filehandlers.*;
-import ssw.visitors.*;
+import visitors.*;
 import ssw.print.*;
-import ssw.states.ifState;
+import states.ifState;
 import java.util.prefs.*;
 import javax.swing.JEditorPane;
 import javax.swing.JTextField;
 import ssw.Force.gui.frmForce;
-import ssw.battleforce.BattleForceStats;
-import ssw.battleforce.BattleForceTools;
+import battleforce.*;
+import common.DataFactory;
 import ssw.printpreview.dlgPreview;
+import gui.EquipmentCollection;
 
 public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner {
 
@@ -105,7 +106,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     boolean Load = false;
     private Cursor Hourglass = new Cursor( Cursor.WAIT_CURSOR );
     private Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
-    // ImageIcon FluffImage = Utils.createImageIcon( Constants.NO_IMAGE );
+    // ImageIcon FluffImage = Utils.createImageIcon( SSWConstants.NO_IMAGE );
     public DataFactory data;
 
     private dlgPrintBatchMechs BatchWindow = null;
@@ -128,7 +129,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     /** Creates new form frmMain */
     public frmMain() {
         Prefs = Preferences.userNodeForPackage( this.getClass() );
-        CurMech = new Mech( this );
+        CurMech = new Mech( Prefs );
         ArmorTons = new VSetArmorTonnage( Prefs );
         Mechrender = new MechLoadoutRenderer( this );
 
@@ -164,7 +165,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         initComponents();
         setViewToolbar( Prefs.getBoolean( "ViewToolbar", true ) );
-        setTitle( Constants.AppDescription + " " + Constants.Version );
+        setTitle( SSWConstants.AppDescription + " " + SSWConstants.Version );
 
         mnuDetails.addActionListener( new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -372,14 +373,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RefreshInternalPoints();
         SetLoadoutArrays();
         SetWeaponChoosers();
-        cmbInternalType.setSelectedItem( Constants.DEFAULT_CHASSIS );
-        cmbEngineType.setSelectedItem( Constants.DEFAULT_ENGINE );
-        cmbGyroType.setSelectedItem( Constants.DEFAULT_GYRO );
-        cmbCockpitType.setSelectedItem( Constants.DEFAULT_COCKPIT );
-        cmbPhysEnhance.setSelectedItem( Constants.DEFAULT_ENHANCEMENT );
+        cmbInternalType.setSelectedItem( SSWConstants.DEFAULT_CHASSIS );
+        cmbEngineType.setSelectedItem( SSWConstants.DEFAULT_ENGINE );
+        cmbGyroType.setSelectedItem( SSWConstants.DEFAULT_GYRO );
+        cmbCockpitType.setSelectedItem( SSWConstants.DEFAULT_COCKPIT );
+        cmbPhysEnhance.setSelectedItem( SSWConstants.DEFAULT_ENHANCEMENT );
         cmbHeatSinkType.setSelectedItem( Prefs.get( "NewMech_Heatsinks", "Single Heat Sink" ) );
-        cmbJumpJetType.setSelectedItem( Constants.DEFAULT_JUMPJET );
-        cmbArmorType.setSelectedItem( Constants.DEFAULT_ARMOR );
+        cmbJumpJetType.setSelectedItem( SSWConstants.DEFAULT_JUMPJET );
+        cmbArmorType.setSelectedItem( SSWConstants.DEFAULT_ARMOR );
         cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( new String[] { CurMech.GetLoadout().GetName() } ) );
         lblSumPAmps.setVisible( false );
         txtSumPAmpsTon.setVisible( false );
@@ -1683,11 +1684,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lblBFPoints.setText("" + CurMech.GetBFPoints() );
 
         int [] BFdmg = CurMech.GetBFDamage( bfs );
-        lblBFShort.setText("" + BFdmg[Constants.BF_SHORT]);
-        lblBFMedium.setText("" + BFdmg[Constants.BF_MEDIUM]);
-        lblBFLong.setText("" + BFdmg[Constants.BF_LONG]);
-        lblBFExtreme.setText("" + BFdmg[Constants.BF_EXTREME]);
-        lblBFOV.setText("" + BFdmg[Constants.BF_OV]);
+        lblBFShort.setText("" + BFdmg[BFConstants.BF_SHORT]);
+        lblBFMedium.setText("" + BFdmg[BFConstants.BF_MEDIUM]);
+        lblBFLong.setText("" + BFdmg[BFConstants.BF_LONG]);
+        lblBFExtreme.setText("" + BFdmg[BFConstants.BF_EXTREME]);
+        lblBFOV.setText("" + BFdmg[BFConstants.BF_OV]);
 
         lblBFSA.setText( bfs.getAbilitiesString() );
     }
@@ -1920,17 +1921,17 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void FixArmorSpinners() {
         // fixes the armor spinners to match the new tonnage / motive type
         Armor a = CurMech.GetArmor();
-        spnHDArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( Constants.LOC_HD ), 0, 9, 1) );
-        spnCTArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( Constants.LOC_CT ), 0, a.GetLocationMax( Constants.LOC_CT ), 1) );
-        spnLTArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( Constants.LOC_LT ), 0, a.GetLocationMax( Constants.LOC_LT ), 1) );
-        spnRTArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( Constants.LOC_RT ), 0, a.GetLocationMax( Constants.LOC_RT ), 1) );
-        spnLAArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( Constants.LOC_LA ), 0, a.GetLocationMax( Constants.LOC_LA ), 1) );
-        spnRAArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( Constants.LOC_RA ), 0, a.GetLocationMax( Constants.LOC_RA ), 1) );
-        spnLLArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( Constants.LOC_LL ), 0, a.GetLocationMax( Constants.LOC_LL ), 1) );
-        spnRLArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( Constants.LOC_RL ), 0, a.GetLocationMax( Constants.LOC_RL ), 1) );
-        spnCTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( Constants.LOC_CTR ), 0, a.GetLocationMax( Constants.LOC_CT ), 1) );
-        spnLTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( Constants.LOC_LTR ), 0, a.GetLocationMax( Constants.LOC_LT ), 1) );
-        spnRTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( Constants.LOC_RTR ), 0, a.GetLocationMax( Constants.LOC_RT ), 1) );
+        spnHDArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_HD ), 0, 9, 1) );
+        spnCTArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_CT ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_CT ), 1) );
+        spnLTArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_LT ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_LT ), 1) );
+        spnRTArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_RT ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_RT ), 1) );
+        spnLAArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_LA ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_LA ), 1) );
+        spnRAArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_RA ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_RA ), 1) );
+        spnLLArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_LL ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_LL ), 1) );
+        spnRLArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_RL ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_RL ), 1) );
+        spnCTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_CTR ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_CT ), 1) );
+        spnLTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_LTR ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_LT ), 1) );
+        spnRTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_RTR ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_RT ), 1) );
     }
 
     private void SaveSelections() {
@@ -2127,7 +2128,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void GetNewMech() {
         boolean Omni = CurMech.IsOmnimech();
         cmbMotiveType.setSelectedIndex( 0 );
-        CurMech = new Mech( this );
+        CurMech = new Mech( Prefs );
 
         chkYearRestrict.setSelected( false );
         txtProdYear.setText( "" );
@@ -2201,14 +2202,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         BuildJumpJetSelector();
         BuildArmorSelector();
         CheckOmnimech();
-        cmbInternalType.setSelectedItem( Constants.DEFAULT_CHASSIS );
-        cmbEngineType.setSelectedItem( Constants.DEFAULT_ENGINE );
-        cmbGyroType.setSelectedItem( Constants.DEFAULT_GYRO );
-        cmbCockpitType.setSelectedItem( Constants.DEFAULT_COCKPIT );
-        cmbPhysEnhance.setSelectedItem( Constants.DEFAULT_ENHANCEMENT );
+        cmbInternalType.setSelectedItem( SSWConstants.DEFAULT_CHASSIS );
+        cmbEngineType.setSelectedItem( SSWConstants.DEFAULT_ENGINE );
+        cmbGyroType.setSelectedItem( SSWConstants.DEFAULT_GYRO );
+        cmbCockpitType.setSelectedItem( SSWConstants.DEFAULT_COCKPIT );
+        cmbPhysEnhance.setSelectedItem( SSWConstants.DEFAULT_ENHANCEMENT );
         cmbHeatSinkType.setSelectedItem( Prefs.get( "NewMech_Heatsinks", "Single Heat Sink" ) );
-        cmbJumpJetType.setSelectedItem( Constants.DEFAULT_JUMPJET );
-        cmbArmorType.setSelectedItem( Constants.DEFAULT_ARMOR );
+        cmbJumpJetType.setSelectedItem( SSWConstants.DEFAULT_JUMPJET );
+        cmbArmorType.setSelectedItem( SSWConstants.DEFAULT_ARMOR );
         FixWalkMPSpinner();
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
@@ -2262,7 +2263,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkYearRestrict.setEnabled( true );
         }
         CurMech.SetChanged( false );
-        setTitle( Constants.AppDescription + " " + Constants.Version );
+        setTitle( SSWConstants.AppDescription + " " + SSWConstants.Version );
     }
 
     private void GetInfoOn() {
@@ -2851,10 +2852,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         Vector v = CurMech.GetLoadouts();
         String[] variants = new String[v.size()];
         if( v.size() <= 0 ) {
-            variants = new String[] { Constants.BASELOADOUT_NAME };
+            variants = new String[] { common.Constants.BASELOADOUT_NAME };
         } else {
             for( int i = 0; i < v.size(); i++ ) {
-                variants[i] = ((ifLoadout) v.get(i)).GetName();
+                variants[i] = ((ifMechLoadout) v.get(i)).GetName();
             }
         }
 
@@ -2890,11 +2891,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( CurMech.IsOmnimech() ) {
             Vector v = CurMech.GetLoadouts();
             for( int i = 0; i < v.size(); i++ ) {
-                CurMech.SetCurLoadout( ((ifLoadout) v.get( i )).GetName() );
+                CurMech.SetCurLoadout( ((ifMechLoadout) v.get( i )).GetName() );
                 if( CurMech.GetLoadout().GetQueue().size() != 0 ) {
                     javax.swing.JOptionPane.showMessageDialog( this, "You must place all items in the " +
-                        ((ifLoadout) v.get( i )).GetName() + " loadout first." );
-                    cmbOmniVariant.setSelectedItem( ((ifLoadout) v.get( i )).GetName() );
+                        ((ifMechLoadout) v.get( i )).GetName() + " loadout first." );
+                    cmbOmniVariant.setSelectedItem( ((ifMechLoadout) v.get( i )).GetName() );
                     cmbOmniVariantActionPerformed( evt );
                     tbpMainTabPane.setSelectedComponent( pnlCriticals );
                     return false;
@@ -2912,11 +2913,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( CurMech.IsOmnimech() ) {
             Vector v = CurMech.GetLoadouts();
             for( int i = 0; i < v.size(); i++ ) {
-                CurMech.SetCurLoadout( ((ifLoadout) v.get( i )).GetName() );
+                CurMech.SetCurLoadout( ((ifMechLoadout) v.get( i )).GetName() );
                 if( CurMech.GetCurrentTons() > CurMech.GetTonnage() ) {
-                    javax.swing.JOptionPane.showMessageDialog( this, ((ifLoadout) v.get( i )).GetName() +
+                    javax.swing.JOptionPane.showMessageDialog( this, ((ifMechLoadout) v.get( i )).GetName() +
                         " loadout is overweight.  Reduce the weight\nto equal or below the mech's tonnage before exporting." );
-                    cmbOmniVariant.setSelectedItem( ((ifLoadout) v.get( i )).GetName() );
+                    cmbOmniVariant.setSelectedItem( ((ifMechLoadout) v.get( i )).GetName() );
                     cmbOmniVariantActionPerformed( evt );
                     tbpMainTabPane.setSelectedComponent( pnlBasicSetup );
                     return false;
@@ -3312,7 +3313,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     public boolean LegalArmoring( abPlaceable p ) {
         // This tells us whether it is legal to armor a particular component
         if( p.CanArmor() ) {
-            if( CurMech.GetLoadout().GetName().equals( Constants.BASELOADOUT_NAME ) ) {
+            if( CurMech.GetLoadout().GetName().equals( common.Constants.BASELOADOUT_NAME ) ) {
                 return true;
             } else {
                 if( p instanceof Engine ) { return false; }
@@ -3321,16 +3322,16 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( p instanceof Actuator ) {
                     if( ! ((Actuator) p).IsOmniArmorable() ) { return false; }
                     LocationIndex Loc = CurMech.GetLoadout().FindIndex( p );
-                    if( Loc.Location == Constants.LOC_LA && Loc.Index == 2 ) {
+                    if( Loc.Location == LocationIndex.MECH_LOC_LA && Loc.Index == 2 ) {
                         if( CurMech.GetBaseLoadout().GetActuators().LeftLowerInstalled() ) { return false; }
                     }
-                    if( Loc.Location == Constants.LOC_RA && Loc.Index == 2 ) {
+                    if( Loc.Location == LocationIndex.MECH_LOC_RA && Loc.Index == 2 ) {
                         if( CurMech.GetBaseLoadout().GetActuators().RightLowerInstalled() ) { return false; }
                     }
-                    if( Loc.Location == Constants.LOC_LA && Loc.Index == 3 ) {
+                    if( Loc.Location == LocationIndex.MECH_LOC_LA && Loc.Index == 3 ) {
                         if( CurMech.GetBaseLoadout().GetActuators().LeftHandInstalled() ) { return false; }
                     }
-                    if( Loc.Location == Constants.LOC_RA && Loc.Index == 3 ) {
+                    if( Loc.Location == LocationIndex.MECH_LOC_RA && Loc.Index == 3 ) {
                         if( CurMech.GetBaseLoadout().GetActuators().RightHandInstalled() ) { return false; }
                     }
                 }
@@ -3496,14 +3497,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     // the following method is provided to the MechRenderer for comparison
     // purposes.  Please check MechLoadoutRenderer.java for implementation.
     public int GetLocation( javax.swing.JList list ) {
-        if( list == lstHDCrits ) { return Constants.LOC_HD; }
-        if( list == lstCTCrits ) { return Constants.LOC_CT; }
-        if( list == lstLTCrits ) { return Constants.LOC_LT; }
-        if( list == lstRTCrits ) { return Constants.LOC_RT; }
-        if( list == lstLACrits ) { return Constants.LOC_LA; }
-        if( list == lstRACrits ) { return Constants.LOC_RA; }
-        if( list == lstLLCrits ) { return Constants.LOC_LL; }
-        if( list == lstRLCrits ) { return Constants.LOC_RL; }
+        if( list == lstHDCrits ) { return LocationIndex.MECH_LOC_HD; }
+        if( list == lstCTCrits ) { return LocationIndex.MECH_LOC_CT; }
+        if( list == lstLTCrits ) { return LocationIndex.MECH_LOC_LT; }
+        if( list == lstRTCrits ) { return LocationIndex.MECH_LOC_RT; }
+        if( list == lstLACrits ) { return LocationIndex.MECH_LOC_LA; }
+        if( list == lstRACrits ) { return LocationIndex.MECH_LOC_RA; }
+        if( list == lstLLCrits ) { return LocationIndex.MECH_LOC_LL; }
+        if( list == lstRLCrits ) { return LocationIndex.MECH_LOC_RL; }
         return -1;
     }
 
@@ -3581,7 +3582,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             for( int j = 0; j < v.size(); j++ ) {
                 if( v.get( j ) instanceof ifWeapon ) {
                     w = (ifWeapon) v.get( j );
-                    if( CurMech.GetLoadout().Find( (abPlaceable) w ) == Constants.LOC_RA ) {
+                    if( CurMech.GetLoadout().Find( (abPlaceable) w ) == LocationIndex.MECH_LOC_RA ) {
                         chart[i] += GetDamageAtRange( w, i );
                     }
                 }
@@ -3601,7 +3602,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             for( int j = 0; j < v.size(); j++ ) {
                 if( v.get( j ) instanceof ifWeapon ) {
                     w = (ifWeapon) v.get( j );
-                    if( CurMech.GetLoadout().Find( (abPlaceable) w ) == Constants.LOC_LA ) {
+                    if( CurMech.GetLoadout().Find( (abPlaceable) w ) == LocationIndex.MECH_LOC_LA ) {
                         chart[i] += GetDamageAtRange( w, i );
                     }
                 }
@@ -3623,7 +3624,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( v.get( j ) instanceof ifWeapon ) {
                     w = (ifWeapon) v.get( j );
                     int Loc = CurMech.GetLoadout().Find( (abPlaceable) w );
-                    if( ((abPlaceable) w).IsMountedRear() || (( Loc == Constants.LOC_LA || Loc == Constants.LOC_RA ) && flip ) ) {
+                    if( ((abPlaceable) w).IsMountedRear() || (( Loc == LocationIndex.MECH_LOC_LA || Loc == LocationIndex.MECH_LOC_RA ) && flip ) ) {
                         chart[i] += GetDamageAtRange( w, i );
                     }
                 }
@@ -4377,6 +4378,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuOpen = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         mnuImportHMP = new javax.swing.JMenuItem();
+        mnuBatchHMP = new javax.swing.JMenuItem();
         jSeparator16 = new javax.swing.JSeparator();
         mnuSave = new javax.swing.JMenuItem();
         mnuSaveAs = new javax.swing.JMenuItem();
@@ -7598,7 +7600,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     abPlaceable[] a = CurMech.GetLoadout().GetHDCrits();
                     int index = lstHDCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
-                    CurLocation = Constants.LOC_HD;
+                    CurLocation = LocationIndex.MECH_LOC_HD;
                     ConfigureUtilsMenu(e.getComponent());
                     mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 }
@@ -7608,13 +7610,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     abPlaceable[] a = CurMech.GetLoadout().GetHDCrits();
                     int index = lstHDCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
-                    CurLocation = Constants.LOC_HD;
+                    CurLocation = LocationIndex.MECH_LOC_HD;
                     ConfigureUtilsMenu(e.getComponent());
                     mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     int index = lstHDCrits.locationToIndex( e.getPoint() );
                     CurItem = CurMech.GetLoadout().GetHDCrits()[index];
-                    CurLocation = Constants.LOC_HD;
+                    CurLocation = LocationIndex.MECH_LOC_HD;
                 }
             }
         };
@@ -7670,7 +7672,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     abPlaceable[] a = CurMech.GetLoadout().GetCTCrits();
                     int index = lstCTCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
-                    CurLocation = Constants.LOC_CT;
+                    CurLocation = LocationIndex.MECH_LOC_CT;
                     ConfigureUtilsMenu(e.getComponent());
                     mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 }
@@ -7680,13 +7682,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     abPlaceable[] a = CurMech.GetLoadout().GetCTCrits();
                     int index = lstCTCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
-                    CurLocation = Constants.LOC_CT;
+                    CurLocation = LocationIndex.MECH_LOC_CT;
                     ConfigureUtilsMenu(e.getComponent());
                     mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     int index = lstCTCrits.locationToIndex( e.getPoint() );
                     CurItem = CurMech.GetLoadout().GetCTCrits()[index];
-                    CurLocation = Constants.LOC_CT;
+                    CurLocation = LocationIndex.MECH_LOC_CT;
                 }
             }
         };
@@ -7777,7 +7779,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     abPlaceable[] a = CurMech.GetLoadout().GetLTCrits();
                     int index = lstLTCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
-                    CurLocation = Constants.LOC_LT;
+                    CurLocation = LocationIndex.MECH_LOC_LT;
                     ConfigureUtilsMenu(e.getComponent());
                     mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 }
@@ -7787,13 +7789,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     abPlaceable[] a = CurMech.GetLoadout().GetLTCrits();
                     int index = lstLTCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
-                    CurLocation = Constants.LOC_LT;
+                    CurLocation = LocationIndex.MECH_LOC_LT;
                     ConfigureUtilsMenu(e.getComponent());
                     mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     int index = lstLTCrits.locationToIndex( e.getPoint() );
                     CurItem = CurMech.GetLoadout().GetLTCrits()[index];
-                    CurLocation = Constants.LOC_LT;
+                    CurLocation = LocationIndex.MECH_LOC_LT;
                 }
             }
         };
@@ -7870,7 +7872,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     abPlaceable[] a = CurMech.GetLoadout().GetRTCrits();
                     int index = lstRTCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
-                    CurLocation = Constants.LOC_RT;
+                    CurLocation = LocationIndex.MECH_LOC_RT;
                     ConfigureUtilsMenu( e.getComponent() );
                     mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 }
@@ -7880,13 +7882,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     abPlaceable[] a = CurMech.GetLoadout().GetRTCrits();
                     int index = lstRTCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
-                    CurLocation = Constants.LOC_RT;
+                    CurLocation = LocationIndex.MECH_LOC_RT;
                     ConfigureUtilsMenu(e.getComponent());
                     mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     int index = lstRTCrits.locationToIndex( e.getPoint() );
                     CurItem = CurMech.GetLoadout().GetRTCrits()[index];
-                    CurLocation = Constants.LOC_RT;
+                    CurLocation = LocationIndex.MECH_LOC_RT;
                 }
             }
         };
@@ -7975,7 +7977,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     abPlaceable[] a = CurMech.GetLoadout().GetLACrits();
                     int index = lstLACrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
-                    CurLocation = Constants.LOC_LA;
+                    CurLocation = LocationIndex.MECH_LOC_LA;
                     ConfigureUtilsMenu(e.getComponent());
                     mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 }
@@ -7985,13 +7987,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     abPlaceable[] a = CurMech.GetLoadout().GetLACrits();
                     int index = lstLACrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
-                    CurLocation = Constants.LOC_LA;
+                    CurLocation = LocationIndex.MECH_LOC_LA;
                     ConfigureUtilsMenu(e.getComponent());
                     mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     int index = lstLACrits.locationToIndex( e.getPoint() );
                     CurItem = CurMech.GetLoadout().GetLACrits()[index];
-                    CurLocation = Constants.LOC_LA;
+                    CurLocation = LocationIndex.MECH_LOC_LA;
                 }
             }
         };
@@ -8097,7 +8099,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     abPlaceable[] a = CurMech.GetLoadout().GetRACrits();
                     int index = lstRACrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
-                    CurLocation = Constants.LOC_RA;
+                    CurLocation = LocationIndex.MECH_LOC_RA;
                     ConfigureUtilsMenu(e.getComponent());
                     mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 }
@@ -8107,13 +8109,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     abPlaceable[] a = CurMech.GetLoadout().GetRACrits();
                     int index = lstRACrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
-                    CurLocation = Constants.LOC_RA;
+                    CurLocation = LocationIndex.MECH_LOC_RA;
                     ConfigureUtilsMenu(e.getComponent());
                     mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     int index = lstRACrits.locationToIndex( e.getPoint() );
                     CurItem = CurMech.GetLoadout().GetRACrits()[index];
-                    CurLocation = Constants.LOC_RA;
+                    CurLocation = LocationIndex.MECH_LOC_RA;
                 }
             }
         };
@@ -8219,7 +8221,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     abPlaceable[] a = CurMech.GetLoadout().GetLLCrits();
                     int index = lstLLCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
-                    CurLocation = Constants.LOC_LL;
+                    CurLocation = LocationIndex.MECH_LOC_LL;
                     ConfigureUtilsMenu(e.getComponent());
                     mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 }
@@ -8229,13 +8231,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     abPlaceable[] a = CurMech.GetLoadout().GetLLCrits();
                     int index = lstLLCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
-                    CurLocation = Constants.LOC_LL;
+                    CurLocation = LocationIndex.MECH_LOC_LL;
                     ConfigureUtilsMenu(e.getComponent());
                     mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     int index = lstLLCrits.locationToIndex( e.getPoint() );
                     CurItem = CurMech.GetLoadout().GetLLCrits()[index];
-                    CurLocation = Constants.LOC_LL;
+                    CurLocation = LocationIndex.MECH_LOC_LL;
                 }
             }
         };
@@ -8301,7 +8303,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     abPlaceable[] a = CurMech.GetLoadout().GetRLCrits();
                     int index = lstRLCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
-                    CurLocation = Constants.LOC_RL;
+                    CurLocation = LocationIndex.MECH_LOC_RL;
                     ConfigureUtilsMenu(e.getComponent());
                     mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 }
@@ -8311,13 +8313,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     abPlaceable[] a = CurMech.GetLoadout().GetRLCrits();
                     int index = lstRLCrits.locationToIndex( e.getPoint() );
                     CurItem = a[index];
-                    CurLocation = Constants.LOC_RL;
+                    CurLocation = LocationIndex.MECH_LOC_RL;
                     ConfigureUtilsMenu(e.getComponent());
                     mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
                 } else {
                     int index = lstRLCrits.locationToIndex( e.getPoint() );
                     CurItem = CurMech.GetLoadout().GetRLCrits()[index];
-                    CurLocation = Constants.LOC_RL;
+                    CurLocation = LocationIndex.MECH_LOC_RL;
                 }
             }
         };
@@ -9646,6 +9648,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         jMenu3.add(mnuImportHMP);
 
+        mnuBatchHMP.setText("Batch Import from HMP");
+        mnuBatchHMP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuBatchHMPActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mnuBatchHMP);
+
         mnuFile.add(jMenu3);
         mnuFile.add(jSeparator16);
 
@@ -10587,17 +10597,17 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // the commitedit worked, so set the armor value appropriately
         Armor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( Constants.LOC_HD );
+        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_HD );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
             while( curframe > curmech ) {
-                a.IncrementArmor( Constants.LOC_HD );
+                a.IncrementArmor( LocationIndex.MECH_LOC_HD );
                 curframe--;
             }
         } else {
             while( curmech > curframe ) {
-                a.DecrementArmor( Constants.LOC_HD );
-                curmech = a.GetLocationArmor( Constants.LOC_HD );
+                a.DecrementArmor( LocationIndex.MECH_LOC_HD );
+                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_HD );
             }
         }
 
@@ -10626,25 +10636,25 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // the commitedit worked, so set the armor value appropriately
         Armor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( Constants.LOC_RA );
+        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RA );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
             while( curframe > curmech ) {
-                a.IncrementArmor( Constants.LOC_RA );
+                a.IncrementArmor( LocationIndex.MECH_LOC_RA );
                 curframe--;
             }
         } else {
             while( curmech > curframe ) {
-                a.DecrementArmor( Constants.LOC_RA );
-                curmech = a.GetLocationArmor( Constants.LOC_RA );
+                a.DecrementArmor( LocationIndex.MECH_LOC_RA );
+                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RA );
             }
         }
 
         // see if we need to change the left arm as well
         if( btnBalanceArmor.isSelected() ) {
-            a.SetArmor( Constants.LOC_LA, n.getNumber().intValue() );
+            a.SetArmor( LocationIndex.MECH_LOC_LA, n.getNumber().intValue() );
             n = (SpinnerNumberModel) spnLAArmor.getModel();
-            n.setValue( (Object) a.GetLocationArmor( Constants.LOC_LA ) );
+            n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_LA ) );
         }
 
         // now refresh the information panes
@@ -10672,30 +10682,30 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // the commitedit worked, so set the armor value appropriately
         Armor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( Constants.LOC_RT );
+        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RT );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
             while( curframe > curmech ) {
-                a.IncrementArmor( Constants.LOC_RT );
+                a.IncrementArmor( LocationIndex.MECH_LOC_RT );
                 curframe--;
             }
         } else {
             while( curmech > curframe ) {
-                a.DecrementArmor( Constants.LOC_RT );
-                curmech = a.GetLocationArmor( Constants.LOC_RT );
+                a.DecrementArmor( LocationIndex.MECH_LOC_RT );
+                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RT );
             }
         }
 
         // now we need to set the rear armor spinner correctly and update
         n = (SpinnerNumberModel) spnRTRArmor.getModel();
-        n.setValue( (Object) a.GetLocationArmor( Constants.LOC_RTR ) );
+        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_RTR ) );
 
         // see if we need to change the left torso as well
         if( btnBalanceArmor.isSelected() ) {
             n = (SpinnerNumberModel) spnRTArmor.getModel();
-            a.SetArmor( Constants.LOC_LT, n.getNumber().intValue() );
+            a.SetArmor( LocationIndex.MECH_LOC_LT, n.getNumber().intValue() );
             n = (SpinnerNumberModel) spnLTArmor.getModel();
-            n.setValue( (Object) a.GetLocationArmor( Constants.LOC_LT ) );
+            n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_LT ) );
         }
 
         // now refresh the information panes
@@ -10723,31 +10733,31 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // the commitedit worked, so set the armor value appropriately
         Armor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( Constants.LOC_RTR );
+        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RTR );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
             while( curframe > curmech ) {
-                a.IncrementArmor( Constants.LOC_RTR );
+                a.IncrementArmor( LocationIndex.MECH_LOC_RTR );
                 curframe--;
             }
         } else {
             while( curmech > curframe ) {
-                a.DecrementArmor( Constants.LOC_RTR );
-                curmech = a.GetLocationArmor( Constants.LOC_RTR );
+                a.DecrementArmor( LocationIndex.MECH_LOC_RTR );
+                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RTR );
             }
         }
 
         // now we need to set the rear armor spinner correctly and update
         n = (SpinnerNumberModel) spnRTArmor.getModel();
-        n.setValue( (Object) a.GetLocationArmor( Constants.LOC_RT ) );
+        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_RT ) );
 
         // see if we need to change the left torso as well
         // see if we need to change the left torso as well
         if( btnBalanceArmor.isSelected() ) {
             n = (SpinnerNumberModel) spnRTRArmor.getModel();
-            a.SetArmor( Constants.LOC_LTR, n.getNumber().intValue() );
+            a.SetArmor( LocationIndex.MECH_LOC_LTR, n.getNumber().intValue() );
             n = (SpinnerNumberModel) spnLTRArmor.getModel();
-            n.setValue( (Object) a.GetLocationArmor( Constants.LOC_LTR ) );
+            n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_LTR ) );
         }
 
         // now refresh the information panes
@@ -10775,25 +10785,25 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // the commitedit worked, so set the armor value appropriately
         Armor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( Constants.LOC_LA );
+        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LA );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
             while( curframe > curmech ) {
-                a.IncrementArmor( Constants.LOC_LA );
+                a.IncrementArmor( LocationIndex.MECH_LOC_LA );
                 curframe--;
             }
         } else {
             while( curmech > curframe ) {
-                a.DecrementArmor( Constants.LOC_LA );
-                curmech = a.GetLocationArmor( Constants.LOC_LA );
+                a.DecrementArmor( LocationIndex.MECH_LOC_LA );
+                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LA );
             }
         }
 
         // see if we need to change the right arm as well
         if( btnBalanceArmor.isSelected() ) {
-            a.SetArmor( Constants.LOC_RA, n.getNumber().intValue() );
+            a.SetArmor( LocationIndex.MECH_LOC_RA, n.getNumber().intValue() );
             n = (SpinnerNumberModel) spnRAArmor.getModel();
-            n.setValue( (Object) a.GetLocationArmor( Constants.LOC_RA ) );
+            n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_RA ) );
         }
 
         // now refresh the information panes
@@ -10821,30 +10831,30 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // the commitedit worked, so set the armor value appropriately
         Armor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( Constants.LOC_LT );
+        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LT );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
             while( curframe > curmech ) {
-                a.IncrementArmor( Constants.LOC_LT );
+                a.IncrementArmor( LocationIndex.MECH_LOC_LT );
                 curframe--;
             }
         } else {
             while( curmech > curframe ) {
-                a.DecrementArmor( Constants.LOC_LT );
-                curmech = a.GetLocationArmor( Constants.LOC_LT );
+                a.DecrementArmor( LocationIndex.MECH_LOC_LT );
+                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LT );
             }
         }
 
         // now we need to set the rear armor spinner correctly and update
         n = (SpinnerNumberModel) spnLTRArmor.getModel();
-        n.setValue( (Object) a.GetLocationArmor( Constants.LOC_LTR ) );
+        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_LTR ) );
 
         // see if we need to change the right torso as well
         if( btnBalanceArmor.isSelected() ) {
             n = (SpinnerNumberModel) spnLTArmor.getModel();
-            a.SetArmor( Constants.LOC_RT, n.getNumber().intValue() );
+            a.SetArmor( LocationIndex.MECH_LOC_RT, n.getNumber().intValue() );
             n = (SpinnerNumberModel) spnRTArmor.getModel();
-            n.setValue( (Object) a.GetLocationArmor( Constants.LOC_RT ) );
+            n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_RT ) );
         }
 
         // now refresh the information panes
@@ -10872,30 +10882,30 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // the commitedit worked, so set the armor value appropriately
         Armor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( Constants.LOC_LTR );
+        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LTR );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
             while( curframe > curmech ) {
-                a.IncrementArmor( Constants.LOC_LTR );
+                a.IncrementArmor( LocationIndex.MECH_LOC_LTR );
                 curframe--;
             }
         } else {
             while( curmech > curframe ) {
-                a.DecrementArmor( Constants.LOC_LTR );
-                curmech = a.GetLocationArmor( Constants.LOC_LTR );
+                a.DecrementArmor( LocationIndex.MECH_LOC_LTR );
+                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LTR );
             }
         }
 
         // now we need to set the rear armor spinner correctly and update
         n = (SpinnerNumberModel) spnLTArmor.getModel();
-        n.setValue( (Object) a.GetLocationArmor( Constants.LOC_LT ) );
+        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_LT ) );
 
         // see if we need to change the right torso as well
         if( btnBalanceArmor.isSelected() ) {
             n = (SpinnerNumberModel) spnLTRArmor.getModel();
-            a.SetArmor( Constants.LOC_RTR, n.getNumber().intValue() );
+            a.SetArmor( LocationIndex.MECH_LOC_RTR, n.getNumber().intValue() );
             n = (SpinnerNumberModel) spnRTRArmor.getModel();
-            n.setValue( (Object) a.GetLocationArmor( Constants.LOC_RTR ) );
+            n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_RTR ) );
         }
 
         // now refresh the information panes
@@ -10923,23 +10933,23 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // the commitedit worked, so set the armor value appropriately
         Armor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( Constants.LOC_CT );
+        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_CT );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
             while( curframe > curmech ) {
-                a.IncrementArmor( Constants.LOC_CT );
+                a.IncrementArmor( LocationIndex.MECH_LOC_CT );
                 curframe--;
             }
         } else {
             while( curmech > curframe ) {
-                a.DecrementArmor( Constants.LOC_CT );
-                curmech = a.GetLocationArmor( Constants.LOC_CT );
+                a.DecrementArmor( LocationIndex.MECH_LOC_CT );
+                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_CT );
             }
         }
 
         // now we need to set the rear armor spinner correctly and update
         n = (SpinnerNumberModel) spnCTRArmor.getModel();
-        n.setValue( (Object) a.GetLocationArmor( Constants.LOC_CTR ) );
+        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_CTR ) );
 
         // now refresh the information panes
         RefreshSummary();
@@ -10966,23 +10976,23 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // the commitedit worked, so set the armor value appropriately
         Armor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( Constants.LOC_CTR );
+        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_CTR );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
             while( curframe > curmech ) {
-                a.IncrementArmor( Constants.LOC_CTR );
+                a.IncrementArmor( LocationIndex.MECH_LOC_CTR );
                 curframe--;
             }
         } else {
             while( curmech > curframe ) {
-                a.DecrementArmor( Constants.LOC_CTR );
-                curmech = a.GetLocationArmor( Constants.LOC_CTR );
+                a.DecrementArmor( LocationIndex.MECH_LOC_CTR );
+                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_CTR );
             }
         }
 
         // now we need to set the rear armor spinner correctly and update
         n = (SpinnerNumberModel) spnCTArmor.getModel();
-        n.setValue( (Object) a.GetLocationArmor( Constants.LOC_CT ) );
+        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_CT ) );
 
         // now refresh the information panes
         RefreshSummary();
@@ -11009,25 +11019,25 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // the commitedit worked, so set the armor value appropriately
         Armor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( Constants.LOC_LL );
+        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LL );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
             while( curframe > curmech ) {
-                a.IncrementArmor( Constants.LOC_LL );
+                a.IncrementArmor( LocationIndex.MECH_LOC_LL );
                 curframe--;
             }
         } else {
             while( curmech > curframe ) {
-                a.DecrementArmor( Constants.LOC_LL );
-                curmech = a.GetLocationArmor( Constants.LOC_LL );
+                a.DecrementArmor( LocationIndex.MECH_LOC_LL );
+                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LL );
             }
         }
 
         // see if we need to change the right arm as well
         if( btnBalanceArmor.isSelected() ) {
-            a.SetArmor( Constants.LOC_RL, n.getNumber().intValue() );
+            a.SetArmor( LocationIndex.MECH_LOC_RL, n.getNumber().intValue() );
             n = (SpinnerNumberModel) spnRLArmor.getModel();
-            n.setValue( (Object) a.GetLocationArmor( Constants.LOC_RL ) );
+            n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_RL ) );
         }
 
         // now refresh the information panes
@@ -11055,25 +11065,25 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // the commitedit worked, so set the armor value appropriately
         Armor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( Constants.LOC_RL );
+        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RL );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
             while( curframe > curmech ) {
-                a.IncrementArmor( Constants.LOC_RL );
+                a.IncrementArmor( LocationIndex.MECH_LOC_RL );
                 curframe--;
             }
         } else {
             while( curmech > curframe ) {
-                a.DecrementArmor( Constants.LOC_RL );
-                curmech = a.GetLocationArmor( Constants.LOC_RL );
+                a.DecrementArmor( LocationIndex.MECH_LOC_RL );
+                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RL );
             }
         }
 
         // see if we need to change the right arm as well
         if( btnBalanceArmor.isSelected() ) {
-            a.SetArmor( Constants.LOC_LL, n.getNumber().intValue() );
+            a.SetArmor( LocationIndex.MECH_LOC_LL, n.getNumber().intValue() );
             n = (SpinnerNumberModel) spnLLArmor.getModel();
-            n.setValue( (Object) a.GetLocationArmor( Constants.LOC_LL ) );
+            n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_LL ) );
         }
 
         // now refresh the information panes
@@ -11086,29 +11096,29 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         Armor a = CurMech.GetArmor();
 
         // set the simple stuff first.
-        a.SetArmor( Constants.LOC_HD, 9 );
-        a.SetArmor( Constants.LOC_LA, a.GetLocationMax( Constants.LOC_LA ) );
-        a.SetArmor( Constants.LOC_RA, a.GetLocationMax( Constants.LOC_RA ) );
-        a.SetArmor( Constants.LOC_LL, a.GetLocationMax( Constants.LOC_LL ) );
-        a.SetArmor( Constants.LOC_RL, a.GetLocationMax( Constants.LOC_RL ) );
+        a.SetArmor( LocationIndex.MECH_LOC_HD, 9 );
+        a.SetArmor( LocationIndex.MECH_LOC_LA, a.GetLocationMax( LocationIndex.MECH_LOC_LA ) );
+        a.SetArmor( LocationIndex.MECH_LOC_RA, a.GetLocationMax( LocationIndex.MECH_LOC_RA ) );
+        a.SetArmor( LocationIndex.MECH_LOC_LL, a.GetLocationMax( LocationIndex.MECH_LOC_LL ) );
+        a.SetArmor( LocationIndex.MECH_LOC_RL, a.GetLocationMax( LocationIndex.MECH_LOC_RL ) );
 
         // now to set the torsos
-        int rear = Math.round( a.GetLocationMax( Constants.LOC_CT ) * Prefs.getInt( "ArmorCTRPercent", Constants.DEFAULT_CTR_ARMOR_PERCENT ) / 100 );
-        a.SetArmor( Constants.LOC_CTR, rear );
-        a.SetArmor( Constants.LOC_CT, a.GetLocationMax( Constants.LOC_CT ) - rear );
-        rear = Math.round( a.GetLocationMax( Constants.LOC_LT ) * Prefs.getInt( "ArmorSTRPercent", Constants.DEFAULT_STR_ARMOR_PERCENT ) / 100 );
-        a.SetArmor( Constants.LOC_LTR, rear );
-        a.SetArmor( Constants.LOC_LT, a.GetLocationMax( Constants.LOC_LT ) - rear );
-        rear = Math.round( a.GetLocationMax( Constants.LOC_RT ) * Prefs.getInt( "ArmorSTRPercent", Constants.DEFAULT_STR_ARMOR_PERCENT ) / 100 );
-        a.SetArmor( Constants.LOC_RTR, rear );
-        a.SetArmor( Constants.LOC_RT, a.GetLocationMax( Constants.LOC_RT ) - rear );
+        int rear = Math.round( a.GetLocationMax( LocationIndex.MECH_LOC_CT ) * Prefs.getInt( "ArmorCTRPercent", Armor.DEFAULT_CTR_ARMOR_PERCENT ) / 100 );
+        a.SetArmor( LocationIndex.MECH_LOC_CTR, rear );
+        a.SetArmor( LocationIndex.MECH_LOC_CT, a.GetLocationMax( LocationIndex.MECH_LOC_CT ) - rear );
+        rear = Math.round( a.GetLocationMax( LocationIndex.MECH_LOC_LT ) * Prefs.getInt( "ArmorSTRPercent", Armor.DEFAULT_STR_ARMOR_PERCENT ) / 100 );
+        a.SetArmor( LocationIndex.MECH_LOC_LTR, rear );
+        a.SetArmor( LocationIndex.MECH_LOC_LT, a.GetLocationMax( LocationIndex.MECH_LOC_LT ) - rear );
+        rear = Math.round( a.GetLocationMax( LocationIndex.MECH_LOC_RT ) * Prefs.getInt( "ArmorSTRPercent", Armor.DEFAULT_STR_ARMOR_PERCENT ) / 100 );
+        a.SetArmor( LocationIndex.MECH_LOC_RTR, rear );
+        a.SetArmor( LocationIndex.MECH_LOC_RT, a.GetLocationMax( LocationIndex.MECH_LOC_RT ) - rear );
 
         // if we fix the spinner models, they should refresh the screen
         FixArmorSpinners();
 
         // of course, we'll also have to set the head spinner manually.
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnHDArmor.getModel();
-        n.setValue( (Object) a.GetLocationArmor( Constants.LOC_HD ) );
+        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_HD ) );
 
         // now refresh the information panes
         RefreshSummary();
@@ -11143,7 +11153,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // of course, we'll also have to set the head spinner manually.
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnHDArmor.getModel();
-        n.setValue( (Object) CurMech.GetArmor().GetLocationArmor( Constants.LOC_HD ) );
+        n.setValue( (Object) CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_HD ) );
 
         // now refresh the information panes
         RefreshSummary();
@@ -11176,7 +11186,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             for( int i = 0; i < v.size(); i++ ) {
                 abPlaceable p = (abPlaceable) v.get( i );
                 if( p instanceof PhysicalWeapon ) {
-                    if( CurMech.GetLoadout().Find( p ) == Constants.LOC_LA ) {
+                    if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_LA ) {
                         CurMech.GetLoadout().UnallocateAll( p, false );
                     }
                 }
@@ -11212,7 +11222,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             for( int i = 0; i < v.size(); i++ ) {
                 abPlaceable p = (abPlaceable) v.get( i );
                 if( p instanceof PhysicalWeapon ) {
-                    if( CurMech.GetLoadout().Find( p ) == Constants.LOC_LA ) {
+                    if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_LA ) {
                         CurMech.GetLoadout().UnallocateAll( p, false );
                     }
                 }
@@ -11248,7 +11258,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             for( int i = 0; i < v.size(); i++ ) {
                 abPlaceable p = (abPlaceable) v.get( i );
                 if( p instanceof PhysicalWeapon ) {
-                    if( CurMech.GetLoadout().Find( p ) == Constants.LOC_RA ) {
+                    if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_RA ) {
                         CurMech.GetLoadout().UnallocateAll( p, false );
                     }
                 }
@@ -11284,7 +11294,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             for( int i = 0; i < v.size(); i++ ) {
                 abPlaceable p = (abPlaceable) v.get( i );
                 if( p instanceof PhysicalWeapon ) {
-                    if( CurMech.GetLoadout().Find( p ) == Constants.LOC_RA ) {
+                    if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_RA ) {
                         CurMech.GetLoadout().UnallocateAll( p, false );
                     }
                 }
@@ -11660,7 +11670,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // if there were no problems, let the user know how it went
         javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully to MTF:\n" + filename );
-        setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
+        setTitle( SSWConstants.AppName + " " + SSWConstants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
     }//GEN-LAST:event_btnExportMTFActionPerformed
 
     private void lstChoosePhysicalValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChoosePhysicalValueChanged
@@ -11704,7 +11714,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             cmbOmniVariant.setSelectedItem( CurLoadout );
             cmbOmniVariantActionPerformed( evt );
         }
-        setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
+        setTitle( SSWConstants.AppName + " " + SSWConstants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
     }//GEN-LAST:event_btnExportTXTActionPerformed
 
     private void btnExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportHTMLActionPerformed
@@ -11727,7 +11737,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         HTMLWriter HTMw = new HTMLWriter( CurMech );
         try {
             filename = savemech.getCanonicalPath();
-            HTMw.WriteHTML( Constants.HTMLTemplateName, filename );
+            HTMw.WriteHTML( SSWConstants.HTMLTemplateName, filename );
         } catch( IOException e ) {
             javax.swing.JOptionPane.showMessageDialog( this, "There was a problem writing the file:\n" + e.getMessage() );
             return;
@@ -11741,7 +11751,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             cmbOmniVariant.setSelectedItem( CurLoadout );
             cmbOmniVariantActionPerformed( evt );
         }
-        setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
+        setTitle( SSWConstants.AppName + " " + SSWConstants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
     }//GEN-LAST:event_btnExportHTMLActionPerformed
 
     private void mnuAboutSSWActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAboutSSWActionPerformed
@@ -12033,7 +12043,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // ensure we're not using the base loadout's name.
-        if( Constants.BASELOADOUT_NAME.equals( VariantName ) ) {
+        if( common.Constants.BASELOADOUT_NAME.equals( VariantName ) ) {
             javax.swing.JOptionPane.showMessageDialog( this, "\"" + VariantName + "\" is reserved for the base loadout and cannot be used\nfor a new loadout.  Please choose another name." );
             return;
         }
@@ -12120,7 +12130,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( choice == 1 ) {
             return;
         } else {
-            if( CurMech.GetLoadout().GetName().equals( Constants.BASELOADOUT_NAME ) ) {
+            if( CurMech.GetLoadout().GetName().equals( common.Constants.BASELOADOUT_NAME ) ) {
                 javax.swing.JOptionPane.showMessageDialog( this, "You cannot remove the base chassis." );
                 return;
             }
@@ -12273,7 +12283,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         setCursor( NormalCursor );
-        setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
+        setTitle( SSWConstants.AppName + " " + SSWConstants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
         CurMech.SetChanged( false );
 	}//GEN-LAST:event_mnuSaveActionPerformed
 
@@ -12347,7 +12357,7 @@ private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         cmbOmniVariant.setSelectedItem( CurLoadout );
         cmbOmniVariantActionPerformed( evt );
     }
-    setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
+    setTitle( SSWConstants.AppName + " " + SSWConstants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
     CurMech.SetChanged( false );
     setCursor( NormalCursor );
 }//GEN-LAST:event_mnuSaveAsActionPerformed
@@ -12454,7 +12464,7 @@ private void btnEfficientArmorActionPerformed(java.awt.event.ActionEvent evt) {/
 
     // of course, we'll also have to set the head spinner manually.
     javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnHDArmor.getModel();
-    n.setValue( (Object) CurMech.GetArmor().GetLocationArmor( Constants.LOC_HD ) );
+    n.setValue( (Object) CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_HD ) );
 
     // now refresh the information panes
     RefreshSummary();
@@ -12567,7 +12577,7 @@ private void btnRemainingArmorActionPerformed(java.awt.event.ActionEvent evt) {/
 
     // of course, we'll also have to set the head spinner manually.
     javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnHDArmor.getModel();
-    n.setValue( (Object) CurMech.GetArmor().GetLocationArmor( Constants.LOC_HD ) );
+    n.setValue( (Object) CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_HD ) );
 
     // now refresh the information panes
     RefreshSummary();
@@ -12889,7 +12899,7 @@ public void LoadMechIntoGUI() {
         txtSumPAmpsACode.setVisible( true );
     }
 
-    setTitle( Constants.AppName + " " + Constants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
+    setTitle( SSWConstants.AppName + " " + SSWConstants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
 }
 
 private void mnuExportClipboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportClipboardActionPerformed
@@ -13670,7 +13680,7 @@ private void mnuImportHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     String Messages = "";
     try {
         HMPReader HMPr = new HMPReader();
-        m = HMPr.GetMech( filename );
+        m = HMPr.GetMech( filename, false );
         Messages = HMPr.GetErrors();
     } catch( Exception e ) {
         // had a problem loading the mech.  let the user know.
@@ -13753,6 +13763,12 @@ private void btnBracketChartActionPerformed(java.awt.event.ActionEvent evt) {//G
     charts.setLocationRelativeTo( this );
     charts.setVisible( true );
 }//GEN-LAST:event_btnBracketChartActionPerformed
+
+private void mnuBatchHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBatchHMPActionPerformed
+    dlgBatchHMP Batch = new dlgBatchHMP( this, true );
+    Batch.setLocationRelativeTo( this );
+    Batch.setVisible( true );
+}//GEN-LAST:event_mnuBatchHMPActionPerformed
 
 private void setViewToolbar(boolean Visible)
 {
@@ -14124,6 +14140,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JList lstRTCrits;
     private javax.swing.JList lstSelectedEquipment;
     private javax.swing.JMenuItem mnuAboutSSW;
+    private javax.swing.JMenuItem mnuBatchHMP;
     private javax.swing.JMenuItem mnuClearUserData;
     private javax.swing.JMenuItem mnuCostBVBreakdown;
     private javax.swing.JMenuItem mnuCreateTCGMech;

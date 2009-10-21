@@ -29,16 +29,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.filehandlers;
 
 import java.util.Vector;
-import ssw.components.*;
+import components.*;
 import ssw.gui.frmMain;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.*;
-import ssw.utilities.CommonTools;
-import ssw.Constants;
-import ssw.battleforce.BattleForceStats;
-import ssw.visitors.VMechFullRecalc;
-import ssw.visitors.ifVisitor;
+import common.CommonTools;
+import battleforce.BattleForceStats;
+import common.DataFactory;
+import visitors.VMechFullRecalc;
+import visitors.ifVisitor;
 
 public class XMLReader {
     frmMain Parent;
@@ -108,7 +108,7 @@ public class XMLReader {
  */
     public Mech ReadMech( frmMain parent, String filename, DataFactory f ) throws Exception {
         Parent = parent;
-        Mech retval = new Mech( Parent );
+        Mech retval = new Mech( Parent.Prefs );
         filename = FileCommon.GetSafeFilename( filename );
         load = db.parse( filename );
 
@@ -297,9 +297,9 @@ public class XMLReader {
         }
         n = d.getElementsByTagName( "techbase" );
         map = n.item( 0 ).getAttributes();
-        if( n.item( 0 ).getTextContent().equals( Constants.strCLAN ) ) {
+        if( n.item( 0 ).getTextContent().equals( AvailableCode.TechBaseSTR[AvailableCode.TECH_CLAN] ) ) {
             m.SetClan();
-        } else if( n.item( 0 ).getTextContent().equals( Constants.strMIXED ) ) {
+        } else if( n.item( 0 ).getTextContent().equals( AvailableCode.TechBaseSTR[AvailableCode.TECH_BOTH] ) ) {
             m.SetMixed();
         }
         m.SetCompany( FileCommon.DecodeFluff( map.getNamedItem( "manufacturer" ).getTextContent() ) );
@@ -334,13 +334,13 @@ public class XMLReader {
         if( map.getNamedItem( "lsstart" ) != null ) {
             l = new LocationIndex();
             l.Index = Integer.parseInt( map.getNamedItem( "lsstart" ).getTextContent() );
-            l.Location = Constants.LOC_LT;
+            l.Location = LocationIndex.MECH_LOC_LT;
             lengine[0] = l;
         }
         if( map.getNamedItem( "rsstart" ) != null ) {
             l = new LocationIndex();
             l.Index = Integer.parseInt( map.getNamedItem( "rsstart" ).getTextContent() );
-            l.Location = Constants.LOC_RT;
+            l.Location = LocationIndex.MECH_LOC_RT;
             lengine[1] = l;
         }
         v = m.Lookup( n.item( 0 ).getTextContent() );
@@ -536,7 +536,7 @@ public class XMLReader {
                 if( hsLoc.size() != m.GetHeatSinks().GetPlacedHeatSinks().length ) {
                     throw new Exception( "The heat sinks in the loadout do not match the heatsinks that are saved.\nThe Mech cannot be loaded." );
                 } else {
-                    ifLoadout loadout = m.GetLoadout();
+                    ifMechLoadout loadout = m.GetLoadout();
                     HeatSink[] hsList = m.GetHeatSinks().GetPlacedHeatSinks();
                     for( int j = 0; j < hsLoc.size(); j++ ) {
                         // place each heat sink
@@ -575,7 +575,7 @@ public class XMLReader {
                 if( jjLoc.size() != m.GetJumpJets().GetPlacedJumps().length ) {
                     throw new Exception( "The jump jets in the loadout do not match the heatsinks that are saved.\nThe Mech cannot be loaded." );
                 } else {
-                    ifLoadout loadout = m.GetLoadout();
+                    ifMechLoadout loadout = m.GetLoadout();
                     JumpJet[] jjList = m.GetJumpJets().GetPlacedJumps();
                     for( int j = 0; j < jjLoc.size(); j++ ) {
                         // place each heat sink
@@ -629,13 +629,13 @@ public class XMLReader {
                         }
                         ltc = l;
                     } else if( eType.equals( "CASE" ) ) {
-                        if( l.Location == Constants.LOC_CT ) {
+                        if( l.Location == LocationIndex.MECH_LOC_CT ) {
                             m.GetLoadout().SetCTCASE( true, l.Index );
                         }
-                        if( l.Location == Constants.LOC_LT ) {
+                        if( l.Location == LocationIndex.MECH_LOC_LT ) {
                             m.GetLoadout().SetLTCASE( true, l.Index );
                         }
-                        if( l.Location == Constants.LOC_RT ) {
+                        if( l.Location == LocationIndex.MECH_LOC_RT ) {
                             m.GetLoadout().SetRTCASE( true, l.Index );
                         }
                     } else if( eType.equals( "CASEII" ) ) {
@@ -645,28 +645,28 @@ public class XMLReader {
                         } else {
                             clan = false;
                         }
-                        if( l.Location == Constants.LOC_HD ) {
+                        if( l.Location == LocationIndex.MECH_LOC_HD ) {
                             m.GetLoadout().SetHDCASEII( true, l.Index, clan );
                         }
-                        if( l.Location == Constants.LOC_CT ) {
+                        if( l.Location == LocationIndex.MECH_LOC_CT ) {
                             m.GetLoadout().SetCTCASEII( true, l.Index, clan );
                         }
-                        if( l.Location == Constants.LOC_LT ) {
+                        if( l.Location == LocationIndex.MECH_LOC_LT ) {
                             m.GetLoadout().SetLTCASEII( true, l.Index, clan );
                         }
-                        if( l.Location == Constants.LOC_RT ) {
+                        if( l.Location == LocationIndex.MECH_LOC_RT ) {
                             m.GetLoadout().SetRTCASEII( true, l.Index, clan );
                         }
-                        if( l.Location == Constants.LOC_LA ) {
+                        if( l.Location == LocationIndex.MECH_LOC_LA ) {
                             m.GetLoadout().SetLACASEII( true, l.Index, clan );
                         }
-                        if( l.Location == Constants.LOC_RA ) {
+                        if( l.Location == LocationIndex.MECH_LOC_RA ) {
                             m.GetLoadout().SetRACASEII( true, l.Index, clan );
                         }
-                        if( l.Location == Constants.LOC_LL ) {
+                        if( l.Location == LocationIndex.MECH_LOC_LL ) {
                             m.GetLoadout().SetLLCASEII( true, l.Index, clan );
                         }
-                        if( l.Location == Constants.LOC_RL ) {
+                        if( l.Location == LocationIndex.MECH_LOC_RL ) {
                             m.GetLoadout().SetRLCASEII( true, l.Index, clan );
                         }
                     } else if( eType.equals( "Supercharger" ) ) {
@@ -755,13 +755,13 @@ public class XMLReader {
                 if( map.getNamedItem( "lsstart" ) != null ) {
                     l = new LocationIndex();
                     l.Index = Integer.parseInt( map.getNamedItem( "lsstart" ).getTextContent() );
-                    l.Location = Constants.LOC_LT;
+                    l.Location = LocationIndex.MECH_LOC_LT;
                     lpw[0] = l;
                 }
                 if( map.getNamedItem( "rsstart" ) != null ) {
                     l = new LocationIndex();
                     l.Index = Integer.parseInt( map.getNamedItem( "rsstart" ).getTextContent() );
-                    l.Location = Constants.LOC_RT;
+                    l.Location = LocationIndex.MECH_LOC_RT;
                     lpw[1] = l;
                 }
                 m.SetPartialWing( true, lpw );
@@ -769,10 +769,10 @@ public class XMLReader {
                 map = n.item( i ).getAttributes();
                 String Loc = map.getNamedItem( "location" ).getTextContent();
                 int Index = Integer.parseInt( map.getNamedItem( "index" ).getTextContent() );
-                if( FileCommon.DecodeLocation( Loc ) == Constants.LOC_LA ) {
+                if( FileCommon.DecodeLocation( Loc ) == LocationIndex.MECH_LOC_LA ) {
                     m.SetLAAES( true, Index );
                 }
-                if( FileCommon.DecodeLocation( Loc ) == Constants.LOC_RA ) {
+                if( FileCommon.DecodeLocation( Loc ) == LocationIndex.MECH_LOC_RA ) {
                     m.SetRAAES( true, Index );
                 }
             } else if( n.item( i ).getNodeName().equals( "leg_aes" ) ) {
@@ -816,7 +816,7 @@ public class XMLReader {
         }
 
         // place the internal structure
-        ifLoadout loadout = m.GetLoadout();
+        ifMechLoadout loadout = m.GetLoadout();
         // place the internal structure
         if( isLoc.size() > 0 ) {
             InternalStructure is = m.GetIntStruc();
@@ -836,27 +836,27 @@ public class XMLReader {
             if( n.item( i ).getNodeName().equals( "location" ) ) {
                 armLoc.add( DecodeLocation( n.item( i ) ) );
             } else if( n.item( i ).getNodeName().equals( "hd" ) ) {
-                ArmorPoints[Constants.LOC_HD] = Integer.parseInt( n.item( i ).getTextContent() );
+                ArmorPoints[LocationIndex.MECH_LOC_HD] = Integer.parseInt( n.item( i ).getTextContent() );
             } else if( n.item( i ).getNodeName().equals( "ct" ) ) {
-                ArmorPoints[Constants.LOC_CT] = Integer.parseInt( n.item( i ).getTextContent() );
+                ArmorPoints[LocationIndex.MECH_LOC_CT] = Integer.parseInt( n.item( i ).getTextContent() );
             } else if( n.item( i ).getNodeName().equals( "ctr" ) ) {
-                ArmorPoints[Constants.LOC_CTR] = Integer.parseInt( n.item( i ).getTextContent() );
+                ArmorPoints[LocationIndex.MECH_LOC_CTR] = Integer.parseInt( n.item( i ).getTextContent() );
             } else if( n.item( i ).getNodeName().equals( "lt" ) ) {
-                ArmorPoints[Constants.LOC_LT] = Integer.parseInt( n.item( i ).getTextContent() );
+                ArmorPoints[LocationIndex.MECH_LOC_LT] = Integer.parseInt( n.item( i ).getTextContent() );
             } else if( n.item( i ).getNodeName().equals( "ltr" ) ) {
-                ArmorPoints[Constants.LOC_LTR] = Integer.parseInt( n.item( i ).getTextContent() );
+                ArmorPoints[LocationIndex.MECH_LOC_LTR] = Integer.parseInt( n.item( i ).getTextContent() );
             } else if( n.item( i ).getNodeName().equals( "rt" ) ) {
-                ArmorPoints[Constants.LOC_RT] = Integer.parseInt( n.item( i ).getTextContent() );
+                ArmorPoints[LocationIndex.MECH_LOC_RT] = Integer.parseInt( n.item( i ).getTextContent() );
             } else if( n.item( i ).getNodeName().equals( "rtr" ) ) {
-                ArmorPoints[Constants.LOC_RTR] = Integer.parseInt( n.item( i ).getTextContent() );
+                ArmorPoints[LocationIndex.MECH_LOC_RTR] = Integer.parseInt( n.item( i ).getTextContent() );
             } else if( n.item( i ).getNodeName().equals( "la" ) ) {
-                ArmorPoints[Constants.LOC_LA] = Integer.parseInt( n.item( i ).getTextContent() );
+                ArmorPoints[LocationIndex.MECH_LOC_LA] = Integer.parseInt( n.item( i ).getTextContent() );
             } else if( n.item( i ).getNodeName().equals( "ra" ) ) {
-                ArmorPoints[Constants.LOC_RA] = Integer.parseInt( n.item( i ).getTextContent() );
+                ArmorPoints[LocationIndex.MECH_LOC_RA] = Integer.parseInt( n.item( i ).getTextContent() );
             } else if( n.item( i ).getNodeName().equals( "ll" ) ) {
-                ArmorPoints[Constants.LOC_LL] = Integer.parseInt( n.item( i ).getTextContent() );
+                ArmorPoints[LocationIndex.MECH_LOC_LL] = Integer.parseInt( n.item( i ).getTextContent() );
             } else if( n.item( i ).getNodeName().equals( "rl" ) ) {
-                ArmorPoints[Constants.LOC_RL] = Integer.parseInt( n.item( i ).getTextContent() );
+                ArmorPoints[LocationIndex.MECH_LOC_RL] = Integer.parseInt( n.item( i ).getTextContent() );
             } else if( n.item( i ).getNodeName().equals( "type" ) ) {
                 Type = n.item( i );
             }
@@ -889,17 +889,17 @@ public class XMLReader {
         m.SetArmorModel( FileCommon.DecodeFluff( map.getNamedItem( "manufacturer" ).getTextContent() ) );
         m.GetArmor().Recalculate();
         // set the armor points
-        m.GetArmor().SetArmor( Constants.LOC_HD, ArmorPoints[Constants.LOC_HD] );
-        m.GetArmor().SetArmor( Constants.LOC_CT, ArmorPoints[Constants.LOC_CT] );
-        m.GetArmor().SetArmor( Constants.LOC_CTR, ArmorPoints[Constants.LOC_CTR] );
-        m.GetArmor().SetArmor( Constants.LOC_LT, ArmorPoints[Constants.LOC_LT] );
-        m.GetArmor().SetArmor( Constants.LOC_LTR, ArmorPoints[Constants.LOC_LTR] );
-        m.GetArmor().SetArmor( Constants.LOC_RT, ArmorPoints[Constants.LOC_RT] );
-        m.GetArmor().SetArmor( Constants.LOC_RTR, ArmorPoints[Constants.LOC_RTR] );
-        m.GetArmor().SetArmor( Constants.LOC_LA, ArmorPoints[Constants.LOC_LA] );
-        m.GetArmor().SetArmor( Constants.LOC_RA, ArmorPoints[Constants.LOC_RA] );
-        m.GetArmor().SetArmor( Constants.LOC_LL, ArmorPoints[Constants.LOC_LL] );
-        m.GetArmor().SetArmor( Constants.LOC_RL, ArmorPoints[Constants.LOC_RL] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_HD, ArmorPoints[LocationIndex.MECH_LOC_HD] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_CT, ArmorPoints[LocationIndex.MECH_LOC_CT] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_CTR, ArmorPoints[LocationIndex.MECH_LOC_CTR] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_LT, ArmorPoints[LocationIndex.MECH_LOC_LT] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_LTR, ArmorPoints[LocationIndex.MECH_LOC_LTR] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_RT, ArmorPoints[LocationIndex.MECH_LOC_RT] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_RTR, ArmorPoints[LocationIndex.MECH_LOC_RTR] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_LA, ArmorPoints[LocationIndex.MECH_LOC_LA] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_RA, ArmorPoints[LocationIndex.MECH_LOC_RA] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_LL, ArmorPoints[LocationIndex.MECH_LOC_LL] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_RL, ArmorPoints[LocationIndex.MECH_LOC_RL] );
 
         // place the armor
         if( ! m.GetArmor().IsStealth() ) {
@@ -1173,13 +1173,13 @@ public class XMLReader {
                                 }
                                 ltc = l;
                             } else if( eType.equals( "CASE" ) ) {
-                                if( l.Location == Constants.LOC_CT ) {
+                                if( l.Location == LocationIndex.MECH_LOC_CT ) {
                                     m.GetLoadout().SetCTCASE( true, l.Index );
                                 }
-                                if( l.Location == Constants.LOC_LT ) {
+                                if( l.Location == LocationIndex.MECH_LOC_LT ) {
                                     m.GetLoadout().SetLTCASE( true, l.Index );
                                 }
-                                if( l.Location == Constants.LOC_RT ) {
+                                if( l.Location == LocationIndex.MECH_LOC_RT ) {
                                     m.GetLoadout().SetRTCASE( true, l.Index );
                                 }
                             } else if( eType.equals( "CASEII" ) ) {
@@ -1189,28 +1189,28 @@ public class XMLReader {
                                 } else {
                                     clan = false;
                                 }
-                                if( l.Location == Constants.LOC_HD ) {
+                                if( l.Location == LocationIndex.MECH_LOC_HD ) {
                                     m.GetLoadout().SetHDCASEII( true, l.Index, clan );
                                 }
-                                if( l.Location == Constants.LOC_CT ) {
+                                if( l.Location == LocationIndex.MECH_LOC_CT ) {
                                     m.GetLoadout().SetCTCASEII( true, l.Index, clan );
                                 }
-                                if( l.Location == Constants.LOC_LT ) {
+                                if( l.Location == LocationIndex.MECH_LOC_LT ) {
                                     m.GetLoadout().SetLTCASEII( true, l.Index, clan );
                                 }
-                                if( l.Location == Constants.LOC_RT ) {
+                                if( l.Location == LocationIndex.MECH_LOC_RT ) {
                                     m.GetLoadout().SetRTCASEII( true, l.Index, clan );
                                 }
-                                if( l.Location == Constants.LOC_LA ) {
+                                if( l.Location == LocationIndex.MECH_LOC_LA ) {
                                     m.GetLoadout().SetLACASEII( true, l.Index, clan );
                                 }
-                                if( l.Location == Constants.LOC_RA ) {
+                                if( l.Location == LocationIndex.MECH_LOC_RA ) {
                                     m.GetLoadout().SetRACASEII( true, l.Index, clan );
                                 }
-                                if( l.Location == Constants.LOC_LL ) {
+                                if( l.Location == LocationIndex.MECH_LOC_LL ) {
                                     m.GetLoadout().SetLLCASEII( true, l.Index, clan );
                                 }
-                                if( l.Location == Constants.LOC_RL ) {
+                                if( l.Location == LocationIndex.MECH_LOC_RL ) {
                                     m.GetLoadout().SetRLCASEII( true, l.Index, clan );
                                 }
                             } else if( eType.equals( "Supercharger" ) ) {
@@ -1283,7 +1283,7 @@ public class XMLReader {
             m.RemoveLoadout( "SSW_TEMP_LOADOUT_001" );
 
             // make sure the 'Mech is set to the first loadout.
-            m.SetCurLoadout( ((ifLoadout) m.GetLoadouts().get( 0 )).GetName() );
+            m.SetCurLoadout( ((ifMechLoadout) m.GetLoadouts().get( 0 )).GetName() );
         }
 
         // fluff last

@@ -29,8 +29,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.gui;
 
 import java.util.Vector;
-import ssw.utilities.CommonTools;
-import ssw.components.Mech;
+import common.CommonTools;
+import components.Mech;
 import javax.print.*;
 
 public class dlgPrintOptions extends javax.swing.JDialog {

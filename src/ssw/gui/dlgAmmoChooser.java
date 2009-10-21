@@ -29,10 +29,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.gui;
 
 import java.util.Vector;
-import ssw.components.Ammunition;
-import ssw.components.DataFactory;
-import ssw.components.LocationIndex;
-import ssw.components.Mech;
+import components.Ammunition;
+import common.DataFactory;
+import components.LocationIndex;
+import components.Mech;
 
 public class dlgAmmoChooser extends javax.swing.JDialog {
 

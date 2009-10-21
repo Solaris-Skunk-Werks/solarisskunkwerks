@@ -35,8 +35,7 @@ import java.util.Vector;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
-import ssw.*;
-import ssw.components.*;
+import components.*;
 
 public class thRTTransferHandler extends TransferHandler {
     private frmMain Parent;
@@ -53,7 +52,7 @@ public class thRTTransferHandler extends TransferHandler {
     public Transferable createTransferable( JComponent comp ) {
         // all we want to do is transfer the index in the queue
         LocationDragDatagram d = new LocationDragDatagram();
-        d.Location = Constants.LOC_RT;
+        d.Location = LocationIndex.MECH_LOC_RT;
         d.SourceIndex = ((JList) comp).getSelectedIndex();
         d.Locked = CurMech.GetLoadout().GetRTCrits()[d.SourceIndex].LocationLocked();
         if( CurMech.GetLoadout().GetRTCrits()[d.SourceIndex] instanceof EmptyItem ) {
@@ -84,13 +83,13 @@ public class thRTTransferHandler extends TransferHandler {
         if( DropItem.Locked ) {
             abPlaceable a = CurMech.GetLoadout().GetCrits( DropItem.Location )[DropItem.SourceIndex];
             if( a instanceof CASE || a instanceof CASEII || a instanceof MultiSlotSystem || a instanceof Supercharger || a instanceof Engine || a instanceof SimplePlaceable || a instanceof PartialWing || a instanceof Armor ) {
-                if( DropItem.Location != Constants.LOC_RT ) {
+                if( DropItem.Location != LocationIndex.MECH_LOC_RT ) {
                     return false;
                 } else {
                     // get the drop location
                     JList.DropLocation dl = (JList.DropLocation) info.getDropLocation();
                     int dindex = dl.getIndex();
-                    if( ( CurMech.GetLoadout().GetCrits( Constants.LOC_RT )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( Constants.LOC_RT )[dindex].LocationLinked() ) && a != CurMech.GetLoadout().GetCrits( Constants.LOC_RT )[dindex] ) {
+                    if( ( CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_RT )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_RT )[dindex].LocationLinked() ) && a != CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_RT )[dindex] ) {
                         return false;
                     }
                     if( a instanceof CASE ) {
@@ -139,7 +138,7 @@ public class thRTTransferHandler extends TransferHandler {
                         // get the side torso crit size so we can check for non-
                         // moveable items.  This'll probably piss some people off
                         int Size = CurMech.GetEngine().GetSideTorsoCrits();
-                        abPlaceable[] Loc = CurMech.GetLoadout().GetCrits( Constants.LOC_RT );
+                        abPlaceable[] Loc = CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_RT );
                         try {
                             for( int i = 0; i < Size; i++ ) {
                                 if( ( Loc[dindex + i].LocationLocked() || Loc[dindex + i].LocationLinked() ) && a != Loc[dindex + i] ) {
@@ -221,11 +220,11 @@ public class thRTTransferHandler extends TransferHandler {
                     }
                     CurMech.GetLoadout().AddToRT( a, dindex );
                 } else {
-                    if( DropItem.Location == Constants.LOC_RT ) {
+                    if( DropItem.Location == LocationIndex.MECH_LOC_RT ) {
                         LocationIndex loc1 = null;
                         LocationIndex loc2 = null;
                         for( int i = 0; i < v.size(); i++ ) {
-                            if( ((LocationIndex) v.get( i )).Location == Constants.LOC_RT ) {
+                            if( ((LocationIndex) v.get( i )).Location == LocationIndex.MECH_LOC_RT ) {
                                 loc1 = (LocationIndex) v.get( i );
                             } else {
                                 loc2 = (LocationIndex) v.get( i );
@@ -276,7 +275,7 @@ public class thRTTransferHandler extends TransferHandler {
     private boolean SplitAllocate( abPlaceable a, int dindex ) throws Exception {
         int ToPlace = CurMech.GetLoadout().FreeFrom( CurMech.GetLoadout().GetRTCrits(), dindex );
         if( ToPlace < a.NumCrits() ) {
-            dlgSplitCrits dlgSplit = new dlgSplitCrits( Parent, true, a, Constants.LOC_RT, dindex );
+            dlgSplitCrits dlgSplit = new dlgSplitCrits( Parent, true, a, LocationIndex.MECH_LOC_RT, dindex );
             Point p = Parent.getLocationOnScreen();
             dlgSplit.setLocation( p.x + 100, p.y + 100 );
             dlgSplit.setVisible( true );

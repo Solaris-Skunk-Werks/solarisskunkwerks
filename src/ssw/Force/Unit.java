@@ -33,7 +33,7 @@ import ssw.Force.Common.CommonTools;
 import ssw.Force.Common.Constants;
 import org.w3c.dom.Node;
 import ssw.Force.IO.PrintSheet;
-import ssw.components.Mech;
+import components.Mech;
 import ssw.filehandlers.FileCommon;
 import ssw.filehandlers.XMLReader;
 

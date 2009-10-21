@@ -30,10 +30,10 @@ package ssw.gui;
 
 import java.util.Vector;
 import javax.swing.table.DefaultTableCellRenderer;
-import ssw.components.Ammunition;
-import ssw.components.Mech;
-import ssw.components.ifWeapon;
-import ssw.utilities.CommonTools;
+import components.Ammunition;
+import components.Mech;
+import components.ifWeapon;
+import common.CommonTools;
 
 public class dlgBracketCharts extends javax.swing.JDialog {
 
@@ -89,18 +89,27 @@ public class dlgBracketCharts extends javax.swing.JDialog {
         for( int i = 0; i < wep.size(); i++ ) {
             ifWeapon w = wep.get( i );
             if( w.HasAmmo() ) {
+                boolean added = false;
                 // search for other ammunition for this weapon.
                 for( int x = ammo.size() - 1; x >= 0; x-- ) {
                     Ammunition a = ammo.get( x );
                     if( w.GetAmmoIndex() == a.GetAmmoIndex() ) {
                         temp.add( new WeaponInfo( w, a ) );
                         ammo.remove( a );
+                        added = true;
                     }
+                }
+                if( ! added ) {
+                    // add the weapon in by itself
+                    temp.add( new WeaponInfo( w ) );
                 }
             } else {
                 temp.add( new WeaponInfo( w ) );
             }
         }
+
+        // sort the weapon info by range
+        SortWeapons( temp );
 
         // turn the temporary vector into an array
         cols += 1;
@@ -159,11 +168,36 @@ public class dlgBracketCharts extends javax.swing.JDialog {
             }
         } );
         for( int i = 1; i < tblBrackets.getColumnCount(); i++ ) {
-            tblBrackets.getColumnModel().getColumn( i ).setPreferredWidth( 29 );
-            tblBrackets.getColumnModel().getColumn( i ).setMinWidth( 29 );
-            tblBrackets.getColumnModel().getColumn( i ).setMaxWidth( 29 );
+            tblBrackets.getColumnModel().getColumn( i ).setPreferredWidth( 35 );
+            tblBrackets.getColumnModel().getColumn( i ).setMinWidth( 35 );
+            tblBrackets.getColumnModel().getColumn( i ).setMaxWidth( 35 );
         }
-        tblBrackets.getColumnModel().getColumn( 0 ).sizeWidthToFit();
+        tblBrackets.getColumnModel().getColumn( 0 ).setCellRenderer( new DefaultTableCellRenderer() );
+        tblBrackets.getColumnModel().getColumn( 0 ).setMinWidth( 125 );
+    }
+
+    private void SortWeapons( Vector<WeaponInfo> v ) {
+        // sort by longest range (using gnomesort for less code.  may have to change
+        // this depending on the slowness of the program.  I figure lower overhead
+        // will have better results at this time, and mechs typically don't
+        // carry more than twelve to fifteen weapons.  I'll have to test this.
+        int i = 1, j = 2;
+        WeaponInfo swap;
+        while( i < v.size() ) {
+            // get the two items we'll be comparing
+            if( v.get( i - 1 ).GetLongRange() >= v.get( i ).GetLongRange() ) {
+                i = j;
+                j += 1;
+            } else {
+                swap = v.get( i - 1 );
+                v.setElementAt( v.get( i ), i - 1 );
+                v.setElementAt( swap, i );
+                i -= 1;
+                if( i == 0 ) {
+                    i = 1;
+                }
+            }
+        }
     }
 
     private class BracketRenderer extends DefaultTableCellRenderer {
@@ -209,6 +243,11 @@ public class dlgBracketCharts extends javax.swing.JDialog {
             return CommonTools.GetAverageDamageAtRange( wep, range );
         }
 
+        public int GetLongRange() {
+            if( HasAmmo() ) { return ammo.GetLongRange(); }
+            return wep.GetRangeLong();
+        }
+
         public boolean CanUseTC() {
             return wep.IsTCCapable();
         }
@@ -225,6 +264,7 @@ public class dlgBracketCharts extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBrackets = new javax.swing.JTable();
+        btnClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -246,27 +286,43 @@ public class dlgBracketCharts extends javax.swing.JDialog {
         tblBrackets.setAutoscrolls(false);
         jScrollPane1.setViewportView(tblBrackets);
 
+        btnClose.setText("Close");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 722, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 722, Short.MAX_VALUE)
+                    .addComponent(btnClose))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(333, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnClose)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCloseActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClose;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblBrackets;
     // End of variables declaration//GEN-END:variables

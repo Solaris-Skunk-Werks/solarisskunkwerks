@@ -32,9 +32,9 @@ import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import ssw.components.Ammunition;
-import ssw.components.LocationIndex;
-import ssw.components.abPlaceable;
+import components.Ammunition;
+import components.LocationIndex;
+import components.abPlaceable;
 import ssw.filehandlers.FileCommon;
 
 public class AmmoChooserRenderer extends DefaultListCellRenderer {

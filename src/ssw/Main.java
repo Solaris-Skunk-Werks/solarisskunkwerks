@@ -48,22 +48,22 @@ public class Main {
     public static void main(String[] args) {
         Runtime runtime = Runtime.getRuntime();
         System.out.println("Memory Allocated [" + runtime.maxMemory() / 1000 + "]");
-        
+/*
         //Requires 256mb of memory for canon dot pattern printing.
-//        if (runtime.maxMemory() < 256000000) {
-//            try {
-//                String[] call = { "java", "-Xmx256m", "-jar", "dist/SSW.jar" };
-//                runtime.exec(call);
-//                System.exit(0);
-//            } catch (Exception ex) {
-//                //ex.printStackTrace();
-//            }
-//        }
+        if( runtime.maxMemory() < 256000000 ) {
+            try {
+                String[] call = { "java", "-Xmx256m", "-jar", "dist/SSW.jar" };
+                runtime.exec( call );
+                System.exit( 0 );
+            } catch( Exception e ) {
+                e.printStackTrace();
+            }
+        }
 
         // uncomment the following line before creating a build.
 
-        //SetupLogFile( Constants.LogFileName );
-
+        SetupLogFile( Constants.LogFileName );
+*/
         try {
             // added code to turn off the boldface of Metal L&F.
             // Set System L&F

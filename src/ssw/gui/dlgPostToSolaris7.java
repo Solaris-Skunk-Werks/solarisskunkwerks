@@ -35,8 +35,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.DefaultComboBoxModel;
-import ssw.Constants;
-import ssw.components.Mech;
+import ssw.SSWConstants;
+import components.Mech;
 import ssw.filehandlers.HTMLWriter;
 import ssw.filehandlers.XMLRPCClient;
 
@@ -343,7 +343,7 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
 private void btnGetArmoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetArmoriesActionPerformed
     setCursor( Hourglass );
-    XMLRPCClient serve = new XMLRPCClient( Constants.Solaris7URL );
+    XMLRPCClient serve = new XMLRPCClient( SSWConstants.Solaris7URL );
     Callsign = txtCallsign.getText();
     Password = String.copyValueOf( txtPassword.getPassword() );
 
@@ -389,7 +389,6 @@ private void btnPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     setCursor( Hourglass );
     if( chkSaveInfo.isSelected() ) {
         Callsign = txtCallsign.getText();
-        UserID = UserID;
         Password = String.copyValueOf( txtPassword.getPassword() );
         Parent.Prefs.put( "S7Callsign", Callsign );
         Parent.Prefs.put( "S7Password", Password );
@@ -398,7 +397,7 @@ private void btnPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 
     // export the mech to HTML
     String file = "";
-    XMLRPCClient serve = new XMLRPCClient( Constants.Solaris7URL );
+    XMLRPCClient serve = new XMLRPCClient( SSWConstants.Solaris7URL );
 
     if( CurMech.GetModel().isEmpty() ) {
         file = CurMech.GetName() + ".html";
@@ -413,7 +412,7 @@ private void btnPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     String HTMLout = "";
 
     try {
-        HTMw.WriteHTML( Constants.HTMLTemplateName, file );
+        HTMw.WriteHTML( SSWConstants.HTMLTemplateName, file );
         HTMLout = GetHTMLFromFile( file );
     } catch( IOException e ) {
         javax.swing.JOptionPane.showMessageDialog( this, "There was a problem writing or reading the file:\n" + e.getMessage() );

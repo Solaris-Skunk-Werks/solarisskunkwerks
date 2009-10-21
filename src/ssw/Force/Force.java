@@ -27,7 +27,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.Force;
 
-import java.awt.Image;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import ssw.Force.Common.*;
@@ -35,8 +34,8 @@ import java.util.Vector;
 import javax.swing.table.AbstractTableModel;
 import org.w3c.dom.Node;
 import ssw.Force.IO.PrintSheet;
-import ssw.battleforce.BattleForce;
-import ssw.battleforce.BattleForceStats;
+import battleforce.BattleForce;
+import battleforce.BattleForceStats;
 
 public class Force extends AbstractTableModel {
     public Vector Units = new Vector();

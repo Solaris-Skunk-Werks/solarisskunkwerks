@@ -32,9 +32,10 @@ import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import ssw.components.AvailableCode;
-import ssw.components.Equipment;
-import ssw.components.abPlaceable;
+import components.AvailableCode;
+import components.Equipment;
+import components.abPlaceable;
+import gui.EquipmentCollection;
 
 public class EquipmentListRenderer extends DefaultListCellRenderer {
     private frmMain Parent;

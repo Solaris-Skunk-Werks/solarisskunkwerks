@@ -33,8 +33,7 @@ import java.awt.datatransfer.Transferable;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
-import ssw.*;
-import ssw.components.*;
+import components.*;
 
 public class thHDTransferHandler extends TransferHandler {
     private frmMain Parent;
@@ -51,7 +50,7 @@ public class thHDTransferHandler extends TransferHandler {
     public Transferable createTransferable( JComponent comp ) {
         // all we want to do is transfer the index in the queue
         LocationDragDatagram d = new LocationDragDatagram();
-        d.Location = Constants.LOC_HD;
+        d.Location = LocationIndex.MECH_LOC_HD;
         d.SourceIndex = ((JList) comp).getSelectedIndex();
         d.Locked = CurMech.GetLoadout().GetHDCrits()[d.SourceIndex].LocationLocked();
         if( CurMech.GetLoadout().GetHDCrits()[d.SourceIndex] instanceof EmptyItem ) {
@@ -82,13 +81,13 @@ public class thHDTransferHandler extends TransferHandler {
         if( DropItem.Locked ) {
             abPlaceable a = CurMech.GetLoadout().GetCrits( DropItem.Location )[DropItem.SourceIndex];
             if( a instanceof CASEII ) {
-                if( DropItem.Location != Constants.LOC_HD ) {
+                if( DropItem.Location != LocationIndex.MECH_LOC_HD ) {
                     return false;
                 } else {
                     // get the drop location
                     JList.DropLocation dl = (JList.DropLocation) info.getDropLocation();
                     int dindex = dl.getIndex();
-                    if( CurMech.GetLoadout().GetCrits( Constants.LOC_HD )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( Constants.LOC_HD )[dindex].LocationLinked() ) {
+                    if( CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_HD )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_HD )[dindex].LocationLinked() ) {
                         return false;
                     }
                     if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().GetHDCaseII() == a ) {

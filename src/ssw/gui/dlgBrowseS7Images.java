@@ -40,7 +40,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Vector;
 import javax.swing.ImageIcon;
-import ssw.Constants;
+import ssw.SSWConstants;
 import ssw.filehandlers.XMLRPCClient;
 
 public class dlgBrowseS7Images extends javax.swing.JDialog {
@@ -82,7 +82,7 @@ public class dlgBrowseS7Images extends javax.swing.JDialog {
 
     private void LoadImageList() throws Exception {
         // see if the file exists, otherwise get the RPCXMLClient and get it
-        String filename = Constants.ImageListFileName;
+        String filename = SSWConstants.ImageListFileName;
 
         try {
             BufferedReader FR = new BufferedReader( new FileReader( filename ) );
@@ -109,7 +109,7 @@ public class dlgBrowseS7Images extends javax.swing.JDialog {
             // now we'll want to load up the user images
                 try {
                     // get the image list from the website
-                    XMLRPCClient serve = new XMLRPCClient( Constants.Solaris7URL );
+                    XMLRPCClient serve = new XMLRPCClient( SSWConstants.Solaris7URL );
                     String[] List = serve.GetUserImages( UserID );
 
                     // add in the seperator that says we have a list of users
@@ -140,13 +140,13 @@ public class dlgBrowseS7Images extends javax.swing.JDialog {
             // could not access the file, we'll have to get the image list
             if( e instanceof FileNotFoundException ) {
                 // no file found, we'll have to load the images from the site
-                File file = new File( Constants.ImageListFileName );
+                File file = new File( SSWConstants.ImageListFileName );
                 try {
                     // Create file if it does not exist
                     file.createNewFile();
 
                     // get the image list from the website
-                    XMLRPCClient serve = new XMLRPCClient( Constants.Solaris7URL );
+                    XMLRPCClient serve = new XMLRPCClient( SSWConstants.Solaris7URL );
                     String[] List = serve.GetTROImages( "01/01/1900" );
 
                     // get a new file writer and load up the images

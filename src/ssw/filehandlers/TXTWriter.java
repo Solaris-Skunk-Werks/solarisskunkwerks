@@ -28,16 +28,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.filehandlers;
 
-import ssw.utilities.CommonTools;
+import battleforce.BFConstants;
+import common.CommonTools;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Vector;
-import ssw.*;
-import ssw.battleforce.BattleForceStats;
-import ssw.battleforce.BattleForceTools;
-import ssw.components.*;
+import battleforce.BattleForceStats;
+import battleforce.BattleForceTools;
+import components.*;
 
 public class TXTWriter {
 
@@ -77,7 +77,7 @@ public class TXTWriter {
 
         if( CurMech.IsOmnimech() ) {
             // start out with the base chassis.  we'll switch later when needed
-            CurMech.SetCurLoadout( Constants.BASELOADOUT_NAME );
+            CurMech.SetCurLoadout( common.Constants.BASELOADOUT_NAME );
         }
         retval += CurMech.GetName() + " " + CurMech.GetModel() + NL + NL;
         retval += "Mass: " + CurMech.GetTonnage() + " tons" + NL;
@@ -270,59 +270,59 @@ public class TXTWriter {
         }
         retval += NL + "                                                      Internal       Armor      " + NL;
         retval += "                                                      Structure      Factor     " + NL;
-        retval += String.format( "                                                Head     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetHeadPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_HD ) ) + NL;
-        retval += String.format( "                                        Center Torso     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetCTPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_CT ) ) + NL;
-        retval += String.format( "                                 Center Torso (rear)                  %1$-3s       ", CurMech.GetArmor().GetLocationArmor( Constants.LOC_CTR ) ) + NL;
-        if( CurMech.GetArmor().GetLocationArmor( Constants.LOC_LT ) != CurMech.GetArmor().GetLocationArmor( Constants.LOC_RT ) ) {
-            retval += String.format( "                                          Left Torso     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetSidePoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LT ) ) + NL;
-            retval += String.format( "                                         Right Torso     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetSidePoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_RT ) ) + NL;
+        retval += String.format( "                                                Head     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetHeadPoints(), CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_HD ) ) + NL;
+        retval += String.format( "                                        Center Torso     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetCTPoints(), CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CT ) ) + NL;
+        retval += String.format( "                                 Center Torso (rear)                  %1$-3s       ", CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CTR ) ) + NL;
+        if( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LT ) != CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RT ) ) {
+            retval += String.format( "                                          Left Torso     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetSidePoints(), CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LT ) ) + NL;
+            retval += String.format( "                                         Right Torso     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetSidePoints(), CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RT ) ) + NL;
         } else {
-            retval += String.format( "                                           L/R Torso     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetSidePoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LT ) ) + NL;
+            retval += String.format( "                                           L/R Torso     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetSidePoints(), CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LT ) ) + NL;
         }
-        if( CurMech.GetArmor().GetLocationArmor( Constants.LOC_LTR ) != CurMech.GetArmor().GetLocationArmor( Constants.LOC_RTR ) ) {
-            retval += String.format( "                                   Left Torso (rear)                  %1$-3s       ", CurMech.GetArmor().GetLocationArmor( Constants.LOC_LTR ) ) + NL;
-            retval += String.format( "                                  Right Torso (rear)                  %1$-3s       ", CurMech.GetArmor().GetLocationArmor( Constants.LOC_RTR ) ) + NL;
+        if( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LTR ) != CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RTR ) ) {
+            retval += String.format( "                                   Left Torso (rear)                  %1$-3s       ", CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LTR ) ) + NL;
+            retval += String.format( "                                  Right Torso (rear)                  %1$-3s       ", CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RTR ) ) + NL;
         } else {
-            retval += String.format( "                                    L/R Torso (rear)                  %1$-3s       ", CurMech.GetArmor().GetLocationArmor( Constants.LOC_LTR ) ) + NL;
+            retval += String.format( "                                    L/R Torso (rear)                  %1$-3s       ", CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LTR ) ) + NL;
         }
-        if( CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) != CurMech.GetArmor().GetLocationArmor( Constants.LOC_RA ) ) {
+        if( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LA ) != CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RA ) ) {
             if( CurMech.IsQuad() ) {
-                retval += String.format( "                                      Left Front Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) ) + NL;
-                retval += String.format( "                                     Right Front Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_RA ) ) + NL;
+                retval += String.format( "                                      Left Front Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LA ) ) + NL;
+                retval += String.format( "                                     Right Front Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RA ) ) + NL;
             } else {
-                retval += String.format( "                                            Left Arm     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) ) + NL;
-                retval += String.format( "                                           Right Arm     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_RA ) ) + NL;
+                retval += String.format( "                                            Left Arm     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LA ) ) + NL;
+                retval += String.format( "                                           Right Arm     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RA ) ) + NL;
             }
         } else {
             if( CurMech.IsQuad() ) {
-                retval += String.format( "                                       L/R Front Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) ) + NL;
+                retval += String.format( "                                       L/R Front Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LA ) ) + NL;
             } else {
-                retval += String.format( "                                             L/R Arm     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) ) + NL;
+                retval += String.format( "                                             L/R Arm     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetArmPoints(), CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LA ) ) + NL;
             }
         }
-        if( CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) != CurMech.GetArmor().GetLocationArmor( Constants.LOC_RL ) ) {
+        if( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LL ) != CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RL ) ) {
             if( CurMech.IsQuad() ) {
-                retval += String.format( "                                       Left Rear Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) ) + NL;
-                retval += String.format( "                                      Right Rear Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_RL ) ) + NL;
+                retval += String.format( "                                       Left Rear Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LL ) ) + NL;
+                retval += String.format( "                                      Right Rear Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RL ) ) + NL;
             } else {
-                retval += String.format( "                                            Left Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) ) + NL;
-                retval += String.format( "                                           Right Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_RL ) ) + NL;
+                retval += String.format( "                                            Left Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LL ) ) + NL;
+                retval += String.format( "                                           Right Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RL ) ) + NL;
             }
         } else {
             if( CurMech.IsQuad() ) {
-                retval += String.format( "                                        L/R Rear Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) ) + NL;
+                retval += String.format( "                                        L/R Rear Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LL ) ) + NL;
             } else {
-                retval += String.format( "                                             L/R Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) ) + NL;
+                retval += String.format( "                                             L/R Leg     %1$-3s          %2$-3s       ", CurMech.GetIntStruc().GetLegPoints(), CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LL ) ) + NL;
             }
         }
         if( CurMech.IsOmnimech() ) {
             Vector l = CurMech.GetLoadouts();
             if ( !CurrentLoadoutOnly ) {
-                CurMech.SetCurLoadout( Constants.BASELOADOUT_NAME );
+                CurMech.SetCurLoadout( common.Constants.BASELOADOUT_NAME );
                 retval += NL;
                 retval += BuildEquipmentBlock() + NL;
                 for( int i = 0; i < l.size(); i++ ) {
-                    CurMech.SetCurLoadout( ((ifLoadout) l.get( i )).GetName() );
+                    CurMech.SetCurLoadout( ((ifMechLoadout) l.get( i )).GetName() );
                     retval += NL + "================================================================================" + NL;
                     retval += BuildOmniLoadout() + NL;
                 }
@@ -722,7 +722,7 @@ public class TXTWriter {
         int [] BFdmg = CurMech.GetBFDamage( bfs );
         retval += NL + "BattleForce Statistics" + NL;
         retval += String.format( "MV      S (+0)  M (+2)  L (+4)  E (+6)   Wt.   Ov   Armor:     %1$2s    Points: " + CurMech.GetBFPoints(), CurMech.GetBFArmor() ) + NL;
-        retval += String.format( "%1$-6s    %2$2s      %3$2s      %4$2s      %5$2s      %6$1s     %7$1s   Structure: %8$2s", BattleForceTools.GetMovementString( CurMech ), BFdmg[Constants.BF_SHORT], BFdmg[Constants.BF_MEDIUM], BFdmg[Constants.BF_LONG], BFdmg[Constants.BF_EXTREME], CurMech.GetBFSize(), BFdmg[Constants.BF_OV], CurMech.GetBFStructure() ) + NL;
+        retval += String.format( "%1$-6s    %2$2s      %3$2s      %4$2s      %5$2s      %6$1s     %7$1s   Structure: %8$2s", BattleForceTools.GetMovementString( CurMech ), BFdmg[BFConstants.BF_SHORT], BFdmg[BFConstants.BF_MEDIUM], BFdmg[BFConstants.BF_LONG], BFdmg[BFConstants.BF_EXTREME], CurMech.GetBFSize(), BFdmg[BFConstants.BF_OV], CurMech.GetBFStructure() ) + NL;
         retval += "Special Abilities: " + bfs.getAbilitiesString() + NL;
 
         return retval;
@@ -903,7 +903,7 @@ public class TXTWriter {
         int [] BFdmg = CurMech.GetBFDamage( bfs );
         retval += NL + "BattleForce Statistics" + NL;
         retval += String.format( "MV      S (+0)  M (+2)  L (+4)  E (+6)   Wt.   Ov   Armor:     %1$2s    Points: " + CurMech.GetBFPoints(), CurMech.GetBFArmor() ) + NL;
-        retval += String.format( "%1$-6s    %2$2s      %3$2s      %4$2s      %5$2s      %6$1s     %7$1s   Structure: %8$2s", BattleForceTools.GetMovementString( CurMech ), BFdmg[Constants.BF_SHORT], BFdmg[Constants.BF_MEDIUM], BFdmg[Constants.BF_LONG], BFdmg[Constants.BF_EXTREME], CurMech.GetBFSize(), BFdmg[Constants.BF_OV], CurMech.GetBFStructure() ) + NL;
+        retval += String.format( "%1$-6s    %2$2s      %3$2s      %4$2s      %5$2s      %6$1s     %7$1s   Structure: %8$2s", BattleForceTools.GetMovementString( CurMech ), BFdmg[BFConstants.BF_SHORT], BFdmg[BFConstants.BF_MEDIUM], BFdmg[BFConstants.BF_LONG], BFdmg[BFConstants.BF_EXTREME], CurMech.GetBFSize(), BFdmg[BFConstants.BF_OV], CurMech.GetBFStructure() ) + NL;
         retval += "Special Abilities: " + bfs.getAbilitiesString() + NL;
 
         return retval;

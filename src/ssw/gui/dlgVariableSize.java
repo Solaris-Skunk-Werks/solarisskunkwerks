@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.gui;
 
 import javax.swing.SpinnerNumberModel;
-import ssw.components.Equipment;
+import components.Equipment;
 
 public class dlgVariableSize extends javax.swing.JDialog {
 

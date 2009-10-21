@@ -33,9 +33,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Vector;
-import ssw.Constants;
-import ssw.battleforce.BattleForceStats;
-import ssw.components.*;
+import battleforce.BattleForceStats;
+import components.*;
 
 public class XMLWriter {
     private Mech CurMech;
@@ -124,9 +123,9 @@ public class XMLWriter {
         Vector engineLocs = CurMech.GetLoadout().FindIndexes( CurMech.GetEngine() );
         LocationIndex ls = new LocationIndex();
         LocationIndex rs = new LocationIndex();
-        ls.Location = Constants.LOC_LT;
+        ls.Location = LocationIndex.MECH_LOC_LT;
         ls.Index = 12;
-        rs.Location = Constants.LOC_RT;
+        rs.Location = LocationIndex.MECH_LOC_RT;
         rs.Index = 12;
         for( int i = 0; i < engineLocs.size(); i++ ) {
             ls.SetFirst( ((LocationIndex) engineLocs.get( i )) );
@@ -172,27 +171,27 @@ public class XMLWriter {
         FR.newLine();
         FR.write( tab + tab + "<type>" + CurMech.GetArmor().LookupName() + "</type>" );
         FR.newLine();
-        FR.write( tab + tab + "<hd>" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_HD ) + "</hd>" );
+        FR.write( tab + tab + "<hd>" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_HD ) + "</hd>" );
         FR.newLine();
-        FR.write( tab + tab + "<ct>" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_CT ) + "</ct>" );
+        FR.write( tab + tab + "<ct>" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CT ) + "</ct>" );
         FR.newLine();
-        FR.write( tab + tab + "<ctr>" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_CTR ) + "</ctr>" );
+        FR.write( tab + tab + "<ctr>" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CTR ) + "</ctr>" );
         FR.newLine();
-        FR.write( tab + tab + "<lt>" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LT ) + "</lt>" );
+        FR.write( tab + tab + "<lt>" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LT ) + "</lt>" );
         FR.newLine();
-        FR.write( tab + tab + "<ltr>" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LTR ) + "</ltr>" );
+        FR.write( tab + tab + "<ltr>" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LTR ) + "</ltr>" );
         FR.newLine();
-        FR.write( tab + tab + "<rt>" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_RT ) + "</rt>" );
+        FR.write( tab + tab + "<rt>" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RT ) + "</rt>" );
         FR.newLine();
-        FR.write( tab + tab + "<rtr>" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_RTR ) + "</rtr>" );
+        FR.write( tab + tab + "<rtr>" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RTR ) + "</rtr>" );
         FR.newLine();
-        FR.write( tab + tab + "<la>" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) + "</la>" );
+        FR.write( tab + tab + "<la>" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LA ) + "</la>" );
         FR.newLine();
-        FR.write( tab + tab + "<ra>" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_RA ) + "</ra>" );
+        FR.write( tab + tab + "<ra>" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RA ) + "</ra>" );
         FR.newLine();
-        FR.write( tab + tab + "<ll>" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) + "</ll>" );
+        FR.write( tab + tab + "<ll>" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LL ) + "</ll>" );
         FR.newLine();
-        FR.write( tab + tab + "<rl>" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_RL ) + "</rl>" );
+        FR.write( tab + tab + "<rl>" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RL ) + "</rl>" );
         FR.newLine();
         if( CurMech.GetArmor().NumCrits() > 0 ) {
             FR.write( GetLocationLines( tab + tab, CurMech.GetArmor() ) );
@@ -201,7 +200,7 @@ public class XMLWriter {
         FR.newLine();
 
         if( CurMech.IsOmnimech() ) {
-            CurMech.SetCurLoadout( Constants.BASELOADOUT_NAME );
+            CurMech.SetCurLoadout( common.Constants.BASELOADOUT_NAME );
         }
         FR.write( tab + "<baseloadout fcsa4=\"" + GetBoolean( CurMech.UsingArtemisIV() ) + "\" fcsa5=\"" + GetBoolean( CurMech.UsingArtemisV() ) + "\" fcsapollo=\"" + GetBoolean( CurMech.UsingApollo() ) + "\">" );
         FR.newLine();
@@ -290,9 +289,9 @@ public class XMLWriter {
             Vector pwlocs = CurMech.GetLoadout().FindIndexes( CurMech.GetPartialWing() );
             ls = new LocationIndex();
             rs = new LocationIndex();
-            ls.Location = Constants.LOC_LT;
+            ls.Location = LocationIndex.MECH_LOC_LT;
             ls.Index = 12;
-            rs.Location = Constants.LOC_RT;
+            rs.Location = LocationIndex.MECH_LOC_RT;
             rs.Index = 12;
             for( int i = 0; i < pwlocs.size(); i++ ) {
                 ls.SetFirst( ((LocationIndex) pwlocs.get( i )) );
@@ -316,11 +315,11 @@ public class XMLWriter {
             FR.newLine();
         }
         if( CurMech.HasLAAES() ) {
-            FR.write( tab + tab + "<arm_aes location=\"" + FileCommon.EncodeLocation( Constants.LOC_LA, CurMech.IsQuad() ) + "\" index=\"" + CurMech.GetLoadout().FindIndex( CurMech.GetLAAES() ).Index + "\"/>" );
+            FR.write( tab + tab + "<arm_aes location=\"" + FileCommon.EncodeLocation( LocationIndex.MECH_LOC_LA, CurMech.IsQuad() ) + "\" index=\"" + CurMech.GetLoadout().FindIndex( CurMech.GetLAAES() ).Index + "\"/>" );
             FR.newLine();
         }
         if( CurMech.HasRAAES() ) {
-            FR.write( tab + tab + "<arm_aes location=\"" + FileCommon.EncodeLocation( Constants.LOC_RA, CurMech.IsQuad() ) + "\" index=\"" + CurMech.GetLoadout().FindIndex( CurMech.GetRAAES() ).Index + "\"/>" );
+            FR.write( tab + tab + "<arm_aes location=\"" + FileCommon.EncodeLocation( LocationIndex.MECH_LOC_RA, CurMech.IsQuad() ) + "\" index=\"" + CurMech.GetLoadout().FindIndex( CurMech.GetRAAES() ).Index + "\"/>" );
             FR.newLine();
         }
         FR.write( GetEquipmentLines( tab + tab ) );
@@ -334,7 +333,7 @@ public class XMLWriter {
         if( CurMech.IsOmnimech() ) {
             Vector v = CurMech.GetLoadouts();
             for( int i = 0; i < v.size(); i++ ) {
-                CurMech.SetCurLoadout( ((ifLoadout) v.get( i )).GetName() );
+                CurMech.SetCurLoadout( ((ifMechLoadout) v.get( i )).GetName() );
                 if( CurMech.GetBaseRulesLevel() != CurMech.GetLoadout().GetRulesLevel() ) {
                     FR.write( tab + "<loadout name=\"" + FileCommon.EncodeFluff( CurMech.GetLoadout().GetName() ) + "\" ruleslevel=\"" + CurMech.GetLoadout().GetRulesLevel() + "\" fcsa4=\"" + GetBoolean( CurMech.UsingArtemisIV() ) + "\" fcsa5=\"" + GetBoolean( CurMech.UsingArtemisV() ) + "\" fcsapollo=\"" + GetBoolean( CurMech.UsingApollo() ) + "\">" );
                 } else {
@@ -443,14 +442,7 @@ public class XMLWriter {
     }
 
     private String GetTechbase() {
-        switch( CurMech.GetTechBase() ) {
-            case AvailableCode.TECH_INNER_SPHERE:
-                return Constants.strINNER_SPHERE;
-            case AvailableCode.TECH_CLAN:
-                return Constants.strCLAN;
-            default:
-                return Constants.strMIXED;
-        }
+        return AvailableCode.TechBaseSTR[CurMech.GetTechBase()];
     }
 
     private String GetMotiveType() {
@@ -553,7 +545,7 @@ public class XMLWriter {
         Vector v = CurMech.GetLoadout().GetNonCore();
         Vector vBase = CurMech.GetBaseLoadout().GetNonCore();
         boolean OmniLoad = false;
-        if( ! CurMech.GetLoadout().GetName().equals( Constants.BASELOADOUT_NAME ) ) {
+        if( ! CurMech.GetLoadout().GetName().equals( common.Constants.BASELOADOUT_NAME ) ) {
             OmniLoad = true;
         }
         for( int i = 0; i < v.size(); i++ ) {
@@ -715,7 +707,7 @@ public class XMLWriter {
 
     private String GetArmoredLocations( String prefix ) {
         String retval = "";
-        ifLoadout l = CurMech.GetLoadout();
+        ifMechLoadout l = CurMech.GetLoadout();
 
         // now we'll need to go through each and every location to determine if
         // it is armored

@@ -28,8 +28,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.filehandlers;
 
-import ssw.Constants;
-import ssw.components.*;
+import battleforce.*;
+import components.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -37,9 +37,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Vector;
-import ssw.battleforce.BattleForceStats;
-import ssw.battleforce.BattleForceTools;
-import ssw.utilities.CommonTools;
+import common.CommonTools;
 
 public class HTMLWriter {
 
@@ -52,7 +50,7 @@ public class HTMLWriter {
         // if the current mech is an omnimech, set the loadout to the base
         // before we build the hash table
         if( CurMech.IsOmnimech() ) {
-            CurMech.SetCurLoadout( Constants.BASELOADOUT_NAME );
+            CurMech.SetCurLoadout( common.Constants.BASELOADOUT_NAME );
         }
         BuildHash();
     }
@@ -375,7 +373,7 @@ public class HTMLWriter {
 
         for( int i = 0; i < loadouts.size(); i++ ) {
             // set the mech to the current loadout
-            CurMech.SetCurLoadout( ((ifLoadout) loadouts.get(i)).GetName() );
+            CurMech.SetCurLoadout( ((ifMechLoadout) loadouts.get(i)).GetName() );
             EQLines.clear();
 
             // now read each line in turn and fill in the blanks.
@@ -409,7 +407,7 @@ public class HTMLWriter {
         }
 
         // now that we're done with omni stuff, set the mech back to its base
-        CurMech.SetCurLoadout( Constants.BASELOADOUT_NAME );
+        CurMech.SetCurLoadout( common.Constants.BASELOADOUT_NAME );
         return retval;
     }
 
@@ -582,17 +580,17 @@ public class HTMLWriter {
             }
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_DAMAGE_STRING-+>" ) ) {
             int [] BFdmg = CurMech.GetBFDamage( bfs );
-            return BFdmg[Constants.BF_SHORT] + "/" + BFdmg[Constants.BF_MEDIUM] + "/" + BFdmg[Constants.BF_LONG] + "/" + BFdmg[Constants.BF_EXTREME];
+            return BFdmg[BFConstants.BF_SHORT] + "/" + BFdmg[BFConstants.BF_MEDIUM] + "/" + BFdmg[BFConstants.BF_LONG] + "/" + BFdmg[BFConstants.BF_EXTREME];
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_DAMAGE_SHORT-+>" ) ) {
-            return "" + CurMech.GetBFDamage( bfs )[Constants.BF_SHORT];
+            return "" + CurMech.GetBFDamage( bfs )[BFConstants.BF_SHORT];
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_DAMAGE_MEDIUM-+>" ) ) {
-            return "" + CurMech.GetBFDamage( bfs )[Constants.BF_MEDIUM];
+            return "" + CurMech.GetBFDamage( bfs )[BFConstants.BF_MEDIUM];
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_DAMAGE_LONG-+>" ) ) {
-            return "" + CurMech.GetBFDamage( bfs )[Constants.BF_LONG];
+            return "" + CurMech.GetBFDamage( bfs )[BFConstants.BF_LONG];
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_DAMAGE_EXTREME-+>" ) ) {
-            return "" + CurMech.GetBFDamage( bfs )[Constants.BF_EXTREME];
+            return "" + CurMech.GetBFDamage( bfs )[BFConstants.BF_EXTREME];
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_OVERHEAT-+>" ) ) {
-            return "" + CurMech.GetBFDamage( bfs )[Constants.BF_OV];
+            return "" + CurMech.GetBFDamage( bfs )[BFConstants.BF_OV];
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_ARMOR-+>" ) ) {
             return "" + CurMech.GetBFArmor();
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_BF_STRUCTURE-+>" ) ) {
@@ -1339,36 +1337,36 @@ public class HTMLWriter {
         lookup.put( "<+-SSW_ENHANCEMENT_TONNAGE-+>", FormatTonnage( CurMech.GetPhysEnhance().GetTonnage(), 1 ) );
         // need a routine for this...
         lookup.put( "<+-SSW_EQUIPMENT_TOTAL_TONNAGE-+>", "" );
-        lookup.put( "<+-SSW_HD_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_HD ) );
-        lookup.put( "<+-SSW_CT_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_CT ) );
-        lookup.put( "<+-SSW_LT_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LT ) );
-        lookup.put( "<+-SSW_RT_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_RT ) );
-        if( CurMech.GetArmor().GetLocationArmor( Constants.LOC_RT ) != CurMech.GetArmor().GetLocationArmor( Constants.LOC_LT ) ) {
-            lookup.put( "<+-SSW_TORSO_ARMOR-+>", "LT: " + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LT ) + " RT: " + CurMech.GetArmor().GetLocationArmor( Constants.LOC_RT ) );
+        lookup.put( "<+-SSW_HD_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_HD ) );
+        lookup.put( "<+-SSW_CT_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CT ) );
+        lookup.put( "<+-SSW_LT_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LT ) );
+        lookup.put( "<+-SSW_RT_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RT ) );
+        if( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RT ) != CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LT ) ) {
+            lookup.put( "<+-SSW_TORSO_ARMOR-+>", "LT: " + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LT ) + " RT: " + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RT ) );
         } else {
-            lookup.put( "<+-SSW_TORSO_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LT ) );
+            lookup.put( "<+-SSW_TORSO_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LT ) );
         }
-        lookup.put( "<+-SSW_LA_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) );
-        lookup.put( "<+-SSW_RA_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_RA ) );
-        if( CurMech.GetArmor().GetLocationArmor( Constants.LOC_RA ) != CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) ) {
-            lookup.put( "<+-SSW_ARM_ARMOR-+>", "LA: " + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) + " RA: " + CurMech.GetArmor().GetLocationArmor( Constants.LOC_RA ) );
+        lookup.put( "<+-SSW_LA_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LA ) );
+        lookup.put( "<+-SSW_RA_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RA ) );
+        if( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RA ) != CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LA ) ) {
+            lookup.put( "<+-SSW_ARM_ARMOR-+>", "LA: " + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LA ) + " RA: " + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RA ) );
         } else {
-            lookup.put( "<+-SSW_ARM_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) );
+            lookup.put( "<+-SSW_ARM_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LA ) );
         }
-        lookup.put( "<+-SSW_LL_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) );
-        lookup.put( "<+-SSW_RL_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_RL ) );
-        if( CurMech.GetArmor().GetLocationArmor( Constants.LOC_RL ) != CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) ) {
-            lookup.put( "<+-SSW_LEG_ARMOR-+>", "LL: " + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) + " RL: " + CurMech.GetArmor().GetLocationArmor( Constants.LOC_RL ) );
+        lookup.put( "<+-SSW_LL_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LL ) );
+        lookup.put( "<+-SSW_RL_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RL ) );
+        if( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RL ) != CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LL ) ) {
+            lookup.put( "<+-SSW_LEG_ARMOR-+>", "LL: " + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LL ) + " RL: " + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RL ) );
         } else {
-            lookup.put( "<+-SSW_LEG_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) );
+            lookup.put( "<+-SSW_LEG_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LL ) );
         }
-        lookup.put( "<+-SSW_CTR_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_CTR ) );
-        lookup.put( "<+-SSW_LTR_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LTR ) );
-        lookup.put( "<+-SSW_RTR_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_RTR ) );
-        if( CurMech.GetArmor().GetLocationArmor( Constants.LOC_RTR ) != CurMech.GetArmor().GetLocationArmor( Constants.LOC_LTR ) ) {
-            lookup.put( "<+-SSW_TORSO_REAR_ARMOR-+>", "LTR: " + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LTR ) + " RTR: " + CurMech.GetArmor().GetLocationArmor( Constants.LOC_RTR ) );
+        lookup.put( "<+-SSW_CTR_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CTR ) );
+        lookup.put( "<+-SSW_LTR_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LTR ) );
+        lookup.put( "<+-SSW_RTR_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RTR ) );
+        if( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RTR ) != CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LTR ) ) {
+            lookup.put( "<+-SSW_TORSO_REAR_ARMOR-+>", "LTR: " + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LTR ) + " RTR: " + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RTR ) );
         } else {
-            lookup.put( "<+-SSW_TORSO_REAR_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LTR ) );
+            lookup.put( "<+-SSW_TORSO_REAR_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LTR ) );
         }
         lookup.put( "<+-SSW_HD_INTERNAL-+>", "" + CurMech.GetIntStruc().GetHeadPoints() );
         lookup.put( "<+-SSW_CT_INTERNAL-+>", "" + CurMech.GetIntStruc().GetCTPoints() );
@@ -1503,12 +1501,12 @@ public class HTMLWriter {
         }
         BattleForceStats bfs = new BattleForceStats( CurMech );
         int [] BFdmg = CurMech.GetBFDamage( bfs );
-        lookup.put( "<+-SSW_BF_DAMAGE_STRING-+>", BFdmg[Constants.BF_SHORT] + "/" + BFdmg[Constants.BF_MEDIUM] + "/" + BFdmg[Constants.BF_LONG] + "/" + BFdmg[Constants.BF_EXTREME] );
-        lookup.put( "<+-SSW_BF_DAMAGE_SHORT-+>", "" + BFdmg[Constants.BF_SHORT] );
-        lookup.put( "<+-SSW_BF_DAMAGE_MEDIUM-+>", "" + BFdmg[Constants.BF_MEDIUM] );
-        lookup.put( "<+-SSW_BF_DAMAGE_LONG-+>", "" + BFdmg[Constants.BF_LONG] );
-        lookup.put( "<+-SSW_BF_DAMAGE_EXTREME-+>", "" + BFdmg[Constants.BF_EXTREME] );
-        lookup.put( "<+-SSW_BF_OVERHEAT-+>", "" + BFdmg[Constants.BF_OV] );
+        lookup.put( "<+-SSW_BF_DAMAGE_STRING-+>", BFdmg[BFConstants.BF_SHORT] + "/" + BFdmg[BFConstants.BF_MEDIUM] + "/" + BFdmg[BFConstants.BF_LONG] + "/" + BFdmg[BFConstants.BF_EXTREME] );
+        lookup.put( "<+-SSW_BF_DAMAGE_SHORT-+>", "" + BFdmg[BFConstants.BF_SHORT] );
+        lookup.put( "<+-SSW_BF_DAMAGE_MEDIUM-+>", "" + BFdmg[BFConstants.BF_MEDIUM] );
+        lookup.put( "<+-SSW_BF_DAMAGE_LONG-+>", "" + BFdmg[BFConstants.BF_LONG] );
+        lookup.put( "<+-SSW_BF_DAMAGE_EXTREME-+>", "" + BFdmg[BFConstants.BF_EXTREME] );
+        lookup.put( "<+-SSW_BF_OVERHEAT-+>", "" + BFdmg[BFConstants.BF_OV] );
         lookup.put( "<+-SSW_BF_ARMOR-+>", "" + CurMech.GetBFArmor() );
         lookup.put( "<+-SSW_BF_STRUCTURE-+>", "" + CurMech.GetBFStructure() );
         lookup.put( "<+-SSW_BF_POINTS-+>", "" + CurMech.GetBFPoints() );

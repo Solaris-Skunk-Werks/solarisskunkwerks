@@ -54,7 +54,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="13" max="32767" attributes="0"/>
               <Component id="pnlBattleMech" min="-2" pref="85" max="-2" attributes="1"/>
               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -462,7 +462,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnChooseImage" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="chkPrintImage" alignment="0" pref="123" max="32767" attributes="1"/>
+                      <Component id="chkPrintImage" alignment="0" pref="127" max="32767" attributes="1"/>
                       <Component id="lblImage" alignment="0" min="-2" pref="110" max="-2" attributes="3"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>

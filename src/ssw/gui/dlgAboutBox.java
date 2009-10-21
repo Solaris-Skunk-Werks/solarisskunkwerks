@@ -41,10 +41,10 @@ public class dlgAboutBox extends javax.swing.JDialog {
         Parent = (frmMain) parent;
         initComponents();
         setResizable( false );
-        setTitle( "About " + Constants.AppDescription );
-        lblAppName.setText(Constants.AppDescription);
-        lblVersion.setText(Constants.Version);
-        lblRelease.setText(Constants.AppRelease);
+        setTitle( "About " + SSWConstants.AppDescription );
+        lblAppName.setText(SSWConstants.AppDescription);
+        lblVersion.setText(SSWConstants.Version);
+        lblRelease.setText(SSWConstants.AppRelease);
     }
 
     /** This method is called from within the constructor to

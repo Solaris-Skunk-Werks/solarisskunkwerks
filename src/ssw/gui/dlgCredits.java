@@ -37,7 +37,7 @@ public class dlgCredits extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setResizable( false );
-        setTitle( Constants.AppName + " Credits" );
+        setTitle( SSWConstants.AppName + " Credits" );
     }
     
     /** This method is called from within the constructor to

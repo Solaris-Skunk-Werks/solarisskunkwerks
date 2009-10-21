@@ -35,8 +35,7 @@ import java.util.Vector;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
-import ssw.*;
-import ssw.components.*;
+import components.*;
 
 public class thLATransferHandler extends TransferHandler {
     private frmMain Parent;
@@ -53,7 +52,7 @@ public class thLATransferHandler extends TransferHandler {
     public Transferable createTransferable( JComponent comp ) {
         // all we want to do is transfer the index in the queue
         LocationDragDatagram d = new LocationDragDatagram();
-        d.Location = Constants.LOC_LA;
+        d.Location = LocationIndex.MECH_LOC_LA;
         d.SourceIndex = ((JList) comp).getSelectedIndex();
         d.Locked = CurMech.GetLoadout().GetLACrits()[d.SourceIndex].LocationLocked();
         if( CurMech.GetLoadout().GetLACrits()[d.SourceIndex] instanceof EmptyItem ) {
@@ -84,13 +83,13 @@ public class thLATransferHandler extends TransferHandler {
         if( DropItem.Locked ) {
             abPlaceable a = CurMech.GetLoadout().GetCrits( DropItem.Location )[DropItem.SourceIndex];
             if( a instanceof CASEII || a instanceof MultiSlotSystem || a instanceof AESSystem || a instanceof Armor ) {
-                if( DropItem.Location != Constants.LOC_LA ) {
+                if( DropItem.Location != LocationIndex.MECH_LOC_LA ) {
                     return false;
                 } else {
                     // get the drop location
                     JList.DropLocation dl = (JList.DropLocation) info.getDropLocation();
                     int dindex = dl.getIndex();
-                    if( ( CurMech.GetLoadout().GetCrits( Constants.LOC_LA )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( Constants.LOC_LA )[dindex].LocationLinked() ) && a != CurMech.GetLoadout().GetCrits( Constants.LOC_LA )[dindex] ) {
+                    if( ( CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_LA )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_LA )[dindex].LocationLinked() ) && a != CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_LA )[dindex] ) {
                         return false;
                     }
                     if( a instanceof CASEII ) {
@@ -105,7 +104,7 @@ public class thLATransferHandler extends TransferHandler {
                         if( CurMech.IsOmnimech() ) {
                             return false;
                         }
-                        if( a.NumCrits() + dindex > CurMech.GetLoadout().GetCrits( Constants.LOC_LA ).length ) {
+                        if( a.NumCrits() + dindex > CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_LA ).length ) {
                             return false;
                         }
                     } else if( a instanceof Armor ) {
@@ -177,11 +176,11 @@ public class thLATransferHandler extends TransferHandler {
         // now put it in where it needs to go
         try {
             if( a.CanSplit() && a.Contiguous() ) {
-                if( DropItem.Location == Constants.LOC_LA ) {
+                if( DropItem.Location == LocationIndex.MECH_LOC_LA ) {
                     LocationIndex loc1 = null;
                     LocationIndex loc2 = null;
                     for( int i = 0; i < v.size(); i++ ) {
-                        if( ((LocationIndex) v.get( i )).Location == Constants.LOC_LA ) {
+                        if( ((LocationIndex) v.get( i )).Location == LocationIndex.MECH_LOC_LA ) {
                             loc1 = (LocationIndex) v.get( i );
                         } else {
                             loc2 = (LocationIndex) v.get( i );
@@ -226,7 +225,7 @@ public class thLATransferHandler extends TransferHandler {
     private boolean SplitAllocate( abPlaceable a, int dindex ) throws Exception {
         int ToPlace = CurMech.GetLoadout().FreeFrom( CurMech.GetLoadout().GetLACrits(), dindex );
         if( ToPlace < a.NumCrits() ) {
-            dlgSplitCrits dlgSplit = new dlgSplitCrits( Parent, true, a, Constants.LOC_LA, dindex );
+            dlgSplitCrits dlgSplit = new dlgSplitCrits( Parent, true, a, LocationIndex.MECH_LOC_LA, dindex );
             Point p = Parent.getLocationOnScreen();
             dlgSplit.setLocation( p.x + 100, p.y + 100 );
             dlgSplit.setVisible( true );

@@ -33,9 +33,9 @@ import java.awt.print.*;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import ssw.battleforce.BattleForce;
-import ssw.utilities.CommonTools;
-import ssw.components.Mech;
+import battleforce.BattleForce;
+import common.CommonTools;
+import components.Mech;
 import ssw.filehandlers.Media;
 import ssw.gui.*;
 

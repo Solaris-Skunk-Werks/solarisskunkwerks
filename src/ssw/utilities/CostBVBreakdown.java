@@ -29,8 +29,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.utilities;
 
 import java.util.Vector;
-import ssw.Constants;
-import ssw.components.*;
+import components.*;
+import common.*;
 
 public class CostBVBreakdown {
     private Mech CurMech = null;
@@ -103,7 +103,7 @@ public class CostBVBreakdown {
         }
         retval += "________________________________________________________________________________" + NL;
         if( CurMech.GetCockpit().IsTorsoMounted() ) {
-            retval += String.format( "%1$-71s %2$,8.2f", "Total Armor Factor (" + ( CurMech.GetArmor().GetArmorValue() + CurMech.GetArmor().GetLocationArmor( Constants.LOC_CT) + CurMech.GetArmor().GetLocationArmor( Constants.LOC_CTR) ) + ") * Armor Type Modifier (" + CurMech.GetArmor().GetBVTypeMult() + ") * 2.5", CurMech.GetArmor().GetDefensiveBV() ) + NL;
+            retval += String.format( "%1$-71s %2$,8.2f", "Total Armor Factor (" + ( CurMech.GetArmor().GetArmorValue() + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CT) + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CTR) ) + ") * Armor Type Modifier (" + CurMech.GetArmor().GetBVTypeMult() + ") * 2.5", CurMech.GetArmor().GetDefensiveBV() ) + NL;
             retval += "    (Front and Rear CT armor value doubled due to Torso-Mounted Cockpit)" + NL;
         } else {
             retval += String.format( "%1$-71s %2$,8.2f", "Total Armor Factor (" + CurMech.GetArmor().GetArmorValue() + ") * Armor Type Modifier (" + CurMech.GetArmor().GetBVTypeMult() + ") * 2.5", CurMech.GetArmor().GetDefensiveBV() ) + NL;

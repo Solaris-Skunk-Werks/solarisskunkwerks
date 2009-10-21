@@ -29,9 +29,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.utilities;
 
 import java.util.Vector;
-import ssw.components.ifWeapon;
-import ssw.components.Ammunition;
-import ssw.components.RangedWeapon;
+import components.ifWeapon;
+import components.Ammunition;
+import components.RangedWeapon;
 
 public class WeaponInfo {
     // contains a weapon and ammo pairing (may hold multiple ammos)

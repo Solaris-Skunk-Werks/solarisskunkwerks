@@ -35,8 +35,7 @@ import java.util.Vector;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
-import ssw.Constants;
-import ssw.components.*;
+import components.*;
 
 public class thCTTransferHandler extends TransferHandler {
     private frmMain Parent;
@@ -53,7 +52,7 @@ public class thCTTransferHandler extends TransferHandler {
     public Transferable createTransferable( JComponent comp ) {
         // all we want to do is transfer the index in the queue
         LocationDragDatagram d = new LocationDragDatagram();
-        d.Location = Constants.LOC_CT;
+        d.Location = LocationIndex.MECH_LOC_CT;
         d.SourceIndex = ((JList) comp).getSelectedIndex();
         d.Locked = CurMech.GetLoadout().GetCTCrits()[d.SourceIndex].LocationLocked();
         if( CurMech.GetLoadout().GetCTCrits()[d.SourceIndex] instanceof EmptyItem ) {
@@ -85,13 +84,13 @@ public class thCTTransferHandler extends TransferHandler {
         if( DropItem.Locked ) {
             abPlaceable a = CurMech.GetLoadout().GetCrits( DropItem.Location )[DropItem.SourceIndex];
             if( a instanceof CASE || a instanceof CASEII || a instanceof MultiSlotSystem || a instanceof Supercharger || a instanceof Cockpit || a instanceof SimplePlaceable ) {
-                if( DropItem.Location != Constants.LOC_CT ) {
+                if( DropItem.Location != LocationIndex.MECH_LOC_CT ) {
                     return false;
                 } else {
                     // get the drop location
                     JList.DropLocation dl = (JList.DropLocation) info.getDropLocation();
                     int dindex = dl.getIndex();
-                    if( CurMech.GetLoadout().GetCrits( Constants.LOC_CT )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( Constants.LOC_CT )[dindex].LocationLinked() ) {
+                    if( CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_CT )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_CT )[dindex].LocationLinked() ) {
                         return false;
                     }
                     if( a instanceof CASE ) {
@@ -182,11 +181,11 @@ public class thCTTransferHandler extends TransferHandler {
         // now put it in where it needs to go
         try {
             if( a.CanSplit() && a.Contiguous() ) {
-                if( DropItem.Location == Constants.LOC_CT ) {
+                if( DropItem.Location == LocationIndex.MECH_LOC_CT ) {
                     LocationIndex loc1 = null;
                     LocationIndex loc2 = null;
                     for( int i = 0; i < v.size(); i++ ) {
-                        if( ((LocationIndex) v.get( i )).Location == Constants.LOC_CT ) {
+                        if( ((LocationIndex) v.get( i )).Location == LocationIndex.MECH_LOC_CT ) {
                             loc1 = (LocationIndex) v.get( i );
                         } else {
                             loc2 = (LocationIndex) v.get( i );
@@ -236,7 +235,7 @@ public class thCTTransferHandler extends TransferHandler {
     private boolean SplitAllocate( abPlaceable a, int dindex ) throws Exception {
         int ToPlace = CurMech.GetLoadout().FreeFrom( CurMech.GetLoadout().GetCTCrits(), dindex );
         if( ToPlace < a.NumCrits() ) {
-            dlgSplitCrits dlgSplit = new dlgSplitCrits( Parent, true, a, Constants.LOC_CT, dindex );
+            dlgSplitCrits dlgSplit = new dlgSplitCrits( Parent, true, a, LocationIndex.MECH_LOC_CT, dindex );
             Point p = Parent.getLocationOnScreen();
             dlgSplit.setLocation( p.x + 100, p.y + 100 );
             dlgSplit.setVisible( true );

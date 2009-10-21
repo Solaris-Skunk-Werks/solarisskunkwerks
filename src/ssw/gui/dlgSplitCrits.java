@@ -28,8 +28,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
-import ssw.*;
-import ssw.components.*;
+import components.LocationIndex;
+import components.abPlaceable;
+import components.ifWeapon;
 
 public class dlgSplitCrits extends javax.swing.JDialog {
 
@@ -54,27 +55,27 @@ public class dlgSplitCrits extends javax.swing.JDialog {
 
         // see if we can actually allocate to the location in question
         switch( FirstLoc ) {
-            case Constants.LOC_HD:
+            case LocationIndex.MECH_LOC_HD:
                 if( ! p.CanAllocHD() ) {
                     throw new Exception( p.CritName() + " cannot be allocated to the head." );
                 }
                 break;
-            case Constants.LOC_CT:
+            case LocationIndex.MECH_LOC_CT:
                 if( ! p.CanAllocCT() ) {
                     throw new Exception( p.CritName() + " cannot be allocated to the center torso." );
                 }
                 break;
-            case Constants.LOC_LT: case Constants.LOC_RT:
+            case LocationIndex.MECH_LOC_LT: case LocationIndex.MECH_LOC_RT:
                 if( ! p.CanAllocTorso() ) {
                     throw new Exception( p.CritName() + " cannot be allocated to a side torso." );
                 }
                 break;
-            case Constants.LOC_LA: case Constants.LOC_RA:
+            case LocationIndex.MECH_LOC_LA: case LocationIndex.MECH_LOC_RA:
                 if( ! p.CanAllocArms() ) {
                     throw new Exception( p.CritName() + " cannot be allocated to the arms." );
                 }
                 break;
-            case Constants.LOC_LL: case Constants.LOC_RL:
+            case LocationIndex.MECH_LOC_LL: case LocationIndex.MECH_LOC_RL:
                 if( ! p.CanAllocLegs() ) {
                     throw new Exception( p.CritName() + " cannot be allocated to the legs." );
                 }
@@ -84,11 +85,11 @@ public class dlgSplitCrits extends javax.swing.JDialog {
         // FirstLoc tells us where it's starting.  We'll have to decode the
         // adjacent locations from there
         switch( FirstLoc ) {
-        case Constants.LOC_CT:
+        case LocationIndex.MECH_LOC_CT:
             lblFirstLoc.setText( "Center Torso" );
             cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Left Torso", "Right Torso" } ) );
             break;
-        case Constants.LOC_LT:
+        case LocationIndex.MECH_LOC_LT:
             lblFirstLoc.setText( "Left Torso" );
             if( ! p.CanAllocArms() &! p.CanAllocLegs() ) {
                 cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Center Torso" } ) );
@@ -104,7 +105,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 }
             }
             break;
-        case Constants.LOC_RT:
+        case LocationIndex.MECH_LOC_RT:
             lblFirstLoc.setText( "Right Torso" );
             if( ! p.CanAllocArms() &! p.CanAllocLegs() ) {
                 cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Center Torso" } ) );
@@ -120,19 +121,19 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 }
             }
             break;
-        case Constants.LOC_LA:
+        case LocationIndex.MECH_LOC_LA:
             lblFirstLoc.setText( "Left Arm" );
             cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Left Torso" } ) );
             break;
-        case Constants.LOC_RA:
+        case LocationIndex.MECH_LOC_RA:
             lblFirstLoc.setText( "Right Arm" );
             cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Right Torso" } ) );
             break;
-        case Constants.LOC_LL:
+        case LocationIndex.MECH_LOC_LL:
             cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Left Torso" } ) );
             lblFirstLoc.setText( "Left Leg" );
             break;
-        case Constants.LOC_RL:
+        case LocationIndex.MECH_LOC_RL:
             cmbSecondLoc.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "Right Torso" } ) );
             lblFirstLoc.setText( "Right Leg" );
             break;
@@ -252,11 +253,11 @@ public class dlgSplitCrits extends javax.swing.JDialog {
     private void btnOkayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkayActionPerformed
         // decode what happened based on the first location.
         switch( FirstLoc ) {
-        case Constants.LOC_CT:
+        case LocationIndex.MECH_LOC_CT:
             switch( cmbSecondLoc.getSelectedIndex() ) {
             case 0:
                 try {
-                    Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_LT );
+                    Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_LT );
                 } catch( Exception e ) {
                     javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                     result = false;
@@ -266,7 +267,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 break;
             case 1:
                 try {
-                    Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_RT );
+                    Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_RT );
                 } catch( Exception e ) {
                     javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                     result = false;
@@ -276,11 +277,11 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 break;
             }
             break;
-        case Constants.LOC_LT:
+        case LocationIndex.MECH_LOC_LT:
             switch( cmbSecondLoc.getSelectedIndex() ) {
             case 0:
                 try {
-                    Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_CT );
+                    Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_CT );
                 } catch( Exception e ) {
                     javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                     result = false;
@@ -290,7 +291,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 break;
             case 1:
                 try {
-                    Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_LL );
+                    Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_LL );
                 } catch( Exception e ) {
                     javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                     result = false;
@@ -300,7 +301,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 break;
             case 2:
                 try {
-                    Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_LA );
+                    Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_LA );
                 } catch( Exception e ) {
                     javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                     result = false;
@@ -310,11 +311,11 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 break;
             }
             break;
-        case Constants.LOC_RT:
+        case LocationIndex.MECH_LOC_RT:
             switch( cmbSecondLoc.getSelectedIndex() ) {
             case 0:
                 try {
-                    Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_CT );
+                    Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_CT );
                 } catch( Exception e ) {
                     javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                     result = false;
@@ -324,7 +325,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 break;
             case 1:
                 try {
-                    Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_RL );
+                    Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_RL );
                 } catch( Exception e ) {
                     javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                     result = false;
@@ -334,7 +335,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 break;
             case 2:
                 try {
-                    Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_RA );
+                    Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_RA );
                 } catch( Exception e ) {
                     javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                     result = false;
@@ -344,10 +345,10 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 break;
             }
             break;
-        case Constants.LOC_LA:
+        case LocationIndex.MECH_LOC_LA:
             // there's only one location we can split to.
             try {
-                Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_LT );
+                Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_LT );
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 result = false;
@@ -355,10 +356,10 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 return;
             }
             break;
-        case Constants.LOC_RA:
+        case LocationIndex.MECH_LOC_RA:
             // there's only one location we can split to.
             try {
-                Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_RT );
+                Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_RT );
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 result = false;
@@ -366,10 +367,10 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 return;
             }
             break;
-        case Constants.LOC_LL:
+        case LocationIndex.MECH_LOC_LL:
             // there's only one location we can split to.
             try {
-                Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_LT );
+                Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_LT );
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 result = false;
@@ -377,10 +378,10 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 return;
             }
             break;
-        case Constants.LOC_RL:
+        case LocationIndex.MECH_LOC_RL:
             // there's only one location we can split to.
             try {
-                Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, Constants.LOC_RT );
+                Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_RT );
             } catch( Exception e ) {
                 javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
                 result = false;

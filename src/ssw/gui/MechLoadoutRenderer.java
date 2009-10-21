@@ -33,8 +33,7 @@ import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import ssw.*;
-import ssw.components.*;
+import components.*;
 
 public class MechLoadoutRenderer extends DefaultListCellRenderer {
     private frmMain Parent;
@@ -83,28 +82,28 @@ public class MechLoadoutRenderer extends DefaultListCellRenderer {
         // find the location
         LocNum =  Parent.GetLocation( list );
         switch( LocNum ) {
-            case Constants.LOC_HD:
+            case LocationIndex.MECH_LOC_HD:
                 Loc = Parent.CurMech.GetLoadout().GetHDCrits();
                 break;
-            case Constants.LOC_CT:
+            case LocationIndex.MECH_LOC_CT:
                 Loc = Parent.CurMech.GetLoadout().GetCTCrits();
                 break;
-            case Constants.LOC_LT:
+            case LocationIndex.MECH_LOC_LT:
                 Loc = Parent.CurMech.GetLoadout().GetLTCrits();
                 break;
-            case Constants.LOC_RT:
+            case LocationIndex.MECH_LOC_RT:
                 Loc = Parent.CurMech.GetLoadout().GetRTCrits();
                 break;
-            case Constants.LOC_LA:
+            case LocationIndex.MECH_LOC_LA:
                 Loc = Parent.CurMech.GetLoadout().GetLACrits();
                 break;
-            case Constants.LOC_RA:
+            case LocationIndex.MECH_LOC_RA:
                 Loc = Parent.CurMech.GetLoadout().GetRACrits();
                 break;
-            case Constants.LOC_LL:
+            case LocationIndex.MECH_LOC_LL:
                 Loc = Parent.CurMech.GetLoadout().GetLLCrits();
                 break;
-            case Constants.LOC_RL:
+            case LocationIndex.MECH_LOC_RL:
                 Loc = Parent.CurMech.GetLoadout().GetRLCrits();
                 break;
             default:

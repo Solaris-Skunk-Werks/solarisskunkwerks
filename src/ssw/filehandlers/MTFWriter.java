@@ -32,8 +32,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Vector;
-import ssw.*;
-import ssw.components.*;
+import components.*;
 
 public class MTFWriter {
     // writes the given mech to an MTF file supported by MegaMek.
@@ -188,32 +187,32 @@ public class MTFWriter {
             FR.write( "Armor:" + CurMech.GetArmor().MegaMekName( false ) );
         }
         FR.newLine();
-        FR.write( "LA Armor:" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA) );
+        FR.write( "LA Armor:" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LA) );
         FR.newLine();
-        FR.write( "RA Armor:" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_RA) );
+        FR.write( "RA Armor:" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RA) );
         FR.newLine();
-        FR.write( "LT Armor:" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LT) );
+        FR.write( "LT Armor:" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LT) );
         FR.newLine();
-        FR.write( "RT Armor:" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_RT) );
+        FR.write( "RT Armor:" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RT) );
         FR.newLine();
-        FR.write( "CT Armor:" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_CT) );
+        FR.write( "CT Armor:" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CT) );
         FR.newLine();
-        FR.write( "HD Armor:" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_HD) );
+        FR.write( "HD Armor:" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_HD) );
         FR.newLine();
-        FR.write( "LL Armor:" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL) );
+        FR.write( "LL Armor:" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LL) );
         FR.newLine();
-        FR.write( "RL Armor:" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_RL) );
+        FR.write( "RL Armor:" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RL) );
         FR.newLine();
-        FR.write( "RTL Armor:" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_LTR) );
+        FR.write( "RTL Armor:" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LTR) );
         FR.newLine();
-        FR.write( "RTR Armor:" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_RTR) );
+        FR.write( "RTR Armor:" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RTR) );
         FR.newLine();
-        FR.write( "RTC Armor:" + CurMech.GetArmor().GetLocationArmor( Constants.LOC_CTR) );
+        FR.write( "RTC Armor:" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CTR) );
         FR.newLine();
 
         // sixth block for weapon information.  Get the loadout directly as this
         // will make things much easier
-        ifLoadout l = CurMech.GetLoadout();
+        ifMechLoadout l = CurMech.GetLoadout();
         FR.newLine();
         Vector v = l.GetNonCore();
         // now we have to split up the vector into equipment and ammo
@@ -252,9 +251,9 @@ public class MTFWriter {
                     }
                     // now that we have the amount, add the line in
                     if( ammoamount > 0 ) {
-                        FR.write( "1 " + GetMMName( p ) + ", " + Constants.Locs[l.Find( p )] + rear + ", Ammo:" + ammoamount );
+                        FR.write( "1 " + GetMMName( p ) + ", " + LocationIndex.MechLocs[l.Find( p )] + rear + ", Ammo:" + ammoamount );
                     } else {
-                        FR.write( "1 " + GetMMName( p ) + ", " + Constants.Locs[l.Find( p )] + rear );
+                        FR.write( "1 " + GetMMName( p ) + ", " + LocationIndex.MechLocs[l.Find( p )] + rear );
                     }
                 } else {
                     // check for a rear-facing weapon
@@ -263,12 +262,12 @@ public class MTFWriter {
                         rear = " (R)";
                     }
                     // no ammo checking needed
-                    FR.write( "1 " + GetMMName( p ) + ", " + Constants.Locs[l.Find( p )] + rear );
+                    FR.write( "1 " + GetMMName( p ) + ", " + LocationIndex.MechLocs[l.Find( p )] + rear );
                 }
                 FR.newLine();
             } else {
                 // not a weapon so no ammo checking.  Add it to the file
-                FR.write( "1 " + GetMMName( p ) + ", " + Constants.Locs[l.Find( p )] );
+                FR.write( "1 " + GetMMName( p ) + ", " + LocationIndex.MechLocs[l.Find( p )] );
                 FR.newLine();
             }
             // format is:

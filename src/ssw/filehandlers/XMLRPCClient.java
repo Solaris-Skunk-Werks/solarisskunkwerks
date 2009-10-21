@@ -39,8 +39,8 @@ import java.util.Vector;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.*;
-import ssw.components.AvailableCode;
-import ssw.components.Mech;
+import components.AvailableCode;
+import components.Mech;
 
 public class XMLRPCClient {
     private String Server;

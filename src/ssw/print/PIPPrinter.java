@@ -32,8 +32,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.util.Hashtable;
-import ssw.components.*;
-import ssw.Constants;
+import components.*;
 import ssw.filehandlers.Media;
 
 public class PIPPrinter {
@@ -93,51 +92,51 @@ public class PIPPrinter {
 
         Points = new TWBipedPoints();
 
-        Armor.put(Constants.LOC_HD, new PIPSettings(Constants.LOC_HD, false, new Point(463,52), new Point(17,20), "HD_", Points.GetArmorHDPoints()));
-        Armor.put(Constants.LOC_CT, new PIPSettings(Constants.LOC_CT, false, new Point(457,84), new Point(28,88), "CT_", Points.GetArmorCTPoints()));
-        Armor.put(Constants.LOC_LT, new PIPSettings(Constants.LOC_LT, false, new Point(422,66), new Point(32,86), "LT_", Points.GetArmorLTPoints()));
-        Armor.put(Constants.LOC_RT, new PIPSettings(Constants.LOC_RT, false, new Point(520,66), new Point(-32,86), "LT_", Points.GetArmorRTPoints()));
-        Armor.put(Constants.LOC_LA, new PIPSettings(Constants.LOC_LA, false, new Point(387,55), new Point(30,98), "LA_", Points.GetArmorLAPoints()));
-        Armor.put(Constants.LOC_RA, new PIPSettings(Constants.LOC_RA, false, new Point(556,55), new Point(-30,98), "LA_", Points.GetArmorRAPoints()));
-        Armor.put(Constants.LOC_LL, new PIPSettings(Constants.LOC_LL, false, new Point(400,160), new Point(51,125), "LL_", Points.GetArmorLLPoints()));
-        Armor.put(Constants.LOC_RL, new PIPSettings(Constants.LOC_RL, false, new Point(542,160), new Point(-51,125), "LL_", Points.GetArmorRLPoints()));
-        Armor.put(Constants.LOC_CTR, new PIPSettings(Constants.LOC_CTR, false, new Point(460,283), new Point(23,70), "CTR_", Points.GetArmorCTRPoints()));
-        Armor.put(Constants.LOC_LTR, new PIPSettings(Constants.LOC_LTR, false, new Point(423,297), new Point(30,38), "LTR_", Points.GetArmorLTRPoints()));
-        Armor.put(Constants.LOC_RTR, new PIPSettings(Constants.LOC_RTR, false, new Point(520,297), new Point(-30,38), "LTR_", Points.GetArmorRTRPoints()));
+        Armor.put(LocationIndex.MECH_LOC_HD, new PIPSettings(LocationIndex.MECH_LOC_HD, false, new Point(463,52), new Point(17,20), "HD_", Points.GetArmorHDPoints()));
+        Armor.put(LocationIndex.MECH_LOC_CT, new PIPSettings(LocationIndex.MECH_LOC_CT, false, new Point(457,84), new Point(28,88), "CT_", Points.GetArmorCTPoints()));
+        Armor.put(LocationIndex.MECH_LOC_LT, new PIPSettings(LocationIndex.MECH_LOC_LT, false, new Point(422,66), new Point(32,86), "LT_", Points.GetArmorLTPoints()));
+        Armor.put(LocationIndex.MECH_LOC_RT, new PIPSettings(LocationIndex.MECH_LOC_RT, false, new Point(520,66), new Point(-32,86), "LT_", Points.GetArmorRTPoints()));
+        Armor.put(LocationIndex.MECH_LOC_LA, new PIPSettings(LocationIndex.MECH_LOC_LA, false, new Point(387,55), new Point(30,98), "LA_", Points.GetArmorLAPoints()));
+        Armor.put(LocationIndex.MECH_LOC_RA, new PIPSettings(LocationIndex.MECH_LOC_RA, false, new Point(556,55), new Point(-30,98), "LA_", Points.GetArmorRAPoints()));
+        Armor.put(LocationIndex.MECH_LOC_LL, new PIPSettings(LocationIndex.MECH_LOC_LL, false, new Point(400,160), new Point(51,125), "LL_", Points.GetArmorLLPoints()));
+        Armor.put(LocationIndex.MECH_LOC_RL, new PIPSettings(LocationIndex.MECH_LOC_RL, false, new Point(542,160), new Point(-51,125), "LL_", Points.GetArmorRLPoints()));
+        Armor.put(LocationIndex.MECH_LOC_CTR, new PIPSettings(LocationIndex.MECH_LOC_CTR, false, new Point(460,283), new Point(23,70), "CTR_", Points.GetArmorCTRPoints()));
+        Armor.put(LocationIndex.MECH_LOC_LTR, new PIPSettings(LocationIndex.MECH_LOC_LTR, false, new Point(423,297), new Point(30,38), "LTR_", Points.GetArmorLTRPoints()));
+        Armor.put(LocationIndex.MECH_LOC_RTR, new PIPSettings(LocationIndex.MECH_LOC_RTR, false, new Point(520,297), new Point(-30,38), "LTR_", Points.GetArmorRTRPoints()));
 
-        Internal.put(Constants.LOC_HD, new PIPSettings(Constants.LOC_HD, true, new Point(452,389), new Point(13,13), "INT_HD_", Points.GetInternalHDPoints()));
-        Internal.put(Constants.LOC_CT, new PIPSettings(Constants.LOC_CT, true, new Point(450,410), new Point(17,61), "INT_CT_", Points.GetInternalCTPoints()));
-        Internal.put(Constants.LOC_LT, new PIPSettings(Constants.LOC_LT, true, new Point(426,401), new Point(21,59), "INT_LT_", Points.GetInternalLTPoints()));
-        Internal.put(Constants.LOC_RT, new PIPSettings(Constants.LOC_RT, true, new Point(490,401), new Point(-21,59), "INT_LT_", Points.GetInternalRTPoints()));
-        Internal.put(Constants.LOC_LA, new PIPSettings(Constants.LOC_LA, true, new Point(402,400), new Point(14,75), "INT_LA_", Points.GetInternalLAPoints()));
-        Internal.put(Constants.LOC_RA, new PIPSettings(Constants.LOC_RA, true, new Point(514,400), new Point(-14,75), "INT_LA_", Points.GetInternalRAPoints()));
-        Internal.put(Constants.LOC_LL, new PIPSettings(Constants.LOC_LL, true, new Point(418,463), new Point(25,89), "INT_LL_", Points.GetInternalLLPoints()));
-        Internal.put(Constants.LOC_RL, new PIPSettings(Constants.LOC_RL, true, new Point(498,463), new Point(-25,89), "INT_LL_", Points.GetInternalRLPoints()));
+        Internal.put(LocationIndex.MECH_LOC_HD, new PIPSettings(LocationIndex.MECH_LOC_HD, true, new Point(452,389), new Point(13,13), "INT_HD_", Points.GetInternalHDPoints()));
+        Internal.put(LocationIndex.MECH_LOC_CT, new PIPSettings(LocationIndex.MECH_LOC_CT, true, new Point(450,410), new Point(17,61), "INT_CT_", Points.GetInternalCTPoints()));
+        Internal.put(LocationIndex.MECH_LOC_LT, new PIPSettings(LocationIndex.MECH_LOC_LT, true, new Point(426,401), new Point(21,59), "INT_LT_", Points.GetInternalLTPoints()));
+        Internal.put(LocationIndex.MECH_LOC_RT, new PIPSettings(LocationIndex.MECH_LOC_RT, true, new Point(490,401), new Point(-21,59), "INT_LT_", Points.GetInternalRTPoints()));
+        Internal.put(LocationIndex.MECH_LOC_LA, new PIPSettings(LocationIndex.MECH_LOC_LA, true, new Point(402,400), new Point(14,75), "INT_LA_", Points.GetInternalLAPoints()));
+        Internal.put(LocationIndex.MECH_LOC_RA, new PIPSettings(LocationIndex.MECH_LOC_RA, true, new Point(514,400), new Point(-14,75), "INT_LA_", Points.GetInternalRAPoints()));
+        Internal.put(LocationIndex.MECH_LOC_LL, new PIPSettings(LocationIndex.MECH_LOC_LL, true, new Point(418,463), new Point(25,89), "INT_LL_", Points.GetInternalLLPoints()));
+        Internal.put(LocationIndex.MECH_LOC_RL, new PIPSettings(LocationIndex.MECH_LOC_RL, true, new Point(498,463), new Point(-25,89), "INT_LL_", Points.GetInternalRLPoints()));
 
         if ( CurMech.IsQuad() ) {
             Points = new TWQuadPoints();
             Chassis = "QD";
 
-            Armor.get(Constants.LOC_HD).setStartAndSize(new Point(458,60), new Point(27,20), Points.GetArmorHDPoints());
-            Armor.get(Constants.LOC_CT).setStartAndSize(new Point(454,85), new Point(35,68), Points.GetArmorCTPoints());
-            Armor.get(Constants.LOC_LT).setStartAndSize(new Point(415,44), new Point(28,66), Points.GetArmorLTPoints());
-            Armor.get(Constants.LOC_RT).setStartAndSize(new Point(527,44), new Point(-28,66), Points.GetArmorRTPoints());
-            Armor.get(Constants.LOC_LA).setStartAndSize(new Point(402,122), new Point(25,140), Points.GetArmorLAPoints());
-            Armor.get(Constants.LOC_RA).setStartAndSize(new Point(541,122), new Point(-25,140), Points.GetArmorRAPoints());
-            Armor.get(Constants.LOC_LL).setStartAndSize(new Point(430,119), new Point(27,134), Points.GetArmorLLPoints());
-            Armor.get(Constants.LOC_RL).setStartAndSize(new Point(513,119), new Point(-27,134), Points.GetArmorRLPoints());
-            Armor.get(Constants.LOC_CTR).setStartAndSize(new Point(457,292), new Point(30,53), Points.GetArmorCTRPoints());
-            Armor.get(Constants.LOC_LTR).setStartAndSize(new Point(424,294), new Point(30,48), Points.GetArmorLTRPoints());
-            Armor.get(Constants.LOC_RTR).setStartAndSize(new Point(519,294), new Point(-30,48), Points.GetArmorRTRPoints());
+            Armor.get(LocationIndex.MECH_LOC_HD).setStartAndSize(new Point(458,60), new Point(27,20), Points.GetArmorHDPoints());
+            Armor.get(LocationIndex.MECH_LOC_CT).setStartAndSize(new Point(454,85), new Point(35,68), Points.GetArmorCTPoints());
+            Armor.get(LocationIndex.MECH_LOC_LT).setStartAndSize(new Point(415,44), new Point(28,66), Points.GetArmorLTPoints());
+            Armor.get(LocationIndex.MECH_LOC_RT).setStartAndSize(new Point(527,44), new Point(-28,66), Points.GetArmorRTPoints());
+            Armor.get(LocationIndex.MECH_LOC_LA).setStartAndSize(new Point(402,122), new Point(25,140), Points.GetArmorLAPoints());
+            Armor.get(LocationIndex.MECH_LOC_RA).setStartAndSize(new Point(541,122), new Point(-25,140), Points.GetArmorRAPoints());
+            Armor.get(LocationIndex.MECH_LOC_LL).setStartAndSize(new Point(430,119), new Point(27,134), Points.GetArmorLLPoints());
+            Armor.get(LocationIndex.MECH_LOC_RL).setStartAndSize(new Point(513,119), new Point(-27,134), Points.GetArmorRLPoints());
+            Armor.get(LocationIndex.MECH_LOC_CTR).setStartAndSize(new Point(457,292), new Point(30,53), Points.GetArmorCTRPoints());
+            Armor.get(LocationIndex.MECH_LOC_LTR).setStartAndSize(new Point(424,294), new Point(30,48), Points.GetArmorLTRPoints());
+            Armor.get(LocationIndex.MECH_LOC_RTR).setStartAndSize(new Point(519,294), new Point(-30,48), Points.GetArmorRTRPoints());
 
-            Internal.get(Constants.LOC_HD).setStartAndSize(new Point(450,400), new Point(14,13), Points.GetInternalHDPoints());
-            Internal.get(Constants.LOC_CT).setStartAndSize(new Point(446,420), new Point(23,41), Points.GetInternalCTPoints());
-            Internal.get(Constants.LOC_LT).setStartAndSize(new Point(417,403), new Point(23,36), Points.GetInternalLTPoints());
-            Internal.get(Constants.LOC_RT).setStartAndSize(new Point(498,403), new Point(-23,36), Points.GetInternalRTPoints());
-            Internal.get(Constants.LOC_LA).setStartAndSize(new Point(411,456), new Point(16,86), Points.GetInternalLAPoints());
-            Internal.get(Constants.LOC_RA).setStartAndSize(new Point(504,456), new Point(-16,86), Points.GetInternalRAPoints());
-            Internal.get(Constants.LOC_LL).setStartAndSize(new Point(433,453), new Point(10,86), Points.GetInternalLLPoints());
-            Internal.get(Constants.LOC_RL).setStartAndSize(new Point(482,453), new Point(-10,86), Points.GetInternalRLPoints());
+            Internal.get(LocationIndex.MECH_LOC_HD).setStartAndSize(new Point(450,400), new Point(14,13), Points.GetInternalHDPoints());
+            Internal.get(LocationIndex.MECH_LOC_CT).setStartAndSize(new Point(446,420), new Point(23,41), Points.GetInternalCTPoints());
+            Internal.get(LocationIndex.MECH_LOC_LT).setStartAndSize(new Point(417,403), new Point(23,36), Points.GetInternalLTPoints());
+            Internal.get(LocationIndex.MECH_LOC_RT).setStartAndSize(new Point(498,403), new Point(-23,36), Points.GetInternalRTPoints());
+            Internal.get(LocationIndex.MECH_LOC_LA).setStartAndSize(new Point(411,456), new Point(16,86), Points.GetInternalLAPoints());
+            Internal.get(LocationIndex.MECH_LOC_RA).setStartAndSize(new Point(504,456), new Point(-16,86), Points.GetInternalRAPoints());
+            Internal.get(LocationIndex.MECH_LOC_LL).setStartAndSize(new Point(433,453), new Point(10,86), Points.GetInternalLLPoints());
+            Internal.get(LocationIndex.MECH_LOC_RL).setStartAndSize(new Point(482,453), new Point(-10,86), Points.GetInternalRLPoints());
         }
     }
     // </editor-fold>
@@ -258,15 +257,15 @@ public class PIPPrinter {
 
         public int GetInternals() {
             switch( LocationID ) {
-                case Constants.LOC_HD:
+                case LocationIndex.MECH_LOC_HD:
                     return CurMech.GetIntStruc().GetHeadPoints();
-                case Constants.LOC_CT:
+                case LocationIndex.MECH_LOC_CT:
                     return CurMech.GetIntStruc().GetCTPoints();
-                case Constants.LOC_LT: case Constants.LOC_RT:
+                case LocationIndex.MECH_LOC_LT: case LocationIndex.MECH_LOC_RT:
                     return CurMech.GetIntStruc().GetSidePoints();
-                case Constants.LOC_LA: case Constants.LOC_RA:
+                case LocationIndex.MECH_LOC_LA: case LocationIndex.MECH_LOC_RA:
                     return CurMech.GetIntStruc().GetArmPoints();
-                case Constants.LOC_LL: case Constants.LOC_RL:
+                case LocationIndex.MECH_LOC_LL: case LocationIndex.MECH_LOC_RL:
                     return CurMech.GetIntStruc().GetLegPoints();
             }
             return 0;

@@ -38,9 +38,8 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.util.Vector;
-import ssw.utilities.CommonTools;
-import ssw.Constants;
-import ssw.components.*;
+import common.CommonTools;
+import components.*;
 import ssw.filehandlers.FileCommon;
 import ssw.filehandlers.Media;
 import ssw.gui.frmMain;
@@ -244,7 +243,7 @@ public class PrintMech implements Printable {
         Point[] p = null;
         graphics.setFont( SmallFont );
 
-        a = CurMech.GetLoadout().GetCrits( Constants.LOC_HD );
+        a = CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_HD );
         p = points.GetCritHDPoints();
         for( int i = 0; i < a.length && i < p.length; i++ ) {
             if( a[i].NumCrits() > 1 && a[i].Contiguous() &! ( a[i] instanceof Engine ) &! ( a[i] instanceof Gyro ) ) {
@@ -305,7 +304,7 @@ public class PrintMech implements Printable {
             }
         }
 
-        a = CurMech.GetLoadout().GetCrits( Constants.LOC_CT );
+        a = CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_CT );
         p = points.GetCritCTPoints();
         for( int i = 0; i < a.length && i < p.length; i++ ) {
             if( a[i].NumCrits() > 1 && a[i].Contiguous() &! ( a[i] instanceof Engine ) &! ( a[i] instanceof Gyro ) ) {
@@ -315,7 +314,7 @@ public class PrintMech implements Printable {
                 int End;
                 if( Current.CanSplit() ) {
                     int[] check = CurMech.GetLoadout().FindInstances( Current );
-                    End = check[Constants.LOC_CT] + j;
+                    End = check[LocationIndex.MECH_LOC_CT] + j;
                 } else {
                     End = Current.NumCrits() + j;
                 }
@@ -372,7 +371,7 @@ public class PrintMech implements Printable {
             }
         }
 
-        a = CurMech.GetLoadout().GetCrits( Constants.LOC_LT );
+        a = CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_LT );
         p = points.GetCritLTPoints();
         for( int i = 0; i < a.length && i < p.length; i++ ) {
             if( a[i].NumCrits() > 1 && a[i].Contiguous() &! ( a[i] instanceof Engine ) &! ( a[i] instanceof Gyro ) ) {
@@ -382,7 +381,7 @@ public class PrintMech implements Printable {
                 int End;
                 if( Current.CanSplit() ) {
                     int[] check = CurMech.GetLoadout().FindInstances( Current );
-                    End = check[Constants.LOC_LT] + j;
+                    End = check[LocationIndex.MECH_LOC_LT] + j;
                 } else {
                     End = Current.NumCrits() + j;
                 }
@@ -439,7 +438,7 @@ public class PrintMech implements Printable {
             }
         }
 
-        a = CurMech.GetLoadout().GetCrits( Constants.LOC_RT );
+        a = CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_RT );
         p = points.GetCritRTPoints();
         for( int i = 0; i < a.length && i < p.length; i++ ) {
             if( a[i].NumCrits() > 1 && a[i].Contiguous() &! ( a[i] instanceof Engine ) &! ( a[i] instanceof Gyro ) ) {
@@ -449,7 +448,7 @@ public class PrintMech implements Printable {
                 int End;
                 if( Current.CanSplit() ) {
                     int[] check = CurMech.GetLoadout().FindInstances( Current );
-                    End = check[Constants.LOC_RT] + j;
+                    End = check[LocationIndex.MECH_LOC_RT] + j;
                 } else {
                     End = Current.NumCrits() + j;
                 }
@@ -506,7 +505,7 @@ public class PrintMech implements Printable {
             }
         }
 
-        a = CurMech.GetLoadout().GetCrits( Constants.LOC_LA );
+        a = CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_LA );
         p = points.GetCritLAPoints();
         for( int i = 0; i < a.length && i < p.length; i++ ) {
             if( a[i].NumCrits() > 1 && a[i].Contiguous() &! ( a[i] instanceof Engine ) &! ( a[i] instanceof Gyro ) ) {
@@ -516,7 +515,7 @@ public class PrintMech implements Printable {
                 int End;
                 if( Current.CanSplit() ) {
                     int[] check = CurMech.GetLoadout().FindInstances( Current );
-                    End = check[Constants.LOC_LA] + j;
+                    End = check[LocationIndex.MECH_LOC_LA] + j;
                 } else {
                     End = Current.NumCrits() + j;
                 }
@@ -573,7 +572,7 @@ public class PrintMech implements Printable {
             }
         }
 
-        a = CurMech.GetLoadout().GetCrits( Constants.LOC_RA );
+        a = CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_RA );
         p = points.GetCritRAPoints();
         for( int i = 0; i < a.length && i < p.length; i++ ) {
             if( a[i].NumCrits() > 1 && a[i].Contiguous() &! ( a[i] instanceof Engine ) &! ( a[i] instanceof Gyro ) ) {
@@ -583,7 +582,7 @@ public class PrintMech implements Printable {
                 int End;
                 if( Current.CanSplit() ) {
                     int[] check = CurMech.GetLoadout().FindInstances( Current );
-                    End = check[Constants.LOC_RA] + j;
+                    End = check[LocationIndex.MECH_LOC_RA] + j;
                 } else {
                     End = Current.NumCrits() + j;
                 }
@@ -640,7 +639,7 @@ public class PrintMech implements Printable {
             }
         }
 
-        a = CurMech.GetLoadout().GetCrits( Constants.LOC_LL );
+        a = CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_LL );
         p = points.GetCritLLPoints();
         for( int i = 0; i < a.length && i < p.length; i++ ) {
             if( a[i].NumCrits() > 1 && a[i].Contiguous() &! ( a[i] instanceof Engine ) &! ( a[i] instanceof Gyro ) ) {
@@ -650,7 +649,7 @@ public class PrintMech implements Printable {
                 int End;
                 if( Current.CanSplit() ) {
                     int[] check = CurMech.GetLoadout().FindInstances( Current );
-                    End = check[Constants.LOC_LL] + j;
+                    End = check[LocationIndex.MECH_LOC_LL] + j;
                 } else {
                     End = Current.NumCrits() + j;
                 }
@@ -707,7 +706,7 @@ public class PrintMech implements Printable {
             }
         }
 
-        a = CurMech.GetLoadout().GetCrits( Constants.LOC_RL );
+        a = CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_RL );
         p = points.GetCritRLPoints();
         for( int i = 0; i < a.length && i < p.length; i++ ) {
             if( a[i].NumCrits() > 1 && a[i].Contiguous() &! ( a[i] instanceof Engine ) &! ( a[i] instanceof Gyro ) ) {
@@ -717,7 +716,7 @@ public class PrintMech implements Printable {
                 int End;
                 if( Current.CanSplit() ) {
                     int[] check = CurMech.GetLoadout().FindInstances( Current );
-                    End = check[Constants.LOC_RL] + j;
+                    End = check[LocationIndex.MECH_LOC_RL] + j;
                 } else {
                     End = Current.NumCrits() + j;
                 }
@@ -975,8 +974,8 @@ public class PrintMech implements Printable {
             graphics.setFont(SmallFont);
             if ( CurMech.IsQuad() ) { graphics.setFont(XtraSmallFont); }
 
-            int baseX = points.GetArmorInfoPoints()[Constants.LOC_CT].x;
-            int baseY = points.GetArmorInfoPoints()[Constants.LOC_CT].y + 15;
+            int baseX = points.GetArmorInfoPoints()[LocationIndex.MECH_LOC_CT].x;
+            int baseY = points.GetArmorInfoPoints()[LocationIndex.MECH_LOC_CT].y + 15;
 
             if ( CurMech.GetArmor().RequiresExtraRules() ) {
                 graphics.setFont(SmallBoldFont);
@@ -1005,40 +1004,40 @@ public class PrintMech implements Printable {
         // internal information
         graphics.setFont( SmallFont );
         p = points.GetInternalInfoPoints();
-        graphics.drawString( CurMech.GetIntStruc().GetCTPoints() + "", p[Constants.LOC_CT].x, p[Constants.LOC_CT].y );
-        graphics.drawString( CurMech.GetIntStruc().GetSidePoints() + "", p[Constants.LOC_LT].x, p[Constants.LOC_LT].y );
-        graphics.drawString( CurMech.GetIntStruc().GetSidePoints() + "", p[Constants.LOC_RT].x, p[Constants.LOC_RT].y );
-        graphics.drawString( CurMech.GetIntStruc().GetArmPoints() + "", p[Constants.LOC_LA].x, p[Constants.LOC_LA].y );
-        graphics.drawString( CurMech.GetIntStruc().GetArmPoints() + "", p[Constants.LOC_RA].x, p[Constants.LOC_RA].y );
-        graphics.drawString( CurMech.GetIntStruc().GetLegPoints() + "", p[Constants.LOC_LL].x, p[Constants.LOC_LL].y );
-        graphics.drawString( CurMech.GetIntStruc().GetLegPoints() + "", p[Constants.LOC_RL].x, p[Constants.LOC_RL].y );
+        graphics.drawString( CurMech.GetIntStruc().GetCTPoints() + "", p[LocationIndex.MECH_LOC_CT].x, p[LocationIndex.MECH_LOC_CT].y );
+        graphics.drawString( CurMech.GetIntStruc().GetSidePoints() + "", p[LocationIndex.MECH_LOC_LT].x, p[LocationIndex.MECH_LOC_LT].y );
+        graphics.drawString( CurMech.GetIntStruc().GetSidePoints() + "", p[LocationIndex.MECH_LOC_RT].x, p[LocationIndex.MECH_LOC_RT].y );
+        graphics.drawString( CurMech.GetIntStruc().GetArmPoints() + "", p[LocationIndex.MECH_LOC_LA].x, p[LocationIndex.MECH_LOC_LA].y );
+        graphics.drawString( CurMech.GetIntStruc().GetArmPoints() + "", p[LocationIndex.MECH_LOC_RA].x, p[LocationIndex.MECH_LOC_RA].y );
+        graphics.drawString( CurMech.GetIntStruc().GetLegPoints() + "", p[LocationIndex.MECH_LOC_LL].x, p[LocationIndex.MECH_LOC_LL].y );
+        graphics.drawString( CurMech.GetIntStruc().GetLegPoints() + "", p[LocationIndex.MECH_LOC_RL].x, p[LocationIndex.MECH_LOC_RL].y );
 
         // armor information
         p = points.GetArmorInfoPoints();
-        graphics.drawString( CurMech.GetArmor().GetLocationArmor( Constants.LOC_HD ) + "", p[Constants.LOC_HD].x, p[Constants.LOC_HD].y );
-        graphics.drawString( CurMech.GetArmor().GetLocationArmor( Constants.LOC_CT ) + "", p[Constants.LOC_CT].x, p[Constants.LOC_CT].y );
-        graphics.drawString( CurMech.GetArmor().GetLocationArmor( Constants.LOC_LT ) + "", p[Constants.LOC_LT].x, p[Constants.LOC_LT].y );
-        graphics.drawString( CurMech.GetArmor().GetLocationArmor( Constants.LOC_RT ) + "", p[Constants.LOC_RT].x, p[Constants.LOC_RT].y );
-        graphics.drawString( CurMech.GetArmor().GetLocationArmor( Constants.LOC_LA ) + "", p[Constants.LOC_LA].x, p[Constants.LOC_LA].y );
-        graphics.drawString( CurMech.GetArmor().GetLocationArmor( Constants.LOC_RA ) + "", p[Constants.LOC_RA].x, p[Constants.LOC_RA].y );
-        graphics.drawString( CurMech.GetArmor().GetLocationArmor( Constants.LOC_LL ) + "", p[Constants.LOC_LL].x, p[Constants.LOC_LL].y );
-        graphics.drawString( CurMech.GetArmor().GetLocationArmor( Constants.LOC_RL ) + "", p[Constants.LOC_RL].x, p[Constants.LOC_RL].y );
-        graphics.drawString( CurMech.GetArmor().GetLocationArmor( Constants.LOC_CTR ) + "", p[Constants.LOC_CTR].x, p[Constants.LOC_CTR].y );
-        graphics.drawString( CurMech.GetArmor().GetLocationArmor( Constants.LOC_LTR ) + "", p[Constants.LOC_LTR].x, p[Constants.LOC_LTR].y );
-        graphics.drawString( CurMech.GetArmor().GetLocationArmor( Constants.LOC_RTR ) + "", p[Constants.LOC_RTR].x, p[Constants.LOC_RTR].y );
+        graphics.drawString( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_HD ) + "", p[LocationIndex.MECH_LOC_HD].x, p[LocationIndex.MECH_LOC_HD].y );
+        graphics.drawString( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CT ) + "", p[LocationIndex.MECH_LOC_CT].x, p[LocationIndex.MECH_LOC_CT].y );
+        graphics.drawString( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LT ) + "", p[LocationIndex.MECH_LOC_LT].x, p[LocationIndex.MECH_LOC_LT].y );
+        graphics.drawString( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RT ) + "", p[LocationIndex.MECH_LOC_RT].x, p[LocationIndex.MECH_LOC_RT].y );
+        graphics.drawString( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LA ) + "", p[LocationIndex.MECH_LOC_LA].x, p[LocationIndex.MECH_LOC_LA].y );
+        graphics.drawString( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RA ) + "", p[LocationIndex.MECH_LOC_RA].x, p[LocationIndex.MECH_LOC_RA].y );
+        graphics.drawString( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LL ) + "", p[LocationIndex.MECH_LOC_LL].x, p[LocationIndex.MECH_LOC_LL].y );
+        graphics.drawString( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RL ) + "", p[LocationIndex.MECH_LOC_RL].x, p[LocationIndex.MECH_LOC_RL].y );
+        graphics.drawString( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CTR ) + "", p[LocationIndex.MECH_LOC_CTR].x, p[LocationIndex.MECH_LOC_CTR].y );
+        graphics.drawString( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LTR ) + "", p[LocationIndex.MECH_LOC_LTR].x, p[LocationIndex.MECH_LOC_LTR].y );
+        graphics.drawString( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RTR ) + "", p[LocationIndex.MECH_LOC_RTR].x, p[LocationIndex.MECH_LOC_RTR].y );
         if( CurMech.GetArmor().GetBAR() < 10 ) {
             graphics.setFont( XtraSmallFont );
-            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_HD].x, p[Constants.LOC_HD].y + 7 );
-            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_CT].x - 5, p[Constants.LOC_CT].y + 8 );
-            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_LT].x - 4, p[Constants.LOC_LT].y + 7 );
-            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_RT].x - 4, p[Constants.LOC_RT].y + 7 );
-            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_LA].x - 4, p[Constants.LOC_LA].y + 8 );
-            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_RA].x - 5, p[Constants.LOC_RA].y + 8 );
-            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_LL].x - 4, p[Constants.LOC_LL].y + 8 );
-            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_RL].x - 4, p[Constants.LOC_RL].y + 8 );
-            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_CTR].x + 2, p[Constants.LOC_CTR].y + 8 );
-            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_LTR].x + 13, p[Constants.LOC_LTR].y );
-            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[Constants.LOC_RTR].x - 22, p[Constants.LOC_RTR].y );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[LocationIndex.MECH_LOC_HD].x, p[LocationIndex.MECH_LOC_HD].y + 7 );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[LocationIndex.MECH_LOC_CT].x - 5, p[LocationIndex.MECH_LOC_CT].y + 8 );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[LocationIndex.MECH_LOC_LT].x - 4, p[LocationIndex.MECH_LOC_LT].y + 7 );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[LocationIndex.MECH_LOC_RT].x - 4, p[LocationIndex.MECH_LOC_RT].y + 7 );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[LocationIndex.MECH_LOC_LA].x - 4, p[LocationIndex.MECH_LOC_LA].y + 8 );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[LocationIndex.MECH_LOC_RA].x - 5, p[LocationIndex.MECH_LOC_RA].y + 8 );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[LocationIndex.MECH_LOC_LL].x - 4, p[LocationIndex.MECH_LOC_LL].y + 8 );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[LocationIndex.MECH_LOC_RL].x - 4, p[LocationIndex.MECH_LOC_RL].y + 8 );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[LocationIndex.MECH_LOC_CTR].x + 2, p[LocationIndex.MECH_LOC_CTR].y + 8 );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[LocationIndex.MECH_LOC_LTR].x + 13, p[LocationIndex.MECH_LOC_LTR].y );
+            graphics.drawString( "BAR:" + CurMech.GetArmor().GetBAR(), p[LocationIndex.MECH_LOC_RTR].x - 22, p[LocationIndex.MECH_LOC_RTR].y );
             graphics.setFont( SmallFont );
         }
     }

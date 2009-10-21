@@ -30,8 +30,7 @@ package ssw.filehandlers;
 
 import java.util.Vector;
 import java.util.prefs.Preferences;
-import ssw.Constants;
-import ssw.components.*;
+import components.*;
 import ssw.gui.frmMain;
 
 public class FileCommon {
@@ -65,29 +64,29 @@ public class FileCommon {
         String retval = "";
         int[] locs = m.GetLoadout().FindInstances( m.GetIntStruc() );
 
-        if( locs[Constants.LOC_HD] > 0 ) {
-            retval += locs[Constants.LOC_HD] + " " + EncodeLocation( Constants.LOC_HD, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_HD] > 0 ) {
+            retval += locs[LocationIndex.MECH_LOC_HD] + " " + EncodeLocation( LocationIndex.MECH_LOC_HD, m.IsQuad() );
         }
-        if( locs[Constants.LOC_CT] > 0 ) {
-            retval += ", " + locs[Constants.LOC_CT] + " " + EncodeLocation( Constants.LOC_CT, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_CT] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_CT] + " " + EncodeLocation( LocationIndex.MECH_LOC_CT, m.IsQuad() );
         }
-        if( locs[Constants.LOC_LT] > 0 ) {
-            retval += ", " + locs[Constants.LOC_LT] + " " + EncodeLocation( Constants.LOC_LT, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_LT] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_LT] + " " + EncodeLocation( LocationIndex.MECH_LOC_LT, m.IsQuad() );
         }
-        if( locs[Constants.LOC_RT] > 0 ) {
-            retval += ", " + locs[Constants.LOC_RT] + " " + EncodeLocation( Constants.LOC_RT, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_RT] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_RT] + " " + EncodeLocation( LocationIndex.MECH_LOC_RT, m.IsQuad() );
         }
-        if( locs[Constants.LOC_LA] > 0 ) {
-            retval += ", " + locs[Constants.LOC_LA] + " " + EncodeLocation( Constants.LOC_LA, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_LA] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_LA] + " " + EncodeLocation( LocationIndex.MECH_LOC_LA, m.IsQuad() );
         }
-        if( locs[Constants.LOC_RA] > 0 ) {
-            retval += ", " + locs[Constants.LOC_RA] + " " + EncodeLocation( Constants.LOC_RA, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_RA] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_RA] + " " + EncodeLocation( LocationIndex.MECH_LOC_RA, m.IsQuad() );
         }
-        if( locs[Constants.LOC_LL] > 0 ) {
-            retval += ", " + locs[Constants.LOC_LL] + " " + EncodeLocation( Constants.LOC_LL, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_LL] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_LL] + " " + EncodeLocation( LocationIndex.MECH_LOC_LL, m.IsQuad() );
         }
-        if( locs[Constants.LOC_RL] > 0 ) {
-            retval += ", " + locs[Constants.LOC_RL] + " " + EncodeLocation( Constants.LOC_RL, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_RL] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_RL] + " " + EncodeLocation( LocationIndex.MECH_LOC_RL, m.IsQuad() );
         }
         if( retval.startsWith( "," ) ) {
             retval = retval.substring( 2 );
@@ -100,29 +99,29 @@ public class FileCommon {
         String retval = "";
         int[] locs = m.GetLoadout().FindInstances( m.GetArmor() );
 
-        if( locs[Constants.LOC_HD] > 0 ) {
-            retval += locs[Constants.LOC_HD] + " " + EncodeLocation( Constants.LOC_HD, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_HD] > 0 ) {
+            retval += locs[LocationIndex.MECH_LOC_HD] + " " + EncodeLocation( LocationIndex.MECH_LOC_HD, m.IsQuad() );
         }
-        if( locs[Constants.LOC_CT] > 0 ) {
-            retval += ", " + locs[Constants.LOC_CT] + " " + EncodeLocation( Constants.LOC_CT, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_CT] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_CT] + " " + EncodeLocation( LocationIndex.MECH_LOC_CT, m.IsQuad() );
         }
-        if( locs[Constants.LOC_LT] > 0 ) {
-            retval += ", " + locs[Constants.LOC_LT] + " " + EncodeLocation( Constants.LOC_LT, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_LT] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_LT] + " " + EncodeLocation( LocationIndex.MECH_LOC_LT, m.IsQuad() );
         }
-        if( locs[Constants.LOC_RT] > 0 ) {
-            retval += ", " + locs[Constants.LOC_RT] + " " + EncodeLocation( Constants.LOC_RT, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_RT] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_RT] + " " + EncodeLocation( LocationIndex.MECH_LOC_RT, m.IsQuad() );
         }
-        if( locs[Constants.LOC_LA] > 0 ) {
-            retval += ", " + locs[Constants.LOC_LA] + " " + EncodeLocation( Constants.LOC_LA, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_LA] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_LA] + " " + EncodeLocation( LocationIndex.MECH_LOC_LA, m.IsQuad() );
         }
-        if( locs[Constants.LOC_RA] > 0 ) {
-            retval += ", " + locs[Constants.LOC_RA] + " " + EncodeLocation( Constants.LOC_RA, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_RA] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_RA] + " " + EncodeLocation( LocationIndex.MECH_LOC_RA, m.IsQuad() );
         }
-        if( locs[Constants.LOC_LL] > 0 ) {
-            retval += ", " + locs[Constants.LOC_LL] + " " + EncodeLocation( Constants.LOC_LL, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_LL] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_LL] + " " + EncodeLocation( LocationIndex.MECH_LOC_LL, m.IsQuad() );
         }
-        if( locs[Constants.LOC_RL] > 0 ) {
-            retval += ", " + locs[Constants.LOC_RL] + " " + EncodeLocation( Constants.LOC_RL, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_RL] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_RL] + " " + EncodeLocation( LocationIndex.MECH_LOC_RL, m.IsQuad() );
         }
         if( retval.startsWith( "," ) ) {
             retval = retval.substring( 2 );
@@ -135,29 +134,29 @@ public class FileCommon {
         String retval = "";
         int[] locs = m.GetLoadout().FindHeatSinks();
 
-        if( locs[Constants.LOC_HD] > 0 ) {
-            retval += locs[Constants.LOC_HD] + " " + EncodeLocation( Constants.LOC_HD, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_HD] > 0 ) {
+            retval += locs[LocationIndex.MECH_LOC_HD] + " " + EncodeLocation( LocationIndex.MECH_LOC_HD, m.IsQuad() );
         }
-        if( locs[Constants.LOC_CT] > 0 ) {
-            retval += ", " + locs[Constants.LOC_CT] + " " + EncodeLocation( Constants.LOC_CT, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_CT] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_CT] + " " + EncodeLocation( LocationIndex.MECH_LOC_CT, m.IsQuad() );
         }
-        if( locs[Constants.LOC_LT] > 0 ) {
-            retval += ", " + locs[Constants.LOC_LT] + " " + EncodeLocation( Constants.LOC_LT, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_LT] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_LT] + " " + EncodeLocation( LocationIndex.MECH_LOC_LT, m.IsQuad() );
         }
-        if( locs[Constants.LOC_RT] > 0 ) {
-            retval += ", " + locs[Constants.LOC_RT] + " " + EncodeLocation( Constants.LOC_RT, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_RT] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_RT] + " " + EncodeLocation( LocationIndex.MECH_LOC_RT, m.IsQuad() );
         }
-        if( locs[Constants.LOC_LA] > 0 ) {
-            retval += ", " + locs[Constants.LOC_LA] + " " + EncodeLocation( Constants.LOC_LA, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_LA] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_LA] + " " + EncodeLocation( LocationIndex.MECH_LOC_LA, m.IsQuad() );
         }
-        if( locs[Constants.LOC_RA] > 0 ) {
-            retval += ", " + locs[Constants.LOC_RA] + " " + EncodeLocation( Constants.LOC_RA, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_RA] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_RA] + " " + EncodeLocation( LocationIndex.MECH_LOC_RA, m.IsQuad() );
         }
-        if( locs[Constants.LOC_LL] > 0 ) {
-            retval += ", " + locs[Constants.LOC_LL] + " " + EncodeLocation( Constants.LOC_LL, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_LL] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_LL] + " " + EncodeLocation( LocationIndex.MECH_LOC_LL, m.IsQuad() );
         }
-        if( locs[Constants.LOC_RL] > 0 ) {
-            retval += ", " + locs[Constants.LOC_RL] + " " + EncodeLocation( Constants.LOC_RL, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_RL] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_RL] + " " + EncodeLocation( LocationIndex.MECH_LOC_RL, m.IsQuad() );
         }
         if( retval.startsWith( "," ) ) {
             retval = retval.substring( 2 );
@@ -170,29 +169,29 @@ public class FileCommon {
         String retval = "";
         int[] locs = m.GetLoadout().FindJumpJets( m.GetJumpJets().IsImproved() );
 
-        if( locs[Constants.LOC_HD] > 0 ) {
-            retval += locs[Constants.LOC_HD] + " " + EncodeLocation( Constants.LOC_HD, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_HD] > 0 ) {
+            retval += locs[LocationIndex.MECH_LOC_HD] + " " + EncodeLocation( LocationIndex.MECH_LOC_HD, m.IsQuad() );
         }
-        if( locs[Constants.LOC_CT] > 0 ) {
-            retval += ", " + locs[Constants.LOC_CT] + " " + EncodeLocation( Constants.LOC_CT, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_CT] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_CT] + " " + EncodeLocation( LocationIndex.MECH_LOC_CT, m.IsQuad() );
         }
-        if( locs[Constants.LOC_LT] > 0 ) {
-            retval += ", " + locs[Constants.LOC_LT] + " " + EncodeLocation( Constants.LOC_LT, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_LT] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_LT] + " " + EncodeLocation( LocationIndex.MECH_LOC_LT, m.IsQuad() );
         }
-        if( locs[Constants.LOC_RT] > 0 ) {
-            retval += ", " + locs[Constants.LOC_RT] + " " + EncodeLocation( Constants.LOC_RT, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_RT] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_RT] + " " + EncodeLocation( LocationIndex.MECH_LOC_RT, m.IsQuad() );
         }
-        if( locs[Constants.LOC_LA] > 0 ) {
-            retval += ", " + locs[Constants.LOC_LA] + " " + EncodeLocation( Constants.LOC_LA, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_LA] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_LA] + " " + EncodeLocation( LocationIndex.MECH_LOC_LA, m.IsQuad() );
         }
-        if( locs[Constants.LOC_RA] > 0 ) {
-            retval += ", " + locs[Constants.LOC_RA] + " " + EncodeLocation( Constants.LOC_RA, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_RA] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_RA] + " " + EncodeLocation( LocationIndex.MECH_LOC_RA, m.IsQuad() );
         }
-        if( locs[Constants.LOC_LL] > 0 ) {
-            retval += ", " + locs[Constants.LOC_LL] + " " + EncodeLocation( Constants.LOC_LL, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_LL] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_LL] + " " + EncodeLocation( LocationIndex.MECH_LOC_LL, m.IsQuad() );
         }
-        if( locs[Constants.LOC_RL] > 0 ) {
-            retval += ", " + locs[Constants.LOC_RL] + " " + EncodeLocation( Constants.LOC_RL, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_RL] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_RL] + " " + EncodeLocation( LocationIndex.MECH_LOC_RL, m.IsQuad() );
         }
         if( retval.startsWith( "," ) ) {
             retval = retval.substring( 2 );
@@ -207,29 +206,29 @@ public class FileCommon {
 
         int[] locs = m.GetLoadout().FindInstances( m.GetPhysEnhance() );
 
-        if( locs[Constants.LOC_HD] > 0 ) {
-            retval += locs[Constants.LOC_HD] + " " + EncodeLocation( Constants.LOC_HD, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_HD] > 0 ) {
+            retval += locs[LocationIndex.MECH_LOC_HD] + " " + EncodeLocation( LocationIndex.MECH_LOC_HD, m.IsQuad() );
         }
-        if( locs[Constants.LOC_CT] > 0 ) {
-            retval += ", " + locs[Constants.LOC_CT] + " " + EncodeLocation( Constants.LOC_CT, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_CT] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_CT] + " " + EncodeLocation( LocationIndex.MECH_LOC_CT, m.IsQuad() );
         }
-        if( locs[Constants.LOC_LT] > 0 ) {
-            retval += ", " + locs[Constants.LOC_LT] + " " + EncodeLocation( Constants.LOC_LT, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_LT] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_LT] + " " + EncodeLocation( LocationIndex.MECH_LOC_LT, m.IsQuad() );
         }
-        if( locs[Constants.LOC_RT] > 0 ) {
-            retval += ", " + locs[Constants.LOC_RT] + " " + EncodeLocation( Constants.LOC_RT, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_RT] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_RT] + " " + EncodeLocation( LocationIndex.MECH_LOC_RT, m.IsQuad() );
         }
-        if( locs[Constants.LOC_LA] > 0 ) {
-            retval += ", " + locs[Constants.LOC_LA] + " " + EncodeLocation( Constants.LOC_LA, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_LA] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_LA] + " " + EncodeLocation( LocationIndex.MECH_LOC_LA, m.IsQuad() );
         }
-        if( locs[Constants.LOC_RA] > 0 ) {
-            retval += ", " + locs[Constants.LOC_RA] + " " + EncodeLocation( Constants.LOC_RA, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_RA] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_RA] + " " + EncodeLocation( LocationIndex.MECH_LOC_RA, m.IsQuad() );
         }
-        if( locs[Constants.LOC_LL] > 0 ) {
-            retval += ", " + locs[Constants.LOC_LL] + " " + EncodeLocation( Constants.LOC_LL, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_LL] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_LL] + " " + EncodeLocation( LocationIndex.MECH_LOC_LL, m.IsQuad() );
         }
-        if( locs[Constants.LOC_RL] > 0 ) {
-            retval += ", " + locs[Constants.LOC_RL] + " " + EncodeLocation( Constants.LOC_RL, m.IsQuad() );
+        if( locs[LocationIndex.MECH_LOC_RL] > 0 ) {
+            retval += ", " + locs[LocationIndex.MECH_LOC_RL] + " " + EncodeLocation( LocationIndex.MECH_LOC_RL, m.IsQuad() );
         }
         if( retval.startsWith( "," ) ) {
             retval = retval.substring( 2 );
@@ -272,7 +271,7 @@ public class FileCommon {
     }
 
     public static abPlaceable HasECM( Mech m ) {
-        ifLoadout l = m.GetLoadout();
+        ifMechLoadout l = m.GetLoadout();
         Vector v = l.GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
             if( ((abPlaceable) v.get( i )).LookupName().contains( "ECM Suite" ) || ((abPlaceable) v.get( i )).LookupName().contains( "CEWS" ) ) {
@@ -283,7 +282,7 @@ public class FileCommon {
     }
 
     public static abPlaceable HasBAP( Mech m ) {
-        ifLoadout l = m.GetLoadout();
+        ifMechLoadout l = m.GetLoadout();
         Vector v = l.GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
             if( ((abPlaceable) v.get( i )).LookupName().contains( "Probe" ) || ((abPlaceable) v.get( i )).LookupName().contains( "CEWS" ) ) {
@@ -315,40 +314,40 @@ public class FileCommon {
         String retval = "";
         if( m.GetLoadout().GetTechBase() >= AvailableCode.TECH_CLAN && m.GetLoadout().IsUsingClanCASE() ) {
             int[] check = m.GetLoadout().FindExplosiveInstances();
-            if( check[Constants.LOC_HD] > 0 ) {
+            if( check[LocationIndex.MECH_LOC_HD] > 0 ) {
                 retval += "HD";
             }
-            if( check[Constants.LOC_CT] > 0 ) {
+            if( check[LocationIndex.MECH_LOC_CT] > 0 ) {
                 retval += ", CT";
             }
-            if( check[Constants.LOC_LT] > 0 ) {
+            if( check[LocationIndex.MECH_LOC_LT] > 0 ) {
                 retval += ", LT";
             }
-            if( check[Constants.LOC_RT] > 0 ) {
+            if( check[LocationIndex.MECH_LOC_RT] > 0 ) {
                 retval += ", RT";
             }
-            if( check[Constants.LOC_LA] > 0 ) {
+            if( check[LocationIndex.MECH_LOC_LA] > 0 ) {
                 if( m.IsQuad() ) {
                     retval += ", FLL";
                 } else {
                     retval += ", LA";
                 }
             }
-            if( check[Constants.LOC_RA] > 0 ) {
+            if( check[LocationIndex.MECH_LOC_RA] > 0 ) {
                 if( m.IsQuad() ) {
                     retval += ", FRL";
                 } else {
                     retval += ", RA";
                 }
             }
-            if( check[Constants.LOC_LL] > 0 ) {
+            if( check[LocationIndex.MECH_LOC_LL] > 0 ) {
                 if( m.IsQuad() ) {
                     retval += ", RLL";
                 } else {
                     retval += ", LL";
                 }
             }
-            if( check[Constants.LOC_RL] > 0 ) {
+            if( check[LocationIndex.MECH_LOC_RL] > 0 ) {
                 if( m.IsQuad() ) {
                     retval += ", RRL";
                 } else {
@@ -425,33 +424,33 @@ public class FileCommon {
 
     public static String EncodeLocation( int loc, boolean quad ) {
         switch( loc ) {
-        case Constants.LOC_HD:
+        case LocationIndex.MECH_LOC_HD:
             return "HD";
-        case Constants.LOC_CT:
+        case LocationIndex.MECH_LOC_CT:
             return "CT";
-        case Constants.LOC_LT:
+        case LocationIndex.MECH_LOC_LT:
             return "LT";
-        case Constants.LOC_RT:
+        case LocationIndex.MECH_LOC_RT:
             return "RT";
-        case Constants.LOC_LA:
+        case LocationIndex.MECH_LOC_LA:
             if( quad ) {
                 return "FLL";
             } else {
                 return "LA";
             }
-        case Constants.LOC_RA:
+        case LocationIndex.MECH_LOC_RA:
             if( quad ) {
                 return "FRL";
             } else {
                 return "RA";
             }
-        case Constants.LOC_LL:
+        case LocationIndex.MECH_LOC_LL:
             if( quad ) {
                 return "RLL";
             } else {
                 return "LL";
             }
-        case Constants.LOC_RL:
+        case LocationIndex.MECH_LOC_RL:
             if( quad ) {
                 return "RRL";
             } else {
@@ -677,29 +676,29 @@ public class FileCommon {
 
     public static int DecodeLocation( String s ) {
         if( s.equals( "HD" ) ) {
-            return Constants.LOC_HD;
+            return LocationIndex.MECH_LOC_HD;
         } else if( s.equals( "CT" ) ) {
-            return Constants.LOC_CT;
+            return LocationIndex.MECH_LOC_CT;
         } else if( s.equals( "LT" ) ) {
-            return Constants.LOC_LT;
+            return LocationIndex.MECH_LOC_LT;
         } else if( s.equals( "RT" ) ) {
-            return Constants.LOC_RT;
+            return LocationIndex.MECH_LOC_RT;
         } else if( s.equals( "LA" ) ) {
-            return Constants.LOC_LA;
+            return LocationIndex.MECH_LOC_LA;
         } else if( s.equals( "RA" ) ) {
-            return Constants.LOC_RA;
+            return LocationIndex.MECH_LOC_RA;
         } else if( s.equals( "LL" ) ) {
-            return Constants.LOC_LL;
+            return LocationIndex.MECH_LOC_LL;
         } else if( s.equals( "RL" ) ) {
-            return Constants.LOC_RL;
+            return LocationIndex.MECH_LOC_RL;
         } else if( s.equals( "FLL" ) ) {
-            return Constants.LOC_LA;
+            return LocationIndex.MECH_LOC_LA;
         } else if( s.equals( "FRL" ) ) {
-            return Constants.LOC_RA;
+            return LocationIndex.MECH_LOC_RA;
         } else if( s.equals( "RLL" ) ) {
-            return Constants.LOC_LL;
+            return LocationIndex.MECH_LOC_LL;
         } else if( s.equals( "RRL" ) ) {
-            return Constants.LOC_RL;
+            return LocationIndex.MECH_LOC_RL;
         } else {
             return -1;
         }

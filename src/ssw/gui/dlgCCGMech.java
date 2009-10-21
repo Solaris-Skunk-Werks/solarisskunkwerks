@@ -13,8 +13,8 @@ package ssw.gui;
 
 import java.util.Vector;
 import ssw.components.CCGMech;
-import ssw.components.Mech;
-import ssw.components.ifLoadout;
+import components.Mech;
+import components.ifMechLoadout;
 
 /**
  *
@@ -47,7 +47,7 @@ public class dlgCCGMech extends javax.swing.JDialog {
         card.setArmourAndStructure(CurMech.GetArmor().GetArmorValue());
         card.setJump(CurMech.GetLoadout().GetJumpJets().GetNumJJ());
 
-        ifLoadout loadout = (ifLoadout)CurMech.GetLoadout();
+        ifMechLoadout loadout = (ifMechLoadout)CurMech.GetLoadout();
         Vector CurrentLoadout = loadout.GetNonCore();
         card.setAttackValue(CurrentLoadout, CurMech.GetBVMovementHeat(), CurMech.GetHeatSinks().TotalDissipation());
 

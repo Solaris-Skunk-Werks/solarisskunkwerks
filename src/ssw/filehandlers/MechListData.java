@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.filehandlers;
 
 import ssw.Force.Unit;
-import ssw.battleforce.BattleForceStats;
+import battleforce.BattleForceStats;
 
 public class MechListData extends abUnitData {
     public MechListData(String Name, String Model, String Level, String Era, String Tech, String Source, String Type, String Motive, String Info, int Tonnage, int Year, int BV, double Cost, String filename){
@@ -85,8 +85,8 @@ public class MechListData extends abUnitData {
                 this.Configurations.add(tempData.Configurations.get(i));
             }
             this.bfstat = tempData.getBattleForceStats();
-        } catch ( Exception e ) {
-            throw new Exception("[MechListData " + e.getMessage() + "]");
+        } catch ( Exception ex ) {
+            throw new Exception("[MechListData " + ex.getMessage() + "]");
         }
     }
 

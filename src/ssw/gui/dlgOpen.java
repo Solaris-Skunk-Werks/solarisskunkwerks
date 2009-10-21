@@ -39,7 +39,7 @@ import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.SwingWorker;
 import javax.swing.table.TableRowSorter;
-import ssw.components.Mech;
+import components.Mech;
 import ssw.filehandlers.*;
 import ssw.print.Printer;
 

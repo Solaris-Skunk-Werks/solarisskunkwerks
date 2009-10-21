@@ -13,7 +13,7 @@ package ssw.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import ssw.battleforce.BattleForce;
+import battleforce.BattleForce;
 
 /**
  *

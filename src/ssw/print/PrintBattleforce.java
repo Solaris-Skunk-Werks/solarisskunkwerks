@@ -37,8 +37,8 @@ import java.awt.Image;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
-import ssw.battleforce.BattleForce;
-import ssw.battleforce.BattleForceStats;
+import battleforce.BattleForce;
+import battleforce.BattleForceStats;
 import ssw.filehandlers.Media;
 
 public class PrintBattleforce implements Printable {

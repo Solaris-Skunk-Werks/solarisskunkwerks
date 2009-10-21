@@ -19,7 +19,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.Pageable;
 import java.awt.print.Printable;
 import javax.swing.JFrame;
-import ssw.battleforce.BattleForce;
+import battleforce.BattleForce;
 import ssw.print.Printer;
 
 /**

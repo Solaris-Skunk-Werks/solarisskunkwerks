@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
-import ssw.components.*;
+import components.AvailableCode;
 
 public class dlgSummaryInfo extends javax.swing.JDialog {
     frmMain Parent;
