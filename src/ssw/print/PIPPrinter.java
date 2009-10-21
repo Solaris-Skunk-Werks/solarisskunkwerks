@@ -41,7 +41,7 @@ public class PIPPrinter {
     private Mech CurMech = null;
     private Hashtable<Integer, PIPSettings> Armor = new Hashtable<Integer, PIPSettings>();
     private Hashtable<Integer, PIPSettings> Internal = new Hashtable<Integer, PIPSettings>();
-    private String filePath = "./rs/patterns/";
+    private String filePath = "data/rs/patterns/";
     private String Source = "TW";
     private String Chassis = "BP";
     private String ExtensionGIF = ".gif";
