@@ -40,7 +40,10 @@ import javax.swing.SortOrder;
 import javax.swing.SwingWorker;
 import javax.swing.table.TableRowSorter;
 import components.Mech;
-import ssw.filehandlers.*;
+import filehandlers.*;
+import list.ListFilter;
+import list.MechList;
+import list.MechListData;
 import ssw.print.Printer;
 
 public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListener {
@@ -69,7 +72,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         MechListData Data = ((MechList) tblMechData.getModel()).Get( tblMechData.convertRowIndexToModel( tblMechData.getSelectedRow() ) );
         try
         {
-            XMLReader read = new XMLReader();
+            MechReader read = new MechReader();
             Mech m = read.ReadMech( Data.getFilename(), parent.data );
             if (Data.isOmni()) {
                 m.SetCurLoadout( Data.getConfig() );
@@ -237,8 +240,8 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         @Override
         protected Void doInBackground() throws Exception {
-            XMLReader read = new XMLReader();
-            XMLWriter writer = new XMLWriter();
+            MechReader read = new MechReader();
+            MechWriter writer = new MechWriter();
 
             FileList List = new FileList(dirPath);
             File[] Files = List.getFiles();
@@ -807,7 +810,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
             try
             {
-                XMLReader read = new XMLReader();
+                MechReader read = new MechReader();
                 int[] rows = tblMechData.getSelectedRows();
                 for ( int i=0; i < rows.length; i++ ) {
                     MechListData data = list.Get(tblMechData.convertRowIndexToModel(rows[i]));

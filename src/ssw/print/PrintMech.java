@@ -40,8 +40,8 @@ import java.awt.print.PrinterException;
 import java.util.Vector;
 import common.CommonTools;
 import components.*;
-import ssw.filehandlers.FileCommon;
-import ssw.filehandlers.Media;
+import filehandlers.FileCommon;
+import filehandlers.Media;
 import ssw.gui.frmMain;
 
 public class PrintMech implements Printable {

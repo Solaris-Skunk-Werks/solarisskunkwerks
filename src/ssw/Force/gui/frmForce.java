@@ -51,8 +51,8 @@ import battleforce.BattleForce;
 import components.Mech;
 import ssw.filehandlers.MTFWriter;
 import ssw.filehandlers.MULWriter;
-import ssw.filehandlers.Media;
-import ssw.filehandlers.XMLReader;
+import filehandlers.Media;
+import filehandlers.MechReader;
 import ssw.gui.dlgAmmoChooser;
 import ssw.gui.frmMain;
 import ssw.print.Printer;
@@ -112,7 +112,7 @@ public class frmForce extends javax.swing.JFrame {
         Unit Data = (Unit) ((Force) tblForce.getModel()).Units.get( tblForce.convertRowIndexToModel( tblForce.getSelectedRow() ) );
         try
         {
-            XMLReader read = new XMLReader();
+            MechReader read = new MechReader();
             Mech m = read.ReadMech( Data.Filename, parent.data );
             if (Data.isOmni()) {
                 m.SetCurLoadout(Data.Configuration);
@@ -727,7 +727,7 @@ public class frmForce extends javax.swing.JFrame {
 
     private void btnExportMULActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportMULActionPerformed
         MULWriter mw = new MULWriter(force);
-        ssw.filehandlers.Media media = new ssw.filehandlers.Media();
+        filehandlers.Media media = new filehandlers.Media();
         File mulFile = media.SelectFile( parent.Prefs.get( "MTFExportPath", "" ), "mul", "Select MUL file" );
         try {
             String filename = mulFile.getCanonicalPath();
@@ -747,7 +747,7 @@ public class frmForce extends javax.swing.JFrame {
         String  error = "",
                 filename = "";
         MTFWriter mtf = new MTFWriter();
-        ssw.filehandlers.Media media = new ssw.filehandlers.Media();
+        filehandlers.Media media = new filehandlers.Media();
         String mtfDir = media.GetDirectorySelection(null, parent.Prefs.get( "MTFExportPath", "" ) );
         if (!mtfDir.endsWith(File.separator)) { mtfDir += File.separator; }
         

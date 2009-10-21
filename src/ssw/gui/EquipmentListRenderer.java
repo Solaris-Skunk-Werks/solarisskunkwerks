@@ -35,7 +35,7 @@ import javax.swing.JList;
 import components.AvailableCode;
 import components.Equipment;
 import components.abPlaceable;
-import gui.EquipmentCollection;
+import components.EquipmentCollection;
 
 public class EquipmentListRenderer extends DefaultListCellRenderer {
     private frmMain Parent;

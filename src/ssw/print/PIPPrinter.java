@@ -33,7 +33,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.util.Hashtable;
 import components.*;
-import ssw.filehandlers.Media;
+import filehandlers.Media;
 
 public class PIPPrinter {
     private Graphics2D graphics = null;

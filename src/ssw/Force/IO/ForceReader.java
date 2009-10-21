@@ -33,7 +33,7 @@ import ssw.Force.Common.CommonTools;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.*;
-import ssw.filehandlers.Media;
+import filehandlers.Media;
 import java.util.prefs.*;
 
 public class ForceReader {

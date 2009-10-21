@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Vector;
 import common.CommonTools;
+import filehandlers.FileCommon;
 
 public class HTMLWriter {
 

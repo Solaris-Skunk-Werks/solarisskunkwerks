@@ -24,7 +24,7 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
 ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 
 /**
  * Based on MegaMek/src/megamek/common/loaders/HMPFile.java
@@ -36,17 +36,16 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.util.Hashtable;
 import java.util.Vector;
-import ssw.Constants;
-import ssw.components.AvailableCode;
-import ssw.components.DataFactory;
-import ssw.components.HeatSink;
-import ssw.components.JumpJet;
-import ssw.components.LocationIndex;
-import ssw.components.Mech;
-import ssw.components.RangedWeapon;
-import ssw.components.abPlaceable;
-import ssw.components.ifMissileGuidance;
-import ssw.visitors.ifVisitor;
+import components.AvailableCode;
+import common.DataFactory;
+import components.HeatSink;
+import components.JumpJet;
+import components.LocationIndex;
+import components.Mech;
+import components.RangedWeapon;
+import components.abPlaceable;
+import components.ifMissileGuidance;
+import visitors.ifVisitor;
 
 public class HMPReader {
     private Hashtable<Long, String> Common = new Hashtable<Long, String>();
@@ -67,7 +66,7 @@ public class HMPReader {
         return retval;
     }
 
-    public Mech GetMech( String filename ) throws Exception {
+    public Mech GetMech( String filename, boolean SuppressOmniNotification ) throws Exception {
         Errors.clear();
         byte[] buffer = new byte[5];
         int[] Armor = new int[11];
@@ -115,6 +114,7 @@ public class HMPReader {
 
         // Per the MegaMek code, this gets hairy.  I'm keeping their comments
         // Fortunately the TechBase from HMP lines up with SSW's internal
+        boolean OmniMech = false;
         int IntStrucTechBase = TechBase;
         int EngineTechBase = TechBase;
         int HSTechBase = TechBase;
@@ -138,6 +138,42 @@ public class HMPReader {
             EnhanceTechBase = readUnsignedShort(FR);
             TCTechBase = readUnsignedShort(FR);
             ArmorTechBase = readUnsignedShort(FR);
+        }
+
+        int MotiveType = readUnsignedShort(FR);
+        switch( MotiveType ) {
+            case 0:
+                // biped
+                m.SetBiped();
+                break;
+            case 1:
+                // quad
+                m.SetQuad();
+                break;
+            case 2:
+                // LAM
+                throw new Exception( "SSW does not support and cannot load LAMs." );
+            case 3:
+                // armless
+                throw new Exception( "SSW does not support and cannot load armless 'Mechs." );
+            case 10:
+                // biped omnimech
+                if( ! SuppressOmniNotification ) {
+                    Errors.add( new ErrorReport( "This 'Mech is flagged as an OmniMech but only one loadout will be created." ) );
+                }
+                OmniMech = true;
+                m.SetBiped();
+                break;
+            case 11:
+                // quad omnimech
+                if( ! SuppressOmniNotification ) {
+                    Errors.add( new ErrorReport( "This 'Mech is flagged as an OmniMech but only one loadout will be created." ) );
+                }
+                OmniMech = true;
+                m.SetQuad();
+                break;
+            default:
+                throw new Exception( "Invalid Motive Type: " + MotiveType );
         }
 
         switch( TechBase ) {
@@ -170,6 +206,8 @@ public class HMPReader {
         if( m.GetTechBase() == AvailableCode.TECH_CLAN ) {
             if( m.GetEra() < AvailableCode.ERA_SUCCESSION ) {
                 m.SetEra( AvailableCode.ERA_SUCCESSION );
+            } else {
+                m.SetEra( AvailableCode.ERA_CLAN_INVASION );
             }
         }
         // although we can still have a mixed chassis earlier, most designs will
@@ -178,36 +216,6 @@ public class HMPReader {
             if( m.GetEra() < AvailableCode.ERA_CLAN_INVASION ) {
                 m.SetEra( AvailableCode.ERA_CLAN_INVASION );
             }
-        }
-
-        int MotiveType = readUnsignedShort(FR);
-        switch( MotiveType ) {
-            case 0:
-                // biped
-                m.SetBiped();
-                break;
-            case 1:
-                // quad
-                m.SetQuad();
-                break;
-            case 2:
-                // LAM
-                throw new Exception( "SSW does not support and cannot load LAMs." );
-            case 3:
-                // armless
-                throw new Exception( "SSW does not support and cannot load armless 'Mechs." );
-            case 10:
-                // biped omnimech
-                Errors.add( new ErrorReport( "This 'Mech is flagged as an OmniMech but only one loadout will be created." ) );
-                m.SetBiped();
-                break;
-            case 11:
-                // quad omnimech
-                Errors.add( new ErrorReport( "This 'Mech is flagged as an OmniMech but only one loadout will be created." ) );
-                m.SetQuad();
-                break;
-            default:
-                throw new Exception( "Invalid Motive Type: " + MotiveType );
         }
 
         int IntStrucType = readUnsignedShort(FR);
@@ -314,15 +322,15 @@ public class HMPReader {
         }
 
         FR.skipBytes(2); // ??
-        Armor[Constants.LOC_LA] = readUnsignedShort(FR);
+        Armor[LocationIndex.MECH_LOC_LA] = readUnsignedShort(FR);
         FR.skipBytes(4); // ??
-        Armor[Constants.LOC_LT] = readUnsignedShort(FR);
+        Armor[LocationIndex.MECH_LOC_LT] = readUnsignedShort(FR);
         FR.skipBytes(4); // ??
-        Armor[Constants.LOC_LL] = readUnsignedShort(FR);
+        Armor[LocationIndex.MECH_LOC_LL] = readUnsignedShort(FR);
         FR.skipBytes(4); // ??
-        Armor[Constants.LOC_RA] = readUnsignedShort(FR);
+        Armor[LocationIndex.MECH_LOC_RA] = readUnsignedShort(FR);
         FR.skipBytes(4); // ??
-        Armor[Constants.LOC_RT] = readUnsignedShort(FR);
+        Armor[LocationIndex.MECH_LOC_RT] = readUnsignedShort(FR);
         FR.skipBytes(2); // ??
 
         // WTF is this doing here???
@@ -340,15 +348,15 @@ public class HMPReader {
         }
 
         // back to armor I guess...
-        Armor[Constants.LOC_RL] = readUnsignedShort(FR);
+        Armor[LocationIndex.MECH_LOC_RL] = readUnsignedShort(FR);
         FR.skipBytes(4); // ??
-        Armor[Constants.LOC_HD] = readUnsignedShort(FR);
+        Armor[LocationIndex.MECH_LOC_HD] = readUnsignedShort(FR);
         FR.skipBytes(4); // ??
-        Armor[Constants.LOC_CT] = readUnsignedShort(FR);
+        Armor[LocationIndex.MECH_LOC_CT] = readUnsignedShort(FR);
         FR.skipBytes(2); // ??
-        Armor[Constants.LOC_LTR] = readUnsignedShort(FR);
-        Armor[Constants.LOC_RTR] = readUnsignedShort(FR);
-        Armor[Constants.LOC_CTR] = readUnsignedShort(FR);
+        Armor[LocationIndex.MECH_LOC_LTR] = readUnsignedShort(FR);
+        Armor[LocationIndex.MECH_LOC_RTR] = readUnsignedShort(FR);
+        Armor[LocationIndex.MECH_LOC_CTR] = readUnsignedShort(FR);
 
         int EnhanceType = readUnsignedShort(FR);
         String EnhanceLookup = "";
@@ -386,28 +394,28 @@ public class HMPReader {
         // now get the criticals
         long[][] Criticals = new long[8][12];
         for( int i = 0; i < 12; i++ ) {
-            Criticals[Constants.LOC_LA][i] = readUnsignedInt(FR);
+            Criticals[LocationIndex.MECH_LOC_LA][i] = readUnsignedInt(FR);
         }
         for( int i = 0; i < 12; i++ ) {
-            Criticals[Constants.LOC_LT][i] = readUnsignedInt(FR);
+            Criticals[LocationIndex.MECH_LOC_LT][i] = readUnsignedInt(FR);
         }
         for( int i = 0; i < 12; i++ ) {
-            Criticals[Constants.LOC_LL][i] = readUnsignedInt(FR);
+            Criticals[LocationIndex.MECH_LOC_LL][i] = readUnsignedInt(FR);
         }
         for( int i = 0; i < 12; i++ ) {
-            Criticals[Constants.LOC_RA][i] = readUnsignedInt(FR);
+            Criticals[LocationIndex.MECH_LOC_RA][i] = readUnsignedInt(FR);
         }
         for( int i = 0; i < 12; i++ ) {
-            Criticals[Constants.LOC_RT][i] = readUnsignedInt(FR);
+            Criticals[LocationIndex.MECH_LOC_RT][i] = readUnsignedInt(FR);
         }
         for( int i = 0; i < 12; i++ ) {
-            Criticals[Constants.LOC_RL][i] = readUnsignedInt(FR);
+            Criticals[LocationIndex.MECH_LOC_RL][i] = readUnsignedInt(FR);
         }
         for( int i = 0; i < 12; i++ ) {
-            Criticals[Constants.LOC_HD][i] = readUnsignedInt(FR);
+            Criticals[LocationIndex.MECH_LOC_HD][i] = readUnsignedInt(FR);
         }
         for( int i = 0; i < 12; i++ ) {
-            Criticals[Constants.LOC_CT][i] = readUnsignedInt(FR);
+            Criticals[LocationIndex.MECH_LOC_CT][i] = readUnsignedInt(FR);
         }
 
         // more padding I'm assuming
@@ -539,16 +547,16 @@ public class HMPReader {
         FR.close();
 
         // before we go all crazy, figure out our arm actuator situation
-        if( Criticals[Constants.LOC_LA][3] != 0x04 ) {
+        if( Criticals[LocationIndex.MECH_LOC_LA][3] != 0x04 ) {
             m.GetActuators().RemoveLeftHand();
         }
-        if( Criticals[Constants.LOC_LA][2] != 0x03 ) {
+        if( Criticals[LocationIndex.MECH_LOC_LA][2] != 0x03 ) {
             m.GetActuators().RemoveLeftLowerArm();
         }
-        if( Criticals[Constants.LOC_RA][3] != 0x04 ) {
+        if( Criticals[LocationIndex.MECH_LOC_RA][3] != 0x04 ) {
             m.GetActuators().RemoveRightHand();
         }
-        if( Criticals[Constants.LOC_RA][2] != 0x03 ) {
+        if( Criticals[LocationIndex.MECH_LOC_RA][2] != 0x03 ) {
             m.GetActuators().RemoveRightLowerArm();
         }
 
@@ -577,18 +585,18 @@ public class HMPReader {
         // let's check for engine criticals in the side torsos as well
         int LTEngineStart = 0, RTEngineStart = 0;
         for( int i = 0; i < 12; i++ ) {
-            if( Criticals[Constants.LOC_LT][i] == 0x0F ) {
+            if( Criticals[LocationIndex.MECH_LOC_LT][i] == 0x0F ) {
                 LTEngineStart = i;
                 break;
             }
         }
         for( int i = 0; i < 12; i++ ) {
-            if( Criticals[Constants.LOC_RT][i] == 0x0F ) {
+            if( Criticals[LocationIndex.MECH_LOC_RT][i] == 0x0F ) {
                 RTEngineStart = i;
                 break;
             }
         }
-        LocationIndex[] EngineLocs = { new LocationIndex( LTEngineStart, Constants.LOC_LT, 1 ), new LocationIndex( RTEngineStart, Constants.LOC_RT, 1 ) };
+        LocationIndex[] EngineLocs = { new LocationIndex( LTEngineStart, LocationIndex.MECH_LOC_LT, 1 ), new LocationIndex( RTEngineStart, LocationIndex.MECH_LOC_RT, 1 ) };
 
         // build the 'Mech based on what we've come up with
         ifVisitor v = m.Lookup( IntStrucLookup );
@@ -619,17 +627,17 @@ public class HMPReader {
         }
 
         // set the armor
-        m.GetArmor().SetArmor( Constants.LOC_HD, Armor[Constants.LOC_HD] );
-        m.GetArmor().SetArmor( Constants.LOC_CT, Armor[Constants.LOC_CT] );
-        m.GetArmor().SetArmor( Constants.LOC_LT, Armor[Constants.LOC_LT] );
-        m.GetArmor().SetArmor( Constants.LOC_RT, Armor[Constants.LOC_RT] );
-        m.GetArmor().SetArmor( Constants.LOC_LA, Armor[Constants.LOC_LA] );
-        m.GetArmor().SetArmor( Constants.LOC_RA, Armor[Constants.LOC_RA] );
-        m.GetArmor().SetArmor( Constants.LOC_LL, Armor[Constants.LOC_LL] );
-        m.GetArmor().SetArmor( Constants.LOC_RL, Armor[Constants.LOC_RL] );
-        m.GetArmor().SetArmor( Constants.LOC_CTR, Armor[Constants.LOC_CTR] );
-        m.GetArmor().SetArmor( Constants.LOC_LTR, Armor[Constants.LOC_LTR] );
-        m.GetArmor().SetArmor( Constants.LOC_RTR, Armor[Constants.LOC_RTR] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_HD, Armor[LocationIndex.MECH_LOC_HD] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_CT, Armor[LocationIndex.MECH_LOC_CT] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_LT, Armor[LocationIndex.MECH_LOC_LT] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_RT, Armor[LocationIndex.MECH_LOC_RT] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_LA, Armor[LocationIndex.MECH_LOC_LA] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_RA, Armor[LocationIndex.MECH_LOC_RA] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_LL, Armor[LocationIndex.MECH_LOC_LL] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_RL, Armor[LocationIndex.MECH_LOC_RL] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_CTR, Armor[LocationIndex.MECH_LOC_CTR] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_LTR, Armor[LocationIndex.MECH_LOC_LTR] );
+        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_RTR, Armor[LocationIndex.MECH_LOC_RTR] );
 
         // first, let's find all the instances of base chassis items.  Structure first
         if( m.GetIntStruc().NumCrits() > 0 ) {
@@ -745,7 +753,11 @@ public class HMPReader {
             }
             HeatSink[] HSList = m.GetHeatSinks().GetPlacedHeatSinks();
             if( HSLocs.size() != HSList.length ) {
-                throw new Exception( "The number of heat sinks outside the engine does not match the number allocated.\nLoading aborted." );
+                if( OmniMech ) {
+                    throw new Exception( "The number of heat sinks outside the engine does not match the number allocated.\nThis is most likely an issue with fixed heat sinks in an OmniMech loadout.\nSSW does not know how many heat sinks are fixed in the base loadout.\nLoading aborted." );
+                } else {
+                    throw new Exception( "The number of heat sinks outside the engine does not match the number allocated.\nLoading aborted." );
+                }
             }
             // now allocate them
             for( int i = 0; i < HSLocs.size(); i++ ) {
@@ -800,45 +812,45 @@ public class HMPReader {
                 if( Criticals[i][j] == 0x19 ) {
                     // IS CASE
                     switch( i ) {
-                        case Constants.LOC_CT:
+                        case LocationIndex.MECH_LOC_CT:
                             m.GetLoadout().SetCTCASE( true, j );
                             break;
-                        case Constants.LOC_LT:
+                        case LocationIndex.MECH_LOC_LT:
                             m.GetLoadout().SetLTCASE( true, j );
                             break;
-                        case Constants.LOC_RT:
+                        case LocationIndex.MECH_LOC_RT:
                             m.GetLoadout().SetRTCASE( true, j );
                             break;
                         default:
-                            Errors.add( new ErrorReport( "Inner Sphere CASE was specified for the " + Constants.Locs[i] + "\nThis is not allowed and the item will not be added." ) );
+                            Errors.add( new ErrorReport( "Inner Sphere CASE was specified for the " + LocationIndex.MechLocs[i] + "\nThis is not allowed and the item will not be added." ) );
                             break;
                     }
                 }
                 if( Criticals[i][j] == 0x26 ) {
                     // CASE II
                     switch( i ) {
-                        case Constants.LOC_HD:
+                        case LocationIndex.MECH_LOC_HD:
                             m.GetLoadout().SetHDCASEII( true, j, false );
                             break;
-                        case Constants.LOC_CT:
+                        case LocationIndex.MECH_LOC_CT:
                             m.GetLoadout().SetCTCASEII( true, j, false );
                             break;
-                        case Constants.LOC_LT:
+                        case LocationIndex.MECH_LOC_LT:
                             m.GetLoadout().SetLTCASEII( true, j, false );
                             break;
-                        case Constants.LOC_RT:
+                        case LocationIndex.MECH_LOC_RT:
                             m.GetLoadout().SetRTCASEII( true, j, false );
                             break;
-                        case Constants.LOC_LA:
+                        case LocationIndex.MECH_LOC_LA:
                             m.GetLoadout().SetLACASEII( true, j, false );
                             break;
-                        case Constants.LOC_RA:
+                        case LocationIndex.MECH_LOC_RA:
                             m.GetLoadout().SetRACASEII( true, j, false );
                             break;
-                        case Constants.LOC_LL:
+                        case LocationIndex.MECH_LOC_LL:
                             m.GetLoadout().SetLLCASEII( true, j, false );
                             break;
-                        case Constants.LOC_RL:
+                        case LocationIndex.MECH_LOC_RL:
                             m.GetLoadout().SetRLCASEII( true, j, false );
                             break;
                         default:
@@ -953,31 +965,31 @@ public class HMPReader {
                                     int ThirdLoc = -1;
                                     int FourthLoc = -1;
                                     switch( i ) {
-                                        case Constants.LOC_CT:
-                                            SecondLoc = Constants.LOC_LT;
-                                            ThirdLoc = Constants.LOC_RT;
+                                        case LocationIndex.MECH_LOC_CT:
+                                            SecondLoc = LocationIndex.MECH_LOC_LT;
+                                            ThirdLoc = LocationIndex.MECH_LOC_RT;
                                             break;
-                                        case Constants.LOC_LT:
-                                            SecondLoc = Constants.LOC_LA;
-                                            ThirdLoc = Constants.LOC_CT;
-                                            FourthLoc = Constants.LOC_LL;
+                                        case LocationIndex.MECH_LOC_LT:
+                                            SecondLoc = LocationIndex.MECH_LOC_LA;
+                                            ThirdLoc = LocationIndex.MECH_LOC_CT;
+                                            FourthLoc = LocationIndex.MECH_LOC_LL;
                                             break;
-                                        case Constants.LOC_RT:
-                                            SecondLoc = Constants.LOC_RA;
-                                            ThirdLoc = Constants.LOC_CT;
-                                            FourthLoc = Constants.LOC_RL;
+                                        case LocationIndex.MECH_LOC_RT:
+                                            SecondLoc = LocationIndex.MECH_LOC_RA;
+                                            ThirdLoc = LocationIndex.MECH_LOC_CT;
+                                            FourthLoc = LocationIndex.MECH_LOC_RL;
                                             break;
-                                        case Constants.LOC_LA:
-                                            SecondLoc = Constants.LOC_LT;
+                                        case LocationIndex.MECH_LOC_LA:
+                                            SecondLoc = LocationIndex.MECH_LOC_LT;
                                             break;
-                                        case Constants.LOC_RA:
-                                            SecondLoc = Constants.LOC_RT;
+                                        case LocationIndex.MECH_LOC_RA:
+                                            SecondLoc = LocationIndex.MECH_LOC_RT;
                                             break;
-                                        case Constants.LOC_LL:
-                                            SecondLoc = Constants.LOC_LT;
+                                        case LocationIndex.MECH_LOC_LL:
+                                            SecondLoc = LocationIndex.MECH_LOC_LT;
                                             break;
-                                        case Constants.LOC_RL:
-                                            SecondLoc = Constants.LOC_RT;
+                                        case LocationIndex.MECH_LOC_RL:
+                                            SecondLoc = LocationIndex.MECH_LOC_RT;
                                             break;
                                     }
                                     // how many locations do we have to check?
@@ -1078,7 +1090,7 @@ public class HMPReader {
                                         }
                                         if( S2Num < NumLeft ) {
                                             // Specified but not enough crits to fit
-                                            Errors.add( new ErrorReport( Name + "\nHas too many crits to fit in the " + Constants.Locs[i] + "\n and we could not find another location for it.\nAdd and place the item normally." ) );
+                                            Errors.add( new ErrorReport( Name + "\nHas too many crits to fit in the " + LocationIndex.MechLocs[i] + "\n and we could not find another location for it.\nAdd and place the item normally." ) );
                                         } else {
                                             if( S2Num > NumLeft ) {
                                                 // we have another item.  This one goes on top, I guess.

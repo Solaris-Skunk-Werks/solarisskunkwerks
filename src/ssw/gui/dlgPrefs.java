@@ -39,10 +39,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
-import ssw.filehandlers.FileCommon;
+import filehandlers.FileCommon;
 import java.util.prefs.*;
 import components.AvailableCode;
-import ssw.filehandlers.Media;
+import filehandlers.Media;
 
 public class dlgPrefs extends javax.swing.JDialog {
 

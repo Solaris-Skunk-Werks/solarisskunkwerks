@@ -12,7 +12,7 @@ import java.awt.print.Printable;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JFrame;
-import ssw.filehandlers.Media;
+import filehandlers.Media;
 import ssw.gui.dlgAmmoChooser;
 import ssw.gui.frmMain;
 import ssw.print.PrintMech;

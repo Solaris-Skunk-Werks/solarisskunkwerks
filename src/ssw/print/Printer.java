@@ -36,7 +36,7 @@ import java.util.logging.Logger;
 import battleforce.BattleForce;
 import common.CommonTools;
 import components.Mech;
-import ssw.filehandlers.Media;
+import filehandlers.Media;
 import ssw.gui.*;
 
 public class Printer {

@@ -35,7 +35,7 @@ import javax.swing.JList;
 import components.Ammunition;
 import components.LocationIndex;
 import components.abPlaceable;
-import ssw.filehandlers.FileCommon;
+import filehandlers.FileCommon;
 
 public class AmmoChooserRenderer extends DefaultListCellRenderer {
     private dlgAmmoChooser Parent;

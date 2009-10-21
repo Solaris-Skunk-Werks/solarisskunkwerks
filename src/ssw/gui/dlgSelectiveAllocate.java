@@ -31,7 +31,7 @@ package ssw.gui;
 import components.LocationIndex;
 import components.abPlaceable;
 import components.ifMechLoadout;
-import gui.EquipmentCollection;
+import components.EquipmentCollection;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.TitledBorder;
 

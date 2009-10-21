@@ -33,7 +33,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import ssw.Force.Force;
-import ssw.components.*;
 
 public class MULWriter {
     Force force = null;
@@ -44,7 +43,7 @@ public class MULWriter {
 
     public void WriteXML( String filename ) throws IOException {
         //BufferedWriter FR = new BufferedWriter( new FileWriter( filename ) );
-        BufferedWriter FR = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( FileCommon.GetSafeFilename(filename) ), "UTF-8" ) );
+        BufferedWriter FR = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( filehandlers.FileCommon.GetSafeFilename(filename) ), "UTF-8" ) );
 
         // beginning of an XML file:
         FR.write( "<?xml version=\"1.0\" encoding =\"UTF-8\"?>" );

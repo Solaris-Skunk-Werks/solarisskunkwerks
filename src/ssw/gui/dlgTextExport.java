@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.gui;
 
 import components.Mech;
-import ssw.filehandlers.TXTWriter;
+import filehandlers.TXTWriter;
 
 public class dlgTextExport extends javax.swing.JDialog {
 

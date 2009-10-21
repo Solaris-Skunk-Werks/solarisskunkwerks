@@ -50,6 +50,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.SpinnerNumberModel;
 import ssw.*;
 import components.*;
+import filehandlers.*;
 import ssw.filehandlers.*;
 import visitors.*;
 import ssw.print.*;
@@ -61,7 +62,7 @@ import ssw.Force.gui.frmForce;
 import battleforce.*;
 import common.DataFactory;
 import ssw.printpreview.dlgPreview;
-import gui.EquipmentCollection;
+import components.EquipmentCollection;
 
 public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner {
 
@@ -12253,7 +12254,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // save the mech to XML in the current location
-        XMLWriter XMLw = new XMLWriter( CurMech );
+        MechWriter XMLw = new MechWriter( CurMech );
         try {
             String file = savemech.getCanonicalPath();
             String ext = Utils.getExtension( savemech );
@@ -12322,7 +12323,7 @@ private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     CurMech.SetSolaris7ID( "0" );
 
     // save the mech to XML in the current location
-    XMLWriter XMLw = new XMLWriter( CurMech );
+    MechWriter XMLw = new MechWriter( CurMech );
     try {
         String file = savemech.getCanonicalPath();
         String ext = Utils.getExtension( savemech );
@@ -12676,8 +12677,8 @@ public Mech LoadMech (){
     }
 
     try {
-        XMLReader XMLr = new XMLReader();
-        m = XMLr.ReadMech( this, filename, data );
+        MechReader XMLr = new MechReader();
+        m = XMLr.ReadMech( filename, data );
         if( XMLr.GetMessages().length() > 0 ) {
             dlgTextExport Message = new dlgTextExport( this, true, XMLr.GetMessages() );
             Message.setLocationRelativeTo( this );
@@ -12703,8 +12704,8 @@ private void LoadMechFromPreferences()
     String filename = Prefs.get("LastOpenDirectory", "") + Prefs.get("LastOpenFile", "");
     if (! filename.isEmpty() ) {
         try {
-            XMLReader XMLr = new XMLReader();
-            m = XMLr.ReadMech( this, filename, data );
+            MechReader XMLr = new MechReader();
+            m = XMLr.ReadMech( filename, data );
             CurMech = m;
             LoadMechIntoGUI();
         } catch( Exception e ) {

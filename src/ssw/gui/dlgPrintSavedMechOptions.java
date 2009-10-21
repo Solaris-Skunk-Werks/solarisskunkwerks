@@ -10,7 +10,7 @@ import components.Mech;
 import components.ifMechLoadout;
 import java.util.Vector;
 import javax.swing.ImageIcon;
-import ssw.filehandlers.Media;
+import filehandlers.Media;
 import ssw.print.PrintMech;
 
 public class dlgPrintSavedMechOptions extends javax.swing.JDialog {

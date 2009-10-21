@@ -35,6 +35,7 @@ import java.io.File;
 import java.util.Vector;
 import javax.swing.SwingWorker;
 import components.Mech;
+import filehandlers.*;
 import ssw.filehandlers.*;
 
 public class dlgBatchHMP extends javax.swing.JDialog implements PropertyChangeListener {
@@ -68,7 +69,7 @@ public class dlgBatchHMP extends javax.swing.JDialog implements PropertyChangeLi
             String Messages = "", MsgTemp = "";
             int LastMsgLength = Messages.length();
             HMPReader HMPr = new HMPReader();
-            XMLWriter XMLw = new XMLWriter();
+            MechWriter XMLw = new MechWriter();
             Vector<File> files = new Vector<File>();
 
             // load up the list of files

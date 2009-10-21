@@ -36,8 +36,8 @@ import java.util.Hashtable;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
-import ssw.filehandlers.Media;
-import ssw.filehandlers.XMLWriter;
+import filehandlers.Media;
+import filehandlers.MechWriter;
 import ssw.gui.frmMain;
 
 public class dlgImages extends javax.swing.JDialog {
@@ -241,7 +241,7 @@ public class dlgImages extends javax.swing.JDialog {
                     curUnit.m.SetSSWImage(imageFile.getCanonicalPath());
                     media.setLogo(lblImage, new File(curUnit.m.GetSSWImage()));
 
-                    XMLWriter writer = new XMLWriter();
+                    MechWriter writer = new MechWriter();
                     writer.setMech(curUnit.m);
                     writer.WriteXML(curUnit.Filename);
                     lblStatus.setText(curUnit.TypeModel + " Image Selection Saved!");

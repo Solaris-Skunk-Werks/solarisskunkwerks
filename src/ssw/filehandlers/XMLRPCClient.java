@@ -241,7 +241,7 @@ public class XMLRPCClient {
         send += "\t\t</param>\r\n";
         send += "\t\t<param>\r\n";
         send += "\t\t\t<value>\r\n";
-        send += "\t\t\t\t<string>" + FileCommon.EncodeFluff( HTML ) + "</string>\r\n";
+        send += "\t\t\t\t<string>" + filehandlers.FileCommon.EncodeFluff( HTML ) + "</string>\r\n";
         send += "\t\t\t</value>\r\n";
         send += "\t\t</param>\r\n";
         send += "\t</params>\r\n";

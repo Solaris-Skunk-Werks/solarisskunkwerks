@@ -33,7 +33,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import components.*;
-import ssw.filehandlers.FileCommon;
+import filehandlers.FileCommon;
 
 public class EquipmentSelectedRenderer extends DefaultListCellRenderer {
     private frmMain Parent;

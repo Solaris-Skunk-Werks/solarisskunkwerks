@@ -32,7 +32,7 @@ import java.io.File;
 import java.util.Vector;
 import javax.swing.JFileChooser;
 import components.Mech;
-import ssw.filehandlers.XMLReader;
+import filehandlers.MechReader;
 import ssw.print.*;
 
 
@@ -322,8 +322,8 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
     private Mech LoadMechFromFile(File file) {
         Mech m = null;
         try {
-            XMLReader XMLr = new XMLReader();
-            m = XMLr.ReadMech( parent, file.getCanonicalPath(), parent.data );
+            MechReader XMLr = new MechReader();
+            m = XMLr.ReadMech( file.getCanonicalPath(), parent.data );
         } catch( Exception e ) {
             // had a problem loading the mech.  let the user know.
             javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );

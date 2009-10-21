@@ -34,8 +34,8 @@ import ssw.Force.Common.Constants;
 import org.w3c.dom.Node;
 import ssw.Force.IO.PrintSheet;
 import components.Mech;
-import ssw.filehandlers.FileCommon;
-import ssw.filehandlers.XMLReader;
+import filehandlers.FileCommon;
+import filehandlers.MechReader;
 
 public class Unit {
     public String TypeModel = "",
@@ -77,7 +77,7 @@ public class Unit {
             if (nodeName.equals("mechwarrior")) {Mechwarrior = n.getChildNodes().item(i).getTextContent();}
             if (nodeName.equals("ssw")) {
                 Filename = n.getChildNodes().item(i).getTextContent();
-                ssw.filehandlers.XMLReader read = new XMLReader();
+                MechReader read = new MechReader();
                 try
                 {
                     m = read.ReadMech( Filename, null );
@@ -165,7 +165,7 @@ public class Unit {
     public void LoadMech() {
         if ( m == null ) {
             try {
-                XMLReader reader = new XMLReader();
+                MechReader reader = new MechReader();
                 this.m = reader.ReadMech( this.Filename );
                 if ( ! this.Configuration.isEmpty() ) {
                     this.m.SetCurLoadout(this.Configuration.trim());

@@ -39,7 +39,7 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import battleforce.BattleForce;
 import battleforce.BattleForceStats;
-import ssw.filehandlers.Media;
+import filehandlers.Media;
 
 public class PrintBattleforce implements Printable {
     private frmMain Parent;
