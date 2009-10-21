@@ -41,9 +41,7 @@ import javax.swing.SwingWorker;
 import javax.swing.table.TableRowSorter;
 import components.Mech;
 import filehandlers.*;
-import list.ListFilter;
-import list.MechList;
-import list.MechListData;
+import list.*;
 import ssw.print.Printer;
 
 public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListener {

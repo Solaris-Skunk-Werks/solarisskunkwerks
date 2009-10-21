@@ -28,10 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.Force.gui;
 
 import java.awt.Cursor;
-import java.awt.print.PageFormat;
-import java.awt.print.Paper;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,19 +39,16 @@ import javax.swing.SortOrder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableRowSorter;
-import ssw.Force.*;
-import ssw.Force.IO.ForceReader;
-import ssw.Force.IO.ForceWriter;
-import ssw.Force.IO.PrintSheet;
+
+import Force.*;
+import filehandlers.*;
+import Print.*;
+import IO.*;
 import battleforce.BattleForce;
 import components.Mech;
-import ssw.filehandlers.MTFWriter;
-import ssw.filehandlers.MULWriter;
-import filehandlers.Media;
-import filehandlers.MechReader;
+
 import ssw.gui.dlgAmmoChooser;
 import ssw.gui.frmMain;
-import ssw.print.Printer;
 import ssw.printpreview.dlgBFPreview;
 
 
@@ -83,6 +76,9 @@ public class frmForce extends javax.swing.JFrame {
     }
 
     private void refreshTable() {
+        Media media = new Media();
+        txtForceName.setText(force.ForceName);
+        media.setLogo(lblLogo, new File(force.LogoPath));
         tblForce.setModel(force);
     }
 
@@ -114,7 +110,7 @@ public class frmForce extends javax.swing.JFrame {
         {
             MechReader read = new MechReader();
             Mech m = read.ReadMech( Data.Filename, parent.data );
-            if (Data.isOmni()) {
+            if (Data.IsOmni()) {
                 m.SetCurLoadout(Data.Configuration);
             }
             parent.setMech(m);
@@ -627,22 +623,21 @@ public class frmForce extends javax.swing.JFrame {
         }
 
         if ( tblForce.getSelectedRowCount() > 0 ) {
-            Printer print = new Printer( parent );
+            PagePrinter printer = new PagePrinter();
 
             try
             {
-                //XMLReader read = new XMLReader();
                 int[] rows = tblForce.getSelectedRows();
                 for ( int i=0; i < rows.length; i++ ) {
                     Unit data = (Unit) force.Units.get(tblForce.convertRowIndexToModel(rows[i]));
-                    //Mech m = read.ReadMech( data.Filename, parent.data );
                     Mech m = data.m;
-                    if ( data.isOmni() ) {
+                    if ( data.IsOmni() ) {
                         m.SetCurLoadout( data.Configuration );
                     }
-                    print.AddMech(m, data.Mechwarrior, data.Gunnery, data.Piloting);
+                    PrintMech pm = new PrintMech(m, data.getMechwarrior(), data.getGunnery(), data.getPiloting());
+                    printer.Append( BFBPrinter.Letter.toPage(), pm );
                 }
-                print.Print();
+                printer.Print();
                 tblForce.clearSelection();
 
             } catch ( Exception e ) {
@@ -681,7 +676,7 @@ public class frmForce extends javax.swing.JFrame {
             String filePath = media.GetDirectorySelection(this, parent.Prefs.get("LastOpenForce", ""));
             if ( !filePath.isEmpty() ) {
                 parent.Prefs.put("LastOpenForce", filePath);
-                ForceWriter writer = new ForceWriter(force);
+                ForceWriter writer = new ForceWriter();
                 try
                 {
                     writer.SerializeForce(force, filePath);
@@ -696,33 +691,29 @@ public class frmForce extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
+        Media media = new Media();
+        File forceFile = media.SelectFile(parent.Prefs.get("LastOpenForce", ""), "force", "Load Force List");
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        ForceReader reader = new ForceReader(parent.Prefs);
-        reader.setForce(force);
-        force = reader.Load();
+        DataReader reader = new DataReader();
+        try {
+            force = new Force(reader.ReadNode(forceFile.getCanonicalPath(), "force"));
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         refreshTable();
         sortTable();
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnOpenActionPerformed
 
     private void btnPrintForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintForceActionPerformed
-       force.RefreshBV();
-       PrinterJob job = PrinterJob.getPrinterJob();
-       PrintSheet p = new PrintSheet(576, 756, force);
-       Paper paper = new Paper();
-       paper.setImageableArea(18, 18, 576, 756 );
-       PageFormat page = new PageFormat();
-       page.setPaper( paper );
-       job.setPrintable( p, page );
-       boolean DoPrint = job.printDialog();
-       if( DoPrint ) {
-           try {
-               job.print();
-           } catch( PrinterException e ) {
-               System.err.println( e.getMessage() );
-               System.out.println( e.getStackTrace() );
-           }
-       }
+        force.RefreshBV();
+
+        PagePrinter printer = new PagePrinter();
+
+        ForceList sheet = new ForceList();
+        sheet.AddForce(force);
+        printer.Append( BFBPrinter.Letter.toPage(), sheet );
+        printer.Print();
     }//GEN-LAST:event_btnPrintForceActionPerformed
 
     private void btnExportMULActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportMULActionPerformed
@@ -732,7 +723,7 @@ public class frmForce extends javax.swing.JFrame {
         try {
             String filename = mulFile.getCanonicalPath();
             if ( ! filename.endsWith(".mul") ) { filename += ".mul"; }
-            mw.WriteXML(filename);
+            mw.Write(filename);
             javax.swing.JOptionPane.showMessageDialog(this, filename + " saved.");
         } catch (IOException ex) {
             Logger.getLogger(frmForce.class.getName()).log(Level.SEVERE, null, ex);
@@ -774,7 +765,7 @@ public class frmForce extends javax.swing.JFrame {
         if ( !txtGunnery.getText().isEmpty() ) {
             for ( int i = 0; i < force.Units.size(); i++ ) {
                 Unit u = (Unit) force.Units.get(i);
-                u.Gunnery = Integer.parseInt(txtGunnery.getText());
+                u.setGunnery(Integer.parseInt(txtGunnery.getText()));
                 u.Refresh();
             }
         }
@@ -785,7 +776,7 @@ public class frmForce extends javax.swing.JFrame {
         if ( !txtPiloting.getText().isEmpty() ) {
             for ( int i = 0; i < force.Units.size(); i++ ) {
                 Unit u = (Unit) force.Units.get(i);
-                u.Piloting = Integer.parseInt(txtPiloting.getText());
+                u.setPiloting(Integer.parseInt(txtPiloting.getText()));
                 u.Refresh();
             }
         }
@@ -806,16 +797,21 @@ public class frmForce extends javax.swing.JFrame {
             for ( int i=0; i < rows.length; i++ ) {
                 try {
                     Unit data = (Unit) force.Units.get( tblForce.convertRowIndexToModel( rows[i] ) );
-                    dlgAmmoChooser Ammo = new dlgAmmoChooser( this, false, data.m, parent.data );
-                    Ammo.setLocationRelativeTo( this );
-                    if( Ammo.HasAmmo() ) {
-                        Ammo.setVisible( true );
+                    data.LoadMech();
+                    if ( data.m != null ) {
+                        dlgAmmoChooser Ammo = new dlgAmmoChooser( this, false, data.m, parent.data );
+                        Ammo.setLocationRelativeTo( this );
+                        if( Ammo.HasAmmo() ) {
+                            Ammo.setVisible( true );
+                        } else {
+                            Media.Messager("This 'Mech has no ammunition to exchange." );
+                            Ammo.dispose();
+                        }
                     } else {
-                        javax.swing.JOptionPane.showMessageDialog( this, "This 'Mech has no ammunition to exchange." );
-                        Ammo.dispose();
+                        Media.Messager("The 'Mech could not be loaded from " + data.Filename + ", cannot adjust ammo.");
                     }
                 } catch( Exception e ) {
-                    javax.swing.JOptionPane.showMessageDialog(this, "There was an error altering the ammunition on this 'Mech:\n" + e.getMessage() );
+                    Media.Messager("There was an error altering the ammunition on this 'Mech:\n" + e.getMessage() );
                 }
             }
             refreshTable();
@@ -827,17 +823,18 @@ public class frmForce extends javax.swing.JFrame {
     }//GEN-LAST:event_txtForceNameFocusLost
 
     private void btnPrintBattleForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintBattleForceActionPerformed
-        Printer printer = new Printer();
-        printer.AddForce(force.toBattleForce());
-        printer.PrintBattleforce();
+        PagePrinter printer = new PagePrinter();
+        printer.Append( BFBPrinter.Letter.toPage(), new Battleforce(force.toBattleForce()) );
+        printer.Print();
     }//GEN-LAST:event_btnPrintBattleForceActionPerformed
 
     private void btnPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviewActionPerformed
-        Printer printer = new Printer();
+        ssw.print.Printer printer = new ssw.print.Printer();
         printer.AddForce(force.toBattleForce());
         dlgBFPreview preview = new dlgBFPreview("BattleForce", this, printer, printer.PreviewBattleforce());
         preview.setLocationRelativeTo(this);
         preview.setVisible(true);
+
     }//GEN-LAST:event_btnPreviewActionPerformed
 
     private void txtForceNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtForceNameKeyReleased
@@ -859,15 +856,15 @@ public class frmForce extends javax.swing.JFrame {
 }//GEN-LAST:event_lblLogoMouseClicked
 
     private void rdoISActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoISActionPerformed
-        force.Type = BattleForce.InnerSphere;
+        force.setType(BattleForce.InnerSphere);
 }//GEN-LAST:event_rdoISActionPerformed
 
     private void rdoCLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoCLActionPerformed
-        force.Type = BattleForce.Clan;
+        force.setType(BattleForce.Clan);
     }//GEN-LAST:event_rdoCLActionPerformed
 
     private void rdoCSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoCSActionPerformed
-        force.Type = BattleForce.Comstar;
+        force.setType(BattleForce.Comstar);
     }//GEN-LAST:event_rdoCSActionPerformed
 
     private void btnImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagesActionPerformed

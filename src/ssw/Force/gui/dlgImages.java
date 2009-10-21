@@ -27,8 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.Force.gui;
 
-import ssw.Force.Force;
-import ssw.Force.Unit;
+import Force.*;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
