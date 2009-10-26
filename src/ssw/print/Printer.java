@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.print;
 
+import Print.BattleforceCards;
 import java.util.Vector;
 import java.awt.print.*;
 import java.io.File;
@@ -156,7 +157,8 @@ public class Printer {
     }
 
     public void AddForce( BattleForce f ) {
-        battleforces.add( new PrintBattleforce(f) );
+        //battleforces.add( new PrintBattleforce(f) );
+        battleforces.add( new BattleforceCards(f) );
     }
 
     public void Clear() {
@@ -352,7 +354,7 @@ public class Printer {
         pages = new Book();
         page.setPaper( paper );
         for ( int i=0; i < battleforces.size(); i++ ) {
-            pages.append(((PrintBattleforce) battleforces.get(i)), page);
+            pages.append(((BattleforceCards) battleforces.get(i)), page);
         }
         return pages;
     }

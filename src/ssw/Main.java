@@ -28,11 +28,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw;
 
+import filehandlers.Media;
 import java.awt.Font;
 import java.io.BufferedOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -46,6 +48,17 @@ public class Main {
      */
 
     public static void main(String[] args) {
+        Preferences prefs = Preferences.userNodeForPackage("/java/lang".getClass());
+        prefs.remove("FileToOpen");
+
+        //Was trying to save args into Prefs and read inside frmMain but keeps showing up as blank!?!?!
+        //Turns out that the prefs are going to ssw/gui/frmMain but are going to java/lang.
+        //args = new String[]{"k:\\ssw\\master\\Anvil ANV-6M.ssw"};
+
+        if ( args.length >= 1 ) {
+            prefs.put("FileToOpen", args[0].toString());
+        }
+
         Runtime runtime = Runtime.getRuntime();
         System.out.println("Memory Allocated [" + runtime.maxMemory() / 1000 + "]");
 /*
@@ -61,9 +74,10 @@ public class Main {
         }
 
         // uncomment the following line before creating a build.
-
-        SetupLogFile( Constants.LogFileName );
 */
+        SetupLogFile( SSWConstants.LogFileName );
+
+
         try {
             // added code to turn off the boldface of Metal L&F.
             // Set System L&F
@@ -121,6 +135,7 @@ public class Main {
             PrintStream ps = new PrintStream( new BufferedOutputStream( new FileOutputStream( LogFile ), 64 ) );
             System.setOut(ps);
             System.setErr(ps);
+            System.out.println("Log File open for business...s");
         } catch (Exception e) {
             System.err.println( "Unable to send output to " + LogFile );
             e.printStackTrace();

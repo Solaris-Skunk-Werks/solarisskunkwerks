@@ -30,24 +30,22 @@ package ssw.Force.gui;
 import java.awt.Cursor;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.RowSorter;
-import javax.swing.SortOrder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import javax.swing.table.TableRowSorter;
 
 import Force.*;
+import Force.View.abTable;
+import Force.View.tbBattleForce;
+import Force.View.tbChatInfo;
+import Force.View.tbTotalWarfareSmall;
 import filehandlers.*;
 import Print.*;
 import IO.*;
 import battleforce.BattleForce;
 import components.Mech;
 
-import ssw.gui.dlgAmmoChooser;
+import dialog.dlgAmmoChooser;
+import java.util.prefs.Preferences;
 import ssw.gui.frmMain;
 import ssw.printpreview.dlgBFPreview;
 
@@ -55,83 +53,48 @@ import ssw.printpreview.dlgBFPreview;
 public class frmForce extends javax.swing.JFrame {
     public Force force = new Force();
     private frmMain parent;
+    private Media media = new Media();
+    private Preferences prefs = Preferences.userNodeForPackage("/ssw/gui/frmMain".getClass());
+
+    private TableModelListener forceChanged = new TableModelListener() {
+        public void tableChanged(TableModelEvent e) {
+            force.setupTable(tblForce);
+            lblTotalBV.setText(String.format("%1$,.0f", force.TotalAdjustedBV));
+            lblTotalTons.setText(String.format("%1$,.0f", force.TotalTonnage) + " Tons");
+            lblTotalUnits.setText(force.Units.size() + " Units");
+        }
+    };
 
     /** Creates new form frmForce */
     public frmForce(frmMain parent) {
         initComponents();
 
         this.parent = parent;
-        force.RefreshBV();
-        refreshTable();
-        sortTable();
-
-        force.addTableModelListener(new TableModelListener() {
-
-            public void tableChanged(TableModelEvent e) {
-                lblTotalBV.setText(String.format("%1$,.0f", force.TotalAdjustedBV));
-                lblTotalTons.setText(String.format("%1$,.0f", force.TotalTonnage) + " Tons");
-                lblTotalUnits.setText(force.Units.size() + " Units");
-            }
-        });
-    }
-
-    private void refreshTable() {
-        Media media = new Media();
-        txtForceName.setText(force.ForceName);
-        media.setLogo(lblLogo, new File(force.LogoPath));
-        tblForce.setModel(force);
-    }
-
-    private void sortTable() {
-        //Create a sorting class and apply it to the list
-        TableRowSorter Leftsorter = new TableRowSorter<Force>(force);
-        List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
-        sortKeys.add(new RowSorter.SortKey(2, SortOrder.ASCENDING));
-        sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
-        Leftsorter.setSortKeys(sortKeys);
-        tblForce.setRowSorter(Leftsorter);
-
-        //tblForce.getColumnModel().getColumn(0).setPreferredWidth(150);
-        //tblForce.getColumnModel().getColumn(1).setPreferredWidth(150);
-        tblForce.getColumnModel().getColumn(2).setPreferredWidth(50);
-        tblForce.getColumnModel().getColumn(3).setPreferredWidth(25);
-        tblForce.getColumnModel().getColumn(4).setPreferredWidth(25);
-        tblForce.getColumnModel().getColumn(5).setPreferredWidth(50);
-
-        force.RefreshBV();
-        lblTotalBV.setText(String.format("%1$,.0f", force.TotalAdjustedBV));
-        lblTotalTons.setText(String.format("%1$,.0f", force.TotalTonnage) + " Tons");
-        lblTotalUnits.setText(force.Units.size() + " Units");
+        force.setCurrentModel(new tbTotalWarfareSmall(force));
+        force.addTableModelListener(forceChanged);
     }
 
     private void LoadMech() {
-        Unit Data = (Unit) ((Force) tblForce.getModel()).Units.get( tblForce.convertRowIndexToModel( tblForce.getSelectedRow() ) );
         try
         {
-            MechReader read = new MechReader();
-            Mech m = read.ReadMech( Data.Filename, parent.data );
-            if (Data.IsOmni()) {
-                m.SetCurLoadout(Data.Configuration);
+            Unit Data = (Unit) ((abTable) tblForce.getModel()).getForce().Units.get( tblForce.convertRowIndexToModel( tblForce.getSelectedRow() ) );
+            Data.LoadMech();
+            if ( Data.m != null ) {
+                parent.setMech(Data.m);
+                parent.LoadMechIntoGUI();
+                this.setVisible(false);
+            } else {
+                Media.Messager("Unable to load that 'Mech.");
             }
-            parent.setMech(m);
-            parent.LoadMechIntoGUI();
-            this.setVisible(false);
 
         } catch ( Exception e ) {
             Media.Messager(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
     public void Add( Mech m ) {
-        Unit u = new Unit();
-        u.Type = m.GetName();
-        u.Model = m.GetModel();
-        u.TypeModel = m.GetFullName();
-        u.Tonnage = m.GetTonnage();
-        u.BaseBV = m.GetCurrentBV();
-        u.m = m;
-        u.Refresh();
-        force.Units.add(u);
+        force.Units.add(new Unit(m));
     }
 
 
@@ -150,7 +113,6 @@ public class frmForce extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnGrpType = new javax.swing.ButtonGroup();
         tlbActions = new javax.swing.JToolBar();
         btnOpen = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
@@ -170,6 +132,9 @@ public class frmForce extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JToolBar.Separator();
         btnAmmoChooser = new javax.swing.JButton();
         btnImages = new javax.swing.JButton();
+        jSeparator5 = new javax.swing.JToolBar.Separator();
+        jLabel4 = new javax.swing.JLabel();
+        cmbView = new javax.swing.JComboBox();
         spnList = new javax.swing.JScrollPane();
         tblForce = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -183,13 +148,10 @@ public class frmForce extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lblForceName = new javax.swing.JLabel();
         txtForceName = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         lblLogo = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        rdoIS = new javax.swing.JRadioButton();
-        rdoCL = new javax.swing.JRadioButton();
-        rdoCS = new javax.swing.JRadioButton();
-        jLabel6 = new javax.swing.JLabel();
+        cmbUnitType = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
 
         setTitle("Force List");
         setMinimumSize(null);
@@ -379,6 +341,19 @@ public class frmForce extends javax.swing.JFrame {
             }
         });
         tlbActions.add(btnImages);
+        tlbActions.add(jSeparator5);
+
+        jLabel4.setText("View:");
+        tlbActions.add(jLabel4);
+
+        cmbView.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Total Warfare", "BattleForce", "Information" }));
+        cmbView.setMaximumSize(new java.awt.Dimension(100, 18));
+        cmbView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbViewActionPerformed(evt);
+            }
+        });
+        tlbActions.add(cmbView);
 
         tblForce.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -484,9 +459,8 @@ public class frmForce extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Unit Logo:");
-
-        lblLogo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        lblLogo.setToolTipText("Unit Logo");
+        lblLogo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         lblLogo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblLogoMouseClicked(evt);
@@ -495,59 +469,36 @@ public class frmForce extends javax.swing.JFrame {
 
         jLabel5.setText("Unit Type:");
 
-        btnGrpType.add(rdoIS);
-        rdoIS.setSelected(true);
-        rdoIS.setText("Inner Sphere");
-        rdoIS.addActionListener(new java.awt.event.ActionListener() {
+        cmbUnitType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan", "Comstar / Word of Blake" }));
+        cmbUnitType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdoISActionPerformed(evt);
+                cmbUnitTypeActionPerformed(evt);
             }
         });
 
-        btnGrpType.add(rdoCL);
-        rdoCL.setText("Clan");
-        rdoCL.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdoCLActionPerformed(evt);
-            }
-        });
-
-        btnGrpType.add(rdoCS);
-        rdoCS.setText("Comstar/Word of Blake");
-        rdoCS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdoCSActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel6.setText("Battletech Force Balancer can be used to manage and balance two forces at once.");
+        jLabel3.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel3.setText("Affects BattleForce Sheets");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lblForceName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtForceName, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
-                        .addComponent(jLabel3))
+                        .addComponent(txtForceName, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rdoIS)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rdoCL)
+                        .addComponent(cmbUnitType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rdoCS))
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel3)))
+                .addContainerGap(347, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -555,36 +506,32 @@ public class frmForce extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblForceName)
-                    .addComponent(txtForceName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(txtForceName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(rdoIS)
-                    .addComponent(rdoCL)
-                    .addComponent(rdoCS))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addGap(15, 15, 15))
-            .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbUnitType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addContainerGap(22, Short.MAX_VALUE))
+            .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(210, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -592,9 +539,9 @@ public class frmForce extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tlbActions, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                .addComponent(spnList, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -604,17 +551,14 @@ public class frmForce extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         force.RefreshBV();
-        refreshTable();
     }//GEN-LAST:event_formWindowOpened
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         force.RefreshBV();
-        refreshTable();
 }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         force.RefreshBV();
-        refreshTable();
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void btnPrintUnitsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintUnitsActionPerformed
@@ -654,7 +598,9 @@ public class frmForce extends javax.swing.JFrame {
     private void brnClearForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnClearForceActionPerformed
         if (javax.swing.JOptionPane.showConfirmDialog(this, "Are you sure you want to clear the entire list?") == javax.swing.JOptionPane.YES_OPTION) {
             force.Clear();
-            refreshTable();
+            txtForceName.setText("");
+            lblLogo.setIcon(null);
+            cmbUnitType.setSelectedIndex(0);
         }
     }//GEN-LAST:event_brnClearForceActionPerformed
 
@@ -665,43 +611,54 @@ public class frmForce extends javax.swing.JFrame {
                 Unit data = (Unit) force.Units.get(tblForce.convertRowIndexToModel(rows[i]));
                 force.Units.remove(data);
             }
-            refreshTable();
+            force.RefreshBV();
         }
     }//GEN-LAST:event_btnRemoveUnitActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        Media media = new Media();
-
-        if (! force.ForceName.isEmpty() ) {
-            String filePath = media.GetDirectorySelection(this, parent.Prefs.get("LastOpenForce", ""));
-            if ( !filePath.isEmpty() ) {
-                parent.Prefs.put("LastOpenForce", filePath);
+        if ( force.Units.size() > 0 ) {
+            File saveFile = media.SelectFile(prefs.get("LastOpenForce", ""), "force", "Save To...");
+            if ( saveFile != null ) {
                 ForceWriter writer = new ForceWriter();
                 try
                 {
-                    writer.SerializeForce(force, filePath);
-                    javax.swing.JOptionPane.showMessageDialog(this, "Your force has been saved to " + filePath + File.separator + force.ForceName);
+                    writer.SerializeForce(force, saveFile.getCanonicalPath());
+                    prefs.put("LastOpenForce", saveFile.getCanonicalPath());
+                    Media.Messager("Your force has been saved to " + saveFile.getCanonicalPath());
                 } catch ( IOException ie ) {
-                    javax.swing.JOptionPane.showMessageDialog(this, ie.getMessage());
+                    Media.Messager(ie.getMessage());
+                    System.out.println(ie.getMessage());
                 }
             }
         } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "You must enter a force name before saving.");
+            Media.Messager("You must add at least one unit before saving.");
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
-        Media media = new Media();
-        File forceFile = media.SelectFile(parent.Prefs.get("LastOpenForce", ""), "force", "Load Force List");
+        File forceFile = media.SelectFile(prefs.get("LastOpenForce", ""), "force", "Load Force List");
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         DataReader reader = new DataReader();
-        try {
-            force = new Force(reader.ReadNode(forceFile.getCanonicalPath(), "force"));
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+        if ( forceFile != null ) {
+            try {
+                force = new Force(reader.ReadNode(forceFile.getCanonicalPath(), "force"));
+                force.addTableModelListener(forceChanged);
+                txtForceName.setText(force.ForceName);
+                if ( force.getType().equals(BattleForce.InnerSphere) ) {
+                    cmbUnitType.setSelectedIndex(0);
+                } else if ( force.getType().equals(BattleForce.Clan) ) {
+                    cmbUnitType.setSelectedIndex(1);
+                } else {
+                    cmbUnitType.setSelectedIndex(2);
+                }
+                media.setLogo(lblLogo, new File(force.LogoPath));
+                force.RefreshBV();
+                prefs.put("LastOpenForce", forceFile.getCanonicalPath());
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+                Media.Messager("Could not open force.\n" + ex.getMessage());
+            }
         }
-        refreshTable();
-        sortTable();
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnOpenActionPerformed
 
@@ -718,15 +675,15 @@ public class frmForce extends javax.swing.JFrame {
 
     private void btnExportMULActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportMULActionPerformed
         MULWriter mw = new MULWriter(force);
-        filehandlers.Media media = new filehandlers.Media();
-        File mulFile = media.SelectFile( parent.Prefs.get( "MTFExportPath", "" ), "mul", "Select MUL file" );
+        File mulFile = media.SelectFile( prefs.get( "MTFExportPath", "" ), "mul", "Select MUL file" );
         try {
             String filename = mulFile.getCanonicalPath();
             if ( ! filename.endsWith(".mul") ) { filename += ".mul"; }
             mw.Write(filename);
-            javax.swing.JOptionPane.showMessageDialog(this, filename + " saved.");
+            Media.Messager(filename + " saved.");
         } catch (IOException ex) {
-            Logger.getLogger(frmForce.class.getName()).log(Level.SEVERE, null, ex);
+            Media.Messager("Could not export MUL file.\n" + ex.getMessage());
+            System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_btnExportMULActionPerformed
 
@@ -738,8 +695,7 @@ public class frmForce extends javax.swing.JFrame {
         String  error = "",
                 filename = "";
         MTFWriter mtf = new MTFWriter();
-        filehandlers.Media media = new filehandlers.Media();
-        String mtfDir = media.GetDirectorySelection(null, parent.Prefs.get( "MTFExportPath", "" ) );
+        String mtfDir = media.GetDirectorySelection(null, prefs.get( "MTFExportPath", "" ) );
         if (!mtfDir.endsWith(File.separator)) { mtfDir += File.separator; }
         
         for ( int i = 0; i < force.Units.size(); i++ ) {
@@ -750,14 +706,15 @@ public class frmForce extends javax.swing.JFrame {
                 filename = mtfDir + u.m.GetFullName() + ".mtf";
                 mtf.WriteMTF(filename);
             } catch (IOException ie) {
+                System.out.println(ie.getMessage());
                 error += "Attempted " + filename + ": " + ie.getMessage() + "\n";
             }
         }
         
         if ( !error.isEmpty() ) {
-            javax.swing.JOptionPane.showMessageDialog(this, error);
+            Media.Messager(error);
         } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "All units have been saved to MTF.");
+            Media.Messager("All units have been saved to MTF.");
         }
     }//GEN-LAST:event_btnExportMTFsActionPerformed
 
@@ -768,8 +725,8 @@ public class frmForce extends javax.swing.JFrame {
                 u.setGunnery(Integer.parseInt(txtGunnery.getText()));
                 u.Refresh();
             }
+            force.RefreshBV();
         }
-        sortTable();
     }//GEN-LAST:event_txtGunneryKeyReleased
 
     private void txtPilotingKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPilotingKeyReleased
@@ -779,8 +736,8 @@ public class frmForce extends javax.swing.JFrame {
                 u.setPiloting(Integer.parseInt(txtPiloting.getText()));
                 u.Refresh();
             }
+            force.RefreshBV();
         }
-        sortTable();
     }//GEN-LAST:event_txtPilotingKeyReleased
 
     private void txtGunneryFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtGunneryFocusGained
@@ -814,7 +771,6 @@ public class frmForce extends javax.swing.JFrame {
                     Media.Messager("There was an error altering the ammunition on this 'Mech:\n" + e.getMessage() );
                 }
             }
-            refreshTable();
         }
     }//GEN-LAST:event_btnAmmoChooserActionPerformed
 
@@ -824,7 +780,7 @@ public class frmForce extends javax.swing.JFrame {
 
     private void btnPrintBattleForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintBattleForceActionPerformed
         PagePrinter printer = new PagePrinter();
-        printer.Append( BFBPrinter.Letter.toPage(), new Battleforce(force.toBattleForce()) );
+        printer.Append( BFBPrinter.Letter.toPage(), new BattleforceCards(force.toBattleForce()) );
         printer.Print();
     }//GEN-LAST:event_btnPrintBattleForceActionPerformed
 
@@ -834,7 +790,6 @@ public class frmForce extends javax.swing.JFrame {
         dlgBFPreview preview = new dlgBFPreview("BattleForce", this, printer, printer.PreviewBattleforce());
         preview.setLocationRelativeTo(this);
         preview.setVisible(true);
-
     }//GEN-LAST:event_btnPreviewActionPerformed
 
     private void txtForceNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtForceNameKeyReleased
@@ -842,30 +797,18 @@ public class frmForce extends javax.swing.JFrame {
     }//GEN-LAST:event_txtForceNameKeyReleased
 
     private void lblLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseClicked
-        Media media = new Media();
-        File logo = media.SelectImage(parent.Prefs.get("LastLogo", ""), "Select Logo");
+        File logo = media.SelectImage( prefs.get("LastLogo", ""), "Select Logo");
         try {
             if ( logo != null ) {
-                parent.Prefs.put("LastOpenLogo", logo.getPath().toString());
+                prefs.put("LastOpenLogo", logo.getPath().toString());
                 force.LogoPath = logo.getCanonicalPath();
                 media.setLogo(lblLogo, logo);
             }
         } catch (IOException ex) {
-            //do nothing
+            Media.Messager("Could not load Logo.");
+            System.out.println(ex.getMessage());
         }
 }//GEN-LAST:event_lblLogoMouseClicked
-
-    private void rdoISActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoISActionPerformed
-        force.setType(BattleForce.InnerSphere);
-}//GEN-LAST:event_rdoISActionPerformed
-
-    private void rdoCLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoCLActionPerformed
-        force.setType(BattleForce.Clan);
-    }//GEN-LAST:event_rdoCLActionPerformed
-
-    private void rdoCSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoCSActionPerformed
-        force.setType(BattleForce.Comstar);
-    }//GEN-LAST:event_rdoCSActionPerformed
 
     private void btnImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagesActionPerformed
         dlgImages img = new dlgImages(parent, force);
@@ -875,13 +818,29 @@ public class frmForce extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnImagesActionPerformed
 
+    private void cmbViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbViewActionPerformed
+        switch ( cmbView.getSelectedIndex() ) {
+            case 0: force.setCurrentModel(new tbTotalWarfareSmall(force)); break;
+            case 1: force.setCurrentModel(new tbBattleForce(force)); break;
+            case 2: force.setCurrentModel(new tbChatInfo(force)); break;
+        }
+        force.RefreshBV();
+    }//GEN-LAST:event_cmbViewActionPerformed
+
+    private void cmbUnitTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbUnitTypeActionPerformed
+        switch ( cmbUnitType.getSelectedIndex() ) {
+            case 0: force.setType(BattleForce.InnerSphere); break;
+            case 1: force.setType(BattleForce.Clan); break;
+            case 2: force.setType(BattleForce.Comstar); break;
+        }
+    }//GEN-LAST:event_cmbUnitTypeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brnClearForce;
     private javax.swing.JButton btnAddMech;
     private javax.swing.JButton btnAmmoChooser;
     private javax.swing.JButton btnExportMTFs;
     private javax.swing.JButton btnExportMUL;
-    private javax.swing.ButtonGroup btnGrpType;
     private javax.swing.JButton btnImages;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnPreview;
@@ -891,25 +850,25 @@ public class frmForce extends javax.swing.JFrame {
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnRemoveUnit;
     private javax.swing.JButton btnSave;
+    private javax.swing.JComboBox cmbUnitType;
+    private javax.swing.JComboBox cmbView;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
+    private javax.swing.JToolBar.Separator jSeparator5;
     private javax.swing.JLabel lblForceName;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblTotalBV;
     private javax.swing.JLabel lblTotalTons;
     private javax.swing.JLabel lblTotalUnits;
-    private javax.swing.JRadioButton rdoCL;
-    private javax.swing.JRadioButton rdoCS;
-    private javax.swing.JRadioButton rdoIS;
     private javax.swing.JScrollPane spnList;
     private javax.swing.JTable tblForce;
     private javax.swing.JToolBar tlbActions;

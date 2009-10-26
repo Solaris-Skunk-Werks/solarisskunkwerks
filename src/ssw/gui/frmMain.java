@@ -437,7 +437,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         tblWeaponManufacturers.getInputMap( javax.swing.JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put( javax.swing.KeyStroke.getKeyStroke( java.awt.event.KeyEvent.VK_TAB, 0, false ), "selectNextRow" );
 
         // if the user wants, load the last mech.
-        if( Prefs.getBoolean( "LoadLastMech", false ) ) { LoadMechFromPreferences(); }
+        if( Prefs.getBoolean( "LoadLastMech", false ) ) { LoadMechFromFile(Prefs.get("LastOpenDirectory", "") + Prefs.get("LastOpenFile", "") ); }
+
+        Preferences mainPrefs = Preferences.userNodeForPackage("/java/lang".getClass());
+        if ( !mainPrefs.get("FileToOpen", "").isEmpty() ) { LoadMechFromFile( mainPrefs.get("FileToOpen", "") ); }
 
         //dOpen.LoadList();
         CurMech.SetChanged( false );
@@ -9889,8 +9892,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             if (dOpen != null) dOpen.dispose();
             if (dForce != null) dForce.dispose();
         } catch (Exception e) {
-            //do nothing
+            System.out.println(e.getMessage());
         }
+        System.out.flush();
 
         dispose();
     }
@@ -12698,10 +12702,9 @@ public Mech LoadMech (){
     return m;
 }
 
-private void LoadMechFromPreferences()
+private void LoadMechFromFile( String filename )
 {
     Mech m = null;
-    String filename = Prefs.get("LastOpenDirectory", "") + Prefs.get("LastOpenFile", "");
     if (! filename.isEmpty() ) {
         try {
             MechReader XMLr = new MechReader();
@@ -12710,7 +12713,7 @@ private void LoadMechFromPreferences()
             LoadMechIntoGUI();
         } catch( Exception e ) {
             // had a problem loading the mech.  let the user know.
-            javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+            Media.Messager( e.getMessage() );
         }
     }
 }
