@@ -667,7 +667,7 @@ public class frmForce extends javax.swing.JFrame {
 
         PagePrinter printer = new PagePrinter();
 
-        ForceList sheet = new ForceList();
+        ForceListPrinter sheet = new ForceListPrinter();
         sheet.AddForce(force);
         printer.Append( BFBPrinter.Letter.toPage(), sheet );
         printer.Print();
@@ -780,7 +780,7 @@ public class frmForce extends javax.swing.JFrame {
 
     private void btnPrintBattleForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintBattleForceActionPerformed
         PagePrinter printer = new PagePrinter();
-        printer.Append( BFBPrinter.Letter.toPage(), new BattleforceCards(force.toBattleForce()) );
+        printer.Append( BFBPrinter.Letter.toPage(), new BattleforceCardPrinter(force.toBattleForce()) );
         printer.Print();
     }//GEN-LAST:event_btnPrintBattleForceActionPerformed
 
