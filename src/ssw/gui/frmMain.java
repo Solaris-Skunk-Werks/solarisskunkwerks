@@ -1476,6 +1476,20 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 GetNewMech();
             }
         }
+        if( CurMech.GetArmor().IsStealth() ) {
+            if( ! AddECM() ) {
+                v = (ifVisitor) CurMech.Lookup( OldVal );
+                try {
+                    Media.Messager( this, "No ECM Suite was available for this armor type!\nReverting to the previous armor." );
+                    CurMech.Visit( v );
+                    cmbArmorType.setSelectedItem( OldVal );
+                } catch( Exception e ) {
+                    // wow, second one?  Get a new 'Mech.
+                    Media.Messager( this, "Fatal error while attempting to revert to the old armor:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
+                    GetNewMech();
+                }
+            }
+        }
     }
 
     private void RecalcEquipment() {
@@ -2895,9 +2909,16 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // Ensure the mech has a name
         if( CurMech.GetName().isEmpty() ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "Your mech needs a name first." );
+            Media.Messager( this, "Your mech needs a name first." );
             tbpMainTabPane.setSelectedComponent( pnlBasicSetup );
             txtMechName.requestFocusInWindow();
+            return false;
+        }
+
+        // if we have any systems that requires ECM and don't have it, let the user know
+        if( ! CurMech.ValidateECM() ) {
+            Media.Messager( "This 'Mech requires an ECM system of some sort to be valid.\nPlease install an ECM system." );
+            tbpMainTabPane.setSelectedComponent( pnlEquipment );
             return false;
         }
 
@@ -3893,6 +3914,27 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             String paste = j.getText().substring( 0, insert ) + txtimport + j.getText().substring( insert );
             j.setText( paste );
         }
+    }
+
+    private boolean AddECM() {
+        // Adds an ECM suite if a certain system needs it
+        if( ! CurMech.ValidateECM() ) {
+            abPlaceable a = data.GetEquipment().GetEquipmentByName( "Guardian ECM Suite", CurMech );
+            if( a == null ) {
+                a = data.GetEquipment().GetEquipmentByName( "Angel ECM", CurMech );
+                if( a == null ) {
+                    a = data.GetEquipment().GetEquipmentByName( "ECM Suite", CurMech );
+                    if( a == null ) {
+                        a = data.GetEquipment().GetEquipmentByName( "Watchdog CEWS", CurMech );
+                        if( a == null ) {
+                            return false;
+                        }
+                    }
+                }
+            }
+            CurMech.GetLoadout().AddToQueue( a );
+        }
+        return true;
     }
 
      /** This method is called from within the constructor to
@@ -12500,7 +12542,7 @@ private void chkNullSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             CurMech.SetNullSig( false );
         }
     } catch( Exception e ) {
-        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        Media.Messager( this, e.getMessage() );
         // ensure it's not checked when it shouldn't be
         chkNullSig.setSelected( CurMech.HasNullSig() );
         return;
@@ -12559,6 +12601,10 @@ private void chkVoidSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     try {
         if( chkVoidSig.isSelected() ) {
             CurMech.SetVoidSig( true );
+            if( ! AddECM() ) {
+                CurMech.SetVoidSig( false );
+                throw new Exception( "No ECM Suite was available to support the Void Signature System!\nUninstalling system." );
+            }
         } else {
             CurMech.SetVoidSig( false );
         }
