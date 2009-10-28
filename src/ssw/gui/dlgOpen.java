@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
+import Force.Unit;
 import java.awt.Cursor;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -911,8 +912,9 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         if ( tblMechData.getSelectedRowCount() > 0 ) {
             int[] rows = tblMechData.getSelectedRows();
             for ( int i=0; i < rows.length; i++ ) {
-                    MechListData data = ((MechList) tblMechData.getModel()).Get(tblMechData.convertRowIndexToModel(rows[i]));
-                    parent.dForce.force.Units.add(data.getUnit());
+                MechListData data = ((MechList) tblMechData.getModel()).Get(tblMechData.convertRowIndexToModel(rows[i]));
+                parent.dForce.getForce().Units.add(new Unit(data));
+                parent.dForce.getForce().RefreshBV();
             }
         }
         tblMechData.clearSelection();

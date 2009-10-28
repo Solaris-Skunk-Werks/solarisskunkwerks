@@ -58,13 +58,13 @@ import states.ifState;
 import java.util.prefs.*;
 import javax.swing.JEditorPane;
 import javax.swing.JTextField;
-import ssw.Force.gui.frmForce;
 import battleforce.*;
 import common.DataFactory;
-import ssw.printpreview.dlgPreview;
+import dialog.frmForce;
 import components.EquipmentCollection;
+import ssw.printpreview.dlgPreview;
 
-public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner {
+public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner, common.DesignForm {
 
     String[] Selections = { "", "", "", "", "", "", "", "" };
     Mech CurMech;
@@ -113,7 +113,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private dlgPrintBatchMechs BatchWindow = null;
     private ImageTracker imageTracker = new ImageTracker();
     public dlgOpen dOpen = new dlgOpen(this, true);
-    public ssw.Force.gui.frmForce dForce = new frmForce(this);
+    public frmForce dForce = new frmForce(this, imageTracker);
 
     final int BALLISTIC = 0,
               ENERGY = 1,
@@ -14326,6 +14326,18 @@ private void setViewToolbar(boolean Visible)
      */
     public ImageTracker getImageTracker() {
         return imageTracker;
+    }
+    
+    public void setUnit( Vector v ) {
+        this.setMech( (Mech) v.get(0) );
+    }
+
+    public void loadUnitIntoGUI() {
+        this.LoadMechIntoGUI();
+    }
+
+    public void showOpenDialog() {
+        this.dOpen.setVisible(true);
     }
     
 }
