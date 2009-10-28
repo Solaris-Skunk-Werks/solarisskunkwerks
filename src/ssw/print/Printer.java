@@ -28,7 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.print;
 
-import Print.BattleforceCardPrinter;
 import java.util.Vector;
 import java.awt.print.*;
 import java.io.File;
@@ -39,13 +38,15 @@ import common.CommonTools;
 import components.Mech;
 import filehandlers.Media;
 import ssw.gui.*;
+import Print.*;
+import filehandlers.ImageTracker;
 
 public class Printer {
     private frmMain Parent;
     private Vector Mechs = new Vector();
     private Vector battleforces = new Vector();
     private BattleForce battleforce;
-    private PrintBattleforce printForce;
+    private BattleforcePrinter printForce;
     private String jobName = "SSW Batch Print",
                     logoPath = "",
                     MechImagePath = "";
@@ -53,6 +54,8 @@ public class Printer {
                     Canon = true,
                     useDialog = true,
                     TRO = false;
+
+    private ImageTracker images = new ImageTracker();
 
     private Book pages = new Book();
     private Paper paper = new Paper();
@@ -71,6 +74,7 @@ public class Printer {
     public Printer(frmMain p) {
         Parent = p;
         setPaperSize(Letter);
+        images.preLoadMechImages();
     }
 
     public String getJobName() {
@@ -141,7 +145,7 @@ public class Printer {
         double BV = (double) m.GetCurrentBV();
         if (AdjBV) BV = CommonTools.GetAdjustedBV(m.GetCurrentBV(), Gunnery, Piloting);
 
-        PrintMech pm = new PrintMech(m);
+        PrintMech pm = new PrintMech(m, images);
         pm.SetPilotData(Mechwarrior, Gunnery, Piloting);
         pm.SetOptions(Charts, PilotInfo, BV);
         pm.setCanon(Canon);
@@ -157,8 +161,9 @@ public class Printer {
     }
 
     public void AddForce( BattleForce f ) {
+        images.preLoadBattleForceImages();
         //battleforces.add( new PrintBattleforce(f) );
-        battleforces.add( new BattleforceCardPrinter(f) );
+        battleforces.add( new BattleforceCardPrinter(f, images) );
     }
 
     public void Clear() {
@@ -345,7 +350,7 @@ public class Printer {
 
     public void setBattleForceSheet( String Type ) {
         for ( int i=0; i < battleforces.size(); i++ ) {
-            ((PrintBattleforce) battleforces.get(i)).setType(Type);
+            ((BattleforcePrinter) battleforces.get(i)).setType(Type);
         }
     }
 
@@ -371,7 +376,7 @@ public class Printer {
 
         if ( jobName.isEmpty() ) { jobName = "BattleForce"; }
         if ( battleforces.size() == 1 ) {
-            BattleForce bf = ((PrintBattleforce) battleforces.get(0)).getBattleforce();
+            BattleForce bf = ((BattleforcePrinter) battleforces.get(0)).getBattleforce();
             if ( !bf.ForceName.isEmpty() ) { jobName = bf.ForceName.trim(); }
         }
 
@@ -379,7 +384,7 @@ public class Printer {
 
         if ( useDialog ) {
             for ( int i=0; i < battleforces.size(); i++ ) {
-                PrintBattleforce bf = (PrintBattleforce) battleforces.get(i);
+                BattleforcePrinter bf = (BattleforcePrinter) battleforces.get(i);
                 dlgPrintBattleforce pForce = new dlgPrintBattleforce(Parent, true, bf.getBattleforce());
                 pForce.setLocationRelativeTo(Parent);
                 pForce.setVisible(true);
@@ -392,7 +397,7 @@ public class Printer {
         }
 
         for ( int i=0; i < battleforces.size(); i++ ) {
-            pages.append((PrintBattleforce) battleforces.get(i), page);
+            pages.append((BattleforcePrinter) battleforces.get(i), page);
         }
 
         job.setPageable(pages);

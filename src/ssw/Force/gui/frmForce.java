@@ -567,6 +567,7 @@ public class frmForce extends javax.swing.JFrame {
         }
 
         if ( tblForce.getSelectedRowCount() > 0 ) {
+            parent.getImageTracker().preLoadMechImages();
             PagePrinter printer = new PagePrinter();
 
             try
@@ -578,7 +579,7 @@ public class frmForce extends javax.swing.JFrame {
                     if ( data.IsOmni() ) {
                         m.SetCurLoadout( data.Configuration );
                     }
-                    PrintMech pm = new PrintMech(m, data.getMechwarrior(), data.getGunnery(), data.getPiloting());
+                    PrintMech pm = new PrintMech(m, data.getMechwarrior(), data.getGunnery(), data.getPiloting(), parent.getImageTracker());
                     printer.Append( BFBPrinter.Letter.toPage(), pm );
                 }
                 printer.Print();
@@ -780,7 +781,7 @@ public class frmForce extends javax.swing.JFrame {
 
     private void btnPrintBattleForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintBattleForceActionPerformed
         PagePrinter printer = new PagePrinter();
-        printer.Append( BFBPrinter.Letter.toPage(), new BattleforceCardPrinter(force.toBattleForce()) );
+        printer.Append( BFBPrinter.Letter.toPage(), new BattleforceCardPrinter(force.toBattleForce(), parent.getImageTracker()) );
         printer.Print();
     }//GEN-LAST:event_btnPrintBattleForceActionPerformed
 

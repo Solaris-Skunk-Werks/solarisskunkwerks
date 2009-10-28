@@ -111,6 +111,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     public DataFactory data;
 
     private dlgPrintBatchMechs BatchWindow = null;
+    private ImageTracker imageTracker = new ImageTracker();
     public dlgOpen dOpen = new dlgOpen(this, true);
     public ssw.Force.gui.frmForce dForce = new frmForce(this);
 
@@ -14306,5 +14307,12 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JTextField txtSumPAmpsTon;
     private javax.swing.JTextField txtTNTSystem;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the imageTracker
+     */
+    public ImageTracker getImageTracker() {
+        return imageTracker;
+    }
     
 }

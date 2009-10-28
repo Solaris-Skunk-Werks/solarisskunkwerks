@@ -13,9 +13,9 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.JFrame;
 import filehandlers.Media;
-import ssw.gui.dlgAmmoChooser;
+import dialog.dlgAmmoChooser;
 import ssw.gui.frmMain;
-import ssw.print.PrintMech;
+import Print.PrintMech;
 import ssw.print.Printer;
 
 public class dlgPreview extends javax.swing.JFrame implements ActionListener {

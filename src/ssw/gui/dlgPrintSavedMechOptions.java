@@ -2,6 +2,7 @@
 
 package ssw.gui;
 
+import dialog.dlgAmmoChooser;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +12,8 @@ import components.ifMechLoadout;
 import java.util.Vector;
 import javax.swing.ImageIcon;
 import filehandlers.Media;
-import ssw.print.PrintMech;
+import ssw.SSWConstants;
+import Print.PrintMech;
 
 public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
     private Mech CurMech;

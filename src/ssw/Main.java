@@ -75,7 +75,7 @@ public class Main {
 
         // uncomment the following line before creating a build.
 */
-        SetupLogFile( SSWConstants.LogFileName );
+        //SetupLogFile( SSWConstants.LogFileName );
 
 
         try {
