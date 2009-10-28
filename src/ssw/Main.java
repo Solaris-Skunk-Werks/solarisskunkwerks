@@ -73,10 +73,9 @@ public class Main {
             }
         }
 
-        // uncomment the following line before creating a build.
 */
-        //SetupLogFile( SSWConstants.LogFileName );
-
+        // uncomment the following line before creating a build.
+        // SetupLogFile( SSWConstants.LogFileName );
 
         try {
             // added code to turn off the boldface of Metal L&F.

@@ -445,6 +445,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         //dOpen.LoadList();
         CurMech.SetChanged( false );
+/*
+        CSVWriter csv = new CSVWriter();
+        try {
+            csv.WriteEquipmentCSV( data, "equips.csv" );
+            csv.WritePhysicalWeaponCSV( data, "physicals.csv" );
+        } catch( Exception e ) {
+            e.printStackTrace();
+        }
+*/
     }
 
     private void SetWeaponChoosers() {
@@ -11481,13 +11490,17 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( a != null ) {
             try {
                 CurMech.GetLoadout().CheckExclusions( a );
-                if(a instanceof IndustrialEquipment){
-                    if (!((IndustrialEquipment) a).validate(CurMech)){
-                        throw new Exception (((IndustrialEquipment) a).getValidationFalseMessage());
+                if( a instanceof Equipment ) {
+                    if ( ! ((Equipment) a).Validate( CurMech ) ) {
+                        if( ((Equipment) a).RequiresQuad() ) {
+                            throw new Exception( a.CritName() + " may only be mounted on a quad 'Mech." );
+                        } else if( ((Equipment) a).MaxAllowed() > 0 ) {
+                            throw new Exception( "Only " + ((Equipment) a).MaxAllowed() + " " + a.CritName() + "s may be mounted on one 'Mech." );
+                        }
                     }
                 }
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( e.getMessage() );
                 a = null;
             }
         }

@@ -362,7 +362,7 @@ public class MTFWriter {
         } else if( retval.contains( "ImprovedJump Jet" ) ) {
             retval = Prepend + retval;
         } else if( ! p.CoreComponent() ) {
-            if( p instanceof PhysicalWeapon || p instanceof IndustrialPhysicalWeapon || p instanceof PartialWing ) {
+            if( p instanceof PhysicalWeapon || p instanceof PartialWing ) {
                 // do nothing here
             } else if( ( ! retval.contains( "IS" ) ) && ( ! retval.contains( "CL" ) ) && ( ! retval.contains( "Clan" ) ) ) {
                 retval = Prepend + retval;

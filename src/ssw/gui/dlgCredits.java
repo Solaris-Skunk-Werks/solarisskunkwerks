@@ -82,14 +82,14 @@ public class dlgCredits extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 4);
         getContentPane().add(jLabel1, gridBagConstraints);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14));
         jLabel8.setText("The SSW Alpha Testing Team");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 0, 4);
         getContentPane().add(jLabel8, gridBagConstraints);
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14));
         jLabel2.setText("Past and Current Developers");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -106,7 +106,7 @@ public class dlgCredits extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 4);
         getContentPane().add(jLabel3, gridBagConstraints);
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14));
         jLabel4.setText("Contributors (in no particular order)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -115,7 +115,7 @@ public class dlgCredits extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 0, 4);
         getContentPane().add(jLabel4, gridBagConstraints);
 
-        jLabel5.setText("<html>Major Tom<br />Ice Hellion<br />Maelwys<br />LastChanceCav<br />NPettinato<br />Chimera<br />CJ Keys</html>");
+        jLabel5.setText("<html>Major Tom<br />Ice Hellion<br />Maelwys<br />LastChanceCav<br />NPettinato<br />Chimera<br />CJ Keys<br />nckestrel</html>");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
