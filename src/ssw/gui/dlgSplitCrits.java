@@ -31,6 +31,7 @@ package ssw.gui;
 import components.LocationIndex;
 import components.abPlaceable;
 import components.ifWeapon;
+import filehandlers.Media;
 
 public class dlgSplitCrits extends javax.swing.JDialog {
 
@@ -259,7 +260,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 try {
                     Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_LT );
                 } catch( Exception e ) {
-                    javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                    Media.Messager( this, e.getMessage() );
                     result = false;
                     setVisible( false );
                     return;
@@ -269,7 +270,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 try {
                     Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_RT );
                 } catch( Exception e ) {
-                    javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                    Media.Messager( this, e.getMessage() );
                     result = false;
                     setVisible( false );
                     return;
@@ -283,7 +284,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 try {
                     Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_CT );
                 } catch( Exception e ) {
-                    javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                    Media.Messager( this, e.getMessage() );
                     result = false;
                     setVisible( false );
                     return;
@@ -293,7 +294,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 try {
                     Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_LL );
                 } catch( Exception e ) {
-                    javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                    Media.Messager( this, e.getMessage() );
                     result = false;
                     setVisible( false );
                     return;
@@ -303,7 +304,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 try {
                     Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_LA );
                 } catch( Exception e ) {
-                    javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                    Media.Messager( this, e.getMessage() );
                     result = false;
                     setVisible( false );
                     return;
@@ -317,7 +318,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 try {
                     Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_CT );
                 } catch( Exception e ) {
-                    javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                    Media.Messager( this, e.getMessage() );
                     result = false;
                     setVisible( false );
                     return;
@@ -327,7 +328,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 try {
                     Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_RL );
                 } catch( Exception e ) {
-                    javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                    Media.Messager( this, e.getMessage() );
                     result = false;
                     setVisible( false );
                     return;
@@ -337,7 +338,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
                 try {
                     Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_RA );
                 } catch( Exception e ) {
-                    javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                    Media.Messager( this, e.getMessage() );
                     result = false;
                     setVisible( false );
                     return;
@@ -350,7 +351,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
             try {
                 Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_LT );
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 result = false;
                 setVisible( false );
                 return;
@@ -361,7 +362,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
             try {
                 Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_RT );
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 result = false;
                 setVisible( false );
                 return;
@@ -372,7 +373,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
             try {
                 Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_LT );
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 result = false;
                 setVisible( false );
                 return;
@@ -383,7 +384,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
             try {
                 Parent.CurMech.GetLoadout().SplitAllocate( ItemToPlace, FirstLoc, FirstIndex, LocationIndex.MECH_LOC_RT );
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 result = false;
                 setVisible( false );
                 return;

@@ -28,6 +28,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
+import filehandlers.Media;
+
 public class dlgOmniBase extends javax.swing.JDialog {
     String input = "";
     boolean cancel = false;
@@ -129,7 +131,7 @@ public class dlgOmniBase extends javax.swing.JDialog {
     private void OkayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OkayActionPerformed
         // ensure we have a good string
         if( txtLoadoutName.getText().length() <= 0 || txtLoadoutName.getText() == null ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "Please enter a name for this variant." );
+            Media.Messager( this, "Please enter a name for this variant." );
         } else {
             input = txtLoadoutName.getText();
             setVisible( false );

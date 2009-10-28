@@ -29,7 +29,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tlbActions" alignment="0" pref="1037" max="32767" attributes="0"/>
+          <Component id="tlbActions" alignment="0" pref="1041" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtSelected" min="-2" pref="687" max="-2" attributes="0"/>

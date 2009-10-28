@@ -567,7 +567,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         if( Ammo.HasAmmo() ) {
             Ammo.setVisible( true );
         } else {
-            javax.swing.JOptionPane.showMessageDialog( this, "This 'Mech has no ammunition to exchange." );
+            Media.Messager( this, "This 'Mech has no ammunition to exchange." );
             Ammo.dispose();
         }
         refresh();

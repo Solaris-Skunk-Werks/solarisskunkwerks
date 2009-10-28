@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
+import filehandlers.Media;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -142,7 +143,7 @@ public class dlgArmorTonnage extends javax.swing.JDialog {
         try{//GEN-LAST:event_btnOkayActionPerformed
             result = Double.parseDouble( txtArmorTons.getText() );
         } catch( NumberFormatException n ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "Please enter a valid number" );
+            Media.Messager( this, "Please enter a valid number" );
             txtArmorTons.setText( "" );
             NewTonnage = false;
             return;

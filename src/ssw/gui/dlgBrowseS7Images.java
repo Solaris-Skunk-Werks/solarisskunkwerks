@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
+import filehandlers.Media;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.io.BufferedReader;
@@ -59,7 +60,7 @@ public class dlgBrowseS7Images extends javax.swing.JDialog {
         try {
             LoadImageList();
         } catch( Exception e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+            Media.Messager( this, e.getMessage() );
             dispose();
         }
 
@@ -180,7 +181,7 @@ public class dlgBrowseS7Images extends javax.swing.JDialog {
                 FluffImage = new ImageIcon( new URL( GetURL( ((ImageID) ImageList.get( cmbImageList.getSelectedIndex() )).URL ) ) );
             }
         } catch( Exception e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+            Media.Messager( this, e.getMessage() );
             return;
         }
 

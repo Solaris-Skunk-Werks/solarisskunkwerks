@@ -634,11 +634,11 @@ private void btnChangeAmmoActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         if( Ammo.HasAmmo() ) {
             Ammo.setVisible( true );
         } else {
-            javax.swing.JOptionPane.showMessageDialog( this, "This 'Mech has no ammunition to exchange." );
+            Media.Messager( this, "This 'Mech has no ammunition to exchange." );
             Ammo.dispose();
         }
     } catch( Exception e ) {
-        javax.swing.JOptionPane.showMessageDialog(this, "There was an error altering the ammunition on this 'Mech:\n" + e.getMessage() );
+        Media.Messager(this, "There was an error altering the ammunition on this 'Mech:\n" + e.getMessage() );
     }
 }//GEN-LAST:event_btnChangeAmmoActionPerformed
 

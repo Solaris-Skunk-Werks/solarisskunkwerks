@@ -1112,7 +1112,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             try {
                 CurMech.SetFCSArtemisIV( false );
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
             }
             chkFCSAIV.setSelected( false );
         } else {
@@ -1126,7 +1126,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             try {
                 CurMech.SetFCSArtemisV( false );
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
             }
             chkFCSAV.setSelected( false );
         } else {
@@ -1140,7 +1140,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             try {
                 CurMech.SetFCSApollo( false );
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
             }
             chkFCSApollo.setSelected( false );
         } else {
@@ -1154,7 +1154,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             try {
                 CurMech.GetLoadout().SetSupercharger( false, 0, -1 );
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
             }
         } else {
             if( CurMech.GetLoadout().HasSupercharger() ) {
@@ -1242,7 +1242,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( ! chkTracks.isEnabled() ) { CurMech.SetTracks( false ); }
             } catch( Exception e ) {
                 // we should never get this, but report it if we do
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
             }
         }
     }
@@ -1257,12 +1257,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } catch( Exception e ) {
             v = (ifVisitor) CurMech.Lookup( OldVal );
             try {
-                javax.swing.JOptionPane.showMessageDialog( this, "The new gyro type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous gyro type." );
+                Media.Messager( this, "The new gyro type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous gyro type." );
                 CurMech.Visit( v );
                 cmbGyroType.setSelectedItem( OldVal );
             } catch( Exception e1 ) {
                 // wow, second one?  Get a new 'Mech.
-                javax.swing.JOptionPane.showMessageDialog( this, "Fatal error while attempting to revert to the old gyro type:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
+                Media.Messager( this, "Fatal error while attempting to revert to the old gyro type:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
                 GetNewMech();
             }
         }
@@ -1279,12 +1279,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } catch( Exception e ) {
             v = (ifVisitor) CurMech.Lookup( OldVal );
             try {
-                javax.swing.JOptionPane.showMessageDialog( this, "The new cockpit type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous cockpit type." );
+                Media.Messager( this, "The new cockpit type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous cockpit type." );
                 CurMech.Visit( v );
                 cmbCockpitType.setSelectedItem( OldVal );
             } catch( Exception e1 ) {
                 // wow, second one?  Get a new 'Mech.
-                javax.swing.JOptionPane.showMessageDialog( this, "Fatal error while attempting to revert to the old cockpit type:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
+                Media.Messager( this, "Fatal error while attempting to revert to the old cockpit type:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
                 GetNewMech();
             }
         }
@@ -1329,12 +1329,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } catch( Exception e ) {
             v = (ifVisitor) CurMech.Lookup( OldVal );
             try {
-                javax.swing.JOptionPane.showMessageDialog( this, "The new enhancement type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous enhancement." );
+                Media.Messager( this, "The new enhancement type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous enhancement." );
                 CurMech.Visit( v );
                 cmbPhysEnhance.setSelectedItem( OldVal );
             } catch( Exception e1 ) {
                 // wow, second one?  Get a new 'Mech.
-                javax.swing.JOptionPane.showMessageDialog( this, "Fatal error while attempting to revert to the old enhancement:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
+                Media.Messager( this, "Fatal error while attempting to revert to the old enhancement:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
                 GetNewMech();
             }
         }
@@ -1352,12 +1352,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } catch( Exception e ) {
             v = (ifVisitor) CurMech.Lookup( OldVal );
             try {
-                javax.swing.JOptionPane.showMessageDialog( this, "The new jump jet type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous jump jet type." );
+                Media.Messager( this, "The new jump jet type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous jump jet type." );
                 CurMech.Visit( v );
                 cmbJumpJetType.setSelectedItem( OldVal );
             } catch( Exception e1 ) {
                 // wow, second one?  Get a new 'Mech.
-                javax.swing.JOptionPane.showMessageDialog( this, "Fatal error while attempting to revert to the old jump jets:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
+                Media.Messager( this, "Fatal error while attempting to revert to the old jump jets:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
                 GetNewMech();
                 return;
             }
@@ -1375,12 +1375,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } catch( Exception e ) {
             v = (ifVisitor) CurMech.Lookup( OldVal );
             try {
-                javax.swing.JOptionPane.showMessageDialog( this, "The new heat sink type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous heat sink type." );
+                Media.Messager( this, "The new heat sink type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous heat sink type." );
                 CurMech.Visit( v );
                 cmbHeatSinkType.setSelectedItem( OldVal );
             } catch( Exception e1 ) {
                 // wow, second one?  Get a new 'Mech.
-                javax.swing.JOptionPane.showMessageDialog( this, "Fatal error while attempting to revert to the old heat sinks:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
+                Media.Messager( this, "Fatal error while attempting to revert to the old heat sinks:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
                 GetNewMech();
                 return;
             }
@@ -1398,12 +1398,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } catch( Exception e ) {
             v = (ifVisitor) CurMech.Lookup( OldVal );
             try {
-                javax.swing.JOptionPane.showMessageDialog( this, "The new internal structure is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous internal structure." );
+                Media.Messager( this, "The new internal structure is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous internal structure." );
                 CurMech.Visit( v );
                 cmbInternalType.setSelectedItem( OldVal );
             } catch( Exception e1 ) {
                 // wow, second one?  Get a new 'Mech.
-                javax.swing.JOptionPane.showMessageDialog( this, "Fatal error while attempting to revert to the old internal structure:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
+                Media.Messager( this, "Fatal error while attempting to revert to the old internal structure:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
                 GetNewMech();
             }
         }
@@ -1423,12 +1423,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } catch( Exception e ) {
             v = (ifVisitor) CurMech.Lookup( OldVal );
             try {
-                javax.swing.JOptionPane.showMessageDialog( this, "The new engine type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous engine." );
+                Media.Messager( this, "The new engine type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous engine." );
                 CurMech.Visit( v );
                 cmbEngineType.setSelectedItem( OldVal );
             } catch( Exception e1 ) {
                 // wow, second one?  Get a new 'Mech.
-                javax.swing.JOptionPane.showMessageDialog( this, "Fatal error while attempting to revert to the old engine:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
+                Media.Messager( this, "Fatal error while attempting to revert to the old engine:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
                 GetNewMech();
                 return;
             }
@@ -1467,12 +1467,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } catch( Exception e ) {
             v = (ifVisitor) CurMech.Lookup( OldVal );
             try {
-                javax.swing.JOptionPane.showMessageDialog( this, "The new armor type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous armor." );
+                Media.Messager( this, "The new armor type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous armor." );
                 CurMech.Visit( v );
                 cmbArmorType.setSelectedItem( OldVal );
             } catch( Exception e1 ) {
                 // wow, second one?  Get a new 'Mech.
-                javax.swing.JOptionPane.showMessageDialog( this, "Fatal error while attempting to revert to the old armor:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
+                Media.Messager( this, "Fatal error while attempting to revert to the old armor:\n" + e.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
                 GetNewMech();
             }
         }
@@ -1505,7 +1505,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             try {
                 CurMech.AddCTCase();
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkCTCASE.setSelected( false );
             }
         }
@@ -1513,7 +1513,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             try {
                 CurMech.AddLTCase();
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkLTCASE.setSelected( false );
             }
         }
@@ -1521,7 +1521,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             try {
                 CurMech.AddRTCase();
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkRTCASE.setSelected( false );
             }
         }
@@ -1532,7 +1532,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     CurMech.GetLoadout().SetHDCASEII( true, -1, clan );
                 }
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkHDCASE2.setSelected( false );
             }
         }
@@ -1542,7 +1542,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     CurMech.GetLoadout().SetCTCASEII( true, -1, clan );
                 }
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkCTCASE2.setSelected( false );
             }
         }
@@ -1552,7 +1552,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     CurMech.GetLoadout().SetLTCASEII( true, -1, clan );
                 }
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkLTCASE2.setSelected( false );
             }
         }
@@ -1562,7 +1562,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     CurMech.GetLoadout().SetRTCASEII( true, -1, clan );
                 }
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkRTCASE2.setSelected( false );
             }
         }
@@ -1572,7 +1572,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     CurMech.GetLoadout().SetLACASEII( true, -1, clan );
                 }
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkLACASE2.setSelected( false );
             }
         }
@@ -1582,7 +1582,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     CurMech.GetLoadout().SetRACASEII( true, -1, clan );
                 }
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkRACASE2.setSelected( false );
             }
         }
@@ -1592,7 +1592,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     CurMech.GetLoadout().SetLLCASEII( true, -1, clan );
                 }
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkLLCASE2.setSelected( false );
             }
         }
@@ -1602,7 +1602,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     CurMech.GetLoadout().SetRLCASEII( true, -1, clan );
                 }
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkRLCASE2.setSelected( false );
             }
         }
@@ -2642,7 +2642,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 year = Integer.parseInt( txtProdYear.getText() ) ;
                 CurMech.SetYear( year, true );
             } catch( NumberFormatException n ) {
-                javax.swing.JOptionPane.showMessageDialog( this, "The production year is not a number." );
+                Media.Messager( this, "The production year is not a number." );
                 tbpMainTabPane.setSelectedComponent( pnlBasicSetup );
                 return;
             }
@@ -2928,7 +2928,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             for( int i = 0; i < v.size(); i++ ) {
                 CurMech.SetCurLoadout( ((ifMechLoadout) v.get( i )).GetName() );
                 if( CurMech.GetLoadout().GetQueue().size() != 0 ) {
-                    javax.swing.JOptionPane.showMessageDialog( this, "You must place all items in the " +
+                    Media.Messager( this, "You must place all items in the " +
                         ((ifMechLoadout) v.get( i )).GetName() + " loadout first." );
                     cmbOmniVariant.setSelectedItem( ((ifMechLoadout) v.get( i )).GetName() );
                     cmbOmniVariantActionPerformed( evt );
@@ -2938,7 +2938,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         } else {
             if( CurMech.GetLoadout().GetQueue().size() != 0 ) {
-                javax.swing.JOptionPane.showMessageDialog( this, "You must place all items first." );
+                Media.Messager( this, "You must place all items first." );
                 tbpMainTabPane.setSelectedComponent( pnlCriticals );
                 return false;
             }
@@ -2950,7 +2950,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             for( int i = 0; i < v.size(); i++ ) {
                 CurMech.SetCurLoadout( ((ifMechLoadout) v.get( i )).GetName() );
                 if( CurMech.GetCurrentTons() > CurMech.GetTonnage() ) {
-                    javax.swing.JOptionPane.showMessageDialog( this, ((ifMechLoadout) v.get( i )).GetName() +
+                    Media.Messager( this, ((ifMechLoadout) v.get( i )).GetName() +
                         " loadout is overweight.  Reduce the weight\nto equal or below the mech's tonnage before exporting." );
                     cmbOmniVariant.setSelectedItem( ((ifMechLoadout) v.get( i )).GetName() );
                     cmbOmniVariantActionPerformed( evt );
@@ -2960,7 +2960,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         } else {
             if( CurMech.GetCurrentTons() > CurMech.GetTonnage() ) {
-                javax.swing.JOptionPane.showMessageDialog( this, "This mech is overweight.  Reduce the weight to\nequal or below the mech's tonnage before exporting." );
+                Media.Messager( this, "This mech is overweight.  Reduce the weight to\nequal or below the mech's tonnage before exporting." );
                 tbpMainTabPane.setSelectedComponent( pnlBasicSetup );
                 return false;
             }
@@ -3177,7 +3177,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             //}
                         } catch( Exception e1 ) {
                             // failed big.  no problem
-                            javax.swing.JOptionPane.showMessageDialog( this, "Fatal error adding a PPC Capacitor:\n" + e.getMessage() + "\nThe Capacitor will be removed." );
+                            Media.Messager( this, "Fatal error adding a PPC Capacitor:\n" + e.getMessage() + "\nThe Capacitor will be removed." );
                             ((RangedWeapon) CurItem).UseCapacitor( false );
                         }
                     }
@@ -3211,7 +3211,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             //}
                         } catch( Exception e1 ) {
                             // failed big.  no problem
-                            javax.swing.JOptionPane.showMessageDialog( this, "Fatal error adding a Laser Insulator:\n" + e.getMessage() + "\nThe Insulator will be removed." );
+                            Media.Messager( this, "Fatal error adding a Laser Insulator:\n" + e.getMessage() + "\nThe Insulator will be removed." );
                             ((RangedWeapon) CurItem).UseInsulator( false );
                         }
                     }
@@ -3763,7 +3763,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         try {
             CheckFileName( filename );
         } catch( Exception e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the filename:\n" +
+            Media.Messager( this, "There was a problem with the filename:\n" +
                 e.getMessage() + "\nSaving will continue but you should change the filename." );
         }
 
@@ -3823,7 +3823,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     "name already exists\n" + retval + "\nDo you want to overwrite it?", "Overwrite file",
                     javax.swing.JOptionPane.YES_NO_OPTION );
                 if( choice == 1 ) {
-                    javax.swing.JOptionPane.showMessageDialog( this, "The 'Mech was not saved." );
+                    Media.Messager( this, "The 'Mech was not saved." );
                     return null;
                 }
             }
@@ -6572,44 +6572,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     btnAddEquipActionPerformed( null );
-                    /*            int index = lstChooseBallistic.locationToIndex( e.getPoint() );
-                    if( index < 0 ) { return; }
-                    abPlaceable a = (abPlaceable) Equipment[BALLISTIC][index];
-                    if( ((ifWeapon) a).RequiresNuclear() &! CurMech.GetEngine().IsNuclear() ) {
-                        javax.swing.JOptionPane.showMessageDialog( lstChooseBallistic.getTopLevelAncestor(), a.GetCritName() + " may not be mounted because the mech\ndoes not use a nuclear engine (fission or fusion)." );
-                        return;
-                    }
-                    if( ((ifWeapon) a).RequiresFusion() &! CurMech.GetEngine().IsFusion() ) {
-                        javax.swing.JOptionPane.showMessageDialog( lstChooseBallistic.getTopLevelAncestor(), a.GetCritName() + " may not be mounted\nbecause the mech does not use a fusion engine." );
-                        return;
-                    }
-                    a = data.GetEquipment().GetCopy( a, CurMech );
-
-                    // add it to the loadout
-                    CurMech.GetLoadout().AddToQueue( a );
-
-                    // unallocate the TC if needed (if the size changes)
-                    if( a instanceof ifWeapon ) {
-                        if( ((ifWeapon) a).IsTCCapable() && CurMech.UsingTC() ) {
-                            CurMech.UnallocateTC();
-                        }
-                    }
-
-                    // see if we need ammunition and add it if applicable
-                    ResetAmmo();
-
-                    // refresh the selected equipment listbox
-                    if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
-                        Equipment[SELECTED] = new Object[] { " " };
-                    } else {
-                        Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
-                    }
-                    lstSelectedEquipment.setListData( Equipment[SELECTED] );
-
-                    // now refresh the information panes
-                    RefreshSummary();
-                    RefreshInfoPane();
-                    */        }
+                }
             }
         };
         lstChooseBallistic.addMouseListener( mlBallistic );
@@ -6657,44 +6620,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     btnAddEquipActionPerformed( null );
-                    /*            int index = lstChooseEnergy.locationToIndex( e.getPoint() );
-                    if( index < 0 ) { return; }
-                    abPlaceable a = (abPlaceable) Equipment[ENERGY][index];
-                    if( ((ifWeapon) a).RequiresNuclear() &! CurMech.GetEngine().IsNuclear() ) {
-                        javax.swing.JOptionPane.showMessageDialog( lstChooseEnergy.getTopLevelAncestor(), a.GetCritName() + " may not be mounted because the mech\ndoes not use a nuclear engine (fission or fusion)." );
-                        return;
-                    }
-                    if( ((ifWeapon) a).RequiresFusion() &! CurMech.GetEngine().IsFusion() ) {
-                        javax.swing.JOptionPane.showMessageDialog( lstChooseEnergy.getTopLevelAncestor(), a.GetCritName() + " may not be mounted\nbecause the mech does not use a fusion engine." );
-                        return;
-                    }
-                    a = data.GetEquipment().GetCopy( a, CurMech );
-
-                    // add it to the loadout
-                    CurMech.GetLoadout().AddToQueue( a );
-
-                    // unallocate the TC if needed (if the size changes)
-                    if( a instanceof ifWeapon ) {
-                        if( ((ifWeapon) a).IsTCCapable() && CurMech.UsingTC() ) {
-                            CurMech.UnallocateTC();
-                        }
-                    }
-
-                    // see if we need ammunition and add it if applicable
-                    ResetAmmo();
-
-                    // refresh the selected equipment listbox
-                    if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
-                        Equipment[SELECTED] = new Object[] { " " };
-                    } else {
-                        Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
-                    }
-                    lstSelectedEquipment.setListData( Equipment[SELECTED] );
-
-                    // now refresh the information panes
-                    RefreshSummary();
-                    RefreshInfoPane();
-                    */        }
+                }
             }
         };
         lstChooseEnergy.addMouseListener( mlEnergy );
@@ -6742,54 +6668,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     btnAddEquipActionPerformed( null );
-                    /*            int index = lstChooseMissile.locationToIndex( e.getPoint() );
-                    if( index < 0 ) { return; }
-                    abPlaceable a = (abPlaceable) Equipment[MISSILE][index];
-                    if( ((ifWeapon) a).RequiresNuclear() &! CurMech.GetEngine().IsNuclear() ) {
-                        javax.swing.JOptionPane.showMessageDialog( lstChooseMissile.getTopLevelAncestor(), a.GetCritName() + " may not be mounted because the mech\ndoes not use a nuclear engine (fission or fusion)." );
-                        return;
-                    }
-                    if( ((ifWeapon) a).RequiresFusion() &! CurMech.GetEngine().IsFusion() ) {
-                        javax.swing.JOptionPane.showMessageDialog( lstChooseMissile.getTopLevelAncestor(), a.GetCritName() + " may not be mounted\nbecause the mech does not use a fusion engine." );
-                        return;
-                    }
-                    a = data.GetEquipment().GetCopy( a, CurMech );
-                    if( ((RangedWeapon) a).IsFCSCapable() ) {
-                        if( CurMech.UsingArtemisIV() ) {
-                            if( ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisIV || ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisV ) {
-                                ((RangedWeapon) a).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV );
-                            }
-                        }
-                        if( CurMech.UsingArtemisV() ) {
-                            if( ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisV ) {
-                                ((RangedWeapon) a).UseFCS( true, ifMissileGuidance.FCS_ArtemisV );
-                            }
-                        }
-                        if( CurMech.UsingApollo() ) {
-                            if( ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_Apollo ) {
-                                ((RangedWeapon) a).UseFCS( true, ifMissileGuidance.FCS_Apollo );
-                            }
-                        }
-                    }
-
-                    // add it to the loadout
-                    CurMech.GetLoadout().AddToQueue( a );
-
-                    // see if we need ammunition and add it if applicable
-                    ResetAmmo();
-
-                    // refresh the selected equipment listbox
-                    if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
-                        Equipment[SELECTED] = new Object[] { " " };
-                    } else {
-                        Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
-                    }
-                    lstSelectedEquipment.setListData( Equipment[SELECTED] );
-
-                    // now refresh the information panes
-                    RefreshSummary();
-                    RefreshInfoPane();
-                    */        }
+                }
             }
         };
         lstChooseMissile.addMouseListener( mlMissile );
@@ -6837,47 +6716,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     btnAddEquipActionPerformed( null );
-                    /*            int index = lstChoosePhysical.locationToIndex( e.getPoint() );
-                    if( index < 0 ) { return; }
-                    abPlaceable a = (abPlaceable) Equipment[PHYSICAL][index];
-                    a = data.GetEquipment().GetCopy( a, CurMech );
-
-                    // check to ensure that no more than two physical weapons are in the mech
-                    Vector v = CurMech.GetLoadout().GetNonCore();
-                    int pcheck = 0;
-                    for( int i = 0; i < v.size(); i++ ) {
-                        if( v.get( i ) instanceof PhysicalWeapon ) {
-                            pcheck++;
-                        }
-                    }
-                    if( pcheck >= 2 ) {
-                        javax.swing.JOptionPane.showMessageDialog( lstChoosePhysical.getTopLevelAncestor(), "A mech may mount no more than two physical weapons." );
-                        return;
-                    }
-                    if( ((ifWeapon) a).RequiresNuclear() &! CurMech.GetEngine().IsNuclear() ) {
-                        javax.swing.JOptionPane.showMessageDialog( lstChoosePhysical.getTopLevelAncestor(), a.GetCritName() + " may not be mounted because the mech\ndoes not use a nuclear engine (fission or fusion)." );
-                        return;
-                    }
-                    if( ((ifWeapon) a).RequiresFusion() &! CurMech.GetEngine().IsFusion() ) {
-                        javax.swing.JOptionPane.showMessageDialog( lstChoosePhysical.getTopLevelAncestor(), a.GetCritName() + " may not be mounted\nbecause the mech does not use a fusion engine." );
-                        return;
-                    }
-
-                    // add it to the loadout
-                    CurMech.GetLoadout().AddToQueue( a );
-
-                    // refresh the selected equipment listbox
-                    if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
-                        Equipment[SELECTED] = new Object[] { " " };
-                    } else {
-                        Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
-                    }
-                    lstSelectedEquipment.setListData( Equipment[SELECTED] );
-
-                    // now refresh the information panes
-                    RefreshSummary();
-                    RefreshInfoPane();
-                    */        }
+                }
             }
         };
         lstChoosePhysical.addMouseListener( mlPhysical );
@@ -6925,56 +6764,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     btnAddEquipActionPerformed( null );
-                    /*            int index = lstChooseEquipment.locationToIndex( e.getPoint() );
-                    if( index < 0 ) { return; }
-                    abPlaceable a = (abPlaceable) Equipment[EQUIPMENT][index];
-                    Vector v;
-                    // see if this is a C3 computer and whether we need to limit choices
-                    if( a.GetCritName().equals( "C3 Computer (Master)" ) || a.GetCritName().equals( "C3 Computer (Slave)" ) ) {
-                        // check the loadout for a C3i computer
-                        v = CurMech.GetLoadout().GetNonCore();
-                        for( int i = 0; i < v.size(); i++ ) {
-                            if( v.get( i ) instanceof Equipment ) {
-                                if( ((abPlaceable) v.get( i )).GetCritName().equals( "Improved C3 Computer" ) ) {
-                                    javax.swing.JOptionPane.showMessageDialog( lstChooseEquipment.getTopLevelAncestor(), "A mech may not mount a C3 Master or Slave if it\nalready mounts an Improved C3 Computer." );
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                    if( a.GetCritName().equals( "Improved C3 Computer" ) ) {
-                        // check the loadout for a C3 Master or Slave
-                        // check the loadout for a C3i computer
-                        v = CurMech.GetLoadout().GetNonCore();
-                        for( int i = 0; i < v.size(); i++ ) {
-                            if( v.get( i ) instanceof Equipment ) {
-                                if( ((abPlaceable) v.get( i )).GetCritName().equals( "C3 Computer (Master)" ) || ((abPlaceable) v.get( i )).GetCritName().equals( "C3 Computer (Slave)" ) ) {
-                                    javax.swing.JOptionPane.showMessageDialog( lstChooseEquipment.getTopLevelAncestor(), "A mech may not mount an improved C3 computer if it\nalready mounts a C3 Master or Slave." );
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                    a = data.GetEquipment().GetCopy( a, CurMech );
-
-                    // add it to the loadout
-                    CurMech.GetLoadout().AddToQueue( a );
-
-                    // see if we need ammunition and add it if applicable
-                    ResetAmmo();
-
-                    // refresh the selected equipment listbox
-                    if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
-                        Equipment[SELECTED] = new Object[] { " " };
-                    } else {
-                        Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
-                    }
-                    lstSelectedEquipment.setListData( Equipment[SELECTED] );
-
-                    // now refresh the information panes
-                    RefreshSummary();
-                    RefreshInfoPane();
-                    */        }
+                }
             }
         };
         lstChooseEquipment.addMouseListener( mlEquipment );
@@ -7022,38 +6812,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     btnAddEquipActionPerformed( null );
-                    /*            int index = lstChooseArtillery.locationToIndex( e.getPoint() );
-                    if( index < 0 ) { return; }
-                    abPlaceable a = (abPlaceable) Equipment[ARTILLERY][index];
-                    a = data.GetEquipment().GetCopy( a, CurMech );
-
-                    if( ((ifWeapon) a).RequiresNuclear() &! CurMech.GetEngine().IsNuclear() ) {
-                        javax.swing.JOptionPane.showMessageDialog( lstChooseArtillery.getTopLevelAncestor(), a.GetCritName() + " may not be mounted because the mech\ndoes not use a nuclear engine (fission or fusion)." );
-                        return;
-                    }
-                    if( ((ifWeapon) a).RequiresFusion() &! CurMech.GetEngine().IsFusion() ) {
-                        javax.swing.JOptionPane.showMessageDialog( lstChooseArtillery.getTopLevelAncestor(), a.GetCritName() + " may not be mounted\nbecause the mech does not use a fusion engine." );
-                        return;
-                    }
-
-                    // add it to the loadout
-                    CurMech.GetLoadout().AddToQueue( a );
-
-                    // see if we need ammunition and add it if applicable
-                    ResetAmmo();
-
-                    // refresh the selected equipment listbox
-                    if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
-                        Equipment[SELECTED] = new Object[] { " " };
-                    } else {
-                        Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
-                    }
-                    lstSelectedEquipment.setListData( Equipment[SELECTED] );
-
-                    // now refresh the information panes
-                    RefreshSummary();
-                    RefreshInfoPane();
-                    */        }
+                }
             }
         };
         lstChooseArtillery.addMouseListener( mlArtillery );
@@ -7101,30 +6860,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
                     btnAddEquipActionPerformed( null );
-                    /*            int index = lstChooseAmmunition.locationToIndex( e.getPoint() );
-                    if( index < 0 ) { return; }
-                    abPlaceable a = (abPlaceable) Equipment[AMMUNITION][index];
-                    a = data.GetEquipment().GetCopy( a, CurMech );
-
-                    // add it to the loadout
-                    CurMech.GetLoadout().AddToQueue( a );
-
-                    // added for support if the user selected ammo.  The ResetAmmo()
-                    // method clears the selected index.
-                    // lstChooseAmmunition.setSelectedIndex(Index);
-
-                    // refresh the selected equipment listbox
-                    if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
-                        Equipment[SELECTED] = new Object[] { " " };
-                    } else {
-                        Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
-                    }
-                    lstSelectedEquipment.setListData( Equipment[SELECTED] );
-
-                    // now refresh the information panes
-                    RefreshSummary();
-                    RefreshInfoPane();
-                    */        }
+                }
             }
         };
         lstChooseAmmunition.addMouseListener( mlAmmo );
@@ -7232,11 +6968,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane23.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         lstSelectedEquipment.setModel( new javax.swing.DefaultListModel()
-            //    new javax.swing.AbstractListModel() {
-                //    String[] strings = { "Placeholder" };
-                //    public int getSize() { return strings.length; }
-                //    public Object getElementAt(int i) { return strings[i]; }
-                // }
         );
         lstSelectedEquipment.setMaximumSize(new java.awt.Dimension(180, 225));
         lstSelectedEquipment.setMinimumSize(new java.awt.Dimension(180, 225));
@@ -10399,7 +10130,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( CurMech.IsOmnimech() ) {
             boolean check = CurMech.SetTechBase( cmbTechBase.getSelectedIndex() );
             if( ! check ) {
-                javax.swing.JOptionPane.showMessageDialog( this, "An OmniMech can only use the base chassis' Tech Base\nor Mixed Tech.  Resetting." );
+                Media.Messager( this, "An OmniMech can only use the base chassis' Tech Base\nor Mixed Tech.  Resetting." );
                 cmbTechBase.setSelectedIndex( CurMech.GetLoadout().GetTechBase() );
                 return;
             }
@@ -10473,7 +10204,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         try {
             CurMech.GetLoadout().CheckExclusions( CurMech.GetPhysEnhance() );
         } catch( Exception e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+            Media.Messager( this, e.getMessage() );
             cmbPhysEnhance.setSelectedItem( "No Enhancement" );
             RecalcEnhancements();
             return;
@@ -11228,7 +10959,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 for( int i = 0; i < check.length; i++ ) {
                     if( check[i] instanceof ifWeapon ) {
                         if( ((ifWeapon) check[i]).OmniRestrictActuators() ) {
-                            javax.swing.JOptionPane.showMessageDialog( this, "A currently placed item prevents the installation of the hand." );
+                            Media.Messager( this, "A currently placed item prevents the installation of the hand." );
                             chkLAHand.setSelected( false );
                             return;
                         }
@@ -11264,7 +10995,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 for( int i = 0; i < check.length; i++ ) {
                     if( check[i] instanceof ifWeapon ) {
                         if( ((ifWeapon) check[i]).OmniRestrictActuators() ) {
-                            javax.swing.JOptionPane.showMessageDialog( this, "A currently placed item prevents the installation of the lower arm." );
+                            Media.Messager( this, "A currently placed item prevents the installation of the lower arm." );
                             chkLALowerArm.setSelected( false );
                             return;
                         }
@@ -11300,7 +11031,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 for( int i = 0; i < check.length; i++ ) {
                     if( check[i] instanceof ifWeapon ) {
                         if( ((ifWeapon) check[i]).OmniRestrictActuators() ) {
-                            javax.swing.JOptionPane.showMessageDialog( this, "A currently placed item prevents the installation of the hand." );
+                            Media.Messager( this, "A currently placed item prevents the installation of the hand." );
                             chkRAHand.setSelected( false );
                             return;
                         }
@@ -11336,7 +11067,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 for( int i = 0; i < check.length; i++ ) {
                     if( check[i] instanceof ifWeapon ) {
                         if( ((ifWeapon) check[i]).OmniRestrictActuators() ) {
-                            javax.swing.JOptionPane.showMessageDialog( this, "A currently placed item prevents the installation of the lower arm." );
+                            Media.Messager( this, "A currently placed item prevents the installation of the lower arm." );
                             chkRALowerArm.setSelected( false );
                             return;
                         }
@@ -11371,7 +11102,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             try {
                 CurMech.AddCTCase();
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkCTCASE.setSelected( false );
             }
         } else {
@@ -11390,7 +11121,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             try {
                 CurMech.AddRTCase();
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkRTCASE.setSelected( false );
             }
         } else {
@@ -11409,7 +11140,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             try {
                 CurMech.AddLTCase();
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkLTCASE.setSelected( false );
             }
         } else {
@@ -11427,7 +11158,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             // abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( lstSelectedEquipment.getSelectedIndex() );
             abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( selected[i] );
             if( p.LocationLocked() ) {
-                javax.swing.JOptionPane.showMessageDialog( this, "You may not remove a locked item from the loadout." );
+                Media.Messager( this, "You may not remove a locked item from the loadout." );
                 return;
             } else {
                 CurMech.GetLoadout().Remove( p );
@@ -11674,7 +11405,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     CurMech.UseTC( true, false );
                 }
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 CurMech.UseTC( false, false );
             }
         } else {
@@ -11725,12 +11456,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             filename = savemech.getCanonicalPath();
             mtfw.WriteMTF( filename );
         } catch( IOException e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem writing the file:\n" + e.getMessage() );
+            Media.Messager( this, "There was a problem writing the file:\n" + e.getMessage() );
             return;
         }
 
         // if there were no problems, let the user know how it went
-        javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully to MTF:\n" + filename );
+        Media.Messager( this, "Mech saved successfully to MTF:\n" + filename );
         setTitle( SSWConstants.AppName + " " + SSWConstants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
     }//GEN-LAST:event_btnExportMTFActionPerformed
 
@@ -11763,12 +11494,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             filename = savemech.getCanonicalPath();
             txtw.WriteTXT( filename );
         } catch( IOException e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem writing the file:\n" + e.getMessage() );
+            Media.Messager( this, "There was a problem writing the file:\n" + e.getMessage() );
             return;
         }
 
         // if there were no problems, let the user know how it went
-        javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully to TXT:\n" + filename );
+        Media.Messager( this, "Mech saved successfully to TXT:\n" + filename );
 
         // lastly, if this is an omnimech, reset the display to the last loadout
         if( CurMech.IsOmnimech() ) {
@@ -11800,12 +11531,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             filename = savemech.getCanonicalPath();
             HTMw.WriteHTML( SSWConstants.HTMLTemplateName, filename );
         } catch( IOException e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem writing the file:\n" + e.getMessage() );
+            Media.Messager( this, "There was a problem writing the file:\n" + e.getMessage() );
             return;
         }
 
         // if there were no problems, let the user know how it went
-        javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully to HTML:\n" + filename );
+        Media.Messager( this, "Mech saved successfully to HTML:\n" + filename );
 
         // lastly, if this is an omnimech, reset the display to the last loadout
         if( CurMech.IsOmnimech() ) {
@@ -11866,7 +11597,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             try{
                 year = Integer.parseInt( txtProdYear.getText() ) ;
             } catch( NumberFormatException n ) {
-                javax.swing.JOptionPane.showMessageDialog( this, "The production year is not a number." );
+                Media.Messager( this, "The production year is not a number." );
                 txtProdYear.setText( "" );
                 chkYearRestrict.setSelected( false );
                 return;
@@ -11877,7 +11608,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 case AvailableCode.ERA_STAR_LEAGUE:
                     // Star League era
                     if( year < 2443 || year > 2800 ) {
-                        javax.swing.JOptionPane.showMessageDialog( this, "The year does not fall within this era." );
+                        Media.Messager( this, "The year does not fall within this era." );
                         txtProdYear.setText( "" );
                         chkYearRestrict.setSelected( false );
                         return;
@@ -11886,7 +11617,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 case AvailableCode.ERA_SUCCESSION:
                     // Succession Wars era
                     if( year < 2801 || year > 3050 ) {
-                        javax.swing.JOptionPane.showMessageDialog( this, "The year does not fall within this era." );
+                        Media.Messager( this, "The year does not fall within this era." );
                         txtProdYear.setText( "" );
                         chkYearRestrict.setSelected( false );
                         return;
@@ -11895,7 +11626,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 case AvailableCode.ERA_CLAN_INVASION:
                     // Clan Invasion Era
                     if( year < 3051 || year > 3131 ) {
-                        javax.swing.JOptionPane.showMessageDialog( this, "The year does not fall within this era." );
+                        Media.Messager( this, "The year does not fall within this era." );
                         txtProdYear.setText( "" );
                         chkYearRestrict.setSelected( false );
                         return;
@@ -11904,7 +11635,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 case AvailableCode.ERA_DARK_AGES:
                     // Clan Invasion Era
                     if( year < 3132 ) {
-                        javax.swing.JOptionPane.showMessageDialog( this, "The year does not fall within this era." );
+                        Media.Messager( this, "The year does not fall within this era." );
                         txtProdYear.setText( "" );
                         chkYearRestrict.setSelected( false );
                         return;
@@ -12005,7 +11736,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 RecalcEquipment();
             } else {
                 // can't.  reset to the default rules level and scold the user
-                javax.swing.JOptionPane.showMessageDialog( this, "You cannot set an OmniMech's loadout to a Rules Level\nlower than it's chassis' Rules Level." );
+                Media.Messager( this, "You cannot set an OmniMech's loadout to a Rules Level\nlower than it's chassis' Rules Level." );
                 cmbRulesLevel.setSelectedIndex( CurMech.GetLoadout().GetRulesLevel() );
                 return;
             }
@@ -12077,7 +11808,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // ensure there are no unplaced crits
         if( CurMech.GetLoadout().GetQueue().size() != 0 ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "You must place all items first." );
+            Media.Messager( this, "You must place all items first." );
             tbpMainTabPane.setSelectedComponent( pnlCriticals );
             return;
         }
@@ -12105,7 +11836,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // ensure we're not using the base loadout's name.
         if( common.Constants.BASELOADOUT_NAME.equals( VariantName ) ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "\"" + VariantName + "\" is reserved for the base loadout and cannot be used\nfor a new loadout.  Please choose another name." );
+            Media.Messager( this, "\"" + VariantName + "\" is reserved for the base loadout and cannot be used\nfor a new loadout.  Please choose another name." );
             return;
         }
 
@@ -12154,7 +11885,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             CurMech.AddLoadout( VariantName );
         } catch( Exception e ) {
             // found an error when adding the loadout
-            javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+            Media.Messager( this, e.getMessage() );
             return;
         }
 
@@ -12192,7 +11923,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             return;
         } else {
             if( CurMech.GetLoadout().GetName().equals( common.Constants.BASELOADOUT_NAME ) ) {
-                javax.swing.JOptionPane.showMessageDialog( this, "You cannot remove the base chassis." );
+                Media.Messager( this, "You cannot remove the base chassis." );
                 return;
             }
         }
@@ -12302,7 +12033,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             Prefs.put("LastOpenDirectory", savemech.getCanonicalPath().replace(savemech.getName(), ""));
             Prefs.put("LastOpenFile", savemech.getName());
         } catch (IOException e) {
-            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the file:\n" + e.getMessage() );
+            Media.Messager( this, "There was a problem with the file:\n" + e.getMessage() );
             setCursor( NormalCursor );
             return;
         }
@@ -12329,10 +12060,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
             // if there were no problems, let the user know how it went
             if (evt.getActionCommand().equals("Save Mech")) {
-                javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully:\n" + file );
+                Media.Messager( this, "Mech saved successfully:\n" + file );
             }
         } catch( IOException e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "There was a problem writing the file:\n" + e.getMessage() );
+            Media.Messager( this, "There was a problem writing the file:\n" + e.getMessage() );
             setCursor( NormalCursor );
             return;
         }
@@ -12396,9 +12127,9 @@ private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         }
         XMLw.WriteXML( file );
         // if there were no problems, let the user know how it went
-        javax.swing.JOptionPane.showMessageDialog( this, "Mech saved successfully:\n" + file );
+        Media.Messager( this, "Mech saved successfully:\n" + file );
     } catch( IOException e ) {
-        javax.swing.JOptionPane.showMessageDialog( this, "There was a problem writing the file:\n" + e.getMessage() );
+        Media.Messager( this, "There was a problem writing the file:\n" + e.getMessage() );
         setCursor( NormalCursor );
         return;
     }
@@ -12408,7 +12139,7 @@ private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         Prefs.put("LastOpenDirectory", savemech.getCanonicalPath().replace(savemech.getName(), ""));
         Prefs.put("LastOpenFile", savemech.getName());
     } catch (IOException e) {
-        javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the file:\n" + e.getMessage() );
+        Media.Messager( this, "There was a problem with the file:\n" + e.getMessage() );
         setCursor( NormalCursor );
         return;
     }
@@ -12563,7 +12294,7 @@ private void chkCLPSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
             CurMech.SetChameleon( false );
         }
     } catch( Exception e ) {
-        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        Media.Messager( this, e.getMessage() );
         // ensure it's not checked when it shouldn't be
         chkCLPS.setSelected( CurMech.HasChameleon() );
         return;
@@ -12584,7 +12315,7 @@ private void chkBSPFDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             CurMech.SetBlueShield( false );
         }
     } catch( Exception e ) {
-        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        Media.Messager( this, e.getMessage() );
         // ensure it's not checked when it shouldn't be
         chkBSPFD.setSelected( CurMech.HasBlueShield() );
         return;
@@ -12609,7 +12340,7 @@ private void chkVoidSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             CurMech.SetVoidSig( false );
         }
     } catch( Exception e ) {
-        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        Media.Messager( this, e.getMessage() );
         // ensure it's not checked when it shouldn't be
         chkVoidSig.setSelected( CurMech.HasVoidSig() );
         return;
@@ -12657,7 +12388,7 @@ private void cmbSCLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         try {
             CurMech.GetLoadout().SetSupercharger( true, DesiredLoc, -1 );
         } catch( Exception e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+            Media.Messager( this, e.getMessage() );
             chkSupercharger.setSelected( false );
             // now refresh the information panes
             RefreshSummary();
@@ -12677,12 +12408,12 @@ private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//G
     try {
         CurMech.GetLoadout().SetSupercharger( chkSupercharger.isSelected(), FileCommon.DecodeLocation( (String) cmbSCLoc.getSelectedItem() ), -1 );
     } catch( Exception e ) {
-        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        Media.Messager( this, e.getMessage() );
         try {
             CurMech.GetLoadout().SetSupercharger( false , 0, -1 );
         } catch( Exception x ) {
             // how the hell did we get an error removing it?
-            javax.swing.JOptionPane.showMessageDialog( this, x.getMessage() );
+            Media.Messager( this, x.getMessage() );
             // now refresh the information panes
             RefreshSummary();
             RefreshInfoPane();
@@ -12736,7 +12467,7 @@ public Mech LoadMech (){
         Prefs.put("LastOpenDirectory", loadmech.getCanonicalPath().replace(loadmech.getName(), ""));
         Prefs.put("LastOpenFile", loadmech.getName());
     } catch( Exception e ) {
-        javax.swing.JOptionPane.showMessageDialog( this, "There was a problem opening the file:\n" + e.getMessage() );
+        Media.Messager( this, "There was a problem opening the file:\n" + e.getMessage() );
         return m;
     }
 
@@ -12751,10 +12482,10 @@ public Mech LoadMech (){
     } catch( Exception e ) {
         // had a problem loading the mech.  let the user know.
         if( e.getMessage() == null ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "An unknown error has occured.  The log file has been updated." );
+            Media.Messager( this, "An unknown error has occured.  The log file has been updated." );
             e.printStackTrace();
         } else {
-            javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+            Media.Messager( this, e.getMessage() );
         }
         return m;
     }
@@ -13071,7 +12802,7 @@ private void chkCTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     CurMech.GetLoadout().SetCTCASEII( true, -1, false );
                 }
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkCTCASE2.setSelected( false );
             }
         } else {
@@ -13105,7 +12836,7 @@ private void chkRACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     CurMech.GetLoadout().SetRACASEII( true, -1, false );
                 }
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkRACASE2.setSelected( false );
             }
         } else {
@@ -13139,7 +12870,7 @@ private void chkRTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     CurMech.GetLoadout().SetRTCASEII( true, -1, false );
                 }
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkRTCASE2.setSelected( false );
             }
         } else {
@@ -13173,7 +12904,7 @@ private void chkRLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     CurMech.GetLoadout().SetRLCASEII( true, -1, false );
                 }
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkRLCASE2.setSelected( false );
             }
         } else {
@@ -13207,7 +12938,7 @@ private void chkHDCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     CurMech.GetLoadout().SetHDCASEII( true, -1, false );
                 }
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkHDCASE2.setSelected( false );
             }
         } else {
@@ -13241,7 +12972,7 @@ private void chkLTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     CurMech.GetLoadout().SetLTCASEII( true, -1, false );
                 }
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkLTCASE2.setSelected( false );
             }
         } else {
@@ -13275,7 +13006,7 @@ private void chkLLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     CurMech.GetLoadout().SetLLCASEII( true, -1, false );
                 }
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkLLCASE2.setSelected( false );
             }
         } else {
@@ -13309,7 +13040,7 @@ private void chkLACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     CurMech.GetLoadout().SetLACASEII( true, -1, false );
                 }
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkLACASE2.setSelected( false );
             }
         } else {
@@ -13417,7 +13148,7 @@ private void chkEnviroSealingActionPerformed(java.awt.event.ActionEvent evt) {//
             CurMech.SetEnviroSealing( false );
         }
     } catch( Exception e ) {
-        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        Media.Messager( this, e.getMessage() );
         // ensure it's not checked when it shouldn't be
         chkEnviroSealing.setSelected( CurMech.HasEnviroSealing() );
         return;
@@ -13440,7 +13171,7 @@ private void chkEjectionSeatActionPerformed(java.awt.event.ActionEvent evt) {//G
     } catch( Exception e ) {
         // ensure it's not checked when it shouldn't be
         chkEjectionSeat.setSelected( CurMech.HasEjectionSeat() );
-        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        Media.Messager( this, e.getMessage() );
         return;
     }
 
@@ -13478,7 +13209,7 @@ private void chkLegAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     } catch( Exception e ) {
         // ensure it's not checked when it shouldn't be
         chkLegAES.setSelected( CurMech.HasLegAES() );
-        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        Media.Messager( this, e.getMessage() );
         return;
     }
 
@@ -13498,7 +13229,7 @@ private void chkLAAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     } catch( Exception e ) {
         // ensure it's not checked when it shouldn't be
         chkLAAES.setSelected( CurMech.HasLAAES() );
-        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        Media.Messager( this, e.getMessage() );
         return;
     }
 
@@ -13518,7 +13249,7 @@ private void chkRAAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     } catch( Exception e ) {
         // ensure it's not checked when it shouldn't be
         chkRAAES.setSelected( CurMech.HasRAAES() );
-        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        Media.Messager( this, e.getMessage() );
         return;
     }
 
@@ -13541,7 +13272,7 @@ private void chkTracksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             CurMech.SetTracks( false );
         }
     } catch( Exception e ) {
-        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        Media.Messager( this, e.getMessage() );
         // ensure it's not checked when it shouldn't be
         chkTracks.setSelected( CurMech.HasTracks() );
         return;
@@ -13601,7 +13332,7 @@ private void chkCommandConsoleActionPerformed(java.awt.event.ActionEvent evt) {/
     if( chkCommandConsole.isSelected() == CurMech.HasCommandConsole() ) { return; }
     if( chkCommandConsole.isSelected() ) {
         if( ! CurMech.SetCommandConsole( true ) ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "Command Console cannot be allocated." );
+            Media.Messager( this, "Command Console cannot be allocated." );
             chkCommandConsole.setSelected( false );
         }
     } else {
@@ -13620,14 +13351,14 @@ private void chkFCSAIVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             try {
                 CurMech.SetFCSArtemisIV( true );
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkFCSAIV.setSelected( false );
             }
         } else {
             try {
                 CurMech.SetFCSArtemisIV( false );
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkFCSAIV.setSelected( true );
             }
         }
@@ -13642,14 +13373,14 @@ private void chkFCSAVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             try {
                 CurMech.SetFCSArtemisV( true );
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkFCSAV.setSelected( false );
             }
         } else {
             try {
                 CurMech.SetFCSArtemisV( false );
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkFCSAV.setSelected( true );
             }
         }
@@ -13664,14 +13395,14 @@ private void chkFCSApolloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             try {
                 CurMech.SetFCSApollo( true );
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkFCSApollo.setSelected( false );
             }
         } else {
             try {
                 CurMech.SetFCSApollo( false );
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+                Media.Messager( this, e.getMessage() );
                 chkFCSApollo.setSelected( true );
             }
         }
@@ -13737,7 +13468,7 @@ private void mnuImportHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         Prefs.put("LastOpenDirectory", loadmech.getCanonicalPath().replace(loadmech.getName(), ""));
         Prefs.put("LastOpenFile", loadmech.getName());
     } catch( Exception e ) {
-        javax.swing.JOptionPane.showMessageDialog( this, "There was a problem opening the file:\n" + e.getMessage() );
+        Media.Messager( this, "There was a problem opening the file:\n" + e.getMessage() );
         return;
     }
 
@@ -13749,10 +13480,10 @@ private void mnuImportHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     } catch( Exception e ) {
         // had a problem loading the mech.  let the user know.
         if( e.getMessage() == null ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "An unknown error has occured.  The log file has been updated." );
+            Media.Messager( this, "An unknown error has occured.  The log file has been updated." );
             e.printStackTrace();
         } else {
-            javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+            Media.Messager( this, e.getMessage() );
         }
         return;
     }
@@ -13772,8 +13503,6 @@ private void btnChatInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     java.awt.datatransfer.StringSelection export = new java.awt.datatransfer.StringSelection( CurMech.GetChatInfo() );
     java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
     clipboard.setContents( export, this );
-    
-    //javax.swing.JOptionPane.showMessageDialog(this, CurMech.GetChatInfo() + " saved to your clipboard");
 }//GEN-LAST:event_btnChatInfoActionPerformed
 
 private void chkFHESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFHESActionPerformed
@@ -13795,7 +13524,7 @@ private void chkPartialWingActionPerformed(java.awt.event.ActionEvent evt) {//GE
     try {
         CurMech.SetPartialWing( chkPartialWing.isSelected() );
     } catch( Exception e ) {
-        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        Media.Messager( this, e.getMessage() );
     }
 
     // now refresh the information panes
@@ -14385,5 +14114,4 @@ private void setViewToolbar(boolean Visible)
     public void showOpenDialog() {
         this.dOpen.setVisible(true);
     }
-    
 }

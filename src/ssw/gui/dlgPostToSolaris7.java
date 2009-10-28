@@ -37,6 +37,7 @@ import java.io.IOException;
 import javax.swing.DefaultComboBoxModel;
 import ssw.SSWConstants;
 import components.Mech;
+import filehandlers.Media;
 import ssw.filehandlers.HTMLWriter;
 import ssw.filehandlers.XMLRPCClient;
 
@@ -356,12 +357,12 @@ private void btnGetArmoriesActionPerformed(java.awt.event.ActionEvent evt) {//GE
         if( UserID != -1 ) {
             Armories = serve.GetArmoryList( UserID );
         } else {
-            javax.swing.JOptionPane.showMessageDialog( this, "Could not retrieve a MemberID from this Callsign or Password.\nThe Mech cannot be posted." );
+            Media.Messager( this, "Could not retrieve a MemberID from this Callsign or Password.\nThe Mech cannot be posted." );
             setCursor( NormalCursor );
             return;
         }
     } catch( Exception e ) {
-        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        Media.Messager( this, e.getMessage() );
         setCursor( NormalCursor );
         return;
     }
@@ -378,7 +379,7 @@ private void btnGetArmoriesActionPerformed(java.awt.event.ActionEvent evt) {//GE
         cmbTROYear.setEnabled( true );
         setCursor( NormalCursor );
     } else {
-        javax.swing.JOptionPane.showMessageDialog( this, "No armories were returned from this Callsign or Password.\nThe Mech cannot be posted." );
+        Media.Messager( this, "No armories were returned from this Callsign or Password.\nThe Mech cannot be posted." );
         setCursor( NormalCursor );
         return;
     }
@@ -415,11 +416,11 @@ private void btnPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         HTMw.WriteHTML( SSWConstants.HTMLTemplateName, file );
         HTMLout = GetHTMLFromFile( file );
     } catch( IOException e ) {
-        javax.swing.JOptionPane.showMessageDialog( this, "There was a problem writing or reading the file:\n" + e.getMessage() );
+        Media.Messager( this, "There was a problem writing or reading the file:\n" + e.getMessage() );
         setCursor( NormalCursor );
         return;
     } catch( Exception e ) {
-        javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+        Media.Messager( this, e.getMessage() );
         setCursor( NormalCursor );
         return;
     }
@@ -430,15 +431,15 @@ private void btnPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     try {
         MechID = serve.PostToSolaris7( "" + UserID, ArmoryID, HTMLout, UserImage, TROYear, CurMech );
     } catch( Exception e ) {
-        javax.swing.JOptionPane.showMessageDialog( this, "There was a problem with the server:\n" + e.getMessage() );
+        Media.Messager( this, "There was a problem with the server:\n" + e.getMessage() );
         setCursor( NormalCursor );
         return;
     }
 
     if( MechID.equals( "0" ) ) {
-        javax.swing.JOptionPane.showMessageDialog( this, "Mech was not posted to Solaris7.com.  The reason is unknown." );
+        Media.Messager( this, "Mech was not posted to Solaris7.com.  The reason is unknown." );
     } else {
-        javax.swing.JOptionPane.showMessageDialog( this, "Mech successfully posted to Solaris7.com!" );
+        Media.Messager( this, "Mech successfully posted to Solaris7.com!" );
         CurMech.SetSolaris7ID( MechID );
         if( ! UserImage.equals( "-1" ) |! UserImage.equals( "0" ) ) {
             CurMech.SetSolaris7ImageID( UserImage );

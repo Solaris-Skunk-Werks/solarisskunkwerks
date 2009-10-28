@@ -87,7 +87,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             this.setVisible(false);
 
         } catch ( Exception e ) {
-            javax.swing.JOptionPane.showMessageDialog( this.parent, e.getMessage() );
+            Media.Messager( this.parent, e.getMessage() );
         }
     }
 
@@ -198,7 +198,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 Saving.execute();
             } catch( Exception e ) {
                 // fatal error.  let the user know
-                javax.swing.JOptionPane.showMessageDialog( this, "A fatal error occured while processing the 'Mechs:\n" + e.getMessage() );
+                Media.Messager( this, "A fatal error occured while processing the 'Mechs:\n" + e.getMessage() );
                 e.printStackTrace();
             }
             setCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) );
@@ -230,7 +230,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 Message.setLocationRelativeTo( Owner );
                 Message.setVisible( true );
             } else {
-                javax.swing.JOptionPane.showMessageDialog( Owner, "Finished the operation without errors." );
+                Media.Messager( Owner, "Finished the operation without errors." );
             }
             prgResaving.setVisible(false);
             prgResaving.setValue( 0 );

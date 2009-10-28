@@ -33,6 +33,7 @@ import components.Ammunition;
 import common.DataFactory;
 import components.LocationIndex;
 import components.Mech;
+import filehandlers.Media;
 
 public class dlgAmmoChooser extends javax.swing.JDialog {
 
@@ -303,7 +304,7 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
         Ammunition OldAmmo = (Ammunition) lstInstalledAmmo.getSelectedValue();
         Ammunition NewAmmo = ((Ammunition) lstAvailableAmmo.getSelectedValue()).Clone();
         if( OldAmmo.GetTonnage() != NewAmmo.GetTonnage() ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "You cannot exchange ammunition of differing tonnages." );
+            Media.Messager( this, "You cannot exchange ammunition of differing tonnages." );
             return;
         }
         LocationIndex l = CurMech.GetLoadout().FindIndex( OldAmmo );
@@ -336,7 +337,7 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
             try {
                 year = Integer.parseInt( txtAmmoYear.getText() );
             } catch( Exception e ) {
-                javax.swing.JOptionPane.showMessageDialog( this, "The ammo year is not a number, using the default." );
+                Media.Messager( this, "The ammo year is not a number, using the default." );
                 txtAmmoYear.setText( "" + CurMech.GetYear() );
                 lstAvailableAmmo.setListData( Data.GetEquipment().GetAllAmmo( a.GetAmmoIndex(), cmbRulesLevel.getSelectedIndex() ) );
                 lstAvailableAmmo.repaint();
@@ -373,7 +374,7 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
         try {
             year = Integer.parseInt( txtAmmoYear.getText() );
         } catch( Exception e ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "The ammo year is not a number, using the default." );
+            Media.Messager( this, "The ammo year is not a number, using the default." );
             txtAmmoYear.setText( "" + CurMech.GetYear() );
         }
         lstInstalledAmmoValueChanged( null );
@@ -381,7 +382,7 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
 
     private void cmbRulesLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRulesLevelActionPerformed
         if( cmbRulesLevel.getSelectedIndex() < CurMech.GetRulesLevel() ) { 
-            javax.swing.JOptionPane.showMessageDialog( this, "You cannot use a Rules Level lower than the 'Mech's." );
+            Media.Messager( this, "You cannot use a Rules Level lower than the 'Mech's." );
             cmbRulesLevel.setSelectedIndex( CurMech.GetRulesLevel() );
         }
         lstInstalledAmmoValueChanged( null );

@@ -33,6 +33,7 @@ import java.util.Vector;
 import javax.swing.JFileChooser;
 import components.Mech;
 import filehandlers.MechReader;
+import filehandlers.Media;
 import ssw.print.*;
 
 
@@ -265,7 +266,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
         try {
             mediaTracker.waitForID( 0 );
         } catch( InterruptedException ie ) {
-            javax.swing.JOptionPane.showMessageDialog( this, "Interrupted while loading image " + filename );
+            Media.Messager( this, "Interrupted while loading image " + filename );
             return null;
         }
         return retval;
@@ -326,7 +327,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
             m = XMLr.ReadMech( file.getCanonicalPath(), parent.data );
         } catch( Exception e ) {
             // had a problem loading the mech.  let the user know.
-            javax.swing.JOptionPane.showMessageDialog( this, e.getMessage() );
+            Media.Messager( this, e.getMessage() );
         }
         return m;
     }
