@@ -79,6 +79,7 @@ public class dlgPrefs extends javax.swing.JDialog {
             chkHeatAllMP.setEnabled( true );
         }
         chkHeatUAC.setSelected( Prefs.getBoolean( "HeatACFullRate", false ) );
+        chkAutoAddECM.setSelected( Prefs.getBoolean( "AutoAddECM", true ) );
 
         chkMaxNotInt.setSelected( Prefs.getBoolean( "UseMaxArmorInstead", false ) );
         chkCustomPercents.setSelected( Prefs.getBoolean( "ArmorUseCustomPercent", false ) );
@@ -147,6 +148,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         Prefs.putBoolean( "AmmoGroupAtBottom", chkGroupAmmoAtBottom.isSelected() );
         Prefs.putBoolean( "CheckUpdatesAtStartup", chkUpdateStartup.isSelected() );
         Prefs.putBoolean( "LoadLastMech", chkLoadLastMech.isSelected() );
+        Prefs.putBoolean( "AutoAddECM", chkAutoAddECM.isSelected() );
 
         if( chkCustomPercents.isSelected() ) {
             Prefs.putInt( "ArmorCTRPercent", Integer.parseInt( txtCTRArmor.getText() ) );
@@ -202,6 +204,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         Prefs.putBoolean( "AmmoGroupAtBottom", true );
         Prefs.putBoolean( "CheckUpdatesAtStartup", false );
         Prefs.putBoolean( "LoadLastMech", false );
+        Prefs.putBoolean( "AutoAddECM", true );
 
         Prefs.putInt( "ArmorCTRPercent", Armor.DEFAULT_CTR_ARMOR_PERCENT );
         Prefs.putInt( "ArmorSTRPercent", Armor.DEFAULT_STR_ARMOR_PERCENT );
@@ -270,6 +273,8 @@ public class dlgPrefs extends javax.swing.JDialog {
         chkHeatAllMP = new javax.swing.JCheckBox();
         chkHeatUAC = new javax.swing.JCheckBox();
         jLabel19 = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+        chkAutoAddECM = new javax.swing.JCheckBox();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         lblColorEmpty = new javax.swing.JLabel();
@@ -636,8 +641,21 @@ public class dlgPrefs extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         pnlConstruction.add(jPanel8, gridBagConstraints);
+
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Usability Options"));
+        jPanel13.setLayout(new javax.swing.BoxLayout(jPanel13, javax.swing.BoxLayout.LINE_AXIS));
+
+        chkAutoAddECM.setText("Auto-add ECM suite if needed");
+        jPanel13.add(chkAutoAddECM);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        pnlConstruction.add(jPanel13, gridBagConstraints);
 
         jTabbedPane1.addTab("Construction", pnlConstruction);
 
@@ -1542,6 +1560,7 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSetDefaults;
     private javax.swing.JButton btnTXTPath;
+    private javax.swing.JCheckBox chkAutoAddECM;
     private javax.swing.JCheckBox chkCustomPercents;
     private javax.swing.JCheckBox chkGroupAmmoAtBottom;
     private javax.swing.JCheckBox chkHeatAllMP;
@@ -1577,6 +1596,7 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

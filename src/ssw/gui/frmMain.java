@@ -3918,23 +3918,28 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private boolean AddECM() {
         // Adds an ECM suite if a certain system needs it
-        if( ! CurMech.ValidateECM() ) {
-            abPlaceable a = data.GetEquipment().GetEquipmentByName( "Guardian ECM Suite", CurMech );
-            if( a == null ) {
-                a = data.GetEquipment().GetEquipmentByName( "Angel ECM", CurMech );
+        if( Prefs.getBoolean( "AutoAddECM", true ) ) {
+            if( ! CurMech.ValidateECM() ) {
+                abPlaceable a = data.GetEquipment().GetEquipmentByName( "Guardian ECM Suite", CurMech );
                 if( a == null ) {
-                    a = data.GetEquipment().GetEquipmentByName( "ECM Suite", CurMech );
+                    a = data.GetEquipment().GetEquipmentByName( "Angel ECM", CurMech );
                     if( a == null ) {
-                        a = data.GetEquipment().GetEquipmentByName( "Watchdog CEWS", CurMech );
+                        a = data.GetEquipment().GetEquipmentByName( "ECM Suite", CurMech );
                         if( a == null ) {
-                            return false;
+                            a = data.GetEquipment().GetEquipmentByName( "Watchdog CEWS", CurMech );
+                            if( a == null ) {
+                                return false;
+                            }
                         }
                     }
                 }
+                CurMech.GetLoadout().AddToQueue( a );
             }
-            CurMech.GetLoadout().AddToQueue( a );
+            return true;
+        } else {
+            Media.Messager( this, "Please add an appropriate ECM Suite to complement this\n system.  The 'Mech is not valid without an ECM Suite." );
+            return true;
         }
-        return true;
     }
 
      /** This method is called from within the constructor to
