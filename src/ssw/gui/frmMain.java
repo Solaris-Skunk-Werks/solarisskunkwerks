@@ -79,6 +79,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     JMenuItem mnuDetails = new JMenuItem( "Details" );
     JMenuItem mnuMountRear = new JMenuItem( "Mount Rear" );
     JMenuItem mnuSetVariable = new JMenuItem( "Set Tonnage" );
+    JMenuItem mnuSetLotSize = new JMenuItem( "Set Lot Size" );
     JMenuItem mnuArmorComponent = new JMenuItem( "Armor Component" );
     JMenuItem mnuAddCapacitor = new JMenuItem( "Add Capacitor" );
     JMenuItem mnuAddInsulator = new JMenuItem( "Add Insulator" );
@@ -184,6 +185,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuSetVariable.addActionListener( new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 SetVariableSize();
+            }
+        });
+
+        mnuSetLotSize.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SetAmmoLotSize();
             }
         });
 
@@ -298,6 +305,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuUtilities.add( mnuDetails );
         mnuUtilities.add( mnuMountRear );
         mnuUtilities.add( mnuSetVariable );
+        mnuUtilities.add( mnuSetLotSize );
         mnuUtilities.add( mnuArmorComponent );
         mnuUtilities.add( mnuAddCapacitor );
         mnuUtilities.add( mnuAddInsulator );
@@ -1169,6 +1177,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( ! chkRTCASE.isEnabled() ) { CurMech.RemoveRTCase(); }
         chkClanCASE.setSelected( CurMech.GetLoadout().IsUsingClanCASE() );
 
+        if( CurMech.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
+            chkFractional.setEnabled( true );
+        } else {
+            chkFractional.setEnabled( false );
+            CurMech.SetFractionalAccounting( false );
+        }
+        chkFractional.setSelected( CurMech.UsingFractionalAccounting() );
+
         if( CurMech.IsOmnimech() ) {
             // these items can only be loaded into the base chassis, so they
             // are always locked for an omnimech (although they may be checked).
@@ -1739,8 +1755,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             txtInfoUnplaced.setForeground( GreenCol );
         }
         // fill in the info
-        txtInfoTonnage.setText( "Tons: " + CurMech.GetCurrentTons() );
-        txtInfoFreeTons.setText( "Free Tons: " + ( CurMech.GetTonnage() - CurMech.GetCurrentTons() ) );
+        if( CurMech.UsingFractionalAccounting() ) {
+            txtInfoTonnage.setText( "Tons: " + CommonTools.RoundFractional( CurMech.GetCurrentTons() ) );
+            txtInfoFreeTons.setText( "Free Tons: " + CommonTools.RoundFractional( CurMech.GetTonnage() - CurMech.GetCurrentTons() ) );
+        } else {
+            txtInfoTonnage.setText( "Tons: " + CurMech.GetCurrentTons() );
+            txtInfoFreeTons.setText( "Free Tons: " + ( CurMech.GetTonnage() - CurMech.GetCurrentTons() ) );
+        }
         txtInfoMaxHeat.setText( "Max Heat: " + CurMech.GetMaxHeat() );
         txtInfoHeatDiss.setText( "Heat Dissipation: " + CurMech.GetHeatSinks().TotalDissipation() );
         txtInfoFreeCrits.setText( "Free Crits: " + CurMech.GetLoadout().FreeCrits() );
@@ -2777,6 +2798,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkRLCASE2.setEnabled( false );
         }
 
+        chkFractional.setEnabled( false );
         chkNullSig.setEnabled( false );
         chkVoidSig.setEnabled( false );
         chkCLPS.setEnabled( false );
@@ -2977,6 +2999,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         boolean cap = LegalCapacitor( CurItem ) && CommonTools.IsAllowed( PPCCapAC, CurMech );
         boolean insul = LegalInsulator( CurItem ) && CommonTools.IsAllowed( LIAC, CurMech );
         boolean caseless = LegalCaseless( CurItem ) && CommonTools.IsAllowed( CaselessAmmoAC, CurMech );
+        boolean lotchange = LegalLotChange( CurItem );
         mnuArmorComponent.setEnabled( armor );
         mnuAddCapacitor.setEnabled( cap );
         mnuAddInsulator.setEnabled( insul );
@@ -2985,6 +3008,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuAddCapacitor.setVisible( cap );
         mnuAddInsulator.setVisible( insul );
         mnuCaseless.setVisible( caseless );
+        mnuSetLotSize.setVisible( lotchange );
         if( armor ) {
             if( CurItem.IsArmored() ) {
                 mnuArmorComponent.setText( "Unarmor Component" );
@@ -3141,6 +3165,16 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             mnuRemoveItem.setEnabled( true );
         }
+    }
+
+    private void SetAmmoLotSize() {
+        if( CurItem instanceof Ammunition ) {
+            dlgAmmoLotSize ammo = new dlgAmmoLotSize( this, true, (Ammunition) CurItem );
+            ammo.setLocationRelativeTo( this );
+            ammo.setVisible( true );
+        }
+        RefreshSummary();
+        RefreshInfoPane();
     }
 
     private void ArmorComponent() {
@@ -3392,6 +3426,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     public boolean LegalCaseless( abPlaceable p ) {
         if( ! ( p instanceof RangedWeapon ) ) { return false; }
         return ((RangedWeapon) p).CanUseCaselessAmmo();
+    }
+
+    public boolean LegalLotChange( abPlaceable p ) {
+        if( ! ( p instanceof Ammunition ) ) { return false; }
+        if( CurMech.UsingFractionalAccounting() ) { return true; }
+        return false;
     }
 
     private void PrintMech( Mech m) {
@@ -4088,6 +4128,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkEjectionSeat = new javax.swing.JCheckBox();
         chkEnviroSealing = new javax.swing.JCheckBox();
         chkTracks = new javax.swing.JCheckBox();
+        jPanel8 = new javax.swing.JPanel();
+        chkFractional = new javax.swing.JCheckBox();
         pnlArmor = new javax.swing.JPanel();
         pnlFrontArmor = new javax.swing.JPanel();
         pnlRLArmorBox = new javax.swing.JPanel();
@@ -4874,6 +4916,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtSource.addMouseListener( mlSource );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         pnlBasicSetup.add(pnlBasicInformation, gridBagConstraints);
@@ -5912,6 +5956,28 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlBasicSetup.add(jPanel6, gridBagConstraints);
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Construction Options"));
+        jPanel8.setLayout(new java.awt.GridBagLayout());
+
+        chkFractional.setText("Use Fractional Accounting");
+        chkFractional.setEnabled(false);
+        chkFractional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkFractionalActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        jPanel8.add(chkFractional, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        pnlBasicSetup.add(jPanel8, gridBagConstraints);
 
         tbpMainTabPane.addTab("Basic Setup", pnlBasicSetup);
 
@@ -9603,6 +9669,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuTools.add(mnuTextTRO);
 
         mnuUnlock.setText("Unlock Chassis");
+        mnuUnlock.setEnabled(false);
         mnuUnlock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuUnlockActionPerformed(evt);
@@ -13568,6 +13635,23 @@ private void mnuBatchHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     Batch.setVisible( true );
 }//GEN-LAST:event_mnuBatchHMPActionPerformed
 
+private void chkFractionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFractionalActionPerformed
+    if( chkFractional.isSelected() == CurMech.UsingFractionalAccounting() ) { return; }
+    CurMech.SetFractionalAccounting( chkFractional.isSelected() );
+    if( ! CurMech.UsingFractionalAccounting() ) {
+        Vector v = CurMech.GetLoadout().GetNonCore();
+        for( int i = 0; i < v.size(); i++ ) {
+            if( v.get( i ) instanceof Ammunition ) {
+                ((Ammunition) v.get( i )).ResetLotSize();
+            }
+        }
+    }
+
+    RefreshEquipment();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkFractionalActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -13635,6 +13719,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JCheckBox chkFCSAV;
     private javax.swing.JCheckBox chkFCSApollo;
     private javax.swing.JCheckBox chkFHES;
+    private javax.swing.JCheckBox chkFractional;
     private javax.swing.JCheckBox chkHDCASE2;
     private javax.swing.JCheckBox chkHDTurret;
     private javax.swing.JCheckBox chkIndividualWeapons;
@@ -13758,6 +13843,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;

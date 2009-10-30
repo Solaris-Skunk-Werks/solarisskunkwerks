@@ -44,7 +44,8 @@ public class HTMLWriter {
 
     private Mech CurMech;
     private Hashtable lookup = new Hashtable<String, String>( 90 );
-    private String NL = "<BR />";
+    private String NL = "<BR />",
+                   tformat = "";
 
     public HTMLWriter( Mech m ) {
         CurMech = m;
@@ -52,6 +53,11 @@ public class HTMLWriter {
         // before we build the hash table
         if( CurMech.IsOmnimech() ) {
             CurMech.SetCurLoadout( common.Constants.BASELOADOUT_NAME );
+        }
+        if( CurMech.UsingFractionalAccounting() ) {
+            tformat = "$7.3f";
+        } else {
+            tformat = "$6.2f";
         }
         BuildHash();
     }
@@ -1514,6 +1520,11 @@ public class HTMLWriter {
         lookup.put( "<+-SSW_BF_SIZE-+>", "" + CurMech.GetBFSize() );
         lookup.put( "<+-SSW_BF_MOVEMENT-+>", BattleForceTools.GetMovementString( CurMech ) );
         lookup.put( "<+-SSW_BF_SPECIALS-+>", bfs.getAbilitiesString() );
+        if( CurMech.UsingFractionalAccounting() ) {
+            lookup.put( "<+-SSW_USING_FRACTIONAL_ACCOUNTING-+>", "Fractional Accounting" );
+        } else {
+            lookup.put( "<+-SSW_USING_FRACTIONAL_ACCOUNTING-+>", "" );
+        }
 //        lookup.put( "<+-SSW_+->", CurMech );
     }
 
@@ -1575,6 +1586,6 @@ public class HTMLWriter {
     }
 
     private String FormatTonnage( double d, int num ) {
-        return String.format( "%1$6.2f", d * num );
+        return String.format( "%1" + tformat, d * num );
     }
 }
