@@ -1756,8 +1756,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         // fill in the info
         if( CurMech.UsingFractionalAccounting() ) {
-            txtInfoTonnage.setText( "Tons: " + CommonTools.RoundFractional( CurMech.GetCurrentTons() ) );
-            txtInfoFreeTons.setText( "Free Tons: " + CommonTools.RoundFractional( CurMech.GetTonnage() - CurMech.GetCurrentTons() ) );
+            txtInfoTonnage.setText( "Tons: " + CommonTools.RoundFractionalTons( CurMech.GetCurrentTons() ) );
+            txtInfoFreeTons.setText( "Free Tons: " + CommonTools.RoundFractionalTons( CurMech.GetTonnage() - CurMech.GetCurrentTons() ) );
         } else {
             txtInfoTonnage.setText( "Tons: " + CurMech.GetCurrentTons() );
             txtInfoFreeTons.setText( "Free Tons: " + ( CurMech.GetTonnage() - CurMech.GetCurrentTons() ) );

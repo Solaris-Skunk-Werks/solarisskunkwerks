@@ -65,7 +65,8 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
 
         lblName.setText( a.ActualName() );
         lblTonnage.setText( "" + a.GetTonnage() );
-        lblCost.setText( "" + a.GetCost() );
+//        lblCost.setText( String.format("", a.GetCost() )"" + CommonTools.RoundFractionalCost( a.GetCost() ) );
+        lblCost.setText( String.format( "%1$,.4f", a.GetCost() ) );
         lblBV.setText( CommonTools.GetAggregateReportBV( a ) );
         lblISACSL.setText( "" + AC.GetISSLCode() );
         lblISACSW.setText( "" + AC.GetISSWCode() );

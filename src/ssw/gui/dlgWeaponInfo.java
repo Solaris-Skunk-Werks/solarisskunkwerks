@@ -84,7 +84,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
             lblSpecials.setText( "--" );
             lblTonnage.setText( "" + ((abPlaceable) a).GetTonnage() );
             lblCrits.setText( "" + ((abPlaceable) a).NumCrits() );
-            lblCost.setText( "" + ((abPlaceable) a).GetCost() );
+            lblCost.setText( "" + CommonTools.RoundFractionalCost( ((abPlaceable) a).GetCost() ) );
             lblBV.setText( CommonTools.GetAggregateReportBV( (abPlaceable) a ) );
 
             if( ! ((abPlaceable) a).CanAllocHD() ) {
