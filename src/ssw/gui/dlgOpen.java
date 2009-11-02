@@ -110,6 +110,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     public void LoadList() {
         LoadList(true);
     }
+
     public void LoadList(boolean useIndex) {
         this.lblStatus.setText("Loading Mechs...");
         this.txtSelected.setText("0 Units Selected for 0 BV and 0 C-Bills");
@@ -234,7 +235,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             }
             prgResaving.setVisible(false);
             prgResaving.setValue( 0 );
-            LoadList();
+            LoadList(false);
         }
 
         @Override
