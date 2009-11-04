@@ -138,11 +138,11 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         }
 
         String displayPath = dirPath;
-        if (! dirPath.isEmpty() ) {
-            if (dirPath.contains(File.separator)) {
-                displayPath = dirPath.substring(0, 3) + "..." + dirPath.substring(dirPath.lastIndexOf(File.separator)) + "";
-            }
-        }
+//        if (! dirPath.isEmpty() ) {
+//            if (dirPath.contains(File.separator)) {
+//                displayPath = dirPath.substring(0, 3) + "..." + dirPath.substring(dirPath.lastIndexOf(File.separator)) + "";
+//            }
+//        }
         this.lblStatus.setText(list.Size() + " Mechs loaded from " + displayPath);
         this.lblStatus.setToolTipText(dirPath);
         Filter(null);
@@ -202,8 +202,6 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 Media.Messager( this, "A fatal error occured while processing the 'Mechs:\n" + e.getMessage() );
                 e.printStackTrace();
             }
-            setCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) );
-            LoadList(false);
         } else {
             prgResaving.setVisible(false);
         }
@@ -219,6 +217,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
     private class Resaver extends SwingWorker<Void,Void> {
         dlgOpen Owner;
+        int filesUpdated = 0;
         public Resaver( dlgOpen owner ) {
             Owner = owner;
         }
@@ -231,7 +230,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 Message.setLocationRelativeTo( Owner );
                 Message.setVisible( true );
             } else {
-                Media.Messager( Owner, "Finished the operation without errors." );
+                Media.Messager( Owner, filesUpdated + " Files Updated.  Reloading list next." );
             }
             prgResaving.setVisible(false);
             prgResaving.setValue( 0 );
@@ -256,8 +255,9 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                         writer.setMech(m);
                         try {
                             writer.WriteXML( file.getCanonicalPath() );
+                            filesUpdated += 1;
                         } catch( IOException e ) {
-                            msg += "Could not load the following file:" + NL;
+                            msg += "Could not load the following file(s):" + NL;
                             msg += file.getCanonicalPath() + NL + NL;
                         }
                     } catch ( Exception e ) {
