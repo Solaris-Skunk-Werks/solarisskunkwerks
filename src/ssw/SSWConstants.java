@@ -37,7 +37,7 @@ public class SSWConstants {
                         Version = "0.6.30",
                         AppRelease = "Beta 2",
                         ImageListFileName = "data/solaris7/S7Images",
-                        LogFileName = "SSW_Log.txt",
+                        LogFileName = "logs/SSW_Log.txt",
                         HTMLTemplateName = "data/templates/Mech_HTML.html",
                         DEFAULT_CHASSIS = "Standard Structure",
                         DEFAULT_ENGINE = "Fusion Engine",
