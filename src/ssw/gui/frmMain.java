@@ -870,6 +870,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 }
                 break;
         }
+        try {
+            cmbTechBase.setSelectedIndex( CurMech.GetTechBase() );
+        } catch( Exception e ) {
+            Media.Messager( "Could not set the Techbase due to changes.\nReverting to Inner Sphere." );
+            cmbTechBase.setSelectedIndex( 0 );
+        }
     }
 
     private void BuildMechTypeSelector() {
@@ -890,6 +896,24 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 cmbMechType.setModel( new javax.swing.DefaultComboBoxModel( new String[] { "BattleMech", "IndustrialMech" } ) );
                 CurMech.SetModern();
                 break;
+        }
+        try {
+            if( CurMech.IsIndustrialmech() ) {
+                if( CurMech.IsPrimitive() ) {
+                    cmbMechType.setSelectedIndex( 3 );
+                } else {
+                    cmbMechType.setSelectedIndex( 1 );
+                }
+            } else {
+                if( CurMech.IsPrimitive() ) {
+                    cmbMechType.setSelectedIndex( 2 );
+                } else {
+                    cmbMechType.setSelectedIndex( 0 );
+                }
+            }
+        } catch( Exception e ) {
+            Media.Messager( "Could not set the 'Mech type due to changes.\nReverting to a BattleMech." );
+            cmbMechType.setSelectedIndex( 0 );
         }
     }
 
@@ -4481,7 +4505,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuOpen = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         mnuImportHMP = new javax.swing.JMenuItem();
-        mnuBatchHMP = new javax.swing.JMenuItem();
         jSeparator16 = new javax.swing.JSeparator();
         mnuSave = new javax.swing.JMenuItem();
         mnuSaveAs = new javax.swing.JMenuItem();
@@ -9506,14 +9529,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         jMenu3.add(mnuImportHMP);
 
-        mnuBatchHMP.setText("Batch Import from HMP");
-        mnuBatchHMP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuBatchHMPActionPerformed(evt);
-            }
-        });
-        jMenu3.add(mnuBatchHMP);
-
         mnuFile.add(jMenu3);
         mnuFile.add(jSeparator16);
 
@@ -11036,6 +11051,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             return;
                         }
                     }
+                    if( check[i] instanceof PhysicalWeapon ) {
+                        if( ((PhysicalWeapon) check[i]).ReplacesHand() ) {
+                            Media.Messager( this, "A currently placed item prevents the installation of the hand." );
+                            chkLAHand.setSelected( false );
+                            return;
+                        }
+                    }
                 }
             }
             CurMech.GetActuators().AddLeftHand();
@@ -11046,8 +11068,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             for( int i = 0; i < v.size(); i++ ) {
                 abPlaceable p = (abPlaceable) v.get( i );
                 if( p instanceof PhysicalWeapon ) {
-                    if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_LA ) {
-                        CurMech.GetLoadout().UnallocateAll( p, false );
+                    if( ((PhysicalWeapon) p).RequiresHand() ) {
+                        if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_LA ) {
+                            CurMech.GetLoadout().UnallocateAll( p, false );
+                        }
                     }
                 }
             }
@@ -11072,6 +11096,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             return;
                         }
                     }
+                    if( check[i] instanceof PhysicalWeapon ) {
+                        if( ((PhysicalWeapon) check[i]).ReplacesLowerArm() ) {
+                            Media.Messager( this, "A currently placed item prevents the installation of the lower arm." );
+                            chkLALowerArm.setSelected( false );
+                            return;
+                        }
+                    }
                 }
             }
             CurMech.GetActuators().AddLeftLowerArm();
@@ -11082,8 +11113,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             for( int i = 0; i < v.size(); i++ ) {
                 abPlaceable p = (abPlaceable) v.get( i );
                 if( p instanceof PhysicalWeapon ) {
-                    if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_LA ) {
-                        CurMech.GetLoadout().UnallocateAll( p, false );
+                    if( ((PhysicalWeapon) p).RequiresLowerArm() ) {
+                        if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_LA ) {
+                            CurMech.GetLoadout().UnallocateAll( p, false );
+                        }
                     }
                 }
             }
@@ -11108,6 +11141,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             return;
                         }
                     }
+                    if( check[i] instanceof PhysicalWeapon ) {
+                        if( ((PhysicalWeapon) check[i]).ReplacesHand() ) {
+                            Media.Messager( this, "A currently placed item prevents the installation of the hand." );
+                            chkRAHand.setSelected( false );
+                            return;
+                        }
+                    }
                 }
             }
             CurMech.GetActuators().AddRightHand();
@@ -11118,8 +11158,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             for( int i = 0; i < v.size(); i++ ) {
                 abPlaceable p = (abPlaceable) v.get( i );
                 if( p instanceof PhysicalWeapon ) {
-                    if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_RA ) {
-                        CurMech.GetLoadout().UnallocateAll( p, false );
+                    if( ((PhysicalWeapon) p).RequiresHand() ) {
+                        if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_RA ) {
+                            CurMech.GetLoadout().UnallocateAll( p, false );
+                        }
                     }
                 }
             }
@@ -11144,6 +11186,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             return;
                         }
                     }
+                    if( check[i] instanceof PhysicalWeapon ) {
+                        if( ((PhysicalWeapon) check[i]).ReplacesLowerArm() ) {
+                            Media.Messager( this, "A currently placed item prevents the installation of the lower arm." );
+                            chkRALowerArm.setSelected( false );
+                            return;
+                        }
+                    }
                 }
             }
             CurMech.GetActuators().AddRightLowerArm();
@@ -11154,8 +11203,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             for( int i = 0; i < v.size(); i++ ) {
                 abPlaceable p = (abPlaceable) v.get( i );
                 if( p instanceof PhysicalWeapon ) {
-                    if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_RA ) {
-                        CurMech.GetLoadout().UnallocateAll( p, false );
+                    if( ((PhysicalWeapon) p).RequiresLowerArm() ) {
+                        if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_RA ) {
+                            CurMech.GetLoadout().UnallocateAll( p, false );
+                        }
                     }
                 }
             }
@@ -13496,7 +13547,7 @@ private void lstSelectedEquipmentKeyPressed(java.awt.event.KeyEvent evt) {//GEN-
 }//GEN-LAST:event_lstSelectedEquipmentKeyPressed
 
 private void mnuImportHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuImportHMPActionPerformed
-    if( CurMech.HasChanged() ) {
+/*    if( CurMech.HasChanged() ) {
         int choice = javax.swing.JOptionPane.showConfirmDialog( this,
             "The current 'Mech has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION );
         if( choice == 1 ) { return; }
@@ -13568,7 +13619,8 @@ private void mnuImportHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
     CurMech = m;
     LoadMechIntoGUI();
-    CurMech.SetChanged( false );
+    CurMech.SetChanged( false );*/
+    Media.Messager( "This feature has been removed for the time being due\nto licensing constraints and the need to protect our code." );
 }//GEN-LAST:event_mnuImportHMPActionPerformed
 
 private void btnChatInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChatInfoActionPerformed
@@ -13628,12 +13680,6 @@ private void btnBracketChartActionPerformed(java.awt.event.ActionEvent evt) {//G
     charts.setLocationRelativeTo( this );
     charts.setVisible( true );
 }//GEN-LAST:event_btnBracketChartActionPerformed
-
-private void mnuBatchHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBatchHMPActionPerformed
-    dlgBatchHMP Batch = new dlgBatchHMP( this, true );
-    Batch.setLocationRelativeTo( this );
-    Batch.setVisible( true );
-}//GEN-LAST:event_mnuBatchHMPActionPerformed
 
 private void chkFractionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFractionalActionPerformed
     if( chkFractional.isSelected() == CurMech.UsingFractionalAccounting() ) { return; }
@@ -14024,7 +14070,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JList lstRTCrits;
     private javax.swing.JList lstSelectedEquipment;
     private javax.swing.JMenuItem mnuAboutSSW;
-    private javax.swing.JMenuItem mnuBatchHMP;
     private javax.swing.JMenuItem mnuClearUserData;
     private javax.swing.JMenuItem mnuCostBVBreakdown;
     private javax.swing.JMenuItem mnuCreateTCGMech;
