@@ -4505,6 +4505,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuOpen = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         mnuImportHMP = new javax.swing.JMenuItem();
+        mnuBatchHMP = new javax.swing.JMenuItem();
         jSeparator16 = new javax.swing.JSeparator();
         mnuSave = new javax.swing.JMenuItem();
         mnuSaveAs = new javax.swing.JMenuItem();
@@ -9529,6 +9530,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         jMenu3.add(mnuImportHMP);
 
+        mnuBatchHMP.setText("Batch Import HMP Files");
+        mnuBatchHMP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuBatchHMPActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mnuBatchHMP);
+
         mnuFile.add(jMenu3);
         mnuFile.add(jSeparator16);
 
@@ -11040,23 +11049,21 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             return;
         }
         if( chkLAHand.isSelected() ) {
-            if( CurMech.IsOmnimech() &! CurMech.IsQuad() ) {
-                // check each crit and ensure we don't have an item that precludes this
-                abPlaceable[] check = CurMech.GetLoadout().GetLACrits();
-                for( int i = 0; i < check.length; i++ ) {
-                    if( check[i] instanceof ifWeapon ) {
-                        if( ((ifWeapon) check[i]).OmniRestrictActuators() ) {
-                            Media.Messager( this, "A currently placed item prevents the installation of the hand." );
-                            chkLAHand.setSelected( false );
-                            return;
-                        }
+            // check each crit and ensure we don't have an item that precludes this
+            abPlaceable[] check = CurMech.GetLoadout().GetLACrits();
+            for( int i = 0; i < check.length; i++ ) {
+                if( check[i] instanceof ifWeapon ) {
+                    if( ((ifWeapon) check[i]).OmniRestrictActuators() && CurMech.IsOmnimech() ) {
+                        Media.Messager( this, check[i].LookupName() + " prevents the installation of the hand." );
+                        chkLAHand.setSelected( false );
+                        return;
                     }
-                    if( check[i] instanceof PhysicalWeapon ) {
-                        if( ((PhysicalWeapon) check[i]).ReplacesHand() ) {
-                            Media.Messager( this, "A currently placed item prevents the installation of the hand." );
-                            chkLAHand.setSelected( false );
-                            return;
-                        }
+                }
+                if( check[i] instanceof PhysicalWeapon ) {
+                    if( ((PhysicalWeapon) check[i]).ReplacesHand() ) {
+                        Media.Messager( this, check[i].LookupName() + " prevents the installation of the hand." );
+                        chkLAHand.setSelected( false );
+                        return;
                     }
                 }
             }
@@ -11085,23 +11092,21 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             return;
         }
         if( chkLALowerArm.isSelected() ) {
-            if( CurMech.IsOmnimech() &! CurMech.IsQuad() ) {
-                // check each crit and ensure we don't have an item that precludes this
-                abPlaceable[] check = CurMech.GetLoadout().GetLACrits();
-                for( int i = 0; i < check.length; i++ ) {
-                    if( check[i] instanceof ifWeapon ) {
-                        if( ((ifWeapon) check[i]).OmniRestrictActuators() ) {
-                            Media.Messager( this, "A currently placed item prevents the installation of the lower arm." );
-                            chkLALowerArm.setSelected( false );
-                            return;
-                        }
+            // check each crit and ensure we don't have an item that precludes this
+            abPlaceable[] check = CurMech.GetLoadout().GetLACrits();
+            for( int i = 0; i < check.length; i++ ) {
+                if( check[i] instanceof ifWeapon ) {
+                    if( ((ifWeapon) check[i]).OmniRestrictActuators() && CurMech.IsOmnimech() ) {
+                        Media.Messager( this, check[i].LookupName() + " prevents the installation of the lower arm." );
+                        chkLALowerArm.setSelected( false );
+                        return;
                     }
-                    if( check[i] instanceof PhysicalWeapon ) {
-                        if( ((PhysicalWeapon) check[i]).ReplacesLowerArm() ) {
-                            Media.Messager( this, "A currently placed item prevents the installation of the lower arm." );
-                            chkLALowerArm.setSelected( false );
-                            return;
-                        }
+                }
+                if( check[i] instanceof PhysicalWeapon ) {
+                    if( ((PhysicalWeapon) check[i]).ReplacesLowerArm() ) {
+                        Media.Messager( this, check[i].LookupName() + " prevents the installation of the lower arm." );
+                        chkLALowerArm.setSelected( false );
+                        return;
                     }
                 }
             }
@@ -11130,23 +11135,21 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             return;
         }
         if( chkRAHand.isSelected() ) {
-            if( CurMech.IsOmnimech() &! CurMech.IsQuad() ) {
-                // check each crit and ensure we don't have an item that precludes this
-                abPlaceable[] check = CurMech.GetLoadout().GetRACrits();
-                for( int i = 0; i < check.length; i++ ) {
-                    if( check[i] instanceof ifWeapon ) {
-                        if( ((ifWeapon) check[i]).OmniRestrictActuators() ) {
-                            Media.Messager( this, "A currently placed item prevents the installation of the hand." );
-                            chkRAHand.setSelected( false );
-                            return;
-                        }
+            // check each crit and ensure we don't have an item that precludes this
+            abPlaceable[] check = CurMech.GetLoadout().GetRACrits();
+            for( int i = 0; i < check.length; i++ ) {
+                if( check[i] instanceof ifWeapon ) {
+                    if( ((ifWeapon) check[i]).OmniRestrictActuators() && CurMech.IsOmnimech() ) {
+                        Media.Messager( this, check[i].LookupName() + " prevents the installation of the hand." );
+                        chkRAHand.setSelected( false );
+                        return;
                     }
-                    if( check[i] instanceof PhysicalWeapon ) {
-                        if( ((PhysicalWeapon) check[i]).ReplacesHand() ) {
-                            Media.Messager( this, "A currently placed item prevents the installation of the hand." );
-                            chkRAHand.setSelected( false );
-                            return;
-                        }
+                }
+                if( check[i] instanceof PhysicalWeapon ) {
+                    if( ((PhysicalWeapon) check[i]).ReplacesHand() ) {
+                        Media.Messager( this, check[i].LookupName() + " prevents the installation of the hand." );
+                        chkRAHand.setSelected( false );
+                        return;
                     }
                 }
             }
@@ -11175,23 +11178,21 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             return;
         }
         if( chkRALowerArm.isSelected() ) {
-            if( CurMech.IsOmnimech() &! CurMech.IsQuad() ) {
-                // check each crit and ensure we don't have an item that precludes this
-                abPlaceable[] check = CurMech.GetLoadout().GetRACrits();
-                for( int i = 0; i < check.length; i++ ) {
-                    if( check[i] instanceof ifWeapon ) {
-                        if( ((ifWeapon) check[i]).OmniRestrictActuators() ) {
-                            Media.Messager( this, "A currently placed item prevents the installation of the lower arm." );
-                            chkRALowerArm.setSelected( false );
-                            return;
-                        }
+            // check each crit and ensure we don't have an item that precludes this
+            abPlaceable[] check = CurMech.GetLoadout().GetRACrits();
+            for( int i = 0; i < check.length; i++ ) {
+                if( check[i] instanceof ifWeapon ) {
+                    if( ((ifWeapon) check[i]).OmniRestrictActuators() && CurMech.IsOmnimech() ) {
+                        Media.Messager( this, check[i].LookupName() + " prevents the installation of the lower arm." );
+                        chkRALowerArm.setSelected( false );
+                        return;
                     }
-                    if( check[i] instanceof PhysicalWeapon ) {
-                        if( ((PhysicalWeapon) check[i]).ReplacesLowerArm() ) {
-                            Media.Messager( this, "A currently placed item prevents the installation of the lower arm." );
-                            chkRALowerArm.setSelected( false );
-                            return;
-                        }
+                }
+                if( check[i] instanceof PhysicalWeapon ) {
+                    if( ((PhysicalWeapon) check[i]).ReplacesLowerArm() ) {
+                        Media.Messager( this, check[i].LookupName() + " prevents the installation of the lower arm." );
+                        chkRALowerArm.setSelected( false );
+                        return;
                     }
                 }
             }
@@ -13547,7 +13548,7 @@ private void lstSelectedEquipmentKeyPressed(java.awt.event.KeyEvent evt) {//GEN-
 }//GEN-LAST:event_lstSelectedEquipmentKeyPressed
 
 private void mnuImportHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuImportHMPActionPerformed
-/*    if( CurMech.HasChanged() ) {
+    if( CurMech.HasChanged() ) {
         int choice = javax.swing.JOptionPane.showConfirmDialog( this,
             "The current 'Mech has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION );
         if( choice == 1 ) { return; }
@@ -13619,8 +13620,7 @@ private void mnuImportHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
     CurMech = m;
     LoadMechIntoGUI();
-    CurMech.SetChanged( false );*/
-    Media.Messager( "This feature has been removed for the time being due\nto licensing constraints and the need to protect our code." );
+    CurMech.SetChanged( false );
 }//GEN-LAST:event_mnuImportHMPActionPerformed
 
 private void btnChatInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChatInfoActionPerformed
@@ -13697,6 +13697,12 @@ private void chkFractionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_chkFractionalActionPerformed
+
+private void mnuBatchHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBatchHMPActionPerformed
+    dlgBatchHMP batch = new dlgBatchHMP( this, true );
+    batch.setLocationRelativeTo( this );
+    batch.setVisible( true );
+}//GEN-LAST:event_mnuBatchHMPActionPerformed
 
 private void setViewToolbar(boolean Visible)
 {
@@ -14070,6 +14076,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JList lstRTCrits;
     private javax.swing.JList lstSelectedEquipment;
     private javax.swing.JMenuItem mnuAboutSSW;
+    private javax.swing.JMenuItem mnuBatchHMP;
     private javax.swing.JMenuItem mnuClearUserData;
     private javax.swing.JMenuItem mnuCostBVBreakdown;
     private javax.swing.JMenuItem mnuCreateTCGMech;

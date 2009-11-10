@@ -61,18 +61,18 @@ public class Main {
         System.out.println("Memory Allocated [" + runtime.maxMemory() / 1000 + "]");
 
         //Requires 256mb of memory for canon dot pattern printing.
-//        if( runtime.maxMemory() < 256000000 ) {
-//            try {
-//                String[] call = { "java", "-Xmx256m", "-jar", "SSW.jar" };
-//                runtime.exec( call );
-//                System.exit( 0 );
-//            } catch( Exception e ) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        // uncomment the following line before creating a build.
-//        SetupLogFile( SSWConstants.LogFileName );
+        if( runtime.maxMemory() < 256000000 ) {
+            try {
+                String[] call = { "java", "-Xmx256m", "-jar", "SSW.jar" };
+                runtime.exec( call );
+                System.exit( 0 );
+            } catch( Exception e ) {
+                e.printStackTrace();
+            }
+        }
+
+        // uncomment the following line before creating a build.
+        SetupLogFile( SSWConstants.LogFileName );
 
         try {
             // added code to turn off the boldface of Metal L&F.
