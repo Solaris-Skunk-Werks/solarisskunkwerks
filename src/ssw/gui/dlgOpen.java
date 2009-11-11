@@ -217,7 +217,9 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
     private class Resaver extends SwingWorker<Void,Void> {
         dlgOpen Owner;
-        int filesUpdated = 0;
+        int filesUpdated = 0,
+            totalFileCount = 0;
+
         public Resaver( dlgOpen owner ) {
             Owner = owner;
         }
@@ -242,43 +244,59 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             MechReader read = new MechReader();
             MechWriter writer = new MechWriter();
 
-            FileList List = new FileList(dirPath);
-            File[] Files = List.getFiles();
-
-            for ( int i=0; i < Files.length; i++ ) {
-                File file = Files[i];
-                if (file.isFile() && file.getCanonicalPath().endsWith(".ssw")) {
-                    try {
-                        Mech m = read.ReadMech( file.getCanonicalPath(), parent.data );
-
-                        // save the mech to XML in the current location
-                        writer.setMech(m);
-                        try {
-                            writer.WriteXML( file.getCanonicalPath() );
-                            filesUpdated += 1;
-                        } catch( IOException e ) {
-                            msg += "Could not load the following file(s):" + NL;
-                            msg += file.getCanonicalPath() + NL + NL;
-                        }
-                    } catch ( Exception e ) {
-                        // log the error
-                        msg += file.getCanonicalPath() + NL;
-                        if( e.getMessage() == null ) {
-                            StackTraceElement[] trace = e.getStackTrace();
-                            for( int j = 0; j < trace.length; j++ ) {
-                                msg += trace[j].toString() + NL;
-                            }
-                            msg += NL;
-                        } else {
-                            msg += e.getMessage() + NL + NL;
-                        }
-                    }
-                }
-                int progress = ((int) (( ((double) i + 1) / (double) Files.length ) * 100.0 ) );
-                setProgress( progress );
+            File List = new File(dirPath);
+            try {
+                processDir( List, read, writer );
+            } catch ( IOException ie ) {
+                System.out.println(ie.getMessage());
+                throw new Exception(msg);
+            } catch ( Exception e ) {
+                throw e;
             }
 
             return null;
+        }
+
+        private void processDir( File directory, MechReader read, MechWriter writer ) throws IOException {
+            File[] files = directory.listFiles();
+            totalFileCount += files.length;
+            for ( int i=0; i < files.length; i++ ) {
+                if ( files[i].isFile() && files[i].getCanonicalPath().endsWith(".ssw") ) {
+                    processFile( files[i], read, writer );
+                    int progress = ((int) (( ((double) filesUpdated + 1) / (double) totalFileCount ) * 100.0 ) );
+                    setProgress( progress );
+                } else if ( files[i].isDirectory() ) {
+                    processDir( files[i], read, writer );
+                }
+            }
+        }
+
+        private void processFile( File file, MechReader read, MechWriter writer ) throws IOException {
+            try {
+                Mech m = read.ReadMech( file.getCanonicalPath(), parent.data );
+
+                // save the mech to XML in the current location
+                writer.setMech(m);
+                try {
+                    writer.WriteXML( file.getCanonicalPath() );
+                    filesUpdated += 1;
+                } catch( IOException e ) {
+                    msg += "Could not load the following file(s):" + NL;
+                    msg += file.getCanonicalPath() + NL + NL;
+                }
+            } catch ( Exception e ) {
+                // log the error
+                msg += file.getCanonicalPath() + NL;
+                if( e.getMessage() == null ) {
+                    StackTraceElement[] trace = e.getStackTrace();
+                    for( int j = 0; j < trace.length; j++ ) {
+                        msg += trace[j].toString() + NL;
+                    }
+                    msg += NL;
+                } else {
+                    msg += e.getMessage() + NL + NL;
+                }
+            }
         }
     }
 
@@ -293,9 +311,9 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         txtSelected = new javax.swing.JLabel();
         tlbActions = new javax.swing.JToolBar();
-        btnChangeDir = new javax.swing.JButton();
-        jSeparator4 = new javax.swing.JToolBar.Separator();
         btnOpen = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JToolBar.Separator();
+        btnChangeDir = new javax.swing.JButton();
         btnPrint = new javax.swing.JButton();
         btnAdd2Force = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
@@ -352,20 +370,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         tlbActions.setFloatable(false);
         tlbActions.setRollover(true);
 
-        btnChangeDir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/folders.png"))); // NOI18N
-        btnChangeDir.setToolTipText("Change Directory");
-        btnChangeDir.setFocusable(false);
-        btnChangeDir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnChangeDir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnChangeDir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChangeDirActionPerformed(evt);
-            }
-        });
-        tlbActions.add(btnChangeDir);
-        tlbActions.add(jSeparator4);
-
-        btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/folder-open-document.png"))); // NOI18N
+        btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/folder-open-mech.png"))); // NOI18N
         btnOpen.setToolTipText("Open Mech");
         btnOpen.setEnabled(false);
         btnOpen.setFocusable(false);
@@ -377,6 +382,19 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             }
         });
         tlbActions.add(btnOpen);
+        tlbActions.add(jSeparator4);
+
+        btnChangeDir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/folders.png"))); // NOI18N
+        btnChangeDir.setToolTipText("Change Directory");
+        btnChangeDir.setFocusable(false);
+        btnChangeDir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnChangeDir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnChangeDir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeDirActionPerformed(evt);
+            }
+        });
+        tlbActions.add(btnChangeDir);
 
         btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/printer.png"))); // NOI18N
         btnPrint.setToolTipText("Print Selected Mechs");
@@ -711,9 +729,9 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                             .addComponent(chkOmni)
                             .addComponent(txtSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFiltersLayout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
+                .addContainerGap(29, Short.MAX_VALUE)
                 .addComponent(btnFilter)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnClearFilter)
@@ -723,7 +741,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 .addComponent(lblMinMP)
                 .addGap(1, 1, 1)
                 .addComponent(cmbMinMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         lblStatus.setText("Loading Mechs....");
@@ -734,24 +752,24 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 1033, Short.MAX_VALUE)
+            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 1037, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txtSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
                 .addComponent(prgResaving, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 1013, Short.MAX_VALUE)
+                .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1013, Short.MAX_VALUE)
+                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlFilters, javax.swing.GroupLayout.DEFAULT_SIZE, 1013, Short.MAX_VALUE)
+                .addComponent(pnlFilters, javax.swing.GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -761,7 +779,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(prgResaving, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSelected))
+                    .addComponent(txtSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
