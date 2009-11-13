@@ -103,7 +103,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     JMenuItem mnuFluffCut = new JMenuItem( "Cut" );
     JMenuItem mnuFluffCopy = new JMenuItem( "Copy" );
     JMenuItem mnuFluffPaste = new JMenuItem( "Paste" );
-    HTMLPane Overview = new HTMLPane();
+    HTMLPane Overview = new HTMLPane( false );
 
     MechLoadoutRenderer Mechrender;
     public Preferences Prefs;
