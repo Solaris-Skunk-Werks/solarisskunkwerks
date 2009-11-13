@@ -62,6 +62,7 @@ import battleforce.*;
 import common.DataFactory;
 import dialog.frmForce;
 import components.EquipmentCollection;
+import gui.HTMLPane;
 import ssw.printpreview.dlgPreview;
 
 public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner, common.DesignForm {
@@ -102,6 +103,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     JMenuItem mnuFluffCut = new JMenuItem( "Cut" );
     JMenuItem mnuFluffCopy = new JMenuItem( "Copy" );
     JMenuItem mnuFluffPaste = new JMenuItem( "Paste" );
+    HTMLPane Overview = new HTMLPane();
 
     MechLoadoutRenderer Mechrender;
     public Preferences Prefs;
@@ -167,8 +169,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlDamageChart = new DamageChart();
 
         initComponents();
+        Overview.SetEditorSize( 310, 380 );
+        pnlOverview.add( Overview );
         setViewToolbar( Prefs.getBoolean( "ViewToolbar", true ) );
         setTitle( SSWConstants.AppDescription + " " + SSWConstants.Version );
+        pack();
 
         mnuDetails.addActionListener( new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2312,7 +2317,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         SetWeaponChoosers();
         ResetAmmo();
 
-        edtOverview.setText( "" );
+        Overview.StartNewDocument();
         edtCapabilities.setText( "" );
         edtHistory.setText( "" );
         edtDeployment.setText( "" );
@@ -2693,7 +2698,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
 
-        CurMech.SetOverview( edtOverview.getText() );
+        CurMech.SetOverview( Overview.GetHTMLSource() );
         CurMech.SetCapabilities( edtCapabilities.getText() );
         CurMech.SetHistory( edtHistory.getText() );
         CurMech.SetDeployment( edtDeployment.getText() );
@@ -4381,9 +4386,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         btnClearImage = new javax.swing.JButton();
         tbpFluffEditors = new javax.swing.JTabbedPane();
         pnlOverview = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        edtOverview = new javax.swing.JEditorPane();
         pnlCapabilities = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -8446,40 +8448,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlOverview.setMaximumSize(new java.awt.Dimension(427, 485));
         pnlOverview.setMinimumSize(new java.awt.Dimension(427, 485));
-        pnlOverview.setLayout(new java.awt.GridBagLayout());
-
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 12));
-        jLabel1.setText("Overview");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
-        pnlOverview.add(jLabel1, gridBagConstraints);
-
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane1.setMinimumSize(new java.awt.Dimension(310, 420));
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(310, 420));
-        jScrollPane1.setViewportView(edtOverview);
-        MouseListener mlOverview = new MouseAdapter() {
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-        };
-        edtOverview.addMouseListener( mlOverview );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        pnlOverview.add(jScrollPane1, gridBagConstraints);
-
+        pnlOverview.setLayout(new javax.swing.BoxLayout(pnlOverview, javax.swing.BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Overview", pnlOverview);
 
         pnlCapabilities.setMaximumSize(new java.awt.Dimension(427, 485));
@@ -12785,7 +12754,7 @@ public void LoadMechIntoGUI() {
     }
     lblFluffImage.setIcon( newFluffImage );
 
-    edtOverview.setText( CurMech.GetOverview() );
+    Overview.SetText( CurMech.GetOverview() );
     edtCapabilities.setText( CurMech.GetCapabilities() );
     edtHistory.setText( CurMech.GetHistory() );
     edtDeployment.setText( CurMech.GetDeployment() );
@@ -13821,9 +13790,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JEditorPane edtDeployment;
     private javax.swing.JEditorPane edtHistory;
     private javax.swing.JEditorPane edtNotables;
-    private javax.swing.JEditorPane edtOverview;
     private javax.swing.JEditorPane edtVariants;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -13896,7 +13863,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
