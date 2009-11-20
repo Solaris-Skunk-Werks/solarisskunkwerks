@@ -1,7 +1,30 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+Copyright (c) 2008~2009, Justin R. Bengtson (poopshotgun@yahoo.com)
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+        this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+        this list of conditions and the following disclaimer in the
+        documentation and/or other materials provided with the distribution.
+    * Neither the name of Justin R. Bengtson nor the names of contributors may
+        be used to endorse or promote products derived from this software
+        without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
 
 package ssw.gui;
 
@@ -13,15 +36,12 @@ import java.awt.geom.Line2D;
 import java.util.Vector;
 import javax.swing.JPanel;
 
-/**
- *
- * @author justin
- */
 public class DamageChart extends JPanel {
     private int GridX = 1;
     private int GridY = 1;
     private Vector charts = new Vector();
     private Vector colors = new Vector();
+    private boolean TextView = false;
 
     public DamageChart() {
         setBackground( Color.WHITE );
@@ -65,12 +85,21 @@ public class DamageChart extends JPanel {
         colors.clear();
     }
 
+    public void SetTextView( boolean b ) {
+        TextView = b;
+        repaint();
+    }
+
     @Override
     public void paintComponent( Graphics g ) {
         super.paintComponent( g );
 
-        DrawGrid( (Graphics2D) g );
-        DrawCharts( (Graphics2D) g );
+        if( TextView ) {
+            DrawText( (Graphics2D) g );
+        } else {
+            DrawGrid( (Graphics2D) g );
+            DrawCharts( (Graphics2D) g );
+        }
     }
 
     private void DrawCharts( Graphics2D g ) {
@@ -125,5 +154,22 @@ public class DamageChart extends JPanel {
                 g.setColor( Color.LIGHT_GRAY );
             }
         }
+    }
+
+    private void DrawText( Graphics2D g ) {
+        Vector<Group> groups = new Vector<Group>();
+        int off = 10;
+
+        for( int i = 0; i < charts.size(); i++ ) {
+            int[] chart = (int[]) charts.get( i );
+            for( int j = 1; j < chart.length; j++ ) {
+
+            }
+            off += 40;
+        }
+    }
+
+    private class Group {
+        public int StartRng = 0, EndRng = 0, Dmg = 0;
     }
 }

@@ -103,7 +103,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     JMenuItem mnuFluffCut = new JMenuItem( "Cut" );
     JMenuItem mnuFluffCopy = new JMenuItem( "Copy" );
     JMenuItem mnuFluffPaste = new JMenuItem( "Paste" );
+
     HTMLPane Overview = new HTMLPane( false );
+    HTMLPane Capabilities = new HTMLPane( false );
+    HTMLPane Deployment = new HTMLPane( false );
+    HTMLPane History = new HTMLPane( false );
+    HTMLPane Additional = new HTMLPane( false );
+    HTMLPane Variants = new HTMLPane( false );
+    HTMLPane Notables = new HTMLPane( false );
 
     MechLoadoutRenderer Mechrender;
     public Preferences Prefs;
@@ -170,7 +177,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         initComponents();
         Overview.SetEditorSize( 310, 380 );
+        Capabilities.SetEditorSize( 310, 380 );
+        Deployment.SetEditorSize( 310, 380 );
+        History.SetEditorSize( 310, 380 );
+        Additional.SetEditorSize( 310, 380 );
+        Variants.SetEditorSize( 310, 380 );
+        Notables.SetEditorSize( 310, 380 );
         pnlOverview.add( Overview );
+        pnlCapabilities.add( Capabilities );
+        pnlDeployment.add( Deployment );
+        pnlHistory.add( History );
+        pnlAdditionalFluff.add( Additional );
+        pnlVariants.add( Variants );
+        pnlNotables.add( Notables );
         setViewToolbar( Prefs.getBoolean( "ViewToolbar", true ) );
         setTitle( SSWConstants.AppDescription + " " + SSWConstants.Version );
         pack();
@@ -2318,12 +2337,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         ResetAmmo();
 
         Overview.StartNewDocument();
-        edtCapabilities.setText( "" );
-        edtHistory.setText( "" );
-        edtDeployment.setText( "" );
-        edtVariants.setText( "" );
-        edtNotables.setText( "" );
-        edtAdditionalFluff.setText( "" );
+        Capabilities.StartNewDocument();
+        History.StartNewDocument();
+        Deployment.StartNewDocument();
+        Variants.StartNewDocument();
+        Notables.StartNewDocument();
+        Additional.StartNewDocument();
         txtManufacturer.setText( "" );
         txtManufacturerLocation.setText( "" );
         txtEngineManufacturer.setText( "" );
@@ -2699,12 +2718,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         CurMech.SetOverview( Overview.GetHTMLSource() );
-        CurMech.SetCapabilities( edtCapabilities.getText() );
-        CurMech.SetHistory( edtHistory.getText() );
-        CurMech.SetDeployment( edtDeployment.getText() );
-        CurMech.SetVariants( edtVariants.getText() );
-        CurMech.SetNotables( edtNotables.getText() );
-        CurMech.SetAdditional( edtAdditionalFluff.getText() );
+        CurMech.SetCapabilities( Capabilities.GetHTMLSource() );
+        CurMech.SetHistory( History.GetHTMLSource() );
+        CurMech.SetDeployment( Deployment.GetHTMLSource() );
+        CurMech.SetVariants( Variants.GetHTMLSource() );
+        CurMech.SetNotables( Notables.GetHTMLSource() );
+        CurMech.SetAdditional( Additional.GetHTMLSource() );
         CurMech.SetCompany( txtManufacturer.getText() );
         CurMech.SetLocation( txtManufacturerLocation.getText() );
         CurMech.SetEngineManufacturer( txtEngineManufacturer.getText() );
@@ -3667,7 +3686,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( v.get( j ) instanceof ifWeapon ) {
                     w = (ifWeapon) v.get( j );
                     if( ! ((abPlaceable) w).IsMountedRear() ) {
-                        chart[i] += GetDamageAtRange( w, i );
+                        if( chkAverageDamage.isSelected() ) {
+                            chart[i] += CommonTools.GetAverageDamageAtRange( w, i );
+                        } else {
+                            chart[i] += GetDamageAtRange( w, i );
+                        }
                     }
                 }
             }
@@ -3687,7 +3710,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( v.get( j ) instanceof ifWeapon ) {
                     w = (ifWeapon) v.get( j );
                     if( CurMech.GetLoadout().Find( (abPlaceable) w ) == LocationIndex.MECH_LOC_RA ) {
-                        chart[i] += GetDamageAtRange( w, i );
+                        if( chkAverageDamage.isSelected() ) {
+                            chart[i] += CommonTools.GetAverageDamageAtRange( w, i );
+                        } else {
+                            chart[i] += GetDamageAtRange( w, i );
+                        }
                     }
                 }
             }
@@ -3707,7 +3734,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 if( v.get( j ) instanceof ifWeapon ) {
                     w = (ifWeapon) v.get( j );
                     if( CurMech.GetLoadout().Find( (abPlaceable) w ) == LocationIndex.MECH_LOC_LA ) {
-                        chart[i] += GetDamageAtRange( w, i );
+                        if( chkAverageDamage.isSelected() ) {
+                            chart[i] += CommonTools.GetAverageDamageAtRange( w, i );
+                        } else {
+                            chart[i] += GetDamageAtRange( w, i );
+                        }
                     }
                 }
             }
@@ -3729,7 +3760,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     w = (ifWeapon) v.get( j );
                     int Loc = CurMech.GetLoadout().Find( (abPlaceable) w );
                     if( ((abPlaceable) w).IsMountedRear() || (( Loc == LocationIndex.MECH_LOC_LA || Loc == LocationIndex.MECH_LOC_RA ) && flip ) ) {
-                        chart[i] += GetDamageAtRange( w, i );
+                        if( chkAverageDamage.isSelected() ) {
+                            chart[i] += CommonTools.GetAverageDamageAtRange( w, i );
+                        } else {
+                            chart[i] += GetDamageAtRange( w, i );
+                        }
                     }
                 }
             }
@@ -4387,29 +4422,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         tbpFluffEditors = new javax.swing.JTabbedPane();
         pnlOverview = new javax.swing.JPanel();
         pnlCapabilities = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        edtCapabilities = new javax.swing.JEditorPane();
         pnlHistory = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        edtHistory = new javax.swing.JEditorPane();
         pnlDeployment = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        edtDeployment = new javax.swing.JEditorPane();
         pnlVariants = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        edtVariants = new javax.swing.JEditorPane();
         pnlNotables = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        edtNotables = new javax.swing.JEditorPane();
         pnlAdditionalFluff = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        edtAdditionalFluff = new javax.swing.JEditorPane();
         pnlManufacturers = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -4464,6 +4481,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkChartRight = new javax.swing.JCheckBox();
         chkChartLeft = new javax.swing.JCheckBox();
         btnBracketChart = new javax.swing.JButton();
+        chkAverageDamage = new javax.swing.JCheckBox();
+        chkShowTextNotGraph = new javax.swing.JCheckBox();
         pnlBattleforce = new javax.swing.JPanel();
         pnlBFStats = new javax.swing.JPanel();
         jLabel66 = new javax.swing.JLabel();
@@ -8453,234 +8472,22 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCapabilities.setMaximumSize(new java.awt.Dimension(427, 485));
         pnlCapabilities.setMinimumSize(new java.awt.Dimension(427, 485));
-        pnlCapabilities.setLayout(new java.awt.GridBagLayout());
-
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 12));
-        jLabel2.setText("Capabilities");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
-        pnlCapabilities.add(jLabel2, gridBagConstraints);
-
-        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane2.setMinimumSize(new java.awt.Dimension(310, 420));
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(310, 420));
-
-        edtCapabilities.setMaximumSize(new java.awt.Dimension(106, 20));
-        jScrollPane2.setViewportView(edtCapabilities);
-        MouseListener mlCapabilities = new MouseAdapter() {
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-        };
-        edtCapabilities.addMouseListener( mlCapabilities );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        pnlCapabilities.add(jScrollPane2, gridBagConstraints);
-
+        pnlCapabilities.setLayout(new javax.swing.BoxLayout(pnlCapabilities, javax.swing.BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Capabilities", pnlCapabilities);
 
-        pnlHistory.setLayout(new java.awt.GridBagLayout());
-
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 12));
-        jLabel3.setText("Battle History");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
-        pnlHistory.add(jLabel3, gridBagConstraints);
-
-        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane3.setMinimumSize(new java.awt.Dimension(310, 420));
-        jScrollPane3.setPreferredSize(new java.awt.Dimension(310, 420));
-        jScrollPane3.setViewportView(edtHistory);
-        MouseListener mlHistory = new MouseAdapter() {
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-        };
-        edtHistory.addMouseListener( mlHistory );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        pnlHistory.add(jScrollPane3, gridBagConstraints);
-
+        pnlHistory.setLayout(new javax.swing.BoxLayout(pnlHistory, javax.swing.BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Battle History", pnlHistory);
 
-        pnlDeployment.setLayout(new java.awt.GridBagLayout());
-
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 12));
-        jLabel4.setText("Deployment");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
-        pnlDeployment.add(jLabel4, gridBagConstraints);
-
-        jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane4.setMinimumSize(new java.awt.Dimension(310, 420));
-        jScrollPane4.setPreferredSize(new java.awt.Dimension(310, 420));
-        jScrollPane4.setViewportView(edtDeployment);
-        MouseListener mlDeployment = new MouseAdapter() {
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-        };
-        edtDeployment.addMouseListener( mlDeployment );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        pnlDeployment.add(jScrollPane4, gridBagConstraints);
-
+        pnlDeployment.setLayout(new javax.swing.BoxLayout(pnlDeployment, javax.swing.BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Deployment", pnlDeployment);
 
-        pnlVariants.setLayout(new java.awt.GridBagLayout());
-
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 12));
-        jLabel5.setText("Variants");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
-        pnlVariants.add(jLabel5, gridBagConstraints);
-
-        jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane5.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane5.setMinimumSize(new java.awt.Dimension(310, 420));
-        jScrollPane5.setPreferredSize(new java.awt.Dimension(310, 420));
-        jScrollPane5.setViewportView(edtVariants);
-        MouseListener mlVariants = new MouseAdapter() {
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-        };
-        edtVariants.addMouseListener( mlVariants );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        pnlVariants.add(jScrollPane5, gridBagConstraints);
-
+        pnlVariants.setLayout(new javax.swing.BoxLayout(pnlVariants, javax.swing.BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Variants", pnlVariants);
 
-        pnlNotables.setLayout(new java.awt.GridBagLayout());
-
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 12));
-        jLabel6.setText("Notable 'Mechs and Mechwarriors");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
-        pnlNotables.add(jLabel6, gridBagConstraints);
-
-        jScrollPane6.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane6.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane6.setMinimumSize(new java.awt.Dimension(310, 420));
-        jScrollPane6.setPreferredSize(new java.awt.Dimension(310, 420));
-        jScrollPane6.setViewportView(edtNotables);
-        MouseListener mlNotables = new MouseAdapter() {
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-        };
-        edtNotables.addMouseListener( mlNotables );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        pnlNotables.add(jScrollPane6, gridBagConstraints);
-
+        pnlNotables.setLayout(new javax.swing.BoxLayout(pnlNotables, javax.swing.BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Notables", pnlNotables);
 
-        pnlAdditionalFluff.setLayout(new java.awt.GridBagLayout());
-
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 12));
-        jLabel7.setText("Additional Fluff (story, etc...)");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
-        pnlAdditionalFluff.add(jLabel7, gridBagConstraints);
-
-        jScrollPane7.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane7.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane7.setMinimumSize(new java.awt.Dimension(310, 420));
-        jScrollPane7.setPreferredSize(new java.awt.Dimension(310, 420));
-        jScrollPane7.setViewportView(edtAdditionalFluff);
-        MouseListener mlAdditional = new MouseAdapter() {
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-        };
-        edtAdditionalFluff.addMouseListener( mlAdditional );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        pnlAdditionalFluff.add(jScrollPane7, gridBagConstraints);
-
+        pnlAdditionalFluff.setLayout(new javax.swing.BoxLayout(pnlAdditionalFluff, javax.swing.BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Additional", pnlAdditionalFluff);
 
         pnlManufacturers.setLayout(new java.awt.GridBagLayout());
@@ -9268,6 +9075,22 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         pnlCharts.add(btnBracketChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 210, -1));
+
+        chkAverageDamage.setText("Show Average Damage");
+        chkAverageDamage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAverageDamageActionPerformed(evt);
+            }
+        });
+        pnlCharts.add(chkAverageDamage, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, -1, -1));
+
+        chkShowTextNotGraph.setText("Show Text Instead of Graph");
+        chkShowTextNotGraph.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkShowTextNotGraphActionPerformed(evt);
+            }
+        });
+        pnlCharts.add(chkShowTextNotGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, -1, -1));
 
         tbpMainTabPane.addTab("Charts", pnlCharts);
 
@@ -12755,12 +12578,12 @@ public void LoadMechIntoGUI() {
     lblFluffImage.setIcon( newFluffImage );
 
     Overview.SetText( CurMech.GetOverview() );
-    edtCapabilities.setText( CurMech.GetCapabilities() );
-    edtHistory.setText( CurMech.GetHistory() );
-    edtDeployment.setText( CurMech.GetDeployment() );
-    edtVariants.setText( CurMech.GetVariants() );
-    edtNotables.setText( CurMech.GetNotables() );
-    edtAdditionalFluff.setText( CurMech.GetAdditional() );
+    Capabilities.SetText( CurMech.GetCapabilities() );
+    History.SetText( CurMech.GetHistory() );
+    Deployment.SetText( CurMech.GetDeployment() );
+    Variants.SetText( CurMech.GetVariants() );
+    Notables.SetText( CurMech.GetNotables() );
+    Additional.SetText( CurMech.GetAdditional() );
     txtManufacturer.setText( CurMech.GetCompany() );
     txtManufacturerLocation.setText( CurMech.GetLocation() );
     txtEngineManufacturer.setText( CurMech.GetEngineManufacturer() );
@@ -13673,6 +13496,14 @@ private void mnuBatchHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     batch.setVisible( true );
 }//GEN-LAST:event_mnuBatchHMPActionPerformed
 
+private void chkAverageDamageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAverageDamageActionPerformed
+    UpdateBasicChart();
+}//GEN-LAST:event_chkAverageDamageActionPerformed
+
+private void chkShowTextNotGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkShowTextNotGraphActionPerformed
+    UpdateBasicChart();
+}//GEN-LAST:event_chkShowTextNotGraphActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -13722,6 +13553,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JButton btnRemoveItemCrits;
     private javax.swing.JButton btnSaveIcon;
     private javax.swing.JButton btnSelectiveAllocate;
+    private javax.swing.JCheckBox chkAverageDamage;
     private javax.swing.JCheckBox chkBSPFD;
     private javax.swing.JCheckBox chkBoobyTrap;
     private javax.swing.JCheckBox chkBoosters;
@@ -13764,6 +13596,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JCheckBox chkRTCASE;
     private javax.swing.JCheckBox chkRTCASE2;
     private javax.swing.JCheckBox chkRTTurret;
+    private javax.swing.JCheckBox chkShowTextNotGraph;
     private javax.swing.JCheckBox chkSupercharger;
     private javax.swing.JCheckBox chkTracks;
     private javax.swing.JCheckBox chkUseTC;
@@ -13785,12 +13618,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JComboBox cmbSCLoc;
     private javax.swing.JComboBox cmbTechBase;
     private javax.swing.JComboBox cmbTonnage;
-    private javax.swing.JEditorPane edtAdditionalFluff;
-    private javax.swing.JEditorPane edtCapabilities;
-    private javax.swing.JEditorPane edtDeployment;
-    private javax.swing.JEditorPane edtHistory;
-    private javax.swing.JEditorPane edtNotables;
-    private javax.swing.JEditorPane edtVariants;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -13801,7 +13628,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -13812,7 +13638,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -13822,10 +13647,8 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
@@ -13833,7 +13656,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
@@ -13843,7 +13665,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel jLabel67;
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel70;
     private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel72;
@@ -13872,17 +13693,11 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JScrollPane jScrollPane17;
     private javax.swing.JScrollPane jScrollPane18;
     private javax.swing.JScrollPane jScrollPane19;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane20;
     private javax.swing.JScrollPane jScrollPane21;
     private javax.swing.JScrollPane jScrollPane22;
     private javax.swing.JScrollPane jScrollPane23;
     private javax.swing.JScrollPane jScrollPane24;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
