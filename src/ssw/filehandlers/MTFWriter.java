@@ -360,7 +360,8 @@ public class MTFWriter {
         if( retval.contains( "Searchlight" ) ) {
             // do nothing here
         } else if( retval.contains( "ImprovedJump Jet" ) ) {
-            retval = Prepend + retval;
+            //retval = Prepend + retval;    Removed prepend.s
+
         } else if( ! p.CoreComponent() ) {
             if( p instanceof PhysicalWeapon || p instanceof PartialWing ) {
                 // do nothing here
