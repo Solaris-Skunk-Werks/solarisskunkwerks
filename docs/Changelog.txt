@@ -111,6 +111,7 @@ Version 0.7.0
 - Fixed issues with equipment not able to be mounted or loaded rear-facing.
 - Equipment and physical weapons now load from binary files.
 - Changed Machine Gun Array chat export name to include number of MGs.
+- Removed IS from Improved Jump Jet MTF output
 
 -------------------------------------------------------------------------------
 Version 0.6.0
