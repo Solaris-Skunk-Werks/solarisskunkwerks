@@ -46,6 +46,7 @@ Version 0.7.0
 - Added the ability to Export and Import your settings using the Options window
 - You can unlock an OmniMech's chassis, but will lose all current loadouts.
 - Added a range-bracketing chart screen on the Charts tab.
+- Added Fractional Accounting.
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.
@@ -111,7 +112,7 @@ Version 0.7.0
 - Fixed issues with equipment not able to be mounted or loaded rear-facing.
 - Equipment and physical weapons now load from binary files.
 - Changed Machine Gun Array chat export name to include number of MGs.
-- Removed IS from Improved Jump Jet MTF output
+- Fixed actuator checking for certain equipment.
 
 -------------------------------------------------------------------------------
 Version 0.6.0
