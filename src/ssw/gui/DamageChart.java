@@ -157,19 +157,73 @@ public class DamageChart extends JPanel {
     }
 
     private void DrawText( Graphics2D g ) {
-        Vector<Group> groups = new Vector<Group>();
-        int off = 10;
+        Vector<Group> curgroups = new Vector<Group>();
+        int CurX = 10;
 
         for( int i = 0; i < charts.size(); i++ ) {
             int[] chart = (int[]) charts.get( i );
+            g.setColor( (Color) colors.get( i ) );
+            Group newGroup = null;
             for( int j = 1; j < chart.length; j++ ) {
-
+                // build the group.
+                if( newGroup == null ) {
+                    newGroup = new Group();
+                    newGroup.StartRng = j;
+                    newGroup.EndRng = j;
+                    newGroup.Dmg = chart[j];
+                    curgroups.add( newGroup );
+                } else {
+                    Group group = new Group();
+                    group.StartRng = j;
+                    group.EndRng = j;
+                    group.Dmg = chart[j];
+                    if( ! newGroup.Combine( group ) ) {
+                        curgroups.add( group );
+                        newGroup = group;
+                    }
+                }
             }
-            off += 40;
+            // print the groups
+            int CurY = 15;
+            for( int j = 0; j < curgroups.size(); j++ ) {
+                int dmg = curgroups.get( j ).Dmg;
+                int srng = curgroups.get( j ).StartRng;
+                int erng = curgroups.get( j ).EndRng;
+                if( dmg > 0 ) {
+                    if( srng == erng ) {
+                        g.drawString( "Range " + srng + ": " + dmg, CurX, CurY );
+                    } else {
+                        g.drawString( "Ranges " + srng + " to " + erng + ": " + dmg, CurX, CurY );
+                    }
+                    CurY += 11;
+                }
+            }
+            CurX += 150;
+            curgroups.clear();
         }
     }
 
     private class Group {
         public int StartRng = 0, EndRng = 0, Dmg = 0;
+        public boolean Combine( Group g ) {
+            if( Dmg == g.Dmg ) {
+                // we should combine
+                if( StartRng <= g.StartRng ) {
+                    // good...
+                    if( EndRng <= g.EndRng ) {
+                        // awesome, combine them
+                        EndRng = g.EndRng;
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                // can't combine
+                return false;
+            }
+        }
     }
 }

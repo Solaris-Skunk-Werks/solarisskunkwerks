@@ -3560,18 +3560,35 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         TonsEquips += ( CurMech.GetTonnage() - CurMech.GetCurrentTons() );
 
         ((DamageChart) pnlDamageChart).ClearCharts();
-        ((DamageChart) pnlDamageChart).SetGridSize( gridx + 1, gridy + 1 );
-        if( chkChartRear.isSelected() ) {
-            ((DamageChart) pnlDamageChart).AddChart( rrchart, Color.PINK );
-        }
-        if( chkChartLeft.isSelected() ) {
-            ((DamageChart) pnlDamageChart).AddChart( lchart, Color.ORANGE );
-        }
-        if( chkChartRight.isSelected() ) {
-            ((DamageChart) pnlDamageChart).AddChart( rchart, Color.GREEN );
-        }
-        if( chkChartFront.isSelected() ) {
-            ((DamageChart) pnlDamageChart).AddChart( fchart, Color.RED );
+        if( chkShowTextNotGraph.isSelected() ) {
+            ((DamageChart) pnlDamageChart).SetTextView( true );
+            if( chkChartFront.isSelected() ) {
+                ((DamageChart) pnlDamageChart).AddChart( fchart, Color.RED );
+            }
+            if( chkChartRight.isSelected() ) {
+                ((DamageChart) pnlDamageChart).AddChart( rchart, Color.GREEN );
+            }
+            if( chkChartLeft.isSelected() ) {
+                ((DamageChart) pnlDamageChart).AddChart( lchart, Color.ORANGE );
+            }
+            if( chkChartRear.isSelected() ) {
+                ((DamageChart) pnlDamageChart).AddChart( rrchart, Color.PINK );
+            }
+        } else {
+            ((DamageChart) pnlDamageChart).SetTextView( false );
+            ((DamageChart) pnlDamageChart).SetGridSize( gridx + 1, gridy + 1 );
+            if( chkChartRear.isSelected() ) {
+                ((DamageChart) pnlDamageChart).AddChart( rrchart, Color.PINK );
+            }
+            if( chkChartLeft.isSelected() ) {
+                ((DamageChart) pnlDamageChart).AddChart( lchart, Color.ORANGE );
+            }
+            if( chkChartRight.isSelected() ) {
+                ((DamageChart) pnlDamageChart).AddChart( rchart, Color.GREEN );
+            }
+            if( chkChartFront.isSelected() ) {
+                ((DamageChart) pnlDamageChart).AddChart( fchart, Color.RED );
+            }
         }
         lblTonPercStructure.setText( String.format( "%1$,.2f", ( CurMech.GetIntStruc().GetTonnage() + CurMech.GetCockpit().GetTonnage() + CurMech.GetGyro().GetTonnage() ) / CurMech.GetTonnage() * 100.0f ) + "%" );
         lblTonPercEngine.setText( String.format( "%1$,.2f", CurMech.GetEngine().GetTonnage() / CurMech.GetTonnage() * 100.0 ) + "%" );
