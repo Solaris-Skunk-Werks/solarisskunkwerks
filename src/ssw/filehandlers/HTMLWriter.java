@@ -871,7 +871,7 @@ public class HTMLWriter {
                                 } else if( ((ifWeapon) a).IsRotary() ) {
                                     retval += ((ifWeapon) a).GetHeat() + " /shot (" + ( ((ifWeapon) a).GetBVHeat() * numthisloc ) + " max)";
                                 } else {
-                                    retval += "" + ((ifWeapon) a).GetBVHeat() * numthisloc;
+                                    retval += "" + ((ifWeapon) a).GetHeat() * numthisloc;
                                 }
                             } else if( a instanceof Equipment ) {
                                 retval += "" + ((Equipment) a).GetHeat() * numthisloc;
@@ -1030,7 +1030,7 @@ public class HTMLWriter {
                                 } else if( ((ifWeapon) a).IsRotary() ) {
                                     retval += ((ifWeapon) a).GetHeat() + " /shot (" + ( ((ifWeapon) a).GetBVHeat() * numthisloc ) + " max)";
                                 } else {
-                                    retval += "" + ((ifWeapon) a).GetBVHeat() * numthisloc;
+                                    retval += "" + ((ifWeapon) a).GetHeat() * numthisloc;
                                 }
                             } else if( a instanceof Equipment ) {
                                 retval += "" + ((Equipment) a).GetHeat() * numthisloc;
@@ -1383,7 +1383,7 @@ public class HTMLWriter {
         lookup.put( "<+-SSW_ARMOR_COVERAGE-+>", "" + CurMech.GetArmor().GetCoverage() );
         lookup.put( "<+-SSW_JUMPJET_COUNT-+>", "" + CurMech.GetJumpJets().GetNumJJ() );
         if( CurMech.GetAdjustedJumpingMP( false ) != CurMech.GetJumpJets().GetNumJJ() ) {
-            lookup.put( "<+-SSW_JUMPJET_DISTANCE-+>", ( CurMech.GetJumpJets().GetNumJJ() * 30 ) + " meters (" + ( CurMech.GetAdjustedJumpingMP( true ) * 30 ) + " meters)" );
+            lookup.put( "<+-SSW_JUMPJET_DISTANCE-+>", ( CurMech.GetJumpJets().GetNumJJ() * 30 ) + " meters (" + ( CurMech.GetAdjustedJumpingMP( false ) * 30 ) + " meters)" );
         } else {
             lookup.put( "<+-SSW_JUMPJET_DISTANCE-+>", ( CurMech.GetJumpJets().GetNumJJ() * 30 ) + " meters" );
         }
@@ -1400,7 +1400,7 @@ public class HTMLWriter {
             lookup.put( "<+-SSW_SPEED_RUN_MP-+>", "" + CurMech.GetRunningMP() );
         }
         if( CurMech.GetAdjustedJumpingMP( false ) != CurMech.GetJumpJets().GetNumJJ() ) {
-            lookup.put( "<+-SSW_SPEED_JUMP_MP-+>", CurMech.GetJumpJets().GetNumJJ() + " (" + CurMech.GetAdjustedJumpingMP( true ) + ")" );
+            lookup.put( "<+-SSW_SPEED_JUMP_MP-+>", CurMech.GetJumpJets().GetNumJJ() + " (" + CurMech.GetAdjustedJumpingMP( false ) + ")" );
         } else {
             lookup.put( "<+-SSW_SPEED_JUMP_MP-+>", "" + CurMech.GetJumpJets().GetNumJJ() );
         }
@@ -1548,11 +1548,11 @@ public class HTMLWriter {
 
     private String ProcessFluffString( String fluff ) {
         // this turns a big string of fluff into something that is HTML friendly
-        if( fluff.equals( "" ) ) {
+        if( fluff.equals( "" ) || fluff.equals( "\n" ) || fluff.equals( "\n\r" ) ) {
             return "";
         }
         String retval = "";
-        retval = retval.replaceAll( "\n\r", "\n" );
+        fluff = fluff.replaceAll( "\n\r", "\n" );
         String[] s = fluff.split( "\n", -1 );
 
         for( int i = 0; i < s.length; i++ ) {

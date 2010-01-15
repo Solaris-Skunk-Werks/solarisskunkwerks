@@ -368,6 +368,17 @@ public class CostBVBreakdown {
         retval += "    " + String.format( "%1$,.2f", temp ) + " / 10 + 1 = " + ( temp * 0.1f + 1.0f ) + NL;
         temp = temp * 0.1f + 1.0f;
         retval += "    " + String.format( "%1$,.2f", temp ) + " ^ 1.2 = " + (double) Math.floor( ( Math.pow( temp, 1.2f ) ) * 100 + 0.5f ) / 100 + " (rounded off to two digits)" + NL;
+        double cockpitMultiplier = 1.0;
+        if( ! CurMech.GetCockpit().HasFireControl() ) {
+            cockpitMultiplier -= 0.1;
+        }
+        if( CurMech.GetCockpit().LookupName().contains( "Primitive Industrial" ) ) {
+            cockpitMultiplier -= 0.1;
+        }
+        if( cockpitMultiplier < 1.0 ) {
+            retval += "    Cockpit Offensive Modifier: " + String.format( "%1$,.2f", cockpitMultiplier ) + NL;
+            retval += "    Final Value: " + String.format( "%1$,.2f", (double) Math.floor( ( Math.pow( temp, 1.2f ) ) * 100 + 0.5f ) / 100 ) + " * " + String.format( "%1$,.2f", cockpitMultiplier ) + " = " + String.format( "%1$,.2f", ( (double) Math.floor( ( Math.pow( temp, 1.2f ) ) * 100 + 0.5f ) / 100 ) * cockpitMultiplier ) + " (rounded off to two digits)" + NL;
+        }
 
         return retval;
     }
