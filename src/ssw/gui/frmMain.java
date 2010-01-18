@@ -114,7 +114,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     MechLoadoutRenderer Mechrender;
     public Preferences Prefs;
-    boolean Load = false;
+    boolean Load = false,
+            SetSource = true;
     private Cursor Hourglass = new Cursor( Cursor.WAIT_CURSOR );
     private Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
     // ImageIcon FluffImage = Utils.createImageIcon( SSWConstants.NO_IMAGE );
@@ -895,6 +896,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 break;
         }
         try {
+
             cmbTechBase.setSelectedIndex( CurMech.GetTechBase() );
         } catch( Exception e ) {
             Media.Messager( "Could not set the Techbase due to changes.\nReverting to Inner Sphere." );
@@ -2973,6 +2975,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private boolean VerifyMech( ActionEvent evt ) {
         // if we have an omnimech, remember which loadout was selected
         String CurLoadout = "";
+        SetSource = false;
         if( CurMech.IsOmnimech() ) {
             CurLoadout = CurMech.GetLoadout().GetName();
         }
@@ -2982,6 +2985,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             Media.Messager( this, "Your mech needs a name first." );
             tbpMainTabPane.setSelectedComponent( pnlBasicSetup );
             txtMechName.requestFocusInWindow();
+            SetSource = true;
             return false;
         }
 
@@ -2989,6 +2993,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( ! CurMech.ValidateECM() ) {
             Media.Messager( "This 'Mech requires an ECM system of some sort to be valid.\nPlease install an ECM system." );
             tbpMainTabPane.setSelectedComponent( pnlEquipment );
+            SetSource = true;
             return false;
         }
 
@@ -3003,6 +3008,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     cmbOmniVariant.setSelectedItem( ((ifMechLoadout) v.get( i )).GetName() );
                     cmbOmniVariantActionPerformed( evt );
                     tbpMainTabPane.setSelectedComponent( pnlCriticals );
+                    SetSource = true;
                     return false;
                 }
             }
@@ -3010,6 +3016,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             if( CurMech.GetLoadout().GetQueue().size() != 0 ) {
                 Media.Messager( this, "You must place all items first." );
                 tbpMainTabPane.setSelectedComponent( pnlCriticals );
+                SetSource = true;
                 return false;
             }
         }
@@ -3021,23 +3028,26 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 CurMech.SetCurLoadout( ((ifMechLoadout) v.get( i )).GetName() );
                 if( CurMech.GetCurrentTons() > CurMech.GetTonnage() ) {
                     Media.Messager( this, ((ifMechLoadout) v.get( i )).GetName() +
-                        " loadout is overweight.  Reduce the weight\nto equal or below the mech's tonnage before exporting." );
+                        " loadout is overweight.  Reduce the weight\nto equal or below the mech's tonnage." );
                     cmbOmniVariant.setSelectedItem( ((ifMechLoadout) v.get( i )).GetName() );
                     cmbOmniVariantActionPerformed( evt );
                     tbpMainTabPane.setSelectedComponent( pnlBasicSetup );
+                    SetSource = true;
                     return false;
                 }
             }
         } else {
             if( CurMech.GetCurrentTons() > CurMech.GetTonnage() ) {
-                Media.Messager( this, "This mech is overweight.  Reduce the weight to\nequal or below the mech's tonnage before exporting." );
+                Media.Messager( this, "This mech is overweight.  Reduce the weight to\nequal or below the mech's tonnage." );
                 tbpMainTabPane.setSelectedComponent( pnlBasicSetup );
+                SetSource = true;
                 return false;
             }
         }
         if( CurMech.IsOmnimech() ) {
-            cmbOmniVariant.setSelectedItem( CurLoadout );
+            CurMech.SetCurLoadout( CurLoadout );
         }
+        SetSource = true;
         return true;
     }
 
@@ -11486,15 +11496,21 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_mnuAboutSSWActionPerformed
 
     private void mnuExportTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportTXTActionPerformed
+        SetSource = false;
         btnExportTXTActionPerformed( evt );
+        SetSource = true;
     }//GEN-LAST:event_mnuExportTXTActionPerformed
 
     private void mnuExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportHTMLActionPerformed
+        SetSource = false;
         btnExportHTMLActionPerformed( evt );
+        SetSource = true;
     }//GEN-LAST:event_mnuExportHTMLActionPerformed
 
     private void mnuExportMTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportMTFActionPerformed
+        SetSource = false;
         btnExportMTFActionPerformed( evt );
+        SetSource = true;
     }//GEN-LAST:event_mnuExportMTFActionPerformed
 
     private void chkYearRestrictActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkYearRestrictActionPerformed
@@ -11878,16 +11894,18 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_btnDeleteVariantActionPerformed
 
     private void cmbOmniVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOmniVariantActionPerformed
+        if( SetSource ) {
+            CurMech.SetSource( txtSource.getText() );
+        }
         String variant = (String) cmbOmniVariant.getSelectedItem();
         boolean changed = CurMech.HasChanged();
 
-        CurMech.SetSource( txtSource.getText() );
         CurMech.SetCurLoadout( variant );
 
         // now fix the GUI
         cmbRulesLevel.setSelectedIndex( CurMech.GetLoadout().GetRulesLevel() );
         BuildTechBaseSelector();
-        cmbTechBase.setSelectedIndex( CurMech.GetLoadout().GetTechBase() );
+        //cmbTechBase.setSelectedIndex( CurMech.GetLoadout().GetTechBase() );
         txtSource.setText( CurMech.GetSource() );
         FixTransferHandlers();
         SetLoadoutArrays();
@@ -11954,7 +11972,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 	private void mnuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSaveActionPerformed
         // Solidify the mech first.
         setCursor( Hourglass );
-
         File savemech = GetSaveFile( "ssw", Prefs.get( "LastOpenDirectory", "" ), true, false );
         if( savemech == null ) {
             setCursor( NormalCursor );
@@ -12003,8 +12020,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // lastly, if this is an omnimech, reset the display to the last loadout
         if( CurMech.IsOmnimech() ) {
+            SetSource = false;
             cmbOmniVariant.setSelectedItem( CurLoadout );
             cmbOmniVariantActionPerformed( evt );
+            SetSource = true;
         }
 
         setCursor( NormalCursor );
@@ -13223,10 +13242,13 @@ private void btnForceListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 }//GEN-LAST:event_btnForceListActionPerformed
 
 private void btnAddToForceListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToForceListActionPerformed
+    SetSource = false;
     SolidifyMech();
     if (VerifyMech(evt)) {
         dForce.Add(CurMech);
     }
+    CurMech.SetCurLoadout( (String) cmbOmniVariant.getSelectedItem() );
+    SetSource = true;
 }//GEN-LAST:event_btnAddToForceListActionPerformed
 
 private void mnuCreateTCGMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCreateTCGMechActionPerformed
@@ -13239,10 +13261,13 @@ private void mnuCreateTCGMechActionPerformed(java.awt.event.ActionEvent evt) {//
 }//GEN-LAST:event_mnuCreateTCGMechActionPerformed
 
 private void mnuTextTROActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuTextTROActionPerformed
+    SetSource = false;
     SolidifyMech();
     dlgTextExport Text = new dlgTextExport( this, true, CurMech );
     Text.setLocationRelativeTo( this );
     Text.setVisible( true );
+    CurMech.SetCurLoadout( (String) cmbOmniVariant.getSelectedItem() );
+    SetSource = true;
 }//GEN-LAST:event_mnuTextTROActionPerformed
 
 private void chkChartFrontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkChartFrontActionPerformed
