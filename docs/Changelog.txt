@@ -47,6 +47,7 @@ Version 0.7.0
 - You can unlock an OmniMech's chassis, but will lose all current loadouts.
 - Added a range-bracketing chart screen on the Charts tab.
 - Added Fractional Accounting.
+- Added HTML editors to all fluff tabs, currently in testing.
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.
@@ -113,6 +114,12 @@ Version 0.7.0
 - Equipment and physical weapons now load from binary files.
 - Changed Machine Gun Array chat export name to include number of MGs.
 - Fixed actuator checking for certain equipment.
+- Fixed an issue with Streaks reporting BV heat instead of their full heat on exports.
+- Fixed an issue with movement reports on export.
+- Fixed an issue with armored cockpit components on load or new Mech.
+- Fixed an issue with Quad 'Mechs not gaining the Rules or Tech level of the previous (biped) loadout.
+- Fixed an issue with OmniMechs and the Source field not saving correctly.
+- Fixed an issue with Omnis and the Techbase not loading or changing according to the loadout.
 
 -------------------------------------------------------------------------------
 Version 0.6.0
