@@ -499,7 +499,7 @@ public class HTMLWriter {
                 return CommonTools.GetRulesLevelString( CurMech.GetLoadout().GetRulesLevel() );
             }
         } else if( tag.equals( "<+-SSW_OMNI_LOADOUT_TECHBASE-+>" ) ) {
-            if( CurMech.GetLoadout().GetTechBase() != CurMech.GetTechBase() ) {
+            if( CurMech.GetLoadout().GetTechBase() != CurMech.GetBaseTechbase() ) {
                 return CommonTools.GetTechbaseString( CurMech.GetLoadout().GetTechBase() );
             } else {
                 return "";
@@ -1230,9 +1230,9 @@ public class HTMLWriter {
         lookup.put( "<+-SSW_NAME-+>", CurMech.GetName() );
         lookup.put( "<+-SSW_MODEL-+>", CurMech.GetModel() );
         if( CurMech.IsPrimitive() ) {
-            lookup.put( "<+-SSW_TECHBASE-+>", CommonTools.GetTechbaseString( CurMech.GetTechBase() ) + " (Primitive)" );
+            lookup.put( "<+-SSW_TECHBASE-+>", CommonTools.GetTechbaseString( CurMech.GetBaseTechbase() ) + " (Primitive)" );
         } else {
-            lookup.put( "<+-SSW_TECHBASE-+>", CommonTools.GetTechbaseString( CurMech.GetTechBase() ) );
+            lookup.put( "<+-SSW_TECHBASE-+>", CommonTools.GetTechbaseString( CurMech.GetBaseTechbase() ) );
         }
         lookup.put( "<+-SSW_TONNAGE-+>", FormatTonnage( CurMech.GetTonnage(), 1 ) );
         lookup.put( "<+-SSW_DRY_TONNAGE-+>", FormatTonnage( CurMech.GetCurrentDryTons(), 1 ) );

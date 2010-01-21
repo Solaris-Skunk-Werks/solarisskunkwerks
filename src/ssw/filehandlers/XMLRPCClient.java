@@ -206,7 +206,7 @@ public class XMLRPCClient {
         send += "\t\t</param>\r\n";
         send += "\t\t<param>\r\n";
         send += "\t\t\t<value>\r\n";
-        switch( m.GetTechBase() ) {
+        switch( m.GetBaseTechbase() ) {
             case AvailableCode.TECH_INNER_SPHERE:
                 send += "\t\t\t\t<string>Inner Sphere</string>\r\n";
                 break;

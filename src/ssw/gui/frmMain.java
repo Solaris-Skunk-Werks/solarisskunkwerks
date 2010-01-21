@@ -622,7 +622,18 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // deal with the mech's engine rating here.  Reset the Run MP label too
         if( CurWalk > MaxWalk ) { CurWalk = MaxWalk; }
         //CurMech.GetEngine().SetRating( CurWalk * CurMech.GetTonnage(), CurMech.IsPrimitive() );
-        CurMech.SetWalkMP( CurWalk );
+        try {
+            CurMech.SetWalkMP( CurWalk );
+        } catch( Exception e ) {
+            Media.Messager( e.getMessage() + "\nSetting Walk MP to 1.  Please reset to desired speed.");
+            try {
+                CurMech.SetWalkMP( 1 );
+            } catch( Exception e1 ) {
+                Media.Messager( this, "Fatal error while attempting to set Walk MP to 1:\n" + e1.getMessage() + "\nStarting over with a new 'Mech.  Sorry." );
+                GetNewMech();
+                return;
+            }
+        }
         lblRunMP.setText( "" + CurMech.GetRunningMP() );
 
         // reset the spinner model and we're done.
@@ -9785,6 +9796,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         BuildHeatsinkSelector();
         BuildJumpJetSelector();
         BuildArmorSelector();
+        FixWalkMPSpinner();
+        FixJJSpinnerModel();
         RefreshEquipment();
         CheckOmnimech();
 
@@ -9836,9 +9849,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
             return;
         }
-
-        // the commitedit worked, so set the engine rating and report the running mp
-        CurMech.SetWalkMP( n.getNumber().intValue() );
+        try {
+            // the commitedit worked, so set the engine rating and report the running mp
+            CurMech.SetWalkMP( n.getNumber().intValue() );
+        } catch( Exception e ) {
+            Media.Messager( e.getMessage() );
+            spnWalkMP.setValue( spnWalkMP.getPreviousValue() );
+        }
         lblRunMP.setText( "" + CurMech.GetRunningMP() );
 
         // when the walking mp changes, we also have to change the jump mp
@@ -10076,6 +10093,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             BuildJumpJetSelector();
             BuildArmorSelector();
             RefreshEquipment();
+            FixWalkMPSpinner();
+            FixJJSpinnerModel();
             CheckOmnimech();
 
             // for Clan machines (only) ensure that Clan CASE is selected by default
@@ -11726,6 +11745,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             BuildHeatsinkSelector();
             BuildJumpJetSelector();
             BuildArmorSelector();
+            FixWalkMPSpinner();
+            FixJJSpinnerModel();
             RefreshEquipment();
 
             // now reset the combo boxes to the closest choices we previously selected
@@ -13068,6 +13089,7 @@ private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
         RecalcEngine();
         FixWalkMPSpinner();
+        FixJJSpinnerModel();
         RecalcGyro();
         RecalcIntStruc();
         RecalcCockpit();

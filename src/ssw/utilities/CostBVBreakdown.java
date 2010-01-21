@@ -284,11 +284,15 @@ public class CostBVBreakdown {
         // find out the total BV of rear and forward firing weapons
         for( int i = 0; i < wep.size(); i++ ) {
             a = ((abPlaceable) wep.get( i ));
-            UseAESMod = CurMech.UseAESModifier( a );
-            if( a.IsMountedRear() ) {
-                rearBV += a.GetCurOffensiveBV( false, TC, UseAESMod );
-            } else {
-                foreBV += a.GetCurOffensiveBV( false, TC, UseAESMod );
+            // arm mounted weapons always count their full BV, so ignore them.
+            int loc = CurMech.GetLoadout().Find( a );
+            if( loc != LocationIndex.MECH_LOC_LA && loc != LocationIndex.MECH_LOC_RA ) {
+                UseAESMod = CurMech.UseAESModifier( a );
+                if( a.IsMountedRear() ) {
+                    rearBV += a.GetCurOffensiveBV( true, TC, UseAESMod );
+                } else {
+                    foreBV += a.GetCurOffensiveBV( false, TC, UseAESMod );
+                }
             }
         }
         if( rearBV > foreBV ) { UseRear = true; }
@@ -298,8 +302,13 @@ public class CostBVBreakdown {
             // no need for extensive calculations, return the weapon BV
             for( int i = 0; i < wep.size(); i++ ) {
                 a = ((abPlaceable) wep.get( i ));
+                int loc = CurMech.GetLoadout().Find( a );
                 UseAESMod = CurMech.UseAESModifier( ((abPlaceable) wep.get( i )) );
-                retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.CritName(), a.GetCurOffensiveBV( UseRear, TC, UseAESMod ) ) + NL;
+                if( loc != LocationIndex.MECH_LOC_LA && loc != LocationIndex.MECH_LOC_RA ) {
+                    retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.CritName(), a.GetCurOffensiveBV( UseRear, TC, UseAESMod ) ) + NL;
+                } else {
+                    retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.CritName(), a.GetCurOffensiveBV( false, TC, UseAESMod ) ) + NL;
+                }
             }
             return retval;
         }
@@ -312,13 +321,26 @@ public class CostBVBreakdown {
         for( int i = 0; i < sorted.length; i++ ) {
             a = sorted[i];
             UseAESMod = CurMech.UseAESModifier( a );
+            int loc = CurMech.GetLoadout().Find( sorted[i] );
             if( curheat < heff ) {
-                retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.CritName(), a.GetCurOffensiveBV( UseRear, TC, UseAESMod ) ) + NL;
-            } else {
-                if( ((ifWeapon) sorted[i]).GetBVHeat() <= 0 ) {
+                if( loc != LocationIndex.MECH_LOC_LA && loc != LocationIndex.MECH_LOC_RA ) {
                     retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.CritName(), a.GetCurOffensiveBV( UseRear, TC, UseAESMod ) ) + NL;
                 } else {
-                    retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.CritName(), a.GetCurOffensiveBV( UseRear, TC, UseAESMod ) * 0.5f ) + NL;
+                    retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.CritName(), a.GetCurOffensiveBV( false, TC, UseAESMod ) ) + NL;
+                }
+            } else {
+                if( ((ifWeapon) sorted[i]).GetBVHeat() <= 0 ) {
+                    if( loc != LocationIndex.MECH_LOC_LA && loc != LocationIndex.MECH_LOC_RA ) {
+                        retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.CritName(), a.GetCurOffensiveBV( UseRear, TC, UseAESMod ) ) + NL;
+                    } else {
+                        retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.CritName(), a.GetCurOffensiveBV( false, TC, UseAESMod ) ) + NL;
+                    }
+                } else {
+                    if( loc != LocationIndex.MECH_LOC_LA && loc != LocationIndex.MECH_LOC_RA ) {
+                        retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.CritName(), a.GetCurOffensiveBV( UseRear, TC, UseAESMod ) * 0.5f ) + NL;
+                    } else {
+                        retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.CritName(), a.GetCurOffensiveBV( false, TC, UseAESMod ) * 0.5f ) + NL;
+                    }
                 }
             }
             curheat += ((ifWeapon) sorted[i]).GetBVHeat();

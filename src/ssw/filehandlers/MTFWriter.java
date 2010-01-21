@@ -126,12 +126,24 @@ public class MTFWriter {
         FR.newLine();
         if( mixed ) {
             if( CurMech.GetEngine().GetTechBase() == AvailableCode.TECH_INNER_SPHERE ) {
-                FR.write( "Engine:" + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine().CritName() + " (Inner Sphere)" );
+                if( CurMech.GetEngine().GetRating() > 400 ) {
+                    FR.write( "Engine:" + CurMech.GetEngine().GetRating() + " Large " + CurMech.GetEngine().CritName() + " (Inner Sphere)" );
+                } else {
+                    FR.write( "Engine:" + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine().CritName() + " (Inner Sphere)" );
+                }
             } else {
-                FR.write( "Engine:" + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine().CritName() + " (Clan)" );
+                if( CurMech.GetEngine().GetRating() > 400 ) {
+                    FR.write( "Engine:" + CurMech.GetEngine().GetRating() + " Large " + CurMech.GetEngine().CritName() + " (Clan)" );
+                } else {
+                    FR.write( "Engine:" + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine().CritName() + " (Clan)" );
+                }
             }
         } else {
-            FR.write( "Engine:" + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine().CritName() );
+            if( CurMech.GetEngine().GetRating() > 400 ) {
+                FR.write( "Engine:" + CurMech.GetEngine().GetRating() + " Large " + CurMech.GetEngine().CritName() );
+            } else {
+                FR.write( "Engine:" + CurMech.GetEngine().GetRating() + " " + CurMech.GetEngine().CritName() );
+            }
         }
         FR.newLine();
         FR.write( "Structure:" + CurMech.GetIntStruc().MegaMekName( false ) );
