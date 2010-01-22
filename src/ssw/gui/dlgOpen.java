@@ -42,7 +42,9 @@ import javax.swing.SwingWorker;
 import javax.swing.table.TableRowSorter;
 import components.Mech;
 import filehandlers.*;
+import java.awt.event.KeyEvent;
 import list.*;
+import list.view.*;
 import ssw.print.Printer;
 
 public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListener {
@@ -52,6 +54,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private String dirPath = "";
     private String NL = "";
     private String msg = "";
+    private abView currentView = new tbTotalWarfareView(list);
 
     /** Creates new form dlgOpen */
     public dlgOpen(java.awt.Frame parent, boolean modal) {
@@ -84,6 +87,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             parent.CurMech.SetChanged( false );
 
             tblMechData.clearSelection();
+            setupList(list);
             this.setVisible(false);
 
         } catch ( Exception e ) {
@@ -122,6 +126,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             if ( dirPath.isEmpty() && this.isVisible() ) {
                 dirPath = media.GetDirectorySelection(this, "", "Select SSW File Directory");
                 parent.Prefs.put("ListPath", dirPath);
+                if ( dirPath.isEmpty() ) { this.setVisible( false ); }
             }
         }
 
@@ -138,37 +143,35 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         }
 
         String displayPath = dirPath;
-//        if (! dirPath.isEmpty() ) {
-//            if (dirPath.contains(File.separator)) {
-//                displayPath = dirPath.substring(0, 3) + "..." + dirPath.substring(dirPath.lastIndexOf(File.separator)) + "";
-//            }
-//        }
         this.lblStatus.setText(list.Size() + " Mechs loaded from " + displayPath);
         this.lblStatus.setToolTipText(dirPath);
-        Filter(null);
         spnMechTable.getVerticalScrollBar().setValue(0);
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
 
     private void setupList(MechList mechList) {
+        //currentView.list = mechList;
+        //tblMechData.setModel(currentView);
+        //currentView.setupTable(tblMechData);
         tblMechData.setModel(mechList);
 
+        lblShowing.setText("Showing " + mechList.Size() + " of " + list.Size());
         //Create a sorting class and apply it to the list
-        TableRowSorter sorter = new TableRowSorter<MechList>(mechList);
-        List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
-        sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
-        sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
-        sorter.setSortKeys(sortKeys);
-        tblMechData.setRowSorter(sorter);
-
-        tblMechData.getColumnModel().getColumn(0).setPreferredWidth(20);
-        tblMechData.getColumnModel().getColumn(1).setPreferredWidth(150);
-        tblMechData.getColumnModel().getColumn(2).setPreferredWidth(20);
-        tblMechData.getColumnModel().getColumn(3).setPreferredWidth(60);
-        tblMechData.getColumnModel().getColumn(4).setPreferredWidth(80);
-        tblMechData.getColumnModel().getColumn(5).setPreferredWidth(100);
-        tblMechData.getColumnModel().getColumn(6).setPreferredWidth(50);
-        tblMechData.getColumnModel().getColumn(7).setPreferredWidth(20);
+//        TableRowSorter sorter = new TableRowSorter<MechList>(mechList);
+//        List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
+//        sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
+//        sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
+//        sorter.setSortKeys(sortKeys);
+//        tblMechData.setRowSorter(sorter);
+//
+//        tblMechData.getColumnModel().getColumn(0).setPreferredWidth(20);
+//        tblMechData.getColumnModel().getColumn(1).setPreferredWidth(150);
+//        tblMechData.getColumnModel().getColumn(2).setPreferredWidth(20);
+//        tblMechData.getColumnModel().getColumn(3).setPreferredWidth(60);
+//        tblMechData.getColumnModel().getColumn(4).setPreferredWidth(80);
+//        tblMechData.getColumnModel().getColumn(5).setPreferredWidth(100);
+//        tblMechData.getColumnModel().getColumn(6).setPreferredWidth(50);
+//        tblMechData.getColumnModel().getColumn(7).setPreferredWidth(20);
     }
 
     private void checkSelection() {
@@ -244,9 +247,9 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             MechReader read = new MechReader();
             MechWriter writer = new MechWriter();
 
-            File List = new File(dirPath);
+            File FileList = new File(dirPath);
             try {
-                processDir( List, read, writer );
+                processDir( FileList, read, writer );
             } catch ( IOException ie ) {
                 System.out.println(ie.getMessage());
                 throw new Exception(msg);
@@ -316,12 +319,14 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         btnChangeDir = new javax.swing.JButton();
         btnPrint = new javax.swing.JButton();
         btnAdd2Force = new javax.swing.JButton();
+        btnViewForce = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnOptions = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         btnMagic = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
+        lblForce = new javax.swing.JLabel();
         spnMechTable = new javax.swing.JScrollPane();
         tblMechData = new javax.swing.JTable();
         pnlFilters = new javax.swing.JPanel();
@@ -355,11 +360,15 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         cmbMinMP = new javax.swing.JComboBox();
         lblStatus = new javax.swing.JLabel();
         prgResaving = new javax.swing.JProgressBar();
+        lblShowing = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Select Mech(s)");
         setMinimumSize(new java.awt.Dimension(600, 500));
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -421,6 +430,19 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             }
         });
         tlbActions.add(btnAdd2Force);
+
+        btnViewForce.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/clipboard.png"))); // NOI18N
+        btnViewForce.setToolTipText("View Force");
+        btnViewForce.setEnabled(false);
+        btnViewForce.setFocusable(false);
+        btnViewForce.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnViewForce.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnViewForce.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewForceActionPerformed(evt);
+            }
+        });
+        tlbActions.add(btnViewForce);
         tlbActions.add(jSeparator1);
 
         btnOptions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/gear.png"))); // NOI18N
@@ -460,6 +482,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         });
         tlbActions.add(btnMagic);
         tlbActions.add(jSeparator3);
+        tlbActions.add(lblForce);
 
         tblMechData.setAutoCreateRowSorter(true);
         tblMechData.setModel(new javax.swing.table.DefaultTableModel(
@@ -486,8 +509,8 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             }
         });
         tblMechData.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tblMechDataKeyPressed(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblMechDataKeyReleased(evt);
             }
         });
         spnMechTable.setViewportView(tblMechData);
@@ -748,6 +771,9 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         prgResaving.setStringPainted(true);
 
+        lblShowing.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblShowing.setText("Showing 0 of 0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -761,15 +787,17 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlFilters, javax.swing.GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 319, Short.MAX_VALUE)
+                .addComponent(lblShowing, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -785,7 +813,9 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlFilters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblShowing)))
         );
 
         pack();
@@ -923,24 +953,26 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         chkOmni.setSelected(false);
 }//GEN-LAST:event_btnClearFilterFilter
 
-    private void tblMechDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblMechDataKeyPressed
-        //javax.swing.JOptionPane.showMessageDialog(this, "You typed a " + evt.getKeyChar());
-    }//GEN-LAST:event_tblMechDataKeyPressed
-
     private void btnAdd2ForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd2ForceActionPerformed
+        //lblForce.setText("");
         if ( tblMechData.getSelectedRowCount() > 0 ) {
             int[] rows = tblMechData.getSelectedRows();
             for ( int i=0; i < rows.length; i++ ) {
                 MechListData data = ((MechList) tblMechData.getModel()).Get(tblMechData.convertRowIndexToModel(rows[i]));
-                parent.dForce.getForce().Units.add(new Unit(data));
+                parent.dForce.getForce().AddUnit(new Unit(data));
                 parent.dForce.getForce().RefreshBV();
+                lblForce.setText(lblForce.getText() + " " + data.getFullName() + " added;");
             }
+            btnViewForce.setEnabled( true );
+            String forceList = parent.dForce.getForce().getUnits().size() + " Units Selected: ";
+            for ( Unit u : parent.dForce.getForce().getUnits() ) {
+                forceList += " " + u.TypeModel;
+            }
+            lblForce.setText(parent.dForce.getForce().getUnits().size() + " Units");
+            lblForce.setToolTipText(forceList);
+            //btnViewForce.setToolTipText(forceList);
         }
-        tblMechData.clearSelection();
-
-        parent.dForce.setLocationRelativeTo(null);
-        parent.dForce.setVisible(true);
-        this.setVisible(false);
+        //tblMechData.clearSelection();
     }//GEN-LAST:event_btnAdd2ForceActionPerformed
 
     private void txtMaxTonFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaxTonFilter
@@ -994,6 +1026,48 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         setTooltip( (MechListData) ((MechList) tblMechData.getModel()).Get(tblMechData.convertRowIndexToModel(tblMechData.rowAtPoint(evt.getPoint()))) );
     }//GEN-LAST:event_tblMechDataMouseMoved
 
+    private void tblMechDataKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblMechDataKeyReleased
+        String entered = txtName.getText();
+
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_BACK_SPACE:
+                if ( !entered.isEmpty() ) { entered = entered.substring(0, entered.length()-1); }
+                break;
+            case KeyEvent.VK_DELETE:
+                entered = "";
+                break;
+            case KeyEvent.VK_ENTER:
+                if ( ((MechList) tblMechData.getModel()).Size() == 1 ) {
+                    tblMechData.selectAll();
+                    LoadMech();
+                }
+                break;
+            case KeyEvent.VK_SHIFT:
+            case KeyEvent.VK_CONTROL:
+                return;
+            default:
+                if ( (evt.getKeyCode() == 32) || (evt.getKeyCode() >= 45 && evt.getKeyCode() <= 90) ) {
+                    entered += evt.getKeyChar();
+                }
+        }
+        txtName.setText(entered);
+        txtNameKeyTyped(evt);
+    }//GEN-LAST:event_tblMechDataKeyReleased
+
+    private void btnViewForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewForceActionPerformed
+        lblForce.setText("");
+        
+        if ( tblMechData.getSelectedRowCount() > 0 ) {
+            btnAdd2ForceActionPerformed(evt);
+        }
+        parent.dForce.setLocationRelativeTo(this);
+        parent.dForce.setVisible(true);
+    }//GEN-LAST:event_btnViewForceActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        lblForce.setText("");
+    }//GEN-LAST:event_formWindowClosed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd2Force;
     private javax.swing.JButton btnChangeDir;
@@ -1004,6 +1078,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private javax.swing.JButton btnOptions;
     private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnViewForce;
     private javax.swing.JCheckBox chkOmni;
     private javax.swing.JComboBox cmbEra;
     private javax.swing.JComboBox cmbMinMP;
@@ -1018,10 +1093,12 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private javax.swing.JLabel lblBV;
     private javax.swing.JLabel lblCost;
     private javax.swing.JLabel lblEra;
+    private javax.swing.JLabel lblForce;
     private javax.swing.JLabel lblLevel;
     private javax.swing.JLabel lblMinMP;
     private javax.swing.JLabel lblMotive;
     private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblShowing;
     private javax.swing.JLabel lblSource;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTech;
