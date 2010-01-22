@@ -433,7 +433,6 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         btnViewForce.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/clipboard.png"))); // NOI18N
         btnViewForce.setToolTipText("View Force");
-        btnViewForce.setEnabled(false);
         btnViewForce.setFocusable(false);
         btnViewForce.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnViewForce.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -1057,9 +1056,9 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private void btnViewForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewForceActionPerformed
         lblForce.setText("");
         
-        if ( tblMechData.getSelectedRowCount() > 0 ) {
-            btnAdd2ForceActionPerformed(evt);
-        }
+        //if ( tblMechData.getSelectedRowCount() > 0 ) {
+        //    btnAdd2ForceActionPerformed(evt);
+        //}
         parent.dForce.setLocationRelativeTo(this);
         parent.dForce.setVisible(true);
     }//GEN-LAST:event_btnViewForceActionPerformed
