@@ -3901,6 +3901,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
 
+        filename = CommonTools.FormatFileName( filename );
+
         // ensure we have a good filename
         try {
             CheckFileName( filename );
