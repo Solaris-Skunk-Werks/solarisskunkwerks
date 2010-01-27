@@ -277,9 +277,9 @@ public class CostBVBreakdown {
         if( wep.size() <= 0 ) { return retval; }
 
         // now get the mech's heat efficiency and the total heat from weapons
-        int heff = 6 + CurMech.GetHeatSinks().TotalDissipation() - CurMech.GetBVMovementHeat();
+        double heff = 6 + CurMech.GetHeatSinks().TotalDissipation() - CurMech.GetBVMovementHeat();
         heff += GetBonusFromCP();
-        int wheat = CurMech.GetBVWeaponHeat();
+        double wheat = CurMech.GetBVWeaponHeat();
 
         // find out the total BV of rear and forward firing weapons
         for( int i = 0; i < wep.size(); i++ ) {
@@ -317,7 +317,7 @@ public class CostBVBreakdown {
         abPlaceable[] sorted = CurMech.SortWeapons( wep, UseRear );
 
         // calculate the BV of the weapons based on heat
-        int curheat = 0;
+        double curheat = 0;
         for( int i = 0; i < sorted.length; i++ ) {
             a = sorted[i];
             UseAESMod = CurMech.UseAESModifier( a );

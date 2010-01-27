@@ -62,7 +62,7 @@ import battleforce.*;
 import common.DataFactory;
 import dialog.frmForce;
 import components.EquipmentCollection;
-import gui.HTMLPane;
+import gui.TextPane;
 import ssw.printpreview.dlgPreview;
 
 public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner, common.DesignForm {
@@ -104,13 +104,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     JMenuItem mnuFluffCopy = new JMenuItem( "Copy" );
     JMenuItem mnuFluffPaste = new JMenuItem( "Paste" );
 
-    HTMLPane Overview = new HTMLPane( false );
-    HTMLPane Capabilities = new HTMLPane( false );
-    HTMLPane Deployment = new HTMLPane( false );
-    HTMLPane History = new HTMLPane( false );
-    HTMLPane Additional = new HTMLPane( false );
-    HTMLPane Variants = new HTMLPane( false );
-    HTMLPane Notables = new HTMLPane( false );
+    TextPane Overview = new TextPane();
+    TextPane Capabilities = new TextPane();
+    TextPane Deployment = new TextPane();
+    TextPane History = new TextPane();
+    TextPane Additional = new TextPane();
+    TextPane Variants = new TextPane();
+    TextPane Notables = new TextPane();
 
     MechLoadoutRenderer Mechrender;
     public Preferences Prefs;
@@ -2730,13 +2730,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
 
-        CurMech.SetOverview( Overview.GetHTMLSource() );
-        CurMech.SetCapabilities( Capabilities.GetHTMLSource() );
-        CurMech.SetHistory( History.GetHTMLSource() );
-        CurMech.SetDeployment( Deployment.GetHTMLSource() );
-        CurMech.SetVariants( Variants.GetHTMLSource() );
-        CurMech.SetNotables( Notables.GetHTMLSource() );
-        CurMech.SetAdditional( Additional.GetHTMLSource() );
+        CurMech.SetOverview( Overview.GetText() );
+        CurMech.SetCapabilities( Capabilities.GetText() );
+        CurMech.SetHistory( History.GetText() );
+        CurMech.SetDeployment( Deployment.GetText() );
+        CurMech.SetVariants( Variants.GetText() );
+        CurMech.SetNotables( Notables.GetText() );
+        CurMech.SetAdditional( Additional.GetText() );
         CurMech.SetCompany( txtManufacturer.getText() );
         CurMech.SetLocation( txtManufacturerLocation.getText() );
         CurMech.SetEngineManufacturer( txtEngineManufacturer.getText() );
@@ -11232,7 +11232,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         if( ((Equipment) a).RequiresQuad() ) {
                             throw new Exception( a.CritName() + " may only be mounted on a quad 'Mech." );
                         } else if( ((Equipment) a).MaxAllowed() > 0 ) {
-                            throw new Exception( "Only " + ((Equipment) a).MaxAllowed() + " " + a.CritName() + "s may be mounted on one 'Mech." );
+                            throw new Exception( "Only " + ((Equipment) a).MaxAllowed() + " " + a.CritName() + "(s) may be mounted on one 'Mech." );
                         }
                     }
                 }
