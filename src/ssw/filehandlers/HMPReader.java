@@ -203,7 +203,7 @@ public class HMPReader {
         } else {
             m.SetEra( AvailableCode.ERA_DARK_AGES );
         }
-        if( m.GetTechBase() == AvailableCode.TECH_CLAN ) {
+        if( m.GetTechbase() == AvailableCode.TECH_CLAN ) {
             if( m.GetEra() < AvailableCode.ERA_SUCCESSION ) {
                 m.SetEra( AvailableCode.ERA_SUCCESSION );
             } else {
@@ -212,7 +212,7 @@ public class HMPReader {
         }
         // although we can still have a mixed chassis earlier, most designs will
         // be Clan Invasion era
-        if( m.GetTechBase() == AvailableCode.TECH_BOTH ) {
+        if( m.GetTechbase() == AvailableCode.TECH_BOTH ) {
             if( m.GetEra() < AvailableCode.ERA_CLAN_INVASION ) {
                 m.SetEra( AvailableCode.ERA_CLAN_INVASION );
             }
@@ -225,7 +225,7 @@ public class HMPReader {
                 IntStrucLookup = "Standard Structure";
                 break;
             case 1:
-                IntStrucLookup = BuildLookupName( "Endo-Steel", m.GetTechBase(), IntStrucTechBase );
+                IntStrucLookup = BuildLookupName( "Endo-Steel", m.GetTechbase(), IntStrucTechBase );
                 break;
             case 2:
                 IntStrucLookup = "Composite Structure";
@@ -248,10 +248,10 @@ public class HMPReader {
                 EngineLookup = "Fusion Engine";
                 break;
             case 1:
-                EngineLookup = BuildLookupName( "XL Engine", m.GetTechBase(), EngineTechBase );
+                EngineLookup = BuildLookupName( "XL Engine", m.GetTechbase(), EngineTechBase );
                 break;
             case 2:
-                EngineLookup = BuildLookupName( "XXL Engine", m.GetTechBase(), EngineTechBase );
+                EngineLookup = BuildLookupName( "XXL Engine", m.GetTechbase(), EngineTechBase );
                 break;
             case 3:
                 EngineLookup = "Compact Fusion Engine";
@@ -278,7 +278,7 @@ public class HMPReader {
                 HSLookup = "Single Heat Sink";
                 break;
             case 1:
-                HSLookup = BuildLookupName( "Double Heat Sink", m.GetTechBase(), HSTechBase );
+                HSLookup = BuildLookupName( "Double Heat Sink", m.GetTechbase(), HSTechBase );
                 break;
             case 2:
                 throw new Exception( "SSW does not yet support Compact Heat Sinks." );
@@ -295,13 +295,13 @@ public class HMPReader {
                 ArmorLookup = "Standard Armor";
                 break;
             case 1:
-                ArmorLookup = BuildLookupName( "Ferro-Fibrous", m.GetTechBase(), ArmorTechBase );
+                ArmorLookup = BuildLookupName( "Ferro-Fibrous", m.GetTechbase(), ArmorTechBase );
                 break;
             case 2:
-                ArmorLookup = BuildLookupName( "Reactive Armor", m.GetTechBase(), ArmorTechBase );
+                ArmorLookup = BuildLookupName( "Reactive Armor", m.GetTechbase(), ArmorTechBase );
                 break;
             case 3:
-                ArmorLookup = BuildLookupName( "Laser-Reflective", m.GetTechBase(), ArmorTechBase );
+                ArmorLookup = BuildLookupName( "Laser-Reflective", m.GetTechbase(), ArmorTechBase );
                 break;
             case 4:
                 ArmorLookup = "Hardened Armor";
@@ -368,7 +368,7 @@ public class HMPReader {
                 EnhanceLookup = "TSM";
                 break;
             case 2:
-                EnhanceLookup = BuildLookupName( "MASC", m.GetTechBase(), EnhanceTechBase );
+                EnhanceLookup = BuildLookupName( "MASC", m.GetTechbase(), EnhanceTechBase );
                 break;
             case 3:
                 EnhanceLookup = "Industrial TSM";
@@ -481,7 +481,7 @@ public class HMPReader {
                     GyroLookup = "Standard Gyro";
                     break;
                 case 1:
-                    if( m.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                    if( m.GetTechbase() == AvailableCode.TECH_CLAN ) {
                         // this is not allowed under current rules.
                         GyroLookup = "Standard Gyro";
                         Errors.add( new ErrorReport( "An XL Gyro was specified for a Clan TechBase, which is not allowed under current rules.\nUse either Mixed or Inner Sphere Tech.  A Standard Gyro was used instead." ) );
@@ -490,7 +490,7 @@ public class HMPReader {
                     }
                     break;
                 case 2:
-                    if( m.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                    if( m.GetTechbase() == AvailableCode.TECH_CLAN ) {
                         // this is not allowed under current rules.
                         GyroLookup = "Standard Gyro";
                         Errors.add( new ErrorReport( "A Compact Gyro was specified for a Clan TechBase, which is not allowed under current rules.\nUse either Mixed or Inner Sphere Tech.  A Standard Gyro was used instead." ) );
@@ -499,7 +499,7 @@ public class HMPReader {
                     }
                     break;
                 case 3:
-                    if( m.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                    if( m.GetTechbase() == AvailableCode.TECH_CLAN ) {
                         // this is not allowed under current rules.
                         GyroLookup = "Standard Gyro";
                         Errors.add( new ErrorReport( "A Heavy-Duty Gyro was specified for a Clan TechBase, which is not allowed under current rules.\nUse either Mixed or Inner Sphere Tech.  A Standard Gyro was used instead." ) );
@@ -519,7 +519,7 @@ public class HMPReader {
                     CockpitLookup = "Torso-Mounted Cockpit";
                     break;
                 case 2:
-                    if( m.GetTechBase() == AvailableCode.TECH_CLAN ) {
+                    if( m.GetTechbase() == AvailableCode.TECH_CLAN ) {
                         // this is not allowed under current rules.
                         CockpitLookup = "Standard Cockpit";
                         Errors.add( new ErrorReport( "A Small Cockpit was specified for a Clan TechBase, which is not allowed under Tactical Operations.\nUse either Mixed or Inner Sphere Tech.  A Standard Cockpit was used instead." ) );

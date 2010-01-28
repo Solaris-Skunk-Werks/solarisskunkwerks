@@ -908,7 +908,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         try {
 
-            cmbTechBase.setSelectedIndex( CurMech.GetTechBase() );
+            cmbTechBase.setSelectedIndex( CurMech.GetTechbase() );
         } catch( Exception e ) {
             Media.Messager( "Could not set the Techbase due to changes.\nReverting to Inner Sphere." );
             cmbTechBase.setSelectedIndex( 0 );
@@ -10055,7 +10055,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( CurMech.IsOmnimech() ) {
             if( CurMech.GetLoadout().GetTechBase() == cmbTechBase.getSelectedIndex() ) { return; }
         } else {
-            if( CurMech.GetTechBase() == cmbTechBase.getSelectedIndex() ) { return; }
+            if( CurMech.GetTechbase() == cmbTechBase.getSelectedIndex() ) { return; }
         }
 
         // save the current selections
@@ -11684,7 +11684,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         int NewLevel = cmbRulesLevel.getSelectedIndex();
         int OldLevel = CurMech.GetLoadout().GetRulesLevel();
         int OldType = cmbMechType.getSelectedIndex();
-        int OldTech = CurMech.GetTechBase();
+        int OldTech = CurMech.GetTechbase();
 
         if( OldLevel == NewLevel ) {
             // we're already at the correct rules level.
@@ -11928,7 +11928,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // now fix the GUI
         cmbRulesLevel.setSelectedIndex( CurMech.GetLoadout().GetRulesLevel() );
         BuildTechBaseSelector();
-        //cmbTechBase.setSelectedIndex( CurMech.GetLoadout().GetTechBase() );
+        //cmbTechBase.setSelectedIndex( CurMech.GetLoadout().GetTechbase() );
         txtSource.setText( CurMech.GetSource() );
         FixTransferHandlers();
         SetLoadoutArrays();
