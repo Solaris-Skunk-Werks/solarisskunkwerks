@@ -157,21 +157,21 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         lblShowing.setText("Showing " + mechList.Size() + " of " + list.Size());
         //Create a sorting class and apply it to the list
-//        TableRowSorter sorter = new TableRowSorter<MechList>(mechList);
-//        List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
-//        sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
-//        sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
-//        sorter.setSortKeys(sortKeys);
-//        tblMechData.setRowSorter(sorter);
-//
-//        tblMechData.getColumnModel().getColumn(0).setPreferredWidth(20);
-//        tblMechData.getColumnModel().getColumn(1).setPreferredWidth(150);
-//        tblMechData.getColumnModel().getColumn(2).setPreferredWidth(20);
-//        tblMechData.getColumnModel().getColumn(3).setPreferredWidth(60);
-//        tblMechData.getColumnModel().getColumn(4).setPreferredWidth(80);
-//        tblMechData.getColumnModel().getColumn(5).setPreferredWidth(100);
-//        tblMechData.getColumnModel().getColumn(6).setPreferredWidth(50);
-//        tblMechData.getColumnModel().getColumn(7).setPreferredWidth(20);
+        TableRowSorter sorter = new TableRowSorter<MechList>(mechList);
+        List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
+        sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
+        sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
+        sorter.setSortKeys(sortKeys);
+        tblMechData.setRowSorter(sorter);
+
+        tblMechData.getColumnModel().getColumn(0).setPreferredWidth(20);
+        tblMechData.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tblMechData.getColumnModel().getColumn(2).setPreferredWidth(20);
+        tblMechData.getColumnModel().getColumn(3).setPreferredWidth(60);
+        tblMechData.getColumnModel().getColumn(4).setPreferredWidth(80);
+        tblMechData.getColumnModel().getColumn(5).setPreferredWidth(100);
+        tblMechData.getColumnModel().getColumn(6).setPreferredWidth(50);
+        tblMechData.getColumnModel().getColumn(7).setPreferredWidth(20);
     }
 
     private void checkSelection() {
@@ -365,6 +365,13 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Select Mech(s)");
         setMinimumSize(new java.awt.Dimension(600, 500));
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -777,25 +784,25 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 1037, Short.MAX_VALUE)
+            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 1026, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txtSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
                 .addComponent(prgResaving, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
+                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlFilters, javax.swing.GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
+                .addComponent(pnlFilters, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 319, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 308, Short.MAX_VALUE)
                 .addComponent(lblShowing, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -808,7 +815,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                     .addComponent(prgResaving, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
+                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlFilters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -833,7 +840,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 }//GEN-LAST:event_btnOpenActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        if (list.Size() == 0) LoadList();
+        if (list.Size() == 0) { LoadList(); }
     }//GEN-LAST:event_formWindowOpened
 
     private void btnOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOptionsActionPerformed
@@ -1066,6 +1073,10 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         lblForce.setText("");
     }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        Filter(null);
+    }//GEN-LAST:event_formWindowGainedFocus
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd2Force;
