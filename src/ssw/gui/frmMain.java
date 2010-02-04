@@ -478,15 +478,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         //dOpen.LoadList();
         CurMech.SetChanged( false );
-/*
-        CSVWriter csv = new CSVWriter();
-        try {
-            csv.WriteEquipmentCSV( data, "equips.csv" );
-            csv.WritePhysicalWeaponCSV( data, "physicals.csv" );
-        } catch( Exception e ) {
-            e.printStackTrace();
-        }
-*/
     }
 
     private void SetWeaponChoosers() {
@@ -907,7 +898,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 break;
         }
         try {
-
             cmbTechBase.setSelectedIndex( CurMech.GetTechbase() );
         } catch( Exception e ) {
             Media.Messager( "Could not set the Techbase due to changes.\nReverting to Inner Sphere." );
@@ -1572,7 +1562,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void RecalcEquipment() {
         // recalculates the equipment if anything changes
         boolean clan = false;
-        switch( CurMech.GetLoadout().GetTechBase() ) {
+        switch( CurMech.GetTechbase() ) {
             case AvailableCode.TECH_CLAN: case AvailableCode.TECH_BOTH:
                 // this is the default value to use assuming that during mixed
                 // tech operations the user will use the best.
@@ -1705,6 +1695,44 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             btnLockChassis.setEnabled( false );
         }
+    }
+
+    private void SaveOmniFluffInfo() {
+        if( SetSource ) {
+            CurMech.SetSource( txtSource.getText() );
+            CurMech.SetEra( cmbMechEra.getSelectedIndex() );
+            CurMech.SetYearRestricted( chkYearRestrict.isSelected() );
+            try {
+                CurMech.SetYear( Integer.parseInt( txtProdYear.getText() ), chkYearRestrict.isSelected() );
+            } catch( Exception e ) {
+                // nothing really to be done, set it to a default.
+                switch( cmbMechEra.getSelectedIndex() ) {
+                    case AvailableCode.ERA_STAR_LEAGUE:
+                        CurMech.SetYear( 2750, false );
+                        break;
+                    case AvailableCode.ERA_SUCCESSION:
+                        CurMech.SetYear( 3025, false );
+                        break;
+                    case AvailableCode.ERA_CLAN_INVASION:
+                        CurMech.SetYear( 3070, false );
+                        break;
+                    case AvailableCode.ERA_DARK_AGES:
+                        CurMech.SetYear( 3132, false );
+                        break;
+                    case AvailableCode.ERA_ALL:
+                        CurMech.SetYear( 0, false );
+                        break;
+                }
+            }
+        }
+    }
+
+    private void LoadOmniFluffInfo() {
+        cmbRulesLevel.setSelectedIndex( CurMech.GetRulesLevel() );
+        cmbMechEra.setSelectedIndex( CurMech.GetEra() );
+        txtSource.setText( CurMech.GetSource() );
+        txtProdYear.setText( "" + CurMech.GetYear() );
+        BuildTechBaseSelector();
     }
 
     private void RefreshInternalPoints() {
@@ -2780,9 +2808,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkOmnimech.setSelected( true );
         chkOmnimech.setEnabled( false );
         mnuUnlock.setEnabled( true );
-        //cmbRulesLevel.setEnabled( false );
-        cmbMechEra.setEnabled( false );
-        //cmbTechBase.setEnabled( false );
         cmbTonnage.setEnabled( false );
         cmbMechType.setEnabled( false );
         cmbMotiveType.setEnabled( false );
@@ -2889,9 +2914,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkOmnimech.setSelected( false );
         chkOmnimech.setEnabled( true );
         mnuUnlock.setEnabled( false );
-        //cmbRulesLevel.setEnabled( true );
-        cmbMechEra.setEnabled( true );
-        //cmbTechBase.setEnabled( true );
         cmbTonnage.setEnabled( true );
         cmbMechType.setEnabled( true );
         cmbMotiveType.setEnabled( true );
@@ -4117,6 +4139,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jSeparator26 = new javax.swing.JToolBar.Separator();
         btnOptionsIcon = new javax.swing.JButton();
         jSeparator21 = new javax.swing.JToolBar.Separator();
+        lblSelectVariant = new javax.swing.JLabel();
+        cmbOmniVariant = new javax.swing.JComboBox();
         tbpMainTabPane = new javax.swing.JTabbedPane();
         pnlBasicSetup = new javax.swing.JPanel();
         pnlBasicInformation = new javax.swing.JPanel();
@@ -4178,8 +4202,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         btnLockChassis = new javax.swing.JButton();
         btnAddVariant = new javax.swing.JButton();
         btnDeleteVariant = new javax.swing.JButton();
-        lblSelectVariant = new javax.swing.JLabel();
-        cmbOmniVariant = new javax.swing.JComboBox();
         pnlBasicSummary = new javax.swing.JPanel();
         lblSumStructure = new javax.swing.JLabel();
         txtSumIntTon = new javax.swing.JTextField();
@@ -4788,6 +4810,21 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         tlbIconBar.add(btnOptionsIcon);
         tlbIconBar.add(jSeparator21);
+
+        lblSelectVariant.setText("Selected Variant: ");
+        lblSelectVariant.setEnabled(false);
+        tlbIconBar.add(lblSelectVariant);
+
+        cmbOmniVariant.setEnabled(false);
+        cmbOmniVariant.setMaximumSize(new java.awt.Dimension(150, 20));
+        cmbOmniVariant.setMinimumSize(new java.awt.Dimension(150, 20));
+        cmbOmniVariant.setPreferredSize(new java.awt.Dimension(150, 20));
+        cmbOmniVariant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbOmniVariantActionPerformed(evt);
+            }
+        });
+        tlbIconBar.add(cmbOmniVariant);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
@@ -5415,9 +5452,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         btnLockChassis.setText("Lock Chassis");
         btnLockChassis.setEnabled(false);
-        btnLockChassis.setMaximumSize(new java.awt.Dimension(105, 23));
+        btnLockChassis.setMaximumSize(new java.awt.Dimension(200, 23));
         btnLockChassis.setMinimumSize(new java.awt.Dimension(105, 23));
-        btnLockChassis.setPreferredSize(new java.awt.Dimension(105, 23));
+        btnLockChassis.setPreferredSize(new java.awt.Dimension(120, 23));
         btnLockChassis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLockChassisActionPerformed(evt);
@@ -5426,14 +5463,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
         pnlOmniInfo.add(btnLockChassis, gridBagConstraints);
 
-        btnAddVariant.setText("Add");
+        btnAddVariant.setText("Add Variant");
         btnAddVariant.setEnabled(false);
-        btnAddVariant.setMaximumSize(new java.awt.Dimension(80, 23));
+        btnAddVariant.setMaximumSize(new java.awt.Dimension(200, 23));
         btnAddVariant.setMinimumSize(new java.awt.Dimension(80, 23));
-        btnAddVariant.setPreferredSize(new java.awt.Dimension(80, 23));
+        btnAddVariant.setPreferredSize(new java.awt.Dimension(120, 23));
         btnAddVariant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddVariantActionPerformed(evt);
@@ -5441,48 +5477,23 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 1;
         pnlOmniInfo.add(btnAddVariant, gridBagConstraints);
 
-        btnDeleteVariant.setText("Delete");
+        btnDeleteVariant.setText("Delete Variant");
         btnDeleteVariant.setEnabled(false);
-        btnDeleteVariant.setMaximumSize(new java.awt.Dimension(80, 23));
+        btnDeleteVariant.setMaximumSize(new java.awt.Dimension(200, 23));
         btnDeleteVariant.setMinimumSize(new java.awt.Dimension(80, 23));
-        btnDeleteVariant.setPreferredSize(new java.awt.Dimension(80, 23));
+        btnDeleteVariant.setPreferredSize(new java.awt.Dimension(120, 23));
         btnDeleteVariant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteVariantActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        pnlOmniInfo.add(btnDeleteVariant, gridBagConstraints);
-
-        lblSelectVariant.setText("Selected Variant:");
-        lblSelectVariant.setEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(8, 0, 0, 0);
-        pnlOmniInfo.add(lblSelectVariant, gridBagConstraints);
-
-        cmbOmniVariant.setEnabled(false);
-        cmbOmniVariant.setMaximumSize(new java.awt.Dimension(150, 20));
-        cmbOmniVariant.setMinimumSize(new java.awt.Dimension(150, 20));
-        cmbOmniVariant.setPreferredSize(new java.awt.Dimension(150, 20));
-        cmbOmniVariant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbOmniVariantActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 8, 0);
-        pnlOmniInfo.add(cmbOmniVariant, gridBagConstraints);
+        pnlOmniInfo.add(btnDeleteVariant, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -9728,6 +9739,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( CurMech.GetEra() == cmbMechEra.getSelectedIndex() ) {
             return;
         }
+        if( CurMech.IsOmnimech() ) {
+            if( cmbMechEra.getSelectedIndex() < CurMech.GetBaseEra() ) {
+                Media.Messager( this, "An OmniMech loadout cannot have an era lower than the main loadout." );
+                cmbMechEra.setSelectedIndex( CurMech.GetBaseEra() );
+            }
+        }
 
         // first, let's save the tech base selection in case we can still use it
         // prevents Clan mechs reverting to Inner Sphere on era change.
@@ -9740,28 +9757,28 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 txtProdYear.setText( "" );
                 CurMech.SetEra( AvailableCode.ERA_STAR_LEAGUE );
                 CurMech.SetYear( 2750, false );
-                chkYearRestrict.setEnabled( true );
+                if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
                 break;
             case AvailableCode.ERA_SUCCESSION:
                 lblEraYears.setText( "2801 ~ 3050" );
                 txtProdYear.setText( "" );
                 CurMech.SetEra( AvailableCode.ERA_SUCCESSION );
                 CurMech.SetYear( 3025, false );
-                chkYearRestrict.setEnabled( true );
+                if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
                 break;
             case AvailableCode.ERA_CLAN_INVASION:
                 lblEraYears.setText( "3051 ~ 3131" );
                 txtProdYear.setText( "" );
                 CurMech.SetEra( AvailableCode.ERA_CLAN_INVASION );
                 CurMech.SetYear( 3075, false );
-                chkYearRestrict.setEnabled( true );
+                if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
                 break;
             case AvailableCode.ERA_DARK_AGES:
                 lblEraYears.setText( "3132 on" );
                 txtProdYear.setText( "" );
                 CurMech.SetEra( AvailableCode.ERA_DARK_AGES );
                 CurMech.SetYear( 3132, false );
-                chkYearRestrict.setEnabled( true );
+                if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
                 break;
             case AvailableCode.ERA_ALL:
                 lblEraYears.setText( "Any" );
@@ -9770,6 +9787,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 CurMech.SetYear( 0, false );
                 chkYearRestrict.setEnabled( false );
                 break;
+        }
+
+        if( CurMech.IsOmnimech() ) {
+            RefreshEquipment();
+            RefreshSummary();
+            RefreshInfoPane();
+            SetWeaponChoosers();
+            ResetAmmo();
+            return;
         }
 
         BuildTechBaseSelector();
@@ -9807,10 +9833,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         LoadSelections();
 
         // when a new era is selected, we have to recalculate the mech
-        /*
-         * We're testing this for the next few builds to see what happens.
-        CurMech.GetLoadout().FullUnallocate();
-        */
         RecalcEngine();
         RecalcGyro();
         RecalcIntStruc();
@@ -11775,7 +11797,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void btnLockChassisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLockChassisActionPerformed
         // currently testing right now.
-        CurMech.SetSource( txtSource.getText() );
+        SaveOmniFluffInfo();
         String VariantName = "";
 
         // ensure there are no unplaced crits
@@ -11836,7 +11858,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_chkOmnimechActionPerformed
 
     private void btnAddVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddVariantActionPerformed
-        CurMech.SetSource( txtSource.getText() );
+        SaveOmniFluffInfo();
         String VariantName = "";
 
         // get the variant name
@@ -11904,6 +11926,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         CurMech.RemoveLoadout( CurMech.GetLoadout().GetName() );
 
         // refresh all the displays
+        LoadOmniFluffInfo();
         RefreshOmniVariants();
         FixTransferHandlers();
         SetLoadoutArrays();
@@ -11917,19 +11940,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_btnDeleteVariantActionPerformed
 
     private void cmbOmniVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOmniVariantActionPerformed
-        if( SetSource ) {
-            CurMech.SetSource( txtSource.getText() );
-        }
+        SaveOmniFluffInfo();
         String variant = (String) cmbOmniVariant.getSelectedItem();
         boolean changed = CurMech.HasChanged();
 
         CurMech.SetCurLoadout( variant );
 
         // now fix the GUI
-        cmbRulesLevel.setSelectedIndex( CurMech.GetLoadout().GetRulesLevel() );
-        BuildTechBaseSelector();
-        //cmbTechBase.setSelectedIndex( CurMech.GetLoadout().GetTechbase() );
-        txtSource.setText( CurMech.GetSource() );
+        LoadOmniFluffInfo();
         FixTransferHandlers();
         SetLoadoutArrays();
         SetWeaponChoosers();
@@ -12015,6 +12033,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         String CurLoadout = "";
         if( CurMech.IsOmnimech() ) {
             CurLoadout = CurMech.GetLoadout().GetName();
+            SaveOmniFluffInfo();
         }
 
         // save the mech to XML in the current location
