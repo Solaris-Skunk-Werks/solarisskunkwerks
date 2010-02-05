@@ -11884,6 +11884,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // fix the GUI
+        LoadOmniFluffInfo();
         FixTransferHandlers();
         SetLoadoutArrays();
         SetWeaponChoosers();
