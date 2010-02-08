@@ -2906,6 +2906,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbOmniVariant.setEnabled( true );
         btnAddVariant.setEnabled( true );
         btnDeleteVariant.setEnabled( true );
+        btnRenameVariant.setEnabled( true );
     }
 
     private void UnlockGUIFromOmni() {
@@ -2979,6 +2980,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbOmniVariant.setEnabled( false );
         btnAddVariant.setEnabled( false );
         btnDeleteVariant.setEnabled( false );
+        btnRenameVariant.setEnabled( false );
     }
 
     private void RefreshOmniVariants() {
@@ -4202,6 +4204,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         btnLockChassis = new javax.swing.JButton();
         btnAddVariant = new javax.swing.JButton();
         btnDeleteVariant = new javax.swing.JButton();
+        btnRenameVariant = new javax.swing.JButton();
         pnlBasicSummary = new javax.swing.JPanel();
         lblSumStructure = new javax.swing.JLabel();
         txtSumIntTon = new javax.swing.JTextField();
@@ -4376,6 +4379,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         btnRemoveEquip = new javax.swing.JButton();
         btnClearEquip = new javax.swing.JButton();
         btnAddEquip = new javax.swing.JButton();
+        cmbNumEquips = new javax.swing.JComboBox();
         pnlEquipInfo = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -5494,6 +5498,20 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         pnlOmniInfo.add(btnDeleteVariant, gridBagConstraints);
+
+        btnRenameVariant.setText("Rename Variant");
+        btnRenameVariant.setEnabled(false);
+        btnRenameVariant.setMinimumSize(new java.awt.Dimension(80, 23));
+        btnRenameVariant.setPreferredSize(new java.awt.Dimension(120, 23));
+        btnRenameVariant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRenameVariantActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        pnlOmniInfo.add(btnRenameVariant, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -7200,8 +7218,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 8);
         pnlControls.add(btnClearEquip, gridBagConstraints);
 
         btnAddEquip.setText(">>");
@@ -7211,10 +7228,17 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         pnlControls.add(btnAddEquip, gridBagConstraints);
+
+        cmbNumEquips.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(4, 8, 0, 0);
+        pnlControls.add(cmbNumEquips, gridBagConstraints);
 
         pnlEquipment.add(pnlControls, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 160, -1));
 
@@ -11277,6 +11301,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
             if( result ) {
                 CurMech.GetLoadout().AddToQueue( a );
+                for( int i = 0; i < cmbNumEquips.getSelectedIndex(); i++ ) {
+                    a = data.GetEquipment().GetCopy( a, CurMech );
+                    CurMech.GetLoadout().AddToQueue( a );
+                }
 
                 // unallocate the TC if needed (if the size changes)
                 if( a instanceof ifWeapon ) {
@@ -11306,6 +11334,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             // now refresh the information panes
             RefreshSummary();
             RefreshInfoPane();
+            cmbNumEquips.setSelectedIndex( 0 );
         }
     }//GEN-LAST:event_btnAddEquipActionPerformed
 
@@ -13590,6 +13619,41 @@ private void chkShowTextNotGraphActionPerformed(java.awt.event.ActionEvent evt) 
     UpdateBasicChart();
 }//GEN-LAST:event_chkShowTextNotGraphActionPerformed
 
+private void btnRenameVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenameVariantActionPerformed
+    SaveOmniFluffInfo();
+    String VariantName = "";
+
+    // get the variant name
+    dlgOmniBase input = new dlgOmniBase( this, true );
+    input.setTitle( "Name this variant" );
+    input.setLocationRelativeTo( this );
+    input.setVisible( true );
+    if( input.WasCanceled() ) {
+        input.dispose();
+        return;
+    } else {
+        VariantName = input.GetInput();
+        input.dispose();
+    }
+
+    if( CurMech.GetBaseLoadout().GetName().equals( VariantName ) ) {
+        Media.Messager( this, "\"" + VariantName + "\" is reserved for the base loadout and cannot be used\nto name this loadout.  Please choose another name." );
+        return;
+    }
+
+    // see if another loadout has the same name
+    Vector Loadouts = CurMech.GetLoadouts();
+    for( int i = 0; i < Loadouts.size(); i++ ) {
+        if( ((ifMechLoadout) Loadouts.get( i )).GetName().equals( VariantName ) ) {
+            Media.Messager( this, "Could not rename the loadout because\nthe name given matches an existing loadout." );
+            return;
+        }
+    }
+
+    CurMech.GetLoadout().SetName( VariantName );
+    RefreshOmniVariants();
+}//GEN-LAST:event_btnRenameVariantActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -13637,6 +13701,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JButton btnRemainingArmor;
     private javax.swing.JButton btnRemoveEquip;
     private javax.swing.JButton btnRemoveItemCrits;
+    private javax.swing.JButton btnRenameVariant;
     private javax.swing.JButton btnSaveIcon;
     private javax.swing.JButton btnSelectiveAllocate;
     private javax.swing.JCheckBox chkAverageDamage;
@@ -13698,6 +13763,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JComboBox cmbMechEra;
     private javax.swing.JComboBox cmbMechType;
     private javax.swing.JComboBox cmbMotiveType;
+    private javax.swing.JComboBox cmbNumEquips;
     private javax.swing.JComboBox cmbOmniVariant;
     private javax.swing.JComboBox cmbPhysEnhance;
     private javax.swing.JComboBox cmbRulesLevel;
