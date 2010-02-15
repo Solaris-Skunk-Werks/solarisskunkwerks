@@ -882,6 +882,36 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbArmorType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
     }
 
+    private void BuildPatchworkChoosers() {
+        // builds the armor selection box
+        Vector list = new Vector();
+
+        // get the armor states and, for each that matches our criteria, add it
+        // to the selector list
+        ifState[] check = CurMech.GetArmor().GetPatchworkStates();
+        for( int i = 0; i < check.length; i++ ) {
+            if( CommonTools.IsAllowed( check[i].GetAvailability(), CurMech ) ) {
+                list.add( BuildLookupName( check[i] ) );
+            }
+        }
+
+        // turn the vector into a string array
+        String[] temp = new String[list.size()];
+        for( int i = 0; i < list.size(); i++ ) {
+            temp[i] = (String) list.get(i);
+        }
+
+        // now set the armor chooser
+        cmbPWHDType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+        cmbPWCTType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+        cmbPWLTType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+        cmbPWRTType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+        cmbPWLAType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+        cmbPWRAType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+        cmbPWLLType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+        cmbPWRLType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
+    }
+
     private void BuildTechBaseSelector() {
         switch( CurMech.GetEra() ) {
             case AvailableCode.ERA_STAR_LEAGUE:
@@ -944,7 +974,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
     }
 
-    private String BuildLookupName( ifState s ) {
+    public String BuildLookupName( ifState s ) {
         String retval = s.LookupName();
         if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
             if( s.HasCounterpart() ) {
@@ -1557,6 +1587,100 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 }
             }
         }
+        SetPatchworkArmor();
+    }
+
+    private void SetPatchworkArmor() {
+        if( CurMech.GetArmor().IsPatchwork() ) {
+            pnlPatchworkChoosers.setVisible( true );
+            BuildPatchworkChoosers();
+            if( CurMech.IsQuad() ) {
+                lblPWLALoc.setText( "FLL Armor: " );
+                lblPWRALoc.setText( "FRL Armor: " );
+                lblPWLLLoc.setText( "RLL Armor: " );
+                lblPWRLLoc.setText( "RRL Armor: " );
+            } else {
+                lblPWLALoc.setText( "LA Armor: " );
+                lblPWRALoc.setText( "RA Armor: " );
+                lblPWLLLoc.setText( "LL Armor: " );
+                lblPWRLLoc.setText( "RL Armor: " );
+            }
+            cmbPWHDType.setSelectedItem( BuildLookupName( (ifState) CurMech.GetArmor().GetHDArmorType() ) );
+            cmbPWCTType.setSelectedItem( BuildLookupName( (ifState) CurMech.GetArmor().GetCTArmorType() ) );
+            cmbPWLTType.setSelectedItem( BuildLookupName( (ifState) CurMech.GetArmor().GetLTArmorType() ) );
+            cmbPWRTType.setSelectedItem( BuildLookupName( (ifState) CurMech.GetArmor().GetRTArmorType() ) );
+            cmbPWLAType.setSelectedItem( BuildLookupName( (ifState) CurMech.GetArmor().GetLAArmorType() ) );
+            cmbPWRAType.setSelectedItem( BuildLookupName( (ifState) CurMech.GetArmor().GetRAArmorType() ) );
+            cmbPWLLType.setSelectedItem( BuildLookupName( (ifState) CurMech.GetArmor().GetLLArmorType() ) );
+            cmbPWRLType.setSelectedItem( BuildLookupName( (ifState) CurMech.GetArmor().GetRLArmorType() ) );
+        } else {
+            pnlPatchworkChoosers.setVisible( false );
+        }
+    }
+
+    private void RecalcPatchworkArmor( int Loc ) {
+        VArmorSetPatchworkLocation LCVis = new VArmorSetPatchworkLocation();
+        LCVis.SetLocation( Loc );
+        if( CurMech.GetBaseTechbase() == AvailableCode.TECH_CLAN ) {
+                LCVis.SetClan( false );
+        }
+        switch( Loc ) {
+            case LocationIndex.MECH_LOC_HD:
+                LCVis.SetPatchworkType( (String) cmbPWHDType.getSelectedItem() );
+                break;
+            case LocationIndex.MECH_LOC_CT:
+                LCVis.SetPatchworkType( (String) cmbPWCTType.getSelectedItem() );
+                break;
+            case LocationIndex.MECH_LOC_LT:
+                LCVis.SetPatchworkType( (String) cmbPWLTType.getSelectedItem() );
+                break;
+            case LocationIndex.MECH_LOC_RT:
+                LCVis.SetPatchworkType( (String) cmbPWRTType.getSelectedItem() );
+                break;
+            case LocationIndex.MECH_LOC_LA:
+                LCVis.SetPatchworkType( (String) cmbPWLAType.getSelectedItem() );
+                break;
+            case LocationIndex.MECH_LOC_RA:
+                LCVis.SetPatchworkType( (String) cmbPWRAType.getSelectedItem() );
+                break;
+            case LocationIndex.MECH_LOC_LL:
+                LCVis.SetPatchworkType( (String) cmbPWLLType.getSelectedItem() );
+                break;
+            case LocationIndex.MECH_LOC_RL:
+                LCVis.SetPatchworkType( (String) cmbPWRLType.getSelectedItem() );
+                break;
+        }
+        try {
+            LCVis.Visit( CurMech );
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            switch( Loc ) {
+                case LocationIndex.MECH_LOC_HD:
+                    cmbPWHDType.setSelectedItem( CurMech.GetArmor().GetHDArmorType().LookupName() );
+                    break;
+                case LocationIndex.MECH_LOC_CT:
+                    cmbPWCTType.setSelectedItem( CurMech.GetArmor().GetCTArmorType().LookupName() );
+                    break;
+                case LocationIndex.MECH_LOC_LT:
+                    cmbPWLTType.setSelectedItem( CurMech.GetArmor().GetLTArmorType().LookupName() );
+                    break;
+                case LocationIndex.MECH_LOC_RT:
+                    cmbPWRTType.setSelectedItem( CurMech.GetArmor().GetRTArmorType().LookupName() );
+                    break;
+                case LocationIndex.MECH_LOC_LA:
+                    cmbPWLAType.setSelectedItem( CurMech.GetArmor().GetLAArmorType().LookupName() );
+                    break;
+                case LocationIndex.MECH_LOC_RA:
+                    cmbPWRAType.setSelectedItem( CurMech.GetArmor().GetRAArmorType().LookupName() );
+                    break;
+                case LocationIndex.MECH_LOC_LL:
+                    cmbPWLLType.setSelectedItem( CurMech.GetArmor().GetLLArmorType().LookupName() );
+                    break;
+                case LocationIndex.MECH_LOC_RL:
+                    cmbPWRLType.setSelectedItem( CurMech.GetArmor().GetRLArmorType().LookupName() );
+                    break;
+            }
+        }
     }
 
     private void RecalcEquipment() {
@@ -2058,7 +2182,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void FixArmorSpinners() {
         // fixes the armor spinners to match the new tonnage / motive type
-        Armor a = CurMech.GetArmor();
+        MechArmor a = CurMech.GetArmor();
         spnHDArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_HD ), 0, 9, 1) );
         spnCTArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_CT ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_CT ), 1) );
         spnLTArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_LT ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_LT ), 1) );
@@ -2123,8 +2247,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }
 
     public void RevertToStandardArmor() {
-        // convenience method for the armor visitor if Stealth Armor cannot be
-        // installed.  This should only ever be called by Stealth Armor, so we
+        // convenience method for the armor visitor if Stealth MechArmor cannot be
+        // installed.  This should only ever be called by Stealth MechArmor, so we
         // don't have to check whether we're in the right era or not.
         cmbArmorType.setSelectedItem( "Standard Armor" );
     }
@@ -4328,6 +4452,23 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         btnBalanceArmor = new javax.swing.JCheckBox();
         btnEfficientArmor = new javax.swing.JButton();
         btnRemainingArmor = new javax.swing.JButton();
+        pnlPatchworkChoosers = new javax.swing.JPanel();
+        lblPWHDLoc = new javax.swing.JLabel();
+        lblPWCTLoc = new javax.swing.JLabel();
+        lblPWLTLoc = new javax.swing.JLabel();
+        lblPWRTLoc = new javax.swing.JLabel();
+        lblPWLALoc = new javax.swing.JLabel();
+        lblPWRALoc = new javax.swing.JLabel();
+        lblPWLLLoc = new javax.swing.JLabel();
+        cmbPWHDType = new javax.swing.JComboBox();
+        cmbPWCTType = new javax.swing.JComboBox();
+        cmbPWLTType = new javax.swing.JComboBox();
+        cmbPWRTType = new javax.swing.JComboBox();
+        cmbPWLAType = new javax.swing.JComboBox();
+        cmbPWRAType = new javax.swing.JComboBox();
+        cmbPWLLType = new javax.swing.JComboBox();
+        cmbPWRLType = new javax.swing.JComboBox();
+        lblPWRLLoc = new javax.swing.JLabel();
         pnlEquipment = new javax.swing.JPanel();
         tbpWeaponChooser = new javax.swing.JTabbedPane();
         pnlBallistic = new javax.swing.JPanel();
@@ -6443,7 +6584,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlFrontArmor.add(pnlLAArmorBox, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridheight = 3;
         pnlArmor.add(pnlFrontArmor, gridBagConstraints);
 
         pnlRearArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Rear Armor"));
@@ -6523,8 +6664,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         pnlArmor.add(pnlRearArmor, gridBagConstraints);
 
         pnlArmorInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Armor Information"));
@@ -6712,9 +6854,185 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlArmorSetup.add(btnRemainingArmor, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         pnlArmor.add(pnlArmorSetup, gridBagConstraints);
+
+        pnlPatchworkChoosers.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Patchwork Armor Types"));
+        pnlPatchworkChoosers.setLayout(new java.awt.GridBagLayout());
+
+        lblPWHDLoc.setText("Head Armor: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        pnlPatchworkChoosers.add(lblPWHDLoc, gridBagConstraints);
+
+        lblPWCTLoc.setText("CT Armor: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        pnlPatchworkChoosers.add(lblPWCTLoc, gridBagConstraints);
+
+        lblPWLTLoc.setText("LT Armor: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        pnlPatchworkChoosers.add(lblPWLTLoc, gridBagConstraints);
+
+        lblPWRTLoc.setText("RT Armor: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        pnlPatchworkChoosers.add(lblPWRTLoc, gridBagConstraints);
+
+        lblPWLALoc.setText("LA Armor: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        pnlPatchworkChoosers.add(lblPWLALoc, gridBagConstraints);
+
+        lblPWRALoc.setText("RA Armor: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        pnlPatchworkChoosers.add(lblPWRALoc, gridBagConstraints);
+
+        lblPWLLLoc.setText("LL Armor: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        pnlPatchworkChoosers.add(lblPWLLLoc, gridBagConstraints);
+
+        cmbPWHDType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPWHDType.setMaximumSize(new java.awt.Dimension(150, 20));
+        cmbPWHDType.setMinimumSize(new java.awt.Dimension(150, 20));
+        cmbPWHDType.setPreferredSize(new java.awt.Dimension(150, 20));
+        cmbPWHDType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPWHDTypeActionPerformed(evt);
+            }
+        });
+        pnlPatchworkChoosers.add(cmbPWHDType, new java.awt.GridBagConstraints());
+
+        cmbPWCTType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPWCTType.setMaximumSize(new java.awt.Dimension(150, 20));
+        cmbPWCTType.setMinimumSize(new java.awt.Dimension(150, 20));
+        cmbPWCTType.setPreferredSize(new java.awt.Dimension(150, 20));
+        cmbPWCTType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPWCTTypeActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        pnlPatchworkChoosers.add(cmbPWCTType, gridBagConstraints);
+
+        cmbPWLTType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPWLTType.setMaximumSize(new java.awt.Dimension(150, 20));
+        cmbPWLTType.setMinimumSize(new java.awt.Dimension(150, 20));
+        cmbPWLTType.setPreferredSize(new java.awt.Dimension(150, 20));
+        cmbPWLTType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPWLTTypeActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        pnlPatchworkChoosers.add(cmbPWLTType, gridBagConstraints);
+
+        cmbPWRTType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPWRTType.setMaximumSize(new java.awt.Dimension(150, 20));
+        cmbPWRTType.setMinimumSize(new java.awt.Dimension(150, 20));
+        cmbPWRTType.setPreferredSize(new java.awt.Dimension(150, 20));
+        cmbPWRTType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPWRTTypeActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        pnlPatchworkChoosers.add(cmbPWRTType, gridBagConstraints);
+
+        cmbPWLAType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPWLAType.setMaximumSize(new java.awt.Dimension(150, 20));
+        cmbPWLAType.setMinimumSize(new java.awt.Dimension(150, 20));
+        cmbPWLAType.setPreferredSize(new java.awt.Dimension(150, 20));
+        cmbPWLAType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPWLATypeActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        pnlPatchworkChoosers.add(cmbPWLAType, gridBagConstraints);
+
+        cmbPWRAType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPWRAType.setMaximumSize(new java.awt.Dimension(150, 20));
+        cmbPWRAType.setMinimumSize(new java.awt.Dimension(150, 20));
+        cmbPWRAType.setPreferredSize(new java.awt.Dimension(150, 20));
+        cmbPWRAType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPWRATypeActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        pnlPatchworkChoosers.add(cmbPWRAType, gridBagConstraints);
+
+        cmbPWLLType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPWLLType.setMaximumSize(new java.awt.Dimension(150, 20));
+        cmbPWLLType.setMinimumSize(new java.awt.Dimension(150, 20));
+        cmbPWLLType.setPreferredSize(new java.awt.Dimension(150, 20));
+        cmbPWLLType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPWLLTypeActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        pnlPatchworkChoosers.add(cmbPWLLType, gridBagConstraints);
+
+        cmbPWRLType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPWRLType.setMaximumSize(new java.awt.Dimension(150, 20));
+        cmbPWRLType.setMinimumSize(new java.awt.Dimension(150, 20));
+        cmbPWRLType.setPreferredSize(new java.awt.Dimension(150, 20));
+        cmbPWRLType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPWRLTypeActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 7;
+        pnlPatchworkChoosers.add(cmbPWRLType, gridBagConstraints);
+
+        lblPWRLLoc.setText("RL Armor: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        pnlPatchworkChoosers.add(lblPWRLLoc, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        pnlArmor.add(pnlPatchworkChoosers, gridBagConstraints);
 
         tbpMainTabPane.addTab("  Armor  ", pnlArmor);
 
@@ -10366,7 +10684,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // the commitedit worked, so set the armor value appropriately
-        Armor a = CurMech.GetArmor();
+        MechArmor a = CurMech.GetArmor();
         int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_HD );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
@@ -10405,7 +10723,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // the commitedit worked, so set the armor value appropriately
-        Armor a = CurMech.GetArmor();
+        MechArmor a = CurMech.GetArmor();
         int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RA );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
@@ -10451,7 +10769,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // the commitedit worked, so set the armor value appropriately
-        Armor a = CurMech.GetArmor();
+        MechArmor a = CurMech.GetArmor();
         int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RT );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
@@ -10502,7 +10820,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // the commitedit worked, so set the armor value appropriately
-        Armor a = CurMech.GetArmor();
+        MechArmor a = CurMech.GetArmor();
         int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RTR );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
@@ -10554,7 +10872,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // the commitedit worked, so set the armor value appropriately
-        Armor a = CurMech.GetArmor();
+        MechArmor a = CurMech.GetArmor();
         int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LA );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
@@ -10600,7 +10918,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // the commitedit worked, so set the armor value appropriately
-        Armor a = CurMech.GetArmor();
+        MechArmor a = CurMech.GetArmor();
         int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LT );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
@@ -10651,7 +10969,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // the commitedit worked, so set the armor value appropriately
-        Armor a = CurMech.GetArmor();
+        MechArmor a = CurMech.GetArmor();
         int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LTR );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
@@ -10702,7 +11020,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // the commitedit worked, so set the armor value appropriately
-        Armor a = CurMech.GetArmor();
+        MechArmor a = CurMech.GetArmor();
         int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_CT );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
@@ -10745,7 +11063,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // the commitedit worked, so set the armor value appropriately
-        Armor a = CurMech.GetArmor();
+        MechArmor a = CurMech.GetArmor();
         int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_CTR );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
@@ -10788,7 +11106,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // the commitedit worked, so set the armor value appropriately
-        Armor a = CurMech.GetArmor();
+        MechArmor a = CurMech.GetArmor();
         int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LL );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
@@ -10834,7 +11152,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // the commitedit worked, so set the armor value appropriately
-        Armor a = CurMech.GetArmor();
+        MechArmor a = CurMech.GetArmor();
         int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RL );
         int curframe = n.getNumber().intValue();
         if( curframe > curmech ) {
@@ -10863,7 +11181,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void btnMaxArmorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaxArmorActionPerformed
         // this simply maximizes the mech's armor
-        Armor a = CurMech.GetArmor();
+        MechArmor a = CurMech.GetArmor();
 
         // set the simple stuff first.
         a.SetArmor( LocationIndex.MECH_LOC_HD, 9 );
@@ -10873,13 +11191,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         a.SetArmor( LocationIndex.MECH_LOC_RL, a.GetLocationMax( LocationIndex.MECH_LOC_RL ) );
 
         // now to set the torsos
-        int rear = Math.round( a.GetLocationMax( LocationIndex.MECH_LOC_CT ) * Prefs.getInt( "ArmorCTRPercent", Armor.DEFAULT_CTR_ARMOR_PERCENT ) / 100 );
+        int rear = Math.round( a.GetLocationMax( LocationIndex.MECH_LOC_CT ) * Prefs.getInt( "ArmorCTRPercent", MechArmor.DEFAULT_CTR_ARMOR_PERCENT ) / 100 );
         a.SetArmor( LocationIndex.MECH_LOC_CTR, rear );
         a.SetArmor( LocationIndex.MECH_LOC_CT, a.GetLocationMax( LocationIndex.MECH_LOC_CT ) - rear );
-        rear = Math.round( a.GetLocationMax( LocationIndex.MECH_LOC_LT ) * Prefs.getInt( "ArmorSTRPercent", Armor.DEFAULT_STR_ARMOR_PERCENT ) / 100 );
+        rear = Math.round( a.GetLocationMax( LocationIndex.MECH_LOC_LT ) * Prefs.getInt( "ArmorSTRPercent", MechArmor.DEFAULT_STR_ARMOR_PERCENT ) / 100 );
         a.SetArmor( LocationIndex.MECH_LOC_LTR, rear );
         a.SetArmor( LocationIndex.MECH_LOC_LT, a.GetLocationMax( LocationIndex.MECH_LOC_LT ) - rear );
-        rear = Math.round( a.GetLocationMax( LocationIndex.MECH_LOC_RT ) * Prefs.getInt( "ArmorSTRPercent", Armor.DEFAULT_STR_ARMOR_PERCENT ) / 100 );
+        rear = Math.round( a.GetLocationMax( LocationIndex.MECH_LOC_RT ) * Prefs.getInt( "ArmorSTRPercent", MechArmor.DEFAULT_STR_ARMOR_PERCENT ) / 100 );
         a.SetArmor( LocationIndex.MECH_LOC_RTR, rear );
         a.SetArmor( LocationIndex.MECH_LOC_RT, a.GetLocationMax( LocationIndex.MECH_LOC_RT ) - rear );
 
@@ -12510,6 +12828,7 @@ public Mech LoadMech (){
             e.printStackTrace();
         } else {
             Media.Messager( this, e.getMessage() );
+            e.printStackTrace();
         }
         return m;
     }
@@ -12635,6 +12954,7 @@ public void LoadMechIntoGUI() {
     cmbHeatSinkType.setSelectedItem( BuildLookupName( CurMech.GetHeatSinks().GetCurrentState() ) );
     cmbJumpJetType.setSelectedItem( CurMech.GetJumpJets().LookupName() );
     cmbArmorType.setSelectedItem( BuildLookupName( CurMech.GetArmor().GetCurrentState() ) );
+    SetPatchworkArmor();
     FixWalkMPSpinner();
     FixHeatSinkSpinnerModel();
     FixJJSpinnerModel();
@@ -13654,6 +13974,117 @@ private void btnRenameVariantActionPerformed(java.awt.event.ActionEvent evt) {//
     RefreshOmniVariants();
 }//GEN-LAST:event_btnRenameVariantActionPerformed
 
+private void cmbPWHDTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWHDTypeActionPerformed
+    if( BuildLookupName( (ifState) CurMech.GetArmor().GetHDArmorType() ).equals( (String) cmbPWHDType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcPatchworkArmor( LocationIndex.MECH_LOC_HD );
+    // we check for hardened armor, you can only have so many IJJs
+    FixJJSpinnerModel();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_cmbPWHDTypeActionPerformed
+
+private void cmbPWCTTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWCTTypeActionPerformed
+    if( BuildLookupName( (ifState) CurMech.GetArmor().GetCTArmorType() ).equals( (String) cmbPWCTType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcPatchworkArmor( LocationIndex.MECH_LOC_CT );
+    // we check for hardened armor, you can only have so many IJJs
+    FixJJSpinnerModel();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+
+}//GEN-LAST:event_cmbPWCTTypeActionPerformed
+
+private void cmbPWLTTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWLTTypeActionPerformed
+    if( BuildLookupName( (ifState) CurMech.GetArmor().GetLTArmorType() ).equals( (String) cmbPWLTType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcPatchworkArmor( LocationIndex.MECH_LOC_LT );
+    // we check for hardened armor, you can only have so many IJJs
+    FixJJSpinnerModel();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+
+}//GEN-LAST:event_cmbPWLTTypeActionPerformed
+
+private void cmbPWRTTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWRTTypeActionPerformed
+    if( BuildLookupName( (ifState) CurMech.GetArmor().GetRTArmorType() ).equals( (String) cmbPWRTType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcPatchworkArmor( LocationIndex.MECH_LOC_RT );
+    // we check for hardened armor, you can only have so many IJJs
+    FixJJSpinnerModel();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+
+}//GEN-LAST:event_cmbPWRTTypeActionPerformed
+
+private void cmbPWLATypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWLATypeActionPerformed
+    if( BuildLookupName( (ifState) CurMech.GetArmor().GetLAArmorType() ).equals( (String) cmbPWLAType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcPatchworkArmor( LocationIndex.MECH_LOC_LA );
+    // we check for hardened armor, you can only have so many IJJs
+    FixJJSpinnerModel();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+
+}//GEN-LAST:event_cmbPWLATypeActionPerformed
+
+private void cmbPWRATypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWRATypeActionPerformed
+    if( BuildLookupName( (ifState) CurMech.GetArmor().GetRAArmorType() ).equals( (String) cmbPWRAType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcPatchworkArmor( LocationIndex.MECH_LOC_RA );
+    // we check for hardened armor, you can only have so many IJJs
+    FixJJSpinnerModel();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+
+}//GEN-LAST:event_cmbPWRATypeActionPerformed
+
+private void cmbPWLLTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWLLTypeActionPerformed
+    if( BuildLookupName( (ifState) CurMech.GetArmor().GetLLArmorType() ).equals( (String) cmbPWLLType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcPatchworkArmor( LocationIndex.MECH_LOC_LL );
+    // we check for hardened armor, you can only have so many IJJs
+    FixJJSpinnerModel();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+
+}//GEN-LAST:event_cmbPWLLTypeActionPerformed
+
+private void cmbPWRLTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWRLTypeActionPerformed
+    if( BuildLookupName( (ifState) CurMech.GetArmor().GetRLArmorType() ).equals( (String) cmbPWRLType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcPatchworkArmor( LocationIndex.MECH_LOC_RL );
+    // we check for hardened armor, you can only have so many IJJs
+    FixJJSpinnerModel();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+
+}//GEN-LAST:event_cmbPWRLTypeActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -13765,6 +14196,14 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JComboBox cmbMotiveType;
     private javax.swing.JComboBox cmbNumEquips;
     private javax.swing.JComboBox cmbOmniVariant;
+    private javax.swing.JComboBox cmbPWCTType;
+    private javax.swing.JComboBox cmbPWHDType;
+    private javax.swing.JComboBox cmbPWLAType;
+    private javax.swing.JComboBox cmbPWLLType;
+    private javax.swing.JComboBox cmbPWLTType;
+    private javax.swing.JComboBox cmbPWRAType;
+    private javax.swing.JComboBox cmbPWRLType;
+    private javax.swing.JComboBox cmbPWRTType;
     private javax.swing.JComboBox cmbPhysEnhance;
     private javax.swing.JComboBox cmbRulesLevel;
     private javax.swing.JComboBox cmbSCLoc;
@@ -13948,6 +14387,14 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel lblModel;
     private javax.swing.JLabel lblMotiveType;
     private javax.swing.JLabel lblMoveSummary;
+    private javax.swing.JLabel lblPWCTLoc;
+    private javax.swing.JLabel lblPWHDLoc;
+    private javax.swing.JLabel lblPWLALoc;
+    private javax.swing.JLabel lblPWLLLoc;
+    private javax.swing.JLabel lblPWLTLoc;
+    private javax.swing.JLabel lblPWRALoc;
+    private javax.swing.JLabel lblPWRLLoc;
+    private javax.swing.JLabel lblPWRTLoc;
     private javax.swing.JLabel lblPhysEnhance;
     private javax.swing.JLabel lblProdYear;
     private javax.swing.JLabel lblRAArmorHeader;
@@ -14089,6 +14536,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel pnlNotables;
     private javax.swing.JPanel pnlOmniInfo;
     private javax.swing.JPanel pnlOverview;
+    private javax.swing.JPanel pnlPatchworkChoosers;
     private javax.swing.JPanel pnlPhysical;
     private javax.swing.JPanel pnlRAArmorBox;
     private javax.swing.JPanel pnlRACrits;

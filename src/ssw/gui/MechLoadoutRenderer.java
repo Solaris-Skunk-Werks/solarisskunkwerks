@@ -133,6 +133,7 @@ public class MechLoadoutRenderer extends DefaultListCellRenderer {
                 label.setForeground( NormalFG );
                 BorderCol = NormalBG;
             }
+
             if( Parent.CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                 if( a instanceof Equipment ) {
                     if( ((Equipment) a).IsVariableSize() ) {
@@ -140,11 +141,25 @@ public class MechLoadoutRenderer extends DefaultListCellRenderer {
                     } else {
                         Text = a.LookupName();
                     }
+                } else if( a instanceof MechArmor ) {
+                    if( ((MechArmor) a).IsPatchwork() ) {
+                        Text = Parent.BuildLookupName( ((MechArmor) a).GetLocationType( LocNum ) );
+                    } else {
+                        Text = a.LookupName();
+                    }
                 } else {
                     Text = a.LookupName();
                 }
             } else {
-                Text = a.CritName();
+                if( a instanceof MechArmor ) {
+                    if( ((MechArmor) a).IsPatchwork() ) {
+                        Text = ((MechArmor) a).CritName( LocNum );
+                    } else {
+                        Text = a.CritName();
+                    }
+                } else {
+                    Text = a.CritName();
+                }
             }
         }
 
@@ -179,11 +194,17 @@ public class MechLoadoutRenderer extends DefaultListCellRenderer {
                     } else {
                         Text =  Parent.CurItem.LookupName();
                     }
+                } else if( Parent.CurItem instanceof MechArmor ) {
+                    Text = Parent.BuildLookupName( ((MechArmor) Parent.CurItem).GetLocationType( LocNum ) );
                 } else {
-                    Text =  Parent.CurItem.LookupName();
+                    Text = Parent.CurItem.LookupName();
                 }
             } else {
-                Text =  Parent.CurItem.CritName();
+                if( Parent.CurItem instanceof MechArmor ) {
+                    Text = ((MechArmor) Parent.CurItem).CritName( LocNum );
+                } else {
+                    Text =  Parent.CurItem.CritName();
+                }
             }
             if( size <= 1 ) {
                 label.setText( Text );

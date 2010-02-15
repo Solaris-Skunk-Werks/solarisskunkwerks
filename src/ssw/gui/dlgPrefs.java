@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
-import components.Armor;
+import components.MechArmor;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
@@ -94,14 +94,14 @@ public class dlgPrefs extends javax.swing.JDialog {
         } else {
             rdoExportSortIn.setSelected( true );
         }
-        switch( Prefs.getInt( "ArmorPriority", Armor.ARMOR_PRIORITY_TORSO ) ) {
-            case Armor.ARMOR_PRIORITY_TORSO:
+        switch( Prefs.getInt( "ArmorPriority", MechArmor.ARMOR_PRIORITY_TORSO ) ) {
+            case MechArmor.ARMOR_PRIORITY_TORSO:
                 rdoArmorTorsoPriority.setSelected( true );
                 break;
-            case Armor.ARMOR_PRIORITY_ARMS:
+            case MechArmor.ARMOR_PRIORITY_ARMS:
                 rdoArmorArmPriority.setSelected( true );
                 break;
-            case Armor.ARMOR_PRIORITY_LEGS:
+            case MechArmor.ARMOR_PRIORITY_LEGS:
                 rdoArmorLegPriority.setSelected( true );
                 break;
         }
@@ -154,15 +154,15 @@ public class dlgPrefs extends javax.swing.JDialog {
             Prefs.putInt( "ArmorCTRPercent", Integer.parseInt( txtCTRArmor.getText() ) );
             Prefs.putInt( "ArmorSTRPercent", Integer.parseInt( txtSTRArmor.getText() ) );
         } else {
-            Prefs.putInt( "ArmorCTRPercent", Armor.DEFAULT_CTR_ARMOR_PERCENT );
-            Prefs.putInt( "ArmorSTRPercent", Armor.DEFAULT_STR_ARMOR_PERCENT );
+            Prefs.putInt( "ArmorCTRPercent", MechArmor.DEFAULT_CTR_ARMOR_PERCENT );
+            Prefs.putInt( "ArmorSTRPercent", MechArmor.DEFAULT_STR_ARMOR_PERCENT );
         }
         if( rdoArmorTorsoPriority.isSelected() ) {
-            Prefs.putInt( "ArmorPriority", Armor.ARMOR_PRIORITY_TORSO );
+            Prefs.putInt( "ArmorPriority", MechArmor.ARMOR_PRIORITY_TORSO );
         } else if( rdoArmorArmPriority.isSelected() ) {
-            Prefs.putInt( "ArmorPriority", Armor.ARMOR_PRIORITY_ARMS );
+            Prefs.putInt( "ArmorPriority", MechArmor.ARMOR_PRIORITY_ARMS );
         } else {
-            Prefs.putInt( "ArmorPriority", Armor.ARMOR_PRIORITY_LEGS );
+            Prefs.putInt( "ArmorPriority", MechArmor.ARMOR_PRIORITY_LEGS );
         }
 
         Prefs.putInt( "ColorEmptyItemFG", lblColorEmpty.getForeground().getRGB() );
@@ -206,9 +206,9 @@ public class dlgPrefs extends javax.swing.JDialog {
         Prefs.putBoolean( "LoadLastMech", false );
         Prefs.putBoolean( "AutoAddECM", true );
 
-        Prefs.putInt( "ArmorCTRPercent", Armor.DEFAULT_CTR_ARMOR_PERCENT );
-        Prefs.putInt( "ArmorSTRPercent", Armor.DEFAULT_STR_ARMOR_PERCENT );
-        Prefs.putInt( "ArmorPriority", Armor.ARMOR_PRIORITY_TORSO );
+        Prefs.putInt( "ArmorCTRPercent", MechArmor.DEFAULT_CTR_ARMOR_PERCENT );
+        Prefs.putInt( "ArmorSTRPercent", MechArmor.DEFAULT_STR_ARMOR_PERCENT );
+        Prefs.putInt( "ArmorPriority", MechArmor.ARMOR_PRIORITY_TORSO );
 
         Prefs.putInt( "ColorEmptyItemFG", -16777216 );
         Prefs.putInt( "ColorEmptyItemBG", -6684775 );
@@ -1237,16 +1237,16 @@ public class dlgPrefs extends javax.swing.JDialog {
         if( chkCustomPercents.isSelected() ) {
             lblCTRArmor.setEnabled( true );
             txtCTRArmor.setEnabled( true );
-            txtCTRArmor.setText( "" + Prefs.getInt( "ArmorCTRPercent", Armor.DEFAULT_CTR_ARMOR_PERCENT ) );
+            txtCTRArmor.setText( "" + Prefs.getInt( "ArmorCTRPercent", MechArmor.DEFAULT_CTR_ARMOR_PERCENT ) );
             lblSTRArmor.setEnabled( true );
             txtSTRArmor.setEnabled( true );
-            txtSTRArmor.setText( "" + Prefs.getInt( "ArmorSTRPercent", Armor.DEFAULT_STR_ARMOR_PERCENT ) );
+            txtSTRArmor.setText( "" + Prefs.getInt( "ArmorSTRPercent", MechArmor.DEFAULT_STR_ARMOR_PERCENT ) );
         } else {
             // reset to defaults as well.
-            txtCTRArmor.setText( "" + Armor.DEFAULT_CTR_ARMOR_PERCENT );
+            txtCTRArmor.setText( "" + MechArmor.DEFAULT_CTR_ARMOR_PERCENT );
             lblCTRArmor.setEnabled( false );
             txtCTRArmor.setEnabled( false );
-            txtSTRArmor.setText( "" + Armor.DEFAULT_STR_ARMOR_PERCENT );
+            txtSTRArmor.setText( "" + MechArmor.DEFAULT_STR_ARMOR_PERCENT );
             lblSTRArmor.setEnabled( false );
             txtSTRArmor.setEnabled( false );
         }

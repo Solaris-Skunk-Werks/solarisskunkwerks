@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.gui;
 
 import components.Mech;
-import ssw.utilities.CostBVBreakdown;
+import utilities.CostBVBreakdown;
 
 public class dlgCostBVBreakdown extends javax.swing.JDialog {
 
