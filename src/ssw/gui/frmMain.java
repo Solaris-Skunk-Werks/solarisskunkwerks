@@ -3619,6 +3619,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 }
             }
         }
+        RefreshInfoPane();
     }
 
     private void SwitchCaseless() {
