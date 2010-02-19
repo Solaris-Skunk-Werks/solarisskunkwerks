@@ -85,6 +85,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     JMenuItem mnuAddCapacitor = new JMenuItem( "Add Capacitor" );
     JMenuItem mnuAddInsulator = new JMenuItem( "Add Insulator" );
     JMenuItem mnuCaseless = new JMenuItem( "Switch to Caseless" );
+    JMenuItem mnuTurret = new JMenuItem( "Add to Turret" );
     JMenuItem mnuSelective = new JMenuItem( "Selective Allocate" );
     JMenuItem mnuAuto = new JMenuItem( "Auto-Allocate" );
     JMenuItem mnuUnallocateAll = new JMenuItem( "Unallocate All" );
@@ -237,6 +238,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
 
+        mnuTurret.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                TurretMount();
+            }
+        });
+
         mnuCaseless.addActionListener( new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 SwitchCaseless();
@@ -335,6 +342,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuUtilities.add( mnuAddCapacitor );
         mnuUtilities.add( mnuAddInsulator );
         mnuUtilities.add( mnuCaseless );
+        mnuUtilities.add( mnuTurret );
         mnuUtilities.add( mnuVGLArc );
         mnuUtilities.add( mnuVGLAmmo );
         mnuUtilities.add( mnuSelective );
@@ -346,6 +354,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuArmorComponent.setVisible( false );
         mnuAddCapacitor.setVisible( false );
         mnuAddInsulator.setVisible( false );
+        mnuTurret.setVisible( false );
         mnuCaseless.setVisible( false );
         mnuVGLArc.setVisible( false );
         mnuVGLAmmo.setVisible( false );
@@ -1196,6 +1205,28 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkClanCASE.setEnabled( false );
         }
 
+        // turret checkboxes
+        if( CommonTools.IsAllowed( CurMech.GetLoadout().GetHDTurret().GetAvailability(), CurMech ) ) {
+            if( CurMech.GetLoadout().CanUseHDTurret() ) {
+                chkHDTurret.setEnabled( true );
+            } else {
+                chkHDTurret.setSelected( false );
+                chkHDTurret.setEnabled( false );
+            }
+            if( CurMech.GetLoadout().CanUseLTTurret() ) {
+                chkLTTurret.setEnabled( true );
+            } else {
+                chkLTTurret.setSelected( false );
+                chkLTTurret.setEnabled( false );
+            }
+            if( CurMech.GetLoadout().CanUseRTTurret() ) {
+                chkRTTurret.setEnabled( true );
+            } else {
+                chkRTTurret.setSelected( false );
+                chkRTTurret.setEnabled( false );
+            }
+        }
+
         // now set all the equipment if needed
         if( ! chkFCSAIV.isEnabled() ) {
             try {
@@ -1250,6 +1281,45 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 chkSupercharger.setSelected( true );
             } else {
                 chkSupercharger.setSelected( false );
+            }
+        }
+        if( ! chkHDTurret.isEnabled() ) {
+            try {
+                CurMech.GetLoadout().SetHDTurret( false, -1 );
+            } catch( Exception e ) {
+                Media.Messager( this, e.getMessage() );
+            }
+        } else {
+            if( CurMech.GetLoadout().HasHDTurret() ) {
+                chkHDTurret.setSelected( true );
+            } else {
+                chkHDTurret.setSelected( false );
+            }
+        }
+        if( ! chkLTTurret.isEnabled() ) {
+            try {
+                CurMech.GetLoadout().SetLTTurret( false, -1 );
+            } catch( Exception e ) {
+                Media.Messager( this, e.getMessage() );
+            }
+        } else {
+            if( CurMech.GetLoadout().HasLTTurret() ) {
+                chkLTTurret.setSelected( true );
+            } else {
+                chkLTTurret.setSelected( false );
+            }
+        }
+        if( ! chkRTTurret.isEnabled() ) {
+            try {
+                CurMech.GetLoadout().SetRTTurret( false, -1 );
+            } catch( Exception e ) {
+                Media.Messager( this, e.getMessage() );
+            }
+        } else {
+            if( CurMech.GetLoadout().HasRTTurret() ) {
+                chkRTTurret.setSelected( true );
+            } else {
+                chkRTTurret.setSelected( false );
             }
         }
         if( ! chkUseTC.isEnabled() ) { CurMech.UseTC( false, false ); }
@@ -1324,6 +1394,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             if( CurMech.GetBaseLoadout().HasRLCASEII() ) {
                 chkRLCASE2.setEnabled( false );
             }
+            if( CurMech.GetBaseLoadout().HasHDTurret() ) {
+                chkHDTurret.setEnabled( false );
+            }
+            if( CurMech.GetBaseLoadout().HasLTTurret() ) {
+                chkLTTurret.setEnabled( false );
+            }
+            if( CurMech.GetBaseLoadout().HasRTTurret() ) {
+                chkRTTurret.setEnabled( false );
+            }
         } else {
             try {
                 if( ! chkNullSig.isEnabled() ) { CurMech.SetNullSig( false ); }
@@ -1394,6 +1473,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkEjectionSeat.setSelected( false );
             chkFHES.setEnabled( false );
             chkFHES.setSelected( false );
+            chkHDTurret.setEnabled( true );
         } else {
             if( CurMech.GetCockpit().CanUseCommandConsole() && CommonTools.IsAllowed( CurMech.GetCommandConsole().GetAvailability(), CurMech ) ) {
                 chkCommandConsole.setEnabled( true );
@@ -1413,6 +1493,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 chkEjectionSeat.setEnabled( false );
                 chkEjectionSeat.setSelected( false );
             }
+            chkHDTurret.setSelected( false );
+            chkHDTurret.setEnabled( false );
         }
     }
 
@@ -2092,6 +2174,22 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkRLCASE2.setSelected( true );
         } else {
             chkRLCASE2.setSelected( false );
+        }
+
+        if( CurMech.GetLoadout().HasHDTurret() ) {
+            chkHDTurret.setSelected( true );
+        } else {
+            chkHDTurret.setSelected( false );
+        }
+        if( CurMech.GetLoadout().HasLTTurret() ) {
+            chkLTTurret.setSelected( true );
+        } else {
+            chkLTTurret.setSelected( false );
+        }
+        if( CurMech.GetLoadout().HasRTTurret() ) {
+            chkRTTurret.setSelected( true );
+        } else {
+            chkRTTurret.setSelected( false );
         }
 
         if( CurMech.GetLoadout().HasSupercharger() ) {
@@ -3007,6 +3105,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( chkRLCASE2.isSelected() ) {
             chkRLCASE2.setEnabled( false );
         }
+        if( chkHDTurret.isSelected() ) {
+            chkHDTurret.setEnabled( false );
+        }
+        if( chkLTTurret.isSelected() ) {
+            chkLTTurret.setEnabled( false );
+        }
+        if( chkRTTurret.isSelected() ) {
+            chkRTTurret.setEnabled( false );
+        }
 
         chkFractional.setEnabled( false );
         chkNullSig.setEnabled( false );
@@ -3081,6 +3188,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkRACASE2.setEnabled( true );
         chkLLCASE2.setEnabled( true );
         chkRLCASE2.setEnabled( true );
+        chkHDTurret.setEnabled( true );
+        chkLTTurret.setEnabled( true );
+        chkRTTurret.setEnabled( true );
         chkOmnimech.setSelected( false );
         chkOmnimech.setEnabled( true );
         btnLockChassis.setEnabled( false );
@@ -3217,6 +3327,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         boolean insul = LegalInsulator( CurItem ) && CommonTools.IsAllowed( LIAC, CurMech );
         boolean caseless = LegalCaseless( CurItem ) && CommonTools.IsAllowed( CaselessAmmoAC, CurMech );
         boolean lotchange = LegalLotChange( CurItem );
+        boolean turreted = LegalTurretMount( CurItem );
         mnuArmorComponent.setEnabled( armor );
         mnuAddCapacitor.setEnabled( cap );
         mnuAddInsulator.setEnabled( insul );
@@ -3226,11 +3337,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuAddInsulator.setVisible( insul );
         mnuCaseless.setVisible( caseless );
         mnuSetLotSize.setVisible( lotchange );
+        mnuTurret.setVisible( turreted );
         if( armor ) {
             if( CurItem.IsArmored() ) {
                 mnuArmorComponent.setText( "Unarmor Component" );
             } else {
                 mnuArmorComponent.setText( "Armor Component" );
+            }
+        }
+        if( turreted && ( CurItem instanceof RangedWeapon ) ) {
+            if( ((RangedWeapon) CurItem).IsTurreted() ) {
+                mnuTurret.setText( "Remove from Turret" );
+            } else {
+                mnuTurret.setText( "Add to Turret");
             }
         }
         if( cap || insul || caseless ) {
@@ -3472,6 +3591,36 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RefreshInfoPane();
     }
 
+    private void TurretMount() {
+        if( CurItem instanceof RangedWeapon ) {
+            RangedWeapon w = (RangedWeapon) CurItem;
+            int location = CurMech.GetLoadout().Find( CurItem );
+            if( w.IsTurreted() ) {
+                if( location == LocationIndex.MECH_LOC_HD ) {
+                    w.RemoveFromTurret( CurMech.GetLoadout().GetHDTurret() );
+                } else if( location == LocationIndex.MECH_LOC_LT ) {
+                    w.RemoveFromTurret( CurMech.GetLoadout().GetLTTurret() );
+                } else if( location == LocationIndex.MECH_LOC_RT ) {
+                    w.RemoveFromTurret( CurMech.GetLoadout().GetRTTurret() );
+                } else {
+                    Media.Messager( this, "Cannot remove from turret!" );
+                    return;
+                }
+            } else {
+                if( location == LocationIndex.MECH_LOC_HD ) {
+                    w.AddToTurret( CurMech.GetLoadout().GetHDTurret() );
+                } else if( location == LocationIndex.MECH_LOC_LT ) {
+                    w.AddToTurret( CurMech.GetLoadout().GetLTTurret() );
+                } else if( location == LocationIndex.MECH_LOC_RT ) {
+                    w.AddToTurret( CurMech.GetLoadout().GetRTTurret() );
+                } else {
+                    Media.Messager( this, "Cannot add to turret!" );
+                    return;
+                }
+            }
+        }
+    }
+
     private void SwitchCaseless() {
         if( CurItem instanceof RangedWeapon ) {
             RangedWeapon r = (RangedWeapon) CurItem;
@@ -3643,6 +3792,36 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     public boolean LegalCaseless( abPlaceable p ) {
         if( ! ( p instanceof RangedWeapon ) ) { return false; }
         return ((RangedWeapon) p).CanUseCaselessAmmo();
+    }
+
+    public boolean LegalTurretMount( abPlaceable p ) {
+        if( ! ( p instanceof RangedWeapon ) ) { return false; }
+        int location = CurMech.GetLoadout().Find( p );
+        if( location == LocationIndex.MECH_LOC_HD ) {
+            if( CurMech.IsOmnimech() ) {
+                if( CurMech.GetBaseLoadout().GetHDTurret() == CurMech.GetLoadout().GetHDTurret() ) {
+                    return false;
+                }
+            }
+            return CurMech.GetLoadout().HasHDTurret();
+        }
+        if( location == LocationIndex.MECH_LOC_LT ) {
+            if( CurMech.IsOmnimech() ) {
+                if( CurMech.GetBaseLoadout().GetLTTurret() == CurMech.GetLoadout().GetLTTurret() ) {
+                    return false;
+                }
+            }
+            return CurMech.GetLoadout().HasLTTurret();
+        }
+        if( location == LocationIndex.MECH_LOC_RT ) {
+            if( CurMech.IsOmnimech() ) {
+                if( CurMech.GetBaseLoadout().GetRTTurret() == CurMech.GetLoadout().GetRTTurret() ) {
+                    return false;
+                }
+            }
+            return CurMech.GetLoadout().HasRTTurret();
+        }
+        return false;
     }
 
     public boolean LegalLotChange( abPlaceable p ) {
@@ -7842,6 +8021,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         chkHDTurret.setText("Turret");
         chkHDTurret.setEnabled(false);
+        chkHDTurret.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkHDTurretActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -8119,6 +8303,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         chkLTTurret.setText("Turret");
         chkLTTurret.setEnabled(false);
+        chkLTTurret.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkLTTurretActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -8224,6 +8413,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         chkRTTurret.setText("Turret");
         chkRTTurret.setEnabled(false);
+        chkRTTurret.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkRTTurretActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -14084,6 +14278,87 @@ private void cmbPWRLTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     RefreshInfoPane();
 
 }//GEN-LAST:event_cmbPWRLTypeActionPerformed
+
+private void chkHDTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkHDTurretActionPerformed
+        if( CurMech.IsOmnimech() ) {
+            if( CurMech.GetBaseLoadout().GetHDTurret() == CurMech.GetLoadout().GetHDTurret() ) {
+                chkHDTurret.setSelected( true );
+                return;
+            }
+        }
+        if( CurMech.GetLoadout().HasHDTurret() == chkHDTurret.isSelected() ) { return; }
+        if( chkHDTurret.isSelected() ) {
+            try {
+                CurMech.GetLoadout().SetHDTurret( true, -1 );
+            } catch( Exception e ) {
+                Media.Messager( this, e.getMessage() );
+                chkHDTurret.setSelected( false );
+            }
+        } else {
+            try {
+                CurMech.GetLoadout().SetHDTurret( false, -1 );
+            } catch( Exception e ) {
+                Media.Messager( "Fatal error attempting to remove turret.\nGetting a new 'Mech, sorry..." );
+            }
+        }
+        CheckEquipment();
+        RefreshSummary();
+        RefreshInfoPane();
+}//GEN-LAST:event_chkHDTurretActionPerformed
+
+private void chkLTTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLTTurretActionPerformed
+        if( CurMech.IsOmnimech() ) {
+            if( CurMech.GetBaseLoadout().GetLTTurret() == CurMech.GetLoadout().GetLTTurret() ) {
+                chkLTTurret.setSelected( true );
+                return;
+            }
+        }
+        if( CurMech.GetLoadout().HasLTTurret() == chkLTTurret.isSelected() ) { return; }
+        if( chkLTTurret.isSelected() ) {
+            try {
+                CurMech.GetLoadout().SetLTTurret( true, -1 );
+            } catch( Exception e ) {
+                Media.Messager( this, e.getMessage() );
+                chkLTTurret.setSelected( false );
+            }
+        } else {
+            try {
+                CurMech.GetLoadout().SetLTTurret( false, -1 );
+            } catch( Exception e ) {
+                Media.Messager( "Fatal error attempting to remove turret.\nGetting a new 'Mech, sorry..." );
+            }
+        }
+        CheckEquipment();
+        RefreshSummary();
+        RefreshInfoPane();
+}//GEN-LAST:event_chkLTTurretActionPerformed
+
+private void chkRTTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRTTurretActionPerformed
+        if( CurMech.IsOmnimech() ) {
+            if( CurMech.GetBaseLoadout().GetRTTurret() == CurMech.GetLoadout().GetRTTurret() ) {
+                chkRTTurret.setSelected( true );
+                return;
+            }
+        }
+        if( CurMech.GetLoadout().HasRTTurret() == chkRTTurret.isSelected() ) { return; }
+        if( chkRTTurret.isSelected() ) {
+            try {
+                CurMech.GetLoadout().SetRTTurret( true, -1 );
+            } catch( Exception e ) {
+                Media.Messager( this, e.getMessage() );
+                chkRTTurret.setSelected( false );
+            }
+        } else {
+            try {
+                CurMech.GetLoadout().SetRTTurret( false, -1 );
+            } catch( Exception e ) {
+                Media.Messager( "Fatal error attempting to remove turret.\nGetting a new 'Mech, sorry..." );
+            }
+        }
+        CheckEquipment();
+        RefreshSummary();
+        RefreshInfoPane();
+}//GEN-LAST:event_chkRTTurretActionPerformed
 
 private void setViewToolbar(boolean Visible)
 {
