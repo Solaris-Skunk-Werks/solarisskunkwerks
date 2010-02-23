@@ -195,13 +195,21 @@ public class MechLoadoutRenderer extends DefaultListCellRenderer {
                         Text =  Parent.CurItem.LookupName();
                     }
                 } else if( Parent.CurItem instanceof MechArmor ) {
-                    Text = Parent.BuildLookupName( ((MechArmor) Parent.CurItem).GetLocationType( LocNum ) );
+                    if( ((MechArmor) Parent.CurItem).IsPatchwork() ) {
+                        Text = Parent.BuildLookupName( ((MechArmor) Parent.CurItem).GetLocationType( LocNum ) );
+                    } else {
+                        Text = Parent.BuildLookupName( ((MechArmor) Parent.CurItem).GetCurrentState() );
+                    }
                 } else {
                     Text = Parent.CurItem.LookupName();
                 }
             } else {
                 if( Parent.CurItem instanceof MechArmor ) {
-                    Text = ((MechArmor) Parent.CurItem).CritName( LocNum );
+                    if( ((MechArmor) Parent.CurItem).IsPatchwork() ) {
+                        Text = ((MechArmor) Parent.CurItem).CritName( LocNum );
+                    } else {
+                        Text =  Parent.CurItem.CritName();
+                    }
                 } else {
                     Text =  Parent.CurItem.CritName();
                 }

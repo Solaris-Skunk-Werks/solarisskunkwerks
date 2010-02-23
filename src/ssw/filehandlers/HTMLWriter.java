@@ -70,6 +70,7 @@ public class HTMLWriter {
         String write = "";
         Vector equip = new Vector();
         Vector omni = new Vector();
+        Vector armor = new Vector();
 
         // we'll basically go through line by line and do our replacement,
         // writing as we go along.
@@ -140,6 +141,62 @@ public class HTMLWriter {
                         try {
                             FW.write( BuildOmniLines( omni ) );
                             FW.newLine();
+                        } catch( IOException e ) {
+                            throw e;
+                        }
+                    }
+                } else if( read.contains( "<+-SSW_START_NORMAL_ARMOR_BLOCK-+>" ) ) {
+                    // read until we get to the end of the armor block
+                    armor.clear();
+                    boolean end = false;
+                    while( end == false ) {
+                        read = FR.readLine();
+                        // see if someone forgot to end the fluff line
+                        if( read == null ) { throw new IOException( "Unexpected EOF: No End Normal Armor tag."); }
+                        // check for the end, then add the line
+                        if( read.contains( "<+-SSW_END_NORMAL_ARMOR_BLOCK-+>" ) ) {
+                            end = true;
+                        } else {
+                            armor.add( read );
+                        }
+                    }
+                    // are we actually exporting an omnimech?  If not, we'll
+                    // discard the lines we just read.
+                    if( ! CurMech.GetArmor().IsPatchwork() ) {
+                        // yes, go ahead with the export
+                        try {
+                            for( int i = 0; i < armor.size(); i++ ) {
+                                FW.write( ProcessLine( (String) armor.get( i ) ) );
+                                FW.newLine();
+                            }
+                        } catch( IOException e ) {
+                            throw e;
+                        }
+                    }
+                } else if( read.contains( "<+-SSW_START_PATCHWORK_ARMOR_BLOCK-+>" ) ) {
+                    // read until we get to the end of the armor block
+                    armor.clear();
+                    boolean end = false;
+                    while( end == false ) {
+                        read = FR.readLine();
+                        // see if someone forgot to end the fluff line
+                        if( read == null ) { throw new IOException( "Unexpected EOF: No End Patchwork Armor tag."); }
+                        // check for the end, then add the line
+                        if( read.contains( "<+-SSW_END_PATCHWORK_ARMOR_BLOCK-+>" ) ) {
+                            end = true;
+                        } else {
+                            armor.add( read );
+                        }
+                    }
+                    // are we actually exporting an omnimech?  If not, we'll
+                    // discard the lines we just read.
+                    if( CurMech.GetArmor().IsPatchwork() ) {
+                        // yes, go ahead with the export
+                        try {
+                            for( int i = 0; i < armor.size(); i++ ) {
+                                FW.write( ProcessLine( (String) armor.get( i ) ) );
+                                FW.newLine();
+                            }
                         } catch( IOException e ) {
                             throw e;
                         }
@@ -1152,6 +1209,15 @@ public class HTMLWriter {
             if( CurMech.GetLoadout().HasSupercharger() ) {
                 ret.add( CurMech.GetLoadout().GetSupercharger() );
             }
+            if( CurMech.GetLoadout().HasHDTurret() ) {
+                ret.add( CurMech.GetLoadout().GetHDTurret() );
+            }
+            if( CurMech.GetLoadout().HasLTTurret() ) {
+                ret.add( CurMech.GetLoadout().GetLTTurret() );
+            }
+            if( CurMech.GetLoadout().HasRTTurret() ) {
+                ret.add( CurMech.GetLoadout().GetRTTurret() );
+            }
             if( CurMech.IsQuad() ) {
                 if( CurMech.HasLegAES() ) {
                     ret.add( CurMech.GetRAAES() );
@@ -1375,6 +1441,14 @@ public class HTMLWriter {
         } else {
             lookup.put( "<+-SSW_TORSO_REAR_ARMOR-+>", "" + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LTR ) );
         }
+        lookup.put( "<+-SSW_HD_ARMOR_TYPE-+>", " (" + CurMech.GetArmor().GetHDArmorType().LookupName() + ")" );
+        lookup.put( "<+-SSW_CT_ARMOR_TYPE-+>", " (" + CurMech.GetArmor().GetCTArmorType().LookupName() + ")" );
+        lookup.put( "<+-SSW_LT_ARMOR_TYPE-+>", " (" + CurMech.GetArmor().GetLTArmorType().LookupName() + ")" );
+        lookup.put( "<+-SSW_RT_ARMOR_TYPE-+>", " (" + CurMech.GetArmor().GetRTArmorType().LookupName() + ")" );
+        lookup.put( "<+-SSW_LA_ARMOR_TYPE-+>", " (" + CurMech.GetArmor().GetLAArmorType().LookupName() + ")" );
+        lookup.put( "<+-SSW_RA_ARMOR_TYPE-+>", " (" + CurMech.GetArmor().GetRAArmorType().LookupName() + ")" );
+        lookup.put( "<+-SSW_LL_ARMOR_TYPE-+>", " (" + CurMech.GetArmor().GetLLArmorType().LookupName() + ")" );
+        lookup.put( "<+-SSW_RL_ARMOR_TYPE-+>", " (" + CurMech.GetArmor().GetRLArmorType().LookupName() + ")" );
         lookup.put( "<+-SSW_HD_INTERNAL-+>", "" + CurMech.GetIntStruc().GetHeadPoints() );
         lookup.put( "<+-SSW_CT_INTERNAL-+>", "" + CurMech.GetIntStruc().GetCTPoints() );
         lookup.put( "<+-SSW_TORSO_INTERNAL-+>", "" + CurMech.GetIntStruc().GetSidePoints() );
@@ -1470,6 +1544,10 @@ public class HTMLWriter {
             }
             lookup.put( "<+-SSW_ARM_LOCATION_NAME-+>", "R/L Front Leg" );
             lookup.put( "<+-SSW_LEG_LOCATION_NAME-+>", "R/L Rear Leg" );
+            lookup.put( "<+-SSW_LA_LOCATION_NAME-+>", "Front Left Leg" );
+            lookup.put( "<+-SSW_RA_LOCATION_NAME-+>", "Front Right Leg" );
+            lookup.put( "<+-SSW_LL_LOCATION_NAME-+>", "Left Rear Leg" );
+            lookup.put( "<+-SSW_RL_LOCATION_NAME-+>", "Right Rear Leg" );
             lookup.put( "<+-SSW_ARM_LOCATION_LONGNAME-+>", "Right/Left Front Leg" );
             lookup.put( "<+-SSW_LEG_LOCATION_LONGNAME-+>", "Right/Left Rear Leg" );
         } else {
@@ -1480,6 +1558,10 @@ public class HTMLWriter {
             }
             lookup.put( "<+-SSW_ARM_LOCATION_NAME-+>", "R/L Arm" );
             lookup.put( "<+-SSW_LEG_LOCATION_NAME-+>", "R/L Leg" );
+            lookup.put( "<+-SSW_LA_LOCATION_NAME-+>", "Left Arm" );
+            lookup.put( "<+-SSW_RA_LOCATION_NAME-+>", "Right Arm" );
+            lookup.put( "<+-SSW_LL_LOCATION_NAME-+>", "Left Leg" );
+            lookup.put( "<+-SSW_RL_LOCATION_NAME-+>", "Right Leg" );
             lookup.put( "<+-SSW_ARM_LOCATION_LONGNAME-+>", "Right/Left Arm" );
             lookup.put( "<+-SSW_LEG_LOCATION_LONGNAME-+>", "Right/Left Leg" );
         }
