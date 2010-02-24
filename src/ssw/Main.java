@@ -131,11 +131,11 @@ public class Main {
             PrintStream ps = new PrintStream( new BufferedOutputStream( new FileOutputStream( LogFile ), 64 ) );
             System.setOut(ps);
             System.setErr(ps);
-            System.out.println("Log File open for business...");
+            System.out.println( "Log File open for business..." );
         } catch (Exception e) {
             System.err.println( "Unable to send output to " + LogFile );
-            e.printStackTrace();
-            System.err.flush();
+//            e.printStackTrace();
+//            System.err.flush();
         }
     }
 }
