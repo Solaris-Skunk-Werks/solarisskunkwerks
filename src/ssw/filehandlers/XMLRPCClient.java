@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.filehandlers;
 
+import common.CommonTools;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -41,6 +42,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.*;
 import components.AvailableCode;
 import components.Mech;
+import filehandlers.Media;
 
 public class XMLRPCClient {
     private String Server;
@@ -163,7 +165,7 @@ public class XMLRPCClient {
 
         String send = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n";
         send += "<methodCall>\r\n";
-        send += "\t<methodName>TRO_BattleMech_Post</methodName>\r\n";
+        send += "\t<methodName>TRO_BattleMech_Post2010</methodName>\r\n";
         send += "\t<params>\r\n";
         send += "\t\t<param>\r\n";
         send += "\t\t\t<value>\r\n";
@@ -222,6 +224,16 @@ public class XMLRPCClient {
         send += "\t\t<param>\r\n";
         send += "\t\t\t<value>\r\n";
         send += "\t\t\t\t<string>" + m.GetDeprecatedLevel() + "</string>\r\n";
+        send += "\t\t\t</value>\r\n";
+        send += "\t\t</param>\r\n";
+        send += "\t\t<param>\r\n";
+        send += "\t\t\t<value>\r\n";
+        send += "\t\t\t\t<string>" + CommonTools.GetRulesLevelString(m.GetRulesLevel()) + "</string>\r\n";
+        send += "\t\t\t</value>\r\n";
+        send += "\t\t</param>\r\n";
+        send += "\t\t<param>\r\n";
+        send += "\t\t\t<value>\r\n";
+        send += "\t\t\t\t<string>" + CommonTools.DecodeEra(m.GetEra()) + "</string>\r\n";
         send += "\t\t\t</value>\r\n";
         send += "\t\t</param>\r\n";
         send += "\t\t<param>\r\n";
