@@ -80,18 +80,27 @@ public class thHDTransferHandler extends TransferHandler {
 
         if( DropItem.Locked ) {
             abPlaceable a = CurMech.GetLoadout().GetCrits( DropItem.Location )[DropItem.SourceIndex];
-            if( a instanceof CASEII ) {
+            if( a instanceof CASEII || a instanceof MechArmor ) {
                 if( DropItem.Location != LocationIndex.MECH_LOC_HD ) {
                     return false;
                 } else {
                     // get the drop location
                     JList.DropLocation dl = (JList.DropLocation) info.getDropLocation();
                     int dindex = dl.getIndex();
-                    if( CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_HD )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_HD )[dindex].LocationLinked() ) {
-                        return false;
-                    }
-                    if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().GetHDCaseII() == a ) {
-                        return false;
+                    if( a instanceof CASEII ) {
+                        if( CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_HD )[dindex].LocationLocked() || CurMech.GetLoadout().GetCrits( LocationIndex.MECH_LOC_HD )[dindex].LocationLinked() ) {
+                            return false;
+                        }
+                        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().GetHDCaseII() == a ) {
+                            return false;
+                        }
+                    } else if( a instanceof MechArmor ) {
+                        if( CurMech.IsOmnimech() ) {
+                            return false;
+                        }
+                        if( CurMech.GetLoadout().GetHDCrits()[dindex].LocationLocked() || CurMech.GetLoadout().GetHDCrits()[dindex].LocationLocked() ) {
+                            return false;
+                        }
                     }
                 }
             } else {

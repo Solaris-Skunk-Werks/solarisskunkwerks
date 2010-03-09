@@ -2063,6 +2063,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtInfoUnplaced.setText( "Unplaced Crits: " + CurMech.GetLoadout().UnplacedCrits() );
         txtInfoBattleValue.setText( "BV: " + String.format( "%1$,d", CurMech.GetCurrentBV() ) );
         txtInfoCost.setText( "Cost: " + String.format( "%1$,.0f", Math.floor( CurMech.GetTotalCost() + 0.5f ) ) );
+        txtEngineRating.setText( "" + CurMech.GetEngine().GetRating() );
 
         // fill in the movement summary
         String temp = "Max W/R/J/B: ";
@@ -4504,6 +4505,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         spnBoosterMP = new javax.swing.JSpinner();
         chkBoosters = new javax.swing.JCheckBox();
         lblMoveSummary = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        txtEngineRating = new javax.swing.JTextField();
         pnlOmniInfo = new javax.swing.JPanel();
         btnLockChassis = new javax.swing.JButton();
         btnAddVariant = new javax.swing.JButton();
@@ -5365,7 +5368,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridheight = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         pnlBasicSetup.add(pnlBasicInformation, gridBagConstraints);
 
@@ -5592,7 +5595,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
@@ -5644,7 +5647,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         pnlBasicSetup.add(pnlHeatSinks, gridBagConstraints);
 
@@ -5766,9 +5769,33 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 0);
         pnlMovement.add(lblMoveSummary, gridBagConstraints);
 
+        jLabel1.setText("Engine Rating: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 0);
+        pnlMovement.add(jLabel1, gridBagConstraints);
+
+        txtEngineRating.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtEngineRating.setText("100");
+        txtEngineRating.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtEngineRating.setEnabled(false);
+        txtEngineRating.setMaximumSize(new java.awt.Dimension(65, 20));
+        txtEngineRating.setMinimumSize(new java.awt.Dimension(65, 20));
+        txtEngineRating.setPreferredSize(new java.awt.Dimension(65, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 0);
+        pnlMovement.add(txtEngineRating, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         pnlBasicSetup.add(pnlMovement, gridBagConstraints);
 
@@ -6206,7 +6233,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         pnlBasicSetup.add(pnlBasicSummary, gridBagConstraints);
 
@@ -6351,7 +6378,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         pnlBasicSetup.add(jPanel4, gridBagConstraints);
@@ -6388,6 +6415,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlBasicSetup.add(jPanel6, gridBagConstraints);
@@ -6410,7 +6438,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         pnlBasicSetup.add(jPanel8, gridBagConstraints);
 
@@ -14485,6 +14513,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JComboBox cmbSCLoc;
     private javax.swing.JComboBox cmbTechBase;
     private javax.swing.JComboBox cmbTonnage;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -14853,6 +14882,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JTextField txtChassisModel;
     private javax.swing.JTextField txtCommSystem;
     private javax.swing.JTextField txtEngineManufacturer;
+    private javax.swing.JTextField txtEngineRating;
     private javax.swing.JTextField txtInfoBattleValue;
     private javax.swing.JTextField txtInfoCost;
     private javax.swing.JTextField txtInfoFreeCrits;
