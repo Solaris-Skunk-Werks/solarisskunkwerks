@@ -2095,6 +2095,21 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         UpdateBasicChart();
     }
 
+    public void QuickSave() {
+        if ( !Prefs.get("Currentfile", "").isEmpty() ) {
+            // save the mech to XML in the current location
+            MechWriter XMLw = new MechWriter( CurMech );
+            try {
+                String file = Prefs.get("Currentfile", "");
+                XMLw.WriteXML( file );
+            } catch( IOException e ) {
+                return;
+            }
+        } else {
+            mnuSaveActionPerformed(null);
+        }
+    }
+
     private void CheckEquipment() {
         // consolidating some code here.
         if( CurMech.UsingArtemisIV() ) {
@@ -4944,6 +4959,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuOptions = new javax.swing.JMenuItem();
         mnuViewToolbar = new javax.swing.JCheckBoxMenuItem();
         mnuClearUserData = new javax.swing.JMenuItem();
+        jSeparator27 = new javax.swing.JSeparator();
+        mnuBFB = new javax.swing.JMenuItem();
         mnuHelp = new javax.swing.JMenu();
         mnuCredits = new javax.swing.JMenuItem();
         mnuAboutSSW = new javax.swing.JMenuItem();
@@ -10136,6 +10153,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         mnuTools.add(mnuClearUserData);
+        mnuTools.add(jSeparator27);
+
+        mnuBFB.setText("Load Force Balancer");
+        mnuBFB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuBFBActionPerformed(evt);
+            }
+        });
+        mnuTools.add(mnuBFB);
 
         mnuMainMenu.add(mnuTools);
 
@@ -12269,6 +12295,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             if( choice == 1 ) { return; }
         }
         GetNewMech();
+        Prefs.put("Currentfile", "");
     }//GEN-LAST:event_mnuNewMechActionPerformed
 
     private void cmbRulesLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRulesLevelActionPerformed
@@ -12474,9 +12501,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 "The current 'Mech has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION );
             if( choice == 1 ) { return; }
         }
+        dOpen.Requestor = dlgOpen.SSW;
         dOpen.setLocationRelativeTo(null);
 
-        //dOpen.setSize( 750, 600 );
+        dOpen.setSize( 1024, 600 );
         dOpen.setVisible(true);
     }
 
@@ -12543,7 +12571,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // exports the mech to HTML format
 
         //Save any changes to the Mech before posting...
-        mnuSaveActionPerformed(evt);
+        QuickSave();
 
 	    String CurLoadout = "";
 	    if( CurMech.IsOmnimech() ) {
@@ -12558,11 +12586,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 	    }
 
 	    dlgPostToSolaris7 PostS7 = new dlgPostToSolaris7( this, true );
-            PostS7.setLocationRelativeTo( this );
+        PostS7.setLocationRelativeTo( this );
 	    PostS7.setVisible( true );
-
-        // Save the mech after the post is completed
-        mnuSaveActionPerformed(evt);
 
 	    // lastly, if this is an omnimech, reset the display to the last loadout
 	    cmbOmniVariant.setSelectedItem( CurLoadout );
@@ -12594,6 +12619,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         try {
             Prefs.put("LastOpenDirectory", savemech.getCanonicalPath().replace(savemech.getName(), ""));
             Prefs.put("LastOpenFile", savemech.getName());
+            Prefs.put("Currentfile", savemech.getCanonicalPath());
         } catch (IOException e) {
             Media.Messager( this, "There was a problem with the file:\n" + e.getMessage() );
             setCursor( NormalCursor );
@@ -12622,7 +12648,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             XMLw.WriteXML( file );
 
             // if there were no problems, let the user know how it went
-            if (evt.getActionCommand().equals("Save Mech")) {
+            if (evt != null && evt.getActionCommand().equals("Save Mech")) {
                 Media.Messager( this, "Mech saved successfully:\n" + file );
             }
         } catch( IOException e ) {
@@ -13031,6 +13057,7 @@ public Mech LoadMech (){
         filename = loadmech.getCanonicalPath();
         Prefs.put("LastOpenDirectory", loadmech.getCanonicalPath().replace(loadmech.getName(), ""));
         Prefs.put("LastOpenFile", loadmech.getName());
+        Prefs.put("Currentfile", loadmech.getCanonicalPath());
     } catch( Exception e ) {
         Media.Messager( this, "There was a problem opening the file:\n" + e.getMessage() );
         return m;
@@ -13068,6 +13095,7 @@ private void LoadMechFromFile( String filename )
             m = XMLr.ReadMech( filename, data );
             CurMech = m;
             LoadMechIntoGUI();
+            Prefs.put("Currentfile", filename);
         } catch( Exception e ) {
             // had a problem loading the mech.  let the user know.
             Media.Messager( e.getMessage() );
@@ -13860,8 +13888,9 @@ private void btnForceListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 private void btnAddToForceListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToForceListActionPerformed
     SetSource = false;
     SolidifyMech();
+    QuickSave();
     if (VerifyMech(evt)) {
-        dForce.Add(CurMech);
+        dForce.Add(CurMech, Prefs.get("Currentfile", ""));
     }
     CurMech.SetCurLoadout( (String) cmbOmniVariant.getSelectedItem() );
     SetSource = true;
@@ -14389,6 +14418,16 @@ private void chkRTTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         RefreshInfoPane();
 }//GEN-LAST:event_chkRTTurretActionPerformed
 
+private void mnuBFBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBFBActionPerformed
+    String[] call = { "java", "-Xmx256m", "-jar", "bfb.jar" };
+    try {
+        Runtime.getRuntime().exec(call);
+    } catch (Exception ex) {
+        Media.Messager("Error while trying to open BFB\n" + ex.getMessage());
+        System.out.println(ex.getMessage());
+    }
+}//GEN-LAST:event_mnuBFBActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -14615,6 +14654,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JToolBar.Separator jSeparator24;
     private javax.swing.JToolBar.Separator jSeparator25;
     private javax.swing.JToolBar.Separator jSeparator26;
+    private javax.swing.JSeparator jSeparator27;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
@@ -14761,6 +14801,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JList lstRTCrits;
     private javax.swing.JList lstSelectedEquipment;
     private javax.swing.JMenuItem mnuAboutSSW;
+    private javax.swing.JMenuItem mnuBFB;
     private javax.swing.JMenuItem mnuBatchHMP;
     private javax.swing.JMenuItem mnuClearUserData;
     private javax.swing.JMenuItem mnuCostBVBreakdown;
@@ -14942,6 +14983,7 @@ private void setViewToolbar(boolean Visible)
     }
 
     public void showOpenDialog() {
+        this.dOpen.Requestor = dlgOpen.FORCE;
         this.dOpen.setVisible(true);
     }
 }

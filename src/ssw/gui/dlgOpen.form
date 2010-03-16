@@ -31,30 +31,24 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tlbActions" alignment="0" pref="1026" max="32767" attributes="0"/>
+          <Component id="tlbActions" alignment="0" pref="1024" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="txtSelected" min="-2" pref="687" max="-2" attributes="0"/>
-              <EmptySpace pref="131" max="32767" attributes="0"/>
-              <Component id="prgResaving" min="-2" pref="188" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="spnMechTable" pref="1006" max="32767" attributes="2"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="pnlFilters" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblStatus" min="-2" pref="542" max="-2" attributes="0"/>
-              <EmptySpace pref="308" max="32767" attributes="0"/>
-              <Component id="lblShowing" min="-2" pref="156" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="lblStatus" min="-2" pref="525" max="-2" attributes="0"/>
+                      <EmptySpace pref="323" max="32767" attributes="0"/>
+                      <Component id="lblShowing" min="-2" pref="156" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="txtSelected" min="-2" pref="665" max="-2" attributes="0"/>
+                      <EmptySpace pref="151" max="32767" attributes="0"/>
+                      <Component id="prgResaving" min="-2" pref="188" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="spnMechTable" pref="1004" max="32767" attributes="3"/>
+                  <Component id="pnlFilters" alignment="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -62,13 +56,13 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Component id="tlbActions" min="-2" pref="25" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="prgResaving" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtSelected" min="-2" pref="14" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="prgResaving" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtSelected" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="spnMechTable" pref="591" max="32767" attributes="2"/>
+              <Component id="spnMechTable" pref="420" max="32767" attributes="2"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="pnlFilters" min="-2" max="-2" attributes="1"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -219,6 +213,27 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblForce">
         </Component>
+        <Component class="javax.swing.JToolBar$Separator" name="jSeparator5">
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cmbView">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="4">
+                <StringItem index="0" value="Total Warfare Standard"/>
+                <StringItem index="1" value="Total Warfare Compact"/>
+                <StringItem index="2" value="BattleForce Information"/>
+                <StringItem index="3" value="Chat Information"/>
+              </StringArray>
+            </Property>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[139, 20]"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbViewActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JScrollPane" name="spnMechTable">
@@ -324,14 +339,16 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblMinMP" min="-2" max="-2" attributes="0"/>
-                      <Component id="cmbMinMP" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="cmbMinMP" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="202" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnFilter" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnClearFilter" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="212" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnFilter" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnClearFilter" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace pref="18" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -389,19 +406,18 @@
                   </Group>
                   <EmptySpace pref="13" max="32767" attributes="0"/>
               </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="29" max="32767" attributes="0"/>
-                  <Component id="btnFilter" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="btnClearFilter" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblMinMP" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                   <Component id="cmbMinMP" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="51" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="40" max="32767" attributes="0"/>
+                  <Component id="btnFilter" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="btnClearFilter" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -415,7 +431,12 @@
         <Component class="javax.swing.JComboBox" name="cmbTech">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
+              <StringArray count="4">
+                <StringItem index="0" value="Any Tech"/>
+                <StringItem index="1" value="Clan"/>
+                <StringItem index="2" value="Inner Sphere"/>
+                <StringItem index="3" value="Mixed"/>
+              </StringArray>
             </Property>
           </Properties>
           <Events>
@@ -430,7 +451,14 @@
         <Component class="javax.swing.JComboBox" name="cmbEra">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
+              <StringArray count="6">
+                <StringItem index="0" value="Any Era"/>
+                <StringItem index="1" value="Age of War/Star League"/>
+                <StringItem index="2" value="Succession Wars"/>
+                <StringItem index="3" value="Clan Invasion"/>
+                <StringItem index="4" value="Dark Ages"/>
+                <StringItem index="5" value="All Eras (non-canon)"/>
+              </StringArray>
             </Property>
           </Properties>
           <Events>
@@ -445,7 +473,14 @@
         <Component class="javax.swing.JComboBox" name="cmbRulesLevel">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
+              <StringArray count="6">
+                <StringItem index="0" value="Any Level"/>
+                <StringItem index="1" value="Introductory"/>
+                <StringItem index="2" value="Tournament Legal"/>
+                <StringItem index="3" value="Advanced Rules"/>
+                <StringItem index="4" value="Experimental Tech"/>
+                <StringItem index="5" value="Era Specific"/>
+              </StringArray>
             </Property>
           </Properties>
           <Events>
@@ -460,7 +495,13 @@
         <Component class="javax.swing.JComboBox" name="cmbType">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
+              <StringArray count="5">
+                <StringItem index="0" value="Any Type"/>
+                <StringItem index="1" value="BattleMech"/>
+                <StringItem index="2" value="IndustrialMech"/>
+                <StringItem index="3" value="Primitive BattleMech"/>
+                <StringItem index="4" value="Primitive IndustrialMech"/>
+              </StringArray>
             </Property>
           </Properties>
           <Events>
@@ -475,7 +516,11 @@
         <Component class="javax.swing.JComboBox" name="cmbMotive">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
+              <StringArray count="3">
+                <StringItem index="0" value="Any Motive"/>
+                <StringItem index="1" value="Biped"/>
+                <StringItem index="2" value="Quad"/>
+              </StringArray>
             </Property>
           </Properties>
           <Events>

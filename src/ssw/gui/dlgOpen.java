@@ -55,6 +55,11 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private String NL = "";
     private String msg = "";
     private abView currentView = new tbTotalWarfareView(list);
+    private boolean cancelledListDirSelection = false;
+
+    public int Requestor = SSW;
+    public static final int SSW = 0,
+                            FORCE = 1;
 
     /** Creates new form dlgOpen */
     public dlgOpen(java.awt.Frame parent, boolean modal) {
@@ -71,7 +76,24 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     }
 
     private void LoadMech() {
-        MechListData Data = ((MechList) tblMechData.getModel()).Get( tblMechData.convertRowIndexToModel( tblMechData.getSelectedRow() ) );
+        switch ( Requestor ) {
+            case SSW:
+                LoadMechIntoSSW();
+                break;
+
+            case FORCE:
+                btnAdd2ForceActionPerformed(null);
+                this.setVisible(false);
+                parent.dForce.setVisible(true);
+                break;
+
+            default:
+                LoadMechIntoSSW();
+        }
+    }
+
+    private void LoadMechIntoSSW() {
+        MechListData Data = (MechListData)((abView) tblMechData.getModel()).Get( tblMechData.convertRowIndexToModel( tblMechData.getSelectedRow() ) );
         try
         {
             MechReader read = new MechReader();
@@ -82,12 +104,12 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             parent.setMech(m);
 
             parent.Prefs.put( "LastOpenDirectory", Data.getFilename().substring( 0, Data.getFilename().lastIndexOf( File.separator ) + 1 ) );
-            parent.Prefs.put( "LastOpenFile", Data.getFilename().substring( Data.getFilename().lastIndexOf( File.separator ) + 1 ) ); 
+            parent.Prefs.put( "LastOpenFile", Data.getFilename().substring( Data.getFilename().lastIndexOf( File.separator ) + 1 ) );
 
             parent.CurMech.SetChanged( false );
 
             tblMechData.clearSelection();
-            setupList(list);
+            //setupList(list, false);
             this.setVisible(false);
 
         } catch ( Exception e ) {
@@ -123,10 +145,22 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         if (dirPath.isEmpty()) {
             dirPath = parent.Prefs.get("ListPath", parent.Prefs.get( "LastOpenDirectory", "" ) );
 
-            if ( dirPath.isEmpty() && this.isVisible() ) {
-                dirPath = media.GetDirectorySelection(this, "", "Select SSW File Directory");
-                parent.Prefs.put("ListPath", dirPath);
-                if ( dirPath.isEmpty() ) { this.setVisible( false ); }
+            if ( dirPath.isEmpty() && this.isVisible() && !cancelledListDirSelection ) {
+                dlgSSWFiles dFiles = new dlgSSWFiles(this, true);
+                dFiles.setLocationRelativeTo(this);
+                dFiles.setVisible(true);
+                if ( dFiles.result ) {
+                    dirPath = media.GetDirectorySelection(this, "", "Select SSW File Directory");
+                    parent.Prefs.put("ListPath", dirPath);
+                    if ( dirPath.isEmpty() ) {
+                        cancelledListDirSelection = true;
+                        this.setVisible( false );
+                    }
+                } else {
+                    cancelledListDirSelection = true;
+                    this.setVisible( false );
+                }
+                dFiles.dispose();
             }
         }
 
@@ -135,11 +169,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         list = new MechList(dirPath, useIndex);
 
         if (list.Size() > 0) {
-            setupList(list);
-        } else {
-            dirPath = media.GetDirectorySelection(this, "", "Select SSW File Directory");
-            parent.Prefs.put("ListPath", dirPath);
-            LoadList(false);
+            setupList(list, true);
         }
 
         String displayPath = dirPath;
@@ -149,29 +179,14 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
 
-    private void setupList(MechList mechList) {
-        //currentView.list = mechList;
-        //tblMechData.setModel(currentView);
-        //currentView.setupTable(tblMechData);
-        tblMechData.setModel(mechList);
+    private void setupList(MechList mechList, boolean forceSort) {
+        currentView.list = mechList;
+        tblMechData.setModel(currentView);
+        currentView.setupTable(tblMechData);
+        //tblMechData.setModel(mechList);
 
         lblShowing.setText("Showing " + mechList.Size() + " of " + list.Size());
-        //Create a sorting class and apply it to the list
-        TableRowSorter sorter = new TableRowSorter<MechList>(mechList);
-        List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
-        sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
-        sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
-        sorter.setSortKeys(sortKeys);
-        tblMechData.setRowSorter(sorter);
 
-        tblMechData.getColumnModel().getColumn(0).setPreferredWidth(20);
-        tblMechData.getColumnModel().getColumn(1).setPreferredWidth(150);
-        tblMechData.getColumnModel().getColumn(2).setPreferredWidth(20);
-        tblMechData.getColumnModel().getColumn(3).setPreferredWidth(60);
-        tblMechData.getColumnModel().getColumn(4).setPreferredWidth(80);
-        tblMechData.getColumnModel().getColumn(5).setPreferredWidth(100);
-        tblMechData.getColumnModel().getColumn(6).setPreferredWidth(50);
-        tblMechData.getColumnModel().getColumn(7).setPreferredWidth(20);
     }
 
     private void checkSelection() {
@@ -327,6 +342,8 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         btnMagic = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         lblForce = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JToolBar.Separator();
+        cmbView = new javax.swing.JComboBox();
         spnMechTable = new javax.swing.JScrollPane();
         tblMechData = new javax.swing.JTable();
         pnlFilters = new javax.swing.JPanel();
@@ -489,6 +506,17 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         tlbActions.add(btnMagic);
         tlbActions.add(jSeparator3);
         tlbActions.add(lblForce);
+        tlbActions.add(jSeparator5);
+
+        cmbView.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Total Warfare Standard", "Total Warfare Compact", "BattleForce Information", "Chat Information" }));
+        cmbView.setFocusable(false);
+        cmbView.setMaximumSize(new java.awt.Dimension(139, 20));
+        cmbView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbViewActionPerformed(evt);
+            }
+        });
+        tlbActions.add(cmbView);
 
         tblMechData.setAutoCreateRowSorter(true);
         tblMechData.setModel(new javax.swing.table.DefaultTableModel(
@@ -523,6 +551,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         lblTech.setText("Technology");
 
+        cmbTech.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Tech", "Clan", "Inner Sphere", "Mixed" }));
         cmbTech.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Filter(evt);
@@ -531,6 +560,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         lblEra.setText("Era");
 
+        cmbEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Era", "Age of War/Star League", "Succession Wars", "Clan Invasion", "Dark Ages", "All Eras (non-canon)" }));
         cmbEra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Filter(evt);
@@ -539,6 +569,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         lblLevel.setText("Rules Level");
 
+        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Level", "Introductory", "Tournament Legal", "Advanced Rules", "Experimental Tech", "Era Specific" }));
         cmbRulesLevel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbRulesLevelFilter(evt);
@@ -547,6 +578,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         lblType.setText("Mech Type");
 
+        cmbType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Type", "BattleMech", "IndustrialMech", "Primitive BattleMech", "Primitive IndustrialMech" }));
         cmbType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbTypeFilter(evt);
@@ -555,6 +587,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         lblMotive.setText("Motive Type");
 
+        cmbMotive.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Motive", "Biped", "Quad" }));
         cmbMotive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbMotiveFilter(evt);
@@ -709,12 +742,13 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlFiltersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblMinMP)
-                    .addComponent(cmbMinMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(212, 212, 212)
-                .addGroup(pnlFiltersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnFilter)
-                    .addComponent(btnClearFilter))
-                .addContainerGap())
+                    .addGroup(pnlFiltersLayout.createSequentialGroup()
+                        .addComponent(cmbMinMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(202, 202, 202)
+                        .addGroup(pnlFiltersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnFilter)
+                            .addComponent(btnClearFilter))))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         pnlFiltersLayout.setVerticalGroup(
             pnlFiltersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -759,18 +793,17 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                             .addComponent(txtSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(13, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFiltersLayout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
-                .addComponent(btnFilter)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnClearFilter)
-                .addContainerGap())
             .addGroup(pnlFiltersLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblMinMP)
                 .addGap(1, 1, 1)
                 .addComponent(cmbMinMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(51, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFiltersLayout.createSequentialGroup()
+                .addContainerGap(40, Short.MAX_VALUE)
+                .addComponent(btnFilter)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnClearFilter))
         );
 
         lblStatus.setText("Loading Mechs....");
@@ -784,38 +817,32 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 1026, Short.MAX_VALUE)
+            .addComponent(tlbActions, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
-                .addComponent(prgResaving, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlFilters, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 308, Short.MAX_VALUE)
-                .addComponent(lblShowing, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 323, Short.MAX_VALUE)
+                        .addComponent(lblShowing, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                        .addComponent(prgResaving, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
+                    .addComponent(pnlFilters, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tlbActions, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(prgResaving, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
+                .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlFilters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -896,7 +923,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         if (cmbTech.getSelectedIndex() > 0) {filters.setTech(cmbTech.getSelectedItem().toString());}
         if (cmbEra.getSelectedIndex() > 0) {filters.setEra(cmbEra.getSelectedItem().toString());}
-        if (cmbType.getSelectedIndex() > 0) {filters.setType(cmbType.getSelectedItem().toString().replace(" ", ""));}
+        if (cmbType.getSelectedIndex() > 0) {filters.setType(cmbType.getSelectedItem().toString());}
         if (cmbMotive.getSelectedIndex() > 0) {filters.setMotive(cmbMotive.getSelectedItem().toString());}
         if (cmbRulesLevel.getSelectedIndex() > 0) {filters.setLevel(cmbRulesLevel.getSelectedItem().toString());}
         if (cmbMinMP.getSelectedIndex() > 0) {filters.setMinMP(Integer.parseInt(cmbMinMP.getSelectedItem().toString()));}
@@ -926,7 +953,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         filters.setIsOmni(chkOmni.isSelected());
 
         MechList filtered = list.Filter(filters);
-        setupList(filtered);
+        setupList(filtered, false);
     }//GEN-LAST:event_Filter
 
     private void txtMinCostFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMinCostFilter
@@ -938,7 +965,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 }//GEN-LAST:event_txtMaxCostFilter
 
     private void btnClearFilterFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearFilterFilter
-        setupList(list);
+        setupList(list, false);
         
         //clear the dropdowns
         cmbEra.setSelectedIndex(0);
@@ -964,7 +991,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         if ( tblMechData.getSelectedRowCount() > 0 ) {
             int[] rows = tblMechData.getSelectedRows();
             for ( int i=0; i < rows.length; i++ ) {
-                MechListData data = ((MechList) tblMechData.getModel()).Get(tblMechData.convertRowIndexToModel(rows[i]));
+                MechListData data = (MechListData)((abView) tblMechData.getModel()).Get(tblMechData.convertRowIndexToModel(rows[i]));
                 parent.dForce.getForce().AddUnit(new Unit(data));
                 parent.dForce.getForce().RefreshBV();
                 lblForce.setText(lblForce.getText() + " " + data.getFullName() + " added;");
@@ -1029,7 +1056,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 }//GEN-LAST:event_cmbMinMPFilter
 
     private void tblMechDataMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMechDataMouseMoved
-        setTooltip( (MechListData) ((MechList) tblMechData.getModel()).Get(tblMechData.convertRowIndexToModel(tblMechData.rowAtPoint(evt.getPoint()))) );
+        setTooltip( (MechListData) ((abView) tblMechData.getModel()).Get(tblMechData.convertRowIndexToModel(tblMechData.rowAtPoint(evt.getPoint()))) );
     }//GEN-LAST:event_tblMechDataMouseMoved
 
     private void tblMechDataKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblMechDataKeyReleased
@@ -1043,7 +1070,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 entered = "";
                 break;
             case KeyEvent.VK_ENTER:
-                if ( ((MechList) tblMechData.getModel()).Size() == 1 ) {
+                if ( ((abView) tblMechData.getModel()).list.Size() == 1 ) {
                     tblMechData.selectAll();
                     LoadMech();
                 }
@@ -1078,6 +1105,34 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         Filter(null);
     }//GEN-LAST:event_formWindowGainedFocus
 
+    private void cmbViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbViewActionPerformed
+        switch ( cmbView.getSelectedIndex() ) {
+            case 0:
+                currentView = new tbTotalWarfareView(list);
+                break;
+            case 1:
+                currentView = new tbTotalWarfareCompact(list);
+                break;
+            case 2:
+                currentView = new tbBattleForceView(list);
+                break;
+            case 3:
+                currentView = new tbChatInformation(list);
+                break;
+            default:
+                currentView = new tbTotalWarfareView(list);
+        }
+        tblMechData.setModel(currentView);
+        currentView.setupTable(tblMechData);
+    }//GEN-LAST:event_cmbViewActionPerformed
+
+    @Override
+    public void setVisible( boolean b ) {
+        super.setVisible(b);
+        cancelledListDirSelection = false;
+        if ( list.Size() == 0 ) { LoadList(); }
+        Filter(null);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd2Force;
     private javax.swing.JButton btnChangeDir;
@@ -1096,10 +1151,12 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private javax.swing.JComboBox cmbRulesLevel;
     private javax.swing.JComboBox cmbTech;
     private javax.swing.JComboBox cmbType;
+    private javax.swing.JComboBox cmbView;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
+    private javax.swing.JToolBar.Separator jSeparator5;
     private javax.swing.JLabel lblBV;
     private javax.swing.JLabel lblCost;
     private javax.swing.JLabel lblEra;
