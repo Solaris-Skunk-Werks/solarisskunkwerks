@@ -4929,20 +4929,20 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuNewMech = new javax.swing.JMenuItem();
         mnuLoad = new javax.swing.JMenuItem();
         mnuOpen = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        mnuImport = new javax.swing.JMenu();
         mnuImportHMP = new javax.swing.JMenuItem();
         mnuBatchHMP = new javax.swing.JMenuItem();
         jSeparator16 = new javax.swing.JSeparator();
         mnuSave = new javax.swing.JMenuItem();
         mnuSaveAs = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        mnuExport = new javax.swing.JMenu();
         mnuExportHTML = new javax.swing.JMenuItem();
         mnuExportMTF = new javax.swing.JMenuItem();
         mnuExportTXT = new javax.swing.JMenuItem();
         mnuExportClipboard = new javax.swing.JMenuItem();
         mnuCreateTCGMech = new javax.swing.JMenuItem();
         jSeparator20 = new javax.swing.JSeparator();
-        jMenu2 = new javax.swing.JMenu();
+        mnuPrint = new javax.swing.JMenu();
         mnuPrintCurrentMech = new javax.swing.JMenuItem();
         mnuPrintSavedMech = new javax.swing.JMenuItem();
         mnuPrintBatch = new javax.swing.JMenuItem();
@@ -5806,7 +5806,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(2, 4, 0, 0);
         pnlMovement.add(txtEngineRating, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -9833,7 +9833,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlInfoPanel.setLayout(new javax.swing.BoxLayout(pnlInfoPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         txtInfoTonnage.setEditable(false);
-        txtInfoTonnage.setFont(new java.awt.Font("Arial", 0, 11));
+        txtInfoTonnage.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         txtInfoTonnage.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoTonnage.setText("Tons: 000.00");
         txtInfoTonnage.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -9843,7 +9843,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlInfoPanel.add(txtInfoTonnage);
 
         txtInfoFreeTons.setEditable(false);
-        txtInfoFreeTons.setFont(new java.awt.Font("Arial", 0, 11));
+        txtInfoFreeTons.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         txtInfoFreeTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoFreeTons.setText("Free Tons: 000.00");
         txtInfoFreeTons.setMaximumSize(new java.awt.Dimension(96, 20));
@@ -9852,7 +9852,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlInfoPanel.add(txtInfoFreeTons);
 
         txtInfoMaxHeat.setEditable(false);
-        txtInfoMaxHeat.setFont(new java.awt.Font("Arial", 0, 11));
+        txtInfoMaxHeat.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         txtInfoMaxHeat.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoMaxHeat.setText("Max Heat: 000");
         txtInfoMaxHeat.setMaximumSize(new java.awt.Dimension(77, 20));
@@ -9861,7 +9861,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlInfoPanel.add(txtInfoMaxHeat);
 
         txtInfoHeatDiss.setEditable(false);
-        txtInfoHeatDiss.setFont(new java.awt.Font("Arial", 0, 11));
+        txtInfoHeatDiss.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         txtInfoHeatDiss.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoHeatDiss.setText("Heat Dissipation: 000");
         txtInfoHeatDiss.setMaximumSize(new java.awt.Dimension(118, 20));
@@ -9870,7 +9870,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlInfoPanel.add(txtInfoHeatDiss);
 
         txtInfoFreeCrits.setEditable(false);
-        txtInfoFreeCrits.setFont(new java.awt.Font("Arial", 0, 11));
+        txtInfoFreeCrits.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         txtInfoFreeCrits.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoFreeCrits.setText("Free Crits: -00");
         txtInfoFreeCrits.setMaximumSize(new java.awt.Dimension(77, 20));
@@ -9879,7 +9879,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlInfoPanel.add(txtInfoFreeCrits);
 
         txtInfoUnplaced.setEditable(false);
-        txtInfoUnplaced.setFont(new java.awt.Font("Arial", 0, 11));
+        txtInfoUnplaced.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         txtInfoUnplaced.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoUnplaced.setText("Unplaced Crits: 00");
         txtInfoUnplaced.setMaximumSize(new java.awt.Dimension(110, 20));
@@ -9888,7 +9888,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlInfoPanel.add(txtInfoUnplaced);
 
         txtInfoBattleValue.setEditable(false);
-        txtInfoBattleValue.setFont(new java.awt.Font("Arial", 0, 11));
+        txtInfoBattleValue.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         txtInfoBattleValue.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoBattleValue.setText("BV: 00,000");
         txtInfoBattleValue.setMaximumSize(new java.awt.Dimension(62, 20));
@@ -9897,7 +9897,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlInfoPanel.add(txtInfoBattleValue);
 
         txtInfoCost.setEditable(false);
-        txtInfoCost.setFont(new java.awt.Font("Arial", 0, 11));
+        txtInfoCost.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         txtInfoCost.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoCost.setText("Cost: 000,000,000");
         txtInfoCost.setMaximumSize(new java.awt.Dimension(125, 20));
@@ -9945,7 +9945,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         mnuFile.add(mnuOpen);
 
-        jMenu3.setText("Import Mech...");
+        mnuImport.setText("Import Mech...");
 
         mnuImportHMP.setText("from Heavy Metal Pro (HMP)");
         mnuImportHMP.addActionListener(new java.awt.event.ActionListener() {
@@ -9953,7 +9953,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuImportHMPActionPerformed(evt);
             }
         });
-        jMenu3.add(mnuImportHMP);
+        mnuImport.add(mnuImportHMP);
 
         mnuBatchHMP.setText("Batch Import HMP Files");
         mnuBatchHMP.addActionListener(new java.awt.event.ActionListener() {
@@ -9961,9 +9961,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuBatchHMPActionPerformed(evt);
             }
         });
-        jMenu3.add(mnuBatchHMP);
+        mnuImport.add(mnuBatchHMP);
 
-        mnuFile.add(jMenu3);
+        mnuFile.add(mnuImport);
         mnuFile.add(jSeparator16);
 
         mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
@@ -9984,7 +9984,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         mnuFile.add(mnuSaveAs);
 
-        jMenu1.setText("Export Mech...");
+        mnuExport.setText("Export Mech...");
 
         mnuExportHTML.setText("to HTML (Web)");
         mnuExportHTML.addActionListener(new java.awt.event.ActionListener() {
@@ -9992,7 +9992,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuExportHTMLActionPerformed(evt);
             }
         });
-        jMenu1.add(mnuExportHTML);
+        mnuExport.add(mnuExportHTML);
 
         mnuExportMTF.setText("to MTF (MegaMek)");
         mnuExportMTF.addActionListener(new java.awt.event.ActionListener() {
@@ -10000,7 +10000,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuExportMTFActionPerformed(evt);
             }
         });
-        jMenu1.add(mnuExportMTF);
+        mnuExport.add(mnuExportMTF);
 
         mnuExportTXT.setText("to TXT (Text)");
         mnuExportTXT.addActionListener(new java.awt.event.ActionListener() {
@@ -10008,7 +10008,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuExportTXTActionPerformed(evt);
             }
         });
-        jMenu1.add(mnuExportTXT);
+        mnuExport.add(mnuExportTXT);
 
         mnuExportClipboard.setText("to Clipboard (Text)");
         mnuExportClipboard.addActionListener(new java.awt.event.ActionListener() {
@@ -10016,7 +10016,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuExportClipboardActionPerformed(evt);
             }
         });
-        jMenu1.add(mnuExportClipboard);
+        mnuExport.add(mnuExportClipboard);
 
         mnuCreateTCGMech.setText("to TCG Format (Card)");
         mnuCreateTCGMech.addActionListener(new java.awt.event.ActionListener() {
@@ -10024,12 +10024,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuCreateTCGMechActionPerformed(evt);
             }
         });
-        jMenu1.add(mnuCreateTCGMech);
+        mnuExport.add(mnuCreateTCGMech);
 
-        mnuFile.add(jMenu1);
+        mnuFile.add(mnuExport);
         mnuFile.add(jSeparator20);
 
-        jMenu2.setText("Print");
+        mnuPrint.setText("Print");
 
         mnuPrintCurrentMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         mnuPrintCurrentMech.setText("Current Mech");
@@ -10038,7 +10038,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuPrintCurrentMechActionPerformed(evt);
             }
         });
-        jMenu2.add(mnuPrintCurrentMech);
+        mnuPrint.add(mnuPrintCurrentMech);
 
         mnuPrintSavedMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         mnuPrintSavedMech.setText("Saved Mech");
@@ -10047,7 +10047,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuPrintSavedMechActionPerformed(evt);
             }
         });
-        jMenu2.add(mnuPrintSavedMech);
+        mnuPrint.add(mnuPrintSavedMech);
 
         mnuPrintBatch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         mnuPrintBatch.setText("Batch Print Mechs");
@@ -10056,9 +10056,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuPrintBatchActionPerformed(evt);
             }
         });
-        jMenu2.add(mnuPrintBatch);
+        mnuPrint.add(mnuPrintBatch);
 
-        mnuFile.add(jMenu2);
+        mnuFile.add(mnuPrint);
 
         mnuPrintPreview.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         mnuPrintPreview.setText("Print Preview");
@@ -10477,6 +10477,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // spinner model and recalculate the heat sinks
         FixJJSpinnerModel();
         CurMech.GetHeatSinks().ReCalculate();
+        CurMech.GetLoadout().UnallocateFuelTanks();
 
         // now refresh the information panes
         RefreshSummary();
@@ -14608,9 +14609,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -14808,12 +14806,14 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JMenuItem mnuCreateTCGMech;
     private javax.swing.JMenuItem mnuCredits;
     private javax.swing.JMenuItem mnuExit;
+    private javax.swing.JMenu mnuExport;
     private javax.swing.JMenuItem mnuExportClipboard;
     private javax.swing.JMenuItem mnuExportHTML;
     private javax.swing.JMenuItem mnuExportMTF;
     private javax.swing.JMenuItem mnuExportTXT;
     private javax.swing.JMenu mnuFile;
     private javax.swing.JMenu mnuHelp;
+    private javax.swing.JMenu mnuImport;
     private javax.swing.JMenuItem mnuImportHMP;
     private javax.swing.JMenuItem mnuLoad;
     private javax.swing.JMenuBar mnuMainMenu;
@@ -14821,6 +14821,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JMenuItem mnuOpen;
     private javax.swing.JMenuItem mnuOptions;
     private javax.swing.JMenuItem mnuPostS7;
+    private javax.swing.JMenu mnuPrint;
     private javax.swing.JMenuItem mnuPrintBatch;
     private javax.swing.JMenuItem mnuPrintCurrentMech;
     private javax.swing.JMenuItem mnuPrintPreview;
