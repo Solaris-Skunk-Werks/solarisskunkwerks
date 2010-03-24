@@ -67,6 +67,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         txtHTMLPath.setText( Prefs.get( "HTMLExportPath", "none" ) );
         txtTXTPath.setText( Prefs.get( "TXTExportPath", "none" ) );
         txtMTFPath.setText( Prefs.get( "MTFExportPath", "none" ) );
+        txtImagePath.setText( Prefs.get( "DefaultImagePath", "") );
         txtAmmoPrintName.setText( Prefs.get( "AmmoNamePrintFormat", "@%P (%L)" ) );
         txtAmmoExportName.setText( Prefs.get( "AmmoNameExportFormat", "@%P (%L)" ) );
         chkHeatOSWeapons.setSelected( Prefs.getBoolean( "HeatExcludeOS", false ) );
@@ -131,6 +132,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         Prefs.put( "HTMLExportPath", txtHTMLPath.getText() );
         Prefs.put( "TXTExportPath", txtTXTPath.getText() );
         Prefs.put( "MTFExportPath", txtMTFPath.getText() );
+        Prefs.put( "DefaultImagePath", txtImagePath.getText() );
         Prefs.put( "AmmoNamePrintFormat", txtAmmoPrintName.getText() );
         Prefs.put( "AmmoNameExportFormat", txtAmmoExportName.getText() );
 
@@ -321,6 +323,9 @@ public class dlgPrefs extends javax.swing.JDialog {
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtImagePath = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         chkUpdateStartup = new javax.swing.JCheckBox();
         jPanel9 = new javax.swing.JPanel();
@@ -1106,6 +1111,28 @@ public class dlgPrefs extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
         jPanel10.add(jLabel24, gridBagConstraints);
 
+        jLabel5.setText("Default Image path");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        jPanel10.add(jLabel5, gridBagConstraints);
+
+        txtImagePath.setText("jTextField1");
+        txtImagePath.setPreferredSize(new java.awt.Dimension(200, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        jPanel10.add(txtImagePath, gridBagConstraints);
+
+        jButton1.setText("...");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 8;
+        jPanel10.add(jButton1, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -1577,6 +1604,7 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JComboBox cmbHeatSinks;
     private javax.swing.JComboBox cmbRulesLevel;
     private javax.swing.JComboBox cmbTechbase;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -1589,6 +1617,7 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1626,6 +1655,7 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JTextField txtAmmoPrintName;
     private javax.swing.JTextField txtCTRArmor;
     private javax.swing.JTextField txtHTMLPath;
+    private javax.swing.JTextField txtImagePath;
     private javax.swing.JTextField txtMTFPath;
     private javax.swing.JTextField txtSTRArmor;
     private javax.swing.JTextField txtTXTPath;
