@@ -444,6 +444,7 @@ private void btnPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         if( ! UserImage.equals( "-1" ) |! UserImage.equals( "0" ) ) {
             CurMech.SetSolaris7ImageID( UserImage );
         }
+        Parent.QuickSave();
     }
     setCursor( NormalCursor );
     dispose();
