@@ -30,7 +30,6 @@ package ssw.gui;
 
 import filehandlers.Media;
 import java.awt.Cursor;
-import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -38,17 +37,18 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Vector;
-import javax.swing.ImageIcon;
+import javax.swing.DefaultListModel;
 import ssw.SSWConstants;
 import ssw.filehandlers.XMLRPCClient;
 
 public class dlgBrowseS7Images extends javax.swing.JDialog {
-    Vector ImageList = new Vector();
-    int UserID = -1;
+    Vector<ImageID> ImageList = new Vector<ImageID>();
+    int UserID = -1,
+            defaultIndex = 0;
     String ImageID = "-1",
            ImageName ="none";
+    private Media media = new Media();
     private Cursor Hourglass = new Cursor( Cursor.WAIT_CURSOR );
     private Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
 
@@ -65,20 +65,17 @@ public class dlgBrowseS7Images extends javax.swing.JDialog {
         }
 
         // now that the list is loaded, get the combo box up and running
-        String[] List = new String[ImageList.size()];
-        for( int i = 0; i < ImageList.size(); i++ ) {
-            List[i] = ((ImageID) ImageList.get( i )).Name;
+        DefaultListModel listModel = new DefaultListModel();
+        for ( ImageID id : ImageList ) {
+            listModel.addElement( id );
+            if ( id.ID.equals(Image) || id.Name.equals(Image) ) defaultIndex = listModel.size()-1;
         }
 
         // load the list up
-        cmbImageList.setModel( new javax.swing.DefaultComboBoxModel( List ) );
-
-        if( ! Image.equals( "0" ) ) {
-            ImageID = Image;
-        }
+        lstImages.setModel(listModel);
 
         // load the selected image
-        LoadImage();
+        lstImages.setSelectedIndex(defaultIndex);
     }
 
     private void LoadImageList() throws Exception {
@@ -172,40 +169,12 @@ public class dlgBrowseS7Images extends javax.swing.JDialog {
         }
     }
 
-    private void LoadImage() {
-        ImageIcon FluffImage;
-        try {
-            if( ((ImageID) ImageList.get( cmbImageList.getSelectedIndex() )).ID.equals( "-1" ) ) {
-                FluffImage = new ImageIcon( ((ImageID) ImageList.get( cmbImageList.getSelectedIndex() )).URL );
-            } else {
-                FluffImage = new ImageIcon( new URL( GetURL( ((ImageID) ImageList.get( cmbImageList.getSelectedIndex() )).URL ) ) );
-            }
-        } catch( Exception e ) {
-            Media.Messager( this, e.getMessage() );
-            return;
-        }
-
-        // See if we need to scale
-        int h = FluffImage.getIconHeight();
-        int w = FluffImage.getIconWidth();
-        if ( w > 300 || h > 500 ) {
-            if ( w > 300 ) { // resize based on width
-                FluffImage = new ImageIcon(FluffImage.getImage().
-                    getScaledInstance( 300, -1, Image.SCALE_DEFAULT));
-            } else { // resize based on height
-                FluffImage = new ImageIcon(FluffImage.getImage().
-                    getScaledInstance(-1, 500, Image.SCALE_DEFAULT));
-            }
-        }
-        lblImage.setIcon( FluffImage );
-    }
-
     private ImageID ProcessString( String s ) {
         ImageID retval = new ImageID();
         String[] c = s.split( "," );
         retval.ID = c[0];
         retval.Name = c[1];
-        retval.URL = c[2];
+        retval.URL = c[2].replace(" ", "%20");
         return retval;
     }
 
@@ -229,39 +198,19 @@ public class dlgBrowseS7Images extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jLabel1 = new javax.swing.JLabel();
-        cmbImageList = new javax.swing.JComboBox();
         jPanel1 = new javax.swing.JPanel();
         btnUseImage = new javax.swing.JButton();
         brnCancel = new javax.swing.JButton();
         lblImage = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lstImages = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridBagLayout());
+        setTitle("Select Image");
 
         jLabel1.setText("Use the following image:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 2, 0);
-        getContentPane().add(jLabel1, gridBagConstraints);
-
-        cmbImageList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbImageList.setMaximumSize(new java.awt.Dimension(270, 24));
-        cmbImageList.setMinimumSize(new java.awt.Dimension(270, 24));
-        cmbImageList.setPreferredSize(new java.awt.Dimension(270, 24));
-        cmbImageList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbImageListActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 2, 0);
-        getContentPane().add(cmbImageList, gridBagConstraints);
 
         btnUseImage.setText("Use Image");
         btnUseImage.addActionListener(new java.awt.event.ActionListener() {
@@ -279,47 +228,82 @@ public class dlgBrowseS7Images extends javax.swing.JDialog {
         });
         jPanel1.add(brnCancel);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        getContentPane().add(jPanel1, gridBagConstraints);
-
         lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/No_Image.png"))); // NOI18N
-        lblImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblImage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         lblImage.setMaximumSize(new java.awt.Dimension(300, 500));
         lblImage.setMinimumSize(new java.awt.Dimension(300, 500));
         lblImage.setPreferredSize(new java.awt.Dimension(300, 500));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        getContentPane().add(lblImage, gridBagConstraints);
+
+        lstImages.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        lstImages.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lstImages.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstImagesValueChanged(evt);
+            }
+        });
+        jScrollPane2.setViewportView(lstImages);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                    .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-private void cmbImageListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbImageListActionPerformed
-    LoadImage();
-}//GEN-LAST:event_cmbImageListActionPerformed
 
 private void brnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnCancelActionPerformed
     setVisible( false );
 }//GEN-LAST:event_brnCancelActionPerformed
 
 private void btnUseImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUseImageActionPerformed
-    ImageID = ((ImageID) ImageList.get( cmbImageList.getSelectedIndex() )).ID;
-    ImageName = ((ImageID) ImageList.get( cmbImageList.getSelectedIndex() )).Name;
+    ImageID = ((ImageID) lstImages.getModel().getElementAt( lstImages.getSelectedIndex() )).ID;
+    ImageName = ((ImageID) lstImages.getModel().getElementAt( lstImages.getSelectedIndex() )).Name;
     setVisible( false );
 }//GEN-LAST:event_btnUseImageActionPerformed
+
+private void lstImagesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstImagesValueChanged
+    if ( lstImages.getSelectedIndex() > -1 ) {
+        media.setLogo( lblImage, ((ImageID) lstImages.getModel().getElementAt( lstImages.getSelectedIndex() )).URL );
+    }
+}//GEN-LAST:event_lstImagesValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brnCancel;
     private javax.swing.JButton btnUseImage;
-    private javax.swing.JComboBox cmbImageList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblImage;
+    private javax.swing.JList lstImages;
     // End of variables declaration//GEN-END:variables
 
     private class ImageID {
@@ -328,7 +312,8 @@ private void btnUseImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         public String URL = "";
         @Override
         public String toString() {
-            return ID + "," + Name + "," + URL;
+            return Name;
+            //return ID + "," + Name + "," + URL;
         }
     }
 }
