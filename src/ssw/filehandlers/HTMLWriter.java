@@ -1635,6 +1635,7 @@ public class HTMLWriter {
         }
         String retval = "";
         fluff = fluff.replaceAll( "\n\r", "\n" );
+        fluff = fluff.replaceAll( "\t", "&nbsp;&nbsp;&nbsp;&nbsp;" );
         String[] s = fluff.split( "\n", -1 );
 
         for( int i = 0; i < s.length; i++ ) {

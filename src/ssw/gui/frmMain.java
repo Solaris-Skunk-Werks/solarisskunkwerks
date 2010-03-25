@@ -64,6 +64,7 @@ import dialog.frmForce;
 import components.EquipmentCollection;
 import gui.TextPane;
 import ssw.printpreview.dlgPreview;
+import Print.PrintConsts;
 
 public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner, common.DesignForm {
 
@@ -4482,6 +4483,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lblRulesLevel = new javax.swing.JLabel();
         jLabel65 = new javax.swing.JLabel();
         txtSource = new javax.swing.JTextField();
+        jSeparator28 = new javax.swing.JSeparator();
+        jSeparator29 = new javax.swing.JSeparator();
         pnlChassis = new javax.swing.JPanel();
         lblTonnage = new javax.swing.JLabel();
         cmbTonnage = new javax.swing.JComboBox();
@@ -4950,17 +4953,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuPostS7 = new javax.swing.JMenuItem();
         jSeparator17 = new javax.swing.JSeparator();
         mnuExit = new javax.swing.JMenuItem();
-        mnuTools = new javax.swing.JMenu();
+        mnuClearFluff = new javax.swing.JMenu();
         mnuSummary = new javax.swing.JMenuItem();
         mnuCostBVBreakdown = new javax.swing.JMenuItem();
         mnuTextTRO = new javax.swing.JMenuItem();
-        mnuUnlock = new javax.swing.JMenuItem();
         jSeparator15 = new javax.swing.JSeparator();
+        mnuBFB = new javax.swing.JMenuItem();
+        jSeparator27 = new javax.swing.JSeparator();
         mnuOptions = new javax.swing.JMenuItem();
         mnuViewToolbar = new javax.swing.JCheckBoxMenuItem();
         mnuClearUserData = new javax.swing.JMenuItem();
-        jSeparator27 = new javax.swing.JSeparator();
-        mnuBFB = new javax.swing.JMenuItem();
+        jSeparator30 = new javax.swing.JSeparator();
+        mnuUnlock = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         mnuHelp = new javax.swing.JMenu();
         mnuCredits = new javax.swing.JMenuItem();
         mnuAboutSSW = new javax.swing.JMenuItem();
@@ -5381,6 +5386,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         };
         txtSource.addMouseListener( mlSource );
+        pnlBasicInformation.add(jSeparator28, new java.awt.GridBagConstraints());
+        pnlBasicInformation.add(jSeparator29, new java.awt.GridBagConstraints());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -8093,7 +8100,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         jScrollPane10.setPreferredSize(new java.awt.Dimension(105, 87));
 
-        lstHDCrits.setFont(new java.awt.Font("Tahoma", 0, 10));
+        lstHDCrits.setFont( PrintConsts.BaseCritFont );
         lstHDCrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Head", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6" };
             public int getSize() { return strings.length; }
@@ -8165,7 +8172,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         jScrollPane11.setPreferredSize(new java.awt.Dimension(105, 170));
 
-        lstCTCrits.setFont(new java.awt.Font("Tahoma", 0, 10));
+        lstCTCrits.setFont( PrintConsts.BaseCritFont );
         lstCTCrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Center Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
@@ -8272,7 +8279,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane12.setMinimumSize(new java.awt.Dimension(105, 183));
         jScrollPane12.setPreferredSize(new java.awt.Dimension(105, 170));
 
-        lstLTCrits.setFont(new java.awt.Font("Tahoma", 0, 10));
+        lstLTCrits.setFont( PrintConsts.BaseCritFont );
         lstLTCrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Left Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
@@ -8370,7 +8377,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane13.setMinimumSize(new java.awt.Dimension(105, 183));
         jScrollPane13.setPreferredSize(new java.awt.Dimension(105, 170));
 
-        lstRTCrits.setFont(new java.awt.Font("Tahoma", 0, 10));
+        lstRTCrits.setFont( PrintConsts.BaseCritFont );
         lstRTCrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Right Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
@@ -8480,7 +8487,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         scrLACrits.setMinimumSize(new java.awt.Dimension(105, 87));
         scrLACrits.setPreferredSize(new java.awt.Dimension(105, 170));
 
-        lstLACrits.setFont(new java.awt.Font("Tahoma", 0, 10));
+        lstLACrits.setFont( PrintConsts.BaseCritFont );
         lstLACrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Left Arm", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
@@ -8602,7 +8609,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         scrRACrits.setMinimumSize(new java.awt.Dimension(105, 87));
         scrRACrits.setPreferredSize(new java.awt.Dimension(105, 170));
 
-        lstRACrits.setFont(new java.awt.Font("Tahoma", 0, 10));
+        lstRACrits.setFont( PrintConsts.BaseCritFont );
         lstRACrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Right Arm", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
             public int getSize() { return strings.length; }
@@ -8724,7 +8731,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane16.setMinimumSize(new java.awt.Dimension(105, 87));
         jScrollPane16.setPreferredSize(new java.awt.Dimension(105, 87));
 
-        lstLLCrits.setFont(new java.awt.Font("Tahoma", 0, 10));
+        lstLLCrits.setFont( PrintConsts.BaseCritFont );
         lstLLCrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Left Leg", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6" };
             public int getSize() { return strings.length; }
@@ -8806,7 +8813,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane17.setMinimumSize(new java.awt.Dimension(105, 87));
         jScrollPane17.setPreferredSize(new java.awt.Dimension(105, 87));
 
-        lstRLCrits.setFont(new java.awt.Font("Tahoma", 0, 10));
+        lstRLCrits.setFont( PrintConsts.BaseCritFont );
         lstRLCrits.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Right Leg", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6" };
             public int getSize() { return strings.length; }
@@ -8887,7 +8894,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         jScrollPane18.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        lstCritsToPlace.setFont(new java.awt.Font("Tahoma", 0, 10));
+        lstCritsToPlace.setFont( PrintConsts.BaseCritFont );
         lstCritsToPlace.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Selected", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -8898,7 +8905,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstCritsToPlace.setMaximumSize(new java.awt.Dimension(150, 10000));
         lstCritsToPlace.setMinimumSize(new java.awt.Dimension(150, 80));
         lstCritsToPlace.setName("[150, 80]"); // NOI18N
-        lstCritsToPlace.setPreferredSize(null);
         lstCritsToPlace.setVisibleRowCount(20);
         MouseListener mlCritsToPlace = new MouseAdapter() {
             public void mouseReleased( MouseEvent e ) {
@@ -9833,7 +9839,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlInfoPanel.setLayout(new javax.swing.BoxLayout(pnlInfoPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         txtInfoTonnage.setEditable(false);
-        txtInfoTonnage.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        txtInfoTonnage.setFont(new java.awt.Font("Arial", 0, 11));
         txtInfoTonnage.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoTonnage.setText("Tons: 000.00");
         txtInfoTonnage.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -9843,7 +9849,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlInfoPanel.add(txtInfoTonnage);
 
         txtInfoFreeTons.setEditable(false);
-        txtInfoFreeTons.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        txtInfoFreeTons.setFont(new java.awt.Font("Arial", 0, 11));
         txtInfoFreeTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoFreeTons.setText("Free Tons: 000.00");
         txtInfoFreeTons.setMaximumSize(new java.awt.Dimension(96, 20));
@@ -9852,7 +9858,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlInfoPanel.add(txtInfoFreeTons);
 
         txtInfoMaxHeat.setEditable(false);
-        txtInfoMaxHeat.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        txtInfoMaxHeat.setFont(new java.awt.Font("Arial", 0, 11));
         txtInfoMaxHeat.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoMaxHeat.setText("Max Heat: 000");
         txtInfoMaxHeat.setMaximumSize(new java.awt.Dimension(77, 20));
@@ -9861,7 +9867,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlInfoPanel.add(txtInfoMaxHeat);
 
         txtInfoHeatDiss.setEditable(false);
-        txtInfoHeatDiss.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        txtInfoHeatDiss.setFont(new java.awt.Font("Arial", 0, 11));
         txtInfoHeatDiss.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoHeatDiss.setText("Heat Dissipation: 000");
         txtInfoHeatDiss.setMaximumSize(new java.awt.Dimension(118, 20));
@@ -9870,7 +9876,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlInfoPanel.add(txtInfoHeatDiss);
 
         txtInfoFreeCrits.setEditable(false);
-        txtInfoFreeCrits.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        txtInfoFreeCrits.setFont(new java.awt.Font("Arial", 0, 11));
         txtInfoFreeCrits.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoFreeCrits.setText("Free Crits: -00");
         txtInfoFreeCrits.setMaximumSize(new java.awt.Dimension(77, 20));
@@ -9879,7 +9885,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlInfoPanel.add(txtInfoFreeCrits);
 
         txtInfoUnplaced.setEditable(false);
-        txtInfoUnplaced.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        txtInfoUnplaced.setFont(new java.awt.Font("Arial", 0, 11));
         txtInfoUnplaced.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoUnplaced.setText("Unplaced Crits: 00");
         txtInfoUnplaced.setMaximumSize(new java.awt.Dimension(110, 20));
@@ -9888,7 +9894,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlInfoPanel.add(txtInfoUnplaced);
 
         txtInfoBattleValue.setEditable(false);
-        txtInfoBattleValue.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        txtInfoBattleValue.setFont(new java.awt.Font("Arial", 0, 11));
         txtInfoBattleValue.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoBattleValue.setText("BV: 00,000");
         txtInfoBattleValue.setMaximumSize(new java.awt.Dimension(62, 20));
@@ -9897,7 +9903,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlInfoPanel.add(txtInfoBattleValue);
 
         txtInfoCost.setEditable(false);
-        txtInfoCost.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        txtInfoCost.setFont(new java.awt.Font("Arial", 0, 11));
         txtInfoCost.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoCost.setText("Cost: 000,000,000");
         txtInfoCost.setMaximumSize(new java.awt.Dimension(125, 20));
@@ -10090,7 +10096,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         mnuMainMenu.add(mnuFile);
 
-        mnuTools.setText("Tools");
+        mnuClearFluff.setText("Tools");
 
         mnuSummary.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
         mnuSummary.setText("Show Summary");
@@ -10099,7 +10105,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuSummaryActionPerformed(evt);
             }
         });
-        mnuTools.add(mnuSummary);
+        mnuClearFluff.add(mnuSummary);
 
         mnuCostBVBreakdown.setText("Cost/BV Breakdown");
         mnuCostBVBreakdown.addActionListener(new java.awt.event.ActionListener() {
@@ -10107,7 +10113,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuCostBVBreakdownActionPerformed(evt);
             }
         });
-        mnuTools.add(mnuCostBVBreakdown);
+        mnuClearFluff.add(mnuCostBVBreakdown);
 
         mnuTextTRO.setText("Show Text TRO Format");
         mnuTextTRO.addActionListener(new java.awt.event.ActionListener() {
@@ -10115,17 +10121,17 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuTextTROActionPerformed(evt);
             }
         });
-        mnuTools.add(mnuTextTRO);
+        mnuClearFluff.add(mnuTextTRO);
+        mnuClearFluff.add(jSeparator15);
 
-        mnuUnlock.setText("Unlock Chassis");
-        mnuUnlock.setEnabled(false);
-        mnuUnlock.addActionListener(new java.awt.event.ActionListener() {
+        mnuBFB.setText("Load Force Balancer");
+        mnuBFB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuUnlockActionPerformed(evt);
+                mnuBFBActionPerformed(evt);
             }
         });
-        mnuTools.add(mnuUnlock);
-        mnuTools.add(jSeparator15);
+        mnuClearFluff.add(mnuBFB);
+        mnuClearFluff.add(jSeparator27);
 
         mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
         mnuOptions.setText("Preferences");
@@ -10134,7 +10140,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuOptionsActionPerformed(evt);
             }
         });
-        mnuTools.add(mnuOptions);
+        mnuClearFluff.add(mnuOptions);
 
         mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
         mnuViewToolbar.setSelected(true);
@@ -10144,7 +10150,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuViewToolbarActionPerformed(evt);
             }
         });
-        mnuTools.add(mnuViewToolbar);
+        mnuClearFluff.add(mnuViewToolbar);
 
         mnuClearUserData.setText("Clear User Data");
         mnuClearUserData.addActionListener(new java.awt.event.ActionListener() {
@@ -10152,18 +10158,27 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuClearUserDataActionPerformed(evt);
             }
         });
-        mnuTools.add(mnuClearUserData);
-        mnuTools.add(jSeparator27);
+        mnuClearFluff.add(mnuClearUserData);
+        mnuClearFluff.add(jSeparator30);
 
-        mnuBFB.setText("Load Force Balancer");
-        mnuBFB.addActionListener(new java.awt.event.ActionListener() {
+        mnuUnlock.setText("Unlock Chassis");
+        mnuUnlock.setEnabled(false);
+        mnuUnlock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuBFBActionPerformed(evt);
+                mnuUnlockActionPerformed(evt);
             }
         });
-        mnuTools.add(mnuBFB);
+        mnuClearFluff.add(mnuUnlock);
 
-        mnuMainMenu.add(mnuTools);
+        jMenuItem1.setText("Clear All Fluff");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        mnuClearFluff.add(jMenuItem1);
+
+        mnuMainMenu.add(mnuClearFluff);
 
         mnuHelp.setText("Help");
 
@@ -14429,6 +14444,24 @@ private void mnuBFBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     }
 }//GEN-LAST:event_mnuBFBActionPerformed
 
+private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    Overview.StartNewDocument();
+    Capabilities.StartNewDocument();
+    History.StartNewDocument();
+    Deployment.StartNewDocument();
+    Variants.StartNewDocument();
+    Notables.StartNewDocument();
+    Additional.StartNewDocument();
+    txtManufacturer.setText( "" );
+    txtManufacturerLocation.setText( "" );
+    txtEngineManufacturer.setText( "" );
+    txtArmorModel.setText( "" );
+    txtChassisModel.setText( "" );
+    txtJJModel.setText( "" );
+    txtCommSystem.setText( "" );
+    txtTNTSystem.setText( "" );
+}//GEN-LAST:event_jMenuItem1ActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -14609,6 +14642,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -14653,7 +14687,10 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JToolBar.Separator jSeparator25;
     private javax.swing.JToolBar.Separator jSeparator26;
     private javax.swing.JSeparator jSeparator27;
+    private javax.swing.JSeparator jSeparator28;
+    private javax.swing.JSeparator jSeparator29;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator30;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
@@ -14801,6 +14838,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JMenuItem mnuAboutSSW;
     private javax.swing.JMenuItem mnuBFB;
     private javax.swing.JMenuItem mnuBatchHMP;
+    private javax.swing.JMenu mnuClearFluff;
     private javax.swing.JMenuItem mnuClearUserData;
     private javax.swing.JMenuItem mnuCostBVBreakdown;
     private javax.swing.JMenuItem mnuCreateTCGMech;
@@ -14830,7 +14868,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JMenuItem mnuSaveAs;
     private javax.swing.JMenuItem mnuSummary;
     private javax.swing.JMenuItem mnuTextTRO;
-    private javax.swing.JMenu mnuTools;
     private javax.swing.JMenuItem mnuUnlock;
     private javax.swing.JCheckBoxMenuItem mnuViewToolbar;
     private javax.swing.JPanel onlLoadoutControls;
