@@ -43,6 +43,7 @@ import javax.swing.table.TableRowSorter;
 import components.Mech;
 import filehandlers.*;
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
 import list.*;
 import list.view.*;
 import ssw.print.Printer;
@@ -64,6 +65,8 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     /** Creates new form dlgOpen */
     public dlgOpen(java.awt.Frame parent, boolean modal) {
         initComponents();
+        ImageIcon icon = new ImageIcon(super.getClass().getResource("/ssw/Images/appicon.png"));
+        super.setIconImage(icon.getImage());
         this.parent = (frmMain) parent;
         
         prgResaving.setVisible(false);
@@ -645,6 +648,9 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             }
         });
         txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNameKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNameKeyTyped(evt);
             }
@@ -867,7 +873,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 }//GEN-LAST:event_btnOpenActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        if (list.Size() == 0) { LoadList(); }
+        //if (list.Size() == 0) { LoadList(); }
     }//GEN-LAST:event_formWindowOpened
 
     private void btnOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOptionsActionPerformed
@@ -881,7 +887,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         LoadList(false);
-        Filter(evt);
+        //Filter(evt);
         this.setVisible(true);
 }//GEN-LAST:event_btnRefreshActionPerformed
 
@@ -1021,7 +1027,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     }//GEN-LAST:event_txtNameActionPerformed
 
     private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
-        Filter(null);
+        //Filter(null);
     }//GEN-LAST:event_txtNameKeyTyped
 
     private void cmbTypeFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTypeFilter
@@ -1084,7 +1090,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 }
         }
         txtName.setText(entered);
-        txtNameKeyTyped(evt);
+        txtNameKeyReleased(evt);
     }//GEN-LAST:event_tblMechDataKeyReleased
 
     private void btnViewForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewForceActionPerformed
@@ -1102,7 +1108,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        Filter(null);
+        //Filter(null);
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void cmbViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbViewActionPerformed
@@ -1125,6 +1131,10 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         tblMechData.setModel(currentView);
         currentView.setupTable(tblMechData);
     }//GEN-LAST:event_cmbViewActionPerformed
+
+    private void txtNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyReleased
+        Filter(null);
+    }//GEN-LAST:event_txtNameKeyReleased
 
     @Override
     public void setVisible( boolean b ) {
