@@ -2017,20 +2017,22 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // added for Battleforce pane
         BattleForceStats bfs = new BattleForceStats(CurMech);
 
-        lblBFMV.setText( BattleForceTools.GetMovementString( CurMech ) );
-        lblBFWt.setText( "" + CurMech.GetBFSize() );
-        lblBFArmor.setText( "" + CurMech.GetBFArmor() );
-        lblBFStructure.setText( "" + CurMech.GetBFStructure() );
-        lblBFPoints.setText("" + CurMech.GetBFPoints() );
+        lblBFMV.setText( bfs.getMovement() );
+        lblBFWt.setText( bfs.getWeight() + "" );
+        lblBFArmor.setText( bfs.getArmor() + "" );
+        lblBFStructure.setText( bfs.getInternal() + "" );
+        lblBFPoints.setText("" + bfs.getPointValue() );
 
-        int [] BFdmg = CurMech.GetBFDamage( bfs );
-        lblBFShort.setText("" + BFdmg[BFConstants.BF_SHORT]);
-        lblBFMedium.setText("" + BFdmg[BFConstants.BF_MEDIUM]);
-        lblBFLong.setText("" + BFdmg[BFConstants.BF_LONG]);
-        lblBFExtreme.setText("" + BFdmg[BFConstants.BF_EXTREME]);
-        lblBFOV.setText("" + BFdmg[BFConstants.BF_OV]);
+        //int [] BFdmg = CurMech.GetBFDamage( bfs );
+        lblBFShort.setText("" + bfs.getShort() );
+        lblBFMedium.setText("" + bfs.getMedium() );
+        lblBFLong.setText("" + bfs.getLong() );
+        lblBFExtreme.setText("" + bfs.getExtreme() );
+        lblBFOV.setText("" + bfs.getOverheat() );
 
         lblBFSA.setText( bfs.getAbilitiesString() );
+
+        jTextAreaBFConversion.setText( bfs.getBFConversionData() );
     }
 
     public void RefreshInfoPane() {
