@@ -376,7 +376,7 @@ public class HTMLWriter {
             // count up individual weapons and build their string
             for( int i = 1; i <= equips.length; i++ ) {
                 // find any other weapons of this type
-                if( cur instanceof MultiSlotSystem || cur.CanSplit() |! cur.Contiguous() ) {
+                if( cur instanceof MultiSlotSystem || cur instanceof MechanicalJumpBooster || cur.CanSplit() |! cur.Contiguous() ) {
                     // splittable items are generally too big for two in one
                     // location or are split into different areas.  just avoid.
                     retval += ProcessEquipStatLines( cur, lines, 1 );
@@ -903,6 +903,12 @@ public class HTMLWriter {
                                     }
                                 } else if( a instanceof MultiSlotSystem ) {
                                     retval += ((MultiSlotSystem) a).ReportCrits();
+                                } else if( a instanceof MechanicalJumpBooster ) {
+                                    if( CurMech.IsQuad() ) {
+                                        retval += 8;
+                                    } else {
+                                        retval += 4;
+                                    }
                                 } else {
                                     if( numthisloc > 1 ) {
                                         retval += a.NumCrits() * numthisloc;
@@ -915,7 +921,7 @@ public class HTMLWriter {
                             if( a.CanSplit() ) {
                                 retval += FileCommon.EncodeLocations( CurMech.GetLoadout().FindInstances( a ), CurMech.IsQuad() );
                             } else {
-                                if( a instanceof MultiSlotSystem ) {
+                                if( a instanceof MultiSlotSystem || a instanceof MechanicalJumpBooster ) {
                                     retval += "*";
                                 } else {
                                     retval += FileCommon.EncodeLocation( CurMech.GetLoadout().Find( a ), CurMech.IsQuad() );
@@ -1062,6 +1068,12 @@ public class HTMLWriter {
                                     }
                                 } else if( a instanceof MultiSlotSystem ) {
                                     retval += ((MultiSlotSystem) a).ReportCrits();
+                                } else if( a instanceof MechanicalJumpBooster ) {
+                                    if( CurMech.IsQuad() ) {
+                                        retval += 8;
+                                    } else {
+                                        retval += 4;
+                                    }
                                 } else {
                                     if( numthisloc > 1 ) {
                                         retval += a.NumCrits() * numthisloc;
@@ -1074,7 +1086,7 @@ public class HTMLWriter {
                             if( a.CanSplit() ) {
                                 retval += FileCommon.EncodeLocations( CurMech.GetLoadout().FindInstances( a ), CurMech.IsQuad() );
                             } else {
-                                if( a instanceof MultiSlotSystem ) {
+                                if( a instanceof MultiSlotSystem || a instanceof MechanicalJumpBooster ) {
                                     retval += "*";
                                 } else {
                                     retval += FileCommon.EncodeLocation( CurMech.GetLoadout().Find( a ), CurMech.IsQuad() );
@@ -1275,6 +1287,9 @@ public class HTMLWriter {
             if( CurMech.HasBlueShield() ) {
                 ret.add( CurMech.GetBlueShield() );
             }
+            if( CurMech.UsingJumpBooster() ) {
+                ret.add( CurMech.GetJumpBooster() );
+            }
             if( CurMech.HasEnviroSealing() ) {
                 ret.add( CurMech.GetEnviroSealing() );
             }
@@ -1312,17 +1327,27 @@ public class HTMLWriter {
                         if( AC.GetISIntroDate() >= AC.GetISReIntroDate() ) {
                             if( CurMech.YearWasSpecified() ) {
                                 lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" );
+                                if( CurMech.GetYear() >= AC.GetISReIntroDate() ) {
+                                    lookup.put( "<+-SSW_EXTINCT_BY-+>", "Never" );
+                                } else {
+                                    lookup.put( "<+-SSW_EXTINCT_BY-+>", "" + AC.GetISExtinctDate() );
+                                }
                             } else {
                                 lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" + AC.GetISIntroDate() );
+                                lookup.put( "<+-SSW_EXTINCT_BY-+>", "Never" );
                             }
-                            lookup.put( "<+-SSW_EXTINCT_BY-+>", "Never" );
                         } else {
                             if( CurMech.YearWasSpecified() ) {
                                 lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" );
+                                if( CurMech.GetYear() >= AC.GetISReIntroDate() ) {
+                                    lookup.put( "<+-SSW_EXTINCT_BY-+>", "Never" );
+                                } else {
+                                    lookup.put( "<+-SSW_EXTINCT_BY-+>", "" + AC.GetISExtinctDate() );
+                                }
                             } else {
                                 lookup.put( "<+-SSW_EARLIEST_YEAR-+>", "" + AC.GetISIntroDate() );
+                                lookup.put( "<+-SSW_EXTINCT_BY-+>", "" + AC.GetISExtinctDate() );
                             }
-                            lookup.put( "<+-SSW_EXTINCT_BY-+>", "" + AC.GetISExtinctDate() );
                         }
                     } else {
                         if( CurMech.YearWasSpecified() ) {
@@ -1456,11 +1481,7 @@ public class HTMLWriter {
         lookup.put( "<+-SSW_LEG_INTERNAL-+>", "" + CurMech.GetIntStruc().GetLegPoints() );
         lookup.put( "<+-SSW_ARMOR_COVERAGE-+>", "" + CurMech.GetArmor().GetCoverage() );
         lookup.put( "<+-SSW_JUMPJET_COUNT-+>", "" + CurMech.GetJumpJets().GetNumJJ() );
-        if( CurMech.GetAdjustedJumpingMP( false ) != CurMech.GetJumpJets().GetNumJJ() ) {
-            lookup.put( "<+-SSW_JUMPJET_DISTANCE-+>", ( CurMech.GetJumpJets().GetNumJJ() * 30 ) + " meters (" + ( CurMech.GetAdjustedJumpingMP( false ) * 30 ) + " meters)" );
-        } else {
-            lookup.put( "<+-SSW_JUMPJET_DISTANCE-+>", ( CurMech.GetJumpJets().GetNumJJ() * 30 ) + " meters" );
-        }
+        lookup.put( "<+-SSW_JUMPJET_DISTANCE-+>", GetJumpJetDistanceLine() );
         lookup.put( "<+-SSW_SPEED_WALK_KMPH-+>", "" + ( CurMech.GetWalkingMP() * 10.75f ) + " km/h" );
         if( CurMech.GetAdjustedRunningMP( false, true ) != CurMech.GetRunningMP() ) {
             lookup.put( "<+-SSW_SPEED_RUN_KMPH-+>", "" + ( CurMech.GetRunningMP() * 10.75f ) + " km/h (" + ( CurMech.GetAdjustedRunningMP( false, true ) * 10.75f ) + " km/h)" );
@@ -1473,11 +1494,7 @@ public class HTMLWriter {
         } else {
             lookup.put( "<+-SSW_SPEED_RUN_MP-+>", "" + CurMech.GetRunningMP() );
         }
-        if( CurMech.GetAdjustedJumpingMP( false ) != CurMech.GetJumpJets().GetNumJJ() ) {
-            lookup.put( "<+-SSW_SPEED_JUMP_MP-+>", CurMech.GetJumpJets().GetNumJJ() + " (" + CurMech.GetAdjustedJumpingMP( false ) + ")" );
-        } else {
-            lookup.put( "<+-SSW_SPEED_JUMP_MP-+>", "" + CurMech.GetJumpJets().GetNumJJ() );
-        }
+        lookup.put( "<+-SSW_SPEED_JUMP_MP-+>", GetJumpingMPLine() );
         lookup.put( "<+-SSW_COST-+>", String.format( "%1$,.0f", CurMech.GetTotalCost() ) );
         lookup.put( "<+-SSW_DRY_COST-+>", String.format( "%1$,.0f", CurMech.GetDryCost() ) );
         lookup.put( "<+-SSW_BV2-+>", String.format( "%1$,d", CurMech.GetCurrentBV() ) );
@@ -1516,19 +1533,7 @@ public class HTMLWriter {
         lookup.put( "<+-SSW_GYRO_TYPE-+>", CurMech.GetGyro().GetReportName() );
         lookup.put( "<+-SSW_COCKPIT_TYPE-+>", CurMech.GetCockpit().GetReportName() );
         lookup.put( "<+-SSW_ARMOR_TYPE-+>", CurMech.GetArmor().CritName() );
-        if( CurMech.GetJumpJets().GetNumJJ() <= 0 ) {
-            lookup.put( "<+-SSW_JUMPJET_TYPE-+>", "" );
-        } else {
-            if( CurMech.GetJumpJets().IsImproved() ) {
-                lookup.put( "<+-SSW_JUMPJET_TYPE-+>", "Improved" );
-            } else {
-                if( CurMech.GetJumpJets().IsUMU() ) {
-                    lookup.put( "<+-SSW_JUMPJET_TYPE-+>", "UMU" );
-                } else{
-                    lookup.put( "<+-SSW_JUMPJET_TYPE-+>", "Standard" );
-                }
-            }
-        }
+        lookup.put( "<+-SSW_JUMPJET_TYPE-+>", GetJumpJetTypeLine() );
         lookup.put( "<+-SSW_HEATSINK_COUNT-+>", "" + CurMech.GetHeatSinks().GetNumHS() );
         lookup.put( "<+-SSW_HEATSINK_DISSIPATION-+>", "" + CurMech.GetHeatSinks().TotalDissipation() );
         lookup.put( "<+-SSW_INTERNAL_TYPE-+>", CurMech.GetIntStruc().CritName() );
@@ -1636,6 +1641,7 @@ public class HTMLWriter {
         String retval = "";
         fluff = fluff.replaceAll( "\n\r", "\n" );
         fluff = fluff.replaceAll( "\t", "&nbsp;&nbsp;&nbsp;&nbsp;" );
+        fluff = fluff.replaceAll( ":tab:", "" );
         String[] s = fluff.split( "\n", -1 );
 
         for( int i = 0; i < s.length; i++ ) {
@@ -1659,6 +1665,9 @@ public class HTMLWriter {
         if( CurMech.HasBlueShield() ) {
             retval += "* The " + CurMech.GetBlueShield().LookupName() + " occupies 1 slot in every location except the HD." + NL;
         }
+        if( CurMech.UsingJumpBooster() ) {
+            retval += "* The " + CurMech.GetJumpBooster().LookupName() + " occupies 2 slots in each leg." + NL;
+        }
         if( CurMech.HasEnviroSealing() ) {
             retval += "* The " + CurMech.GetEnviroSealing().LookupName() + " occupies 1 slot in every location." + NL;
         }
@@ -1670,5 +1679,67 @@ public class HTMLWriter {
 
     private String FormatTonnage( double d, int num ) {
         return String.format( "%1" + tformat, d * num );
+    }
+
+    private String GetJumpJetDistanceLine() {
+        String retval = ( CurMech.GetJumpJets().GetNumJJ() * 30 ) + " meters";
+        if( CurMech.GetAdjustedJumpingMP( false ) != CurMech.GetJumpJets().GetNumJJ() ) {
+            retval += " (" + ( CurMech.GetAdjustedJumpingMP( false ) * 30 ) + " meters)";
+        }
+        if( CurMech.UsingJumpBooster() ) {
+            retval += " / " + ( CurMech.GetJumpBoosterMP() * 30 ) + " meters";
+            if( CurMech.GetJumpBoosterMP() != CurMech.GetAdjustedBoosterMP( false ) ) {
+                retval += " (" + ( CurMech.GetAdjustedBoosterMP( false ) * 30 ) + " meters)";
+            }
+        }
+        return retval;
+    }
+
+    private String GetJumpingMPLine() {
+        String retval = "" + CurMech.GetJumpJets().GetNumJJ();
+        if( CurMech.GetAdjustedJumpingMP( false ) != CurMech.GetJumpJets().GetNumJJ() ) {
+            retval += " (" + CurMech.GetAdjustedJumpingMP( false ) + ")";
+        }
+        if( CurMech.UsingJumpBooster() ) {
+            retval += " / " + CurMech.GetJumpBoosterMP();
+            if( CurMech.GetJumpBoosterMP() != CurMech.GetAdjustedBoosterMP( false ) ) {
+                retval += " (" + CurMech.GetAdjustedBoosterMP( false ) + ")";
+            }
+        }
+        return retval;
+    }
+
+    private String GetJumpJetTypeLine() {
+        String retval = "";
+        if( CurMech.UsingJumpBooster() ) {
+            if( CurMech.GetJumpJets().GetNumJJ() <= 0 ) {
+                retval = "Jump Booster";
+            } else {
+                if( CurMech.GetJumpJets().IsImproved() ) {
+                    retval = "Improved + Jump Booster";
+                } else {
+                    if( CurMech.GetJumpJets().IsUMU() ) {
+                        retval = "UMU + Jump Booster";
+                    } else{
+                        retval = "Standard + Jump Booster";
+                    }
+                }
+            }
+        } else {
+            if( CurMech.GetJumpJets().GetNumJJ() <= 0 ) {
+                retval = "";
+            } else {
+                if( CurMech.GetJumpJets().IsImproved() ) {
+                    retval = "Improved";
+                } else {
+                    if( CurMech.GetJumpJets().IsUMU() ) {
+                        retval = "UMU";
+                    } else{
+                        retval = "Standard";
+                    }
+                }
+            }
+        }
+        return retval;
     }
 }

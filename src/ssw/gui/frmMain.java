@@ -846,6 +846,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
     }
 
+    private void FixJumpBoosterSpinnerModel() {
+        int current = CurMech.GetJumpBoosterMP();
+
+        spnBoosterMP.setModel( new javax.swing.SpinnerNumberModel( current, 0, 20, 1) );
+    }
+
     private void BuildHeatsinkSelector() {
         // builds the heat sink selection box
         Vector list = new Vector();
@@ -1142,6 +1148,21 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkPartialWing.setEnabled( false );
         }
         chkPartialWing.setSelected( CurMech.UsingPartialWing() );
+        if( CommonTools.IsAllowed( CurMech.GetJumpBooster().GetAvailability(), CurMech ) &! CurMech.IsOmnimech() ) {
+            chkBoosters.setEnabled( true );
+            FixJumpBoosterSpinnerModel();
+        } else {
+            spnBoosterMP.setEnabled( false );
+            chkBoosters.setEnabled( false );
+            chkBoosters.setSelected( false );
+            FixJumpBoosterSpinnerModel();
+        }
+        chkBoosters.setSelected( CurMech.UsingJumpBooster() );
+        if( CurMech.UsingJumpBooster() ) {
+            spnBoosterMP.setEnabled( true );
+        } else {
+            spnBoosterMP.setEnabled( false );
+        }
         if( CommonTools.IsAllowed( CurMech.GetLLAES().GetAvailability(), CurMech ) ) {
             chkRAAES.setEnabled( true );
             chkLAAES.setEnabled( true );
@@ -1226,6 +1247,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 chkRTTurret.setSelected( false );
                 chkRTTurret.setEnabled( false );
             }
+        } else {
+            chkHDTurret.setSelected( false );
+            chkHDTurret.setEnabled( false );
+            chkLTTurret.setSelected( false );
+            chkLTTurret.setEnabled( false );
+            chkRTTurret.setSelected( false );
+            chkRTTurret.setEnabled( false );
         }
 
         // now set all the equipment if needed
@@ -2073,7 +2101,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         temp += CurMech.GetAdjustedWalkingMP( false, true ) + "/";
         temp += CurMech.GetAdjustedRunningMP( false, true ) + "/";
         temp += CurMech.GetAdjustedJumpingMP( false ) + "/";
-        temp += "0";
+        temp += CurMech.GetAdjustedBoosterMP( false );
         lblMoveSummary.setText( temp );
 
         // because the vector changes, we'll have to load up the Crits to Place list
@@ -5776,6 +5804,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         spnBoosterMP.setMaximumSize(new java.awt.Dimension(45, 20));
         spnBoosterMP.setMinimumSize(new java.awt.Dimension(45, 20));
         spnBoosterMP.setPreferredSize(new java.awt.Dimension(45, 20));
+        spnBoosterMP.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spnBoosterMPStateChanged(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
@@ -5783,6 +5816,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         chkBoosters.setText("'Mech Jump Boosters");
         chkBoosters.setEnabled(false);
+        chkBoosters.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkBoostersActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
@@ -11885,10 +11923,17 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 }
             }
             if( result ) {
-                CurMech.GetLoadout().AddToQueue( a );
-                for( int i = 0; i < cmbNumEquips.getSelectedIndex(); i++ ) {
-                    a = data.GetEquipment().GetCopy( a, CurMech );
+                if( a instanceof Talons ) {
+                    if( ! a.Place( CurMech.GetLoadout() ) ) {
+                        Media.Messager( "Talons cannot be added because there is not enough space." );
+                        return;
+                    }
+                } else {
                     CurMech.GetLoadout().AddToQueue( a );
+                    for( int i = 0; i < cmbNumEquips.getSelectedIndex(); i++ ) {
+                        a = data.GetEquipment().GetCopy( a, CurMech );
+                        CurMech.GetLoadout().AddToQueue( a );
+                    }
                 }
 
                 // unallocate the TC if needed (if the size changes)
@@ -12339,6 +12384,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 }
                 BuildTechBaseSelector();
                 cmbTechBase.setSelectedIndex( CurMech.GetLoadout().GetTechBase() );
+                BuildJumpJetSelector();
                 RefreshEquipment();
                 RecalcEquipment();
             } else {
@@ -12503,6 +12549,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         FixTransferHandlers();
         SetLoadoutArrays();
         SetWeaponChoosers();
+        BuildJumpJetSelector();
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
         RefreshOmniVariants();
@@ -12548,6 +12595,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         FixTransferHandlers();
         SetLoadoutArrays();
         SetWeaponChoosers();
+        BuildJumpJetSelector();
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
         RefreshOmniChoices();
@@ -12568,6 +12616,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         FixTransferHandlers();
         SetLoadoutArrays();
         SetWeaponChoosers();
+        BuildJumpJetSelector();
         cmbJumpJetType.setSelectedItem( CurMech.GetJumpJets().LookupName() );
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
@@ -14463,6 +14512,48 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     txtCommSystem.setText( "" );
     txtTNTSystem.setText( "" );
 }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+private void chkBoostersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBoostersActionPerformed
+    if( chkBoosters.isSelected() == CurMech.UsingJumpBooster() ) { return; }
+    try {
+        CurMech.SetJumpBooster( chkBoosters.isSelected() );
+    } catch( Exception e ) {
+        Media.Messager( this, e.getMessage() );
+    }
+    spnBoosterMP.setEnabled( CurMech.UsingJumpBooster() );
+    FixJumpBoosterSpinnerModel();
+
+    // now refresh the information panes
+    RefreshEquipment();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkBoostersActionPerformed
+
+private void spnBoosterMPStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnBoosterMPStateChanged
+    // just change the number of jump MP.
+    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnBoosterMP.getModel();
+    javax.swing.JComponent editor = spnBoosterMP.getEditor();
+    javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
+
+    // get the value from the text box, if it's valid.
+    try {
+        spnBoosterMP.commitEdit();
+    } catch ( java.text.ParseException pe ) {
+        // Edited value is invalid, spinner.getValue() will return
+        // the last valid value, you could revert the spinner to show that:
+        if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
+            tf.setValue(spnBoosterMP.getValue());
+        }
+        return;
+    }
+
+    CurMech.GetJumpBooster().SetBoostMP( n.getNumber().intValue() );
+
+    // now refresh the information panes
+    FixJumpBoosterSpinnerModel();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_spnBoosterMPStateChanged
 
 private void setViewToolbar(boolean Visible)
 {

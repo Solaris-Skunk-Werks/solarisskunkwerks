@@ -87,7 +87,8 @@ public class dlgPostToSolaris7 extends javax.swing.JDialog {
             if( read == null ) {
                 EOF = true;
             } else {
-                retval += read;
+                read = read.replaceAll( ":tab:", "" );
+                retval += read.replaceAll( "\t", "&nbsp;&nbsp;&nbsp;&nbsp;" );
             }
         }
 
