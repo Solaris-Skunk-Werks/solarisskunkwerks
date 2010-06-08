@@ -1456,6 +1456,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // changes the armor type.
         String OldVal = BuildLookupName( CurMech.GetGyro().GetCurrentState() );
         String LookupVal = (String) cmbGyroType.getSelectedItem();
+        if( OldVal.equals( LookupVal ) ) { return; }
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
         try {
             CurMech.Visit( v );
@@ -1478,6 +1479,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // get the current lookup in case we can't fit the new one
         String OldVal = CurMech.GetCockpit().LookupName();
         String LookupVal = (String) cmbCockpitType.getSelectedItem();
+        if( OldVal.equals( LookupVal ) ) { return; }
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
         try {
             CurMech.Visit( v );
@@ -1541,6 +1543,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // recalculates the enhancements on the mech
         String OldVal = BuildLookupName( CurMech.GetPhysEnhance().GetCurrentState() );
         String LookupVal = (String) cmbPhysEnhance.getSelectedItem();
+        if( OldVal.equals( LookupVal ) ) { return; }
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
         try {
             CurMech.Visit( v );
@@ -1563,7 +1566,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         String OldVal = CurMech.GetJumpJets().LookupName();
         String LookupVal = (String) cmbJumpJetType.getSelectedItem();
         if( LookupVal == null ) { return; }
-        if( LookupVal.equals( CurMech.GetJumpJets().LookupName() ) ) { return; }
+        if( OldVal.equals( LookupVal ) ) { return; }
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
         try {
             CurMech.Visit( v );
@@ -1587,6 +1590,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // recalculate the heat sinks based on what is selected.
         String OldVal = BuildLookupName( CurMech.GetHeatSinks().GetCurrentState() );
         String LookupVal = (String) cmbHeatSinkType.getSelectedItem();
+        if( OldVal.equals( LookupVal ) ) { return; }
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
         try {
             CurMech.Visit( v );
@@ -1610,6 +1614,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // recalculates the internal structure if anything happened.
         String OldVal = BuildLookupName( CurMech.GetIntStruc().GetCurrentState() );
         String LookupVal = (String) cmbInternalType.getSelectedItem();
+        if( OldVal.equals( LookupVal ) ) { return; }
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
         try {
             CurMech.Visit( v );
@@ -1635,6 +1640,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // which makes our job here easier.
         String OldVal = BuildLookupName( CurMech.GetEngine().GetCurrentState() );
         String LookupVal = (String) cmbEngineType.getSelectedItem();
+        if( OldVal.equals( LookupVal ) ) { return; }
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
         try {
             CurMech.Visit( v );
@@ -1679,6 +1685,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // changes the armor type.
         String OldVal = BuildLookupName( CurMech.GetArmor().GetCurrentState() );
         String LookupVal = (String) cmbArmorType.getSelectedItem();
+        if( OldVal.equals( LookupVal ) ) { return; }
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
         try {
             CurMech.Visit( v );
@@ -2353,14 +2360,22 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void SaveSelections() {
         // saves the current GUI selections
-        Selections[0] = (String) cmbInternalType.getSelectedItem();
+        Selections[0] = BuildLookupName( CurMech.GetIntStruc().GetCurrentState() );
+        Selections[1] = BuildLookupName( CurMech.GetEngine().GetCurrentState() );
+        Selections[2] = BuildLookupName( CurMech.GetGyro().GetCurrentState() );
+        Selections[3] = BuildLookupName( CurMech.GetCockpit().GetCurrentState() );
+        Selections[4] = BuildLookupName( CurMech.GetPhysEnhance().GetCurrentState() );
+        Selections[5] = BuildLookupName( CurMech.GetHeatSinks().GetCurrentState() );
+        Selections[6] = BuildLookupName( CurMech.GetJumpJets().GetCurrentState() );
+        Selections[7] = BuildLookupName( CurMech.GetArmor().GetCurrentState() );
+/*        Selections[0] = (String) cmbInternalType.getSelectedItem();
         Selections[1] = (String) cmbEngineType.getSelectedItem();
         Selections[2] = (String) cmbGyroType.getSelectedItem();
         Selections[3] = (String) cmbCockpitType.getSelectedItem();
         Selections[4] = (String) cmbPhysEnhance.getSelectedItem();
         Selections[5] = (String) cmbHeatSinkType.getSelectedItem();
         Selections[6] = (String) cmbJumpJetType.getSelectedItem();
-        Selections[7] = (String) cmbArmorType.getSelectedItem();
+        Selections[7] = (String) cmbArmorType.getSelectedItem();*/
     }
 
     private void LoadSelections() {
@@ -2368,37 +2383,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // default selections.  We'll do some validation here as well.
 
         cmbInternalType.setSelectedItem( Selections[0] );
-        if( cmbInternalType.getSelectedItem() != Selections[0] ) {
-            cmbInternalType.setSelectedIndex( 0 );
-        }
         cmbEngineType.setSelectedItem( Selections[1] );
-        if( cmbEngineType.getSelectedItem() != Selections[1] ) {
-            cmbEngineType.setSelectedIndex( 0 );
-        }
         cmbGyroType.setSelectedItem( Selections[2] );
-        if( cmbGyroType.getSelectedItem() != Selections[2] ) {
-            cmbGyroType.setSelectedIndex( 0 );
-        }
         cmbCockpitType.setSelectedItem( Selections[3] );
-        if( cmbCockpitType.getSelectedItem() != Selections[3] ) {
-            cmbCockpitType.setSelectedIndex( 0 );
-        }
         cmbPhysEnhance.setSelectedItem( Selections[4] );
-        if( cmbPhysEnhance.getSelectedItem() != Selections[4] ) {
-            cmbPhysEnhance.setSelectedIndex( 0 );
-        }
         cmbHeatSinkType.setSelectedItem( Selections[5] );
-        if( cmbHeatSinkType.getSelectedItem() != Selections[5] ) {
-            cmbHeatSinkType.setSelectedIndex( 0 );
-        }
         cmbJumpJetType.setSelectedItem( Selections[6] );
-        if( cmbJumpJetType.getSelectedItem() != Selections[6] ) {
-            cmbJumpJetType.setSelectedIndex( 0 );
-        }
         cmbArmorType.setSelectedItem( Selections[7] );
-        if( cmbArmorType.getSelectedItem() != Selections[7] ) {
-            cmbArmorType.setSelectedIndex( 0 );
-        }
     }
 
     public void RevertToStandardArmor() {
@@ -10749,9 +10740,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             if( CurMech.GetTechbase() == cmbTechBase.getSelectedIndex() ) { return; }
         }
 
-        // save the current selections
-        SaveSelections();
-
         if( CurMech.IsOmnimech() ) {
             boolean check = CurMech.SetTechBase( cmbTechBase.getSelectedIndex() );
             if( ! check ) {
@@ -10773,6 +10761,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     CurMech.SetMixed();
                     break;
             }
+
+            // save the current selections.  The 'Mech should have already
+            // flushed any illegal equipment in the changeover
+            SaveSelections();
 
             data.Rebuild( CurMech );
 
