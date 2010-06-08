@@ -1522,6 +1522,16 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 chkEjectionSeat.setEnabled( false );
                 chkEjectionSeat.setSelected( false );
             }
+            // remove the head turret if it's there.
+            if( CurMech.GetLoadout().HasHDTurret() ) {
+                try {
+                    CurMech.GetLoadout().SetHDTurret( false, -1 );
+                } catch( Exception e ) {
+                    Media.Messager( "Fatal error trying to remove head turret.\nRestarting with new 'Mech.  Sorry." );
+                    GetNewMech();
+                    return;
+                }
+            }
             chkHDTurret.setSelected( false );
             chkHDTurret.setEnabled( false );
         }
@@ -2710,7 +2720,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lblInfoAVSL.setText( AC.GetISSLCode() + " / " + AC.GetCLSLCode() );
         lblInfoAVSW.setText( AC.GetISSWCode() + " / " + AC.GetCLSWCode() );
         lblInfoAVCI.setText( AC.GetISCICode() + " / " + AC.GetCLCICode() );
-        switch( AC.GetTechBase() ){
+        switch( AC.GetTechBase() ) {
             case AvailableCode.TECH_INNER_SPHERE:
                 lblInfoIntro.setText( AC.GetISIntroDate() + " (" + AC.GetISIntroFaction() + ")" );
                 if( AC.WentExtinctIS() ) {
@@ -3513,8 +3523,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuMountRear.setEnabled( false );
                 mnuMountRear.setText( "Mount Rear " );
             }
-            mnuAuto.setEnabled( false );
-            mnuSelective.setEnabled( false );
+            if( CurItem.Contiguous() ) {
+                EquipmentCollection C = CurMech.GetLoadout().GetCollection( CurItem );
+                if( C == null ) {
+                    mnuAuto.setEnabled( false );
+                    mnuSelective.setEnabled( false );
+                } else {
+                    mnuAuto.setEnabled( true );
+                    mnuSelective.setEnabled( true );
+                }
+            } else {
+                mnuSelective.setEnabled( true );
+                mnuAuto.setEnabled( true );
+            }
         } else {
             if( CurItem.Contiguous() ) {
                 EquipmentCollection C = CurMech.GetLoadout().GetCollection( CurItem );
@@ -10436,6 +10457,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         if( CurMech.IsOmnimech() ) {
+            BuildJumpJetSelector();
             RefreshEquipment();
             RefreshSummary();
             RefreshInfoPane();
@@ -12071,7 +12093,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void lstChooseEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseEquipmentValueChanged
         if( lstChooseEquipment.getSelectedIndex() < 0 ) { return; }
-        if( ! ( Equipment[EQUIPMENT][lstChooseEquipment.getSelectedIndex()] instanceof Equipment ) ) { return; }
+        //if( ! ( Equipment[EQUIPMENT][lstChooseEquipment.getSelectedIndex()] instanceof Equipment ) ) { return; }
         abPlaceable p = (abPlaceable) Equipment[EQUIPMENT][lstChooseEquipment.getSelectedIndex()];
         ShowInfoOn( p );
     }//GEN-LAST:event_lstChooseEquipmentValueChanged

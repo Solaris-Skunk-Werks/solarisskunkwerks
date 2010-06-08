@@ -546,6 +546,17 @@ public class HMPReader {
         // done with the file.
         FR.close();
 
+        // check for advanced stuff on the 'Mech
+        if( Rules == 2 ) {
+            for( int i = 0; i < 8; i++ ) {
+                for( int j = 0; j < 12; j++ ) {
+                    if( Criticals[i][j] == 0x55 || Criticals[i][j] == 0x71 || Criticals[i][j] == 0xC9 ) {
+                        m.SetRulesLevel( AvailableCode.RULES_ADVANCED );
+                    }
+                }
+            }
+        }
+
         // before we go all crazy, figure out our arm actuator situation
         if( Criticals[LocationIndex.MECH_LOC_LA][3] != 0x04 ) {
             m.GetActuators().RemoveLeftHand();
@@ -638,6 +649,15 @@ public class HMPReader {
         m.GetArmor().SetArmor( LocationIndex.MECH_LOC_CTR, Armor[LocationIndex.MECH_LOC_CTR] );
         m.GetArmor().SetArmor( LocationIndex.MECH_LOC_LTR, Armor[LocationIndex.MECH_LOC_LTR] );
         m.GetArmor().SetArmor( LocationIndex.MECH_LOC_RTR, Armor[LocationIndex.MECH_LOC_RTR] );
+
+        // now check for excess armor due to rounding.  This is the newer rules,
+        // we'll simply remove the excess from the CT front.
+        double RoundAV = ( m.GetArmor().GetArmorValue() - 1 ) / ( 8 * m.GetArmor().GetAVMult() );
+        int mid = (int) Math.floor( RoundAV + 0.9999 );
+        RoundAV = mid * 0.5;
+        if( m.GetArmor().GetTonnage() > RoundAV ) {
+            m.GetArmor().SetArmor( LocationIndex.MECH_LOC_CT, m.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CT ) - 1 );
+        }
 
         // first, let's find all the instances of base chassis items.  Structure first
         if( m.GetIntStruc().NumCrits() > 0 ) {
@@ -1930,15 +1950,17 @@ public class HMPReader {
     private int DecodeRulesLevel( int OldRules ) {
         switch( OldRules ) {
             case 1:
-                return AvailableCode.RULES_TOURNAMENT;
+                return AvailableCode.RULES_INTRODUCTORY;
             case 2:
-                return AvailableCode.RULES_ADVANCED;
+                // this will be checked for advanced rules anyway
+                return AvailableCode.RULES_TOURNAMENT;
             case 3:
                 return AvailableCode.RULES_EXPERIMENTAL;
             default:
                 return -1;
         }
     }
+
     private short readUnsignedByte(DataInputStream dis) throws Exception {
         short b = dis.readByte();
         b += b < 0 ? 256 : 0;
