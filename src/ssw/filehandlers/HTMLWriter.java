@@ -1514,21 +1514,29 @@ public class HTMLWriter {
         lookup.put( "<+-SSW_JUMPJET_LOCATION_LINE-+>", FileCommon.GetJumpJetLocations( CurMech ) );
         lookup.put( "<+-SSW_ARMOR_FACTOR-+>", "" + CurMech.GetArmor().GetArmorValue() );
         lookup.put( "<+-SSW_ENGINE_RATING-+>", "" + CurMech.GetEngine().GetRating() );
-        lookup.put( "<+-SSW_ENGINE_TYPE-+>", CurMech.GetEngine().CritName() );
+        if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+            lookup.put( "<+-SSW_ENGINE_TYPE-+>", CurMech.GetEngine().LookupName() );
+        } else {
+            lookup.put( "<+-SSW_ENGINE_TYPE-+>", CurMech.GetEngine().CritName() );
+        }
         lookup.put( "<+-SSW_HEATSINK_DISSIPATION_LINE-+>", GetHeatSinkLine() );
         if( CurMech.GetHeatSinks().GetNumHS() < CurMech.GetEngine().InternalHeatSinks() ) {
             lookup.put( "<+-SSW_HEATSINKS_IN_ENGINE-+>", "" + CurMech.GetHeatSinks().GetNumHS() );
         } else {
             lookup.put( "<+-SSW_HEATSINKS_IN_ENGINE-+>", "" + CurMech.GetEngine().InternalHeatSinks() );
         }
-        if( CurMech.GetHeatSinks().IsDouble() ) {
-            lookup.put( "<+-SSW_HEATSINK_TYPE-+>", "Double" );
-        } else if( CurMech.GetHeatSinks().IsCompact() ) {
-            lookup.put( "<+-SSW_HEATSINK_TYPE-+>", "Compact" );
-        } else if( CurMech.GetHeatSinks().IsLaser() ) {
-            lookup.put( "<+-SSW_HEATSINK_TYPE-+>", "Laser" );
+        if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
+            lookup.put( "<+-SSW_HEATSINK_TYPE-+>", CurMech.GetHeatSinks().GetCurrentState().LookupName() );
         } else {
-            lookup.put( "<+-SSW_HEATSINK_TYPE-+>", "Single" );
+            if( CurMech.GetHeatSinks().IsDouble() ) {
+                lookup.put( "<+-SSW_HEATSINK_TYPE-+>", "Double" );
+            } else if( CurMech.GetHeatSinks().IsCompact() ) {
+                lookup.put( "<+-SSW_HEATSINK_TYPE-+>", "Compact" );
+            } else if( CurMech.GetHeatSinks().IsLaser() ) {
+                lookup.put( "<+-SSW_HEATSINK_TYPE-+>", "Laser" );
+            } else {
+                lookup.put( "<+-SSW_HEATSINK_TYPE-+>", "Single" );
+            }
         }
         lookup.put( "<+-SSW_GYRO_TYPE-+>", CurMech.GetGyro().GetReportName() );
         lookup.put( "<+-SSW_COCKPIT_TYPE-+>", CurMech.GetCockpit().GetReportName() );
