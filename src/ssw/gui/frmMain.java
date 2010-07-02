@@ -11804,7 +11804,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         for( int i = selected.length - 1; i >= 0; i-- ) {
             // abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( lstSelectedEquipment.getSelectedIndex() );
             abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( selected[i] );
-            if( p.LocationLocked() ) {
+            if( p.LocationLocked() &! ( p instanceof Talons ) ) {
                 Media.Messager( this, "You may not remove a locked item from the loadout." );
                 return;
             } else {
