@@ -43,7 +43,7 @@ import filehandlers.ImageTracker;
 
 public class Printer {
     private frmMain Parent;
-    private Vector Mechs = new Vector();
+    private Vector<PrintMech> Mechs = new Vector<PrintMech>();
     private Vector battleforces = new Vector();
     private BattleForce battleforce;
     private BattleforcePrinter printForce;
@@ -138,6 +138,21 @@ public class Printer {
         for (int index=0; index <= Mechs.size()-1; index++) {
             PrintMech pm = (PrintMech) Mechs.get(index);
             pm.SetMiniConversion( Rate );
+        }
+    }
+
+    public void setPrintWarrior( boolean value ) {
+        for (int index=0; index <= Mechs.size()-1; index++) {
+            PrintMech pm = (PrintMech) Mechs.get(index);
+            pm.setPrintPilot(value);
+        }
+    }
+
+    public void setWarriorData( int Gunnery, int Piloting, String Name, String Unit ) {
+        for (int index=0; index <= Mechs.size()-1; index++) {
+            PrintMech pm = (PrintMech) Mechs.get(index);
+            pm.SetPilotData(Name, Gunnery, Piloting);
+            pm.setGroupName(Unit);
         }
     }
 
