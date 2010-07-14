@@ -230,8 +230,14 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
     private void setTooltip( MechListData data ) {
         //spnMechTable.setToolTipText( data.getInfo() );
-        txtSelected.setText(data.getInfo());
+        String[] dirs = data.getFilename().split("\\\\");
+        String shortPath = "";
+        for (int i = dirs.length-1; i >= dirs.length-3; i--) {
+            shortPath = "\\" + dirs[i] + shortPath;
+        }
+        txtSelected.setText(data.getInfo() + " (" + shortPath + ")");
     }
+    
     public void propertyChange( PropertyChangeEvent e ) {
        prgResaving.setValue( ((Resaver) e.getSource()).getProgress() );
     }
@@ -832,8 +838,8 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 323, Short.MAX_VALUE)
                         .addComponent(lblShowing, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                        .addComponent(txtSelected, javax.swing.GroupLayout.DEFAULT_SIZE, 798, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(prgResaving, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(spnMechTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
                     .addComponent(pnlFilters, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))

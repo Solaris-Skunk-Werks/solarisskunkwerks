@@ -41,8 +41,8 @@
                       <Component id="lblShowing" min="-2" pref="156" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="txtSelected" min="-2" pref="665" max="-2" attributes="0"/>
-                      <EmptySpace pref="151" max="32767" attributes="0"/>
+                      <Component id="txtSelected" pref="798" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="prgResaving" min="-2" pref="188" max="-2" attributes="0"/>
                   </Group>
                   <Component id="spnMechTable" pref="1004" max="32767" attributes="3"/>
