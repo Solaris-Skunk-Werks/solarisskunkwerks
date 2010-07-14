@@ -39,6 +39,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
@@ -47,6 +49,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import ssw.*;
 import components.*;
@@ -58,6 +61,7 @@ import states.ifState;
 import java.util.prefs.*;
 import javax.swing.JEditorPane;
 import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
 import battleforce.*;
 import common.DataFactory;
 import dialog.frmForce;
@@ -65,8 +69,22 @@ import components.EquipmentCollection;
 import gui.TextPane;
 import ssw.printpreview.dlgPreview;
 import Print.PrintConsts;
+import javax.swing.SwingUtilities;
 
 public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner, common.DesignForm {
+    FocusAdapter spinners = new FocusAdapter() {
+        @Override
+        public void focusGained(FocusEvent e) {
+            if ( e.getSource() instanceof JTextComponent ) {
+                final JTextComponent textComponent = ((JTextComponent)e.getSource());
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        textComponent.selectAll();
+                    }
+                });
+            }
+        }
+    };
 
     String[] Selections = { "", "", "", "", "", "", "", "" };
     Mech CurMech;
@@ -639,6 +657,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // reset the spinner model and we're done.
         spnWalkMP.setModel( new javax.swing.SpinnerNumberModel( CurWalk, 1, MaxWalk, 1) );
+        ((JSpinner.DefaultEditor)spnWalkMP.getEditor()).getTextField().addFocusListener(spinners);
     }
 
     private void BuildChassisSelector() {
@@ -833,6 +852,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         spnJumpMP.setModel( new javax.swing.SpinnerNumberModel( current, min, max, 1) );
+        ((JSpinner.DefaultEditor)spnJumpMP.getEditor()).getTextField().addFocusListener(spinners);
     }
 
     private void FixHeatSinkSpinnerModel() {
@@ -844,6 +864,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             spnNumberOfHS.setModel( new javax.swing.SpinnerNumberModel(
                 CurMech.GetHeatSinks().GetNumHS(), CurMech.GetEngine().FreeHeatSinks(), 65, 1) );
         }
+
+        ((JSpinner.DefaultEditor)spnNumberOfHS.getEditor()).getTextField().addFocusListener(spinners);
     }
 
     private void FixJumpBoosterSpinnerModel() {
@@ -1667,6 +1689,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             CurMech.GetHeatSinks().ReCalculate();
             spnNumberOfHS.setModel( new javax.swing.SpinnerNumberModel(
                 CurMech.GetHeatSinks().GetNumHS(), CurMech.GetEngine().FreeHeatSinks(), 65, 1) );
+
+            ((JSpinner.DefaultEditor)spnNumberOfHS.getEditor()).getTextField().addFocusListener(spinners);
         }
 
         // see if we should enable the Power Amplifier display
@@ -2146,10 +2170,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     public void QuickSave() {
         if ( !Prefs.get("Currentfile", "").isEmpty() ) {
             // save the mech to XML in the current location
+            String curLoadout = CurMech.GetLoadout().GetName();
             MechWriter XMLw = new MechWriter( CurMech );
             try {
                 String file = Prefs.get("Currentfile", "");
                 XMLw.WriteXML( file );
+                CurMech.SetCurLoadout(curLoadout);
             } catch( IOException e ) {
                 return;
             }
@@ -2356,6 +2382,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         spnCTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_CTR ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_CT ), 1) );
         spnLTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_LTR ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_LT ), 1) );
         spnRTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_RTR ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_RT ), 1) );
+
+        //Setup Spinner focus
+        ((JSpinner.DefaultEditor)spnHDArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnCTArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnCTRArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnRTArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnRTRArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnLTArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnLTRArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnRAArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnRLArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnLAArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnLLArmor.getEditor()).getTextField().addFocusListener(spinners);
     }
 
     private void SaveSelections() {
@@ -13973,7 +14012,6 @@ private void btnAddToForceListActionPerformed(java.awt.event.ActionEvent evt) {/
     if (VerifyMech(evt)) {
         dForce.Add(CurMech, Prefs.get("Currentfile", ""));
     }
-    CurMech.SetCurLoadout( (String) cmbOmniVariant.getSelectedItem() );
     SetSource = true;
 }//GEN-LAST:event_btnAddToForceListActionPerformed
 
@@ -15131,4 +15169,5 @@ private void setViewToolbar(boolean Visible)
         this.dOpen.Requestor = dlgOpen.FORCE;
         this.dOpen.setVisible(true);
     }
+
 }
