@@ -42,7 +42,7 @@ import ssw.filehandlers.HTMLWriter;
 import ssw.filehandlers.XMLRPCClient;
 
 public class dlgPostToSolaris7 extends javax.swing.JDialog {
-    private frmMain Parent;
+    private ifMechForm Parent;
     private String Callsign = "",
                    Password = "", // must encrypt this in memory
                    UserImage = "-1",
@@ -56,13 +56,13 @@ public class dlgPostToSolaris7 extends javax.swing.JDialog {
     /** Creates new form dlgPostToSolaris7 */
     public dlgPostToSolaris7(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        Parent = (frmMain) parent;
-        CurMech = Parent.CurMech;
+        Parent = (ifMechForm) parent;
+        CurMech = Parent.GetMech();
         setTitle( "Post to Solaris7.com" );
         initComponents();
-        Callsign = Parent.Prefs.get("S7Callsign", "");
-        Password = Parent.Prefs.get("S7Password", "");
-        UserID = Parent.Prefs.getInt( "S7UserID", -1 );
+        Callsign = Parent.GetPrefs().get("S7Callsign", "");
+        Password = Parent.GetPrefs().get("S7Password", "");
+        UserID = Parent.GetPrefs().getInt( "S7UserID", -1 );
         txtCallsign.setText( Callsign );
         txtPassword.setText( Password );
 
@@ -352,8 +352,8 @@ private void btnGetArmoriesActionPerformed(java.awt.event.ActionEvent evt) {//GE
     try {
         if( UserID == -1 ) {
             UserID = serve.GetMemberID( Callsign, Password );
-            Parent.Prefs.put("S7Callsign", Callsign);
-            Parent.Prefs.put("S7Password", Password);
+            Parent.GetPrefs().put("S7Callsign", Callsign);
+            Parent.GetPrefs().put("S7Password", Password);
         }
         if( UserID != -1 ) {
             Armories = serve.GetArmoryList( UserID );
@@ -392,9 +392,9 @@ private void btnPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     if( chkSaveInfo.isSelected() ) {
         Callsign = txtCallsign.getText();
         Password = String.copyValueOf( txtPassword.getPassword() );
-        Parent.Prefs.put( "S7Callsign", Callsign );
-        Parent.Prefs.put( "S7Password", Password );
-        Parent.Prefs.putInt( "S7UserID", UserID );
+        Parent.GetPrefs().put( "S7Callsign", Callsign );
+        Parent.GetPrefs().put( "S7Password", Password );
+        Parent.GetPrefs().putInt( "S7UserID", UserID );
     }
 
     // export the mech to HTML
@@ -406,8 +406,8 @@ private void btnPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     } else {
         file = CurMech.GetName() + " " + CurMech.GetModel() + ".html";
     }
-    if( ! Parent.Prefs.get( "HTMLExportPath", "none" ).equals( "none" ) ) {
-        file = Parent.Prefs.get( "HTMLExportPath", "none" ) + File.separator + file;
+    if( ! Parent.GetPrefs().get( "HTMLExportPath", "none" ).equals( "none" ) ) {
+        file = Parent.GetPrefs().get( "HTMLExportPath", "none" ) + File.separator + file;
     }
 
     HTMLWriter HTMw = new HTMLWriter( CurMech );
@@ -453,8 +453,8 @@ private void btnPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 
 private void btnBrowseImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseImagesActionPerformed
     setCursor( Hourglass );
-    dlgBrowseS7Images ImageViewer = new dlgBrowseS7Images( Parent, true, UserID, CurMech.GetSolaris7ImageID() );
-    Point p = Parent.getLocationOnScreen();
+    dlgBrowseS7Images ImageViewer = new dlgBrowseS7Images( (javax.swing.JFrame) Parent, true, UserID, CurMech.GetSolaris7ImageID() );
+    Point p = ((javax.swing.JFrame) Parent).getLocationOnScreen();
     ImageViewer.setLocation( p.x + 100, p.y );
 
     ImageViewer.setVisible( true );

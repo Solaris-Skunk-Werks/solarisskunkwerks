@@ -37,7 +37,7 @@ import javax.swing.border.TitledBorder;
 
 public class dlgSelectiveAllocate extends javax.swing.JDialog {
 
-    frmMain Parent;
+    ifMechForm Parent;
     abPlaceable Item = null;
     EquipmentCollection Items = null;
     ifMechLoadout CurLoadout;
@@ -51,9 +51,9 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
         initComponents();
         setTitle( "Selective Allocation" );
         setResizable( false );
-        Parent = (frmMain) parent;
+        Parent = (ifMechForm) parent;
         Item = p;
-        CurLoadout = Parent.CurMech.GetLoadout();
+        CurLoadout = Parent.GetMech().GetLoadout();
         InitializeSingle();
     }
 
@@ -62,14 +62,14 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
         initComponents();
         setTitle( "Selective Allocation" );
         setResizable( false );
-        Parent = (frmMain) parent;
+        Parent = (ifMechForm) parent;
         Items = e;
-        CurLoadout = Parent.CurMech.GetLoadout();
+        CurLoadout = Parent.GetMech().GetLoadout();
         InitializeCollection();
     }
 
     private void InitializeSingle() {
-        if( Parent.CurMech.IsQuad() ) {
+        if( Parent.GetMech().IsQuad() ) {
             ((TitledBorder) pnlRA.getBorder()).setTitle( "RFL" );
             ((TitledBorder) pnlLA.getBorder()).setTitle( "LFL" );
             ((TitledBorder) pnlRL.getBorder()).setTitle( "RRL" );
@@ -120,7 +120,7 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
         abPlaceable CurItem = Items.GetType();
         int size = CurItem.NumCrits();
         
-        if( Parent.CurMech.IsQuad() ) {
+        if( Parent.GetMech().IsQuad() ) {
             ((TitledBorder) pnlRA.getBorder()).setTitle( "RFL" );
             ((TitledBorder) pnlLA.getBorder()).setTitle( "LFL" );
             ((TitledBorder) pnlRL.getBorder()).setTitle( "RRL" );

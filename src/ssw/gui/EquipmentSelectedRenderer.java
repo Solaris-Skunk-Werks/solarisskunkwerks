@@ -36,10 +36,10 @@ import components.*;
 import filehandlers.FileCommon;
 
 public class EquipmentSelectedRenderer extends DefaultListCellRenderer {
-    private frmMain Parent;
+    private ifMechForm Parent;
     private abPlaceable a = null;
 
-    public EquipmentSelectedRenderer( frmMain p ) {
+    public EquipmentSelectedRenderer( ifMechForm p ) {
         Parent = p;
     }
 
@@ -49,8 +49,8 @@ public class EquipmentSelectedRenderer extends DefaultListCellRenderer {
         String Text = "";
         if( value instanceof abPlaceable ) {
             a = (abPlaceable) value;
-            int Loc = Parent.CurMech.GetLoadout().Find( a );
-            if( Parent.CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
+            int Loc = Parent.GetMech().GetLoadout().Find( a );
+            if( Parent.GetMech().GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                 if( a instanceof Equipment ) {
                     if( ((Equipment) a).IsVariableSize() ) {
                         Text = a.CritName();
@@ -64,7 +64,7 @@ public class EquipmentSelectedRenderer extends DefaultListCellRenderer {
                 Text = a.CritName();
             }
             if( Loc < 11 ) {
-                Text = "(" + FileCommon.EncodeLocation( Loc, Parent.CurMech.IsQuad() ) + ") " + Text;
+                Text = "(" + FileCommon.EncodeLocation( Loc, Parent.GetMech().IsQuad() ) + ") " + Text;
             }
         }
 

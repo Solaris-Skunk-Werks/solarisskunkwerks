@@ -42,7 +42,7 @@ import Print.*;
 import filehandlers.ImageTracker;
 
 public class Printer {
-    private frmMain Parent;
+    private ifMechForm Parent;
     private Vector<PrintMech> Mechs = new Vector<PrintMech>();
     private Vector battleforces = new Vector();
     private BattleForce battleforce;
@@ -71,7 +71,7 @@ public class Printer {
         this(null);
     }
     
-    public Printer(frmMain p) {
+    public Printer(ifMechForm p) {
         Parent = p;
         setPaperSize(Letter);
         images.preLoadMechImages();
@@ -274,9 +274,9 @@ public class Printer {
     }
 
     private Boolean PrintDialog(PrintMech pMech) {
-        dlgPrintSavedMechOptions POptions = new dlgPrintSavedMechOptions(Parent, true, pMech);
+        dlgPrintSavedMechOptions POptions = new dlgPrintSavedMechOptions( (javax.swing.JFrame) Parent, true, pMech);
         POptions.setTitle( "Printing " + pMech.CurMech.GetFullName() );
-        POptions.setLocationRelativeTo( Parent );
+        POptions.setLocationRelativeTo( (javax.swing.JFrame) Parent );
 
         POptions.setVisible( true );
 
@@ -299,9 +299,9 @@ public class Printer {
     }
 
     private Boolean BatchDialog() {
-        dlgPrintSavedMechOptions POptions = new dlgPrintSavedMechOptions(Parent, true);
+        dlgPrintSavedMechOptions POptions = new dlgPrintSavedMechOptions( (javax.swing.JFrame) Parent, true);
         POptions.setTitle( "Printing Batched Units");
-        POptions.setLocationRelativeTo( Parent );
+        POptions.setLocationRelativeTo( (javax.swing.JFrame) Parent );
 
         if ( !this.logoPath.isEmpty() ) {
             POptions.setLogo(new File(this.logoPath));
@@ -400,8 +400,8 @@ public class Printer {
         if ( useDialog ) {
             for ( int i=0; i < battleforces.size(); i++ ) {
                 BattleforcePrinter bf = (BattleforcePrinter) battleforces.get(i);
-                dlgPrintBattleforce pForce = new dlgPrintBattleforce(Parent, true, bf.getBattleforce());
-                pForce.setLocationRelativeTo(Parent);
+                dlgPrintBattleforce pForce = new dlgPrintBattleforce( (javax.swing.JFrame) Parent, true, bf.getBattleforce());
+                pForce.setLocationRelativeTo((javax.swing.JFrame) Parent);
                 pForce.setVisible(true);
                 if ( !pForce.Result ) {
                     return;

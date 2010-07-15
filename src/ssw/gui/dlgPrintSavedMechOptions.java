@@ -12,12 +12,11 @@ import components.ifMechLoadout;
 import java.util.Vector;
 import javax.swing.ImageIcon;
 import filehandlers.Media;
-import ssw.SSWConstants;
 import Print.PrintMech;
 
 public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
     private Mech CurMech;
-    private frmMain Parent;
+    private ifMechForm Parent;
     private boolean Result = false;
     private File MechImage = null;
     private File LogoImage = null;
@@ -26,7 +25,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
     public dlgPrintSavedMechOptions(java.awt.Frame parent, boolean modal, Mech m, String Warrior, int Gunnery, int Piloting) {
         super(parent, modal);
         initComponents();
-        Parent = (frmMain) parent;
+        Parent = (ifMechForm) parent;
 
         if (m == null) {
             CurMech = null;
@@ -62,25 +61,25 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         }
 
         if ( Parent != null ) {
-            chkPrintCharts.setSelected(Parent.Prefs.getBoolean("UseCharts", false));
-            chkPrintCanon.setSelected(Parent.Prefs.getBoolean("UseCanonDots", false));
-            chkMWStats.setSelected(Parent.Prefs.getBoolean("NoPilot", false));
-            if ( Parent.Prefs.getBoolean("NoPilot", false) ) {
+            chkPrintCharts.setSelected(Parent.GetPrefs().getBoolean("UseCharts", false));
+            chkPrintCanon.setSelected(Parent.GetPrefs().getBoolean("UseCanonDots", false));
+            chkMWStats.setSelected(Parent.GetPrefs().getBoolean("NoPilot", false));
+            if ( Parent.GetPrefs().getBoolean("NoPilot", false) ) {
                 chkMWStatsActionPerformed(null);
             }
-            if (Parent.Prefs.getBoolean("UseA4", false)) {
+            if (Parent.GetPrefs().getBoolean("UseA4", false)) {
                 cmbPaperSize.setSelectedIndex(1);
             }
-            chkUseHexConversion.setSelected( Parent.Prefs.getBoolean( "UseMiniConversion", false ) );
+            chkUseHexConversion.setSelected( Parent.GetPrefs().getBoolean( "UseMiniConversion", false ) );
             if( chkUseHexConversion.isSelected() ) {
                 lblOneHex.setEnabled( true );
                 cmbHexConvFactor.setEnabled( true );
                 lblInches.setEnabled( true );
-                cmbHexConvFactor.setSelectedIndex( Parent.Prefs.getInt( "MiniConversionRate", 0 ) );
+                cmbHexConvFactor.setSelectedIndex( Parent.GetPrefs().getInt( "MiniConversionRate", 0 ) );
             }
 
-            if ( Parent.Prefs.get("LastLogo", "").length() > 0 ) {
-                setLogo(new File(Parent.Prefs.get("LastLogo", "")));
+            if ( Parent.GetPrefs().get("LastLogo", "").length() > 0 ) {
+                setLogo(new File(Parent.GetPrefs().get("LastLogo", "")));
             }
         }
     }
@@ -514,12 +513,12 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         if ( Parent != null ) {
-            Parent.Prefs.putBoolean("UseA4", UseA4Paper());
-            Parent.Prefs.putBoolean("UseCharts", chkPrintCharts.isSelected());
-            Parent.Prefs.putBoolean("NoPilot", chkMWStats.isSelected());
-            Parent.Prefs.putBoolean( "UseMiniConversion", chkUseHexConversion.isSelected() );
-            Parent.Prefs.putInt( "MiniConversionRate", cmbHexConvFactor.getSelectedIndex() );
-            Parent.Prefs.putBoolean("UseCanonDots", chkPrintCanon.isSelected());
+            Parent.GetPrefs().putBoolean("UseA4", UseA4Paper());
+            Parent.GetPrefs().putBoolean("UseCharts", chkPrintCharts.isSelected());
+            Parent.GetPrefs().putBoolean("NoPilot", chkMWStats.isSelected());
+            Parent.GetPrefs().putBoolean( "UseMiniConversion", chkUseHexConversion.isSelected() );
+            Parent.GetPrefs().putInt( "MiniConversionRate", cmbHexConvFactor.getSelectedIndex() );
+            Parent.GetPrefs().putBoolean("UseCanonDots", chkPrintCanon.isSelected());
         }
 
         Result = true;
@@ -576,15 +575,15 @@ private void chkUseHexConversionActionPerformed(java.awt.event.ActionEvent evt) 
 
 private void btnChooseImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseImageActionPerformed
     String defaultDir = "";
-    if ( Parent != null ) {defaultDir = Parent.Prefs.get("LastImagePath", "");}
+    if ( Parent != null ) {defaultDir = Parent.GetPrefs().get("LastImagePath", "");}
     Media media = new Media();
     MechImage = media.SelectImage(defaultDir, "Select Image");
 
     try {
         if ( Parent != null ) {
-            Parent.Prefs.put("LastImage", MechImage.getCanonicalPath());
-            Parent.Prefs.put("LastImagePath", MechImage.getCanonicalPath().replace(MechImage.getName(), ""));
-            Parent.Prefs.put("LastImageFile", MechImage.getName());
+            Parent.GetPrefs().put("LastImage", MechImage.getCanonicalPath());
+            Parent.GetPrefs().put("LastImagePath", MechImage.getCanonicalPath().replace(MechImage.getName(), ""));
+            Parent.GetPrefs().put("LastImageFile", MechImage.getName());
         }
 
         setImage(MechImage);
@@ -609,15 +608,15 @@ private void chkStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
 private void btnChooseLogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseLogoActionPerformed
     String defaultDir = "";
-    if ( Parent != null ) {defaultDir = Parent.Prefs.get("LastLogo", "");}
+    if ( Parent != null ) {defaultDir = Parent.GetPrefs().get("LastLogo", "");}
     Media media = new Media();
     LogoImage = media.SelectImage(defaultDir, "Select Logo");
 
     try {
         if ( Parent != null ) {
-            Parent.Prefs.put("LastLogo", LogoImage.getCanonicalPath());
-            Parent.Prefs.put("LastLogoPath", LogoImage.getCanonicalPath().replace(LogoImage.getName(), ""));
-            Parent.Prefs.put("LastLogoFile", LogoImage.getName());
+            Parent.GetPrefs().put("LastLogo", LogoImage.getCanonicalPath());
+            Parent.GetPrefs().put("LastLogoPath", LogoImage.getCanonicalPath().replace(LogoImage.getName(), ""));
+            Parent.GetPrefs().put("LastLogoFile", LogoImage.getName());
         }
 
         setLogo(LogoImage);
@@ -629,7 +628,7 @@ private void btnChooseLogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 
 private void btnChangeAmmoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeAmmoActionPerformed
     try {
-        dlgAmmoChooser Ammo = new dlgAmmoChooser( this, false, CurMech, Parent.data );
+        dlgAmmoChooser Ammo = new dlgAmmoChooser( this, false, CurMech, Parent.GetData() );
         Ammo.setLocationRelativeTo( this );
         if( Ammo.HasAmmo() ) {
             Ammo.setVisible( true );

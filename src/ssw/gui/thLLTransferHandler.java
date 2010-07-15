@@ -38,12 +38,12 @@ import javax.swing.TransferHandler;
 import components.*;
 
 public class thLLTransferHandler extends TransferHandler {
-    private frmMain Parent;
+    private ifMechForm Parent;
     private Mech CurMech;
 
     // the right leg transfer handler only deals with adding to the right leg.
     // other listeners will deal with removing items.
-    public thLLTransferHandler( frmMain f, Mech m ) {
+    public thLLTransferHandler( ifMechForm f, Mech m ) {
         Parent = f;
         CurMech = m;
     }
@@ -213,7 +213,7 @@ public class thLLTransferHandler extends TransferHandler {
             }
         } catch( Exception e ) {
             CurMech.GetLoadout().AddToQueue( a );
-            javax.swing.JOptionPane.showMessageDialog( Parent, e.getMessage() );
+            javax.swing.JOptionPane.showMessageDialog( (javax.swing.JFrame) Parent, e.getMessage() );
             Parent.RefreshInfoPane();
             return false;
         }
@@ -228,8 +228,8 @@ public class thLLTransferHandler extends TransferHandler {
     private boolean SplitAllocate( abPlaceable a, int dindex ) throws Exception {
         int ToPlace = CurMech.GetLoadout().FreeFrom( CurMech.GetLoadout().GetLLCrits(), dindex );
         if( ToPlace < a.NumCrits() ) {
-            dlgSplitCrits dlgSplit = new dlgSplitCrits( Parent, true, a, LocationIndex.MECH_LOC_LL, dindex );
-            Point p = Parent.getLocationOnScreen();
+            dlgSplitCrits dlgSplit = new dlgSplitCrits( (javax.swing.JFrame) Parent, true, a, LocationIndex.MECH_LOC_LL, dindex );
+            Point p = ((javax.swing.JFrame) Parent).getLocationOnScreen();
             dlgSplit.setLocation( p.x + 100, p.y + 100 );
             dlgSplit.setVisible( true );
             if( dlgSplit.GetResult() ) {

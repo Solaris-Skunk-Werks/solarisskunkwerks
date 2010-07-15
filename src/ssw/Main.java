@@ -111,8 +111,10 @@ public class Main {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                frmMain MainFrame = new frmMain();
-                MainFrame.setSize( 750, 600 );
+                // frmMain MainFrame = new frmMain();
+                frmMainWide MainFrame = new frmMainWide();
+                // MainFrame.setSize( 750, 600 );
+                MainFrame.setSize( 1230, 608 );
                 MainFrame.setLocationRelativeTo( null );
                 MainFrame.setResizable( true );
                 MainFrame.setDefaultCloseOperation( javax.swing.JFrame.DISPOSE_ON_CLOSE );

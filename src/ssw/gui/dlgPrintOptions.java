@@ -35,7 +35,7 @@ import javax.print.*;
 
 public class dlgPrintOptions extends javax.swing.JDialog {
     private Mech CurMech;
-    private frmMain Parent;
+    private ifMechForm Parent;
     private boolean Result = false;
     private Vector printers;
 
@@ -50,13 +50,13 @@ public class dlgPrintOptions extends javax.swing.JDialog {
         for (int i=0; i<=printers.size()-1; i++)
         {
         }
-        Parent = (frmMain) parent;
+        Parent = (ifMechForm) parent;
         CurMech = m;
         cmbGunnery.setSelectedIndex( 4 );
         cmbPiloting.setSelectedIndex( 5 );
 
-        chkPrintCharts.setSelected(Parent.Prefs.getBoolean("UseCharts", false));
-        chkMWStats.setSelected(Parent.Prefs.getBoolean("NoPilot", false));
+        chkPrintCharts.setSelected(Parent.GetPrefs().getBoolean("UseCharts", false));
+        chkMWStats.setSelected(Parent.GetPrefs().getBoolean("NoPilot", false));
         if( chkMWStats.isSelected() ) {
             lblAdjustBV.setText( String.format( "%1$,d", CurMech.GetCurrentBV() ) );
             chkAdjustBV.setSelected( false );
@@ -65,18 +65,18 @@ public class dlgPrintOptions extends javax.swing.JDialog {
             cmbPiloting.setEnabled( false );
             txtWarriorName.setEnabled( false );
         } else {
-            chkAdjustBV.setSelected(Parent.Prefs.getBoolean("AdjustPG", false));
+            chkAdjustBV.setSelected(Parent.GetPrefs().getBoolean("AdjustPG", false));
             lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );   
         }
-        if (Parent.Prefs.getBoolean("UseA4", false)) {
+        if (Parent.GetPrefs().getBoolean("UseA4", false)) {
             cmbPaperSize.setSelectedIndex(1);
         }
-        chkUseHexConversion.setEnabled( Parent.Prefs.getBoolean( "UseMiniConversion", false ) );
+        chkUseHexConversion.setEnabled( Parent.GetPrefs().getBoolean( "UseMiniConversion", false ) );
         if( chkUseHexConversion.isSelected() ) {
             lblOneHex.setEnabled( true );
             cmbHexConvFactor.setEnabled( true );
             lblInches.setEnabled( true );
-            cmbHexConvFactor.setSelectedIndex( Parent.Prefs.getInt( "MiniConversionRate", 0 ) );
+            cmbHexConvFactor.setSelectedIndex( Parent.GetPrefs().getInt( "MiniConversionRate", 0 ) );
         }
     }
 
@@ -399,12 +399,12 @@ private void cmbGunneryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_cmbGunneryActionPerformed
 
 private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-    Parent.Prefs.putBoolean("UseA4", UseA4Paper());
-    Parent.Prefs.putBoolean("UseCharts", chkPrintCharts.isSelected());
-    Parent.Prefs.putBoolean("AdjustPG", chkAdjustBV.isSelected());
-    Parent.Prefs.putBoolean("NoPilot", chkMWStats.isSelected());
-    Parent.Prefs.putBoolean( "UseMiniConversion", chkUseHexConversion.isSelected() );
-    Parent.Prefs.putInt( "MiniConversionRate", cmbHexConvFactor.getSelectedIndex() );
+    Parent.GetPrefs().putBoolean("UseA4", UseA4Paper());
+    Parent.GetPrefs().putBoolean("UseCharts", chkPrintCharts.isSelected());
+    Parent.GetPrefs().putBoolean("AdjustPG", chkAdjustBV.isSelected());
+    Parent.GetPrefs().putBoolean("NoPilot", chkMWStats.isSelected());
+    Parent.GetPrefs().putBoolean( "UseMiniConversion", chkUseHexConversion.isSelected() );
+    Parent.GetPrefs().putInt( "MiniConversionRate", cmbHexConvFactor.getSelectedIndex() );
 
     Result = true;
     setVisible( false );

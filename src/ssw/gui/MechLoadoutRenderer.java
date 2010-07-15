@@ -36,7 +36,7 @@ import javax.swing.JList;
 import components.*;
 
 public class MechLoadoutRenderer extends DefaultListCellRenderer {
-    private frmMain Parent;
+    private ifMechForm Parent;
     private Color EmptyFG,
                   EmptyBG,
                   NormalFG,
@@ -50,25 +50,25 @@ public class MechLoadoutRenderer extends DefaultListCellRenderer {
                   HiliteFG,
                   HiliteBG;
 
-    public MechLoadoutRenderer( frmMain p ) {
+    public MechLoadoutRenderer( ifMechForm p ) {
         Parent = p;
         Reset();
     }
 
     public void Reset() {
         // resets the colors on prefs change
-        EmptyFG = new Color( Parent.Prefs.getInt( "ColorEmptyItemFG", -16777216 ) );
-        EmptyBG = new Color( Parent.Prefs.getInt( "ColorEmptyItemBG", -6684775 ) );
-        NormalFG = new Color( Parent.Prefs.getInt( "ColorNormalItemFG", -16777216 ) );
-        NormalBG = new Color( Parent.Prefs.getInt( "ColorNormalItemBG", -10027009 ) );
-        ArmoredFG = new Color( Parent.Prefs.getInt( "ColorArmoredItemFG", -1 ) );
-        ArmoredBG = new Color( Parent.Prefs.getInt( "ColorArmoredItemBG", -6710887 ) );
-        LinkedFG = new Color( Parent.Prefs.getInt( "ColorLinkedItemFG", -16777216 ) );
-        LinkedBG = new Color( Parent.Prefs.getInt( "ColorLinkedItemBG", -3618616 ) );
-        LockedFG = new Color( Parent.Prefs.getInt( "ColorLockedItemFG", -3342337 ) );
-        LockedBG = new Color( Parent.Prefs.getInt( "ColorLockedItemBG", -16777216 ) );
-        HiliteFG = new Color( Parent.Prefs.getInt( "ColorHiLiteItemFG", -16777216 ) );
-        HiliteBG = new Color( Parent.Prefs.getInt( "ColorHiLiteItemBG", -52 ) );
+        EmptyFG = new Color( Parent.GetPrefs().getInt( "ColorEmptyItemFG", -16777216 ) );
+        EmptyBG = new Color( Parent.GetPrefs().getInt( "ColorEmptyItemBG", -6684775 ) );
+        NormalFG = new Color( Parent.GetPrefs().getInt( "ColorNormalItemFG", -16777216 ) );
+        NormalBG = new Color( Parent.GetPrefs().getInt( "ColorNormalItemBG", -10027009 ) );
+        ArmoredFG = new Color( Parent.GetPrefs().getInt( "ColorArmoredItemFG", -1 ) );
+        ArmoredBG = new Color( Parent.GetPrefs().getInt( "ColorArmoredItemBG", -6710887 ) );
+        LinkedFG = new Color( Parent.GetPrefs().getInt( "ColorLinkedItemFG", -16777216 ) );
+        LinkedBG = new Color( Parent.GetPrefs().getInt( "ColorLinkedItemBG", -3618616 ) );
+        LockedFG = new Color( Parent.GetPrefs().getInt( "ColorLockedItemFG", -3342337 ) );
+        LockedBG = new Color( Parent.GetPrefs().getInt( "ColorLockedItemBG", -16777216 ) );
+        HiliteFG = new Color( Parent.GetPrefs().getInt( "ColorHiLiteItemFG", -16777216 ) );
+        HiliteBG = new Color( Parent.GetPrefs().getInt( "ColorHiLiteItemBG", -52 ) );
     }
 
     @Override
@@ -83,28 +83,28 @@ public class MechLoadoutRenderer extends DefaultListCellRenderer {
         LocNum =  Parent.GetLocation( list );
         switch( LocNum ) {
             case LocationIndex.MECH_LOC_HD:
-                Loc = Parent.CurMech.GetLoadout().GetHDCrits();
+                Loc = Parent.GetMech().GetLoadout().GetHDCrits();
                 break;
             case LocationIndex.MECH_LOC_CT:
-                Loc = Parent.CurMech.GetLoadout().GetCTCrits();
+                Loc = Parent.GetMech().GetLoadout().GetCTCrits();
                 break;
             case LocationIndex.MECH_LOC_LT:
-                Loc = Parent.CurMech.GetLoadout().GetLTCrits();
+                Loc = Parent.GetMech().GetLoadout().GetLTCrits();
                 break;
             case LocationIndex.MECH_LOC_RT:
-                Loc = Parent.CurMech.GetLoadout().GetRTCrits();
+                Loc = Parent.GetMech().GetLoadout().GetRTCrits();
                 break;
             case LocationIndex.MECH_LOC_LA:
-                Loc = Parent.CurMech.GetLoadout().GetLACrits();
+                Loc = Parent.GetMech().GetLoadout().GetLACrits();
                 break;
             case LocationIndex.MECH_LOC_RA:
-                Loc = Parent.CurMech.GetLoadout().GetRACrits();
+                Loc = Parent.GetMech().GetLoadout().GetRACrits();
                 break;
             case LocationIndex.MECH_LOC_LL:
-                Loc = Parent.CurMech.GetLoadout().GetLLCrits();
+                Loc = Parent.GetMech().GetLoadout().GetLLCrits();
                 break;
             case LocationIndex.MECH_LOC_RL:
-                Loc = Parent.CurMech.GetLoadout().GetRLCrits();
+                Loc = Parent.GetMech().GetLoadout().GetRLCrits();
                 break;
             default:
                 Loc = null;
@@ -134,7 +134,7 @@ public class MechLoadoutRenderer extends DefaultListCellRenderer {
                 BorderCol = NormalBG;
             }
 
-            if( Parent.CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
+            if( Parent.GetMech().GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                 if( a instanceof Equipment ) {
                     if( ((Equipment) a).IsVariableSize() ) {
                         Text = a.CritName();
@@ -167,51 +167,51 @@ public class MechLoadoutRenderer extends DefaultListCellRenderer {
 
         JList.DropLocation dropLocation = list.getDropLocation();
         if ( dropLocation != null && dropLocation.getIndex() == index ) {
-            int size = Parent.CurItem.NumCrits();
-            if( Parent.CurItem instanceof RangedWeapon ) {
-                if( ((RangedWeapon) Parent.CurItem).IsUsingFCS() ) {
-                    size += ((abPlaceable) ((RangedWeapon) Parent.CurItem).GetFCS()).NumCrits();
+            int size = Parent.GetCurItem().NumCrits();
+            if( Parent.GetCurItem() instanceof RangedWeapon ) {
+                if( ((RangedWeapon) Parent.GetCurItem()).IsUsingFCS() ) {
+                    size += ((abPlaceable) ((RangedWeapon) Parent.GetCurItem()).GetFCS()).NumCrits();
                 }
-                if( ((RangedWeapon) Parent.CurItem).IsUsingCapacitor() ) {
+                if( ((RangedWeapon) Parent.GetCurItem()).IsUsingCapacitor() ) {
                     size++;
                 }
-                if( ((RangedWeapon) Parent.CurItem).IsUsingInsulator() ) {
+                if( ((RangedWeapon) Parent.GetCurItem()).IsUsingInsulator() ) {
                     size++;
                 }
             }
-            if( Parent.CurItem instanceof MGArray ) {
-                size += ((MGArray) Parent.CurItem).GetNumMGs();
+            if( Parent.GetCurItem() instanceof MGArray ) {
+                size += ((MGArray) Parent.GetCurItem()).GetNumMGs();
             }
-            if( ! Parent.CurItem.Contiguous() ) {
+            if( ! Parent.GetCurItem().Contiguous() ) {
                 size = 1;
             }
             label.setBackground( HiliteBG );
             label.setForeground( HiliteFG );
-            if( Parent.CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
-                if( Parent.CurItem instanceof Equipment ) {
-                    if( ((Equipment) Parent.CurItem).IsVariableSize() ) {
-                        Text =  Parent.CurItem.CritName();
+            if( Parent.GetMech().GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
+                if( Parent.GetCurItem() instanceof Equipment ) {
+                    if( ((Equipment) Parent.GetCurItem()).IsVariableSize() ) {
+                        Text =  Parent.GetCurItem().CritName();
                     } else {
-                        Text =  Parent.CurItem.LookupName();
+                        Text =  Parent.GetCurItem().LookupName();
                     }
-                } else if( Parent.CurItem instanceof MechArmor ) {
-                    if( ((MechArmor) Parent.CurItem).IsPatchwork() ) {
-                        Text = Parent.BuildLookupName( ((MechArmor) Parent.CurItem).GetLocationType( LocNum ) );
+                } else if( Parent.GetCurItem() instanceof MechArmor ) {
+                    if( ((MechArmor) Parent.GetCurItem()).IsPatchwork() ) {
+                        Text = Parent.BuildLookupName( ((MechArmor) Parent.GetCurItem()).GetLocationType( LocNum ) );
                     } else {
-                        Text = Parent.BuildLookupName( ((MechArmor) Parent.CurItem).GetCurrentState() );
+                        Text = Parent.BuildLookupName( ((MechArmor) Parent.GetCurItem()).GetCurrentState() );
                     }
                 } else {
-                    Text = Parent.CurItem.LookupName();
+                    Text = Parent.GetCurItem().LookupName();
                 }
             } else {
-                if( Parent.CurItem instanceof MechArmor ) {
-                    if( ((MechArmor) Parent.CurItem).IsPatchwork() ) {
-                        Text = ((MechArmor) Parent.CurItem).CritName( LocNum );
+                if( Parent.GetCurItem() instanceof MechArmor ) {
+                    if( ((MechArmor) Parent.GetCurItem()).IsPatchwork() ) {
+                        Text = ((MechArmor) Parent.GetCurItem()).CritName( LocNum );
                     } else {
-                        Text =  Parent.CurItem.CritName();
+                        Text =  Parent.GetCurItem().CritName();
                     }
                 } else {
-                    Text =  Parent.CurItem.CritName();
+                    Text =  Parent.GetCurItem().CritName();
                 }
             }
             if( size <= 1 ) {

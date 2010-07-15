@@ -36,12 +36,13 @@ import components.AvailableCode;
 import components.Equipment;
 import components.abPlaceable;
 import components.EquipmentCollection;
+import filehandlers.FileCommon;
 
 public class EquipmentListRenderer extends DefaultListCellRenderer {
-    private frmMain Parent;
+    private ifMechForm Parent;
     private abPlaceable a = null;
 
-    public EquipmentListRenderer( frmMain p ) {
+    public EquipmentListRenderer( ifMechForm p ) {
         Parent = p;
     }
 
@@ -51,8 +52,9 @@ public class EquipmentListRenderer extends DefaultListCellRenderer {
         String Text = "";
         if( value instanceof abPlaceable ) {
             a = (abPlaceable) value;
+            int Loc = Parent.GetMech().GetLoadout().Find( a );
             if( a.Contiguous() ) {
-                if( Parent.CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
+                if( Parent.GetMech().GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
                     if( a instanceof Equipment ) {
                         if( ((Equipment) a).IsVariableSize() ) {
                             Text = a.CritName();
@@ -64,6 +66,9 @@ public class EquipmentListRenderer extends DefaultListCellRenderer {
                     }
                 } else {
                     Text = a.CritName();
+                }
+                if( Loc < 11 ) {
+                    Text = "(" + FileCommon.EncodeLocation( Loc, Parent.GetMech().IsQuad() ) + ") " + Text;
                 }
             } else {
                 Text = a.toString();

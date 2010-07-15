@@ -39,8 +39,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
@@ -49,7 +47,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import ssw.*;
 import components.*;
@@ -61,7 +58,6 @@ import states.ifState;
 import java.util.prefs.*;
 import javax.swing.JEditorPane;
 import javax.swing.JTextField;
-import javax.swing.text.JTextComponent;
 import battleforce.*;
 import common.DataFactory;
 import dialog.frmForce;
@@ -69,22 +65,11 @@ import components.EquipmentCollection;
 import gui.TextPane;
 import ssw.printpreview.dlgPreview;
 import Print.PrintConsts;
-import javax.swing.SwingUtilities;
+import java.awt.Dimension;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
-public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner, common.DesignForm, ifMechForm {
-    FocusAdapter spinners = new FocusAdapter() {
-        @Override
-        public void focusGained(FocusEvent e) {
-            if ( e.getSource() instanceof JTextComponent ) {
-                final JTextComponent textComponent = ((JTextComponent)e.getSource());
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        textComponent.selectAll();
-                    }
-                });
-            }
-        }
-    };
+public class frmMainWide extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner, common.DesignForm, ifMechForm {
 
     String[] Selections = { "", "", "", "", "", "", "", "" };
     Mech CurMech;
@@ -160,7 +145,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private final AvailableCode PWAC = new AvailableCode( AvailableCode.TECH_CLAN );
 
     /** Creates new form frmMain */
-    public frmMain() {
+    public frmMainWide() {
         Prefs = Preferences.userNodeForPackage( this.getClass() );
         CurMech = new Mech( Prefs );
         ArmorTons = new VSetArmorTonnage( Prefs );
@@ -564,9 +549,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstChoosePhysical.setListData( Equipment[PHYSICAL] );
         lstChooseEquipment.setListData( Equipment[EQUIPMENT] );
         lstChooseAmmunition.setListData( Equipment[AMMUNITION] );
-        lstSelectedEquipment.setListData( Equipment[SELECTED] );
+        // lstSelectedEquipment.setListData( Equipment[SELECTED] );
         lstChooseArtillery.setListData( Equipment[ARTILLERY] );
-        lstSelectedEquipment.repaint();
+        // lstSelectedEquipment.repaint();
     }
 
     private void SetLoadoutArrays() {
@@ -682,7 +667,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // reset the spinner model and we're done.
         spnWalkMP.setModel( new javax.swing.SpinnerNumberModel( CurWalk, 1, MaxWalk, 1) );
-        ((JSpinner.DefaultEditor)spnWalkMP.getEditor()).getTextField().addFocusListener(spinners);
     }
 
     private void BuildChassisSelector() {
@@ -877,7 +861,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         spnJumpMP.setModel( new javax.swing.SpinnerNumberModel( current, min, max, 1) );
-        ((JSpinner.DefaultEditor)spnJumpMP.getEditor()).getTextField().addFocusListener(spinners);
     }
 
     private void FixHeatSinkSpinnerModel() {
@@ -889,8 +872,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             spnNumberOfHS.setModel( new javax.swing.SpinnerNumberModel(
                 CurMech.GetHeatSinks().GetNumHS(), CurMech.GetEngine().FreeHeatSinks(), 65, 1) );
         }
-
-        ((JSpinner.DefaultEditor)spnNumberOfHS.getEditor()).getTextField().addFocusListener(spinners);
     }
 
     private void FixJumpBoosterSpinnerModel() {
@@ -1714,8 +1695,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             CurMech.GetHeatSinks().ReCalculate();
             spnNumberOfHS.setModel( new javax.swing.SpinnerNumberModel(
                 CurMech.GetHeatSinks().GetNumHS(), CurMech.GetEngine().FreeHeatSinks(), 65, 1) );
-
-            ((JSpinner.DefaultEditor)spnNumberOfHS.getEditor()).getTextField().addFocusListener(spinners);
         }
 
         // see if we should enable the Power Amplifier display
@@ -2161,6 +2140,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtInfoBattleValue.setText( "BV: " + String.format( "%1$,d", CurMech.GetCurrentBV() ) );
         txtInfoCost.setText( "Cost: " + String.format( "%1$,.0f", Math.floor( CurMech.GetTotalCost() + 0.5f ) ) );
         txtEngineRating.setText( "" + CurMech.GetEngine().GetRating() );
+        txtChatInfo.setText( " " + CurMech.GetChatInfo() );
+        txtChatInfo.setCaretPosition( 0 );
 
         // fill in the movement summary
         String temp = "Max W/R/J/B: ";
@@ -2183,7 +2164,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstRACrits.repaint();
         lstLLCrits.repaint();
         lstRLCrits.repaint();
-        lstSelectedEquipment.repaint();
+//        lstSelectedEquipment.repaint();
         javax.swing.table.AbstractTableModel m = (javax.swing.table.AbstractTableModel) tblWeaponManufacturers.getModel();
         m.fireTableDataChanged();
 
@@ -2195,12 +2176,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     public void QuickSave() {
         if ( !Prefs.get("Currentfile", "").isEmpty() ) {
             // save the mech to XML in the current location
-            String curLoadout = CurMech.GetLoadout().GetName();
             MechWriter XMLw = new MechWriter( CurMech );
             try {
                 String file = Prefs.get("Currentfile", "");
                 XMLw.WriteXML( file );
-                CurMech.SetCurLoadout(curLoadout);
             } catch( IOException e ) {
                 return;
             }
@@ -2407,19 +2386,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         spnCTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_CTR ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_CT ), 1) );
         spnLTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_LTR ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_LT ), 1) );
         spnRTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_RTR ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_RT ), 1) );
-
-        //Setup Spinner focus
-        ((JSpinner.DefaultEditor)spnHDArmor.getEditor()).getTextField().addFocusListener(spinners);
-        ((JSpinner.DefaultEditor)spnCTArmor.getEditor()).getTextField().addFocusListener(spinners);
-        ((JSpinner.DefaultEditor)spnCTRArmor.getEditor()).getTextField().addFocusListener(spinners);
-        ((JSpinner.DefaultEditor)spnRTArmor.getEditor()).getTextField().addFocusListener(spinners);
-        ((JSpinner.DefaultEditor)spnRTRArmor.getEditor()).getTextField().addFocusListener(spinners);
-        ((JSpinner.DefaultEditor)spnLTArmor.getEditor()).getTextField().addFocusListener(spinners);
-        ((JSpinner.DefaultEditor)spnLTRArmor.getEditor()).getTextField().addFocusListener(spinners);
-        ((JSpinner.DefaultEditor)spnRAArmor.getEditor()).getTextField().addFocusListener(spinners);
-        ((JSpinner.DefaultEditor)spnRLArmor.getEditor()).getTextField().addFocusListener(spinners);
-        ((JSpinner.DefaultEditor)spnLAArmor.getEditor()).getTextField().addFocusListener(spinners);
-        ((JSpinner.DefaultEditor)spnLLArmor.getEditor()).getTextField().addFocusListener(spinners);
     }
 
     private void SaveSelections() {
@@ -3044,7 +3010,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             } else {
                 Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
             }
-            lstSelectedEquipment.setListData( Equipment[SELECTED] );
+//            lstSelectedEquipment.setListData( Equipment[SELECTED] );
 
             // Check the targeting computer if needed
             if( CurMech.UsingTC() ) {
@@ -3388,7 +3354,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         ((ifMechLoadout) v.get( i )).GetName() + " loadout first." );
                     cmbOmniVariant.setSelectedItem( ((ifMechLoadout) v.get( i )).GetName() );
                     cmbOmniVariantActionPerformed( evt );
-                    tbpMainTabPane.setSelectedComponent( pnlCriticals );
+                    tbpMainTabPane.setSelectedComponent( pnlEquipment );
                     SetSource = true;
                     return false;
                 }
@@ -3396,7 +3362,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             if( CurMech.GetLoadout().GetQueue().size() != 0 ) {
                 Media.Messager( this, "You must place all items first." );
-                tbpMainTabPane.setSelectedComponent( pnlCriticals );
+                tbpMainTabPane.setSelectedComponent( pnlEquipment );
                 SetSource = true;
                 return false;
             }
@@ -4611,6 +4577,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbMechType = new javax.swing.JComboBox();
         lblUnitType = new javax.swing.JLabel();
         chkCommandConsole = new javax.swing.JCheckBox();
+        chkFractional = new javax.swing.JCheckBox();
         pnlHeatSinks = new javax.swing.JPanel();
         lblHeatSinkType = new javax.swing.JLabel();
         cmbHeatSinkType = new javax.swing.JComboBox();
@@ -4688,9 +4655,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkEjectionSeat = new javax.swing.JCheckBox();
         chkEnviroSealing = new javax.swing.JCheckBox();
         chkTracks = new javax.swing.JCheckBox();
-        jPanel8 = new javax.swing.JPanel();
-        chkFractional = new javax.swing.JCheckBox();
-        pnlArmor = new javax.swing.JPanel();
         pnlFrontArmor = new javax.swing.JPanel();
         pnlRLArmorBox = new javax.swing.JPanel();
         lblRLHeader = new javax.swing.JLabel();
@@ -4742,6 +4706,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlLTRArmorBox = new javax.swing.JPanel();
         lblLTRArmorHeader = new javax.swing.JLabel();
         spnLTRArmor = new javax.swing.JSpinner();
+        pnlArmor = new javax.swing.JPanel();
         pnlArmorInfo = new javax.swing.JPanel();
         lblArmorCoverage = new javax.swing.JLabel();
         lblArmorPoints = new javax.swing.JLabel();
@@ -4820,9 +4785,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkFCSAV = new javax.swing.JCheckBox();
         chkFCSApollo = new javax.swing.JCheckBox();
         chkClanCASE = new javax.swing.JCheckBox();
-        pnlSelected = new javax.swing.JPanel();
-        jScrollPane23 = new javax.swing.JScrollPane();
-        lstSelectedEquipment = new javax.swing.JList();
         pnlControls = new javax.swing.JPanel();
         btnRemoveEquip = new javax.swing.JButton();
         btnClearEquip = new javax.swing.JButton();
@@ -4869,29 +4831,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lblInfoMountRestrict = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
         lblInfoRulesLevel = new javax.swing.JLabel();
-        pnlCriticals = new javax.swing.JPanel();
-        pnlHDCrits = new javax.swing.JPanel();
-        chkHDTurret = new javax.swing.JCheckBox();
-        chkHDCASE2 = new javax.swing.JCheckBox();
-        jScrollPane10 = new javax.swing.JScrollPane();
-        lstHDCrits = new javax.swing.JList();
-        pnlCTCrits = new javax.swing.JPanel();
-        jScrollPane11 = new javax.swing.JScrollPane();
-        lstCTCrits = new javax.swing.JList();
-        chkCTCASE = new javax.swing.JCheckBox();
-        chkCTCASE2 = new javax.swing.JCheckBox();
-        pnlLTCrits = new javax.swing.JPanel();
-        chkLTCASE = new javax.swing.JCheckBox();
-        jScrollPane12 = new javax.swing.JScrollPane();
-        lstLTCrits = new javax.swing.JList();
-        chkLTCASE2 = new javax.swing.JCheckBox();
-        chkLTTurret = new javax.swing.JCheckBox();
-        pnlRTCrits = new javax.swing.JPanel();
-        jScrollPane13 = new javax.swing.JScrollPane();
-        lstRTCrits = new javax.swing.JList();
-        chkRTCASE = new javax.swing.JCheckBox();
-        chkRTCASE2 = new javax.swing.JCheckBox();
-        chkRTTurret = new javax.swing.JCheckBox();
         pnlLACrits = new javax.swing.JPanel();
         scrLACrits = new javax.swing.JScrollPane();
         lstLACrits = new javax.swing.JList();
@@ -4899,13 +4838,28 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkLAHand = new javax.swing.JCheckBox();
         chkLACASE2 = new javax.swing.JCheckBox();
         chkLAAES = new javax.swing.JCheckBox();
-        pnlRACrits = new javax.swing.JPanel();
-        scrRACrits = new javax.swing.JScrollPane();
-        lstRACrits = new javax.swing.JList();
-        chkRALowerArm = new javax.swing.JCheckBox();
-        chkRAHand = new javax.swing.JCheckBox();
-        chkRACASE2 = new javax.swing.JCheckBox();
-        chkRAAES = new javax.swing.JCheckBox();
+        pnlLTCrits = new javax.swing.JPanel();
+        chkLTCASE = new javax.swing.JCheckBox();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        lstLTCrits = new javax.swing.JList();
+        chkLTCASE2 = new javax.swing.JCheckBox();
+        chkLTTurret = new javax.swing.JCheckBox();
+        pnlHDCrits = new javax.swing.JPanel();
+        chkHDTurret = new javax.swing.JCheckBox();
+        chkHDCASE2 = new javax.swing.JCheckBox();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        lstHDCrits = new javax.swing.JList();
+        pnlRTCrits = new javax.swing.JPanel();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        lstRTCrits = new javax.swing.JList();
+        chkRTCASE = new javax.swing.JCheckBox();
+        chkRTCASE2 = new javax.swing.JCheckBox();
+        chkRTTurret = new javax.swing.JCheckBox();
+        pnlCTCrits = new javax.swing.JPanel();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        lstCTCrits = new javax.swing.JList();
+        chkCTCASE = new javax.swing.JCheckBox();
+        chkCTCASE2 = new javax.swing.JCheckBox();
         pnlLLCrits = new javax.swing.JPanel();
         jScrollPane16 = new javax.swing.JScrollPane();
         lstLLCrits = new javax.swing.JList();
@@ -4914,19 +4868,25 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jScrollPane17 = new javax.swing.JScrollPane();
         lstRLCrits = new javax.swing.JList();
         chkRLCASE2 = new javax.swing.JCheckBox();
-        pnlEquipmentToPlace = new javax.swing.JPanel();
-        jScrollPane18 = new javax.swing.JScrollPane();
-        lstCritsToPlace = new javax.swing.JList();
-        btnRemoveItemCrits = new javax.swing.JButton();
-        onlLoadoutControls = new javax.swing.JPanel();
-        btnCompactCrits = new javax.swing.JButton();
-        btnClearLoadout = new javax.swing.JButton();
-        btnAutoAllocate = new javax.swing.JButton();
-        btnSelectiveAllocate = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel59 = new javax.swing.JLabel();
         chkLegAES = new javax.swing.JCheckBox();
         jLabel61 = new javax.swing.JLabel();
+        pnlRACrits = new javax.swing.JPanel();
+        scrRACrits = new javax.swing.JScrollPane();
+        lstRACrits = new javax.swing.JList();
+        chkRALowerArm = new javax.swing.JCheckBox();
+        chkRAHand = new javax.swing.JCheckBox();
+        chkRACASE2 = new javax.swing.JCheckBox();
+        chkRAAES = new javax.swing.JCheckBox();
+        pnlEquipmentToPlace = new javax.swing.JPanel();
+        jScrollPane18 = new javax.swing.JScrollPane();
+        lstCritsToPlace = new javax.swing.JList();
+        btnRemoveItemCrits = new javax.swing.JButton();
+        btnAutoAllocate = new javax.swing.JButton();
+        btnSelectiveAllocate = new javax.swing.JButton();
+        btnCompactCrits = new javax.swing.JButton();
+        btnClearLoadout = new javax.swing.JButton();
         pnlFluff = new javax.swing.JPanel();
         pnlImage = new javax.swing.JPanel();
         lblFluffImage = new javax.swing.JLabel();
@@ -4997,7 +4957,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         btnBracketChart = new javax.swing.JButton();
         chkAverageDamage = new javax.swing.JCheckBox();
         chkShowTextNotGraph = new javax.swing.JCheckBox();
-        pnlBattleforce = new javax.swing.JPanel();
         pnlBFStats = new javax.swing.JPanel();
         jLabel66 = new javax.swing.JLabel();
         jLabel67 = new javax.swing.JLabel();
@@ -5033,6 +4992,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtInfoUnplaced = new javax.swing.JTextField();
         txtInfoBattleValue = new javax.swing.JTextField();
         txtInfoCost = new javax.swing.JTextField();
+        txtChatInfo = new javax.swing.JTextField();
         mnuMainMenu = new javax.swing.JMenuBar();
         mnuFile = new javax.swing.JMenu();
         mnuNewMech = new javax.swing.JMenuItem();
@@ -5723,6 +5683,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         pnlChassis.add(chkCommandConsole, gridBagConstraints);
 
+        chkFractional.setText("Use Fractional Accounting");
+        chkFractional.setEnabled(false);
+        chkFractional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkFractionalActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridwidth = 3;
+        pnlChassis.add(chkFractional, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -6002,7 +5975,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlOmniInfo.add(btnRenameVariant, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
@@ -6517,9 +6490,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jPanel4.add(jLabel57, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         pnlBasicSetup.add(jPanel4, gridBagConstraints);
 
@@ -6553,38 +6525,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jPanel6.add(chkTracks);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlBasicSetup.add(jPanel6, gridBagConstraints);
-
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Construction Options"));
-        jPanel8.setLayout(new java.awt.GridBagLayout());
-
-        chkFractional.setText("Use Fractional Accounting");
-        chkFractional.setEnabled(false);
-        chkFractional.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkFractionalActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        jPanel8.add(chkFractional, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        pnlBasicSetup.add(jPanel8, gridBagConstraints);
-
-        tbpMainTabPane.addTab("Basic Setup", pnlBasicSetup);
-
-        pnlArmor.setLayout(new java.awt.GridBagLayout());
 
         pnlFrontArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Forward Armor"));
         pnlFrontArmor.setLayout(new java.awt.GridBagLayout());
@@ -6931,10 +6877,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridy = 1;
         pnlFrontArmor.add(pnlLAArmorBox, gridBagConstraints);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridheight = 3;
-        pnlArmor.add(pnlFrontArmor, gridBagConstraints);
-
         pnlRearArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Rear Armor"));
         pnlRearArmor.setLayout(new java.awt.GridBagLayout());
 
@@ -7013,9 +6955,17 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridwidth = 5;
+        pnlFrontArmor.add(pnlRearArmor, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
-        pnlArmor.add(pnlRearArmor, gridBagConstraints);
+        pnlBasicSetup.add(pnlFrontArmor, gridBagConstraints);
+
+        pnlArmor.setLayout(new java.awt.GridBagLayout());
 
         pnlArmorInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Armor Information"));
         pnlArmorInfo.setLayout(new java.awt.GridBagLayout());
@@ -7093,7 +7043,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlArmorInfo.add(lblAVInLot, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -7202,7 +7152,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlArmorSetup.add(btnRemainingArmor, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -7375,14 +7325,18 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlPatchworkChoosers.add(lblPWRLLoc, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridheight = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         pnlArmor.add(pnlPatchworkChoosers, gridBagConstraints);
 
-        tbpMainTabPane.addTab("  Armor  ", pnlArmor);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridheight = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        pnlBasicSetup.add(pnlArmor, gridBagConstraints);
+
+        tbpMainTabPane.addTab("Basic Setup", pnlBasicSetup);
 
         pnlEquipment.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -7727,7 +7681,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         tbpWeaponChooser.addTab("Ammunition", pnlAmmunition);
 
-        pnlEquipment.add(tbpWeaponChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        pnlEquipment.add(tbpWeaponChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         pnlSpecials.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Specials"));
         pnlSpecials.setLayout(new java.awt.GridBagLayout());
@@ -7808,59 +7762,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.insets = new java.awt.Insets(8, 2, 0, 0);
         pnlSpecials.add(chkClanCASE, gridBagConstraints);
 
-        pnlEquipment.add(pnlSpecials, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, 160, 220));
-
-        pnlSelected.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Selected Equipment"));
-        pnlSelected.setMaximumSize(new java.awt.Dimension(212, 286));
-        pnlSelected.setMinimumSize(new java.awt.Dimension(212, 286));
-        pnlSelected.setLayout(new javax.swing.BoxLayout(pnlSelected, javax.swing.BoxLayout.LINE_AXIS));
-
-        jScrollPane23.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane23.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-        lstSelectedEquipment.setModel( new javax.swing.DefaultListModel()
-        );
-        lstSelectedEquipment.setMaximumSize(new java.awt.Dimension(180, 225));
-        lstSelectedEquipment.setMinimumSize(new java.awt.Dimension(180, 225));
-        lstSelectedEquipment.setPreferredSize(null);
-        lstSelectedEquipment.setVisibleRowCount(16);
-        lstSelectedEquipment.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstSelectedEquipmentValueChanged(evt);
-            }
-        });
-        lstSelectedEquipment.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                lstSelectedEquipmentKeyPressed(evt);
-            }
-        });
-        MouseListener mlSelect = new MouseAdapter() {
-            public void mouseReleased( MouseEvent e ) {
-                int Index = lstSelectedEquipment.locationToIndex( e.getPoint() );
-                if( Index < 0 ) { return; }
-                CurItem = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( Index );
-                if( e.isPopupTrigger() ) {
-                    ConfigureUtilsMenu(e.getComponent());
-                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                int Index = lstSelectedEquipment.locationToIndex( e.getPoint() );
-                if( Index < 0 ) { return; }
-                CurItem = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( Index );
-                if( e.isPopupTrigger() ) {
-                    ConfigureUtilsMenu(e.getComponent());
-                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-        };
-        lstSelectedEquipment.addMouseListener( mlSelect );
-        lstSelectedEquipment.setCellRenderer( new ssw.gui.EquipmentSelectedRenderer( this ) );
-        jScrollPane23.setViewportView(lstSelectedEquipment);
-
-        pnlSelected.add(jScrollPane23);
-
-        pnlEquipment.add(pnlSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 20, 230, 300));
+        pnlEquipment.add(pnlSpecials, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 160, 180));
 
         pnlControls.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Controls"));
         pnlControls.setLayout(new java.awt.GridBagLayout());
@@ -7906,7 +7808,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.insets = new java.awt.Insets(4, 8, 0, 0);
         pnlControls.add(cmbNumEquips, gridBagConstraints);
 
-        pnlEquipment.add(pnlControls, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 160, -1));
+        pnlEquipment.add(pnlControls, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 160, -1));
 
         pnlEquipInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Information"));
         pnlEquipInfo.setLayout(new java.awt.GridBagLayout());
@@ -8177,423 +8079,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
         pnlEquipInfo.add(lblInfoRulesLevel, gridBagConstraints);
 
-        pnlEquipment.add(pnlEquipInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 325, 710, -1));
-
-        tbpMainTabPane.addTab("Equipment", pnlEquipment);
-
-        pnlCriticals.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        pnlHDCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Head", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        pnlHDCrits.setMaximumSize(new java.awt.Dimension(116, 120));
-        pnlHDCrits.setMinimumSize(new java.awt.Dimension(116, 120));
-        pnlHDCrits.setLayout(new java.awt.GridBagLayout());
-
-        chkHDTurret.setText("Turret");
-        chkHDTurret.setEnabled(false);
-        chkHDTurret.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkHDTurretActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlHDCrits.add(chkHDTurret, gridBagConstraints);
-
-        chkHDCASE2.setText("C.A.S.E. II");
-        chkHDCASE2.setEnabled(false);
-        chkHDCASE2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkHDCASE2ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlHDCrits.add(chkHDCASE2, gridBagConstraints);
-
-        jScrollPane10.setPreferredSize(new java.awt.Dimension(105, 87));
-
-        lstHDCrits.setFont( PrintConsts.BaseCritFont );
-        lstHDCrits.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Head", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstHDCrits.setDragEnabled(true);
-        lstHDCrits.setMaximumSize(new java.awt.Dimension(98, 50));
-        lstHDCrits.setMinimumSize(new java.awt.Dimension(98, 50));
-        lstHDCrits.setPreferredSize(new java.awt.Dimension(98, 50));
-        lstHDCrits.setVisibleRowCount(6);
-        lstHDCrits.setTransferHandler( new thHDTransferHandler( this, CurMech ) );
-        lstHDCrits.setDropMode( DropMode.ON );
-        MouseListener mlHDCrits = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    int index = lstHDCrits.locationToIndex( e.getPoint() );
-                    abPlaceable[] a = CurMech.GetLoadout().GetHDCrits();
-                    if( ! a[index].LocationLocked() ) {
-                        if( a[index].CanSplit() && a[index].Contiguous() ) {
-                            CurMech.GetLoadout().UnallocateAll( a[index], false );
-                        } else {
-                            CurMech.GetLoadout().UnallocateByIndex( index, a );
-                        }
-                    }
-                    RefreshInfoPane();
-                }
-            }
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    abPlaceable[] a = CurMech.GetLoadout().GetHDCrits();
-                    int index = lstHDCrits.locationToIndex( e.getPoint() );
-                    CurItem = a[index];
-                    CurLocation = LocationIndex.MECH_LOC_HD;
-                    ConfigureUtilsMenu(e.getComponent());
-                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    abPlaceable[] a = CurMech.GetLoadout().GetHDCrits();
-                    int index = lstHDCrits.locationToIndex( e.getPoint() );
-                    CurItem = a[index];
-                    CurLocation = LocationIndex.MECH_LOC_HD;
-                    ConfigureUtilsMenu(e.getComponent());
-                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
-                } else {
-                    int index = lstHDCrits.locationToIndex( e.getPoint() );
-                    CurItem = CurMech.GetLoadout().GetHDCrits()[index];
-                    CurLocation = LocationIndex.MECH_LOC_HD;
-                }
-            }
-        };
-        lstHDCrits.addMouseListener( mlHDCrits );
-        lstHDCrits.setCellRenderer( Mechrender );
-        jScrollPane10.setViewportView(lstHDCrits);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        pnlHDCrits.add(jScrollPane10, gridBagConstraints);
-
-        pnlCriticals.add(pnlHDCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 117, 165));
-
-        pnlCTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Center Torso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        pnlCTCrits.setMaximumSize(new java.awt.Dimension(114, 233));
-        pnlCTCrits.setMinimumSize(new java.awt.Dimension(114, 233));
-        pnlCTCrits.setLayout(new java.awt.GridBagLayout());
-
-        jScrollPane11.setPreferredSize(new java.awt.Dimension(105, 170));
-
-        lstCTCrits.setFont( PrintConsts.BaseCritFont );
-        lstCTCrits.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Center Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstCTCrits.setDragEnabled(true);
-        lstCTCrits.setMaximumSize(new java.awt.Dimension(98, 50));
-        lstCTCrits.setMinimumSize(new java.awt.Dimension(98, 50));
-        lstCTCrits.setPreferredSize(new java.awt.Dimension(98, 50));
-        lstCTCrits.setVisibleRowCount(12);
-        lstCTCrits.setTransferHandler( new thCTTransferHandler( this, CurMech ) );
-        lstCTCrits.setDropMode( DropMode.ON );
-        MouseListener mlCTCrits = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    int index = lstCTCrits.locationToIndex( e.getPoint() );
-                    abPlaceable[] a = CurMech.GetLoadout().GetCTCrits();
-                    if( ! a[index].LocationLocked() ) {
-                        if( a[index].CanSplit() && a[index].Contiguous() ) {
-                            CurMech.GetLoadout().UnallocateAll( a[index], false );
-                        } else {
-                            CurMech.GetLoadout().UnallocateByIndex( index, a );
-                        }
-                    }
-                    RefreshInfoPane();
-                }
-            }
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    abPlaceable[] a = CurMech.GetLoadout().GetCTCrits();
-                    int index = lstCTCrits.locationToIndex( e.getPoint() );
-                    CurItem = a[index];
-                    CurLocation = LocationIndex.MECH_LOC_CT;
-                    ConfigureUtilsMenu(e.getComponent());
-                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    abPlaceable[] a = CurMech.GetLoadout().GetCTCrits();
-                    int index = lstCTCrits.locationToIndex( e.getPoint() );
-                    CurItem = a[index];
-                    CurLocation = LocationIndex.MECH_LOC_CT;
-                    ConfigureUtilsMenu(e.getComponent());
-                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
-                } else {
-                    int index = lstCTCrits.locationToIndex( e.getPoint() );
-                    CurItem = CurMech.GetLoadout().GetCTCrits()[index];
-                    CurLocation = LocationIndex.MECH_LOC_CT;
-                }
-            }
-        };
-        lstCTCrits.addMouseListener( mlCTCrits );
-        lstCTCrits.setCellRenderer( Mechrender );
-        jScrollPane11.setViewportView(lstCTCrits);
-
-        pnlCTCrits.add(jScrollPane11, new java.awt.GridBagConstraints());
-
-        chkCTCASE.setText("C.A.S.E.");
-        chkCTCASE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkCTCASEActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlCTCrits.add(chkCTCASE, gridBagConstraints);
-
-        chkCTCASE2.setText("C.A.S.E. II");
-        chkCTCASE2.setEnabled(false);
-        chkCTCASE2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkCTCASE2ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlCTCrits.add(chkCTCASE2, gridBagConstraints);
-
-        pnlCriticals.add(pnlCTCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 117, -1));
-
-        pnlLTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Torso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        pnlLTCrits.setMaximumSize(new java.awt.Dimension(114, 235));
-        pnlLTCrits.setMinimumSize(new java.awt.Dimension(114, 235));
-        pnlLTCrits.setPreferredSize(new java.awt.Dimension(257, 232));
-        pnlLTCrits.setLayout(new java.awt.GridBagLayout());
-
-        chkLTCASE.setText("C.A.S.E.");
-        chkLTCASE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkLTCASEActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlLTCrits.add(chkLTCASE, gridBagConstraints);
-
-        jScrollPane12.setMinimumSize(new java.awt.Dimension(105, 183));
-        jScrollPane12.setPreferredSize(new java.awt.Dimension(105, 170));
-
-        lstLTCrits.setFont( PrintConsts.BaseCritFont );
-        lstLTCrits.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Left Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstLTCrits.setDragEnabled(true);
-        lstLTCrits.setMaximumSize(new java.awt.Dimension(98, 50));
-        lstLTCrits.setMinimumSize(new java.awt.Dimension(98, 50));
-        lstLTCrits.setPreferredSize(new java.awt.Dimension(98, 50));
-        lstLTCrits.setVisibleRowCount(12);
-        lstLTCrits.setTransferHandler( new thLTTransferHandler( this, CurMech ) );
-        lstLTCrits.setDropMode( DropMode.ON );
-        MouseListener mlLTCrits = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    int index = lstLTCrits.locationToIndex( e.getPoint() );
-                    abPlaceable[] a = CurMech.GetLoadout().GetLTCrits();
-                    if( ! a[index].LocationLocked() ) {
-                        if( a[index].CanSplit() && a[index].Contiguous() ) {
-                            CurMech.GetLoadout().UnallocateAll( a[index], false );
-                        } else {
-                            CurMech.GetLoadout().UnallocateByIndex( index, a );
-                        }
-                    }
-                    RefreshInfoPane();
-                }
-            }
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    abPlaceable[] a = CurMech.GetLoadout().GetLTCrits();
-                    int index = lstLTCrits.locationToIndex( e.getPoint() );
-                    CurItem = a[index];
-                    CurLocation = LocationIndex.MECH_LOC_LT;
-                    ConfigureUtilsMenu(e.getComponent());
-                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    abPlaceable[] a = CurMech.GetLoadout().GetLTCrits();
-                    int index = lstLTCrits.locationToIndex( e.getPoint() );
-                    CurItem = a[index];
-                    CurLocation = LocationIndex.MECH_LOC_LT;
-                    ConfigureUtilsMenu(e.getComponent());
-                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
-                } else {
-                    int index = lstLTCrits.locationToIndex( e.getPoint() );
-                    CurItem = CurMech.GetLoadout().GetLTCrits()[index];
-                    CurLocation = LocationIndex.MECH_LOC_LT;
-                }
-            }
-        };
-        lstLTCrits.addMouseListener( mlLTCrits );
-        lstLTCrits.setCellRenderer( Mechrender );
-        jScrollPane12.setViewportView(lstLTCrits);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        pnlLTCrits.add(jScrollPane12, gridBagConstraints);
-
-        chkLTCASE2.setText("C.A.S.E. II");
-        chkLTCASE2.setEnabled(false);
-        chkLTCASE2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkLTCASE2ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlLTCrits.add(chkLTCASE2, gridBagConstraints);
-
-        chkLTTurret.setText("Turret");
-        chkLTTurret.setEnabled(false);
-        chkLTTurret.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkLTTurretActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlLTCrits.add(chkLTTurret, gridBagConstraints);
-
-        pnlCriticals.add(pnlLTCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 40, 117, 270));
-
-        pnlRTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Torso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        pnlRTCrits.setMaximumSize(new java.awt.Dimension(114, 233));
-        pnlRTCrits.setMinimumSize(new java.awt.Dimension(114, 233));
-        pnlRTCrits.setLayout(new java.awt.GridBagLayout());
-
-        jScrollPane13.setMinimumSize(new java.awt.Dimension(105, 183));
-        jScrollPane13.setPreferredSize(new java.awt.Dimension(105, 170));
-
-        lstRTCrits.setFont( PrintConsts.BaseCritFont );
-        lstRTCrits.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Right Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstRTCrits.setDragEnabled(true);
-        lstRTCrits.setMaximumSize(new java.awt.Dimension(98, 50));
-        lstRTCrits.setMinimumSize(new java.awt.Dimension(98, 50));
-        lstRTCrits.setPreferredSize(new java.awt.Dimension(98, 50));
-        lstRTCrits.setVisibleRowCount(12);
-        lstRTCrits.setTransferHandler( new thRTTransferHandler( this, CurMech ) );
-        lstRTCrits.setDropMode( DropMode.ON );
-        MouseListener mlRTCrits = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    int index = lstRTCrits.locationToIndex( e.getPoint() );
-                    abPlaceable[] a = CurMech.GetLoadout().GetRTCrits();
-                    if( ! a[index].LocationLocked() ) {
-                        if( a[index].CanSplit() && a[index].Contiguous() ) {
-                            CurMech.GetLoadout().UnallocateAll( a[index], false );
-                        } else {
-                            CurMech.GetLoadout().UnallocateByIndex( index, a );
-                        }
-                    }
-                    RefreshInfoPane();
-                }
-            }
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    abPlaceable[] a = CurMech.GetLoadout().GetRTCrits();
-                    int index = lstRTCrits.locationToIndex( e.getPoint() );
-                    CurItem = a[index];
-                    CurLocation = LocationIndex.MECH_LOC_RT;
-                    ConfigureUtilsMenu( e.getComponent() );
-                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    abPlaceable[] a = CurMech.GetLoadout().GetRTCrits();
-                    int index = lstRTCrits.locationToIndex( e.getPoint() );
-                    CurItem = a[index];
-                    CurLocation = LocationIndex.MECH_LOC_RT;
-                    ConfigureUtilsMenu(e.getComponent());
-                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
-                } else {
-                    int index = lstRTCrits.locationToIndex( e.getPoint() );
-                    CurItem = CurMech.GetLoadout().GetRTCrits()[index];
-                    CurLocation = LocationIndex.MECH_LOC_RT;
-                }
-            }
-        };
-        lstRTCrits.addMouseListener( mlRTCrits );
-        lstRTCrits.setCellRenderer( Mechrender );
-        jScrollPane13.setViewportView(lstRTCrits);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        pnlRTCrits.add(jScrollPane13, gridBagConstraints);
-
-        chkRTCASE.setText("C.A.S.E.");
-        chkRTCASE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkRTCASEActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlRTCrits.add(chkRTCASE, gridBagConstraints);
-
-        chkRTCASE2.setText("C.A.S.E. II");
-        chkRTCASE2.setEnabled(false);
-        chkRTCASE2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkRTCASE2ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlRTCrits.add(chkRTCASE2, gridBagConstraints);
-
-        chkRTTurret.setText("Turret");
-        chkRTTurret.setEnabled(false);
-        chkRTTurret.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkRTTurretActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlRTCrits.add(chkRTTurret, gridBagConstraints);
-
-        pnlCriticals.add(pnlRTCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 40, 117, 270));
+        pnlEquipment.add(pnlEquipInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 610, -1));
 
         pnlLACrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Arm", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlLACrits.setMaximumSize(new java.awt.Dimension(114, 256));
@@ -8715,7 +8201,602 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlLACrits.add(chkLAAES, gridBagConstraints);
 
-        pnlCriticals.add(pnlLACrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 117, -1));
+        pnlEquipment.add(pnlLACrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 100, 117, -1));
+
+        pnlLTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Torso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlLTCrits.setMaximumSize(new java.awt.Dimension(114, 235));
+        pnlLTCrits.setMinimumSize(new java.awt.Dimension(114, 235));
+        pnlLTCrits.setPreferredSize(new java.awt.Dimension(257, 232));
+        pnlLTCrits.setLayout(new java.awt.GridBagLayout());
+
+        chkLTCASE.setText("C.A.S.E.");
+        chkLTCASE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkLTCASEActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlLTCrits.add(chkLTCASE, gridBagConstraints);
+
+        jScrollPane12.setMinimumSize(new java.awt.Dimension(105, 183));
+        jScrollPane12.setPreferredSize(new java.awt.Dimension(105, 170));
+
+        lstLTCrits.setFont( PrintConsts.BaseCritFont );
+        lstLTCrits.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Left Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        lstLTCrits.setDragEnabled(true);
+        lstLTCrits.setMaximumSize(new java.awt.Dimension(98, 50));
+        lstLTCrits.setMinimumSize(new java.awt.Dimension(98, 50));
+        lstLTCrits.setPreferredSize(new java.awt.Dimension(98, 50));
+        lstLTCrits.setVisibleRowCount(12);
+        lstLTCrits.setTransferHandler( new thLTTransferHandler( this, CurMech ) );
+        lstLTCrits.setDropMode( DropMode.ON );
+        MouseListener mlLTCrits = new MouseAdapter() {
+            public void mouseClicked( MouseEvent e ) {
+                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
+                    int index = lstLTCrits.locationToIndex( e.getPoint() );
+                    abPlaceable[] a = CurMech.GetLoadout().GetLTCrits();
+                    if( ! a[index].LocationLocked() ) {
+                        if( a[index].CanSplit() && a[index].Contiguous() ) {
+                            CurMech.GetLoadout().UnallocateAll( a[index], false );
+                        } else {
+                            CurMech.GetLoadout().UnallocateByIndex( index, a );
+                        }
+                    }
+                    RefreshInfoPane();
+                }
+            }
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    abPlaceable[] a = CurMech.GetLoadout().GetLTCrits();
+                    int index = lstLTCrits.locationToIndex( e.getPoint() );
+                    CurItem = a[index];
+                    CurLocation = LocationIndex.MECH_LOC_LT;
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    abPlaceable[] a = CurMech.GetLoadout().GetLTCrits();
+                    int index = lstLTCrits.locationToIndex( e.getPoint() );
+                    CurItem = a[index];
+                    CurLocation = LocationIndex.MECH_LOC_LT;
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
+                } else {
+                    int index = lstLTCrits.locationToIndex( e.getPoint() );
+                    CurItem = CurMech.GetLoadout().GetLTCrits()[index];
+                    CurLocation = LocationIndex.MECH_LOC_LT;
+                }
+            }
+        };
+        lstLTCrits.addMouseListener( mlLTCrits );
+        lstLTCrits.setCellRenderer( Mechrender );
+        jScrollPane12.setViewportView(lstLTCrits);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        pnlLTCrits.add(jScrollPane12, gridBagConstraints);
+
+        chkLTCASE2.setText("C.A.S.E. II");
+        chkLTCASE2.setEnabled(false);
+        chkLTCASE2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkLTCASE2ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlLTCrits.add(chkLTCASE2, gridBagConstraints);
+
+        chkLTTurret.setText("Turret");
+        chkLTTurret.setEnabled(false);
+        chkLTTurret.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkLTTurretActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlLTCrits.add(chkLTTurret, gridBagConstraints);
+
+        pnlEquipment.add(pnlLTCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 60, 117, 270));
+
+        pnlHDCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Head", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlHDCrits.setMaximumSize(new java.awt.Dimension(116, 120));
+        pnlHDCrits.setMinimumSize(new java.awt.Dimension(116, 120));
+        pnlHDCrits.setLayout(new java.awt.GridBagLayout());
+
+        chkHDTurret.setText("Turret");
+        chkHDTurret.setEnabled(false);
+        chkHDTurret.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkHDTurretActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlHDCrits.add(chkHDTurret, gridBagConstraints);
+
+        chkHDCASE2.setText("C.A.S.E. II");
+        chkHDCASE2.setEnabled(false);
+        chkHDCASE2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkHDCASE2ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlHDCrits.add(chkHDCASE2, gridBagConstraints);
+
+        jScrollPane10.setPreferredSize(new java.awt.Dimension(105, 87));
+
+        lstHDCrits.setFont( PrintConsts.BaseCritFont );
+        lstHDCrits.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Head", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        lstHDCrits.setDragEnabled(true);
+        lstHDCrits.setMaximumSize(new java.awt.Dimension(98, 50));
+        lstHDCrits.setMinimumSize(new java.awt.Dimension(98, 50));
+        lstHDCrits.setPreferredSize(new java.awt.Dimension(98, 50));
+        lstHDCrits.setVisibleRowCount(6);
+        lstHDCrits.setTransferHandler( new thHDTransferHandler( this, CurMech ) );
+        lstHDCrits.setDropMode( DropMode.ON );
+        MouseListener mlHDCrits = new MouseAdapter() {
+            public void mouseClicked( MouseEvent e ) {
+                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
+                    int index = lstHDCrits.locationToIndex( e.getPoint() );
+                    abPlaceable[] a = CurMech.GetLoadout().GetHDCrits();
+                    if( ! a[index].LocationLocked() ) {
+                        if( a[index].CanSplit() && a[index].Contiguous() ) {
+                            CurMech.GetLoadout().UnallocateAll( a[index], false );
+                        } else {
+                            CurMech.GetLoadout().UnallocateByIndex( index, a );
+                        }
+                    }
+                    RefreshInfoPane();
+                }
+            }
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    abPlaceable[] a = CurMech.GetLoadout().GetHDCrits();
+                    int index = lstHDCrits.locationToIndex( e.getPoint() );
+                    CurItem = a[index];
+                    CurLocation = LocationIndex.MECH_LOC_HD;
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    abPlaceable[] a = CurMech.GetLoadout().GetHDCrits();
+                    int index = lstHDCrits.locationToIndex( e.getPoint() );
+                    CurItem = a[index];
+                    CurLocation = LocationIndex.MECH_LOC_HD;
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
+                } else {
+                    int index = lstHDCrits.locationToIndex( e.getPoint() );
+                    CurItem = CurMech.GetLoadout().GetHDCrits()[index];
+                    CurLocation = LocationIndex.MECH_LOC_HD;
+                }
+            }
+        };
+        lstHDCrits.addMouseListener( mlHDCrits );
+        lstHDCrits.setCellRenderer( Mechrender );
+        jScrollPane10.setViewportView(lstHDCrits);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        pnlHDCrits.add(jScrollPane10, gridBagConstraints);
+
+        pnlEquipment.add(pnlHDCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, 117, 165));
+
+        pnlRTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Torso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlRTCrits.setMaximumSize(new java.awt.Dimension(114, 233));
+        pnlRTCrits.setMinimumSize(new java.awt.Dimension(114, 233));
+        pnlRTCrits.setLayout(new java.awt.GridBagLayout());
+
+        jScrollPane13.setMinimumSize(new java.awt.Dimension(105, 183));
+        jScrollPane13.setPreferredSize(new java.awt.Dimension(105, 170));
+
+        lstRTCrits.setFont( PrintConsts.BaseCritFont );
+        lstRTCrits.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Right Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        lstRTCrits.setDragEnabled(true);
+        lstRTCrits.setMaximumSize(new java.awt.Dimension(98, 50));
+        lstRTCrits.setMinimumSize(new java.awt.Dimension(98, 50));
+        lstRTCrits.setPreferredSize(new java.awt.Dimension(98, 50));
+        lstRTCrits.setVisibleRowCount(12);
+        lstRTCrits.setTransferHandler( new thRTTransferHandler( this, CurMech ) );
+        lstRTCrits.setDropMode( DropMode.ON );
+        MouseListener mlRTCrits = new MouseAdapter() {
+            public void mouseClicked( MouseEvent e ) {
+                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
+                    int index = lstRTCrits.locationToIndex( e.getPoint() );
+                    abPlaceable[] a = CurMech.GetLoadout().GetRTCrits();
+                    if( ! a[index].LocationLocked() ) {
+                        if( a[index].CanSplit() && a[index].Contiguous() ) {
+                            CurMech.GetLoadout().UnallocateAll( a[index], false );
+                        } else {
+                            CurMech.GetLoadout().UnallocateByIndex( index, a );
+                        }
+                    }
+                    RefreshInfoPane();
+                }
+            }
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    abPlaceable[] a = CurMech.GetLoadout().GetRTCrits();
+                    int index = lstRTCrits.locationToIndex( e.getPoint() );
+                    CurItem = a[index];
+                    CurLocation = LocationIndex.MECH_LOC_RT;
+                    ConfigureUtilsMenu( e.getComponent() );
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    abPlaceable[] a = CurMech.GetLoadout().GetRTCrits();
+                    int index = lstRTCrits.locationToIndex( e.getPoint() );
+                    CurItem = a[index];
+                    CurLocation = LocationIndex.MECH_LOC_RT;
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
+                } else {
+                    int index = lstRTCrits.locationToIndex( e.getPoint() );
+                    CurItem = CurMech.GetLoadout().GetRTCrits()[index];
+                    CurLocation = LocationIndex.MECH_LOC_RT;
+                }
+            }
+        };
+        lstRTCrits.addMouseListener( mlRTCrits );
+        lstRTCrits.setCellRenderer( Mechrender );
+        jScrollPane13.setViewportView(lstRTCrits);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        pnlRTCrits.add(jScrollPane13, gridBagConstraints);
+
+        chkRTCASE.setText("C.A.S.E.");
+        chkRTCASE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkRTCASEActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlRTCrits.add(chkRTCASE, gridBagConstraints);
+
+        chkRTCASE2.setText("C.A.S.E. II");
+        chkRTCASE2.setEnabled(false);
+        chkRTCASE2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkRTCASE2ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlRTCrits.add(chkRTCASE2, gridBagConstraints);
+
+        chkRTTurret.setText("Turret");
+        chkRTTurret.setEnabled(false);
+        chkRTTurret.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkRTTurretActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlRTCrits.add(chkRTTurret, gridBagConstraints);
+
+        pnlEquipment.add(pnlRTCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 60, 117, 270));
+
+        pnlCTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Center Torso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlCTCrits.setMaximumSize(new java.awt.Dimension(114, 233));
+        pnlCTCrits.setMinimumSize(new java.awt.Dimension(114, 233));
+        pnlCTCrits.setLayout(new java.awt.GridBagLayout());
+
+        jScrollPane11.setPreferredSize(new java.awt.Dimension(105, 170));
+
+        lstCTCrits.setFont( PrintConsts.BaseCritFont );
+        lstCTCrits.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Center Torso", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        lstCTCrits.setDragEnabled(true);
+        lstCTCrits.setMaximumSize(new java.awt.Dimension(98, 50));
+        lstCTCrits.setMinimumSize(new java.awt.Dimension(98, 50));
+        lstCTCrits.setPreferredSize(new java.awt.Dimension(98, 50));
+        lstCTCrits.setVisibleRowCount(12);
+        lstCTCrits.setTransferHandler( new thCTTransferHandler( this, CurMech ) );
+        lstCTCrits.setDropMode( DropMode.ON );
+        MouseListener mlCTCrits = new MouseAdapter() {
+            public void mouseClicked( MouseEvent e ) {
+                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
+                    int index = lstCTCrits.locationToIndex( e.getPoint() );
+                    abPlaceable[] a = CurMech.GetLoadout().GetCTCrits();
+                    if( ! a[index].LocationLocked() ) {
+                        if( a[index].CanSplit() && a[index].Contiguous() ) {
+                            CurMech.GetLoadout().UnallocateAll( a[index], false );
+                        } else {
+                            CurMech.GetLoadout().UnallocateByIndex( index, a );
+                        }
+                    }
+                    RefreshInfoPane();
+                }
+            }
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    abPlaceable[] a = CurMech.GetLoadout().GetCTCrits();
+                    int index = lstCTCrits.locationToIndex( e.getPoint() );
+                    CurItem = a[index];
+                    CurLocation = LocationIndex.MECH_LOC_CT;
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    abPlaceable[] a = CurMech.GetLoadout().GetCTCrits();
+                    int index = lstCTCrits.locationToIndex( e.getPoint() );
+                    CurItem = a[index];
+                    CurLocation = LocationIndex.MECH_LOC_CT;
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
+                } else {
+                    int index = lstCTCrits.locationToIndex( e.getPoint() );
+                    CurItem = CurMech.GetLoadout().GetCTCrits()[index];
+                    CurLocation = LocationIndex.MECH_LOC_CT;
+                }
+            }
+        };
+        lstCTCrits.addMouseListener( mlCTCrits );
+        lstCTCrits.setCellRenderer( Mechrender );
+        jScrollPane11.setViewportView(lstCTCrits);
+
+        pnlCTCrits.add(jScrollPane11, new java.awt.GridBagConstraints());
+
+        chkCTCASE.setText("C.A.S.E.");
+        chkCTCASE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkCTCASEActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlCTCrits.add(chkCTCASE, gridBagConstraints);
+
+        chkCTCASE2.setText("C.A.S.E. II");
+        chkCTCASE2.setEnabled(false);
+        chkCTCASE2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkCTCASE2ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlCTCrits.add(chkCTCASE2, gridBagConstraints);
+
+        pnlEquipment.add(pnlCTCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 180, 117, -1));
+
+        pnlLLCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Leg", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlLLCrits.setMaximumSize(new java.awt.Dimension(116, 120));
+        pnlLLCrits.setMinimumSize(new java.awt.Dimension(116, 120));
+        pnlLLCrits.setLayout(new java.awt.GridBagLayout());
+
+        jScrollPane16.setMinimumSize(new java.awt.Dimension(105, 87));
+        jScrollPane16.setPreferredSize(new java.awt.Dimension(105, 87));
+
+        lstLLCrits.setFont( PrintConsts.BaseCritFont );
+        lstLLCrits.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Left Leg", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        lstLLCrits.setDragEnabled(true);
+        lstLLCrits.setMaximumSize(new java.awt.Dimension(98, 50));
+        lstLLCrits.setMinimumSize(new java.awt.Dimension(98, 50));
+        lstLLCrits.setPreferredSize(new java.awt.Dimension(98, 50));
+        lstLLCrits.setVisibleRowCount(6);
+        lstLLCrits.setTransferHandler( new thLLTransferHandler( this, CurMech ) );
+        lstLLCrits.setDropMode( DropMode.ON );
+        MouseListener mlLLCrits = new MouseAdapter() {
+            public void mouseClicked( MouseEvent e ) {
+                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
+                    int index = lstLLCrits.locationToIndex( e.getPoint() );
+                    abPlaceable[] a = CurMech.GetLoadout().GetLLCrits();
+                    if( ! a[index].LocationLocked() ) {
+                        if( a[index].CanSplit() && a[index].Contiguous() ) {
+                            CurMech.GetLoadout().UnallocateAll( a[index], false );
+                        } else {
+                            CurMech.GetLoadout().UnallocateByIndex( index, a );
+                        }
+                    }
+                    RefreshInfoPane();
+                }
+            }
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    abPlaceable[] a = CurMech.GetLoadout().GetLLCrits();
+                    int index = lstLLCrits.locationToIndex( e.getPoint() );
+                    CurItem = a[index];
+                    CurLocation = LocationIndex.MECH_LOC_LL;
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    abPlaceable[] a = CurMech.GetLoadout().GetLLCrits();
+                    int index = lstLLCrits.locationToIndex( e.getPoint() );
+                    CurItem = a[index];
+                    CurLocation = LocationIndex.MECH_LOC_LL;
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
+                } else {
+                    int index = lstLLCrits.locationToIndex( e.getPoint() );
+                    CurItem = CurMech.GetLoadout().GetLLCrits()[index];
+                    CurLocation = LocationIndex.MECH_LOC_LL;
+                }
+            }
+        };
+        lstLLCrits.addMouseListener( mlLLCrits );
+        lstLLCrits.setCellRenderer( Mechrender );
+        jScrollPane16.setViewportView(lstLLCrits);
+
+        pnlLLCrits.add(jScrollPane16, new java.awt.GridBagConstraints());
+
+        chkLLCASE2.setText("C.A.S.E. II");
+        chkLLCASE2.setEnabled(false);
+        chkLLCASE2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkLLCASE2ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlLLCrits.add(chkLLCASE2, gridBagConstraints);
+
+        pnlEquipment.add(pnlLLCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 330, 117, -1));
+
+        pnlRLCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Leg", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlRLCrits.setMaximumSize(new java.awt.Dimension(116, 120));
+        pnlRLCrits.setMinimumSize(new java.awt.Dimension(116, 120));
+        pnlRLCrits.setLayout(new java.awt.GridBagLayout());
+
+        jScrollPane17.setMinimumSize(new java.awt.Dimension(105, 87));
+        jScrollPane17.setPreferredSize(new java.awt.Dimension(105, 87));
+
+        lstRLCrits.setFont( PrintConsts.BaseCritFont );
+        lstRLCrits.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Right Leg", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        lstRLCrits.setDragEnabled(true);
+        lstRLCrits.setMaximumSize(new java.awt.Dimension(98, 50));
+        lstRLCrits.setMinimumSize(new java.awt.Dimension(98, 50));
+        lstRLCrits.setPreferredSize(new java.awt.Dimension(98, 50));
+        lstRLCrits.setVisibleRowCount(6);
+        lstRLCrits.setTransferHandler( new thRLTransferHandler( this, CurMech ) );
+        lstRLCrits.setDropMode( DropMode.ON );
+        MouseListener mlRLCrits = new MouseAdapter() {
+            public void mouseClicked( MouseEvent e ) {
+                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
+                    int index = lstRLCrits.locationToIndex( e.getPoint() );
+                    abPlaceable[] a = CurMech.GetLoadout().GetRLCrits();
+                    if( ! a[index].LocationLocked() ) {
+                        if( a[index].CanSplit() && a[index].Contiguous() ) {
+                            CurMech.GetLoadout().UnallocateAll( a[index], false );
+                        } else {
+                            CurMech.GetLoadout().UnallocateByIndex( index, a );
+                        }
+                    }
+                    RefreshInfoPane();
+                }
+            }
+            public void mouseReleased( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    abPlaceable[] a = CurMech.GetLoadout().GetRLCrits();
+                    int index = lstRLCrits.locationToIndex( e.getPoint() );
+                    CurItem = a[index];
+                    CurLocation = LocationIndex.MECH_LOC_RL;
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
+                }
+            }
+            public void mousePressed( MouseEvent e ) {
+                if( e.isPopupTrigger() ) {
+                    abPlaceable[] a = CurMech.GetLoadout().GetRLCrits();
+                    int index = lstRLCrits.locationToIndex( e.getPoint() );
+                    CurItem = a[index];
+                    CurLocation = LocationIndex.MECH_LOC_RL;
+                    ConfigureUtilsMenu(e.getComponent());
+                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
+                } else {
+                    int index = lstRLCrits.locationToIndex( e.getPoint() );
+                    CurItem = CurMech.GetLoadout().GetRLCrits()[index];
+                    CurLocation = LocationIndex.MECH_LOC_RL;
+                }
+            }
+        };
+        lstRLCrits.addMouseListener( mlRLCrits );
+        lstRLCrits.setCellRenderer( Mechrender );
+        jScrollPane17.setViewportView(lstRLCrits);
+
+        pnlRLCrits.add(jScrollPane17, new java.awt.GridBagConstraints());
+
+        chkRLCASE2.setText("C.A.S.E. II");
+        chkRLCASE2.setEnabled(false);
+        chkRLCASE2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkRLCASE2ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlRLCrits.add(chkRLCASE2, gridBagConstraints);
+
+        pnlEquipment.add(pnlRLCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 330, 117, -1));
+
+        jPanel5.setLayout(new java.awt.GridBagLayout());
+
+        jLabel59.setText("<--");
+        jPanel5.add(jLabel59, new java.awt.GridBagConstraints());
+
+        chkLegAES.setText("A.E.S.");
+        chkLegAES.setEnabled(false);
+        chkLegAES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkLegAESActionPerformed(evt);
+            }
+        });
+        jPanel5.add(chkLegAES, new java.awt.GridBagConstraints());
+
+        jLabel61.setText("-->");
+        jPanel5.add(jLabel61, new java.awt.GridBagConstraints());
+
+        pnlEquipment.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 430, 115, 30));
 
         pnlRACrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Arm", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlRACrits.setMaximumSize(new java.awt.Dimension(114, 256));
@@ -8837,171 +8918,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlRACrits.add(chkRAAES, gridBagConstraints);
 
-        pnlCriticals.add(pnlRACrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 117, -1));
-
-        pnlLLCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Leg", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        pnlLLCrits.setMaximumSize(new java.awt.Dimension(116, 120));
-        pnlLLCrits.setMinimumSize(new java.awt.Dimension(116, 120));
-        pnlLLCrits.setLayout(new java.awt.GridBagLayout());
-
-        jScrollPane16.setMinimumSize(new java.awt.Dimension(105, 87));
-        jScrollPane16.setPreferredSize(new java.awt.Dimension(105, 87));
-
-        lstLLCrits.setFont( PrintConsts.BaseCritFont );
-        lstLLCrits.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Left Leg", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstLLCrits.setDragEnabled(true);
-        lstLLCrits.setMaximumSize(new java.awt.Dimension(98, 50));
-        lstLLCrits.setMinimumSize(new java.awt.Dimension(98, 50));
-        lstLLCrits.setPreferredSize(new java.awt.Dimension(98, 50));
-        lstLLCrits.setVisibleRowCount(6);
-        lstLLCrits.setTransferHandler( new thLLTransferHandler( this, CurMech ) );
-        lstLLCrits.setDropMode( DropMode.ON );
-        MouseListener mlLLCrits = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    int index = lstLLCrits.locationToIndex( e.getPoint() );
-                    abPlaceable[] a = CurMech.GetLoadout().GetLLCrits();
-                    if( ! a[index].LocationLocked() ) {
-                        if( a[index].CanSplit() && a[index].Contiguous() ) {
-                            CurMech.GetLoadout().UnallocateAll( a[index], false );
-                        } else {
-                            CurMech.GetLoadout().UnallocateByIndex( index, a );
-                        }
-                    }
-                    RefreshInfoPane();
-                }
-            }
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    abPlaceable[] a = CurMech.GetLoadout().GetLLCrits();
-                    int index = lstLLCrits.locationToIndex( e.getPoint() );
-                    CurItem = a[index];
-                    CurLocation = LocationIndex.MECH_LOC_LL;
-                    ConfigureUtilsMenu(e.getComponent());
-                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    abPlaceable[] a = CurMech.GetLoadout().GetLLCrits();
-                    int index = lstLLCrits.locationToIndex( e.getPoint() );
-                    CurItem = a[index];
-                    CurLocation = LocationIndex.MECH_LOC_LL;
-                    ConfigureUtilsMenu(e.getComponent());
-                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
-                } else {
-                    int index = lstLLCrits.locationToIndex( e.getPoint() );
-                    CurItem = CurMech.GetLoadout().GetLLCrits()[index];
-                    CurLocation = LocationIndex.MECH_LOC_LL;
-                }
-            }
-        };
-        lstLLCrits.addMouseListener( mlLLCrits );
-        lstLLCrits.setCellRenderer( Mechrender );
-        jScrollPane16.setViewportView(lstLLCrits);
-
-        pnlLLCrits.add(jScrollPane16, new java.awt.GridBagConstraints());
-
-        chkLLCASE2.setText("C.A.S.E. II");
-        chkLLCASE2.setEnabled(false);
-        chkLLCASE2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkLLCASE2ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlLLCrits.add(chkLLCASE2, gridBagConstraints);
-
-        pnlCriticals.add(pnlLLCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 320, 117, -1));
-
-        pnlRLCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Leg", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        pnlRLCrits.setMaximumSize(new java.awt.Dimension(116, 120));
-        pnlRLCrits.setMinimumSize(new java.awt.Dimension(116, 120));
-        pnlRLCrits.setLayout(new java.awt.GridBagLayout());
-
-        jScrollPane17.setMinimumSize(new java.awt.Dimension(105, 87));
-        jScrollPane17.setPreferredSize(new java.awt.Dimension(105, 87));
-
-        lstRLCrits.setFont( PrintConsts.BaseCritFont );
-        lstRLCrits.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Right Leg", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstRLCrits.setDragEnabled(true);
-        lstRLCrits.setMaximumSize(new java.awt.Dimension(98, 50));
-        lstRLCrits.setMinimumSize(new java.awt.Dimension(98, 50));
-        lstRLCrits.setPreferredSize(new java.awt.Dimension(98, 50));
-        lstRLCrits.setVisibleRowCount(6);
-        lstRLCrits.setTransferHandler( new thRLTransferHandler( this, CurMech ) );
-        lstRLCrits.setDropMode( DropMode.ON );
-        MouseListener mlRLCrits = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    int index = lstRLCrits.locationToIndex( e.getPoint() );
-                    abPlaceable[] a = CurMech.GetLoadout().GetRLCrits();
-                    if( ! a[index].LocationLocked() ) {
-                        if( a[index].CanSplit() && a[index].Contiguous() ) {
-                            CurMech.GetLoadout().UnallocateAll( a[index], false );
-                        } else {
-                            CurMech.GetLoadout().UnallocateByIndex( index, a );
-                        }
-                    }
-                    RefreshInfoPane();
-                }
-            }
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    abPlaceable[] a = CurMech.GetLoadout().GetRLCrits();
-                    int index = lstRLCrits.locationToIndex( e.getPoint() );
-                    CurItem = a[index];
-                    CurLocation = LocationIndex.MECH_LOC_RL;
-                    ConfigureUtilsMenu(e.getComponent());
-                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    abPlaceable[] a = CurMech.GetLoadout().GetRLCrits();
-                    int index = lstRLCrits.locationToIndex( e.getPoint() );
-                    CurItem = a[index];
-                    CurLocation = LocationIndex.MECH_LOC_RL;
-                    ConfigureUtilsMenu(e.getComponent());
-                    mnuUtilities.show( e.getComponent(), e.getX(), e.getY() );
-                } else {
-                    int index = lstRLCrits.locationToIndex( e.getPoint() );
-                    CurItem = CurMech.GetLoadout().GetRLCrits()[index];
-                    CurLocation = LocationIndex.MECH_LOC_RL;
-                }
-            }
-        };
-        lstRLCrits.addMouseListener( mlRLCrits );
-        lstRLCrits.setCellRenderer( Mechrender );
-        jScrollPane17.setViewportView(lstRLCrits);
-
-        pnlRLCrits.add(jScrollPane17, new java.awt.GridBagConstraints());
-
-        chkRLCASE2.setText("C.A.S.E. II");
-        chkRLCASE2.setEnabled(false);
-        chkRLCASE2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkRLCASE2ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlRLCrits.add(chkRLCASE2, gridBagConstraints);
-
-        pnlCriticals.add(pnlRLCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 320, 117, -1));
+        pnlEquipment.add(pnlRACrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 100, 117, -1));
 
         pnlEquipmentToPlace.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Equipment to Place", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlEquipmentToPlace.setMaximumSize(new java.awt.Dimension(146, 330));
@@ -9078,6 +8995,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 lstCritsToPlaceValueChanged(evt);
             }
         });
+        lstCritsToPlace.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                lstCritsToPlaceKeyPressed(evt);
+            }
+        });
         jScrollPane18.setViewportView(lstCritsToPlace);
 
         pnlEquipmentToPlace.add(jScrollPane18);
@@ -9091,10 +9013,25 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         pnlEquipmentToPlace.add(btnRemoveItemCrits);
 
-        pnlCriticals.add(pnlEquipmentToPlace, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 150, 360));
+        pnlEquipment.add(pnlEquipmentToPlace, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 150, 310));
 
-        onlLoadoutControls.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Loadout Controls", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        onlLoadoutControls.setLayout(new java.awt.GridBagLayout());
+        btnAutoAllocate.setText("Auto Allocate");
+        btnAutoAllocate.setEnabled(false);
+        btnAutoAllocate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAutoAllocateActionPerformed(evt);
+            }
+        });
+        pnlEquipment.add(btnAutoAllocate, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 20, 150, -1));
+
+        btnSelectiveAllocate.setText("Selective");
+        btnSelectiveAllocate.setEnabled(false);
+        btnSelectiveAllocate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectiveAllocateActionPerformed(evt);
+            }
+        });
+        pnlEquipment.add(btnSelectiveAllocate, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, 100, -1));
 
         btnCompactCrits.setText("Compact");
         btnCompactCrits.addActionListener(new java.awt.event.ActionListener() {
@@ -9102,10 +9039,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 btnCompactCritsActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 2, 2);
-        onlLoadoutControls.add(btnCompactCrits, gridBagConstraints);
+        pnlEquipment.add(btnCompactCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 400, 100, -1));
 
         btnClearLoadout.setText("Clear");
         btnClearLoadout.addActionListener(new java.awt.event.ActionListener() {
@@ -9113,63 +9047,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 btnClearLoadoutActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 2);
-        onlLoadoutControls.add(btnClearLoadout, gridBagConstraints);
+        pnlEquipment.add(btnClearLoadout, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 430, 100, -1));
 
-        btnAutoAllocate.setText("Auto-Allocate");
-        btnAutoAllocate.setEnabled(false);
-        btnAutoAllocate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAutoAllocateActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 2, 0);
-        onlLoadoutControls.add(btnAutoAllocate, gridBagConstraints);
-
-        btnSelectiveAllocate.setText("Selective-Allocate");
-        btnSelectiveAllocate.setEnabled(false);
-        btnSelectiveAllocate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSelectiveAllocateActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 0, 0);
-        onlLoadoutControls.add(btnSelectiveAllocate, gridBagConstraints);
-
-        pnlCriticals.add(onlLoadoutControls, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 370, 270, 90));
-
-        jPanel5.setLayout(new java.awt.GridBagLayout());
-
-        jLabel59.setText("<--");
-        jPanel5.add(jLabel59, new java.awt.GridBagConstraints());
-
-        chkLegAES.setText("A.E.S.");
-        chkLegAES.setEnabled(false);
-        chkLegAES.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkLegAESActionPerformed(evt);
-            }
-        });
-        jPanel5.add(chkLegAES, new java.awt.GridBagConstraints());
-
-        jLabel61.setText("-->");
-        jPanel5.add(jLabel61, new java.awt.GridBagConstraints());
-
-        pnlCriticals.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 430, 115, 30));
-
-        tbpMainTabPane.addTab("Criticals", pnlCriticals);
+        tbpMainTabPane.addTab("Equipment", pnlEquipment);
 
         pnlFluff.setLayout(new java.awt.GridBagLayout());
 
@@ -9643,9 +9523,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         jLabel39.setText("Structural Components:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        jPanel2.add(jLabel39, gridBagConstraints);
+        jPanel2.add(jLabel39, new java.awt.GridBagConstraints());
 
         lblTonPercStructure.setText("000.00%");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -9758,7 +9636,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 0);
         jPanel2.add(lblTonPercEquips, gridBagConstraints);
 
-        pnlCharts.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 230, 150));
+        pnlCharts.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 220, 150));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Other Statistics"));
         jPanel3.setLayout(new java.awt.GridBagLayout());
@@ -9774,14 +9652,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 0);
         jPanel3.add(lblDamagePerTon, gridBagConstraints);
 
-        pnlCharts.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 230, 50));
+        pnlCharts.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 230, 50));
 
         pnlDamageChart.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         pnlDamageChart.setLayout(null);
-        pnlCharts.add(pnlDamageChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 720, 280));
+        pnlCharts.add(pnlDamageChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 670, 280));
 
         lblLegendTitle.setText("Chart Options:");
-        pnlCharts.add(lblLegendTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 140, -1));
+        pnlCharts.add(lblLegendTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 140, -1));
 
         chkChartFront.setBackground(java.awt.Color.red);
         chkChartFront.setSelected(true);
@@ -9791,7 +9669,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 chkChartFrontActionPerformed(evt);
             }
         });
-        pnlCharts.add(chkChartFront, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, 210, -1));
+        pnlCharts.add(chkChartFront, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 200, -1));
 
         chkChartRear.setBackground(java.awt.Color.pink);
         chkChartRear.setSelected(true);
@@ -9801,7 +9679,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 chkChartRearActionPerformed(evt);
             }
         });
-        pnlCharts.add(chkChartRear, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 55, 210, -1));
+        pnlCharts.add(chkChartRear, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, 200, -1));
 
         chkChartRight.setBackground(java.awt.Color.green);
         chkChartRight.setSelected(true);
@@ -9811,7 +9689,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 chkChartRightActionPerformed(evt);
             }
         });
-        pnlCharts.add(chkChartRight, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 210, -1));
+        pnlCharts.add(chkChartRight, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 200, -1));
 
         chkChartLeft.setBackground(java.awt.Color.orange);
         chkChartLeft.setSelected(true);
@@ -9821,7 +9699,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 chkChartLeftActionPerformed(evt);
             }
         });
-        pnlCharts.add(chkChartLeft, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 105, 210, -1));
+        pnlCharts.add(chkChartLeft, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 120, 200, -1));
 
         btnBracketChart.setText("Show Weapon Bracket Chart");
         btnBracketChart.addActionListener(new java.awt.event.ActionListener() {
@@ -9829,7 +9707,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 btnBracketChartActionPerformed(evt);
             }
         });
-        pnlCharts.add(btnBracketChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 210, -1));
+        pnlCharts.add(btnBracketChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 210, -1));
 
         chkAverageDamage.setText("Show Average Damage");
         chkAverageDamage.addActionListener(new java.awt.event.ActionListener() {
@@ -9837,7 +9715,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 chkAverageDamageActionPerformed(evt);
             }
         });
-        pnlCharts.add(chkAverageDamage, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, -1, -1));
+        pnlCharts.add(chkAverageDamage, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, -1, -1));
 
         chkShowTextNotGraph.setText("Show Text Instead of Graph");
         chkShowTextNotGraph.addActionListener(new java.awt.event.ActionListener() {
@@ -9845,11 +9723,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 chkShowTextNotGraphActionPerformed(evt);
             }
         });
-        pnlCharts.add(chkShowTextNotGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, -1, -1));
-
-        tbpMainTabPane.addTab("Charts", pnlCharts);
-
-        pnlBattleforce.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlCharts.add(chkShowTextNotGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, -1, -1));
 
         pnlBFStats.setBorder(javax.swing.BorderFactory.createTitledBorder("BattleForce Stats"));
         pnlBFStats.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -9876,10 +9750,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlBFStats.add(jLabel72, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, -1, -1));
 
         jLabel73.setText("Armor:");
-        pnlBFStats.add(jLabel73, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
+        pnlBFStats.add(jLabel73, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, -1, -1));
 
         jLabel74.setText("Structure:");
-        pnlBFStats.add(jLabel74, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, -1, -1));
+        pnlBFStats.add(jLabel74, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, -1, -1));
 
         jLabel75.setText("Special Abilities:");
         pnlBFStats.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
@@ -9914,22 +9788,22 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         lblBFArmor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBFArmor.setText("0");
-        pnlBFStats.add(lblBFArmor, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 30, -1));
+        pnlBFStats.add(lblBFArmor, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 30, -1));
 
         lblBFStructure.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBFStructure.setText("0");
-        pnlBFStats.add(lblBFStructure, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, 30, -1));
+        pnlBFStats.add(lblBFStructure, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 30, -1));
 
         lblBFSA.setText("Placeholder");
         pnlBFStats.add(lblBFSA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 430, 20));
 
         jLabel37.setText("Points:");
-        pnlBFStats.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
+        pnlBFStats.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, -1, -1));
 
         lblBFPoints.setText("0");
-        pnlBFStats.add(lblBFPoints, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
+        pnlBFStats.add(lblBFPoints, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, -1, -1));
 
-        pnlBattleforce.add(pnlBFStats, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 690, 200));
+        pnlCharts.add(pnlBFStats, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 10, 520, 200));
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Conversion Steps"));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -9939,11 +9813,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jTextAreaBFConversion.setRows(5);
         jScrollPane14.setViewportView(jTextAreaBFConversion);
 
-        jPanel7.add(jScrollPane14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 660, 190));
+        jPanel7.add(jScrollPane14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 500, 200));
 
-        pnlBattleforce.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 690, 230));
+        pnlCharts.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 220, 520, 230));
 
-        tbpMainTabPane.addTab("BattleForce", pnlBattleforce);
+        tbpMainTabPane.addTab("Charts & BattleForce", pnlCharts);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -10019,7 +9893,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlInfoPanel.add(txtInfoBattleValue);
 
         txtInfoCost.setEditable(false);
-        txtInfoCost.setFont(new java.awt.Font("Arial", 0, 11));
+        txtInfoCost.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         txtInfoCost.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoCost.setText("Cost: 000,000,000");
         txtInfoCost.setMaximumSize(new java.awt.Dimension(125, 20));
@@ -10027,10 +9901,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtInfoCost.setPreferredSize(new java.awt.Dimension(125, 20));
         pnlInfoPanel.add(txtInfoCost);
 
+        txtChatInfo.setBackground(new java.awt.Color(238, 238, 238));
+        txtChatInfo.setEditable(false);
+        txtChatInfo.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        txtChatInfo.setMaximumSize(new java.awt.Dimension(475, 20));
+        txtChatInfo.setMinimumSize(new java.awt.Dimension(475, 20));
+        txtChatInfo.setPreferredSize(new java.awt.Dimension(475, 20));
+        pnlInfoPanel.add(txtChatInfo);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 0);
         getContentPane().add(pnlInfoPanel, gridBagConstraints);
 
         mnuFile.setText("File");
@@ -10343,699 +10226,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         dispose();
     }
 
-    private void btnLoadImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadImageActionPerformed
-        // Opens a file chooser for the user, then resizes the chosen image to
-        // fit in the fluff label and adds it
-        JFileChooser fc = new JFileChooser();
-
-        // get the current image in case we cancel
-        ImageIcon newFluffImage = (ImageIcon) lblFluffImage.getIcon();
-
-        //Add a custom file filter and disable the default
-        //(Accept All) file filter.
-        fc.addChoosableFileFilter(new ImageFilter());
-        fc.setAcceptAllFileFilterUsed(false);
-        if (! Prefs.get("LastImagePath", "").isEmpty() ) {
-            fc.setCurrentDirectory(new File(Prefs.get("LastImagePath", "")));
-        }
-
-        //Add custom icons for file types.
-        //ImageFileView IFV = new ImageFileView();
-        //fc.setFileView( IFV );
-
-	//Add the preview pane.
-        fc.setAccessory(new ImagePreview(fc));
-
-        //Show it.
-        int returnVal = fc.showDialog( this, "Attach");
-
-        //Process the results.  If no file is chosen, the default is used.
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            try
-            {
-                Prefs.put("LastImagePath", fc.getSelectedFile().getCanonicalPath().replace(fc.getSelectedFile().getName(), ""));
-                Prefs.put("LastImageFile", fc.getSelectedFile().getName());
-
-                newFluffImage = new ImageIcon(fc.getSelectedFile().getPath());
-
-                if( newFluffImage == null ) { return; }
-                // See if we need to scale
-                int h = newFluffImage.getIconHeight();
-                int w = newFluffImage.getIconWidth();
-                if ( w > 290 || h > 350 ) {
-                    if ( w > h ) { // resize based on width
-                        newFluffImage = new ImageIcon(newFluffImage.getImage().
-                            getScaledInstance(290, -1, Image.SCALE_DEFAULT));
-                    } else { // resize based on height
-                        newFluffImage = new ImageIcon(newFluffImage.getImage().
-                            getScaledInstance(-1, 350, Image.SCALE_DEFAULT));
-                    }
-                }
-            } catch (Exception e) {
-                //break;
-            }
-        } else {
-            //
-        }
-
-        // add the image to the fluff image label
-        lblFluffImage.setIcon( newFluffImage );
-        CurMech.SetSSWImage( fc.getSelectedFile().getPath() );
-    }//GEN-LAST:event_btnLoadImageActionPerformed
-
-    private void btnClearImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearImageActionPerformed
-        // Set the fluff image to default
-        lblFluffImage.setIcon( null );
-        CurMech.SetSSWImage("");
-    }//GEN-LAST:event_btnClearImageActionPerformed
-
-    private void cmbHeatSinkTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHeatSinkTypeActionPerformed
-        if( BuildLookupName( CurMech.GetHeatSinks().GetCurrentState() ).equals( (String) cmbHeatSinkType.getSelectedItem() ) ) {
-            return;
-        }
-        RecalcHeatSinks();
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_cmbHeatSinkTypeActionPerformed
-
-    private void spnNumberOfHSStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnNumberOfHSStateChanged
-        // see what changed and perform the appropriate action
-        javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnNumberOfHS.getModel();
-        int NumHS = CurMech.GetHeatSinks().GetNumHS();
-        javax.swing.JComponent editor = spnNumberOfHS.getEditor();
-        javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
-
-        // get the value from the text box, if it's valid.
-        try {
-            spnNumberOfHS.commitEdit();
-        } catch ( java.text.ParseException pe ) {
-            // Edited value is invalid, spinner.getValue() will return
-            // the last valid value, you could revert the spinner to show that:
-            if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
-                tf.setValue(spnNumberOfHS.getValue());
-            }
-            return;
-        }
-
-        if( n.getNumber().intValue() > NumHS ) {
-            // The number of sinks went up
-            for( int i = NumHS; i < n.getNumber().intValue(); i++ ) {
-                CurMech.GetHeatSinks().IncrementNumHS();
-            }
-        } else {
-            // the number went down
-            for( int i = NumHS; i > n.getNumber().intValue(); i-- ) {
-                CurMech.GetHeatSinks().DecrementNumHS();
-            }
-        }
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_spnNumberOfHSStateChanged
-
-    private void cmbMechEraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMechEraActionPerformed
-        if( Load ) { return; }
-        // whenever the era is changed we basically need to reset the GUI and
-        // most of the mech.  Certain things we will transfer.
-        if( CurMech.GetEra() == cmbMechEra.getSelectedIndex() ) {
-            return;
-        }
-        if( CurMech.IsOmnimech() ) {
-            if( cmbMechEra.getSelectedIndex() < CurMech.GetBaseEra() ) {
-                Media.Messager( this, "An OmniMech loadout cannot have an era lower than the main loadout." );
-                cmbMechEra.setSelectedIndex( CurMech.GetBaseEra() );
-            }
-        }
-
-        // first, let's save the tech base selection in case we can still use it
-        // prevents Clan mechs reverting to Inner Sphere on era change.
-        int tbsave = cmbTechBase.getSelectedIndex();
-
-        // change the year range and tech base options
-        switch( cmbMechEra.getSelectedIndex() ) {
-            case AvailableCode.ERA_STAR_LEAGUE:
-                lblEraYears.setText( "2443 ~ 2800" );
-                txtProdYear.setText( "" );
-                CurMech.SetEra( AvailableCode.ERA_STAR_LEAGUE );
-                CurMech.SetYear( 2750, false );
-                if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_SUCCESSION:
-                lblEraYears.setText( "2801 ~ 3050" );
-                txtProdYear.setText( "" );
-                CurMech.SetEra( AvailableCode.ERA_SUCCESSION );
-                CurMech.SetYear( 3025, false );
-                if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_CLAN_INVASION:
-                lblEraYears.setText( "3051 ~ 3131" );
-                txtProdYear.setText( "" );
-                CurMech.SetEra( AvailableCode.ERA_CLAN_INVASION );
-                CurMech.SetYear( 3075, false );
-                if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_DARK_AGES:
-                lblEraYears.setText( "3132 on" );
-                txtProdYear.setText( "" );
-                CurMech.SetEra( AvailableCode.ERA_DARK_AGES );
-                CurMech.SetYear( 3132, false );
-                if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
-                break;
-            case AvailableCode.ERA_ALL:
-                lblEraYears.setText( "Any" );
-                txtProdYear.setText( "" );
-                CurMech.SetEra( AvailableCode.ERA_ALL );
-                CurMech.SetYear( 0, false );
-                chkYearRestrict.setEnabled( false );
-                break;
-        }
-
-        if( CurMech.IsOmnimech() ) {
-            BuildJumpJetSelector();
-            RefreshEquipment();
-            RefreshSummary();
-            RefreshInfoPane();
-            SetWeaponChoosers();
-            ResetAmmo();
-            return;
-        }
-
-        BuildTechBaseSelector();
-        BuildMechTypeSelector();
-
-        // reset the tech base if it's still allowed
-        if( tbsave < cmbTechBase.getItemCount() ) {
-            // still valid, use it.  No reconfigure needed
-            cmbTechBase.setSelectedIndex( tbsave );
-        } else {
-            // nope, set it to Inner Sphere.  This means it was Clan and we
-            // should reconfigure the mech
-            cmbTechBase.setSelectedIndex( 0 );
-            CurMech.SetInnerSphere();
-        }
-
-        // get the currently chosen selections
-        SaveSelections();
-
-        // refresh all the combo boxes.
-        BuildChassisSelector();
-        BuildEngineSelector();
-        BuildGyroSelector();
-        BuildCockpitSelector();
-        BuildEnhancementSelector();
-        BuildHeatsinkSelector();
-        BuildJumpJetSelector();
-        BuildArmorSelector();
-        FixWalkMPSpinner();
-        FixJJSpinnerModel();
-        RefreshEquipment();
-        CheckOmnimech();
-
-        // now reset the combo boxes to the closest choices we previously selected
-        LoadSelections();
-
-        // when a new era is selected, we have to recalculate the mech
-        RecalcEngine();
-        RecalcGyro();
-        RecalcIntStruc();
-        RecalcCockpit();
-        CurMech.GetActuators().PlaceActuators();
-        RecalcHeatSinks();
-        RecalcJumpJets();
-        RecalcEnhancements();
-        RecalcArmor();
-        RecalcEquipment();
-
-        // since you can only ever change the era when not restricted, we're not
-        // doing it here.  Pass in default values.
-        CurMech.GetLoadout().FlushIllegal();
-        //CurMech.GetLoadout().FlushIllegal( cmbMechEra.getSelectedIndex(), 0, false );
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-        SetWeaponChoosers();
-        ResetAmmo();
-    }//GEN-LAST:event_cmbMechEraActionPerformed
-
-    private void spnWalkMPStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnWalkMPStateChanged
-        // see what changed and perform the appropriate action
-        javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnWalkMP.getModel();
-        javax.swing.JComponent editor = spnWalkMP.getEditor();
-        javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
-
-        // get the value from the text box, if it's valid.
-        try {
-            spnWalkMP.commitEdit();
-        } catch ( java.text.ParseException pe ) {
-            // Edited value is invalid, spinner.getValue() will return
-            // the last valid value, you could revert the spinner to show that:
-            if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
-                tf.setValue(spnWalkMP.getValue());
-            }
-            return;
-        }
-        try {
-            // the commitedit worked, so set the engine rating and report the running mp
-            CurMech.SetWalkMP( n.getNumber().intValue() );
-        } catch( Exception e ) {
-            Media.Messager( e.getMessage() );
-            spnWalkMP.setValue( spnWalkMP.getPreviousValue() );
-        }
-        lblRunMP.setText( "" + CurMech.GetRunningMP() );
-
-        // when the walking mp changes, we also have to change the jump mp
-        // spinner model and recalculate the heat sinks
-        FixJJSpinnerModel();
-        CurMech.GetHeatSinks().ReCalculate();
-        CurMech.GetLoadout().UnallocateFuelTanks();
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_spnWalkMPStateChanged
-
-    private void spnJumpMPStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnJumpMPStateChanged
-        // just change the number of jump jets.
-        javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnJumpMP.getModel();
-        javax.swing.JComponent editor = spnJumpMP.getEditor();
-        javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
-        int NumJJ = CurMech.GetJumpJets().GetNumJJ();
-
-        // get the value from the text box, if it's valid.
-        try {
-            spnWalkMP.commitEdit();
-        } catch ( java.text.ParseException pe ) {
-            // Edited value is invalid, spinner.getValue() will return
-            // the last valid value, you could revert the spinner to show that:
-            if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
-                tf.setValue(spnWalkMP.getValue());
-            }
-            return;
-        }
-
-        if( n.getNumber().intValue() > NumJJ ) {
-            // The number of sinks went up
-            for( int i = NumJJ; i < n.getNumber().intValue(); i++ ) {
-                CurMech.GetJumpJets().IncrementNumJJ();
-            }
-        } else {
-            // the number went down
-            for( int i = NumJJ; i > n.getNumber().intValue(); i-- ) {
-                CurMech.GetJumpJets().DecrementNumJJ();
-            }
-        }
-
-        // see if we need to enable the jump jet manufacturer field
-        if( n.getNumber().intValue() > 0 ) {
-            // enable the field
-            txtJJModel.setEnabled( true );
-        } else {
-            // disable it, but don't clear it
-            txtJJModel.setEnabled( false );
-        }
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_spnJumpMPStateChanged
-
-    private void cmbTonnageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTonnageActionPerformed
-        // We have to decode the selected index to set values.  A bit safer, I
-        // think, because we can directly set the values ourselves.
-        int Tons = 0;
-        switch ( cmbTonnage.getSelectedIndex() ) {
-            case 0:
-                // 10 ton 'Mech.  Need to check the settings first
-                lblMechType.setText( "Ultralight Mech");
-                Tons = 10;
-                break;
-            case 1:
-                // 15 ton 'Mech
-                lblMechType.setText( "Ultralight Mech");
-                Tons = 15;
-                break;
-            case 2:
-                // 20 ton mech
-                lblMechType.setText( "Light Mech");
-                Tons = 20;
-                break;
-            case 3:
-                // 25 ton mech
-                lblMechType.setText( "Light Mech");
-                Tons = 25;
-                break;
-            case 4:
-                // 30 ton mech
-                lblMechType.setText( "Light Mech");
-                Tons = 30;
-                break;
-            case 5:
-                // 35 ton mech
-                lblMechType.setText( "Light Mech");
-                Tons = 35;
-                break;
-            case 6:
-                // 40 ton mech
-                lblMechType.setText( "Medium Mech");
-                Tons = 40;
-                break;
-            case 7:
-                // 45 ton mech
-                lblMechType.setText( "Medium Mech");
-                Tons = 45;
-                break;
-            case 8:
-                // 50 ton mech
-                lblMechType.setText( "Medium Mech");
-                Tons = 50;
-                break;
-            case 9:
-                // 55 ton mech
-                lblMechType.setText( "Medium Mech");
-                Tons = 55;
-                break;
-            case 10:
-                // 60 ton mech
-                lblMechType.setText( "Heavy Mech");
-                Tons = 60;
-                break;
-            case 11:
-                // 65 ton mech
-                lblMechType.setText( "Heavy Mech");
-                Tons = 65;
-                break;
-            case 12:
-                // 70 ton mech
-                lblMechType.setText( "Heavy Mech");
-                Tons = 70;
-                break;
-            case 13:
-                // 75 ton mech
-                lblMechType.setText( "Heavy Mech");
-                Tons = 75;
-                break;
-            case 14:
-                // 80 ton mech
-                lblMechType.setText( "Assault Mech");
-                Tons = 80;
-                break;
-            case 15:
-                // 85 ton mech
-                lblMechType.setText( "Assault Mech");
-                Tons = 85;
-                break;
-            case 16:
-                // 90 ton mech
-                lblMechType.setText( "Assault Mech");
-                Tons = 90;
-                break;
-            case 17:
-                // 95 ton mech
-                lblMechType.setText( "Assault Mech");
-                Tons = 95;
-                break;
-            case 18:
-                // 100 ton mech
-                lblMechType.setText( "Assault Mech");
-                Tons = 100;
-                break;
-        }
-
-        if( CurMech.GetTonnage() == Tons ) {
-            return;
-        } else {
-            CurMech.SetTonnage( Tons );
-        }
-
-        // check the tonnage
-        CheckTonnage( false );
-
-        // fix the walking and jumping MP spinners
-        FixWalkMPSpinner();
-        FixJJSpinnerModel();
-
-        // recalculate the heat sinks and armor
-        CurMech.GetHeatSinks().ReCalculate();
-        CurMech.GetArmor().Recalculate();
-
-        // fix the armor spinners
-        FixArmorSpinners();
-
-        // unallocate physical weapons since their size depends on tonnage
-        CurMech.CheckPhysicals();
-
-        // Check any AES systems that may have been installed
-        CheckAES();
-
-        // now refresh the information panes
-        RefreshInternalPoints();
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_cmbTonnageActionPerformed
-
-    private void cmbTechBaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTechBaseActionPerformed
-        if( Load ) { return; }
-        // do we really need to do this?
-        if( CurMech.IsOmnimech() ) {
-            if( CurMech.GetLoadout().GetTechBase() == cmbTechBase.getSelectedIndex() ) { return; }
-        } else {
-            if( CurMech.GetTechbase() == cmbTechBase.getSelectedIndex() ) { return; }
-        }
-
-        if( CurMech.IsOmnimech() ) {
-            boolean check = CurMech.SetTechBase( cmbTechBase.getSelectedIndex() );
-            if( ! check ) {
-                Media.Messager( this, "An OmniMech can only use the base chassis' Tech Base\nor Mixed Tech.  Resetting." );
-                cmbTechBase.setSelectedIndex( CurMech.GetLoadout().GetTechBase() );
-                return;
-            }
-            RefreshEquipment();
-        } else {
-            // now change the mech over to the new techbase
-            switch( cmbTechBase.getSelectedIndex() ) {
-                case AvailableCode.TECH_INNER_SPHERE:
-                    CurMech.SetInnerSphere();
-                    break;
-                case AvailableCode.TECH_CLAN:
-                    CurMech.SetClan();
-                    break;
-                case AvailableCode.TECH_BOTH:
-                    CurMech.SetMixed();
-                    break;
-            }
-
-            // save the current selections.  The 'Mech should have already
-            // flushed any illegal equipment in the changeover
-            SaveSelections();
-
-            data.Rebuild( CurMech );
-
-            // refresh all the combo boxes.
-            BuildChassisSelector();
-            BuildEngineSelector();
-            BuildGyroSelector();
-            BuildCockpitSelector();
-            BuildEnhancementSelector();
-            BuildHeatsinkSelector();
-            BuildJumpJetSelector();
-            BuildArmorSelector();
-            RefreshEquipment();
-            FixWalkMPSpinner();
-            FixJJSpinnerModel();
-            CheckOmnimech();
-
-            // for Clan machines (only) ensure that Clan CASE is selected by default
-            if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
-                CurMech.GetLoadout().SetClanCASE( true );
-            }
-
-            // now reset the combo boxes to the closest choices we previously selected
-            LoadSelections();
-
-            // recalculate the mech.
-            RecalcEngine();
-            RecalcGyro();
-            RecalcIntStruc();
-            RecalcCockpit();
-            CurMech.GetActuators().PlaceActuators();
-            RecalcHeatSinks();
-            RecalcJumpJets();
-            RecalcEnhancements();
-            RecalcArmor();
-        }
-
-        RecalcEquipment();
-        SetWeaponChoosers();
-        chkUseTC.setSelected( false );
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-        SetWeaponChoosers();
-    }//GEN-LAST:event_cmbTechBaseActionPerformed
-
-    private void cmbPhysEnhanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPhysEnhanceActionPerformed
-        if( BuildLookupName( CurMech.GetPhysEnhance().GetCurrentState() ).equals( (String) cmbPhysEnhance.getSelectedItem() ) ) {
-            return;
-        }
-
-        RecalcEnhancements();
-
-        // check our exclusions
-        try {
-            CurMech.GetLoadout().CheckExclusions( CurMech.GetPhysEnhance() );
-        } catch( Exception e ) {
-            Media.Messager( this, e.getMessage() );
-            cmbPhysEnhance.setSelectedItem( "No Enhancement" );
-            RecalcEnhancements();
-            return;
-        }
-
-        lblRunMP.setText( "" + CurMech.GetRunningMP() );
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_cmbPhysEnhanceActionPerformed
-
-    private void cmbCockpitTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCockpitTypeActionPerformed
-        if( CurMech.GetCockpit().LookupName().equals( (String) cmbCockpitType.getSelectedItem() ) ) {
-            return;
-        }
-        RecalcCockpit();
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_cmbCockpitTypeActionPerformed
-
-    private void cmbGyroTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGyroTypeActionPerformed
-        if( BuildLookupName( CurMech.GetGyro().GetCurrentState() ).equals( (String) cmbGyroType.getSelectedItem() ) ) {
-            return;
-        }
-        RecalcGyro();
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_cmbGyroTypeActionPerformed
-
-    private void cmbEngineTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEngineTypeActionPerformed
-        if( BuildLookupName( CurMech.GetEngine().GetCurrentState() ).equals( (String) cmbEngineType.getSelectedItem() ) ) {
-            // only nuclear-powered mechs may use jump jets
-            if( CurMech.GetEngine().IsNuclear() ) {
-                if( cmbJumpJetType.getSelectedItem() == null ) {
-                    EnableJumpJets( false );
-                } else {
-                    EnableJumpJets( true );
-                }
-            } else {
-                EnableJumpJets( false );
-            }
-            return;
-        }
-        RecalcEngine();
-
-        // only nuclear-powered mechs may use jump jets
-        if( CurMech.GetEngine().IsNuclear() ) {
-            if( cmbJumpJetType.getSelectedItem() == null ) {
-                EnableJumpJets( false );
-            } else {
-                EnableJumpJets( true );
-            }
-        } else {
-            EnableJumpJets( false );
-        }
-
-        // refresh the selected equipment listbox
-        if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
-            Equipment[SELECTED] = new Object[] { " " };
-        } else {
-            Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
-        }
-        lstSelectedEquipment.setListData( Equipment[SELECTED] );
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_cmbEngineTypeActionPerformed
-
-    private void cmbInternalTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbInternalTypeActionPerformed
-        if( BuildLookupName( CurMech.GetIntStruc().GetCurrentState() ).equals( (String) cmbInternalType.getSelectedItem() ) ) {
-            return;
-        }
-        RecalcIntStruc();
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_cmbInternalTypeActionPerformed
-
-    private void cmbMotiveTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMotiveTypeActionPerformed
-        if( cmbMotiveType.getSelectedIndex() == 0 ) {
-            // if the mech is already a biped, forget it
-            if( ! CurMech.IsQuad() ) { return; }
-            CurMech.SetBiped();
-            // internal structure is always reset to standard on changing the
-            // motive type.
-            cmbInternalType.setSelectedIndex( 0 );
-            ((javax.swing.border.TitledBorder) pnlLAArmorBox.getBorder()).setTitle( "LA" );
-            ((javax.swing.border.TitledBorder) pnlRAArmorBox.getBorder()).setTitle( "RA" );
-            ((javax.swing.border.TitledBorder) pnlLLArmorBox.getBorder()).setTitle( "LL" );
-            ((javax.swing.border.TitledBorder) pnlRLArmorBox.getBorder()).setTitle( "RL" );
-            scrRACrits.setPreferredSize( new java.awt.Dimension( 105, 170 ) );
-            scrLACrits.setPreferredSize( new java.awt.Dimension( 105, 170 ) );
-        } else {
-            // if the mech is already a quad, forget it.
-            if( CurMech.IsQuad() ) { return; }
-            CurMech.SetQuad();
-            // internal structure is always reset to standard on changing the
-            // motive type.
-            cmbInternalType.setSelectedIndex( 0 );
-            ((javax.swing.border.TitledBorder) pnlLAArmorBox.getBorder()).setTitle( "FLL" );
-            ((javax.swing.border.TitledBorder) pnlRAArmorBox.getBorder()).setTitle( "FRL" );
-            ((javax.swing.border.TitledBorder) pnlLLArmorBox.getBorder()).setTitle( "RLL" );
-            ((javax.swing.border.TitledBorder) pnlRLArmorBox.getBorder()).setTitle( "RRL" );
-            scrRACrits.setPreferredSize( new java.awt.Dimension( 105, 87 ) );
-            scrLACrits.setPreferredSize( new java.awt.Dimension( 105, 87 ) );
-        }
-
-        // set the loadout arrays
-        SetLoadoutArrays();
-
-        // fix the armor spinners
-        FixArmorSpinners();
-
-        // Check any AES systems that may have been installed
-        CheckAES();
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-        RefreshInternalPoints();
-        SetWeaponChoosers();
-    }//GEN-LAST:event_cmbMotiveTypeActionPerformed
-
     private void mnuCreditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCreditsActionPerformed
         dlgCredits Credits = new dlgCredits( this, true );
         Credits.setLocationRelativeTo( this );
         Credits.setVisible( true );
     }//GEN-LAST:event_mnuCreditsActionPerformed
-
-    private void cmbArmorTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbArmorTypeActionPerformed
-        if( BuildLookupName( CurMech.GetArmor().GetCurrentState() ).equals( (String) cmbArmorType.getSelectedItem() ) ) {
-            return;
-        }
-        RecalcArmor();
-        // we check for hardened armor, you can only have so many IJJs
-        FixJJSpinnerModel();
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_cmbArmorTypeActionPerformed
 
     private void mnuOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOptionsActionPerformed
         dlgPrefs preferences = new dlgPrefs( this, true );
@@ -11048,1055 +10243,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RefreshInfoPane();
     }//GEN-LAST:event_mnuOptionsActionPerformed
 
-    private void spnHDArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnHDArmorStateChanged
-        // see what changed and perform the appropriate action
-        javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnHDArmor.getModel();
-        javax.swing.JComponent editor = spnHDArmor.getEditor();
-        javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
-
-        // get the value from the text box, if it's valid.
-        try {
-            spnHDArmor.commitEdit();
-        } catch ( java.text.ParseException pe ) {
-            // Edited value is invalid, spinner.getValue() will return
-            // the last valid value, you could revert the spinner to show that:
-            if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
-                tf.setValue(spnHDArmor.getValue());
-            }
-            return;
-        }
-
-        // the commitedit worked, so set the armor value appropriately
-        MechArmor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_HD );
-        int curframe = n.getNumber().intValue();
-        if( curframe > curmech ) {
-            while( curframe > curmech ) {
-                a.IncrementArmor( LocationIndex.MECH_LOC_HD );
-                curframe--;
-            }
-        } else {
-            while( curmech > curframe ) {
-                a.DecrementArmor( LocationIndex.MECH_LOC_HD );
-                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_HD );
-            }
-        }
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_spnHDArmorStateChanged
-
-    private void spnRAArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRAArmorStateChanged
-        // see what changed and perform the appropriate action
-        javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRAArmor.getModel();
-        javax.swing.JComponent editor = spnRAArmor.getEditor();
-        javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
-
-        // get the value from the text box, if it's valid.
-        try {
-            spnRAArmor.commitEdit();
-        } catch ( java.text.ParseException pe ) {
-            // Edited value is invalid, spinner.getValue() will return
-            // the last valid value, you could revert the spinner to show that:
-            if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
-                tf.setValue(spnRAArmor.getValue());
-            }
-            return;
-        }
-
-        // the commitedit worked, so set the armor value appropriately
-        MechArmor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RA );
-        int curframe = n.getNumber().intValue();
-        if( curframe > curmech ) {
-            while( curframe > curmech ) {
-                a.IncrementArmor( LocationIndex.MECH_LOC_RA );
-                curframe--;
-            }
-        } else {
-            while( curmech > curframe ) {
-                a.DecrementArmor( LocationIndex.MECH_LOC_RA );
-                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RA );
-            }
-        }
-
-        // see if we need to change the left arm as well
-        if( btnBalanceArmor.isSelected() ) {
-            a.SetArmor( LocationIndex.MECH_LOC_LA, n.getNumber().intValue() );
-            n = (SpinnerNumberModel) spnLAArmor.getModel();
-            n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_LA ) );
-        }
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_spnRAArmorStateChanged
-
-    private void spnRTArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRTArmorStateChanged
-        // see what changed and perform the appropriate action
-        javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRTArmor.getModel();
-        javax.swing.JComponent editor = spnRTArmor.getEditor();
-        javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
-
-        // get the value from the text box, if it's valid.
-        try {
-            spnRTArmor.commitEdit();
-        } catch ( java.text.ParseException pe ) {
-            // Edited value is invalid, spinner.getValue() will return
-            // the last valid value, you could revert the spinner to show that:
-            if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
-                tf.setValue(spnRTArmor.getValue());
-            }
-            return;
-        }
-
-        // the commitedit worked, so set the armor value appropriately
-        MechArmor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RT );
-        int curframe = n.getNumber().intValue();
-        if( curframe > curmech ) {
-            while( curframe > curmech ) {
-                a.IncrementArmor( LocationIndex.MECH_LOC_RT );
-                curframe--;
-            }
-        } else {
-            while( curmech > curframe ) {
-                a.DecrementArmor( LocationIndex.MECH_LOC_RT );
-                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RT );
-            }
-        }
-
-        // now we need to set the rear armor spinner correctly and update
-        n = (SpinnerNumberModel) spnRTRArmor.getModel();
-        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_RTR ) );
-
-        // see if we need to change the left torso as well
-        if( btnBalanceArmor.isSelected() ) {
-            n = (SpinnerNumberModel) spnRTArmor.getModel();
-            a.SetArmor( LocationIndex.MECH_LOC_LT, n.getNumber().intValue() );
-            n = (SpinnerNumberModel) spnLTArmor.getModel();
-            n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_LT ) );
-        }
-
-        // now refresh the information panes
-       RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_spnRTArmorStateChanged
-
-    private void spnRTRArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRTRArmorStateChanged
-        // see what changed and perform the appropriate action
-        javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRTRArmor.getModel();
-        javax.swing.JComponent editor = spnRTRArmor.getEditor();
-        javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
-
-        // get the value from the text box, if it's valid.
-        try {
-            spnRTRArmor.commitEdit();
-        } catch ( java.text.ParseException pe ) {
-            // Edited value is invalid, spinner.getValue() will return
-            // the last valid value, you could revert the spinner to show that:
-            if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
-                tf.setValue(spnRTRArmor.getValue());
-            }
-            return;
-        }
-
-        // the commitedit worked, so set the armor value appropriately
-        MechArmor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RTR );
-        int curframe = n.getNumber().intValue();
-        if( curframe > curmech ) {
-            while( curframe > curmech ) {
-                a.IncrementArmor( LocationIndex.MECH_LOC_RTR );
-                curframe--;
-            }
-        } else {
-            while( curmech > curframe ) {
-                a.DecrementArmor( LocationIndex.MECH_LOC_RTR );
-                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RTR );
-            }
-        }
-
-        // now we need to set the rear armor spinner correctly and update
-        n = (SpinnerNumberModel) spnRTArmor.getModel();
-        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_RT ) );
-
-        // see if we need to change the left torso as well
-        // see if we need to change the left torso as well
-        if( btnBalanceArmor.isSelected() ) {
-            n = (SpinnerNumberModel) spnRTRArmor.getModel();
-            a.SetArmor( LocationIndex.MECH_LOC_LTR, n.getNumber().intValue() );
-            n = (SpinnerNumberModel) spnLTRArmor.getModel();
-            n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_LTR ) );
-        }
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_spnRTRArmorStateChanged
-
-    private void spnLAArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnLAArmorStateChanged
-        // see what changed and perform the appropriate action
-        javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnLAArmor.getModel();
-        javax.swing.JComponent editor = spnLAArmor.getEditor();
-        javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
-
-        // get the value from the text box, if it's valid.
-        try {
-            spnLAArmor.commitEdit();
-        } catch ( java.text.ParseException pe ) {
-            // Edited value is invalid, spinner.getValue() will return
-            // the last valid value, you could revert the spinner to show that:
-            if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
-                tf.setValue(spnLAArmor.getValue());
-            }
-            return;
-        }
-
-        // the commitedit worked, so set the armor value appropriately
-        MechArmor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LA );
-        int curframe = n.getNumber().intValue();
-        if( curframe > curmech ) {
-            while( curframe > curmech ) {
-                a.IncrementArmor( LocationIndex.MECH_LOC_LA );
-                curframe--;
-            }
-        } else {
-            while( curmech > curframe ) {
-                a.DecrementArmor( LocationIndex.MECH_LOC_LA );
-                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LA );
-            }
-        }
-
-        // see if we need to change the right arm as well
-        if( btnBalanceArmor.isSelected() ) {
-            a.SetArmor( LocationIndex.MECH_LOC_RA, n.getNumber().intValue() );
-            n = (SpinnerNumberModel) spnRAArmor.getModel();
-            n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_RA ) );
-        }
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_spnLAArmorStateChanged
-
-    private void spnLTArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnLTArmorStateChanged
-        // see what changed and perform the appropriate action
-        javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnLTArmor.getModel();
-        javax.swing.JComponent editor = spnLTArmor.getEditor();
-        javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
-
-        // get the value from the text box, if it's valid.
-        try {
-            spnLTArmor.commitEdit();
-        } catch ( java.text.ParseException pe ) {
-            // Edited value is invalid, spinner.getValue() will return
-            // the last valid value, you could revert the spinner to show that:
-            if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
-                tf.setValue(spnLTArmor.getValue());
-            }
-            return;
-        }
-
-        // the commitedit worked, so set the armor value appropriately
-        MechArmor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LT );
-        int curframe = n.getNumber().intValue();
-        if( curframe > curmech ) {
-            while( curframe > curmech ) {
-                a.IncrementArmor( LocationIndex.MECH_LOC_LT );
-                curframe--;
-            }
-        } else {
-            while( curmech > curframe ) {
-                a.DecrementArmor( LocationIndex.MECH_LOC_LT );
-                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LT );
-            }
-        }
-
-        // now we need to set the rear armor spinner correctly and update
-        n = (SpinnerNumberModel) spnLTRArmor.getModel();
-        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_LTR ) );
-
-        // see if we need to change the right torso as well
-        if( btnBalanceArmor.isSelected() ) {
-            n = (SpinnerNumberModel) spnLTArmor.getModel();
-            a.SetArmor( LocationIndex.MECH_LOC_RT, n.getNumber().intValue() );
-            n = (SpinnerNumberModel) spnRTArmor.getModel();
-            n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_RT ) );
-        }
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_spnLTArmorStateChanged
-
-    private void spnLTRArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnLTRArmorStateChanged
-        // see what changed and perform the appropriate action
-        javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnLTRArmor.getModel();
-        javax.swing.JComponent editor = spnLTRArmor.getEditor();
-        javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
-
-        // get the value from the text box, if it's valid.
-        try {
-            spnLTRArmor.commitEdit();
-        } catch ( java.text.ParseException pe ) {
-            // Edited value is invalid, spinner.getValue() will return
-            // the last valid value, you could revert the spinner to show that:
-            if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
-                tf.setValue(spnLTRArmor.getValue());
-            }
-            return;
-        }
-
-        // the commitedit worked, so set the armor value appropriately
-        MechArmor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LTR );
-        int curframe = n.getNumber().intValue();
-        if( curframe > curmech ) {
-            while( curframe > curmech ) {
-                a.IncrementArmor( LocationIndex.MECH_LOC_LTR );
-                curframe--;
-            }
-        } else {
-            while( curmech > curframe ) {
-                a.DecrementArmor( LocationIndex.MECH_LOC_LTR );
-                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LTR );
-            }
-        }
-
-        // now we need to set the rear armor spinner correctly and update
-        n = (SpinnerNumberModel) spnLTArmor.getModel();
-        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_LT ) );
-
-        // see if we need to change the right torso as well
-        if( btnBalanceArmor.isSelected() ) {
-            n = (SpinnerNumberModel) spnLTRArmor.getModel();
-            a.SetArmor( LocationIndex.MECH_LOC_RTR, n.getNumber().intValue() );
-            n = (SpinnerNumberModel) spnRTRArmor.getModel();
-            n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_RTR ) );
-        }
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_spnLTRArmorStateChanged
-
-    private void spnCTArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnCTArmorStateChanged
-        // see what changed and perform the appropriate action
-        javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnCTArmor.getModel();
-        javax.swing.JComponent editor = spnCTArmor.getEditor();
-        javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
-
-        // get the value from the text box, if it's valid.
-        try {
-            spnCTArmor.commitEdit();
-        } catch ( java.text.ParseException pe ) {
-            // Edited value is invalid, spinner.getValue() will return
-            // the last valid value, you could revert the spinner to show that:
-            if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
-                tf.setValue(spnCTArmor.getValue());
-            }
-            return;
-        }
-
-        // the commitedit worked, so set the armor value appropriately
-        MechArmor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_CT );
-        int curframe = n.getNumber().intValue();
-        if( curframe > curmech ) {
-            while( curframe > curmech ) {
-                a.IncrementArmor( LocationIndex.MECH_LOC_CT );
-                curframe--;
-            }
-        } else {
-            while( curmech > curframe ) {
-                a.DecrementArmor( LocationIndex.MECH_LOC_CT );
-                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_CT );
-            }
-        }
-
-        // now we need to set the rear armor spinner correctly and update
-        n = (SpinnerNumberModel) spnCTRArmor.getModel();
-        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_CTR ) );
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_spnCTArmorStateChanged
-
-    private void spnCTRArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnCTRArmorStateChanged
-        // see what changed and perform the appropriate action
-        javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnCTRArmor.getModel();
-        javax.swing.JComponent editor = spnCTRArmor.getEditor();
-        javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
-
-        // get the value from the text box, if it's valid.
-        try {
-            spnCTRArmor.commitEdit();
-        } catch ( java.text.ParseException pe ) {
-            // Edited value is invalid, spinner.getValue() will return
-            // the last valid value, you could revert the spinner to show that:
-            if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
-                tf.setValue(spnCTRArmor.getValue());
-            }
-            return;
-        }
-
-        // the commitedit worked, so set the armor value appropriately
-        MechArmor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_CTR );
-        int curframe = n.getNumber().intValue();
-        if( curframe > curmech ) {
-            while( curframe > curmech ) {
-                a.IncrementArmor( LocationIndex.MECH_LOC_CTR );
-                curframe--;
-            }
-        } else {
-            while( curmech > curframe ) {
-                a.DecrementArmor( LocationIndex.MECH_LOC_CTR );
-                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_CTR );
-            }
-        }
-
-        // now we need to set the rear armor spinner correctly and update
-        n = (SpinnerNumberModel) spnCTArmor.getModel();
-        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_CT ) );
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_spnCTRArmorStateChanged
-
-    private void spnLLArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnLLArmorStateChanged
-        // see what changed and perform the appropriate action
-        javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnLLArmor.getModel();
-        javax.swing.JComponent editor = spnLLArmor.getEditor();
-        javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
-
-        // get the value from the text box, if it's valid.
-        try {
-            spnLLArmor.commitEdit();
-        } catch ( java.text.ParseException pe ) {
-            // Edited value is invalid, spinner.getValue() will return
-            // the last valid value, you could revert the spinner to show that:
-            if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
-                tf.setValue(spnLLArmor.getValue());
-            }
-            return;
-        }
-
-        // the commitedit worked, so set the armor value appropriately
-        MechArmor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LL );
-        int curframe = n.getNumber().intValue();
-        if( curframe > curmech ) {
-            while( curframe > curmech ) {
-                a.IncrementArmor( LocationIndex.MECH_LOC_LL );
-                curframe--;
-            }
-        } else {
-            while( curmech > curframe ) {
-                a.DecrementArmor( LocationIndex.MECH_LOC_LL );
-                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LL );
-            }
-        }
-
-        // see if we need to change the right arm as well
-        if( btnBalanceArmor.isSelected() ) {
-            a.SetArmor( LocationIndex.MECH_LOC_RL, n.getNumber().intValue() );
-            n = (SpinnerNumberModel) spnRLArmor.getModel();
-            n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_RL ) );
-        }
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_spnLLArmorStateChanged
-
-    private void spnRLArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRLArmorStateChanged
-        // see what changed and perform the appropriate action
-        javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRLArmor.getModel();
-        javax.swing.JComponent editor = spnRLArmor.getEditor();
-        javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
-
-        // get the value from the text box, if it's valid.
-        try {
-            spnRLArmor.commitEdit();
-        } catch ( java.text.ParseException pe ) {
-            // Edited value is invalid, spinner.getValue() will return
-            // the last valid value, you could revert the spinner to show that:
-            if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
-                tf.setValue(spnRLArmor.getValue());
-            }
-            return;
-        }
-
-        // the commitedit worked, so set the armor value appropriately
-        MechArmor a = CurMech.GetArmor();
-        int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RL );
-        int curframe = n.getNumber().intValue();
-        if( curframe > curmech ) {
-            while( curframe > curmech ) {
-                a.IncrementArmor( LocationIndex.MECH_LOC_RL );
-                curframe--;
-            }
-        } else {
-            while( curmech > curframe ) {
-                a.DecrementArmor( LocationIndex.MECH_LOC_RL );
-                curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RL );
-            }
-        }
-
-        // see if we need to change the right arm as well
-        if( btnBalanceArmor.isSelected() ) {
-            a.SetArmor( LocationIndex.MECH_LOC_LL, n.getNumber().intValue() );
-            n = (SpinnerNumberModel) spnLLArmor.getModel();
-            n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_LL ) );
-        }
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_spnRLArmorStateChanged
-
-    private void btnMaxArmorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaxArmorActionPerformed
-        // this simply maximizes the mech's armor
-        MechArmor a = CurMech.GetArmor();
-
-        // set the simple stuff first.
-        a.SetArmor( LocationIndex.MECH_LOC_HD, 9 );
-        a.SetArmor( LocationIndex.MECH_LOC_LA, a.GetLocationMax( LocationIndex.MECH_LOC_LA ) );
-        a.SetArmor( LocationIndex.MECH_LOC_RA, a.GetLocationMax( LocationIndex.MECH_LOC_RA ) );
-        a.SetArmor( LocationIndex.MECH_LOC_LL, a.GetLocationMax( LocationIndex.MECH_LOC_LL ) );
-        a.SetArmor( LocationIndex.MECH_LOC_RL, a.GetLocationMax( LocationIndex.MECH_LOC_RL ) );
-
-        // now to set the torsos
-        int rear = Math.round( a.GetLocationMax( LocationIndex.MECH_LOC_CT ) * Prefs.getInt( "ArmorCTRPercent", MechArmor.DEFAULT_CTR_ARMOR_PERCENT ) / 100 );
-        a.SetArmor( LocationIndex.MECH_LOC_CTR, rear );
-        a.SetArmor( LocationIndex.MECH_LOC_CT, a.GetLocationMax( LocationIndex.MECH_LOC_CT ) - rear );
-        rear = Math.round( a.GetLocationMax( LocationIndex.MECH_LOC_LT ) * Prefs.getInt( "ArmorSTRPercent", MechArmor.DEFAULT_STR_ARMOR_PERCENT ) / 100 );
-        a.SetArmor( LocationIndex.MECH_LOC_LTR, rear );
-        a.SetArmor( LocationIndex.MECH_LOC_LT, a.GetLocationMax( LocationIndex.MECH_LOC_LT ) - rear );
-        rear = Math.round( a.GetLocationMax( LocationIndex.MECH_LOC_RT ) * Prefs.getInt( "ArmorSTRPercent", MechArmor.DEFAULT_STR_ARMOR_PERCENT ) / 100 );
-        a.SetArmor( LocationIndex.MECH_LOC_RTR, rear );
-        a.SetArmor( LocationIndex.MECH_LOC_RT, a.GetLocationMax( LocationIndex.MECH_LOC_RT ) - rear );
-
-        // if we fix the spinner models, they should refresh the screen
-        FixArmorSpinners();
-
-        // of course, we'll also have to set the head spinner manually.
-        javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnHDArmor.getModel();
-        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_HD ) );
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_btnMaxArmorActionPerformed
-
-    private void btnArmorTonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArmorTonsActionPerformed
-        // we'll need a new dialogue to get the tonnage
-        dlgArmorTonnage ArmorDialogue = new dlgArmorTonnage( this, true );
-        ArmorDialogue.setLocationRelativeTo( this );
-        ArmorDialogue.setVisible( true );
-
-        // see if we have a good number
-        if( ArmorDialogue.NewTonnage() ) {
-            double result = ArmorDialogue.GetResult();
-            ArmorTons.SetArmorTonnage( result );
-            try {
-                CurMech.Visit( ArmorTons );
-            } catch( Exception e ) {
-                // this should never throw an exception, but log it anyway
-                System.err.println( e.getMessage() );
-                e.printStackTrace();
-            }
-
-            ArmorDialogue.dispose();
-        } else {
-            ArmorDialogue.dispose();
-        }
-
-        // if we fix the spinner models, they should refresh the screen
-        FixArmorSpinners();
-
-        // of course, we'll also have to set the head spinner manually.
-        javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnHDArmor.getModel();
-        n.setValue( (Object) CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_HD ) );
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_btnArmorTonsActionPerformed
-
-    private void chkLAHandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLAHandActionPerformed
-        if( chkLAHand.isSelected() == CurMech.GetActuators().LeftHandInstalled() ) {
-            return;
-        }
-        if( chkLAHand.isSelected() ) {
-            // check each crit and ensure we don't have an item that precludes this
-            abPlaceable[] check = CurMech.GetLoadout().GetLACrits();
-            for( int i = 0; i < check.length; i++ ) {
-                if( check[i] instanceof ifWeapon ) {
-                    if( ((ifWeapon) check[i]).OmniRestrictActuators() && CurMech.IsOmnimech() ) {
-                        Media.Messager( this, check[i].LookupName() + " prevents the installation of the hand." );
-                        chkLAHand.setSelected( false );
-                        return;
-                    }
-                }
-                if( check[i] instanceof PhysicalWeapon ) {
-                    if( ((PhysicalWeapon) check[i]).ReplacesHand() ) {
-                        Media.Messager( this, check[i].LookupName() + " prevents the installation of the hand." );
-                        chkLAHand.setSelected( false );
-                        return;
-                    }
-                }
-            }
-            CurMech.GetActuators().AddLeftHand();
-        } else {
-            CurMech.GetActuators().RemoveLeftHand();
-            // check for the presence of physical weapons and remove them
-            Vector v = CurMech.GetLoadout().GetNonCore();
-            for( int i = 0; i < v.size(); i++ ) {
-                abPlaceable p = (abPlaceable) v.get( i );
-                if( p instanceof PhysicalWeapon ) {
-                    if( ((PhysicalWeapon) p).RequiresHand() ) {
-                        if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_LA ) {
-                            CurMech.GetLoadout().UnallocateAll( p, false );
-                        }
-                    }
-                }
-            }
-        }
-        CheckActuators();
-        RefreshInfoPane();
-    }//GEN-LAST:event_chkLAHandActionPerformed
-
-    private void chkLALowerArmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLALowerArmActionPerformed
-        if( chkLALowerArm.isSelected() == CurMech.GetActuators().LeftLowerInstalled() ) {
-            return;
-        }
-        if( chkLALowerArm.isSelected() ) {
-            // check each crit and ensure we don't have an item that precludes this
-            abPlaceable[] check = CurMech.GetLoadout().GetLACrits();
-            for( int i = 0; i < check.length; i++ ) {
-                if( check[i] instanceof ifWeapon ) {
-                    if( ((ifWeapon) check[i]).OmniRestrictActuators() && CurMech.IsOmnimech() ) {
-                        Media.Messager( this, check[i].LookupName() + " prevents the installation of the lower arm." );
-                        chkLALowerArm.setSelected( false );
-                        return;
-                    }
-                }
-                if( check[i] instanceof PhysicalWeapon ) {
-                    if( ((PhysicalWeapon) check[i]).ReplacesLowerArm() ) {
-                        Media.Messager( this, check[i].LookupName() + " prevents the installation of the lower arm." );
-                        chkLALowerArm.setSelected( false );
-                        return;
-                    }
-                }
-            }
-            CurMech.GetActuators().AddLeftLowerArm();
-        } else {
-            CurMech.GetActuators().RemoveLeftLowerArm();
-            // check for the presence of physical weapons and remove them
-            Vector v = CurMech.GetLoadout().GetNonCore();
-            for( int i = 0; i < v.size(); i++ ) {
-                abPlaceable p = (abPlaceable) v.get( i );
-                if( p instanceof PhysicalWeapon ) {
-                    if( ((PhysicalWeapon) p).RequiresLowerArm() ) {
-                        if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_LA ) {
-                            CurMech.GetLoadout().UnallocateAll( p, false );
-                        }
-                    }
-                }
-            }
-        }
-        CheckActuators();
-        RefreshInfoPane();
-    }//GEN-LAST:event_chkLALowerArmActionPerformed
-
-    private void chkRAHandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRAHandActionPerformed
-        if( chkRAHand.isSelected() == CurMech.GetActuators().RightHandInstalled() ) {
-            return;
-        }
-        if( chkRAHand.isSelected() ) {
-            // check each crit and ensure we don't have an item that precludes this
-            abPlaceable[] check = CurMech.GetLoadout().GetRACrits();
-            for( int i = 0; i < check.length; i++ ) {
-                if( check[i] instanceof ifWeapon ) {
-                    if( ((ifWeapon) check[i]).OmniRestrictActuators() && CurMech.IsOmnimech() ) {
-                        Media.Messager( this, check[i].LookupName() + " prevents the installation of the hand." );
-                        chkRAHand.setSelected( false );
-                        return;
-                    }
-                }
-                if( check[i] instanceof PhysicalWeapon ) {
-                    if( ((PhysicalWeapon) check[i]).ReplacesHand() ) {
-                        Media.Messager( this, check[i].LookupName() + " prevents the installation of the hand." );
-                        chkRAHand.setSelected( false );
-                        return;
-                    }
-                }
-            }
-            CurMech.GetActuators().AddRightHand();
-        } else {
-            CurMech.GetActuators().RemoveRightHand();
-            // check for the presence of physical weapons and remove them
-            Vector v = CurMech.GetLoadout().GetNonCore();
-            for( int i = 0; i < v.size(); i++ ) {
-                abPlaceable p = (abPlaceable) v.get( i );
-                if( p instanceof PhysicalWeapon ) {
-                    if( ((PhysicalWeapon) p).RequiresHand() ) {
-                        if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_RA ) {
-                            CurMech.GetLoadout().UnallocateAll( p, false );
-                        }
-                    }
-                }
-            }
-        }
-        CheckActuators();
-        RefreshInfoPane();
-    }//GEN-LAST:event_chkRAHandActionPerformed
-
-    private void chkRALowerArmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRALowerArmActionPerformed
-        if( chkRALowerArm.isSelected() == CurMech.GetActuators().RightLowerInstalled() ) {
-            return;
-        }
-        if( chkRALowerArm.isSelected() ) {
-            // check each crit and ensure we don't have an item that precludes this
-            abPlaceable[] check = CurMech.GetLoadout().GetRACrits();
-            for( int i = 0; i < check.length; i++ ) {
-                if( check[i] instanceof ifWeapon ) {
-                    if( ((ifWeapon) check[i]).OmniRestrictActuators() && CurMech.IsOmnimech() ) {
-                        Media.Messager( this, check[i].LookupName() + " prevents the installation of the lower arm." );
-                        chkRALowerArm.setSelected( false );
-                        return;
-                    }
-                }
-                if( check[i] instanceof PhysicalWeapon ) {
-                    if( ((PhysicalWeapon) check[i]).ReplacesLowerArm() ) {
-                        Media.Messager( this, check[i].LookupName() + " prevents the installation of the lower arm." );
-                        chkRALowerArm.setSelected( false );
-                        return;
-                    }
-                }
-            }
-            CurMech.GetActuators().AddRightLowerArm();
-        } else {
-            CurMech.GetActuators().RemoveRightLowerArm();
-            // check for the presence of physical weapons and remove them
-            Vector v = CurMech.GetLoadout().GetNonCore();
-            for( int i = 0; i < v.size(); i++ ) {
-                abPlaceable p = (abPlaceable) v.get( i );
-                if( p instanceof PhysicalWeapon ) {
-                    if( ((PhysicalWeapon) p).RequiresLowerArm() ) {
-                        if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_RA ) {
-                            CurMech.GetLoadout().UnallocateAll( p, false );
-                        }
-                    }
-                }
-            }
-        }
-        CheckActuators();
-        RefreshInfoPane();
-    }//GEN-LAST:event_chkRALowerArmActionPerformed
-
-    private void chkCTCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCTCASEActionPerformed
-        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasCTCASE() ) {
-            chkCTCASE.setSelected( true );
-            return;
-        }
-        if( CurMech.HasCTCase() == chkCTCASE.isSelected() ) { return; }
-        if( chkCTCASE.isSelected() ) {
-            try {
-                CurMech.AddCTCase();
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkCTCASE.setSelected( false );
-            }
-        } else {
-            CurMech.RemoveCTCase();
-        }
-        RefreshInfoPane();
-    }//GEN-LAST:event_chkCTCASEActionPerformed
-
-    private void chkRTCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRTCASEActionPerformed
-        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasRTCASE() ) {
-            chkRTCASE.setSelected( true );
-            return;
-        }
-        if( CurMech.HasRTCase() == chkRTCASE.isSelected() ) { return; }
-        if( chkRTCASE.isSelected() ) {
-            try {
-                CurMech.AddRTCase();
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkRTCASE.setSelected( false );
-            }
-        } else {
-            CurMech.RemoveRTCase();
-        }
-        RefreshInfoPane();
-    }//GEN-LAST:event_chkRTCASEActionPerformed
-
-    private void chkLTCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLTCASEActionPerformed
-        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasLTCASE() ) {
-            chkLTCASE.setSelected( true );
-            return;
-        }
-        if( CurMech.HasLTCase() == chkLTCASE.isSelected() ) { return; }
-        if( chkLTCASE.isSelected() ) {
-            try {
-                CurMech.AddLTCase();
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkLTCASE.setSelected( false );
-            }
-        } else {
-            CurMech.RemoveLTCase();
-        }
-        RefreshInfoPane();
-    }//GEN-LAST:event_chkLTCASEActionPerformed
-
-    private void btnRemoveEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveEquipActionPerformed
-        if( lstSelectedEquipment.getSelectedIndex() < 0 ) { return; }
-        int[] selected = lstSelectedEquipment.getSelectedIndices();
-        if( selected.length == 0 ) { return; }
-        // we work in reverse so we can properly manage the items in the queue
-        for( int i = selected.length - 1; i >= 0; i-- ) {
-            // abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( lstSelectedEquipment.getSelectedIndex() );
-            abPlaceable p = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( selected[i] );
-            if( p.LocationLocked() &! ( p instanceof Talons ) ) {
-                Media.Messager( this, "You may not remove a locked item from the loadout." );
-                return;
-            } else {
-                CurMech.GetLoadout().Remove( p );
-            }
-        }
-        // refresh the selected equipment listbox
-        if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
-            Equipment[SELECTED] = new Object[] { " " };
-        } else {
-            Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
-        }
-        lstSelectedEquipment.setListData( Equipment[SELECTED] );
-
-        // Check the targeting computer if needed
-        if( CurMech.UsingTC() ) {
-            CurMech.UnallocateTC();
-        }
-
-        // refresh the ammunition display
-        ResetAmmo();
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_btnRemoveEquipActionPerformed
-
-    private void btnAddEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEquipActionPerformed
-        abPlaceable a = null;
-        int Index = 0;
-        Vector v;
-
-        // figure out which list box to pull from
-        switch( tbpWeaponChooser.getSelectedIndex() ) {
-        case BALLISTIC:
-            if( lstChooseBallistic.getSelectedIndex() < 0 ) { break; }
-            a = (abPlaceable) Equipment[BALLISTIC][lstChooseBallistic.getSelectedIndex()];
-            a = data.GetEquipment().GetCopy( a, CurMech );
-            break;
-        case ENERGY:
-            if( lstChooseEnergy.getSelectedIndex() < 0 ) { break; }
-            a = (abPlaceable) Equipment[ENERGY][lstChooseEnergy.getSelectedIndex()];
-            a = data.GetEquipment().GetCopy( a, CurMech );
-            break;
-        case MISSILE:
-            if( lstChooseMissile.getSelectedIndex() < 0 ) { break; }
-            a = (abPlaceable) Equipment[MISSILE][lstChooseMissile.getSelectedIndex()];
-            a = data.GetEquipment().GetCopy( a, CurMech );
-            if( ((RangedWeapon) a).IsFCSCapable() ) {
-                if( CurMech.UsingArtemisIV() ) {
-                    if( ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisIV || ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisV ) {
-                        ((RangedWeapon) a).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV );
-                    }
-                }
-                if( CurMech.UsingArtemisV() ) {
-                    if( ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisV ) {
-                        ((RangedWeapon) a).UseFCS( true, ifMissileGuidance.FCS_ArtemisV );
-                    }
-                }
-                if( CurMech.UsingApollo() ) {
-                    if( ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_Apollo ) {
-                        ((RangedWeapon) a).UseFCS( true, ifMissileGuidance.FCS_Apollo );
-                    }
-                }
-            }
-            break;
-        case PHYSICAL:
-            if( lstChoosePhysical.getSelectedIndex() < 0 ) { break; }
-            if( ! ( Equipment[PHYSICAL][lstChoosePhysical.getSelectedIndex()] instanceof abPlaceable ) ) {
-                break;
-            }
-            a = (abPlaceable) Equipment[PHYSICAL][lstChoosePhysical.getSelectedIndex()];
-            a = data.GetEquipment().GetCopy( a, CurMech );
-            break;
-        case ARTILLERY:
-            if( lstChooseArtillery.getSelectedIndex() < 0 ) { break; }
-            if( ! ( Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()] instanceof abPlaceable ) ) {
-                break;
-            }
-            a = (abPlaceable) Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()];
-            a = data.GetEquipment().GetCopy( a, CurMech );
-            break;
-        case EQUIPMENT:
-            if( lstChooseEquipment.getSelectedIndex() < 0 ) { break; }
-            if( ! ( Equipment[EQUIPMENT][lstChooseEquipment.getSelectedIndex()] instanceof abPlaceable ) ) {
-                break;
-            }
-            a = (abPlaceable) Equipment[EQUIPMENT][lstChooseEquipment.getSelectedIndex()];
-            a = data.GetEquipment().GetCopy( a, CurMech );
-            break;
-        case AMMUNITION:
-            if( lstChooseAmmunition.getSelectedIndex() < 0 ) { break; }
-            Index = lstChooseAmmunition.getSelectedIndex();
-            if( ! ( Equipment[AMMUNITION][Index] instanceof abPlaceable ) ) {
-                break;
-            }
-            a = (abPlaceable) Equipment[AMMUNITION][Index];
-            a = data.GetEquipment().GetCopy( a, CurMech );
-            break;
-        }
-
-        // check exclusions if needed
-        if( a != null ) {
-            try {
-                CurMech.GetLoadout().CheckExclusions( a );
-                if( a instanceof Equipment ) {
-                    if ( ! ((Equipment) a).Validate( CurMech ) ) {
-                        if( ((Equipment) a).RequiresQuad() ) {
-                            throw new Exception( a.CritName() + " may only be mounted on a quad 'Mech." );
-                        } else if( ((Equipment) a).MaxAllowed() > 0 ) {
-                            throw new Exception( "Only " + ((Equipment) a).MaxAllowed() + " " + a.CritName() + "(s) may be mounted on one 'Mech." );
-                        }
-                    }
-                }
-            } catch( Exception e ) {
-                Media.Messager( e.getMessage() );
-                a = null;
-            }
-        }
-
-        // now we can add it to the 'Mech
-        if( a != null ) {
-            boolean result = true;
-            if( a instanceof Equipment ) {
-                if( ((Equipment) a).IsVariableSize() ) {
-                    dlgVariableSize SetTons = new dlgVariableSize( this, true, (Equipment) a );
-                    SetTons.setLocationRelativeTo( this );
-                    SetTons.setVisible( true );
-                    result = SetTons.GetResult();
-                }
-            }
-            if( result ) {
-                if( a instanceof Talons ) {
-                    if( ! a.Place( CurMech.GetLoadout() ) ) {
-                        Media.Messager( "Talons cannot be added because there is not enough space." );
-                        return;
-                    }
-                } else {
-                    CurMech.GetLoadout().AddToQueue( a );
-                    for( int i = 0; i < cmbNumEquips.getSelectedIndex(); i++ ) {
-                        a = data.GetEquipment().GetCopy( a, CurMech );
-                        CurMech.GetLoadout().AddToQueue( a );
-                    }
-                }
-
-                // unallocate the TC if needed (if the size changes)
-                if( a instanceof ifWeapon ) {
-                    if( ((ifWeapon) a).IsTCCapable() && CurMech.UsingTC() ) {
-                        CurMech.UnallocateTC();
-                    }
-                }
-
-                // see if we need ammunition and add it if applicable
-                ResetAmmo();
-
-                if( a instanceof Ammunition ) {
-                    // added for support if the user selected ammo.  The ResetAmmo()
-                    // method clears the selected index.
-                    lstChooseAmmunition.setSelectedIndex(Index);
-                }
-
-                // refresh the selected equipment listbox
-                if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
-                    Equipment[SELECTED] = new Object[] { " " };
-                } else {
-                    Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
-                }
-                lstSelectedEquipment.setListData( Equipment[SELECTED] );
-            }
-
-            // now refresh the information panes
-            RefreshSummary();
-            RefreshInfoPane();
-            cmbNumEquips.setSelectedIndex( 0 );
-        }
-    }//GEN-LAST:event_btnAddEquipActionPerformed
-
-    private void btnClearEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearEquipActionPerformed
-        CurMech.GetLoadout().SafeClearLoadout();
-
-        // refresh the selected equipment listbox
-        if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
-            Equipment[SELECTED] = new Object[] { " " };
-        } else {
-            Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
-        }
-        lstSelectedEquipment.setListData( Equipment[SELECTED] );
-
-        // Check the targeting computer if needed
-        if( CurMech.UsingTC() ) {
-            CurMech.CheckTC();
-        }
-
-        // refresh the ammunition display
-        ResetAmmo();
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_btnClearEquipActionPerformed
-
-    private void btnClearLoadoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearLoadoutActionPerformed
-        CurMech.GetLoadout().SafeMassUnallocate();
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_btnClearLoadoutActionPerformed
-
-    private void lstChooseMissileValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseMissileValueChanged
-        if( lstChooseMissile.getSelectedIndex() < 0 ) { return; }
-        abPlaceable p = (abPlaceable) Equipment[MISSILE][lstChooseMissile.getSelectedIndex()];
-        ShowInfoOn( p );
-    }//GEN-LAST:event_lstChooseMissileValueChanged
-
-    private void lstChooseEnergyValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseEnergyValueChanged
-        if( lstChooseEnergy.getSelectedIndex() < 0 ) { return; }
-        abPlaceable p = (abPlaceable) Equipment[ENERGY][lstChooseEnergy.getSelectedIndex()];
-        ShowInfoOn( p );
-    }//GEN-LAST:event_lstChooseEnergyValueChanged
-
-    private void lstChooseAmmunitionValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseAmmunitionValueChanged
-        if( lstChooseAmmunition.getSelectedIndex() < 0 ) { return; }
-        if( ! ( Equipment[AMMUNITION][lstChooseAmmunition.getSelectedIndex()] instanceof Ammunition ) ) { return; }
-        abPlaceable p = (abPlaceable) Equipment[AMMUNITION][lstChooseAmmunition.getSelectedIndex()];
-        ShowInfoOn( p );
-    }//GEN-LAST:event_lstChooseAmmunitionValueChanged
-
     private void chkArtemisSRMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkArtemisSRMActionPerformed
     }//GEN-LAST:event_chkArtemisSRMActionPerformed
 
@@ -12106,168 +10252,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void chkArtemisMMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkArtemisMMLActionPerformed
     }//GEN-LAST:event_chkArtemisMMLActionPerformed
 
-    private void lstChooseBallisticValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseBallisticValueChanged
-        if( lstChooseBallistic.getSelectedIndex() < 0 ) { return; }
-        abPlaceable p = (abPlaceable) Equipment[BALLISTIC][lstChooseBallistic.getSelectedIndex()];
-        ShowInfoOn( p );
-    }//GEN-LAST:event_lstChooseBallisticValueChanged
-
-    private void chkUseTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkUseTCActionPerformed
-        if( CurMech.UsingTC() == chkUseTC.isSelected() ) { return; }
-        if( chkUseTC.isSelected() ) {
-            try {
-                CurMech.GetLoadout().CheckExclusions( CurMech.GetTC() );
-                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
-                    dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
-                    tech.setLocationRelativeTo( this );
-                    tech.setVisible( true );
-                    CurMech.UseTC( true, tech.IsClan() );
-                } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
-                    CurMech.UseTC( true, true );
-                } else {
-                    CurMech.UseTC( true, false );
-                }
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                CurMech.UseTC( false, false );
-            }
-        } else {
-            CurMech.UseTC( false, false );
-        }
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_chkUseTCActionPerformed
-
-    private void btnCompactCritsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompactCritsActionPerformed
-        CurMech.GetLoadout().Compact();
-
-        // now we have to refresh the loadout displays.
-        RefreshInfoPane();
-}//GEN-LAST:event_btnCompactCritsActionPerformed
-
-    private void lstChooseEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseEquipmentValueChanged
-        if( lstChooseEquipment.getSelectedIndex() < 0 ) { return; }
-        //if( ! ( Equipment[EQUIPMENT][lstChooseEquipment.getSelectedIndex()] instanceof Equipment ) ) { return; }
-        abPlaceable p = (abPlaceable) Equipment[EQUIPMENT][lstChooseEquipment.getSelectedIndex()];
-        ShowInfoOn( p );
-    }//GEN-LAST:event_lstChooseEquipmentValueChanged
-
     private void mnuSummaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSummaryActionPerformed
         SolidifyMech();
         dlgSummaryInfo Summary = new dlgSummaryInfo( this, true );
         Summary.setLocationRelativeTo( this );
         Summary.setVisible( true );
     }//GEN-LAST:event_mnuSummaryActionPerformed
-
-    private void btnExportMTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportMTFActionPerformed
-        // exports the mech to MTF format for use in Megamek
-
-        String dir = Prefs.get( "MTFExportPath", "none" );
-        if( dir.equals( "none" ) ) {
-            dir = Prefs.get( "LastOpenDirectory", "" );
-        }
-        File savemech = GetSaveFile( "mtf", dir, false, true );
-        if( savemech == null ) {
-            return;
-        }
-
-        String filename = "";
-        MTFWriter mtfw = new MTFWriter( CurMech );
-        try {
-            filename = savemech.getCanonicalPath();
-            mtfw.WriteMTF( filename );
-        } catch( IOException e ) {
-            Media.Messager( this, "There was a problem writing the file:\n" + e.getMessage() );
-            return;
-        }
-
-        // if there were no problems, let the user know how it went
-        Media.Messager( this, "Mech saved successfully to MTF:\n" + filename );
-        setTitle( SSWConstants.AppName + " " + SSWConstants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
-    }//GEN-LAST:event_btnExportMTFActionPerformed
-
-    private void lstChoosePhysicalValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChoosePhysicalValueChanged
-        if( lstChoosePhysical.getSelectedIndex() < 0 ) { return; }
-        if( ! ( Equipment[PHYSICAL][lstChoosePhysical.getSelectedIndex()] instanceof PhysicalWeapon ) ) { return; }
-        abPlaceable p = (abPlaceable) Equipment[PHYSICAL][lstChoosePhysical.getSelectedIndex()];
-        ShowInfoOn( p );
-    }//GEN-LAST:event_lstChoosePhysicalValueChanged
-
-    private void btnExportTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportTXTActionPerformed
-        // exports the mech to TXT format
-        String CurLoadout = "";
-        if( CurMech.IsOmnimech() ) {
-            CurLoadout = CurMech.GetLoadout().GetName();
-        }
-
-        String dir = Prefs.get( "TXTExportPath", "none" );
-        if( dir.equals( "none" ) ) {
-            dir = Prefs.get( "LastOpenDirectory", "" );
-        }
-        File savemech = GetSaveFile( "txt", dir, false, false );
-        if( savemech == null ) {
-            return;
-        }
-
-        String filename = "";
-        TXTWriter txtw = new TXTWriter( CurMech );
-        try {
-            filename = savemech.getCanonicalPath();
-            txtw.WriteTXT( filename );
-        } catch( IOException e ) {
-            Media.Messager( this, "There was a problem writing the file:\n" + e.getMessage() );
-            return;
-        }
-
-        // if there were no problems, let the user know how it went
-        Media.Messager( this, "Mech saved successfully to TXT:\n" + filename );
-
-        // lastly, if this is an omnimech, reset the display to the last loadout
-        if( CurMech.IsOmnimech() ) {
-            cmbOmniVariant.setSelectedItem( CurLoadout );
-            cmbOmniVariantActionPerformed( evt );
-        }
-        setTitle( SSWConstants.AppName + " " + SSWConstants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
-    }//GEN-LAST:event_btnExportTXTActionPerformed
-
-    private void btnExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportHTMLActionPerformed
-        // exports the mech to HTML format
-        String CurLoadout = "";
-        if( CurMech.IsOmnimech() ) {
-            CurLoadout = CurMech.GetLoadout().GetName();
-        }
-
-        String dir = Prefs.get( "HTMLExportPath", "none" );
-        if( dir.equals( "none" ) ) {
-            dir = Prefs.get( "LastOpenDirectory", "" );
-        }
-        File savemech = GetSaveFile( "html", dir, false, false );
-        if( savemech == null ) {
-            return;
-        }
-
-        String filename = "";
-        HTMLWriter HTMw = new HTMLWriter( CurMech );
-        try {
-            filename = savemech.getCanonicalPath();
-            HTMw.WriteHTML( SSWConstants.HTMLTemplateName, filename );
-        } catch( IOException e ) {
-            Media.Messager( this, "There was a problem writing the file:\n" + e.getMessage() );
-            return;
-        }
-
-        // if there were no problems, let the user know how it went
-        Media.Messager( this, "Mech saved successfully to HTML:\n" + filename );
-
-        // lastly, if this is an omnimech, reset the display to the last loadout
-        if( CurMech.IsOmnimech() ) {
-            cmbOmniVariant.setSelectedItem( CurLoadout );
-            cmbOmniVariantActionPerformed( evt );
-        }
-        setTitle( SSWConstants.AppName + " " + SSWConstants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
-    }//GEN-LAST:event_btnExportHTMLActionPerformed
 
     private void mnuAboutSSWActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAboutSSWActionPerformed
         dlgAboutBox about = new dlgAboutBox( this, true );
@@ -12293,142 +10283,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         SetSource = true;
     }//GEN-LAST:event_mnuExportMTFActionPerformed
 
-    private void chkYearRestrictActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkYearRestrictActionPerformed
-        // This locks in the mech's production year, era, and tech base.
-        int year = 0;
-        if( CurMech.IsYearRestricted() == chkYearRestrict.isSelected() ) { return; }
-
-        // if we just unchecked the box, clear all locks and exit.
-        if( ! chkYearRestrict.isSelected() ) {
-            cmbMechEra.setEnabled( true );
-            cmbTechBase.setEnabled( true );
-            txtProdYear.setEnabled( true );
-            CurMech.SetYearRestricted( false );
-            switch( cmbMechEra.getSelectedIndex() ) {
-                case AvailableCode.ERA_STAR_LEAGUE:
-                    CurMech.SetYear( 2750, false );
-                    break;
-                case AvailableCode.ERA_SUCCESSION:
-                    CurMech.SetYear( 3025, false );
-                    break;
-                case AvailableCode.ERA_CLAN_INVASION:
-                    CurMech.SetYear( 3070, false );
-                    break;
-                case AvailableCode.ERA_DARK_AGES:
-                    CurMech.SetYear( 3132, false );
-                    break;
-                case AvailableCode.ERA_ALL:
-                    CurMech.SetYear( 0, false );
-                    break;
-            }
-        } else {
-            // ensure we have a good year.
-            try{
-                year = Integer.parseInt( txtProdYear.getText() ) ;
-            } catch( NumberFormatException n ) {
-                Media.Messager( this, "The production year is not a number." );
-                txtProdYear.setText( "" );
-                chkYearRestrict.setSelected( false );
-                return;
-            }
-
-            // ensure the year is between the era years.
-            switch ( cmbMechEra.getSelectedIndex() ) {
-                case AvailableCode.ERA_STAR_LEAGUE:
-                    // Star League era
-                    if( year < 2443 || year > 2800 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_SUCCESSION:
-                    // Succession Wars era
-                    if( year < 2801 || year > 3050 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_CLAN_INVASION:
-                    // Clan Invasion Era
-                    if( year < 3051 || year > 3131 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_DARK_AGES:
-                    // Clan Invasion Era
-                    if( year < 3132 ) {
-                        Media.Messager( this, "The year does not fall within this era." );
-                        txtProdYear.setText( "" );
-                        chkYearRestrict.setSelected( false );
-                        return;
-                    }
-                    break;
-                case AvailableCode.ERA_ALL:
-                    // all era
-                    chkYearRestrict.setSelected( false );
-                    chkYearRestrict.setEnabled( false );
-            }
-
-            // we know we have a good year, lock it in.
-            cmbMechEra.setEnabled( false );
-            cmbTechBase.setEnabled( false );
-            txtProdYear.setEnabled( false );
-            CurMech.SetYear( year, true );
-            CurMech.SetYearRestricted( true );
-        }
-
-        // get the currently chosen selections
-        SaveSelections();
-
-        // first, refresh all the combo boxes.
-        BuildChassisSelector();
-        BuildEngineSelector();
-        BuildGyroSelector();
-        BuildCockpitSelector();
-        BuildEnhancementSelector();
-        BuildHeatsinkSelector();
-        BuildJumpJetSelector();
-        BuildArmorSelector();
-        RefreshEquipment();
-        CheckOmnimech();
-
-        // now reset the combo boxes to the closest previously selected
-        LoadSelections();
-
-        // now redo the mech based on what happened.
-        RecalcEngine();
-        RecalcGyro();
-        RecalcIntStruc();
-        RecalcCockpit();
-        CurMech.GetActuators().PlaceActuators();
-        RecalcHeatSinks();
-        RecalcJumpJets();
-        RecalcEnhancements();
-        RecalcArmor();
-        RecalcEquipment();
-        //CurMech.GetLoadout().FlushIllegal( cmbMechEra.getSelectedIndex(), year, chkYearRestrict.isSelected() );
-        CurMech.GetLoadout().FlushIllegal();
-
-        // finally, refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-        SetWeaponChoosers();
-        ResetAmmo();
-    }//GEN-LAST:event_chkYearRestrictActionPerformed
-
-    private void cmbJumpJetTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbJumpJetTypeActionPerformed
-        RecalcJumpJets();
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_cmbJumpJetTypeActionPerformed
-
     private void mnuNewMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNewMechActionPerformed
         if( CurMech.HasChanged() ) {
             int choice = javax.swing.JOptionPane.showConfirmDialog( this,
@@ -12438,204 +10292,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         GetNewMech();
         Prefs.put("Currentfile", "");
     }//GEN-LAST:event_mnuNewMechActionPerformed
-
-    private void cmbRulesLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRulesLevelActionPerformed
-        if( Load ) { return; }
-        int NewLevel = cmbRulesLevel.getSelectedIndex();
-        int OldLevel = CurMech.GetLoadout().GetRulesLevel();
-        int OldType = cmbMechType.getSelectedIndex();
-        int OldTech = CurMech.GetTechbase();
-
-        if( OldLevel == NewLevel ) {
-            // we're already at the correct rules level.
-            return;
-        }
-
-        // do we have an OmniMech?
-        if( CurMech.IsOmnimech() ) {
-            // see if we can set to the new rules level.
-            if( CurMech.GetLoadout().SetRulesLevel( NewLevel ) ) {
-                // we can.
-                if( OldLevel > NewLevel ) {
-                    //CurMech.GetLoadout().FlushIllegal( NewLevel, 0, false );
-                    CurMech.GetLoadout().FlushIllegal();
-                }
-                BuildTechBaseSelector();
-                cmbTechBase.setSelectedIndex( CurMech.GetLoadout().GetTechBase() );
-                BuildJumpJetSelector();
-                RefreshEquipment();
-                RecalcEquipment();
-            } else {
-                // can't.  reset to the default rules level and scold the user
-                Media.Messager( this, "You cannot set an OmniMech's loadout to a Rules Level\nlower than it's chassis' Rules Level." );
-                cmbRulesLevel.setSelectedIndex( CurMech.GetLoadout().GetRulesLevel() );
-                return;
-            }
-        } else {
-            CurMech.SetRulesLevel( NewLevel );
-            BuildMechTypeSelector();
-            CheckTonnage( true );
-
-            // get the currently chosen selections
-            SaveSelections();
-            BuildTechBaseSelector();
-            if( OldTech >= cmbTechBase.getItemCount() ) {
-                // ooooh fun, we can't set it correctly.
-                switch( OldTech ) {
-                    case AvailableCode.TECH_INNER_SPHERE:
-                        // WTF???
-                        System.err.println( "Fatal Error when reseting techbase, Inner Sphere not available." );
-                        break;
-                    default:
-                        // set it to Inner Sphere
-                        cmbTechBase.setSelectedIndex( 0 );
-                        cmbTechBaseActionPerformed( null );
-                        break;
-                }
-            }
-
-            // since you can only ever change the rules level when not restricted,
-            // we're not doing it here.  Pass in default values.
-            //CurMech.GetLoadout().FlushIllegal( CurMech.GetEra(), 0, false );
-            CurMech.GetLoadout().FlushIllegal();
-
-            // refresh all the combo boxes.
-            BuildChassisSelector();
-            BuildEngineSelector();
-            BuildGyroSelector();
-            BuildCockpitSelector();
-            BuildEnhancementSelector();
-            BuildHeatsinkSelector();
-            BuildJumpJetSelector();
-            BuildArmorSelector();
-            FixWalkMPSpinner();
-            FixJJSpinnerModel();
-            RefreshEquipment();
-
-            // now reset the combo boxes to the closest choices we previously selected
-            LoadSelections();
-
-            RecalcEngine();
-            RecalcGyro();
-            RecalcIntStruc();
-            RecalcCockpit();
-            CurMech.GetActuators().PlaceActuators();
-            RecalcHeatSinks();
-            RecalcJumpJets();
-            RecalcEnhancements();
-            RecalcArmor();
-            RecalcEquipment();
-        }
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-        SetWeaponChoosers();
-        ResetAmmo();
-    }//GEN-LAST:event_cmbRulesLevelActionPerformed
-
-    private void btnLockChassisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLockChassisActionPerformed
-        // currently testing right now.
-        SaveOmniFluffInfo();
-        String VariantName = "";
-
-        // ensure there are no unplaced crits
-        if( CurMech.GetLoadout().GetQueue().size() != 0 ) {
-            Media.Messager( this, "You must place all items first." );
-            tbpMainTabPane.setSelectedComponent( pnlCriticals );
-            return;
-        }
-
-        int choice = javax.swing.JOptionPane.showConfirmDialog( this,
-            "Are you sure you want to lock the chassis?\nAll items in the base " +
-            "loadout will be locked in location\nand most chassis specifications " +
-            "will be locked.", "Lock Chassis?", javax.swing.JOptionPane.YES_NO_OPTION );
-        if( choice == 1 ) {
-            return;
-        } else {
-            // ask for a name for the first variant
-            dlgOmniBase input = new dlgOmniBase( this, true );
-            input.setTitle( "Name the first variant" );
-            input.setLocationRelativeTo( this );
-            input.setVisible( true );
-            if( input.WasCanceled() ) {
-                input.dispose();
-                return;
-            } else {
-                VariantName = input.GetInput();
-                input.dispose();
-            }
-        }
-
-        // ensure we're not using the base loadout's name.
-        if( common.Constants.BASELOADOUT_NAME.equals( VariantName ) ) {
-            Media.Messager( this, "\"" + VariantName + "\" is reserved for the base loadout and cannot be used\nfor a new loadout.  Please choose another name." );
-            return;
-        }
-
-        // make it an omni
-        CurMech.SetOmnimech( VariantName );
-        chkOmnimech.setEnabled( false );
-        FixTransferHandlers();
-        SetLoadoutArrays();
-        FixJJSpinnerModel();
-        FixHeatSinkSpinnerModel();
-        LockGUIForOmni();
-        RefreshOmniVariants();
-        RefreshOmniChoices();
-        SolidifyJJManufacturer();
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_btnLockChassisActionPerformed
-
-    private void chkOmnimechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkOmnimechActionPerformed
-        if( chkOmnimech.isSelected() ) {
-            btnLockChassis.setEnabled( true );
-        } else {
-            btnLockChassis.setEnabled( false );
-        }
-    }//GEN-LAST:event_chkOmnimechActionPerformed
-
-    private void btnAddVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddVariantActionPerformed
-        SaveOmniFluffInfo();
-        String VariantName = "";
-
-        // get the variant name
-        dlgOmniBase input = new dlgOmniBase( this, true );
-        input.setTitle( "Name this variant" );
-        input.setLocationRelativeTo( this );
-        input.setVisible( true );
-        if( input.WasCanceled() ) {
-            input.dispose();
-            return;
-        } else {
-            VariantName = input.GetInput();
-            input.dispose();
-        }
-
-        // now set the new loadout as the current
-        try {
-            CurMech.AddLoadout( VariantName );
-        } catch( Exception e ) {
-            // found an error when adding the loadout
-            Media.Messager( this, e.getMessage() );
-            return;
-        }
-
-        // fix the GUI
-        LoadOmniFluffInfo();
-        FixTransferHandlers();
-        SetLoadoutArrays();
-        SetWeaponChoosers();
-        BuildJumpJetSelector();
-        FixJJSpinnerModel();
-        FixHeatSinkSpinnerModel();
-        RefreshOmniVariants();
-        RefreshOmniChoices();
-        SolidifyJJManufacturer();
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_btnAddVariantActionPerformed
 
     private void mnuOpenActionPerformed(java.awt.event.ActionEvent evt) {                                        
         //dlgOpen dOpen = new dlgOpen(this, true);
@@ -12650,37 +10306,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         dOpen.setSize( 1024, 600 );
         dOpen.setVisible(true);
     }
-
-    private void btnDeleteVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteVariantActionPerformed
-        // see if the user actually wants to delete the variant
-        int choice = javax.swing.JOptionPane.showConfirmDialog( this,
-            "Are you sure you want to delete this variant?", "Delete Variant?", javax.swing.JOptionPane.YES_NO_OPTION );
-        if( choice == 1 ) {
-            return;
-        } else {
-            if( CurMech.GetLoadout().GetName().equals( common.Constants.BASELOADOUT_NAME ) ) {
-                Media.Messager( this, "You cannot remove the base chassis." );
-                return;
-            }
-        }
-
-        // delete the variant
-        CurMech.RemoveLoadout( CurMech.GetLoadout().GetName() );
-
-        // refresh all the displays
-        LoadOmniFluffInfo();
-        RefreshOmniVariants();
-        FixTransferHandlers();
-        SetLoadoutArrays();
-        SetWeaponChoosers();
-        BuildJumpJetSelector();
-        FixJJSpinnerModel();
-        FixHeatSinkSpinnerModel();
-        RefreshOmniChoices();
-        SolidifyJJManufacturer();
-        RefreshSummary();
-        RefreshInfoPane();
-    }//GEN-LAST:event_btnDeleteVariantActionPerformed
 
     private void cmbOmniVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOmniVariantActionPerformed
         SaveOmniFluffInfo();
@@ -12890,62 +10515,12 @@ private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     setCursor( NormalCursor );
 }//GEN-LAST:event_mnuSaveAsActionPerformed
 
-private void lstSelectedEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstSelectedEquipmentValueChanged
-        if( lstSelectedEquipment.getSelectedIndex() < 0 ) { return; }
-        abPlaceable p;
-        try {
-            p = (abPlaceable) CurMech.GetLoadout().GetNonCore().get( lstSelectedEquipment.getSelectedIndex() );
-        } catch( Exception e ) {
-            return;
-        }
-        ShowInfoOn( p );
-}//GEN-LAST:event_lstSelectedEquipmentValueChanged
-
-private void btnSelectiveAllocateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectiveAllocateActionPerformed
-        SelectiveAllocate();
-}//GEN-LAST:event_btnSelectiveAllocateActionPerformed
-
-private void btnAutoAllocateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoAllocateActionPerformed
-        AutoAllocate();
-}//GEN-LAST:event_btnAutoAllocateActionPerformed
-
-private void lstCritsToPlaceValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstCritsToPlaceValueChanged
-        int Index = lstCritsToPlace.getSelectedIndex();
-        if( Index < 0 ) {
-            btnAutoAllocate.setEnabled( false );
-            btnSelectiveAllocate.setEnabled( false );
-            btnRemoveItemCrits.setEnabled( false );
-            return;
-        }
-        CurItem = CurMech.GetLoadout().GetFromQueueByIndex( Index );
-        if( CurItem.Contiguous() ) {
-            btnAutoAllocate.setEnabled( false );
-            btnSelectiveAllocate.setEnabled( false );
-            if( ! CurItem.CoreComponent() ) {
-                btnRemoveItemCrits.setEnabled( true );
-            } else {
-                btnRemoveItemCrits.setEnabled( false );
-            }
-        } else {
-            btnAutoAllocate.setEnabled( true );
-            btnSelectiveAllocate.setEnabled( true );
-            btnRemoveItemCrits.setEnabled( false );
-        }
-}//GEN-LAST:event_lstCritsToPlaceValueChanged
-
 private void mnuCostBVBreakdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCostBVBreakdownActionPerformed
     SolidifyMech();
     dlgCostBVBreakdown costbv = new dlgCostBVBreakdown( this, true, CurMech );
     costbv.setLocationRelativeTo( this );
     costbv.setVisible( true );
 }//GEN-LAST:event_mnuCostBVBreakdownActionPerformed
-
-private void lstChooseArtilleryValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseArtilleryValueChanged
-        if( lstChooseArtillery.getSelectedIndex() < 0 ) { return; }
-        if( ( ! ( Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()] instanceof RangedWeapon ) && ( ! ( Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()] instanceof VehicularGrenadeLauncher ) ) ) ) { return; }
-        abPlaceable p = (abPlaceable) Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()];
-        ShowInfoOn( p );
-}//GEN-LAST:event_lstChooseArtilleryValueChanged
 
 private void mnuPrintCurrentMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintCurrentMechActionPerformed
     // Solidify the mech first.
@@ -12961,209 +10536,6 @@ private void mnuPrintSavedMechActionPerformed(java.awt.event.ActionEvent evt) {/
     if (!(m==null))
         PrintMech(m);
 }//GEN-LAST:event_mnuPrintSavedMechActionPerformed
-
-private void btnEfficientArmorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfficientArmorActionPerformed
-    // this routine does an "efficient" armor allocation.  It will find the max
-    // armor, then find the wasted tonnage and remove it if it's enough to
-    // warrant that.  If the wasted AV is greater than 3 points, the extra half-
-    // ton is removed.
-    int MaxArmor = (int) ( CurMech.GetArmor().GetMaxArmor() );
-    int MaxLessArmor = (int) ( ( CurMech.GetArmor().GetMaxTonnage() - 0.5f ) * 16 * CurMech.GetArmor().GetAVMult() );
-
-    if( MaxArmor - MaxLessArmor > ( 5 * CurMech.GetArmor().GetAVMult() ) ) {
-        // use the full amount
-        ArmorTons.SetArmorTonnage( CurMech.GetArmor().GetMaxTonnage() );
-    } else {
-        // use the lesser amount
-        ArmorTons.SetArmorTonnage( CurMech.GetArmor().GetMaxTonnage() - 0.5f );
-    }
-
-   // ArmorTons.SetArmorTonnage( result );
-    try {
-        CurMech.Visit( ArmorTons );
-    } catch( Exception e ) {
-        // this should never throw an exception, but log it anyway
-        System.err.println( e.getMessage() );
-        e.printStackTrace();
-    }
-
-    // if we fix the spinner models, they should refresh the screen
-    FixArmorSpinners();
-
-    // of course, we'll also have to set the head spinner manually.
-    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnHDArmor.getModel();
-    n.setValue( (Object) CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_HD ) );
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-}//GEN-LAST:event_btnEfficientArmorActionPerformed
-
-private void chkNullSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkNullSigActionPerformed
-    // is the system already installed?
-    if( chkNullSig.isSelected() == CurMech.HasNullSig() ) { return; }
-    try {
-        if( chkNullSig.isSelected() ) {
-            CurMech.SetNullSig( true );
-        } else {
-            CurMech.SetNullSig( false );
-        }
-    } catch( Exception e ) {
-        Media.Messager( this, e.getMessage() );
-        // ensure it's not checked when it shouldn't be
-        chkNullSig.setSelected( CurMech.HasNullSig() );
-        return;
-    }
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-}//GEN-LAST:event_chkNullSigActionPerformed
-
-private void chkCLPSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCLPSActionPerformed
-    // is the system already installed?
-    if( chkCLPS.isSelected() == CurMech.HasChameleon() ) { return; }
-    try {
-        if( chkCLPS.isSelected() ) {
-            CurMech.SetChameleon( true );
-        } else {
-            CurMech.SetChameleon( false );
-        }
-    } catch( Exception e ) {
-        Media.Messager( this, e.getMessage() );
-        // ensure it's not checked when it shouldn't be
-        chkCLPS.setSelected( CurMech.HasChameleon() );
-        return;
-    }
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-}//GEN-LAST:event_chkCLPSActionPerformed
-
-private void chkBSPFDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBSPFDActionPerformed
-    // is the system already installed?
-    if( chkBSPFD.isSelected() == CurMech.HasBlueShield() ) { return; }
-    try {
-        if( chkBSPFD.isSelected() ) {
-            CurMech.SetBlueShield( true );
-        } else {
-            CurMech.SetBlueShield( false );
-        }
-    } catch( Exception e ) {
-        Media.Messager( this, e.getMessage() );
-        // ensure it's not checked when it shouldn't be
-        chkBSPFD.setSelected( CurMech.HasBlueShield() );
-        return;
-    }
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-}//GEN-LAST:event_chkBSPFDActionPerformed
-
-private void chkVoidSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkVoidSigActionPerformed
-    // is the system already installed?
-    if( chkVoidSig.isSelected() == CurMech.HasVoidSig() ) { return; }
-    try {
-        if( chkVoidSig.isSelected() ) {
-            CurMech.SetVoidSig( true );
-            if( ! AddECM() ) {
-                CurMech.SetVoidSig( false );
-                throw new Exception( "No ECM Suite was available to support the Void Signature System!\nUninstalling system." );
-            }
-        } else {
-            CurMech.SetVoidSig( false );
-        }
-    } catch( Exception e ) {
-        Media.Messager( this, e.getMessage() );
-        // ensure it's not checked when it shouldn't be
-        chkVoidSig.setSelected( CurMech.HasVoidSig() );
-        return;
-    }
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-}//GEN-LAST:event_chkVoidSigActionPerformed
-
-private void btnRemainingArmorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemainingArmorActionPerformed
-        // see if we have a good number
-    double freetons = CurMech.GetTonnage() - CurMech.GetCurrentTons() + CurMech.GetArmor().GetTonnage();
-
-    if( freetons > CurMech.GetArmor().GetMaxTonnage() ) {
-        freetons = CurMech.GetArmor().GetMaxTonnage();
-    }
-
-    ArmorTons.SetArmorTonnage( freetons );
-    try {
-        CurMech.Visit( ArmorTons );
-    } catch( Exception e ) {
-        // this should never throw an exception, but log it anyway
-        System.err.println( e.getMessage() );
-        e.printStackTrace();
-    }
-
-    // if we fix the spinner models, they should refresh the screen
-    FixArmorSpinners();
-
-    // of course, we'll also have to set the head spinner manually.
-    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnHDArmor.getModel();
-    n.setValue( (Object) CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_HD ) );
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-}//GEN-LAST:event_btnRemainingArmorActionPerformed
-
-private void cmbSCLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSCLocActionPerformed
-    int curLoc = CurMech.GetLoadout().Find( CurMech.GetLoadout().GetSupercharger() );
-    int DesiredLoc = FileCommon.DecodeLocation( (String) cmbSCLoc.getSelectedItem() );
-    if( curLoc == DesiredLoc ) { return; }
-    if( CurMech.GetLoadout().HasSupercharger() ) {
-        try {
-            CurMech.GetLoadout().SetSupercharger( true, DesiredLoc, -1 );
-        } catch( Exception e ) {
-            Media.Messager( this, e.getMessage() );
-            chkSupercharger.setSelected( false );
-            // now refresh the information panes
-            RefreshSummary();
-            RefreshInfoPane();
-            return;
-        }
-    }
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-}//GEN-LAST:event_cmbSCLocActionPerformed
-
-private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSuperchargerActionPerformed
-    if( CurMech.GetLoadout().HasSupercharger() == chkSupercharger.isSelected() ) {
-        return;
-    }
-    try {
-        CurMech.GetLoadout().SetSupercharger( chkSupercharger.isSelected(), FileCommon.DecodeLocation( (String) cmbSCLoc.getSelectedItem() ), -1 );
-    } catch( Exception e ) {
-        Media.Messager( this, e.getMessage() );
-        try {
-            CurMech.GetLoadout().SetSupercharger( false , 0, -1 );
-        } catch( Exception x ) {
-            // how the hell did we get an error removing it?
-            Media.Messager( this, x.getMessage() );
-            // now refresh the information panes
-            RefreshSummary();
-            RefreshInfoPane();
-        }
-        chkSupercharger.setSelected( false );
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-        return;
-    }
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-}//GEN-LAST:event_chkSuperchargerActionPerformed
 
 public Mech LoadMech (){
     Mech m = null;
@@ -13511,290 +10883,6 @@ private void btnPostToS7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     mnuPostS7ActionPerformed(evt);
 }//GEN-LAST:event_btnPostToS7ActionPerformed
 
-private void btnRemoveItemCritsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveItemCritsActionPerformed
-    int Index = lstCritsToPlace.getSelectedIndex();
-    if( Index < 0 ) {
-        btnAutoAllocate.setEnabled( false );
-        btnSelectiveAllocate.setEnabled( false );
-        btnRemoveItemCrits.setEnabled( false );
-        return;
-    }
-    CurItem = CurMech.GetLoadout().GetFromQueueByIndex( Index );
-    RemoveItemCritTab();
-}//GEN-LAST:event_btnRemoveItemCritsActionPerformed
-
-private void chkCTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCTCASE2ActionPerformed
-        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasCTCASEII() ) {
-            chkCTCASE2.setSelected( true );
-            return;
-        }
-        if( CurMech.GetLoadout().HasCTCASEII() == chkCTCASE2.isSelected() ) { return; }
-        if( chkCTCASE2.isSelected() ) {
-            try {
-                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
-                    dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
-                    tech.setLocationRelativeTo( this );
-                    tech.setVisible( true );
-                    CurMech.GetLoadout().SetCTCASEII( true, -1, tech.IsClan() );
-                } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
-                    CurMech.GetLoadout().SetCTCASEII( true, -1, true );
-                } else {
-                    CurMech.GetLoadout().SetCTCASEII( true, -1, false );
-                }
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkCTCASE2.setSelected( false );
-            }
-        } else {
-            try {
-                CurMech.GetLoadout().SetCTCASEII( false, -1, false );
-            } catch( Exception e ) {
-                // removing CASE II should never return an exception.  log it.
-                System.err.println( "Received an error removing CT CASE II:" );
-                System.err.println( e.getStackTrace() );
-            }
-        }
-        RefreshInfoPane();
-}//GEN-LAST:event_chkCTCASE2ActionPerformed
-
-private void chkRACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRACASE2ActionPerformed
-        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasRACASEII() ) {
-            chkRACASE2.setSelected( true );
-            return;
-        }
-        if( CurMech.GetLoadout().HasRACASEII() == chkRACASE2.isSelected() ) { return; }
-        if( chkRACASE2.isSelected() ) {
-            try {
-                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
-                    dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
-                    tech.setLocationRelativeTo( this );
-                    tech.setVisible( true );
-                    CurMech.GetLoadout().SetRACASEII( true, -1, tech.IsClan() );
-                } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
-                    CurMech.GetLoadout().SetRACASEII( true, -1, true );
-                } else {
-                    CurMech.GetLoadout().SetRACASEII( true, -1, false );
-                }
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkRACASE2.setSelected( false );
-            }
-        } else {
-            try {
-                CurMech.GetLoadout().SetRACASEII( false, -1, false );
-            } catch( Exception e ) {
-                // removing CASE II should never return an exception.  log it.
-                System.err.println( "Received an error removing RA CASE II:" );
-                System.err.println( e.getStackTrace() );
-            }
-        }
-        RefreshInfoPane();
-}//GEN-LAST:event_chkRACASE2ActionPerformed
-
-private void chkRTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRTCASE2ActionPerformed
-        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasRTCASEII() ) {
-            chkRTCASE2.setSelected( true );
-            return;
-        }
-        if( CurMech.GetLoadout().HasRTCASEII() == chkRTCASE2.isSelected() ) { return; }
-        if( chkRTCASE2.isSelected() ) {
-            try {
-                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
-                    dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
-                    tech.setLocationRelativeTo( this );
-                    tech.setVisible( true );
-                    CurMech.GetLoadout().SetRTCASEII( true, -1, tech.IsClan() );
-                } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
-                    CurMech.GetLoadout().SetRTCASEII( true, -1, true );
-                } else {
-                    CurMech.GetLoadout().SetRTCASEII( true, -1, false );
-                }
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkRTCASE2.setSelected( false );
-            }
-        } else {
-            try {
-                CurMech.GetLoadout().SetRTCASEII( false, -1, false );
-            } catch( Exception e ) {
-                // removing CASE II should never return an exception.  log it.
-                System.err.println( "Received an error removing RT CASE II:" );
-                System.err.println( e.getStackTrace() );
-            }
-        }
-        RefreshInfoPane();
-}//GEN-LAST:event_chkRTCASE2ActionPerformed
-
-private void chkRLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRLCASE2ActionPerformed
-        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasRLCASEII() ) {
-            chkRLCASE2.setSelected( true );
-            return;
-        }
-        if( CurMech.GetLoadout().HasRLCASEII() == chkRLCASE2.isSelected() ) { return; }
-        if( chkRLCASE2.isSelected() ) {
-            try {
-                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
-                    dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
-                    tech.setLocationRelativeTo( this );
-                    tech.setVisible( true );
-                    CurMech.GetLoadout().SetRLCASEII( true, -1, tech.IsClan() );
-                } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
-                    CurMech.GetLoadout().SetRLCASEII( true, -1, true );
-                } else {
-                    CurMech.GetLoadout().SetRLCASEII( true, -1, false );
-                }
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkRLCASE2.setSelected( false );
-            }
-        } else {
-            try {
-                CurMech.GetLoadout().SetRLCASEII( false, -1, false );
-            } catch( Exception e ) {
-                // removing CASE II should never return an exception.  log it.
-                System.err.println( "Received an error removing RL CASE II:" );
-                System.err.println( e.getStackTrace() );
-            }
-        }
-        RefreshInfoPane();
-}//GEN-LAST:event_chkRLCASE2ActionPerformed
-
-private void chkHDCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkHDCASE2ActionPerformed
-        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasHDCASEII() ) {
-            chkHDCASE2.setSelected( true );
-            return;
-        }
-        if( CurMech.GetLoadout().HasHDCASEII() == chkHDCASE2.isSelected() ) { return; }
-        if( chkHDCASE2.isSelected() ) {
-            try {
-                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
-                    dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
-                    tech.setLocationRelativeTo( this );
-                    tech.setVisible( true );
-                    CurMech.GetLoadout().SetHDCASEII( true, -1, tech.IsClan() );
-                } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
-                    CurMech.GetLoadout().SetHDCASEII( true, -1, true );
-                } else {
-                    CurMech.GetLoadout().SetHDCASEII( true, -1, false );
-                }
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkHDCASE2.setSelected( false );
-            }
-        } else {
-            try {
-                CurMech.GetLoadout().SetHDCASEII( false, -1, false );
-            } catch( Exception e ) {
-                // removing CASE II should never return an exception.  log it.
-                System.err.println( "Received an error removing HD CASE II:" );
-                System.err.println( e.getStackTrace() );
-            }
-        }
-        RefreshInfoPane();
-}//GEN-LAST:event_chkHDCASE2ActionPerformed
-
-private void chkLTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLTCASE2ActionPerformed
-        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasLTCASEII() ) {
-            chkLTCASE2.setSelected( true );
-            return;
-        }
-        if( CurMech.GetLoadout().HasLTCASEII() == chkLTCASE2.isSelected() ) { return; }
-        if( chkLTCASE2.isSelected() ) {
-            try {
-                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
-                    dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
-                    tech.setLocationRelativeTo( this );
-                    tech.setVisible( true );
-                    CurMech.GetLoadout().SetLTCASEII( true, -1, tech.IsClan() );
-                } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
-                    CurMech.GetLoadout().SetLTCASEII( true, -1, true );
-                } else {
-                    CurMech.GetLoadout().SetLTCASEII( true, -1, false );
-                }
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkLTCASE2.setSelected( false );
-            }
-        } else {
-            try {
-                CurMech.GetLoadout().SetLTCASEII( false, -1, false );
-            } catch( Exception e ) {
-                // removing CASE II should never return an exception.  log it.
-                System.err.println( "Received an error removing LT CASE II:" );
-                System.err.println( e.getStackTrace() );
-            }
-        }
-        RefreshInfoPane();
-}//GEN-LAST:event_chkLTCASE2ActionPerformed
-
-private void chkLLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLLCASE2ActionPerformed
-        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasLLCASEII() ) {
-            chkLLCASE2.setSelected( true );
-            return;
-        }
-        if( CurMech.GetLoadout().HasLLCASEII() == chkLLCASE2.isSelected() ) { return; }
-        if( chkLLCASE2.isSelected() ) {
-            try {
-                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
-                    dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
-                    tech.setLocationRelativeTo( this );
-                    tech.setVisible( true );
-                    CurMech.GetLoadout().SetLLCASEII( true, -1, tech.IsClan() );
-                } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
-                    CurMech.GetLoadout().SetLLCASEII( true, -1, true );
-                } else {
-                    CurMech.GetLoadout().SetLLCASEII( true, -1, false );
-                }
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkLLCASE2.setSelected( false );
-            }
-        } else {
-            try {
-                CurMech.GetLoadout().SetLLCASEII( false, -1, false );
-            } catch( Exception e ) {
-                // removing CASE II should never return an exception.  log it.
-                System.err.println( "Received an error removing LL CASE II:" );
-                System.err.println( e.getStackTrace() );
-            }
-        }
-        RefreshInfoPane();
-}//GEN-LAST:event_chkLLCASE2ActionPerformed
-
-private void chkLACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLACASE2ActionPerformed
-        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasLACASEII() ) {
-            chkLACASE2.setSelected( true );
-            return;
-        }
-        if( CurMech.GetLoadout().HasLACASEII() == chkLACASE2.isSelected() ) { return; }
-        if( chkLACASE2.isSelected() ) {
-            try {
-                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
-                    dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
-                    tech.setLocationRelativeTo( this );
-                    tech.setVisible( true );
-                    CurMech.GetLoadout().SetLACASEII( true, -1, tech.IsClan() );
-                } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
-                    CurMech.GetLoadout().SetLACASEII( true, -1, true );
-                } else {
-                    CurMech.GetLoadout().SetLACASEII( true, -1, false );
-                }
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkLACASE2.setSelected( false );
-            }
-        } else {
-            try {
-                CurMech.GetLoadout().SetLACASEII( false, -1, false );
-            } catch( Exception e ) {
-                // removing CASE II should never return an exception.  log it.
-                System.err.println( "Received an error removing LA CASE II:" );
-                System.err.println( e.getStackTrace() );
-            }
-        }
-        RefreshInfoPane();
-}//GEN-LAST:event_chkLACASE2ActionPerformed
-
 private void mnuFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFileActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_mnuFileActionPerformed
@@ -13804,123 +10892,6 @@ private void mnuPrintBatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     BatchWindow.setLocationRelativeTo( this );
     BatchWindow.setVisible( true );
 }//GEN-LAST:event_mnuPrintBatchActionPerformed
-
-private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMechTypeActionPerformed
-    switch( cmbMechType.getSelectedIndex() ) {
-        case 0:
-            if( ! CurMech.IsIndustrialmech() &! CurMech.IsPrimitive() ) { return; }
-            CurMech.SetModern();
-            CurMech.SetBattlemech();
-            break;
-        case 1:
-            if( CurMech.IsIndustrialmech() &! CurMech.IsPrimitive() ) { return; }
-            CurMech.SetModern();
-            CurMech.SetIndustrialmech();
-            break;
-        case 2:
-            if( ! CurMech.IsIndustrialmech() && CurMech.IsPrimitive() ) { return; }
-            CurMech.SetPrimitive();
-            CurMech.SetBattlemech();
-            break;
-        case 3:
-            if( CurMech.IsIndustrialmech() && CurMech.IsPrimitive() ) { return; }
-            CurMech.SetPrimitive();
-            CurMech.SetIndustrialmech();
-            break;
-    }
-
-    // check the tonnage
-        CheckTonnage( false );
-
-        // set the loadout arrays
-        SetLoadoutArrays();
-
-        // fix the armor spinners
-        FixArmorSpinners();
-
-        // refresh all the combo boxes.
-        SaveSelections();
-        BuildChassisSelector();
-        BuildEngineSelector();
-        BuildGyroSelector();
-        BuildCockpitSelector();
-        BuildEnhancementSelector();
-        BuildHeatsinkSelector();
-        BuildJumpJetSelector();
-        BuildArmorSelector();
-        RefreshEquipment();
-        CheckOmnimech();
-
-        // now reset the combo boxes to the closest choices we previously selected
-        LoadSelections();
-
-        RecalcEngine();
-        FixWalkMPSpinner();
-        FixJJSpinnerModel();
-        RecalcGyro();
-        RecalcIntStruc();
-        RecalcCockpit();
-        CurMech.GetActuators().PlaceActuators();
-        RecalcHeatSinks();
-        RecalcJumpJets();
-        RecalcEnhancements();
-        RecalcArmor();
-        RecalcEquipment();
-
-        // since you can only ever change the era when not restricted, we're not
-        // doing it here.  Pass in default values.
-        CurMech.GetLoadout().FlushIllegal();
-        //CurMech.GetLoadout().FlushIllegal( cmbMechEra.getSelectedIndex(), 0, false );
-
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-        SetWeaponChoosers();
-        ResetAmmo();
-}//GEN-LAST:event_cmbMechTypeActionPerformed
-
-private void chkEnviroSealingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEnviroSealingActionPerformed
-    // is the system already installed?
-    if( chkEnviroSealing.isSelected() == CurMech.HasEnviroSealing() ) { return; }
-    try {
-        if( chkEnviroSealing.isSelected() ) {
-            CurMech.SetEnviroSealing( true );
-        } else {
-            CurMech.SetEnviroSealing( false );
-        }
-    } catch( Exception e ) {
-        Media.Messager( this, e.getMessage() );
-        // ensure it's not checked when it shouldn't be
-        chkEnviroSealing.setSelected( CurMech.HasEnviroSealing() );
-        return;
-    }
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-
-}//GEN-LAST:event_chkEnviroSealingActionPerformed
-
-private void chkEjectionSeatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEjectionSeatActionPerformed
-    if( chkEjectionSeat.isSelected() == CurMech.HasEjectionSeat() ) { return; }
-    try {
-        if( chkEjectionSeat.isSelected() ) {
-            CurMech.SetEjectionSeat( true );
-        } else {
-            CurMech.SetEjectionSeat( false );
-        }
-    } catch( Exception e ) {
-        // ensure it's not checked when it shouldn't be
-        chkEjectionSeat.setSelected( CurMech.HasEjectionSeat() );
-        Media.Messager( this, e.getMessage() );
-        return;
-    }
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-
-}//GEN-LAST:event_chkEjectionSeatActionPerformed
 
 private void mnuPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintPreviewActionPerformed
     Printer printer = new Printer(this);
@@ -13939,91 +10910,9 @@ private void btnPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//G
     mnuPrintPreviewActionPerformed(evt);
 }//GEN-LAST:event_btnPrintPreviewActionPerformed
 
-private void chkLegAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLegAESActionPerformed
-    if( chkLegAES.isSelected() == CurMech.HasLegAES() ) { return; }
-    try {
-        if( chkLegAES.isSelected() ) {
-            CurMech.SetLegAES( true, null );
-        } else {
-            CurMech.SetLegAES( false, null );
-        }
-    } catch( Exception e ) {
-        // ensure it's not checked when it shouldn't be
-        chkLegAES.setSelected( CurMech.HasLegAES() );
-        Media.Messager( this, e.getMessage() );
-        return;
-    }
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-}//GEN-LAST:event_chkLegAESActionPerformed
-
-private void chkLAAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLAAESActionPerformed
-    if( chkLAAES.isSelected() == CurMech.HasLAAES() ) { return; }
-    try {
-        if( chkLAAES.isSelected() ) {
-            CurMech.SetLAAES( true, -1 );
-        } else {
-            CurMech.SetLAAES( false, -1 );
-        }
-    } catch( Exception e ) {
-        // ensure it's not checked when it shouldn't be
-        chkLAAES.setSelected( CurMech.HasLAAES() );
-        Media.Messager( this, e.getMessage() );
-        return;
-    }
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-}//GEN-LAST:event_chkLAAESActionPerformed
-
-private void chkRAAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRAAESActionPerformed
-    if( chkRAAES.isSelected() == CurMech.HasRAAES() ) { return; }
-    try {
-        if( chkRAAES.isSelected() ) {
-            CurMech.SetRAAES( true, -1 );
-        } else {
-            CurMech.SetRAAES( false, -1 );
-        }
-    } catch( Exception e ) {
-        // ensure it's not checked when it shouldn't be
-        chkRAAES.setSelected( CurMech.HasRAAES() );
-        Media.Messager( this, e.getMessage() );
-        return;
-    }
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-}//GEN-LAST:event_chkRAAESActionPerformed
-
 private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
     CloseProgram();
 }//GEN-LAST:event_formWindowClosing
-
-private void chkTracksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkTracksActionPerformed
-    // is the system already installed?
-    if( chkTracks.isSelected() == CurMech.HasTracks() ) { return; }
-    try {
-        if( chkTracks.isSelected() ) {
-            CurMech.SetTracks( true );
-        } else {
-            CurMech.SetTracks( false );
-        }
-    } catch( Exception e ) {
-        Media.Messager( this, e.getMessage() );
-        // ensure it's not checked when it shouldn't be
-        chkTracks.setSelected( CurMech.HasTracks() );
-        return;
-    }
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-
-}//GEN-LAST:event_chkTracksActionPerformed
 
 private void btnForceListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForceListActionPerformed
     dForce.setLocationRelativeTo(this);
@@ -14037,6 +10926,7 @@ private void btnAddToForceListActionPerformed(java.awt.event.ActionEvent evt) {/
     if (VerifyMech(evt)) {
         dForce.Add(CurMech, Prefs.get("Currentfile", ""));
     }
+    CurMech.SetCurLoadout( (String) cmbOmniVariant.getSelectedItem() );
     SetSource = true;
 }//GEN-LAST:event_btnAddToForceListActionPerformed
 
@@ -14058,117 +10948,6 @@ private void mnuTextTROActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     CurMech.SetCurLoadout( (String) cmbOmniVariant.getSelectedItem() );
     SetSource = true;
 }//GEN-LAST:event_mnuTextTROActionPerformed
-
-private void chkChartFrontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkChartFrontActionPerformed
-    UpdateBasicChart();
-}//GEN-LAST:event_chkChartFrontActionPerformed
-
-private void chkChartRearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkChartRearActionPerformed
-    UpdateBasicChart();
-}//GEN-LAST:event_chkChartRearActionPerformed
-
-private void chkChartRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkChartRightActionPerformed
-    UpdateBasicChart();
-}//GEN-LAST:event_chkChartRightActionPerformed
-
-private void chkChartLeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkChartLeftActionPerformed
-    UpdateBasicChart();
-}//GEN-LAST:event_chkChartLeftActionPerformed
-
-private void chkCommandConsoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCommandConsoleActionPerformed
-    if( chkCommandConsole.isSelected() == CurMech.HasCommandConsole() ) { return; }
-    if( chkCommandConsole.isSelected() ) {
-        if( ! CurMech.SetCommandConsole( true ) ) {
-            Media.Messager( this, "Command Console cannot be allocated." );
-            chkCommandConsole.setSelected( false );
-        }
-    } else {
-        CurMech.SetCommandConsole( false );
-    }
-
-    // now refresh the information panes
-    RefreshEquipment();
-    RefreshSummary();
-    RefreshInfoPane();
-}//GEN-LAST:event_chkCommandConsoleActionPerformed
-
-private void chkFCSAIVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFCSAIVActionPerformed
-        if( CurMech.UsingArtemisIV() == chkFCSAIV.isSelected() ) { return; }
-        if( chkFCSAIV.isSelected() ) {
-            try {
-                CurMech.SetFCSArtemisIV( true );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkFCSAIV.setSelected( false );
-            }
-        } else {
-            try {
-                CurMech.SetFCSArtemisIV( false );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkFCSAIV.setSelected( true );
-            }
-        }
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-}//GEN-LAST:event_chkFCSAIVActionPerformed
-
-private void chkFCSAVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFCSAVActionPerformed
-        if( CurMech.UsingArtemisV() == chkFCSAV.isSelected() ) { return; }
-        if( chkFCSAV.isSelected() ) {
-            try {
-                CurMech.SetFCSArtemisV( true );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkFCSAV.setSelected( false );
-            }
-        } else {
-            try {
-                CurMech.SetFCSArtemisV( false );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkFCSAV.setSelected( true );
-            }
-        }
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-}//GEN-LAST:event_chkFCSAVActionPerformed
-
-private void chkFCSApolloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFCSApolloActionPerformed
-        if( CurMech.UsingApollo() == chkFCSApollo.isSelected() ) { return; }
-        if( chkFCSApollo.isSelected() ) {
-            try {
-                CurMech.SetFCSApollo( true );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkFCSApollo.setSelected( false );
-            }
-        } else {
-            try {
-                CurMech.SetFCSApollo( false );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkFCSApollo.setSelected( true );
-            }
-        }
-        // now refresh the information panes
-        RefreshSummary();
-        RefreshInfoPane();
-}//GEN-LAST:event_chkFCSApolloActionPerformed
-
-private void chkClanCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkClanCASEActionPerformed
-    CurMech.GetLoadout().SetClanCASE( chkClanCASE.isSelected() );
-    RefreshSummary();
-    RefreshInfoPane();
-}//GEN-LAST:event_chkClanCASEActionPerformed
-
-private void lstSelectedEquipmentKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstSelectedEquipmentKeyPressed
-    if ( evt.getKeyCode() == KeyEvent.VK_DELETE ) {
-        btnRemoveEquipActionPerformed(new ActionEvent(evt.getSource(), evt.getID(), null));
-    }
-}//GEN-LAST:event_lstSelectedEquipmentKeyPressed
 
 private void mnuImportHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuImportHMPActionPerformed
     if( CurMech.HasChanged() ) {
@@ -14252,6 +11031,2156 @@ private void btnChatInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     clipboard.setContents( export, this );
 }//GEN-LAST:event_btnChatInfoActionPerformed
 
+private void mnuUnlockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuUnlockActionPerformed
+        int choice = javax.swing.JOptionPane.showConfirmDialog( this,
+            "Are you sure you want to unlock the chassis?\nAll omnimech loadouts" +
+            " will be deleted\nand the 'Mech will revert to its base loadout.",
+            "Unlock Chassis?", javax.swing.JOptionPane.YES_NO_OPTION );
+        if( choice == 1 ) {
+            return;
+        }
+
+        // make it an omni
+        CurMech.UnlockChassis();
+        FixTransferHandlers();
+        SetLoadoutArrays();
+        FixJJSpinnerModel();
+        FixHeatSinkSpinnerModel();
+        LoadMechIntoGUI();
+}//GEN-LAST:event_mnuUnlockActionPerformed
+
+private void mnuBatchHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBatchHMPActionPerformed
+    dlgBatchHMP batch = new dlgBatchHMP( this, true );
+    batch.setLocationRelativeTo( this );
+    batch.setVisible( true );
+}//GEN-LAST:event_mnuBatchHMPActionPerformed
+
+private void mnuBFBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBFBActionPerformed
+    String[] call = { "java", "-Xmx256m", "-jar", "bfb.jar" };
+    try {
+        Runtime.getRuntime().exec(call);
+    } catch (Exception ex) {
+        Media.Messager("Error while trying to open BFB\n" + ex.getMessage());
+        System.out.println(ex.getMessage());
+    }
+}//GEN-LAST:event_mnuBFBActionPerformed
+
+private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    Overview.StartNewDocument();
+    Capabilities.StartNewDocument();
+    History.StartNewDocument();
+    Deployment.StartNewDocument();
+    Variants.StartNewDocument();
+    Notables.StartNewDocument();
+    Additional.StartNewDocument();
+    txtManufacturer.setText( "" );
+    txtManufacturerLocation.setText( "" );
+    txtEngineManufacturer.setText( "" );
+    txtArmorModel.setText( "" );
+    txtChassisModel.setText( "" );
+    txtJJModel.setText( "" );
+    txtCommSystem.setText( "" );
+    txtTNTSystem.setText( "" );
+}//GEN-LAST:event_jMenuItem1ActionPerformed
+
+private void chkShowTextNotGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkShowTextNotGraphActionPerformed
+    UpdateBasicChart();
+}//GEN-LAST:event_chkShowTextNotGraphActionPerformed
+
+private void chkAverageDamageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAverageDamageActionPerformed
+    UpdateBasicChart();
+}//GEN-LAST:event_chkAverageDamageActionPerformed
+
+private void btnBracketChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBracketChartActionPerformed
+    dlgBracketCharts charts = new dlgBracketCharts( this, true, CurMech );
+    charts.setLocationRelativeTo( this );
+    charts.setVisible( true );
+}//GEN-LAST:event_btnBracketChartActionPerformed
+
+private void chkChartLeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkChartLeftActionPerformed
+    UpdateBasicChart();
+}//GEN-LAST:event_chkChartLeftActionPerformed
+
+private void chkChartRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkChartRightActionPerformed
+    UpdateBasicChart();
+}//GEN-LAST:event_chkChartRightActionPerformed
+
+private void chkChartRearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkChartRearActionPerformed
+    UpdateBasicChart();
+}//GEN-LAST:event_chkChartRearActionPerformed
+
+private void chkChartFrontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkChartFrontActionPerformed
+    UpdateBasicChart();
+}//GEN-LAST:event_chkChartFrontActionPerformed
+
+private void btnExportMTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportMTFActionPerformed
+    // exports the mech to MTF format for use in Megamek
+
+    String dir = Prefs.get( "MTFExportPath", "none" );
+    if( dir.equals( "none" ) ) {
+        dir = Prefs.get( "LastOpenDirectory", "" );
+    }
+    File savemech = GetSaveFile( "mtf", dir, false, true );
+    if( savemech == null ) {
+        return;
+    }
+
+    String filename = "";
+    MTFWriter mtfw = new MTFWriter( CurMech );
+    try {
+        filename = savemech.getCanonicalPath();
+        mtfw.WriteMTF( filename );
+    } catch( IOException e ) {
+        Media.Messager( this, "There was a problem writing the file:\n" + e.getMessage() );
+        return;
+    }
+
+    // if there were no problems, let the user know how it went
+    Media.Messager( this, "Mech saved successfully to MTF:\n" + filename );
+    setTitle( SSWConstants.AppName + " " + SSWConstants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
+}//GEN-LAST:event_btnExportMTFActionPerformed
+
+private void btnExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportHTMLActionPerformed
+    // exports the mech to HTML format
+    String CurLoadout = "";
+    if( CurMech.IsOmnimech() ) {
+        CurLoadout = CurMech.GetLoadout().GetName();
+    }
+
+    String dir = Prefs.get( "HTMLExportPath", "none" );
+    if( dir.equals( "none" ) ) {
+        dir = Prefs.get( "LastOpenDirectory", "" );
+    }
+    File savemech = GetSaveFile( "html", dir, false, false );
+    if( savemech == null ) {
+        return;
+    }
+
+    String filename = "";
+    HTMLWriter HTMw = new HTMLWriter( CurMech );
+    try {
+        filename = savemech.getCanonicalPath();
+        HTMw.WriteHTML( SSWConstants.HTMLTemplateName, filename );
+    } catch( IOException e ) {
+        Media.Messager( this, "There was a problem writing the file:\n" + e.getMessage() );
+        return;
+    }
+
+    // if there were no problems, let the user know how it went
+    Media.Messager( this, "Mech saved successfully to HTML:\n" + filename );
+
+    // lastly, if this is an omnimech, reset the display to the last loadout
+    if( CurMech.IsOmnimech() ) {
+        cmbOmniVariant.setSelectedItem( CurLoadout );
+        cmbOmniVariantActionPerformed( evt );
+    }
+    setTitle( SSWConstants.AppName + " " + SSWConstants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
+}//GEN-LAST:event_btnExportHTMLActionPerformed
+
+private void btnExportTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportTXTActionPerformed
+    // exports the mech to TXT format
+    String CurLoadout = "";
+    if( CurMech.IsOmnimech() ) {
+        CurLoadout = CurMech.GetLoadout().GetName();
+    }
+
+    String dir = Prefs.get( "TXTExportPath", "none" );
+    if( dir.equals( "none" ) ) {
+        dir = Prefs.get( "LastOpenDirectory", "" );
+    }
+    File savemech = GetSaveFile( "txt", dir, false, false );
+    if( savemech == null ) {
+        return;
+    }
+
+    String filename = "";
+    TXTWriter txtw = new TXTWriter( CurMech );
+    try {
+        filename = savemech.getCanonicalPath();
+        txtw.WriteTXT( filename );
+    } catch( IOException e ) {
+        Media.Messager( this, "There was a problem writing the file:\n" + e.getMessage() );
+        return;
+    }
+
+    // if there were no problems, let the user know how it went
+    Media.Messager( this, "Mech saved successfully to TXT:\n" + filename );
+
+    // lastly, if this is an omnimech, reset the display to the last loadout
+    if( CurMech.IsOmnimech() ) {
+        cmbOmniVariant.setSelectedItem( CurLoadout );
+        cmbOmniVariantActionPerformed( evt );
+    }
+    setTitle( SSWConstants.AppName + " " + SSWConstants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
+}//GEN-LAST:event_btnExportTXTActionPerformed
+
+private void btnClearImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearImageActionPerformed
+    // Set the fluff image to default
+    lblFluffImage.setIcon( null );
+    CurMech.SetSSWImage("");
+}//GEN-LAST:event_btnClearImageActionPerformed
+
+private void btnLoadImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadImageActionPerformed
+    // Opens a file chooser for the user, then resizes the chosen image to
+    // fit in the fluff label and adds it
+    JFileChooser fc = new JFileChooser();
+
+    // get the current image in case we cancel
+    ImageIcon newFluffImage = (ImageIcon) lblFluffImage.getIcon();
+
+    //Add a custom file filter and disable the default
+    //(Accept All) file filter.
+    fc.addChoosableFileFilter(new ImageFilter());
+    fc.setAcceptAllFileFilterUsed(false);
+    if (! Prefs.get("LastImagePath", "").isEmpty() ) {
+        fc.setCurrentDirectory(new File(Prefs.get("LastImagePath", "")));
+    }
+
+    //Add custom icons for file types.
+    //ImageFileView IFV = new ImageFileView();
+    //fc.setFileView( IFV );
+
+    //Add the preview pane.
+    fc.setAccessory(new ImagePreview(fc));
+
+    //Show it.
+    int returnVal = fc.showDialog( this, "Attach");
+
+    //Process the results.  If no file is chosen, the default is used.
+    if (returnVal == JFileChooser.APPROVE_OPTION) {
+        try {
+            Prefs.put("LastImagePath", fc.getSelectedFile().getCanonicalPath().replace(fc.getSelectedFile().getName(), ""));
+            Prefs.put("LastImageFile", fc.getSelectedFile().getName());
+
+            newFluffImage = new ImageIcon(fc.getSelectedFile().getPath());
+
+            if( newFluffImage == null ) { return; }
+            // See if we need to scale
+            int h = newFluffImage.getIconHeight();
+            int w = newFluffImage.getIconWidth();
+            if ( w > 290 || h > 350 ) {
+                if ( w > h ) { // resize based on width
+                    newFluffImage = new ImageIcon(newFluffImage.getImage().
+                            getScaledInstance(290, -1, Image.SCALE_DEFAULT));
+                } else { // resize based on height
+                    newFluffImage = new ImageIcon(newFluffImage.getImage().
+                            getScaledInstance(-1, 350, Image.SCALE_DEFAULT));
+                }
+            }
+        } catch (Exception e) {
+            //break;
+        }
+    } else {
+        //
+    }
+
+    // add the image to the fluff image label
+    lblFluffImage.setIcon( newFluffImage );
+    CurMech.SetSSWImage( fc.getSelectedFile().getPath() );
+}//GEN-LAST:event_btnLoadImageActionPerformed
+
+private void chkLegAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLegAESActionPerformed
+    if( chkLegAES.isSelected() == CurMech.HasLegAES() ) { return; }
+    try {
+        if( chkLegAES.isSelected() ) {
+            CurMech.SetLegAES( true, null );
+        } else {
+            CurMech.SetLegAES( false, null );
+        }
+    } catch( Exception e ) {
+        // ensure it's not checked when it shouldn't be
+        chkLegAES.setSelected( CurMech.HasLegAES() );
+        Media.Messager( this, e.getMessage() );
+        return;
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkLegAESActionPerformed
+
+private void btnSelectiveAllocateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectiveAllocateActionPerformed
+    SelectiveAllocate();
+}//GEN-LAST:event_btnSelectiveAllocateActionPerformed
+
+private void btnAutoAllocateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoAllocateActionPerformed
+    AutoAllocate();
+}//GEN-LAST:event_btnAutoAllocateActionPerformed
+
+private void btnClearLoadoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearLoadoutActionPerformed
+    CurMech.GetLoadout().SafeMassUnallocate();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_btnClearLoadoutActionPerformed
+
+private void btnCompactCritsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompactCritsActionPerformed
+    CurMech.GetLoadout().Compact();
+
+    // now we have to refresh the loadout displays.
+    RefreshInfoPane();
+}//GEN-LAST:event_btnCompactCritsActionPerformed
+
+private void btnRemoveItemCritsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveItemCritsActionPerformed
+    int Index = lstCritsToPlace.getSelectedIndex();
+    if( Index < 0 ) {
+        btnAutoAllocate.setEnabled( false );
+        btnSelectiveAllocate.setEnabled( false );
+        btnRemoveItemCrits.setEnabled( false );
+        return;
+    }
+    CurItem = CurMech.GetLoadout().GetFromQueueByIndex( Index );
+    RemoveItemCritTab();
+}//GEN-LAST:event_btnRemoveItemCritsActionPerformed
+
+private void lstCritsToPlaceValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstCritsToPlaceValueChanged
+    int Index = lstCritsToPlace.getSelectedIndex();
+    if( Index < 0 ) {
+        btnAutoAllocate.setEnabled( false );
+        btnSelectiveAllocate.setEnabled( false );
+        btnRemoveItemCrits.setEnabled( false );
+        return;
+    }
+    CurItem = CurMech.GetLoadout().GetFromQueueByIndex( Index );
+    ShowInfoOn( CurItem );
+    if( CurItem.Contiguous() ) {
+        btnAutoAllocate.setEnabled( false );
+        btnSelectiveAllocate.setEnabled( false );
+        if( ! CurItem.CoreComponent() ) {
+            btnRemoveItemCrits.setEnabled( true );
+        } else {
+            btnRemoveItemCrits.setEnabled( false );
+        }
+    } else {
+        btnAutoAllocate.setEnabled( true );
+        btnSelectiveAllocate.setEnabled( true );
+        btnRemoveItemCrits.setEnabled( false );
+    }
+}//GEN-LAST:event_lstCritsToPlaceValueChanged
+
+private void chkRLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRLCASE2ActionPerformed
+    if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasRLCASEII() ) {
+        chkRLCASE2.setSelected( true );
+        return;
+    }
+    if( CurMech.GetLoadout().HasRLCASEII() == chkRLCASE2.isSelected() ) { return; }
+    if( chkRLCASE2.isSelected() ) {
+        try {
+            if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
+                dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
+                tech.setLocationRelativeTo( this );
+                tech.setVisible( true );
+                CurMech.GetLoadout().SetRLCASEII( true, -1, tech.IsClan() );
+            } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
+                CurMech.GetLoadout().SetRLCASEII( true, -1, true );
+            } else {
+                CurMech.GetLoadout().SetRLCASEII( true, -1, false );
+            }
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkRLCASE2.setSelected( false );
+        }
+    } else {
+        try {
+            CurMech.GetLoadout().SetRLCASEII( false, -1, false );
+        } catch( Exception e ) {
+            // removing CASE II should never return an exception.  log it.
+            System.err.println( "Received an error removing RL CASE II:" );
+            System.err.println( e.getStackTrace() );
+        }
+    }
+    RefreshInfoPane();
+}//GEN-LAST:event_chkRLCASE2ActionPerformed
+
+private void chkLLCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLLCASE2ActionPerformed
+    if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasLLCASEII() ) {
+        chkLLCASE2.setSelected( true );
+        return;
+    }
+    if( CurMech.GetLoadout().HasLLCASEII() == chkLLCASE2.isSelected() ) { return; }
+    if( chkLLCASE2.isSelected() ) {
+        try {
+            if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
+                dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
+                tech.setLocationRelativeTo( this );
+                tech.setVisible( true );
+                CurMech.GetLoadout().SetLLCASEII( true, -1, tech.IsClan() );
+            } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
+                CurMech.GetLoadout().SetLLCASEII( true, -1, true );
+            } else {
+                CurMech.GetLoadout().SetLLCASEII( true, -1, false );
+            }
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkLLCASE2.setSelected( false );
+        }
+    } else {
+        try {
+            CurMech.GetLoadout().SetLLCASEII( false, -1, false );
+        } catch( Exception e ) {
+            // removing CASE II should never return an exception.  log it.
+            System.err.println( "Received an error removing LL CASE II:" );
+            System.err.println( e.getStackTrace() );
+        }
+    }
+    RefreshInfoPane();
+}//GEN-LAST:event_chkLLCASE2ActionPerformed
+
+private void chkRAAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRAAESActionPerformed
+    if( chkRAAES.isSelected() == CurMech.HasRAAES() ) { return; }
+    try {
+        if( chkRAAES.isSelected() ) {
+            CurMech.SetRAAES( true, -1 );
+        } else {
+            CurMech.SetRAAES( false, -1 );
+        }
+    } catch( Exception e ) {
+        // ensure it's not checked when it shouldn't be
+        chkRAAES.setSelected( CurMech.HasRAAES() );
+        Media.Messager( this, e.getMessage() );
+        return;
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkRAAESActionPerformed
+
+private void chkRACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRACASE2ActionPerformed
+    if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasRACASEII() ) {
+        chkRACASE2.setSelected( true );
+        return;
+    }
+    if( CurMech.GetLoadout().HasRACASEII() == chkRACASE2.isSelected() ) { return; }
+    if( chkRACASE2.isSelected() ) {
+        try {
+            if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
+                dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
+                tech.setLocationRelativeTo( this );
+                tech.setVisible( true );
+                CurMech.GetLoadout().SetRACASEII( true, -1, tech.IsClan() );
+            } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
+                CurMech.GetLoadout().SetRACASEII( true, -1, true );
+            } else {
+                CurMech.GetLoadout().SetRACASEII( true, -1, false );
+            }
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkRACASE2.setSelected( false );
+        }
+    } else {
+        try {
+            CurMech.GetLoadout().SetRACASEII( false, -1, false );
+        } catch( Exception e ) {
+            // removing CASE II should never return an exception.  log it.
+            System.err.println( "Received an error removing RA CASE II:" );
+            System.err.println( e.getStackTrace() );
+        }
+    }
+    RefreshInfoPane();
+}//GEN-LAST:event_chkRACASE2ActionPerformed
+
+private void chkRAHandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRAHandActionPerformed
+    if( chkRAHand.isSelected() == CurMech.GetActuators().RightHandInstalled() ) {
+        return;
+    }
+    if( chkRAHand.isSelected() ) {
+        // check each crit and ensure we don't have an item that precludes this
+        abPlaceable[] check = CurMech.GetLoadout().GetRACrits();
+        for( int i = 0; i < check.length; i++ ) {
+            if( check[i] instanceof ifWeapon ) {
+                if( ((ifWeapon) check[i]).OmniRestrictActuators() && CurMech.IsOmnimech() ) {
+                    Media.Messager( this, check[i].LookupName() + " prevents the installation of the hand." );
+                    chkRAHand.setSelected( false );
+                    return;
+                }
+            }
+            if( check[i] instanceof PhysicalWeapon ) {
+                if( ((PhysicalWeapon) check[i]).ReplacesHand() ) {
+                    Media.Messager( this, check[i].LookupName() + " prevents the installation of the hand." );
+                    chkRAHand.setSelected( false );
+                    return;
+                }
+            }
+        }
+        CurMech.GetActuators().AddRightHand();
+    } else {
+        CurMech.GetActuators().RemoveRightHand();
+        // check for the presence of physical weapons and remove them
+        Vector v = CurMech.GetLoadout().GetNonCore();
+        for( int i = 0; i < v.size(); i++ ) {
+            abPlaceable p = (abPlaceable) v.get( i );
+            if( p instanceof PhysicalWeapon ) {
+                if( ((PhysicalWeapon) p).RequiresHand() ) {
+                    if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_RA ) {
+                        CurMech.GetLoadout().UnallocateAll( p, false );
+                    }
+                }
+            }
+        }
+    }
+    CheckActuators();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkRAHandActionPerformed
+
+private void chkRALowerArmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRALowerArmActionPerformed
+    if( chkRALowerArm.isSelected() == CurMech.GetActuators().RightLowerInstalled() ) {
+        return;
+    }
+    if( chkRALowerArm.isSelected() ) {
+        // check each crit and ensure we don't have an item that precludes this
+        abPlaceable[] check = CurMech.GetLoadout().GetRACrits();
+        for( int i = 0; i < check.length; i++ ) {
+            if( check[i] instanceof ifWeapon ) {
+                if( ((ifWeapon) check[i]).OmniRestrictActuators() && CurMech.IsOmnimech() ) {
+                    Media.Messager( this, check[i].LookupName() + " prevents the installation of the lower arm." );
+                    chkRALowerArm.setSelected( false );
+                    return;
+                }
+            }
+            if( check[i] instanceof PhysicalWeapon ) {
+                if( ((PhysicalWeapon) check[i]).ReplacesLowerArm() ) {
+                    Media.Messager( this, check[i].LookupName() + " prevents the installation of the lower arm." );
+                    chkRALowerArm.setSelected( false );
+                    return;
+                }
+            }
+        }
+        CurMech.GetActuators().AddRightLowerArm();
+    } else {
+        CurMech.GetActuators().RemoveRightLowerArm();
+        // check for the presence of physical weapons and remove them
+        Vector v = CurMech.GetLoadout().GetNonCore();
+        for( int i = 0; i < v.size(); i++ ) {
+            abPlaceable p = (abPlaceable) v.get( i );
+            if( p instanceof PhysicalWeapon ) {
+                if( ((PhysicalWeapon) p).RequiresLowerArm() ) {
+                    if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_RA ) {
+                        CurMech.GetLoadout().UnallocateAll( p, false );
+                    }
+                }
+            }
+        }
+    }
+    CheckActuators();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkRALowerArmActionPerformed
+
+private void chkLAAESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLAAESActionPerformed
+    if( chkLAAES.isSelected() == CurMech.HasLAAES() ) { return; }
+    try {
+        if( chkLAAES.isSelected() ) {
+            CurMech.SetLAAES( true, -1 );
+        } else {
+            CurMech.SetLAAES( false, -1 );
+        }
+    } catch( Exception e ) {
+        // ensure it's not checked when it shouldn't be
+        chkLAAES.setSelected( CurMech.HasLAAES() );
+        Media.Messager( this, e.getMessage() );
+        return;
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkLAAESActionPerformed
+
+private void chkLACASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLACASE2ActionPerformed
+    if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasLACASEII() ) {
+        chkLACASE2.setSelected( true );
+        return;
+    }
+    if( CurMech.GetLoadout().HasLACASEII() == chkLACASE2.isSelected() ) { return; }
+    if( chkLACASE2.isSelected() ) {
+        try {
+            if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
+                dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
+                tech.setLocationRelativeTo( this );
+                tech.setVisible( true );
+                CurMech.GetLoadout().SetLACASEII( true, -1, tech.IsClan() );
+            } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
+                CurMech.GetLoadout().SetLACASEII( true, -1, true );
+            } else {
+                CurMech.GetLoadout().SetLACASEII( true, -1, false );
+            }
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkLACASE2.setSelected( false );
+        }
+    } else {
+        try {
+            CurMech.GetLoadout().SetLACASEII( false, -1, false );
+        } catch( Exception e ) {
+            // removing CASE II should never return an exception.  log it.
+            System.err.println( "Received an error removing LA CASE II:" );
+            System.err.println( e.getStackTrace() );
+        }
+    }
+    RefreshInfoPane();
+}//GEN-LAST:event_chkLACASE2ActionPerformed
+
+private void chkLAHandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLAHandActionPerformed
+    if( chkLAHand.isSelected() == CurMech.GetActuators().LeftHandInstalled() ) {
+        return;
+    }
+    if( chkLAHand.isSelected() ) {
+        // check each crit and ensure we don't have an item that precludes this
+        abPlaceable[] check = CurMech.GetLoadout().GetLACrits();
+        for( int i = 0; i < check.length; i++ ) {
+            if( check[i] instanceof ifWeapon ) {
+                if( ((ifWeapon) check[i]).OmniRestrictActuators() && CurMech.IsOmnimech() ) {
+                    Media.Messager( this, check[i].LookupName() + " prevents the installation of the hand." );
+                    chkLAHand.setSelected( false );
+                    return;
+                }
+            }
+            if( check[i] instanceof PhysicalWeapon ) {
+                if( ((PhysicalWeapon) check[i]).ReplacesHand() ) {
+                    Media.Messager( this, check[i].LookupName() + " prevents the installation of the hand." );
+                    chkLAHand.setSelected( false );
+                    return;
+                }
+            }
+        }
+        CurMech.GetActuators().AddLeftHand();
+    } else {
+        CurMech.GetActuators().RemoveLeftHand();
+        // check for the presence of physical weapons and remove them
+        Vector v = CurMech.GetLoadout().GetNonCore();
+        for( int i = 0; i < v.size(); i++ ) {
+            abPlaceable p = (abPlaceable) v.get( i );
+            if( p instanceof PhysicalWeapon ) {
+                if( ((PhysicalWeapon) p).RequiresHand() ) {
+                    if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_LA ) {
+                        CurMech.GetLoadout().UnallocateAll( p, false );
+                    }
+                }
+            }
+        }
+    }
+    CheckActuators();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkLAHandActionPerformed
+
+private void chkLALowerArmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLALowerArmActionPerformed
+    if( chkLALowerArm.isSelected() == CurMech.GetActuators().LeftLowerInstalled() ) {
+        return;
+    }
+    if( chkLALowerArm.isSelected() ) {
+        // check each crit and ensure we don't have an item that precludes this
+        abPlaceable[] check = CurMech.GetLoadout().GetLACrits();
+        for( int i = 0; i < check.length; i++ ) {
+            if( check[i] instanceof ifWeapon ) {
+                if( ((ifWeapon) check[i]).OmniRestrictActuators() && CurMech.IsOmnimech() ) {
+                    Media.Messager( this, check[i].LookupName() + " prevents the installation of the lower arm." );
+                    chkLALowerArm.setSelected( false );
+                    return;
+                }
+            }
+            if( check[i] instanceof PhysicalWeapon ) {
+                if( ((PhysicalWeapon) check[i]).ReplacesLowerArm() ) {
+                    Media.Messager( this, check[i].LookupName() + " prevents the installation of the lower arm." );
+                    chkLALowerArm.setSelected( false );
+                    return;
+                }
+            }
+        }
+        CurMech.GetActuators().AddLeftLowerArm();
+    } else {
+        CurMech.GetActuators().RemoveLeftLowerArm();
+        // check for the presence of physical weapons and remove them
+        Vector v = CurMech.GetLoadout().GetNonCore();
+        for( int i = 0; i < v.size(); i++ ) {
+            abPlaceable p = (abPlaceable) v.get( i );
+            if( p instanceof PhysicalWeapon ) {
+                if( ((PhysicalWeapon) p).RequiresLowerArm() ) {
+                    if( CurMech.GetLoadout().Find( p ) == LocationIndex.MECH_LOC_LA ) {
+                        CurMech.GetLoadout().UnallocateAll( p, false );
+                    }
+                }
+            }
+        }
+    }
+    CheckActuators();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkLALowerArmActionPerformed
+
+private void chkRTTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRTTurretActionPerformed
+    if( CurMech.IsOmnimech() ) {
+        if( CurMech.GetBaseLoadout().GetRTTurret() == CurMech.GetLoadout().GetRTTurret() ) {
+            chkRTTurret.setSelected( true );
+            return;
+        }
+    }
+    if( CurMech.GetLoadout().HasRTTurret() == chkRTTurret.isSelected() ) { return; }
+    if( chkRTTurret.isSelected() ) {
+        try {
+            CurMech.GetLoadout().SetRTTurret( true, -1 );
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkRTTurret.setSelected( false );
+        }
+    } else {
+        try {
+            CurMech.GetLoadout().SetRTTurret( false, -1 );
+        } catch( Exception e ) {
+            Media.Messager( "Fatal error attempting to remove turret.\nGetting a new 'Mech, sorry..." );
+        }
+    }
+    CheckEquipment();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkRTTurretActionPerformed
+
+private void chkRTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRTCASE2ActionPerformed
+    if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasRTCASEII() ) {
+        chkRTCASE2.setSelected( true );
+        return;
+    }
+    if( CurMech.GetLoadout().HasRTCASEII() == chkRTCASE2.isSelected() ) { return; }
+    if( chkRTCASE2.isSelected() ) {
+        try {
+            if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
+                dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
+                tech.setLocationRelativeTo( this );
+                tech.setVisible( true );
+                CurMech.GetLoadout().SetRTCASEII( true, -1, tech.IsClan() );
+            } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
+                CurMech.GetLoadout().SetRTCASEII( true, -1, true );
+            } else {
+                CurMech.GetLoadout().SetRTCASEII( true, -1, false );
+            }
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkRTCASE2.setSelected( false );
+        }
+    } else {
+        try {
+            CurMech.GetLoadout().SetRTCASEII( false, -1, false );
+        } catch( Exception e ) {
+            // removing CASE II should never return an exception.  log it.
+            System.err.println( "Received an error removing RT CASE II:" );
+            System.err.println( e.getStackTrace() );
+        }
+    }
+    RefreshInfoPane();
+}//GEN-LAST:event_chkRTCASE2ActionPerformed
+
+private void chkRTCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRTCASEActionPerformed
+    if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasRTCASE() ) {
+        chkRTCASE.setSelected( true );
+        return;
+    }
+    if( CurMech.HasRTCase() == chkRTCASE.isSelected() ) { return; }
+    if( chkRTCASE.isSelected() ) {
+        try {
+            CurMech.AddRTCase();
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkRTCASE.setSelected( false );
+        }
+    } else {
+        CurMech.RemoveRTCase();
+    }
+    RefreshInfoPane();
+}//GEN-LAST:event_chkRTCASEActionPerformed
+
+private void chkLTTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLTTurretActionPerformed
+    if( CurMech.IsOmnimech() ) {
+        if( CurMech.GetBaseLoadout().GetLTTurret() == CurMech.GetLoadout().GetLTTurret() ) {
+            chkLTTurret.setSelected( true );
+            return;
+        }
+    }
+    if( CurMech.GetLoadout().HasLTTurret() == chkLTTurret.isSelected() ) { return; }
+    if( chkLTTurret.isSelected() ) {
+        try {
+            CurMech.GetLoadout().SetLTTurret( true, -1 );
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkLTTurret.setSelected( false );
+        }
+    } else {
+        try {
+            CurMech.GetLoadout().SetLTTurret( false, -1 );
+        } catch( Exception e ) {
+            Media.Messager( "Fatal error attempting to remove turret.\nGetting a new 'Mech, sorry..." );
+        }
+    }
+    CheckEquipment();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkLTTurretActionPerformed
+
+private void chkLTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLTCASE2ActionPerformed
+    if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasLTCASEII() ) {
+        chkLTCASE2.setSelected( true );
+        return;
+    }
+    if( CurMech.GetLoadout().HasLTCASEII() == chkLTCASE2.isSelected() ) { return; }
+    if( chkLTCASE2.isSelected() ) {
+        try {
+            if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
+                dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
+                tech.setLocationRelativeTo( this );
+                tech.setVisible( true );
+                CurMech.GetLoadout().SetLTCASEII( true, -1, tech.IsClan() );
+            } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
+                CurMech.GetLoadout().SetLTCASEII( true, -1, true );
+            } else {
+                CurMech.GetLoadout().SetLTCASEII( true, -1, false );
+            }
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkLTCASE2.setSelected( false );
+        }
+    } else {
+        try {
+            CurMech.GetLoadout().SetLTCASEII( false, -1, false );
+        } catch( Exception e ) {
+            // removing CASE II should never return an exception.  log it.
+            System.err.println( "Received an error removing LT CASE II:" );
+            System.err.println( e.getStackTrace() );
+        }
+    }
+    RefreshInfoPane();
+}//GEN-LAST:event_chkLTCASE2ActionPerformed
+
+private void chkLTCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLTCASEActionPerformed
+    if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasLTCASE() ) {
+        chkLTCASE.setSelected( true );
+        return;
+    }
+    if( CurMech.HasLTCase() == chkLTCASE.isSelected() ) { return; }
+    if( chkLTCASE.isSelected() ) {
+        try {
+            CurMech.AddLTCase();
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkLTCASE.setSelected( false );
+        }
+    } else {
+        CurMech.RemoveLTCase();
+    }
+    RefreshInfoPane();
+}//GEN-LAST:event_chkLTCASEActionPerformed
+
+private void chkCTCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCTCASE2ActionPerformed
+    if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasCTCASEII() ) {
+        chkCTCASE2.setSelected( true );
+        return;
+    }
+    if( CurMech.GetLoadout().HasCTCASEII() == chkCTCASE2.isSelected() ) { return; }
+    if( chkCTCASE2.isSelected() ) {
+        try {
+            if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
+                dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
+                tech.setLocationRelativeTo( this );
+                tech.setVisible( true );
+                CurMech.GetLoadout().SetCTCASEII( true, -1, tech.IsClan() );
+            } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
+                CurMech.GetLoadout().SetCTCASEII( true, -1, true );
+            } else {
+                CurMech.GetLoadout().SetCTCASEII( true, -1, false );
+            }
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkCTCASE2.setSelected( false );
+        }
+    } else {
+        try {
+            CurMech.GetLoadout().SetCTCASEII( false, -1, false );
+        } catch( Exception e ) {
+            // removing CASE II should never return an exception.  log it.
+            System.err.println( "Received an error removing CT CASE II:" );
+            System.err.println( e.getStackTrace() );
+        }
+    }
+    RefreshInfoPane();
+}//GEN-LAST:event_chkCTCASE2ActionPerformed
+
+private void chkCTCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCTCASEActionPerformed
+    if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasCTCASE() ) {
+        chkCTCASE.setSelected( true );
+        return;
+    }
+    if( CurMech.HasCTCase() == chkCTCASE.isSelected() ) { return; }
+    if( chkCTCASE.isSelected() ) {
+        try {
+            CurMech.AddCTCase();
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkCTCASE.setSelected( false );
+        }
+    } else {
+        CurMech.RemoveCTCase();
+    }
+    RefreshInfoPane();
+}//GEN-LAST:event_chkCTCASEActionPerformed
+
+private void chkHDCASE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkHDCASE2ActionPerformed
+    if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasHDCASEII() ) {
+        chkHDCASE2.setSelected( true );
+        return;
+    }
+    if( CurMech.GetLoadout().HasHDCASEII() == chkHDCASE2.isSelected() ) { return; }
+    if( chkHDCASE2.isSelected() ) {
+        try {
+            if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
+                dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
+                tech.setLocationRelativeTo( this );
+                tech.setVisible( true );
+                CurMech.GetLoadout().SetHDCASEII( true, -1, tech.IsClan() );
+            } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
+                CurMech.GetLoadout().SetHDCASEII( true, -1, true );
+            } else {
+                CurMech.GetLoadout().SetHDCASEII( true, -1, false );
+            }
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkHDCASE2.setSelected( false );
+        }
+    } else {
+        try {
+            CurMech.GetLoadout().SetHDCASEII( false, -1, false );
+        } catch( Exception e ) {
+            // removing CASE II should never return an exception.  log it.
+            System.err.println( "Received an error removing HD CASE II:" );
+            System.err.println( e.getStackTrace() );
+        }
+    }
+    RefreshInfoPane();
+}//GEN-LAST:event_chkHDCASE2ActionPerformed
+
+private void chkHDTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkHDTurretActionPerformed
+    if( CurMech.IsOmnimech() ) {
+        if( CurMech.GetBaseLoadout().GetHDTurret() == CurMech.GetLoadout().GetHDTurret() ) {
+            chkHDTurret.setSelected( true );
+            return;
+        }
+    }
+    if( CurMech.GetLoadout().HasHDTurret() == chkHDTurret.isSelected() ) { return; }
+    if( chkHDTurret.isSelected() ) {
+        try {
+            CurMech.GetLoadout().SetHDTurret( true, -1 );
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkHDTurret.setSelected( false );
+        }
+    } else {
+        try {
+            CurMech.GetLoadout().SetHDTurret( false, -1 );
+        } catch( Exception e ) {
+            Media.Messager( "Fatal error attempting to remove turret.\nGetting a new 'Mech, sorry..." );
+        }
+    }
+    CheckEquipment();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkHDTurretActionPerformed
+
+private void btnAddEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEquipActionPerformed
+    abPlaceable a = null;
+    int Index = 0;
+    Vector v;
+
+    // figure out which list box to pull from
+    switch( tbpWeaponChooser.getSelectedIndex() ) {
+        case BALLISTIC:
+            if( lstChooseBallistic.getSelectedIndex() < 0 ) { break; }
+            a = (abPlaceable) Equipment[BALLISTIC][lstChooseBallistic.getSelectedIndex()];
+            a = data.GetEquipment().GetCopy( a, CurMech );
+            break;
+        case ENERGY:
+            if( lstChooseEnergy.getSelectedIndex() < 0 ) { break; }
+            a = (abPlaceable) Equipment[ENERGY][lstChooseEnergy.getSelectedIndex()];
+            a = data.GetEquipment().GetCopy( a, CurMech );
+            break;
+        case MISSILE:
+            if( lstChooseMissile.getSelectedIndex() < 0 ) { break; }
+            a = (abPlaceable) Equipment[MISSILE][lstChooseMissile.getSelectedIndex()];
+            a = data.GetEquipment().GetCopy( a, CurMech );
+            if( ((RangedWeapon) a).IsFCSCapable() ) {
+                if( CurMech.UsingArtemisIV() ) {
+                    if( ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisIV || ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisV ) {
+                        ((RangedWeapon) a).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV );
+                    }
+                }
+                if( CurMech.UsingArtemisV() ) {
+                    if( ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_ArtemisV ) {
+                        ((RangedWeapon) a).UseFCS( true, ifMissileGuidance.FCS_ArtemisV );
+                    }
+                }
+                if( CurMech.UsingApollo() ) {
+                    if( ((RangedWeapon) a).GetFCSType() == ifMissileGuidance.FCS_Apollo ) {
+                        ((RangedWeapon) a).UseFCS( true, ifMissileGuidance.FCS_Apollo );
+                    }
+                }
+            }
+            break;
+        case PHYSICAL:
+            if( lstChoosePhysical.getSelectedIndex() < 0 ) { break; }
+            if( ! ( Equipment[PHYSICAL][lstChoosePhysical.getSelectedIndex()] instanceof abPlaceable ) ) {
+                break;
+            }
+            a = (abPlaceable) Equipment[PHYSICAL][lstChoosePhysical.getSelectedIndex()];
+            a = data.GetEquipment().GetCopy( a, CurMech );
+            break;
+        case ARTILLERY:
+            if( lstChooseArtillery.getSelectedIndex() < 0 ) { break; }
+            if( ! ( Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()] instanceof abPlaceable ) ) {
+                break;
+            }
+            a = (abPlaceable) Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()];
+            a = data.GetEquipment().GetCopy( a, CurMech );
+            break;
+        case EQUIPMENT:
+            if( lstChooseEquipment.getSelectedIndex() < 0 ) { break; }
+            if( ! ( Equipment[EQUIPMENT][lstChooseEquipment.getSelectedIndex()] instanceof abPlaceable ) ) {
+                break;
+            }
+            a = (abPlaceable) Equipment[EQUIPMENT][lstChooseEquipment.getSelectedIndex()];
+            a = data.GetEquipment().GetCopy( a, CurMech );
+            break;
+        case AMMUNITION:
+            if( lstChooseAmmunition.getSelectedIndex() < 0 ) { break; }
+            Index = lstChooseAmmunition.getSelectedIndex();
+            if( ! ( Equipment[AMMUNITION][Index] instanceof abPlaceable ) ) {
+                break;
+            }
+            a = (abPlaceable) Equipment[AMMUNITION][Index];
+            a = data.GetEquipment().GetCopy( a, CurMech );
+            break;
+    }
+
+    // check exclusions if needed
+    if( a != null ) {
+        try {
+            CurMech.GetLoadout().CheckExclusions( a );
+            if( a instanceof Equipment ) {
+                if ( ! ((Equipment) a).Validate( CurMech ) ) {
+                    if( ((Equipment) a).RequiresQuad() ) {
+                        throw new Exception( a.CritName() + " may only be mounted on a quad 'Mech." );
+                    } else if( ((Equipment) a).MaxAllowed() > 0 ) {
+                        throw new Exception( "Only " + ((Equipment) a).MaxAllowed() + " " + a.CritName() + "(s) may be mounted on one 'Mech." );
+                    }
+                }
+            }
+        } catch( Exception e ) {
+            Media.Messager( e.getMessage() );
+            a = null;
+        }
+    }
+
+    // now we can add it to the 'Mech
+    if( a != null ) {
+        boolean result = true;
+        if( a instanceof Equipment ) {
+            if( ((Equipment) a).IsVariableSize() ) {
+                dlgVariableSize SetTons = new dlgVariableSize( this, true, (Equipment) a );
+                SetTons.setLocationRelativeTo( this );
+                SetTons.setVisible( true );
+                result = SetTons.GetResult();
+            }
+        }
+        if( result ) {
+            if( a instanceof Talons ) {
+                if( ! a.Place( CurMech.GetLoadout() ) ) {
+                    Media.Messager( "Talons cannot be added because there is not enough space." );
+                    return;
+                }
+            } else {
+                CurMech.GetLoadout().AddToQueue( a );
+                for( int i = 0; i < cmbNumEquips.getSelectedIndex(); i++ ) {
+                    a = data.GetEquipment().GetCopy( a, CurMech );
+                    CurMech.GetLoadout().AddToQueue( a );
+                }
+            }
+
+            // unallocate the TC if needed (if the size changes)
+            if( a instanceof ifWeapon ) {
+                if( ((ifWeapon) a).IsTCCapable() && CurMech.UsingTC() ) {
+                    CurMech.UnallocateTC();
+                }
+            }
+
+            // see if we need ammunition and add it if applicable
+            ResetAmmo();
+
+            if( a instanceof Ammunition ) {
+                // added for support if the user selected ammo.  The ResetAmmo()
+                // method clears the selected index.
+                lstChooseAmmunition.setSelectedIndex(Index);
+            }
+
+            // refresh the selected equipment listbox
+            if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
+                Equipment[SELECTED] = new Object[] { " " };
+            } else {
+                Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
+            }
+//            lstSelectedEquipment.setListData( Equipment[SELECTED] );
+        }
+
+        // now refresh the information panes
+        RefreshSummary();
+        RefreshInfoPane();
+        cmbNumEquips.setSelectedIndex( 0 );
+    }
+}//GEN-LAST:event_btnAddEquipActionPerformed
+
+private void btnClearEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearEquipActionPerformed
+    CurMech.GetLoadout().SafeClearLoadout();
+
+    // refresh the selected equipment listbox
+    if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
+        Equipment[SELECTED] = new Object[] { " " };
+    } else {
+        Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
+    }
+//    lstSelectedEquipment.setListData( Equipment[SELECTED] );
+
+    // Check the targeting computer if needed
+    if( CurMech.UsingTC() ) {
+        CurMech.CheckTC();
+    }
+
+    // refresh the ammunition display
+    ResetAmmo();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_btnClearEquipActionPerformed
+
+private void btnRemoveEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveEquipActionPerformed
+    int selected = lstCritsToPlace.getSelectedIndex();
+    if( selected < 0 ) { return; }
+    abPlaceable p = null;
+    if( CurMech.GetLoadout().GetQueue().get( selected ) instanceof EquipmentCollection ) {
+        p = ((EquipmentCollection) CurMech.GetLoadout().GetQueue().get( selected )).GetType();
+        if( ! CurMech.GetLoadout().GetNonCore().contains( p ) ) {
+            Media.Messager( this, "You may not remove this item from the loadout." );
+            return;
+        }
+    } else {
+        p = (abPlaceable) CurMech.GetLoadout().GetQueue().get( selected );
+        if( ! CurMech.GetLoadout().GetNonCore().contains( p ) ) {
+            Media.Messager( this, "You may not remove this item from the loadout." );
+            return;
+        }
+    }
+    if( p == null ) { return; }
+    if( p.LocationLocked() &! ( p instanceof Talons ) ) {
+        Media.Messager( this, "You may not remove a locked item from the loadout." );
+        return;
+    } else {
+        CurMech.GetLoadout().Remove( p );
+    }
+
+    // refresh the selected equipment listbox
+    if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
+        Equipment[SELECTED] = new Object[] { " " };
+    } else {
+        Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
+    }
+//    lstSelectedEquipment.setListData( Equipment[SELECTED] );
+
+    // Check the targeting computer if needed
+    if( CurMech.UsingTC() ) {
+        CurMech.UnallocateTC();
+    }
+
+    // refresh the ammunition display
+    ResetAmmo();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+
+    try {
+        lstCritsToPlace.setSelectedIndex( selected );
+    } catch( Exception e ) {
+        return;
+    }
+}//GEN-LAST:event_btnRemoveEquipActionPerformed
+
+private void chkClanCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkClanCASEActionPerformed
+    CurMech.GetLoadout().SetClanCASE( chkClanCASE.isSelected() );
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkClanCASEActionPerformed
+
+private void chkFCSApolloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFCSApolloActionPerformed
+    if( CurMech.UsingApollo() == chkFCSApollo.isSelected() ) { return; }
+    if( chkFCSApollo.isSelected() ) {
+        try {
+            CurMech.SetFCSApollo( true );
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkFCSApollo.setSelected( false );
+        }
+    } else {
+        try {
+            CurMech.SetFCSApollo( false );
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkFCSApollo.setSelected( true );
+        }
+    }
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkFCSApolloActionPerformed
+
+private void chkFCSAVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFCSAVActionPerformed
+    if( CurMech.UsingArtemisV() == chkFCSAV.isSelected() ) { return; }
+    if( chkFCSAV.isSelected() ) {
+        try {
+            CurMech.SetFCSArtemisV( true );
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkFCSAV.setSelected( false );
+        }
+    } else {
+        try {
+            CurMech.SetFCSArtemisV( false );
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkFCSAV.setSelected( true );
+        }
+    }
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkFCSAVActionPerformed
+
+private void chkFCSAIVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFCSAIVActionPerformed
+    if( CurMech.UsingArtemisIV() == chkFCSAIV.isSelected() ) { return; }
+    if( chkFCSAIV.isSelected() ) {
+        try {
+            CurMech.SetFCSArtemisIV( true );
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkFCSAIV.setSelected( false );
+        }
+    } else {
+        try {
+            CurMech.SetFCSArtemisIV( false );
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkFCSAIV.setSelected( true );
+        }
+    }
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkFCSAIVActionPerformed
+
+private void chkUseTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkUseTCActionPerformed
+    if( CurMech.UsingTC() == chkUseTC.isSelected() ) { return; }
+    if( chkUseTC.isSelected() ) {
+        try {
+            CurMech.GetLoadout().CheckExclusions( CurMech.GetTC() );
+            if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
+                dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
+                tech.setLocationRelativeTo( this );
+                tech.setVisible( true );
+                CurMech.UseTC( true, tech.IsClan() );
+            } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
+                CurMech.UseTC( true, true );
+            } else {
+                CurMech.UseTC( true, false );
+            }
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            CurMech.UseTC( false, false );
+        }
+    } else {
+        CurMech.UseTC( false, false );
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkUseTCActionPerformed
+
+private void lstChooseAmmunitionValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseAmmunitionValueChanged
+    if( lstChooseAmmunition.getSelectedIndex() < 0 ) { return; }
+    if( ! ( Equipment[AMMUNITION][lstChooseAmmunition.getSelectedIndex()] instanceof Ammunition ) ) { return; }
+    abPlaceable p = (abPlaceable) Equipment[AMMUNITION][lstChooseAmmunition.getSelectedIndex()];
+    ShowInfoOn( p );
+}//GEN-LAST:event_lstChooseAmmunitionValueChanged
+
+private void lstChooseArtilleryValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseArtilleryValueChanged
+    if( lstChooseArtillery.getSelectedIndex() < 0 ) { return; }
+    if( ( ! ( Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()] instanceof RangedWeapon ) && ( ! ( Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()] instanceof VehicularGrenadeLauncher ) ) ) ) { return; }
+    abPlaceable p = (abPlaceable) Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()];
+    ShowInfoOn( p );
+}//GEN-LAST:event_lstChooseArtilleryValueChanged
+
+private void lstChooseEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseEquipmentValueChanged
+    if( lstChooseEquipment.getSelectedIndex() < 0 ) { return; }
+    //if( ! ( Equipment[EQUIPMENT][lstChooseEquipment.getSelectedIndex()] instanceof Equipment ) ) { return; }
+    abPlaceable p = (abPlaceable) Equipment[EQUIPMENT][lstChooseEquipment.getSelectedIndex()];
+    ShowInfoOn( p );
+}//GEN-LAST:event_lstChooseEquipmentValueChanged
+
+private void lstChoosePhysicalValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChoosePhysicalValueChanged
+    if( lstChoosePhysical.getSelectedIndex() < 0 ) { return; }
+    if( ! ( Equipment[PHYSICAL][lstChoosePhysical.getSelectedIndex()] instanceof PhysicalWeapon ) ) { return; }
+    abPlaceable p = (abPlaceable) Equipment[PHYSICAL][lstChoosePhysical.getSelectedIndex()];
+    ShowInfoOn( p );
+}//GEN-LAST:event_lstChoosePhysicalValueChanged
+
+private void lstChooseMissileValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseMissileValueChanged
+    if( lstChooseMissile.getSelectedIndex() < 0 ) { return; }
+    abPlaceable p = (abPlaceable) Equipment[MISSILE][lstChooseMissile.getSelectedIndex()];
+    ShowInfoOn( p );
+}//GEN-LAST:event_lstChooseMissileValueChanged
+
+private void lstChooseEnergyValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseEnergyValueChanged
+    if( lstChooseEnergy.getSelectedIndex() < 0 ) { return; }
+    abPlaceable p = (abPlaceable) Equipment[ENERGY][lstChooseEnergy.getSelectedIndex()];
+    ShowInfoOn( p );
+}//GEN-LAST:event_lstChooseEnergyValueChanged
+
+private void lstChooseBallisticValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseBallisticValueChanged
+    if( lstChooseBallistic.getSelectedIndex() < 0 ) { return; }
+    abPlaceable p = (abPlaceable) Equipment[BALLISTIC][lstChooseBallistic.getSelectedIndex()];
+    ShowInfoOn( p );
+}//GEN-LAST:event_lstChooseBallisticValueChanged
+
+private void cmbPWRLTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWRLTypeActionPerformed
+    if( BuildLookupName( (ifState) CurMech.GetArmor().GetRLArmorType() ).equals( (String) cmbPWRLType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcPatchworkArmor( LocationIndex.MECH_LOC_RL );
+    // we check for hardened armor, you can only have so many IJJs
+    FixJJSpinnerModel();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_cmbPWRLTypeActionPerformed
+
+private void cmbPWLLTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWLLTypeActionPerformed
+    if( BuildLookupName( (ifState) CurMech.GetArmor().GetLLArmorType() ).equals( (String) cmbPWLLType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcPatchworkArmor( LocationIndex.MECH_LOC_LL );
+    // we check for hardened armor, you can only have so many IJJs
+    FixJJSpinnerModel();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_cmbPWLLTypeActionPerformed
+
+private void cmbPWRATypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWRATypeActionPerformed
+    if( BuildLookupName( (ifState) CurMech.GetArmor().GetRAArmorType() ).equals( (String) cmbPWRAType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcPatchworkArmor( LocationIndex.MECH_LOC_RA );
+    // we check for hardened armor, you can only have so many IJJs
+    FixJJSpinnerModel();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_cmbPWRATypeActionPerformed
+
+private void cmbPWLATypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWLATypeActionPerformed
+    if( BuildLookupName( (ifState) CurMech.GetArmor().GetLAArmorType() ).equals( (String) cmbPWLAType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcPatchworkArmor( LocationIndex.MECH_LOC_LA );
+    // we check for hardened armor, you can only have so many IJJs
+    FixJJSpinnerModel();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_cmbPWLATypeActionPerformed
+
+private void cmbPWRTTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWRTTypeActionPerformed
+    if( BuildLookupName( (ifState) CurMech.GetArmor().GetRTArmorType() ).equals( (String) cmbPWRTType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcPatchworkArmor( LocationIndex.MECH_LOC_RT );
+    // we check for hardened armor, you can only have so many IJJs
+    FixJJSpinnerModel();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_cmbPWRTTypeActionPerformed
+
+private void cmbPWLTTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWLTTypeActionPerformed
+    if( BuildLookupName( (ifState) CurMech.GetArmor().GetLTArmorType() ).equals( (String) cmbPWLTType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcPatchworkArmor( LocationIndex.MECH_LOC_LT );
+    // we check for hardened armor, you can only have so many IJJs
+    FixJJSpinnerModel();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_cmbPWLTTypeActionPerformed
+
+private void cmbPWCTTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWCTTypeActionPerformed
+    if( BuildLookupName( (ifState) CurMech.GetArmor().GetCTArmorType() ).equals( (String) cmbPWCTType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcPatchworkArmor( LocationIndex.MECH_LOC_CT );
+    // we check for hardened armor, you can only have so many IJJs
+    FixJJSpinnerModel();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_cmbPWCTTypeActionPerformed
+
+private void cmbPWHDTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWHDTypeActionPerformed
+    if( BuildLookupName( (ifState) CurMech.GetArmor().GetHDArmorType() ).equals( (String) cmbPWHDType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcPatchworkArmor( LocationIndex.MECH_LOC_HD );
+    // we check for hardened armor, you can only have so many IJJs
+    FixJJSpinnerModel();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_cmbPWHDTypeActionPerformed
+
+private void btnRemainingArmorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemainingArmorActionPerformed
+    // see if we have a good number
+    double freetons = CurMech.GetTonnage() - CurMech.GetCurrentTons() + CurMech.GetArmor().GetTonnage();
+
+    if( freetons > CurMech.GetArmor().GetMaxTonnage() ) {
+        freetons = CurMech.GetArmor().GetMaxTonnage();
+    }
+
+    ArmorTons.SetArmorTonnage( freetons );
+    try {
+        CurMech.Visit( ArmorTons );
+    } catch( Exception e ) {
+        // this should never throw an exception, but log it anyway
+        System.err.println( e.getMessage() );
+        e.printStackTrace();
+    }
+
+    // if we fix the spinner models, they should refresh the screen
+    FixArmorSpinners();
+
+    // of course, we'll also have to set the head spinner manually.
+    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnHDArmor.getModel();
+    n.setValue( (Object) CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_HD ) );
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_btnRemainingArmorActionPerformed
+
+private void btnEfficientArmorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfficientArmorActionPerformed
+    // this routine does an "efficient" armor allocation.  It will find the max
+    // armor, then find the wasted tonnage and remove it if it's enough to
+    // warrant that.  If the wasted AV is greater than 3 points, the extra half-
+    // ton is removed.
+    int MaxArmor = (int) ( CurMech.GetArmor().GetMaxArmor() );
+    int MaxLessArmor = (int) ( ( CurMech.GetArmor().GetMaxTonnage() - 0.5f ) * 16 * CurMech.GetArmor().GetAVMult() );
+
+    if( MaxArmor - MaxLessArmor > ( 5 * CurMech.GetArmor().GetAVMult() ) ) {
+        // use the full amount
+        ArmorTons.SetArmorTonnage( CurMech.GetArmor().GetMaxTonnage() );
+    } else {
+        // use the lesser amount
+        ArmorTons.SetArmorTonnage( CurMech.GetArmor().GetMaxTonnage() - 0.5f );
+    }
+
+    // ArmorTons.SetArmorTonnage( result );
+    try {
+        CurMech.Visit( ArmorTons );
+    } catch( Exception e ) {
+        // this should never throw an exception, but log it anyway
+        System.err.println( e.getMessage() );
+        e.printStackTrace();
+    }
+
+    // if we fix the spinner models, they should refresh the screen
+    FixArmorSpinners();
+
+    // of course, we'll also have to set the head spinner manually.
+    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnHDArmor.getModel();
+    n.setValue( (Object) CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_HD ) );
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_btnEfficientArmorActionPerformed
+
+private void cmbArmorTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbArmorTypeActionPerformed
+    if( BuildLookupName( CurMech.GetArmor().GetCurrentState() ).equals( (String) cmbArmorType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcArmor();
+    // we check for hardened armor, you can only have so many IJJs
+    FixJJSpinnerModel();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_cmbArmorTypeActionPerformed
+
+private void btnArmorTonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArmorTonsActionPerformed
+    // we'll need a new dialogue to get the tonnage
+    dlgArmorTonnage ArmorDialogue = new dlgArmorTonnage( this, true );
+    ArmorDialogue.setLocationRelativeTo( this );
+    ArmorDialogue.setVisible( true );
+
+    // see if we have a good number
+    if( ArmorDialogue.NewTonnage() ) {
+        double result = ArmorDialogue.GetResult();
+        ArmorTons.SetArmorTonnage( result );
+        try {
+            CurMech.Visit( ArmorTons );
+        } catch( Exception e ) {
+            // this should never throw an exception, but log it anyway
+            System.err.println( e.getMessage() );
+            e.printStackTrace();
+        }
+
+        ArmorDialogue.dispose();
+    } else {
+        ArmorDialogue.dispose();
+    }
+
+    // if we fix the spinner models, they should refresh the screen
+    FixArmorSpinners();
+
+    // of course, we'll also have to set the head spinner manually.
+    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnHDArmor.getModel();
+    n.setValue( (Object) CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_HD ) );
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_btnArmorTonsActionPerformed
+
+private void btnMaxArmorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaxArmorActionPerformed
+    // this simply maximizes the mech's armor
+    MechArmor a = CurMech.GetArmor();
+
+    // set the simple stuff first.
+    a.SetArmor( LocationIndex.MECH_LOC_HD, 9 );
+    a.SetArmor( LocationIndex.MECH_LOC_LA, a.GetLocationMax( LocationIndex.MECH_LOC_LA ) );
+    a.SetArmor( LocationIndex.MECH_LOC_RA, a.GetLocationMax( LocationIndex.MECH_LOC_RA ) );
+    a.SetArmor( LocationIndex.MECH_LOC_LL, a.GetLocationMax( LocationIndex.MECH_LOC_LL ) );
+    a.SetArmor( LocationIndex.MECH_LOC_RL, a.GetLocationMax( LocationIndex.MECH_LOC_RL ) );
+
+    // now to set the torsos
+    int rear = Math.round( a.GetLocationMax( LocationIndex.MECH_LOC_CT ) * Prefs.getInt( "ArmorCTRPercent", MechArmor.DEFAULT_CTR_ARMOR_PERCENT ) / 100 );
+    a.SetArmor( LocationIndex.MECH_LOC_CTR, rear );
+    a.SetArmor( LocationIndex.MECH_LOC_CT, a.GetLocationMax( LocationIndex.MECH_LOC_CT ) - rear );
+    rear = Math.round( a.GetLocationMax( LocationIndex.MECH_LOC_LT ) * Prefs.getInt( "ArmorSTRPercent", MechArmor.DEFAULT_STR_ARMOR_PERCENT ) / 100 );
+    a.SetArmor( LocationIndex.MECH_LOC_LTR, rear );
+    a.SetArmor( LocationIndex.MECH_LOC_LT, a.GetLocationMax( LocationIndex.MECH_LOC_LT ) - rear );
+    rear = Math.round( a.GetLocationMax( LocationIndex.MECH_LOC_RT ) * Prefs.getInt( "ArmorSTRPercent", MechArmor.DEFAULT_STR_ARMOR_PERCENT ) / 100 );
+    a.SetArmor( LocationIndex.MECH_LOC_RTR, rear );
+    a.SetArmor( LocationIndex.MECH_LOC_RT, a.GetLocationMax( LocationIndex.MECH_LOC_RT ) - rear );
+
+    // if we fix the spinner models, they should refresh the screen
+    FixArmorSpinners();
+
+    // of course, we'll also have to set the head spinner manually.
+    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnHDArmor.getModel();
+    n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_HD ) );
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_btnMaxArmorActionPerformed
+
+private void spnLTRArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnLTRArmorStateChanged
+    // see what changed and perform the appropriate action
+    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnLTRArmor.getModel();
+    javax.swing.JComponent editor = spnLTRArmor.getEditor();
+    javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
+
+    // get the value from the text box, if it's valid.
+    try {
+        spnLTRArmor.commitEdit();
+    } catch ( java.text.ParseException pe ) {
+        // Edited value is invalid, spinner.getValue() will return
+        // the last valid value, you could revert the spinner to show that:
+        if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
+            tf.setValue(spnLTRArmor.getValue());
+        }
+        return;
+    }
+
+    // the commitedit worked, so set the armor value appropriately
+    MechArmor a = CurMech.GetArmor();
+    int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LTR );
+    int curframe = n.getNumber().intValue();
+    if( curframe > curmech ) {
+        while( curframe > curmech ) {
+            a.IncrementArmor( LocationIndex.MECH_LOC_LTR );
+            curframe--;
+        }
+    } else {
+        while( curmech > curframe ) {
+            a.DecrementArmor( LocationIndex.MECH_LOC_LTR );
+            curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LTR );
+        }
+    }
+
+    // now we need to set the rear armor spinner correctly and update
+    n = (SpinnerNumberModel) spnLTArmor.getModel();
+    n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_LT ) );
+
+    // see if we need to change the right torso as well
+    if( btnBalanceArmor.isSelected() ) {
+        n = (SpinnerNumberModel) spnLTRArmor.getModel();
+        a.SetArmor( LocationIndex.MECH_LOC_RTR, n.getNumber().intValue() );
+        n = (SpinnerNumberModel) spnRTRArmor.getModel();
+        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_RTR ) );
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_spnLTRArmorStateChanged
+
+private void spnCTRArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnCTRArmorStateChanged
+    // see what changed and perform the appropriate action
+    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnCTRArmor.getModel();
+    javax.swing.JComponent editor = spnCTRArmor.getEditor();
+    javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
+
+    // get the value from the text box, if it's valid.
+    try {
+        spnCTRArmor.commitEdit();
+    } catch ( java.text.ParseException pe ) {
+        // Edited value is invalid, spinner.getValue() will return
+        // the last valid value, you could revert the spinner to show that:
+        if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
+            tf.setValue(spnCTRArmor.getValue());
+        }
+        return;
+    }
+
+    // the commitedit worked, so set the armor value appropriately
+    MechArmor a = CurMech.GetArmor();
+    int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_CTR );
+    int curframe = n.getNumber().intValue();
+    if( curframe > curmech ) {
+        while( curframe > curmech ) {
+            a.IncrementArmor( LocationIndex.MECH_LOC_CTR );
+            curframe--;
+        }
+    } else {
+        while( curmech > curframe ) {
+            a.DecrementArmor( LocationIndex.MECH_LOC_CTR );
+            curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_CTR );
+        }
+    }
+
+    // now we need to set the rear armor spinner correctly and update
+    n = (SpinnerNumberModel) spnCTArmor.getModel();
+    n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_CT ) );
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_spnCTRArmorStateChanged
+
+private void spnRTRArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRTRArmorStateChanged
+    // see what changed and perform the appropriate action
+    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRTRArmor.getModel();
+    javax.swing.JComponent editor = spnRTRArmor.getEditor();
+    javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
+
+    // get the value from the text box, if it's valid.
+    try {
+        spnRTRArmor.commitEdit();
+    } catch ( java.text.ParseException pe ) {
+        // Edited value is invalid, spinner.getValue() will return
+        // the last valid value, you could revert the spinner to show that:
+        if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
+            tf.setValue(spnRTRArmor.getValue());
+        }
+        return;
+    }
+
+    // the commitedit worked, so set the armor value appropriately
+    MechArmor a = CurMech.GetArmor();
+    int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RTR );
+    int curframe = n.getNumber().intValue();
+    if( curframe > curmech ) {
+        while( curframe > curmech ) {
+            a.IncrementArmor( LocationIndex.MECH_LOC_RTR );
+            curframe--;
+        }
+    } else {
+        while( curmech > curframe ) {
+            a.DecrementArmor( LocationIndex.MECH_LOC_RTR );
+            curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RTR );
+        }
+    }
+
+    // now we need to set the rear armor spinner correctly and update
+    n = (SpinnerNumberModel) spnRTArmor.getModel();
+    n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_RT ) );
+
+    // see if we need to change the left torso as well
+    // see if we need to change the left torso as well
+    if( btnBalanceArmor.isSelected() ) {
+        n = (SpinnerNumberModel) spnRTRArmor.getModel();
+        a.SetArmor( LocationIndex.MECH_LOC_LTR, n.getNumber().intValue() );
+        n = (SpinnerNumberModel) spnLTRArmor.getModel();
+        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_LTR ) );
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_spnRTRArmorStateChanged
+
+private void spnLAArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnLAArmorStateChanged
+    // see what changed and perform the appropriate action
+    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnLAArmor.getModel();
+    javax.swing.JComponent editor = spnLAArmor.getEditor();
+    javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
+
+    // get the value from the text box, if it's valid.
+    try {
+        spnLAArmor.commitEdit();
+    } catch ( java.text.ParseException pe ) {
+        // Edited value is invalid, spinner.getValue() will return
+        // the last valid value, you could revert the spinner to show that:
+        if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
+            tf.setValue(spnLAArmor.getValue());
+        }
+        return;
+    }
+
+    // the commitedit worked, so set the armor value appropriately
+    MechArmor a = CurMech.GetArmor();
+    int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LA );
+    int curframe = n.getNumber().intValue();
+    if( curframe > curmech ) {
+        while( curframe > curmech ) {
+            a.IncrementArmor( LocationIndex.MECH_LOC_LA );
+            curframe--;
+        }
+    } else {
+        while( curmech > curframe ) {
+            a.DecrementArmor( LocationIndex.MECH_LOC_LA );
+            curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LA );
+        }
+    }
+
+    // see if we need to change the right arm as well
+    if( btnBalanceArmor.isSelected() ) {
+        a.SetArmor( LocationIndex.MECH_LOC_RA, n.getNumber().intValue() );
+        n = (SpinnerNumberModel) spnRAArmor.getModel();
+        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_RA ) );
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_spnLAArmorStateChanged
+
+private void spnRTArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRTArmorStateChanged
+    // see what changed and perform the appropriate action
+    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRTArmor.getModel();
+    javax.swing.JComponent editor = spnRTArmor.getEditor();
+    javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
+
+    // get the value from the text box, if it's valid.
+    try {
+        spnRTArmor.commitEdit();
+    } catch ( java.text.ParseException pe ) {
+        // Edited value is invalid, spinner.getValue() will return
+        // the last valid value, you could revert the spinner to show that:
+        if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
+            tf.setValue(spnRTArmor.getValue());
+        }
+        return;
+    }
+
+    // the commitedit worked, so set the armor value appropriately
+    MechArmor a = CurMech.GetArmor();
+    int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RT );
+    int curframe = n.getNumber().intValue();
+    if( curframe > curmech ) {
+        while( curframe > curmech ) {
+            a.IncrementArmor( LocationIndex.MECH_LOC_RT );
+            curframe--;
+        }
+    } else {
+        while( curmech > curframe ) {
+            a.DecrementArmor( LocationIndex.MECH_LOC_RT );
+            curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RT );
+        }
+    }
+
+    // now we need to set the rear armor spinner correctly and update
+    n = (SpinnerNumberModel) spnRTRArmor.getModel();
+    n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_RTR ) );
+
+    // see if we need to change the left torso as well
+    if( btnBalanceArmor.isSelected() ) {
+        n = (SpinnerNumberModel) spnRTArmor.getModel();
+        a.SetArmor( LocationIndex.MECH_LOC_LT, n.getNumber().intValue() );
+        n = (SpinnerNumberModel) spnLTArmor.getModel();
+        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_LT ) );
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_spnRTArmorStateChanged
+
+private void spnLTArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnLTArmorStateChanged
+    // see what changed and perform the appropriate action
+    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnLTArmor.getModel();
+    javax.swing.JComponent editor = spnLTArmor.getEditor();
+    javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
+
+    // get the value from the text box, if it's valid.
+    try {
+        spnLTArmor.commitEdit();
+    } catch ( java.text.ParseException pe ) {
+        // Edited value is invalid, spinner.getValue() will return
+        // the last valid value, you could revert the spinner to show that:
+        if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
+            tf.setValue(spnLTArmor.getValue());
+        }
+        return;
+    }
+
+    // the commitedit worked, so set the armor value appropriately
+    MechArmor a = CurMech.GetArmor();
+    int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LT );
+    int curframe = n.getNumber().intValue();
+    if( curframe > curmech ) {
+        while( curframe > curmech ) {
+            a.IncrementArmor( LocationIndex.MECH_LOC_LT );
+            curframe--;
+        }
+    } else {
+        while( curmech > curframe ) {
+            a.DecrementArmor( LocationIndex.MECH_LOC_LT );
+            curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LT );
+        }
+    }
+
+    // now we need to set the rear armor spinner correctly and update
+    n = (SpinnerNumberModel) spnLTRArmor.getModel();
+    n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_LTR ) );
+
+    // see if we need to change the right torso as well
+    if( btnBalanceArmor.isSelected() ) {
+        n = (SpinnerNumberModel) spnLTArmor.getModel();
+        a.SetArmor( LocationIndex.MECH_LOC_RT, n.getNumber().intValue() );
+        n = (SpinnerNumberModel) spnRTArmor.getModel();
+        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_RT ) );
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_spnLTArmorStateChanged
+
+private void spnCTArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnCTArmorStateChanged
+    // see what changed and perform the appropriate action
+    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnCTArmor.getModel();
+    javax.swing.JComponent editor = spnCTArmor.getEditor();
+    javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
+
+    // get the value from the text box, if it's valid.
+    try {
+        spnCTArmor.commitEdit();
+    } catch ( java.text.ParseException pe ) {
+        // Edited value is invalid, spinner.getValue() will return
+        // the last valid value, you could revert the spinner to show that:
+        if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
+            tf.setValue(spnCTArmor.getValue());
+        }
+        return;
+    }
+
+    // the commitedit worked, so set the armor value appropriately
+    MechArmor a = CurMech.GetArmor();
+    int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_CT );
+    int curframe = n.getNumber().intValue();
+    if( curframe > curmech ) {
+        while( curframe > curmech ) {
+            a.IncrementArmor( LocationIndex.MECH_LOC_CT );
+            curframe--;
+        }
+    } else {
+        while( curmech > curframe ) {
+            a.DecrementArmor( LocationIndex.MECH_LOC_CT );
+            curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_CT );
+        }
+    }
+
+    // now we need to set the rear armor spinner correctly and update
+    n = (SpinnerNumberModel) spnCTRArmor.getModel();
+    n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_CTR ) );
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_spnCTArmorStateChanged
+
+private void spnHDArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnHDArmorStateChanged
+    // see what changed and perform the appropriate action
+    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnHDArmor.getModel();
+    javax.swing.JComponent editor = spnHDArmor.getEditor();
+    javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
+
+    // get the value from the text box, if it's valid.
+    try {
+        spnHDArmor.commitEdit();
+    } catch ( java.text.ParseException pe ) {
+        // Edited value is invalid, spinner.getValue() will return
+        // the last valid value, you could revert the spinner to show that:
+        if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
+            tf.setValue(spnHDArmor.getValue());
+        }
+        return;
+    }
+
+    // the commitedit worked, so set the armor value appropriately
+    MechArmor a = CurMech.GetArmor();
+    int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_HD );
+    int curframe = n.getNumber().intValue();
+    if( curframe > curmech ) {
+        while( curframe > curmech ) {
+            a.IncrementArmor( LocationIndex.MECH_LOC_HD );
+            curframe--;
+        }
+    } else {
+        while( curmech > curframe ) {
+            a.DecrementArmor( LocationIndex.MECH_LOC_HD );
+            curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_HD );
+        }
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_spnHDArmorStateChanged
+
+private void spnRAArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRAArmorStateChanged
+    // see what changed and perform the appropriate action
+    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRAArmor.getModel();
+    javax.swing.JComponent editor = spnRAArmor.getEditor();
+    javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
+
+    // get the value from the text box, if it's valid.
+    try {
+        spnRAArmor.commitEdit();
+    } catch ( java.text.ParseException pe ) {
+        // Edited value is invalid, spinner.getValue() will return
+        // the last valid value, you could revert the spinner to show that:
+        if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
+            tf.setValue(spnRAArmor.getValue());
+        }
+        return;
+    }
+
+    // the commitedit worked, so set the armor value appropriately
+    MechArmor a = CurMech.GetArmor();
+    int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RA );
+    int curframe = n.getNumber().intValue();
+    if( curframe > curmech ) {
+        while( curframe > curmech ) {
+            a.IncrementArmor( LocationIndex.MECH_LOC_RA );
+            curframe--;
+        }
+    } else {
+        while( curmech > curframe ) {
+            a.DecrementArmor( LocationIndex.MECH_LOC_RA );
+            curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RA );
+        }
+    }
+
+    // see if we need to change the left arm as well
+    if( btnBalanceArmor.isSelected() ) {
+        a.SetArmor( LocationIndex.MECH_LOC_LA, n.getNumber().intValue() );
+        n = (SpinnerNumberModel) spnLAArmor.getModel();
+        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_LA ) );
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_spnRAArmorStateChanged
+
+private void spnLLArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnLLArmorStateChanged
+    // see what changed and perform the appropriate action
+    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnLLArmor.getModel();
+    javax.swing.JComponent editor = spnLLArmor.getEditor();
+    javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
+
+    // get the value from the text box, if it's valid.
+    try {
+        spnLLArmor.commitEdit();
+    } catch ( java.text.ParseException pe ) {
+        // Edited value is invalid, spinner.getValue() will return
+        // the last valid value, you could revert the spinner to show that:
+        if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
+            tf.setValue(spnLLArmor.getValue());
+        }
+        return;
+    }
+
+    // the commitedit worked, so set the armor value appropriately
+    MechArmor a = CurMech.GetArmor();
+    int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LL );
+    int curframe = n.getNumber().intValue();
+    if( curframe > curmech ) {
+        while( curframe > curmech ) {
+            a.IncrementArmor( LocationIndex.MECH_LOC_LL );
+            curframe--;
+        }
+    } else {
+        while( curmech > curframe ) {
+            a.DecrementArmor( LocationIndex.MECH_LOC_LL );
+            curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_LL );
+        }
+    }
+
+    // see if we need to change the right arm as well
+    if( btnBalanceArmor.isSelected() ) {
+        a.SetArmor( LocationIndex.MECH_LOC_RL, n.getNumber().intValue() );
+        n = (SpinnerNumberModel) spnRLArmor.getModel();
+        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_RL ) );
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_spnLLArmorStateChanged
+
+private void spnRLArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRLArmorStateChanged
+    // see what changed and perform the appropriate action
+    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRLArmor.getModel();
+    javax.swing.JComponent editor = spnRLArmor.getEditor();
+    javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
+
+    // get the value from the text box, if it's valid.
+    try {
+        spnRLArmor.commitEdit();
+    } catch ( java.text.ParseException pe ) {
+        // Edited value is invalid, spinner.getValue() will return
+        // the last valid value, you could revert the spinner to show that:
+        if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
+            tf.setValue(spnRLArmor.getValue());
+        }
+        return;
+    }
+
+    // the commitedit worked, so set the armor value appropriately
+    MechArmor a = CurMech.GetArmor();
+    int curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RL );
+    int curframe = n.getNumber().intValue();
+    if( curframe > curmech ) {
+        while( curframe > curmech ) {
+            a.IncrementArmor( LocationIndex.MECH_LOC_RL );
+            curframe--;
+        }
+    } else {
+        while( curmech > curframe ) {
+            a.DecrementArmor( LocationIndex.MECH_LOC_RL );
+            curmech = a.GetLocationArmor( LocationIndex.MECH_LOC_RL );
+        }
+    }
+
+    // see if we need to change the right arm as well
+    if( btnBalanceArmor.isSelected() ) {
+        a.SetArmor( LocationIndex.MECH_LOC_LL, n.getNumber().intValue() );
+        n = (SpinnerNumberModel) spnLLArmor.getModel();
+        n.setValue( (Object) a.GetLocationArmor( LocationIndex.MECH_LOC_LL ) );
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_spnRLArmorStateChanged
+
+private void chkTracksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkTracksActionPerformed
+    // is the system already installed?
+    if( chkTracks.isSelected() == CurMech.HasTracks() ) { return; }
+    try {
+        if( chkTracks.isSelected() ) {
+            CurMech.SetTracks( true );
+        } else {
+            CurMech.SetTracks( false );
+        }
+    } catch( Exception e ) {
+        Media.Messager( this, e.getMessage() );
+        // ensure it's not checked when it shouldn't be
+        chkTracks.setSelected( CurMech.HasTracks() );
+        return;
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkTracksActionPerformed
+
+private void chkEnviroSealingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEnviroSealingActionPerformed
+    // is the system already installed?
+    if( chkEnviroSealing.isSelected() == CurMech.HasEnviroSealing() ) { return; }
+    try {
+        if( chkEnviroSealing.isSelected() ) {
+            CurMech.SetEnviroSealing( true );
+        } else {
+            CurMech.SetEnviroSealing( false );
+        }
+    } catch( Exception e ) {
+        Media.Messager( this, e.getMessage() );
+        // ensure it's not checked when it shouldn't be
+        chkEnviroSealing.setSelected( CurMech.HasEnviroSealing() );
+        return;
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkEnviroSealingActionPerformed
+
+private void chkEjectionSeatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEjectionSeatActionPerformed
+    if( chkEjectionSeat.isSelected() == CurMech.HasEjectionSeat() ) { return; }
+    try {
+        if( chkEjectionSeat.isSelected() ) {
+            CurMech.SetEjectionSeat( true );
+        } else {
+            CurMech.SetEjectionSeat( false );
+        }
+    } catch( Exception e ) {
+        // ensure it's not checked when it shouldn't be
+        chkEjectionSeat.setSelected( CurMech.HasEjectionSeat() );
+        Media.Messager( this, e.getMessage() );
+        return;
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkEjectionSeatActionPerformed
+
 private void chkFHESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFHESActionPerformed
     if( chkFHES.isSelected() == CurMech.HasFHES() ) { return; }
     if( chkFHES.isSelected() ) {
@@ -14280,60 +13209,142 @@ private void chkPartialWingActionPerformed(java.awt.event.ActionEvent evt) {//GE
     RefreshInfoPane();
 }//GEN-LAST:event_chkPartialWingActionPerformed
 
-private void mnuUnlockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuUnlockActionPerformed
-        int choice = javax.swing.JOptionPane.showConfirmDialog( this,
-            "Are you sure you want to unlock the chassis?\nAll omnimech loadouts" +
-            " will be deleted\nand the 'Mech will revert to its base loadout.",
-            "Unlock Chassis?", javax.swing.JOptionPane.YES_NO_OPTION );
-        if( choice == 1 ) {
+private void cmbSCLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSCLocActionPerformed
+    int curLoc = CurMech.GetLoadout().Find( CurMech.GetLoadout().GetSupercharger() );
+    int DesiredLoc = FileCommon.DecodeLocation( (String) cmbSCLoc.getSelectedItem() );
+    if( curLoc == DesiredLoc ) { return; }
+    if( CurMech.GetLoadout().HasSupercharger() ) {
+        try {
+            CurMech.GetLoadout().SetSupercharger( true, DesiredLoc, -1 );
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            chkSupercharger.setSelected( false );
+            // now refresh the information panes
+            RefreshSummary();
+            RefreshInfoPane();
             return;
         }
-
-        // make it an omni
-        CurMech.UnlockChassis();
-        FixTransferHandlers();
-        SetLoadoutArrays();
-        FixJJSpinnerModel();
-        FixHeatSinkSpinnerModel();
-        LoadMechIntoGUI();
-}//GEN-LAST:event_mnuUnlockActionPerformed
-
-private void btnBracketChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBracketChartActionPerformed
-    dlgBracketCharts charts = new dlgBracketCharts( this, true, CurMech );
-    charts.setLocationRelativeTo( this );
-    charts.setVisible( true );
-}//GEN-LAST:event_btnBracketChartActionPerformed
-
-private void chkFractionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFractionalActionPerformed
-    if( chkFractional.isSelected() == CurMech.UsingFractionalAccounting() ) { return; }
-    CurMech.SetFractionalAccounting( chkFractional.isSelected() );
-    if( ! CurMech.UsingFractionalAccounting() ) {
-        Vector v = CurMech.GetLoadout().GetNonCore();
-        for( int i = 0; i < v.size(); i++ ) {
-            if( v.get( i ) instanceof Ammunition ) {
-                ((Ammunition) v.get( i )).ResetLotSize();
-            }
-        }
     }
-
-    RefreshEquipment();
+    // now refresh the information panes
     RefreshSummary();
     RefreshInfoPane();
-}//GEN-LAST:event_chkFractionalActionPerformed
+}//GEN-LAST:event_cmbSCLocActionPerformed
 
-private void mnuBatchHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBatchHMPActionPerformed
-    dlgBatchHMP batch = new dlgBatchHMP( this, true );
-    batch.setLocationRelativeTo( this );
-    batch.setVisible( true );
-}//GEN-LAST:event_mnuBatchHMPActionPerformed
+private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSuperchargerActionPerformed
+    if( CurMech.GetLoadout().HasSupercharger() == chkSupercharger.isSelected() ) {
+        return;
+    }
+    try {
+        CurMech.GetLoadout().SetSupercharger( chkSupercharger.isSelected(), FileCommon.DecodeLocation( (String) cmbSCLoc.getSelectedItem() ), -1 );
+    } catch( Exception e ) {
+        Media.Messager( this, e.getMessage() );
+        try {
+            CurMech.GetLoadout().SetSupercharger( false , 0, -1 );
+        } catch( Exception x ) {
+            // how the hell did we get an error removing it?
+            Media.Messager( this, x.getMessage() );
+            // now refresh the information panes
+            RefreshSummary();
+            RefreshInfoPane();
+        }
+        chkSupercharger.setSelected( false );
+        // now refresh the information panes
+        RefreshSummary();
+        RefreshInfoPane();
+        return;
+    }
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkSuperchargerActionPerformed
 
-private void chkAverageDamageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAverageDamageActionPerformed
-    UpdateBasicChart();
-}//GEN-LAST:event_chkAverageDamageActionPerformed
+private void chkVoidSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkVoidSigActionPerformed
+    // is the system already installed?
+    if( chkVoidSig.isSelected() == CurMech.HasVoidSig() ) { return; }
+    try {
+        if( chkVoidSig.isSelected() ) {
+            CurMech.SetVoidSig( true );
+            if( ! AddECM() ) {
+                CurMech.SetVoidSig( false );
+                throw new Exception( "No ECM Suite was available to support the Void Signature System!\nUninstalling system." );
+            }
+        } else {
+            CurMech.SetVoidSig( false );
+        }
+    } catch( Exception e ) {
+        Media.Messager( this, e.getMessage() );
+        // ensure it's not checked when it shouldn't be
+        chkVoidSig.setSelected( CurMech.HasVoidSig() );
+        return;
+    }
 
-private void chkShowTextNotGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkShowTextNotGraphActionPerformed
-    UpdateBasicChart();
-}//GEN-LAST:event_chkShowTextNotGraphActionPerformed
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkVoidSigActionPerformed
+
+private void chkBSPFDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBSPFDActionPerformed
+    // is the system already installed?
+    if( chkBSPFD.isSelected() == CurMech.HasBlueShield() ) { return; }
+    try {
+        if( chkBSPFD.isSelected() ) {
+            CurMech.SetBlueShield( true );
+        } else {
+            CurMech.SetBlueShield( false );
+        }
+    } catch( Exception e ) {
+        Media.Messager( this, e.getMessage() );
+        // ensure it's not checked when it shouldn't be
+        chkBSPFD.setSelected( CurMech.HasBlueShield() );
+        return;
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkBSPFDActionPerformed
+
+private void chkNullSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkNullSigActionPerformed
+    // is the system already installed?
+    if( chkNullSig.isSelected() == CurMech.HasNullSig() ) { return; }
+    try {
+        if( chkNullSig.isSelected() ) {
+            CurMech.SetNullSig( true );
+        } else {
+            CurMech.SetNullSig( false );
+        }
+    } catch( Exception e ) {
+        Media.Messager( this, e.getMessage() );
+        // ensure it's not checked when it shouldn't be
+        chkNullSig.setSelected( CurMech.HasNullSig() );
+        return;
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkNullSigActionPerformed
+
+private void chkCLPSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCLPSActionPerformed
+    // is the system already installed?
+    if( chkCLPS.isSelected() == CurMech.HasChameleon() ) { return; }
+    try {
+        if( chkCLPS.isSelected() ) {
+            CurMech.SetChameleon( true );
+        } else {
+            CurMech.SetChameleon( false );
+        }
+    } catch( Exception e ) {
+        Media.Messager( this, e.getMessage() );
+        // ensure it's not checked when it shouldn't be
+        chkCLPS.setSelected( CurMech.HasChameleon() );
+        return;
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkCLPSActionPerformed
 
 private void btnRenameVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenameVariantActionPerformed
     SaveOmniFluffInfo();
@@ -14370,225 +13381,131 @@ private void btnRenameVariantActionPerformed(java.awt.event.ActionEvent evt) {//
     RefreshOmniVariants();
 }//GEN-LAST:event_btnRenameVariantActionPerformed
 
-private void cmbPWHDTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWHDTypeActionPerformed
-    if( BuildLookupName( (ifState) CurMech.GetArmor().GetHDArmorType() ).equals( (String) cmbPWHDType.getSelectedItem() ) ) {
+private void btnDeleteVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteVariantActionPerformed
+    // see if the user actually wants to delete the variant
+    int choice = javax.swing.JOptionPane.showConfirmDialog( this,
+            "Are you sure you want to delete this variant?", "Delete Variant?", javax.swing.JOptionPane.YES_NO_OPTION );
+    if( choice == 1 ) {
         return;
-    }
-    RecalcPatchworkArmor( LocationIndex.MECH_LOC_HD );
-    // we check for hardened armor, you can only have so many IJJs
-    FixJJSpinnerModel();
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-}//GEN-LAST:event_cmbPWHDTypeActionPerformed
-
-private void cmbPWCTTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWCTTypeActionPerformed
-    if( BuildLookupName( (ifState) CurMech.GetArmor().GetCTArmorType() ).equals( (String) cmbPWCTType.getSelectedItem() ) ) {
-        return;
-    }
-    RecalcPatchworkArmor( LocationIndex.MECH_LOC_CT );
-    // we check for hardened armor, you can only have so many IJJs
-    FixJJSpinnerModel();
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-
-}//GEN-LAST:event_cmbPWCTTypeActionPerformed
-
-private void cmbPWLTTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWLTTypeActionPerformed
-    if( BuildLookupName( (ifState) CurMech.GetArmor().GetLTArmorType() ).equals( (String) cmbPWLTType.getSelectedItem() ) ) {
-        return;
-    }
-    RecalcPatchworkArmor( LocationIndex.MECH_LOC_LT );
-    // we check for hardened armor, you can only have so many IJJs
-    FixJJSpinnerModel();
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-
-}//GEN-LAST:event_cmbPWLTTypeActionPerformed
-
-private void cmbPWRTTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWRTTypeActionPerformed
-    if( BuildLookupName( (ifState) CurMech.GetArmor().GetRTArmorType() ).equals( (String) cmbPWRTType.getSelectedItem() ) ) {
-        return;
-    }
-    RecalcPatchworkArmor( LocationIndex.MECH_LOC_RT );
-    // we check for hardened armor, you can only have so many IJJs
-    FixJJSpinnerModel();
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-
-}//GEN-LAST:event_cmbPWRTTypeActionPerformed
-
-private void cmbPWLATypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWLATypeActionPerformed
-    if( BuildLookupName( (ifState) CurMech.GetArmor().GetLAArmorType() ).equals( (String) cmbPWLAType.getSelectedItem() ) ) {
-        return;
-    }
-    RecalcPatchworkArmor( LocationIndex.MECH_LOC_LA );
-    // we check for hardened armor, you can only have so many IJJs
-    FixJJSpinnerModel();
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-
-}//GEN-LAST:event_cmbPWLATypeActionPerformed
-
-private void cmbPWRATypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWRATypeActionPerformed
-    if( BuildLookupName( (ifState) CurMech.GetArmor().GetRAArmorType() ).equals( (String) cmbPWRAType.getSelectedItem() ) ) {
-        return;
-    }
-    RecalcPatchworkArmor( LocationIndex.MECH_LOC_RA );
-    // we check for hardened armor, you can only have so many IJJs
-    FixJJSpinnerModel();
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-
-}//GEN-LAST:event_cmbPWRATypeActionPerformed
-
-private void cmbPWLLTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWLLTypeActionPerformed
-    if( BuildLookupName( (ifState) CurMech.GetArmor().GetLLArmorType() ).equals( (String) cmbPWLLType.getSelectedItem() ) ) {
-        return;
-    }
-    RecalcPatchworkArmor( LocationIndex.MECH_LOC_LL );
-    // we check for hardened armor, you can only have so many IJJs
-    FixJJSpinnerModel();
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-
-}//GEN-LAST:event_cmbPWLLTypeActionPerformed
-
-private void cmbPWRLTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPWRLTypeActionPerformed
-    if( BuildLookupName( (ifState) CurMech.GetArmor().GetRLArmorType() ).equals( (String) cmbPWRLType.getSelectedItem() ) ) {
-        return;
-    }
-    RecalcPatchworkArmor( LocationIndex.MECH_LOC_RL );
-    // we check for hardened armor, you can only have so many IJJs
-    FixJJSpinnerModel();
-
-    // now refresh the information panes
-    RefreshSummary();
-    RefreshInfoPane();
-
-}//GEN-LAST:event_cmbPWRLTypeActionPerformed
-
-private void chkHDTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkHDTurretActionPerformed
-        if( CurMech.IsOmnimech() ) {
-            if( CurMech.GetBaseLoadout().GetHDTurret() == CurMech.GetLoadout().GetHDTurret() ) {
-                chkHDTurret.setSelected( true );
-                return;
-            }
+    } else {
+        if( CurMech.GetLoadout().GetName().equals( common.Constants.BASELOADOUT_NAME ) ) {
+            Media.Messager( this, "You cannot remove the base chassis." );
+            return;
         }
-        if( CurMech.GetLoadout().HasHDTurret() == chkHDTurret.isSelected() ) { return; }
-        if( chkHDTurret.isSelected() ) {
-            try {
-                CurMech.GetLoadout().SetHDTurret( true, -1 );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkHDTurret.setSelected( false );
-            }
-        } else {
-            try {
-                CurMech.GetLoadout().SetHDTurret( false, -1 );
-            } catch( Exception e ) {
-                Media.Messager( "Fatal error attempting to remove turret.\nGetting a new 'Mech, sorry..." );
-            }
-        }
-        CheckEquipment();
-        RefreshSummary();
-        RefreshInfoPane();
-}//GEN-LAST:event_chkHDTurretActionPerformed
+    }
 
-private void chkLTTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLTTurretActionPerformed
-        if( CurMech.IsOmnimech() ) {
-            if( CurMech.GetBaseLoadout().GetLTTurret() == CurMech.GetLoadout().GetLTTurret() ) {
-                chkLTTurret.setSelected( true );
-                return;
-            }
-        }
-        if( CurMech.GetLoadout().HasLTTurret() == chkLTTurret.isSelected() ) { return; }
-        if( chkLTTurret.isSelected() ) {
-            try {
-                CurMech.GetLoadout().SetLTTurret( true, -1 );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkLTTurret.setSelected( false );
-            }
-        } else {
-            try {
-                CurMech.GetLoadout().SetLTTurret( false, -1 );
-            } catch( Exception e ) {
-                Media.Messager( "Fatal error attempting to remove turret.\nGetting a new 'Mech, sorry..." );
-            }
-        }
-        CheckEquipment();
-        RefreshSummary();
-        RefreshInfoPane();
-}//GEN-LAST:event_chkLTTurretActionPerformed
+    // delete the variant
+    CurMech.RemoveLoadout( CurMech.GetLoadout().GetName() );
 
-private void chkRTTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRTTurretActionPerformed
-        if( CurMech.IsOmnimech() ) {
-            if( CurMech.GetBaseLoadout().GetRTTurret() == CurMech.GetLoadout().GetRTTurret() ) {
-                chkRTTurret.setSelected( true );
-                return;
-            }
-        }
-        if( CurMech.GetLoadout().HasRTTurret() == chkRTTurret.isSelected() ) { return; }
-        if( chkRTTurret.isSelected() ) {
-            try {
-                CurMech.GetLoadout().SetRTTurret( true, -1 );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-                chkRTTurret.setSelected( false );
-            }
-        } else {
-            try {
-                CurMech.GetLoadout().SetRTTurret( false, -1 );
-            } catch( Exception e ) {
-                Media.Messager( "Fatal error attempting to remove turret.\nGetting a new 'Mech, sorry..." );
-            }
-        }
-        CheckEquipment();
-        RefreshSummary();
-        RefreshInfoPane();
-}//GEN-LAST:event_chkRTTurretActionPerformed
+    // refresh all the displays
+    LoadOmniFluffInfo();
+    RefreshOmniVariants();
+    FixTransferHandlers();
+    SetLoadoutArrays();
+    SetWeaponChoosers();
+    BuildJumpJetSelector();
+    FixJJSpinnerModel();
+    FixHeatSinkSpinnerModel();
+    RefreshOmniChoices();
+    SolidifyJJManufacturer();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_btnDeleteVariantActionPerformed
 
-private void mnuBFBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBFBActionPerformed
-    String[] call = { "java", "-Xmx256m", "-jar", "bfb.jar" };
+private void btnAddVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddVariantActionPerformed
+    SaveOmniFluffInfo();
+    String VariantName = "";
+
+    // get the variant name
+    dlgOmniBase input = new dlgOmniBase( this, true );
+    input.setTitle( "Name this variant" );
+    input.setLocationRelativeTo( this );
+    input.setVisible( true );
+    if( input.WasCanceled() ) {
+        input.dispose();
+        return;
+    } else {
+        VariantName = input.GetInput();
+        input.dispose();
+    }
+
+    // now set the new loadout as the current
     try {
-        Runtime.getRuntime().exec(call);
-    } catch (Exception ex) {
-        Media.Messager("Error while trying to open BFB\n" + ex.getMessage());
-        System.out.println(ex.getMessage());
+        CurMech.AddLoadout( VariantName );
+    } catch( Exception e ) {
+        // found an error when adding the loadout
+        Media.Messager( this, e.getMessage() );
+        return;
     }
-}//GEN-LAST:event_mnuBFBActionPerformed
 
-private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-    Overview.StartNewDocument();
-    Capabilities.StartNewDocument();
-    History.StartNewDocument();
-    Deployment.StartNewDocument();
-    Variants.StartNewDocument();
-    Notables.StartNewDocument();
-    Additional.StartNewDocument();
-    txtManufacturer.setText( "" );
-    txtManufacturerLocation.setText( "" );
-    txtEngineManufacturer.setText( "" );
-    txtArmorModel.setText( "" );
-    txtChassisModel.setText( "" );
-    txtJJModel.setText( "" );
-    txtCommSystem.setText( "" );
-    txtTNTSystem.setText( "" );
-}//GEN-LAST:event_jMenuItem1ActionPerformed
+    // fix the GUI
+    LoadOmniFluffInfo();
+    FixTransferHandlers();
+    SetLoadoutArrays();
+    SetWeaponChoosers();
+    BuildJumpJetSelector();
+    FixJJSpinnerModel();
+    FixHeatSinkSpinnerModel();
+    RefreshOmniVariants();
+    RefreshOmniChoices();
+    SolidifyJJManufacturer();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_btnAddVariantActionPerformed
+
+private void btnLockChassisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLockChassisActionPerformed
+    // currently testing right now.
+    SaveOmniFluffInfo();
+    String VariantName = "";
+
+    // ensure there are no unplaced crits
+    if( CurMech.GetLoadout().GetQueue().size() != 0 ) {
+        Media.Messager( this, "You must place all items first." );
+        tbpMainTabPane.setSelectedComponent( pnlEquipment );
+        return;
+    }
+
+    int choice = javax.swing.JOptionPane.showConfirmDialog( this,
+            "Are you sure you want to lock the chassis?\nAll items in the base " +
+            "loadout will be locked in location\nand most chassis specifications " +
+            "will be locked.", "Lock Chassis?", javax.swing.JOptionPane.YES_NO_OPTION );
+    if( choice == 1 ) {
+        return;
+    } else {
+        // ask for a name for the first variant
+        dlgOmniBase input = new dlgOmniBase( this, true );
+        input.setTitle( "Name the first variant" );
+        input.setLocationRelativeTo( this );
+        input.setVisible( true );
+        if( input.WasCanceled() ) {
+            input.dispose();
+            return;
+        } else {
+            VariantName = input.GetInput();
+            input.dispose();
+        }
+    }
+
+    // ensure we're not using the base loadout's name.
+    if( common.Constants.BASELOADOUT_NAME.equals( VariantName ) ) {
+        Media.Messager( this, "\"" + VariantName + "\" is reserved for the base loadout and cannot be used\nfor a new loadout.  Please choose another name." );
+        return;
+    }
+
+    // make it an omni
+    CurMech.SetOmnimech( VariantName );
+    chkOmnimech.setEnabled( false );
+    FixTransferHandlers();
+    SetLoadoutArrays();
+    FixJJSpinnerModel();
+    FixHeatSinkSpinnerModel();
+    LockGUIForOmni();
+    RefreshOmniVariants();
+    RefreshOmniChoices();
+    SolidifyJJManufacturer();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_btnLockChassisActionPerformed
 
 private void chkBoostersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBoostersActionPerformed
     if( chkBoosters.isSelected() == CurMech.UsingJumpBooster() ) { return; }
@@ -14631,6 +13548,968 @@ private void spnBoosterMPStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_spnBoosterMPStateChanged
+
+private void cmbJumpJetTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbJumpJetTypeActionPerformed
+    RecalcJumpJets();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_cmbJumpJetTypeActionPerformed
+
+private void spnJumpMPStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnJumpMPStateChanged
+    // just change the number of jump jets.
+    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnJumpMP.getModel();
+    javax.swing.JComponent editor = spnJumpMP.getEditor();
+    javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
+    int NumJJ = CurMech.GetJumpJets().GetNumJJ();
+
+    // get the value from the text box, if it's valid.
+    try {
+        spnWalkMP.commitEdit();
+    } catch ( java.text.ParseException pe ) {
+        // Edited value is invalid, spinner.getValue() will return
+        // the last valid value, you could revert the spinner to show that:
+        if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
+            tf.setValue(spnWalkMP.getValue());
+        }
+        return;
+    }
+
+    if( n.getNumber().intValue() > NumJJ ) {
+        // The number of sinks went up
+        for( int i = NumJJ; i < n.getNumber().intValue(); i++ ) {
+            CurMech.GetJumpJets().IncrementNumJJ();
+        }
+    } else {
+        // the number went down
+        for( int i = NumJJ; i > n.getNumber().intValue(); i-- ) {
+            CurMech.GetJumpJets().DecrementNumJJ();
+        }
+    }
+
+    // see if we need to enable the jump jet manufacturer field
+    if( n.getNumber().intValue() > 0 ) {
+        // enable the field
+        txtJJModel.setEnabled( true );
+    } else {
+        // disable it, but don't clear it
+        txtJJModel.setEnabled( false );
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_spnJumpMPStateChanged
+
+private void spnWalkMPStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnWalkMPStateChanged
+    // see what changed and perform the appropriate action
+    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnWalkMP.getModel();
+    javax.swing.JComponent editor = spnWalkMP.getEditor();
+    javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
+
+    // get the value from the text box, if it's valid.
+    try {
+        spnWalkMP.commitEdit();
+    } catch ( java.text.ParseException pe ) {
+        // Edited value is invalid, spinner.getValue() will return
+        // the last valid value, you could revert the spinner to show that:
+        if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
+            tf.setValue(spnWalkMP.getValue());
+        }
+        return;
+    }
+    try {
+        // the commitedit worked, so set the engine rating and report the running mp
+        CurMech.SetWalkMP( n.getNumber().intValue() );
+    } catch( Exception e ) {
+        Media.Messager( e.getMessage() );
+        spnWalkMP.setValue( spnWalkMP.getPreviousValue() );
+    }
+    lblRunMP.setText( "" + CurMech.GetRunningMP() );
+
+    // when the walking mp changes, we also have to change the jump mp
+    // spinner model and recalculate the heat sinks
+    FixJJSpinnerModel();
+    CurMech.GetHeatSinks().ReCalculate();
+    CurMech.GetLoadout().UnallocateFuelTanks();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_spnWalkMPStateChanged
+
+private void spnNumberOfHSStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnNumberOfHSStateChanged
+    // see what changed and perform the appropriate action
+    javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnNumberOfHS.getModel();
+    int NumHS = CurMech.GetHeatSinks().GetNumHS();
+    javax.swing.JComponent editor = spnNumberOfHS.getEditor();
+    javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
+
+    // get the value from the text box, if it's valid.
+    try {
+        spnNumberOfHS.commitEdit();
+    } catch ( java.text.ParseException pe ) {
+        // Edited value is invalid, spinner.getValue() will return
+        // the last valid value, you could revert the spinner to show that:
+        if (editor instanceof javax.swing.JSpinner.DefaultEditor) {
+            tf.setValue(spnNumberOfHS.getValue());
+        }
+        return;
+    }
+
+    if( n.getNumber().intValue() > NumHS ) {
+        // The number of sinks went up
+        for( int i = NumHS; i < n.getNumber().intValue(); i++ ) {
+            CurMech.GetHeatSinks().IncrementNumHS();
+        }
+    } else {
+        // the number went down
+        for( int i = NumHS; i > n.getNumber().intValue(); i-- ) {
+            CurMech.GetHeatSinks().DecrementNumHS();
+        }
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_spnNumberOfHSStateChanged
+
+private void cmbHeatSinkTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHeatSinkTypeActionPerformed
+    if( BuildLookupName( CurMech.GetHeatSinks().GetCurrentState() ).equals( (String) cmbHeatSinkType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcHeatSinks();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_cmbHeatSinkTypeActionPerformed
+
+private void chkFractionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFractionalActionPerformed
+    if( chkFractional.isSelected() == CurMech.UsingFractionalAccounting() ) { return; }
+    CurMech.SetFractionalAccounting( chkFractional.isSelected() );
+    if( ! CurMech.UsingFractionalAccounting() ) {
+        Vector v = CurMech.GetLoadout().GetNonCore();
+        for( int i = 0; i < v.size(); i++ ) {
+            if( v.get( i ) instanceof Ammunition ) {
+                ((Ammunition) v.get( i )).ResetLotSize();
+            }
+        }
+    }
+
+    RefreshEquipment();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkFractionalActionPerformed
+
+private void chkCommandConsoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCommandConsoleActionPerformed
+    if( chkCommandConsole.isSelected() == CurMech.HasCommandConsole() ) { return; }
+    if( chkCommandConsole.isSelected() ) {
+        if( ! CurMech.SetCommandConsole( true ) ) {
+            Media.Messager( this, "Command Console cannot be allocated." );
+            chkCommandConsole.setSelected( false );
+        }
+    } else {
+        CurMech.SetCommandConsole( false );
+    }
+
+    // now refresh the information panes
+    RefreshEquipment();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkCommandConsoleActionPerformed
+
+private void cmbMechTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMechTypeActionPerformed
+    switch( cmbMechType.getSelectedIndex() ) {
+        case 0:
+            if( ! CurMech.IsIndustrialmech() &! CurMech.IsPrimitive() ) { return; }
+            CurMech.SetModern();
+            CurMech.SetBattlemech();
+            break;
+        case 1:
+            if( CurMech.IsIndustrialmech() &! CurMech.IsPrimitive() ) { return; }
+            CurMech.SetModern();
+            CurMech.SetIndustrialmech();
+            break;
+        case 2:
+            if( ! CurMech.IsIndustrialmech() && CurMech.IsPrimitive() ) { return; }
+            CurMech.SetPrimitive();
+            CurMech.SetBattlemech();
+            break;
+        case 3:
+            if( CurMech.IsIndustrialmech() && CurMech.IsPrimitive() ) { return; }
+            CurMech.SetPrimitive();
+            CurMech.SetIndustrialmech();
+            break;
+    }
+
+    // check the tonnage
+    CheckTonnage( false );
+
+    // set the loadout arrays
+    SetLoadoutArrays();
+
+    // fix the armor spinners
+    FixArmorSpinners();
+
+    // refresh all the combo boxes.
+    SaveSelections();
+    BuildChassisSelector();
+    BuildEngineSelector();
+    BuildGyroSelector();
+    BuildCockpitSelector();
+    BuildEnhancementSelector();
+    BuildHeatsinkSelector();
+    BuildJumpJetSelector();
+    BuildArmorSelector();
+    RefreshEquipment();
+    CheckOmnimech();
+
+    // now reset the combo boxes to the closest choices we previously selected
+    LoadSelections();
+
+    RecalcEngine();
+    FixWalkMPSpinner();
+    FixJJSpinnerModel();
+    RecalcGyro();
+    RecalcIntStruc();
+    RecalcCockpit();
+    CurMech.GetActuators().PlaceActuators();
+    RecalcHeatSinks();
+    RecalcJumpJets();
+    RecalcEnhancements();
+    RecalcArmor();
+    RecalcEquipment();
+
+    // since you can only ever change the era when not restricted, we're not
+    // doing it here.  Pass in default values.
+    CurMech.GetLoadout().FlushIllegal();
+    //CurMech.GetLoadout().FlushIllegal( cmbMechEra.getSelectedIndex(), 0, false );
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+    SetWeaponChoosers();
+    ResetAmmo();
+}//GEN-LAST:event_cmbMechTypeActionPerformed
+
+private void chkOmnimechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkOmnimechActionPerformed
+    if( chkOmnimech.isSelected() ) {
+        btnLockChassis.setEnabled( true );
+    } else {
+        btnLockChassis.setEnabled( false );
+    }
+}//GEN-LAST:event_chkOmnimechActionPerformed
+
+private void cmbPhysEnhanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPhysEnhanceActionPerformed
+    if( BuildLookupName( CurMech.GetPhysEnhance().GetCurrentState() ).equals( (String) cmbPhysEnhance.getSelectedItem() ) ) {
+        return;
+    }
+
+    RecalcEnhancements();
+
+    // check our exclusions
+    try {
+        CurMech.GetLoadout().CheckExclusions( CurMech.GetPhysEnhance() );
+    } catch( Exception e ) {
+        Media.Messager( this, e.getMessage() );
+        cmbPhysEnhance.setSelectedItem( "No Enhancement" );
+        RecalcEnhancements();
+        return;
+    }
+
+    lblRunMP.setText( "" + CurMech.GetRunningMP() );
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_cmbPhysEnhanceActionPerformed
+
+private void cmbCockpitTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCockpitTypeActionPerformed
+    if( CurMech.GetCockpit().LookupName().equals( (String) cmbCockpitType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcCockpit();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_cmbCockpitTypeActionPerformed
+
+private void cmbGyroTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGyroTypeActionPerformed
+    if( BuildLookupName( CurMech.GetGyro().GetCurrentState() ).equals( (String) cmbGyroType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcGyro();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_cmbGyroTypeActionPerformed
+
+private void cmbInternalTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbInternalTypeActionPerformed
+    if( BuildLookupName( CurMech.GetIntStruc().GetCurrentState() ).equals( (String) cmbInternalType.getSelectedItem() ) ) {
+        return;
+    }
+    RecalcIntStruc();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_cmbInternalTypeActionPerformed
+
+private void cmbEngineTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEngineTypeActionPerformed
+    if( BuildLookupName( CurMech.GetEngine().GetCurrentState() ).equals( (String) cmbEngineType.getSelectedItem() ) ) {
+        // only nuclear-powered mechs may use jump jets
+        if( CurMech.GetEngine().IsNuclear() ) {
+            if( cmbJumpJetType.getSelectedItem() == null ) {
+                EnableJumpJets( false );
+            } else {
+                EnableJumpJets( true );
+            }
+        } else {
+            EnableJumpJets( false );
+        }
+        return;
+    }
+    RecalcEngine();
+
+    // only nuclear-powered mechs may use jump jets
+    if( CurMech.GetEngine().IsNuclear() ) {
+        if( cmbJumpJetType.getSelectedItem() == null ) {
+            EnableJumpJets( false );
+        } else {
+            EnableJumpJets( true );
+        }
+    } else {
+        EnableJumpJets( false );
+    }
+
+    // refresh the selected equipment listbox
+    if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
+        Equipment[SELECTED] = new Object[] { " " };
+    } else {
+        Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
+    }
+    //lstSelectedEquipment.setListData( Equipment[SELECTED] );
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_cmbEngineTypeActionPerformed
+
+private void cmbMotiveTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMotiveTypeActionPerformed
+    if( cmbMotiveType.getSelectedIndex() == 0 ) {
+        // if the mech is already a biped, forget it
+        if( ! CurMech.IsQuad() ) { return; }
+        CurMech.SetBiped();
+        // internal structure is always reset to standard on changing the
+        // motive type.
+        cmbInternalType.setSelectedIndex( 0 );
+        ((javax.swing.border.TitledBorder) pnlLAArmorBox.getBorder()).setTitle( "LA" );
+        ((javax.swing.border.TitledBorder) pnlRAArmorBox.getBorder()).setTitle( "RA" );
+        ((javax.swing.border.TitledBorder) pnlLLArmorBox.getBorder()).setTitle( "LL" );
+        ((javax.swing.border.TitledBorder) pnlRLArmorBox.getBorder()).setTitle( "RL" );
+        scrRACrits.setPreferredSize( new java.awt.Dimension( 105, 170 ) );
+        scrLACrits.setPreferredSize( new java.awt.Dimension( 105, 170 ) );
+    } else {
+        // if the mech is already a quad, forget it.
+        if( CurMech.IsQuad() ) { return; }
+        CurMech.SetQuad();
+        // internal structure is always reset to standard on changing the
+        // motive type.
+        cmbInternalType.setSelectedIndex( 0 );
+        ((javax.swing.border.TitledBorder) pnlLAArmorBox.getBorder()).setTitle( "FLL" );
+        ((javax.swing.border.TitledBorder) pnlRAArmorBox.getBorder()).setTitle( "FRL" );
+        ((javax.swing.border.TitledBorder) pnlLLArmorBox.getBorder()).setTitle( "RLL" );
+        ((javax.swing.border.TitledBorder) pnlRLArmorBox.getBorder()).setTitle( "RRL" );
+        scrRACrits.setPreferredSize( new java.awt.Dimension( 105, 87 ) );
+        scrLACrits.setPreferredSize( new java.awt.Dimension( 105, 87 ) );
+    }
+
+    // set the loadout arrays
+    SetLoadoutArrays();
+
+    // fix the armor spinners
+    FixArmorSpinners();
+
+    // Check any AES systems that may have been installed
+    CheckAES();
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+    RefreshInternalPoints();
+    SetWeaponChoosers();
+}//GEN-LAST:event_cmbMotiveTypeActionPerformed
+
+private void cmbTonnageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTonnageActionPerformed
+    // We have to decode the selected index to set values.  A bit safer, I
+    // think, because we can directly set the values ourselves.
+    int Tons = 0;
+    switch ( cmbTonnage.getSelectedIndex() ) {
+        case 0:
+            // 10 ton 'Mech.  Need to check the settings first
+            lblMechType.setText( "Ultralight Mech");
+            Tons = 10;
+            break;
+        case 1:
+            // 15 ton 'Mech
+            lblMechType.setText( "Ultralight Mech");
+            Tons = 15;
+            break;
+        case 2:
+            // 20 ton mech
+            lblMechType.setText( "Light Mech");
+            Tons = 20;
+            break;
+        case 3:
+            // 25 ton mech
+            lblMechType.setText( "Light Mech");
+            Tons = 25;
+            break;
+        case 4:
+            // 30 ton mech
+            lblMechType.setText( "Light Mech");
+            Tons = 30;
+            break;
+        case 5:
+            // 35 ton mech
+            lblMechType.setText( "Light Mech");
+            Tons = 35;
+            break;
+        case 6:
+            // 40 ton mech
+            lblMechType.setText( "Medium Mech");
+            Tons = 40;
+            break;
+        case 7:
+            // 45 ton mech
+            lblMechType.setText( "Medium Mech");
+            Tons = 45;
+            break;
+        case 8:
+            // 50 ton mech
+            lblMechType.setText( "Medium Mech");
+            Tons = 50;
+            break;
+        case 9:
+            // 55 ton mech
+            lblMechType.setText( "Medium Mech");
+            Tons = 55;
+            break;
+        case 10:
+            // 60 ton mech
+            lblMechType.setText( "Heavy Mech");
+            Tons = 60;
+            break;
+        case 11:
+            // 65 ton mech
+            lblMechType.setText( "Heavy Mech");
+            Tons = 65;
+            break;
+        case 12:
+            // 70 ton mech
+            lblMechType.setText( "Heavy Mech");
+            Tons = 70;
+            break;
+        case 13:
+            // 75 ton mech
+            lblMechType.setText( "Heavy Mech");
+            Tons = 75;
+            break;
+        case 14:
+            // 80 ton mech
+            lblMechType.setText( "Assault Mech");
+            Tons = 80;
+            break;
+        case 15:
+            // 85 ton mech
+            lblMechType.setText( "Assault Mech");
+            Tons = 85;
+            break;
+        case 16:
+            // 90 ton mech
+            lblMechType.setText( "Assault Mech");
+            Tons = 90;
+            break;
+        case 17:
+            // 95 ton mech
+            lblMechType.setText( "Assault Mech");
+            Tons = 95;
+            break;
+        case 18:
+            // 100 ton mech
+            lblMechType.setText( "Assault Mech");
+            Tons = 100;
+            break;
+    }
+
+    if( CurMech.GetTonnage() == Tons ) {
+        return;
+    } else {
+        CurMech.SetTonnage( Tons );
+    }
+
+    // check the tonnage
+    CheckTonnage( false );
+
+    // fix the walking and jumping MP spinners
+    FixWalkMPSpinner();
+    FixJJSpinnerModel();
+
+    // recalculate the heat sinks and armor
+    CurMech.GetHeatSinks().ReCalculate();
+    CurMech.GetArmor().Recalculate();
+
+    // fix the armor spinners
+    FixArmorSpinners();
+
+    // unallocate physical weapons since their size depends on tonnage
+    CurMech.CheckPhysicals();
+
+    // Check any AES systems that may have been installed
+    CheckAES();
+
+    // now refresh the information panes
+    RefreshInternalPoints();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_cmbTonnageActionPerformed
+
+private void cmbRulesLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRulesLevelActionPerformed
+    if( Load ) { return; }
+    int NewLevel = cmbRulesLevel.getSelectedIndex();
+    int OldLevel = CurMech.GetLoadout().GetRulesLevel();
+    int OldType = cmbMechType.getSelectedIndex();
+    int OldTech = CurMech.GetTechbase();
+
+    if( OldLevel == NewLevel ) {
+        // we're already at the correct rules level.
+        return;
+    }
+
+    // do we have an OmniMech?
+    if( CurMech.IsOmnimech() ) {
+        // see if we can set to the new rules level.
+        if( CurMech.GetLoadout().SetRulesLevel( NewLevel ) ) {
+            // we can.
+            if( OldLevel > NewLevel ) {
+                //CurMech.GetLoadout().FlushIllegal( NewLevel, 0, false );
+                CurMech.GetLoadout().FlushIllegal();
+            }
+            BuildTechBaseSelector();
+            cmbTechBase.setSelectedIndex( CurMech.GetLoadout().GetTechBase() );
+            BuildJumpJetSelector();
+            RefreshEquipment();
+            RecalcEquipment();
+        } else {
+            // can't.  reset to the default rules level and scold the user
+            Media.Messager( this, "You cannot set an OmniMech's loadout to a Rules Level\nlower than it's chassis' Rules Level." );
+            cmbRulesLevel.setSelectedIndex( CurMech.GetLoadout().GetRulesLevel() );
+            return;
+        }
+    } else {
+        CurMech.SetRulesLevel( NewLevel );
+        BuildMechTypeSelector();
+        CheckTonnage( true );
+
+        // get the currently chosen selections
+        SaveSelections();
+        BuildTechBaseSelector();
+        if( OldTech >= cmbTechBase.getItemCount() ) {
+            // ooooh fun, we can't set it correctly.
+            switch( OldTech ) {
+                case AvailableCode.TECH_INNER_SPHERE:
+                    // WTF???
+                    System.err.println( "Fatal Error when reseting techbase, Inner Sphere not available." );
+                    break;
+                default:
+                    // set it to Inner Sphere
+                    cmbTechBase.setSelectedIndex( 0 );
+                    cmbTechBaseActionPerformed( null );
+                    break;
+            }
+        }
+
+        // since you can only ever change the rules level when not restricted,
+        // we're not doing it here.  Pass in default values.
+        //CurMech.GetLoadout().FlushIllegal( CurMech.GetEra(), 0, false );
+        CurMech.GetLoadout().FlushIllegal();
+
+        // refresh all the combo boxes.
+        BuildChassisSelector();
+        BuildEngineSelector();
+        BuildGyroSelector();
+        BuildCockpitSelector();
+        BuildEnhancementSelector();
+        BuildHeatsinkSelector();
+        BuildJumpJetSelector();
+        BuildArmorSelector();
+        FixWalkMPSpinner();
+        FixJJSpinnerModel();
+        RefreshEquipment();
+
+        // now reset the combo boxes to the closest choices we previously selected
+        LoadSelections();
+
+        RecalcEngine();
+        RecalcGyro();
+        RecalcIntStruc();
+        RecalcCockpit();
+        CurMech.GetActuators().PlaceActuators();
+        RecalcHeatSinks();
+        RecalcJumpJets();
+        RecalcEnhancements();
+        RecalcArmor();
+        RecalcEquipment();
+    }
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+    SetWeaponChoosers();
+    ResetAmmo();
+}//GEN-LAST:event_cmbRulesLevelActionPerformed
+
+private void cmbTechBaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTechBaseActionPerformed
+    if( Load ) { return; }
+    // do we really need to do this?
+    if( CurMech.IsOmnimech() ) {
+        if( CurMech.GetLoadout().GetTechBase() == cmbTechBase.getSelectedIndex() ) { return; }
+    } else {
+        if( CurMech.GetTechbase() == cmbTechBase.getSelectedIndex() ) { return; }
+    }
+
+    if( CurMech.IsOmnimech() ) {
+        boolean check = CurMech.SetTechBase( cmbTechBase.getSelectedIndex() );
+        if( ! check ) {
+            Media.Messager( this, "An OmniMech can only use the base chassis' Tech Base\nor Mixed Tech.  Resetting." );
+            cmbTechBase.setSelectedIndex( CurMech.GetLoadout().GetTechBase() );
+            return;
+        }
+        RefreshEquipment();
+    } else {
+        // now change the mech over to the new techbase
+        switch( cmbTechBase.getSelectedIndex() ) {
+            case AvailableCode.TECH_INNER_SPHERE:
+                CurMech.SetInnerSphere();
+                break;
+            case AvailableCode.TECH_CLAN:
+                CurMech.SetClan();
+                break;
+            case AvailableCode.TECH_BOTH:
+                CurMech.SetMixed();
+                break;
+        }
+
+        // save the current selections.  The 'Mech should have already
+        // flushed any illegal equipment in the changeover
+        SaveSelections();
+
+        data.Rebuild( CurMech );
+
+        // refresh all the combo boxes.
+        BuildChassisSelector();
+        BuildEngineSelector();
+        BuildGyroSelector();
+        BuildCockpitSelector();
+        BuildEnhancementSelector();
+        BuildHeatsinkSelector();
+        BuildJumpJetSelector();
+        BuildArmorSelector();
+        RefreshEquipment();
+        FixWalkMPSpinner();
+        FixJJSpinnerModel();
+        CheckOmnimech();
+
+        // for Clan machines (only) ensure that Clan CASE is selected by default
+        if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
+            CurMech.GetLoadout().SetClanCASE( true );
+        }
+
+        // now reset the combo boxes to the closest choices we previously selected
+        LoadSelections();
+
+        // recalculate the mech.
+        RecalcEngine();
+        RecalcGyro();
+        RecalcIntStruc();
+        RecalcCockpit();
+        CurMech.GetActuators().PlaceActuators();
+        RecalcHeatSinks();
+        RecalcJumpJets();
+        RecalcEnhancements();
+        RecalcArmor();
+    }
+
+    RecalcEquipment();
+    SetWeaponChoosers();
+    chkUseTC.setSelected( false );
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+    SetWeaponChoosers();
+}//GEN-LAST:event_cmbTechBaseActionPerformed
+
+private void chkYearRestrictActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkYearRestrictActionPerformed
+    // This locks in the mech's production year, era, and tech base.
+    int year = 0;
+    if( CurMech.IsYearRestricted() == chkYearRestrict.isSelected() ) { return; }
+
+    // if we just unchecked the box, clear all locks and exit.
+    if( ! chkYearRestrict.isSelected() ) {
+        cmbMechEra.setEnabled( true );
+        cmbTechBase.setEnabled( true );
+        txtProdYear.setEnabled( true );
+        CurMech.SetYearRestricted( false );
+        switch( cmbMechEra.getSelectedIndex() ) {
+            case AvailableCode.ERA_STAR_LEAGUE:
+                CurMech.SetYear( 2750, false );
+                break;
+            case AvailableCode.ERA_SUCCESSION:
+                CurMech.SetYear( 3025, false );
+                break;
+            case AvailableCode.ERA_CLAN_INVASION:
+                CurMech.SetYear( 3070, false );
+                break;
+            case AvailableCode.ERA_DARK_AGES:
+                CurMech.SetYear( 3132, false );
+                break;
+            case AvailableCode.ERA_ALL:
+                CurMech.SetYear( 0, false );
+                break;
+        }
+    } else {
+        // ensure we have a good year.
+        try{
+            year = Integer.parseInt( txtProdYear.getText() ) ;
+        } catch( NumberFormatException n ) {
+            Media.Messager( this, "The production year is not a number." );
+            txtProdYear.setText( "" );
+            chkYearRestrict.setSelected( false );
+            return;
+        }
+
+        // ensure the year is between the era years.
+        switch ( cmbMechEra.getSelectedIndex() ) {
+            case AvailableCode.ERA_STAR_LEAGUE:
+                // Star League era
+                if( year < 2443 || year > 2800 ) {
+                    Media.Messager( this, "The year does not fall within this era." );
+                    txtProdYear.setText( "" );
+                    chkYearRestrict.setSelected( false );
+                    return;
+                }
+                break;
+            case AvailableCode.ERA_SUCCESSION:
+                // Succession Wars era
+                if( year < 2801 || year > 3050 ) {
+                    Media.Messager( this, "The year does not fall within this era." );
+                    txtProdYear.setText( "" );
+                    chkYearRestrict.setSelected( false );
+                    return;
+                }
+                break;
+            case AvailableCode.ERA_CLAN_INVASION:
+                // Clan Invasion Era
+                if( year < 3051 || year > 3131 ) {
+                    Media.Messager( this, "The year does not fall within this era." );
+                    txtProdYear.setText( "" );
+                    chkYearRestrict.setSelected( false );
+                    return;
+                }
+                break;
+            case AvailableCode.ERA_DARK_AGES:
+                // Clan Invasion Era
+                if( year < 3132 ) {
+                    Media.Messager( this, "The year does not fall within this era." );
+                    txtProdYear.setText( "" );
+                    chkYearRestrict.setSelected( false );
+                    return;
+                }
+                break;
+            case AvailableCode.ERA_ALL:
+                // all era
+                chkYearRestrict.setSelected( false );
+                chkYearRestrict.setEnabled( false );
+        }
+
+        // we know we have a good year, lock it in.
+        cmbMechEra.setEnabled( false );
+        cmbTechBase.setEnabled( false );
+        txtProdYear.setEnabled( false );
+        CurMech.SetYear( year, true );
+        CurMech.SetYearRestricted( true );
+    }
+
+    // get the currently chosen selections
+    SaveSelections();
+
+    // first, refresh all the combo boxes.
+    BuildChassisSelector();
+    BuildEngineSelector();
+    BuildGyroSelector();
+    BuildCockpitSelector();
+    BuildEnhancementSelector();
+    BuildHeatsinkSelector();
+    BuildJumpJetSelector();
+    BuildArmorSelector();
+    RefreshEquipment();
+    CheckOmnimech();
+
+    // now reset the combo boxes to the closest previously selected
+    LoadSelections();
+
+    // now redo the mech based on what happened.
+    RecalcEngine();
+    RecalcGyro();
+    RecalcIntStruc();
+    RecalcCockpit();
+    CurMech.GetActuators().PlaceActuators();
+    RecalcHeatSinks();
+    RecalcJumpJets();
+    RecalcEnhancements();
+    RecalcArmor();
+    RecalcEquipment();
+    //CurMech.GetLoadout().FlushIllegal( cmbMechEra.getSelectedIndex(), year, chkYearRestrict.isSelected() );
+    CurMech.GetLoadout().FlushIllegal();
+
+    // finally, refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+    SetWeaponChoosers();
+    ResetAmmo();
+}//GEN-LAST:event_chkYearRestrictActionPerformed
+
+private void cmbMechEraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMechEraActionPerformed
+    if( Load ) { return; }
+    // whenever the era is changed we basically need to reset the GUI and
+    // most of the mech.  Certain things we will transfer.
+    if( CurMech.GetEra() == cmbMechEra.getSelectedIndex() ) {
+        return;
+    }
+    if( CurMech.IsOmnimech() ) {
+        if( cmbMechEra.getSelectedIndex() < CurMech.GetBaseEra() ) {
+            Media.Messager( this, "An OmniMech loadout cannot have an era lower than the main loadout." );
+            cmbMechEra.setSelectedIndex( CurMech.GetBaseEra() );
+        }
+    }
+
+    // first, let's save the tech base selection in case we can still use it
+    // prevents Clan mechs reverting to Inner Sphere on era change.
+    int tbsave = cmbTechBase.getSelectedIndex();
+
+    // change the year range and tech base options
+    switch( cmbMechEra.getSelectedIndex() ) {
+        case AvailableCode.ERA_STAR_LEAGUE:
+            lblEraYears.setText( "2443 ~ 2800" );
+            txtProdYear.setText( "" );
+            CurMech.SetEra( AvailableCode.ERA_STAR_LEAGUE );
+            CurMech.SetYear( 2750, false );
+            if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
+            break;
+        case AvailableCode.ERA_SUCCESSION:
+            lblEraYears.setText( "2801 ~ 3050" );
+            txtProdYear.setText( "" );
+            CurMech.SetEra( AvailableCode.ERA_SUCCESSION );
+            CurMech.SetYear( 3025, false );
+            if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
+            break;
+        case AvailableCode.ERA_CLAN_INVASION:
+            lblEraYears.setText( "3051 ~ 3131" );
+            txtProdYear.setText( "" );
+            CurMech.SetEra( AvailableCode.ERA_CLAN_INVASION );
+            CurMech.SetYear( 3075, false );
+            if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
+            break;
+        case AvailableCode.ERA_DARK_AGES:
+            lblEraYears.setText( "3132 on" );
+            txtProdYear.setText( "" );
+            CurMech.SetEra( AvailableCode.ERA_DARK_AGES );
+            CurMech.SetYear( 3132, false );
+            if( ! CurMech.IsOmnimech() ) { chkYearRestrict.setEnabled( true ); }
+            break;
+        case AvailableCode.ERA_ALL:
+            lblEraYears.setText( "Any" );
+            txtProdYear.setText( "" );
+            CurMech.SetEra( AvailableCode.ERA_ALL );
+            CurMech.SetYear( 0, false );
+            chkYearRestrict.setEnabled( false );
+            break;
+    }
+
+    if( CurMech.IsOmnimech() ) {
+        BuildJumpJetSelector();
+        RefreshEquipment();
+        RefreshSummary();
+        RefreshInfoPane();
+        SetWeaponChoosers();
+        ResetAmmo();
+        return;
+    }
+
+    BuildTechBaseSelector();
+    BuildMechTypeSelector();
+
+    // reset the tech base if it's still allowed
+    if( tbsave < cmbTechBase.getItemCount() ) {
+        // still valid, use it.  No reconfigure needed
+        cmbTechBase.setSelectedIndex( tbsave );
+    } else {
+        // nope, set it to Inner Sphere.  This means it was Clan and we
+        // should reconfigure the mech
+        cmbTechBase.setSelectedIndex( 0 );
+        CurMech.SetInnerSphere();
+    }
+
+    // get the currently chosen selections
+    SaveSelections();
+
+    // refresh all the combo boxes.
+    BuildChassisSelector();
+    BuildEngineSelector();
+    BuildGyroSelector();
+    BuildCockpitSelector();
+    BuildEnhancementSelector();
+    BuildHeatsinkSelector();
+    BuildJumpJetSelector();
+    BuildArmorSelector();
+    FixWalkMPSpinner();
+    FixJJSpinnerModel();
+    RefreshEquipment();
+    CheckOmnimech();
+
+    // now reset the combo boxes to the closest choices we previously selected
+    LoadSelections();
+
+    // when a new era is selected, we have to recalculate the mech
+    RecalcEngine();
+    RecalcGyro();
+    RecalcIntStruc();
+    RecalcCockpit();
+    CurMech.GetActuators().PlaceActuators();
+    RecalcHeatSinks();
+    RecalcJumpJets();
+    RecalcEnhancements();
+    RecalcArmor();
+    RecalcEquipment();
+
+    // since you can only ever change the era when not restricted, we're not
+    // doing it here.  Pass in default values.
+    CurMech.GetLoadout().FlushIllegal();
+    //CurMech.GetLoadout().FlushIllegal( cmbMechEra.getSelectedIndex(), 0, false );
+
+    // now refresh the information panes
+    RefreshSummary();
+    RefreshInfoPane();
+    SetWeaponChoosers();
+    ResetAmmo();
+}//GEN-LAST:event_cmbMechEraActionPerformed
+
+private void lstCritsToPlaceKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstCritsToPlaceKeyPressed
+    if( evt.getKeyCode() == KeyEvent.VK_DELETE ) {
+        btnRemoveEquipActionPerformed( new ActionEvent( evt.getSource(), evt.getID(), null ) );
+    }
+}//GEN-LAST:event_lstCritsToPlaceKeyPressed
 
 private void setViewToolbar(boolean Visible)
 {
@@ -14820,7 +14699,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
@@ -14833,7 +14711,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JScrollPane jScrollPane20;
     private javax.swing.JScrollPane jScrollPane21;
     private javax.swing.JScrollPane jScrollPane22;
-    private javax.swing.JScrollPane jScrollPane23;
     private javax.swing.JScrollPane jScrollPane24;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
@@ -15004,7 +14881,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JList lstRACrits;
     private javax.swing.JList lstRLCrits;
     private javax.swing.JList lstRTCrits;
-    private javax.swing.JList lstSelectedEquipment;
     private javax.swing.JMenuItem mnuAboutSSW;
     private javax.swing.JMenuItem mnuBFB;
     private javax.swing.JMenuItem mnuBatchHMP;
@@ -15040,7 +14916,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JMenuItem mnuTextTRO;
     private javax.swing.JMenuItem mnuUnlock;
     private javax.swing.JCheckBoxMenuItem mnuViewToolbar;
-    private javax.swing.JPanel onlLoadoutControls;
     private javax.swing.JPanel pnlAdditionalFluff;
     private javax.swing.JPanel pnlAmmunition;
     private javax.swing.JPanel pnlArmor;
@@ -15052,7 +14927,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel pnlBasicInformation;
     private javax.swing.JPanel pnlBasicSetup;
     private javax.swing.JPanel pnlBasicSummary;
-    private javax.swing.JPanel pnlBattleforce;
     private javax.swing.JPanel pnlCTArmorBox;
     private javax.swing.JPanel pnlCTCrits;
     private javax.swing.JPanel pnlCTRArmorBox;
@@ -15060,7 +14934,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel pnlCharts;
     private javax.swing.JPanel pnlChassis;
     private javax.swing.JPanel pnlControls;
-    private javax.swing.JPanel pnlCriticals;
     private javax.swing.JPanel pnlDamageChart;
     private javax.swing.JPanel pnlDeployment;
     private javax.swing.JPanel pnlEnergy;
@@ -15100,7 +14973,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel pnlRTCrits;
     private javax.swing.JPanel pnlRTRArmorBox;
     private javax.swing.JPanel pnlRearArmor;
-    private javax.swing.JPanel pnlSelected;
     private javax.swing.JPanel pnlSpecials;
     private javax.swing.JPanel pnlVariants;
     private javax.swing.JPanel pnlWeaponsManufacturers;
@@ -15129,6 +15001,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JToolBar tlbIconBar;
     private javax.swing.JTextField txtArmorModel;
     private javax.swing.JTextField txtChassisModel;
+    private javax.swing.JTextField txtChatInfo;
     private javax.swing.JTextField txtCommSystem;
     private javax.swing.JTextField txtEngineManufacturer;
     private javax.swing.JTextField txtEngineRating;
@@ -15194,5 +15067,4 @@ private void setViewToolbar(boolean Visible)
         this.dOpen.Requestor = dlgOpen.FORCE;
         this.dOpen.setVisible(true);
     }
-
 }

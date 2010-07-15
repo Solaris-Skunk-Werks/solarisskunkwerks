@@ -51,7 +51,7 @@ public class dlgPrefs extends javax.swing.JDialog {
     /** Creates new form dlfPrefs */
     public dlgPrefs( java.awt.Frame parent, boolean modal ) {
         super( parent, modal );
-        Prefs = ((frmMain) parent).Prefs;
+        Prefs = ((ifMechForm) parent).GetPrefs();
         initComponents();
         SetState();
     }

@@ -32,14 +32,14 @@ import common.CommonTools;
 import components.*;
 
 public class dlgWeaponInfo extends javax.swing.JDialog {
-    frmMain Parent;
+    ifMechForm Parent;
 
     /** Creates new form dlgItemInfo */
     public dlgWeaponInfo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         //setResizable( false );
-        Parent= (frmMain) parent;
+        Parent= (ifMechForm) parent;
         SetState();
         pack();
     }
@@ -49,10 +49,10 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         ifWeapon w = null;
         Ammunition a = null;
         String restrict = "";
-        AvailableCode AC = Parent.CurItem.GetAvailability();
-        if( Parent.CurItem instanceof Ammunition ) {
+        AvailableCode AC = Parent.GetCurItem().GetAvailability();
+        if( Parent.GetCurItem() instanceof Ammunition ) {
             setTitle( "Ammunition Information" );
-            a = (Ammunition) Parent.CurItem;
+            a = (Ammunition) Parent.GetCurItem();
             lblName.setText( a.ActualName() );
             lblType.setText( "Ammo" );
             lblHeat.setText( "--" );
@@ -107,7 +107,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
             }
         } else {
             setTitle( "Weapon Information" );
-            w = (ifWeapon) Parent.CurItem;
+            w = (ifWeapon) Parent.GetCurItem();
             lblName.setText( ((abPlaceable) w).ActualName() );
             lblType.setText( w.GetType() );
             lblHeat.setText( "" + w.GetHeat() );
@@ -252,7 +252,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         } else {
             lblMountingRestrictions.setText( "None" );
         }
-        lblBookRef.setText( Parent.CurItem.BookReference() );
+        lblBookRef.setText( Parent.GetCurItem().BookReference() );
     }
 
     /** This method is called from within the constructor to

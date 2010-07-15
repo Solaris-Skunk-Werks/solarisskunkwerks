@@ -33,12 +33,12 @@ import ssw.*;
 
 public class dlgAboutBox extends javax.swing.JDialog {
 
-    frmMain Parent;
+    ifMechForm Parent;
 
     /** Creates new form dlgAboutBox */
     public dlgAboutBox(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        Parent = (frmMain) parent;
+        Parent = (ifMechForm) parent;
         initComponents();
         setResizable( false );
         setTitle( "About " + SSWConstants.AppDescription );
@@ -283,7 +283,7 @@ public class dlgAboutBox extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void btnLicenseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLicenseActionPerformed
-        dlgLicense lwindow = new dlgLicense( Parent, true );
+        dlgLicense lwindow = new dlgLicense( (javax.swing.JFrame) Parent, true );
         Point p = getLocationOnScreen();
         lwindow.setLocation( p.x, p.y );
         lwindow.setVisible( true );

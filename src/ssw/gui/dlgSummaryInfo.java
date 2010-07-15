@@ -31,12 +31,12 @@ package ssw.gui;
 import components.AvailableCode;
 
 public class dlgSummaryInfo extends javax.swing.JDialog {
-    frmMain Parent;
+    ifMechForm Parent;
 
     /** Creates new form dlgSummaryInfo */
     public dlgSummaryInfo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        Parent = (frmMain) parent;
+        Parent = (ifMechForm) parent;
         initComponents();
         setResizable( false );
         setTitle( "Basic Mech Summary" );
@@ -45,11 +45,11 @@ public class dlgSummaryInfo extends javax.swing.JDialog {
 
     private void BuildLabels() {
         // sets the text for all the labels
-        AvailableCode AC = Parent.CurMech.GetAvailability();
-        lblName.setText( Parent.CurMech.GetName() );
-        lblModel.setText( Parent.CurMech.GetModel() );
-        lblActualProdYear.setText( "" + Parent.CurMech.GetYear() );
-        switch( Parent.CurMech.GetLoadout().GetTechBase() ) {
+        AvailableCode AC = Parent.GetMech().GetAvailability();
+        lblName.setText( Parent.GetMech().GetName() );
+        lblModel.setText( Parent.GetMech().GetModel() );
+        lblActualProdYear.setText( "" + Parent.GetMech().GetYear() );
+        switch( Parent.GetMech().GetLoadout().GetTechBase() ) {
             case AvailableCode.TECH_INNER_SPHERE:
                 lblAvailability.setText( AC.GetISCombinedCode() );
                 if( AC.WentExtinctIS() && AC.WasReIntrodIS() ) {
@@ -94,27 +94,27 @@ public class dlgSummaryInfo extends javax.swing.JDialog {
                 break;
             case AvailableCode.TECH_BOTH:
                 lblAvailability.setText( AC.GetBestCombinedCode() );
-                lblEarliestProdYear.setText( "" + Parent.CurMech.GetYear() );
+                lblEarliestProdYear.setText( "" + Parent.GetMech().GetYear() );
                 lblExtinctBy.setText( "NA" );
                 break;
         }
 
-        lblDefensiveBV.setText( String.format( "%1$.2f", Parent.CurMech.GetDefensiveBV() ) );
-        lblOffensiveBV.setText( String.format( "%1$.2f", Parent.CurMech.GetOffensiveBV() ) );
-        lblTotalBV.setText( String.format( "%1$,d", Parent.CurMech.GetCurrentBV() ) );
+        lblDefensiveBV.setText( String.format( "%1$.2f", Parent.GetMech().GetDefensiveBV() ) );
+        lblOffensiveBV.setText( String.format( "%1$.2f", Parent.GetMech().GetOffensiveBV() ) );
+        lblTotalBV.setText( String.format( "%1$,d", Parent.GetMech().GetCurrentBV() ) );
 
-        lblBaseChassisCost.setText( "" + (int) Math.floor( Parent.CurMech.GetBaseChassisCost() + 0.5 ) );
-        lblBaseEngineCost.setText( "" + (int) Math.floor( Parent.CurMech.GetEngine().GetCost() + 0.5 ) );
-        double BEC = Parent.CurMech.GetEquipCost();
-        if( Parent.CurMech.UsingTC() ) {
-            BEC += Parent.CurMech.GetTC().GetCost();
+        lblBaseChassisCost.setText( "" + (int) Math.floor( Parent.GetMech().GetBaseChassisCost() + 0.5 ) );
+        lblBaseEngineCost.setText( "" + (int) Math.floor( Parent.GetMech().GetEngine().GetCost() + 0.5 ) );
+        double BEC = Parent.GetMech().GetEquipCost();
+        if( Parent.GetMech().UsingTC() ) {
+            BEC += Parent.GetMech().GetTC().GetCost();
         }
         lblBaseEquipmentCost.setText( "" + (int) Math.floor( BEC + 0.5 ) );
-        lblTotalDryCost.setText( "" + (int) Math.floor( Parent.CurMech.GetDryCost() + 0.5 ) );
-        lblTotalCost.setText( "" + (int) Math.floor( Parent.CurMech.GetTotalCost() + 0.5 ) );
+        lblTotalDryCost.setText( "" + (int) Math.floor( Parent.GetMech().GetDryCost() + 0.5 ) );
+        lblTotalCost.setText( "" + (int) Math.floor( Parent.GetMech().GetTotalCost() + 0.5 ) );
 
-        lblTotalDryWeight.setText( Parent.CurMech.GetCurrentDryTons() + " tons" );
-        lblTotalWeight.setText( Parent.CurMech.GetCurrentTons() + " tons" );
+        lblTotalDryWeight.setText( Parent.GetMech().GetCurrentDryTons() + " tons" );
+        lblTotalWeight.setText( Parent.GetMech().GetCurrentTons() + " tons" );
     }
 
     /** This method is called from within the constructor to

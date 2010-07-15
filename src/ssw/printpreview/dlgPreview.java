@@ -14,9 +14,8 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import filehandlers.Media;
 import dialog.dlgAmmoChooser;
-import ssw.gui.frmMain;
+import ssw.gui.ifMechForm;
 import Print.PrintMech;
-import filehandlers.ImageTracker;
 import ssw.print.Printer;
 
 public class dlgPreview extends javax.swing.JFrame implements ActionListener {
@@ -24,14 +23,14 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
     protected Pageable pageable;
     private Printer printer;
     private Preview preview;
-    private frmMain Parent;
+    private ifMechForm Parent;
     private File MechImage = null;
     private File LogoImage = null;
 
     public dlgPreview(String title, JFrame owner, Printer printer, Pageable pageable, double zoom) {
         super(title);
         initComponents();
-        this.Parent = (frmMain) owner;
+        this.Parent = (ifMechForm) owner;
         this.printer = printer;
         preview = new Preview(pageable, zoom, spnPreview.getSize());
         spnPreview.setViewportView(preview);
@@ -45,17 +44,17 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         btnPageWidth.setAction(new ZoomAction("Width", "document-resize.png", preview, preview.getWidthZoom(), true));
         btnPageHeight.setAction(new ZoomAction("Page", "document-resize-actual.png", preview, preview.getHeightZoom(), true));
 
-        chkPrintCanon.setSelected(Parent.Prefs.getBoolean("UseCanonDots", false));
-        chkPrintCharts.setSelected(Parent.Prefs.getBoolean("UseCharts", false));
-        chkRS.setSelected(Parent.Prefs.getBoolean("UseRS", false));
+        chkPrintCanon.setSelected(Parent.GetPrefs().getBoolean("UseCanonDots", false));
+        chkPrintCharts.setSelected(Parent.GetPrefs().getBoolean("UseCharts", false));
+        chkRS.setSelected(Parent.GetPrefs().getBoolean("UseRS", false));
         if ( chkRS.isSelected() ) { chkRSActionPerformed(null); }
         
-        chkUseHexConversion.setSelected( Parent.Prefs.getBoolean( "UseMiniConversion", false ) );
+        chkUseHexConversion.setSelected( Parent.GetPrefs().getBoolean( "UseMiniConversion", false ) );
         if( chkUseHexConversion.isSelected() ) {
             lblOneHex.setEnabled( true );
             cmbHexConvFactor.setEnabled( true );
             lblInches.setEnabled( true );
-            cmbHexConvFactor.setSelectedIndex( Parent.Prefs.getInt( "MiniConversionRate", 0 ) );
+            cmbHexConvFactor.setSelectedIndex( Parent.GetPrefs().getInt( "MiniConversionRate", 0 ) );
         }
 
         if ( pageable.getNumberOfPages() <= 2 ) {
@@ -563,15 +562,15 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
 
     private void btnChooseImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseImageActionPerformed
         String defaultDir = "";
-        if ( Parent != null ) {defaultDir = Parent.Prefs.get("LastImagePath", "");}
+        if ( Parent != null ) {defaultDir = Parent.GetPrefs().get("LastImagePath", "");}
         Media media = new Media();
         MechImage = media.SelectImage(defaultDir, "Select Image");
 
         try {
             if ( Parent != null ) {
-                Parent.Prefs.put("LastImage", MechImage.getCanonicalPath());
-                Parent.Prefs.put("LastImagePath", MechImage.getCanonicalPath().replace(MechImage.getName(), ""));
-                Parent.Prefs.put("LastImageFile", MechImage.getName());
+                Parent.GetPrefs().put("LastImage", MechImage.getCanonicalPath());
+                Parent.GetPrefs().put("LastImagePath", MechImage.getCanonicalPath().replace(MechImage.getName(), ""));
+                Parent.GetPrefs().put("LastImageFile", MechImage.getName());
             }
 
             //setImage(MechImage);
@@ -602,15 +601,15 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
 
     private void btnChooseLogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseLogoActionPerformed
         String defaultDir = "";
-        if ( Parent != null ) {defaultDir = Parent.Prefs.get("LastLogo", "");}
+        if ( Parent != null ) {defaultDir = Parent.GetPrefs().get("LastLogo", "");}
         Media media = new Media();
         LogoImage = media.SelectImage(defaultDir, "Select Logo");
 
         try {
             if ( Parent != null ) {
-                Parent.Prefs.put("LastLogo", LogoImage.getCanonicalPath());
-                Parent.Prefs.put("LastLogoPath", LogoImage.getCanonicalPath().replace(LogoImage.getName(), ""));
-                Parent.Prefs.put("LastLogoFile", LogoImage.getName());
+                Parent.GetPrefs().put("LastLogo", LogoImage.getCanonicalPath());
+                Parent.GetPrefs().put("LastLogoPath", LogoImage.getCanonicalPath().replace(LogoImage.getName(), ""));
+                Parent.GetPrefs().put("LastLogoFile", LogoImage.getName());
             }
 
             //setLogo(LogoImage);
@@ -643,16 +642,28 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         if ( Parent != null ) {
-            Parent.Prefs.putBoolean("UseCharts", chkPrintCharts.isSelected());
-            Parent.Prefs.putBoolean( "UseMiniConversion", chkUseHexConversion.isSelected() );
-            Parent.Prefs.putInt( "MiniConversionRate", cmbHexConvFactor.getSelectedIndex() );
-            Parent.Prefs.putBoolean("UseCanonDots", chkPrintCanon.isSelected());
-            Parent.Prefs.putBoolean("UseRS", chkRS.isSelected());
+            Parent.GetPrefs().putBoolean("UseCharts", chkPrintCharts.isSelected());
+            Parent.GetPrefs().putBoolean( "UseMiniConversion", chkUseHexConversion.isSelected() );
+            Parent.GetPrefs().putInt( "MiniConversionRate", cmbHexConvFactor.getSelectedIndex() );
+            Parent.GetPrefs().putBoolean("UseCanonDots", chkPrintCanon.isSelected());
+            Parent.GetPrefs().putBoolean("UseRS", chkRS.isSelected());
         }
         refresh();
         printer.Print(false);
         this.setVisible(false);
     }//GEN-LAST:event_btnPrintActionPerformed
+
+    private void btnnChangeAmmoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnChangeAmmoActionPerformed
+        dlgAmmoChooser Ammo = new dlgAmmoChooser( (javax.swing.JFrame) Parent, true, ((PrintMech) printer.GetMechs().firstElement()).CurMech, Parent.GetData() );
+        Ammo.setLocationRelativeTo( this );
+        if( Ammo.HasAmmo() ) {
+            Ammo.setVisible( true );
+        } else {
+            Media.Messager( this, "This 'Mech has no ammunition to exchange." );
+            Ammo.dispose();
+        }
+        refresh();
+    }//GEN-LAST:event_btnnChangeAmmoActionPerformed
 
     private void chkRSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkRSActionPerformed
         chkPrintCanon.setEnabled(!chkRS.isSelected());
@@ -669,7 +680,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
 }//GEN-LAST:event_chkRSActionPerformed
 
     private void btnChangeAmmoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeAmmoActionPerformed
-        dlgAmmoChooser Ammo = new dlgAmmoChooser( Parent, true, ((PrintMech) printer.GetMechs().firstElement()).CurMech, Parent.data );
+        dlgAmmoChooser Ammo = new dlgAmmoChooser( (javax.swing.JFrame) Parent, true, ((PrintMech) printer.GetMechs().firstElement()).CurMech, Parent.GetData() );
         Ammo.setLocationRelativeTo( this );
         if( Ammo.HasAmmo() ) {
             Ammo.setVisible( true );

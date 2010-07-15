@@ -33,20 +33,20 @@ import components.AvailableCode;
 import components.abPlaceable;
 
 public class dlgPlaceableInfo extends javax.swing.JDialog {
-    frmMain Parent;
+    ifMechForm Parent;
 
     /** Creates new form dlgPlaceableInfo */
     public dlgPlaceableInfo( java.awt.Frame parent, boolean modal ) {
         super(parent, modal);
         initComponents();
-        Parent = (frmMain) parent;
+        Parent = (ifMechForm) parent;
         setTitle( "Item Information" );
         SetState();
         pack();
     }
 
     private void SetState() {
-        abPlaceable a = Parent.CurItem;
+        abPlaceable a = Parent.GetCurItem();
         AvailableCode AC = a.GetAvailability();
 
         switch( AC.GetTechBase() ){

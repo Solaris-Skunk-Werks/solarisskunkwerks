@@ -34,12 +34,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.RowSorter;
-import javax.swing.SortOrder;
 import javax.swing.SwingWorker;
-import javax.swing.table.TableRowSorter;
 import components.Mech;
 import filehandlers.*;
 import java.awt.event.KeyEvent;
@@ -49,7 +44,7 @@ import list.view.*;
 import ssw.print.Printer;
 
 public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListener {
-    private frmMain parent;
+    private ifMechForm parent;
     private MechList list = new MechList();
     private Media media = new Media();
     private String dirPath = "";
@@ -67,7 +62,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         initComponents();
         ImageIcon icon = new ImageIcon(super.getClass().getResource("/ssw/Images/appicon.png"));
         super.setIconImage(icon.getImage());
-        this.parent = (frmMain) parent;
+        this.parent = (ifMechForm) parent;
         
         prgResaving.setVisible(false);
         cmbTech.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Tech", "Clan", "Inner Sphere", "Mixed" }));
@@ -87,7 +82,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             case FORCE:
                 btnAdd2ForceActionPerformed(null);
                 this.setVisible(false);
-                parent.dForce.setVisible(true);
+                parent.GetForceDialogue().setVisible(true);
                 break;
 
             default:
@@ -100,23 +95,23 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         try
         {
             MechReader read = new MechReader();
-            Mech m = read.ReadMech( Data.getFilename(), parent.data );
+            Mech m = read.ReadMech( Data.getFilename(), parent.GetData() );
             if (Data.isOmni()) {
                 m.SetCurLoadout( Data.getConfig() );
             }
-            parent.setMech(m);
+            parent.setMech( m );
 
-            parent.Prefs.put( "LastOpenDirectory", Data.getFilename().substring( 0, Data.getFilename().lastIndexOf( File.separator ) + 1 ) );
-            parent.Prefs.put( "LastOpenFile", Data.getFilename().substring( Data.getFilename().lastIndexOf( File.separator ) + 1 ) );
+            parent.GetPrefs().put( "LastOpenDirectory", Data.getFilename().substring( 0, Data.getFilename().lastIndexOf( File.separator ) + 1 ) );
+            parent.GetPrefs().put( "LastOpenFile", Data.getFilename().substring( Data.getFilename().lastIndexOf( File.separator ) + 1 ) );
 
-            parent.CurMech.SetChanged( false );
+            parent.GetMech().SetChanged( false );
 
             tblMechData.clearSelection();
             //setupList(list, false);
             this.setVisible(false);
 
         } catch ( Exception e ) {
-            Media.Messager( this.parent, e.getMessage() );
+            Media.Messager( (javax.swing.JFrame) parent, e.getMessage() );
         }
     }
 
@@ -146,7 +141,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         this.tblMechData.setModel(new MechList());
         
         if (dirPath.isEmpty()) {
-            dirPath = parent.Prefs.get("ListPath", parent.Prefs.get( "LastOpenDirectory", "" ) );
+            dirPath = parent.GetPrefs().get("ListPath", parent.GetPrefs().get( "LastOpenDirectory", "" ) );
 
             if ( dirPath.isEmpty() && this.isVisible() && !cancelledListDirSelection ) {
                 dlgSSWFiles dFiles = new dlgSSWFiles(this, true);
@@ -154,7 +149,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 dFiles.setVisible(true);
                 if ( dFiles.result ) {
                     dirPath = media.GetDirectorySelection(this, "", "Select SSW File Directory");
-                    parent.Prefs.put("ListPath", dirPath);
+                    parent.GetPrefs().put("ListPath", dirPath);
                     if ( dirPath.isEmpty() ) {
                         cancelledListDirSelection = true;
                         this.setVisible( false );
@@ -300,7 +295,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         private void processFile( File file, MechReader read, MechWriter writer ) throws IOException {
             try {
-                Mech m = read.ReadMech( file.getCanonicalPath(), parent.data );
+                Mech m = read.ReadMech( file.getCanonicalPath(), parent.GetData() );
 
                 // save the mech to XML in the current location
                 writer.setMech(m);
@@ -883,11 +878,11 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     }//GEN-LAST:event_formWindowOpened
 
     private void btnOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOptionsActionPerformed
-        dlgPrefs preferences = new dlgPrefs( parent, true );
+        dlgPrefs preferences = new dlgPrefs( (javax.swing.JFrame) parent, true );
         preferences.setLocationRelativeTo( this );
         preferences.setVisible( true );
         this.setVisible(true);
-        parent.Mechrender.Reset();
+        parent.GetLoadoutRenderer().Reset();
         LoadList();
     }//GEN-LAST:event_btnOptionsActionPerformed
 
@@ -907,7 +902,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 int[] rows = tblMechData.getSelectedRows();
                 for ( int i=0; i < rows.length; i++ ) {
                     MechListData data = list.Get(tblMechData.convertRowIndexToModel(rows[i]));
-                    Mech m = read.ReadMech( data.getFilename(), parent.data );
+                    Mech m = read.ReadMech( data.getFilename(), parent.GetData() );
                     if (data.isOmni()) {
                         m.SetCurLoadout(data.getConfig());
                     }
@@ -1004,16 +999,16 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             int[] rows = tblMechData.getSelectedRows();
             for ( int i=0; i < rows.length; i++ ) {
                 MechListData data = (MechListData)((abView) tblMechData.getModel()).Get(tblMechData.convertRowIndexToModel(rows[i]));
-                parent.dForce.getForce().AddUnit(new Unit(data));
-                parent.dForce.getForce().RefreshBV();
+                parent.GetForceDialogue().getForce().AddUnit(new Unit(data));
+                parent.GetForceDialogue().getForce().RefreshBV();
                 lblForce.setText(lblForce.getText() + " " + data.getFullName() + " added;");
             }
             btnViewForce.setEnabled( true );
-            String forceList = parent.dForce.getForce().getUnits().size() + " Units Selected: ";
-            for ( Unit u : parent.dForce.getForce().getUnits() ) {
+            String forceList = parent.GetForceDialogue().getForce().getUnits().size() + " Units Selected: ";
+            for ( Unit u : parent.GetForceDialogue().getForce().getUnits() ) {
                 forceList += " " + u.TypeModel;
             }
-            lblForce.setText(parent.dForce.getForce().getUnits().size() + " Units");
+            lblForce.setText(parent.GetForceDialogue().getForce().getUnits().size() + " Units");
             lblForce.setToolTipText(forceList);
             //btnViewForce.setToolTipText(forceList);
         }
@@ -1045,9 +1040,9 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 }//GEN-LAST:event_cmbMotiveFilter
 
     private void btnChangeDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeDirActionPerformed
-        dirPath = media.GetDirectorySelection( parent, dirPath );
+        dirPath = media.GetDirectorySelection( (javax.swing.JFrame) parent, dirPath );
         this.setVisible(true);
-        parent.Prefs.put("ListPath", dirPath);
+        parent.GetPrefs().put("ListPath", dirPath);
         LoadList(false);
     }//GEN-LAST:event_btnChangeDirActionPerformed
 
@@ -1105,8 +1100,8 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         //if ( tblMechData.getSelectedRowCount() > 0 ) {
         //    btnAdd2ForceActionPerformed(evt);
         //}
-        parent.dForce.setLocationRelativeTo(this);
-        parent.dForce.setVisible(true);
+        parent.GetForceDialogue().setLocationRelativeTo(this);
+        parent.GetForceDialogue().setVisible(true);
     }//GEN-LAST:event_btnViewForceActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed

@@ -56,7 +56,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
         public mechData (String name, Mech m){
             this.name = name;
             this.m = m;
-            this.POptions = new dlgPrintSavedMechOptions(parent, true, m);
+            this.POptions = new dlgPrintSavedMechOptions((javax.swing.JFrame) parent, true, m);
         }
 
         @Override
@@ -65,7 +65,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
         }
     }
 
-    private frmMain parent;
+    private ifMechForm parent;
     private Vector<mechData> mechList;
 
     public boolean isPrinted = false;
@@ -73,7 +73,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
     /** Creates new form dlgPrintBatchMechs */
     public dlgPrintBatchMechs(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.parent = (frmMain) parent;
+        this.parent = (ifMechForm) parent;
         initComponents();
         mechList = new Vector<mechData>();
     }
@@ -227,7 +227,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
         }
         dlgPrintSavedMechOptions POptions = selected.POptions;
         Mech m = selected.m;
-        POptions.setLocationRelativeTo( parent );
+        POptions.setLocationRelativeTo( (javax.swing.JFrame) parent );
         POptions.setVisible( true );
         selected.name = BuildMechName(m, POptions);
     }//GEN-LAST:event_btnMechDetailsActionPerformed
@@ -247,9 +247,8 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
 
     private void lstChoosenMechsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstChoosenMechsMouseClicked
         if (evt.getClickCount() >= 2) {
-            parent.CurMech = ((mechData) lstChoosenMechs.getSelectedValue()).m;
-            parent.LoadMechIntoGUI();
-            this.setVisible(false);
+            parent.setMech( ((mechData) lstChoosenMechs.getSelectedValue()).m );
+           this.setVisible(false);
         }
     }//GEN-LAST:event_lstChoosenMechsMouseClicked
 
@@ -286,7 +285,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
 
     private File[] SelectMechs(){
         File[] files = null;
-        File tempFile = new File( parent.Prefs.get("LastOpenDirectory", "" ) );
+        File tempFile = new File( parent.GetPrefs().get("LastOpenDirectory", "" ) );
         JFileChooser fc = new JFileChooser();
         fc.setMultiSelectionEnabled(true);
         fc.addChoosableFileFilter( new javax.swing.filechooser.FileFilter() {
@@ -324,7 +323,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
         Mech m = null;
         try {
             MechReader XMLr = new MechReader();
-            m = XMLr.ReadMech( file.getCanonicalPath(), parent.data );
+            m = XMLr.ReadMech( file.getCanonicalPath(), parent.GetData() );
         } catch( Exception e ) {
             // had a problem loading the mech.  let the user know.
             Media.Messager( this, e.getMessage() );

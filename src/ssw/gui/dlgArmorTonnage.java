@@ -43,7 +43,7 @@ public class dlgArmorTonnage extends javax.swing.JDialog {
         setResizable( false );
         setTitle( "Set Armor Tonnage" );
         setDefaultCloseOperation( javax.swing.JDialog.HIDE_ON_CLOSE );
-        double max = ((frmMain) parent).CurMech.GetArmor().GetMaxTonnage();
+        double max = ((ifMechForm) parent).GetMech().GetArmor().GetMaxTonnage();
         lblMaxArmor.setText( "Max Armor Tonnage: " + max );
     }
 

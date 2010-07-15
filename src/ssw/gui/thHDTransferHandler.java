@@ -36,12 +36,12 @@ import javax.swing.TransferHandler;
 import components.*;
 
 public class thHDTransferHandler extends TransferHandler {
-    private frmMain Parent;
+    private ifMechForm Parent;
     private Mech CurMech;
 
     // the right leg transfer handler only deals with adding to the right leg.
     // other listeners will deal with removing items.
-    public thHDTransferHandler( frmMain f, Mech m ) {
+    public thHDTransferHandler( ifMechForm f, Mech m ) {
         Parent = f;
         CurMech = m;
     }
@@ -161,7 +161,7 @@ public class thHDTransferHandler extends TransferHandler {
             CurMech.GetLoadout().AddToHD( a, dindex );
         } catch( Exception e ) {
             CurMech.GetLoadout().AddToQueue( a );
-            javax.swing.JOptionPane.showMessageDialog( Parent, e.getMessage() );
+            javax.swing.JOptionPane.showMessageDialog( (javax.swing.JFrame) Parent, e.getMessage() );
             Parent.RefreshInfoPane();
             return false;
         }
