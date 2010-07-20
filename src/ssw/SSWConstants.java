@@ -47,5 +47,8 @@ public class SSWConstants {
                         DEFAULT_HEATSINK = "Single Heat Sink",
                         DEFAULT_JUMPJET = "Standard Jump Jet",
                         DEFAULT_ARMOR = "Standard Armor",
-                        Solaris7URL = "http://www.solaris7.com/service/index.asp";
+                        Solaris7URL = "http://www.solaris7.com/service/index.asp",
+                        PrefsNodeName = "/com/sswsuite/ssw";
+    public final static int SCREEN_SIZE_NORMAL = 0,
+                            SCREEN_SIZE_WIDE_1280 = 1;
 }

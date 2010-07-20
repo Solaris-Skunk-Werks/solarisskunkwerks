@@ -65,9 +65,6 @@ import components.EquipmentCollection;
 import gui.TextPane;
 import ssw.printpreview.dlgPreview;
 import Print.PrintConsts;
-import java.awt.Dimension;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 
 public class frmMainWide extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner, common.DesignForm, ifMechForm {
 
@@ -146,7 +143,8 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
     /** Creates new form frmMain */
     public frmMainWide() {
-        Prefs = Preferences.userNodeForPackage( this.getClass() );
+        //Prefs = Preferences.userNodeForPackage( Main.getClass() );
+        Prefs = Preferences.userRoot().node( SSWConstants.PrefsNodeName );
         CurMech = new Mech( Prefs );
         ArmorTons = new VSetArmorTonnage( Prefs );
         Mechrender = new MechLoadoutRenderer( this );
@@ -487,7 +485,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         // if the user wants, load the last mech.
         if( Prefs.getBoolean( "LoadLastMech", false ) ) { LoadMechFromFile(Prefs.get("LastOpenDirectory", "") + Prefs.get("LastOpenFile", "") ); }
 
-        Preferences mainPrefs = Preferences.userNodeForPackage("/java/lang".getClass());
+        Preferences mainPrefs = Preferences.userRoot().node( SSWConstants.PrefsNodeName );
         if ( !mainPrefs.get("FileToOpen", "").isEmpty() ) { LoadMechFromFile( mainPrefs.get("FileToOpen", "") ); }
 
         //dOpen.LoadList();
@@ -3082,7 +3080,11 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         // this enables or disables the jump jet spinner if needed
         if( enable ) {
             spnJumpMP.setEnabled( true );
-            cmbJumpJetType.setEnabled( true );
+            if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().GetJumpJets().GetNumJJ() > 0 ) {
+                cmbJumpJetType.setEnabled( false );
+            } else {
+                cmbJumpJetType.setEnabled( true );
+            }
         } else {
             CurMech.GetJumpJets().ClearJumpJets();
             spnJumpMP.setEnabled( false );
@@ -3707,6 +3709,32 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                     return;
                 }
             }
+        } else if( CurItem instanceof MGArray ) {
+            MGArray w = (MGArray) CurItem;
+            int location = CurMech.GetLoadout().Find( CurItem );
+            if( w.IsTurreted() ) {
+                if( location == LocationIndex.MECH_LOC_HD ) {
+                    w.RemoveFromTurret( CurMech.GetLoadout().GetHDTurret() );
+                } else if( location == LocationIndex.MECH_LOC_LT ) {
+                    w.RemoveFromTurret( CurMech.GetLoadout().GetLTTurret() );
+                } else if( location == LocationIndex.MECH_LOC_RT ) {
+                    w.RemoveFromTurret( CurMech.GetLoadout().GetRTTurret() );
+                } else {
+                    Media.Messager( this, "Cannot remove from turret!" );
+                    return;
+                }
+            } else {
+                if( location == LocationIndex.MECH_LOC_HD ) {
+                    w.AddToTurret( CurMech.GetLoadout().GetHDTurret() );
+                } else if( location == LocationIndex.MECH_LOC_LT ) {
+                    w.AddToTurret( CurMech.GetLoadout().GetLTTurret() );
+                } else if( location == LocationIndex.MECH_LOC_RT ) {
+                    w.AddToTurret( CurMech.GetLoadout().GetRTTurret() );
+                } else {
+                    Media.Messager( this, "Cannot add to turret!" );
+                    return;
+                }
+            }
         }
         RefreshInfoPane();
     }
@@ -3885,7 +3913,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     }
 
     public boolean LegalTurretMount( abPlaceable p ) {
-        if( ! ( p instanceof RangedWeapon ) ) { return false; }
+        if( ! (( p instanceof RangedWeapon ) || ( p instanceof MGArray )) ) { return false; }
         int location = CurMech.GetLoadout().Find( p );
         if( location == LocationIndex.MECH_LOC_HD ) {
             if( CurMech.IsOmnimech() ) {
@@ -4901,6 +4929,10 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         pnlVariants = new javax.swing.JPanel();
         pnlNotables = new javax.swing.JPanel();
         pnlAdditionalFluff = new javax.swing.JPanel();
+        pnlExport = new javax.swing.JPanel();
+        btnExportTXT = new javax.swing.JButton();
+        btnExportHTML = new javax.swing.JButton();
+        btnExportMTF = new javax.swing.JButton();
         pnlManufacturers = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -4923,10 +4955,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         txtManufacturerLocation = new javax.swing.JTextField();
         jLabel35 = new javax.swing.JLabel();
         txtJJModel = new javax.swing.JTextField();
-        pnlExport = new javax.swing.JPanel();
-        btnExportTXT = new javax.swing.JButton();
-        btnExportHTML = new javax.swing.JButton();
-        btnExportMTF = new javax.swing.JButton();
         pnlCharts = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
@@ -9125,6 +9153,54 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         pnlAdditionalFluff.setLayout(new javax.swing.BoxLayout(pnlAdditionalFluff, javax.swing.BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Additional", pnlAdditionalFluff);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 6);
+        pnlFluff.add(tbpFluffEditors, gridBagConstraints);
+
+        pnlExport.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Export", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
+        pnlExport.setLayout(new java.awt.GridBagLayout());
+
+        btnExportTXT.setText("to TXT");
+        btnExportTXT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportTXTActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlExport.add(btnExportTXT, gridBagConstraints);
+
+        btnExportHTML.setText("to HTML");
+        btnExportHTML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportHTMLActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        pnlExport.add(btnExportHTML, gridBagConstraints);
+
+        btnExportMTF.setText("to MegaMek");
+        btnExportMTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportMTFActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        pnlExport.add(btnExportMTF, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        pnlFluff.add(pnlExport, gridBagConstraints);
+
+        pnlManufacturers.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         pnlManufacturers.setLayout(new java.awt.GridBagLayout());
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 12));
@@ -9466,54 +9542,13 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         };
         txtJJModel.addMouseListener( mlJJModel );
 
-        tbpFluffEditors.addTab("Manufacturers", pnlManufacturers);
-
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridheight = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 6);
-        pnlFluff.add(tbpFluffEditors, gridBagConstraints);
-
-        pnlExport.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Export", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
-        pnlExport.setLayout(new java.awt.GridBagLayout());
-
-        btnExportTXT.setText("to TXT");
-        btnExportTXT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportTXTActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlExport.add(btnExportTXT, gridBagConstraints);
-
-        btnExportHTML.setText("to HTML");
-        btnExportHTML.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportHTMLActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
-        pnlExport.add(btnExportHTML, gridBagConstraints);
-
-        btnExportMTF.setText("to MegaMek");
-        btnExportMTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportMTFActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        pnlExport.add(btnExportMTF, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
-        pnlFluff.add(pnlExport, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        pnlFluff.add(pnlManufacturers, gridBagConstraints);
 
         tbpMainTabPane.addTab("   Fluff   ", pnlFluff);
 
@@ -9893,7 +9928,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         pnlInfoPanel.add(txtInfoBattleValue);
 
         txtInfoCost.setEditable(false);
-        txtInfoCost.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        txtInfoCost.setFont(new java.awt.Font("Arial", 0, 11));
         txtInfoCost.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoCost.setText("Cost: 000,000,000");
         txtInfoCost.setMaximumSize(new java.awt.Dimension(125, 20));
@@ -9903,7 +9938,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
         txtChatInfo.setBackground(new java.awt.Color(238, 238, 238));
         txtChatInfo.setEditable(false);
-        txtChatInfo.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        txtChatInfo.setFont(new java.awt.Font("Dialog", 0, 11));
         txtChatInfo.setMaximumSize(new java.awt.Dimension(475, 20));
         txtChatInfo.setMinimumSize(new java.awt.Dimension(475, 20));
         txtChatInfo.setPreferredSize(new java.awt.Dimension(475, 20));

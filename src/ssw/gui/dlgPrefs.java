@@ -43,6 +43,7 @@ import filehandlers.FileCommon;
 import java.util.prefs.*;
 import components.AvailableCode;
 import filehandlers.Media;
+import ssw.SSWConstants;
 
 public class dlgPrefs extends javax.swing.JDialog {
 
@@ -122,6 +123,14 @@ public class dlgPrefs extends javax.swing.JDialog {
         lblColorLocked.setBackground( new Color( Prefs.getInt( "ColorLockedItemBG", -16777216 ) ) );
         lblColorHilite.setForeground( new Color( Prefs.getInt( "ColorHiLiteItemFG", -16777216 ) ) );
         lblColorHilite.setBackground( new Color( Prefs.getInt( "ColorHiLiteItemBG", -52 ) ) );
+        switch( Prefs.getInt( "SSWScreenSize", SSWConstants.SCREEN_SIZE_NORMAL ) ) {
+            case SSWConstants.SCREEN_SIZE_WIDE_1280:
+                rdoWidescreen.setSelected( true );
+                break;
+            default:
+                rdoNormalSize.setSelected( true );
+                break;
+        }
     }
 
     private void SaveState() {
@@ -179,6 +188,12 @@ public class dlgPrefs extends javax.swing.JDialog {
         Prefs.putInt( "ColorLockedItemBG", lblColorLocked.getBackground().getRGB() );
         Prefs.putInt( "ColorHiLiteItemFG", lblColorHilite.getForeground().getRGB() );
         Prefs.putInt( "ColorHiLiteItemBG", lblColorHilite.getBackground().getRGB() );
+
+        if( rdoNormalSize.isSelected() ) {
+            Prefs.putInt( "SSWScreenSize", SSWConstants.SCREEN_SIZE_NORMAL );
+        } else if( rdoWidescreen.isSelected() ) {
+            Prefs.putInt( "SSWScreenSize", SSWConstants.SCREEN_SIZE_WIDE_1280 );
+        }
     }
 
     private void SetDefaults() {
@@ -225,6 +240,8 @@ public class dlgPrefs extends javax.swing.JDialog {
         Prefs.putInt( "ColorHiLiteItemFG", -16777216 );
         Prefs.putInt( "ColorHiLiteItemBG", -52 );
 
+        Prefs.putInt( "SSWScreenSize", SSWConstants.SCREEN_SIZE_NORMAL );
+
         SetState();
     }
 
@@ -241,6 +258,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         btgHeadArmor = new javax.swing.ButtonGroup();
         btgArmorPriority = new javax.swing.ButtonGroup();
         btgExportSort = new javax.swing.ButtonGroup();
+        btgScreenSize = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         pnlConstruction = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -328,6 +346,10 @@ public class dlgPrefs extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         chkUpdateStartup = new javax.swing.JCheckBox();
+        jPanel14 = new javax.swing.JPanel();
+        rdoNormalSize = new javax.swing.JRadioButton();
+        rdoWidescreen = new javax.swing.JRadioButton();
+        lblScreenSizeNotice = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
@@ -1151,6 +1173,37 @@ public class dlgPrefs extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         jPanel7.add(jPanel11, gridBagConstraints);
 
+        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Program Screen Size"));
+        jPanel14.setLayout(new java.awt.GridBagLayout());
+
+        btgScreenSize.add(rdoNormalSize);
+        rdoNormalSize.setSelected(true);
+        rdoNormalSize.setText("Normal Size (750 wide)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        jPanel14.add(rdoNormalSize, gridBagConstraints);
+
+        btgScreenSize.add(rdoWidescreen);
+        rdoWidescreen.setText("Widescreen (1280 wide)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        jPanel14.add(rdoWidescreen, gridBagConstraints);
+
+        lblScreenSizeNotice.setText("Change requires restart of SSW.");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        jPanel14.add(lblScreenSizeNotice, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel7.add(jPanel14, gridBagConstraints);
+
         jTabbedPane1.addTab("Program", jPanel7);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1565,6 +1618,7 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.ButtonGroup btgArmorPriority;
     private javax.swing.ButtonGroup btgExportSort;
     private javax.swing.ButtonGroup btgHeadArmor;
+    private javax.swing.ButtonGroup btgScreenSize;
     private javax.swing.JButton btnAmmoNameExportInfo;
     private javax.swing.JButton btnAmmoNameInfo;
     private javax.swing.JButton btnCancel;
@@ -1626,6 +1680,7 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1643,6 +1698,7 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JLabel lblColorLocked;
     private javax.swing.JLabel lblColorNormal;
     private javax.swing.JLabel lblSTRArmor;
+    private javax.swing.JLabel lblScreenSizeNotice;
     private javax.swing.JPanel pnlConstruction;
     private javax.swing.JRadioButton rdoArmorArmPriority;
     private javax.swing.JRadioButton rdoArmorEqualHead;
@@ -1651,6 +1707,8 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JRadioButton rdoArmorTorsoPriority;
     private javax.swing.JRadioButton rdoExportSortIn;
     private javax.swing.JRadioButton rdoExportSortOut;
+    private javax.swing.JRadioButton rdoNormalSize;
+    private javax.swing.JRadioButton rdoWidescreen;
     private javax.swing.JTextField txtAmmoExportName;
     private javax.swing.JTextField txtAmmoPrintName;
     private javax.swing.JTextField txtCTRArmor;

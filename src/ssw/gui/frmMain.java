@@ -161,7 +161,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     /** Creates new form frmMain */
     public frmMain() {
-        Prefs = Preferences.userNodeForPackage( this.getClass() );
+        //Prefs = Preferences.userNodeForPackage( this.getClass() );
+        Prefs = Preferences.userRoot().node( SSWConstants.PrefsNodeName );
         CurMech = new Mech( Prefs );
         ArmorTons = new VSetArmorTonnage( Prefs );
         Mechrender = new MechLoadoutRenderer( this );
@@ -502,7 +503,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // if the user wants, load the last mech.
         if( Prefs.getBoolean( "LoadLastMech", false ) ) { LoadMechFromFile(Prefs.get("LastOpenDirectory", "") + Prefs.get("LastOpenFile", "") ); }
 
-        Preferences mainPrefs = Preferences.userNodeForPackage("/java/lang".getClass());
+        Preferences mainPrefs = Preferences.userRoot().node( SSWConstants.PrefsNodeName );
         if ( !mainPrefs.get("FileToOpen", "").isEmpty() ) { LoadMechFromFile( mainPrefs.get("FileToOpen", "") ); }
 
         //dOpen.LoadList();
@@ -3116,7 +3117,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // this enables or disables the jump jet spinner if needed
         if( enable ) {
             spnJumpMP.setEnabled( true );
-            cmbJumpJetType.setEnabled( true );
+            if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().GetJumpJets().GetNumJJ() > 0 ) {
+                cmbJumpJetType.setEnabled( false );
+            } else {
+                cmbJumpJetType.setEnabled( true );
+            }
         } else {
             CurMech.GetJumpJets().ClearJumpJets();
             spnJumpMP.setEnabled( false );
@@ -3170,7 +3175,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         btnBalanceArmor.setEnabled( false );
         btnLockChassis.setEnabled( false );
         chkYearRestrict.setEnabled( false );
-        if( CurMech.GetJumpJets().GetNumJJ() > 0 ) {
+        if( CurMech.GetBaseLoadout().GetJumpJets().GetNumJJ() > 0 ) {
             cmbJumpJetType.setEnabled( false );
         }
         spnWalkMP.setEnabled( false );
@@ -3741,6 +3746,32 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     return;
                 }
             }
+        } else if( CurItem instanceof MGArray ) {
+            MGArray w = (MGArray) CurItem;
+            int location = CurMech.GetLoadout().Find( CurItem );
+            if( w.IsTurreted() ) {
+                if( location == LocationIndex.MECH_LOC_HD ) {
+                    w.RemoveFromTurret( CurMech.GetLoadout().GetHDTurret() );
+                } else if( location == LocationIndex.MECH_LOC_LT ) {
+                    w.RemoveFromTurret( CurMech.GetLoadout().GetLTTurret() );
+                } else if( location == LocationIndex.MECH_LOC_RT ) {
+                    w.RemoveFromTurret( CurMech.GetLoadout().GetRTTurret() );
+                } else {
+                    Media.Messager( this, "Cannot remove from turret!" );
+                    return;
+                }
+            } else {
+                if( location == LocationIndex.MECH_LOC_HD ) {
+                    w.AddToTurret( CurMech.GetLoadout().GetHDTurret() );
+                } else if( location == LocationIndex.MECH_LOC_LT ) {
+                    w.AddToTurret( CurMech.GetLoadout().GetLTTurret() );
+                } else if( location == LocationIndex.MECH_LOC_RT ) {
+                    w.AddToTurret( CurMech.GetLoadout().GetRTTurret() );
+                } else {
+                    Media.Messager( this, "Cannot add to turret!" );
+                    return;
+                }
+            }
         }
         RefreshInfoPane();
     }
@@ -3919,7 +3950,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }
 
     public boolean LegalTurretMount( abPlaceable p ) {
-        if( ! ( p instanceof RangedWeapon ) ) { return false; }
+        if( ! (( p instanceof RangedWeapon ) || ( p instanceof MGArray )) ) { return false; }
         int location = CurMech.GetLoadout().Find( p );
         if( location == LocationIndex.MECH_LOC_HD ) {
             if( CurMech.IsOmnimech() ) {

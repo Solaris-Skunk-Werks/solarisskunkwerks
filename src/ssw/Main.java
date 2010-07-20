@@ -46,8 +46,9 @@ public class Main {
      */
 
     public static void main(String[] args) {
-        Preferences prefs = Preferences.userNodeForPackage("/java/lang".getClass());
-        prefs.remove("FileToOpen");
+        Preferences prefs = Preferences.userRoot().node( SSWConstants.PrefsNodeName );
+        prefs.remove( "FileToOpen" );
+        final int screensize = prefs.getInt( "SSWScreenSize", SSWConstants.SCREEN_SIZE_NORMAL );
 
         //Was trying to save args into Prefs and read inside frmMain but keeps showing up as blank!?!?!
         //Turns out that the prefs are going to ssw/gui/frmMain but are going to java/lang.
@@ -111,10 +112,22 @@ public class Main {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                javax.swing.JFrame MainFrame;
+                switch( screensize ) {
+                    case SSWConstants.SCREEN_SIZE_WIDE_1280:
+                        MainFrame = new frmMainWide();
+                        MainFrame.setSize( 1240, 610 );
+                        break;
+                    default:
+                        MainFrame = new frmMain();
+                        MainFrame.setSize( 750, 610 );
+                        break;
+                }
+
                 // frmMain MainFrame = new frmMain();
-                frmMainWide MainFrame = new frmMainWide();
-                // MainFrame.setSize( 750, 600 );
-                MainFrame.setSize( 1230, 608 );
+                // frmMainWide MainFrame = new frmMainWide();
+                // MainFrame.setSize( 750, 608 );
+                // MainFrame.setSize( 1230, 608 );
                 MainFrame.setLocationRelativeTo( null );
                 MainFrame.setResizable( true );
                 MainFrame.setDefaultCloseOperation( javax.swing.JFrame.DISPOSE_ON_CLOSE );

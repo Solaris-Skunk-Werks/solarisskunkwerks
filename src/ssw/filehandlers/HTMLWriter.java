@@ -847,20 +847,7 @@ public class HTMLWriter {
                             if( a instanceof Ammunition ) {
                                 retval += FileCommon.FormatAmmoExportName( ((Ammunition) a), numthisloc );
                             } else {
-                                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
-                                    if( a instanceof Equipment ) {
-                                        if( ((Equipment) a).IsVariableSize() ) {
-                                            retval += a.CritName();
-                                            plural = "";
-                                        } else {
-                                            retval += a.LookupName();
-                                        }
-                                    } else {
-                                        retval += a.LookupName();
-                                    }
-                                } else {
-                                    retval += a.CritName();
-                                }
+                                retval += FileCommon.GetExportName( CurMech, a );
                                 retval += plural;
                             }
                         } else if( check.equals( "<+-SSW_EQUIP_COUNT_THIS_LOC-+>" ) ) {
@@ -1012,20 +999,7 @@ public class HTMLWriter {
                                 if( numthisloc > 1 ) {
                                     plural = "s";
                                 }
-                                if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
-                                    if( a instanceof Equipment ) {
-                                        if( ((Equipment) a).IsVariableSize() ) {
-                                            retval += a.CritName();
-                                            plural = "";
-                                        } else {
-                                            retval += a.LookupName();
-                                        }
-                                    } else {
-                                        retval += a.LookupName();
-                                    }
-                                } else {
-                                    retval += a.CritName();
-                                }
+                                retval += FileCommon.GetExportName( CurMech, a );
                                 retval += plural;
                             }
                         } else if( check.equals( "<+-SSW_EQUIP_COUNT_THIS_LOC-+>" ) ) {
@@ -1482,11 +1456,11 @@ public class HTMLWriter {
         lookup.put( "<+-SSW_ARMOR_COVERAGE-+>", "" + CurMech.GetArmor().GetCoverage() );
         lookup.put( "<+-SSW_JUMPJET_COUNT-+>", "" + CurMech.GetJumpJets().GetNumJJ() );
         lookup.put( "<+-SSW_JUMPJET_DISTANCE-+>", GetJumpJetDistanceLine() );
-        lookup.put( "<+-SSW_SPEED_WALK_KMPH-+>", "" + ( CurMech.GetWalkingMP() * 10.75f ) + " km/h" );
+        lookup.put( "<+-SSW_SPEED_WALK_KMPH-+>", "" + ( CurMech.GetWalkingMP() * 10.8 ) + " km/h" );
         if( CurMech.GetAdjustedRunningMP( false, true ) != CurMech.GetRunningMP() ) {
-            lookup.put( "<+-SSW_SPEED_RUN_KMPH-+>", "" + ( CurMech.GetRunningMP() * 10.75f ) + " km/h (" + ( CurMech.GetAdjustedRunningMP( false, true ) * 10.75f ) + " km/h)" );
+            lookup.put( "<+-SSW_SPEED_RUN_KMPH-+>", "" + ( CurMech.GetRunningMP() * 10.8 ) + " km/h (" + ( CurMech.GetAdjustedRunningMP( false, true ) * 10.8 ) + " km/h)" );
         } else {
-            lookup.put( "<+-SSW_SPEED_RUN_KMPH-+>", "" + ( CurMech.GetRunningMP() * 10.75f ) + " km/h" );
+            lookup.put( "<+-SSW_SPEED_RUN_KMPH-+>", "" + ( CurMech.GetRunningMP() * 10.8 ) + " km/h" );
         }
         lookup.put( "<+-SSW_SPEED_WALK_MP-+>", "" + CurMech.GetWalkingMP() );
         if( CurMech.GetAdjustedRunningMP( false, true ) != CurMech.GetRunningMP() ) {
@@ -1508,17 +1482,18 @@ public class HTMLWriter {
         lookup.put( "<+-SSW_HEATSINK_TOTAL_SPACE-+>", "" + CurMech.GetHeatSinks().NumCrits() );
         lookup.put( "<+-SSW_HEATSINK_LOCATION_LINE-+>", FileCommon.GetHeatSinkLocations( CurMech ) );
         lookup.put( "<+-SSW_ACTUATOR_LINE-+>", FileCommon.BuildActuators( CurMech, true ) );
+        if( FileCommon.NeedsLegActuatorLine( CurMech ) ) {
+            lookup.put( "<+-SSW_LEG_ACTUATOR_LINE-+>", FileCommon.BuildLegActuators( CurMech, true ) );
+        } else {
+            lookup.put( "<+-SSW_LEG_ACTUATOR_LINE-+>", "" );
+        }
         lookup.put( "<+-SSW_ENHANCEMENT_SPACE-+>", "" + CurMech.GetPhysEnhance().NumCrits() );
         lookup.put( "<+-SSW_ENHANCEMENT_LOCATION_LINE-+>", FileCommon.GetTSMLocations( CurMech ) );
         lookup.put( "<+-SSW_JUMPJET_SPACE-+>", "" + CurMech.GetJumpJets().ReportCrits() );
         lookup.put( "<+-SSW_JUMPJET_LOCATION_LINE-+>", FileCommon.GetJumpJetLocations( CurMech ) );
         lookup.put( "<+-SSW_ARMOR_FACTOR-+>", "" + CurMech.GetArmor().GetArmorValue() );
         lookup.put( "<+-SSW_ENGINE_RATING-+>", "" + CurMech.GetEngine().GetRating() );
-        if( CurMech.GetTechBase() == AvailableCode.TECH_BOTH ) {
-            lookup.put( "<+-SSW_ENGINE_TYPE-+>", CurMech.GetEngine().LookupName() );
-        } else {
-            lookup.put( "<+-SSW_ENGINE_TYPE-+>", CurMech.GetEngine().CritName() );
-        }
+        lookup.put( "<+-SSW_ENGINE_TYPE-+>", FileCommon.GetExportName( CurMech, CurMech.GetEngine() ) );
         lookup.put( "<+-SSW_HEATSINK_DISSIPATION_LINE-+>", GetHeatSinkLine() );
         if( CurMech.GetHeatSinks().GetNumHS() < CurMech.GetEngine().InternalHeatSinks() ) {
             lookup.put( "<+-SSW_HEATSINKS_IN_ENGINE-+>", "" + CurMech.GetHeatSinks().GetNumHS() );
@@ -1538,8 +1513,13 @@ public class HTMLWriter {
                 lookup.put( "<+-SSW_HEATSINK_TYPE-+>", "Single" );
             }
         }
-        lookup.put( "<+-SSW_GYRO_TYPE-+>", CurMech.GetGyro().GetReportName() );
-        lookup.put( "<+-SSW_COCKPIT_TYPE-+>", CurMech.GetCockpit().GetReportName() );
+        lookup.put( "<+-SSW_GYRO_TYPE-+>", FileCommon.GetExportName( CurMech, CurMech.GetGyro() ) );
+        lookup.put( "<+-SSW_COCKPIT_TYPE-+>", FileCommon.GetExportName( CurMech, CurMech.GetCockpit() ) );
+        if( FileCommon.NeedsCockpitComponentLine( CurMech ) ) {
+            lookup.put( "<+-SSW_COCKPIT_COMPONENT_LINE-+>", FileCommon.GetCockpitComponentLine( CurMech ) );
+        } else {
+            lookup.put( "<+-SSW_COCKPIT_COMPONENT_LINE-+>", "" );
+        }
         lookup.put( "<+-SSW_ARMOR_TYPE-+>", CurMech.GetArmor().CritName() );
         lookup.put( "<+-SSW_JUMPJET_TYPE-+>", GetJumpJetTypeLine() );
         lookup.put( "<+-SSW_HEATSINK_COUNT-+>", "" + CurMech.GetHeatSinks().GetNumHS() );
