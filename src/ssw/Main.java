@@ -124,10 +124,6 @@ public class Main {
                         break;
                 }
 
-                // frmMain MainFrame = new frmMain();
-                // frmMainWide MainFrame = new frmMainWide();
-                // MainFrame.setSize( 750, 608 );
-                // MainFrame.setSize( 1230, 608 );
                 MainFrame.setLocationRelativeTo( null );
                 MainFrame.setResizable( true );
                 MainFrame.setDefaultCloseOperation( javax.swing.JFrame.DISPOSE_ON_CLOSE );

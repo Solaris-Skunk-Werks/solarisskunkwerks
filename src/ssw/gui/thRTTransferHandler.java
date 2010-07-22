@@ -132,7 +132,7 @@ public class thRTTransferHandler extends TransferHandler {
                             return false;
                         }
                     } else if( a instanceof MechTurret ) {
-                        if( CurMech.IsOmnimech() ) {
+                        if( CurMech.IsOmnimech() && CurMech.GetBaseLoadout().HasRTTurret() ) {
                             return false;
                         }
                     } else if( a instanceof Engine ) {

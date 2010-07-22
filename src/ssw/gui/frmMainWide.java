@@ -180,7 +180,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         pnlDamageChart = new DamageChart();
 
         initComponents();
-        Overview.SetEditorSize( 310, 380 );
+        Overview.SetEditorSize( 310, 580 );
         Capabilities.SetEditorSize( 310, 380 );
         Deployment.SetEditorSize( 310, 380 );
         History.SetEditorSize( 310, 380 );
@@ -9117,16 +9117,15 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         pnlImage.add(jPanel1, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         pnlFluff.add(pnlImage, gridBagConstraints);
 
-        tbpFluffEditors.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-        tbpFluffEditors.setMaximumSize(new java.awt.Dimension(420, 455));
-        tbpFluffEditors.setMinimumSize(new java.awt.Dimension(420, 455));
-        tbpFluffEditors.setPreferredSize(new java.awt.Dimension(420, 455));
+        tbpFluffEditors.setTabPlacement(javax.swing.JTabbedPane.RIGHT);
+        tbpFluffEditors.setMaximumSize(new java.awt.Dimension(550, 455));
+        tbpFluffEditors.setMinimumSize(new java.awt.Dimension(550, 455));
+        tbpFluffEditors.setPreferredSize(new java.awt.Dimension(550, 455));
 
         pnlOverview.setMaximumSize(new java.awt.Dimension(427, 485));
         pnlOverview.setMinimumSize(new java.awt.Dimension(427, 485));
@@ -9154,9 +9153,9 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         tbpFluffEditors.addTab("Additional", pnlAdditionalFluff);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 6);
         pnlFluff.add(tbpFluffEditors, gridBagConstraints);
@@ -9195,8 +9194,8 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         pnlExport.add(btnExportMTF, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         pnlFluff.add(pnlExport, gridBagConstraints);
 
@@ -9543,9 +9542,9 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         txtJJModel.addMouseListener( mlJJModel );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
         pnlFluff.add(pnlManufacturers, gridBagConstraints);
