@@ -2172,12 +2172,14 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     }
 
     public void QuickSave() {
-        if ( !Prefs.get("Currentfile", "").isEmpty() ) {
+        File saveFile = GetSaveFile( "ssw", Prefs.get( "LastOpenDirectory", "" ), true, false );
+        if ( saveFile != null ) {
             // save the mech to XML in the current location
+            String curLoadout = CurMech.GetLoadout().GetName();
             MechWriter XMLw = new MechWriter( CurMech );
             try {
-                String file = Prefs.get("Currentfile", "");
-                XMLw.WriteXML( file );
+                XMLw.WriteXML( saveFile.getCanonicalPath() );
+                CurMech.SetCurLoadout(curLoadout);
             } catch( IOException e ) {
                 return;
             }
@@ -10788,24 +10790,9 @@ public void LoadMechIntoGUI() {
     ResetAmmo();
 
     // load the fluff image.
-    ImageIcon newFluffImage = null;
-    newFluffImage = new ImageIcon( CurMech.GetSSWImage() );
-
-    if( newFluffImage != null ) {
-        // See if we need to scale
-        int h = newFluffImage.getIconHeight();
-        int w = newFluffImage.getIconWidth();
-        if ( w > 290 || h > 350 ) {
-            if ( w > h ) { // resize based on width
-                newFluffImage = new ImageIcon(newFluffImage.getImage().
-                    getScaledInstance(290, -1, Image.SCALE_DEFAULT));
-            } else { // resize based on height
-                newFluffImage = new ImageIcon(newFluffImage.getImage().
-                    getScaledInstance(-1, 350, Image.SCALE_DEFAULT));
-            }
-        }
-    }
-    lblFluffImage.setIcon( newFluffImage );
+    Media media = new Media();
+    media.blankLogo(lblFluffImage);
+    media.setLogo(lblFluffImage, media.DetermineMatchingImage(CurMech.GetName(), CurMech.GetModel(), CurMech.GetSSWImage()));
 
     Overview.SetText( CurMech.GetOverview() );
     Capabilities.SetText( CurMech.GetCapabilities() );
