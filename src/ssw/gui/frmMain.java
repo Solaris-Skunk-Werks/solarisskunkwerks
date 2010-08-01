@@ -1200,7 +1200,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkBoosters.setEnabled( true );
             FixJumpBoosterSpinnerModel();
         } else {
-            spnBoosterMP.setEnabled( false );
+            try {
+                CurMech.SetJumpBooster( false );
+            } catch( Exception e ) {
+                // nothing should ever happen here, but log it anyway
+                System.err.println( "Could not remove Jump Booster!" );
+            }
             chkBoosters.setEnabled( false );
             chkBoosters.setSelected( false );
             FixJumpBoosterSpinnerModel();

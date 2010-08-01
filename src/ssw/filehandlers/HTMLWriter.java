@@ -1456,11 +1456,11 @@ public class HTMLWriter {
         lookup.put( "<+-SSW_ARMOR_COVERAGE-+>", "" + CurMech.GetArmor().GetCoverage() );
         lookup.put( "<+-SSW_JUMPJET_COUNT-+>", "" + CurMech.GetJumpJets().GetNumJJ() );
         lookup.put( "<+-SSW_JUMPJET_DISTANCE-+>", GetJumpJetDistanceLine() );
-        lookup.put( "<+-SSW_SPEED_WALK_KMPH-+>", "" + ( CurMech.GetWalkingMP() * 10.8 ) + " km/h" );
+        lookup.put( "<+-SSW_SPEED_WALK_KMPH-+>", CommonTools.FormatSpeed( CurMech.GetWalkingMP() * 10.8 ) + " km/h" );
         if( CurMech.GetAdjustedRunningMP( false, true ) != CurMech.GetRunningMP() ) {
-            lookup.put( "<+-SSW_SPEED_RUN_KMPH-+>", "" + ( CurMech.GetRunningMP() * 10.8 ) + " km/h (" + ( CurMech.GetAdjustedRunningMP( false, true ) * 10.8 ) + " km/h)" );
+            lookup.put( "<+-SSW_SPEED_RUN_KMPH-+>", CommonTools.FormatSpeed( CurMech.GetRunningMP() * 10.8 ) + " km/h (" + CommonTools.FormatSpeed( CurMech.GetAdjustedRunningMP( false, true ) * 10.8 ) + " km/h)" );
         } else {
-            lookup.put( "<+-SSW_SPEED_RUN_KMPH-+>", "" + ( CurMech.GetRunningMP() * 10.8 ) + " km/h" );
+            lookup.put( "<+-SSW_SPEED_RUN_KMPH-+>", CommonTools.FormatSpeed( CurMech.GetRunningMP() * 10.8 ) + " km/h" );
         }
         lookup.put( "<+-SSW_SPEED_WALK_MP-+>", "" + CurMech.GetWalkingMP() );
         if( CurMech.GetAdjustedRunningMP( false, true ) != CurMech.GetRunningMP() ) {
