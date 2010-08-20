@@ -343,7 +343,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         jLabel24 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtImagePath = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnDefaultImagePath = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         chkUpdateStartup = new javax.swing.JCheckBox();
         jPanel14 = new javax.swing.JPanel();
@@ -1149,11 +1149,16 @@ public class dlgPrefs extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel10.add(txtImagePath, gridBagConstraints);
 
-        jButton1.setText("...");
+        btnDefaultImagePath.setText("...");
+        btnDefaultImagePath.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDefaultImagePathActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 8;
-        jPanel10.add(jButton1, gridBagConstraints);
+        jPanel10.add(btnDefaultImagePath, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1614,6 +1619,11 @@ public class dlgPrefs extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnImportActionPerformed
 
+    private void btnDefaultImagePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDefaultImagePathActionPerformed
+        Media media = new Media();
+        txtImagePath.setText(media.GetDirectorySelection(this, txtImagePath.getText()));
+}//GEN-LAST:event_btnDefaultImagePathActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btgArmorPriority;
     private javax.swing.ButtonGroup btgExportSort;
@@ -1634,6 +1644,7 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JButton btnColorLockedFG;
     private javax.swing.JButton btnColorNormalBG;
     private javax.swing.JButton btnColorNormalFG;
+    private javax.swing.JButton btnDefaultImagePath;
     private javax.swing.JButton btnExport;
     private javax.swing.JButton btnHTMLPath;
     private javax.swing.JButton btnImport;
@@ -1658,7 +1669,6 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JComboBox cmbHeatSinks;
     private javax.swing.JComboBox cmbRulesLevel;
     private javax.swing.JComboBox cmbTechbase;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
