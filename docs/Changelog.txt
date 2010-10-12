@@ -120,6 +120,8 @@ Version 0.7.0
 - Fixed an issue with Quad 'Mechs not gaining the Rules or Tech level of the previous (biped) loadout.
 - Fixed an issue with OmniMechs and the Source field not saving correctly.
 - Fixed an issue with Omnis and the Techbase not loading or changing according to the loadout.
+- BattleForce damage values properly adjusted for weapons with less than 10 shots of ammo.
+- Fixed BattleForce improved jumpjets.
 
 -------------------------------------------------------------------------------
 Version 0.6.0
