@@ -1229,6 +1229,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             chkLegAES.setEnabled( false );
         }
 
+        // It's a trap!
+        if ( CommonTools.IsAllowed( CurMech.GetLoadout().GetBoobyTrap().GetAvailability(), CurMech ) ) {
+            chkBoobyTrap.setEnabled( true );
+        } else {
+            chkBoobyTrap.setEnabled( false );
+        }
+
+
         // now check the CASE II systems
         if( CommonTools.IsAllowed( CurMech.GetLoadout().GetCTCaseII().GetAvailability(), CurMech ) ) {
             chkHDCASE2.setEnabled( true );
@@ -6502,6 +6510,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         chkBoobyTrap.setText("Booby Trap");
         chkBoobyTrap.setEnabled(false);
+        chkBoobyTrap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkBoobyTrapActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
@@ -14652,6 +14665,21 @@ private void spnBoosterMPStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_spnBoosterMPStateChanged
+
+private void chkBoobyTrapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBoobyTrapActionPerformed
+    if( chkBoobyTrap.isSelected() == CurMech.GetLoadout().HasBoobyTrap() ) { return; }
+    try {
+        CurMech.GetLoadout().SetBoobyTrap( chkBoobyTrap.isSelected() );
+    } catch( Exception e ) {
+        Media.Messager( this, e.getMessage() );
+        chkBoobyTrap.setSelected( false );
+    }
+    
+    // now refresh the information panes
+    RefreshEquipment();
+    RefreshSummary();
+    RefreshInfoPane();
+}//GEN-LAST:event_chkBoobyTrapActionPerformed
 
 private void setViewToolbar(boolean Visible)
 {
