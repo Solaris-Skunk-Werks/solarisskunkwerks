@@ -48,6 +48,7 @@ Version 0.7.0
 - Added a range-bracketing chart screen on the Charts tab.
 - Added Fractional Accounting.
 - Added HTML editors to all fluff tabs, currently in testing.
+- Added Booby Traps for Mechs
 
 + Changed
 - The Availability Code now supports both Clan and Inner Sphere codes at the same time.
