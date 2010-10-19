@@ -123,6 +123,7 @@ Version 0.7.0
 - Fixed an issue with Omnis and the Techbase not loading or changing according to the loadout.
 - BattleForce damage values properly adjusted for weapons with less than 10 shots of ammo.
 - Fixed BattleForce improved jumpjets.
+- Fixed printing error when using shields and non-canon armor pips.
 
 -------------------------------------------------------------------------------
 Version 0.6.0
