@@ -1230,8 +1230,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // It's a trap!
+        chkBoobyTrap.setSelected(false);
         if ( CommonTools.IsAllowed( CurMech.GetLoadout().GetBoobyTrap().GetAvailability(), CurMech ) ) {
             chkBoobyTrap.setEnabled( true );
+            if ( CurMech.GetLoadout().HasBoobyTrap() ) { chkBoobyTrap.setSelected(true); }
         } else {
             chkBoobyTrap.setEnabled( false );
         }
