@@ -44,7 +44,7 @@ public class HTMLWriter {
 
     private Mech CurMech;
     private Hashtable lookup = new Hashtable<String, String>( 90 );
-    private String NL = "<BR />",
+    private String NL = "<br />",
                    tformat = "";
 
     public HTMLWriter( Mech m ) {
