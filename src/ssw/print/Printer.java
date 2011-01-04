@@ -92,6 +92,19 @@ public class Printer {
     public void setPaperSize(PaperSize s) {
         paper.setSize( s.PaperWidth, s.PaperHeight );
         paper.setImageableArea( s.ImageableX, s.ImageableY, s.ImageableWidth, s.ImageableHeight );
+        if ( s == A4 )
+        {
+            for ( PrintMech pm : Mechs )
+            {
+                pm.setA4();
+            }
+        } else if ( s == Letter )
+        {
+            for ( PrintMech pm : Mechs )
+            {
+                pm.setLetter();
+            }
+        }
     }
 
     public Boolean getCharts() {
@@ -293,6 +306,7 @@ public class Printer {
         pMech.setLogoImage(POptions.getLogo());
         pMech.setCanon(POptions.getCanon());
         if ( POptions.UseMiniConversion() ) { pMech.SetMiniConversion( POptions.GetMiniConversionRate() );}
+        if ( POptions.UseA4Paper() ) { pMech.setA4(); }
 
         POptions.dispose();
         return true;
