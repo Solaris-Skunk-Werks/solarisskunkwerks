@@ -153,6 +153,9 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         lblInches = new javax.swing.JLabel();
         chkPrintCanon = new javax.swing.JCheckBox();
         chkRS = new javax.swing.JCheckBox();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        cmbPaperSize = new javax.swing.JComboBox();
         pnlImageOptions = new javax.swing.JPanel();
         chkPrintImage = new javax.swing.JCheckBox();
         btnChooseImage = new javax.swing.JButton();
@@ -300,13 +303,25 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
             }
         });
 
+        jLabel5.setText("Paper Size:");
+        jPanel3.add(jLabel5);
+
+        cmbPaperSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Letter", "A4" }));
+        cmbPaperSize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPaperSizeActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cmbPaperSize);
+
         javax.swing.GroupLayout pnlPrintOptionsLayout = new javax.swing.GroupLayout(pnlPrintOptions);
         pnlPrintOptions.setLayout(pnlPrintOptionsLayout);
         pnlPrintOptionsLayout.setHorizontalGroup(
             pnlPrintOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlPrintOptionsLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPrintOptionsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlPrintOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlPrintOptionsLayout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(lblOneHex)
@@ -339,7 +354,8 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
                     .addGroup(pnlPrintOptionsLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(lblInches)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pnlImageOptions.setBorder(javax.swing.BorderFactory.createTitledBorder("Image Options"));
@@ -397,7 +413,8 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(chkLogo)
                 .addGap(6, 6, 6)
-                .addComponent(btnChooseLogo))
+                .addComponent(btnChooseLogo)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Warrior Options"));
@@ -511,13 +528,15 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                .addComponent(pnlPrintOptions, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, 0, 146, Short.MAX_VALUE)
-                .addComponent(pnlImageOptions, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                    .addComponent(pnlImageOptions, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlPrintOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -530,9 +549,9 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnPreview, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE))
+                .addComponent(spnPreview, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE))
         );
 
         pack();
@@ -725,6 +744,18 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         UpdateWarriorData();
     }//GEN-LAST:event_txtGroupNameFocusLost
 
+    private void cmbPaperSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaperSizeActionPerformed
+        switch ( cmbPaperSize.getSelectedIndex() )
+        {
+            case 0:
+                printer.setPaperSize(Printer.Letter);
+                break;
+            case 1:
+                printer.setPaperSize(Printer.A4);
+        }
+        refresh();
+    }//GEN-LAST:event_cmbPaperSizeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
@@ -747,12 +778,15 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JCheckBox chkUseHexConversion;
     private javax.swing.JComboBox cmbGunnery;
     private javax.swing.JComboBox cmbHexConvFactor;
+    private javax.swing.JComboBox cmbPaperSize;
     private javax.swing.JComboBox cmbPiloting;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
