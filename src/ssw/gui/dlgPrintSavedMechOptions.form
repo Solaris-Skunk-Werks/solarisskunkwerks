@@ -54,15 +54,12 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
               <Component id="pnlBattleMech" min="-2" pref="85" max="-2" attributes="1"/>
-              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" attributes="1">
-                      <EmptySpace min="6" pref="6" max="6" attributes="0"/>
-                      <Component id="pnlPrintOptions" max="32767" attributes="1"/>
-                  </Group>
-                  <Component id="pnlImageOptions" alignment="0" min="-2" max="-2" attributes="1"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="pnlImageOptions" min="-2" max="-2" attributes="1"/>
+                  <Component id="pnlPrintOptions" min="-2" max="-2" attributes="1"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -81,6 +78,9 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btnPrint">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/ssw/Images/printer.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Print"/>
           </Properties>
           <Events>
@@ -89,6 +89,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnCancel">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/ssw/Images/cross-script.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Cancel"/>
           </Properties>
           <Events>
@@ -358,7 +361,7 @@
                           <Component id="lblInches" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="9" max="32767" attributes="0"/>
+                  <EmptySpace pref="15" max="32767" attributes="0"/>
                   <Component id="chkMWStats" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
@@ -602,6 +605,9 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btnChangeAmmo">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/ssw/Images/ammo.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Change Ammo"/>
           </Properties>
           <Events>

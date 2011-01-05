@@ -20,6 +20,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
     private boolean Result = false;
     private File MechImage = null;
     private File LogoImage = null;
+    Media media = new Media();
 
     /** Creates new form dlgPrintSavedMechOptions */
     public dlgPrintSavedMechOptions(java.awt.Frame parent, boolean modal, Mech m, String Warrior, int Gunnery, int Piloting) {
@@ -36,7 +37,10 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
             lblImage.setText("The Mech Image must be set already.");
         } else {
             CurMech = m;
-            if ( ! m.GetSSWImage().isEmpty() ) {this.setImage(new File(m.GetSSWImage()));}
+            if ( !media.DetermineMatchingImage(CurMech.GetName(), CurMech.GetModel(), CurMech.GetSSWImage()).isEmpty() )
+                MechImage = new File(media.DetermineMatchingImage(CurMech.GetName(), CurMech.GetModel(), CurMech.GetSSWImage()));
+
+            media.setLogo(lblImage, MechImage);
             pnlBattleMech.setBorder(javax.swing.BorderFactory.createTitledBorder(CurMech.GetFullName() + " Information"));
             lblBaseBV.setText( String.format( "%1$,d", CurMech.GetCurrentBV()) );
             lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );
@@ -79,7 +83,8 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
             }
 
             if ( Parent.GetPrefs().get("LastLogo", "").length() > 0 ) {
-                setLogo(new File(Parent.GetPrefs().get("LastLogo", "")));
+                LogoImage = new File(Parent.GetPrefs().get("LastLogo", ""));
+                media.setLogo(lblLogo, Parent.GetPrefs().get("LastLogo", ""));
             }
         }
     }
@@ -148,6 +153,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Print Saved Mech");
 
+        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/printer.png"))); // NOI18N
         btnPrint.setText("Print");
         btnPrint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,6 +162,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         });
         jPanel1.add(btnPrint);
 
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/cross-script.png"))); // NOI18N
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -236,7 +243,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
                         .addGroup(pnlBattleMechLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(cmbPiloting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                         .addGroup(pnlBattleMechLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBattleMechLayout.createSequentialGroup()
                                 .addGap(20, 20, 20)
@@ -355,7 +362,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
                     .addGroup(pnlPrintOptionsLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(lblInches)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(chkMWStats)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -424,7 +431,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnChooseImage)
-                    .addComponent(chkPrintImage, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                    .addComponent(chkPrintImage, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                     .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlImageOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -458,6 +465,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
                     .addComponent(btnChooseLogo)))
         );
 
+        btnChangeAmmo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/ammo.png"))); // NOI18N
         btnChangeAmmo.setText("Change Ammo");
         btnChangeAmmo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -493,14 +501,12 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addComponent(pnlBattleMech, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(pnlPrintOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(pnlImageOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pnlImageOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlPrintOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -576,7 +582,6 @@ private void chkUseHexConversionActionPerformed(java.awt.event.ActionEvent evt) 
 private void btnChooseImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseImageActionPerformed
     String defaultDir = "";
     if ( Parent != null ) {defaultDir = Parent.GetPrefs().get("LastImagePath", "");}
-    Media media = new Media();
     MechImage = media.SelectImage(defaultDir, "Select Image");
 
     try {
@@ -586,15 +591,16 @@ private void btnChooseImageActionPerformed(java.awt.event.ActionEvent evt) {//GE
             Parent.GetPrefs().put("LastImageFile", MechImage.getName());
         }
 
-        setImage(MechImage);
-
+        media.setLogo(lblImage, MechImage);
     } catch ( Exception e ) {
         //do nothing
     }
 }//GEN-LAST:event_btnChooseImageActionPerformed
 
 private void chkPrintImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkPrintImageActionPerformed
-    if ( CurMech != null ) { btnChooseImage.setEnabled(chkPrintImage.isSelected()); }
+    if ( CurMech != null ) { 
+        btnChooseImage.setEnabled(chkPrintImage.isSelected());
+    }
 }//GEN-LAST:event_chkPrintImageActionPerformed
 
 private void chkLogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLogoActionPerformed
@@ -609,7 +615,6 @@ private void chkStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void btnChooseLogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseLogoActionPerformed
     String defaultDir = "";
     if ( Parent != null ) {defaultDir = Parent.GetPrefs().get("LastLogo", "");}
-    Media media = new Media();
     LogoImage = media.SelectImage(defaultDir, "Select Logo");
 
     try {
@@ -619,7 +624,7 @@ private void btnChooseLogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN
             Parent.GetPrefs().put("LastLogoFile", LogoImage.getName());
         }
 
-        setLogo(LogoImage);
+        media.setLogo(lblLogo, LogoImage);
 
     } catch ( Exception e ) {
         //do nothing
@@ -709,36 +714,8 @@ private void chkPrintChartsActionPerformed(java.awt.event.ActionEvent evt) {//GE
     public boolean getCanon() {
         return chkPrintCanon.isSelected();
     }
-
-    public void setImage(File image) {
-        try {
-            this.MechImage = image;
-            ImageIcon icon = new ImageIcon(MechImage.getPath());
-
-            if( icon == null ) { return; }
-
-            // See if we need to scale
-            int h = icon.getIconHeight();
-            int w = icon.getIconWidth();
-            if ( w > lblImage.getWidth() || h > lblImage.getHeight() ) {
-                if ( w > h ) { // resize based on width
-                    icon = new ImageIcon(icon.getImage().
-                        getScaledInstance(lblImage.getWidth(), -1, Image.SCALE_DEFAULT));
-                } else { // resize based on height
-                    icon = new ImageIcon(icon.getImage().
-                        getScaledInstance(-1, lblImage.getHeight(), Image.SCALE_DEFAULT));
-                }
-            }
-
-            lblImage.setIcon(icon);
-        } catch (Exception e) {
-            //do nothing
-        }
-    }
-
     public Image getImage() {
         if (chkPrintImage.isSelected() && MechImage != null) {
-            Media media = new Media();
             try {
                 return media.GetImage(MechImage.getCanonicalPath());
             } catch (IOException ex) {
@@ -751,35 +728,8 @@ private void chkPrintChartsActionPerformed(java.awt.event.ActionEvent evt) {//GE
         }
     }
 
-    public void setLogo(File image) {
-        try {
-            this.LogoImage = image;
-            ImageIcon icon = new ImageIcon(LogoImage.getPath());
-
-            if( icon == null ) { return; }
-
-            // See if we need to scale
-            int h = icon.getIconHeight();
-            int w = icon.getIconWidth();
-            if ( w > lblLogo.getWidth() || h > lblLogo.getHeight() ) {
-                if ( w > h ) { // resize based on width
-                    icon = new ImageIcon(icon.getImage().
-                        getScaledInstance(lblLogo.getWidth(), -1, Image.SCALE_DEFAULT));
-                } else { // resize based on height
-                    icon = new ImageIcon(icon.getImage().
-                        getScaledInstance(-1, lblLogo.getHeight(), Image.SCALE_DEFAULT));
-                }
-            }
-
-            lblLogo.setIcon(icon);
-        } catch (Exception e) {
-            //do nothing
-        }
-    }
-
     public Image getLogo() {
         if (chkLogo.isSelected() && LogoImage != null) {
-            Media media = new Media();
             try {
                 return media.GetImage(LogoImage.getCanonicalPath());
             } catch (IOException ex) {
@@ -791,6 +741,13 @@ private void chkPrintChartsActionPerformed(java.awt.event.ActionEvent evt) {//GE
             return null;
         }
     }
+
+    public void setLogo(File logo)
+    {
+        LogoImage = logo;
+        media.setLogo(lblLogo, logo);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnChangeAmmo;
