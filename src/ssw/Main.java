@@ -46,7 +46,7 @@ public class Main {
      */
 
     public static void main(String[] args) {
-        Preferences prefs = Preferences.userRoot().node( SSWConstants.PrefsNodeName );
+        Preferences prefs = Preferences.userRoot().node( common.Constants.SSWPrefs );
         prefs.remove( "FileToOpen" );
         final int screensize = prefs.getInt( "SSWScreenSize", SSWConstants.SCREEN_SIZE_NORMAL );
 

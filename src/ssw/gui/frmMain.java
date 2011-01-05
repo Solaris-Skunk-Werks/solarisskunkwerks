@@ -161,8 +161,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     /** Creates new form frmMain */
     public frmMain() {
-        //Prefs = Preferences.userNodeForPackage( this.getClass() );
-        Prefs = Preferences.userRoot().node( SSWConstants.PrefsNodeName );
+        Prefs = Preferences.userRoot().node( common.Constants.SSWPrefs );
         CurMech = new Mech( Prefs );
         ArmorTons = new VSetArmorTonnage( Prefs );
         Mechrender = new MechLoadoutRenderer( this );
@@ -503,8 +502,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // if the user wants, load the last mech.
         if( Prefs.getBoolean( "LoadLastMech", false ) ) { LoadMechFromFile(Prefs.get("LastOpenDirectory", "") + Prefs.get("LastOpenFile", "") ); }
 
-        Preferences mainPrefs = Preferences.userRoot().node( SSWConstants.PrefsNodeName );
-        if ( !mainPrefs.get("FileToOpen", "").isEmpty() ) { LoadMechFromFile( mainPrefs.get("FileToOpen", "") ); }
+        if ( !Prefs.get("FileToOpen", "").isEmpty() ) { LoadMechFromFile( Prefs.get("FileToOpen", "") ); }
 
         //dOpen.LoadList();
         CurMech.SetChanged( false );
