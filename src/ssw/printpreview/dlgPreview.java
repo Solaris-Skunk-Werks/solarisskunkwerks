@@ -16,6 +16,8 @@ import filehandlers.Media;
 import dialog.dlgAmmoChooser;
 import ssw.gui.ifMechForm;
 import Print.PrintMech;
+import common.Constants;
+import java.util.prefs.Preferences;
 import ssw.print.Printer;
 
 public class dlgPreview extends javax.swing.JFrame implements ActionListener {
@@ -26,6 +28,8 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
     private ifMechForm Parent;
     private File MechImage = null;
     private File LogoImage = null;
+    private Preferences bfbPrefs = Preferences.userRoot().node( Constants.BFBPrefs );
+    private Preferences sswPrefs = Preferences.userRoot().node( Constants.SSWPrefs );
 
     public dlgPreview(String title, JFrame owner, Printer printer, Pageable pageable, double zoom) {
         super(title);
@@ -44,17 +48,18 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         btnPageWidth.setAction(new ZoomAction("Width", "document-resize.png", preview, preview.getWidthZoom(), true));
         btnPageHeight.setAction(new ZoomAction("Page", "document-resize-actual.png", preview, preview.getHeightZoom(), true));
 
-        chkPrintCanon.setSelected(Parent.GetPrefs().getBoolean("UseCanonDots", false));
-        chkPrintCharts.setSelected(Parent.GetPrefs().getBoolean("UseCharts", false));
-        chkRS.setSelected(Parent.GetPrefs().getBoolean("UseRS", false));
+        chkPrintCanon.setSelected(sswPrefs.getBoolean("UseCanonDots", false));
+        chkPrintCharts.setSelected(sswPrefs.getBoolean("UseCharts", false));
+        chkRS.setSelected(sswPrefs.getBoolean("UseRS", false));
+        cmbPaperSize.setSelectedIndex(sswPrefs.getInt("PaperSize", 0));
         if ( chkRS.isSelected() ) { chkRSActionPerformed(null); }
         
-        chkUseHexConversion.setSelected( Parent.GetPrefs().getBoolean( "UseMiniConversion", false ) );
+        chkUseHexConversion.setSelected( sswPrefs.getBoolean( "UseMiniConversion", false ) );
         if( chkUseHexConversion.isSelected() ) {
             lblOneHex.setEnabled( true );
             cmbHexConvFactor.setEnabled( true );
             lblInches.setEnabled( true );
-            cmbHexConvFactor.setSelectedIndex( Parent.GetPrefs().getInt( "MiniConversionRate", 0 ) );
+            cmbHexConvFactor.setSelectedIndex( sswPrefs.getInt( "MiniConversionRate", 0 ) );
         }
 
         if ( pageable.getNumberOfPages() <= 2 ) {
@@ -116,10 +121,19 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
     }
 
     private void refresh() {
+        setPreferences();
         preview.setPageable(printer.Preview());
         preview.repaint();
     }
 
+    private void setPreferences() {
+        sswPrefs.putBoolean(Constants.Format_CanonPattern, chkPrintCanon.isSelected());
+        sswPrefs.putBoolean(Constants.Format_Tables, chkPrintCharts.isSelected());
+        sswPrefs.putBoolean(Constants.Format_ConvertTerrain, chkUseHexConversion.isSelected());
+        //sswPrefs.putBoolean("GenericAmmo", chkGenericAmmo.isSelected());
+        sswPrefs.putInt(Constants.Format_TerrainModifier, cmbHexConvFactor.getSelectedIndex());
+        sswPrefs.putInt("PaperSize", cmbPaperSize.getSelectedIndex());
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -581,15 +595,15 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
 
     private void btnChooseImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseImageActionPerformed
         String defaultDir = "";
-        if ( Parent != null ) {defaultDir = Parent.GetPrefs().get("LastImagePath", "");}
+        if ( Parent != null ) {defaultDir = sswPrefs.get("LastImagePath", "");}
         Media media = new Media();
         MechImage = media.SelectImage(defaultDir, "Select Image");
 
         try {
             if ( Parent != null ) {
-                Parent.GetPrefs().put("LastImage", MechImage.getCanonicalPath());
-                Parent.GetPrefs().put("LastImagePath", MechImage.getCanonicalPath().replace(MechImage.getName(), ""));
-                Parent.GetPrefs().put("LastImageFile", MechImage.getName());
+                sswPrefs.put("LastImage", MechImage.getCanonicalPath());
+                sswPrefs.put("LastImagePath", MechImage.getCanonicalPath().replace(MechImage.getName(), ""));
+                sswPrefs.put("LastImageFile", MechImage.getName());
             }
 
             //setImage(MechImage);
@@ -620,15 +634,15 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
 
     private void btnChooseLogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseLogoActionPerformed
         String defaultDir = "";
-        if ( Parent != null ) {defaultDir = Parent.GetPrefs().get("LastLogo", "");}
+        if ( Parent != null ) {defaultDir = sswPrefs.get("LastLogo", "");}
         Media media = new Media();
         LogoImage = media.SelectImage(defaultDir, "Select Logo");
 
         try {
             if ( Parent != null ) {
-                Parent.GetPrefs().put("LastLogo", LogoImage.getCanonicalPath());
-                Parent.GetPrefs().put("LastLogoPath", LogoImage.getCanonicalPath().replace(LogoImage.getName(), ""));
-                Parent.GetPrefs().put("LastLogoFile", LogoImage.getName());
+                sswPrefs.put("LastLogo", LogoImage.getCanonicalPath());
+                sswPrefs.put("LastLogoPath", LogoImage.getCanonicalPath().replace(LogoImage.getName(), ""));
+                sswPrefs.put("LastLogoFile", LogoImage.getName());
             }
 
             //setLogo(LogoImage);
@@ -661,11 +675,12 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         if ( Parent != null ) {
-            Parent.GetPrefs().putBoolean("UseCharts", chkPrintCharts.isSelected());
-            Parent.GetPrefs().putBoolean( "UseMiniConversion", chkUseHexConversion.isSelected() );
-            Parent.GetPrefs().putInt( "MiniConversionRate", cmbHexConvFactor.getSelectedIndex() );
-            Parent.GetPrefs().putBoolean("UseCanonDots", chkPrintCanon.isSelected());
-            Parent.GetPrefs().putBoolean("UseRS", chkRS.isSelected());
+            sswPrefs.putBoolean("UseCharts", chkPrintCharts.isSelected());
+            sswPrefs.putBoolean( "UseMiniConversion", chkUseHexConversion.isSelected() );
+            sswPrefs.putInt( "MiniConversionRate", cmbHexConvFactor.getSelectedIndex() );
+            sswPrefs.putBoolean("UseCanonDots", chkPrintCanon.isSelected());
+            sswPrefs.putBoolean("UseRS", chkRS.isSelected());
+            sswPrefs.putInt("PaperSize", cmbPaperSize.getSelectedIndex());
         }
         refresh();
         printer.Print(false);
