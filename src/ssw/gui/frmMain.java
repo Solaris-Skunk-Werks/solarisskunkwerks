@@ -157,7 +157,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private final AvailableCode PPCCapAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final AvailableCode LIAC = new AvailableCode( AvailableCode.TECH_BOTH );
     private final AvailableCode CaselessAmmoAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
-    private final AvailableCode PWAC = new AvailableCode( AvailableCode.TECH_CLAN );
+    private PartialWing wing = new PartialWing(CurMech);
+    private final AvailableCode PWAC = wing.GetAvailability();
 
     /** Creates new form frmMain */
     public frmMain() {
@@ -188,10 +189,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         CaselessAmmoAC.SetPBMAllowed( true );
         CaselessAmmoAC.SetPIMAllowed( true );
         CaselessAmmoAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        PWAC.SetCLCodes( 'F', 'X', 'X', 'E' );
-        PWAC.SetCLDates( 3061, 3067, true, 3067, 0, 0, false, false );
-        PWAC.SetCLFactions( "CJF", "CJF", "", "" );
-        PWAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
 
         // fix for NetBeans stupidity.
         pnlDamageChart = new DamageChart();
@@ -2743,6 +2740,56 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtSource.setText( "" );
         lblFluffImage.setIcon( null );
 
+        //Reset Manufacturers
+        tblWeaponManufacturers.setModel( new javax.swing.table.AbstractTableModel() {
+            @Override
+            public String getColumnName( int col ) {
+                if( col == 1 ) {
+                    return "Manufacturer/Model";
+                } else {
+                    return "Item Name";
+                }
+            }
+            public int getRowCount() { return CurMech.GetLoadout().GetEquipment().size(); }
+            public int getColumnCount() { return 2; }
+            public Object getValueAt( int row, int col ) {
+                Object o = CurMech.GetLoadout().GetEquipment().get( row );
+                if( col == 1 ) {
+                    return ((abPlaceable) o).GetManufacturer();
+                } else {
+                    return ((abPlaceable) o).CritName();
+                }
+            }
+            @Override
+            public boolean isCellEditable( int row, int col ) {
+                if( col == 0 ) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            @Override
+            public void setValueAt( Object value, int row, int col ) {
+                if( col == 0 ) { return; }
+                if( ! ( value instanceof String ) ) { return; }
+                abPlaceable a = (abPlaceable) CurMech.GetLoadout().GetEquipment().get( row );
+                if( chkIndividualWeapons.isSelected() ) {
+                    a.SetManufacturer( (String) value );
+                    fireTableCellUpdated( row, col );
+                } else {
+                    Vector v = CurMech.GetLoadout().GetEquipment();
+                    for( int i = 0; i < v.size(); i++ ) {
+                        if( FileCommon.LookupStripArc( ((abPlaceable) v.get( i )).LookupName() ).equals( FileCommon.LookupStripArc( a.LookupName() ) ) ) {
+                            ((abPlaceable) v.get( i )).SetManufacturer( (String) value );
+                        }
+                    }
+                    fireTableDataChanged();
+                }
+            }
+        } );
+
+        tblWeaponManufacturers.getInputMap( javax.swing.JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put( javax.swing.KeyStroke.getKeyStroke( java.awt.event.KeyEvent.VK_TAB, 0, false ), "selectNextRow" );
+
         if( cmbMechEra.getSelectedIndex() == AvailableCode.ERA_ALL ) {
             chkYearRestrict.setEnabled( false );
         } else {
@@ -4635,6 +4682,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtSource = new javax.swing.JTextField();
         jSeparator28 = new javax.swing.JSeparator();
         jSeparator29 = new javax.swing.JSeparator();
+        cmbGameEra = new javax.swing.JComboBox();
         pnlChassis = new javax.swing.JPanel();
         lblTonnage = new javax.swing.JLabel();
         cmbTonnage = new javax.swing.JComboBox();
@@ -5345,7 +5393,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtMechName.setMaximumSize(new java.awt.Dimension(150, 20));
         txtMechName.setMinimumSize(new java.awt.Dimension(150, 20));
         txtMechName.setPreferredSize(new java.awt.Dimension(150, 20));
-        pnlBasicInformation.add(txtMechName, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = 2;
+        pnlBasicInformation.add(txtMechName, gridBagConstraints);
         MouseListener mlMechName = new MouseAdapter() {
             public void mouseReleased( MouseEvent e ) {
                 if( e.isPopupTrigger() ) {
@@ -5374,6 +5424,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
         pnlBasicInformation.add(txtMechModel, gridBagConstraints);
         MouseListener mlMechModel = new MouseAdapter() {
             public void mouseReleased( MouseEvent e ) {
@@ -5409,6 +5460,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
         pnlBasicInformation.add(cmbMechEra, gridBagConstraints);
 
         lblEraYears.setText("2443~2800");
@@ -5418,7 +5470,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 0);
         pnlBasicInformation.add(lblEraYears, gridBagConstraints);
 
-        lblProdYear.setText("Production Year:");
+        lblProdYear.setText("Prod Year/Era:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
@@ -5428,9 +5480,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         txtProdYear.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtProdYear.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txtProdYear.setMaximumSize(new java.awt.Dimension(150, 20));
-        txtProdYear.setMinimumSize(new java.awt.Dimension(150, 20));
-        txtProdYear.setPreferredSize(new java.awt.Dimension(150, 20));
+        txtProdYear.setMaximumSize(new java.awt.Dimension(60, 20));
+        txtProdYear.setMinimumSize(new java.awt.Dimension(60, 20));
+        txtProdYear.setPreferredSize(new java.awt.Dimension(60, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 7;
@@ -5458,7 +5510,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 0);
         pnlBasicInformation.add(chkYearRestrict, gridBagConstraints);
@@ -5483,6 +5535,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
         pnlBasicInformation.add(cmbTechBase, gridBagConstraints);
 
         cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Introductory", "Tournament Legal", "Advanced Rules", "Experimental Tech", "Era Specific" }));
@@ -5498,6 +5551,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
         pnlBasicInformation.add(cmbRulesLevel, gridBagConstraints);
 
         lblRulesLevel.setText("Rules Level:");
@@ -5522,6 +5576,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
         pnlBasicInformation.add(txtSource, gridBagConstraints);
         MouseListener mlSource = new MouseAdapter() {
             public void mouseReleased( MouseEvent e ) {
@@ -5538,6 +5593,20 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtSource.addMouseListener( mlSource );
         pnlBasicInformation.add(jSeparator28, new java.awt.GridBagConstraints());
         pnlBasicInformation.add(jSeparator29, new java.awt.GridBagConstraints());
+
+        cmbGameEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "Late Succession War", "Clan Invasion", "Civil War", "Jihad", "Dark Ages" }));
+        cmbGameEra.setMaximumSize(new java.awt.Dimension(90, 20));
+        cmbGameEra.setMinimumSize(new java.awt.Dimension(90, 20));
+        cmbGameEra.setPreferredSize(new java.awt.Dimension(90, 20));
+        cmbGameEra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbGameEraActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 7;
+        pnlBasicInformation.add(cmbGameEra, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -12223,7 +12292,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         String filename = "";
-        MTFWriter mtfw = new MTFWriter( CurMech );
+        IO.MTFWriter mtfw = new IO.MTFWriter( CurMech );
         try {
             filename = savemech.getCanonicalPath();
             mtfw.WriteMTF( filename );
@@ -14302,10 +14371,27 @@ private void chkFHESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 
 private void chkPartialWingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkPartialWingActionPerformed
     if( chkPartialWing.isSelected() == CurMech.UsingPartialWing() ) { return; }
-    try {
-        CurMech.SetPartialWing( chkPartialWing.isSelected() );
-    } catch( Exception e ) {
-        Media.Messager( this, e.getMessage() );
+    if( chkPartialWing.isSelected() ) {
+        try {
+            if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_BOTH ) {
+                dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
+                tech.setLocationRelativeTo( this );
+                tech.setVisible( true );
+                CurMech.SetPartialWing( chkPartialWing.isSelected(), tech.IsClan() );
+            } else if( CurMech.GetLoadout().GetTechBase() == AvailableCode.TECH_CLAN ) {
+                CurMech.SetPartialWing( chkPartialWing.isSelected(), true );
+            } else {
+                CurMech.SetPartialWing( chkPartialWing.isSelected(), false );
+            }
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+        }
+    } else {
+        try {
+            CurMech.SetPartialWing( false );
+        } catch ( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+        }
     }
 
     // now refresh the information panes
@@ -14681,6 +14767,10 @@ private void chkBoobyTrapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     RefreshInfoPane();
 }//GEN-LAST:event_chkBoobyTrapActionPerformed
 
+private void cmbGameEraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGameEraActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_cmbGameEraActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -14783,6 +14873,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JComboBox cmbArmorType;
     private javax.swing.JComboBox cmbCockpitType;
     private javax.swing.JComboBox cmbEngineType;
+    private javax.swing.JComboBox cmbGameEra;
     private javax.swing.JComboBox cmbGyroType;
     private javax.swing.JComboBox cmbHeatSinkType;
     private javax.swing.JComboBox cmbInternalType;
