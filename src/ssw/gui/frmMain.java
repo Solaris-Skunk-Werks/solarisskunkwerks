@@ -2013,6 +2013,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( SetSource ) {
             CurMech.SetSource( txtSource.getText() );
             CurMech.SetEra( cmbMechEra.getSelectedIndex() );
+            CurMech.SetProductionEra( cmbProductionEra.getSelectedIndex() ) ;
             CurMech.SetYearRestricted( chkYearRestrict.isSelected() );
             try {
                 CurMech.SetYear( Integer.parseInt( txtProdYear.getText() ), chkYearRestrict.isSelected() );
@@ -2042,6 +2043,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void LoadOmniFluffInfo() {
         cmbRulesLevel.setSelectedIndex( CurMech.GetRulesLevel() );
         cmbMechEra.setSelectedIndex( CurMech.GetEra() );
+        cmbProductionEra.setSelectedIndex( CurMech.GetProductionEra() );
         txtSource.setText( CurMech.GetSource() );
         txtProdYear.setText( "" + CurMech.GetYear() );
         BuildTechBaseSelector();
@@ -2616,17 +2618,20 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         chkYearRestrict.setSelected( false );
         txtProdYear.setText( "" );
         cmbMechEra.setEnabled( true );
+        cmbProductionEra.setEnabled( true );
         cmbTechBase.setEnabled( true );
         txtProdYear.setEnabled( true );
 
         cmbRulesLevel.setSelectedItem( Prefs.get( "NewMech_RulesLevel", "Tournament Legal" ) );
         cmbMechEra.setSelectedItem( Prefs.get( "NewMech_Era", "Age of War/Star League" ) );
+        cmbProductionEra.setSelectedIndex( 0 );
 
         if( Omni ) {
             UnlockGUIFromOmni();
         }
 
         CurMech.SetEra( cmbMechEra.getSelectedIndex() );
+        CurMech.SetProductionEra( cmbProductionEra.getSelectedIndex() );
         CurMech.SetRulesLevel( cmbRulesLevel.getSelectedIndex() );
         switch( CurMech.GetEra() ) {
         case AvailableCode.ERA_STAR_LEAGUE:
@@ -4682,7 +4687,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtSource = new javax.swing.JTextField();
         jSeparator28 = new javax.swing.JSeparator();
         jSeparator29 = new javax.swing.JSeparator();
-        cmbGameEra = new javax.swing.JComboBox();
+        cmbProductionEra = new javax.swing.JComboBox();
         pnlChassis = new javax.swing.JPanel();
         lblTonnage = new javax.swing.JLabel();
         cmbTonnage = new javax.swing.JComboBox();
@@ -5594,19 +5599,19 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlBasicInformation.add(jSeparator28, new java.awt.GridBagConstraints());
         pnlBasicInformation.add(jSeparator29, new java.awt.GridBagConstraints());
 
-        cmbGameEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "Late Succession War", "Clan Invasion", "Civil War", "Jihad", "Dark Ages" }));
-        cmbGameEra.setMaximumSize(new java.awt.Dimension(90, 20));
-        cmbGameEra.setMinimumSize(new java.awt.Dimension(90, 20));
-        cmbGameEra.setPreferredSize(new java.awt.Dimension(90, 20));
-        cmbGameEra.addActionListener(new java.awt.event.ActionListener() {
+        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "Late Succession War", "Clan Invasion", "Civil War", "Jihad", "Dark Ages" }));
+        cmbProductionEra.setMaximumSize(new java.awt.Dimension(90, 20));
+        cmbProductionEra.setMinimumSize(new java.awt.Dimension(90, 20));
+        cmbProductionEra.setPreferredSize(new java.awt.Dimension(90, 20));
+        cmbProductionEra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbGameEraActionPerformed(evt);
+                cmbProductionEraActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 7;
-        pnlBasicInformation.add(cmbGameEra, gridBagConstraints);
+        pnlBasicInformation.add(cmbProductionEra, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -13428,6 +13433,7 @@ public void LoadMechIntoGUI() {
 
     cmbRulesLevel.setSelectedIndex( CurMech.GetRulesLevel() );
     cmbMechEra.setSelectedIndex( CurMech.GetEra() );
+    cmbProductionEra.setSelectedIndex( CurMech.GetProductionEra() );
 
     // now that we're done with the special stuff...
     Load = false;
@@ -14767,9 +14773,9 @@ private void chkBoobyTrapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     RefreshInfoPane();
 }//GEN-LAST:event_chkBoobyTrapActionPerformed
 
-private void cmbGameEraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGameEraActionPerformed
-    // TODO add your handling code here:
-}//GEN-LAST:event_cmbGameEraActionPerformed
+private void cmbProductionEraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProductionEraActionPerformed
+    CurMech.SetProductionEra( cmbProductionEra.getSelectedIndex() );
+}//GEN-LAST:event_cmbProductionEraActionPerformed
 
 private void setViewToolbar(boolean Visible)
 {
@@ -14873,7 +14879,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JComboBox cmbArmorType;
     private javax.swing.JComboBox cmbCockpitType;
     private javax.swing.JComboBox cmbEngineType;
-    private javax.swing.JComboBox cmbGameEra;
     private javax.swing.JComboBox cmbGyroType;
     private javax.swing.JComboBox cmbHeatSinkType;
     private javax.swing.JComboBox cmbInternalType;
@@ -14892,6 +14897,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JComboBox cmbPWRLType;
     private javax.swing.JComboBox cmbPWRTType;
     private javax.swing.JComboBox cmbPhysEnhance;
+    private javax.swing.JComboBox cmbProductionEra;
     private javax.swing.JComboBox cmbRulesLevel;
     private javax.swing.JComboBox cmbSCLoc;
     private javax.swing.JComboBox cmbTechBase;
