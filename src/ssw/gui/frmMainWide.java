@@ -3014,6 +3014,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         } else {
             lblInfoMountRestrict.setText( "None" );
         }
+        lblInfoMountRestrict.setText(lblInfoMountRestrict.getText() + " MM Name " + p.MegaMekName(false));
     }
 
     private void RemoveItemCritTab() {
