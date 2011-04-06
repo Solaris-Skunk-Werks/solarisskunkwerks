@@ -340,6 +340,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         btnPrint = new javax.swing.JButton();
         btnAdd2Force = new javax.swing.JButton();
         btnViewForce = new javax.swing.JButton();
+        btnExport = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnOptions = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
@@ -489,6 +490,18 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             }
         });
         tlbActions.add(btnViewForce);
+
+        btnExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/document--arrow.png"))); // NOI18N
+        btnExport.setToolTipText("Export List to CSV");
+        btnExport.setFocusable(false);
+        btnExport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportActionPerformed(evt);
+            }
+        });
+        tlbActions.add(btnExport);
         tlbActions.add(jSeparator1);
 
         btnOptions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/gear.png"))); // NOI18N
@@ -1056,7 +1069,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                     .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
         pnlFiltersLayout.setVerticalGroup(
             pnlFiltersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1092,7 +1105,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 323, Short.MAX_VALUE)
                         .addComponent(lblShowing, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(txtSelected, javax.swing.GroupLayout.DEFAULT_SIZE, 798, Short.MAX_VALUE)
+                        .addComponent(txtSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 798, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(prgResaving, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -1443,6 +1456,25 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         Filter(null);
     }//GEN-LAST:event_txtMaxCostFocusLost
 
+    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
+        TXTWriter out = new TXTWriter();
+        String dir = "";
+        dir = media.GetDirectorySelection(this, parent.GetPrefs().get("ListDirectory", ""));
+        if ( dir.isEmpty() ) {
+            return;
+        }
+
+        parent.GetPrefs().put("ListDirectory", dir);
+        try {
+            out.WriteList(dir + File.separator + "MechListing.csv", ((abView) tblMechData.getModel()).list);
+            Media.Messager(((abView) tblMechData.getModel()).list.Size() + " Mechs output to " + dir + File.separator + "MechListing.csv");
+        } catch (IOException ex) {
+            //do nothing
+            System.out.println(ex.getMessage());
+            Media.Messager("Unable to output list\n" + ex.getMessage() );
+        }
+    }//GEN-LAST:event_btnExportActionPerformed
+
     @Override
     public void setVisible( boolean b ) {
         super.setVisible(b);
@@ -1454,6 +1486,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private javax.swing.JButton btnAdd2Force;
     private javax.swing.JButton btnChangeDir;
     private javax.swing.JButton btnClearFilter;
+    private javax.swing.JButton btnExport;
     private javax.swing.JButton btnFilter;
     private javax.swing.JButton btnMagic;
     private javax.swing.JButton btnOpen;
