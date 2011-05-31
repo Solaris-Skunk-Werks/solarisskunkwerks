@@ -1363,6 +1363,10 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 break;
             case KeyEvent.VK_SHIFT:
             case KeyEvent.VK_CONTROL:
+            case KeyEvent.VK_UP:
+            case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_RIGHT:
+            case KeyEvent.VK_LEFT:
                 return;
             default:
                 if ( (evt.getKeyCode() == 32) || (evt.getKeyCode() >= 45 && evt.getKeyCode() <= 90) ) {
