@@ -96,7 +96,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         try
         {
             MechReader read = new MechReader();
-            Mech m = read.ReadMech( Data.getFilename(), parent.GetData() );
+            Mech m = read.ReadMech( list.getDirectory() + Data.getFilename(), parent.GetData() );
             if (Data.isOmni()) {
                 m.SetCurLoadout( Data.getConfig() );
             }
@@ -1172,7 +1172,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 int[] rows = tblMechData.getSelectedRows();
                 for ( int i=0; i < rows.length; i++ ) {
                     MechListData data = list.Get(tblMechData.convertRowIndexToModel(rows[i]));
-                    Mech m = read.ReadMech( data.getFilename(), parent.GetData() );
+                    Mech m = read.ReadMech( list.getDirectory() + data.getFilename(), parent.GetData() );
                     if (data.isOmni()) {
                         m.SetCurLoadout(data.getConfig());
                     }
