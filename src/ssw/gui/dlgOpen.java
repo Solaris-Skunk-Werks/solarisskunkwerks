@@ -57,7 +57,6 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     public static final int SSW = 0,
                             FORCE = 1;
 
-
     /** Creates new form dlgOpen */
     public dlgOpen(java.awt.Frame parent, boolean modal) {
         initComponents();
@@ -102,7 +101,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             }
             parent.setMech( m );
 
-            parent.GetPrefs().put( "LastOpenDirectory", Data.getFilename().substring( 0, Data.getFilename().lastIndexOf( File.separator ) + 1 ) );
+            parent.GetPrefs().put( "LastOpenDirectory", list.getDirectory() + Data.getFilename().substring( 0, Data.getFilename().lastIndexOf( File.separator ) + 1 ) );
             parent.GetPrefs().put( "LastOpenFile", Data.getFilename().substring( Data.getFilename().lastIndexOf( File.separator ) + 1 ) );
 
             parent.GetMech().SetChanged( false );
