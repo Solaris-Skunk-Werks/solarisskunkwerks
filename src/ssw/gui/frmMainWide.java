@@ -65,6 +65,7 @@ import components.EquipmentCollection;
 import gui.TextPane;
 import ssw.printpreview.dlgPreview;
 import Print.PrintConsts;
+import states.stCockpitInterface;
 
 public class frmMainWide extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner, common.DesignForm, ifMechForm {
 
@@ -1497,6 +1498,8 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
         try {
             CurMech.Visit( v );
+            if ( CurMech.GetCockpit().RequiresGyro() && CurMech.GetGyro().NumCrits() == 0)
+                throw new Exception( "The selected cockpit requires a gyro." );
         } catch( Exception e ) {
             v = (ifVisitor) CurMech.Lookup( OldVal );
             try {
@@ -1533,6 +1536,9 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             }
         }
 
+        if ( !CurMech.GetGyro().LookupName().equals(cmbGyroType.getSelectedItem().toString()) )
+            cmbGyroType.setSelectedItem(CurMech.GetGyro().LookupName());
+        
         // check the command console and ejection seat
         if( CurMech.GetCockpit().IsTorsoMounted() ) {
             chkCommandConsole.setEnabled( false );
@@ -10669,6 +10675,7 @@ public Mech LoadMech (){
             Message.setLocationRelativeTo( this );
             Message.setVisible( true );
         }
+
     } catch( Exception e ) {
         // had a problem loading the mech.  let the user know.
         if( e.getMessage() == null ) {

@@ -70,6 +70,7 @@ import gui.TextPane;
 import ssw.printpreview.dlgPreview;
 import Print.PrintConsts;
 import javax.swing.SwingUtilities;
+import states.stCockpitInterface;
 
 public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner, common.DesignForm, ifMechForm {
     FocusAdapter spinners = new FocusAdapter() {
@@ -1518,6 +1519,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
         try {
             CurMech.Visit( v );
+            if ( CurMech.GetCockpit().RequiresGyro() && CurMech.GetGyro().NumCrits() == 0)
+                throw new Exception( "The selected cockpit requires a gyro." );
         } catch( Exception e ) {
             v = (ifVisitor) CurMech.Lookup( OldVal );
             try {
@@ -1539,6 +1542,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         String LookupVal = (String) cmbCockpitType.getSelectedItem();
         if( OldVal.equals( LookupVal ) ) { return; }
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
+        
         try {
             CurMech.Visit( v );
         } catch( Exception e ) {
@@ -1554,6 +1558,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
 
+        if ( !CurMech.GetGyro().LookupName().equals(cmbGyroType.getSelectedItem().toString()) )
+            cmbGyroType.setSelectedItem(CurMech.GetGyro().LookupName());
+        
         // check the command console and ejection seat
         if( CurMech.GetCockpit().IsTorsoMounted() ) {
             chkCommandConsole.setEnabled( false );
@@ -12879,6 +12886,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 	private void mnuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSaveActionPerformed
         // Solidify the mech first.
         setCursor( Hourglass );
+
         File savemech = GetSaveFile( "ssw", Prefs.get( "LastOpenDirectory", "" ), true, false );
         if( savemech == null ) {
             setCursor( NormalCursor );
