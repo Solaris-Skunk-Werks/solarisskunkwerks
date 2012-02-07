@@ -34,6 +34,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
+import javax.swing.table.TableColumn;
 import javax.swing.SwingWorker;
 import components.Mech;
 import filehandlers.*;
@@ -184,6 +185,11 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         //tblMechData.setModel(mechList);
 
         lblShowing.setText("Showing " + mechList.Size() + " of " + list.Size());
+
+        NumberRenderer nr = new NumberRenderer();
+        TableColumn col = tblMechData.getColumn("Cost");
+        if (col != null)
+            col.setCellRenderer(nr);
 
     }
 
@@ -1413,6 +1419,11 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         }
         tblMechData.setModel(currentView);
         currentView.setupTable(tblMechData);
+
+        NumberRenderer nr = new NumberRenderer();
+        TableColumn col = tblMechData.getColumn("Cost");
+        if (col != null)
+            col.setCellRenderer(nr);
     }//GEN-LAST:event_cmbViewActionPerformed
 
     private void txtNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyReleased
