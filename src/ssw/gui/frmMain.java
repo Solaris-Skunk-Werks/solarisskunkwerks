@@ -3641,7 +3641,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuUnallocateAll.setText( "Unallocate All" );
                 mnuUnallocateAll.setEnabled( false );
             }
-            if( c == lstHDCrits || c == lstCTCrits || c == lstLTCrits || c == lstRTCrits || c == lstLLCrits || c == lstRLCrits ) {
+            if( c == lstHDCrits || c == lstCTCrits || c == lstLTCrits || c == lstRTCrits || c == lstLLCrits || c == lstRLCrits || ( CurMech.IsQuad() && (c == lstRACrits || c == lstLACrits))) {
                 if( CurItem.CanMountRear() ) {
                     mnuMountRear.setEnabled( true );
                     if( CurItem.IsMountedRear() ) {
