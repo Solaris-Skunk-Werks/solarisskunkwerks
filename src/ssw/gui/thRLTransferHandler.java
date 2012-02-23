@@ -31,7 +31,7 @@ package ssw.gui;
 import java.awt.Point;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
@@ -158,7 +158,7 @@ public class thRLTransferHandler extends TransferHandler {
 
         // get the item
         abPlaceable a;
-        Vector v = new Vector();
+        ArrayList v = new ArrayList();
         if( DropItem.Location == -1 ) {
             // from the queue
             a = CurMech.GetLoadout().GetFromQueueByIndex( DropItem.SourceIndex );

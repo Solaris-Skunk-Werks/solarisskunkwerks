@@ -49,7 +49,8 @@ public class Printer {
     private BattleforcePrinter printForce;
     private String jobName = "SSW Batch Print",
                     logoPath = "",
-                    MechImagePath = "";
+                    MechImagePath = "",
+                    ChartImageOption = "";
     private Boolean Charts = true,
                     Canon = true,
                     useDialog = true,
@@ -374,6 +375,13 @@ public class Printer {
                 PrintMech pm = (PrintMech) Mechs.get(index);
                 pm.setMechImage(null);
             }
+        }
+    }
+    public void setChartImageOption( String Option ) {
+        this.ChartImageOption = Option;
+        for (int i = 0; i < Mechs.size(); i++) {
+            PrintMech pm = (PrintMech)Mechs.get(i);
+            pm.setChartImageOption(Option);
         }
     }
 

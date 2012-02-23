@@ -43,7 +43,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.DropMode;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -69,7 +69,9 @@ import components.EquipmentCollection;
 import gui.TextPane;
 import ssw.printpreview.dlgPreview;
 import Print.PrintConsts;
+import java.util.ArrayList;
 import javax.swing.SwingUtilities;
+import list.view.tbQuirks;
 import states.stCockpitInterface;
 
 public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner, common.DesignForm, ifMechForm {
@@ -110,6 +112,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     JMenuItem mnuAuto = new JMenuItem( "Auto-Allocate" );
     JMenuItem mnuUnallocateAll = new JMenuItem( "Unallocate All" );
     JMenuItem mnuRemoveItem = new JMenuItem( "Remove Item" );
+    JMenuItem mnuDumper = new JMenuItem("Add Dumper");
     javax.swing.JMenu mnuVGLArc = new javax.swing.JMenu();
     JMenuItem mnuVGLArcFore = new JMenuItem( "Fore" );
     JMenuItem mnuVGLArcForeSide = new JMenuItem( "Fore-Side" );
@@ -141,6 +144,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
     // ImageIcon FluffImage = Utils.createImageIcon( SSWConstants.NO_IMAGE );
     public DataFactory data;
+    public ArrayList<Quirk> quirks = new ArrayList<Quirk>();
 
     private dlgPrintBatchMechs BatchWindow = null;
     private ImageTracker imageTracker = new ImageTracker();
@@ -261,6 +265,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
 
+        mnuDumper.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                DumperMount();
+            }
+        });
+
         mnuCaseless.addActionListener( new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 SwitchCaseless();
@@ -364,6 +374,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuUtilities.add( mnuVGLAmmo );
         mnuUtilities.add( mnuSelective );
         mnuUtilities.add( mnuAuto );
+        mnuUtilities.add( mnuDumper );
         mnuUtilities.add( mnuUnallocateAll );
         mnuUtilities.add( mnuRemoveItem );
 
@@ -484,7 +495,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     a.SetManufacturer( (String) value );
                     fireTableCellUpdated( row, col );
                 } else {
-                    Vector v = CurMech.GetLoadout().GetEquipment();
+                    ArrayList v = CurMech.GetLoadout().GetEquipment();
                     for( int i = 0; i < v.size(); i++ ) {
                         if( FileCommon.LookupStripArc( ((abPlaceable) v.get( i )).LookupName() ).equals( FileCommon.LookupStripArc( a.LookupName() ) ) ) {
                             ((abPlaceable) v.get( i )).SetManufacturer( (String) value );
@@ -596,7 +607,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstRACrits.setListData( CurMech.GetLoadout().GetRACrits() );
         lstLLCrits.setListData( CurMech.GetLoadout().GetLLCrits() );
         lstRLCrits.setListData( CurMech.GetLoadout().GetRLCrits() );
-        lstCritsToPlace.setListData( CurMech.GetLoadout().GetQueue() );
+        lstCritsToPlace.setListData( CurMech.GetLoadout().GetQueue().toArray() );
     }
 
     public void setMech( Mech m ) {
@@ -684,7 +695,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void BuildChassisSelector() {
         // builds the structure selection box
-        Vector list = new Vector();
+        ArrayList list = new ArrayList();
 
         // get the structure states and, for each that matches our criteria, add it
         // to the selector list
@@ -695,7 +706,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
 
-        // turn the vector into a string array
+        // turn the ArrayList into a string array
         String[] temp = new String[list.size()];
         for( int i = 0; i < list.size(); i++ ) {
             temp[i] = (String) list.get(i);
@@ -707,7 +718,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void BuildEngineSelector() {
         // builds the engine selection box
-        Vector list = new Vector();
+        ArrayList list = new ArrayList();
 
         // get the engine states and, for each that matches our criteria, add it
         // to the selector list
@@ -718,7 +729,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
 
-        // turn the vector into a string array
+        // turn the ArrayList into a string array
         String[] temp = new String[list.size()];
         for( int i = 0; i < list.size(); i++ ) {
             temp[i] = (String) list.get(i);
@@ -730,7 +741,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void BuildGyroSelector() {
         // builds the gyro selection box
-        Vector list = new Vector();
+        ArrayList list = new ArrayList();
 
         // get the gyro states and, for each that matches our criteria, add it
         // to the selector list
@@ -741,7 +752,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
 
-        // turn the vector into a string array
+        // turn the ArrayList into a string array
         String[] temp = new String[list.size()];
         for( int i = 0; i < list.size(); i++ ) {
             temp[i] = (String) list.get(i);
@@ -753,7 +764,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void BuildCockpitSelector() {
         // builds the structure selection box
-        Vector list = new Vector();
+        ArrayList list = new ArrayList();
 
         // get the structure states and, for each that matches our criteria, add it
         // to the selector list
@@ -764,7 +775,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
 
-        // turn the vector into a string array
+        // turn the ArrayList into a string array
         String[] temp = new String[list.size()];
         for( int i = 0; i < list.size(); i++ ) {
             temp[i] = (String) list.get(i);
@@ -776,7 +787,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void BuildEnhancementSelector() {
         // builds the physical enhancement selection box
-        Vector list = new Vector();
+        ArrayList list = new ArrayList();
 
         // get the enhancement states and, for each that matches our criteria, add it
         // to the selector list
@@ -787,7 +798,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
 
-        // turn the vector into a string array
+        // turn the ArrayList into a string array
         String[] temp = new String[list.size()];
         for( int i = 0; i < list.size(); i++ ) {
             temp[i] = (String) list.get(i);
@@ -799,7 +810,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void BuildJumpJetSelector() {
         // ensures that we can enable the Improved Jump Jets checkbox.
-        Vector list = new Vector();
+        ArrayList list = new ArrayList();
 
         // get the jump jet states and, for each that matches our criteria, add it
         // to the selector list
@@ -810,7 +821,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
 
-        // turn the vector into a string array
+        // turn the ArrayList into a string array
         String[] temp = new String[list.size()];
         for( int i = 0; i < list.size(); i++ ) {
             temp[i] = (String) list.get(i);
@@ -898,7 +909,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void BuildHeatsinkSelector() {
         // builds the heat sink selection box
-        Vector list = new Vector();
+        ArrayList list = new ArrayList();
 
         // get the heat sink states and, for each that matches our criteria, add it
         // to the selector list
@@ -909,7 +920,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
 
-        // turn the vector into a string array
+        // turn the ArrayList into a string array
         String[] temp = new String[list.size()];
         for( int i = 0; i < list.size(); i++ ) {
             temp[i] = (String) list.get( i );
@@ -921,7 +932,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void BuildArmorSelector() {
         // builds the armor selection box
-        Vector list = new Vector();
+        ArrayList list = new ArrayList();
 
         // get the armor states and, for each that matches our criteria, add it
         // to the selector list
@@ -932,7 +943,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
 
-        // turn the vector into a string array
+        // turn the ArrayList into a string array
         String[] temp = new String[list.size()];
         for( int i = 0; i < list.size(); i++ ) {
             temp[i] = (String) list.get(i);
@@ -944,7 +955,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void BuildPatchworkChoosers() {
         // builds the armor selection box
-        Vector list = new Vector();
+        ArrayList list = new ArrayList();
 
         // get the armor states and, for each that matches our criteria, add it
         // to the selector list
@@ -955,7 +966,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
 
-        // turn the vector into a string array
+        // turn the ArrayList into a string array
         String[] temp = new String[list.size()];
         for( int i = 0; i < list.size(); i++ ) {
             temp[i] = (String) list.get(i);
@@ -1109,32 +1120,28 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // check the command console, ejection seat, and FHES
-        if( CurMech.GetCockpit().IsTorsoMounted() ) {
+        if( CurMech.GetCockpit().CanUseCommandConsole() && CommonTools.IsAllowed( CurMech.GetCommandConsole().GetAvailability(), CurMech ) &! chkFHES.isSelected() ) {
+            chkCommandConsole.setEnabled( true );
+        } else {
             chkCommandConsole.setEnabled( false );
             chkCommandConsole.setSelected( false );
-            chkEjectionSeat.setEnabled( false );
-            chkEjectionSeat.setSelected( false );
+        }
+        if( CurMech.CanUseFHES() && CommonTools.IsAllowed( CurMech.GetFHESAC(), CurMech ) ) {
+            chkFHES.setEnabled( true );
+        } else {
             chkFHES.setEnabled( false );
             chkFHES.setSelected( false );
+        }
+        if( CurMech.GetCockpit().IsTorsoMounted() )
+        {
+            chkEjectionSeat.setEnabled( false );
+            chkEjectionSeat.setSelected( false );
+        }
+        if( CurMech.IsIndustrialmech() ) {
+            chkEjectionSeat.setEnabled( true );
         } else {
-            if( CurMech.GetCockpit().CanUseCommandConsole() && CommonTools.IsAllowed( CurMech.GetCommandConsole().GetAvailability(), CurMech ) &! chkFHES.isSelected() ) {
-                chkCommandConsole.setEnabled( true );
-            } else {
-                chkCommandConsole.setEnabled( false );
-                chkCommandConsole.setSelected( false );
-            }
-            if( CurMech.CanUseFHES() && CommonTools.IsAllowed( CurMech.GetFHESAC(), CurMech ) ) {
-                chkFHES.setEnabled( true );
-            } else {
-                chkFHES.setEnabled( false );
-                chkFHES.setSelected( false );
-            }
-            if( CurMech.IsIndustrialmech() ) {
-                chkEjectionSeat.setEnabled( true );
-            } else {
-                chkEjectionSeat.setEnabled( false );
-                chkEjectionSeat.setSelected( false );
-            }
+            chkEjectionSeat.setEnabled( false );
+            chkEjectionSeat.setSelected( false );
         }
 
         // check all multi-slot systems
@@ -1562,46 +1569,42 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             cmbGyroType.setSelectedItem(CurMech.GetGyro().LookupName());
         
         // check the command console and ejection seat
-        if( CurMech.GetCockpit().IsTorsoMounted() ) {
+        if( CurMech.GetCockpit().CanUseCommandConsole() && CommonTools.IsAllowed( CurMech.GetCommandConsole().GetAvailability(), CurMech ) ) {
+            chkCommandConsole.setEnabled( true );
+            chkCommandConsole.setSelected(CurMech.HasCommandConsole());
+        } else {
             chkCommandConsole.setEnabled( false );
             chkCommandConsole.setSelected( false );
+        }
+        if( CurMech.CanUseFHES() && CommonTools.IsAllowed( CurMech.GetFHESAC(), CurMech ) ) {
+            chkFHES.setEnabled( true );
+        } else {
+            chkFHES.setSelected( false );
+            chkFHES.setSelected( false );
+        }
+        if( CurMech.GetCockpit().IsTorsoMounted() )
+        {
             chkEjectionSeat.setEnabled( false );
             chkEjectionSeat.setSelected( false );
-            chkFHES.setEnabled( false );
-            chkFHES.setSelected( false );
-            chkHDTurret.setEnabled( true );
-        } else {
-            if( CurMech.GetCockpit().CanUseCommandConsole() && CommonTools.IsAllowed( CurMech.GetCommandConsole().GetAvailability(), CurMech ) ) {
-                chkCommandConsole.setEnabled( true );
-            } else {
-                chkCommandConsole.setEnabled( false );
-                chkCommandConsole.setSelected( false );
-            }
-            if( CurMech.CanUseFHES() && CommonTools.IsAllowed( CurMech.GetFHESAC(), CurMech ) ) {
-                chkFHES.setEnabled( true );
-            } else {
-                chkFHES.setSelected( false );
-                chkFHES.setSelected( false );
-            }
-            if( CurMech.IsIndustrialmech() ) {
-                chkEjectionSeat.setEnabled( true );
-            } else {
-                chkEjectionSeat.setEnabled( false );
-                chkEjectionSeat.setSelected( false );
-            }
-            // remove the head turret if it's there.
-            if( CurMech.GetLoadout().HasHDTurret() ) {
-                try {
-                    CurMech.GetLoadout().SetHDTurret( false, -1 );
-                } catch( Exception e ) {
-                    Media.Messager( "Fatal error trying to remove head turret.\nRestarting with new 'Mech.  Sorry." );
-                    GetNewMech();
-                    return;
-                }
-            }
-            chkHDTurret.setSelected( false );
-            chkHDTurret.setEnabled( false );
         }
+        if( CurMech.IsIndustrialmech() ) {
+            chkEjectionSeat.setEnabled( true );
+        } else {
+            chkEjectionSeat.setEnabled( false );
+            chkEjectionSeat.setSelected( false );
+        }
+        // remove the head turret if it's there.
+        if( CurMech.GetLoadout().HasHDTurret() ) {
+            try {
+                CurMech.GetLoadout().SetHDTurret( false, -1 );
+            } catch( Exception e ) {
+                Media.Messager( "Fatal error trying to remove head turret.\nRestarting with new 'Mech.  Sorry." );
+                GetNewMech();
+                return;
+            }
+        }
+        chkHDTurret.setSelected( false );
+        chkHDTurret.setEnabled( false );
     }
 
     private void RecalcEnhancements() {
@@ -2190,8 +2193,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         temp += CurMech.GetAdjustedBoosterMP( false );
         lblMoveSummary.setText( temp );
 
-        // because the vector changes, we'll have to load up the Crits to Place list
-        lstCritsToPlace.setListData( CurMech.GetLoadout().GetQueue() );
+        // because the ArrayList changes, we'll have to load up the Crits to Place list
+        lstCritsToPlace.setListData( CurMech.GetLoadout().GetQueue().toArray() );
         lstCritsToPlace.repaint();
 
         // repaint the rest of the loadout list
@@ -2485,7 +2488,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void ResetAmmo() {
         // first, get the weapons from the loadout that need ammunition
-        Vector v = CurMech.GetLoadout().GetNonCore(), wep = new Vector();
+        ArrayList v = CurMech.GetLoadout().GetNonCore(), wep = new ArrayList();
         Object a;
 
         for( int i = 0; i < v.size(); i++ ) {
@@ -2682,7 +2685,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         try {
             CurMech.Visit( new VMechFullRecalc() );
         } catch( Exception e ) {
-            // this should never throw an exception, but log it anyway
+             //this should never throw an exception, but log it anyway
             System.err.println( e.getMessage() );
             e.printStackTrace();
         }
@@ -2789,7 +2792,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     a.SetManufacturer( (String) value );
                     fireTableCellUpdated( row, col );
                 } else {
-                    Vector v = CurMech.GetLoadout().GetEquipment();
+                    ArrayList v = CurMech.GetLoadout().GetEquipment();
                     for( int i = 0; i < v.size(); i++ ) {
                         if( FileCommon.LookupStripArc( ((abPlaceable) v.get( i )).LookupName() ).equals( FileCommon.LookupStripArc( a.LookupName() ) ) ) {
                             ((abPlaceable) v.get( i )).SetManufacturer( (String) value );
@@ -3409,7 +3412,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     }
 
     private void RefreshOmniVariants() {
-        Vector v = CurMech.GetLoadouts();
+        ArrayList v = CurMech.GetLoadouts();
         String[] variants = new String[v.size()];
         if( v.size() <= 0 ) {
             variants = new String[] { common.Constants.BASELOADOUT_NAME };
@@ -3459,7 +3462,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // ensure there are no unplaced crits
         if( CurMech.IsOmnimech() ) {
-            Vector v = CurMech.GetLoadouts();
+            ArrayList v = CurMech.GetLoadouts();
             for( int i = 0; i < v.size(); i++ ) {
                 CurMech.SetCurLoadout( ((ifMechLoadout) v.get( i )).GetName() );
                 if( CurMech.GetLoadout().GetQueue().size() != 0 ) {
@@ -3483,7 +3486,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         // ensure we're not overweight
         if( CurMech.IsOmnimech() ) {
-            Vector v = CurMech.GetLoadouts();
+            ArrayList v = CurMech.GetLoadouts();
             for( int i = 0; i < v.size(); i++ ) {
                 CurMech.SetCurLoadout( ((ifMechLoadout) v.get( i )).GetName() );
                 if( CurMech.GetCurrentTons() > CurMech.GetTonnage() ) {
@@ -3519,6 +3522,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         boolean caseless = LegalCaseless( CurItem ) && CommonTools.IsAllowed( CaselessAmmoAC, CurMech );
         boolean lotchange = LegalLotChange( CurItem );
         boolean turreted = LegalTurretMount( CurItem );
+        boolean dumper = LegalDumper( CurItem );
         mnuArmorComponent.setEnabled( armor );
         mnuAddCapacitor.setEnabled( cap );
         mnuAddInsulator.setEnabled( insul );
@@ -3529,6 +3533,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuCaseless.setVisible( caseless );
         mnuSetLotSize.setVisible( lotchange );
         mnuTurret.setVisible( turreted );
+        mnuDumper.setVisible( dumper );
         if( armor ) {
             if( CurItem.IsArmored() ) {
                 mnuArmorComponent.setText( "Unarmor Component" );
@@ -3850,6 +3855,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RefreshInfoPane();
     }
 
+    private void DumperMount() {
+        if ( CurItem instanceof Equipment ) {
+           
+        }
+    }
+
     private void SwitchCaseless() {
         if( CurItem instanceof RangedWeapon ) {
             RangedWeapon r = (RangedWeapon) CurItem;
@@ -3861,8 +3872,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             int newIDX = r.GetAmmoIndex();
 
             // check for other weapons with the original ammo index
-            Vector check = CurMech.GetLoadout().GetNonCore();
-            Vector replace = new Vector();
+            ArrayList check = CurMech.GetLoadout().GetNonCore();
+            ArrayList replace = new ArrayList();
             abPlaceable p;
             boolean HasOrig = false;
             for( int i = 0; i < check.size(); i++ ) {
@@ -4059,6 +4070,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         return false;
     }
 
+    public boolean LegalDumper( abPlaceable p ) {
+        if ( ! ( p instanceof Equipment ) ) { return false; }
+        if ( ( (Equipment)p).CritName().equals("Cargo Container") ) { return true; }
+        return false;
+    }
+
     private void PrintMech( Mech m) {
         Printer printer = new Printer(this);
         printer.Print(m);
@@ -4112,7 +4129,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 }
             }
         }
-        Vector v = CurMech.GetLoadout().GetNonCore();
+        ArrayList v = CurMech.GetLoadout().GetNonCore();
         int TotalDamage = 0;
         double TonsWeapons = 0.0f, TonsEquips = 0.0f;
 
@@ -4273,7 +4290,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         int[] chart = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         // we're going to use 40 as the max range
-        Vector v = CurMech.GetLoadout().GetNonCore();
+        ArrayList v = CurMech.GetLoadout().GetNonCore();
         ifWeapon w;
         for( int i = 0; i < 40; i++ ) {
             for( int j = 0; j < v.size(); j++ ) {
@@ -4297,7 +4314,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         int[] chart = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         // we're going to use 40 as the max range
-        Vector v = CurMech.GetLoadout().GetNonCore();
+        ArrayList v = CurMech.GetLoadout().GetNonCore();
         ifWeapon w;
         for( int i = 0; i < 40; i++ ) {
             for( int j = 0; j < v.size(); j++ ) {
@@ -4321,7 +4338,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         int[] chart = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         // we're going to use 40 as the max range
-        Vector v = CurMech.GetLoadout().GetNonCore();
+        ArrayList v = CurMech.GetLoadout().GetNonCore();
         ifWeapon w;
         for( int i = 0; i < 40; i++ ) {
             for( int j = 0; j < v.size(); j++ ) {
@@ -4345,7 +4362,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         int[] chart = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         // we're going to use 40 as the max range
-        Vector v = CurMech.GetLoadout().GetNonCore();
+        ArrayList v = CurMech.GetLoadout().GetNonCore();
         boolean flip = ! ( CurMech.GetLoadout().GetActuators().LeftLowerInstalled() && CurMech.GetLoadout().GetActuators().RightLowerInstalled() );
         ifWeapon w;
         for( int i = 0; i < 40; i++ ) {
@@ -5039,6 +5056,10 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jPanel1 = new javax.swing.JPanel();
         btnLoadImage = new javax.swing.JButton();
         btnClearImage = new javax.swing.JButton();
+        pnlExport = new javax.swing.JPanel();
+        btnExportTXT = new javax.swing.JButton();
+        btnExportHTML = new javax.swing.JButton();
+        btnExportMTF = new javax.swing.JButton();
         tbpFluffEditors = new javax.swing.JTabbedPane();
         pnlOverview = new javax.swing.JPanel();
         pnlCapabilities = new javax.swing.JPanel();
@@ -5069,10 +5090,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtManufacturerLocation = new javax.swing.JTextField();
         jLabel35 = new javax.swing.JLabel();
         txtJJModel = new javax.swing.JTextField();
-        pnlExport = new javax.swing.JPanel();
-        btnExportTXT = new javax.swing.JButton();
-        btnExportHTML = new javax.swing.JButton();
-        btnExportMTF = new javax.swing.JButton();
+        pnlQuirks = new javax.swing.JPanel();
+        lblBattleMechQuirks = new javax.swing.JLabel();
+        scpQuirkTable = new javax.swing.JScrollPane();
+        tblQuirks = new javax.swing.JTable();
+        btnAddQuirk = new javax.swing.JButton();
         pnlCharts = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
@@ -9347,6 +9369,45 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         pnlFluff.add(pnlImage, gridBagConstraints);
 
+        pnlExport.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Export", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
+        pnlExport.setLayout(new java.awt.GridBagLayout());
+
+        btnExportTXT.setText("to TXT");
+        btnExportTXT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportTXTActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlExport.add(btnExportTXT, gridBagConstraints);
+
+        btnExportHTML.setText("to HTML");
+        btnExportHTML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportHTMLActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        pnlExport.add(btnExportHTML, gridBagConstraints);
+
+        btnExportMTF.setText("to MegaMek");
+        btnExportMTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportMTFActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        pnlExport.add(btnExportMTF, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        pnlFluff.add(pnlExport, gridBagConstraints);
+
         tbpFluffEditors.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         tbpFluffEditors.setMaximumSize(new java.awt.Dimension(420, 455));
         tbpFluffEditors.setMinimumSize(new java.awt.Dimension(420, 455));
@@ -9428,7 +9489,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         pnlManufacturers.add(jLabel12, gridBagConstraints);
 
-        jLabel11.setFont(new java.awt.Font("Arial", 0, 11));
+        jLabel11.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel11.setText("Armor Model:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -9720,6 +9781,82 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         tbpFluffEditors.addTab("Manufacturers", pnlManufacturers);
 
+        lblBattleMechQuirks.setFont(new java.awt.Font("Arial", 1, 12));
+        lblBattleMechQuirks.setText("BattleMech Quirks");
+        lblBattleMechQuirks.setMaximumSize(new java.awt.Dimension(175, 15));
+        lblBattleMechQuirks.setMinimumSize(new java.awt.Dimension(175, 15));
+        lblBattleMechQuirks.setPreferredSize(new java.awt.Dimension(175, 15));
+
+        tblQuirks.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Quirk", "Cost"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblQuirks.setColumnSelectionAllowed(true);
+        tblQuirks.getTableHeader().setReorderingAllowed(false);
+        scpQuirkTable.setViewportView(tblQuirks);
+        tblQuirks.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblQuirks.getColumnModel().getColumn(0).setResizable(false);
+        tblQuirks.getColumnModel().getColumn(1).setResizable(false);
+        tblQuirks.getColumnModel().getColumn(1).setPreferredWidth(5);
+
+        btnAddQuirk.setText("Add Quirk");
+        btnAddQuirk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddQuirkActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlQuirksLayout = new javax.swing.GroupLayout(pnlQuirks);
+        pnlQuirks.setLayout(pnlQuirksLayout);
+        pnlQuirksLayout.setHorizontalGroup(
+            pnlQuirksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblBattleMechQuirks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlQuirksLayout.createSequentialGroup()
+                .addContainerGap(240, Short.MAX_VALUE)
+                .addComponent(btnAddQuirk)
+                .addContainerGap())
+            .addGroup(pnlQuirksLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scpQuirkTable, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnlQuirksLayout.setVerticalGroup(
+            pnlQuirksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlQuirksLayout.createSequentialGroup()
+                .addComponent(lblBattleMechQuirks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scpQuirkTable, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAddQuirk)
+                .addContainerGap())
+        );
+
+        tbpFluffEditors.addTab("Quirks", pnlQuirks);
+        pnlQuirks.getAccessibleContext().setAccessibleName("Quirks");
+        pnlQuirks.getAccessibleContext().setAccessibleParent(tbpFluffEditors);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -9727,45 +9864,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 6);
         pnlFluff.add(tbpFluffEditors, gridBagConstraints);
-
-        pnlExport.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Export", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
-        pnlExport.setLayout(new java.awt.GridBagLayout());
-
-        btnExportTXT.setText("to TXT");
-        btnExportTXT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportTXTActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlExport.add(btnExportTXT, gridBagConstraints);
-
-        btnExportHTML.setText("to HTML");
-        btnExportHTML.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportHTMLActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
-        pnlExport.add(btnExportHTML, gridBagConstraints);
-
-        btnExportMTF.setText("to MegaMek");
-        btnExportMTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportMTFActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        pnlExport.add(btnExportMTF, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
-        pnlFluff.add(pnlExport, gridBagConstraints);
 
         tbpMainTabPane.addTab("   Fluff   ", pnlFluff);
 
@@ -10471,8 +10569,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             System.out.println(e.getMessage());
         }
         System.out.flush();
-
-        dispose();
+        
+        System.exit(0);
     }
 
     private void btnLoadImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadImageActionPerformed
@@ -11109,6 +11207,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( cmbMotiveType.getSelectedIndex() == 0 ) {
             // if the mech is already a biped, forget it
             if( ! CurMech.IsQuad() ) { return; }
+
+            //Check for Robotic cockpit which is not allowed on a biped.
+            if ( CurMech.GetCockpit().CritName().equals("Robotic Cockpit") ) {
+                cmbCockpitType.setSelectedItem("Standard Cockpit");
+                RecalcCockpit();
+            }
+            
             CurMech.SetBiped();
             // internal structure is always reset to standard on changing the
             // motive type.
@@ -11790,7 +11895,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             CurMech.GetActuators().RemoveLeftHand();
             // check for the presence of physical weapons and remove them
-            Vector v = CurMech.GetLoadout().GetNonCore();
+            ArrayList v = CurMech.GetLoadout().GetNonCore();
             for( int i = 0; i < v.size(); i++ ) {
                 abPlaceable p = (abPlaceable) v.get( i );
                 if( p instanceof PhysicalWeapon ) {
@@ -11833,7 +11938,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             CurMech.GetActuators().RemoveLeftLowerArm();
             // check for the presence of physical weapons and remove them
-            Vector v = CurMech.GetLoadout().GetNonCore();
+            ArrayList v = CurMech.GetLoadout().GetNonCore();
             for( int i = 0; i < v.size(); i++ ) {
                 abPlaceable p = (abPlaceable) v.get( i );
                 if( p instanceof PhysicalWeapon ) {
@@ -11876,7 +11981,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             CurMech.GetActuators().RemoveRightHand();
             // check for the presence of physical weapons and remove them
-            Vector v = CurMech.GetLoadout().GetNonCore();
+            ArrayList v = CurMech.GetLoadout().GetNonCore();
             for( int i = 0; i < v.size(); i++ ) {
                 abPlaceable p = (abPlaceable) v.get( i );
                 if( p instanceof PhysicalWeapon ) {
@@ -11919,7 +12024,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             CurMech.GetActuators().RemoveRightLowerArm();
             // check for the presence of physical weapons and remove them
-            Vector v = CurMech.GetLoadout().GetNonCore();
+            ArrayList v = CurMech.GetLoadout().GetNonCore();
             for( int i = 0; i < v.size(); i++ ) {
                 abPlaceable p = (abPlaceable) v.get( i );
                 if( p instanceof PhysicalWeapon ) {
@@ -12031,7 +12136,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void btnAddEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEquipActionPerformed
         abPlaceable a = null;
         int Index = 0;
-        Vector v;
+        ArrayList v;
 
         // figure out which list box to pull from
         switch( tbpWeaponChooser.getSelectedIndex() ) {
@@ -12672,7 +12777,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         String VariantName = "";
 
         // ensure there are no unplaced crits
-        if( CurMech.GetLoadout().GetQueue().size() != 0 ) {
+        if( !CurMech.GetLoadout().GetQueue().isEmpty() ) {
             Media.Messager( this, "You must place all items first." );
             tbpMainTabPane.setSelectedComponent( pnlCriticals );
             return;
@@ -14444,7 +14549,7 @@ private void chkFractionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     if( chkFractional.isSelected() == CurMech.UsingFractionalAccounting() ) { return; }
     CurMech.SetFractionalAccounting( chkFractional.isSelected() );
     if( ! CurMech.UsingFractionalAccounting() ) {
-        Vector v = CurMech.GetLoadout().GetNonCore();
+        ArrayList v = CurMech.GetLoadout().GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
             if( v.get( i ) instanceof Ammunition ) {
                 ((Ammunition) v.get( i )).ResetLotSize();
@@ -14494,7 +14599,7 @@ private void btnRenameVariantActionPerformed(java.awt.event.ActionEvent evt) {//
     }
 
     // see if another loadout has the same name
-    Vector Loadouts = CurMech.GetLoadouts();
+    ArrayList Loadouts = CurMech.GetLoadouts();
     for( int i = 0; i < Loadouts.size(); i++ ) {
         if( ((ifMechLoadout) Loadouts.get( i )).GetName().equals( VariantName ) ) {
             Media.Messager( this, "Could not rename the loadout because\nthe name given matches an existing loadout." );
@@ -14787,6 +14892,13 @@ private void cmbProductionEraActionPerformed(java.awt.event.ActionEvent evt) {//
     CurMech.SetProductionEra( cmbProductionEra.getSelectedIndex() );
 }//GEN-LAST:event_cmbProductionEraActionPerformed
 
+private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddQuirkActionPerformed
+    dlgQuirks qmanage = new dlgQuirks(this, true, data, quirks);
+    qmanage.setLocationRelativeTo(this);
+    qmanage.setVisible(true);
+    tblQuirks.setModel(new tbQuirks(quirks));
+}//GEN-LAST:event_btnAddQuirkActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -14801,6 +14913,7 @@ private void setViewToolbar(boolean Visible)
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddEquip;
+    private javax.swing.JButton btnAddQuirk;
     private javax.swing.JButton btnAddToForceList;
     private javax.swing.JButton btnAddVariant;
     private javax.swing.JButton btnArmorTons;
@@ -15040,6 +15153,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel lblBFShort;
     private javax.swing.JLabel lblBFStructure;
     private javax.swing.JLabel lblBFWt;
+    private javax.swing.JLabel lblBattleMechQuirks;
     private javax.swing.JLabel lblCTArmorHeader;
     private javax.swing.JLabel lblCTHeader;
     private javax.swing.JLabel lblCTIntPts;
@@ -15248,6 +15362,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel pnlOverview;
     private javax.swing.JPanel pnlPatchworkChoosers;
     private javax.swing.JPanel pnlPhysical;
+    private javax.swing.JPanel pnlQuirks;
     private javax.swing.JPanel pnlRAArmorBox;
     private javax.swing.JPanel pnlRACrits;
     private javax.swing.JPanel pnlRLArmorBox;
@@ -15260,6 +15375,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel pnlSpecials;
     private javax.swing.JPanel pnlVariants;
     private javax.swing.JPanel pnlWeaponsManufacturers;
+    private javax.swing.JScrollPane scpQuirkTable;
     private javax.swing.JScrollPane scpWeaponManufacturers;
     private javax.swing.JScrollPane scrLACrits;
     private javax.swing.JScrollPane scrRACrits;
@@ -15278,6 +15394,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JSpinner spnRTArmor;
     private javax.swing.JSpinner spnRTRArmor;
     private javax.swing.JSpinner spnWalkMP;
+    private javax.swing.JTable tblQuirks;
     private javax.swing.JTable tblWeaponManufacturers;
     private javax.swing.JTabbedPane tbpFluffEditors;
     private javax.swing.JTabbedPane tbpMainTabPane;
@@ -15338,7 +15455,7 @@ private void setViewToolbar(boolean Visible)
         return imageTracker;
     }
     
-    public void setUnit( Vector v ) {
+    public void setUnit( ArrayList v ) {
         this.setMech( (Mech) v.get(0) );
     }
 

@@ -46,7 +46,7 @@ import ssw.print.Printer;
 
 public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListener {
     private ifMechForm parent;
-    private MechList list = new MechList();
+    private UnitList list = new UnitList();
     private Media media = new Media();
     private String dirPath = "";
     private String NL = "";
@@ -92,7 +92,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     }
 
     private void LoadMechIntoSSW() {
-        MechListData Data = (MechListData)((abView) tblMechData.getModel()).Get( tblMechData.convertRowIndexToModel( tblMechData.getSelectedRow() ) );
+        UnitListData Data = (UnitListData)((abView) tblMechData.getModel()).Get( tblMechData.convertRowIndexToModel( tblMechData.getSelectedRow() ) );
         try
         {
             MechReader read = new MechReader();
@@ -124,7 +124,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         int[] rows = tblMechData.getSelectedRows();
         for ( int i=0; i < rows.length; i++ ) {
-            MechListData data = list.Get(tblMechData.convertRowIndexToModel(rows[i]));
+            UnitListData data = list.Get(tblMechData.convertRowIndexToModel(rows[i]));
             BV += data.getBV();
             Cost += data.getCost();
         }
@@ -139,7 +139,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     public void LoadList(boolean useIndex) {
         this.lblStatus.setText("Loading Mechs...");
         this.txtSelected.setText("0 Units Selected for 0 BV and 0 C-Bills");
-        this.tblMechData.setModel(new MechList());
+        this.tblMechData.setModel(new UnitList());
         
         if (dirPath.isEmpty()) {
             dirPath = parent.GetPrefs().get("ListPath", parent.GetPrefs().get( "LastOpenDirectory", "" ) );
@@ -165,7 +165,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         
-        list = new MechList(dirPath, useIndex);
+        list = new UnitList(dirPath, useIndex);
 
         if (list.Size() > 0) {
             setupList(list, true);
@@ -178,8 +178,10 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
 
-    private void setupList(MechList mechList, boolean forceSort) {
-        currentView.list = mechList;
+    private void setupList(UnitList mechList, boolean forceSort) {
+        ListFilter fileFilter = new ListFilter();
+        fileFilter.setExtension(".ssw");
+        currentView.list = mechList.Filter(fileFilter);
         tblMechData.setModel(currentView);
         currentView.setupTable(tblMechData);
         //tblMechData.setModel(mechList);
@@ -229,7 +231,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         }
     }
 
-    private void setTooltip( MechListData data ) {
+    private void setTooltip( UnitListData data ) {
         //spnMechTable.setToolTipText( data.getInfo() );
         String[] dirs = data.getFilename().split("\\\\");
         String shortPath = "";
@@ -1176,7 +1178,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 MechReader read = new MechReader();
                 int[] rows = tblMechData.getSelectedRows();
                 for ( int i=0; i < rows.length; i++ ) {
-                    MechListData data = list.Get(tblMechData.convertRowIndexToModel(rows[i]));
+                    UnitListData data = list.Get(tblMechData.convertRowIndexToModel(rows[i]));
                     Mech m = read.ReadMech( list.getDirectory() + data.getFilename(), parent.GetData() );
                     if (data.isOmni()) {
                         m.SetCurLoadout(data.getConfig());
@@ -1202,6 +1204,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
     private void Filter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filter
         ListFilter filters = new ListFilter();
+        filters.setExtension(".ssw");
 
         if (cmbTech.getSelectedIndex() > 0) {filters.setTech(cmbTech.getSelectedItem().toString());}
         if (cmbEra.getSelectedIndex() > 0) {filters.setEra(cmbEra.getSelectedItem().toString());}
@@ -1241,7 +1244,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         if (! txtSource.getText().isEmpty() ) { filters.setSource(txtSource.getText().trim()); }
         filters.setIsOmni(chkOmni.isSelected());
 
-        MechList filtered = list.Filter(filters);
+        UnitList filtered = list.Filter(filters);
         setupList(filtered, false);
     }//GEN-LAST:event_Filter
 
@@ -1282,7 +1285,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         if ( tblMechData.getSelectedRowCount() > 0 ) {
             int[] rows = tblMechData.getSelectedRows();
             for ( int i=0; i < rows.length; i++ ) {
-                MechListData data = (MechListData)((abView) tblMechData.getModel()).Get(tblMechData.convertRowIndexToModel(rows[i]));
+                UnitListData data = (UnitListData)((abView) tblMechData.getModel()).Get(tblMechData.convertRowIndexToModel(rows[i]));
                 parent.GetForceDialogue().getForce().AddUnit(new Unit(data));
                 parent.GetForceDialogue().getForce().RefreshBV();
                 lblForce.setText(lblForce.getText() + " " + data.getFullName() + " added;");
@@ -1347,7 +1350,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 }//GEN-LAST:event_cmbMinMPFilter
 
     private void tblMechDataMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMechDataMouseMoved
-        setTooltip( (MechListData) ((abView) tblMechData.getModel()).Get(tblMechData.convertRowIndexToModel(tblMechData.rowAtPoint(evt.getPoint()))) );
+        setTooltip( (UnitListData) ((abView) tblMechData.getModel()).Get(tblMechData.convertRowIndexToModel(tblMechData.rowAtPoint(evt.getPoint()))) );
     }//GEN-LAST:event_tblMechDataMouseMoved
 
     private void tblMechDataKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblMechDataKeyReleased

@@ -41,7 +41,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.DropMode;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -468,7 +468,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                     a.SetManufacturer( (String) value );
                     fireTableCellUpdated( row, col );
                 } else {
-                    Vector v = CurMech.GetLoadout().GetEquipment();
+                    ArrayList v = CurMech.GetLoadout().GetEquipment();
                     for( int i = 0; i < v.size(); i++ ) {
                         if( FileCommon.LookupStripArc( ((abPlaceable) v.get( i )).LookupName() ).equals( FileCommon.LookupStripArc( a.LookupName() ) ) ) {
                             ((abPlaceable) v.get( i )).SetManufacturer( (String) value );
@@ -580,7 +580,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         lstRACrits.setListData( CurMech.GetLoadout().GetRACrits() );
         lstLLCrits.setListData( CurMech.GetLoadout().GetLLCrits() );
         lstRLCrits.setListData( CurMech.GetLoadout().GetRLCrits() );
-        lstCritsToPlace.setListData( CurMech.GetLoadout().GetQueue() );
+        lstCritsToPlace.setListData( CurMech.GetLoadout().GetQueue().toArray() );
     }
 
     public void setMech( Mech m ) {
@@ -667,7 +667,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
     private void BuildChassisSelector() {
         // builds the structure selection box
-        Vector list = new Vector();
+        ArrayList list = new ArrayList();
 
         // get the structure states and, for each that matches our criteria, add it
         // to the selector list
@@ -678,7 +678,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             }
         }
 
-        // turn the vector into a string array
+        // turn the ArrayList into a string array
         String[] temp = new String[list.size()];
         for( int i = 0; i < list.size(); i++ ) {
             temp[i] = (String) list.get(i);
@@ -690,7 +690,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
     private void BuildEngineSelector() {
         // builds the engine selection box
-        Vector list = new Vector();
+        ArrayList list = new ArrayList();
 
         // get the engine states and, for each that matches our criteria, add it
         // to the selector list
@@ -701,7 +701,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             }
         }
 
-        // turn the vector into a string array
+        // turn the ArrayList into a string array
         String[] temp = new String[list.size()];
         for( int i = 0; i < list.size(); i++ ) {
             temp[i] = (String) list.get(i);
@@ -713,7 +713,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
     private void BuildGyroSelector() {
         // builds the gyro selection box
-        Vector list = new Vector();
+        ArrayList list = new ArrayList();
 
         // get the gyro states and, for each that matches our criteria, add it
         // to the selector list
@@ -724,7 +724,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             }
         }
 
-        // turn the vector into a string array
+        // turn the ArrayList into a string array
         String[] temp = new String[list.size()];
         for( int i = 0; i < list.size(); i++ ) {
             temp[i] = (String) list.get(i);
@@ -736,7 +736,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
     private void BuildCockpitSelector() {
         // builds the structure selection box
-        Vector list = new Vector();
+        ArrayList list = new ArrayList();
 
         // get the structure states and, for each that matches our criteria, add it
         // to the selector list
@@ -747,7 +747,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             }
         }
 
-        // turn the vector into a string array
+        // turn the ArrayList into a string array
         String[] temp = new String[list.size()];
         for( int i = 0; i < list.size(); i++ ) {
             temp[i] = (String) list.get(i);
@@ -759,7 +759,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
     private void BuildEnhancementSelector() {
         // builds the physical enhancement selection box
-        Vector list = new Vector();
+        ArrayList list = new ArrayList();
 
         // get the enhancement states and, for each that matches our criteria, add it
         // to the selector list
@@ -770,7 +770,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             }
         }
 
-        // turn the vector into a string array
+        // turn the ArrayList into a string array
         String[] temp = new String[list.size()];
         for( int i = 0; i < list.size(); i++ ) {
             temp[i] = (String) list.get(i);
@@ -782,7 +782,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
     private void BuildJumpJetSelector() {
         // ensures that we can enable the Improved Jump Jets checkbox.
-        Vector list = new Vector();
+        ArrayList list = new ArrayList();
 
         // get the jump jet states and, for each that matches our criteria, add it
         // to the selector list
@@ -793,7 +793,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             }
         }
 
-        // turn the vector into a string array
+        // turn the ArrayList into a string array
         String[] temp = new String[list.size()];
         for( int i = 0; i < list.size(); i++ ) {
             temp[i] = (String) list.get(i);
@@ -878,7 +878,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
     private void BuildHeatsinkSelector() {
         // builds the heat sink selection box
-        Vector list = new Vector();
+        ArrayList list = new ArrayList();
 
         // get the heat sink states and, for each that matches our criteria, add it
         // to the selector list
@@ -889,7 +889,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             }
         }
 
-        // turn the vector into a string array
+        // turn the ArrayList into a string array
         String[] temp = new String[list.size()];
         for( int i = 0; i < list.size(); i++ ) {
             temp[i] = (String) list.get( i );
@@ -901,7 +901,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
     private void BuildArmorSelector() {
         // builds the armor selection box
-        Vector list = new Vector();
+        ArrayList list = new ArrayList();
 
         // get the armor states and, for each that matches our criteria, add it
         // to the selector list
@@ -912,7 +912,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             }
         }
 
-        // turn the vector into a string array
+        // turn the ArrayList into a string array
         String[] temp = new String[list.size()];
         for( int i = 0; i < list.size(); i++ ) {
             temp[i] = (String) list.get(i);
@@ -924,7 +924,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
     private void BuildPatchworkChoosers() {
         // builds the armor selection box
-        Vector list = new Vector();
+        ArrayList list = new ArrayList();
 
         // get the armor states and, for each that matches our criteria, add it
         // to the selector list
@@ -935,7 +935,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             }
         }
 
-        // turn the vector into a string array
+        // turn the ArrayList into a string array
         String[] temp = new String[list.size()];
         for( int i = 0; i < list.size(); i++ ) {
             temp[i] = (String) list.get(i);
@@ -1089,32 +1089,28 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
 
         // check the command console, ejection seat, and FHES
-        if( CurMech.GetCockpit().IsTorsoMounted() ) {
+        if( CurMech.GetCockpit().CanUseCommandConsole() && CommonTools.IsAllowed( CurMech.GetCommandConsole().GetAvailability(), CurMech ) &! chkFHES.isSelected() ) {
+            chkCommandConsole.setEnabled( true );
+        } else {
             chkCommandConsole.setEnabled( false );
             chkCommandConsole.setSelected( false );
-            chkEjectionSeat.setEnabled( false );
-            chkEjectionSeat.setSelected( false );
+        }
+        if( CurMech.CanUseFHES() && CommonTools.IsAllowed( CurMech.GetFHESAC(), CurMech ) ) {
+            chkFHES.setEnabled( true );
+        } else {
             chkFHES.setEnabled( false );
             chkFHES.setSelected( false );
+        }
+        if( CurMech.GetCockpit().IsTorsoMounted() )
+        {
+            chkEjectionSeat.setEnabled( false );
+            chkEjectionSeat.setSelected( false );
+        }
+        if( CurMech.IsIndustrialmech() ) {
+            chkEjectionSeat.setEnabled( true );
         } else {
-            if( CurMech.GetCockpit().CanUseCommandConsole() && CommonTools.IsAllowed( CurMech.GetCommandConsole().GetAvailability(), CurMech ) &! chkFHES.isSelected() ) {
-                chkCommandConsole.setEnabled( true );
-            } else {
-                chkCommandConsole.setEnabled( false );
-                chkCommandConsole.setSelected( false );
-            }
-            if( CurMech.CanUseFHES() && CommonTools.IsAllowed( CurMech.GetFHESAC(), CurMech ) ) {
-                chkFHES.setEnabled( true );
-            } else {
-                chkFHES.setEnabled( false );
-                chkFHES.setSelected( false );
-            }
-            if( CurMech.IsIndustrialmech() ) {
-                chkEjectionSeat.setEnabled( true );
-            } else {
-                chkEjectionSeat.setEnabled( false );
-                chkEjectionSeat.setSelected( false );
-            }
+            chkEjectionSeat.setEnabled( false );
+            chkEjectionSeat.setSelected( false );
         }
 
         // check all multi-slot systems
@@ -1540,46 +1536,42 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             cmbGyroType.setSelectedItem(CurMech.GetGyro().LookupName());
         
         // check the command console and ejection seat
-        if( CurMech.GetCockpit().IsTorsoMounted() ) {
+        if( CurMech.GetCockpit().CanUseCommandConsole() && CommonTools.IsAllowed( CurMech.GetCommandConsole().GetAvailability(), CurMech ) ) {
+            chkCommandConsole.setEnabled( true );
+            chkCommandConsole.setSelected(CurMech.HasCommandConsole());
+        } else {
             chkCommandConsole.setEnabled( false );
             chkCommandConsole.setSelected( false );
+        }
+        if( CurMech.CanUseFHES() && CommonTools.IsAllowed( CurMech.GetFHESAC(), CurMech ) ) {
+            chkFHES.setEnabled( true );
+        } else {
+            chkFHES.setSelected( false );
+            chkFHES.setSelected( false );
+        }
+        if( CurMech.GetCockpit().IsTorsoMounted() )
+        {
             chkEjectionSeat.setEnabled( false );
             chkEjectionSeat.setSelected( false );
-            chkFHES.setEnabled( false );
-            chkFHES.setSelected( false );
-            chkHDTurret.setEnabled( true );
-        } else {
-            if( CurMech.GetCockpit().CanUseCommandConsole() && CommonTools.IsAllowed( CurMech.GetCommandConsole().GetAvailability(), CurMech ) ) {
-                chkCommandConsole.setEnabled( true );
-            } else {
-                chkCommandConsole.setEnabled( false );
-                chkCommandConsole.setSelected( false );
-            }
-            if( CurMech.CanUseFHES() && CommonTools.IsAllowed( CurMech.GetFHESAC(), CurMech ) ) {
-                chkFHES.setEnabled( true );
-            } else {
-                chkFHES.setSelected( false );
-                chkFHES.setSelected( false );
-            }
-            if( CurMech.IsIndustrialmech() ) {
-                chkEjectionSeat.setEnabled( true );
-            } else {
-                chkEjectionSeat.setEnabled( false );
-                chkEjectionSeat.setSelected( false );
-            }
-            // remove the head turret if it's there.
-            if( CurMech.GetLoadout().HasHDTurret() ) {
-                try {
-                    CurMech.GetLoadout().SetHDTurret( false, -1 );
-                } catch( Exception e ) {
-                    Media.Messager( "Fatal error trying to remove head turret.\nRestarting with new 'Mech.  Sorry." );
-                    GetNewMech();
-                    return;
-                }
-            }
-            chkHDTurret.setSelected( false );
-            chkHDTurret.setEnabled( false );
         }
+        if( CurMech.IsIndustrialmech() ) {
+            chkEjectionSeat.setEnabled( true );
+        } else {
+            chkEjectionSeat.setEnabled( false );
+            chkEjectionSeat.setSelected( false );
+        }
+        // remove the head turret if it's there.
+        if( CurMech.GetLoadout().HasHDTurret() ) {
+            try {
+                CurMech.GetLoadout().SetHDTurret( false, -1 );
+            } catch( Exception e ) {
+                Media.Messager( "Fatal error trying to remove head turret.\nRestarting with new 'Mech.  Sorry." );
+                GetNewMech();
+                return;
+            }
+        }
+        chkHDTurret.setSelected( false );
+        chkHDTurret.setEnabled( false );
     }
 
     private void RecalcEnhancements() {
@@ -2168,8 +2160,8 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         temp += CurMech.GetAdjustedBoosterMP( false );
         lblMoveSummary.setText( temp );
 
-        // because the vector changes, we'll have to load up the Crits to Place list
-        lstCritsToPlace.setListData( CurMech.GetLoadout().GetQueue() );
+        // because the ArrayList changes, we'll have to load up the Crits to Place list
+        lstCritsToPlace.setListData( CurMech.GetLoadout().GetQueue().toArray() );
         lstCritsToPlace.repaint();
 
         // repaint the rest of the loadout list
@@ -2450,7 +2442,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
     private void ResetAmmo() {
         // first, get the weapons from the loadout that need ammunition
-        Vector v = CurMech.GetLoadout().GetNonCore(), wep = new Vector();
+        ArrayList v = CurMech.GetLoadout().GetNonCore(), wep = new ArrayList();
         Object a;
 
         for( int i = 0; i < v.size(); i++ ) {
@@ -3323,7 +3315,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     }
 
     private void RefreshOmniVariants() {
-        Vector v = CurMech.GetLoadouts();
+        ArrayList v = CurMech.GetLoadouts();
         String[] variants = new String[v.size()];
         if( v.size() <= 0 ) {
             variants = new String[] { common.Constants.BASELOADOUT_NAME };
@@ -3373,7 +3365,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
         // ensure there are no unplaced crits
         if( CurMech.IsOmnimech() ) {
-            Vector v = CurMech.GetLoadouts();
+            ArrayList v = CurMech.GetLoadouts();
             for( int i = 0; i < v.size(); i++ ) {
                 CurMech.SetCurLoadout( ((ifMechLoadout) v.get( i )).GetName() );
                 if( CurMech.GetLoadout().GetQueue().size() != 0 ) {
@@ -3397,7 +3389,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
         // ensure we're not overweight
         if( CurMech.IsOmnimech() ) {
-            Vector v = CurMech.GetLoadouts();
+            ArrayList v = CurMech.GetLoadouts();
             for( int i = 0; i < v.size(); i++ ) {
                 CurMech.SetCurLoadout( ((ifMechLoadout) v.get( i )).GetName() );
                 if( CurMech.GetCurrentTons() > CurMech.GetTonnage() ) {
@@ -3775,8 +3767,8 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             int newIDX = r.GetAmmoIndex();
 
             // check for other weapons with the original ammo index
-            Vector check = CurMech.GetLoadout().GetNonCore();
-            Vector replace = new Vector();
+            ArrayList check = CurMech.GetLoadout().GetNonCore();
+            ArrayList replace = new ArrayList();
             abPlaceable p;
             boolean HasOrig = false;
             for( int i = 0; i < check.size(); i++ ) {
@@ -4026,7 +4018,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                 }
             }
         }
-        Vector v = CurMech.GetLoadout().GetNonCore();
+        ArrayList v = CurMech.GetLoadout().GetNonCore();
         int TotalDamage = 0;
         double TonsWeapons = 0.0f, TonsEquips = 0.0f;
 
@@ -4187,7 +4179,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         int[] chart = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         // we're going to use 40 as the max range
-        Vector v = CurMech.GetLoadout().GetNonCore();
+        ArrayList v = CurMech.GetLoadout().GetNonCore();
         ifWeapon w;
         for( int i = 0; i < 40; i++ ) {
             for( int j = 0; j < v.size(); j++ ) {
@@ -4211,7 +4203,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         int[] chart = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         // we're going to use 40 as the max range
-        Vector v = CurMech.GetLoadout().GetNonCore();
+        ArrayList v = CurMech.GetLoadout().GetNonCore();
         ifWeapon w;
         for( int i = 0; i < 40; i++ ) {
             for( int j = 0; j < v.size(); j++ ) {
@@ -4235,7 +4227,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         int[] chart = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         // we're going to use 40 as the max range
-        Vector v = CurMech.GetLoadout().GetNonCore();
+        ArrayList v = CurMech.GetLoadout().GetNonCore();
         ifWeapon w;
         for( int i = 0; i < 40; i++ ) {
             for( int j = 0; j < v.size(); j++ ) {
@@ -4259,7 +4251,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         int[] chart = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         // we're going to use 40 as the max range
-        Vector v = CurMech.GetLoadout().GetNonCore();
+        ArrayList v = CurMech.GetLoadout().GetNonCore();
         boolean flip = ! ( CurMech.GetLoadout().GetActuators().LeftLowerInstalled() && CurMech.GetLoadout().GetActuators().RightLowerInstalled() );
         ifWeapon w;
         for( int i = 0; i < 40; i++ ) {
@@ -10310,7 +10302,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
         System.out.flush();
 
-        dispose();
+        System.exit(0);
     }
 
     private void mnuCreditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCreditsActionPerformed
@@ -11583,7 +11575,7 @@ private void chkRAHandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     } else {
         CurMech.GetActuators().RemoveRightHand();
         // check for the presence of physical weapons and remove them
-        Vector v = CurMech.GetLoadout().GetNonCore();
+        ArrayList v = CurMech.GetLoadout().GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
             abPlaceable p = (abPlaceable) v.get( i );
             if( p instanceof PhysicalWeapon ) {
@@ -11626,7 +11618,7 @@ private void chkRALowerArmActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     } else {
         CurMech.GetActuators().RemoveRightLowerArm();
         // check for the presence of physical weapons and remove them
-        Vector v = CurMech.GetLoadout().GetNonCore();
+        ArrayList v = CurMech.GetLoadout().GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
             abPlaceable p = (abPlaceable) v.get( i );
             if( p instanceof PhysicalWeapon ) {
@@ -11723,7 +11715,7 @@ private void chkLAHandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     } else {
         CurMech.GetActuators().RemoveLeftHand();
         // check for the presence of physical weapons and remove them
-        Vector v = CurMech.GetLoadout().GetNonCore();
+        ArrayList v = CurMech.GetLoadout().GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
             abPlaceable p = (abPlaceable) v.get( i );
             if( p instanceof PhysicalWeapon ) {
@@ -11766,7 +11758,7 @@ private void chkLALowerArmActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     } else {
         CurMech.GetActuators().RemoveLeftLowerArm();
         // check for the presence of physical weapons and remove them
-        Vector v = CurMech.GetLoadout().GetNonCore();
+        ArrayList v = CurMech.GetLoadout().GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
             abPlaceable p = (abPlaceable) v.get( i );
             if( p instanceof PhysicalWeapon ) {
@@ -12059,7 +12051,7 @@ private void chkHDTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 private void btnAddEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEquipActionPerformed
     abPlaceable a = null;
     int Index = 0;
-    Vector v;
+    ArrayList v;
 
     // figure out which list box to pull from
     switch( tbpWeaponChooser.getSelectedIndex() ) {
@@ -13461,7 +13453,7 @@ private void btnRenameVariantActionPerformed(java.awt.event.ActionEvent evt) {//
     }
 
     // see if another loadout has the same name
-    Vector Loadouts = CurMech.GetLoadouts();
+    ArrayList Loadouts = CurMech.GetLoadouts();
     for( int i = 0; i < Loadouts.size(); i++ ) {
         if( ((ifMechLoadout) Loadouts.get( i )).GetName().equals( VariantName ) ) {
             Media.Messager( this, "Could not rename the loadout because\nthe name given matches an existing loadout." );
@@ -13778,7 +13770,7 @@ private void chkFractionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     if( chkFractional.isSelected() == CurMech.UsingFractionalAccounting() ) { return; }
     CurMech.SetFractionalAccounting( chkFractional.isSelected() );
     if( ! CurMech.UsingFractionalAccounting() ) {
-        Vector v = CurMech.GetLoadout().GetNonCore();
+        ArrayList v = CurMech.GetLoadout().GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
             if( v.get( i ) instanceof Ammunition ) {
                 ((Ammunition) v.get( i )).ResetLotSize();
@@ -13991,6 +13983,12 @@ private void cmbMotiveTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     if( cmbMotiveType.getSelectedIndex() == 0 ) {
         // if the mech is already a biped, forget it
         if( ! CurMech.IsQuad() ) { return; }
+
+        //Check for Robotic cockpit which is not allowed on a biped.
+        if ( CurMech.GetCockpit().CritName().equals("Robotic Cockpit") ) {
+            cmbCockpitType.setSelectedItem("Standard Cockpit");
+            RecalcCockpit();
+        }
         CurMech.SetBiped();
         // internal structure is always reset to standard on changing the
         // motive type.
@@ -15168,7 +15166,7 @@ private void setViewToolbar(boolean Visible)
         return imageTracker;
     }
     
-    public void setUnit( Vector v ) {
+    public void setUnit( ArrayList v ) {
         this.setMech( (Mech) v.get(0) );
     }
 

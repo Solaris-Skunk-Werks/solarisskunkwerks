@@ -9,7 +9,7 @@ import java.io.IOException;
 import common.CommonTools;
 import components.Mech;
 import components.ifMechLoadout;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import filehandlers.Media;
 import Print.PrintMech;
@@ -49,7 +49,7 @@ public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
             cmbPiloting.setSelectedIndex( Piloting );
 
             if( CurMech.IsOmnimech()){
-                Vector Loadouts = CurMech.GetLoadouts();
+                ArrayList Loadouts = CurMech.GetLoadouts();
                 ifMechLoadout tempLoadout;
                 cmbOmniVariant.setMaximumRowCount(Loadouts.size()+1);
                 for (int i = 0; i < Loadouts.size();  ++i){

@@ -36,7 +36,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Hashtable;
-import java.util.Vector;
+import java.util.ArrayList;
 import common.CommonTools;
 import filehandlers.FileCommon;
 
@@ -68,9 +68,9 @@ public class HTMLWriter {
         boolean EOF = false;
         String read = "";
         String write = "";
-        Vector equip = new Vector();
-        Vector omni = new Vector();
-        Vector armor = new Vector();
+        ArrayList equip = new ArrayList();
+        ArrayList omni = new ArrayList();
+        ArrayList armor = new ArrayList();
 
         // we'll basically go through line by line and do our replacement,
         // writing as we go along.
@@ -298,7 +298,7 @@ public class HTMLWriter {
         }
     }
 
-    private String BuildEquipLines( Vector lines, abPlaceable[] equips, boolean fluff ) {
+    private String BuildEquipLines( ArrayList lines, abPlaceable[] equips, boolean fluff ) {
         // this routine reads the mech's equipment and provides a completed
         // equipment block.  lines should contain the equipment line.
         String retval = "";
@@ -429,11 +429,11 @@ public class HTMLWriter {
         return retval;
     }
 
-    private String BuildOmniLines( Vector lines ) throws IOException {
+    private String BuildOmniLines( ArrayList lines ) throws IOException {
         // this routine will build each omnimech loadout and add it to retval.
         String retval = "";
-        Vector loadouts = CurMech.GetLoadouts();
-        Vector EQLines = new Vector();
+        ArrayList loadouts = CurMech.GetLoadouts();
+        ArrayList EQLines = new ArrayList();
 
         for( int i = 0; i < loadouts.size(); i++ ) {
             // set the mech to the current loadout
@@ -672,7 +672,7 @@ public class HTMLWriter {
         }
     }
 
-    private String ProcessEquipFluffLines( abPlaceable a, int num, Vector lines ) {
+    private String ProcessEquipFluffLines( abPlaceable a, int num, ArrayList lines ) {
         String retval = "";
         String test = "";
         String plural = "";
@@ -820,7 +820,7 @@ public class HTMLWriter {
         return retval;
     }
 
-    private String ProcessEquipStatLines( abPlaceable a, Vector lines, int numthisloc ) {
+    private String ProcessEquipStatLines( abPlaceable a, ArrayList lines, int numthisloc ) {
         String retval = "";
         String test = "";
 
@@ -1148,10 +1148,10 @@ public class HTMLWriter {
 
     private abPlaceable[] GetEquips( boolean fluff ) {
         // returns an array of placeables that can be used to build equipment blocks
-        Vector v = CurMech.GetLoadout().GetNonCore();
-        Vector ret = new Vector();
+        ArrayList v = CurMech.GetLoadout().GetNonCore();
+        ArrayList ret = new ArrayList();
         if( fluff ) {
-            Vector EQ = new Vector();
+            ArrayList EQ = new ArrayList();
 
             // get the weapons for sort first.
             for( int i = 0; i < v.size(); i++ ) {
@@ -1177,7 +1177,7 @@ public class HTMLWriter {
             }
         } else {
             // return all equipment in the loadout
-            ret = (Vector) v.clone();
+            ret = (ArrayList) v.clone();
 
             // add in certain items, such as the targeting computer and MASC
             if( CurMech.GetPhysEnhance().IsMASC() ) {
@@ -1231,19 +1231,19 @@ public class HTMLWriter {
             for( int i = 0; i < ret.size(); i++ ) {
                 if( ret.get( i ) instanceof RangedWeapon ) {
                     if( ((RangedWeapon) ret.get( i )).IsUsingFCS() ) {
-                        ret.insertElementAt( ((RangedWeapon) ret.get( i )).GetFCS(), i + 1 );
+                        ret.add( i + 1, ((RangedWeapon) ret.get( i )).GetFCS() );
                     }
                     if( ((RangedWeapon) ret.get( i )).IsUsingCapacitor() ) {
-                        ret.insertElementAt( ((RangedWeapon) ret.get( i )).GetCapacitor(), i + 1 );
+                        ret.add( i + 1, ((RangedWeapon) ret.get( i )).GetCapacitor() );
                     }
                 } else if( ret.get( i ) instanceof MGArray ) {
-                    ret.insertElementAt( ((MGArray) ret.get( i )).GetMGs()[0], i + 1 );
-                    ret.insertElementAt( ((MGArray) ret.get( i )).GetMGs()[1], i + 2 );
+                    ret.add( i + 1, ((MGArray) ret.get( i )).GetMGs()[0] );
+                    ret.add( i + 2, ((MGArray) ret.get( i )).GetMGs()[1] );
                     if( ((MGArray) ret.get( i )).GetMGs()[2] != null ) {
-                        ret.insertElementAt( ((MGArray) ret.get( i )).GetMGs()[2], i + 3 );
+                        ret.add( i + 3, ((MGArray) ret.get( i )).GetMGs()[2] );
                     }
                     if( ((MGArray) ret.get( i )).GetMGs()[3] != null ) {
-                        ret.insertElementAt( ((MGArray) ret.get( i )).GetMGs()[3], i + 4 );
+                        ret.add( i + 4, ((MGArray) ret.get( i )).GetMGs()[3] );
                     }
                 }
             }
@@ -1272,7 +1272,7 @@ public class HTMLWriter {
             }
         }
 
-        // turn the return vector into an array
+        // turn the return ArrayList into an array
         abPlaceable[] retval = new abPlaceable[ret.size()];
         for( int i = 0; i < ret.size(); i++ ) {
             retval[i] = (abPlaceable) ret.get( i );

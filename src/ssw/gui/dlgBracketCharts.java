@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableCellRenderer;
 import components.Ammunition;
 import components.Mech;
@@ -50,15 +50,15 @@ public class dlgBracketCharts extends javax.swing.JDialog {
     }
 
     private void GetWeaponData() {
-        Vector v = CurMech.GetLoadout().GetNonCore();
-        Vector<ifWeapon> wep = new Vector<ifWeapon>();
-        Vector<Ammunition> ammo = new Vector<Ammunition>();
-        Vector<WeaponInfo> temp = new Vector<WeaponInfo>();
+        ArrayList v = CurMech.GetLoadout().GetNonCore();
+        ArrayList<ifWeapon> wep = new ArrayList<ifWeapon>();
+        ArrayList<Ammunition> ammo = new ArrayList<Ammunition>();
+        ArrayList<WeaponInfo> temp = new ArrayList<WeaponInfo>();
         int cols = 0;
         for( int i = 0; i < v.size(); i++ ) {
             if( v.get( i ) instanceof ifWeapon ) {
                 ifWeapon w = (ifWeapon) v.get( i );
-                // do we already have a weapon of this name in the vector?
+                // do we already have a weapon of this name in the ArrayList?
                 boolean add = true;
                 for( int x = 0; x < wep.size(); x++ ) {
                     if( wep.get( x ).LookupName().equals( w.LookupName() ) ) {
@@ -71,7 +71,7 @@ public class dlgBracketCharts extends javax.swing.JDialog {
                 }
             } else if( v.get( i ) instanceof Ammunition ) {
                 Ammunition a = (Ammunition) v.get( i );
-                // do we already have an ammo of this name in the vector?
+                // do we already have an ammo of this name in the ArrayList?
                 boolean add = true;
                 for( int x = 0; x < ammo.size(); x++ ) {
                     if( ammo.get( x ).LookupName().equals( a.LookupName() ) ) {
@@ -85,7 +85,7 @@ public class dlgBracketCharts extends javax.swing.JDialog {
             }
         }
 
-        // construct the data vector
+        // construct the data ArrayList
         for( int i = 0; i < wep.size(); i++ ) {
             ifWeapon w = wep.get( i );
             if( w.HasAmmo() ) {
@@ -111,7 +111,7 @@ public class dlgBracketCharts extends javax.swing.JDialog {
         // sort the weapon info by range
         SortWeapons( temp );
 
-        // turn the temporary vector into an array
+        // turn the temporary ArrayList into an array
         cols += 1;
         data = new String[temp.size()*2][cols];
         for( int i = 0; i < temp.size(); i++ ) {
@@ -176,7 +176,7 @@ public class dlgBracketCharts extends javax.swing.JDialog {
         tblBrackets.getColumnModel().getColumn( 0 ).setMinWidth( 125 );
     }
 
-    private void SortWeapons( Vector<WeaponInfo> v ) {
+    private void SortWeapons( ArrayList<WeaponInfo> v ) {
         // sort by longest range (using gnomesort for less code.  may have to change
         // this depending on the slowness of the program.  I figure lower overhead
         // will have better results at this time, and mechs typically don't
@@ -190,8 +190,8 @@ public class dlgBracketCharts extends javax.swing.JDialog {
                 j += 1;
             } else {
                 swap = v.get( i - 1 );
-                v.setElementAt( v.get( i ), i - 1 );
-                v.setElementAt( swap, i );
+                v.set( i - 1, v.get( i ) );
+                v.set( i, swap );
                 i -= 1;
                 if( i == 0 ) {
                     i = 1;
