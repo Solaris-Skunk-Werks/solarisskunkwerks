@@ -233,12 +233,18 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
     private void setTooltip( UnitListData data ) {
         //spnMechTable.setToolTipText( data.getInfo() );
-        String[] dirs = data.getFilename().split("\\\\");
-        String shortPath = "";
-        for (int i = dirs.length-1; i >= dirs.length-3; i--) {
-            shortPath = "\\" + dirs[i] + shortPath;
+        try {
+            String[] dirs = data.getFilename().split("\\\\");
+            String shortPath = "";
+            if ( dirs.length > 3) {
+                for (int i = dirs.length-1; i >= dirs.length-3; i--) {
+                    shortPath = "\\" + dirs[i] + shortPath;
+                }
+            }
+            txtSelected.setText(data.getInfo() + " (" + shortPath + ")");
+        } catch ( Exception e ) {
+            //do nothing
         }
-        txtSelected.setText(data.getInfo() + " (" + shortPath + ")");
     }
     
     public void propertyChange( PropertyChangeEvent e ) {
