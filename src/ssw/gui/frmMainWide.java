@@ -822,7 +822,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
 
         if( CurMech.GetJumpJets().IsImproved() ) {
-            if( CurMech.GetArmor().IsHardened() ) {
+            if( CurMech.GetArmor().IsHardened() && !CurMech.GetJumpJets().IsImproved()  ) {
                 max = CurMech.GetRunningMP() - 1;
             } else {
                 max = CurMech.GetRunningMP();
@@ -11797,6 +11797,7 @@ private void chkRTTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         }
     }
     CheckEquipment();
+    RefreshEquipment();
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_chkRTTurretActionPerformed
@@ -11877,6 +11878,7 @@ private void chkLTTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         }
     }
     CheckEquipment();
+    RefreshEquipment();
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_chkLTTurretActionPerformed
@@ -12044,6 +12046,7 @@ private void chkHDTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         }
     }
     CheckEquipment();
+    RefreshEquipment();
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_chkHDTurretActionPerformed
@@ -13913,6 +13916,7 @@ private void cmbCockpitTypeActionPerformed(java.awt.event.ActionEvent evt) {//GE
     RecalcCockpit();
 
     // now refresh the information panes
+    RefreshEquipment();
     RefreshSummary();
     RefreshInfoPane();
 }//GEN-LAST:event_cmbCockpitTypeActionPerformed
