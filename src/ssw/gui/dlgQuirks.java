@@ -53,8 +53,8 @@ public class dlgQuirks extends javax.swing.JDialog {
 
     private void Refresh()
     {
-        tblSelected.setModel(tblQ);
         tblQ.setupTable(tblSelected);
+        tblQ.fireTableChanged(null);
     }
 
     /** This method is called from within the constructor to
