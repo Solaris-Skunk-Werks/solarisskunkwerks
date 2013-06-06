@@ -599,7 +599,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
             lblOneHex.setEnabled( false );
             cmbHexConvFactor.setEnabled( false );
             lblInches.setEnabled( false );
-            printer.setHexConversion( 1 );
+            printer.setHexConversion( 0 );
         }
         refresh();
 }//GEN-LAST:event_chkUseHexConversionActionPerformed
