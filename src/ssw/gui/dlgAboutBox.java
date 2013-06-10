@@ -84,7 +84,7 @@ public class dlgAboutBox extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        lblLogo.setFont(new java.awt.Font("Arial", 0, 11));
+        lblLogo.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/SSW_Logo.png"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridheight = 10;
@@ -92,7 +92,7 @@ public class dlgAboutBox extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 6);
         getContentPane().add(lblLogo, gridBagConstraints);
 
-        lblAppName.setFont(new java.awt.Font("Arial", 1, 18));
+        lblAppName.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblAppName.setText("Solaris Skunk Werks");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = 2;
@@ -100,8 +100,8 @@ public class dlgAboutBox extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
         getContentPane().add(lblAppName, gridBagConstraints);
 
-        lblAuthorLabel.setFont(new java.awt.Font("Arial", 1, 11));
-        lblAuthorLabel.setText("Author:");
+        lblAuthorLabel.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        lblAuthorLabel.setText("Originator:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -111,7 +111,7 @@ public class dlgAboutBox extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         getContentPane().add(lblAuthorLabel, gridBagConstraints);
 
-        lblAuthor.setFont(new java.awt.Font("Arial", 0, 11));
+        lblAuthor.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         lblAuthor.setText("Justin Bengtson");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -122,7 +122,7 @@ public class dlgAboutBox extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         getContentPane().add(lblAuthor, gridBagConstraints);
 
-        lblVersionLabel.setFont(new java.awt.Font("Arial", 1, 11));
+        lblVersionLabel.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblVersionLabel.setText("Version:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -131,7 +131,7 @@ public class dlgAboutBox extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         getContentPane().add(lblVersionLabel, gridBagConstraints);
 
-        lblVersion.setFont(new java.awt.Font("Arial", 0, 11));
+        lblVersion.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         lblVersion.setText("0.0.1");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -140,7 +140,7 @@ public class dlgAboutBox extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         getContentPane().add(lblVersion, gridBagConstraints);
 
-        lblEmailLabel.setFont(new java.awt.Font("Arial", 1, 11));
+        lblEmailLabel.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblEmailLabel.setText("Email:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -149,8 +149,8 @@ public class dlgAboutBox extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         getContentPane().add(lblEmailLabel, gridBagConstraints);
 
-        lblEmail.setFont(new java.awt.Font("Arial", 0, 11));
-        lblEmail.setText("LostInSpace@SolarisSkunkWerks.com");
+        lblEmail.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        lblEmail.setText("Skyhigh@SolarisSkunkWerks.com");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
@@ -229,7 +229,7 @@ public class dlgAboutBox extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(8, 0, 2, 2);
         getContentPane().add(btnLicense, gridBagConstraints);
 
-        lblReleaseLabel.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblReleaseLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblReleaseLabel.setText("Release:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
