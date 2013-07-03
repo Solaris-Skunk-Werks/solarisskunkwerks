@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
+import list.view.NumberRenderer;
 import Force.Unit;
 import java.awt.Cursor;
 import java.beans.PropertyChangeEvent;
@@ -187,12 +188,6 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         //tblMechData.setModel(mechList);
 
         lblShowing.setText("Showing " + mechList.Size() + " of " + list.Size());
-
-        NumberRenderer nr = new NumberRenderer();
-        TableColumn col = tblMechData.getColumn("Cost");
-        if (col != null)
-            col.setCellRenderer(nr);
-
     }
 
     private void checkSelection() {
@@ -1428,11 +1423,6 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         }
         tblMechData.setModel(currentView);
         currentView.setupTable(tblMechData);
-
-        NumberRenderer nr = new NumberRenderer();
-        TableColumn col = tblMechData.getColumn("Cost");
-        if (col != null)
-            col.setCellRenderer(nr);
     }//GEN-LAST:event_cmbViewActionPerformed
 
     private void txtNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyReleased
