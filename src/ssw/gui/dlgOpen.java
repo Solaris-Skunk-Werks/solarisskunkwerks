@@ -125,7 +125,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         int[] rows = tblMechData.getSelectedRows();
         for ( int i=0; i < rows.length; i++ ) {
-            UnitListData data = list.Get(tblMechData.convertRowIndexToModel(rows[i]));
+            UnitListData data = (UnitListData)((abView) tblMechData.getModel()).Get( tblMechData.convertRowIndexToModel( rows[i] ) );
             BV += data.getBV();
             Cost += data.getCost();
         }
