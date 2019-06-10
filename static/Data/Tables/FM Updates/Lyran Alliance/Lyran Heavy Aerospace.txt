@@ -1,0 +1,16 @@
+Lyran Heavy Aerospace.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Eagle,1
+F-100 Reiver,2
+CHP-W5 Chippewa,3
+STU-K10 Stuka,4
+CHP-W5 Chippewa,5
+CHP-W7 Chippewa,6
+EST-R3 Eisensturm,5
+STU-K5 Stuka,4
+SL-15 Slayer,3
+EST-O Eisensturm,2
+Thunderbird,1
+

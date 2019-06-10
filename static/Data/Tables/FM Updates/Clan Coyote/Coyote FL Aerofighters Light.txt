@@ -1,0 +1,16 @@
+Coyote FL Aerofighters Light.txt
+Per Field Manual Updates page 215
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Vandal Prime,1
+Sulla B,2
+Bashkir Prime,3
+Bashkir C,4
+Avar C,5
+Sulla Prime,6
+Avar Prime,5
+Sulla C,4
+Bashkir A,3
+Batu C,2
+Batu A,1
+

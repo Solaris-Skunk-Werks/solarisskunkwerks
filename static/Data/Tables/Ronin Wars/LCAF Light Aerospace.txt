@@ -1,0 +1,11 @@
+F-10 Cheetah(25), 1
+F-10 Cheetah(25), 2
+SYD-Z1 Seydlitz(20), 3
+S-27 Sabre(25), 4
+SYD-Z2 Seydlitz(20), 5
+SYD-Z2 Seydlitz(20), 6
+Centurion(30), 5
+SL-21 Shologar(35), 4
+SYD-Z1 Seydlitz(20), 3
+SYD-Z3 Seydlitz(20), 2
+SPR-H8 Sparrowhawk(30), 1

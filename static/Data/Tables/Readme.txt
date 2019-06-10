@@ -1,0 +1,1 @@
+Use http://masterunitlist.info/Tools/RAT to build files from your favorite RAT source.  You can then save the files into this location for use in BFB to random generate.

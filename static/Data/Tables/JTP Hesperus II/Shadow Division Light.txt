@@ -1,0 +1,11 @@
+C-MK-O Malak, 1
+C-MK-O Malak, 2
+HSR-950-D Hussar, 3
+MCY-102 Mercury, 4
+NXS2-B Nexus, 5
+GUR-4G Gurkha, 6
+HER-4WB Hermes, 5
+PNT-14S Panther, 4
+C-MK-O Malak, 3
+C-MK-O Malak, 2
+Puma Prime, 1

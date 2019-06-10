@@ -1,0 +1,16 @@
+Cloud Cobra FL Aerofighters Medium.txt
+Per Field Manual Updates page 215
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Turk A,1
+Visigoth A,2
+Jagatai B,3
+Turk C,4
+Turk B,5
+Visogoth C,6
+Jaggatai A,5
+Jagatai C,4
+Visigoth B,3
+Visigoth B,2
+Jagatai A,1
+

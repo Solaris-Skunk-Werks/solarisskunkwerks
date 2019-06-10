@@ -1,0 +1,16 @@
+AFFS Medium Mechs A.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+SR1-OF Strider,1
+CN10-B Centurion,2
+STH-1D Stealth,3
+HBK-5P Hunchback,4
+BJ2-OD Blackjack,5
+ENF-6T Enforcer III,6
+FS9-OB Firestarter,5
+SHD-5D Shadow Hawk,4
+BJ2-OF Blackjack,3
+ENF-6M Enforcer III,2
+NGS-5T Nightsky,1
+

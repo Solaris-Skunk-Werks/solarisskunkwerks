@@ -1,0 +1,10 @@
+Random Mech Assignment Table: Opposing Force Protectorate Militia Advanced Assault.txt
+Per Starterbook Wolf and Blake page 66
+Copyright WizKids games & Catalyst Game Labs
+Entered in to RUS format by: Aaron "Bear" Gregory
+T-IT-N11M Grand Titan(100)(3055U), 1
+MAD_5W Marauder II(100)(PU), 1
+BKW-7R Black Watch(85)(3060), 1
+SD1-O Sunder(90)(3058U), 1
+VQR-2B Vanquisher(100)(3067), 1
+BRZ-B3 Berzerker(100)(3055U), 1

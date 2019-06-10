@@ -1,0 +1,16 @@
+Rasalhague Light Aero.txt
+Per Field Manual Updates page 221
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+SPR-6d Sparrowhawk,1
+SYD-Z4 Seydlitz,2
+SYD-Z1 Seydlitz,3
+SB-27 Sabre,4
+SL-21L Shologar,5
+SL-21L Shologar,6
+CNT-1D Centurion,5
+SL-21L Shologar,4
+F-10 Cheetah,3
+SYD-Z3A Seydlitz,2
+S-4 Sai,1
+

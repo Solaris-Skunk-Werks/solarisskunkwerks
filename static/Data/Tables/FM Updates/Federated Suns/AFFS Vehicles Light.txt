@@ -1,0 +1,16 @@
+AFFS Vehicles Light.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Warrior H8 Attack Helicopter,1
+Cavalry Attack Helicopter,2
+J. Edgar,3
+Hunter Light Support Tank,4
+Minion,5
+Striker Light Tank,6
+Pegasus Scout Hovertank,5
+Saladin,4
+Yellow Jacket Gunship,3
+Blizzard Hover Transport,2
+Mantis Light Attack VTOL,1
+

@@ -1,0 +1,16 @@
+SLDF Mechs Light.txt
+Per Field Manual Updates page 222
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Jenner IIc,1
+OTT-9S Ostscout,2
+VLK-QD1 Valkyrie,3
+RTX1-OC Raptor,4
+OW-1 Owens,5
+SDR-9K Venom,6
+PNT-C Panther,5
+RTX1-OF Raptor,4
+KBO-7A Kabuto,3
+JVN-11D Javelin,2
+Pack Hunter,1
+

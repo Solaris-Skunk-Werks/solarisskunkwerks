@@ -1,0 +1,16 @@
+Clan Nova Cat Frontline Light.txt
+Per Field Manual Updates page 223
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+AF1 Arctic Fox,1
+Fire Falcon Prime,2
+Hellion Prime,3
+AF1A Artic Fox,4
+Hellio A,5
+Fire Falcon A,6
+Hellion B,5
+AF1B Artic Fox,4
+Hellion C,3
+Fire Falcon B,2
+Hellion D,1
+

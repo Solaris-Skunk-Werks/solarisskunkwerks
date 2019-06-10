@@ -1,0 +1,11 @@
+CGR-1A1 Charger(80)(3025), 1
+KGC-000 King Crab(100)(3025), 2
+HGN-733 Highlander(90)(3025), 3
+BNC-3E Banshee(95)(3025), 4
+THG-10E Thug(80)(3025), 5
+AWS-8Q Awesome(80)(3025), 6
+CRK-5003-1 Crockett(85)(3025), 5
+VTR-9B Victor(80)(3025), 4
+AS7-D Atlas(100)(3025), 3
+AS7-D Atlas(100)(3025), 2
+ZEU-6S Zeus(80)(3025), 1

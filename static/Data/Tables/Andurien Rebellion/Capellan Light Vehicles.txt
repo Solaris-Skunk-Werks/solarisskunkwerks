@@ -1,0 +1,11 @@
+Warrior VTOL(20), 1
+Pegasus(35), 2
+Galleon(30), 3
+Saladin(35), 4
+Galleon(30), 5
+Hunter(35), 6
+Warrior VTOL(20), 5
+Scimitar(35), 4
+Scorpion(25), 3
+Scorpion(25), 2
+Saracen(35), 1

@@ -1,0 +1,16 @@
+Mercenary Heavy Aero.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+STU-D6 Stuka,1
+SL-15B Slayer,2
+TR-14 Transgressor,3
+CHP-W5 Chippewa,4
+STU-K5 Stuka,5
+EGL-R6 Eagle,6
+TRB-D36 Thunderbird,5
+F-100 Riever,4
+TR-13 Transgressor,3
+SL-15 Slayer,2
+CHP-W7 Chippewa,1
+

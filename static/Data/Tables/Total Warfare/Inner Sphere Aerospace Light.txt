@@ -1,0 +1,11 @@
+SL-21 Shologar(25)(3025), 1
+SPR-H5 Sparrowhawk(30)(3025), 2
+F-10 Cheetah(25)(3025), 3
+F-10 Cheetah(25)(3025), 4
+SPR-H5 Sparrowhawk(30)(3025), 5
+SL-21 Shologar(25)(3025), 6
+TR-7 Thrush(25)(3025), 5
+SYD-21 Seydlitz(20)(3025), 4
+SYD-21 Seydlitz(20)(3025), 3
+TR-7 thrush(25)(3025), 2
+Corax(30)(3067), 1

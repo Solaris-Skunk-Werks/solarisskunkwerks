@@ -1,0 +1,16 @@
+Pirates Light.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ABS-3R Anubis,1
+LCT-1E Locust,2
+JVN-10N Javelin,3
+STG-5R Stinger,4
+LDT-1 Brigand,5
+STG-3G Stinger,6
+FS9-C Firestarter,5
+LCT-1V2 Locust,4
+COM-4H Commando,3
+UM-60L Urbanmech,2
+LCT-5V Locust,1
+

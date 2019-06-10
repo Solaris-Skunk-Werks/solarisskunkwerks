@@ -1,0 +1,16 @@
+Clan Ice Hellion Battle Armor.txt
+Per Field Manual Updates page 
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ Ice Streak , 1
+ Elemental , 2
+ Elemental , 3
+ Elemental , 4
+ Elemental , 5
+ Elemental , 6
+ Elemental , 5
+ Elemental , 4
+ Elemental , 3
+ Ice Streak , 2
+ Ice Streak , 1
+

@@ -1,0 +1,16 @@
+Clan Coyote Heavy Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Athena,1
+Pike(C),2
+Ishtar,3
+Oro,4
+Ishtar,5
+Oro,6
+Pike(C),5
+Oro,4
+Ishtar,3
+Ishtar,2
+Shoden,1
+

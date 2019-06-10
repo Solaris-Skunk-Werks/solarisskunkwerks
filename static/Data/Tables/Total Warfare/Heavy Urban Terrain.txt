@@ -1,0 +1,6 @@
+Military Base #1(MS7),1
+Military Base #2(MS7),1
+Drop Port #1(MS7),1
+Drop Port #2(MS7),1
+City(Skyscraper)(MS6,MSC2),1
+City(Downtown)(MS6,MSC2),1

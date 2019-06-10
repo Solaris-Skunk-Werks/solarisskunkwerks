@@ -1,0 +1,16 @@
+Clan Goliath Scorpion Secondline Assault.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Bane 3,1
+THG-11E Thug,2
+Kodiak,3
+Supernova,4
+Stone Rhino,5
+Marauder IIc,6
+Stone Rhino,5
+Bane 2,4
+KGC-000 King Crab,3
+Warhammer IIc,2
+Thunder Stallion,1
+

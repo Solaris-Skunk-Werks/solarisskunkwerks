@@ -1,0 +1,16 @@
+Clan Diamond Shark Secondline Heavy.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Ha Otoko,1
+Predator,2
+Ha Otoko,3
+EXT-4D Exterminator,4
+Rifleman IIc,5
+Rifleman IIc 3,6
+Glass Spider,5
+Guillotine IIc,4
+BMB-12D Bombardier,3
+Glass Spider,2
+Mad Dog A,1
+

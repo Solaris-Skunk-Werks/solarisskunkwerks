@@ -1,0 +1,16 @@
+Lyran Light Aerospace.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+SYD-Z1 Seydlitz,1
+SL-21 Shologar,2
+SYD-Z3A Seydlitz,3
+S-27 Sabre,4
+SYD-Z3 Seydlitz,5
+SYD-Z2 Seydlitz,6
+CNT-1D Centurion,5
+SYD-Z2A Seydlitz,4
+SPR-8H Sparrowhawk,3
+SYD-Z4 Seydlitz,2
+F-10 Cheetah,1
+

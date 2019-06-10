@@ -1,0 +1,16 @@
+AFFS Light Mechs D.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+OSR-4D Osiris,1
+COM-2D Commando,2
+JVN-11D Javelin,3
+DRT-6S Dart,4
+FS9-S Firestarter,5
+JVN-10F Javelin,6
+VLK-QD1 Valkyrie,5
+WLF-2 Wolfhound,4
+JVN-10F Javelin,3
+GRM-01B Garm,2
+PNT-12A Panther,1
+

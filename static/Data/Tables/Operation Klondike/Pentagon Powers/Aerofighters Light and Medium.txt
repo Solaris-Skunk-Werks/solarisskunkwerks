@@ -1,0 +1,11 @@
+ZRO-116	Zero, 1
+CNT-1D	Centurion, 1
+SPD-502	Spad, 1
+F-10	Cheetah, 1
+THK-63	Tomahawk, 1
+SWF-606	Swift, 1
+ZRO-114	Zero, 1
+RGU-133	Rogue, 1
+TRN-3T	Trident, 1
+SWF-606	Swift, 1
+SB-27b	Sabre, 1

@@ -1,0 +1,16 @@
+CCAF Heavy Mechs B.txt
+Per Field Manual Updates page 206
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+WHM-8L Warhammer,1
+HEL-3D Helios,2
+TDR-9L Thunderbolt,3
+CPLT-C5 Catapult,4
+LHU-2B Lao Hu,5
+TSG-9 Ti Ts'ang,6
+CTF-3D Cataphract,5
+OSR-4L Ostroc,4
+THR-1L Thunder,3
+ARC-7L Archer,2
+CTS-6Y Cestus,1
+

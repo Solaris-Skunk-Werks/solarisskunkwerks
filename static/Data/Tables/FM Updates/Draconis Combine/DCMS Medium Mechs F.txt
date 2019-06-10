@@ -1,0 +1,16 @@
+DCMS Medium Mechs F.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+CDA-2A Cicada,1
+SCP-1N Scorpion,2
+PHX-1 Phoenix Hawk,3
+VL-2T Vulcan,4
+SHD-2H Shadow Hawk,5
+WTH-1 Whitworth,6
+HBK-4G Hunchback,5
+TBT-5N Trebuchet,4
+GRF-1N Griffin,3
+WVR-6R Wolverine,2
+WVR-6K Wolverine,1
+

@@ -1,0 +1,11 @@
+Guillotine IIc(70)(3060), 1
+Cauldron-Born C(65)(3058), 2
+Linebacker D(65)(3055), 3
+Mad Cat C(75)(3050), 4
+Thor D(70)(3050), 5
+Mad Cat Prime(75)(3050), 6
+Vulture B(60)(3050), 5
+Loki Prime(65)(3050), 4
+Loki A(65)(3050), 3
+Vulture A(60)(3050), 2
+Grizzly(70)(3058), 1

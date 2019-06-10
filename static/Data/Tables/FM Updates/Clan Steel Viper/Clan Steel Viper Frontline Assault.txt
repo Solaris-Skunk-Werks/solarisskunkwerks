@@ -1,0 +1,16 @@
+Clan Steel Viper Frontline Assault.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Naga Prime,1
+Kingfisher C,2
+Warhawk A,3
+Gargoyle Prime,4
+Warhawk Prime,5
+Gargoyle B,6
+Gargoyle B,5
+Executioner Prime,4
+Dire Wolf B,3
+Kingfisher B,2
+Dire Wolf Prime,1
+

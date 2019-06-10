@@ -1,0 +1,10 @@
+Random Mech Assignment Table: Opposing Force Mercenary Heavy.txt
+Per Starterbook Wolf and Blake page 66
+Copyright WizKids games & Catalyst Game Labs
+Entered in to RUS format by: Aaron "Bear" Gregory
+OSR-2D Ostroc(60)(3050U), 1
+JM6-DD JagerMech(65)(3050U), 1
+ARC-4M Archer(70)(3050U), 1
+DRG-7K Grand Dragon(60)(3050U), 1
+CES-4R Caesar(70)(3050U), 1
+CPLT-H2 Catapult(65)(3050U), 1

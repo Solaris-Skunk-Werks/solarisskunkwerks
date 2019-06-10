@@ -1,0 +1,16 @@
+Hanseatic League Medium.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ASN-23 Assassin,1
+WVR-6R Wolverine,2
+VL-5S Vulcan,3
+TBT-5S Trebuchet,4
+HBK-4G hunchback,5
+CLNT-2-3T Clint,6
+CN9-D Centurion,5
+WTH-1 Whitworth,4
+PXH-1 Phoenix Hawk,3
+WTH-2 Whitworth,2
+GRF-1N Griffin,1
+

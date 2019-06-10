@@ -1,0 +1,16 @@
+WiE FL Aerofighters Medium.txt
+Per Field Manual Updates page 217
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Jagatai Prime,1
+Ammon,2
+Jagatai A,3
+Visigoth B,4
+Jagatai B,5
+Turk Prime,6
+Visigoth C,5
+Jagatai B,4
+Visigoth A,3
+Jagatai C,2
+Tyre,1
+

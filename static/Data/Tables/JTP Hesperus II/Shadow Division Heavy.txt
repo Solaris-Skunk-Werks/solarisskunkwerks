@@ -1,0 +1,11 @@
+C-DVA-O Deva, 1
+C-DVA-O Deva, 2
+TYM-1B Toyama, 3
+C-GRG-O Grigori, 4
+EXT-5F Exterminator, 5
+FLS-9B Flashman, 6
+GLT-6WB Guillotine, 5
+C-GRG-O Grigori, 4
+C-GRG-O Grigori, 3
+C-DVA-O Deva, 2
+Mad Cat Prime, 1

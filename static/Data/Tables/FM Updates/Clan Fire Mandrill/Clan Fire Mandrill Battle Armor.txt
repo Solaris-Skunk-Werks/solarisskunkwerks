@@ -1,0 +1,16 @@
+Clan Fire Mandrill Battle Armor.txt
+Per Field Manual Updates page 
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ Salamander , 1
+ Salamander , 2
+ Elemental , 3
+ Elemental , 4
+ Elemental , 5
+ Elemental , 6
+ Elemental , 5
+ Elemental , 4
+ Salamander , 3
+ Salamander , 2
+ Salamander , 1
+

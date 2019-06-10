@@ -1,0 +1,11 @@
+YMN-6Y Yeoman, 1
+CES-4R Caesar, 2
+HEL-3D Helios, 3
+RFL-8D Rifleman, 4
+WHM-8D Warhammer, 5
+ARC-8M Archer, 6
+TDR-7SE Thunderbolt, 5
+AV1-O Avatar, 4
+CTS-8Y Cestus, 3
+MTR-5K Maelstrom, 2
+DRG-5K Grand Dragon, 1

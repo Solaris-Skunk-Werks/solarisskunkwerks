@@ -1,0 +1,16 @@
+WoB Light A.txt
+Per Field Manual Updates page 220
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+HSR-500-D Hussar,1
+HSR-400-D Hussar,2
+RDS-2A Red Shift,3
+MON-76 Mongoose,4
+MCY-102 Mercury,5
+GUR-2G Gurkha,6
+MCY-97 Mercury,5
+LCT-5M Locust,4
+NXS1-B Nexus,3
+ZPH-1A Tarantula,2
+OTT-9CS Ostscout,1
+

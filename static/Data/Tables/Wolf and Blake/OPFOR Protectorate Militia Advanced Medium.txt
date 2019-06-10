@@ -1,0 +1,10 @@
+Random Mech Assignment Table: Opposing Force Protectorate Militia Advanced Medium.txt
+Per Starterbook Wolf and Blake page 66
+Copyright WizKids games & Catalyst Game Labs
+Entered in to RUS format by: Aaron "Bear" Gregory
+INI-O2 Initiate(40)(3060), 1
+WTC-4DM Watchman(40)(3055U), 1
+LGH-4W Lightray(55)(3067), 1
+WVR-8KHP Wolverine(55)(PU), 1
+SHD-7CS Shadow Hawk(55)(PU), 1
+GRM-R-PR31 Grim Reaper(55)(3055U), 1

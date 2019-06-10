@@ -1,0 +1,16 @@
+AFFS Assault Mechs F.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+GOL-3M Goliath,1
+CP-11-G Cyclops,2
+ZEU-9S Zeus,3
+BLR-3M Battlemaster,4
+AS7-D Atlas,5
+VCT-9K Victor,6
+AWS-9Q Awesome,5
+STK-5S Stalker,4
+LGB-12C Longbow,3
+BNC-3C Banshee,2
+VTR-10D Victor,1
+

@@ -1,0 +1,16 @@
+LAAF Light Mechs F.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+WLF-1 Wolfhound,1
+SDR-5V Spider,2
+PNT-9R Panther,3
+FS9-H Firestarter,4
+LCT-1V Locust,5
+COM-2D Commando,6
+STG-3R Stinger,5
+WSP-1A Wasp,4
+JR7-D Jenner,3
+JVN-10P Javelin,2
+COM-5S Commando,1
+

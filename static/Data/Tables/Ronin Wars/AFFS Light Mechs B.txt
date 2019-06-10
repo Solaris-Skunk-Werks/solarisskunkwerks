@@ -1,0 +1,11 @@
+WLF-1 Wolfhound(35), 1
+HNT-151 Hornet(20), 2
+VLK-QA Valkyrie(35), 3
+FS9-H Firestarter(35), 4
+WSP-1D Wasp(20), 5
+JVN-10N Javelin(30), 6
+STG-3G Stinger(20), 5
+COM-2D Commando(25), 4
+JVN-10F Javelin(30), 3
+LCT-1M Locust(20), 2
+JR7-D Jenner(35), 1

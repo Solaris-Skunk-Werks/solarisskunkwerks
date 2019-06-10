@@ -1,0 +1,16 @@
+Clan Blood Spirit Secondline Assault.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+HGN-732 Highlander,1
+Marauder IIC,2
+Phoenix Hawk IIc,3
+Blood Kite,4
+Blood Kite,5
+Blood Kite,6
+Blood Kite,5
+CRK-5003-1 Crockett,4
+Warhammer IIc,3
+Warhammer IIc 3,2
+Supernova,1
+

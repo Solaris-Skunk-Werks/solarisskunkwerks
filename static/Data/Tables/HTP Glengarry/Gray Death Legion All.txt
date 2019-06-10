@@ -1,0 +1,39 @@
+Valkyrie VLK-QD,1
+Locust LCT-3M,2
+Stinger STG-3G,3
+Commando COM-5S,4
+Jenner JR7-K,5
+Wolfhound WLF-2,6
+Panther PNT-10K,5
+Raven RVN-3L,4
+Spider SDR-7M,3
+Uller (Kit Fox),2
+Enforcer ENF-4R,1
+Hunchback HBK-5M,1
+Griffin GRF-3M,2
+Phoenix Hawk PXH-3D,3
+Trebuchet TBT-5N,4
+Shadow Hawk SHD-5M,5
+Wolverine WVR-7M,6
+Dervish DV-7D,5
+Centurion CN9-D,4
+Black Hawk (Nova),3
+Grand Dragon DRG-1G,2
+Grasshopper GHR-5H,1
+Marauder MAD-3R,1
+Warhammer WHM-7M,2
+Cataphract CTF-3L,3
+Archer ARC-4M,4
+Grand Dragon DRG-5K,5
+Orion ON1-M,6
+Thor (Summoner),5
+Goliath GOL-3M,4
+Zeus ZEU-9S,3
+Banshee BNC-5S,2
+Awesome AWS-9M,1
+BattleMaster BLR-3S,1
+Stalker STK-5S,2
+Highlander HGN-732,3
+Charger CGR-3K,4
+Victor VTR-9K,5
+Atlas AS7-K,6

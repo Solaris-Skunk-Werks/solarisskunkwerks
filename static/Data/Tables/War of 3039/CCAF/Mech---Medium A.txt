@@ -1,0 +1,11 @@
+BJ-3 Blackjack(45), 1
+HBK-4J Hunchback(50), 2
+HBK-4G Hunchback(50), 3
+GRF-1N Griffin(55), 4
+WVR-6R Wolverine(55), 5
+PXH-1 Phoenix Hawk(45), 6
+VND-1R Vindicator(45), 5
+VND-1R Vindicator(45), 4
+SHD-2H Shadow Hawk(55), 3
+BJ-3 Blackjack(45), 2
+CRS-3M Cronus(55), 1

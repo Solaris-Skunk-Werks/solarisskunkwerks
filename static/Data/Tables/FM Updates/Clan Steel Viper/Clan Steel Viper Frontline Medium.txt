@@ -1,0 +1,16 @@
+Clan Steel Viper Frontline Medium.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Black Lanner Prime,1
+Shadow Cat B,2
+Nova Prime,3
+Viper Prime,4
+Battle Cobra Prime,5
+Battle Cobra B,6
+Ice Ferret B,5
+Stormcrow Prime,4
+Nova B,3
+Grendel A,2
+Ice Ferret Prime,1
+

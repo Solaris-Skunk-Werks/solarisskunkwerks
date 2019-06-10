@@ -1,0 +1,11 @@
+J. Edgar(25), 1
+Galleon(30), 2
+Skulker(20), 3
+Saracen(35), 4
+Scorpion(25), 5
+Pegasus(35), 6
+Harasser(25), 5
+Galleon(30), 4
+Peregrine(30), 3
+Striker(35), 2
+Warrior(20), 1

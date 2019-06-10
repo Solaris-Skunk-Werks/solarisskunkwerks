@@ -1,0 +1,16 @@
+DCMS Vehicles Light.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Yellow Jacket Gunship,1
+Striker Lt Tank,2
+Mantis VTOL,3
+Hunter,4
+Saladin,5
+Saracen Med Hovertank,6
+Hawk Moth Gunship,5
+Pegasus Sct Hovertank,4
+Scorpion Lt Tank,3
+J. Edgar,2
+Cavalry Attack VTOL,1
+

@@ -1,0 +1,16 @@
+Clan Fire Mandrill Frontline Heavy.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Mad Dog B,1
+Summoner C,2
+Summoner B,3
+Cauldron Born C,4
+Mad Dog Prime,5
+Cauldron Born B,6
+Summoner Prime,5
+Cauldron Born Prime,4
+Cauldrom Born A,3
+Summoner A,2
+Nova Cat Prime,1
+

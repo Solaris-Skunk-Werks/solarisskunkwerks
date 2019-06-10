@@ -1,0 +1,10 @@
+Random Mech Assignment Table: Opposing Force Mercenary Light.txt
+Per Starterbook Wolf and Blake page 66
+Copyright WizKids games & Catalyst Game Labs
+Entered in to RUS format by: Aaron "Bear" Gregory
+HNT-171 Hornet(20)(3050U), 1
+PNT-10K Panther(35)(3050U), 1
+JR7-C3 Jenner(35)(3050U), 1
+SDR-7M Spider(30)(3050U), 1
+FFL-4B Firefly(30)(3050U), 1
+STG-5M Stinger(20)(3050U), 1

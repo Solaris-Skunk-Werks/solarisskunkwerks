@@ -1,0 +1,11 @@
+ASN-21 Assassin(40), 1
+TBT-5N Treuchet(50), 2
+CN9-A Centurion(50), 3
+SHD-2H Shadow Hawk(55), 4
+GRF-1N Griffin(55), 5
+WVR-6R Wolverine(55), 6
+PXH-1 Phoenix Hawk(45), 5
+HER-2S Hermes II(40), 4
+HBK-4G Hunchback(50), 3
+CDA-2A Cicada(40), 2
+SCP-1N Scorpion(55), 1

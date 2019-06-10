@@ -1,0 +1,11 @@
+Night Gyr D(75)(3058), 1
+Night Gyr B(75)(3058), 2
+Loki B(65)(3050), 3
+Thor A(70)(3050), 4
+Loki Prime(65)(3050), 5
+Thor Prime(70)(3050), 6
+Thor D(70)(3050), 5
+Night Gyr Prime(75)(3058), 4
+Night Gyr A(75)(3058), 3
+Loki A(65)(3050), 2
+Night Gyr C(75)(3058), 1

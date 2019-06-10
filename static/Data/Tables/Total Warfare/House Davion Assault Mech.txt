@@ -1,0 +1,11 @@
+DVS-02 Devastator(100)(3058), 1
+TLR1-O Templar(85)(3067), 2
+AWS-8Q Awesome(80)(3025), 3
+GUN-1ERD Gunslinger(85)(3055), 4
+VTR-9K Victor(80)(3050), 5
+VTR-9K Victor(80)(3050), 6
+AS7-K Atlas(100)(3050), 5
+VTR-9B Victor(80)(3025), 4
+LGB-12C Longbow(85)(PP), 3
+BNC-5S Banshee(95)(3050), 2
+SGT-8R Sagittaire(90)(3067), 1

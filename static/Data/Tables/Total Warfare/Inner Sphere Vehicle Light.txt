@@ -1,0 +1,11 @@
+Hunter(35)(3058), 1
+J. Edgar(25)(3026), 2
+Scorpion(25)(3026), 3
+Savannah Master(5)(3026), 4
+Skulker(20)(3026), 5
+Pegasus(35)(3026), 6
+Hunter(35)(3026), 5
+Saracen(35)(3026), 4
+Scimitar(35)(3026), 3
+Saladin(35)(3026), 2
+Mobile HQ(25)(3025), 1

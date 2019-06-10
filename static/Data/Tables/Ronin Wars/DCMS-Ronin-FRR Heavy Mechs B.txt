@@ -1,0 +1,11 @@
+RFL-3N Rifleman(60), 1
+CRD-3R Crusader(65), 2
+WHM-6K Warhammer(70), 3
+DRG-1N Dragon(60), 4
+ARC-2R Archer(70), 5
+ON1-K Orion(75), 6
+WHM-6R Warhammer(70), 5
+DRG-1G Grand Dragon(60), 4
+QKD-4G Quickdraw(60), 3
+CRD-3K Crusader(65), 2
+GHR-5N Grasshopper(70), 1

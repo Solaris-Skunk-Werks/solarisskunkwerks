@@ -1,0 +1,16 @@
+AFFS Medium Mechs F.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+HCT-5S Hatchetman,1
+PXH-6D Phoenix Hawk,2
+BJ-3 Blackjack,3
+WTH-2 Whitworth,4
+DV-8D Dervish,5
+ENF-5D Enforcer,6
+PXH-3D Phoenix Hawk,5
+TBT-5N Trebuchet,4
+HBK-4G Hunchback,3
+WVR-8D Wolverine,2
+CDA-3F Cicada,1
+

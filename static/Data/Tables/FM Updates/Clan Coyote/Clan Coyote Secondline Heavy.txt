@@ -1,0 +1,16 @@
+Clan Coyote Secondline Heavy.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Timber Wolf Prime,1
+Grizzly,2
+Guillotine IIc,3
+Glass Spider,4
+Rifleman IIc 4,5
+Guillotine IIc,6
+Rifleman IIc,5
+Glass Spider 2,4
+Rifleman IIc,3
+Black Python,2
+Bowman,1
+

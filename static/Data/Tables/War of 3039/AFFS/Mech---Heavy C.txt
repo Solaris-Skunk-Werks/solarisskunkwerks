@@ -1,0 +1,11 @@
+ON1-K Orion(75), 1
+OTL-4D Ostsol(60), 2
+JM6-S JagerMech(65), 3
+CRD-3R Crusader(65), 4
+RFL-3N Rifleman(60), 5
+MAD-3R Marauder(75), 6
+WHM-6R Warhammer(70), 5
+ARC-2R Archer(70), 4
+GHR-5H Grasshopper(70), 3
+TDR-5S Thunderbolt(65), 2
+CHP-2N Champion(60), 1

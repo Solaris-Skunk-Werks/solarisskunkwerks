@@ -1,0 +1,16 @@
+Merc Heavy Mechs F.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+TDR-5SS Thunderbolt,1
+CRD-3R Crusader,2
+TDR-5S Thunderbolt,3
+GHR-5H Grasshopper,4
+RFL-3N Rifleman,5
+ARC-2R Archer,6
+WHM-6R Warhammer,5
+MAD-3R Marauder,4
+ON1-K Orion,3
+MLN-1A Merlin,2
+GHR-5N Grasshopper,1
+

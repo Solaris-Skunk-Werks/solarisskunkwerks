@@ -1,0 +1,16 @@
+Nova Cat FL Aerofighters Heavy.txt
+Per Field Manual Updates page 223
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Xerxes,1
+Jengiz A,2
+Scytha Prime,3
+Kirghiz C,4
+Jengiz A,5
+Scytha A,6
+Kirghiz B,5
+Scytha C,4
+Scytha B,3
+Hydaspes,2
+Sabutai A,1
+

@@ -1,0 +1,16 @@
+Merc Medium Mechs F.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+CNS-3M Cronus,1
+TBT-5N Trebuchet,2
+ENF-4R Enforcer,3
+CN9-D Centurion,4
+HBK-4G Hunchback,5
+PXH-1 Phoenix Hawk,6
+GRF-1N Griffin,5
+SHD-2H Shadow Hawk,4
+WVR-6R Wolverine,3
+DV-6M Dervish,2
+BJ-1DB Blackjack,1
+

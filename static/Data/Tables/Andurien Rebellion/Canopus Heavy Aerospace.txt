@@ -1,0 +1,11 @@
+SL-15 Slayer(80), 1
+CHP-W5 Chippewa(90), 2
+CHP-W5 Chippewa(90), 3
+THB-D36 Thunderbird(100), 4
+THB-D36 Thunderbird(100), 5
+EGL-R6 Eagle(75), 6
+EGL-R6 Eagle(75), 5
+STU-K5 Stuka(100), 4
+STU-K5 Stuka(100), 3
+F-100 Riever(100), 2
+F-100 Riever(100), 1

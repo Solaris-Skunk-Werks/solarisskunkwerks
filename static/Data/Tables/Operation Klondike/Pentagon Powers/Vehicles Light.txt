@@ -1,0 +1,11 @@
+Cobra Transport VTOL, 1
+Beagle, 1
+Rotunda, 1
+Flatbed Truck (LRM), 1
+Rotunda (Variant), 1
+Galleon GAL-200, 1
+Flatbed Truck (RL), 1
+Galleon (RL), 1
+Lightning, 1
+Ripper, 1
+Lightning (Royal), 1

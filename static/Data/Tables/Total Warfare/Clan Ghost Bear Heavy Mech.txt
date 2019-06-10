@@ -1,0 +1,11 @@
+Arcas(65)(3067), 1
+Thresher(60)(3058), 2
+Vulture C(60)(3050), 3
+Vulture B(60)(3050), 4
+Thor Prime(70)(3050), 5
+Vulture Prime(60)(3050), 6
+Vulture A(60)(3050), 5
+Thor C(70)(3050), 4
+Cauldron-Born Prime(65)(3058), 3
+Nova Cat A(70)(3060), 2
+Grizzly(70)(3058), 1

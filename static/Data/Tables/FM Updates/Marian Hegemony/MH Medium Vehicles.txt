@@ -1,0 +1,16 @@
+MH Medium Vehicles.txt
+Per Field Manual Updates page 231
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Regulator Hovertank,1
+Vedette Medium Tank,2
+Condor Heavy Hovertank,3
+Light SRM Carrier,4
+Maxim Heavy Hover Transport,5
+Drillson Heavy Hovertank,6
+Gladius Medium Hovertank,5
+Myrmidon Medium Tank,4
+Goblin Medium Tank,3
+Fulcrum Heavy Hovertank,2
+Hetzer Wheeled Assault Gun,1
+

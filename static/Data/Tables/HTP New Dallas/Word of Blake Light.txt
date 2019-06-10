@@ -1,0 +1,11 @@
+Locust LCT-5M,1
+Nexus II NXS2-B,2
+Ostscout OTT-9CS,3
+Gurkha GUR-2G,4
+Falcon Hawk FNHK-9K1B,5
+Hussar HSR-500-D,6
+Nexus NXS1-B,5
+Gurkha GUR-4G,4
+Nexus II NXS2-A,3
+Mercury MCY-102,2
+Tarantula ZPH-2A,1

@@ -1,0 +1,16 @@
+FRR Light A.txt
+Per Field Manual Updates page 221
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+HM-1 Hitman,1
+SDR-8M Spider,2
+MCY-97 Mercury,3
+LCT-5M Locust,4
+MON-76 Mongoose,5
+PNT-10K Panther,6
+COM-5S Commando,5
+JR7-K Jenner,4
+HER-4S Hermes,3
+FS9-S Firestarter,2
+RZK-9S Razorback,1
+

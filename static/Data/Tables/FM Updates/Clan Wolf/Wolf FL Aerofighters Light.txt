@@ -1,0 +1,17 @@
+Wolf FL Aerofighters Light.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Avar A,1
+Vandal C,2
+Batu A,3
+Bashkir C,4
+Batu Prime,5
+Sulla Prime,6
+Batu B,5
+Sulla C,4
+Batu C,3
+Vandal A,2
+Avar B,1
+
+

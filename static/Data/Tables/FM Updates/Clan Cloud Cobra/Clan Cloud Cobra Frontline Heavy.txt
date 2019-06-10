@@ -1,0 +1,16 @@
+Clan Cloud Cobra Frontline Heavy.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Night Gyr C,1
+Mad Dog Prime,2
+Timber Wolf E,3
+Night Gyr E,4
+Cauldron-Born B,5
+Mad Dog H,6
+Summoner C,5
+Mad Dog D,4
+Timber Wolf D,3
+Cauldron-Born H,2
+Linebacker A,1
+

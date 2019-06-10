@@ -1,0 +1,11 @@
+EGL-R6b	Eagle, 1
+RPD-100	Rapier, 1
+TRB-36b	Thunderbird, 1
+STU-K5b	Stuka, 1
+AHB-443b Ahab, 1
+RPD-100b Rapier, 1
+HMR-HDb	Hammerhead, 1
+EGL-R6b	Eagle, 1
+TRB-36b	Thunderbird, 1
+CHP-W5b	Chippewa, 1
+AHB-443	Ahab, 1

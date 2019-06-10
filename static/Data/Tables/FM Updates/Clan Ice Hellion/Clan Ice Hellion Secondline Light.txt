@@ -1,0 +1,16 @@
+Clan Ice Hellion Secondline Light.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Commando IIc,1
+Howler,2
+Locust IIc 2,3
+Locust IIC,4
+Horned Owl,5
+Incubus 2,6
+Snow Fox,5
+Icestorm,4
+Incubus,3
+Jenner IIc,2
+Firefly(C),1
+

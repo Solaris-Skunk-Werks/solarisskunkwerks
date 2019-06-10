@@ -1,0 +1,11 @@
+Highlander HGN-732,1
+Thug THG-11E,2
+Stalker STK-3F,3
+Banshee BNC-3M,4
+Goliath GOL-1H,5
+Victor VTR-9B,6
+Rampage RMP-2G,5
+BattleMaster BLR-1G,4
+Longbow LGB-0W,3
+Awesome AWS-8Q,2
+Rampage RMP-4G,1

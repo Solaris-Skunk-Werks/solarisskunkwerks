@@ -1,0 +1,16 @@
+WoB Assault B.txt
+Per Field Manual Updates page 220
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ALB-3U Albatross,1
+GRN-D-01 Grand Crusader,2
+KGC-000 King Crab,3
+AWS-9M Awesome,4
+THG-11E Thug,5
+HGN-732 Highlander,6
+STK-5M Stalker,5
+CRK-5003-1 Crockett,4
+LGB-7Q Longbow,3
+MR-5V Cerberus,2
+KGC-001 King Crab,1
+

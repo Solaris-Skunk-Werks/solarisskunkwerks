@@ -1,0 +1,17 @@
+LAAF Medium Mechs A.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+BZK-F7 Hollander II,1
+CBR-O2 Cobra,2
+BTZ-3F Blitzkrieg,3
+CLNT-2-3U Clint,4
+FS9-O Firestarter,5
+HCT-5S Hatchetman,6
+NGS-5S Nightsky,5
+CMR-1S Chimera,4
+LNX-9Q Lynx,3
+BSW-S2 Buchwacker,2
+STY-3C Starslayer,1
+
+

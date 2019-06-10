@@ -1,0 +1,47 @@
+STG-3R Stinger, 1
+LCT-1E Locust, 2
+STG-3R Stinger, 3
+WSP-1K Wasp, 4
+JR7-D Jenner, 5
+JR7-D Jenner, 6
+PNT-9R Panther, 5
+PNT-9R Panther, 4
+JR7-F Jenner, 3
+SDR-5K Spider, 2
+STG-3R Stinger, 1
+
+ENF-4R Enforcer, 1
+HBK-4G Hunchback, 2
+GRF-1N Griffin, 3
+PXH-1K Phoenix Hawk, 4
+PXH-1 Phoenix Hawk, 5
+SHD-2H Shadow Hawk, 6
+WVR-6R Wolverine, 5
+WVR-6K Wolverine, 4
+SHD-2K Shadow Hawk, 3
+HBK-4P Hunchback, 2
+PXH-1K Phoenix Hawk, 1
+
+CPLT-K2 Catapult, 1
+GHR-5H Grasshopper, 2
+CPLT-C1 Catapult, 3
+WHM-6R Warhammer, 4
+DRG-1N Dragon, 5
+DRG-1N Dragon, 6
+DRG-1N Dragon, 5
+ARC-2K Archer, 4
+ON1-K Orion, 3
+WHM-6K Warhammer, 2
+QKD-4G Quickdraw, 1
+
+GOL-1H Goliath, 1
+ZEU-6S Zeus, 2
+BNC-3E Banshee, 3
+CGR-1A1 Charger, 4
+BLR-1G BattleMaster, 5
+STK-3F Stalker, 6
+CP-10-Z Cyclops, 5
+AWS-8Q Awesome, 4
+CGR-1A1 Charger, 3
+VTR-9B Victor, 2
+AS7-D Atlas, 1

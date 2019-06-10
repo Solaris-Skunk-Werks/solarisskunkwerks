@@ -1,0 +1,16 @@
+Clan Blood Spirit Frontline Heavy.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hellfire 2,1
+Thresher,2
+Mad Dog B,3
+Timber Wolf D,4
+Summoner A,5
+Crossbow Prime,6
+Crossbow Prime,5
+Grizzly,4
+Crossbow B,3
+Rifleman IIc,2
+Grizzly,1
+

@@ -1,0 +1,16 @@
+LAAF Medium Mechs D.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+CN9-D Centurion,1
+PXH-1 Phoenix Hawk,2
+SHD-2H Shadow hawk,3
+ENF-5D Enforcer,4
+CLNT-2-3U Clint,5
+HCT-3F Hatchetman,6
+VL-5S Vulcan,5
+GRF-1DS Griffin,4
+WVR-7D Wolverine,3
+ASN-23 Assassin,2
+TBT-5S Trebuchet,1
+

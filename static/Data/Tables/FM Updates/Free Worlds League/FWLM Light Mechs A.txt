@@ -1,0 +1,16 @@
+FWLM Light Mechs A.txt
+Per Field Manual Updates page 226
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+FS9-0 Firestarter,1
+FNHK-9K Falcon Hawk,2
+ZPH-1A Tarantula,3
+EGL-1M Eagle,4
+LCT-5M Locust,5
+STG-5M Stinger,6
+HER-3S Hermes,5
+HMR-3M Hammer,4
+SDR-7M Spider,3
+JA-KL-1532 Jackal,2
+OW-1 Owens,1
+

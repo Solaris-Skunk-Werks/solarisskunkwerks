@@ -1,0 +1,16 @@
+CCAF Assault Mechs F.txt
+Per Field Manual Updates page 206
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+STC-2C Striker,1
+STC-2C Striker,2
+LGV-7Q Longbow,3
+LGV-7Q Longbow,4
+CP-10-Q Cyclops,5
+CGR-1A1 Charger,6
+CGR-1A5 Charger,5
+CP-10-Z Cyclops,4
+STK-4P Stalker,3
+CGR-1L Charger,2
+CGR-1L Charger,1
+

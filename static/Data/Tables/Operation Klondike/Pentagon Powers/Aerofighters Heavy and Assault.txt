@@ -1,0 +1,11 @@
+RPD-100b Rapier, 1
+VLC-5N Vulcan, 1
+CHP-W5 Chippewa, 1
+TRB-36 Thunderbird, 1
+HMR-HD Hammerhead, 1
+RPD-100	Rapier, 1
+AHB-443	Ahab, 1
+EGL-R6 Eagle, 1
+STU-K5 Stuka, 1
+HMR-HDb	Hammerhead, 1
+AHB-443b Ahab, 1

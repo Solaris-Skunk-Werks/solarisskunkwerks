@@ -1,0 +1,16 @@
+Jade Falcon FL Aerofighters Light.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Batu C,1
+Vandal C,2
+Avar B,3
+Bashkir Prime,4
+Chaeronea,5
+Sulla B,6
+Vandal Prime,5
+Batu Prime,4
+Avar Prime,3
+Bashkir C,2
+Issus,1
+

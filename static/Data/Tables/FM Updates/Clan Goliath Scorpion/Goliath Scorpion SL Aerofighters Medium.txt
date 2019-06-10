@@ -1,0 +1,16 @@
+Goliath Scorpion SL Aerofighters Medium.txt
+Per Field Manual Updates page 216
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Turk Prime,1
+Jagatai Prime,2
+Jagatai B,3
+HCT-213B Hellcat II,4
+Tyre,5
+Ammon,6
+GTHA-500 Gotha,5
+Visigoth A,4
+IRN-SD1 Ironsides,3
+Turk Prime,2
+Visigoth Prime,1
+

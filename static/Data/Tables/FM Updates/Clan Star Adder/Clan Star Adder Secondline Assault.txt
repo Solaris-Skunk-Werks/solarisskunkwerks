@@ -1,0 +1,16 @@
+Clan Star Adder Secondline Assault.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Anihilator(C),1
+Bane 3,2
+Marauder IIc,3
+Blood Kite,4
+Marauder IIc 2,5
+Warhammer IIc 2,6
+Highlander IIc,5
+Warhammer IIc 3,4
+Phoenix Hawk IIc 3,3
+Shogu(C),2
+Imp(C),1
+

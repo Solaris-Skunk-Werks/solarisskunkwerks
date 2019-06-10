@@ -1,0 +1,16 @@
+WoB Light B.txt
+Per Field Manual Updates page 220
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+JA-KL-1532 Jackal,1
+NXS1-A Nexus,2
+STG-5R Stinger,3
+MCY-99 Mercury,4
+MON-66 Mongoose,5
+HER-3S Hermes,6
+THE-N Thorn,5
+SDR-7M Spider,4
+LCT-3M Locust,3
+WSP-3L Wasp,2
+HSR-200-D Hussar,1
+

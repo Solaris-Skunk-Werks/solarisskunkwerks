@@ -1,0 +1,11 @@
+Manticore Heavy Tank(60), 1
+Rommel(65), 2
+Pike Support Vehicle(60), 3
+Manticore Heavy Tank(60), 4
+Von Luckner(75), 5
+LRM Carrier(60), 6
+SRM Carrier(60), 5
+Bulldog(70), 4
+Patton(65), 3
+Von Luckner(75), 2
+SRM Carrier(60), 1

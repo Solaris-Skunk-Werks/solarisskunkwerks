@@ -1,0 +1,10 @@
+Random Mech Assignment Table Opposing Force Guerilla Heavy.txt
+Per Starterbook Wolf and Blake  page 67
+Copyright WizKids games & Catalyst Game Labs
+Entered in to RUS format by: Aaron "Bear" Gregory
+AXM-1N Axman(65)(3050U), 1
+ARC-5R Archer(70)(3050U), 1
+TDR-7M Thunderbolt(65)(3050U), 1
+CTF-3D Cataphract(70)(3050U), 1
+WHM-7M Warhammer(70)(3050U), 1
+ON-1M Orion(75)(3050U), 1

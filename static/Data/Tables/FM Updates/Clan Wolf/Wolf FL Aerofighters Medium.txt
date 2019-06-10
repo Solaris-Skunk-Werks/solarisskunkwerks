@@ -1,0 +1,16 @@
+Wolf FL Aerofighters Medium.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Jagatai Prime,1
+Ammon,2
+Jagatai A,3
+Visigoth A,4
+Jagatai B,5
+Turk Prime,6
+Visigoth Prime,5
+Jagatai C,4
+Visigoth C,3
+Jagatai A,2
+Tyre,1
+

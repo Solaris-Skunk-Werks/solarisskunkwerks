@@ -1,0 +1,10 @@
+Random Mech Assignment Table: Opposing Force Mercenary Assault.txt
+Per Starterbook Wolf and Blake page 66
+Copyright WizKids games & Catalyst Game Labs
+Entered in to RUS format by: Aaron "Bear" Gregory
+GOL-3M Goliath(80)(3050U), 1
+CGR-3K Charger(80)(3050U), 1
+VTR-10L Victor(80)(3050U), 1
+MAL-1K Mauler(90)(3050U), 1
+CP-11-A Cyclops(90)(3050U), 1
+IMP-3E Imp(100)(3050U), 1

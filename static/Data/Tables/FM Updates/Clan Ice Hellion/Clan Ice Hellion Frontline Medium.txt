@@ -1,0 +1,16 @@
+Clan Ice Hellion Frontline Medium.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Phantom H,1
+Phantom D,2
+Viper Prime,3
+Black Lanner E,4
+Viper A,5
+Stormcrow B,6
+Black Lanner B,5
+Ice Ferret D,4
+Stormcrow Prime,3
+Stormcrow A,2
+Ice Ferret Prime,1
+

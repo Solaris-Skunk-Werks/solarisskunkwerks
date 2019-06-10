@@ -1,0 +1,16 @@
+FRR Heavy B.txt
+Per Field Manual Updates page 221
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+GAL-1GLS Gallowglas,1
+MAD-5D Marauder,2
+WR-DG-02FC War Dog,3
+QKD-5K Quickdraw,4
+CRD-4K Crusader,5
+DRG-1N Dragon,6
+ARC-5R Archer,5
+DRG-5K Grand Dragon,4
+JM6-DD Jagermech,3
+AXM-1N Axman,2
+BGS-1T Barghest,1
+

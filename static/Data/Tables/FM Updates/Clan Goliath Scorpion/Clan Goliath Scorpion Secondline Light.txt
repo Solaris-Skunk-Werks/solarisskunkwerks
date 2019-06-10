@@ -1,0 +1,16 @@
+Clan Goliath Scorpion Secondline Light.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Spirit,1
+MCY-97 Mercury,2
+Urbanmech IIc,3
+Jenner IIc,4
+Horned Owl,5
+Incubus,6
+Horned Owl,5
+Locust IIc,4
+Commando IIc,3
+MON-66 Mongoose,2
+Piranha,1
+

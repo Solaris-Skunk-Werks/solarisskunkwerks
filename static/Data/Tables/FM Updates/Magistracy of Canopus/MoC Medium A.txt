@@ -1,0 +1,16 @@
+MoC Medium A.txt
+Per Field Manual Updates page 229
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+PXH-4L Phoenix Hawk,1
+VND-4L Vindicator,2
+HER-5S Hermes II,3
+HUR-R4L Huron Warrior,4
+HBK-5N Hunchback,5
+MHL-2L Marshal,6
+SNK-1V Snake,5
+BJ2-OD Blackjack,4
+TR1 Wraith,3
+MS1-O Men Shen,2
+SHD-7M Shadow Hawk,1
+

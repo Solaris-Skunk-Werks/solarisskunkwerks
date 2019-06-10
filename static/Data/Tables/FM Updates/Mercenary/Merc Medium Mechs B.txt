@@ -1,0 +1,16 @@
+Merc Medium Mechs B.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+NGS-5S Nightsky,1
+STY-3D Starslayer,2
+BSW-S2 Bushwacker,3
+STY-3C Starslayer,4
+APL-1M Apollo,5
+CLN-7W Chameleon,6
+KW1-LH3 Lineholder,5
+CN-10B Centurion,4
+SNT-O4 Sentry,3
+LNX-9Q Lynx,2
+BJ2-O Blackjack,1
+

@@ -1,0 +1,16 @@
+Ice Hellion FL Aerofighters Medium.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Turk C,1
+Visigoth Prime,2
+Turk A,3
+Turk B,4
+Visigoth Prime,5
+Turk Prime,6
+Visigoth C,5
+Jagatai A,4
+Jagatai C,3
+Turk Prime,2
+Jagatai B,1
+

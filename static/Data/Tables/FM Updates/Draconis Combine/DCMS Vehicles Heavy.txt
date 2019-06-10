@@ -1,0 +1,16 @@
+DCMS Vehicles Heavy.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Zhukov Tank,1
+Patton Tank,2
+Po Heavy Tank,3
+Manticore Tank,4
+Tokugawa Tank,5
+LRM Carrier,6
+SRM Carrier,5
+Bulldog Tank,4
+Von Luckner Tank,3
+Pilum Tank,2
+Pike Support Tank,1 
+

@@ -1,0 +1,16 @@
+Clan Ghost Bear Secondline Assault.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Highlander IIc,1
+Mad Cat MkII,2
+Executioner Prime,3
+THG-11E Thug,4
+Kodiak,5
+Kodiak,6
+Supernova,5
+KGC-000 King Crab,4
+CRK-5003-1 Crockett,3
+VKG-2F Viking,2
+Stone Rhino,1
+

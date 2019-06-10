@@ -1,0 +1,11 @@
+Warrior VTOL(21), 1
+Warrior VTOL(21), 2
+Saladn(35), 3
+Packrat(20), 4
+Hunter(35), 5
+Striker(35), 6
+Pegasus(35), 5
+J. Edgar(25), 4
+Galleon(30), 3
+Saracen(35), 2
+Scimitar(35), 1

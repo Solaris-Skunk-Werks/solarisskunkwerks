@@ -1,0 +1,16 @@
+AFFS Light Mechs B.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+NTK-2Q Night Hawk,1
+DRT-3S1 Dart,2
+SCB-9A Scarabus,3
+GRM-01C Garm,4
+RTX1-OD Raptor,5
+JVN-11D Javelin,6
+WLF-2 Wolfhound,5
+OSR-4D Osiris,4
+BZK-F3 Hollander,3
+OW-1B Owens,2
+SPR-5F Spector,1
+

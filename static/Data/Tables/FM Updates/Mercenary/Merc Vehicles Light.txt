@@ -1,0 +1,16 @@
+Merc Vehicles Light.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Centipede,1
+Scorpion,2
+Blizzard,3
+Hunter,4
+Galleon,5
+Pegasus,6
+Saladin,5
+J. Edgar,4
+Cavalry VTOL,3
+Warrior VTOL,2
+Yellow Jacket Gunship,1
+

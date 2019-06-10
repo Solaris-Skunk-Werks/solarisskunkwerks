@@ -1,0 +1,10 @@
+Random Mech Assignment Table Opposing Force Guerilla Advanced Assault.txt
+Per Starterbook Wolf and Blake  page 67
+Copyright WizKids games & Catalyst Game Labs
+Entered in to RUS format by: Aaron "Bear" Gregory
+AS7-C Atlas(100)(3060), 1
+CP-11-H Cyclops(90)(3067), 1
+AWS-9Q Awesome(80)(3060), 1
+BLR-5M Battlemaster(85)(3067), 1
+GOL-5L Goliath(80)(PU), 1
+ALB-4U Albatross(95)(3055U), 1

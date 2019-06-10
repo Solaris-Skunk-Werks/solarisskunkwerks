@@ -1,0 +1,11 @@
+Daikyu DAI-01,1
+Quickdraw QKD-5K,2
+Marauder MAD-5D,3
+Dragon Fire DGR-3F,4
+Black Hawk-KU BHKU-O,5
+Grand Dragon DRG-5K,6
+Maelstrom MTR-5K,5
+Avatar AV1-O,4
+Gallowglas GAL-1GLS,3
+JagerMech JM6-DD,2
+No-Dachi NDA-1K,1

@@ -1,0 +1,16 @@
+DCMS Assault Mechs F.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+BLR-1G Battlemaster,1
+GOL-1H Goliath,2
+STK-3F Stalker,3
+VTR-9B Victor,4
+BNC-3E Banshee,5
+CGR-1A1 Charger,6
+CGR-1A1 Charger,5
+CGR-1A1 Charger,4
+AS7-D Atlas,3
+AWS-8Q Awesome,2
+LGB-OW Longbow,1
+

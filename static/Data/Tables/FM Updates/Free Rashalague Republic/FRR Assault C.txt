@@ -1,0 +1,16 @@
+FRR Assault C.txt
+Per Field Manual Updates page 221
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+MAL-1R Mauler,1
+VTR-9K Victor,2
+CGR-1A9 Charger,3
+LGB-7Q Longbow,4
+ZEU-6S Zeus,5
+AWS-8Q Awesome,6
+STK-3F Stalker,5
+AS7-K Atlas,4
+BNC-3S Banshee,3
+HTM-27T Hatamoto-Chi,2
+CGR-3K Charger,1
+

@@ -1,0 +1,16 @@
+LAAF Vehicles Assault.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Partisan Air Defense Tank,1
+Fortune,2
+Schrek PPC Carrier,3
+Alacorn Mk VI Heavy Tank,4
+Demolisher Heavy Tank,5
+Ontos Heavy Tank,6
+Sturmfeur Heavy Tank,5
+Demolisher II Heavy Tank,4
+Ajax Assault Tank,3
+Partisan Heavy Tank,2
+Behemoth Heavy Tank,1
+

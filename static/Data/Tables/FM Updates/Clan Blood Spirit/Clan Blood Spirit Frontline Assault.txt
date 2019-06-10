@@ -1,0 +1,16 @@
+Clan Blood Spirit Frontline Assault.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Blood Asp A,1
+Warhawk Prime,2
+Blood Kite,3
+Kingfisher D,4
+Blood Kite,5
+Kingfisher D,6
+Blood Kite,5
+Warhawk C,4
+Blood Kite,3
+Kingfisher C,2
+Dire Wolf A,1
+

@@ -1,0 +1,16 @@
+DCMS Medium Mechs D.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+SCP-10 Scorpion,1
+TBT-5N Trebuchet,2
+CLN-7V Chameleon,3
+ASN-21 Assassin,4
+PHX-1K Phoenix Hawk,5
+WTH-1 Whitworth,6
+WVR-6K Wolverine,5
+GRF-1N Griffin,4
+HBK-4G Hunchback,3
+SHD-2K Shadow Hawk,2
+WVR-7K Wolverine,1
+

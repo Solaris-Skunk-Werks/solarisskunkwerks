@@ -1,0 +1,16 @@
+DCMS Medium Mechs B.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+BSN-3K Bishamon,1
+WTH-2A Whitworth,2
+LNX-9Q Lynx,3
+KIM-2 Komodo,4
+GRF-3M Griffin,5
+WFT-1 Wolf Trap,6
+DMO-1K Diamyo,5
+GRM-R-PR29 Grim Reaper,4
+BJ2-O Blackjack,3
+WVR_8K Wolverine,2
+SR1-O Strider,1
+

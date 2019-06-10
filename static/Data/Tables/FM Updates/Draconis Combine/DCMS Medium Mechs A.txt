@@ -1,0 +1,16 @@
+DCMS Medium Mechs A.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+DMO-1K Daimyo,1
+WVR-8C Wolverine,2
+WFT-1 Wolf Trap,3
+BSN-3K Bishamon,4
+BJ2-O Blackjack,5
+SR1-O Strider,6
+WVR-8K Wolverine,5
+FS9-O Firestarter,4
+KIM-2A Komodo,3
+LNX-9C Lynx,2
+Ryoke Prime,1
+

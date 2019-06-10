@@ -1,0 +1,16 @@
+Wob Medium Aero.txt
+Per Field Manual Updates page 220
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+F-92 Stingray,1
+IRN-SD1 Ironsides,2
+DFC-0 Defiance,3
+DFC-0 Defiance,4
+HCT-213B Hellcat II,5
+HCT-213B Hellcat II,6
+GTHA-500 Gotha,5
+F-94 Stingray,4
+F-94 Stingray,3
+LTN-G15 Lightning,2
+LX-2 Lancer,1
+

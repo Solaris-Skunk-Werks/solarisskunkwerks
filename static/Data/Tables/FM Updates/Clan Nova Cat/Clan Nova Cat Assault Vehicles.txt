@@ -1,0 +1,16 @@
+Clan Nova Cat Assault Vehicles.txt
+Per Field Manual Updates page 223
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Partisan(3058),1
+Puma,2
+Rhino,3
+SturmFeur,4
+Ontos(3058),5
+Behemoth,6
+Alacorn,5
+Heimdall,4
+Schrek,3
+Huitzilopochtli,2
+Demolisher(C),1
+

@@ -1,0 +1,18 @@
+Periphery Medium Aero.txt
+Per Field Manual Updates page 231
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+SL-17 Shilone,1
+CSR-V12 Corsair,2
+Hellcat,3
+Lightning,4
+CSR-V12 Corsair,5
+Hellcat,6
+LCF-R15 Lucifer,5
+Lightning,4
+F-90 Stingray,3
+TR-10 Transit,2
+CSR-V20 Corsair,1
+
+
+

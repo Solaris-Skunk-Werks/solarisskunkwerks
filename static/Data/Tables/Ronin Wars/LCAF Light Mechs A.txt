@@ -1,0 +1,11 @@
+OTT-7J Ostscout(35), 1
+FS9-H Firestarter(35), 2
+WLF-1 Wolfhound(35), 3
+COM-2D Commando(25), 4
+STG-3G Stinger(20), 5
+COM-3A Commando(25), 6
+LCT-1S Locust(20), 5
+JVN-10N Javelin(30), 4
+FS9-M Firestarter(35), 3
+WSP-1A Wasp(20), 2
+LCT-3V Locust(20), 1

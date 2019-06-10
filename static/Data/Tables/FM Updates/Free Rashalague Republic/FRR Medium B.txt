@@ -1,0 +1,16 @@
+FRR Medium B.txt
+Per Field Manual Updates page 221
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+WFT-1 Wolf Trap,1
+VT-5S Vulcan,2
+GRF-1DS Griffin,3
+TBT-7M Trebuchet,4
+HBK-5M Hunchback,5
+WVR-7K Wolverine,6
+PXH-3K Phoenix Hawk,5
+KTO-20 Kintaro,4
+CRB-27 Crab,3
+KIM-2 Komodo,2
+CLN-7W Chameleon,1
+

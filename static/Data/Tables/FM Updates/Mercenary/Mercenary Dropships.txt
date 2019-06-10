@@ -1,0 +1,16 @@
+Mercenary Dropships.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Excalibur,1
+Intruder,2
+Mule,3
+Triumph,4
+Leopard,5
+Union,6
+Seeker,5
+Overlord,4
+Condor,3
+Gazelle,2
+Avenger,1
+

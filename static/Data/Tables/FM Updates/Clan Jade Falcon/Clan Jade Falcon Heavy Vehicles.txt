@@ -1,0 +1,17 @@
+Clan Jade Falcon Heavy Vehicles.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Ishtar,1
+Oro,2
+Ishtar,3
+Oro,4
+Ishtar,5
+Athena,6
+Oro,5
+Ishtar,4
+Ishtar,3
+Athena,2
+Shoden,1
+
+

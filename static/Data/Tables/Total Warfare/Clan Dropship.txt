@@ -1,0 +1,11 @@
+Noruff(3057), 1
+Outpost(3067), 2
+Confederate(3057), 3
+Carrier(3057), 4
+Union-C(3057), 5
+Overlord-C(3057), 6
+Broadsword(3057), 5
+Mercer(3067), 4
+Arcadia(3067), 3
+Sassanid(3057), 2
+Miraborg(3057), 1

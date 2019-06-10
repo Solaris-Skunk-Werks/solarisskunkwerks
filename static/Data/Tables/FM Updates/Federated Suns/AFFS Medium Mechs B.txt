@@ -1,0 +1,16 @@
+AFFS Medium Mechs B.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+CMA-1S Chimera,1
+STH-1D Stealth,2
+PXH-3PL Phoenix Hawk,3
+CN9-D5 Centurion,4
+HBK-5P Hunchback,5
+ENF-6M Enforcer III,6
+SHD-5D Shadow Hawk,5
+HCT-6D Hatchetman,4
+BJ2-OC Blackjack,3
+NGS-4S Nightsky,2
+STY-3C Starslayer,1
+

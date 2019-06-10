@@ -1,0 +1,16 @@
+FRR Assault B.txt
+Per Field Manual Updates page 221
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+HGN-732 Highlander,1
+MAL-1R Mauler,2
+CGR-3K Charger,3
+HTM-27T Hatamoto-Chi,4
+AS7-K Atlas,5
+ZEU-9S Zeus,6
+VTR-9K Victor,5
+BC-5S Banshee,4
+LGB-7V Longbow,3
+THG-11E Thug,2
+KGC-000 King Crab,1
+

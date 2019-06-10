@@ -1,0 +1,11 @@
+LCT-1E Locust(20), 1
+OTT-7J Ostscout(35), 2
+UM-R60L UrbanMech(30), 3
+STG-3G Stinger(20), 4
+FS9-H Firestarter(30), 5
+WSP-1L Wasp(20), 6
+LCT-3V Locust(20), 5
+STG-3G Stinger(20), 4
+SDR-5V Spider(30), 3
+JVN-10N Javelin(30), 2
+FS9-H Firestarter(30), 1

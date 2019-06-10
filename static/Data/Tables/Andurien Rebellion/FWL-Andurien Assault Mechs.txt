@@ -1,0 +1,11 @@
+AS7-D Atlas(100), 1
+GOL-1H Goliath(80), 2
+AWS-8Q Awesome(80), 3
+AWS-8Q Awesome(80), 4
+BLR-1G Battlemaster(85), 5
+STK-3F Stalker(85), 6
+BNC-3M Banshee(95), 5
+BLR-1G Battlemaster(85), 4
+STK-3F Stalker(85), 3
+CP-10-Z Cyclops(90), 2
+BNC-3Q Banshee(95), 1

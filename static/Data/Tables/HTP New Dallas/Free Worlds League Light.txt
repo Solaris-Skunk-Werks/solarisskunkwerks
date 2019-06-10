@@ -1,0 +1,11 @@
+Mongoose MON-66,1
+Spider SDR-5V,2
+Hermes HER-1S,3
+Talon TLN-5W,4
+Locust LCT-1V,5
+Wasp WSP-1A,6
+Night Hawk NTK-2Q,5
+Flea FLE-15,4
+Firestarter FS9-H,3
+Thorn THE-N,2
+UrbanMech UM-R60,1

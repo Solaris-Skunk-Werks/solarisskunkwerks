@@ -1,0 +1,16 @@
+DCMS Heavy Mechs F.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ARC-2R Archer,1
+CRD-3K Crusader,2
+CPLT-C1 Catapult,3
+RFL-5N Rifleman,4
+WHM-6R Warhammer,5
+JM6-S JagerMech,6
+GHR-5H Grasshopper,5
+QKD-4G Quickdraw,4
+QKD-4H Quickdraw,3
+QKD-5A Quickdraw,2
+WHM-6K Warhammer,1
+

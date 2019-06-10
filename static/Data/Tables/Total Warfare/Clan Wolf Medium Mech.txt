@@ -1,0 +1,11 @@
+Artic Wolf(40)(3060), 1
+Fenris H(45)(3050), 2
+Ryoken Prime(55)(3050), 3
+Black hawk Prime(50)(3050), 4
+Phantom C(40)(3055), 5
+Fenris Prime(45)(3050), 6
+Pouncer Prime(40)(3055), 5
+Phantom Prime(40)(3055), 4
+Pouncer D(40)(3055), 3
+Phantom H(40)(3055), 2
+Lobo(40)(3067), 1

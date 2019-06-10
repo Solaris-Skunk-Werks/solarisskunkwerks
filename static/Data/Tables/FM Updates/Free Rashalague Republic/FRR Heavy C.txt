@@ -1,0 +1,16 @@
+FRR Heavy C.txt
+Per Field Manual Updates page 221
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+MAD-5S Marauder,1
+DRG-5N Dragon,2
+CRD-3K Crusader,3
+CPLT-K2 Catapult,4
+ON1-K Orion,5
+DRG-1N Dragon,6
+ARC-2K Archer,5
+DRG-1G Grand Dragon,4
+QKD-4G Quickdraw,3
+GHR-5J Grasshopper,2
+BL-6-KNT Black Knight,1
+

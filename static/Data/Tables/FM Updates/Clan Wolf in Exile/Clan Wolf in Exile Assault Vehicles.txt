@@ -1,0 +1,16 @@
+Clan Wolf in Exile Assault Vehicles.txt
+Per Field Manual Updates page 217
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Partisan(3058),1
+Demolisher(C),2
+Heimdall,3
+SturmFeur,4
+Heimdall A,5
+SturmFeur(heavy gauss),6
+Alacorn MkVI,5
+Heimdall,4
+Alacorn MkVII,3
+Heimdall A,2
+Demolisher II,1
+

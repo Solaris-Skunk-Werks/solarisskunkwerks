@@ -1,0 +1,16 @@
+Clan Diamond Shark Secondline Light.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Solitaire,1
+Pirahna,2
+Solitaire,3
+Jenner IIc 2,4
+MCY-97 Mercury,5
+Solitaire,6
+Incubus,5
+THE-N Thorn,4
+Jenner IIc,3
+Pirahna,2
+Pack Hunter,1
+

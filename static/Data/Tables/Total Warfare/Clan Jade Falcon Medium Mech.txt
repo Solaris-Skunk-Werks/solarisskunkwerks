@@ -1,0 +1,11 @@
+Pinion(45)(3067), 1
+Ryoken Prime(55)(3050), 2
+Fenris A(45)(3050), 3
+Dragonfly A(40)(3050), 4
+Black Lanner C(50)(3058), 5
+Black Lanner Prime(50)(3058), 6
+Ryoken B(55)(3050), 5
+Black Hawk A(50)(3050), 4
+Grendel Prime(45)(3050), 3
+Hunchback IIc(50)(3058), 2
+Phantom C(40)(3055), 1

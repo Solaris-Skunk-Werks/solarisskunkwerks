@@ -1,0 +1,16 @@
+FreeWorldsLeague LiteAero.txt
+Per Field Manual Updates page 226
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+SYD-Z1 Seydlitz,1
+CNT-1D Centurion,2
+F11-R Cheetah,3
+TR-7 Thrush,4
+F12-S Cheetah,5
+F11-RR Cheetah,6
+F14-S Cheetah,5
+F12-S Cheetah,4
+F10 Cheetah,3
+F10 Cheetah,2
+S-27 Sabre,1
+

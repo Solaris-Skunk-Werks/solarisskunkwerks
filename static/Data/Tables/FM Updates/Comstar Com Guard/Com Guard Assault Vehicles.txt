@@ -1,0 +1,16 @@
+Com Guard Assault Vehicles.txt
+Per Field Manual Updates page 219
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Demolisher,1
+Partisan,2
+Sturmfuer Heavy Tank,3
+Alacorn MkVII Heavy Tank,4
+Rhino,5
+Fury,6
+Schrek PPC Carrier,5
+Puma,4
+Ontos,3
+Puma,2
+Behemoth,1
+

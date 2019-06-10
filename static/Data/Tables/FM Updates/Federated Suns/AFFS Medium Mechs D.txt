@@ -1,0 +1,16 @@
+AFFS Medium Mechs D.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+CN9-D Centurion,1
+BJ-3 Blackjack,2
+WCT-4M Watchman,3
+WTH-2A Whitworth,4
+DV-8D Dervish,5
+ENF-5D Enforcer,6
+TBT-7M Trebuchet,5
+PHX-6D Phoenix Hawk,4
+HCT-6D Hatchetman,3
+KW1-LH8 Lineholder,2
+SHD-5D Shadow Hawk,1
+

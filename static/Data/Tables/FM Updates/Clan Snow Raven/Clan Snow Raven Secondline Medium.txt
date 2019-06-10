@@ -1,0 +1,16 @@
+Clan Snow Raven Secondline Medium.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Wyvern IIc,1
+Vapor Eagle,2
+Hunchback IIc,3
+Clint IIc,4
+Conjurer,5
+Shadow Hawk IIc,6
+Grendel Prime,5
+Griffin IIc,4
+Great Wyrm,3
+Stormcrow B,2
+STN-1N Sentinel,1
+

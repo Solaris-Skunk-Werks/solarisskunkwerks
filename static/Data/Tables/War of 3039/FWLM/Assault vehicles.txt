@@ -1,0 +1,11 @@
+Partisan(80), 1
+Behemoth(100), 2
+Schrek(80), 3
+Partisan(80), 4
+Demolisher(80), 5
+Ontos(95), 6
+Schrek(80), 5
+Ontos(95), 4
+Partisan(80), 3
+Behemoth(100), 2
+Partisan(80), 1

@@ -1,0 +1,16 @@
+WoB Heavy A.txt
+Per Field Manual Updates page 220
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+P1 Perseus,1
+MAD-5L Marauder,2
+CHP-3P Champion,3
+EXT-5E Exterminator,4
+WHF-3B White Flame,5
+TYM-1A Toyama,6
+TDR-9M Thunderbolt,5
+BL-9-KNT Black Knight,4
+BMB-14C Bombardier,3
+CDR-7L Crusader,2
+RFL-7M Rifleman,1
+

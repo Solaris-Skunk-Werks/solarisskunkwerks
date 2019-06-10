@@ -1,0 +1,16 @@
+Com Guard Heavy A.txt
+Per Field Manual Updates page 219
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+JM6-D3 JagerMech III,1
+SJA-7D Shugenja,2
+BL-6-KNT Black Knight,3
+ST-8A Shootist,4
+GLT-3N Guillotine,5
+AV1-O Avatar,6
+LNC25-01 Lancelot,5
+EXC-B2 Excalibur,4
+FLS-8K Flashman,3
+EXT-5E Exterminator,2
+HEL-3D Helios,1
+

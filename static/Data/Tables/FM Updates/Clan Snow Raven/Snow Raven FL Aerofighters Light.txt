@@ -1,0 +1,16 @@
+Snow Raven FL Aerofighters Light.txt
+Per Field Manual Updates page 215
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Sulla A,1
+Issus 2,2
+Vandal B,3
+Sulla C,4
+Bashkir Prime,5
+Bashkir C,6
+Chaerona 3,5
+Sulla C,4
+Sulla A,3
+Issus,2
+Corax,1
+

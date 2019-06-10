@@ -1,0 +1,11 @@
+CP-10-Z Cyclops(90), 1
+LGB-7Q Longbow(85), 2
+AWS-8Q Awesome(80), 3
+AWS-8Q Awesome(80), 4
+STK-3F Stalker(85), 5
+BLR-1G Battlemaster(85), 6
+BLR-1G Battlemaster(85), 5
+GOL-1H Goliath(80), 4
+BNC-3M Banshee(95), 3
+BNC-3Q Banshee(95), 2
+AS7-D Atlas(100), 1

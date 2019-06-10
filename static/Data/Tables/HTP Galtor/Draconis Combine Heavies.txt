@@ -1,0 +1,11 @@
+DRG-1G Grand Dragon, 1
+GHR-5H Grasshopper, 2
+CPLT-K1 Catapult, 3
+WHM-6R Warhammer, 4
+DRG-1N Dragon, 5
+DRG-1N Dragon, 6
+DRG-1N Dragon, 5
+ARC-2K Archer, 4
+ON1-K Orion, 3
+WHM-6K Warhammer, 2
+DRG-1G Grand Dragon, 1

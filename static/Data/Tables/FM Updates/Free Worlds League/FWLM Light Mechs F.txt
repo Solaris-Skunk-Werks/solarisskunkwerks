@@ -1,0 +1,16 @@
+FWLM Light Mechs F.txt
+Per Field Manual Updates page 226
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+UM-R60 UrbanMech,1
+JVN-10N Javelin,2
+FS9-H Firestarter,3
+STG-3R Stinger,4
+WSP-1A Wasp,5
+LCT-1V Locust,6
+SDR-5V Spider,5
+SDR-5V Spider,4
+JVN-10N Javelin,3
+JVN-10N Javelin,2
+PNT-9R Panther,1
+

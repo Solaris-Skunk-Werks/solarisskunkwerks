@@ -1,0 +1,11 @@
+JM6-S JagerMech(65)(3025), 1
+QKD-4G Quickdraw(60)(3025), 2
+DRG-1N Dragon(60)(3025), 3
+BL-7-KNt Black Knight(75)(3025), 4
+MLN-1A Merlin(60)(3058), 5
+GHR-5H Grasshopper(70)(3025), 6
+GLT-4L Guillotine(70)(3025), 5
+ON1-K Orion(75)(3025), 4
+CPLT-C1 Catapult(65)(3025), 3
+JM6-S JagerMech(65)(3025), 2
+QKD-4G Quickdraw(60)(3025), 1

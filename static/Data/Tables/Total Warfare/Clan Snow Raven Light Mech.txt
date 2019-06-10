@@ -1,0 +1,11 @@
+Baboon 2(20)(PP), 1
+Dahser A(20)(3050), 2
+Puma C(35)(3050), 3
+Puma A(35)(3050), 4
+Dasher Prime(20)(3050), 5
+Uller D(30)(3050), 6
+Uller Prime(30)(3050), 5
+Uller B(30)(3050), 4
+Koshi Prime(25)(3050), 3
+Peregrine 4(35)(PP), 2
+UrbanMech IIc(30)(3060), 1

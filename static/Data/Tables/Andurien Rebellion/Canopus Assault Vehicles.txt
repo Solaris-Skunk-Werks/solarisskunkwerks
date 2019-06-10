@@ -1,0 +1,11 @@
+Ontos Heavy Tank(95), 1
+Partisan Heavy Tank(80), 2
+Partisan Heavy Tank(80), 3
+Schrek PPC Carrier(80), 4
+Behemoth Heavy Tank(100), 5
+Demolisher(80), 6
+Demolisher(80), 5
+Ontos Heavy Tank(95), 4
+Schrek PPC Carrier(80), 3
+Sturmfeur(85), 2
+Behemoth Heavy Tank(100), 1

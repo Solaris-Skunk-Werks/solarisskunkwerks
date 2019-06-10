@@ -1,0 +1,16 @@
+CCAF Vehicles Light.txt
+Per Field Manual Updates page 206
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Cavalry Attack VTOL,1
+Galleon Lt Tank,2
+Skulker Sct Tank,3
+Saracen Med Hovertank,4
+Scorpion Lt Tank,5
+Pegasus Sct Hovertank,6
+Pegasus Sct Hovertank,5
+Harasser Missile Platform,4
+Minion,3
+Striker Lt Tank,2
+Hawk Moth Gunship,1
+

@@ -1,0 +1,16 @@
+Castillan-Umayyad Heavy.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+QKD-4G Quickdraw,1
+WHM-6R Warhammer,2
+CPLT-A1 Catapult,3
+ON1-K Orion,4
+QKD-4G Quickdraw,5
+GHR-5H Grasshopper,6
+CPLT-C1 Catapult,5
+GHR-5H Grasshopper,4
+CPLT-A1 Catapult,3
+JM6-S JagerMech,2
+ARC-2R Archer,1
+

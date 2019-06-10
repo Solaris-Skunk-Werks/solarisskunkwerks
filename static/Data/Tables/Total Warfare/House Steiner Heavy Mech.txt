@@ -1,0 +1,11 @@
+CTS-6Y Cestus(65)(3058), 1
+AXM-1N Axman(65)(3050), 2
+CES-3R Caesar(70)(3050), 3
+GAL-1GLS Gallowglas(70)(3055), 4
+PTR-4D Penetrator(75)(3055), 5
+FLC-8R Falconer(75)(3055), 6
+DRG-3F Dragon Fire(75)(3058), 5
+MTR-5K Maelstrom(75)(3058), 4
+BGS-1T Barghest(70)(3060), 3
+VR5-R Verfolger(65)(3067), 2
+TNS-4S Thanatos(75)(3067), 1

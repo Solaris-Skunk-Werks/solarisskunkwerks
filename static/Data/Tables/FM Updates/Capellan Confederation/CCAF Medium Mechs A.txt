@@ -1,0 +1,16 @@
+CCAF Medium Mechs A.txt
+Per Field Manual Updates page 206
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+APL-1M Apollo,1
+SHD-7M Shadow Hawk,2
+SHU-2B Sha Yu,3
+BJ2-O Blackjack,4
+HUR-R4L Huron Warrior,5
+MS1-O Men Shen,6
+VND-4L Vindicator,5
+SNK-1V Snake,4
+VND-4L Vindicator,3
+PXH-4L Phoenix Hawk,2
+PXH-4L Phoenix Hawk,1
+

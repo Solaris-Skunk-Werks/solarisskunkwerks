@@ -1,0 +1,16 @@
+Snow Raven SL Aerofighters Medium.txt
+Per Field Manual Updates page 216
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+IRN-SD1 Ironsides,1
+HCT-213B Hellcat II,2
+Jagatai B,3
+Tyre,4
+Turk A,5
+Visigoth B,6
+Jagatai Prime,5
+Turk C,4
+Visigoth Prime,3
+Turk B,2
+GTHA-500 Gotha,1
+

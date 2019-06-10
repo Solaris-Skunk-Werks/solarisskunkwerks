@@ -1,0 +1,11 @@
+Beagle(15)(3050), 1
+Hephaestus C(30)(3067), 2
+Odin(20)(3067), 3
+Zorya(35)(3060), 4
+Mithras(25)(3060), 5
+Indra(35)(3060), 6
+Svantovit(35)(3060), 5
+Asshur(20)(3060), 4
+Shamash(11)(3060), 3
+Hephaestus Prime(30)(3067), 2
+Hephaestus A(30)(3067), 1

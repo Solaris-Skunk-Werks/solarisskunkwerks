@@ -1,0 +1,16 @@
+Nova Cat SL Aerofighters Heavy.txt
+Per Field Manual Updates page 223
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Kirghiz B,1
+Jengiz C,2
+Sabutai B,3
+AHB-443 Ahab,4
+HMR-HD Hammerhead,5
+Hydaspes,6
+Xerxes,5
+RPR-100 Rapier,4
+AHB-443 Ahab,3
+Sabutai C,2
+Scytha A,1
+

@@ -1,0 +1,17 @@
+CCAF Medium Mechs D.txt
+Per Field Manual Updates page 206
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+CLNT-2-3U Clint,1
+CLNT-2-3U Clint,2
+PXH-1 Phoenix Hawk,3
+CDA-2A Cicada,4
+CDA-2A Cicada,5
+VND-1R Vindicator,6
+VND-1AA Vindicator,5
+BJ-1 Blackjack,4
+BJ-3 Blackjack,3
+MHL-X1 Marshal,2
+MHL-2L Marshal,1
+
+

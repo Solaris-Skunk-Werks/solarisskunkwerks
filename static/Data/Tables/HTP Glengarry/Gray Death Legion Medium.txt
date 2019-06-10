@@ -1,0 +1,11 @@
+Enforcer ENF-4R,1
+Hunchback HBK-5M,2
+Griffin GRF-3M,3
+Phoenix Hawk PXH-3D,4
+Trebuchet TBT-5N,5
+Shadow Hawk SHD-5M,6
+Wolverine WVR-7M,5
+Wolverine WVR-7M,4
+Dervish DV-7D,3
+Centurion CN9-D,2
+Black Hawk (Nova),1

@@ -1,0 +1,11 @@
+STK-3F Stalker(85), 1
+VTR-9A1 Victor(80), 2
+LGB_7Q Longbow(85), 3
+STK-3H Stalker(85), 4
+VTR-9B Victor(80), 5
+BLR-1D Battlemaster(85), 6
+AS7-D Atlas(100), 5
+AWS-8Q Awesome(80), 4
+BNC-3S Banshee(95), 3
+CP-10-Z Cyclops(90), 2
+KGC-0000 King Crab(100), 1

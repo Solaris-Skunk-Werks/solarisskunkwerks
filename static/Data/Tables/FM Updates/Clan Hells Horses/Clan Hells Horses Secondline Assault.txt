@@ -1,0 +1,16 @@
+Clan Hells Horses Secondline Assault.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Supernova,1
+Stone Rhino,2
+Highlander IIc,3
+Thunder Stallion 2,4
+Bane 3,5
+Warhammer IIc,6
+Thunder Stallion,5
+CRK-5003-1 Crockett,4
+Marauder IIc,3
+Kodiak,2
+Phoenix Hawk IIc,1
+

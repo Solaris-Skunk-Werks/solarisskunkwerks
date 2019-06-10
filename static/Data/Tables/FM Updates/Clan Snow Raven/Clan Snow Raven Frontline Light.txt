@@ -1,0 +1,16 @@
+Clan Snow Raven Frontline Light.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Fire Moth H,1
+Fire Moth A,2
+Adder C,3
+Adder A,4
+Fire Moth Prime,5
+Kit Fox D,6
+Kit Fox Prime,5
+Kit Fox B,4
+Mist Lynx B,3
+Mist Lynx Prime,2
+Mist Lynx C,1
+

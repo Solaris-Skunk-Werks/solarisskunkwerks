@@ -1,0 +1,11 @@
+LGB-7Q Longbow(85), 1
+CRK-5003-O Crockett(85), 2
+AWS-8T Awesome(80), 3
+AWS-8Q Awesome(80), 4
+STK-3F Stalker(85), 5
+AS7-D Atlas(100), 6
+BLR-1G Battlemaster(85), 5
+THG-10E Thug(80), 4
+CP-10-Q Cyclops(90), 3
+STK-4N Stalker(85), 2
+VTR-9B Victor(80), 1

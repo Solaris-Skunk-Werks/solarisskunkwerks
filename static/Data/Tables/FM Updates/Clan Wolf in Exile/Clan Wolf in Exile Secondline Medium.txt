@@ -1,0 +1,16 @@
+Clan Wolf in Exile Secondline Medium.txt
+Per Field Manual Updates page 217
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Artic Wolf,1
+Conjurer,2
+Artic Wolf,3
+Griffin IIc,4
+Artic Wolf 2,5
+Conjurer,6
+Shadow Hawk IIc,5
+Griffin IIc 2,4
+Shadow Hawk IIc,3
+Hunchback IIc,2
+Ice Ferret D,1
+

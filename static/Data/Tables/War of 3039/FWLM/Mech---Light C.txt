@@ -1,0 +1,11 @@
+JVN-10N Javelin(30), 1
+LCT-1E Locust(20), 2
+UM-R60 UrbanMech(30), 3
+SDR-5V Spider(30), 4
+WSP-1A Wasp(20), 5
+STG-3G Stinger(20), 6
+LCT-1V Locust(20), 5
+FS9-H Firestarter(30), 4
+JR7-D Jenner(35), 3
+OTT-7J Ostscout(35), 2
+JR7-D Jenner(35), 1

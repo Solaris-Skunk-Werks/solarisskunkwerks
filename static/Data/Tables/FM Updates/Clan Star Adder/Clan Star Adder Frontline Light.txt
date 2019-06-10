@@ -1,0 +1,16 @@
+Clan Star Adder Frontline Light.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hellion B,1
+Kit Fox D,2
+Kit Fox H,3
+Adder C,4
+Fire Moth D,5
+Adder A,6
+Adder H,5
+Fire Moth Prime,4
+Hankyu Prime,3
+Kit Fox E,2
+Hankyu C,1
+

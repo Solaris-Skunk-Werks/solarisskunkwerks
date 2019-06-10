@@ -1,0 +1,16 @@
+MH Medium A.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+CLNT-2-3T Clint,1
+DV-6M Dervish,2
+ASN-40 Assassin,3
+HBK-4P Hunchback,4
+PXH-1 Phoenix Hawk,5
+WTH-1H Whitworth,6
+HBK-5H Hunchback,5
+ENF-4R Enforcer,4
+WVR-6M Wolverine,3
+BJ-3 Blackjack,2
+VND-3L Vindicator,1
+

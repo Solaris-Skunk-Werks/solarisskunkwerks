@@ -1,0 +1,17 @@
+CCAF Medium Mechs F.txt
+Per Field Manual Updates page 206
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+HBK-4P Huchback,1
+BJ-3 Blackjack,2
+CLNT-2-3T Clint,3
+CDA-2A Cicada,4
+CDA-2A Cicada,5
+VND-1R Vindicator,6
+BJ-1 Blackjack,5
+PXH-1 Phoenix Hawk,4
+VND-3L Vindicator,3
+HBK-4G Hunchback,2
+VND-1AA Vindicator,1
+
+

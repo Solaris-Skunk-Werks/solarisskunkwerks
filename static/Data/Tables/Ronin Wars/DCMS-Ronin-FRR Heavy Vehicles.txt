@@ -1,0 +1,11 @@
+Von Luckner(75), 1
+Rommel(70), 2
+Bulldog(60), 3
+Manticore(60), 4
+Po(60), 5
+LRM Carrier(60), 6
+SRM Carrier(60), 5
+Bulldog(60), 4
+Patton(70), 3
+Pike Support Vehicle(60), 2
+Von Luckner(75), 1

@@ -1,0 +1,11 @@
+AF1 Arctic Fox, 1
+EGL-2M Eagle, 2
+LCT-5M Locust, 3
+DRT-4S Dart, 4
+ZPH-1A Tarantula*, 5
+BH-K305 Battle Hawk, 6
+JA-KL-1532 Jackal, 5
+HMR-3M Hammer, 4
+WLF-2 Wolfhound, 3
+TLN-5W Talon, 2
+SPR-5F Spector, 1

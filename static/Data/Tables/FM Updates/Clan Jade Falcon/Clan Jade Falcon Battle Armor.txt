@@ -1,0 +1,16 @@
+Clan Jade Falcon Battle Armor.txt
+Per Field Manual Updates page 
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ Screaming Hawk , 1
+ Elemental , 2
+ Elemental , 3
+ Elemental , 4
+ Elemental , 5
+ Elemental , 6
+ Elemental , 5
+ Elemental , 4
+ Elemental , 3
+ Screaming Hawk , 2
+ Screaming Hawk , 1
+

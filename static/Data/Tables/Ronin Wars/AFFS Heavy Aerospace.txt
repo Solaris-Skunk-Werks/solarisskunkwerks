@@ -1,0 +1,11 @@
+CHP-W10 Chippewa(90), 1
+CHP-W10 Chippewa(90), 2
+STU-K15 Stuka(100), 3
+THB-D36 Thunderbird(100), 4
+EGL-R6 Eagle(75), 5
+STU-K5 Stuka(100), 6
+STU-K10 Stuka(100), 5
+EGL-R6 Eagle(75), 4
+EGL-R6 Eagle(75), 3
+THB-D36 Thunderbird(100), 2
+EGL-R6 Eagle(75), 1

@@ -1,0 +1,16 @@
+Cloud Cobra SL Aerofighters Light.txt
+Per Field Manual Updates page 216
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Sulla Prime,1
+Sulla C,2
+Batu B,3
+Batu Prime,4
+Chaeronea,5
+Issus,6
+Chaeronea 2,5
+Issus 2,4
+Chaeronea 2,3
+Vandal C,2
+Issus 2,1
+

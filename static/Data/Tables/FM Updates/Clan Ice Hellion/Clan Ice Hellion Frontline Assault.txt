@@ -1,0 +1,16 @@
+Clan Ice Hellion Frontline Assault.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Warhawk H,1
+Gargoyle D,2
+Executioner A,3
+Gargoyle C,4
+Warhawk A,5
+Gargoyle A,6
+Warhawk Prime,5
+Gargoyle B,4
+Executioner Prime,3
+Gargoyle Prime,2
+Executioner H,1
+

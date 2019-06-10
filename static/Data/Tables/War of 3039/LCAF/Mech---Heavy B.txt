@@ -1,0 +1,11 @@
+OTL-4F Ostsol(60), 1
+QKD-4G Quickdraw(60), 2
+ON1-K Orion(75), 3
+WHM-6R Warhammer(70), 4
+ARC-2S Archer(70), 5
+TDR-5S Thunderbolt(65), 6
+MAD-3R Marauder(75), 5
+GHR-5H Grasshopper(70), 4
+CRD-3R Crusader(65), 3
+RFL-3N Rifleman(60), 2
+GHR-5N Grasshopper(70), 1

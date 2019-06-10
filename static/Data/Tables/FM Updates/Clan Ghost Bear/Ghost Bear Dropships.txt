@@ -1,0 +1,17 @@
+Ghost Bear Dropships.txt
+Per Field Manual Updates page 215
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Titan,1
+Condor,2
+Miraborg,3
+Overlord-C,4
+Confederate,5
+Union-C,6
+Broadsword,5
+Sassanid,4
+Noruff,3
+Gazelle,2
+Lion,1
+
+

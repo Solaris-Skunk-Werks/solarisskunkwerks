@@ -1,0 +1,11 @@
+VL-2T Vulcan(40), 1
+HBK-4G Hunchback(50), 2
+GRF-1N Griffin(55), 3
+WTH-1 Whitworth(40), 4
+TBT-5N Trebuchet(50), 5
+PXH-1 Phoenix Hawk(45), 6
+HER-2S Hermes II(40), 5
+HER-2M Hermes II(40), 4
+WVR-6M Wolverine(55), 3
+SHD-2H Shadow Hawk(55), 2
+CDA-2A Cicada(40), 1

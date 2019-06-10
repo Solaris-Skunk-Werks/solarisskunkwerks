@@ -1,0 +1,6 @@
+Desert Hills(MS2,MSC1),1
+Rolling Hills #1(MS3,MSC1),1
+Rolling Hills #2(MS3,MSC1),1
+Woodland(MS6,MSC2),1
+Box Canyon(MS6,MSC2),1
+Battleforce(MS6,MSC2),1

@@ -1,0 +1,11 @@
+OTT-7J Ostscout(35), 1
+SDR-5V Spider(30), 2
+COM-2D Commando(25), 3
+WSP-1A Wasp(20), 4
+JVN-10N Javelin(30), 5
+VLK-QA Valkyrie(35), 6
+STG-3R Stinger(20), 5
+LCT-1V Locust(20), 4
+FS9-H Firestarter(35), 3
+VLK-QA Valkyrie(35), 2
+JR7-D Jenner(35), 1

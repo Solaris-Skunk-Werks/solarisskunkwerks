@@ -1,0 +1,11 @@
+Drillson(50), 1
+Drillson(50), 2
+Maxim(50), 3
+Hetzer(40), 4
+Vedette(50), 5
+Vedette(50), 6
+Hetzer(40), 5
+Maxim(50), 4
+Vedette(Liao variant)(50), 3
+Condor(50), 2
+Condor(50), 1

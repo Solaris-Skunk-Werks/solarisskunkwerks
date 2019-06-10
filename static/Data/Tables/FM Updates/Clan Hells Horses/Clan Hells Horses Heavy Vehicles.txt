@@ -1,0 +1,18 @@
+Clan Hells Horses Heavy Vehicles.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Marksman,1
+Demon,2
+Oro,3
+Ishtar,4
+Athena,5
+Oro,6
+Ishtar,5
+Athena,4
+Pike(Clan),3
+Burke,2
+Ishtar,1
+
+
+

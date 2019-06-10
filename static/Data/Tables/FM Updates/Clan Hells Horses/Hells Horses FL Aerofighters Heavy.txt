@@ -1,0 +1,16 @@
+Hells Horses FL Aerofighters Heavy.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Sabutai C,1
+Jengiz A,2
+Scytha Prime,3
+Kirghiz B,4
+Jengiz C,5
+Kirghiz A,6
+Scytha B,5
+Kirghiz C,4
+Scytha A,3
+Jengiz B,2
+Sabutai B,1
+

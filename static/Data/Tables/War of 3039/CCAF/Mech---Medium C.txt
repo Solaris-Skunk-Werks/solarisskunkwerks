@@ -1,0 +1,11 @@
+CLNT-2-3T Clint(40), 1
+GRF-1N Griffin(55), 2
+WVR-6R Wolverine(55), 3
+HBK-4G Hunchback(50), 4
+PXH-1 Phoenix Hawk(45), 5
+VND-1R Vindicator(45), 6
+BJ-1 Blackjack(45), 5
+SHD-2H Shadow Hawk(55), 4
+WTH-1 Whitworth(40), 3
+WTH-1 Whitworth(40), 2
+VL-2T Vulcan(40), 1

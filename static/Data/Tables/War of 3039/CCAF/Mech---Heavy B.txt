@@ -1,0 +1,11 @@
+CTF-1X Cataphract(70), 1
+ON1-K Orion(75), 2
+GHR-5H Grasshopper(70), 3
+MAD-3L Marauder(75), 4
+RFL-3N Rifleman(60), 5
+CPLT-C1 Catapult(65), 6
+ARC-2R Archer(70), 5
+WHM-6L Warhammer(70), 4
+CRD-3L Crusader(65), 3
+TDR-5S Thunderbolt(65), 2
+JM6-S JagerMech(65), 1

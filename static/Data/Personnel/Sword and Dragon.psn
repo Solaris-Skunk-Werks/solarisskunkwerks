@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<warriors title="Sword and Dragon">
+    <warrior name="Ian Mckinnon" status="Active">
+        <affiliation faction="Fox's Teeth" rank="Captain" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="George Lytton" status="Active">
+        <affiliation faction="Fox's Teeth" rank="Sergeant Major" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Austin Vorster" status="Active">
+        <affiliation faction="Fox's Teeth" rank="Sergeant" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Daniel Waylen" status="Active">
+        <affiliation faction="Fox's Teeth" rank="Sergeant" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Paul Danton" status="Active">
+        <affiliation faction="Fox's Teeth" rank="Leftenant" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Hiro Chipende" status="Active">
+        <affiliation faction="Fox's Teeth" rank="Sergeant" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Dave Hill" status="Active">
+        <affiliation faction="Fox's Teeth" rank="Sergeant" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Henrik Dekker" status="Active">
+        <affiliation faction="Fox's Teeth" rank="Sergeant" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Ross Mckinnon" status="Active">
+        <affiliation faction="Fox's Teeth" rank="Leftenant" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Mateo Alvarez" status="Active">
+        <affiliation faction="Fox's Teeth" rank="Sergeant" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Robert Grey" status="Active">
+        <affiliation faction="Fox's Teeth" rank="Sergeant" />
+        <skills gunnery="1" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Sara Lytton" status="Active">
+        <affiliation faction="Fox's Teeth" rank="Sergeant" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Daniel Sorenson" status="Active">
+        <affiliation faction="Sorenson's Sabres" rank="Tai-i" />
+        <skills gunnery="2" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Grace Shiro" status="Active">
+        <affiliation faction="Sorenson's Sabres" rank="Busosenshi" />
+        <skills gunnery="3" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Emory Wilk" status="Active">
+        <affiliation faction="Sorenson's Sabres" rank="Busosenshi" />
+        <skills gunnery="3" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Shakir Jerrar" status="Active">
+        <affiliation faction="Sorenson's Sabres" rank="Busosenshi" />
+        <skills gunnery="3" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Dana Utsonomiya" status="Active">
+        <affiliation faction="Sorenson's Sabres" rank="Chu-i" />
+        <skills gunnery="4" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Andrew Martin" status="Active">
+        <affiliation faction="Sorenson's Sabres" rank="Busosenshi" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Sharron Burgoz" status="Active">
+        <affiliation faction="Sorenson's Sabres" rank="Busosenshi" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Sela Teresa Martinez" status="Active">
+        <affiliation faction="Sorenson's Sabres" rank="Busosenshi" />
+        <skills gunnery="4" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Albert Benton" status="Active">
+        <affiliation faction="Sorenson's Sabres" rank="Chu-i" />
+        <skills gunnery="4" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Jasmine Rubach" status="Active">
+        <affiliation faction="Sorenson's Sabres" rank="Busosenshi" />
+        <skills gunnery="5" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Elden Berardinelli" status="Active">
+        <affiliation faction="Sorenson's Sabres" rank="Busosenshi" />
+        <skills gunnery="3" piloting="1" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="James MacPartland" status="Active">
+        <affiliation faction="Sorenson's Sabres" rank="Busosenshi" />
+        <skills gunnery="3" piloting="6" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+</warriors>

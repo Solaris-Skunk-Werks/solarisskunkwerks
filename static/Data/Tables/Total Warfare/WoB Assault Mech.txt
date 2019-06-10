@@ -1,0 +1,11 @@
+KGC-000 King Crab(100)(3050), 1
+AWS-8Q Awesome(80)(3025), 2
+MR-V2 Cerberus(95)(3055), 3
+GRN-D-04 Grand Crusader II(80)(3055), 4
+AWS-9M Awesome(80)(3050), 5
+THG-11E Thug(80)(3050), 6
+VNQ-2A Vanquisher(100)(3067), 5
+LGC-01 Legacy(80)(3067), 4
+T-IT-N10M Grand Titan(100)(3055), 3
+ALB-3U Albatross(95)(3055), 2
+PLG-3Z Pillager(100)(3058), 1

@@ -1,0 +1,44 @@
+Talon TLN-5W,1
+Hussar HSR-200-D,2
+Firestarter FS9-H,3
+Locust LCT-1V,4
+Wasp WSP-1A,5
+Stinger STG-3R,6
+Firefly FFL-3A,5
+Mercury MCY-99,4
+Javelin JVN-10N,3
+Mongoose II MON-267,2
+Thorn THE-N,1
+Phoenix PX-3R,1
+Phoenix Hawk PXH-1,2
+Griffin GRF-1N,3
+Dervish DV-6M,4
+Hunchback HBK-4G,5
+Shadow Hawk SHD-2H,6
+Wolverine WVR-6R,5
+Phoenix PX-4R,4
+Crab CRB-27,3
+Kintaro KTO-19,2
+Lynx LNX-9Q,1
+Shootist ST-8A,1
+Black Knight BL-6-KNT,2
+Bombardier BMB-12D,3
+Ostroc OSR-2C,4
+Archer ARC-2R,5
+Thunderbolt TDR-5S,6
+Crusader CRD-2R,5
+Ostroc OSR-2C,4
+Warhammer WHM-6R,3
+Catapult CPLT-C1,2
+Champion CHP-1N,1
+Highlander HGN-732,1
+Thug THG-11E,2
+Stalker STK-3F,3
+Banshee BNC-3M,4
+Goliath GOL-1H,5
+Victor VTR-9B,6
+Rampage RMP-2G,5
+BattleMaster BLR-1G,4
+Longbow LGB-0W,3
+Awesome AWS-8Q,2
+Rampage RMP-4G,1

@@ -1,0 +1,11 @@
+Demolisher II(100)(3060), 1
+Behemoth(100)(3026), 2
+Ontos(95)(3058), 3
+Ontos(95)(3026), 4
+Schrek PPC Carrier(80)(3026), 5
+Demolisher(80)(3026), 6
+Partisan(80)(3026), 5
+Partisan(80)(3058), 4
+Heavy LRM Carrier(80)(3060), 3
+Challenger X MBT(90)(3058), 2
+Alacorn Mk VI(95)(3058), 1

@@ -1,0 +1,11 @@
+OSR-3D Osiris, 1
+COM-7S Commando, 2
+BZK-F3 Hollander, 3
+SPR-5T Spector, 4
+WLF-2 Wolfhound, 5
+COM-5S Commando, 6
+FS9-S Firestarter, 5
+NTK-2Q Nighthawk, 4
+DRT-3S Dart, 3
+RZK-9S Razorback, 2
+TLN-5W Talon, 1

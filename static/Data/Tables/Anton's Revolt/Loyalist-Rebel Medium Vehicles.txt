@@ -1,0 +1,11 @@
+Hetzer(40), 1
+Hetzer(40), 2
+Maxim(50), 3
+Maxim(50), 4
+Maxim(50), 5
+Vedette(50), 6
+Vedette(50), 5
+Vedette(50), 4
+Condor(50), 3
+Condor(50), 2
+Condor(50), 1

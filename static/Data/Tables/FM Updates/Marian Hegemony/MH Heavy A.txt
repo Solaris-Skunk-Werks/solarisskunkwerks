@@ -1,0 +1,16 @@
+MH Heavy A.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+TMP-3M Tempest,1
+MAD-3D Marauder,2
+CTF-3D Cataphract,3
+ON2-M Orion,4
+WHM-7M Warhammer,5
+GHR-5N Grasshopper,6
+CPLT-H2 Catapult,5
+TDR-7SE Thunderbolt,4
+ARC-8M Archer,3
+JM6-H Jagermech,2
+ON1-M Orion,1
+

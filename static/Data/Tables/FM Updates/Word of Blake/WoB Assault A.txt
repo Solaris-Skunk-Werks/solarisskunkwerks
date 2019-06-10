@@ -1,0 +1,16 @@
+WoB Assault A.txt
+Per Field Manual Updates page 220
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+BLR-5M Battlemaster,1
+VQR-2B Vanquisher,2
+LGC-01 Legacy,3
+T-IT-N10M Grand Titan,4
+HGN-736 Highlander,5
+CRK-5003-1 Crockett,6
+VQR-2A Vanquisher,5
+THG-12E Thug,4
+GRN-D-01 Grand Crusader,3
+KGC-005 King Crab,2
+LGC-02 Legacy,1
+

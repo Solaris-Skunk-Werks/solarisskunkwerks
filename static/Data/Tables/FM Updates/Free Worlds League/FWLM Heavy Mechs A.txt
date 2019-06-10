@@ -1,0 +1,16 @@
+FWLM Heavy Mechs A.txt
+Per Field Manual Updates page 226
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+QKD-5M Quickdraw,1
+ANV-3M Anvil,2
+OTL-7M Ostsol,3
+MAD-9M Marauder,4
+RFL-7M Rifleman,5
+TDR-9M Thunderbolt,6
+ARC-8M Archer,5
+ON2-M Orion,4
+YMN-6Y Yeoman,3
+TMP-3M Tempest,2
+P1 Perseus,1
+

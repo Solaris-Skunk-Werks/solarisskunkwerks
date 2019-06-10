@@ -1,0 +1,16 @@
+Clan Star Adder Protomechs.txt
+Per Field Manual Updates page 218
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Harpy,1
+Harpy 3,2
+Gorgon,3
+Gorgon,4
+Gorgon 2,5
+Gorgon 2,6
+Minotaur,5
+Minotaur,4
+Siren 3,3
+Siren 2,2
+Siren,1
+
