@@ -1,0 +1,11 @@
+OSR-3D Osiris(30)(3067), 1
+STO-4A Stiletto(35)(3060), 2
+BZK-F3 Hollander(35)(3055), 3
+WLF-2 Wolfhound(35)(3050), 4
+COM-5S Commando(25)(3050), 5
+FS9-S Firestarter(35)(3050), 6
+NTK-2Q Night Hawk(35)(3058), 5
+DRT-3S Dart(25)(3055), 4
+RZK-9S Razorback(30)(3067), 3
+ALM-7D Fireball(20)(3055), 2
+TLN-5W Talon(35)(3058), 1

@@ -1,0 +1,6 @@
+Wide River(MS6,MSC2),1
+Lake Area(MS2,MSC1),1
+Large Lakes #1(MS4,MSC1),1
+Large lakes #2(MS4,MSC1),1
+River Delta/Drainage Basin #1(MS4,MSC1),1
+River Delta/Drainage Basin #2(MS4,MSC1),1

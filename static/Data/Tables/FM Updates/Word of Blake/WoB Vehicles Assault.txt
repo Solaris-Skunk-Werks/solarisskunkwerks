@@ -1,0 +1,16 @@
+WoB Vehicles Assault.txt
+Per Field Manual Updates page 220
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Ontos Heavy Tank(3058),1
+Behemoth Heavy Tank,2
+Sturmfuer Heavy Tank,3
+Puma Tank,4
+Demolisher Heavy Tank,5
+Fury,6
+Schrek PPC Carrier,5
+Ontos Heavy Tank,4
+Rhino,3
+Partisan Heavy Tank,2
+Alacorn Mk VI Heavy Tank,1
+

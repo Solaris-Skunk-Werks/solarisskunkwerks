@@ -1,0 +1,11 @@
+Spartan SPT-N3,1
+Vanquisher VQR-2B,2
+King Crab KGC-005,3
+Legacy LGC-02,4
+Grand Crusader II GRN-D-04,5
+Thug THG-12E,6
+Vanquisher VQR-2A,5
+Legacy LGC-01,4
+Grand Crusader II GRN-D-03,3
+Cerberus MR-6B,2
+Highlander HGN-736,1

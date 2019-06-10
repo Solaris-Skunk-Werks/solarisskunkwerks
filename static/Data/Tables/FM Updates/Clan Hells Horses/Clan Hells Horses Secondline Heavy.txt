@@ -1,0 +1,16 @@
+Clan Hells Horses Secondline Heavy.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+HP-1N Champion,1
+GLT-3N Guillotine,2
+Thresher,3
+Glass Spider,4
+Rifleman IIc,5
+Guillotine IIc,6
+Ha Otoko,5
+Bowman,4
+Grizzly,3
+Black Python,2
+Glass Spider 2,1
+

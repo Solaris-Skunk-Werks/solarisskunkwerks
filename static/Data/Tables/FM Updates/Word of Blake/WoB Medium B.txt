@@ -1,0 +1,16 @@
+WoB Medium B.txt
+Per Field Manual Updates page 220
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+BCN-3R Buccaneer,1
+KTO-19 Kintaro,2
+STN-3L Sentinel,3
+HUR-WO-R4L Huron Warrior,4
+GRM-R-PR29 Grim Reaper,5
+CRB-27 Crab,6
+CDA-3M Cicada,5
+RJN101-A Raijin,4
+TR1 Wraith,3
+GRF-3M Griffin,2
+WVE-9N Wyvern,1
+

@@ -1,0 +1,16 @@
+Diamond Shark FL Aerofighters Medium.txt
+Per Field Manual Updates page 215
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Jagatai Prime,1
+Ammon,2
+Visigoth A,3
+Ammon,4
+Visigoth Prime,5
+Turk A,6
+Visigoth B,5
+Turk B,4
+Visigoth C,3
+Jagatai Prime,2
+Tyre,1
+

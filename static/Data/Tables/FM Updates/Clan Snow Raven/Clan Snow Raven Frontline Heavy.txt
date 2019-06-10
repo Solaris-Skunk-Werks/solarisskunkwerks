@@ -1,0 +1,16 @@
+Clan Snow Raven Frontline Heavy.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Cauldron-Born C,1
+Summoner Prime,2
+Mad Dog Prime,3
+Mad Dog A,4
+Timber Wolf C,5
+Timber Wolf Prime,6
+Mad Dog B,5
+Linebacker D,4
+Hellbringer Prime,3
+Summoner D,2
+Hellbringer A,1
+

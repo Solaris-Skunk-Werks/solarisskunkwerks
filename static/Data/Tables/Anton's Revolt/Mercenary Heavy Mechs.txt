@@ -1,0 +1,11 @@
+OSR-2C Ostroc(60), 1
+MLN-1A Merlin(60), 2
+RFL-3N Rifleman(60), 3
+ARC-2R Archer(70), 4
+TDR-5S Thunderbolt(65), 5
+WHM-6R Warhammer(70), 6
+CDR-3R Crusader(65), 5
+MAD-3R Marauder(75), 4
+GHR-5H Grasshopper(70), 3
+QKD-4G Quickdraw(60), 2
+OTL-4F Ostsol(60), 1

@@ -1,0 +1,16 @@
+Clan Coyote Light Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Shamash,1
+Asshur,2
+Anhur,3
+Donar VTOL,4
+Zorya,5
+Asshur,6
+Odin,5
+Indra,4
+Svantovit(streak),3
+Svantovit,2
+Indra,1
+

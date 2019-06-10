@@ -1,0 +1,16 @@
+Clan Cloud Cobra Frontline Assault.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Executioner H,1
+Savage Coyote C,2
+Warhawk H,3
+Warhawk C,4
+Executioner A,5
+Gargoyle D,6
+Blood Asp A,5
+Gargoyle C,4
+Blood Asp E,3
+Dire Wolf Prime,2
+Turkina B,1
+

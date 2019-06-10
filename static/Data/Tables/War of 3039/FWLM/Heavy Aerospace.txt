@@ -1,0 +1,11 @@
+TR-14 Transgressor(75), 1
+CHP-W5 Chippewa(90), 2
+CHP-W5 Chippewa(90), 3
+Eagle(75), 4
+Eagle(75), 5
+F-100 Riever(100), 6
+F-100A Riever(100), 5
+Thunderbird(100), 4
+F-100B Riever(100), 3
+Thunderbird(100), 2
+Thunderbird(100), 1

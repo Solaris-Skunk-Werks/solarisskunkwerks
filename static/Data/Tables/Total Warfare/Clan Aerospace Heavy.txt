@@ -1,0 +1,11 @@
+Xerxes(85)(3067), 1
+Sabutai(75)(3055), 2
+Scytha(90)(3055), 3
+Kirghiz(100)(3055), 4
+Jengiz(80)(3055), 5
+Scytha(90)(3055), 6
+Hydaspes(95)(3067), 5
+Kirghiz(100)(3055), 4
+Scytha(90)(3055), 3
+Jengiz(80)(3055), 2
+Sabutai(75)(3055), 1

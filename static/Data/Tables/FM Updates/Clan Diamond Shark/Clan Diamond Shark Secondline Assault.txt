@@ -1,0 +1,16 @@
+Clan Diamond Shark Secondline Assault.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Highlander IIc,1
+Mad Cat MkII,2
+Bane,3
+Warhammer IIc 3,4
+Marauder IIc 2,5
+Warhammer IIc 4,6
+Mad Cat MkII,5
+Warhammer IIc 3,4
+Mad Cat MkII,3
+Marauder IIc 2,2
+Phoenix Hawk IIc,1
+

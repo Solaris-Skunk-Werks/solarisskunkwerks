@@ -1,0 +1,11 @@
+CDA-3C Cicada(40), 1
+WTH-1 Whitworth(40), 2
+VND-1R Vindicator(45), 3
+WVR-6R Wolverine(55), 4
+BJ-1 Blackjack(45), 5
+PXH-1 Phoenix Hawk(45), 6
+SHD-2H Shadow Hawk(55), 5
+VND-1R Vindicator(45), 4
+HBK-4G Hunchback(50), 3
+GRF-1N Griffin(55), 2
+CDA-2B Cicada(40), 1

@@ -1,0 +1,11 @@
+Man O'War(80)(3050), 1
+Gladiator(95)(3050), 2
+Masakari B(85)(3050), 3
+Masakari C(85)(3050), 4
+Kingfisher Prime(90)(3058), 5
+Daishi Prime(100)(3050), 6
+Gladiator D(95)(3050), 5
+Man O'War C(80)(3050), 4
+Masakari Prime(85)(3050), 3
+Daishi A(100)(3050), 2
+Daishi C(100)(3050), 1

@@ -1,0 +1,16 @@
+WoB Medium A.txt
+Per Field Manual Updates page 220
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+HER-5C Hermes,1
+BJ2-O Blackjack,2
+CRB-30 Crab,3
+BLF-21 Blue Flame,4
+RJN101-A Raijin,5
+INI-02 Initiate,6
+LGH-4W Lightray,5
+GRF-6CS Griffin,4
+SHD-7CS Shadow Hawk,3
+BCN-3R Buccaneer,2
+WVE-10N Wyvern,1
+

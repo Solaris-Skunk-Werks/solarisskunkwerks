@@ -1,0 +1,33 @@
+CRB-27b Crab, 1
+SHD-2Hb Shadow Hawk, 1
+KTO-19 Kintaro, 1
+WVR-7H Wolverine II, 1
+GRF-2N Griffin, 1
+CRB-27b Crab, 1
+STN-3Lb Sentinel, 1
+HBK-4G Hunchback, 1
+SCP-1N Scorpion, 1
+ASN-21 Assassin, 1
+PXH-1b Phoenix Hawk, 1
+GRF-2N Griffin, 1
+STY-3C Starslayer, 1
+WTH-1 Whitworth, 1
+LNX-9Q Lynx, 1
+KTO-19b Kintaro, 1
+PXH-1b Phoenix Hawk, 1
+HOP-4Bb Hoplite, 1
+VL-5T Vulcan, 1
+KY2-D-02 Kyudo, 1
+STN-3L Sentinel, 1
+SHD-2Hb Shadow Hawk, 1
+STN-3Lb Sentinel, 1
+GRF-1N Griffin, 1
+PXH-1b Phoenix Hawk, 1
+WVE-5Nb Wyvern, 1
+HBK-4G Hunchback, 1
+SHD-2Hb Shadow Hawk, 1
+STY-3C Starslayer, 1
+DV-6M Dervish, 1
+CRB-27 Crab, 1
+PXH-1 Phoenix Hawk, 1
+KTO-19b Kintaro, 1

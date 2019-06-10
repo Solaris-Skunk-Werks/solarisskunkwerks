@@ -1,0 +1,16 @@
+WoB Vehicles Medium.txt
+Per Field Manual Updates page 220
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Chaparral,1
+Thor,2
+Vedette Medium Tank,3
+Hetzer Wheeled Assault Gun,4
+Zephyr,5
+Maxim Heavy Hovertank,6
+Condor Heavy Hovertank,5
+Regulator Hovertank,4
+Myrmidon,3
+Stygian,2
+Chaparral,1
+

@@ -1,0 +1,16 @@
+Hells Horses FL Aerofighters Light.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Avar Prime,1
+Vandal B,2
+Batu B,3
+Bashkir Prime,4
+Batu C,5
+Sulla A,6
+Bashkir B,5
+Avar C,4
+Bashkir C,3
+Vandal C,2
+Avar B,1
+

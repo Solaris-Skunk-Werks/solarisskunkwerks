@@ -1,0 +1,18 @@
+FRR Battle Armor.txt
+Per Field Manual Updates page 
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ Nighthawk MK XXI , 1
+ Infiltrator , 2
+ Kobold , 3
+ Kobold , 4
+ Standard , 5
+ Standard , 6
+ Standard , 5
+ Standard , 4
+ Bravo , 3
+ Sloth , 2
+ Kanazuchi , 1
+
+ 
+

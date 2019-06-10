@@ -1,0 +1,11 @@
+JVN-10N Javelin(30), 1
+JR7-F Jenner(35), 2
+STG-3G Stinger(20), 3
+WSP-1A Wasp(20), 4
+FS9-H Firestarter(35), 5
+JR7-D Jenner(35), 6
+PNT-9R Panther(35), 5
+WSP-1K Wasp(20), 4
+SDR-5K Spider(30), 3
+LCT-3V Locust(20), 2
+LCT-1E Locust(20), 1

@@ -1,0 +1,6 @@
+Open Terrain #1(MS5,MSC1),1
+Open terrain #2(MS5,MSC1),1
+Desert Hills(MS,MSC1),1
+City Ruins(MS2,MSC1),1
+CityTech Map(MS2,MSC1),1
+Scattered Woods(MS6,MSC2),1

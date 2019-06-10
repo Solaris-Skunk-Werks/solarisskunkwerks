@@ -1,0 +1,16 @@
+CF Medium A.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+CN9-D Centurion,1
+BJ-3 Blackjack,2
+ASN-21 Assassin,3
+ENF-4R Enforcer,4
+KW1-LH2 Lineholder,5
+HBK-4G Hunchback,6
+TBT-5N Trebuchet,5
+HCT-3F Hatchetman,4
+CN9-A Centurion,3
+CLNT-2-3U Clint,2
+NGS-4S Nightsky,1
+

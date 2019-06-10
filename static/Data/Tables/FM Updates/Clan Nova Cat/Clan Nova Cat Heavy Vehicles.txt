@@ -1,0 +1,16 @@
+Clan Nova Cat Heavy Vehicles.txt
+Per Field Manual Updates page 223
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Athena,1
+LRM Carrier,2
+Demon,3
+Burke,4
+Shoden(streak),5
+Shoden,6
+Ishtar,5
+Pike(C),4
+Shoden(streak),3
+Shoden,2
+Tokugawa,1
+

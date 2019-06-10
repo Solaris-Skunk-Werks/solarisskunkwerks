@@ -1,0 +1,6 @@
+Scattered Woods(MS2,MSC2),1
+BattleTech(CBT,MS2,MSC1),1
+Woodland(MS6,MSC2),1
+Rolling Hills #1(MS3,MSC1),1
+Heavy Forest #1(MS4,MSC1),1
+Heavy Forest #2(MS4,MSC1),1

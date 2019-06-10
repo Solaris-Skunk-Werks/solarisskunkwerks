@@ -1,0 +1,11 @@
+KGC-000 King Crab(100)(3050), 1
+T-IT-N10M Grand Titan(100)(3055), 2
+AWS-8Q Awesome(80)(3025), 3
+THG-11E Thug(80)(3050), 4
+HGN-732 Highlander(90)(3050), 5
+AS7-K Atlas(100)(3050), 6
+MR-V2 Cerberus(95)(3055), 5
+VKG-2F Viking(90)(3060), 4
+PPR-5S Salamander(85)(3055), 3
+STK-5S Stalker(85)(3050), 2
+TDR-7K Thunder Hawk(100)(3058), 1

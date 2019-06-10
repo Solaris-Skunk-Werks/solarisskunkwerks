@@ -1,0 +1,16 @@
+SLDF Vehicles Medium.txt
+Per Field Manual Updates page 222
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Maxim Heavy Hovertank (3058),1
+Drillson Heavy Hovertank,2
+Zephyr,3
+Goblin Medium Tank,4
+Condor Heavy Hovertank,5
+Regulator Hover Tank,6
+Maxim Heavy Hover Transport,5
+Musketeer Hover Tank,4
+Drillson (SRM),3
+Condor Heavy Hovertank,2
+Chaparral,1
+

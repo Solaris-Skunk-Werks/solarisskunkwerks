@@ -1,0 +1,16 @@
+FM-Merc Light Mechs A.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+SPR-5F Spector,1
+SCB-9A Scarabus,2
+BZK-F3 Hollander,3
+LCT-5M Locust,4
+DRT-4S Dart,5
+BH-K305 Battle Hawk,6
+HMR-3P Hammer,5
+WLF-2 Wolfhound,4
+SDR-8M Spider,3
+EGL-2M Eagle,2
+AF1 Artic Fox,1
+

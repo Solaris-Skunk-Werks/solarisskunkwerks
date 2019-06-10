@@ -1,0 +1,11 @@
+TR-10 Transit(50), 1
+TR-10 Transit(50), 2
+F-90 Stingray(60), 3
+CSR-V20 Corsair(50), 4
+LTN-G15 Lightning(50), 5
+CSR-V12 Corsair(50), 6
+HCT-213 Hellcat(60), 5
+LCF-R15 Lucifer(65), 4
+LTN-G15 Lightning(50), 3
+LTN-G15 Lightning(50), 2
+LCF-R20 Lucifer(65), 1

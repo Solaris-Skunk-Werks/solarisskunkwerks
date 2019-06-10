@@ -1,0 +1,17 @@
+Clan Snow Raven Light Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Indra,1
+Indra,2
+Svantovit,3
+Mithras,4
+Donar VTOL,5
+Donar VTOL,6
+Asshur,5
+Zorya,4
+Mithras,3
+Odin,2
+Odin,1
+
+

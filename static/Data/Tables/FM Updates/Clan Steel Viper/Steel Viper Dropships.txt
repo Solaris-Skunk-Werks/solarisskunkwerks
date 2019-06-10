@@ -1,0 +1,20 @@
+Steel Viper Dropships.txt
+Per Field Manual Updates page 215
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Broadsword,1
+Broadsword,2
+Sassanid,3
+Miraborg,4
+Noruff,5
+Union-C,6
+Overlord-C,5
+Mercer,4
+Carrier,3
+Lion,2
+Titan,1
+
+
+
+
+

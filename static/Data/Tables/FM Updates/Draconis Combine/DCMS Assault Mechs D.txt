@@ -1,0 +1,16 @@
+DCMS Assault Mechs D.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+CGR-3K Charger,1
+BNC-3E Banshee,2
+CP-10-Z Cyclops,3
+STK-3F Stalker,4
+VTR-9B Victor,5
+CGR-1A1 Charger,6
+AS7-D Atlas,5
+BLR-1G Battlemaster,4
+AWS-8Q Awesome,3
+GOL-1H Goliath,2
+VTR-9K Victor,1
+

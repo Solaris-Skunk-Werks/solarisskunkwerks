@@ -1,0 +1,16 @@
+AFFS Assault Mechs B.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+NSR-9J Nightstar,1
+MAD-4S Marauder II,2
+MR-V2 Cerberus,3
+LGB-12C Longbow,4
+VTR-10D Victor,5
+GUN-1ERD Gunslinger,6
+NSR-9J Nightstar,5
+DVS-2 Devastator,4
+AS7-S Atlas,3
+EMP-6A Emperor,2
+PPR-5S Salamander,1
+

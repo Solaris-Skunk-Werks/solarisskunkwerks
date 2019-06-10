@@ -1,0 +1,11 @@
+Mechanized Hover Platoon, 1
+Mechanized Wheeled Platoon, 2
+Mechanized Wheeled Platoon, 3
+Jump Platoon, 4
+Motorized Platoon, 5
+Foot Platoon, 6
+Foot Platoon, 5
+Motorized Platoon, 4
+Jump Platoon, 3
+Mechanized Tracked Platoon, 2
+Mechanized Hover Platoon, 1

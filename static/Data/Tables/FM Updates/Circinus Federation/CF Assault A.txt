@@ -1,0 +1,16 @@
+CF Assault A.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+DVS-2 Devastator,1
+STK-5M Stalker,2
+VTR-9S Victor,3
+LGB-7Q Longbow,4
+AWS-8T Awesome,5
+STK-3H Stalker,6
+AWS-8Q Awesome,5
+BNC-3S Banshee,4
+ZEU-9S zeus,3
+CGR-1A5 Charger,2
+HGN-732 Highlander,1
+

@@ -1,0 +1,16 @@
+Clan Diamond Shark Frontline Asaault.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Warhawk H,1
+Executioner A,2
+Dire Wolf S,3
+Warhawk C,4
+Gargoyle A,5
+Warhawk Prime,6
+Gargoyle Prime,5
+Executioner D,4
+Dire Wolf C,3
+Warhawk B,2
+Dire Wolf A,1
+

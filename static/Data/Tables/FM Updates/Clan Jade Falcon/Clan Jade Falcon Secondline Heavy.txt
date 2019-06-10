@@ -1,0 +1,16 @@
+Clan Jade Falcon Secondline Heavy.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Timber Wolf Prime,1
+Mad Dog Prime,2
+Summoner C,3
+EXT-4D Exterminator,4
+Glass Spider,5
+Glass Spider,6
+Rifleman IIc,5
+Rifleman IIc,4
+FLS-8K Flashman,3
+Hellbringer A,2
+Summoner Prime,1
+

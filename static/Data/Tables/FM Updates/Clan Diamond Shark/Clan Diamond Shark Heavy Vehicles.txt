@@ -1,0 +1,16 @@
+Clan Diamond Shark Heavy Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Shoden,1
+LRM Carrier,2
+Demon,3
+Burke,4
+Shode(streak),5
+Shoden,6
+Ishtar,5
+Pike(C),4
+Shoden(streak),3
+Athena,2
+Tokugawa,1
+

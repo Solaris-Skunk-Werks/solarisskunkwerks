@@ -1,0 +1,33 @@
+HGN-732b Highlander, 1
+STK-3Fb Stalker, 1
+THE-11b Thug, 1
+LGB-7Q Longbow, 1
+GOL-1H Goliath, 1
+STC-2C Striker, 1
+BNC-3M Banshee, 1
+RFL-3N2 Rifleman II, 1
+KCG-000 King Crab, 1
+SHG-2H Shogun, 1
+TDK-7X Thunder Hawk, 1
+NSR-9J Nightstar, 1
+KCG-000b King Crab, 1
+CRK-5003-1 Crockett, 1
+AS7-D-H	Atlas II, 1
+THE-11 Thug, 1
+AWS-8Q Awesome, 1
+BLR-1G BattleMaster, 1
+VTR-9A Victor, 1
+ANH-1X Annihilator, 1
+EMP-6A Emperor, 1
+HGN-732 Highlander, 1
+PLG-3Z Pillage, 1
+STK-3Fb Stalker, 1
+CP-10-Q Cyclops, 1
+SPT-N2 Spartan, 1
+STK-3F Stalker, 1
+AS7-D Atlas, 1
+ZEU-6S Zeus, 1
+HGN-732 Highlander, 1
+AWS-8Q Awesome, 1
+BLR-1Gb BattleMaster, 1
+MSK-6S Mackie, 1

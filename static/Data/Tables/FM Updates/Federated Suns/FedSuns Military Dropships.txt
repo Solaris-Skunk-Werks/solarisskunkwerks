@@ -1,0 +1,16 @@
+FedSuns Military Dropships.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Overlord-A3,1
+Vengance,2
+Conquistador,3
+Avenger,4
+Union,5
+Overlord,6
+Triumph,5
+Leopard,4
+Achilles,3
+Fortress,2
+Hercules,1
+

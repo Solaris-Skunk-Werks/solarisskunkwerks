@@ -1,0 +1,44 @@
+AF1 Arctic Fox, 1
+EGL-2M Eagle, 2
+LCT-5M Locust, 3
+DRT-4S Dart, 4
+ZPH-1A Tarantula*, 5
+BH-K305 Battle Hawk, 6
+JA-KL-1532 Jackal, 5
+HMR-3M Hammer, 4
+WLF-2 Wolfhound, 3
+TLN-5W Talon, 2
+SPR-5F Spector, 1
+FS9-O Firestarter, 1
+VND-5L Vindicator, 2
+ENF-5D Enforcer, 3
+CBR-02 Cobra, 4
+END-6S Enfield, 5
+WVR-8K Wolverine, 6
+BEO-12 Beowulf, 5
+LNX-9Q Lynx, 4
+STY-3D Starslayer, 3
+WVE-9N Wyvern, 2
+BJ2-O Blackjack, 1
+YMN-6Y Yeoman, 1
+CES-4R Caesar, 2
+HEL-3D Helios, 3
+RFL-8D Rifleman, 4
+WHM-8D Warhammer, 5
+ARC-8M Archer, 6
+TDR-7SE Thunderbolt, 5
+AV1-O Avatar, 4
+CTS-8Y Cestus, 3
+MTR-5K Maelstrom, 2
+DRG-5K Grand Dragon, 1
+AS7-D-H Atlas II, 1
+SRC-3C Sirocco*, 2
+HGN-732 Highlander, 3
+EMP-6A Emperor, 4
+VTR-10D Victor, 5
+MR-V2 Cerberus, 6
+GUN-1ERD Gunslinger, 5
+LGB-12C Longbow, 4
+BKW-7R Black Watch, 3
+TIT-N11M Grand Titan, 2
+MAD-4S Marauder II, 1

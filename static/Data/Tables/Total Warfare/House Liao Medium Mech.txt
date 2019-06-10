@@ -1,0 +1,11 @@
+BJ2-OE Blackjack(50)(3058), 1
+SYU-2B Sha Yu(40)(3067), 2
+HUR-WO-R4L Huron Warrior(50)(3055), 3
+VND-3L Vindicator(45)(3050), 4
+DV-7D Dervish(55)(3050), 5
+VND-3L Vindicator(45)(3050), 6
+BJ-2 Blackjack(45)(3050), 5
+CLNT-2-3U Clint(40)(3050), 4
+SNK-1V Snake(45)(3055), 3
+HUR-WO-R4L Wuron Warrior(50)(3055), 2
+MS1-O Men Shen(55)(3060), 1

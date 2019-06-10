@@ -1,0 +1,11 @@
+GHR-5H Grasshopper(70), 1
+CRD-3R Crusader(65), 2
+RFL-3N Rifleman(60), 3
+QKD-4G Quickdraw(60), 4
+ON1-K Orion(75), 5
+ARC-2R Archer(70), 6
+TDR-5S Thunderbolt(65), 5
+WHM-6R Warhammer(70), 4
+MAD-3R Marauder(75), 3
+ON1-VA Orion(75), 2
+OSR-2C Ostroc(60), 1

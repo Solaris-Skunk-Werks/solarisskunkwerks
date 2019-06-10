@@ -1,0 +1,16 @@
+Clan Snow Raven Protomechs.txt
+Per Field Manual Updates page 218
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Satyr,1
+Satyr 2,2
+Miotaur,3
+Roc,4
+Roc 3,5
+Roc 2,6
+Gorgon 3,5
+Gorgon,4
+Centaur 3,3
+Centaur 2,2
+Centaur,1
+

@@ -1,0 +1,11 @@
+FS9-H Firestarter(35), 1
+SDR-5V Spider(30), 2
+FLC-4N Falcon(25), 3
+FLE-15 Flea(20), 4
+LCT-1V Locust(20), 5
+WSP-1W Wasp(20), 6
+FFL-4A Firefly(30), 5
+HNT-151 Hornet(20), 4
+STG-3G Stinger(20), 3
+JVN-10N Javelin(30), 2
+OTT-7J Ostscout(35), 1

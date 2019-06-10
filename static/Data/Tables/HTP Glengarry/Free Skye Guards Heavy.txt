@@ -1,0 +1,11 @@
+Quickdraw QKD-5M,1
+Thunderbolt TDR-7M,2
+Cataphract CTF-3D,3
+Archer ARC-4S,4
+Grasshopper GHR-5H,5
+Marauder MAD-5S,6
+Warhammer WHM-7M,5
+Orion ON1-M,4
+Rifleman RFL-3M,3
+Falconer FLC-8R,2
+JagerMech JM6-DD,1

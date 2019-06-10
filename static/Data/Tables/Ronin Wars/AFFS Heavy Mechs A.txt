@@ -1,0 +1,11 @@
+OTL-4F Ostsol(60), 1
+ARC-2R Archer(70), 2
+JM6-A JagerMech(65), 3
+RFL-3C Rifleman(60), 4
+CRD-3D Crusader(65), 5
+MAD-3D Marauder(75), 6
+WHM-6D Warhammer(70), 5
+TDR-5S Thunderbolt(65), 4
+GHR-5N Grasshopper(70), 3
+RFL-4D Rifleman(60), 2
+EXT-4A Exterminator(65), 1

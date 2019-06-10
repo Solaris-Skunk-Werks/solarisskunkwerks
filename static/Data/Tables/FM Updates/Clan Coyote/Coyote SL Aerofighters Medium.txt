@@ -1,0 +1,16 @@
+Coyote SL Aerofighters Medium.txt
+Per Field Manual Updates page 216
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Turk Prime,1
+HCT-213B Hellcat II,2
+GTHA-500 Gotha,3
+Tyre,4
+HCT-213B Hellcat II,5
+Tyre,6
+Tyre 2,5
+Tyre 2,4
+IRN-SD1 Ironsides,3
+Jagatai Prime,2
+Jagatai Prime,1
+

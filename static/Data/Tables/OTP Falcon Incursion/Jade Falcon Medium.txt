@@ -1,0 +1,11 @@
+Great Wyrm (Standard),1
+Fenris (Ice Ferret) Prime,2
+Dragonfly (Viper) Prime,3
+Black Hawk (Nova) Prime,4
+Hunchback IIC (Standard),5
+Ryoken (Stormcrow) Prime,6
+Hellhound (Conjurer) (Standard),5
+Black Lanner Prime,4
+Griffin IIC (Standard),3
+Shadow Hawk IIC (Standard),2
+Grendel (Mongrel) Prime,1

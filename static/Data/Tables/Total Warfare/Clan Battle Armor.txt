@@ -1,0 +1,11 @@
+Sylph(L), 1
+Sylph(L), 2
+Salamander(M), 3
+Salamander(M), 4
+Elemental(M), 5
+Elemental(M), 6
+Elemental(M), 5
+Gnome(H), 4
+Gnome(H), 3
+Undine(M), 2
+Undine(M), 1

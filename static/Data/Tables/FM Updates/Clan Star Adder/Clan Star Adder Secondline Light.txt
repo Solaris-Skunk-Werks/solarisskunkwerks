@@ -1,0 +1,16 @@
+Clan Star Adder Secondline Light.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Locust IIc 4,1
+Locust IIc,2
+Locust IIc 3,3
+Jenner IIc,4
+Horned Owl,5
+Jenner IIc 2,6
+Incubus,5
+Horned Owl 2,4
+Howler,3
+Pack Hunter,2
+Firefly(C),1
+

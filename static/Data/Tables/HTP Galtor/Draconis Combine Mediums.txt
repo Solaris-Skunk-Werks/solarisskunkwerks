@@ -1,0 +1,11 @@
+ENF-4R Enforcer, 1
+HBK-4G Hunchback, 2
+GRF-1N Griffin, 3
+PXH-1K Phoenix Hawk, 4
+PXH-1 Phoenix Hawk, 5
+SHD-2H Shadow Hawk, 6
+WVR-6R Wolverine, 5
+WVR-6K Wolverine, 4
+SHD-2K Shadow Hawk, 3
+HBK-4P Hunchback, 2
+ASN-21 Assassin, 1

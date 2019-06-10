@@ -1,0 +1,16 @@
+Clan Ghost Bear Secondline Medium.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Lobo,1
+Great Wyrm,2
+STN-1N Sentinel,3
+Clit IIc,4
+Hunchback IIc,5
+Ursus,6
+Clint IIc,5
+Ursus,4
+Wyvern IIc,3
+BEO-12 Beowulf,2
+Arctic Wolf,1
+

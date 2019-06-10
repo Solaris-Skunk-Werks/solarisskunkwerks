@@ -1,0 +1,16 @@
+Clan Jade Falcon Medium Vehicles.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hachiman,1
+Ku,2
+Ku,3
+Hachiman,4
+Ares,5
+Ares,6
+Ares,5
+Hachiman,4
+Ku,3
+Hachiman,2
+Enyo,1
+

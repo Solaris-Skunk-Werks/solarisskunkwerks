@@ -1,0 +1,11 @@
+VLK-QA Valkyrie, 1
+LCT-1V Locust, 2
+STG-3R Stinger, 3
+WSP-1K Wasp, 4
+JR7-D Jenner, 5
+JR7-D Jenner, 6
+PNT-9R Panther, 5
+PNT-9R Panther, 4
+JR7-F Jenner, 3
+SDR-5K Spider, 2
+OTT-7J Ostscout, 1

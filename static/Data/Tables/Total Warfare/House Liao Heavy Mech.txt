@@ -1,0 +1,11 @@
+THR-1L Thunder(70)(3055), 1
+ON1-K Orion(75)(3025), 2
+LHU-2B Lao Hu(75)(3067), 3
+TSG-9H Ti Ts'ang(60)(3060), 4
+JN-G8A Jinggau(65)(3060), 5
+MAD-5L Marauder(75)(PP), 6
+GHR-5H Grasshopper(70)(3025), 5
+CPLT-C1 Catapult(65)(3025), 4
+ANV-3M Anvil(60)(3055), 3
+OSR-4L Ostroc(60)(PP), 2
+HEL-3D Helios(60)(3060), 1

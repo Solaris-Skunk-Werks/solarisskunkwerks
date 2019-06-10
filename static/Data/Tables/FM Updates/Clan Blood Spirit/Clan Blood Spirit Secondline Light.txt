@@ -1,0 +1,16 @@
+Clan Blood Spirit Secondline Light.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Howler,1
+MON-66 Mongoose,2
+Jenner IIC,3
+Locust IIC,4
+Horned Owl,5
+Locust IIC,6
+Incubus,5
+MCY-97 Mercury,4
+Incubus,3
+Horned Owl,2
+Piranha,1
+

@@ -1,0 +1,16 @@
+MH Light A.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+WLF-1 Wolfhound,1
+FS9-S Firestarter,2
+JA-KL-1532 Jackal,3
+JVN-10N Javelin,4
+PNT-9R Panther,5
+FS9-C Firestarter,6
+COM-4H Commando,5
+JVN-10P Javelin,4
+PNT-9R Panther,3
+LCT-1V2 Locust,2
+LDT-X2 Brigand,1
+

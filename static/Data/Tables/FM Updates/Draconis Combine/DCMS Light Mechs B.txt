@@ -1,0 +1,16 @@
+DCMS Light Mechs B.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Koshi Prime,1
+OW-1 Owens,2
+HM-1 Hitman,3
+JVN-10P Javelin,4
+JR7-K Jenner,5
+PNT-10K Panther,6
+PNT-10K Panther,5
+SDR-9K Venom,4
+RTX1-O Raptor,3
+OW-1 Owens,2
+KBO-7A Kabuto,1
+

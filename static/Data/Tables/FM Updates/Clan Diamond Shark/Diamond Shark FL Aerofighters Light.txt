@@ -1,0 +1,16 @@
+Diamond Shark FL Aerofighters Light.txt
+Per Field Manual Updates page 215
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Avar Prime,1
+Vandal A,2
+Batu Prime,3
+Bashkir C,4
+Batu Prime,5
+Sulla A,6
+Bashkir C,5
+Sulla Prime,4
+Bashkir C,3
+Vandal  C,2
+Avar Prime,1
+

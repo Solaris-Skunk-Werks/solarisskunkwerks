@@ -1,0 +1,16 @@
+AFFS Heavy Mechs B.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+AGS-4D Argus,1
+MDG-2A Rakshasa,2
+WHM-8D Warhammer,3
+TDR-10SE Thunderbolt,4
+CTS-6Y Cestus,5
+FLC-8R Falconer,6
+PTR-4D Penetrator,5
+RFL-8D Rifleman,4
+JM7-F JagerMech,3
+CTF-3D Cataphract,2
+GAL-1GLS Gallowglas,1
+

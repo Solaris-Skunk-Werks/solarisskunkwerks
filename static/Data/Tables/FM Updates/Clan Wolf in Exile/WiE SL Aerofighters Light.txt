@@ -1,0 +1,16 @@
+WiE SL Aerofighters Light.txt
+Per Field Manual Updates page 217
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+S-4C Sai,1
+SWF-606 Swift,2
+CHaeronea,3
+RGU-133E Rogue,4
+Sulla A,5
+Chaeroea,6
+Batu B,5
+ZRO-114 Zero,4
+Sulla C,3
+Vandal B,2
+Avar B,1
+

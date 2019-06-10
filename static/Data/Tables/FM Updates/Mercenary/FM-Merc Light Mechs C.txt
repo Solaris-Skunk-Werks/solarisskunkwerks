@@ -1,0 +1,16 @@
+FM-Merc Light Mechs C.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ZPH-1A Tarantula,1
+BH-K305 Battle Hawk,2
+SDR-7M Spider,3
+PNT-10K Panther,4
+FS9-S Firestarter,5
+JVN-10F Javelin,6
+COM-5S Commando,5
+WLF-1 Wolfhound,4
+UM-R63 UrbanMech,3
+JA-KL-1532 Jackal,2
+BZK-F3 Hollander,1
+

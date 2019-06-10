@@ -1,0 +1,16 @@
+Clan Steel Viper Frontline Light.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Fire Moth B,1
+Mist Lynx Prime,2
+Hankyu B,3
+Adder Prime,4
+Kit Fox C,5
+Fire Moth A,6
+Hankyu Prime,5
+Hankyu C,4
+Mist Lynx B,3
+Kit Fox Prime,2
+Adder B,1
+

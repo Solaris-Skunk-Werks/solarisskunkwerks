@@ -1,0 +1,16 @@
+FRR Vehicles Heavy.txt
+Per Field Manual Updates page 221
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Po Heavy Tank,1
+Magi,2
+Bulldog Medium Tank,3
+SRM Carrier(3058),4
+LRM Carrier,5
+Manticore Heavy Tank,6
+SRM Carrier,5
+LRM Carrier(3058),4
+Pike Support Vehicle,3
+Bulldog Medium Tank,2
+Demon,1
+

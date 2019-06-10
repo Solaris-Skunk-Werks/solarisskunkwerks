@@ -1,0 +1,11 @@
+F-90S Stingray(60), 1
+HCT-213 Hellcat(60), 2
+HCT-213 Hellcat(60), 3
+LCF-R20 Lucifer(65), 4
+LCF-R20 Lucifer(65), 5
+LCF-R15 Lucifer(65), 6
+CSR-V12 Corsair(50), 5
+LTN-G15 Lightning(50), 4
+CSR-V20 Corsair(50), 3
+CSR-V20 Corsair(50), 2
+LTN-G15 Lightning(50), 1

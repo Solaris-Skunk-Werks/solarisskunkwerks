@@ -1,0 +1,11 @@
+Awesome AWS-9M,1
+Atlas AS7-K,2
+Banshee BNC-5S,3
+Zeus ZEU-9S,4
+Zeus ZEU-9S,5
+Banshee BNC-5S,6
+Stalker STK-5S,5
+BattleMaster BLR-3S,4
+Cyclops CP-11-A,3
+Salamander PPR-5S,2
+Berserker BRZ-A3,1

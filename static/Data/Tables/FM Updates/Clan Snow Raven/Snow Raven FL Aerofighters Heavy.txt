@@ -1,0 +1,16 @@
+Snow Raven FL Aerofighters Heavy.txt
+Per Field Manual Updates page 215
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hydaspes 2,1
+Sabutai A,2
+Hydaspes,3
+Kirghiz A,4
+Sabutai Prime,5
+Sabutai C,6
+KIrghiz Prime,5
+Kirghiz B,4
+Kirghiz A,3
+Sabutai A,2
+Sabutai B,1
+

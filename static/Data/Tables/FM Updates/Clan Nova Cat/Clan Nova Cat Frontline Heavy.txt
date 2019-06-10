@@ -1,0 +1,16 @@
+Clan Nova Cat Frontline Heavy.txt
+Per Field Manual Updates page 223
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Timber Wolf Prime,1
+Nova Cat A,2
+Summoner D,3
+Timber Wolf A,4
+Nova Cat A,5
+Nova Cat Prime,6
+Nova Cat C,5
+Nova Cat D,4
+Nova Cat E,3
+Timber Wolf D,2
+Timber Wolf B,1
+

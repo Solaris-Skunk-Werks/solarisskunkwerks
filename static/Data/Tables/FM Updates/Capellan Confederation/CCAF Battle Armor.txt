@@ -1,0 +1,16 @@
+CCAF Battle Armor.txt
+Per Field Manual Updates page 206
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ Tornado , 1
+ Achileus , 2
+ Fa Shih , 3
+ Fa Shih , 4
+ Fa Shih , 5
+ Standard , 6
+ Standard , 5
+ Standard ,4
+ Standard , 3
+ Longinus , 2
+ Warhammer ,1
+

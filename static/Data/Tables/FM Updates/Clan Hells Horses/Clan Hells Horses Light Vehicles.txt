@@ -1,0 +1,18 @@
+Clan Hells Horses Light Vehicles.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Anhur,1
+Hephaestus,2
+Asshur,3
+Donar,4
+Mithras,5
+Svantovit,6
+Zorya,5
+Odin,4
+Svantovit(Streak),3
+Indra,2
+Hephaestus,1
+
+
+

@@ -1,0 +1,11 @@
+Heimdall A(95)(3067), 1
+Fury(80)(3050), 2
+Rhio(80)(3050), 3
+Mars(100)(3060), 4
+Morrigu(80)(3067), 5
+Mars(100)(3060), 6
+Morrigu(80)(3067), 5
+Alacorn Mk IV(95)(3058), 4
+Morrigu(80)(3067), 3
+Heimdall Prime(95)(3067), 2
+Puma(95)(3050), 1

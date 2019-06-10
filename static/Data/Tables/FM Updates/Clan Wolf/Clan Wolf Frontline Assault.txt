@@ -1,0 +1,16 @@
+Clan Wolf Frontline Assault.txt
+Per Field Manual Updates page 
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Warhawk Prime,1
+Dire Wolf H,2
+Gargoyle H,3
+Dire Wolf Prime,4
+Gargoyle A,5
+Dire Wolf A,6
+Warhawk C,5
+Dire Wolf C,4
+Kingfisher D,3
+Warhawk B,2
+Dire Wolf S,1
+

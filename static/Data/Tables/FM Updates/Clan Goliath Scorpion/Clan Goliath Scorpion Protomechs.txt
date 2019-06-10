@@ -1,0 +1,16 @@
+Clan Goliath Scorpion Protomechs.txt
+Per Field Manual Updates page 218
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Roc,1
+Roc,2
+Satyr,3
+Satyr,4
+Satyr,5
+Roc,6
+Minotaur,5
+Minotaur,4
+Minotaur,3
+Roc,2
+Roc,1
+

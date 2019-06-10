@@ -1,0 +1,11 @@
+Wolverine WVR-6R,1
+Dervish DV-6M,2
+Trebuchet TBT-5N,3
+Hermes II HER-2S,4
+Phoenix Hawk PXH-1,5
+Hoplite HOP-4B,6
+Griffin GRF-1N,5
+Hunchback HBK-4G,4
+Shadow Hawk SHD-2H,3
+Whitworth WTH-1,2
+Assassin ASN-21,1

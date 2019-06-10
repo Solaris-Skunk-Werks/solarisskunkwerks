@@ -1,0 +1,11 @@
+BNC-3S Banshee(95), 1
+BLR-1G Battlemaster(85), 2
+CP-10-Z Cyclops(90), 3
+STK-3F Stalker(85), 4
+AWS-8Q Awesome(80), 5
+AS7-D Atlas(100), 6
+VTR-9B Victor(80), 5
+LGB-7Q Longbow(85), 4
+BLR-1D Battlemaster(85), 3
+STK-3H Stalker(85), 2
+BNC-3E Banshee(95), 1

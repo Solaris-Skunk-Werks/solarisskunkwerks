@@ -1,0 +1,16 @@
+Clan Steel Viper Medium Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Ku,1
+Ku,2
+Enyo,3
+Enyo,4
+Ku,5
+Hachiman,6
+Ares,5
+Hachiman,4
+Ku,3
+Ares,2
+Ares,1
+

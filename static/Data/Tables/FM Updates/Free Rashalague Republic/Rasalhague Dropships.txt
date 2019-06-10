@@ -1,0 +1,16 @@
+Rasalhague Dropships.txt
+Per Field Manual Updates page 221
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Overlord,1
+Gazelle,2
+Triumph,3
+Leopard CV,4
+Union,5
+Leopard,6
+Gazelle,5
+Union,4
+Triumph,3
+Overlord,2
+Vengence,1
+

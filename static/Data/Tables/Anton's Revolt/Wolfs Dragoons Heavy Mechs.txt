@@ -1,0 +1,11 @@
+JM6-S JagerMech(65), 1
+CPLT-C1 Catapult(65), 2
+TDR-5S Thunderbolt(65), 3
+CDR-3R Crusader(65), 4
+WHM-6R Harhammer(70), 5
+ARC-2W Archer(70), 6
+MAD-3R Marauder(75), 5
+RFL-3N Rifleman(60), 4
+GHR-5H Grasshopper(70), 3
+ON1-K Orion(75), 2
+OSR-3C Ostroc(60), 1

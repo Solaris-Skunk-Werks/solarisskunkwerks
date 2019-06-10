@@ -1,0 +1,16 @@
+Clan Snow Raven Frontline Medium.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Nova S,1
+Viper A,2
+Ice Ferret Prime,3
+Viper Prime,4
+Nova C,5
+Nova Prime,6
+Stormcrow D,5
+Shadow Cat B,4
+Phantom B,3
+Ice Ferret C,2
+Hankyu A,1
+

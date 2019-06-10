@@ -1,0 +1,16 @@
+Clan Ice Hellion Secondline Medium.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hunchback IIc,1
+Shadow Hawk IIc,2
+Wyvern IIc,3
+Shadow Hawk IIc 2,4
+Griffin IIc 2,5
+Vapor Eagle,6
+Griffin IIc 4,5
+Clint IIc,4
+Conjurer,3
+Vapor Eagle,2
+Great Wyrm,1
+

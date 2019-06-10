@@ -1,0 +1,11 @@
+HMR-HD Hammerhead(75), 1
+SL-15B Slayer(80), 2
+F-100 Riever(100), 3
+EGL-R6 Eagle(75), 4
+CHP-W5 Chippewa(90), 5
+SL-15 Slayer(80), 6
+SL-15A Slayer(80), 5
+EGL-R6 Eagle(75), 4
+THB-D36 Thunderbird(100), 3
+AHB-443 Ahab(90), 2
+SL-15C Slayer(80), 1

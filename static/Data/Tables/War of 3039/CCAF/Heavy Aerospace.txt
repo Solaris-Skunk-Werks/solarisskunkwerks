@@ -1,0 +1,11 @@
+Thunderbird(100), 1
+Thunderbird(100), 2
+TR-13A Transgressor(75), 3
+TR-14 Transgressor(75), 4
+Eagle(75), 5
+TR-13 Transgressor(75), 6
+TR-13 Transgressor(75), 5
+Eagle(75), 4
+Thunderbird(100), 3
+TR-14 Transgressor(75), 2
+Thunderbird(100), 1

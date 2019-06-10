@@ -1,0 +1,16 @@
+Clan Star Adder Frontline Assault.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Blood Asp C,1
+Executioner A,2
+Warhawk C,3
+Blood Asp Prime,4
+Blood Asp A,5
+Kingfisher H,6
+Gargoyle D,5
+Warhawk H,4
+Dire Wolf H,3
+Blood Asp E,2
+Savage Coyote C,1
+

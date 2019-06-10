@@ -1,0 +1,17 @@
+Clan Cloud Cobra Light Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Anhur,1
+Anhur,2
+Zorya,3
+Badger(C2),4
+Odin,5
+Donar VTOL(recon),6
+Indra,5
+Asshur,4
+Shamash,3
+Asshur,2
+Shamash,1
+
+

@@ -1,0 +1,16 @@
+TC Heavy A.txt
+Per Field Manual Updates page 229
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ARC-6W Archer,1
+HEL-3D Helios,2
+ON2-M Orion,3
+CPLT-C3 Catapult,4
+GHR-5J Grasshopper,5
+CPLT-C1 Catapult,6
+CTF-3D Cataphract,5
+GHR-5N Grasshopper,4
+CTF-3L Cataphract,3
+TSG-9H Ti Ts'ang,2
+OSR-4C Ostroc,1
+

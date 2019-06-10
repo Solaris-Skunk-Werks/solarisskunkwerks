@@ -1,0 +1,11 @@
+GOL-1H Goliath, 1
+ZEU-6S Zeus, 2
+BNC-3E Banshee, 3
+CGR-1A1 Charger, 4
+BLR-1G BattleMaster, 5
+STK-3F Stalker, 6
+CP-10-Z Cyclops, 5
+CGR-1A1 Charger, 4
+BLR-1S BattleMaster, 3
+VTR-9B Victor, 2
+AS7-D Atlas, 1

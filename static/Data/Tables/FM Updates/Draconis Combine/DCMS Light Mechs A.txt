@@ -1,0 +1,16 @@
+DCMS Light Mechs A.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Locust IIc,1
+SDR-9K Venom,2
+HM-1 Hitman,3
+JR7-K Jenner,4
+OW-1 Owens,5
+PNT-10K Panther,6
+RTX1-O Raptor,5
+JVN-10P Javelin,4
+KBO-7A Kabuto,3
+SDR-7M Spider,2
+Koshi Prime,1
+

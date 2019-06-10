@@ -1,0 +1,47 @@
+WSP-1D Wasp, 1
+UM-R60 UrbanMech, 2
+LCT-1V Locust, 3
+JVN-10N Javelin, 4
+VLQ-A Valkyrie, 5
+VLQ-A Valkyrie, 6
+VLQ-F Valkyrie, 5
+WSP-1D Wasp, 4
+STG-3R Stinger, 3
+WSP-1A Wasp, 2
+PNT-9R Panther, 1
+
+PXH-1 Phoenix Hawk, 1
+SHD-2D Shadow Hawk, 2
+WVR-6R Wolverine, 3
+CN9-AH Centurion, 4
+ENF-4R Enforcer, 5
+ENF-4R Enforcer, 6
+CN9-A Centurion, 5
+PXH-1D Phoenix Hawk, 4
+WVR-6R Wolverine, 3
+DV-6M Dervish, 2
+PXH-1 Phoenix Hawk, 1
+
+TDR-5S Thunderbolt, 1
+WHM-6D Warhammer, 2
+JM6-A JagerMech, 3
+ARC-2R Archer, 4
+MAD-3D Marauder, 5
+MAD-3R Marauder, 6
+JM6-S JagerMech, 5
+WMH-6R Warhammer, 4
+RFL-3N Rifleman, 3
+MAD-3D Marauder, 2
+CRD-3D Crusader, 1
+
+VTR-9A Victor, 1
+AS7-D Atlas, 2
+BNC-3E Banshee, 3
+STK-3F Stalker, 4
+AWS-8Q Awesome, 5
+BLR-1G BattleMaster, 6
+VTR-9B Victor, 5
+BLR-1D BattleMaster, 4
+CP-10-Z Cyclops, 3
+AS7-D Atlas, 2
+STK-4N Stalker, 1

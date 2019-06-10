@@ -1,0 +1,16 @@
+Fire Mandrill dropships.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Outpost,1
+Titan-C,2
+Union-C,3
+Overlord-C,4
+Union-C,5
+Union-C,6
+Broadsword,5
+Overlord-C,4
+Titan,3
+Overlord-C,2
+Mercer,1
+

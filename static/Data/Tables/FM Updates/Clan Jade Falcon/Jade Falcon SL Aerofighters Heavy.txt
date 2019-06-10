@@ -1,0 +1,16 @@
+Jade Falcon SL Aerofighters Heavy.txt
+Per Field Manual Updates page 211
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+HMR-HD Hammerhead,1
+Sabutai Prime,2
+Sabutai A,3
+AHB-443 Ahab,4
+Kirghiz A,5
+RPR-100 Rapier,6
+Scytha Prime,5
+AHB-443 Ahab,4
+Kirghiz Prime,3
+Sabutai C,2
+RPR-100 Rapier,1
+

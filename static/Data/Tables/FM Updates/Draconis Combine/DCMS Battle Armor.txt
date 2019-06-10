@@ -1,0 +1,16 @@
+DCMS Battle Armor.txt
+Per Field Manual Updates page 
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ Nighthawk MK XXI , 1
+ Kage , 2
+ Kage , 3
+ Raiden , 4
+ Raiden , 5
+ Raiden , 6
+ Standard , 5
+ Standard , 4
+ Standard , 3
+ Kanazuchi , 2
+ Kanazuchi , 1
+

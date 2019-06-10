@@ -1,0 +1,16 @@
+Ice Hellion SL Aerofighters Medium.txt
+Per Field Manual Updates page 211
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Turk A,1
+Ammon,2
+Turk B,3
+Visigoth Prime,4
+Tyre 2,5
+Tyre,6
+Tyre,5
+Turk Prime,4
+Visigoth C,3
+Jagatai A,2
+Jagatai C,1
+

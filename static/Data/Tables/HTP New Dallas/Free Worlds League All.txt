@@ -1,0 +1,44 @@
+Mongoose MON-66,1
+Spider SDR-5V,2
+Hermes HER-1S,3
+Talon TLN-5W,4
+Locust LCT-1V,5
+Wasp WSP-1A,6
+Night Hawk NTK-2Q,5
+Flea FLE-15,4
+Firestarter FS9-H,3
+Thorn THE-N,2
+UrbanMech UM-R60,1
+Wolverine WVR-6R,1
+Dervish DV-6M,2
+Trebuchet TBT-5N,3
+Hermes II HER-2S,4
+Phoenix Hawk PXH-1,5
+Hoplite HOP-4B,6
+Griffin GRF-1N,5
+Hunchback HBK-4G,4
+Shadow Hawk SHD-2H,3
+Whitworth WTH-1,2
+Assassin ASN-21,1
+Marauder MAD-1R,1
+Champion CHP-1N,2
+Crusader CRD-2R,3
+Rifleman RFL-3N,4
+Warhammer WHM-6R,5
+Orion ON1-K,6
+Warhammer WHM-6R,5
+Ostsol OTL-4D,4
+Thunderbolt TDR-5S,3
+Archer ARC-2R,2
+Ostroc OSR-2C,1
+Emperor EMP-6A,1
+Banshee BNC-3M,2
+Striker STC-2C,3
+BattleMaster BLR-1G,4
+Awesome AWS-8Q,5
+Stalker STK-3F,6
+Longbow LGB-0W,5
+Awesome AWS-8R,4
+Victor VTR-9A,3
+Cyclops CP-10-Z,2
+Pillager PLG-3Z,1

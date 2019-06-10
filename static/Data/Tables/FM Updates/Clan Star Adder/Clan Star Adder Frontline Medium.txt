@@ -1,0 +1,16 @@
+Clan Star Adder Frontline Medium.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Pouncer H,1
+Huntsman H,2
+Nova H,3
+Viper H,4
+Grendel A,5
+Nova Prime,6
+Stormcrow B,5
+Stormcrow Prime,4
+Stormcrow H,3
+Viper E,2
+Viper Prime,1
+

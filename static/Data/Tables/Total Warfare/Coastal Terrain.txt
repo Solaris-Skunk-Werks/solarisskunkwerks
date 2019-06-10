@@ -1,0 +1,6 @@
+Archipelago #1(MS7),1
+Archipelago #2(MS7),1
+Coast #1(MS7),1
+Coast #2(MS7),1
+Seaport(MS7),1
+River Delta/Drainage Basin #1(MS4,MSC1),1

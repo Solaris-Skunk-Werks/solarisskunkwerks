@@ -1,0 +1,16 @@
+Clan Fire Mandrill Light Vehicle.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Svantovit(streak),1
+Shamash,2
+Svantovit(streak),3
+Donar VTOL,4
+Svantovit IFV,5
+Odin,6
+Zorya,5
+Svantovit IFV,4
+Asshur,3
+Zorya,2
+Shamash,1
+

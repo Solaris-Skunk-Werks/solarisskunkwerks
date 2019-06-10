@@ -1,0 +1,11 @@
+FLE-4 Flea(20), 1
+FS9-H Firestarter(35), 2
+HER-1A Hermes(30), 3
+WSP-1A Wasp(20), 4
+LCT-1M Locust(20), 5
+LCT-1V Locust(20), 6
+STG-3R Stinger(20), 5
+STG-3R Stinger(20), 4
+JVN-10N Javelin(30), 3
+SDR-5V Spider(30), 2
+UM-R60 UrbanMech(30), 1

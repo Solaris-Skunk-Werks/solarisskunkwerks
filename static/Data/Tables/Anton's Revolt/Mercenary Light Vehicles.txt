@@ -1,0 +1,11 @@
+Warrior VTOL(20), 1
+Saladin(35), 2
+J. Edgar Light Hover Tank(25), 3
+Galleon GAL-100(30), 4
+Pegasus(35), 5
+Saracen(35), 6
+Striker(35), 5
+Scorpion Light Tank(25), 4
+Harasser(25), 3
+Karnov UR Transport(35), 2
+Packrat LRPW(20), 1

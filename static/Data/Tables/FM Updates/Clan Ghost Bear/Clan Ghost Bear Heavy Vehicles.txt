@@ -1,0 +1,16 @@
+Clan Ghost Bear Heavy Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Shoden,1
+LRM Carrier,2
+Oro,3
+Pike(C),4
+Ishtar,5
+Oro,6
+Ishtar,5
+Oro,4
+Pike(C),3
+Athena,2
+Tokugawa,1
+

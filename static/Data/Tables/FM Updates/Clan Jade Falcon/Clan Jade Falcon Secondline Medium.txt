@@ -1,0 +1,16 @@
+Clan Jade Falcon Secondline Medium.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+STN-3L Sentinel,1
+Nova Prime,2
+STN-3L Sentinel,3
+Shadow Hawk IIc,4
+Conjurer,5
+Conjurer,6
+Griffin IIc,5
+Viper Prime,4
+Hunchback IIc,3
+Pinion,2
+KTO-19 Kintaro,1
+

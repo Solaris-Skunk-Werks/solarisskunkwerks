@@ -1,0 +1,16 @@
+Clan Cloud Cobra Secondline Heavy.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Black Python,1
+Thresher,2
+Hellfire 2,3
+Hellfire,4
+Glass Spider,5
+Rifleman IIc,6
+black Python,5
+Guillotine IIc,4
+Glass Spider 2,3
+Rifleman IIc 4,2
+Grizzly,1
+

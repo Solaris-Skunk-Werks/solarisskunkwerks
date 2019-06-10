@@ -1,0 +1,11 @@
+EGL-R6 Eagle(75), 1
+F-100 Riever(100), 2
+F-100 Riever(100), 3
+EGL-R6 Eagle(75), 4
+CHP-W5 Chippewa(90), 5
+CHP-W5 Chippewa(90), 6
+STU-K5 Stuka(100), 5
+THB-D36 Thunderbird(100), 4
+STU-K5 Stuka(100), 3
+SL-15 Slayer(80), 2
+SL-15 Slayer(80), 1

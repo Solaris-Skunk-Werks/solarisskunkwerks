@@ -1,0 +1,11 @@
+Goblin(45)(3058), 1
+Blizzard(25)(3058), 2
+Hetzer(40)(3026), 3
+Drillson(50)(3026), 4
+Myrmidon(40)(3060), 5
+Vedette(50)(3026), 6
+Maxim(50)(3026), 5
+Condor(50)(3026), 4
+Vedette(50)(3026), 3
+Maxim(50)(3058), 2
+Regulator(45)(3058), 1

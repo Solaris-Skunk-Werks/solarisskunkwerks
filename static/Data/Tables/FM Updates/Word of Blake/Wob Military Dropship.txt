@@ -1,0 +1,16 @@
+Wob Military Dropship.txt
+Per Field Manual Updates page 220
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hamilcar,1
+Overlord,2
+Overlord,3
+Assault Triumph,4
+Leopard CV,5
+Union,6
+Leopard,5
+Assault Triumph,4
+Fury,3
+Merlin,2
+Hannibal,1
+

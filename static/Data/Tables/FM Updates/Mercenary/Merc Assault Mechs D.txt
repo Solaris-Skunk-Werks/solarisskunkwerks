@@ -1,0 +1,16 @@
+Merc Assault Mechs D.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+AWS-9M Awesome,1
+BNC-5S Banshee,2
+CP11-G Cyclops,3
+LGB-7Q Longbow,4
+ZEU-9S Zeus,5
+VTR-9K Victor,6
+AS7-S Atlas,5
+CGR-SB Charger,4
+STK-5M Stalker,3
+AWS-9Q Awesome,2
+HTM-27T Hatamoto-Chi,1
+

@@ -1,0 +1,16 @@
+Clan Star Adder Light Vehicles.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Svantovit,1
+Anhur,2
+Zorya,3
+Odin,4
+Asshur,5
+Indra,6
+Shamash,5
+Donar VTOL(recon),4
+Badger(C),3
+Asshur,2
+Hephaestus,1
+

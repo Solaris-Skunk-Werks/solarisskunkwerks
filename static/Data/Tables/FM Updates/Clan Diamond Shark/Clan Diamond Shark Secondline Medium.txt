@@ -1,0 +1,16 @@
+Clan Diamond Shark Secondline Medium.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Grendel A,1
+Griffin IIc 3,2
+Shadow Hawk IIc 3,3
+Griffin IIc 4,4
+CRB-27 Crab,5
+Great Wyrm,6
+Shadow Hawk IIc 4,5
+Griffin IIc 3,4
+Wyvern IIc,3
+Griffin IIc 3,2
+Grendel Prime,1
+

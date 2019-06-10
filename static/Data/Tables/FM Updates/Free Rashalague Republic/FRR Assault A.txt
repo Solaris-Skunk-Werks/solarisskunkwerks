@@ -1,0 +1,16 @@
+FRR Assault A.txt
+Per Field Manual Updates page 221
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+BLR-4S Battlemaster,1
+BNC-5S Banshee,2
+VKG-2F Viking,3
+AS7-K Atlas,4
+CGR-3K Charger,5
+ZEU-9S Zeus,6
+HTM-27T Hatamoto-Chi,5
+HGN-732 Highlander,4
+GUN-1ERD Gunslinger,3
+VKG-2G Viking,2
+BRZ-A3 Berserker,1
+

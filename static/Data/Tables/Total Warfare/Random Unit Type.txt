@@ -1,0 +1,6 @@
+Battle Armor/Infantry,1
+Combat Vehicle,1
+Combat Vehicle,1
+Combat Vehicle,1
+Mech,1
+Aerospace Fighter,1

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<warriors title="Bringing the War Home">
+    <warrior name="Mona Troy" status="Actives">
+        <affiliation faction="Blue Star Irregulars" rank="General" />
+        <skills gunnery="1" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Tom Mangual" status="Actives">
+        <affiliation faction="Blue Star Irregulars" rank="" />
+        <skills gunnery="5" piloting="7" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Bill Bochte" status="Actives">
+        <affiliation faction="Blue Star Irregulars" rank="" />
+        <skills gunnery="6" piloting="7" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="George Chesbro" status="Actives">
+        <affiliation faction="Blue Star Irregulars" rank="" />
+        <skills gunnery="6" piloting="7" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Hank Groth" status="Actives">
+        <affiliation faction="First Confederation Reserve Calvary" rank="" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Jim Whitney" status="Actives">
+        <affiliation faction="First Confederation Reserve Calvary" rank="" />
+        <skills gunnery="4" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Ted Jacobs" status="Actives">
+        <affiliation faction="First Confederation Reserve Calvary" rank="Commander" />
+        <skills gunnery="3" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Lou Meyer" status="Actives">
+        <affiliation faction="First Confederation Reserve Calvary" rank="" />
+        <skills gunnery="4" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Emmett Phillips" status="Actives">
+        <affiliation faction="First Confederation Reserve Calvary" rank="" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Delos Knowles" status="Actives">
+        <affiliation faction="First Confederation Reserve Calvary" rank="" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+</warriors>

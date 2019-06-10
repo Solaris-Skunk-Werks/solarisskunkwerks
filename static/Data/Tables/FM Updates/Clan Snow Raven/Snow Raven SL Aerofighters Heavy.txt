@@ -1,0 +1,16 @@
+Snow Raven SL Aerofighters Heavy.txt
+Per Field Manual Updates page 216
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+HMR-HD Hammerhead,1
+RPR-100 Rapier,2
+Sabutai B,3
+Kirghiz B,4
+Kirghiz A,5
+Sabutai A,6
+Hydaspes,5
+Kirghiz Prime,4
+Sabutai Prime,3
+AHB-443 Ahab,2
+RPR-100 Rapier,1
+

@@ -1,0 +1,16 @@
+Steel Viper SL Aerofighters Light.txt
+Per Field Manual Updates page 216
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+THK-63 Tomahawk,1
+Bashkir A,2
+Avar C,3
+RGU-133E Rogue,4
+Sulla Prime,5
+TRN-3T Trident,6
+SPD-502 Spad,5
+SWF-606 Swift,4
+Batu C,3
+Vandal Prime,2
+ZRO-114 Zero,1
+

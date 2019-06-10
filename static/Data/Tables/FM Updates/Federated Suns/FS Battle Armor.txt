@@ -1,0 +1,16 @@
+FS Battle Armor.txt
+Per Field Manual Updates page 
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ Nighthawk MK XXI , 1
+ Infiltrator MK II , 2
+ Infiltrator MK II , 3
+ Infiltrator , 4
+ Cavalier , 5
+ Standard , 6
+ Standard , 5
+ Sloth , 4
+ Wolverine  , 3
+ Wolverine , 2
+ Titan , 1
+

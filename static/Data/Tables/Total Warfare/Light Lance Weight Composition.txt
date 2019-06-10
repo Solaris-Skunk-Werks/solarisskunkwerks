@@ -1,0 +1,6 @@
+4 Light,1
+3 Light 1 Medium,1
+3 Light 1 Medium,1
+2 Light 2 medium,1
+2 Light 2 Medium,1
+2 Light 1 Medium 1 Heavy,1

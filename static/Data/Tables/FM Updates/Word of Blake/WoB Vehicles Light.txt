@@ -1,0 +1,16 @@
+WoB Vehicles Light.txt
+Per Field Manual Updates page 220
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hawk Moth Gunship,1
+Karnov UR Transport,2
+Pinto Attack VTOL,3
+Blizzard,4
+Cyrano VTOL,5
+Beagle Tank,6
+Chevalier Light Tank,5
+Galleon Light Tank(3058),4
+Main Gauche,3
+Lightning,2
+Mantis Light Attack VTOL,1
+

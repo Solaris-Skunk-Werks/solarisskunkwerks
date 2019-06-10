@@ -1,0 +1,11 @@
+CGR-1A5 Charger(80), 1
+AS7-D Atlas(100), 2
+BLR-1G Battlemaster(85), 3
+CGR-1L Charger(80), 4
+STK-3F Stalker(85), 5
+VTR-9B Victor(80), 6
+CP-10-Z Cyclops(90), 5
+AWS-8Q Awesome(80), 4
+CRK-5003-O Crockett(85), 3
+GOL-1H Goliath(80), 2
+AWS-8V Awesome(80), 1

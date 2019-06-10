@@ -1,0 +1,16 @@
+MH Assault A.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+T-IT-N10M Grand Titan,1
+CGR-2A2 Charger,2
+CP-11-H Cyclops,3
+GOL-2H Goliath,4
+LGB-12C Longbow,5
+AS7-D Atlas,6
+STK-3F Stalker,5
+ZEU-9S Zeus,4
+AWS-9Q Awesome,3
+VTR-9K Victor,2
+MAD-4H Marauder II,1
+

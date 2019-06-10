@@ -1,0 +1,11 @@
+BMB-12D Bombardier(65)(3050), 1
+CHP-3N Champion(60)(3050), 2
+GLT-3N guillotine(70)(3050), 3
+FLC-8R Falconer(75)(3055), 4
+BL-6-KNT Black Knight(75)(3050), 5
+FLS-8K Flashman(75)(3050), 6
+AV1-OE Avatar(70)(3058), 5
+HEL-3D Helios(60)(3060), 4
+ST-8A Shootist(70)(3058), 3
+EXT-4D Exterminator(65)(3050), 2
+EXC-B2 Excalibur(70)(3058), 1

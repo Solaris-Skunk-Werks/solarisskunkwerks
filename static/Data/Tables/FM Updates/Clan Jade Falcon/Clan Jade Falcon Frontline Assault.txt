@@ -1,0 +1,16 @@
+Clan Jade Falcon Frontline Assault.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Gargoyle Prime,1
+Executioner A,2
+Executioner Prime,3
+Turkina B,4
+Turkina Prime,5
+Warhawk Prime,6
+Warhawk B,5
+Dire Wolf Prime,4
+Dire Wolf B,3
+Naga Prime,2
+Mad Cat Mk II,1
+

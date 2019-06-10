@@ -1,0 +1,44 @@
+Locust LCT-5M,1
+Nexus II NXS2-B,2
+Ostscout OTT-9CS,3
+Gurkha GUR-2G,4
+Falcon Hawk FNHK-9K1B,5
+Hussar HSR-500-D,6
+Nexus NXS1-B,5
+Gurkha GUR-4G,4
+Nexus II NXS2-A,3
+Mercury MCY-102,2
+Tarantula ZPH-2A,1
+Lightray LGH-6W,1
+Raijin II RJN-200-B,2
+Initiate INI-02,3
+Blue Flame BLF-21,4
+Hermes II HER-5C,5
+Crab CRB-30,6
+Raijin II RJN-200-A,5
+Shadow Hawk SHD-7CS,4
+Kintaro KTO-21,3
+Lineholder KW2-LHW,2
+Grim Reaper GRM-R-PR30,1
+Shootist ST-9C,1
+Guillotine GLT-6WB,2
+Archer ARC-8M,3
+Lancelot LNC25-04,4
+Toyama TYM-1A,5
+White Flame WHF-3B,6
+Rifleman RFL-7M,5
+Dragon Fire DGR-6FC,4
+Thunderbolt TDR-9M,3
+Excalibur EXC-D1,2
+Flashman FLS-9B,1
+Spartan SPT-N3,1
+Vanquisher VQR-2B,2
+King Crab KGC-005,3
+Legacy LGC-02,4
+Grand Crusader II GRN-D-04,5
+Thug THG-12E,6
+Vanquisher VQR-2A,5
+Legacy LGC-01,4
+Grand Crusader II GRN-D-03,3
+Cerberus MR-6B,2
+Highlander HGN-736,1

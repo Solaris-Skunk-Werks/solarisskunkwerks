@@ -1,0 +1,11 @@
+DARO-1 Dagger(45)(3067), 1
+CMT-3T Troika(65)(3067), 2
+DFC-O Defiance(55)(3067), 3
+LCF-R15 Lucifer(65)(3025), 4
+CSR-V12 Corsair(50)(3025), 5
+TR-10 Transit(50)(3025), 6
+SL-17 Shilone(65)(3025), 5
+F-90 Stingray(60)(3025), 4
+LX-2 Lancer(55)(3067), 3
+ON-1 Oni(55)(3067), 2
+MIK-O Tatsu(70)(3067), 1

@@ -1,0 +1,16 @@
+DCMS Vehicles Medium.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Drillson,1
+Goblin,2
+Hetzer,3
+Drillson,4
+Maxim,5
+Vedette,6
+Myrmidon,5
+Condor,4
+Maxim(3058),3
+Goblin(LRM),2
+Maxim(Infantry),1
+

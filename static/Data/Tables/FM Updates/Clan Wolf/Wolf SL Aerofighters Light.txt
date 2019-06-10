@@ -1,0 +1,16 @@
+Wolf SL Aerofighters Light.txt
+Per Field Manual Updates page 211
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+S-4C Sai,1
+SWF-606 Swift,2
+Chaeronea,3
+RGU-133E Rogue,4
+Sulla B,5
+Chaeronea,6
+Batu A,5
+ZRO-114 Zero,4
+Sulla A,3
+Vandal C,2
+Avar Prime,1
+

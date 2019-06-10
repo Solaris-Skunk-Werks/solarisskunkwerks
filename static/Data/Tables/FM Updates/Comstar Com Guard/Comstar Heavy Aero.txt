@@ -1,0 +1,16 @@
+Comstar Heavy Aero.txt
+Per Field Manual Updates page 219
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Huscarl HSCL-1-O,1
+HMR-HD Hammerhead,2
+RPR-100 Rapier,3
+HMR-HD Hammerhead,4
+AHB-443 Ahab,5
+HMR-HD Hammerhead,6
+Eagle,5
+AHB-443 Ahab,4
+Eagle,3
+RPR-100 Rapier,2
+AHB-443 Ahab,1
+

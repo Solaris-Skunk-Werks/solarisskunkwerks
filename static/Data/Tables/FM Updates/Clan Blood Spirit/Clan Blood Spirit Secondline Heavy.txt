@@ -1,0 +1,16 @@
+Clan Blood Spirit Secondline Heavy.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Glass Spider,1
+Thresher,2
+Rifleman IIc,3
+BL-6-KNT Black Knight,4
+Thresher,5
+Grizzly,6
+Rifleman IIc,5
+Grizzly,4
+Rifleman IIc 3,3
+Glass Spider,2
+BL-6-KNT Black Knight,1
+

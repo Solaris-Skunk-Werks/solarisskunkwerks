@@ -1,0 +1,16 @@
+Clan Nova Cat Secondline Assault.txt
+Per Field Manual Updates page 223
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Highlander IIc,1
+CRK-5003-1 Crockett,2
+Supernova,3
+PLG-3Z Pillager,4
+EMP-6A Emporer,5
+Mad Cat MkII,6
+Mad Cat MkII,5
+VKG-2G Viking,4
+Supernova,3
+MAD-4S Marauder II,2
+AKU-1XJ Akuma,1
+

@@ -1,0 +1,11 @@
+TSH-7S Tai-sho(85)(3060), 1
+NG-C3A Naginata(95)(3055), 2
+HTM-27T Hatamoto-Chi(80)(3050), 3
+SD1-O Sunder(90)(3058), 4
+AS7-K Atlas(3058), 5
+HTM-27T hatamoto-Chi(80)(3050), 6
+MAL-1R Mauler(90)(3050), 5
+CRK-5003-2 Katana(85)(3050), 4
+CGR-3K Charger(80)(3050), 3
+SD1-OB Sunder(90)(3058), 2
+AKU-1X Akuma(90)(3060), 1

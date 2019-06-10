@@ -1,0 +1,16 @@
+Clan Ice Hellion Frontline Heavy.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Linebacker A,1
+Mad Dog D,2
+Nova Cat Prime,3
+Summoner C,4
+Timber Wolf D,5
+Linebacker Prime,6
+Summoner A,5
+Linebacker E,4
+Cauldrom Born A,3
+Nova Cat B,2
+Mad Dog C,1
+

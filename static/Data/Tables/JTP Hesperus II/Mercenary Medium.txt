@@ -1,0 +1,11 @@
+FS9-O Firestarter, 1
+VND-5L Vindicator, 2
+ENF-5D Enforcer, 3
+CBR-02 Cobra, 4
+END-6S Enfield, 5
+WVR-8K Wolverine, 6
+BEO-12 Beowulf, 5
+LNX-9Q Lynx, 4
+STY-3D Starslayer, 3
+WVE-9N Wyvern, 2
+BJ2-O Blackjack, 1

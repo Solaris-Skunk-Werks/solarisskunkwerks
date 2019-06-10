@@ -1,0 +1,16 @@
+Jade Falcon SL Aerofighters Light.txt
+Per Field Manual Updates page 211
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+THK-63 Tomahawk,1
+Bashkir Prime,2
+Avar B,3
+RGU-133E Rogue,4
+Batu C,5
+TRN-3T Trident,6
+SPD-502 Spad,5
+SWF-606 Swift,4
+Sulla A,3
+Vandal C,2
+ZRO-114 Zero,1
+

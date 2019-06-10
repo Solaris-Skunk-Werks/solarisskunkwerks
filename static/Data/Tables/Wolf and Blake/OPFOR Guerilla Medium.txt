@@ -1,0 +1,10 @@
+Random Mech Assignment Table Opposing Force Guerilla Medium.txt
+Per Starterbook Wolf and Blake  page 67
+Copyright WizKids games & Catalyst Game Labs
+Entered in to RUS format by: Aaron "Bear" Gregory
+VND-6L Vindicator(45)(3050U), 1
+WHT-2 Whitworth(40)(3050U), 1
+WFT-2 Wolf Trap(45)(3050U), 1
+STN-3L Sentinel(40)(3050U), 1
+TBT-8B Trebchet(50)(3050U), 1
+SHD-2D2 Shadow Hawk(55)(3050U), 1

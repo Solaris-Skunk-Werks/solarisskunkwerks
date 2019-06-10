@@ -1,0 +1,11 @@
+OTT-7J Ostscout(35), 1
+WLF-1 Wolfhound(35), 2
+VLK-QA Valkyrie(35), 3
+LCT-3V Locust(20), 4
+STG-3G Stinger(20), 5
+JVN-10F Javelin(30), 6
+FS9-H Firestarter(35), 5
+JVN-10N Javelin(30), 4
+LCT-1E Locust(20), 3
+JR7-D Jenner(35), 2
+VLK-QF Valkyrie(35), 1

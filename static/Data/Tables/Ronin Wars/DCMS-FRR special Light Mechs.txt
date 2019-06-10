@@ -1,0 +1,11 @@
+MON-67 Mongoose(25), 1
+THE-N Thorn(20), 2
+MON-67 Mongoose(25), 3
+HER-1S Hermes(30), 4
+HER-1S Hermes(30), 5
+THE-N Thorn(20), 6
+HER-1S Hermes(30), 5
+HSR-300-D Hussar(30), 4
+THE-N Thorn(20), 3
+HSR-200-D Hussar(30), 2
+MON-66 Mongoose(25), 1

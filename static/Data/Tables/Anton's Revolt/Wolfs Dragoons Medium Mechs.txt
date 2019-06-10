@@ -1,0 +1,11 @@
+BJ-1 Blackjack(45), 1
+VND-1R Vindicator(45), 2
+HOP-4C Hoplite(55), 3
+DV-6M Dervish(55), 4
+WVR-6R Wolverine(55), 5
+GRF-1N Griffin(55), 6
+PXH-1 Phoenix Hawk(45), 5
+SHD-2H Shadow Hawk(55), 4
+TBT-5N Trebuchet(50), 3
+HOP-4B Hoplite(55), 2
+HBK-4G Hunchback(50), 1

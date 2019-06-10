@@ -1,0 +1,18 @@
+Clan Hells Horses Medium Vehicles.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Zephyr,1
+Enyo,2
+Hachiman,3
+Ku,4
+Epona,5
+Ares,6
+Hachiman,5
+Epona,4
+Maxim(Clan),3
+Chapparal,2
+Tyr,1
+
+
+

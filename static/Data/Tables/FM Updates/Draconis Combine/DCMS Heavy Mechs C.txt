@@ -1,0 +1,16 @@
+DCMS Heavy Mechs C.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+BHKU-O Black Hawk KU,1
+WR-DG-02FC War Dog,2
+OSR-2D Ostroc,3
+JM6-DD JagerMech,4
+MAD-5D Marauder,5
+DRG-5K Grand Dragon,6
+DRG-5N Dragon,5
+QKD-5M Quickdraw,4
+ON1-K Orion,3
+CRD-5K Crusader,2
+MAD-3R Marauder,1
+

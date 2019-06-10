@@ -1,0 +1,16 @@
+MoC Light B.txt
+Per Field Manual Updates page 229
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+RVN-3L Raven,1
+HMR-3M Hammer,2
+JR7-D Jenner,3
+STG-3R Stinger,4
+FS9-S Firestarter,5
+JVN-10F Javelin,6
+SDR-5V Spider,5
+PNT-9R Panther,4
+COM-2D Commando,3
+SDR-7M Spider,2
+WLF-1 Wolfhound,1
+

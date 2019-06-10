@@ -1,0 +1,16 @@
+Clan Cloud Cobra Heavy Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Oro,1
+Athena,2
+Pike(C),3
+Ishtar,4
+Pike(C),5
+Oro,6
+Ishtar,5
+Ishtar,4
+Oro,3
+Shoden,2
+Athena,1
+

@@ -1,0 +1,16 @@
+DCMS Light Mechs F.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+UM-R60 UrbanMech,1
+FS9-H Firestarter,2
+PNT-9R Panther,3
+JVN-10N Javelin,4
+LCT-1V Locust,5
+PNT-9R panther,6
+STG-3R Stinger,5
+WSP-1K Wasp,4
+WSP-1A Wasp,3
+JR7-D Jenner,2
+SDR-5K Spider,1
+

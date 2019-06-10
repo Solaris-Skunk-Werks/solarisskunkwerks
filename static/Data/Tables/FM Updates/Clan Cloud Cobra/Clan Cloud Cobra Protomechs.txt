@@ -1,0 +1,16 @@
+Clan Cloud Cobra Protomechs.txt
+Per Field Manual Updates page 218
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Minotaur,1
+Minotaur,2
+Siren 2,3
+Siren 2,4
+Siren 2,5
+Minotaur,6
+Minotaur,5
+Minotaur,4
+Siren 2,3
+Siren 2,2
+Siren 2,1
+

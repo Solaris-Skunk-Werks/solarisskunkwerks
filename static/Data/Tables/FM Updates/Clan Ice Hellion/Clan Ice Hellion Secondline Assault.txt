@@ -1,0 +1,16 @@
+Clan Ice Hellion Secondline Assault.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Mad Cat Mk II,1
+Shogun C,2
+Phoenix Hawk IIc 3,3
+Highlander IIc,4
+Warhammer IIc,5
+Phoenix Hawk IIc,6
+Marauder IIc,5
+Kodiak,4
+Warhammer IIc 2,3
+Marauder IIc 3,2
+Stone Rhino,1
+

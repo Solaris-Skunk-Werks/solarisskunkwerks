@@ -1,0 +1,16 @@
+Diamond Shark SL Aerofighters Medium.txt
+Per Field Manual Updates page 216
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Turk B,1
+Jagatai C,2
+HCT-213B Hellcat II,3
+HCT-213B Hellcat II,4
+Ammon,5
+IRN-SD1 Ironsides,6
+Visigoth B,5
+GTHA-500 Gotha,4
+GTHA-500 Gotha,3
+Turk A,2
+Visigoth C,1
+

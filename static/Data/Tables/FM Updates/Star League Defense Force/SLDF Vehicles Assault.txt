@@ -1,0 +1,16 @@
+SLDF Vehicles Assault.txt
+Per Field Manual Updates page 222
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Schiltron C,1
+Ajax Assault Tank B,2
+Schrek PPC Carrier,3
+Schiltron A,4
+Ajax Assault Tank A,5
+Schiltron,6
+Alacorn MkVII Heavy Tank,5
+Schiltron B,4
+Behemoth Heavy Tank,3
+Schiltron B,2
+Partisan(XL),1
+

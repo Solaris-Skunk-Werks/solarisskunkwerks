@@ -1,0 +1,16 @@
+Steel Viper FL Aerofighters Medium.txt
+Per Field Manual Updates page 215
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Visigoth A,1
+Jagatai C,2
+Jagatai B,3
+Visigoth Prime,4
+Tyre,5
+Jagatai Prime,6
+Visigoth C,5
+Visigoth B,4
+Visigoth Prime,3
+Jagatai A,2
+Tyre,1
+

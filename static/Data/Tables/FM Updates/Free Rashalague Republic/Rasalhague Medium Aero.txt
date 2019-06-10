@@ -1,0 +1,16 @@
+Rasalhague Medium Aero.txt
+Per Field Manual Updates page 221
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+MIK-O Tatsu,1
+SL-2S Samurai,2
+LTN-G15 Lightning,3
+LCF-R16KR Lucifer II,4
+LCF-R16K Lucifer II,5
+SL-17 Shilone,6
+SL-17R Shilone,5
+LTN-G15 Lightning,4
+CSR-V12 Corsair,3
+SL-17AC Shilone,2
+ON-1 Oni,1
+

@@ -1,0 +1,16 @@
+Nova Cat Dropships.txt
+Per Field Manual Updates page 223
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Broadsword,1
+Overlord-C,2
+Nekehono'o,3
+Overlord-C,4
+Union-C,5
+Union-C,6
+Broadsword,5
+Nekehono'o,4
+Confederate,3
+Gazelle,2
+Noruff,1
+

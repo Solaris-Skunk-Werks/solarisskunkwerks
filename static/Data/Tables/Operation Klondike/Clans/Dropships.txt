@@ -1,0 +1,11 @@
+Vengeance, 1
+Fortress, 1
+Intruder, 1
+Dictator, 1
+Mule, 1
+Overlord, 1
+Union, 1
+Triumph, 1
+Colossus, 1
+Pentagon, 1
+Achilles, 1

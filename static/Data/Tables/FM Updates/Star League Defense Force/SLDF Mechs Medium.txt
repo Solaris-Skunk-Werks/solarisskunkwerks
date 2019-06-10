@@ -1,0 +1,16 @@
+SLDF Mechs Medium.txt
+Per Field Manual Updates page 222
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Griffin IIc,1
+WVR-8C Wolverine,2
+TSN-3C Tessen,3
+SR1-O Strider,4
+BJ2-OF Blackjack,5
+FS9-O Firestarter,6
+SR1-OD Strider,5
+BEO-12 Beowulf,4
+BSN-3K Bishamon,3
+CLNT-5U Clint,2
+Arctic Wolf,1
+

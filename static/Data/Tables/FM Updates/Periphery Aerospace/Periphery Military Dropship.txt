@@ -1,0 +1,20 @@
+Periphery Military Dropship.txt
+Per Field Manual Updates page 231
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Seeker,1
+Leopard CV,2
+Seeker,3
+Mule,4
+Leopard,5
+Union,6
+Condor,5
+Triumph,4
+Overlord,3
+Fury,2
+Intruder,1
+
+
+
+
+

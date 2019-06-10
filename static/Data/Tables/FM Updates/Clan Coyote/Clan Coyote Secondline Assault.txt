@@ -1,0 +1,16 @@
+Clan Coyote Secondline Assault.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Gargoyle A,1
+Imp(C),2
+Supernova,3
+Canis,4
+Warhammer IIc,5
+Canis,6
+Highlander IIc,5
+Phoenix Hawk IIc,4
+Warhammer IIc 4,3
+Kodiak,2
+Shogun(C),1
+

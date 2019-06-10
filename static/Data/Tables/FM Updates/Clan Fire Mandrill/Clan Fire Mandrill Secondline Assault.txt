@@ -1,0 +1,16 @@
+Clan Fire Mandrill Secondline Assault.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Stone Rhino,1
+Phoenix Hawk IIC,2
+THG-11E Thug,3
+Phoenix Hawk IIc 2,4
+Bane,5
+Phoenix Hawk IIC 3,6
+THG-11E Thug,5
+Phoenix Hawk IIc 4,4
+HGN-732 Highlander,3
+KGC-000 King Crab,2
+Blood Kite,1
+

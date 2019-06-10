@@ -1,0 +1,16 @@
+Coyote SL Aerofighters Heavy.txt
+Per Field Manual Updates page 216
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Scytha Prime,1
+AHB-443 Ahab,2
+Hydaspes,3
+RPR-100 Rapier,4
+Xerxes,5
+Xerxes,6
+Hydaspes,5
+Xerxes 2,4
+Xerxes 2,3
+HMR-HD Hammerhead,2
+Sabutai A,1
+

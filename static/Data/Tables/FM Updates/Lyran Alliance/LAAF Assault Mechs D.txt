@@ -1,0 +1,16 @@
+LAAF Assault Mechs D.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+HGN-732 Highlander,1
+BLR-3S Battlemaster,2
+CGR-SA5 Charger,3
+VTR-9B Victor,4
+AWS-8Q Awesome,5
+ZEU-6S Zeus,6
+BNC-5S Banshee,5
+AS7-D Atlas,4
+CP-10-Z Cyclops,3
+GOL-3S Goliath,2
+MAD-5A Marauder II,1
+

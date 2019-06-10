@@ -1,0 +1,16 @@
+Clan Hells Horses Secondline Medium.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hunchback IIc,1
+Great Wyrm,2
+Corvis,3
+Shadow Hawk IIc,4
+Corvis,5
+Griffin IIc,6
+KTO-19 Kintaro,5
+Wyvern IIc,4
+Conjurer,3
+Vapor Eagle,2
+STN-3L Sentinel,1
+

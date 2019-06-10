@@ -1,0 +1,16 @@
+Clan Goliath Scorpion Secondline Heavy.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Fire Scorpion,1
+LNC 25-01 Lancelot,2
+FLS-8K Flashman,3
+BL-6-KNT Black Knight,4
+Fire Scorpion,5
+Black Python,6
+Glass Spider 2,5
+BL-6-KNT Black Knight,4
+Fire Scorpion,3
+Rifleman IIc,2
+Bowman,1
+

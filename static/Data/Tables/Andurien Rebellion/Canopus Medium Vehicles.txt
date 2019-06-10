@@ -1,0 +1,11 @@
+Condor(50), 1
+Goblin(45), 2
+Drillson(50), 3
+Drillson(50), 4
+Vedette(50), 5
+Hetzer(40), 6
+Condor(50), 5
+Goblin(45), 4
+Maxim(50), 3
+Maxim(50), 2
+Hetzer(40), 1

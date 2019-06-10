@@ -1,0 +1,16 @@
+Merc Assault Mechs A.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+SD1-O Sunder,1
+SRC-3C Sirocco,2
+HGN-732 Highlander,3
+CP12-K Cyclops,4
+VTR-10D Victor,5
+MR-V2 Cerberus,6
+GUN-1ERD Gunslinger,5
+LGB-12C Longbow,4
+BKW-7R Black Watch,3
+T-IT-N11M Grand Titan,2
+MAD-4S Marauder,1
+

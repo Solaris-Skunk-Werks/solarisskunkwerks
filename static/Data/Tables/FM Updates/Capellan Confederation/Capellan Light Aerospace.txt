@@ -1,0 +1,16 @@
+Capellan Light Aerospace.txt
+Per Field Manual Updates page 206
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Sabre,1
+F-11-RR Cheetah,2
+SPR-H5 Sparrowhawk,3
+F-11-R Cheetah,4
+TR-7 Thrush,5
+TR-7 Thrush,6
+TR-7 Thrush,5
+F-10 Cheetah,4
+SPR-H5 Sparrowhawk,3
+Centurion,2
+F-11-RR Cheetah,1
+

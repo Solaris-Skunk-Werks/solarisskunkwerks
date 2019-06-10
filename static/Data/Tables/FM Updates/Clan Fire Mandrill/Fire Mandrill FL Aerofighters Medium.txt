@@ -1,0 +1,16 @@
+Fire Mandrill FL Aerofighters Medium.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Jagatai A,1
+Ammon,2
+Jagatai B,3
+Visigoth A,4
+Jagatai B,5
+Turk A,6
+Visigoth Prime,5
+Jagatai Prime,4
+Visigoth A,3
+Jagatai C,2
+Tyre,1
+

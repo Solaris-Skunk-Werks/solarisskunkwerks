@@ -1,0 +1,16 @@
+FRR Heavy A.txt
+Per Field Manual Updates page 221
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+BHKU-O Black Hawk-KU,1
+ARC-6S Archer,2
+NDA-1K No-Dachi,3
+CTS-6Y Cestus,4
+GAL-1GLS Gallowglas,5
+DRG-5K Grand Dragon,6
+JM6-DD Jagermech,5
+AXM-1N Axman,4
+DGR-3F Dragon Fire,3
+CRD-5K Crusader,2
+MAD-9S Marauder,1
+

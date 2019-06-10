@@ -1,0 +1,16 @@
+Clan Wolf in Exile Light Vehicles.txt
+Per Field Manual Updates page 217
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Galleon,1
+Pegasus,2
+Saracen,3
+Donar VTOL,4
+Striker,5
+Odin,6
+Striker,5
+Svantovit,4
+Asshur,3
+Svantovit(streak),2
+Zorya,1
+

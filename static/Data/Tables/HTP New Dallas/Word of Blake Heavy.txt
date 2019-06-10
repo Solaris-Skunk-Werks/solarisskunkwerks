@@ -1,0 +1,11 @@
+Shootist ST-9C,1
+Guillotine GLT-6WB,2
+Archer ARC-8M,3
+Lancelot LNC25-04,4
+Toyama TYM-1A,5
+White Flame WHF-3B,6
+Rifleman RFL-7M,5
+Dragon Fire DGR-6FC,4
+Thunderbolt TDR-9M,3
+Excalibur EXC-D1,2
+Flashman FLS-9B,1

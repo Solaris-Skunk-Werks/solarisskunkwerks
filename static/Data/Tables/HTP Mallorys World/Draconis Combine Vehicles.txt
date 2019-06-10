@@ -1,0 +1,27 @@
+Galleon Light Tank, 1
+Skulker Wheeled Scout Tank, 2
+Scorpion Light Tank, 3
+Pegasus Scout Hovertank, 3
+Hunter Light Support Tank, 2
+Harasser Missile Platform, 1
+
+Hetzer Wheeled Assault Gun, 1
+Vedette Medium Tank, 2
+Scimitar Medium Hover Tank, 3
+Saracen Hover Tank, 3
+Saladin Assault Hover Tank, 2
+Hetzer Wheeled Assault Gun, 1
+
+LRM Carrier, 1
+SRM Carrier, 2
+Bulldog, 3
+SRM Carrier, 3
+Manticore Heavy Tank, 2
+LRM Carrier, 1
+
+Schrek PPC Carrier, 1
+Schrek PPC Carrier, 2
+Demolisher Heavy Tank, 3
+Demolisher Heavy Tank, 3
+Ontos Heavy Tank, 2
+Behemoth Heavy Tank, 1

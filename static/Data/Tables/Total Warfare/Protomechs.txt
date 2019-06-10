@@ -1,0 +1,11 @@
+Harpy(2), 1
+Siren(3), 2
+Satyr(4), 3
+Centaur(5), 4
+Hydra(6), 5
+Roc(7), 6
+Roc(7), 5
+Gorgon(8), 4
+Gorgon(8), 3
+Minotaur(9), 2
+Minotaur(9), 1

@@ -1,0 +1,16 @@
+LAAF Heavy Mechs D.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+CPLT-C4 Catapult,1
+WHM-7S Warhammer,2
+GHR-5J Grasshopper,3
+GAL-1GLS Gallowglas,4
+ON1-K Orion,5
+CES-3R Caesar,6
+MAD-5S Marauder,5
+AXM-1N Axeman,4
+ARC-5S Archer,3
+CRD-5S Crusader,2
+TDR-5S Thunderbolt,1
+

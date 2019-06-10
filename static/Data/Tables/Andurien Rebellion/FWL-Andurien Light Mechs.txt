@@ -1,0 +1,11 @@
+UM-R60 UrbanMech(30), 1
+HER-1A Hermes(30), 2
+STG-3R Stinger(20), 3
+FS9-H Firestarter(35), 4
+WSP-1A Wasp(20), 5
+LCT-1V Locust(20), 6
+STG-3R Stinger(20), 5
+JVN-10N Javelin(30), 4
+LCT-1M Locust(20), 3
+SDR-5V Spider(30), 2
+FLE-15 Flea(20), 1

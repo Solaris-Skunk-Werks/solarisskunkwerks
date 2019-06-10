@@ -1,0 +1,11 @@
+Jenner IIC (Standard),1
+Locust IIC (Standard),2
+Vixen (Incubus) (Standard),3
+Cougar Prime,4
+Hankyu (Arctic Cheetah) Prime,5
+Koshi (Mist Lynx) Prime,6
+Dasher (Fire Moth) Prime,5
+Cougar Prime,4
+Hankyu (Arctic Cheetah) Prime,3
+Peregrine (Horned Owl) (Standard),2
+Puma (Adder) Prime,1

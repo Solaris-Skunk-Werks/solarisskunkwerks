@@ -1,0 +1,16 @@
+Com Guard Battle Armor.txt
+Per Field Manual Updates page 219
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ Infiltrator MK II , 1
+ Kage , 2
+ Kobold , 3
+ Kobold , 4
+ Standard , 5
+ Standard , 6
+ Standard , 5
+ Tornado , 4
+ Tornado , 3
+ Wolverine , 2
+ Titan , 1
+

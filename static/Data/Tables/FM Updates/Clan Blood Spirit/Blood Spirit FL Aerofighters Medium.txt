@@ -1,0 +1,16 @@
+Blood Spirit FL Aerofighters Medium.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Visigoth B,1
+Sulla Prime,2
+Tyre,3
+Turk Prime,4
+Jagatai C,5
+Turk B,6
+Jagatai A,5
+Tyre,4
+Turk C,3
+Tyre,2
+Tyre 2,1
+

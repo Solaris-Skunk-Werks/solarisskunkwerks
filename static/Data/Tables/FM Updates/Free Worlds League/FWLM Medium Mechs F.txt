@@ -1,0 +1,16 @@
+FWLM Medium Mechs F.txt
+Per Field Manual Updates page 226
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+GRF-1N Griffin,1
+TBT-5N Trebuchet,2
+HBK-4G hunchback,3
+SHD-2H Shadow Hawk,4
+HER-2S Hermes II,5
+PHX-1 Phoenix Hawk,6
+WHT-1 Whitworth,5
+CDA-2A Cicada,4
+DV-6M Dervish,3
+CN9-A Centurion,2
+WVR-6M Wolverine,1
+

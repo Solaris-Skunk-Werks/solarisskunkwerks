@@ -1,0 +1,11 @@
+CDA-2A Cicada(40), 1
+DV-6M Dervish(55), 2
+WTH-1 Whitworth(40), 3
+CN9-AL Centurion(50), 4
+GRF-1N griffin(55), 5
+PXH-1 Phoenix Hawk(45), 6
+WVR-6R Wolverine(55), 5
+SHD-2H Shadow Hawk(55), 4
+TBT-5N Trebuchet(50), 3
+HBK-4G Hunchback(50), 2
+CLNT-2-3T Clint(40), 1

@@ -1,0 +1,11 @@
+Thug THG-11Eb,1
+Highlander HGN-732b,2
+Striker STC-2C,3
+Longbow LGB-7Q,4
+Stalker STK-3F,5
+Highlander HGN-732,6
+Pillager PLG-3Z,5
+Atlas AS7-D,4
+Longbow LGB-7Q,3
+Rifleman II RFL-3N-2,2
+BattleMaster BLR-1Gbc,1

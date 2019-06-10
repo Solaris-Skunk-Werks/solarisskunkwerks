@@ -1,0 +1,11 @@
+SDR-5V Spider(30), 1
+FS9-M Firestarter(35), 2
+STG-3G Stinger(20), 3
+FS9-H Firestarter(35), 4
+STG-3R Stinger(20), 5
+COM-2D Commando(25), 6
+LCT-1V Locust(20), 5
+WSP-1A Wasp(20), 4
+JVN-10N Javelin(30), 3
+FS9-H Firestarter(35), 2
+OTT-7J Ostscout(35), 1

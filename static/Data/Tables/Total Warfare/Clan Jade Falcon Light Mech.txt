@@ -1,0 +1,11 @@
+Locust IIc 4(25)(PP), 1
+Cougar C(35)(3060), 2
+Hellion Prime(30)(3067), 3
+Fire Falcon H(25)(3058), 4
+Cougar Prime(35)(3060), 5
+Fire Falcon Prime(25)(3058), 6
+Uller Prime(30)(3050), 5
+Uller A(30)(3050), 4
+Fire Falcon B(25)(3058), 3
+Hellion B(30)(3067), 2
+Spirit(35)(3067), 1

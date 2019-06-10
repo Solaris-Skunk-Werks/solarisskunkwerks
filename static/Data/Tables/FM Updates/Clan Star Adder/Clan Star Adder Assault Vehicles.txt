@@ -1,0 +1,16 @@
+Clan Star Adder Assault Vehicles.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Mars(XL),1
+Mars(XL),2
+Mars,3
+Morrigu(laser),4
+Morrigu,5
+Demolisher(C),6
+Mars,5
+Demolisher(C),4
+Huitzilopochtli,3
+Demolisher(C),2
+Mars,1
+

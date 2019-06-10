@@ -1,0 +1,6 @@
+(Piloting 7,Gunnery 6),1
+(Piloting 6,Gunnery 5),1
+(Piloting 6, Gunnery 5),1
+(Piloting 6, Gunnery 4),1
+(Piloting 6, Gunnery 4),1
+(Piloting 5, Gunnery 4),1

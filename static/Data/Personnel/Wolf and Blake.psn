@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<warriors title="Wolf and Blake">
+    <warrior name="Stacy Church" status="Active">
+        <affiliation faction="Wolf Dragoons" rank="Captain" />
+        <skills gunnery="1" piloting="2" mod="1.0" />
+        <quirks>Stacy Church remembers the horrors of the Broadsword
+Treachery almost every time she closes her eyes, and this pain
+makes her extra-protective of her Widows. To reflect this, any time
+a Widow BattleMech is destroyed, she may apply a –1 modifier
+to her Gunnery and Piloting Skill Rolls during the next turn. In
+addition, if she alpha strikes (fires all available weapons), she may
+add an additional –1 modifier to her Gunnery roll (for a total of
+–2). This effect only lasts the duration of the turn after a Widows
+’Mech is destroyed; her skills revert to normal during the End
+Phase of the turn.</quirks>
+        <notes>MechWarior Profile
+Stacy Church was raised in a Dragoon sibko but came from
+an Inner Sphere family. She was one of many orphans adopted
+during the years between the Fourth Succession War and the
+Clan Invasion. She tested very highly during her initial testing and
+those scores won her a place in the Spider’s Web Battalion just in
+time for Elson’s Challenge. She chose to side with the majority of
+the Battalion and fought against the Dragoon rebels.
+As a reward for her service in that and other conflicts, Stacy was
+given command of the prestigious Black Widow Trinary of the Wolf
+Spider Battalion in 3064. Her Trinary was the only one to survive
+the Broadswords’ treachery, and although she was injured she
+pleaded to remain behind when Alpha Brigade pulled the majority
+of the remaining Dragoons off of Outreach in late December.
+
+’Mech history
+The Zeus Stacy pilots was a gift from the Kell Hounds upon the
+Dragoons arrival on Arc-Royal, a gift meant to give them a fighting
+chance of regaining something of what they lost. One of the first
+decisions Maeve Wolf made in 3068 was not to try and resurrect
+the Dragoon’s lost manufacturing capabilities in the uncertainty
+of the Jihad. This made re-equipping the Dragoons a strictly Inner
+Sphere proposition, and the Zeus is a perfect example.
+The Zeus-X is a test-bed BattleMech that mounts some of
+the most advanced Inner Sphere weapons available to the Kell
+Hounds and Dragoons. While it is a far cry from the Clan-made
+Mad Cat she had previously piloted, Stacy finds the Zeus’ accuracy
+and high-tech defenses just as deadly as her OmniMech.
+More importantly, that advanced technology will allow Stacy
+to go head-to-head with the best technologies fielded by the
+Word of Blake. That more than balances the risk of fielding such
+experimental equipment when the Widows will often
+be far from extensive repair facilities should things
+go wrong.</notes>
+    </warrior>
+    <warrior name="Jacob Kincaid" status="">
+        <affiliation faction="Wolf Dragoons" rank="Lieutenant" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Francine" status="">
+        <affiliation faction="Wolf Dragoons" rank="Mechwarrior" />
+        <skills gunnery="3" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Calvin Magdaleno" status="">
+        <affiliation faction="Wolf Dragoons" rank="Mechwarrior" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Eirene Rondema" status="">
+        <affiliation faction="Wolf Dragoons" rank="Lieutenant" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Orrin Fletcher" status="">
+        <affiliation faction="Wolf Dragoons" rank="Mechwarrior" />
+        <skills gunnery="2" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Michael Ramirez" status="">
+        <affiliation faction="Wolf Dragoons" rank="Mechwarrior" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Max Henricksen" status="">
+        <affiliation faction="Wolf Dragoons" rank="Mechwarrior" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Wyatt Rolfe" status="">
+        <affiliation faction="Wolf Dragoons" rank="Lieutenant" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Neil Gibson" status="">
+        <affiliation faction="Wolf Dragoons" rank="Mechwarrior" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Halle Yost" status="">
+        <affiliation faction="Wolf Dragoons" rank="Mechwarrior" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Russel Madison" status="">
+        <affiliation faction="Wolf Dragoons" rank="Mechwarrior" />
+        <skills gunnery="3" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Berith" status="">
+        <affiliation faction="Word of Blake" rank="Specter Precentor Omicron" />
+        <skills gunnery="1" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Kendali Morris" status="">
+        <affiliation faction="Word of Blake" rank="Zombie Demi-Precentor Delta" />
+        <skills gunnery="3" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Mi Tomitaki" status="">
+        <affiliation faction="Word of Blake" rank="Phantom Adept Tau" />
+        <skills gunnery="3" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Rufus Black Bear" status="">
+        <affiliation faction="Word of Blake" rank="Ghost Adept Beta" />
+        <skills gunnery="4" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Havalah Cazer" status="">
+        <affiliation faction="Word of Blake" rank="Wraith Adept Beta" />
+        <skills gunnery="3" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Achillius St. John" status="">
+        <affiliation faction="Word of Blake" rank="Poltergeist Adept Omega" />
+        <skills gunnery="4" piloting="1" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Kari Marita" status="">
+        <affiliation faction="Word of Blake" rank="Demi-Precentor Omicron Epsilon II" />
+        <skills gunnery="3" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Bryn Rivenschild" status="">
+        <affiliation faction="Word of Blake" rank="Adept Omicron Rho IX" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Elizabeth Rodriguez" status="">
+        <affiliation faction="Word of Blake" rank="Adept Psi" />
+        <skills gunnery="4" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Cassius Montague" status="">
+        <affiliation faction="Word of Blake" rank="Adept Psi Rho XVIII" />
+        <skills gunnery="4" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Portia Thomas" status="">
+        <affiliation faction="Word of Blake" rank="Adept Omicron Rho X" />
+        <skills gunnery="3" piloting="1" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Jacqueline Norman" status="">
+        <affiliation faction="Word of Blake" rank="Adept Omicron Rho II" />
+        <skills gunnery="4" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+</warriors>

@@ -1,0 +1,11 @@
+LNC25-02 Lancelot(60), 1
+CHP-2N Champion(60), 2
+QKD-4G Quickdraw(60), 3
+CRD-3K Crusader(65), 4
+DRG-1G Grand Dragon(60), 5
+WHM-6K Warhammer(70), 6
+ARC-2K Archer(70), 5
+ON1-K Orion(75), 4
+MAD-3R Marauder(75), 3
+CPLT-K2 Catapult(65), 2
+GLT-4L Guillotine(70), 1

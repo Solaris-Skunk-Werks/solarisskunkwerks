@@ -1,0 +1,11 @@
+FLS-8K Flashman(75), 1
+GLT-3N Guillotine(70), 2
+CHP-1N Champion(60), 3
+BL-6-KNT Black Knight(75), 4
+GLT-4L Guillotine(70), 5
+CHP-1N Champion(60), 6
+FLS-8K Flashman(75), 5
+LNC25-01 Lancelot(60), 4
+EXT-4D Exterinator(65), 3
+DRG-5N Dragon(60), 2
+LNC25-01 Lancelot(60), 1

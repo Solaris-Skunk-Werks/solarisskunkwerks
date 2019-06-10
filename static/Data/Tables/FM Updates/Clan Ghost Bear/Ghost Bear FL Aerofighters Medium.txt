@@ -1,0 +1,16 @@
+Ghost Bear FL Aerofighters Medium.txt
+Per Field Manual Updates page 215
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Jagatai C,1
+Ammon,2
+Visigoth A,3
+Visigoth Prime,4
+Visigoth B,5
+Turk Prime,6
+Visigoth C,5
+Turk C,4
+Visigoth Prime,3
+Jagatai B,2
+Tyre,1
+

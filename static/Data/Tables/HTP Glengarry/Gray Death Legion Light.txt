@@ -1,0 +1,11 @@
+Valkyrie VLK-QD,1
+Locust LCT-3M,2
+Stinger STG-3G,3
+Commando COM-5S,4
+Jenner JR7-K,5
+Wolfhound WLF-2,6
+Panther PNT-10K,5
+Commando COM-5S,4
+Raven RVN-3L,3
+Spider SDR-7M,2
+Uller (Kit Fox),1

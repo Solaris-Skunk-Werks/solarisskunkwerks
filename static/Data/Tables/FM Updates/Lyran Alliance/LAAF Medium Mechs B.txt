@@ -1,0 +1,16 @@
+LAAF Medium Mechs B.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+END-6Q Enfield,1
+FS9-O Firestarter,2
+LNX-9Q Lynx,3
+CLNT-2-3U Clint,4
+CN9-D Centurion,5
+HCT-5S Hatchetman,6
+NGS-4S Nightsky,5
+VL-5S Vulcan,4
+PXH-7S Phoenix Hawk,3
+BSW-S2 Buchwacker,2
+STY-3C Starslayer,1
+

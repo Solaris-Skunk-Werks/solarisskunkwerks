@@ -1,0 +1,16 @@
+Clan Ice Hellion Assault Vehicle.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Mars,1
+Mars(XL),2
+Mars,3
+Demolisher(C),4
+Huitzilopochtli,5
+Demolisher(C),6
+Demolisher(C),5
+Huitzilopochtli,4
+Mars,3
+Mars(XL),2
+Puma,1
+

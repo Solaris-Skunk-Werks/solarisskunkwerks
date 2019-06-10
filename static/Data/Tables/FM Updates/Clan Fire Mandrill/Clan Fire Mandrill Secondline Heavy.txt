@@ -1,0 +1,16 @@
+Clan Fire Mandrill Secondline Heavy.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Black Python,1
+BMB-12D Bombardier,2
+FLS-8K Flashman,3
+Thresher,4
+Rifleman IIC,5
+Predator,6
+LNC 25-01 Lancelot,5
+Rifleman IIc,4
+Predator,3
+EXT-4D Exterminator,2
+Summoner Prime,1
+

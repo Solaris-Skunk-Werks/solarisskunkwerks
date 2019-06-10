@@ -1,0 +1,16 @@
+FM-Merc Light Mechs F.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+PNT-9R Panther,1
+FS9-H Firestarter,2
+UM-R60 UrbanMech,3
+JVN-10N Javelin,4
+WSP-1A Wasp,5
+STG-3R Stinger,6
+LCT-1V Locust,5
+COM-2D Commando,4
+JR7-D Jenner,3
+VLK-QA Valkyrie,2
+SDR-5V Spider,1
+

@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<warriors title="Warrior List">
+    <warrior name="George Blouin" status="Active">
+        <affiliation faction="Davion" rank="Mechwarrior" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Justin Bengtson" status="Active">
+        <affiliation faction="Rim Worlds" rank="Lieutenant" />
+        <skills gunnery="1" piloting="2" mod="1.0" />
+        <quirks>Prefers Assassins</quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Michael Miller" status="Active">
+        <affiliation faction="Kurita" rank="Sho-Sho" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Adam Steiner" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Adrea Stirling" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Ajax" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="1" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Akira Sugioka" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="1" piloting="1" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Alexander Carlyle" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Anastasius Focht" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="1" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Anatole Dash" status="">
+        <affiliation faction="" rank="LTJG" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Andrew Steiner" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Antioch Bell" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Arimas Malthus" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Austin Brand" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Austin Vorster" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="6" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Avery Hart" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="6" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Badicus O'Shea" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="The Bounty Hunter" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="0" piloting="0" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Brendon Corbett" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="1" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Caitlin Devries" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="5" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Caradoc Trevena" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Charles Bear" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Ciro Ramirez" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Clarence Wilson" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="0" piloting="0" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Colin Maclaren" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Daniel W. Allard" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Davis Carlyle Clay" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Davis McCall" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Delmar Clay" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Dorian Wirth" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="1" piloting="1" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Duke Randolph Serven" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Eddie Baker" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Edelle Kearny" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Edward Benn" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Elias Crichell" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Enrst Lang" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Esmeralda" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Franklin Sakamoto" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="George Lytton" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Gordon West" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="6" piloting="7" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Greyson Death Carlyle" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="1" piloting="1" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Hassan Ali Kaaled" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Hawg" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Henrik Dekker" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Hohiro Kurita" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Ian McKinnon" status="">
+        <affiliation faction="" rank="Captain" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Iskoru Chiende" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Isobell Murdoch" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="James D. Cochrane" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Jamie Wolf" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="0" piloting="0" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Jerimiah Rose" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="1" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Jin Mehta" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Joanna" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="John Christopher" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="John Clavell" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="John Hayes" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Kai Allard-Laio" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="0" piloting="0" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Karin Drek" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="7" piloting="7" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Karl Ryder" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Kate Normura" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Katiara Kylie" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="5" piloting="6" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Kip B. Masters" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Kristen Redmond" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Loren Jaffray" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Lori Kalamar-Carlyle" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="1" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Lorrin Barris" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="5" piloting="6" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Lucian Carns" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Lynn Sheridan" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Margaret Lang" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Marialle Radick" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Mark McKinnon" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Marthe Pryde" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="1" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Mateo Alverez" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Matrick Martin Kell" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="0" piloting="1" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Mikhail Ward" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Miklos Pelius" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Mohammer Jahan" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Morgan Finn Kell" status="">
+        <affiliation faction="" rank="Colonel" />
+        <skills gunnery="0" piloting="0" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Narimasa Asano" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Nathasa Kerensky" status="">
+        <affiliation faction="" rank="Captain" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Natasha Kerensky" status="">
+        <affiliation faction="" rank="Khan" />
+        <skills gunnery="0" piloting="0" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Neil Cambell" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Nicolai Malthus" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="1" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Nikolai Koniev" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Paul Danton" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Peit Nichols" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Phalen Kell" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="1" piloting="1" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Phelan Kell" status="">
+        <affiliation faction="" rank="Khan" />
+        <skills gunnery="1" piloting="1" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Pressor Burke Kale" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="6" piloting="7" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Pytor" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Rachael Spector" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Rianna Rose" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="6" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Robert Grey" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Rosendo Hazen" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="1" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Salome Ward" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Sharon Gardbaum" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Shelly Brubaker" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="1" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Shin Yodama" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="1" piloting="1" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Simon Fraser" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Suzanne Mulvaney" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Takashi Kurita" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Takiro Ikeda" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="3" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Theodore Kurita" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Tracey Maxwell Kent" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="5" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Trent Arian" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="3" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Valten Ryder" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="4" piloting="5" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Victor Steiner-Davion" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="4" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="Vlad Ward" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="1" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+    <warrior name="William Macleod" status="">
+        <affiliation faction="" rank="" />
+        <skills gunnery="2" piloting="2" mod="1.0" />
+        <quirks></quirks>
+        <notes></notes>
+    </warrior>
+</warriors>

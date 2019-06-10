@@ -1,0 +1,16 @@
+Cloud Cobra FL Aerofighters Heavy.txt
+Per Field Manual Updates page 215
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Scytha B,1
+Kirghiz Prime,2
+Kirghiz C,3
+Jengiz A,4
+Kirghiz B,5
+Scytha B,6
+Jengiz B,5
+Scytha C,4
+Scytha A,3
+Sabutai B,2
+Jengiz C,1
+

@@ -1,0 +1,16 @@
+AFFS Heavy Mechs A.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+TDR-9NAIS Thunderbolt,1
+CTS-6Y Cestus,2
+MAD-5T Marauder,3
+JM7-D JagerMech,4
+JM7-F JagerMech,5
+FLC-8R Falconer,6
+PTR-4D Penetrator,5
+MDG-2A Rakshasa,4
+BL-12-KNT Black Knight,3
+HEL-3D Helios,2
+PTR-6S Penetrator,1
+

@@ -1,0 +1,6 @@
+Standup Fight,1
+Hide and Seek,1
+Hold the Line,1
+Extraction,1
+Breakthrough,1
+Chase,1

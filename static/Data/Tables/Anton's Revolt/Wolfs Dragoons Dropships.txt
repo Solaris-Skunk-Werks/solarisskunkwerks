@@ -1,0 +1,11 @@
+Lion, 1
+Intruder, 2
+Leopard, 3
+Union, 4
+Overlord, 5
+Overlord, 6
+Union, 5
+Leopard CV, 4
+Condor, 3
+Gazelle, 2
+Fury, 1

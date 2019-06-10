@@ -1,0 +1,11 @@
+Hetzer(40), 1
+Hetzer(40), 2
+Hetzer(40), 3
+Drillson(50), 4
+Maxim(50), 5
+Vedette(50), 6
+Hetzer(40), 5
+Condor(50), 4
+Maxim(50), 3
+Drillson(50), 2
+Condor(50), 1

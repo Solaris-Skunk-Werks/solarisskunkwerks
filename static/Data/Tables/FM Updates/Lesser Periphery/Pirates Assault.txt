@@ -1,0 +1,16 @@
+Pirates Assault.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+GOL-2H Goliath,1
+LGB-7Q Longbow,2
+AWS-9Q Awesome,3
+CGR-2A2 Charger,4
+STK-3F Stalker,5
+AS7-S Atlas,6
+ZEU-9S Zeus,5
+VTR-9K Victor,4
+BLR-M Battlemaster,3
+CP-11-H Cyclops,2
+MAD-4H Marauder II,1
+
