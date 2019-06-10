@@ -30,6 +30,7 @@ package ssw;
 
 import java.awt.Font;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.prefs.Preferences;
@@ -73,7 +74,7 @@ public class Main {
         }
 
         // uncomment the following line before creating a build.
-        SetupLogFile( SSWConstants.LogFileName );
+        SetupLogFile( SSWConstants.LogDirectoryName, SSWConstants.LogFileName );
 
         try {
             // added code to turn off the boldface of Metal L&F.
@@ -135,11 +136,20 @@ public class Main {
         System.err.flush();
     }
 
-    private static void SetupLogFile( String LogFile ) {
+    private static void SetupLogFile( String LogDirectory, String LogFile ) {
         // Inspriration for this from Megamek.  mine is simpler and probably not
         // as fully featured, but does the job.
         try {
-            PrintStream ps = new PrintStream( new BufferedOutputStream( new FileOutputStream( LogFile ), 64 ) );
+            File directory = new File(LogDirectory);
+            if (! directory.exists()){
+                directory.mkdir();
+            }
+        } catch (Exception e) {
+            System.err.println( "Unable to find or create log directory." );
+        }
+        try {
+            String LogFilePath = LogDirectory + "/" + LogFile;
+            PrintStream ps = new PrintStream( new BufferedOutputStream( new FileOutputStream( LogFilePath ), 64 ) );
             System.setOut(ps);
             System.setErr(ps);
             System.out.println( "Log File open for business..." );
