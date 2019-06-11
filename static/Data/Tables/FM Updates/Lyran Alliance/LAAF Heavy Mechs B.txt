@@ -1,0 +1,16 @@
+LAAF Heavy Mechs B.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+MAD-5S Marauder,1
+BHKU-O Black Hawk-KU,2
+MDG-1A Rakshasa,3
+GAL-1GLS Gallowglas,4
+PTR-6S Penetrator,5
+CES-3R Caesar,6
+WR-DG-02FC War Dog,5
+AXM-1N Axeman,4
+CRD-8S Crusader,3
+MTR-5K Maelstrom,2
+DRG-4F Dragon Fire,1
+

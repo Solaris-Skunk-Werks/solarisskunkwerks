@@ -1,0 +1,16 @@
+DCMS Heavy Mechs B.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+SJA-7D Shugenja,1
+MTR-5K Maelstrom,2
+BHKU-O Black Hawk-KU,3
+WR-DG-02FC War Dog,4
+QKD-5M Quickdraw,5
+DRG-5K Grand Dragon,6
+DAI-01 Daikyu,5
+MAD-5D Marauder,4
+GAL-1GLS Galowglas,3
+DGR-3F Dragon Fire,2
+AV1-O Avatar,1
+

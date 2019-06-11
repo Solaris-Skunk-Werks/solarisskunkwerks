@@ -1,0 +1,16 @@
+LAAF Medium Mechs F.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ASN-21 Assassin,1
+CLNT-2-3T Clint,2
+VL-2T Vulcan,3
+SHD-2H Shadow Hawk,4
+GRF-1S Griffin,5
+WVR-6R Wolverine,6
+HCT-3F Hatchetman,5
+BJ-1 Blackjack,4
+PXH-1 Phoenix Hawk,3
+CN9-A Centurion,2
+VL-5S Vulcan,1
+

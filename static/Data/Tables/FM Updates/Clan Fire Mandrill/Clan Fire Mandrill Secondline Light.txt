@@ -1,0 +1,16 @@
+Clan Fire Mandrill Secondline Light.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+MCY-97 Mercury,1
+MON-66 Mongoose,2
+Locust IIC,3
+Incubus,4
+Mandrill,5
+Howler,6
+Jenner IIc,5
+Mandrill,4
+Incubus,3
+Howler,2
+Piranha,1
+

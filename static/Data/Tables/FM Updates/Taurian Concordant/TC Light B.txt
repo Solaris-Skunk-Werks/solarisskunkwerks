@@ -1,0 +1,16 @@
+TC Light B.txt
+Per Field Manual Updates page 229
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+SDR-7M Spider,1
+MON-67 Mongoose,2
+FS9-M Firestarter,3
+COM-2D Commando,4
+JR7-D Jenner,5
+JVN-10F Javelin,6
+FS9-H Firestarter,5
+WSP-1A Wasp,4
+JVN-10P Javelin,3
+RVN-3L Raven,2
+PNT-10K Panther,1
+

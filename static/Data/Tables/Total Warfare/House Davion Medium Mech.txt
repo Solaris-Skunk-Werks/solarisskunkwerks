@@ -1,0 +1,11 @@
+ENF-6M Enforcer III(50)(3060), 1
+FS9-O Firestarter(45)(3058), 2
+STH-1D Stealth(45)(3055), 3
+BJ-2 Blackjack(45)(3050), 4
+WTH-2 Whitworth(40)(3050), 5
+ENF-5D Enforcer(50)(3050), 6
+HCT-5S Hatchetman(45)(3050), 5
+CN9-D Ceturion(50)(3050), 4
+NGS-4S Nightsky(50)(3055), 3
+SNT-04 Sentry(40)(3060), 2
+SR1-O Strider(40)(3058), 1

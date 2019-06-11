@@ -1,0 +1,16 @@
+DCMS Medium Mechs C.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+WVR-6K Wolverine,1
+CRB-27 Crab,2
+WFT-1 Wolf Trap,3
+TBT-7M Trebuchet,4
+GRF-1DS Griffin,5
+WVR-7K Wolverine,6
+WTH-2 Whitworth,5
+PHX-3K Phoenix Hawk,4
+KTO-20 Kintaro,3
+STN-3M Sentinel,2
+GRF-1N Griffin,1
+

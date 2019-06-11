@@ -1,0 +1,16 @@
+WoB Heavy B.txt
+Per Field Manual Updates page 220
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ST-8A Shootist,1
+ARC-8M Archer,2
+BL-6-KNT Black Knight,3
+TMP-3M Tempest,4
+ON1-M Orion,5
+CDR-5M Crusader,6
+CHP-1N Champion,5
+MAD-5M Marauder,4
+GLT-3N Guillotine,3
+WHM-7M Warhammer,2
+WR-DG-02FC War Dog,1
+

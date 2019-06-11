@@ -1,0 +1,16 @@
+AFFS Assault Mechs A.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+TLR1-OB Templar,1
+TLR1-OA Templar,2
+NSR-9FC Nightstar,3
+SGT-8R Sagittaire,4
+DVS-2 Devastator,5
+NSR-9J Nightstar,6
+GUN-1ERD Gunslinger,5
+TLR1-O Templar,4
+LGB-12C Longbow,3
+MAD-4S Marauder II,2
+Mad Cat MkII,1
+

@@ -1,0 +1,16 @@
+Clan Hells Horses Frontline Light.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Fire Moth H,1
+Hankyu C,2
+Mist Lynx B,3
+Hellion A,4
+Hankyu Prime,5
+Kit Fox Prime,6
+Kit Fox B,5
+Adder H,4
+Fire Falcon A,3
+Hellion Prime,2
+Adder Prime,1
+

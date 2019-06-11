@@ -1,0 +1,16 @@
+Clan Diamond Shark Frontline Light.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hellion Prime,1
+Adder B,2
+Hankyu Prime,3
+Fire Moth Prime,4
+Hankyu C,5
+Adder Prime,6
+Hellion A,5
+Mist Lynx Prime,4
+Hellio B,3
+Mist Lynx A,2
+Adder D,1
+

@@ -1,0 +1,16 @@
+DCMS Assault Mechs B.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+GUN-1ERD Gunslinger,1
+AKU-1X Akuma,2
+AS7-K Atlas,3
+HTM-27U Hatamoto-Mizo,4
+HTM-27T Hatamoto-Chi,5
+SD1-O Sunder,6
+MAL-1R Mauler,5
+CP-11-C Cyclops,4
+HTM-27V HAtamoto-Kaze,3
+MR-V2 Cerberus,2
+OBK-M10 O-Bakemono,1
+

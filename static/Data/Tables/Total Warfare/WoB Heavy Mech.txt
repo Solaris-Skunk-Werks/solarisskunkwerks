@@ -1,0 +1,11 @@
+MAD-5L Marauder(75)(PP), 1
+YMN-6Y Yeoman(60)(3060), 2
+ANV-3M Anvil(60)(3055), 3
+TMP-3M Tempest(65)(3055), 4
+FLS-8K Flashman(75)(3050), 5
+BL-6-KNT Black Knight(75)(3050), 6
+TYM-1A Toyama(75)(3060), 5
+WFB-3B white Flame(70)(3067), 4
+AV1-OE Avatar(70)(3058), 3
+ARC-8M Archer(70)(PP), 2
+TDR-9M Thunderbolt(65)(PP), 1

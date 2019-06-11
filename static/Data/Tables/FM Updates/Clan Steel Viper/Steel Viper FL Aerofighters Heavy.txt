@@ -1,0 +1,16 @@
+Steel Viper FL Aerofighters Heavy.txt
+Per Field Manual Updates page 215
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hydaspes,1
+Kirghiz A,2
+Sabutai C,3
+Kirghiz Prime,4
+Kirghiz C,5
+Sabutai Prime,6
+Sabutai A,5
+Hydaspes,4
+Kirghiz B,3
+Sabutai B,2
+Hydaspes 2,1
+

@@ -1,0 +1,11 @@
+Talon TLN-5W,1
+Hussar HSR-200-D,2
+Firestarter FS9-H,3
+Locust LCT-1V,4
+Wasp WSP-1A,5
+Stinger STG-3R,6
+Firefly FFL-3A,5
+Mercury MCY-99,4
+Javelin JVN-10N,3
+Mongoose II MON-267,2
+Thorn THE-N,1

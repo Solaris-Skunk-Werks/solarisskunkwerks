@@ -1,0 +1,16 @@
+Pirates Medium.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+HCT-3F Hatchetman,1
+HER-5S Hermes II,2
+BJ-3 Blackjack,3
+HBK-5H Hunchback,4
+GRF-1N Griffin,5
+PXH-1D Phoenix Hawk,6
+Wvr-6M Wolverine,5
+WTH-1H Whitworth,4
+CRS-3M Cronus,3
+MHL-2L Marshal,2
+VND-3L Vindicator,1
+

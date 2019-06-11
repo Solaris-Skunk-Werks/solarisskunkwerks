@@ -1,0 +1,16 @@
+Clan Wolf in Exile Secondline Assault.txt
+Per Field Manual Updates page 217
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Supernova,1
+Warhammer IIc 4,2
+Mad Cat MkII,3
+THG-11E Thug,4
+Mad Cat MkII,5
+Supernova,6
+Marauder IIc,5
+Highlander IIc,4
+Marauder IIc 2,3
+Warhammer IIc 4,2
+Gargoyle A,1
+

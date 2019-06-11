@@ -1,0 +1,16 @@
+CCAF Heavy Mechs F.txt
+Per Field Manual Updates page 206
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+CPLT-C3 Catapult,1
+ON1-VA Orion,2
+GHR-5H Grasshopper,3
+CPLT-C1 Catapult,4
+OSR-2C Ostroc,5
+CTF-1X Cataphract,6
+CPLT-C1 Catapult,5
+CTF-2X Cataphract,4
+TDR-5S Thunderbolt,3
+CES-3R Ceasar,2
+WHM-6L Warhammer,1
+

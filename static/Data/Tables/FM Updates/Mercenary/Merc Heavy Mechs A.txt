@@ -1,0 +1,16 @@
+Merc Heavy Mechs A.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+BHKU-O Black hawk KU,1
+YMN-6Y Yeoman,2
+HEL-3D Helios,3
+RFL-6X Rifleman,4
+TDR-7SE Thunderbolt,5
+ARC-8M Archer,6
+WHM-8D Warhammer,5
+MTR-5K Maelstrom,4
+ANV-3M Anvil,3
+CTS-6Y Cestus,2
+AV1-O Avatar,1
+

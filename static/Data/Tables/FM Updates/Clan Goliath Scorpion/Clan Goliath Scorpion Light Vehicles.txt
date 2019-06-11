@@ -1,0 +1,16 @@
+Clan Goliath Scorpion Light Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Anhur,1
+Asshur,2
+Beagle,3
+Donar VTOL,4
+Odin,5
+Mithras,6
+Svantovit,5
+Zorya,4
+Ripper VTOL,3
+Gabriel,2
+Shamash,1
+

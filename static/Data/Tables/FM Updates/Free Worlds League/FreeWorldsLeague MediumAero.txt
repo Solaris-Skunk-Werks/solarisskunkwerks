@@ -1,0 +1,16 @@
+FreeWorldsLeague MediumAero.txt
+Per Field Manual Updates page 226
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+CSR-V12M Corsair,1
+HCT-213 Hellcat,2
+F-92 Stingray,3
+F-92 Stingray,4
+F-90 Stingray,5
+F-94 Stingray,6
+F-94 Stingray,5
+IRN-SD1 Ironsides,4
+Lightning,3
+TR-11 Transit,2
+TR-10 Transit,1
+

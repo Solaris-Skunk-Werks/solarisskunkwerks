@@ -1,0 +1,16 @@
+Clan Goliath Scorpion Frontline Assault.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Dire Wolf Prime,1
+Turkina B,2
+Kingfisher C,3
+Executioner A,4
+Warhawk C,5
+Warhawk Prime,6
+Turkina B,5
+Dire Wolf A,4
+Dire Wolf H,3
+Warhawk C,2
+Turkina C,1
+

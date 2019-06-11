@@ -1,0 +1,16 @@
+Castillan-Umayyad Light.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+STG-3R Stinger,1
+SDR-5V Spider,2
+PNT-9R Panther,3
+FS9-H Firestarter,4
+COM-2D Commando,5
+JR7-D Jenner,6
+FS9-H Firestarter,5
+UM-R60 UrbanMech,4
+JVN-10N Javelin,3
+WSP-1A Wasp,2
+THE-S Thorn,1
+

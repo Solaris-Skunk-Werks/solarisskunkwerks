@@ -1,0 +1,19 @@
+OutworldsAlliance Military Dropships.txt
+Per Field Manual Updates page 231
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Overlord,1
+Gazelle,2
+Triumph,3
+Leopard CV,4
+Union,5
+Leopard,6
+Gazelle,5
+Leopard,4
+Union,3
+Triumph,2
+Overlord,1
+
+
+
+

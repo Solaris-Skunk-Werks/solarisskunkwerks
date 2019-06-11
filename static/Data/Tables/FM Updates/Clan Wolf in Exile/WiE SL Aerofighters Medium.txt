@@ -1,0 +1,16 @@
+WiE SL Aerofighters Medium.txt
+Per Field Manual Updates page 217
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Turk A,1
+Jagatai B,2
+HCT-213B Hellcat II,3
+HCT-213B Hellcat II,4
+Ammon,5
+IRN-SD1 Ironsides,6
+Visigoth C,5
+GTHA-500 Gotha,4
+GTHA-500 Gotha,3
+Turk C,2
+Visigoth B,1
+

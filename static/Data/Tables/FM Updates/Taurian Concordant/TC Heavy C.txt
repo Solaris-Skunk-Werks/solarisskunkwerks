@@ -1,0 +1,16 @@
+TC Heavy C.txt
+Per Field Manual Updates page 229
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+GLT-4L Guillotine,1
+DRG-1N Dragon,2
+CPLT-C1 Catapult,3
+QKD-4G Quickdraw,4
+WHM-6R Warhammer,5
+GHR-5H Grasshopper,6
+MAD-3R Marauder,5
+JM6-S Jagermech,4
+ON1-K Orion,3
+CPLT-C4 Catapult,2
+BL-7-KNT Black Knight,1
+

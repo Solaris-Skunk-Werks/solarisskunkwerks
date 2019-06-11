@@ -1,0 +1,16 @@
+Clan Steel Viper Secondline Heavy.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hellbringer A,1
+Matabor,2
+Glass Spider,3
+Rifleman IIC,4
+FLS-8K Flashman,5
+Rifleman IIC,6
+MAtador,5
+Black Python,4
+Black Python 2,3
+Grizzly,2
+BMB-12D Bombardier,1
+

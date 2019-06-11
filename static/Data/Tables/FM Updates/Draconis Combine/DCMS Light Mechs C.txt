@@ -1,0 +1,16 @@
+DCMS Light Mechs C.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+OW-1 Owens,1
+LCT-1V Locust,2
+WSP-1A Wasp,3
+JVN-10P Javelin,4
+PNT-9R Panther,5
+PNT-10K Panther,6
+JR7-K Jenner,5
+JR7-K Jenner,4
+SDR-7M Spider,3
+WSP-1K Wasp,2
+RTX1-O Raptor,1
+

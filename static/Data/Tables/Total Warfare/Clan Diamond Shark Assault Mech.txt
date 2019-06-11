@@ -1,0 +1,11 @@
+Warhammer IIc 4(80)(PP), 1
+Masakari H(85)(3050), 2
+Gladiator A(95)(3050), 3
+Daishi S(100)(3050), 4
+Masakari C(85)(3050), 5
+Masakari Prime(85)(3050), 6
+Gladiator D(95)(3050), 5
+Daishi C(100)(3050), 4
+Masakari B(85)(3050), 3
+Daishi A(100)(3050), 2
+Phoenix Hawk IIc 4(80)(PP), 1

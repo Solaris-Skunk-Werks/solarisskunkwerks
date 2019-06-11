@@ -1,0 +1,16 @@
+LAAF Vehicles Light.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Warrion H8 Attack Helicopter,1
+Cavalry Attack Helicopter,2
+Pegasus Scout Hovertank,3
+Hunter Light Support Tank,4
+Harasser Missile Platform,5
+Striker Light Tank,6
+J. Edgar Light Hovertank,5
+Scorpion Light Tank,4
+Centipede Scout Car,3
+Galleon Light Tank,2
+Yellow Jacket Gunship,1
+

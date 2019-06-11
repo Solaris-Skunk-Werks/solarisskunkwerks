@@ -1,0 +1,16 @@
+Clan Wolf in Exile Frontline Light.txt
+Per Field Manual Updates page 217
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+AF1 Artic Fox Prime,1
+Adder Prime,2
+AF1 Artic Fox C,3
+Mist Lynx A,4
+AF1 Artic Fox D,5
+Adder Prime,6
+AF1 Artic Fox A,5
+Adder A,4
+Mist Lynx Prime,3
+AF1 Artic Fox B,2
+Adder D,1
+

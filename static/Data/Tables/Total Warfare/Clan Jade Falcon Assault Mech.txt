@@ -1,0 +1,11 @@
+Man O'War Prime(80)(3050), 1
+Gladiator prime(95)(3050), 2
+Masakari C(85)(3050), 3
+Turkina B(95)(3058), 4
+Turkina Prime(95)(3058), 5
+Masakari Prime(85)(3050), 6
+Masakari B(85)(3050), 5
+Daishi Prime(100)(3050), 4
+Daishi A(100)(3050), 3
+Masakari A(85)(3050), 2
+Mad Cat MkII(90)(3067), 1

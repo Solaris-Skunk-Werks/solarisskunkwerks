@@ -1,0 +1,16 @@
+Clan Wolf Frontline Heavy.txt
+Per Field Manual Updates page 
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Timber Wolf D,1
+Linebacker A,2
+Summoner D,3
+Timber Wolf B,4
+Linebacker B,5
+Timber Wolf Prime,6
+Timber Wolf A,5
+Linebacker Prime,4
+Linebacker C,3
+Timber Wolf C,2
+Mad Dog Prime,1
+

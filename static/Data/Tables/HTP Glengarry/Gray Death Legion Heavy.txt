@@ -1,0 +1,11 @@
+Grand Dragon DRG-1G,1
+Grasshopper GHR-5H,2
+Marauder MAD-3R,3
+Warhammer WHM-7M,4
+Cataphract CTF-3L,5
+Archer ARC-4M,6
+Grand Dragon DRG-5K,5
+Archer ARC-4M,4
+Orion ON1-M,3
+Warhammer WHM-7M,2
+Thor (Summoner),1

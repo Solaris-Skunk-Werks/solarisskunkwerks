@@ -1,0 +1,16 @@
+SLDF Vehicles Light.txt
+Per Field Manual Updates page 222
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hawk Moth Gunship,1
+Karnov UR Transport,2
+Plainsman Medium Hovertank,3
+Saracen Medium Hovertank,4
+Pegasus Scout Hovertank,5
+Saladin Assault hovertank,6
+Yellow Jacket Gunship,5
+Striker Light Tank,4
+Galleon Light Tank,3
+Minion Advanced Tactical Vehicle,2
+Mantis Light Attack VTOL,1
+

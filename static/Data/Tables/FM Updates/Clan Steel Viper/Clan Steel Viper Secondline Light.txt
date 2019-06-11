@@ -1,0 +1,16 @@
+Clan Steel Viper Secondline Light.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hankyu A,1
+HSR-200-D Hussar,2
+Jenner IIC,3
+Incubus,4
+Horned Owl,5
+Locust IIC,6
+Locust IIC,5
+Jenner IIC,4
+Howler,3
+Howler,2
+Fire Moth P,1
+

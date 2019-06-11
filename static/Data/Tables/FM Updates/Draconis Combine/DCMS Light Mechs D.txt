@@ -1,0 +1,16 @@
+DCMS Light Mechs D.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+JR7-D Jenner,1
+LCT-1V Locust,2
+SDR-5V Spider,3
+JR7-D Jenner,4
+JR7-F Jenner,5
+JVN-10N Javelin,6
+PNT-9R Panther,5
+PNT-10K Panther,4
+WSP-1A Wasp,3
+OTT-7J Ostscout,2
+JR7-K Jenner,1
+

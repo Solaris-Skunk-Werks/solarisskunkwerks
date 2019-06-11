@@ -1,0 +1,16 @@
+Com Guard Assault A.txt
+Per Field Manual Updates page 219
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+VKG-2F Viking,1
+NSR-9J Nightstar,2
+TDK-7X Thunderhawk,3
+KGC-000 King Crab,4
+THG-11E Thug,5
+HBN-732 Highlander,6
+CRK-5003-1 Crockett,5
+SPT-N2 Spartan,4
+AS7-K Atlas,3
+PLG-3Z Pillager,2
+OBK-M10 O-Bakemono,1
+

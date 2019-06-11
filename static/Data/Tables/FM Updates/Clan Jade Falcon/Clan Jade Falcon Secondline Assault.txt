@@ -1,0 +1,16 @@
+Clan Jade Falcon Secondline Assault.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Stone Rhino,1
+Warhawk Prime,2
+THG-11E Thug,3
+Phoenix Hawk IIc,4
+Phoenix Hawk IIc,5
+Warhammer IIc,6
+Warhammer IIc,5
+Bane,4
+Bane,3
+HGN-732 Highlander,2
+Marauder IIc,1
+

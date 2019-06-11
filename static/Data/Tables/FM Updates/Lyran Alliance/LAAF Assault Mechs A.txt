@@ -1,0 +1,16 @@
+LAAF Assault Mechs A.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+BLR-4S Battlemaster,1
+FNR-5 Fafnir,2
+PPR-5T Salamander,3
+HA1-O Hauptmann,4
+STK-5S Stalker,5
+ZEU-9T Zeus,6
+BNC-5S Banshee,5
+BZR-B3 Berserker,4
+SGT-8R Sagittaire,3
+AWS-9M Awesome,2
+EMP-6A Emperor,1
+

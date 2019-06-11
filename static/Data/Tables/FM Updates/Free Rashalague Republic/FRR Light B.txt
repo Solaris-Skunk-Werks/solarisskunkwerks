@@ -1,0 +1,16 @@
+FRR Light B.txt
+Per Field Manual Updates page 221
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+HSR-200-D Hussar,1
+SDR-7M Spider,2
+STG-5M Stinger,3
+JR7-K Jenner,4
+PNT-10K Panther,5
+COM-5S Commando,6
+FS9-S Firestarter,5
+LCT-3S Locust,4
+HER-1S Hermes,3
+SDR-9K Venom,2
+MCY-97 Mercury,1
+

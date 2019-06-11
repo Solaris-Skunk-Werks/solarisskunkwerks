@@ -1,0 +1,11 @@
+HBK-4G Hunchback(50), 1
+TBT-5N Trebuchet(50), 2
+WTH-1 Whitworth(40), 3
+SHD-2H Shadow Hawk(55), 4
+ENF-4R Enforcer(50), 5
+PXH-1 Phoenix Hawk(45), 6
+CN9-A Centurion(50), 5
+WVR-6R Wolverine(55), 4
+GRF-1N Griffin(55), 3
+BJ-1 Blackjack(45), 2
+VL-2T Vulcan(40), 1

@@ -1,0 +1,16 @@
+Clan Goliath Scorpion Medium Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Epona Prime,1
+Zephyr,2
+Hachiman,3
+Ku,4
+Ares,5
+Hachiman,6
+Ku,5
+Ares,4
+Hachiman,3
+Chaparral,2
+Maxim(C),1
+

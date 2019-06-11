@@ -1,0 +1,16 @@
+FWLM Light Mechs B.txt
+Per Field Manual Updates page 226
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+RVN-3L Raven,1
+ZPH-1A Tarantula,2
+WSP-3M Wasp,3
+STG-5M Stinger,4
+STG-5M Stinger,5
+LCT-3M Locust,6
+LCT-5M Locust,5
+EGL-1M Eagle,4
+SDR-7M Spider,3
+HER-3S Hermes,2
+HMR-3M Hammer,1
+

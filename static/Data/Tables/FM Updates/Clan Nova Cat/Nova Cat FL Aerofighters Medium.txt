@@ -1,0 +1,16 @@
+Nova Cat FL Aerofighters Medium.txt
+Per Field Manual Updates page 223
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Jagatai Prime,1
+Ammon,2
+Visigoth Prime,3
+Visigoth C,4
+Visigoth A,5
+Turk Prime,6
+Visigoth B,5
+Turk C,4
+Visigoth A,3
+Jagatai C,2
+Tyre,1
+

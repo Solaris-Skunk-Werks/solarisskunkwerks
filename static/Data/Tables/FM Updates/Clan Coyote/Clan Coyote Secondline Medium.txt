@@ -1,0 +1,16 @@
+Clan Coyote Secondline Medium.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hoplite(C),1
+Lobo,2
+Griffin IIc 3,3
+Wyvern IIc,4
+Rabid Coyote,5
+Conjurer,6
+Griffin IIc 4,5
+Vapor Eagle,4
+Great Wyrm,3
+Clint IIc,2
+Stormcrow Prime,1
+

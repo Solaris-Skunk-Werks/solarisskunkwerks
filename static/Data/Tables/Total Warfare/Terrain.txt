@@ -1,0 +1,11 @@
+Hills, 1
+Badlands, 2
+Wetlands, 3
+Light Urban, 4
+Hills, 5
+Flatlands, 6
+Wooded, 5
+Heavy Urban, 4
+Coastal, 3
+Wooded, 2
+Mountains, 1

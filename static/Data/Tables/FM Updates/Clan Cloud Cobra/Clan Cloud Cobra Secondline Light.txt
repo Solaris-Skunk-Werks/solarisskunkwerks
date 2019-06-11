@@ -1,0 +1,16 @@
+Clan Cloud Cobra Secondline Light.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Firefly(C),1
+Pack Hunter,2
+Solitaire,3
+Jenner IIc 2,4
+Locust IIc 4,5
+Incubus,6
+Horned Owl,5
+Jenner IIc,4
+Locust IIc 2,3
+Incubus 2,2
+Howler,1
+

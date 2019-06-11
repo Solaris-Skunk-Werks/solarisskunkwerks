@@ -1,0 +1,11 @@
+LCF-R15 Lucifer(65), 1
+LCF-R15 Lucifer(65), 2
+LCF-R15 Lucifer(65), 3
+HCT-213 Hellcat(60) 4
+HCT-213 Hellcat(60), 5
+CSR-V12 Corsair(50), 6
+CSR-V12 Corsair(50), 5
+LTN-G15 Lightning(50), 4
+LTN-G15 Lightning(50), 3
+LTN-G15 Lightning(50), 2
+TR-10 Transit(50), 1

@@ -1,0 +1,11 @@
+Hetzer(40), 1
+Vedette(50), 2
+Vedette(50), 3
+Goblin(45), 4
+Bandit(50), 5
+Bandit(50), 6
+Bandit(50), 5
+Vedette(50), 4
+Maxim(50), 3
+Condor(50), 2
+Condor(50), 1

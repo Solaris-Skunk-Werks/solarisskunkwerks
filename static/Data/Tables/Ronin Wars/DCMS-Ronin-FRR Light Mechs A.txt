@@ -1,0 +1,11 @@
+HSR-300-D Hussar(30), 1
+MCY-98 Mercury(20), 2
+SDR-5K Spider(30), 3
+STG-3G Stinger(20), 4
+PNT-9R Panther(35), 5
+JR7-D Jenner(35), 6
+WSP-1A Wasp(20), 5
+LCT-3V Locust(20), 4
+JR7-F Jenner(35), 3
+WSP-1K Wasp(20), 2
+MON-67 Mongoose(25), 1

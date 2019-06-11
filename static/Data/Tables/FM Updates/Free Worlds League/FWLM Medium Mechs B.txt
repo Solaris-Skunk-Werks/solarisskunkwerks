@@ -1,0 +1,16 @@
+FWLM Medium Mechs B.txt
+Per Field Manual Updates page 226
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+APL-1M Apollo,1
+SCP-10 Scorpion,2
+CDA-3M Cicada,3
+SHD-7M Shadow Hawk,4
+HER-5S Hermes II,5
+TBT-7M Trebuchet,6
+GRF-5M Griffin,5
+WVR-7M Wolverine,4
+GRF-3M Griffin,3
+TR-1 Wraith,2
+BJ2-O Blackjack,1
+

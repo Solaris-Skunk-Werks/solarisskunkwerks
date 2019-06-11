@@ -1,0 +1,16 @@
+Clan Wolf in Exile Medium Vehicles.txt
+Per Field Manual Updates page 217
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hetzer,1
+Hachiman,2
+Maxim(C),3
+Bandit(C),4
+Bandit(C2),5
+Hachiman,6
+Chaparral,5
+Maxim(C),4
+Goblin,3
+Zephyr,2
+Epona Prime,1
+

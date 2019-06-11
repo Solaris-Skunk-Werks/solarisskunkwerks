@@ -1,0 +1,11 @@
+CRB-20 Crab(50), 1
+CRB-20 Crab(50), 2
+STN-3M Sentinel(40), 3
+CRB-20 Crab(50), 4
+KTO-20 Kintaro(55), 5
+WVE-5N Wyvern(45), 6
+STN-3K Sentinel(40), 5
+STN-3M Sentinel(40), 4
+KTO-20 Kintaro(55), 3
+WVE-5N Wyvern(45), 2
+WVE-5N Wyvern(45), 1

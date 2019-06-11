@@ -1,0 +1,16 @@
+FRR Vehicles Assault.txt
+Per Field Manual Updates page 221
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Puma Tank,1
+Schrek PPC Carrier,2
+Sturmfuer Heavy Tank,3
+Ontos Heavy Tank,4
+Partisan Heavy Tank,5
+Demolisher Heavy Tank,6
+Partisan Heavy Tank(LRM),5
+Ontos Heavy Tank,4
+Behemoth Heavy Tank,3
+Rhino,2
+Schiltron,1
+

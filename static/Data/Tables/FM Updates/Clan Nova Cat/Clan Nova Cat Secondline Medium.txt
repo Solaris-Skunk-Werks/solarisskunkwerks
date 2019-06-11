@@ -1,0 +1,16 @@
+Clan Nova Cat Secondline Medium.txt
+Per Field Manual Updates page 223
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Arctic Wolf,1
+Artic Wolf 2,2
+BEO-12 Beowulf,3
+Griffin IIc 2,4
+Clint IIc,5
+Shadow Hawk IIc 3,6
+Shadow Hawk IIc 4,5
+Griffin IIc 3,4
+Wyvern IIc,3
+Griffin IIc 4,2
+WVR-8K Wolverine,1
+

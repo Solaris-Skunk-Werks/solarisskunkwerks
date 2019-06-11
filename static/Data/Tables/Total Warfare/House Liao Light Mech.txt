@@ -1,0 +1,11 @@
+JA-KL-1532 Jackal(30)(3055), 1
+JR7-D Jennere(35)(3025), 2
+RVN-3L Raven(35)(3050), 3
+UM-R63 UrbanMech(30)(3050), 4
+FS9-S Firestarter(35)(3050), 5
+RVN-3L Raven(35)(3050), 6
+SDR-5V Spider(30)(3025), 5
+C-SK1 Cossack(20)(3060), 4
+ZPH-1A Tarantula(25)(3055), 3
+JVN-10N Javelin(30)(3025), 2
+UM-R60 UrbanMech(30)(3025), 1

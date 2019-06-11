@@ -1,0 +1,11 @@
+Lightning(50), 1
+Lightning(50), 2
+TR-10 Transit(50), 3
+TR-10 Transit(50), 4
+TR-10 Transit(50), 5
+TR-10 Transit(50), 6
+HCT-213 Hellcat(60), 5
+HCT-213 Hellcat(60), 4
+Lightning(50), 3
+HCT-213 Hellcat(60), 2
+TR-10 Transit(50), 1

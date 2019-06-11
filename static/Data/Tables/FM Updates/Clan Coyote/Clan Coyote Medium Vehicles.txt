@@ -1,0 +1,16 @@
+Clan Coyote Medium Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Ares,1
+Bandit(C2),2
+Ares,3
+Bandit(C),4
+Ares,5
+Ku,6
+Hachiman,5
+Chaparral,4
+Hachiman,3
+Maxim(C),2
+Ku,1
+

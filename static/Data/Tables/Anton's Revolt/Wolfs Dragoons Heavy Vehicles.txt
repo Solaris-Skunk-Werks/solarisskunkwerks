@@ -1,0 +1,11 @@
+Bulldog(60), 1
+Bulldog(60), 2
+SRM Carrier(60), 3
+SRM Carrier(60), 4
+Manticore Heavy Tank(60), 5
+Manticore Heavy Tank(60), 6
+LRM Carrier(60), 5
+LRM Carrier(60), 4
+Von Luckner(75), 3
+Von Luckner(75), 2
+Pike Support Vehicle(60), 1

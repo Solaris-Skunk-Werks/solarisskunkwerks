@@ -1,0 +1,10 @@
+Random Mech Assignment Table: opposing Force Great House Light.txt
+Per Starterbook Wolf and Blake page 66
+Copyright WizKids games & Catalyst Game Labs
+Entered in to RUS format by: Aaron "Bear" Gregory
+COM-7S Commando(25)(3050U), 1
+COM-5S Commando(25)(3050U), 1
+WLF-2 Wolfhound(35)(3050U), 1
+SDR-7M Spider(30)(3050U), 1
+SDR-7KC Spider(30)(3050U), 1
+PNT-9R Panther(35)(3050U), 1

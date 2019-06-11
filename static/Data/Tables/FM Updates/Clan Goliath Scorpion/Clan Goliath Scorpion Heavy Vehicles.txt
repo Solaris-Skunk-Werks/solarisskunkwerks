@@ -1,0 +1,16 @@
+Clan Goliath Scorpion Heavy Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Demon,1
+Ishtar,2
+Magi,3
+Oro,4
+Ishtar,5
+Oro,6
+Ishtar,5
+SRM Carrier,4
+Ishtar,3
+Burke,2
+Athena,1
+

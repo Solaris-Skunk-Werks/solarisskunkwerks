@@ -1,0 +1,16 @@
+SLDF Vehicles Heavy.txt
+Per Field Manual Updates page 222
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Morningstar Cit Command Vehicle,1
+AC/2 Carrier(LB-X),2
+SRM Carrier(3058),3
+Manteuffel Assault Tank,4
+Rommel(gauss),5
+Tokugawa Heavy Tank,6
+Patton Tank(ultra),5
+LRM Carrier(3058),4
+Pike Support Vehicle,3
+Manteuffel Assault Tank,2
+Padilla Heavy Artillery Tank,1
+

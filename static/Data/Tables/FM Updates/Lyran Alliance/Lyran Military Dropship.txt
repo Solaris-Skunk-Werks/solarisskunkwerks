@@ -1,0 +1,16 @@
+Lyran Military Dropship.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Claymore,1
+Avenger,2
+Excalibur,3
+Hercules,4
+Leopard CV,5
+Union,6
+Leopard,5
+Overlord,4
+Intruder,3
+Union-X,2
+Fortress,1
+

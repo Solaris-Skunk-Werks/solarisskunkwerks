@@ -1,0 +1,10 @@
+Random Mech Assignment Table Opposing Force Guerilla Light.txt
+Per Starterbook Wolf and Blake  page 67
+Copyright WizKids games & Catalyst Game Labs
+Entered in to RUS format by: Aaron "Bear" Gregory
+WLF-2 Wolfhound(35)(3050U), 1
+JR7-C2 Jenner(35)(3050U), 1
+COM-1B Commando(25)(3050U), 1
+FLC-4P Falcon(25)(3050U), 1
+FLE-20 Flea(20)(3050U), 1
+JVN-10P Javelin(30)(3050U), 1

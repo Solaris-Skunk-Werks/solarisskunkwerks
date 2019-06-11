@@ -1,0 +1,16 @@
+DCMS Assault Mechs C.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+OBK-M10 O-Bakemono,1
+HTM-27U Hatamoto-Hi,2
+HTM-27T Hatamoto-Chi,3
+MAL-1R Mauler,4
+AS7-K Atlas,5
+CGR-3K Charger,6
+CGR-3K Charger,5
+HTM-27V Hatamoto-Kaze,4
+VTR-9K Victor,3
+HTM-27W Hatamoto-Ku,2
+SD1-O Sunder,1
+

@@ -1,0 +1,10 @@
+Random Mech Assignment Table: Opposing Force Mercenary Medium.txt
+Per Starterbook Wolf and Blake page 66
+Copyright WizKids games & Catalyst Game Labs
+Entered in to RUS format by: Aaron "Bear" Gregory
+CDA-3F Cicada(40)(3050U), 1
+WFT-1 Wolf Trap(45)(3050U), 1
+ASN-23 Assassin(40)(3050U), 1
+CRB-27 Crab(50)(3050U), 1
+HCT-5S Hatchetman(45)(3050U), 1
+DV-8D Dervish(55)(3050U), 1

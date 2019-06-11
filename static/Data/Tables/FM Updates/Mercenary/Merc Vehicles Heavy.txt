@@ -1,0 +1,16 @@
+Merc Vehicles Heavy.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Typhoon,1
+SRM Carrier,2
+Zhukov,3
+Bulldog,4
+Rommel,5
+Manticore,6
+Patton,5
+Pike,4
+Po,3
+LRM Carrier,2
+Von Luckner,1
+

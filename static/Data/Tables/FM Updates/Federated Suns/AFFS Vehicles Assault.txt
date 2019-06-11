@@ -1,0 +1,16 @@
+AFFS Vehicles Assault.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Behemoth Heavy Tank,1
+Alacorn MkVI Heavy Tank,2
+Ajax,3
+Schrek PPC Carrier,4
+Partisan Air Defense Tank,5
+Ontos Heavy Tank,6
+Demolisher Heavy Tank,5
+Challenger X MBT,4
+Glory,3
+SturmFeur Heavy Tank,2
+Schiltron Primary,1
+

@@ -1,0 +1,16 @@
+Com Guard Medium B.txt
+Per Field Manual Updates page 219
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+WVN-9N Wyvern,1
+CLNT-2-3U Clint,2
+STN-3L Sentinel,3
+GRM-R-PR29 Grim Reaper,4
+CRB-27 Crab,5
+WVN-5N Wyvern,6
+HBK-5N Hunchback,5
+ASN-23 Assassin,4
+FS9-O Firestarter,3
+KTO-19 Kintaro,2
+RJN101-A Raijin,1
+

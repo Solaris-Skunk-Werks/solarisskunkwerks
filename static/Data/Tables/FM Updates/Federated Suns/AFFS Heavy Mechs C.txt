@@ -1,0 +1,16 @@
+AFFS Heavy Mechs C.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+WR-DG-O2FC War Dog,1
+FLC-8R Falconer,2
+GLT-8D Guillotine,3
+MAD-5D Marauder,4
+CES-3R Caesar,5
+RFL-8D Rifleman,6
+TDR-7SE Thunderbolt,5
+CTF-3D Cataphract,4
+ON2-M Orion,3
+JM6-D3 JagerMech,2
+CTS-6Y Cestus,1
+

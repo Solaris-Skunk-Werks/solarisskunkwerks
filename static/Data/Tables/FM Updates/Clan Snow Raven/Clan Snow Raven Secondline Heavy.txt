@@ -1,0 +1,16 @@
+Clan Snow Raven Secondline Heavy.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+GLT-3N Guillotine,1
+Timber Wolf B,2
+Rifleman IIc,3
+Glass Spider,4
+Black Python,5
+Glass Spider,6
+Black Python,5
+Grizzly,4
+Rifleman IIc,3
+Thresher,2
+EXT-4D Exterminator,1
+

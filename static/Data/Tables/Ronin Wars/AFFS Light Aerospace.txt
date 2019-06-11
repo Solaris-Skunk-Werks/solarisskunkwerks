@@ -1,0 +1,11 @@
+Centurion(30), 1
+TR-7 Thrush(25), 2
+SYD-Z1 Seydlitz(20), 3
+SYD-Z1 Seydlitz(20), 4
+SPR-H5 Sparrowhawk(30), 5
+SPR-H5 Sparrowhawk(30), 6
+Centurion(30), 5
+Sabre(25), 4
+Sabre(25), 3
+SPR-H8 Sparrowhawk(30), 2
+Centurion(30), 1

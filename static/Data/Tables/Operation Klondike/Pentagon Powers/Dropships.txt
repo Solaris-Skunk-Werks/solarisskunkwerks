@@ -1,0 +1,11 @@
+Fortress, 1
+Gazelle, 1
+Triumph, 1
+Overlord, 1
+Mule, 1
+Union, 1
+Buccaneer, 1
+Dictator, 1
+Vulture, 1
+Monarch, 1
+Colossus, 1

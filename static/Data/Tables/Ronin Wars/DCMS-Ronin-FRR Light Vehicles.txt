@@ -1,0 +1,11 @@
+Plainsman(35), 1
+Peregrine VTOL(30), 2
+Galleon(30), 3
+Hunter(35), 4
+Saladin(35), 5
+Saracen(35), 6
+J. Edgar(25), 5
+Pegasus(35), 4
+Scorpion(25), 3
+Skulker(20), 2
+Warrior H7 VTOL(21), 1

@@ -1,0 +1,11 @@
+MON-267 Mongoose, 1
+BTZ-3F Blitzkrieg, 2
+HCT-5S Hatchetman, 3
+STH-1D Stealth, 4
+NGS-4S Nightsky, 5
+GRF-6F Griffin, 6
+HBK-5S Hunchback, 5
+UZL-3S Uziel, 4
+STY-3C Starslayer, 3
+CN9-D Centurion, 2
+SCP-12S Scorpion*, 1

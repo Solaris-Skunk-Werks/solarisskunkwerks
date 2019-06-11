@@ -1,0 +1,16 @@
+TC Light A.txt
+Per Field Manual Updates page 229
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+STG-5R Stinger,1
+ABS-3L Anubis,2
+FS9-S Firestarter,3
+JR7-K Jenner,4
+JVN-10F Javelin,5
+JVN-10P Javelin,6
+SDR-7M Spider,5
+D9-G9 Duan Gung,4
+LCT-5V Locust,3
+RVN-3L Raven,2
+WSP-3L Wasp,1
+

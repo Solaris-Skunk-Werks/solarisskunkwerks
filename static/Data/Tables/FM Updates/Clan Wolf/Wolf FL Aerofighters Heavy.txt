@@ -1,0 +1,17 @@
+Wolf FL Aerofighters Heavy.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Xerxes,1
+Jengiz Prime,2
+Sctha Prime,3
+Kirghiz Prime,4
+Jengiz A,5
+Jengiz B,6
+Kirghiz A,5
+Scytha B,4
+Scytha C,3
+Hydaspes,2
+Kirghiz C,1
+
+

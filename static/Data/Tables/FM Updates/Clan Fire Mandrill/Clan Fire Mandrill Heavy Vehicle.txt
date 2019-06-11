@@ -1,0 +1,16 @@
+Clan Fire Mandrill Heavy Vehicle.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Magi,1
+LRM Carrier,2
+Oro,3
+Athena,4
+Ishtar,5
+Pike(C),6
+Ishtar,5
+Pike(C),4
+Oro,3
+Athena,2
+Padilla,1
+

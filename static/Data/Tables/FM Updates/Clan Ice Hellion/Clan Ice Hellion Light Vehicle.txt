@@ -1,0 +1,16 @@
+Clan Ice Hellion Light Vehicle.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Anhur,1
+Svantovit,2
+Svantovit,3
+Badger(C),4
+Odin,5
+Asshur,6
+Donar VTOL(recon),5
+Mithras,4
+Donar VTOL(recon),3
+Indra,2
+Shamash,1
+

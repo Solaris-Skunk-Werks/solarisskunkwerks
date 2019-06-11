@@ -1,0 +1,6 @@
+Mountain Lake(MS2,MSC1),1
+River Valley(MS2,MSC1),1
+Desert Mountain #1(MS3,MSC1),1
+Desert Mountain #2(MS3,MSC1),1
+Large Mountain #1(MS5,MSC1),1
+Large Mountain #2(MS5,MSC1),1

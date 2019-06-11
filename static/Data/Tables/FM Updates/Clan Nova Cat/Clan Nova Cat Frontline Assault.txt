@@ -1,0 +1,16 @@
+Clan Nova Cat Frontline Assault.txt
+Per Field Manual Updates page 223
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Turkina B,1
+Dire Wolf B,2
+Executioner A,3
+Gargoyle A,4
+Warhawk Prime,5
+Warhawk B,6
+Kingfisher C,5
+Executioner D,4
+Kingfisher Prime,3
+Warhawk C,2
+Dire Wolf A,1
+

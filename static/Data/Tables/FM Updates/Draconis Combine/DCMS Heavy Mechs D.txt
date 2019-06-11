@@ -1,0 +1,16 @@
+DCMS Heavy Mechs D.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+JM6-DD JagerMech,1
+OSR-2C Ostroc,2
+CPLT-K2 Catapult,3
+DRG-1G Grand Dragon,4
+DRG-1C Dragon,5
+DRG-1N Dragon,6
+QKD-4G Quickdraw,5
+TDR-5S Thunderbolt,4
+ARC-2K Archer,3
+OTL-4D Ostsol,2
+QKD-5M Quickdraw,1
+

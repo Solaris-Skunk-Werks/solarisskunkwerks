@@ -1,0 +1,11 @@
+BLR-4S Battlemaster, 1
+BRZ-A3 Berzerker, 2
+PPR-5S Salamander, 3
+HA1-O Hauptmann, 4
+AS7-S2 Atlas, 5
+ZEU-9S Zeus, 6
+BNC-5S Banshee, 5
+TDK-7X Thunder Hawk, 4
+GUN-1ERD Gunslinger, 3
+FNR-5 Fafnir, 2
+BNC-7S Banshee, 1

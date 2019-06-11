@@ -1,0 +1,11 @@
+2 Light, 1
+2 Light, 2
+2 Light, 3
+2 Medium, 4
+2 Medium, 5
+1 Light 1 Medium, 6
+1 Medium 1 Heavy, 5
+1 Heavy 1 Assault, 4
+2 Heavy, 3
+2 Heavy, 2
+Supernova Binary(roll for weight class), 1

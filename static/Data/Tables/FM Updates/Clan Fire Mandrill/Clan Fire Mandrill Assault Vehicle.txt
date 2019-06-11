@@ -1,0 +1,16 @@
+Clan Fire Mandrill Assault Vehicle.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Morrigu,1
+Puma,2
+Morrigu(laser),3
+Demolisher(C),4
+Morrigu(laser),5
+Morrigu,6
+Demolisher(C),5
+Huitzilopochtli,4
+Morrigu,3
+Huitzilopochtli,2
+Demolisher(C),1
+

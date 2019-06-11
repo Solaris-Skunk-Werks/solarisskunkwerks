@@ -1,0 +1,11 @@
+Battle Armor, 1
+Protomech, 2
+Light, 3
+Light, 4
+Medium, 5
+Medium, 6
+Heavy, 5
+Heavy, 4
+Assault, 3
+Aerospace Fighter, 2
+Nova(roll again for weight class), 1

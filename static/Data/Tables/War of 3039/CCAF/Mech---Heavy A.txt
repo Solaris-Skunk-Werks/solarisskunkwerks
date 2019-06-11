@@ -1,0 +1,11 @@
+OSR-2L Ostroc(60), 1
+CPLT-C4 Catapult(65), 2
+CTF-2X Cataphract(70), 3
+CRD-3L Crusader(65), 4
+ARC-2R Archer(70), 5
+WHM-6L Warhammer(70), 6
+MAD-3L Marauder(75), 5
+CPLT-C1 Catapult(65), 4
+RFL-3N Rifleman(60), 3
+CPLT-A1 Catapult(65), 2
+TDR-5S Thunderbolt(65), 1

@@ -1,0 +1,16 @@
+MoC Heavy B.txt
+Per Field Manual Updates page 229
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+GLT-5M Guillotine,1
+TMP-3M Tempest,2
+GHR-5N Grasshopper,3
+THR-1L Thunder,4
+CPLT-C4 Catapult,5
+ON1-K Orion,6
+CPLT-C3 Catapult,5
+CTF-3L Cataphract,4
+BNDR-O1A Bandersnatch,3
+QKD-5M Quickdraw,2
+GAL-1GLS Gallowglas,1
+

@@ -1,0 +1,16 @@
+MoC Medium B.txt
+Per Field Manual Updates page 229
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+CN9-D Centurion,1
+BJ-3 Blackjack,2
+ENF-5D Enforcer,3
+BJ-2 Blackjack,4
+VND-1R Vindicator,5
+HBK-4P Hunchback,6
+VND-3L Vindicator,5
+TBT-5N Trebuchet,4
+WCT-4M Watchman,3
+CDA-3M Cicada,2
+TBT-7M Trebuchet,1
+

@@ -1,0 +1,16 @@
+Cloud Cobra SL Aerofighters Medium.txt
+Per Field Manual Updates page 216
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Jagatai C,1
+Jagatai A,2
+Tyre 2,3
+Visigoth C,4
+Visigoth B,5
+Tyre,6
+Tyre 2,5
+Ammon,4
+Tyre,3
+Turk B,2
+Turk Prime,1
+

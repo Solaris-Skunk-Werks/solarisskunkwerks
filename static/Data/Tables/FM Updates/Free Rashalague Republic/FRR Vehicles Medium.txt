@@ -1,0 +1,16 @@
+FRR Vehicles Medium.txt
+Per Field Manual Updates page 221
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Maxim Heavy Hovertank(3058),1
+Drillson Heavy Hovertank,2
+Condor Heavy Hovertank,3
+Goblin Medium Tank,4
+Vedette Medium Tank,5
+Hetzer Wheeled Assault Gun,6
+Maxim Heavy Hovertank,5
+Vedette Medium Tank,4
+Drillson Heavy Hovertank,3
+Condor Heavy Hovertank,2
+Zephyr,1
+

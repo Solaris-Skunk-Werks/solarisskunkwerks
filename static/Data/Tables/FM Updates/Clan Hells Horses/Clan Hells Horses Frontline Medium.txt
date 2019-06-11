@@ -1,0 +1,16 @@
+Clan Hells Horses Frontline Medium.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Phantom Prime,1
+Ice Ferret H,2
+Ice Ferret Prime,3
+Viper Prime,4
+Viper B,5
+Nova Prime,6
+Stormcrow A,5
+Nova S,4
+Stormcrow B,3
+Stormcrow H,2
+Viper C,1
+

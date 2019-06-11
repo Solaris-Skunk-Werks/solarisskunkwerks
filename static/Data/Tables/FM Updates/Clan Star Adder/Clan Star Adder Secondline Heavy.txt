@@ -1,0 +1,16 @@
+Clan Star Adder Secondline Heavy.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Rifleman IIc 3,1
+Predator,2
+Grizzly,3
+Hellfire,4
+Rifleman IIc,5
+Glass Spider,6
+Burrock,5
+Hellfire 2,4
+Glass Spider 2,3
+Black Python,2
+Guillotine IIc,1
+

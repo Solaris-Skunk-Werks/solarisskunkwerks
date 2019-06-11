@@ -1,0 +1,16 @@
+Clan Jade Falcon Light Vehicles.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Donar VTOL,1
+Odin,2
+Donar VTOL,3
+Mithras,4
+Indra,5
+Donar VTOL,6
+Odin,5
+Zorya,4
+Mithras,3
+Indra,2
+Svantovit,1
+

@@ -1,0 +1,16 @@
+Star Adder SL Aerofighters Light.txt
+Per Field Manual Updates page 211
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Avar B,1
+Issus 2,2
+Sulla C,3
+Batu C,4
+Chaeronea 2,5
+Issus,6
+Chaeronea,5
+Issus 2,4
+Issus,3
+Chaeronea2,2
+Batu B,1
+

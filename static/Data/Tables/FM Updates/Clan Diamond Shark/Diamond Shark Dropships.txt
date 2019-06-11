@@ -1,0 +1,16 @@
+Diamond Shark Dropships.txt
+Per Field Manual Updates page 215
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Broadsword,1
+Titan-C,2
+Broadsword,3
+Overlord-C,4
+Union-C,5
+Union-C,6
+Broadsword,5
+Sassanid,4
+Noruff,3
+Gazelle,2
+Lion,1
+

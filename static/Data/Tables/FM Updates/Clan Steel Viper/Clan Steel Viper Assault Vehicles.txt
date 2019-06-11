@@ -1,0 +1,16 @@
+Clan Steel Viper Assault Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Huitzilopochtli,1
+Mars,2
+Huitzilopochtli,3
+Mars,4
+Mars,5
+Mars,6
+Huitzilopochtli,5
+Demolisher(C),4
+Huitzilopochtli,3
+Mars,2
+Mars,1
+

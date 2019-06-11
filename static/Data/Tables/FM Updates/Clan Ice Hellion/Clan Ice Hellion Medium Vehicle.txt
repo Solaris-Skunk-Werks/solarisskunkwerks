@@ -1,0 +1,16 @@
+Clan Ice Hellion Medium Vehicle.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Epona B,1
+Bandit(C),2
+Hachiman,3
+Ku,4
+Maxim(C),5
+Bandit(C),6
+Ares,5
+Bandit(C2),4
+Ares,3
+Maxim(C),2
+Epona Prime,1
+

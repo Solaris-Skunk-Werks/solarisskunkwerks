@@ -1,0 +1,16 @@
+Star Adder FL Aerofighters Heavy.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Jengiz Prime,1
+Scytha B,2
+Kirghiz C,3
+Scytha B,4
+Sabutai C,5
+Scytha C,6
+Sabutai A,5
+Kirghiz B,4
+Scytha A,3
+Sabutai B,2
+Jengiz B,1
+

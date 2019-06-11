@@ -1,0 +1,16 @@
+Clan Coyote Frontline Assault.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Turkina Prime,1
+Gargoyle D,2
+Savage Coyote C,3
+Gargoyle A,4
+Dire Wolf A,5
+Savage Coyote Prime,6
+Savage Coyote A,5
+Dire Wolf Prime,4
+Warhawk C,3
+Savage Coyote B,2
+Kingfisher C,1
+

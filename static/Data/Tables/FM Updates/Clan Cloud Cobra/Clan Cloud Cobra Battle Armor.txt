@@ -1,0 +1,16 @@
+Clan Cloud Cobra Battle Armor.txt
+Per Field Manual Updates page 
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ Sylph , 1
+ Sylph , 2
+ Sylph , 3
+ Elemental , 4
+ Elemental , 5
+ Elemental , 6
+ Elemental , 5
+ Elemental , 4
+ Elemental , 3
+ Mist Ape , 2
+ Mist Ape , 1
+

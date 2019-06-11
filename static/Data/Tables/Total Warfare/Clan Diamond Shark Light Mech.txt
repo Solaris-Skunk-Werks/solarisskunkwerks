@@ -1,0 +1,11 @@
+Hellion Prime(30)(3067), 1
+Solitaire(25)(3067), 2
+Hankyu Prime(30)(3058), 3
+Dasher Prime(20)(3050), 4
+Hankyu C(30)(3058), 5
+Puma Prime(35)(3050), 6
+Hellion A(30)(3067), 5
+Koshi Prime(25)(3050), 4
+Hankyu H(30)(3058), 3
+Pirahna(20)(3058), 2
+Pack Hunter(30)(3060), 1

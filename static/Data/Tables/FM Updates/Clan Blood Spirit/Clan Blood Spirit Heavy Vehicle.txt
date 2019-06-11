@@ -1,0 +1,16 @@
+Clan Blood Spirit Heavy Vehicle.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Ishtar,1
+Demon,2
+Magi,3
+Pike(C),4
+Ishtar,5
+Oro,6
+Pike(C),5
+Ishtar,4
+Magi,3
+Pike(C),2
+Demon,1
+

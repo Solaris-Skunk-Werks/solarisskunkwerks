@@ -1,0 +1,16 @@
+Clan Ice Hellion Frontline Light.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hankyu B,1
+Fire Moth D,2
+Kit Fox E,3
+Hellion A,4
+Hankyu A,5
+Hellion Prime,6
+Adder C,5
+Fire Falcon A,4
+Hellion B,3
+Hellion C,2
+Adder Prime,1
+

@@ -1,0 +1,394 @@
+<!-- Solaris Skunk Works default HTML template -->
+<font size="3"><strong><+-SSW_NAME-+> <+-SSW_MODEL-+></strong></font>
+<table cellspacing="1" cellpadding="1" border="0">
+	<tr>
+		<td>Rules Level:</td>
+		<td><+-SSW_RULES_LEVEL-+></td>
+	</tr>
+	<tr>
+		<td>Technology Base:</td>
+		<td><+-SSW_TECHBASE-+></td>
+	</tr>
+	<tr>
+		<td>Chassis Config:</td>
+		<td><+-SSW_CHASSIS_CONFIG-+></td>
+	</tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td>Construction Options: </td><td><+-SSW_USING_FRACTIONAL_ACCOUNTING-+></td></tr>
+	<tr>
+		<td>Production Year:</td>
+		<td><+-SSW_PROD_YEAR-+></td>
+	</tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td>Earliest Production Year:</td><td><+-SSW_EARLIEST_YEAR-+></td></tr>
+	<tr>
+		<td>Extinct By:</td>
+		<td><+-SSW_EXTINCT_BY-+></td>
+	</tr>
+</table>
+<hr style="color:#ccc; height:4px; border:solid 1px #aaa;">
+<table cellspacing="1" cellpadding="1" border="0">
+	<tr>
+		<td>Chassis:</td>
+		<td><+-SSW_MANUFACTURER_CHASSIS-+></td>
+	</tr>
+	<tr>
+		<td>Power Plant:</td>
+		<td><+-SSW_MANUFACTURER_ENGINE-+></td>
+	</tr>
+	<tr>
+		<td>Cruising Speed:</td>
+		<td><+-SSW_SPEED_WALK_KMPH-+></td>
+	</tr>
+	<tr>
+		<td>Maximum Speed:</td>
+		<td><+-SSW_SPEED_RUN_KMPH-+></td>
+	</tr>
+	<tr>
+		<td>Jump Jets:</td>
+		<td><+-SSW_MANUFACTURER_JUMPJETS-+></td>
+	</tr>
+	<tr>
+		<td>&nbsp&nbsp&nbsp&nbsp Jump Capacity:</td>
+		<td><+-SSW_JUMPJET_DISTANCE-+></td>
+	</tr>
+	<tr>
+		<td>Armor:</td>
+		<td><+-SSW_MANUFACTURER_ARMOR-+></td>
+	</tr>
+	<tr>
+		<td colspan="2">Armament:</td>
+	</tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td colspan="2">&nbsp&nbsp&nbsp&nbsp <+-SSW_POD_TONNAGE-+> tons of pod space.</td></tr>
+<+-SSW_START_EQUIPMENT_FLUFF_BLOCK-+>
+	<tr>
+		<td colspan="2">&nbsp&nbsp&nbsp&nbsp <+-SSW_EQUIP_COUNT_THIS_TYPE-+> <+-SSW_EQUIP_MANUFACTURER-+> <+-SSW_EQUIP_FULL_NAME-+></td>
+	</tr>
+<+-SSW_END_EQUIPMENT_FLUFF_BLOCK-+>
+	<tr>
+		<td>Manufacturer:</td>
+		<td><+-SSW_MANUFACTURER-+></td>
+	</tr>
+	<tr>
+		<td>&nbsp&nbsp&nbsp&nbsp Primary Factory:</td>
+		<td><+-SSW_MANUFACTURER_LOCATION-+></td>
+	</tr>
+	<tr>
+		<td valign="top">Communications System:</td>
+		<td><+-SSW_MANUFACTURER_COMM_SYSTEM-+></td>
+	</tr>
+	<tr>
+		<td valign="top">Targeting and Tracking System:</td>
+		<td><+-SSW_MANUFACTURER_T_AND_T_SYSTEM-+></td>
+	</tr>
+</table>
+<+-SSW_REMOVE_IF_BLANK-+><hr style="color:#ccc; height:4px; border:solid 1px #aaa;"><+-SSW_ADDITIONAL-+>
+<hr style="color:#ccc; height:4px; border:solid 1px #aaa;">
+<+-SSW_REMOVE_IF_BLANK-+><font size="3"><strong>Overview</strong></font><br/><+-SSW_OVERVIEW-+><br/>
+<+-SSW_REMOVE_IF_BLANK-+><font size="3"><strong>Capabilities</strong></font><br/><+-SSW_CAPABILITIES-+><br/>
+<+-SSW_REMOVE_IF_BLANK-+><font size="3"><strong>Battle History</strong></font><br/><+-SSW_BATTLE_HISTORY-+><br/>
+<+-SSW_REMOVE_IF_BLANK-+><font size="3"><strong>Deployment</strong></font><br/><+-SSW_DEPLOYMENT-+><br/>
+<+-SSW_REMOVE_IF_BLANK-+><font size="3"><strong>Known Variants</strong></font><br/><+-SSW_VARIANTS-+><br/>
+<+-SSW_REMOVE_IF_BLANK-+><font size="3"><strong>Notable 'Mechs and Mechwarriors</strong></font><br/><+-SSW_NOTABLES-+><br/>
+<hr style="color:#ccc; height:4px; border:solid 1px #aaa;">
+<table cellspacing="1" cellpadding="1" border="0" width="100%">
+	<tr>
+		<td><strong>Technology Base:</strong></td>
+		<td colspan="2"><+-SSW_TECHBASE-+></td>
+		<td align="right"><strong><+-SSW_TONNAGE-+> tons</strong></td>
+	</tr>
+	<tr>
+		<td>Chassis Config:</td>
+		<td><+-SSW_CHASSIS_CONFIG-+></td>
+		<td align="right">Cost:</td>
+		<td align="right"><+-SSW_COST-+> C-Bills</td>
+	</tr>
+	<tr>
+		<td>BV2:</td>
+		<td><+-SSW_BV2-+></td>
+		<td align="right">Tech Rating/Era Availability:</td>
+		<td align="right"><+-SSW_AVAILABILITY-+></td>
+	</tr>
+	<tr>
+		<td colspan="4"><hr style="color:#ccc; height:4px; border:solid 1px #aaa;"></td>
+	</tr>
+	<tr>
+		<td><strong>Equipment</strong></td>
+		<td></td>
+		<td></td>
+		<td align="right"><strong>Mass</strong></td>
+	</tr>
+	<tr>
+		<td>Internal Structure:</td>
+		<td colspan="2"><+-SSW_INTERNAL_TYPE-+></td>
+		<td align="right"><+-SSW_CHASSIS_TONNAGE-+></td>
+	</tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td colspan="4"><i>Internal Locations: <+-SSW_CHASSIS_LOCATION_LINE-+></i></td></tr>
+	<tr>
+		<td>Engine:</td>
+		<td><+-SSW_ENGINE_RATING-+></td>
+		<td><+-SSW_ENGINE_TYPE-+></td>
+		<td align="right"><+-SSW_ENGINE_TONNAGE-+></td>
+	</tr>
+	<tr>
+		<td align="right">Walking MP:</td>
+		<td colspan="3" align="left"><+-SSW_SPEED_WALK_MP-+></td>
+	</tr>
+	<tr>
+		<td align="right">Running MP:</td>
+		<td colspan="3" align="left"><+-SSW_SPEED_RUN_MP-+></td>
+	</tr>
+	<tr>
+		<td align="right">Jumping MP:</td>
+		<td colspan="3" align="left"><+-SSW_SPEED_JUMP_MP-+> <+-SSW_JUMPJET_TYPE-+></td>
+	</tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td colspan="3"><i>Jump Jet Locations: <+-SSW_JUMPJET_LOCATION_LINE-+></i></td><td align="right"><+-SSW_JUMPJET_TONNAGE-+></td></tr>
+	<tr>
+		<td>Heat Sinks:</td>
+		<td colspan="2"><+-SSW_HEATSINK_DISSIPATION_LINE-+> - <+-SSW_HEATSINK_TYPE-+> (<+-SSW_HEATSINKS_IN_ENGINE-+> in engine)</td>
+		<td align="right"><+-SSW_HEATSINK_TONNAGE-+></td>
+	</tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td colspan="4"><i>Heat Sink Locations: <+-SSW_HEATSINK_LOCATION_LINE-+></i></td></tr>
+	<tr>
+		<td>Gyro:</td>
+		<td colspan="2"><+-SSW_GYRO_TYPE-+></td>
+		<td align="right"><+-SSW_GYRO_TONNAGE-+></td>
+	</tr>
+	<tr>
+		<td>Cockpit:</td>
+		<td colspan="2"><+-SSW_COCKPIT_TYPE-+></td>
+		<td align="right"><+-SSW_COCKPIT_TONNAGE-+></td>
+	</tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td colspan="4"><i>Cockpit Components: <+-SSW_COCKPIT_COMPONENT_LINE-+></i></td></tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td colspan="3">Ejection Seat:</td><td align="right"><+-SSW_EJECTIONSEAT_TONNAGE-+></td></tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td colspan="3">Power Amplifiers:</td><td align="right"><+-SSW_POWER_AMP_TONNAGE-+></td></tr>
+	<tr>
+		<td colspan="4">Actuators: <+-SSW_ACTUATOR_LINE-+></td>
+	</tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td colspan="4">Leg Actuators: <+-SSW_LEG_ACTUATOR_LINE-+></td></tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td colspan="4"><i>TSM Locations: <+-SSW_ENHANCEMENT_LOCATION_LINE-+></i></td></tr>
+	<tr>
+		<td>Armor:</td>
+		<td colspan="2"><+-SSW_ARMOR_FACTOR-+> points - <+-SSW_ARMOR_TYPE-+></td>
+		<td align="right"><+-SSW_ARMOR_TONNAGE-+></td>
+	</tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td colspan="4"><i>Armor Locations: <+-SSW_ARMOR_LOCATION_LINE-+></i></td></tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td colspan="3"><i>CASE Locations: <+-SSW_CASE_LOCATION_LINE-+></i></td><td align="right"><+-SSW_CASE_TONNAGE-+></td></tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td colspan="3"><i>CASE II Locations: <+-SSW_CASEII_LOCATION_LINE-+></i></td><td align="right"><+-SSW_CASEII_TONNAGE-+></td></tr>
+	<tr>
+		<td colspan="4"><br></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right"></td>
+		<td align="center">Internal</td>
+		<td align="center">Armor</td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right"></td>
+		<td align="center">Structure</td>
+		<td align="center">Factor</td>
+	</tr>
+<+-SSW_START_NORMAL_ARMOR_BLOCK-+>
+	<tr>
+		<td colspan="2" align="right">Head:</td>
+		<td align="center"><+-SSW_HD_INTERNAL-+></td>
+		<td align="center"><+-SSW_HD_ARMOR-+></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right">Center Torso:</td>
+		<td align="center"><+-SSW_CT_INTERNAL-+></td>
+		<td align="center"><+-SSW_CT_ARMOR-+></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right">Center Torso (rear):</td>
+		<td align="center"></td>
+		<td align="center"><+-SSW_CTR_ARMOR-+></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right">R/L Torso:</td>
+		<td align="center"><+-SSW_TORSO_INTERNAL-+></td>
+		<td align="center"><+-SSW_TORSO_ARMOR-+></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right">R/L Torso (rear):</td>
+		<td align="center"></td>
+		<td align="center"><+-SSW_TORSO_REAR_ARMOR-+></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right"><+-SSW_ARM_LOCATION_NAME-+>:</td>
+		<td align="center"><+-SSW_ARM_INTERNAL-+></td>
+		<td align="center"><+-SSW_ARM_ARMOR-+></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right"><+-SSW_LEG_LOCATION_NAME-+>:</td>
+		<td align="center"><+-SSW_LEG_INTERNAL-+></td>
+		<td align="center"><+-SSW_LEG_ARMOR-+></td>
+	</tr>
+<+-SSW_END_NORMAL_ARMOR_BLOCK-+>
+<+-SSW_START_PATCHWORK_ARMOR_BLOCK-+>
+	<tr>
+		<td colspan="2" align="right">Head<+-SSW_HD_ARMOR_TYPE-+>:</td>
+		<td align="center"><+-SSW_HD_INTERNAL-+></td>
+		<td align="center"><+-SSW_HD_ARMOR-+></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right">Center Torso<+-SSW_CT_ARMOR_TYPE-+>:</td>
+		<td align="center"><+-SSW_CT_INTERNAL-+></td>
+		<td align="center"><+-SSW_CT_ARMOR-+></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right">Center Torso (rear):</td>
+		<td align="center"></td>
+		<td align="center"><+-SSW_CTR_ARMOR-+></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right">Left Torso<+-SSW_LT_ARMOR_TYPE-+>:</td>
+		<td align="center"><+-SSW_TORSO_INTERNAL-+></td>
+		<td align="center"><+-SSW_TORSO_ARMOR-+></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right">Left Torso (rear):</td>
+		<td align="center"></td>
+		<td align="center"><+-SSW_TORSO_REAR_ARMOR-+></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right">Right Torso<+-SSW_RT_ARMOR_TYPE-+>:</td>
+		<td align="center"><+-SSW_TORSO_INTERNAL-+></td>
+		<td align="center"><+-SSW_TORSO_ARMOR-+></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right">Right Torso (rear):</td>
+		<td align="center"></td>
+		<td align="center"><+-SSW_TORSO_REAR_ARMOR-+></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right"><+-SSW_LA_LOCATION_NAME-+><+-SSW_LA_ARMOR_TYPE-+>:</td>
+		<td align="center"><+-SSW_ARM_INTERNAL-+></td>
+		<td align="center"><+-SSW_LA_ARMOR-+></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right"><+-SSW_RA_LOCATION_NAME-+><+-SSW_RA_ARMOR_TYPE-+>:</td>
+		<td align="center"><+-SSW_ARM_INTERNAL-+></td>
+		<td align="center"><+-SSW_RA_ARMOR-+></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right"><+-SSW_LL_LOCATION_NAME-+><+-SSW_LL_ARMOR_TYPE-+>:</td>
+		<td align="center"><+-SSW_LEG_INTERNAL-+></td>
+		<td align="center"><+-SSW_LL_ARMOR-+></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right"><+-SSW_RL_LOCATION_NAME-+><+-SSW_RL_ARMOR_TYPE-+>:</td>
+		<td align="center"><+-SSW_LEG_INTERNAL-+></td>
+		<td align="center"><+-SSW_RL_ARMOR-+></td>
+	</tr>
+<+-SSW_END_PATCHWORK_ARMOR_BLOCK-+>
+</table><br>
+<table cellspacing="1" cellpadding="1" border="0" width="100%">
+<+-SSW_REMOVE_IF_OMNI_NO_FIXED-+><tr><td><strong>Weapons and Ammo</strong></td><td align="center"><strong>Location</strong></td><td align="center"><strong>Heat</strong></td><td align="center"><strong>Criticals</strong></td><td align="right"><strong>Tonnage</strong></td></tr>
+<+-SSW_START_EQUIPMENT_STAT_BLOCK-+>
+	<tr>
+		<td><+-SSW_EQUIP_COUNT_THIS_LOC-+> <+-SSW_EQUIP_NAME-+></td>
+		<td align="center"><+-SSW_EQUIP_LOCATION-+></td>
+		<td align="center"><+-SSW_EQUIP_HEAT-+></td>
+		<td align="center"><+-SSW_EQUIP_CRITS-+></td>
+		<td align="right"><+-SSW_EQUIP_TONNAGE-+></td>
+	</tr>
+<+-SSW_END_EQUIPMENT_STAT_BLOCK-+>
+</table>
+<+-SSW_REMOVE_IF_BLANK-+><br><i><+-SSW_MULTISLOTNOTES-+></i><br>
+<+-SSW_REMOVE_IF_OMNI_NO_FIXED-+><hr style="color:#ccc; height:4px; border:solid 1px #aaa;"><table cellspacing="1" cellpadding="1" border="0" width="100%"><tr><td colspan="8"><strong>BattleForce Statistics</strong></td></tr><tr><td width="10%">MV</td><td width="10%" align="center">S (+0)</td><td width="10%" align="center">M (+2)</td><td width="10%" align="center">L (+4)</td><td width="10%" align="center">E (+6)</td><td width="10%" align="center">Wt.</td><td width="10%" align="center">OV</td><td>Armor: <+-SSW_BF_ARMOR-+></td><td>Points: <+-SSW_BF_POINTS-+></td></tr><tr><td width="10%"><+-SSW_BF_MOVEMENT-+></td><td width="10%" align="center"><+-SSW_BF_DAMAGE_SHORT-+></td><td width="10%" align="center"><+-SSW_BF_DAMAGE_MEDIUM-+></td><td width="10%" align="center"><+-SSW_BF_DAMAGE_LONG-+></td><td width="10%" align="center"><+-SSW_BF_DAMAGE_EXTREME-+></td><td width="10%" align="center"><+-SSW_BF_SIZE-+></td><td width="10%" align="center"><+-SSW_BF_OVERHEAT-+></td><td>Structure: <+-SSW_BF_STRUCTURE-+></td><td></td></tr><tr><td colspan="8">Special Abilities: <+-SSW_BF_SPECIALS-+></td></tr></table>
+<br>
+<+-SSW_START_OMNIMECH_STAT_BLOCK-+>
+<hr style="color:#ccc; height:4px; border:solid 1px #aaa;">
+<table cellspacing="1" cellpadding="1" border="0" width="100%">
+	<tr>
+                <td colspan="2"><font size="3"><strong>Configuration <+-SSW_OMNI_LOADOUT_NAME-+></strong></font></td>
+		<td align="right">Cost:</td>
+		<td align="right"><+-SSW_OMNI_LOADOUT_COST-+> C-Bills</td>
+	</tr>
+	<tr>
+		<td>BV2:</td>
+		<td><+-SSW_OMNI_LOADOUT_BV-+></td>
+		<td align="right">Tech Rating/Era Availability:</td>
+		<td align="right"><+-SSW_OMNI_LOADOUT_AVAILABILITY-+></td>
+	</tr>
+        <tr>
+<+-SSW_REMOVE_IF_BLANK-+><td colspan="2">Rules Level: <+-SSW_OMNI_LOADOUT_RULES_LEVEL-+></td>
+<+-SSW_REMOVE_IF_BLANK-+><td align="right">Tech Base:</td><td align="right"><+-SSW_OMNI_LOADOUT_TECHBASE-+></td>
+        </tr>
+</table>
+<br>
+<table cellspacing="1" cellpadding="1" border="0" width="100%">
+	<tr>
+		<td><strong>Weapons and Ammo</strong></td>
+		<td align="center"><strong>Location</strong></td>
+                <td align="center"><strong>Heat</strong></td>
+		<td align="center"><strong>Criticals</strong></td>
+		<td align="right"><strong>Tonnage</strong></td>
+	</tr>
+<+-SSW_START_EQUIPMENT_STAT_BLOCK-+>
+	<tr>
+		<td><+-SSW_EQUIP_COUNT_THIS_LOC-+> <+-SSW_EQUIP_NAME-+></td>
+		<td align="center"><+-SSW_EQUIP_LOCATION-+></td>
+		<td align="center"><+-SSW_EQUIP_HEAT-+></td>
+		<td align="center"><+-SSW_EQUIP_CRITS-+></td>
+		<td align="right"><+-SSW_EQUIP_TONNAGE-+></td>
+	</tr>
+<+-SSW_END_EQUIPMENT_STAT_BLOCK-+>
+</table>
+<br>
+<table cellspacing="1" cellpadding="1" border="0" width="100%">
+	<tr>
+		<td><strong>Equipment</strong></td>
+		<td></td>
+		<td></td>
+		<td align="right"><strong>Mass</strong></td>
+	</tr>
+	<tr>
+		<td colspan="4">Actuators: <+-SSW_OMNI_LOADOUT_ACTUATOR_LINE-+></td>
+	</tr>
+	<tr>
+		<td>Heat Sinks:</td>
+		<td colspan="2"><+-SSW_OMNI_LOADOUT_HEATSINK_DISSIPATION_LINE-+></td>
+		<td align="right"><+-SSW_OMNI_LOADOUT_HEATSINK_TONNAGE-+></td>
+	</tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td colspan="4"><i>Heat Sink Locations: <+-SSW_OMNI_LOADOUT_HEATSINK_LOCATION_LINE-+></i></td></tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td align="right">Jumping MP:</td><td colspan="3" align="left"><+-SSW_OMNI_LOADOUT_SPEED_JUMP_MP-+> <+-SSW_OMNI_LOADOUT_JUMPJET_TYPE-+></td></tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td colspan="3"><i>Jump Jet Locations: <+-SSW_OMNI_LOADOUT_JUMPJET_LOCATION_LINE-+></i></td><td align="right"><+-SSW_OMNI_LOADOUT_JUMPJET_TONNAGE-+></td></tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td colspan="3"><i>CASE Locations: <+-SSW_OMNI_LOADOUT_CASE_LOCATION_LINE-+></i></td><td align="right"><+-SSW_OMNI_LOADOUT_CASE_TONNAGE-+></td></tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td colspan="3"><i>CASE II Locations: <+-SSW_OMNI_LOADOUT_CASEII_LOCATION_LINE-+></i></td><td align="right"><+-SSW_OMNI_LOADOUT_CASEII_TONNAGE-+></td></tr>
+<+-SSW_REMOVE_IF_BLANK-+><tr><td colspan="3">Power Amplifiers:</td><td align="right"><+-SSW_OMNI_LOADOUT_POWER_AMP_TONNAGE-+></td></tr>
+</table>
+<br>
+<table cellspacing="1" cellpadding="1" border="0" width="100%">
+    <tr>
+        <td colspan="8"><strong>BattleForce Statistics</strong></td>
+    </tr>
+    <tr>
+        <td width="10%">MV</td>
+        <td width="10%" align="center">S (+0)</td>
+        <td width="10%" align="center">M (+2)</td>
+        <td width="10%" align="center">L (+4)</td>
+        <td width="10%" align="center">E (+6)</td>
+        <td width="10%" align="center">Wt.</td>
+        <td width="10%" align="center">OV</td>
+        <td>Armor: <+-SSW_OMNI_LOADOUT_BF_ARMOR-+></td>
+        <td>Points: <+-SSW_OMNI_LOADOUT_BF_POINTS-+></td>
+    </tr>
+    <tr>
+        <td width="10%"><+-SSW_OMNI_LOADOUT_BF_MOVEMENT-+></td>
+        <td width="10%" align="center"><+-SSW_OMNI_LOADOUT_BF_DAMAGE_SHORT-+></td>
+        <td width="10%" align="center"><+-SSW_OMNI_LOADOUT_BF_DAMAGE_MEDIUM-+></td>
+        <td width="10%" align="center"><+-SSW_OMNI_LOADOUT_BF_DAMAGE_LONG-+></td>
+        <td width="10%" align="center"><+-SSW_OMNI_LOADOUT_BF_DAMAGE_EXTREME-+></td>
+        <td width="10%" align="center"><+-SSW_OMNI_LOADOUT_BF_SIZE-+></td>
+        <td width="10%" align="center"><+-SSW_OMNI_LOADOUT_BF_OVERHEAT-+></td>
+        <td>Structure: <+-SSW_OMNI_LOADOUT_BF_STRUCTURE-+></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td colspan="8">Special Abilities: <+-SSW_OMNI_LOADOUT_BF_SPECIALS-+></td>
+    </tr>
+</table>
+<br>
+<+-SSW_END_OMNIMECH_STAT_BLOCK-+>
+<center><strong>Created using Solaris Skunk Werks</strong></center>
+<center><a href="http://www.solarisskunkwerks.com">Downloadable here</a></center>

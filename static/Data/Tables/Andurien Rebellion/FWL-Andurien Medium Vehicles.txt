@@ -1,0 +1,11 @@
+Maxim(50), 1
+Hetzer(40), 2
+Hetzer(40), 3
+Goblin(45), 4
+Goblin(45), 5
+Drillson(50), 6
+Drillson(50), 5
+Vedette(50), 4
+Vedette(50), 3
+Condor(50), 2
+Condor(50), 1

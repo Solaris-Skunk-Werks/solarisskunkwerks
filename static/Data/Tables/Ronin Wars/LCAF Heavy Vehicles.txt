@@ -1,0 +1,11 @@
+Pike Support Vehicle(60), 1
+Manticore(60), 2
+LRM Carrier(60), 3
+SRM Carrier(60), 4
+Patton(65), 5
+Manticore(60), 6
+Rommel(65), 5
+Rommel(65), 4
+Bulldog(60), 3
+Brutus(75), 2
+Po(60), 1

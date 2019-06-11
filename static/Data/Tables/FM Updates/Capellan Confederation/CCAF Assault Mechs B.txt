@@ -1,0 +1,16 @@
+CCAF Assault Mechs B.txt
+Per Field Manual Updates page 206
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+LGB-12C Longbow,1
+VTR-9K Victor,2
+STC-2D Striker,3
+STC-2D Striker,4
+CP-11-A Cyclops,5
+LGB-7V Longbow,6
+LGB-7V Logbow,5
+EMP-6A Emperor,4
+STK-5M Stalker,3
+PLG-3Z Pillager,2
+Y-H9G Yu Huang,1
+

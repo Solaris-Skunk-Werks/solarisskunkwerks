@@ -1,0 +1,11 @@
+Overlord, 1
+Intruder, 2
+Fury, 3
+Union, 4
+Leopard, 5
+Leopard, 6
+Union, 5
+Leopard CV, 4
+Condor, 3
+Gazelle, 2
+Overlord, 1

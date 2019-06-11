@@ -1,0 +1,16 @@
+LAAF Heavy Mechs A.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+CTS-6Y Cestus,1
+GHR-5J Grasshopper,2
+BHKU-O Black Hawk-KU,3
+AV1-OA Avatar,4
+PTR-6S Penetrator,5
+CES-3R Caesar,6
+WHM-9S Warhammer,5
+AXM-2N Axeman,4
+MAD-9S Marauder,3
+MTR-5K Maelstrom,2
+BGS-3T Barghest,1
+

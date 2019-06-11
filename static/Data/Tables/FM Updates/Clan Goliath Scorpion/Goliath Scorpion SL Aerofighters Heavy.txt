@@ -1,0 +1,16 @@
+Goliath Scorpion SL Aerofighters Heavy.txt
+Per Field Manual Updates page 216
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+F-100 Riever,1
+Hydaspes,2
+Jengiz A,3
+AHB-443 Ahab,4
+Xerxes,5
+HMR-HD Hammerhead,6
+Hydaspes,5
+RPR-100 Rapier,4
+Xerxes,3
+Sabutai Prime,2
+Scytha Prime,1
+

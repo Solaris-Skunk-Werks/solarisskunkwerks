@@ -1,0 +1,16 @@
+MH Assault Vehicles.txt
+Per Field Manual Updates page 231
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Behemoth Heavy Tank,1
+Demolisher Heavy Tank,2
+Partisan Heavy Tank,3
+Ontos Heavy Tank,4
+Heavy LRM Carrier,5
+Schrek PPC Carrier,6
+Ontos Heavy Tank,5
+Demolisher Heavy Tank,4
+Partisan Heavy Tank,3
+SturmFeur Heavy Tank,2
+Behemoth Heavy Tank,1
+

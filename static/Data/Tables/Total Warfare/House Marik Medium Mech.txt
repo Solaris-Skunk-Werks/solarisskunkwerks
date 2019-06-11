@@ -1,0 +1,11 @@
+FS9-OF Firestarter(45)(3058), 1
+APL-1M Apollo(55)(3055), 2
+CDA-3M Cicada(40)(3050), 3
+HER-2S Hermes II(40)(3025), 4
+TBT-7M Trebuchet(50)(3050), 5
+HER-5S Hermes II(40)(3050), 6
+HBK-5M Hunchback(50)(3050), 5
+B1-HND Bloodhound(45)(3067), 4
+TBT-7M Trebuchet(50)(3050), 3
+TR1 Wraith(55)(3055), 2
+BJ-2OE Blackjack(50)(3058), 1

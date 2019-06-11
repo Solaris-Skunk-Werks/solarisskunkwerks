@@ -1,0 +1,16 @@
+Clan Star Adder Secondline Medium.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hoplite(C),1
+Shadow Hawk IIc 3,2
+Great Wyrm,3
+Griffin IIc 4,4
+Hunchback IIc,5
+Shadow Hawk IIc 2,6
+Conjurer,5
+Wyvern IIc,4
+Vapor Eagle,3
+Griffin IIc 3,2
+Clint IIc,1
+

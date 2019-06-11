@@ -1,0 +1,16 @@
+Clan Cloud Cobra Assault Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Morrigu(laser),1
+Huitzilopochtli,2
+Morrigu,3
+Huitzilopochtli,4
+Mars,5
+Mars,6
+Demolisher(C),5
+Demolisher(C),4
+Huitzilopochtli,3
+Mars(XL),2
+Mars(XL),1
+

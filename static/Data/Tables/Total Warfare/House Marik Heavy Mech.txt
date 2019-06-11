@@ -1,0 +1,11 @@
+TDR-9M Thunderbolt(65)(PP), 1
+ANV-3M Anvil(60)(3055), 2
+GLT-5M Guillotine(70)(3050), 3
+TMP-3M Tempest(65)(3055), 4
+ON1-M Orion(75)(3050), 5
+ON1-M orion(75)(3050), 6
+CPLT-C1 Catapult(65)(3025), 5
+GLT-5M Guillotine(70)(3050), 4
+YMN-6Y Yeoman(65)(3060), 3
+HRC-LS-9000 Hercules(70)(3055), 2
+P1 Perseus(75)(3067), 1

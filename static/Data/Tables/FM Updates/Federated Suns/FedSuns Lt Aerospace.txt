@@ -1,0 +1,17 @@
+FedSuns Lt Aerospace.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+TR-7 Thrush,1
+DARO-1B Dagger,2
+SYD-Z1 Seydlitz,3
+SYD-Z2A Seydlitz,4
+SPR-6D Sparrowhawk,5
+SPR-H5 Sparrowhawk,6
+Centurion,5
+DARO-1 Dagger,4
+DARO-1A Dagger,3
+S-4 Sai,2
+SL-211 Sholagar,1
+
+

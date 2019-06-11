@@ -1,0 +1,16 @@
+Clan Jade Falcon Frontline Light.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hellion Prime,1
+Cougar Prime,2
+Adder A,3
+Adder Prime,4
+Kit Fox D,5
+Kit Fox Prime,6
+Fire Moth Prime,5
+Fire Moth A,4
+Fire Falcon A,3
+Mist Lynx D,2
+Fire Falcon Prime,1
+

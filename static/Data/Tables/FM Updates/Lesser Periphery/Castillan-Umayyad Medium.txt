@@ -1,0 +1,16 @@
+Castillan-Umayyad Medium.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+WVR-6R Wolverine,1
+HBK-4G Hunchback,2
+VL-2T Vulcan,3
+TBT-5S Trebuchet,4
+BJ-1 Blackjack,5
+CDA-2A Cicada,6
+SHD-2H Shadow Hawk,5
+WTH-1 Whitworth,4
+CLNT-2-3T Clint,3
+CN9-A Centurion,2
+HER-2S Hermes II,1
+

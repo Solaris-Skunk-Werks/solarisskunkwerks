@@ -1,0 +1,11 @@
+Nekehono'o(3067), 1
+Fortress(3057), 2
+Excalibur(3057), 3
+Union-X(3067), 4
+Leopard(3057), 5
+Union(3057), 6
+Overlord(3057), 5
+Triumph(3057), 4
+Seeker(3057), 3
+Overlord A3(3067), 2
+Conquistador(3067), 1

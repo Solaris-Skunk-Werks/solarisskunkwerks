@@ -1,0 +1,16 @@
+Ice Hellion FL Aerofighters Heavy.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Jengiz C,1
+Kirghiz A,2
+Scytha Prime,3
+Scytha B,4
+Sabutai A,5
+Scytha Prime,6
+Sabutai C,5
+Sabutai B,4
+Scytha A,3
+Kirghiz C,2
+Jengiz A,1
+

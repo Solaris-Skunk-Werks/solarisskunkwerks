@@ -1,0 +1,11 @@
+GRF-6S Griffin(55)(PP), 1
+BTZ-3F Blitzkrieg(50)(3060), 2
+ENF-5D Enforcer(50)(3050), 3
+HCT-5S Hatchetman(45)(3050), 4
+STH-1D Stealth(45)(3055), 5
+NGS-4S Nightsky(50)(3055), 6
+HBK-4G Hunchback(50)(3025), 5
+UZL-3S Uziel(50)(3067), 4
+CN9-D Centurion(50)(3050), 3
+STY-3C Starslayer(50)(3058), 2
+SCP-12S Scorpion(55)(PP), 1

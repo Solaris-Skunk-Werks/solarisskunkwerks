@@ -1,0 +1,11 @@
+SL-15 Slayer(80)(3025), 1
+SHV-O Shiva(85)(3067), 2
+F-100 Riever(100)(3025), 3
+F-100 Riever(100)(3025), 4
+TR-13 Transgressor(75)(3025), 5
+SL-15 Slayer(80)(3025), 6
+CHP-W5 Chippewa(90)(3025), 5
+STU-K5 Stuka(100)(3025), 4
+HSCL-1-O Huscarl(75)(3067), 3
+EST-O Eisensturm(85)(3067), 2
+CHP-W5 Chippewa(90)(3025), 1

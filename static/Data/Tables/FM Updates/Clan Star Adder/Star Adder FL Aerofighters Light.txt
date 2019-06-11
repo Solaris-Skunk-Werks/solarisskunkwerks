@@ -1,0 +1,16 @@
+Star Adder FL Aerofighters Light.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Batu A,1
+Bashkir C,2
+Sulla B,3
+Sulla Prime,4
+Avar B,5
+Batu C,6
+Sulla C,5
+Batu B,4
+Avar A,3
+Vandal C,2
+Avar C,1
+

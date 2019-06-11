@@ -1,0 +1,11 @@
+Daimyo DMO-1K,1
+Wolf Trap (Tora) WFT-1,2
+Phoenix Hawk PXH-3K,3
+Kintaro KTO-20,4
+Blackjack BJ2-O,5
+Strider SR1-O,6
+Firestarter FS9-O,5
+Wolverine WVR-7K,4
+Grim Reaper GRM-R-PR29,3
+Komodo KIM-2A,2
+Lynx LNX-9C,1

@@ -1,0 +1,16 @@
+Steel Viper SL Aerofighters Heavy.txt
+Per Field Manual Updates page 216
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+RPR-100 Rapier,1
+AHB-443 Ahab,2
+Hydaspes,3
+Sabutai C,4
+Kirghiz A,5
+HMR-HD Hammerhead,6
+Kirghiz Prime,5
+Sabutai B,4
+AHB-443 Ahab,3
+Sabutai A,2
+RPR-100 Rapier,1
+

@@ -1,0 +1,16 @@
+Ice Hellion SL Aerofighters Light.txt
+Per Field Manual Updates page 211
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Batu B,1
+Chaeronea 2,2
+Bashkir C,3
+Vandal C,4
+Chaeronea,5
+Chaeronea 2,6
+Issus,5
+Avar B,4
+Vandal C,3
+Chaeronea 2,2
+Avar C,1
+

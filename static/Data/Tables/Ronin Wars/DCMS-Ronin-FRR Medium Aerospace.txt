@@ -1,0 +1,11 @@
+IRN-SD1 Ironsides(65), 1
+CSR-V12 Corsair(50), 2
+LTN-G15 Lightning(50), 3
+LTN-G15 Lightning(50), 4
+LCF-R16K Lucifer II(65), 5
+SL-17 Shilone(65), 6
+SL-17AC Shilone(65), 5
+HCT-213 Hellcat(60), 4
+CSR-V12 Corsair(50), 3
+SL-17 Shilone(65), 2
+HCT-213B Hellcat II(50), 1

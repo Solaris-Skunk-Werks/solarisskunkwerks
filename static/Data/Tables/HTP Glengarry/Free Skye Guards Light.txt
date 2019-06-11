@@ -1,0 +1,11 @@
+Dart DRT-3S,1
+Locust LCT-1E,2
+Locust LCT-3M,3
+Javelin JVN-10P,4
+Commando COM-5S,5
+Commando COM-5S,6
+Valkyrie VLK-QD,5
+Wasp WSP-3M,4
+Wasp WSP-3M,3
+Wolfhound WLF-2,2
+Fireball ALM-7D,1

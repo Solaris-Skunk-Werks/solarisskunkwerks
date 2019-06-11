@@ -1,0 +1,16 @@
+Ice Hellion FL Aerofighters Light.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Vandal B,1
+Avar Prime,2
+Batu Prime,3
+Vandal A,4
+Avar B,5
+Vandal C,6
+Bashkir C,5
+Batu B,4
+Avar C,3
+Batu C,2
+Avar B,1
+

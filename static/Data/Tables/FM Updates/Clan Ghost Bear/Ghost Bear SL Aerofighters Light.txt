@@ -1,0 +1,16 @@
+Ghost Bear SL Aerofighters Light.txt
+Per Field Manual Updates page 216
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+S-4C Sai,1
+SWF-606 Swift,2
+Bashkir Prime,3
+RGU-133E Rogue,4
+Issus,5
+Chaeronea,6
+Batu A,5
+ZRO-114 Zero,4
+Sulla Prime,3
+Vandal Prime,2
+Avar Prime,1
+

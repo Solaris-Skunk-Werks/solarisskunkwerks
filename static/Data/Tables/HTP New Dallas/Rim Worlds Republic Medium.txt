@@ -1,0 +1,11 @@
+Phoenix PX-3R,1
+Phoenix Hawk PXH-1,2
+Griffin GRF-1N,3
+Dervish DV-6M,4
+Hunchback HBK-4G,5
+Shadow Hawk SHD-2H,6
+Wolverine WVR-6R,5
+Phoenix PX-4R,4
+Crab CRB-27,3
+Kintaro KTO-19,2
+Lynx LNX-9Q,1

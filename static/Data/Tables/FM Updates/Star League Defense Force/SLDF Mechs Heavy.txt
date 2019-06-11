@@ -1,0 +1,16 @@
+SLDF Mechs Heavy.txt
+Per Field Manual Updates page 222
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Rifleman IIc,1
+MAD-5R Marauder,2
+HEL-C Helios,3
+CDR-5K Crusader,4
+BHKU-OE Black Hawk-KU,5
+DRG-7K Grand Dragon,6
+TNS-4S Thanatos,5
+TDR-10SE Thunderbolt,4
+SJA-7C Shugenja,3
+WHM-8D Warhammer,2
+Nova Cat Prime,1
+

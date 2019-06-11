@@ -1,0 +1,11 @@
+Triumph, 1
+Intruder, 2
+Excalibur, 3
+Leopard CV, 4
+Seeker, 5
+Union, 6
+Leopard, 5
+Overlord, 4
+Avenger, 3
+Condor, 2
+Fortress, 1

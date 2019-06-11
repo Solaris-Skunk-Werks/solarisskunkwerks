@@ -1,0 +1,16 @@
+Clan Blood Spirit Light Vehicle.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Donar VTOL,1
+Odin,2
+Badger(C),3
+Mithras,4
+Svantovit(streak),5
+Shamash,6
+Shamash,5
+Zorya,4
+Shamash,3
+Indra,2
+Swantovit,1
+

@@ -1,0 +1,16 @@
+Clan Snow Raven Battle Armor.txt
+Per Field Manual Updates page 
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ Sylph , 1
+ Elemental , 2
+ Elemental , 3
+ Elemental , 4
+ Elemental , 5
+ Elemental , 6
+ Elemental , 5
+ Elemental , 4
+ Elemental , 3
+ Star Raven , 2
+ Star Raven , 1
+

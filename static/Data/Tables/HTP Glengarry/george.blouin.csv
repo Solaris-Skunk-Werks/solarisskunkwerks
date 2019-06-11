@@ -1,0 +1,4 @@
+order_number,items,customer_name,billing_region,billing_postal_code,placed,total,council_commission,unit_commission
+102-7411873-1569017,1,,MN,55303,"2013-09-13 14:49:41",35,12.95,11.55
+103-3967607-2621862,2,Lori,NY,10010-3931,"2013-10-03 22:16:26",38,14.06,12.54
+103-8501291-1421049,1,Lori,NY,10010-3931,"2013-10-03 22:16:25",53,19.61,17.49

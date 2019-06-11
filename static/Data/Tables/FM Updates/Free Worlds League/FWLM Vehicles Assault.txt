@@ -1,0 +1,16 @@
+FWLM Vehicles Assault.txt
+Per Field Manual Updates page 226
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Schiltron,1
+Behemoth,2
+Schrek,3
+Partisan,4
+Demolisher,5
+Ontos,6
+Schrek,5
+Ontos,4
+Partisan(XL),3
+Behemoth,2
+SturmFeur,1
+

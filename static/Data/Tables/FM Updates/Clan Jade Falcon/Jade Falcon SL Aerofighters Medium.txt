@@ -1,0 +1,16 @@
+Jade Falcon SL Aerofighters Medium.txt
+Per Field Manual Updates page 211
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+IRN-SD1 Ironsides,1
+Tyre,2
+Jagatai Prime,3
+HCT-213B Hellcat II,4
+GTHA-500 Gotha,5
+Visigoth A,6
+Jagatai B,5
+HCT-213B Hellcat II,4
+Visigoth Prime,3
+Tyre 2,2
+GTHA-500 Gotha,1
+

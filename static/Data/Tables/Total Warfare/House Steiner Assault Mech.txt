@@ -1,0 +1,11 @@
+BLR-4S Battlemaster(85)(PP), 1
+BRZ-A3 Berzerker(100)(3055), 2
+PPR-5S Salamander(80)(3055), 3
+HA1-O Hauptmann(95)(3060), 4
+AS7-K Atlas(100)(3050), 5
+ZEU-9S Zeus(80)(3050), 6
+BNC-5S Banshee(95)(3050), 5
+TDK-7X Thunder Hawk(100)(3058), 4
+GUN-1ERD Gunslinger(85)(3055), 3
+MR-V2 Cerberus(95)(3055), 2
+FNR-5 Fafnir(100)(3067), 1

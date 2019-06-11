@@ -1,0 +1,16 @@
+Clan Jade Falcon Frontline Heavy.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Linebacker Prime,1
+Mad Dog C,2
+Mad Dog Prime,3
+Hellbringer B,4
+Summoner Prime,5
+Summoner D,6
+Hellbringer Prime,5
+Night Gyr Prime,4
+Timber Wolf A,3
+Summoner B,2
+Night Gyr A,1
+

@@ -1,0 +1,11 @@
+KTO-20 Kintaro(55)(3055), 1
+BSN-3K Bishamon(45)(3060), 2
+WFT-1 Wolf Trap(45)(3050), 3
+DMO-1K Daimyo(40)(3055), 4
+BJ2-O Blackjack(50)(3058), 5
+FS9-O Firestarter(45)(3058), 6
+SR1-OD Strider(40)(3058), 5
+KIM-2 Komodo(40)(3055), 4
+WFT-1 Wolf Trap(45)(3055), 3
+WVR-8K Wolverine(55)(PP), 2
+LNX-9C Lynx(55)(3058), 1

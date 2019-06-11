@@ -1,0 +1,16 @@
+MoC Assault B.txt
+Per Field Manual Updates page 229
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+DVS-2 Devastator,1
+EMP-6A Emperor,2
+STK-3F Stalker,3
+AS7-D Atlas,4
+CGR-1A5 Charger,5
+STK-3F Stalker,6
+AWS-8Q Awesome,5
+LGB-7Q Longbow,4
+VTR09K Victor,3
+CP-11-A Cyclops,2
+AWS-9M Awesome,1
+

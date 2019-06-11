@@ -1,0 +1,16 @@
+FRR Medium A.txt
+Per Field Manual Updates page 221
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+FS9-O Firestarter,1
+BEO-12 Beowulf,2
+TBT-7K Trebuchet,3
+WVR-8K Wolverine,4
+HCT-5S Hatchetman,5
+HBK-5M Hunchback,6
+VT-5S Vulcan,5
+DMO-1K Daimyo,4
+CBR-02 Cobra,3
+GRF-6S Griffin,2
+HBK-5S Hunchback,1
+

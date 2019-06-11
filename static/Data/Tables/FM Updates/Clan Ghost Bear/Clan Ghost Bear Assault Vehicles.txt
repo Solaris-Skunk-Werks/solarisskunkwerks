@@ -1,0 +1,16 @@
+Clan Ghost Bear Assault Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Morrigu,1
+Puma,2
+Mars,3
+Huitzilopochtli,4
+Mars,5
+Mars,6
+Demolisher(C),5
+Huitzilopochtli,4
+Demolisher(C),3
+Huitzilopochtli,2
+Mars(XL),1
+

@@ -1,0 +1,16 @@
+FWLM Heavy Mechs C.txt
+Per Field Manual Updates page 226
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+OTL-5M Ostsol,1
+QKD-4G Quickdraw,2
+ARC-4M Archer,3
+ARC-8M Archer,4
+TDR-5S Thunderbolt,5
+ON1-M Orion,6
+MAD-5M Marauder,5
+WHM-6M Warhammer,4
+TMP-3M Tempest,3
+HRC-LS-9000 Hercules,2
+GLT-5M Guillotine,1
+

@@ -1,0 +1,16 @@
+Clan Wolf Secondline Light.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Jenner IIc,1
+MON-66 Mongoose,2
+THE-N Thorn,3
+Incubus,4
+Locust IIc 4,5
+Icestorm,6
+Jenner IIc,5
+Locust IIc 4,4
+Icestorm,3
+Locust IIc 5,2
+Adder D,1
+

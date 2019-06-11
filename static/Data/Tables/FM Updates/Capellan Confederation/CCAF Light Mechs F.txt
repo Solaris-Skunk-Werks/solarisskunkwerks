@@ -1,0 +1,16 @@
+CCAF Light Mechs F.txt
+Per Field Manual Updates page 206
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+MCY-98 Mercury,1
+JR7-F Jenner,2
+JVN-10N Javelin,3
+STG-3R Stinger,4
+UM-R60 UrbanMech,5
+UM-R60 UrbanMech,6
+WSP-1L Wasp,5
+WSP-1L Wasp,4
+COM-5D Commando,3
+UM-R60L Urbanmech,2
+STG-5R Stinger,1
+

@@ -1,0 +1,16 @@
+Clan Ghost Bear Frontline Heavy.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Nova Cat C,1
+Summoner Prime,2
+Hellbringer Prime,3
+Mad Dog A,4
+Mad Dog C,5
+Mad Dog Prime,6
+Mad Dog B,5
+Summoner C,4
+Timber Wolf Prime,3
+Cauldrom Born Prime,2
+Mad Dog H,1
+

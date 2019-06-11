@@ -1,0 +1,11 @@
+HCT-3F Hatchetman(45)(3025), 1
+HBK-4G Hunchback(50)(3025), 2
+DV-6M Dervish(55)(3025), 3
+TBT-5N Trebuchet(50)(3025), 4
+VL-2T Vulcan(40)(3025), 5
+WTH-1 Whitworth(40)(3025), 6
+HBK-4G Hunchback(50)(3025), 5
+ASN-21 Assassin(40)(3025), 4
+BJ-1 Blackjack(45)(3025), 3
+BJ-1 Blackjack(45)(3025), 2
+MHL-X1 Marshal(55)(3060), 1

@@ -1,0 +1,11 @@
+Warhammer IIc 4(80)(PP), 1
+Kodiak(100)(3058), 2
+Man O'War B(80)(3050), 3
+Masakari B(85)(3050), 4
+Daishi Prime(100)(3050), 5
+Gladiator A(95)(3050), 6
+Gladiator Prime(95)(3050), 5
+Kingfisher Prime(90)(3058), 4
+Gladiator D(95)(3050), 3
+Kingfisher B(90)(3058), 2
+Mad Cat MkII(90)(3067), 1

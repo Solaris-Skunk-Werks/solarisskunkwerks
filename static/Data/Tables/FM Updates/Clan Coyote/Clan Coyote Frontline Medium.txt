@@ -1,0 +1,16 @@
+Clan Coyote Frontline Medium.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Pouncer E,1
+Stormcrow E,2
+Viper B,3
+Viper A,4
+Stormcrow B,5
+Stormcrow Prime,6
+Stormcrow D,5
+Nova Prime,4
+Nova E,3
+Ice Ferret Prime,2
+Rabid Coyote,1
+

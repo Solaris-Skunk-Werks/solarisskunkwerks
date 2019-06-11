@@ -1,0 +1,16 @@
+Steel Viper SL Aerofighters Medium.txt
+Per Field Manual Updates page 216
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+IRN-SD1 Ironsides,1
+GTHA-500 Gotha,2
+Jagatai A,3
+HCT-213B Hellcat II,4
+Tyre,5
+Jagatai Prime,6
+Jagatai C,5
+Visigoth Prime,4
+Visigoth A,3
+HCT-213B Hellcat II,2
+GTHA-500 Gotha,1
+

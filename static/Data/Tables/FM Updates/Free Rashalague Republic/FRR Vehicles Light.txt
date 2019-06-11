@@ -1,0 +1,16 @@
+FRR Vehicles Light.txt
+Per Field Manual Updates page 221
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Pinto Attack VTOL,1
+Gabriel,2
+Hunter Light Support Tank,3
+Pegasus Scout Hovertank,4
+Saladin Assault Hovertank,5
+Saracen Medium Hovertank,6
+Scimitar Medium Hovertank,5
+Scorpion Light Tank,4
+Skulker Wheeled Scout Tank,3
+Plainsman Medium Hovertank,2
+Sprint Scout Helicopter,1
+

@@ -1,0 +1,16 @@
+Clan Fire Mandrill Frontline Medium.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Stormcrow A,1
+Crimson Langur A,2
+Shadow Cat Prime,3
+Crimson Langur B,4
+Huntsman Prime,5
+Nova Prime,6
+Crimson Langur C,5
+Huntsman A,4
+Stormcrow Prime,3
+Huntsman B,2
+Crimson Langur Prime,1
+

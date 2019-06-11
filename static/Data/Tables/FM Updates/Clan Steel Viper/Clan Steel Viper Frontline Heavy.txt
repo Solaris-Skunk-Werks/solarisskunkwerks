@@ -1,0 +1,16 @@
+Clan Steel Viper Frontline Heavy.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Mad Dog B,1
+Crossbow A,2
+Crossbow Prime,3
+Summoner Prime,4
+Hellbringer B,5
+Crossbow Prime,6
+Mad Dog C,5
+Timber Wolf A,4
+Crossbow B,3
+Linebacker A,2
+Summoner H,1
+

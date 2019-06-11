@@ -1,0 +1,16 @@
+FWLM Assault Mechs D.txt
+Per Field Manual Updates page 226
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+CGR-1A1 Charger,1
+AWS-9M Awesome,2
+AWS-8Q Awesome,3
+GOL-1H Goliath,4
+STK-3F Stalker,5
+BLR-1G Battlemaster,6
+CP-10-Z Cyclops,5
+STK-5M Stalker,4
+VTR-9B Victor,3
+BNC-3E Banshee,2
+ZEU-6S Zeus,1
+

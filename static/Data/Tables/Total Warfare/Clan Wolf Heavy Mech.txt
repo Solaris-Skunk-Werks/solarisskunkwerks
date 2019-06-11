@@ -1,0 +1,11 @@
+Linebacker D(65)(3055), 1
+Mad Cat D(75)(3050), 2
+Vulture Prime(60)(3050), 3
+Mad Cat B(75)(3050), 4
+Loki B(65)(3050), 5
+Mad Cat Prime(75)(3050), 6
+Mad Cat A(75)(3050), 5
+Thor Prime(70)(3050), 4
+Mad Cat C(75)(3050), 3
+Linebacker prime(65)(3055), 2
+Orion IIc(75)(3060), 1

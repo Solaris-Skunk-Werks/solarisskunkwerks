@@ -1,0 +1,11 @@
+RTX1-O Raptor(25)(3058), 1
+HNT-171 Hornet(20)(3050), 2
+ALM-7D Fireball(20)(3055), 3
+JVN-10P Javelin(30)(3050), 4
+WLF-2 Wolfhound(35)(3050), 5
+JVN-10P Javelin(30)(3050), 6
+COM-5S Commando(25)(3050), 5
+VLK-QD1 Valkyrie(30)(PP), 4
+DRT-3S Dart(25)(3055), 3
+BH-K305 Battle Hawk(35)(3055), 2
+SPR-5F Spector(35)(3058), 1

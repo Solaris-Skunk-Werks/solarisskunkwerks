@@ -1,0 +1,11 @@
+ALB-3U Albatross(95)(3055), 1
+CGR-1A1 Charger(80)(3025), 2
+T-IT-N10M Grand Titan(100)(3055), 3
+STK-5M Stalker(85)(3050), 4
+AS7-D Atlas(100)(3025), 5
+AWS-9M Awesome(80)(3050), 6
+AWS-9M Awesome(80)(3050), 5
+AS7-K Atlas(100)(3050), 4
+MR-V2 Cerberus(95)(3055), 3
+LGB-7Q Longbow(85)(3055), 2
+GRN-D-01 Grand Crusader(80)(3055), 1

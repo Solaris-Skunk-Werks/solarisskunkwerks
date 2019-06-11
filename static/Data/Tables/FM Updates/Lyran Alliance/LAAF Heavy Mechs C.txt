@@ -1,0 +1,16 @@
+LAAF Heavy Mechs C.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+WHM-7S Warhammer,1
+CRD-5S Crusader,2
+GHR-5J Grasshopper,3
+PTR-4D Penetrator,4
+CES-3R Caesar,5
+AXM-1N Axeman,6
+MAD-5S Marauder,5
+WR-DG-02FC War Dog,4
+ARC-6S Archer,3
+FLC-8R Falconer,2
+MTR-5K Maelstrom,1
+

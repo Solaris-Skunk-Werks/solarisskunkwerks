@@ -1,0 +1,11 @@
+Locust IIc 4(20)(PP), 1
+Puma A(35)(3050), 2
+Koshi B(25)(3050), 3
+Puma B(35)(3050), 4
+Dasher D(20)(3050), 5
+Puma Prime(35)(3050), 6
+Uller C(30)(3050), 5
+Uller A(30)(3050), 4
+Puma C(35)(3050), 3
+Koshi A(25)(3050), 2
+Icestorm(25)(3060), 1

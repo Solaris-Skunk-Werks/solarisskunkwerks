@@ -1,0 +1,16 @@
+Star Adder SL Aerofighters Medium.txt
+Per Field Manual Updates page 211
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Ammon,1
+Visigoth A,2
+Visigoth B,3
+Jagatai A,4
+Visigoth C,5
+Tyre,6
+Tyre 2,5
+Jagatai B,4
+Turk C,3
+Turk A,2
+Ammon,1
+

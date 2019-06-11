@@ -1,0 +1,21 @@
+OutworldsAlliance Heavy Aero.txt
+Per Field Manual Updates page 231
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+SL-15R Slayer,1
+STU-K10 Stuka,2
+F-100 Riever,3
+TRB-D36 Thunderbird,4
+SL-15 Slayer,5
+STU-K5 Stuka,6
+SL-15A Slayer,5
+EGL-R6 Eagle,4
+CHP-W5 Chippewa,3
+STU-K10 Stuka,2
+RPR-100 Rapier,1
+
+
+
+
+
+

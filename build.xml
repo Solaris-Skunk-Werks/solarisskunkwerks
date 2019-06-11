@@ -70,4 +70,13 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <target name="-post-compile-single" depends="-post-compile"/>
+
+    <target name="-post-compile">
+        <copy todir="${dist.dir}">
+            <fileset dir="static/">
+                <include name="**/**"/>
+            </fileset>
+        </copy>
+    </target>
 </project>

@@ -1,0 +1,16 @@
+Clan Fire Mandrill Frontline Light.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Fire Falcon Prime,1
+Kit Fox Prime,2
+Fire Falcon A,3
+Mist Lynx Prime,4
+Fire Falcon B,5
+Fire Falcon C,6
+Fire Falcon D,5
+Adder A,4
+Fire Falcon E,3
+Kit Fox A,2
+Fire Falcon H,1
+

@@ -1,0 +1,11 @@
+Atlas AS7-K,1
+Zeus ZEU-6S,2
+Zeus ZEU-6T,3
+Awesome AWS-8Q,4
+Banshee BNC-3S,5
+Stalker STK-3F,6
+Cyclops CP-10-Z,5
+Atlas AS7-D,4
+BattleMaster BLR-3S,3
+Striker STC-2S,2
+Mauler MAL-1R,1

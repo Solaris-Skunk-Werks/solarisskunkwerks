@@ -1,0 +1,16 @@
+Merc Heavy Mechs C.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+GAL-2GLS Gallowglas,1
+HRG-LS-9000 Hercules,2
+WR-DG-02FC War Dog,3
+TDR-7SE Thunderbolt,4
+AXM-1N Axman,5
+WHM-7M Warhammer,6
+GHR-6K Grasshopper,5
+GAL-1GLS Gallowglas,4
+PTR-4D Penetrator,3
+TMP-3M Tempest,2
+MTR-5K Maelstrom,1
+

@@ -1,0 +1,11 @@
+HM-1 Hitman(30)(3055), 1
+JR7-D Jenner(35)(3025), 2
+OW-1 Owens(35)(3058), 3
+PNT-10K Panther(35)(3050), 4
+RTX1-OC Raptor(25)(3058), 5
+RTX1-OC Raptor(25)(3058), 6
+SDR-9K Venom(35)(3055), 5
+JR7-K Jenner(35)(3050), 4
+SDR-7M Spider(30)(3050), 3
+KBO-7A Kabuto(20)(3067), 2
+PNT-9R Panther(35)(3025), 1

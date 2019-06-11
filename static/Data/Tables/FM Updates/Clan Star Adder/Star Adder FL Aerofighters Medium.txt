@@ -1,0 +1,16 @@
+Star Adder FL Aerofighters Medium.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Turk Prime,1
+Jagatai Prime,2
+Turk A,3
+Turk C,4
+Jagatai A,5
+Visigoth C,6
+Jagatai B,5
+Visigoth B,4
+Visigoth A,3
+Jagatai C,2
+Jagatai Prime,1
+

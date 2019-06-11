@@ -1,0 +1,16 @@
+Merc Assault Mechs B.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+HGN-732 Highlander,1
+TDK-7X Thunder Hawk,2
+CP11-G Cyclops,3
+DVS-2 Devastator,4
+GUN-1ERD Gunslinger,5
+AWS-9Q Awesome,6
+STK-5S Stalker,5
+MR-V2 Cerberus,4
+LGB-12C Longbow,3
+NSR-9J Nightstar,2
+PPR-5S Salamander,1
+

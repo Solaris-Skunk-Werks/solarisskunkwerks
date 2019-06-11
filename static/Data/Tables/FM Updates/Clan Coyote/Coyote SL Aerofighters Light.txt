@@ -1,0 +1,16 @@
+Coyote SL Aerofighters Light.txt
+Per Field Manual Updates page 216
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Sulla Prime,1
+Issus,2
+Chaeronea,3
+Issus,4
+Issus,5
+Chaeronea,6
+Vandal Prime,5
+RGU-133E Rogue,4
+Chaeronea 2,3
+ZRO-114 Zero,2
+SWF-606 Swift,1
+

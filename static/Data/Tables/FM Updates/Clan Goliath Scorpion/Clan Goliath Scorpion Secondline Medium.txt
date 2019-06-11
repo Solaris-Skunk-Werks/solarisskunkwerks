@@ -1,0 +1,16 @@
+Clan Goliath Scorpion Secondline Medium.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Pinion,1
+Griffin IIc,2
+Great Wyrm,3
+Conjurer,4
+Vapor Eagle,5
+Hunchback IIc,6
+Vapor Eagle,5
+Conjurer,4
+CRB-27 Crab,3
+Shadow Hawk IIc,2
+Hunchback IIc,1
+

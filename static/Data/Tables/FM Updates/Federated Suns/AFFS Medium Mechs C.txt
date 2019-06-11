@@ -1,0 +1,16 @@
+AFFS Medium Mechs C.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+HSN-8E Hellspawn,1
+STN-4D Sentinel,2
+PXH-6D Phoenix Hawk,3
+WVR-8D Wolverine,4
+HSN-7D Hellspawn,5
+ENF-5D Enforcer,6
+TBT-7M Trebuchet,5
+STH-1D Stealth,4
+HBK-5P Hunchback,3
+SHD-5D Shadow Hawk,2
+TBT-7K Trebuchet,1
+

@@ -1,0 +1,16 @@
+Clan Nova Cat Medium Vehicles.txt
+Per Field Manual Updates page 223
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hetzer,1
+Hachiman,2
+Maxim(C),3
+Bandit(C),4
+Bandit(C2),5
+Hachiman,6
+Chaparral,5
+Tyr,4
+Zephyr,3
+Maxim(C),2
+Epona Prime,1
+

@@ -1,0 +1,18 @@
+Clan Hells Horses Assault Vehicles.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Rhino,1
+Demolisher(Clan),2
+Huitzilopochtli,3
+Mars(XL),4
+Mars,5
+Mars,6
+Mars,5
+Fury,4
+Huitzilopochtli,3
+Puma,2
+Mars,1
+
+
+

@@ -1,0 +1,16 @@
+Mercenary Light Aero.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+SPR-6D Sparrowhawk,1
+SL-21 Shologar,2
+TR-7 Thrush,3
+F-10 Cheetah,4
+SB-27 Sabre,5
+CNT-1D Centurion,6
+SYD-Z1 Seydlitz,5
+SPR-H5 Sparrowhawk,4
+SYD-Z2A Seydlitz,3
+CT-1D Centurion,2
+SYD-Z3A Seydlitz,1
+

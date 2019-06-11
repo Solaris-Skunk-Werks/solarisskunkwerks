@@ -1,0 +1,6 @@
+5 Light, 1
+3 Medium, 1 Heavy, 1
+4 Medium, 1
+2 Light, 2 Medium, 1
+3 Heavy, 1
+1 Heavy, 2 Assault, 1

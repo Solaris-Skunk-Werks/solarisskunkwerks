@@ -1,0 +1,16 @@
+Merc Assault Mechs C.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+PPR-5S Salamander,1
+GUN-1ERD Gunslinger,2
+STK-5S Stalker,3
+LGB-7Q Longbow,4
+VTR-9K Victor,5
+AS7-S Atlas,6
+AWS-9Q Awesome,5
+BLR-3M Battlemaster,4
+BNC-3S Banshee,3
+MR-V2 Cerberus,2
+T-IT-10M Grand Titan,1
+

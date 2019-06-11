@@ -1,0 +1,16 @@
+Clan Ghost Bear Medium Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hetzer,1
+Ares,2
+Maxim(C),3
+Tyr,4
+Ares,5
+Hachiman,6
+Ku,5
+Tyr,4
+Ares,3
+Ares,2
+Epona Prime,1
+

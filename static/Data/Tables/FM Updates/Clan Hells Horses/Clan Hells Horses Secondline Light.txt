@@ -1,0 +1,16 @@
+Clan Hells Horses Secondline Light.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Howler,1
+Commando IIc,2
+UrbanMech IIc,3
+Piranha,4
+MCY-97 Mercury,5
+Locust IIc,6
+Jenner IIc,5
+Incubus,4
+UrbanMech IIc,3
+Horned Owl,2
+HER-1S Hermes,1
+

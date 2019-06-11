@@ -1,0 +1,19 @@
+Periphery Heavy Aero.txt
+Per Field Manual Updates page 231
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+STU-K15 Stuka,1
+CHP-10 Chippewa,2
+F-100 Riever,3
+CHP-W5 Chippewa,4
+Thunderbird,5
+Eagle,6
+Thunderbird,5
+Eagle,4
+STU-K15 Stuka,3
+SL-15 Slayer,2
+TR-13 Transgressor,1
+
+
+
+

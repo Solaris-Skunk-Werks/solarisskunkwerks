@@ -1,0 +1,16 @@
+Periphery Assault.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+THG-10E Thug,1
+CGR-1L Charger,2
+AWS-8Q Awesome,3
+CP-10-Z Cyclops,4
+VTR-9B Victor,5
+ZEU-6S Zeus,6
+CGR-1A1 Charger,5
+BNC-3E Banshee,4
+STK-3F Stalker,3
+AS7-D Atlas,2
+HGN-733 Highlander,1
+

@@ -1,0 +1,16 @@
+Hanseatic League Heavy.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+RFL-3N Rifleman,1
+CHP-1N Champion,2
+CPLT-K2 Catapult,3
+WHM-6R Warhammer,4
+JM6-S JagerMech,5
+GHR-5H Grasshopper,6
+CRD-3R Crusader,5
+QKD-4G Quickdraw,4
+DRG-5N Dragon,3
+ON1-K Orion,2
+MAD-3R Marauder,1
+

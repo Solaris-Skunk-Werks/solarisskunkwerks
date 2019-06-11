@@ -1,0 +1,11 @@
+BLR-1G Battlemaster(85), 1
+ZEU-6T Zeus(80), 2
+VTR-9B Victor(80), 3
+ZEU-6S Zeus(80), 4
+STK-3F Stalker(85), 5
+AS7-D Atlas(100), 6
+AWS-8Q Awesome(80), 5
+CP-10-Z Cyclops(90), 4
+BNC-3S Banshee(95), 3
+BLR-1S Battlemaster(85), 2
+VTR-9S Victor(80), 1

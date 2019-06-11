@@ -1,0 +1,11 @@
+Locust IIc 4(25)(PP), 1
+Solitaire(25)(3067), 2
+Koshi B(25)(3050), 3
+Puma A(35)(3050), 4
+Dasher A(20)(3050), 5
+Dasher Prime(20)(3050), 6
+Uller C(30)(3050), 5
+Puma C(35)(3050), 4
+Puma D(35)(3050), 3
+Pack Hunter(30)(3060), 2
+KBO-7A Kabuto(20)(3060), 1

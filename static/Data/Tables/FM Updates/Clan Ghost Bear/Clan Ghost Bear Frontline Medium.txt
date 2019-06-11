@@ -1,0 +1,16 @@
+Clan Ghost Bear Frontline Medium.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Viper H,1
+Ice Ferret Prime,2
+Viper A,3
+Viper B,4
+Stormcrow C,5
+Viper Prime,6
+Viper D,5
+Viper C,4
+Nova Prime,3
+Nova C,2
+Stooping Hawk Prime,1
+

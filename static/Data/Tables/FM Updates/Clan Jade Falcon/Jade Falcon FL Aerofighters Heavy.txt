@@ -1,0 +1,16 @@
+Jade Falcon FL Aerofighters Heavy.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Sabutai A,1
+Sabutai B,2
+Scytha B,3
+Kirhgiz Prime,4
+Jengiz Prime,5
+Scytha Prime,6
+Scytha A,5
+Kirghiz A,4
+Scytha C,3
+Sabutai Prime,2
+Hydaspes,1
+

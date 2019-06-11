@@ -1,0 +1,16 @@
+CCAF Vehicles Heavy.txt
+Per Field Manual Updates page 206
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Zhukov,1
+Zhukov,2
+LRM Carrier,3
+Manticore Hvy Tank,4
+Bulldog Med Tank,5
+SRM Carrier,6
+Po Heavy Tank,5
+Po Heavy Tank,4
+Morningstar City Command Vehicle,3
+Brutus Assault Tank,2
+Brutus Assault Tank,1
+

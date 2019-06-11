@@ -1,0 +1,44 @@
+C-MK-O Malak, 1
+C-MK-O Malak, 2
+HSR-950-D Hussar, 3
+MCY-102 Mercury, 4
+NXS2-B Nexus, 5
+GUR-4G Gurkha, 6
+HER-4WB Hermes, 5
+PNT-14S Panther, 4
+C-MK-O Malak, 3
+C-MK-O Malak, 2
+Puma Prime, 1
+C-PRT-O Preta, 1
+LHG-6W Lightray, 2
+SCP-12C Scorpion*, 3
+C-PRT-O Preta, 4
+WVE-10N Wyvern, 5
+RJN-200-A Raijin II, 6
+SHD-11CS Shadow Hawk, 5
+C-PRT-O Preta, 4
+CRB-45 Crab, 3
+C-PRT-O Preta, 2
+Ryoken Prime, 1
+C-DVA-O Deva, 1
+C-DVA-O Deva, 2
+TYM-1B Toyama, 3
+C-GRG-O Grigori, 4
+EXT-5F Exterminator, 5
+FLS-9B Flashman, 6
+GLT-6WB Guillotine, 5
+C-GRG-O Grigori, 4
+C-GRG-O Grigori, 3
+C-DVA-O Deva, 2
+Mad Cat Prime, 1
+C-ANG-O Archangel, 1
+C-SRP-O Seraph, 2
+LGC-03 Legacy, 3
+GRN-D04 Grd. Crusader II, 4
+C-SRP-O Seraph, 5
+HGN-736 Highlander, 6
+KGC-008 King Crab, 5
+VQR-7V Vanquisher, 4
+C-SPR-O Seraph, 3
+FNR-5WB Fafnir, 2
+C-ANG-O Archangel, 1

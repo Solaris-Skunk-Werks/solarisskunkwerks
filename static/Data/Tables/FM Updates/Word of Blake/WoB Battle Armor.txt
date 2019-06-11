@@ -1,0 +1,16 @@
+WoB Battle Armor.txt
+Per Field Manual Updates page 
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ Achileus , 1
+ Tornado , 2
+ Tornado , 3
+ Purifier , 4
+ Purifier , 5
+ Standard , 6
+ Standard , 5
+ Standard , 4
+ Longinus , 3
+ Longinus , 2
+ Warhammer , 1
+

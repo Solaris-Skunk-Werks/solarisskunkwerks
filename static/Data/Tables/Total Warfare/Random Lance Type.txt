@@ -1,0 +1,11 @@
+Battle Armor, 1
+Battle Armor, 2
+Light, 3
+Light, 4
+Medium, 5
+Medium, 6
+Heavy, 5
+Heavy, 4
+Assault, 3
+Assault, 2
+Aerospace Fighter, 1

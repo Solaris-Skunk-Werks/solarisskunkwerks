@@ -1,0 +1,16 @@
+Clan Goliath Scorpion Frontline Heavy.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Night Gyr A,1
+Mad Dog H,2
+Cauldron-Born B,3
+Glass Spider 2,4
+Black Python,5
+Hellbringer Prime,6
+Summoner D,5
+Night Gyr C,4
+Cauldron-Born A,3
+Timber Wolf Prime,2
+Night Gyr Prime,1
+

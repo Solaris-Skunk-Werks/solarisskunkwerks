@@ -1,0 +1,11 @@
+RDS-2A Red Shift(20)(3067), 1
+HSR-200-D Hussar(30(3050), 2
+MON-66 Mongoose(25)(3050), 3
+MCY-99 Mercury(20)(3050), 4
+SDR-7M Spider(30)(3050), 5
+NXS2-A Nexus II(25)(3055), 6
+HMR-3M Hammer(30)(3055), 5
+EGL-2M Eagle(25)(3055), 4
+GUR-2G Gurkha(35)(3067), 3
+LCT-5M Locust(20(PP), 2
+TLN-5W Talon(35)(3058), 1

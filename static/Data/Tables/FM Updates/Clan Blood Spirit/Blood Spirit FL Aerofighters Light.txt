@@ -1,0 +1,16 @@
+Blood Spirit FL Aerofighters Light.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Chaeronea,1
+Sulla C,2
+Issus,3
+Chaeronea 2,4
+Vandal B,5
+Batu A,6
+Bashkir Prime,5
+Chaeronea,4
+Sulla B,3
+Issus,2
+Vandal A,1
+

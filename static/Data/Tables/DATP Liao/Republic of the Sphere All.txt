@@ -1,0 +1,44 @@
+Koshi (Mist Lynx) <Base>,1
+Pack Hunter 3,2
+Raven RVN-4L,3
+Panther PNT-10K2,4
+Mjolnir MLR-B2,5
+Ocelot 3,6
+Locust LCT-6M,5
+Stinger STG-5T,4
+Valiant V4-LNT-J3,3
+Spider SDR-8R,2
+Blade BLD-XL,1
+Targe TRG-1N,1
+Phoenix Hawk PXH-7K,2
+Thunder Fox TFT-A9,3
+Legionnaire LGN-2D,4
+Enforcer III ENF-6Ma,5
+Hatchetman HCT-7S,6
+Black Hawk (Nova) <Base>,5
+Centurion CN9-D5,4
+Griffin GRF-4R,3
+Ghost GST-11,2
+Shockwave SKW-2F,1
+Gallant GLT-7-0,1
+Thunderbolt TDR-10SE,2
+Catapult CPLT-C5A,3
+Ryoken II 2,4
+Tundra Wolf (Standard),5
+Rifleman RFL-7X,6
+Archer ARC-9W,5
+Vulture (Mad Dog) H,4
+Prefect PRF-1R,3
+Mangonel MNL-3L,2
+Black Knight BL-12-KNT,1
+Zeus ZEU-9T,1
+Banshee BNC-8S,2
+Hellstar 3,3
+Atlas AS7-K3,4
+Jupiter 3,5
+Peacekeeper PKP-1B,6
+Victor VTR-10L,5
+Gunslinger GUN-2ERD,4
+Titan II TI-2P,3
+Warlord BLR-2G,2
+Awesome AWS-9Q,1

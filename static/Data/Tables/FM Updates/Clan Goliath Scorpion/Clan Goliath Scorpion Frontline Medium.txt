@@ -1,0 +1,16 @@
+Clan Goliath Scorpion Frontline Medium.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Battle Cobra B,1
+Ice Ferret D,2
+Nove Prime,3
+Stormcrow Prime,4
+Vapor Eagle,5
+Phantom C,6
+Pouncer Prime,5
+Battle Cobra Prime,4
+Nova A,3
+Stormcrow C,2
+Battle Cobra A,1
+

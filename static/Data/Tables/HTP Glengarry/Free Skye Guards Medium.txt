@@ -1,0 +1,11 @@
+Clint CLNT-3-3T,1
+Hermes II HER-5M,2
+Shadow Hawk SHD-5M,3
+Centurion CN9-D,4
+Griffin GRF-3M,5
+Hatchetman HCT-5S,6
+Hatchetman HCT-5S,5
+Dervish DV-7D,4
+Wolverine WVR-7M,3
+Phoenix Hawk PXH-3S,2
+Vindicator VND-3L,1

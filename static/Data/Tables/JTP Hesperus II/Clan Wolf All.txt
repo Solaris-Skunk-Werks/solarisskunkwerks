@@ -1,0 +1,44 @@
+Icestorm 2, 1
+Uller B, 2
+Hankyu C, 3
+Pack Hunter 4, 4
+Puma Prime, 5
+Dasher Prime, 6
+Puma A, 5
+Koshi C, 4
+Cougar D, 3
+Icestorm, 2
+Locust IIC 4, 1
+Griffin IIC 4, 1
+Wyvern IIC 2, 2
+Phantom D, 3
+Pouncer Prime, 4
+Fenris H, 5
+Black Hawk, 6
+Ryoken B, 5
+Pouncer D, 4
+Lobo 2, 3
+Rabid Coyote 2, 2
+Sun Cobra, 1
+Cauldron-Born D, 1
+Thor C, 2
+Linebacker A, 3
+Vulture B, 4
+Mad Cat Prime, 5
+Thor Prime, 6
+Mad Cat A, 5
+Loki E, 4
+Linebacker Prime, 3
+Guillotine IIC 2, 2
+Orion IIC, 1
+Marauder IIC 3, 1
+Savage Coyote A, 2
+Kingfisher H, 3
+Man O’ War M, 4
+Daishi S, 5
+Man O’ War G, 6
+Gladiator K, 5
+Masakari Prime, 4
+Daishi C, 3
+Highlander IIC 2, 2
+Turkina B, 1

@@ -1,0 +1,44 @@
+Jenner IIC (Standard),1
+Locust IIC (Standard),2
+Vixen (Incubus) (Standard),3
+Cougar Prime,4
+Hankyu (Arctic Cheetah) Prime,5
+Koshi (Mist Lynx) Prime,6
+Dasher (Fire Moth) Prime,5
+Cougar Prime,4
+Hankyu (Arctic Cheetah) Prime,3
+Peregrine (Horned Owl) (Standard),2
+Puma (Adder) Prime,1
+Great Wyrm (Standard),1
+Grendel (Mongrel) Prime,2
+Shadow Cat Prime,3
+Viper (Black Python) (Standard),4
+Hunchback IIC (Standard),5
+Ryoken (Stormcrow) Prime,6
+Ryoken (Stormcrow) Prime,5
+Black Hawk (Nova) Prime,4
+Griffin IIC (Standard),3
+Wyvern IIC (Standard),2
+Fenris (Ice Ferret) Prime,1
+Matador (Standard),1
+Guillotine IIC (Standard),2
+Rifleman IIC (Standard),3
+Galahad (Glass Spider) (Standard),4
+Cauldron-Born (Ebon Jaguar) Prime,5
+Vulture (Mad Dog) Prime,6
+Thor (Summoner) Prime,5
+Mad Cat (Timber Wolf) Prime,4
+Night Gyr Prime,3
+Vulture (Mad Dog) Prime,2
+Mad Cat (Timber Wolf) Prime,1
+Highlander IIC (Standard),1
+Gladiator (Executioner) Prime,2
+Behemoth (Stone Rhino) (Standard),3
+Man O' War (Gargoyle) Prime,4
+Masakari (Warhawk) Prime,5
+Daishi (Dire Wolf) Prime,6
+Daishi (Dire Wolf) Prime,5
+Masakari (Warhawk) Prime,4
+Warhammer IIC 2,3
+Kingfisher Prime,2
+Marauder IIC (Standard),1

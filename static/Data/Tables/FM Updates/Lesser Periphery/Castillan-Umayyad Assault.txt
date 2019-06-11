@@ -1,0 +1,16 @@
+Castillan-Umayyad Assault.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+CGR-1A1 Charger,1
+HBN-733 Highlander,2
+VTR-9B Victor,3
+AWS-8Q Awesome,4
+STK-3F Stalker,5
+BNC-3E Banshee,6
+ZEU-6S Zeus,5
+AS7-D Atlas,4
+BLR-1G Battlemaster,3
+CP-10Z Cyclops,2
+AWS-8Q Awesome,1
+

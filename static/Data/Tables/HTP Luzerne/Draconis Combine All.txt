@@ -1,0 +1,44 @@
+Raptor RTX1-O,1
+Javelin JVN-10P,2
+Spider SDR-7M,3
+Hitman HM-1,4
+Owens OW-1,5
+Panther PNT-10K,6
+Raptor RTX1-O,5
+Jenner JR7-K,4
+Venom SDR-9K,3
+Panther PNT-10K,2
+Owens OW-1,1
+Daimyo DMO-1K,1
+Wolf Trap (Tora) WFT-1,2
+Phoenix Hawk PXH-3K,3
+Kintaro KTO-20,4
+Blackjack BJ2-O,5
+Strider SR1-O,6
+Firestarter FS9-O,5
+Wolverine WVR-7K,4
+Grim Reaper GRM-R-PR29,3
+Komodo KIM-2A,2
+Lynx LNX-9C,1
+Daikyu DAI-01,1
+Quickdraw QKD-5K,2
+Marauder MAD-5D,3
+Dragon Fire DGR-3F,4
+Black Hawk-KU BHKU-O,5
+Grand Dragon DRG-5K,6
+Maelstrom MTR-5K,5
+Avatar AV1-O,4
+Gallowglas GAL-1GLS,3
+JagerMech JM6-DD,2
+No-Dachi NDA-1K,1
+O-Bakemono OBK-M10,1
+Cerberus MR-V2,2
+Victor VTR-9K,3
+Mauler MAL-1R,4
+Charger CGR-3K,5
+Hatamoto-Chi HTM-27T,6
+Atlas AS7-K,5
+Sunder SD1-O,4
+Naginata NG-C3A,3
+Gunslinger GUN-1ERD,2
+Akuma AKU-1X,1

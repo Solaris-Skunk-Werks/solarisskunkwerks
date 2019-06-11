@@ -1,0 +1,16 @@
+FWLM Vehicles Heavy.txt
+Per Field Manual Updates page 226
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Zhukov,1
+Patton,2
+Po,3
+Manticore,4
+Pike,5
+LRM Carrier,6
+SRM Carrier,5
+Bulldog,4
+Von Luckner,3
+Brutus,2
+Pike,1
+

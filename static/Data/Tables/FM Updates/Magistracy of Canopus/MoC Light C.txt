@@ -1,0 +1,16 @@
+MoC Light C.txt
+Per Field Manual Updates page 229
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+HER-1A Hermes,1
+PNT-9R Panther,2
+UM-R60 Urbanmech,3
+SDR-5V Spider,4
+JVN-10N Javelin,5
+WSP-1A Wasp,6
+LCT-1V Locust,5
+STG-3R Stinger,4
+FS9-H Firestarter,3
+COM-2D Commando,2
+UM-60L UrbanMech,1
+

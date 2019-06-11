@@ -1,0 +1,16 @@
+Clan Cloud Cobra Frontline Light.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hankyu C,1
+Adder A,2
+Adder E,3
+Adder H,4
+Fire Moth D,5
+Kit Fox H,6
+Adder Prime,5
+Kit Fox E,4
+Kit Fox A,3
+Mist Lynx C,2
+Fire Falcon H,1
+
