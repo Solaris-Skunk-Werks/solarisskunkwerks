@@ -1,0 +1,3 @@
+[submodule "SSWLib"]
+	path = SSWLib
+	url = https://github.com/WEKarnesky/sswlib
