@@ -1,0 +1,16 @@
+DCMS Assault Mechs A.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+BLR-CM Battlemaster,1
+NG-C3A NAginata,2
+GUN-1ERD Gunslinger,3
+MR-V2 Cerberus,4
+MAL-1R Mauler,5
+HTM-27T Hatamoto-Chi,6
+SD1-O Sunder,5
+BLR-K3 Battlemaster,4
+AKU-1X Akuma,3
+TSH-7S Tai-sho,2
+Daishi Prime,1
+

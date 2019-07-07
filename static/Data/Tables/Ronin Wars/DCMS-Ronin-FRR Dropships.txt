@@ -1,0 +1,11 @@
+Achilles, 1
+Condor, 2
+Leopard, 3
+Triumph, 4
+Leopard CV, 5
+Union, 6
+Intruder, 5
+Overlord, 4
+Excalibur, 3
+Vengeance, 2
+Achilles, 1

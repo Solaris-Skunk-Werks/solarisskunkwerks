@@ -1,0 +1,16 @@
+CCAF Medium Mechs B.txt
+Per Field Manual Updates page 206
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+SNK-1V Snake,1
+TR1 Wraith,2
+HUR-R4L Huron Warrior,3
+CLNT-2-3U Clint,4
+CDA-3C Cicada,5
+VND-3L Vindicator,6
+BJ-2 Blackjack,5
+MS1-O Men Shen,4
+SNK-1V Snake,3
+VND-4L Vindicator,2
+BJ2-O Blackjack,1
+

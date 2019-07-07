@@ -1,0 +1,11 @@
+Marauder II MAD-5A,1
+Salamander PPR-5S,2
+Victor VTR-9K,3
+Awesome AWS-9M,4
+Gunslinger GUN-1ERD,5
+Atlas AS7-S,6
+Cyclops CP-10-Z,5
+Banshee BNC-5S,4
+BattleMaster BLR-3S,3
+Zeus ZEU-9S,2
+Mauler MAL-1R,1

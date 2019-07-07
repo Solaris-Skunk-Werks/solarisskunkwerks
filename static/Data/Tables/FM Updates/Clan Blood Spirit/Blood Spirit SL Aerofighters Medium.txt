@@ -1,0 +1,16 @@
+Blood Spirit SL Aerofighters Medium.txt
+Per Field Manual Updates page 211
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+HCT-213B Hellcat II,1
+IR-SD1 Ironsides,2
+Tyre,3
+Tyre 2,4
+HCT-213B Hellcat II,5
+Tyre,6
+HCT-213B Hellcat II,5
+Tyre,4
+Tyre 2,3
+HCT-213B Hellcat II,2
+GTHA-500 Gotha,1
+

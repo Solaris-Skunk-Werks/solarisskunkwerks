@@ -1,0 +1,16 @@
+Merc Assault Mechs F.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+CGR-1A5 Charger,1
+CP-10-Z Cyclops,2
+GOL-1H Goliath,3
+AS7-D Atlas,4
+ZEU-6S Zeus,5
+VTR-9B Victor,6
+AWS-8Q Awesome,5
+STK-3F Stalker,4
+BLR-1G BattleMaster,3
+BNC-3E Banshee,2
+BNC-3S Banshee,1
+

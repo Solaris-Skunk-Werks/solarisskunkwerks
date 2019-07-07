@@ -1,0 +1,16 @@
+MoC Light Vehicles.txt
+Per Field Manual Updates page 
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Savannah Master Hovertank,1
+J Edgar Light Hovertank,2
+Hunter Light Support Tank,3
+Saracen Mediom Hovertank,4
+Harrasser Missile Platform,5
+Pegasus Scout Hovertank,6
+Cavalry Attack Helicopter,5
+Warrior H-7C Attack Helicopter,4
+Saladin Assault hovertank,3
+PKR-T5 Packrat LRPV,2
+Yellow Jacket Gunship,1
+

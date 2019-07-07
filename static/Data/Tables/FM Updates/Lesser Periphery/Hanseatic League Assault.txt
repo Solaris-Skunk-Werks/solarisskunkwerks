@@ -1,0 +1,16 @@
+Hanseatic League Assault.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ZEU-6S Zeus,1
+LGB-7Q Longbow,2
+CP-11-A Cyclops,3
+AWS-8Q Awesome,4
+VTR-9B Victor,5
+BLR-1G Battlemaster,6
+AS7-D Atlas,5
+STK-3F Stalker,4
+CGR-3K Charger,3
+GOL-1H Goliath,2
+BNC-5S Banshee,1
+

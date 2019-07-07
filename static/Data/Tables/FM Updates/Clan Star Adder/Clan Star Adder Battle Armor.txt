@@ -1,0 +1,16 @@
+Clan Star Adder Battle Armor.txt
+Per Field Manual Updates page 
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ Elemental , 1
+ Elemental , 2
+ Elemental , 3
+ Elemental , 4
+ Elemental , 5
+ Elemental , 6
+ Elemental , 5
+ Elemental , 4
+ Elemental , 3
+ Fire Efreeti , 2
+ Fire Efreeti , 1
+

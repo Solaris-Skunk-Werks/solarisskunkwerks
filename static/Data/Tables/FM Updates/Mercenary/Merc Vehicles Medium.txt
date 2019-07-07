@@ -1,0 +1,16 @@
+Merc Vehicles Medium.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Drillson(SRM),1
+Bandit,2
+Vedette,3
+Hetzer,4
+Myrmidon,5
+Drillson,6
+Goblin,5
+Maxim,4
+Condor,3
+Fulcrum,2
+Condor(laser),1
+

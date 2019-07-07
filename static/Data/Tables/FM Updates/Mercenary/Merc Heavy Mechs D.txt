@@ -1,0 +1,16 @@
+Merc Heavy Mechs D.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+TDR-7SE Thunderbolt,1
+MAD-5D Marauder,2
+GHR-6K Grasshopper,3
+TDR-9S Thunderbolt,4
+QKD-5M Quickdraw,5
+ARC-4M Archer,6
+WHM-7M Warhammer,5
+ON2-M Orion,4
+GHR-5N Grasshopper,3
+MAD-9M Marauder,2
+AXM-1N Axman,1
+

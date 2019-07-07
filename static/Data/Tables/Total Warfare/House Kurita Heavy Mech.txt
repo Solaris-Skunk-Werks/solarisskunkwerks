@@ -1,0 +1,11 @@
+NJT-2 Ninja-To(65)(3067), 1
+DGR-3F Dragon Fire(75)(3058), 2
+AV1-OA Avatar(70)(3058), 3
+BHKU-O Black Hawk-KU(60)(3058), 4
+DAI-01 Daikyu(70)(3055), 5
+DRG-5K Grand Dragon(60)(3050), 6
+DRG-5K Grand Dragon(60)(3050), 5
+MTR-5k Maelstrom(75)(3058), 4
+SJA-7D Shugenja(75)(3060), 3
+CDR-5K Crusader(65)(PP), 2
+NDA-1K No Daichi(70)(3067), 1

@@ -1,0 +1,11 @@
+Pike Support Vehicle(60), 1
+Brutus Assault Tank(75), 2
+Patton(65), 3
+Manticore Heavy Tank(60), 4
+Rommel(65), 5
+Bulldog(60), 6
+Manticore Heavy Tank(60), 5
+Von Luckner(75), 4
+SRM Carrier(60), 3
+LRM Carrier(60), 2
+LRM Carrier(60), 1

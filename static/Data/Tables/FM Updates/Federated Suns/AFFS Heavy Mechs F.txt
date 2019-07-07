@@ -1,0 +1,16 @@
+AFFS Heavy Mechs F.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+JM6-DD JagerMech,1
+MAD-5D Marauder,2
+ARC-8M Archer,3
+RFL-5D Rifleman,4
+JM6-D3 JagerMech III,5
+MAD-5S Marauder,6
+GHR-5N Grasshopper,5
+CTF-3L Cataphract,4
+WHM-6D Warhammer,3
+CES-3R Ceasar,2
+MAD-5D Marauder,1
+

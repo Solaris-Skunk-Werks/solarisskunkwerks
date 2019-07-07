@@ -1,0 +1,16 @@
+Comstar Medium Aero.txt
+Per Field Manual Updates page 219
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+IRN-SD1 Ironsides,1
+HCT-213B Hellcat II,2
+F92 Stingray,3
+IRN-SD1 Ironsides,4
+IRN-SD1 Ironsides,5
+HCT-213B Hellcat II,6
+GTHA-500 Gotha,5
+GTHA-500 Gotha,4
+HCT-213B Hellcat II,3
+Lightning,2
+F94 Stingray,1
+

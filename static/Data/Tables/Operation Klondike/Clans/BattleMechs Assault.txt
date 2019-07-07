@@ -1,0 +1,33 @@
+PLG-3Z Pillager, 1
+CRK-5003-1 Crockett, 1
+TDK-7X Thunder Hawk, 1
+KCG-000b King Crab, 1
+IMP-1A Imp, 1
+AS7-D-H Atlas II, 1
+SHG-2H Shogun, 1
+RFL-3N2 Rifleman II, 1
+AWS-8Q Awesome, 1
+HGN-732b Highlander, 1
+ANH-1X Annihilator, 1
+NSR-9J Nightstar, 1
+LGB-7Q Longbow, 1
+EMP-6A Emperor, 1
+RFL-3N2 Rifleman II, 1
+AWS-8Q Awesome, 1
+THE-11b Thug, 1
+STK-3Fb Stalker, 1
+TDK-7X Thunder Hawk, 1
+PLG-3Z Pillager, 1
+IMP-1B Imp, 1
+DVS-2 Devastator, 1
+IMP-1C Imp, 1
+STK-3Fb Stalker, 1
+THE-11 Thug, 1
+AS7-D Atlas, 1
+BLR-1Gb BattleMaster, 1
+HGN-732b Highlander, 1
+CRK-5003-1b Crockett, 1
+ANH-1X Annihilator, 1
+NSR-9J Nightstar, 1
+KCG-000 King Crab, 1
+EMP-6A Emperor, 1

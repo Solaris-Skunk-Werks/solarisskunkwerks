@@ -1,0 +1,16 @@
+MoC Light A.txt
+Per Field Manual Updates page 229
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+WSP-3L Wasp,1
+STG-6L Stinger,2
+EGL-2M Eagle,3
+ABS-3L Anubis,4
+ZPH-1A Tarantula,5
+SDR-7M Spider,6
+JVN-10P Javelin,5
+AGS-3R Anubis,4
+LCT-5V Locust,3
+RVN-3L Raven,2
+RTX1-O Raptor,1
+

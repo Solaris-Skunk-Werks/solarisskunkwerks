@@ -1,0 +1,16 @@
+SLDF Heavy Aero.txt
+Per Field Manual Updates page 222
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+RPR-100 Rapier,1
+SL-15R Slayer,2
+F-700 Riever,3
+CHP-7W Chippewa,4
+HSCL-1 Huscarl A,5
+STU-D6 Stuka,6
+EST-O Eisensturm,5
+HMR-HD Hammerhead,4
+HSCL-1 Huscarl C,3
+EST-O Eisensturm B,2
+Sabutai A,1
+

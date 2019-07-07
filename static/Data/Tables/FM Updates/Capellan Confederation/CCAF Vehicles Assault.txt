@@ -1,0 +1,15 @@
+CCAF Vehicles Assault.txt
+Per Field Manual Updates page 206
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Heavy LRM Carrier,1
+Schiltron OmniTank,3
+Ontos Heavy Tank,4
+Schrek PPC Carrier,5
+Ontos Heavy Tank,6
+Partisan Heavy Tank,5
+Partisan Defense Tank,4
+Heavy LRM Carrier,3
+Demolisher Hvy Tank,2
+Schrilton OnmiTank,1
+

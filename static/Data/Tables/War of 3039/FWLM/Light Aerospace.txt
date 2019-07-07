@@ -1,0 +1,11 @@
+SYD-Z1 Seydlitz(20), 1
+Centurion(30), 2
+SYD-Z1 Seydlitz(20), 3
+Centurion(30), 4
+F-10 Ceetah(25), 5
+F-10 Ceetah(25), 6
+Sabre(25), 5
+F-12-S Cheetah(25), 4
+TR-7 Thrush(25), 3
+F-11-S Cheetah(25), 2
+Sabre(25), 1

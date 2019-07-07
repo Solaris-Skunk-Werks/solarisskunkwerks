@@ -1,0 +1,16 @@
+CCAF Light Mechs B.txt
+Per Field Manual Updates page 206
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ABS-3L Anubis,1
+JA-KL-1532 Jackal,2
+UM-R70 Urbanmech,3
+RVN-3L Raven,4
+RVN-3L Raven,5
+ABS-3R Anubis,6
+UM-R63 UrbanMech,5
+OW-1 Owens,4
+D9-G9 Duan Gung,3
+STG-6L Stinger,2
+WSP-3L Wasp,1
+

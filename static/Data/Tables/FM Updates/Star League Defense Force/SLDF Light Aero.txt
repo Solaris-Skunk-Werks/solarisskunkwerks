@@ -1,0 +1,16 @@
+SLDF Light Aero.txt
+Per Field Manual Updates page 222
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+THK-63 Tomahawk,1
+SPR-6D Sparrowhawk,2
+DARO-1 Dagger,3
+F-14-S Cheetah,4
+SYD-Z4 Seydlitz,5
+SPD-502 Spad,6
+SPR-6D Sparrowhawk,5
+DARO-1 Dagger A,4
+S-7 Sai,3
+SYD-Z3A Seydlitz,2
+Chaeronea,1
+

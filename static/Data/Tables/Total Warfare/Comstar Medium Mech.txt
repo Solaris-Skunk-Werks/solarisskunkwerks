@@ -1,0 +1,11 @@
+LNX-9Q Lynx(55)(3055), 1
+BJ2-OD Blackjack(50)(3058), 2
+CLNT-2-3U Clint(40)(3050), 3
+END-6Q Enfield(50)(3058), 4
+BEO-12 Beowulf(45)(3060), 5
+BJ-2 Blackjack(45)(3050), 6
+HBK-4G Hunchback(50)(3050), 5
+FS9-O Firestarter(45)(3058), 4
+TSN-1C Tessen(50)(3067), 3
+GRM-R-PR29 Grim Reaper(55)(3055), 2
+DV-6M Dervish(55)(3025), 1

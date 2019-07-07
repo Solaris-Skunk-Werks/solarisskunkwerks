@@ -1,0 +1,16 @@
+TC Medium B.txt
+Per Field Manual Updates page 229
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+BJ-3 Blackjack,1
+HBK-5N Hunchback,2
+MHL-X1 Marshal,3
+TBT-5S Trebuchet,4
+HBK-4G Hunchback,5
+GRF-1N Griffin,6
+ENF-4R Enforcer,5
+HCT-3F Hatchetman,4
+DV-7D Dervish,3
+HCT-5S Hatchetman,2
+TBT-7M Trebuchet,1
+

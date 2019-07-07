@@ -1,0 +1,16 @@
+TC Assault A.txt
+Per Field Manual Updates page 229
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+PLG-3Z Pillager,1
+CP-11-G Cyclops,2
+LGB-7Q Longbow,3
+BNC-3S Banshee,4
+VTR-9K Victor,5
+AS7-D Atlas,6
+AWS-9M Awesome,5
+STK-5M Stalker,4
+ZEU-9S Zeus,3
+AWS-9Q Awesome,2
+EMP-6A Emperor,1
+

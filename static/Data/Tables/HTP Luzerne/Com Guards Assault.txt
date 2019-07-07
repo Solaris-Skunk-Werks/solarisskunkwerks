@@ -1,0 +1,11 @@
+King Crab KGC-001,1
+BattleMaster BLR-2C,2
+King Crab KGC-000,3
+Crockett CRK-5003-1,4
+Thug THG-11E,5
+Highlander HGN-732,6
+Thug THG-11E,5
+Atlas AS7-K,4
+Longbow LGB-7Q,3
+Spartan SPT-N2,2
+King Crab KGC-001,1

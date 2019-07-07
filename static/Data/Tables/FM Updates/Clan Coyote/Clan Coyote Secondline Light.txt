@@ -1,0 +1,16 @@
+Clan Coyote Secondline Light.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Pack Hunter,1
+Piranha,2
+Incubus 2,3
+Locust IIc 5,4
+Locust IIc,5
+UrbanMech IIc,6
+Incubus,5
+Jenner IIc,4
+Horned Owl,3
+Jenner IIc 2,2
+Adder Prime,1
+

@@ -1,0 +1,16 @@
+CF Light A.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+JA-KL-1532 Jackal,1
+MON-67 Mongoose,2
+SDR-5V Spider,3
+FS9-S Firestarter,4
+PNT-9R Panther,5
+JVN-10F Javelin,6
+COM-2D Commando,5
+WLF-1 Wolfhound,4
+FS9-S Firestarter,3
+DRT-4S Dart,2
+SPR-5F Spector,1
+

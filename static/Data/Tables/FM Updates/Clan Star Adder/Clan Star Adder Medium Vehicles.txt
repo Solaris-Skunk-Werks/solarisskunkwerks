@@ -1,0 +1,16 @@
+Clan Star Adder Medium Vehicles.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Epona C,1
+Epona Prime,2
+Hachiman,3
+Chapparal,4
+Ku,5
+Ares,6
+Hachiman,5
+Bandit(C2),4
+Maxim(C),3
+Ares,2
+Enyo,1
+

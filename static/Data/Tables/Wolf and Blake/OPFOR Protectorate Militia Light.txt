@@ -1,0 +1,10 @@
+Random Mech Assignment Table: opposing Force Protectorate Militia Light.txt
+Per Starterbook Wolf and Blake page 66
+Copyright WizKids games & Catalyst Game Labs
+Entered in to RUS format by: Aaron "Bear" Gregory
+MON-76 Mongoose(25)(3050U), 1
+HSR-900-D Hussar(30)(3050U), 1
+HSR-950-D Hussar(30)(3050U), 1
+JVN-11F Javelin(30)(3050U), 1
+PNT-14S Panther(35)(3050U), 1
+HER-4WB Hermes(30)(3050U), 1

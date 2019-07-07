@@ -1,0 +1,16 @@
+Haseatic League Light.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+FS9-H Firestarter,1
+LCT-1E Locust,2
+SDR-7M Spider,3
+JR7-D Jenner,4
+PNT-10K Panther,5
+COM-5S Commando,6
+FS9-H Firestarter,5
+UM-R60 UrbanMech,4
+OTT-7J Ostscout,3
+JVN-10N Javelin,2
+JR7-K Jenner,1
+

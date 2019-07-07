@@ -1,0 +1,16 @@
+Clan Wolf in Exile Secondline Light.txt
+Per Field Manual Updates page 217
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Jenner IIc,1
+MON-66 Mogoose,2
+Pack Hunter,3
+Incubus,4
+WLF-2 Wolfhound,5
+Pack Hunter,6
+Incubus,5
+Pack Hunter,4
+Jenner IIc,3
+WLF-3S Wolfhound,2
+Pack Hunter,1
+

@@ -1,0 +1,11 @@
+Schrek PPC Carrier(80), 1
+Behemoth Heavy Tank(100), 2
+Partisan Heavy Tank(80), 3
+Ontos Heavy Tank(95), 4
+Behemoth Heavy Tank(100), 5
+Partisan Heavy Tank(80), 6
+Demolisher(80), 5
+Ontos heavy Tank(95), 4
+Schrek PPC Carrier(80), 3
+Behemoth Heavy Tank(100), 2
+Schrek PPC Carrier(80), 1

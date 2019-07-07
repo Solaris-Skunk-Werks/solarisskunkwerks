@@ -1,0 +1,16 @@
+Coyote Dropships.txt
+Per Field Manual Updates page 215
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Outpost,1
+Overlord-C,2
+Union-C,3
+Sassanid,4
+Broadsword,5
+Union-C,6
+Lion,5
+Overlord-C,4
+Confederate,3
+Carrier,2
+Fortress,1
+

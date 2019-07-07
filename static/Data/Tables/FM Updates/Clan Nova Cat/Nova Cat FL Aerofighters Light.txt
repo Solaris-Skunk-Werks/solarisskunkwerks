@@ -1,0 +1,16 @@
+Nova Cat FL Aerofighters Light.txt
+Per Field Manual Updates page 223
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Avar Prime,1
+Vandal B,2
+Batu Prime,3
+Bashkir C,4
+Batu C,5
+Sulla Prime,6
+Bashkir Prime,5
+Sulla C,4
+Bashkir A,3
+Vandal C,2
+Avar A,1
+

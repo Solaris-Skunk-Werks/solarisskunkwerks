@@ -1,0 +1,16 @@
+Blood Spirit dropships.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Fortress,1
+Confederate,2
+Arcadia,3
+Broadsword,4
+Union-C,5
+Union-C,6
+Overlord-C,5
+Arcadia,4
+Broadsword,3
+Carrier,2
+Arcadia,1
+

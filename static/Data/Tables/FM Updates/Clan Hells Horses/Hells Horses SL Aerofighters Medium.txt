@@ -1,0 +1,16 @@
+Hells Horses SL Aerofighters Medium.txt
+Per Field Manual Updates page 211
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Turk Prime,1
+Jagatai Prime,2
+Ammon,3
+Tyre,4
+HCT-213B Hellcat II,5
+Ammon,6
+Visigoth Prime,5
+IRN-SD1 Ironsides,4
+GTHA-500 Gotha,3
+Turk Prime,2
+Tyre,1
+

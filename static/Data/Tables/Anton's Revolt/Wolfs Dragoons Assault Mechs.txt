@@ -1,0 +1,11 @@
+ANH-1 Annihilator(100), 1
+BNC-3E Banshee(95), 2
+SHG-2E Shogun(85), 3
+STK-3F Stalker(85), 4
+BLR-1G Battlemaster(85), 5
+AS7-D Atlas(100), 6
+AWS-8Q Awesome(80), 5
+MAD-4A Marauder II(100), 4
+IMP-2E Imp(100), 3
+LGB-7Q Longbow(85), 2
+STC-2C Striker(80), 1

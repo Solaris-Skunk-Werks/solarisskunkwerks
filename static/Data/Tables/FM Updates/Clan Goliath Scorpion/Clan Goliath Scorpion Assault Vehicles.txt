@@ -1,0 +1,16 @@
+Clan Goliath Scorpion Assault Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Fury,1
+Puma,2
+Fury,3
+Mars,4
+Huitzilopochtli,5
+Mars,6
+Mars,5
+Huitzilopochtli,4
+Rhino,3
+Huitzilopochtli,2
+Mars(XL),1
+

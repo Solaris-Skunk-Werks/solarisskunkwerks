@@ -1,0 +1,16 @@
+Clan Steel Viper Secondline Assault.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Gargoyle A,1
+Supernova,2
+Stone Rhino,3
+Warhammer IIc,4
+Scylla,5
+Phoenix Hawk IIc,6
+THG-11E Thug,5
+Warhammer IIc,4
+Marauder IIc,3
+Highlander IIc,2
+Bane,1
+

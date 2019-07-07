@@ -1,0 +1,16 @@
+DracCom Heavy Aerospace.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+HMR-HD Hammerhead,1
+HMR-HD Hammerhead,2
+STU-K5 Stuka,3
+F-100 Reiver,4
+Eagle,5
+SL-15 Slayer,6
+SL-15R Slayer,5
+MIK-0 Tatsu,4
+CHP-W5 Chippewa,3
+Thunderbird,2
+AHB-443 Ahab,1
+

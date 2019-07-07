@@ -1,0 +1,16 @@
+Pirates Heavy.txt
+Per Field Manual Updates page 230
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+TDR-7SE Thunderbolt,1
+ON2-M Orion,2
+OSR-3C Ostroc,3
+CPLT-H2 Catapult,4
+WHM-7M Warhammer,5
+ARC-4M Archer,6
+MAD-3M Marauder,5
+GHR-5N Grasshopper,4
+OTL-5D Ostsol,3
+JM6-H Jagermech,2
+ARC-6W Archer,1
+

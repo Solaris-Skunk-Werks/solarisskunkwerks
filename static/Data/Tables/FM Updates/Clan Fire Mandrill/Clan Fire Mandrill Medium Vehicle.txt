@@ -1,0 +1,16 @@
+Clan Fire Mandrill Medium Vehicle.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Hachiman,1
+Ares,2
+Maxim(C),3
+Bandit(C),4
+Ares,5
+Bandit(C),6
+Ares,5
+Maxim(C),4
+Bandit(C2),3
+Ares,2
+Epona,1
+

@@ -1,0 +1,16 @@
+Ghost Bear SL Aerofighters Medium.txt
+Per Field Manual Updates page 216
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Turk Prime,1
+Jagatai Prime,2
+IRN-SD1 Ironsides,3
+HCT-213B Hellcat II,4
+Ammon,5
+Tyre,6
+Visigoth Prime,5
+GTHA-500 Gotha,4
+Tyre,3
+Turk B,2
+Visigoth Prime,1
+

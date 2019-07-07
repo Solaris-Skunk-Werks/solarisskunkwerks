@@ -1,0 +1,11 @@
+Centurion(30), 1
+Centurion(30), 2
+S-27 Sabre(25), 3
+SL-21 Shologar(35), 4
+SL-21L Shologar(35), 5
+SL-21 Shologar(35), 6
+Centurion(30), 5
+S-27 Sabre(25), 4
+SPR-H5K Sparrowhawk(35), 3
+SPR-H5K Sparrowhawk(35), 2
+S-27 Sabre(25), 1

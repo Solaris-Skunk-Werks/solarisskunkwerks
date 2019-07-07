@@ -1,0 +1,11 @@
+TR-7 Thrush(25), 1
+SYD-Z3 Seydlitz(20), 2
+SYD-Z1 Seydlitz(20), 3
+S-27 Sabre(25), 4
+S-27 Sabre(25), 5
+SPR-H5 Sparrowhawk(30), 6
+CNT-1D Centurion(30), 5
+CNT-1D Centurion(30), 4
+F-10 Cheetah(25), 3
+SL-21 Shologar(35), 2
+SL-21 Shlogar(35), 1

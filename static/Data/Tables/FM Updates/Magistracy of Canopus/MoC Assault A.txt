@@ -1,0 +1,16 @@
+MoC Assault A.txt
+Per Field Manual Updates page 229
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Y-H9G Yu Huang,1
+BNC-3M Banshee,2
+LGB-7Q Longbow,3
+VTR-9K Victor,4
+STK-5M Stalker,5
+AWS-9Q Awesome,6
+AWS-9M Awesome,5
+AS7-D Atlas,4
+CP-11-G Cyclops,3
+T-IT-N10M Grand Titan,2
+PLG-3Z Pillager,1
+

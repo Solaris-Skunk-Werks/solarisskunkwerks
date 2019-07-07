@@ -1,0 +1,11 @@
+TBT-5N trebuchet(50), 1
+DV-6M Dervish(55), 2
+SHD-2D Shadow Hawk(55), 3
+CN9-A Centurion(50), 4
+ENF-4R Enforcer(50), 5
+PXH-1D Phoenix Hawk(45), 6
+GRF-1N Griffin(55), 5
+HBK-4G Hunchback(50), 4
+CN9-AH Centurion(50), 3
+BJ-3 Blackjack(45), 2
+HBK-4P Hunchback(50), 1

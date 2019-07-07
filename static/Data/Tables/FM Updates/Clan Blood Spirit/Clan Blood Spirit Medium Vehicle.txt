@@ -1,0 +1,16 @@
+Clan Blood Spirit Medium Vehicle.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Ku,1
+Bandit(C),2
+Hachiman,3
+Ku,4
+Maxim(C),5
+Bandit(C),6
+Maxim(C),5
+Bandit(C2),4
+Maxim(C),3
+Ares,2
+Ku,1
+

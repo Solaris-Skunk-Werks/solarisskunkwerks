@@ -1,0 +1,11 @@
+OTT-7J Ostscout(35), 1
+FS9-H Firestarter(35), 2
+SDR-5V Spider(30), 3
+STG-3R Stinger(20), 4
+JR7-D Jenner(35), 5
+WSP-1A Wasp(20), 6
+PNT-9R Panther(35), 5
+LCT-1V Locust(20), 4
+PNT-9R Panther(35), 3
+JVN-10N Javelin(30), 2
+MON-67 Mongoose(25), 1

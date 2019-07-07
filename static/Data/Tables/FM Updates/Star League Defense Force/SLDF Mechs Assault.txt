@@ -1,0 +1,16 @@
+SLDF Mechs Assault.txt
+Per Field Manual Updates page 222
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Mad Cat MkII,1
+BLR-CM Battlemaster,2
+TSH-7S Tai-sho,3
+BKW-7R Black Watch,4
+AS7-C Atlas,5
+VKG-2F Viking,6
+HGN-732 Highlander,5
+TLR1-O Templar,4
+OBK-M10 O-Bakemono,3
+AKU-1X Akuma,2
+Supernova,1
+

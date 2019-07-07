@@ -1,0 +1,17 @@
+Clan Fire Mandrill Protomechs.txt
+Per Field Manual Updates page 218
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Harpy 2,1
+Harpy 3,2
+Minotaur,3
+Centaur 2,4
+Hydra,5
+Gorgon 2,6
+Hydra 3,5
+Roc 2,4
+Roc 3,3
+Centaur 3,2
+Centaur,1
+
+

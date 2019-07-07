@@ -1,0 +1,11 @@
+HBK-4P Hunchback(50), 1
+TBT-5S Trebuchet(50), 2
+PXH-1 Phoenix Hawk(45), 3
+KTO-18 Kintaro(55), 4
+WVR-6R Wolverine(55), 5
+HCT-3F Hatchetman(45), 6
+GRF-1N Griffin(55), 5
+HBK-4G Hunchback(50), 4
+CN9-A Centurion(50), 3
+HBK-4SP Hunchback(50), 2
+TBT-5N Trebuchet(50), 1

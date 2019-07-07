@@ -1,0 +1,11 @@
+CRB-20 Crab(50), 1
+WVE-6N Wyvern(45), 2
+TBT-7K Trebuchet(50), 3
+HBK-4G Hunchback(50), 4
+WVR-6R Wolverine(55), 5
+PXH-1K Phoenix Hawk(45), 6
+SHD-2K Shadow Hawk(55), 5
+GRF-1N Griffin(55), 4
+CN9-A Centurion(50), 3
+WVR-6K Wolverine(55), 2
+KTO-18 Kintaro(55), 1

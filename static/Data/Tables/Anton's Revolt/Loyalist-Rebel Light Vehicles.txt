@@ -1,0 +1,11 @@
+Ferret Light Scout VTOL(5), 1
+Haraser(25), 2
+Saladin(35), 3
+Scorpion(25), 4
+Scimitar(35), 5
+GAL-100 Galleon(30), 6
+GAL-100 Galleon(30), 5
+Saracen(35), 4
+Pegasus(35), 3
+Harasser(LRM)(25), 2
+H7 Warrior VTOL(20), 1

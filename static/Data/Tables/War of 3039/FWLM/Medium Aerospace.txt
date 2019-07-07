@@ -1,0 +1,10 @@
+CSR-V12 Corsair(50), 1
+CSR-V12 Corsair(50), 2
+HCT-213 Hellcat(60), 3
+HCT-213 Hellcat(60), 4
+TR-10 Transit(50), 5
+Lightning(50), 6
+Lightning(50), 5
+Lightning(50), 4
+F-90 Stingray(60), 3
+TR-11 Transit(50), 2

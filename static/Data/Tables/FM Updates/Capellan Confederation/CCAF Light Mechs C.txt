@@ -1,0 +1,16 @@
+CCAF Light Mechs C.txt
+Per Field Manual Updates page 206
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+STG-6L Stinger,1
+RVN-3L Raven,2
+RVN-3L Raven,3
+STG-5R Stinger,4
+ABS-3R Anubis,5
+MCY-98 Mercury,6
+C-SK1 Cossack,5
+UM-R63 Urbanmech,4
+LCT-5V Locust,3
+D9-G9 Duan Gung,2
+OW-1 Owens,1
+

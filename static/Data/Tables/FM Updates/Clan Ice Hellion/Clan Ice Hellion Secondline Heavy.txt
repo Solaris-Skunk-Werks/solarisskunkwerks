@@ -1,0 +1,16 @@
+Clan Ice Hellion Secondline Heavy.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Grizzly,1
+Glass Spider 2,2
+Guillotine IIc,3
+Thresher,4
+Black Python,5
+Black Python,6
+Thresher,5
+Grizzly,4
+Thresher,3
+Glass Spider,2
+Predator,1
+

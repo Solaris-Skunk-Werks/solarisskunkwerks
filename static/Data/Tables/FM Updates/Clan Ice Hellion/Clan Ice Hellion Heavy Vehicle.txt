@@ -1,0 +1,16 @@
+Clan Ice Hellion Heavy Vehicle.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Magi,1
+Demon,2
+Magi,3
+Ishtar,4
+Oro,5
+Oro,6
+Ishtar,5
+Ishtar,4
+Magi,3
+Pike(C),2
+Ishtar,1
+

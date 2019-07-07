@@ -1,0 +1,16 @@
+FedSuns Med Aerospace.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+LCF-R16 Lucifer,1
+TR-10 Transit,2
+CSR-V20 Corsair,3
+F-90 Stingray,4
+Lightning,5
+CSR-V12 Corsair,6
+F-92 Stingray,5
+HCT-213 Hellcat,4
+LCF-R15 Lucifer,3
+LCF-R20 Lucifer,2
+HCT-213 Hellcat,1
+

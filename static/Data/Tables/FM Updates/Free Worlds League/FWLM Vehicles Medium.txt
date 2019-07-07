@@ -1,0 +1,16 @@
+FWLM Vehicles Medium.txt
+Per Field Manual Updates page 226
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Regulator Hovertank,1
+Goblin,2
+Hetzer,3
+Drillson,4
+Maxim,5
+Vedette,6
+Hetzer,5
+Condor,4
+Regulator,3
+Stygian,2
+Condor,1
+

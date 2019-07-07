@@ -1,0 +1,16 @@
+Com Guard Medium A.txt
+Per Field Manual Updates page 219
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+BEO-12 Beowulf,1
+CLNT-2-3U Clint,2
+TSN-1C Tessen,3
+BJ2-O Blackjack,4
+CRB-27 Crab,5
+SNT-3L Sentinel,6
+GRM-R-PR29 Grim Reaper,5
+FS9-O Firestarter,4
+KTO-21 Kintaro,3
+RJN101-A Raijin,2
+END-6Q Enfield,1
+

@@ -1,0 +1,24 @@
+Hover APC, 1
+Ferret Light Scout VTOL, 2
+Striker Light Tank, 3
+Warrior H-7 Attack Helicopter, 3
+Lightning, 2
+J. Edgar, 1
+Goblin Medium Tank, 1
+Vedette Medium Tank, 2
+Hetzer Wheeled Assault Gun, 3
+Condor, 3
+Goblin Medium Tank, 2
+Condor, 1
+Manticore Heavy Tank, 1
+AC/2 Carrier, 2
+Pike Support Vehicle, 3
+LRM Carrier, 3
+Von Luckner Heavy Tank, 2
+SRM Carrier, 1
+Behemoth Heavy Tank, 1
+Demolisher Heavy Tank, 2
+Partisan Heavy Tank, 3
+Demolisher Heavy Tank, 3
+Behemoth HeavyTank, 2
+Schrek PPC Carrier, 1

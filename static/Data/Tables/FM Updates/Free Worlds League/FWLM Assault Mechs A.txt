@@ -1,0 +1,16 @@
+FWLM Assault Mechs A.txt
+Per Field Manual Updates page 226
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ALB-3U Albatross,1
+GRN-D-01 Grand Crusader,2
+SRC-3C Sirrocco,3
+STK-5M Stalker,4
+AWS-9M Awesome,5
+BLR-5M BattleMaster,6
+LGB-7Q Longbow,5
+AS7-K Atlas,4
+T-IT-N10M Grand Titan,3
+SRC-3C Sirrocco,2
+MR-V2 Cerebus,1
+

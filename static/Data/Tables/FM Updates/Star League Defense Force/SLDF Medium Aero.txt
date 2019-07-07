@@ -1,0 +1,16 @@
+SLDF Medium Aero.txt
+Per Field Manual Updates page 222
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Tyre,1
+ON-1 Oni,2
+MIK-O Tatsu A,3
+HCT-213B Hellcat II,4
+SL-17R Shilone,5
+LCF-16 Lucifer,6
+CSR-V12 Corsair,5
+LCF-16KR Lucifer II,4
+MIK-O Tatsu,3
+F-92 Stingray,2
+Visigoth A,1
+

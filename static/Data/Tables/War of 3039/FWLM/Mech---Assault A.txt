@@ -1,0 +1,11 @@
+BNC-3Q Banshee(95), 1
+AS7-D Atlas(100), 2
+BNC-3M Banshee(95), 3
+STK-3H Stalker(85), 4
+AWS-8Q Awesome(80), 5
+BLR-1G Battlemaster(85), 6
+STK-3F Stalker(85), 5
+AWS-8V Awesome(80), 4
+GOL-1H Goliath(80), 3
+AS7-D Atlas(100), 2
+VTR-9B Victor(80), 1

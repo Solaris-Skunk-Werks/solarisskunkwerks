@@ -1,0 +1,16 @@
+DracCom Light Aerospace.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+SL-17AC Shilone,1
+IRN-SD1 Ironsides,2
+Lightning,3
+LCF-R16KR Lucifer,4
+LCF-R16K Lucifer,5
+SL-17 Shilone,6
+SL-17R Shilone,5
+HCT-213B Hellcat II,4
+CSR-V12 Corsair,3
+SL-17AC Shilone,2
+ON-1 Oni,1
+

@@ -1,0 +1,16 @@
+FWLM Vehicles Light.txt
+Per Field Manual Updates page 226
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Yellow Jacket Gunship,1
+Striker,2
+Mantis VTOL,3
+Plainsman,4
+Main Gauche,5
+Saracen,6
+Hawk Moth Gunship,5
+Pegasus,4
+Galleon,3
+Saladin,2
+Warrior VTOL,1
+

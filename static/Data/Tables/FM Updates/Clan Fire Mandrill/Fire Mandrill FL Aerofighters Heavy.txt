@@ -1,0 +1,16 @@
+Fire Mandrill FL Aerofighters Heavy.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Xerxes,1
+Jengiz A,2
+scytha C,3
+Kirghiz A,4
+Jengiz B,5
+Scytha B,6
+Kirghiz B,5
+Scytha A,4
+Scytha Prime,3
+Hydaspes,2
+Kirghiz Prime,1
+

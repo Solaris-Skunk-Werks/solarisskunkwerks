@@ -1,0 +1,16 @@
+Clan Fire Mandrill Secondline Medium.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Conjurer,1
+Conjurer,2
+WVE-5N Wyvern,3
+STN-3L Sentinel,4
+Shadow Hawk IIc,5
+Griffin IIc,6
+Griffin IIc,5
+Shadow Hawk IIc,4
+Hunchback IIc,3
+Vapor Eagle,2
+Vapor Eagle,1
+

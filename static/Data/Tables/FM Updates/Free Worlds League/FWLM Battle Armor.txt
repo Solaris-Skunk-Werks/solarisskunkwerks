@@ -1,0 +1,16 @@
+FWLM Battle Armor.txt
+Per Field Manual Updates page 
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ Tornado , 1
+ Achileus , 2
+ Achileus , 3
+ Achileus , 4
+ Standard , 5
+ Standard , 6
+ Standard , 5
+ Longinus , 4
+ Longinus , 3
+ Warhammer , 2
+ Warhammer , 1
+

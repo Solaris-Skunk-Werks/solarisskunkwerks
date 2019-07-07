@@ -1,0 +1,16 @@
+Wob Lite Aero.txt
+Per Field Manual Updates page 220
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+RGU-133F Rogue,1
+ZRO-114 Zero,2
+ZRO-114 Zero,3
+SPD-502 Spad,4
+SW-606 Swift,5
+TRN-3T Trident,6
+THK-63 Tomahawk,5
+F-12-S Cheetah,4
+RGU-133E Rogue,3
+RGU-133E Rogue,2
+THK-63 Tomahawk,1
+

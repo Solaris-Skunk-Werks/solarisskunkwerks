@@ -1,0 +1,16 @@
+Blood Spirit SL Aerofighters Light.txt
+Per Field Manual Updates page 211
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+THK-63 Tomahawk,1
+SWF-606 Swift,2
+Chaeronea,3
+RGU-133E Rogue,4
+Chaeronea,5
+TRN-3T Tridet,6
+SPD-502 Spad,5
+Chaerona,4
+Issus,3
+Chaeronea 2,2
+ZRO-114 Zero,1
+

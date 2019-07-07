@@ -1,0 +1,16 @@
+CCAF Vehicles Medium.txt
+Per Field Manual Updates page 206
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Drillson Hvy Hovertank,1
+Light SRM Carrier,2
+Maxim Hover Transport,3
+Hetzer Wheeled Assault Gun,4
+Vedette Med Tank,5
+Vedette Med Tank,6
+Hetzer Wheeled Assault Gun,5
+Regulator Hovertank,4
+Regulator Hovertank,3
+Condor Hvy Hovertank,2
+Gladius Med Hovertank,1
+

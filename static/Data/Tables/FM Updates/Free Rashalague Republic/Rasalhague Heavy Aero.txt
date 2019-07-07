@@ -1,0 +1,16 @@
+Rasalhague Heavy Aero.txt
+Per Field Manual Updates page 221
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+HSCL-1 Huscarl B,1
+HSCL-1 Huscarl C,2
+STU-K5 Stuka,3
+F-100 Riever,4
+EGL-R6 Eagle,5
+SL-15 Slayer,6
+SL-15R Slayer,5
+SL-15 Slayer,4
+TRB-D36 Thunderbird,3
+HSCL-1 Huscarl A,2
+HSCL-1 Huscarl,1
+

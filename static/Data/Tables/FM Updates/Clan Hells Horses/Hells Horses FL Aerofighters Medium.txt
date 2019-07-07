@@ -1,0 +1,16 @@
+Hells Horses FL Aerofighters Medium.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Jagatai A,1
+Turk B,2
+Visigoth A,3
+Turk C,4
+Visigoth C,5
+Jagatai Prime,6
+Visigoth Prime,5
+Turk Prime,4
+Visigoth B,3
+Turk A,2
+Jagatai B,1
+

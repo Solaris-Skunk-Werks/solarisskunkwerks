@@ -1,0 +1,19 @@
+OutworldsAlliance Medium Aero.txt
+Per Field Manual Updates page 231
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+IRN-SD1 Ironsides,1
+CSR-V20 Corsair,2
+LCF-R15 Lucifer,3
+SL-17 Shilone,4
+SL-17 Shilone,5
+LTN-G15 Lightning,6
+CSR-V12 Corsair,5
+CSR-v12 Corsair,4
+F-90 Stingray,3
+SL-17R Shilone,2
+SL-17R Shilone,1
+
+
+
+

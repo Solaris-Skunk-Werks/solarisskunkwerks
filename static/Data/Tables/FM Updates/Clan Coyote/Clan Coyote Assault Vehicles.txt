@@ -1,0 +1,16 @@
+Clan Coyote Assault Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Mars(XL),1
+Demolisher(C),2
+Mars,3
+Demolisher(C),4
+Mars,5
+Demolisher(C),6
+Mars,5
+Demolisher(C),4
+Huitzilopochtli,3
+Huitzilopochtli,2
+Huitzilopochtli,1
+

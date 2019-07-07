@@ -1,0 +1,11 @@
+BJ2-OA Blackjack(50)(3058), 1
+APL-1M Apollo(55)(3055), 2
+GRM-R-PR29 Grim Reaper(55)(3055), 3
+LGH-4W Lightray(55)(3067), 4
+INI-02 Initiate(40)(3060), 5
+FS9-O Firestarter(45)(3058), 6
+HBK-4G Hunchback(50)(3050), 5
+BCN-3R Buccaneer(55)(3060), 4
+RJN-200-A Raijin II(50)(3055), 3
+TBT-7M Trebuchet(50)(3050), 2
+BLF-21 Blue Flame(45)(3067), 1

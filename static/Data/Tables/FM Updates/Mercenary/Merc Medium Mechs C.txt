@@ -1,0 +1,16 @@
+Merc Medium Mechs C.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+NGS-4S Nightsky,1
+TR-1 Wraith,2
+STH-1D Stealth,3
+APL-1M Apollo,4
+WTC-4M Watchman,5
+CLN-7W Chameleon,6
+KW1-LH3 Lineholder,5
+BJ-2 Blackjack,4
+HUR-WO-R4L Huron Warrior,3
+KIM-2 Komodo,2
+BSW-X1 Bushwacker,1
+

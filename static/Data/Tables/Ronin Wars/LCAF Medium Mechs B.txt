@@ -1,0 +1,11 @@
+STK-3K Sentinel(40), 1
+VL-5T Vulcan(40), 2
+TBT-5S Trebuchet(50), 3
+SHD-2H Shadow Hawk(55), 4
+GRF-1S Griffin(55), 5
+PXH-1 Phoenix Hawk(45), 6
+HCT-3F Hatchetman(45), 5
+WVR-6R Wolverine(55), 4
+DV-6M Dervish(55), 3
+WVR-6R Wolverine(55), 2
+HBK-4SP Hunchback(50), 1

@@ -1,0 +1,16 @@
+Clan Cloud Cobra Medium Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Ares,1
+Chaparral,2
+Bandit(C),3
+Chaparral,4
+Bandit(C2),5
+Hachiman,6
+Ares,5
+Maxim(C),4
+Hachiman,3
+Epona C,2
+Epona A,1
+

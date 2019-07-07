@@ -1,0 +1,16 @@
+Wob Heavy Aero.txt
+Per Field Manual Updates page 220
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+SHV-O Shiva,1
+SHV-0 Shiva,2
+F-100B Riever,3
+RPR-100 Rapier,4
+RPR-100 Rapier,5
+HMR-HD Hammerhead,6
+AHB-443 Ahab,5
+AHB-443 Ahab,4
+F-700 Riever,3
+F-700 Riever,2
+F-700A Riever,1
+

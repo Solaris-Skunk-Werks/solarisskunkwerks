@@ -1,0 +1,33 @@
+ARC-2Rb Archer, 1
+CTS-6Y Cestus, 1
+CPLT-C1 Catapult, 1
+BMB-12D Bombardier, 1
+CRD-2R Crusader, 1
+WHM-7A Warhammer, 1
+GLT-3N Guillotine, 1
+CHP-1Nb Champion, 1
+GLH-2D Galahad, 1
+EXC-B2 Excalibur, 1
+MAD-2R Marauder, 1
+CHP-1N Champion, 1
+WHM-6Rb Warhammer, 1
+LNC25-01 Lancelot, 1
+OSR-2Cb Ostroc, 1
+ARC-2Rb Archer, 1
+TDR-5Sb Thunderbolt, 1
+EXC-B2b Excalibur, 1
+EXT-4Db Exterminator, 1
+ON1-V Orion, 1
+BL6-KNT Black Knight, 1
+BMB-12D Bombardier, 1
+GLH-2D Galahad, 1
+MAD-1R Marauder, 1
+ON1-V Orion, 1
+MAD-2R Marauder, 1
+BL6b-KNT Black Knight, 1
+FLS-8K Flashman, 1
+LNC25-01 Lancelot, 1
+ST-8A Shootist, 1
+CTS-6Y Cestus, 1
+TDR-5S Thunderbolt, 1
+WHM-7A Warhammer, 1

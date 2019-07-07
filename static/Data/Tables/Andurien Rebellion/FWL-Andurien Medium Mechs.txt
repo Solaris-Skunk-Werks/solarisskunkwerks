@@ -1,0 +1,11 @@
+SCP-1N Scorpion(55), 1
+CDA-2A Cicada(40), 2
+WVR-6M Wolverine(55), 3
+PXH-1 Phoenix Hawk(45), 4
+SHD-2H Shadow Hawk(55), 5
+GRF-1N Griffin(55), 6
+HER-2S Hermes II(40), 5
+WTH-1 Whitworth(30), 4
+HBK-4G Hunchback(50), 3
+TBT-5N Trebuchet(50), 2
+VL-2T Vulcan(40), 1

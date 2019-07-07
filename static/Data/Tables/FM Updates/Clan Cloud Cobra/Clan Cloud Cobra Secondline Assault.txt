@@ -1,0 +1,16 @@
+Clan Cloud Cobra Secondline Assault.txt
+Per Field Manual Updates page 213
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Bane,1
+Stone Rhino,2
+Bane 3,3
+Warhammer IIc 3,4
+Marauder IIc,5
+Supernova,6
+Highlander IIc,5
+Phoenix Hawk IIc 3,4
+Blood Kite,3
+Marauder IIc,2
+Kodiak,1
+

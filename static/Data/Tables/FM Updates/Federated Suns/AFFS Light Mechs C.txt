@@ -1,0 +1,16 @@
+AFFS Light Mechs C.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+OSR-4D Osiris,1
+RVN-3L Raven,2
+WLF-2 Wolfhound,3
+ALM-7D Fireball,4
+VLK-QD1 Valkyrie,5
+JVN-11D Javelin,6
+FS9-S1 Firestarter,5
+BH-K305 Battle Hawk,4
+DRT-4S Dart,3
+BZK-F3 Hollander,2
+SCB-9A Scarabus,1
+

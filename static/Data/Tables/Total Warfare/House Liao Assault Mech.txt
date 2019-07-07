@@ -1,0 +1,11 @@
+SRC-3C Sirocco(95)(3060), 1
+AWS-9M awesome(80)(3050), 2
+MR-V2 Cerberus(95)(3055), 3
+AS7-K Atlas(100)(3050), 4
+EMP-6A Emperor(90)(3058), 5
+AWS-8Q Awesome(80)(3025), 6
+STK-5M Stalker(85)(3050), 5
+PLG-3Z Pillager(100)(3058), 4
+T-IT-N10M grand Titan(100)(3055), 3
+CP-11-A Cyclops(90)(3050), 2
+Y-H9G Yu Huang(90)(3060), 1

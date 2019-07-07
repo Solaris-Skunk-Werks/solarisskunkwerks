@@ -1,0 +1,11 @@
+ASN-101 Assassin(40), 1
+WTH-1S Whitworth(40), 2
+VL-5T Vulcan(40), 3
+GRF-1N Griffin(55), 4
+CN9-A Centurion(50), 5
+ENF-4R Enforcer(50), 6
+PXH-1D Phoenix Hawk(45), 5
+SHD-2D Shadow Hawk(55), 4
+BJ-1DB Blackjack(45), 3
+BJ-1DC Blackjack(45), 2
+ASN-21 Assassin(40), 1

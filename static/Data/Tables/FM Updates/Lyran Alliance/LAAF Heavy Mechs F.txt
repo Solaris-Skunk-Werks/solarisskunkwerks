@@ -1,0 +1,16 @@
+LAAF Heavy Mechs F.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+CRD-5S Crusader,1
+CTF-3D Cataphract,2
+WHM-6R Warhammer,3
+TDR-5S Thunderbolt,4
+GHR-5H Grasshopper,5
+MAD-3R Marauder,6
+ARC-2R Archer,5
+CRD-3R Crusader,4
+RFL-3N Rifleman,3
+ON1-K Orion,2
+QKD-4G Quickdraw,1
+

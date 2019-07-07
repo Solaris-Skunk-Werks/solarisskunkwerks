@@ -1,0 +1,11 @@
+HTM-27U Hatamoto-Hi(80), 1
+KGC-000 King Crab(100), 2
+HTM-27V Hatamoto-Kaze(80), 3
+HGN-732 Highlander(90), 4
+CGR-1A9 Charger(80), 5
+HTM-27T Hatamoto-Chi(80), 6
+CRK-5003-2 Katana(85), 5
+HTM-27W Hatamoto-Ku, 4
+THG-11E Thug(80), 3
+HTM-27Y Hatamoto-Mizo(80), 2
+MAL-1R Mauler(80), 1

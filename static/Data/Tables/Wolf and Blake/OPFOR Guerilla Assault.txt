@@ -1,0 +1,10 @@
+Random Mech Assignment Table Opposing Force Guerilla Assault.txt
+Per Starterbook Wolf and Blake  page 67
+Copyright WizKids games & Catalyst Game Labs
+Entered in to RUS format by: Aaron "Bear" Gregory
+AS7-S Atlas(100)(3050U), 1
+STK-5M Stalker(85)(3050U), 1
+BNC-6S Banshee(95)(3050U), 1
+BLR-3M Battlemaster(85)(3050U), 1
+CGR-2A2 Charger(80)(3050U), 1
+KGC-000 King Crab(100)(3050U), 1

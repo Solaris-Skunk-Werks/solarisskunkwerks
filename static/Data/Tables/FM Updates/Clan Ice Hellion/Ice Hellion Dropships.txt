@@ -1,0 +1,16 @@
+Ice Hellion Dropships.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Sassanid,1
+Carrier,2
+Broadsword,3
+Titan,4
+Noruff,5
+Union-C,6
+Miraborg,5
+Overlord-C,4
+Union-C,3
+Lion,2
+Leopard CV,1
+

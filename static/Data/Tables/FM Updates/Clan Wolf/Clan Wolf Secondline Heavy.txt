@@ -1,0 +1,16 @@
+Clan Wolf Secondline Heavy.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+EXT-4D Exterminator,1
+FLS-8K Flashman,2
+Glass Spider,3
+Orion IIc,4
+Rifleman IIc,5
+Orion IIc,6
+Glass Spider 2,5
+BL-6-KNT Black Knight,4
+Rifleman IIc,3
+Glass Spider 2,2
+Linebacker Prime,1
+

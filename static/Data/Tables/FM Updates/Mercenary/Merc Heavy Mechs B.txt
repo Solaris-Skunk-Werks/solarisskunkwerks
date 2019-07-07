@@ -1,0 +1,16 @@
+Merc Heavy Mechs B.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+MDG-1A Rakshasa,1
+FLC-8R Falconer,2
+GAL-1GLS Gallowglas,3
+ANV-3M Anvil,4
+WHM-7M Warhammer,5
+TDR-9SE Thunderbolt,6
+PTR-4D Penetrator,5
+QKD-8K Quickdraw,4
+MAD-9M Marauder,3
+GAL-2GLS Gallowglas,2
+BNDR-01A Bandersnatch,1
+

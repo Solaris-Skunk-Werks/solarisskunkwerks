@@ -1,0 +1,16 @@
+Clan Nova Cat Secondline Light.txt
+Per Field Manual Updates page 223
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Snow Fox,1
+MON-66 Mongoose,2
+Jenner IIc,3
+Jenner IIc 2,4
+Pack Hunter,5
+Pack Hunter,6
+Incubus,5
+Jenner IIc 3,4
+Jenner IIc 2,3
+Incubus,2
+Hellio Prime,1
+

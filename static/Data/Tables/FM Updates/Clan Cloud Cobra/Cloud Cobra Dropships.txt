@@ -1,0 +1,16 @@
+Cloud Cobra Dropships.txt
+Per Field Manual Updates page 215
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Carrier,1
+Carrier,2
+Lion,3
+Noruff,4
+Overlord-C,5
+Union-C,6
+Titan,5
+Miraborg,4
+Lion,3
+Confederate,2
+Noruff,1
+

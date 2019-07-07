@@ -1,0 +1,16 @@
+Clan Wolf Secondline Assault.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Supernova,1
+Phoenix Hawk IIc,2
+Naga Prime,3
+CRK-5003-1 Crockett,4
+Naga A,5
+Warhammer IIc,6
+Supernova,5
+THG-11E Thug,4
+Marauder IIc,3
+KGC-000 King Crab,2
+Supernova,1
+

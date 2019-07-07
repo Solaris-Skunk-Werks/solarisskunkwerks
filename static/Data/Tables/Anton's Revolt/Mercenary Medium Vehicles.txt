@@ -1,0 +1,11 @@
+Goblin(45), 1
+Goblin(45), 2
+Maxim(50), 3
+Maxim(50), 4
+Vedette(50), 5
+Vedette(50), 6
+Vedette(50), 5
+Hetzer(40), 4
+Hetzer(40), 3
+Condor(50), 2
+Condor(50), 1

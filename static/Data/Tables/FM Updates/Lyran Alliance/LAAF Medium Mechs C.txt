@@ -1,0 +1,16 @@
+LAAF Medium Mechs C.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+PXH-3M Phoenix Hawk,1
+ENF-5D Enforcer,2
+STH-1D Stealth,3
+CLNT-2-3U Clint,4
+VL-5S Vulcan,5
+HCT-5S Hatchetman,6
+NGS-4S Nightsky,5
+CN9-D Centurion,4
+BSW-S2 Bushwacker,3
+GRF-6S Griffin,2
+SCP-12S Scorpion,1
+

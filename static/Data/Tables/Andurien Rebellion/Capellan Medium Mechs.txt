@@ -1,0 +1,11 @@
+SHD-2H Shadow Hawk(55), 1
+DV-6M Dervish(55), 2
+WHT-1 Whitworth(40), 3
+ENF-4R Enforcer(50), 4
+BJ-1 Blackjack(45), 5
+VND-1R Vindicator(45), 6
+PXH-1 Phoenix Hawk(45), 5
+GRF-1N Griffin(55), 4
+HBK-4G Hunchback(50), 3
+WVR-6R Wolverine(55), 2
+SCP-1N Scorpion(55), 1

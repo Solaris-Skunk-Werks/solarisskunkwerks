@@ -1,0 +1,16 @@
+FedSuns Hvy Aerospace.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+SL-15 Slayer,1
+CHP-W7 CHippewa,2
+CHP-W10 Chippewa,3
+Thunderbird,4
+Eagle,5
+STU-K5 Stuka,6
+STU-D6 Stuka,5
+TR-13 Transgressor,4
+Eagle,3
+TR-13A Transgressor,2
+F-700A Riever,1
+

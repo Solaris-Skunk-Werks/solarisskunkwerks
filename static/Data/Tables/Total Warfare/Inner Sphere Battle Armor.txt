@@ -1,0 +1,11 @@
+Kage(L), 1
+Infiltrator MkII(M), 2
+Fa Shih(M), 3
+Achileus(L), 4
+Gray Death Standard(M), 5
+Inner Sphere Standard(M), 6
+Raiden(M), 5
+Longinus(M), 4
+Purifier(M), 3
+Fenrir(A), 2
+Kanazuchi(A), 1

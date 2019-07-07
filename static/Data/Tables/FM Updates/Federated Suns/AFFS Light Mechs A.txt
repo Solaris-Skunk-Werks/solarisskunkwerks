@@ -1,0 +1,16 @@
+AFFS Light Mechs A.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+VLK-QD1 Valkyrie,1
+NTK-2Q Night Hawk,2
+GRM-O1C Garm,3
+BZK-F3 Hollander,4
+SDR-9K Venom,5
+RTX1-OA Raptor,6
+JVN-11D Javelin,5
+OW-1C Owens,4
+WLF-2 Wolfhound,3
+JA-KL-55 Jackal,2
+WLF-3S Wolfhound,1
+

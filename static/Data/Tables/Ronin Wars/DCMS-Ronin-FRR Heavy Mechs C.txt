@@ -1,0 +1,11 @@
+CPLT-K2 Catapult(65), 1
+OSR-2C Ostroc(60), 2
+QKD-4G Quickdraw(60), 3
+CRD-3R Crusader(65), 4
+DRG-1N Dragon(60), 5
+WHM-6R Warhammer(70), 6
+ARC-2R Archer(70), 5
+ON1-K Orion(75), 4
+GHR-5H Grasshopper(70), 3
+RFL-3N Rifleman(60), 2
+TDR-5S Thunderbolt(65), 1

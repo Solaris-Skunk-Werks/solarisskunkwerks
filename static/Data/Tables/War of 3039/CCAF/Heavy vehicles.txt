@@ -1,0 +1,11 @@
+Pike(60), 1
+Patton(65), 2
+LRM carrier(60), 3
+Manticore(60), 4
+Bulldog(60), 5
+SRM carrier(60), 6
+Po(60), 5
+Zhukov(75), 4
+Po(60), 3
+Pike(60), 2
+Rommel(65), 1

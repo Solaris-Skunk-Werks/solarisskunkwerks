@@ -1,0 +1,16 @@
+SLDF Military Dropships.txt
+Per Field Manual Updates page 222
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Overlord-A3,1
+Gazelle(upgrade),2
+Conquistador,3
+Leopard CV(upgrade),4
+Intruder(upgrade),5
+Overlord(upgrade),6
+Uion(upgrade),5
+Leopard(upgrade),4
+Triumph,3
+Okinawa,2
+Nekehono'o,1
+

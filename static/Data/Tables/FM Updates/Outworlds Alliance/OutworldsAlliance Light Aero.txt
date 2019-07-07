@@ -1,0 +1,20 @@
+OutworldsAlliance Light Aero.txt
+Per Field Manual Updates page 231
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+SPR-H5K Sparrowhawk,1
+CRX-O Corax,2
+SYD-Z2A Seydlitz,3
+CNT-1D Centurion,4
+SB-27 Sabre,5
+SYD-Z1 Seydlitz,6
+SPR-H5 Sparrowhawk,5
+SL-21 Sholagar,4
+SYD-Z2 Seydlitz,3
+SYD-Z4 Seydlitz,2
+SPD-502 Spad,1
+
+
+
+
+

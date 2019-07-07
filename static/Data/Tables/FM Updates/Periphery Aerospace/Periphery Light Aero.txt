@@ -1,0 +1,17 @@
+Periphery Light Aero.txt
+Per Field Manual Updates page 231
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+SPR-6D Sparrowhawk,1
+Sabre,2
+SPR-H5 Sparrowhawk,3
+F-10 Cheetah,4
+Sabre,5
+Centurion,6
+SYD-21 Seydlitz,5
+TR-7 Thrush,4
+SL-21 Shologar,3
+Centurion,2
+SYD-22 Seydlitz,1
+
+

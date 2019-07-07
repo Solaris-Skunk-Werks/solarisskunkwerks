@@ -1,0 +1,11 @@
+STC-2C Striker(80), 1
+GOL-1H Goliath(80), 2
+VTR-9B Victor(80), 3
+AS7-D Atlas(100), 4
+AWS-8Q Awesome(80), 5
+BLR-1G Battlemaster(85), 6
+STK-3F Stalker(85), 5
+LGB-7Q Longbow(85), 4
+BNC-3E Banshee(95), 3
+AWS-8V Awesome(80), 2
+CP-10-Z Cyclops(90), 1

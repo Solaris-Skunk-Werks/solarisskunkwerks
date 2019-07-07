@@ -1,0 +1,16 @@
+TC Medium A.txt
+Per Field Manual Updates page 229
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+BJ-2 Blackjack,1
+END-5D Enforcer,2
+DV-7D Dervish,3
+ENF-4R Enforcer,4
+MHL-X1 Marshal,5
+TBT-5N Trebuchet,6
+KW1-LH2 Lineholder,5
+VND-3L Vindicator,4
+MHL-2L Marshal,3
+BJ-3 Blackjack,2
+SHD-7M Shadow Hawk,1
+

@@ -1,0 +1,11 @@
+CDR-3R Crusader(65), 1
+CPLT-C4 Catapult(65), 2
+ARC-2R Archer(70), 3
+QKD-4G Quickdraw(60), 4
+CDR-3R Crusader(65), 5
+JM6-S JagerMech(65), 6
+MAD-3R Marauder(75), 5
+CPLT-C4 Catapult(65), 4
+GHR-5H Grasshopper(70), 3
+GHR-5H Grasshopper(70), 2
+ON1-K Orion(75), 1

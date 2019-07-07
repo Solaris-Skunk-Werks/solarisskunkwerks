@@ -1,0 +1,16 @@
+Clan Jade Falcon Frontline Medium.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Ice Ferret Prime,1
+Viper B,2
+Viper C,3
+Nova D,4
+Nova Prime,5
+Stormcrow Prime,6
+Black Lanner Prime,5
+Stormcrow A,4
+Black Lanner C,3
+Grendel Prime,2
+Phantom Prime,1
+

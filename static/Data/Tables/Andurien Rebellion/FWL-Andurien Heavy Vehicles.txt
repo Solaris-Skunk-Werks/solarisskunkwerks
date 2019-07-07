@@ -1,0 +1,11 @@
+Pike Support Vehicle(60), 1
+Pike Support Vehicle(60), 2
+Von Luckner(75), 3
+Bulldog(70), 4
+Bulldog(70), 5
+SRM Carrier(60), 6
+LRM Carrier(60), 5
+Manticore Heavy Tank(60), 4
+Manticore Heavy Tank(60), 3
+Von Luckner(75), 2
+LRM Carrier(60), 1

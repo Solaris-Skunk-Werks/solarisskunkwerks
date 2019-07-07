@@ -1,0 +1,11 @@
+Marauder MAD-5S,1
+Dragon DRG-1N,2
+Grasshopper GHR-5H,3
+Axman AXM-2N,4
+Archer ARC-5S,5
+Warhammer WHM-7S,6
+Quickdraw QKD-5M,5
+Caesar CES-3R,4
+Crusader CRD-5S,3
+Axman AXM-1N,2
+Falconer FLC-8R,1

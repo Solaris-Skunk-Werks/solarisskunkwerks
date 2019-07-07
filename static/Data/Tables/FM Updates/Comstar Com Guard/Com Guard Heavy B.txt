@@ -1,0 +1,16 @@
+Com Guard Heavy B.txt
+Per Field Manual Updates page 219
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+BL-9-KNT Black Knight,1
+AV1-O Avatar,2
+BMB-12D Bombardier,3
+BL-6-KNT Black Knight,4
+LNC25-01 Lancelot,5
+GLT-3N Guillotine,6
+FLS-8K Flashman,5
+CHP-1N Champion,4
+EXT-4D Exterminator,3
+ST-8A Shootist,2
+EXC-B2 Excalibur,1
+

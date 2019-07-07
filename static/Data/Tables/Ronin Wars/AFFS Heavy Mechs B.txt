@@ -1,0 +1,11 @@
+RFL-4D Rifleman(60), 1
+JM6-A JagerMech(65), 2
+RFL-3N Rifleman(60), 3
+WHM-6R Warhammer(70), 4
+ARC-2R Archer(70), 5
+MAD-3D Marauder(75), 6
+RFL-3N Rifleman(60), 5
+CRD-3D Crusader(65), 4
+JM6-S JagerMech(65), 3
+TDR-5S Thunderbolt(65), 2
+WHM-6D Warhammer(70), 1

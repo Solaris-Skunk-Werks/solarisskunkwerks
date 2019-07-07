@@ -1,0 +1,16 @@
+Clan Hells Horses Frontline Assault.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Dire Wolf H,1
+Kingfisher Prime,2
+Warhawk B,3
+Executioner Prime,4
+Executioner A,5
+Gargoyle C,6
+Gargoyle Prime,5
+Warhawk Prime,4
+Naga Prime,3
+Dire Wolf S,2
+Warhawk H,1
+

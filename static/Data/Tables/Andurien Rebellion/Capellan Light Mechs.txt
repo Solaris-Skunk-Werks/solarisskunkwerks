@@ -1,0 +1,11 @@
+UM-R60L UrbanMech(30), 1
+SDR-5V Spider(30), 2
+RVN-1X Raven(30), 3
+WSP-1L Wasp(20), 4
+UM-R60 UrbanMech(30), 5
+STG-3G Stinger(20), 6
+STG-3G Stinger(20), 5
+JVN-10N Javelin(30), 4
+OTT-7J Ostscout(35), 3
+LCT-1V Locust(20), 2
+LCT-1V Locust(20), 1

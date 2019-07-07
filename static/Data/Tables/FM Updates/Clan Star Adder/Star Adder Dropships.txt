@@ -1,0 +1,16 @@
+Star Adder Dropships.txt
+Per Field Manual Updates page 210
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Miraborg,1
+Noruff,2
+Union-C,3
+Titan,4
+Lion,5
+Overlord-C,6
+Union-C,5
+Overlord-C,4
+Triumph,3
+Sassanid,2
+Fortress,1
+

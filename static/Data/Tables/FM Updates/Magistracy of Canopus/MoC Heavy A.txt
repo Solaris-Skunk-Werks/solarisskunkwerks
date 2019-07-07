@@ -1,0 +1,16 @@
+MoC Heavy A.txt
+Per Field Manual Updates page 229
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+TSG-9H Ti Ts'ang,1
+HRC-LS-9000 Hercules,2
+GAL-1GLS Gallowglas,3
+ON1-M Orion,4
+THR-1L Thunder,5
+CTF-3L Cataphract,6
+GHR-5J Grasshopper,5
+WR-DG-01-FC War Dog,4
+CTF-3D Cataphract,3
+JN-G8A Jinggau,2
+OSR-4L Ostroc,1
+

@@ -1,0 +1,16 @@
+DracCom Military Dropships.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Nagumo,1
+COndor,2
+Intruder,3
+Excalibur,4
+Leopard CV,5
+Union,6
+Leopard,5
+Overlord,4
+Triumph,3
+Okinawa,2
+Nekehono'o,1
+

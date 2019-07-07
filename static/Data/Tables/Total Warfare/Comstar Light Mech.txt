@@ -1,0 +1,11 @@
+SPR-5F Spector(35)(3058), 1
+HSR-200-D Hussar(30)(3050), 2
+THE-N Thorn(20)(3050), 3
+MCY-99 Mercury(20)(3050), 4
+HER-1S Hermes(30)(3050), 5
+RTX-O Raptor(25)(3058), 6
+OW-1 Owens(35)(3058), 5
+HM-1 Hitman(30)(3055), 4
+RTX1-O Raptor(25)(3058), 3
+C-SK1 Cossack(20)(3060), 2
+OTT-9CS Ostscout(35)(PP), 1

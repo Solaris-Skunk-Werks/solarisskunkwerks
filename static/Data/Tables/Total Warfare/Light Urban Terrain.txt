@@ -1,0 +1,6 @@
+City(Residential)(MS6,MSC2),1
+City(Suburbs)(MS6,MSC2),1
+City(Hills/Residential) #1(MS3,MSC1),1
+City(Hills/Residential) #2(MS3,MSC1),1
+City Street Grid/Park #1(MS4,MSC1),1
+City Street Grid/Park #2(MS4,MSC1),1

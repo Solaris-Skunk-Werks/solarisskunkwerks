@@ -1,0 +1,16 @@
+LAAF Light Mechs C.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+NTK-2Q Night Hawk,1
+WLF-2 Wolfhound,2
+BZK-F3 Hollander,3
+SDR-5V Spider,4
+FS9-S Firestarter,5
+COM-5S Commando,6
+JR7-D Jenner,5
+JVN-10P Javelin,4
+LCT-3S Locust,3
+COM-2D Commando,2
+TLN-5W Talon,1
+

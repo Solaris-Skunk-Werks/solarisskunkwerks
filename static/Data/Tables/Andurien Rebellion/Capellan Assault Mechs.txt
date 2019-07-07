@@ -1,0 +1,11 @@
+STC-2C Strikerr(80), 1
+AS7-D Atlas(100), 2
+AWS-8Q Awesome(80), 3
+BLR-1G Battlemaster(85), 4
+BLR-1G Battlemaster(85), 5
+CGR-1A1 Charger(80), 6
+GOL-1H Goliath(80), 5
+AWS-8Q Awesome(80), 4
+BNC-3E Banshee(95), 3
+BNC-3E Banshee(95), 2
+AWS-8Q Awesome(80), 1

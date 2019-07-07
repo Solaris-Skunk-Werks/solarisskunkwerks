@@ -1,0 +1,16 @@
+Clan Fire Mandrill Frontline Assault.txt
+Per Field Manual Updates page 207
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Turkina B,1
+Turkina A,2
+Warhawk H,3
+Warhawk C,4
+Gargoyle A,5
+Warhawk A,6
+Warhawk Prime,5
+Gargoyle Prime,4
+Turkina Prime,3
+Gargoyle A,2
+Turkina C,1
+

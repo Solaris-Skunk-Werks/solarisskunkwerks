@@ -1,0 +1,16 @@
+Clan Steel Viper Light Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Indra,1
+Asshur,2
+Donar VTOL,3
+Mithras,4
+Odin,5
+Donar VTOL,6
+Mithras,5
+Zorya,4
+Svantovit,3
+Indra,2
+Asshur,1
+

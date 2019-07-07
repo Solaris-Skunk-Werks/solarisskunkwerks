@@ -1,0 +1,11 @@
+Mon O'War H(80)(3050), 1
+Daishi H(100)(3050), 2
+Masakari C(85)(3050), 3
+Gladiator D(95)(3050), 4
+Daishi C(100)(3050), 5
+Man O'War Prime(80)(3050), 6
+Gladiator Prime(95)(3050), 5
+Man O'War A(80)(3050), 4
+Daishi Prime(100)(3050), 3
+Masakari Prime(85)(3050), 2
+Supernova(90)(3058), 1

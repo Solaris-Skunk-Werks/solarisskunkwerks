@@ -1,0 +1,16 @@
+TC Heavy B.txt
+Per Field Manual Updates page 229
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+GHR-5N Grasshopper,1
+BL6-KNT Black Knight,2
+MAD-3R Marauder,3
+ARC-2R Archer,4
+ON1-K Orion,5
+GHR-5H Grasshopper,6
+CPLT-C1 Catapult,5
+WHM-6R Warhammer,4
+TDR-5S Thunderbolt,3
+QKD-5M Quickdraw,2
+Gal-1GLS Gallowglas,1
+

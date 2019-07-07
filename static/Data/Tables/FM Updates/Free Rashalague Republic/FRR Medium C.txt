@@ -1,0 +1,16 @@
+FRR Medium C.txt
+Per Field Manual Updates page 221
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+STN-3M Sentinel,1
+HBK-5M Hunchback,2
+WTH-2 Whitworth,3
+VL-2T Vulcan,4
+HBK-4G Hunchback,5
+GRF-1S Griffin,6
+PXH-1K Phoenix Hawk,5
+WVR-6K Wolverine,4
+ASN-23 Assassin,3
+CRB-27 Crab,2
+KTO-20 Kintaro,1
+

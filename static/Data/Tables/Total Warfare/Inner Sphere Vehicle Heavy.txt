@@ -1,0 +1,11 @@
+Manticore(60)(3058), 1
+LRM Carrier(60)(3058), 2
+LRM Carrier(60)(3026), 3
+Po(60)(3026), 4
+Patton(65)(3025), 5
+Manticore(60)(3026), 6
+Rommel(65)(3025), 5
+Von Luckner(75)(3025), 4
+SRM Carrier(60)(3026), 3
+SRM Carrier(60)(3058), 2
+Von Luckner(75)(3058), 1

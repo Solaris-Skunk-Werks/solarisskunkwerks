@@ -1,0 +1,11 @@
+BNC-3Q Banshee(95), 1
+AWS-8R Awesome(80), 2
+CP-10-Z Cyclops(90), 3
+BNC-3M Banshee(95), 4
+VTR-9B Victor(80), 5
+STK-3F Stalker(85), 6
+AWS-8Q Awesome(80), 5
+STK-4N Stalker(85), 4
+AS7-D Atlas(100), 3
+AWS-8T Awesome(80), 2
+STK-3H Stalker(85), 1

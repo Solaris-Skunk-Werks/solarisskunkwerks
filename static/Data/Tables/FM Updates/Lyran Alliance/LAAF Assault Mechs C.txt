@@ -1,0 +1,16 @@
+LAAF Assault Mechs C.txt
+Per Field Manual Updates page 227
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+GOL-4S Goliath,1
+PPR-5T Salamander,2
+HGN-732 Highlander,3
+VTR-9K Victor,4
+STK-5S Stalker,5
+ZEU-9S Zeus,6
+BNC-5S Banshee,5
+AS7-S Atlas,4
+AWS-8Q Awesome,3
+BZR-B3 Berserker,2
+CP-11-A Cyclops,1
+

@@ -1,0 +1,11 @@
+Jenner IIC (Standard),1
+Locust IIC (Standard),2
+Fire Falcon Prime,3
+Vixen (Incubus) (Standard),4
+Peregrine (Horned Owl) (Standard),5
+Uller (Kit Fox) Prime,6
+Baboon (Howler) (Standard),5
+Puma (Adder) Prime,4
+Cougar Prime,3
+Dasher (Fire Moth) Prime,2
+Koshi (Mist Lynx) Prime,1

@@ -1,0 +1,16 @@
+Clan Diamond Shark Frontline Heavy.txt
+Per Field Manual Updates page 212
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Timber Wolf Prime,1
+Cauldron-Born Prime,2
+Summoner D,3
+Cauldron-Born A,4
+Mad Dog B,5
+Mad Dog A,6
+Cauldron Born B,5
+Cauldron-Born H,4
+Hellbringer Prime,3
+Mad Dog Prime,2
+Nova Cat Prime,1
+

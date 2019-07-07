@@ -1,0 +1,16 @@
+Clan Nova Cat Frontline Medium.txt
+Per Field Manual Updates page 223
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Nova Prime,1
+Stormcrow C,2
+Huntsman B,3
+Shadow Cat A,4
+Stormcrow Prime,5
+Huntsman A,6
+Huntsman Prime,5
+Shadow Cat Prime,4
+Huntsman D,3
+Stormcrow H,2
+Pouncer D,1
+

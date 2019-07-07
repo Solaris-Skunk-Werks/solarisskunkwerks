@@ -1,0 +1,11 @@
+GTHA-500b Gotha, 1
+LTG-G15b Lightning, 1
+HCT-213	Hellcat, 1
+IRN-SD1	Ironsides, 1
+HCT-213B Hellcat II, 1
+GTHA-500 Gotha, 1
+CSR-V12	Corsair, 1
+HCT-213	Hellcat, 1
+LTN-G15	Lightning, 1
+HCT-213B Hellcat II, 1
+IRN-SD1b Ironsides, 1

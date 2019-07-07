@@ -1,0 +1,16 @@
+Clan Blood Spirit Secondline Medium.txt
+Per Field Manual Updates page 208
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Griffin IIc 3,1
+CRB-27 Crab,2
+Vapor Eagle,3
+Griffin IIc,4
+Shadow Hawk IIc,5
+Conjurer,6
+Conjurer,5
+Shadow Hawk IIc,4
+Griffin IIc 4,3
+CRB-27 Crab,2
+Hunchback IIc,1
+

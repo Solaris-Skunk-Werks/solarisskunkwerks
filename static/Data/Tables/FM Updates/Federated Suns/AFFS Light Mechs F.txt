@@ -1,0 +1,16 @@
+AFFS Light Mechs F.txt
+Per Field Manual Updates page 225
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+UM-R70 UrbanMech,1
+DRT-3S Dart,2
+WLF-2 Wolfhound,3
+FS9-H Firestarter,4
+JVN-10N Javelin,5
+JVN-10F Javelin,6
+FS9-S Firestarter,5
+VLK-QD3 Valkyrie,4
+COM-2D Commando,3
+HNT-171 Hornet,2
+JVN-11D Javelin,1
+

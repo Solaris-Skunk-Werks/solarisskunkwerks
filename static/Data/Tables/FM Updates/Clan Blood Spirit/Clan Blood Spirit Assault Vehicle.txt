@@ -1,0 +1,16 @@
+Clan Blood Spirit Assault Vehicle.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Demolisher(C),1
+Huitzilopochtli,2
+Mars,3
+Morrigu(laser),4
+Morrigu,5
+Demolisher(C),6
+Morrigu,5
+Demolisher(C),4
+Huitzilopochtli,3
+Morrigu(laser),2
+Mars,1
+

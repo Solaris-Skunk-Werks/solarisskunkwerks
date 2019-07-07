@@ -1,0 +1,16 @@
+Com Guard Light Vehicles.txt
+Per Field Manual Updates page 219
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Rotunda,1
+Gabriel,2
+Beagle,3
+Chevalier,4
+Cyrano VTOL,5
+Nightshade VTOL,6
+Galleon,5
+Pinto,4
+Ripper VTOL,3
+Lightning,2
+Scimitar,1
+

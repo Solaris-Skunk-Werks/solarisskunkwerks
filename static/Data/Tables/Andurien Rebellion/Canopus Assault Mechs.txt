@@ -1,0 +1,11 @@
+AS7-D Atlas(100), 1
+CGR-1A1 Charger(80), 2
+BNC-3E Banshee(95), 3
+VTR-9B Victor(80), 4
+AWS-8Q Awesome(80), 5
+BNC-3E Banshee(95), 6
+CGR-1A1 Charger(80), 5
+AWS-8Q Awesome(80), 4
+STK-3F Stalker(85), 3
+STK-3F Stalker(85), 2
+CP-10-Z Cyclops(90), 1

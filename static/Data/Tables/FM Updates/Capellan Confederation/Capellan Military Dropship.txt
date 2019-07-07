@@ -1,0 +1,16 @@
+Capellan Military Dropship.txt
+Per Field Manual Updates page 206 
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Overlord-A3,1
+Avenger,2
+Leopard CV,3
+Overlord,4
+Triumph,5
+Union,6
+Leopard,5
+Lung Wang,4
+Excalibur,3
+Kuan Ti,2
+Kuan Ti,1
+

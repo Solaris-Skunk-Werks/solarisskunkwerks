@@ -1,0 +1,16 @@
+Clan Snow Raven Medium Vehicles.txt
+Per Field Manual Updates page 214
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Ares,1
+Enyo,2
+Ku,3
+Hachiman,4
+Ares,5
+Ku,6
+Ares,5
+Hachiman,4
+Ares,3
+Enyo,2
+Ares,1
+

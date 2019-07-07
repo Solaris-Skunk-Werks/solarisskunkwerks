@@ -1,0 +1,16 @@
+CCAF Heavy Mechs D.txt
+Per Field Manual Updates page 206
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+MAD-4L Marauder,1
+GHR-5H Grasshopper,2
+OSR-2C Ostroc,3
+CPLT-C3 Catapult,4
+CES-3R Ceasar,5
+CTF-2X Cataphract,6
+CTF-2X Cataphract,5
+TDR-5S Thunderbolt,4
+ON1-VA Orion,3
+WHM-6L Warhammer,2
+ON1-K Orion,1
+

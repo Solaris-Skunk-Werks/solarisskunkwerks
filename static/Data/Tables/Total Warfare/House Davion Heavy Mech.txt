@@ -1,0 +1,11 @@
+TNS-4S Thanatos(75)(3067), 1
+OTL-6D Ostsol(60)(PP), 2
+AXM-1N Axman(65)(3050), 3
+CES-3R Ceasar(70)(3050), 4
+PTR-4D Penetrator(75)(3055), 5
+JM6-DD JagerMech(65)(3050), 6
+FLC-8R Falconer(75)(3055), 5
+JM6-D3 JagerMech III(65)(3060), 4
+WHM-8D Warhammer(70)(PP), 3
+CTF-3D Cataphract(70)(3050), 2
+RFL-8D Rifleman(60)(PP), 1

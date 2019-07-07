@@ -1,0 +1,17 @@
+Clan Jade Falcon Assault Vehicles.txt
+Per Field Manual Updates page 209
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Huitzilopochtli,1
+Mars,2
+Huitzilopochtli,3
+Mars,4
+Huitzilopochtli,5
+Huitzilopochtli,6
+Huitzilopochtli,5
+Mars,4
+Huitzilopochtli,3
+Mars,2
+Huitzilopochtli,1
+
+

@@ -1,0 +1,16 @@
+Snow Raven SL Aerofighters Light.txt
+Per Field Manual Updates page 216
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+THK-63 Tomahawk,1
+SWF-606 Swift,2
+Avar A,3
+Chaeronea 3,4
+Sulla A,5
+Bashkir Prime,6
+Vandal C,5
+Avar Prime,4
+Sulla B,3
+ZRO-114 Zero,2
+Corax,1
+

@@ -1,0 +1,11 @@
+TDR-5S Thunderbolt(65), 1
+WHM-6L Warhammer(70), 2
+CPLT-C1 Catapult(65), 3
+WHM-6R Warhammer(70), 4
+MAD-3L Marauder(75), 5
+GHR-5H Grasshopper(70), 6
+RFL-3N Rifleman(60), 5
+OSR-3C OStroc(60), 4
+CRD-3L Crusader(65), 3
+CTF-1X Cataphract(70), 2
+CTF-2X Cataphract(70), 1

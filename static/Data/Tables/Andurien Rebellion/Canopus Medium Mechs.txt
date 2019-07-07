@@ -1,0 +1,11 @@
+BJ-1 Blackjack(45), 1
+ASN-21 Assassin(40), 2
+HBK-4G Hunchback(50), 3
+CN9-A Centurion(50), 4
+TBT-5N Trebuchet(50), 5
+PXH-1 Phoenix Hawk(45), 6
+SDH-2H Shadow Hawk(55), 5
+WHT-1 Whitworth(40), 4
+BJ-1 Blackjack(45), 3
+ASN-21 Assassin(40), 2
+CDA-2A Cicada(40), 1

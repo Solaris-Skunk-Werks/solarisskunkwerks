@@ -1,0 +1,16 @@
+Merc Medium Mechs D.txt
+Per Field Manual Updates page 228
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+TBT-7N Trebuchet,1
+GRF-3M Griffin,2
+SHD-2K Shadow Hawk,3
+VND-3L Vindicator,4
+HBK-5N Hunchback,5
+PXH-1D Phoenix Hawk,6
+WHT-2 Whitworth,5
+BJ-2 Blackjack,4
+HCT-3F Hatchetman,3
+WVR-10D Wolverine,2
+WTC-4M Watchman,1
+

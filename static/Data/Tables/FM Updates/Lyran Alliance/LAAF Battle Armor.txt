@@ -1,0 +1,16 @@
+LAAF Battle Armor.txt
+Per Field Manual Updates page 
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+ Nighthawk MK XXI , 1
+ GDL Scout , 2
+ Infiltrator , 3
+ Infiltrator , 4
+ GDL Standard , 5
+ Standard , 6
+ Standard , 5
+ sloth , 4
+ Sloth , 3
+ Fenrir , 2
+ Fenrir , 1
+

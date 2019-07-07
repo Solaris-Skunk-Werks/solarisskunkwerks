@@ -1,0 +1,11 @@
+War Dog WR-DG-02FC,1
+Gallowglas GAL-1GLS,2
+Penetrator PTR-4D,3
+Falconer FLC-8R,4
+Archer ARC-5S,5
+Caesar CES-3R,6
+Cataphract CTF-3D,5
+Rifleman RFL-5D,4
+JagerMech JM6-DD,3
+Axman AXM-1N,2
+Rakshasa MDG-1A,1

@@ -1,0 +1,44 @@
+Hornet HNT-151,1
+Stinger STG-3Gb,2
+Thorn THE-Nb,3
+Mercury MCY-99,4
+Wasp WSP-1A,5
+Mongoose MON-66,6
+Night Hawk NTK-2Q,5
+Falcon FLC-4N,4
+Talon TLN-5V,3
+Firefly FFL-3A,2
+Locust LCT-1Vb,1
+Shadow Hawk SHD-2Hb,1
+Kintaro KTO-19b,2
+Kyudo KY2-D-02,3
+Wyvern WVE-5N,4
+Phoenix Hawk PXH-2,5
+Crab CRB-27,6
+Hunchback HBK-4G,5
+Wolverine WVR-6R,4
+Lynx LNX-9Q,3
+Phoenix Hawk PXH-1b "Special",2
+Crab CRB-27b,1
+Marauder MAD-1R,1
+Warhammer WHM-6R,2
+Lancelot LNC25-05,3
+Crusader CRD-2R,4
+Flashman FLS-8K,5
+Bombardier BMB-12D,6
+Black Knight BL-6-KNT,5
+Guillotine GLT-3N,4
+Archer ARC-2R,3
+Thunderbolt TDR-5Sb,2
+Warhammer WHM-6Rb,1
+Thug THG-11Eb,1
+Highlander HGN-732b,2
+Striker STC-2C,3
+Longbow LGB-7Q,4
+Stalker STK-3F,5
+Highlander HGN-732,6
+Pillager PLG-3Z,5
+Atlas AS7-D,4
+Longbow LGB-7Q,3
+Rifleman II RFL-3N-2,2
+BattleMaster BLR-1Gbc,1

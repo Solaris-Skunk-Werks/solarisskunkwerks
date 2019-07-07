@@ -1,0 +1,11 @@
+ZPH-1A Tarantula(25)(3055), 1
+ZPH-1A Tarantula(25)(3055), 2
+JA-KL-1532 Jackal(30)(3050), 3
+HER-3S Hermes(30)(3050), 4
+SDR-7M Spider(30)(3050), 5
+HMR-3M Hammer(30)(3055), 6
+HMR-3M Hammer(30)(3055), 5
+JR7-D Jenner(35)(3025), 4
+HER-3S Hermes(30)(3050), 3
+FNHK-9K Falcon Hawk(25)(3055), 2
+ZPH-1A Tarantula(25)(3055), 1

@@ -1,0 +1,16 @@
+DCMS Heavy Mechs A.txt
+Per Field Manual Updates page 224
+Copyright WizKids games & FANPRO
+Entered in to RUS format by: Aaron "Bear" Gregory
+Cauldron-Born,1
+SJA-7D Shugenja,2
+DRG-3F Dragon Fire,3
+CRD-8K Crusader,4
+BHKU-O Black Hawk-KU,5
+DRG-5K Grand Dragon,6
+AV1-O Avatar,5
+NDA-1K No-Dachi,4
+MTR-5K Maelstrom,3
+NDA-1KO No-Dachi,2
+NJT-2 Ninja-To,1
+

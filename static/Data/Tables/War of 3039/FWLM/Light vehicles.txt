@@ -1,0 +1,11 @@
+Peregrine(30), 1
+Striker(35), 2
+J. Edgar(25), 3
+Plainsman(35), 4
+Saracen(35), 5
+Harasser(25), 6
+Scimitar(35), 5
+Pegasus(35), 4
+Galleon(30), 3
+Saladin(25), 2
+Warrior(20), 1

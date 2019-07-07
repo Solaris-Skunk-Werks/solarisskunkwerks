@@ -1,0 +1,11 @@
+Pegasus(35), 1
+Saladin(35), 2
+Harasser(25), 3
+Hunter(35), 4
+Saracen(35), 5
+Scorpion(25), 6
+Scorpion(25), 5
+Galleon(30), 4
+Warrior VTOL(20), 3
+Ferret Light Scout VTOL(5), 2
+Scimitar(350, 1
