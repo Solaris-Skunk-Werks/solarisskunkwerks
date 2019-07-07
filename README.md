@@ -7,9 +7,9 @@ Some notes about how to download a release and get started using the application
 ## Building From Source
 Development of this project currently requires the [NetBeans IDE](https://netbeans.apache.org/download/index.html).
 
-1. Clone this repository as well as [SSWlib](https://github.com/WEKarnesky/sswlib).
-2. Open the `SSW` project in NetBeans. You should get an error about `SSWlib` missing. Click Resolve to point it to the cloned `SSWlib` directory.
-3. Right click on the `SSW` project and go to the `Run` tab. Change the working directory to `./dist`.
+1. Clone this repository with `git clone --recursive https://github.com/WEKarnesky/solarisskunkwerks`.
+2. Open the project with NetBeans.
+3. To be able to run the application directly from the NetBeans IDE, right click on the SSW project and go to the Run tab, then change the working directory to `./dist`.
 4. Right click the `SSW` project and click `Build`. From now on you can launch the application from `./dist` with `java -jar SSW.jar` or from NetBeans with the `Run Main Project` menu.
 
 ## Contributing
