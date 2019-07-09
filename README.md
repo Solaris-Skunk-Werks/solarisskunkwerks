@@ -2,7 +2,7 @@
 Brief description of the project goes here.
 
 ## Getting Started
-Some notes about how to download a release and get started using the application.
+Download the [latest release](https://github.com/WEKarnesky/solarisskunkwerks/releases) and extract it into the desired directory. You can then launch the application on some platforms by double-clicking `SSW.jar` or from the command line with `java -jar SSW.jar`.
 
 ## Building From Source
 Development of this project currently requires the [NetBeans IDE](https://netbeans.apache.org/download/index.html).
