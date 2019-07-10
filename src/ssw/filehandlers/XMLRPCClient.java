@@ -39,6 +39,7 @@ import java.net.URLEncoder;
 import java.util.Vector;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.XMLConstants;
 import org.w3c.dom.*;
 import components.AvailableCode;
 import components.Mech;
@@ -318,6 +319,11 @@ public class XMLRPCClient {
     private Document GetXML( InputStream is ) throws Exception {
         Document retval;
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+        dbf.setAttribute(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);
+        dbf.setExpandEntityReferences(false);
+        
         DocumentBuilder db = dbf.newDocumentBuilder();
         retval = db.parse( is );
         if( retval.hasChildNodes() ) {
