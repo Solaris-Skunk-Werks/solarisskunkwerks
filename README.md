@@ -13,4 +13,8 @@ Development of this project currently requires the [NetBeans IDE](https://netbea
 4. Right click the `SSW` project and click `Build`. From now on you can launch the application from `./dist` with `java -jar SSW.jar` or from NetBeans with the `Run Main Project` menu.
 
 ## Contributing
-First, fork this repository and create a new branch for your feature. Commit your changes and then submit a pull request to the `develop` branch to have your changes reviewed and merged.
+SSW's development workflow generally follows the git workflow described [here](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow). In summary:
+
+1. Fork this repository and clone your copy locally with `--recursive`.
+2. Checkout the `develop` branch and create a new branch for your feature or bug fix.
+3. Commit your changes to your branch and then submit a pull request to merge into `develop`.
