@@ -1,5 +1,5 @@
 # Solaris Skunk Werks
-Solaris Skunk Werks is a tool used to design Battlemechs for use with the Battletech tabletop wargame.
+Solaris Skunk Werks is a community-supported tool used to design Battlemechs for use with the Battletech tabletop wargame.
 
 ## Getting Started
 Download the [latest release](https://github.com/WEKarnesky/solarisskunkwerks/releases) and extract it into the desired directory. You can then launch the application on some platforms by double-clicking `SSW.jar` or from the command line with `java -jar SSW.jar`.
