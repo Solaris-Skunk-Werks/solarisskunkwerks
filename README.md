@@ -18,4 +18,4 @@ SSW's development workflow generally follows the git workflow described [here](h
 1. Fork this repository and clone your copy locally with `--recursive`.
 2. If you're implementing a bug fix, checkout the `hotfix` branch.
 3. If you're implementing a new feature, checkout the `develop` branch.
-4. Commit your changes to your branch and then submit a pull request. Features should be merged into `develop` while bug fixes should be merged into `hotfix`.
+4. Create a new branch and commit your changes, then submit a pull request. Features should be merged into `develop` while bug fixes should be merged into `hotfix`.
