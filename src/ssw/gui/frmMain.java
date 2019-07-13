@@ -11217,6 +11217,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
             
             CurMech.SetBiped();
+            SetPatchworkArmor();
             // internal structure is always reset to standard on changing the
             // motive type.
             cmbInternalType.setSelectedIndex( 0 );
@@ -11230,6 +11231,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             // if the mech is already a quad, forget it.
             if( CurMech.IsQuad() ) { return; }
             CurMech.SetQuad();
+            SetPatchworkArmor();
             // internal structure is always reset to standard on changing the
             // motive type.
             cmbInternalType.setSelectedIndex( 0 );
