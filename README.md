@@ -1,16 +1,23 @@
 # Solaris Skunk Werks
-Brief description of the project goes here.
+Solaris Skunk Werks is a community-supported tool used to design Battlemechs for use with the Battletech tabletop wargame.
 
 ## Getting Started
-Some notes about how to download a release and get started using the application.
+Download the [latest release](https://github.com/Solaris-Skunk-Werks/solarisskunkwerks/releases) and extract it into the desired directory. You can then launch the application on some platforms by double-clicking `SSW.jar` or from the command line with `java -jar SSW.jar`.
 
 ## Building From Source
 Development of this project currently requires the [NetBeans IDE](https://netbeans.apache.org/download/index.html).
 
-1. Clone this repository with `git clone --recursive https://github.com/WEKarnesky/solarisskunkwerks`.
+1. Clone this repository with `git clone --recursive https://github.com/Solaris-Skunk-Werks/solarisskunkwerks`.
 2. Open the project with NetBeans.
 3. To be able to run the application directly from the NetBeans IDE, right click on the SSW project and go to the Run tab, then change the working directory to `./dist`.
 4. Right click the `SSW` project and click `Build`. From now on you can launch the application from `./dist` with `java -jar SSW.jar` or from NetBeans with the `Run Main Project` menu.
 
 ## Contributing
-First, fork this repository and create a new branch for your feature. Commit your changes and then submit a pull request to the `develop` branch to have your changes reviewed and merged.
+SSW's development workflow generally follows the git workflow described [here](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow). In summary:
+
+1. Fork this repository and clone your copy locally with `--recursive`.
+2. If you're implementing a bug fix, checkout the `hotfix` branch.
+3. If you're implementing a new feature, checkout the `develop` branch.
+4. Create a new branch and commit your changes, then submit a pull request. Features should be merged into `develop` while bug fixes should be merged into `hotfix`.
+
+Feel free to join our [Discord Server](https://discordapp.com/invite/xc5pUWP) to ask questions, report bugs or help with QA testing.

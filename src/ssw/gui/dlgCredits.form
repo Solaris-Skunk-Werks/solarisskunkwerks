@@ -6,6 +6,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -74,7 +75,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;Justin Bengtson (LostInSpace)&lt;br /&gt;George Blouin (Skyhigh)&lt;br /&gt;Michael Mills (Arcangel)&lt;br /&gt;Brian Compter (Specter83)&lt;/html&gt;"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;Justin Bengtson (LostInSpace)&lt;br /&gt;George Blouin (Skyhigh)&lt;br /&gt;Michael Mills (Arcangel)&lt;br /&gt;Brian Compter (Specter83)&lt;br /&gt;Algebro&lt;br /&gt;Insaniac99&lt;/html&gt;"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">

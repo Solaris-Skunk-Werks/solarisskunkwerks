@@ -82,14 +82,14 @@ public class dlgCredits extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 4);
         getContentPane().add(jLabel1, gridBagConstraints);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("The SSW Alpha Testing Team");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 0, 4);
         getContentPane().add(jLabel8, gridBagConstraints);
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14));
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("Past and Current Developers");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -98,7 +98,7 @@ public class dlgCredits extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 0, 4);
         getContentPane().add(jLabel2, gridBagConstraints);
 
-        jLabel3.setText("<html>Justin Bengtson (LostInSpace)<br />George Blouin (Skyhigh)<br />Michael Mills (Arcangel)<br />Brian Compter (Specter83)</html>");
+        jLabel3.setText("<html>Justin Bengtson (LostInSpace)<br />George Blouin (Skyhigh)<br />Michael Mills (Arcangel)<br />Brian Compter (Specter83)<br />Algebro<br />Insaniac99</html>");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -106,7 +106,7 @@ public class dlgCredits extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 4);
         getContentPane().add(jLabel3, gridBagConstraints);
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14));
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setText("Contributors (in no particular order)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
