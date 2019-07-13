@@ -2635,6 +2635,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         cmbRulesLevel.setSelectedItem( Prefs.get( "NewMech_RulesLevel", "Tournament Legal" ) );
         cmbMechEra.setSelectedItem( Prefs.get( "NewMech_Era", "Age of War/Star League" ) );
         cmbProductionEra.setSelectedIndex( 0 );
+        pnlPatchworkChoosers.setVisible( false );
 
         if( Omni ) {
             UnlockGUIFromOmni();
