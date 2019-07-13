@@ -19,3 +19,5 @@ SSW's development workflow generally follows the git workflow described [here](h
 2. If you're implementing a bug fix, checkout the `hotfix` branch.
 3. If you're implementing a new feature, checkout the `develop` branch.
 4. Create a new branch and commit your changes, then submit a pull request. Features should be merged into `develop` while bug fixes should be merged into `hotfix`.
+
+Feel free to join our [Discord Server](https://discordapp.com/invite/xc5pUWP) to ask questions, report bugs or help with QA testing.
