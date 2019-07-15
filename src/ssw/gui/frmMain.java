@@ -12110,6 +12110,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 Media.Messager( this, "You may not remove a locked item from the loadout." );
                 return;
             } else {
+                if(p instanceof DroneOperatingSystem){
+                    CurMech.RemoveDroneOS();
+                }
                 CurMech.GetLoadout().Remove( p );
             }
         }
@@ -12245,6 +12248,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         return;
                     }
                 } else {
+                    if(a instanceof DroneOperatingSystem ){
+                        CurMech.AddDroneOS();
+                    }
                     CurMech.GetLoadout().AddToQueue( a );
                     for( int i = 0; i < cmbNumEquips.getSelectedIndex(); i++ ) {
                         a = data.GetEquipment().GetCopy( a, CurMech );
