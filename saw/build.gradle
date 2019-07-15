@@ -1,0 +1,40 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile project(':sswlib')
+    compile 'org.netbeans.external:AbsoluteLayout:RELEASE110'
+}
+
+application {
+    mainClassName = 'saw.Main'
+}
+
+jar {
+    manifest.attributes (
+            'Main-Class' : 'saw.Main',
+            'Class-Path' : 'sswlib.jar;AbsoluteLayout-RELEASE110.jar'
+    )
+    jar.archiveName = "saw.jar"
+}
+
+task copyAssets {
+    copy {
+        from '../'
+        into '.'
+        include 'Data/**'
+    }
+}
+
+distributions {
+    main {
+        contents {
+            from ('../') {
+                include 'Data/**'
+                into 'bin'
+            }
+        }
+    }
+}

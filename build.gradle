@@ -1,0 +1,63 @@
+apply plugin: 'java-library-distribution'
+
+allprojects {
+    jar {
+        onlyIf { !sourceSets.main.allSource.files.isEmpty() }
+    }
+}
+
+subprojects {
+    group 'com.solarisskunkwerks'
+    version '0.7-Experimental'
+    sourceCompatibility = 1.8
+    repositories {
+        mavenCentral()
+    }
+}
+
+//distributions {
+//    main {
+//        contents {
+//            into('bin') {
+//                from { project(':ssw').startScripts.outputs.files }
+//                from { project(':BFB').startScripts.outputs.files }
+//                from { project(':saw').startScripts.outputs.files }
+//            }
+//            into('lib') {
+//                def libs = []
+//                libs << project(':ssw').configurations.compile
+//                libs << project(':BFB').configurations.compile
+//                libs << project(':saw').configurations.compile
+//                from libs
+//                from project(':ssw').jar
+//                from project(':BFB').jar
+//                from project(':saw').jar
+//            }
+//        }
+//    }
+//}
+
+//task copyResources {
+//    copy {
+//        from 'Data'
+//        into 'build/libs/Data'
+//        include '**/'
+//    }
+//}
+
+//task copyJars(type: Copy) {
+//    //dependsOn subprojects.build
+//    from subprojects.collect { it.tasks.withType(Jar) }
+//    into project.rootProject.buildDir.toString() + "/libs"
+//}
+////
+//task copyDependencies(type: Copy) {
+//    from subprojects.collect { it.artifacts }
+//    into project.rootProject.buildDir.toString() + "/libs/lib"
+//}
+//
+//task copyStartScripts(type: Copy) {
+//    dependsOn copyJars
+//    from subprojects.collect { it.tasks.withType(CreateStartScripts) }
+//    into project.rootProject.buildDir.toString() + "/scripts"
+//}
