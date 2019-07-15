@@ -88,6 +88,7 @@ public class Mech implements ifUnit, ifBattleforce {
                     HasFHES = false,
                     HasPartialWing = false,
                     HasJumpBooster = false,
+                    HasDroneOS = false,
                     FractionalAccounting = false,
                     Changed = false;
     private Engine CurEngine = new Engine( this );
@@ -1537,6 +1538,14 @@ public class Mech implements ifUnit, ifBattleforce {
 
         SetChanged( true );
     }
+    
+    public void AddDroneOS() {
+        HasDroneOS = true;
+    }
+    
+    public void RemoveDroneOS() {
+        HasDroneOS = false;
+    }
 
     public void SetOmnimech( String name ) {
         // this performs everything needed to turn the mech into an omni
@@ -2355,7 +2364,9 @@ public class Mech implements ifUnit, ifBattleforce {
 
     public int GetCurrentBV() {
         // returns the final battle value of the mech
-        return (int) Math.floor( CurCockpit.BVMod() * ( GetDefensiveBV() + GetOffensiveBV() ) + 0.5 );
+        double CockpitBVMod = HasDroneOS ? .95 : CurCockpit.BVMod();
+        
+        return (int) Math.floor( CockpitBVMod * ( GetDefensiveBV() + GetOffensiveBV() ) + 0.5 );
     }
 
     public double GetDefensiveBV() {
@@ -2866,6 +2877,10 @@ public class Mech implements ifUnit, ifBattleforce {
                     result += a.GetCurOffensiveBV( false, TC, UseAESMod, UseRobotic );
                 }
             }
+            // calculate if drone os
+            if(HasDroneOS){
+                result *= 0.8;
+            }
             return result;
         }
 
@@ -2899,6 +2914,10 @@ public class Mech implements ifUnit, ifBattleforce {
                 }
             }
             curheat += ((ifWeapon) sorted[i]).GetBVHeat();
+        }
+        // calculate if drone os
+        if(HasDroneOS){
+            result *= 0.8;
         }
         return result;
     }
