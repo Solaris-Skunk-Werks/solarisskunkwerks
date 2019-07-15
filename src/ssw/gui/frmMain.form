@@ -352,6 +352,7 @@
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="mnuMainMenu"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <Events>
     <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
@@ -7316,7 +7317,7 @@
                 <Container class="javax.swing.JPanel" name="pnlQuirks">
                   <AccessibilityProperties>
                     <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Quirks"/>
-                    <Property name="AccessibleContext.accessibleParent" type="javax.accessibility.Accessible" editor="org.netbeans.modules.form.RADVisualComponent$AccessibleParentEditor">
+                    <Property name="AccessibleContext.accessibleParent" type="javax.accessibility.Accessible" editor="org.netbeans.modules.form.ComponentChooserEditor">
                       <ComponentRef name="tbpFluffEditors"/>
                     </Property>
                   </AccessibilityProperties>
