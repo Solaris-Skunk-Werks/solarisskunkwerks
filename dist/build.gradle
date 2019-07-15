@@ -1,0 +1,27 @@
+apply plugin: 'java'
+
+dependencies {
+    compile project(':sswlib')
+    compile project(':ssw')
+    compile project(':BFB')
+    compile project(':saw')
+}
+
+apply plugin: 'java-library-distribution'
+distributions {
+    main {
+        baseName = "ssw"
+        contents {
+            exclude "dist-${version}.jar"
+            from ('../') {
+                include 'Data/**'
+                into 'bin'
+            }
+            into('bin') {
+                from { project(':ssw').startScripts.outputs.files }
+                from { project(':BFB').startScripts.outputs.files }
+                from { project(':saw').startScripts.outputs.files }
+            }
+        }
+    }
+}
