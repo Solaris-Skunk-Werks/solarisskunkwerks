@@ -14,7 +14,8 @@ application {
 jar {
     manifest.attributes (
             'Main-Class' : 'BFB.Main',
-            'Class-Path' : 'sswlib.jar'
+            'Class-Path' : 'sswlib.jar',
+            'SplashScreen-Image' : 'Images/BFB_Load.png'
     )
     archiveName = "BFB.jar"
 }
