@@ -21,12 +21,19 @@ jar {
     archiveName = "SSW.jar"
 }
 
+task deleteAssets {
+    delete {
+        project.delete('Data')
+    }
+}
 
 task copyAssets {
-    copy {
-        from '../'
-        into '.'
-        include 'Data/**'
+    doLast {
+        copy {
+            from '../'
+            into '.'
+            include 'Data/**'
+        }
     }
 }
 
