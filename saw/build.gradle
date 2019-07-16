@@ -17,7 +17,7 @@ jar {
             'Main-Class' : 'saw.Main',
             'Class-Path' : 'sswlib.jar;AbsoluteLayout-RELEASE110.jar'
     )
-    jar.archiveName = "saw.jar"
+    jar.archiveName = "SAW.jar"
 }
 
 task copyAssets {
