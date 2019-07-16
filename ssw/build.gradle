@@ -15,7 +15,7 @@ application {
 jar {
     manifest.attributes (
             'Main-Class' : 'Main',
-            'Class-Path' : 'sswlib.jar;AbsoluteLayout-RELEASE110.jar',
+            'Class-Path' : 'sswlib.jar AbsoluteLayout-RELEASE110.jar',
             'SplashScreen-Image' : 'ssw/Images/splash.png'
     )
     archiveName = "SSW.jar"

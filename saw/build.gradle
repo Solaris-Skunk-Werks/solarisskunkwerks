@@ -15,7 +15,7 @@ application {
 jar {
     manifest.attributes (
             'Main-Class' : 'saw.Main',
-            'Class-Path' : 'sswlib.jar;AbsoluteLayout-RELEASE110.jar'
+            'Class-Path' : 'sswlib.jar AbsoluteLayout-RELEASE110.jar'
     )
     jar.archiveName = "SAW.jar"
 }
