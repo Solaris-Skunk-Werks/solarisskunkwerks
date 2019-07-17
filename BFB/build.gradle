@@ -21,12 +21,13 @@ jar {
 }
 
 task deleteAssets {
+    // Make sure we have a fresh copy of the Data folder before new builds/runs
     delete {
         project.delete('Data')
     }
 }
 
-task copyAssets {
+task copyAssets (dependsOn: deleteAssets) {
     copy {
         from '../'
         into '.'
