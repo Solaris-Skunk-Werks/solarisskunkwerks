@@ -10,7 +10,7 @@ This project uses the gradle build system and requires gradle to be installed to
 To build a release zip containing all of the applications, run the following gradle task:
 
 ```
-$ gradlew zipRelease
+$ ./gradlew zipRelease
 ```
 
 This will create a zip file containing all applications in the SSW suite under `build/distributions`. Simply unzip that file wherever you want to install it.
