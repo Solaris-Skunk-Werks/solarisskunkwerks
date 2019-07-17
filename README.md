@@ -7,7 +7,7 @@ Download the [latest release](https://github.com/Solaris-Skunk-Werks/solarisskun
 ## Building From Source
 This project uses the gradle build system and requires gradle to be installed to be able to compile from source. If you intend to develop the project with an IDE, you'll need one with gradle support. Intellij IDEA and Netbeans 11.x have been tested and both have gradle support out of the box. Netbeans earlier than 11.x should work but you may need to install the gradle plugin.
 
-To build a release zip containing all of the applications, run the following gradle task:
+To build a release zip containing all of the applications, run the following gradle task (substitute `.\gradlew.bat` if you're on Windows):
 
 ```
 $ ./gradlew zipRelease
