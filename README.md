@@ -2,7 +2,7 @@
 Solaris Skunk Werks is a community-supported tool used to design Battlemechs for use with the Battletech tabletop wargame.
 
 ## Getting Started
-Download the [latest release](https://github.com/Solaris-Skunk-Werks/solarisskunkwerks/releases) and extract it into the desired directory. You can then launch the various applications from the SSW Suite from the `bin` folder.
+Download the [latest release](https://github.com/Solaris-Skunk-Werks/solarisskunkwerks/releases) and extract it into the desired directory. You can then launch the various applications by double clicking them or from the command line with `java -jar SSW.jar`.
 
 ## Building From Source
 This project uses the gradle build system and requires gradle to be installed to be able to compile from source. If you intend to develop the project with an IDE, you'll need one with gradle support. Intellij IDEA and Netbeans 11.x have been tested and both have gradle support out of the box. Netbeans earlier than 11.x should work but you may need to install the gradle plugin.
@@ -10,10 +10,10 @@ This project uses the gradle build system and requires gradle to be installed to
 To build a release zip containing all of the applications, run the following gradle task:
 
 ```
-$ gradlew distZip
+$ gradlew zipRelease
 ```
 
-This will create a zip file containing all applications in the SSW suite under `dist/build/distributions`. Simply unzip that file and run the applications using the launchers from the `bin` folder.
+This will create a zip file containing all applications in the SSW suite under `build/distributions`. Simply unzip that file wherever you want to install it.
 
 ### Development
 To build run SSW directly from the command line during development:
