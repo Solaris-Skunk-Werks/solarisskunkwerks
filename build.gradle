@@ -55,7 +55,6 @@ task releaseBuild(dependsOn: subprojects.build) {
 }
 
 task zipRelease(type: Zip, dependsOn: releaseBuild) {
-        printf('running')
         from "${buildDir}/release"
         include "**/"
         archiveName "SSW_${version}.zip"
