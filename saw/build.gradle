@@ -27,12 +27,10 @@ task deleteAssets {
 }
 
 task copyAssets {
-    doLast {
-        copy {
-            from '../'
-            into '.'
-            include 'Data/**'
-        }
+    copy {
+        from '../'
+        into '.'
+        include 'Data/**'
     }
 }
 
