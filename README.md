@@ -30,7 +30,7 @@ This will create a zip file containing all applications in the SSW suite under `
 file wherever you want to install it.
 
 ### Development
-To build run SSW directly from the command line during development:
+To build and run SSW directly from the command line during development:
 
 ```
 $ ./gradlew ssw:run // Compile and run a dev build of ssw
