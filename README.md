@@ -33,7 +33,7 @@ SSW will compile and pause until you connect with a debugger. Then in Intellij, 
 ## Contributing
 SSW's development workflow generally follows the git workflow described [here](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow). In summary:
 
-1. Fork this repository and clone your copy locally with `--recursive`.
+1. Fork this repository and clone your copy locally.
 2. If you're implementing a bug fix, checkout the `hotfix` branch.
 3. If you're implementing a new feature, checkout the `develop` branch.
 4. Create a new branch and commit your changes, then submit a pull request. Features should be merged into `develop` while bug fixes should be merged into `hotfix`.
