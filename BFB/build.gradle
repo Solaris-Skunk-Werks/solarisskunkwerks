@@ -14,7 +14,7 @@ application {
 jar {
     manifest.attributes (
             'Main-Class' : 'BFB.Main',
-            'Class-Path' : 'sswlib.jar',
+            'Class-Path' : 'lib/sswlib.jar',
             'SplashScreen-Image' : 'Images/BFB_Load.png'
     )
     archiveName = "BFB.jar"
@@ -36,13 +36,20 @@ task copyAssets {
     }
 }
 
-distributions {
-    main {
-        contents {
-            from ('../') {
-                include 'Data/**'
-                into 'bin'
-            }
-        }
+task copyDependencies {
+    copy {
+        into "${buildDir}/deps"
+        from configurations.compile
     }
 }
+
+//distributions {
+//    main {
+//        contents {
+//            from ('../') {
+//                include 'Data/**'
+//                into 'bin'
+//            }
+//        }
+//    }
+//}

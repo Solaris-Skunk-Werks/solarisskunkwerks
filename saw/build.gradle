@@ -15,7 +15,7 @@ application {
 jar {
     manifest.attributes (
             'Main-Class' : 'saw.Main',
-            'Class-Path' : 'sswlib.jar AbsoluteLayout-RELEASE110.jar'
+            'Class-Path' : 'lib/sswlib.jar lib/AbsoluteLayout-RELEASE110.jar'
     )
     jar.archiveName = "SAW.jar"
 }
@@ -36,13 +36,20 @@ task copyAssets {
     }
 }
 
-distributions {
-    main {
-        contents {
-            from ('../') {
-                include 'Data/**'
-                into 'bin'
-            }
-        }
+task copyDependencies {
+    copy {
+        into "${buildDir}/deps"
+        from configurations.compile
     }
 }
+
+//distributions {
+//    main {
+//        contents {
+//            from ('../') {
+//                include 'Data/**'
+//                into 'lib'
+//            }
+//        }
+//    }
+//}

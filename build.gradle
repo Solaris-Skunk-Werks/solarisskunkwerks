@@ -1,6 +1,7 @@
-apply plugin: 'java-library-distribution'
+apply plugin: 'java'
 
 allprojects {
+    version '0.7-Experimental'
     jar {
         onlyIf { !sourceSets.main.allSource.files.isEmpty() }
     }
@@ -8,34 +9,85 @@ allprojects {
 
 subprojects {
     group 'com.solarisskunkwerks'
-    version '0.7-Experimental'
     sourceCompatibility = 1.8
     repositories {
         mavenCentral()
     }
 }
 
+evaluationDependsOnChildren()
+
+task releaseBuild(dependsOn: subprojects.build) {
+    doLast {
+        copy {
+            from 'Data'
+            into "${buildDir}/release/SSW_${version}/Data"
+        }
+        copy {
+            from "./ssw/build/libs"
+            into "${buildDir}/release/SSW_${version}"
+        }
+        copy {
+            from "./ssw/build/deps"
+            into "${buildDir}/release/SSW_${version}/lib"
+        }
+        copy {
+            from "./BFB/build/libs"
+            into "${buildDir}/release/SSW_${version}"
+        }
+        copy {
+            from "./BFB/build/deps"
+            into "${buildDir}/release//SSW_${version}/lib"
+        }
+        copy {
+            from "./saw/build/libs"
+            into "${buildDir}/release/SSW_${version}"
+        }
+        copy {
+            from "./saw/build/deps"
+            into "${buildDir}/release/SSW_${version}/lib"
+        }
+        copy {
+            from "./sswlib/build/libs"
+            into "${buildDir}/release/SSW_${version}/lib"
+        }
+    }
+}
+
+task zipRelease(type: Zip, dependsOn: releaseBuild) {
+        printf('running')
+        from "${buildDir}/release"
+        include "**/"
+        archiveName "SSW_${version}.zip"
+}
+
+//apply plugin: 'java-library-distribution'
 //distributions {
 //    main {
+//        baseName = "SSW"
 //        contents {
-//            into('bin') {
-//                from { project(':ssw').startScripts.outputs.files }
-//                from { project(':BFB').startScripts.outputs.files }
-//                from { project(':saw').startScripts.outputs.files }
+//            exclude "dist-${version}.jar"
+//            from ('.') {
+//                include 'Data/**'
+//                into '.'
 //            }
-//            into('lib') {
-//                def libs = []
-//                libs << project(':ssw').configurations.compile
-//                libs << project(':BFB').configurations.compile
-//                libs << project(':saw').configurations.compile
-//                from libs
-//                from project(':ssw').jar
-//                from project(':BFB').jar
-//                from project(':saw').jar
+//            from ("./ssw/build/libs") {
+//                include "*.jar"
+//                into "."
+//            }
+//            from ("./BFB/build/libs") {
+//                include "*.jar"
+//                into "."
+//
+//            }
+//            from ("./saw/build/libs") {
+//                include "*.jar"
+//                into "."
 //            }
 //        }
 //    }
 //}
+
 
 //task copyResources {
 //    copy {

@@ -15,7 +15,7 @@ application {
 jar {
     manifest.attributes (
             'Main-Class' : 'Main',
-            'Class-Path' : 'sswlib.jar AbsoluteLayout-RELEASE110.jar',
+            'Class-Path' : 'lib/sswlib.jar lib/AbsoluteLayout-RELEASE110.jar',
             'SplashScreen-Image' : 'ssw/Images/splash.png'
     )
     archiveName = "SSW.jar"
@@ -37,14 +37,10 @@ task copyAssets {
     }
 }
 
-distributions {
-    main {
-        contents {
-            from ('../') {
-                include 'Data/**'
-                into 'bin'
-            }
-        }
+task copyDependencies {
+    copy {
+        into "${buildDir}/deps"
+        from configurations.compile
     }
 }
 
