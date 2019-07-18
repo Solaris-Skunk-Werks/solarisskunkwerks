@@ -2778,7 +2778,15 @@ public class Mech implements ifUnit, ifBattleforce {
         }
 
         MechModifier m = GetTotalModifiers( true, true );
-        retval += m.DefensiveBonus();
+        // Apply void sig errata
+        if (HasVoidSig) {
+            if (retval < 1.3) {
+                retval += 0.3;
+            } else if (retval == 1.3) {
+                retval += 0.1;
+            }
+        }
+
         if( retval < m.MinimumDefensiveBonus() ) {
             retval = m.MinimumDefensiveBonus();
         }
