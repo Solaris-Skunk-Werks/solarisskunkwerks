@@ -2828,7 +2828,22 @@ public class Mech implements ifUnit, ifBattleforce {
         //Subtract another 10 for the stealth armor
         if ( CurArmor.IsStealth() )
             heff -= 10;
-        
+
+        // Subtract Chameleon LPS (TacOps Errata)
+        if (HasChameleon) {
+            heff -= 6;
+        }
+
+        // Subtract Null Sig (TacOps Errata)
+        if (HasNullSig) {
+            heff -= 10;
+        }
+
+        // Subtract Void Sig (TacOps Errata)
+        if (HasVoidSig) {
+            heff -= 10;
+        }
+
         double wheat = GetBVWeaponHeat();
 
         if( GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL ) {
