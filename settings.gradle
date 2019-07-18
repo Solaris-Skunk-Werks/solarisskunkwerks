@@ -1,0 +1,5 @@
+rootProject.name = 'solarisskunkwerks'
+include 'sswlib'
+include 'ssw'
+include 'BFB'
+include 'saw'

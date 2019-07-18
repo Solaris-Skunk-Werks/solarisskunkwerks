@@ -1,0 +1,54 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile project(':sswlib')
+}
+
+application {
+    mainClassName = 'BFB.Main'
+}
+
+jar {
+    manifest.attributes (
+            'Main-Class' : 'BFB.Main',
+            'Class-Path' : 'lib/sswlib.jar',
+            'SplashScreen-Image' : 'Images/BFB_Load.png'
+    )
+    archiveName = "BFB.jar"
+}
+
+task deleteAssets {
+    // Make sure we have a fresh copy of the Data folder before new builds/runs
+    delete {
+        project.delete('Data')
+    }
+}
+
+task copyAssets (dependsOn: deleteAssets) {
+    copy {
+        from '../'
+        into '.'
+        include 'Data/**'
+    }
+}
+
+task copyDependencies {
+    copy {
+        into "${buildDir}/deps"
+        from configurations.compile
+    }
+}
+
+//distributions {
+//    main {
+//        contents {
+//            from ('../') {
+//                include 'Data/**'
+//                into 'bin'
+//            }
+//        }
+//    }
+//}
