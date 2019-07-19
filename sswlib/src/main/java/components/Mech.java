@@ -2780,11 +2780,15 @@ public class Mech implements ifUnit, ifBattleforce {
         MechModifier m = GetTotalModifiers( true, true );
         // Apply void sig errata
         if (HasVoidSig) {
+            // GetTotalModifiers currently doesn't account for VoidSig, so ignore it and compare the voidsig bonus to
+            // our current tally
             if (retval < 1.3) {
                 retval += 0.3;
             } else if (retval == 1.3) {
                 retval += 0.1;
             }
+        } else {
+            retval += m.DefensiveBonus();
         }
 
         if( retval < m.MinimumDefensiveBonus() ) {
