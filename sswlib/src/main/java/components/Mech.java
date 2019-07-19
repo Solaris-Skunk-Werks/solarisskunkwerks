@@ -2777,6 +2777,7 @@ public class Mech implements ifUnit, ifBattleforce {
             retval = ground;
         }
 
+        // TODO: Refactor GetTotalModifiers/BVCombine to account for voidsig
         MechModifier m = GetTotalModifiers( true, true );
         // Apply void sig errata
         if (HasVoidSig) {
