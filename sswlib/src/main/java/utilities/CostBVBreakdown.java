@@ -195,11 +195,25 @@ public class CostBVBreakdown {
         retval += NL + NL;
         retval += "Offensive BV Calculation Breakdown" + NL;
         retval += "________________________________________________________________________________" + NL;
+        retval += "Heat Efficiency (6 + " + CurMech.GetHeatSinks().TotalDissipation() + " - " + CurMech.GetBVMovementHeat();
+        double heatEfficiency = 6 + CurMech.GetHeatSinks().TotalDissipation() - CurMech.GetBVMovementHeat();
+        if (CurMech.HasChameleon()) {
+            retval += " - 6 (Chameleon LPS)";
+            heatEfficiency -= 6;
+        }
+        if (CurMech.HasNullSig()) {
+            retval += " - 10 (Null-Signature System)";
+            heatEfficiency -= 10;
+        }
+        if (CurMech.HasVoidSig()) {
+            retval += " - 10 (Void-Signature System)";
+            heatEfficiency -= 10;
+        }
         if( HasBonusFromCP() ) {
-            retval += "Heat Efficiency (6 + " + CurMech.GetHeatSinks().TotalDissipation() + " - " + CurMech.GetBVMovementHeat() + " + " + GetBonusFromCP() + ") = " + ( 6 + CurMech.GetHeatSinks().TotalDissipation() - CurMech.GetBVMovementHeat() + GetBonusFromCP() ) + NL;
-            retval += "    (Heat Efficiency calculation includes bonus from Coolant Pods)" + NL;
+            heatEfficiency += GetBonusFromCP();
+            retval +=  " + " + GetBonusFromCP() + " (Coolant Pods)) = " + heatEfficiency + NL;
         } else {
-            retval += "Heat Efficiency (6 + " + CurMech.GetHeatSinks().TotalDissipation() + " - " + CurMech.GetBVMovementHeat() + ") = "+ ( 6 + CurMech.GetHeatSinks().TotalDissipation() - CurMech.GetBVMovementHeat() ) + NL;
+            retval += ") = " + heatEfficiency + NL;
         }
         retval += String.format( "%1$-71s %2$,8.2f", "Adjusted Weapon BV Total WBV", CurMech.GetHeatAdjustedWeaponBV() ) + NL;
         retval += PrintHeatAdjustedWeaponBV();
