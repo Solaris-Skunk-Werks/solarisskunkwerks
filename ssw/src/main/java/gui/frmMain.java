@@ -699,7 +699,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         // to the selector list
         ifState[] check = CurMech.GetIntStruc().GetStates( CurMech.IsQuad() );
         for( int i = 0; i < check.length; i++ ) {
-            if( CommonTools.IsAllowed( check[i].GetAvailability(), CurMech ) ) {
+            // Need to check for null since GetStates() returns two null values if the mech isn't a super heavy biped
+            if( check[i] != null && CommonTools.IsAllowed( check[i].GetAvailability(), CurMech ) ) {
                 list.add( BuildLookupName( check[i] ) );
             }
         }
