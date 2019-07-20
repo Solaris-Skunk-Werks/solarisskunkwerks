@@ -543,7 +543,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( Rotary ) { retval *= 6; }
         if( Ultra ) { retval *= 2; }
         if( OneShot ) { retval *= 0.25; }
-        if( Streak && this.ChatName.contains( "Streak SRM" ) ) { retval *= 0.5; }
+        if( Streak && this.ChatName.contains( "SRM" )) { retval *= 0.5; }
         if( retval < 0 ) { retval = 0; }
         return retval;
     }
