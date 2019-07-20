@@ -30,8 +30,8 @@ package BFB.Common;
 public class Constants {
     public final static String AppName = "Battletech Force Balancer",
                         AppDescription = "Battletech Force Balancer",
-                        Version = "0.0.3",
-                        AppRelease = "Experimental",
+                        Version = "0.7",
+                        AppRelease = "Experimental 7",
                         Author = "George Blouin",
                         EMail = "george.blouin@gmail.com",
                         Print_ForceList = "Print.ForceList",

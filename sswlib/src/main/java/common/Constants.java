@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package common;
 
 public class Constants {
-    public final static String LibVersion = "0.0.1",
+    public final static String LibVersion = "0.7 Experimental 7",
                                BASELOADOUT_NAME = "Base Loadout",
                                WEAPONSFILE = "Data/Equipment/weapons.dat",
                                PHYSICALSFILE = "Data/Equipment/physicals.dat",
