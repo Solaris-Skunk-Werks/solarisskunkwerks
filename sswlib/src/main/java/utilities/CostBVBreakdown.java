@@ -195,7 +195,7 @@ public class CostBVBreakdown {
         retval += NL + NL;
         retval += "Offensive BV Calculation Breakdown" + NL;
         retval += "________________________________________________________________________________" + NL;
-        retval += "Heat Efficiency (6 + " + CurMech.GetHeatSinks().TotalDissipation() + " - " + CurMech.GetBVMovementHeat();
+        retval += "Heat Efficiency (6 + " + CurMech.GetHeatSinks().TotalDissipation() + " (Dissipation) - " + CurMech.GetBVMovementHeat() + " (Movement Heat)";
         double heatEfficiency = 6 + CurMech.GetHeatSinks().TotalDissipation() - CurMech.GetBVMovementHeat();
         if (CurMech.HasChameleon()) {
             retval += " - 6 (Chameleon LPS)";
