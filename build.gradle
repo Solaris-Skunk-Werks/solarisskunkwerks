@@ -51,6 +51,14 @@ task releaseBuild(dependsOn: subprojects.build) {
             from "./sswlib/build/libs"
             into "${buildDir}/release/SSW_${version}/lib"
         }
+        copy {
+            from "./binconvert/build/libs"
+            into "${buildDir}/release/SSW_${version}"
+        }
+        copy {
+            from "./binconvert/build/deps"
+            into "${buildDir}/release/SSW_${version}/lib"
+        }
     }
 }
 
