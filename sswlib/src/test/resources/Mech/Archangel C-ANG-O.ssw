@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Archangel" model="C-ANG-O" tons="100" omnimech="TRUE" solaris7id="0" solaris7imageid="0" sswimage="K:\CBT\Record Sheets\Mech Images\Archangel-Invictus.gif">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <cost>2.1765E7</cost>
+    <rules_level>1</rules_level>
+    <era>2</era>
+    <productionera>0</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Gibson Federated BattleMechs, Martinson Armaments" location="Gibson (Gibson Federated), Terra (Martinson)">Inner Sphere</techbase>
+    <year restricted="FALSE">3069</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Celestial Series AA1E" techbase="0">
+        <type>Endo-Steel</type>
+        <location index="4">LL</location>
+        <location index="4">RL</location>
+        <location index="5">LL</location>
+        <location index="5">RL</location>
+        <location index="7">LT</location>
+        <location index="7">RT</location>
+        <location index="8">LT</location>
+        <location index="8">RT</location>
+        <location index="9">LT</location>
+        <location index="9">RT</location>
+        <location index="10">LT</location>
+        <location index="10">RT</location>
+        <location index="11">LT</location>
+        <location index="11">RT</location>
+    </structure>
+    <engine rating="300" manufacturer="Immortus" lsstart="-1" rsstart="-1" techbase="0">Compact Fusion Engine</engine>
+    <gyro techbase="0">Compact Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Small Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Durallex Heavy Gold" techbase="2">
+        <type>Standard Armor</type>
+        <hd>9</hd>
+        <ct>47</ct>
+        <ctr>15</ctr>
+        <lt>32</lt>
+        <ltr>10</ltr>
+        <rt>32</rt>
+        <rtr>10</rtr>
+        <la>34</la>
+        <ra>34</ra>
+        <ll>42</ll>
+        <rl>42</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>TRO 3075</source>
+        <info>Archangel C-ANG-O 100t, 3/5/0, CFE, ES, Cmp Gyro; 19.5T/100% Armor; 12 DHS; 1 C3I</info>
+        <battleforce pv="13" wt="4" mv="3" s="0" m="0" l="0" e="0" ov="0" armor="10" internal="10" abilities="OMNI, C3I, ENE, MHQ2, SRCH, ES, SEAL, SOA" />
+        <actuators lla="FALSE" lh="FALSE" rla="FALSE" rh="FALSE"/>
+        <clancase>TRUE</clancase>
+        <heatsinks number="12" techbase="0">
+            <type>Double Heat Sink</type>
+
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">Improved C3 Computer</name>
+            <type>equipment</type>
+            <location index="5">CT</location>
+        </equipment>
+    </baseloadout>
+    <loadout name="Invictus (Prime)" fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3075u-CE</source>
+        <loadout_era>2</loadout_era>
+        <loadout_productionera>6</loadout_productionera>
+        <loadout_year>3069</loadout_year>
+        <info>Archangel C-ANG-O Invictus (Prime) 100t, 3/5/3, CFE, ES, Cmp Gyro; 19.5T/100% Armor; 13 DHS; 1 ECM, 1 PR, 1 C3I, 1 RBlde, 1 HPPC, TC</info>
+        <battleforce pv="22" wt="4" mv="3j" s="3" m="3" l="2" e="0" ov="0" armor="10" internal="10" abilities="OMNI, C3I, MEL, SAW, ECM, ENE, MHQ2, SRCH, ES, SEAL, SOA" />
+        <battle_value>2237</battle_value>
+        <cost>2.1765E7</cost>
+        <actuators lla="TRUE" lh="TRUE" rla="FALSE" rh="FALSE"/>
+        <clancase>FALSE</clancase>
+        <jumpjets number="3">
+            <type>Standard Jump Jet</type>
+            <location index="3">RT</location>
+            <location index="0">LT</location>
+            <location index="7">CT</location>
+        </jumpjets>
+        <heatsinks number="13" techbase="0">
+            <type>Double Heat Sink</type>
+            <location index="0">RT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">Retractable Blade</name>
+            <type>physical</type>
+            <location index="4">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Heavy PPC</name>
+            <type>energy</type>
+            <location index="2">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Plasma Rifle</name>
+            <type>energy</type>
+            <location index="4">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ Plasma Rifle</name>
+            <type>ammunition</type>
+            <location index="8">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ Plasma Rifle</name>
+            <type>ammunition</type>
+            <location index="9">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Guardian ECM Suite</name>
+            <type>equipment</type>
+            <location index="10">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Targeting Computer</name>
+            <type>TargetingComputer</type>
+            <location index="1">LT</location>
+        </equipment>
+    </loadout>
+    <loadout name="Dominus (A)" fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3075u-CE</source>
+        <loadout_era>2</loadout_era>
+        <loadout_productionera>6</loadout_productionera>
+        <loadout_year>3069</loadout_year>
+        <info>Archangel C-ANG-O Dominus (A) 100t, 3/5/0, CFE, ES, Cmp Gyro; 19.5T/100% Armor; 20 DHS; 1 C3I, 1 SNPPC, 2 ERML, 2 HPPC</info>
+        <battleforce pv="21" wt="4" mv="3" s="4" m="4" l="3" e="0" ov="0" armor="10" internal="10" abilities="OMNI, C3I, ENE, MHQ2, SRCH, ES, SEAL, SOA" />
+        <battle_value>2134</battle_value>
+        <cost>2.175E7</cost>
+        <actuators lla="FALSE" lh="FALSE" rla="FALSE" rh="FALSE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="20" techbase="0">
+            <type>Double Heat Sink</type>
+            <location index="7">CT</location>
+            <location index="0">LT</location>
+            <location index="5">LA</location>
+            <location index="0">RT</location>
+            <location index="5">RA</location>
+            <location index="2">LA</location>
+            <location index="2">RA</location>
+            <location index="3">LT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) Heavy PPC</name>
+            <type>energy</type>
+            <location index="8">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Heavy PPC</name>
+            <type>energy</type>
+            <location index="8">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="11">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="10">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Snub-Nose PPC</name>
+            <type>energy</type>
+            <location index="4">HD</location>
+        </equipment>
+    </loadout>
+    <loadout name="Infernus (B)" fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3075u-CE</source>
+        <loadout_era>2</loadout_era>
+        <loadout_productionera>6</loadout_productionera>
+        <loadout_year>3069</loadout_year>
+        <info>Archangel C-ANG-O Infernus (B) 100t, 3/5/0, CFE, ES, Cmp Gyro; 19.5T/100% Armor; 20 DHS; 1 C3I, 2 SNPPC, 2 LPPC, 1 HPPC</info>
+        <battleforce pv="21" wt="4" mv="3" s="4" m="4" l="3" e="0" ov="0" armor="10" internal="10" abilities="OMNI, C3I, ENE, MHQ2, SRCH, ES, SEAL, SOA" />
+        <battle_value>2069</battle_value>
+        <cost>2.2225E7</cost>
+        <actuators lla="FALSE" lh="FALSE" rla="FALSE" rh="FALSE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="20" techbase="0">
+            <type>Double Heat Sink</type>
+            <location index="0">LT</location>
+            <location index="0">RT</location>
+            <location index="2">LA</location>
+            <location index="3">RT</location>
+            <location index="7">CT</location>
+            <location index="5">RA</location>
+            <location index="2">RA</location>
+            <location index="5">LA</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) Heavy PPC</name>
+            <type>energy</type>
+            <location index="8">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Light PPC</name>
+            <type>energy</type>
+            <location index="8">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Light PPC</name>
+            <type>energy</type>
+            <location index="10">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Snub-Nose PPC</name>
+            <type>energy</type>
+            <location index="4">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Snub-Nose PPC</name>
+            <type>energy</type>
+            <location index="10">CT</location>
+        </equipment>
+    </loadout>
+    <loadout name="Comminus (C)" fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3075u-CE</source>
+        <loadout_era>2</loadout_era>
+        <loadout_productionera>6</loadout_productionera>
+        <loadout_year>3069</loadout_year>
+        <info>Archangel C-ANG-O Comminus (C) 100t, 3/5/0, CFE, ES, Cmp Gyro; 19.5T/100% Armor; 15 DHS; 1 ECM, 1 C3I, 2 ERML, 1 ERSL, 2 MRM40</info>
+        <battleforce pv="20" wt="4" mv="3" s="6" m="6" l="0" e="0" ov="0" armor="10" internal="10" abilities="OMNI, C3I, ECM, CASE, MHQ2, SRCH, ES, SEAL, SOA" />
+        <battle_value>2010</battle_value>
+        <cost>2.2268125E7</cost>
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="15" techbase="0">
+            <type>Double Heat Sink</type>
+            <location index="7">CT</location>
+            <location index="0">RT</location>
+            <location index="0">LT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) MRM-40</name>
+            <type>missile</type>
+            <location index="4">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) MRM-40</name>
+            <type>missile</type>
+            <location index="4">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="3">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="3">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(R) (IS) ER Small Laser</name>
+            <type>energy</type>
+            <location index="10">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Guardian ECM Suite</name>
+            <type>equipment</type>
+            <location index="4">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ MRM-40</name>
+            <type>ammunition</type>
+            <location index="5">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ MRM-40</name>
+            <type>ammunition</type>
+            <location index="4">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ MRM-40</name>
+            <type>ammunition</type>
+            <location index="4">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ MRM-40</name>
+            <type>ammunition</type>
+            <location index="5">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">CASE</name>
+            <type>CASE</type>
+            <location index="6">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">CASE</name>
+            <type>CASE</type>
+            <location index="6">RT</location>
+        </equipment>
+    </loadout>
+    <loadout name="Luminos (D)" fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3075u-CE</source>
+        <loadout_era>2</loadout_era>
+        <loadout_productionera>6</loadout_productionera>
+        <loadout_year>3069</loadout_year>
+        <info>Archangel C-ANG-O Luminos (D) 100t, 3/5/3, CFE, ES, Cmp Gyro; 19.5T/100% Armor; 17 DHS; 1 ECM, 1 C3I, 1 SPL, 1 ERSL, 4 MPL, 2 ERPPC</info>
+        <battleforce pv="21" wt="4" mv="3j" s="4" m="4" l="2" e="0" ov="0" armor="10" internal="10" abilities="OMNI, C3I, ECM, ENE, MHQ2, SRCH, ES, SEAL, SOA" />
+        <battle_value>2105</battle_value>
+        <cost>2.2423125E7</cost>
+        <actuators lla="FALSE" lh="FALSE" rla="FALSE" rh="FALSE"/>
+        <clancase>FALSE</clancase>
+        <jumpjets number="3">
+            <type>Standard Jump Jet</type>
+            <location index="10">CT</location>
+            <location index="0">RT</location>
+            <location index="0">LT</location>
+        </jumpjets>
+        <heatsinks number="17" techbase="0">
+            <type>Double Heat Sink</type>
+            <location index="5">LA</location>
+            <location index="5">RA</location>
+            <location index="2">RA</location>
+            <location index="2">LA</location>
+            <location index="7">CT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) ER PPC</name>
+            <type>energy</type>
+            <location index="8">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) ER PPC</name>
+            <type>energy</type>
+            <location index="8">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Pulse Laser</name>
+            <type>energy</type>
+            <location index="2">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Pulse Laser</name>
+            <type>energy</type>
+            <location index="1">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Pulse Laser</name>
+            <type>energy</type>
+            <location index="1">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Pulse Laser</name>
+            <type>energy</type>
+            <location index="4">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Guardian ECM Suite</name>
+            <type>equipment</type>
+            <location index="2">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Small Pulse Laser</name>
+            <type>energy</type>
+            <location index="11">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) ER Small Laser</name>
+            <type>energy</type>
+            <location index="5">HD</location>
+        </equipment>
+    </loadout>
+    <loadout name="Eminus (E)" fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3075u-CE</source>
+        <loadout_era>2</loadout_era>
+        <loadout_productionera>6</loadout_productionera>
+        <loadout_year>3072</loadout_year>
+        <info>Archangel C-ANG-O Eminus (E) 100t, 3/5/0, CFE, ES, Cmp Gyro; 19.5T/100% Armor; 19 DHS; 1 ERLL, 1 C3I, 2 ERSL, 1 LPPC, 2 ERPPC, TC</info>
+        <battleforce pv="21" wt="4" mv="3" s="4" m="4" l="3" e="0" ov="0" armor="10" internal="10" abilities="OMNI, C3I, ENE, MHQ2, SRCH, ES, SEAL, SOA" />
+        <battle_value>2097</battle_value>
+        <cost>2.191625E7</cost>
+        <actuators lla="FALSE" lh="FALSE" rla="FALSE" rh="FALSE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="19" techbase="0">
+            <type>Double Heat Sink</type>
+            <location index="0">RT</location>
+            <location index="5">LA</location>
+            <location index="5">RA</location>
+            <location index="2">LA</location>
+            <location index="2">RA</location>
+            <location index="3">RT</location>
+            <location index="7">CT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) ER PPC</name>
+            <type>energy</type>
+            <location index="8">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) ER PPC</name>
+            <type>energy</type>
+            <location index="8">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) ER Small Laser</name>
+            <type>energy</type>
+            <location index="6">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) ER Small Laser</name>
+            <type>energy</type>
+            <location index="0">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) ER Large Laser</name>
+            <type>energy</type>
+            <location index="4">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Light PPC</name>
+            <type>energy</type>
+            <location index="10">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Targeting Computer</name>
+            <type>TargetingComputer</type>
+            <location index="1">LT</location>
+        </equipment>
+    </loadout>
+    <loadout name="Caelestis (S)" ruleslevel="3" fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3075u-CE</source>
+        <loadout_era>2</loadout_era>
+        <loadout_productionera>6</loadout_productionera>
+        <loadout_year>3075</loadout_year>
+        <info>Archangel C-ANG-O Caelestis (S) 100t, 3/5/0, CFE, ES, Cmp Gyro; 19.5T/100% Armor; 17 DHS; 1 C3I, 1 Tbolt10, 2 ERML, 2 ERFlmr, 2 ERSL, 2 BLC</info>
+        <battleforce pv="20" wt="4" mv="3" s="4" m="4" l="1" e="0" ov="1" armor="10" internal="10" abilities="OMNI, C3I, MHQ2, SRCH, ES, SEAL, SOA" />
+        <techbase>Mixed</techbase>
+        <battle_value>2026</battle_value>
+        <cost>2.133875E7</cost>
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="17" techbase="0">
+            <type>Double Heat Sink</type>
+            <location index="4">LA</location>
+            <location index="4">RA</location>
+            <location index="0">RT</location>
+            <location index="0">LT</location>
+            <location index="7">CT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) Binary Laser Cannon</name>
+            <type>energy</type>
+            <location index="3">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Binary Laser Cannon</name>
+            <type>energy</type>
+            <location index="3">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Small Laser</name>
+            <type>energy</type>
+            <location index="8">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Small Laser</name>
+            <type>energy</type>
+            <location index="7">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">ER Flamer</name>
+            <type>energy</type>
+            <location index="5">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">ER Flamer</name>
+            <type>energy</type>
+            <location index="4">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Thunderbolt-10</name>
+            <type>missile</type>
+            <location index="7">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ Thunderbolt-10</name>
+            <type>ammunition</type>
+            <location index="9">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="11">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="10">CT</location>
+        </equipment>
+    </loadout>
+    <loadout name="(Berith)" ruleslevel="3" fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>SBW&amp;B</source>
+        <loadout_era>2</loadout_era>
+        <loadout_productionera>6</loadout_productionera>
+        <loadout_year>3072</loadout_year>
+        <info>Archangel C-ANG-O (Berith) 100t, 3/5/0, CFE, ES, Cmp Gyro; 19.5T/100% Armor; 19 DHS; 1 C3I, 1 SNPPC, 2 LPPC, 1 HPPC, 1 MVSPL</info>
+        <battleforce pv="21" wt="4" mv="3" s="3" m="3" l="2" e="0" ov="0" armor="10" internal="10" abilities="OMNI, C3I, ENE, MHQ2, SRCH, ES, SEAL, SOA" />
+        <battle_value>2060</battle_value>
+        <cost>2.3085E7</cost>
+        <actuators lla="FALSE" lh="FALSE" rla="FALSE" rh="FALSE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="19" techbase="0">
+            <type>Double Heat Sink</type>
+            <location index="2">LA</location>
+            <location index="0">LT</location>
+            <location index="7">CT</location>
+            <location index="0">RT</location>
+            <location index="3">LT</location>
+            <location index="3">RT</location>
+            <location index="2">RA</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) Heavy PPC + PPC Capacitor</name>
+            <type>energy</type>
+            <location index="5">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Light PPC + PPC Capacitor</name>
+            <type>energy</type>
+            <location index="8">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Light PPC + PPC Capacitor</name>
+            <type>energy</type>
+            <location index="5">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Snub-Nose PPC</name>
+            <type>energy</type>
+            <location index="4">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Variable Speed Pulse Laser</name>
+            <type>energy</type>
+            <location index="10">CT</location>
+        </equipment>
+    </loadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>Unknown</jumpjet_model>
+        <commsystem>Master&apos;s Voice Cel-Alpha</commsystem>
+        <tandtsystem>Master&apos;s Sight 1-Omega</tandtsystem>
+    </fluff>
+</mech>
