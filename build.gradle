@@ -62,7 +62,14 @@ task releaseBuild(dependsOn: subprojects.build) {
     }
 }
 
-task zipRelease(type: Zip, dependsOn: releaseBuild) {
+task copyDocs (dependsOn: subprojects.build) {
+    copy {
+        from 'Docs'
+        into "${buildDir}/release/SSW_${version}/Docs"
+    }
+}
+
+task zipRelease(type: Zip, dependsOn: ['releaseBuild', 'copyDocs']) {
         from "${buildDir}/release"
         include "**/"
         archiveName "SSW_${version}.zip"
