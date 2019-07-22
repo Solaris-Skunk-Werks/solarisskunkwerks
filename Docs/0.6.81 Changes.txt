@@ -1,0 +1,28 @@
+SSW Fixes ('Mechs)
+ - Fixed physical weapons (for real this time!)
+ - Fixed Modular Armor not loading into list (and would fix Extended Fuel Tank and Drone Operating System too)
+ - Changed Vehicular Grenade Launcher so that the print sheet uses Vehic Gren Launcher to fit on page.
+ - Fixed Quad Mechs should not allow turrets in both torsos
+ - Fixed Head Turret selector
+
+BFB Fixes (Force Balancer)
+ - None
+
+SAW Fixes (Combat Vehicles)
+ - Fixed Widescreen version issue
+ - Fixed Naval print sheet issue
+ - Fixed LiftEquipment issue
+ - Fixed Minimum Engine Weight label to update (was set to 10 and never changed before)
+ - Added handler so that a user can select a piece of equipment, then double-click the location and have it add to the list
+ - Fixed Turret removal will now remove all weapons and equipment in the location
+ - Fixed Rotor Internal BV Issue (rotor was not being counted in the internal points correctly)
+ - Fixed Trailer checkbox so that it will not reset the engine to ICE unless No Engine is selected
+ - Fixed Engine selector so that MP does not change automatically unless the value is higher or lower then allowed.
+ - Fixed Trailer unchecking will now reset Controls to 0 tons.
+ - Updated Weapon Info dialog to use CVSpaces for Crits instead of MechCrits.
+
+SGT Fixes (Game Tracker [Alpha])
+ - None
+
+SQP Fixes (Quickstrike Printer)
+ - None

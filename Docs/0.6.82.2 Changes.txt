@@ -1,0 +1,30 @@
+https://sites.google.com/a/solarisskunkwerks.com/site/downloads/SSW_0.6.82.1.zip?attredirects=0&d=1
+
+SSW Fixes ('Mechs)
+ - BF Calcs now add u instead of j to movement type when UMU's are added.
+
+BFB Fixes (Force Balancer)
+ - None
+
+SAW Fixes (Combat Vehicles)
+ - Fixed Cargo so that vehicles can carry more then 88 tons.
+
+SGT Fixes (Game Tracker [Alpha])
+ - None
+
+SQP Fixes (Quickstrike Printer)
+ - None
+
+General Fixes
+ - Re-added Recon Camera
+ - Fixed MMName for Mek Taser
+ - Fixed MMName for Centurion Weapon System
+ - Fixed MMName for Clan Harjel
+ - Fixed MMName for Mech UMU
+ - Fixed MMName for ER Pulse Lasers
+ - Fixed MMName for Enhanced ER PPC
+ - Fixed MMName for Inferno Ammo
+ - Fixed MMName for INarc and Pods
+ - Fixed BV for Electronic warfare Equipment
+ - Fixed BV for Claws
+ - Fixed PPC Capacitor to allow addition on Mixed Tech 'Mechs

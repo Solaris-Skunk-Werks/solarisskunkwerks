@@ -1,0 +1,24 @@
+SSW 0.6.77 is now available at http://www.solarisskunkwerks.com/downloads/
+
+Fixed Bugs
++ SSW fails to handle excessive AMS ammo in BV calculation 
++ Use Clan CASE turns off when constructiong Clan quads. 
++ Error in BV calc of Mechanical Jump Boosters. 
++ CSV Export include Cost 
++ IS Partial Wings 
++ ArtV Crit Count Issue 
++ SSW 0.6.76 hangs at loading screen on Slackware Linux 13.1 
+
++ Many BattleForce stat fixes
++ Engine Multipliers errata
+
+Changes
++ Changed file path handling, preference only stores the base path to the ssw file location.  Index.ssi etc will only store the final part of the path (dir/filename).
+
+Report Bugs or Request Features @ https://sourceforge.net/tracker/?group_id=249506&atid=1126342
+
+Credits
+- jbengtson "LostInSpace"
+- gblouin "Skyhigh"
+- cranstonsnord
+- jaolaughlin

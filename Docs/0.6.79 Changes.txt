@@ -1,0 +1,9 @@
+Added
+- SAW Alpha - Solaris Armorwerks
+
+
+Fixed
+- Selecting a fluff image will now override all print sheets to use the selected image rather then trying to find a match
+- Issue with printing forces, the force dialog now correctly constructs the file path used to load data
+- Issue with displaying and sorting costs.
+- Quads can now mount rear facing weapons on the front legs
