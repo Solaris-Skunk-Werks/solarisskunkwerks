@@ -1,0 +1,31 @@
+Physical weapons file updated!  Please double check Hatchet, Sword, Claw wielding Mechs as we had an error in our data file that caused those designs not to load
+
+SSW Fixes ('Mechs)
+ - Fixed issue with Force dialog not correctly loading unit files
+ - Fixed fluff output on TRO
+
+BFB Fixes (Force Balancer)
+ - Changed logs directory to uppercase (Logs) to match SSW and SAW
+
+SAW Fixes (Combat Vehicles)
+ - FCS (ArtIV/ArtV/Apollo) updated to load correctly and now reduce tonnage and affect BV
+ - File saving updated to use the .saw extension in all methods
+ - Using "Clear" on the equipment list will now adjust the HS back to the base of the config or the free heat sinks in the engine
+ - Updated Speed export to actually multiply by 10.8
+ - Added CASE checkbox that will auto-add the correct type (IS or Clan) or will ask to use for Mixed tech.
+ - Fixed export to text issue
+ - Fixed Engine Rating for units that cause non-5 divisible increments (32t WiGE moving 12)
+ - Fixed Heat sinks when engine type changes (re-adjusts to max required or amount engine provides)
+ - Fixed Omni option available to Introductory
+ - Fixed CASE option available to Introductory
+ - Fixed Print issue where no data shows and some dots do not, now shows all data, but armor dots may not reflect full number of points
+ - Fixed Armor placement issues with all three buttons
+ - Fixed double charge for Targeting Computers
+ - Fixed File | Open and Help | About menu items
+ - Implemented a widescreen version of the form at 1280x600
+
+SGT Fixes (Game Tracker [rough!])
+ - None
+
+SQP Fixes (Quickstrike Printer)
+ - None
