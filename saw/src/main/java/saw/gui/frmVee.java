@@ -6616,7 +6616,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
 
         CurVee.GetArmor().SetMaxArmor(CurVee.GetArmorableLocationCount());
-        
         // fix the walking and jumping MP spinners
         FixMPSpinner();
         FixJJSpinnerModel();
@@ -8740,6 +8739,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
 
         FixTonnageSpinner( CurVee.GetMinTonnage(), CurVee.GetMaxTonnage() );
+
+        // Update Tonnage and vehicle class
+        lblVeeLimits.setText(CurVee.GetMaxTonnage() + "t Max");
+
         BuildChassisSelector();
         BuildEngineSelector();
         BuildArmorSelector();
