@@ -59,7 +59,7 @@ public class stCVHoverSH implements ifCombatVehicle {
     }
 
     public String GetMotiveLookupName() {
-        return "Hovercraft";
+        return "Hovercraft (Super Heavy)";
     }
 
     public boolean CanUseJumpMP() {

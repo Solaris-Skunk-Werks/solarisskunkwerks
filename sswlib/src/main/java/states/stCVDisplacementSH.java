@@ -59,7 +59,7 @@ public class stCVDisplacementSH implements ifCombatVehicle {
     }
 
     public String GetMotiveLookupName() {
-        return "Naval (Displacement)";
+        return "Displacement (Super Heavy)";
     }
 
     public boolean CanUseJumpMP() {
