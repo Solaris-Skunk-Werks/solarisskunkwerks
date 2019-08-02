@@ -2855,6 +2855,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lblInfoAVSL.setText( AC.GetISSLCode() + " / " + AC.GetCLSLCode() );
         lblInfoAVSW.setText( AC.GetISSWCode() + " / " + AC.GetCLSWCode() );
         lblInfoAVCI.setText( AC.GetISCICode() + " / " + AC.GetCLCICode() );
+        lblInfoAVDA.setText( AC.GetISDACode() + " / " + AC.GetCLDACode() );
         switch( AC.GetTechBase() ) {
             case AvailableCode.TECH_INNER_SPHERE:
                 lblInfoIntro.setText( AC.GetISIntroDate() + " (" + AC.GetISIntroFaction() + ")" );
@@ -4996,6 +4997,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lblInfoMountRestrict = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
         lblInfoRulesLevel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblInfoAVDA = new javax.swing.JLabel();
         pnlCriticals = new javax.swing.JPanel();
         pnlHDCrits = new javax.swing.JPanel();
         chkHDTurret = new javax.swing.JCheckBox();
@@ -8267,7 +8270,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jSeparator14.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
@@ -8307,13 +8310,15 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         jLabel33.setText("Mounting Restrictions");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 3);
         pnlEquipInfo.add(jLabel33, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 4, 0);
@@ -8334,6 +8339,18 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
         pnlEquipInfo.add(lblInfoRulesLevel, gridBagConstraints);
+
+        jLabel2.setText("Availability (DA)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlEquipInfo.add(jLabel2, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
+        pnlEquipInfo.add(lblInfoAVDA, gridBagConstraints);
 
         pnlEquipment.add(pnlEquipInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 325, 710, -1));
 
@@ -15054,6 +15071,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -15188,6 +15206,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel lblHSNumber;
     private javax.swing.JLabel lblHeatSinkType;
     private javax.swing.JLabel lblInfoAVCI;
+    private javax.swing.JLabel lblInfoAVDA;
     private javax.swing.JLabel lblInfoAVSL;
     private javax.swing.JLabel lblInfoAVSW;
     private javax.swing.JLabel lblInfoAmmo;

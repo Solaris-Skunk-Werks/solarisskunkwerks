@@ -644,10 +644,10 @@ public class AvailableCode {
     public AvailableCode Clone() {
         AvailableCode retval = new AvailableCode( TechBase );
         retval.SetRulesLevels( RulesLevelBM, RulesLevelIM, RulesLevelCV, RulesLevelAF, RulesLevelCF );
-        retval.SetISCodes( IS_TechRating, IS_SL, IS_SW, IS_CI );
+        retval.SetISCodes( IS_TechRating, IS_SL, IS_SW, IS_CI, IS_DA );
         retval.SetISDates( IS_RandDStartDate, IS_PrototypeDate, IS_IsPrototype, IS_IntroDate, IS_ExtinctDate, IS_ReIntroDate, IS_WentExtinct, IS_ReIntroduced );
         retval.SetISFactions( IS_RandDFaction, IS_PrototypeFaction, IS_IntroFaction, IS_ReIntroFaction );
-        retval.SetCLCodes( CL_TechRating, CL_SL, CL_SW, CL_CI );
+        retval.SetCLCodes( CL_TechRating, CL_SL, CL_SW, CL_CI, CL_DA );
         retval.SetCLDates( CL_RandDStartDate, CL_PrototypeDate, CL_IsPrototype, CL_IntroDate, CL_ExtinctDate, CL_ReIntroDate, CL_WentExtinct, CL_ReIntroduced );
         retval.SetCLFactions( CL_RandDFaction, CL_PrototypeFaction, CL_IntroFaction, CL_ReIntroFaction );
         retval.SetPBMAllowed( PBMAllowed );
