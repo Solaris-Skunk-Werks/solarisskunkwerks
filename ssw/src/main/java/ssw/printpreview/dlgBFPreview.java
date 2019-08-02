@@ -107,14 +107,14 @@ public class dlgBFPreview extends javax.swing.JFrame implements ActionListener {
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
-        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/BFB.Images/arrow-180.png"))); // NOI18N
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/arrow-180.png"))); // NOI18N
         btnBack.setText("Prev");
         btnBack.setFocusable(false);
         btnBack.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnBack.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnBack);
 
-        btnForward.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/BFB.Images/arrow.png"))); // NOI18N
+        btnForward.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/arrow.png"))); // NOI18N
         btnForward.setText("Next");
         btnForward.setFocusable(false);
         btnForward.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -122,14 +122,14 @@ public class dlgBFPreview extends javax.swing.JFrame implements ActionListener {
         jToolBar1.add(btnForward);
         jToolBar1.add(jSeparator1);
 
-        btnPageWidth.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/BFB.Images/document-resize.png"))); // NOI18N
+        btnPageWidth.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/document-resize.png"))); // NOI18N
         btnPageWidth.setText("Width");
         btnPageWidth.setFocusable(false);
         btnPageWidth.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPageWidth.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnPageWidth);
 
-        btnPageHeight.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/BFB.Images/document-resize-actual.png"))); // NOI18N
+        btnPageHeight.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/document-resize-actual.png"))); // NOI18N
         btnPageHeight.setText("Page");
         btnPageHeight.setFocusable(false);
         btnPageHeight.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -137,14 +137,14 @@ public class dlgBFPreview extends javax.swing.JFrame implements ActionListener {
         jToolBar1.add(btnPageHeight);
         jToolBar1.add(jSeparator3);
 
-        btnZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/BFB.Images/magnifier-zoom.png"))); // NOI18N
+        btnZoomIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/magnifier-zoom.png"))); // NOI18N
         btnZoomIn.setText("Zoom In");
         btnZoomIn.setFocusable(false);
         btnZoomIn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnZoomIn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnZoomIn);
 
-        btnZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/BFB.Images/magnifier-zoom-out.png"))); // NOI18N
+        btnZoomOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/magnifier-zoom-out.png"))); // NOI18N
         btnZoomOut.setText("Zoom Out");
         btnZoomOut.setFocusable(false);
         btnZoomOut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -152,7 +152,7 @@ public class dlgBFPreview extends javax.swing.JFrame implements ActionListener {
         jToolBar1.add(btnZoomOut);
         jToolBar1.add(jSeparator2);
 
-        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/BFB.Images/printer.png"))); // NOI18N
+        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/printer.png"))); // NOI18N
         btnPrint.setText("Print");
         btnPrint.setFocusable(false);
         btnPrint.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -164,7 +164,7 @@ public class dlgBFPreview extends javax.swing.JFrame implements ActionListener {
         });
         jToolBar1.add(btnPrint);
 
-        btnCloseDialog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/BFB.Images/home.png"))); // NOI18N
+        btnCloseDialog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/home.png"))); // NOI18N
         btnCloseDialog.setText("Close");
         btnCloseDialog.setFocusable(false);
         btnCloseDialog.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
