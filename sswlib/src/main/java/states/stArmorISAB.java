@@ -42,9 +42,6 @@ public class stArmorISAB implements ifArmor, ifState {
         AC.SetISCodes( 'E', 'X', 'X', 'X', 'E' );
         AC.SetISDates( 0, 0, false, 3114, 0, 0, false, false );
         AC.SetISFactions( "", "", "DC", "" );
-        /*AC.SetCLCodes( 'D', 'X', 'B', 'B' );
-        AC.SetCLDates( 0, 0, false, 2470, 0, 0, false, false );
-        AC.SetCLFactions( "", "", "TH", "" );*/
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED );
         AC.SetPBMAllowed(true);
     }

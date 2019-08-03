@@ -51,12 +51,12 @@ public class stEngineISXL implements ifEngine, ifState {
     private Engine Owner;
 
     public stEngineISXL( Engine e ) {
-        AC.SetISCodes( 'E', 'D', 'F', 'E' );
-        AC.SetISDates( 0, 0, false, 2579, 2865, 3035, true, true );
+        AC.SetISCodes( 'E', 'D', 'F', 'E', 'D' );
+        AC.SetISDates( 0, 0, false, 2556, 2865, 3035, true, true );
         AC.SetISFactions( "", "", "TH", "LC" );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED );
-        LARGE_AC.SetISCodes( 'E', 'D', 'F', 'E' );
-        LARGE_AC.SetISDates( 2579, 2630, true, 2630, 2865, 3035, true, true );
+        LARGE_AC.SetISCodes( 'E', 'D', 'F', 'E', 'D' );
+        LARGE_AC.SetISDates( 2579, 2630, true, 2556, 2865, 3035, true, true );
         LARGE_AC.SetISFactions( "TH", "TH", "TH", "LC" );
         LARGE_AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
         Owner = e;
