@@ -68,12 +68,12 @@ public class AvailableCode {
     private char IS_SL = 'X',
                  IS_SW = 'X',
                  IS_CI = 'X',
-                 IS_DA = 'A',
+                 IS_DA = 'X',
                  IS_TechRating = 'X',
                  CL_SL = 'X',
                  CL_SW = 'X',
                  CL_CI = 'X',
-                 CL_DA ='A',
+                 CL_DA ='X',
                  CL_TechRating = 'X';
     private int IS_RandDStartDate = 0,
                 IS_PrototypeDate = 0,
@@ -121,17 +121,17 @@ public class AvailableCode {
 /*
  *  Setters
  */
-    public void SetCodes( char istech, char isSL, char isSW, char isCI, char cltech, char clSL, char clSW, char clCI ) {
+    public void SetCodes( char istech, char isSL, char isSW, char isCI, char isDA, char cltech, char clSL, char clSW, char clCI, char clDA ) {
         IS_TechRating = istech;
         IS_SL = isSL;
         IS_SW = isSW;
         IS_CI = isCI;
-        //IS_DA = isDA;
+        IS_DA = isDA;
         CL_TechRating = istech;
         CL_SL = isSL;
         CL_SW = isSW;
         CL_CI = isCI;
-        //CL_DA = clDA;
+        CL_DA = clDA;
     }
 
     /**
@@ -644,10 +644,10 @@ public class AvailableCode {
     public AvailableCode Clone() {
         AvailableCode retval = new AvailableCode( TechBase );
         retval.SetRulesLevels( RulesLevelBM, RulesLevelIM, RulesLevelCV, RulesLevelAF, RulesLevelCF );
-        retval.SetISCodes( IS_TechRating, IS_SL, IS_SW, IS_CI );
+        retval.SetISCodes( IS_TechRating, IS_SL, IS_SW, IS_CI, IS_DA );
         retval.SetISDates( IS_RandDStartDate, IS_PrototypeDate, IS_IsPrototype, IS_IntroDate, IS_ExtinctDate, IS_ReIntroDate, IS_WentExtinct, IS_ReIntroduced );
         retval.SetISFactions( IS_RandDFaction, IS_PrototypeFaction, IS_IntroFaction, IS_ReIntroFaction );
-        retval.SetCLCodes( CL_TechRating, CL_SL, CL_SW, CL_CI );
+        retval.SetCLCodes( CL_TechRating, CL_SL, CL_SW, CL_CI, CL_DA );
         retval.SetCLDates( CL_RandDStartDate, CL_PrototypeDate, CL_IsPrototype, CL_IntroDate, CL_ExtinctDate, CL_ReIntroDate, CL_WentExtinct, CL_ReIntroduced );
         retval.SetCLFactions( CL_RandDFaction, CL_PrototypeFaction, CL_IntroFaction, CL_ReIntroFaction );
         retval.SetPBMAllowed( PBMAllowed );

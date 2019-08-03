@@ -4255,7 +4255,7 @@ public class Mech implements ifUnit, ifBattleforce {
     public AvailableCode GetAvailability() {
         // returns the availability code for this mech based on all components
         AvailableCode Base = new AvailableCode( CurLoadout.GetTechBase() );
-        Base.SetCodes( 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A' );
+        Base.SetCodes( 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A' );
         Base.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
         Base.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
         Base.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
@@ -4323,7 +4323,7 @@ public class Mech implements ifUnit, ifBattleforce {
         if( CurLoadout.GetEra() == AvailableCode.ERA_SUCCESSION ) {
             // cut out the Star League stuff.
             AvailableCode SW = new AvailableCode( Base.GetTechBase() );
-            SW.SetCodes( 'A', 'X', 'A', 'A', 'A', 'X', 'A', 'A' );
+            SW.SetCodes( 'A', 'X', 'A', 'A', 'A', 'A', 'X', 'A', 'A', 'A' );
             SW.SetISDates( 0, 0, false, 2801, 10000, 0, false, false );
             SW.SetCLDates( 0, 0, false, 2801, 10000, 0, false, false );
             SW.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
@@ -4332,7 +4332,7 @@ public class Mech implements ifUnit, ifBattleforce {
         if( CurLoadout.GetEra() == AvailableCode.ERA_CLAN_INVASION ) {
             // cut out the Star League and Succession Wars stuff.
             AvailableCode CI = new AvailableCode( Base.GetTechBase() );
-            CI.SetCodes( 'A', 'X', 'X', 'A', 'A', 'X', 'X', 'A' );
+            CI.SetCodes( 'A', 'X', 'X', 'A', 'A', 'A', 'X', 'X', 'A', 'A' );
             CI.SetISDates( 0, 0, false, 3051, 10000, 0, false, false );
             CI.SetCLDates( 0, 0, false, 3051, 10000, 0, false, false );
             CI.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

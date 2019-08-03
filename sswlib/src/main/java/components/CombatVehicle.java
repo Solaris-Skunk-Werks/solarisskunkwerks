@@ -34,7 +34,6 @@ import common.Constants;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.prefs.Preferences;
 import states.*;
 import visitors.*;
@@ -117,25 +116,25 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.6, 1.6, 1.6, 1.6, 1.6, 1.6 };
 
     public CombatVehicle() {
-        OmniAvailable.SetCodes( 'E', 'X', 'E', 'E', 'E', 'X', 'E', 'E' );
+        OmniAvailable.SetCodes( 'E', 'X', 'E', 'E', 'D', 'E', 'X', 'E', 'E', 'D' );
         OmniAvailable.SetFactions( "", "", "", "", "", "", "", "" );
         OmniAvailable.SetISDates( 0, 0, false, 3010, 0, 0, false, false );
         OmniAvailable.SetCLDates( 0, 0, false, 2854, 0, 0, false, false );
         OmniAvailable.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
 
-        DualTurretAC.SetCodes( 'B', 'F', 'X', 'F', 'B', 'X', 'E', 'E' );
+        DualTurretAC.SetCodes( 'B', 'F', 'F', 'F', 'E', 'B', 'F', 'F', 'F', 'E' );
         DualTurretAC.SetFactions( "", "", "PS", "", "", "", "PS", "" );
         DualTurretAC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
         DualTurretAC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
         DualTurretAC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
 
-        ChinTurretAC.SetCodes( 'B', 'F', 'F', 'F', 'B', 'X', 'E', 'E' );
+        ChinTurretAC.SetCodes( 'B', 'F', 'F', 'F', 'E', 'B', 'F', 'F', 'F', 'E' );
         ChinTurretAC.SetFactions( "", "", "PS", "", "", "", "PS", "" );
         ChinTurretAC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
         ChinTurretAC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
         ChinTurretAC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
 
-        SponsoonAC.SetCodes( 'B', 'F', 'X', 'F', 'B', 'X', 'E', 'E' );
+        SponsoonAC.SetCodes( 'B', 'F', 'F', 'F', 'D', 'B', 'F', 'F', 'F', 'D' );
         SponsoonAC.SetFactions( "", "", "PS", "", "", "", "PS", "" );
         SponsoonAC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
         SponsoonAC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
@@ -2353,7 +2352,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     public AvailableCode GetAvailability() {
         // returns the availability code for this mech based on all components
         AvailableCode Base = new AvailableCode( CurLoadout.GetTechBase() );
-        Base.SetCodes( 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A' );
+        Base.SetCodes( 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A' );
         Base.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
         Base.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
         Base.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
@@ -2389,7 +2388,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         if( CurLoadout.GetEra() == AvailableCode.ERA_SUCCESSION ) {
             // cut out the Star League stuff.
             AvailableCode SW = new AvailableCode( Base.GetTechBase() );
-            SW.SetCodes( 'A', 'X', 'A', 'A', 'A', 'X', 'A', 'A' );
+            SW.SetCodes( 'A', 'X', 'A', 'A', 'A', 'A', 'X', 'A', 'A', 'A' );
             SW.SetISDates( 0, 0, false, 2801, 10000, 0, false, false );
             SW.SetCLDates( 0, 0, false, 2801, 10000, 0, false, false );
             SW.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
@@ -2398,7 +2397,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         if( CurLoadout.GetEra() == AvailableCode.ERA_CLAN_INVASION ) {
             // cut out the Star League and Succession Wars stuff.
             AvailableCode CI = new AvailableCode( Base.GetTechBase() );
-            CI.SetCodes( 'A', 'X', 'X', 'A', 'A', 'X', 'X', 'A' );
+            CI.SetCodes( 'A', 'X', 'X', 'A', 'A', 'A', 'X', 'X', 'A', 'A' );
             CI.SetISDates( 0, 0, false, 3051, 10000, 0, false, false );
             CI.SetCLDates( 0, 0, false, 3051, 10000, 0, false, false );
             CI.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

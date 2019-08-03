@@ -71,6 +71,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         lblISACSL.setText( "" + AC.GetISSLCode() );
         lblISACSW.setText( "" + AC.GetISSWCode() );
         lblISACCI.setText( "" + AC.GetISCICode() );
+        lblISACDA.setText( "" + AC.GetISDACode() );
         lblISIntro.setText( AC.GetISIntroDate() + " (" + AC.GetISIntroFaction() + ")" );
         if( AC.WentExtinctIS() ) {
             lblISExtinct.setText( "" + AC.GetISExtinctDate() );
@@ -92,6 +93,7 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         lblClanACSL.setText( "" + AC.GetCLSLCode() );
         lblClanACSW.setText( "" + AC.GetCLSWCode() );
         lblClanACCI.setText( "" + AC.GetCLCICode() );
+        lblClanACDA.setText( "" + AC.GetCLDACode() );
         lblClanIntro.setText( AC.GetCLIntroDate() + " (" + AC.GetCLIntroFaction() + ")" );
         if( AC.WentExtinctCL() ) {
             lblClanExtinct.setText( "" + AC.GetCLExtinctDate() );
@@ -157,6 +159,8 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         lblClanReIntro = new javax.swing.JLabel();
         lblClanExtinct = new javax.swing.JLabel();
         lblClanIntro = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        lblClanACDA = new javax.swing.JLabel();
         pnlInnerSphere = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         lblISACSL = new javax.swing.JLabel();
@@ -172,6 +176,8 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         lblISReIntro = new javax.swing.JLabel();
         lblISExtraInfo = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        lblISACDA = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         lblBookRef = new javax.swing.JLabel();
@@ -439,6 +445,22 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 0);
         pnlClan.add(lblClanIntro, gridBagConstraints);
 
+        jLabel17.setText("Availability (DA)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
+        pnlClan.add(jLabel17, gridBagConstraints);
+
+        lblClanACDA.setText("X");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 6);
+        pnlClan.add(lblClanACDA, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
@@ -563,6 +585,22 @@ public class dlgPlaceableInfo extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlInnerSphere.add(jLabel16, gridBagConstraints);
 
+        jLabel15.setText("Availability (DA)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
+        pnlInnerSphere.add(jLabel15, gridBagConstraints);
+
+        lblISACDA.setText("X");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 6);
+        pnlInnerSphere.add(lblISACDA, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
@@ -611,7 +649,9 @@ private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -633,6 +673,7 @@ private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JLabel lblBV;
     private javax.swing.JLabel lblBookRef;
     private javax.swing.JLabel lblClanACCI;
+    private javax.swing.JLabel lblClanACDA;
     private javax.swing.JLabel lblClanACSL;
     private javax.swing.JLabel lblClanACSW;
     private javax.swing.JLabel lblClanExtinct;
@@ -641,6 +682,7 @@ private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JLabel lblClanReIntro;
     private javax.swing.JLabel lblCost;
     private javax.swing.JLabel lblISACCI;
+    private javax.swing.JLabel lblISACDA;
     private javax.swing.JLabel lblISACSL;
     private javax.swing.JLabel lblISACSW;
     private javax.swing.JLabel lblISExtinct;
