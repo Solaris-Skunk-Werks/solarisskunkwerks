@@ -44,6 +44,7 @@ public class stArmorISST implements ifArmor, ifState {
         AC.SetISFactions( "", "", "CC", "" );
         AC.SetSuperHeavyCompatible(false);
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
+        AC.SetPBMAllowed(true);
     }
 
     public String ActualName() {

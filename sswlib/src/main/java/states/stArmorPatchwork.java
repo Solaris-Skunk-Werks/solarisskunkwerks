@@ -46,6 +46,7 @@ public class stArmorPatchwork implements ifArmor, ifState {
         AC.SetISDates( 0, 0, false, 2400, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
+        AC.SetPBMAllowed(true);
     }
 
     public String ActualName() {

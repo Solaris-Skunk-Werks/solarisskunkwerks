@@ -39,6 +39,7 @@ public class stArmorISVST implements ifArmor, ifState {
         AC.SetISDates( 0, 0, false, 3067, 0, 0, false, false );
         AC.SetISFactions( "", "", "CC", "" );
         AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
+        AC.SetPBMAllowed(true);
     }
 
     public String ActualName() {

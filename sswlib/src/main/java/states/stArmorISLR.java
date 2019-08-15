@@ -43,6 +43,7 @@ public class stArmorISLR implements ifArmor, ifState {
         AC.SetISDates( 3055, 3058, true, 3058, 0, 0, false, false );
         AC.SetISFactions( "FC", "LA", "", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
+        AC.SetPBMAllowed(true);
     }
 
     public String ActualName() {

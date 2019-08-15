@@ -46,6 +46,7 @@ public class stArmorISAB implements ifArmor, ifState {
         AC.SetCLDates( 0, 0, false, 2470, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );*/
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED );
+        AC.SetPBMAllowed(true);
     }
 
     public String ActualName() {

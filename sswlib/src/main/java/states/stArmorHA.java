@@ -47,6 +47,7 @@ public class stArmorHA implements ifArmor, ifState {
         AC.SetCLDates( 3057, 3061, true, 3061, 0, 0, false, false );
         AC.SetCLFactions( "CGB", "CGB", "", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        AC.SetPBMAllowed(true);
     }
 
     public String ActualName() {
