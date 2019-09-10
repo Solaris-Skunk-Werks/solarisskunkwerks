@@ -73,8 +73,8 @@ public class frmMain
     this.jPanel1.add(this.jLabel1);
     
     this.txtSource.setEditable(false);
-    this.txtSource.setMinimumSize(new Dimension('È', 20));
-    this.txtSource.setPreferredSize(new Dimension('È', 20));
+    this.txtSource.setMinimumSize(new Dimension(20, 20));
+    this.txtSource.setPreferredSize(new Dimension(20, 20));
     this.jPanel1.add(this.txtSource);
     
     this.btnSetSource.setText("...");
@@ -116,8 +116,8 @@ public class frmMain
     gridBagConstraints.anchor = 17;
     this.jPanel3.add(this.jLabel2, gridBagConstraints);
     
-    this.txtLog.setMinimumSize(new Dimension('Ĭ', 'È'));
-    this.txtLog.setPreferredSize(new Dimension('Ĭ', 'È'));
+    this.txtLog.setMinimumSize(new Dimension(20, 20));
+    this.txtLog.setPreferredSize(new Dimension(200, 200));
     this.jScrollPane1.setViewportView(this.txtLog);
     
     gridBagConstraints = new GridBagConstraints();
