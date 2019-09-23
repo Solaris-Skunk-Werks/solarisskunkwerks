@@ -43,6 +43,7 @@ public class stArmorISRE implements ifArmor, ifState {
         AC.SetISDates( 3058, 3063, true, 3063, 0, 0, false, false );
         AC.SetISFactions( "DC", "DC", "", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
+        AC.SetPBMAllowed(true);
     }
 
     public String ActualName() {

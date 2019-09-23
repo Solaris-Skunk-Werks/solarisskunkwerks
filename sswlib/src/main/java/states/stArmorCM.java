@@ -47,6 +47,7 @@ public class stArmorCM implements ifArmor, ifState {
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED );
+        AC.SetPBMAllowed(true);
     }
 
     public String ActualName() {
