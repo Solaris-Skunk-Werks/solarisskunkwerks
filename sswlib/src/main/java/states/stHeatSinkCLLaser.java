@@ -37,7 +37,7 @@ public class stHeatSinkCLLaser implements ifHeatSinkFactory, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_CLAN );
 
     public stHeatSinkCLLaser() {
-        AC.SetCLCodes( 'F', 'X', 'X', 'E' );
+        AC.SetCLCodes( 'F', 'X', 'X', 'E', 'D' );
         AC.SetCLDates( 0, 0, false, 3051, 0, 0, false, false );
         AC.SetCLFactions( "", "", "CJF", "" );
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
