@@ -394,10 +394,6 @@ public class MechWriter {
             ArrayList v = CurMech.GetLoadouts();
             for( int i = 0; i < v.size(); i++ ) {
                 String loadoutName = ((ifMechLoadout)v.get( i )).GetName();
-                if (loadoutName.equals("SSW_TEMP_LOADOUT_001")) {
-                    // skip the temporary omnimech placeholder loadout
-                    continue;
-                }
                 CurMech.SetCurLoadout( loadoutName );
                 if( CurMech.GetBaseRulesLevel() != CurMech.GetLoadout().GetRulesLevel() ) {
                     FR.write( tab + "<loadout name=\"" + FileCommon.EncodeFluff( CurMech.GetLoadout().GetName() ) + "\" ruleslevel=\"" + CurMech.GetLoadout().GetRulesLevel() + "\" fcsa4=\"" + FileCommon.GetBoolean( CurMech.UsingArtemisIV() ) + "\" fcsa5=\"" + FileCommon.GetBoolean( CurMech.UsingArtemisV() ) + "\" fcsapollo=\"" + FileCommon.GetBoolean( CurMech.UsingApollo() ) + "\">" );
