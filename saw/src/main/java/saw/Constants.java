@@ -35,7 +35,7 @@ public class Constants {
     public final static String AppName = "SAW",
                         AppDescription = "Solaris Armor Werks",
                         Version = "0.7",
-                        AppRelease = "Experimental 7",
+                        AppRelease = "Experimental 9",
                         ImageListFileName = "S7Images",
                         LogFileName = "Logs/SAW_Log.txt",
                         HTMLTemplateName = "Data/Templates/Vee_HTML.html",
