@@ -36,10 +36,10 @@ public class stHeatSinkSingle implements ifHeatSinkFactory, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
     public stHeatSinkSingle() {
-        AC.SetISCodes( 'C', 'B', 'B', 'B' );
+        AC.SetISCodes( 'C', 'B', 'B', 'B', 'B' );
         AC.SetISDates( 0, 0, false, 2022, 0, 0, false, false );
         AC.SetISFactions( "", "", "WA", "" );
-        AC.SetCLCodes( 'C', 'X', 'A', 'A' );
+        AC.SetCLCodes( 'C', 'B', 'B', 'B', 'B' );
         AC.SetCLDates( 0, 0, false, 2022, 0, 0, false, false );
         AC.SetCLFactions( "", "", "WA", "" );
         AC.SetPBMAllowed( true );

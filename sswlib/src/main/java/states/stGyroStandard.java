@@ -35,11 +35,11 @@ public class stGyroStandard implements ifGyro, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
     public stGyroStandard() {
-        AC.SetISCodes( 'D', 'C', 'C', 'C' );
-        AC.SetISDates( 0, 0, false, 2443, 0, 0, false, false );
+        AC.SetISCodes( 'D', 'C', 'C', 'C', 'C' );
+        AC.SetISDates( 0, 0, false, 2350, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
-        AC.SetCLCodes( 'D', 'X', 'B', 'B' );
-        AC.SetCLDates( 0, 0, false, 2443, 0, 0, false, false );
+        AC.SetCLCodes( 'D', 'C', 'C', 'C', 'C' );
+        AC.SetCLDates( 0, 0, false, 2350, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );

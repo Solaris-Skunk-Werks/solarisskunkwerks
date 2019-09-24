@@ -33,7 +33,7 @@ import components.LocationIndex;
 import components.MechModifier;
 import components.SimplePlaceable;
 
-public class stCockpitISSmall implements ifCockpit, ifState {
+public class stCockpitSmall implements ifCockpit, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private SimplePlaceable Sensors = new SimplePlaceable( "Sensors", "Sensors", "Sensors", "Sensors", "Tech Manual", 1, true, AC );
     private SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
@@ -41,10 +41,13 @@ public class stCockpitISSmall implements ifCockpit, ifState {
     private SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
     private final MechModifier MechMod = new MechModifier( 0, 0, 0, 0.0f, 1, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true, false );
 
-    public stCockpitISSmall() {
-        AC.SetISCodes( 'E', 'X', 'X', 'E' );
+    public stCockpitSmall() {
+        AC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
         AC.SetISDates( 0, 0, false, 3067, 0, 0, false, false );
         AC.SetISFactions( "", "", "FS", "" );
+        AC.SetCLCodes( 'E', 'X', 'X', 'E', 'D' );
+        AC.SetCLDates( 0, 0, false, 3080, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "FS", "" );
         AC.SetSuperHeavyCompatible(false);
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }

@@ -61,7 +61,7 @@ public class stChassisSHECBP implements ifChassis, ifState {
 
     public stChassisSHECBP() {
         AC.SetISCodes( 'E', 'X', 'X', 'F', 'F' );
-        AC.SetISDates( 0, 0, false, 3076, 0, 0, false, false );
+        AC.SetISDates( 0, 0, false, 3130, 0, 0, false, false );
         AC.SetISFactions( "", "", "WoB", "" );
         AC.SetSuperHeavyOnly(true);
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

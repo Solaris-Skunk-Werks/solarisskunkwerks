@@ -41,7 +41,7 @@ public class stCockpitSuperHeavy implements ifCockpit, ifState {
     private SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
 
     public stCockpitSuperHeavy() {
-        AC.SetISCodes( 'E', 'X', 'X', 'F', 'F' );
+        AC.SetISCodes( 'E', 'X', 'X', 'F', 'E' );
         AC.SetISDates( 0, 0, false, 3076, 0, 0, false, false );
         AC.SetISFactions( "", "", "WoB", "" );
         AC.SetSuperHeavyOnly(true);

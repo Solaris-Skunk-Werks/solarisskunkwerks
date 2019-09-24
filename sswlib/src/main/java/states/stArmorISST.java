@@ -39,7 +39,7 @@ public class stArmorISST implements ifArmor, ifState {
     private final static MechModifier MechMod = new MechModifier( 0, 0, 0, 0.0f, 0, 0, 10, 0.2f, 0.0f, 0.0f, 0.0f, true, false );
 
     public stArmorISST() {
-        AC.SetISCodes( 'E', 'X', 'X', 'E' );
+        AC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
         AC.SetISDates( 0, 0, false, 3063, 0, 0, false, false );
         AC.SetISFactions( "", "", "CC", "" );
         AC.SetSuperHeavyCompatible(false);

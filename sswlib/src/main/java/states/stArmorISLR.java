@@ -39,7 +39,7 @@ public class stArmorISLR implements ifArmor, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stArmorISLR() {
-        AC.SetISCodes( 'E', 'X', 'X', 'F' );
+        AC.SetISCodes( 'E', 'X', 'X', 'F', 'E' );
         AC.SetISDates( 3055, 3058, true, 3058, 0, 0, false, false );
         AC.SetISFactions( "FC", "LA", "", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );

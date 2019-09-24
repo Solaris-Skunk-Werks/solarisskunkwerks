@@ -57,8 +57,8 @@ public class stChassisPBMBP implements ifChassis, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stChassisPBMBP() {
-        AC.SetISCodes( 'C', 'E', 'X', 'F' );
-        AC.SetISDates( 0, 0, false, 2443, 0, 0, false, false );
+        AC.SetISCodes( 'D', 'D', 'X', 'F', 'F' );
+        AC.SetISDates( 0, 0, false, 2439, 2520, 0, true, false );
         AC.SetISFactions( "", "", "TH", "" );
         AC.SetPBMAllowed( true );
         AC.SetPrimitiveOnly( true );

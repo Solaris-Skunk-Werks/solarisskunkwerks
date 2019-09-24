@@ -57,8 +57,8 @@ public class stChassisPIMQD implements ifChassis, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stChassisPIMQD() {
-        AC.SetISCodes( 'C', 'E', 'X', 'F' );
-        AC.SetISDates( 0, 0, false, 2300, 0, 0, false, false );
+        AC.SetISCodes( 'C', 'C', 'X', 'F', 'F' );
+        AC.SetISDates( 0, 0, false, 2300, 2520, 0, true, false );
         AC.SetISFactions( "", "", "TH", "" );
         AC.SetPIMAllowed( true );
         AC.SetPrimitiveOnly( true );

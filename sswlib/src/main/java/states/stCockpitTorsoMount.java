@@ -42,11 +42,11 @@ public class stCockpitTorsoMount implements ifCockpit, ifState {
     private SimplePlaceable ThirdSensors = new SimplePlaceable( "Sensors", "Sensors", "Sensors", "Sensors", "Tech Manual", 1, true, AC );
 
     public stCockpitTorsoMount() {
-        AC.SetISCodes( 'E', 'X', 'X', 'F' );
-        AC.SetISDates( 3044, 3053, true, 3053, 0, 0, false, false );
+        AC.SetISCodes( 'D', 'X', 'X', 'F', 'F' );
+        AC.SetISDates( 3044, 3053, true, 3080, 0, 0, false, false );
         AC.SetISFactions( "FC", "FC", "", "" );
-        AC.SetCLCodes( 'E', 'X', 'X', 'F' );
-        AC.SetCLDates( 3044, 3055, true, 3055, 0, 0, false, false );
+        AC.SetCLCodes( 'D', 'X', 'X', 'F', 'F' );
+        AC.SetCLDates( 3044, 3055, true, 3080, 0, 0, false, false );
         AC.SetCLFactions( "FC", "FC", "", "" );
         AC.SetSuperHeavyCompatible(false);
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
