@@ -46,11 +46,11 @@ public class stEngineFission implements ifEngine, ifState {
     private final static int[] BFStructure = {1,1,2,2,3,3,3,4,4,5,5,5,6,6,6,7,7,8,8};
 
     public stEngineFission() {
-        AC.SetISCodes( 'D', 'E', 'E', 'D' );
-        AC.SetISDates( 0, 0, false, 1960, 0, 0, false, false );
+        AC.SetISCodes( 'D', 'E', 'E', 'D', 'D' );
+        AC.SetISDates( 0, 0, false, 2882, 0, 0, false, false );
         AC.SetISFactions( "", "", "ES", "" );
-        AC.SetCLCodes( 'D', 'X', 'E', 'D' );
-        AC.SetCLDates( 0, 0, false, 1960, 0, 0, false, false );
+        AC.SetCLCodes( 'D', 'X', 'E', 'D', 'D' );
+        AC.SetCLDates( 0, 0, false, 2882, 0, 0, false, false );
         AC.SetCLFactions( "", "", "ES", "" );
         AC.SetSuperHeavyCompatible( false );
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_ADVANCED );

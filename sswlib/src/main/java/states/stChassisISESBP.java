@@ -57,7 +57,7 @@ public class stChassisISESBP implements ifChassis, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stChassisISESBP() {
-        AC.SetISCodes( 'E', 'D', 'F', 'E' );
+        AC.SetISCodes( 'E', 'D', 'F', 'E', 'D' );
         AC.SetISDates( 0, 0, false, 2487, 2850, 3035, true, true );
         AC.SetISFactions( "", "", "TH", "DC" );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
