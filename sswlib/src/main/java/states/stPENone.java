@@ -36,10 +36,10 @@ public class stPENone implements ifPhysEnhance, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
     public stPENone() {
-        AC.SetISCodes( 'A', 'A', 'A', 'A' );
+        AC.SetISCodes( 'A', 'A', 'A', 'A', 'A' );
         AC.SetISDates( 0, 0, false, 2443, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
-        AC.SetCLCodes( 'A', 'X', 'A', 'A' );
+        AC.SetCLCodes( 'A', 'X', 'A', 'A', 'A' );
         AC.SetCLDates( 0, 0, false, 2443, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetPBMAllowed( true );
