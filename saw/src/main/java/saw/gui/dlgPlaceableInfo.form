@@ -370,7 +370,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel22">
+        <Component class="javax.swing.JLabel" name="lblClanACDA">
           <Properties>
             <Property name="text" type="java.lang.String" value="X"/>
           </Properties>
@@ -541,7 +541,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel17">
+        <Component class="javax.swing.JLabel" name="lblISACDA">
           <Properties>
             <Property name="text" type="java.lang.String" value="X"/>
           </Properties>
