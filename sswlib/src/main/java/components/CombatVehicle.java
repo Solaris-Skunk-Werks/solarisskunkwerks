@@ -141,7 +141,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         SponsoonAC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
 
         AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
-        AC.SetISCodes( 'E', 'X', 'X', 'F' );
+        AC.SetISCodes( 'E', 'X', 'X', 'F', 'F' );
         AC.SetISDates( 3051, 3053, true, 3053, 0, 0, false, false );
         AC.SetISFactions( "FS", "FS", "", "" );
         AC.SetPBMAllowed( true );
@@ -153,12 +153,12 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         BlueShield.SetChatName( "BluShld" );
 
         AC = new AvailableCode( AvailableCode.TECH_BOTH );
-        AC.SetISCodes( 'C', 'C', 'C', 'C' );
-        AC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
-        AC.SetISFactions( "", "", "PS", "" );
-        AC.SetCLCodes( 'C', 'X', 'C', 'C' );
-        AC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
-        AC.SetCLFactions( "", "", "PS", "" );
+        AC.SetISCodes( 'C', 'C', 'C', 'C', 'C' );
+        AC.SetISDates( 0, 0, false, 2350, 0, 0, false, false );
+        AC.SetISFactions( "", "", "TH", "" );
+        AC.SetCLCodes( 'C', 'X', 'C', 'C', 'C' );
+        AC.SetCLDates( 0, 0, false, 2350, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "TH", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

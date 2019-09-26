@@ -57,7 +57,8 @@ public class stChassisPIMBP implements ifChassis, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stChassisPIMBP() {
-        AC.SetISCodes( 'C', 'C', 'X', 'F', 'F' );
+        // IO page 122 overrides the UAT for primitive components
+        AC.SetISCodes( 'D', 'C', 'F', 'E', 'F' );
         AC.SetISDates( 0, 0, false, 2300, 2520, 0, true, false );
         AC.SetISFactions( "", "", "TH", "" );
         AC.SetPIMAllowed( true );

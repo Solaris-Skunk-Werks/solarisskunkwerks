@@ -33,11 +33,11 @@ public class Supercharger extends abPlaceable {
     private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
     public Supercharger( ifLoadout l ) {
-        AC.SetISCodes( 'C', 'F', 'F', 'F' );
-        AC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
+        AC.SetISCodes( 'C', 'F', 'F', 'F', 'D' );
+        AC.SetISDates( 0, 0, false, 3078, 0, 0, false, false );
         AC.SetISFactions( "", "", "ES", "" );
-        AC.SetCLCodes( 'C', 'X', 'F', 'F' );
-        AC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
+        AC.SetCLCodes( 'C', 'X', 'F', 'F', 'D' );
+        AC.SetCLDates( 0, 0, false, 3078, 0, 0, false, false );
         AC.SetCLFactions( "", "", "ES", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = (ifLoadout)l;

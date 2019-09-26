@@ -65,11 +65,11 @@ public class ActuatorSet {
     private ifMechLoadout Owner;
 
     public ActuatorSet( ifMechLoadout l, Mech m ) {
-        AC.SetISCodes( 'C', 'C', 'C', 'C' );
-        AC.SetISDates( 0, 0, false, 2300, 0, 0, false, false );
+        AC.SetISCodes( 'C', 'C', 'C', 'C', 'C' );
+        AC.SetISDates( 0, 0, false, 2350, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
-        AC.SetCLCodes( 'C', 'X', 'C', 'C' );
-        AC.SetCLDates( 0, 0, false, 2300, 0, 0, false, false );
+        AC.SetCLCodes( 'C', 'X', 'C', 'C', 'C' );
+        AC.SetCLDates( 0, 0, false, 2350, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );

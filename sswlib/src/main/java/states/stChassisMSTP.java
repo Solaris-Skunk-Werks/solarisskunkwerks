@@ -57,6 +57,7 @@ public class stChassisMSTP implements ifChassis, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stChassisMSTP() {
+        // Considered Tripod Mech Internal Structure in IO
         AC.SetISCodes( 'E', 'E', 'F', 'X', 'E' );
         AC.SetISDates( 0, 0, false, 2602, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );

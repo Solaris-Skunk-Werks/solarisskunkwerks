@@ -158,24 +158,30 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         setTitle( saw.Constants.AppDescription + " " + saw.Constants.Version );
 
         // added for easy checking
-        PPCCapAC.SetISCodes( 'E', 'X', 'X', 'E' );
-        PPCCapAC.SetISDates( 3057, 3060, true, 3060, 0, 0, false, false );
+        PPCCapAC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
+        PPCCapAC.SetISDates( 3057, 3060, true, 3081, 0, 0, false, false );
         PPCCapAC.SetISFactions( "DC", "DC", "", "" );
+        PPCCapAC.SetCLCodes( 'E', 'X', 'X', 'E', 'D' );
+        PPCCapAC.SetCLDates( 0, 0, false, 3101, 0, 0, false, false );
+        PPCCapAC.SetCLFactions( "", "", "PS", "" );
         PPCCapAC.SetPBMAllowed( true );
         PPCCapAC.SetPIMAllowed( true );
         PPCCapAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        LIAC.SetISCodes( 'E', 'F', 'F', 'X' );
+        LIAC.SetISCodes( 'E', 'X', 'E', 'F', 'F' );
         LIAC.SetISDates( 0, 0, false, 2575, 2820, 0, true, false );
         LIAC.SetISFactions( "TH", "", "", "" );
-        LIAC.SetCLCodes( 'E', 'X', 'E', 'F' );
+        LIAC.SetCLCodes( 'E', 'X', 'E', 'F', 'F' );
         LIAC.SetCLDates( 0, 0, false, 2575, 0, 0, false, false );
         LIAC.SetCLFactions( "TH", "", "", "" );
         LIAC.SetPBMAllowed( true );
         LIAC.SetPIMAllowed( true );
         LIAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        CaselessAmmoAC.SetISCodes( 'D', 'X', 'X', 'E' );
-        CaselessAmmoAC.SetISDates( 3055, 3056, true, 3056, 0, 0, false, false );
+        CaselessAmmoAC.SetISCodes( 'D', 'X', 'X', 'E', 'D' );
+        CaselessAmmoAC.SetISDates( 3055, 3056, true, 3079, 0, 0, false, false );
         CaselessAmmoAC.SetISFactions( "FC", "FC", "", "" );
+        CaselessAmmoAC.SetCLCodes( 'D', 'X', 'X', 'E', 'D' );
+        CaselessAmmoAC.SetCLDates( 3055, 3056, false, 3109, 0, 0, false, false );
+        CaselessAmmoAC.SetCLFactions( "TH", "", "CSR", "" );
         CaselessAmmoAC.SetPBMAllowed( true );
         CaselessAmmoAC.SetPIMAllowed( true );
         CaselessAmmoAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

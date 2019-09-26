@@ -46,10 +46,11 @@ public class stEnginePrimitiveFission implements ifEngine, ifState {
     private final static int[] BFStructure = {1,1,2,2,3,3,3,4,4,5,5,5,6,6,6,7,7,8,8};
 
     public stEnginePrimitiveFission() {
-        AC.SetISCodes( 'D', 'E', 'E', 'D' );
+        // IO page 122 overrides the UAT for primitive components
+        AC.SetISCodes( 'D', 'C', 'F', 'E', 'F' );
         AC.SetISDates( 0, 0, false, 1960, 0, 0, false, false );
         AC.SetISFactions( "", "", "ES", "" );
-        AC.SetCLCodes( 'D', 'X', 'E', 'D' );
+        AC.SetCLCodes( 'D', 'X', 'F', 'E', 'F' );
         AC.SetCLDates( 0, 0, false, 1960, 0, 0, false, false );
         AC.SetCLFactions( "", "", "ES", "" );
         AC.SetPIMAllowed( true );

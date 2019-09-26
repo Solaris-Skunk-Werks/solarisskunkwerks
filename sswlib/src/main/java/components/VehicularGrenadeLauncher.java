@@ -48,10 +48,10 @@ public class VehicularGrenadeLauncher extends abPlaceable implements ifWeapon {
     private String Manufacturer = "";
 
     public VehicularGrenadeLauncher() {
-        AC.SetISCodes( 'C', 'D', 'E', 'F' );
+        AC.SetISCodes( 'C', 'D', 'E', 'F', 'E' );
         AC.SetISDates( 0, 0, false, 1900, 0, 0, false, false );
         AC.SetISFactions( "", "", "PS", "" );
-        AC.SetCLCodes( 'C', 'X', 'C', 'E' );
+        AC.SetCLCodes( 'C', 'X', 'E', 'F', 'E' );
         AC.SetCLDates( 0, 0, false, 1900, 0, 0, false, false );
         AC.SetCLFactions( "", "", "PS", "" );
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

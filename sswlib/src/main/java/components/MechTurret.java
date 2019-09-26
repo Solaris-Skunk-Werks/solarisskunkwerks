@@ -40,11 +40,11 @@ public class MechTurret extends abPlaceable implements ifTurret {
     public MechTurret( ifMechLoadout l ) {
         Owner = l;
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        AC.SetISCodes( 'C', 'F', 'X', 'F' );
-        AC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
+        AC.SetISCodes( 'C', 'F', 'X', 'F', 'E' );
+        AC.SetISDates( 0, 0, false, 3082, 0, 0, false, false );
         AC.SetISFactions( "", "", "PS", "" );
-        AC.SetCLCodes( 'C', 'X', 'E', 'E' );
-        AC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
+        AC.SetCLCodes( 'C', 'X', 'X', 'F', 'E' );
+        AC.SetCLDates( 0, 0, false, 3082, 0, 0, false, false );
         AC.SetCLFactions( "", "", "PS", "" );
     }
 

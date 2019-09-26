@@ -37,10 +37,10 @@ public class stHeatSinkSingle implements ifHeatSinkFactory, ifState {
 
     public stHeatSinkSingle() {
         AC.SetISCodes( 'C', 'B', 'B', 'B', 'B' );
-        AC.SetISDates( 0, 0, false, 2022, 0, 0, false, false );
+        AC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
         AC.SetISFactions( "", "", "WA", "" );
-        AC.SetCLCodes( 'C', 'B', 'B', 'B', 'B' );
-        AC.SetCLDates( 0, 0, false, 2022, 0, 0, false, false );
+        AC.SetCLCodes( 'C', 'X', 'B', 'B', 'B' );
+        AC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
         AC.SetCLFactions( "", "", "WA", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );

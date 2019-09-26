@@ -35,8 +35,8 @@ public class Talons extends PhysicalWeapon {
     private int Crits = 2;
 
     public Talons ( Mech m ) {
-        AC.SetCLCodes( 'E', 'X', 'X', 'F' );
-        AC.SetCLDates( 0, 0, false, 3072, 0, 0, false, false );
+        AC.SetCLCodes( 'E', 'X', 'X', 'F', 'E' );
+        AC.SetCLDates( 0, 0, false, 3087, 0, 0, false, false );
         AC.SetCLFactions( "", "", "CJF", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );

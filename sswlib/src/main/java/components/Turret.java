@@ -40,11 +40,11 @@ public class Turret extends abPlaceable {
     private double MaxTonnage = 0;
 
     public Turret( ifCVLoadout l, boolean clan) {
-        AC.SetISCodes( 'E', 'X', 'X', 'E' );
-        AC.SetISDates( 0, 0, false, 3062, 0, 0, false, false );
+        AC.SetISCodes( 'B', 'A', 'A', 'A', 'A' );
+        AC.SetISDates( 0, 0, false, 1900, 0, 0, false, false );
         AC.SetISFactions( "", "", "FC", "" );
-        AC.SetCLCodes( 'E', 'X', 'D', 'C' );
-        AC.SetCLDates( 0, 0, false, 2860, 0, 0, false, false );
+        AC.SetCLCodes( 'B', 'X', 'A', 'A', 'A' );
+        AC.SetCLDates( 0, 0, false, 1900, 0, 0, false, false );
         AC.SetCLFactions( "", "", "CMN", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
