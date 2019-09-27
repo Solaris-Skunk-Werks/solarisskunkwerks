@@ -199,6 +199,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblISAVSL.setText( "" + AC.GetISSLCode() );
         lblISAVSW.setText( "" + AC.GetISSWCode() );
         lblISAVCI.setText( "" + AC.GetISCICode() );
+        lblISAVDA.setText( "" + AC.GetISDACode() );
         lblISIntro.setText( AC.GetISIntroDate() + " (" + AC.GetISIntroFaction() + ")" );
         if( AC.WentExtinctIS() ) {
             lblISExtinct.setText( "" + AC.GetISExtinctDate() );
@@ -222,6 +223,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblClanAVSL.setText( "" + AC.GetCLSLCode() );
         lblClanAVSW.setText( "" + AC.GetCLSWCode() );
         lblClanAVCI.setText( "" + AC.GetCLCICode() );
+        lblClanAVDA.setText( "" + AC.GetCLDACode() );
         lblClanIntro.setText( AC.GetCLIntroDate() + " (" + AC.GetCLIntroFaction() + ")" );
         if( AC.WentExtinctCL() ) {
             lblClanExtinct.setText( "" + AC.GetCLExtinctDate() );
