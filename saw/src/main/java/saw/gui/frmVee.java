@@ -5677,6 +5677,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         lblInfoAVSL.setText( AC.GetISSLCode() + " / " + AC.GetCLSLCode() );
         lblInfoAVSW.setText( AC.GetISSWCode() + " / " + AC.GetCLSWCode() );
         lblInfoAVCI.setText( AC.GetISCICode() + " / " + AC.GetCLCICode() );
+        lblInfoAVDA.setText( AC.GetISDACode() + " / " + AC.GetCLDACode() );
         switch( AC.GetTechBase() ) {
             case AvailableCode.TECH_INNER_SPHERE:
                 lblInfoIntro.setText( AC.GetISIntroDate() + " (" + AC.GetISIntroFaction() + ")" );
