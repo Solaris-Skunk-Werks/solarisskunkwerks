@@ -44,7 +44,7 @@ public class stCockpitIndustrialAFC implements ifCockpit, ifState {
         AC.SetISCodes( 'D', 'D', 'E', 'E', 'D' );
         AC.SetISDates( 0, 0, false, 2470, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
-        AC.SetCLCodes( 'D', 'D', 'E', 'E', 'D' );
+        AC.SetCLCodes( 'D', 'X', 'E', 'E', 'D' );
         AC.SetCLDates( 0, 0, false, 2470, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

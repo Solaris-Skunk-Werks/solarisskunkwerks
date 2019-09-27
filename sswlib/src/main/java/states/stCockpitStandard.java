@@ -44,7 +44,7 @@ public class stCockpitStandard implements ifCockpit, ifState {
         AC.SetISCodes( 'D', 'C', 'C', 'C', 'C' );
         AC.SetISDates( 0, 0, false, 2468, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
-        AC.SetCLCodes( 'D', 'C', 'C', 'C', 'C' );
+        AC.SetCLCodes( 'D', 'X', 'C', 'C', 'C' );
         AC.SetCLDates( 0, 0, false, 2468, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetSuperHeavyCompatible(false);

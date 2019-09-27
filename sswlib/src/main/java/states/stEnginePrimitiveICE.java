@@ -49,7 +49,7 @@ public class stEnginePrimitiveICE implements ifEngine, ifState {
         AC.SetISCodes( 'D', 'C', 'F', 'E', 'F' );
         AC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
         AC.SetISFactions( "", "", "PS", "" );
-        AC.SetCLCodes( 'D', 'C', 'F', 'E', 'F' );
+        AC.SetCLCodes( 'D', 'X', 'F', 'E', 'F' );
         AC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
         AC.SetCLFactions( "", "", "PS", "" );
         AC.SetPIMAllowed( true );
