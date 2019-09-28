@@ -613,6 +613,9 @@ public class TXTWriter {
         if( CurMech.GetLoadout().HasSupercharger() ) {
             v.add( CurMech.GetLoadout().GetSupercharger() );
         }
+        if( CurMech.GetLoadout().HasBoobyTrap() ) {
+            v.add( CurMech.GetLoadout().GetBoobyTrap() );
+        }
         if( CurMech.IsQuad() ) {
             if( CurMech.HasLegAES() ) {
                 v.add( CurMech.GetRAAES() );
