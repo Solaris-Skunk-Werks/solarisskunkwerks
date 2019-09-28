@@ -1196,6 +1196,9 @@ public class HTMLWriter {
             if( CurMech.GetLoadout().HasSupercharger() ) {
                 ret.add( CurMech.GetLoadout().GetSupercharger() );
             }
+            if( CurMech.GetLoadout().HasBoobyTrap() ) {
+                ret.add( CurMech.GetLoadout().GetBoobyTrap() );
+            }
             if( CurMech.GetLoadout().HasHDTurret() ) {
                 ret.add( CurMech.GetLoadout().GetHDTurret() );
             }
