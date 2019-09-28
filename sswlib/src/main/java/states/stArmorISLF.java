@@ -39,8 +39,8 @@ public class stArmorISLF implements ifArmor, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stArmorISLF() {
-        AC.SetISCodes( 'E', 'X', 'X', 'E' );
-        AC.SetISDates( 0, 0, false, 3067, 0, 0, false, false );
+        AC.SetISCodes( 'F', 'X', 'X', 'E', 'D' );
+        AC.SetISDates( 0, 0, false, 3055, 0, 0, false, false );
         AC.SetISFactions( "", "", "FW", "" );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );
         AC.SetPBMAllowed(true);

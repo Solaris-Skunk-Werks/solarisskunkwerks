@@ -57,7 +57,7 @@ public class stChassisCLECQD implements ifChassis, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_CLAN );
 
     public stChassisCLECQD() {
-        AC.SetCLCodes( 'E', 'X', 'X', 'F' );
+        AC.SetCLCodes( 'E', 'X', 'X', 'F', 'E' );
         AC.SetCLDates( 3071, 3073, true, 3073, 0, 0, false, false );
         AC.SetCLFactions( "CWX", "CWX", "", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

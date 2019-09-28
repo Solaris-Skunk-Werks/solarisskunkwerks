@@ -158,24 +158,30 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         setTitle( saw.Constants.AppDescription + " " + saw.Constants.Version );
 
         // added for easy checking
-        PPCCapAC.SetISCodes( 'E', 'X', 'X', 'E' );
-        PPCCapAC.SetISDates( 3057, 3060, true, 3060, 0, 0, false, false );
+        PPCCapAC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
+        PPCCapAC.SetISDates( 3057, 3060, true, 3081, 0, 0, false, false );
         PPCCapAC.SetISFactions( "DC", "DC", "", "" );
+        PPCCapAC.SetCLCodes( 'E', 'X', 'X', 'E', 'D' );
+        PPCCapAC.SetCLDates( 0, 0, false, 3101, 0, 0, false, false );
+        PPCCapAC.SetCLFactions( "", "", "PS", "" );
         PPCCapAC.SetPBMAllowed( true );
         PPCCapAC.SetPIMAllowed( true );
         PPCCapAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        LIAC.SetISCodes( 'E', 'F', 'F', 'X' );
+        LIAC.SetISCodes( 'E', 'X', 'E', 'F', 'F' );
         LIAC.SetISDates( 0, 0, false, 2575, 2820, 0, true, false );
         LIAC.SetISFactions( "TH", "", "", "" );
-        LIAC.SetCLCodes( 'E', 'X', 'E', 'F' );
+        LIAC.SetCLCodes( 'E', 'X', 'E', 'F', 'F' );
         LIAC.SetCLDates( 0, 0, false, 2575, 0, 0, false, false );
         LIAC.SetCLFactions( "TH", "", "", "" );
         LIAC.SetPBMAllowed( true );
         LIAC.SetPIMAllowed( true );
         LIAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        CaselessAmmoAC.SetISCodes( 'D', 'X', 'X', 'E' );
-        CaselessAmmoAC.SetISDates( 3055, 3056, true, 3056, 0, 0, false, false );
+        CaselessAmmoAC.SetISCodes( 'D', 'X', 'X', 'E', 'D' );
+        CaselessAmmoAC.SetISDates( 3055, 3056, true, 3079, 0, 0, false, false );
         CaselessAmmoAC.SetISFactions( "FC", "FC", "", "" );
+        CaselessAmmoAC.SetCLCodes( 'D', 'X', 'X', 'E', 'D' );
+        CaselessAmmoAC.SetCLDates( 3055, 3056, false, 3109, 0, 0, false, false );
+        CaselessAmmoAC.SetCLFactions( "TH", "", "CSR", "" );
         CaselessAmmoAC.SetPBMAllowed( true );
         CaselessAmmoAC.SetPIMAllowed( true );
         CaselessAmmoAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
@@ -1261,6 +1267,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         lblInfoMountRestrict = new javax.swing.JLabel();
         jLabel69 = new javax.swing.JLabel();
         lblInfoRulesLevel = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lblInfoAVDA = new javax.swing.JLabel();
         pnlControls = new javax.swing.JPanel();
         btnRemoveEquip = new javax.swing.JButton();
         btnClearEquip = new javax.swing.JButton();
@@ -1842,7 +1850,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
         });
 
-        spnTonnage.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(10), Integer.valueOf(1), null, Integer.valueOf(1)));
+        spnTonnage.setModel(new javax.swing.SpinnerNumberModel(10, 1, null, 1));
         spnTonnage.setMinimumSize(new java.awt.Dimension(45, 20));
         spnTonnage.setPreferredSize(new java.awt.Dimension(45, 20));
         spnTonnage.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -1856,10 +1864,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
         });
         spnTonnage.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 spnTonnageInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -1890,7 +1898,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         jLabel91.setText("Heat Sinks:");
 
-        spnHeatSinks.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(10), Integer.valueOf(1), null, Integer.valueOf(1)));
+        spnHeatSinks.setModel(new javax.swing.SpinnerNumberModel(10, 1, null, 1));
         spnHeatSinks.setMinimumSize(new java.awt.Dimension(45, 20));
         spnHeatSinks.setNextFocusableComponent(spnCruiseMP);
         spnHeatSinks.setPreferredSize(new java.awt.Dimension(45, 20));
@@ -1905,10 +1913,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
         });
         spnHeatSinks.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 spnHeatSinksInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -2009,7 +2017,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         jLabel10.setText("Cruise MP:");
 
-        spnCruiseMP.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(0), null, Integer.valueOf(1)));
+        spnCruiseMP.setModel(new javax.swing.SpinnerNumberModel(1, 0, null, 1));
         spnCruiseMP.setMinimumSize(new java.awt.Dimension(45, 20));
         spnCruiseMP.setPreferredSize(new java.awt.Dimension(45, 20));
         spnCruiseMP.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -2018,10 +2026,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
         });
         spnCruiseMP.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 spnCruiseMPInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -3335,7 +3343,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(pnlBallisticLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(6, 6, 6))
             .addGroup(pnlBallisticLayout.createSequentialGroup()
                 .addGap(106, 106, 106)
@@ -3971,7 +3979,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         jSeparator20.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
@@ -4011,13 +4019,15 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         jLabel68.setText("Mounting Restrictions");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 3);
         pnlEquipInfo.add(jLabel68, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 4, 0);
@@ -4038,6 +4048,19 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
         pnlEquipInfo.add(lblInfoRulesLevel, gridBagConstraints);
+
+        jLabel6.setText("Availability (DA)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
+        pnlEquipInfo.add(jLabel6, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
+        pnlEquipInfo.add(lblInfoAVDA, gridBagConstraints);
 
         pnlControls.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Controls"));
         pnlControls.setLayout(new java.awt.GridBagLayout());
@@ -5654,6 +5677,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         lblInfoAVSL.setText( AC.GetISSLCode() + " / " + AC.GetCLSLCode() );
         lblInfoAVSW.setText( AC.GetISSWCode() + " / " + AC.GetCLSWCode() );
         lblInfoAVCI.setText( AC.GetISCICode() + " / " + AC.GetCLCICode() );
+        lblInfoAVDA.setText( AC.GetISDACode() + " / " + AC.GetCLDACode() );
         switch( AC.GetTechBase() ) {
             case AvailableCode.TECH_INNER_SPHERE:
                 lblInfoIntro.setText( AC.GetISIntroDate() + " (" + AC.GetISIntroFaction() + ")" );
@@ -9829,6 +9853,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
@@ -9942,6 +9967,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JLabel lblFreeHeatSinks;
     private javax.swing.JLabel lblFrontIntPts;
     private javax.swing.JLabel lblInfoAVCI;
+    private javax.swing.JLabel lblInfoAVDA;
     private javax.swing.JLabel lblInfoAVSL;
     private javax.swing.JLabel lblInfoAVSW;
     private javax.swing.JLabel lblInfoAmmo;

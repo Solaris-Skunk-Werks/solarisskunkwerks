@@ -52,17 +52,17 @@ public class stEngineFusion implements ifEngine, ifState {
     private Engine Owner;
     
     public stEngineFusion( Engine e ) {
-        AC.SetISCodes( 'D', 'C', 'E', 'D' );
+        AC.SetISCodes( 'D', 'C', 'E', 'D', 'D' );
         AC.SetISDates( 0, 0, false, 2021, 0, 0, false, false );
         AC.SetISFactions( "", "", "WA", "" );
-        AC.SetCLCodes( 'D', 'X', 'B', 'C' );
+        AC.SetCLCodes( 'D', 'X', 'E', 'D', 'D' );
         AC.SetCLDates( 0, 0, false, 2021, 0, 0, false, false );
         AC.SetCLFactions( "", "", "WA", "" );
         AC.SetRulesLevels( AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );
-        LARGE_AC.SetISCodes( 'D', 'C', 'E', 'D' );
+        LARGE_AC.SetISCodes( 'D', 'C', 'E', 'D', 'D' );
         LARGE_AC.SetISDates( 2550, 2630, true, 2630, 0, 0, false, false );
         LARGE_AC.SetISFactions( "WA", "TH", "", "" );
-        LARGE_AC.SetCLCodes( 'D', 'X', 'B', 'C' );
+        LARGE_AC.SetCLCodes( 'D', 'X', 'E', 'D', 'D' );
         LARGE_AC.SetCLDates( 2550, 2630, true, 2630, 0, 0, false, false );
         LARGE_AC.SetCLFactions( "WA", "TH", "", "" );
         LARGE_AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );

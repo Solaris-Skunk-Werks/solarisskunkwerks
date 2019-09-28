@@ -35,7 +35,7 @@ public class stGyroISSuperHeavy implements ifGyro, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stGyroISSuperHeavy() {
-        AC.SetISCodes( 'X', 'F', 'F', 'F' );
+        AC.SetISCodes( 'D', 'X', 'F', 'F', 'F' );
         AC.SetISDates( 0, 0, false, 2940, 0, 0, false, false );
         AC.SetISFactions( "", "", "", "" );
         AC.SetSuperHeavyCompatible( true );

@@ -36,7 +36,7 @@ public class stPEISITSM implements ifPhysEnhance, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stPEISITSM() {
-        AC.SetISCodes( 'E', 'X', 'F', 'E' );
+        AC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
         AC.SetISDates( 0, 0, false, 3045, 0, 0, false, false );
         AC.SetISFactions( "", "", "FC", "" );
         AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

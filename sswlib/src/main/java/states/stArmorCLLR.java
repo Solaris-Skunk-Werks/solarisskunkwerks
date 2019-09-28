@@ -39,7 +39,7 @@ public class stArmorCLLR implements ifArmor, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_CLAN );
 
     public stArmorCLLR() {
-        AC.SetCLCodes( 'F', 'X', 'X', 'F' );
+        AC.SetCLCodes( 'F', 'X', 'X', 'F', 'E' );
         AC.SetCLDates( 3059, 3061, true, 3061, 0, 0, false, false );
         AC.SetCLFactions( "CJF", "CJF", "", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );

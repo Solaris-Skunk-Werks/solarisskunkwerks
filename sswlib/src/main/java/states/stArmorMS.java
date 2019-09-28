@@ -39,10 +39,10 @@ public class stArmorMS implements ifArmor, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
     public stArmorMS() {
-        AC.SetISCodes( 'D', 'C', 'C', 'C' );
+        AC.SetISCodes( 'D', 'C', 'C', 'C', 'B' );
         AC.SetISDates( 0, 0, false, 2470, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
-        AC.SetCLCodes( 'D', 'X', 'B', 'B' );
+        AC.SetCLCodes( 'D', 'X', 'C', 'C', 'B' );
         AC.SetCLDates( 0, 0, false, 2470, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetRulesLevels( AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );

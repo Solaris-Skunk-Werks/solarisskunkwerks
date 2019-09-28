@@ -46,7 +46,7 @@ public class stEngineISCF implements ifEngine, ifState {
     private final static int[] BFStructure = {1,2,2,3,3,4,4,5,5,6,7,7,7,8,8,9,10,10,10};
 
     public stEngineISCF() {
-        AC.SetISCodes( 'E', 'X', 'X', 'E' );
+        AC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
         AC.SetISDates( 0, 0, false, 3068, 0, 0, false, false );
         AC.SetISFactions( "", "", "LA", "" );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED );

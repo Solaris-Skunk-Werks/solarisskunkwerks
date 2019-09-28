@@ -35,11 +35,11 @@ public class AESSystem extends abPlaceable {
     private static MechModifier LegMod = new MechModifier( 0, 0, 0, 0, 0, -2, 0, 0.0, 0.0, 0.0, 0.0, false, false );
 
     public AESSystem( Mech m, boolean legs ) {
-        AC.SetISCodes( 'E', 'X', 'X', 'F' );
-        AC.SetISDates( 3067, 3070, true, 3070, 0, 0, false, false );
+        AC.SetISCodes( 'E', 'X', 'X', 'F', 'E' );
+        AC.SetISDates( 3067, 3070, true, 3109, 0, 0, false, false );
         AC.SetISFactions( "KH", "BC", "", "" );
-        AC.SetCLCodes( 'E', 'X', 'X', 'F' );
-        AC.SetCLDates( 3067, 3070, true, 3070, 0, 0, false, false );
+        AC.SetCLCodes( 'E', 'X', 'X', 'F', 'E' );
+        AC.SetCLDates( 3067, 3070, true, 3108, 0, 0, false, false );
         AC.SetCLFactions( "WD", "WD", "", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );

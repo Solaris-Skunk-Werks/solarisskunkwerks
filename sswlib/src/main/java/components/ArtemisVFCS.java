@@ -33,8 +33,8 @@ public class ArtemisVFCS extends abPlaceable implements ifMissileGuidance {
     private RangedWeapon Owner;
 
     public ArtemisVFCS( RangedWeapon m ) {
-        AC.SetCLCodes( 'F', 'X', 'X', 'F' );
-        AC.SetCLDates( 3058, 3061, true, 3061, 0, 0, false, false );
+        AC.SetCLCodes( 'F', 'X', 'X', 'F', 'E' );
+        AC.SetCLDates( 3058, 3061, true, 3085, 0, 0, false, false );
         AC.SetCLFactions( "CGS", "CGS", "", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );

@@ -57,11 +57,11 @@ public class stChassisREBP implements ifChassis, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
     public stChassisREBP() {
-        AC.SetISCodes( 'E', 'X', 'X', 'E' );
-        AC.SetISDates( 3055, 3057, true, 3057, 0, 0, false, false );
+        AC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
+        AC.SetISDates( 3055, 3057, true, 3084, 0, 0, false, false );
         AC.SetISFactions( "CS", "CS/WB", "", "" );
-        AC.SetCLCodes( 'E', 'X', 'X', 'E' );
-        AC.SetCLDates( 3060, 3065, true, 3065, 0, 0, false, false );
+        AC.SetCLCodes( 'E', 'X', 'X', 'E', 'D' );
+        AC.SetCLDates( 3060, 3065, true, 3084, 0, 0, false, false );
         AC.SetCLFactions( "CGB", "CGB", "", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }

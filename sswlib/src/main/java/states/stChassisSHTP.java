@@ -60,9 +60,9 @@ public class stChassisSHTP implements ifChassis, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stChassisSHTP() {
-        AC.SetISCodes( 'E', 'X', 'X', 'F', 'F' );
-        AC.SetISDates( 0, 0, false, 3076, 0, 0, false, false );
-        AC.SetISFactions( "", "", "WoB", "" );
+        AC.SetISCodes( 'E', 'X', 'X', 'X', 'F' );
+        AC.SetISDates( 0, 0, false, 3135, 0, 0, false, false );
+        AC.SetISFactions( "", "", "RS", "" );
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 

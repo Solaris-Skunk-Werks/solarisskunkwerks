@@ -43,10 +43,10 @@ public class Dumper extends abPlaceable {
 
     public Dumper( ifMechLoadout l)
     {
-        AC.SetISCodes( 'A', 'A', 'A', 'A' );
+        AC.SetISCodes( 'A', 'A', 'A', 'A', 'A' );
         AC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
         AC.SetISFactions( "", "", "", "" );
-        AC.SetCLCodes( 'A', 'A', 'A', 'A' );
+        AC.SetCLCodes( 'A', 'X', 'A', 'A', 'A' );
         AC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
         AC.SetCLFactions( "", "", "", "" );
         AC.SetPBMAllowed( false );

@@ -37,8 +37,8 @@ public class stHeatSinkCLDHS implements ifHeatSinkFactory, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_CLAN );
 
     public stHeatSinkCLDHS() {
-        AC.SetCLCodes( 'E', 'X', 'B', 'C' );
-        AC.SetCLDates( 0, 0, false, 2567, 0, 0, false, false );
+        AC.SetCLCodes( 'F', 'X', 'E', 'D', 'C' );
+        AC.SetCLDates( 0, 0, false, 2827, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }

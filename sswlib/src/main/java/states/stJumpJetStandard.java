@@ -36,10 +36,10 @@ public class stJumpJetStandard implements ifJumpJetFactory, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
     public stJumpJetStandard() {
-        AC.SetISCodes( 'D', 'C', 'C', 'C' );
+        AC.SetISCodes( 'D', 'C', 'C', 'C', 'C' );
         AC.SetISDates( 0, 0, false, 2471, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
-        AC.SetCLCodes( 'D', 'X', 'B', 'B' );
+        AC.SetCLCodes( 'D', 'X', 'C', 'C', 'C' );
         AC.SetCLDates( 0, 0, false, 2471, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetPBMAllowed( true );

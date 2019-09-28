@@ -35,10 +35,10 @@ public class DroneOperatingSystem extends Equipment {
     public DroneOperatingSystem( Mech m ) {
         Owner = m;
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED );
-        AC.SetISCodes( 'C', 'E', 'F', 'F' );
+        AC.SetISCodes( 'C', 'E', 'F', 'F', 'E' );
         AC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
         AC.SetISFactions( "", "", "ES", "" );
-        AC.SetCLCodes( 'C', 'X', 'D', 'E' );
+        AC.SetCLCodes( 'C', 'X', 'F', 'F', 'E' );
         AC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
         AC.SetCLFactions( "", "", "ES", "" );
     }

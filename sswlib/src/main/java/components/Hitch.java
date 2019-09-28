@@ -8,10 +8,10 @@ public class Hitch extends abPlaceable {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
     public Hitch() {
-        AC.SetISCodes( 'B', 'B', 'B', 'B' );
+        AC.SetISCodes( 'B', 'B', 'B', 'B', 'B' );
         AC.SetISDates( 0, 0, false, 2000, 0, 0, false, false );
         AC.SetISFactions( "", "", "CMN", "" );
-        AC.SetCLCodes( 'B', 'B', 'B', 'B' );
+        AC.SetCLCodes( 'B', 'X', 'B', 'B', 'B' );
         AC.SetCLDates( 0, 0, false, 2000, 0, 0, false, false );
         AC.SetCLFactions( "", "", "CMN", "" );
         AC.SetPBMAllowed( true );

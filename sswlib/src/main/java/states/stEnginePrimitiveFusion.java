@@ -45,10 +45,11 @@ public class stEnginePrimitiveFusion implements ifEngine, ifState {
     private final static int[] BFStructure = {1,1,2,2,3,3,3,4,4,5,5,5,6,6,6,7,7,8,8};
     
     public stEnginePrimitiveFusion() {
-        AC.SetISCodes( 'D', 'C', 'E', 'D' );
+        // IO page 122 overrides the UAT for primitive components
+        AC.SetISCodes( 'D', 'C', 'F', 'E', 'F' );
         AC.SetISDates( 0, 0, false, 2021, 0, 0, false, false );
         AC.SetISFactions( "", "", "WA", "" );
-        AC.SetCLCodes( 'D', 'X', 'B', 'C' );
+        AC.SetCLCodes( 'D', 'X', 'F', 'E', 'F' );
         AC.SetCLDates( 0, 0, false, 2021, 0, 0, false, false );
         AC.SetCLFactions( "", "", "WA", "" );
         AC.SetPBMAllowed( true );

@@ -40,10 +40,10 @@ public class stArmorHA implements ifArmor, ifState {
     private final MechModifier MechMod = new MechModifier( 0, -1, 0, 0.0f, 1, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true, false );
 
     public stArmorHA() {
-        AC.SetISCodes( 'D', 'X', 'X', 'F' );
+        AC.SetISCodes( 'D', 'X', 'X', 'F', 'E' );
         AC.SetISDates( 3045, 3047, true, 3047, 0, 0, false, false );
         AC.SetISFactions( "FC", "FC", "", "" );
-        AC.SetCLCodes( 'D', 'X', 'X', 'F' );
+        AC.SetCLCodes( 'D', 'X', 'X', 'F', 'E' );
         AC.SetCLDates( 3057, 3061, true, 3061, 0, 0, false, false );
         AC.SetCLFactions( "CGB", "CGB", "", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
