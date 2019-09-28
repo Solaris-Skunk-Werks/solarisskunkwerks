@@ -5142,9 +5142,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtSumPATons.setText( "" + CurVee.GetLoadout().GetPowerAmplifier().GetTonnage() );
         txtSumIntAV.setText( CurVee.GetIntStruc().GetAvailability().GetBestCombinedCode() );
         txtSumEngAV.setText( CurVee.GetEngine().GetAvailability().GetBestCombinedCode() );
-//        txtSumConAV.setText( locArmor.GetCockpit().GetAvailability().GetBestCombinedCode() );
+        txtSumLifAV.setText( "D/B-B-B-B" );
+        txtSumConAV.setText( "C/A-A-A-A" );
         txtSumHSAV.setText( CurVee.GetHeatSinks().GetAvailability().GetBestCombinedCode() );
+        txtSumArmAV.setText(CurVee.GetArmor().GetAvailability().GetBestCombinedCode() );
         txtSumJJAV.setText( CurVee.GetJumpJets().GetAvailability().GetBestCombinedCode() );
+        txtSumSpnAV.setText( "B/F-F-F-D" );
         txtSumPAAV.setText( CurVee.GetLoadout().GetPowerAmplifier().GetAvailability().GetBestCombinedCode() );
         txtInfoFreeCrits.setText( "Space: " + CurVee.GetAvailableSlots() );
         txtSumHSTons.setText("" + CurVee.GetHeatSinks().GetTonnage() );
