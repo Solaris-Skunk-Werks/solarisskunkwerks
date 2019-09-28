@@ -31,7 +31,7 @@ public class Constants {
     public final static String AppName = "Battletech Force Balancer",
                         AppDescription = "Battletech Force Balancer",
                         Version = "0.7",
-                        AppRelease = "Experimental 9",
+                        AppRelease = "RC1",
                         Author = "George Blouin",
                         EMail = "george.blouin@gmail.com",
                         Print_ForceList = "Print.ForceList",
