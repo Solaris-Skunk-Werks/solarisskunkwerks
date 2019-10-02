@@ -222,7 +222,8 @@ public class PrintMech implements Printable {
     
     private void PreparePrint( Graphics2D graphics ) {
         Items = PrintConsts.SortEquipmentByLocation( CurMech, MiniConvRate );
-        ap = new PIPPrinter(graphics, CurMech, Canon, imageTracker);
+        boolean mechHasShield = CurMech.HasRAShield() || CurMech.HasLAShield();
+        ap = new PIPPrinter(graphics, CurMech, Canon, mechHasShield, imageTracker);
         this.BV = CommonTools.GetAdjustedBV(CurMech.GetCurrentBV(), Gunnery, Piloting);
         GetRecordSheet(imageTracker);
         

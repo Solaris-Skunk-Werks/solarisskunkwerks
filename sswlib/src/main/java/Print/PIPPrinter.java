@@ -51,6 +51,7 @@ public class PIPPrinter {
     private String ExtensionGIF = ".gif";
     private String ExtensionPNG = ".png";
     private ifPrintPoints Points = null;
+    private boolean hasShield = false;
 
     // <editor-fold desc="Constructors">
     /**
@@ -78,7 +79,7 @@ public class PIPPrinter {
      * @param  curMech   the Mech object to use
      */
     public PIPPrinter( Graphics2D graphics, Mech curMech, ImageTracker images ) {
-        this(graphics, curMech, true, images);
+        this(graphics, curMech, true, false, images);
     }
     
     /**
@@ -88,13 +89,21 @@ public class PIPPrinter {
      * @param  curMech   the Mech object to use
      * @param  useCanon  boolean determining whether or not to use canon points
      */
-    public PIPPrinter( Graphics2D graphics, Mech curMech, boolean useCanon, ImageTracker images ) {
+    public PIPPrinter( Graphics2D graphics, Mech curMech, boolean useCanon, boolean hasShield, ImageTracker images ) {
         this.graphics = graphics;
         this.CurMech = curMech;
         this.useCanon = useCanon;
         this.imageTracker = images;
+        this.hasShield = hasShield;
 
-        Points = new TWBipedPoints();
+        if (this.hasShield) {
+            Points = new TWBipedShieldedPoints();
+        }
+        else {
+            Points = new TWBipedPoints();
+        }
+
+        //Points = new TWBipedPoints();
 
         Armor.put(LocationIndex.MECH_LOC_HD, new PIPSettings(LocationIndex.MECH_LOC_HD, false, new Point(463,52), new Point(17,20), "HD_", Points.GetArmorHDPoints()));
         Armor.put(LocationIndex.MECH_LOC_CT, new PIPSettings(LocationIndex.MECH_LOC_CT, false, new Point(457,84), new Point(28,88), "CT_", Points.GetArmorCTPoints()));
