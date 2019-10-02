@@ -103,8 +103,6 @@ public class PIPPrinter {
             Points = new TWBipedPoints();
         }
 
-        //Points = new TWBipedPoints();
-
         Armor.put(LocationIndex.MECH_LOC_HD, new PIPSettings(LocationIndex.MECH_LOC_HD, false, new Point(463,52), new Point(17,20), "HD_", Points.GetArmorHDPoints()));
         Armor.put(LocationIndex.MECH_LOC_CT, new PIPSettings(LocationIndex.MECH_LOC_CT, false, new Point(457,84), new Point(28,88), "CT_", Points.GetArmorCTPoints()));
         Armor.put(LocationIndex.MECH_LOC_LT, new PIPSettings(LocationIndex.MECH_LOC_LT, false, new Point(422,66), new Point(32,86), "LT_", Points.GetArmorLTPoints()));
