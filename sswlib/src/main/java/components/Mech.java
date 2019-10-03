@@ -3593,6 +3593,19 @@ public class Mech implements ifUnit, ifBattleforce {
         return false;
     }
 
+    public boolean HasLAShield()
+    {
+        abPlaceable items [] = CurLoadout.GetLACrits();
+        for (abPlaceable item : items) {
+            if (item instanceof PhysicalWeapon) {
+                if (((PhysicalWeapon) item).GetPWClass() == PhysicalWeapon.PW_CLASS_SHIELD) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public void SetVoidSig( boolean set ) throws Exception {
         if( set == HasVoidSig ) {
             return;
