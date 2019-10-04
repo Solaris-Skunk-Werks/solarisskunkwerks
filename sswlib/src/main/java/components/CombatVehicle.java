@@ -389,11 +389,31 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
 
     public double GetTotalCost() {
         // final cost calculations
-        return ((GetChassisCost() + GetEquipCost() + GetAmmoCosts()) * GetCostMult() * GetConfigMultiplier());
+        double chassis = GetChassisCost();
+        double equip = GetEquipCost();
+        double ammo = GetAmmoCosts();
+
+        double costMultVal = GetCostMult();
+        double configMultVal = GetConfigMultiplier();
+
+        double costMult = (chassis + equip + ammo) * GetCostMult();
+        double config = costMult * GetConfigMultiplier();
+
+        return ((GetChassisCost() + GetEquipCost() ) * GetCostMult() * GetConfigMultiplier()) + GetAmmoCosts();
     }
     
     public double GetDryCost() {
         // returns the total cost of the mech without ammunition
+        double chassis = GetChassisCost();
+        double equip = GetEquipCost();
+        double ammo = GetAmmoCosts();
+
+        double costMultVal = GetCostMult();
+        double configMultVal = GetConfigMultiplier();
+
+        double costMult = (chassis + equip + ammo) * GetCostMult();
+        double config = costMult * GetConfigMultiplier();
+
         return (GetEquipCost() + GetChassisCost()) * GetCostMult() * GetConfigMultiplier();
     }
     

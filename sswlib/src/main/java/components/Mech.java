@@ -3165,12 +3165,12 @@ public class Mech implements ifUnit, ifBattleforce {
 
     public double GetTotalCost() {
         // final cost calculations
-        return ( GetEquipCost() + GetChassisCost() + GetAmmoCosts() ) * GetCostMult();
+        return ((GetEquipCost() + GetChassisCost()) * GetCostMult()) + GetAmmoCosts();
     }
 
     public double GetDryCost() {
         // returns the total cost of the mech without ammunition
-        return ( GetEquipCost() + GetChassisCost() ) * GetCostMult();
+        return (GetEquipCost() + GetChassisCost()) * GetCostMult();
     }
 
     public double GetCostMult() {
