@@ -102,7 +102,7 @@ public class TWAdvGroundPoints implements ifPrintPoints {
         new Point( 261, 104 ), //PILOT_NAME = 7
         new Point( 288, 118 ), //PILOT_GUN = 8
         new Point( 358, 118 ), //PILOT_PILOT = 9
-        new Point( 35, 348 ), //COST = 10
+        new Point( 35, 346 ), //COST = 10
         new Point( 140, 348 ), //BV2 = 11
         new Point( 497, 592 ), //HEATSINK_NUMBER = 12
         new Point( 511, 592 ), //HEATSINK_DISSIPATION = 13
@@ -112,7 +112,9 @@ public class TWAdvGroundPoints implements ifPrintPoints {
         new Point( 440, 26 ), //TOTAL_ARMOR = 17
         new Point( 122, 708 ),  //STATS = 18;
         new Point( 75, 150 ),      //Movement Type = 19
-        new Point( 62, 162 )};     // Engine Type = 20
+        new Point( 62, 162 ),   // Engine Type = 20
+        new Point( 35, 353 )    // AMMO = 21
+    };
     
     private final static Point[] ArmorInfo = {
         new Point( 470, 42 ), // Front

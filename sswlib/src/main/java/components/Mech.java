@@ -3165,12 +3165,12 @@ public class Mech implements ifUnit, ifBattleforce {
 
     public double GetTotalCost() {
         // final cost calculations
-        return ( GetEquipCost() + GetChassisCost() ) * GetCostMult();
+        return ((GetEquipCost() + GetChassisCost()) * GetCostMult()) + GetAmmoCosts();
     }
 
     public double GetDryCost() {
         // returns the total cost of the mech without ammunition
-        return ( GetEquipCost() + GetChassisCost() ) * GetCostMult();
+        return (GetEquipCost() + GetChassisCost()) * GetCostMult();
     }
 
     public double GetCostMult() {
@@ -3258,7 +3258,7 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public double GetAmmoCosts() {
-        // gets the cost for all non-core items minus ammuntion.
+        // gets the cost for all ammuntion.
         ArrayList v = CurLoadout.GetNonCore();
         double retval = 0.0;
         if( v.size() > 0 ) {
