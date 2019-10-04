@@ -162,7 +162,8 @@ public class TXTWriter {
         retval += "Era: " + CommonTools.DecodeEra( CurMech.GetEra() ) + NL;
         retval += "Tech Rating/Era Availability: " + CurMech.GetAvailability().GetBestCombinedCode() + NL;
         retval += "Production Year: " + CurMech.GetYear() + NL;
-        retval += "Cost: " + String.format( "%1$,.0f", Math.floor( CurMech.GetTotalCost() + 0.5 ) ) + " C-Bills" + NL;
+        retval += "Dry Cost: " + String.format( "%1$,.0f", CurMech.GetDryCost()) + " C-Bills" + NL;
+        retval += "Total Cost: " + String.format( "%1$,.0f", CurMech.GetTotalCost() ) + " C-Bills" + NL;
         retval += "Battle Value: " + String.format( "%1$,d", CurMech.GetCurrentBV() ) + NL + NL;
 
         if( CurMech.UsingFractionalAccounting() ) {
