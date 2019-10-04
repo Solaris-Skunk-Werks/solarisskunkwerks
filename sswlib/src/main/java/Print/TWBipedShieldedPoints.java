@@ -342,7 +342,7 @@ public class TWBipedShieldedPoints implements ifPrintPoints {
             new Point( 261, 104 ), //PILOT_NAME = 7
             new Point( 285, 116 ), //PILOT_GUN = 8
             new Point( 358, 116 ), //PILOT_PILOT = 9
-            new Point( 43, 340 ), //COST = 10
+            new Point( 43, 338 ), //COST = 10
             new Point( 143, 340 ), //BV2 = 11
             new Point( 497, 592 ), //HEATSINK_NUMBER = 12
             new Point( 511, 592 ), //HEATSINK_DISSIPATION = 13
@@ -350,7 +350,9 @@ public class TWBipedShieldedPoints implements ifPrintPoints {
             new Point( 522, 713 ),
             new Point( 142, 354 ), //MAX_HEAT = 16
             new Point( 525, 5 ), //TOTAL_ARMOR = 17
-            new Point(122, 708) };  //STATS = 18;
+            new Point(122, 708), //STATS = 18;
+            new Point( 43, 345) // AMMO = 19
+    };
     private final static Point[] InternalInfo = {
             new Point( 0, 0 ),      //hd
             new Point( 453, 503 ), //ct
