@@ -305,11 +305,29 @@ public class TWQuadPoints implements ifPrintPoints {
         new Point( 18, 187 ), new Point( 28, 187 ), new Point( 102, 187 ), new Point( 123, 187 ), new Point( 138, 187 ),
         new Point( 164, 187 ), new Point( 177, 187 ), new Point( 192, 187 ), new Point( 208, 187 ) };
     private final static Point[] DataPoints = {
-        new Point( 40, 104 ), new Point( 65, 130 ), new Point( 65, 140 ), new Point( 65, 150 ),
-        new Point( 165, 118 ), new Point( 199, 131 ), new Point( 170, 129 ), new Point( 261, 104 ),
-        new Point( 285, 116 ), new Point( 358, 116 ), new Point( 44, 340 ), new Point( 145, 340 ),
-        new Point( 499, 594 ), new Point( 515, 594 ), new Point( 522, 699 ), new Point( 522, 713 ),
-        new Point( 142, 354 ), new Point( 525, 15 )};
+            new Point( 40, 104 ),
+            new Point( 65, 130 ),
+            new Point( 65, 140 ),
+            new Point( 65, 150 ),
+            new Point( 165, 118 ),
+            new Point( 199, 131 ),
+            new Point( 170, 129 ),
+            new Point( 261, 104 ),
+            new Point( 285, 116 ),
+            new Point( 358, 116 ),
+            new Point( 44, 337 ),   // COST = 10
+            new Point( 145, 340 ),
+            new Point( 499, 594 ),
+            new Point( 515, 594 ),
+            new Point( 522, 699 ),
+            new Point( 522, 713 ),
+            new Point( 142, 354 ),
+            new Point( 525, 15 ),
+            new Point( 525, 525 ),  // NOTHING
+            new Point( 525, 525 ),  // NOTHING
+            new Point( 525, 525 ),  // NOTHING
+            new Point( 44, 343 )    // AMMO = 21
+    };
     private final static Point[] InternalInfo = { 
         new Point( 0, 0 ), new Point( 454, 504 ), new Point( 395, 408 ), new Point( 515, 408 ),
         new Point( 392, 476 ), new Point( 517, 476 ), new Point( 389, 525 ), new Point( 521, 525 ) };
