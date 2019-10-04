@@ -389,7 +389,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
 
     public double GetTotalCost() {
         // final cost calculations
-        return ((GetChassisCost() + GetEquipCost() ) * GetCostMult() * GetConfigMultiplier()) + GetAmmoCosts();
+        return GetDryCost() + GetAmmoCosts();
     }
     
     public double GetDryCost() {
