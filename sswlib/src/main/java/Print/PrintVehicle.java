@@ -414,7 +414,8 @@ public class PrintVehicle implements Printable {
 
         //Cost
         graphics.setFont( PrintConsts.SmallFont );
-        graphics.drawString( String.format( "%1$,.0f C-Bills", Math.floor( CurVee.GetTotalCost() + 0.5f ) ), p[PrintConsts.COST].x, p[PrintConsts.COST].y );
+        graphics.drawString( String.format("%1$,.0f C-Bills", CurVee.GetTotalCost()), p[PrintConsts.COST].x, p[PrintConsts.COST].y);
+        graphics.drawString( String.format("+%1$,.0f (ammo)", CurVee.GetAmmoCosts()), p[PrintConsts.AMMO].x, p[PrintConsts.AMMO].y);
 
         //BV
         if ( !TRO ) {

@@ -351,7 +351,9 @@ public class TWBipedShieldedPoints implements ifPrintPoints {
             new Point( 142, 354 ), //MAX_HEAT = 16
             new Point( 525, 5 ), //TOTAL_ARMOR = 17
             new Point(122, 708), //STATS = 18;
-            new Point( 43, 345) // AMMO = 19
+            new Point(122, 708), // NOTHING
+            new Point(122, 708), // NOTHING
+            new Point( 43, 345) // AMMO = 21
     };
     private final static Point[] InternalInfo = {
             new Point( 0, 0 ),      //hd

@@ -56,7 +56,7 @@ public class PrintConsts {
                             MAX_HEAT = 16,
                             TOTAL_ARMOR = 17,
                             STATS = 18,
-                            AMMO = 19;
+                            AMMO = 21;
 
     public final static String RS_TW_BP = "./Data/Printing/RS_TW_BP.png",
                                RS_TW_QD = "./Data/Printing/RS_TW_QD.png",

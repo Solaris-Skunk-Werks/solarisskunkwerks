@@ -389,13 +389,12 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
 
     public double GetTotalCost() {
         // final cost calculations
-        // 8/7/2012 Commented out the GetAmmoCosts addition to match the way Mech works - GKB
-        return (( GetChassisCost() + GetEquipCost() ) * GetCostMult() * GetConfigMultiplier()); //+ GetAmmoCosts();
+        return ((GetChassisCost() + GetEquipCost() + GetAmmoCosts()) * GetCostMult() * GetConfigMultiplier());
     }
     
     public double GetDryCost() {
         // returns the total cost of the mech without ammunition
-        return ( GetEquipCost() + GetChassisCost() ) * GetCostMult() * GetConfigMultiplier();
+        return (GetEquipCost() + GetChassisCost()) * GetCostMult() * GetConfigMultiplier();
     }
     
     public double GetConfigMultiplier() {
@@ -2507,7 +2506,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     }
 
     public double GetAmmoCosts() {
-        // gets the cost for all non-core items minus ammuntion.
+        // gets the cost for all ammuntion.
         ArrayList v = CurLoadout.GetNonCore();
         double retval = 0.0;
         if( v.size() > 0 ) {
