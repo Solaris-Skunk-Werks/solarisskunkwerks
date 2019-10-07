@@ -35,11 +35,11 @@ public class ModularArmor extends abPlaceable {
     private boolean Rear = false;
 
     public ModularArmor() {
-        AC.SetISCodes( 'D', 'X', 'X', 'F' );
-        AC.SetISDates( 3070, 3072, true, 3072, 0, 0, false, false );
+        AC.SetISCodes( 'D', 'X', 'X', 'F', 'E' );
+        AC.SetISDates( 3070, 3072, true, 3096, 0, 0, false, false );
         AC.SetISFactions( "CS", "CS", "", "" );
-        AC.SetCLCodes( 'D', 'X', 'X', 'F' );
-        AC.SetCLDates( 3073, 3074, true, 3074, 0, 0, false, false );
+        AC.SetCLCodes( 'D', 'X', 'X', 'F', 'E' );
+        AC.SetCLDates( 3073, 3074, true, 3075, 0, 0, false, false );
         AC.SetCLFactions( "CWX", "CWX", "", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );

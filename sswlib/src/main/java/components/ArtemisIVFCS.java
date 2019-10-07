@@ -33,11 +33,11 @@ public class ArtemisIVFCS extends abPlaceable implements ifMissileGuidance {
     private RangedWeapon Owner;
 
     public ArtemisIVFCS( RangedWeapon m ) {
-        AC.SetISCodes( 'E', 'E', 'F', 'D' );
+        AC.SetISCodes( 'E', 'E', 'F', 'D', 'C' );
         AC.SetISDates( 0, 0, false, 2598, 2855, 3035, true, true );
         AC.SetISFactions( "", "", "TH", "FW" );
-        AC.SetCLCodes( 'E', 'X', 'D', 'C' );
-        AC.SetCLDates( 0, 0, false, 2598, 0, 0, false, false );
+        AC.SetCLCodes( 'F', 'X', 'F', 'D', 'C' );
+        AC.SetCLDates( 0, 0, false, 2818, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );

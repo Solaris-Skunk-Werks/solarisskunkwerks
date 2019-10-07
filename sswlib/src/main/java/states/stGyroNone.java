@@ -35,7 +35,7 @@ public class stGyroNone implements ifGyro, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stGyroNone() {
-        AC.SetISCodes( 'E', 'X', 'X', 'F' );
+        AC.SetISCodes( 'E', 'X', 'X', 'F', 'X' );
         AC.SetISDates( 0, 0, false, 2300, 0, 0, false, false );
         AC.SetISFactions( "", "", "WB", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

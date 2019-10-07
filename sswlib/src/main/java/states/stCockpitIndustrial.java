@@ -41,11 +41,11 @@ public class stCockpitIndustrial implements ifCockpit, ifState {
     private SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
 
     public stCockpitIndustrial() {
-        AC.SetISCodes( 'C', 'B', 'C', 'C' );
-        AC.SetISDates( 0, 0, false, 2300, 0, 0, false, false );
+        AC.SetISCodes( 'C', 'B', 'C', 'C', 'B' );
+        AC.SetISDates( 0, 0, false, 2470, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
-        AC.SetCLCodes( 'C', 'X', 'C', 'C' );
-        AC.SetCLDates( 0, 0, false, 2300, 0, 0, false, false );
+        AC.SetCLCodes( 'C', 'B', 'C', 'C', 'B' );
+        AC.SetCLDates( 0, 0, false, 2470, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }

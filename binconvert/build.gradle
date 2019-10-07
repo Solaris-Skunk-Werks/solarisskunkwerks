@@ -1,0 +1,28 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile project(':sswlib')
+    compile 'org.netbeans.external:AbsoluteLayout:RELEASE110'
+}
+
+application {
+    mainClassName = "binaryconverter.Main"
+}
+
+jar {
+    manifest.attributes (
+            'Main-Class' : 'binaryconverter.Main',
+            'Class-Path' : 'lib/sswlib.jar lib/AbsoluteLayout-RELEASE110.jar'
+    )
+    jar.archiveName = "binconvert.jar"
+}
+
+task copyDependencies {
+    copy {
+        into "${buildDir}/deps"
+        from configurations.compile
+    }
+}

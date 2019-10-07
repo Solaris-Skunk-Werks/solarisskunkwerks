@@ -41,11 +41,11 @@ public class PartialWing extends abPlaceable {
 
     public PartialWing( Mech m, boolean clan ) {
         Owner = m;
-        AC.SetISCodes( 'F', 'X', 'X', 'E' );
-        AC.SetISDates( 3061, 3067, true, 3067, 0, 0, false, false );
+        AC.SetISCodes( 'F', 'X', 'X', 'E', 'D' );
+        AC.SetISDates( 3061, 3067, true, 3074, 0, 0, false, false );
         AC.SetISFactions( "", "", "", "" );
-        AC.SetCLCodes( 'F', 'X', 'X', 'E' );
-        AC.SetCLDates( 3061, 3067, true, 3067, 0, 0, false, false );
+        AC.SetCLCodes( 'F', 'X', 'X', 'E', 'D' );
+        AC.SetCLDates( 3061, 3067, true, 3085, 0, 0, false, false );
         AC.SetCLFactions( "CJF", "CJF", "", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Clan = clan;

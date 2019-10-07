@@ -222,7 +222,8 @@ public class PrintMech implements Printable {
     
     private void PreparePrint( Graphics2D graphics ) {
         Items = PrintConsts.SortEquipmentByLocation( CurMech, MiniConvRate );
-        ap = new PIPPrinter(graphics, CurMech, Canon, imageTracker);
+        boolean mechHasShield = CurMech.HasRAShield() || CurMech.HasLAShield();
+        ap = new PIPPrinter(graphics, CurMech, Canon, mechHasShield, imageTracker);
         this.BV = CommonTools.GetAdjustedBV(CurMech.GetCurrentBV(), Gunnery, Piloting);
         GetRecordSheet(imageTracker);
         
@@ -535,7 +536,9 @@ public class PrintMech implements Printable {
 
         //Cost
         graphics.setFont( PrintConsts.SmallFont );
-        graphics.drawString( String.format( "%1$,.0f C-Bills", Math.floor( CurMech.GetTotalCost() + 0.5f ) ), p[PrintConsts.COST].x, p[PrintConsts.COST].y );
+
+        graphics.drawString( String.format("%1$,.0f C-Bills", CurMech.GetDryCost()), p[PrintConsts.COST].x, p[PrintConsts.COST].y );
+        graphics.drawString( String.format("+%1$,.0f (ammo)", CurMech.GetAmmoCosts()), p[PrintConsts.AMMO].x, p[PrintConsts.AMMO].y);
 
         //BV
         if ( !TRO ) {

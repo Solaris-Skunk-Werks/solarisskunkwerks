@@ -39,13 +39,14 @@ public class stArmorIN implements ifArmor, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
     public stArmorIN() {
-        AC.SetISCodes( 'C', 'B', 'C', 'B' );
-        AC.SetISDates( 0, 0, false, 2439, 0, 0, false, false );
+        AC.SetISCodes( 'C', 'B', 'C', 'B', 'B' );
+        AC.SetISDates( 0, 0, false, 2430, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
-        AC.SetCLCodes( 'C', 'X', 'B', 'B' );
-        AC.SetCLDates( 0, 0, false, 2439, 0, 0, false, false );
+        AC.SetCLCodes( 'C', 'X', 'C', 'B', 'B' );
+        AC.SetCLDates( 0, 0, false, 2470, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );
+        AC.SetPBMAllowed(true);
     }
 
     public String ActualName() {

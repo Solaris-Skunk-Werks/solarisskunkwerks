@@ -36,10 +36,10 @@ public class PowerAmplifier {
     private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
     public PowerAmplifier( ifLoadout l ) {
-        AC.SetISCodes( 'D', 'B', 'C', 'B' );
+        AC.SetISCodes( 'D', 'B', 'C', 'B', 'B' );
         AC.SetISDates( 0, 0, false, 2300, 0, 0, false, false );
         AC.SetISFactions( "", "", "PS", "" );
-        AC.SetCLCodes( 'D', 'X', 'C', 'B' );
+        AC.SetCLCodes( 'D', 'X', 'C', 'B', 'B' );
         AC.SetCLDates( 0, 0, false, 2300, 0, 0, false, false );
         AC.SetCLFactions( "", "", "PS", "" );
         AC.SetPBMAllowed( true );

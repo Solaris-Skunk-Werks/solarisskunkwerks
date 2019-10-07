@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
 allprojects {
-    version '0.7-Experimental'
+    version '0.7.0'
     jar {
         onlyIf { !sourceSets.main.allSource.files.isEmpty() }
     }
@@ -51,10 +51,25 @@ task releaseBuild(dependsOn: subprojects.build) {
             from "./sswlib/build/libs"
             into "${buildDir}/release/SSW_${version}/lib"
         }
+        copy {
+            from "./binconvert/build/libs"
+            into "${buildDir}/release/SSW_${version}"
+        }
+        copy {
+            from "./binconvert/build/deps"
+            into "${buildDir}/release/SSW_${version}/lib"
+        }
     }
 }
 
-task zipRelease(type: Zip, dependsOn: releaseBuild) {
+task copyDocs (dependsOn: subprojects.build) {
+    copy {
+        from 'Docs'
+        into "${buildDir}/release/SSW_${version}/Docs"
+    }
+}
+
+task zipRelease(type: Zip, dependsOn: ['releaseBuild', 'copyDocs']) {
         from "${buildDir}/release"
         include "**/"
         archiveName "SSW_${version}.zip"

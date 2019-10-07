@@ -35,12 +35,12 @@ public class ExtendedFuelTank extends Equipment {
     public ExtendedFuelTank( ifUnit m ) {
         Owner = m;
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        AC.SetISCodes( 'C', 'C', 'D', 'C' );
-        AC.SetISDates( 0, 0, false, 1900, 0, 0, false, false );
-        AC.SetISFactions( "", "", "PS", "" );
-        AC.SetCLCodes( 'C', 'X', 'C', 'C' );
-        AC.SetCLDates( 0, 0, false, 1900, 0, 0, false, false );
-        AC.SetCLFactions( "", "", "PS", "" );
+        AC.SetISCodes( 'C', 'C', 'D', 'D', 'D' );
+        AC.SetISDates( 0, 0, false, 2350, 0, 0, false, false );
+        AC.SetISFactions( "", "", "TH", "" );
+        AC.SetCLCodes( 'C', 'X', 'D', 'D', 'D' );
+        AC.SetCLDates( 0, 0, false, 2350, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "TH", "" );
         AC.SetPIMAllowed( true );
         AC.SetPBMAllowed( true );
     }

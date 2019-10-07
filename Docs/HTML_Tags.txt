@@ -1,0 +1,350 @@
+Solaris Skunk Works HTML Tags reference
+
+
+How to use these tags:
+-------------------------------------------------------------------------------
+First, a good place to start is by looking at the provided HTML_Template.html
+file.  This will give you a rough idea of how these tags are used.  Also note
+that the HTML Template can be used to write to a text-style file if the
+text file export is not to your liking.
+
+The HTML exporter takes any text file and replaces the given tags with
+information from the current mech.  It is a powerful tool but you will need to
+know how to use HTML if you intend to change the default template.
+
+
+Special Tags
+-------------------------------------------------------------------------------
+There are two Special tags:
+<+-SSW_REMOVE_IF_BLANK-+>
+<+-SSW_REMOVE_IF_OMNI_NO_FIXED-+>
+
+<+-SSW_REMOVE_IF_BLANK-+> tells the exporter to check the tags on the line in
+which it is placed for blank information.  If the information is blank, the
+line is removed.  SSW will remove the line if ANY of the tags on that line are
+blank, so be careful with it.
+
+<+-SSW_REMOVE_IF_OMNI_NO_FIXED-+> is used when you want a particular section
+removed when an OmniMech has no fixed equipment (weapons and ammo).  It will
+only work if the Mech is an Omni and the Omni has no fixed equipment.  In that
+case, the line will be removed.  Otherwise, only the tag is removed.
+
+
+Equipment Tags
+-------------------------------------------------------------------------------
+There are four other tags of note:
+<+-SSW_START_EQUIPMENT_FLUFF_BLOCK-+>
+<+-SSW_END_EQUIPMENT_FLUFF_BLOCK-+>
+<+-SSW_START_EQUIPMENT_STAT_BLOCK-+>
+<+-SSW_END_EQUIPMENT__STAT_BLOCK-+>
+Starting an equipment block will fill in information gathered from the mech's
+equipment.  YOU MUST END THE EQUIPMENT BLOCK.  Failure to do so will end the
+export and produce a half-finished file.  Between these two tags, the only tags
+that are recognized are those that begin with "<+-SSW_EQUIP_".  Also note that
+the lines containing the START and END tag will be discarded by the exporter.
+
+The difference between the two blocks is that FLUFF will group all weapons by
+specific type and manufacturer, producing a COUNT, whereas the STAT tag will
+place each item individually (good for loadout information, but not fluff).
+The fluff block is used for equipment summary and the stat equipment block is
+used for loadout.  The fluff block also only includes weapons, not ammunition
+and other equipment.  The tags that are recognized for each block start and end
+are as follows:
+
+<+-SSW_START_EQUIPMENT_FLUFF_BLOCK-+>
+	<+-SSW_EQUIP_COUNT_THIS_TYPE-+>
+	<+-SSW_EQUIP_NAME-+>
+	<+-SSW_EQUIP_FULL_NAME-+>
+	<+-SSW_EQUIP_MANUFACTURER-+>
+<+-SSW_END_EQUIPMENT_FLUFF_BLOCK-+>
+
+<+-SSW_START_EQUIPMENT_STAT_BLOCK-+>
+	<+-SSW_EQUIP_NAME-+>
+	<+-SSW_EQUIP_MANUFACTURER-+>
+	<+-SSW_EQUIP_TONNAGE-+>
+	<+-SSW_EQUIP_CRITS-+>
+	<+-SSW_EQUIP_LOCATION-+>
+	<+-SSW_EQUIP_HEAT-+>
+	<+-SSW_EQUIP_DAMAGE-+>
+	<+-SSW_EQUIP_RANGE-+>
+<+-SSW_END_EQUIPMENT_STAT_BLOCK-+>
+
+
+Omnimech tags
+-------------------------------------------------------------------------------
+The following two tags are for omnimech loadouts:
+<+-SSW_START_OMNIMECH_STAT_BLOCK-+>
+<+-SSW_END_OMNIMECH__STAT_BLOCK-+>
+They are used in much the same way as equipment blocks and have special tags that are only recognized between these lines.  Like equipment blocks, you must end the omnimech block or the export will fail.  Fixed equipment on omnimechs is handled through the normal equipment tags.  If the mech is not an omnimech, everything between (and including) the START_OMNIMECH and END_OMNIMECH tags will be discarded, so be careful.
+
+The following tags are recognized between omnimech tags:
+<+-SSW_START_OMNIMECH_STAT_BLOCK-+>
+	<+-SSW_OMNI_LOADOUT_NAME-+>
+	<+-SSW_OMNI_LOADOUT_BV-+>
+	<+-SSW_OMNI_LOADOUT_COST-+>
+    <+-SSW_OMNI_LOADOUT_RULES_LEVEL-+>
+	<+-SSW_OMNI_LOADOUT_ACTUATOR_LINE-+>
+	<+-SSW_OMNI_LOADOUT_HEATSINK_SPACE-+>
+	<+-SSW_OMNI_LOADOUT_HEATSINK_LOCATION_LINE-+>
+	<+-SSW_OMNI_LOADOUT_HEATSINK_TONNAGE-+>
+	<+-SSW_OMNI_LOADOUT_HEATSINK_COUNT-+>
+	<+-SSW_OMNI_LOADOUT_HEATSINK_DISSIPATION-+>
+	<+-SSW_OMNI_LOADOUT_HEATSINK_DISSIPATION_LINE-+>
+	<+-SSW_OMNI_LOADOUT_JUMPJET_SPACE-+>
+	<+-SSW_OMNI_LOADOUT_SPEED_JUMP_MP-+>
+	<+-SSW_OMNI_LOADOUT_JUMPJET_LOCATION_LINE-+>
+	<+-SSW_OMNI_LOADOUT_JUMPJET_TONNAGE-+>
+	<+-SSW_OMNI_LOADOUT_CASE_TONNAGE-+>
+	<+-SSW_OMNI_LOADOUT_CASE_LOCATION_LINE-+>
+        <+-SSW_OMNI_LOADOUT_CASEII_TONNAGE-+>
+        <+-SSW_OMNI_LOADOUT_CASEII_LOCATION_LINE-+>
+
+	<+-SSW_START_EQUIPMENT_STAT_BLOCK-+>
+		<+-SSW_EQUIP_NAME-+>
+		<+-SSW_EQUIP_MANUFACTURER-+>
+		<+-SSW_EQUIP_TONNAGE-+>
+		<+-SSW_EQUIP_CRITS-+>
+		<+-SSW_EQUIP_LOCATION-+>
+		<+-SSW_EQUIP_HEAT-+>
+		<+-SSW_EQUIP_DAMAGE-+>
+		<+-SSW_EQUIP_RANGE-+>
+	<+-SSW_END_EQUIPMENT__STAT_BLOCK-+>
+<+-SSW_END_OMNIMECH__STAT_BLOCK-+>
+
+
+Other Tag notes
+-------------------------------------------------------------------------------
+Some of the tags produce duplicate information and several may fit the bill.
+The differences are stylistic.  For instance:
+
+<+-SSW_HEATSINK_DISSIPATION_LINE-+> produces a line like:
+"10 (20)" if the heat sinks are double or "10" if the heat sinks are single.
+You could do the same thing with <+-SSW_HEATSINK_COUNT-+> and
+<+-SSW_HEATSINK_DISSIPATION-+>, but they would always insert the second part
+instead of refining it.
+
+
+Unused Tags
+-------------------------------------------------------------------------------
+Some of the tags are not used in the default template but I have added them for
+users who wish to have that information.  The default template is a matter of
+my own taste and can be freely edited to fit your taste.
+
+If you have created your own template and you see "null" where any field should
+have information, it is most likely a case of an incorrectly typed tag.  You
+should double-check your template.  If you are adding a tag, a good practice is
+to copy and paste them into your template.
+
+
+Tag List
+-------------------------------------------------------------------------------
+Following is a complete list of all currently supported HTML tags
+
+##### Special Tags #####
+<+-SSW_REMOVE_IF_BLANK-+>
+<+-SSW_REMOVE_IF_OMNI_NO_FIXED-+>
+
+##### Basic Mech Information #####
+<+-SSW_NAME-+>
+<+-SSW_MODEL-+>
+<+-SSW_TECHBASE-+>
+<+-SSW_TONNAGE-+>
+<+-SSW_DRY_TONNAGE-+>
+<+-SSW_PROD_YEAR-+>
+<+-SSW_EARLIEST_YEAR-+>
+<+-SSW_EXTINCT_BY-+>
+<+-SSW_AVAILABILITY-+>
+<+-SSW_COST-+>
+<+-SSW_DRY_COST-+>
+<+-SSW_BV2-+>
+<+-SSW_CHASSIS_CONFIG-+>
+<+-SSW_RULES_LEVEL-+>
+
+##### Fluff Information #####
+<+-SSW_OVERVIEW-+>
+<+-SSW_CAPABILITIES-+>
+<+-SSW_BATTLE_HISTORY-+>
+<+-SSW_DEPLOYMENT-+>
+<+-SSW_VARIANTS-+>
+<+-SSW_NOTABLES-+>
+<+-SSW_ADDITIONAL-+>
+<+-SSW_MANUFACTURER-+>
+<+-SSW_MANUFACTURER_LOCATION-+>
+<+-SSW_MANUFACTURER_ENGINE-+>
+<+-SSW_MANUFACTURER_CHASSIS-+>
+<+-SSW_MANUFACTURER_ARMOR-+>
+<+-SSW_MANUFACTURER_JUMPJETS-+>
+<+-SSW_MANUFACTURER_COMM_SYSTEM-+>
+<+-SSW_MANUFACTURER_T_AND_T_SYSTEM-+>
+
+##### Mech Weight Statistics #####
+<+-SSW_CHASSIS_TONNAGE-+>
+<+-SSW_ARMOR_TONNAGE-+>
+<+-SSW_ENGINE_TONNAGE-+>
+<+-SSW_GYRO_TONNAGE-+>
+<+-SSW_COCKPIT_TONNAGE-+>
+<+-SSW_HEATSINK_TONNAGE-+>
+<+-SSW_JUMPJET_TONNAGE-+>
+<+-SSW_ENHANCEMENT_TONNAGE-+>
+<+-SSW_CASE_TONNAGE-+>
+<+-SSW_CASEII_TONNAGE-+>
+<+-SSW_EQUIPMENT_TOTAL_TONNAGE-+>
+<+-SSW_POD_TONNAGE-+>
+<+-SSW_POWER_AMP_TONNAGE-+>
+<+-SSW_EJECTIONSEAT_TONNAGE-+>
+
+##### Armor and Internal Values #####
+<+-SSW_START_NORMAL_ARMOR_BLOCK-+>
+<+-SSW_END_NORMAL_ARMOR_BLOCK-+>
+<+-SSW_START_PATCHWORK_ARMOR_BLOCK-+>
+<+-SSW_END_PATCHWORK_ARMOR_BLOCK-+>
+<+-SSW_HD_ARMOR_TYPE-+>
+<+-SSW_CT_ARMOR_TYPE-+>
+<+-SSW_LT_ARMOR_TYPE-+>
+<+-SSW_RT_ARMOR_TYPE-+>
+<+-SSW_LA_ARMOR_TYPE-+>
+<+-SSW_RA_ARMOR_TYPE-+>
+<+-SSW_LL_ARMOR_TYPE-+>
+<+-SSW_RL_ARMOR_TYPE-+>
+<+-SSW_HD_ARMOR-+>
+<+-SSW_CT_ARMOR-+>
+<+-SSW_LT_ARMOR-+>
+<+-SSW_RT_ARMOR-+>
+<+-SSW_TORSO_ARMOR-+>
+<+-SSW_LA_ARMOR-+>
+<+-SSW_RA_ARMOR-+>
+<+-SSW_ARM_ARMOR-+>
+<+-SSW_LL_ARMOR-+>
+<+-SSW_RL_ARMOR-+>
+<+-SSW_LEG_ARMOR-+>
+<+-SSW_CTR_ARMOR-+>
+<+-SSW_LTR_ARMOR-+>
+<+-SSW_RTR_ARMOR-+>
+<+-SSW_TORSO_REAR_ARMOR-+>
+<+-SSW_HD_INTERNAL-+>
+<+-SSW_CT_INTERNAL-+>
+<+-SSW_TORSO_INTERNAL-+>
+<+-SSW_ARM_INTERNAL-+>
+<+-SSW_LEG_INTERNAL-+>
+<+-SSW_ARMOR_COVERAGE-+>
+<+-SSW_ARMOR_FACTOR-+>
+<+-SSW_ARM_LOCATION_NAME-+>
+<+-SSW_LA_LOCATION_NAME-+>
+<+-SSW_RA_LOCATION_NAME-+>
+<+-SSW_LEG_LOCATION_NAME-+>
+<+-SSW_LL_LOCATION_NAME-+>
+<+-SSW_RL_LOCATION_NAME-+>
+<+-SSW_ARM_LOCATION_LONGNAME-+>
+<+-SSW_LEG_LOCATION_LONGNAME-+>
+
+##### Movement Statistics Lines #####
+<+-SSW_JUMPJET_COUNT-+>
+<+-SSW_JUMPJET_DISTANCE-+>
+<+-SSW_SPEED_WALK_KMPH-+>
+<+-SSW_SPEED_RUN_KMPH-+>
+<+-SSW_SPEED_WALK_MP-+>
+<+-SSW_SPEED_RUN_MP-+>
+<+-SSW_SPEED_JUMP_MP-+>
+
+##### Mech Space Statistics #####
+<+-SSW_ENGINE_SPACE-+>
+<+-SSW_CHASSIS_SPACE-+>
+<+-SSW_CHASSIS_LOCATION_LINE-+>
+<+-SSW_COCKPIT_SPACE-+>
+<+-SSW_GYRO_SPACE-+>
+<+-SSW_ARMOR_SPACE-+>
+<+-SSW_ARMOR_LOCATION_LINE-+>
+<+-SSW_HEATSINK_TOTAL_SPACE-+>
+<+-SSW_HEATSINK_LOCATION_LINE-+>
+<+-SSW_ACTUATOR_LINE-+>
+<+-SSW_ENHANCEMENT_SPACE-+>
+<+-SSW_ENHANCEMENT_LINE-+>
+<+-SSW_JUMPJET_SPACE-+>
+<+-SSW_JUMPJET_LOCATION_LINE-+>
+<+-SSW_CASE_LOCATION_LINE-+>
+<+-SSW_CASEII_LOCATION_LINE-+>
+
+##### Miscellaneous Mech Statistics #####
+<+-SSW_ENGINE_RATING-+>
+<+-SSW_ENGINE_TYPE-+>
+<+-SSW_INTERNAL_TYPE-+>
+<+-SSW_HEATSINK_COUNT-+>
+<+-SSW_HEATSINK_DISSIPATION-+>
+<+-SSW_HEATSINK_DISSIPATION_LINE-+>
+<+-SSW_HEATSINKS_IN_ENGINE-+>
+<+-SSW_HEATSINK_TYPE-+>
+<+-SSW_GYRO_TYPE-+>
+<+-SSW_COCKPIT_TYPE-+>
+<+-SSW_ARMOR_TYPE-+>
+<+-SSW_JUMPJET_TYPE-+>
+<+-SSW_MULTISLOTNOTES-+>
+
+##### BattleForce Information #####
+<+-SSW_BF_DAMAGE_STRING-+>
+<+-SSW_BF_DAMAGE_SHORT-+>
+<+-SSW_BF_DAMAGE_MEDIUM-+>
+<+-SSW_BF_DAMAGE_LONG-+>
+<+-SSW_BF_DAMAGE_EXTREME-+>
+<+-SSW_BF_OVERHEAT-+>
+<+-SSW_BF_ARMOR-+>
+<+-SSW_BF_STRUCTURE-+>
+<+-SSW_BF_POINTS-+>
+<+-SSW_BF_SIZE-+>
+<+-SSW_BF_MOVEMENT-+>
+<+-SSW_BF_SPECIALS-+>
+
+##### Equipment Block Lines #####
+<+-SSW_START_EQUIPMENT_FLUFF_BLOCK-+>
+<+-SSW_END_EQUIPMENT_FLUFF_BLOCK-+>
+<+-SSW_START_EQUIPMENT_STAT_BLOCK-+>
+<+-SSW_END_EQUIPMENT_STAT_BLOCK-+>
+
+##### Individual Equipment Tags #####
+<+-SSW_EQUIP_COUNT_THIS_TYPE-+>
+<+-SSW_EQUIP_NAME-+>
+<+-SSW_EQUIP_FULL_NAME-+>
+<+-SSW_EQUIP_MANUFACTURER-+>
+<+-SSW_EQUIP_TONNAGE-+>
+<+-SSW_EQUIP_CRITS-+>
+<+-SSW_EQUIP_LOCATION-+>
+<+-SSW_EQUIP_HEAT-+>
+<+-SSW_EQUIP_DAMAGE-+>
+<+-SSW_EQUIP_RANGE-+>
+
+##### Omnimech Block Lines #####
+<+-SSW_START_OMNIMECH_STAT_BLOCK-+>
+<+-SSW_END_OMNIMECH__STAT_BLOCK-+>
+
+##### Individual Omnimech tags #####
+<+-SSW_OMNI_LOADOUT_NAME-+>
+<+-SSW_OMNI_LOADOUT_BV-+>
+<+-SSW_OMNI_LOADOUT_COST-+>
+<+-SSW_OMNI_LOADOUT_ACTUATOR_LINE-+>
+<+-SSW_OMNI_LOADOUT_HEATSINK_SPACE-+>
+<+-SSW_OMNI_LOADOUT_HEATSINK_LOCATION_LINE-+>
+<+-SSW_OMNI_LOADOUT_HEATSINK_TONNAGE-+>
+<+-SSW_OMNI_LOADOUT_HEATSINK_COUNT-+>
+<+-SSW_OMNI_LOADOUT_HEATSINK_DISSIPATION-+>
+<+-SSW_OMNI_LOADOUT_HEATSINK_DISSIPATION_LINE-+>
+<+-SSW_OMNI_LOADOUT_JUMPJET_SPACE-+>
+<+-SSW_OMNI_LOADOUT_SPEED_JUMP_MP-+>
+<+-SSW_OMNI_LOADOUT_JUMPJET_TYPE-+>
+<+-SSW_OMNI_LOADOUT_JUMPJET_LOCATION_LINE-+>
+<+-SSW_OMNI_LOADOUT_JUMPJET_TONNAGE-+>
+<+-SSW_OMNI_LOADOUT_CASE_TONNAGE-+>
+<+-SSW_OMNI_LOADOUT_CASE_LOCATION_LINE-+>
+<+-SSW_OMNI_LOADOUT_AVAILABILITY-+>
+<+-SSW_OMNI_LOADOUT_POWER_AMP_TONNAGE-+>
+<+-SSW_OMNI_LOADOUT_BF_DAMAGE_STRING-+>
+<+-SSW_OMNI_LOADOUT_BF_DAMAGE_SHORT-+>
+<+-SSW_OMNI_LOADOUT_BF_DAMAGE_MEDIUM-+>
+<+-SSW_OMNI_LOADOUT_BF_DAMAGE_LONG-+>
+<+-SSW_OMNI_LOADOUT_BF_DAMAGE_EXTREME-+>
+<+-SSW_OMNI_LOADOUT_BF_OVERHEAT-+>
+<+-SSW_OMNI_LOADOUT_BF_ARMOR-+>
+<+-SSW_OMNI_LOADOUT_BF_STRUCTURE-+>
+<+-SSW_OMNI_LOADOUT_BF_POINTS-+>
+<+-SSW_OMNI_LOADOUT_BF_SIZE-+>
+<+-SSW_OMNI_LOADOUT_BF_MOVEMENT-+>
+<+-SSW_OMNI_LOADOUT_BF_SPECIALS-+>
+

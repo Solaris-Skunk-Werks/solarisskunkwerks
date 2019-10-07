@@ -38,8 +38,8 @@ public class BoobyTrap extends abPlaceable {
     public BoobyTrap( ifMechLoadout m ) {
         Owner = m;
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        AC.SetISCodes( 'B', 'D', 'F', 'D' );
-        AC.SetISDates( 3055, 3060, true, 3060, 0, 0, false, false );
+        AC.SetISCodes( 'B', 'D', 'F', 'D', 'D' );
+        AC.SetISDates( 3055, 3060, true, 3080, 0, 0, false, false );
         AC.SetISFactions( "CC", "TC", "WB", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );

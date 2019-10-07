@@ -41,17 +41,17 @@ public class stEngineNone implements ifEngine, ifState {
     private Engine Owner;
 
     public stEngineNone( Engine e ) {
-        AC.SetISCodes( 'C', 'A', 'A', 'A' );
+        AC.SetISCodes( 'C', 'A', 'A', 'A', 'A' );
         AC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
         AC.SetISFactions( "", "", "PS", "" );
-        AC.SetCLCodes( 'C', 'X', 'A', 'A' );
+        AC.SetCLCodes( 'C', 'X', 'A', 'A', 'A' );
         AC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
         AC.SetCLFactions( "", "", "PS", "" );
         AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        LARGE_AC.SetISCodes( 'C', 'A', 'A', 'A' );
+        LARGE_AC.SetISCodes( 'C', 'A', 'A', 'A', 'A' );
         LARGE_AC.SetISDates( 2550, 2630, true, 2630, 0, 0, false, false );
         LARGE_AC.SetISFactions( "PS", "PS", "", "" );
-        LARGE_AC.SetCLCodes( 'C', 'X', 'A', 'A' );
+        LARGE_AC.SetCLCodes( 'C', 'X', 'A', 'A', 'A' );
         LARGE_AC.SetCLDates( 2550, 2630, true, 2630, 0, 0, false, false );
         LARGE_AC.SetCLFactions( "PS", "PS", "", "" );
         LARGE_AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

@@ -37,8 +37,8 @@ public class stPEISTSM implements ifPhysEnhance, ifState {
     private final MechModifier MechMod = new MechModifier( 1, 0, 0, 0.0f, 0, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true, false );
 
     public stPEISTSM() {
-        AC.SetISCodes( 'E', 'X', 'X', 'D' );
-        AC.SetISDates( 0, 0, false, 3050, 0, 0, false, false );
+        AC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
+        AC.SetISDates( 0, 0, false, 3045, 0, 0, false, false );
         AC.SetISFactions( "", "", "CC", "" );
         AC.SetSuperHeavyCompatible( false );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

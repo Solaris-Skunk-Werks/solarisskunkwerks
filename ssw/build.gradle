@@ -9,12 +9,12 @@ dependencies {
 }
 
 application {
-    mainClassName = 'Main'
+    mainClassName = 'ssw.Main'
 }
 
 jar {
     manifest.attributes (
-            'Main-Class' : 'Main',
+            'Main-Class' : 'ssw.Main',
             'Class-Path' : 'lib/sswlib.jar lib/AbsoluteLayout-RELEASE110.jar',
             'SplashScreen-Image' : 'ssw/Images/splash.png'
     )

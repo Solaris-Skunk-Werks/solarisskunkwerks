@@ -36,10 +36,10 @@ public class TargetingComputer extends abPlaceable {
     private boolean Clan;
 
     public TargetingComputer( ifMechLoadout l, boolean clan ) {
-        AC.SetISCodes( 'E', 'X', 'X', 'E' );
+        AC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
         AC.SetISDates( 0, 0, false, 3062, 0, 0, false, false );
         AC.SetISFactions( "", "", "FC", "" );
-        AC.SetCLCodes( 'E', 'X', 'D', 'C' );
+        AC.SetCLCodes( 'F', 'X', 'E', 'D', 'D' );
         AC.SetCLDates( 0, 0, false, 2860, 0, 0, false, false );
         AC.SetCLFactions( "", "", "CMN", "" );
         AC.SetPBMAllowed( true );
@@ -51,10 +51,10 @@ public class TargetingComputer extends abPlaceable {
     }
 
     public TargetingComputer( ifCVLoadout l, boolean clan) {
-        AC.SetISCodes( 'E', 'X', 'X', 'E' );
+        AC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
         AC.SetISDates( 0, 0, false, 3062, 0, 0, false, false );
         AC.SetISFactions( "", "", "FC", "" );
-        AC.SetCLCodes( 'E', 'X', 'D', 'C' );
+        AC.SetCLCodes( 'F', 'X', 'E', 'D', 'D' );
         AC.SetCLDates( 0, 0, false, 2860, 0, 0, false, false );
         AC.SetCLFactions( "", "", "CMN", "" );
         AC.SetPBMAllowed( true );

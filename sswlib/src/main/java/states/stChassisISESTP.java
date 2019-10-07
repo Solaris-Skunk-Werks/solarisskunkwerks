@@ -32,7 +32,7 @@ import components.AvailableCode;
 import components.MechModifier;
 
 public class stChassisISESTP implements ifChassis, ifState {
-    // An Inner Sphere EndoSteel Quad chassis
+    // An Inner Sphere EndoSteel Tripod chassis
     private final static double[] Masses = { 1.0, 1.5, 1.5, 2.0, 2.0, 2.5, 2.5, 3.0, 3.0, 3.5, 3.5, 4.0, 4.0, 4.5, 4.5, 5.0, 5.0, 5.5, 5.5 };
     private final static int[][] IntPoints = {
         { 4, 3, 1, 2 },
@@ -57,7 +57,7 @@ public class stChassisISESTP implements ifChassis, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stChassisISESTP() {
-        AC.SetISCodes( 'E', 'D', 'F', 'E' );
+        AC.SetISCodes( 'E', 'D', 'F', 'E', 'D' );
         AC.SetISDates( 0, 0, false, 2487, 2850, 3035, true, true );
         AC.SetISFactions( "", "", "TH", "DC" );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

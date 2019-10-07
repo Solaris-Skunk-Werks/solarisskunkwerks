@@ -46,6 +46,7 @@ public class stArmorHD implements ifArmor, ifState {
         AC.SetCLDates( 0, 0, false, 3126, 0, 0, false, false );
         AC.SetCLFactions( "", "", "--", "" );
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        AC.SetPBMAllowed(true);
     }
 
     public String ActualName() {

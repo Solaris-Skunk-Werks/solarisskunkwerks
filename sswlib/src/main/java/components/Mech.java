@@ -157,18 +157,18 @@ public class Mech implements ifUnit, ifBattleforce {
         CurRAAES = RAAES;
 
         // finish off the OmniMech availability
-        OmniAvailable.SetISCodes( 'E', 'X', 'X', 'E' );
+        OmniAvailable.SetISCodes( 'E', 'X', 'E', 'E', 'D' );
         OmniAvailable.SetISDates( 0, 0, false, 3052, 0, 0, false, false );
         OmniAvailable.SetISFactions( "", "", "", "" );
-        OmniAvailable.SetCLCodes( 'E', 'X', 'E', 'E' );
-        OmniAvailable.SetCLDates( 0, 0, false, 2854, 0, 0, false, false );
+        OmniAvailable.SetCLCodes( 'E', 'X', 'E', 'E', 'D' );
+        OmniAvailable.SetCLDates( 0, 0, false, 2856, 0, 0, false, false );
         OmniAvailable.SetCLFactions( "", "", "", "" );
         OmniAvailable.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
 
         // load up some special equipment
         AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
-        AC.SetISCodes( 'E', 'E', 'X', 'X' );
-        AC.SetISDates( 0, 0, false, 2630, 2790, 0, true, false );
+        AC.SetISCodes( 'E', 'E', 'X', 'X', 'F' );
+        AC.SetISDates( 0, 0, false, 2630, 2790, 3099, true, true );
         AC.SetISFactions( "", "", "TH", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
@@ -180,8 +180,8 @@ public class Mech implements ifUnit, ifBattleforce {
         NullSig.SetChatName( "NullSig" );
 
         AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
-        AC.SetISCodes( 'E', 'F', 'X', 'X' );
-        AC.SetISDates( 0, 0, false, 2630, 2790, 0, true, false );
+        AC.SetISCodes( 'E', 'F', 'X', 'X', 'F' );
+        AC.SetISDates( 0, 0, false, 2630, 2790, 3099, true, true );
         AC.SetISFactions( "", "", "TH", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
@@ -193,7 +193,7 @@ public class Mech implements ifUnit, ifBattleforce {
         Chameleon.SetChatName( "CLPS" );
 
         AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
-        AC.SetISCodes( 'E', 'X', 'X', 'F' );
+        AC.SetISCodes( 'E', 'X', 'X', 'F', 'F' );
         AC.SetISDates( 3051, 3053, true, 3053, 0, 0, false, false );
         AC.SetISFactions( "FS", "FS", "", "" );
         AC.SetPBMAllowed( true );
@@ -205,8 +205,8 @@ public class Mech implements ifUnit, ifBattleforce {
         BlueShield.SetChatName( "BluShld" );
 
         AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
-        AC.SetISCodes( 'E', 'X', 'X', 'E' );
-        AC.SetISDates( 3060, 3070, true, 3070, 0, 0, false, false );
+        AC.SetISCodes( 'E', 'X', 'X', 'E', 'F' );
+        AC.SetISDates( 3060, 3070, true, 3085, 0, 0, false, false );
         AC.SetISFactions( "WB", "WB", "", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
@@ -218,11 +218,11 @@ public class Mech implements ifUnit, ifBattleforce {
         VoidSig.SetChatName( "VoidSig" );
 
         AC = new AvailableCode( AvailableCode.TECH_BOTH );
-        AC.SetISCodes( 'C', 'C', 'C', 'C' );
-        AC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
+        AC.SetISCodes( 'C', 'C', 'C', 'C', 'C' );
+        AC.SetISDates( 0, 0, false, 2350, 0, 0, false, false );
         AC.SetISFactions( "", "", "PS", "" );
-        AC.SetCLCodes( 'C', 'X', 'C', 'C' );
-        AC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
+        AC.SetCLCodes( 'C', 'X', 'C', 'C', 'C' );
+        AC.SetCLDates( 0, 0, false, 2350, 0, 0, false, false );
         AC.SetCLFactions( "", "", "PS", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
@@ -233,10 +233,10 @@ public class Mech implements ifUnit, ifBattleforce {
         EnviroSealing.SetChatName( "EnvSlng" );
 
         AC = new AvailableCode( AvailableCode.TECH_BOTH );
-        AC.SetISCodes( 'B', 'D', 'E', 'F' );
+        AC.SetISCodes( 'B', 'D', 'E', 'F', 'E' );
         AC.SetISDates( 0, 0, false, 2445, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
-        AC.SetCLCodes( 'B', 'X', 'D', 'F' );
+        AC.SetCLCodes( 'B', 'X', 'E', 'F', 'E' );
         AC.SetCLDates( 0, 0, false, 2445, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetPBMAllowed( true );
@@ -247,11 +247,11 @@ public class Mech implements ifUnit, ifBattleforce {
         EjectionSeat.SetCost( 25000.0 );
 
         AC = new AvailableCode( AvailableCode.TECH_BOTH );
-        AC.SetISCodes( 'C', 'D', 'E', 'E' );
-        AC.SetISDates( 0, 0, false, 2400, 0, 0, false, false );
+        AC.SetISCodes( 'C', 'D', 'E', 'E', 'D' );
+        AC.SetISDates( 0, 0, false, 2440, 0, 0, false, false );
         AC.SetISFactions( "", "", "DC", "" );
-        AC.SetCLCodes( 'C', 'X', 'D', 'E' );
-        AC.SetCLDates( 0, 0, false, 2400, 0, 0, false, false );
+        AC.SetCLCodes( 'C', 'X', 'D', 'E', 'D' );
+        AC.SetCLDates( 0, 0, false, 2440, 0, 0, false, false );
         AC.SetCLFactions( "", "", "DC", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
@@ -259,10 +259,10 @@ public class Mech implements ifUnit, ifBattleforce {
         Tracks = new Tracks( this, AC );
 
         AC = new AvailableCode( AvailableCode.TECH_BOTH );
-        AC.SetISCodes( 'D', 'C', 'F', 'E' );
+        AC.SetISCodes( 'D', 'C', 'F', 'E', 'D' );
         AC.SetISDates( 0, 0, false, 2631, 2850, 3030, true, true );
         AC.SetISFactions( "", "", "TH", "??" );
-        AC.SetCLCodes( 'D', 'X', 'B', 'B' );
+        AC.SetCLCodes( 'D', 'X', 'F', 'E', 'D' );
         AC.SetCLDates( 0, 0, false, 2631, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetPBMAllowed( true );
@@ -273,10 +273,10 @@ public class Mech implements ifUnit, ifBattleforce {
         CommandConsole.SetCost( 500000.0 );
         CommandConsole.SetArmoredTonnage(1.0);
 
-        FHESAC.SetISCodes( 'D', 'X', 'F', 'E' );
+        FHESAC.SetISCodes( 'D', 'X', 'X', 'E', 'D' );
         FHESAC.SetISDates( 0, 0, false, 3023, 0, 0, false, false );
         FHESAC.SetISFactions( "", "", "LC", "" );
-        FHESAC.SetCLCodes( 'D', 'X', 'X', 'E' );
+        FHESAC.SetCLCodes( 'D', 'X', 'X', 'E', 'D' );
         FHESAC.SetCLDates( 0, 0, false, 3052, 0, 0, false, false );
         FHESAC.SetCLFactions( "", "", "CWF", "" );
         FHESAC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
@@ -3165,12 +3165,12 @@ public class Mech implements ifUnit, ifBattleforce {
 
     public double GetTotalCost() {
         // final cost calculations
-        return ( GetEquipCost() + GetChassisCost() ) * GetCostMult();
+        return GetDryCost() + GetAmmoCosts();
     }
 
     public double GetDryCost() {
         // returns the total cost of the mech without ammunition
-        return ( GetEquipCost() + GetChassisCost() ) * GetCostMult();
+        return (GetEquipCost() + GetChassisCost()) * GetCostMult();
     }
 
     public double GetCostMult() {
@@ -3258,7 +3258,7 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public double GetAmmoCosts() {
-        // gets the cost for all non-core items minus ammuntion.
+        // gets the cost for all ammuntion.
         ArrayList v = CurLoadout.GetNonCore();
         double retval = 0.0;
         if( v.size() > 0 ) {
@@ -3588,6 +3588,19 @@ public class Mech implements ifUnit, ifBattleforce {
             if( item instanceof PhysicalWeapon ) {
                 if ( ((PhysicalWeapon) item).GetPWClass() == PhysicalWeapon.PW_CLASS_SHIELD )
                 return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean HasLAShield()
+    {
+        abPlaceable items [] = CurLoadout.GetLACrits();
+        for (abPlaceable item : items) {
+            if (item instanceof PhysicalWeapon) {
+                if (((PhysicalWeapon) item).GetPWClass() == PhysicalWeapon.PW_CLASS_SHIELD) {
+                    return true;
+                }
             }
         }
         return false;
@@ -4255,7 +4268,7 @@ public class Mech implements ifUnit, ifBattleforce {
     public AvailableCode GetAvailability() {
         // returns the availability code for this mech based on all components
         AvailableCode Base = new AvailableCode( CurLoadout.GetTechBase() );
-        Base.SetCodes( 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A' );
+        Base.SetCodes( 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A' );
         Base.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
         Base.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
         Base.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
@@ -4323,7 +4336,7 @@ public class Mech implements ifUnit, ifBattleforce {
         if( CurLoadout.GetEra() == AvailableCode.ERA_SUCCESSION ) {
             // cut out the Star League stuff.
             AvailableCode SW = new AvailableCode( Base.GetTechBase() );
-            SW.SetCodes( 'A', 'X', 'A', 'A', 'A', 'X', 'A', 'A' );
+            SW.SetCodes( 'A', 'X', 'A', 'A', 'A', 'A', 'X', 'A', 'A', 'A' );
             SW.SetISDates( 0, 0, false, 2801, 10000, 0, false, false );
             SW.SetCLDates( 0, 0, false, 2801, 10000, 0, false, false );
             SW.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
@@ -4332,7 +4345,7 @@ public class Mech implements ifUnit, ifBattleforce {
         if( CurLoadout.GetEra() == AvailableCode.ERA_CLAN_INVASION ) {
             // cut out the Star League and Succession Wars stuff.
             AvailableCode CI = new AvailableCode( Base.GetTechBase() );
-            CI.SetCodes( 'A', 'X', 'X', 'A', 'A', 'X', 'X', 'A' );
+            CI.SetCodes( 'A', 'X', 'X', 'A', 'A', 'A', 'X', 'X', 'A', 'A' );
             CI.SetISDates( 0, 0, false, 3051, 10000, 0, false, false );
             CI.SetCLDates( 0, 0, false, 3051, 10000, 0, false, false );
             CI.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

@@ -37,7 +37,7 @@ public class stHeatSinkISDHS implements ifHeatSinkFactory, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stHeatSinkISDHS() {
-        AC.SetISCodes( 'E', 'C', 'E', 'D' );
+        AC.SetISCodes( 'E', 'C', 'E', 'D', 'C' );
         AC.SetISDates( 0, 0, false, 2567, 2865, 3040, true, true );
         AC.SetISFactions( "", "", "TH", "FS" );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

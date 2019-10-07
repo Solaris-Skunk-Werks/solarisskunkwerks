@@ -37,8 +37,8 @@ public class stPECLMASC implements ifPhysEnhance, ifState {
     private final MechModifier MechMod = new MechModifier( 0, 0, 0, 0.5f, 0, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true, false );
 
     public stPECLMASC() {
-        AC.SetCLCodes( 'E', 'X', 'C', 'D' );
-        AC.SetCLDates( 0, 0, false, 2740, 0, 0, false, false );
+        AC.SetCLCodes( 'F', 'X', 'F', 'E', 'D' );
+        AC.SetCLDates( 0, 0, false, 2827, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }

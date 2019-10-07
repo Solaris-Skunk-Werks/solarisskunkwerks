@@ -34,9 +34,12 @@ public class PPCCapacitor extends abPlaceable {
     private double OffBV = 0.0;
 
     public PPCCapacitor( RangedWeapon w ) {
-        AC.SetISCodes( 'E', 'X', 'X', 'E' );
-        AC.SetISDates( 3057, 3060, true, 3060, 0, 0, false, false );
+        AC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
+        AC.SetISDates( 3057, 3060, true, 3081, 0, 0, false, false );
         AC.SetISFactions( "DC", "DC", "", "" );
+        AC.SetCLCodes( 'E', 'X', 'X', 'E', 'D' );
+        AC.SetCLDates( 0, 0, false, 3101, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "PS", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

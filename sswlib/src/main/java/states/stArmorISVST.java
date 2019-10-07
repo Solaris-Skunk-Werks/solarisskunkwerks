@@ -35,10 +35,11 @@ public class stArmorISVST implements ifArmor, ifState {
     private final static MechModifier MechMod = new MechModifier( 0, 0, 0, 0.0f, 0, 0, 10, 0.2f, 0.0f, 0.0f, 0.0f, true, false );
 
     public stArmorISVST() {
-        AC.SetISCodes( 'E', 'X', 'X', 'F' );
+        AC.SetISCodes( 'E', 'X', 'X', 'F', 'E' );
         AC.SetISDates( 0, 0, false, 3067, 0, 0, false, false );
         AC.SetISFactions( "", "", "CC", "" );
         AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
+        AC.SetPBMAllowed(true);
     }
 
     public String ActualName() {

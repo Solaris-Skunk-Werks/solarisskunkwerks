@@ -36,12 +36,12 @@ public class CVPowerAmplifier {
     private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
     public CVPowerAmplifier( ifLoadout l ) {
-        AC.SetISCodes( 'D', 'B', 'C', 'B' );
+        AC.SetISCodes( 'D', 'B', 'C', 'B', 'B' );
         AC.SetISDates( 0, 0, false, 2300, 0, 0, false, false );
-        AC.SetISFactions( "", "", "PS", "" );
-        AC.SetCLCodes( 'D', 'X', 'C', 'B' );
+        AC.SetISFactions( "", "", "TA", "" );
+        AC.SetCLCodes( 'D', 'X', 'C', 'B', 'B' );
         AC.SetCLDates( 0, 0, false, 2300, 0, 0, false, false );
-        AC.SetCLFactions( "", "", "PS", "" );
+        AC.SetCLFactions( "", "", "TA", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

@@ -46,11 +46,11 @@ public class stEngineFuelCell implements ifEngine, ifState {
     private final static int[] BFStructure = {1,1,2,2,3,3,3,4,4,5,5,5,6,6,6,7,7,8,8};
 
     public stEngineFuelCell() {
-        AC.SetISCodes( 'D', 'C', 'D', 'D' );
-        AC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
+        AC.SetISCodes( 'D', 'C', 'D', 'D', 'C' );
+        AC.SetISDates( 0, 0, false, 2470, 0, 0, false, false );
         AC.SetISFactions( "", "", "PS", "" );
-        AC.SetCLCodes( 'D', 'X', 'C', 'D' );
-        AC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
+        AC.SetCLCodes( 'D', 'X', 'C', 'D', 'C' );
+        AC.SetCLDates( 0, 0, false, 2470, 0, 0, false, false );
         AC.SetCLFactions( "", "", "PS", "" );
         AC.SetSuperHeavyCompatible( false );
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

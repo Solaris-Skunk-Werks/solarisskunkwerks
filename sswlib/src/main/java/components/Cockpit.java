@@ -33,7 +33,7 @@ import states.*;
 public class Cockpit extends abPlaceable {
     private final ifCockpit StandardCockpit = new stCockpitStandard(),
                             InterfaceCockpit = new stCockpitInterface(),
-                            SmallCockpit = new stCockpitISSmall(),
+                            SmallCockpit = new stCockpitSmall(),
                             TorsoCockpit = new stCockpitTorsoMount(),
                             Primitive = new stCockpitISPrimitive(),
                             IndustrialCockpit = new stCockpitIndustrial(),

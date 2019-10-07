@@ -39,13 +39,14 @@ public class stArmorPatchwork implements ifArmor, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
     public stArmorPatchwork() {
-        AC.SetISCodes( 'A', 'A', 'A', 'A' );
+        AC.SetISCodes( 'A', 'A', 'A', 'A', 'A' );
         AC.SetISDates( 0, 0, false, 2400, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
-        AC.SetCLCodes( 'A', 'X', 'A', 'A' );
+        AC.SetCLCodes( 'A', 'X', 'A', 'A', 'A' );
         AC.SetISDates( 0, 0, false, 2400, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
+        AC.SetPBMAllowed(true);
     }
 
     public String ActualName() {

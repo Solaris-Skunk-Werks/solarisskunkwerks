@@ -34,9 +34,12 @@ public class CASE extends abPlaceable {
     private boolean IsClan = false;
 
     public CASE() {
-        AC.SetISCodes( 'D', 'C', 'F', 'D' );
+        AC.SetISCodes( 'E', 'C', 'F', 'D', 'C' );
         AC.SetISDates( 0, 0, false, 2476, 2840, 3036, true, true );
         AC.SetISFactions( "", "", "TH", "DC" );
+        AC.SetCLCodes( 'F', 'X', 'F', 'D', 'C' );
+        AC.SetCLDates( 0, 0, false, 2825, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "CCY", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

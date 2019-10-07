@@ -1,0 +1,14 @@
+Equipment
++All shields now require Lower Arm Actuators
++Added Nova CEWS (WoR)
++Added Centurion Weapon System (IP2)
++Added iATMs
++Added iATM ammo
++Added Interface Cockpit
++Added Robotic Cockpit
++Added Drone Operating System
+
++Fixed Cost/BV Breakdown display so that arm mounted weapons do not have their BV halved.
++Fixed Fractional Accounting Ammo loading on Omnis
++Fixed File loading issue in Force dialog
++Fixed BFB Unit Export/Import - Element type warrior fails to parse

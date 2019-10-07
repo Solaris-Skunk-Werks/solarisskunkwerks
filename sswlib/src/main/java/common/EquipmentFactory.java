@@ -544,9 +544,12 @@ public class EquipmentFactory {
         AvailableCode a;
 
         a = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
-        a.SetISCodes( 'E', 'X', 'X', 'F' );
+        a.SetISCodes( 'E', 'X', 'X', 'F', 'F' );
         a.SetISDates( 0, 0, false, 3068, 0, 0, false, false );
         a.SetISFactions( "--", "--", "FS", "--" );
+        a.SetCLCodes( 'E', 'X', 'X', 'F', 'F' );
+        a.SetCLDates( 0, 0, false, 3069, 0, 0, false, false );
+        a.SetCLFactions( "", "", "CSF", "" );
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
         a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
@@ -597,7 +600,7 @@ public class EquipmentFactory {
         RangedWeapons.add(addMGA);
 
         a = new AvailableCode( AvailableCode.TECH_CLAN );
-        a.SetCLCodes( 'E', 'X', 'X', 'E' );
+        a.SetCLCodes( 'E', 'X', 'X', 'F', 'F' );
         a.SetCLDates( 0, 0, false, 3069, 0, 0, false, false );
         a.SetCLFactions( "--", "--", "CDS", "--" );
         a.SetPBMAllowed( true );

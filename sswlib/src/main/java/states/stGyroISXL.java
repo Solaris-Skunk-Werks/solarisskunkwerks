@@ -35,7 +35,7 @@ public class stGyroISXL implements ifGyro, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stGyroISXL() {
-        AC.SetISCodes( 'E', 'X', 'X', 'E' );
+        AC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
         AC.SetISDates( 0, 0, false, 3067, 0, 0, false, false );
         AC.SetISFactions( "", "", "CS", "" );
         AC.SetSuperHeavyCompatible( false );

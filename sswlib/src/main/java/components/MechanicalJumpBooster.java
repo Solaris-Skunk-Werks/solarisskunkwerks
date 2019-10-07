@@ -38,8 +38,8 @@ public class MechanicalJumpBooster extends abPlaceable {
     public MechanicalJumpBooster( Mech m ) {
         Owner = m;
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        AC.SetISCodes( 'E', 'X', 'X', 'F' );
-        AC.SetISDates( 3055, 3060, true, 3060, 0, 0, false, false );
+        AC.SetISCodes( 'E', 'X', 'X', 'F', 'E' );
+        AC.SetISDates( 3055, 3060, true, 3083, 0, 0, false, false );
         AC.SetISFactions( "FS", "FS", "", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );

@@ -45,11 +45,11 @@ public class stCockpitRobotic implements ifCockpit, ifState {
     private SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
 
     public stCockpitRobotic() {
-        AC.SetISCodes( 'C', 'E', 'X', 'F' );
-        AC.SetISDates( 0, 0, false, 2300, 0, 0, false, false );
+        AC.SetISCodes( 'C', 'E', 'F', 'F', 'F' );
+        AC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
-        AC.SetCLCodes( 'C', 'X', 'D', 'E' );
-        AC.SetCLDates( 0, 0, false, 2300, 0, 0, false, false );
+        AC.SetCLCodes( 'C', 'X', 'F', 'F', 'F' );
+        AC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetSuperHeavyCompatible(false);
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
