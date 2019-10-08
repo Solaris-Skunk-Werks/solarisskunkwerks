@@ -51,11 +51,11 @@ public class stEngineISLF implements ifEngine, ifState {
     private Engine Owner;
 
     public stEngineISLF( Engine e ) {
-        AC.SetISCodes( 'E', 'X', 'X', 'E' );
+        AC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
         AC.SetISDates( 0, 0, false, 3062, 0, 0, false, false );
         AC.SetISFactions( "", "", "LA", "" );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED );
-        LARGE_AC.SetISCodes( 'E', 'X', 'X', 'E' );
+        LARGE_AC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
         LARGE_AC.SetISDates( 3062, 3062, true, 3062, 0, 0, false, false );
         LARGE_AC.SetISFactions( "LA", "LA", "LA", "" );
         LARGE_AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );

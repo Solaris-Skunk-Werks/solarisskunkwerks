@@ -33,10 +33,10 @@ public class LaserInsulator extends abPlaceable {
     private RangedWeapon Owner;
 
     public LaserInsulator( RangedWeapon w ) {
-        AC.SetISCodes( 'E', 'F', 'F', 'X' );
+        AC.SetISCodes( 'E', 'X', 'E', 'F', 'F' );
         AC.SetISDates( 0, 0, false, 2575, 2820, 0, true, false );
         AC.SetISFactions( "TH", "", "", "" );
-        AC.SetCLCodes( 'E', 'X', 'E', 'F' );
+        AC.SetCLCodes( 'E', 'X', 'E', 'F', 'F' );
         AC.SetCLDates( 0, 0, false, 2575, 0, 0, false, false );
         AC.SetCLFactions( "TH", "", "", "" );
         AC.SetPBMAllowed( true );

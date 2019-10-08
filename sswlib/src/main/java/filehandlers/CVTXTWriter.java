@@ -140,7 +140,8 @@ public class CVTXTWriter {
         retval += "Era: " + CommonTools.DecodeEra( CurVee.GetEra() ) + NL;
         retval += "Tech Rating/Era Availability: " + CurVee.GetAvailability().GetBestCombinedCode() + NL;
         retval += "Production Year: " + CurVee.GetYear() + NL;
-        retval += "Cost: " + String.format( "%1$,.0f", Math.floor( CurVee.GetTotalCost() + 0.5 ) ) + " C-Bills" + NL;
+        retval += "Dry Cost: " + String.format("%1$,.0f", CurVee.GetDryCost()) + " C-Bills" + NL;
+        retval += "Total Cost: " + String.format("%1$,.0f", CurVee.GetTotalCost()) + " C-Bills" + NL;
         retval += "Battle Value: " + String.format( "%1$,d", CurVee.GetCurrentBV() ) + NL + NL;
 
         if( CurVee.UsingFractionalAccounting() ) {

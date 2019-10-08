@@ -57,10 +57,10 @@ public class stChassisMSQD implements ifChassis, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
     public stChassisMSQD() {
-        AC.SetISCodes( 'D', 'C', 'C', 'C' );
+        AC.SetISCodes( 'D', 'C', 'C', 'C', 'C' );
         AC.SetISDates( 0, 0, false, 2443, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
-        AC.SetCLCodes( 'D', 'X', 'B', 'B' );
+        AC.SetCLCodes( 'D', 'X', 'B', 'B', 'B' );
         AC.SetCLDates( 0, 0, false, 2443, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetSuperHeavyCompatible(false);

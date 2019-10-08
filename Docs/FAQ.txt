@@ -1,0 +1,55 @@
+Solaris Skunk Werks Frequently Asked Questions
+
+As of Beta Release 2, these are anticipated questions.  I will add to this list as time goes by.  If you have a question about the program, please email me and I will answer it as best I can.
+
+-------------------------------------------------------------------------------
+Q 1. I don't like the HTML output.  Will you change it?
+
+A 1. No, but you can change it yourself.  Refer to the HTML_Tags.txt document for help building your own HTML_Template.html file.  I highly recommend that you backup the existing file before modifying it.
+
+
+-------------------------------------------------------------------------------
+Q 2. (tech name) was available in (year) but I cannot add it to a Succession Wars era mech.  Why is this?
+
+A 2. Technology is limited per the following guidelines.  If you want to put Endo-Steel, for instance, into an SW era mech you will need to set an appropriate production year and then check "Restrict Availability by Year".
+
+Era                Default Tech
+AoW/Star League    Best available
+Succession Wars    Worst available
+Clan Invasion      Best available
+
+
+-------------------------------------------------------------------------------
+Q 3. Why isn't (my favorite piece of Level 3 tech) in the program?
+
+A 3. Solaris Skunk Werks was designed, first and foremost, to be Tech Manual compliant.  That means that I will not be adding any experimental or "Level 3" tech into it until such tech appears in a book later than Tech Manual.  Adding new tech also depends on my free time and when I get the book in question.  See Q 6 about the projected feature lists.
+
+
+-------------------------------------------------------------------------------
+Q 4. Will you add (feature) into the program?
+
+A 4. Maybe.  Send me an email detailing what you would like to see and if I find it useful or if it's something I'd like to write, I may add it in at a later date.  I already have a few requests and new features will be added in the order I receive them.
+
+
+-------------------------------------------------------------------------------
+Q 5. Some features are greyed out or blank.  Why can't I use them?
+
+A 5. Sorry, I am planning ahead and I keep those there to remind me of what needs to be done.
+
+
+-------------------------------------------------------------------------------
+Q 6. When will (feature) be added?
+
+A 6. It really depends on how much time I spend coding.  I have a few hobbies and they all take a lot of my time, but here is a projected list of what will be added and when:
+(finished version) Charts (detailed and simple)
+(finished version) Printing
+
+Beta 2 should be out within two months of the Beta 1 release, and the finished product should be out by December 2008.  This all depends heavily on my personal life.
+
+
+-------------------------------------------------------------------------------
+Q 7. I am a programmer and would like to help.  Can I?
+
+A 7. I don't work well with teams when programming and I'm not much of a project leader.  Furthermore, my coding style is a bit different than what you would normally see in Java.  For those reasons, I am turning down any help at this time.
+
+However, I do plan to release the program under the BSD Public License when it reaches the "Finished Version" stage.  I will still be working on it myself, but at that time you can create a fork or contribute code to it as you see fit.

@@ -1689,9 +1689,12 @@ public class MechReader {
 
             // Remove the temporary loadout if we created one and set the mech
             // to the first loadout
-            if ( m.GetLoadout().GetName() == "SSW_TEMP_LOADOUT_001" ) {
-                m.RemoveLoadout( "SSW_TEMP_LOADOUT_001" );
-                m.SetCurLoadout( ((ifMechLoadout) m.GetLoadouts().get( 0 )).GetName() );
+            for (Object lo : m.GetLoadouts()) {
+                if (((ifMechLoadout)lo).GetName().equals("SSW_TEMP_LOADOUT_001")) {
+                    m.RemoveLoadout( "SSW_TEMP_LOADOUT_001" );
+                    m.SetCurLoadout( ((ifMechLoadout) m.GetLoadouts().get( 0 )).GetName() );
+                    break;
+                }
             }
         }
 

@@ -3,3 +3,5 @@ include 'sswlib'
 include 'ssw'
 include 'BFB'
 include 'saw'
+include 'binconvert'
+

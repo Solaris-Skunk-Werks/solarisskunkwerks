@@ -33,10 +33,10 @@ public class EmptyItem extends abPlaceable {
     private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
     public EmptyItem() {
-        AC.SetISCodes( 'A', 'A', 'A', 'A' );
+        AC.SetISCodes( 'A', 'A', 'A', 'A', 'A' );
         AC.SetISDates( 0, 0, false, 1900, 0, 0, false, false );
         AC.SetISFactions( "", "", "", "" );
-        AC.SetCLCodes( 'A', 'A', 'A', 'A' );
+        AC.SetCLCodes( 'A', 'A', 'A', 'A', 'A' );
         AC.SetCLDates( 0, 0, false, 1900, 0, 0, false, false );
         AC.SetCLFactions( "", "", "", "" );
         AC.SetPBMAllowed( true );

@@ -57,8 +57,9 @@ public class stChassisPBMQD implements ifChassis, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stChassisPBMQD() {
-        AC.SetISCodes( 'C', 'E', 'X', 'F' );
-        AC.SetISDates( 0, 0, false, 2443, 0, 0, false, false );
+        // IO page 122 overrides the UAT for primitive components
+        AC.SetISCodes( 'D', 'C', 'F', 'E', 'F' );
+        AC.SetISDates( 0, 0, false, 2439, 2520, 0, true, false );
         AC.SetISFactions( "", "", "TH", "" );
         AC.SetPBMAllowed( true );
         AC.SetPrimitiveOnly( true );

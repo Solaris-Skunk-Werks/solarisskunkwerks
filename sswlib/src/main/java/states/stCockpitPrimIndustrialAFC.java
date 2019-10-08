@@ -41,7 +41,8 @@ public class stCockpitPrimIndustrialAFC implements ifCockpit, ifState {
     private SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
 
     public stCockpitPrimIndustrialAFC() {
-        AC.SetISCodes( 'C', 'E', 'X', 'F' );
+        // IO page 122 overrides the UAT for primitive components
+        AC.SetISCodes( 'D', 'C', 'F', 'E', 'F' );
         AC.SetISDates( 0, 0, false, 2300, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
         AC.SetPIMAllowed( true );

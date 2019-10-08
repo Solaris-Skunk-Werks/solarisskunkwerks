@@ -37,10 +37,10 @@ public class stChassisCVIS implements ifChassis, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
     public stChassisCVIS() {
-        AC.SetISCodes( 'D', 'C', 'C', 'C' );
+        AC.SetISCodes( 'D', 'A', 'A', 'A', 'A' );
         AC.SetISDates( 0, 0, false, 2470, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
-        AC.SetCLCodes( 'D', 'X', 'B', 'B' );
+        AC.SetCLCodes( 'D', 'X', 'A', 'A', 'A' );
         AC.SetCLDates( 0, 0, false, 2470, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetRulesLevels( AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

@@ -34,11 +34,11 @@ public class CASEII extends abPlaceable {
     private boolean Clan;
 
     public CASEII( boolean clan ) {
-        AC.SetISCodes( 'E', 'X', 'X', 'F' );
-        AC.SetISDates( 3057, 3064, true, 3064, 0, 0, false, false );
+        AC.SetISCodes( 'E', 'X', 'X', 'F', 'D' );
+        AC.SetISDates( 3057, 3064, true, 3082, 0, 0, false, false );
         AC.SetISFactions( "FW", "FW", "", "" );
-        AC.SetCLCodes( 'F', 'X', 'X', 'F' );
-        AC.SetCLDates( 3059, 3062, true, 3062, 0, 0, false, false );
+        AC.SetCLCodes( 'E', 'X', 'X', 'F', 'D' );
+        AC.SetCLDates( 3059, 3062, true, 3082, 0, 0, false, false );
         AC.SetCLFactions( "CCY", "CCY", "", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );

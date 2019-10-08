@@ -35,7 +35,7 @@ public class stGyroISCompact implements ifGyro, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stGyroISCompact() {
-        AC.SetISCodes( 'E', 'X', 'X', 'E' );
+        AC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
         AC.SetISDates( 0, 0, false, 3068, 0, 0, false, false );
         AC.SetISFactions( "", "", "FS", "" );
         AC.SetSuperHeavyCompatible( false );

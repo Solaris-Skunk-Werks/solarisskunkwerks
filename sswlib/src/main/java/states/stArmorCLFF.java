@@ -39,8 +39,8 @@ public class stArmorCLFF implements ifArmor, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_CLAN );
 
     public stArmorCLFF() {
-        AC.SetCLCodes( 'E', 'X', 'C', 'C' );
-        AC.SetCLDates( 0, 0, false, 2571, 0, 0, false, false );
+        AC.SetCLCodes( 'F', 'X', 'E', 'D', 'C' );
+        AC.SetCLDates( 0, 0, false, 2825, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );
     }

@@ -1,0 +1,25 @@
+SSW Fixes ('Mechs)
+ - Fixed Claws
+ - Fixed M-POD to be Explosive
+ - Errata changes
+ - Fixed Armored Command Console
+ - Fixed Scale for Movement
+ - Fixed issue with VGL BV calcs
+ - Fixed UMU MTF naming
+
+BFB Fixes (Force Balancer)
+ - None
+
+SAW Fixes (Combat Vehicles)
+ - Fixed Fuel Cell engine not adding Power Amplifiers
+ - Fixed Force dialog to reformat the stats into the type requested (BF, Info, TW)
+ - Fixed issue where weapons could not be allocated to Rear when they are normally allowed
+ - Fixed Trailer checkbox to uncheck if chassis is changed to a non-trailer type
+ - Fixed Open Dialog Motive filter. NOTE: You will need to refresh the unit list
+ - Set the Heat Sink spinner min to the HS needed for the weapons/equip loaded into the vee
+
+SGT Fixes (Game Tracker [Alpha])
+ - None
+
+SQP Fixes (Quickstrike Printer)
+ - None

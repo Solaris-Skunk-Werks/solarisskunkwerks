@@ -1,0 +1,24 @@
+It is our pleasure to release Solaris Skunk Werks 0.7.0!  This marks a new release as a community driven and developed version of Solaris Skunk Werks.  We have put great effort into updating existing functionality to the current era of BattleTech, below the link we have a brief listing of the updates to SSW.  Future releases will be focusing on usability, new equipment, and new features.
+
+You can download the newest version, and join our development discord through our Github page here.  We welcome all who want to help make SSW even better: https://github.com/Solaris-Skunk-Werks/solarisskunkwerks#solaris-skunk-werks
+
+**Main Features and fixes:**
+* Updated for Java 8
+* Dark Age Availability
+* Fixed various BV calculation issues (All BV calculations should be correct!)
+* More detailed BV breakdown
+* Corrected C-Bill Price Calculations
+* Shows Ammo cost of current loadout
+* Improved printing of Shields
+* Saving and Loading of Super Heavy Vehicles
+* Now using modern logo
+* Fix security vulnerabilities when loading files
+
+**Other Bug Fixes**
+* Would silent fail on opening
+* Would forget about fixed Case II with Omnimechs
+* Patchwork Armor would have display issues
+* Booby trap was not printing correctly
+* Primitive/Retrotech Battlemechs can now equip all armors
+* Can now save and load OmniMechs without configurations
+* iATM ammo names were corrected

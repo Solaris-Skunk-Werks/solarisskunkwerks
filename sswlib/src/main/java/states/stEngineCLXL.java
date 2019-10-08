@@ -51,12 +51,12 @@ public class stEngineCLXL implements ifEngine, ifState {
     private Engine Owner;
 
     public stEngineCLXL( Engine e ) {
-        AC.SetCLCodes( 'E', 'X', 'C', 'D' );
-        AC.SetCLDates( 0, 0, false, 2579, 0, 0, false, false );
+        AC.SetCLCodes( 'F', 'D', 'E', 'D', 'D' );
+        AC.SetCLDates( 0, 0, false, 2827, 0, 0, false, false );
         AC.SetCLFactions( "", "", "TH", "" );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED );
-        LARGE_AC.SetCLCodes( 'E', 'X', 'C', 'D' );
-        LARGE_AC.SetCLDates( 2579, 2630, true, 2630, 0, 0, false, false );
+        LARGE_AC.SetCLCodes( 'F', 'D', 'E', 'D', 'D' );
+        LARGE_AC.SetCLDates( 2579, 2630, true, 2827, 0, 0, false, false );
         LARGE_AC.SetCLFactions( "TH", "TH", "", "" );
         LARGE_AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
         Owner = e;

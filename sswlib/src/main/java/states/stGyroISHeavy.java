@@ -35,8 +35,8 @@ public class stGyroISHeavy implements ifGyro, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stGyroISHeavy() {
-        AC.SetISCodes( 'E', 'X', 'X', 'E' );
-        AC.SetISDates( 0, 0, false, 3067, 0, 0, false, false );
+        AC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
+        AC.SetISDates( 0, 0, false, 3068, 0, 0, false, false );
         AC.SetISFactions( "", "", "DC", "" );
         AC.SetSuperHeavyCompatible( false );
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );

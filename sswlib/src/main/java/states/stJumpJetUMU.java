@@ -36,10 +36,10 @@ public class stJumpJetUMU implements ifJumpJetFactory, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
     public stJumpJetUMU() {
-        AC.SetISCodes( 'E', 'X', 'X', 'E' );
-        AC.SetISDates( 3062, 3066, true, 3066, 0, 0, false, false );
+        AC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
+        AC.SetISDates( 3062, 3066, true, 3062, 0, 0, false, false );
         AC.SetISFactions( "LA", "LA", "", "" );
-        AC.SetCLCodes( 'E', 'X', 'X', 'E' );
+        AC.SetCLCodes( 'E', 'X', 'X', 'E', 'D' );
         AC.SetCLDates( 3057, 3061, true, 3061, 0, 0, false, false );
         AC.SetCLFactions( "CGS", "CGS", "", "" );
         AC.SetSuperHeavyCompatible( false );

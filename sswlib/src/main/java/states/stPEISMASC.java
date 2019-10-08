@@ -37,7 +37,7 @@ public class stPEISMASC implements ifPhysEnhance, ifState {
     private final MechModifier MechMod = new MechModifier( 0, 0, 0, 0.5f, 0, 0, 0, 0.0f, 0.0f, 0.0f, 0.0f, true, false );
 
     public stPEISMASC() {
-        AC.SetISCodes( 'E', 'D', 'F', 'E' );
+        AC.SetISCodes( 'E', 'D', 'F', 'E', 'D' );
         AC.SetISDates( 0, 0, false, 2740, 2795, 3035, true, true );
         AC.SetISFactions( "", "", "TH", "CC" );
         AC.SetSuperHeavyCompatible( false );

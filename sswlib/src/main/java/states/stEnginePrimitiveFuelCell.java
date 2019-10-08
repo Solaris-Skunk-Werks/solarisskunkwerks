@@ -46,10 +46,11 @@ public class stEnginePrimitiveFuelCell implements ifEngine, ifState {
     private final static int[] BFStructure = {1,1,2,2,3,3,3,4,4,5,5,5,6,6,6,7,7,8,8};
 
     public stEnginePrimitiveFuelCell() {
-        AC.SetISCodes( 'D', 'C', 'D', 'D' );
+        // IO page 122 overrides the UAT for primitive components
+        AC.SetISCodes( 'D', 'C', 'F', 'E', 'F' );
         AC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
         AC.SetISFactions( "", "", "PS", "" );
-        AC.SetCLCodes( 'D', 'X', 'C', 'D' );
+        AC.SetCLCodes( 'D', 'X', 'F', 'E', 'F' );
         AC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
         AC.SetCLFactions( "", "", "PS", "" );
         AC.SetPIMAllowed( true );

@@ -51,11 +51,11 @@ public class stEngineCLXXL implements ifEngine, ifState {
     private Engine Owner;
 
     public stEngineCLXXL( Engine e ) {
-        AC.SetCLCodes( 'F', 'X', 'F', 'F' );
+        AC.SetCLCodes( 'F', 'X', 'X', 'F', 'E' );
         AC.SetCLDates( 2582, 2954, true, 2954, 0, 0, false, false );
         AC.SetCLFactions( "TH", "CDS", "", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
-        LARGE_AC.SetCLCodes( 'F', 'X', 'F', 'F' );
+        LARGE_AC.SetCLCodes( 'F', 'X', 'X', 'F', 'E' );
         LARGE_AC.SetCLDates( 2582, 2954, true, 2954, 0, 0, false, false );
         LARGE_AC.SetCLFactions( "TH", "CDS", "", "" );
         LARGE_AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );

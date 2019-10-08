@@ -36,8 +36,8 @@ public class stHeatSinkISCompact implements ifHeatSinkFactory, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     public stHeatSinkISCompact() {
-        AC.SetISCodes( 'E', 'X', 'X', 'F' );
-        AC.SetISDates( 3056, 3058, true, 3058, 0, 0, false, false );
+        AC.SetISCodes( 'E', 'X', 'X', 'F', 'E' );
+        AC.SetISDates( 3056, 3058, true, 3079, 0, 0, false, false );
         AC.SetISFactions( "FS", "FS", "", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }

@@ -199,6 +199,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblISAVSL.setText( "" + AC.GetISSLCode() );
         lblISAVSW.setText( "" + AC.GetISSWCode() );
         lblISAVCI.setText( "" + AC.GetISCICode() );
+        lblISAVDA.setText( "" + AC.GetISDACode() );
         lblISIntro.setText( AC.GetISIntroDate() + " (" + AC.GetISIntroFaction() + ")" );
         if( AC.WentExtinctIS() ) {
             lblISExtinct.setText( "" + AC.GetISExtinctDate() );
@@ -222,6 +223,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblClanAVSL.setText( "" + AC.GetCLSLCode() );
         lblClanAVSW.setText( "" + AC.GetCLSWCode() );
         lblClanAVCI.setText( "" + AC.GetCLCICode() );
+        lblClanAVDA.setText( "" + AC.GetCLDACode() );
         lblClanIntro.setText( AC.GetCLIntroDate() + " (" + AC.GetCLIntroFaction() + ")" );
         if( AC.WentExtinctCL() ) {
             lblClanExtinct.setText( "" + AC.GetCLExtinctDate() );
@@ -309,6 +311,8 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblClanExtraInfo = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         lblClanTechRating = new javax.swing.JLabel();
+        lblInfoAVDA = new javax.swing.JLabel();
+        lblClanAVDA = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         pnlISAvailability = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -327,6 +331,8 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         lblISExtinct = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         lblISTechRating = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        lblISAVDA = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         lblToHit = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
@@ -695,6 +701,22 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 4);
         pnlClanAvailability.add(lblClanTechRating, gridBagConstraints);
 
+        lblInfoAVDA.setText("Availability (DA)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
+        pnlClanAvailability.add(lblInfoAVDA, gridBagConstraints);
+
+        lblClanAVDA.setText("X");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 4);
+        pnlClanAvailability.add(lblClanAVDA, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 13;
@@ -841,6 +863,22 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 4);
         pnlISAvailability.add(lblISTechRating, gridBagConstraints);
 
+        jLabel10.setText("Availability (DA)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
+        pnlISAvailability.add(jLabel10, gridBagConstraints);
+
+        lblISAVDA.setText("X");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 4);
+        pnlISAvailability.add(lblISAVDA, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 11;
@@ -942,6 +980,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -966,6 +1005,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
     private javax.swing.JLabel lblBV;
     private javax.swing.JLabel lblBookRef;
     private javax.swing.JLabel lblClanAVCI;
+    private javax.swing.JLabel lblClanAVDA;
     private javax.swing.JLabel lblClanAVSL;
     private javax.swing.JLabel lblClanAVSW;
     private javax.swing.JLabel lblClanExtinct;
@@ -979,6 +1019,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
     private javax.swing.JLabel lblFCSClass;
     private javax.swing.JLabel lblHeat;
     private javax.swing.JLabel lblISAVCI;
+    private javax.swing.JLabel lblISAVDA;
     private javax.swing.JLabel lblISAVSL;
     private javax.swing.JLabel lblISAVSW;
     private javax.swing.JLabel lblISExtinct;
@@ -987,6 +1028,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
     private javax.swing.JLabel lblISReIntro;
     private javax.swing.JLabel lblISTechRating;
     private javax.swing.JLabel lblInfoAVCI;
+    private javax.swing.JLabel lblInfoAVDA;
     private javax.swing.JLabel lblInfoAVSL;
     private javax.swing.JLabel lblInfoAVSW;
     private javax.swing.JLabel lblInfoAmmo;
