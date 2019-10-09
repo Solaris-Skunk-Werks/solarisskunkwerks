@@ -681,7 +681,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         // to the selector list
         ifState[] check = CurMech.GetIntStruc().GetStates( CurMech.IsQuad() );
         for( int i = 0; i < check.length; i++ ) {
-            if( CommonTools.IsAllowed( check[i].GetAvailability(), CurMech ) ) {
+            if( check[i] != null && CommonTools.IsAllowed( check[i].GetAvailability(), CurMech ) ) {
                 list.add( BuildLookupName( check[i] ) );
             }
         }
