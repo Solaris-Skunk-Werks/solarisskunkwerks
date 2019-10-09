@@ -533,6 +533,9 @@ public class AvailableCode {
         if( a.GetISCICode() > IS_CI ) {
             IS_CI = a.GetISCICode();
         }
+        if( a.GetISDACode() > IS_DA ) {
+            IS_DA = a.GetISDACode();
+        }
         if( a.GetCLTechRating() > CL_TechRating ) {
             CL_TechRating = a.GetCLTechRating();
         }
@@ -544,6 +547,9 @@ public class AvailableCode {
         }
         if( a.GetCLCICode() > CL_CI ) {
             CL_CI = a.GetCLCICode();
+        }
+        if( a.GetCLDACode() > CL_DA ) {
+            CL_DA = a.GetCLDACode();
         }
 
         if( a.GetISIntroDate() > IS_IntroDate ) {
