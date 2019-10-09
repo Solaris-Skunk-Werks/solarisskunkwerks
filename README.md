@@ -4,7 +4,7 @@ Solaris Skunk Werks is a community-supported tool used to design Battlemechs for
 ## Getting Started
 Download the [latest release](https://github.com/Solaris-Skunk-Werks/solarisskunkwerks/releases) and extract it into the
 desired directory. You can then launch the various applications by double clicking them or from the command line with 
-`java -jar SSW.jar`.
+`java -jar SSW.jar`.  More detailed install instructions can be found in [this repository's wiki](https://github.com/Solaris-Skunk-Werks/solarisskunkwerks/wiki/How-to-download-and-install-the-SSW-apps)
 
 ## Building From Source
 This project uses the gradle build system and requires gradle to be installed to be able to compile from source. If you 
