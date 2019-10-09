@@ -2784,9 +2784,9 @@ public class Mech implements ifUnit, ifBattleforce {
             // GetTotalModifiers currently doesn't account for VoidSig, so ignore it and compare the voidsig bonus to
             // our current tally
             if (retval < 1.3) {
-                retval += 0.3;
+                retval = 1.3;
             } else if (retval == 1.3) {
-                retval += 0.1;
+                retval = 1.4;
             }
         } else {
             retval += m.DefensiveBonus();
