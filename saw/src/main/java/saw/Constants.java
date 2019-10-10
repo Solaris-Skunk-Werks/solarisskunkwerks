@@ -34,8 +34,8 @@ public class Constants {
     // here is the versioning and program name
     public final static String AppName = "SAW",
                         AppDescription = "Solaris Armor Werks",
-                        Version = "0.7.1",
-                        AppRelease = "Stable",
+                        Version = "0.7.1.20191009",
+                        AppRelease = "Nightly",
                         ImageListFileName = "S7Images",
                         LogFileName = "Logs/SAW_Log.txt",
                         HTMLTemplateName = "Data/Templates/Vee_HTML.html",
