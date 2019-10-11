@@ -5321,6 +5321,7 @@ public class Mech implements ifUnit, ifBattleforce {
         Lookup.put( "Interface Cockpit", new VCockpitSetInterface() );
         Lookup.put( "Small Cockpit", new VCockpitSetSmall() );
         Lookup.put( "Torso-Mounted Cockpit", new VCockpitSetTorsoMount() );
+        Lookup.put( "Virtual Reality Piloting Pod", new VCockpitSetVirtualRealityPilotingPod() );
         Lookup.put( "Robotic Cockpit", new VCockpitSetRobotic() );
         Lookup.put( "Fuel-Cell Engine", new VEngineSetFuelCell() );
         Lookup.put( "Fission Engine", new VEngineSetFission() );

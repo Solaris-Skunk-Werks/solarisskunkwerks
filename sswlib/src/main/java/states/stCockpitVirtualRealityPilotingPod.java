@@ -33,21 +33,20 @@ import components.LocationIndex;
 import components.MechModifier;
 import components.SimplePlaceable;
 
-public class stCockpitPrimIndustrialAFC implements ifCockpit, ifState {
+public class stCockpitVirtualRealityPilotingPod implements ifCockpit, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private SimplePlaceable Sensors = new SimplePlaceable( "Sensors", "Sensors", "Sensors", "Sensors", "Tech Manual", 1, true, AC );
     private SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
     private SimplePlaceable SecondSensors = new SimplePlaceable( "Sensors", "Sensors", "Sensors", "Sensors", "Tech Manual", 1, true, AC );
     private SimplePlaceable SecondLifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
+    private SimplePlaceable ThirdLifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
 
-    public stCockpitPrimIndustrialAFC() {
-        // IO page 122 overrides the UAT for primitive components
-        AC.SetISCodes( 'D', 'C', 'F', 'E', 'F' );
-        AC.SetISDates( 0, 0, false, 2300, 0, 0, false, false );
-        AC.SetISFactions( "", "", "TH", "" );
-        AC.SetPIMAllowed( true );
-        AC.SetPrimitiveOnly( true );
-        AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_ERA_SPECIFIC, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+    public stCockpitVirtualRealityPilotingPod() {
+        AC.SetISCodes( 'E', 'X', 'X', 'F', 'X' );
+        AC.SetISDates( 3047, 3052, true, 0, 0, 0, false, false );
+        AC.SetISFactions( "FS/LC", "FS/LC", "", "" );
+        AC.SetSuperHeavyCompatible(false);
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
     public boolean HasCounterpart() {
@@ -55,11 +54,12 @@ public class stCockpitPrimIndustrialAFC implements ifCockpit, ifState {
     }
 
     public double GetTonnage(int MechTonnage) {
-        double result = 5.0f;
+        double result = 3.0f;
         result += Sensors.GetTonnage();
         result += SecondSensors.GetTonnage();
         result += LifeSupport.GetTonnage();
         result += SecondLifeSupport.GetTonnage();
+        result += ThirdLifeSupport.GetTonnage();
         return result;
     }
 
@@ -84,19 +84,19 @@ public class stCockpitPrimIndustrialAFC implements ifCockpit, ifState {
     }
 
     public String ActualName() {
-        return "Primitive Industrial Cockpit w/ Advanced Fire Control";
+        return "Virtual Reality Piloting Pod";
     }
 
     public String CritName() {
-        return "Primitive Industrial Cockpit (AFC)";
+        return "VR Piloting Pod";
     }
 
     public String LookupName() {
-        return "Primitive Industrial w/ Adv. FC";
+        return "Virtual Reality Piloting Pod";
     }
 
     public String ChatName() {
-        return "PrmInd/AFC Cockpit";
+        return "VRPP";
     }
 
     public String MegaMekName( boolean UseRear ) {
@@ -104,31 +104,29 @@ public class stCockpitPrimIndustrialAFC implements ifCockpit, ifState {
     }
 
     public String BookReference() {
-        return "Jihad Secrets: The Blake Documents";
+        return "Interstellar Operations";
     }
 
     public String GetReportName() {
-        return "Primitive Industrial w/ Adv. Fire Control";
+        return "VRPP";
     }
 
     public double GetCost( int Tonnage, int year ) {
-        double result = 200000.0f + ( 2000.0f * Tonnage );
+        double result = 750000.0f + ( 2000.0f * Tonnage );
         result += Sensors.GetCost();
         result += LifeSupport.GetCost();
         result += SecondSensors.GetCost();
         result += SecondLifeSupport.GetCost();
-        if( year < 2450 ) {
-            result += 50000.0;
-        }
+        result += ThirdLifeSupport.GetCost();
         return result;
     }
-
+    
     public boolean HasFireControl() {
         return true;
     }
 
     public double BVMod() {
-        return 1.0f;
+        return 0.95f;
     }
 
     public AvailableCode GetAvailability() {
@@ -136,7 +134,7 @@ public class stCockpitPrimIndustrialAFC implements ifCockpit, ifState {
     }
     
     public int ReportCrits() {
-        return 5;
+        return 6;
     }
 
     public MechModifier GetMechModifier() {
@@ -145,27 +143,27 @@ public class stCockpitPrimIndustrialAFC implements ifCockpit, ifState {
 
     @Override
     public String toString() {
-        return "Industrial Cockpit (AFC)";
+        return "Virtual Reality Piloting Pod";
     }
 
     public LocationIndex GetCockpitLoc() {
-        return new LocationIndex( 2, LocationIndex.MECH_LOC_HD, -1 );
+        return new LocationIndex( -1, LocationIndex.MECH_LOC_CT, -1 );
     }
 
     public LocationIndex GetFirstSensorLoc() {
-        return new LocationIndex( 1, LocationIndex.MECH_LOC_HD, -1 );
-    }
-
-    public LocationIndex GetSecondSensorLoc() {
-        return new LocationIndex( 4, LocationIndex.MECH_LOC_HD, -1 );
-    }
-
-    public LocationIndex GetFirstLSLoc() {
         return new LocationIndex( 0, LocationIndex.MECH_LOC_HD, -1 );
     }
 
+    public LocationIndex GetSecondSensorLoc() {
+        return new LocationIndex( 1, LocationIndex.MECH_LOC_HD, -1 );
+    }
+
+    public LocationIndex GetFirstLSLoc() {
+        return new LocationIndex( -1, LocationIndex.MECH_LOC_LT, -1 );
+    }
+
     public LocationIndex GetSecondLSLoc() {
-        return new LocationIndex( 5, LocationIndex.MECH_LOC_HD, -1 );
+        return new LocationIndex( -1, LocationIndex.MECH_LOC_RT, -1 );
     }
 
     public boolean CanUseCommandConsole() {
@@ -183,21 +181,21 @@ public class stCockpitPrimIndustrialAFC implements ifCockpit, ifState {
     public SimplePlaceable GetThirdSensors() {
         return null;
     }
-
+    
     public boolean HasThirdLifeSupport() {
-        return false;
+        return true;
     }
 
     public LocationIndex GetThirdLSLoc() {
-        return null;
+        return new LocationIndex( -1, LocationIndex.MECH_LOC_CT, -1 );
     }
 
     public SimplePlaceable GetThirdLifeSupport() {
-        return null;
+        return ThirdLifeSupport;
     }
-    
+
     public boolean IsTorsoMounted() {
-        return false;
+        return true;
     }
 
     public boolean RequiresGyro() {

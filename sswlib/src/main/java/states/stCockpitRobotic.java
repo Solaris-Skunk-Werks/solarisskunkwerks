@@ -189,6 +189,18 @@ public class stCockpitRobotic implements ifCockpit, ifState {
         return null;
     }
 
+    public boolean HasThirdLifeSupport() {
+        return false;
+    }
+
+    public LocationIndex GetThirdLSLoc() {
+        return null;
+    }
+
+    public SimplePlaceable GetThirdLifeSupport() {
+        return null;
+    }
+    
     public boolean IsTorsoMounted() {
         return false;
     }
