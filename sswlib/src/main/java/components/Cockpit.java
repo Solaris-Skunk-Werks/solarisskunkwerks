@@ -448,6 +448,16 @@ public class Cockpit extends abPlaceable {
         return ( CurConfig instanceof stCockpitRobotic ) ? true : false;
     }
 
+    public boolean HasThirdSensors()
+    {
+        return CurConfig.HasThirdSensors();
+    }
+    
+    public boolean HasThirdLifeSupport()
+    {
+        return CurConfig.HasThirdLifeSupport();
+    }
+    
     // the following 3 methods provided for the torso-mounted cockpit for saving
     public SimplePlaceable GetFirstSensors() {
         return CurConfig.GetSensors();
@@ -468,6 +478,11 @@ public class Cockpit extends abPlaceable {
     public SimplePlaceable GetSecondLS() {
         return CurConfig.GetSecondLifeSupport();
     }
+    
+    public SimplePlaceable GetThirdLS() {
+        return CurConfig.GetThirdLifeSupport();
+    }
+
 
     @Override
     public boolean CoreComponent() {
