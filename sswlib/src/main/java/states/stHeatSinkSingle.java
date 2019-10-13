@@ -62,6 +62,10 @@ public class stHeatSinkSingle implements ifHeatSinkFactory, ifState {
     public boolean IsLaser() {
         return false;
     }
+    
+    public boolean IsProtoDHS(){
+        return false;
+    }
 
     public double GetTonnage() {
         return 1.0f;

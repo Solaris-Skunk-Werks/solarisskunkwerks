@@ -41,7 +41,9 @@ public class HeatSinkFactory {
                                      ISDHS = new stHeatSinkISDHS(),
                                      CLDHS = new stHeatSinkCLDHS(),
                                      ISCOM = new stHeatSinkISCompact(),
-                                     CLLAS = new stHeatSinkCLLaser();
+                                     CLLAS = new stHeatSinkCLLaser(),
+                                     StarLeagueProtoDHS = new stHeatSinkStarLeagueProtoDHS(),
+                                     SuccWarsProtoDHS = new stHeatSinkSuccWarProtoDHS();
     private ifHeatSinkFactory CurConfig = SHS;
 
     public HeatSinkFactory( ifMechLoadout l ) {
@@ -96,7 +98,17 @@ public class HeatSinkFactory {
         CurConfig = CLLAS;
         Owner.GetMech().SetChanged( true );
     }
+    
+    public void SetStarLeagueProtoDHS() {
+        CurConfig = StarLeagueProtoDHS;
+        Owner.GetMech().SetChanged( true );
+    }
 
+    public void SetSuccWarsProtoDHS() {
+        CurConfig = SuccWarsProtoDHS;
+        Owner.GetMech().SetChanged( true );
+    }
+        
     public boolean IsDouble() {
         return CurConfig.IsDouble();
     }
@@ -107,6 +119,10 @@ public class HeatSinkFactory {
 
     public boolean IsLaser() {
         return CurConfig.IsLaser();
+    }
+    
+    public boolean IsProtoDHS(){
+        return CurConfig.IsProtoDHS();
     }
 
     public int GetTechBase() {
@@ -216,11 +232,20 @@ public class HeatSinkFactory {
     }
 
     public int TotalDissipation() {
+        int totalDissipation;
+        
         if( Owner.GetMech().UsingPartialWing() ) {
-            return NumHS * CurConfig.GetDissipation() + 3;
+            totalDissipation = NumHS * CurConfig.GetDissipation() + 3;
         } else {
-            return NumHS * CurConfig.GetDissipation();
+            totalDissipation = NumHS * CurConfig.GetDissipation();
         }
+        
+        if (IsProtoDHS())
+        {
+            totalDissipation = totalDissipation - Owner.GetMech().GetEngine().FreeHeatSinks();
+        }
+        
+        return totalDissipation;
     }
 
     public double GetTonnage() {

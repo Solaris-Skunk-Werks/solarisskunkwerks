@@ -32,19 +32,19 @@ import components.AvailableCode;
 import components.HeatSink;
 import components.MechModifier;
 
-public class stHeatSinkCLDHS implements ifHeatSinkFactory, ifState {
+public class stHeatSinkStarLeagueProtoDHS implements ifHeatSinkFactory, ifState {
 
-    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_CLAN );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
-    public stHeatSinkCLDHS() {
-        AC.SetCLCodes( 'F', 'X', 'E', 'D', 'C' );
-        AC.SetCLDates( 0, 0, false, 2827, 0, 0, false, false );
-        AC.SetCLFactions( "", "", "TH", "" );
-        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+    public stHeatSinkStarLeagueProtoDHS() {
+        AC.SetISCodes( 'E', 'F', 'X', 'X', 'X' );
+        AC.SetISDates( 2559, 2559, true, 2567, 2865, 0, true, false );
+        AC.SetISFactions( "TH", "TH", "TH", "" );
+        AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
     public boolean HasCounterpart() {
-        return true;
+        return false;
     }
 
     public boolean IsDouble() {
@@ -60,7 +60,7 @@ public class stHeatSinkCLDHS implements ifHeatSinkFactory, ifState {
     }
     
     public boolean IsProtoDHS(){
-        return false;
+        return true;
     }
 
     public double GetTonnage() {
@@ -68,7 +68,7 @@ public class stHeatSinkCLDHS implements ifHeatSinkFactory, ifState {
     }
 
     public int GetCost() {
-        return 6000;
+        return 18000;
     }
 
     public int GetDissipation() {
@@ -76,11 +76,11 @@ public class stHeatSinkCLDHS implements ifHeatSinkFactory, ifState {
     }
 
     public HeatSink GetHeatSink() {
-        return new HeatSink( "Double Heat Sink", "Double Heat Sink", "Double Heat Sink", "CLDouble Heat Sink", "Tech Manual", 2, false, AC );
+        return new HeatSink( "Prototype Double Heat Sink", "Prototype Double Heat Sink", "Double Heat Sink-P", "ISDoubleHeatSinkPrototype", "Interstellar Operations", 3, false, AC );
     }
 
     public int GetNumCrits() {
-        return 2;
+        return 3;
     }
 
     public AvailableCode GetAvailability() {
@@ -92,10 +92,10 @@ public class stHeatSinkCLDHS implements ifHeatSinkFactory, ifState {
     }
 
     public String LookupName() {
-        return "Double Heat Sink";
+        return "Prototype Double Heat Sink";
     }
 
     public String ChatName() {
-        return "DHS";
+        return "DHS-P";
     }
 }
