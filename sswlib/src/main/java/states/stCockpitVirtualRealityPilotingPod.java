@@ -43,8 +43,8 @@ public class stCockpitVirtualRealityPilotingPod implements ifCockpit, ifState {
 
     public stCockpitVirtualRealityPilotingPod() {
         AC.SetISCodes( 'E', 'X', 'X', 'F', 'X' );
-        AC.SetISDates( 3047, 3052, true, 0, 0, 0, false, false );
-        AC.SetISFactions( "FS/LC", "FS/LC", "", "" );
+        AC.SetISDates( 3047, 3052, true, 3052, 3055, 0, true, false );
+        AC.SetISFactions( "FS/LC", "FS/LC", "FS/LC", "" );
         AC.SetSuperHeavyCompatible(false);
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
@@ -112,7 +112,7 @@ public class stCockpitVirtualRealityPilotingPod implements ifCockpit, ifState {
     }
 
     public double GetCost( int Tonnage, int year ) {
-        double result = 750000.0f + ( 2000.0f * Tonnage );
+        double result = 1250000.0f;
         result += Sensors.GetCost();
         result += LifeSupport.GetCost();
         result += SecondSensors.GetCost();
