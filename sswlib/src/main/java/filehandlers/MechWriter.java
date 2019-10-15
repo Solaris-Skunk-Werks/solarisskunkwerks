@@ -161,7 +161,10 @@ public class MechWriter {
             FR.write( tab + tab + "<type>" + CurMech.GetCockpit().LookupName() + "</type>" );
             FR.newLine();
             FR.write( GetLocationLines( tab + tab, CurMech.GetCockpit() ) );
-            FR.write( GetLocationLines( tab + tab, CurMech.GetCockpit().GetThirdSensors() ) );
+            if (CurMech.GetCockpit().HasThirdSensors()) 
+                FR.write( GetLocationLines( tab + tab, CurMech.GetCockpit().GetThirdSensors() ) );
+            if (CurMech.GetCockpit().HasThirdLifeSupport())
+                FR.write(GetLocationLines( tab + tab, CurMech.GetCockpit().GetThirdLS() ));
             FR.write( GetLocationLines( tab + tab, CurMech.GetCockpit().GetFirstLS() ) );
             FR.write( GetLocationLines( tab + tab, CurMech.GetCockpit().GetSecondLS() ) );
         } else {
