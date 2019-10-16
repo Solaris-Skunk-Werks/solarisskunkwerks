@@ -268,7 +268,7 @@ public class Mech implements ifUnit, ifBattleforce {
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        CommandConsole = new SimplePlaceable( "Command Console", "Command Console", "Command Console", "CommandConsole", "Tactical Operations", 1, true, AC );
+        CommandConsole = new SimplePlaceable( "Command Console", "Command Console", "Command Console", "Cockpit", "Tactical Operations", 1, true, AC );
         CommandConsole.SetTonnage( 3.0 );
         CommandConsole.SetCost( 500000.0 );
         CommandConsole.SetArmoredTonnage(1.0);
