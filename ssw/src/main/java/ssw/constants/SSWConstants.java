@@ -34,7 +34,7 @@ public class SSWConstants {
     // here is the versioning and program name
     public final static String AppName = "SSW",
                         AppDescription = "Solaris Skunk Werks",
-                        Version = "0.7.2.20191014",
+                        Version = "0.7.2.20191015",
                         AppRelease = "Nightly",
                         ImageListFileName = "Data/Solaris7/S7Images",
                         LogDirectoryName = "Logs",
