@@ -159,7 +159,8 @@ public class HeatSinkFactory {
 
     public ifState[] GetStates() {
         ifState[] retval = { (ifState) SHS, (ifState) ISDHS, (ifState) CLDHS,
-                             (ifState) ISCOM, (ifState) CLLAS };
+                             (ifState) ISCOM, (ifState) CLLAS,
+                             (ifState) StarLeagueProtoDHS, (ifState) SuccWarsProtoDHS };
         return retval;
     }
 
