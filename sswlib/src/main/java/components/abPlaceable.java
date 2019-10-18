@@ -40,10 +40,10 @@ public abstract class abPlaceable implements Comparable<abPlaceable> {
     private String[] BattleForceAbilities = new String[]{};
 
     public abPlaceable() {
-        ArmoredAC.SetISCodes( 'E', 'X', 'X', 'F' );
+        ArmoredAC.SetISCodes( 'E', 'X', 'X', 'F', 'E' );
         ArmoredAC.SetISDates( 3059, 3061, true, 3061, 0, 0, false, false );
         ArmoredAC.SetISFactions( "FW", "FW", "", "" );
-        ArmoredAC.SetCLCodes( 'E', 'X', 'X', 'F' );
+        ArmoredAC.SetCLCodes( 'E', 'X', 'X', 'F', 'E' );
         ArmoredAC.SetCLDates( 3060, 3061, true, 3061, 0, 0, false, false );
         ArmoredAC.SetCLFactions( "CDS", "CDS", "", "" );
         ArmoredAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
