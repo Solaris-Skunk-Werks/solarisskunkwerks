@@ -685,17 +685,32 @@ public class PrintMech implements Printable {
 
         graphics.setFont( PrintConsts.PlainFont );
         offset = 4;
-        String HS = CurMech.GetHeatSinks().GetNumHS() + "";
-        if ( CurMech.GetHeatSinks().TotalDissipation() > CurMech.GetHeatSinks().GetNumHS() ) {
+        String HS;
+        String heatSinkType = CurMech.GetHeatSinks().LookupName().split( " " )[0];
+        if (!CurMech.GetHeatSinks().IsProtoDHS())
+        {
+            HS = CurMech.GetHeatSinks().GetNumHS() + "";
+            if ( CurMech.GetHeatSinks().TotalDissipation() > CurMech.GetHeatSinks().GetNumHS() ) {
+                HS += " (" + CurMech.GetHeatSinks().TotalDissipation() + ")";
+                offset = 0;
+            }
+        }
+        else {
+            int numberOfHS = CurMech.GetHeatSinks().GetNumHS();
+            int internalHS = CurMech.GetHeatSinks().InternalHeatSinks();
+            int singles = numberOfHS < internalHS ? numberOfHS : internalHS;
+            int doubles = numberOfHS - singles;
+            HS = singles + " + " + doubles;
             HS += " (" + CurMech.GetHeatSinks().TotalDissipation() + ")";
-            offset = 0;
+            offset = -7;
+            heatSinkType = "Double-P";
         }
 
         graphics.setFont(PrintConsts.SmallFont);
         //HS Number
         graphics.drawString( HS, p[PrintConsts.HEATSINK_NUMBER].x + offset, p[PrintConsts.HEATSINK_NUMBER].y );
         //HS Type
-        graphics.drawString( CurMech.GetHeatSinks().LookupName().split( " " )[0], p[PrintConsts.HEATSINK_NUMBER].x+2, p[PrintConsts.HEATSINK_NUMBER].y + 8 );
+        graphics.drawString( heatSinkType, p[PrintConsts.HEATSINK_NUMBER].x+2, p[PrintConsts.HEATSINK_NUMBER].y + 8 );
 
         //Gyro Circles
         if ( CurMech.GetGyro().ActualName().equals("Heavy-Duty Gyro")) {
