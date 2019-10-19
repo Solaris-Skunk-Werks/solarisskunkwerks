@@ -810,6 +810,9 @@ public class MechReader {
                         }
                     }
                     abPlaceable p = GetEquipmentByName( eName, eType, m );
+                    
+                    if (eName.equals("Drone Operating System")) {m.AddDroneOS();}
+                    
                     if( p == null ) {
                         throw new Exception( "Could not find " + eName + " as a piece of equipment.\nThe Mech cannot be loaded." );
                     }
