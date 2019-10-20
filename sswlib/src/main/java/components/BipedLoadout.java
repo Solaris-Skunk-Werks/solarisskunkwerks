@@ -2106,7 +2106,11 @@ public boolean IsTripod(){
 
         // add the item back into the queue unless is already exists there
         // unless it's an Artemis IV FCS system.
-        if( ! QueueContains(p) &! ( p instanceof ifMissileGuidance ) &! ( p instanceof PPCCapacitor ) &! ( p instanceof LaserInsulator ) ) {
+        if( ! QueueContains(p) 
+                &! ( p instanceof ifMissileGuidance ) 
+                &! ( p instanceof PPCCapacitor ) 
+                &! ( p instanceof LaserInsulator )
+                &! ( p instanceof RiscLaserPulseModule ) ) {
             if( p instanceof RangedWeapon ) {
                 if( ! ((RangedWeapon) p).IsInArray() ) {
                     AddToQueue( p );
@@ -2129,6 +2133,9 @@ public boolean IsTripod(){
             }
             if( ((RangedWeapon) p).IsUsingInsulator() ) {
                 UnallocateAll( ((RangedWeapon) p).GetInsulator(), true );
+            }
+            if( ((RangedWeapon) p).IsUsingPulseModule() ) {
+                UnallocateAll( ((RangedWeapon) p).GetPulseModule(), true );
             }
             if( ((RangedWeapon) p).IsTurreted() ) {
                 if( ((RangedWeapon) p).GetTurret() == HDTurret ) {
@@ -2244,6 +2251,9 @@ public boolean IsTripod(){
             }
             if( ((RangedWeapon) p).IsUsingInsulator() ) {
                 UnallocateAll( ((RangedWeapon) p).GetInsulator(), true );
+            }
+            if( ((RangedWeapon) p).IsUsingPulseModule() ) {
+                UnallocateAll( ((RangedWeapon) p).GetPulseModule(), true );
             }
             if( ((RangedWeapon) p).IsTurreted() ) {
                 if( ((RangedWeapon) p).GetTurret() == HDTurret ) {
@@ -3162,6 +3172,17 @@ public boolean IsTripod(){
                             }
                         }
                     }
+                    if( ((RangedWeapon) p).IsUsingPulseModule() ) {
+                        // we have a preference for right underneath the launcher
+                        while( ! AddIn ) {
+                            if( Loc[i].LocationLocked() ) {
+                                i++;
+                            } else {
+                                AddInLoc = i;
+                                AddIn = true;
+                            }
+                        }
+                    }
                 } else {
                     AddIn = true;
                 }
@@ -3259,6 +3280,22 @@ public boolean IsTripod(){
                             }
                         }
                         Loc[AddInLoc] = ((RangedWeapon) p).GetInsulator();
+                    }
+                    if( ((RangedWeapon) p).IsUsingPulseModule() ) {
+                        if( Loc[AddInLoc] != NoItem ) {
+                            // we've already ensured that it is not location locked
+                            // above, so put the item back into the queue.
+                            if( Loc[i].CanSplit() && Loc[i].Contiguous() ) {
+                                removed.add( Loc[i] );
+                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
+                                UnallocateAll( Loc[i], false );
+                            } else {
+                                removed.add( Loc[i] );
+                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
+                                UnallocateByIndex( AddInLoc, Loc  );
+                            }
+                        }
+                        Loc[AddInLoc] = ((RangedWeapon) p).GetPulseModule();
                     }
                 }
 
@@ -3372,6 +3409,9 @@ public boolean IsTripod(){
                     Result += NumThisType;
                 }
                 if( ((RangedWeapon) p).IsUsingInsulator() ) {
+                    Result += NumThisType;
+                }
+                if( ((RangedWeapon) p).IsUsingPulseModule() ) {
                     Result += NumThisType;
                 }
             }
