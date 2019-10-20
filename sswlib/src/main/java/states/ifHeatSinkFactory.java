@@ -37,6 +37,7 @@ public interface ifHeatSinkFactory {
     public boolean IsDouble();
     public boolean IsCompact();
     public boolean IsLaser();
+    public boolean IsProtoDHS();
     public double GetTonnage();
     public int GetCost();
     public int GetDissipation();

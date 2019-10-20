@@ -41,7 +41,9 @@ public class HeatSinkFactory {
                                      ISDHS = new stHeatSinkISDHS(),
                                      CLDHS = new stHeatSinkCLDHS(),
                                      ISCOM = new stHeatSinkISCompact(),
-                                     CLLAS = new stHeatSinkCLLaser();
+                                     CLLAS = new stHeatSinkCLLaser(),
+                                     StarLeagueProtoDHS = new stHeatSinkStarLeagueProtoDHS(),
+                                     SuccWarsProtoDHS = new stHeatSinkSuccWarProtoDHS();
     private ifHeatSinkFactory CurConfig = SHS;
 
     public HeatSinkFactory( ifMechLoadout l ) {
@@ -96,7 +98,17 @@ public class HeatSinkFactory {
         CurConfig = CLLAS;
         Owner.GetMech().SetChanged( true );
     }
+    
+    public void SetStarLeagueProtoDHS() {
+        CurConfig = StarLeagueProtoDHS;
+        Owner.GetMech().SetChanged( true );
+    }
 
+    public void SetSuccWarsProtoDHS() {
+        CurConfig = SuccWarsProtoDHS;
+        Owner.GetMech().SetChanged( true );
+    }
+        
     public boolean IsDouble() {
         return CurConfig.IsDouble();
     }
@@ -107,6 +119,10 @@ public class HeatSinkFactory {
 
     public boolean IsLaser() {
         return CurConfig.IsLaser();
+    }
+    
+    public boolean IsProtoDHS(){
+        return CurConfig.IsProtoDHS();
     }
 
     public int GetTechBase() {
@@ -143,7 +159,8 @@ public class HeatSinkFactory {
 
     public ifState[] GetStates() {
         ifState[] retval = { (ifState) SHS, (ifState) ISDHS, (ifState) CLDHS,
-                             (ifState) ISCOM, (ifState) CLLAS };
+                             (ifState) ISCOM, (ifState) CLLAS,
+                             (ifState) StarLeagueProtoDHS, (ifState) SuccWarsProtoDHS };
         return retval;
     }
 
@@ -216,11 +233,22 @@ public class HeatSinkFactory {
     }
 
     public int TotalDissipation() {
-        if( Owner.GetMech().UsingPartialWing() ) {
-            return NumHS * CurConfig.GetDissipation() + 3;
-        } else {
-            return NumHS * CurConfig.GetDissipation();
+        int totalDissipation;
+        
+        int partialWingBonus = Owner.GetMech().UsingPartialWing() ? 3 : 0;
+        
+        totalDissipation = NumHS * CurConfig.GetDissipation() + partialWingBonus;
+                
+        if (IsProtoDHS())
+        {
+            int singleHS = NumHS < InternalHeatSinks() ? NumHS : InternalHeatSinks();
+            
+            totalDissipation = (singleHS * SHS.GetDissipation()) 
+                    + ((NumHS - singleHS) * CurConfig.GetDissipation())
+                    + partialWingBonus;
         }
+        
+        return totalDissipation;
     }
 
     public double GetTonnage() {
@@ -260,7 +288,15 @@ public class HeatSinkFactory {
         // returns the cost of these heat sinks
         double CostHS;
         if( CurConfig.IsDouble() || CurConfig.IsLaser() || CurConfig.IsCompact() ) {
-            CostHS = NumHS * CurConfig.GetCost();
+            if (CurConfig.IsProtoDHS())
+            {
+                int singleHS = NumHS < InternalHeatSinks() ? NumHS : InternalHeatSinks();
+                CostHS = (singleHS * SHS.GetCost()) + ((NumHS - singleHS) * CurConfig.GetCost());
+            }
+            else
+            {
+                CostHS = NumHS * CurConfig.GetCost();
+            }
         } else {
             if( Owner.GetMech().GetEngine().IsFusion() ) {
                 // free single fusion sinks cost nothing

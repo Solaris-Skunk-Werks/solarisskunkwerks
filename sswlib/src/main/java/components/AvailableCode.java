@@ -148,11 +148,26 @@ public class AvailableCode {
         IS_CI = CI;
     }
     
+    /**
+     * Set Inner Sphere availability codes
+     * @param tech Technology Rating
+     * @param SL Star League Era 
+     * @param SW Succession Wars Era
+     * @param CI Clan Invasion Era
+     * @param DA Dark Age Era
+     */
     public void SetISCodes( char tech, char SL, char SW, char CI, char DA) {
         SetISCodes(tech, SL, SW, CI);
         IS_DA = DA;
     }
 
+        /**
+     * Set Clan availability codes
+     * @param tech Technology Rating
+     * @param SL Star League Era 
+     * @param SW Succession Wars Era
+     * @param CI Clan Invasion Era
+     */
     public void SetCLCodes( char tech, char SL, char SW, char CI ) {
         CL_TechRating = tech;
         CL_SL = SL;
@@ -160,6 +175,14 @@ public class AvailableCode {
         CL_CI = CI;
     }
     
+     /**
+     * Set Clan availability codes
+     * @param tech Technology Rating
+     * @param SL Star League Era 
+     * @param SW Succession Wars Era
+     * @param CI Clan Invasion Era
+     * @param DA Dark Age Era
+     */
     public void SetCLCodes( char tech, char SL, char SW, char CI, char DA ) {
         SetCLCodes(tech, SL, SW, CI);
         CL_DA = DA;

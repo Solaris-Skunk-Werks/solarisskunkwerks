@@ -30,12 +30,11 @@ package visitors;
 
 import components.*;
 
-public class VHeatSinkSetDouble implements ifVisitor {
+public class VHeatSinkSetProtoDouble implements ifVisitor {
     private Mech CurMech;
     private boolean Clan = false;
 
     public void SetClan( boolean clan ) {
-        Clan = clan;
     }
 
     public void LoadLocations(LocationIndex[] locs) {
@@ -47,40 +46,23 @@ public class VHeatSinkSetDouble implements ifVisitor {
         CurMech = m;
         HeatSinkFactory h = CurMech.GetHeatSinks();
 
-        switch( CurMech.GetBaseTechbase() ) {
-            case AvailableCode.TECH_INNER_SPHERE:
-                h.SetISDHS();
+        //h.SetStarLeagueProtoDHS();
+        
+        switch( CurMech.GetEra() ) {
+            case AvailableCode.ERA_STAR_LEAGUE:
+                h.SetStarLeagueProtoDHS();
                 break;
-            case AvailableCode.TECH_CLAN:
-                h.SetClanDHS();
-                break;
-            case AvailableCode.TECH_BOTH:
-                if (h.IsProtoDHS())
-                {
-                    if (m.GetEra() == AvailableCode.ERA_SUCCESSION)
-                    {
-                        h.SetSuccWarsProtoDHS();
-                    }
-                    else {
-                        h.SetStarLeagueProtoDHS();
-                    }
-                    break;
-                }
-                if( Clan ) {
-                    h.SetClanDHS();
-                } else {
-                    h.SetISDHS();
-                }
+            case AvailableCode.ERA_SUCCESSION:
+                h.SetSuccWarsProtoDHS();
                 break;
         }
-
         // now let's blow out the heat sinks and recalculate
         h.ReCalculate();
     }
 
     @Override
     public String toString() {
-        return "Double Heat Sink Visitor";
+        return "Prototype Double Heat Sink Visitor";
     }
 
     public void Visit( CombatVehicle v ) throws Exception {

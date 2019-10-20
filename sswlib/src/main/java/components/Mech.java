@@ -5356,6 +5356,8 @@ public class Mech implements ifUnit, ifBattleforce {
         Lookup.put( "(CL) Double Heat Sink", new VHeatSinkSetDouble() );
         Lookup.put( "Compact Heat Sink", new VHeatSinkSetCompact() );
         Lookup.put( "Laser Heat Sink", new VHeatSinkSetLaser() );
+        Lookup.put( "Prototype Double Heat Sink", new VHeatSinkSetProtoDouble());
+        Lookup.put( "Double Heat Sink (Freezers)", new VHeatSinkSetProtoDouble());
         Lookup.put( "Standard Jump Jet", new VJumpJetSetStandard() );
         Lookup.put( "Improved Jump Jet", new VJumpJetSetImproved() );
         Lookup.put( "Mech UMU", new VJumpJetSetUMU() );

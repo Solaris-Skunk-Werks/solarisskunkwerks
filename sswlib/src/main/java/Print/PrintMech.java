@@ -667,35 +667,100 @@ public class PrintMech implements Printable {
         int counter = 0,
             ovalSize = 7,
             spacer = 2;
-        if ( CurMech.GetHeatSinks().GetNumHS() > 10 && CurMech.GetHeatSinks().GetNumHS() <= 20 )
-            currentPoint.x -= 4;
-        else if ( CurMech.GetHeatSinks().GetNumHS() > 20 )
-            currentPoint.x -= 9;
-
-        for( int i = 0; i < CurMech.GetHeatSinks().GetNumHS(); i++ ) {
-            counter++;
-            graphics.drawOval( currentPoint.x, currentPoint.y, ovalSize, ovalSize );
-            currentPoint.y += ovalSize + spacer;
-            if ( counter >= 10 ) {
-                currentPoint.x += ovalSize + spacer;
-                currentPoint.y = startingPoint.y;
-                counter = 0;
-            }
-        }
 
         graphics.setFont( PrintConsts.PlainFont );
         offset = 4;
-        String HS = CurMech.GetHeatSinks().GetNumHS() + "";
-        if ( CurMech.GetHeatSinks().TotalDissipation() > CurMech.GetHeatSinks().GetNumHS() ) {
+        String HS;
+        String heatSinkType = CurMech.GetHeatSinks().LookupName().split( " " )[0];
+        if (!CurMech.GetHeatSinks().IsProtoDHS())
+        {
+            // Standard heat sink setup
+
+            HS = CurMech.GetHeatSinks().GetNumHS() + "";
+            if ( CurMech.GetHeatSinks().TotalDissipation() > CurMech.GetHeatSinks().GetNumHS() ) {
+                HS += " (" + CurMech.GetHeatSinks().TotalDissipation() + ")";
+                offset = 0;
+            }
+
+            if ( CurMech.GetHeatSinks().GetNumHS() > 10 && CurMech.GetHeatSinks().GetNumHS() <= 20 )
+                currentPoint.x -= 4;
+            else if ( CurMech.GetHeatSinks().GetNumHS() > 20 )
+                currentPoint.x -= 9;
+
+            for( int i = 0; i < CurMech.GetHeatSinks().GetNumHS(); i++ ) {
+                counter++;
+                graphics.drawOval( currentPoint.x, currentPoint.y, ovalSize, ovalSize );
+                currentPoint.y += ovalSize + spacer;
+                if ( counter >= 10 ) {
+                    currentPoint.x += ovalSize + spacer;
+                    currentPoint.y = startingPoint.y;
+                    counter = 0;
+                }
+            }
+        }
+        else {
+            int numberOfHS = CurMech.GetHeatSinks().GetNumHS();
+            int internalHS = CurMech.GetHeatSinks().InternalHeatSinks();
+            int singles = numberOfHS < internalHS ? numberOfHS : internalHS;
+            int doubles = numberOfHS - singles;
+            HS = singles + " + " + doubles;
             HS += " (" + CurMech.GetHeatSinks().TotalDissipation() + ")";
-            offset = 0;
+            offset = -7;
+            heatSinkType = "Double-P";
+
+            startingPoint = new Point(startingPoint.x - 9, startingPoint.y - 11);
+            currentPoint = (Point) startingPoint.clone();
+
+            // Fill out the double heat sinks in rows
+            for (int i = 0; i < doubles; i++) {
+                graphics.drawOval( currentPoint.x, currentPoint.y, ovalSize, ovalSize );
+
+                if (++counter >= 4){
+                    counter = 0;
+                    currentPoint.y += ovalSize + spacer;
+                    currentPoint.x = startingPoint.x;
+                }
+                else {
+                    currentPoint.x += ovalSize + spacer;
+                }
+            }
+
+            // Add one row of padding
+            if (counter != 0) {
+                currentPoint.y += (ovalSize + spacer) * 2;
+            }
+            else {
+                currentPoint.y += ovalSize + spacer;
+            }
+            counter = 0;
+            currentPoint.x = startingPoint.x;
+
+            // Add new heatsink text here
+            graphics.drawString("Single", currentPoint.x + 4, currentPoint.y + 4);
+
+            // Add another row of padding
+            currentPoint.y += ovalSize + spacer;
+
+            // Fill out the standard heat sinks in rows
+            for (int i = 0; i < singles; i++) {
+                graphics.drawOval( currentPoint.x, currentPoint.y, ovalSize, ovalSize );
+
+                if (++counter >= 4){
+                    counter = 0;
+                    currentPoint.y += ovalSize + spacer;
+                    currentPoint.x = startingPoint.x;
+                }
+                else {
+                    currentPoint.x += ovalSize + spacer;
+                }
+            }
         }
 
         graphics.setFont(PrintConsts.SmallFont);
         //HS Number
         graphics.drawString( HS, p[PrintConsts.HEATSINK_NUMBER].x + offset, p[PrintConsts.HEATSINK_NUMBER].y );
         //HS Type
-        graphics.drawString( CurMech.GetHeatSinks().LookupName().split( " " )[0], p[PrintConsts.HEATSINK_NUMBER].x+2, p[PrintConsts.HEATSINK_NUMBER].y + 8 );
+        graphics.drawString( heatSinkType, p[PrintConsts.HEATSINK_NUMBER].x+2, p[PrintConsts.HEATSINK_NUMBER].y + 8 );
 
         //Gyro Circles
         if ( CurMech.GetGyro().ActualName().equals("Heavy-Duty Gyro")) {
