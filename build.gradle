@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
 allprojects {
-    version '0.7.2.20191015'
+    version '0.7.3.20191019'
     jar {
         onlyIf { !sourceSets.main.allSource.files.isEmpty() }
     }
