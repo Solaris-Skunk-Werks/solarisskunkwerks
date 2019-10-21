@@ -553,14 +553,18 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     }
 
     public int GetHeat() {
+        int tempHeat = Heat;
         if( UsingCapacitor ) {
-            return Heat + 5;
+            tempHeat += 5;
         }
         if( UsingInsulator ) {
-            return Heat - 1;
+            tempHeat -= 1;
+        }
+        if( UsingPulseModule){
+            tempHeat += 2;
         }
         
-        return Heat;
+        return tempHeat;
     }
 
     public double GetBVHeat() {
@@ -570,6 +574,10 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         }
         if( UsingInsulator ) {
             retval -= 1;
+        }
+        if( UsingPulseModule)
+        {
+            retval += 2;
         }
         if( Rotary ) { retval *= 6; }
         if( Ultra ) { retval *= 2; }
