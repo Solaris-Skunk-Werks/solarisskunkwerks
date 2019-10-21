@@ -489,6 +489,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
             // round off the capacitor BV total, as this is how Tac Ops does it.
             retval = Math.round( OffBV + Capacitor.GetOffensiveBV() );
         }
+        if (UsingPulseModule){
+            retval = Math.round( OffBV + PulseModule.GetOffensiveBV() );
+        }
         return retval;
     }
 
