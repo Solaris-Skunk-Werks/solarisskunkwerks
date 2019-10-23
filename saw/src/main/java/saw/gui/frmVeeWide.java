@@ -85,6 +85,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     VSetArmorTonnage ArmorTons;
     private final AvailableCode PPCCapAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final AvailableCode LIAC = new AvailableCode( AvailableCode.TECH_BOTH );
+    private final AvailableCode PulseModuleAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final AvailableCode CaselessAmmoAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     private ImageTracker imageTracker = new ImageTracker();
@@ -107,6 +108,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     JMenuItem mnuArmorComponent = new JMenuItem( "Armor Component" );
     JMenuItem mnuAddCapacitor = new JMenuItem( "Add Capacitor" );
     JMenuItem mnuAddInsulator = new JMenuItem( "Add Insulator" );
+    JMenuItem mnuAddPulseModule = new JMenuItem( "Add RISC Pulse Module" );
     JMenuItem mnuCaseless = new JMenuItem( "Switch to Caseless" );
     JMenuItem mnuTurret = new JMenuItem( "Add to Turret" );
     JMenuItem mnuSelective = new JMenuItem( "Selective Allocate" );
@@ -174,6 +176,12 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         LIAC.SetPBMAllowed( true );
         LIAC.SetPIMAllowed( true );
         LIAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        PulseModuleAC.SetISCodes( 'F', 'X', 'X', 'X', 'F' );
+        PulseModuleAC.SetISDates( 3134, 3137, true, 3137, 3140, 0, true, false );
+        PulseModuleAC.SetISFactions( "RS", "RS", "RS", "" );
+        PulseModuleAC.SetPBMAllowed( true );
+        PulseModuleAC.SetPIMAllowed( true );
+        PulseModuleAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
         CaselessAmmoAC.SetISCodes( 'D', 'X', 'X', 'E', 'D' );
         CaselessAmmoAC.SetISDates( 3055, 3056, true, 3079, 0, 0, false, false );
         CaselessAmmoAC.SetISFactions( "FC", "FC", "", "" );
@@ -237,6 +245,12 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         mnuAddInsulator.addActionListener( new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 LaserInsulator();
+            }
+        });
+        
+        mnuAddPulseModule.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                PulseModule();
             }
         });
 
@@ -323,6 +337,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         mnuUtilities.add( mnuSetLotSize );
         mnuUtilities.add( mnuAddCapacitor );
         mnuUtilities.add( mnuAddInsulator );
+        mnuUtilities.add( mnuAddPulseModule );
         mnuUtilities.add( mnuCaseless );
         mnuUtilities.add( mnuVGLArc );
         mnuUtilities.add( mnuVGLAmmo );
@@ -334,6 +349,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         mnuArmorComponent.setVisible( false );
         mnuAddCapacitor.setVisible( false );
         mnuAddInsulator.setVisible( false );
+        mnuAddPulseModule.setVisible( false );
         mnuTurret.setVisible( false );
         mnuCaseless.setVisible( false );
         mnuVGLArc.setVisible( false );
@@ -538,6 +554,42 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         RefreshInfoPane();
         RefreshSelectedEquipment();
     }
+    
+    private void PulseModule() {
+        // if the current item can support a Pulse Module, adds one on
+        if( CurItem instanceof RangedWeapon ) {
+            if( ((RangedWeapon) CurItem).IsUsingPulseModule()) {
+                abPlaceable p = ((RangedWeapon) CurItem).GetPulseModule();
+                ((RangedWeapon) CurItem).UsePulseModule(false );
+                CurVee.GetLoadout().Remove( p );
+            } else {
+                ((RangedWeapon) CurItem).UsePulseModule( true );
+                abPlaceable p = ((RangedWeapon) CurItem).GetPulseModule();
+                LocationIndex Loc = CurVee.GetLoadout().FindIndex( CurItem );
+                if( Loc.Location != -1 ) {
+                    try {
+                        CurVee.GetLoadout().Remove(CurItem);
+                        CurVee.GetLoadout().AddTo( CurItem, Loc.Location );
+                    } catch( Exception e ) {
+                        // couldn't allocate the insulator?  Unallocate the PPC.
+                        try {
+                            CurVee.GetLoadout().UnallocateAll( CurItem, false );
+                            // remove the insulator if it's in the queue
+                            //if( CurVee.GetLoadout().QueueContains( p ) ) {
+                            //    CurVee.GetLoadout().GetQueue().remove( p );
+                            //}
+                        } catch( Exception e1 ) {
+                            // failed big.  no problem
+                            Media.Messager( this, "Fatal error adding a Laser Insulator:\n" + e.getMessage() + "\nThe Insulator will be removed." );
+                            ((RangedWeapon) CurItem).UseInsulator( false );
+                        }
+                    }
+                }
+            }
+        }
+        RefreshInfoPane();
+        RefreshSelectedEquipment();
+    }
 
     private void DumperMount() {
         if ( CurItem instanceof Equipment ) {
@@ -686,18 +738,21 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         // configures the utilities popup menu
         boolean cap = LegalCapacitor( CurItem ) && CommonTools.IsAllowed( PPCCapAC, CurVee );
         boolean insul = LegalInsulator( CurItem ) && CommonTools.IsAllowed( LIAC, CurVee );
+        boolean pulseModule = LegalPulseModule(CurItem) && CommonTools.IsAllowed( PulseModuleAC, CurVee );
         boolean caseless = LegalCaseless( CurItem ) && CommonTools.IsAllowed( CaselessAmmoAC, CurVee );
         boolean lotchange = LegalLotChange( CurItem );
         boolean dumper = LegalDumper( CurItem );
         mnuAddCapacitor.setEnabled( cap );
         mnuAddInsulator.setEnabled( insul );
+        mnuAddPulseModule.setEnabled(pulseModule);
         mnuCaseless.setEnabled( caseless );
         mnuAddCapacitor.setVisible( cap );
         mnuAddInsulator.setVisible( insul );
+        mnuAddPulseModule.setVisible(pulseModule);
         mnuCaseless.setVisible( caseless );
         mnuSetLotSize.setVisible( lotchange );
         mnuDumper.setVisible( dumper );
-        if( cap || insul || caseless ) {
+        if( cap || insul || caseless || pulseModule ) {
             if( CurItem instanceof RangedWeapon ) {
                 if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
                     mnuAddCapacitor.setText( "Remove Capacitor" );
@@ -708,6 +763,11 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                     mnuAddInsulator.setText( "Remove Insulator" );
                 } else {
                     mnuAddInsulator.setText( "Add Insulator" );
+                }
+                if( ((RangedWeapon) CurItem).IsUsingPulseModule()) {
+                    mnuAddPulseModule.setText( "Remove RISC Pulse Module" );
+                } else {
+                    mnuAddPulseModule.setText( "Add RISC Pulse Module" );
                 }
                 if( ((RangedWeapon) CurItem).IsCaseless() ) {
                     mnuCaseless.setText( "Switch from Caseless" );
@@ -780,6 +840,11 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     public boolean LegalInsulator( abPlaceable p ) {
         if( ! ( p instanceof RangedWeapon ) ) { return false; }
         return ((RangedWeapon) p).CanUseInsulator();
+    }
+
+    public boolean LegalPulseModule( abPlaceable p ) {
+        if( ! ( p instanceof RangedWeapon ) ) { return false; }
+        return ((RangedWeapon) p).CanUsePulseModule();
     }
 
     public boolean LegalCaseless( abPlaceable p ) {
@@ -5596,6 +5661,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                         lblInfoHeat.setText( w.GetHeat() + "*" );
                     } else if( ((RangedWeapon) w).IsUsingInsulator() ) {
                         lblInfoHeat.setText( w.GetHeat() + " (I)" );
+                    } else if( ((RangedWeapon) w).IsUsingPulseModule() ) {
+                        lblInfoHeat.setText( w.GetHeat() + "*" );
                     } else {
                         lblInfoHeat.setText( "" + w.GetHeat() );
                     }
