@@ -78,7 +78,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                     UsingCapacitor = false,
                     CanUseInsulator = false,
                     UsingInsulator = false,
-                    CanUsePulseModule = true,
+                    CanUsePulseModule = false,
                     UsingPulseModule = false,
                     InArray = false,
                     CanUseCaseless = false,
@@ -187,6 +187,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         CanUseCapacitor = r.CanUseCapacitor;
         ArrayCapable = r.ArrayCapable;
         CanUseInsulator = r.CanUseInsulator;
+        CanUsePulseModule = r.CanUsePulseModule;
         CanUseCaseless = r.CanUseCaseless;
         CaselessAmmoIDX = r.CaselessAmmoIDX;
         CanUseFCS = r.CanUseFCS;
@@ -268,7 +269,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         RequiresPowerAmps = needspa;
     }
 
-    public void SetWeapon( boolean os, boolean streak, boolean ultra, boolean rotary, boolean explode, boolean tc, boolean array, boolean capacitor, boolean insulator ) {
+    public void SetWeapon( boolean os, boolean streak, boolean ultra, boolean rotary, boolean explode, boolean tc, boolean array, boolean capacitor, boolean insulator, boolean pulseModule ) {
         OneShot = os;
         Streak = streak;
         Ultra = ultra;
@@ -278,6 +279,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         CanUseCapacitor = capacitor;
         ArrayCapable = array;
         CanUseInsulator = insulator;
+        CanUsePulseModule = pulseModule;
     }
 
     public void SetCaselessAmmo( boolean canuse, int idx ) {

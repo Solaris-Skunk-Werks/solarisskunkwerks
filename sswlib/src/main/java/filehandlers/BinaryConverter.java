@@ -348,13 +348,14 @@ public class BinaryConverter {
         FW.writeBoolean( Boolean.parseBoolean( data[95] ) ); // Array
         FW.writeBoolean( Boolean.parseBoolean( data[96] ) ); // Capacitor
         FW.writeBoolean( Boolean.parseBoolean( data[97] ) ); // Insulator
-        FW.writeBoolean( Boolean.parseBoolean( data[98] ) );
-        FW.writeInt( Integer.parseInt( data[99] ) );
-        FW.writeBoolean( Boolean.parseBoolean( data[100] ) ); // A-IV
-        FW.writeInt( Integer.parseInt( data[101] ) ); // A-IV Type
-        FW.writeUTF( data[102] ); // ChatName
-        FW.writeUTF( data[103] ); // BookReference
-        FW.writeUTF( data[104] ); // Battleforce Abilities
+        FW.writeBoolean( Boolean.parseBoolean( data[98] ) ); // Pulse Module
+        FW.writeBoolean( Boolean.parseBoolean( data[99] ) ); // Supports Caseless Ammo
+        FW.writeInt( Integer.parseInt( data[100] ) ); // Caseless Ammo Index
+        FW.writeBoolean( Boolean.parseBoolean( data[101] ) ); // A-IV
+        FW.writeInt( Integer.parseInt( data[102] ) ); // A-IV Type
+        FW.writeUTF( data[103] ); // ChatName
+        FW.writeUTF( data[104] ); // BookReference
+        FW.writeUTF( data[105] ); // Battleforce Abilities
     }
 
 /**

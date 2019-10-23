@@ -69,7 +69,7 @@ public class BinaryReader {
                     rw.SetAllocations( FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean() );
                     rw.SetCVAllocs( FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean() );
                     rw.SetRequirements( FR.readBoolean(), FR.readBoolean(), FR.readBoolean() );
-                    rw.SetWeapon( FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean() );
+                    rw.SetWeapon( FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean(), FR.readBoolean() );
                     rw.SetCaselessAmmo( FR.readBoolean(), FR.readInt() );
                     rw.SetMissileFCS( FR.readBoolean(), FR.readInt() );
                     rw.SetChatName( FR.readUTF() );
