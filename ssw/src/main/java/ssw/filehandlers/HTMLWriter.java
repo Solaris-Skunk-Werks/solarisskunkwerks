@@ -1240,6 +1240,9 @@ public class HTMLWriter {
                     if( ((RangedWeapon) ret.get( i )).IsUsingCapacitor() ) {
                         ret.add( i + 1, ((RangedWeapon) ret.get( i )).GetCapacitor() );
                     }
+                    if( ((RangedWeapon) ret.get( i )).IsUsingPulseModule() ) {
+                        ret.add( i + 1, ((RangedWeapon) ret.get( i )).GetPulseModule() );
+                    }
                 } else if( ret.get( i ) instanceof MGArray ) {
                     ret.add( i + 1, ((MGArray) ret.get( i )).GetMGs()[0] );
                     ret.add( i + 2, ((MGArray) ret.get( i )).GetMGs()[1] );
