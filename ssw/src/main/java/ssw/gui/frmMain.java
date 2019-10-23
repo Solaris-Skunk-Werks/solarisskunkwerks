@@ -108,6 +108,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     JMenuItem mnuArmorComponent = new JMenuItem( "Armor Component" );
     JMenuItem mnuAddCapacitor = new JMenuItem( "Add Capacitor" );
     JMenuItem mnuAddInsulator = new JMenuItem( "Add Insulator" );
+    JMenuItem mnuAddPulseModule = new JMenuItem( "Add RISC Pulse Module" );
     JMenuItem mnuCaseless = new JMenuItem( "Switch to Caseless" );
     JMenuItem mnuTurret = new JMenuItem( "Add to Turret" );
     JMenuItem mnuSelective = new JMenuItem( "Selective Allocate" );
@@ -163,6 +164,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
               ARTILLERY = 5;
     private final AvailableCode PPCCapAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final AvailableCode LIAC = new AvailableCode( AvailableCode.TECH_BOTH );
+    private final AvailableCode PulseModuleAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final AvailableCode CaselessAmmoAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private PartialWing wing = new PartialWing(CurMech);
     private final AvailableCode PWAC = wing.GetAvailability();
@@ -193,6 +195,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         LIAC.SetPBMAllowed( true );
         LIAC.SetPIMAllowed( true );
         LIAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        PulseModuleAC.SetISCodes( 'F', 'X', 'X', 'X', 'F' );
+        PulseModuleAC.SetISDates( 3134, 3137, true, 3137, 3140, 0, true, false );
+        PulseModuleAC.SetISFactions( "RS", "RS", "RS", "" );
+        PulseModuleAC.SetPBMAllowed( true );
+        PulseModuleAC.SetPIMAllowed( true );
+        PulseModuleAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
         CaselessAmmoAC.SetISCodes( 'D', 'X', 'X', 'E', 'D' );
         CaselessAmmoAC.SetISDates( 3055, 3056, true, 3079, 0, 0, false, false );
         CaselessAmmoAC.SetISFactions( "FC", "FC", "", "" );
@@ -264,6 +272,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuAddInsulator.addActionListener( new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 LaserInsulator();
+            }
+        });
+        
+        mnuAddPulseModule.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                PulseModule();
             }
         });
 
@@ -376,6 +390,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuUtilities.add( mnuArmorComponent );
         mnuUtilities.add( mnuAddCapacitor );
         mnuUtilities.add( mnuAddInsulator );
+        mnuUtilities.add( mnuAddPulseModule );
         mnuUtilities.add( mnuCaseless );
         mnuUtilities.add( mnuTurret );
         mnuUtilities.add( mnuVGLArc );
@@ -390,6 +405,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuArmorComponent.setVisible( false );
         mnuAddCapacitor.setVisible( false );
         mnuAddInsulator.setVisible( false );
+        mnuAddPulseModule.setVisible( false );
         mnuTurret.setVisible( false );
         mnuCaseless.setVisible( false );
         mnuVGLArc.setVisible( false );
@@ -2994,6 +3010,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         lblInfoHeat.setText( w.GetHeat() + "*" );
                     } else if( ((RangedWeapon) w).IsUsingInsulator() ) {
                         lblInfoHeat.setText( w.GetHeat() + " (I)" );
+                    } else if( ((RangedWeapon) w).IsUsingPulseModule() ) {
+                        lblInfoHeat.setText( w.GetHeat() + "*" );
                     } else {
                         lblInfoHeat.setText( "" + w.GetHeat() );
                     }
@@ -3530,6 +3548,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         boolean armor = LegalArmoring( CurItem ) && CommonTools.IsAllowed( abPlaceable.ArmoredAC, CurMech );
         boolean cap = LegalCapacitor( CurItem ) && CommonTools.IsAllowed( PPCCapAC, CurMech );
         boolean insul = LegalInsulator( CurItem ) && CommonTools.IsAllowed( LIAC, CurMech );
+        boolean pulseModule = LegalPulseModule(CurItem) && CommonTools.IsAllowed( PulseModuleAC, CurMech );
         boolean caseless = LegalCaseless( CurItem ) && CommonTools.IsAllowed( CaselessAmmoAC, CurMech );
         boolean lotchange = LegalLotChange( CurItem );
         boolean turreted = LegalTurretMount( CurItem );
@@ -3537,10 +3556,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuArmorComponent.setEnabled( armor );
         mnuAddCapacitor.setEnabled( cap );
         mnuAddInsulator.setEnabled( insul );
+        mnuAddPulseModule.setEnabled(pulseModule);
         mnuCaseless.setEnabled( caseless );
         mnuArmorComponent.setVisible( armor );
         mnuAddCapacitor.setVisible( cap );
         mnuAddInsulator.setVisible( insul );
+        mnuAddPulseModule.setVisible(pulseModule);
         mnuCaseless.setVisible( caseless );
         mnuSetLotSize.setVisible( lotchange );
         mnuTurret.setVisible( turreted );
@@ -3559,7 +3580,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuTurret.setText( "Add to Turret");
             }
         }
-        if( cap || insul || caseless ) {
+        if( cap || insul || caseless || pulseModule) {
             if( CurItem instanceof RangedWeapon ) {
                 if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
                     mnuAddCapacitor.setText( "Remove Capacitor" );
@@ -3570,6 +3591,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     mnuAddInsulator.setText( "Remove Insulator" );
                 } else {
                     mnuAddInsulator.setText( "Add Insulator" );
+                }
+                if( ((RangedWeapon) CurItem).IsUsingPulseModule()) {
+                    mnuAddPulseModule.setText( "Remove RISC Pulse Module" );
+                } else {
+                    mnuAddPulseModule.setText( "Add RISC Pulse Module" );
                 }
                 if( ((RangedWeapon) CurItem).IsCaseless() ) {
                     mnuCaseless.setText( "Switch from Caseless" );
@@ -3808,6 +3834,40 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         RefreshInfoPane();
     }
+    
+    private void PulseModule() {
+        // if the current item can support a Pulse Module, adds one on
+        if( CurItem instanceof RangedWeapon ) {
+            if( ((RangedWeapon) CurItem).IsUsingPulseModule()) {
+                abPlaceable p = ((RangedWeapon) CurItem).GetPulseModule();
+                ((RangedWeapon) CurItem).UsePulseModule( false );
+                CurMech.GetLoadout().Remove( p );
+            } else {
+                ((RangedWeapon) CurItem).UsePulseModule( true );
+                abPlaceable p = ((RangedWeapon) CurItem).GetPulseModule();
+                LocationIndex Loc = CurMech.GetLoadout().FindIndex( CurItem );
+                if( Loc.Location != -1 ) {
+                    try {
+                        CurMech.GetLoadout().AddTo( CurMech.GetLoadout().GetCrits( Loc.Location ), p, Loc.Index + CurItem.NumCrits(), 1 );
+                    } catch( Exception e ) {
+                        // couldn't allocate the Module?  Unallocate the laser.
+                        try {
+                            CurMech.GetLoadout().UnallocateAll( CurItem, false );
+                            // remove the insulator if it's in the queue
+                            //if( CurMech.GetLoadout().QueueContains( p ) ) {
+                            //    CurMech.GetLoadout().GetQueue().remove( p );
+                            //}
+                        } catch( Exception e1 ) {
+                            // failed big.  no problem
+                            Media.Messager( this, "Fatal error adding a Pulse Module:\n" + e.getMessage() + "\nThe Pulse Module will be removed." );
+                            ((RangedWeapon) CurItem).UsePulseModule(false );
+                        }
+                    }
+                }
+            }
+        }
+        RefreshInfoPane();
+    }
 
     private void TurretMount() {
         if( CurItem instanceof RangedWeapon ) {
@@ -4038,6 +4098,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     public boolean LegalInsulator( abPlaceable p ) {
         if( ! ( p instanceof RangedWeapon ) ) { return false; }
         return ((RangedWeapon) p).CanUseInsulator();
+    }
+
+    public boolean LegalPulseModule( abPlaceable p ) {
+        if( ! ( p instanceof RangedWeapon ) ) { return false; }
+        return ((RangedWeapon) p).CanUsePulseModule();
     }
 
     public boolean LegalCaseless( abPlaceable p ) {

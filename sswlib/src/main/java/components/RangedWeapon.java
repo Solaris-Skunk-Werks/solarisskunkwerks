@@ -32,6 +32,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     private AvailableCode AC;
     private PPCCapacitor Capacitor = null;
     private LaserInsulator Insulator = null;
+    private RiscLaserPulseModule PulseModule = null;
     private MGArray CurArray = null;
     private ifMissileGuidance FCS = null;
     private ifTurret Turret = null;
@@ -42,6 +43,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                    ChatName,
                    Specials = "",
                    Type,
+                   ModifiedType,
                    Manufacturer = "",
                    BookReference = "";
     private boolean HasAmmo = false,
@@ -76,6 +78,8 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                     UsingCapacitor = false,
                     CanUseInsulator = false,
                     UsingInsulator = false,
+                    CanUsePulseModule = false,
+                    UsingPulseModule = false,
                     InArray = false,
                     CanUseCaseless = false,
                     UsingCaseless = false,
@@ -116,6 +120,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         LookupName = lookupname;
         MegaMekName = mmname;
         Type = type;
+        ModifiedType = type;
         AC = a;
         Specials = spec;
         WeaponClass = wepclass;
@@ -127,6 +132,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         LookupName = r.LookupName;
         MegaMekName = r.MegaMekName;
         Type = r.Type;
+        ModifiedType = r.ModifiedType;
         AC = r.AC.Clone();
         Specials = r.Specials;
         WeaponClass = r.WeaponClass;
@@ -181,6 +187,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         CanUseCapacitor = r.CanUseCapacitor;
         ArrayCapable = r.ArrayCapable;
         CanUseInsulator = r.CanUseInsulator;
+        CanUsePulseModule = r.CanUsePulseModule;
         CanUseCaseless = r.CanUseCaseless;
         CaselessAmmoIDX = r.CaselessAmmoIDX;
         CanUseFCS = r.CanUseFCS;
@@ -262,7 +269,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         RequiresPowerAmps = needspa;
     }
 
-    public void SetWeapon( boolean os, boolean streak, boolean ultra, boolean rotary, boolean explode, boolean tc, boolean array, boolean capacitor, boolean insulator ) {
+    public void SetWeapon( boolean os, boolean streak, boolean ultra, boolean rotary, boolean explode, boolean tc, boolean array, boolean capacitor, boolean insulator, boolean pulseModule ) {
         OneShot = os;
         Streak = streak;
         Ultra = ultra;
@@ -272,6 +279,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         CanUseCapacitor = capacitor;
         ArrayCapable = array;
         CanUseInsulator = insulator;
+        CanUsePulseModule = pulseModule;
     }
 
     public void SetCaselessAmmo( boolean canuse, int idx ) {
@@ -309,6 +317,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( UsingInsulator ) {
             retval += " (Insulated)";
         }
+        if( UsingPulseModule ) {
+            retval += " + Pulse Module";
+        }
         if( UsingCaseless ) {
             retval += " (Caseless)";
         }
@@ -335,6 +346,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         }
         if( UsingInsulator ) {
             retval += " (Insulated)";
+        }
+        if( UsingPulseModule ) {
+            retval += " + Pulse Module";
         }
         if( UsingCaseless ) {
             retval += " (Caseless)";
@@ -366,6 +380,10 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     }
 
     public String GetType() {
+        if (UsingPulseModule)
+        {
+            return ModifiedType;
+        }
         return Type;
     }
 
@@ -402,6 +420,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( UsingInsulator ) {
             retval.Combine( Insulator.GetAvailability() );
         }
+        if( UsingPulseModule ) {
+            retval.Combine( PulseModule.GetAvailability() );
+        }
         return retval;
     }
 
@@ -414,6 +435,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         int retval = CVSpace;
         if ( UsingCapacitor ) retval += GetCapacitor().NumCVSpaces();
         if ( UsingInsulator ) retval += GetInsulator().NumCVSpaces();
+        if ( UsingPulseModule ) retval += GetPulseModule().NumCVSpaces();
         if ( UsingFCS ) { retval += ((abPlaceable) FCS).NumCVSpaces(); }
         return retval;
     }
@@ -429,6 +451,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         }
         if( UsingInsulator ) {
             retval += Insulator.GetTonnage();
+        }
+        if( UsingPulseModule ) {
+            retval += PulseModule.GetTonnage();
         }
         if( UsingFCS ) {
             retval += ((abPlaceable) FCS).GetTonnage();
@@ -447,6 +472,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( UsingInsulator ) {
             retval += Insulator.GetCost();
         }
+        if( UsingPulseModule ) {
+            retval += PulseModule.GetCost();
+        }
         if( UsingFCS ) {
             retval += ((abPlaceable) FCS).GetCost();
         }
@@ -462,6 +490,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( UsingCapacitor ) {
             // round off the capacitor BV total, as this is how Tac Ops does it.
             retval = Math.round( OffBV + Capacitor.GetOffensiveBV() );
+        }
+        if (UsingPulseModule){
+            retval = Math.round( OffBV + PulseModule.GetOffensiveBV() );
         }
         return retval;
     }
@@ -515,6 +546,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         int crits = NumCrits();
         if( UsingCapacitor ) { crits += Capacitor.NumCrits(); }
         if( UsingInsulator ) { crits += Insulator.NumCrits(); }
+        if( UsingPulseModule ) { crits += PulseModule.NumCrits(); }
         if( UsingFCS ) { crits += ((abPlaceable) FCS).NumCrits(); }
         if( IsArmored() ) {
             retval += (( GetOffensiveBV() + retval ) * 0.05 * crits );
@@ -523,13 +555,18 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     }
 
     public int GetHeat() {
+        int tempHeat = Heat;
         if( UsingCapacitor ) {
-            return Heat + 5;
+            tempHeat += 5;
         }
         if( UsingInsulator ) {
-            return Heat - 1;
+            tempHeat -= 1;
         }
-        return Heat;
+        if( UsingPulseModule){
+            tempHeat += 2;
+        }
+        
+        return tempHeat;
     }
 
     public double GetBVHeat() {
@@ -539,6 +576,10 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         }
         if( UsingInsulator ) {
             retval -= 1;
+        }
+        if( UsingPulseModule)
+        {
+            retval += 2;
         }
         if( Rotary ) { retval *= 6; }
         if( Ultra ) { retval *= 2; }
@@ -797,6 +838,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( UsingInsulator ) {
             Insulator.ArmorComponent( armor );
         }
+        if( UsingPulseModule ) {
+            PulseModule.ArmorComponent( armor );
+        }
         if( UsingFCS ) {
             ((abPlaceable) FCS).ArmorComponent( armor );
         }
@@ -844,6 +888,30 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
 
     public LaserInsulator GetInsulator() {
         return Insulator;
+    }
+    
+    public boolean CanUsePulseModule() {
+        return CanUsePulseModule;
+    }
+
+    public void UsePulseModule( boolean l ) {
+        if( l ) {
+            PulseModule = new RiscLaserPulseModule( this );
+            UsingPulseModule = true;
+            ModifiedType = "PE, X";
+        } else {
+            PulseModule = null;
+            UsingPulseModule = false;
+            ModifiedType = Type;
+        }
+    }
+
+    public boolean IsUsingPulseModule() {
+        return UsingPulseModule;
+    }
+
+    public RiscLaserPulseModule GetPulseModule() {
+        return PulseModule;
     }
 
     public boolean IsFCSCapable() {

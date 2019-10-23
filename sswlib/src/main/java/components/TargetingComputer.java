@@ -182,7 +182,9 @@ public class TargetingComputer extends abPlaceable {
                     Build += a.GetTonnage() - ((RangedWeapon) a).GetCapacitor().GetTonnage();
                 } else if( ((RangedWeapon) a).IsUsingInsulator() ) {
                     Build += a.GetTonnage() - ((RangedWeapon) a).GetInsulator().GetTonnage();
-                } else {
+                } else if( ((RangedWeapon) a).IsUsingPulseModule() ) {
+                    Build += a.GetTonnage() - ((RangedWeapon) a).GetPulseModule().GetTonnage();
+                }else {
                     Build += a.GetTonnage();
                 }
             } else {

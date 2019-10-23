@@ -362,6 +362,11 @@ public class PrintConsts {
                             p.name2.replace(" + PPC Capacitor", "");
                             temp.add( new PlaceableInfo( CurMech, MiniConvRate, (abPlaceable)((RangedWeapon) p.Item).GetCapacitor(), p.Location ) );
                         }
+                        if ( ((RangedWeapon) p.Item).IsUsingPulseModule()) {
+                            p.name.replace(" + Pulse Module", "");
+                            p.name2.replace(" + Pulse Module", "");
+                            temp.add( new PlaceableInfo( CurMech, MiniConvRate, (abPlaceable)((RangedWeapon) p.Item).GetPulseModule(), p.Location ) );
+                        }
                     }
                 }
             }
@@ -467,6 +472,11 @@ public class PrintConsts {
                             p.name.replace(" + PPC Capacitor", "");
                             p.name2.replace(" + PPC Capacitor", "");
                             Data.add( new PlaceableInfo( MiniConvRate, (abPlaceable)((RangedWeapon) p.Item).GetCapacitor(), p.Location, CurUnit.GetLoadout().GetTechBase(), false, common.Constants.Vehicle ) );
+                        }
+                        if ( ((RangedWeapon) p.Item).IsUsingPulseModule()) {
+                            p.name.replace(" + Pulse Module", "");
+                            p.name2.replace(" + Pulse Module", "");
+                            Data.add( new PlaceableInfo( MiniConvRate, (abPlaceable)((RangedWeapon) p.Item).GetPulseModule(), p.Location, CurUnit.GetLoadout().GetTechBase(), false, common.Constants.Vehicle  ) );
                         }
                     }
                 }

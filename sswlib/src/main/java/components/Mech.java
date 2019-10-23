@@ -2623,7 +2623,10 @@ public class Mech implements ifUnit, ifBattleforce {
                 Explode = ((ifWeapon) p).IsExplosive();
                 if( p instanceof RangedWeapon ) {
                     if( ((RangedWeapon) p).IsUsingCapacitor() ) {
-                        mod = 1;
+                        mod += 1;
+                    }
+                    if( ((RangedWeapon) p).IsUsingPulseModule()) {
+                        mod += 1;
                     }
                 }
             }
