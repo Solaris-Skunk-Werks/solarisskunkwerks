@@ -38,9 +38,9 @@ public class stHeatSinkStarLeagueProtoDHS implements ifHeatSinkFactory, ifState 
 
     public stHeatSinkStarLeagueProtoDHS() {
         AC.SetISCodes( 'E', 'F', 'X', 'X', 'X' );
-        AC.SetISDates( 2559, 2559, true, 2567, 2865, 0, true, false );
+        AC.SetISDates( 2559, 2559, true, 2559, 2865, 0, true, false );
         AC.SetISFactions( "TH", "TH", "TH", "" );
-        AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
     public boolean HasCounterpart() {

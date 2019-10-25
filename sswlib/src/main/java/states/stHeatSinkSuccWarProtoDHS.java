@@ -38,9 +38,9 @@ public class stHeatSinkSuccWarProtoDHS implements ifHeatSinkFactory, ifState {
 
     public stHeatSinkSuccWarProtoDHS() {
         AC.SetISCodes( 'E', 'X', 'F', 'X', 'X' );
-        AC.SetISDates( 3022, 3022, true, 3040, 3050, 0, true, false );
+        AC.SetISDates( 3022, 3022, true, 3022, 3050, 0, true, false );
         AC.SetISFactions( "FS", "FS", "FS", "" );
-        AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
 
     public boolean HasCounterpart() {

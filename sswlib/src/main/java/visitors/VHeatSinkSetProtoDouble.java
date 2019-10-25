@@ -55,6 +55,9 @@ public class VHeatSinkSetProtoDouble implements ifVisitor {
             case AvailableCode.ERA_SUCCESSION:
                 h.SetSuccWarsProtoDHS();
                 break;
+            default:
+                h.SetStarLeagueProtoDHS();
+                break;
         }
         // now let's blow out the heat sinks and recalculate
         h.ReCalculate();
