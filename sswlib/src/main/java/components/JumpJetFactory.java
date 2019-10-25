@@ -39,7 +39,8 @@ public class JumpJetFactory {
     private LinkedList CurrentJumps = new LinkedList();
     private static ifJumpJetFactory NJJ = new stJumpJetStandard(),
                                     IJJ = new stJumpJetImproved(),
-                                    UMU = new stJumpJetUMU();
+                                    UMU = new stJumpJetUMU(),
+                                    PPJJ = new stJumpJetPrimitivePrototype();
     private ifJumpJetFactory CurConfig = NJJ;
 
     public JumpJetFactory( ifMechLoadout l ) {
@@ -59,6 +60,8 @@ public class JumpJetFactory {
             SetImproved();
         } else if( PlacedJumps.IsUMU() ) {
             SetUMU();
+        } else if( PlacedJumps.IsPPJJ() ) {
+            SetPPJJ();
         } else {
             SetNormal();
         }
@@ -86,12 +89,21 @@ public class JumpJetFactory {
         Owner.GetMech().SetChanged( true );
     }
 
+    public void SetPPJJ() {
+        CurConfig = PPJJ;
+        Owner.GetMech().SetChanged( true );
+    }
+
     public boolean IsImproved() {
         return CurConfig.IsImproved();
     }
 
     public boolean IsUMU() {
         return CurConfig.IsUMU();
+    }
+
+    public boolean IsPPJJ() {
+        return CurConfig.IsPPJJ();
     }
 
     public int GetNumJJ() {
@@ -242,7 +254,7 @@ public class JumpJetFactory {
     }
 
     public ifState[] GetStates() {
-        ifState[] retval = { (ifState) NJJ, (ifState) IJJ, (ifState) UMU };
+        ifState[] retval = { (ifState) NJJ, (ifState) IJJ, (ifState) UMU, (ifState) PPJJ };
         return retval;
     }
 
