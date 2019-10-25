@@ -60,6 +60,10 @@ public class stJumpJetStandard implements ifJumpJetFactory, ifState {
         return false;
     }
 
+    public boolean IsProto() {
+        return false;
+    }
+
     public JumpJet GetJumpJet() {
         return new JumpJet( "Jump Jet", "Standard Jump Jet", "Jump Jet", "Jump Jet", "Tech Manual", 1, AC );
     }

@@ -2175,7 +2175,12 @@ public class Mech implements ifUnit, ifBattleforce {
         double heatperjj = 0.0;
 
         if( GetJumpJets().IsImproved() ) {
-            heatperjj = 0.5 * CurEngine.JumpingHeatMultiplier();
+            if (GetJumpJets().IsProto()){
+                minjumpheat = 6 * CurEngine.JumpingHeatMultiplier();
+                heatperjj = 2.0 * CurEngine.JumpingHeatMultiplier();
+            } else {
+                heatperjj = 0.5 * CurEngine.JumpingHeatMultiplier();
+            }
         } else {
             heatperjj = 1.0 * CurEngine.JumpingHeatMultiplier();
         }
@@ -2209,7 +2214,12 @@ public class Mech implements ifUnit, ifBattleforce {
         double heatperjj = 0.0;
 
         if( GetJumpJets().IsImproved() ) {
-            heatperjj = 0.5 * CurEngine.JumpingHeatMultiplier();
+            if (GetJumpJets().IsProto()){
+                minjumpheat = 6 * CurEngine.JumpingHeatMultiplier();
+                heatperjj = 2.0 * CurEngine.JumpingHeatMultiplier();
+            } else {
+                heatperjj = 0.5 * CurEngine.JumpingHeatMultiplier();
+            }
         } else {
             heatperjj = 1.0 * CurEngine.JumpingHeatMultiplier();
         }
@@ -2245,7 +2255,12 @@ public class Mech implements ifUnit, ifBattleforce {
         double heatperjj = 0.0;
 
         if( GetJumpJets().IsImproved() ) {
-            heatperjj = 0.5 * CurEngine.JumpingHeatMultiplier();
+            if (GetJumpJets().IsProto()){
+                minjumpheat = 6 * CurEngine.JumpingHeatMultiplier();
+                heatperjj = 2.0 * CurEngine.JumpingHeatMultiplier();
+            } else {
+                heatperjj = 0.5 * CurEngine.JumpingHeatMultiplier();
+            }
         } else {
             heatperjj = 1.0 * CurEngine.JumpingHeatMultiplier();
         }
@@ -5363,6 +5378,8 @@ public class Mech implements ifUnit, ifBattleforce {
         Lookup.put( "Double Heat Sink (Freezers)", new VHeatSinkSetProtoDouble());
         Lookup.put( "Standard Jump Jet", new VJumpJetSetStandard() );
         Lookup.put( "Improved Jump Jet", new VJumpJetSetImproved() );
+        Lookup.put( "Prototype Improved Jump Jet", new VJumpJetSetPrototypeImproved());
+        Lookup.put( "Primitive Prototype Jump Jet", new VJumpJetSetPrimitivePrototype());
         Lookup.put( "Mech UMU", new VJumpJetSetUMU() );
         Lookup.put( "Primitive Armor", new VArmorSetPrimitive() );
         Lookup.put( "Primitive Structure", new VChassisSetPrimitive() );

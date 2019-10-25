@@ -58,6 +58,10 @@ public class stJumpJetImproved implements ifJumpJetFactory, ifState {
         return false;
     }
 
+    public boolean IsProto() {
+        return false;
+    }
+
     public JumpJet GetJumpJet() {
         return new JumpJet( "Improved Jump Jet", "Improved Jump Jet", "Improved Jump Jet", "ImprovedJump Jet", "Tech Manual", 2, AC );
     }
