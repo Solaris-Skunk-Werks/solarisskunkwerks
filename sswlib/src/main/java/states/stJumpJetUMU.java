@@ -58,7 +58,7 @@ public class stJumpJetUMU implements ifJumpJetFactory, ifState {
         return true;
     }
 
-    public boolean IsPPJJ() {
+    public boolean IsProto() {
         return false;
     }
 

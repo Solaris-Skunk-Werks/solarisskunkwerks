@@ -40,7 +40,8 @@ public class JumpJetFactory {
     private static ifJumpJetFactory NJJ = new stJumpJetStandard(),
                                     IJJ = new stJumpJetImproved(),
                                     UMU = new stJumpJetUMU(),
-                                    PPJJ = new stJumpJetPrimitivePrototype();
+                                    PPJJ = new stJumpJetPrimitivePrototype(),
+                                    PIJJ = new stJumpJetPrototypeImproved();
     private ifJumpJetFactory CurConfig = NJJ;
 
     public JumpJetFactory( ifMechLoadout l ) {
@@ -56,11 +57,13 @@ public class JumpJetFactory {
         BaseLoadoutNumJJ = PlacedJumps.NumJJ;
         NumJJ = BaseLoadoutNumJJ;
 
-        if( PlacedJumps.IsImproved() ) {
+        if (PlacedJumps.IsImproved() && PlacedJumps.IsProto()) {
+            SetPIJJ();
+        } else if( PlacedJumps.IsImproved() ) {
             SetImproved();
         } else if( PlacedJumps.IsUMU() ) {
             SetUMU();
-        } else if( PlacedJumps.IsPPJJ() ) {
+        } else if( PlacedJumps.IsProto() ) {
             SetPPJJ();
         } else {
             SetNormal();
@@ -94,6 +97,11 @@ public class JumpJetFactory {
         Owner.GetMech().SetChanged( true );
     }
 
+    public void SetPIJJ() {
+        CurConfig = PIJJ;
+        Owner.GetMech().SetChanged( true );
+    }
+
     public boolean IsImproved() {
         return CurConfig.IsImproved();
     }
@@ -102,8 +110,8 @@ public class JumpJetFactory {
         return CurConfig.IsUMU();
     }
 
-    public boolean IsPPJJ() {
-        return CurConfig.IsPPJJ();
+    public boolean IsProto() {
+        return CurConfig.IsProto();
     }
 
     public int GetNumJJ() {
@@ -182,17 +190,9 @@ public class JumpJetFactory {
 
     private boolean CanAddJJ() {
         if( CurConfig.IsImproved() ) {
-            if( NumJJ < Owner.GetMech().GetRunningMP() ) {
-                return true;
-            } else {
-                return false;
-            }
+            return NumJJ < Owner.GetMech().GetRunningMP();
         } else {
-            if( NumJJ < Owner.GetMech().GetWalkingMP() ) {
-                return true;
-            } else {
-                return false;
-            }
+            return NumJJ < Owner.GetMech().GetWalkingMP();
         }
     }
 
@@ -254,7 +254,7 @@ public class JumpJetFactory {
     }
 
     public ifState[] GetStates() {
-        ifState[] retval = { (ifState) NJJ, (ifState) IJJ, (ifState) UMU, (ifState) PPJJ };
+        ifState[] retval = { (ifState) NJJ, (ifState) IJJ, (ifState) UMU, (ifState) PPJJ, (ifState) PIJJ };
         return retval;
     }
 

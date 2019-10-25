@@ -57,7 +57,7 @@ public class stJumpJetPrimitivePrototype implements ifJumpJetFactory, ifState {
         return false;
     }
 
-    public boolean IsPPJJ() {
+    public boolean IsProto() {
         return true;
     }
 

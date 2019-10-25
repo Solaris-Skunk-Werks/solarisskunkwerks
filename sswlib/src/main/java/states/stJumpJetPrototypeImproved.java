@@ -32,15 +32,66 @@ import components.AvailableCode;
 import components.JumpJet;
 import components.MechModifier;
 
-public interface ifJumpJetFactory {
-    public String ChatName();
-    public boolean IsImproved();
-    public boolean IsUMU();
-    public boolean IsProto();
-    public JumpJet GetJumpJet();
-    public double GetCost();
-    public double GetTonnage();
-    public int GetNumCrits();
-    public AvailableCode GetAvailability();
-    public MechModifier GetMechModifier();
+public class stJumpJetPrototypeImproved implements ifJumpJetFactory, ifState {
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+
+    public stJumpJetPrototypeImproved() {
+        AC.SetISCodes( 'E', 'X', 'F', 'F', 'X' );
+        AC.SetISDates( 3020, 3020, true, 3020, 3070, 0, true, false );
+        AC.SetISFactions( "FS", "FS", "FS", "" );
+        AC.SetSuperHeavyCompatible( false );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+    }
+
+    public boolean HasCounterpart() {
+        return false;
+    }
+
+    public boolean IsImproved() {
+        return true;
+    }
+
+    public boolean IsUMU() {
+        return false;
+    }
+
+    public boolean IsProto() {
+        return true;
+    }
+
+    public JumpJet GetJumpJet() {
+        return new JumpJet( "Prototype Improved Jump Jet", 
+                "Prototype Improved Jump Jet", 
+                "Prototype Imp. Jump Jet",
+                "ISPrototypeImprovedJumpJet",
+                "XTRO:Succesion Wars", 1, AC );
+    }
+
+    public double GetCost() {
+        return 500.0f;
+    }
+
+    public double GetTonnage() {
+        return 1.0f;
+    }
+
+    public int GetNumCrits() {
+        return 1;
+    }
+
+    public AvailableCode GetAvailability() {
+        return AC;
+    }
+
+    public MechModifier GetMechModifier() {
+        return null;
+    }
+
+    public String LookupName() {
+        return "Prototype Improved Jump Jet";
+    }
+
+    public String ChatName() {
+        return "PIJJ";
+    }
 }

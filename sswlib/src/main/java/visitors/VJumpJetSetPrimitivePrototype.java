@@ -44,7 +44,7 @@ public class VJumpJetSetPrimitivePrototype implements ifVisitor {
         // Just pass us off to the jump jets
         CurMech = m;
         JumpJetFactory j = CurMech.GetJumpJets();
-        if( ! j.IsPPJJ() ) {
+        if( (! j.IsProto()) || j.IsImproved() ) {
             j.SetPPJJ();
 
             // now let's blow out the jump jets and recalculate

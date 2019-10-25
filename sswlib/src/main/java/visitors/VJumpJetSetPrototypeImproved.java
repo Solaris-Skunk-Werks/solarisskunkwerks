@@ -30,7 +30,7 @@ package visitors;
 
 import components.*;
 
-public class VJumpJetSetImproved implements ifVisitor {
+public class VJumpJetSetPrototypeImproved implements ifVisitor {
     private Mech CurMech;
 
     public void SetClan( boolean clan ) {
@@ -44,9 +44,8 @@ public class VJumpJetSetImproved implements ifVisitor {
         // Just pass us off to the jump jets
         CurMech = m;
         JumpJetFactory j = CurMech.GetJumpJets();
-
-        if( ( j.IsProto()) || !j.IsImproved() ) {
-            j.SetImproved();
+        if( ! (j.IsProto() && j.IsImproved()) ) {
+            j.SetPIJJ();
 
             // now let's blow out the jump jets and recalculate
             j.ReCalculate();
