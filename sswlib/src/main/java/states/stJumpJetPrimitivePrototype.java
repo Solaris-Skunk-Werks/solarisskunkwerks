@@ -39,8 +39,8 @@ public class stJumpJetPrimitivePrototype implements ifJumpJetFactory, ifState {
         AC.SetISCodes( 'C', 'F', 'X', 'X', 'X' );
         AC.SetISDates( 0, 0, false, 2464, 0, 0, false, false );
         AC.SetISFactions( "", "", "TH", "" );
-        AC.SetPBMAllowed( false );
-        AC.SetPIMAllowed( false );
+        AC.SetPBMAllowed( true );
+        AC.SetPIMAllowed( true );
         AC.SetSuperHeavyCompatible( false );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
     }
