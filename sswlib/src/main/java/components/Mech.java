@@ -2627,13 +2627,117 @@ public class Mech implements ifUnit, ifBattleforce {
     public double GetExplosiveWeaponPenalty() {
         double result = 0.0;
         ArrayList v = CurLoadout.GetNonCore();
+        JumpJetFactory jumpJetFactory = CurLoadout.GetJumpJets();
+        JumpJet[] jumpjets = jumpJetFactory.GetPlacedJumps();
         abPlaceable p;
         boolean Explode;
+
+        for (int x = 0; x < jumpjets.length; x++)
+        {
+            p = jumpjets[x];
+            Explode = false;
+            int mod = 0;
+            //if (p instanceof JumpJet){
+            //    Explode = ((JumpJet) p).IsExplosive();
+            //}
+
+            if (((JumpJet) p).IsExplosive())
+            {
+                if( CurEngine.IsISXL() ) {
+                    switch( CurLoadout.Find( p ) ) {
+                        case 0:
+                            if( ! CurLoadout.HasHDCASEII() ) {
+                                result -= p.NumCrits() + mod;
+                            }
+                            break;
+                        case 1:
+                            if( ! CurLoadout.HasCTCASEII() ) {
+                                result -= p.NumCrits() + mod;
+                            }
+                            break;
+                        case 2:
+                            if( ! CurLoadout.HasLTCASEII() ) {
+                                result -= p.NumCrits() + mod;
+                            }
+                            break;
+                        case 3:
+                            if( ! CurLoadout.HasRTCASEII() ) {
+                                result -= p.NumCrits() + mod;
+                            }
+                            break;
+                        case 4:
+                            if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.IsUsingClanCASE() ) {
+                                result -= p.NumCrits() + mod;
+                            }
+                            break;
+                        case 5:
+                            if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.IsUsingClanCASE() ) {
+                                result -= p.NumCrits() + mod;
+                            }
+                            break;
+                        case 6:
+                            if( ! CurLoadout.HasLLCASEII() ) {
+                                result -= p.NumCrits() + mod;
+                            }
+                            break;
+                        case 7:
+                            if( ! CurLoadout.HasRLCASEII() ) {
+                                result -= p.NumCrits() + mod;
+                            }
+                            break;
+                    }
+                } else {
+                    switch( CurLoadout.Find( p ) ) {
+                        case 0:
+                            if( ! CurLoadout.HasHDCASEII() ) {
+                                result -= p.NumCrits() + mod;
+                            }
+                            break;
+                        case 1:
+                            if( ! CurLoadout.HasCTCASEII() ) {
+                                result -= p.NumCrits() + mod;
+                            }
+                            break;
+                        case 2:
+                            if( ! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                                result -= p.NumCrits() + mod;
+                            }
+                            break;
+                        case 3:
+                            if( ! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                                result -= p.NumCrits() + mod;
+                            }
+                            break;
+                        case 4:
+                            if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                                result -= p.NumCrits() + mod;
+                            }
+                            break;
+                        case 5:
+                            if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                                result -= p.NumCrits() + mod;
+                            }
+                            break;
+                        case 6:
+                            if( ! CurLoadout.HasLLCASEII() ) {
+                                result -= p.NumCrits() + mod;
+                            }
+                            break;
+                        case 7:
+                            if( ! CurLoadout.HasRLCASEII() ) {
+                                result -= p.NumCrits() + mod;
+                            }
+                            break;
+                    }
+                }
+            }
+        }
 
         for( int i = 0; i < v.size(); i++ ) {
             p = (abPlaceable) v.get( i );
             Explode = false;
             int mod = 0;
+
             if( p instanceof ifWeapon ) {
                 Explode = ((ifWeapon) p).IsExplosive();
                 if( p instanceof RangedWeapon ) {

@@ -60,11 +60,11 @@ public class stJumpJetPrototypeImproved implements ifJumpJetFactory, ifState {
     }
 
     public JumpJet GetJumpJet() {
-        return new JumpJet( "Prototype Improved Jump Jet", 
+        return  new JumpJet( "Prototype Improved Jump Jet", 
                 "Prototype Improved Jump Jet", 
                 "Prototype Imp. Jump Jet",
                 "ISPrototypeImprovedJumpJet",
-                "XTRO:Succesion Wars", 1, AC );
+                "XTRO:Succesion Wars", 1, AC, true );
     }
 
     public double GetCost() {
