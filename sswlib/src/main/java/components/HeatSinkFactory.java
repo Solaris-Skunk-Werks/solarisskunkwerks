@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import states.*;
 
@@ -236,8 +237,21 @@ public class HeatSinkFactory {
         int totalDissipation;
         
         int partialWingBonus = Owner.GetMech().UsingPartialWing() ? 3 : 0;
+        int extraDHSBonus = 0;
         
-        totalDissipation = NumHS * CurConfig.GetDissipation() + partialWingBonus;
+        ArrayList equipment = Owner.GetMech().GetLoadout().GetEquipment();
+        
+        for (int i = 0; i < equipment.size(); i++){
+            if (equipment.get(i) instanceof EquipmentProtoSuccWarsDoubleHeatSink){
+                extraDHSBonus += 2;
+            } else if (equipment.get(i) instanceof EquipmentProtoStarLeagueDoubleHeatSink){
+                extraDHSBonus += 2;
+            }
+        }
+        
+        totalDissipation = (NumHS * CurConfig.GetDissipation())
+                            + partialWingBonus
+                            + extraDHSBonus;
                 
         if (IsProtoDHS())
         {
@@ -245,7 +259,8 @@ public class HeatSinkFactory {
             
             totalDissipation = (singleHS * SHS.GetDissipation()) 
                     + ((NumHS - singleHS) * CurConfig.GetDissipation())
-                    + partialWingBonus;
+                    + partialWingBonus
+                    + extraDHSBonus;
         }
         
         return totalDissipation;

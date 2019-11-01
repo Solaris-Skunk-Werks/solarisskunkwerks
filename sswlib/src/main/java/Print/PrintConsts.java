@@ -37,6 +37,7 @@ import java.util.Calendar;
 import java.util.Enumeration;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.ListIterator;
 
 public class PrintConsts {
     public final static int MECHNAME = 0,
@@ -257,6 +258,17 @@ public class PrintConsts {
         boolean HasAmmoData = false;
 
         ArrayList v = (ArrayList) CurMech.GetLoadout().GetNonCore().clone();
+        
+        // Remove Proto Double Heatsinks, so they don't clog up the equipment list
+        ListIterator listIterator = v.listIterator();
+        while (listIterator.hasNext()){
+            Object temp = listIterator.next();
+             if (temp instanceof EquipmentProtoSuccWarsDoubleHeatSink){
+                 listIterator.remove();
+             } else if(temp instanceof EquipmentProtoStarLeagueDoubleHeatSink) {
+                 listIterator.remove();
+             }   
+        }
                 // add in MASC and the targeting computer if needed.
         if( CurMech.GetPhysEnhance().IsMASC() ) v.add( CurMech.GetPhysEnhance() );
         if( CurMech.UsingTC() ) v.add( CurMech.GetTC() );
