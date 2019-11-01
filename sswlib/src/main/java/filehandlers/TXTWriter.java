@@ -583,8 +583,34 @@ public class TXTWriter {
     }
 
     private String GetHSNum() {
-        // provides a formated heat sink dissipation string
-        if( CurMech.GetHeatSinks().IsDouble() ) {
+        // provides a formated heat sink dissipation string         
+        int extraDHS = 0;
+        boolean isProto = CurMech.GetHeatSinks().IsProtoDHS();
+        ArrayList equipment = CurMech.GetLoadout().GetEquipment();
+        
+        for (int i = 0; i < equipment.size(); i++){
+            if (equipment.get(i) instanceof EquipmentProtoSuccWarsDoubleHeatSink){
+                extraDHS += 1;
+            } else if (equipment.get(i) instanceof EquipmentProtoStarLeagueDoubleHeatSink){
+                extraDHS += 1;
+            }
+        }
+        
+        if (isProto || extraDHS != 0){
+            int numberOfHS = CurMech.GetHeatSinks().GetNumHS();
+            int internalHS = CurMech.GetHeatSinks().InternalHeatSinks();
+            int singles;
+            int doubles;
+            if (isProto)
+            {            
+                singles = numberOfHS < internalHS ? numberOfHS : internalHS;
+                doubles = (numberOfHS - singles) + extraDHS;
+            } else {
+                singles = numberOfHS;
+                doubles = extraDHS;
+            }  
+            return singles + " + " + doubles + "(" + CurMech.GetHeatSinks().TotalDissipation() + ")";
+        } else if( CurMech.GetHeatSinks().IsDouble() ) {
             return CurMech.GetHeatSinks().GetNumHS() + "(" + CurMech.GetHeatSinks().TotalDissipation() + ")";
         } else {
             return "" + CurMech.GetHeatSinks().GetNumHS();

@@ -120,6 +120,8 @@ public class EquipmentFactory {
         Equipment = equips;
         RangedWeapons.add( new VehicularGrenadeLauncher() );
         Equipment.add( new ModularArmor() );
+        Equipment.add( new EquipmentProtoSuccWarsDoubleHeatSink());
+        Equipment.add( new EquipmentProtoStarLeagueDoubleHeatSink());
         BuildPhysicals( m );
         if (( m.GetUnitType() == AvailableCode.UNIT_BATTLEMECH ) && ( m instanceof Mech) ) {
             PhysicalWeapons.add( new Talons( (Mech) m ) );
@@ -143,6 +145,10 @@ public class EquipmentFactory {
             retval = ((Equipment) p).Clone();
         } else if( p instanceof ModularArmor ) {
             retval = new ModularArmor();
+        } else if( p instanceof EquipmentProtoSuccWarsDoubleHeatSink ) {
+            retval = new EquipmentProtoSuccWarsDoubleHeatSink();
+        } else if( p instanceof EquipmentProtoStarLeagueDoubleHeatSink ) {
+            retval = new EquipmentProtoStarLeagueDoubleHeatSink();
         } else if( p instanceof Ammunition ) {
             retval = ((Ammunition) p).Clone();
         } else if( p instanceof RangedWeapon ) {
