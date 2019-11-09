@@ -36,12 +36,12 @@ import common.CommonTools;
  * @author olaughlj
  */
 public class Dumper extends abPlaceable {
-    private ifMechLoadout Owner;
+    private Equipment Owner;
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
     private String DumpDirection;
     private LocationIndex DumperLocation;
-
-    public Dumper( ifMechLoadout l)
+    
+    public Dumper( Equipment eq)
     {
         AC.SetISCodes( 'A', 'A', 'A', 'A', 'A' );
         AC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
@@ -53,7 +53,7 @@ public class Dumper extends abPlaceable {
         AC.SetPIMAllowed( true );
         AC.SetPrimitiveOnly(false);
         AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-        Owner = l;
+        Owner = eq;
         DumpDirection = "None";
     }
 
@@ -72,6 +72,16 @@ public class Dumper extends abPlaceable {
 
     public String CritName() {
         return String.format(("%s (%s)"), ActualName(), GetDumpDirection());
+    }
+
+    @Override
+    public boolean LocationLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean LocationLinked() {
+        return true;
     }
 
     public String LookupName() {
@@ -103,22 +113,9 @@ public class Dumper extends abPlaceable {
     public double GetTonnage() {
         //TODO: Add dumper calculation based on location
         double tonnage = 0.0;
-        LocationIndex location = Owner.FindIndex(this);
-        ArrayList equipment = Owner.GetEquipment();
-        for (int i = 0; i < equipment.size(); i++)
-        {
-             abPlaceable currentItem = (abPlaceable) equipment.get( i );
-             //See if the location is the same as the dumper
-             if (Owner.FindIndex(currentItem).Location == location.Location)
-             {
-                 //If any of the items in the current location contain the word cargo then we assume they are
-                 //attached to the dumper and will increase the tonnage of the dumper by 5% of the cargo slots.
-                 if (currentItem.LookupName().toLowerCase().contains("cargo"))
-                 {
-                     tonnage += 0.05 * currentItem.GetTonnage();
-                 }
-             }
-        }
+        
+        tonnage = Owner.GetTonnage() * 0.05;
+        
         int nWholeTonnage = (int)tonnage;
         double difference = tonnage - nWholeTonnage;
         if (difference > 0 && difference < .5) {

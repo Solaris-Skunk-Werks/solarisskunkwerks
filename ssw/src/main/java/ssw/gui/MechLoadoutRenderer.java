@@ -182,6 +182,11 @@ public class MechLoadoutRenderer extends DefaultListCellRenderer {
                     size++;
                 }
             }
+            if( Parent.GetCurItem() instanceof Equipment ){
+                if( ((Equipment) Parent.GetCurItem()).IsUsingDumper()) {
+                    size++;
+                }
+            }
             if( Parent.GetCurItem() instanceof MGArray ) {
                 size += ((MGArray) Parent.GetCurItem()).GetNumMGs();
             }

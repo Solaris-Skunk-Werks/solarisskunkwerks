@@ -3552,7 +3552,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         boolean caseless = LegalCaseless( CurItem ) && CommonTools.IsAllowed( CaselessAmmoAC, CurMech );
         boolean lotchange = LegalLotChange( CurItem );
         boolean turreted = LegalTurretMount( CurItem );
-        boolean dumper = LegalDumper( CurItem );
+        boolean dumperCapable = LegalDumper( CurItem );
         mnuArmorComponent.setEnabled( armor );
         mnuAddCapacitor.setEnabled( cap );
         mnuAddInsulator.setEnabled( insul );
@@ -3565,7 +3565,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuCaseless.setVisible( caseless );
         mnuSetLotSize.setVisible( lotchange );
         mnuTurret.setVisible( turreted );
-        mnuDumper.setVisible( dumper );
+        mnuDumper.setVisible(dumperCapable );
         if( armor ) {
             if( CurItem.IsArmored() ) {
                 mnuArmorComponent.setText( "Unarmor Component" );
@@ -3578,6 +3578,29 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuTurret.setText( "Remove from Turret" );
             } else {
                 mnuTurret.setText( "Add to Turret");
+            }
+        }
+        if(dumperCapable){
+            if( CurItem instanceof Equipment ) {
+                if (((Equipment) CurItem).IsUsingDumper()) {
+                    Dumper dumper = ((Equipment) CurItem).GetDumper();
+                    switch (dumper.GetDumpDirection()){
+                        case "Back":
+                            mnuDumper.setText("Set Dumper Direction Front");
+                            break;
+                        case "Front":
+                            mnuDumper.setText("Set Dumper Direction Left");
+                            break;
+                        case "Left":
+                            mnuDumper.setText("Set Dumper Direction Right");
+                            break;
+                        case "Right":
+                        default:
+                            mnuDumper.setText("Remove Dumper");
+                    }
+                } else {
+                    mnuDumper.setText("Add Dumper");
+                }
             }
         }
         if( cap || insul || caseless || pulseModule) {
@@ -3928,9 +3951,55 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void DumperMount() {
         if ( CurItem instanceof Equipment ) {
-           
+           if (((Equipment) CurItem).IsUsingDumper() ) {
+               Dumper dumper =  ((Equipment) CurItem).GetDumper();
+               String dumpDirection = dumper.GetDumpDirection();
+               
+               switch (dumpDirection) {
+                   case "Back":
+                       dumper.SetDumpDirection("Front");
+                       break;
+                   case "Front":
+                       dumper.SetDumpDirection("Left");
+                       break;
+                   case "Left":
+                       dumper.SetDumpDirection("Right");
+                       break;
+                   case "Right":
+                   default:
+                       ((Equipment) CurItem).UseDumper(false);
+                       CurMech.GetLoadout().Remove( dumper );
+               }   
+           } else {
+                ((Equipment) CurItem).UseDumper( true );
+                abPlaceable p = ((Equipment) CurItem).GetDumper();
+                ((Equipment) CurItem).GetDumper().SetDumpDirection("Back");
+                LocationIndex Loc = CurMech.GetLoadout().FindIndex( CurItem );
+                if( Loc.Location != -1 ) {
+                    try {
+                        CurMech.GetLoadout().AddTo( CurMech.GetLoadout().GetCrits( Loc.Location ), p, Loc.Index + CurItem.NumCrits(), 1 );
+                    } catch( Exception e ) {
+                        // couldn't allocate the Module?  Unallocate the container.
+                        try {
+                            CurMech.GetLoadout().UnallocateAll( CurItem, false );
+                            // remove the dumper if it's in the queue
+                            //if( CurMech.GetLoadout().QueueContains( p ) ) {
+                            //    CurMech.GetLoadout().GetQueue().remove( p );
+                            //}
+                        } catch( Exception e1 ) {
+                            // failed big.  no problem
+                            Media.Messager( this, "Fatal error adding a Dumper:\n" + e.getMessage() + "\nThe Dumper will be removed." );
+                            ((Equipment) CurItem).UseDumper(false );
+                        }
+                    }
+                }
+            } 
+               
         }
+        RefreshSummary();
+        RefreshInfoPane();
     }
+    
 
     private void SwitchCaseless() {
         if( CurItem instanceof RangedWeapon ) {
@@ -4148,7 +4217,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     public boolean LegalDumper( abPlaceable p ) {
         if ( ! ( p instanceof Equipment ) ) { return false; }
-        if ( ( (Equipment)p).CritName().equals("Cargo Container") ) { return true; }
+        if ( ( (Equipment)p).CritName().toLowerCase().contains("cargo") ) { return true; }
         return false;
     }
 

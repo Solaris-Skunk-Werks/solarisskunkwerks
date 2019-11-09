@@ -31,6 +31,7 @@ package components;
 import java.util.ArrayList;
 
 public class Equipment extends abPlaceable {
+    private Dumper Dumper = null;
     private String ActualName,
                    CritName,
                    Type,
@@ -74,7 +75,8 @@ public class Equipment extends abPlaceable {
                     CanMountRear = false,
                     Explosive = false,
                     VariableSize = false,
-                    RequiresQuad = false;
+                    RequiresQuad = false,
+                    UsingDumper = false;
     private AvailableCode AC;
 
     public Equipment() {
@@ -221,6 +223,15 @@ public class Equipment extends abPlaceable {
         return ActualName;
     }
 
+    @Override
+    public void ArmorComponent(boolean armor) {
+        // armor or unarmor the component
+        Armored = armor;
+        if( UsingDumper ) {
+            Dumper.ArmorComponent( armor );
+        }
+    }
+    
     public String CritName() {
         String retval = CritName;
         if( VariableSize ) {
@@ -275,6 +286,7 @@ public class Equipment extends abPlaceable {
     }
 
     public int NumCVSpaces() {
+        if (UsingDumper) return CVSpace + GetDumper().NumCVSpaces();
         return CVSpace;
     }
 
@@ -284,15 +296,15 @@ public class Equipment extends abPlaceable {
     }
 
     public double GetTonnage(boolean IncludeArmored) {
-        if (IncludeArmored) {
-            if ( IsArmored() ) {
-                return Tonnage + ( NumCrits() * 0.5 );
-            } else {
-                return Tonnage;
-            }
-        } else {
-            return Tonnage;
+        double retval = Tonnage;
+        if (IncludeArmored && IsArmored()) {
+            retval +=  NumCrits() * 0.5;
         }
+        if (UsingDumper){
+            retval += Dumper.GetTonnage();
+        }
+        
+        return retval;       
     }
 
     @Override
@@ -553,5 +565,23 @@ public class Equipment extends abPlaceable {
     @Override
     public String toString() {
         return CritName();
+    }
+    
+    public boolean IsUsingDumper() {
+        return UsingDumper;
+    }
+
+    public Dumper GetDumper() {
+        return Dumper;
+    }
+    
+    public void UseDumper( boolean l ) {
+        if( l ) {
+            Dumper = new Dumper( this );
+            UsingDumper = true;
+        } else {
+            Dumper = null;
+            UsingDumper = false;
+        }
     }
 }
