@@ -105,7 +105,7 @@ public class stCockpitInterface implements ifCockpit, ifState {
     }
 
     public String BookReference() {
-        return "Jihad Final Reckoning";
+        return "Interstellar Operations";
     }
 
     public String GetReportName() {
