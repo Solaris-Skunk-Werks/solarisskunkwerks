@@ -35,7 +35,8 @@ public class PhysicalEnhancement extends abPlaceable {
                                        ISMASC = new stPEISMASC(),
                                        ISTSM = new stPEISTSM(),
                                        ISITSM = new stPEISITSM(),
-                                       CLMASC = new stPECLMASC();
+                                       CLMASC = new stPECLMASC(),
+                                       ISSCM = new stPEISSCM();
     private ifPhysEnhance CurConfig = None;
     private ifUnit Owner;
     private int Placed = 0;
@@ -68,6 +69,10 @@ public class PhysicalEnhancement extends abPlaceable {
 
     public void SetCLMASC() {
         CurConfig = CLMASC;
+    }
+    
+    public void setISSCM(){
+        CurConfig = ISSCM;
     }
 
     public int GetTechBase() {
@@ -236,7 +241,7 @@ public class PhysicalEnhancement extends abPlaceable {
 
     public ifState[] GetStates() {
         ifState[] retval = { (ifState) None,
-            (ifState) ISMASC, (ifState) ISTSM, (ifState) CLMASC, (ifState) ISITSM };
+            (ifState) ISMASC, (ifState) ISTSM, (ifState) CLMASC, (ifState) ISITSM, (ifState) ISSCM };
         return retval;
     }
 

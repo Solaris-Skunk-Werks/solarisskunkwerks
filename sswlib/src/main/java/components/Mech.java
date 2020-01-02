@@ -5471,6 +5471,7 @@ public class Mech implements ifUnit, ifBattleforce {
         Lookup.put( "(IS) MASC", new VEnhanceSetMASC() );
         Lookup.put( "(CL) MASC", new VEnhanceSetMASC() );
         Lookup.put( "TSM", new VEnhanceSetTSM() );
+        Lookup.put( "SCM", new VEnhanceSetSCM() );
         Lookup.put( "Industrial TSM", new VEnhanceSetITSM() );
         Lookup.put( "Single Heat Sink", new VHeatSinkSetSingle() );
         Lookup.put( "Double Heat Sink", new VHeatSinkSetDouble() );

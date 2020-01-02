@@ -60,6 +60,7 @@ public class MechModifier {
  * @param mindef Minimum Defensive Factor Modifier
  * @param amult Modifier to the armor multiplier, adder
  * @param imult Modifier to the internal structure multiplier, adder, usually the same as the armor mult
+ * @param BVHeat Whether this MechMod counts towards BV Heat
  * @param BVMove Whether this MechMod counts towards BV Movement (add for Modular Armor)
  */
     public MechModifier( int wadd, int radd, int jadd, double rmult, int gmod, int pmod, int heat, double def, double mindef, double amult, double imult, boolean BVMove, boolean BVHeat ) {

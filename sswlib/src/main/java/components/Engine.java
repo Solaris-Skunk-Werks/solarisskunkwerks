@@ -458,10 +458,14 @@ public class Engine extends abPlaceable {
     }
 
     public int MaxMovementHeat() {
+        if (Owner.GetPhysEnhance().GetCurrentState() instanceof stPEISSCM)
+            return 0;
         return CurConfig.MaxMovementHeat();
     }
 
     public int MinimumHeat() {
+        if (Owner.GetPhysEnhance().GetCurrentState() instanceof stPEISSCM)
+            return 0;
         return CurConfig.MinimumHeat();
     }
 
