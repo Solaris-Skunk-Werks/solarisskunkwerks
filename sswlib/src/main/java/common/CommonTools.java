@@ -761,7 +761,7 @@ public class CommonTools {
         s = s.replaceAll(" ", "%20");
         s = s.replaceAll("!", "%21");
         s = s.replaceAll("\"", "");
-        s = s.replaceAll("'", "");
+        s = s.replaceAll("'", "%27");
         s = s.replaceAll("[{(}]", "%28");
         s = s.replaceAll("[{)}]", "%29");
         s = s.replaceAll("[{;}]", "%3B");
