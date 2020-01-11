@@ -1747,7 +1747,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtProdYear.setMinimumSize(new java.awt.Dimension(60, 20));
         txtProdYear.setPreferredSize(new java.awt.Dimension(60, 20));
 
-        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "Late Succession War", "Clan Invasion", "Civil War", "Jihad", "Republic", "Dark Ages" }));
+        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "LSW - LosTech", "LSW - Renaissance", "Clan Invasion", "Civil War", "Jihad", "Early Republic", "Late Republic", "Dark Ages" }));
         cmbProductionEra.setMaximumSize(new java.awt.Dimension(90, 20));
         cmbProductionEra.setMinimumSize(new java.awt.Dimension(90, 20));
         cmbProductionEra.setPreferredSize(new java.awt.Dimension(90, 20));
@@ -1919,10 +1919,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             }
         });
         spnTonnage.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 spnTonnageInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -1968,10 +1968,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             }
         });
         spnHeatSinks.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 spnHeatSinksInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -2081,10 +2081,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             }
         });
         spnCruiseMP.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 spnCruiseMPInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -4179,7 +4179,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlEquipInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 544, Short.MAX_VALUE)
+                .addComponent(pnlEquipInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlEquipmentLayout.setVerticalGroup(
