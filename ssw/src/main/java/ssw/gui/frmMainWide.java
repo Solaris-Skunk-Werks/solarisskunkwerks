@@ -69,6 +69,9 @@ import Print.PrintConsts;
 import ssw.constants.SSWConstants;
 import gui.TextPane;
 
+import javax.swing.SwingUtilities;
+import list.view.tbQuirks;
+
 public class frmMainWide extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner, common.DesignForm, ifMechForm {
 
     String[] Selections = { "", "", "", "", "", "", "", "" };
@@ -126,6 +129,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     private Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
     // ImageIcon FluffImage = Utils.createImageIcon( SSWConstants.NO_IMAGE );
     public DataFactory data;
+    public ArrayList<Quirk> quirks = new ArrayList<Quirk>();
 
     private dlgPrintBatchMechs BatchWindow = null;
     private ImageTracker imageTracker = new ImageTracker();
@@ -5023,6 +5027,11 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         pnlVariants = new javax.swing.JPanel();
         pnlNotables = new javax.swing.JPanel();
         pnlAdditionalFluff = new javax.swing.JPanel();
+        pnlQuirks = new javax.swing.JPanel();
+        lblBattleMechQuirks = new javax.swing.JLabel();
+        scpQuirkTable = new javax.swing.JScrollPane();
+        tblQuirks = new javax.swing.JTable();
+        btnAddQuirk = new javax.swing.JButton();
         pnlExport = new javax.swing.JPanel();
         btnExportTXT = new javax.swing.JButton();
         btnExportHTML = new javax.swing.JButton();
@@ -9287,6 +9296,76 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
         pnlAdditionalFluff.setLayout(new javax.swing.BoxLayout(pnlAdditionalFluff, javax.swing.BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Additional", pnlAdditionalFluff);
+
+        lblBattleMechQuirks.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblBattleMechQuirks.setText("BattleMech Quirks");
+        lblBattleMechQuirks.setMaximumSize(new java.awt.Dimension(175, 15));
+        lblBattleMechQuirks.setMinimumSize(new java.awt.Dimension(175, 15));
+        lblBattleMechQuirks.setPreferredSize(new java.awt.Dimension(175, 15));
+
+        tblQuirks.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Quirk", "Cost"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblQuirks.setColumnSelectionAllowed(true);
+        tblQuirks.getTableHeader().setReorderingAllowed(false);
+        scpQuirkTable.setViewportView(tblQuirks);
+
+        btnAddQuirk.setText("Add Quirk");
+        btnAddQuirk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddQuirkActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlQuirksLayout = new javax.swing.GroupLayout(pnlQuirks);
+        pnlQuirks.setLayout(pnlQuirksLayout);
+        pnlQuirksLayout.setHorizontalGroup(
+            pnlQuirksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblBattleMechQuirks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(pnlQuirksLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlQuirksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlQuirksLayout.createSequentialGroup()
+                        .addGap(0, 365, Short.MAX_VALUE)
+                        .addComponent(btnAddQuirk))
+                    .addComponent(scpQuirkTable, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        pnlQuirksLayout.setVerticalGroup(
+            pnlQuirksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlQuirksLayout.createSequentialGroup()
+                .addComponent(lblBattleMechQuirks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scpQuirkTable, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAddQuirk)
+                .addContainerGap())
+        );
+
+        tbpFluffEditors.addTab("Quirks", pnlQuirks);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -14716,6 +14795,13 @@ private void cmbProductionEraActionPerformed(java.awt.event.ActionEvent evt) {//
     CurMech.SetProductionEra( cmbProductionEra.getSelectedIndex() );
 }//GEN-LAST:event_cmbProductionEraActionPerformed
 
+    private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddQuirkActionPerformed
+        dlgQuirks qmanage = new dlgQuirks(this, true, data, quirks);
+        qmanage.setLocationRelativeTo(this);
+        qmanage.setVisible(true);
+        tblQuirks.setModel(new tbQuirks(quirks));
+    }//GEN-LAST:event_btnAddQuirkActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -14730,6 +14816,7 @@ private void setViewToolbar(boolean Visible)
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddEquip;
+    private javax.swing.JButton btnAddQuirk;
     private javax.swing.JButton btnAddToForceList;
     private javax.swing.JButton btnAddVariant;
     private javax.swing.JButton btnArmorTons;
@@ -14968,6 +15055,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel lblBFShort;
     private javax.swing.JLabel lblBFStructure;
     private javax.swing.JLabel lblBFWt;
+    private javax.swing.JLabel lblBattleMechQuirks;
     private javax.swing.JLabel lblCTArmorHeader;
     private javax.swing.JLabel lblCTHeader;
     private javax.swing.JLabel lblCTIntPts;
@@ -15173,6 +15261,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel pnlOverview;
     private javax.swing.JPanel pnlPatchworkChoosers;
     private javax.swing.JPanel pnlPhysical;
+    private javax.swing.JPanel pnlQuirks;
     private javax.swing.JPanel pnlRAArmorBox;
     private javax.swing.JPanel pnlRACrits;
     private javax.swing.JPanel pnlRLArmorBox;
@@ -15184,6 +15273,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel pnlSpecials;
     private javax.swing.JPanel pnlVariants;
     private javax.swing.JPanel pnlWeaponsManufacturers;
+    private javax.swing.JScrollPane scpQuirkTable;
     private javax.swing.JScrollPane scpWeaponManufacturers;
     private javax.swing.JScrollPane scrLACrits;
     private javax.swing.JScrollPane scrRACrits;
@@ -15202,6 +15292,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JSpinner spnRTArmor;
     private javax.swing.JSpinner spnRTRArmor;
     private javax.swing.JSpinner spnWalkMP;
+    private javax.swing.JTable tblQuirks;
     private javax.swing.JTable tblWeaponManufacturers;
     private javax.swing.JTabbedPane tbpFluffEditors;
     private javax.swing.JTabbedPane tbpMainTabPane;
