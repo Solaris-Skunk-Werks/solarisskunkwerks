@@ -72,6 +72,8 @@ import ssw.printpreview.dlgPreview;
 import Print.PrintConsts;
 import ssw.constants.SSWConstants;
 import gui.TextPane;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import javax.swing.SwingUtilities;
 import list.view.tbQuirks;
@@ -14910,7 +14912,15 @@ private void chkRTTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_chkRTTurretActionPerformed
 
 private void mnuBFBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBFBActionPerformed
-    String[] call = { "java", "-Xmx256m", "-jar", "bfb.jar" };
+    File bfb = new File("BFB.jar");
+    if (!bfb.exists()) {
+        bfb = new File("bfb.jar");
+        if (!bfb.exists()) {
+            JOptionPane.showMessageDialog(new JFrame(), "Error while trying to open BFB: Could not find file \"BFB.jar\".\n\n");
+            return;
+        }
+    }
+    String[] call = { "java", "-Xmx256m", "-jar", bfb.getName() };
     try {
         Runtime.getRuntime().exec(call);
     } catch (Exception ex) {
