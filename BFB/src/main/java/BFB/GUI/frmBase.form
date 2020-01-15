@@ -271,6 +271,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Select Units List"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jMenuItem2.setVisible(false);"/>
+              </AuxValues>
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="jMenu6">
               <Properties>

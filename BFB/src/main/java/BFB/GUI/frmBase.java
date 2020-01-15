@@ -3249,6 +3249,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         jMenu5.setText("View");
 
         jMenuItem2.setText("Select Units List");
+        jMenuItem2.setVisible(false);
         jMenu5.add(jMenuItem2);
 
         jMenu6.setText("Force List");
