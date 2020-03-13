@@ -2609,7 +2609,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlSummary.add(txtSumRTuAV, gridBagConstraints);
 
-        jLabel26.setText("Sponsoons:");
+        jLabel26.setText("Sponsons:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
@@ -5491,7 +5491,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         list.add("No Turret");
         if ( CurVee.CanUseTurret() ) list.add("Single Turret");
         if ( CurVee.CanUseDualTurret() ) list.add("Dual Turret");
-        if ( CurVee.CanUseSponsoon() ) list.add("Sponson Turret");
+        if ( CurVee.CanUseSponson() ) list.add("Sponson Turret");
 
         if ( list.isEmpty() ) {
             list.add("No Turret Allowed");

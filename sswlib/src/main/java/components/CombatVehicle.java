@@ -106,7 +106,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     private static AvailableCode OmniAvailable = new AvailableCode( AvailableCode.TECH_BOTH ),
                                  DualTurretAC = new AvailableCode( AvailableCode.TECH_BOTH ),
                                  ChinTurretAC = new AvailableCode( AvailableCode.TECH_BOTH ),
-                                 SponsoonAC = new AvailableCode( AvailableCode.TECH_BOTH );
+                                 SponsonAC = new AvailableCode( AvailableCode.TECH_BOTH );
     private Preferences Prefs;
     private BattleForceData BFData;
     private MultiSlotSystem BlueShield,
@@ -134,11 +134,11 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         ChinTurretAC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
         ChinTurretAC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
 
-        SponsoonAC.SetCodes( 'B', 'F', 'F', 'F', 'D', 'B', 'F', 'F', 'F', 'D' );
-        SponsoonAC.SetFactions( "", "", "PS", "", "", "", "PS", "" );
-        SponsoonAC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
-        SponsoonAC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
-        SponsoonAC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        SponsonAC.SetCodes( 'B', 'F', 'F', 'F', 'D', 'B', 'F', 'F', 'F', 'D' );
+        SponsonAC.SetFactions( "", "", "PS", "", "", "", "PS", "" );
+        SponsonAC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
+        SponsonAC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
+        SponsonAC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
 
         AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
         AC.SetISCodes( 'E', 'X', 'X', 'F', 'F' );
@@ -328,8 +328,8 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         return false;
     }
 
-    public boolean CanUseSponsoon() {
-        if( CommonTools.IsAllowed( SponsoonAC,this) ) { return true; }
+    public boolean CanUseSponson() {
+        if( CommonTools.IsAllowed( SponsonAC,this) ) { return true; }
         return false;
     }
 
