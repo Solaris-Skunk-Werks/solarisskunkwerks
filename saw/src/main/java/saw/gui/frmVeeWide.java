@@ -5172,6 +5172,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtTurretInfo.setText("Turret: " + CurVee.GetLoadout().GetTurret().GetTonnage() );
         txtSumRTuTons.setText("" + CurVee.GetLoadout().GetRearTurret().GetTonnage() );
         txtSumRTuAV.setText( CurVee.GetLoadout().GetRearTurret().GetAvailability().GetBestCombinedCode() );
+        txtSumSpnTons.setText("" + CurVee.GetLoadout().GetSponsonTurretTonnage() );
         lblFreeHeatSinks.setText("" + CurVee.GetEngine().FreeHeatSinks() );
         lblNumCrew.setText("" + CurVee.GetCrew() );
 
@@ -5328,7 +5329,11 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         ArrayList locs = new ArrayList();
         locs.add("Front");
         locs.add("Left");
+        if ( CurVee.isHasSponsonTurret() )
+            locs.add("Left Sponson Turret");
         locs.add("Right");
+        if ( CurVee.isHasSponsonTurret() )
+            locs.add("Right Sponson Turret");
         locs.add("Rear");
         locs.add("Body");
         if ( CurVee.isHasTurret1() )
@@ -9766,7 +9771,12 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     }//GEN-LAST:event_cmbLocationMouseClicked
 
     private void chkSponsonTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSponsonTurretActionPerformed
-        // TODO add your handling code here:
+        if (chkSponsonTurret.isSelected())
+            CurVee.setHasSponsonTurret(true);
+        else
+            CurVee.setHasSponsonTurret(false);
+        RefreshSelectedEquipment();
+        BuildLocationSelector();
     }//GEN-LAST:event_chkSponsonTurretActionPerformed
     
     private PagePrinter SetupPrinter() {

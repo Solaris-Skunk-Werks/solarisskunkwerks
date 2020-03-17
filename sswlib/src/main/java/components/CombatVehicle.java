@@ -76,6 +76,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
                     HasBlueShield = false,
                     HasTurret1 = false,
                     HasTurret2 = false,
+                    HasSponsonTurret = false,
                     HasPowerAmplifier = false,
                     UsingFlotationHull = false,
                     UsingLimitedAmphibious = false,
@@ -414,6 +415,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         result += CurLoadout.GetPowerAmplifier().GetTonnage();
         if ( isHasTurret1() ) result += CurLoadout.GetTurretTonnage();
         if ( isHasTurret2() ) result += CurLoadout.GetRearTurretTonnage();
+        if ( isHasSponsonTurret() ) result += CurLoadout.GetSponsonTurretTonnage();
         result += GetLimitedAmphibiousTonnage();
         result += GetFullAmphibiousTonnage();
         result += GetEnvironmentalSealingTonnage();
@@ -1395,6 +1397,20 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         }
     }
 
+    public boolean isHasSponsonTurret() {
+        return HasSponsonTurret;
+    }
+
+    public void setHasSponsonTurret(boolean HasSponsonTurret) {
+        this.HasSponsonTurret = HasSponsonTurret;
+        //Move any weapons/equipment that was in the turret to another location
+        if (!HasSponsonTurret) {
+            GetLoadout().SetSponsonTurretLeftItems(new ArrayList<abPlaceable>());
+            GetLoadout().SetSponsonTurretRightItems(new ArrayList<abPlaceable>());
+            GetLoadout().RefreshHeatSinks();
+        }
+    }
+
     public Engine getCurEngine() {
         return CurEngine;
     }
@@ -2174,6 +2190,8 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         Locations.add(CurLoadout.GetRightItems());
         Locations.add(CurLoadout.GetTurret1Items());
         Locations.add(CurLoadout.GetTurret2Items());
+        Locations.add(CurLoadout.GetSponsonTurretLeftItems());
+        Locations.add(CurLoadout.GetSponsonTurretRightItems());
         
         // is it even worth performing all this?
         if( CurLoadout.GetNonCore().size() <= 0 ) {
