@@ -70,7 +70,7 @@ public class CVCostBVBreakdown {
         if ( CurUnit.isHasTurret2() )
             retval += String.format( "%1$-43s %2$,6.0f    %3$,6.0f    %4$,16.2f", "Rear Turret", CurUnit.GetLoadout().GetRearTurret().GetDefensiveBV(), CurUnit.GetLoadout().GetRearTurret().GetOffensiveBV(), CurUnit.GetLoadout().GetRearTurret().GetCost() ) + NL;
         if ( CurUnit.isHasSponsonTurret() ) {
-            retval += String.format( "%1$-43s %2$,6.0f    %3$,6.0f    %4$,16.2f", "Sponson Turret", CurUnit.GetLoadout().GetSponsonTurretLeft().GetDefensiveBV(), CurUnit.GetLoadout().GetSponsonTurretLeft().GetOffensiveBV(), CurUnit.GetLoadout().GetSponsonTurretCost() ) + NL;
+            retval += String.format( "%1$-43s %2$,6.0f    %3$,6.0f    %4$,16.2f", "Sponson Turret", 0.0, 0.0, CurUnit.GetLoadout().GetSponsonTurretCost() ) + NL; // Sponsons don't directly contribute to BV
         }
         retval += NL;
         retval += GetEquipmentCostLines();
