@@ -1075,6 +1075,10 @@ public class FileCommon {
             return LocationIndex.CV_LOC_TURRET2;
         } else if( s.equals( "Rotor" ) ) {
             return LocationIndex.CV_LOC_ROTOR;
+        } else if( s.equals( "Left Sponson Turret" ) ) {
+            return LocationIndex.CV_LOC_SPONSON_LEFT;
+        } else if( s.equals( "Right Sponson Turret" ) ) {
+            return LocationIndex.CV_LOC_SPONSON_RIGHT;
         } else {
             return -1;
         }

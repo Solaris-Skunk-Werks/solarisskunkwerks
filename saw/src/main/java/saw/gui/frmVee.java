@@ -8885,6 +8885,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         BuildArmorSelector();
         BuildTurretSelector();
         BuildExpEquipmentSelector();
+        if (CurVee.isHasSponsonTurret())
+            chkSponsonTurret.setSelected(true);
         cmbEngineType.setSelectedItem( BuildLookupName( CurVee.GetEngine().GetCurrentState() ) );
         cmbArmorType.setSelectedItem( BuildLookupName( CurVee.GetArmor().GetCurrentState() ) );
         SetPatchworkArmor();

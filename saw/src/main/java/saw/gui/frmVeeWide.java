@@ -7094,6 +7094,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         BuildArmorSelector();
         BuildTurretSelector();
         BuildExpEquipmentSelector();
+        if (CurVee.isHasSponsonTurret())
+            chkSponsonTurret.setSelected(true);
         cmbEngineType.setSelectedItem( BuildLookupName( CurVee.GetEngine().GetCurrentState() ) );
         cmbArmorType.setSelectedItem( BuildLookupName( CurVee.GetArmor().GetCurrentState() ) );
         SetPatchworkArmor();
