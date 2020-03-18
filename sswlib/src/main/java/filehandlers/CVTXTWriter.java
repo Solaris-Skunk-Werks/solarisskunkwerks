@@ -232,6 +232,9 @@ public class CVTXTWriter {
             retval += String.format( "Turret:             %1$-28s %2$-8s                %3" + tformat, "", "", CurVee.GetLoadout().GetTurret().GetTonnage() ) + NL;
         if ( CurVee.isHasTurret2() ) 
             retval += String.format( "Rear Turret:        %1$-28s %2$-8s                %3" + tformat, "", "", CurVee.GetLoadout().GetRearTurret().GetTonnage() ) + NL;
+        if ( CurVee.isHasSponsonTurret() ) {
+            retval += String.format( "Sponson Turret:        %1$-28s %2$-8s                %3" + tformat, "", "", CurVee.GetLoadout().GetSponsonTurretTonnage() ) + NL;
+        }
         if( CurVee.GetArmor().GetBAR() < 10 ) {
             retval += String.format( "Armor:              %1$-28s AV - %2$3s                %3" + tformat, CurVee.GetArmor().CritName() + " (BAR: " + CurVee.GetArmor().GetBAR() +")", CurVee.GetArmor().GetArmorValue(), CurVee.GetArmor().GetTonnage() ) + NL;
         } else {

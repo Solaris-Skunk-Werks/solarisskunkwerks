@@ -521,6 +521,9 @@ public class CVReader {
                         eType = nl.item( j ).getTextContent();
                     } else if( nl.item( j ).getNodeName().equals( "location" ) ) {
                         l = DecodeLocation( nl.item( j ) );
+                        if (l.Location == LocationIndex.CV_LOC_SPONSON_LEFT|| l.Location == LocationIndex.CV_LOC_SPONSON_RIGHT) {
+                            m.setHasSponsonTurret(true);
+                        }
                     } else if( nl.item( j ).getNodeName().equals( "splitlocation" ) ) {
                         splitLoc.add( DecodeLocation( nl.item( j ) ) );
                     } else if( nl.item( j ).getNodeName().equals( "vglarc" ) ) {

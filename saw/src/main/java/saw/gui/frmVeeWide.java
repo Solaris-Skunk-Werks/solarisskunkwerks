@@ -1121,6 +1121,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         chkMinesweeper = new javax.swing.JCheckBox();
         chkJetBooster = new javax.swing.JCheckBox();
         chkSupercharger = new javax.swing.JCheckBox();
+        chkSponsonTurret = new javax.swing.JCheckBox();
         jPanel11 = new javax.swing.JPanel();
         chkFractional = new javax.swing.JCheckBox();
         pnlSummary = new javax.swing.JPanel();
@@ -1919,10 +1920,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             }
         });
         spnTonnage.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 spnTonnageInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -1968,10 +1969,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             }
         });
         spnHeatSinks.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 spnHeatSinksInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -2081,10 +2082,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             }
         });
         spnCruiseMP.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 spnCruiseMPInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -2239,6 +2240,15 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             }
         });
 
+        chkSponsonTurret.setText("Sponson Turret");
+        chkSponsonTurret.setEnabled(false);
+        chkSponsonTurret.setNextFocusableComponent(chkFractional);
+        chkSponsonTurret.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSponsonTurretActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlExperimentalLayout = new javax.swing.GroupLayout(pnlExperimental);
         pnlExperimental.setLayout(pnlExperimentalLayout);
         pnlExperimentalLayout.setHorizontalGroup(
@@ -2250,7 +2260,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                     .addComponent(chkJetBooster)
                     .addComponent(chkMinesweeper)
                     .addComponent(chkCommandConsole)
-                    .addComponent(chkEscapePod))
+                    .addComponent(chkEscapePod)
+                    .addComponent(chkSponsonTurret))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlExperimentalLayout.setVerticalGroup(
@@ -2267,6 +2278,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 .addComponent(chkJetBooster)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkEscapePod)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkSponsonTurret)
                 .addContainerGap())
         );
 
@@ -2609,7 +2622,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlSummary.add(txtSumRTuAV, gridBagConstraints);
 
-        jLabel26.setText("Sponsoons:");
+        jLabel26.setText("Sponsons:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
@@ -4179,7 +4192,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlEquipInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                .addComponent(pnlEquipInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 544, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlEquipmentLayout.setVerticalGroup(
@@ -5159,6 +5172,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtTurretInfo.setText("Turret: " + CurVee.GetLoadout().GetTurret().GetTonnage() );
         txtSumRTuTons.setText("" + CurVee.GetLoadout().GetRearTurret().GetTonnage() );
         txtSumRTuAV.setText( CurVee.GetLoadout().GetRearTurret().GetAvailability().GetBestCombinedCode() );
+        txtSumSpnTons.setText("" + CurVee.GetLoadout().GetSponsonTurretTonnage() );
         lblFreeHeatSinks.setText("" + CurVee.GetEngine().FreeHeatSinks() );
         lblNumCrew.setText("" + CurVee.GetCrew() );
 
@@ -5315,7 +5329,11 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         ArrayList locs = new ArrayList();
         locs.add("Front");
         locs.add("Left");
+        if ( CurVee.isHasSponsonTurret() )
+            locs.add("Left Sponson Turret");
         locs.add("Right");
+        if ( CurVee.isHasSponsonTurret() )
+            locs.add("Right Sponson Turret");
         locs.add("Rear");
         locs.add("Body");
         if ( CurVee.isHasTurret1() )
@@ -5491,7 +5509,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         list.add("No Turret");
         if ( CurVee.CanUseTurret() ) list.add("Single Turret");
         if ( CurVee.CanUseDualTurret() ) list.add("Dual Turret");
-        if ( CurVee.CanUseSponsoon() ) list.add("Sponson Turret");
 
         if ( list.isEmpty() ) {
             list.add("No Turret Allowed");
@@ -5547,6 +5564,24 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             chkDuneBuggy.setEnabled(false);
             chkEnviroSealing.setEnabled(false);
         }
+    }
+    
+        private void BuildExpEquipmentSelector() {
+        JCheckBox[] ExpEquipmentCheckboxes = { chkArmoredMotive,
+                                               chkSupercharger,
+                                               chkCommandConsole,
+                                               chkMinesweeper,
+                                               chkJetBooster,
+                                               chkEscapePod,
+                                               chkSponsonTurret };
+        if (cmbRulesLevel.getSelectedIndex() > 1) {
+            if (CurVee.CanUseSponson())
+                chkSponsonTurret.setEnabled(true);
+        } else
+            for (JCheckBox item : ExpEquipmentCheckboxes) {
+                item.setSelected(false);
+                item.setEnabled(false);
+            }
     }
 
     private void ShowInfoOn( abPlaceable p ) {
@@ -6192,6 +6227,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         BuildChassisSelector();
         BuildEngineSelector();
         BuildArmorSelector();
+        BuildExpEquipmentSelector();
         CheckOmni();
         //cmbEngineType.setSelectedItem( saw.Constants.DEFAULT_ENGINE );
         //cmbArmorType.setSelectedItem( saw.Constants.DEFAULT_ARMOR );
@@ -7057,6 +7093,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         BuildEngineSelector();
         BuildArmorSelector();
         BuildTurretSelector();
+        BuildExpEquipmentSelector();
+        if (CurVee.isHasSponsonTurret())
+            chkSponsonTurret.setSelected(true);
         cmbEngineType.setSelectedItem( BuildLookupName( CurVee.GetEngine().GetCurrentState() ) );
         cmbArmorType.setSelectedItem( BuildLookupName( CurVee.GetArmor().GetCurrentState() ) );
         SetPatchworkArmor();
@@ -9707,6 +9746,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             BuildChassisSelector();
             BuildEngineSelector();
             BuildArmorSelector();
+            BuildExpEquipmentSelector();
             FixMPSpinner();
             FixJJSpinnerModel();
             RefreshEquipment();
@@ -9733,6 +9773,15 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         if ( evt.getClickCount() == 2 )
             btnAddEquipActionPerformed(null);
     }//GEN-LAST:event_cmbLocationMouseClicked
+
+    private void chkSponsonTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSponsonTurretActionPerformed
+        if (chkSponsonTurret.isSelected())
+            CurVee.setHasSponsonTurret(true);
+        else
+            CurVee.setHasSponsonTurret(false);
+        RefreshSelectedEquipment();
+        BuildLocationSelector();
+    }//GEN-LAST:event_chkSponsonTurretActionPerformed
     
     private PagePrinter SetupPrinter() {
         PagePrinter printer = new PagePrinter();
@@ -9865,6 +9914,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JCheckBox chkLimitedAmph;
     private javax.swing.JCheckBox chkMinesweeper;
     private javax.swing.JCheckBox chkOmniVee;
+    private javax.swing.JCheckBox chkSponsonTurret;
     private javax.swing.JCheckBox chkSupercharger;
     private javax.swing.JCheckBox chkTrailer;
     private javax.swing.JCheckBox chkUseTC;

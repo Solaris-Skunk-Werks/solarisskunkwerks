@@ -69,6 +69,9 @@ public class CVCostBVBreakdown {
             retval += String.format( "%1$-43s %2$,6.0f    %3$,6.0f    %4$,16.2f", "Turret", CurUnit.GetLoadout().GetTurret().GetDefensiveBV(), CurUnit.GetLoadout().GetTurret().GetOffensiveBV(), CurUnit.GetLoadout().GetTurret().GetCost() ) + NL;
         if ( CurUnit.isHasTurret2() )
             retval += String.format( "%1$-43s %2$,6.0f    %3$,6.0f    %4$,16.2f", "Rear Turret", CurUnit.GetLoadout().GetRearTurret().GetDefensiveBV(), CurUnit.GetLoadout().GetRearTurret().GetOffensiveBV(), CurUnit.GetLoadout().GetRearTurret().GetCost() ) + NL;
+        if ( CurUnit.isHasSponsonTurret() ) {
+            retval += String.format( "%1$-43s %2$,6.0f    %3$,6.0f    %4$,16.2f", "Sponson Turret", 0.0, 0.0, CurUnit.GetLoadout().GetSponsonTurretCost() ) + NL; // Sponsons don't directly contribute to BV
+        }
         retval += NL;
         retval += GetEquipmentCostLines();
         retval += NL;
@@ -173,6 +176,8 @@ public class CVCostBVBreakdown {
         Locations.add(CurUnit.GetLoadout().GetRightItems());
         Locations.add(CurUnit.GetLoadout().GetTurret1Items());
         Locations.add(CurUnit.GetLoadout().GetTurret2Items());
+        Locations.add(CurUnit.GetLoadout().GetSponsonTurretLeftItems());
+        Locations.add(CurUnit.GetLoadout().GetSponsonTurretRightItems());
         
         // is it even worth performing all this?
         if( CurUnit.GetLoadout().GetNonCore().size() <= 0 ) {
