@@ -148,6 +148,8 @@ public class stEnginePrimitiveFuelCell implements ifEngine, ifState {
         return false;
     }
 
+    public boolean IsFission() { return false; }
+
     public int GetFullCrits() {
         return 6;
     }

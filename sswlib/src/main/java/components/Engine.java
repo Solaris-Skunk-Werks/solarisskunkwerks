@@ -160,7 +160,7 @@ public class Engine extends abPlaceable {
         if( IsArmored() ) {
             return CurConfig.GetTonnage( EngineRating, Owner.UsingFractionalAccounting() ) + ReportCrits() * 0.5;
         } else {
-            if( Owner.GetUnitType() == AvailableCode.UNIT_COMBATVEHICLE && IsFusion() ) {
+            if( Owner.GetUnitType() == AvailableCode.UNIT_COMBATVEHICLE && (IsFusion() || IsFission())) {
                 double retval = CurConfig.GetTonnage( EngineRating, Owner.UsingFractionalAccounting() );
                 if( Owner.UsingFractionalAccounting() ) {
                     return retval * 1.5;
@@ -440,6 +440,8 @@ public class Engine extends abPlaceable {
     public boolean IsFusion() {
         return CurConfig.IsFusion();
     }
+
+    public boolean IsFission() { return CurConfig.IsFission(); }
 
     public boolean IsNuclear() {
         return CurConfig.IsNuclear();
