@@ -32,7 +32,7 @@ file wherever you want to install it.
 These tasks can also be ran directly from Intellij IDEA and Netbeans by selecting the task from the Gradle tasks section
 of the UI:
 
-![IDEA Gradle Build Tasks][Docs/IDEA-build-tasks.png]
+![IDEA Gradle Build Tasks](Docs/IDEA-build-tasks.png)
 
 ### Development
 To build and run SSW directly from the command line during development:
@@ -47,11 +47,11 @@ Note that all gradle tasks can also be ran directly from the IDE if you aren't c
 Netbeans 11, the gradle tasks appear in the bottom left portion of the screen. In Intellij, the gradle menu should be in
 the top right:
 
-![IDEA Run Tasks][Docs/IDEA-run-tasks.png]
+![IDEA Run Tasks](Docs/IDEA-run-tasks.png)
 
 After you run a subproject using the gradle menu once, it will appear at the top of the screen for easier access later:
 
-![IDEA Quick Menu][Docs/IDEA-quick-run-tasks.png]
+![IDEA Quick Menu](Docs/IDEA-quick-run-tasks.png)
 
 To debug in IDEA, first run the target application once using the gradle menu as shown above. After it appears in the quick menu
 at the top, click the debug icon. Debugging in Netbeans is similarly straightforward.
