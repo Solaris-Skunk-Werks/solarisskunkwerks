@@ -6894,6 +6894,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         BuildChassisSelector();
         BuildEngineSelector();
         BuildArmorSelector();
+        BuildExpEquipmentSelector();
         CheckOmni();
         //cmbEngineType.setSelectedItem( saw.Constants.DEFAULT_ENGINE );
         //cmbArmorType.setSelectedItem( saw.Constants.DEFAULT_ARMOR );
@@ -8883,6 +8884,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         BuildEngineSelector();
         BuildArmorSelector();
         BuildTurretSelector();
+        BuildExpEquipmentSelector();
         cmbEngineType.setSelectedItem( BuildLookupName( CurVee.GetEngine().GetCurrentState() ) );
         cmbArmorType.setSelectedItem( BuildLookupName( CurVee.GetArmor().GetCurrentState() ) );
         SetPatchworkArmor();
