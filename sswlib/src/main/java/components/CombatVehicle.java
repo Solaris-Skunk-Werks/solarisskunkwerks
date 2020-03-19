@@ -395,7 +395,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     
     public double GetDryCost() {
         // returns the total cost of the mech without ammunition
-        return (GetEquipCost() + GetChassisCost()) * GetCostMult() * GetConfigMultiplier();
+        return (GetEquipCost() + CurLoadout.GetSponsonTurretCost() + GetChassisCost()) * GetCostMult() * GetConfigMultiplier();
     }
     
     public double GetConfigMultiplier() {
