@@ -87,10 +87,12 @@ public class Unit implements ifSerializable {
     public Mech m = null;
     public CombatVehicle v = null;
     private BattleForceStats BFStats = new BattleForceStats();
-    private Preferences Prefs;
+    private Preferences sswPrefs;
+    private Preferences bfbPrefs;
 
     public Unit(){
-        Prefs = Preferences.userRoot().node( Constants.SSWPrefs );
+        sswPrefs = Preferences.userRoot().node( Constants.SSWPrefs );
+        bfbPrefs = Preferences.userRoot().node( Constants.BFBPrefs );
     }
 
     public Unit( UnitListData m ) {
@@ -630,7 +632,12 @@ public class Unit implements ifSerializable {
 
     private void LoadMech() throws Exception {
         MechReader reader = new MechReader();
-        this.m = reader.ReadMech( Prefs.get("ListPath", Prefs.get( "LastOpenDirectory", "" ) ) + this.Filename );
+        String baseDirectory = sswPrefs.get("ListPath", "");
+        if (baseDirectory.isEmpty())
+            baseDirectory = bfbPrefs.get("ListPath", "");
+        if (baseDirectory.isEmpty())
+            throw new Exception("could not read SSW preferences");
+        this.m = reader.ReadMech( baseDirectory + this.Filename );
         if ( ! this.Configuration.isEmpty() ) {
             this.m.SetCurLoadout(this.Configuration.trim());
         }
@@ -684,7 +691,12 @@ public class Unit implements ifSerializable {
     
     private void LoadVehicle() throws Exception {
         CVReader reader = new CVReader();
-        this.v = reader.ReadUnit( Prefs.get("ListPath", Prefs.get( "LastOpenDirectory", "" ) ) + this.Filename );
+        String baseDirectory = sswPrefs.get("ListPath", "");
+        if (baseDirectory.isEmpty())
+            baseDirectory = bfbPrefs.get("ListPath", "");
+        if (baseDirectory.isEmpty())
+            throw new Exception("could not read SSW preferences");
+        this.v = reader.ReadUnit( baseDirectory + this.Filename );
         if ( ! this.Configuration.isEmpty() ) {
             this.v.SetCurLoadout(this.Configuration.trim());
         }
