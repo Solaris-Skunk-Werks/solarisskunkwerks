@@ -273,7 +273,8 @@ public class PrintMech implements Printable {
         start.x -= 3;
         start.y -= 6;
         if ( printMech ) {
-            MechImage = imageTracker.media.GetImage(imageTracker.media.DetermineMatchingImage(CurMech.GetName(), CurMech.GetModel(), CurMech.GetSSWImage()));
+            if (MechImage == null) // fallback to fluff image if user didn't explicitly choose a TRO pic in the print dialog
+                MechImage = imageTracker.media.GetImage(imageTracker.media.DetermineMatchingImage(CurMech.GetName(), CurMech.GetModel(), CurMech.GetSSWImage()));
             if( MechImage != null ) {
                 //graphics.drawRect(start.x, start.y, 150, 210);
                 Dimension d = imageTracker.media.reSize(getMechImage(), 150, 210);
