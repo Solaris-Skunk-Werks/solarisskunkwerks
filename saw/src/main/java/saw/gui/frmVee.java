@@ -5637,7 +5637,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private void BuildTurretSelector()
     {
         ArrayList list = new ArrayList();
-        String curTurret = cmbTurret.getSelectedItem().toString();
 
         if ( !CurVee.IsOmni())
             cmbTurret.setEnabled(true);
@@ -5659,8 +5658,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // now set the turret chooser
         cmbTurret.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
-
-        cmbTurret.setSelectedItem(curTurret);
+        if (CurVee.isHasTurret2())
+            cmbTurret.setSelectedItem("Dual Turret");
+        else if (CurVee.isHasTurret1())
+            cmbTurret.setSelectedItem("Single Turret");
+        else
+            cmbTurret.setSelectedItem("No Turret");
     }
 
     private void BuildChassisSelector()
