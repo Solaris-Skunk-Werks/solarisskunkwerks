@@ -1385,6 +1385,8 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         }
         tblMechData.setModel(currentView);
         currentView.setupTable(tblMechData);
+        //Could call setupList here but calling filter allows for filter to presist between selections.
+        Filter(null);
     }//GEN-LAST:event_cmbViewActionPerformed
 
     private void txtNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyReleased
