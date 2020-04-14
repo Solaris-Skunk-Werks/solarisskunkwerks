@@ -11017,6 +11017,8 @@ public void LoadMechIntoGUI() {
     Variants.SetText( CurMech.GetVariants() );
     Notables.SetText( CurMech.GetNotables() );
     Additional.SetText( CurMech.GetAdditional() );
+    quirks = CurMech.GetQuirks();
+    tblQuirks.setModel(new tbQuirks(quirks));
     txtManufacturer.setText( CurMech.GetCompany() );
     txtManufacturerLocation.setText( CurMech.GetLocation() );
     txtEngineManufacturer.setText( CurMech.GetEngineManufacturer() );
