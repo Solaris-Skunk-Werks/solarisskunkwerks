@@ -72,6 +72,8 @@ import ssw.printpreview.dlgPreview;
 import Print.PrintConsts;
 import ssw.constants.SSWConstants;
 import gui.TextPane;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import javax.swing.SwingUtilities;
 import list.view.tbQuirks;
@@ -5777,7 +5779,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlBasicInformation.add(jSeparator28, new java.awt.GridBagConstraints());
         pnlBasicInformation.add(jSeparator29, new java.awt.GridBagConstraints());
 
-        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "Late Succession War", "Clan Invasion", "Civil War", "Jihad", "Republic", "Dark Ages" }));
+        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "LSW - LosTech", "LSW - Renaissance", "Clan Invasion", "Civil War", "Jihad", "Early Republic", "Late Republic", "Dark Ages" }));
         cmbProductionEra.setMaximumSize(new java.awt.Dimension(90, 20));
         cmbProductionEra.setMinimumSize(new java.awt.Dimension(90, 20));
         cmbProductionEra.setPreferredSize(new java.awt.Dimension(90, 20));
@@ -13804,6 +13806,8 @@ public void LoadMechIntoGUI() {
     Variants.SetText( CurMech.GetVariants() );
     Notables.SetText( CurMech.GetNotables() );
     Additional.SetText( CurMech.GetAdditional() );
+    quirks = CurMech.GetQuirks();
+    tblQuirks.setModel( new tbQuirks(quirks) );
     txtManufacturer.setText( CurMech.GetCompany() );
     txtManufacturerLocation.setText( CurMech.GetLocation() );
     txtEngineManufacturer.setText( CurMech.GetEngineManufacturer() );
@@ -14979,7 +14983,15 @@ private void chkRTTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_chkRTTurretActionPerformed
 
 private void mnuBFBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBFBActionPerformed
-    String[] call = { "java", "-Xmx256m", "-jar", "bfb.jar" };
+    File bfb = new File("BFB.jar");
+    if (!bfb.exists()) {
+        bfb = new File("bfb.jar");
+        if (!bfb.exists()) {
+            JOptionPane.showMessageDialog(new JFrame(), "Error while trying to open BFB: Could not find file \"BFB.jar\".\n\n");
+            return;
+        }
+    }
+    String[] call = { "java", "-Xmx256m", "-jar", bfb.getName() };
     try {
         Runtime.getRuntime().exec(call);
     } catch (Exception ex) {

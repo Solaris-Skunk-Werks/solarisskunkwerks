@@ -1130,6 +1130,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkMinesweeper = new javax.swing.JCheckBox();
         chkJetBooster = new javax.swing.JCheckBox();
         chkSupercharger = new javax.swing.JCheckBox();
+        chkSponsonTurret = new javax.swing.JCheckBox();
         jPanel11 = new javax.swing.JPanel();
         chkFractional = new javax.swing.JCheckBox();
         pnlSummary = new javax.swing.JPanel();
@@ -1758,7 +1759,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtProdYear.setMinimumSize(new java.awt.Dimension(60, 20));
         txtProdYear.setPreferredSize(new java.awt.Dimension(60, 20));
 
-        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "Late Succession War", "Clan Invasion", "Civil War", "Jihad", "Republic", "Dark Ages" }));
+        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "LSW - LosTech", "LSW - Renaissance", "Clan Invasion", "Civil War", "Jihad", "Early Republic", "Late Republic", "Dark Ages" }));
         cmbProductionEra.setMaximumSize(new java.awt.Dimension(90, 20));
         cmbProductionEra.setMinimumSize(new java.awt.Dimension(90, 20));
         cmbProductionEra.setPreferredSize(new java.awt.Dimension(90, 20));
@@ -2235,6 +2236,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkEscapePod.setText("Combat Vehicle Escape Pod");
         chkEscapePod.setEnabled(false);
         chkEscapePod.setNextFocusableComponent(chkFractional);
+        chkEscapePod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkEscapePodActionPerformed(evt);
+            }
+        });
 
         chkMinesweeper.setText("Minesweeper");
         chkMinesweeper.setEnabled(false);
@@ -2250,6 +2256,15 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
         });
 
+        chkSponsonTurret.setText("Sponson Turret");
+        chkSponsonTurret.setEnabled(false);
+        chkSponsonTurret.setNextFocusableComponent(chkFractional);
+        chkSponsonTurret.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSponsonTurretActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlExperimentalLayout = new javax.swing.GroupLayout(pnlExperimental);
         pnlExperimental.setLayout(pnlExperimentalLayout);
         pnlExperimentalLayout.setHorizontalGroup(
@@ -2261,7 +2276,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                     .addComponent(chkJetBooster)
                     .addComponent(chkMinesweeper)
                     .addComponent(chkCommandConsole)
-                    .addComponent(chkEscapePod))
+                    .addComponent(chkEscapePod)
+                    .addComponent(chkSponsonTurret))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlExperimentalLayout.setVerticalGroup(
@@ -2278,6 +2294,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 .addComponent(chkJetBooster)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkEscapePod)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkSponsonTurret)
                 .addContainerGap())
         );
 
@@ -2620,7 +2638,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlSummary.add(txtSumRTuAV, gridBagConstraints);
 
-        jLabel26.setText("Sponsoons:");
+        jLabel26.setText("Sponsons:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
@@ -5202,6 +5220,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtTurretInfo.setText("Turret: " + CurVee.GetLoadout().GetTurret().GetTonnage() );
         txtSumRTuTons.setText("" + CurVee.GetLoadout().GetRearTurret().GetTonnage() );
         txtSumRTuAV.setText( CurVee.GetLoadout().GetRearTurret().GetAvailability().GetBestCombinedCode() );
+        txtSumSpnTons.setText("" + CurVee.GetLoadout().GetSponsonTurretTonnage() );
         lblFreeHeatSinks.setText("" + CurVee.GetEngine().FreeHeatSinks() );
         lblNumCrew.setText("" + CurVee.GetCrew() );
 
@@ -5358,7 +5377,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         ArrayList locs = new ArrayList();
         locs.add("Front");
         locs.add("Left");
+        if ( CurVee.isHasSponsonTurret() )
+            locs.add("Left Sponson Turret");
         locs.add("Right");
+        if ( CurVee.isHasSponsonTurret() )
+            locs.add("Right Sponson Turret");
         locs.add("Rear");
         locs.add("Body");
         if ( CurVee.isHasTurret1() )
@@ -5565,6 +5588,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             BuildChassisSelector();
             BuildEngineSelector();
             BuildArmorSelector();
+            BuildExpEquipmentSelector();
             FixMPSpinner();
             FixJJSpinnerModel();
             RefreshEquipment();
@@ -5613,7 +5637,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private void BuildTurretSelector()
     {
         ArrayList list = new ArrayList();
-        String curTurret = cmbTurret.getSelectedItem().toString();
 
         if ( !CurVee.IsOmni())
             cmbTurret.setEnabled(true);
@@ -5621,7 +5644,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         list.add("No Turret");
         if ( CurVee.CanUseTurret() ) list.add("Single Turret");
         if ( CurVee.CanUseDualTurret() ) list.add("Dual Turret");
-        if ( CurVee.CanUseSponsoon() ) list.add("Sponson Turret");
 
         if ( list.isEmpty() ) {
             list.add("No Turret Allowed");
@@ -5636,8 +5658,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // now set the turret chooser
         cmbTurret.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
-
-        cmbTurret.setSelectedItem(curTurret);
+        if (CurVee.isHasTurret2())
+            cmbTurret.setSelectedItem("Dual Turret");
+        else if (CurVee.isHasTurret1())
+            cmbTurret.setSelectedItem("Single Turret");
+        else
+            cmbTurret.setSelectedItem("No Turret");
     }
 
     private void BuildChassisSelector()
@@ -5677,6 +5703,24 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             chkDuneBuggy.setEnabled(false);
             chkEnviroSealing.setEnabled(false);
         }
+    }
+    
+    private void BuildExpEquipmentSelector() {
+        JCheckBox[] ExpEquipmentCheckboxes = { chkArmoredMotive,
+                                               chkSupercharger,
+                                               chkCommandConsole,
+                                               chkMinesweeper,
+                                               chkJetBooster,
+                                               chkEscapePod,
+                                               chkSponsonTurret };
+        if (cmbRulesLevel.getSelectedIndex() > 1) {
+            if (CurVee.CanUseSponson())
+                chkSponsonTurret.setEnabled(true);
+        } else
+            for (JCheckBox item : ExpEquipmentCheckboxes) {
+                item.setSelected(false);
+                item.setEnabled(false);
+            }
     }
 
     private void cmbMotiveTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMotiveTypeActionPerformed
@@ -6853,6 +6897,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         BuildChassisSelector();
         BuildEngineSelector();
         BuildArmorSelector();
+        BuildExpEquipmentSelector();
         CheckOmni();
         //cmbEngineType.setSelectedItem( saw.Constants.DEFAULT_ENGINE );
         //cmbArmorType.setSelectedItem( saw.Constants.DEFAULT_ARMOR );
@@ -8842,6 +8887,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         BuildEngineSelector();
         BuildArmorSelector();
         BuildTurretSelector();
+        BuildExpEquipmentSelector();
+        if (CurVee.isHasSponsonTurret())
+            chkSponsonTurret.setSelected(true);
         cmbEngineType.setSelectedItem( BuildLookupName( CurVee.GetEngine().GetCurrentState() ) );
         cmbArmorType.setSelectedItem( BuildLookupName( CurVee.GetArmor().GetCurrentState() ) );
         SetPatchworkArmor();
@@ -9717,6 +9765,21 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             btnAddEquipActionPerformed(null);
     }//GEN-LAST:event_cmbLocationMouseClicked
 
+    private void chkSponsonTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSponsonTurretActionPerformed
+        if (chkSponsonTurret.isSelected())
+            CurVee.setHasSponsonTurret(true);
+        else
+            CurVee.setHasSponsonTurret(false);
+        RefreshSelectedEquipment();
+        BuildLocationSelector();
+        RefreshSummary();
+        RefreshInfoPane();
+    }//GEN-LAST:event_chkSponsonTurretActionPerformed
+
+    private void chkEscapePodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEscapePodActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chkEscapePodActionPerformed
+
     private void chkFullAmphActionPerformed(java.awt.event.ActionEvent evt) {
         CurVee.SetFullAmphibious(chkFullAmph.isSelected());
         RefreshSummary();
@@ -9854,6 +9917,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JCheckBox chkLimitedAmph;
     private javax.swing.JCheckBox chkMinesweeper;
     private javax.swing.JCheckBox chkOmniVee;
+    private javax.swing.JCheckBox chkSponsonTurret;
     private javax.swing.JCheckBox chkSupercharger;
     private javax.swing.JCheckBox chkTrailer;
     private javax.swing.JCheckBox chkUseTC;

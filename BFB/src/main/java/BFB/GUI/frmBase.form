@@ -271,14 +271,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Select Units List"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem8">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jMenuItem8"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem8ActionPerformed"/>
-              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jMenuItem2.setVisible(false);"/>
+              </AuxValues>
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="jMenu6">
               <Properties>
@@ -451,6 +446,7 @@
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <Events>
     <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
@@ -714,8 +710,8 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="pnlBottom" alignment="0" pref="979" max="32767" attributes="2"/>
-                          <Component id="pnlTop" alignment="0" pref="979" max="32767" attributes="2"/>
+                          <Component id="pnlBottom" alignment="0" pref="1102" max="32767" attributes="2"/>
+                          <Component id="pnlTop" alignment="0" pref="1102" max="32767" attributes="2"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -727,7 +723,7 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="pnlTop" pref="227" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="pnlBottom" pref="226" max="32767" attributes="0"/>
+                      <Component id="pnlBottom" pref="227" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="1"/>
                   </Group>
               </Group>
@@ -1271,10 +1267,10 @@
                                           <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="cmbC3Top" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="70" max="32767" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                           <Component id="tlbTop" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="spnTop" pref="858" max="32767" attributes="0"/>
+                                      <Component id="spnTop" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -1290,7 +1286,7 @@
                                   <Component id="lblBaseBVTop" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="285" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Component id="lblTotalBVTop" min="-2" pref="74" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -3289,7 +3285,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane12" alignment="0" pref="222" max="32767" attributes="1"/>
+                      <Component id="jScrollPane12" alignment="0" pref="224" max="32767" attributes="1"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">

@@ -147,6 +147,8 @@ public class stEngineFission implements ifEngine, ifState {
         return true;
     }
 
+    public boolean IsFission() { return true; }
+
     public int GetFullCrits() {
         return 6;
     }

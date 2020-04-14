@@ -41,6 +41,7 @@ public interface ifEngine {
     public String BookReference();
     public int GetFullCrits();
     public boolean IsFusion();
+    public boolean IsFission();
     public boolean IsNuclear();
     public double GetTonnage( int Rating, boolean fractional );
     public int GetBFStructure( int tonnage );

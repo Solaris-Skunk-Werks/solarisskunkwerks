@@ -710,6 +710,10 @@ public class FileCommon {
                     return "Turret";
                 case LocationIndex.CV_LOC_TURRET2:
                     return "Rear Turret";
+                case LocationIndex.CV_LOC_SPONSON_LEFT:
+                    return "Left Sponson Turret";
+                case LocationIndex.CV_LOC_SPONSON_RIGHT:
+                    return "Right Sponson Turret";
                 default:
                     return "??";
             }
@@ -778,6 +782,10 @@ public class FileCommon {
                         return "T";
                     case LocationIndex.CV_LOC_TURRET2:
                         return "RT";
+                    case LocationIndex.CV_LOC_SPONSON_LEFT:
+                        return "LS-S";
+                    case LocationIndex.CV_LOC_SPONSON_RIGHT:
+                        return "RS-S";
                     default:
                         return "??";
                 }
@@ -1067,6 +1075,10 @@ public class FileCommon {
             return LocationIndex.CV_LOC_TURRET2;
         } else if( s.equals( "Rotor" ) ) {
             return LocationIndex.CV_LOC_ROTOR;
+        } else if( s.equals( "Left Sponson Turret" ) ) {
+            return LocationIndex.CV_LOC_SPONSON_LEFT;
+        } else if( s.equals( "Right Sponson Turret" ) ) {
+            return LocationIndex.CV_LOC_SPONSON_RIGHT;
         } else {
             return -1;
         }

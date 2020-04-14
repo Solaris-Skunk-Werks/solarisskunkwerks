@@ -406,6 +406,10 @@ public class PrintConsts {
         Data.addAll(HandleLocation( CurUnit, MiniConvRate, a, LocationIndex.CV_LOC_TURRET1));
         a = CurUnit.GetLoadout().GetTurret2Items().toArray(a);
         Data.addAll(HandleLocation( CurUnit, MiniConvRate, a, LocationIndex.CV_LOC_TURRET2));
+        a = CurUnit.GetLoadout().GetSponsonTurretLeftItems().toArray(a);
+        Data.addAll(HandleLocation( CurUnit, MiniConvRate, a, LocationIndex.CV_LOC_SPONSON_LEFT));
+        a = CurUnit.GetLoadout().GetSponsonTurretRightItems().toArray(a);
+        Data.addAll(HandleLocation( CurUnit, MiniConvRate, a, LocationIndex.CV_LOC_SPONSON_RIGHT));
         
         return Data;
     }

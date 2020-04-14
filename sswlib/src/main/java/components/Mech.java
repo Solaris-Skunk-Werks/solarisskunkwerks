@@ -62,6 +62,7 @@ public class Mech implements ifUnit, ifBattleforce {
                    Solaris7ID = "0",
                    Solaris7ImageID = "0",
                    SSWImage = "";
+    private ArrayList<Quirk> Quirks = new ArrayList<Quirk>();
     private int Tonnage = 20,
                 WalkMP;
     private double JJMult,
@@ -4807,6 +4808,12 @@ public class Mech implements ifUnit, ifBattleforce {
 
         SetChanged( true );
     }
+    
+    public void SetQuirks (ArrayList<Quirk> q) {
+        Quirks = q;
+        
+        SetChanged( true );
+    }
 
     public void SetCapabilities( String n ) {
         Capabilities = n;
@@ -4899,6 +4906,10 @@ public class Mech implements ifUnit, ifBattleforce {
 
     public String GetOverview() {
         return Overview;
+    }
+    
+    public ArrayList<Quirk> GetQuirks() {
+        return Quirks;
     }
 
     public String GetCapabilities() {

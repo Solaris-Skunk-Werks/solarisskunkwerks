@@ -164,6 +164,8 @@ public class stEngineISXXL implements ifEngine, ifState {
         return true;
     }
 
+    public boolean IsFission() { return false; }
+
     public int GetFullCrits() {
         return 18;
     }
