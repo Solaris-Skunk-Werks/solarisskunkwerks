@@ -2764,6 +2764,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RefreshInfoPane();
         SetWeaponChoosers();
         ResetAmmo();
+        ResetQuirks();
 
         Overview.StartNewDocument();
         Capabilities.StartNewDocument();
@@ -2853,6 +2854,20 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             ItemInfo.setLocationRelativeTo( this );
             ItemInfo.setVisible( true );
         }
+    }
+    
+    private void ResetQuirks() {
+        quirks = new ArrayList<>();
+        tblQuirks.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Cost", "Quirk"
+            }));
     }
 
     private void UnallocateAll() {
@@ -9889,11 +9904,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 {null, null}
             },
             new String [] {
-                "Quirk", "Cost"
+                "Cost", "Quirk"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false

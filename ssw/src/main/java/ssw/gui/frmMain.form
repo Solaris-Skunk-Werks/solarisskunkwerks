@@ -7404,8 +7404,8 @@
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="2" rowCount="4">
-                                <Column editable="false" title="Quirk" type="java.lang.String"/>
                                 <Column editable="false" title="Cost" type="java.lang.Integer"/>
+                                <Column editable="false" title="Quirk" type="java.lang.String"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
