@@ -72,7 +72,6 @@ public class MechReader {
     public Mech ReadMech( String filename ) throws Exception {
         data = null;
         Mech retval = new Mech();
-        filename = CommonTools.GetSafeFilename( filename );
         load = db.parse( filename );
 
         retval = BuildMech( retval, load, data );
