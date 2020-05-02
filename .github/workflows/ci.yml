@@ -1,0 +1,46 @@
+#
+# SSW CI
+#
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  ci:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+      
+    #
+    # Perform a Release Build
+    #
+    - name: Build with Gradle
+      run: ./gradlew releaseBuild
+
+    #
+    # Put the releases up in a single zip file called:
+    #
+    #     releases.zip
+    #
+    # NB: Due to a GitHub Actions limitation we won't know
+    #     what the filename is in order to display it somewhere.
+    #
+    - name: Upload Releases
+      uses: actions/upload-artifact@v2-preview
+      with:
+        name: releases
+        path: ./build/release
