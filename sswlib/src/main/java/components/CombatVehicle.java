@@ -2349,6 +2349,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         int retval = getMaxItems();
         retval -= CurEngine.NumCVSpaces();
         retval -= CurArmor.NumCVSpaces();
+        retval -= GetLoadout().NumCVAmmoSpaces();
         for ( abPlaceable a : (ArrayList<abPlaceable>)GetLoadout().GetNonCore() ) {
             retval -= a.NumCVSpaces();
         }
