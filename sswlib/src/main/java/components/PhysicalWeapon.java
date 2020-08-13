@@ -47,7 +47,7 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
                    Specials,
                    BookReference = "",
                    Manufacturer = "";
-    protected ifUnit Owner;
+    protected transient ifUnit Owner;
     private int Heat = 0,
                 ToHitShort = 0,
                 ToHitMedium = 0,

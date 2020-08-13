@@ -32,6 +32,11 @@ import com.google.gson.annotations.SerializedName;
 import common.CommonTools;
 
 public class Ammunition extends abPlaceable {
+    private String ActualName,
+            CritName,
+            LookupName,
+            MegaMekName,
+            BookRef = "";
     private double Tonnage = 1.0,
                   Cost = 0.0,
                   OffBV = 0.0,
@@ -50,16 +55,11 @@ public class Ammunition extends abPlaceable {
                 ToHitMedium = 0,
                 ToHitLong = 0,
                 group = 1,
-                cluster = 1,
-                WeaponClass = ifWeapon.W_BALLISTIC,
+                cluster = 1;
+    private transient int WeaponClass = ifWeapon.W_BALLISTIC,
                 FCSType = ifMissileGuidance.FCS_NONE;
     private boolean Explosive = true,
                     IsCluster = false;
-    private String ActualName,
-                   CritName,
-                   LookupName,
-                   MegaMekName,
-                   BookRef = "";
     @SerializedName("Availability") private AvailableCode AC;
 
     public Ammunition( String actualname, String critname, String lookupname, String mmname, int idx, AvailableCode a ) {
