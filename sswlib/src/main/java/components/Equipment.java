@@ -28,6 +28,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 public class Equipment extends abPlaceable {
@@ -75,7 +77,7 @@ public class Equipment extends abPlaceable {
                     Explosive = false,
                     VariableSize = false,
                     RequiresQuad = false;
-    private AvailableCode AC;
+    @SerializedName("Availability") private AvailableCode AC;
 
     public Equipment() {
         // provided for any classes that extend this one.  should not be used

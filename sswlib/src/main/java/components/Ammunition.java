@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
+import com.google.gson.annotations.SerializedName;
 import common.CommonTools;
 
 public class Ammunition extends abPlaceable {
@@ -54,12 +55,12 @@ public class Ammunition extends abPlaceable {
                 FCSType = ifMissileGuidance.FCS_NONE;
     private boolean Explosive = true,
                     IsCluster = false;
-    private AvailableCode AC;
     private String ActualName,
                    CritName,
                    LookupName,
                    MegaMekName,
                    BookRef = "";
+    @SerializedName("Availability") private AvailableCode AC;
 
     public Ammunition( String actualname, String critname, String lookupname, String mmname, int idx, AvailableCode a ) {
         // some things of note here:
