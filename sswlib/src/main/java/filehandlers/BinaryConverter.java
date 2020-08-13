@@ -97,7 +97,7 @@ public class BinaryConverter {
             Path outDir = Paths.get(new File(binPath).getParent(), "ranged_weapons");
             Files.createDirectories(outDir);
             for (RangedWeapon w: weapons) {
-                String filename = w.MegaMekName(false).replace("/", "_") + ".json";
+                String filename = w.LookupName().replace("/", "_") + ".json";
                 FileWriter fw = new FileWriter(outDir.resolve(filename).toString());
                 gson.toJson(w, fw);
                 fw.flush();
