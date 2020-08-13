@@ -28,9 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package filehandlers;
 
-import components.PhysicalWeapon;
-import components.RangedWeapon;
-import components.abPlaceable;
+import components.*;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -86,51 +84,6 @@ public class BinaryConverter {
         }
         Messages += "Wrote " + NumConverted + " weapons to " + output + "\n";
         return true;
-    }
-
-    public boolean ConvertRangedWeaponsBintoJson(String binPath) {
-        BinaryReader br = new BinaryReader();
-        int numWritten;
-        try {
-            ArrayList<RangedWeapon> weapons = br.ReadWeapons(binPath);
-            Path outDir = Paths.get(new File(binPath).getParent(), "ranged_weapons");
-            numWritten = writeJsonEquipment(weapons, outDir);
-        } catch (Exception e) {
-            Messages += e.getMessage();
-            Messages += e.toString();
-            return false;
-        }
-        Messages += "Wrote " + numWritten + " ranged weapons to JSON" + "\n";
-        return true;
-    }
-
-    public boolean ConvertPhysicalWeaponsBintoJson(String binPath) {
-        BinaryReader br = new BinaryReader();
-        int numWritten;
-        try {
-            ArrayList<PhysicalWeapon> weapons = br.ReadPhysicals(binPath);
-            Path outDir = Paths.get(new File(binPath).getParent(), "physical_weapons");
-            numWritten = writeJsonEquipment(weapons, outDir);
-
-        } catch (Exception e) {
-            Messages += e.getMessage();
-            Messages += e.toString();
-            return false;
-        }
-        Messages += "Wrote " + numWritten + " physical weapons to JSON" + "\n";
-        return true;
-    }
-
-    private int writeJsonEquipment(ArrayList<? extends abPlaceable> equipment, Path outDir) throws Exception {
-        JsonWriter jw = new JsonWriter();
-        int numWritten = 0;
-
-        Files.createDirectories(outDir);
-        for (abPlaceable eq: equipment) {
-            jw.Write(eq, outDir);
-            numWritten++;
-        }
-        return numWritten;
     }
 
 /**
@@ -314,6 +267,103 @@ public class BinaryConverter {
             return false;
         }
         Messages += "Wrote " + NumConverted + " quirks to " + output + "\n";
+        return true;
+    }
+
+    public boolean ConvertRangedWeaponsBintoJson(String binPath) {
+        BinaryReader br = new BinaryReader();
+        int numWritten;
+        try {
+            ArrayList<RangedWeapon> weapons = br.ReadWeapons(binPath);
+            Path outDir = Paths.get(new File(binPath).getParent(), "ranged_weapons");
+            numWritten = writeJsonEquipment(weapons, outDir);
+        } catch (Exception e) {
+            Messages += e.getMessage();
+            Messages += e.toString();
+            return false;
+        }
+        Messages += "Wrote " + numWritten + " ranged weapons to JSON" + "\n";
+        return true;
+    }
+
+    public boolean ConvertPhysicalWeaponsBintoJson(String binPath) {
+        BinaryReader br = new BinaryReader();
+        int numWritten;
+        try {
+            ArrayList<PhysicalWeapon> weapons = br.ReadPhysicals(binPath);
+            Path outDir = Paths.get(new File(binPath).getParent(), "physical_weapons");
+            numWritten = writeJsonEquipment(weapons, outDir);
+        } catch (Exception e) {
+            Messages += e.getMessage();
+            Messages += e.toString();
+            return false;
+        }
+        Messages += "Wrote " + numWritten + " physical weapons to JSON" + "\n";
+        return true;
+    }
+
+    public boolean ConvertEquipmentBintoJson(String binPath) {
+        BinaryReader br = new BinaryReader();
+        int numWritten;
+        try {
+            ArrayList<Equipment> equipment = br.ReadEquipment(binPath);
+            Path outDir = Paths.get(new File(binPath).getParent(), "equipment");
+            numWritten = writeJsonEquipment(equipment, outDir);
+        } catch (Exception e) {
+            Messages += e.getMessage();
+            Messages += e.toString();
+            return false;
+        }
+        Messages += "Wrote " + numWritten + " pieces of equipment to JSON" + "\n";
+        return true;
+    }
+
+    public boolean ConvertAmmunitionBintoJson(String binPath) {
+        BinaryReader br = new BinaryReader();
+        int numWritten;
+        try {
+            ArrayList<Ammunition> ammo = br.ReadAmmo(binPath);
+            Path outDir = Paths.get(new File(binPath).getParent(), "ammunition");
+            numWritten = writeJsonEquipment(ammo, outDir);
+        } catch (Exception e) {
+            Messages += e.getMessage();
+            Messages += e.toString();
+            return false;
+        }
+        Messages += "Wrote " + numWritten + " types of ammunition to JSON" + "\n";
+        return true;
+    }
+
+    private int writeJsonEquipment(ArrayList<? extends abPlaceable> equipment, Path outDir) throws Exception {
+        JsonWriter jw = new JsonWriter();
+        int numWritten = 0;
+
+        Files.createDirectories(outDir);
+        for (abPlaceable eq: equipment) {
+            jw.Write(eq, outDir);
+            numWritten++;
+        }
+        return numWritten;
+    }
+
+    public boolean ConvertQuirksBintoJson(String binPath) {
+        BinaryReader br = new BinaryReader();
+        JsonWriter jw = new JsonWriter();
+        int numWritten = 0;
+        try {
+            ArrayList<Quirk> quirks = br.ReadQuirks(binPath);
+            Path outDir = Paths.get(new File(binPath).getParent(), "quirks");
+            Files.createDirectories(outDir);
+            for (Quirk q: quirks) {
+                jw.Write(q, outDir);
+                numWritten++;
+            }
+        } catch (Exception e) {
+            Messages += e.getMessage();
+            Messages += e.toString();
+            return false;
+        }
+        Messages += "Wrote " + numWritten + " quirks to JSON" + "\n";
         return true;
     }
 

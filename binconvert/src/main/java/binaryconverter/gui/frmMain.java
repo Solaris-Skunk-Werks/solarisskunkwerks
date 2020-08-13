@@ -225,6 +225,12 @@ public class frmMain
       bc.ConvertRangedWeaponsBintoJson(this.txtSource.getText());
     } else if (this.rdoPhysicals.isSelected()) {
       bc.ConvertPhysicalWeaponsBintoJson(this.txtSource.getText());
+    } else if (this.rdoEquipment.isSelected()) {
+      bc.ConvertEquipmentBintoJson(this.txtSource.getText());
+    } else if (this.rdoAmmo.isSelected()) {
+      bc.ConvertAmmunitionBintoJson(this.txtSource.getText());
+    } else if (this.rdoQuirks.isSelected()) {
+      bc.ConvertQuirksBintoJson(this.txtSource.getText());
     }
     this.txtLog.setText(bc.GetMessages());
   }

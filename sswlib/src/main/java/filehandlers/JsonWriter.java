@@ -18,8 +18,11 @@ public class JsonWriter {
         fw.close();
     }
 
-
     public void Write(Quirk quirk, Path outDir) throws Exception {
-
+        String filename = quirk.getName().replace("/", "_") + ".json";
+        FileWriter fw = new FileWriter(outDir.resolve(filename).toString());
+        gson.toJson(quirk, fw);
+        fw.flush();
+        fw.close();
     }
 }
