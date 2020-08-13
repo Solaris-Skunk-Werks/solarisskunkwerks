@@ -28,14 +28,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
+import com.google.gson.annotations.SerializedName;
+
 public class RangedWeapon extends abPlaceable implements ifWeapon {
-    private AvailableCode AC;
-    private PPCCapacitor Capacitor = null;
-    private LaserInsulator Insulator = null;
-    private RiscLaserPulseModule PulseModule = null;
-    private MGArray CurArray = null;
-    private ifMissileGuidance FCS = null;
-    private ifTurret Turret = null;
+    private transient PPCCapacitor Capacitor = null;
+    private transient LaserInsulator Insulator = null;
+    private transient RiscLaserPulseModule PulseModule = null;
+    private transient MGArray CurArray = null;
+    private transient ifMissileGuidance FCS = null;
+    private transient ifTurret Turret = null;
     private String ActualName,
                    CritName,
                    MegaMekName,
@@ -113,6 +114,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                   Cost = 0.0,
                   OffBV = 0.0,
                   DefBV = 0.0;
+    @SerializedName("Availability") private AvailableCode AC;
 
     public RangedWeapon( String actualname, String critname, String lookupname, String mmname, String type, String spec, AvailableCode a, int wepclass ) {
         CritName = critname;
