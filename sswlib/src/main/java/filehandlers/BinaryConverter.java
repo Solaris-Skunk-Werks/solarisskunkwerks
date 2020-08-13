@@ -28,8 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package filehandlers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import components.RangedWeapon;
 
 import java.io.*;
@@ -90,18 +88,14 @@ public class BinaryConverter {
 
     public boolean ConvertRangedWeaponsBintoJson(String binPath) {
         BinaryReader br = new BinaryReader();
-        Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+        JsonWriter jw = new JsonWriter();
         int numWritten = 0;
         try {
             ArrayList<RangedWeapon> weapons = br.ReadWeapons(binPath);
             Path outDir = Paths.get(new File(binPath).getParent(), "ranged_weapons");
             Files.createDirectories(outDir);
             for (RangedWeapon w: weapons) {
-                String filename = w.LookupName().replace("/", "_") + ".json";
-                FileWriter fw = new FileWriter(outDir.resolve(filename).toString());
-                gson.toJson(w, fw);
-                fw.flush();
-                fw.close();
+                jw.Write(w, outDir);
                 numWritten++;
             }
         } catch (Exception e) {
