@@ -28,10 +28,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package filehandlers;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import components.RangedWeapon;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class BinaryConverter {
 // Provides conversion tools for binary files, either into Java classes or from
@@ -80,6 +85,31 @@ public class BinaryConverter {
             return false;
         }
         Messages += "Wrote " + NumConverted + " weapons to " + output + "\n";
+        return true;
+    }
+
+    public boolean ConvertRangedWeaponsBintoJson(String binPath) {
+        BinaryReader br = new BinaryReader();
+        Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+        int numWritten = 0;
+        try {
+            ArrayList<RangedWeapon> weapons = br.ReadWeapons(binPath);
+            Path outDir = Paths.get(new File(binPath).getParent(), "ranged_weapons");
+            Files.createDirectories(outDir);
+            for (RangedWeapon w: weapons) {
+                String filename = w.MegaMekName(false).replace("/", "_") + ".json";
+                FileWriter fw = new FileWriter(outDir.resolve(filename).toString());
+                gson.toJson(w, fw);
+                fw.flush();
+                fw.close();
+                numWritten++;
+            }
+        } catch (Exception e) {
+            Messages += e.getMessage();
+            Messages += e.toString();
+            return false;
+        }
+        Messages += "Wrote " + numWritten + " weapons to JSON" + "\n";
         return true;
     }
 
