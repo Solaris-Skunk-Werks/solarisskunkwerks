@@ -1,0 +1,18 @@
+{
+  "name": "Narrow/Low Profile",
+  "cost": 2,
+  "description": "Ranged attacks against a unit with a Narrow/Low Profile receive a +1 to-hit modifier",
+  "positive": true,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": true,
+  "battlearmor": false,
+  "aerospacefighter": false,
+  "conventionalfighter": false,
+  "dropship": false,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": false,
+  "isvariable": false
+}

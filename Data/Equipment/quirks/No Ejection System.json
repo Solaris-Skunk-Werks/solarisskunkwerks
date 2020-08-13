@@ -1,0 +1,18 @@
+{
+  "name": "No Ejection System",
+  "cost": 2,
+  "description": "Some BattleMechs and fighters lack an emergency escape system. The MechWarrior or pilot can never eject.",
+  "positive": false,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": false,
+  "battlearmor": false,
+  "aerospacefighter": true,
+  "conventionalfighter": true,
+  "dropship": false,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": false,
+  "isvariable": false
+}

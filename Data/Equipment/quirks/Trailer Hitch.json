@@ -1,0 +1,18 @@
+{
+  "name": "Trailer Hitch",
+  "cost": 1,
+  "description": "Units with the Trailer Hitch quirk maytow another vehicle with the Trailer Hitch quirk in the same manner as a Support Vehicle with the Tractor chassis modifier, using the rules for Tractors.",
+  "positive": true,
+  "battlemech": false,
+  "industrialmech": false,
+  "combatvehicle": true,
+  "battlearmor": false,
+  "aerospacefighter": false,
+  "conventionalfighter": false,
+  "dropship": false,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": false,
+  "isvariable": false
+}

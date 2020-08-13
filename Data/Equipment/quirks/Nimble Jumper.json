@@ -1,0 +1,18 @@
+{
+  "name": "Nimble Jumper",
+  "cost": 3,
+  "description": "Jump jets are brute-force thrusters designed only to transport a ’Mech directly from point A to point B. Some ’Mechs, however, such as the Spider, are especially nimble when jumping. When a ’Mech with this quirk jumps, it need not follow the most direct path to its target hex. Instead, it may deviate from that path by up to one hex of its controller’s choice (assuming the ’Mech has the Jumping MP required, of course additional heat for such a jump is generated as normal for the jump jet type in use). For example, a jump that would normally cover six hexes can instead cover up to seven.  If a ’Mech jumps in this fashion, attacks against the ’Mech receive an additional +1 Target Movement Modifier (a total of +2 for jumping, instead of the normal +1 the extra hex traveled is also factored into the ’Mech’s Target Movement Modifier, as normal). However, attacks made by the jumping ’Mech receive the same additional Target Number modifier (a total of +4 for jumping, instead of +3).  This quirk can only be taken by light or medium ’Mechs, and only for those that have at least as many Jumping MP as they do Walking MP",
+  "positive": true,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": false,
+  "battlearmor": false,
+  "aerospacefighter": false,
+  "conventionalfighter": false,
+  "dropship": false,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": false,
+  "isvariable": false
+}

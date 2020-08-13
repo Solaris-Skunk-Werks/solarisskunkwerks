@@ -1,0 +1,18 @@
+{
+  "name": "Improved Life Support",
+  "cost": 1,
+  "description": "When determining damage to the MechWarrior or pilot as a result of heat following a life support critical hit, treat the unit\u0027s heat level as being 5 points lower.",
+  "positive": true,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": false,
+  "battlearmor": false,
+  "aerospacefighter": true,
+  "conventionalfighter": true,
+  "dropship": false,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": false,
+  "isvariable": false
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Bad Reputation",
+  "cost": 1,
+  "description": "While perfectly sound, this unit type has acquired an unwarrented bad reputation. As a result, it is worth only half the normal resale value. Note that when buying this unit, players must still pay the normal value.",
+  "positive": false,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": true,
+  "battlearmor": true,
+  "aerospacefighter": true,
+  "conventionalfighter": true,
+  "dropship": true,
+  "jumpship": true,
+  "warship": true,
+  "spacestation": true,
+  "protomech": true,
+  "isvariable": false
+}

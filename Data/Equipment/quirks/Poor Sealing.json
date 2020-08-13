@@ -1,0 +1,18 @@
+{
+  "name": "Poor Sealing",
+  "cost": 2,
+  "description": "In any situation wher ea unit must check for hull breaches and/or flooding, this Quirk adds a modifier of +2 to the roll when making a Hull Breach check. If a unit would otherwise not be susceptible to hull breaches, consider it to have a base Hull Breach TN of 12 before applying this modifier. A unit must also make a Hull Breach check when first entering a hostile environment (Vacuum, water, etc). Failure will result in a flood to a random location that is exposed to the hostile environment.",
+  "positive": false,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": true,
+  "battlearmor": true,
+  "aerospacefighter": false,
+  "conventionalfighter": false,
+  "dropship": false,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": true,
+  "isvariable": false
+}

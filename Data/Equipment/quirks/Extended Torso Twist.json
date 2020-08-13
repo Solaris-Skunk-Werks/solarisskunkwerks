@@ -1,0 +1,18 @@
+{
+  "name": "Extended Torso Twist",
+  "cost": 3,
+  "description": "When torso twisting, the `Mech can change its facing by one or two hexsides",
+  "positive": true,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": false,
+  "battlearmor": false,
+  "aerospacefighter": false,
+  "conventionalfighter": false,
+  "dropship": false,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": true,
+  "isvariable": false
+}

@@ -1,0 +1,18 @@
+{
+  "name": "EM Interference",
+  "cost": 1,
+  "description": "An energy weapon is insufficiently shielded and causes interference with other delicate electronics. The round after the weapon has been fired, the following equipment aboard the `Mech will not function. Targeting Computers, any ECM, any Active Probe, Artemis IV FCS, Artemis V FCS, any C3, NARC, MASC, Cockpit Command Console, Chameleon LPS, Blue Shield PFD, Electronic Warfare Equipment, Streak Launchrs, MRM FCS, Null Signature System, Supercharger, Void Signature System and any Stealth Armor.",
+  "positive": false,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": true,
+  "battlearmor": true,
+  "aerospacefighter": true,
+  "conventionalfighter": true,
+  "dropship": true,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": false,
+  "isvariable": false
+}

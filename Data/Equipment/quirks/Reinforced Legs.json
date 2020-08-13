@@ -1,0 +1,18 @@
+{
+  "name": "Reinforced Legs",
+  "cost": 1,
+  "description": "Designed for executing the dreaded \"Death from Above\" attack, some `Mechs (the Highlander, for example) suffer half the normal damage to the legs when performing Death From Above successfully.",
+  "positive": true,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": false,
+  "battlearmor": false,
+  "aerospacefighter": false,
+  "conventionalfighter": false,
+  "dropship": false,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": false,
+  "isvariable": false
+}

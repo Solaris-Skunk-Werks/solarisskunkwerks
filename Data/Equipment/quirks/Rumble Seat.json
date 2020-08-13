@@ -1,0 +1,18 @@
+{
+  "name": "Rumble Seat",
+  "cost": 0,
+  "description": "A unit with a Rumble Seat has a single extra seat available in its command area, suitable to carry one passenger in relative comfort.",
+  "positive": true,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": true,
+  "battlearmor": false,
+  "aerospacefighter": true,
+  "conventionalfighter": true,
+  "dropship": false,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": false,
+  "isvariable": false
+}

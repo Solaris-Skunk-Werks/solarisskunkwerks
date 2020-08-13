@@ -1,0 +1,18 @@
+{
+  "name": "Ramshackle",
+  "cost": 3,
+  "description": "Decades or even centuries of hard service and substandard maintenance have led to an unpredictable machine patched together with bailing wire and prayers.  The ’Mech’s controller rolls 1D6 at the start of the battle. The result indicates what negative quirk, if any, applies to that ’Mech for the duration of the battle: Sensor Ghosts (1), EM Interference (entire ’Mech) (2), Hard to Pilot (3), Cooling System Flaws (4), Poor Performance (5), or no negative result (6)",
+  "positive": false,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": false,
+  "battlearmor": false,
+  "aerospacefighter": false,
+  "conventionalfighter": false,
+  "dropship": false,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": false,
+  "isvariable": false
+}

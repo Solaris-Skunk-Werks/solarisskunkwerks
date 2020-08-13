@@ -1,0 +1,18 @@
+{
+  "name": "Un-streamlined",
+  "cost": 2,
+  "description": "The unit cannot enter or operate in an atmosphere. If it accidentally enters an atmospheric hex, it is treated like a JumpShip.",
+  "positive": false,
+  "battlemech": false,
+  "industrialmech": false,
+  "combatvehicle": false,
+  "battlearmor": false,
+  "aerospacefighter": true,
+  "conventionalfighter": true,
+  "dropship": true,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": false,
+  "isvariable": false
+}

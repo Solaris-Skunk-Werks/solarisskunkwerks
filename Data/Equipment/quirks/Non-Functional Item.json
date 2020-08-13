@@ -1,0 +1,18 @@
+{
+  "name": "Non-Functional Item",
+  "cost": 5,
+  "description": "A ’Mech with this quirk has one or more components or pieces of equipment that simply do not work. No amount of repairs or replacement will correct this issue the ’Mech must be redesigned from the ground up to solve the problem.  A ’Mech can have multiple Non-functional quirks, but each must be assigned to the specifically non-operational components they possess",
+  "positive": false,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": false,
+  "battlearmor": false,
+  "aerospacefighter": false,
+  "conventionalfighter": false,
+  "dropship": false,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": false,
+  "isvariable": false
+}

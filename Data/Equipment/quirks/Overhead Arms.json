@@ -1,0 +1,18 @@
+{
+  "name": "Overhead Arms",
+  "cost": 2,
+  "description": "’Mechs equipped with overhead arms—such as the Fire Moth—can deliver ranged, direct-fire attacks while hiding almost completely from view. This quirk cannot be combined with the Low-Mounted Arms quirk, nor can it be taken by any ’Mech that either does not have arms, or lacks any form of direct-fire ranged weaponry in said arms.  If standing, a ’Mech with Overhead Arms behind an adjacent Level 2 hill or building can fire its arm-mounted direct-fire weapons over it. Such attacks receive a +2 Target Number modifier. Friendly spotters cannot assist with this type of attack.  However, a ’Mech with Overhead Arms is always exposed to return fire in these circumstances: it can still be attacked despite being behind Level 2 terrain. Apply a +2 Target Number modifier to any attacks that pass through such covering terrain, in addition to the normal +1 partial cover modifier. In this case, only arm hits actually strike the target: all other hits strike the covering terrain instead. This form of partial cover is not negated by the attacker being any number of levels higher than the defender",
+  "positive": true,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": false,
+  "battlearmor": false,
+  "aerospacefighter": false,
+  "conventionalfighter": false,
+  "dropship": false,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": false,
+  "isvariable": false
+}

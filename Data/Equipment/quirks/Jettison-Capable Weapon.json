@@ -1,0 +1,18 @@
+{
+  "name": "Jettison-Capable Weapon",
+  "cost": 1,
+  "description": "A Jettison-Capable Weapon may be dropped in combat using the basic rules for Dumping Ammunition, except there is no risk fo explosion from the jettisoning weapon, and thus there are no special effects when a unit jettisoning its weapons is struck from the rear. Jettisoning an ammunition-dependent weapon does not also jettison its ammunition. Treat any untouched critical locations for a Jettison-Capable Weapon as a Roll Again result if they are struck after the weapon is jettisoned.",
+  "positive": true,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": true,
+  "battlearmor": false,
+  "aerospacefighter": false,
+  "conventionalfighter": false,
+  "dropship": false,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": false,
+  "isvariable": false
+}

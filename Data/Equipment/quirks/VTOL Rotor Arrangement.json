@@ -1,0 +1,18 @@
+{
+  "name": "VTOL Rotor Arrangement",
+  "cost": 1,
+  "description": "VTOLs with dual rotors cannot perform sideslip or bootlegger manuevers. Additionally, dual rotos increase all of a VTOL\u0027s turn modes by 1, but also apply a -1 target number modifier to all Piloting Skill rolls.",
+  "positive": true,
+  "battlemech": false,
+  "industrialmech": false,
+  "combatvehicle": true,
+  "battlearmor": false,
+  "aerospacefighter": false,
+  "conventionalfighter": false,
+  "dropship": false,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": false,
+  "isvariable": false
+}

@@ -1,0 +1,18 @@
+{
+  "name": "No Cooling Jacket",
+  "cost": 2,
+  "description": "A weapon\u0027s design excludes the use of a cooling jacket. As a result, it generates 2 extra points of heat when fired.",
+  "positive": false,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": false,
+  "battlearmor": false,
+  "aerospacefighter": true,
+  "conventionalfighter": true,
+  "dropship": true,
+  "jumpship": true,
+  "warship": true,
+  "spacestation": true,
+  "protomech": false,
+  "isvariable": false
+}

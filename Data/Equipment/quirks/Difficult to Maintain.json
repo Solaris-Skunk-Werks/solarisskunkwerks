@@ -1,0 +1,18 @@
+{
+  "name": "Difficult to Maintain",
+  "cost": 1,
+  "description": "All repair and replacement rolls made for this unit receive a +1 target number modifier",
+  "positive": false,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": true,
+  "battlearmor": true,
+  "aerospacefighter": true,
+  "conventionalfighter": true,
+  "dropship": true,
+  "jumpship": true,
+  "warship": true,
+  "spacestation": true,
+  "protomech": true,
+  "isvariable": false
+}

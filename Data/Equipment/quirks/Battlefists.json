@@ -1,0 +1,18 @@
+{
+  "name": "Battlefists",
+  "cost": 2,
+  "description": "The Battlefists quirk applies only to ’Mechs that are equipped with hand actuators. This quirk reflects ’Mechs that feature hands which are better designed for melee combat as a consequence of their unique configuration (such as the Awesome’s mace-like fist, or the Pillager’s sharpened “knuckles”). This quirk is only paid for once, even if the ’Mech has two fists. If the ’Mech has two hands, and this quirk is only meant to apply to one of those hands, this must be specified (the cost remains the same). A ’Mech with Battlefists receives a –1 Target Number modifier when making Punch attacks.",
+  "positive": true,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": false,
+  "battlearmor": false,
+  "aerospacefighter": false,
+  "conventionalfighter": false,
+  "dropship": false,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": false,
+  "isvariable": false
+}

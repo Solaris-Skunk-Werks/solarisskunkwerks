@@ -1,0 +1,18 @@
+{
+  "name": "Static Ammo Feed",
+  "cost": 1,
+  "description": "Weapons with the Static Ammo Feed quirk use a very crude or minimized form of ammunition feed that renders the weapon incapable of switching between multiple ammunition bins. It is most commonly seen in ’Mechs that feature exposed ammunition feeds, such as the Blade or the Cygnus, and thus often occurs in conjunction with the Exposed Weapon Linkage quirk.  The Static Ammo Feed quirk must be taken for each affected weapon type the ’Mech carries, though it can cover multiple weapons of that type at the same time. Thus, a ’Mech with two Autocannon/10s and two Autocannon/5s would need two Static Ammo Quirks to account for all four weapons having this issue, if desired—one for the AC/10s and the other for the AC/5s. This quick cannot be applied to weapons without switchable ammunition.  Weapons covered by this quirk will be unable to switch between different ammunition types, even if they possess the Switchable (S) feature. Thus, all ammunition carried for a weapon with a Static Ammo Feed must be of the same type throughout play.",
+  "positive": false,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": false,
+  "battlearmor": false,
+  "aerospacefighter": false,
+  "conventionalfighter": false,
+  "dropship": false,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": false,
+  "isvariable": false
+}

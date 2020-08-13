@@ -1,0 +1,18 @@
+{
+  "name": "Good Reputation",
+  "cost": 0,
+  "description": "Whether due to clever marketing, use by an iconic MechWarrior, or proven capabilities, some ’Mechs are extremely popular. Such ’Mechs are worth a premium on the open market, as buyer demand means that acquiring one at its base price is almost impossible. For each level of this quirk, the ’Mech is worth 10% more C-bills than normal. This quirk is not worth points because it is not, strictly speaking, a bonus to the ’Mech.  Note that in some eras and/or locations, such as during the late Third Succession War period, ’Mechs as a whole are so rare that all may be considered to have the 1 point version of this quirk. Furthermore, this quirk is not applicable to Clan machines, as the Clans do not really have a secondary ’Mech market and Inner Sphere customers will gladly pay inflated prices to acquire Clan ’Mechs regardless of their reputation.",
+  "positive": true,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": false,
+  "battlearmor": false,
+  "aerospacefighter": false,
+  "conventionalfighter": false,
+  "dropship": false,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": false,
+  "isvariable": false
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Fine Manipulators",
+  "cost": 0,
+  "description": "Though ’Mechs generally rely on hand actuators for any manual work, some units, such as the Jupiter, feature manipulators otherwise more commonly found on vehicles for delicate work.  A ’Mech with this quirk may mount up to one Manipulator (see TM, p. 245) in each side torso and/or arm location. These do not follow the normal construction rules and are weight free the exact number must be specified.",
+  "positive": true,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": false,
+  "battlearmor": false,
+  "aerospacefighter": false,
+  "conventionalfighter": false,
+  "dropship": false,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": false,
+  "isvariable": false
+}

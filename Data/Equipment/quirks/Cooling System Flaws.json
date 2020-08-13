@@ -1,0 +1,18 @@
+{
+  "name": "Cooling System Flaws",
+  "cost": 3,
+  "description": "Whenever a `Mech executes or receives a physical attack, falls, or is forced to make a Piloting Skill roll because it received 20 points or more damage, roll 2D6. On a result of 10+ the `Mech will generate 5 points more heat each turn for the rest of the battle.",
+  "positive": false,
+  "battlemech": true,
+  "industrialmech": true,
+  "combatvehicle": false,
+  "battlearmor": false,
+  "aerospacefighter": false,
+  "conventionalfighter": false,
+  "dropship": false,
+  "jumpship": false,
+  "warship": false,
+  "spacestation": false,
+  "protomech": false,
+  "isvariable": false
+}
