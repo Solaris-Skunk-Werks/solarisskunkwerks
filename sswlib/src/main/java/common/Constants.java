@@ -40,7 +40,8 @@ public class Constants {
                                CUSTOMPHYSICALSFILE = "Data/Equipment/customphysicals.dat",
                                CUSTOMEQUIPMENTFILE = "Data/Equipment/customequipment.dat",
                                CUSTOMAMMOFILE = "Data/Equipment/customammunition.dat",
-                               CUSTOMQUIRKSFILE = "Data/Equipment/customquirks.dat";
+                               CUSTOMQUIRKSFILE = "Data/Equipment/customquirks.dat",
+                               EQUIPMENT_JSON_BASE_DIR = "Data/Equipment";
 
     public final static String[] Locs = { "Head", "Center Torso", "Left Torso",
         "Right Torso", "Left Arm", "Right Arm", "Left Leg", "Right Leg" };

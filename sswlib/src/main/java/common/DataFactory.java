@@ -32,7 +32,10 @@ import components.CombatVehicle;
 import components.Mech;
 import components.Quirk;
 import filehandlers.BinaryReader;
+import filehandlers.JsonReader;
+
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class DataFactory {
@@ -46,8 +49,17 @@ public class DataFactory {
             equips,
             customs;
 
+    public DataFactory() throws Exception {
+        JsonReader jr = new JsonReader();
+        ammo = jr.ReadAllAmmo(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR, "ammunition"));
+        weapons = jr.ReadAllRangedWeapons(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR, "ranged_weapons"));
+        physicals = jr.ReadAllPhysicalWeapons(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR, "physical_weapons"));
+        equips = jr.ReadAllEquipment(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR, "equipment"));
+        quirks = jr.ReadAllQuirks(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR, "quirks"));
+    }
 
-    public DataFactory() throws Exception
+    // Legacy binary format
+    public DataFactory(boolean binary) throws Exception
     {
         BinaryReader b = new BinaryReader();
         ammo = b.ReadAmmo( Constants.AMMOFILE );
