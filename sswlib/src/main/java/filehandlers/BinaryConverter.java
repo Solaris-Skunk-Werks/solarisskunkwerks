@@ -28,7 +28,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package filehandlers;
 
+import components.PhysicalWeapon;
 import components.RangedWeapon;
+import components.abPlaceable;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -88,23 +90,47 @@ public class BinaryConverter {
 
     public boolean ConvertRangedWeaponsBintoJson(String binPath) {
         BinaryReader br = new BinaryReader();
-        JsonWriter jw = new JsonWriter();
-        int numWritten = 0;
+        int numWritten;
         try {
             ArrayList<RangedWeapon> weapons = br.ReadWeapons(binPath);
             Path outDir = Paths.get(new File(binPath).getParent(), "ranged_weapons");
-            Files.createDirectories(outDir);
-            for (RangedWeapon w: weapons) {
-                jw.Write(w, outDir);
-                numWritten++;
-            }
+            numWritten = writeJsonEquipment(weapons, outDir);
         } catch (Exception e) {
             Messages += e.getMessage();
             Messages += e.toString();
             return false;
         }
-        Messages += "Wrote " + numWritten + " weapons to JSON" + "\n";
+        Messages += "Wrote " + numWritten + " ranged weapons to JSON" + "\n";
         return true;
+    }
+
+    public boolean ConvertPhysicalWeaponsBintoJson(String binPath) {
+        BinaryReader br = new BinaryReader();
+        int numWritten;
+        try {
+            ArrayList<PhysicalWeapon> weapons = br.ReadPhysicals(binPath);
+            Path outDir = Paths.get(new File(binPath).getParent(), "physical_weapons");
+            numWritten = writeJsonEquipment(weapons, outDir);
+
+        } catch (Exception e) {
+            Messages += e.getMessage();
+            Messages += e.toString();
+            return false;
+        }
+        Messages += "Wrote " + numWritten + " physical weapons to JSON" + "\n";
+        return true;
+    }
+
+    private int writeJsonEquipment(ArrayList<? extends abPlaceable> equipment, Path outDir) throws Exception {
+        JsonWriter jw = new JsonWriter();
+        int numWritten = 0;
+
+        Files.createDirectories(outDir);
+        for (abPlaceable eq: equipment) {
+            jw.Write(eq, outDir);
+            numWritten++;
+        }
+        return numWritten;
     }
 
 /**

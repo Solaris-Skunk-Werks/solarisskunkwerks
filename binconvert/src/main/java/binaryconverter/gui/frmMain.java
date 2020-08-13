@@ -223,6 +223,8 @@ public class frmMain
     BinaryConverter bc = new BinaryConverter();
     if (this.rdoWeapons.isSelected()) {
       bc.ConvertRangedWeaponsBintoJson(this.txtSource.getText());
+    } else if (this.rdoPhysicals.isSelected()) {
+      bc.ConvertPhysicalWeaponsBintoJson(this.txtSource.getText());
     }
     this.txtLog.setText(bc.GetMessages());
   }
