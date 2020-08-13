@@ -55,8 +55,8 @@ public class Ammunition extends abPlaceable {
                 ToHitMedium = 0,
                 ToHitLong = 0,
                 group = 1,
-                cluster = 1;
-    private transient int WeaponClass = ifWeapon.W_BALLISTIC,
+                cluster = 1,
+                WeaponClass = ifWeapon.W_BALLISTIC,
                 FCSType = ifMissileGuidance.FCS_NONE;
     private boolean Explosive = true,
                     IsCluster = false;
