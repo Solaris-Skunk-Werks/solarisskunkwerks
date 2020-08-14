@@ -1,7 +1,7 @@
 {
   "name": "Sensor Ghosts",
   "cost": 3,
-  "description": "The unit\u0027s sensor suite projects ghost images, causing significant targeting problems. All ranged attack target numbers receive a +1 modifier.",
+  "description": "The unit's sensor suite projects ghost images, causing significant targeting problems. All ranged attack target numbers receive a +1 modifier.",
   "positive": false,
   "battlemech": true,
   "industrialmech": true,

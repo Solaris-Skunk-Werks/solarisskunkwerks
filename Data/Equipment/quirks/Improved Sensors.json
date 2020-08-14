@@ -1,7 +1,7 @@
 {
   "name": "Improved Sensors",
   "cost": 3,
-  "description": "A unit with this quirk is treated as if it has an active probe. If it is equipped with an active probe, add 2 to the Active Probe\u0027s range.",
+  "description": "A unit with this quirk is treated as if it has an active probe. If it is equipped with an active probe, add 2 to the Active Probe's range.",
   "positive": true,
   "battlemech": true,
   "industrialmech": true,

@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.nio.file.Path;
 
 public class JsonWriter {
-    private Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+    private Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().disableHtmlEscaping().create();
 
     public void Write(abPlaceable equipment, Path outDir) throws Exception {
         String filename = equipment.LookupName().replace("/", "_") + ".json";

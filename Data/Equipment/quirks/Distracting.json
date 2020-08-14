@@ -1,7 +1,7 @@
 {
   "name": "Distracting",
   "cost": 1,
-  "description": "A unit with the Distracting quirk applies a +1 Special Source modifier to any Morale Checks its opponents must make when using the Tactical Morale rules. If using the Demoralizer Special Piloting Ability from ATOW, the Distracting Quirk adds a +1 modifier to the demoralizer\u0027s WIL score.",
+  "description": "A unit with the Distracting quirk applies a +1 Special Source modifier to any Morale Checks its opponents must make when using the Tactical Morale rules. If using the Demoralizer Special Piloting Ability from ATOW, the Distracting Quirk adds a +1 modifier to the demoralizer's WIL score.",
   "positive": true,
   "battlemech": true,
   "industrialmech": true,

@@ -1,7 +1,7 @@
 {
-  "ActualName": "Ammo: \u0027Mech Mortar 8 (Anti-Personnel)",
+  "ActualName": "Ammo: 'Mech Mortar 8 (Anti-Personnel)",
   "CritName": "@ Mortar 8 (Anti-Personnel)",
-  "LookupName": "(CL) @ \u0027Mech Mortar 8 (Anti-Personnel)",
+  "LookupName": "(CL) @ 'Mech Mortar 8 (Anti-Personnel)",
   "MegaMekName": "CLMekMortar8AmmoAntiPersonnel",
   "BookRef": "Tactical Operations",
   "Tonnage": 1.0,

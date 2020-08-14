@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class JsonReader {
-    private Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+    private Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().disableHtmlEscaping().create();
 
     public ArrayList ReadAllAmmo(Path dir) throws Exception {
         List<Path> files = walkPath(dir);

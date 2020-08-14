@@ -1,7 +1,7 @@
 {
   "name": "Weak Undercarriage",
   "cost": 1,
-  "description": "When making a landing, if the Piloting Skill Roll\u0027s Margin of Failure is 3 or more, the gear will collapse. The unit takes 50 points of standard-scale damage to the nose (or rear of Spheroid Small Craft andDropShips) and the gear is destroyed.",
+  "description": "When making a landing, if the Piloting Skill Roll's Margin of Failure is 3 or more, the gear will collapse. The unit takes 50 points of standard-scale damage to the nose (or rear of Spheroid Small Craft andDropShips) and the gear is destroyed.",
   "positive": false,
   "battlemech": false,
   "industrialmech": false,

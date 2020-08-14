@@ -1,7 +1,7 @@
 {
-  "ActualName": "Ammo: \u0027Mech Mortar 8 (Armor Piercing)",
+  "ActualName": "Ammo: 'Mech Mortar 8 (Armor Piercing)",
   "CritName": "@ Mortar 8 (Armor Piercing)",
-  "LookupName": "(CL) @ \u0027Mech Mortar 8 (Armor Piercing)",
+  "LookupName": "(CL) @ 'Mech Mortar 8 (Armor Piercing)",
   "MegaMekName": "CLMekMortar8AmmoAP",
   "BookRef": "Tactical Operations",
   "Tonnage": 1.0,

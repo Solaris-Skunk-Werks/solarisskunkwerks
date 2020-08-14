@@ -1,7 +1,7 @@
 {
-  "ActualName": "Ammo: \u0027Mech Mortar 4 (Semi-Guided)",
+  "ActualName": "Ammo: 'Mech Mortar 4 (Semi-Guided)",
   "CritName": "@ Mortar 4 (Semi-Guided)",
-  "LookupName": "(IS) @ \u0027Mech Mortar 4 (Semi-Guided)",
+  "LookupName": "(IS) @ 'Mech Mortar 4 (Semi-Guided)",
   "MegaMekName": "ISMekMortar4AmmoSemiGuided",
   "BookRef": "Tactical Operations",
   "Tonnage": 1.0,

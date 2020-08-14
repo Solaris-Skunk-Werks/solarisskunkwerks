@@ -1,7 +1,7 @@
 {
   "name": "Atmospheric Flight Instability",
   "cost": 2,
-  "description": "The aerospace unit is not very stable when flying within a planet\u0027s atmospheric envelope. All control rolls receive a +1 target number modifier.",
+  "description": "The aerospace unit is not very stable when flying within a planet's atmospheric envelope. All control rolls receive a +1 target number modifier.",
   "positive": false,
   "battlemech": false,
   "industrialmech": false,

@@ -1,7 +1,7 @@
 {
   "name": "Variable Range Targeting",
   "cost": 0,
-  "description": "A BattleMech with this quirk has an advanced targeting system that allows it to launch more accurate attacks at either long or short range, at the expense of reduced accuracy at other ranges. During a turn\u0027s End Phase, the controlling player must designate whether this improved targeting feature will be active at long or short range the next turn. All weapon attacks at the designated range receive a -1 target number modifier, but all weapon attacks at the alternative range receive a +1 target number modifier (medium range remains unmodified).",
+  "description": "A BattleMech with this quirk has an advanced targeting system that allows it to launch more accurate attacks at either long or short range, at the expense of reduced accuracy at other ranges. During a turn's End Phase, the controlling player must designate whether this improved targeting feature will be active at long or short range the next turn. All weapon attacks at the designated range receive a -1 target number modifier, but all weapon attacks at the alternative range receive a +1 target number modifier (medium range remains unmodified).",
   "positive": true,
   "battlemech": true,
   "industrialmech": true,

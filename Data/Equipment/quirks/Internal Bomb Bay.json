@@ -1,7 +1,7 @@
 {
   "name": "Internal Bomb Bay",
   "cost": 3,
-  "description": "The unit can use its internal cargo capacity as an internal bomb bay, releasing up to 6 bombs eahc turn. However, in the turn that ordnance is being dropped, there is  dange that ground fire will hit the exposed bay. On a roll of 10+, damage received from ground fire will strike the open bay and detonate all bombs remaining. The resulting damage is applied directly to the unit\u0027s SI.",
+  "description": "The unit can use its internal cargo capacity as an internal bomb bay, releasing up to 6 bombs eahc turn. However, in the turn that ordnance is being dropped, there is  dange that ground fire will hit the exposed bay. On a roll of 10+, damage received from ground fire will strike the open bay and detonate all bombs remaining. The resulting damage is applied directly to the unit's SI.",
   "positive": true,
   "battlemech": false,
   "industrialmech": false,

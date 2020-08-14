@@ -1,7 +1,7 @@
 {
-  "ActualName": "Ammo: \u0027Mech Mortar 2 (Airburst)",
+  "ActualName": "Ammo: 'Mech Mortar 2 (Airburst)",
   "CritName": "@ Mortar 2 (Airburst)",
-  "LookupName": "(CL) @ \u0027Mech Mortar 2 (Airburst)",
+  "LookupName": "(CL) @ 'Mech Mortar 2 (Airburst)",
   "MegaMekName": "CLMekMortar2AmmoAirburst",
   "BookRef": "Tactical Operations",
   "Tonnage": 1.0,

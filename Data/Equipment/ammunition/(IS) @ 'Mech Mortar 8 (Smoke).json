@@ -1,7 +1,7 @@
 {
-  "ActualName": "Ammo: \u0027Mech Mortar 8 (Smoke)",
+  "ActualName": "Ammo: 'Mech Mortar 8 (Smoke)",
   "CritName": "@ Mortar 8 (Smoke)",
-  "LookupName": "(IS) @ \u0027Mech Mortar 8 (Smoke)",
+  "LookupName": "(IS) @ 'Mech Mortar 8 (Smoke)",
   "MegaMekName": "ISMekMortar8AmmoSmoke",
   "BookRef": "Tactical Operations",
   "Tonnage": 1.0,
