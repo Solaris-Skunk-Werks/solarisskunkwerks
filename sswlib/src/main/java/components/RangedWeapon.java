@@ -115,6 +115,14 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                   OffBV = 0.0,
                   DefBV = 0.0;
     @SerializedName("Availability") private AvailableCode AC;
+    public enum SizeClass {
+        SMALL,
+        MEDIUM,
+        LARGE,
+        NA
+    }
+
+    public RangedWeapon() { }
 
     public RangedWeapon( String actualname, String critname, String lookupname, String mmname, String type, String spec, AvailableCode a, int wepclass ) {
         CritName = critname;
@@ -379,6 +387,44 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
 
     public String BookReference() {
         return BookReference;
+    }
+
+    public int GetRackSize() {
+        int size;
+        try {
+            size = Integer.parseInt(CritName.replaceAll("[^0-9]", ""));
+        } catch (Exception e) {
+            size = 0;
+        }
+        return size;
+    }
+
+    public SizeClass GetSizeClass() {
+        if (ActualName.contains("Small")) {
+            return SizeClass.SMALL;
+        } else if (ActualName.contains("Medium")) {
+            return SizeClass.MEDIUM;
+        } else if (ActualName.contains("Large")) {
+            return SizeClass.LARGE;
+        } else {
+            return SizeClass.NA;
+        }
+    }
+
+    public String GetWeaponType() {
+        String[] weaponTypes = { "Autocannon", "Gauss", "Taser", "Rifle", "Machine Gun", "Fluid Gun", "Artillery",
+                "Laser", "Particle Projection Cannon", "Plasma", "TSEMP", "Flamer", "Advanced Tactical Missile",
+                "Long Range Missile", "Multi-Missile", "Medium Range Missile", "Short Range Missile",
+                "Rocket Launcher", "Narc", "Mortar", "Thunderbolt", "Long Range Torpedo", "Short Range Torpedo",
+                "Arrow", "Thumper", "Sniper", "Long Tom", "Cruise Missile" };
+        String match = "";
+        for (String weaponType : weaponTypes) {
+            if (ActualName.contains(weaponType)) {
+                // Use the last match to separate things like "Rifle" and "Plasma Rifle"
+                match = weaponType;
+            }
+        }
+        return match;
     }
 
     public String GetType() {
@@ -1061,6 +1107,10 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
 
     public RangedWeapon Clone() {
         return new RangedWeapon( this );
+    }
+
+    public int GetBMRulesLevel() {
+        return AC.GetRulesLevel_BM();
     }
 
     @Override

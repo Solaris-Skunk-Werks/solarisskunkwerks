@@ -62,6 +62,8 @@ public class Ammunition extends abPlaceable {
                     IsCluster = false;
     @SerializedName("Availability") private AvailableCode AC;
 
+    public Ammunition() { }
+
     public Ammunition( String actualname, String critname, String lookupname, String mmname, int idx, AvailableCode a ) {
         // some things of note here:
         // Name is the visible name in the program

@@ -80,6 +80,8 @@ public class Quirk {
         description = Description;
     }
 
+    public Quirk() { }
+
     /**
      * @return the name
      */
