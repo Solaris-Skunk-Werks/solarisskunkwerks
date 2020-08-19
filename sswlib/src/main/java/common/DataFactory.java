@@ -28,15 +28,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package common;
 
-import components.CombatVehicle;
-import components.Mech;
-import components.Quirk;
+import components.*;
 import filehandlers.BinaryReader;
 import filehandlers.JsonReader;
 
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class DataFactory {
     // Class file to make data lookups easier and disconnected from the BFB.GUI
@@ -56,6 +56,12 @@ public class DataFactory {
         physicals = jr.ReadAllPhysicalWeapons(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR, "physical_weapons"));
         equips = jr.ReadAllEquipment(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR, "equipment"));
         quirks = jr.ReadAllQuirks(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR, "quirks"));
+
+        sortRangedWeapons();
+        sortPhysicalWeapons();
+        sortEquipment();
+        sortQuirks();
+        return;
     }
 
     // Legacy binary format
@@ -130,5 +136,28 @@ public class DataFactory {
 
     public void Rebuild( CombatVehicle v ) {
         Equips.BuildPhysicals( v );
+    }
+
+    private void sortRangedWeapons() {
+        Comparator<RangedWeapon> oneShot = Comparator.comparing(RangedWeapon::IsOneShot);
+        Comparator<RangedWeapon> weaponType = oneShot.thenComparing(RangedWeapon::GetWeaponType);
+        Comparator<RangedWeapon> variant = weaponType.thenComparing(RangedWeapon::GetWeaponVariant);
+        Comparator<RangedWeapon> faction = variant.thenComparing(RangedWeapon::GetTechBase);
+        Comparator<RangedWeapon> rackSize = faction.thenComparing(RangedWeapon::GetRackSize);
+        Comparator<RangedWeapon> sizeClass = rackSize.thenComparing(RangedWeapon::GetSizeClass);
+
+        Collections.sort(weapons, sizeClass);
+    }
+
+    private void sortPhysicalWeapons() {
+        Collections.sort(physicals, Comparator.comparing(PhysicalWeapon::ActualName));
+    }
+
+    private void sortEquipment() {
+        Collections.sort(equips, Comparator.comparing(components.Equipment::ActualName));
+    }
+
+    private void sortQuirks() {
+        Collections.sort(quirks, Comparator.comparing(Quirk::getName));
     }
 }

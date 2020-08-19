@@ -47,6 +47,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                    ModifiedType,
                    Manufacturer = "",
                    BookReference = "";
+    private WeaponType type = WeaponType.OTHER;
+    private WeaponVariant variant = WeaponVariant.BASE;
+    private SizeClass sizeClass = SizeClass.NA;
     private boolean HasAmmo = false,
                     SwitchableAmmo = false,
                     RequiresFusion = false,
@@ -109,17 +112,30 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                 ClusterModLong = 0,
                 CaselessAmmoIDX = 0,
                 FCSType = ifMissileGuidance.FCS_NONE,
-                WeaponClass = ifWeapon.W_BALLISTIC;
+                WeaponClass = ifWeapon.W_BALLISTIC,
+                RackSize = 0;
     private double Tonnage = 0.0,
                   Cost = 0.0,
                   OffBV = 0.0,
                   DefBV = 0.0;
     @SerializedName("Availability") private AvailableCode AC;
+
     public enum SizeClass {
+        MICRO,
         SMALL,
         MEDIUM,
         LARGE,
         NA
+    }
+    public enum WeaponType {
+        AUTOCANNON, GAUSS, TASER, RIFLE, MG, FLUID_GUN, ARTILLERY_CANNON, LASER, PPC, PLASMA_RIFLE, PLASMA_CANNON,
+        TSEMP, FLAMER, ATM, LRM, MML, MRM, SRM, ROCKET_LAUNCHER, NARC, MORTAR, THUNDERBOLT, LRT, SRT, ARROW_IV, CRUISE_MISSILE,
+        OTHER
+    }
+    public enum WeaponVariant {
+        BASE, PROTOTYPE, LBX, LIGHT, MEDIUM, HEAVY, IMPROVED_HEAVY, PROTOMECH, ROTARY, ULTRA, HYPER_VELOCITY, ANTI_PERSONNEL,
+        IMPROVED, HYPER_ASSAULT, LONGTOM, SNIPER, THUMPER, ER, PULSE, X_PULSE, ER_PULSE, VARIABLE_SPEED_PULSE, CHEMICAL, REENGINEERED,
+        STREAK, PENTAGON_POWER, ENHANCED, EXTENDED, VEHICLE, RISC, OTHER
     }
 
     public RangedWeapon() { }
@@ -315,6 +331,22 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         ChatName = s;
     }
 
+    public void SetWeaponType(String s) {
+        type = WeaponType.valueOf(s.toUpperCase());
+    }
+
+    public void SetWeaponVariant(String s) {
+        variant = WeaponVariant.valueOf(s.toUpperCase());
+    }
+
+    public void SetSizeClass(String s) {
+        sizeClass = SizeClass.valueOf(s.toUpperCase());
+    }
+
+    public void SetRackSize(int size) {
+        RackSize = size;
+    }
+
     public String ActualName() {
         return ActualName;
     }
@@ -390,42 +422,16 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     }
 
     public int GetRackSize() {
-        int size;
-        try {
-            size = Integer.parseInt(CritName.replaceAll("[^0-9]", ""));
-        } catch (Exception e) {
-            size = 0;
-        }
-        return size;
+        return RackSize;
     }
 
     public SizeClass GetSizeClass() {
-        if (ActualName.contains("Small")) {
-            return SizeClass.SMALL;
-        } else if (ActualName.contains("Medium")) {
-            return SizeClass.MEDIUM;
-        } else if (ActualName.contains("Large")) {
-            return SizeClass.LARGE;
-        } else {
-            return SizeClass.NA;
-        }
+        return sizeClass;
     }
 
-    public String GetWeaponType() {
-        String[] weaponTypes = { "Autocannon", "Gauss", "Taser", "Rifle", "Machine Gun", "Fluid Gun", "Artillery",
-                "Laser", "Particle Projection Cannon", "Plasma", "TSEMP", "Flamer", "Advanced Tactical Missile",
-                "Long Range Missile", "Multi-Missile", "Medium Range Missile", "Short Range Missile",
-                "Rocket Launcher", "Narc", "Mortar", "Thunderbolt", "Long Range Torpedo", "Short Range Torpedo",
-                "Arrow", "Thumper", "Sniper", "Long Tom", "Cruise Missile" };
-        String match = "";
-        for (String weaponType : weaponTypes) {
-            if (ActualName.contains(weaponType)) {
-                // Use the last match to separate things like "Rifle" and "Plasma Rifle"
-                match = weaponType;
-            }
-        }
-        return match;
-    }
+    public WeaponType GetWeaponType() { return type; }
+
+    public WeaponVariant GetWeaponVariant() { return variant; }
 
     public String GetType() {
         if (UsingPulseModule)
