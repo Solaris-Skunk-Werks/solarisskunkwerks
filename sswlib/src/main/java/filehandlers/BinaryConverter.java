@@ -456,6 +456,12 @@ public class BinaryConverter {
         FW.writeUTF( data[103] ); // ChatName
         FW.writeUTF( data[104] ); // BookReference
         FW.writeUTF( data[105] ); // Battleforce Abilities
+
+        // New columns added 8/19/2020
+        FW.writeUTF( data[106] ); // weapon type
+        FW.writeUTF( data[107] ); // variant
+        FW.writeUTF( data[108] ); // size class
+        FW.writeInt( Integer.parseInt( data[109] ) ); // rack size
     }
 
 /**
