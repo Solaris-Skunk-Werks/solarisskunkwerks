@@ -3,6 +3,7 @@ package filehandlers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.InstanceCreator;
+import com.google.gson.reflect.TypeToken;
 import components.*;
 
 import java.io.FileReader;
@@ -25,48 +26,33 @@ public class JsonReader {
             .registerTypeAdapter(Quirk.class, new QuirkInstanceCreator())
             .create();
 
-    public ArrayList ReadAllAmmo(Path dir) throws Exception {
-        List<Path> files = walkPath(dir);
-        ArrayList ammo = new ArrayList();
-        for (Path f: files) {
-            ammo.add(gson.fromJson(new FileReader(f.toString()), Ammunition.class));
-        }
+    public ArrayList ReadAllAmmo(Path f) throws Exception {
+        Type collectionType = new TypeToken<ArrayList<Ammunition>>(){}.getType();
+        ArrayList<Ammunition> ammo = gson.fromJson(new FileReader(f.toString()), collectionType);
         return ammo;
     }
 
-    public ArrayList ReadAllRangedWeapons(Path dir) throws Exception {
-        List<Path> files = walkPath(dir);
-        ArrayList weapons = new ArrayList();
-        for (Path f: files) {
-            weapons.add(gson.fromJson(new FileReader(f.toString()), RangedWeapon.class));
-        }
+    public ArrayList ReadAllRangedWeapons(Path f) throws Exception {
+        Type collectionType = new TypeToken<ArrayList<RangedWeapon>>(){}.getType();
+        ArrayList<RangedWeapon> weapons = gson.fromJson(new FileReader(f.toString()), collectionType);
         return weapons;
     }
 
-    public ArrayList ReadAllPhysicalWeapons(Path dir) throws Exception{
-        List<Path> files = walkPath(dir);
-        ArrayList weapons = new ArrayList();
-        for (Path f: files) {
-            weapons.add(gson.fromJson(new FileReader(f.toString()), PhysicalWeapon.class));
-        }
+    public ArrayList ReadAllPhysicalWeapons(Path f) throws Exception {
+        Type collectionType = new TypeToken<ArrayList<PhysicalWeapon>>(){}.getType();
+        ArrayList<PhysicalWeapon> weapons = gson.fromJson(new FileReader(f.toString()), collectionType);
         return weapons;
     }
 
-    public ArrayList ReadAllEquipment(Path dir) throws Exception {
-        List<Path> files = walkPath(dir);
-        ArrayList equipment = new ArrayList();
-        for (Path f: files) {
-            equipment.add(gson.fromJson(new FileReader(f.toString()), Equipment.class));
-        }
+    public ArrayList ReadAllEquipment(Path f) throws Exception {
+        Type collectionType = new TypeToken<ArrayList<Equipment>>(){}.getType();
+        ArrayList<Equipment> equipment = gson.fromJson(new FileReader(f.toString()), collectionType);
         return equipment;
     }
 
-    public ArrayList ReadAllQuirks(Path dir) throws Exception {
-        List<Path> files = walkPath(dir);
-        ArrayList quirks = new ArrayList();
-        for (Path f: files) {
-            quirks.add(gson.fromJson(new FileReader(f.toString()), Quirk.class));
-        }
+    public ArrayList ReadAllQuirks(Path f) throws Exception {
+        Type collectionType = new TypeToken<ArrayList<Quirk>>(){}.getType();
+        ArrayList<Quirk> quirks = gson.fromJson(new FileReader(f.toString()), collectionType);
         return quirks;
     }
 

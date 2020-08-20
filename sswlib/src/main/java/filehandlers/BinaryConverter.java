@@ -275,8 +275,8 @@ public class BinaryConverter {
         int numWritten;
         try {
             ArrayList<RangedWeapon> weapons = br.ReadWeapons(binPath);
-            Path outDir = Paths.get(new File(binPath).getParent(), "ranged_weapons");
-            numWritten = writeJsonEquipment(weapons, outDir);
+            Path outfile = Paths.get(binPath).getParent().resolve("ranged_weapons.json");
+            numWritten = writeJsonEquipment(weapons, outfile);
         } catch (Exception e) {
             Messages += e.getMessage();
             Messages += e.toString();
@@ -291,8 +291,8 @@ public class BinaryConverter {
         int numWritten;
         try {
             ArrayList<PhysicalWeapon> weapons = br.ReadPhysicals(binPath);
-            Path outDir = Paths.get(new File(binPath).getParent(), "physical_weapons");
-            numWritten = writeJsonEquipment(weapons, outDir);
+            Path outfile = Paths.get(binPath).getParent().resolve("physical_weapons.json");
+            numWritten = writeJsonEquipment(weapons, outfile);
         } catch (Exception e) {
             Messages += e.getMessage();
             Messages += e.toString();
@@ -307,8 +307,8 @@ public class BinaryConverter {
         int numWritten;
         try {
             ArrayList<Equipment> equipment = br.ReadEquipment(binPath);
-            Path outDir = Paths.get(new File(binPath).getParent(), "equipment");
-            numWritten = writeJsonEquipment(equipment, outDir);
+            Path outfile = Paths.get(binPath).getParent().resolve("equipment.json");
+            numWritten = writeJsonEquipment(equipment, outfile);
         } catch (Exception e) {
             Messages += e.getMessage();
             Messages += e.toString();
@@ -323,8 +323,8 @@ public class BinaryConverter {
         int numWritten;
         try {
             ArrayList<Ammunition> ammo = br.ReadAmmo(binPath);
-            Path outDir = Paths.get(new File(binPath).getParent(), "ammunition");
-            numWritten = writeJsonEquipment(ammo, outDir);
+            Path outfile = Paths.get(binPath).getParent().resolve("ammunition.json");
+            numWritten = writeJsonEquipment(ammo, outfile);
         } catch (Exception e) {
             Messages += e.getMessage();
             Messages += e.toString();
@@ -334,30 +334,22 @@ public class BinaryConverter {
         return true;
     }
 
-    private int writeJsonEquipment(ArrayList<? extends abPlaceable> equipment, Path outDir) throws Exception {
+    private int writeJsonEquipment(ArrayList<? extends abPlaceable> equipment, Path outfile) throws Exception {
         JsonWriter jw = new JsonWriter();
-        int numWritten = 0;
-
-        Files.createDirectories(outDir);
-        for (abPlaceable eq: equipment) {
-            jw.Write(eq, outDir);
-            numWritten++;
-        }
+        int numWritten = equipment.size();
+        jw.WriteAllEquipment((ArrayList<abPlaceable>) equipment, outfile);
         return numWritten;
     }
 
     public boolean ConvertQuirksBintoJson(String binPath) {
         BinaryReader br = new BinaryReader();
         JsonWriter jw = new JsonWriter();
-        int numWritten = 0;
+        int numWritten;
         try {
             ArrayList<Quirk> quirks = br.ReadQuirks(binPath);
-            Path outDir = Paths.get(new File(binPath).getParent(), "quirks");
-            Files.createDirectories(outDir);
-            for (Quirk q: quirks) {
-                jw.Write(q, outDir);
-                numWritten++;
-            }
+            Path outfile = Paths.get(binPath).getParent().resolve("quirks.json");
+            jw.WriteAllQuirks(quirks, outfile);
+            numWritten = quirks.size();
         } catch (Exception e) {
             Messages += e.getMessage();
             Messages += e.toString();

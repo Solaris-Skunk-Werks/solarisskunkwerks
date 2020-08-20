@@ -51,16 +51,16 @@ public class DataFactory {
 
     public DataFactory() throws Exception {
         JsonReader jr = new JsonReader();
-        ammo = jr.ReadAllAmmo(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR, "ammunition"));
-        weapons = jr.ReadAllRangedWeapons(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR, "ranged_weapons"));
-        physicals = jr.ReadAllPhysicalWeapons(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR, "physical_weapons"));
-        equips = jr.ReadAllEquipment(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR, "equipment"));
-        quirks = jr.ReadAllQuirks(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR, "quirks"));
+        ammo = jr.ReadAllAmmo(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR).resolve("ammunition.json"));
+        weapons = jr.ReadAllRangedWeapons(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR).resolve("ranged_weapons.json"));
+        physicals = jr.ReadAllPhysicalWeapons(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR).resolve("physical_weapons.json"));
+        equips = jr.ReadAllEquipment(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR).resolve("equipment.json"));
+        quirks = jr.ReadAllQuirks(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR).resolve("quirks.json"));
 
-        sortRangedWeapons();
-        sortPhysicalWeapons();
-        sortEquipment();
-        sortQuirks();
+//        sortRangedWeapons();
+//        sortPhysicalWeapons();
+//        sortEquipment();
+//        sortQuirks();
         return;
     }
 
