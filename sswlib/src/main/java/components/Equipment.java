@@ -40,8 +40,8 @@ public class Equipment extends abPlaceable {
                    MegaMekName = "",
                    BookReference = "",
                    ChatName = "",
-                   Specials = "",
-                   Manufacturer = "";
+                   Specials = "";
+    private transient String Manufacturer = "";
     private int Crits = 0,
                 CVSpace = 0,
                 LotSize = 0,

@@ -37,6 +37,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     private transient MGArray CurArray = null;
     private transient ifMissileGuidance FCS = null;
     private transient ifTurret Turret = null;
+    private transient String Manufacturer = "";
     private String ActualName,
                    CritName,
                    MegaMekName,
@@ -45,7 +46,6 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                    Specials = "",
                    Type,
                    ModifiedType,
-                   Manufacturer = "",
                    BookReference = "";
     private WeaponType type = WeaponType.OTHER;
     private WeaponVariant variant = WeaponVariant.BASE;
