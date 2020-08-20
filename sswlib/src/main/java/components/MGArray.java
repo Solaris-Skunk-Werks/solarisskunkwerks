@@ -514,6 +514,10 @@ public class MGArray extends abPlaceable implements ifWeapon {
         retval.SetRequirements( b.RequiresFusion(), b.RequiresNuclear(), b.RequiresPowerAmps() );
         retval.SetChatName( b.ChatName() );
         retval.SetBookReference( b.BookReference() );
+        retval.SetWeaponType( b.GetWeaponType() );
+        retval.SetWeaponVariant( b.GetWeaponVariant() );
+        retval.SetSizeClass( b.GetSizeClass() );
+        retval.SetRackSize( b.GetRackSize() );
         return retval;
     }
 

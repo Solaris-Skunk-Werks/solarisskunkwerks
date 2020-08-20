@@ -221,6 +221,10 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         BookReference = r.BookReference;
         ChatName = r.ChatName;
         SetBattleForceAbilities( r.GetBattleForceAbilities() );
+        type = r.type;
+        variant = r.variant;
+        sizeClass = r.sizeClass;
+        RackSize = r.RackSize;
     }
 
     public void SetStats( double tons, int crits, int vspace, double cost, double obv, double dbv ) {
@@ -335,13 +339,19 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         type = WeaponType.valueOf(s.toUpperCase());
     }
 
+    public void SetWeaponType(WeaponType t) { type = t; }
+
     public void SetWeaponVariant(String s) {
         variant = WeaponVariant.valueOf(s.toUpperCase());
     }
 
+    public void SetWeaponVariant(WeaponVariant v) { variant = v; }
+
     public void SetSizeClass(String s) {
         sizeClass = SizeClass.valueOf(s.toUpperCase());
     }
+
+    public void SetSizeClass(SizeClass c) { sizeClass = c; }
 
     public void SetRackSize(int size) {
         RackSize = size;
