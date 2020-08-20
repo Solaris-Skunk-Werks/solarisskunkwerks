@@ -33,6 +33,8 @@ import filehandlers.BinaryReader;
 import filehandlers.JsonReader;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,17 +53,49 @@ public class DataFactory {
 
     public DataFactory() throws Exception {
         JsonReader jr = new JsonReader();
-        ammo = jr.ReadAllAmmo(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR).resolve("ammunition.json"));
-        weapons = jr.ReadAllRangedWeapons(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR).resolve("ranged_weapons.json"));
-        physicals = jr.ReadAllPhysicalWeapons(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR).resolve("physical_weapons.json"));
-        equips = jr.ReadAllEquipment(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR).resolve("equipment.json"));
-        quirks = jr.ReadAllQuirks(Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR).resolve("quirks.json"));
+        Path basePath = Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR);
+        ammo = jr.ReadAllAmmo(basePath.resolve("ammunition.json"));
+        weapons = jr.ReadAllRangedWeapons(basePath.resolve("weapons.json"));
+        physicals = jr.ReadAllPhysicalWeapons(basePath.resolve("physicals.json"));
+        equips = jr.ReadAllEquipment(basePath.resolve("equipment.json"));
+        quirks = jr.ReadAllQuirks(basePath.resolve("quirks.json"));
 
-//        sortRangedWeapons();
-//        sortPhysicalWeapons();
-//        sortEquipment();
-//        sortQuirks();
-        return;
+        // Load custom equipment
+        Path file = basePath.resolve("custom_ammunition.json");
+        if (Files.exists(file)) {
+            customs = jr.ReadAllAmmo(file);
+            if (!customs.isEmpty()) {
+                ammo.addAll(customs);
+            }
+        }
+        file = basePath.resolve("custom_weapons.json");
+        if (Files.exists(file)) {
+            customs = jr.ReadAllRangedWeapons(file);
+            if (!customs.isEmpty()) {
+                weapons.addAll(customs);
+            }
+        }
+        file = basePath.resolve("custom_physicals.json");
+        if (Files.exists(file)) {
+            customs = jr.ReadAllPhysicalWeapons(file);
+            if (!customs.isEmpty()) {
+                physicals.addAll(customs);
+            }
+        }
+        file = basePath.resolve("custom_equipment.json");
+        if (Files.exists(file)) {
+            customs = jr.ReadAllEquipment(file);
+            if (!customs.isEmpty()) {
+                equips.addAll(customs);
+            }
+        }
+        file = basePath.resolve("customs_quirks.json");
+        if (Files.exists(file)) {
+            customs = jr.ReadAllQuirks(file);
+            if (!customs.isEmpty()) {
+                quirks.addAll(customs);
+            }
+        }
     }
 
     // Legacy binary format

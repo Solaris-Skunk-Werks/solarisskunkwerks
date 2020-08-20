@@ -275,7 +275,7 @@ public class BinaryConverter {
         int numWritten;
         try {
             ArrayList<RangedWeapon> weapons = br.ReadWeapons(binPath);
-            Path outfile = Paths.get(binPath).getParent().resolve("ranged_weapons.json");
+            Path outfile = Paths.get(binPath.replace(".dat", ".json"));
             numWritten = writeJsonEquipment(weapons, outfile);
         } catch (Exception e) {
             Messages += e.getMessage();
@@ -291,7 +291,7 @@ public class BinaryConverter {
         int numWritten;
         try {
             ArrayList<PhysicalWeapon> weapons = br.ReadPhysicals(binPath);
-            Path outfile = Paths.get(binPath).getParent().resolve("physical_weapons.json");
+            Path outfile = Paths.get(binPath.replace(".dat", ".json"));
             numWritten = writeJsonEquipment(weapons, outfile);
         } catch (Exception e) {
             Messages += e.getMessage();
@@ -307,7 +307,7 @@ public class BinaryConverter {
         int numWritten;
         try {
             ArrayList<Equipment> equipment = br.ReadEquipment(binPath);
-            Path outfile = Paths.get(binPath).getParent().resolve("equipment.json");
+            Path outfile = Paths.get(binPath.replace(".dat", ".json"));
             numWritten = writeJsonEquipment(equipment, outfile);
         } catch (Exception e) {
             Messages += e.getMessage();
@@ -323,7 +323,7 @@ public class BinaryConverter {
         int numWritten;
         try {
             ArrayList<Ammunition> ammo = br.ReadAmmo(binPath);
-            Path outfile = Paths.get(binPath).getParent().resolve("ammunition.json");
+            Path outfile = Paths.get(binPath.replace(".dat", ".json"));
             numWritten = writeJsonEquipment(ammo, outfile);
         } catch (Exception e) {
             Messages += e.getMessage();
@@ -347,7 +347,7 @@ public class BinaryConverter {
         int numWritten;
         try {
             ArrayList<Quirk> quirks = br.ReadQuirks(binPath);
-            Path outfile = Paths.get(binPath).getParent().resolve("quirks.json");
+            Path outfile = Paths.get(binPath.replace(".dat", ".json"));
             jw.WriteAllQuirks(quirks, outfile);
             numWritten = quirks.size();
         } catch (Exception e) {
