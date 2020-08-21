@@ -1,5 +1,5 @@
-[
-  {
+{
+  "Hatchet": {
     "ActualName": "Hatchet",
     "CritName": "Hatchet",
     "MegaMekName": "Hatchet",
@@ -89,7 +89,7 @@
       "MEL"
     ]
   },
-  {
+  "Sword": {
     "ActualName": "Sword",
     "CritName": "Sword",
     "MegaMekName": "Sword",
@@ -179,7 +179,7 @@
       "MEL"
     ]
   },
-  {
+  "Retractable Blade": {
     "ActualName": "Retractable Blade",
     "CritName": "Retractable Blade",
     "MegaMekName": "Retractable Blade",
@@ -270,7 +270,7 @@
       "SAW"
     ]
   },
-  {
+  "Chain Whip": {
     "ActualName": "Chain Whip",
     "CritName": "Chain Whip",
     "MegaMekName": "Chain Whip",
@@ -360,7 +360,7 @@
       "MEL"
     ]
   },
-  {
+  "Claws": {
     "ActualName": "Claws",
     "CritName": "Claws",
     "MegaMekName": "Claw",
@@ -450,7 +450,7 @@
       "MEL"
     ]
   },
-  {
+  "Flail": {
     "ActualName": "Flail",
     "CritName": "Flail",
     "MegaMekName": "Flail",
@@ -540,7 +540,7 @@
       "MEL"
     ]
   },
-  {
+  "Lance": {
     "ActualName": "Lance",
     "CritName": "Lance",
     "MegaMekName": "Lance",
@@ -630,7 +630,7 @@
       "MEL"
     ]
   },
-  {
+  "Mace": {
     "ActualName": "Mace",
     "CritName": "Mace",
     "MegaMekName": "Mace",
@@ -720,7 +720,7 @@
       "MEL"
     ]
   },
-  {
+  "Small Vibroblade": {
     "ActualName": "Small Vibroblade",
     "CritName": "Small Vibroblade",
     "MegaMekName": "ISSmallVibroBlade",
@@ -810,7 +810,7 @@
       "MEL"
     ]
   },
-  {
+  "Medium Vibroblade": {
     "ActualName": "Medium Vibroblade",
     "CritName": "Medium Vibroblade",
     "MegaMekName": "ISMediumVibroBlade",
@@ -900,7 +900,7 @@
       "MEL"
     ]
   },
-  {
+  "Large Vibroblade": {
     "ActualName": "Large Vibroblade",
     "CritName": "Large Vibroblade",
     "MegaMekName": "ISLargeVibroBlade",
@@ -990,7 +990,7 @@
       "MEL"
     ]
   },
-  {
+  "Spikes": {
     "ActualName": "Spikes",
     "CritName": "Spikes",
     "MegaMekName": "Spikes",
@@ -1080,7 +1080,7 @@
       "MEL"
     ]
   },
-  {
+  "Small Shield": {
     "ActualName": "Small Shield",
     "CritName": "Small Shield",
     "MegaMekName": "ISSmallShield",
@@ -1171,7 +1171,7 @@
       "SHLD"
     ]
   },
-  {
+  "Medium Shield": {
     "ActualName": "Medium Shield",
     "CritName": "Medium Shield",
     "MegaMekName": "ISMediumShield",
@@ -1262,7 +1262,7 @@
       "SHLD"
     ]
   },
-  {
+  "Large Shield": {
     "ActualName": "Large Shield",
     "CritName": "Large Shield",
     "MegaMekName": "ISLargeShield",
@@ -1353,7 +1353,7 @@
       "SHLD"
     ]
   },
-  {
+  "Backhoe": {
     "ActualName": "Backhoe",
     "CritName": "Backhoe",
     "MegaMekName": "Backhoe",
@@ -1443,7 +1443,7 @@
       "MEL"
     ]
   },
-  {
+  "Chainsaw": {
     "ActualName": "Chainsaw",
     "CritName": "Chainsaw",
     "MegaMekName": "Chainsaw",
@@ -1534,7 +1534,7 @@
       "SAW"
     ]
   },
-  {
+  "Combine": {
     "ActualName": "Combine",
     "CritName": "Combine",
     "MegaMekName": "Combine",
@@ -1624,7 +1624,7 @@
       "MEL"
     ]
   },
-  {
+  "Dual Saw": {
     "ActualName": "Dual Saw",
     "CritName": "Dual Saw",
     "MegaMekName": "DualSaw",
@@ -1715,7 +1715,7 @@
       "SAW"
     ]
   },
-  {
+  "Heavy Duty Pile-Driver": {
     "ActualName": "Heavy Duty Pile-Driver",
     "CritName": "Heavy Duty Pile-Driver",
     "MegaMekName": "HeavyDutyPile-Driver",
@@ -1805,7 +1805,7 @@
       "MEL"
     ]
   },
-  {
+  "Mining Drill": {
     "ActualName": "Mining Drill",
     "CritName": "Mining Drill",
     "MegaMekName": "MiningDrill",
@@ -1895,7 +1895,7 @@
       "MEL"
     ]
   },
-  {
+  "Rock Cutter": {
     "ActualName": "Rock Cutter",
     "CritName": "Rock Cutter",
     "MegaMekName": "RockCutter",
@@ -1985,7 +1985,7 @@
       "MEL"
     ]
   },
-  {
+  "Salvage Arm": {
     "ActualName": "Salvage Arm",
     "CritName": "Salvage Arm",
     "MegaMekName": "SalvageArm",
@@ -2075,7 +2075,7 @@
       "-"
     ]
   },
-  {
+  "Spot Welder": {
     "ActualName": "Spot Welder",
     "CritName": "Spot Welder",
     "MegaMekName": "SpotWelder",
@@ -2165,7 +2165,7 @@
       "MEL"
     ]
   },
-  {
+  "Wrecking Ball": {
     "ActualName": "Wrecking Ball",
     "CritName": "Wrecking Ball",
     "MegaMekName": "WreckingBall",
@@ -2255,4 +2255,4 @@
       "MEL"
     ]
   }
-]
+}

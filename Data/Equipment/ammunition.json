@@ -1,5 +1,5 @@
-[
-  {
+{
+  "(IS) @ AC/2": {
     "ActualName": "Ammo: Autocannon/2",
     "CritName": "@ AC/2",
     "LookupName": "(IS) @ AC/2",
@@ -77,7 +77,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/2 (Armor-Piercing)": {
     "ActualName": "Ammo: Autocannon/2 (Armor-Piercing)",
     "CritName": "@ AC/2 (AP)",
     "LookupName": "(IS) @ AC/2 (Armor-Piercing)",
@@ -155,7 +155,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/2 (Caseless)": {
     "ActualName": "Ammo: Autocannon/2 (Caseless)",
     "CritName": "@ AC/2 (Caseless)",
     "LookupName": "(IS) @ AC/2 (Caseless)",
@@ -233,7 +233,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/2 (Flak)": {
     "ActualName": "Ammo: Autocannon/2 (Flak)",
     "CritName": "@ AC/2 (Flak)",
     "LookupName": "(IS) @ AC/2 (Flak)",
@@ -311,7 +311,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/2 (Flechette)": {
     "ActualName": "Ammo: Autocannon/2 (Flechette)",
     "CritName": "@ AC/2 (Flechette)",
     "LookupName": "(IS) @ AC/2 (Flechette)",
@@ -389,7 +389,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/2 (Precision)": {
     "ActualName": "Ammo: Autocannon/2 (Precision)",
     "CritName": "@ AC/2 (Precision)",
     "LookupName": "(IS) @ AC/2 (Precision)",
@@ -467,7 +467,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/2 (Tracer)": {
     "ActualName": "Ammo: Autocannon/2 (Tracer)",
     "CritName": "@ AC/2 (Tracer)",
     "LookupName": "(IS) @ AC/2 (Tracer)",
@@ -545,7 +545,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/5": {
     "ActualName": "Ammo: Autocannon/5",
     "CritName": "@ AC/5",
     "LookupName": "(IS) @ AC/5",
@@ -623,7 +623,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/5 (Armor-Piercing)": {
     "ActualName": "Ammo: Autocannon/5 (Armor-Piercing)",
     "CritName": "@ AC/5 (AP)",
     "LookupName": "(IS) @ AC/5 (Armor-Piercing)",
@@ -701,7 +701,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/5 (Caseless)": {
     "ActualName": "Ammo: Autocannon/5 (Caseless)",
     "CritName": "@ AC/5 (Caseless)",
     "LookupName": "(IS) @ AC/5 (Caseless)",
@@ -779,7 +779,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/5 (Flak)": {
     "ActualName": "Ammo: Autocannon/5 (Flak)",
     "CritName": "@ AC/5 (Flak)",
     "LookupName": "(IS) @ AC/5 (Flak)",
@@ -857,7 +857,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/5 (Flechette)": {
     "ActualName": "Ammo: Autocannon/5 (Flechette)",
     "CritName": "@ AC/5 (Flechette)",
     "LookupName": "(IS) @ AC/5 (Flechette)",
@@ -935,7 +935,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/5 (Precision)": {
     "ActualName": "Ammo: Autocannon/5 (Precision)",
     "CritName": "@ AC/5 (Precision)",
     "LookupName": "(IS) @ AC/5 (Precision)",
@@ -1013,7 +1013,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/5 (Tracer)": {
     "ActualName": "Ammo: Autocannon/5 (Tracer)",
     "CritName": "@ AC/5 (Tracer)",
     "LookupName": "(IS) @ AC/5 (Tracer)",
@@ -1091,7 +1091,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/10": {
     "ActualName": "Ammo: Autocannon/10",
     "CritName": "@ AC/10",
     "LookupName": "(IS) @ AC/10",
@@ -1169,7 +1169,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/10 (Armor-Piercing)": {
     "ActualName": "Ammo: Autocannon/10 (Armor-Piercing)",
     "CritName": "@ AC/10 (AP)",
     "LookupName": "(IS) @ AC/10 (Armor-Piercing)",
@@ -1247,7 +1247,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/10 (Caseless)": {
     "ActualName": "Ammo: Autocannon/10 (Caseless)",
     "CritName": "@ AC/10 (Caseless)",
     "LookupName": "(IS) @ AC/10 (Caseless)",
@@ -1325,7 +1325,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/10 (Flak)": {
     "ActualName": "Ammo: Autocannon/10 (Flak)",
     "CritName": "@ AC/10 (Flak)",
     "LookupName": "(IS) @ AC/10 (Flak)",
@@ -1403,7 +1403,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/10 (Flechette)": {
     "ActualName": "Ammo: Autocannon/10 (Flechette)",
     "CritName": "@ AC/10 (Flechette)",
     "LookupName": "(IS) @ AC/10 (Flechette)",
@@ -1481,7 +1481,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/10 (Precision)": {
     "ActualName": "Ammo: Autocannon/10 (Precision)",
     "CritName": "@ AC/10 (Precision)",
     "LookupName": "(IS) @ AC/10 (Precision)",
@@ -1559,7 +1559,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/10 (Tracer)": {
     "ActualName": "Ammo: Autocannon/10 (Tracer)",
     "CritName": "@ AC/10 (Tracer)",
     "LookupName": "(IS) @ AC/10 (Tracer)",
@@ -1637,7 +1637,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/20": {
     "ActualName": "Ammo: Autocannon/20",
     "CritName": "@ AC/20",
     "LookupName": "(IS) @ AC/20",
@@ -1715,7 +1715,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/20 (Armor-Piercing)": {
     "ActualName": "Ammo: Autocannon/20 (Armor-Piercing)",
     "CritName": "@ AC/20 (AP)",
     "LookupName": "(IS) @ AC/20 (Armor-Piercing)",
@@ -1793,7 +1793,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/20 (Caseless)": {
     "ActualName": "Ammo: Autocannon/20 (Caseless)",
     "CritName": "@ AC/20 (Caseless)",
     "LookupName": "(IS) @ AC/20 (Caseless)",
@@ -1871,7 +1871,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/20 (Flak)": {
     "ActualName": "Ammo: Autocannon/20 (Flak)",
     "CritName": "@ AC/20 (Flak)",
     "LookupName": "(IS) @ AC/20 (Flak)",
@@ -1949,7 +1949,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/20 (Flechette)": {
     "ActualName": "Ammo: Autocannon/20 (Flechette)",
     "CritName": "@ AC/20 (Flechette)",
     "LookupName": "(IS) @ AC/20 (Flechette)",
@@ -2027,7 +2027,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/20 (Precision)": {
     "ActualName": "Ammo: Autocannon/20 (Precision)",
     "CritName": "@ AC/20 (Precision)",
     "LookupName": "(IS) @ AC/20 (Precision)",
@@ -2105,7 +2105,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ AC/20 (Tracer)": {
     "ActualName": "Ammo: Autocannon/20 (Tracer)",
     "CritName": "@ AC/20 (Tracer)",
     "LookupName": "(IS) @ AC/20 (Tracer)",
@@ -2183,7 +2183,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LB 2-X AC (Cluster)": {
     "ActualName": "Ammo: LB 2-X Autocannon (Cluster)",
     "CritName": "@ LB 2-X (Cluster)",
     "LookupName": "(IS) @ LB 2-X AC (Cluster)",
@@ -2261,7 +2261,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LB 2-X AC (Slug)": {
     "ActualName": "Ammo: LB 2-X Autocannon (Slug)",
     "CritName": "@ LB 2-X (Slug)",
     "LookupName": "(IS) @ LB 2-X AC (Slug)",
@@ -2339,7 +2339,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ LB 2-X AC CP (Cluster)": {
     "ActualName": "Ammo: Clan Prototype LB 2-X Autocannon (Cluster)",
     "CritName": "@ LB 2-X CP (Cluster)",
     "LookupName": "@ LB 2-X AC CP (Cluster)",
@@ -2417,7 +2417,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ LB 2-X AC CP (Slug)": {
     "ActualName": "Ammo: Clan Prototype LB 2-X Autocannon (Slug)",
     "CritName": "@ LB 2-X CP (Slug)",
     "LookupName": "@ LB 2-X AC CP (Slug)",
@@ -2495,7 +2495,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ LB 2-X AC CI (Cluster)": {
     "ActualName": "Ammo: Clan Interim LB 2-X Autocannon (Cluster)",
     "CritName": "@ LB 2-X CI (Cluster)",
     "LookupName": "@ LB 2-X AC CI (Cluster)",
@@ -2573,7 +2573,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ LB 2-X AC CI (Slug)": {
     "ActualName": "Ammo: Clan Interim LB 2-X Autocannon (Slug)",
     "CritName": "@ LB 2-X CI (Slug)",
     "LookupName": "@ LB 2-X AC CI (Slug)",
@@ -2651,7 +2651,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LB 2-X AC (Cluster)": {
     "ActualName": "Ammo: LB 2-X Autocannon (Cluster)",
     "CritName": "@ LB 2-X (Cluster)",
     "LookupName": "(CL) @ LB 2-X AC (Cluster)",
@@ -2729,7 +2729,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LB 2-X AC (Slug)": {
     "ActualName": "Ammo: LB 2-X Autocannon (Slug)",
     "CritName": "@ LB 2-X (Slug)",
     "LookupName": "(CL) @ LB 2-X AC (Slug)",
@@ -2807,7 +2807,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LB 5-X AC (Cluster)": {
     "ActualName": "Ammo: LB 5-X Autocannon (Cluster)",
     "CritName": "@ LB 5-X (Cluster)",
     "LookupName": "(IS) @ LB 5-X AC (Cluster)",
@@ -2885,7 +2885,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LB 5-X AC (Slug)": {
     "ActualName": "Ammo: LB 5-X Autocannon (Slug)",
     "CritName": "@ LB 5-X (Slug)",
     "LookupName": "(IS) @ LB 5-X AC (Slug)",
@@ -2963,7 +2963,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ LB 5-X AC CP (Cluster)": {
     "ActualName": "Ammo: Clan Prototype LB 5-X Autocannon (Cluster)",
     "CritName": "@ LB 5-X CP (Cluster)",
     "LookupName": "@ LB 5-X AC CP (Cluster)",
@@ -3041,7 +3041,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ LB 5-X AC CP (Slug)": {
     "ActualName": "Ammo: Clan Prototype LB 5-X Autocannon (Slug)",
     "CritName": "@ LB 5-X CP (Slug)",
     "LookupName": "@ LB 5-X AC CP (Slug)",
@@ -3119,7 +3119,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ LB 5-X AC CI (Cluster)": {
     "ActualName": "Ammo: Clan Interim LB 5-X Autocannon (Cluster)",
     "CritName": "@ LB 5-X CI (Cluster)",
     "LookupName": "@ LB 5-X AC CI (Cluster)",
@@ -3197,7 +3197,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ LB 5-X AC CI (Slug)": {
     "ActualName": "Ammo: Clan Interim LB 5-X Autocannon (Slug)",
     "CritName": "@ LB 5-X CI (Slug)",
     "LookupName": "@ LB 5-X AC CI (Slug)",
@@ -3275,7 +3275,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LB 5-X AC (Cluster)": {
     "ActualName": "Ammo: LB 5-X Autocannon (Cluster)",
     "CritName": "@ LB 5-X (Cluster)",
     "LookupName": "(CL) @ LB 5-X AC (Cluster)",
@@ -3353,7 +3353,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LB 5-X AC (Slug)": {
     "ActualName": "Ammo: LB 5-X Autocannon (Slug)",
     "CritName": "@ LB 5-X (Slug)",
     "LookupName": "(CL) @ LB 5-X AC (Slug)",
@@ -3431,7 +3431,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LB 10-X AC (Cluster)": {
     "ActualName": "Ammo: LB 10-X Autocannon (Cluster)",
     "CritName": "@ LB 10-X (Cluster)",
     "LookupName": "(IS) @ LB 10-X AC (Cluster)",
@@ -3509,7 +3509,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LB 10-X AC (Slug)": {
     "ActualName": "Ammo: LB 10-X Autocannon (Slug)",
     "CritName": "@ LB 10-X (Slug)",
     "LookupName": "(IS) @ LB 10-X AC (Slug)",
@@ -3587,7 +3587,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LB 10-X AC (Cluster)": {
     "ActualName": "Ammo: LB 10-X Autocannon (Cluster)",
     "CritName": "@ LB 10-X (Cluster)",
     "LookupName": "(CL) @ LB 10-X AC (Cluster)",
@@ -3665,7 +3665,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LB 10-X AC (Slug)": {
     "ActualName": "Ammo: LB 10-X Autocannon (Slug)",
     "CritName": "@ LB 10-X (Slug)",
     "LookupName": "(CL) @ LB 10-X AC (Slug)",
@@ -3743,7 +3743,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LB 20-X AC (Cluster)": {
     "ActualName": "Ammo: LB 20-X Autocannon (Cluster)",
     "CritName": "@ LB 20-X (Cluster)",
     "LookupName": "(IS) @ LB 20-X AC (Cluster)",
@@ -3821,7 +3821,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LB 20-X AC (Slug)": {
     "ActualName": "Ammo: LB 20-X Autocannon (Slug)",
     "CritName": "@ LB 20-X (Slug)",
     "LookupName": "(IS) @ LB 20-X AC (Slug)",
@@ -3899,7 +3899,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ LB 20-X AC CP (Cluster)": {
     "ActualName": "Ammo: Clan Prototype LB 20-X Autocannon (Cluster)",
     "CritName": "@ LB 20-X CP (Cluster)",
     "LookupName": "@ LB 20-X AC CP (Cluster)",
@@ -3977,7 +3977,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ LB 20-X AC CP (Slug)": {
     "ActualName": "Ammo: Clan Prototype LB 20-X Autocannon (Slug)",
     "CritName": "@ LB 20-X CP (Slug)",
     "LookupName": "@ LB 20-X AC CP (Slug)",
@@ -4055,7 +4055,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ LB 20-X AC CI (Cluster)": {
     "ActualName": "Ammo: Clan Interim LB 20-X Autocannon (Cluster)",
     "CritName": "@ LB 20-X CI (Cluster)",
     "LookupName": "@ LB 20-X AC CI (Cluster)",
@@ -4133,7 +4133,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ LB 20-X AC CI (Slug)": {
     "ActualName": "Ammo: Clan Interim LB 20-X Autocannon (Slug)",
     "CritName": "@ LB 20-X CI (Slug)",
     "LookupName": "@ LB 20-X AC CI (Slug)",
@@ -4211,7 +4211,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LB 20-X AC (Cluster)": {
     "ActualName": "Ammo: LB 20-X Autocannon (Cluster)",
     "CritName": "@ LB 20-X (Cluster)",
     "LookupName": "(CL) @ LB 20-X AC (Cluster)",
@@ -4289,7 +4289,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LB 20-X AC (Slug)": {
     "ActualName": "Ammo: LB 20-X Autocannon (Slug)",
     "CritName": "@ LB 20-X (Slug)",
     "LookupName": "(CL) @ LB 20-X AC (Slug)",
@@ -4367,7 +4367,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Light AC/2": {
     "ActualName": "Ammo: Light Autocannon/2",
     "CritName": "@ Light AC/2",
     "LookupName": "(IS) @ Light AC/2",
@@ -4445,7 +4445,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Light AC/2 (Armor-Piercing)": {
     "ActualName": "Ammo: Light Autocannon/2 (Armor-Piercing)",
     "CritName": "@ LAC/2 (AP)",
     "LookupName": "(IS) @ Light AC/2 (Armor-Piercing)",
@@ -4523,7 +4523,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Light AC/2 (Caseless)": {
     "ActualName": "Ammo: Light Autocannon/2 (Caseless)",
     "CritName": "@ Light AC/2 (Caseless)",
     "LookupName": "(IS) @ Light AC/2 (Caseless)",
@@ -4601,7 +4601,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Light AC/2 (Flak)": {
     "ActualName": "Ammo: Light Autocannon/2 (Flak)",
     "CritName": "@ Light AC/2 (Flak)",
     "LookupName": "(IS) @ Light AC/2 (Flak)",
@@ -4679,7 +4679,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Light AC/2 (Flechette)": {
     "ActualName": "Ammo: Light Autocannon/2 (Flechette)",
     "CritName": "@ LAC/2 (Flechette)",
     "LookupName": "(IS) @ Light AC/2 (Flechette)",
@@ -4757,7 +4757,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Light AC/2 (Precision)": {
     "ActualName": "Ammo: Light Autocannon/2 (Precision)",
     "CritName": "@ LAC/2 (Precision)",
     "LookupName": "(IS) @ Light AC/2 (Precision)",
@@ -4835,7 +4835,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Light AC/2 (Tracer)": {
     "ActualName": "Ammo: Light Autocannon/2 (Tracer)",
     "CritName": "@ Light AC/2 (Tracer)",
     "LookupName": "(IS) @ Light AC/2 (Tracer)",
@@ -4913,7 +4913,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Light AC/5": {
     "ActualName": "Ammo: Light Autocannon/5",
     "CritName": "@ Light AC/5",
     "LookupName": "(IS) @ Light AC/5",
@@ -4991,7 +4991,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Light AC/5 (Armor-Piercing)": {
     "ActualName": "Ammo: Light Autocannon/5 (Armor-Piercing)",
     "CritName": "@ LAC/5 (AP)",
     "LookupName": "(IS) @ Light AC/5 (Armor-Piercing)",
@@ -5069,7 +5069,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Light AC/5 (Caseless)": {
     "ActualName": "Ammo: Light Autocannon/5 (Caseless)",
     "CritName": "@ Light AC/5 (Caseless)",
     "LookupName": "(IS) @ Light AC/5 (Caseless)",
@@ -5147,7 +5147,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Light AC/5 (Flak)": {
     "ActualName": "Ammo: Light Autocannon/5 (Flak)",
     "CritName": "@ Light AC/5 (Flak)",
     "LookupName": "(IS) @ Light AC/5 (Flak)",
@@ -5225,7 +5225,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Light AC/5 (Flechette)": {
     "ActualName": "Ammo: Light Autocannon/5 (Flechette)",
     "CritName": "@ LAC/5 (Flechette)",
     "LookupName": "(IS) @ Light AC/5 (Flechette)",
@@ -5303,7 +5303,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Light AC/5 (Precision)": {
     "ActualName": "Ammo: Light Autocannon/5 (Precision)",
     "CritName": "@ LAC/5 (Precision)",
     "LookupName": "(IS) @ Light AC/5 (Precision)",
@@ -5381,7 +5381,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Light AC/5 (Tracer)": {
     "ActualName": "Ammo: Light Autocannon/5 (Tracer)",
     "CritName": "@ Light AC/5 (Tracer)",
     "LookupName": "(IS) @ Light AC/5 (Tracer)",
@@ -5459,7 +5459,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Protomech AC/2": {
     "ActualName": "Ammo: Protomech Autocannon/2",
     "CritName": "@ Protomech AC/2",
     "LookupName": "(CL) @ Protomech AC/2",
@@ -5537,7 +5537,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Protomech AC/4": {
     "ActualName": "Ammo: Protomech Autocannon/4",
     "CritName": "@ Protomech AC/4",
     "LookupName": "(CL) @ Protomech AC/4",
@@ -5615,7 +5615,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Protomech AC/8": {
     "ActualName": "Ammo: Protomech Autocannon/8",
     "CritName": "@ Protomech AC/8",
     "LookupName": "(CL) @ Protomech AC/8",
@@ -5693,7 +5693,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Rotary AC/2": {
     "ActualName": "Ammo: Rotary Autocannon/2",
     "CritName": "@ Rotary AC/2",
     "LookupName": "(IS) @ Rotary AC/2",
@@ -5771,7 +5771,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Rotary AC/2": {
     "ActualName": "Ammo: Rotary Autocannon/2",
     "CritName": "@ Rotary AC/2",
     "LookupName": "(CL) @ Rotary AC/2",
@@ -5849,7 +5849,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Rotary AC/5": {
     "ActualName": "Ammo: Rotary Autocannon/5",
     "CritName": "@ Rotary AC/5",
     "LookupName": "(IS) @ Rotary AC/5",
@@ -5927,7 +5927,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Rotary AC/5": {
     "ActualName": "Ammo: Rotary Autocannon/5",
     "CritName": "@ Rotary AC/5",
     "LookupName": "(CL) @ Rotary AC/5",
@@ -6005,7 +6005,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Ultra AC/2": {
     "ActualName": "Ammo: Ultra Autocannon/2",
     "CritName": "@ Ultra AC/2",
     "LookupName": "(IS) @ Ultra AC/2",
@@ -6083,7 +6083,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Ultra AC/2 CP": {
     "ActualName": "Ammo: Clan Prototype Ultra Autocannon/2",
     "CritName": "@ Ultra AC/2 CP",
     "LookupName": "@ Ultra AC/2 CP",
@@ -6161,7 +6161,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Ultra AC/2 CI": {
     "ActualName": "Ammo: Clan Interim Ultra Autocannon/2",
     "CritName": "@ Ultra AC/2 CI",
     "LookupName": "@ Ultra AC/2 CI",
@@ -6239,7 +6239,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Ultra AC/2": {
     "ActualName": "Ammo: Ultra Autocannon/2",
     "CritName": "@ Ultra AC/2",
     "LookupName": "(CL) @ Ultra AC/2",
@@ -6317,7 +6317,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Ultra AC/5": {
     "ActualName": "Ammo: Ultra Autocannon/5",
     "CritName": "@ Ultra AC/5",
     "LookupName": "(IS) @ Ultra AC/5",
@@ -6395,7 +6395,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Ultra AC/5": {
     "ActualName": "Ammo: Ultra Autocannon/5",
     "CritName": "@ Ultra AC/5",
     "LookupName": "(CL) @ Ultra AC/5",
@@ -6473,7 +6473,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Ultra AC/10": {
     "ActualName": "Ammo: Ultra Autocannon/10",
     "CritName": "@ Ultra AC/10",
     "LookupName": "(IS) @ Ultra AC/10",
@@ -6551,7 +6551,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Ultra AC/10 CP": {
     "ActualName": "Ammo: Clan Prototype Ultra Autocannon/10",
     "CritName": "@ Ultra AC/10 CP",
     "LookupName": "@ Ultra AC/10 CP",
@@ -6629,7 +6629,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Ultra AC/10 CI": {
     "ActualName": "Ammo: Clan Interim Ultra Autocannon/10",
     "CritName": "@ Ultra AC/10 CI",
     "LookupName": "@ Ultra AC/10 CI",
@@ -6707,7 +6707,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Ultra AC/10": {
     "ActualName": "Ammo: Ultra Autocannon/10",
     "CritName": "@ Ultra AC/10",
     "LookupName": "(CL) @ Ultra AC/10",
@@ -6785,7 +6785,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Ultra AC/20": {
     "ActualName": "Ammo: Ultra Autocannon/20",
     "CritName": "@ Ultra AC/20",
     "LookupName": "(IS) @ Ultra AC/20",
@@ -6863,7 +6863,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Ultra AC/20 CP": {
     "ActualName": "Ammo: Clan Prototype Ultra Autocannon/20",
     "CritName": "@ Ultra AC/20 CP",
     "LookupName": "@ Ultra AC/20 CP",
@@ -6941,7 +6941,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Ultra AC/20 CI": {
     "ActualName": "Ammo: Clan Interim Ultra Autocannon/20",
     "CritName": "@ Ultra AC/20 CI",
     "LookupName": "@ Ultra AC/20 CI",
@@ -7019,7 +7019,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Ultra AC/20": {
     "ActualName": "Ammo: Ultra Autocannon/20",
     "CritName": "@ Ultra AC/20",
     "LookupName": "(CL) @ Ultra AC/20",
@@ -7097,7 +7097,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ HVAC/2": {
     "ActualName": "Ammo: Hyper-Velocity Autocannon/2",
     "CritName": "@ HVAC/2",
     "LookupName": "(IS) @ HVAC/2",
@@ -7175,7 +7175,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ HVAC/5": {
     "ActualName": "Ammo: Hyper-Velocity Autocannon/5",
     "CritName": "@ HVAC/5",
     "LookupName": "(IS) @ HVAC/5",
@@ -7253,7 +7253,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ HVAC/10": {
     "ActualName": "Ammo: Hyper-Velocity Autocannon/10",
     "CritName": "@ HVAC/10",
     "LookupName": "(IS) @ HVAC/10",
@@ -7331,7 +7331,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ AP Gauss Rifle": {
     "ActualName": "Ammo: Anti-Personnel Gauss Rifle",
     "CritName": "@ AP Gauss Rifle",
     "LookupName": "(CL) @ AP Gauss Rifle",
@@ -7409,7 +7409,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Light Gauss Rifle": {
     "ActualName": "Ammo: Light Gauss Rifle",
     "CritName": "@ Light Gauss Rifle",
     "LookupName": "(IS) @ Light Gauss Rifle",
@@ -7487,7 +7487,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Gauss Rifle": {
     "ActualName": "Ammo: Gauss Rifle",
     "CritName": "@ Gauss Rifle",
     "LookupName": "@ Gauss Rifle",
@@ -7565,7 +7565,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Heavy Gauss Rifle": {
     "ActualName": "Ammo: Heavy Gauss Rifle",
     "CritName": "@ Heavy Gauss Rifle",
     "LookupName": "(IS) @ Heavy Gauss Rifle",
@@ -7643,7 +7643,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Improved Heavy Gauss Rifle": {
     "ActualName": "Ammo: Improved Heavy Gauss Rifle",
     "CritName": "@ iHGR",
     "LookupName": "(IS) @ Improved Heavy Gauss Rifle",
@@ -7721,7 +7721,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Magshot Gauss Rifle": {
     "ActualName": "Ammo: Magshot Gauss Rifle",
     "CritName": "@ Magshot Gauss Rifle",
     "LookupName": "(IS) @ Magshot Gauss Rifle",
@@ -7799,7 +7799,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Silver Bullet Gauss": {
     "ActualName": "Ammo: Silver Bullet Gauss",
     "CritName": "@ Silver Bullet Gauss",
     "LookupName": "(IS) @ Silver Bullet Gauss",
@@ -7877,7 +7877,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Hyper Assault Gauss 20": {
     "ActualName": "Ammo: Hyper Assault Gauss 20",
     "CritName": "@ HAG-20",
     "LookupName": "(CL) @ Hyper Assault Gauss 20",
@@ -7955,7 +7955,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Hyper Assault Gauss 30": {
     "ActualName": "Ammo: Hyper Assault Gauss 30",
     "CritName": "@ HAG-30",
     "LookupName": "(CL) @ Hyper Assault Gauss 30",
@@ -8033,7 +8033,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Hyper Assault Gauss 40": {
     "ActualName": "Ammo: Hyper Assault Gauss 40",
     "CritName": "@ HAG-40",
     "LookupName": "(CL) @ Hyper Assault Gauss 40",
@@ -8111,7 +8111,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ BattleMech Taser": {
     "ActualName": "Ammo: BattleMech Taser",
     "CritName": "@ BattleMech Taser",
     "LookupName": "(IS) @ BattleMech Taser",
@@ -8189,7 +8189,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Light Rifle": {
     "ActualName": "Ammo: Light Rifle",
     "CritName": "@ Light Rifle",
     "LookupName": "(IS) @ Light Rifle",
@@ -8267,7 +8267,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Medium Rifle": {
     "ActualName": "Ammo: Medium Rifle",
     "CritName": "@ Medium Rifle",
     "LookupName": "(IS) @ Medium Rifle",
@@ -8345,7 +8345,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Heavy Rifle": {
     "ActualName": "Ammo: Heavy Rifle",
     "CritName": "@ Heavy Rifle",
     "LookupName": "(IS) @ Heavy Rifle",
@@ -8423,7 +8423,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Light Machine Gun": {
     "ActualName": "Ammo: Light Machine Gun",
     "CritName": "@ LMG",
     "LookupName": "@ Light Machine Gun",
@@ -8501,7 +8501,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Light Machine Gun (1/2)": {
     "ActualName": "Ammo: Light Machine Gun (1/2)",
     "CritName": "@ LMG (1/2)",
     "LookupName": "@ Light Machine Gun (1/2)",
@@ -8579,7 +8579,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Machine Gun": {
     "ActualName": "Ammo: Machine Gun",
     "CritName": "@ MG",
     "LookupName": "@ Machine Gun",
@@ -8657,7 +8657,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Machine Gun (1/2)": {
     "ActualName": "Ammo: Machine Gun (1/2)",
     "CritName": "@ MG (1/2)",
     "LookupName": "@ Machine Gun (1/2)",
@@ -8735,7 +8735,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Heavy Machine Gun": {
     "ActualName": "Ammo: Heavy Machine Gun",
     "CritName": "@ HMG",
     "LookupName": "@ Heavy Machine Gun",
@@ -8813,7 +8813,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Heavy Machine Gun (1/2)": {
     "ActualName": "Ammo: Heavy Machine Gun (1/2)",
     "CritName": "@ HMG (1/2)",
     "LookupName": "@ Heavy Machine Gun (1/2)",
@@ -8891,7 +8891,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Fluid Gun (Coolant)": {
     "ActualName": "Ammo: Fluid Gun (Coolant)",
     "CritName": "@ Fluid Gun (Coolant)",
     "LookupName": "@ Fluid Gun (Coolant)",
@@ -8969,7 +8969,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Fluid Gun (Corrosive)": {
     "ActualName": "Ammo: Fluid Gun (Corrosive)",
     "CritName": "@ Fluid Gun (Corrosive)",
     "LookupName": "@ Fluid Gun (Corrosive)",
@@ -9047,7 +9047,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Fluid Gun (Flame Retardant Foam)": {
     "ActualName": "Ammo: Fluid Gun (Flame Retardant Foam)",
     "CritName": "@ Fluid Gun (Flm Rtrdnt)",
     "LookupName": "@ Fluid Gun (Flame Retardant Foam)",
@@ -9125,7 +9125,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Fluid Gun (Inferno Fuel)": {
     "ActualName": "Ammo: Fluid Gun (Inferno Fuel)",
     "CritName": "@ Fluid Gun (Inferno Fuel)",
     "LookupName": "@ Fluid Gun (Inferno Fuel)",
@@ -9203,7 +9203,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Fluid Gun (Oil Slick)": {
     "ActualName": "Ammo: Fluid Gun (Oil Slick)",
     "CritName": "@ Fluid Gun (Oil Slick)",
     "LookupName": "@ Fluid Gun (Oil Slick)",
@@ -9281,7 +9281,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Fluid Gun (Paint/Obscurant)": {
     "ActualName": "Ammo: Fluid Gun (Paint/Obscurant)",
     "CritName": "@ Fluid Gun (Pnt/Obscrnt)",
     "LookupName": "@ Fluid Gun (Paint/Obscurant)",
@@ -9359,7 +9359,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Fluid Gun (Water)": {
     "ActualName": "Ammo: Fluid Gun (Water)",
     "CritName": "@ Fluid Gun (Water)",
     "LookupName": "@ Fluid Gun (Water)",
@@ -9437,7 +9437,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Long Tom Cannon": {
     "ActualName": "Ammo: Long Tom Cannon",
     "CritName": "@ Long Tom Cannon",
     "LookupName": "@ Long Tom Cannon",
@@ -9515,7 +9515,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Sniper Cannon": {
     "ActualName": "Ammo: Sniper Cannon",
     "CritName": "@ Sniper Cannon",
     "LookupName": "@ Sniper Cannon",
@@ -9593,7 +9593,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Thumper Cannon": {
     "ActualName": "Ammo: Thumper Cannon",
     "CritName": "@ Thumper Cannon",
     "LookupName": "@ Thumper Cannon",
@@ -9671,7 +9671,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Prototype AC/2": {
     "ActualName": "Ammo: Prototype Autocannon/2",
     "CritName": "@ PAC/2",
     "LookupName": "(IS) @ Prototype AC/2",
@@ -9749,7 +9749,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Prototype AC/2 (Flak)": {
     "ActualName": "Ammo: Prototype Autocannon/2 (Flak)",
     "CritName": "@ PAC/2 (Flak)",
     "LookupName": "(IS) @ Prototype AC/2 (Flak)",
@@ -9827,7 +9827,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Prototype AC/2 (Tracer)": {
     "ActualName": "Ammo: Prototype Autocannon/2 (Tracer)",
     "CritName": "@ PAC/2 (Tracer)",
     "LookupName": "(IS) @ Prototype AC/2 (Tracer)",
@@ -9905,7 +9905,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Prototype AC/5": {
     "ActualName": "Ammo: Prototype Autocannon/5",
     "CritName": "@ PAC/5",
     "LookupName": "(IS) @ Prototype AC/5",
@@ -9983,7 +9983,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Prototype AC/5 (Flak)": {
     "ActualName": "Ammo: Prototype Autocannon/5 (Flak)",
     "CritName": "@ PAC/5 (Flak)",
     "LookupName": "(IS) @ Prototype AC/5 (Flak)",
@@ -10061,7 +10061,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Prototype AC/5 (Tracer)": {
     "ActualName": "Ammo: Prototype Autocannon/5 (Tracer)",
     "CritName": "@ PAC/5 (Tracer)",
     "LookupName": "(IS) @ Prototype AC/5 (Tracer)",
@@ -10139,7 +10139,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Prototype AC/10": {
     "ActualName": "Ammo: Prototype Autocannon/10",
     "CritName": "@ PAC/10",
     "LookupName": "(IS) @ Prototype AC/10",
@@ -10217,7 +10217,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Prototype AC/10 (Flak)": {
     "ActualName": "Ammo: Prototype Autocannon/10 (Flak)",
     "CritName": "@ PAC/10 (Flak)",
     "LookupName": "(IS) @ Prototype AC/10 (Flak)",
@@ -10295,7 +10295,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Prototype AC/10 (Tracer)": {
     "ActualName": "Ammo: Prototype Autocannon/10 (Tracer)",
     "CritName": "@ PAC/10 (Tracer)",
     "LookupName": "(IS) @ Prototype AC/10 (Tracer)",
@@ -10373,7 +10373,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Prototype AC/20": {
     "ActualName": "Ammo: Prototype Autocannon/20",
     "CritName": "@ PAC/20",
     "LookupName": "(IS) @ Prototype AC/20",
@@ -10451,7 +10451,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Prototype AC/20 (Flak)": {
     "ActualName": "Ammo: Prototype Autocannon/20 (Flak)",
     "CritName": "@ PAC/20 (Flak)",
     "LookupName": "(IS) @ Prototype AC/20 (Flak)",
@@ -10529,7 +10529,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Prototype AC/20 (Tracer)": {
     "ActualName": "Ammo: Prototype Autocannon/20 (Tracer)",
     "CritName": "@ PAC/20 (Tracer)",
     "LookupName": "(IS) @ Prototype AC/20 (Tracer)",
@@ -10607,7 +10607,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Small Chemical Laser": {
     "ActualName": "Ammo: Small Chemical Laser",
     "CritName": "@ Small Chem Laser",
     "LookupName": "(CL) @ Small Chemical Laser",
@@ -10685,7 +10685,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Medium Chemical Laser": {
     "ActualName": "Ammo: Medium Chemical Laser",
     "CritName": "@ Medium Chem Laser",
     "LookupName": "(CL) @ Medium Chemical Laser",
@@ -10763,7 +10763,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Large Chemical Laser": {
     "ActualName": "Ammo: Large Chemical Laser",
     "CritName": "@ Large Chem Laser",
     "LookupName": "(CL) @ Large Chemical Laser",
@@ -10841,7 +10841,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Plasma Rifle": {
     "ActualName": "Ammo: Plasma Rifle",
     "CritName": "@ Plasma Rifle",
     "LookupName": "(IS) @ Plasma Rifle",
@@ -10919,7 +10919,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Plasma Cannon": {
     "ActualName": "Ammo: Plasma Cannon",
     "CritName": "@ Plasma Cannon",
     "LookupName": "(CL) @ Plasma Cannon",
@@ -10997,7 +10997,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Vehicle Flamer": {
     "ActualName": "Ammo: Vehicle Flamer",
     "CritName": "@ Vehicle Flamer",
     "LookupName": "(IS) @ Vehicle Flamer",
@@ -11075,7 +11075,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Vehicle Flamer (Coolant)": {
     "ActualName": "Ammo: Vehicle Flamer (Coolant)",
     "CritName": "@ Vehicle Flamer (Coolant)",
     "LookupName": "(IS) @ Vehicle Flamer (Coolant)",
@@ -11153,7 +11153,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Vehicle Flamer (Inferno Fuel)": {
     "ActualName": "Ammo: Vehicle Flamer (Inferno Fuel)",
     "CritName": "@ Vehicle Flamer (Inferno)",
     "LookupName": "(IS) @ Vehicle Flamer (Inferno Fuel)",
@@ -11231,7 +11231,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Vehicle Flamer (Water)": {
     "ActualName": "Ammo: Vehicle Flamer (Water)",
     "CritName": "@ Vehicle Flamer (Water)",
     "LookupName": "(IS) @ Vehicle Flamer (Water)",
@@ -11309,7 +11309,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Heavy Flamer": {
     "ActualName": "Ammo: Heavy Flamer",
     "CritName": "@ Heavy Flamer",
     "LookupName": "@ Heavy Flamer",
@@ -11387,7 +11387,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Heavy Flamer (Coolant)": {
     "ActualName": "Ammo: Heavy Flamer (Coolant)",
     "CritName": "@ Heavy Flamer (Coolant)",
     "LookupName": "@ Heavy Flamer (Coolant)",
@@ -11465,7 +11465,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Heavy Flamer (Inferno Fuel)": {
     "ActualName": "Ammo: Heavy Flamer (Inferno Fuel)",
     "CritName": "@ Heavy Flamer (Inferno)",
     "LookupName": "@ Heavy Flamer (Inferno Fuel)",
@@ -11543,7 +11543,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Heavy Flamer (Water)": {
     "ActualName": "Ammo: Heavy Flamer (Water)",
     "CritName": "@ Heavy Flamer (Water)",
     "LookupName": "@ Heavy Flamer (Water)",
@@ -11621,7 +11621,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ ATM-3": {
     "ActualName": "Ammo: Advanced Tactical Missile-3",
     "CritName": "@ ATM-3",
     "LookupName": "(CL) @ ATM-3",
@@ -11699,7 +11699,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ ATM-3 (ER)": {
     "ActualName": "Ammo: Advanced Tactical Missile-3 (ER)",
     "CritName": "@ ATM-3 (ER)",
     "LookupName": "(CL) @ ATM-3 (ER)",
@@ -11777,7 +11777,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ ATM-3 (HE)": {
     "ActualName": "Ammo: Advanced Tactical Missile-3 (HE)",
     "CritName": "@ ATM-3 (HE)",
     "LookupName": "(CL) @ ATM-3 (HE)",
@@ -11855,7 +11855,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ ATM-6": {
     "ActualName": "Ammo: Advanced Tactical Missile-6",
     "CritName": "@ ATM-6",
     "LookupName": "(CL) @ ATM-6",
@@ -11933,7 +11933,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ ATM-6 (ER)": {
     "ActualName": "Ammo: Advanced Tactical Missile-6 (ER)",
     "CritName": "@ ATM-6 (ER)",
     "LookupName": "(CL) @ ATM-6 (ER)",
@@ -12011,7 +12011,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ ATM-6 (HE)": {
     "ActualName": "Ammo: Advanced Tactical Missile-6 (HE)",
     "CritName": "@ ATM-6 (HE)",
     "LookupName": "(CL) @ ATM-6 (HE)",
@@ -12089,7 +12089,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ ATM-9": {
     "ActualName": "Ammo: Advanced Tactical Missile-9",
     "CritName": "@ ATM-9",
     "LookupName": "(CL) @ ATM-9",
@@ -12167,7 +12167,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ ATM-9 (ER)": {
     "ActualName": "Ammo: Advanced Tactical Missile-9 (ER)",
     "CritName": "@ ATM-9 (ER)",
     "LookupName": "(CL) @ ATM-9 (ER)",
@@ -12245,7 +12245,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ ATM-9 (HE)": {
     "ActualName": "Ammo: Advanced Tactical Missile-9 (HE)",
     "CritName": "@ ATM-9 (HE)",
     "LookupName": "(CL) @ ATM-9 (HE)",
@@ -12323,7 +12323,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ ATM-12": {
     "ActualName": "Ammo: Advanced Tactical Missile-12",
     "CritName": "@ ATM-12",
     "LookupName": "(CL) @ ATM-12",
@@ -12401,7 +12401,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ ATM-12 (ER)": {
     "ActualName": "Ammo: Advanced Tactical Missile-12 (ER)",
     "CritName": "@ ATM-12 (ER)",
     "LookupName": "(CL) @ ATM-12 (ER)",
@@ -12479,7 +12479,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ ATM-12 (HE)": {
     "ActualName": "Ammo: Advanced Tactical Missile-12 (HE)",
     "CritName": "@ ATM-12 (HE)",
     "LookupName": "(CL) @ ATM-12 (HE)",
@@ -12557,7 +12557,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iATM-3": {
     "ActualName": "Ammo: Improved Advanced Tactical Missile-3",
     "CritName": "@ iATM-3",
     "LookupName": "(CL) @ iATM-3",
@@ -12635,7 +12635,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iATM-3 (ER)": {
     "ActualName": "Ammo: Improved Advanced Tactical Missile-3 (ER)",
     "CritName": "@ iATM-3 (ER)",
     "LookupName": "(CL) @ iATM-3 (ER)",
@@ -12713,7 +12713,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iATM-3 (HE)": {
     "ActualName": "Ammo: Improved Advanced Tactical Missile-3 (HE)",
     "CritName": "@ iATM-3 (HE)",
     "LookupName": "(CL) @ iATM-3 (HE)",
@@ -12791,7 +12791,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ IMP-3": {
     "ActualName": "Ammo: Improved Magnetic Pulse-3",
     "CritName": "@ IMP-3",
     "LookupName": "(CL) @ IMP-3",
@@ -12869,7 +12869,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ IIW-3": {
     "ActualName": "Ammo: Improved Inferno-3",
     "CritName": "@ IIW-3",
     "LookupName": "(CL) @ IIW-3",
@@ -12947,7 +12947,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iATM-6": {
     "ActualName": "Ammo: Improved Advanced Tactical Missile-6",
     "CritName": "@ iATM-6",
     "LookupName": "(CL) @ iATM-6",
@@ -13025,7 +13025,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iATM-6 (ER)": {
     "ActualName": "Ammo: Improved Advanced Tactical Missile-6 (ER)",
     "CritName": "@ iATM-6 (ER)",
     "LookupName": "(CL) @ iATM-6 (ER)",
@@ -13103,7 +13103,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iATM-6 (HE)": {
     "ActualName": "Ammo: Improved Advanced Tactical Missile-6 (HE)",
     "CritName": "@ iATM-6 (HE)",
     "LookupName": "(CL) @ iATM-6 (HE)",
@@ -13181,7 +13181,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ IMP-6": {
     "ActualName": "Ammo: Improved Magnetic Pulse-6",
     "CritName": "@ IMP-6",
     "LookupName": "(CL) @ IMP-6",
@@ -13259,7 +13259,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ IIW-6": {
     "ActualName": "Ammo: Improved Inferno-6",
     "CritName": "@ IIW-6",
     "LookupName": "(CL) @ IIW-6",
@@ -13337,7 +13337,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iATM-9": {
     "ActualName": "Ammo: Improved Advanced Tactical Missile-9",
     "CritName": "@ iATM-9",
     "LookupName": "(CL) @ iATM-9",
@@ -13415,7 +13415,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iATM-9 (ER)": {
     "ActualName": "Ammo: Improved Advanced Tactical Missile-9 (ER)",
     "CritName": "@ iATM-9 (ER)",
     "LookupName": "(CL) @ iATM-9 (ER)",
@@ -13493,7 +13493,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iATM-9 (HE)": {
     "ActualName": "Ammo: Improved Advanced Tactical Missile-9 (HE)",
     "CritName": "@ iATM-9 (HE)",
     "LookupName": "(CL) @ iATM-9 (HE)",
@@ -13571,7 +13571,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ IMP-9": {
     "ActualName": "Ammo: Improved Magnetic Pulse-9",
     "CritName": "@ IMP-9",
     "LookupName": "(CL) @ IMP-9",
@@ -13649,7 +13649,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ IIW-9": {
     "ActualName": "Ammo: Improved Inferno-9",
     "CritName": "@ IIW-9",
     "LookupName": "(CL) @ IIW-9",
@@ -13727,7 +13727,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iATM-12": {
     "ActualName": "Ammo: Improved Advanced Tactical Missile-12",
     "CritName": "@ iATM-12",
     "LookupName": "(CL) @ iATM-12",
@@ -13805,7 +13805,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iATM-12 (ER)": {
     "ActualName": "Ammo: Improved Advanced Tactical Missile-12 (ER)",
     "CritName": "@ iATM-12 (ER)",
     "LookupName": "(CL) @ iATM-12 (ER)",
@@ -13883,7 +13883,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iATM-12 (HE)": {
     "ActualName": "Ammo: Improved Advanced Tactical Missile-12 (HE)",
     "CritName": "@ iATM-12 (HE)",
     "LookupName": "(CL) @ iATM-12 (HE)",
@@ -13961,7 +13961,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ IMP-12": {
     "ActualName": "Ammo: Improved Magnetic Pulse-12",
     "CritName": "@ IMP-12",
     "LookupName": "(CL) @ IMP-12",
@@ -14039,7 +14039,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ IIW-12": {
     "ActualName": "Ammo: Improved Inferno-12",
     "CritName": "@ IIW-12",
     "LookupName": "(CL) @ IIW-12",
@@ -14117,7 +14117,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-5": {
     "ActualName": "Ammo: Enhanced Long Range Missile-5",
     "CritName": "@ NLRM-5",
     "LookupName": "(IS) @ NLRM-5",
@@ -14195,7 +14195,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-5 (Artemis IV Capable)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-5 (Artemis IV Capable)",
     "CritName": "@ NLRM-5 (Artemis)",
     "LookupName": "(IS) @ NLRM-5 (Artemis IV Capable)",
@@ -14273,7 +14273,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-5 (Flare)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-5 (Flare)",
     "CritName": "@ NLRM-5 (Flare)",
     "LookupName": "(IS) @ NLRM-5 (Flare)",
@@ -14351,7 +14351,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-5 (Fragmentation)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-5 (Fragmentation)",
     "CritName": "@ NLRM-5 (Frag)",
     "LookupName": "(IS) @ NLRM-5 (Fragmentation)",
@@ -14429,7 +14429,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-5 (Incendiary)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-5 (Incendiary)",
     "CritName": "@ NLRM-5 (Incend.)",
     "LookupName": "(IS) @ NLRM-5 (Incendiary)",
@@ -14507,7 +14507,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-5 (Narc Capable)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-5 (Narc Capable)",
     "CritName": "@ NLRM-5 (Narc)",
     "LookupName": "(IS) @ NLRM-5 (Narc Capable)",
@@ -14585,7 +14585,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-5 (Semi-Guided)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-5 (Semi-Guided)",
     "CritName": "@ NLRM-5 (Semi-G)",
     "LookupName": "(IS) @ NLRM-5 (Semi-Guided)",
@@ -14663,7 +14663,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-5 (Swarm-I)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-5 (Swarm-I)",
     "CritName": "@ NLRM-5 (Swarm-I)",
     "LookupName": "(IS) @ NLRM-5 (Swarm-I)",
@@ -14741,7 +14741,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-5 (Swarm)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-5 (Swarm)",
     "CritName": "@ NLRM-5 (Swarm)",
     "LookupName": "(IS) @ NLRM-5 (Swarm)",
@@ -14819,7 +14819,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-5 (Thunder-Active)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-5 (Thunder-Active)",
     "CritName": "@ NLRM-5 (Th-Act)",
     "LookupName": "(IS) @ NLRM-5 (Thunder-Active)",
@@ -14897,7 +14897,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-5 (Thunder-Augmented)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-5 (Thunder-Augmented)",
     "CritName": "@ NLRM-5 (Th-Aug)",
     "LookupName": "(IS) @ NLRM-5 (Thunder-Augmented)",
@@ -14975,7 +14975,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-5 (Thunder-Inferno)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-5 (Thunder-Inferno)",
     "CritName": "@ NLRM-5 (Th-Inf)",
     "LookupName": "(IS) @ NLRM-5 (Thunder-Inferno)",
@@ -15053,7 +15053,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-5 (Thunder-Vibrabomb)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-5 (Thunder-Vibrabomb)",
     "CritName": "@ NLRM-5 (Th-Vib)",
     "LookupName": "(IS) @ NLRM-5 (Thunder-Vibrabomb)",
@@ -15131,7 +15131,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-5 (Thunder)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-5 (Thunder)",
     "CritName": "@ NLRM-5 (Thunder)",
     "LookupName": "(IS) @ NLRM-5 (Thunder)",
@@ -15209,7 +15209,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-10": {
     "ActualName": "Ammo: Enhanced Long Range Missile-10",
     "CritName": "@ NLRM-10",
     "LookupName": "(IS) @ NLRM-10",
@@ -15287,7 +15287,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-10 (Artemis IV Capable)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-10 (Artemis IV Capable)",
     "CritName": "@ NLRM-10 (Artemis)",
     "LookupName": "(IS) @ NLRM-10 (Artemis IV Capable)",
@@ -15365,7 +15365,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-10 (Flare)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-10 (Flare)",
     "CritName": "@ NLRM-10 (Flare)",
     "LookupName": "(IS) @ NLRM-10 (Flare)",
@@ -15443,7 +15443,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-10 (Fragmentation)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-10 (Fragmentation)",
     "CritName": "@ NLRM-10 (Frag)",
     "LookupName": "(IS) @ NLRM-10 (Fragmentation)",
@@ -15521,7 +15521,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-10 (Incendiary)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-10 (Incendiary)",
     "CritName": "@ NLRM-10 (Incend.)",
     "LookupName": "(IS) @ NLRM-10 (Incendiary)",
@@ -15599,7 +15599,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-10 (Narc Capable)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-10 (Narc Capable)",
     "CritName": "@ NLRM-10 (Narc)",
     "LookupName": "(IS) @ NLRM-10 (Narc Capable)",
@@ -15677,7 +15677,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-10 (Semi-Guided)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-10 (Semi-Guided)",
     "CritName": "@ NLRM-10 (Semi-G)",
     "LookupName": "(IS) @ NLRM-10 (Semi-Guided)",
@@ -15755,7 +15755,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-10 (Swarm-I)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-10 (Swarm-I)",
     "CritName": "@ NLRM-10 (Swarm-I)",
     "LookupName": "(IS) @ NLRM-10 (Swarm-I)",
@@ -15833,7 +15833,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-10 (Swarm)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-10 (Swarm)",
     "CritName": "@ NLRM-10 (Swarm)",
     "LookupName": "(IS) @ NLRM-10 (Swarm)",
@@ -15911,7 +15911,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-10 (Thunder-Active)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-10 (Thunder-Active)",
     "CritName": "@ NLRM-10 (Th-Act)",
     "LookupName": "(IS) @ NLRM-10 (Thunder-Active)",
@@ -15989,7 +15989,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-10 (Thunder-Augmented)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-10 (Thunder-Augmented)",
     "CritName": "@ NLRM-10 (Th-Aug)",
     "LookupName": "(IS) @ NLRM-10 (Thunder-Augmented)",
@@ -16067,7 +16067,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-10 (Thunder-Inferno)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-10 (Thunder-Inferno)",
     "CritName": "@ NLRM-10 (Th-Inf)",
     "LookupName": "(IS) @ NLRM-10 (Thunder-Inferno)",
@@ -16145,7 +16145,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-10 (Thunder-Vibrabomb)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-10 (Thunder-Vibrabomb)",
     "CritName": "@ NLRM-10 (Th-Vib)",
     "LookupName": "(IS) @ NLRM-10 (Thunder-Vibrabomb)",
@@ -16223,7 +16223,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-10 (Thunder)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-10 (Thunder)",
     "CritName": "@ NLRM-10 (Thunder)",
     "LookupName": "(IS) @ NLRM-10 (Thunder)",
@@ -16301,7 +16301,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-15": {
     "ActualName": "Ammo: Enhanced Long Range Missile-15",
     "CritName": "@ NLRM-15",
     "LookupName": "(IS) @ NLRM-15",
@@ -16379,7 +16379,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-15 (Artemis IV Capable)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-15 (Artemis IV Capable)",
     "CritName": "@ NLRM-15 (Artemis)",
     "LookupName": "(IS) @ NLRM-15 (Artemis IV Capable)",
@@ -16457,7 +16457,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-15 (Flare)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-15 (Flare)",
     "CritName": "@ NLRM-15 (Flare)",
     "LookupName": "(IS) @ NLRM-15 (Flare)",
@@ -16535,7 +16535,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-15 (Fragmentation)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-15 (Fragmentation)",
     "CritName": "@ NLRM-15 (Frag)",
     "LookupName": "(IS) @ NLRM-15 (Fragmentation)",
@@ -16613,7 +16613,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-15 (Incendiary)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-15 (Incendiary)",
     "CritName": "@ NLRM-15 (Incend.)",
     "LookupName": "(IS) @ NLRM-15 (Incendiary)",
@@ -16691,7 +16691,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-15 (Narc Capable)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-15 (Narc Capable)",
     "CritName": "@ NLRM-15 (Narc)",
     "LookupName": "(IS) @ NLRM-15 (Narc Capable)",
@@ -16769,7 +16769,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-15 (Semi-Guided)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-15 (Semi-Guided)",
     "CritName": "@ NLRM-15 (Semi-G)",
     "LookupName": "(IS) @ NLRM-15 (Semi-Guided)",
@@ -16847,7 +16847,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-15 (Swarm-I)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-15 (Swarm-I)",
     "CritName": "@ NLRM-15 (Swarm-I)",
     "LookupName": "(IS) @ NLRM-15 (Swarm-I)",
@@ -16925,7 +16925,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-15 (Swarm)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-15 (Swarm)",
     "CritName": "@ NLRM-15 (Swarm)",
     "LookupName": "(IS) @ NLRM-15 (Swarm)",
@@ -17003,7 +17003,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-15 (Thunder-Active)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-15 (Thunder-Active)",
     "CritName": "@ NLRM-15 (Th-Act)",
     "LookupName": "(IS) @ NLRM-15 (Thunder-Active)",
@@ -17081,7 +17081,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-15 (Thunder-Augmented)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-15 (Thunder-Augmented)",
     "CritName": "@ NLRM-15 (Th-Aug)",
     "LookupName": "(IS) @ NLRM-15 (Thunder-Augmented)",
@@ -17159,7 +17159,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-15 (Thunder-Inferno)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-15 (Thunder-Inferno)",
     "CritName": "@ NLRM-15 (Th-Inf)",
     "LookupName": "(IS) @ NLRM-15 (Thunder-Inferno)",
@@ -17237,7 +17237,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-15 (Thunder-Vibrabomb)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-15 (Thunder-Vibrabomb)",
     "CritName": "@ NLRM-15 (Th-Vib)",
     "LookupName": "(IS) @ NLRM-15 (Thunder-Vibrabomb)",
@@ -17315,7 +17315,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-15 (Thunder)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-15 (Thunder)",
     "CritName": "@ NLRM-15 (Thunder)",
     "LookupName": "(IS) @ NLRM-15 (Thunder)",
@@ -17393,7 +17393,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-20": {
     "ActualName": "Ammo: Enhanced Long Range Missile-20",
     "CritName": "@ NLRM-20",
     "LookupName": "(IS) @ NLRM-20",
@@ -17471,7 +17471,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-20 (Artemis IV Capable)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-20 (Artemis IV Capable)",
     "CritName": "@ NLRM-20 (Artemis)",
     "LookupName": "(IS) @ NLRM-20 (Artemis IV Capable)",
@@ -17549,7 +17549,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-20 (Flare)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-20 (Flare)",
     "CritName": "@ NLRM-20 (Flare)",
     "LookupName": "(IS) @ NLRM-20 (Flare)",
@@ -17627,7 +17627,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-20 (Fragmentation)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-20 (Fragmentation)",
     "CritName": "@ NLRM-20 (Frag)",
     "LookupName": "(IS) @ NLRM-20 (Fragmentation)",
@@ -17705,7 +17705,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-20 (Incendiary)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-20 (Incendiary)",
     "CritName": "@ NLRM-20 (Incend.)",
     "LookupName": "(IS) @ NLRM-20 (Incendiary)",
@@ -17783,7 +17783,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-20 (Narc Capable)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-20 (Narc Capable)",
     "CritName": "@ NLRM-20 (Narc)",
     "LookupName": "(IS) @ NLRM-20 (Narc Capable)",
@@ -17861,7 +17861,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-20 (Semi-Guided)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-20 (Semi-Guided)",
     "CritName": "@ NLRM-20 (Semi-G)",
     "LookupName": "(IS) @ NLRM-20 (Semi-Guided)",
@@ -17939,7 +17939,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-20 (Swarm-I)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-20 (Swarm-I)",
     "CritName": "@ NLRM-20 (Swarm-I)",
     "LookupName": "(IS) @ NLRM-20 (Swarm-I)",
@@ -18017,7 +18017,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-20 (Swarm)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-20 (Swarm)",
     "CritName": "@ NLRM-20 (Swarm)",
     "LookupName": "(IS) @ NLRM-20 (Swarm)",
@@ -18095,7 +18095,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-20 (Thunder-Active)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-20 (Thunder-Active)",
     "CritName": "@ NLRM-20 (Th-Act)",
     "LookupName": "(IS) @ NLRM-20 (Thunder-Active)",
@@ -18173,7 +18173,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-20 (Thunder-Augmented)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-20 (Thunder-Augmented)",
     "CritName": "@ NLRM-20 (Th-Aug)",
     "LookupName": "(IS) @ NLRM-20 (Thunder-Augmented)",
@@ -18251,7 +18251,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-20 (Thunder-Inferno)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-20 (Thunder-Inferno)",
     "CritName": "@ NLRM-20 (Th-Inf)",
     "LookupName": "(IS) @ NLRM-20 (Thunder-Inferno)",
@@ -18329,7 +18329,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-20 (Thunder-Vibrabomb)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-20 (Thunder-Vibrabomb)",
     "CritName": "@ NLRM-20 (Th-Vib)",
     "LookupName": "(IS) @ NLRM-20 (Thunder-Vibrabomb)",
@@ -18407,7 +18407,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRM-20 (Thunder)": {
     "ActualName": "Ammo: Enhanced Long Range Missile-20 (Thunder)",
     "CritName": "@ NLRM-20 (Thunder)",
     "LookupName": "(IS) @ NLRM-20 (Thunder)",
@@ -18485,7 +18485,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ ELRM-5": {
     "ActualName": "Ammo: Extended Long Range Missile-5",
     "CritName": "@ ELRM-5",
     "LookupName": "(IS) @ ELRM-5",
@@ -18563,7 +18563,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ ELRM-10": {
     "ActualName": "Ammo: Extended Long Range Missile-10",
     "CritName": "@ ELRM-10",
     "LookupName": "(IS) @ ELRM-10",
@@ -18641,7 +18641,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ ELRM-15": {
     "ActualName": "Ammo: Extended Long Range Missile-15",
     "CritName": "@ ELRM-15",
     "LookupName": "(IS) @ ELRM-15",
@@ -18719,7 +18719,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ ELRM-20": {
     "ActualName": "Ammo: Extended Long Range Missile-20",
     "CritName": "@ ELRM-20",
     "LookupName": "(IS) @ ELRM-20",
@@ -18797,7 +18797,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5": {
     "ActualName": "Ammo: Long Range Missile-5",
     "CritName": "@ LRM-5",
     "LookupName": "(IS) @ LRM-5",
@@ -18875,7 +18875,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5 (Anti-Radiation)": {
     "ActualName": "Ammo: Long Range Missile-5 (Anti-Radiation)",
     "CritName": "@ LRM-5 (ARAD)",
     "LookupName": "(IS) @ LRM-5 (Anti-Radiation)",
@@ -18953,7 +18953,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5 (Artemis IV Capable)": {
     "ActualName": "Ammo: Long Range Missile-5 (Artemis IV Capable)",
     "CritName": "@ LRM-5 (Artemis)",
     "LookupName": "(IS) @ LRM-5 (Artemis IV Capable)",
@@ -19031,7 +19031,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5 (Flare)": {
     "ActualName": "Ammo: Long Range Missile-5 (Flare)",
     "CritName": "@ LRM-5 (Flare)",
     "LookupName": "(IS) @ LRM-5 (Flare)",
@@ -19109,7 +19109,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5 (Follow-The-Leader)": {
     "ActualName": "Ammo: Long Range Missile-5 (Follow-The-Leader)",
     "CritName": "@ LRM-5 (FTL)",
     "LookupName": "(IS) @ LRM-5 (Follow-The-Leader)",
@@ -19187,7 +19187,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5 (Fragmentation)": {
     "ActualName": "Ammo: Long Range Missile-5 (Fragmentation)",
     "CritName": "@ LRM-5 (Frag)",
     "LookupName": "(IS) @ LRM-5 (Fragmentation)",
@@ -19265,7 +19265,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5 (Heat Seeking)": {
     "ActualName": "Ammo: Long Range Missile-5 (Heat Seeking)",
     "CritName": "@ LRM-5 (HS)",
     "LookupName": "(IS) @ LRM-5 (Heat Seeking)",
@@ -19343,7 +19343,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5 (Incendiary)": {
     "ActualName": "Ammo: Long Range Missile-5 (Incendiary)",
     "CritName": "@ LRM-5 (Incend.)",
     "LookupName": "(IS) @ LRM-5 (Incendiary)",
@@ -19421,7 +19421,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5 (Magnetic Pulse)": {
     "ActualName": "Ammo: Long Range Missile-5 (Magnetic Pulse)",
     "CritName": "@ LRM-5 (MP)",
     "LookupName": "(IS) @ LRM-5 (Magnetic Pulse)",
@@ -19499,7 +19499,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5 (Mine Clearance)": {
     "ActualName": "Ammo: Long Range Missile-5 (Mine Clearance)",
     "CritName": "@ LRM-5 (Mn Clear)",
     "LookupName": "(IS) @ LRM-5 (Mine Clearance)",
@@ -19577,7 +19577,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5 (Narc Capable)": {
     "ActualName": "Ammo: Long Range Missile-5 (Narc Capable)",
     "CritName": "@ LRM-5 (Narc)",
     "LookupName": "(IS) @ LRM-5 (Narc Capable)",
@@ -19655,7 +19655,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5 (Semi-Guided)": {
     "ActualName": "Ammo: Long Range Missile-5 (Semi-Guided)",
     "CritName": "@ LRM-5 (Semi-G)",
     "LookupName": "(IS) @ LRM-5 (Semi-Guided)",
@@ -19733,7 +19733,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5 (Smoke)": {
     "ActualName": "Ammo: Long Range Missile-5 (Smoke)",
     "CritName": "@ LRM-5 (Smoke)",
     "LookupName": "(IS) @ LRM-5 (Smoke)",
@@ -19811,7 +19811,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5 (Swarm-I)": {
     "ActualName": "Ammo: Long Range Missile-5 (Swarm-I)",
     "CritName": "@ LRM-5 (Swarm-I)",
     "LookupName": "(IS) @ LRM-5 (Swarm-I)",
@@ -19889,7 +19889,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5 (Swarm)": {
     "ActualName": "Ammo: Long Range Missile-5 (Swarm)",
     "CritName": "@ LRM-5 (Swarm)",
     "LookupName": "(IS) @ LRM-5 (Swarm)",
@@ -19967,7 +19967,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5 (Thunder-Active)": {
     "ActualName": "Ammo: Long Range Missile-5 (Thunder-Active)",
     "CritName": "@ LRM-5 (Th-Act)",
     "LookupName": "(IS) @ LRM-5 (Thunder-Active)",
@@ -20045,7 +20045,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5 (Thunder-Augmented)": {
     "ActualName": "Ammo: Long Range Missile-5 (Thunder-Augmented)",
     "CritName": "@ LRM-5 (Th-Aug)",
     "LookupName": "(IS) @ LRM-5 (Thunder-Augmented)",
@@ -20123,7 +20123,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5 (Thunder-Inferno)": {
     "ActualName": "Ammo: Long Range Missile-5 (Thunder-Inferno)",
     "CritName": "@ LRM-5 (Th-Inf)",
     "LookupName": "(IS) @ LRM-5 (Thunder-Inferno)",
@@ -20201,7 +20201,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5 (Thunder-Vibrabomb)": {
     "ActualName": "Ammo: Long Range Missile-5 (Thunder-Vibrabomb)",
     "CritName": "@ LRM-5 (Th-Vib)",
     "LookupName": "(IS) @ LRM-5 (Thunder-Vibrabomb)",
@@ -20279,7 +20279,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-5 (Thunder)": {
     "ActualName": "Ammo: Long Range Missile-5 (Thunder)",
     "CritName": "@ LRM-5 (Thunder)",
     "LookupName": "(IS) @ LRM-5 (Thunder)",
@@ -20357,7 +20357,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-5": {
     "ActualName": "Ammo: Long Range Missile-5",
     "CritName": "@ LRM-5",
     "LookupName": "(CL) @ LRM-5",
@@ -20435,7 +20435,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-5 (Anti-Radiation)": {
     "ActualName": "Ammo: Long Range Missile-5 (Anti-Radiation)",
     "CritName": "@ LRM-5 (ARAD)",
     "LookupName": "(CL) @ LRM-5 (Anti-Radiation)",
@@ -20513,7 +20513,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-5 (Artemis IV Capable)": {
     "ActualName": "Ammo: Long Range Missile-5 (Artemis IV Capable)",
     "CritName": "@ LRM-5 (Artemis)",
     "LookupName": "(CL) @ LRM-5 (Artemis IV Capable)",
@@ -20591,7 +20591,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-5 (Artemis V)": {
     "ActualName": "Ammo: Long Range Missile-5 (Artemis V)",
     "CritName": "@ LRM-5 (Art-V)",
     "LookupName": "(CL) @ LRM-5 (Artemis V)",
@@ -20669,7 +20669,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-5 (Flare)": {
     "ActualName": "Ammo: Long Range Missile-5 (Flare)",
     "CritName": "@ LRM-5 (Flare)",
     "LookupName": "(CL) @ LRM-5 (Flare)",
@@ -20747,7 +20747,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-5 (Follow-The-Leader)": {
     "ActualName": "Ammo: Long Range Missile-5 (Follow-The-Leader)",
     "CritName": "@ LRM-5 (FTL)",
     "LookupName": "(CL) @ LRM-5 (Follow-The-Leader)",
@@ -20825,7 +20825,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-5 (Fragmentation)": {
     "ActualName": "Ammo: Long Range Missile-5 (Fragmentation)",
     "CritName": "@ LRM-5 (Frag)",
     "LookupName": "(CL) @ LRM-5 (Fragmentation)",
@@ -20903,7 +20903,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-5 (Heat Seeking)": {
     "ActualName": "Ammo: Long Range Missile-5 (Heat Seeking)",
     "CritName": "@ LRM-5 (HS)",
     "LookupName": "(CL) @ LRM-5 (Heat Seeking)",
@@ -20981,7 +20981,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-5 (Narc Capable)": {
     "ActualName": "Ammo: Long Range Missile-5 (Narc Capable)",
     "CritName": "@ LRM-5 (Narc)",
     "LookupName": "(CL) @ LRM-5 (Narc Capable)",
@@ -21059,7 +21059,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-5 (Smoke)": {
     "ActualName": "Ammo: Long Range Missile-5 (Smoke)",
     "CritName": "@ LRM-5 (Smoke)",
     "LookupName": "(CL) @ LRM-5 (Smoke)",
@@ -21137,7 +21137,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-5 (Swarm)": {
     "ActualName": "Ammo: Long Range Missile-5 (Swarm)",
     "CritName": "@ LRM-5 (Swarm)",
     "LookupName": "(CL) @ LRM-5 (Swarm)",
@@ -21215,7 +21215,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-5 (Thunder)": {
     "ActualName": "Ammo: Long Range Missile-5 (Thunder)",
     "CritName": "@ LRM-5 (Thunder)",
     "LookupName": "(CL) @ LRM-5 (Thunder)",
@@ -21293,7 +21293,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10": {
     "ActualName": "Ammo: Long Range Missile-10",
     "CritName": "@ LRM-10",
     "LookupName": "(IS) @ LRM-10",
@@ -21371,7 +21371,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10 (Anti-Radiation)": {
     "ActualName": "Ammo: Long Range Missile-10 (Anti-Radiation)",
     "CritName": "@ LRM-10 (ARAD)",
     "LookupName": "(IS) @ LRM-10 (Anti-Radiation)",
@@ -21449,7 +21449,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10 (Artemis IV Capable)": {
     "ActualName": "Ammo: Long Range Missile-10 (Artemis IV Capable)",
     "CritName": "@ LRM-10 (Artemis)",
     "LookupName": "(IS) @ LRM-10 (Artemis IV Capable)",
@@ -21527,7 +21527,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10 (Flare)": {
     "ActualName": "Ammo: Long Range Missile-10 (Flare)",
     "CritName": "@ LRM-10 (Flare)",
     "LookupName": "(IS) @ LRM-10 (Flare)",
@@ -21605,7 +21605,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10 (Follow-The-Leader)": {
     "ActualName": "Ammo: Long Range Missile-10 (Follow-The-Leader)",
     "CritName": "@ LRM-10 (FTL)",
     "LookupName": "(IS) @ LRM-10 (Follow-The-Leader)",
@@ -21683,7 +21683,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10 (Fragmentation)": {
     "ActualName": "Ammo: Long Range Missile-10 (Fragmentation)",
     "CritName": "@ LRM-10 (Frag)",
     "LookupName": "(IS) @ LRM-10 (Fragmentation)",
@@ -21761,7 +21761,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10 (Heat Seeking)": {
     "ActualName": "Ammo: Long Range Missile-10 (Heat Seeking)",
     "CritName": "@ LRM-10 (HS)",
     "LookupName": "(IS) @ LRM-10 (Heat Seeking)",
@@ -21839,7 +21839,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10 (Incendiary)": {
     "ActualName": "Ammo: Long Range Missile-10 (Incendiary)",
     "CritName": "@ LRM-10 (Incend.)",
     "LookupName": "(IS) @ LRM-10 (Incendiary)",
@@ -21917,7 +21917,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10 (Magnetic Pulse)": {
     "ActualName": "Ammo: Long Range Missile-10 (Magnetic Pulse)",
     "CritName": "@ LRM-10 (MP)",
     "LookupName": "(IS) @ LRM-10 (Magnetic Pulse)",
@@ -21995,7 +21995,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10 (Mine Clearance)": {
     "ActualName": "Ammo: Long Range Missile-10 (Mine Clearance)",
     "CritName": "@ LRM-10 (Mn Clear)",
     "LookupName": "(IS) @ LRM-10 (Mine Clearance)",
@@ -22073,7 +22073,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10 (Narc Capable)": {
     "ActualName": "Ammo: Long Range Missile-10 (Narc Capable)",
     "CritName": "@ LRM-10 (Narc)",
     "LookupName": "(IS) @ LRM-10 (Narc Capable)",
@@ -22151,7 +22151,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10 (Semi-Guided)": {
     "ActualName": "Ammo: Long Range Missile-10 (Semi-Guided)",
     "CritName": "@ LRM-10 (Semi-G)",
     "LookupName": "(IS) @ LRM-10 (Semi-Guided)",
@@ -22229,7 +22229,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10 (Smoke)": {
     "ActualName": "Ammo: Long Range Missile-10 (Smoke)",
     "CritName": "@ LRM-10 (Smoke)",
     "LookupName": "(IS) @ LRM-10 (Smoke)",
@@ -22307,7 +22307,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10 (Swarm-I)": {
     "ActualName": "Ammo: Long Range Missile-10 (Swarm-I)",
     "CritName": "@ LRM-10 (Swarm-I)",
     "LookupName": "(IS) @ LRM-10 (Swarm-I)",
@@ -22385,7 +22385,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10 (Swarm)": {
     "ActualName": "Ammo: Long Range Missile-10 (Swarm)",
     "CritName": "@ LRM-10 (Swarm)",
     "LookupName": "(IS) @ LRM-10 (Swarm)",
@@ -22463,7 +22463,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10 (Thunder-Active)": {
     "ActualName": "Ammo: Long Range Missile-10 (Thunder-Active)",
     "CritName": "@ LRM-10 (Th-Act)",
     "LookupName": "(IS) @ LRM-10 (Thunder-Active)",
@@ -22541,7 +22541,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10 (Thunder-Augmented)": {
     "ActualName": "Ammo: Long Range Missile-10 (Thunder-Augmented)",
     "CritName": "@ LRM-10 (Th-Aug)",
     "LookupName": "(IS) @ LRM-10 (Thunder-Augmented)",
@@ -22619,7 +22619,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10 (Thunder-Inferno)": {
     "ActualName": "Ammo: Long Range Missile-10 (Thunder-Inferno)",
     "CritName": "@ LRM-10 (Th-Inf)",
     "LookupName": "(IS) @ LRM-10 (Thunder-Inferno)",
@@ -22697,7 +22697,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10 (Thunder-Vibrabomb)": {
     "ActualName": "Ammo: Long Range Missile-10 (Thunder-Vibrabomb)",
     "CritName": "@ LRM-10 (Th-Vib)",
     "LookupName": "(IS) @ LRM-10 (Thunder-Vibrabomb)",
@@ -22775,7 +22775,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-10 (Thunder)": {
     "ActualName": "Ammo: Long Range Missile-10 (Thunder)",
     "CritName": "@ LRM-10 (Thunder)",
     "LookupName": "(IS) @ LRM-10 (Thunder)",
@@ -22853,7 +22853,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-10": {
     "ActualName": "Ammo: Long Range Missile-10",
     "CritName": "@ LRM-10",
     "LookupName": "(CL) @ LRM-10",
@@ -22931,7 +22931,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-10 (Anti-Radiation)": {
     "ActualName": "Ammo: Long Range Missile-10 (Anti-Radiation)",
     "CritName": "@ LRM-10 (ARAD)",
     "LookupName": "(CL) @ LRM-10 (Anti-Radiation)",
@@ -23009,7 +23009,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-10 (Artemis IV Capable)": {
     "ActualName": "Ammo: Long Range Missile-10 (Artemis IV Capable)",
     "CritName": "@ LRM-10 (Artemis)",
     "LookupName": "(CL) @ LRM-10 (Artemis IV Capable)",
@@ -23087,7 +23087,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-10 (Artemis V)": {
     "ActualName": "Ammo: Long Range Missile-10 (Artemis V)",
     "CritName": "@ LRM-10 (Art-V)",
     "LookupName": "(CL) @ LRM-10 (Artemis V)",
@@ -23165,7 +23165,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-10 (Flare)": {
     "ActualName": "Ammo: Long Range Missile-10 (Flare)",
     "CritName": "@ LRM-10 (Flare)",
     "LookupName": "(CL) @ LRM-10 (Flare)",
@@ -23243,7 +23243,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-10 (Follow-The-Leader)": {
     "ActualName": "Ammo: Long Range Missile-10 (Follow-The-Leader)",
     "CritName": "@ LRM-10 (FTL)",
     "LookupName": "(CL) @ LRM-10 (Follow-The-Leader)",
@@ -23321,7 +23321,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-10 (Fragmentation)": {
     "ActualName": "Ammo: Long Range Missile-10 (Fragmentation)",
     "CritName": "@ LRM-10 (Frag)",
     "LookupName": "(CL) @ LRM-10 (Fragmentation)",
@@ -23399,7 +23399,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-10 (Heat Seeking)": {
     "ActualName": "Ammo: Long Range Missile-10 (Heat Seeking)",
     "CritName": "@ LRM-10 (HS)",
     "LookupName": "(CL) @ LRM-10 (Heat Seeking)",
@@ -23477,7 +23477,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-10 (Narc Capable)": {
     "ActualName": "Ammo: Long Range Missile-10 (Narc Capable)",
     "CritName": "@ LRM-10 (Narc)",
     "LookupName": "(CL) @ LRM-10 (Narc Capable)",
@@ -23555,7 +23555,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-10 (Smoke)": {
     "ActualName": "Ammo: Long Range Missile-10 (Smoke)",
     "CritName": "@ LRM-10 (Smoke)",
     "LookupName": "(CL) @ LRM-10 (Smoke)",
@@ -23633,7 +23633,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-10 (Swarm)": {
     "ActualName": "Ammo: Long Range Missile-10 (Swarm)",
     "CritName": "@ LRM-10 (Swarm)",
     "LookupName": "(CL) @ LRM-10 (Swarm)",
@@ -23711,7 +23711,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-10 (Thunder)": {
     "ActualName": "Ammo: Long Range Missile-10 (Thunder)",
     "CritName": "@ LRM-10 (Thunder)",
     "LookupName": "(CL) @ LRM-10 (Thunder)",
@@ -23789,7 +23789,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15": {
     "ActualName": "Ammo: Long Range Missile-15",
     "CritName": "@ LRM-15",
     "LookupName": "(IS) @ LRM-15",
@@ -23867,7 +23867,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15 (Anti-Radiation)": {
     "ActualName": "Ammo: Long Range Missile-15 (Anti-Radiation)",
     "CritName": "@ LRM-15 (ARAD)",
     "LookupName": "(IS) @ LRM-15 (Anti-Radiation)",
@@ -23945,7 +23945,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15 (Artemis IV Capable)": {
     "ActualName": "Ammo: Long Range Missile-15 (Artemis IV Capable)",
     "CritName": "@ LRM-15 (Artemis)",
     "LookupName": "(IS) @ LRM-15 (Artemis IV Capable)",
@@ -24023,7 +24023,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15 (Flare)": {
     "ActualName": "Ammo: Long Range Missile-15 (Flare)",
     "CritName": "@ LRM-15 (Flare)",
     "LookupName": "(IS) @ LRM-15 (Flare)",
@@ -24101,7 +24101,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15 (Follow-The-Leader)": {
     "ActualName": "Ammo: Long Range Missile-15 (Follow-The-Leader)",
     "CritName": "@ LRM-15 (FTL)",
     "LookupName": "(IS) @ LRM-15 (Follow-The-Leader)",
@@ -24179,7 +24179,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15 (Fragmentation)": {
     "ActualName": "Ammo: Long Range Missile-15 (Fragmentation)",
     "CritName": "@ LRM-15 (Frag)",
     "LookupName": "(IS) @ LRM-15 (Fragmentation)",
@@ -24257,7 +24257,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15 (Heat Seeking)": {
     "ActualName": "Ammo: Long Range Missile-15 (Heat Seeking)",
     "CritName": "@ LRM-15 (HS)",
     "LookupName": "(IS) @ LRM-15 (Heat Seeking)",
@@ -24335,7 +24335,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15 (Incendiary)": {
     "ActualName": "Ammo: Long Range Missile-15 (Incendiary)",
     "CritName": "@ LRM-15 (Incend.)",
     "LookupName": "(IS) @ LRM-15 (Incendiary)",
@@ -24413,7 +24413,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15 (Magnetic Pulse)": {
     "ActualName": "Ammo: Long Range Missile-15 (Magnetic Pulse)",
     "CritName": "@ LRM-15 (MP)",
     "LookupName": "(IS) @ LRM-15 (Magnetic Pulse)",
@@ -24491,7 +24491,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15 (Mine Clearance)": {
     "ActualName": "Ammo: Long Range Missile-15 (Mine Clearance)",
     "CritName": "@ LRM-15 (Mn Clear)",
     "LookupName": "(IS) @ LRM-15 (Mine Clearance)",
@@ -24569,7 +24569,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15 (Narc Capable)": {
     "ActualName": "Ammo: Long Range Missile-15 (Narc Capable)",
     "CritName": "@ LRM-15 (Narc)",
     "LookupName": "(IS) @ LRM-15 (Narc Capable)",
@@ -24647,7 +24647,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15 (Semi-Guided)": {
     "ActualName": "Ammo: Long Range Missile-15 (Semi-Guided)",
     "CritName": "@ LRM-15 (Semi-G)",
     "LookupName": "(IS) @ LRM-15 (Semi-Guided)",
@@ -24725,7 +24725,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15 (Smoke)": {
     "ActualName": "Ammo: Long Range Missile-15 (Smoke)",
     "CritName": "@ LRM-15 (Smoke)",
     "LookupName": "(IS) @ LRM-15 (Smoke)",
@@ -24803,7 +24803,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15 (Swarm-I)": {
     "ActualName": "Ammo: Long Range Missile-15 (Swarm-I)",
     "CritName": "@ LRM-15 (Swarm-I)",
     "LookupName": "(IS) @ LRM-15 (Swarm-I)",
@@ -24881,7 +24881,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15 (Swarm)": {
     "ActualName": "Ammo: Long Range Missile-15 (Swarm)",
     "CritName": "@ LRM-15 (Swarm)",
     "LookupName": "(IS) @ LRM-15 (Swarm)",
@@ -24959,7 +24959,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15 (Thunder-Active)": {
     "ActualName": "Ammo: Long Range Missile-15 (Thunder-Active)",
     "CritName": "@ LRM-15 (Th-Act)",
     "LookupName": "(IS) @ LRM-15 (Thunder-Active)",
@@ -25037,7 +25037,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15 (Thunder-Augmented)": {
     "ActualName": "Ammo: Long Range Missile-15 (Thunder-Augmented)",
     "CritName": "@ LRM-15 (Th-Aug)",
     "LookupName": "(IS) @ LRM-15 (Thunder-Augmented)",
@@ -25115,7 +25115,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15 (Thunder-Inferno)": {
     "ActualName": "Ammo: Long Range Missile-15 (Thunder-Inferno)",
     "CritName": "@ LRM-15 (Th-Inf)",
     "LookupName": "(IS) @ LRM-15 (Thunder-Inferno)",
@@ -25193,7 +25193,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15 (Thunder-Vibrabomb)": {
     "ActualName": "Ammo: Long Range Missile-15 (Thunder-Vibrabomb)",
     "CritName": "@ LRM-15 (Th-Vib)",
     "LookupName": "(IS) @ LRM-15 (Thunder-Vibrabomb)",
@@ -25271,7 +25271,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-15 (Thunder)": {
     "ActualName": "Ammo: Long Range Missile-15 (Thunder)",
     "CritName": "@ LRM-15 (Thunder)",
     "LookupName": "(IS) @ LRM-15 (Thunder)",
@@ -25349,7 +25349,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-15": {
     "ActualName": "Ammo: Long Range Missile-15",
     "CritName": "@ LRM-15",
     "LookupName": "(CL) @ LRM-15",
@@ -25427,7 +25427,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-15 (Anti-Radiation)": {
     "ActualName": "Ammo: Long Range Missile-15 (Anti-Radiation)",
     "CritName": "@ LRM-15 (ARAD)",
     "LookupName": "(CL) @ LRM-15 (Anti-Radiation)",
@@ -25505,7 +25505,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-15 (Artemis IV Capable)": {
     "ActualName": "Ammo: Long Range Missile-15 (Artemis IV Capable)",
     "CritName": "@ LRM-15 (Artemis)",
     "LookupName": "(CL) @ LRM-15 (Artemis IV Capable)",
@@ -25583,7 +25583,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-15 (Artemis V)": {
     "ActualName": "Ammo: Long Range Missile-15 (Artemis V)",
     "CritName": "@ LRM-15 (Art-V)",
     "LookupName": "(CL) @ LRM-15 (Artemis V)",
@@ -25661,7 +25661,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-15 (Flare)": {
     "ActualName": "Ammo: Long Range Missile-15 (Flare)",
     "CritName": "@ LRM-15 (Flare)",
     "LookupName": "(CL) @ LRM-15 (Flare)",
@@ -25739,7 +25739,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-15 (Follow-The-Leader)": {
     "ActualName": "Ammo: Long Range Missile-15 (Follow-The-Leader)",
     "CritName": "@ LRM-15 (FTL)",
     "LookupName": "(CL) @ LRM-15 (Follow-The-Leader)",
@@ -25817,7 +25817,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-15 (Fragmentation)": {
     "ActualName": "Ammo: Long Range Missile-15 (Fragmentation)",
     "CritName": "@ LRM-15 (Frag)",
     "LookupName": "(CL) @ LRM-15 (Fragmentation)",
@@ -25895,7 +25895,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-15 (Heat Seeking)": {
     "ActualName": "Ammo: Long Range Missile-15 (Heat Seeking)",
     "CritName": "@ LRM-15 (HS)",
     "LookupName": "(CL) @ LRM-15 (Heat Seeking)",
@@ -25973,7 +25973,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-15 (Narc Capable)": {
     "ActualName": "Ammo: Long Range Missile-15 (Narc Capable)",
     "CritName": "@ LRM-15 (Narc)",
     "LookupName": "(CL) @ LRM-15 (Narc Capable)",
@@ -26051,7 +26051,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-15 (Smoke)": {
     "ActualName": "Ammo: Long Range Missile-15 (Smoke)",
     "CritName": "@ LRM-15 (Smoke)",
     "LookupName": "(CL) @ LRM-15 (Smoke)",
@@ -26129,7 +26129,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-15 (Swarm)": {
     "ActualName": "Ammo: Long Range Missile-15 (Swarm)",
     "CritName": "@ LRM-15 (Swarm)",
     "LookupName": "(CL) @ LRM-15 (Swarm)",
@@ -26207,7 +26207,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-15 (Thunder)": {
     "ActualName": "Ammo: Long Range Missile-15 (Thunder)",
     "CritName": "@ LRM-15 (Thunder)",
     "LookupName": "(CL) @ LRM-15 (Thunder)",
@@ -26285,7 +26285,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20": {
     "ActualName": "Ammo: Long Range Missile-20",
     "CritName": "@ LRM-20",
     "LookupName": "(IS) @ LRM-20",
@@ -26363,7 +26363,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20 (Anti-Radiation)": {
     "ActualName": "Ammo: Long Range Missile-20 (Anti-Radiation)",
     "CritName": "@ LRM-20 (ARAD)",
     "LookupName": "(IS) @ LRM-20 (Anti-Radiation)",
@@ -26441,7 +26441,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20 (Artemis IV Capable)": {
     "ActualName": "Ammo: Long Range Missile-20 (Artemis IV Capable)",
     "CritName": "@ LRM-20 (Artemis)",
     "LookupName": "(IS) @ LRM-20 (Artemis IV Capable)",
@@ -26519,7 +26519,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20 (Flare)": {
     "ActualName": "Ammo: Long Range Missile-20 (Flare)",
     "CritName": "@ LRM-20 (Flare)",
     "LookupName": "(IS) @ LRM-20 (Flare)",
@@ -26597,7 +26597,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20 (Follow-The-Leader)": {
     "ActualName": "Ammo: Long Range Missile-20 (Follow-The-Leader)",
     "CritName": "@ LRM-20 (FTL)",
     "LookupName": "(IS) @ LRM-20 (Follow-The-Leader)",
@@ -26675,7 +26675,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20 (Fragmentation)": {
     "ActualName": "Ammo: Long Range Missile-20 (Fragmentation)",
     "CritName": "@ LRM-20 (Frag)",
     "LookupName": "(IS) @ LRM-20 (Fragmentation)",
@@ -26753,7 +26753,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20 (Heat Seeking)": {
     "ActualName": "Ammo: Long Range Missile-20 (Heat Seeking)",
     "CritName": "@ LRM-20 (HS)",
     "LookupName": "(IS) @ LRM-20 (Heat Seeking)",
@@ -26831,7 +26831,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20 (Incendiary)": {
     "ActualName": "Ammo: Long Range Missile-20 (Incendiary)",
     "CritName": "@ LRM-20 (Incend.)",
     "LookupName": "(IS) @ LRM-20 (Incendiary)",
@@ -26909,7 +26909,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20 (Magnetic Pulse)": {
     "ActualName": "Ammo: Long Range Missile-20 (Magnetic Pulse)",
     "CritName": "@ LRM-20 (MP)",
     "LookupName": "(IS) @ LRM-20 (Magnetic Pulse)",
@@ -26987,7 +26987,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20 (Mine Clearance)": {
     "ActualName": "Ammo: Long Range Missile-20 (Mine Clearance)",
     "CritName": "@ LRM-20 (Mn Clear)",
     "LookupName": "(IS) @ LRM-20 (Mine Clearance)",
@@ -27065,7 +27065,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20 (Narc Capable)": {
     "ActualName": "Ammo: Long Range Missile-20 (Narc Capable)",
     "CritName": "@ LRM-20 (Narc)",
     "LookupName": "(IS) @ LRM-20 (Narc Capable)",
@@ -27143,7 +27143,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20 (Semi-Guided)": {
     "ActualName": "Ammo: Long Range Missile-20 (Semi-Guided)",
     "CritName": "@ LRM-20 (Semi-G)",
     "LookupName": "(IS) @ LRM-20 (Semi-Guided)",
@@ -27221,7 +27221,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20 (Smoke)": {
     "ActualName": "Ammo: Long Range Missile-20 (Smoke)",
     "CritName": "@ LRM-20 (Smoke)",
     "LookupName": "(IS) @ LRM-20 (Smoke)",
@@ -27299,7 +27299,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20 (Swarm-I)": {
     "ActualName": "Ammo: Long Range Missile-20 (Swarm-I)",
     "CritName": "@ LRM-20 (Swarm-I)",
     "LookupName": "(IS) @ LRM-20 (Swarm-I)",
@@ -27377,7 +27377,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20 (Swarm)": {
     "ActualName": "Ammo: Long Range Missile-20 (Swarm)",
     "CritName": "@ LRM-20 (Swarm)",
     "LookupName": "(IS) @ LRM-20 (Swarm)",
@@ -27455,7 +27455,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20 (Thunder-Active)": {
     "ActualName": "Ammo: Long Range Missile-20 (Thunder-Active)",
     "CritName": "@ LRM-20 (Th-Act)",
     "LookupName": "(IS) @ LRM-20 (Thunder-Active)",
@@ -27533,7 +27533,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20 (Thunder-Augmented)": {
     "ActualName": "Ammo: Long Range Missile-20 (Thunder-Augmented)",
     "CritName": "@ LRM-20 (Th-Aug)",
     "LookupName": "(IS) @ LRM-20 (Thunder-Augmented)",
@@ -27611,7 +27611,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20 (Thunder-Inferno)": {
     "ActualName": "Ammo: Long Range Missile-20 (Thunder-Inferno)",
     "CritName": "@ LRM-20 (Th-Inf)",
     "LookupName": "(IS) @ LRM-20 (Thunder-Inferno)",
@@ -27689,7 +27689,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20 (Thunder-Vibrabomb)": {
     "ActualName": "Ammo: Long Range Missile-20 (Thunder-Vibrabomb)",
     "CritName": "@ LRM-20 (Th-Vib)",
     "LookupName": "(IS) @ LRM-20 (Thunder-Vibrabomb)",
@@ -27767,7 +27767,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRM-20 (Thunder)": {
     "ActualName": "Ammo: Long Range Missile-20 (Thunder)",
     "CritName": "@ LRM-20 (Thunder)",
     "LookupName": "(IS) @ LRM-20 (Thunder)",
@@ -27845,7 +27845,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-20": {
     "ActualName": "Ammo: Long Range Missile-20",
     "CritName": "@ LRM-20",
     "LookupName": "(CL) @ LRM-20",
@@ -27923,7 +27923,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-20 (Anti-Radiation)": {
     "ActualName": "Ammo: Long Range Missile-20 (Anti-Radiation)",
     "CritName": "@ LRM-20 (ARAD)",
     "LookupName": "(CL) @ LRM-20 (Anti-Radiation)",
@@ -28001,7 +28001,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-20 (Artemis IV Capable)": {
     "ActualName": "Ammo: Long Range Missile-20 (Artemis IV Capable)",
     "CritName": "@ LRM-20 (Artemis)",
     "LookupName": "(CL) @ LRM-20 (Artemis IV Capable)",
@@ -28079,7 +28079,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-20 (Artemis V)": {
     "ActualName": "Ammo: Long Range Missile-20 (Artemis V)",
     "CritName": "@ LRM-20 (Art-V)",
     "LookupName": "(CL) @ LRM-20 (Artemis V)",
@@ -28157,7 +28157,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-20 (Flare)": {
     "ActualName": "Ammo: Long Range Missile-20 (Flare)",
     "CritName": "@ LRM-20 (Flare)",
     "LookupName": "(CL) @ LRM-20 (Flare)",
@@ -28235,7 +28235,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-20 (Follow-The-Leader)": {
     "ActualName": "Ammo: Long Range Missile-20 (Follow-The-Leader)",
     "CritName": "@ LRM-20 (FTL)",
     "LookupName": "(CL) @ LRM-20 (Follow-The-Leader)",
@@ -28313,7 +28313,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-20 (Fragmentation)": {
     "ActualName": "Ammo: Long Range Missile-20 (Fragmentation)",
     "CritName": "@ LRM-20 (Frag)",
     "LookupName": "(CL) @ LRM-20 (Fragmentation)",
@@ -28391,7 +28391,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-20 (Heat Seeking)": {
     "ActualName": "Ammo: Long Range Missile-20 (Heat Seeking)",
     "CritName": "@ LRM-20 (HS)",
     "LookupName": "(CL) @ LRM-20 (Heat Seeking)",
@@ -28469,7 +28469,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-20 (Narc Capable)": {
     "ActualName": "Ammo: Long Range Missile-20 (Narc Capable)",
     "CritName": "@ LRM-20 (Narc)",
     "LookupName": "(CL) @ LRM-20 (Narc Capable)",
@@ -28547,7 +28547,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-20 (Smoke)": {
     "ActualName": "Ammo: Long Range Missile-20 (Smoke)",
     "CritName": "@ LRM-20 (Smoke)",
     "LookupName": "(CL) @ LRM-20 (Smoke)",
@@ -28625,7 +28625,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-20 (Swarm)": {
     "ActualName": "Ammo: Long Range Missile-20 (Swarm)",
     "CritName": "@ LRM-20 (Swarm)",
     "LookupName": "(CL) @ LRM-20 (Swarm)",
@@ -28703,7 +28703,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRM-20 (Thunder)": {
     "ActualName": "Ammo: Long Range Missile-20 (Thunder)",
     "CritName": "@ LRM-20 (Thunder)",
     "LookupName": "(CL) @ LRM-20 (Thunder)",
@@ -28781,7 +28781,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM Anti-Radiation)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile Anti-Radiation)",
     "CritName": "@ MML-3 (LRM ARAD)",
     "LookupName": "(IS) @ MML-3 (LRM Anti-Radiation)",
@@ -28859,7 +28859,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM Artemis IV Capable)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile Artemis IV Capable)",
     "CritName": "@ MML-3 (LRM Art-IV)",
     "LookupName": "(IS) @ MML-3 (LRM Artemis IV Capable)",
@@ -28937,7 +28937,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM Flare)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile Flare)",
     "CritName": "@ MML-3 (LRM Flare)",
     "LookupName": "(IS) @ MML-3 (LRM Flare)",
@@ -29015,7 +29015,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM Follow-The-Leader)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile Follow-The-Leader)",
     "CritName": "@ MML-3 (LRM FTL)",
     "LookupName": "(IS) @ MML-3 (LRM Follow-The-Leader)",
@@ -29093,7 +29093,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM Fragmentation)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile Fragmentation)",
     "CritName": "@ MML-3 (LRM Frag)",
     "LookupName": "(IS) @ MML-3 (LRM Fragmentation)",
@@ -29171,7 +29171,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM Heat Seeking)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile Heat Seeking)",
     "CritName": "@ MML-3 (LRM HS)",
     "LookupName": "(IS) @ MML-3 (LRM Heat Seeking)",
@@ -29249,7 +29249,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM Incendiary)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile Incendiary)",
     "CritName": "@ MML-3 (LRM Incend.)",
     "LookupName": "(IS) @ MML-3 (LRM Incendiary)",
@@ -29327,7 +29327,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM Magnetic Pulse)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile Magnetic Pulse)",
     "CritName": "@ MML-3 (LRM MP)",
     "LookupName": "(IS) @ MML-3 (LRM Magnetic Pulse)",
@@ -29405,7 +29405,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM Mine Clearance)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile Mine Clearance)",
     "CritName": "@ MML-3 (LRM Mn Clr)",
     "LookupName": "(IS) @ MML-3 (LRM Mine Clearance)",
@@ -29483,7 +29483,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM Narc Capable)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile Narc Capable)",
     "CritName": "@ MML-3 (LRM Narc)",
     "LookupName": "(IS) @ MML-3 (LRM Narc Capable)",
@@ -29561,7 +29561,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM Semi-Guided)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile Semi-Guided)",
     "CritName": "@ MML-3 (LRM Semi-G)",
     "LookupName": "(IS) @ MML-3 (LRM Semi-Guided)",
@@ -29639,7 +29639,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM Smoke)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile Smoke)",
     "CritName": "@ MML-3 (LRM Smoke)",
     "LookupName": "(IS) @ MML-3 (LRM Smoke)",
@@ -29717,7 +29717,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM Swarm-I)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile Swarm-I)",
     "CritName": "@ MML-3 (LRM Swrm-I)",
     "LookupName": "(IS) @ MML-3 (LRM Swarm-I)",
@@ -29795,7 +29795,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM Swarm)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile Swarm)",
     "CritName": "@ MML-3 (LRM Swarm)",
     "LookupName": "(IS) @ MML-3 (LRM Swarm)",
@@ -29873,7 +29873,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM Thunder-Active)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile Thunder-Active)",
     "CritName": "@ MML-3 (LRM Th-Act)",
     "LookupName": "(IS) @ MML-3 (LRM Thunder-Active)",
@@ -29951,7 +29951,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM Thunder-Augmented)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile Thunder-Augmented)",
     "CritName": "@ MML-3 (LRM Th-Aug)",
     "LookupName": "(IS) @ MML-3 (LRM Thunder-Augmented)",
@@ -30029,7 +30029,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM Thunder-Inferno)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile Thunder-Inferno)",
     "CritName": "@ MML-3 (LRM Th-Inf)",
     "LookupName": "(IS) @ MML-3 (LRM Thunder-Inferno)",
@@ -30107,7 +30107,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM Thunder-Vibrabomb)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile Thunder-Vibrabomb)",
     "CritName": "@ MML-3 (LRM Th-Vib)",
     "LookupName": "(IS) @ MML-3 (LRM Thunder-Vibrabomb)",
@@ -30185,7 +30185,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM Thunder)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile Thunder)",
     "CritName": "@ MML-3 (LRM Thund)",
     "LookupName": "(IS) @ MML-3 (LRM Thunder)",
@@ -30263,7 +30263,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (LRM)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Long Range Missile)",
     "CritName": "@ MML-3 (LRM)",
     "LookupName": "(IS) @ MML-3 (LRM)",
@@ -30341,7 +30341,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (SRM Acid)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Short Range Missile Acid)",
     "CritName": "@ MML-3 (SRM AX)",
     "LookupName": "(IS) @ MML-3 (SRM Acid)",
@@ -30419,7 +30419,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (SRM Anti-Radiation)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Short Range Missile Anti-Radiation)",
     "CritName": "@ MML-3 (SRM ARAD)",
     "LookupName": "(IS) @ MML-3 (SRM Anti-Radiation)",
@@ -30497,7 +30497,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (SRM Artemis IV Capable)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Short Range Missile Artemis IV Capable)",
     "CritName": "@ MML-3 (SRM Art-IV)",
     "LookupName": "(IS) @ MML-3 (SRM Artemis IV Capable)",
@@ -30575,7 +30575,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (SRM Fragmentation)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Short Range Missile Fragmentation)",
     "CritName": "@ MML-3 (SRM Frag)",
     "LookupName": "(IS) @ MML-3 (SRM Fragmentation)",
@@ -30653,7 +30653,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (SRM Harpoon)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Short Range Missile Harpoon)",
     "CritName": "@ MML-3 (SRM Harp.)",
     "LookupName": "(IS) @ MML-3 (SRM Harpoon)",
@@ -30731,7 +30731,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (SRM Heat Seeking)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Short Range Missile Heat Seeking)",
     "CritName": "@ MML-3 (SRM HS)",
     "LookupName": "(IS) @ MML-3 (SRM Heat Seeking)",
@@ -30809,7 +30809,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (SRM Inferno)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Short Range Missile Inferno)",
     "CritName": "@ MML-3 (SRM Inferno)",
     "LookupName": "(IS) @ MML-3 (SRM Inferno)",
@@ -30887,7 +30887,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (SRM Magnetic Pulse)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Short Range Missile Magnetic Pulse)",
     "CritName": "@ MML-3 (SRM MP)",
     "LookupName": "(IS) @ MML-3 (SRM Magnetic Pulse)",
@@ -30965,7 +30965,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (SRM Mine Clearance)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Short Range Missile Mine Clearance)",
     "CritName": "@ MML-3 (SRM Mn Clr)",
     "LookupName": "(IS) @ MML-3 (SRM Mine Clearance)",
@@ -31043,7 +31043,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (SRM Narc Capable)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Short Range Missile Narc Capable)",
     "CritName": "@ MML-3 (SRM Narc)",
     "LookupName": "(IS) @ MML-3 (SRM Narc Capable)",
@@ -31121,7 +31121,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (SRM Smoke)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Short Range Missile Smoke)",
     "CritName": "@ MML-3 (SRM Smoke)",
     "LookupName": "(IS) @ MML-3 (SRM Smoke)",
@@ -31199,7 +31199,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (SRM Tandem Charge)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Short Range Missile Tandem Charge)",
     "CritName": "@ MML-3 (SRM TC)",
     "LookupName": "(IS) @ MML-3 (SRM Tandem Charge)",
@@ -31277,7 +31277,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (SRM Tear Gas)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Short Range Missile Tear Gas)",
     "CritName": "@ MML-3 (SRM Tear)",
     "LookupName": "(IS) @ MML-3 (SRM Tear Gas)",
@@ -31355,7 +31355,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-3 (SRM)": {
     "ActualName": "Ammo: Multi-Missile Launcher-3 (Short Range Missile)",
     "CritName": "@ MML-3 (SRM)",
     "LookupName": "(IS) @ MML-3 (SRM)",
@@ -31433,7 +31433,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM Anti-Radiation)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile Anti-Radiation)",
     "CritName": "@ MML-5 (LRM ARAD)",
     "LookupName": "(IS) @ MML-5 (LRM Anti-Radiation)",
@@ -31511,7 +31511,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM Artemis IV Capable)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile Artemis IV Capable)",
     "CritName": "@ MML-5 (LRM Art-IV)",
     "LookupName": "(IS) @ MML-5 (LRM Artemis IV Capable)",
@@ -31589,7 +31589,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM Flare)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile Flare)",
     "CritName": "@ MML-5 (LRM Flare)",
     "LookupName": "(IS) @ MML-5 (LRM Flare)",
@@ -31667,7 +31667,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM Follow-The-Leader)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile Follow-The-Leader)",
     "CritName": "@ MML-5 (LRM FTL)",
     "LookupName": "(IS) @ MML-5 (LRM Follow-The-Leader)",
@@ -31745,7 +31745,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM Fragmentation)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile Fragmentation)",
     "CritName": "@ MML-5 (LRM Frag)",
     "LookupName": "(IS) @ MML-5 (LRM Fragmentation)",
@@ -31823,7 +31823,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM Heat Seeking)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile Heat Seeking)",
     "CritName": "@ MML-5 (LRM HS)",
     "LookupName": "(IS) @ MML-5 (LRM Heat Seeking)",
@@ -31901,7 +31901,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM Incendiary)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile Incendiary)",
     "CritName": "@ MML-5 (LRM Incend.)",
     "LookupName": "(IS) @ MML-5 (LRM Incendiary)",
@@ -31979,7 +31979,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM Magnetic Pulse)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile Magnetic Pulse)",
     "CritName": "@ MML-5 (LRM MP)",
     "LookupName": "(IS) @ MML-5 (LRM Magnetic Pulse)",
@@ -32057,7 +32057,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM Mine Clearance)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile Mine Clearance)",
     "CritName": "@ MML-5 (LRM Mn Clr)",
     "LookupName": "(IS) @ MML-5 (LRM Mine Clearance)",
@@ -32135,7 +32135,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM Narc Capable)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile Narc Capable)",
     "CritName": "@ MML-5 (LRM Narc)",
     "LookupName": "(IS) @ MML-5 (LRM Narc Capable)",
@@ -32213,7 +32213,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM Semi-Guided)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile Semi-Guided)",
     "CritName": "@ MML-5 (LRM Semi-G)",
     "LookupName": "(IS) @ MML-5 (LRM Semi-Guided)",
@@ -32291,7 +32291,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM Smoke)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile Smoke)",
     "CritName": "@ MML-5 (LRM Smoke)",
     "LookupName": "(IS) @ MML-5 (LRM Smoke)",
@@ -32369,7 +32369,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM Swarm-I)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile Swarm-I)",
     "CritName": "@ MML-5 (LRM Swrm-I)",
     "LookupName": "(IS) @ MML-5 (LRM Swarm-I)",
@@ -32447,7 +32447,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM Swarm)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile Swarm)",
     "CritName": "@ MML-5 (LRM Swarm)",
     "LookupName": "(IS) @ MML-5 (LRM Swarm)",
@@ -32525,7 +32525,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM Thunder-Active)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile Thunder-Active)",
     "CritName": "@ MML-5 (LRM Th-Act)",
     "LookupName": "(IS) @ MML-5 (LRM Thunder-Active)",
@@ -32603,7 +32603,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM Thunder-Augmented)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile Thunder-Augmented)",
     "CritName": "@ MML-5 (LRM Th-Aug)",
     "LookupName": "(IS) @ MML-5 (LRM Thunder-Augmented)",
@@ -32681,7 +32681,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM Thunder-Inferno)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile Thunder-Inferno)",
     "CritName": "@ MML-5 (LRM Th-Inf)",
     "LookupName": "(IS) @ MML-5 (LRM Thunder-Inferno)",
@@ -32759,7 +32759,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM Thunder-Vibrabomb)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile Thunder-Vibrabomb)",
     "CritName": "@ MML-5 (LRM Th-Vib)",
     "LookupName": "(IS) @ MML-5 (LRM Thunder-Vibrabomb)",
@@ -32837,7 +32837,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM Thunder)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile Thunder)",
     "CritName": "@ MML-5 (LRM Thund)",
     "LookupName": "(IS) @ MML-5 (LRM Thunder)",
@@ -32915,7 +32915,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (LRM)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Long Range Missile)",
     "CritName": "@ MML-5 (LRM)",
     "LookupName": "(IS) @ MML-5 (LRM)",
@@ -32993,7 +32993,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (SRM Acid)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Short Range Missile Acid)",
     "CritName": "@ MML-5 (SRM AX)",
     "LookupName": "(IS) @ MML-5 (SRM Acid)",
@@ -33071,7 +33071,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (SRM Anti-Radiation)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Short Range Missile Anti-Radiation)",
     "CritName": "@ MML-5 (SRM ARAD)",
     "LookupName": "(IS) @ MML-5 (SRM Anti-Radiation)",
@@ -33149,7 +33149,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (SRM Artemis IV Capable)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Short Range Missile Artemis IV Capable)",
     "CritName": "@ MML-5 (SRM Art-IV)",
     "LookupName": "(IS) @ MML-5 (SRM Artemis IV Capable)",
@@ -33227,7 +33227,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (SRM Fragmentation)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Short Range Missile Fragmentation)",
     "CritName": "@ MML-5 (SRM Frag)",
     "LookupName": "(IS) @ MML-5 (SRM Fragmentation)",
@@ -33305,7 +33305,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (SRM Harpoon)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Short Range Missile Harpoon)",
     "CritName": "@ MML-5 (SRM Harp.)",
     "LookupName": "(IS) @ MML-5 (SRM Harpoon)",
@@ -33383,7 +33383,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (SRM Heat Seeking)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Short Range Missile Heat Seeking)",
     "CritName": "@ MML-5 (SRM HS)",
     "LookupName": "(IS) @ MML-5 (SRM Heat Seeking)",
@@ -33461,7 +33461,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (SRM Inferno)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Short Range Missile Inferno)",
     "CritName": "@ MML-5 (SRM Inferno)",
     "LookupName": "(IS) @ MML-5 (SRM Inferno)",
@@ -33539,7 +33539,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (SRM Magnetic Pulse)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Short Range Missile Magnetic Pulse)",
     "CritName": "@ MML-5 (SRM MP)",
     "LookupName": "(IS) @ MML-5 (SRM Magnetic Pulse)",
@@ -33617,7 +33617,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (SRM Mine Clearance)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Short Range Missile Mine Clearance)",
     "CritName": "@ MML-5 (SRM Mn Clr)",
     "LookupName": "(IS) @ MML-5 (SRM Mine Clearance)",
@@ -33695,7 +33695,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (SRM Narc Capable)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Short Range Missile Narc Capable)",
     "CritName": "@ MML-5 (SRM Narc)",
     "LookupName": "(IS) @ MML-5 (SRM Narc Capable)",
@@ -33773,7 +33773,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (SRM Smoke)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Short Range Missile Smoke)",
     "CritName": "@ MML-5 (SRM Smoke)",
     "LookupName": "(IS) @ MML-5 (SRM Smoke)",
@@ -33851,7 +33851,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (SRM Tandem Charge)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Short Range Missile Tandem Charge)",
     "CritName": "@ MML-5 (SRM TC)",
     "LookupName": "(IS) @ MML-5 (SRM Tandem Charge)",
@@ -33929,7 +33929,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (SRM Tear Gas)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Short Range Missile Tear Gas)",
     "CritName": "@ MML-5 (SRM Tear)",
     "LookupName": "(IS) @ MML-5 (SRM Tear Gas)",
@@ -34007,7 +34007,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-5 (SRM)": {
     "ActualName": "Ammo: Multi-Missile Launcher-5 (Short Range Missile)",
     "CritName": "@ MML-5 (SRM)",
     "LookupName": "(IS) @ MML-5 (SRM)",
@@ -34085,7 +34085,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM Anti-Radiation)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile Anti-Radiation)",
     "CritName": "@ MML-7 (LRM ARAD)",
     "LookupName": "(IS) @ MML-7 (LRM Anti-Radiation)",
@@ -34163,7 +34163,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM Artemis IV Capable)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile Artemis IV Capable)",
     "CritName": "@ MML-7 (LRM Art-IV)",
     "LookupName": "(IS) @ MML-7 (LRM Artemis IV Capable)",
@@ -34241,7 +34241,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM Flare)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile Flare)",
     "CritName": "@ MML-7 (LRM Flare)",
     "LookupName": "(IS) @ MML-7 (LRM Flare)",
@@ -34319,7 +34319,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM Follow-The-Leader)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile Follow-The-Leader)",
     "CritName": "@ MML-7 (LRM FTL)",
     "LookupName": "(IS) @ MML-7 (LRM Follow-The-Leader)",
@@ -34397,7 +34397,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM Fragmentation)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile Fragmentation)",
     "CritName": "@ MML-7 (LRM Frag)",
     "LookupName": "(IS) @ MML-7 (LRM Fragmentation)",
@@ -34475,7 +34475,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM Heat Seeking)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile Heat Seeking)",
     "CritName": "@ MML-7 (LRM HS)",
     "LookupName": "(IS) @ MML-7 (LRM Heat Seeking)",
@@ -34553,7 +34553,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM Incendiary)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile Incendiary)",
     "CritName": "@ MML-7 (LRM Incend.)",
     "LookupName": "(IS) @ MML-7 (LRM Incendiary)",
@@ -34631,7 +34631,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM Magnetic Pulse)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile Magnetic Pulse)",
     "CritName": "@ MML-7 (LRM MP)",
     "LookupName": "(IS) @ MML-7 (LRM Magnetic Pulse)",
@@ -34709,7 +34709,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM Mine Clearance)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile Mine Clearance)",
     "CritName": "@ MML-7 (LRM Mn Clr)",
     "LookupName": "(IS) @ MML-7 (LRM Mine Clearance)",
@@ -34787,7 +34787,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM Narc Capable)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile Narc Capable)",
     "CritName": "@ MML-7 (LRM Narc)",
     "LookupName": "(IS) @ MML-7 (LRM Narc Capable)",
@@ -34865,7 +34865,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM Semi-Guided)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile Semi-Guided)",
     "CritName": "@ MML-7 (LRM Semi-G)",
     "LookupName": "(IS) @ MML-7 (LRM Semi-Guided)",
@@ -34943,7 +34943,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM Smoke)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile Smoke)",
     "CritName": "@ MML-7 (LRM Smoke)",
     "LookupName": "(IS) @ MML-7 (LRM Smoke)",
@@ -35021,7 +35021,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM Swarm-I)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile Swarm-I)",
     "CritName": "@ MML-7 (LRM Swrm-I)",
     "LookupName": "(IS) @ MML-7 (LRM Swarm-I)",
@@ -35099,7 +35099,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM Swarm)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile Swarm)",
     "CritName": "@ MML-7 (LRM Swarm)",
     "LookupName": "(IS) @ MML-7 (LRM Swarm)",
@@ -35177,7 +35177,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM Thunder-Active)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile Thunder-Active)",
     "CritName": "@ MML-7 (LRM Th-Act)",
     "LookupName": "(IS) @ MML-7 (LRM Thunder-Active)",
@@ -35255,7 +35255,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM Thunder-Augmented)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile Thunder-Augmented)",
     "CritName": "@ MML-7 (LRM Th-Aug)",
     "LookupName": "(IS) @ MML-7 (LRM Thunder-Augmented)",
@@ -35333,7 +35333,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM Thunder-Inferno)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile Thunder-Inferno)",
     "CritName": "@ MML-7 (LRM Th-Inf)",
     "LookupName": "(IS) @ MML-7 (LRM Thunder-Inferno)",
@@ -35411,7 +35411,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM Thunder-Vibrabomb)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile Thunder-Vibrabomb)",
     "CritName": "@ MML-7 (LRM Th-Vib)",
     "LookupName": "(IS) @ MML-7 (LRM Thunder-Vibrabomb)",
@@ -35489,7 +35489,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM Thunder)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile Thunder)",
     "CritName": "@ MML-7 (LRM Thund)",
     "LookupName": "(IS) @ MML-7 (LRM Thunder)",
@@ -35567,7 +35567,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (LRM)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Long Range Missile)",
     "CritName": "@ MML-7 (LRM)",
     "LookupName": "(IS) @ MML-7 (LRM)",
@@ -35645,7 +35645,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (SRM Acid)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Short Range Missile Acid)",
     "CritName": "@ MML-7 (SRM AX)",
     "LookupName": "(IS) @ MML-7 (SRM Acid)",
@@ -35723,7 +35723,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (SRM Anti-Radiation)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Short Range Missile Anti-Radiation)",
     "CritName": "@ MML-7 (SRM ARAD)",
     "LookupName": "(IS) @ MML-7 (SRM Anti-Radiation)",
@@ -35801,7 +35801,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (SRM Artemis IV Capable)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Short Range Missile Artemis IV Capable)",
     "CritName": "@ MML-7 (SRM Art-IV)",
     "LookupName": "(IS) @ MML-7 (SRM Artemis IV Capable)",
@@ -35879,7 +35879,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (SRM Fragmentation)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Short Range Missile Fragmentation)",
     "CritName": "@ MML-7 (SRM Frag)",
     "LookupName": "(IS) @ MML-7 (SRM Fragmentation)",
@@ -35957,7 +35957,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (SRM Harpoon)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Short Range Missile Harpoon)",
     "CritName": "@ MML-7 (SRM Harp.)",
     "LookupName": "(IS) @ MML-7 (SRM Harpoon)",
@@ -36035,7 +36035,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (SRM Heat Seeking)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Short Range Missile Heat Seeking)",
     "CritName": "@ MML-7 (SRM HS)",
     "LookupName": "(IS) @ MML-7 (SRM Heat Seeking)",
@@ -36113,7 +36113,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (SRM Inferno)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Short Range Missile Inferno)",
     "CritName": "@ MML-7 (SRM Inferno)",
     "LookupName": "(IS) @ MML-7 (SRM Inferno)",
@@ -36191,7 +36191,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (SRM Magnetic Pulse)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Short Range Missile Magnetic Pulse)",
     "CritName": "@ MML-7 (SRM MP)",
     "LookupName": "(IS) @ MML-7 (SRM Magnetic Pulse)",
@@ -36269,7 +36269,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (SRM Mine Clearance)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Short Range Missile Mine Clearance)",
     "CritName": "@ MML-7 (SRM Mn Clr)",
     "LookupName": "(IS) @ MML-7 (SRM Mine Clearance)",
@@ -36347,7 +36347,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (SRM Narc Capable)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Short Range Missile Narc Capable)",
     "CritName": "@ MML-7 (SRM Narc)",
     "LookupName": "(IS) @ MML-7 (SRM Narc Capable)",
@@ -36425,7 +36425,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (SRM Smoke)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Short Range Missile Smoke)",
     "CritName": "@ MML-7 (SRM Smoke)",
     "LookupName": "(IS) @ MML-7 (SRM Smoke)",
@@ -36503,7 +36503,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (SRM Tandem Charge)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Short Range Missile Tandem Charge)",
     "CritName": "@ MML-7 (SRM TC)",
     "LookupName": "(IS) @ MML-7 (SRM Tandem Charge)",
@@ -36581,7 +36581,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (SRM Tear Gas)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Short Range Missile Tear Gas)",
     "CritName": "@ MML-7 (SRM Tear)",
     "LookupName": "(IS) @ MML-7 (SRM Tear Gas)",
@@ -36659,7 +36659,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-7 (SRM)": {
     "ActualName": "Ammo: Multi-Missile Launcher-7 (Short Range Missile)",
     "CritName": "@ MML-7 (SRM)",
     "LookupName": "(IS) @ MML-7 (SRM)",
@@ -36737,7 +36737,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM Anti-Radiation)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile Anti-Radiation)",
     "CritName": "@ MML-9 (LRM ARAD)",
     "LookupName": "(IS) @ MML-9 (LRM Anti-Radiation)",
@@ -36815,7 +36815,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM Artemis IV Capable)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile Artemis IV Capable)",
     "CritName": "@ MML-9 (LRM Art-IV)",
     "LookupName": "(IS) @ MML-9 (LRM Artemis IV Capable)",
@@ -36893,7 +36893,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM Flare)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile Flare)",
     "CritName": "@ MML-9 (LRM Flare)",
     "LookupName": "(IS) @ MML-9 (LRM Flare)",
@@ -36971,7 +36971,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM Follow-The-Leader)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile Follow-The-Leader)",
     "CritName": "@ MML-9 (LRM FTL)",
     "LookupName": "(IS) @ MML-9 (LRM Follow-The-Leader)",
@@ -37049,7 +37049,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM Fragmentation)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile Fragmentation)",
     "CritName": "@ MML-9 (LRM Frag)",
     "LookupName": "(IS) @ MML-9 (LRM Fragmentation)",
@@ -37127,7 +37127,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM Heat Seeking)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile Heat Seeking)",
     "CritName": "@ MML-9 (LRM HS)",
     "LookupName": "(IS) @ MML-9 (LRM Heat Seeking)",
@@ -37205,7 +37205,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM Incendiary)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile Incendiary)",
     "CritName": "@ MML-9 (LRM Incend.)",
     "LookupName": "(IS) @ MML-9 (LRM Incendiary)",
@@ -37283,7 +37283,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM Magnetic Pulse)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile Magnetic Pulse)",
     "CritName": "@ MML-9 (LRM MP)",
     "LookupName": "(IS) @ MML-9 (LRM Magnetic Pulse)",
@@ -37361,7 +37361,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM Mine Clearance)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile Mine Clearance)",
     "CritName": "@ MML-9 (LRM Mn Clr)",
     "LookupName": "(IS) @ MML-9 (LRM Mine Clearance)",
@@ -37439,7 +37439,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM Narc Capable)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile Narc Capable)",
     "CritName": "@ MML-9 (LRM Narc)",
     "LookupName": "(IS) @ MML-9 (LRM Narc Capable)",
@@ -37517,7 +37517,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM Semi-Guided)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile Semi-Guided)",
     "CritName": "@ MML-9 (LRM Semi-G)",
     "LookupName": "(IS) @ MML-9 (LRM Semi-Guided)",
@@ -37595,7 +37595,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM Smoke)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile Smoke)",
     "CritName": "@ MML-9 (LRM Smoke)",
     "LookupName": "(IS) @ MML-9 (LRM Smoke)",
@@ -37673,7 +37673,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM Swarm-I)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile Swarm-I)",
     "CritName": "@ MML-9 (LRM Swrm-I)",
     "LookupName": "(IS) @ MML-9 (LRM Swarm-I)",
@@ -37751,7 +37751,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM Swarm)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile Swarm)",
     "CritName": "@ MML-9 (LRM Swarm)",
     "LookupName": "(IS) @ MML-9 (LRM Swarm)",
@@ -37829,7 +37829,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM Thunder-Active)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile Thunder-Active)",
     "CritName": "@ MML-9 (LRM Th-Act)",
     "LookupName": "(IS) @ MML-9 (LRM Thunder-Active)",
@@ -37907,7 +37907,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM Thunder-Augmented)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile Thunder-Augmented)",
     "CritName": "@ MML-9 (LRM Th-Aug)",
     "LookupName": "(IS) @ MML-9 (LRM Thunder-Augmented)",
@@ -37985,7 +37985,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM Thunder-Inferno)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile Thunder-Inferno)",
     "CritName": "@ MML-9 (LRM Th-Inf)",
     "LookupName": "(IS) @ MML-9 (LRM Thunder-Inferno)",
@@ -38063,7 +38063,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM Thunder-Vibrabomb)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile Thunder-Vibrabomb)",
     "CritName": "@ MML-9 (LRM Th-Vib)",
     "LookupName": "(IS) @ MML-9 (LRM Thunder-Vibrabomb)",
@@ -38141,7 +38141,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM Thunder)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile Thunder)",
     "CritName": "@ MML-9 (LRM Thund)",
     "LookupName": "(IS) @ MML-9 (LRM Thunder)",
@@ -38219,7 +38219,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (LRM)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Long Range Missile)",
     "CritName": "@ MML-9 (LRM)",
     "LookupName": "(IS) @ MML-9 (LRM)",
@@ -38297,7 +38297,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (SRM Acid)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Short Range Missile Acid)",
     "CritName": "@ MML-9 (SRM AX)",
     "LookupName": "(IS) @ MML-9 (SRM Acid)",
@@ -38375,7 +38375,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (SRM Anti-Radiation)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Short Range Missile Anti-Radiation)",
     "CritName": "@ MML-9 (SRM ARAD)",
     "LookupName": "(IS) @ MML-9 (SRM Anti-Radiation)",
@@ -38453,7 +38453,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (SRM Artemis IV Capable)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Short Range Missile Artemis IV Capable)",
     "CritName": "@ MML-9 (SRM Art-IV)",
     "LookupName": "(IS) @ MML-9 (SRM Artemis IV Capable)",
@@ -38531,7 +38531,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (SRM Fragmentation)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Short Range Missile Fragmentation)",
     "CritName": "@ MML-9 (SRM Frag)",
     "LookupName": "(IS) @ MML-9 (SRM Fragmentation)",
@@ -38609,7 +38609,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (SRM Harpoon)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Short Range Missile Harpoon)",
     "CritName": "@ MML-9 (SRM Harp.)",
     "LookupName": "(IS) @ MML-9 (SRM Harpoon)",
@@ -38687,7 +38687,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (SRM Heat Seeking)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Short Range Missile Heat Seeking)",
     "CritName": "@ MML-9 (SRM HS)",
     "LookupName": "(IS) @ MML-9 (SRM Heat Seeking)",
@@ -38765,7 +38765,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (SRM Inferno)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Short Range Missile Inferno)",
     "CritName": "@ MML-9 (SRM Inferno)",
     "LookupName": "(IS) @ MML-9 (SRM Inferno)",
@@ -38843,7 +38843,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (SRM Magnetic Pulse)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Short Range Missile Magnetic Pulse)",
     "CritName": "@ MML-9 (SRM MP)",
     "LookupName": "(IS) @ MML-9 (SRM Magnetic Pulse)",
@@ -38921,7 +38921,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (SRM Mine Clearance)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Short Range Missile Mine Clearance)",
     "CritName": "@ MML-9 (SRM Mn Clr)",
     "LookupName": "(IS) @ MML-9 (SRM Mine Clearance)",
@@ -38999,7 +38999,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (SRM Narc Capable)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Short Range Missile Narc Capable)",
     "CritName": "@ MML-9 (SRM Narc)",
     "LookupName": "(IS) @ MML-9 (SRM Narc Capable)",
@@ -39077,7 +39077,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (SRM Smoke)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Short Range Missile Smoke)",
     "CritName": "@ MML-9 (SRM Smoke)",
     "LookupName": "(IS) @ MML-9 (SRM Smoke)",
@@ -39155,7 +39155,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (SRM Tandem Charge)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Short Range Missile Tandem Charge)",
     "CritName": "@ MML-9 (SRM TC)",
     "LookupName": "(IS) @ MML-9 (SRM Tandem Charge)",
@@ -39233,7 +39233,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (SRM Tear Gas)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Short Range Missile Tear Gas)",
     "CritName": "@ MML-9 (SRM Tear)",
     "LookupName": "(IS) @ MML-9 (SRM Tear Gas)",
@@ -39311,7 +39311,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MML-9 (SRM)": {
     "ActualName": "Ammo: Multi-Missile Launcher-9 (Short Range Missile)",
     "CritName": "@ MML-9 (SRM)",
     "LookupName": "(IS) @ MML-9 (SRM)",
@@ -39389,7 +39389,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MRM-10": {
     "ActualName": "Ammo: Medium Range Missile-10",
     "CritName": "@ MRM-10",
     "LookupName": "(IS) @ MRM-10",
@@ -39467,7 +39467,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MRM-20": {
     "ActualName": "Ammo: Medium Range Missile-20",
     "CritName": "@ MRM-20",
     "LookupName": "(IS) @ MRM-20",
@@ -39545,7 +39545,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MRM-30": {
     "ActualName": "Ammo: Medium Range Missile-30",
     "CritName": "@ MRM-30",
     "LookupName": "(IS) @ MRM-30",
@@ -39623,7 +39623,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ MRM-40": {
     "ActualName": "Ammo: Medium Range Missile-40",
     "CritName": "@ MRM-40",
     "LookupName": "(IS) @ MRM-40",
@@ -39701,7 +39701,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-2": {
     "ActualName": "Ammo: Short Range Missile-2",
     "CritName": "@ SRM-2",
     "LookupName": "@ SRM-2",
@@ -39779,7 +39779,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ SRM-2 (Acid)": {
     "ActualName": "Ammo: Short Range Missile-2 (Acid)",
     "CritName": "@ SRM-2 (AX)",
     "LookupName": "(IS) @ SRM-2 (Acid)",
@@ -39857,7 +39857,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-2 (Anti-Radiation)": {
     "ActualName": "Ammo: Short Range Missile-2 (Anti-Radiation)",
     "CritName": "@ SRM-2 (ARAD)",
     "LookupName": "@ SRM-2 (Anti-Radiation)",
@@ -39935,7 +39935,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-2 (Artemis IV Capable)": {
     "ActualName": "Ammo: Short Range Missile-2 (Artemis IV Capable)",
     "CritName": "@ SRM-2 (Artemis)",
     "LookupName": "@ SRM-2 (Artemis IV Capable)",
@@ -40013,7 +40013,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ SRM-2 (Artemis V)": {
     "ActualName": "Ammo: Short Range Missile-2 (Artemis V)",
     "CritName": "@ SRM-2 (Art-V)",
     "LookupName": "(CL) @ SRM-2 (Artemis V)",
@@ -40091,7 +40091,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-2 (Fragmentation)": {
     "ActualName": "Ammo: Short Range Missile-2 (Fragmentation)",
     "CritName": "@ SRM-2 (Frag)",
     "LookupName": "@ SRM-2 (Fragmentation)",
@@ -40169,7 +40169,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-2 (Harpoon)": {
     "ActualName": "Ammo: Short Range Missile-2 (Harpoon)",
     "CritName": "@ SRM-2 (Harpoon)",
     "LookupName": "@ SRM-2 (Harpoon)",
@@ -40247,7 +40247,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-2 (Heat Seeking)": {
     "ActualName": "Ammo: Short Range Missile-2 (Heat Seeking)",
     "CritName": "@ SRM-2 (HS)",
     "LookupName": "@ SRM-2 (Heat Seeking)",
@@ -40325,7 +40325,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-2 (Inferno)": {
     "ActualName": "Ammo: Short Range Missile-2 (Inferno)",
     "CritName": "@ SRM-2 (Inferno)",
     "LookupName": "@ SRM-2 (Inferno)",
@@ -40403,7 +40403,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ SRM-2 (Magnetic Pulse)": {
     "ActualName": "Ammo: Short Range Missile-2 (Magnetic Pulse)",
     "CritName": "@ SRM-2 (MP)",
     "LookupName": "(IS) @ SRM-2 (Magnetic Pulse)",
@@ -40481,7 +40481,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ SRM-2 (Mine Clearance)": {
     "ActualName": "Ammo: Short Range Missile-2 (Mine Clearance)",
     "CritName": "@ SRM-2 (Mn Clear)",
     "LookupName": "(IS) @ SRM-2 (Mine Clearance)",
@@ -40559,7 +40559,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-2 (Narc Capable)": {
     "ActualName": "Ammo: Short Range Missile-2 (Narc Capable)",
     "CritName": "@ SRM-2 (Narc)",
     "LookupName": "@ SRM-2 (Narc Capable)",
@@ -40637,7 +40637,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-2 (Smoke)": {
     "ActualName": "Ammo: Short Range Missile-2 (Smoke)",
     "CritName": "@ SRM-2 (Smoke)",
     "LookupName": "@ SRM-2 (Smoke)",
@@ -40715,7 +40715,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ SRM-2 (Tandem Charge)": {
     "ActualName": "Ammo: Short Range Missile-2 (Tandem Charge)",
     "CritName": "@ SRM-2 (TC)",
     "LookupName": "(IS) @ SRM-2 (Tandem Charge)",
@@ -40793,7 +40793,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-2 (Tear Gas)": {
     "ActualName": "Ammo: Short Range Missile-2 (Tear Gas)",
     "CritName": "@ SRM-2 (Tear Gas)",
     "LookupName": "@ SRM-2 (Tear Gas)",
@@ -40871,7 +40871,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-4": {
     "ActualName": "Ammo: Short Range Missile-4",
     "CritName": "@ SRM-4",
     "LookupName": "@ SRM-4",
@@ -40949,7 +40949,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ SRM-4 (Acid)": {
     "ActualName": "Ammo: Short Range Missile-4 (Acid)",
     "CritName": "@ SRM-4 (AX)",
     "LookupName": "(IS) @ SRM-4 (Acid)",
@@ -41027,7 +41027,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-4 (Anti-Radiation)": {
     "ActualName": "Ammo: Short Range Missile-4 (Anti-Radiation)",
     "CritName": "@ SRM-4 (ARAD)",
     "LookupName": "@ SRM-4 (Anti-Radiation)",
@@ -41105,7 +41105,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-4 (Artemis IV Capable)": {
     "ActualName": "Ammo: Short Range Missile-4 (Artemis IV Capable)",
     "CritName": "@ SRM-4 (Artemis)",
     "LookupName": "@ SRM-4 (Artemis IV Capable)",
@@ -41183,7 +41183,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ SRM-4 (Artemis V)": {
     "ActualName": "Ammo: Short Range Missile-4 (Artemis V)",
     "CritName": "@ SRM-4 (Art-V)",
     "LookupName": "(CL) @ SRM-4 (Artemis V)",
@@ -41261,7 +41261,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-4 (Fragmentation)": {
     "ActualName": "Ammo: Short Range Missile-4 (Fragmentation)",
     "CritName": "@ SRM-4 (Frag)",
     "LookupName": "@ SRM-4 (Fragmentation)",
@@ -41339,7 +41339,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-4 (Harpoon)": {
     "ActualName": "Ammo: Short Range Missile-4 (Harpoon)",
     "CritName": "@ SRM-4 (Harpoon)",
     "LookupName": "@ SRM-4 (Harpoon)",
@@ -41417,7 +41417,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-4 (Heat Seeking)": {
     "ActualName": "Ammo: Short Range Missile-4 (Heat Seeking)",
     "CritName": "@ SRM-4 (HS)",
     "LookupName": "@ SRM-4 (Heat Seeking)",
@@ -41495,7 +41495,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-4 (Inferno)": {
     "ActualName": "Ammo: Short Range Missile-4 (Inferno)",
     "CritName": "@ SRM-4 (Inferno)",
     "LookupName": "@ SRM-4 (Inferno)",
@@ -41573,7 +41573,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ SRM-4 (Magnetic Pulse)": {
     "ActualName": "Ammo: Short Range Missile-4 (Magnetic Pulse)",
     "CritName": "@ SRM-4 (MP)",
     "LookupName": "(IS) @ SRM-4 (Magnetic Pulse)",
@@ -41651,7 +41651,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ SRM-4 (Mine Clearance)": {
     "ActualName": "Ammo: Short Range Missile-4 (Mine Clearance)",
     "CritName": "@ SRM-4 (Mn Clear)",
     "LookupName": "(IS) @ SRM-4 (Mine Clearance)",
@@ -41729,7 +41729,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-4 (Narc Capable)": {
     "ActualName": "Ammo: Short Range Missile-4 (Narc Capable)",
     "CritName": "@ SRM-4 (Narc)",
     "LookupName": "@ SRM-4 (Narc Capable)",
@@ -41807,7 +41807,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-4 (Smoke)": {
     "ActualName": "Ammo: Short Range Missile-4 (Smoke)",
     "CritName": "@ SRM-4 (Smoke)",
     "LookupName": "@ SRM-4 (Smoke)",
@@ -41885,7 +41885,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ SRM-4 (Tandem Charge)": {
     "ActualName": "Ammo: Short Range Missile-4 (Tandem Charge)",
     "CritName": "@ SRM-4 (TC)",
     "LookupName": "(IS) @ SRM-4 (Tandem Charge)",
@@ -41963,7 +41963,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-4 (Tear Gas)": {
     "ActualName": "Ammo: Short Range Missile-4 (Tear Gas)",
     "CritName": "@ SRM-4 (Tear Gas)",
     "LookupName": "@ SRM-4 (Tear Gas)",
@@ -42041,7 +42041,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-6": {
     "ActualName": "Ammo: Short Range Missile-6",
     "CritName": "@ SRM-6",
     "LookupName": "@ SRM-6",
@@ -42119,7 +42119,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ SRM-6 (Acid)": {
     "ActualName": "Ammo: Short Range Missile-6 (Acid)",
     "CritName": "@ SRM-6 (AX)",
     "LookupName": "(IS) @ SRM-6 (Acid)",
@@ -42197,7 +42197,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-6 (Anti-Radiation)": {
     "ActualName": "Ammo: Short Range Missile-6 (Anti-Radiation)",
     "CritName": "@ SRM-6 (ARAD)",
     "LookupName": "@ SRM-6 (Anti-Radiation)",
@@ -42275,7 +42275,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-6 (Artemis IV Capable)": {
     "ActualName": "Ammo: Short Range Missile-6 (Artemis IV Capable)",
     "CritName": "@ SRM-6 (Artemis)",
     "LookupName": "@ SRM-6 (Artemis IV Capable)",
@@ -42353,7 +42353,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ SRM-6 (Artemis V)": {
     "ActualName": "Ammo: Short Range Missile-6 (Artemis V)",
     "CritName": "@ SRM-6 (Art-V)",
     "LookupName": "(CL) @ SRM-6 (Artemis V)",
@@ -42431,7 +42431,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-6 (Fragmentation)": {
     "ActualName": "Ammo: Short Range Missile-6 (Fragmentation)",
     "CritName": "@ SRM-6 (Frag)",
     "LookupName": "@ SRM-6 (Fragmentation)",
@@ -42509,7 +42509,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-6 (Harpoon)": {
     "ActualName": "Ammo: Short Range Missile-6 (Harpoon)",
     "CritName": "@ SRM-6 (Harpoon)",
     "LookupName": "@ SRM-6 (Harpoon)",
@@ -42587,7 +42587,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-6 (Heat Seeking)": {
     "ActualName": "Ammo: Short Range Missile-6 (Heat Seeking)",
     "CritName": "@ SRM-6 (HS)",
     "LookupName": "@ SRM-6 (Heat Seeking)",
@@ -42665,7 +42665,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-6 (Inferno)": {
     "ActualName": "Ammo: Short Range Missile-6 (Inferno)",
     "CritName": "@ SRM-6 (Inferno)",
     "LookupName": "@ SRM-6 (Inferno)",
@@ -42743,7 +42743,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ SRM-6 (Magnetic Pulse)": {
     "ActualName": "Ammo: Short Range Missile-6 (Magnetic Pulse)",
     "CritName": "@ SRM-6 (MP)",
     "LookupName": "(IS) @ SRM-6 (Magnetic Pulse)",
@@ -42821,7 +42821,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ SRM-6 (Mine Clearance)": {
     "ActualName": "Ammo: Short Range Missile-6 (Mine Clearance)",
     "CritName": "@ SRM-6 (Mn Clear)",
     "LookupName": "(IS) @ SRM-6 (Mine Clearance)",
@@ -42899,7 +42899,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-6 (Narc Capable)": {
     "ActualName": "Ammo: Short Range Missile-6 (Narc Capable)",
     "CritName": "@ SRM-6 (Narc)",
     "LookupName": "@ SRM-6 (Narc Capable)",
@@ -42977,7 +42977,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-6 (Smoke)": {
     "ActualName": "Ammo: Short Range Missile-6 (Smoke)",
     "CritName": "@ SRM-6 (Smoke)",
     "LookupName": "@ SRM-6 (Smoke)",
@@ -43055,7 +43055,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ SRM-6 (Tandem Charge)": {
     "ActualName": "Ammo: Short Range Missile-6 (Tandem Charge)",
     "CritName": "@ SRM-6 (TC)",
     "LookupName": "(IS) @ SRM-6 (Tandem Charge)",
@@ -43133,7 +43133,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRM-6 (Tear Gas)": {
     "ActualName": "Ammo: Short Range Missile-6 (Tear Gas)",
     "CritName": "@ SRM-6 (Tear Gas)",
     "LookupName": "@ SRM-6 (Tear Gas)",
@@ -43211,7 +43211,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Streak LRM-5": {
     "ActualName": "Ammo: Streak Long Range Missile-5",
     "CritName": "@ Streak LRM-5",
     "LookupName": "(CL) @ Streak LRM-5",
@@ -43289,7 +43289,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Streak LRM-10": {
     "ActualName": "Ammo: Streak Long Range Missile-10",
     "CritName": "@ Streak LRM-10",
     "LookupName": "(CL) @ Streak LRM-10",
@@ -43367,7 +43367,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Streak LRM-15": {
     "ActualName": "Ammo: Streak Long Range Missile-15",
     "CritName": "@ Streak LRM-15",
     "LookupName": "(CL) @ Streak LRM-15",
@@ -43445,7 +43445,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Streak LRM-20": {
     "ActualName": "Ammo: Streak Long Range Missile-20",
     "CritName": "@ Streak LRM-20",
     "LookupName": "(CL) @ Streak LRM-20",
@@ -43523,7 +43523,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Streak SRM-2": {
     "ActualName": "Ammo: Streak Short Range Missile-2",
     "CritName": "@ Streak SRM-2",
     "LookupName": "(IS) @ Streak SRM-2",
@@ -43601,7 +43601,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Streak SRM-2": {
     "ActualName": "Ammo: Streak Short Range Missile-2",
     "CritName": "@ Streak SRM-2",
     "LookupName": "(CL) @ Streak SRM-2",
@@ -43679,7 +43679,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Streak SRM-4": {
     "ActualName": "Ammo: Streak Short Range Missile-4",
     "CritName": "@ Streak SRM-4",
     "LookupName": "(IS) @ Streak SRM-4",
@@ -43757,7 +43757,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Streak SRM-4 CP": {
     "ActualName": "Ammo: Clan Prototype Streak Short Range Missile-4",
     "CritName": "@ Streak SRM-4 CP",
     "LookupName": "@ Streak SRM-4 CP",
@@ -43835,7 +43835,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Streak SRM-4 CI": {
     "ActualName": "Ammo: Clan Interim Streak Short Range Missile-4",
     "CritName": "@ Streak SRM-4 CI",
     "LookupName": "@ Streak SRM-4 CI",
@@ -43913,7 +43913,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Streak SRM-4": {
     "ActualName": "Ammo: Streak Short Range Missile-4",
     "CritName": "@ Streak SRM-4",
     "LookupName": "(CL) @ Streak SRM-4",
@@ -43991,7 +43991,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Streak SRM-6": {
     "ActualName": "Ammo: Streak Short Range Missile-6",
     "CritName": "@ Streak SRM-6",
     "LookupName": "(IS) @ Streak SRM-6",
@@ -44069,7 +44069,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Streak SRM-6 CP": {
     "ActualName": "Ammo: Clan Prototype Streak Short Range Missile-6",
     "CritName": "@ Streak SRM-6 CP",
     "LookupName": "@ Streak SRM-6 CP",
@@ -44147,7 +44147,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Streak SRM-6 CI": {
     "ActualName": "Ammo: Clan Interim Streak Short Range Missile-6",
     "CritName": "@ Streak SRM-6 CI",
     "LookupName": "@ Streak SRM-6 CI",
@@ -44225,7 +44225,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Streak SRM-6": {
     "ActualName": "Ammo: Streak Short Range Missile-6",
     "CritName": "@ Streak SRM-6",
     "LookupName": "(CL) @ Streak SRM-6",
@@ -44303,7 +44303,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Narc (Bola)": {
     "ActualName": "Ammo: Narc (Bola)",
     "CritName": "@ Narc (Bola)",
     "LookupName": "(IS) @ Narc (Bola)",
@@ -44381,7 +44381,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Narc (Explosive)": {
     "ActualName": "Ammo: Narc (Explosive)",
     "CritName": "@ Narc (Explosive)",
     "LookupName": "(IS) @ Narc (Explosive)",
@@ -44459,7 +44459,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Narc (Homing)": {
     "ActualName": "Ammo: Narc (Homing)",
     "CritName": "@ Narc (Homing)",
     "LookupName": "(IS) @ Narc (Homing)",
@@ -44537,7 +44537,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Narc (Homing)": {
     "ActualName": "Ammo: Narc (Homing)",
     "CritName": "@ Narc (Homing)",
     "LookupName": "(CL) @ Narc (Homing)",
@@ -44615,7 +44615,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ iNarc (ECM)": {
     "ActualName": "Ammo: Improved Narc (ECM)",
     "CritName": "@ iNarc (ECM)",
     "LookupName": "@ iNarc (ECM)",
@@ -44693,7 +44693,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ iNarc (Explosive)": {
     "ActualName": "Ammo: Improved Narc (Explosive)",
     "CritName": "@ iNarc (Explosive)",
     "LookupName": "@ iNarc (Explosive)",
@@ -44771,7 +44771,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ iNarc (Haywire)": {
     "ActualName": "Ammo: Improved Narc (Haywire)",
     "CritName": "@ iNarc (Haywire)",
     "LookupName": "@ iNarc (Haywire)",
@@ -44849,7 +44849,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ iNarc (Homing)": {
     "ActualName": "Ammo: Improved Narc (Homing)",
     "CritName": "@ iNarc (Homing)",
     "LookupName": "(IS) @ iNarc (Homing)",
@@ -44927,7 +44927,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ iNarc (Nemesis)": {
     "ActualName": "Ammo: Improved Narc (Nemesis)",
     "CritName": "@ iNarc (Nemesis)",
     "LookupName": "@ iNarc (Nemesis)",
@@ -45005,7 +45005,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 1 (Airburst)": {
     "ActualName": "Ammo: 'Mech Mortar 1 (Airburst)",
     "CritName": "@ Mortar 1 (Airburst)",
     "LookupName": "(IS) @ 'Mech Mortar 1 (Airburst)",
@@ -45083,7 +45083,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 1 (Anti-Personnel)": {
     "ActualName": "Ammo: 'Mech Mortar 1 (Anti-Personnel)",
     "CritName": "@ Mortar 1 (Anti-Personnel)",
     "LookupName": "(IS) @ 'Mech Mortar 1 (Anti-Personnel)",
@@ -45161,7 +45161,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 1 (Armor Piercing)": {
     "ActualName": "Ammo: 'Mech Mortar 1 (Armor Piercing)",
     "CritName": "@ Mortar 1 (Armor Piercing)",
     "LookupName": "(IS) @ 'Mech Mortar 1 (Armor Piercing)",
@@ -45239,7 +45239,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 1 (Flare)": {
     "ActualName": "Ammo: 'Mech Mortar 1 (Flare)",
     "CritName": "@ Mortar 1 (Flare)",
     "LookupName": "(IS) @ 'Mech Mortar 1 (Flare)",
@@ -45317,7 +45317,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 1 (Semi-Guided)": {
     "ActualName": "Ammo: 'Mech Mortar 1 (Semi-Guided)",
     "CritName": "@ Mortar 1 (Semi-Guided)",
     "LookupName": "(IS) @ 'Mech Mortar 1 (Semi-Guided)",
@@ -45395,7 +45395,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 1 (Smoke)": {
     "ActualName": "Ammo: 'Mech Mortar 1 (Smoke)",
     "CritName": "@ Mortar 1 (Smoke)",
     "LookupName": "(IS) @ 'Mech Mortar 1 (Smoke)",
@@ -45473,7 +45473,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 2 (Airburst)": {
     "ActualName": "Ammo: 'Mech Mortar 2 (Airburst)",
     "CritName": "@ Mortar 2 (Airburst)",
     "LookupName": "(IS) @ 'Mech Mortar 2 (Airburst)",
@@ -45551,7 +45551,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 2 (Anti-Personnel)": {
     "ActualName": "Ammo: 'Mech Mortar 2 (Anti-Personnel)",
     "CritName": "@ Mortar 2 (Anti-Personnel)",
     "LookupName": "(IS) @ 'Mech Mortar 2 (Anti-Personnel)",
@@ -45629,7 +45629,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 2 (Armor Piercing)": {
     "ActualName": "Ammo: 'Mech Mortar 2 (Armor Piercing)",
     "CritName": "@ Mortar 2 (Armor Piercing)",
     "LookupName": "(IS) @ 'Mech Mortar 2 (Armor Piercing)",
@@ -45707,7 +45707,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 2 (Flare)": {
     "ActualName": "Ammo: 'Mech Mortar 2 (Flare)",
     "CritName": "@ Mortar 2 (Flare)",
     "LookupName": "(IS) @ 'Mech Mortar 2 (Flare)",
@@ -45785,7 +45785,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 2 (Semi-Guided)": {
     "ActualName": "Ammo: 'Mech Mortar 2 (Semi-Guided)",
     "CritName": "@ Mortar 2 (Semi-Guided)",
     "LookupName": "(IS) @ 'Mech Mortar 2 (Semi-Guided)",
@@ -45863,7 +45863,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 2 (Smoke)": {
     "ActualName": "Ammo: 'Mech Mortar 2 (Smoke)",
     "CritName": "@ Mortar 2 (Smoke)",
     "LookupName": "(IS) @ 'Mech Mortar 2 (Smoke)",
@@ -45941,7 +45941,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 4 (Airburst)": {
     "ActualName": "Ammo: 'Mech Mortar 4 (Airburst)",
     "CritName": "@ Mortar 4 (Airburst)",
     "LookupName": "(IS) @ 'Mech Mortar 4 (Airburst)",
@@ -46019,7 +46019,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 4 (Anti-Personnel)": {
     "ActualName": "Ammo: 'Mech Mortar 4 (Anti-Personnel)",
     "CritName": "@ Mortar 4 (Anti-Personnel)",
     "LookupName": "(IS) @ 'Mech Mortar 4 (Anti-Personnel)",
@@ -46097,7 +46097,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 4 (Armor Piercing)": {
     "ActualName": "Ammo: 'Mech Mortar 4 (Armor Piercing)",
     "CritName": "@ Mortar 4 (Armor Piercing)",
     "LookupName": "(IS) @ 'Mech Mortar 4 (Armor Piercing)",
@@ -46175,7 +46175,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 4 (Flare)": {
     "ActualName": "Ammo: 'Mech Mortar 4 (Flare)",
     "CritName": "@ Mortar 4 (Flare)",
     "LookupName": "(IS) @ 'Mech Mortar 4 (Flare)",
@@ -46253,7 +46253,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 4 (Semi-Guided)": {
     "ActualName": "Ammo: 'Mech Mortar 4 (Semi-Guided)",
     "CritName": "@ Mortar 4 (Semi-Guided)",
     "LookupName": "(IS) @ 'Mech Mortar 4 (Semi-Guided)",
@@ -46331,7 +46331,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 4 (Smoke)": {
     "ActualName": "Ammo: 'Mech Mortar 4 (Smoke)",
     "CritName": "@ Mortar 4 (Smoke)",
     "LookupName": "(IS) @ 'Mech Mortar 4 (Smoke)",
@@ -46409,7 +46409,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 8 (Airburst)": {
     "ActualName": "Ammo: 'Mech Mortar 8 (Airburst)",
     "CritName": "@ Mortar 8 (Airburst)",
     "LookupName": "(IS) @ 'Mech Mortar 8 (Airburst)",
@@ -46487,7 +46487,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 8 (Anti-Personnel)": {
     "ActualName": "Ammo: 'Mech Mortar 8 (Anti-Personnel)",
     "CritName": "@ Mortar 8 (Anti-Personnel)",
     "LookupName": "(IS) @ 'Mech Mortar 8 (Anti-Personnel)",
@@ -46565,7 +46565,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 8 (Armor Piercing)": {
     "ActualName": "Ammo: 'Mech Mortar 8 (Armor Piercing)",
     "CritName": "@ Mortar 8 (Armor Piercing)",
     "LookupName": "(IS) @ 'Mech Mortar 8 (Armor Piercing)",
@@ -46643,7 +46643,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 8 (Flare)": {
     "ActualName": "Ammo: 'Mech Mortar 8 (Flare)",
     "CritName": "@ Mortar 8 (Flare)",
     "LookupName": "(IS) @ 'Mech Mortar 8 (Flare)",
@@ -46721,7 +46721,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 8 (Semi-Guided)": {
     "ActualName": "Ammo: 'Mech Mortar 8 (Semi-Guided)",
     "CritName": "@ Mortar 8 (Semi-Guided)",
     "LookupName": "(IS) @ 'Mech Mortar 8 (Semi-Guided)",
@@ -46799,7 +46799,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ 'Mech Mortar 8 (Smoke)": {
     "ActualName": "Ammo: 'Mech Mortar 8 (Smoke)",
     "CritName": "@ Mortar 8 (Smoke)",
     "LookupName": "(IS) @ 'Mech Mortar 8 (Smoke)",
@@ -46877,7 +46877,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 1 (Airburst)": {
     "ActualName": "Ammo: 'Mech Mortar 1 (Airburst)",
     "CritName": "@ Mortar 1 (Airburst)",
     "LookupName": "(CL) @ 'Mech Mortar 1 (Airburst)",
@@ -46955,7 +46955,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 1 (Anti-Personnel)": {
     "ActualName": "Ammo: 'Mech Mortar 1 (Anti-Personnel)",
     "CritName": "@ Mortar 1 (Anti-Personnel)",
     "LookupName": "(CL) @ 'Mech Mortar 1 (Anti-Personnel)",
@@ -47033,7 +47033,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 1 (Armor Piercing)": {
     "ActualName": "Ammo: 'Mech Mortar 1 (Armor Piercing)",
     "CritName": "@ Mortar 1 (Armor Piercing)",
     "LookupName": "(CL) @ 'Mech Mortar 1 (Armor Piercing)",
@@ -47111,7 +47111,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 1 (Flare)": {
     "ActualName": "Ammo: 'Mech Mortar 1 (Flare)",
     "CritName": "@ Mortar 1 (Flare)",
     "LookupName": "(CL) @ 'Mech Mortar 1 (Flare)",
@@ -47189,7 +47189,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 1 (Smoke)": {
     "ActualName": "Ammo: 'Mech Mortar 1 (Smoke)",
     "CritName": "@ Mortar 1 (Smoke)",
     "LookupName": "(CL) @ 'Mech Mortar 1 (Smoke)",
@@ -47267,7 +47267,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 2 (Airburst)": {
     "ActualName": "Ammo: 'Mech Mortar 2 (Airburst)",
     "CritName": "@ Mortar 2 (Airburst)",
     "LookupName": "(CL) @ 'Mech Mortar 2 (Airburst)",
@@ -47345,7 +47345,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 2 (Anti-Personnel)": {
     "ActualName": "Ammo: 'Mech Mortar 2 (Anti-Personnel)",
     "CritName": "@ Mortar 2 (Anti-Personnel)",
     "LookupName": "(CL) @ 'Mech Mortar 2 (Anti-Personnel)",
@@ -47423,7 +47423,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 2 (Armor Piercing)": {
     "ActualName": "Ammo: 'Mech Mortar 2 (Armor Piercing)",
     "CritName": "@ Mortar 2 (Armor Piercing)",
     "LookupName": "(CL) @ 'Mech Mortar 2 (Armor Piercing)",
@@ -47501,7 +47501,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 2 (Flare)": {
     "ActualName": "Ammo: 'Mech Mortar 2 (Flare)",
     "CritName": "@ Mortar 2 (Flare)",
     "LookupName": "(CL) @ 'Mech Mortar 2 (Flare)",
@@ -47579,7 +47579,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 2 (Smoke)": {
     "ActualName": "Ammo: 'Mech Mortar 2 (Smoke)",
     "CritName": "@ Mortar 2 (Smoke)",
     "LookupName": "(CL) @ 'Mech Mortar 2 (Smoke)",
@@ -47657,7 +47657,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 4 (Airburst)": {
     "ActualName": "Ammo: 'Mech Mortar 4 (Airburst)",
     "CritName": "@ Mortar 4 (Airburst)",
     "LookupName": "(CL) @ 'Mech Mortar 4 (Airburst)",
@@ -47735,7 +47735,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 4 (Anti-Personnel)": {
     "ActualName": "Ammo: 'Mech Mortar 4 (Anti-Personnel)",
     "CritName": "@ Mortar 4 (Anti-Personnel)",
     "LookupName": "(CL) @ 'Mech Mortar 4 (Anti-Personnel)",
@@ -47813,7 +47813,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 4 (Armor Piercing)": {
     "ActualName": "Ammo: 'Mech Mortar 4 (Armor Piercing)",
     "CritName": "@ Mortar 4 (Armor Piercing)",
     "LookupName": "(CL) @ 'Mech Mortar 4 (Armor Piercing)",
@@ -47891,7 +47891,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 4 (Flare)": {
     "ActualName": "Ammo: 'Mech Mortar 4 (Flare)",
     "CritName": "@ Mortar 4 (Flare)",
     "LookupName": "(CL) @ 'Mech Mortar 4 (Flare)",
@@ -47969,7 +47969,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 4 (Smoke)": {
     "ActualName": "Ammo: 'Mech Mortar 4 (Smoke)",
     "CritName": "@ Mortar 4 (Smoke)",
     "LookupName": "(CL) @ 'Mech Mortar 4 (Smoke)",
@@ -48047,7 +48047,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 8 (Airburst)": {
     "ActualName": "Ammo: 'Mech Mortar 8 (Airburst)",
     "CritName": "@ Mortar 8 (Airburst)",
     "LookupName": "(CL) @ 'Mech Mortar 8 (Airburst)",
@@ -48125,7 +48125,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 8 (Anti-Personnel)": {
     "ActualName": "Ammo: 'Mech Mortar 8 (Anti-Personnel)",
     "CritName": "@ Mortar 8 (Anti-Personnel)",
     "LookupName": "(CL) @ 'Mech Mortar 8 (Anti-Personnel)",
@@ -48203,7 +48203,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 8 (Armor Piercing)": {
     "ActualName": "Ammo: 'Mech Mortar 8 (Armor Piercing)",
     "CritName": "@ Mortar 8 (Armor Piercing)",
     "LookupName": "(CL) @ 'Mech Mortar 8 (Armor Piercing)",
@@ -48281,7 +48281,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 8 (Flare)": {
     "ActualName": "Ammo: 'Mech Mortar 8 (Flare)",
     "CritName": "@ Mortar 8 (Flare)",
     "LookupName": "(CL) @ 'Mech Mortar 8 (Flare)",
@@ -48359,7 +48359,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ 'Mech Mortar 8 (Smoke)": {
     "ActualName": "Ammo: 'Mech Mortar 8 (Smoke)",
     "CritName": "@ Mortar 8 (Smoke)",
     "LookupName": "(CL) @ 'Mech Mortar 8 (Smoke)",
@@ -48437,7 +48437,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Thunderbolt-5": {
     "ActualName": "Ammo: Thunderbolt-5",
     "CritName": "@ Thunderbolt-5",
     "LookupName": "(IS) @ Thunderbolt-5",
@@ -48515,7 +48515,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Thunderbolt-10": {
     "ActualName": "Ammo: Thunderbolt-10",
     "CritName": "@ Thunderbolt-10",
     "LookupName": "(IS) @ Thunderbolt-10",
@@ -48593,7 +48593,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Thunderbolt-15": {
     "ActualName": "Ammo: Thunderbolt-15",
     "CritName": "@ Thunderbolt-15",
     "LookupName": "(IS) @ Thunderbolt-15",
@@ -48671,7 +48671,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Thunderbolt-20": {
     "ActualName": "Ammo: Thunderbolt-20",
     "CritName": "@ Thunderbolt-20",
     "LookupName": "(IS) @ Thunderbolt-20",
@@ -48749,7 +48749,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRT-5 (Torpedo)": {
     "ActualName": "Ammo: Enhanced Long Range Torpedo-5 (Torpedo)",
     "CritName": "@ NLRT-5",
     "LookupName": "(IS) @ NLRT-5 (Torpedo)",
@@ -48827,7 +48827,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRT-10 (Torpedo)": {
     "ActualName": "Ammo: Enhanced Long Range Torpedo-10 (Torpedo)",
     "CritName": "@ NLRT-10",
     "LookupName": "(IS) @ NLRT-10 (Torpedo)",
@@ -48905,7 +48905,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRT-15 (Torpedo)": {
     "ActualName": "Ammo: Enhanced Long Range Torpedo-15 (Torpedo)",
     "CritName": "@ NLRT-15",
     "LookupName": "(IS) @ NLRT-15 (Torpedo)",
@@ -48983,7 +48983,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ NLRT-20 (Torpedo)": {
     "ActualName": "Ammo: Enhanced Long Range Torpedo-20 (Torpedo)",
     "CritName": "@ NLRT-20",
     "LookupName": "(IS) @ NLRT-20 (Torpedo)",
@@ -49061,7 +49061,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRT-5 (Torpedo)": {
     "ActualName": "Ammo: Long Range Torpedo-5 (Torpedo)",
     "CritName": "@ LRT-5",
     "LookupName": "(IS) @ LRT-5 (Torpedo)",
@@ -49139,7 +49139,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRT-10 (Torpedo)": {
     "ActualName": "Ammo: Long Range Torpedo-10 (Torpedo)",
     "CritName": "@ LRT-10",
     "LookupName": "(IS) @ LRT-10 (Torpedo)",
@@ -49217,7 +49217,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRT-15 (Torpedo)": {
     "ActualName": "Ammo: Long Range Torpedo-15 (Torpedo)",
     "CritName": "@ LRT-15",
     "LookupName": "(IS) @ LRT-15 (Torpedo)",
@@ -49295,7 +49295,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ LRT-20 (Torpedo)": {
     "ActualName": "Ammo: Long Range Torpedo-20 (Torpedo)",
     "CritName": "@ LRT-20",
     "LookupName": "(IS) @ LRT-20 (Torpedo)",
@@ -49373,7 +49373,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRT-5 (Torpedo)": {
     "ActualName": "Ammo: Long Range Torpedo-5 (Torpedo)",
     "CritName": "@ LRT-5",
     "LookupName": "(CL) @ LRT-5 (Torpedo)",
@@ -49451,7 +49451,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRT-10 (Torpedo)": {
     "ActualName": "Ammo: Long Range Torpedo-10 (Torpedo)",
     "CritName": "@ LRT-10",
     "LookupName": "(CL) @ LRT-10 (Torpedo)",
@@ -49529,7 +49529,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRT-15 (Torpedo)": {
     "ActualName": "Ammo: Long Range Torpedo-15 (Torpedo)",
     "CritName": "@ LRT-15",
     "LookupName": "(CL) @ LRT-15 (Torpedo)",
@@ -49607,7 +49607,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ LRT-20 (Torpedo)": {
     "ActualName": "Ammo: Long Range Torpedo-20 (Torpedo)",
     "CritName": "@ LRT-20",
     "LookupName": "(CL) @ LRT-20 (Torpedo)",
@@ -49685,7 +49685,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRT-2 (Torpedo)": {
     "ActualName": "Ammo: Short Range Torpedo-2 (Torpedo)",
     "CritName": "@ SRT-2",
     "LookupName": "@ SRT-2 (Torpedo)",
@@ -49763,7 +49763,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRT-4 (Torpedo)": {
     "ActualName": "Ammo: Short Range Torpedo-4 (Torpedo)",
     "CritName": "@ SRT-4",
     "LookupName": "@ SRT-4 (Torpedo)",
@@ -49841,7 +49841,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ SRT-6 (Torpedo)": {
     "ActualName": "Ammo: Short Range Torpedo-6 (Torpedo)",
     "CritName": "@ SRT-6",
     "LookupName": "@ SRT-6 (Torpedo)",
@@ -49919,7 +49919,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Arrow IV (ADA)": {
     "ActualName": "Ammo: Arrow IV (ADA)",
     "CritName": "@ Arrow IV (ADA)",
     "LookupName": "(IS) @ Arrow IV (ADA)",
@@ -49997,7 +49997,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Arrow IV (Cluster)": {
     "ActualName": "Ammo: Arrow IV (Cluster)",
     "CritName": "@ Arrow IV (Cluster)",
     "LookupName": "(IS) @ Arrow IV (Cluster)",
@@ -50075,7 +50075,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Arrow IV (Homing)": {
     "ActualName": "Ammo: Arrow IV (Homing)",
     "CritName": "@ Arrow IV (Homing)",
     "LookupName": "(IS) @ Arrow IV (Homing)",
@@ -50153,7 +50153,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Arrow IV (Illumination)": {
     "ActualName": "Ammo: Arrow IV (Illumination)",
     "CritName": "@ Arrow IV (Illum)",
     "LookupName": "(IS) @ Arrow IV (Illumination)",
@@ -50231,7 +50231,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Arrow IV (Inferno)": {
     "ActualName": "Ammo: Arrow IV (Inferno)",
     "CritName": "@ Arrow IV (Inferno)",
     "LookupName": "(IS) @ Arrow IV (Inferno)",
@@ -50309,7 +50309,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Arrow IV (Laser-Inhibiting)": {
     "ActualName": "Ammo: Arrow IV (Laser-Inhibiting)",
     "CritName": "@ Arrow IV (Laser-Inhib)",
     "LookupName": "(IS) @ Arrow IV (Laser-Inhibiting)",
@@ -50387,7 +50387,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Arrow IV (Non-Homing)": {
     "ActualName": "Ammo: Arrow IV (Non-Homing)",
     "CritName": "@ Arrow IV (Non-Home)",
     "LookupName": "(IS) @ Arrow IV (Non-Homing)",
@@ -50465,7 +50465,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Arrow IV (Smoke)": {
     "ActualName": "Ammo: Arrow IV (Smoke)",
     "CritName": "@ Arrow IV (Smoke)",
     "LookupName": "(IS) @ Arrow IV (Smoke)",
@@ -50543,7 +50543,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Arrow IV (Thunder Active)": {
     "ActualName": "Ammo: Arrow IV (Thunder Active)",
     "CritName": "@ Arrow IV (Th-Act)",
     "LookupName": "(IS) @ Arrow IV (Thunder Active)",
@@ -50621,7 +50621,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Arrow IV (Thunder Vibrabomb)": {
     "ActualName": "Ammo: Arrow IV (Thunder Vibrabomb)",
     "CritName": "@ Arrow IV (Th-Vib)",
     "LookupName": "(IS) @ Arrow IV (Thunder Vibrabomb)",
@@ -50699,7 +50699,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Arrow IV (Thunder)": {
     "ActualName": "Ammo: Arrow IV (Thunder)",
     "CritName": "@ Arrow IV (Thunder)",
     "LookupName": "(IS) @ Arrow IV (Thunder)",
@@ -50777,7 +50777,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Arrow IV (Cluster)": {
     "ActualName": "Ammo: Arrow IV (Cluster)",
     "CritName": "@ Arrow IV (Cluster)",
     "LookupName": "(CL) @ Arrow IV (Cluster)",
@@ -50855,7 +50855,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Arrow IV (FASCAM)": {
     "ActualName": "Ammo: Arrow IV (FASCAM)",
     "CritName": "@ Arrow IV (FASCAM)",
     "LookupName": "(CL) @ Arrow IV (FASCAM)",
@@ -50933,7 +50933,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Arrow IV (Homing)": {
     "ActualName": "Ammo: Arrow IV (Homing)",
     "CritName": "@ Arrow IV (Homing)",
     "LookupName": "(CL) @ Arrow IV (Homing)",
@@ -51011,7 +51011,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Arrow IV (Illumination)": {
     "ActualName": "Ammo: Arrow IV (Illumination)",
     "CritName": "@ Arrow IV (Illumination)",
     "LookupName": "(CL) @ Arrow IV (Illumination)",
@@ -51089,7 +51089,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Arrow IV (Non-Homing)": {
     "ActualName": "Ammo: Arrow IV (Non-Homing)",
     "CritName": "@ Arrow IV (Non-Home)",
     "LookupName": "(CL) @ Arrow IV (Non-Homing)",
@@ -51167,7 +51167,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Arrow IV (Smoke)": {
     "ActualName": "Ammo: Arrow IV (Smoke)",
     "CritName": "@ Arrow IV (Smoke)",
     "LookupName": "(CL) @ Arrow IV (Smoke)",
@@ -51245,7 +51245,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Thumper": {
     "ActualName": "Ammo: Thumper",
     "CritName": "@ Thumper",
     "LookupName": "@ Thumper",
@@ -51323,7 +51323,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Thumper (Cluster)": {
     "ActualName": "Ammo: Thumper (Cluster)",
     "CritName": "@ Thumper (Cluster)",
     "LookupName": "@ Thumper (Cluster)",
@@ -51401,7 +51401,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Thumper (Copperhead)": {
     "ActualName": "Ammo: Thumper (Copperhead)",
     "CritName": "@ Thumper (Cprhead)",
     "LookupName": "@ Thumper (Copperhead)",
@@ -51479,7 +51479,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Thumper (FASCAM)": {
     "ActualName": "Ammo: Thumper (FASCAM)",
     "CritName": "@ Thumper (FASCAM)",
     "LookupName": "(CL) @ Thumper (FASCAM)",
@@ -51557,7 +51557,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Thumper (Flechette)": {
     "ActualName": "Ammo: Thumper (Flechette)",
     "CritName": "@ Thumper (Flechette)",
     "LookupName": "@ Thumper (Flechette)",
@@ -51635,7 +51635,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Thumper (Illumination)": {
     "ActualName": "Ammo: Thumper (Illumination)",
     "CritName": "@ Thumper (Illum)",
     "LookupName": "@ Thumper (Illumination)",
@@ -51713,7 +51713,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Thumper (Smoke)": {
     "ActualName": "Ammo: Thumper (Smoke)",
     "CritName": "@ Thumper (Smoke)",
     "LookupName": "@ Thumper (Smoke)",
@@ -51791,7 +51791,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Thumper (Thunder)": {
     "ActualName": "Ammo: Thumper (Thunder)",
     "CritName": "@ Thumper (Thunder)",
     "LookupName": "(IS) @ Thumper (Thunder)",
@@ -51869,7 +51869,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Sniper": {
     "ActualName": "Ammo: Sniper",
     "CritName": "@ Sniper",
     "LookupName": "@ Sniper",
@@ -51947,7 +51947,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Sniper (Cluster)": {
     "ActualName": "Ammo: Sniper (Cluster)",
     "CritName": "@ Sniper (Cluster)",
     "LookupName": "@ Sniper (Cluster)",
@@ -52025,7 +52025,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Sniper (Copperhead)": {
     "ActualName": "Ammo: Sniper (Copperhead)",
     "CritName": "@ Sniper (Cprhead)",
     "LookupName": "@ Sniper (Copperhead)",
@@ -52103,7 +52103,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Sniper (FASCAM)": {
     "ActualName": "Ammo: Sniper (FASCAM)",
     "CritName": "@ Sniper (FASCAM)",
     "LookupName": "(CL) @ Sniper (FASCAM)",
@@ -52181,7 +52181,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Sniper (Flechette)": {
     "ActualName": "Ammo: Sniper (Flechette)",
     "CritName": "@ Sniper (Flechette)",
     "LookupName": "@ Sniper (Flechette)",
@@ -52259,7 +52259,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Sniper (Illumination)": {
     "ActualName": "Ammo: Sniper (Illumination)",
     "CritName": "@ Sniper (Illum)",
     "LookupName": "@ Sniper (Illumination)",
@@ -52337,7 +52337,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Sniper (Smoke)": {
     "ActualName": "Ammo: Sniper (Smoke)",
     "CritName": "@ Sniper (Smoke)",
     "LookupName": "@ Sniper (Smoke)",
@@ -52415,7 +52415,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Sniper (Thunder)": {
     "ActualName": "Ammo: Sniper (Thunder)",
     "CritName": "@ Sniper (Thunder)",
     "LookupName": "(IS) @ Sniper (Thunder)",
@@ -52493,7 +52493,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Anti-Missile System": {
     "ActualName": "Ammo: Anti-Missile System",
     "CritName": "@ Anti-Missile System",
     "LookupName": "(IS) @ Anti-Missile System",
@@ -52571,7 +52571,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Anti-Missile System": {
     "ActualName": "Ammo: Anti-Missile System",
     "CritName": "@ Anti-Missile System",
     "LookupName": "(CL) @ Anti-Missile System",
@@ -52649,7 +52649,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Nail Gun": {
     "ActualName": "Ammo: Nail Gun",
     "CritName": "@ Nail/Rivet Gun",
     "LookupName": "@ Nail Gun",
@@ -52727,7 +52727,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Nail Gun (1/2)": {
     "ActualName": "Ammo: Nail Gun (1/2)",
     "CritName": "@ Nail/Rivet Gun (1/2)",
     "LookupName": "@ Nail Gun (1/2)",
@@ -52805,7 +52805,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Rivet Gun": {
     "ActualName": "Ammo: Rivet Gun",
     "CritName": "@ Nail/Rivet Gun",
     "LookupName": "@ Rivet Gun",
@@ -52883,7 +52883,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Rivet Gun (1/2)": {
     "ActualName": "Ammo: Rivet Gun (1/2)",
     "CritName": "@ Nail/Rivet Gun (1/2)",
     "LookupName": "@ Rivet Gun (1/2)",
@@ -52961,7 +52961,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Remote Sensors": {
     "ActualName": "Ammo: Remote Sensors",
     "CritName": "@ Remote Sensors",
     "LookupName": "@ Remote Sensors",
@@ -53039,7 +53039,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Remote Sensors (1/2)": {
     "ActualName": "Ammo: Remote Sensors (1/2)",
     "CritName": "@ Remote Sensors (1/2)",
     "LookupName": "@ Remote Sensors (1/2)",
@@ -53117,7 +53117,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Sprayer (Coolant)": {
     "ActualName": "Ammo: Sprayer (Coolant)",
     "CritName": "@ Sprayer (Coolant)",
     "LookupName": "@ Sprayer (Coolant)",
@@ -53195,7 +53195,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Sprayer (Corrosive)": {
     "ActualName": "Ammo: Sprayer (Corrosive)",
     "CritName": "@ Sprayer (Corrosive)",
     "LookupName": "@ Sprayer (Corrosive)",
@@ -53273,7 +53273,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Sprayer (Flame Retardant Foam)": {
     "ActualName": "Ammo: Sprayer (Flame Retardant Foam)",
     "CritName": "@ Sprayer (Flm Rtrdnt)",
     "LookupName": "@ Sprayer (Flame Retardant Foam)",
@@ -53351,7 +53351,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Sprayer (Oil Slick)": {
     "ActualName": "Ammo: Sprayer (Oil Slick)",
     "CritName": "@ Sprayer (Oil Slick)",
     "LookupName": "@ Sprayer (Oil Slick)",
@@ -53429,7 +53429,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Sprayer (Paint/Obscurant)": {
     "ActualName": "Ammo: Sprayer (Paint/Obscurant)",
     "CritName": "@ Sprayer (Pnt/Obscrnt)",
     "LookupName": "@ Sprayer (Paint/Obscurant)",
@@ -53507,7 +53507,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Sprayer (Water)": {
     "ActualName": "Ammo: Sprayer (Water)",
     "CritName": "@ Sprayer (Water)",
     "LookupName": "@ Sprayer (Water)",
@@ -53585,7 +53585,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ C3 Remote Launcher": {
     "ActualName": "Ammo: C3 Remote Sensor Launcher",
     "CritName": "@ C3 Remote Launcher",
     "LookupName": "@ C3 Remote Launcher",
@@ -53663,7 +53663,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Long Tom": {
     "ActualName": "Ammo: Long Tom",
     "CritName": "@ Long Tom",
     "LookupName": "@ Long Tom",
@@ -53741,7 +53741,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Long Tom (Cluster)": {
     "ActualName": "Ammo: Long Tom (Cluster)",
     "CritName": "@ Long Tom (Cluster)",
     "LookupName": "@ Long Tom (Cluster)",
@@ -53819,7 +53819,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Long Tom (Copperhead)": {
     "ActualName": "Ammo: Long Tom (Copperhead)",
     "CritName": "@ Long Tom (Cprhead)",
     "LookupName": "@ Long Tom (Copperhead)",
@@ -53897,7 +53897,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ Long Tom (FASCAM)": {
     "ActualName": "Ammo: Long Tom (FASCAM)",
     "CritName": "@ Long Tom (FASCAM)",
     "LookupName": "(CL) @ Long Tom (FASCAM)",
@@ -53975,7 +53975,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Long Tom (Flechette)": {
     "ActualName": "Ammo: Long Tom (Flechette)",
     "CritName": "@ Long Tom (Flechette)",
     "LookupName": "@ Long Tom (Flechette)",
@@ -54053,7 +54053,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Long Tom (Illumination)": {
     "ActualName": "Ammo: Long Tom (Illumination)",
     "CritName": "@ Long Tom (Illum)",
     "LookupName": "@ Long Tom (Illumination)",
@@ -54131,7 +54131,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Long Tom (Smoke)": {
     "ActualName": "Ammo: Long Tom (Smoke)",
     "CritName": "@ Long Tom (Smoke)",
     "LookupName": "@ Long Tom (Smoke)",
@@ -54209,7 +54209,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(IS) @ Long Tom (Thunder)": {
     "ActualName": "Ammo: Long Tom (Thunder)",
     "CritName": "@ Long Tom (Thunder)",
     "LookupName": "(IS) @ Long Tom (Thunder)",
@@ -54287,7 +54287,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Cruise Missile/50": {
     "ActualName": "Ammo: Cruise Missile/50",
     "CritName": "@ Cruise Missile/50",
     "LookupName": "@ Cruise Missile/50",
@@ -54365,7 +54365,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Cruise Missile/70": {
     "ActualName": "Ammo: Cruise Missile/70",
     "CritName": "@ Cruise Missile/70",
     "LookupName": "@ Cruise Missile/70",
@@ -54443,7 +54443,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Cruise Missile/90": {
     "ActualName": "Ammo: Cruise Missile/90",
     "CritName": "@ Cruise Missile/90",
     "LookupName": "@ Cruise Missile/90",
@@ -54521,7 +54521,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "@ Cruise Missile/120": {
     "ActualName": "Ammo: Cruise Missile/120",
     "CritName": "@ Cruise Missile/120",
     "LookupName": "@ Cruise Missile/120",
@@ -54599,7 +54599,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iAC/2": {
     "ActualName": "Ammo: Improved Autocannon/2",
     "CritName": "@ iAC/2",
     "LookupName": "(CL) @ iAC/2",
@@ -54677,7 +54677,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iAC/5": {
     "ActualName": "Ammo: Improved Autocannon/5",
     "CritName": "@ iAC/5",
     "LookupName": "(CL) @ iAC/5",
@@ -54755,7 +54755,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iAC/10": {
     "ActualName": "Ammo: Improved Autocannon/10",
     "CritName": "@ iAC/10",
     "LookupName": "(CL) @ iAC/10",
@@ -54833,7 +54833,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iAC/20": {
     "ActualName": "Ammo: Improved Autocannon/20",
     "CritName": "@ iAC/20",
     "LookupName": "(CL) @ iAC/20",
@@ -54911,7 +54911,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iGauss Rifle": {
     "ActualName": "Ammo: Improved Gauss Rifle",
     "CritName": "@ iGauss Rifle",
     "LookupName": "(CL) @ iGauss Rifle",
@@ -54989,7 +54989,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iLRM-5": {
     "ActualName": "Ammo: Improved Long Range Missile-5",
     "CritName": "@ iLRM-5",
     "LookupName": "(CL) @ iLRM-5",
@@ -55067,7 +55067,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iLRM-10": {
     "ActualName": "Ammo: Improved Long Range Missile-10",
     "CritName": "@ iLRM-10",
     "LookupName": "(CL) @ iLRM-10",
@@ -55145,7 +55145,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iLRM-15": {
     "ActualName": "Ammo: Improved Long Range Missile-15",
     "CritName": "@ iLRM-15",
     "LookupName": "(CL) @ iLRM-15",
@@ -55223,7 +55223,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iLRM-20": {
     "ActualName": "Ammo: Improved Long Range Missile-20",
     "CritName": "@ iLRM-20",
     "LookupName": "(CL) @ iLRM-20",
@@ -55301,7 +55301,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iSRM-2": {
     "ActualName": "Ammo: Improved Short Range Missile-2",
     "CritName": "@ iSRM-2",
     "LookupName": "(CL) @ iSRM-2",
@@ -55379,7 +55379,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iSRM-4": {
     "ActualName": "Ammo: Improved Short Range Missile-4",
     "CritName": "@ iSRM-4",
     "LookupName": "(CL) @ iSRM-4",
@@ -55457,7 +55457,7 @@
     },
     "BattleForceAbilities": []
   },
-  {
+  "(CL) @ iSRM-6": {
     "ActualName": "Ammo: Improved Short Range Missile-6",
     "CritName": "@ iSRM-6",
     "LookupName": "(CL) @ iSRM-6",
@@ -55535,4 +55535,4 @@
     },
     "BattleForceAbilities": []
   }
-]
+}

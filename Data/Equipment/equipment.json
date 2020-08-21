@@ -1,5 +1,5 @@
-[
-  {
+{
+  "A-Pod": {
     "ActualName": "Anti-Personnel Pod",
     "CritName": "A-Pod",
     "Type": "PD",
@@ -94,7 +94,7 @@
       "-"
     ]
   },
-  {
+  "B-Pod": {
     "ActualName": "Anti-BattleArmor Pod",
     "CritName": "B-Pod",
     "Type": "PD",
@@ -189,7 +189,7 @@
       "-"
     ]
   },
-  {
+  "M-Pod": {
     "ActualName": "Anti-Mech Pod",
     "CritName": "M-Pod",
     "Type": "PD",
@@ -284,7 +284,7 @@
       "-"
     ]
   },
-  {
+  "Angel ECM": {
     "ActualName": "Angel Electronic Countermeasure Suite",
     "CritName": "Angel ECM",
     "Type": "E",
@@ -379,7 +379,7 @@
       "AECM"
     ]
   },
-  {
+  "(IS) Anti-Missile System": {
     "ActualName": "Anti-Missile System",
     "CritName": "Anti-Missile System",
     "Type": "PD",
@@ -474,7 +474,7 @@
       "AMS"
     ]
   },
-  {
+  "(CL) Anti-Missile System": {
     "ActualName": "Anti-Missile System",
     "CritName": "Anti-Missile System",
     "Type": "PD",
@@ -569,7 +569,7 @@
       "AMS"
     ]
   },
-  {
+  "(IS) Laser Anti-Missile System": {
     "ActualName": "Laser Anti-Missile System",
     "CritName": "Laser Anti-Missile System",
     "Type": "PD",
@@ -664,7 +664,7 @@
       "AMS"
     ]
   },
-  {
+  "(CL) Laser Anti-Missile System": {
     "ActualName": "Laser Anti-Missile System",
     "CritName": "Laser Anti-Missile System",
     "Type": "PD",
@@ -759,7 +759,7 @@
       "AMS"
     ]
   },
-  {
+  "Beagle Active Probe": {
     "ActualName": "Beagle Active Probe",
     "CritName": "Beagle Active Probe",
     "Type": "E",
@@ -855,7 +855,7 @@
       "RCN"
     ]
   },
-  {
+  "Active Probe": {
     "ActualName": "Active Probe",
     "CritName": "Active Probe",
     "Type": "E",
@@ -951,7 +951,7 @@
       "RCN"
     ]
   },
-  {
+  "Light Active Probe": {
     "ActualName": "Light Active Probe",
     "CritName": "Light Active Probe",
     "Type": "E",
@@ -1047,7 +1047,7 @@
       "RCN"
     ]
   },
-  {
+  "Bloodhound Active Probe": {
     "ActualName": "Bloodhound Active Probe",
     "CritName": "Bloodhound Active Probe",
     "Type": "E",
@@ -1143,7 +1143,7 @@
       "RCN"
     ]
   },
-  {
+  "C3 Computer (Master)": {
     "ActualName": "Command/Control/Communication Computer (Master)",
     "CritName": "C3 Computer (Master)",
     "Type": "E",
@@ -1239,7 +1239,7 @@
       "TAG"
     ]
   },
-  {
+  "C3 Computer (Slave)": {
     "ActualName": "Command/Control/Communication Computer (Slave)",
     "CritName": "C3 Computer (Slave)",
     "Type": "E",
@@ -1334,7 +1334,7 @@
       "C3S"
     ]
   },
-  {
+  "Improved C3 Computer": {
     "ActualName": "Improved Command/Control/Communication Computer",
     "CritName": "Improved C3 Computer",
     "Type": "E",
@@ -1429,7 +1429,7 @@
       "C3I"
     ]
   },
-  {
+  "C3 Boosted Computer (Master)": {
     "ActualName": "Command/Control/Communication Boosted Computer (Master)",
     "CritName": "C3 Boosted Computer (Master)",
     "Type": "E",
@@ -1525,7 +1525,7 @@
       "TAG"
     ]
   },
-  {
+  "C3 Boosted Computer (Slave)": {
     "ActualName": "Command/Control/Communication Boosted Computer (Slave)",
     "CritName": "C3 Boosted Computer (Slave)",
     "Type": "E",
@@ -1620,7 +1620,7 @@
       "C3BSS"
     ]
   },
-  {
+  "C3 Emergency Master": {
     "ActualName": "Command/Control/Communication Emergency Master",
     "CritName": "C3 Emergency Master",
     "Type": "E",
@@ -1715,7 +1715,7 @@
       "C3EM"
     ]
   },
-  {
+  "C3 Remote Sensor Launcher": {
     "ActualName": "Command/Control/Communication Remote Sensor Launcher",
     "CritName": "C3 Remote Sensor Launcher",
     "Type": "E",
@@ -1810,7 +1810,7 @@
       "C3RS"
     ]
   },
-  {
+  "Chaff Pod": {
     "ActualName": "Chaff Pod",
     "CritName": "Chaff Pod",
     "Type": "E",
@@ -1905,7 +1905,7 @@
       "-"
     ]
   },
-  {
+  "Collapsible Command Module (CCM)": {
     "ActualName": "Collapsible Command Module (CCM)",
     "CritName": "Collapsible Command Module (CCM)",
     "Type": "E",
@@ -2000,7 +2000,7 @@
       "-"
     ]
   },
-  {
+  "Communications Equipment": {
     "ActualName": "Communications Equipment",
     "CritName": "Communications Equipment (1.0 tons)",
     "Type": "E",
@@ -2095,7 +2095,7 @@
       "-"
     ]
   },
-  {
+  "Coolant Pod": {
     "ActualName": "Coolant Pod",
     "CritName": "Coolant Pod",
     "Type": "PE",
@@ -2190,7 +2190,7 @@
       "-"
     ]
   },
-  {
+  "Electronic Warfare Equipment": {
     "ActualName": "Electronic Warfare Equipment",
     "CritName": "EW Equipment",
     "Type": "E",
@@ -2285,7 +2285,7 @@
       "-"
     ]
   },
-  {
+  "Ground Mobile HPG": {
     "ActualName": "Ground Mobile Hyper Pulse Generator",
     "CritName": "Ground Mobile HPG",
     "Type": "PE",
@@ -2380,7 +2380,7 @@
       "HPG"
     ]
   },
-  {
+  "Guardian ECM Suite": {
     "ActualName": "Guardian Electronic Countermeasure Suite",
     "CritName": "Guardian ECM Suite",
     "Type": "E",
@@ -2475,7 +2475,7 @@
       "ECM"
     ]
   },
-  {
+  "ECM Suite": {
     "ActualName": "Electronic Countermeasure Suite",
     "CritName": "ECM Suite",
     "Type": "E",
@@ -2570,7 +2570,7 @@
       "ECM"
     ]
   },
-  {
+  "HarJel": {
     "ActualName": "HarJel",
     "CritName": "HarJel",
     "Type": "PE",
@@ -2665,7 +2665,7 @@
       "BHJ"
     ]
   },
-  {
+  "HarJel II": {
     "ActualName": "HarJel II Self-Repair System",
     "CritName": "HarJel II",
     "Type": "PE",
@@ -2760,7 +2760,7 @@
       ""
     ]
   },
-  {
+  "HarJel III": {
     "ActualName": "HarJel III Self-Repair System",
     "CritName": "HarJel III",
     "Type": "PE",
@@ -2855,7 +2855,7 @@
       ""
     ]
   },
-  {
+  "TAG": {
     "ActualName": "Target Acquisition Gear",
     "CritName": "TAG",
     "Type": "E",
@@ -2950,7 +2950,7 @@
       "TAG"
     ]
   },
-  {
+  "Light TAG": {
     "ActualName": "Light Target Acquisition Gear",
     "CritName": "Light TAG",
     "Type": "E",
@@ -3045,7 +3045,7 @@
       "LTAG"
     ]
   },
-  {
+  "Watchdog CEWS": {
     "ActualName": "Watchdog Composite Electronic Warfare System",
     "CritName": "Watchdog CEWS",
     "Type": "E",
@@ -3140,7 +3140,7 @@
       "WAT"
     ]
   },
-  {
+  "Bridgelayer, Light": {
     "ActualName": "Bridgelayer, Light",
     "CritName": "Bridgelayer, Light",
     "Type": "IE",
@@ -3235,7 +3235,7 @@
       "-"
     ]
   },
-  {
+  "Bridgelayer, Medium": {
     "ActualName": "Bridgelayer, Medium",
     "CritName": "Bridgelayer, Medium",
     "Type": "IE",
@@ -3330,7 +3330,7 @@
       "-"
     ]
   },
-  {
+  "Bridgelayer, Heavy": {
     "ActualName": "Bridgelayer, Heavy",
     "CritName": "Bridgelayer, Heavy",
     "Type": "IE",
@@ -3425,7 +3425,7 @@
       "-"
     ]
   },
-  {
+  "Bulldozer": {
     "ActualName": "Bulldozer",
     "CritName": "Bulldozer",
     "Type": "IE",
@@ -3520,7 +3520,7 @@
       "ENG"
     ]
   },
-  {
+  "Fluid Suction System, Standard": {
     "ActualName": "Fluid Suction System, Standard",
     "CritName": "Fluid Suction System, Standard",
     "Type": "IE",
@@ -3615,7 +3615,7 @@
       "-"
     ]
   },
-  {
+  "Fluid Suction System, Light": {
     "ActualName": "Fluid Suction System, Light",
     "CritName": "Fluid Suction System, Light",
     "Type": "IE",
@@ -3710,7 +3710,7 @@
       "-"
     ]
   },
-  {
+  "Fluid Suction System, Light (Vehicular)": {
     "ActualName": "Fluid Suction System, Light (Vehicular)",
     "CritName": "Fluid Suction System, Light (V)",
     "Type": "IE",
@@ -3805,7 +3805,7 @@
       "-"
     ]
   },
-  {
+  "Lift Hoist": {
     "ActualName": "Lift Hoist",
     "CritName": "Lift Hoist",
     "Type": "IE",
@@ -3900,7 +3900,7 @@
       "-"
     ]
   },
-  {
+  "Nail Gun": {
     "ActualName": "Nail Gun",
     "CritName": "Nail Gun",
     "Type": "IE",
@@ -3995,7 +3995,7 @@
       "-"
     ]
   },
-  {
+  "Rivet Gun": {
     "ActualName": "Rivet Gun",
     "CritName": "Rivet Gun",
     "Type": "IE",
@@ -4090,7 +4090,7 @@
       "-"
     ]
   },
-  {
+  "Remote Sensor Dispenser": {
     "ActualName": "Remote Sensor Dispenser",
     "CritName": "Remote Sensor Dispenser",
     "Type": "IE",
@@ -4185,7 +4185,7 @@
       "-"
     ]
   },
-  {
+  "Searchlight": {
     "ActualName": "Searchlight",
     "CritName": "Searchlight",
     "Type": "IE",
@@ -4280,7 +4280,7 @@
       "SRCH"
     ]
   },
-  {
+  "Searchlight, Handheld": {
     "ActualName": "Searchlight, Handheld",
     "CritName": "Searchlight Handheld",
     "Type": "IE",
@@ -4375,7 +4375,7 @@
       "SRCH"
     ]
   },
-  {
+  "Sprayer": {
     "ActualName": "Sprayer",
     "CritName": "Sprayer",
     "Type": "IE",
@@ -4470,7 +4470,7 @@
       "-"
     ]
   },
-  {
+  "Sprayer, Vehicular": {
     "ActualName": "Sprayer, Vehicular",
     "CritName": "Sprayer",
     "Type": "IE",
@@ -4565,7 +4565,7 @@
       "-"
     ]
   },
-  {
+  "Cargo Container": {
     "ActualName": "Cargo Container",
     "CritName": "Cargo Container",
     "Type": "IE",
@@ -4660,7 +4660,7 @@
       "-"
     ]
   },
-  {
+  "Cargo, Standard": {
     "ActualName": "Cargo, Standard",
     "CritName": "Cargo, Standard",
     "Type": "IE",
@@ -4755,7 +4755,7 @@
       "-"
     ]
   },
-  {
+  "Cargo, Standard, Vehicular": {
     "ActualName": "Cargo, Standard",
     "CritName": "Cargo, Standard",
     "Type": "IE",
@@ -4850,7 +4850,7 @@
       "-"
     ]
   },
-  {
+  "Cargo, Liquid": {
     "ActualName": "Cargo, Liquid",
     "CritName": "Cargo, Liquid",
     "Type": "IE",
@@ -4945,7 +4945,7 @@
       "-"
     ]
   },
-  {
+  "Cargo, Liquid, Vehicular": {
     "ActualName": "Cargo, Liquid",
     "CritName": "Cargo, Liquid",
     "Type": "IE",
@@ -5040,7 +5040,7 @@
       "-"
     ]
   },
-  {
+  "Cargo, Insulated": {
     "ActualName": "Cargo, Insulated",
     "CritName": "Cargo, Insulated",
     "Type": "IE",
@@ -5135,7 +5135,7 @@
       "-"
     ]
   },
-  {
+  "Cargo, Insulated, Vehicular": {
     "ActualName": "Cargo, Insulated",
     "CritName": "Cargo, Insulated",
     "Type": "IE",
@@ -5230,7 +5230,7 @@
       "-"
     ]
   },
-  {
+  "Cargo, Livestock": {
     "ActualName": "Cargo, Livestock",
     "CritName": "Cargo, Livestock",
     "Type": "IE",
@@ -5325,7 +5325,7 @@
       "-"
     ]
   },
-  {
+  "Cargo, Livestock, Vehicular": {
     "ActualName": "Cargo, Livestock",
     "CritName": "Cargo, Livestock",
     "Type": "IE",
@@ -5420,7 +5420,7 @@
       "-"
     ]
   },
-  {
+  "Infantry, Foot Compartment": {
     "ActualName": "Infantry, Foot Compartment (28 Troopers, Foot Infantry)",
     "CritName": "Foot Platoon",
     "Type": "IE",
@@ -5515,7 +5515,7 @@
       "-"
     ]
   },
-  {
+  "Infantry, Jump Compartment": {
     "ActualName": "Infantry, Jump Compartment (28 Troopers, Jump Infantry)",
     "CritName": "Jump Platoon",
     "Type": "IE",
@@ -5610,7 +5610,7 @@
       "-"
     ]
   },
-  {
+  "Infantry, Motorized Compartment": {
     "ActualName": "Infantry, Motorized Compartment (28 Troopers, Motorized Infantry)",
     "CritName": "Motor Platoon",
     "Type": "IE",
@@ -5705,7 +5705,7 @@
       "-"
     ]
   },
-  {
+  "Infantry, Mechanized Compartment": {
     "ActualName": "Infantry, Mechanized Compartment (5 Troopers, Mechanized Infantry)",
     "CritName": "Mechanized Squad",
     "Type": "IE",
@@ -5800,7 +5800,7 @@
       "-"
     ]
   },
-  {
+  "Battle Armor Compartment": {
     "ActualName": "Battle Armor Compartment",
     "CritName": "Battle Armor",
     "Type": "IE",
@@ -5895,7 +5895,7 @@
       "-"
     ]
   },
-  {
+  "Infantry Compartment": {
     "ActualName": "Infantry Compartment",
     "CritName": "Infantry Compartment",
     "Type": "IE",
@@ -5990,7 +5990,7 @@
       "-"
     ]
   },
-  {
+  "Infantry Bay": {
     "ActualName": "Infantry Bay",
     "CritName": "Infantry Bay",
     "Type": "IE",
@@ -6085,7 +6085,7 @@
       "-"
     ]
   },
-  {
+  "MW Aquatic Survival System": {
     "ActualName": "MechWarrior Aquatic Survival System",
     "CritName": "M.A.S.S.",
     "Type": "PE",
@@ -6180,7 +6180,7 @@
       "-"
     ]
   },
-  {
+  "Nova CEWS": {
     "ActualName": "Nova Combined Electronic Warfare System",
     "CritName": "Nova CEWS",
     "Type": "E",
@@ -6275,7 +6275,7 @@
       "-"
     ]
   },
-  {
+  "Centurion Weapon System": {
     "ActualName": "Centurion Weapon System",
     "CritName": "Centurion WS",
     "Type": "E",
@@ -6370,7 +6370,7 @@
       "-"
     ]
   },
-  {
+  "Field Kitchen": {
     "ActualName": "Field Kitchen",
     "CritName": "Field Kitchen",
     "Type": "IE",
@@ -6465,7 +6465,7 @@
       "-"
     ]
   },
-  {
+  "Lifeboat (Maritime)": {
     "ActualName": "Lifeboat (Maritime)",
     "CritName": "Lifeboat (Maritime)",
     "Type": "IE",
@@ -6560,7 +6560,7 @@
       "-"
     ]
   },
-  {
+  "MASH": {
     "ActualName": "MASH",
     "CritName": "MASH",
     "Type": "IE",
@@ -6655,7 +6655,7 @@
       "-"
     ]
   },
-  {
+  "Paramedic Equipment": {
     "ActualName": "Paramedic Equipment",
     "CritName": "Paramedic",
     "Type": "IE",
@@ -6750,7 +6750,7 @@
       "-"
     ]
   },
-  {
+  "Refueling Drogue": {
     "ActualName": "Refueling Drogue",
     "CritName": "Refueling Drogue",
     "Type": "IE",
@@ -6845,7 +6845,7 @@
       "-"
     ]
   },
-  {
+  "Drone Carrier Control System": {
     "ActualName": "Drone Carrier Control System",
     "CritName": "Drone Control System",
     "Type": "E",
@@ -6940,7 +6940,7 @@
       "-"
     ]
   },
-  {
+  "Recon Camera": {
     "ActualName": "Recon Camera",
     "CritName": "Recon Camera",
     "Type": "E",
@@ -7035,7 +7035,7 @@
       "-"
     ]
   },
-  {
+  "Radical Heat Sink": {
     "ActualName": "Radical Heat Sink",
     "CritName": "Radical Heat Sink",
     "Type": "PE",
@@ -7130,4 +7130,4 @@
       "-"
     ]
   }
-]
+}

@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class JsonReader {
@@ -25,35 +26,37 @@ public class JsonReader {
             .registerTypeAdapter(Equipment.class, new EquipmentInstanceCreator())
             .registerTypeAdapter(Quirk.class, new QuirkInstanceCreator())
             .create();
+    private Type quirkMapToken = new TypeToken<Map<String, Quirk>>(){}.getType();
 
     public ArrayList ReadAllAmmo(Path f) throws Exception {
-        Type collectionType = new TypeToken<ArrayList<Ammunition>>(){}.getType();
-        ArrayList<Ammunition> ammo = gson.fromJson(new FileReader(f.toString()), collectionType);
-        return ammo;
+        Type collectionType = new TypeToken<Map<String, Ammunition>>(){}.getType();
+        Map<String, Ammunition> map = gson.fromJson(new FileReader(f.toString()), collectionType);
+        return new ArrayList<>(map.values());
+
     }
 
     public ArrayList ReadAllRangedWeapons(Path f) throws Exception {
-        Type collectionType = new TypeToken<ArrayList<RangedWeapon>>(){}.getType();
-        ArrayList<RangedWeapon> weapons = gson.fromJson(new FileReader(f.toString()), collectionType);
-        return weapons;
+        Type collectionType = new TypeToken<Map<String, RangedWeapon>>(){}.getType();
+        Map<String, RangedWeapon> map = gson.fromJson(new FileReader(f.toString()), collectionType);
+        return new ArrayList<>(map.values());
     }
 
     public ArrayList ReadAllPhysicalWeapons(Path f) throws Exception {
-        Type collectionType = new TypeToken<ArrayList<PhysicalWeapon>>(){}.getType();
-        ArrayList<PhysicalWeapon> weapons = gson.fromJson(new FileReader(f.toString()), collectionType);
-        return weapons;
+        Type collectionType = new TypeToken<Map<String, PhysicalWeapon>>(){}.getType();
+        Map<String, PhysicalWeapon> map = gson.fromJson(new FileReader(f.toString()), collectionType);
+        return new ArrayList<>(map.values());
     }
 
     public ArrayList ReadAllEquipment(Path f) throws Exception {
-        Type collectionType = new TypeToken<ArrayList<Equipment>>(){}.getType();
-        ArrayList<Equipment> equipment = gson.fromJson(new FileReader(f.toString()), collectionType);
-        return equipment;
+        Type collectionType = new TypeToken<Map<String, Equipment>>(){}.getType();
+        Map<String, Equipment> map = gson.fromJson(new FileReader(f.toString()), collectionType);
+        return new ArrayList<>(map.values());
     }
 
     public ArrayList ReadAllQuirks(Path f) throws Exception {
-        Type collectionType = new TypeToken<ArrayList<Quirk>>(){}.getType();
-        ArrayList<Quirk> quirks = gson.fromJson(new FileReader(f.toString()), collectionType);
-        return quirks;
+        Type collectionType = new TypeToken<Map<String, Quirk>>(){}.getType();
+        Map<String, Quirk> map = gson.fromJson(new FileReader(f.toString()), collectionType);
+        return new ArrayList<>(map.values());
     }
 
     private List<Path> walkPath(Path dir) throws Exception {

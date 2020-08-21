@@ -1,5 +1,5 @@
-[
-  {
+{
+  "(IS) Autocannon/2": {
     "ActualName": "Autocannon/2",
     "CritName": "Autocannon/2",
     "MegaMekName": "ISAC2",
@@ -131,7 +131,7 @@
       "AC"
     ]
   },
-  {
+  "(IS) Autocannon/5": {
     "ActualName": "Autocannon/5",
     "CritName": "Autocannon/5",
     "MegaMekName": "ISAC5",
@@ -263,7 +263,7 @@
       "AC"
     ]
   },
-  {
+  "(IS) Autocannon/10": {
     "ActualName": "Autocannon/10",
     "CritName": "Autocannon/10",
     "MegaMekName": "ISAC10",
@@ -395,7 +395,7 @@
       "AC"
     ]
   },
-  {
+  "(IS) Autocannon/20": {
     "ActualName": "Autocannon/20",
     "CritName": "Autocannon/20",
     "MegaMekName": "ISAC20",
@@ -527,7 +527,7 @@
       "AC"
     ]
   },
-  {
+  "(IS) Prototype Autocannon/2": {
     "ActualName": "Prototype Autocannon/2",
     "CritName": "Prototype AC/2",
     "MegaMekName": "ISAC2",
@@ -659,7 +659,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Prototype Autocannon/5": {
     "ActualName": "Prototype Autocannon/5",
     "CritName": "Prototype AC/5",
     "MegaMekName": "ISAC5",
@@ -791,7 +791,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Prototype Autocannon/10": {
     "ActualName": "Prototype Autocannon/10",
     "CritName": "Prototype AC/10",
     "MegaMekName": "ISAC10",
@@ -923,7 +923,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Prototype Autocannon/20": {
     "ActualName": "Prototype Autocannon/20",
     "CritName": "Prototype AC/20",
     "MegaMekName": "ISAC20",
@@ -1055,7 +1055,7 @@
       "-"
     ]
   },
-  {
+  "(IS) LB 2-X AC": {
     "ActualName": "LB 2-X Autocannon",
     "CritName": "LB 2-X AC",
     "MegaMekName": "ISLBXAC2",
@@ -1187,7 +1187,7 @@
       "FLK"
     ]
   },
-  {
+  "LB 2-X CP AC": {
     "ActualName": "Clan Prototype LB 2-X Autocannon",
     "CritName": "LB 2-X CP AC",
     "MegaMekName": "ISLBXAC2",
@@ -1319,7 +1319,7 @@
       "FLK"
     ]
   },
-  {
+  "LB 2-X CI AC": {
     "ActualName": "Clan Interim LB 2-X Autocannon",
     "CritName": "LB 2-X CI AC",
     "MegaMekName": "ISLBXAC2",
@@ -1451,7 +1451,7 @@
       "FLK"
     ]
   },
-  {
+  "(CL) LB 2-X AC": {
     "ActualName": "LB 2-X Autocannon",
     "CritName": "LB 2-X AC",
     "MegaMekName": "CLLBXAC2",
@@ -1583,7 +1583,7 @@
       "FLK"
     ]
   },
-  {
+  "(IS) LB 5-X AC": {
     "ActualName": "LB 5-X Autocannon",
     "CritName": "LB 5-X AC",
     "MegaMekName": "ISLBXAC5",
@@ -1715,7 +1715,7 @@
       "FLK"
     ]
   },
-  {
+  "LB 5-X CP AC": {
     "ActualName": "Clan Prototype LB 5-X Autocannon",
     "CritName": "LB 5-X CP AC",
     "MegaMekName": "ISLBXAC5",
@@ -1847,7 +1847,7 @@
       "FLK"
     ]
   },
-  {
+  "LB 5-X CI AC": {
     "ActualName": "Clan Interim LB 5-X Autocannon",
     "CritName": "LB 5-X CI AC",
     "MegaMekName": "ISLBXAC5",
@@ -1979,7 +1979,7 @@
       "FLK"
     ]
   },
-  {
+  "(CL) LB 5-X AC": {
     "ActualName": "LB 5-X Autocannon",
     "CritName": "LB 5-X AC",
     "MegaMekName": "CLLBXAC5",
@@ -2111,7 +2111,7 @@
       "FLK"
     ]
   },
-  {
+  "(IS) LB 10-X AC": {
     "ActualName": "LB 10-X Autocannon",
     "CritName": "LB 10-X AC",
     "MegaMekName": "ISLBXAC10",
@@ -2243,7 +2243,7 @@
       "FLK"
     ]
   },
-  {
+  "(CL) LB 10-X AC": {
     "ActualName": "LB 10-X Autocannon",
     "CritName": "LB 10-X AC",
     "MegaMekName": "CLLBXAC10",
@@ -2375,7 +2375,7 @@
       "FLK"
     ]
   },
-  {
+  "(IS) LB 20-X AC": {
     "ActualName": "LB 20-X Autocannon",
     "CritName": "LB 20-X AC",
     "MegaMekName": "ISLBXAC20",
@@ -2507,7 +2507,7 @@
       "FLK"
     ]
   },
-  {
+  "LB 20-X CP AC": {
     "ActualName": "Clan Prototype LB 20-X Autocannon",
     "CritName": "LB 20-X CP AC",
     "MegaMekName": "ISLBXAC20",
@@ -2639,7 +2639,7 @@
       "FLK"
     ]
   },
-  {
+  "LB 20-X CI AC": {
     "ActualName": "Clan Interim LB 20-X Autocannon",
     "CritName": "LB 20-X CI AC",
     "MegaMekName": "ISLBXAC20",
@@ -2771,7 +2771,7 @@
       "FLK"
     ]
   },
-  {
+  "(CL) LB 20-X AC": {
     "ActualName": "LB 20-X Autocannon",
     "CritName": "LB 20-X AC",
     "MegaMekName": "CLLBXAC20",
@@ -2903,7 +2903,7 @@
       "FLK"
     ]
   },
-  {
+  "(IS) Light AC/2": {
     "ActualName": "Light Autocannon/2",
     "CritName": "Light AC/2",
     "MegaMekName": "ISLAC2",
@@ -3035,7 +3035,7 @@
       "AC"
     ]
   },
-  {
+  "(IS) Light AC/5": {
     "ActualName": "Light Autocannon/5",
     "CritName": "Light AC/5",
     "MegaMekName": "ISLAC5",
@@ -3167,7 +3167,7 @@
       "AC"
     ]
   },
-  {
+  "(CL) Protomech AC/2": {
     "ActualName": "Protomech Autocannon/2",
     "CritName": "Protomech AC/2",
     "MegaMekName": "CLProtoAC2",
@@ -3299,7 +3299,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Protomech AC/4": {
     "ActualName": "Protomech Autocannon/4",
     "CritName": "Protomech AC/4",
     "MegaMekName": "CLProtoAC4",
@@ -3431,7 +3431,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Protomech AC/8": {
     "ActualName": "Protomech Autocannon/8",
     "CritName": "Protomech AC/8",
     "MegaMekName": "CLProtoAC8",
@@ -3563,7 +3563,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Rotary AC/2": {
     "ActualName": "Rotary Autocannon/2",
     "CritName": "Rotary AC/2",
     "MegaMekName": "ISRotaryAC2",
@@ -3695,7 +3695,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Rotary AC/2": {
     "ActualName": "Rotary Autocannon/2",
     "CritName": "Rotary AC/2",
     "MegaMekName": "CLRotaryAC2",
@@ -3827,7 +3827,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Rotary AC/5": {
     "ActualName": "Rotary Autocannon/5",
     "CritName": "Rotary AC/5",
     "MegaMekName": "ISRotaryAC5",
@@ -3959,7 +3959,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Rotary AC/5": {
     "ActualName": "Rotary Autocannon/5",
     "CritName": "Rotary AC/5",
     "MegaMekName": "CLRotaryAC5",
@@ -4091,7 +4091,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Ultra AC/2": {
     "ActualName": "Ultra Autocannon/2",
     "CritName": "Ultra AC/2",
     "MegaMekName": "ISUltraAC2",
@@ -4223,7 +4223,7 @@
       "-"
     ]
   },
-  {
+  "Ultra AC/2 CP": {
     "ActualName": "Clan Prototype Ultra Autocannon/2",
     "CritName": "Ultra AC/2 CP",
     "MegaMekName": "ISUltraAC2",
@@ -4355,7 +4355,7 @@
       "-"
     ]
   },
-  {
+  "Ultra AC/2 CI": {
     "ActualName": "Clan Interim Ultra Autocannon/2",
     "CritName": "Ultra AC/2 CI",
     "MegaMekName": "ISUltraAC2",
@@ -4487,7 +4487,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Ultra AC/2": {
     "ActualName": "Ultra Autocannon/2",
     "CritName": "Ultra AC/2",
     "MegaMekName": "CLUltraAC2",
@@ -4619,7 +4619,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Ultra AC/5": {
     "ActualName": "Ultra Autocannon/5",
     "CritName": "Ultra AC/5",
     "MegaMekName": "ISUltraAC5",
@@ -4751,7 +4751,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Ultra AC/5": {
     "ActualName": "Ultra Autocannon/5",
     "CritName": "Ultra AC/5",
     "MegaMekName": "CLUltraAC5",
@@ -4883,7 +4883,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Ultra AC/10": {
     "ActualName": "Ultra Autocannon/10",
     "CritName": "Ultra AC/10",
     "MegaMekName": "ISUltraAC10",
@@ -5015,7 +5015,7 @@
       "-"
     ]
   },
-  {
+  "Ultra AC/10 CP": {
     "ActualName": "Clan Prototype Ultra Autocannon/10",
     "CritName": "Ultra AC/10 CP",
     "MegaMekName": "ISUltraAC10",
@@ -5147,7 +5147,7 @@
       "-"
     ]
   },
-  {
+  "Ultra AC/10 CI": {
     "ActualName": "Clan Interim Ultra Autocannon/10",
     "CritName": "Ultra AC/10 CI",
     "MegaMekName": "ISUltraAC10",
@@ -5279,7 +5279,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Ultra AC/10": {
     "ActualName": "Ultra Autocannon/10",
     "CritName": "Ultra AC/10",
     "MegaMekName": "CLUltraAC10",
@@ -5411,7 +5411,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Ultra AC/20": {
     "ActualName": "Ultra Autocannon/20",
     "CritName": "Ultra AC/20",
     "MegaMekName": "ISUltraAC20",
@@ -5543,7 +5543,7 @@
       "-"
     ]
   },
-  {
+  "Ultra AC/20 CP": {
     "ActualName": "Clan Prototype Ultra Autocannon/20",
     "CritName": "Ultra AC/20 CP",
     "MegaMekName": "ISUltraAC20",
@@ -5675,7 +5675,7 @@
       "-"
     ]
   },
-  {
+  "Ultra AC/20 CI": {
     "ActualName": "Clan Interim Ultra Autocannon/20",
     "CritName": "Ultra AC/20 CI",
     "MegaMekName": "ISUltraAC20",
@@ -5807,7 +5807,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Ultra AC/20": {
     "ActualName": "Ultra Autocannon/20",
     "CritName": "Ultra AC/20",
     "MegaMekName": "CLUltraAC20",
@@ -5939,7 +5939,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Hyper-Velocity Autocannon/2": {
     "ActualName": "Hyper-Velocity Autocannon/2",
     "CritName": "HV AC/2",
     "MegaMekName": "ISHVAC2",
@@ -6071,7 +6071,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Hyper-Velocity Autocannon/5": {
     "ActualName": "Hyper-Velocity Autocannon/5",
     "CritName": "HV AC/5",
     "MegaMekName": "ISHVAC5",
@@ -6203,7 +6203,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Hyper-Velocity Autocannon/10": {
     "ActualName": "Hyper-Velocity Autocannon/10",
     "CritName": "HV AC/10",
     "MegaMekName": "ISHVAC10",
@@ -6335,7 +6335,7 @@
       "-"
     ]
   },
-  {
+  "(CL) AP Gauss Rifle": {
     "ActualName": "Anti-Personnel Gauss Rifle",
     "CritName": "AP Gauss Rifle",
     "MegaMekName": "CLAPGaussRifle",
@@ -6467,7 +6467,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Light Gauss Rifle": {
     "ActualName": "Light Gauss Rifle",
     "CritName": "Light Gauss Rifle",
     "MegaMekName": "ISLightGaussRifle",
@@ -6599,7 +6599,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Gauss Rifle": {
     "ActualName": "Gauss Rifle",
     "CritName": "Gauss Rifle",
     "MegaMekName": "ISGaussRifle",
@@ -6731,7 +6731,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Gauss Rifle": {
     "ActualName": "Gauss Rifle",
     "CritName": "Gauss Rifle",
     "MegaMekName": "CLGaussRifle",
@@ -6863,7 +6863,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Heavy Gauss Rifle": {
     "ActualName": "Heavy Gauss Rifle",
     "CritName": "Heavy Gauss Rifle",
     "MegaMekName": "ISHeavyGaussRifle",
@@ -6995,7 +6995,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Improved Heavy Gauss Rifle": {
     "ActualName": "Improved Heavy Gauss Rifle",
     "CritName": "Imp. Heavy Gauss Rifle",
     "MegaMekName": "ISImprovedHeavyGaussRifle",
@@ -7127,7 +7127,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Magshot Gauss Rifle": {
     "ActualName": "Magshot Gauss Rifle",
     "CritName": "Magshot",
     "MegaMekName": "ISMagshotGR",
@@ -7259,7 +7259,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Silver Bullet Gauss": {
     "ActualName": "Silver Bullet Gauss",
     "CritName": "Silver Bullet Gauss",
     "MegaMekName": "ISSBGR",
@@ -7391,7 +7391,7 @@
       "FLK"
     ]
   },
-  {
+  "(CL) Hyper Assault Gauss 20": {
     "ActualName": "Hyper Assault Gauss 20",
     "CritName": "HAG-20",
     "MegaMekName": "CLHAG20",
@@ -7523,7 +7523,7 @@
       "FLK"
     ]
   },
-  {
+  "(CL) Hyper Assault Gauss 30": {
     "ActualName": "Hyper Assault Gauss 30",
     "CritName": "HAG-30",
     "MegaMekName": "CLHAG30",
@@ -7655,7 +7655,7 @@
       "FLK"
     ]
   },
-  {
+  "(CL) Hyper Assault Gauss 40": {
     "ActualName": "Hyper Assault Gauss 40",
     "CritName": "HAG-40",
     "MegaMekName": "CLHAG40",
@@ -7787,7 +7787,7 @@
       "FLK"
     ]
   },
-  {
+  "(IS) BattleMech Taser": {
     "ActualName": "BattleMech Taser",
     "CritName": "Mech Taser",
     "MegaMekName": "ISMekTaser",
@@ -7919,7 +7919,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Light Rifle": {
     "ActualName": "Light Rifle",
     "CritName": "Light Rifle",
     "MegaMekName": "ISLightRifle",
@@ -8051,7 +8051,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Medium Rifle": {
     "ActualName": "Medium Rifle",
     "CritName": "Medium Rifle",
     "MegaMekName": "ISMediumRifle",
@@ -8183,7 +8183,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Heavy Rifle": {
     "ActualName": "Heavy Rifle",
     "CritName": "Heavy Rifle",
     "MegaMekName": "ISHeavyRifle",
@@ -8315,7 +8315,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Light Machine Gun": {
     "ActualName": "Light Machine Gun",
     "CritName": "Light Machine Gun",
     "MegaMekName": "ISLightMG",
@@ -8447,7 +8447,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Light Machine Gun": {
     "ActualName": "Light Machine Gun",
     "CritName": "Light Machine Gun",
     "MegaMekName": "CLLightMG",
@@ -8579,7 +8579,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Machine Gun": {
     "ActualName": "Machine Gun",
     "CritName": "Machine Gun",
     "MegaMekName": "ISMachine Gun",
@@ -8711,7 +8711,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Machine Gun": {
     "ActualName": "Machine Gun",
     "CritName": "Machine Gun",
     "MegaMekName": "CLMG",
@@ -8843,7 +8843,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Heavy Machine Gun": {
     "ActualName": "Heavy Machine Gun",
     "CritName": "Heavy Machine Gun",
     "MegaMekName": "ISHeavyMG",
@@ -8975,7 +8975,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Heavy Machine Gun": {
     "ActualName": "Heavy Machine Gun",
     "CritName": "Heavy Machine Gun",
     "MegaMekName": "CLHeavyMG",
@@ -9107,7 +9107,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Fluid Gun": {
     "ActualName": "Fluid Gun",
     "CritName": "Fluid Gun",
     "MegaMekName": "ISFluidGun",
@@ -9239,7 +9239,7 @@
       "-"
     ]
   },
-  {
+  "Long Tom Artillery Cannon": {
     "ActualName": "Long Tom Artillery Cannon",
     "CritName": "Long Tom Art. Cannon",
     "MegaMekName": "LongTomCannon",
@@ -9371,7 +9371,7 @@
       "ARTLTC"
     ]
   },
-  {
+  "Sniper Artillery Cannon": {
     "ActualName": "Sniper Artillery Cannon",
     "CritName": "Sniper Art. Cannon",
     "MegaMekName": "SniperCannon",
@@ -9503,7 +9503,7 @@
       "ARTSC"
     ]
   },
-  {
+  "Thumper Artillery Cannon": {
     "ActualName": "Thumper Artillery Cannon",
     "CritName": "Thumper Art. Cannon",
     "MegaMekName": "ThumperCannon",
@@ -9635,7 +9635,7 @@
       "ARTTC"
     ]
   },
-  {
+  "(IS) Small Laser": {
     "ActualName": "Small Laser",
     "CritName": "Small Laser",
     "MegaMekName": "ISSmallLaser",
@@ -9767,7 +9767,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Medium Laser": {
     "ActualName": "Medium Laser",
     "CritName": "Medium Laser",
     "MegaMekName": "ISMediumLaser",
@@ -9899,7 +9899,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Large Laser": {
     "ActualName": "Large Laser",
     "CritName": "Large Laser",
     "MegaMekName": "ISLargeLaser",
@@ -10031,7 +10031,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Prototype Small Laser": {
     "ActualName": "Prototype Small Laser",
     "CritName": "Prototype Small Laser",
     "MegaMekName": "ISSmallLaser",
@@ -10163,7 +10163,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Prototype Medium Laser": {
     "ActualName": "Prototype Medium Laser",
     "CritName": "Prototype Medium Laser",
     "MegaMekName": "ISMediumLaser",
@@ -10295,7 +10295,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Prototype Large Laser": {
     "ActualName": "Prototype Large Laser",
     "CritName": "Prototype Large Laser",
     "MegaMekName": "ISLargeLaser",
@@ -10427,7 +10427,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Binary Laser Cannon": {
     "ActualName": "Binary Laser Cannon",
     "CritName": "Binary Laser Cannon",
     "MegaMekName": "ISBlazer",
@@ -10559,7 +10559,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Bombast Laser": {
     "ActualName": "Bombast Laser",
     "CritName": "Bombast Laser",
     "MegaMekName": "ISBombastLaser",
@@ -10691,7 +10691,7 @@
       "-"
     ]
   },
-  {
+  "(CL) ER Micro Laser": {
     "ActualName": "Extended Range Micro Laser",
     "CritName": "ER Micro Laser",
     "MegaMekName": "CLERMicroLaser",
@@ -10823,7 +10823,7 @@
       "-"
     ]
   },
-  {
+  "(IS) ER Small Laser": {
     "ActualName": "Extended Range Small Laser",
     "CritName": "ER Small Laser",
     "MegaMekName": "ISERSmallLaser",
@@ -10955,7 +10955,7 @@
       "-"
     ]
   },
-  {
+  "ER Small Laser CP": {
     "ActualName": "Clan Prototype Extended Range Small Laser",
     "CritName": "ER Small Laser CP",
     "MegaMekName": "ISERSmallLaser",
@@ -11087,7 +11087,7 @@
       "-"
     ]
   },
-  {
+  "ER Small Laser CI": {
     "ActualName": "Clan Interim Extended Range Small Laser",
     "CritName": "ER Small Laser CI",
     "MegaMekName": "ISERSmallLaser",
@@ -11219,7 +11219,7 @@
       "-"
     ]
   },
-  {
+  "(CL) ER Small Laser": {
     "ActualName": "Extended Range Small Laser",
     "CritName": "ER Small Laser",
     "MegaMekName": "CLERSmallLaser",
@@ -11351,7 +11351,7 @@
       "-"
     ]
   },
-  {
+  "(IS) ER Medium Laser": {
     "ActualName": "Extended Range Medium Laser",
     "CritName": "ER Medium Laser",
     "MegaMekName": "ISERMediumLaser",
@@ -11483,7 +11483,7 @@
       "-"
     ]
   },
-  {
+  "ER Medium Laser CP": {
     "ActualName": "Clan Prototype Extended Range Medium Laser",
     "CritName": "ER Medium Laser CP",
     "MegaMekName": "ISERMediumLaser",
@@ -11615,7 +11615,7 @@
       "-"
     ]
   },
-  {
+  "ER Medium Laser CI": {
     "ActualName": "Clan Interim Extended Range Medium Laser",
     "CritName": "ER Medium Laser CI",
     "MegaMekName": "ISERMediumLaser",
@@ -11747,7 +11747,7 @@
       "-"
     ]
   },
-  {
+  "(CL) ER Medium Laser": {
     "ActualName": "Extended Range Medium Laser",
     "CritName": "ER Medium Laser",
     "MegaMekName": "CLERMediumLaser",
@@ -11879,7 +11879,7 @@
       "-"
     ]
   },
-  {
+  "(IS) ER Large Laser": {
     "ActualName": "Extended Range Large Laser",
     "CritName": "ER Large Laser",
     "MegaMekName": "ISERLargeLaser",
@@ -12011,7 +12011,7 @@
       "-"
     ]
   },
-  {
+  "(CL) ER Large Laser": {
     "ActualName": "Extended Range Large Laser",
     "CritName": "ER Large Laser",
     "MegaMekName": "CLERLargeLaser",
@@ -12143,7 +12143,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Micro Pulse Laser": {
     "ActualName": "Micro Pulse Laser",
     "CritName": "Micro Pulse Laser",
     "MegaMekName": "CLMicroPulseLaser",
@@ -12275,7 +12275,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Small Pulse Laser": {
     "ActualName": "Small Pulse Laser",
     "CritName": "Small Pulse Laser",
     "MegaMekName": "ISSmallPulseLaser",
@@ -12407,7 +12407,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Small Pulse Laser": {
     "ActualName": "Small Pulse Laser",
     "CritName": "Small Pulse Laser",
     "MegaMekName": "CLSmallPulseLaser",
@@ -12539,7 +12539,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Medium Pulse Laser": {
     "ActualName": "Medium Pulse Laser",
     "CritName": "Medium Pulse Laser",
     "MegaMekName": "ISMediumPulseLaser",
@@ -12671,7 +12671,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Medium Pulse Laser": {
     "ActualName": "Medium Pulse Laser",
     "CritName": "Medium Pulse Laser",
     "MegaMekName": "CLMediumPulseLaser",
@@ -12803,7 +12803,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Large Pulse Laser": {
     "ActualName": "Large Pulse Laser",
     "CritName": "Large Pulse Laser",
     "MegaMekName": "ISLargePulseLaser",
@@ -12935,7 +12935,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Large Pulse Laser": {
     "ActualName": "Large Pulse Laser",
     "CritName": "Large Pulse Laser",
     "MegaMekName": "CLLargePulseLaser",
@@ -13067,7 +13067,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Small X-Pulse Laser": {
     "ActualName": "Small X-Pulse Laser",
     "CritName": "Small X-Pulse Laser",
     "MegaMekName": "ISSmallXPulseLaser",
@@ -13199,7 +13199,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Medium X-Pulse Laser": {
     "ActualName": "Medium X-Pulse Laser",
     "CritName": "Medium X-Pulse Laser",
     "MegaMekName": "ISMediumXPulseLaser",
@@ -13331,7 +13331,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Large X-Pulse Laser": {
     "ActualName": "Large X-Pulse Laser",
     "CritName": "Large X-Pulse Laser",
     "MegaMekName": "ISLargeXPulseLaser",
@@ -13463,7 +13463,7 @@
       "-"
     ]
   },
-  {
+  "(CL) ER Small Pulse Laser": {
     "ActualName": "Extended Range Small Pulse Laser",
     "CritName": "ER Small Pulse Laser",
     "MegaMekName": "CLERSmallPulseLaser",
@@ -13595,7 +13595,7 @@
       "-"
     ]
   },
-  {
+  "(CL) ER Medium Pulse Laser": {
     "ActualName": "Extended Range Medium Pulse Laser",
     "CritName": "ER Medium Pulse Laser",
     "MegaMekName": "CLERMediumPulseLaser",
@@ -13727,7 +13727,7 @@
       "-"
     ]
   },
-  {
+  "(CL) ER Large Pulse Laser": {
     "ActualName": "Extended Range Large Pulse Laser",
     "CritName": "ER Large Pulse Laser",
     "MegaMekName": "CLERLargePulseLaser",
@@ -13859,7 +13859,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Small Variable Speed Pulse Laser": {
     "ActualName": "Small Variable Speed Pulse Laser",
     "CritName": "Small VSPL",
     "MegaMekName": "ISSmallVSPLaser",
@@ -13991,7 +13991,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Medium Variable Speed Pulse Laser": {
     "ActualName": "Medium Variable Speed Pulse Laser",
     "CritName": "Medium VSPL",
     "MegaMekName": "ISMediumVSPLaser",
@@ -14123,7 +14123,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Large Variable Speed Pulse Laser": {
     "ActualName": "Large Variable Speed Pulse Laser",
     "CritName": "Large VSPL",
     "MegaMekName": "ISLargeVSPLaser",
@@ -14255,7 +14255,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Heavy Small Laser": {
     "ActualName": "Heavy Small Laser",
     "CritName": "Heavy Small Laser",
     "MegaMekName": "CLHeavySmallLaser",
@@ -14387,7 +14387,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Heavy Medium Laser": {
     "ActualName": "Heavy Medium Laser",
     "CritName": "Heavy Medium Laser",
     "MegaMekName": "CLHeavyMediumLaser",
@@ -14519,7 +14519,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Heavy Large Laser": {
     "ActualName": "Heavy Large Laser",
     "CritName": "Heavy Large Laser",
     "MegaMekName": "CLHeavyLargeLaser",
@@ -14651,7 +14651,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Improved Heavy Small Laser": {
     "ActualName": "Improved Heavy Small Laser",
     "CritName": "Imp. Hvy Small Laser",
     "MegaMekName": "CLImprovedHeavySmallLaser",
@@ -14783,7 +14783,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Improved Heavy Medium Laser": {
     "ActualName": "Improved Heavy Medium Laser",
     "CritName": "Imp. Hvy Medium Laser",
     "MegaMekName": "CLImprovedHeavyMediumLaser",
@@ -14915,7 +14915,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Improved Heavy Large Laser": {
     "ActualName": "Improved Heavy Large Laser",
     "CritName": "Imp. Hvy Large Laser",
     "MegaMekName": "CLImprovedHeavyLargeLaser",
@@ -15047,7 +15047,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Small Chemical Laser": {
     "ActualName": "Small Chemical Laser",
     "CritName": "Small Chem Laser",
     "MegaMekName": "CLSmallChemLaser",
@@ -15179,7 +15179,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Medium Chemical Laser": {
     "ActualName": "Medium Chemical Laser",
     "CritName": "Medium Chem Laser",
     "MegaMekName": "CLMediumChemLaser",
@@ -15311,7 +15311,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Large Chemical Laser": {
     "ActualName": "Large Chemical Laser",
     "CritName": "Large Chem Laser",
     "MegaMekName": "CLLargeChemLaser",
@@ -15443,7 +15443,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Small R-e Laser": {
     "ActualName": "Small Re-engineered Laser",
     "CritName": "Small R-e Laser",
     "MegaMekName": "ISSmallRELaser",
@@ -15575,7 +15575,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Medium R-e Laser": {
     "ActualName": "Medium Re-engineered Laser",
     "CritName": "Medium R-e Laser",
     "MegaMekName": "ISMediumRELaser",
@@ -15707,7 +15707,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Large R-e Laser": {
     "ActualName": "Large Re-engineered Laser",
     "CritName": "Large R-e Laser",
     "MegaMekName": "ISLargeRELaser",
@@ -15839,7 +15839,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Light PPC": {
     "ActualName": "Light Particle Projection Cannon",
     "CritName": "Light PPC",
     "MegaMekName": "ISLightPPC",
@@ -15971,7 +15971,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Snub-Nose PPC": {
     "ActualName": "Snub-Nose Particle Projection Cannon",
     "CritName": "Snub-Nose PPC",
     "MegaMekName": "ISSNPPC",
@@ -16103,7 +16103,7 @@
       "-"
     ]
   },
-  {
+  "(IS) PPC": {
     "ActualName": "Particle Projection Cannon",
     "CritName": "PPC",
     "MegaMekName": "ISPPC",
@@ -16235,7 +16235,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Prototype PPC": {
     "ActualName": "Prototype Particle Projection Cannon",
     "CritName": "Prototype PPC",
     "MegaMekName": "ISPPC",
@@ -16367,7 +16367,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Heavy PPC": {
     "ActualName": "Heavy Particle Projection Cannon",
     "CritName": "Heavy PPC",
     "MegaMekName": "ISHeavyPPC",
@@ -16499,7 +16499,7 @@
       "-"
     ]
   },
-  {
+  "(IS) ER PPC": {
     "ActualName": "Extended Range Particle Projection Cannon",
     "CritName": "ER PPC",
     "MegaMekName": "ISERPPC",
@@ -16631,7 +16631,7 @@
       "-"
     ]
   },
-  {
+  "(CL) ER PPC": {
     "ActualName": "Extended Range Particle Projection Cannon",
     "CritName": "ER PPC",
     "MegaMekName": "CLERPPC",
@@ -16719,9 +16719,9 @@
       "IS_DA": "X",
       "IS_TechRating": "X",
       "CL_SL": "X",
-      "CL_SW": "F",
-      "CL_CI": "D",
-      "CL_DA": "C",
+      "CL_SW": "D",
+      "CL_CI": "C",
+      "CL_DA": "B",
       "CL_TechRating": "F",
       "IS_RandDStartDate": 0,
       "IS_PrototypeDate": 0,
@@ -16763,7 +16763,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Enhanced ER PPC": {
     "ActualName": "Enhanced Extended Range Particle Projection Cannon",
     "CritName": "Enhanced ER PPC",
     "MegaMekName": "ISEHERPPC",
@@ -16895,7 +16895,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Improved PPC": {
     "ActualName": "Improved Particle Projection Cannon",
     "CritName": "Improved PPC",
     "MegaMekName": "CLIMPPPC",
@@ -17027,7 +17027,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Plasma Rifle": {
     "ActualName": "Plasma Rifle",
     "CritName": "Plasma Rifle",
     "MegaMekName": "ISPlasmaRifle",
@@ -17159,7 +17159,7 @@
       "HT3"
     ]
   },
-  {
+  "(CL) Plasma Cannon": {
     "ActualName": "Plasma Cannon",
     "CritName": "Plasma Cannon",
     "MegaMekName": "CLPlasmaCannon",
@@ -17291,7 +17291,7 @@
       "HT7"
     ]
   },
-  {
+  "(IS) TSEMP": {
     "ActualName": "TSEMP",
     "CritName": "TSEMP",
     "MegaMekName": "ISTSEMP",
@@ -17423,7 +17423,7 @@
       "-"
     ]
   },
-  {
+  "(IS) TSEMPOS": {
     "ActualName": "TSEMP (OS)",
     "CritName": "TSEMP (OS)",
     "MegaMekName": "ISTSEMPOS",
@@ -17555,7 +17555,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Flamer": {
     "ActualName": "Flamer",
     "CritName": "Flamer",
     "MegaMekName": "ISFlamer",
@@ -17687,7 +17687,7 @@
       "HT2"
     ]
   },
-  {
+  "(CL) Flamer": {
     "ActualName": "Flamer",
     "CritName": "Flamer",
     "MegaMekName": "CLFlamer",
@@ -17819,7 +17819,7 @@
       "HT2"
     ]
   },
-  {
+  "Vehicle Flamer": {
     "ActualName": "Vehicle Flamer",
     "CritName": "Vehicle Flamer",
     "MegaMekName": "VehicleFlamer",
@@ -17951,7 +17951,7 @@
       "HT2"
     ]
   },
-  {
+  "ER Flamer": {
     "ActualName": "ER Flamer",
     "CritName": "ER Flamer",
     "MegaMekName": "ERFlamer",
@@ -18083,7 +18083,7 @@
       "HT2"
     ]
   },
-  {
+  "Heavy Flamer": {
     "ActualName": "Heavy Flamer",
     "CritName": "Heavy Flamer",
     "MegaMekName": "HeavyFlamer",
@@ -18215,7 +18215,7 @@
       "HT2"
     ]
   },
-  {
+  "(CL) ATM-3": {
     "ActualName": "Advanced Tactical Missile-3",
     "CritName": "ATM-3",
     "MegaMekName": "CLATM3",
@@ -18347,7 +18347,7 @@
       "-"
     ]
   },
-  {
+  "(CL) ATM-6": {
     "ActualName": "Advanced Tactical Missile-6",
     "CritName": "ATM-6",
     "MegaMekName": "CLATM6",
@@ -18479,7 +18479,7 @@
       "-"
     ]
   },
-  {
+  "(CL) ATM-9": {
     "ActualName": "Advanced Tactical Missile-9",
     "CritName": "ATM-9",
     "MegaMekName": "CLATM9",
@@ -18611,7 +18611,7 @@
       "-"
     ]
   },
-  {
+  "(CL) ATM-12": {
     "ActualName": "Advanced Tactical Missile-12",
     "CritName": "ATM-12",
     "MegaMekName": "CLATM12",
@@ -18743,7 +18743,7 @@
       "-"
     ]
   },
-  {
+  "(CL) iATM-3": {
     "ActualName": "Improved Advanced Tactical Missile-3",
     "CritName": "iATM-3",
     "MegaMekName": "CLiATM3",
@@ -18875,7 +18875,7 @@
       "-"
     ]
   },
-  {
+  "(CL) iATM-6": {
     "ActualName": "Improved Advanced Tactical Missile-6",
     "CritName": "iATM-6",
     "MegaMekName": "CLiATM6",
@@ -19007,7 +19007,7 @@
       "-"
     ]
   },
-  {
+  "(CL) iATM-9": {
     "ActualName": "Improved Advanced Tactical Missile-9",
     "CritName": "iATM-9",
     "MegaMekName": "CLiATM9",
@@ -19139,7 +19139,7 @@
       "-"
     ]
   },
-  {
+  "(CL) iATM-12": {
     "ActualName": "Improved Advanced Tactical Missile-12",
     "CritName": "iATM-12",
     "MegaMekName": "CLiATM12",
@@ -19271,7 +19271,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Enhanced LRM-5": {
     "ActualName": "Enhanced Long Range Missile-5",
     "CritName": "Enhanced LRM-5",
     "MegaMekName": "ISEnhancedLRM5",
@@ -19403,7 +19403,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) Enhanced LRM-10": {
     "ActualName": "Enhanced Long Range Missile-10",
     "CritName": "Enhanced LRM-10",
     "MegaMekName": "ISEnhancedLRM10",
@@ -19535,7 +19535,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) Enhanced LRM-15": {
     "ActualName": "Enhanced Long Range Missile-15",
     "CritName": "Enhanced LRM-15",
     "MegaMekName": "ISEnhancedLRM15",
@@ -19667,7 +19667,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) Enhanced LRM-20": {
     "ActualName": "Enhanced Long Range Missile-20",
     "CritName": "Enhanced LRM-20",
     "MegaMekName": "ISEnhancedLRM20",
@@ -19799,7 +19799,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) Extended LRM-5": {
     "ActualName": "Extended Long Range Missile-5",
     "CritName": "Extended LRM-5",
     "MegaMekName": "ISExtendedLRM5",
@@ -19931,7 +19931,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) Extended LRM-10": {
     "ActualName": "Extended Long Range Missile-10",
     "CritName": "Extended LRM-10",
     "MegaMekName": "ISExtendedLRM10",
@@ -20063,7 +20063,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) Extended LRM-15": {
     "ActualName": "Extended Long Range Missile-15",
     "CritName": "Extended LRM-15",
     "MegaMekName": "ISExtendedLRM15",
@@ -20195,7 +20195,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) Extended LRM-20": {
     "ActualName": "Extended Long Range Missile-20",
     "CritName": "Extended LRM-20",
     "MegaMekName": "ISExtendedLRM20",
@@ -20327,7 +20327,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) LRM-5": {
     "ActualName": "Long Range Missile-5",
     "CritName": "LRM-5",
     "MegaMekName": "ISLRM5",
@@ -20460,7 +20460,7 @@
       "LRM"
     ]
   },
-  {
+  "(CL) LRM-5": {
     "ActualName": "Long Range Missile-5",
     "CritName": "LRM-5",
     "MegaMekName": "CLLRM5",
@@ -20593,7 +20593,7 @@
       "LRM"
     ]
   },
-  {
+  "(IS) LRM-10": {
     "ActualName": "Long Range Missile-10",
     "CritName": "LRM-10",
     "MegaMekName": "ISLRM10",
@@ -20726,7 +20726,7 @@
       "LRM"
     ]
   },
-  {
+  "(CL) LRM-10": {
     "ActualName": "Long Range Missile-10",
     "CritName": "LRM-10",
     "MegaMekName": "CLLRM10",
@@ -20859,7 +20859,7 @@
       "LRM"
     ]
   },
-  {
+  "(IS) LRM-15": {
     "ActualName": "Long Range Missile-15",
     "CritName": "LRM-15",
     "MegaMekName": "ISLRM15",
@@ -20992,7 +20992,7 @@
       "LRM"
     ]
   },
-  {
+  "(CL) LRM-15": {
     "ActualName": "Long Range Missile-15",
     "CritName": "LRM-15",
     "MegaMekName": "CLLRM15",
@@ -21125,7 +21125,7 @@
       "LRM"
     ]
   },
-  {
+  "(IS) LRM-20": {
     "ActualName": "Long Range Missile-20",
     "CritName": "LRM-20",
     "MegaMekName": "ISLRM20",
@@ -21258,7 +21258,7 @@
       "LRM"
     ]
   },
-  {
+  "(CL) LRM-20": {
     "ActualName": "Long Range Missile-20",
     "CritName": "LRM-20",
     "MegaMekName": "CLLRM20",
@@ -21391,7 +21391,7 @@
       "LRM"
     ]
   },
-  {
+  "(IS) MML-3": {
     "ActualName": "Multi-Missile Launcher-3",
     "CritName": "MML-3",
     "MegaMekName": "ISMML3",
@@ -21523,7 +21523,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) MML-5": {
     "ActualName": "Multi-Missile Launcher-5",
     "CritName": "MML-5",
     "MegaMekName": "ISMML5",
@@ -21655,7 +21655,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) MML-7": {
     "ActualName": "Multi-Missile Launcher-7",
     "CritName": "MML-7",
     "MegaMekName": "ISMML7",
@@ -21787,7 +21787,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) MML-9": {
     "ActualName": "Multi-Missile Launcher-9",
     "CritName": "MML-9",
     "MegaMekName": "ISMML9",
@@ -21919,7 +21919,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) MRM-10": {
     "ActualName": "Medium Range Missile-10",
     "CritName": "MRM-10",
     "MegaMekName": "ISMRM10",
@@ -22051,7 +22051,7 @@
       "-"
     ]
   },
-  {
+  "(IS) MRM-20": {
     "ActualName": "Medium Range Missile-20",
     "CritName": "MRM-20",
     "MegaMekName": "ISMRM20",
@@ -22183,7 +22183,7 @@
       "-"
     ]
   },
-  {
+  "(IS) MRM-30": {
     "ActualName": "Medium Range Missile-30",
     "CritName": "MRM-30",
     "MegaMekName": "ISMRM30",
@@ -22315,7 +22315,7 @@
       "-"
     ]
   },
-  {
+  "(IS) MRM-40": {
     "ActualName": "Medium Range Missile-40",
     "CritName": "MRM-40",
     "MegaMekName": "ISMRM40",
@@ -22447,7 +22447,7 @@
       "-"
     ]
   },
-  {
+  "(IS) SRM-2": {
     "ActualName": "Short Range Missile-2",
     "CritName": "SRM-2",
     "MegaMekName": "ISSRM2",
@@ -22579,7 +22579,7 @@
       "SRM"
     ]
   },
-  {
+  "(CL) SRM-2": {
     "ActualName": "Short Range Missile-2",
     "CritName": "SRM-2",
     "MegaMekName": "CLSRM2",
@@ -22711,7 +22711,7 @@
       "SRM"
     ]
   },
-  {
+  "(IS) SRM-4": {
     "ActualName": "Short Range Missile-4",
     "CritName": "SRM-4",
     "MegaMekName": "ISSRM4",
@@ -22843,7 +22843,7 @@
       "SRM"
     ]
   },
-  {
+  "(CL) SRM-4": {
     "ActualName": "Short Range Missile-4",
     "CritName": "SRM-4",
     "MegaMekName": "CLSRM4",
@@ -22975,7 +22975,7 @@
       "SRM"
     ]
   },
-  {
+  "(IS) SRM-6": {
     "ActualName": "Short Range Missile-6",
     "CritName": "SRM-6",
     "MegaMekName": "ISSRM6",
@@ -23107,7 +23107,7 @@
       "SRM"
     ]
   },
-  {
+  "(CL) SRM-6": {
     "ActualName": "Short Range Missile-6",
     "CritName": "SRM-6",
     "MegaMekName": "CLSRM6",
@@ -23239,7 +23239,7 @@
       "SRM"
     ]
   },
-  {
+  "(CL) Streak LRM-5": {
     "ActualName": "Streak Long Range Missile-5",
     "CritName": "Streak LRM-5",
     "MegaMekName": "CLStreakLRM5",
@@ -23371,7 +23371,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak LRM-10": {
     "ActualName": "Streak Long Range Missile-10",
     "CritName": "Streak LRM-10",
     "MegaMekName": "CLStreakLRM10",
@@ -23503,7 +23503,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak LRM-15": {
     "ActualName": "Streak Long Range Missile-15",
     "CritName": "Streak LRM-15",
     "MegaMekName": "CLStreakLRM15",
@@ -23635,7 +23635,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak LRM-20": {
     "ActualName": "Streak Long Range Missile-20",
     "CritName": "Streak LRM-20",
     "MegaMekName": "CLStreakLRM20",
@@ -23767,7 +23767,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Streak SRM-2": {
     "ActualName": "Streak Short Range Missile-2",
     "CritName": "Streak SRM-2",
     "MegaMekName": "ISStreakSRM2",
@@ -23899,7 +23899,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak SRM-2": {
     "ActualName": "Streak Short Range Missile-2",
     "CritName": "Streak SRM-2",
     "MegaMekName": "CLStreakSRM2",
@@ -24031,7 +24031,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Streak SRM-4": {
     "ActualName": "Streak Short Range Missile-4",
     "CritName": "Streak SRM-4",
     "MegaMekName": "ISStreakSRM4",
@@ -24163,7 +24163,7 @@
       "-"
     ]
   },
-  {
+  "Streak SRM-4 CP": {
     "ActualName": "Clan Prototype Streak Short Range Missile-4",
     "CritName": "Streak SRM-4 CP",
     "MegaMekName": "ISStreakSRM4",
@@ -24295,7 +24295,7 @@
       "SRM"
     ]
   },
-  {
+  "Streak SRM-4 CI": {
     "ActualName": "Clan Interim Streak Short Range Missile-4",
     "CritName": "Streak SRM-4 CI",
     "MegaMekName": "ISStreakSRM4",
@@ -24427,7 +24427,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak SRM-4": {
     "ActualName": "Streak Short Range Missile-4",
     "CritName": "Streak SRM-4",
     "MegaMekName": "CLStreakSRM4",
@@ -24559,7 +24559,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Streak SRM-6": {
     "ActualName": "Streak Short Range Missile-6",
     "CritName": "Streak SRM-6",
     "MegaMekName": "ISStreakSRM6",
@@ -24691,7 +24691,7 @@
       "-"
     ]
   },
-  {
+  "Streak SRM-6 CP": {
     "ActualName": "Clan Prototype Streak Short Range Missile-6",
     "CritName": "Streak SRM-6 CP",
     "MegaMekName": "ISStreakSRM6",
@@ -24823,7 +24823,7 @@
       "SRM"
     ]
   },
-  {
+  "Streak SRM-6 CI": {
     "ActualName": "Clan Interim Streak Short Range Missile-6",
     "CritName": "Streak SRM-6 CI",
     "MegaMekName": "ISStreakSRM6",
@@ -24955,7 +24955,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak SRM-6": {
     "ActualName": "Streak Short Range Missile-6",
     "CritName": "Streak SRM-6",
     "MegaMekName": "CLStreakSRM6",
@@ -25087,7 +25087,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Rocket Launcher 10": {
     "ActualName": "Rocket Launcher 10",
     "CritName": "Rocket Launcher 10",
     "MegaMekName": "ISRocketLauncher10",
@@ -25219,7 +25219,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Rocket Launcher 15": {
     "ActualName": "Rocket Launcher 15",
     "CritName": "Rocket Launcher 15",
     "MegaMekName": "ISRocketLauncher15",
@@ -25351,7 +25351,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Rocket Launcher 20": {
     "ActualName": "Rocket Launcher 20",
     "CritName": "Rocket Launcher 20",
     "MegaMekName": "ISRocketLauncher20",
@@ -25483,7 +25483,7 @@
       "-"
     ]
   },
-  {
+  "Rocket Launcher 10 PP": {
     "ActualName": "Pentagon Power's Rocket Launcher 10",
     "CritName": "Rocket Launcher 10 PP",
     "MegaMekName": "ISRocketLauncher10",
@@ -25615,7 +25615,7 @@
       "-"
     ]
   },
-  {
+  "Rocket Launcher 15 PP": {
     "ActualName": "Pentagon Power's Rocket Launcher 15",
     "CritName": "Rocket Launcher 15 PP",
     "MegaMekName": "ISRocketLauncher15",
@@ -25747,7 +25747,7 @@
       "-"
     ]
   },
-  {
+  "Rocket Launcher 20 PP": {
     "ActualName": "Pentagon Power's Rocket Launcher 20",
     "CritName": "Rocket Launcher 20 PP",
     "MegaMekName": "ISRocketLauncher20",
@@ -25879,7 +25879,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Narc Missile Beacon": {
     "ActualName": "Narc Missile Beacon",
     "CritName": "Narc Launcher",
     "MegaMekName": "ISNarcBeacon",
@@ -26011,7 +26011,7 @@
       "SNARC"
     ]
   },
-  {
+  "(CL) Narc Missile Beacon": {
     "ActualName": "Narc Missile Beacon",
     "CritName": "Narc Launcher",
     "MegaMekName": "CLNarcBeacon",
@@ -26143,7 +26143,7 @@
       "SNARC"
     ]
   },
-  {
+  "(IS) iNarc Launcher": {
     "ActualName": "Improved Narc Launcher",
     "CritName": "iNarc Launcher",
     "MegaMekName": "iNarc",
@@ -26275,7 +26275,7 @@
       "INARC"
     ]
   },
-  {
+  "(IS) Mech Mortar 1": {
     "ActualName": "Mech Mortar 1",
     "CritName": "Mech Mortar 1",
     "MegaMekName": "ISMekMortar1",
@@ -26407,7 +26407,7 @@
       "IF"
     ]
   },
-  {
+  "(CL) Mech Mortar 1": {
     "ActualName": "Mech Mortar 1",
     "CritName": "Mech Mortar 1",
     "MegaMekName": "CLMekMortar1",
@@ -26539,7 +26539,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) Mech Mortar 2": {
     "ActualName": "Mech Mortar 2",
     "CritName": "Mech Mortar 2",
     "MegaMekName": "ISMekMortar2",
@@ -26671,7 +26671,7 @@
       "IF"
     ]
   },
-  {
+  "(CL) Mech Mortar 2": {
     "ActualName": "Mech Mortar 2",
     "CritName": "Mech Mortar 2",
     "MegaMekName": "CLMekMortar2",
@@ -26803,7 +26803,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) Mech Mortar 4": {
     "ActualName": "Mech Mortar 4",
     "CritName": "Mech Mortar 4",
     "MegaMekName": "ISMekMortar4",
@@ -26935,7 +26935,7 @@
       "IF"
     ]
   },
-  {
+  "(CL) Mech Mortar 4": {
     "ActualName": "Mech Mortar 4",
     "CritName": "Mech Mortar 4",
     "MegaMekName": "CLMekMortar4",
@@ -27067,7 +27067,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) Mech Mortar 8": {
     "ActualName": "Mech Mortar 8",
     "CritName": "Mech Mortar 8",
     "MegaMekName": "ISMekMortar8",
@@ -27199,7 +27199,7 @@
       "IF"
     ]
   },
-  {
+  "(CL) Mech Mortar 8": {
     "ActualName": "Mech Mortar 8",
     "CritName": "Mech Mortar 8",
     "MegaMekName": "CLMekMortar8",
@@ -27331,7 +27331,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) Thunderbolt-5": {
     "ActualName": "Thunderbolt-5",
     "CritName": "Thunderbolt-5",
     "MegaMekName": "ISThunderbolt5",
@@ -27463,7 +27463,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) Thunderbolt-10": {
     "ActualName": "Thunderbolt-10",
     "CritName": "Thunderbolt-10",
     "MegaMekName": "ISThunderbolt10",
@@ -27595,7 +27595,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) Thunderbolt-15": {
     "ActualName": "Thunderbolt-15",
     "CritName": "Thunderbolt-15",
     "MegaMekName": "ISThunderbolt15",
@@ -27727,7 +27727,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) Thunderbolt-20": {
     "ActualName": "Thunderbolt-20",
     "CritName": "Thunderbolt-20",
     "MegaMekName": "ISThunderbolt20",
@@ -27859,7 +27859,7 @@
       "IF"
     ]
   },
-  {
+  "(IS) Enhanced LRT-5": {
     "ActualName": "Enhanced Long Range Torpedo-5",
     "CritName": "Enhanced LRT-5",
     "MegaMekName": "ISNLRT5",
@@ -27991,7 +27991,7 @@
       "TOR"
     ]
   },
-  {
+  "(IS) Enhanced LRT-10": {
     "ActualName": "Enhanced Long Range Torpedo-10",
     "CritName": "Enhanced LRT-10",
     "MegaMekName": "ISNLRT10",
@@ -28123,7 +28123,7 @@
       "TOR"
     ]
   },
-  {
+  "(IS) Enhanced LRT-15": {
     "ActualName": "Enhanced Long Range Torpedo-15",
     "CritName": "Enhanced LRT-15",
     "MegaMekName": "ISNLRT15",
@@ -28255,7 +28255,7 @@
       "TOR"
     ]
   },
-  {
+  "(IS) Enhanced LRT-20": {
     "ActualName": "Enhanced Long Range Torpedo-20",
     "CritName": "Enhanced LRT-20",
     "MegaMekName": "ISNLRT20",
@@ -28387,7 +28387,7 @@
       "TOR"
     ]
   },
-  {
+  "(IS) LRT-5": {
     "ActualName": "Long Range Torpedo-5",
     "CritName": "LRT-5",
     "MegaMekName": "ISLRT5",
@@ -28519,7 +28519,7 @@
       "TOR"
     ]
   },
-  {
+  "(CL) LRT-5": {
     "ActualName": "Long Range Torpedo-5",
     "CritName": "LRT-5",
     "MegaMekName": "CLLRT5",
@@ -28651,7 +28651,7 @@
       "TOR"
     ]
   },
-  {
+  "(IS) LRT-10": {
     "ActualName": "Long Range Torpedo-10",
     "CritName": "LRT-10",
     "MegaMekName": "ISLRT10",
@@ -28783,7 +28783,7 @@
       "TOR"
     ]
   },
-  {
+  "(CL) LRT-10": {
     "ActualName": "Long Range Torpedo-10",
     "CritName": "LRT-10",
     "MegaMekName": "CLLRT10",
@@ -28915,7 +28915,7 @@
       "TOR"
     ]
   },
-  {
+  "(IS) LRT-15": {
     "ActualName": "Long Range Torpedo-15",
     "CritName": "LRT-15",
     "MegaMekName": "ISLRT15",
@@ -29047,7 +29047,7 @@
       "TOR"
     ]
   },
-  {
+  "(CL) LRT-15": {
     "ActualName": "Long Range Torpedo-15",
     "CritName": "LRT-15",
     "MegaMekName": "CLLRT15",
@@ -29179,7 +29179,7 @@
       "TOR"
     ]
   },
-  {
+  "(IS) LRT-20": {
     "ActualName": "Long Range Torpedo-20",
     "CritName": "LRT-20",
     "MegaMekName": "ISLRT20",
@@ -29311,7 +29311,7 @@
       "TOR"
     ]
   },
-  {
+  "(CL) LRT-20": {
     "ActualName": "Long Range Torpedo-20",
     "CritName": "LRT-20",
     "MegaMekName": "CLLRT20",
@@ -29443,7 +29443,7 @@
       "TOR"
     ]
   },
-  {
+  "(IS) SRT-2": {
     "ActualName": "Short Range Torpedo-2",
     "CritName": "SRT-2",
     "MegaMekName": "ISSRT2",
@@ -29575,7 +29575,7 @@
       "TOR"
     ]
   },
-  {
+  "(CL) SRT-2": {
     "ActualName": "Short Range Torpedo-2",
     "CritName": "SRT-2",
     "MegaMekName": "CLSRT2",
@@ -29707,7 +29707,7 @@
       "TOR"
     ]
   },
-  {
+  "(IS) SRT-4": {
     "ActualName": "Short Range Torpedo-4",
     "CritName": "SRT-4",
     "MegaMekName": "ISSRT4",
@@ -29839,7 +29839,7 @@
       "TOR"
     ]
   },
-  {
+  "(CL) SRT-4": {
     "ActualName": "Short Range Torpedo-4",
     "CritName": "SRT-4",
     "MegaMekName": "CLSRT4",
@@ -29971,7 +29971,7 @@
       "TOR"
     ]
   },
-  {
+  "(IS) SRT-6": {
     "ActualName": "Short Range Torpedo-6",
     "CritName": "SRT-6",
     "MegaMekName": "ISSRT6",
@@ -30103,7 +30103,7 @@
       "TOR"
     ]
   },
-  {
+  "(CL) SRT-6": {
     "ActualName": "Short Range Torpedo-6",
     "CritName": "SRT-6",
     "MegaMekName": "CLSRT6",
@@ -30235,7 +30235,7 @@
       "TOR"
     ]
   },
-  {
+  "(IS) Enhanced LRM-5 (OS)": {
     "ActualName": "Enhanced Long Range Missile-5 (One-Shot)",
     "CritName": "NLRM-5 (OS)",
     "MegaMekName": "ISNLRM5 (OS)",
@@ -30272,7 +30272,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": true,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -30367,7 +30367,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Enhanced LRM-10 (OS)": {
     "ActualName": "Enhanced Long Range Missile-10 (One-Shot)",
     "CritName": "NLRM-10 (OS)",
     "MegaMekName": "ISNLRM10 (OS)",
@@ -30404,7 +30404,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": true,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -30499,7 +30499,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Enhanced LRM-15 (OS)": {
     "ActualName": "Enhanced Long Range Missile-15 (One-Shot)",
     "CritName": "NLRM-15 (OS)",
     "MegaMekName": "ISNLRM15 (OS)",
@@ -30536,7 +30536,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": true,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -30631,7 +30631,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Enhanced LRM-20 (OS)": {
     "ActualName": "Enhanced Long Range Missile-20 (One-Shot)",
     "CritName": "NLRM-20 (OS)",
     "MegaMekName": "ISNLRM20 (OS)",
@@ -30668,7 +30668,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": true,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -30763,7 +30763,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Extended LRM-5 (OS)": {
     "ActualName": "Extended Long Range Missile-5 (One-Shot)",
     "CritName": "ELRM-5  (OS)",
     "MegaMekName": "ISELRM5 (OS)",
@@ -30800,7 +30800,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -30895,7 +30895,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Extended LRM-10 (OS)": {
     "ActualName": "Extended Long Range Missile-10 (One-Shot)",
     "CritName": "ELRM-10 (OS)",
     "MegaMekName": "ISELRM10 (OS)",
@@ -30932,7 +30932,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -31027,7 +31027,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Extended LRM-15 (OS)": {
     "ActualName": "Extended Long Range Missile-15 (One-Shot)",
     "CritName": "ELRM-15 (OS)",
     "MegaMekName": "ISELRM15 (OS)",
@@ -31064,7 +31064,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -31159,7 +31159,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Extended LRM-20 (OS)": {
     "ActualName": "Extended Long Range Missile-20 (One-Shot)",
     "CritName": "ELRM-20 (OS)",
     "MegaMekName": "ISELRM20 (OS)",
@@ -31196,7 +31196,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -31291,7 +31291,7 @@
       "-"
     ]
   },
-  {
+  "(IS) LRM-5 (OS)": {
     "ActualName": "Long Range Missile-5 (One-Shot)",
     "CritName": "LRM-5 (OS)",
     "MegaMekName": "ISLRM5 (OS)",
@@ -31423,7 +31423,7 @@
       "-"
     ]
   },
-  {
+  "(CL) LRM-5 (OS)": {
     "ActualName": "Long Range Missile-5 (One-Shot)",
     "CritName": "LRM-5 (OS)",
     "MegaMekName": "CLLRM5 (OS)",
@@ -31555,7 +31555,7 @@
       "-"
     ]
   },
-  {
+  "(IS) LRM-10 (OS)": {
     "ActualName": "Long Range Missile-10 (One-Shot)",
     "CritName": "LRM-10 (OS)",
     "MegaMekName": "ISLRM10 (OS)",
@@ -31687,7 +31687,7 @@
       "-"
     ]
   },
-  {
+  "(CL) LRM-10 (OS)": {
     "ActualName": "Long Range Missile-10 (One-Shot)",
     "CritName": "LRM-10 (OS)",
     "MegaMekName": "CLLRM10 (OS)",
@@ -31819,7 +31819,7 @@
       "-"
     ]
   },
-  {
+  "(IS) LRM-15 (OS)": {
     "ActualName": "Long Range Missile-15 (One-Shot)",
     "CritName": "LRM-15 (OS)",
     "MegaMekName": "ISLRM15 (OS)",
@@ -31951,7 +31951,7 @@
       "-"
     ]
   },
-  {
+  "(CL) LRM-15 (OS)": {
     "ActualName": "Long Range Missile-15 (One-Shot)",
     "CritName": "LRM-15 (OS)",
     "MegaMekName": "CLLRM15 (OS)",
@@ -32083,7 +32083,7 @@
       "-"
     ]
   },
-  {
+  "(IS) LRM-20 (OS)": {
     "ActualName": "Long Range Missile-20 (One-Shot)",
     "CritName": "LRM-20 (OS)",
     "MegaMekName": "ISLRM20 (OS)",
@@ -32215,7 +32215,7 @@
       "-"
     ]
   },
-  {
+  "(CL) LRM-20 (OS)": {
     "ActualName": "Long Range Missile-20 (One-Shot)",
     "CritName": "LRM-20 (OS)",
     "MegaMekName": "CLLRM20 (OS)",
@@ -32347,7 +32347,7 @@
       "-"
     ]
   },
-  {
+  "(IS) MML-3 (OS)": {
     "ActualName": "Multi-Missile Launcher-3 (One-Shot)",
     "CritName": "MML-3 (OS)",
     "MegaMekName": "ISMML3 (OS)",
@@ -32384,7 +32384,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": true,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -32479,7 +32479,7 @@
       "-"
     ]
   },
-  {
+  "(IS) MML-5 (OS)": {
     "ActualName": "Multi-Missile Launcher-5 (One-Shot)",
     "CritName": "MML-5 (OS)",
     "MegaMekName": "ISMML5 (OS)",
@@ -32516,7 +32516,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": true,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -32611,7 +32611,7 @@
       "-"
     ]
   },
-  {
+  "(IS) MML-7 (OS)": {
     "ActualName": "Multi-Missile Launcher-7 (One-Shot)",
     "CritName": "MML-7 (OS)",
     "MegaMekName": "ISMML7 (OS)",
@@ -32648,7 +32648,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": true,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -32743,7 +32743,7 @@
       "-"
     ]
   },
-  {
+  "(IS) MML-9 (OS)": {
     "ActualName": "Multi-Missile Launcher-9 (One-Shot)",
     "CritName": "MML-9 (OS)",
     "MegaMekName": "ISMML9 (OS)",
@@ -32780,7 +32780,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": true,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -32875,7 +32875,7 @@
       "-"
     ]
   },
-  {
+  "(IS) MRM-10 (OS)": {
     "ActualName": "Medium Range Missile-10 (One-Shot)",
     "CritName": "MRM-10 (OS)",
     "MegaMekName": "ISMRM10 (OS)",
@@ -33007,7 +33007,7 @@
       "-"
     ]
   },
-  {
+  "(IS) MRM-20 (OS)": {
     "ActualName": "Medium Range Missile-20 (One-Shot)",
     "CritName": "MRM-20 (OS)",
     "MegaMekName": "ISMRM20 (OS)",
@@ -33139,7 +33139,7 @@
       "-"
     ]
   },
-  {
+  "(IS) MRM-30 (OS)": {
     "ActualName": "Medium Range Missile-30 (One-Shot)",
     "CritName": "MRM-30 (OS)",
     "MegaMekName": "ISMRM30 (OS)",
@@ -33271,7 +33271,7 @@
       "-"
     ]
   },
-  {
+  "(IS) MRM-40 (OS)": {
     "ActualName": "Medium Range Missile-40 (One-Shot)",
     "CritName": "MRM-40 (OS)",
     "MegaMekName": "ISMRM40 (OS)",
@@ -33403,7 +33403,7 @@
       "-"
     ]
   },
-  {
+  "(IS) SRM-2 (OS)": {
     "ActualName": "Short Range Missile-2 (One-Shot)",
     "CritName": "SRM-2 (OS)",
     "MegaMekName": "ISSRM2 (OS)",
@@ -33535,7 +33535,7 @@
       "-"
     ]
   },
-  {
+  "(CL) SRM-2 (OS)": {
     "ActualName": "Short Range Missile-2 (One-Shot)",
     "CritName": "SRM-2 (OS)",
     "MegaMekName": "CLSRM2 (OS)",
@@ -33667,7 +33667,7 @@
       "-"
     ]
   },
-  {
+  "(IS) SRM-4 (OS)": {
     "ActualName": "Short Range Missile-4 (One-Shot)",
     "CritName": "SRM-4 (OS)",
     "MegaMekName": "ISSRM4 (OS)",
@@ -33799,7 +33799,7 @@
       "-"
     ]
   },
-  {
+  "(CL) SRM-4 (OS)": {
     "ActualName": "Short Range Missile-4 (One-Shot)",
     "CritName": "SRM-4 (OS)",
     "MegaMekName": "CLSRM4 (OS)",
@@ -33931,7 +33931,7 @@
       "-"
     ]
   },
-  {
+  "(IS) SRM-6 (OS)": {
     "ActualName": "Short Range Missile-6 (One-Shot)",
     "CritName": "SRM-6 (OS)",
     "MegaMekName": "ISSRM6 (OS)",
@@ -34063,7 +34063,7 @@
       "-"
     ]
   },
-  {
+  "(CL) SRM-6 (OS)": {
     "ActualName": "Short Range Missile-6 (One-Shot)",
     "CritName": "SRM-6 (OS)",
     "MegaMekName": "CLSRM6 (OS)",
@@ -34195,7 +34195,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak LRM-5 (OS)": {
     "ActualName": "Streak Long Range Missile-5 (One-Shot)",
     "CritName": "Streak LRM-5 (OS)",
     "MegaMekName": "CLStreakLRM5 (OS)",
@@ -34232,7 +34232,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": true,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -34327,7 +34327,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak LRM-10 (OS)": {
     "ActualName": "Streak Long Range Missile-10 (One-Shot)",
     "CritName": "Streak LRM-10 (OS)",
     "MegaMekName": "CLStreakLRM10 (OS)",
@@ -34364,7 +34364,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": true,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -34459,7 +34459,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak LRM-15 (OS)": {
     "ActualName": "Streak Long Range Missile-15 (One-Shot)",
     "CritName": "Streak LRM-15 (OS)",
     "MegaMekName": "CLStreakLRM15 (OS)",
@@ -34496,7 +34496,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": true,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -34591,7 +34591,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak LRM-20 (OS)": {
     "ActualName": "Streak Long Range Missile-20 (One-Shot)",
     "CritName": "Streak LRM-20 (OS)",
     "MegaMekName": "CLStreakLRM20 (OS)",
@@ -34628,7 +34628,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": true,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -34723,7 +34723,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Streak SRM-2 (OS)": {
     "ActualName": "Streak Short Range Missile-2 (One-Shot)",
     "CritName": "Streak SRM-2 (OS)",
     "MegaMekName": "ISStreakSRM2 (OS)",
@@ -34855,7 +34855,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak SRM-2 (OS)": {
     "ActualName": "Streak Short Range Missile-2 (One-Shot)",
     "CritName": "Streak SRM-2 (OS)",
     "MegaMekName": "CLStreakSRM2 (OS)",
@@ -34987,7 +34987,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Streak SRM-4 (OS)": {
     "ActualName": "Streak Short Range Missile-4 (One-Shot)",
     "CritName": "Streak SRM-4 (OS)",
     "MegaMekName": "ISStreakSRM4 (OS)",
@@ -35119,7 +35119,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak SRM-4 (OS)": {
     "ActualName": "Streak Short Range Missile-4 (One-Shot)",
     "CritName": "Streak SRM-4 (OS)",
     "MegaMekName": "CLStreakSRM4 (OS)",
@@ -35251,7 +35251,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Streak SRM-6 (OS)": {
     "ActualName": "Streak Short Range Missile-6 (One-Shot)",
     "CritName": "Streak SRM-6 (OS)",
     "MegaMekName": "ISStreakSRM6 (OS)",
@@ -35383,7 +35383,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak SRM-6 (OS)": {
     "ActualName": "Streak Short Range Missile-6 (One-Shot)",
     "CritName": "Streak SRM-6 (OS)",
     "MegaMekName": "CLStreakSRM6 (OS)",
@@ -35515,7 +35515,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Narc Missile Beacon (OS)": {
     "ActualName": "Narc Missile Beacon (One-Shot)",
     "CritName": "Narc Launcher (OS)",
     "MegaMekName": "ISNarcBeacon (OS)",
@@ -35647,7 +35647,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Narc Missile Beacon (OS)": {
     "ActualName": "Narc Missile Beacon (One-Shot)",
     "CritName": "Narc Launcher (OS)",
     "MegaMekName": "CLNarcBeacon (OS)",
@@ -35779,7 +35779,7 @@
       "-"
     ]
   },
-  {
+  "(IS) iNarc Launcher (OS)": {
     "ActualName": "Improved Narc Launcher (One-Shot)",
     "CritName": "iNarc Launcher (OS)",
     "MegaMekName": "ISImprovedNarc (OS)",
@@ -35911,7 +35911,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Thunderbolt-5 (OS)": {
     "ActualName": "Thunderbolt-5 (One-Shot)",
     "CritName": "Thunderbolt-5 (OS)",
     "MegaMekName": "ISThunderbolt5 (OS)",
@@ -35948,7 +35948,7 @@
     "IsCluster": false,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -36043,7 +36043,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Thunderbolt-10 (OS)": {
     "ActualName": "Thunderbolt-10 (One-Shot)",
     "CritName": "Thunderbolt-10 (OS)",
     "MegaMekName": "ISThunderbolt10 (OS)",
@@ -36080,7 +36080,7 @@
     "IsCluster": false,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -36175,7 +36175,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Thunderbolt-15 (OS)": {
     "ActualName": "Thunderbolt-15 (One-Shot)",
     "CritName": "Thunderbolt-15 (OS)",
     "MegaMekName": "ISThunderbolt15 (OS)",
@@ -36212,7 +36212,7 @@
     "IsCluster": false,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -36307,7 +36307,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Thunderbolt-20 (OS)": {
     "ActualName": "Thunderbolt-20 (One-Shot)",
     "CritName": "Thunderbolt-20 (OS)",
     "MegaMekName": "ISThunderbolt20 (OS)",
@@ -36344,7 +36344,7 @@
     "IsCluster": false,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -36439,7 +36439,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Enhanced LRM-5 (iOS)": {
     "ActualName": "Enhanced Long Range Missile-5 (Improved One-Shot)",
     "CritName": "NLRM-5 (iOS)",
     "MegaMekName": "ISNLRM5 (iOS)",
@@ -36476,7 +36476,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": true,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -36571,7 +36571,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Enhanced LRM-10 (iOS)": {
     "ActualName": "Enhanced Long Range Missile-10 (Improved One-Shot)",
     "CritName": "NLRM-10 (iOS)",
     "MegaMekName": "ISNLRM10 (iOS)",
@@ -36608,7 +36608,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": true,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -36703,7 +36703,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Enhanced LRM-15 (iOS)": {
     "ActualName": "Enhanced Long Range Missile-15 (Improved One-Shot)",
     "CritName": "NLRM-15 (iOS)",
     "MegaMekName": "ISNLRM15 (iOS)",
@@ -36740,7 +36740,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": true,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -36835,7 +36835,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Enhanced LRM-20 (iOS)": {
     "ActualName": "Enhanced Long Range Missile-20 (Improved One-Shot)",
     "CritName": "NLRM-20 (iOS)",
     "MegaMekName": "ISNLRM20 (iOS)",
@@ -36872,7 +36872,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": true,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -36967,7 +36967,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Extended LRM-5 (iOS)": {
     "ActualName": "Extended Long Range Missile-5 (Improved One-Shot)",
     "CritName": "ELRM-5  (iOS)",
     "MegaMekName": "ISELRM5 (iOS)",
@@ -37004,7 +37004,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -37099,7 +37099,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Extended LRM-10 (iOS)": {
     "ActualName": "Extended Long Range Missile-10 (Improved One-Shot)",
     "CritName": "ELRM-10 (iOS)",
     "MegaMekName": "ISELRM10 (iOS)",
@@ -37136,7 +37136,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -37231,7 +37231,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Extended LRM-15 (iOS)": {
     "ActualName": "Extended Long Range Missile-15 (Improved One-Shot)",
     "CritName": "ELRM-15 (iOS)",
     "MegaMekName": "ISELRM15 (iOS)",
@@ -37268,7 +37268,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -37363,7 +37363,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Extended LRM-20 (iOS)": {
     "ActualName": "Extended Long Range Missile-20 (Improved One-Shot)",
     "CritName": "ELRM-20 (iOS)",
     "MegaMekName": "ISELRM20 (iOS)",
@@ -37400,7 +37400,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -37495,7 +37495,7 @@
       "-"
     ]
   },
-  {
+  "(IS) LRM-5 (iOS)": {
     "ActualName": "Long Range Missile-5 (Improved One-Shot)",
     "CritName": "LRM-5 (iOS)",
     "MegaMekName": "ISLRM5 (iOS)",
@@ -37627,7 +37627,7 @@
       "-"
     ]
   },
-  {
+  "(CL) LRM-5 (iOS)": {
     "ActualName": "Long Range Missile-5 (Improved One-Shot)",
     "CritName": "LRM-5 (iOS)",
     "MegaMekName": "CLLRM5 (iOS)",
@@ -37759,7 +37759,7 @@
       "-"
     ]
   },
-  {
+  "(IS) LRM-10 (iOS)": {
     "ActualName": "Long Range Missile-10 (Improved One-Shot)",
     "CritName": "LRM-10 (iOS)",
     "MegaMekName": "ISLRM10 (iOS)",
@@ -37891,7 +37891,7 @@
       "-"
     ]
   },
-  {
+  "(CL) LRM-10 (iOS)": {
     "ActualName": "Long Range Missile-10 (Improved One-Shot)",
     "CritName": "LRM-10 (iOS)",
     "MegaMekName": "CLLRM10 (iOS)",
@@ -38023,7 +38023,7 @@
       "-"
     ]
   },
-  {
+  "(IS) LRM-15 (iOS)": {
     "ActualName": "Long Range Missile-15 (Improved One-Shot)",
     "CritName": "LRM-15 (iOS)",
     "MegaMekName": "ISLRM15 (iOS)",
@@ -38155,7 +38155,7 @@
       "-"
     ]
   },
-  {
+  "(CL) LRM-15 (iOS)": {
     "ActualName": "Long Range Missile-15 (Improved One-Shot)",
     "CritName": "LRM-15 (iOS)",
     "MegaMekName": "CLLRM15 (iOS)",
@@ -38287,7 +38287,7 @@
       "-"
     ]
   },
-  {
+  "(IS) LRM-20 (iOS)": {
     "ActualName": "Long Range Missile-20 (Improved One-Shot)",
     "CritName": "LRM-20 (iOS)",
     "MegaMekName": "ISLRM20 (iOS)",
@@ -38419,7 +38419,7 @@
       "-"
     ]
   },
-  {
+  "(CL) LRM-20 (iOS)": {
     "ActualName": "Long Range Missile-20 (Improved One-Shot)",
     "CritName": "LRM-20 (iOS)",
     "MegaMekName": "CLLRM20 (iOS)",
@@ -38551,7 +38551,7 @@
       "-"
     ]
   },
-  {
+  "(IS) MML-3 (iOS)": {
     "ActualName": "Multi-Missile Launcher-3 (Improved One-Shot)",
     "CritName": "MML-3 (iOS)",
     "MegaMekName": "ISMML3 (iOS)",
@@ -38588,7 +38588,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": true,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -38683,7 +38683,7 @@
       "-"
     ]
   },
-  {
+  "(IS) MML-5 (iOS)": {
     "ActualName": "Multi-Missile Launcher-5 (Improved One-Shot)",
     "CritName": "MML-5 (iOS)",
     "MegaMekName": "ISMML5 (iOS)",
@@ -38720,7 +38720,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": true,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -38815,7 +38815,7 @@
       "-"
     ]
   },
-  {
+  "(IS) MML-7 (iOS)": {
     "ActualName": "Multi-Missile Launcher-7 (Improved One-Shot)",
     "CritName": "MML-7 (iOS)",
     "MegaMekName": "ISMML7 (iOS)",
@@ -38852,7 +38852,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": true,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -38947,7 +38947,7 @@
       "-"
     ]
   },
-  {
+  "(IS) MML-9 (iOS)": {
     "ActualName": "Multi-Missile Launcher-9 (Improved One-Shot)",
     "CritName": "MML-9 (iOS)",
     "MegaMekName": "ISMML9 (iOS)",
@@ -38984,7 +38984,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": true,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -39079,7 +39079,7 @@
       "-"
     ]
   },
-  {
+  "(IS) MRM-10 (iOS)": {
     "ActualName": "Medium Range Missile-10 (Improved One-Shot)",
     "CritName": "MRM-10 (iOS)",
     "MegaMekName": "ISMRM10 (iOS)",
@@ -39211,7 +39211,7 @@
       "-"
     ]
   },
-  {
+  "(IS) MRM-20 (iOS)": {
     "ActualName": "Medium Range Missile-20 (Improved One-Shot)",
     "CritName": "MRM-20 (iOS)",
     "MegaMekName": "ISMRM20 (iOS)",
@@ -39343,7 +39343,7 @@
       "-"
     ]
   },
-  {
+  "(IS) MRM-30 (iOS)": {
     "ActualName": "Medium Range Missile-30 (Improved One-Shot)",
     "CritName": "MRM-30 (iOS)",
     "MegaMekName": "ISMRM30 (iOS)",
@@ -39475,7 +39475,7 @@
       "-"
     ]
   },
-  {
+  "(IS) MRM-40 (iOS)": {
     "ActualName": "Medium Range Missile-40 (Improved One-Shot)",
     "CritName": "MRM-40 (iOS)",
     "MegaMekName": "ISMRM40 (iOS)",
@@ -39607,7 +39607,7 @@
       "-"
     ]
   },
-  {
+  "(IS) SRM-2 (iOS)": {
     "ActualName": "Short Range Missile-2 (Improved One-Shot)",
     "CritName": "SRM-2 (iOS)",
     "MegaMekName": "ISSRM2 (iOS)",
@@ -39739,7 +39739,7 @@
       "-"
     ]
   },
-  {
+  "(CL) SRM-2 (iOS)": {
     "ActualName": "Short Range Missile-2 (Improved One-Shot)",
     "CritName": "SRM-2 (iOS)",
     "MegaMekName": "CLSRM2 (iOS)",
@@ -39871,7 +39871,7 @@
       "-"
     ]
   },
-  {
+  "(IS) SRM-4 (iOS)": {
     "ActualName": "Short Range Missile-4 (Improved One-Shot)",
     "CritName": "SRM-4 (iOS)",
     "MegaMekName": "ISSRM4 (iOS)",
@@ -40003,7 +40003,7 @@
       "-"
     ]
   },
-  {
+  "(CL) SRM-4 (iOS)": {
     "ActualName": "Short Range Missile-4 (Improved One-Shot)",
     "CritName": "SRM-4 (iOS)",
     "MegaMekName": "CLSRM4 (iOS)",
@@ -40135,7 +40135,7 @@
       "-"
     ]
   },
-  {
+  "(IS) SRM-6 (iOS)": {
     "ActualName": "Short Range Missile-6 (Improved One-Shot)",
     "CritName": "SRM-6 (iOS)",
     "MegaMekName": "ISSRM6 (iOS)",
@@ -40267,7 +40267,7 @@
       "-"
     ]
   },
-  {
+  "(CL) SRM-6 (iOS)": {
     "ActualName": "Short Range Missile-6 (Improved One-Shot)",
     "CritName": "SRM-6 (iOS)",
     "MegaMekName": "CLSRM6 (iOS)",
@@ -40399,7 +40399,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak LRM-5 (iOS)": {
     "ActualName": "Streak Long Range Missile-5 (Improved One-Shot)",
     "CritName": "Streak LRM-5 (iOS)",
     "MegaMekName": "CLStreakLRM5 (iOS)",
@@ -40436,7 +40436,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": true,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -40531,7 +40531,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak LRM-10 (iOS)": {
     "ActualName": "Streak Long Range Missile-10 (Improved One-Shot)",
     "CritName": "Streak LRM-10 (iOS)",
     "MegaMekName": "CLStreakLRM10 (iOS)",
@@ -40568,7 +40568,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": true,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -40663,7 +40663,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak LRM-15 (iOS)": {
     "ActualName": "Streak Long Range Missile-15 (Improved One-Shot)",
     "CritName": "Streak LRM-15 (iOS)",
     "MegaMekName": "CLStreakLRM15 (iOS)",
@@ -40700,7 +40700,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": true,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -40795,7 +40795,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak LRM-20 (iOS)": {
     "ActualName": "Streak Long Range Missile-20 (Improved One-Shot)",
     "CritName": "Streak LRM-20 (iOS)",
     "MegaMekName": "CLStreakLRM20 (iOS)",
@@ -40832,7 +40832,7 @@
     "IsCluster": true,
     "Explosive": false,
     "Streak": true,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -40927,7 +40927,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Streak SRM-2 (iOS)": {
     "ActualName": "Streak Short Range Missile-2 (Improved One-Shot)",
     "CritName": "Streak SRM-2 (iOS)",
     "MegaMekName": "ISStreakSRM2 (iOS)",
@@ -41059,7 +41059,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak SRM-2 (iOS)": {
     "ActualName": "Streak Short Range Missile-2 (Improved One-Shot)",
     "CritName": "Streak SRM-2 (iOS)",
     "MegaMekName": "CLStreakSRM2 (iOS)",
@@ -41191,7 +41191,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Streak SRM-4 (iOS)": {
     "ActualName": "Streak Short Range Missile-4 (Improved One-Shot)",
     "CritName": "Streak SRM-4 (iOS)",
     "MegaMekName": "ISStreakSRM4 (iOS)",
@@ -41323,7 +41323,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak SRM-4 (iOS)": {
     "ActualName": "Streak Short Range Missile-4 (Improved One-Shot)",
     "CritName": "Streak SRM-4 (iOS)",
     "MegaMekName": "CLStreakSRM4 (iOS)",
@@ -41455,7 +41455,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Streak SRM-6 (iOS)": {
     "ActualName": "Streak Short Range Missile-6 (Improved One-Shot)",
     "CritName": "Streak SRM-6 (iOS)",
     "MegaMekName": "ISStreakSRM6 (iOS)",
@@ -41587,7 +41587,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Streak SRM-6 (iOS)": {
     "ActualName": "Streak Short Range Missile-6 (Improved One-Shot)",
     "CritName": "Streak SRM-6 (iOS)",
     "MegaMekName": "CLStreakSRM6 (iOS)",
@@ -41719,7 +41719,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Narc Missile Beacon (iOS)": {
     "ActualName": "Narc Missile Beacon (Improved One-Shot)",
     "CritName": "Narc Launcher (iOS)",
     "MegaMekName": "ISNarcBeacon (iOS)",
@@ -41851,7 +41851,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Narc Missile Beacon (iOS)": {
     "ActualName": "Narc Missile Beacon (Improved One-Shot)",
     "CritName": "Narc Launcher (iOS)",
     "MegaMekName": "CLNarcBeacon (iOS)",
@@ -41983,7 +41983,7 @@
       "-"
     ]
   },
-  {
+  "(IS) iNarc Launcher (iOS)": {
     "ActualName": "Improved Narc Launcher (Improved One-Shot)",
     "CritName": "iNarc Launcher (iOS)",
     "MegaMekName": "ISImprovedNarc (iOS)",
@@ -42115,7 +42115,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Thunderbolt-5 (iOS)": {
     "ActualName": "Thunderbolt-5 (Improved One-Shot)",
     "CritName": "Thunderbolt-5 (iOS)",
     "MegaMekName": "ISThunderbolt5 (iOS)",
@@ -42152,7 +42152,7 @@
     "IsCluster": false,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -42247,7 +42247,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Thunderbolt-10 (iOS)": {
     "ActualName": "Thunderbolt-10 (Improved One-Shot)",
     "CritName": "Thunderbolt-10 (iOS)",
     "MegaMekName": "ISThunderbolt10 (iOS)",
@@ -42284,7 +42284,7 @@
     "IsCluster": false,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -42379,7 +42379,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Thunderbolt-15 (iOS)": {
     "ActualName": "Thunderbolt-15 (Improved One-Shot)",
     "CritName": "Thunderbolt-15 (iOS)",
     "MegaMekName": "ISThunderbolt15 (iOS)",
@@ -42416,7 +42416,7 @@
     "IsCluster": false,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -42511,7 +42511,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Thunderbolt-20 (iOS)": {
     "ActualName": "Thunderbolt-20 (Improved One-Shot)",
     "CritName": "Thunderbolt-20 (iOS)",
     "MegaMekName": "ISThunderbolt20 (iOS)",
@@ -42548,7 +42548,7 @@
     "IsCluster": false,
     "Explosive": false,
     "Streak": false,
-    "OneShot": true,
+    "OneShot": false,
     "CanUseFCS": false,
     "TCCapable": false,
     "ArrayCapable": false,
@@ -42643,7 +42643,7 @@
       "-"
     ]
   },
-  {
+  "(IS) Arrow IV Missile": {
     "ActualName": "Arrow IV Missile",
     "CritName": "Arrow IV Missile",
     "MegaMekName": "ISArrowIV",
@@ -42775,7 +42775,7 @@
       "ARTAIS"
     ]
   },
-  {
+  "(CL) Arrow IV Missile": {
     "ActualName": "Arrow IV Missile",
     "CritName": "Arrow IV Missile",
     "MegaMekName": "CLArrowIV",
@@ -42907,7 +42907,7 @@
       "ARTAC"
     ]
   },
-  {
+  "(IS) Thumper": {
     "ActualName": "Thumper",
     "CritName": "Thumper",
     "MegaMekName": "ISThumper",
@@ -43039,7 +43039,7 @@
       "ARTT"
     ]
   },
-  {
+  "(IS) Sniper": {
     "ActualName": "Sniper",
     "CritName": "Sniper",
     "MegaMekName": "ISSniper",
@@ -43171,7 +43171,7 @@
       "ARTS"
     ]
   },
-  {
+  "(IS) Long Tom": {
     "ActualName": "Long Tom",
     "CritName": "Long Tom",
     "MegaMekName": "ISLongTom",
@@ -43303,7 +43303,7 @@
       "ARTLT"
     ]
   },
-  {
+  "(IS) Cruise Missile/50": {
     "ActualName": "Cruise Missile/50",
     "CritName": "Cruise Missile/50",
     "MegaMekName": "ISCruiseMissle50",
@@ -43435,7 +43435,7 @@
       "ARTCM5"
     ]
   },
-  {
+  "(IS) Cruise Missile/70": {
     "ActualName": "Cruise Missile/70",
     "CritName": "Cruise Missile/70",
     "MegaMekName": "ISCruiseMissle70",
@@ -43567,7 +43567,7 @@
       "ARTCM7"
     ]
   },
-  {
+  "(IS) Cruise Missile/90": {
     "ActualName": "Cruise Missile/90",
     "CritName": "Cruise Missile/90",
     "MegaMekName": "ISCruiseMissle90",
@@ -43699,7 +43699,7 @@
       "ARTCM9"
     ]
   },
-  {
+  "(IS) Cruise Missile/120": {
     "ActualName": "Cruise Missile/120",
     "CritName": "Cruise Missile/120",
     "MegaMekName": "ISCruiseMissle120",
@@ -43831,7 +43831,7 @@
       "ARTCM12"
     ]
   },
-  {
+  "(CL) Improved Autocannon/2": {
     "ActualName": "Improved Autocannon/2",
     "CritName": "Improved AC/2",
     "MegaMekName": "Improved Autocannon/2",
@@ -43963,7 +43963,7 @@
       "AC"
     ]
   },
-  {
+  "(CL) Improved Autocannon/5": {
     "ActualName": "Improved Autocannon/5",
     "CritName": "Improved AC/5",
     "MegaMekName": "Improved Autocannon/5",
@@ -44095,7 +44095,7 @@
       "AC"
     ]
   },
-  {
+  "(CL) Improved Autocannon/10": {
     "ActualName": "Improved Autocannon/10",
     "CritName": "Improved AC/10",
     "MegaMekName": "Improved Autocannon/10",
@@ -44227,7 +44227,7 @@
       "AC"
     ]
   },
-  {
+  "(CL) Improved Autocannon/20": {
     "ActualName": "Improved Autocannon/20",
     "CritName": "Improved AC/20",
     "MegaMekName": "Improved Autocannon/20",
@@ -44359,7 +44359,7 @@
       "AC"
     ]
   },
-  {
+  "(CL) Improved Gauss Rifle": {
     "ActualName": "Improved Gauss Rifle",
     "CritName": "Improved Gauss Rifle",
     "MegaMekName": "Improved Gauss Rifle",
@@ -44491,7 +44491,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Improved Large Laser": {
     "ActualName": "Improved Large Laser",
     "CritName": "Improved Large Laser",
     "MegaMekName": "Improved Large Laser",
@@ -44623,7 +44623,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Improved Large Pulse Laser": {
     "ActualName": "Improved Large Pulse Laser",
     "CritName": "Improved Large Pulse Laser",
     "MegaMekName": "ImprovedLargePulseLaser",
@@ -44755,7 +44755,7 @@
       "-"
     ]
   },
-  {
+  "(CL) Improved LRM-5": {
     "ActualName": "Improved Long Range Missile-5",
     "CritName": "Improved LRM-5",
     "MegaMekName": "Improved LRM 5",
@@ -44888,7 +44888,7 @@
       "LRM"
     ]
   },
-  {
+  "(CL) Improved LRM-10": {
     "ActualName": "Improved Long Range Missile-10",
     "CritName": "Improved LRM-10",
     "MegaMekName": "Improved LRM 10",
@@ -45021,7 +45021,7 @@
       "LRM"
     ]
   },
-  {
+  "(CL) Improved LRM-15": {
     "ActualName": "Improved Long Range Missile-15",
     "CritName": "Improved LRM-15",
     "MegaMekName": "Improved LRM 15",
@@ -45154,7 +45154,7 @@
       "LRM"
     ]
   },
-  {
+  "(CL) Improved LRM-20": {
     "ActualName": "Improved Long Range Missile-20",
     "CritName": "Improved LRM-20",
     "MegaMekName": "Improved LRM 20",
@@ -45287,7 +45287,7 @@
       "LRM"
     ]
   },
-  {
+  "(CL) Improved SRM-2": {
     "ActualName": "Improved Short Range Missile-2",
     "CritName": "Improved SRM-2",
     "MegaMekName": "Improved SRM 2",
@@ -45419,7 +45419,7 @@
       "SRM"
     ]
   },
-  {
+  "(CL) Improved SRM-4": {
     "ActualName": "Improved Short Range Missile-4",
     "CritName": "Improved SRM-4",
     "MegaMekName": "Improved SRM 4",
@@ -45551,7 +45551,7 @@
       "SRM"
     ]
   },
-  {
+  "(CL) Improved SRM-6": {
     "ActualName": "Improved Short Range Missile-6",
     "CritName": "Improved SRM-6",
     "MegaMekName": "Improved SRM 6",
@@ -45683,7 +45683,7 @@
       "SRM"
     ]
   },
-  {
+  "(IS) RISC Hyper Laser": {
     "ActualName": "RISC Hyper Laser",
     "CritName": "RISC Hyper Laser",
     "MegaMekName": "ISRISCHyperLaser ",
@@ -45815,7 +45815,7 @@
       "-"
     ]
   },
-  {
+  "(IS) RISC Repeating TSEMP": {
     "ActualName": "RISC Repeating TSEMP",
     "CritName": "RISC Repeating TSEMP",
     "MegaMekName": "ISRISCREPTSEMP",
@@ -45947,4 +45947,4 @@
       "TSEMP"
     ]
   }
-]
+}
