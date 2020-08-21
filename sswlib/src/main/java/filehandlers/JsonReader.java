@@ -26,7 +26,6 @@ public class JsonReader {
             .registerTypeAdapter(Equipment.class, new EquipmentInstanceCreator())
             .registerTypeAdapter(Quirk.class, new QuirkInstanceCreator())
             .create();
-    private Type quirkMapToken = new TypeToken<Map<String, Quirk>>(){}.getType();
 
     public ArrayList ReadAllAmmo(Path f) throws Exception {
         Type collectionType = new TypeToken<Map<String, Ammunition>>(){}.getType();
