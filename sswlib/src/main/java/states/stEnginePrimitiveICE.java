@@ -52,6 +52,7 @@ public class stEnginePrimitiveICE implements ifEngine, ifState {
         AC.SetCLCodes( 'D', 'X', 'F', 'E', 'F' );
         AC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
         AC.SetCLFactions( "", "", "PS", "" );
+        AC.SetPBMAllowed(true);
         AC.SetPIMAllowed( true );
         AC.SetPrimitiveOnly( true );
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_TOURNAMENT );
