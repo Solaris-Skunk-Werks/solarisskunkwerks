@@ -42,7 +42,6 @@ public class Ammunition extends abPlaceable {
                   OffBV = 0.0,
                   DefBV = 0.0;
     private int LotSize = 0,
-                CurLotSize = 0,
                 AmmoIndex,
                 minrng = 0,
                 srtrng = 0,
@@ -58,6 +57,7 @@ public class Ammunition extends abPlaceable {
                 cluster = 1,
                 WeaponClass = ifWeapon.W_BALLISTIC,
                 FCSType = ifMissileGuidance.FCS_NONE;
+    private transient int CurLotSize = 0;
     private boolean Explosive = true,
                     IsCluster = false;
     @SerializedName("Availability") private AvailableCode AC;

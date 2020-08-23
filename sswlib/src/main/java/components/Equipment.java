@@ -72,11 +72,11 @@ public class Equipment extends abPlaceable {
                     alloc_turret = true,
                     alloc_body = true,
                     CanSplit = false,
-                    Rear = false,
                     CanMountRear = false,
                     Explosive = false,
                     VariableSize = false,
                     RequiresQuad = false;
+    private transient boolean Rear = false;
     @SerializedName("Availability") private AvailableCode AC;
 
     public Equipment() {
