@@ -31,6 +31,8 @@ package components;
 import common.CommonTools;
 import common.Constants;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+
 import visitors.VFCSApolloLoader;
 import visitors.VFCSArtemisIVLoader;
 import visitors.VFCSArtemisVLoader;
@@ -1201,5 +1203,15 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
 
     public double GetSponsonTurretCost() {
         return GetSponsonTurretTonnage() * 4000.0;
+    }
+
+    public int NumCVAmmoSpaces() {
+        LinkedHashSet<String> set = new LinkedHashSet<>();
+        for (abPlaceable a: (ArrayList<abPlaceable>)GetNonCore()) {
+            if (a instanceof Ammunition) {
+                set.add(a.toString());
+            }
+        }
+        return set.size();
     }
 }

@@ -156,6 +156,7 @@ public interface ifCVLoadout {
     public double GetSponsonTurretTonnage();
     public double GetSponsonTurretCost();
     public void ResetHeatSinks();
+    public int NumCVAmmoSpaces();
 /*
     public void AddMechModifier( MechModifier m );
     public void RemoveMechMod( MechModifier m );
