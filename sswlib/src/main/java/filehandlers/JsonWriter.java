@@ -22,17 +22,7 @@ public class JsonWriter {
     private Type equipMapToken = new TypeToken<Map<String, abPlaceable>>(){}.getType();
     private Type quirkMapToken = new TypeToken<Map<String, Quirk>>(){}.getType();
 
-    public void Write(abPlaceable equipment, Path outDir) throws Exception {
-        String filename = equipment.LookupName().replace("/", "_") + ".json";
-        FileWriter fw = new FileWriter(outDir.resolve(filename).toString());
-        Map<String, abPlaceable> map = new LinkedHashMap<>();
-        map.put(equipment.LookupName(), equipment);
-        gson.toJson(map, equipMapToken, fw);
-        fw.flush();
-        fw.close();
-    }
-
-    public void WriteAllEquipment(ArrayList<abPlaceable> equipment, Path outfile) throws Exception {
+    public void WriteEquipment(ArrayList<abPlaceable> equipment, Path outfile) throws Exception {
         FileWriter fw = new FileWriter(outfile.toString());
         Map<String, abPlaceable> map = new LinkedHashMap<>();
         for (abPlaceable w: equipment) {
@@ -43,17 +33,7 @@ public class JsonWriter {
         fw.close();
     }
 
-    public void Write(Quirk quirk, Path outDir) throws Exception {
-        String filename = quirk.getName().replace("/", "_") + ".json";
-        FileWriter fw = new FileWriter(outDir.resolve(filename).toString());
-        Map<String, Quirk> map = new LinkedHashMap<>();
-        map.put(quirk.getName(), quirk);
-        gson.toJson(map, quirkMapToken, fw);
-        fw.flush();
-        fw.close();
-    }
-
-    public void WriteAllQuirks(ArrayList<Quirk> quirks, Path outfile) throws Exception {
+    public void WriteQuirks(ArrayList<Quirk> quirks, Path outfile) throws Exception {
         FileWriter fw = new FileWriter(outfile.toString());
         Map<String, Quirk> map = new LinkedHashMap<>();
         for (Quirk q: quirks) {

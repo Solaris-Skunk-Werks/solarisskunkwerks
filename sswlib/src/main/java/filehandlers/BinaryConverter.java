@@ -31,7 +31,6 @@ package filehandlers;
 import components.*;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -337,7 +336,7 @@ public class BinaryConverter {
     private int writeJsonEquipment(ArrayList<? extends abPlaceable> equipment, Path outfile) throws Exception {
         JsonWriter jw = new JsonWriter();
         int numWritten = equipment.size();
-        jw.WriteAllEquipment((ArrayList<abPlaceable>) equipment, outfile);
+        jw.WriteEquipment((ArrayList<abPlaceable>) equipment, outfile);
         return numWritten;
     }
 
@@ -348,7 +347,7 @@ public class BinaryConverter {
         try {
             ArrayList<Quirk> quirks = br.ReadQuirks(binPath);
             Path outfile = Paths.get(binPath.replace(".dat", ".json"));
-            jw.WriteAllQuirks(quirks, outfile);
+            jw.WriteQuirks(quirks, outfile);
             numWritten = quirks.size();
         } catch (Exception e) {
             Messages += e.getMessage();
