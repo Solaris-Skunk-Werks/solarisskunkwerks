@@ -236,7 +236,7 @@
   "Extended Torso Twist": {
     "name": "Extended Torso Twist",
     "cost": 3,
-    "description": "When torso twisting, the `Mech can change its facing by one or two hexsides",
+    "description": "When torso twisting, the `Mech can change its facing by one or two hexsides. Quad ’Mechs normally cannot torso twist at all. However, a quad ’Mech with this quirk can perform a normal (not extended) torso twist.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -272,7 +272,7 @@
   "Fast Reload": {
     "name": "Fast Reload",
     "cost": 1,
-    "description": "Units with this quirk can reload in half the normal time.",
+    "description": "This quirk can be assigned to individual weapons, locations on a Unit (such as a right torso), or the entire Unit. Affected weapons can reload in half the normal time.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -326,7 +326,7 @@
   "Improved Communications": {
     "name": "Improved Communications",
     "cost": 1,
-    "description": "The unit has a powerful communications suite that can burn through standard electronic countermeasures. Hostile Guardian ECM or Clan ECM systems do not interfere with this unit, but angel ECM still has its normal effect.",
+    "description": "The unit has a powerful communications suite that can burn through standard electronic countermeasures. The Unit automatically ignores the first level of ghost targets(see p. 101, TO) used against it. Additionall, it can always attempt a BattleMech Satellite uplink (see p. 194, TO) without being forces to give up its movement and combat actions.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -362,7 +362,7 @@
   "Improved Life Support": {
     "name": "Improved Life Support",
     "cost": 1,
-    "description": "When determining damage to the MechWarrior or pilot as a result of heat following a life support critical hit, treat the unit's heat level as being 5 points lower.",
+    "description": "When determining damage to the MechWarrior or pilot as a result of heat following a life support critical hit, treat the unit's heat level as being 5 points lower. This quirk also doubles teh cockpit's standard life support time, from four days to eight.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -380,7 +380,7 @@
   "Improved Sensors": {
     "name": "Improved Sensors",
     "cost": 3,
-    "description": "A unit with this quirk is treated as if it has an active probe. If it is equipped with an active probe, add 2 to the Active Probe's range.",
+    "description": "A unit with this quirk is treated as if it has an active probe (range 4 for Inner Sphere Units, range 5 for Clan Units). If it is equipped with an active probe, add 2 to the Active Probe's range.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -398,7 +398,7 @@
   "Improved Targeting, Short": {
     "name": "Improved Targeting, Short",
     "cost": 3,
-    "description": "All ranged attack to-hit numbers at the selected range bracket receive a -1 modifier.",
+    "description": "All ranged attack to-hit numbers at the selected range bracket receive a -1 modifier. This quirk cannot be combined with Variable Range Targeting.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -416,8 +416,7 @@
   "Improved Targeting, Medium": {
     "name": "Improved Targeting, Medium",
     "cost": 4,
-    "description": "All ranged attack to-hit numbers at the selected range bracket receive a -1 modifier.",
-    "positive": true,
+    "description": "All ranged attack to-hit numbers at the selected range bracket receive a -1 modifier. This quirk cannot be combined with Variable Range Targeting",
     "battlemech": true,
     "industrialmech": true,
     "combatvehicle": true,
@@ -434,7 +433,7 @@
   "Improved Targeting, Long": {
     "name": "Improved Targeting, Long",
     "cost": 5,
-    "description": "All ranged attack to-hit numbers at the selected range bracket receive a -1 modifier.",
+    "description": "All ranged attack to-hit numbers at the selected range bracket receive a -1 modifier. This quirk cannot be combined with Variable Range Targeting.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -452,7 +451,7 @@
   "Internal Bomb Bay": {
     "name": "Internal Bomb Bay",
     "cost": 3,
-    "description": "The unit can use its internal cargo capacity as an internal bomb bay, releasing up to 6 bombs eahc turn. However, in the turn that ordnance is being dropped, there is  dange that ground fire will hit the exposed bay. On a roll of 10+, damage received from ground fire will strike the open bay and detonate all bombs remaining. The resulting damage is applied directly to the unit's SI.",
+    "description": "The unit can use its internal cargo capacity as an internal bomb bay, releasing up to 6 bombs each turn. However, in the turn that ordnance is being dropped, there is  dange that ground fire will hit the exposed bay. On a roll of 10+, damage received from ground fire will strike the open bay and detonate all bombs remaining. The resulting damage is applied directly to the unit's SI.",
     "positive": true,
     "battlemech": false,
     "industrialmech": false,
@@ -470,7 +469,7 @@
   "Jettison-Capable Weapon": {
     "name": "Jettison-Capable Weapon",
     "cost": 1,
-    "description": "A Jettison-Capable Weapon may be dropped in combat using the basic rules for Dumping Ammunition, except there is no risk fo explosion from the jettisoning weapon, and thus there are no special effects when a unit jettisoning its weapons is struck from the rear. Jettisoning an ammunition-dependent weapon does not also jettison its ammunition. Treat any untouched critical locations for a Jettison-Capable Weapon as a Roll Again result if they are struck after the weapon is jettisoned.",
+    "description": "The quirk is bought for a single weapon; a Unit can carry a maximum of two jettison-capable weapons, paying the qirk cost each time. It is assumed that any official vaiant replacing the jettison-capable weapon witha nother weapon in the same location also uses a jettison-capable weapon, though a gamemaster may rule that variants based on field refits or lw-tech conditions do not benefit. No handheld Weapon or item using pod technology may benefit from this quirk, though fixed weapons on an OmniMech may be jettison-capable. A Jettison-Capable Weapon may be dropped in combat using the basic rules for Dumping Ammunition, except there is no risk of explosion from the jettisoning weapon, and thus there are no special effects when a unit jettisoning its weapons is struck from the rear. Jettisoning an ammunition-dependent weapon does not also jettison its ammunition. Treat any untouched critical locations for a Jettison-Capable Weapon as a Roll Again result if they are struck after the weapon is jettisoned.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -488,7 +487,7 @@
   "Modular Weapons": {
     "name": "Modular Weapons",
     "cost": 1,
-    "description": "A weapon can be replaced in half the normal time (though repairs in-place take the usual amount of time). When using the Customization Rules, half the time is required.",
+    "description": "Equipment can be replaced in half the normal time (though repairs in-place take the usual amount of time). When using the Customization rules, half the time is required. On some Units, only certain weapons or equipment are modular. In this case, the specific gear with the modular quality must be noted, but this does not reduce the quirk's cost.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -524,7 +523,7 @@
   "Narrow/Low Profile": {
     "name": "Narrow/Low Profile",
     "cost": 2,
-    "description": "Ranged attacks against a unit with a Narrow/Low Profile receive a +1 to-hit modifier",
+    "description": "If the Margin of Success for a weapon attack made against a Narrow/low profile Unit is 0 or 1, the hit is considered a Glancing Blow.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -794,7 +793,7 @@
   "Ammunition Feed Problem": {
     "name": "Ammunition Feed Problem",
     "cost": 1,
-    "description": "The ammunition feed for one ballistic or missile weapon or bay has a tendency to jam at inconvenient moments. After making a to-hit roll, roll 2D6. On a result of 10+ the weapon jams and cannot be fired again this battle. On a roll of 12, the new round of ammunition will explode in the weapon for normal damage. Per normal rules, Gauss weapon ammunition will not explode, but the weapon itself does.",
+    "description": "The ammunition feed for one ballistic or missile weapon or bay has a tendency to jam at inconvenient moments. On an unmodified attack roll of 2 with such a weapon, roll 2D6. On a result of 10+ the weapon jams and cannot be fired again this battle. On a roll of 12, the new round of ammunition will explode in the weapon for normal damage. Per normal rules, Gauss weapon ammunition will not explode, but the weapon itself does.",
     "positive": false,
     "battlemech": true,
     "industrialmech": true,
@@ -866,7 +865,7 @@
   "Cramped Cockpit": {
     "name": "Cramped Cockpit",
     "cost": 2,
-    "description": "The unit is considred to have the equivalent of a Small Cockpit, but it takes up the same weight and critical slots as a standard one.",
+    "description": "The Unit receives a +1 Piloting Skill Roll modifier. This quirk cannot be applied to Units with a Small Cockpit.",
     "positive": false,
     "battlemech": true,
     "industrialmech": true,
@@ -920,7 +919,7 @@
   "EM Interference": {
     "name": "EM Interference",
     "cost": 1,
-    "description": "An energy weapon is insufficiently shielded and causes interference with other delicate electronics. The round after the weapon has been fired, the following equipment aboard the `Mech will not function. Targeting Computers, any ECM, any Active Probe, Artemis IV FCS, Artemis V FCS, any C3, NARC, MASC, Cockpit Command Console, Chameleon LPS, Blue Shield PFD, Electronic Warfare Equipment, Streak Launchrs, MRM FCS, Null Signature System, Supercharger, Void Signature System and any Stealth Armor.",
+    "description": "An energy weapon is insufficiently shielded and causes interference with other delicate electronics. The turn after the weapon has been fired, the following equipment aboard the ’Mech will not function: any ECM, any Active Probe, Artemis IV FCS, Artemis V FCS, Blue Shield PFD, any C3, Chameleon LPS, Cockpit Command Console, Electronic Warfare Equipment, MASC, MRM FCS, NARC, Null Signature System, Stealth Armor, Streak Launchers, Supercharger, Targeting Computer, and Void Signature System. Alternatively, this quirk can be purchased for the ’Mech itself, in which case the problem occurs whenever any energy weapon on the ’Mech is fired. The cost for this version of the quirk is 2 points, but can only be purchased if the ’Mech has more than one energy weapon.",
     "positive": false,
     "battlemech": true,
     "industrialmech": true,
@@ -956,7 +955,7 @@
   "Exposed Weapon Linkage": {
     "name": "Exposed Weapon Linkage",
     "cost": 2,
-    "description": "Some designs have the mechanics of a weapon dangerously exposed. When a location that holds such a weapon is hit, roll 2D6, on a roll of 10+, that weapon receives one critical hit on the first available slot.",
+    "description": "Some designs have the mechanics of a weapon dangerously exposed. When a location that holds such a weapon is hit, roll 2D6, on a roll of 10+, that weapon is unable to fire for the remainder of the game. This quirk can only be taken only once and only for a single weapon type, and effects all weapons of that type on the Unit (for example, all AC20s, all ER PPCs).",
     "positive": false,
     "battlemech": true,
     "industrialmech": true,
@@ -1079,8 +1078,8 @@
     "protomech": false,
     "isvariable": false
   },
-  "Mow-Mounted Arms": {
-    "name": "Mow-Mounted Arms",
+  "Low-Mounted Arms": {
+    "name": "Low-Mounted Arms",
     "cost": 2,
     "description": "’Mechs equipped with extremely low-mounted arms—such as the Dark Crow—have mounted their arms far too low to take advantage of the ’Mech’s height advantage. This quirk cannot be combined with the Overhead Arms quirk, nor can it be taken by any ’Mech that either does not have arms, or lacks any form of weaponry in its arms.  A ’Mech with Low-Mounted Arms fires its arm-mounted weapons as if they are actually mounted in the ’Mech’s legs, even though these arms still rotate with the torso position. As a result, these weapons may be blocked from firing by partial cover such as low hills and buildings. By the same token, attacks against ’Mech with Low-Mounted Arms that pass over partial cover cannot strike the ’Mech’s arms either, and instead will strike the covering terrain.",
     "positive": false,
@@ -1208,7 +1207,7 @@
   "Obsolete": {
     "name": "Obsolete",
     "cost": 4,
-    "description": "A unit with the Obsolete Quirk cannot have any variants in active production and must note the year in which its production ceased as part of the Quirk. After that, the unit will become increasingly hard to maintain ,and its resale price will drop. To reflect this, for every 15 years after production ceases, any rolls to repair or replace equipment on the unit, or to locate parts, will suffer a +1 target number modifer (5+ max). In addition, for every 20 years after production has ceased, the resale cost (but not purchase cost)  will decrease 10% to a max of 50%.",
+    "description": "A unit with the Obsolete Quirk cannot have any variants in active production and must note the year in which its production ceased as part of the Quirk. After that, the unit will become increasingly hard to maintain ,and its resale price will drop. To reflect this, for every 15 years after production ceases, any rolls to repair or replace equipment on the unit, or to locate parts, will suffer a +1 target number modifer (5+ max). In addition, for every 20 years after production has ceased, the resale cost (but not purchase cost)  will decrease 10% to a max of 50%. A Unit that somehow comes back into production after becoming obsolete automatically negates this quirk 10 years after returning to production.",
     "positive": false,
     "battlemech": true,
     "industrialmech": true,
@@ -1280,7 +1279,7 @@
   "Poor Performance": {
     "name": "Poor Performance",
     "cost": 3,
-    "description": "This unit cannot jump to maximum speed immediately. It must spend one turn expending MP equal to its Walking, Cruising or Safe Thrust rating before it can use MP up to its Running, Flanking or Maximum Thrust MP the following turn.",
+    "description": "This unit cannot reach maximum speed immediately. It must spend one turn expending MP equal to its Walking, Cruising or Safe Thrust rating before it can use MP up to its Running, Flanking or Maximum Thrust MP the following turn.",
     "positive": false,
     "battlemech": true,
     "industrialmech": true,
