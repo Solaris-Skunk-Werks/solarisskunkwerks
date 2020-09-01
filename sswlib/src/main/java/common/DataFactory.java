@@ -28,12 +28,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package common;
 
-import components.CombatVehicle;
-import components.Mech;
-import components.Quirk;
+import components.*;
 import filehandlers.BinaryReader;
+import filehandlers.JsonReader;
+
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class DataFactory {
     // Class file to make data lookups easier and disconnected from the BFB.GUI
@@ -46,8 +51,55 @@ public class DataFactory {
             equips,
             customs;
 
+    public DataFactory() throws Exception {
+        JsonReader jr = new JsonReader();
+        Path basePath = Paths.get(Constants.EQUIPMENT_JSON_BASE_DIR);
+        ammo = jr.ReadAllAmmo(basePath.resolve("ammunition.json"));
+        weapons = jr.ReadAllRangedWeapons(basePath.resolve("weapons.json"));
+        physicals = jr.ReadAllPhysicalWeapons(basePath.resolve("physicals.json"));
+        equips = jr.ReadAllEquipment(basePath.resolve("equipment.json"));
+        quirks = jr.ReadAllQuirks(basePath.resolve("quirks.json"));
 
-    public DataFactory() throws Exception
+        // Load custom equipment
+        Path file = basePath.resolve("custom_ammunition.json");
+        if (Files.exists(file)) {
+            customs = jr.ReadAllAmmo(file);
+            if (!customs.isEmpty()) {
+                ammo.addAll(customs);
+            }
+        }
+        file = basePath.resolve("custom_weapons.json");
+        if (Files.exists(file)) {
+            customs = jr.ReadAllRangedWeapons(file);
+            if (!customs.isEmpty()) {
+                weapons.addAll(customs);
+            }
+        }
+        file = basePath.resolve("custom_physicals.json");
+        if (Files.exists(file)) {
+            customs = jr.ReadAllPhysicalWeapons(file);
+            if (!customs.isEmpty()) {
+                physicals.addAll(customs);
+            }
+        }
+        file = basePath.resolve("custom_equipment.json");
+        if (Files.exists(file)) {
+            customs = jr.ReadAllEquipment(file);
+            if (!customs.isEmpty()) {
+                equips.addAll(customs);
+            }
+        }
+        file = basePath.resolve("customs_quirks.json");
+        if (Files.exists(file)) {
+            customs = jr.ReadAllQuirks(file);
+            if (!customs.isEmpty()) {
+                quirks.addAll(customs);
+            }
+        }
+    }
+
+    // Legacy binary format
+    public DataFactory(boolean binary) throws Exception
     {
         BinaryReader b = new BinaryReader();
         ammo = b.ReadAmmo( Constants.AMMOFILE );
@@ -118,5 +170,28 @@ public class DataFactory {
 
     public void Rebuild( CombatVehicle v ) {
         Equips.BuildPhysicals( v );
+    }
+
+    private void sortRangedWeapons() {
+        Comparator<RangedWeapon> oneShot = Comparator.comparing(RangedWeapon::IsOneShot);
+        Comparator<RangedWeapon> weaponType = oneShot.thenComparing(RangedWeapon::GetWeaponType);
+        Comparator<RangedWeapon> variant = weaponType.thenComparing(RangedWeapon::GetWeaponVariant);
+        Comparator<RangedWeapon> faction = variant.thenComparing(RangedWeapon::GetTechBase);
+        Comparator<RangedWeapon> rackSize = faction.thenComparing(RangedWeapon::GetRackSize);
+        Comparator<RangedWeapon> sizeClass = rackSize.thenComparing(RangedWeapon::GetSizeClass);
+
+        Collections.sort(weapons, sizeClass);
+    }
+
+    private void sortPhysicalWeapons() {
+        Collections.sort(physicals, Comparator.comparing(PhysicalWeapon::ActualName));
+    }
+
+    private void sortEquipment() {
+        Collections.sort(equips, Comparator.comparing(components.Equipment::ActualName));
+    }
+
+    private void sortQuirks() {
+        Collections.sort(quirks, Comparator.comparing(Quirk::getName));
     }
 }

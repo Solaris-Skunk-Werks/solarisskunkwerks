@@ -28,14 +28,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
+import com.google.gson.annotations.SerializedName;
+
 public class RangedWeapon extends abPlaceable implements ifWeapon {
-    private AvailableCode AC;
-    private PPCCapacitor Capacitor = null;
-    private LaserInsulator Insulator = null;
-    private RiscLaserPulseModule PulseModule = null;
-    private MGArray CurArray = null;
-    private ifMissileGuidance FCS = null;
-    private ifTurret Turret = null;
+    private transient PPCCapacitor Capacitor = null;
+    private transient LaserInsulator Insulator = null;
+    private transient RiscLaserPulseModule PulseModule = null;
+    private transient MGArray CurArray = null;
+    private transient ifMissileGuidance FCS = null;
+    private transient ifTurret Turret = null;
+    private transient String Manufacturer = "";
     private String ActualName,
                    CritName,
                    MegaMekName,
@@ -44,8 +46,10 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                    Specials = "",
                    Type,
                    ModifiedType,
-                   Manufacturer = "",
                    BookReference = "";
+    private WeaponType type = WeaponType.OTHER;
+    private WeaponVariant variant = WeaponVariant.BASE;
+    private SizeClass sizeClass = SizeClass.NA;
     private boolean HasAmmo = false,
                     SwitchableAmmo = false,
                     RequiresFusion = false,
@@ -64,7 +68,6 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                     CanSplit = false,
                     OmniRestrict = false,
                     LocationLinked = false,
-                    MountedRear = false,
                     Rotary = false,
                     Ultra = false,
                     IsCluster = false,
@@ -75,17 +78,18 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                     TCCapable = true,
                     ArrayCapable = false,
                     CanUseCapacitor = false,
-                    UsingCapacitor = false,
                     CanUseInsulator = false,
-                    UsingInsulator = false,
                     CanUsePulseModule = false,
-                    UsingPulseModule = false,
-                    InArray = false,
                     CanUseCaseless = false,
-                    UsingCaseless = false,
-                    UsingFCS = false,
                     CanOS = false,
                     CanIOS = false;
+    private transient boolean MountedRear = false,
+                              UsingCapacitor = false,
+                              UsingInsulator = false,
+                              UsingPulseModule = false,
+                              UsingCaseless = false,
+                              UsingFCS = false,
+                              InArray = false;
     private int Heat = 0,
                 DamSht = 0,
                 DamMed = 0,
@@ -108,11 +112,33 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                 ClusterModLong = 0,
                 CaselessAmmoIDX = 0,
                 FCSType = ifMissileGuidance.FCS_NONE,
-                WeaponClass = ifWeapon.W_BALLISTIC;
+                WeaponClass = ifWeapon.W_BALLISTIC,
+                RackSize = 0;
     private double Tonnage = 0.0,
                   Cost = 0.0,
                   OffBV = 0.0,
                   DefBV = 0.0;
+    @SerializedName("Availability") private AvailableCode AC;
+
+    public enum SizeClass {
+        MICRO,
+        SMALL,
+        MEDIUM,
+        LARGE,
+        NA
+    }
+    public enum WeaponType {
+        AUTOCANNON, GAUSS, TASER, RIFLE, MG, FLUID_GUN, ARTILLERY_CANNON, LASER, PPC, PLASMA_RIFLE, PLASMA_CANNON,
+        TSEMP, FLAMER, ATM, LRM, MML, MRM, SRM, ROCKET_LAUNCHER, NARC, MORTAR, THUNDERBOLT, LRT, SRT, ARROW_IV, CRUISE_MISSILE,
+        OTHER
+    }
+    public enum WeaponVariant {
+        BASE, PROTOTYPE, LBX, LIGHT, MEDIUM, HEAVY, IMPROVED_HEAVY, PROTOMECH, ROTARY, ULTRA, HYPER_VELOCITY, ANTI_PERSONNEL,
+        IMPROVED, HYPER_ASSAULT, LONGTOM, SNIPER, THUMPER, ER, PULSE, X_PULSE, ER_PULSE, VARIABLE_SPEED_PULSE, CHEMICAL, REENGINEERED,
+        STREAK, PENTAGON_POWER, ENHANCED, EXTENDED, VEHICLE, RISC, OTHER
+    }
+
+    public RangedWeapon() { }
 
     public RangedWeapon( String actualname, String critname, String lookupname, String mmname, String type, String spec, AvailableCode a, int wepclass ) {
         CritName = critname;
@@ -195,6 +221,10 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         BookReference = r.BookReference;
         ChatName = r.ChatName;
         SetBattleForceAbilities( r.GetBattleForceAbilities() );
+        type = r.type;
+        variant = r.variant;
+        sizeClass = r.sizeClass;
+        RackSize = r.RackSize;
     }
 
     public void SetStats( double tons, int crits, int vspace, double cost, double obv, double dbv ) {
@@ -305,6 +335,28 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         ChatName = s;
     }
 
+    public void SetWeaponType(String s) {
+        type = WeaponType.valueOf(s.toUpperCase());
+    }
+
+    public void SetWeaponType(WeaponType t) { type = t; }
+
+    public void SetWeaponVariant(String s) {
+        variant = WeaponVariant.valueOf(s.toUpperCase());
+    }
+
+    public void SetWeaponVariant(WeaponVariant v) { variant = v; }
+
+    public void SetSizeClass(String s) {
+        sizeClass = SizeClass.valueOf(s.toUpperCase());
+    }
+
+    public void SetSizeClass(SizeClass c) { sizeClass = c; }
+
+    public void SetRackSize(int size) {
+        RackSize = size;
+    }
+
     public String ActualName() {
         return ActualName;
     }
@@ -378,6 +430,18 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     public String BookReference() {
         return BookReference;
     }
+
+    public int GetRackSize() {
+        return RackSize;
+    }
+
+    public SizeClass GetSizeClass() {
+        return sizeClass;
+    }
+
+    public WeaponType GetWeaponType() { return type; }
+
+    public WeaponVariant GetWeaponVariant() { return variant; }
 
     public String GetType() {
         if (UsingPulseModule)
@@ -1059,6 +1123,10 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
 
     public RangedWeapon Clone() {
         return new RangedWeapon( this );
+    }
+
+    public int GetBMRulesLevel() {
+        return AC.GetRulesLevel_BM();
     }
 
     @Override

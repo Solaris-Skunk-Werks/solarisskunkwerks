@@ -75,6 +75,10 @@ public class BinaryReader {
                     rw.SetChatName( FR.readUTF() );
                     rw.SetBookReference( FR.readUTF() );
                     rw.SetBattleForceAbilities( FR.readUTF().split(",") );
+                    rw.SetWeaponType( FR.readUTF() );
+                    rw.SetWeaponVariant( FR.readUTF() );
+                    rw.SetSizeClass( FR.readUTF() );
+                    rw.SetRackSize( FR.readInt() );
                     finished.add( rw );
                 } catch( EOFException e1 ) {
                     break;

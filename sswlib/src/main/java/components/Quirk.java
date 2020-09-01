@@ -31,6 +31,7 @@ package components;
 public class Quirk {
     private String name = "";
     private int cost = 0;
+    private String description = "";
     private boolean positive = true,
                     battlemech = false,
                     industrialmech = false,
@@ -44,7 +45,6 @@ public class Quirk {
                     spacestation = false,
                     protomech = false,
                     isvariable = false;
-    private String description = "";
 
     public Quirk( String Name,
                     boolean Type,
@@ -79,6 +79,8 @@ public class Quirk {
         isvariable = IsVariable;
         description = Description;
     }
+
+    public Quirk() { }
 
     /**
      * @return the name

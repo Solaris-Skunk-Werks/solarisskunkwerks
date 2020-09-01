@@ -118,6 +118,7 @@ public class AvailableCode {
         TechBase = tech;
     }
 
+    public AvailableCode() { }
 /*
  *  Setters
  */

@@ -33,10 +33,10 @@ import java.util.logging.Logger;
 
 public abstract class abPlaceable implements Comparable<abPlaceable> {
     // An abstract class for items that can be placed inside a loadout.
-    protected boolean Locked = false,  Armored = false;
-    private Exclusion Exclusions = null;
+    protected transient boolean Locked = false,  Armored = false;
+    private transient Exclusion Exclusions = null;
     public final static AvailableCode ArmoredAC = new AvailableCode( AvailableCode.TECH_BOTH );
-    private MechModifier Modifier = null;
+    private transient MechModifier Modifier = null;
     private String[] BattleForceAbilities = new String[]{};
 
     public abPlaceable() {
