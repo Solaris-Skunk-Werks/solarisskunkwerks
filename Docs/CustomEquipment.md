@@ -37,23 +37,39 @@ legacy binary format.
 Next, click the file selection box again, and within the file explorer, click the extension dropdown at the bottom to 
 change the extension to `*.dat`. Then navigate to your newly created `custom_weapons.dat` file, select it, and click the
 `JSON` button on the bottom left to convert it to the new JSON format. Do this for each of your custom equipment types.
-Afterwards, your new equipment should load into SSW.
+Finally, move your `custom_*.json` files to the `Data/Equipment` folder if they aren't already.
 
 ## Customizing Equipment
 A modern text editor such as [Visual Studio Code](https://code.visualstudio.com/) or [Notepad++](https://notepad-plus-plus.org/) 
 is recommended for editing the equipment files, since they allow you to collapse the JSON objects to make navigation far
-easier.
+easier. They also highlight syntax errors, meaning if you accidentally save malformed JSON, they will make it easier to spot.
 
-First, after opening the selected equipment file, collapse all fields with `Ctrl + k + 0` (VS code, `Alt + 0` in Notepad++).
+Custom equipment is defined in the following files, which you'll need to create if they don't already exist:
+
+* custom_ammunition.json
+* custom_weapons.json (ranged weapons)
+* custom_physicals.json (physical weapons)
+* custom_equipment.json (other miscellaneous equipment)
+* custom_quirks.json
+
+To start a new custom equipment list, we recommend copying an existing item from the relevant equipment JSON file and pasting
+it into your custom file, and then editing the necessary fields.
+
+If this is a brand new custom list, add two curly braces to your custom file to hold the equipment array:
+
+```
+{
+
+}
+```
+
+Next, open the relevant equipment file, collapse all fields with `Ctrl + k + 0` (VS code, `Alt + 0` in Notepad++).
 You can then click the arrows on the left hand side (next to the line numbers) to expand the weapon you want to edit:
 
 ![Collapsing JSON Fields](images/collapsed_weapons.png) 
 
-Most fields should be self-explanatory, and roughly mirror the fields in the spreadsheet although the order may
-be different. Simply edit the fields to set the values you want, but make sure to keep the structure consistent (no quotes
-around `true` or `false`, commas after each value, etc.). To add new equipment, we recommend copying an existing piece of
-similar equipment and pasting it in after the end of a previous entry. Note that a complete entry starts with the LookupName
-followed by curly brace, and ends with a closing curly brace:
+Note that a complete entry starts with the LookupName followed by curly brace, and ends with a closing 
+curly brace:
 
 ```
 "(IS) Prototype Autocannon/5": {
@@ -182,6 +198,35 @@ followed by curly brace, and ends with a closing curly brace:
     ]
   },
 ```
+
+Copy the whole entry as shown above, and paste it between the `{}` you added to the custom file. If this is the last entry
+in the file remove the trailing comma. At the end, you should have something like this:
+
+```
+{
+  "(IS) Prototype Autocannon/5": {
+    "ActualName": "Prototype Autocannon/5",
+    "CritName": "Prototype AC/5",
+    "MegaMekName": "ISAC5",
+    "LookupName": "(IS) Prototype Autocannon/5",
+    "ChatName": "PTAC5",
+    "Specials": "S",
+
+    ...snip...
+
+    },
+    "BattleForceAbilities": [
+      "-"
+    ]
+  }
+}
+```
+
+Most fields should be self-explanatory, and roughly mirror the fields in the spreadsheet, although the order may
+be different. Simply edit the fields to set the values you want, but make sure to keep the structure consistent (no quotes
+around `true` or `false`, commas after each value, etc.). If you need to use quotations (`"`) within a string, it will need
+to be written as `\"` so that the JSON parser knows that the value doesn't actually end there.
+
 A trailing comma is required unless it's the last item in the file. As with the spreadsheet, the LookupName must be unique.
 
 After you've made your edits, save the file and start SSW. If you're editing while SSW is running, you can click "Reload
