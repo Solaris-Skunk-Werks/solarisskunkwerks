@@ -339,6 +339,10 @@ public class BattleForceStats {
         return Abilities;
     }
 
+    public void setAbilities(ArrayList<String> abilities) {
+        Abilities = abilities;
+    }
+
 
     public String getAbilitiesString() {
         String retval = "";
@@ -413,6 +417,10 @@ public class BattleForceStats {
         return S;
     }
 
+    public void setShort(int s) {
+        S = s;
+    }
+
     public int getCombinedShort() {
         int Val = S;
 
@@ -424,6 +432,10 @@ public class BattleForceStats {
 
     public int getMedium() {
         return M;
+    }
+
+    public void setMedium(int m) {
+        M = m;
     }
 
     public int getCombinedMedium() {
@@ -439,6 +451,10 @@ public class BattleForceStats {
         return L;
     }
 
+    public void setLong(int l) {
+        L = l;
+    }
+
     public int getCombinedLong() {
         int Val = L;
 
@@ -450,6 +466,10 @@ public class BattleForceStats {
 
     public int getExtreme() {
         return E;
+    }
+
+    public void setExtreme(int e) {
+        E = e;
     }
 
     public int getCombinedExtreme() {
@@ -465,16 +485,32 @@ public class BattleForceStats {
         return Wt;
     }
 
+    public void setWeight(int wt) {
+        Wt = wt;
+    }
+
     public int getOverheat() {
         return OV;
+    }
+
+    public void setOverheat(int ov) {
+        OV = ov;
     }
 
     public int getArmor() {
         return Armor;
     }
 
+    public void setArmor(int a) {
+        Armor = a;
+    }
+
     public int getInternal() {
         return Internal;
+    }
+
+    public void setInternal(int internal) {
+        Internal = internal;
     }
 
     public String getElement() {
@@ -483,6 +519,10 @@ public class BattleForceStats {
 
     public String getMovement() {
         return MV;
+    }
+
+    public void setMovement(String mv) {
+        MV = mv;
     }
 
     public String getMovement(boolean useTerrain) {
@@ -496,6 +536,10 @@ public class BattleForceStats {
 
     public int getPointValue() {
         return PV;
+    }
+
+    public void setPointValue(int pv) {
+        PV = pv;
     }
 
     public int getSkill() {
@@ -549,6 +593,10 @@ public class BattleForceStats {
 
     public int getBasePV() {
         return BasePV;
+    }
+
+    public void setBasePV(int pv) {
+        BasePV = pv;
     }
 
     public void setElement(String Element) {

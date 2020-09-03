@@ -28,14 +28,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package list;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
+
+import Force.Unit;
+import IO.BattleForceStatsSerializer;
+import IO.UnitListDataSerializer;
+import battleforce.BattleForceStats;
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
 import list.view.abView;
 import list.view.tbTotalWarfareView;
 
@@ -231,62 +234,37 @@ public class UnitList extends AbstractTableModel {
     }
     
     public final void Write() throws IOException {
-        if (List.size() > 0) {
-            BufferedWriter FR = new BufferedWriter( new FileWriter( getDirectory() + File.separator + "index.ssi" ) );
-            FR.write("version:" + IndexVersion);
-            FR.newLine();
-            for (int i=0; i < List.size(); i++ ) {
-                UnitListData m = (UnitListData) List.get(i);
-                FR.write(m.SerializeIndex());
-                FR.newLine();
-            }
+        Kryo kryo = new Kryo();
+        kryo.setRegistrationRequired(true);
+        kryo.register(UnitListData.class, new UnitListDataSerializer());
+        kryo.register(BattleForceStats.class, new BattleForceStatsSerializer());
 
-            FR.close();
+        if (List.size() > 0) {
+            Output output = new Output(new FileOutputStream(getDirectory() + File.separator + "index.ssi"));
+            for (int i=0; i < List.size(); i++ ) {
+                UnitListData m = List.get(i);
+                kryo.writeObject(output, m);
+            }
+            output.close();
         }
     }
 
     public final boolean Read() {
+        Kryo kryo = new Kryo();
+        kryo.setRegistrationRequired(true);
+        kryo.register(UnitListData.class, new UnitListDataSerializer());
+        kryo.register(BattleForceStats.class, new BattleForceStatsSerializer());
+
         try {
-            BufferedReader FR = new BufferedReader( new FileReader( getDirectory() + File.separator + "index.ssi" ) );
-            boolean EOF = false,
-                    hasData = false;
-            String read = "";
-            while( EOF == false ) {
-                try {
-                    read = FR.readLine();
-                    if( read == null ) {
-                        // We've hit the end of the file.
-                        EOF = true;
-                    } else {
-                        if( read.contains("version:") ) {
-                            int Version = Integer.parseInt(read.replace("version:", ""));
-                            if ( Version != IndexVersion ) {
-                                return false;
-                            }
-                        } else if( read.equals( "EOF" ) ) {
-                            // end of file.
-                            EOF = true;
-                        } else {
-                            hasData = true;
-                            String[] Items = read.split(",");
-                            if (Items.length >= 11) {
-                                Items[11] = IO.Utils.convertFilePathSeparator(Items[11]);
-                                List.add(new UnitListData(Items));
-                            }
-                        }
-                    }
-                } catch (IOException e ) {
-                    // probably just reached the end of the file
-                    System.out.println( "had an ioexception reading options:\n" + read + "\n\n" );
-                    EOF = true;
-                    return false;
-                }
+            Input input = new Input(new FileInputStream(getDirectory() + File.separator + "index.ssi"));
+            while (!input.eof()) {
+                List.add(kryo.readObject(input, UnitListData.class));
             }
-            FR.close();
-            return hasData;
-        } catch ( IOException e ) {
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
+        return true;
     }
 
     //Fields required for AbstractTableModel
