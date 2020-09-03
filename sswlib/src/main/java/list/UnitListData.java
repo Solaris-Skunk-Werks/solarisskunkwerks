@@ -141,40 +141,6 @@ public class UnitListData extends abUnitData  {
         return u;
     }
 
-    public String SerializeIndex() {
-        String data = "";
-
-        data += this.Name + ",";
-        data += this.Model + ",";
-        data += this.Configuration + ",";
-        data += this.Level + ",";
-        data += this.Era + ",";
-        data += this.Tech + ",";
-        data += this.Source + ",";
-        data += this.Tonnage + ",";
-        data += this.Year + ",";
-        data += this.BV + ",";
-        data += this.Cost + ",";
-        data += this.filename + ",";
-        data += this.Type + ",";
-        data += this.Motive + ",";
-        data += this.Info.replace(",", " ") + ",";
-        data += this.Config + ",";
-        data += this.bfstat.getPointValue() + ",";
-        data += this.bfstat.getWeight() + ",";
-        data += this.bfstat.getAbilitiesString().replace(",", "~") + ",";
-        data += this.bfstat.getMovement() + ",";
-        data += this.bfstat.getShort() + ",";
-        data += this.bfstat.getMedium() + ",";
-        data += this.bfstat.getLong() + ",";
-        data += this.bfstat.getExtreme() + ",";
-        data += this.bfstat.getOverheat() + ",";
-        data += this.bfstat.getArmor() + ",";
-        data += this.bfstat.getInternal();
-
-        return data;
-    }
-
     @Override
     public String toString() {
         return getFullName() + " (" + getBV() + ") " + getInfo();

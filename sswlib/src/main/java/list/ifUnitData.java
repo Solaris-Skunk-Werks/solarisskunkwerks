@@ -29,7 +29,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package list;
 
 public interface ifUnitData {
-    public String SerializeIndex();
     public String getName();
     public void setName(String Name);
     public String getFullName();
