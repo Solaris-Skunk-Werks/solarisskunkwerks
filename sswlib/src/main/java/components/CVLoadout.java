@@ -1068,7 +1068,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
             for( int j = 0; j < GetNonCore().size(); j++ ) {
                 test = (abPlaceable) GetNonCore().get( j );
                 if( test.CritName().equals( exclude[i] ) ) {
-                    throw new Exception( "A Vehicle may not mount an " + p.CritName() + " if it\nalready mounts an " + ((abPlaceable) Queue.get( j )).CritName() );
+                    throw new Exception( "A Vehicle may not mount an " + p.CritName() + " if it\nalready mounts an " + test.CritName() );
                 }
             }
             // special addition for a targeting computer that is not in the loadout yet

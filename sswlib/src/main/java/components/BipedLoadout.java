@@ -4945,7 +4945,7 @@ public boolean IsTripod(){
                     test = (abPlaceable) Queue.get( j );
                 }
                 if( test.CritName().equals( exclude[i] ) ) {
-                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + ((abPlaceable) Queue.get( j )).CritName() );
+                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + test.CritName() );
                 }
             }
             // check the loadout proper
