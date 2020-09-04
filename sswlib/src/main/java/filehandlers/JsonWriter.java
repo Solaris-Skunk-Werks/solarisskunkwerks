@@ -13,7 +13,6 @@ import java.util.Map;
 
 public class JsonWriter {
     private Gson gson = new GsonBuilder()
-            .serializeNulls()
             .setPrettyPrinting()
             .disableHtmlEscaping()
             .create();

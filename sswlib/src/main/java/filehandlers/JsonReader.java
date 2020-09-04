@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 
 public class JsonReader {
     private Gson gson = new GsonBuilder()
-            .serializeNulls()
             .setPrettyPrinting()
             .disableHtmlEscaping()
             .registerTypeAdapter(Ammunition.class, new AmmunitionInstanceCreator())
