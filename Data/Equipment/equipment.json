@@ -1224,7 +1224,15 @@
     "BattleForceAbilities": [
       "C3M",
       "TAG"
-    ]
+    ],
+    "Exclusions": {
+      "Exclusions": [
+        "Improved C3 Computer",
+        "Null Signature System",
+        "Void Signature System"
+      ],
+      "Excluder": "C3 Computer (Master)"
+    }
   },
   "C3 Computer (Slave)": {
     "ActualName": "Command/Control/Communication Computer (Slave)",
@@ -1318,7 +1326,15 @@
     },
     "BattleForceAbilities": [
       "C3S"
-    ]
+    ],
+    "Exclusions": {
+      "Exclusions": [
+        "Improved C3 Computer",
+        "Null Signature System",
+        "Void Signature System"
+      ],
+      "Excluder": "C3 Computer (Slave)"
+    }
   },
   "Improved C3 Computer": {
     "ActualName": "Improved Command/Control/Communication Computer",
@@ -1412,7 +1428,16 @@
     },
     "BattleForceAbilities": [
       "C3I"
-    ]
+    ],
+    "Exclusions": {
+      "Exclusions": [
+        "C3 Computer (Master)",
+        "C3 Computer (Slave)",
+        "Null Signature System",
+        "Void Signature System"
+      ],
+      "Excluder": "Improved C3 Computer"
+    }
   },
   "C3 Boosted Computer (Master)": {
     "ActualName": "Command/Control/Communication Boosted Computer (Master)",
@@ -1507,7 +1532,15 @@
     "BattleForceAbilities": [
       "C3BSM",
       "TAG"
-    ]
+    ],
+    "Exclusions": {
+      "Exclusions": [
+        "Improved C3 Computer",
+        "Null Signature System",
+        "Void Signature System"
+      ],
+      "Excluder": "C3 Boosted Computer (Master)"
+    }
   },
   "C3 Boosted Computer (Slave)": {
     "ActualName": "Command/Control/Communication Boosted Computer (Slave)",
@@ -1601,7 +1634,15 @@
     },
     "BattleForceAbilities": [
       "C3BSS"
-    ]
+    ],
+    "Exclusions": {
+      "Exclusions": [
+        "Improved C3 Computer",
+        "Null Signature System",
+        "Void Signature System"
+      ],
+      "Excluder": "C3 Boosted Computer (Slave)"
+    }
   },
   "C3 Emergency Master": {
     "ActualName": "Command/Control/Communication Emergency Master",
@@ -1695,7 +1736,15 @@
     },
     "BattleForceAbilities": [
       "C3EM"
-    ]
+    ],
+    "Exclusions": {
+      "Exclusions": [
+        "Improved C3 Computer",
+        "Null Signature System",
+        "Void Signature System"
+      ],
+      "Excluder": "C3 Emergency Master"
+    }
   },
   "C3 Remote Sensor Launcher": {
     "ActualName": "Command/Control/Communication Remote Sensor Launcher",
@@ -2165,7 +2214,13 @@
     },
     "BattleForceAbilities": [
       "-"
-    ]
+    ],
+    "Exclusions": {
+      "Exclusions": [
+        "Radical Heat Sink"
+      ],
+      "Excluder": "Coolant Pod"
+    }
   },
   "Electronic Warfare Equipment": {
     "ActualName": "Electronic Warfare Equipment",
@@ -2729,7 +2784,13 @@
     },
     "BattleForceAbilities": [
       ""
-    ]
+    ],
+    "Exclusions": {
+      "Exclusions": [
+        "HarJel III"
+      ],
+      "Excluder": "HarJel II"
+    }
   },
   "HarJel III": {
     "ActualName": "HarJel III Self-Repair System",
@@ -2823,7 +2884,13 @@
     },
     "BattleForceAbilities": [
       ""
-    ]
+    ],
+    "Exclusions": {
+      "Exclusions": [
+        "HarJel II"
+      ],
+      "Excluder": "HarJel III"
+    }
   },
   "TAG": {
     "ActualName": "Target Acquisition Gear",
@@ -3481,7 +3548,20 @@
     },
     "BattleForceAbilities": [
       "ENG"
-    ]
+    ],
+    "Exclusions": {
+      "Exclusions": [
+        "Backhoe",
+        "Chainsaw",
+        "Combine",
+        "Dual Saw",
+        "Heavy Duty Pile-Driver",
+        "Mining Drill",
+        "Rock Cutter",
+        "Wrecking Ball"
+      ],
+      "Excluder": "Bulldozer"
+    }
   },
   "Fluid Suction System, Standard": {
     "ActualName": "Fluid Suction System, Standard",
@@ -7053,6 +7133,12 @@
     },
     "BattleForceAbilities": [
       "-"
-    ]
+    ],
+    "Exclusions": {
+      "Exclusions": [
+        "Coolant Pod"
+      ],
+      "Excluder": "Radical Heat Sink"
+    }
   }
 }
