@@ -4944,57 +4944,57 @@ public boolean IsTripod(){
                 } else {
                     test = (abPlaceable) Queue.get( j );
                 }
-                if( test.CritName().contains( exclude[i] ) ) {
-                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + ((abPlaceable) Queue.get( j )).CritName() );
+                if( test.CritName().equals( exclude[i] ) ) {
+                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + test.CritName() );
                 }
             }
             // check the loadout proper
             for( int j = 0; j < 6; j++ ) {
-                if( HDCrits[j].CritName().contains( exclude[i] ) ) {
+                if( HDCrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + HDCrits[j].CritName() );
                 }
-                if( CTCrits[j].CritName().contains( exclude[i] ) ) {
+                if( CTCrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + CTCrits[j].CritName() );
                 }
-                if( LTCrits[j].CritName().contains( exclude[i] ) ) {
+                if( LTCrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + LTCrits[j].CritName() );
                 }
-                if( RTCrits[j].CritName().contains( exclude[i] ) ) {
+                if( RTCrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + RTCrits[j].CritName() );
                 }
-                if( LACrits[j].CritName().contains( exclude[i] ) ) {
+                if( LACrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + LACrits[j].CritName() );
                 }
-                if( RACrits[j].CritName().contains( exclude[i] ) ) {
+                if( RACrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + RACrits[j].CritName() );
                 }
-                if( LLCrits[j].CritName().contains( exclude[i] ) ) {
+                if( LLCrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + LLCrits[j].CritName() );
                 }
-                if( RLCrits[j].CritName().contains( exclude[i] ) ) {
+                if( RLCrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + RLCrits[j].CritName() );
                 }
             }
             for( int j = 6; j < 12; j++ ) {
-                if( CTCrits[j].CritName().contains( exclude[i] ) ) {
+                if( CTCrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + CTCrits[j].CritName() );
                 }
-                if( LTCrits[j].CritName().contains( exclude[i] ) ) {
+                if( LTCrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + LTCrits[j].CritName() );
                 }
-                if( RTCrits[j].CritName().contains( exclude[i] ) ) {
+                if( RTCrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + RTCrits[j].CritName() );
                 }
-                if( LACrits[j].CritName().contains( exclude[i] ) ) {
+                if( LACrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + LACrits[j].CritName() );
                 }
-                if( RACrits[j].CritName().contains( exclude[i] ) ) {
+                if( RACrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + RACrits[j].CritName() );
                 }
             }
             // special addition for a targeting computer that is not in the loadout yet
             if( Use_TC ) {
-                if( CurTC.CritName().contains( exclude[i] ) ) {
+                if( CurTC.CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + CurTC.CritName() );
                 }
             }

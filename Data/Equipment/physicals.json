@@ -1260,7 +1260,22 @@
     "BattleForceAbilities": [
       "MEL",
       "SHLD"
-    ]
+    ],
+    "Modifier": {
+      "WalkAdd": -1,
+      "RunAdd": 0,
+      "JumpAdd": 0,
+      "RunMult": 0,
+      "PilotMod": 0,
+      "GunneryMod": 0,
+      "HeatAdd": 0,
+      "DefBonus": 0,
+      "MinDefBonus": 0,
+      "ArmorMult": 0,
+      "IntMult": 0,
+      "BVMovement": true,
+      "BVHeatMod": false
+    }
   },
   "Large Shield": {
     "ActualName": "Large Shield",
@@ -1351,7 +1366,22 @@
     "BattleForceAbilities": [
       "MEL",
       "SHLD"
-    ]
+    ],
+    "Modifier": {
+      "WalkAdd": -1,
+      "RunAdd": 0,
+      "JumpAdd": 0,
+      "RunMult": 0,
+      "PilotMod": 0,
+      "GunneryMod": 0,
+      "HeatAdd": 0,
+      "DefBonus": 0,
+      "MinDefBonus": 0,
+      "ArmorMult": 0,
+      "IntMult": 0,
+      "BVMovement": true,
+      "BVHeatMod": false
+    }
   },
   "Backhoe": {
     "ActualName": "Backhoe",
