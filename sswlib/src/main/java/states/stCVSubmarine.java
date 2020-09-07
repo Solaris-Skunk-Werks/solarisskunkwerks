@@ -70,10 +70,6 @@ public class stCVSubmarine implements ifCombatVehicle {
         return true;
     }
 
-    public boolean IsVTOL() {
-        return false;
-    }
-
     public boolean CanBeDuneBuggy() {
         return false;
     }

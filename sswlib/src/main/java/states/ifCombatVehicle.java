@@ -39,7 +39,8 @@ public interface ifCombatVehicle {
     public int GetCostMultiplier();
     public double GetDefensiveMultiplier();
     public boolean RequiresLiftEquipment();
-    public boolean IsVTOL();
+    default boolean IsVTOL() { return false; }
+    default boolean IsWIGE() { return false; }
     public boolean CanBeTrailer();
     public boolean CanBeDuneBuggy();
     public boolean CanUseJumpMP();
