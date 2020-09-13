@@ -305,6 +305,10 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     public boolean IsVTOL() {
         return getCurConfig().IsVTOL();
     }
+
+    public boolean IsWIGE() {
+        return getCurConfig().IsWIGE();
+    }
     
     public boolean IsNaval() {
         return ( (CurConfig instanceof stCVDisplacement) || 
@@ -2139,8 +2143,8 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         // Get the defensive factors for jumping and running movement
         double ground = DefensiveFactor[RunMP];
         
-        //VTOL's get an extra .1
-        if ( IsVTOL() ) ground += .1;
+        //VTOL's and WiGEs get an extra .1
+        if ( IsVTOL() || IsWIGE() ) ground += .1;
         
         //Stealth Armor gets an extra .2
         if ( GetArmor().IsStealth() ) ground += .2;

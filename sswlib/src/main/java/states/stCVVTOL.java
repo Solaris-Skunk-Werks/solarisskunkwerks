@@ -76,6 +76,7 @@ public class stCVVTOL implements ifCombatVehicle {
         return false;
     }
 
+    @Override
     public boolean IsVTOL() {
         return true;
     }

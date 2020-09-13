@@ -90,10 +90,6 @@ public class stCVHydrofoil implements ifCombatVehicle {
         return true;
     }
 
-    public boolean IsVTOL() {
-        return false;
-    }
-
     public boolean CanBeDuneBuggy() {
         return false;
     }
