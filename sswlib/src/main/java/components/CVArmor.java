@@ -1016,7 +1016,7 @@ public class CVArmor extends abPlaceable {
     }
 
     public double GetDefensiveBV() {
-        return ( GetArmorValue() + GetModularArmorValue() ) * 2.5;
+        return ( GetArmorValue() + GetModularArmorValue() ) * GetBVTypeMult() * 2.5;
     }
 
     public int GetBAR() {

@@ -26,6 +26,7 @@ public class frmMain
 {
   private JButton btnCancel;
   private JButton btnConvert;
+  private JButton btnJson;
   private JButton btnSetSource;
   private ButtonGroup grpType;
   private JLabel jLabel1;
@@ -55,6 +56,7 @@ public class frmMain
     this.jPanel2 = new JPanel();
     this.btnConvert = new JButton();
     this.btnCancel = new JButton();
+    this.btnJson = new JButton();
     this.jPanel3 = new JPanel();
     this.jLabel2 = new JLabel();
     this.jScrollPane1 = new JScrollPane();
@@ -86,6 +88,14 @@ public class frmMain
     this.jPanel1.add(this.btnSetSource);
     
     getContentPane().add(this.jPanel1, new GridBagConstraints());
+
+    this.btnJson.setText("JSON");
+    this.btnJson.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+        frmMain.this.btnJsonActionPerformed(evt);
+      }
+    });
+    this.jPanel2.add(this.btnJson);
     
     this.btnConvert.setText("Convert");
     this.btnConvert.addActionListener(new ActionListener() {
@@ -166,7 +176,7 @@ public class frmMain
   
   private void btnSetSourceActionPerformed(ActionEvent evt) {
     Media media = new Media();
-    File file = media.SelectFile("", "csv", "Select");
+    File file = media.SelectFile("", "csv,dat", "Select");
     String name = "";
     try {
       name = file.getCanonicalPath();
@@ -180,15 +190,16 @@ public class frmMain
       msg = msg + e.toString();
       this.txtLog.setText(msg);
       return;
-    } 
-    if (!name.endsWith(".csv")) {
-      Media.Messager("Binary Conversion can only work with semicolon-delimited files.\nPlease choose an appropriate CSV file.");
-      return;
-    } 
+    }
     this.txtSource.setText(name);
   }
   
   private void btnConvertActionPerformed(ActionEvent evt) {
+    if (!txtSource.getText().endsWith(".csv")) {
+      Media.Messager("Binary Conversion can only work with semicolon-delimited files.\nPlease choose an appropriate CSV file.");
+      return;
+    }
+
     BinaryConverter bc = new BinaryConverter();
     if (this.rdoWeapons.isSelected()) {
       bc.ConvertRangedWeaponsCSVtoBin(this.txtSource.getText(), this.txtSource.getText().replace(".csv", ".dat"), ";");
@@ -204,6 +215,25 @@ public class frmMain
     this.txtLog.setText(bc.GetMessages());
   }
 
-  
+  private void btnJsonActionPerformed(ActionEvent evt) {
+    if (!txtSource.getText().endsWith(".dat")) {
+      Media.Messager("JSON Conversion can only work with binary files.\nPlease choose an appropriate .dat file.");
+      return;
+    }
+    BinaryConverter bc = new BinaryConverter();
+    if (this.rdoWeapons.isSelected()) {
+      bc.ConvertRangedWeaponsBintoJson(this.txtSource.getText());
+    } else if (this.rdoPhysicals.isSelected()) {
+      bc.ConvertPhysicalWeaponsBintoJson(this.txtSource.getText());
+    } else if (this.rdoEquipment.isSelected()) {
+      bc.ConvertEquipmentBintoJson(this.txtSource.getText());
+    } else if (this.rdoAmmo.isSelected()) {
+      bc.ConvertAmmunitionBintoJson(this.txtSource.getText());
+    } else if (this.rdoQuirks.isSelected()) {
+      bc.ConvertQuirksBintoJson(this.txtSource.getText());
+    }
+    this.txtLog.setText(bc.GetMessages());
+  }
+
   private void btnCancelActionPerformed(ActionEvent evt) { dispose(); }
 }

@@ -281,6 +281,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuReloadEquipment">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Reload Equipment"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuReloadEquipmentActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuHelp">
@@ -1077,16 +1085,18 @@
                 <Component class="javax.swing.JComboBox" name="cmbProductionEra">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="9">
+                      <StringArray count="11">
                         <StringItem index="0" value="Age of War"/>
                         <StringItem index="1" value="Star League"/>
                         <StringItem index="2" value="Early Succession War"/>
-                        <StringItem index="3" value="Late Succession War"/>
-                        <StringItem index="4" value="Clan Invasion"/>
-                        <StringItem index="5" value="Civil War"/>
-                        <StringItem index="6" value="Jihad"/>
-                        <StringItem index="7" value="Republic"/>
-                        <StringItem index="8" value="Dark Ages"/>
+                        <StringItem index="3" value="LSW - LosTech"/>
+                        <StringItem index="4" value="LSW - Renaissance"/>
+                        <StringItem index="5" value="Clan Invasion"/>
+                        <StringItem index="6" value="Civil War"/>
+                        <StringItem index="7" value="Jihad"/>
+                        <StringItem index="8" value="Early Republic"/>
+                        <StringItem index="9" value="Late Republic"/>
+                        <StringItem index="10" value="Dark Ages"/>
                       </StringArray>
                     </Property>
                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -1643,6 +1653,7 @@
                               <Component id="chkMinesweeper" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="chkCommandConsole" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="chkEscapePod" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="chkSponsonTurret" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -1662,6 +1673,8 @@
                           <Component id="chkJetBooster" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="chkEscapePod" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="chkSponsonTurret" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1688,6 +1701,9 @@
                       <ComponentRef name="chkFractional"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkEscapePodActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chkMinesweeper">
                   <Properties>
@@ -1708,6 +1724,18 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkSuperchargerActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkSponsonTurret">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Sponson Turret"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="chkFractional"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkSponsonTurretActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -2271,7 +2299,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel26">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Sponsoons:"/>
+                    <Property name="text" type="java.lang.String" value="Sponsons:"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">

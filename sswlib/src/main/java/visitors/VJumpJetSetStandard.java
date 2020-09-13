@@ -44,7 +44,7 @@ public class VJumpJetSetStandard implements ifVisitor {
         // Just pass us off to the jump jets
         CurMech = m;
         JumpJetFactory j = CurMech.GetJumpJets();
-        if( j.IsImproved() || j.IsUMU() ) {
+        if( j.IsImproved() || j.IsUMU() || j.IsProto()) {
             j.SetNormal();
 
             // now let's blow out the jump jets and recalculate

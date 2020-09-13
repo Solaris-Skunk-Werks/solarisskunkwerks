@@ -2,6 +2,11 @@ plugins {
     id 'application'
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile project(':sswlib')
@@ -15,7 +20,7 @@ application {
 jar {
     manifest.attributes (
             'Main-Class' : 'saw.Main',
-            'Class-Path' : 'lib/sswlib.jar lib/AbsoluteLayout-RELEASE110.jar'
+            'Class-Path' : 'lib/sswlib.jar lib/AbsoluteLayout-RELEASE110.jar lib/gson-2.8.6.jar'
     )
     jar.archiveName = "SAW.jar"
 }

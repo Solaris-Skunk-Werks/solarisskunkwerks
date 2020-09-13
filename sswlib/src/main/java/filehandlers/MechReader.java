@@ -1744,6 +1744,54 @@ public class MechReader {
         } else {
             m.SetAdditional( FileCommon.DecodeFluff( n.item( 0 ).getTextContent() ) );
         }
+        n = d.getElementsByTagName( "quirks" );
+        if (n.getLength() != 0) {
+            ArrayList<Quirk> quirks = new ArrayList<Quirk>();
+            NodeList quirkList = n.item( 0 ).getChildNodes();
+            for( int i = 0; i < quirkList.getLength(); i++ ) {
+                if (quirkList.item(i).getNodeName().equals("quirk")) {
+                    Node nodeQuirk = quirkList.item(i);
+                    map = nodeQuirk.getAttributes();
+
+                    boolean postive = Boolean.parseBoolean(map.getNamedItem("postive").getTextContent());
+                    boolean battlemech = Boolean.parseBoolean(map.getNamedItem("battlemech").getTextContent());
+                    boolean industrialmech = Boolean.parseBoolean(map.getNamedItem("industrialmech").getTextContent());
+                    boolean combatvehicle = Boolean.parseBoolean(map.getNamedItem("combatvehicle").getTextContent());
+                    boolean battlearmor = Boolean.parseBoolean(map.getNamedItem("battlearmor").getTextContent());
+                    boolean aerospacefighter = Boolean.parseBoolean(map.getNamedItem("aerospacefighter").getTextContent());
+                    boolean conventionalfighter = Boolean.parseBoolean(map.getNamedItem("conventionalfigher").getTextContent());
+                    boolean dropship = Boolean.parseBoolean(map.getNamedItem("dropship").getTextContent());
+                    boolean jumpship = Boolean.parseBoolean(map.getNamedItem("jumpship").getTextContent());
+                    boolean warship = Boolean.parseBoolean(map.getNamedItem("warship").getTextContent());
+                    boolean spacestation = Boolean.parseBoolean(map.getNamedItem("spacestation").getTextContent());
+                    boolean protomech = Boolean.parseBoolean(map.getNamedItem("protomech").getTextContent());
+                    boolean isvariable = Boolean.parseBoolean(map.getNamedItem("isvariable").getTextContent());
+                    String name = null;
+                    String description = null;
+                    int cost = 0;
+                    if (nodeQuirk != null) {
+                        NodeList items = nodeQuirk.getChildNodes();
+                        for (int w = 0; w < items.getLength(); w++) {
+                            if (items.item(w).getNodeName().equals("Name")) {
+                                name = items.item(w).getTextContent();
+                            }
+                            else if (items.item(w).getNodeName().equals("Cost")) {
+                                cost = Integer.parseInt(items.item(w).getTextContent());
+                            }
+                            else if (items.item(w).getNodeName().equals("Description")) {
+                                description = items.item(w).getTextContent();
+                            }
+                        }
+                        if (name != null && description != null && cost != 0)
+                        {
+                            quirks.add(new Quirk(name, postive, cost, battlemech, industrialmech, combatvehicle, battlearmor, aerospacefighter, conventionalfighter,dropship,
+                                                 jumpship, warship, spacestation, protomech, isvariable, description));
+                        }
+                    }
+                }
+            }
+            m.SetQuirks(quirks);
+        }
         n = d.getElementsByTagName( "jumpjet_model" );
         if( n.item( 0 ).getTextContent() == null ) {
             m.SetJJModel( "" );

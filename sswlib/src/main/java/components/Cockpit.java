@@ -35,6 +35,7 @@ public class Cockpit extends abPlaceable {
                             InterfaceCockpit = new stCockpitInterface(),
                             SmallCockpit = new stCockpitSmall(),
                             TorsoCockpit = new stCockpitTorsoMount(),
+                            VirtualRealityPilotingPod = new stCockpitVirtualRealityPilotingPod(),
                             Primitive = new stCockpitISPrimitive(),
                             IndustrialCockpit = new stCockpitIndustrial(),
                             IndusAFCCockpit = new stCockpitIndustrialAFC(),
@@ -87,6 +88,10 @@ public class Cockpit extends abPlaceable {
 
     public void SetTorsoMount() {
         CurConfig = TorsoCockpit;
+    }
+    
+    public void SetVirtualRealityPilotingPod(){
+        CurConfig = VirtualRealityPilotingPod;
     }
 
     public void SetRobotic() {
@@ -178,6 +183,16 @@ public class Cockpit extends abPlaceable {
             }
         }
 
+        // Do we have a third Life Support Location?
+        if( CurConfig.HasThirdLifeSupport() ) {
+            try {
+                loc = CurConfig.GetThirdLSLoc();
+                l.AddTo( CurConfig.GetThirdLifeSupport(), loc.Location, loc.Index );
+            } catch( Exception e ) {
+                return false;
+            }
+        }
+        
         return true;
     }
 
@@ -250,6 +265,20 @@ public class Cockpit extends abPlaceable {
                 return false;
             }
         }
+        
+        // Do we have a third Life Support Location?
+        if( CurConfig.HasThirdLifeSupport() ) {
+            try {
+                if( locs[1] == null ) {
+                    loc = CurConfig.GetThirdLSLoc();
+                    l.AddTo( CurConfig.GetThirdLifeSupport(), loc.Location, loc.Index );
+                } else {
+                    l.AddTo( CurConfig.GetThirdLifeSupport(), locs[1].Location, locs[1].Index );
+                }
+            } catch( Exception e ) {
+                return false;
+            }
+        }
 
         return true;
     }
@@ -264,6 +293,9 @@ public class Cockpit extends abPlaceable {
         l.Remove( this );
         if( CurConfig.HasThirdSensors() ) {
             l.Remove( CurConfig.GetThirdSensors() );
+        }
+        if( CurConfig.HasThirdLifeSupport() ) {
+            l.Remove( CurConfig.GetThirdLifeSupport() );
         }
     }
 
@@ -370,6 +402,11 @@ public class Cockpit extends abPlaceable {
                     result += 5.0;
             }
         }
+        if( CurConfig.HasThirdLifeSupport() ) {
+            if( CurConfig.GetThirdLifeSupport().IsArmored() ) {
+                    result += 5.0;
+            }
+        }
         return result;
     }
 
@@ -391,6 +428,7 @@ public class Cockpit extends abPlaceable {
             (ifState) StandardCockpit, 
             (ifState) SmallCockpit,
             (ifState) TorsoCockpit, 
+            (ifState) VirtualRealityPilotingPod,
             (ifState) IndustrialCockpit, 
             (ifState) IndusAFCCockpit,
             (ifState) InterfaceCockpit, 
@@ -410,6 +448,16 @@ public class Cockpit extends abPlaceable {
         return ( CurConfig instanceof stCockpitRobotic ) ? true : false;
     }
 
+    public boolean HasThirdSensors()
+    {
+        return CurConfig.HasThirdSensors();
+    }
+    
+    public boolean HasThirdLifeSupport()
+    {
+        return CurConfig.HasThirdLifeSupport();
+    }
+    
     // the following 3 methods provided for the torso-mounted cockpit for saving
     public SimplePlaceable GetFirstSensors() {
         return CurConfig.GetSensors();
@@ -430,6 +478,11 @@ public class Cockpit extends abPlaceable {
     public SimplePlaceable GetSecondLS() {
         return CurConfig.GetSecondLifeSupport();
     }
+    
+    public SimplePlaceable GetThirdLS() {
+        return CurConfig.GetThirdLifeSupport();
+    }
+
 
     @Override
     public boolean CoreComponent() {

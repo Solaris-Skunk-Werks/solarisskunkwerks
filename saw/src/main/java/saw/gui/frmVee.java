@@ -87,6 +87,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     VSetArmorTonnage ArmorTons;
     private final AvailableCode PPCCapAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final AvailableCode LIAC = new AvailableCode( AvailableCode.TECH_BOTH );
+    private final AvailableCode PulseModuleAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final AvailableCode CaselessAmmoAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
     private ImageTracker imageTracker = new ImageTracker();
@@ -109,6 +110,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     JMenuItem mnuArmorComponent = new JMenuItem( "Armor Component" );
     JMenuItem mnuAddCapacitor = new JMenuItem( "Add Capacitor" );
     JMenuItem mnuAddInsulator = new JMenuItem( "Add Insulator" );
+    JMenuItem mnuAddPulseModule = new JMenuItem( "Add RISC Pulse Module" );
     JMenuItem mnuCaseless = new JMenuItem( "Switch to Caseless" );
     JMenuItem mnuTurret = new JMenuItem( "Add to Turret" );
     JMenuItem mnuSelective = new JMenuItem( "Selective Allocate" );
@@ -176,6 +178,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         LIAC.SetPBMAllowed( true );
         LIAC.SetPIMAllowed( true );
         LIAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        PulseModuleAC.SetISCodes( 'F', 'X', 'X', 'X', 'F' );
+        PulseModuleAC.SetISDates( 3134, 3137, true, 3137, 3140, 0, true, false );
+        PulseModuleAC.SetISFactions( "RS", "RS", "RS", "" );
+        PulseModuleAC.SetPBMAllowed( true );
+        PulseModuleAC.SetPIMAllowed( true );
+        PulseModuleAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
         CaselessAmmoAC.SetISCodes( 'D', 'X', 'X', 'E', 'D' );
         CaselessAmmoAC.SetISDates( 3055, 3056, true, 3079, 0, 0, false, false );
         CaselessAmmoAC.SetISFactions( "FC", "FC", "", "" );
@@ -241,6 +249,13 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 LaserInsulator();
             }
         });
+        
+        mnuAddPulseModule.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                PulseModule();
+            }
+        });
+
 
         mnuDumper.addActionListener( new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -325,6 +340,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         mnuUtilities.add( mnuSetLotSize );
         mnuUtilities.add( mnuAddCapacitor );
         mnuUtilities.add( mnuAddInsulator );
+        mnuUtilities.add( mnuAddPulseModule );
         mnuUtilities.add( mnuCaseless );
         mnuUtilities.add( mnuVGLArc );
         mnuUtilities.add( mnuVGLAmmo );
@@ -336,6 +352,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         mnuArmorComponent.setVisible( false );
         mnuAddCapacitor.setVisible( false );
         mnuAddInsulator.setVisible( false );
+        mnuAddPulseModule.setVisible( false );
         mnuTurret.setVisible( false );
         mnuCaseless.setVisible( false );
         mnuVGLArc.setVisible( false );
@@ -540,6 +557,42 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshInfoPane();
         RefreshSelectedEquipment();
     }
+    
+    private void PulseModule() {
+        // if the current item can support a Pulse Module, adds one on
+        if( CurItem instanceof RangedWeapon ) {
+            if( ((RangedWeapon) CurItem).IsUsingPulseModule()) {
+                abPlaceable p = ((RangedWeapon) CurItem).GetPulseModule();
+                ((RangedWeapon) CurItem).UsePulseModule(false );
+                CurVee.GetLoadout().Remove( p );
+            } else {
+                ((RangedWeapon) CurItem).UsePulseModule( true );
+                abPlaceable p = ((RangedWeapon) CurItem).GetPulseModule();
+                LocationIndex Loc = CurVee.GetLoadout().FindIndex( CurItem );
+                if( Loc.Location != -1 ) {
+                    try {
+                        CurVee.GetLoadout().Remove(CurItem);
+                        CurVee.GetLoadout().AddTo( CurItem, Loc.Location );
+                    } catch( Exception e ) {
+                        // couldn't allocate the insulator?  Unallocate the PPC.
+                        try {
+                            CurVee.GetLoadout().UnallocateAll( CurItem, false );
+                            // remove the insulator if it's in the queue
+                            //if( CurVee.GetLoadout().QueueContains( p ) ) {
+                            //    CurVee.GetLoadout().GetQueue().remove( p );
+                            //}
+                        } catch( Exception e1 ) {
+                            // failed big.  no problem
+                            Media.Messager( this, "Fatal error adding a Laser Insulator:\n" + e.getMessage() + "\nThe Insulator will be removed." );
+                            ((RangedWeapon) CurItem).UseInsulator( false );
+                        }
+                    }
+                }
+            }
+        }
+        RefreshInfoPane();
+        RefreshSelectedEquipment();
+    }
 
     private void DumperMount() {
         if ( CurItem instanceof Equipment ) {
@@ -694,18 +747,21 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // configures the utilities popup menu
         boolean cap = LegalCapacitor( CurItem ) && CommonTools.IsAllowed( PPCCapAC, CurVee );
         boolean insul = LegalInsulator( CurItem ) && CommonTools.IsAllowed( LIAC, CurVee );
+        boolean pulseModule = LegalPulseModule(CurItem) && CommonTools.IsAllowed( PulseModuleAC, CurVee );
         boolean caseless = LegalCaseless( CurItem ) && CommonTools.IsAllowed( CaselessAmmoAC, CurVee );
         boolean lotchange = LegalLotChange( CurItem );
         boolean dumper = LegalDumper( CurItem );
         mnuAddCapacitor.setEnabled( cap );
         mnuAddInsulator.setEnabled( insul );
+        mnuAddPulseModule.setEnabled(pulseModule);
         mnuCaseless.setEnabled( caseless );
         mnuAddCapacitor.setVisible( cap );
         mnuAddInsulator.setVisible( insul );
+        mnuAddPulseModule.setVisible(pulseModule);
         mnuCaseless.setVisible( caseless );
         mnuSetLotSize.setVisible( lotchange );
         mnuDumper.setVisible( dumper );
-        if( cap || insul || caseless ) {
+        if( cap || insul || caseless || pulseModule ) {
             if( CurItem instanceof RangedWeapon ) {
                 if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
                     mnuAddCapacitor.setText( "Remove Capacitor" );
@@ -716,6 +772,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                     mnuAddInsulator.setText( "Remove Insulator" );
                 } else {
                     mnuAddInsulator.setText( "Add Insulator" );
+                }
+                if( ((RangedWeapon) CurItem).IsUsingPulseModule()) {
+                    mnuAddPulseModule.setText( "Remove RISC Pulse Module" );
+                } else {
+                    mnuAddPulseModule.setText( "Add RISC Pulse Module" );
                 }
                 if( ((RangedWeapon) CurItem).IsCaseless() ) {
                     mnuCaseless.setText( "Switch from Caseless" );
@@ -788,6 +849,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     public boolean LegalInsulator( abPlaceable p ) {
         if( ! ( p instanceof RangedWeapon ) ) { return false; }
         return ((RangedWeapon) p).CanUseInsulator();
+    }
+
+    public boolean LegalPulseModule( abPlaceable p ) {
+        if( ! ( p instanceof RangedWeapon ) ) { return false; }
+        return ((RangedWeapon) p).CanUsePulseModule();
     }
 
     public boolean LegalCaseless( abPlaceable p ) {
@@ -1064,6 +1130,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkMinesweeper = new javax.swing.JCheckBox();
         chkJetBooster = new javax.swing.JCheckBox();
         chkSupercharger = new javax.swing.JCheckBox();
+        chkSponsonTurret = new javax.swing.JCheckBox();
         jPanel11 = new javax.swing.JPanel();
         chkFractional = new javax.swing.JCheckBox();
         pnlSummary = new javax.swing.JPanel();
@@ -1385,6 +1452,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         jSeparator30 = new javax.swing.JSeparator();
         mnuUnlock = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        mnuReloadEquipment = new javax.swing.JMenuItem();
         mnuHelp = new javax.swing.JMenu();
         mnuCredits = new javax.swing.JMenuItem();
         mnuAboutSSW = new javax.swing.JMenuItem();
@@ -1692,7 +1760,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtProdYear.setMinimumSize(new java.awt.Dimension(60, 20));
         txtProdYear.setPreferredSize(new java.awt.Dimension(60, 20));
 
-        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "Late Succession War", "Clan Invasion", "Civil War", "Jihad", "Republic", "Dark Ages" }));
+        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "LSW - LosTech", "LSW - Renaissance", "Clan Invasion", "Civil War", "Jihad", "Early Republic", "Late Republic", "Dark Ages" }));
         cmbProductionEra.setMaximumSize(new java.awt.Dimension(90, 20));
         cmbProductionEra.setMinimumSize(new java.awt.Dimension(90, 20));
         cmbProductionEra.setPreferredSize(new java.awt.Dimension(90, 20));
@@ -2169,6 +2237,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkEscapePod.setText("Combat Vehicle Escape Pod");
         chkEscapePod.setEnabled(false);
         chkEscapePod.setNextFocusableComponent(chkFractional);
+        chkEscapePod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkEscapePodActionPerformed(evt);
+            }
+        });
 
         chkMinesweeper.setText("Minesweeper");
         chkMinesweeper.setEnabled(false);
@@ -2184,6 +2257,15 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
         });
 
+        chkSponsonTurret.setText("Sponson Turret");
+        chkSponsonTurret.setEnabled(false);
+        chkSponsonTurret.setNextFocusableComponent(chkFractional);
+        chkSponsonTurret.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSponsonTurretActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlExperimentalLayout = new javax.swing.GroupLayout(pnlExperimental);
         pnlExperimental.setLayout(pnlExperimentalLayout);
         pnlExperimentalLayout.setHorizontalGroup(
@@ -2195,7 +2277,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                     .addComponent(chkJetBooster)
                     .addComponent(chkMinesweeper)
                     .addComponent(chkCommandConsole)
-                    .addComponent(chkEscapePod))
+                    .addComponent(chkEscapePod)
+                    .addComponent(chkSponsonTurret))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlExperimentalLayout.setVerticalGroup(
@@ -2212,6 +2295,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 .addComponent(chkJetBooster)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkEscapePod)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkSponsonTurret)
                 .addContainerGap())
         );
 
@@ -2554,7 +2639,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlSummary.add(txtSumRTuAV, gridBagConstraints);
 
-        jLabel26.setText("Sponsoons:");
+        jLabel26.setText("Sponsons:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
@@ -4841,7 +4926,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
         });
 
-        mnuNewMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK));
+        mnuNewMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuNewMech.setText("New");
         mnuNewMech.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4850,7 +4935,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         });
         mnuFile.add(mnuNewMech);
 
-        mnuLoad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
+        mnuLoad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuLoad.setText("Load");
         mnuLoad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4859,7 +4944,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         });
         mnuFile.add(mnuLoad);
 
-        mnuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
+        mnuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuOpen.setText("Open");
         mnuOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4889,7 +4974,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         mnuFile.add(mnuImport);
         mnuFile.add(jSeparator22);
 
-        mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
+        mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuSave.setText("Save");
         mnuSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4898,7 +4983,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         });
         mnuFile.add(mnuSave);
 
-        mnuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuSaveAs.setText("Save As...");
         mnuSaveAs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4955,7 +5040,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         mnuPrint.setText("Print");
         mnuFile.add(mnuPrint);
 
-        mnuPrintPreview.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuPrintPreview.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuPrintPreview.setText("Print Preview");
         mnuPrintPreview.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4964,7 +5049,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         });
         mnuFile.add(mnuPrintPreview);
 
-        mnuPostS7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
+        mnuPostS7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuPostS7.setText("Post to Solaris7.com");
         mnuPostS7.setEnabled(false);
         mnuPostS7.addActionListener(new java.awt.event.ActionListener() {
@@ -4975,7 +5060,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         mnuFile.add(mnuPostS7);
         mnuFile.add(jSeparator24);
 
-        mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK));
+        mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuExit.setText("Exit");
         mnuExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4988,7 +5073,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         mnuClearFluff.setText("Tools");
 
-        mnuSummary.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
+        mnuSummary.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuSummary.setText("Show Summary");
         mnuSummary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -5023,7 +5108,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         mnuClearFluff.add(mnuBFB);
         mnuClearFluff.add(jSeparator27);
 
-        mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
+        mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuOptions.setText("Preferences");
         mnuOptions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -5032,7 +5117,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         });
         mnuClearFluff.add(mnuOptions);
 
-        mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
+        mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuViewToolbar.setSelected(true);
         mnuViewToolbar.setText("View Toolbar");
         mnuViewToolbar.addActionListener(new java.awt.event.ActionListener() {
@@ -5067,6 +5152,14 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
         });
         mnuClearFluff.add(jMenuItem1);
+
+        mnuReloadEquipment.setText("Reload Equipment");
+        mnuReloadEquipment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuReloadEquipmentActionPerformed(evt);
+            }
+        });
+        mnuClearFluff.add(mnuReloadEquipment);
 
         jMenuBar1.add(mnuClearFluff);
 
@@ -5136,6 +5229,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtTurretInfo.setText("Turret: " + CurVee.GetLoadout().GetTurret().GetTonnage() );
         txtSumRTuTons.setText("" + CurVee.GetLoadout().GetRearTurret().GetTonnage() );
         txtSumRTuAV.setText( CurVee.GetLoadout().GetRearTurret().GetAvailability().GetBestCombinedCode() );
+        txtSumSpnTons.setText("" + CurVee.GetLoadout().GetSponsonTurretTonnage() );
         lblFreeHeatSinks.setText("" + CurVee.GetEngine().FreeHeatSinks() );
         lblNumCrew.setText("" + CurVee.GetCrew() );
 
@@ -5292,7 +5386,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         ArrayList locs = new ArrayList();
         locs.add("Front");
         locs.add("Left");
+        if ( CurVee.isHasSponsonTurret() )
+            locs.add("Left Sponson Turret");
         locs.add("Right");
+        if ( CurVee.isHasSponsonTurret() )
+            locs.add("Right Sponson Turret");
         locs.add("Rear");
         locs.add("Body");
         if ( CurVee.isHasTurret1() )
@@ -5499,6 +5597,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             BuildChassisSelector();
             BuildEngineSelector();
             BuildArmorSelector();
+            BuildExpEquipmentSelector();
             FixMPSpinner();
             FixJJSpinnerModel();
             RefreshEquipment();
@@ -5547,7 +5646,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private void BuildTurretSelector()
     {
         ArrayList list = new ArrayList();
-        String curTurret = cmbTurret.getSelectedItem().toString();
 
         if ( !CurVee.IsOmni())
             cmbTurret.setEnabled(true);
@@ -5555,7 +5653,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         list.add("No Turret");
         if ( CurVee.CanUseTurret() ) list.add("Single Turret");
         if ( CurVee.CanUseDualTurret() ) list.add("Dual Turret");
-        if ( CurVee.CanUseSponsoon() ) list.add("Sponson Turret");
 
         if ( list.isEmpty() ) {
             list.add("No Turret Allowed");
@@ -5570,8 +5667,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // now set the turret chooser
         cmbTurret.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
-
-        cmbTurret.setSelectedItem(curTurret);
+        if (CurVee.isHasTurret2())
+            cmbTurret.setSelectedItem("Dual Turret");
+        else if (CurVee.isHasTurret1())
+            cmbTurret.setSelectedItem("Single Turret");
+        else
+            cmbTurret.setSelectedItem("No Turret");
     }
 
     private void BuildChassisSelector()
@@ -5611,6 +5712,24 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             chkDuneBuggy.setEnabled(false);
             chkEnviroSealing.setEnabled(false);
         }
+    }
+    
+    private void BuildExpEquipmentSelector() {
+        JCheckBox[] ExpEquipmentCheckboxes = { chkArmoredMotive,
+                                               chkSupercharger,
+                                               chkCommandConsole,
+                                               chkMinesweeper,
+                                               chkJetBooster,
+                                               chkEscapePod,
+                                               chkSponsonTurret };
+        if (cmbRulesLevel.getSelectedIndex() > 1) {
+            if (CurVee.CanUseSponson())
+                chkSponsonTurret.setEnabled(true);
+        } else
+            for (JCheckBox item : ExpEquipmentCheckboxes) {
+                item.setSelected(false);
+                item.setEnabled(false);
+            }
     }
 
     private void cmbMotiveTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMotiveTypeActionPerformed
@@ -5784,6 +5903,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                         lblInfoHeat.setText( w.GetHeat() + "*" );
                     } else if( ((RangedWeapon) w).IsUsingInsulator() ) {
                         lblInfoHeat.setText( w.GetHeat() + " (I)" );
+                    } else if( ((RangedWeapon) w).IsUsingPulseModule() ) {
+                        lblInfoHeat.setText( w.GetHeat() + "*" );
                     } else {
                         lblInfoHeat.setText( "" + w.GetHeat() );
                     }
@@ -6785,6 +6906,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         BuildChassisSelector();
         BuildEngineSelector();
         BuildArmorSelector();
+        BuildExpEquipmentSelector();
         CheckOmni();
         //cmbEngineType.setSelectedItem( saw.Constants.DEFAULT_ENGINE );
         //cmbArmorType.setSelectedItem( saw.Constants.DEFAULT_ARMOR );
@@ -8774,6 +8896,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         BuildEngineSelector();
         BuildArmorSelector();
         BuildTurretSelector();
+        BuildExpEquipmentSelector();
+        if (CurVee.isHasSponsonTurret())
+            chkSponsonTurret.setSelected(true);
         cmbEngineType.setSelectedItem( BuildLookupName( CurVee.GetEngine().GetCurrentState() ) );
         cmbArmorType.setSelectedItem( BuildLookupName( CurVee.GetArmor().GetCurrentState() ) );
         SetPatchworkArmor();
@@ -9649,6 +9774,31 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             btnAddEquipActionPerformed(null);
     }//GEN-LAST:event_cmbLocationMouseClicked
 
+    private void chkSponsonTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSponsonTurretActionPerformed
+        if (chkSponsonTurret.isSelected())
+            CurVee.setHasSponsonTurret(true);
+        else
+            CurVee.setHasSponsonTurret(false);
+        RefreshSelectedEquipment();
+        BuildLocationSelector();
+        RefreshSummary();
+        RefreshInfoPane();
+    }//GEN-LAST:event_chkSponsonTurretActionPerformed
+
+    private void chkEscapePodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEscapePodActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chkEscapePodActionPerformed
+
+    private void mnuReloadEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReloadEquipmentActionPerformed
+        try {
+            data = new DataFactory( CurVee );
+        } catch( Exception e ) {
+            System.err.println( e.getMessage() );
+            e.printStackTrace();
+        }
+        SetWeaponChoosers();
+    }//GEN-LAST:event_mnuReloadEquipmentActionPerformed
+
     private void chkFullAmphActionPerformed(java.awt.event.ActionEvent evt) {
         CurVee.SetFullAmphibious(chkFullAmph.isSelected());
         RefreshSummary();
@@ -9786,6 +9936,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JCheckBox chkLimitedAmph;
     private javax.swing.JCheckBox chkMinesweeper;
     private javax.swing.JCheckBox chkOmniVee;
+    private javax.swing.JCheckBox chkSponsonTurret;
     private javax.swing.JCheckBox chkSupercharger;
     private javax.swing.JCheckBox chkTrailer;
     private javax.swing.JCheckBox chkUseTC;
@@ -10035,6 +10186,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JMenuItem mnuPostS7;
     private javax.swing.JMenu mnuPrint;
     private javax.swing.JMenuItem mnuPrintPreview;
+    private javax.swing.JMenuItem mnuReloadEquipment;
     private javax.swing.JMenuItem mnuSave;
     private javax.swing.JMenuItem mnuSaveAs;
     private javax.swing.JMenuItem mnuSummary;

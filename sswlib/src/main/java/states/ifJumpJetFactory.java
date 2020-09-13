@@ -36,6 +36,7 @@ public interface ifJumpJetFactory {
     public String ChatName();
     public boolean IsImproved();
     public boolean IsUMU();
+    public boolean IsProto();
     public JumpJet GetJumpJet();
     public double GetCost();
     public double GetTonnage();

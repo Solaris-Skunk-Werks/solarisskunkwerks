@@ -270,6 +270,7 @@ public class UnitList extends AbstractTableModel {
                             hasData = true;
                             String[] Items = read.split(",");
                             if (Items.length >= 11) {
+                                Items[11] = IO.Utils.convertFilePathSeparator(Items[11]);
                                 List.add(new UnitListData(Items));
                             }
                         }

@@ -34,7 +34,7 @@ import components.MechModifier;
 import components.SimplePlaceable;
 
 public class stCockpitInterface implements ifCockpit, ifState {
-    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
     private SimplePlaceable Sensors = new SimplePlaceable( "Sensors", "Sensors", "Sensors", "Sensors", "Tech Manual", 1, true, AC );
     private SimplePlaceable LifeSupport = new SimplePlaceable( "Life Support", "Life Support", "Life Support", "Life Support", "Tech Manual", 1, true, AC );
     private SimplePlaceable SecondSensors = new SimplePlaceable( "Sensors", "Sensors", "Sensors", "Sensors", "Tech Manual", 1, true, AC );
@@ -105,7 +105,7 @@ public class stCockpitInterface implements ifCockpit, ifState {
     }
 
     public String BookReference() {
-        return "Jihad Final Reckoning";
+        return "Interstellar Operations";
     }
 
     public String GetReportName() {
@@ -178,6 +178,18 @@ public class stCockpitInterface implements ifCockpit, ifState {
         return null;
     }
 
+    public boolean HasThirdLifeSupport() {
+        return false;
+    }
+
+    public LocationIndex GetThirdLSLoc() {
+        return null;
+    }
+
+    public SimplePlaceable GetThirdLifeSupport() {
+        return null;
+    }
+    
     public boolean IsTorsoMounted() {
         return false;
     }

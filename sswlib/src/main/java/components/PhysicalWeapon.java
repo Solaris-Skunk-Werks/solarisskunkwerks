@@ -28,6 +28,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
+import com.google.gson.annotations.SerializedName;
+
 public class PhysicalWeapon extends abPlaceable implements ifWeapon {
     public static final int PW_CLASS_NORMAL = 0,
                      PW_CLASS_SHIELD = 1,
@@ -35,7 +37,6 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
                      PW_CLASS_TALON = 3,
                      PW_CLASS_INDUSTRIAL = 4,
                      PW_CLASS_SPOTWELDER = 5;
-
     private String ActualName,
                    CritName,
                    MegaMekName,
@@ -43,10 +44,9 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
                    ChatName = "",
                    Type,
                    Specials,
-                   BookReference = "",
-                   Manufacturer = "";
-    protected ifUnit Owner;
-    private AvailableCode AC;
+                   BookReference = "";
+    private transient String Manufacturer = "";
+    protected transient ifUnit Owner;
     private int Heat = 0,
                 ToHitShort = 0,
                 ToHitMedium = 0,
@@ -77,6 +77,7 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
                     Alloc_Legs = false,
                     CanSplit = false,
                     PowerAmps = false;
+    @SerializedName("Availability") private AvailableCode AC;
 
     public PhysicalWeapon( String actualname, String lookupname, String critname, String mname, String chatn, AvailableCode a ) {
         ActualName= actualname;

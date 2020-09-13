@@ -31,6 +31,8 @@ package components;
 import common.CommonTools;
 import common.Constants;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+
 import visitors.VFCSApolloLoader;
 import visitors.VFCSArtemisIVLoader;
 import visitors.VFCSArtemisVLoader;
@@ -53,6 +55,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
                                 Turret1Items = new ArrayList<abPlaceable>(),
                                 RotorItems = new ArrayList<abPlaceable>(),
                                 Turret2Items = new ArrayList<abPlaceable>(),
+                                SponsonTurretLeftItems = new ArrayList<abPlaceable>(),
+                                SponsonTurretRightItems = new ArrayList<abPlaceable>(),
                                 BodyItems = new ArrayList<abPlaceable>(),
                                 NonCore = new ArrayList<abPlaceable>(),
                                 TCList = new ArrayList<abPlaceable>();
@@ -68,7 +72,9 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
                     YearSpecified = false,
                     YearRestricted = false;
     private Turret Turret1 = new Turret(this, false),
-                    Turret2 = new Turret(this, false);
+                   Turret2 = new Turret(this, false);
+    private SponsonTurret SponsonTurretLeft = new SponsonTurret(this, false),
+                          SponsonTurretRight = new SponsonTurret(this, false);
     private CVPowerAmplifier PowerAmplifier = new CVPowerAmplifier(this);
     
     private int RulesLevel = AvailableCode.RULES_TOURNAMENT,
@@ -210,6 +216,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         all.addAll(RearItems);
         all.addAll(Turret1Items);
         all.addAll(Turret2Items);
+        all.addAll(SponsonTurretLeftItems);
+        all.addAll(SponsonTurretRightItems);
         all.addAll(BodyItems);
         all.addAll(Queue);
         return all;
@@ -239,6 +247,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         Turret1Items = new ArrayList<abPlaceable>();
         RotorItems = new ArrayList<abPlaceable>();
         Turret2Items = new ArrayList<abPlaceable>();
+        SponsonTurretLeftItems = new ArrayList<abPlaceable>();
+        SponsonTurretRightItems = new ArrayList<abPlaceable>();
         BodyItems = new ArrayList<abPlaceable>();
         NonCore = new ArrayList<abPlaceable>();
         TCList = new ArrayList<abPlaceable>();
@@ -260,6 +270,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         Items.add(BodyItems);
         Items.add(Turret1Items);
         Items.add(Turret2Items);
+        Items.add(SponsonTurretLeftItems);
+        Items.add(SponsonTurretRightItems);
         
         ArrayList<abPlaceable> remove = new ArrayList<abPlaceable>();
         
@@ -358,6 +370,20 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
                     Turret2Items.add(p);
                 else
                     throw new Exception(p.ActualName() + " cannot be allocated to the Rear Turret.");
+                break;
+            case LocationIndex.CV_LOC_SPONSON_LEFT:
+                if ( p.CanAllocCVTurret() ) {
+                    SponsonTurretLeftItems.add(p);
+                } else
+                    throw new Exception(p.ActualName() + " cannot be allocated to the Sponson Turret.");
+
+                break;
+            case LocationIndex.CV_LOC_SPONSON_RIGHT:
+                if ( p.CanAllocCVTurret() ) {
+                    SponsonTurretRightItems.add(p);
+                } else
+                    throw new Exception(p.ActualName() + " cannot be allocated to the Sponson Turret.");
+
                 break;
             default:
                 throw new Exception( "Location not recognized or not an integer\nwhile placing " + p.CritName() );
@@ -468,6 +494,22 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
             throw new Exception(p.ActualName() + " cannot be allocated to the Turret.");
     }
 
+    public void AddToSponsonTurretLeft(abPlaceable p) throws Exception {
+        if ( p.CanAllocCVTurret() ) {
+            AddTo(p, LocationIndex.CV_LOC_SPONSON_LEFT);
+            Owner.SetChanged( true );
+        } else
+            throw new Exception(p.ActualName() + " cannot be allocated to the Sponson Turret.");
+    }
+
+    public void AddToSponsonTurretRight(abPlaceable p) throws Exception {
+        if ( p.CanAllocCVTurret() ) {
+            AddTo(p, LocationIndex.CV_LOC_SPONSON_RIGHT);
+            Owner.SetChanged( true );
+        } else
+            throw new Exception(p.ActualName() + " cannot be allocated to the Sponson Turret.");
+    }
+
     public ArrayList<abPlaceable> GetFrontItems() {
         return FrontItems;
     }
@@ -496,6 +538,14 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         return Turret2Items;
     }
 
+    public ArrayList<abPlaceable> GetSponsonTurretLeftItems() {
+        return SponsonTurretLeftItems;
+    }
+
+    public ArrayList<abPlaceable> GetSponsonTurretRightItems() {
+        return SponsonTurretRightItems;
+    }
+
     public abPlaceable[] GetItems(int Loc) {
         switch(Loc) {
             case LocationIndex.CV_LOC_BODY:
@@ -512,6 +562,10 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
                 return (abPlaceable[]) Turret1Items.toArray();
             case LocationIndex.CV_LOC_TURRET2:
                 return (abPlaceable[]) Turret2Items.toArray();
+            case LocationIndex.CV_LOC_SPONSON_LEFT:
+                return (abPlaceable[]) SponsonTurretLeftItems.toArray();
+            case LocationIndex.CV_LOC_SPONSON_RIGHT:
+                return (abPlaceable[]) SponsonTurretRightItems.toArray();
         }
         return null;
     }
@@ -529,6 +583,10 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
             return LocationIndex.CV_LOC_TURRET1;
         if ( Turret2Items.contains(p) )
             return LocationIndex.CV_LOC_TURRET2;
+        if ( SponsonTurretLeftItems.contains(p) )
+            return LocationIndex.CV_LOC_SPONSON_LEFT;
+        if ( SponsonTurretRightItems.contains(p) )
+            return LocationIndex.CV_LOC_SPONSON_RIGHT;
         if ( BodyItems.contains(p) )
             return LocationIndex.CV_LOC_BODY;
         return 11;
@@ -542,6 +600,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         if ( Turret1Items.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_TURRET1, p.NumCVSpaces());
         if ( RearItems.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_REAR, p.NumCVSpaces());
         if ( Turret2Items.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_TURRET2, p.NumCVSpaces());
+        if ( SponsonTurretLeftItems.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_SPONSON_LEFT, p.NumCVSpaces());
+        if ( SponsonTurretRightItems.contains(p)) return new LocationIndex(0, LocationIndex.CV_LOC_SPONSON_RIGHT, p.NumCVSpaces());
         return null;
     }
 
@@ -598,6 +658,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         Turret1Items.remove(p);
         RotorItems.remove(p);
         Turret2Items.remove(p);
+        SponsonTurretLeftItems.remove(p);
+        SponsonTurretRightItems.remove(p);
         NonCore.remove(p);
         TCList.remove(p);
         Owner.SetChanged( true );
@@ -635,6 +697,10 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
                 Turret1Items.remove(p);
             if ( Turret2Items.contains(p))
                 Turret2Items.remove(p);
+            if ( SponsonTurretLeftItems.contains(p))
+                SponsonTurretLeftItems.remove(p);
+            if ( SponsonTurretRightItems.contains(p))
+                SponsonTurretRightItems.remove(p);
         //}
 
         GetHeatSinks().SetNumHS(GetTotalHeat());
@@ -674,6 +740,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         Items.add(BodyItems);
         Items.add(Turret1Items);
         Items.add(Turret2Items);
+        Items.add(SponsonTurretLeftItems);
+        Items.add(SponsonTurretRightItems);
         
         for ( ArrayList<abPlaceable> list : Items ) {
             for ( abPlaceable a : list ) {
@@ -691,6 +759,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         Items.add(BodyItems);
         Items.add(Turret1Items);
         Items.add(Turret2Items);
+        Items.add(SponsonTurretLeftItems);
+        Items.add(SponsonTurretRightItems);
         
         for ( ArrayList<abPlaceable> list : Items ) {
             for ( abPlaceable a : list ) {
@@ -723,6 +793,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         clone.SetRearItems( (ArrayList<abPlaceable>)RearItems.clone() );
         clone.SetTurret1( (ArrayList<abPlaceable>)Turret1Items.clone() );
         clone.SetTurret2( (ArrayList<abPlaceable>)Turret2Items.clone() );
+        clone.SetSponsonTurretLeftItems((ArrayList<abPlaceable>) SponsonTurretLeftItems.clone());
+        clone.SetSponsonTurretRightItems((ArrayList<abPlaceable>) SponsonTurretRightItems.clone());
         
         if( TCList.size() > 0 ) {
             clone.SetTCList( (ArrayList) TCList.clone() );
@@ -738,6 +810,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         }
         clone.SetTurret(Turret1);
         clone.SetRearTurret(Turret2);
+        clone.SetSponsonTurretLeft(SponsonTurretLeft);
 
         return clone;
     }
@@ -778,6 +851,10 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     public void SetTurret2(ArrayList<abPlaceable> c) {
         Turret2Items =  c;
     }
+
+    public void SetSponsonTurretLeftItems(ArrayList<abPlaceable> c) { SponsonTurretLeftItems = c; }
+
+    public void SetSponsonTurretRightItems(ArrayList<abPlaceable> c) { SponsonTurretRightItems = c; }
 
     public void SetNonCore(ArrayList v) {
         NonCore = v;
@@ -990,13 +1067,13 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
             abPlaceable test;
             for( int j = 0; j < GetNonCore().size(); j++ ) {
                 test = (abPlaceable) GetNonCore().get( j );
-                if( test.CritName().contains( exclude[i] ) ) {
-                    throw new Exception( "A Vehicle may not mount an " + p.CritName() + " if it\nalready mounts an " + ((abPlaceable) Queue.get( j )).CritName() );
+                if( test.CritName().equals( exclude[i] ) ) {
+                    throw new Exception( "A Vehicle may not mount an " + p.CritName() + " if it\nalready mounts an " + test.CritName() );
                 }
             }
             // special addition for a targeting computer that is not in the loadout yet
             if( Use_TC ) {
-                if( CurTC.CritName().contains( exclude[i] ) ) {
+                if( CurTC.CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A Vehicle may not mount an " + p.CritName() + " if it\nalready mounts an " + CurTC.CritName() );
                 }
             }
@@ -1070,6 +1147,24 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         Turret2 = t;
     }
 
+    public SponsonTurret GetSponsonTurretLeft() {
+        SponsonTurretLeft.SetItems(SponsonTurretLeftItems);
+        return SponsonTurretLeft;
+    }
+
+    public void SetSponsonTurretLeft(SponsonTurret t) {
+        SponsonTurretLeft = t;
+    }
+
+    public SponsonTurret GetSponsonTurretRight() {
+        SponsonTurretRight.SetItems(SponsonTurretRightItems);
+        return SponsonTurretRight;
+    }
+
+    public void SetSponsonTurretRight(SponsonTurret t) {
+        SponsonTurretRight = t;
+    }
+
     public void MoveToQueue( int loc ) {
         /*
         switch (loc) {
@@ -1099,5 +1194,24 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         Turret2.SetItems(Turret2Items);
         return Turret2.GetTonnage();
     }
-    
+
+    public double GetSponsonTurretTonnage() {
+        SponsonTurretLeft.SetItems(SponsonTurretLeftItems);
+        SponsonTurretRight.SetItems(SponsonTurretRightItems);
+        return CommonTools.RoundHalfUp((SponsonTurretLeft.GetTonnage() + SponsonTurretRight.GetTonnage()) * 0.10);
+    }
+
+    public double GetSponsonTurretCost() {
+        return GetSponsonTurretTonnage() * 4000.0;
+    }
+
+    public int NumCVAmmoSpaces() {
+        LinkedHashSet<String> set = new LinkedHashSet<>();
+        for (abPlaceable a: (ArrayList<abPlaceable>)GetNonCore()) {
+            if (a instanceof Ammunition) {
+                set.add(a.toString());
+            }
+        }
+        return set.size();
+    }
 }

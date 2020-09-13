@@ -76,6 +76,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
                     HasBlueShield = false,
                     HasTurret1 = false,
                     HasTurret2 = false,
+                    HasSponsonTurret = false,
                     HasPowerAmplifier = false,
                     UsingFlotationHull = false,
                     UsingLimitedAmphibious = false,
@@ -106,7 +107,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     private static AvailableCode OmniAvailable = new AvailableCode( AvailableCode.TECH_BOTH ),
                                  DualTurretAC = new AvailableCode( AvailableCode.TECH_BOTH ),
                                  ChinTurretAC = new AvailableCode( AvailableCode.TECH_BOTH ),
-                                 SponsoonAC = new AvailableCode( AvailableCode.TECH_BOTH );
+                                 SponsonAC = new AvailableCode( AvailableCode.TECH_BOTH );
     private Preferences Prefs;
     private BattleForceData BFData;
     private MultiSlotSystem BlueShield,
@@ -134,11 +135,11 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         ChinTurretAC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
         ChinTurretAC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
 
-        SponsoonAC.SetCodes( 'B', 'F', 'F', 'F', 'D', 'B', 'F', 'F', 'F', 'D' );
-        SponsoonAC.SetFactions( "", "", "PS", "", "", "", "PS", "" );
-        SponsoonAC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
-        SponsoonAC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
-        SponsoonAC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        SponsonAC.SetCodes( 'B', 'F', 'F', 'F', 'D', 'B', 'F', 'F', 'F', 'D' );
+        SponsonAC.SetFactions( "", "", "PS", "", "", "", "PS", "" );
+        SponsonAC.SetISDates( 0, 0, false, 1950, 0, 0, false, false );
+        SponsonAC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
+        SponsonAC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
 
         AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
         AC.SetISCodes( 'E', 'X', 'X', 'F', 'F' );
@@ -304,6 +305,10 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     public boolean IsVTOL() {
         return getCurConfig().IsVTOL();
     }
+
+    public boolean IsWIGE() {
+        return getCurConfig().IsWIGE();
+    }
     
     public boolean IsNaval() {
         return ( (CurConfig instanceof stCVDisplacement) || 
@@ -328,8 +333,8 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         return false;
     }
 
-    public boolean CanUseSponsoon() {
-        if( CommonTools.IsAllowed( SponsoonAC,this) ) { return true; }
+    public boolean CanUseSponson() {
+        if( CommonTools.IsAllowed( SponsonAC,this) ) { return true; }
         return false;
     }
 
@@ -394,7 +399,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     
     public double GetDryCost() {
         // returns the total cost of the mech without ammunition
-        return (GetEquipCost() + GetChassisCost()) * GetCostMult() * GetConfigMultiplier();
+        return (GetEquipCost() + CurLoadout.GetSponsonTurretCost() + GetChassisCost()) * GetCostMult() * GetConfigMultiplier();
     }
     
     public double GetConfigMultiplier() {
@@ -414,6 +419,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         result += CurLoadout.GetPowerAmplifier().GetTonnage();
         if ( isHasTurret1() ) result += CurLoadout.GetTurretTonnage();
         if ( isHasTurret2() ) result += CurLoadout.GetRearTurretTonnage();
+        if ( isHasSponsonTurret() ) result += CurLoadout.GetSponsonTurretTonnage();
         result += GetLimitedAmphibiousTonnage();
         result += GetFullAmphibiousTonnage();
         result += GetEnvironmentalSealingTonnage();
@@ -1395,6 +1401,20 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         }
     }
 
+    public boolean isHasSponsonTurret() {
+        return HasSponsonTurret;
+    }
+
+    public void setHasSponsonTurret(boolean HasSponsonTurret) {
+        this.HasSponsonTurret = HasSponsonTurret;
+        //Move any weapons/equipment that was in the turret to another location
+        if (!HasSponsonTurret) {
+            GetLoadout().SetSponsonTurretLeftItems(new ArrayList<abPlaceable>());
+            GetLoadout().SetSponsonTurretRightItems(new ArrayList<abPlaceable>());
+            GetLoadout().RefreshHeatSinks();
+        }
+    }
+
     public Engine getCurEngine() {
         return CurEngine;
     }
@@ -2123,8 +2143,8 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         // Get the defensive factors for jumping and running movement
         double ground = DefensiveFactor[RunMP];
         
-        //VTOL's get an extra .1
-        if ( IsVTOL() ) ground += .1;
+        //VTOL's and WiGEs get an extra .1
+        if ( IsVTOL() || IsWIGE() ) ground += .1;
         
         //Stealth Armor gets an extra .2
         if ( GetArmor().IsStealth() ) ground += .2;
@@ -2174,6 +2194,8 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         Locations.add(CurLoadout.GetRightItems());
         Locations.add(CurLoadout.GetTurret1Items());
         Locations.add(CurLoadout.GetTurret2Items());
+        Locations.add(CurLoadout.GetSponsonTurretLeftItems());
+        Locations.add(CurLoadout.GetSponsonTurretRightItems());
         
         // is it even worth performing all this?
         if( CurLoadout.GetNonCore().size() <= 0 ) {
@@ -2331,6 +2353,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         int retval = getMaxItems();
         retval -= CurEngine.NumCVSpaces();
         retval -= CurArmor.NumCVSpaces();
+        retval -= GetLoadout().NumCVAmmoSpaces();
         for ( abPlaceable a : (ArrayList<abPlaceable>)GetLoadout().GetNonCore() ) {
             retval -= a.NumCVSpaces();
         }

@@ -1240,6 +1240,9 @@ public class HTMLWriter {
                     if( ((RangedWeapon) ret.get( i )).IsUsingCapacitor() ) {
                         ret.add( i + 1, ((RangedWeapon) ret.get( i )).GetCapacitor() );
                     }
+                    if( ((RangedWeapon) ret.get( i )).IsUsingPulseModule() ) {
+                        ret.add( i + 1, ((RangedWeapon) ret.get( i )).GetPulseModule() );
+                    }
                 } else if( ret.get( i ) instanceof MGArray ) {
                     ret.add( i + 1, ((MGArray) ret.get( i )).GetMGs()[0] );
                     ret.add( i + 2, ((MGArray) ret.get( i )).GetMGs()[1] );
@@ -1609,7 +1612,34 @@ public class HTMLWriter {
 
     private String GetHeatSinkLine() {
         String retval = "";
-        if( CurMech.GetHeatSinks().IsDouble() ) {
+                 
+        int extraDHS = 0;
+        boolean isProto = CurMech.GetHeatSinks().IsProtoDHS();
+        ArrayList equipment = CurMech.GetLoadout().GetEquipment();
+        
+        for (int i = 0; i < equipment.size(); i++){
+            if (equipment.get(i) instanceof EquipmentProtoSuccWarsDoubleHeatSink){
+                extraDHS += 1;
+            } else if (equipment.get(i) instanceof EquipmentProtoStarLeagueDoubleHeatSink){
+                extraDHS += 1;
+            }
+        }
+        
+        if (isProto || extraDHS != 0){
+            int numberOfHS = CurMech.GetHeatSinks().GetNumHS();
+            int internalHS = CurMech.GetHeatSinks().InternalHeatSinks();
+            int singles;
+            int doubles;
+            if (isProto)
+            {            
+                singles = numberOfHS < internalHS ? numberOfHS : internalHS;
+                doubles = (numberOfHS - singles) + extraDHS;
+            } else {
+                singles = numberOfHS;
+                doubles = extraDHS;
+            }  
+            retval =  singles + " + " + doubles + "(" + CurMech.GetHeatSinks().TotalDissipation() + ")";
+        } else if( CurMech.GetHeatSinks().IsDouble() ) {
             retval = CurMech.GetHeatSinks().GetNumHS() + " (" + CurMech.GetHeatSinks().TotalDissipation() + ")";
         } else {
             retval = CurMech.GetHeatSinks().GetNumHS() + "";

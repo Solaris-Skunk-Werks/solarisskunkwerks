@@ -118,6 +118,7 @@ public class AvailableCode {
         TechBase = tech;
     }
 
+    public AvailableCode() { }
 /*
  *  Setters
  */
@@ -148,11 +149,26 @@ public class AvailableCode {
         IS_CI = CI;
     }
     
+    /**
+     * Set Inner Sphere availability codes
+     * @param tech Technology Rating
+     * @param SL Star League Era 
+     * @param SW Succession Wars Era
+     * @param CI Clan Invasion Era
+     * @param DA Dark Age Era
+     */
     public void SetISCodes( char tech, char SL, char SW, char CI, char DA) {
         SetISCodes(tech, SL, SW, CI);
         IS_DA = DA;
     }
 
+        /**
+     * Set Clan availability codes
+     * @param tech Technology Rating
+     * @param SL Star League Era 
+     * @param SW Succession Wars Era
+     * @param CI Clan Invasion Era
+     */
     public void SetCLCodes( char tech, char SL, char SW, char CI ) {
         CL_TechRating = tech;
         CL_SL = SL;
@@ -160,11 +176,30 @@ public class AvailableCode {
         CL_CI = CI;
     }
     
+     /**
+     * Set Clan availability codes
+     * @param tech Technology Rating
+     * @param SL Star League Era 
+     * @param SW Succession Wars Era
+     * @param CI Clan Invasion Era
+     * @param DA Dark Age Era
+     */
     public void SetCLCodes( char tech, char SL, char SW, char CI, char DA ) {
         SetCLCodes(tech, SL, SW, CI);
         CL_DA = DA;
     }
 
+     /**
+     * Set Inner Sphere availability Dates
+     * @param RDStart R&D Start Date
+     * @param Proto Prototype Date
+     * @param IsProto Is Prototype
+     * @param Intro Introduction Date
+     * @param Extinct Extinct Date
+     * @param ReIntro Re-introduction Date
+     * @param wentExtinct Went Extinct
+     * @param WasReIntrod Was Re-Introduced
+     */
     public void SetISDates( int RDStart, int Proto, boolean IsProto, int Intro, int Extinct, int ReIntro, boolean wentExtinct, boolean WasReIntrod ) {
         IS_RandDStartDate = RDStart;
         IS_PrototypeDate = Proto;
@@ -176,6 +211,17 @@ public class AvailableCode {
         IS_ReIntroduced = WasReIntrod;
     }
 
+     /**
+     * Set Clan availability Dates
+     * @param RDStart R&D Start Date
+     * @param Proto Prototype Date
+     * @param IsProto Is Prototype
+     * @param Intro Introduction Date
+     * @param Extinct Extinct Date
+     * @param ReIntro Re-introduction Date
+     * @param wentExtinct Went Extinct
+     * @param WasReIntrod Was Re-Introduced
+     */
     public void SetCLDates( int RDStart, int Proto, boolean IsProto, int Intro, int Extinct, int ReIntro, boolean wentExtinct, boolean WasReIntrod ) {
         CL_RandDStartDate = RDStart;
         CL_PrototypeDate = Proto;
@@ -533,6 +579,9 @@ public class AvailableCode {
         if( a.GetISCICode() > IS_CI ) {
             IS_CI = a.GetISCICode();
         }
+        if( a.GetISDACode() > IS_DA ) {
+            IS_DA = a.GetISDACode();
+        }
         if( a.GetCLTechRating() > CL_TechRating ) {
             CL_TechRating = a.GetCLTechRating();
         }
@@ -544,6 +593,9 @@ public class AvailableCode {
         }
         if( a.GetCLCICode() > CL_CI ) {
             CL_CI = a.GetCLCICode();
+        }
+        if( a.GetCLDACode() > CL_DA ) {
+            CL_DA = a.GetCLDACode();
         }
 
         if( a.GetISIntroDate() > IS_IntroDate ) {

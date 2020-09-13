@@ -28,8 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
-import java.util.ArrayList;
-
 public class LocationIndex {
     // this is a convenience method for the XML saving and loading routine
     // it provides a location index for any given item.
@@ -57,11 +55,13 @@ public class LocationIndex {
                             CV_LOC_TURRET1 = 4,
                             CV_LOC_TURRET2 = 5,
                             CV_LOC_ROTOR = 6,
-                            CV_LOC_BODY = 7;
+                            CV_LOC_BODY = 7,
+                            CV_LOC_SPONSON_LEFT = 8,
+                            CV_LOC_SPONSON_RIGHT = 9;
     public final static String[] MechLocs = { "Head", "Center Torso", "Left Torso",
         "Right Torso", "Left Arm", "Right Arm", "Left Leg", "Right Leg", "Center Leg" },
                                  CVLocs = { "Front", "Left", "Right", "Rear",
-        "Turret", "Rear Turret", "Rotor", "Body" };
+        "Turret", "Rear Turret", "Left Sponson Turret", "Right Sponson Turret", "Rotor", "Body" };
 
     public LocationIndex() {}
 
@@ -89,6 +89,8 @@ public class LocationIndex {
         if ( location.equals("Rear")) return CV_LOC_REAR;
         if ( location.equals("Turret")) return CV_LOC_TURRET1;
         if ( location.equals("Rear Turret")) return CV_LOC_TURRET2;
+        if ( location.equals("Left Sponson Turret")) return CV_LOC_SPONSON_LEFT;
+        if ( location.equals("Right Sponson Turret")) return CV_LOC_SPONSON_RIGHT;
         if ( location.equals("Body")) return CV_LOC_BODY;
         return 11;
     }

@@ -36,7 +36,8 @@ public class JumpJet extends abPlaceable {
                    BookReference,
                    MMName;
     private AvailableCode AC;
-
+    private boolean IsExplosive;
+    
     public JumpJet( String actualname, String lookupname, String critname, String mname, String bookref, int numCrits, AvailableCode A ) {
         Crits = numCrits;
         CritName = critname;
@@ -45,6 +46,18 @@ public class JumpJet extends abPlaceable {
         BookReference = bookref;
         AC = A;
         MMName = mname;
+        IsExplosive = false;
+    }
+    
+    public JumpJet( String actualname, String lookupname, String critname, String mname, String bookref, int numCrits, AvailableCode A, boolean isExplosive) {
+        Crits = numCrits;
+        CritName = critname;
+        ActualName = actualname;
+        LookupName = lookupname;
+        BookReference = bookref;
+        AC = A;
+        MMName = mname;
+        IsExplosive = isExplosive;
     }
 
     public String ActualName() {
@@ -121,6 +134,10 @@ public class JumpJet extends abPlaceable {
         }
     }
 
+    public boolean IsExplosive(){
+        return IsExplosive;
+    }
+    
     @Override
     public boolean CanAllocHD() {
         return false;

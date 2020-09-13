@@ -55,6 +55,17 @@ public class VHeatSinkSetDouble implements ifVisitor {
                 h.SetClanDHS();
                 break;
             case AvailableCode.TECH_BOTH:
+                if (h.IsProtoDHS())
+                {
+                    if (m.GetEra() == AvailableCode.ERA_SUCCESSION)
+                    {
+                        h.SetSuccWarsProtoDHS();
+                    }
+                    else {
+                        h.SetStarLeagueProtoDHS();
+                    }
+                    break;
+                }
                 if( Clan ) {
                     h.SetClanDHS();
                 } else {

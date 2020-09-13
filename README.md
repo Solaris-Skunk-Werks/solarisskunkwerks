@@ -12,7 +12,7 @@ intend to develop the project with an IDE, you'll need one with gradle support. 
 tested and both have gradle support out of the box. Netbeans earlier than 11.x should work but you may need to install the 
 gradle plugin.
 
-To build the full suite of applications, run the following gradle task (substitute `.\gradlew.bat` in all of these commands 
+To build the full suite of applications on the command line, run the following gradle task (substitute `.\gradlew.bat` in all of these commands 
 if you're on Windows):
 
 ```
@@ -29,6 +29,11 @@ $ ./gradlew zipRelease
 This will create a zip file containing all applications in the SSW suite under `build/distributions`. Simply unzip that
 file wherever you want to install it.
 
+These tasks can also be ran directly from Intellij IDEA and Netbeans by selecting the task from the Gradle tasks section
+of the UI:
+
+![IDEA Gradle Build Tasks](Docs/images/IDEA-build-tasks.png)
+
 ### Development
 To build and run SSW directly from the command line during development:
 
@@ -37,17 +42,19 @@ $ ./gradlew ssw:run // Compile and run a dev build of ssw
 $ ./gradlew saw:run // Compile and run a dev build of solaris armor werks
 $ ./gradlew bfb:run // Compile and run a dev build of battletech-force-balancer
 ```
-To debug SSW from Intellij IDEA, first run the application with the following command:
-
-```
-$ ./gradlew ssw:run --debug-jvm
-```
-SSW will compile and pause until you connect with a debugger. Then in Intellij, click Run->Attach to Process. The SSW 
-process should be the first option that appears--click it and you can continue debugging normally.
 
 Note that all gradle tasks can also be ran directly from the IDE if you aren't comfortable with the command line. In
 Netbeans 11, the gradle tasks appear in the bottom left portion of the screen. In Intellij, the gradle menu should be in
-the top right.
+the top right:
+
+![IDEA Run Tasks](Docs/images/IDEA-run-tasks.png)
+
+After you run a subproject using the gradle menu once, it will appear at the top of the screen for easier access later:
+
+![IDEA Quick Menu](Docs/images/IDEA-quick-run-tasks.png)
+
+To debug in IDEA, first run the target application once using the gradle menu as shown above. After it appears in the quick menu
+at the top, click the debug icon. Debugging in Netbeans is similarly straightforward.
 
 ## Contributing
 SSW's development workflow generally follows the git workflow described [here](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow). 

@@ -69,6 +69,9 @@ import Print.PrintConsts;
 import ssw.constants.SSWConstants;
 import gui.TextPane;
 
+import javax.swing.SwingUtilities;
+import list.view.tbQuirks;
+
 public class frmMainWide extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner, common.DesignForm, ifMechForm {
 
     String[] Selections = { "", "", "", "", "", "", "", "" };
@@ -88,6 +91,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     JMenuItem mnuArmorComponent = new JMenuItem( "Armor Component" );
     JMenuItem mnuAddCapacitor = new JMenuItem( "Add Capacitor" );
     JMenuItem mnuAddInsulator = new JMenuItem( "Add Insulator" );
+    JMenuItem mnuAddPulseModule = new JMenuItem( "Add RISC Pulse Module" );
     JMenuItem mnuCaseless = new JMenuItem( "Switch to Caseless" );
     JMenuItem mnuTurret = new JMenuItem( "Add to Turret" );
     JMenuItem mnuSelective = new JMenuItem( "Selective Allocate" );
@@ -125,6 +129,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     private Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
     // ImageIcon FluffImage = Utils.createImageIcon( SSWConstants.NO_IMAGE );
     public DataFactory data;
+    public ArrayList<Quirk> quirks = new ArrayList<Quirk>();
 
     private dlgPrintBatchMechs BatchWindow = null;
     private ImageTracker imageTracker = new ImageTracker();
@@ -141,6 +146,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
               ARTILLERY = 5;
     private final AvailableCode PPCCapAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final AvailableCode LIAC = new AvailableCode( AvailableCode.TECH_BOTH );
+    private final AvailableCode PulseModuleAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final AvailableCode CaselessAmmoAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private PartialWing wing = new PartialWing( CurMech );
     private final AvailableCode PWAC = wing.GetAvailability();
@@ -172,6 +178,12 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         LIAC.SetPBMAllowed( true );
         LIAC.SetPIMAllowed( true );
         LIAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        PulseModuleAC.SetISCodes( 'F', 'X', 'X', 'X', 'F' );
+        PulseModuleAC.SetISDates( 3134, 3137, true, 3137, 3140, 0, true, false );
+        PulseModuleAC.SetISFactions( "RS", "RS", "RS", "" );
+        PulseModuleAC.SetPBMAllowed( true );
+        PulseModuleAC.SetPIMAllowed( true );
+        PulseModuleAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
         CaselessAmmoAC.SetISCodes( 'D', 'X', 'X', 'E', 'D' );
         CaselessAmmoAC.SetISDates( 3055, 3056, true, 3079, 0, 0, false, false );
         CaselessAmmoAC.SetISFactions( "FC", "FC", "", "" );
@@ -243,6 +255,12 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         mnuAddInsulator.addActionListener( new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 LaserInsulator();
+            }
+        });
+        
+        mnuAddPulseModule.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                PulseModule();
             }
         });
 
@@ -349,6 +367,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         mnuUtilities.add( mnuArmorComponent );
         mnuUtilities.add( mnuAddCapacitor );
         mnuUtilities.add( mnuAddInsulator );
+        mnuUtilities.add( mnuAddPulseModule );
         mnuUtilities.add( mnuCaseless );
         mnuUtilities.add( mnuTurret );
         mnuUtilities.add( mnuVGLArc );
@@ -362,6 +381,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         mnuArmorComponent.setVisible( false );
         mnuAddCapacitor.setVisible( false );
         mnuAddInsulator.setVisible( false );
+        mnuAddPulseModule.setVisible( false );
         mnuTurret.setVisible( false );
         mnuCaseless.setVisible( false );
         mnuVGLArc.setVisible( false );
@@ -2896,6 +2916,8 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                         lblInfoHeat.setText( w.GetHeat() + "*" );
                     } else if( ((RangedWeapon) w).IsUsingInsulator() ) {
                         lblInfoHeat.setText( w.GetHeat() + " (I)" );
+                    } else if( ((RangedWeapon) w).IsUsingPulseModule() ) {
+                        lblInfoHeat.setText( w.GetHeat() + "*" );
                     } else {
                         lblInfoHeat.setText( "" + w.GetHeat() );
                     }
@@ -3431,16 +3453,19 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         boolean armor = LegalArmoring( CurItem ) && CommonTools.IsAllowed( abPlaceable.ArmoredAC, CurMech );
         boolean cap = LegalCapacitor( CurItem ) && CommonTools.IsAllowed( PPCCapAC, CurMech );
         boolean insul = LegalInsulator( CurItem ) && CommonTools.IsAllowed( LIAC, CurMech );
+        boolean pulseModule = LegalPulseModule(CurItem) && CommonTools.IsAllowed( PulseModuleAC, CurMech );
         boolean caseless = LegalCaseless( CurItem ) && CommonTools.IsAllowed( CaselessAmmoAC, CurMech );
         boolean lotchange = LegalLotChange( CurItem );
         boolean turreted = LegalTurretMount( CurItem );
         mnuArmorComponent.setEnabled( armor );
         mnuAddCapacitor.setEnabled( cap );
         mnuAddInsulator.setEnabled( insul );
+        mnuAddPulseModule.setEnabled(pulseModule);
         mnuCaseless.setEnabled( caseless );
         mnuArmorComponent.setVisible( armor );
         mnuAddCapacitor.setVisible( cap );
         mnuAddInsulator.setVisible( insul );
+        mnuAddPulseModule.setVisible(pulseModule);
         mnuCaseless.setVisible( caseless );
         mnuSetLotSize.setVisible( lotchange );
         mnuTurret.setVisible( turreted );
@@ -3458,7 +3483,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                 mnuTurret.setText( "Add to Turret");
             }
         }
-        if( cap || insul || caseless ) {
+        if( cap || insul || caseless || pulseModule ) {
             if( CurItem instanceof RangedWeapon ) {
                 if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
                     mnuAddCapacitor.setText( "Remove Capacitor" );
@@ -3469,6 +3494,11 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                     mnuAddInsulator.setText( "Remove Insulator" );
                 } else {
                     mnuAddInsulator.setText( "Add Insulator" );
+                }
+                if( ((RangedWeapon) CurItem).IsUsingPulseModule()) {
+                    mnuAddPulseModule.setText( "Remove RISC Pulse Module" );
+                } else {
+                    mnuAddPulseModule.setText( "Add RISC Pulse Module" );
                 }
                 if( ((RangedWeapon) CurItem).IsCaseless() ) {
                     mnuCaseless.setText( "Switch from Caseless" );
@@ -3707,6 +3737,40 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
         RefreshInfoPane();
     }
+    
+    private void PulseModule() {
+        // if the current item can support a Pulse Module, adds one on
+        if( CurItem instanceof RangedWeapon ) {
+            if( ((RangedWeapon) CurItem).IsUsingPulseModule()) {
+                abPlaceable p = ((RangedWeapon) CurItem).GetPulseModule();
+                ((RangedWeapon) CurItem).UsePulseModule( false );
+                CurMech.GetLoadout().Remove( p );
+            } else {
+                ((RangedWeapon) CurItem).UsePulseModule( true );
+                abPlaceable p = ((RangedWeapon) CurItem).GetPulseModule();
+                LocationIndex Loc = CurMech.GetLoadout().FindIndex( CurItem );
+                if( Loc.Location != -1 ) {
+                    try {
+                        CurMech.GetLoadout().AddTo( CurMech.GetLoadout().GetCrits( Loc.Location ), p, Loc.Index + CurItem.NumCrits(), 1 );
+                    } catch( Exception e ) {
+                        // couldn't allocate the Module?  Unallocate the laser.
+                        try {
+                            CurMech.GetLoadout().UnallocateAll( CurItem, false );
+                            // remove the insulator if it's in the queue
+                            //if( CurMech.GetLoadout().QueueContains( p ) ) {
+                            //    CurMech.GetLoadout().GetQueue().remove( p );
+                            //}
+                        } catch( Exception e1 ) {
+                            // failed big.  no problem
+                            Media.Messager( this, "Fatal error adding a Pulse Module:\n" + e.getMessage() + "\nThe Pulse Module will be removed." );
+                            ((RangedWeapon) CurItem).UsePulseModule(false );
+                        }
+                    }
+                }
+            }
+        }
+        RefreshInfoPane();
+    }
 
     private void TurretMount() {
         if( CurItem instanceof RangedWeapon ) {
@@ -3931,6 +3995,11 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     public boolean LegalInsulator( abPlaceable p ) {
         if( ! ( p instanceof RangedWeapon ) ) { return false; }
         return ((RangedWeapon) p).CanUseInsulator();
+    }
+
+    public boolean LegalPulseModule( abPlaceable p ) {
+        if( ! ( p instanceof RangedWeapon ) ) { return false; }
+        return ((RangedWeapon) p).CanUsePulseModule();
     }
 
     public boolean LegalCaseless( abPlaceable p ) {
@@ -4958,6 +5027,11 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         pnlVariants = new javax.swing.JPanel();
         pnlNotables = new javax.swing.JPanel();
         pnlAdditionalFluff = new javax.swing.JPanel();
+        pnlQuirks = new javax.swing.JPanel();
+        lblBattleMechQuirks = new javax.swing.JLabel();
+        scpQuirkTable = new javax.swing.JScrollPane();
+        tblQuirks = new javax.swing.JTable();
+        btnAddQuirk = new javax.swing.JButton();
         pnlExport = new javax.swing.JPanel();
         btnExportTXT = new javax.swing.JButton();
         btnExportHTML = new javax.swing.JButton();
@@ -5089,6 +5163,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         jSeparator30 = new javax.swing.JSeparator();
         mnuUnlock = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        mnuReloadEquipment = new javax.swing.JMenuItem();
         mnuHelp = new javax.swing.JMenu();
         mnuCredits = new javax.swing.JMenuItem();
         mnuAboutSSW = new javax.swing.JMenuItem();
@@ -5519,7 +5594,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         pnlBasicInformation.add(jSeparator28, new java.awt.GridBagConstraints());
         pnlBasicInformation.add(jSeparator29, new java.awt.GridBagConstraints());
 
-        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "Late Succession War", "Clan Invasion", "Civil War", "Jihad", "Republic", "Dark Ages" }));
+        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "LSW - LosTech", "LSW - Renaissance", "Clan Invasion", "Civil War", "Jihad", "Early Republic", "Late Republic", "Dark Ages" }));
         cmbProductionEra.setLightWeightPopupEnabled(false);
         cmbProductionEra.setMaximumSize(new java.awt.Dimension(90, 20));
         cmbProductionEra.setMinimumSize(new java.awt.Dimension(90, 20));
@@ -9223,6 +9298,76 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         pnlAdditionalFluff.setLayout(new javax.swing.BoxLayout(pnlAdditionalFluff, javax.swing.BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Additional", pnlAdditionalFluff);
 
+        lblBattleMechQuirks.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblBattleMechQuirks.setText("BattleMech Quirks");
+        lblBattleMechQuirks.setMaximumSize(new java.awt.Dimension(175, 15));
+        lblBattleMechQuirks.setMinimumSize(new java.awt.Dimension(175, 15));
+        lblBattleMechQuirks.setPreferredSize(new java.awt.Dimension(175, 15));
+
+        tblQuirks.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Quirk", "Cost"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblQuirks.setColumnSelectionAllowed(true);
+        tblQuirks.getTableHeader().setReorderingAllowed(false);
+        scpQuirkTable.setViewportView(tblQuirks);
+
+        btnAddQuirk.setText("Add Quirk");
+        btnAddQuirk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddQuirkActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlQuirksLayout = new javax.swing.GroupLayout(pnlQuirks);
+        pnlQuirks.setLayout(pnlQuirksLayout);
+        pnlQuirksLayout.setHorizontalGroup(
+            pnlQuirksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblBattleMechQuirks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(pnlQuirksLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlQuirksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlQuirksLayout.createSequentialGroup()
+                        .addGap(0, 365, Short.MAX_VALUE)
+                        .addComponent(btnAddQuirk))
+                    .addComponent(scpQuirkTable, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        pnlQuirksLayout.setVerticalGroup(
+            pnlQuirksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlQuirksLayout.createSequentialGroup()
+                .addComponent(lblBattleMechQuirks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scpQuirkTable, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAddQuirk)
+                .addContainerGap())
+        );
+
+        tbpFluffEditors.addTab("Quirks", pnlQuirks);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -10028,7 +10173,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             }
         });
 
-        mnuNewMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK));
+        mnuNewMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuNewMech.setText("New Mech");
         mnuNewMech.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10037,7 +10182,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         });
         mnuFile.add(mnuNewMech);
 
-        mnuLoad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
+        mnuLoad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuLoad.setText("Load Mech");
         mnuLoad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10046,7 +10191,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         });
         mnuFile.add(mnuLoad);
 
-        mnuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
+        mnuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuOpen.setText("Open");
         mnuOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10076,7 +10221,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         mnuFile.add(mnuImport);
         mnuFile.add(jSeparator16);
 
-        mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
+        mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuSave.setText("Save Mech");
         mnuSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10085,7 +10230,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         });
         mnuFile.add(mnuSave);
 
-        mnuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuSaveAs.setText("Save Mech As...");
         mnuSaveAs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10141,7 +10286,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
         mnuPrint.setText("Print");
 
-        mnuPrintCurrentMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        mnuPrintCurrentMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuPrintCurrentMech.setText("Current Mech");
         mnuPrintCurrentMech.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10150,7 +10295,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         });
         mnuPrint.add(mnuPrintCurrentMech);
 
-        mnuPrintSavedMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuPrintSavedMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuPrintSavedMech.setText("Saved Mech");
         mnuPrintSavedMech.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10159,7 +10304,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         });
         mnuPrint.add(mnuPrintSavedMech);
 
-        mnuPrintBatch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuPrintBatch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuPrintBatch.setText("Batch Print Mechs");
         mnuPrintBatch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10170,7 +10315,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
         mnuFile.add(mnuPrint);
 
-        mnuPrintPreview.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuPrintPreview.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuPrintPreview.setText("Print Preview");
         mnuPrintPreview.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10179,7 +10324,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         });
         mnuFile.add(mnuPrintPreview);
 
-        mnuPostS7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
+        mnuPostS7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuPostS7.setText("Post Mech to Solaris7.com");
         mnuPostS7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10189,7 +10334,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         mnuFile.add(mnuPostS7);
         mnuFile.add(jSeparator17);
 
-        mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK));
+        mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuExit.setText("Exit");
         mnuExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10202,7 +10347,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
         mnuClearFluff.setText("Tools");
 
-        mnuSummary.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
+        mnuSummary.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuSummary.setText("Show Summary");
         mnuSummary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10237,7 +10382,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         mnuClearFluff.add(mnuBFB);
         mnuClearFluff.add(jSeparator27);
 
-        mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
+        mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuOptions.setText("Preferences");
         mnuOptions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10246,7 +10391,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         });
         mnuClearFluff.add(mnuOptions);
 
-        mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
+        mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuViewToolbar.setSelected(true);
         mnuViewToolbar.setText("View Toolbar");
         mnuViewToolbar.addActionListener(new java.awt.event.ActionListener() {
@@ -10281,6 +10426,14 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             }
         });
         mnuClearFluff.add(jMenuItem1);
+
+        mnuReloadEquipment.setText("Reload Equipment");
+        mnuReloadEquipment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuReloadEquipmentActionPerformed(evt);
+            }
+        });
+        mnuClearFluff.add(mnuReloadEquipment);
 
         mnuMainMenu.add(mnuClearFluff);
 
@@ -10873,6 +11026,8 @@ public void LoadMechIntoGUI() {
     Variants.SetText( CurMech.GetVariants() );
     Notables.SetText( CurMech.GetNotables() );
     Additional.SetText( CurMech.GetAdditional() );
+    quirks = CurMech.GetQuirks();
+    tblQuirks.setModel(new tbQuirks(quirks));
     txtManufacturer.setText( CurMech.GetCompany() );
     txtManufacturerLocation.setText( CurMech.GetLocation() );
     txtEngineManufacturer.setText( CurMech.GetEngineManufacturer() );
@@ -14651,6 +14806,23 @@ private void cmbProductionEraActionPerformed(java.awt.event.ActionEvent evt) {//
     CurMech.SetProductionEra( cmbProductionEra.getSelectedIndex() );
 }//GEN-LAST:event_cmbProductionEraActionPerformed
 
+    private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddQuirkActionPerformed
+        dlgQuirks qmanage = new dlgQuirks(this, true, data, quirks);
+        qmanage.setLocationRelativeTo(this);
+        qmanage.setVisible(true);
+        tblQuirks.setModel(new tbQuirks(quirks));
+    }//GEN-LAST:event_btnAddQuirkActionPerformed
+
+    private void mnuReloadEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReloadEquipmentActionPerformed
+        try {
+            data = new DataFactory( CurMech );
+        } catch( Exception e ) {
+            System.err.println( e.getMessage() );
+            e.printStackTrace();
+        }
+        SetWeaponChoosers();
+    }//GEN-LAST:event_mnuReloadEquipmentActionPerformed
+
 private void setViewToolbar(boolean Visible)
 {
     tlbIconBar.setVisible(Visible);
@@ -14665,6 +14837,7 @@ private void setViewToolbar(boolean Visible)
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddEquip;
+    private javax.swing.JButton btnAddQuirk;
     private javax.swing.JButton btnAddToForceList;
     private javax.swing.JButton btnAddVariant;
     private javax.swing.JButton btnArmorTons;
@@ -14903,6 +15076,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JLabel lblBFShort;
     private javax.swing.JLabel lblBFStructure;
     private javax.swing.JLabel lblBFWt;
+    private javax.swing.JLabel lblBattleMechQuirks;
     private javax.swing.JLabel lblCTArmorHeader;
     private javax.swing.JLabel lblCTHeader;
     private javax.swing.JLabel lblCTIntPts;
@@ -15053,6 +15227,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JMenuItem mnuPrintCurrentMech;
     private javax.swing.JMenuItem mnuPrintPreview;
     private javax.swing.JMenuItem mnuPrintSavedMech;
+    private javax.swing.JMenuItem mnuReloadEquipment;
     private javax.swing.JMenuItem mnuSave;
     private javax.swing.JMenuItem mnuSaveAs;
     private javax.swing.JMenuItem mnuSummary;
@@ -15108,6 +15283,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel pnlOverview;
     private javax.swing.JPanel pnlPatchworkChoosers;
     private javax.swing.JPanel pnlPhysical;
+    private javax.swing.JPanel pnlQuirks;
     private javax.swing.JPanel pnlRAArmorBox;
     private javax.swing.JPanel pnlRACrits;
     private javax.swing.JPanel pnlRLArmorBox;
@@ -15119,6 +15295,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JPanel pnlSpecials;
     private javax.swing.JPanel pnlVariants;
     private javax.swing.JPanel pnlWeaponsManufacturers;
+    private javax.swing.JScrollPane scpQuirkTable;
     private javax.swing.JScrollPane scpWeaponManufacturers;
     private javax.swing.JScrollPane scrLACrits;
     private javax.swing.JScrollPane scrRACrits;
@@ -15137,6 +15314,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JSpinner spnRTArmor;
     private javax.swing.JSpinner spnRTRArmor;
     private javax.swing.JSpinner spnWalkMP;
+    private javax.swing.JTable tblQuirks;
     private javax.swing.JTable tblWeaponManufacturers;
     private javax.swing.JTabbedPane tbpFluffEditors;
     private javax.swing.JTabbedPane tbpMainTabPane;

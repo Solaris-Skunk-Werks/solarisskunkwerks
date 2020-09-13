@@ -1864,7 +1864,11 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
 
         // add the item back into the queue unless is already exists there
         // unless it's an Artemis IV FCS system.
-        if( ! QueueContains(p) &! ( p instanceof ifMissileGuidance ) &! ( p instanceof PPCCapacitor ) &! ( p instanceof LaserInsulator ) ) {
+        if( ! QueueContains(p) 
+                &! ( p instanceof ifMissileGuidance ) 
+                &! ( p instanceof PPCCapacitor ) 
+                &! ( p instanceof LaserInsulator )
+                &! ( p instanceof RiscLaserPulseModule ) ) {
             if( p instanceof RangedWeapon ) {
                 if( ! ((RangedWeapon) p).IsInArray() ) {
                     AddToQueue( p );
@@ -1887,6 +1891,9 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
             }
             if( ((RangedWeapon) p).IsUsingInsulator() ) {
                 UnallocateAll( ((RangedWeapon) p).GetInsulator(), true );
+            }
+            if( ((RangedWeapon) p).IsUsingPulseModule() ) {
+                UnallocateAll( ((RangedWeapon) p).GetPulseModule(), true );
             }
             if( ((RangedWeapon) p).IsTurreted() ) {
                 if( ((RangedWeapon) p).GetTurret() == HDTurret ) {
@@ -2002,6 +2009,9 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
             }
             if( ((RangedWeapon) p).IsUsingInsulator() ) {
                 UnallocateAll( ((RangedWeapon) p).GetInsulator(), true );
+            }
+            if( ((RangedWeapon) p).IsUsingPulseModule() ) {
+                UnallocateAll( ((RangedWeapon) p).GetPulseModule(), true );
             }
             if( ((RangedWeapon) p).IsTurreted() ) {
                 if( ((RangedWeapon) p).GetTurret() == HDTurret ) {
@@ -2912,6 +2922,17 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
                             }
                         }
                     }
+                    if( ((RangedWeapon) p).IsUsingPulseModule() ) {
+                        // we have a preference for right underneath the launcher
+                        while( ! AddIn ) {
+                            if( Loc[i].LocationLocked() ) {
+                                i++;
+                            } else {
+                                AddInLoc = i;
+                                AddIn = true;
+                            }
+                        }
+                    }
                 } else {
                     AddIn = true;
                 }
@@ -3009,6 +3030,22 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
                             }
                         }
                         Loc[AddInLoc] = ((RangedWeapon) p).GetInsulator();
+                    }
+                    if( ((RangedWeapon) p).IsUsingPulseModule() ) {
+                        if( Loc[AddInLoc] != NoItem ) {
+                            // we've already ensured that it is not location locked
+                            // above, so put the item back into the queue.
+                            if( Loc[i].CanSplit() && Loc[i].Contiguous() ) {
+                                removed.add( Loc[i] );
+                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
+                                UnallocateAll( Loc[i], false );
+                            } else {
+                                removed.add( Loc[i] );
+                                rears.add( new Boolean( Loc[i].IsMountedRear() ) );
+                                UnallocateByIndex( AddInLoc, Loc  );
+                            }
+                        }
+                        Loc[AddInLoc] = ((RangedWeapon) p).GetPulseModule();
                     }
                 }
 
@@ -3122,6 +3159,9 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
                     Result += NumThisType;
                 }
                 if( ((RangedWeapon) p).IsUsingInsulator() ) {
+                    Result += NumThisType;
+                }
+                if( ((RangedWeapon) p).IsUsingPulseModule() ) {
                     Result += NumThisType;
                 }
             }
@@ -4619,51 +4659,51 @@ public void SetBoobyTrap( boolean b ) throws Exception{
                 } else {
                     test = (abPlaceable) Queue.get( j );
                 }
-                if( test.CritName().contains( exclude[i] ) ) {
-                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + ((abPlaceable) Queue.get( j )).CritName() );
+                if( test.CritName().equals( exclude[i] ) ) {
+                    throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + test.CritName() );
                 }
             }
             // check the loadout proper
             for( int j = 0; j < 6; j++ ) {
-                if( HDCrits[j].CritName().contains( exclude[i] ) ) {
+                if( HDCrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + HDCrits[j].CritName() );
                 }
-                if( CTCrits[j].CritName().contains( exclude[i] ) ) {
+                if( CTCrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + CTCrits[j].CritName() );
                 }
-                if( LTCrits[j].CritName().contains( exclude[i] ) ) {
+                if( LTCrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + LTCrits[j].CritName() );
                 }
-                if( RTCrits[j].CritName().contains( exclude[i] ) ) {
+                if( RTCrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + RTCrits[j].CritName() );
                 }
-                if( LACrits[j].CritName().contains( exclude[i] ) ) {
+                if( LACrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + LACrits[j].CritName() );
                 }
-                if( RACrits[j].CritName().contains( exclude[i] ) ) {
+                if( RACrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + RACrits[j].CritName() );
                 }
-                if( LLCrits[j].CritName().contains( exclude[i] ) ) {
+                if( LLCrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + LLCrits[j].CritName() );
                 }
-                if( RLCrits[j].CritName().contains( exclude[i] ) ) {
+                if( RLCrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + RLCrits[j].CritName() );
                 }
             }
             for( int j = 6; j < 12; j++ ) {
-                if( CTCrits[j].CritName().contains( exclude[i] ) ) {
+                if( CTCrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + CTCrits[j].CritName() );
                 }
-                if( LTCrits[j].CritName().contains( exclude[i] ) ) {
+                if( LTCrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + LTCrits[j].CritName() );
                 }
-                if( RTCrits[j].CritName().contains( exclude[i] ) ) {
+                if( RTCrits[j].CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + RTCrits[j].CritName() );
                 }
             }
             // special addition for a targeting computer that is not in the loadout yet
             if( Use_TC ) {
-                if( CurTC.CritName().contains( exclude[i] ) ) {
+                if( CurTC.CritName().equals( exclude[i] ) ) {
                     throw new Exception( "A mech may not mount an " + p.CritName() + " if it\nalready mounts an " + CurTC.CritName() );
                 }
             }

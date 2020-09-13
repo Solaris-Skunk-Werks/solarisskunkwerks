@@ -28,10 +28,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package filehandlers;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
+import components.*;
+
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class BinaryConverter {
 // Provides conversion tools for binary files, either into Java classes or from
@@ -267,6 +269,95 @@ public class BinaryConverter {
         return true;
     }
 
+    public boolean ConvertRangedWeaponsBintoJson(String binPath) {
+        BinaryReader br = new BinaryReader();
+        int numWritten;
+        try {
+            ArrayList<RangedWeapon> weapons = br.ReadWeapons(binPath);
+            Path outfile = Paths.get(binPath.replace(".dat", ".json"));
+            numWritten = writeJsonEquipment(weapons, outfile);
+        } catch (Exception e) {
+            Messages += e.getMessage();
+            Messages += e.toString();
+            return false;
+        }
+        Messages += "Wrote " + numWritten + " ranged weapons to JSON" + "\n";
+        return true;
+    }
+
+    public boolean ConvertPhysicalWeaponsBintoJson(String binPath) {
+        BinaryReader br = new BinaryReader();
+        int numWritten;
+        try {
+            ArrayList<PhysicalWeapon> weapons = br.ReadPhysicals(binPath);
+            Path outfile = Paths.get(binPath.replace(".dat", ".json"));
+            numWritten = writeJsonEquipment(weapons, outfile);
+        } catch (Exception e) {
+            Messages += e.getMessage();
+            Messages += e.toString();
+            return false;
+        }
+        Messages += "Wrote " + numWritten + " physical weapons to JSON" + "\n";
+        return true;
+    }
+
+    public boolean ConvertEquipmentBintoJson(String binPath) {
+        BinaryReader br = new BinaryReader();
+        int numWritten;
+        try {
+            ArrayList<Equipment> equipment = br.ReadEquipment(binPath);
+            Path outfile = Paths.get(binPath.replace(".dat", ".json"));
+            numWritten = writeJsonEquipment(equipment, outfile);
+        } catch (Exception e) {
+            Messages += e.getMessage();
+            Messages += e.toString();
+            return false;
+        }
+        Messages += "Wrote " + numWritten + " pieces of equipment to JSON" + "\n";
+        return true;
+    }
+
+    public boolean ConvertAmmunitionBintoJson(String binPath) {
+        BinaryReader br = new BinaryReader();
+        int numWritten;
+        try {
+            ArrayList<Ammunition> ammo = br.ReadAmmo(binPath);
+            Path outfile = Paths.get(binPath.replace(".dat", ".json"));
+            numWritten = writeJsonEquipment(ammo, outfile);
+        } catch (Exception e) {
+            Messages += e.getMessage();
+            Messages += e.toString();
+            return false;
+        }
+        Messages += "Wrote " + numWritten + " types of ammunition to JSON" + "\n";
+        return true;
+    }
+
+    private int writeJsonEquipment(ArrayList<? extends abPlaceable> equipment, Path outfile) throws Exception {
+        JsonWriter jw = new JsonWriter();
+        int numWritten = equipment.size();
+        jw.WriteEquipment((ArrayList<abPlaceable>) equipment, outfile);
+        return numWritten;
+    }
+
+    public boolean ConvertQuirksBintoJson(String binPath) {
+        BinaryReader br = new BinaryReader();
+        JsonWriter jw = new JsonWriter();
+        int numWritten;
+        try {
+            ArrayList<Quirk> quirks = br.ReadQuirks(binPath);
+            Path outfile = Paths.get(binPath.replace(".dat", ".json"));
+            jw.WriteQuirks(quirks, outfile);
+            numWritten = quirks.size();
+        } catch (Exception e) {
+            Messages += e.getMessage();
+            Messages += e.toString();
+            return false;
+        }
+        Messages += "Wrote " + numWritten + " quirks to JSON" + "\n";
+        return true;
+    }
+
     public String GetMessages() {
         return Messages;
     }
@@ -348,13 +439,20 @@ public class BinaryConverter {
         FW.writeBoolean( Boolean.parseBoolean( data[95] ) ); // Array
         FW.writeBoolean( Boolean.parseBoolean( data[96] ) ); // Capacitor
         FW.writeBoolean( Boolean.parseBoolean( data[97] ) ); // Insulator
-        FW.writeBoolean( Boolean.parseBoolean( data[98] ) );
-        FW.writeInt( Integer.parseInt( data[99] ) );
-        FW.writeBoolean( Boolean.parseBoolean( data[100] ) ); // A-IV
-        FW.writeInt( Integer.parseInt( data[101] ) ); // A-IV Type
-        FW.writeUTF( data[102] ); // ChatName
-        FW.writeUTF( data[103] ); // BookReference
-        FW.writeUTF( data[104] ); // Battleforce Abilities
+        FW.writeBoolean( Boolean.parseBoolean( data[98] ) ); // Pulse Module
+        FW.writeBoolean( Boolean.parseBoolean( data[99] ) ); // Supports Caseless Ammo
+        FW.writeInt( Integer.parseInt( data[100] ) ); // Caseless Ammo Index
+        FW.writeBoolean( Boolean.parseBoolean( data[101] ) ); // A-IV
+        FW.writeInt( Integer.parseInt( data[102] ) ); // A-IV Type
+        FW.writeUTF( data[103] ); // ChatName
+        FW.writeUTF( data[104] ); // BookReference
+        FW.writeUTF( data[105] ); // Battleforce Abilities
+
+        // New columns added 8/19/2020
+        FW.writeUTF( data[106] ); // weapon type
+        FW.writeUTF( data[107] ); // variant
+        FW.writeUTF( data[108] ); // size class
+        FW.writeInt( Integer.parseInt( data[109] ) ); // rack size
     }
 
 /**

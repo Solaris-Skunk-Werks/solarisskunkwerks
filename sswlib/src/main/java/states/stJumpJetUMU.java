@@ -58,6 +58,10 @@ public class stJumpJetUMU implements ifJumpJetFactory, ifState {
         return true;
     }
 
+    public boolean IsProto() {
+        return false;
+    }
+
     public JumpJet GetJumpJet() {
         return new JumpJet( "BattleMech Underwater Maneuvering Unit", "Mech UMU", "Mech UMU", "UMU", "Tactical Operations", 1, AC );
     }

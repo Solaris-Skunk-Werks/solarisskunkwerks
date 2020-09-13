@@ -509,11 +509,15 @@ public class MGArray extends abPlaceable implements ifWeapon {
         retval.SetDamage( b.GetDamageShort(), b.GetDamageMedium(), b.GetDamageLong(), b.IsCluster(), b.ClusterSize(), b.ClusterGrouping() );
         retval.SetAmmo( b.HasAmmo(), b.GetAmmoLotSize(), b.GetAmmoIndex(), b.SwitchableAmmo() );
         retval.SetAllocations(b.CanAllocHD(), b.CanAllocCT(), b.CanAllocTorso(), b.CanAllocArms(), b.CanAllocLegs(), b.CanSplit(), b.OmniRestrictActuators() );
-        retval.SetWeapon( b.IsOneShot(), b.IsStreak(), b.IsUltra(), b.IsRotary(), b.IsExplosive(), b.IsTCCapable(), b.IsArrayCapable(), b.CanUseCapacitor(), false );
+        retval.SetWeapon( b.IsOneShot(), b.IsStreak(), b.IsUltra(), b.IsRotary(), b.IsExplosive(), b.IsTCCapable(), b.IsArrayCapable(), b.CanUseCapacitor(), b.CanUseInsulator(), b.CanUsePulseModule());
         retval.SetMissileFCS( b.IsFCSCapable(), b.GetFCSType() );
         retval.SetRequirements( b.RequiresFusion(), b.RequiresNuclear(), b.RequiresPowerAmps() );
         retval.SetChatName( b.ChatName() );
         retval.SetBookReference( b.BookReference() );
+        retval.SetWeaponType( b.GetWeaponType() );
+        retval.SetWeaponVariant( b.GetWeaponVariant() );
+        retval.SetSizeClass( b.GetSizeClass() );
+        retval.SetRackSize( b.GetRackSize() );
         return retval;
     }
 

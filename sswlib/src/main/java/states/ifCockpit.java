@@ -47,14 +47,17 @@ public interface ifCockpit {
     public LocationIndex GetThirdSensorLoc();
     public LocationIndex GetFirstLSLoc();
     public LocationIndex GetSecondLSLoc();
+    public LocationIndex GetThirdLSLoc();
     public boolean HasSecondLSLoc();
     public boolean HasThirdSensors();
+    public boolean HasThirdLifeSupport();
     public boolean CanUseCommandConsole();
     public SimplePlaceable GetLifeSupport();
     public SimplePlaceable GetSensors();
     public SimplePlaceable GetSecondLifeSupport();
     public SimplePlaceable GetSecondSensors();
     public SimplePlaceable GetThirdSensors();
+    public SimplePlaceable GetThirdLifeSupport();
     public double GetCost( int Tonnage, int year );
     public double BVMod();
     public boolean HasFireControl();

@@ -28,6 +28,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 public class Equipment extends abPlaceable {
@@ -38,8 +40,8 @@ public class Equipment extends abPlaceable {
                    MegaMekName = "",
                    BookReference = "",
                    ChatName = "",
-                   Specials = "",
-                   Manufacturer = "";
+                   Specials = "";
+    private transient String Manufacturer = "";
     private int Crits = 0,
                 CVSpace = 0,
                 LotSize = 0,
@@ -70,12 +72,12 @@ public class Equipment extends abPlaceable {
                     alloc_turret = true,
                     alloc_body = true,
                     CanSplit = false,
-                    Rear = false,
                     CanMountRear = false,
                     Explosive = false,
                     VariableSize = false,
                     RequiresQuad = false;
-    private AvailableCode AC;
+    private transient boolean Rear = false;
+    @SerializedName("Availability") private AvailableCode AC;
 
     public Equipment() {
         // provided for any classes that extend this one.  should not be used

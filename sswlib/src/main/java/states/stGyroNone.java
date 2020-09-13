@@ -32,14 +32,17 @@ import components.AvailableCode;
 import components.MechModifier;
 
 public class stGyroNone implements ifGyro, ifState {
-    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
 
     public stGyroNone() {
         AC.SetISCodes( 'E', 'X', 'X', 'F', 'X' );
-        AC.SetISDates( 0, 0, false, 2300, 0, 0, false, false );
+        AC.SetISDates( 0, 0, false, 3074, 0, 0, false, false );
         AC.SetISFactions( "", "", "WB", "" );
+        AC.SetSuperHeavyCompatible(false);
+        AC.SetCLCodes( 'F', 'X', 'X', 'F', 'F' );
+        AC.SetCLDates( 0, 0, false, 3083, 0, 0, false, false );
+        AC.SetCLFactions( "", "", "TH", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
-
     }
 
     public String ActualName() {
@@ -63,7 +66,7 @@ public class stGyroNone implements ifGyro, ifState {
     }
 
     public String BookReference() {
-        return "Jihad Final Reckoning";
+        return "Interstellar Operations";
     }
 
     public String GetReportName() {

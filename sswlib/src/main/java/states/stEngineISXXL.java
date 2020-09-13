@@ -53,7 +53,7 @@ public class stEngineISXXL implements ifEngine, ifState {
     public stEngineISXXL( Engine e ) {
         AC.SetISCodes( 'F', 'X', 'X', 'F', 'E' );
         AC.SetISDates( 2582, 3055, true, 3110, 0, 0, false, false );
-        AC.SetISFactions( "TH", "FC", "", "" );
+        AC.SetISFactions( "TH", "FC", "LC", "" );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
         LARGE_AC.SetISCodes( 'F', 'X', 'X', 'F', 'E' );
         LARGE_AC.SetISDates( 2582, 3055, true, 3110, 0, 0, false, false );
@@ -163,6 +163,8 @@ public class stEngineISXXL implements ifEngine, ifState {
     public boolean IsNuclear() {
         return true;
     }
+
+    public boolean IsFission() { return false; }
 
     public int GetFullCrits() {
         return 18;

@@ -1,0 +1,59 @@
+It is our pleasure to release Solaris Skunk Werks 0.7.4!  This is a huge update to Solaris Skunk Werks.  Below the link we have a brief listing of the updates to SSW.
+
+You can download the newest version, and join our development discord through our Github page here.  We welcome all who want to help make SSW even better: https://github.com/Solaris-Skunk-Werks/solarisskunkwerks#solaris-skunk-werks
+
+# This has breaking changes from the last release:
+* The Data Format of the Ranged Weapons document and resulting converted file have been changed to JSON.  Additionally, additional columns have been added. One is after the LaserInsulator Column, which indicates if a weapon can use the RISC Laser Pulse Module. Later columns have been added to the end for Meta information about the Ranged Weapons.
+
+# Fixes and Features:
+* Primitive Battlemechs can now use all primitive engine types.
+* Ammo bins now allocate space in CVs
+* Fixes to calculations for heat multiplier for SLRMS and IATMS
+* Now saves Quirks.
+* fix default filtering of the load unit list so vees aren't in mechs and vice versa.
+* fix issue with loading vehicles with turrets
+* fix issue with printing TRO picture that was selected during print options
+* Fix BFB preferences loading
+* Fix Vehicle Sponsons
+* fix Shielding weight on vees with fission engines
+* handle OS case sensitivity issue
+* hide non-functional Menu Items
+* added new production eras to match the current MUL listing
+* allow weapons with more than 7 crits be installed into a turret
+* added the quirk pane to Widescreen version.
+* Updated Pilot BV value to match [latest errata](https://bg.battletech.com/forums/index.php?topic=67626.0)
+* No Gyro availability updated
+* improvements to printing
+* prototype improved jumpjets recognized as explosive for BV calculations
+* Factors Dark age availability when combining availability codes for print out
+* Updated factions for the IS XXL Engine
+* Adds Quirks from the BMM
+* Factors DA AC in combined availability
+* Corrects Megamek save name for Command Console
+* Fixes Paramedic Equipment to be allocatable
+* Fixes TSEMP availability
+
+## Added the following equipment:
+* Prototype Improved Jump Jets
+* Primitive Prototype Jump Jets
+* RISC Pulse Laser Module
+* Virtual Reality Piloting Pod
+* Prototype Double Heat Sinks (Star League Era)
+* Freezers (Succession Wars Era)
+* RISC Hyper Laser
+* RISC Repeating TSEMP
+* Improved PPC
+* Improved Autocannon/2
+* Improved Autocannon/5
+* Improved Autocannon/10
+* Improved Autocannon/20
+* Improved Gauss Rifle
+* Improved Large Laser
+* Improved Large Pulse Laser
+* Improved Long Range Missile-5
+* Improved Long Range Missile-10
+* Improved Long Range Missile-15
+* Improved Long Range Missile-20
+* Improved Short Range Missile-2
+* Improved Short Range Missile-4
+* Improved Short Range Missile-6

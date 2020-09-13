@@ -53,6 +53,7 @@ public class stEnginePrimitiveFuelCell implements ifEngine, ifState {
         AC.SetCLCodes( 'D', 'X', 'F', 'E', 'F' );
         AC.SetCLDates( 0, 0, false, 1950, 0, 0, false, false );
         AC.SetCLFactions( "", "", "PS", "" );
+        AC.SetPBMAllowed(true);
         AC.SetPIMAllowed( true );
         AC.SetPrimitiveOnly( true );
         AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
@@ -147,6 +148,8 @@ public class stEnginePrimitiveFuelCell implements ifEngine, ifState {
     public boolean IsNuclear() {
         return false;
     }
+
+    public boolean IsFission() { return false; }
 
     public int GetFullCrits() {
         return 6;

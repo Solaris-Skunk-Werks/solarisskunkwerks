@@ -72,6 +72,8 @@ import ssw.printpreview.dlgPreview;
 import Print.PrintConsts;
 import ssw.constants.SSWConstants;
 import gui.TextPane;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import javax.swing.SwingUtilities;
 import list.view.tbQuirks;
@@ -108,6 +110,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     JMenuItem mnuArmorComponent = new JMenuItem( "Armor Component" );
     JMenuItem mnuAddCapacitor = new JMenuItem( "Add Capacitor" );
     JMenuItem mnuAddInsulator = new JMenuItem( "Add Insulator" );
+    JMenuItem mnuAddPulseModule = new JMenuItem( "Add RISC Pulse Module" );
     JMenuItem mnuCaseless = new JMenuItem( "Switch to Caseless" );
     JMenuItem mnuTurret = new JMenuItem( "Add to Turret" );
     JMenuItem mnuSelective = new JMenuItem( "Selective Allocate" );
@@ -163,6 +166,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
               ARTILLERY = 5;
     private final AvailableCode PPCCapAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final AvailableCode LIAC = new AvailableCode( AvailableCode.TECH_BOTH );
+    private final AvailableCode PulseModuleAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final AvailableCode CaselessAmmoAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private PartialWing wing = new PartialWing(CurMech);
     private final AvailableCode PWAC = wing.GetAvailability();
@@ -193,6 +197,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         LIAC.SetPBMAllowed( true );
         LIAC.SetPIMAllowed( true );
         LIAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        PulseModuleAC.SetISCodes( 'F', 'X', 'X', 'X', 'F' );
+        PulseModuleAC.SetISDates( 3134, 3137, true, 3137, 3140, 0, true, false );
+        PulseModuleAC.SetISFactions( "RS", "RS", "RS", "" );
+        PulseModuleAC.SetPBMAllowed( true );
+        PulseModuleAC.SetPIMAllowed( true );
+        PulseModuleAC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL );
         CaselessAmmoAC.SetISCodes( 'D', 'X', 'X', 'E', 'D' );
         CaselessAmmoAC.SetISDates( 3055, 3056, true, 3079, 0, 0, false, false );
         CaselessAmmoAC.SetISFactions( "FC", "FC", "", "" );
@@ -264,6 +274,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuAddInsulator.addActionListener( new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 LaserInsulator();
+            }
+        });
+        
+        mnuAddPulseModule.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                PulseModule();
             }
         });
 
@@ -376,6 +392,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuUtilities.add( mnuArmorComponent );
         mnuUtilities.add( mnuAddCapacitor );
         mnuUtilities.add( mnuAddInsulator );
+        mnuUtilities.add( mnuAddPulseModule );
         mnuUtilities.add( mnuCaseless );
         mnuUtilities.add( mnuTurret );
         mnuUtilities.add( mnuVGLArc );
@@ -390,6 +407,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuArmorComponent.setVisible( false );
         mnuAddCapacitor.setVisible( false );
         mnuAddInsulator.setVisible( false );
+        mnuAddPulseModule.setVisible( false );
         mnuTurret.setVisible( false );
         mnuCaseless.setVisible( false );
         mnuVGLArc.setVisible( false );
@@ -2746,6 +2764,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RefreshInfoPane();
         SetWeaponChoosers();
         ResetAmmo();
+        ResetQuirks();
 
         Overview.StartNewDocument();
         Capabilities.StartNewDocument();
@@ -2835,6 +2854,20 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             ItemInfo.setLocationRelativeTo( this );
             ItemInfo.setVisible( true );
         }
+    }
+    
+    private void ResetQuirks() {
+        quirks = new ArrayList<>();
+        tblQuirks.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Cost", "Quirk"
+            }));
     }
 
     private void UnallocateAll() {
@@ -2994,6 +3027,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                         lblInfoHeat.setText( w.GetHeat() + "*" );
                     } else if( ((RangedWeapon) w).IsUsingInsulator() ) {
                         lblInfoHeat.setText( w.GetHeat() + " (I)" );
+                    } else if( ((RangedWeapon) w).IsUsingPulseModule() ) {
+                        lblInfoHeat.setText( w.GetHeat() + "*" );
                     } else {
                         lblInfoHeat.setText( "" + w.GetHeat() );
                     }
@@ -3530,6 +3565,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         boolean armor = LegalArmoring( CurItem ) && CommonTools.IsAllowed( abPlaceable.ArmoredAC, CurMech );
         boolean cap = LegalCapacitor( CurItem ) && CommonTools.IsAllowed( PPCCapAC, CurMech );
         boolean insul = LegalInsulator( CurItem ) && CommonTools.IsAllowed( LIAC, CurMech );
+        boolean pulseModule = LegalPulseModule(CurItem) && CommonTools.IsAllowed( PulseModuleAC, CurMech );
         boolean caseless = LegalCaseless( CurItem ) && CommonTools.IsAllowed( CaselessAmmoAC, CurMech );
         boolean lotchange = LegalLotChange( CurItem );
         boolean turreted = LegalTurretMount( CurItem );
@@ -3537,10 +3573,12 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuArmorComponent.setEnabled( armor );
         mnuAddCapacitor.setEnabled( cap );
         mnuAddInsulator.setEnabled( insul );
+        mnuAddPulseModule.setEnabled(pulseModule);
         mnuCaseless.setEnabled( caseless );
         mnuArmorComponent.setVisible( armor );
         mnuAddCapacitor.setVisible( cap );
         mnuAddInsulator.setVisible( insul );
+        mnuAddPulseModule.setVisible(pulseModule);
         mnuCaseless.setVisible( caseless );
         mnuSetLotSize.setVisible( lotchange );
         mnuTurret.setVisible( turreted );
@@ -3559,7 +3597,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 mnuTurret.setText( "Add to Turret");
             }
         }
-        if( cap || insul || caseless ) {
+        if( cap || insul || caseless || pulseModule) {
             if( CurItem instanceof RangedWeapon ) {
                 if( ((RangedWeapon) CurItem).IsUsingCapacitor() ) {
                     mnuAddCapacitor.setText( "Remove Capacitor" );
@@ -3570,6 +3608,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     mnuAddInsulator.setText( "Remove Insulator" );
                 } else {
                     mnuAddInsulator.setText( "Add Insulator" );
+                }
+                if( ((RangedWeapon) CurItem).IsUsingPulseModule()) {
+                    mnuAddPulseModule.setText( "Remove RISC Pulse Module" );
+                } else {
+                    mnuAddPulseModule.setText( "Add RISC Pulse Module" );
                 }
                 if( ((RangedWeapon) CurItem).IsCaseless() ) {
                     mnuCaseless.setText( "Switch from Caseless" );
@@ -3808,6 +3851,40 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         RefreshInfoPane();
     }
+    
+    private void PulseModule() {
+        // if the current item can support a Pulse Module, adds one on
+        if( CurItem instanceof RangedWeapon ) {
+            if( ((RangedWeapon) CurItem).IsUsingPulseModule()) {
+                abPlaceable p = ((RangedWeapon) CurItem).GetPulseModule();
+                ((RangedWeapon) CurItem).UsePulseModule( false );
+                CurMech.GetLoadout().Remove( p );
+            } else {
+                ((RangedWeapon) CurItem).UsePulseModule( true );
+                abPlaceable p = ((RangedWeapon) CurItem).GetPulseModule();
+                LocationIndex Loc = CurMech.GetLoadout().FindIndex( CurItem );
+                if( Loc.Location != -1 ) {
+                    try {
+                        CurMech.GetLoadout().AddTo( CurMech.GetLoadout().GetCrits( Loc.Location ), p, Loc.Index + CurItem.NumCrits(), 1 );
+                    } catch( Exception e ) {
+                        // couldn't allocate the Module?  Unallocate the laser.
+                        try {
+                            CurMech.GetLoadout().UnallocateAll( CurItem, false );
+                            // remove the insulator if it's in the queue
+                            //if( CurMech.GetLoadout().QueueContains( p ) ) {
+                            //    CurMech.GetLoadout().GetQueue().remove( p );
+                            //}
+                        } catch( Exception e1 ) {
+                            // failed big.  no problem
+                            Media.Messager( this, "Fatal error adding a Pulse Module:\n" + e.getMessage() + "\nThe Pulse Module will be removed." );
+                            ((RangedWeapon) CurItem).UsePulseModule(false );
+                        }
+                    }
+                }
+            }
+        }
+        RefreshInfoPane();
+    }
 
     private void TurretMount() {
         if( CurItem instanceof RangedWeapon ) {
@@ -4038,6 +4115,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     public boolean LegalInsulator( abPlaceable p ) {
         if( ! ( p instanceof RangedWeapon ) ) { return false; }
         return ((RangedWeapon) p).CanUseInsulator();
+    }
+
+    public boolean LegalPulseModule( abPlaceable p ) {
+        if( ! ( p instanceof RangedWeapon ) ) { return false; }
+        return ((RangedWeapon) p).CanUsePulseModule();
     }
 
     public boolean LegalCaseless( abPlaceable p ) {
@@ -5213,6 +5295,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         jSeparator30 = new javax.swing.JSeparator();
         mnuUnlock = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        mnuReloadEquipment = new javax.swing.JMenuItem();
         mnuHelp = new javax.swing.JMenu();
         mnuCredits = new javax.swing.JMenuItem();
         mnuAboutSSW = new javax.swing.JMenuItem();
@@ -5643,7 +5726,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlBasicInformation.add(jSeparator28, new java.awt.GridBagConstraints());
         pnlBasicInformation.add(jSeparator29, new java.awt.GridBagConstraints());
 
-        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "Late Succession War", "Clan Invasion", "Civil War", "Jihad", "Republic", "Dark Ages" }));
+        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "LSW - LosTech", "LSW - Renaissance", "Clan Invasion", "Civil War", "Jihad", "Early Republic", "Late Republic", "Dark Ages" }));
         cmbProductionEra.setMaximumSize(new java.awt.Dimension(90, 20));
         cmbProductionEra.setMinimumSize(new java.awt.Dimension(90, 20));
         cmbProductionEra.setPreferredSize(new java.awt.Dimension(90, 20));
@@ -5662,6 +5745,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
         pnlBasicSetup.add(pnlBasicInformation, gridBagConstraints);
 
         pnlChassis.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Chassis"));
@@ -5891,6 +5976,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
         pnlBasicSetup.add(pnlChassis, gridBagConstraints);
 
         pnlHeatSinks.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Heat Sinks"));
@@ -5941,6 +6028,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
         pnlBasicSetup.add(pnlHeatSinks, gridBagConstraints);
 
         pnlMovement.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Movement"));
@@ -6099,6 +6188,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
         pnlBasicSetup.add(pnlMovement, gridBagConstraints);
 
         pnlOmniInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Omnimech Configuration"));
@@ -6168,6 +6259,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
         pnlBasicSetup.add(pnlOmniInfo, gridBagConstraints);
 
         pnlBasicSummary.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Basic Setup Summary"));
@@ -6537,6 +6630,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
         pnlBasicSetup.add(pnlBasicSummary, gridBagConstraints);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Experimental Equipment"));
@@ -6688,6 +6783,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
         pnlBasicSetup.add(jPanel4, gridBagConstraints);
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Industrial Equipment"));
@@ -6725,6 +6822,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
         pnlBasicSetup.add(jPanel6, gridBagConstraints);
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Construction Options"));
@@ -6747,6 +6846,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
         pnlBasicSetup.add(jPanel8, gridBagConstraints);
 
         tbpMainTabPane.addTab("Basic Setup", pnlBasicSetup);
@@ -9822,11 +9923,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 {null, null}
             },
             new String [] {
-                "Quirk", "Cost"
+                "Cost", "Quirk"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false
@@ -10207,6 +10308,9 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
         getContentPane().add(tbpMainTabPane, gridBagConstraints);
 
         pnlInfoPanel.setMaximumSize(new java.awt.Dimension(32767, 26));
@@ -10299,7 +10403,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
 
-        mnuNewMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK));
+        mnuNewMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuNewMech.setText("New Mech");
         mnuNewMech.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10308,7 +10412,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         mnuFile.add(mnuNewMech);
 
-        mnuLoad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
+        mnuLoad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuLoad.setText("Load Mech");
         mnuLoad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10317,7 +10421,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         mnuFile.add(mnuLoad);
 
-        mnuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
+        mnuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuOpen.setText("Open");
         mnuOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10347,7 +10451,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuFile.add(mnuImport);
         mnuFile.add(jSeparator16);
 
-        mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
+        mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuSave.setText("Save Mech");
         mnuSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10356,7 +10460,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         mnuFile.add(mnuSave);
 
-        mnuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuSaveAs.setText("Save Mech As...");
         mnuSaveAs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10412,7 +10516,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         mnuPrint.setText("Print");
 
-        mnuPrintCurrentMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        mnuPrintCurrentMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuPrintCurrentMech.setText("Current Mech");
         mnuPrintCurrentMech.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10421,7 +10525,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         mnuPrint.add(mnuPrintCurrentMech);
 
-        mnuPrintSavedMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuPrintSavedMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuPrintSavedMech.setText("Saved Mech");
         mnuPrintSavedMech.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10430,7 +10534,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         mnuPrint.add(mnuPrintSavedMech);
 
-        mnuPrintBatch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuPrintBatch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuPrintBatch.setText("Batch Print Mechs");
         mnuPrintBatch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10441,7 +10545,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         mnuFile.add(mnuPrint);
 
-        mnuPrintPreview.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mnuPrintPreview.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mnuPrintPreview.setText("Print Preview");
         mnuPrintPreview.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10450,7 +10554,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         mnuFile.add(mnuPrintPreview);
 
-        mnuPostS7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
+        mnuPostS7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuPostS7.setText("Post Mech to Solaris7.com");
         mnuPostS7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10460,7 +10564,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuFile.add(mnuPostS7);
         mnuFile.add(jSeparator17);
 
-        mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK));
+        mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuExit.setText("Exit");
         mnuExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10473,7 +10577,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         mnuClearFluff.setText("Tools");
 
-        mnuSummary.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
+        mnuSummary.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuSummary.setText("Show Summary");
         mnuSummary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10508,7 +10612,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuClearFluff.add(mnuBFB);
         mnuClearFluff.add(jSeparator27);
 
-        mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
+        mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuOptions.setText("Preferences");
         mnuOptions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -10517,7 +10621,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         mnuClearFluff.add(mnuOptions);
 
-        mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
+        mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuViewToolbar.setSelected(true);
         mnuViewToolbar.setText("View Toolbar");
         mnuViewToolbar.addActionListener(new java.awt.event.ActionListener() {
@@ -10552,6 +10656,14 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         mnuClearFluff.add(jMenuItem1);
+
+        mnuReloadEquipment.setText("Reload Equipment");
+        mnuReloadEquipment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuReloadEquipmentActionPerformed(evt);
+            }
+        });
+        mnuClearFluff.add(mnuReloadEquipment);
 
         mnuMainMenu.add(mnuClearFluff);
 
@@ -13670,6 +13782,8 @@ public void LoadMechIntoGUI() {
     Variants.SetText( CurMech.GetVariants() );
     Notables.SetText( CurMech.GetNotables() );
     Additional.SetText( CurMech.GetAdditional() );
+    quirks = CurMech.GetQuirks();
+    tblQuirks.setModel( new tbQuirks(quirks) );
     txtManufacturer.setText( CurMech.GetCompany() );
     txtManufacturerLocation.setText( CurMech.GetLocation() );
     txtEngineManufacturer.setText( CurMech.GetEngineManufacturer() );
@@ -14845,7 +14959,15 @@ private void chkRTTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_chkRTTurretActionPerformed
 
 private void mnuBFBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBFBActionPerformed
-    String[] call = { "java", "-Xmx256m", "-jar", "bfb.jar" };
+    File bfb = new File("BFB.jar");
+    if (!bfb.exists()) {
+        bfb = new File("bfb.jar");
+        if (!bfb.exists()) {
+            JOptionPane.showMessageDialog(new JFrame(), "Error while trying to open BFB: Could not find file \"BFB.jar\".\n\n");
+            return;
+        }
+    }
+    String[] call = { "java", "-Xmx256m", "-jar", bfb.getName() };
     try {
         Runtime.getRuntime().exec(call);
     } catch (Exception ex) {
@@ -14939,6 +15061,16 @@ private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     qmanage.setVisible(true);
     tblQuirks.setModel(new tbQuirks(quirks));
 }//GEN-LAST:event_btnAddQuirkActionPerformed
+
+    private void mnuReloadEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReloadEquipmentActionPerformed
+        try {
+            data = new DataFactory( CurMech );
+        } catch( Exception e ) {
+            System.err.println( e.getMessage() );
+            e.printStackTrace();
+        }
+        SetWeaponChoosers();
+    }//GEN-LAST:event_mnuReloadEquipmentActionPerformed
 
 private void setViewToolbar(boolean Visible)
 {
@@ -15347,6 +15479,7 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JMenuItem mnuPrintCurrentMech;
     private javax.swing.JMenuItem mnuPrintPreview;
     private javax.swing.JMenuItem mnuPrintSavedMech;
+    private javax.swing.JMenuItem mnuReloadEquipment;
     private javax.swing.JMenuItem mnuSave;
     private javax.swing.JMenuItem mnuSaveAs;
     private javax.swing.JMenuItem mnuSummary;

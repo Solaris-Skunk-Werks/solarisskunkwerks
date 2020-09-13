@@ -28,13 +28,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
+import com.google.gson.annotations.SerializedName;
+
 public class RangedWeapon extends abPlaceable implements ifWeapon {
-    private AvailableCode AC;
-    private PPCCapacitor Capacitor = null;
-    private LaserInsulator Insulator = null;
-    private MGArray CurArray = null;
-    private ifMissileGuidance FCS = null;
-    private ifTurret Turret = null;
+    private transient PPCCapacitor Capacitor = null;
+    private transient LaserInsulator Insulator = null;
+    private transient RiscLaserPulseModule PulseModule = null;
+    private transient MGArray CurArray = null;
+    private transient ifMissileGuidance FCS = null;
+    private transient ifTurret Turret = null;
+    private transient String Manufacturer = "";
     private String ActualName,
                    CritName,
                    MegaMekName,
@@ -42,8 +45,11 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                    ChatName,
                    Specials = "",
                    Type,
-                   Manufacturer = "",
+                   ModifiedType,
                    BookReference = "";
+    private WeaponType type = WeaponType.OTHER;
+    private WeaponVariant variant = WeaponVariant.BASE;
+    private SizeClass sizeClass = SizeClass.NA;
     private boolean HasAmmo = false,
                     SwitchableAmmo = false,
                     RequiresFusion = false,
@@ -62,7 +68,6 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                     CanSplit = false,
                     OmniRestrict = false,
                     LocationLinked = false,
-                    MountedRear = false,
                     Rotary = false,
                     Ultra = false,
                     IsCluster = false,
@@ -73,15 +78,18 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                     TCCapable = true,
                     ArrayCapable = false,
                     CanUseCapacitor = false,
-                    UsingCapacitor = false,
                     CanUseInsulator = false,
-                    UsingInsulator = false,
-                    InArray = false,
+                    CanUsePulseModule = false,
                     CanUseCaseless = false,
-                    UsingCaseless = false,
-                    UsingFCS = false,
                     CanOS = false,
                     CanIOS = false;
+    private transient boolean MountedRear = false,
+                              UsingCapacitor = false,
+                              UsingInsulator = false,
+                              UsingPulseModule = false,
+                              UsingCaseless = false,
+                              UsingFCS = false,
+                              InArray = false;
     private int Heat = 0,
                 DamSht = 0,
                 DamMed = 0,
@@ -104,11 +112,33 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                 ClusterModLong = 0,
                 CaselessAmmoIDX = 0,
                 FCSType = ifMissileGuidance.FCS_NONE,
-                WeaponClass = ifWeapon.W_BALLISTIC;
+                WeaponClass = ifWeapon.W_BALLISTIC,
+                RackSize = 0;
     private double Tonnage = 0.0,
                   Cost = 0.0,
                   OffBV = 0.0,
                   DefBV = 0.0;
+    @SerializedName("Availability") private AvailableCode AC;
+
+    public enum SizeClass {
+        MICRO,
+        SMALL,
+        MEDIUM,
+        LARGE,
+        NA
+    }
+    public enum WeaponType {
+        AUTOCANNON, GAUSS, TASER, RIFLE, MG, FLUID_GUN, ARTILLERY_CANNON, LASER, PPC, PLASMA_RIFLE, PLASMA_CANNON,
+        TSEMP, FLAMER, ATM, LRM, MML, MRM, SRM, ROCKET_LAUNCHER, NARC, MORTAR, THUNDERBOLT, LRT, SRT, ARROW_IV, CRUISE_MISSILE,
+        OTHER
+    }
+    public enum WeaponVariant {
+        BASE, PROTOTYPE, LBX, LIGHT, MEDIUM, HEAVY, IMPROVED_HEAVY, PROTOMECH, ROTARY, ULTRA, HYPER_VELOCITY, ANTI_PERSONNEL,
+        IMPROVED, HYPER_ASSAULT, LONGTOM, SNIPER, THUMPER, ER, PULSE, X_PULSE, ER_PULSE, VARIABLE_SPEED_PULSE, CHEMICAL, REENGINEERED,
+        STREAK, PENTAGON_POWER, ENHANCED, EXTENDED, VEHICLE, RISC, OTHER
+    }
+
+    public RangedWeapon() { }
 
     public RangedWeapon( String actualname, String critname, String lookupname, String mmname, String type, String spec, AvailableCode a, int wepclass ) {
         CritName = critname;
@@ -116,6 +146,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         LookupName = lookupname;
         MegaMekName = mmname;
         Type = type;
+        ModifiedType = type;
         AC = a;
         Specials = spec;
         WeaponClass = wepclass;
@@ -127,6 +158,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         LookupName = r.LookupName;
         MegaMekName = r.MegaMekName;
         Type = r.Type;
+        ModifiedType = r.ModifiedType;
         AC = r.AC.Clone();
         Specials = r.Specials;
         WeaponClass = r.WeaponClass;
@@ -181,6 +213,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         CanUseCapacitor = r.CanUseCapacitor;
         ArrayCapable = r.ArrayCapable;
         CanUseInsulator = r.CanUseInsulator;
+        CanUsePulseModule = r.CanUsePulseModule;
         CanUseCaseless = r.CanUseCaseless;
         CaselessAmmoIDX = r.CaselessAmmoIDX;
         CanUseFCS = r.CanUseFCS;
@@ -188,6 +221,10 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         BookReference = r.BookReference;
         ChatName = r.ChatName;
         SetBattleForceAbilities( r.GetBattleForceAbilities() );
+        type = r.type;
+        variant = r.variant;
+        sizeClass = r.sizeClass;
+        RackSize = r.RackSize;
     }
 
     public void SetStats( double tons, int crits, int vspace, double cost, double obv, double dbv ) {
@@ -262,7 +299,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         RequiresPowerAmps = needspa;
     }
 
-    public void SetWeapon( boolean os, boolean streak, boolean ultra, boolean rotary, boolean explode, boolean tc, boolean array, boolean capacitor, boolean insulator ) {
+    public void SetWeapon( boolean os, boolean streak, boolean ultra, boolean rotary, boolean explode, boolean tc, boolean array, boolean capacitor, boolean insulator, boolean pulseModule ) {
         OneShot = os;
         Streak = streak;
         Ultra = ultra;
@@ -272,6 +309,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         CanUseCapacitor = capacitor;
         ArrayCapable = array;
         CanUseInsulator = insulator;
+        CanUsePulseModule = pulseModule;
     }
 
     public void SetCaselessAmmo( boolean canuse, int idx ) {
@@ -297,6 +335,28 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         ChatName = s;
     }
 
+    public void SetWeaponType(String s) {
+        type = WeaponType.valueOf(s.toUpperCase());
+    }
+
+    public void SetWeaponType(WeaponType t) { type = t; }
+
+    public void SetWeaponVariant(String s) {
+        variant = WeaponVariant.valueOf(s.toUpperCase());
+    }
+
+    public void SetWeaponVariant(WeaponVariant v) { variant = v; }
+
+    public void SetSizeClass(String s) {
+        sizeClass = SizeClass.valueOf(s.toUpperCase());
+    }
+
+    public void SetSizeClass(SizeClass c) { sizeClass = c; }
+
+    public void SetRackSize(int size) {
+        RackSize = size;
+    }
+
     public String ActualName() {
         return ActualName;
     }
@@ -308,6 +368,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         }
         if( UsingInsulator ) {
             retval += " (Insulated)";
+        }
+        if( UsingPulseModule ) {
+            retval += " + Pulse Module";
         }
         if( UsingCaseless ) {
             retval += " (Caseless)";
@@ -335,6 +398,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         }
         if( UsingInsulator ) {
             retval += " (Insulated)";
+        }
+        if( UsingPulseModule ) {
+            retval += " + Pulse Module";
         }
         if( UsingCaseless ) {
             retval += " (Caseless)";
@@ -365,7 +431,23 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         return BookReference;
     }
 
+    public int GetRackSize() {
+        return RackSize;
+    }
+
+    public SizeClass GetSizeClass() {
+        return sizeClass;
+    }
+
+    public WeaponType GetWeaponType() { return type; }
+
+    public WeaponVariant GetWeaponVariant() { return variant; }
+
     public String GetType() {
+        if (UsingPulseModule)
+        {
+            return ModifiedType;
+        }
         return Type;
     }
 
@@ -402,6 +484,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( UsingInsulator ) {
             retval.Combine( Insulator.GetAvailability() );
         }
+        if( UsingPulseModule ) {
+            retval.Combine( PulseModule.GetAvailability() );
+        }
         return retval;
     }
 
@@ -414,6 +499,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         int retval = CVSpace;
         if ( UsingCapacitor ) retval += GetCapacitor().NumCVSpaces();
         if ( UsingInsulator ) retval += GetInsulator().NumCVSpaces();
+        if ( UsingPulseModule ) retval += GetPulseModule().NumCVSpaces();
         if ( UsingFCS ) { retval += ((abPlaceable) FCS).NumCVSpaces(); }
         return retval;
     }
@@ -429,6 +515,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         }
         if( UsingInsulator ) {
             retval += Insulator.GetTonnage();
+        }
+        if( UsingPulseModule ) {
+            retval += PulseModule.GetTonnage();
         }
         if( UsingFCS ) {
             retval += ((abPlaceable) FCS).GetTonnage();
@@ -447,6 +536,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( UsingInsulator ) {
             retval += Insulator.GetCost();
         }
+        if( UsingPulseModule ) {
+            retval += PulseModule.GetCost();
+        }
         if( UsingFCS ) {
             retval += ((abPlaceable) FCS).GetCost();
         }
@@ -462,6 +554,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( UsingCapacitor ) {
             // round off the capacitor BV total, as this is how Tac Ops does it.
             retval = Math.round( OffBV + Capacitor.GetOffensiveBV() );
+        }
+        if (UsingPulseModule){
+            retval = Math.round( OffBV + PulseModule.GetOffensiveBV() );
         }
         return retval;
     }
@@ -515,6 +610,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         int crits = NumCrits();
         if( UsingCapacitor ) { crits += Capacitor.NumCrits(); }
         if( UsingInsulator ) { crits += Insulator.NumCrits(); }
+        if( UsingPulseModule ) { crits += PulseModule.NumCrits(); }
         if( UsingFCS ) { crits += ((abPlaceable) FCS).NumCrits(); }
         if( IsArmored() ) {
             retval += (( GetOffensiveBV() + retval ) * 0.05 * crits );
@@ -523,13 +619,18 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     }
 
     public int GetHeat() {
+        int tempHeat = Heat;
         if( UsingCapacitor ) {
-            return Heat + 5;
+            tempHeat += 5;
         }
         if( UsingInsulator ) {
-            return Heat - 1;
+            tempHeat -= 1;
         }
-        return Heat;
+        if( UsingPulseModule){
+            tempHeat += 2;
+        }
+        
+        return tempHeat;
     }
 
     public double GetBVHeat() {
@@ -540,10 +641,17 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( UsingInsulator ) {
             retval -= 1;
         }
+        if( UsingPulseModule)
+        {
+            retval += 2;
+        }
         if( Rotary ) { retval *= 6; }
         if( Ultra ) { retval *= 2; }
         if( OneShot ) { retval *= 0.25; }
-        if( Streak && this.ChatName.contains( "SRM" )) { retval *= 0.5; }
+        if( Streak && ( this.ChatName.contains( "SRM" )
+                || this.ChatName.contains( "LRM" )
+                || this.ChatName.contains( "iATM" ) )
+            ) { retval *= 0.5; }
         if( retval < 0 ) { retval = 0; }
         return retval;
     }
@@ -797,6 +905,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( UsingInsulator ) {
             Insulator.ArmorComponent( armor );
         }
+        if( UsingPulseModule ) {
+            PulseModule.ArmorComponent( armor );
+        }
         if( UsingFCS ) {
             ((abPlaceable) FCS).ArmorComponent( armor );
         }
@@ -844,6 +955,30 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
 
     public LaserInsulator GetInsulator() {
         return Insulator;
+    }
+    
+    public boolean CanUsePulseModule() {
+        return CanUsePulseModule;
+    }
+
+    public void UsePulseModule( boolean l ) {
+        if( l ) {
+            PulseModule = new RiscLaserPulseModule( this );
+            UsingPulseModule = true;
+            ModifiedType = "PE, X";
+        } else {
+            PulseModule = null;
+            UsingPulseModule = false;
+            ModifiedType = Type;
+        }
+    }
+
+    public boolean IsUsingPulseModule() {
+        return UsingPulseModule;
+    }
+
+    public RiscLaserPulseModule GetPulseModule() {
+        return PulseModule;
     }
 
     public boolean IsFCSCapable() {
@@ -988,6 +1123,10 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
 
     public RangedWeapon Clone() {
         return new RangedWeapon( this );
+    }
+
+    public int GetBMRulesLevel() {
+        return AC.GetRulesLevel_BM();
     }
 
     @Override

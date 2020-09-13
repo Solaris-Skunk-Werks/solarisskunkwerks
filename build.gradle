@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
 allprojects {
-    version '0.7.3'
+    version '0.7.4'
     jar {
         onlyIf { !sourceSets.main.allSource.files.isEmpty() }
     }
@@ -9,7 +9,6 @@ allprojects {
 
 subprojects {
     group 'com.solarisskunkwerks'
-    sourceCompatibility = 1.8
     repositories {
         mavenCentral()
     }

@@ -45,7 +45,7 @@ public class VJumpJetSetImproved implements ifVisitor {
         CurMech = m;
         JumpJetFactory j = CurMech.GetJumpJets();
 
-        if( ! j.IsImproved() ) {
+        if( ( j.IsProto()) || !j.IsImproved() ) {
             j.SetImproved();
 
             // now let's blow out the jump jets and recalculate

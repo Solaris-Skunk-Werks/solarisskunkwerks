@@ -76,6 +76,8 @@ public interface ifCVLoadout {
     public void AddToBody( abPlaceable p ) throws Exception;
     public void AddToTurret1( abPlaceable p ) throws Exception;
     public void AddToTurret2( abPlaceable p ) throws Exception;
+    public void AddToSponsonTurretLeft(abPlaceable p ) throws Exception;
+    public void AddToSponsonTurretRight(abPlaceable p ) throws Exception;
     public ArrayList<abPlaceable> GetFrontItems();
     public ArrayList<abPlaceable> GetLeftItems();
     public ArrayList<abPlaceable> GetRightItems();
@@ -83,8 +85,12 @@ public interface ifCVLoadout {
     public ArrayList<abPlaceable> GetBodyItems();
     public ArrayList<abPlaceable> GetTurret1Items();
     public ArrayList<abPlaceable> GetTurret2Items();
+    public ArrayList<abPlaceable> GetSponsonTurretLeftItems();
+    public ArrayList<abPlaceable> GetSponsonTurretRightItems();
     public Turret GetTurret();
     public Turret GetRearTurret();
+    public SponsonTurret GetSponsonTurretLeft();
+    public SponsonTurret GetSponsonTurretRight();
     public abPlaceable[] GetItems( int Loc );
     public int Find( abPlaceable p );
     public LocationIndex FindIndex( abPlaceable p );
@@ -112,11 +118,15 @@ public interface ifCVLoadout {
     public void SetBodyItems( ArrayList<abPlaceable> c );
     public void SetTurret1( ArrayList<abPlaceable> c );
     public void SetTurret2( ArrayList<abPlaceable> c );
+    public void SetSponsonTurretLeftItems(ArrayList<abPlaceable> c);
+    public void SetSponsonTurretRightItems(ArrayList<abPlaceable> c);
     public void SetNonCore( ArrayList v );
     public void SetTCList( ArrayList v );
     public void SetEquipment( ArrayList v );
     public void SetTurret( Turret t );
     public void SetRearTurret( Turret t );
+    public void SetSponsonTurretLeft(SponsonTurret t);
+    public void SetSponsonTurretRight(SponsonTurret t);
     public ArrayList GetMechMods();
     public boolean CanUseClanCASE();
     public boolean IsUsingClanCASE();
@@ -143,7 +153,10 @@ public interface ifCVLoadout {
     public void MoveToQueue(int loc);
     public double GetTurretTonnage();
     public double GetRearTurretTonnage();
+    public double GetSponsonTurretTonnage();
+    public double GetSponsonTurretCost();
     public void ResetHeatSinks();
+    public int NumCVAmmoSpaces();
 /*
     public void AddMechModifier( MechModifier m );
     public void RemoveMechMod( MechModifier m );

@@ -78,9 +78,8 @@ public class stCVWiGE implements ifCombatVehicle {
         return true;
     }
 
-    public boolean IsVTOL() {
-        return false;
-    }
+    @Override
+    public boolean IsWIGE() { return true; }
 
     public boolean CanBeDuneBuggy() {
         return false;

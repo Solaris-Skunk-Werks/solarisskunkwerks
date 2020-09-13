@@ -178,6 +178,9 @@ public class MechLoadoutRenderer extends DefaultListCellRenderer {
                 if( ((RangedWeapon) Parent.GetCurItem()).IsUsingInsulator() ) {
                     size++;
                 }
+                if( ((RangedWeapon) Parent.GetCurItem()).IsUsingPulseModule()) {
+                    size++;
+                }
             }
             if( Parent.GetCurItem() instanceof MGArray ) {
                 size += ((MGArray) Parent.GetCurItem()).GetNumMGs();

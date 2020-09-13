@@ -29,6 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package components;
 
 import common.CommonTools;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class MechTurret extends abPlaceable implements ifTurret {
@@ -53,9 +54,20 @@ public class MechTurret extends abPlaceable implements ifTurret {
             return false;
         }
         if( w instanceof RangedWeapon ) {
+            //If it can't go in a Vehicle Turret then it can't go in a Mech one.
+            if( !((RangedWeapon) w).CanAllocCVTurret() ) return false;
+            //Make sure if they can split, that they haven't been.
             if( ((RangedWeapon) w).CanSplit() ) {
-                if( Owner.FindIndexes( (abPlaceable) w ).size() > 1 ) {
-                    return false;
+                //Gets all crit slots
+                ArrayList locations = Owner.FindIndexes( (abPlaceable) w );
+                //first one
+                LocationIndex firstSlot = (LocationIndex) locations.get(0);
+                //check all of them
+                for (int i = 0; i < locations.size(); i++) {
+                    //compare to the first. If they are different, it's been split.
+                    LocationIndex currentSlot = ((LocationIndex) locations.get(i));
+                    if (currentSlot.Location != firstSlot.Location)
+                        return false;
                 }
             }
         }
