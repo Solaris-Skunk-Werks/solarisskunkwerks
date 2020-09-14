@@ -46,7 +46,7 @@ public class AESSystem extends abPlaceable {
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = m;
         LegSystem = legs;
-        SetExclusions( new Exclusion( new String[] { "Targeting Computer", "MASC", "TSM" }, "A.E.S." ) );
+        SetExclusions(new String[] { "Targeting Computer", "MASC", "TSM" });
     }
 
     public String ActualName() {

@@ -176,7 +176,7 @@ public class Mech implements ifUnit, ifBattleforce {
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         NullSig = new MultiSlotSystem( this, "Null Signature System", "Null Signature System", "Null Signature System", "NullSignatureSystem", 0.0, false, true, 1400000.0, false, AC );
         NullSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 10, 0.2, 0.0, 0.0, 0.0, true, false ) );
-        NullSig.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Void Signature System", "Stealth Armor", "C3" }, "Null Signature System" ) );
+        NullSig.SetExclusions(new String[] { "Targeting Computer", "Void Signature System", "Stealth Armor", "C3" });
         NullSig.SetBookReference( "Tactical Operations" );
         NullSig.SetChatName( "NullSig" );
 
@@ -189,7 +189,7 @@ public class Mech implements ifUnit, ifBattleforce {
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Chameleon = new MultiSlotSystem( this, "Chameleon LPS", "Chameleon LPS", "Chameleon LPS", "ChameleonLightPolarizationField", 0.0, true, true, 600000.0, false, AC );
         Chameleon.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 6, 0.2, 0.0, 0.0, 0.0, true, false ) );
-        Chameleon.SetExclusions( new Exclusion( new String[] { "Void Signature System", "Stealth Armor" }, "Chameleon LPS" ) );
+        Chameleon.SetExclusions(new String[] { "Void Signature System", "Stealth Armor" });
         Chameleon.SetBookReference( "Tactical Operations" );
         Chameleon.SetChatName( "CLPS" );
 
@@ -214,7 +214,7 @@ public class Mech implements ifUnit, ifBattleforce {
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         VoidSig = new MultiSlotSystem( this, "Void Signature System", "Void Signature System", "Void Signature System", "VoidSignatureSystem", 0.0, false, true, 2000000.0, false, AC );
         VoidSig.AddMechModifier( new MechModifier( 0, 0, 0, 0.0, 0, 0, 10, 0.3, 0.0, 0.0, 0.0, true, false ) );
-        VoidSig.SetExclusions( new Exclusion( new String[] { "Targeting Computer", "Null Signature System", "Stealth Armor", "C3", "Chameleon LPS" }, "Void Signature System" ) );
+        VoidSig.SetExclusions(new String[] { "Targeting Computer", "Null Signature System", "Stealth Armor", "C3", "Chameleon LPS" });
         VoidSig.SetBookReference( "Tactical Operations" );
         VoidSig.SetChatName( "VoidSig" );
 
@@ -4721,7 +4721,7 @@ public class Mech implements ifUnit, ifBattleforce {
     public boolean HasC3() {
         // checks for C3 systems.
         SimplePlaceable p = new SimplePlaceable( "C3Test", "C3Test", "C3Test", "C3Test", "none", 0, false, null );
-        p.SetExclusions( new Exclusion( new String[] { "C3" }, "C3Test" ) );
+        p.SetExclusions(new String[] { "C3" });
         try {
             CurLoadout.CheckExclusions( p );
         } catch( Exception e ) {
@@ -4733,7 +4733,7 @@ public class Mech implements ifUnit, ifBattleforce {
     public boolean HasECM() {
         // ensures that, if the 'Mech needs ECM, it has it.
         SimplePlaceable p = new SimplePlaceable( "ECMTest", "ECMTest", "ECMTest", "ECMTest", "none", 0, false, null );
-        p.SetExclusions( new Exclusion( new String[] { "ECM", "Watchdog" }, "ECMTest" ) );
+        p.SetExclusions(new String[] { "ECM", "Watchdog" });
         try {
             CurLoadout.CheckExclusions( p );
         } catch( Exception e ) {
@@ -4745,7 +4745,7 @@ public class Mech implements ifUnit, ifBattleforce {
     public boolean HasProbe() {
         // ensures that, if the 'Mech needs Probe, it has it.
         SimplePlaceable p = new SimplePlaceable( "ProbeTest", "ProbeTest", "ProbeTest", "ProbeTest", "none", 0, false, null );
-        p.SetExclusions( new Exclusion( new String[] { "Probe" }, "ProbeTest" ) );
+        p.SetExclusions(new String[] { "Probe" });
         try {
             CurLoadout.CheckExclusions( p );
         } catch( Exception e ) {

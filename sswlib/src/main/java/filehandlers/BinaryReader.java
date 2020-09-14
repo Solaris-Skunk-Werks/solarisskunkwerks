@@ -192,7 +192,8 @@ public class BinaryReader {
                         for( int i = 0; i < numexceptions; i++ ) {
                             excep.add( FR.readUTF() );
                         }
-                        Exclusion ex = new Exclusion( excep.toArray( new String[] { null } ), e.CritName() );
+                        String[] ex = new String[excep.size()];
+                        ex = excep.toArray(ex);
                         e.SetExclusions( ex );
                     }
                     finished.add( e );

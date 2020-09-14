@@ -29,7 +29,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package states;
 
 import components.AvailableCode;
-import components.Exclusion;
 import components.MechModifier;
 
 public class stPECLMASC implements ifPhysEnhance, ifState {
@@ -119,8 +118,8 @@ public class stPECLMASC implements ifPhysEnhance, ifState {
         return MechMod;
     }
 
-    public Exclusion GetExclusions() {
-        return new Exclusion( new String[] { "A.E.S." }, "MASC" );
+    public String[] GetExclusions() {
+        return new String[] { "A.E.S." };
     }
 
     @Override

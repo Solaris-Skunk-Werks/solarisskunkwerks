@@ -5126,7 +5126,7 @@ public class TripodLoadout implements ifMechLoadout, ifLoadout {
             }
         }
         if( p.GetExclusions() == null ) { return; }
-        String[] exclude = p.GetExclusions().GetExclusions();
+        String[] exclude = p.GetExclusions();
 
         for( int i = 0; i < exclude.length; i++ ) {
             // queue first

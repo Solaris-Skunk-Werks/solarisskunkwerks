@@ -4933,7 +4933,7 @@ public boolean IsTripod(){
                 throw new Exception( p.CritName() + " may not be mounted on this 'Mech with " + Owner.GetArmor().ActualName());
         
         if( p.GetExclusions() == null ) { return; }
-        String[] exclude = p.GetExclusions().GetExclusions();
+        String[] exclude = p.GetExclusions();
 
         for( int i = 0; i < exclude.length; i++ ) {
             // queue first
