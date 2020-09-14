@@ -12311,13 +12311,7 @@ private void btnAddEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         try {
             CurMech.GetLoadout().CheckExclusions( a );
             if( a instanceof Equipment ) {
-                if ( ! ((Equipment) a).Validate( CurMech ) ) {
-                    if( ((Equipment) a).RequiresQuad() ) {
-                        throw new Exception( a.CritName() + " may only be mounted on a quad 'Mech." );
-                    } else if( ((Equipment) a).MaxAllowed() > 0 ) {
-                        throw new Exception( "Only " + ((Equipment) a).MaxAllowed() + " " + a.CritName() + "(s) may be mounted on one 'Mech." );
-                    }
-                }
+                ((Equipment) a).Validate(CurMech);
             }
         } catch( Exception e ) {
             Media.Messager( e.getMessage() );

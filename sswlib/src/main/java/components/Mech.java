@@ -35,6 +35,8 @@ import common.CommonTools;
 import java.util.Hashtable;
 import java.util.ArrayList;
 import java.util.prefs.Preferences;
+
+import filehandlers.Media;
 import visitors.*;
 
 public class Mech implements ifUnit, ifBattleforce {
@@ -915,7 +917,9 @@ public class Mech implements ifUnit, ifBattleforce {
             if( p instanceof PhysicalWeapon ) {
                 CurLoadout.Remove(p);
             } else if( p instanceof Equipment ) {
-                if( ! ((Equipment) p).Validate( this ) ) {
+                try {
+                    ((Equipment) p).Validate( this);
+                } catch (Exception e) {
                     CurLoadout.Remove( p );
                 }
             }
@@ -1102,8 +1106,10 @@ public class Mech implements ifUnit, ifBattleforce {
             if( p instanceof PhysicalWeapon ) {
                 CurLoadout.Remove(p);
             } else if( p instanceof Equipment ) {
-                if( ! ((Equipment) p).Validate( this ) ) {
-                    CurLoadout.Remove( p );
+                try {
+                    ((Equipment) p).Validate( this);
+                } catch (Exception e) {
+                    CurLoadout.Remove(p);
                 }
             }
         }
@@ -1297,8 +1303,10 @@ public class Mech implements ifUnit, ifBattleforce {
             if( p instanceof PhysicalWeapon ) {
                 CurLoadout.Remove(p);
             } else if( p instanceof Equipment ) {
-                if( ! ((Equipment) p).Validate( this ) ) {
-                    CurLoadout.Remove( p );
+                try {
+                    ((Equipment) p).Validate(this);
+                } catch (Exception e) {
+                    CurLoadout.Remove(p);
                 }
             }
         }
