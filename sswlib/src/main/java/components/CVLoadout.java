@@ -313,6 +313,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         if ( p instanceof Equipment ) {
             if ( !((Equipment)p).CanAllocCVFront() && !((Equipment)p).CanAllocCVSide() && !((Equipment)p).CanAllocCVRear() && !((Equipment)p).CanAllocCVTurret() )
                 Loc = LocationIndex.CV_LOC_BODY;
+            // Check max items allowed for that location
+            ((Equipment) p).ValidateMaxPerLocation(GetItems(Loc));
         }
 
         switch( Loc ) {
@@ -549,23 +551,23 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     public abPlaceable[] GetItems(int Loc) {
         switch(Loc) {
             case LocationIndex.CV_LOC_BODY:
-                return (abPlaceable[]) BodyItems.toArray();
+                return BodyItems.toArray(new abPlaceable[BodyItems.size()]);
             case LocationIndex.CV_LOC_FRONT:
-                return (abPlaceable[]) FrontItems.toArray();
+                return FrontItems.toArray(new abPlaceable[FrontItems.size()]);
             case LocationIndex.CV_LOC_LEFT:
-                return (abPlaceable[]) LeftItems.toArray();
+                return LeftItems.toArray(new abPlaceable[LeftItems.size()]);
             case LocationIndex.CV_LOC_REAR:
-                return (abPlaceable[]) RearItems.toArray();
+                return RearItems.toArray(new abPlaceable[RearItems.size()]);
             case LocationIndex.CV_LOC_RIGHT:
-                return (abPlaceable[]) RearItems.toArray();
+                return RearItems.toArray(new abPlaceable[RightItems.size()]);
             case LocationIndex.CV_LOC_TURRET1:
-                return (abPlaceable[]) Turret1Items.toArray();
+                return Turret1Items.toArray(new abPlaceable[Turret1Items.size()]);
             case LocationIndex.CV_LOC_TURRET2:
-                return (abPlaceable[]) Turret2Items.toArray();
+                return Turret2Items.toArray(new abPlaceable[Turret2Items.size()]);
             case LocationIndex.CV_LOC_SPONSON_LEFT:
-                return (abPlaceable[]) SponsonTurretLeftItems.toArray();
+                return SponsonTurretLeftItems.toArray(new abPlaceable[SponsonTurretLeftItems.size()]);
             case LocationIndex.CV_LOC_SPONSON_RIGHT:
-                return (abPlaceable[]) SponsonTurretRightItems.toArray();
+                return SponsonTurretRightItems.toArray(new abPlaceable[SponsonTurretRightItems.size()]);
         }
         return null;
     }
