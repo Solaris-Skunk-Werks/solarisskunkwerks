@@ -246,7 +246,7 @@ public class PhysicalEnhancement extends abPlaceable {
     }
 
     @Override
-    public Exclusion GetExclusions() {
+    public String[] GetExclusions() {
         return CurConfig.GetExclusions();
     }
 

@@ -30,12 +30,9 @@ package states;
 
 import common.CommonTools;
 import components.AvailableCode;
-import components.Exclusion;
 import components.LocationIndex;
 import components.MechModifier;
 import components.SimplePlaceable;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class stCockpitRobotic implements ifCockpit, ifState {
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );

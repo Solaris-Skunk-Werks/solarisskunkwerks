@@ -1873,7 +1873,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     public boolean HasECM() {
         // ensures that, if the 'Mech needs ECM, it has it.
         SimplePlaceable p = new SimplePlaceable( "ECMTest", "ECMTest", "ECMTest", "ECMTest", "none", 0, false, null );
-        p.SetExclusions( new Exclusion( new String[] { "ECM", "Watchdog" }, "ECMTest" ) );
+        p.SetExclusions(new String[] { "ECM", "Watchdog" });
         try {
             CurLoadout.CheckExclusions( p );
         } catch( Exception e ) {
@@ -1885,7 +1885,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     public boolean HasC3() {
         // checks for C3 systems.
         SimplePlaceable p = new SimplePlaceable( "C3Test", "C3Test", "C3Test", "C3Test", "none", 0, false, null );
-        p.SetExclusions( new Exclusion( new String[] { "C3" }, "C3Test" ) );
+        p.SetExclusions(new String[] { "C3" });
         try {
             CurLoadout.CheckExclusions( p );
         } catch( Exception e ) {
@@ -1897,7 +1897,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     public boolean HasProbe() {
         // ensures that, if the 'Mech needs Probe, it has it.
         SimplePlaceable p = new SimplePlaceable( "ProbeTest", "ProbeTest", "ProbeTest", "ProbeTest", "none", 0, false, null );
-        p.SetExclusions( new Exclusion( new String[] { "Probe" }, "ProbeTest" ) );
+        p.SetExclusions(new String[] { "Probe" });
         try {
             CurLoadout.CheckExclusions( p );
         } catch( Exception e ) {

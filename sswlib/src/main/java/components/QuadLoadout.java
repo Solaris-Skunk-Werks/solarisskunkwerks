@@ -4648,7 +4648,7 @@ public void SetBoobyTrap( boolean b ) throws Exception{
             }
         }
         if( p.GetExclusions() == null ) { return; }
-        String[] exclude = p.GetExclusions().GetExclusions();
+        String[] exclude = p.GetExclusions();
 
         for( int i = 0; i < exclude.length; i++ ) {
             // queue first

@@ -47,7 +47,7 @@ public class TargetingComputer extends abPlaceable {
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = (ifLoadout)l;
         Clan = clan;
-        SetExclusions( new Exclusion( new String[] { "A.E.S." }, "Targeting Computer" ) );
+        SetExclusions(new String[] { "A.E.S." });
     }
 
     public TargetingComputer( ifCVLoadout l, boolean clan) {
@@ -62,7 +62,7 @@ public class TargetingComputer extends abPlaceable {
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = (ifLoadout)l;
         Clan = clan;
-        SetExclusions( new Exclusion( new String[] { "A.E.S." }, "Targeting Computer" ) );
+        SetExclusions(new String[] { "A.E.S." });
     }
 
     public String ActualName() {

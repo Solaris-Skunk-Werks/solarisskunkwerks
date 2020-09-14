@@ -29,7 +29,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package states;
 
 import components.AvailableCode;
-import components.Exclusion;
 import components.MechModifier;
 
 public interface ifPhysEnhance {
@@ -52,5 +51,5 @@ public interface ifPhysEnhance {
     public boolean IsCritable();
     public AvailableCode GetAvailability();
     public MechModifier GetMechModifier();
-    public Exclusion GetExclusions();
+    public String[] GetExclusions();
 }

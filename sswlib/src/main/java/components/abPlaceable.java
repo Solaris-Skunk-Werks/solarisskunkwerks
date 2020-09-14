@@ -28,14 +28,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public abstract class abPlaceable implements Comparable<abPlaceable> {
     // An abstract class for items that can be placed inside a loadout.
     protected transient boolean Locked = false,  Armored = false;
     public final static AvailableCode ArmoredAC = new AvailableCode( AvailableCode.TECH_BOTH );
-    private Exclusion Exclusions = null;
+    private String[] Exclusions = new String[]{};
     private MechModifier Modifier = null;
     private String[] BattleForceAbilities = new String[]{};
 
@@ -442,11 +439,11 @@ public abstract class abPlaceable implements Comparable<abPlaceable> {
         Armored = armor;
     }
 
-    public void SetExclusions(Exclusion e) {
+    public void SetExclusions(String[] e) {
         Exclusions = e;
     }
 
-    public Exclusion GetExclusions() {
+    public String[] GetExclusions() {
         return Exclusions;
     }
 
