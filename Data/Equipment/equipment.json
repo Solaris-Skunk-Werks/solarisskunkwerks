@@ -1723,9 +1723,9 @@
       "C3EM"
     ],
     "Exclusions": [
-        "Improved C3 Computer",
-        "Null Signature System",
-        "Void Signature System"
+      "Improved C3 Computer",
+      "Null Signature System",
+      "Void Signature System"
       ]
   },
   "C3 Remote Sensor Launcher": {
