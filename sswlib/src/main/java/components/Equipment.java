@@ -75,7 +75,10 @@ public class Equipment extends abPlaceable {
                     CanMountRear = false,
                     Explosive = false,
                     VariableSize = false,
-                    RequiresQuad = false;
+                    RequiresQuad = false,
+                    RequiresFusion = false,
+                    RequiresNuclear = false,
+                    RequiresPowerAmps = false;
     private transient boolean Rear = false;
     @SerializedName("Availability") private AvailableCode AC;
 
@@ -459,6 +462,18 @@ public class Equipment extends abPlaceable {
 
     public boolean RequiresQuad() {
         return RequiresQuad;
+    }
+
+    public boolean RequiresFusion() {
+        return RequiresFusion;
+    }
+
+    public boolean RequiresNuclear() {
+        return RequiresNuclear;
+    }
+
+    public boolean RequiresPowerAmps() {
+        return RequiresPowerAmps;
     }
 
     public int MaxAllowed() {
