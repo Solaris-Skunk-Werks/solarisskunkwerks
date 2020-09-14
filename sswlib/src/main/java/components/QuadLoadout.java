@@ -2842,6 +2842,10 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         // stating index.  Throws Exceptions with error messages if things went
         // wrong.
 
+        if (p instanceof Equipment) {
+            ((Equipment) p).ValidateMaxPerLocation(Loc);
+        }
+
         // Let's get a snapshot of the location so we can reset it if we have to.
         abPlaceable SnapShot[] = Loc.clone();
 

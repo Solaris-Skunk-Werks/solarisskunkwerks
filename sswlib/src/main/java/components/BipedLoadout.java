@@ -1500,46 +1500,46 @@ public boolean IsTripod(){
         // number in each location
         int[] retval = { 0, 0, 0, 0, 0, 0, 0, 0 };
         for( int i = 0; i < 6; i++ ) {
-            if( HDCrits[i] == p ) {
+            if(HDCrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_HD]++;
             }
-            if( CTCrits[i] == p ) {
+            if(CTCrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_CT]++;
             }
-            if( LTCrits[i] == p ) {
+            if(LTCrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_LT]++;
             }
-            if( RTCrits[i] == p ) {
+            if(RTCrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_RT]++;
             }
-            if( LACrits[i] == p ) {
+            if(LACrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_LA]++;
             }
-            if( RACrits[i] == p ) {
+            if(RACrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_RA]++;
             }
-            if( LLCrits[i] == p ) {
+            if(LLCrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_LL]++;
             }
-            if( RLCrits[i] == p ) {
+            if(RLCrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_RL]++;
             }
         }
 
         for( int i = 6; i < 12; i++ ) {
-            if( CTCrits[i] == p ) {
+            if(CTCrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_CT]++;
             }
-            if( LTCrits[i] == p ) {
+            if(LTCrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_LT]++;
             }
-            if( RTCrits[i] == p ) {
+            if(RTCrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_RT]++;
             }
-            if( LACrits[i] == p ) {
+            if(LACrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_LA]++;
             }
-            if( RACrits[i] == p ) {
+            if(RACrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_RA]++;
             }
         }
@@ -3092,6 +3092,9 @@ public boolean IsTripod(){
         // stating index.  Throws Exceptions with error messages if things went
         // wrong.
 
+        if (p instanceof Equipment) {
+            ((Equipment) p).ValidateMaxPerLocation(Loc);
+        }
         // Let's get a snapshot of the location so we can reset it if we have to.
         abPlaceable SnapShot[] = Loc.clone();
 

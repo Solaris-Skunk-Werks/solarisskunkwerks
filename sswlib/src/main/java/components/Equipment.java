@@ -31,6 +31,7 @@ package components;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Equipment extends abPlaceable {
     private String ActualName,
@@ -558,12 +559,15 @@ public class Equipment extends abPlaceable {
         }
     }
 
-    public void ValidateMaxPerLocation(Mech m, int index) {
-        ArrayList equipped = m.GetLoadout().FindIndexes(this);
-        for (LocationIndex loc: equipped) {
-            if (loc.Index == index) {
-
+    public void ValidateMaxPerLocation(abPlaceable[] location ) throws Exception {
+        int slots = 0;
+        for (abPlaceable item : location) {
+            if (item instanceof Equipment && item.LookupName().equals(LookupName)) {
+                slots++;
             }
+        }
+        if (slots / NumCrits() >= MaxAllowedPerLocation) {
+            throw new Exception("Only " + MaxAllowedPerLocation + " " + CritName + " can be mounted in each location.");
         }
     }
 
