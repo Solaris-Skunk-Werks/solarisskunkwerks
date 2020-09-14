@@ -1722,11 +1722,14 @@
     "BattleForceAbilities": [
       "C3EM"
     ],
-    "Exclusions": [
-      "Improved C3 Computer",
-      "Null Signature System",
-      "Void Signature System"
-    ]
+    "Exclusions": {
+      "Exclusions": [
+        "Improved C3 Computer",
+        "Null Signature System",
+        "Void Signature System"
+      ],
+      "Excluder": "C3 Emergency Master"
+    }
   },
   "C3 Remote Sensor Launcher": {
     "ActualName": "Command/Control/Communication Remote Sensor Launcher",
@@ -2330,7 +2333,7 @@
     "alloc_legs": false,
     "alloc_front": true,
     "alloc_sides": true,
-    "alloc_rear": false,
+    "alloc_rear": true,
     "alloc_turret": true,
     "alloc_body": true,
     "CanSplit": true,
@@ -2361,7 +2364,7 @@
       "CL_ReIntroDate": 0,
       "RulesLevelBM": 2,
       "RulesLevelIM": 2,
-      "RulesLevelCV": -1,
+      "RulesLevelCV": 2,
       "RulesLevelAF": -1,
       "RulesLevelCF": -1,
       "TechBase": 2,
@@ -2612,9 +2615,9 @@
     "alloc_legs": true,
     "alloc_front": true,
     "alloc_sides": true,
-    "alloc_rear": false,
+    "alloc_rear": true,
     "alloc_turret": true,
-    "alloc_body": true,
+    "alloc_body": false,
     "CanSplit": false,
     "CanMountRear": true,
     "Explosive": false,
@@ -2624,12 +2627,12 @@
       "IS_SL": "X",
       "IS_SW": "X",
       "IS_CI": "E",
-      "IS_DA": "D",
+      "IS_DA": "E",
       "IS_TechRating": "E",
       "CL_SL": "X",
       "CL_SW": "X",
       "CL_CI": "E",
-      "CL_DA": "D",
+      "CL_DA": "E",
       "CL_TechRating": "E",
       "IS_RandDStartDate": 3062,
       "IS_PrototypeDate": 3067,
@@ -2647,11 +2650,11 @@
       "RulesLevelAF": -1,
       "RulesLevelCF": -1,
       "TechBase": 2,
-      "IS_IntroFaction": "--",
+      "IS_IntroFaction": "LC",
       "IS_ReIntroFaction": "--",
       "IS_RandDFaction": "LA",
       "IS_PrototypeFaction": "LA",
-      "CL_IntroFaction": "--",
+      "CL_IntroFaction": "CDS",
       "CL_ReIntroFaction": "--",
       "CL_RandDFaction": "CDS",
       "CL_PrototypeFaction": "CDS",
@@ -2669,6 +2672,10 @@
     },
     "BattleForceAbilities": [
       "BHJ"
+    ],
+    "Exclusions": [
+      "HarJel II",
+      "HarJel III"
     ]
   },
   "HarJel II": {
@@ -2676,9 +2683,9 @@
     "CritName": "HarJel II",
     "Type": "PE",
     "LookupName": "HarJel II",
-    "MegaMekName": "HarJelII",
-    "BookReference": "FM3145",
-    "ChatName": "HrJlII",
+    "MegaMekName": "HarJel II Self-Repair System",
+    "BookReference": "Interstellar Operations",
+    "ChatName": "HrJl2",
     "Specials": "-",
     "Crits": 1,
     "CVSpace": 0,
@@ -2692,7 +2699,7 @@
     "Tonnage": 2.0,
     "Cost": 240000.0,
     "OffBV": 0.0,
-    "DefBV": 0.0,
+    "DefBV": -1.0,
     "MinTons": 0.0,
     "MaxTons": 0.0,
     "VariableIncrement": 0.0,
@@ -2711,7 +2718,7 @@
     "alloc_body": false,
     "CanSplit": false,
     "CanMountRear": false,
-    "Explosive": true,
+    "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
     "Availability": {
@@ -2731,24 +2738,24 @@
       "IS_ExtinctDate": 0,
       "IS_ReIntroDate": 0,
       "CL_RandDStartDate": 0,
-      "CL_PrototypeDate": 0,
+      "CL_PrototypeDate": 3120,
       "CL_IntroDate": 3136,
       "CL_ExtinctDate": 0,
       "CL_ReIntroDate": 0,
-      "RulesLevelBM": 3,
+      "RulesLevelBM": 2,
       "RulesLevelIM": -1,
       "RulesLevelCV": -1,
       "RulesLevelAF": -1,
       "RulesLevelCF": -1,
-      "TechBase": 2,
-      "IS_IntroFaction": "–",
-      "IS_ReIntroFaction": "–",
-      "IS_RandDFaction": "–",
-      "IS_PrototypeFaction": "–",
+      "TechBase": 1,
+      "IS_IntroFaction": "--",
+      "IS_ReIntroFaction": "--",
+      "IS_RandDFaction": "--",
+      "IS_PrototypeFaction": "--",
       "CL_IntroFaction": "CSF",
-      "CL_ReIntroFaction": "–",
-      "CL_RandDFaction": "–",
-      "CL_PrototypeFaction": "–",
+      "CL_ReIntroFaction": "--",
+      "CL_RandDFaction": "--",
+      "CL_PrototypeFaction": "CSF",
       "IS_WentExtinct": false,
       "IS_ReIntroduced": false,
       "IS_IsPrototype": false,
@@ -2762,9 +2769,10 @@
       "SuperHeavyOnly": false
     },
     "BattleForceAbilities": [
-      ""
+      "BHJ2"
     ],
     "Exclusions": [
+      "HarJel",
       "HarJel III"
     ]
   },
@@ -2773,9 +2781,9 @@
     "CritName": "HarJel III",
     "Type": "PE",
     "LookupName": "HarJel III",
-    "MegaMekName": "HarJelIII",
-    "BookReference": "FM3145",
-    "ChatName": "HrJlIII",
+    "MegaMekName": "HarJel III Self-Repair System",
+    "BookReference": "Interstellar Operations",
+    "ChatName": "HrJl3",
     "Specials": "-",
     "Crits": 2,
     "CVSpace": 0,
@@ -2789,7 +2797,7 @@
     "Tonnage": 3.0,
     "Cost": 360000.0,
     "OffBV": 0.0,
-    "DefBV": 0.0,
+    "DefBV": -2.0,
     "MinTons": 0.0,
     "MaxTons": 0.0,
     "VariableIncrement": 0.0,
@@ -2828,24 +2836,24 @@
       "IS_ExtinctDate": 0,
       "IS_ReIntroDate": 0,
       "CL_RandDStartDate": 0,
-      "CL_PrototypeDate": 0,
+      "CL_PrototypeDate": 3137,
       "CL_IntroDate": 3139,
       "CL_ExtinctDate": 0,
       "CL_ReIntroDate": 0,
-      "RulesLevelBM": 3,
+      "RulesLevelBM": 2,
       "RulesLevelIM": -1,
       "RulesLevelCV": -1,
       "RulesLevelAF": -1,
       "RulesLevelCF": -1,
-      "TechBase": 2,
-      "IS_IntroFaction": "–",
-      "IS_ReIntroFaction": "–",
-      "IS_RandDFaction": "–",
-      "IS_PrototypeFaction": "–",
+      "TechBase": 1,
+      "IS_IntroFaction": "--",
+      "IS_ReIntroFaction": "--",
+      "IS_RandDFaction": "--",
+      "IS_PrototypeFaction": "--",
       "CL_IntroFaction": "CSF",
-      "CL_ReIntroFaction": "–",
-      "CL_RandDFaction": "–",
-      "CL_PrototypeFaction": "–",
+      "CL_ReIntroFaction": "--",
+      "CL_RandDFaction": "--",
+      "CL_PrototypeFaction": "CSF",
       "IS_WentExtinct": false,
       "IS_ReIntroduced": false,
       "IS_IsPrototype": false,
@@ -2859,9 +2867,10 @@
       "SuperHeavyOnly": false
     },
     "BattleForceAbilities": [
-      ""
+      "BHJ3"
     ],
     "Exclusions": [
+      "HarJel",
       "HarJel II"
     ]
   },
@@ -3522,16 +3531,19 @@
     "BattleForceAbilities": [
       "ENG"
     ],
-    "Exclusions": [
-      "Backhoe",
-      "Chainsaw",
-      "Combine",
-      "Dual Saw",
-      "Heavy Duty Pile-Driver",
-      "Mining Drill",
-      "Rock Cutter",
-      "Wrecking Ball"
-    ]
+    "Exclusions": {
+      "Exclusions": [
+        "Backhoe",
+        "Chainsaw",
+        "Combine",
+        "Dual Saw",
+        "Heavy Duty Pile-Driver",
+        "Mining Drill",
+        "Rock Cutter",
+        "Wrecking Ball"
+      ],
+      "Excluder": "Bulldozer"
+    }
   },
   "Fluid Suction System, Standard": {
     "ActualName": "Fluid Suction System, Standard",
@@ -7082,13 +7094,13 @@
       "RulesLevelCF": -1,
       "TechBase": 0,
       "IS_IntroFaction": "FS",
-      "IS_ReIntroFaction": "–",
-      "IS_RandDFaction": "–",
-      "IS_PrototypeFaction": "–",
-      "CL_IntroFaction": "–",
-      "CL_ReIntroFaction": "–",
-      "CL_RandDFaction": "–",
-      "CL_PrototypeFaction": "–",
+      "IS_ReIntroFaction": "--",
+      "IS_RandDFaction": "--",
+      "IS_PrototypeFaction": "--",
+      "CL_IntroFaction": "--",
+      "CL_ReIntroFaction": "--",
+      "CL_RandDFaction": "--",
+      "CL_PrototypeFaction": "--",
       "IS_WentExtinct": false,
       "IS_ReIntroduced": false,
       "IS_IsPrototype": false,
