@@ -1722,14 +1722,11 @@
     "BattleForceAbilities": [
       "C3EM"
     ],
-    "Exclusions": {
-      "Exclusions": [
+    "Exclusions": [
         "Improved C3 Computer",
         "Null Signature System",
         "Void Signature System"
-      ],
-      "Excluder": "C3 Emergency Master"
-    }
+      ]
   },
   "C3 Remote Sensor Launcher": {
     "ActualName": "Command/Control/Communication Remote Sensor Launcher",
@@ -3531,19 +3528,16 @@
     "BattleForceAbilities": [
       "ENG"
     ],
-    "Exclusions": {
-      "Exclusions": [
-        "Backhoe",
-        "Chainsaw",
-        "Combine",
-        "Dual Saw",
-        "Heavy Duty Pile-Driver",
-        "Mining Drill",
-        "Rock Cutter",
-        "Wrecking Ball"
-      ],
-      "Excluder": "Bulldozer"
-    }
+    "Exclusions": [
+      "Backhoe",
+      "Chainsaw",
+      "Combine",
+      "Dual Saw",
+      "Heavy Duty Pile-Driver",
+      "Mining Drill",
+      "Rock Cutter",
+      "Wrecking Ball"
+    ]
   },
   "Fluid Suction System, Standard": {
     "ActualName": "Fluid Suction System, Standard",
