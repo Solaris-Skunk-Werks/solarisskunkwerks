@@ -36,7 +36,6 @@ import java.util.Hashtable;
 import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
-import filehandlers.Media;
 import visitors.*;
 
 public class Mech implements ifUnit, ifBattleforce {
