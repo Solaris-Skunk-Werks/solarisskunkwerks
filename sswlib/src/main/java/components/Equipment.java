@@ -559,6 +559,7 @@ public class Equipment extends abPlaceable {
     }
 
     public void ValidateMaxPerLocation(abPlaceable[] location ) throws Exception {
+        if (MaxAllowedPerLocation == 0) { return; }
         int slots = 0;
         for (abPlaceable item : location) {
             if (item instanceof Equipment && item.LookupName().equals(LookupName)) {
