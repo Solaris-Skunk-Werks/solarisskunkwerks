@@ -4717,9 +4717,11 @@ public void SetBoobyTrap( boolean b ) throws Exception{
         }
 
         //HarJel II/III requires Standard, Heavy Industrial, Light Ferro Fibrous, Standard Ferro Fibrous, or Heavy Ferro Fibrous armor
-        if ( p.ActualName().contains("HarJel II"))
-            if ( !Owner.GetArmor().AllowHarJel() )
-                throw new Exception( p.CritName() + " may not be mounted on this 'Mech with " + Owner.GetArmor().ActualName());
+        if ( p.ActualName().contains("HarJel II")) {
+            if ( !Owner.GetArmor().AllowHarJel() ) {
+                throw new Exception(p.CritName() + " may not be mounted on this 'Mech with " + Owner.GetArmor().ActualName());
+            }
+        }
 
         if( p.GetExclusions() == null ) { return; }
         String[] exclude = p.GetExclusions();
