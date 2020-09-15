@@ -1687,6 +1687,28 @@ public boolean IsTripod(){
         return locations;
     }
 
+    public boolean HasHarjel() {
+        ArrayList<LocationIndex> hj2 = FindIndexesByName("HarJel II");
+        ArrayList<LocationIndex> hj3 = FindIndexesByName("HarJel III");
+        return !hj2.isEmpty() || !hj3.isEmpty();
+    }
+
+    public boolean HasHarjel(int location) {
+        ArrayList<LocationIndex> hj2 = FindIndexesByName("HarJel II");
+        ArrayList<LocationIndex> hj3 = FindIndexesByName("HarJel III");
+        for (LocationIndex loc : hj2) {
+            if (loc.Location == location) {
+                return true;
+            }
+        }
+        for (LocationIndex loc : hj3) {
+            if (loc.Location == location) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int[] FindHeatSinks() {
         // this routine is used mainly by the text and html writers to find the
         // locations of heat sinks specifically.  returns an int[] with the

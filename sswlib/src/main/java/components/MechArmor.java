@@ -2569,7 +2569,7 @@ public class MechArmor  extends abPlaceable {
         return Config.AllowHarJel();
     }
 
-    private double GetHarjelMod(int index) {
+    public double GetHarjelMod(int index) {
         if (HasHarjel(index, Harjel2Locs)) {
             return 1.1;
         } else if (HasHarjel(index, Harjel3Locs)) {

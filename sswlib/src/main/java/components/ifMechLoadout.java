@@ -236,4 +236,6 @@ public interface ifMechLoadout {
     public void SetBoobyTrap( boolean b ) throws Exception;
     public boolean HasBoobyTrap();
     public BoobyTrap GetBoobyTrap();
+    public boolean HasHarjel();
+    public boolean HasHarjel(int index);
 }
