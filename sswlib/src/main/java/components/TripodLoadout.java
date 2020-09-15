@@ -5129,6 +5129,12 @@ public class TripodLoadout implements ifMechLoadout, ifLoadout {
                 throw new Exception( p.CritName() + " may not be mounted on this 'Mech because the engine is incompatible." );
             }
         }
+
+        //HarJel II/III requires Standard, Heavy Industrial, Light Ferro Fibrous, Standard Ferro Fibrous, or Heavy Ferro Fibrous armor
+        if ( p.ActualName().contains("HarJel II"))
+            if ( !Owner.GetArmor().AllowHarJel() )
+                throw new Exception( p.CritName() + " may not be mounted on this 'Mech with " + Owner.GetArmor().ActualName());
+
         if( p.GetExclusions() == null ) { return; }
         String[] exclude = p.GetExclusions();
 
