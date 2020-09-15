@@ -159,68 +159,68 @@ public class CostBVBreakdown {
             if (CurMech.GetLoadout().HasHarjel(LocationIndex.MECH_LOC_HD)) {
                 line += " * HarJel Modifier (" + CurMech.GetArmor().GetHarjelMod(LocationIndex.MECH_LOC_HD) + ")";
             }
-            retval += String.format("    %1$-67s %2$,8.2f", line, CurMech.GetArmor().GetHDDefensiveBV( ModArmor ) ) + NL;
+            retval += String.format("    %1$-72s %2$,8.2f", line, CurMech.GetArmor().GetHDDefensiveBV( ModArmor ) ) + NL;
             if( CurMech.GetCockpit().IsTorsoMounted() ) {
-                retval += String.format( "    %1$-67s %2$,8.2f", "( CT Armor Factor (" + ( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CT ) + ModArmor[LocationIndex.MECH_LOC_CT] * 10 + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CTR ) + ModArmor[LocationIndex.MECH_LOC_CTR] * 10 ) + ") ) * 2 * Armor Type Modifier (" + CurMech.GetArmor().GetCTArmorType().GetBVTypeMult() + ")", CurMech.GetArmor().GetCTDefensiveBV( ModArmor ) ) + NL;
+                retval += String.format( "    %1$-72s %2$,8.2f", "( CT Armor Factor (" + ( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CT ) + ModArmor[LocationIndex.MECH_LOC_CT] * 10 + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CTR ) + ModArmor[LocationIndex.MECH_LOC_CTR] * 10 ) + ") ) * 2 * Armor Type Modifier (" + CurMech.GetArmor().GetCTArmorType().GetBVTypeMult() + ")", CurMech.GetArmor().GetCTDefensiveBV( ModArmor ) ) + NL;
             } else {
                 line = "CT Armor Factor (" + ( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CT ) + ModArmor[LocationIndex.MECH_LOC_CT] * 10 + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CTR ) + ModArmor[LocationIndex.MECH_LOC_CTR] * 10 ) + ") * Armor Type Modifier (" + CurMech.GetArmor().GetCTArmorType().GetBVTypeMult() + ")";
                 if (CurMech.GetLoadout().HasHarjel(LocationIndex.MECH_LOC_CT)) {
                     line += " * HarJel Modifier (" + CurMech.GetArmor().GetHarjelMod(LocationIndex.MECH_LOC_CT) + ")";
                 }
-                retval += String.format("    %1$-67s %2$,8.2f", line, CurMech.GetArmor().GetCTDefensiveBV( ModArmor )) + NL;
+                retval += String.format("    %1$-72s %2$,8.2f", line, CurMech.GetArmor().GetCTDefensiveBV( ModArmor )) + NL;
             }
             line = "LT Armor Factor (" + ( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LT ) + ModArmor[LocationIndex.MECH_LOC_LT] * 10 + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LTR ) + ModArmor[LocationIndex.MECH_LOC_LTR] * 10 ) + ") * Armor Type Modifier (" + CurMech.GetArmor().GetLTArmorType().GetBVTypeMult() + ")";
             if (CurMech.GetLoadout().HasHarjel(LocationIndex.MECH_LOC_LT)) {
                 line += " * HarJel Modifier (" + CurMech.GetArmor().GetHarjelMod(LocationIndex.MECH_LOC_LT) + ")";
             }
-            retval += String.format("    %1$-67s %2$,8.2f", line, CurMech.GetArmor().GetLTDefensiveBV( ModArmor )) + NL;
+            retval += String.format("    %1$-72s %2$,8.2f", line, CurMech.GetArmor().GetLTDefensiveBV( ModArmor )) + NL;
             line = "RT Armor Factor (" + ( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RT ) + ModArmor[LocationIndex.MECH_LOC_RT] * 10 + CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RTR ) + ModArmor[LocationIndex.MECH_LOC_RTR] * 10 ) + ") * Armor Type Modifier (" + CurMech.GetArmor().GetRTArmorType().GetBVTypeMult() + ")";
             if (CurMech.GetLoadout().HasHarjel(LocationIndex.MECH_LOC_RT)) {
                 line += " * HarJel Modifier (" + CurMech.GetArmor().GetHarjelMod(LocationIndex.MECH_LOC_RT) + ")";
             }
-            retval += String.format("    %1$-67s %2$,8.2f", line, CurMech.GetArmor().GetRTDefensiveBV( ModArmor )) + NL;
+            retval += String.format("    %1$-72s %2$,8.2f", line, CurMech.GetArmor().GetRTDefensiveBV( ModArmor )) + NL;
             if( CurMech.IsQuad() ) {
                 line = "FLL Armor Factor (" + ( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LA ) + ModArmor[LocationIndex.MECH_LOC_LA] * 10 ) + ") * Armor Type Modifier (" + CurMech.GetArmor().GetLAArmorType().GetBVTypeMult() + ")";
                 if (CurMech.GetLoadout().HasHarjel(LocationIndex.MECH_LOC_LA)) {
                     line += " * HarJel Modifier (" + CurMech.GetArmor().GetHarjelMod(LocationIndex.MECH_LOC_LA) + ")";
                 }
-                retval += String.format( "    %1$-67s %2$,8.2f", line, CurMech.GetArmor().GetLADefensiveBV( ModArmor ) ) + NL;
+                retval += String.format( "    %1$-72s %2$,8.2f", line, CurMech.GetArmor().GetLADefensiveBV( ModArmor ) ) + NL;
                 line = "FRL Armor Factor (" + ( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RA ) + ModArmor[LocationIndex.MECH_LOC_RA] * 10 ) + ") * Armor Type Modifier (" + CurMech.GetArmor().GetRAArmorType().GetBVTypeMult() + ")";
                 if (CurMech.GetLoadout().HasHarjel(LocationIndex.MECH_LOC_RA)) {
                     line += " * HarJel Modifier (" + CurMech.GetArmor().GetHarjelMod(LocationIndex.MECH_LOC_RA) + ")";
                 }
-                retval += String.format( "    %1$-67s %2$,8.2f", line, CurMech.GetArmor().GetRADefensiveBV( ModArmor ) ) + NL;
+                retval += String.format( "    %1$-72s %2$,8.2f", line, CurMech.GetArmor().GetRADefensiveBV( ModArmor ) ) + NL;
                 line = "RLL Armor Factor (" + ( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LL ) + ModArmor[LocationIndex.MECH_LOC_LL] * 10 ) + ") * Armor Type Modifier (" + CurMech.GetArmor().GetLLArmorType().GetBVTypeMult() + ")";
                 if (CurMech.GetLoadout().HasHarjel(LocationIndex.MECH_LOC_LL)) {
                     line += " * HarJel Modifier (" + CurMech.GetArmor().GetHarjelMod(LocationIndex.MECH_LOC_LL) + ")";
                 }
-                retval += String.format( "    %1$-67s %2$,8.2f", line, CurMech.GetArmor().GetLLDefensiveBV( ModArmor ) ) + NL;
+                retval += String.format( "    %1$-72s %2$,8.2f", line, CurMech.GetArmor().GetLLDefensiveBV( ModArmor ) ) + NL;
                 line = "RRL Armor Factor (" + ( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RA ) + ModArmor[LocationIndex.MECH_LOC_RL] * 10 ) + ") * Armor Type Modifier (" + CurMech.GetArmor().GetRLArmorType().GetBVTypeMult() + ")";
                 if (CurMech.GetLoadout().HasHarjel(LocationIndex.MECH_LOC_RL)) {
                     line += " * HarJel Modifier (" + CurMech.GetArmor().GetHarjelMod(LocationIndex.MECH_LOC_RL) + ")";
                 }
-                retval += String.format( "    %1$-67s %2$,8.2f", line, CurMech.GetArmor().GetRLDefensiveBV( ModArmor ) ) + NL;
+                retval += String.format( "    %1$-72s %2$,8.2f", line, CurMech.GetArmor().GetRLDefensiveBV( ModArmor ) ) + NL;
             } else {
                 line = "LA Armor Factor (" + ( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LA ) + ModArmor[LocationIndex.MECH_LOC_LA] * 10 ) + ") * Armor Type Modifier (" + CurMech.GetArmor().GetLAArmorType().GetBVTypeMult() + ")";
                 if (CurMech.GetLoadout().HasHarjel(LocationIndex.MECH_LOC_LA)) {
                     line += " * HarJel Modifier (" + CurMech.GetArmor().GetHarjelMod(LocationIndex.MECH_LOC_LA) + ")";
                 }
-                retval += String.format( "    %1$-67s %2$,8.2f", line, CurMech.GetArmor().GetLADefensiveBV( ModArmor ) ) + NL;
+                retval += String.format( "    %1$-72s %2$,8.2f", line, CurMech.GetArmor().GetLADefensiveBV( ModArmor ) ) + NL;
                 line = "RA Armor Factor (" + ( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RA ) + ModArmor[LocationIndex.MECH_LOC_RA] * 10 ) + ") * Armor Type Modifier (" + CurMech.GetArmor().GetRAArmorType().GetBVTypeMult() + ")";
                 if (CurMech.GetLoadout().HasHarjel(LocationIndex.MECH_LOC_RA)) {
                     line += " * HarJel Modifier (" + CurMech.GetArmor().GetHarjelMod(LocationIndex.MECH_LOC_RA) + ")";
                 }
-                retval += String.format( "    %1$-67s %2$,8.2f", line, CurMech.GetArmor().GetRADefensiveBV( ModArmor ) ) + NL;
+                retval += String.format( "    %1$-72s %2$,8.2f", line, CurMech.GetArmor().GetRADefensiveBV( ModArmor ) ) + NL;
                 line = "LL Armor Factor (" + ( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LL ) + ModArmor[LocationIndex.MECH_LOC_LL] * 10 ) + ") * Armor Type Modifier (" + CurMech.GetArmor().GetLLArmorType().GetBVTypeMult() + ")";
                 if (CurMech.GetLoadout().HasHarjel(LocationIndex.MECH_LOC_LL)) {
                     line += " * HarJel Modifier (" + CurMech.GetArmor().GetHarjelMod(LocationIndex.MECH_LOC_LL) + ")";
                 }
-                retval += String.format( "    %1$-67s %2$,8.2f", line, CurMech.GetArmor().GetLLDefensiveBV( ModArmor ) ) + NL;
+                retval += String.format( "    %1$-72s %2$,8.2f", line, CurMech.GetArmor().GetLLDefensiveBV( ModArmor ) ) + NL;
                 line = "RL Armor Factor (" + ( CurMech.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RL ) + ModArmor[LocationIndex.MECH_LOC_RL] * 10 ) + ") * Armor Type Modifier (" + CurMech.GetArmor().GetRLArmorType().GetBVTypeMult() + ")";
                 if (CurMech.GetLoadout().HasHarjel(LocationIndex.MECH_LOC_RL)) {
                     line += " * HarJel Modifier (" + CurMech.GetArmor().GetHarjelMod(LocationIndex.MECH_LOC_RL) + ")";
                 }
-                retval += String.format( "    %1$-67s %2$,8.2f", line, CurMech.GetArmor().GetRLDefensiveBV( ModArmor ) ) + NL;
+                retval += String.format( "    %1$-72s %2$,8.2f", line, CurMech.GetArmor().GetRLDefensiveBV( ModArmor ) ) + NL;
             }
             retval += String.format( "%1$-71s %2$,8.2f", "    Total Location Armor BV (" + ( CurMech.GetArmor().GetHDDefensiveBV( ModArmor ) + CurMech.GetArmor().GetCTDefensiveBV( ModArmor ) + CurMech.GetArmor().GetRTDefensiveBV( ModArmor ) + CurMech.GetArmor().GetLTDefensiveBV( ModArmor ) + CurMech.GetArmor().GetRADefensiveBV( ModArmor ) + CurMech.GetArmor().GetLADefensiveBV( ModArmor ) + CurMech.GetArmor().GetRLDefensiveBV( ModArmor ) + CurMech.GetArmor().GetLLDefensiveBV( ModArmor ) ) + ") * 2.5", CurMech.GetArmor().GetDefensiveBV() ) + NL;
         } else {
