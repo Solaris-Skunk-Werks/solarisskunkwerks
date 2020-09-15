@@ -31,6 +31,9 @@ package components;
 import common.CommonTools;
 import states.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MechArmor  extends abPlaceable {
     // the armor of the mech
     public final static int DEFAULT_CTR_ARMOR_PERCENT = 25,
@@ -73,6 +76,8 @@ public class MechArmor  extends abPlaceable {
                     RAConfig = Standard,
                     LLConfig = Standard,
                     RLConfig = Standard;
+    private ArrayList<LocationIndex> Harjel2Locs = new ArrayList();
+    private ArrayList<LocationIndex> Harjel3Locs = new ArrayList();
 
     public MechArmor( Mech m ) {
         Owner = m;
@@ -2471,61 +2476,56 @@ public class MechArmor  extends abPlaceable {
     }
 
     public double GetDefensiveBV() {
-        if( IsPatchwork() ) {
-            double result = 0.0;
-            int[] ModArmor = Owner.GetLoadout().FindModularArmor();
-            result += GetHDDefensiveBV( ModArmor );
-            result += GetCTDefensiveBV( ModArmor );
-            result += GetLTDefensiveBV( ModArmor );
-            result += GetRTDefensiveBV( ModArmor );
-            result += GetLADefensiveBV( ModArmor );
-            result += GetRADefensiveBV( ModArmor );
-            result += GetLLDefensiveBV( ModArmor );
-            result += GetRLDefensiveBV( ModArmor );
-            return result * 2.5;
-        } else {
-            if( Owner.GetCockpit().IsTorsoMounted() ) {
-                return ( GetArmorValue() + ArmorPoints[LocationIndex.MECH_LOC_CT] + ArmorPoints[LocationIndex.MECH_LOC_CTR] + GetModularArmorValue() ) * GetBVTypeMult() * 2.5;
-            } else {
-                return ( GetArmorValue() + GetModularArmorValue() ) * GetBVTypeMult() * 2.5;
-            }
-        }
+        Harjel2Locs = Owner.GetLoadout().FindIndexesByName("HarJel II");
+        Harjel3Locs = Owner.GetLoadout().FindIndexesByName("HarJel III");
+
+        double result = 0.0;
+        int[] ModArmor = Owner.GetLoadout().FindModularArmor();
+        result += GetHDDefensiveBV( ModArmor );
+        result += GetCTDefensiveBV( ModArmor );
+        result += GetLTDefensiveBV( ModArmor );
+        result += GetRTDefensiveBV( ModArmor );
+        result += GetLADefensiveBV( ModArmor );
+        result += GetRADefensiveBV( ModArmor );
+        result += GetLLDefensiveBV( ModArmor );
+        result += GetRLDefensiveBV( ModArmor );
+        return result * 2.5;
     }
 
     public double GetHDDefensiveBV( int[] ModArmor ) {
-        return ( ArmorPoints[LocationIndex.MECH_LOC_HD] + ModArmor[LocationIndex.MECH_LOC_HD] * 10 ) * HDConfig.GetBVTypeMult();
+        return (ArmorPoints[LocationIndex.MECH_LOC_HD] + ModArmor[LocationIndex.MECH_LOC_HD] * 10) * HDConfig.GetBVTypeMult() * GetHarjelMod(LocationIndex.MECH_LOC_HD);
     }
 
     public double GetCTDefensiveBV( int[] ModArmor ) {
         if( Owner.GetCockpit().IsTorsoMounted() ) {
             return ( ArmorPoints[LocationIndex.MECH_LOC_CT] + ArmorPoints[LocationIndex.MECH_LOC_CTR] + ModArmor[LocationIndex.MECH_LOC_CT] * 10 + ModArmor[LocationIndex.MECH_LOC_CTR] * 10 ) * CTConfig.GetBVTypeMult() * 2.0;
         } else {
-            return ( ArmorPoints[LocationIndex.MECH_LOC_CT] + ArmorPoints[LocationIndex.MECH_LOC_CTR] + ModArmor[LocationIndex.MECH_LOC_CT] * 10 + ModArmor[LocationIndex.MECH_LOC_CTR] * 10 ) * CTConfig.GetBVTypeMult();
+            return  ( ArmorPoints[LocationIndex.MECH_LOC_CT] + ArmorPoints[LocationIndex.MECH_LOC_CTR] + ModArmor[LocationIndex.MECH_LOC_CT] * 10 + ModArmor[LocationIndex.MECH_LOC_CTR] * 10 ) * CTConfig.GetBVTypeMult() * GetHarjelMod(LocationIndex.MECH_LOC_CT);
         }
     }
 
     public double GetLTDefensiveBV( int[] ModArmor ) {
-        return ( ArmorPoints[LocationIndex.MECH_LOC_LT] + ArmorPoints[LocationIndex.MECH_LOC_LTR] + ModArmor[LocationIndex.MECH_LOC_RT] * 10 + ModArmor[LocationIndex.MECH_LOC_LTR] * 10 ) * LTConfig.GetBVTypeMult();
+        return ( ArmorPoints[LocationIndex.MECH_LOC_LT] + ArmorPoints[LocationIndex.MECH_LOC_LTR] + ModArmor[LocationIndex.MECH_LOC_RT] * 10 + ModArmor[LocationIndex.MECH_LOC_LTR] * 10 ) * LTConfig.GetBVTypeMult() * GetHarjelMod(LocationIndex.MECH_LOC_LT);
     }
 
     public double GetRTDefensiveBV( int[] ModArmor ) {
-        return ( ArmorPoints[LocationIndex.MECH_LOC_RT] + ArmorPoints[LocationIndex.MECH_LOC_RTR] + ModArmor[LocationIndex.MECH_LOC_LT] * 10 + ModArmor[LocationIndex.MECH_LOC_RTR] * 10 ) * RTConfig.GetBVTypeMult();
+        return ( ArmorPoints[LocationIndex.MECH_LOC_RT] + ArmorPoints[LocationIndex.MECH_LOC_RTR] + ModArmor[LocationIndex.MECH_LOC_LT] * 10 + ModArmor[LocationIndex.MECH_LOC_RTR] * 10 ) * RTConfig.GetBVTypeMult() * GetHarjelMod(LocationIndex.MECH_LOC_RT);
     }
 
     public double GetLADefensiveBV( int[] ModArmor ) {
-        return ( ArmorPoints[LocationIndex.MECH_LOC_LA] + ModArmor[LocationIndex.MECH_LOC_LA] * 10 ) * LAConfig.GetBVTypeMult();
+        return ( ArmorPoints[LocationIndex.MECH_LOC_LA] + ModArmor[LocationIndex.MECH_LOC_LA] * 10 ) * LAConfig.GetBVTypeMult() * GetHarjelMod(LocationIndex.MECH_LOC_LA);
     }
 
     public double GetRADefensiveBV( int[] ModArmor ) {
-        return ( ArmorPoints[LocationIndex.MECH_LOC_RA] + ModArmor[LocationIndex.MECH_LOC_RA] * 10 ) * RAConfig.GetBVTypeMult();
+        return ( ArmorPoints[LocationIndex.MECH_LOC_RA] + ModArmor[LocationIndex.MECH_LOC_RA] * 10 ) * RAConfig.GetBVTypeMult() * GetHarjelMod(LocationIndex.MECH_LOC_RA);
     }
 
     public double GetLLDefensiveBV( int[] ModArmor ) {
-        return ( ArmorPoints[LocationIndex.MECH_LOC_LL] + ModArmor[LocationIndex.MECH_LOC_LL] * 10 ) * LLConfig.GetBVTypeMult();
+        return ( ArmorPoints[LocationIndex.MECH_LOC_LL] + ModArmor[LocationIndex.MECH_LOC_LL] * 10 ) * LLConfig.GetBVTypeMult() * GetHarjelMod(LocationIndex.MECH_LOC_LL);
     }
 
     public double GetRLDefensiveBV( int[] ModArmor ) {
-        return ( ArmorPoints[LocationIndex.MECH_LOC_RL] + ModArmor[LocationIndex.MECH_LOC_RL] * 10 ) * RLConfig.GetBVTypeMult();
+        return ( ArmorPoints[LocationIndex.MECH_LOC_RL] + ModArmor[LocationIndex.MECH_LOC_RL] * 10 ) * RLConfig.GetBVTypeMult() * GetHarjelMod(LocationIndex.MECH_LOC_RL);
     }
 
     public int GetBAR() {
@@ -2567,6 +2567,24 @@ public class MechArmor  extends abPlaceable {
     public boolean AllowHarJel()
     {
         return Config.AllowHarJel();
+    }
+
+    private double GetHarjelMod(int index) {
+        if (HasHarjel(index, Harjel2Locs)) {
+            return 1.1;
+        } else if (HasHarjel(index, Harjel3Locs)) {
+            return 1.2;
+        }
+        return 1.0;
+    }
+
+    private boolean HasHarjel (int index, ArrayList<LocationIndex> locs) {
+        for (LocationIndex l : locs) {
+            if (l.Location == index) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

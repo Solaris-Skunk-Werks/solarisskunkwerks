@@ -105,6 +105,7 @@ public interface ifMechLoadout {
     public ArrayList FindSplitIndex( abPlaceable p );
     public int[] FindInstances( abPlaceable p );
     public ArrayList FindIndexes( abPlaceable p );
+    public ArrayList FindIndexesByName(String n);
     public int[] FindHeatSinks();
     public int[] FindJumpJets( boolean IJJ );
     public int[] FindModularArmor();

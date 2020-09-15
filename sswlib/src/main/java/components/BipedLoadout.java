@@ -29,6 +29,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package components;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import common.CommonTools;
 import visitors.VFCSApolloLoader;
 import visitors.VFCSArtemisIVLoader;
@@ -1635,6 +1637,54 @@ public boolean IsTripod(){
             }
         }
         return v;
+    }
+
+    public ArrayList<LocationIndex> FindIndexesByName(String lookupName) {
+        ArrayList<LocationIndex> locations = new ArrayList();
+        for (int i = 0; i < 6; i++) {
+            if (HDCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_HD));
+            }
+            if (CTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_CT));
+            }
+            if (LTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_LT));
+            }
+            if (RTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_RT));
+            }
+            if (LACrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_LA));
+            }
+            if (RACrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_RA));
+            }
+            if (LLCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_LL));
+            }
+            if (RLCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_RL));
+            }
+        }
+        for (int i = 6; i < 12; i++) {
+            if (CTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_CT));
+            }
+            if (LTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_LT));
+            }
+            if (RTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_RT));
+            }
+            if (LACrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_LA));
+            }
+            if (RACrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_RA));
+            }
+        }
+        return locations;
     }
 
     public int[] FindHeatSinks() {

@@ -1739,6 +1739,57 @@ public class TripodLoadout implements ifMechLoadout, ifLoadout {
         return v;
     }
 
+    public ArrayList<LocationIndex> FindIndexesByName(String lookupName) {
+        ArrayList<LocationIndex> locations = new ArrayList();
+        for (int i = 0; i < 6; i++) {
+            if (HDCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_HD));
+            }
+            if (CTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_CT));
+            }
+            if (LTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_LT));
+            }
+            if (RTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_RT));
+            }
+            if (LACrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_LA));
+            }
+            if (RACrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_RA));
+            }
+            if (LLCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_LL));
+            }
+            if (CLCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_CL));
+            }
+            if (RLCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_RL));
+            }
+        }
+        for (int i = 6; i < 12; i++) {
+            if (CTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_CT));
+            }
+            if (LTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_LT));
+            }
+            if (RTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_RT));
+            }
+            if (LACrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_LA));
+            }
+            if (RACrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_RA));
+            }
+        }
+        return locations;
+    }
+
     public int[] FindHeatSinks() {
         // this routine is used mainly by the text and html writers to find the
         // locations of heat sinks specifically.  returns an int[] with the
