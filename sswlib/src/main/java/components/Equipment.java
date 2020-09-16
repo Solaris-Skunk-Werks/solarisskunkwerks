@@ -535,6 +535,9 @@ public class Equipment extends abPlaceable {
                 }
             }
         }
+        if (LookupName().contains("HarJel") && m.IsOmnimech() && m.GetLoadout() != m.GetBaseLoadout()) {
+            throw new Exception(LookupName() + " can only be added to the base chassis on Omnimechs.");
+        }
     }
 
     public boolean Validate( CombatVehicle v )
