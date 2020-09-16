@@ -28,14 +28,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
-import java.util.Enumeration;
-import common.Constants;
 import battleforce.*;
 import common.CommonTools;
-import java.util.Hashtable;
-import java.util.ArrayList;
-import java.util.prefs.Preferences;
+import common.Constants;
 import visitors.*;
+
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.prefs.Preferences;
 
 public class Mech implements ifUnit, ifBattleforce {
     // A mech for the designer.  This is a large container class that will
@@ -4719,7 +4720,7 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public boolean HasC3() {
-        for (abPlaceable item : CurLoadout.GetCrits()) {
+        for (abPlaceable item : (ArrayList<abPlaceable>)CurLoadout.GetEquipment()) {
             if (item.LookupName().contains("C3")) {
                 return true;
             }
@@ -4728,7 +4729,7 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public boolean HasECM() {
-        for (abPlaceable item : CurLoadout.GetCrits()) {
+        for (abPlaceable item : (ArrayList<abPlaceable>)CurLoadout.GetEquipment()) {
             if (item.LookupName().contains("ECM") || item.LookupName().contains("Watchdog")) {
                 return true;
             }
@@ -4737,7 +4738,7 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public boolean HasProbe() {
-        for (abPlaceable item : CurLoadout.GetCrits()) {
+        for (abPlaceable item : (ArrayList<abPlaceable>)CurLoadout.GetEquipment()) {
             if (item.LookupName().contains("Probe")) {
                 return true;
             }
