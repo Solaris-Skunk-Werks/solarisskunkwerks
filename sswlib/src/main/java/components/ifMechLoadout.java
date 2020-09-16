@@ -29,6 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package components;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface ifMechLoadout {
     public void SetName( String s );
@@ -105,7 +106,7 @@ public interface ifMechLoadout {
     public ArrayList FindSplitIndex( abPlaceable p );
     public int[] FindInstances( abPlaceable p );
     public ArrayList FindIndexes( abPlaceable p );
-    public ArrayList FindIndexesByName(String n);
+    public List<LocationIndex> FindIndexesByName(String n);
     public int[] FindHeatSinks();
     public int[] FindJumpJets( boolean IJJ );
     public int[] FindModularArmor();

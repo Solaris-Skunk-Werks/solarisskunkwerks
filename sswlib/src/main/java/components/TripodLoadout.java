@@ -28,11 +28,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
-import java.util.ArrayList;
 import common.CommonTools;
 import visitors.VFCSApolloLoader;
 import visitors.VFCSArtemisIVLoader;
 import visitors.VFCSArtemisVLoader;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TripodLoadout implements ifMechLoadout, ifLoadout {
     // Loadouts provide critical locations for all of a mech's equipment.
@@ -1739,8 +1741,8 @@ public class TripodLoadout implements ifMechLoadout, ifLoadout {
         return v;
     }
 
-    public ArrayList<LocationIndex> FindIndexesByName(String lookupName) {
-        ArrayList<LocationIndex> locations = new ArrayList();
+    public List<LocationIndex> FindIndexesByName(String lookupName) {
+        List<LocationIndex> locations = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             if (HDCrits[i].LookupName().equals(lookupName)) {
                 locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_HD));
@@ -1791,14 +1793,14 @@ public class TripodLoadout implements ifMechLoadout, ifLoadout {
     }
 
     public boolean HasHarjel() {
-        ArrayList<LocationIndex> hj2 = FindIndexesByName("HarJel II");
-        ArrayList<LocationIndex> hj3 = FindIndexesByName("HarJel III");
+        List<LocationIndex> hj2 = FindIndexesByName("HarJel II");
+        List<LocationIndex> hj3 = FindIndexesByName("HarJel III");
         return !hj2.isEmpty() || !hj3.isEmpty();
     }
 
     public boolean HasHarjel(int location) {
-        ArrayList<LocationIndex> hj2 = FindIndexesByName("HarJel II");
-        ArrayList<LocationIndex> hj3 = FindIndexesByName("HarJel III");
+        List<LocationIndex> hj2 = FindIndexesByName("HarJel II");
+        List<LocationIndex> hj3 = FindIndexesByName("HarJel III");
         for (LocationIndex loc : hj2) {
             if (loc.Location == location) {
                 return true;
