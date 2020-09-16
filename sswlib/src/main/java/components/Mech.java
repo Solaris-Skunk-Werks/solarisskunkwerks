@@ -34,7 +34,6 @@ import battleforce.*;
 import common.CommonTools;
 import java.util.Hashtable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.prefs.Preferences;
 import visitors.*;
 
