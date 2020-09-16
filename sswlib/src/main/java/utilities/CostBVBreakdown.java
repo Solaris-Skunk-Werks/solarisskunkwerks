@@ -87,7 +87,7 @@ public class CostBVBreakdown {
         }
         if( CurMech.IsPrimitive() && CurMech.GetYear() < 2450 ) {
             retval += String.format( "Armor - %1$-35s %2$,6.0f    %3$,6.0f    %4$,16.2f", CurMech.GetArmor().LookupName() + " (early)", CurMech.GetArmor().GetDefensiveBV(), CurMech.GetArmor().GetOffensiveBV(), CurMech.GetArmor().GetCost() ) + NL;
-            if(CurMech.GetArmor().IsPatchwork() || CurMech.GetLoadout().HasHarjel()) {
+            if(CurMech.GetArmor().IsPatchwork()) {
                 int[] ModArmor = CurMech.GetLoadout().FindModularArmor();
                 if( CurMech.IsQuad() ) {
                     retval += String.format( "     HD: %1$-34s %2$,6.0f    %3$,6.0f    %4$,16.2f", CurMech.GetArmor().GetHDArmorType().LookupName(), CurMech.GetArmor().GetHDDefensiveBV( ModArmor ), CurMech.GetArmor().GetOffensiveBV(), CurMech.GetArmor().GetHDCost() ) + NL;
@@ -111,7 +111,7 @@ public class CostBVBreakdown {
             }
         } else {
             retval += String.format( "Armor - %1$-35s %2$,6.0f    %3$,6.0f    %4$,16.2f", CurMech.GetArmor().LookupName(), CurMech.GetArmor().GetDefensiveBV(), CurMech.GetArmor().GetOffensiveBV(), CurMech.GetArmor().GetCost() ) + NL;
-            if(CurMech.GetArmor().IsPatchwork() || CurMech.GetLoadout().HasHarjel()) {
+            if(CurMech.GetArmor().IsPatchwork()) {
                 int[] ModArmor = CurMech.GetLoadout().FindModularArmor();
                 if( CurMech.IsQuad() ) {
                     retval += String.format( "     HD: %1$-34s %2$,6.0f    %3$,6.0f    %4$,16.2f", CurMech.GetArmor().GetHDArmorType().LookupName(), CurMech.GetArmor().GetHDDefensiveBV( ModArmor ), CurMech.GetArmor().GetOffensiveBV(), CurMech.GetArmor().GetHDCost() ) + NL;
