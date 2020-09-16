@@ -28,15 +28,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
-import java.util.Enumeration;
-import common.Constants;
 import battleforce.*;
 import common.CommonTools;
-import java.util.Hashtable;
-import java.util.ArrayList;
-import java.util.prefs.Preferences;
-
+import common.Constants;
 import visitors.*;
+
+import java.util.*;
+import java.util.prefs.Preferences;
 
 public class Mech implements ifUnit, ifBattleforce {
     // A mech for the designer.  This is a large container class that will
@@ -5382,6 +5380,23 @@ public class Mech implements ifUnit, ifBattleforce {
         retval.remove("IF");
         retval.remove("FLK");
 
+        // Deal with HarJel
+        if (retval.contains("BHJ")) {
+            if (!ValidateBFHarjel("BHJ")) {
+                retval.removeIf(s -> s.equals("BHJ"));
+            }
+        }
+        if (retval.contains("BHJ2")) {
+            if (!ValidateBFHarjel("BHJ2")) {
+                retval.removeIf(s -> s.equals("BHJ2"));
+            }
+        }
+        if (retval.contains("BHJ3")) {
+            if (!ValidateBFHarjel("BHJ3")) {
+                retval.removeIf(s -> s.equals("BHJ3"));
+            }
+        }
+
         //ALL Mechs get SRCH (Industrials?)
         retval.add("SRCH");     //Searchlight
         if ( CurEngine.IsICE() || CurEngine.isFuelCell() ) {
@@ -5405,6 +5420,36 @@ public class Mech implements ifUnit, ifBattleforce {
 
         return retval;
     }
+
+    private boolean ValidateBFHarjel(String ability) {
+        List<LocationIndex> locs;
+        switch (ability) {
+            case "BHJ":
+                locs = CurLoadout.FindIndexesByName("HarJel");
+                break;
+            case "BHJ2":
+                locs = CurLoadout.FindIndexesByName("HarJel II");
+                break;
+            case "BHJ3":
+                locs = CurLoadout.FindIndexesByName("HarJel III");
+                break;
+            default:
+                locs = new ArrayList<>();
+        }
+            boolean ct, lt, rt;
+            ct = lt = rt = false;
+            for (LocationIndex loc : locs) {
+                if (loc.Location == LocationIndex.MECH_LOC_CT) {
+                    ct = true;
+                } else if (loc.Location == LocationIndex.MECH_LOC_LT) {
+                    lt = true;
+                } else if (loc.Location == LocationIndex.MECH_LOC_RT) {
+                    rt = true;
+                }
+            }
+            return ct && lt && rt;
+        }
+
 
     public String GetBFConversionStr( ) {
         String retval = "Weapon\t\t\tShort\tMedium\tLong\n\r";
