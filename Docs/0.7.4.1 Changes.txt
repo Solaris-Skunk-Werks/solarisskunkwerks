@@ -1,0 +1,8 @@
+This is a quick hotfix to address two known bugs.
+
+You can download the newest version, and join our development discord through our Github page here.  We welcome all who want to help make SSW even better: https://github.com/Solaris-Skunk-Werks/solarisskunkwerks#solaris-skunk-werks
+
+**Main Features and fixes:**
+
+* Fixed a bug where equipped ECMs, Probes, and C3s could not be found by gear that required it (e.g.: Stealth Armor)
+* Fixed a separate related bug where the selected equipment list wasn't updated when ECMs are auto-added

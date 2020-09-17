@@ -28,14 +28,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
-import java.util.Enumeration;
-import common.Constants;
 import battleforce.*;
 import common.CommonTools;
-import java.util.Hashtable;
-import java.util.ArrayList;
-import java.util.prefs.Preferences;
+import common.Constants;
 import visitors.*;
+
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.prefs.Preferences;
 
 public class Mech implements ifUnit, ifBattleforce {
     // A mech for the designer.  This is a large container class that will
@@ -4719,37 +4720,28 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public boolean HasC3() {
-        // checks for C3 systems.
-        SimplePlaceable p = new SimplePlaceable( "C3Test", "C3Test", "C3Test", "C3Test", "none", 0, false, null );
-        p.SetExclusions( new Exclusion( new String[] { "C3" }, "C3Test" ) );
-        try {
-            CurLoadout.CheckExclusions( p );
-        } catch( Exception e ) {
-            return true;
+        for (abPlaceable item : (ArrayList<abPlaceable>)CurLoadout.GetEquipment()) {
+            if (item.LookupName().contains("C3")) {
+                return true;
+            }
         }
         return false;
     }
 
     public boolean HasECM() {
-        // ensures that, if the 'Mech needs ECM, it has it.
-        SimplePlaceable p = new SimplePlaceable( "ECMTest", "ECMTest", "ECMTest", "ECMTest", "none", 0, false, null );
-        p.SetExclusions( new Exclusion( new String[] { "ECM", "Watchdog" }, "ECMTest" ) );
-        try {
-            CurLoadout.CheckExclusions( p );
-        } catch( Exception e ) {
-            return true;
+        for (abPlaceable item : (ArrayList<abPlaceable>)CurLoadout.GetEquipment()) {
+            if (item.LookupName().contains("ECM") || item.LookupName().contains("Watchdog")) {
+                return true;
+            }
         }
         return false;
     }
 
     public boolean HasProbe() {
-        // ensures that, if the 'Mech needs Probe, it has it.
-        SimplePlaceable p = new SimplePlaceable( "ProbeTest", "ProbeTest", "ProbeTest", "ProbeTest", "none", 0, false, null );
-        p.SetExclusions( new Exclusion( new String[] { "Probe" }, "ProbeTest" ) );
-        try {
-            CurLoadout.CheckExclusions( p );
-        } catch( Exception e ) {
-            return true;
+        for (abPlaceable item : (ArrayList<abPlaceable>)CurLoadout.GetEquipment()) {
+            if (item.LookupName().contains("Probe")) {
+                return true;
+            }
         }
         return false;
     }
