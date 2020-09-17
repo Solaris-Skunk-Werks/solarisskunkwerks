@@ -2873,6 +2873,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void UnallocateAll() {
         // unallocates all crits for the current item from the loadout
         CurMech.GetLoadout().UnallocateAll( CurItem, false );
+        RefreshSummary();
         RefreshInfoPane();
     }
 
@@ -2883,6 +2884,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             CurItem.MountRear( true );
         }
+        RefreshSummary();
         RefreshInfoPane();
     }
 
@@ -8523,6 +8525,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -8595,6 +8598,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -8702,6 +8706,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -8800,6 +8805,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -8910,6 +8916,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -9032,6 +9039,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -9154,6 +9162,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -9236,6 +9245,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }

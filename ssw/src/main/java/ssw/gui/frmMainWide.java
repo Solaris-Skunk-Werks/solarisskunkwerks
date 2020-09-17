@@ -2762,6 +2762,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     private void UnallocateAll() {
         // unallocates all crits for the current item from the loadout
         CurMech.GetLoadout().UnallocateAll( CurItem, false );
+        RefreshSummary();
         RefreshInfoPane();
     }
 
@@ -2772,6 +2773,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         } else {
             CurItem.MountRear( true );
         }
+        RefreshSummary();
         RefreshInfoPane();
     }
 
@@ -8288,6 +8290,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -8423,6 +8426,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -8546,6 +8550,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -8619,6 +8624,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -8728,6 +8734,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -8822,6 +8829,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -8904,6 +8912,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -9005,6 +9014,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
