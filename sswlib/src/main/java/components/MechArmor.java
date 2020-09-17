@@ -2494,11 +2494,6 @@ public class MechArmor  extends abPlaceable {
 
     public double GetHDDefensiveBV( int[] ModArmor ) {
         double typeMult = IsPatchwork() ? HDConfig.GetBVTypeMult() : GetBVTypeMult();
-//        if (IsPatchwork()) {
-//            typeMult = HDConfig.GetBVTypeMult();
-//        } else {
-//            typeMult = GetBVTypeMult();
-//        }
         return (ArmorPoints[LocationIndex.MECH_LOC_HD] + ModArmor[LocationIndex.MECH_LOC_HD] * 10) * typeMult * GetHarjelMod(LocationIndex.MECH_LOC_HD);
     }
 
