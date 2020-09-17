@@ -28,55 +28,35 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
-import ssw.filehandlers.HTMLWriter;
-import ssw.filehandlers.HMPReader;
-import ssw.gui.DamageChart;
+import Print.PrintConsts;
+import battleforce.BattleForceStats;
 import common.CommonTools;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.Image;
+import common.DataFactory;
+import components.*;
+import dialog.frmForce;
+import filehandlers.*;
+import gui.TextPane;
+import list.view.tbQuirks;
+import ssw.constants.SSWConstants;
+import ssw.filehandlers.HMPReader;
+import ssw.filehandlers.HTMLWriter;
+import ssw.print.Printer;
+import ssw.printpreview.dlgPreview;
+import states.ifState;
+import visitors.VArmorSetPatchworkLocation;
+import visitors.VMechFullRecalc;
+import visitors.VSetArmorTonnage;
+import visitors.ifVisitor;
+
+import javax.swing.*;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.DropMode;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-
-import components.*;
-import filehandlers.*;
-import ssw.print.Printer;
-import visitors.*;
-import states.ifState;
-import java.util.prefs.*;
-import javax.swing.JEditorPane;
-import javax.swing.JTextField;
-import javax.swing.text.JTextComponent;
-import battleforce.*;
-import common.DataFactory;
-import dialog.frmForce;
-import components.EquipmentCollection;
-import ssw.printpreview.dlgPreview;
-import Print.PrintConsts;
-import ssw.constants.SSWConstants;
-import gui.TextPane;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
-import javax.swing.SwingUtilities;
-import list.view.tbQuirks;
+import java.util.prefs.Preferences;
 
 public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner, common.DesignForm, ifMechForm {
     FocusAdapter spinners = new FocusAdapter() {
@@ -579,11 +559,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         Equipment[ARTILLERY] = data.GetEquipment().GetArtillery( CurMech );
         Equipment[EQUIPMENT] = data.GetEquipment().GetEquipment( CurMech );
         Equipment[AMMUNITION] = new Object[] { " " };
-        if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
-            Equipment[SELECTED] = new Object[] { " " };
-        } else {
-            Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
-        }
+        RefreshSelectedEquipment();
 
         for( int i = 0; i < Equipment.length; i++ ) {
             if( Equipment[i] == null ) {
@@ -3163,12 +3139,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             CurMech.GetLoadout().Remove( CurItem );
 
             // refresh the selected equipment listbox
-            if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
-                Equipment[SELECTED] = new Object[] { " " };
-            } else {
-                Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
-            }
-            lstSelectedEquipment.setListData( Equipment[SELECTED] );
+            RefreshSelectedEquipment();
 
             // Check the targeting computer if needed
             if( CurMech.UsingTC() ) {
@@ -4744,12 +4715,22 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                     }
                 }
                 CurMech.GetLoadout().AddToQueue( a );
+                RefreshSelectedEquipment();
             }
             return true;
         } else {
             Media.Messager( this, "Please add an appropriate ECM Suite to complement this\n system.  The 'Mech is not valid without an ECM Suite." );
             return true;
         }
+    }
+
+    private void RefreshSelectedEquipment() {
+        if(CurMech.GetLoadout().GetNonCore().toArray().length <= 0) {
+            Equipment[SELECTED] = new Object[] { " " };
+        } else {
+            Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
+        }
+        lstSelectedEquipment.setListData(Equipment[SELECTED]);
     }
 
      /** This method is called from within the constructor to
@@ -11322,12 +11303,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         // refresh the selected equipment listbox
-        if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
-            Equipment[SELECTED] = new Object[] { " " };
-        } else {
-            Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
-        }
-        lstSelectedEquipment.setListData( Equipment[SELECTED] );
+        RefreshSelectedEquipment();
 
         // now refresh the information panes
         RefreshSummary();
@@ -12260,12 +12236,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         }
         // refresh the selected equipment listbox
-        if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
-            Equipment[SELECTED] = new Object[] { " " };
-        } else {
-            Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
-        }
-        lstSelectedEquipment.setListData( Equipment[SELECTED] );
+        RefreshSelectedEquipment();
 
         // Check the targeting computer if needed
         if( CurMech.UsingTC() ) {
@@ -12418,12 +12389,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 }
 
                 // refresh the selected equipment listbox
-                if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
-                    Equipment[SELECTED] = new Object[] { " " };
-                } else {
-                    Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
-                }
-                lstSelectedEquipment.setListData( Equipment[SELECTED] );
+                RefreshSelectedEquipment();
             }
 
             // now refresh the information panes
@@ -12437,12 +12403,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         CurMech.GetLoadout().SafeClearLoadout();
 
         // refresh the selected equipment listbox
-        if( CurMech.GetLoadout().GetNonCore().toArray().length <= 0 ) {
-            Equipment[SELECTED] = new Object[] { " " };
-        } else {
-            Equipment[SELECTED] = CurMech.GetLoadout().GetNonCore().toArray();
-        }
-        lstSelectedEquipment.setListData( Equipment[SELECTED] );
+        RefreshSelectedEquipment();
 
         // Check the targeting computer if needed
         if( CurMech.UsingTC() ) {
