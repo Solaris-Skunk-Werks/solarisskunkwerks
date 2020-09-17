@@ -2090,7 +2090,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
     }
 
-    private void RefreshSummary() {
+    public void RefreshSummary() {
         // refreshes the display completely using info from the mech.
         txtSumIntTon.setText( "" + CurMech.GetIntStruc().GetTonnage() );
         txtSumEngTon.setText( "" + CurMech.GetEngine().GetTonnage() );
