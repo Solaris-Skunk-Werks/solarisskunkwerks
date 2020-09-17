@@ -29,6 +29,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package components;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import common.CommonTools;
 import visitors.VFCSApolloLoader;
 import visitors.VFCSArtemisIVLoader;
@@ -1162,6 +1165,20 @@ public class TripodLoadout implements ifMechLoadout, ifLoadout {
         default:
             return null;
         }
+    }
+
+    public List<abPlaceable> GetCrits() {
+        List<abPlaceable> crits = new ArrayList<>();
+        crits.addAll(Arrays.asList(HDCrits));
+        crits.addAll(Arrays.asList(CTCrits));
+        crits.addAll(Arrays.asList(LTCrits));
+        crits.addAll(Arrays.asList(RTCrits));
+        crits.addAll(Arrays.asList(LACrits));
+        crits.addAll(Arrays.asList(RACrits));
+        crits.addAll(Arrays.asList(LLCrits));
+        crits.addAll(Arrays.asList(RLCrits));
+        crits.addAll(Arrays.asList(CLCrits));
+        return crits;
     }
 
     public int Find( abPlaceable p ) {
