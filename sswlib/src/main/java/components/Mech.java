@@ -4724,37 +4724,28 @@ public class Mech implements ifUnit, ifBattleforce {
     }
 
     public boolean HasC3() {
-        // checks for C3 systems.
-        SimplePlaceable p = new SimplePlaceable( "C3Test", "C3Test", "C3Test", "C3Test", "none", 0, false, null );
-        p.SetExclusions(new String[] { "C3" });
-        try {
-            CurLoadout.CheckExclusions( p );
-        } catch( Exception e ) {
-            return true;
+        for (abPlaceable item : (ArrayList<abPlaceable>)CurLoadout.GetEquipment()) {
+            if (item.LookupName().contains("C3")) {
+                return true;
+            }
         }
         return false;
     }
 
     public boolean HasECM() {
-        // ensures that, if the 'Mech needs ECM, it has it.
-        SimplePlaceable p = new SimplePlaceable( "ECMTest", "ECMTest", "ECMTest", "ECMTest", "none", 0, false, null );
-        p.SetExclusions(new String[] { "ECM", "Watchdog" });
-        try {
-            CurLoadout.CheckExclusions( p );
-        } catch( Exception e ) {
-            return true;
+        for (abPlaceable item : (ArrayList<abPlaceable>)CurLoadout.GetEquipment()) {
+            if (item.LookupName().contains("ECM") || item.LookupName().contains("Watchdog")) {
+                return true;
+            }
         }
         return false;
     }
 
     public boolean HasProbe() {
-        // ensures that, if the 'Mech needs Probe, it has it.
-        SimplePlaceable p = new SimplePlaceable( "ProbeTest", "ProbeTest", "ProbeTest", "ProbeTest", "none", 0, false, null );
-        p.SetExclusions(new String[] { "Probe" });
-        try {
-            CurLoadout.CheckExclusions( p );
-        } catch( Exception e ) {
-            return true;
+        for (abPlaceable item : (ArrayList<abPlaceable>)CurLoadout.GetEquipment()) {
+            if (item.LookupName().contains("Probe")) {
+                return true;
+            }
         }
         return false;
     }

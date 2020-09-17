@@ -101,6 +101,7 @@ public interface ifMechLoadout {
     public abPlaceable[] GetLLCrits();
     public abPlaceable[] GetCLCrits();
     public abPlaceable[] GetCrits( int Loc );
+    public List<abPlaceable> GetCrits();
     public int Find( abPlaceable p );
     public LocationIndex FindIndex( abPlaceable p );
     public ArrayList FindSplitIndex( abPlaceable p );
