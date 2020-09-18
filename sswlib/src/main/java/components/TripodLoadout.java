@@ -1808,37 +1808,13 @@ public class TripodLoadout implements ifMechLoadout, ifLoadout {
     }
 
     public boolean LocationHasEquip(int index, String name) {
-        abPlaceable[] equips = GetLocationEquips(index);
+        abPlaceable[] equips = GetCrits(index);
         for (abPlaceable item : equips) {
             if (item.LookupName().equals(name)) {
                 return true;
             }
         }
         return false;
-    }
-
-    public abPlaceable[] GetLocationEquips(int loc) {
-        switch (loc) {
-            case LocationIndex.MECH_LOC_HD:
-                return HDCrits;
-            case LocationIndex.MECH_LOC_CT:
-                return CTCrits;
-            case LocationIndex.MECH_LOC_LT:
-                return LTCrits;
-            case LocationIndex.MECH_LOC_RT:
-                return RTCrits;
-            case LocationIndex.MECH_LOC_LA:
-                return LACrits;
-            case LocationIndex.MECH_LOC_RA:
-                return RACrits;
-            case LocationIndex.MECH_LOC_LL:
-                return LLCrits;
-            case LocationIndex.MECH_LOC_RL:
-                return RLCrits;
-            case LocationIndex.MECH_LOC_CL:
-                return CLCrits;
-            default: return new abPlaceable[]{ };
-        }
     }
 
     public int[] FindHeatSinks() {

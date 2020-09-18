@@ -239,5 +239,4 @@ public interface ifMechLoadout {
     public boolean HasBoobyTrap();
     public BoobyTrap GetBoobyTrap();
     public boolean LocationHasEquip(int index, String name);
-    public abPlaceable[] GetLocationEquips(int loc);
 }
