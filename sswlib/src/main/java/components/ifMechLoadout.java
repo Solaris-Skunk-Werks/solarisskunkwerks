@@ -238,6 +238,6 @@ public interface ifMechLoadout {
     public void SetBoobyTrap( boolean b ) throws Exception;
     public boolean HasBoobyTrap();
     public BoobyTrap GetBoobyTrap();
-    public boolean HasHarjel();
-    public boolean HasHarjel(int index);
+    public boolean LocationHasEquip(int index, String name);
+    public abPlaceable[] GetLocationEquips(int loc);
 }

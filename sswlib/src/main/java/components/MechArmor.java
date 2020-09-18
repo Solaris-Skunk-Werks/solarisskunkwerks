@@ -31,7 +31,6 @@ package components;
 import common.CommonTools;
 import states.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MechArmor  extends abPlaceable {
@@ -76,8 +75,6 @@ public class MechArmor  extends abPlaceable {
                     RAConfig = Standard,
                     LLConfig = Standard,
                     RLConfig = Standard;
-    private List<LocationIndex> Harjel2Locs = new ArrayList<>();
-    private List<LocationIndex> Harjel3Locs = new ArrayList<>();
 
     public MechArmor( Mech m ) {
         Owner = m;
@@ -2476,9 +2473,6 @@ public class MechArmor  extends abPlaceable {
     }
 
     public double GetDefensiveBV() {
-        Harjel2Locs = Owner.GetLoadout().FindIndexesByName("HarJel II");
-        Harjel3Locs = Owner.GetLoadout().FindIndexesByName("HarJel III");
-
         double result = 0.0;
         int[] ModArmor = Owner.GetLoadout().FindModularArmor();
         result += GetHDDefensiveBV( ModArmor );
@@ -2577,22 +2571,23 @@ public class MechArmor  extends abPlaceable {
         return Config.AllowHarJel();
     }
 
-    public double GetHarjelMod(int index) {
-        if (HasHarjel(index, Harjel2Locs)) {
+    public boolean HasHarjelMod() {
+        List<LocationIndex> hj2 = Owner.GetLoadout().FindIndexesByName("HarJel II");
+        List<LocationIndex> hj3 = Owner.GetLoadout().FindIndexesByName("HarJel III");
+        return !hj2.isEmpty() || !hj3.isEmpty();
+    }
+
+    public boolean HasHarjelMod(int loc) {
+        return Owner.GetLoadout().LocationHasEquip(loc, "HarJel II") || Owner.GetLoadout().LocationHasEquip(loc, "HarJel III");
+    }
+
+    public double GetHarjelMod(int loc) {
+        if (Owner.GetLoadout().LocationHasEquip(loc, "HarJel II")) {
             return 1.1;
-        } else if (HasHarjel(index, Harjel3Locs)) {
+        } else if (Owner.GetLoadout().LocationHasEquip(loc, "HarJel III")) {
             return 1.2;
         }
         return 1.0;
-    }
-
-    private boolean HasHarjel (int index, List<LocationIndex> locs) {
-        for (LocationIndex l : locs) {
-            if (l.Location == index) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override

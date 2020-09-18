@@ -28,14 +28,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import common.CommonTools;
 import visitors.VFCSApolloLoader;
 import visitors.VFCSArtemisIVLoader;
 import visitors.VFCSArtemisVLoader;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class BipedLoadout implements ifMechLoadout, ifLoadout {
     // Loadouts provide critical locations for all of a mech's equipment.
@@ -1701,26 +1701,37 @@ public boolean IsTripod(){
         return locations;
     }
 
-    public boolean HasHarjel() {
-        List<LocationIndex> hj2 = FindIndexesByName("HarJel II");
-        List<LocationIndex> hj3 = FindIndexesByName("HarJel III");
-        return !hj2.isEmpty() || !hj3.isEmpty();
-    }
-
-    public boolean HasHarjel(int location) {
-        List<LocationIndex> hj2 = FindIndexesByName("HarJel II");
-        List<LocationIndex> hj3 = FindIndexesByName("HarJel III");
-        for (LocationIndex loc : hj2) {
-            if (loc.Location == location) {
-                return true;
-            }
-        }
-        for (LocationIndex loc : hj3) {
-            if (loc.Location == location) {
+    // TODO: refactor locations to be classes themselves and implement methods like this
+    public boolean LocationHasEquip(int index, String name) {
+        abPlaceable[] equips = GetLocationEquips(index);
+        for (abPlaceable item : equips) {
+            if (item.LookupName().equals(name)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public abPlaceable[] GetLocationEquips(int loc) {
+        switch (loc) {
+            case LocationIndex.MECH_LOC_HD:
+                return HDCrits;
+            case LocationIndex.MECH_LOC_CT:
+                return CTCrits;
+            case LocationIndex.MECH_LOC_LT:
+                return LTCrits;
+            case LocationIndex.MECH_LOC_RT:
+                return RTCrits;
+            case LocationIndex.MECH_LOC_LA:
+                return LACrits;
+            case LocationIndex.MECH_LOC_RA:
+                return RACrits;
+            case LocationIndex.MECH_LOC_LL:
+                return LLCrits;
+            case LocationIndex.MECH_LOC_RL:
+                return RLCrits;
+            default: return new abPlaceable[]{ };
+            }
     }
 
     public int[] FindHeatSinks() {
