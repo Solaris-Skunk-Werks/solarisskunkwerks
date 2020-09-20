@@ -40,6 +40,13 @@ task copyAssets (dependsOn: deleteAssets) {
     }
 }
 
+task writeProperties(type: WriteProperties) {
+    outputFile "${buildDir}/resources/main/saw/build.properties"
+    property 'version', version
+    property 'releaseType', releaseType
+    property 'date', date
+}
+
 task copyDependencies {
     copy {
         into "${buildDir}/deps"
@@ -47,13 +54,4 @@ task copyDependencies {
     }
 }
 
-//distributions {
-//    main {
-//        contents {
-//            from ('../') {
-//                include 'Data/**'
-//                into 'lib'
-//            }
-//        }
-//    }
-//}
+compileJava.finalizedBy(writeProperties)

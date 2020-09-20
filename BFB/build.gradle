@@ -47,13 +47,11 @@ task copyDependencies {
     }
 }
 
-//distributions {
-//    main {
-//        contents {
-//            from ('../') {
-//                include 'Data/**'
-//                into 'bin'
-//            }
-//        }
-//    }
-//}
+task writeProperties(type: WriteProperties) {
+    outputFile "${buildDir}/resources/main/BFB/build.properties"
+    property 'version', version
+    property 'releaseType', releaseType
+    property 'date', date
+}
+
+compileJava.finalizedBy(writeProperties)
