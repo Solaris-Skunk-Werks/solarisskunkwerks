@@ -58,7 +58,7 @@ public class SSWConstants {
     public static String GetVersion() {
         Properties props = new Properties();
         try {
-            props.load(dlgAboutBox.class.getResourceAsStream("/ssw/build.properties"));
+            props.load(SSWConstants.class.getResourceAsStream("/ssw/build.properties"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,7 +68,7 @@ public class SSWConstants {
     public static String GetReleaseType() {
         Properties props = new Properties();
         try {
-            props.load(dlgAboutBox.class.getResourceAsStream("/ssw/build.properties"));
+            props.load(SSWConstants.class.getResourceAsStream("/ssw/build.properties"));
         } catch (Exception e) {
             e.printStackTrace();
         }
