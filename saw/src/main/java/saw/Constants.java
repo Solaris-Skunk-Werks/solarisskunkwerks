@@ -28,14 +28,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package saw;
 
+import java.util.Properties;
+
 public class Constants {
     // Constants for the program
 
     // here is the versioning and program name
     public final static String AppName = "SAW",
                         AppDescription = "Solaris Armor Werks",
-                        Version = "0.7.4.1",
-                        AppRelease = "Stable",
                         ImageListFileName = "S7Images",
                         LogFileName = "Logs/SAW_Log.txt",
                         HTMLTemplateName = "Data/Templates/Vee_HTML.html",
@@ -49,4 +49,24 @@ public class Constants {
                      ART4_APOLLO = 3;
     public final static int SCREEN_SIZE_NORMAL = 0,
                             SCREEN_SIZE_WIDE_1280 = 1;
+
+    public static String GetVersion() {
+        Properties props = new Properties();
+        try {
+            props.load(Constants.class.getResourceAsStream("/saw/build.properties"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return props.getProperty("version");
+    }
+
+    public static String GetReleaseType() {
+        Properties props = new Properties();
+        try {
+            props.load(Constants.class.getResourceAsStream("/saw/build.properties"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return props.getProperty("releaseType");
+    }
 }
