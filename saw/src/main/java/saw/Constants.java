@@ -57,7 +57,11 @@ public class Constants {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return props.getProperty("version");
+        if (props.getProperty("releaseType").equals("Nightly")) {
+            return props.getProperty("version") + "." + props.getProperty("date");
+        } else {
+            return props.getProperty("version");
+        }
     }
 
     public static String GetReleaseType() {
