@@ -3,7 +3,7 @@ apply plugin: 'java'
 allprojects {
     version '0.7.4.1'
     ext {
-        releaseType='Nightly'
+        releaseType='Stable'
         date=getDate()
     }
     jar {
@@ -50,7 +50,11 @@ task copyJars(dependsOn: subprojects.build, type: Copy) {
 task releaseBuild(dependsOn: [copyDocs, copyData, copyDeps, copyJars]) { }
 
 task zipRelease(type: Zip, dependsOn: releaseBuild) {
-        from "${buildDir}/release"
+    from "${buildDir}/release"
         include "**/"
+    if ("$releaseType" == "Nightly") {
+        archiveName "SSW_${version}.${date}"
+    } else {
         archiveName "SSW_${version}.zip"
+    }
 }
