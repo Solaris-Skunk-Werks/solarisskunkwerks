@@ -19,7 +19,8 @@ application {
 jar {
     manifest.attributes (
             'Main-Class' : 'BFB.Main',
-            'Class-Path' : 'lib/sswlib.jar',
+            'Class-Path' : configurations.runtimeClasspath.files
+                    .findAll { it.name.endsWith(".jar") }.collect { "lib/${it.name}" }.join(' '),
             'SplashScreen-Image' : 'Images/BFB_Load.png'
     )
     archiveName = "BFB.jar"
