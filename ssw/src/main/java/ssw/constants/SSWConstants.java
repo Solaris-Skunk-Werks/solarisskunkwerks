@@ -28,14 +28,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.constants;
 
+import ssw.gui.dlgAboutBox;
+
+import java.util.Properties;
+
 public class SSWConstants {
     // SSWConstants for the program
 
     // here is the versioning and program name
     public final static String AppName = "SSW",
                         AppDescription = "Solaris Skunk Werks",
-                        Version = "0.7.4.1",
-                        AppRelease = "Stable",
                         ImageListFileName = "Data/Solaris7/S7Images",
                         LogDirectoryName = "Logs",
                         LogFileName = "SSW_Log.txt",
@@ -52,4 +54,24 @@ public class SSWConstants {
                         PrefsNodeName = "/com/sswsuite/ssw";
     public final static int SCREEN_SIZE_NORMAL = 0,
                             SCREEN_SIZE_WIDE_1280 = 1;
+
+    public static String GetVersion() {
+        Properties props = new Properties();
+        try {
+            props.load(dlgAboutBox.class.getResourceAsStream("/ssw/build.properties"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return props.getProperty("version");
+    }
+
+    public static String GetReleaseType() {
+        Properties props = new Properties();
+        try {
+            props.load(dlgAboutBox.class.getResourceAsStream("/ssw/build.properties"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return props.getProperty("releaseType");
+    }
 }
