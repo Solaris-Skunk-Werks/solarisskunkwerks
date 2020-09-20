@@ -198,7 +198,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         pnlVariants.add( Variants );
         pnlNotables.add( Notables );
         setViewToolbar( Prefs.getBoolean( "ViewToolbar", true ) );
-        setTitle( SSWConstants.AppDescription + " " + SSWConstants.Version );
+        setTitle( SSWConstants.AppDescription + " " + SSWConstants.GetVersion() );
         pack();
 
         mnuDetails.addActionListener( new java.awt.event.ActionListener() {
@@ -2728,7 +2728,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             chkYearRestrict.setEnabled( true );
         }
         CurMech.SetChanged( false );
-        setTitle( SSWConstants.AppDescription + " " + SSWConstants.Version );
+        setTitle( SSWConstants.AppDescription + " " + SSWConstants.GetVersion() );
     }
 
     private void GetInfoOn() {
@@ -10688,7 +10688,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
 
         setCursor( NormalCursor );
-        setTitle( SSWConstants.AppName + " " + SSWConstants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
+        setTitle( SSWConstants.AppName + " " + SSWConstants.GetVersion() + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
         CurMech.SetChanged( false );
 	}//GEN-LAST:event_mnuSaveActionPerformed
 
@@ -10762,7 +10762,7 @@ private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         cmbOmniVariant.setSelectedItem( CurLoadout );
         cmbOmniVariantActionPerformed( evt );
     }
-    setTitle( SSWConstants.AppName + " " + SSWConstants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
+    setTitle( SSWConstants.AppName + " " + SSWConstants.GetVersion() + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
     CurMech.SetChanged( false );
     setCursor( NormalCursor );
 }//GEN-LAST:event_mnuSaveAsActionPerformed
@@ -11048,7 +11048,7 @@ public void LoadMechIntoGUI() {
         txtSumPAmpsACode.setVisible( true );
     }
 
-    setTitle( SSWConstants.AppName + " " + SSWConstants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
+    setTitle( SSWConstants.AppName + " " + SSWConstants.GetVersion() + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
 }
 
 private void mnuExportClipboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportClipboardActionPerformed
@@ -11379,7 +11379,7 @@ private void btnExportMTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
     // if there were no problems, let the user know how it went
     Media.Messager( this, "Mech saved successfully to MTF:\n" + filename );
-    setTitle( SSWConstants.AppName + " " + SSWConstants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
+    setTitle( SSWConstants.AppName + " " + SSWConstants.GetVersion() + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
 }//GEN-LAST:event_btnExportMTFActionPerformed
 
 private void btnExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportHTMLActionPerformed
@@ -11416,7 +11416,7 @@ private void btnExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         cmbOmniVariant.setSelectedItem( CurLoadout );
         cmbOmniVariantActionPerformed( evt );
     }
-    setTitle( SSWConstants.AppName + " " + SSWConstants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
+    setTitle( SSWConstants.AppName + " " + SSWConstants.GetVersion() + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
 }//GEN-LAST:event_btnExportHTMLActionPerformed
 
 private void btnExportTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportTXTActionPerformed
@@ -11453,7 +11453,7 @@ private void btnExportTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         cmbOmniVariant.setSelectedItem( CurLoadout );
         cmbOmniVariantActionPerformed( evt );
     }
-    setTitle( SSWConstants.AppName + " " + SSWConstants.Version + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
+    setTitle( SSWConstants.AppName + " " + SSWConstants.GetVersion() + " - " + CurMech.GetName() + " " + CurMech.GetModel() );
 }//GEN-LAST:event_btnExportTXTActionPerformed
 
 private void btnClearImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearImageActionPerformed

@@ -1,7 +1,11 @@
 apply plugin: 'java'
 
 allprojects {
-    version '0.7.4.1'
+    version '0.7.4.2'
+    ext {
+        releaseType='Nightly'
+        date=getDate()
+    }
     jar {
         onlyIf { !sourceSets.main.allSource.files.isEmpty() }
     }
@@ -14,115 +18,43 @@ subprojects {
     }
 }
 
+static def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMdd')
+    return formattedDate.toString()
+}
+
 evaluationDependsOnChildren()
 
-task releaseBuild(dependsOn: subprojects.build) {
-    doLast {
-        copy {
-            from 'Data'
-            into "${buildDir}/release/SSW_${version}/Data"
-        }
-        copy {
-            from "./ssw/build/libs"
-            into "${buildDir}/release/SSW_${version}"
-        }
-        copy {
-            from "./ssw/build/deps"
-            into "${buildDir}/release/SSW_${version}/lib"
-        }
-        copy {
-            from "./BFB/build/libs"
-            into "${buildDir}/release/SSW_${version}"
-        }
-        copy {
-            from "./BFB/build/deps"
-            into "${buildDir}/release//SSW_${version}/lib"
-        }
-        copy {
-            from "./saw/build/libs"
-            into "${buildDir}/release/SSW_${version}"
-        }
-        copy {
-            from "./saw/build/deps"
-            into "${buildDir}/release/SSW_${version}/lib"
-        }
-        copy {
-            from "./sswlib/build/libs"
-            into "${buildDir}/release/SSW_${version}/lib"
-        }
-        copy {
-            from "./binconvert/build/libs"
-            into "${buildDir}/release/SSW_${version}"
-        }
-        copy {
-            from "./binconvert/build/deps"
-            into "${buildDir}/release/SSW_${version}/lib"
-        }
-    }
+task copyDocs(dependsOn: subprojects.build, type: Copy) {
+    from 'Docs'
+    into "${buildDir}/release/SSW_${version}/Docs"
 }
 
-task copyDocs (dependsOn: subprojects.build) {
-    copy {
-        from 'Docs'
-        into "${buildDir}/release/SSW_${version}/Docs"
-    }
+task copyData(dependsOn: subprojects.build, type: Copy) {
+    from 'Data'
+    into "${buildDir}/release/SSW_${version}/Data"
 }
 
-task zipRelease(type: Zip, dependsOn: ['releaseBuild', 'copyDocs']) {
-        from "${buildDir}/release"
+task copyDeps(dependsOn: subprojects.build, type: Copy) {
+    from subprojects.collect { it.configurations.runtime }
+    into "$buildDir/release/SSW_${version}/lib"
+}
+
+task copyJars(dependsOn: subprojects.build, type: Copy) {
+    from subprojects.collect { it.tasks.withType(Jar) }
+    exclude "**/sswlib.jar"
+    into "$buildDir/release/SSW_${version}"
+}
+
+task releaseBuild(dependsOn: [copyDocs, copyData, copyDeps, copyJars]) { }
+
+task zipRelease(type: Zip, dependsOn: releaseBuild) {
+    from "${buildDir}/release"
         include "**/"
+    if ("$releaseType" == "Nightly") {
+        archiveName "SSW_${version}.${date}"
+    } else {
         archiveName "SSW_${version}.zip"
+    }
 }
-
-//apply plugin: 'java-library-distribution'
-//distributions {
-//    main {
-//        baseName = "SSW"
-//        contents {
-//            exclude "dist-${version}.jar"
-//            from ('.') {
-//                include 'Data/**'
-//                into '.'
-//            }
-//            from ("./ssw/build/libs") {
-//                include "*.jar"
-//                into "."
-//            }
-//            from ("./BFB/build/libs") {
-//                include "*.jar"
-//                into "."
-//
-//            }
-//            from ("./saw/build/libs") {
-//                include "*.jar"
-//                into "."
-//            }
-//        }
-//    }
-//}
-
-
-//task copyResources {
-//    copy {
-//        from 'Data'
-//        into 'build/libs/Data'
-//        include '**/'
-//    }
-//}
-
-//task copyJars(type: Copy) {
-//    //dependsOn subprojects.build
-//    from subprojects.collect { it.tasks.withType(Jar) }
-//    into project.rootProject.buildDir.toString() + "/libs"
-//}
-////
-//task copyDependencies(type: Copy) {
-//    from subprojects.collect { it.artifacts }
-//    into project.rootProject.buildDir.toString() + "/libs/lib"
-//}
-//
-//task copyStartScripts(type: Copy) {
-//    dependsOn copyJars
-//    from subprojects.collect { it.tasks.withType(CreateStartScripts) }
-//    into project.rootProject.buildDir.toString() + "/scripts"
-//}

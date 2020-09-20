@@ -27,11 +27,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package BFB.Common;
 
+import java.util.Properties;
+
 public class Constants {
     public final static String AppName = "Battletech Force Balancer",
                         AppDescription = "Battletech Force Balancer",
-                        Version = "0.7.4.1",
-                        AppRelease = "Stable",
                         Author = "George Blouin",
                         EMail = "george.blouin@gmail.com",
                         Print_ForceList = "Print.ForceList",
@@ -63,4 +63,28 @@ public class Constants {
                                  "Support Vehicle", "Mobile Structure" };
     public final static String NL = System.getProperty( "line.separator" );
     public final static String Tab = "\t";
+
+    public static String GetVersion() {
+        Properties props = new Properties();
+        try {
+            props.load(Constants.class.getResourceAsStream("/BFB/build.properties"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (props.getProperty("releaseType").equals("Nightly")) {
+            return props.getProperty("version") + "." + props.getProperty("date");
+        } else {
+            return props.getProperty("version");
+        }
+    }
+
+    public static String GetReleaseType() {
+        Properties props = new Properties();
+        try {
+            props.load(Constants.class.getResourceAsStream("/BFB/build.properties"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return props.getProperty("releaseType");
+    }
 }

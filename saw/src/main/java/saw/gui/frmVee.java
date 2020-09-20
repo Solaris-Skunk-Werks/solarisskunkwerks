@@ -157,7 +157,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbMotiveTypeActionPerformed(null);
         spnTonnageStateChanged(null);
 
-        setTitle( saw.Constants.AppDescription + " " + saw.Constants.Version );
+        setTitle( saw.Constants.AppDescription + " " + saw.Constants.GetVersion() );
 
         // added for easy checking
         PPCCapAC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
@@ -6511,7 +6511,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
 
         setCursor( NormalCursor );
-        setTitle( saw.Constants.AppName + " " + saw.Constants.Version + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
+        setTitle( saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
         CurVee.SetChanged( false );
     }//GEN-LAST:event_btnSaveActionPerformed
     private void SaveOmniFluffInfo() {
@@ -6994,7 +6994,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             chkYearRestrict.setEnabled( true );
         }
         CurVee.SetChanged( false );
-        setTitle( saw.Constants.AppDescription + " " + saw.Constants.Version );
+        setTitle( saw.Constants.AppDescription + " " + saw.Constants.GetVersion() );
     }
 
     private void CheckOmni() {
@@ -7789,7 +7789,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             //cmbOmniVariant.setSelectedItem( CurLoadout );
             //cmbOmniVariantActionPerformed( evt );
         }
-        setTitle( saw.Constants.AppName + " " + saw.Constants.Version + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
+        setTitle( saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
 }//GEN-LAST:event_btnExportTXTActionPerformed
 
     private void btnExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportHTMLActionPerformed
@@ -7826,7 +7826,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             //cmbOmniVariant.setSelectedItem( CurLoadout );
             //cmbOmniVariantActionPerformed( evt );
         }
-        setTitle( saw.Constants.AppName + " " + saw.Constants.Version + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
+        setTitle( saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
 }//GEN-LAST:event_btnExportHTMLActionPerformed
 
     private void btnExportMTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportMTFActionPerformed
@@ -7853,7 +7853,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // if there were no problems, let the user know how it went
         Media.Messager( this, "Vehicle saved successfully to MTF:\n" + filename );
-        setTitle( saw.Constants.AppName + " " + saw.Constants.Version + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
+        setTitle( saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
 }//GEN-LAST:event_btnExportMTFActionPerformed
 
     private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddQuirkActionPerformed
@@ -8942,7 +8942,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtCommSystem.setText( CurVee.GetCommSystem() );
         txtTNTSystem.setText( CurVee.GetTandTSystem() );
 
-        setTitle( saw.Constants.AppName + " " + saw.Constants.Version + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
+        setTitle( saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
         CurVee.SetChanged(false);
     }
 
@@ -9096,7 +9096,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
 
         setCursor(NormalCursor);
-        setTitle(saw.Constants.AppName + " " + saw.Constants.Version + " - " + CurVee.GetName() + " " + CurVee.GetModel());
+        setTitle(saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel());
         CurVee.SetChanged(false);
     }//GEN-LAST:event_mnuSaveActionPerformed
 
@@ -9154,7 +9154,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             cmbOmniVariant.setSelectedItem(CurLoadout);
             cmbOmniVariantActionPerformed(evt);
         }
-        setTitle(saw.Constants.AppName + " " + saw.Constants.Version + " - " + CurVee.GetName() + " " + CurVee.GetModel());
+        setTitle(saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel());
         CurVee.SetChanged(false);
         setCursor(NormalCursor);
     }//GEN-LAST:event_mnuSaveAsActionPerformed
@@ -9638,7 +9638,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             cmbOmniVariant.setSelectedItem( CurLoadout );
             cmbOmniVariantActionPerformed( evt );
         }
-        setTitle( saw.Constants.AppName + " " + saw.Constants.Version + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
+        setTitle( saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
         SetSource = true;
     }//GEN-LAST:event_btnExportHTMLIconActionPerformed
 

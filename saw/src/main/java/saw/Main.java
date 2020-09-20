@@ -134,7 +134,7 @@ public class Main {
                     System.out.println("Error loading Icon image...\n" + e.getMessage());
                 }
                 
-                MainFrame.setTitle( Constants.AppDescription + " " + Constants.Version );
+                MainFrame.setTitle( Constants.AppDescription + " " + Constants.GetVersion() );
                 MainFrame.setLocationRelativeTo( null );
                 //MainFrame.setResizable( true );
                 MainFrame.setDefaultCloseOperation( javax.swing.JFrame.DISPOSE_ON_CLOSE );
