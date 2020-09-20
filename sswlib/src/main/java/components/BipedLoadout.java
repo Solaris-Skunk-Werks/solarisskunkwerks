@@ -28,14 +28,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import common.CommonTools;
 import visitors.VFCSApolloLoader;
 import visitors.VFCSArtemisIVLoader;
 import visitors.VFCSArtemisVLoader;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class BipedLoadout implements ifMechLoadout, ifLoadout {
     // Loadouts provide critical locations for all of a mech's equipment.
@@ -1516,46 +1516,46 @@ public boolean IsTripod(){
         // number in each location
         int[] retval = { 0, 0, 0, 0, 0, 0, 0, 0 };
         for( int i = 0; i < 6; i++ ) {
-            if( HDCrits[i] == p ) {
+            if(HDCrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_HD]++;
             }
-            if( CTCrits[i] == p ) {
+            if(CTCrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_CT]++;
             }
-            if( LTCrits[i] == p ) {
+            if(LTCrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_LT]++;
             }
-            if( RTCrits[i] == p ) {
+            if(RTCrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_RT]++;
             }
-            if( LACrits[i] == p ) {
+            if(LACrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_LA]++;
             }
-            if( RACrits[i] == p ) {
+            if(RACrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_RA]++;
             }
-            if( LLCrits[i] == p ) {
+            if(LLCrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_LL]++;
             }
-            if( RLCrits[i] == p ) {
+            if(RLCrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_RL]++;
             }
         }
 
         for( int i = 6; i < 12; i++ ) {
-            if( CTCrits[i] == p ) {
+            if(CTCrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_CT]++;
             }
-            if( LTCrits[i] == p ) {
+            if(LTCrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_LT]++;
             }
-            if( RTCrits[i] == p ) {
+            if(RTCrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_RT]++;
             }
-            if( LACrits[i] == p ) {
+            if(LACrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_LA]++;
             }
-            if( RACrits[i] == p ) {
+            if(RACrits[i].LookupName().equals(p.LookupName())) {
                 retval[LocationIndex.MECH_LOC_RA]++;
             }
         }
@@ -1651,6 +1651,65 @@ public boolean IsTripod(){
             }
         }
         return v;
+    }
+
+    public List<LocationIndex> FindIndexesByName(String lookupName) {
+        List<LocationIndex> locations = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            if (HDCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_HD));
+            }
+            if (CTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_CT));
+            }
+            if (LTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_LT));
+            }
+            if (RTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_RT));
+            }
+            if (LACrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_LA));
+            }
+            if (RACrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_RA));
+            }
+            if (LLCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_LL));
+            }
+            if (RLCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_RL));
+            }
+        }
+        for (int i = 6; i < 12; i++) {
+            if (CTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_CT));
+            }
+            if (LTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_LT));
+            }
+            if (RTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_RT));
+            }
+            if (LACrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_LA));
+            }
+            if (RACrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_RA));
+            }
+        }
+        return locations;
+    }
+
+    // TODO: refactor locations to be classes themselves and implement methods like this
+    public boolean LocationHasEquip(int index, String name) {
+        abPlaceable[] equips = GetCrits(index);
+        for (abPlaceable item : equips) {
+            if (item.LookupName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public int[] FindHeatSinks() {
@@ -3108,6 +3167,9 @@ public boolean IsTripod(){
         // stating index.  Throws Exceptions with error messages if things went
         // wrong.
 
+        if (p instanceof Equipment) {
+            ((Equipment) p).ValidateMaxPerLocation(Loc);
+        }
         // Let's get a snapshot of the location so we can reset it if we have to.
         abPlaceable SnapShot[] = Loc.clone();
 
@@ -4943,10 +5005,12 @@ public boolean IsTripod(){
             }
         }
         
-        //HarJel requires Standard, Heavy Industrial, Light Ferro Fibrous, Standard Ferro Fibrous, or Heavy Ferro Fibrous armor
-        if ( p.ActualName().contains("HarJel"))
-            if ( !Owner.GetArmor().AllowHarJel() )
-                throw new Exception( p.CritName() + " may not be mounted on this 'Mech with " + Owner.GetArmor().ActualName());
+        //HarJel II/III requires Standard, Heavy Industrial, Light Ferro Fibrous, Standard Ferro Fibrous, or Heavy Ferro Fibrous armor
+        if ( p.ActualName().contains("HarJel II")) {
+            if ( !Owner.GetArmor().AllowHarJel() ) {
+                throw new Exception(p.CritName() + " may not be mounted on this 'Mech with " + Owner.GetArmor().ActualName());
+            }
+        }
         
         if( p.GetExclusions() == null ) { return; }
         String[] exclude = p.GetExclusions();

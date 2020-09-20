@@ -41,6 +41,7 @@ public interface ifMechForm {
     public String BuildLookupName( ifState s );
     public abPlaceable GetCurItem();
     public void RefreshInfoPane();
+    public void RefreshSummary();
     public void setMech( Mech m );
     public DataFactory GetData();
     public void QuickSave();

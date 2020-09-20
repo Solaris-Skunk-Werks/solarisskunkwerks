@@ -29,13 +29,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package components;
 
 import common.CommonTools;
+import visitors.VFCSApolloLoader;
+import visitors.VFCSArtemisIVLoader;
+import visitors.VFCSArtemisVLoader;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import visitors.VFCSArtemisIVLoader;
-import visitors.VFCSArtemisVLoader;
-import visitors.VFCSApolloLoader;
 
 public class QuadLoadout implements ifMechLoadout, ifLoadout {
     // Loadouts provide critical locations for all of a mech's equipment.
@@ -1455,6 +1455,59 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         return v;
     }
 
+    public List<LocationIndex> FindIndexesByName(String lookupName) {
+        List<LocationIndex> locations = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            if (HDCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_HD));
+            }
+            if (CTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_CT));
+            }
+            if (LTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_LT));
+            }
+            if (RTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_RT));
+            }
+            if (LACrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_LA));
+            }
+            if (RACrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_RA));
+            }
+            if (LLCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_LL));
+            }
+            if (RLCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_RL));
+            }
+        }
+        for (int i = 6; i < 12; i++) {
+            if (CTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_CT));
+            }
+            if (LTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_LT));
+            }
+            if (RTCrits[i].LookupName().equals(lookupName)) {
+                locations.add(new LocationIndex(i, LocationIndex.MECH_LOC_RT));
+            }
+        }
+        return locations;
+    }
+
+    // TODO: refactor locations to be classes themselves and implement methods like this
+    public boolean LocationHasEquip(int index, String name) {
+        abPlaceable[] equips = GetCrits(index);
+        for (abPlaceable item : equips) {
+            if (item.LookupName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int[] FindHeatSinks() {
         // this routine is used mainly by the text and html writers to find the
         // locations of heat sinks specifically.  returns an int[] with the
@@ -2857,6 +2910,10 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         // Adds the specified placeable to the given location at the specified
         // stating index.  Throws Exceptions with error messages if things went
         // wrong.
+
+        if (p instanceof Equipment) {
+            ((Equipment) p).ValidateMaxPerLocation(Loc);
+        }
 
         // Let's get a snapshot of the location so we can reset it if we have to.
         abPlaceable SnapShot[] = Loc.clone();
@@ -4663,6 +4720,14 @@ public void SetBoobyTrap( boolean b ) throws Exception{
                 throw new Exception( p.CritName() + " may not be mounted on this 'Mech because the engine is incompatible." );
             }
         }
+
+        //HarJel II/III requires Standard, Heavy Industrial, Light Ferro Fibrous, Standard Ferro Fibrous, or Heavy Ferro Fibrous armor
+        if ( p.ActualName().contains("HarJel II")) {
+            if ( !Owner.GetArmor().AllowHarJel() ) {
+                throw new Exception(p.CritName() + " may not be mounted on this 'Mech with " + Owner.GetArmor().ActualName());
+            }
+        }
+
         if( p.GetExclusions() == null ) { return; }
         String[] exclude = p.GetExclusions();
 

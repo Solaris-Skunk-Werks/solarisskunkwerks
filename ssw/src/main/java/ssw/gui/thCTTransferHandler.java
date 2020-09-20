@@ -228,6 +228,7 @@ public class thCTTransferHandler extends TransferHandler {
         } catch( Exception e ) {
             CurMech.GetLoadout().AddToQueue( a );
             javax.swing.JOptionPane.showMessageDialog( (javax.swing.JFrame) Parent, e.getMessage() );
+            Parent.RefreshSummary();
             Parent.RefreshInfoPane();
             return false;
         }
@@ -239,6 +240,7 @@ public class thCTTransferHandler extends TransferHandler {
             // reset the arc as it may not be appropriate
             ((VehicularGrenadeLauncher ) a).SetArcFore();
         }
+        Parent.RefreshSummary();
         Parent.RefreshInfoPane();
         return true;
     }
@@ -254,17 +256,20 @@ public class thCTTransferHandler extends TransferHandler {
                 if( a.NumPlaced() <= 0 ) {
                    CurMech.GetLoadout().RemoveFromQueue( a );
                 }
+                Parent.RefreshSummary();
                 Parent.RefreshInfoPane();
                 dlgSplit.dispose();
                 return true;
             } else {
                 CurMech.GetLoadout().AddToQueue( a );
+                Parent.RefreshSummary();
                 Parent.RefreshInfoPane();
                 dlgSplit.dispose();
                 return false;
             }
         } else {
             CurMech.GetLoadout().AddToCT( a, dindex );
+            Parent.RefreshSummary();
             Parent.RefreshInfoPane();
             return true;
         }

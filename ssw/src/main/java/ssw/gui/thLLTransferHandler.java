@@ -214,6 +214,7 @@ public class thLLTransferHandler extends TransferHandler {
         } catch( Exception e ) {
             CurMech.GetLoadout().AddToQueue( a );
             javax.swing.JOptionPane.showMessageDialog( (javax.swing.JFrame) Parent, e.getMessage() );
+            Parent.RefreshSummary();
             Parent.RefreshInfoPane();
             return false;
         }
@@ -221,6 +222,7 @@ public class thLLTransferHandler extends TransferHandler {
             CurMech.GetLoadout().RemoveFromQueue( a );
         }
         a.MountRear( rear );
+        Parent.RefreshSummary();
         Parent.RefreshInfoPane();
         return true;
     }
@@ -236,17 +238,20 @@ public class thLLTransferHandler extends TransferHandler {
                 if( a.NumPlaced() <= 0 ) {
                    CurMech.GetLoadout().RemoveFromQueue( a );
                 }
+                Parent.RefreshSummary();
                 Parent.RefreshInfoPane();
                 dlgSplit.dispose();
                 return true;
             } else {
                 CurMech.GetLoadout().AddToQueue( a );
+                Parent.RefreshSummary();
                 Parent.RefreshInfoPane();
                 dlgSplit.dispose();
                 return false;
             }
         } else {
             CurMech.GetLoadout().AddToLL( a, dindex );
+            Parent.RefreshSummary();
             Parent.RefreshInfoPane();
             return true;
         }

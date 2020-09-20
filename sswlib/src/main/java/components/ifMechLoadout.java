@@ -107,6 +107,7 @@ public interface ifMechLoadout {
     public ArrayList FindSplitIndex( abPlaceable p );
     public int[] FindInstances( abPlaceable p );
     public ArrayList FindIndexes( abPlaceable p );
+    public List<LocationIndex> FindIndexesByName(String n);
     public int[] FindHeatSinks();
     public int[] FindJumpJets( boolean IJJ );
     public int[] FindModularArmor();
@@ -237,4 +238,5 @@ public interface ifMechLoadout {
     public void SetBoobyTrap( boolean b ) throws Exception;
     public boolean HasBoobyTrap();
     public BoobyTrap GetBoobyTrap();
+    public boolean LocationHasEquip(int index, String name);
 }

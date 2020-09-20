@@ -162,6 +162,7 @@ public class thHDTransferHandler extends TransferHandler {
         } catch( Exception e ) {
             CurMech.GetLoadout().AddToQueue( a );
             javax.swing.JOptionPane.showMessageDialog( (javax.swing.JFrame) Parent, e.getMessage() );
+            Parent.RefreshSummary();
             Parent.RefreshInfoPane();
             return false;
         }
@@ -169,6 +170,7 @@ public class thHDTransferHandler extends TransferHandler {
             CurMech.GetLoadout().RemoveFromQueue( a );
         }
         a.MountRear( rear );
+        Parent.RefreshSummary();
         Parent.RefreshInfoPane();
         return true;
     }

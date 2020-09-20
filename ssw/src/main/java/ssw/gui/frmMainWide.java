@@ -2075,7 +2075,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
     }
 
-    private void RefreshSummary() {
+    public void RefreshSummary() {
         // refreshes the display completely using info from the mech.
         txtSumIntTon.setText( "" + CurMech.GetIntStruc().GetTonnage() );
         txtSumEngTon.setText( "" + CurMech.GetEngine().GetTonnage() );
@@ -2747,6 +2747,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     private void UnallocateAll() {
         // unallocates all crits for the current item from the loadout
         CurMech.GetLoadout().UnallocateAll( CurItem, false );
+        RefreshSummary();
         RefreshInfoPane();
     }
 
@@ -2757,6 +2758,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         } else {
             CurItem.MountRear( true );
         }
+        RefreshSummary();
         RefreshInfoPane();
     }
 
@@ -8282,6 +8284,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -8417,6 +8420,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -8540,6 +8544,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -8613,6 +8618,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -8722,6 +8728,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -8816,6 +8823,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -8898,6 +8906,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -8999,6 +9008,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                             CurMech.GetLoadout().UnallocateByIndex( index, a );
                         }
                     }
+                    RefreshSummary();
                     RefreshInfoPane();
                 }
             }
@@ -12305,13 +12315,7 @@ private void btnAddEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         try {
             CurMech.GetLoadout().CheckExclusions( a );
             if( a instanceof Equipment ) {
-                if ( ! ((Equipment) a).Validate( CurMech ) ) {
-                    if( ((Equipment) a).RequiresQuad() ) {
-                        throw new Exception( a.CritName() + " may only be mounted on a quad 'Mech." );
-                    } else if( ((Equipment) a).MaxAllowed() > 0 ) {
-                        throw new Exception( "Only " + ((Equipment) a).MaxAllowed() + " " + a.CritName() + "(s) may be mounted on one 'Mech." );
-                    }
-                }
+                ((Equipment) a).Validate(CurMech);
             }
         } catch( Exception e ) {
             Media.Messager( e.getMessage() );

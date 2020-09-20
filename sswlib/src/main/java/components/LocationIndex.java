@@ -71,6 +71,11 @@ public class LocationIndex {
         Number = num;
     }
 
+    public LocationIndex(int idx, int loc) {
+        Index = idx;
+        Location = loc;
+    }
+
     public void SetFirst( LocationIndex l ) {
         // this method determines if the given index is before the one given
         // and then sets the index accordingly.  If the locations do not match,
