@@ -28,19 +28,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package list;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import javax.swing.table.AbstractTableModel;
-
-import filehandlers.Media;
 import filehandlers.UnitCacheParser;
 import list.view.abView;
 import list.view.tbTotalWarfareView;
+
+import javax.swing.table.AbstractTableModel;
+import java.io.*;
+import java.util.ArrayList;
 
 
 public class UnitList extends AbstractTableModel {
