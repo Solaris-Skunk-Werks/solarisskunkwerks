@@ -20,7 +20,8 @@ application {
 jar {
     manifest.attributes (
             'Main-Class' : 'binaryconverter.Main',
-            'Class-Path' : 'lib/sswlib.jar lib/AbsoluteLayout-RELEASE110.jar lib/gson-2.8.6.jar'
+            'Class-Path' : configurations.runtimeClasspath.files
+                    .findAll { it.name.endsWith(".jar") }.collect { "lib/${it.name}" }.join(' '),
     )
     jar.archiveName = "binconvert.jar"
 }
