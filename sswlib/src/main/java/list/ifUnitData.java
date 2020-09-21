@@ -28,8 +28,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package list;
 
+import java.util.List;
+
 public interface ifUnitData {
-    public String SerializeIndex();
+    public List<String> toCsvIndex();
     public String getName();
     public void setName(String Name);
     public String getFullName();
