@@ -35,10 +35,17 @@ jobs:
       run: ./gradlew releaseBuild
 
     #
+    # Resolve version name for release archive
+    #
+    - name: Generate name for archive
+      run: echo ::set-env name=SSW_VERSION::$(ls ./build/release)
+
+    #
     # Upload release distribution zipfile
     #
     - name: Upload Releases
-      uses: kittaakos/upload-artifact-as-is@v0
+      uses: actions/upload-artifact@v2-preview
 
       with:
         path: ./build/release/
+        name: "$SSW_VERSION.zip"
