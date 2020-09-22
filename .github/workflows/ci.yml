@@ -48,4 +48,4 @@ jobs:
 
       with:
         path: ./build/release/
-        name: ${{ env.SSW_VERSION }}.zip
+        name: ${{ env.SSW_VERSION }}
