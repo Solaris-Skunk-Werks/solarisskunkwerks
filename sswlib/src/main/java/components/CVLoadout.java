@@ -32,6 +32,7 @@ import common.CommonTools;
 import common.Constants;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 import visitors.VFCSApolloLoader;
 import visitors.VFCSArtemisIVLoader;
@@ -1208,12 +1209,14 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     }
 
     public int NumCVAmmoSpaces() {
-        LinkedHashSet<String> set = new LinkedHashSet<>();
+        // Different types of ammo for the same weapon (index) all count as 1 space, so we just need a unique count of
+        // AmmoIndexes (https://bg.battletech.com/forums/techmanual/answered-ammunition-slots-on-combat-vehicles/)
+        LinkedHashSet<Integer> indexes = new LinkedHashSet<>();
         for (abPlaceable a: (ArrayList<abPlaceable>)GetNonCore()) {
             if (a instanceof Ammunition) {
-                set.add(a.toString());
+                indexes.add(((Ammunition) a).GetAmmoIndex());
             }
         }
-        return set.size();
+        return indexes.size();
     }
 }
