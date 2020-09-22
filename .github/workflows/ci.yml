@@ -3,11 +3,7 @@
 #
 name: Java CI with Gradle
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push, pull_request]
 
 jobs:
   ci:
@@ -29,18 +25,13 @@ jobs:
     # Perform a Release Build
     #
     - name: Build with Gradle
-      run: ./gradlew releaseBuild
+      run: ./gradlew zipRelease
 
     #
-    # Put the releases up in a single zip file called:
-    #
-    #     releases.zip
-    #
-    # NB: Due to a GitHub Actions limitation we won't know
-    #     what the filename is in order to display it somewhere.
+    # Upload release distribution zipfile
     #
     - name: Upload Releases
-      uses: actions/upload-artifact@v2-preview
+      uses: kittaakos/upload-artifact-as-is@v0
+
       with:
-        name: releases
-        path: ./build/release
+        path: ./build/distributions/
