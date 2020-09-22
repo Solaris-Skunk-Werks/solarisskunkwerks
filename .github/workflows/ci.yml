@@ -32,7 +32,7 @@ jobs:
     # Perform a Release Build
     #
     - name: Build with Gradle
-      run: ./gradlew zipRelease
+      run: ./gradlew releaseBuild
 
     #
     # Upload release distribution zipfile
@@ -41,4 +41,4 @@ jobs:
       uses: kittaakos/upload-artifact-as-is@v0
 
       with:
-        path: ./build/distributions/
+        path: ./build/release/
