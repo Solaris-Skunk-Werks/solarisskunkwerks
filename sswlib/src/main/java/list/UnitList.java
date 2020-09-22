@@ -28,22 +28,19 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package list;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import javax.swing.table.AbstractTableModel;
+import filehandlers.UnitCacheParser;
 import list.view.abView;
 import list.view.tbTotalWarfareView;
+
+import javax.swing.table.AbstractTableModel;
+import java.io.*;
+import java.util.ArrayList;
 
 
 public class UnitList extends AbstractTableModel {
     private ArrayList<UnitListData> List = new ArrayList<UnitListData>();
     private String Directory = "";
-    private int IndexVersion = 9;
+    private int IndexVersion = 10;
     private abView currentModel = new tbTotalWarfareView(this);
     String[] Extensions = { ".ssw", ".saw" };
 
@@ -232,61 +229,30 @@ public class UnitList extends AbstractTableModel {
     
     public final void Write() throws IOException {
         if (List.size() > 0) {
-            BufferedWriter FR = new BufferedWriter( new FileWriter( getDirectory() + File.separator + "index.ssi" ) );
-            FR.write("version:" + IndexVersion);
-            FR.newLine();
-            for (int i=0; i < List.size(); i++ ) {
-                UnitListData m = (UnitListData) List.get(i);
-                FR.write(m.SerializeIndex());
-                FR.newLine();
-            }
-
-            FR.close();
+            BufferedWriter bw = new BufferedWriter(new FileWriter(getDirectory() + File.separator + "index.ssi") );
+            bw.write("version:" + IndexVersion);
+            bw.newLine();
+            int numWritten = UnitCacheParser.WriteUnitCache(List, bw);
+            bw.flush();
+            bw.close();
+            System.out.println("Wrote " + numWritten + " units to cache.");
         }
     }
 
     public final boolean Read() {
         try {
-            BufferedReader FR = new BufferedReader( new FileReader( getDirectory() + File.separator + "index.ssi" ) );
-            boolean EOF = false,
-                    hasData = false;
-            String read = "";
-            while( EOF == false ) {
-                try {
-                    read = FR.readLine();
-                    if( read == null ) {
-                        // We've hit the end of the file.
-                        EOF = true;
-                    } else {
-                        if( read.contains("version:") ) {
-                            int Version = Integer.parseInt(read.replace("version:", ""));
-                            if ( Version != IndexVersion ) {
-                                return false;
-                            }
-                        } else if( read.equals( "EOF" ) ) {
-                            // end of file.
-                            EOF = true;
-                        } else {
-                            hasData = true;
-                            String[] Items = read.split(",");
-                            if (Items.length >= 11) {
-                                Items[11] = IO.Utils.convertFilePathSeparator(Items[11]);
-                                List.add(new UnitListData(Items));
-                            }
-                        }
-                    }
-                } catch (IOException e ) {
-                    // probably just reached the end of the file
-                    System.out.println( "had an ioexception reading options:\n" + read + "\n\n" );
-                    EOF = true;
-                    return false;
-                }
+            BufferedReader br = new BufferedReader(new FileReader(getDirectory() + File.separator + "index.ssi"));
+            int version = Integer.parseInt(br.readLine().split(":")[1]);
+            if (version != IndexVersion) {
+                return false;
             }
-            FR.close();
-            return hasData;
-        } catch ( IOException e ) {
-            return false;
+            List = UnitCacheParser.LoadUnitCache(br);
+            br.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return false;
     }
 
     //Fields required for AbstractTableModel

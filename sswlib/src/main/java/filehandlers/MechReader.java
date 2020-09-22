@@ -200,7 +200,10 @@ public class MechReader {
                     if (node.getNodeName().equals("source")) {Config.setSource( node.getTextContent() );}
                     if (node.getNodeName().equals("info")) {Config.setInfo( node.getTextContent() );}
                     try {
-                        if (node.getNodeName().equals("battleforce")) {Config.setBattleForceStats( new BattleForceStats( node ) );}
+                        if (node.getNodeName().equals("battleforce")) {
+                            Config.setBattleForceStats( new BattleForceStats( node ) );
+                            Config.getBattleForceStats().setElement(Config.getFullName());
+                        }
                     } catch ( Exception e ) {
                         System.out.println(e.getMessage());
                     }
@@ -288,7 +291,10 @@ public class MechReader {
                     if (node.getNodeName().equals("source")) {Config.setSource( node.getTextContent() );}
                     if (node.getNodeName().equals("info")) {Config.setInfo( node.getTextContent() );}
                     try {
-                        if (node.getNodeName().equals("battleforce")) {Config.setBattleForceStats( new BattleForceStats( node ) );}
+                        if (node.getNodeName().equals("battleforce")) {
+                            Config.setBattleForceStats( new BattleForceStats( node ) );
+                            Config.getBattleForceStats().setElement(Config.getFullName());
+                        }
                     } catch ( Exception e ) {
                         System.out.println(e.getMessage());
                     }

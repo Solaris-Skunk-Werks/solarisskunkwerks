@@ -53,7 +53,7 @@ task zipRelease(type: Zip, dependsOn: releaseBuild) {
     from "${buildDir}/release"
         include "**/"
     if ("$releaseType" == "Nightly") {
-        archiveName "SSW_${version}.${date}"
+        archiveName "SSW_${version}.${date}.zip"
     } else {
         archiveName "SSW_${version}.zip"
     }

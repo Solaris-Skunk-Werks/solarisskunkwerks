@@ -33,6 +33,9 @@ import battleforce.BattleForceStats;
 import common.CommonTools;
 import filehandlers.MechReader;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UnitListData extends abUnitData {
     public UnitListData(String Name, String Model, String Configuration, String Level, String Era, String Tech, String Source, String Type, String Motive, String Info, int Tonnage, int Year, int BV, double Cost, String filename, BattleForceStats bfStats){
         this.Name = Name;
@@ -95,27 +98,29 @@ public class UnitListData extends abUnitData {
         }
     }
 
-    public UnitListData( String[] Items ) {
-        this.Name = Items[name];
-        this.Model = Items[model];
-        this.Configuration = Items[configuration];
+    public UnitListData(List<String> Items) {
+        this.Name = Items.get(name);
+        this.Model = Items.get(model);
+        this.Configuration = Items.get(configuration);
         this.TypeModel = this.getFullName();
-        this.Level = Items[level];
-        this.Era = Items[era];
-        this.Tech = Items[tech];
-        this.Source = Items[source];
-        this.Tonnage = Integer.parseInt(Items[tonnage]);
-        this.Year = Integer.parseInt(Items[year]);
-        this.BV = Integer.parseInt(Items[bv]);
-        this.Cost = Double.parseDouble(Items[cost]);
-        this.filename = Items[Filename];
-        this.Type = Items[type];
-        this.Motive = Items[motive];
-        this.Info = Items[info];
-        this.Config = Items[config];
+        this.Level = Items.get(level);
+        this.Era = Items.get(era);
+        this.Tech = Items.get(tech);
+        this.Source = Items.get(source);
+        this.Tonnage = Integer.parseInt(Items.get(tonnage));
+        this.Year = Integer.parseInt(Items.get(year));
+        this.BV = Integer.parseInt(Items.get(bv));
+        this.Cost = Double.parseDouble(Items.get(cost));
+        this.filename = Items.get(Filename);
+        this.Type = Items.get(type);
+        this.Motive = Items.get(motive);
+        this.Info = Items.get(info);
+        this.Config = Items.get(config);
         if ( !Config.isEmpty() ) { this.Omni = true; }
 
-        this.bfstat = new BattleForceStats( new String[]{this.getFullName(), Items[pv], Items[wt], Items[mv], Items[s], Items[m], Items[l], Items[e], Items[ov], Items[armor], Items[internal], Items[abilities]} );
+        this.bfstat = new BattleForceStats( new String[]{this.getFullName(), Items.get(pv), Items.get(wt), Items.get(mv),
+                Items.get(s), Items.get(m), Items.get(l), Items.get(e), Items.get(ov), Items.get(armor), Items.get(internal),
+                Items.get(abilities)} );
         this.bfstat.setName(Name);
         this.bfstat.setModel(Model);
 
@@ -141,36 +146,35 @@ public class UnitListData extends abUnitData {
         return u;
     }
 
-    public String SerializeIndex() {
-        String data = "";
-
-        data += this.Name + ",";
-        data += this.Model + ",";
-        data += this.Configuration + ",";
-        data += this.Level + ",";
-        data += this.Era + ",";
-        data += this.Tech + ",";
-        data += this.Source + ",";
-        data += this.Tonnage + ",";
-        data += this.Year + ",";
-        data += this.BV + ",";
-        data += this.Cost + ",";
-        data += this.filename + ",";
-        data += this.Type + ",";
-        data += this.Motive + ",";
-        data += this.Info.replace(",", " ") + ",";
-        data += this.Config + ",";
-        data += this.bfstat.getPointValue() + ",";
-        data += this.bfstat.getWeight() + ",";
-        data += this.bfstat.getAbilitiesString().replace(",", "~") + ",";
-        data += this.bfstat.getMovement() + ",";
-        data += this.bfstat.getShort() + ",";
-        data += this.bfstat.getMedium() + ",";
-        data += this.bfstat.getLong() + ",";
-        data += this.bfstat.getExtreme() + ",";
-        data += this.bfstat.getOverheat() + ",";
-        data += this.bfstat.getArmor() + ",";
-        data += this.bfstat.getInternal();
+    public List<String> toCsvIndex() {
+        List<String> data = new ArrayList<>();
+        data.add(Name);
+        data.add(Model);
+        data.add(Configuration);
+        data.add(Level);
+        data.add(Era);
+        data.add(Tech);
+        data.add(Source);
+        data.add(String.valueOf(Tonnage));
+        data.add(String.valueOf(Year));
+        data.add(String.valueOf(BV));
+        data.add(String.valueOf(Cost));
+        data.add(filename);
+        data.add(Type);
+        data.add(Motive);
+        data.add(Info);
+        data.add(Config);
+        data.add(String.valueOf(bfstat.getPointValue()));
+        data.add(String.valueOf(bfstat.getWeight()));
+        data.add(bfstat.getAbilitiesString().replace(",", "~")); // check to make sure this is necessary
+        data.add(bfstat.getMovement());
+        data.add(String.valueOf(bfstat.getShort()));
+        data.add(String.valueOf(bfstat.getMedium()));
+        data.add(String.valueOf(bfstat.getLong()));
+        data.add(String.valueOf(bfstat.getExtreme()));
+        data.add(String.valueOf(bfstat.getOverheat()));
+        data.add(String.valueOf(bfstat.getArmor()));
+        data.add(String.valueOf(bfstat.getInternal()));
 
         return data;
     }
