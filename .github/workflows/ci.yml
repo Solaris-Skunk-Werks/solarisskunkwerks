@@ -48,4 +48,4 @@ jobs:
 
       with:
         path: ./build/release/
-        name: "$SSW_VERSION.zip"
+        name: $SSW_VERSION.zip
