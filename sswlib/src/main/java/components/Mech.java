@@ -2534,99 +2534,98 @@ public class Mech implements ifUnit, ifBattleforce {
 
         for( int i = 0; i < v.size(); i++ ) {
             p = (abPlaceable) v.get( i );
-            if( p instanceof Ammunition ) {
-                if( ((Ammunition) p).IsExplosive() ) {
-                    if( CurEngine.IsISXL() ) {
-                        switch( CurLoadout.Find( p ) ) {
-                            case 0:
-                                if( ! CurLoadout.HasHDCASEII() ) {
-                                    result -= 15.0;
-                                }
-                                break;
-                            case 1:
-                                if( ! CurLoadout.HasCTCASEII() ) {
-                                    result -= 15.0;
-                                }
-                                break;
-                            case 2:
-                                if( ! CurLoadout.HasLTCASEII() ) {
-                                    result -= 15.0;
-                                }
-                                break;
-                            case 3:
-                                if( ! CurLoadout.HasRTCASEII() ) {
-                                    result -= 15.0;
-                                }
-                                break;
-                            case 4:
-                                if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.IsUsingClanCASE() ) {
-                                    result -= 15.0;
-                                }
-                                break;
-                            case 5:
-                                if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.IsUsingClanCASE() ) {
-                                    result -= 15.0;
-                                }
-                                break;
-                            case 6:
-                                if( ! CurLoadout.HasLLCASEII() ) {
-                                    result -= 15.0;
-                                }
-                                break;
-                            case 7:
-                                if( ! CurLoadout.HasRLCASEII() ) {
-                                    result -= 15.0;
-                                }
-                                break;
-                        }
-                    } else {
-                        switch( CurLoadout.Find( p ) ) {
-                            case 0:
-                                if( ! CurLoadout.HasHDCASEII() ) {
-                                    result -= 15.0;
-                                }
-                                break;
-                            case 1:
-                                if( ! CurLoadout.HasCTCASEII() ) {
-                                    result -= 15.0;
-                                }
-                                break;
-                            case 2:
-                                if( ! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() &! CurLoadout.IsUsingClanCASE() ) {
-                                    result -= 15.0;
-                                }
-                                break;
-                            case 3:
-                                if( ! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() &! CurLoadout.IsUsingClanCASE() ) {
-                                    result -= 15.0;
-                                }
-                                break;
-                            case 4:
-                                if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() &! CurLoadout.IsUsingClanCASE() ) {
-                                    result -= 15.0;
-                                }
-                                break;
-                            case 5:
-                                if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() &! CurLoadout.IsUsingClanCASE() ) {
-                                    result -= 15.0;
-                                }
-                                break;
-                            case 6:
-                                if( ! CurLoadout.HasLLCASEII() ) {
-                                    result -= 15.0;
-                                }
-                                break;
-                            case 7:
-                                if( ! CurLoadout.HasRLCASEII() ) {
-                                    result -= 15.0;
-                                }
-                                break;
-                        }
+            // Extended Fuel Tanks are to be treated just like explosive ammunition for BV calculation purposes
+            // https://bg.battletech.com/forums/index.php?topic=67275.0
+            if((p instanceof Ammunition && ((Ammunition)p).IsExplosive()) || p instanceof ExtendedFuelTank) {
+                if( CurEngine.IsISXL() ) {
+                    switch( CurLoadout.Find( p ) ) {
+                        case 0:
+                            if( ! CurLoadout.HasHDCASEII() ) {
+                                result -= 15.0 * p.NumCrits();
+                            }
+                            break;
+                        case 1:
+                            if( ! CurLoadout.HasCTCASEII() ) {
+                                result -= 15.0 * p.NumCrits();
+                            }
+                            break;
+                        case 2:
+                            if( ! CurLoadout.HasLTCASEII() ) {
+                                result -= 15.0 * p.NumCrits();
+                            }
+                            break;
+                        case 3:
+                            if( ! CurLoadout.HasRTCASEII() ) {
+                                result -= 15.0 * p.NumCrits();
+                            }
+                            break;
+                        case 4:
+                            if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.IsUsingClanCASE() ) {
+                                result -= 15.0 * p.NumCrits();
+                            }
+                            break;
+                        case 5:
+                            if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.IsUsingClanCASE() ) {
+                                result -= 15.0 * p.NumCrits();
+                            }
+                            break;
+                        case 6:
+                            if( ! CurLoadout.HasLLCASEII() ) {
+                                result -= 15.0 * p.NumCrits();
+                            }
+                            break;
+                        case 7:
+                            if( ! CurLoadout.HasRLCASEII() ) {
+                                result -= 15.0 * p.NumCrits();
+                            }
+                            break;
+                    }
+                } else {
+                    switch( CurLoadout.Find( p ) ) {
+                        case 0:
+                            if( ! CurLoadout.HasHDCASEII() ) {
+                                result -= 15.0 * p.NumCrits();
+                            }
+                            break;
+                        case 1:
+                            if( ! CurLoadout.HasCTCASEII() ) {
+                                result -= 15.0 * p.NumCrits();
+                            }
+                            break;
+                        case 2:
+                            if( ! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                                result -= 15.0 * p.NumCrits();
+                            }
+                            break;
+                        case 3:
+                            if( ! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                                result -= 15.0 * p.NumCrits();
+                            }
+                            break;
+                        case 4:
+                            if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                                result -= 15.0 * p.NumCrits();
+                            }
+                            break;
+                        case 5:
+                            if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                                result -= 15.0 * p.NumCrits();
+                            }
+                            break;
+                        case 6:
+                            if( ! CurLoadout.HasLLCASEII() ) {
+                                result -= 15.0 * p.NumCrits();
+                            }
+                            break;
+                        case 7:
+                            if( ! CurLoadout.HasRLCASEII() ) {
+                                result -= 15.0 * p.NumCrits();
+                            }
+                            break;
                     }
                 }
             }
         }
-
         return result;
     }
 
@@ -2756,7 +2755,7 @@ public class Mech implements ifUnit, ifBattleforce {
                 }
             }
             if( p instanceof Equipment ) { Explode = ((Equipment) p).IsExplosive(); }
-            if( Explode ) {
+            if( Explode && !(p instanceof ExtendedFuelTank)) {
                 if( CurEngine.IsISXL() ) {
                     switch( CurLoadout.Find( p ) ) {
                         case 0:
