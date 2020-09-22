@@ -5,9 +5,12 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
+      - develop
 
 jobs:
   ci:
@@ -32,15 +35,17 @@ jobs:
       run: ./gradlew releaseBuild
 
     #
-    # Put the releases up in a single zip file called:
+    # Resolve version name for release archive
     #
-    #     releases.zip
+    - name: Generate name for archive
+      run: echo ::set-env name=SSW_VERSION::$(ls ./build/release)
+
     #
-    # NB: Due to a GitHub Actions limitation we won't know
-    #     what the filename is in order to display it somewhere.
+    # Upload release distribution zipfile
     #
     - name: Upload Releases
       uses: actions/upload-artifact@v2-preview
+
       with:
-        name: releases
-        path: ./build/release
+        path: ./build/release/
+        name: ${{ env.SSW_VERSION }}
