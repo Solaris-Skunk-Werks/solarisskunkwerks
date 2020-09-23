@@ -40,10 +40,16 @@ import components.*;
 import dialog.frmForce;
 import filehandlers.*;
 import gui.TextPane;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.Image;
+import saw.filehandlers.HTMLWriter;
+import states.ifState;
+import visitors.VArmorSetPatchworkLocation;
+import visitors.VMechFullRecalc;
+import visitors.VSetArmorTonnage;
+import visitors.ifVisitor;
+
+import javax.swing.*;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.DataFlavor;
@@ -52,17 +58,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.prefs.Preferences;
-import javax.swing.*;
-import javax.swing.text.JTextComponent;
-import saw.filehandlers.HTMLWriter;
-import states.ifState;
-import visitors.VArmorSetPatchworkLocation;
-import visitors.VMechFullRecalc;
-import visitors.VSetArmorTonnage;
-import visitors.ifVisitor;
 
 public final class frmVee extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner, common.DesignForm, ifVeeForm {
     CombatVehicle CurVee;
@@ -5677,6 +5673,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
     private void BuildChassisSelector()
     {
+        chkFlotationHull.setSelected(false);
+        chkLimitedAmph.setSelected(false);
+        chkFullAmph.setSelected(false);
+        chkDuneBuggy.setSelected(false);
+        chkEnviroSealing.setSelected(false);
+
         if ( cmbRulesLevel.getSelectedIndex() > 1 ) {
             chkFlotationHull.setEnabled(true);
             chkLimitedAmph.setEnabled(true);
@@ -5686,24 +5688,31 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
             if ( !CurVee.CanUseEnviroSealing() ) {
                 chkEnviroSealing.setEnabled(false);
-                chkEnviroSealing.setSelected(false);
             }
-            
             if ( !CurVee.CanUseFlotationHull() ) {
                 chkFlotationHull.setEnabled(false);
-                chkFlotationHull.setSelected(false);
             }
-
             if ( !CurVee.CanUseAmphibious() ) {
                 chkLimitedAmph.setEnabled(false);
-                chkLimitedAmph.setSelected(false);
                 chkFullAmph.setEnabled(false);
-                chkFullAmph.setSelected(false);
             }
-
             if ( !CurVee.CanBeDuneBuggy() ) {
                 chkDuneBuggy.setEnabled(false);
-                chkDuneBuggy.setSelected(false);
+            }
+            if (CurVee.HasEnvironmentalSealing()) {
+                chkEnviroSealing.setSelected(true);
+            }
+            if (CurVee.HasFlotationHull()) {
+                chkFlotationHull.setSelected(true);
+            }
+            if (CurVee.HasLimitedAmphibious()) {
+                chkLimitedAmph.setSelected(true);
+            }
+            if (CurVee.HasFullAmphibious()) {
+                chkFullAmph.setSelected(true);
+            }
+            if (CurVee.HasDuneBuggy()) {
+                chkDuneBuggy.setSelected(true);
             }
         } else {
             chkFlotationHull.setEnabled(false);
