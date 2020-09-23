@@ -156,8 +156,8 @@ public class PartialWing extends abPlaceable {
     @Override
     public boolean Place( ifMechLoadout l ) {
         //Check how many crits are available in the torsos, if they are less then we need, stop!
-        if ( ((ifMechLoadout) l).FreeCrits( ((ifMechLoadout) l).GetLTCrits() ) <= this.NumCrits() ) return false;
-        if ( ((ifMechLoadout) l).FreeCrits( ((ifMechLoadout) l).GetRTCrits() ) <= this.NumCrits() ) return false;
+        if ( ((ifMechLoadout) l).FreeCrits( ((ifMechLoadout) l).GetLTCrits() ) < this.NumCrits() ) return false;
+        if ( ((ifMechLoadout) l).FreeCrits( ((ifMechLoadout) l).GetRTCrits() ) < this.NumCrits() ) return false;
 
         try {
             ((ifMechLoadout) l).AddToLT( this );
@@ -181,8 +181,8 @@ public class PartialWing extends abPlaceable {
         if( locs.length != 2 ) { return false; }
 
         //Check how many crits are available in the torsos, if they are less then we need, stop!
-        if ( ((ifMechLoadout) l).FreeCrits( ((ifMechLoadout) l).GetLTCrits() ) <= this.NumCrits() ) return false;
-        if ( ((ifMechLoadout) l).FreeCrits( ((ifMechLoadout) l).GetRTCrits() ) <= this.NumCrits() ) return false;
+        if ( ((ifMechLoadout) l).FreeCrits( ((ifMechLoadout) l).GetLTCrits() ) < this.NumCrits() ) return false;
+        if ( ((ifMechLoadout) l).FreeCrits( ((ifMechLoadout) l).GetRTCrits() ) < this.NumCrits() ) return false;
 
         try {
             l.AddTo( this, locs[0].Location, locs[0].Index );
