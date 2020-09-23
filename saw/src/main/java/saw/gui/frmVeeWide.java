@@ -1054,7 +1054,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         btnExportMTFIcon = new javax.swing.JButton();
         btnChatInfo = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
-        btnPostToS7 = new javax.swing.JButton();
         jSeparator25 = new javax.swing.JToolBar.Separator();
         btnAddToForceList = new javax.swing.JButton();
         btnForceList = new javax.swing.JButton();
@@ -1422,7 +1421,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         jSeparator23 = new javax.swing.JSeparator();
         mnuPrint = new javax.swing.JMenu();
         mnuPrintPreview = new javax.swing.JMenuItem();
-        mnuPostS7 = new javax.swing.JMenuItem();
         jSeparator24 = new javax.swing.JSeparator();
         mnuExit = new javax.swing.JMenuItem();
         mnuClearFluff = new javax.swing.JMenu();
@@ -1610,19 +1608,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         });
         tlbIconBar.add(btnChatInfo);
         tlbIconBar.add(jSeparator3);
-
-        btnPostToS7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/server.png"))); // NOI18N
-        btnPostToS7.setToolTipText("Upload to Solaris7.com");
-        btnPostToS7.setEnabled(false);
-        btnPostToS7.setFocusable(false);
-        btnPostToS7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnPostToS7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnPostToS7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPostToS7ActionPerformed(evt);
-            }
-        });
-        tlbIconBar.add(btnPostToS7);
         tlbIconBar.add(jSeparator25);
 
         btnAddToForceList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/clipboard--plus.png"))); // NOI18N
@@ -5000,16 +4985,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             }
         });
         mnuFile.add(mnuPrintPreview);
-
-        mnuPostS7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        mnuPostS7.setText("Post to Solaris7.com");
-        mnuPostS7.setEnabled(false);
-        mnuPostS7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuPostS7ActionPerformed(evt);
-            }
-        });
-        mnuFile.add(mnuPostS7);
         mnuFile.add(jSeparator24);
 
         mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK));
@@ -5850,10 +5825,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         lblInfoMountRestrict.setText(lblInfoMountRestrict.getText() + " MM Name " + p.MegaMekName(false));
     }
-
-    private void btnPostToS7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPostToS7ActionPerformed
-       
-}//GEN-LAST:event_btnPostToS7ActionPerformed
 
     private void btnAddToForceListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToForceListActionPerformed
 
@@ -7440,38 +7411,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private void mnuPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintPreviewActionPerformed
         btnPrintActionPerformed(evt);
     }//GEN-LAST:event_mnuPrintPreviewActionPerformed
-
-    private void mnuPostS7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPostS7ActionPerformed
-        // attempts to post the mech to Solaris7.com
-        // must do all the normal actions for HTML export, then attempt to post
-        // right now we'll just show the screen so we can see it
-        // exports the mech to HTML format
-
-        //Save any changes to the Mech before posting...
-        QuickSave();
-
-        String CurLoadout = "";
-        if (CurVee.IsOmni()) {
-            CurLoadout = CurVee.GetLoadout().GetName();
-        }
-
-        // Solidify the mech first.
-        SolidifyVehicle();
-
-        if (!VerifyVehicle(evt)) {
-            return;
-        }
-
-        dlgPostToSolaris7 PostS7 = new dlgPostToSolaris7(this, true, CurVee);
-        PostS7.setLocationRelativeTo(this);
-        PostS7.setVisible(true);
-
-        QuickSave();
-        
-        // lastly, if this is an omnimech, reset the display to the last loadout
-        cmbOmniVariant.setSelectedItem(CurLoadout);
-        cmbOmniVariantActionPerformed(evt);
-    }//GEN-LAST:event_mnuPostS7ActionPerformed
 
     public void QuickSave() {
         File saveFile = GetSaveFile( "saw", Prefs.get( "LastOpenCVDirectory", "" ), true, false );
@@ -9922,7 +9861,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JButton btnNewVee;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnOptions;
-    private javax.swing.JButton btnPostToS7;
     private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnRemoveEquip;
     private javax.swing.JButton btnRenameVariant;
@@ -10191,7 +10129,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JMenuItem mnuNewMech;
     private javax.swing.JMenuItem mnuOpen;
     private javax.swing.JMenuItem mnuOptions;
-    private javax.swing.JMenuItem mnuPostS7;
     private javax.swing.JMenu mnuPrint;
     private javax.swing.JMenuItem mnuPrintPreview;
     private javax.swing.JMenuItem mnuReloadEquipment;

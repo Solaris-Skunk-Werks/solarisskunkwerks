@@ -4646,7 +4646,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         btnExportMTFIcon = new javax.swing.JButton();
         btnChatInfo = new javax.swing.JButton();
         jSeparator23 = new javax.swing.JToolBar.Separator();
-        btnPostToS7 = new javax.swing.JButton();
         jSeparator25 = new javax.swing.JToolBar.Separator();
         btnAddToForceList = new javax.swing.JButton();
         btnForceList = new javax.swing.JButton();
@@ -5143,7 +5142,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         mnuPrintSavedMech = new javax.swing.JMenuItem();
         mnuPrintBatch = new javax.swing.JMenuItem();
         mnuPrintPreview = new javax.swing.JMenuItem();
-        mnuPostS7 = new javax.swing.JMenuItem();
         jSeparator17 = new javax.swing.JSeparator();
         mnuExit = new javax.swing.JMenuItem();
         mnuClearFluff = new javax.swing.JMenu();
@@ -5303,18 +5301,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         });
         tlbIconBar.add(btnChatInfo);
         tlbIconBar.add(jSeparator23);
-
-        btnPostToS7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/server.png"))); // NOI18N
-        btnPostToS7.setToolTipText("Upload to Solaris7.com");
-        btnPostToS7.setFocusable(false);
-        btnPostToS7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnPostToS7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnPostToS7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPostToS7ActionPerformed(evt);
-            }
-        });
-        tlbIconBar.add(btnPostToS7);
         tlbIconBar.add(jSeparator25);
 
         btnAddToForceList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/clipboard--plus.png"))); // NOI18N
@@ -10327,15 +10313,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             }
         });
         mnuFile.add(mnuPrintPreview);
-
-        mnuPostS7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        mnuPostS7.setText("Post Mech to Solaris7.com");
-        mnuPostS7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuPostS7ActionPerformed(evt);
-            }
-        });
-        mnuFile.add(mnuPostS7);
         mnuFile.add(jSeparator17);
 
         mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK));
@@ -10595,36 +10572,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         // open an omnimech for browsing.
         CurMech.SetChanged( changed );
     }//GEN-LAST:event_cmbOmniVariantActionPerformed
-
-	private void mnuPostS7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPostS7ActionPerformed
-	    // attempts to post the mech to Solaris7.com
-    	// must do all the normal actions for HTML export, then attempt to post
-	    // right now we'll just show the screen so we can see it
-        // exports the mech to HTML format
-
-        //Save any changes to the Mech before posting...
-        QuickSave();
-
-	    String CurLoadout = "";
-	    if( CurMech.IsOmnimech() ) {
-	        CurLoadout = CurMech.GetLoadout().GetName();
-	    }
-
-	    // Solidify the mech first.
-	    SolidifyMech();
-
-	    if( ! VerifyMech( evt ) ) {
-	        return;
-	    }
-
-	    dlgPostToSolaris7 PostS7 = new dlgPostToSolaris7( this, true );
-        PostS7.setLocationRelativeTo( this );
-	    PostS7.setVisible( true );
-
-	    // lastly, if this is an omnimech, reset the display to the last loadout
-	    cmbOmniVariant.setSelectedItem( CurLoadout );
-	    cmbOmniVariantActionPerformed( evt );
-	}//GEN-LAST:event_mnuPostS7ActionPerformed
 
 	private void mnuClearUserDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuClearUserDataActionPerformed
         int choice = javax.swing.JOptionPane.showConfirmDialog( this,
@@ -11130,10 +11077,6 @@ private void btnExportMTFIconActionPerformed(java.awt.event.ActionEvent evt) {//
 private void btnExportClipboardIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportClipboardIconActionPerformed
     mnuExportClipboardActionPerformed(evt);
 }//GEN-LAST:event_btnExportClipboardIconActionPerformed
-
-private void btnPostToS7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPostToS7ActionPerformed
-    mnuPostS7ActionPerformed(evt);
-}//GEN-LAST:event_btnPostToS7ActionPerformed
 
 private void mnuFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFileActionPerformed
 // TODO add your handling code here:
@@ -14863,7 +14806,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JButton btnNewIcon;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnOptionsIcon;
-    private javax.swing.JButton btnPostToS7;
     private javax.swing.JButton btnPrintIcon;
     private javax.swing.JButton btnPrintPreview;
     private javax.swing.JButton btnRemainingArmor;
@@ -15219,7 +15161,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JMenuItem mnuNewMech;
     private javax.swing.JMenuItem mnuOpen;
     private javax.swing.JMenuItem mnuOptions;
-    private javax.swing.JMenuItem mnuPostS7;
     private javax.swing.JMenu mnuPrint;
     private javax.swing.JMenuItem mnuPrintBatch;
     private javax.swing.JMenuItem mnuPrintCurrentMech;
