@@ -4759,7 +4759,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         btnExportMTFIcon = new javax.swing.JButton();
         btnChatInfo = new javax.swing.JButton();
         jSeparator23 = new javax.swing.JToolBar.Separator();
-        btnPostToS7 = new javax.swing.JButton();
         jSeparator25 = new javax.swing.JToolBar.Separator();
         btnAddToForceList = new javax.swing.JButton();
         btnForceList = new javax.swing.JButton();
@@ -5262,7 +5261,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         mnuPrintSavedMech = new javax.swing.JMenuItem();
         mnuPrintBatch = new javax.swing.JMenuItem();
         mnuPrintPreview = new javax.swing.JMenuItem();
-        mnuPostS7 = new javax.swing.JMenuItem();
         jSeparator17 = new javax.swing.JSeparator();
         mnuExit = new javax.swing.JMenuItem();
         mnuClearFluff = new javax.swing.JMenu();
@@ -5422,18 +5420,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         });
         tlbIconBar.add(btnChatInfo);
         tlbIconBar.add(jSeparator23);
-
-        btnPostToS7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/server.png"))); // NOI18N
-        btnPostToS7.setToolTipText("Upload to Solaris7.com");
-        btnPostToS7.setFocusable(false);
-        btnPostToS7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnPostToS7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnPostToS7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPostToS7ActionPerformed(evt);
-            }
-        });
-        tlbIconBar.add(btnPostToS7);
         tlbIconBar.add(jSeparator25);
 
         btnAddToForceList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/clipboard--plus.png"))); // NOI18N
@@ -6840,7 +6826,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlFrontArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Forward Armor"));
         pnlFrontArmor.setLayout(new java.awt.GridBagLayout());
 
-        pnlRLArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "RL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlRLArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "RL", 2, 0));
         pnlRLArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblRLHeader.setText("Internal");
@@ -6882,7 +6868,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridy = 2;
         pnlFrontArmor.add(pnlRLArmorBox, gridBagConstraints);
 
-        pnlLLArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlLLArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LL", 2, 0));
         pnlLLArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblLLHeader.setText("Internal");
@@ -6924,7 +6910,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridy = 2;
         pnlFrontArmor.add(pnlLLArmorBox, gridBagConstraints);
 
-        pnlRAArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "RA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlRAArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "RA", 2, 0));
         pnlRAArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblRAHeader.setText("Internal");
@@ -6967,7 +6953,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridy = 1;
         pnlFrontArmor.add(pnlRAArmorBox, gridBagConstraints);
 
-        pnlHDArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Head", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlHDArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Head", 2, 0));
         pnlHDArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblHDHeader.setText("Internal");
@@ -7010,7 +6996,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridy = 0;
         pnlFrontArmor.add(pnlHDArmorBox, gridBagConstraints);
 
-        pnlCTArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "CT", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlCTArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "CT", 2, 0));
         pnlCTArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblCTHeader.setText("Internal");
@@ -7054,7 +7040,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         pnlFrontArmor.add(pnlCTArmorBox, gridBagConstraints);
 
-        pnlLTArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LT", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlLTArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LT", 2, 0));
         pnlLTArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblLTHeader.setText("Internal");
@@ -7097,7 +7083,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridheight = 2;
         pnlFrontArmor.add(pnlLTArmorBox, gridBagConstraints);
 
-        pnlRTArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "RT", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlRTArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "RT", 2, 0));
         pnlRTArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblRTHeader.setText("Internal");
@@ -7140,7 +7126,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridheight = 2;
         pnlFrontArmor.add(pnlRTArmorBox, gridBagConstraints);
 
-        pnlLAArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlLAArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LA", 2, 0));
         pnlLAArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblLAHeader.setText("Internal");
@@ -7189,7 +7175,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlRearArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Rear Armor"));
         pnlRearArmor.setLayout(new java.awt.GridBagLayout());
 
-        pnlRTRArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "RTR", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlRTRArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "RTR", 2, 0));
         pnlRTRArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblRTRArmorHeader.setText("Armor");
@@ -7213,7 +7199,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridy = 0;
         pnlRearArmor.add(pnlRTRArmorBox, gridBagConstraints);
 
-        pnlCTRArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "CTR", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlCTRArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "CTR", 2, 0));
         pnlCTRArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblCTRArmorHeader.setText("Armor");
@@ -7237,7 +7223,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridy = 0;
         pnlRearArmor.add(pnlCTRArmorBox, gridBagConstraints);
 
-        pnlLTRArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LTR", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlLTRArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LTR", 2, 0));
         pnlLTRArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblLTRArmorHeader.setText("Armor");
@@ -8448,7 +8434,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        pnlHDCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Head", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlHDCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Head", 2, 0));
         pnlHDCrits.setMaximumSize(new java.awt.Dimension(116, 120));
         pnlHDCrits.setMinimumSize(new java.awt.Dimension(116, 120));
         pnlHDCrits.setLayout(new java.awt.GridBagLayout());
@@ -8547,7 +8533,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.add(pnlHDCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 117, 165));
 
-        pnlCTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Center Torso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlCTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Center Torso", 2, 0));
         pnlCTCrits.setMaximumSize(new java.awt.Dimension(114, 233));
         pnlCTCrits.setMinimumSize(new java.awt.Dimension(114, 233));
         pnlCTCrits.setLayout(new java.awt.GridBagLayout());
@@ -8641,7 +8627,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.add(pnlCTCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 117, -1));
 
-        pnlLTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Torso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlLTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Torso", 2, 0));
         pnlLTCrits.setMaximumSize(new java.awt.Dimension(114, 235));
         pnlLTCrits.setMinimumSize(new java.awt.Dimension(114, 235));
         pnlLTCrits.setPreferredSize(new java.awt.Dimension(257, 232));
@@ -8753,7 +8739,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.add(pnlLTCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 40, 117, 270));
 
-        pnlRTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Torso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlRTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Torso", 2, 0));
         pnlRTCrits.setMaximumSize(new java.awt.Dimension(114, 233));
         pnlRTCrits.setMinimumSize(new java.awt.Dimension(114, 233));
         pnlRTCrits.setLayout(new java.awt.GridBagLayout());
@@ -8864,7 +8850,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.add(pnlRTCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 40, 117, 270));
 
-        pnlLACrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Arm", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlLACrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Arm", 2, 0));
         pnlLACrits.setMaximumSize(new java.awt.Dimension(114, 256));
         pnlLACrits.setMinimumSize(new java.awt.Dimension(114, 256));
         pnlLACrits.setLayout(new java.awt.GridBagLayout());
@@ -8987,7 +8973,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.add(pnlLACrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 117, -1));
 
-        pnlRACrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Arm", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlRACrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Arm", 2, 0));
         pnlRACrits.setMaximumSize(new java.awt.Dimension(114, 256));
         pnlRACrits.setMinimumSize(new java.awt.Dimension(114, 256));
         pnlRACrits.setLayout(new java.awt.GridBagLayout());
@@ -9110,7 +9096,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.add(pnlRACrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 117, -1));
 
-        pnlLLCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Leg", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlLLCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Leg", 2, 0));
         pnlLLCrits.setMaximumSize(new java.awt.Dimension(116, 120));
         pnlLLCrits.setMinimumSize(new java.awt.Dimension(116, 120));
         pnlLLCrits.setLayout(new java.awt.GridBagLayout());
@@ -9193,7 +9179,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.add(pnlLLCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 320, 117, -1));
 
-        pnlRLCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Leg", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlRLCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Leg", 2, 0));
         pnlRLCrits.setMaximumSize(new java.awt.Dimension(116, 120));
         pnlRLCrits.setMinimumSize(new java.awt.Dimension(116, 120));
         pnlRLCrits.setLayout(new java.awt.GridBagLayout());
@@ -9276,7 +9262,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.add(pnlRLCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 320, 117, -1));
 
-        pnlEquipmentToPlace.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Equipment to Place", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        pnlEquipmentToPlace.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Equipment to Place", 2, 0));
         pnlEquipmentToPlace.setMaximumSize(new java.awt.Dimension(146, 330));
         pnlEquipmentToPlace.setMinimumSize(new java.awt.Dimension(146, 330));
         pnlEquipmentToPlace.setLayout(new javax.swing.BoxLayout(pnlEquipmentToPlace, javax.swing.BoxLayout.PAGE_AXIS));
@@ -9366,7 +9352,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.add(pnlEquipmentToPlace, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 150, 360));
 
-        onlLoadoutControls.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Loadout Controls", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        onlLoadoutControls.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Loadout Controls", 1, 0));
         onlLoadoutControls.setLayout(new java.awt.GridBagLayout());
 
         btnCompactCrits.setText("Compact");
@@ -9446,7 +9432,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlFluff.setLayout(new java.awt.GridBagLayout());
 
-        pnlImage.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Fluff Image", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
+        pnlImage.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Fluff Image", 0, 0, new java.awt.Font("Arial", 0, 11))); // NOI18N
         pnlImage.setLayout(new java.awt.GridBagLayout());
 
         lblFluffImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -9488,7 +9474,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         pnlFluff.add(pnlImage, gridBagConstraints);
 
-        pnlExport.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Export", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
+        pnlExport.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Export", 0, 0, new java.awt.Font("Arial", 0, 11))); // NOI18N
         pnlExport.setLayout(new java.awt.GridBagLayout());
 
         btnExportTXT.setText("to TXT");
@@ -9793,7 +9779,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         };
         txtTNTSystem.addMouseListener( mlTNTSystem );
 
-        pnlWeaponsManufacturers.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Weapons Manufacturers", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
+        pnlWeaponsManufacturers.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Weapons Manufacturers", 0, 0, new java.awt.Font("Arial", 0, 11))); // NOI18N
         pnlWeaponsManufacturers.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         pnlWeaponsManufacturers.setMinimumSize(new java.awt.Dimension(315, 260));
         pnlWeaponsManufacturers.setLayout(new java.awt.GridBagLayout());
@@ -10544,15 +10530,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             }
         });
         mnuFile.add(mnuPrintPreview);
-
-        mnuPostS7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        mnuPostS7.setText("Post Mech to Solaris7.com");
-        mnuPostS7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuPostS7ActionPerformed(evt);
-            }
-        });
-        mnuFile.add(mnuPostS7);
         mnuFile.add(jSeparator17);
 
         mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK));
@@ -13061,36 +13038,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         CurMech.SetChanged( changed );
     }//GEN-LAST:event_cmbOmniVariantActionPerformed
 
-	private void mnuPostS7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPostS7ActionPerformed
-	    // attempts to post the mech to Solaris7.com
-    	// must do all the normal actions for HTML export, then attempt to post
-	    // right now we'll just show the screen so we can see it
-        // exports the mech to HTML format
-
-        //Save any changes to the Mech before posting...
-        QuickSave();
-
-	    String CurLoadout = "";
-	    if( CurMech.IsOmnimech() ) {
-	        CurLoadout = CurMech.GetLoadout().GetName();
-	    }
-
-	    // Solidify the mech first.
-	    SolidifyMech();
-
-	    if( ! VerifyMech( evt ) ) {
-	        return;
-	    }
-
-	    dlgPostToSolaris7 PostS7 = new dlgPostToSolaris7( this, true );
-        PostS7.setLocationRelativeTo( this );
-	    PostS7.setVisible( true );
-
-	    // lastly, if this is an omnimech, reset the display to the last loadout
-	    cmbOmniVariant.setSelectedItem( CurLoadout );
-	    cmbOmniVariantActionPerformed( evt );
-	}//GEN-LAST:event_mnuPostS7ActionPerformed
-
 	private void mnuClearUserDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuClearUserDataActionPerformed
         int choice = javax.swing.JOptionPane.showConfirmDialog( this,
             "This will remove all Solaris 7 user data.\nAre you sure you want to continue?", "Clear User Data?", javax.swing.JOptionPane.YES_NO_OPTION );
@@ -13847,10 +13794,6 @@ private void btnExportMTFIconActionPerformed(java.awt.event.ActionEvent evt) {//
 private void btnExportClipboardIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportClipboardIconActionPerformed
     mnuExportClipboardActionPerformed(evt);
 }//GEN-LAST:event_btnExportClipboardIconActionPerformed
-
-private void btnPostToS7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPostToS7ActionPerformed
-    mnuPostS7ActionPerformed(evt);
-}//GEN-LAST:event_btnPostToS7ActionPerformed
 
 private void btnRemoveItemCritsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveItemCritsActionPerformed
     int Index = lstCritsToPlace.getSelectedIndex();
@@ -15079,7 +15022,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JButton btnNewIcon;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnOptionsIcon;
-    private javax.swing.JButton btnPostToS7;
     private javax.swing.JButton btnPrintIcon;
     private javax.swing.JButton btnPrintPreview;
     private javax.swing.JButton btnRemainingArmor;
@@ -15438,7 +15380,6 @@ private void setViewToolbar(boolean Visible)
     private javax.swing.JMenuItem mnuNewMech;
     private javax.swing.JMenuItem mnuOpen;
     private javax.swing.JMenuItem mnuOptions;
-    private javax.swing.JMenuItem mnuPostS7;
     private javax.swing.JMenu mnuPrint;
     private javax.swing.JMenuItem mnuPrintBatch;
     private javax.swing.JMenuItem mnuPrintCurrentMech;
