@@ -6179,8 +6179,8 @@
     "CritName": "Nova CEWS",
     "Type": "E",
     "LookupName": "Nova CEWS",
-    "MegaMekName": "NCEWS",
-    "BookReference": "Wars of Reaving",
+    "MegaMekName": "NovaCEWS",
+    "BookReference": "Interstellar Operations",
     "ChatName": "NCEWS",
     "Specials": "-",
     "Crits": 1,
@@ -6217,6 +6217,9 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
+	"RequiresFusion": true,
+    "RequiresNuclear": false,
+    "RequiresPowerAmps": true,
     "Availability": {
       "IS_SL": "X",
       "IS_SW": "X",
@@ -6226,7 +6229,7 @@
       "CL_SL": "X",
       "CL_SW": "X",
       "CL_CI": "F",
-      "CL_DA": "E",
+      "CL_DA": "X",
       "CL_TechRating": "F",
       "IS_RandDStartDate": 0,
       "IS_PrototypeDate": 0,
@@ -6236,7 +6239,7 @@
       "CL_RandDStartDate": 0,
       "CL_PrototypeDate": 0,
       "CL_IntroDate": 3065,
-      "CL_ExtinctDate": 0,
+      "CL_ExtinctDate": 3085,
       "CL_ReIntroDate": 0,
       "RulesLevelBM": 3,
       "RulesLevelIM": 3,
@@ -6248,14 +6251,14 @@
       "IS_ReIntroFaction": "--",
       "IS_RandDFaction": "--",
       "IS_PrototypeFaction": "--",
-      "CL_IntroFaction": "Soc",
+      "CL_IntroFaction": "CCY",
       "CL_ReIntroFaction": "--",
       "CL_RandDFaction": "--",
       "CL_PrototypeFaction": "--",
       "IS_WentExtinct": false,
       "IS_ReIntroduced": false,
       "IS_IsPrototype": false,
-      "CL_WentExtinct": false,
+      "CL_WentExtinct": true,
       "CL_ReIntroduced": false,
       "CL_IsPrototype": false,
       "PBMAllowed": true,
@@ -6265,7 +6268,10 @@
       "SuperHeavyOnly": false
     },
     "BattleForceAbilities": [
-      "-"
+      "NOVA",
+	  "PRB",
+	  "RCN",
+	  "ECM"
     ]
   },
   "Centurion Weapon System": {

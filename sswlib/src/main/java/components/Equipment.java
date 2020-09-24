@@ -142,6 +142,9 @@ public class Equipment extends abPlaceable {
         ChatName = e.ChatName;
         Manufacturer = e.Manufacturer;
         RequiresQuad = e.RequiresQuad;
+        RequiresFusion = e.RequiresFusion;
+        RequiresNuclear = e.RequiresNuclear;
+        RequiresPowerAmps = e.RequiresPowerAmps;
         MaxAllowed = e.MaxAllowed;
         MaxAllowedPerLocation = e.MaxAllowedPerLocation;
         SetBattleForceAbilities( e.GetBattleForceAbilities() );
