@@ -429,6 +429,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         for ( abPlaceable a : (ArrayList<abPlaceable>)GetNonCore() ) {
             if ( a instanceof RangedWeapon && ((RangedWeapon)a).RequiresPowerAmps() ) {
                 total += ((RangedWeapon)a).GetHeat();
+            } else if (a instanceof Equipment && ((Equipment)a).RequiresPowerAmps()) {
+                total += ((Equipment)a).GetHeat();
             }
         }
         if ( Owner.GetArmor().IsStealth() ) total += 10;
@@ -1054,6 +1056,14 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
                 throw new Exception( p.CritName() + " may not be mounted as it requires a nuclear engine." );
             }
             if( ((RangedWeapon) p).RequiresFusion() &! Owner.GetEngine().IsFusion() ) {
+                throw new Exception( p.CritName() + " may not be mounted as it requires a fusion engine." );
+            }
+        }
+        if( p instanceof Equipment ) {
+            if( ((Equipment) p).RequiresNuclear() &! Owner.GetEngine().IsNuclear() ) {
+                throw new Exception( p.CritName() + " may not be mounted as it requires a nuclear engine." );
+            }
+            if( ((Equipment) p).RequiresFusion() &! Owner.GetEngine().IsFusion() ) {
                 throw new Exception( p.CritName() + " may not be mounted as it requires a fusion engine." );
             }
         }
