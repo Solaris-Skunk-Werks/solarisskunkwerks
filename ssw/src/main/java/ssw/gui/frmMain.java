@@ -6826,7 +6826,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlFrontArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Forward Armor"));
         pnlFrontArmor.setLayout(new java.awt.GridBagLayout());
 
-        pnlRLArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "RL", 2, 0));
+        pnlRLArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "RL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlRLArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblRLHeader.setText("Internal");
@@ -6868,7 +6868,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridy = 2;
         pnlFrontArmor.add(pnlRLArmorBox, gridBagConstraints);
 
-        pnlLLArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LL", 2, 0));
+        pnlLLArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlLLArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblLLHeader.setText("Internal");
@@ -6910,7 +6910,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridy = 2;
         pnlFrontArmor.add(pnlLLArmorBox, gridBagConstraints);
 
-        pnlRAArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "RA", 2, 0));
+        pnlRAArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "RA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlRAArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblRAHeader.setText("Internal");
@@ -6953,7 +6953,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridy = 1;
         pnlFrontArmor.add(pnlRAArmorBox, gridBagConstraints);
 
-        pnlHDArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Head", 2, 0));
+        pnlHDArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Head", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlHDArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblHDHeader.setText("Internal");
@@ -6996,7 +6996,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridy = 0;
         pnlFrontArmor.add(pnlHDArmorBox, gridBagConstraints);
 
-        pnlCTArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "CT", 2, 0));
+        pnlCTArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "CT", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlCTArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblCTHeader.setText("Internal");
@@ -7040,7 +7040,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         pnlFrontArmor.add(pnlCTArmorBox, gridBagConstraints);
 
-        pnlLTArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LT", 2, 0));
+        pnlLTArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LT", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlLTArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblLTHeader.setText("Internal");
@@ -7083,7 +7083,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridheight = 2;
         pnlFrontArmor.add(pnlLTArmorBox, gridBagConstraints);
 
-        pnlRTArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "RT", 2, 0));
+        pnlRTArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "RT", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlRTArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblRTHeader.setText("Internal");
@@ -7126,7 +7126,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridheight = 2;
         pnlFrontArmor.add(pnlRTArmorBox, gridBagConstraints);
 
-        pnlLAArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LA", 2, 0));
+        pnlLAArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlLAArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblLAHeader.setText("Internal");
@@ -7175,7 +7175,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         pnlRearArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Rear Armor"));
         pnlRearArmor.setLayout(new java.awt.GridBagLayout());
 
-        pnlRTRArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "RTR", 2, 0));
+        pnlRTRArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "RTR", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlRTRArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblRTRArmorHeader.setText("Armor");
@@ -7199,7 +7199,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridy = 0;
         pnlRearArmor.add(pnlRTRArmorBox, gridBagConstraints);
 
-        pnlCTRArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "CTR", 2, 0));
+        pnlCTRArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "CTR", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlCTRArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblCTRArmorHeader.setText("Armor");
@@ -7223,7 +7223,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.gridy = 0;
         pnlRearArmor.add(pnlCTRArmorBox, gridBagConstraints);
 
-        pnlLTRArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LTR", 2, 0));
+        pnlLTRArmorBox.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "LTR", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlLTRArmorBox.setLayout(new java.awt.GridBagLayout());
 
         lblLTRArmorHeader.setText("Armor");
@@ -7649,7 +7649,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstChooseBallistic.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstChooseBallistic.setMaximumSize(new java.awt.Dimension(180, 10000));
         lstChooseBallistic.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseBallistic.setPreferredSize(null);
         lstChooseBallistic.setVisibleRowCount(16);
         lstChooseBallistic.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -7697,7 +7696,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstChooseEnergy.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstChooseEnergy.setMaximumSize(new java.awt.Dimension(180, 10000));
         lstChooseEnergy.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseEnergy.setPreferredSize(null);
         lstChooseEnergy.setVisibleRowCount(16);
         lstChooseEnergy.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -7745,7 +7743,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstChooseMissile.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstChooseMissile.setMaximumSize(new java.awt.Dimension(180, 10000));
         lstChooseMissile.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseMissile.setPreferredSize(null);
         lstChooseMissile.setVisibleRowCount(16);
         lstChooseMissile.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -7793,7 +7790,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstChoosePhysical.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstChoosePhysical.setMaximumSize(new java.awt.Dimension(180, 10000));
         lstChoosePhysical.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChoosePhysical.setPreferredSize(null);
         lstChoosePhysical.setVisibleRowCount(16);
         lstChoosePhysical.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -7841,7 +7837,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstChooseEquipment.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstChooseEquipment.setMaximumSize(new java.awt.Dimension(180, 10000));
         lstChooseEquipment.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseEquipment.setPreferredSize(null);
         lstChooseEquipment.setVisibleRowCount(16);
         lstChooseEquipment.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -7889,7 +7884,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstChooseArtillery.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstChooseArtillery.setMaximumSize(new java.awt.Dimension(180, 10000));
         lstChooseArtillery.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseArtillery.setPreferredSize(null);
         lstChooseArtillery.setVisibleRowCount(16);
         lstChooseArtillery.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -7937,7 +7931,6 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         lstChooseAmmunition.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstChooseAmmunition.setMaximumSize(new java.awt.Dimension(180, 10000));
         lstChooseAmmunition.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseAmmunition.setPreferredSize(null);
         lstChooseAmmunition.setVisibleRowCount(16);
         lstChooseAmmunition.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -8434,7 +8427,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        pnlHDCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Head", 2, 0));
+        pnlHDCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Head", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlHDCrits.setMaximumSize(new java.awt.Dimension(116, 120));
         pnlHDCrits.setMinimumSize(new java.awt.Dimension(116, 120));
         pnlHDCrits.setLayout(new java.awt.GridBagLayout());
@@ -8533,7 +8526,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.add(pnlHDCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 117, 165));
 
-        pnlCTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Center Torso", 2, 0));
+        pnlCTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Center Torso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlCTCrits.setMaximumSize(new java.awt.Dimension(114, 233));
         pnlCTCrits.setMinimumSize(new java.awt.Dimension(114, 233));
         pnlCTCrits.setLayout(new java.awt.GridBagLayout());
@@ -8627,7 +8620,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.add(pnlCTCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 117, -1));
 
-        pnlLTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Torso", 2, 0));
+        pnlLTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Torso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlLTCrits.setMaximumSize(new java.awt.Dimension(114, 235));
         pnlLTCrits.setMinimumSize(new java.awt.Dimension(114, 235));
         pnlLTCrits.setPreferredSize(new java.awt.Dimension(257, 232));
@@ -8739,7 +8732,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.add(pnlLTCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 40, 117, 270));
 
-        pnlRTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Torso", 2, 0));
+        pnlRTCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Torso", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlRTCrits.setMaximumSize(new java.awt.Dimension(114, 233));
         pnlRTCrits.setMinimumSize(new java.awt.Dimension(114, 233));
         pnlRTCrits.setLayout(new java.awt.GridBagLayout());
@@ -8850,7 +8843,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.add(pnlRTCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 40, 117, 270));
 
-        pnlLACrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Arm", 2, 0));
+        pnlLACrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Arm", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlLACrits.setMaximumSize(new java.awt.Dimension(114, 256));
         pnlLACrits.setMinimumSize(new java.awt.Dimension(114, 256));
         pnlLACrits.setLayout(new java.awt.GridBagLayout());
@@ -8973,7 +8966,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.add(pnlLACrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 117, -1));
 
-        pnlRACrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Arm", 2, 0));
+        pnlRACrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Arm", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlRACrits.setMaximumSize(new java.awt.Dimension(114, 256));
         pnlRACrits.setMinimumSize(new java.awt.Dimension(114, 256));
         pnlRACrits.setLayout(new java.awt.GridBagLayout());
@@ -9096,7 +9089,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.add(pnlRACrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 117, -1));
 
-        pnlLLCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Leg", 2, 0));
+        pnlLLCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left Leg", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlLLCrits.setMaximumSize(new java.awt.Dimension(116, 120));
         pnlLLCrits.setMinimumSize(new java.awt.Dimension(116, 120));
         pnlLLCrits.setLayout(new java.awt.GridBagLayout());
@@ -9179,7 +9172,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.add(pnlLLCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 320, 117, -1));
 
-        pnlRLCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Leg", 2, 0));
+        pnlRLCrits.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right Leg", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlRLCrits.setMaximumSize(new java.awt.Dimension(116, 120));
         pnlRLCrits.setMinimumSize(new java.awt.Dimension(116, 120));
         pnlRLCrits.setLayout(new java.awt.GridBagLayout());
@@ -9262,7 +9255,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.add(pnlRLCrits, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 320, 117, -1));
 
-        pnlEquipmentToPlace.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Equipment to Place", 2, 0));
+        pnlEquipmentToPlace.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Equipment to Place", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         pnlEquipmentToPlace.setMaximumSize(new java.awt.Dimension(146, 330));
         pnlEquipmentToPlace.setMinimumSize(new java.awt.Dimension(146, 330));
         pnlEquipmentToPlace.setLayout(new javax.swing.BoxLayout(pnlEquipmentToPlace, javax.swing.BoxLayout.PAGE_AXIS));
@@ -9352,7 +9345,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlCriticals.add(pnlEquipmentToPlace, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 150, 360));
 
-        onlLoadoutControls.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Loadout Controls", 1, 0));
+        onlLoadoutControls.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Loadout Controls", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         onlLoadoutControls.setLayout(new java.awt.GridBagLayout());
 
         btnCompactCrits.setText("Compact");
@@ -9432,7 +9425,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         pnlFluff.setLayout(new java.awt.GridBagLayout());
 
-        pnlImage.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Fluff Image", 0, 0, new java.awt.Font("Arial", 0, 11))); // NOI18N
+        pnlImage.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Fluff Image", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
         pnlImage.setLayout(new java.awt.GridBagLayout());
 
         lblFluffImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -9474,7 +9467,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         pnlFluff.add(pnlImage, gridBagConstraints);
 
-        pnlExport.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Export", 0, 0, new java.awt.Font("Arial", 0, 11))); // NOI18N
+        pnlExport.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Export", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
         pnlExport.setLayout(new java.awt.GridBagLayout());
 
         btnExportTXT.setText("to TXT");
@@ -9779,7 +9772,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         };
         txtTNTSystem.addMouseListener( mlTNTSystem );
 
-        pnlWeaponsManufacturers.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Weapons Manufacturers", 0, 0, new java.awt.Font("Arial", 0, 11))); // NOI18N
+        pnlWeaponsManufacturers.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Weapons Manufacturers", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
         pnlWeaponsManufacturers.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         pnlWeaponsManufacturers.setMinimumSize(new java.awt.Dimension(315, 260));
         pnlWeaponsManufacturers.setLayout(new java.awt.GridBagLayout());

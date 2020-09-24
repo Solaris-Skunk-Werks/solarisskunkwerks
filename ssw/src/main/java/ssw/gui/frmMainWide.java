@@ -7507,7 +7507,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         lstChooseBallistic.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstChooseBallistic.setMaximumSize(new java.awt.Dimension(180, 10000));
         lstChooseBallistic.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseBallistic.setPreferredSize(null);
         lstChooseBallistic.setVisibleRowCount(16);
         lstChooseBallistic.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -7555,7 +7554,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         lstChooseEnergy.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstChooseEnergy.setMaximumSize(new java.awt.Dimension(180, 10000));
         lstChooseEnergy.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseEnergy.setPreferredSize(null);
         lstChooseEnergy.setVisibleRowCount(16);
         lstChooseEnergy.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -7603,7 +7601,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         lstChooseMissile.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstChooseMissile.setMaximumSize(new java.awt.Dimension(180, 10000));
         lstChooseMissile.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseMissile.setPreferredSize(null);
         lstChooseMissile.setVisibleRowCount(16);
         lstChooseMissile.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -7651,7 +7648,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         lstChoosePhysical.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstChoosePhysical.setMaximumSize(new java.awt.Dimension(180, 10000));
         lstChoosePhysical.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChoosePhysical.setPreferredSize(null);
         lstChoosePhysical.setVisibleRowCount(16);
         lstChoosePhysical.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -7699,7 +7695,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         lstChooseEquipment.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstChooseEquipment.setMaximumSize(new java.awt.Dimension(180, 10000));
         lstChooseEquipment.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseEquipment.setPreferredSize(null);
         lstChooseEquipment.setVisibleRowCount(16);
         lstChooseEquipment.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -7747,7 +7742,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         lstChooseArtillery.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstChooseArtillery.setMaximumSize(new java.awt.Dimension(180, 10000));
         lstChooseArtillery.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseArtillery.setPreferredSize(null);
         lstChooseArtillery.setVisibleRowCount(16);
         lstChooseArtillery.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -7795,7 +7789,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         lstChooseAmmunition.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstChooseAmmunition.setMaximumSize(new java.awt.Dimension(180, 10000));
         lstChooseAmmunition.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseAmmunition.setPreferredSize(null);
         lstChooseAmmunition.setVisibleRowCount(16);
         lstChooseAmmunition.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
