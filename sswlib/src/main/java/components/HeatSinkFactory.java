@@ -240,7 +240,6 @@ public class HeatSinkFactory {
         int extraDHSBonus = 0;
         
         ArrayList equipment = Owner.GetMech().GetLoadout().GetEquipment();
-
         for (int i = 0; i < equipment.size(); i++){
             if (equipment.get(i) instanceof EquipmentProtoSuccWarsDoubleHeatSink){
                 extraDHSBonus += 2;
@@ -264,7 +263,6 @@ public class HeatSinkFactory {
                     + partialWingBonus
                     + extraDHSBonus;
         }
-
         return totalDissipation;
     }
 
