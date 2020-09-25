@@ -1713,7 +1713,7 @@ public boolean IsTripod(){
     }
 
     public boolean HasItem(String lookupName) {
-        List<abPlaceable> items = GetNonCore();
+        List<abPlaceable> items = NonCore;
         for (abPlaceable item : items) {
             if (item.LookupName().equals(lookupName)) {
                 return true;
