@@ -3084,9 +3084,6 @@ public class Mech implements ifUnit, ifBattleforce {
 
         for( int i = 0; i < v.size(); i++ ) {
             if( ! ( v.get( i ) instanceof ifWeapon ) ) {
-                if ( v.get(i) instanceof Equipment )
-                    if ( ((Equipment)v.get(i)).LookupName().equals( "Radical Heat Sink" )) 
-                        result += CommonTools.RoundFullUp(GetHeatSinks().GetNumHS() * 1.4);
                 result += ((abPlaceable) v.get( i )).GetOffensiveBV();
             }
         }
