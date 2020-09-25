@@ -64,6 +64,9 @@ public class CVPowerAmplifier {
             if( v.get( i ) instanceof RangedWeapon ) {
                 if ( ((ifWeapon)v.get( i ) ).RequiresPowerAmps() )
                     tons += ((abPlaceable) v.get( i )).GetTonnage();
+            } else if (v.get(i) instanceof Equipment) {
+                if (((Equipment)v.get(i)).RequiresPowerAmps())
+                    tons += ((Equipment) v.get( i )).GetTonnage();
             }
         }
         if( tons <= 0.0 ) {
@@ -71,7 +74,7 @@ public class CVPowerAmplifier {
         } else {
             double result = 0.0;
             if( CurLoadout.GetUnit().UsingFractionalAccounting() ) {
-                result = Math.ceil( tons * 200 ) * 0.001;
+                result = Math.ceil( tons * 100 ) * 0.001;
             } else {
                 result = (double) Math.ceil( tons * 0.2 ) * 0.5;
             }

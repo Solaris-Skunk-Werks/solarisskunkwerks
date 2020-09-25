@@ -606,6 +606,9 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
+	"RequiresFusion": false,
+    "RequiresNuclear": false,
+    "RequiresPowerAmps": true,
     "Availability": {
       "IS_SL": "X",
       "IS_SW": "X",
@@ -700,6 +703,9 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
+	"RequiresFusion": false,
+    "RequiresNuclear": false,
+    "RequiresPowerAmps": true,
     "Availability": {
       "IS_SL": "X",
       "IS_SW": "X",
@@ -794,6 +800,9 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
+	"RequiresFusion": false,
+    "RequiresNuclear": false,
+    "RequiresPowerAmps": true,
     "Availability": {
       "IS_SL": "E",
       "IS_SW": "F",
@@ -2300,7 +2309,7 @@
     "CritName": "Ground Mobile HPG",
     "Type": "PE",
     "LookupName": "Ground Mobile HPG",
-    "MegaMekName": "GroundMobileHPG",
+    "MegaMekName": "ISMobileHPG",
     "BookReference": "Tactical Operations",
     "ChatName": "HPG",
     "Specials": "-",
@@ -2338,6 +2347,9 @@
     "Explosive": false,
     "VariableSize": false,
     "RequiresQuad": false,
+	"RequiresFusion": true,
+    "RequiresNuclear": false,
+    "RequiresPowerAmps": true,
     "Availability": {
       "IS_SL": "F",
       "IS_SW": "X",
