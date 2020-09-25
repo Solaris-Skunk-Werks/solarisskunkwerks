@@ -1,0 +1,26 @@
+It is our pleasure to release Solaris Skunk Werks 0.7.5! Below the link we have a brief listing of the updates to SSW.
+
+You can download the newest version, and join our development discord through our Github page here.  We welcome all who want to help make SSW even better: https://github.com/Solaris-Skunk-Werks/solarisskunkwerks#solaris-skunk-werks
+
+# This has breaking changes from the last release:
+* The format for Exclusions in the Equipment JSON file has changed. If you use any custom equipment with exclusions, you will need to modify the Exclusions field in your custom JSON like so:
+
+```
+"Exclusions": [
+  "HarJel",
+  "HarJel II",
+]
+```
+
+# Fixes and Features:
+* HarJels have now been fully implemented. The correct armor multipliers, exclusions, and BF abilities are now applied.
+* SAW now correctly allocates space for ammo bins.
+* Extended fuel tanks are now treated like explosive ammo for the purpose of BV calculations.
+* Fixed a bug where Partial Wings could not be equipped if there were exactly enough free slots.
+* Fixed a UI refresh issue when loading units with various chassis modifications in SAW.
+* Removed the various "Upload to Solaris 7" options as S7 is not coming back (per Skyhigh).
+* Fields were added to equipment so that SAW can properly allocate heatsinks.
+* Fixed a bug where fractional accounting wasn't working correctly with poweramps.
+* Fully implemented Radical Heat Sinks and corrected previous behavior.
+* Fixed a rounding error when determining coolant pod bonuses in the Cost/BV Breakdown.
+* SSW now enforces Nuclear/Fusion engines when equipment requires them.
