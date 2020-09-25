@@ -5204,6 +5204,14 @@ public class TripodLoadout implements ifMechLoadout, ifLoadout {
                 throw new Exception( p.CritName() + " may not be mounted as it requires a fusion engine." );
             }
         }
+        if( p instanceof Equipment ) {
+            if( ((Equipment) p).RequiresNuclear() &! Owner.GetEngine().IsNuclear() ) {
+                throw new Exception( p.CritName() + " may not be mounted as it requires a nuclear engine." );
+            }
+            if( ((Equipment) p).RequiresFusion() &! Owner.GetEngine().IsFusion() ) {
+                throw new Exception( p.CritName() + " may not be mounted as it requires a fusion engine." );
+            }
+        }
         if( p instanceof Talons ) {
             for( int i = 0; i < NonCore.size(); i++ ) {
                 if( NonCore.get( i ) instanceof Talons ) {
