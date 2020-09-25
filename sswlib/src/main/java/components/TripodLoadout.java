@@ -1818,8 +1818,7 @@ public class TripodLoadout implements ifMechLoadout, ifLoadout {
     }
 
     public boolean HasItem(String lookupName) {
-        List<abPlaceable> items = NonCore;
-        for (abPlaceable item : items) {
+        for (abPlaceable item : (ArrayList<abPlaceable>)NonCore) {
             if (item.LookupName().equals(lookupName)) {
                 return true;
             }
