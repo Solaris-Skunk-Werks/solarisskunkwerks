@@ -1508,6 +1508,16 @@ public class QuadLoadout implements ifMechLoadout, ifLoadout {
         return false;
     }
 
+    public boolean HasItem(String lookupName) {
+        List<abPlaceable> items = NonCore;
+        for (abPlaceable item : items) {
+            if (item.LookupName().equals(lookupName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int[] FindHeatSinks() {
         // this routine is used mainly by the text and html writers to find the
         // locations of heat sinks specifically.  returns an int[] with the
