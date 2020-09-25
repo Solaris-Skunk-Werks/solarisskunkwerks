@@ -599,7 +599,7 @@ public class CostBVBreakdown {
                 }
             }
             // get the heat sink bonus
-            BonusFromCP = (int) Math.ceil( (double) NumHS * ( (double) NumPods * 0.2f ) );
+            BonusFromCP = (int) Math.ceil( (double) NumHS * ( (double) NumPods * 0.2 ) );
             if( BonusFromCP > MaxHSBonus ) { BonusFromCP = MaxHSBonus; }
             retval += BonusFromCP;
         }
