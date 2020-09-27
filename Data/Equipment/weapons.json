@@ -16391,7 +16391,7 @@
     "SwitchableAmmo": false,
     "RequiresFusion": false,
     "RequiresNuclear": true,
-    "RequiresPowerAmps": false,
+    "RequiresPowerAmps": true,
     "Alloc_HD": true,
     "Alloc_CT": true,
     "Alloc_Torso": true,
