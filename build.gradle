@@ -3,7 +3,7 @@ apply plugin: 'java'
 allprojects {
     version '0.7.5'
     ext {
-        release='Alpha 1'
+        release='SNAPSHOT'
     }
     jar {
         onlyIf { !sourceSets.main.allSource.files.isEmpty() }
@@ -46,7 +46,7 @@ task zipRelease(type: Zip, dependsOn: releaseBuild) {
     from "${buildDir}/release"
         include "**/"
     if ("$release" != "Stable") {
-        archiveName "SSW_${version}_${release}.zip"
+        archiveName "SSW_${version}-${release}.zip"
     } else {
         archiveName "SSW_${version}.zip"
     }
