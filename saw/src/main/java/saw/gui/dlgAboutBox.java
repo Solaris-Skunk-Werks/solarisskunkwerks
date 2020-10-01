@@ -44,7 +44,7 @@ public class dlgAboutBox extends javax.swing.JDialog {
         setTitle( "About " + saw.Constants.AppDescription );
         lblAppName.setText(saw.Constants.AppDescription);
         lblVersion.setText(saw.Constants.GetVersion());
-        lblRelease.setText(saw.Constants.GetReleaseType());
+        lblRelease.setText(saw.Constants.GetRelease());
     }
 
     /** This method is called from within the constructor to

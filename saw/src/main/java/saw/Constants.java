@@ -57,20 +57,16 @@ public class Constants {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (props.getProperty("releaseType").equals("Nightly")) {
-            return props.getProperty("version") + "." + props.getProperty("date");
-        } else {
-            return props.getProperty("version");
-        }
+        return props.getProperty("version");
     }
 
-    public static String GetReleaseType() {
+    public static String GetRelease() {
         Properties props = new Properties();
         try {
             props.load(Constants.class.getResourceAsStream("/saw/build.properties"));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return props.getProperty("releaseType");
+        return props.getProperty("release");
     }
 }

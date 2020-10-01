@@ -3,8 +3,7 @@ apply plugin: 'java'
 allprojects {
     version '0.7.5'
     ext {
-        releaseType='Nightly'
-        date=getDate()
+        release='SNAPSHOT'
     }
     jar {
         onlyIf { !sourceSets.main.allSource.files.isEmpty() }
@@ -16,12 +15,6 @@ subprojects {
     repositories {
         mavenCentral()
     }
-}
-
-static def getDate() {
-    def date = new Date()
-    def formattedDate = date.format('yyyyMMdd')
-    return formattedDate.toString()
 }
 
 evaluationDependsOnChildren()
@@ -52,8 +45,8 @@ task releaseBuild(dependsOn: [copyDocs, copyData, copyDeps, copyJars]) { }
 task zipRelease(type: Zip, dependsOn: releaseBuild) {
     from "${buildDir}/release"
         include "**/"
-    if ("$releaseType" == "Nightly") {
-        archiveName "SSW_${version}.${date}.zip"
+    if ("$release" != "Stable") {
+        archiveName "SSW_${version}-${release}.zip"
     } else {
         archiveName "SSW_${version}.zip"
     }
