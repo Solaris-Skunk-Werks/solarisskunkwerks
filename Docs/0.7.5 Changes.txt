@@ -24,3 +24,5 @@ You can download the newest version, and join our development discord through ou
 * Fully implemented Radical Heat Sinks and corrected previous behavior.
 * Fixed a rounding error when determining coolant pod bonuses in the Cost/BV Breakdown.
 * SSW now enforces Nuclear/Fusion engines when equipment requires them.
+* Added Beagle Active Probe (@Maelwys).
+* Added Prototype Guardian ECM Suite (@Maelwys).
