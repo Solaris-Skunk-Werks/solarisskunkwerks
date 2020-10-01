@@ -45,8 +45,7 @@ task copyAssets (dependsOn: deleteAssets) {
 task writeProperties(type: WriteProperties) {
     outputFile "${buildDir}/resources/main/ssw/build.properties"
     property 'version', version
-    property 'releaseType', releaseType
-    property 'date', date
+    property 'release', release
 }
 
 task copyDependencies {

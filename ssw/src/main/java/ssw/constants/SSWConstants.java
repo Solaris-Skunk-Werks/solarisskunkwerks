@@ -28,8 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.constants;
 
-import ssw.gui.dlgAboutBox;
-
 import java.util.Properties;
 
 public class SSWConstants {
@@ -62,20 +60,16 @@ public class SSWConstants {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (props.getProperty("releaseType").equals("Nightly")) {
-            return props.getProperty("version") + "." + props.getProperty("date");
-        } else {
-            return props.getProperty("version");
-        }
+        return props.getProperty("version");
     }
 
-    public static String GetReleaseType() {
+    public static String GetRelease() {
         Properties props = new Properties();
         try {
             props.load(SSWConstants.class.getResourceAsStream("/ssw/build.properties"));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return props.getProperty("releaseType");
+        return props.getProperty("release");
     }
 }

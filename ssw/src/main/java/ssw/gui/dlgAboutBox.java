@@ -28,22 +28,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ssw.gui;
 
-import filehandlers.Media;
 import ssw.constants.SSWConstants;
 
 import java.awt.Point;
-import java.util.Arrays;
-import java.util.Properties;
 
 public class dlgAboutBox extends javax.swing.JDialog {
 
     ifMechForm Parent;
 
-//    public class GetVersion {
-//        public static String GetVersion() {
-//
-//        }
-//    }
     /** Creates new form dlgAboutBox */
     public dlgAboutBox(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -52,7 +44,7 @@ public class dlgAboutBox extends javax.swing.JDialog {
         setResizable( false );
         setTitle( "About " + SSWConstants.AppDescription );
         lblAppName.setText(SSWConstants.AppDescription);
-        lblRelease.setText(SSWConstants.GetReleaseType());
+        lblRelease.setText(SSWConstants.GetRelease());
         lblVersion.setText(SSWConstants.GetVersion());
     }
 

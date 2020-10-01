@@ -51,8 +51,7 @@ task copyDependencies {
 task writeProperties(type: WriteProperties) {
     outputFile "${buildDir}/resources/main/BFB/build.properties"
     property 'version', version
-    property 'releaseType', releaseType
-    property 'date', date
+    property 'release', release
 }
 
 compileJava.finalizedBy(writeProperties)
