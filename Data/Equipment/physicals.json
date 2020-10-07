@@ -283,7 +283,7 @@
     "ToHitShort": -2,
     "ToHitMedium": -2,
     "ToHitLong": -2,
-    "DamageAdd": 1,
+    "DamageAdd": 3,
     "CritAdd": 2,
     "PWClass": 0,
     "TonMult": 0.0,
