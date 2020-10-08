@@ -4570,7 +4570,18 @@ public class Mech implements ifUnit, ifBattleforce {
             // get the two items we'll be comparing
             boolean AES1 = UseAESModifier( ((abPlaceable) v.get( i - 1 )) );
             boolean AES2 = UseAESModifier( ((abPlaceable) v.get( i )) );
-            if( ((abPlaceable) v.get( i - 1 )).GetCurOffensiveBV( rear, TC, AES1 ) >= ((abPlaceable) v.get( i )).GetCurOffensiveBV( rear, TC, AES2 ) ) {
+            /***
+             * 2020-10-06:
+             * This should be improved but the problem is it needs to be sorted by BV,
+             * then by heat, lowest to highest.  To that end we just get the heat and
+             * compare them as a second step if the BV is the same.  If the BV is higher
+             * then we don't need to look.
+             */
+            double offensiveBV1 = ((abPlaceable) v.get( i - 1 )).GetCurOffensiveBV( rear, TC, AES1 );
+            double offensiveBV2 = ((abPlaceable) v.get( i )).GetCurOffensiveBV( rear, TC, AES2 );
+            double heat1 = ((ifWeapon) v.get( i - 1 )).GetHeat();
+            double heat2 = ((ifWeapon) v.get( i )).GetHeat();
+            if( offensiveBV1 > offensiveBV2 || ( offensiveBV1 == offensiveBV2 && heat1 <= heat2 ) ) {
                 i = j;
                 j += 1;
             } else {
