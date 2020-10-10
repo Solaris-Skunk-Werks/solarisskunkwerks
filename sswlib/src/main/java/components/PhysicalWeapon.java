@@ -414,7 +414,7 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
     }
 
     public double GetOffensiveBV() {
-        if (TripleStrengthMyomerAffectsBV){
+        if (TripleStrengthMyomerAffectsBV() && Owner.GetPhysEnhance().IsTSM()){
             double TSM_Multiplier = 2.0;
             return (GetDamageShort() * BVMult * TSM_Multiplier) + BVAdd;
         }
