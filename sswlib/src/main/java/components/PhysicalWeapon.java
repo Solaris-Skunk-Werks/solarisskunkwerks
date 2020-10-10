@@ -76,7 +76,8 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
                     Alloc_Arms = true,
                     Alloc_Legs = false,
                     CanSplit = false,
-                    PowerAmps = false;
+                    PowerAmps = false,
+                    TripleStrengthMyomerAffectsBV = false;
     @SerializedName("Availability") private AvailableCode AC;
 
     public PhysicalWeapon( String actualname, String lookupname, String critname, String mname, String chatn, AvailableCode a ) {
@@ -130,6 +131,7 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
         PowerAmps = p.PowerAmps;
         RequiresHand = p.RequiresHand;
         ReplacesLowerArm = p.ReplacesLowerArm;
+        TripleStrengthMyomerAffectsBV = p.TripleStrengthMyomerAffectsBV;
         SetBattleForceAbilities( p.GetBattleForceAbilities() );
         if ( RequiresHand == true ) { RequiresLowerArm = true; }
         ReplacesHand = p.ReplacesHand;
@@ -296,6 +298,10 @@ public class PhysicalWeapon extends abPlaceable implements ifWeapon {
 
     public boolean ReplacesLowerArm() {
         return ReplacesLowerArm;
+    }
+    
+    public boolean TripleStrengthMyomerAffectsBV() {
+        return TripleStrengthMyomerAffectsBV;
     }
 
     public double GetCostMult() {
