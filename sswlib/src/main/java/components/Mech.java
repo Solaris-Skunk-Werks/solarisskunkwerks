@@ -2459,6 +2459,15 @@ public class Mech implements ifUnit, ifBattleforce {
             if( CurLoadout.HasSupercharger() ) {
                 result += CurLoadout.GetSupercharger().GetDefensiveBV();
             }
+            if( CurLoadout.HasLTTurret()){
+                result += CurLoadout.GetLTTurret().GetDefensiveBV();
+            }
+            if( CurLoadout.HasRTTurret()){
+                result += CurLoadout.GetRTTurret().GetDefensiveBV();
+            }
+            if( CurLoadout.HasHDTurret()){
+                result += CurLoadout.GetHDTurret().GetDefensiveBV();
+            }
         }
         return result;
     }
