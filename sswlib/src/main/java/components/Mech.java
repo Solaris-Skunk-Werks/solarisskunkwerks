@@ -3017,7 +3017,10 @@ public class Mech implements ifUnit, ifBattleforce {
             a = ((abPlaceable) wep.get( i ));
             // arm mounted weapons always count their full BV, so ignore them.
             int loc = CurLoadout.Find( a );
-            if( loc != LocationIndex.MECH_LOC_LA && loc != LocationIndex.MECH_LOC_RA ) {
+            // 2020-10-10 Turreted are also always their full BV
+            if( loc != LocationIndex.MECH_LOC_LA 
+                && loc != LocationIndex.MECH_LOC_RA 
+                && (a instanceof RangedWeapon && !((RangedWeapon)a).IsTurreted()) ) {
                 UseAESMod = UseAESModifier( a );
                 if( a.IsMountedRear() ) {
                     rearBV += a.GetCurOffensiveBV( true, TC, UseAESMod, UseRobotic );
