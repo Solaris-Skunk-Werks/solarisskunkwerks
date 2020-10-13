@@ -338,7 +338,7 @@ public class Equipment extends abPlaceable {
             //If the total BV is 0 lets just calculate based on the number of armored crits.
             if ( (OffBV + DefBV) == 0 ) return NumCrits() * 5.0;
             //Not sure why this line is like this but had to add the line aboves
-            return (( OffBV + DefBV ) * 0.5 * NumCrits() ) + DefBV;
+            return ( ( OffBV + DefBV ) * 0.05 * (double)NumCrits() ) + DefBV;
         }
         return DefBV;
     }
