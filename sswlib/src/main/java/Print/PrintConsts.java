@@ -290,7 +290,7 @@ public class PrintConsts {
                 v.add( CurMech.GetLLAES() );
             }
         }
-        ArrayList Equip = CurMech.SortLoadout(v);
+        ArrayList Equip = CurMech.SortWeaponsToPrint(v);
         ArrayList<abPlaceable> sorted = FileCommon.SortEquipmentForStats(CurMech, Equip, true, false);
 
         abPlaceable[] a = new abPlaceable[sorted.size()];

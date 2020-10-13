@@ -4602,13 +4602,15 @@ public class Mech implements ifUnit, ifBattleforce {
             while( i < v.size() ) {
                 boolean AES1 = UseAESModifier( ((abPlaceable) v.get( i - 1 )) );
                 boolean AES2 = UseAESModifier( ((abPlaceable) v.get( i )) );
+                double heat1 = ((ifWeapon) v.get( i - 1 )).GetHeat();
+                double heat2 = ((ifWeapon) v.get( i )).GetHeat();
                 if( ((abPlaceable) v.get( i - 1 )).GetCurOffensiveBV( rear, TC, AES1 ) == ((abPlaceable) v.get( i )).GetCurOffensiveBV( rear, TC, AES2 ) ) {
                     if( rear ) {
                         if( ((abPlaceable) v.get( i - 1 )).IsMountedRear() &! ((abPlaceable) v.get( i )).IsMountedRear() ) {
                             swap = v.get( i - 1 );
                             v.set( i - 1, v.get( i ) );
                             v.set( i, swap );
-                        } else if( ((ifWeapon) v.get( i - 1)).GetHeat() > ((ifWeapon) v.get( i )).GetHeat() ) {
+                        } else if( heat1 > heat2 ) {
                             swap = v.get( i - 1 );
                             v.set( i - 1, v.get( i ) );
                             v.set( i, swap );
@@ -4618,7 +4620,7 @@ public class Mech implements ifUnit, ifBattleforce {
                             swap = v.get( i - 1 );
                             v.set( i - 1, v.get( i ) );
                             v.set( i, swap );
-                        } else if( ((ifWeapon) v.get( i - 1)).GetHeat() > ((ifWeapon) v.get( i )).GetHeat() ) {
+                        } else if( heat1 > heat2 ) {
                             swap = v.get( i - 1 );
                             v.set( i - 1, v.get( i ) );
                             v.set( i, swap );
@@ -4626,6 +4628,49 @@ public class Mech implements ifUnit, ifBattleforce {
                     }
                 }
                 i++;
+            }
+        }
+
+        return v;
+    }
+
+    /**
+     * Sorting routine for weapon Printing.
+     * @param v
+     * @return 
+     */
+    
+    public ArrayList SortWeaponsToPrint( ArrayList v ) {
+        /***
+        * 2020-10-10:
+        * When we fixed the BV calculations sort (see 10-06 note above) it broke
+        * print preview with the way it was sorted.  It's weird, but the quick fix
+        * that lets me work on something else and still fix the issue while keeping
+        * old behavior as it was is to copy the old function as it was when called by
+        * the Print routine.
+        */
+        
+        int i = 1, j = 2;
+        boolean TC = UsingTC();
+        Object swap;
+        while( i < v.size() ) {
+            // get the two items we'll be comparing
+            boolean AES1 = UseAESModifier( ((abPlaceable) v.get( i - 1 )) );
+            boolean AES2 = UseAESModifier( ((abPlaceable) v.get( i )) );
+
+            double offensiveBV1 = ((abPlaceable) v.get( i - 1 )).GetCurOffensiveBV( false, TC, AES1 );
+            double offensiveBV2 = ((abPlaceable) v.get( i )).GetCurOffensiveBV( false, TC, AES2 );
+            if( offensiveBV1 >= offensiveBV2 ) {
+                i = j;
+                j += 1;
+            } else {
+                swap = v.get( i - 1 );
+                v.set( i - 1, v.get( i ) );
+                v.set( i, swap );
+                i -= 1;
+                if( i == 0 ) {
+                    i = 1;
+                }
             }
         }
 
