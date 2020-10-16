@@ -24204,7 +24204,7 @@
     "RackSize": 10,
     "Tonnage": 0.5,
     "Cost": 15000.0,
-    "OffBV": 18.0,
+    "OffBV": 15.0,
     "DefBV": 0.0,
     "Availability": {
       "IS_SL": "X",
@@ -24329,7 +24329,7 @@
     "RackSize": 15,
     "Tonnage": 1.0,
     "Cost": 30000.0,
-    "OffBV": 23.0,
+    "OffBV": 18.0,
     "DefBV": 0.0,
     "Availability": {
       "IS_SL": "X",
@@ -24454,7 +24454,7 @@
     "RackSize": 20,
     "Tonnage": 1.5,
     "Cost": 45000.0,
-    "OffBV": 24.0,
+    "OffBV": 19.0,
     "DefBV": 0.0,
     "Availability": {
       "IS_SL": "X",
