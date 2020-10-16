@@ -144,7 +144,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
               AMMUNITION = 6,
               SELECTED = 7,
               ARTILLERY = 5;
-    private final AvailableCode PPCCapAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+    private final AvailableCode PPCCapAC = new AvailableCode( AvailableCode.TECH_BOTH );
     private final AvailableCode LIAC = new AvailableCode( AvailableCode.TECH_BOTH );
     private final AvailableCode PulseModuleAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final AvailableCode CaselessAmmoAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );

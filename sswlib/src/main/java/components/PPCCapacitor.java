@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package components;
 
 public class PPCCapacitor extends abPlaceable {
-    private AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
+    private AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
     private RangedWeapon Owner;
     private double OffBV = 0.0;
 
