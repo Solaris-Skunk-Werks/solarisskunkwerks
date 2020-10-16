@@ -39,7 +39,7 @@ public class PPCCapacitor extends abPlaceable {
         AC.SetISFactions( "DC", "DC", "", "" );
         AC.SetCLCodes( 'E', 'X', 'X', 'E', 'D' );
         AC.SetCLDates( 0, 0, false, 3101, 0, 0, false, false );
-        AC.SetCLFactions( "", "", "PS", "" );
+        AC.SetCLFactions( "", "", "", "" );
         AC.SetPBMAllowed( true );
         AC.SetPIMAllowed( true );
         AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
