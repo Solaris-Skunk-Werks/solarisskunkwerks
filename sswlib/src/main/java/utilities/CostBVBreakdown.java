@@ -246,6 +246,8 @@ public class CostBVBreakdown {
         retval += NL + NL;
         retval += "Offensive BV Calculation Breakdown" + NL;
         retval += "________________________________________________________________________________" + NL;
+        
+        
         retval += "Heat Efficiency (6 + " + CurMech.GetHeatSinks().TotalDissipation() + " (Dissipation) - " + CurMech.GetBVMovementHeat() + " (Movement Heat)";
         double heatEfficiency = 6 + CurMech.GetHeatSinks().TotalDissipation() - CurMech.GetBVMovementHeat();
         if (CurMech.HasChameleon()) {
@@ -265,6 +267,9 @@ public class CostBVBreakdown {
             retval +=  " + " + GetBonusFromCP() + " (Coolant Pods)) = " + heatEfficiency + NL;
         } else {
             retval += ") = " + heatEfficiency + NL;
+        }
+        if (CurMech.GetLoadout().HasItem("Radical Heat Sink")) {
+            retval += "(Dissipation includes bonus from Radical Heat Sinks: " + (int)Math.ceil(CurMech.GetHeatSinks().GetNumHS() * 0.4) + ")" + NL;
         }
         retval += String.format( "%1$-71s %2$,8.2f", "Adjusted Weapon BV Total WBV", CurMech.GetHeatAdjustedWeaponBV() ) + NL;
         retval += PrintHeatAdjustedWeaponBV();
@@ -301,7 +306,7 @@ public class CostBVBreakdown {
                 }
             } else {
                 if( a instanceof Equipment && ((Equipment)a).LookupName().equals("Radical Heat Sink"))
-                    retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", a.CritName(), a.GetDefensiveBV(), CommonTools.RoundFullUp(CurMech.GetHeatSinks().GetNumHS() * 1.4), a.GetCost() ) + NL;
+                    retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", a.CritName(), a.GetDefensiveBV(), a.GetOffensiveBV(), a.GetCost() ) + NL;
                 else
                 retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", a.CritName(), a.GetDefensiveBV(), a.GetOffensiveBV(), a.GetCost() ) + NL;
             }
@@ -404,9 +409,6 @@ public class CostBVBreakdown {
         for( int i = 0; i < v.size(); i++ ) {
             if( ! ( v.get( i ) instanceof ifWeapon ) ) {
                 a = ((abPlaceable) v.get( i ));
-                if ( a.LookupName().equals("Radical Heat Sink"))
-                    retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.CritName(), CommonTools.RoundFullUp(CurMech.GetHeatSinks().GetNumHS() * 1.4) ) + NL;
-                else
                 retval += String.format( "%1$-71s %2$,8.2f", "    -> " + a.CritName(), a.GetOffensiveBV() ) + NL;
             }
         }
