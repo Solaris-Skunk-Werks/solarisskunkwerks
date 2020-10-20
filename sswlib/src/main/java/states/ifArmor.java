@@ -59,4 +59,5 @@ public interface ifArmor {
     public MechModifier GetMechModifier();
     public AvailableCode GetAvailability();
     public boolean AllowHarJel();
+    public boolean AllowOmni();
 }

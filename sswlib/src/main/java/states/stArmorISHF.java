@@ -157,4 +157,8 @@ public class stArmorISHF implements ifArmor, ifState {
     public boolean AllowHarJel(){
         return true;
     }
+    
+    public boolean AllowOmni(){
+        return true;
+    }
 }
