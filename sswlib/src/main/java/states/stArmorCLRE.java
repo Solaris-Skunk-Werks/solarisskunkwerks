@@ -160,4 +160,8 @@ public class stArmorCLRE implements ifArmor, ifState {
     public boolean AllowHarJel(){
         return false;
     }
+    
+    public boolean AllowOmni(){
+        return true;
+    }
 }

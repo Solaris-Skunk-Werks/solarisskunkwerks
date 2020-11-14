@@ -2570,6 +2570,15 @@ public class MechArmor  extends abPlaceable {
     {
         return Config.AllowHarJel();
     }
+    
+    public boolean AllowOmni()
+    {
+        return Config.AllowOmni();
+    }
+    
+    public boolean IsOmnimech(){
+        return Owner.IsOmnimech();
+    }
 
     public boolean HasHarjelMod() {
         List<LocationIndex> hj2 = Owner.GetLoadout().FindIndexesByName("HarJel II");

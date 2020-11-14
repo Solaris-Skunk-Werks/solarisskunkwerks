@@ -161,4 +161,8 @@ public class stArmorISLF implements ifArmor, ifState {
     public boolean AllowHarJel(){
         return true;
     }
+    
+    public boolean AllowOmni(){
+        return true;
+    }
 }

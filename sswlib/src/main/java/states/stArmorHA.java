@@ -151,4 +151,8 @@ public class stArmorHA implements ifArmor, ifState {
     public boolean AllowHarJel(){
         return false;
     }
+    
+    public boolean AllowOmni(){
+        return false;
+    }
 }

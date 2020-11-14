@@ -12867,6 +12867,13 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             tbpMainTabPane.setSelectedComponent( pnlCriticals );
             return;
         }
+        
+        // 2020-10-19 Omnis can't have Hardened Armor, but we wrote this generic
+        // in case later other armor types com along
+        if (!CurMech.GetArmor().AllowOmni()){
+            Media.Messager( this, "Omnimechs are not allowed to have " + CurMech.GetArmor().ActualName());
+            return;
+        }
 
         int choice = javax.swing.JOptionPane.showConfirmDialog( this,
             "Are you sure you want to lock the chassis?\nAll items in the base " +
