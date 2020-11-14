@@ -846,6 +846,11 @@ public class CVArmor extends abPlaceable {
         // armor is always roll again, so no armoring
         return false;
     }
+    
+    public boolean AllowOmni()
+    {
+        return Config.AllowOmni();
+    }
 
     public String ActualName() {
         return Config.ActualName();

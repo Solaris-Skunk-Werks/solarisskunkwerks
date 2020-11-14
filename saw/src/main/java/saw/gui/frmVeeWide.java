@@ -8837,6 +8837,13 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         // currently testing right now.
         SaveOmniFluffInfo();
         String VariantName = "";
+        
+        // 2020-11-13 Omnis can't have Hardened Armor, but we wrote this generic
+        // in case later other armor types come along
+        if (!CurVee.GetArmor().AllowOmni()){
+            Media.Messager( this, "Omnivees are not allowed to have " + CurVee.GetArmor().ActualName());
+            return;
+        }
 
         int choice = javax.swing.JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to lock the chassis?\nAll items in the base "
