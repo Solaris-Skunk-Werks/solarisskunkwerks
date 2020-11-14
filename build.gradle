@@ -3,7 +3,7 @@ apply plugin: 'java'
 allprojects {
     version '0.7.5'
     ext {
-        release='SNAPSHOT'
+        release='Stable'
     }
     jar {
         onlyIf { !sourceSets.main.allSource.files.isEmpty() }

@@ -26,3 +26,16 @@ You can download the newest version, and join our development discord through ou
 * SSW now enforces Nuclear/Fusion engines when equipment requires them.
 * Added Beagle Active Probe (@Maelwys).
 * Added Prototype Guardian ECM Suite (@Maelwys).
+* Fixed a bug that allowed Omnis to have Hardened Armor.
+* Added Gauss Prototypes (@Maelwys)
+* Added RISC Viral Jammers (@Maelwys)
+* Adjust Prototype AC Ammo BV
+* Update RHS to match the errata'd calculation of a bonus == ceil(NumHS * 0.4) instead of ceil(baseDissipation * 1.4)
+* Update Pentagon Rocket Launchers BV
+* Make PPC Capacitor available for both IS and Clan.
+* Fixed Armord equipment BV calculation
+* Check for Armored Turrets in BV calcs and give turret full BV for front/rear arcs
+* Fix ammo in front legs of quad BV
+* Fix TSM and Melee BV
+* Update Chain Whip Damage Add to 3
+* BV calcs properly sort by BV (highest first) then heat (lowest first)
