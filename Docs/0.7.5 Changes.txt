@@ -26,3 +26,11 @@ You can download the newest version, and join our development discord through ou
 * SSW now enforces Nuclear/Fusion engines when equipment requires them.
 * Added Beagle Active Probe (@Maelwys).
 * Added Prototype Guardian ECM Suite (@Maelwys).
+* Fixed BV issues related to weapon sorting.
+* Added `TripleStrengthMyomerAffectsBV` to physical weapons to account for TSM in BV calculations.
+* Fixed incorrect ammo explosion BV penalty affecting quad mechs.
+* SSW now accounts for armored turrets in BV calculations.
+* Fixed incorrect BV multipliers for armored equipment.
+* Updated various equipment BVs to reflect errata.
+* Omnimechs are now properly restricted from equipping certain types of hardened armor.
+* Implemented Gauss Prototypes and RISC Viral Jammers (@Maelwys)
