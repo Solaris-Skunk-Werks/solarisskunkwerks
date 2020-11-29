@@ -39,7 +39,7 @@ jobs:
     # Resolve version name for release archive
     #
     - name: Generate name for archive
-      run: echo ::set-env name=SSW_VERSION::$(ls ./build/release)
+      run: echo "SSW_VERSION=$(ls ./build/release)" >> $GITHUB_ENV
 
     #
     # Upload release distribution zipfile
