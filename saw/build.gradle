@@ -45,6 +45,7 @@ task writeProperties(type: WriteProperties) {
     outputFile "${buildDir}/resources/main/saw/build.properties"
     property 'version', version
     property 'release', release
+    property 'rev', rev
 }
 
 task copyDependencies {

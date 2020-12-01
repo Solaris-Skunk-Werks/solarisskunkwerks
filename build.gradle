@@ -1,9 +1,16 @@
-apply plugin: 'java'
+//apply plugin: 'java'
+//apply plugin: 'com.palantir.git-version version 0.12.3'
+
+plugins {
+    id 'java'
+    id 'com.palantir.git-version' version '0.12.3'
+}
 
 allprojects {
     version '0.7.5'
     ext {
         release='SNAPSHOT'
+        rev=versionDetails().gitHash
     }
     jar {
         onlyIf { !sourceSets.main.allSource.files.isEmpty() }
