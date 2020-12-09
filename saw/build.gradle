@@ -17,6 +17,11 @@ application {
     mainClassName = 'saw.Main'
 }
 
+tasks.withType(JavaCompile) {
+    options.compilerArgs << '-Xlint:deprecation'
+    options.deprecation = true
+}
+
 jar {
     manifest.attributes (
             'Main-Class' : 'saw.Main',

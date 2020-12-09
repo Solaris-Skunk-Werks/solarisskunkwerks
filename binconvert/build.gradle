@@ -7,6 +7,11 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
+tasks.withType(JavaCompile) {
+    options.compilerArgs << '-Xlint:deprecation'
+    options.deprecation = true
+}
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile project(':sswlib')

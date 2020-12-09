@@ -8,6 +8,11 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
+tasks.withType(JavaCompile) {
+    options.compilerArgs << '-Xlint:deprecation'
+    options.deprecation = true
+}
+
 dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'org.apache.commons:commons-csv:1.8'
