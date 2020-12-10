@@ -91,3 +91,9 @@ gradle-app.setting
 */Data/
 # End of https://www.gitignore.io/api/gradle,intellij
 Logs/
+
+# VSCode Adds
+.classpath
+.project
+.settings
+bin/
