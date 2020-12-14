@@ -49,8 +49,7 @@ public class dlgOmnis extends javax.swing.JDialog {
         this(parent, modal);
 
         for (int i=0; i < m.Configurations.size(); i++) {
-            UnitListData l = (UnitListData) m.Configurations.get(i);
-            cboVariants.addItem(l.getConfig());
+            cboVariants.addItem(m.Configurations.get(i).getConfig());
         }
     }
 

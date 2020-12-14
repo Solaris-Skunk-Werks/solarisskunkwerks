@@ -56,7 +56,7 @@ public abstract class abUnitData implements ifUnitData {
     boolean Omni = false;
     String basePath = "",
            filename = "";
-    public ArrayList<String> Configurations = new ArrayList<String>();
+    public ArrayList<abUnitData> Configurations = new ArrayList<abUnitData>();
     public BattleForceStats bfstat = new BattleForceStats();
 
     // Not used in this or child classes
