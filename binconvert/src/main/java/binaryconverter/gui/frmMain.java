@@ -24,6 +24,8 @@ import javax.swing.JTextPane;
 public class frmMain
   extends JFrame
 {
+  private static final long serialVersionUID = -6506576790071457388L;
+
   private JButton btnCancel;
   private JButton btnConvert;
   private JButton btnJson;
@@ -34,9 +36,9 @@ public class frmMain
   private JPanel jPanel1;
   private JPanel jPanel2;
   private JPanel jPanel3;
-  
+
   public frmMain() { initComponents(); }
-  
+
   private JPanel jPanel4;
   private JScrollPane jScrollPane1;
   private JRadioButton rdoAmmo;
@@ -46,7 +48,7 @@ public class frmMain
   private JRadioButton rdoWeapons;
   private JTextPane txtLog;
   private JTextField txtSource;
-  
+
   private void initComponents() {
     this.grpType = new ButtonGroup();
     this.jPanel1 = new JPanel();
@@ -67,18 +69,18 @@ public class frmMain
     this.rdoEquipment = new JRadioButton();
     this.rdoAmmo = new JRadioButton();
     this.rdoQuirks = new JRadioButton();
-    
+
     setDefaultCloseOperation(3);
     getContentPane().setLayout(new GridBagLayout());
-    
+
     this.jLabel1.setText("Source File:");
     this.jPanel1.add(this.jLabel1);
-    
+
     this.txtSource.setEditable(false);
     this.txtSource.setMinimumSize(new Dimension(20, 20));
     this.txtSource.setPreferredSize(new Dimension(20, 20));
     this.jPanel1.add(this.txtSource);
-    
+
     this.btnSetSource.setText("...");
     this.btnSetSource.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent evt) {
@@ -86,7 +88,7 @@ public class frmMain
           }
         });
     this.jPanel1.add(this.btnSetSource);
-    
+
     getContentPane().add(this.jPanel1, new GridBagConstraints());
 
     this.btnJson.setText("JSON");
@@ -96,7 +98,7 @@ public class frmMain
       }
     });
     this.jPanel2.add(this.btnJson);
-    
+
     this.btnConvert.setText("Convert");
     this.btnConvert.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent evt) {
@@ -104,7 +106,7 @@ public class frmMain
           }
         });
     this.jPanel2.add(this.btnConvert);
-    
+
     this.btnCancel.setText("Quit");
     this.btnCancel.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent evt) {
@@ -112,68 +114,68 @@ public class frmMain
           }
         });
     this.jPanel2.add(this.btnCancel);
-    
+
     GridBagConstraints gridBagConstraints = new GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 3;
     gridBagConstraints.anchor = 13;
     getContentPane().add(this.jPanel2, gridBagConstraints);
-    
+
     this.jPanel3.setLayout(new GridBagLayout());
-    
+
     this.jLabel2.setText("Logs");
     gridBagConstraints = new GridBagConstraints();
     gridBagConstraints.anchor = 17;
     this.jPanel3.add(this.jLabel2, gridBagConstraints);
-    
+
     this.txtLog.setMinimumSize(new Dimension(20, 20));
     this.txtLog.setPreferredSize(new Dimension(200, 200));
     this.jScrollPane1.setViewportView(this.txtLog);
-    
+
     gridBagConstraints = new GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 1;
     this.jPanel3.add(this.jScrollPane1, gridBagConstraints);
-    
+
     gridBagConstraints = new GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 2;
     gridBagConstraints.fill = 2;
     gridBagConstraints.insets = new Insets(4, 0, 0, 0);
     getContentPane().add(this.jPanel3, gridBagConstraints);
-    
+
     this.jPanel4.setLayout(new BoxLayout(this.jPanel4, 3));
-    
+
     this.grpType.add(this.rdoWeapons);
     this.rdoWeapons.setSelected(true);
     this.rdoWeapons.setText("Weapons File");
     this.jPanel4.add(this.rdoWeapons);
-    
+
     this.grpType.add(this.rdoPhysicals);
     this.rdoPhysicals.setText("Physical Weapons");
     this.jPanel4.add(this.rdoPhysicals);
-    
+
     this.grpType.add(this.rdoEquipment);
     this.rdoEquipment.setText("Equipment");
     this.jPanel4.add(this.rdoEquipment);
-    
+
     this.grpType.add(this.rdoAmmo);
     this.rdoAmmo.setText("Ammunition File");
     this.jPanel4.add(this.rdoAmmo);
-    
+
     this.grpType.add(this.rdoQuirks);
     this.rdoQuirks.setText("Quirks");
     this.jPanel4.add(this.rdoQuirks);
-    
+
     gridBagConstraints = new GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 1;
     gridBagConstraints.anchor = 17;
     getContentPane().add(this.jPanel4, gridBagConstraints);
-    
+
     pack();
   }
-  
+
   private void btnSetSourceActionPerformed(ActionEvent evt) {
     Media media = new Media();
     File file = media.SelectFile("", "csv,dat", "Select");
@@ -193,7 +195,7 @@ public class frmMain
     }
     this.txtSource.setText(name);
   }
-  
+
   private void btnConvertActionPerformed(ActionEvent evt) {
     if (!txtSource.getText().endsWith(".csv")) {
       Media.Messager("Binary Conversion can only work with semicolon-delimited files.\nPlease choose an appropriate CSV file.");
@@ -211,7 +213,7 @@ public class frmMain
       bc.ConvertAmmunitionCSVtoBin(this.txtSource.getText(), this.txtSource.getText().replace(".csv", ".dat"), ";");
     } else if (this.rdoQuirks.isSelected()) {
       bc.ConvertQuirksCSVtoBin(this.txtSource.getText(), this.txtSource.getText().replace(".csv", ".dat"), ";");
-    } 
+    }
     this.txtLog.setText(bc.GetMessages());
   }
 
