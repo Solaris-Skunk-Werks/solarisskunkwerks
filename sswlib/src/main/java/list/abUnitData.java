@@ -56,11 +56,12 @@ public abstract class abUnitData implements ifUnitData {
     boolean Omni = false;
     String basePath = "",
            filename = "";
-    public ArrayList Configurations = new ArrayList();
+    public ArrayList<String> Configurations = new ArrayList<String>();
     public BattleForceStats bfstat = new BattleForceStats();
-    private String[] indexFields = new String[]{"Name", "Model", "Level", "Era",
-    "Tech", "Source", "Tonnage", "Year", "BV", "Cost", "Filename", "Type",
-    "Motive", "Info", "Config"};
+
+    // Not used in this or child classes
+    // private String[] indexFields = new String[]{"Name", "Model", "Level", "Era", "Tech", "Source", "Tonnage", "Year", "BV", "Cost", "Filename", "Type","Motive", "Info", "Config"};
+
     static final int name = 0,
                 model = 1,
                 configuration = 2,
@@ -246,7 +247,7 @@ public abstract class abUnitData implements ifUnitData {
     public void setBattleForceStats( BattleForceStats stat ) {
         this.bfstat = stat;
     }
-    
+
     public BattleForceStats getBattleForceStats() {
         if ( bfstat.getName().isEmpty() ) bfstat.setName(getFullName());
         return bfstat;
