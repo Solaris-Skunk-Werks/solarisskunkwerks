@@ -33,23 +33,29 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import components.AvailableCode;
-import components.CombatVehicle;
+// import components.CombatVehicle;
 import components.Equipment;
 import components.abPlaceable;
 import components.EquipmentCollection;
 
 public class EquipmentListRenderer extends DefaultListCellRenderer {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5019499364200237551L;
+
     private ifVeeForm Parent;
-    private CombatVehicle CurVee;
+    // private CombatVehicle CurVee; // Variable Not Used.
+
     private abPlaceable a = null;
 
     public EquipmentListRenderer( ifVeeForm v ) {
         Parent = v;
     }
 
-    @Override
+    @Override                               // What kind of element gets passed into the list?
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus) {
-        JLabel label = (JLabel)super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
+        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
         String Text = "";
         if( value instanceof abPlaceable ) {
             a = (abPlaceable) value;
