@@ -36,6 +36,11 @@ import components.*;
 import filehandlers.FileCommon;
 
 public class EquipmentSelectedRenderer extends DefaultListCellRenderer {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7036001042258389350L;
+
     private ifVeeForm Parent;
     private abPlaceable a = null;
 
@@ -43,7 +48,7 @@ public class EquipmentSelectedRenderer extends DefaultListCellRenderer {
         Parent = v;
     }
 
-    @Override
+    @Override                           // What kind of type gets passed into the list?
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus) {
         JLabel label = (JLabel)super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
         String Text = "";
