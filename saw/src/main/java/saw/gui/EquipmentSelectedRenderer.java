@@ -48,8 +48,8 @@ public class EquipmentSelectedRenderer extends DefaultListCellRenderer {
         Parent = v;
     }
 
-    @Override                           // What kind of type gets passed into the list?
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus) {
+    @Override
+    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean hasFocus) {
         JLabel label = (JLabel)super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
         String Text = "";
         if( value instanceof abPlaceable ) {
