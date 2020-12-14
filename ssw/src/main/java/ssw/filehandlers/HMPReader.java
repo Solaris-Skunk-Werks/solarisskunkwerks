@@ -118,7 +118,7 @@ public class HMPReader {
         int IntStrucTechBase = TechBase;
         int EngineTechBase = TechBase;
         int HSTechBase = TechBase;
-        int PhysicalWeaponTechBase = TechBase;
+        int PhysicalWeaponTechBase = TechBase; // Used to read forward bytes in the file.
         int EnhanceTechBase = TechBase;
         int TCTechBase = TechBase;
         int ArmorTechBase = TechBase;
@@ -135,7 +135,7 @@ public class HMPReader {
             // whether the specific equipment exists on the mech or not.
             EngineTechBase = readUnsignedShort(FR);
             HSTechBase = readUnsignedShort(FR);
-            PhysicalWeaponTechBase = readUnsignedShort(FR);
+            PhysicalWeaponTechBase = readUnsignedShort(FR); // Used to read forward bytes in the file.
             EnhanceTechBase = readUnsignedShort(FR);
             TCTechBase = readUnsignedShort(FR);
             ArmorTechBase = readUnsignedShort(FR);
