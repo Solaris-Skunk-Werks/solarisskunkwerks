@@ -432,6 +432,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         RefreshInternalPoints();
         SetLoadoutArrays();
         SetWeaponChoosers();
+        quirks = CurMech.GetQuirks();
         cmbInternalType.setSelectedItem( SSWConstants.DEFAULT_CHASSIS );
         cmbEngineType.setSelectedItem( SSWConstants.DEFAULT_ENGINE );
         cmbGyroType.setSelectedItem( SSWConstants.DEFAULT_GYRO );
