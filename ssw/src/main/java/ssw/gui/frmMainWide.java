@@ -114,7 +114,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     private Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
     // ImageIcon FluffImage = Utils.createImageIcon( SSWConstants.NO_IMAGE );
     public DataFactory data;
-    public ArrayList<Quirk> quirks = new ArrayList<Quirk>();
+    public ArrayList<Quirk> quirks;
 
     private dlgPrintBatchMechs BatchWindow = null;
     private ImageTracker imageTracker = new ImageTracker();
@@ -143,6 +143,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         CurMech = new Mech( Prefs );
         ArmorTons = new VSetArmorTonnage( Prefs );
         Mechrender = new MechLoadoutRenderer( this );
+        quirks = CurMech.GetQuirks();
 
         // added for easy checking
         PPCCapAC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
@@ -432,7 +433,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         RefreshInternalPoints();
         SetLoadoutArrays();
         SetWeaponChoosers();
-        quirks = CurMech.GetQuirks();
         cmbInternalType.setSelectedItem( SSWConstants.DEFAULT_CHASSIS );
         cmbEngineType.setSelectedItem( SSWConstants.DEFAULT_ENGINE );
         cmbGyroType.setSelectedItem( SSWConstants.DEFAULT_GYRO );
