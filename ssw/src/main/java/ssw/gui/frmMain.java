@@ -129,7 +129,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
     // ImageIcon FluffImage = Utils.createImageIcon( SSWConstants.NO_IMAGE );
     public DataFactory data;
-    public ArrayList<Quirk> quirks = new ArrayList<Quirk>();
+    public ArrayList<Quirk> quirks;
 
     private dlgPrintBatchMechs BatchWindow = null;
     private ImageTracker imageTracker = new ImageTracker();
@@ -157,6 +157,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         CurMech = new Mech( Prefs );
         ArmorTons = new VSetArmorTonnage( Prefs );
         Mechrender = new MechLoadoutRenderer( this );
+        quirks = CurMech.GetQuirks();
 
         // added for easy checking
         PPCCapAC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
