@@ -44,7 +44,7 @@ public class TWNavalPoints implements ifPrintPoints {
         new Point( 174, 200 ), //sht
         new Point( 188, 200 ), //med
         new Point( 206, 200 ) }; //lng
-    
+
     private final static Point[] DataPoints = {
         new Point( 32, 104 ), //MechName
         new Point( 58, 129 ), //WALKMP = 1,
@@ -61,7 +61,7 @@ public class TWNavalPoints implements ifPrintPoints {
         new Point( 497, 592 ), //HEATSINK_NUMBER = 12
         new Point( 511, 592 ), //HEATSINK_DISSIPATION = 13
         new Point( 522, 699 ),
-        new Point( 522, 713 ), 
+        new Point( 522, 713 ),
         new Point( 142, 354 ), //MAX_HEAT = 16
         new Point( 438, 26 ), //TOTAL_ARMOR = 17
         new Point( 122, 708 ),  //STATS = 18;
@@ -69,7 +69,7 @@ public class TWNavalPoints implements ifPrintPoints {
         new Point( 62, 162 ),   // Engine Type = 20
         new Point( 35, 373 )    // AMMO = 21
     };
-    
+
     private final static Point[] ArmorInfo = {
         new Point( 468, 40 ), // Front
         new Point( 372, 305 ), // left
@@ -81,9 +81,9 @@ public class TWNavalPoints implements ifPrintPoints {
         new Point( 0, 0 ), // body
     };
     //</editor-fold>
-    
+
     public Point[] GetArmorFrontPoints() {
-        ArrayList<Point> Points = new ArrayList<Point>();
+        // ArrayList<Point> Points = new ArrayList<Point>(); // Not Being Used
         ArrayList<PIPRow> Rows = new ArrayList<PIPRow>();
         Rows.add(new PIPRow(new Point(453,56), 6, 8, 8));
         Rows.add(new PIPRow(new Point(445,64), 8, 8, 8));
@@ -94,12 +94,12 @@ public class TWNavalPoints implements ifPrintPoints {
         Rows.add(new PIPRow(new Point(413,104), 16, 8, 8));
         Rows.add(new PIPRow(new Point(405,112), 18, 8, 8));
         Rows.add(new PIPRow(new Point(405,120), 18, 8, 8));
-        
+
         return PIPRow.RenderRows(Rows);
     }
 
     public Point[] GetArmorLeftPoints() {
-        ArrayList<Point> Points = new ArrayList<Point>();
+        // ArrayList<Point> Points = new ArrayList<Point>(); // Not Being Used
         ArrayList<PIPRow> Rows = new ArrayList<PIPRow>();
         Point starting = new Point(394, 156);
         Rows.add(new PIPRow(new Point( 395, 140), 1, 9, 8));
@@ -116,12 +116,12 @@ public class TWNavalPoints implements ifPrintPoints {
         Rows.add(new PIPRow(new Point( 411, starting.y+(8*5)), 2, 9, 8));
         Rows.add(new PIPRow(new Point( 411, starting.y+(8*6)), 2, 9, 8));
         Rows.add(new PIPRow(new Point( 411, starting.y+(8*7)), 2, 9, 8));
-        
+
         return PIPRow.RenderRows(Rows);
     }
 
     public Point[] GetArmorRightPoints() {
-        ArrayList<Point> Points = new ArrayList<Point>();
+        // ArrayList<Point> Points = new ArrayList<Point>(); // Not Being Used
         ArrayList<PIPRow> Rows = new ArrayList<PIPRow>();
         Point starting = new Point(394, 156);
         Rows.add(new PIPRow(new Point( 553, 140), 1, -9, 8));
@@ -138,12 +138,12 @@ public class TWNavalPoints implements ifPrintPoints {
         Rows.add(new PIPRow(new Point( 537, starting.y+(8*5)), 2, -9, 8));
         Rows.add(new PIPRow(new Point( 537, starting.y+(8*6)), 2, -9, 8));
         Rows.add(new PIPRow(new Point( 537, starting.y+(8*7)), 2, -9, 8));
-        
+
         return PIPRow.RenderRows(Rows);
     }
 
     public Point[] GetArmorRearPoints() {
-        ArrayList<Point> Points = new ArrayList<Point>();
+        // ArrayList<Point> Points = new ArrayList<Point>(); // Not Being Used
         ArrayList<PIPRow> Rows = new ArrayList<PIPRow>();
         Point starting = new Point(437, 530);
         for (int i = 0; i < 5; i++) {
@@ -160,12 +160,12 @@ public class TWNavalPoints implements ifPrintPoints {
             Rows.add(new PIPRow(new Point( starting.x, starting.y+8), 6, 8, 8));
             starting = new Point( starting.x, starting.y+8);
         }
-        
+
         return PIPRow.RenderRows(Rows);
     }
 
     public Point[] GetArmorTurretPoints() {
-        ArrayList<Point> Points = new ArrayList<Point>();
+        // ArrayList<Point> Points = new ArrayList<Point>(); // Not Being Used
         ArrayList<PIPRow> Rows = new ArrayList<PIPRow>();
         Point starting = new Point(438, 275);
         Point offset = new Point(8, 8);
@@ -178,7 +178,7 @@ public class TWNavalPoints implements ifPrintPoints {
             Rows.add(new PIPRow(new Point(starting.x, starting.y), 10, offset.x, offset.y));
             starting.setLocation(starting.x, starting.y+offset.y);
         }
-        
+
         return PIPRow.RenderRows(Rows);
     }
 
@@ -209,7 +209,7 @@ public class TWNavalPoints implements ifPrintPoints {
     public Point GetImageBounds() {
         return new Point( 175, 123 );
     }
-    
+
     public Point GetLogoImageLoc() {
         return new Point( 331, 195 );
     }
@@ -283,7 +283,7 @@ public class TWNavalPoints implements ifPrintPoints {
     public Point[] GetInternalRotorPoints() {
         return PIPRow.RenderRows(new ArrayList<PIPRow>());
     }
-    
+
     //<editor-fold desc="Mech Info">
     public Point[] GetCritHDPoints() {
         throw new UnsupportedOperationException("Not supported yet.");
