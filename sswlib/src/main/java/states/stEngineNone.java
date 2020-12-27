@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package states;
 
-import common.CommonTools;
+// import common.CommonTools;
 import components.AvailableCode;
 import components.Engine;
 import components.Mech;
@@ -65,15 +65,15 @@ public class stEngineNone implements ifEngine, ifState {
     public double GetTonnage( int Rating, boolean fractional ) {
         return 0;
     }
-    
+
     public int GetCTCrits() {
         return 0;
     }
-    
+
     public int GetSideTorsoCrits() {
         return 0;
     }
-    
+
     public int NumCTBlocks() {
         return 0;
     }
@@ -117,7 +117,7 @@ public class stEngineNone implements ifEngine, ifState {
     public double GetCost( int MechTonnage, int Rating ) {
         return 0;
     }
-    
+
     public AvailableCode GetAvailability() {
         if( Owner.GetRating() > 400 ) { return LARGE_AC; }
         return AC;
@@ -130,7 +130,7 @@ public class stEngineNone implements ifEngine, ifState {
     public double GetBVMult() {
         return 0.0f;
     }
-    
+
     public boolean IsFusion() {
         return false;
     }
@@ -145,18 +145,24 @@ public class stEngineNone implements ifEngine, ifState {
         return 0;
     }
 
+    /*
+     * Not Used Locally
     private int GetIndex( int Rating ) {
         return 0;
     }
+    */
 
+    /*
+     * Not used locally
     private int GetBFIndex( int tonnage ) {
         return 0;
     }
+    */
 
     public int GetBFStructure( int tonnage ) {
         return 0;
     }
-    
+
     public int MaxMovementHeat() {
         return 0;
     }
