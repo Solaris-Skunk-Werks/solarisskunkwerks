@@ -1136,10 +1136,10 @@ public class HTMLWriter {
             }
 
             // sort the weapons by BV
-            Object[] o = CurVee.SortWeapons( ret, false );
+            ArrayList<abPlaceable> o = CurVee.SortWeapons( ret, false );
             ret.clear();
-            for( int i = 0; i < o.length; i++ ) {
-                ret.add( o[i] );
+            for( int i = 0; i < o.size(); i++ ) {
+                ret.add( o.get(i) );
             }
 
             // now add any extra equipment to the end of the list.

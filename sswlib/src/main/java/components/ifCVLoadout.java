@@ -57,8 +57,8 @@ public interface ifCVLoadout {
     public boolean QueueContains( abPlaceable p );
     public EquipmentCollection GetCollection( abPlaceable p );
     public ArrayList GetQueue();
-    public ArrayList GetNonCore();
-    public ArrayList GetEquipment();
+    public ArrayList<abPlaceable> GetNonCore();
+    public ArrayList<abPlaceable> GetEquipment();
     public boolean UsingTC();
     public TargetingComputer GetTC();
     public void FullUnallocate();
@@ -127,7 +127,7 @@ public interface ifCVLoadout {
     public void SetRearTurret( Turret t );
     public void SetSponsonTurretLeft(SponsonTurret t);
     public void SetSponsonTurretRight(SponsonTurret t);
-    public ArrayList GetMechMods();
+    public ArrayList<MechModifier> GetMechMods();
     public boolean CanUseClanCASE();
     public boolean IsUsingClanCASE();
     public void SetClanCASE( boolean b );

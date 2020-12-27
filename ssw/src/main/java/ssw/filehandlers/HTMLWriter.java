@@ -1164,10 +1164,10 @@ public class HTMLWriter {
             }
 
             // sort the weapons by BV
-            Object[] o = CurMech.SortWeapons( ret, false );
+            ArrayList<abPlaceable> o = CurMech.SortWeapons( ret, false );
             ret.clear();
-            for( int i = 0; i < o.length; i++ ) {
-                ret.add( o[i] );
+            for( int i = 0; i < o.size(); i++ ) {
+                ret.add( o.get(i) );
             }
 
             // now add any extra equipment to the end of the list.
@@ -1612,11 +1612,11 @@ public class HTMLWriter {
 
     private String GetHeatSinkLine() {
         String retval = "";
-                 
+
         int extraDHS = 0;
         boolean isProto = CurMech.GetHeatSinks().IsProtoDHS();
         ArrayList equipment = CurMech.GetLoadout().GetEquipment();
-        
+
         for (int i = 0; i < equipment.size(); i++){
             if (equipment.get(i) instanceof EquipmentProtoSuccWarsDoubleHeatSink){
                 extraDHS += 1;
@@ -1624,20 +1624,20 @@ public class HTMLWriter {
                 extraDHS += 1;
             }
         }
-        
+
         if (isProto || extraDHS != 0){
             int numberOfHS = CurMech.GetHeatSinks().GetNumHS();
             int internalHS = CurMech.GetHeatSinks().InternalHeatSinks();
             int singles;
             int doubles;
             if (isProto)
-            {            
+            {
                 singles = numberOfHS < internalHS ? numberOfHS : internalHS;
                 doubles = (numberOfHS - singles) + extraDHS;
             } else {
                 singles = numberOfHS;
                 doubles = extraDHS;
-            }  
+            }
             retval =  singles + " + " + doubles + "(" + CurMech.GetHeatSinks().TotalDissipation() + ")";
         } else if( CurMech.GetHeatSinks().IsDouble() ) {
             retval = CurMech.GetHeatSinks().GetNumHS() + " (" + CurMech.GetHeatSinks().TotalDissipation() + ")";
