@@ -180,7 +180,7 @@ public interface ifMechLoadout {
 
     public int[] FindInstances(abPlaceable p);
 
-    public ArrayList FindIndexes(abPlaceable p);
+    public ArrayList<LocationIndex> FindIndexes(abPlaceable p);
 
     public List<LocationIndex> FindIndexesByName(String n);
 
