@@ -524,10 +524,10 @@ public class CostBVBreakdown {
     private String GetEquipmentCostLines() {
         // returns a block of lines for the cost breakdown
         String retval = "";
-        ArrayList v = CurMech.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> v = CurMech.GetLoadout().GetNonCore();
         abPlaceable a;
         for (int i = 0; i < v.size(); i++) {
-            a = (abPlaceable) v.get(i);
+            a = v.get(i);
             if (a instanceof RangedWeapon) {
                 if (((RangedWeapon) a).IsUsingFCS()) {
                     retval += String.format("%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f",
@@ -692,13 +692,13 @@ public class CostBVBreakdown {
 
     public String PrintNonHeatEquipBV() {
         // return the BV of all offensive equipment
-        ArrayList v = CurMech.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> v = CurMech.GetLoadout().GetNonCore();
         abPlaceable a = null;
         String retval = "";
 
         for (int i = 0; i < v.size(); i++) {
             if (!(v.get(i) instanceof ifWeapon)) {
-                a = ((abPlaceable) v.get(i));
+                a = v.get(i);
                 retval += String.format("%1$-71s %2$,8.2f", "    -> " + a.CritName(), a.GetOffensiveBV()) + NL;
             }
         }
@@ -706,8 +706,7 @@ public class CostBVBreakdown {
     }
 
     public String PrintHeatAdjustedWeaponBV() {
-        ArrayList<abPlaceable> v = CurMech.GetLoadout().GetNonCore(),
-                               wep = new ArrayList<abPlaceable>();
+        ArrayList<abPlaceable> v = CurMech.GetLoadout().GetNonCore(), wep = new ArrayList<abPlaceable>();
         double foreBV = 0.0, rearBV = 0.0;
         boolean UseRear = false, TC = CurMech.UsingTC(), UseAESMod = false, Robotic = CurMech.UsingRoboticCockpit();
         String retval = "";
@@ -896,12 +895,12 @@ public class CostBVBreakdown {
     }
 
     private boolean HasBonusFromCP() {
-        ArrayList v = CurMech.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> v = CurMech.GetLoadout().GetNonCore();
         abPlaceable a;
         if (CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL) {
             // check for coolant pods
             for (int i = 0; i < v.size(); i++) {
-                a = (abPlaceable) v.get(i);
+                a = v.get(i);
                 if (a instanceof Equipment) {
                     if (((Equipment) a).LookupName().equals("Coolant Pod")) {
                         return true;
@@ -915,13 +914,13 @@ public class CostBVBreakdown {
     private int GetBonusFromCP() {
         int BonusFromCP, retval = 0;
         int NumHS = CurMech.GetHeatSinks().GetNumHS(), MaxHSBonus = NumHS * 2, NumPods = 0;
-        ArrayList v = CurMech.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> v = CurMech.GetLoadout().GetNonCore();
         abPlaceable a;
 
         if (CurMech.GetRulesLevel() == AvailableCode.RULES_EXPERIMENTAL) {
             // check for coolant pods
             for (int i = 0; i < v.size(); i++) {
-                a = (abPlaceable) v.get(i);
+                a = v.get(i);
                 if (a instanceof Equipment) {
                     if (((Equipment) a).LookupName().equals("Coolant Pod")) {
                         NumPods++;
