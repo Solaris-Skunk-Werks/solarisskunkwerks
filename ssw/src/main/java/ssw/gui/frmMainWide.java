@@ -2746,7 +2746,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
     }
     
-        private void ResetQuirks() {
+    private void ResetQuirks() {
         quirks = new ArrayList<>();
         tblQuirks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
