@@ -2704,6 +2704,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         RefreshInfoPane();
         SetWeaponChoosers();
         ResetAmmo();
+        ResetQuirks();
 
         Overview.StartNewDocument();
         Capabilities.StartNewDocument();
@@ -2743,6 +2744,21 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             ItemInfo.setLocationRelativeTo( this );
             ItemInfo.setVisible( true );
         }
+    }
+    
+        private void ResetQuirks() {
+        quirks = new ArrayList<>();
+        tblQuirks.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Cost", "Quirk"
+            }));
+        CurMech.SetQuirks(quirks);
     }
 
     private void UnallocateAll() {

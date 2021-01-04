@@ -2845,6 +2845,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             new String [] {
                 "Cost", "Quirk"
             }));
+        CurMech.SetQuirks(quirks);
     }
 
     private void UnallocateAll() {
