@@ -29,6 +29,10 @@ public class JsonReader {
     public ArrayList ReadAllAmmo(Path f) throws Exception {
         Type collectionType = new TypeToken<Map<String, Ammunition>>(){}.getType();
         Map<String, Ammunition> map = gson.fromJson(new FileReader(f.toString()), collectionType);
+        // hack to get the lot size showing correctly in the GUI
+        for (Ammunition ammo : map.values()) {
+            ammo.SetLotSize(ammo.GetMaxLotSize());
+        }
         return new ArrayList<>(map.values());
 
     }
