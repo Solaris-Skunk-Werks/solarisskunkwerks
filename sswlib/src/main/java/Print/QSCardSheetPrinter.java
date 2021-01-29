@@ -30,7 +30,7 @@ public class QSCardSheetPrinter implements Printable {
     private Image RecordSheet,
                     Unit,
                     Charts;
-    private int UnitSize = 4,
+    private int // UnitSize = 4, // Variable not used
                 UnitImageWidth = 164, //187,
                 UnitImageHeight = 234,
                 ElementLimit = 2;
