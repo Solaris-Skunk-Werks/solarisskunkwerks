@@ -39,7 +39,7 @@ public class dlgQuirks extends javax.swing.JDialog {
      */
     private static final long serialVersionUID = 4195412552625797884L;
     private DataFactory list;
-    private ArrayList<Quirk> existingQuirks;
+    // private ArrayList<Quirk> existingQuirks; // Not used
     private tbQuirks tblQ;
 
     /** Creates new form dlgQuirks */
@@ -48,7 +48,7 @@ public class dlgQuirks extends javax.swing.JDialog {
         initComponents();
 
         list = quirks;
-        existingQuirks = currentQuirks;
+        // existingQuirks = currentQuirks;
 
         tblQ = new tbQuirks(currentQuirks);
         tblQ.setupTable(tblSelected);

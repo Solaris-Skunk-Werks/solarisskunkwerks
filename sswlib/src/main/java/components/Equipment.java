@@ -248,10 +248,10 @@ public class Equipment extends abPlaceable {
         String retval = CritName();
         if ( retval.length() >= 20 )
             retval = ChatName();
-        
+
         return retval;
     }
-    
+
     public String LookupName() {
         if( Rear ) {
             return "(R) " + LookupName;
@@ -500,7 +500,7 @@ public class Equipment extends abPlaceable {
     public double GetMaxTons() {
         return MaxTons;
     }
-    
+
     public void SetMaxTons(double Max) {
         MaxTons = Max;
     }
@@ -527,7 +527,7 @@ public class Equipment extends abPlaceable {
             throw new Exception(CritName() + " may only be mounted on a quad 'Mech.");
         }
         if( MaxAllowed > 0 ) {
-            ArrayList currentEquipment = m.GetLoadout().GetEquipment();
+            ArrayList<abPlaceable> currentEquipment = m.GetLoadout().GetEquipment();
             for (int i = 0, c = 0; i < currentEquipment.size(); ++i) {
                 abPlaceable currentItem = (abPlaceable) currentEquipment.get(i);
                 if (currentItem.LookupName().equals(LookupName)) {
@@ -546,7 +546,7 @@ public class Equipment extends abPlaceable {
     public boolean Validate( CombatVehicle v )
     {
         if( MaxAllowed > 0 ) {
-            ArrayList currentEquipment = v.GetLoadout().GetEquipment();
+            ArrayList<abPlaceable> currentEquipment = v.GetLoadout().GetEquipment();
             for( int i = 0, c = 0; i < currentEquipment.size(); ++i ) {
                 abPlaceable currentItem = (abPlaceable) currentEquipment.get( i );
                 if( currentItem.LookupName().equals( LookupName ) ) {

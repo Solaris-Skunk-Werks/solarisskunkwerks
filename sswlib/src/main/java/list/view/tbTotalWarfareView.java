@@ -27,9 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package list.view;
 
-import java.text.NumberFormat;
 import javax.swing.SortOrder;
-import javax.swing.text.NumberFormatter;
 import list.UnitList;
 import list.UnitListData;
 

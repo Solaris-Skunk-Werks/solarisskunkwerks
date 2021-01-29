@@ -33,12 +33,11 @@ import Force.*;
 import filehandlers.ImageTracker;
 import java.awt.print.*;
 import java.util.ArrayList;
-import java.util.Vector;
 
 public final class BFBPrinter {
     private String jobName = "Battletech Force Balancer",
                     Title = "Battletech Force Balancer";
-    private Boolean useDialog = true;
+    // private Boolean useDialog = true; // Not Used
     private ForceListPrinter sheet;
     private PrintDeclaration chits;
     private ArrayList<Force> forces = new ArrayList<Force>();
@@ -100,7 +99,7 @@ public final class BFBPrinter {
     }
 
     public void Print( boolean useDialog ) {
-        this.useDialog = useDialog;
+        // this.useDialog = useDialog;
         Print();
     }
 

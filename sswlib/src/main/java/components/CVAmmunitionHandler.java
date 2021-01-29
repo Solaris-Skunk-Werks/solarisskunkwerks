@@ -32,10 +32,10 @@ import java.util.Vector;
 
 public class CVAmmunitionHandler {
     private Vector<Ammunition> Ammo = new Vector<Ammunition>();
-    private CVLoadout Owner;
+    // private CVLoadout Owner; // Not Used
 
     public CVAmmunitionHandler( CVLoadout c ) {
-        Owner = c;
+       // Owner = c;
     }
 
     public void AddAmmo( Ammunition a ) {
