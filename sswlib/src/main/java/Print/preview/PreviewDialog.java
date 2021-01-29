@@ -51,13 +51,13 @@ public class PreviewDialog extends JDialog implements ActionListener {
         getContentPane().add(scrollPane, "Center");
         JToolBar toolbar = new JToolBar();
 
-        //toolbar.setRollover(true);
+        // toolbar.setRollover(true);
         getContentPane().add(toolbar, "North");
-        toolbar.add(getButton( "Back", "Back24.gif", new BrowseAction(preview, -1)));
-        toolbar.add(getButton( "Forward", "Forward24.gif", new BrowseAction(preview, 1)));
+        toolbar.add(getButton("Back", "Back24.gif", new BrowseAction(preview, -1)));
+        toolbar.add(getButton("Forward", "Forward24.gif", new BrowseAction(preview, 1)));
         toolbar.add(new JToolBar.Separator());
-        toolbar.add(getButton( "Zoom +", "ZoomIn24.gif", new ZoomAction(preview, DEFAULT_ZOOM_FACTOR_STEP)));
-        toolbar.add(getButton( "Zoom -", "ZoomOut24.gif", new ZoomAction(preview, -DEFAULT_ZOOM_FACTOR_STEP)));
+        toolbar.add(getButton("Zoom +", "ZoomIn24.gif", new ZoomAction(preview, DEFAULT_ZOOM_FACTOR_STEP)));
+        toolbar.add(getButton("Zoom -", "ZoomOut24.gif", new ZoomAction(preview, -DEFAULT_ZOOM_FACTOR_STEP)));
         toolbar.add(new JToolBar.Separator());
         JPanel dialog = new JPanel();
         dialog.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -91,12 +91,14 @@ public class PreviewDialog extends JDialog implements ActionListener {
         }
 
         public Printable getPrintable(int index) {
-            if (index >= pages) throw new IndexOutOfBoundsException();
+            if (index >= pages)
+                throw new IndexOutOfBoundsException();
             return printable;
         }
 
         public PageFormat getPageFormat(int index) {
-            if (index >= pages) throw new IndexOutOfBoundsException();
+            if (index >= pages)
+                throw new IndexOutOfBoundsException();
             return format;
         }
 
@@ -105,13 +107,19 @@ public class PreviewDialog extends JDialog implements ActionListener {
         private int pages;
     }
 
+    /*
+    // Not used locally
     private JButton getButton(String iconName) {
         return getButton(null, iconName, null);
     }
+    */
 
+    /*
+    // Not used locally
     private JButton getButton(String iconName, AbstractAction action) {
         return getButton(null, iconName, action);
     }
+    */
 
     private JButton getButton(String name, String iconName, AbstractAction action) {
         JButton result = null;
@@ -120,8 +128,10 @@ public class PreviewDialog extends JDialog implements ActionListener {
         icon = new ImageIcon(getClass().getResource("/ssw/BFB.Images/" + iconName));
 
         if (action != null) {
-            if (icon != null) action.putValue(Action.SMALL_ICON, icon);
-            if (name != null) action.putValue(Action.NAME, name);
+            if (icon != null)
+                action.putValue(Action.SMALL_ICON, icon);
+            if (name != null)
+                action.putValue(Action.NAME, name);
             result = new JButton(action);
         } else
             result = new JButton(name, icon);
@@ -129,9 +139,12 @@ public class PreviewDialog extends JDialog implements ActionListener {
         return result;
     }
 
+    /*
+    // Not used locally
     private void Refresh() {
         this.repaint();
     }
+    */
 
     public void actionPerformed(ActionEvent e) {
         dispose();
