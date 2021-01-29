@@ -60,70 +60,72 @@ public class HMPReader {
 
     public String GetErrors() {
         String retval = "";
-        for( int i = 0; i < Errors.size(); i++ ) {
-            retval += ((ErrorReport) Errors.get( i )).GetErrorReport() + "\n\n";
+        for (int i = 0; i < Errors.size(); i++) {
+            retval += ((ErrorReport) Errors.get(i)).GetErrorReport() + "\n\n";
         }
         return retval;
     }
 
-    public Mech GetMech( String filename, boolean SuppressOmniNotification ) throws Exception {
+    public Mech GetMech(String filename, boolean SuppressOmniNotification) throws Exception {
         Errors.clear();
         byte[] buffer = new byte[5];
         int[] Armor = new int[11];
 
         DataInputStream FR;
-        FR = new DataInputStream( new FileInputStream( filename ) );
+        FR = new DataInputStream(new FileInputStream(filename));
 
         Mech m = new Mech();
 
         // From the MegaMek code, this seems to be "padding".
         FR.read(buffer);
-        readUnsignedByte( FR );
+        readUnsignedByte(FR);
         FR.skipBytes(11);
 
-        m.SetTonnage( readUnsignedShort(FR) );
+        m.SetTonnage(readUnsignedShort(FR));
 
         buffer = new byte[readUnsignedShort(FR)];
         FR.read(buffer);
-        m.SetName( new String( buffer ) );
+        m.SetName(new String(buffer));
 
         buffer = new byte[readUnsignedShort(FR)];
         FR.read(buffer);
-        m.SetModel( new String(buffer) );
+        m.SetModel(new String(buffer));
 
-        // we're never going to restrict HMP 'Mechs since HMP didn't have that functionality
-        m.SetYear( readUnsignedShort(FR), false );
+        // we're never going to restrict HMP 'Mechs since HMP didn't have that
+        // functionality
+        m.SetYear(readUnsignedShort(FR), false);
 
         int Rules = readUnsignedShort(FR);
-        if( Rules < 0 || Rules > 3 ) {
-            throw new Exception( "Invalid Rules Level: " + Rules );
+        if (Rules < 0 || Rules > 3) {
+            throw new Exception("Invalid Rules Level: " + Rules);
         } else {
-            m.SetRulesLevel( DecodeRulesLevel( Rules ) );
+            m.SetRulesLevel(DecodeRulesLevel(Rules));
         }
 
         // more padding
         readUnsignedInt(FR);
         FR.skipBytes(22);
         int bf2Length = readUnsignedShort(FR);
-        FR.skipBytes( bf2Length );
+        FR.skipBytes(bf2Length);
 
         int TechBase = readUnsignedShort(FR);
-        if( TechBase < 0 || TechBase > 2 ) {
-            throw new Exception( "Invalid Tech Base: " + TechBase );
+        if (TechBase < 0 || TechBase > 2) {
+            throw new Exception("Invalid Tech Base: " + TechBase);
         }
 
-        // Per the MegaMek code, this gets hairy.  I'm keeping their comments
+        // Per the MegaMek code, this gets hairy. I'm keeping their comments
         // Fortunately the TechBase from HMP lines up with SSW's internal
         boolean OmniMech = false;
         int IntStrucTechBase = TechBase;
         int EngineTechBase = TechBase;
         int HSTechBase = TechBase;
-        int PhysicalWeaponTechBase = TechBase; // Used to read forward bytes in the file.
+        // int PhysicalWeaponTechBase = TechBase; // Used to read forward bytes in the
+        // file.
         int EnhanceTechBase = TechBase;
         int TCTechBase = TechBase;
         int ArmorTechBase = TechBase;
 
-        if ( TechBase == AvailableCode.TECH_BOTH ) {
+        if (TechBase == AvailableCode.TECH_BOTH) {
             // We've got a total of 7 shorts here.
             // The first one is the mech's "base" chassis technology type.
             // It also doubles as the internal structure type.
@@ -135,14 +137,16 @@ public class HMPReader {
             // whether the specific equipment exists on the mech or not.
             EngineTechBase = readUnsignedShort(FR);
             HSTechBase = readUnsignedShort(FR);
-            PhysicalWeaponTechBase = readUnsignedShort(FR); // Used to read forward bytes in the file.
+            // PhysicalWeaponTechBase = readUnsignedShort(FR); // Used to read forward bytes
+            // in the file.
+            readUnsignedShort(FR); // PhysicalWeaponTechBase without the variable storage that isn't used
             EnhanceTechBase = readUnsignedShort(FR);
             TCTechBase = readUnsignedShort(FR);
             ArmorTechBase = readUnsignedShort(FR);
         }
 
         int MotiveType = readUnsignedShort(FR);
-        switch( MotiveType ) {
+        switch (MotiveType) {
             case 0:
                 // biped
                 m.SetBiped();
@@ -153,31 +157,33 @@ public class HMPReader {
                 break;
             case 2:
                 // LAM
-                throw new Exception( "SSW does not support and cannot load LAMs." );
+                throw new Exception("SSW does not support and cannot load LAMs.");
             case 3:
                 // armless
-                throw new Exception( "SSW does not support and cannot load armless 'Mechs." );
+                throw new Exception("SSW does not support and cannot load armless 'Mechs.");
             case 10:
                 // biped omnimech
-                if( ! SuppressOmniNotification ) {
-                    Errors.add( new ErrorReport( "This 'Mech is flagged as an OmniMech but only one loadout will be created." ) );
+                if (!SuppressOmniNotification) {
+                    Errors.add(new ErrorReport(
+                            "This 'Mech is flagged as an OmniMech but only one loadout will be created."));
                 }
                 OmniMech = true;
                 m.SetBiped();
                 break;
             case 11:
                 // quad omnimech
-                if( ! SuppressOmniNotification ) {
-                    Errors.add( new ErrorReport( "This 'Mech is flagged as an OmniMech but only one loadout will be created." ) );
+                if (!SuppressOmniNotification) {
+                    Errors.add(new ErrorReport(
+                            "This 'Mech is flagged as an OmniMech but only one loadout will be created."));
                 }
                 OmniMech = true;
                 m.SetQuad();
                 break;
             default:
-                throw new Exception( "Invalid Motive Type: " + MotiveType );
+                throw new Exception("Invalid Motive Type: " + MotiveType);
         }
 
-        switch( TechBase ) {
+        switch (TechBase) {
             case AvailableCode.TECH_INNER_SPHERE:
                 m.SetInnerSphere();
                 break;
@@ -188,45 +194,45 @@ public class HMPReader {
                 m.SetMixed();
                 break;
             default:
-                throw new Exception( "Could not find a suitable Tech Base." );
+                throw new Exception("Could not find a suitable Tech Base.");
         }
 
         // we'll have to jury-rig the era since it isn't in the HMP files.
         // this is important for the BFB.GUI
-        if( m.GetYear() < 2443 ) {
-            m.SetEra( AvailableCode.ERA_STAR_LEAGUE );
-        } else if( m.GetYear() >= 2443 && m.GetYear() < 2801 ) {
-            m.SetEra( AvailableCode.ERA_STAR_LEAGUE );
-        } else if( m.GetYear() >= 2801 && m.GetYear() < 3051 ) {
-            m.SetEra( AvailableCode.ERA_SUCCESSION );
-        } else if( m.GetYear() >= 3051 && m.GetYear() < 3132 ) {
-            m.SetEra( AvailableCode.ERA_CLAN_INVASION );
+        if (m.GetYear() < 2443) {
+            m.SetEra(AvailableCode.ERA_STAR_LEAGUE);
+        } else if (m.GetYear() >= 2443 && m.GetYear() < 2801) {
+            m.SetEra(AvailableCode.ERA_STAR_LEAGUE);
+        } else if (m.GetYear() >= 2801 && m.GetYear() < 3051) {
+            m.SetEra(AvailableCode.ERA_SUCCESSION);
+        } else if (m.GetYear() >= 3051 && m.GetYear() < 3132) {
+            m.SetEra(AvailableCode.ERA_CLAN_INVASION);
         } else {
-            m.SetEra( AvailableCode.ERA_DARK_AGES );
+            m.SetEra(AvailableCode.ERA_DARK_AGES);
         }
-        if( m.GetTechbase() == AvailableCode.TECH_CLAN ) {
-            if( m.GetEra() < AvailableCode.ERA_SUCCESSION ) {
-                m.SetEra( AvailableCode.ERA_SUCCESSION );
+        if (m.GetTechbase() == AvailableCode.TECH_CLAN) {
+            if (m.GetEra() < AvailableCode.ERA_SUCCESSION) {
+                m.SetEra(AvailableCode.ERA_SUCCESSION);
             } else {
-                m.SetEra( AvailableCode.ERA_CLAN_INVASION );
+                m.SetEra(AvailableCode.ERA_CLAN_INVASION);
             }
         }
         // although we can still have a mixed chassis earlier, most designs will
         // be Clan Invasion era
-        if( m.GetTechbase() == AvailableCode.TECH_BOTH ) {
-            if( m.GetEra() < AvailableCode.ERA_CLAN_INVASION ) {
-                m.SetEra( AvailableCode.ERA_CLAN_INVASION );
+        if (m.GetTechbase() == AvailableCode.TECH_BOTH) {
+            if (m.GetEra() < AvailableCode.ERA_CLAN_INVASION) {
+                m.SetEra(AvailableCode.ERA_CLAN_INVASION);
             }
         }
 
         int IntStrucType = readUnsignedShort(FR);
         String IntStrucLookup = "";
-        switch( IntStrucType ) {
+        switch (IntStrucType) {
             case 0:
                 IntStrucLookup = "Standard Structure";
                 break;
             case 1:
-                IntStrucLookup = BuildLookupName( "Endo-Steel", m.GetTechbase(), IntStrucTechBase );
+                IntStrucLookup = BuildLookupName("Endo-Steel", m.GetTechbase(), IntStrucTechBase);
                 break;
             case 2:
                 IntStrucLookup = "Composite Structure";
@@ -238,21 +244,21 @@ public class HMPReader {
                 IntStrucLookup = "Industrial Structure";
                 break;
             default:
-                throw new Exception( "Invalid Internal Structure Type: " + IntStrucType );
+                throw new Exception("Invalid Internal Structure Type: " + IntStrucType);
         }
 
         int EngineRating = readUnsignedShort(FR);
         int EngineType = readUnsignedShort(FR);
         String EngineLookup = "";
-        switch( EngineType ) {
+        switch (EngineType) {
             case 0:
                 EngineLookup = "Fusion Engine";
                 break;
             case 1:
-                EngineLookup = BuildLookupName( "XL Engine", m.GetTechbase(), EngineTechBase );
+                EngineLookup = BuildLookupName("XL Engine", m.GetTechbase(), EngineTechBase);
                 break;
             case 2:
-                EngineLookup = BuildLookupName( "XXL Engine", m.GetTechbase(), EngineTechBase );
+                EngineLookup = BuildLookupName("XXL Engine", m.GetTechbase(), EngineTechBase);
                 break;
             case 3:
                 EngineLookup = "Compact Fusion Engine";
@@ -264,7 +270,7 @@ public class HMPReader {
                 EngineLookup = "Light Fusion Engine";
                 break;
             default:
-                throw new Exception( "Invalid Engine Type: " + EngineType );
+                throw new Exception("Invalid Engine Type: " + EngineType);
         }
 
         // this used to get the walking MP but we already have the engine rating
@@ -274,35 +280,35 @@ public class HMPReader {
         int NumHS = readUnsignedShort(FR);
         int HSType = readUnsignedShort(FR);
         String HSLookup = "";
-        switch( HSType ) {
+        switch (HSType) {
             case 0:
                 HSLookup = "Single Heat Sink";
                 break;
             case 1:
-                HSLookup = BuildLookupName( "Double Heat Sink", m.GetTechbase(), HSTechBase );
+                HSLookup = BuildLookupName("Double Heat Sink", m.GetTechbase(), HSTechBase);
                 break;
             case 2:
-                throw new Exception( "SSW does not yet support Compact Heat Sinks." );
+                throw new Exception("SSW does not yet support Compact Heat Sinks.");
             case 3:
-                throw new Exception( "SSW does not yet support Laser Heat Sinks." );
+                throw new Exception("SSW does not yet support Laser Heat Sinks.");
             default:
-                throw new Exception( "Invalid Heat Sink Type: " + HSType );
+                throw new Exception("Invalid Heat Sink Type: " + HSType);
         }
 
         String ArmorLookup = "";
         int ArmorType = readUnsignedShort(FR);
-        switch( ArmorType ) {
+        switch (ArmorType) {
             case 0:
                 ArmorLookup = "Standard Armor";
                 break;
             case 1:
-                ArmorLookup = BuildLookupName( "Ferro-Fibrous", m.GetTechbase(), ArmorTechBase );
+                ArmorLookup = BuildLookupName("Ferro-Fibrous", m.GetTechbase(), ArmorTechBase);
                 break;
             case 2:
-                ArmorLookup = BuildLookupName( "Reactive Armor", m.GetTechbase(), ArmorTechBase );
+                ArmorLookup = BuildLookupName("Reactive Armor", m.GetTechbase(), ArmorTechBase);
                 break;
             case 3:
-                ArmorLookup = BuildLookupName( "Laser-Reflective", m.GetTechbase(), ArmorTechBase );
+                ArmorLookup = BuildLookupName("Laser-Reflective", m.GetTechbase(), ArmorTechBase);
                 break;
             case 4:
                 ArmorLookup = "Hardened Armor";
@@ -314,12 +320,12 @@ public class HMPReader {
                 ArmorLookup = "Heavy Ferro-Fibrous";
                 break;
             case 7:
-                throw new Exception( "SSW does not support pre-Tactical Operations Patchwork Armor." );
+                throw new Exception("SSW does not support pre-Tactical Operations Patchwork Armor.");
             case 8:
                 ArmorLookup = "Stealth Armor";
                 break;
             default:
-                throw new Exception( "Invalid Armor Type: " + ArmorType );
+                throw new Exception("Invalid Armor Type: " + ArmorType);
         }
 
         FR.skipBytes(2); // ??
@@ -337,7 +343,7 @@ public class HMPReader {
         // WTF is this doing here???
         int JJType = readUnsignedShort(FR);
         String JJLookup = "";
-        switch( JJType ) {
+        switch (JJType) {
             case 0:
                 JJLookup = "Standard Jump Jet";
                 break;
@@ -345,7 +351,7 @@ public class HMPReader {
                 JJLookup = "Improved Jump Jet";
                 break;
             default:
-                throw new Exception( "Invalid Jump Jet Type: " + JJType );
+                throw new Exception("Invalid Jump Jet Type: " + JJType);
         }
 
         // back to armor I guess...
@@ -361,7 +367,7 @@ public class HMPReader {
 
         int EnhanceType = readUnsignedShort(FR);
         String EnhanceLookup = "";
-        switch( EnhanceType ) {
+        switch (EnhanceType) {
             case 0:
                 EnhanceLookup = "No Enhancement";
                 break;
@@ -369,13 +375,13 @@ public class HMPReader {
                 EnhanceLookup = "TSM";
                 break;
             case 2:
-                EnhanceLookup = BuildLookupName( "MASC", m.GetTechbase(), EnhanceTechBase );
+                EnhanceLookup = BuildLookupName("MASC", m.GetTechbase(), EnhanceTechBase);
                 break;
             case 3:
                 EnhanceLookup = "Industrial TSM";
                 break;
             default:
-                throw new Exception( "Invalid Physical Enhancement Type: " + EnhanceType );
+                throw new Exception("Invalid Physical Enhancement Type: " + EnhanceType);
         }
 
         int WeaponCount = readUnsignedShort(FR);
@@ -388,34 +394,34 @@ public class HMPReader {
 
             FR.skipBytes(2); // ??
 
-            // manufacturer name.  Shame it's in a number format instead of a String
+            // manufacturer name. Shame it's in a number format instead of a String
             FR.skipBytes(readUnsignedShort(FR));
         }
 
         // now get the criticals
         long[][] Criticals = new long[8][12];
-        for( int i = 0; i < 12; i++ ) {
+        for (int i = 0; i < 12; i++) {
             Criticals[LocationIndex.MECH_LOC_LA][i] = readUnsignedInt(FR);
         }
-        for( int i = 0; i < 12; i++ ) {
+        for (int i = 0; i < 12; i++) {
             Criticals[LocationIndex.MECH_LOC_LT][i] = readUnsignedInt(FR);
         }
-        for( int i = 0; i < 12; i++ ) {
+        for (int i = 0; i < 12; i++) {
             Criticals[LocationIndex.MECH_LOC_LL][i] = readUnsignedInt(FR);
         }
-        for( int i = 0; i < 12; i++ ) {
+        for (int i = 0; i < 12; i++) {
             Criticals[LocationIndex.MECH_LOC_RA][i] = readUnsignedInt(FR);
         }
-        for( int i = 0; i < 12; i++ ) {
+        for (int i = 0; i < 12; i++) {
             Criticals[LocationIndex.MECH_LOC_RT][i] = readUnsignedInt(FR);
         }
-        for( int i = 0; i < 12; i++ ) {
+        for (int i = 0; i < 12; i++) {
             Criticals[LocationIndex.MECH_LOC_RL][i] = readUnsignedInt(FR);
         }
-        for( int i = 0; i < 12; i++ ) {
+        for (int i = 0; i < 12; i++) {
             Criticals[LocationIndex.MECH_LOC_HD][i] = readUnsignedInt(FR);
         }
-        for( int i = 0; i < 12; i++ ) {
+        for (int i = 0; i < 12; i++) {
             Criticals[LocationIndex.MECH_LOC_CT][i] = readUnsignedInt(FR);
         }
 
@@ -428,32 +434,32 @@ public class HMPReader {
         buffer = new byte[readUnsignedShort(FR)];
         FR.read(buffer);
         Fluff = new String(buffer);
-        m.SetOverview( Fluff );
+        m.SetOverview(Fluff);
 
         buffer = new byte[readUnsignedShort(FR)];
         FR.read(buffer);
         Fluff = new String(buffer);
-        m.SetCapabilities( Fluff );
+        m.SetCapabilities(Fluff);
 
         buffer = new byte[readUnsignedShort(FR)];
         FR.read(buffer);
         Fluff = new String(buffer);
-        m.SetHistory( Fluff );
+        m.SetHistory(Fluff);
 
         buffer = new byte[readUnsignedShort(FR)];
         FR.read(buffer);
         Fluff = new String(buffer);
-        m.SetVariants( Fluff );
+        m.SetVariants(Fluff);
 
         buffer = new byte[readUnsignedShort(FR)];
         FR.read(buffer);
         Fluff = new String(buffer);
-        m.SetNotables( Fluff );
+        m.SetNotables(Fluff);
 
         buffer = new byte[readUnsignedShort(FR)];
         FR.read(buffer);
         Fluff = new String(buffer);
-        m.SetDeployment( Fluff );
+        m.SetDeployment(Fluff);
 
         // non printing notes
         // could probably put these in Additional, but I'm not sure of the file format.
@@ -464,55 +470,59 @@ public class HMPReader {
         buffer = new byte[readUnsignedShort(FR)];
         FR.read(buffer);
         Fluff += "\n" + new String(buffer);
-        m.SetAdditional( Fluff );
+        m.SetAdditional(Fluff);
 
-        FR.skipBytes(8); // mechs with supercharger have an 01 in here, but we can identify from the criticals  // Sounds good, MM dudes.
+        FR.skipBytes(8); // mechs with supercharger have an 01 in here, but we can identify from the
+                         // criticals // Sounds good, MM dudes.
 
         String GyroLookup = "Standard Gyro";
         String CockpitLookup = "Standard Cockpit";
         boolean CommandConsole = false;
 
         // Get cockpit and gyro type, if any.
-        if( m.GetRulesLevel() > AvailableCode.RULES_ADVANCED ) {
+        if (m.GetRulesLevel() > AvailableCode.RULES_ADVANCED) {
             int GyroType = readUnsignedShort(FR);
             int CockpitType = readUnsignedShort(FR);
 
-            switch( GyroType ) {
+            switch (GyroType) {
                 case 0:
                     GyroLookup = "Standard Gyro";
                     break;
                 case 1:
-                    if( m.GetTechbase() == AvailableCode.TECH_CLAN ) {
+                    if (m.GetTechbase() == AvailableCode.TECH_CLAN) {
                         // this is not allowed under current rules.
                         GyroLookup = "Standard Gyro";
-                        Errors.add( new ErrorReport( "An XL Gyro was specified for a Clan TechBase, which is not allowed under current rules.\nUse either Mixed or Inner Sphere Tech.  A Standard Gyro was used instead." ) );
+                        Errors.add(new ErrorReport(
+                                "An XL Gyro was specified for a Clan TechBase, which is not allowed under current rules.\nUse either Mixed or Inner Sphere Tech.  A Standard Gyro was used instead."));
                     } else {
                         GyroLookup = "Extra-Light Gyro";
                     }
                     break;
                 case 2:
-                    if( m.GetTechbase() == AvailableCode.TECH_CLAN ) {
+                    if (m.GetTechbase() == AvailableCode.TECH_CLAN) {
                         // this is not allowed under current rules.
                         GyroLookup = "Standard Gyro";
-                        Errors.add( new ErrorReport( "A Compact Gyro was specified for a Clan TechBase, which is not allowed under current rules.\nUse either Mixed or Inner Sphere Tech.  A Standard Gyro was used instead." ) );
+                        Errors.add(new ErrorReport(
+                                "A Compact Gyro was specified for a Clan TechBase, which is not allowed under current rules.\nUse either Mixed or Inner Sphere Tech.  A Standard Gyro was used instead."));
                     } else {
                         GyroLookup = "Compact Gyro";
                     }
                     break;
                 case 3:
-                    if( m.GetTechbase() == AvailableCode.TECH_CLAN ) {
+                    if (m.GetTechbase() == AvailableCode.TECH_CLAN) {
                         // this is not allowed under current rules.
                         GyroLookup = "Standard Gyro";
-                        Errors.add( new ErrorReport( "A Heavy-Duty Gyro was specified for a Clan TechBase, which is not allowed under current rules.\nUse either Mixed or Inner Sphere Tech.  A Standard Gyro was used instead." ) );
+                        Errors.add(new ErrorReport(
+                                "A Heavy-Duty Gyro was specified for a Clan TechBase, which is not allowed under current rules.\nUse either Mixed or Inner Sphere Tech.  A Standard Gyro was used instead."));
                     } else {
                         GyroLookup = "Heavy-Duty Gyro";
                     }
                     break;
                 default:
-                    throw new Exception( "A non-standard Gyro type was specified: " + GyroType );
+                    throw new Exception("A non-standard Gyro type was specified: " + GyroType);
             }
 
-            switch( CockpitType ) {
+            switch (CockpitType) {
                 case 0:
                     CockpitLookup = "Standard Cockpit";
                     break;
@@ -520,10 +530,11 @@ public class HMPReader {
                     CockpitLookup = "Torso-Mounted Cockpit";
                     break;
                 case 2:
-                    if( m.GetTechbase() == AvailableCode.TECH_CLAN ) {
+                    if (m.GetTechbase() == AvailableCode.TECH_CLAN) {
                         // this is not allowed under current rules.
                         CockpitLookup = "Standard Cockpit";
-                        Errors.add( new ErrorReport( "A Small Cockpit was specified for a Clan TechBase, which is not allowed under Tactical Operations.\nUse either Mixed or Inner Sphere Tech.  A Standard Cockpit was used instead." ) );
+                        Errors.add(new ErrorReport(
+                                "A Small Cockpit was specified for a Clan TechBase, which is not allowed under Tactical Operations.\nUse either Mixed or Inner Sphere Tech.  A Standard Cockpit was used instead."));
                     } else {
                         CockpitLookup = "Small Cockpit";
                     }
@@ -535,12 +546,13 @@ public class HMPReader {
                 case 4:
                     CockpitLookup = "Standard Cockpit";
                     CommandConsole = true;
-                    Errors.add( new ErrorReport( "A Dual Cockpit was specified, which is not supported in SSW.\nThe 'Mech has been set to use a Command Console instead." ) );
+                    Errors.add(new ErrorReport(
+                            "A Dual Cockpit was specified, which is not supported in SSW.\nThe 'Mech has been set to use a Command Console instead."));
                 case 5:
                     CockpitLookup = "Industrial Cockpit";
                     break;
                 default:
-                    throw new Exception( "A non-standard Cockpit type was specified: " + CockpitType );
+                    throw new Exception("A non-standard Cockpit type was specified: " + CockpitType);
             }
         }
 
@@ -548,207 +560,216 @@ public class HMPReader {
         FR.close();
 
         // check for advanced stuff on the 'Mech
-        if( Rules == 2 ) {
-            for( int i = 0; i < 8; i++ ) {
-                for( int j = 0; j < 12; j++ ) {
-                    if( Criticals[i][j] == 0x55 || Criticals[i][j] == 0x71 || Criticals[i][j] == 0xC9 ) {
-                        m.SetRulesLevel( AvailableCode.RULES_ADVANCED );
+        if (Rules == 2) {
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 12; j++) {
+                    if (Criticals[i][j] == 0x55 || Criticals[i][j] == 0x71 || Criticals[i][j] == 0xC9) {
+                        m.SetRulesLevel(AvailableCode.RULES_ADVANCED);
                     }
                 }
             }
         }
 
         // before we go all crazy, figure out our arm actuator situation
-        if( Criticals[LocationIndex.MECH_LOC_LA][3] != 0x04 ) {
+        if (Criticals[LocationIndex.MECH_LOC_LA][3] != 0x04) {
             m.GetActuators().RemoveLeftHand();
         }
-        if( Criticals[LocationIndex.MECH_LOC_LA][2] != 0x03 ) {
+        if (Criticals[LocationIndex.MECH_LOC_LA][2] != 0x03) {
             m.GetActuators().RemoveLeftLowerArm();
         }
-        if( Criticals[LocationIndex.MECH_LOC_RA][3] != 0x04 ) {
+        if (Criticals[LocationIndex.MECH_LOC_RA][3] != 0x04) {
             m.GetActuators().RemoveRightHand();
         }
-        if( Criticals[LocationIndex.MECH_LOC_RA][2] != 0x03 ) {
+        if (Criticals[LocationIndex.MECH_LOC_RA][2] != 0x03) {
             m.GetActuators().RemoveRightLowerArm();
         }
 
         // we need a special check here for Stealth armor, since you can move the
         // crits around
         LocationIndex[] Stealth = null;
-        if( ArmorLookup.equals( "Stealth Armor" ) ) {
+        if (ArmorLookup.equals("Stealth Armor")) {
             long test = 0x23;
             Vector<LocationIndex> STLocs = new Vector<LocationIndex>();
-            for( int i = 0; i < 8; i++ ) {
-                for( int j = 0; j < 12; j++ ) {
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 12; j++) {
                     // for every instance of Stealth Armor, mark the location
-                    if( Criticals[i][j] == test ) {
-                        STLocs.add( new LocationIndex( j, i, 1 ) );
+                    if (Criticals[i][j] == test) {
+                        STLocs.add(new LocationIndex(j, i, 1));
                         Criticals[i][j] = 0x00;
                     }
                 }
             }
             // Convert to an array so we can load it into the visitor later
             Stealth = new LocationIndex[STLocs.size()];
-            for( int i = 0; i < STLocs.size(); i++ ) {
-                Stealth[i] = (LocationIndex) STLocs.get( i );
+            for (int i = 0; i < STLocs.size(); i++) {
+                Stealth[i] = (LocationIndex) STLocs.get(i);
             }
         }
 
         // let's check for engine criticals in the side torsos as well
         int LTEngineStart = 0, RTEngineStart = 0;
-        for( int i = 0; i < 12; i++ ) {
-            if( Criticals[LocationIndex.MECH_LOC_LT][i] == 0x0F ) {
+        for (int i = 0; i < 12; i++) {
+            if (Criticals[LocationIndex.MECH_LOC_LT][i] == 0x0F) {
                 LTEngineStart = i;
                 break;
             }
         }
-        for( int i = 0; i < 12; i++ ) {
-            if( Criticals[LocationIndex.MECH_LOC_RT][i] == 0x0F ) {
+        for (int i = 0; i < 12; i++) {
+            if (Criticals[LocationIndex.MECH_LOC_RT][i] == 0x0F) {
                 RTEngineStart = i;
                 break;
             }
         }
-        LocationIndex[] EngineLocs = { new LocationIndex( LTEngineStart, LocationIndex.MECH_LOC_LT, 1 ), new LocationIndex( RTEngineStart, LocationIndex.MECH_LOC_RT, 1 ) };
+        LocationIndex[] EngineLocs = { new LocationIndex(LTEngineStart, LocationIndex.MECH_LOC_LT, 1),
+                new LocationIndex(RTEngineStart, LocationIndex.MECH_LOC_RT, 1) };
 
         // build the 'Mech based on what we've come up with
-        ifVisitor v = m.Lookup( IntStrucLookup );
-        m.Visit( v );
-        v = m.Lookup( EngineLookup );
-        v.LoadLocations( EngineLocs );
-        m.Visit( v );
-        m.SetEngineRating( EngineRating );
-        v = m.Lookup( ArmorLookup );
-        if( ArmorLookup.equals( "Stealth Armor" ) ) {
-            v.LoadLocations( Stealth );
+        ifVisitor v = m.Lookup(IntStrucLookup);
+        m.Visit(v);
+        v = m.Lookup(EngineLookup);
+        v.LoadLocations(EngineLocs);
+        m.Visit(v);
+        m.SetEngineRating(EngineRating);
+        v = m.Lookup(ArmorLookup);
+        if (ArmorLookup.equals("Stealth Armor")) {
+            v.LoadLocations(Stealth);
         }
-        m.Visit( v );
-        v = m.Lookup( GyroLookup );
-        m.Visit( v );
-        v = m.Lookup( CockpitLookup );
-        m.Visit( v );
-        m.SetCommandConsole( CommandConsole );
-        v = m.Lookup( HSLookup );
-        m.Visit( v );
-        m.GetLoadout().GetHeatSinks().SetNumHS( NumHS );
-        v = m.Lookup( EnhanceLookup );
-        m.Visit( v );
-        v = m.Lookup( JJLookup );
-        m.Visit( v );
-        for( int i = 0; i < NumJJ; i++ ) {
+        m.Visit(v);
+        v = m.Lookup(GyroLookup);
+        m.Visit(v);
+        v = m.Lookup(CockpitLookup);
+        m.Visit(v);
+        m.SetCommandConsole(CommandConsole);
+        v = m.Lookup(HSLookup);
+        m.Visit(v);
+        m.GetLoadout().GetHeatSinks().SetNumHS(NumHS);
+        v = m.Lookup(EnhanceLookup);
+        m.Visit(v);
+        v = m.Lookup(JJLookup);
+        m.Visit(v);
+        for (int i = 0; i < NumJJ; i++) {
             m.GetLoadout().GetJumpJets().IncrementNumJJ();
         }
 
         // set the armor
-        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_HD, Armor[LocationIndex.MECH_LOC_HD] );
-        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_CT, Armor[LocationIndex.MECH_LOC_CT] );
-        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_LT, Armor[LocationIndex.MECH_LOC_LT] );
-        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_RT, Armor[LocationIndex.MECH_LOC_RT] );
-        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_LA, Armor[LocationIndex.MECH_LOC_LA] );
-        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_RA, Armor[LocationIndex.MECH_LOC_RA] );
-        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_LL, Armor[LocationIndex.MECH_LOC_LL] );
-        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_RL, Armor[LocationIndex.MECH_LOC_RL] );
-        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_CTR, Armor[LocationIndex.MECH_LOC_CTR] );
-        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_LTR, Armor[LocationIndex.MECH_LOC_LTR] );
-        m.GetArmor().SetArmor( LocationIndex.MECH_LOC_RTR, Armor[LocationIndex.MECH_LOC_RTR] );
+        m.GetArmor().SetArmor(LocationIndex.MECH_LOC_HD, Armor[LocationIndex.MECH_LOC_HD]);
+        m.GetArmor().SetArmor(LocationIndex.MECH_LOC_CT, Armor[LocationIndex.MECH_LOC_CT]);
+        m.GetArmor().SetArmor(LocationIndex.MECH_LOC_LT, Armor[LocationIndex.MECH_LOC_LT]);
+        m.GetArmor().SetArmor(LocationIndex.MECH_LOC_RT, Armor[LocationIndex.MECH_LOC_RT]);
+        m.GetArmor().SetArmor(LocationIndex.MECH_LOC_LA, Armor[LocationIndex.MECH_LOC_LA]);
+        m.GetArmor().SetArmor(LocationIndex.MECH_LOC_RA, Armor[LocationIndex.MECH_LOC_RA]);
+        m.GetArmor().SetArmor(LocationIndex.MECH_LOC_LL, Armor[LocationIndex.MECH_LOC_LL]);
+        m.GetArmor().SetArmor(LocationIndex.MECH_LOC_RL, Armor[LocationIndex.MECH_LOC_RL]);
+        m.GetArmor().SetArmor(LocationIndex.MECH_LOC_CTR, Armor[LocationIndex.MECH_LOC_CTR]);
+        m.GetArmor().SetArmor(LocationIndex.MECH_LOC_LTR, Armor[LocationIndex.MECH_LOC_LTR]);
+        m.GetArmor().SetArmor(LocationIndex.MECH_LOC_RTR, Armor[LocationIndex.MECH_LOC_RTR]);
 
-        // now check for excess armor due to rounding.  This is the newer rules,
+        // now check for excess armor due to rounding. This is the newer rules,
         // we'll simply remove the excess from the CT front.
-        double RoundAV = ( m.GetArmor().GetArmorValue() - 1 ) / ( 8 * m.GetArmor().GetAVMult() );
-        int mid = (int) Math.floor( RoundAV + 0.9999 );
+        double RoundAV = (m.GetArmor().GetArmorValue() - 1) / (8 * m.GetArmor().GetAVMult());
+        int mid = (int) Math.floor(RoundAV + 0.9999);
         RoundAV = mid * 0.5;
-        if( m.GetArmor().GetTonnage() > RoundAV ) {
-            m.GetArmor().SetArmor( LocationIndex.MECH_LOC_CT, m.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CT ) - 1 );
+        if (m.GetArmor().GetTonnage() > RoundAV) {
+            m.GetArmor().SetArmor(LocationIndex.MECH_LOC_CT,
+                    m.GetArmor().GetLocationArmor(LocationIndex.MECH_LOC_CT) - 1);
         }
 
-        // first, let's find all the instances of base chassis items.  Structure first
-        if( m.GetIntStruc().NumCrits() > 0 ) {
+        // first, let's find all the instances of base chassis items. Structure first
+        if (m.GetIntStruc().NumCrits() > 0) {
             // since the only structure that HMP has with more than 1 crit is
             // Endo-Steel, we'll look for it directly.
             long test = 0x14;
             Vector<LocationIndex> ISLocs = new Vector<LocationIndex>();
-            for( int i = 0; i < 8; i++ ) {
-                for( int j = 0; j < 12; j++ ) {
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 12; j++) {
                     // for every instance of Endo-Steel, mark the location
-                    if( Criticals[i][j] == test ) {
-                        ISLocs.add( new LocationIndex( j, i, 1 ) );
+                    if (Criticals[i][j] == test) {
+                        ISLocs.add(new LocationIndex(j, i, 1));
                         Criticals[i][j] = 0x00;
                     }
                 }
             }
             // now allocate the endo-steel
-            for( int i = 0; i < ISLocs.size(); i++ ) {
-                LocationIndex l = (LocationIndex) ISLocs.get( i );
-                m.GetLoadout().AddTo( m.GetIntStruc(), l.Location, l.Index );
+            for (int i = 0; i < ISLocs.size(); i++) {
+                LocationIndex l = (LocationIndex) ISLocs.get(i);
+                m.GetLoadout().AddTo(m.GetIntStruc(), l.Location, l.Index);
             }
         }
 
         // armor next
-        if( m.GetArmor().NumCrits() > 0 &! m.GetArmor().IsStealth() ) {
+        if (m.GetArmor().NumCrits() > 0 & !m.GetArmor().IsStealth()) {
             // find out what kind of armor we have.
             long ArmorNum = 0;
             String test = m.GetArmor().LookupName();
-            if( test.equals( "Ferro-Fibrous" ) ) {
+            if (test.equals("Ferro-Fibrous")) {
                 ArmorNum = 0x15;
-            } else if( test.equals( "Reactive Armor" ) ) {
+            } else if (test.equals("Reactive Armor")) {
                 ArmorNum = 0x1c;
-            } else if( test.equals( "Laser-Reflective" ) ) {
+            } else if (test.equals("Laser-Reflective")) {
                 ArmorNum = 0x1d;
-            } else if( test.equals( "Light Ferro-Fibrous" ) ) {
+            } else if (test.equals("Light Ferro-Fibrous")) {
                 ArmorNum = 0x21;
-            } else if( test.equals( "Heavy Ferro-Fibrous" ) ) {
+            } else if (test.equals("Heavy Ferro-Fibrous")) {
                 ArmorNum = 0x23;
             }
-            if( ArmorNum == 0 ) { throw new Exception( "An armor type with critical spaces was specified but we can't find where to put them.\nLoading aborted." ); }
+            if (ArmorNum == 0) {
+                throw new Exception(
+                        "An armor type with critical spaces was specified but we can't find where to put them.\nLoading aborted.");
+            }
             Vector<LocationIndex> ARLocs = new Vector<LocationIndex>();
-            for( int i = 0; i < 8; i++ ) {
-                for( int j = 0; j < 12; j++ ) {
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 12; j++) {
                     // for every instance of Endo-Steel, mark the location
-                    if( Criticals[i][j] == ArmorNum ) {
-                        ARLocs.add( new LocationIndex( j, i, 1 ) );
+                    if (Criticals[i][j] == ArmorNum) {
+                        ARLocs.add(new LocationIndex(j, i, 1));
                         Criticals[i][j] = 0x00;
                     }
                 }
             }
             // now allocate the armor
-            for( int i = 0; i < ARLocs.size(); i++ ) {
-                LocationIndex l = (LocationIndex) ARLocs.get( i );
-                m.GetLoadout().AddTo( m.GetArmor(), l.Location, l.Index );
+            for (int i = 0; i < ARLocs.size(); i++) {
+                LocationIndex l = (LocationIndex) ARLocs.get(i);
+                m.GetLoadout().AddTo(m.GetArmor(), l.Location, l.Index);
             }
         }
 
         // on to jump jets
-        if( m.GetJumpJets().GetNumJJ() > 0 ) {
+        if (m.GetJumpJets().GetNumJJ() > 0) {
             long test = 0x0B;
             Vector<LocationIndex> JJLocs = new Vector<LocationIndex>();
             boolean improved = m.GetJumpJets().IsImproved();
-            for( int i = 0; i < 8; i++ ) {
-                for( int j = 0; j < 12; j++ ) {
-                    if( Criticals[i][j] == test ) {
-                        JJLocs.add( new LocationIndex( j, i, 1 ) );
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 12; j++) {
+                    if (Criticals[i][j] == test) {
+                        JJLocs.add(new LocationIndex(j, i, 1));
                         Criticals[i][j] = 0x00;
-                        if( improved ) { j++; Criticals[i][j] = 0x00; }
+                        if (improved) {
+                            j++;
+                            Criticals[i][j] = 0x00;
+                        }
                     }
                 }
             }
             JumpJet[] jjList = m.GetJumpJets().GetPlacedJumps();
-            if( JJLocs.size() != jjList.length ) {
-                throw new Exception( "The number of jump jets specified does not match the number allocated.\nLoading aborted." );
+            if (JJLocs.size() != jjList.length) {
+                throw new Exception(
+                        "The number of jump jets specified does not match the number allocated.\nLoading aborted.");
             }
             // now allocate the jump jets
-            for( int i = 0; i < JJLocs.size(); i++ ) {
-                    // place each jump jet
-                LocationIndex l = (LocationIndex) JJLocs.get( i );
-                m.GetLoadout().AddTo( jjList[i], l.Location, l.Index );
+            for (int i = 0; i < JJLocs.size(); i++) {
+                // place each jump jet
+                LocationIndex l = (LocationIndex) JJLocs.get(i);
+                m.GetLoadout().AddTo(jjList[i], l.Location, l.Index);
             }
         }
 
         // heat sinks next
-        if( m.GetHeatSinks().GetPlacedHeatSinks().length > 0 ) {
+        if (m.GetHeatSinks().GetPlacedHeatSinks().length > 0) {
             long test = 0x00;
             int size = 0;
-            if( m.GetHeatSinks().IsDouble() ) {
+            if (m.GetHeatSinks().IsDouble()) {
                 test = 0x0A;
-                if( m.GetHeatSinks().GetTechBase() == AvailableCode.TECH_CLAN ) {
+                if (m.GetHeatSinks().GetTechBase() == AvailableCode.TECH_CLAN) {
                     size = 1;
                 } else {
                     size = 2;
@@ -757,15 +778,15 @@ public class HMPReader {
                 test = 0x09;
             }
             Vector<LocationIndex> HSLocs = new Vector<LocationIndex>();
-            for( int i = 0; i < 8; i++ ) {
-                for( int j = 0; j < 12; j++ ) {
-                    if( Criticals[i][j] == test ) {
-                        HSLocs.add( new LocationIndex( j, i, 1 ) );
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 12; j++) {
+                    if (Criticals[i][j] == test) {
+                        HSLocs.add(new LocationIndex(j, i, 1));
                         Criticals[i][j] = 0x00;
-                        if( size > 0 ) {
-                            Criticals[i][j+1] = 0x00;
-                            if( size > 1 ) {
-                                Criticals[i][j+2] = 0x00;
+                        if (size > 0) {
+                            Criticals[i][j + 1] = 0x00;
+                            if (size > 1) {
+                                Criticals[i][j + 2] = 0x00;
                             }
                         }
                         j += size;
@@ -773,109 +794,117 @@ public class HMPReader {
                 }
             }
             HeatSink[] HSList = m.GetHeatSinks().GetPlacedHeatSinks();
-            if( HSLocs.size() != HSList.length ) {
-                if( OmniMech ) {
-                    throw new Exception( "The number of heat sinks outside the engine does not match the number allocated.\nThis is most likely an issue with fixed heat sinks in an OmniMech loadout.\nSSW does not know how many heat sinks are fixed in the base loadout.\nLoading aborted." );
+            if (HSLocs.size() != HSList.length) {
+                if (OmniMech) {
+                    throw new Exception(
+                            "The number of heat sinks outside the engine does not match the number allocated.\nThis is most likely an issue with fixed heat sinks in an OmniMech loadout.\nSSW does not know how many heat sinks are fixed in the base loadout.\nLoading aborted.");
                 } else {
-                    throw new Exception( "The number of heat sinks outside the engine does not match the number allocated.\nLoading aborted." );
+                    throw new Exception(
+                            "The number of heat sinks outside the engine does not match the number allocated.\nLoading aborted.");
                 }
             }
             // now allocate them
-            for( int i = 0; i < HSLocs.size(); i++ ) {
-                LocationIndex l = (LocationIndex) HSLocs.get( i );
-                m.GetLoadout().AddTo( HSList[i], l.Location, l.Index );
+            for (int i = 0; i < HSLocs.size(); i++) {
+                LocationIndex l = (LocationIndex) HSLocs.get(i);
+                m.GetLoadout().AddTo(HSList[i], l.Location, l.Index);
             }
         }
 
         // see if we have a physical enhancement
-        if( m.GetPhysEnhance().NumCrits() > 0 ) {
+        if (m.GetPhysEnhance().NumCrits() > 0) {
             long test = 0x00;
-            if( m.GetPhysEnhance().Contiguous() ) {
+            if (m.GetPhysEnhance().Contiguous()) {
                 test = 0x17; // MASC
                 boolean found = false;
-                for( int i = 0; i < 8; i ++ ) {
-                    for( int j = 0; j < 12; j++ ) {
-                        if( Criticals[i][j] == test ) {
-                            m.GetLoadout().AddTo( m.GetPhysEnhance(), i, j );
-                            for( int x = j; x < m.GetPhysEnhance().NumCrits() + j; x++ ) {
+                for (int i = 0; i < 8; i++) {
+                    for (int j = 0; j < 12; j++) {
+                        if (Criticals[i][j] == test) {
+                            m.GetLoadout().AddTo(m.GetPhysEnhance(), i, j);
+                            for (int x = j; x < m.GetPhysEnhance().NumCrits() + j; x++) {
                                 Criticals[i][x] = 0x00;
                             }
                             found = true;
                             break;
                         }
                     }
-                    if( found ) { break; }
+                    if (found) {
+                        break;
+                    }
                 }
             } else {
                 test = 0x16; // TSM (of either sort, apparently)
                 Vector<LocationIndex> TSMLocs = new Vector<LocationIndex>();
-                for( int i = 0; i < 8; i++ ) {
-                    for( int j = 0; j < 12; j++ ) {
-                        if( Criticals[i][j] == test ) {
-                            TSMLocs.add( new LocationIndex( j, i, 1 ) );
+                for (int i = 0; i < 8; i++) {
+                    for (int j = 0; j < 12; j++) {
+                        if (Criticals[i][j] == test) {
+                            TSMLocs.add(new LocationIndex(j, i, 1));
                             Criticals[i][j] = 0x00;
                         }
                     }
                 }
-                if( TSMLocs.size() != m.GetPhysEnhance().NumCrits() ) {
-                    throw new Exception( "The number of TSM crits specified does not match the number allocated.\nLoading aborted." );
+                if (TSMLocs.size() != m.GetPhysEnhance().NumCrits()) {
+                    throw new Exception(
+                            "The number of TSM crits specified does not match the number allocated.\nLoading aborted.");
                 }
-                for( int i = 0; i < TSMLocs.size(); i++ ) {
-                    LocationIndex l = (LocationIndex) TSMLocs.get( i );
-                    m.GetLoadout().AddTo( m.GetPhysEnhance(), l.Location, l.Index );
+                for (int i = 0; i < TSMLocs.size(); i++) {
+                    LocationIndex l = (LocationIndex) TSMLocs.get(i);
+                    m.GetLoadout().AddTo(m.GetPhysEnhance(), l.Location, l.Index);
                 }
             }
         }
 
         // figure out if we have any CASE crits to handle
-        for( int i = 0; i < 8; i++ ) {
-            for( int j = 0; j < 12; j++ ) {
-                if( Criticals[i][j] == 0x19 ) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 12; j++) {
+                if (Criticals[i][j] == 0x19) {
                     // IS CASE
-                    switch( i ) {
+                    switch (i) {
                         case LocationIndex.MECH_LOC_CT:
-                            m.GetLoadout().SetCTCASE( true, j );
+                            m.GetLoadout().SetCTCASE(true, j);
                             break;
                         case LocationIndex.MECH_LOC_LT:
-                            m.GetLoadout().SetLTCASE( true, j );
+                            m.GetLoadout().SetLTCASE(true, j);
                             break;
                         case LocationIndex.MECH_LOC_RT:
-                            m.GetLoadout().SetRTCASE( true, j );
+                            m.GetLoadout().SetRTCASE(true, j);
                             break;
                         default:
-                            Errors.add( new ErrorReport( "Inner Sphere CASE was specified for the " + LocationIndex.MechLocs[i] + "\nThis is not allowed and the item will not be added." ) );
+                            Errors.add(new ErrorReport(
+                                    "Inner Sphere CASE was specified for the " + LocationIndex.MechLocs[i]
+                                            + "\nThis is not allowed and the item will not be added."));
                             break;
                     }
                 }
-                if( Criticals[i][j] == 0x26 ) {
+                if (Criticals[i][j] == 0x26) {
                     // CASE II
-                    switch( i ) {
+                    switch (i) {
                         case LocationIndex.MECH_LOC_HD:
-                            m.GetLoadout().SetHDCASEII( true, j, false );
+                            m.GetLoadout().SetHDCASEII(true, j, false);
                             break;
                         case LocationIndex.MECH_LOC_CT:
-                            m.GetLoadout().SetCTCASEII( true, j, false );
+                            m.GetLoadout().SetCTCASEII(true, j, false);
                             break;
                         case LocationIndex.MECH_LOC_LT:
-                            m.GetLoadout().SetLTCASEII( true, j, false );
+                            m.GetLoadout().SetLTCASEII(true, j, false);
                             break;
                         case LocationIndex.MECH_LOC_RT:
-                            m.GetLoadout().SetRTCASEII( true, j, false );
+                            m.GetLoadout().SetRTCASEII(true, j, false);
                             break;
                         case LocationIndex.MECH_LOC_LA:
-                            m.GetLoadout().SetLACASEII( true, j, false );
+                            m.GetLoadout().SetLACASEII(true, j, false);
                             break;
                         case LocationIndex.MECH_LOC_RA:
-                            m.GetLoadout().SetRACASEII( true, j, false );
+                            m.GetLoadout().SetRACASEII(true, j, false);
                             break;
                         case LocationIndex.MECH_LOC_LL:
-                            m.GetLoadout().SetLLCASEII( true, j, false );
+                            m.GetLoadout().SetLLCASEII(true, j, false);
                             break;
                         case LocationIndex.MECH_LOC_RL:
-                            m.GetLoadout().SetRLCASEII( true, j, false );
+                            m.GetLoadout().SetRLCASEII(true, j, false);
                             break;
                         default:
-                            Errors.add( new ErrorReport( "CASE II was specified for an invalid location.\nThe item will not be added." ) );
+                            Errors.add(new ErrorReport(
+                                    "CASE II was specified for an invalid location.\nThe item will not be added."));
                             break;
                     }
                 }
@@ -886,9 +915,9 @@ public class HMPReader {
         int TCLoc = -1;
         int TCIdx = -1;
         boolean HasTC = false;
-        for( int i = 0; i < 8; i++ ) {
-            for( int j = 0; j < 8; j++ ) {
-                if( Criticals[i][j] == 0x12 ) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (Criticals[i][j] == 0x12) {
                     // found the start location.
                     TCLoc = i;
                     TCIdx = j;
@@ -896,28 +925,33 @@ public class HMPReader {
                     break;
                 }
             }
-            if( HasTC ) { break; }
+            if (HasTC) {
+                break;
+            }
         }
 
         // do we have Missile FCS
         boolean HasFCS = false;
-        for( int i = 0; i < 8; i++ ) {
-            for( int j = 0; j < 8; j++ ) {
-                if( Criticals[i][j] == 0x18 ) {
-                    m.SetFCSArtemisIV( true );
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (Criticals[i][j] == 0x18) {
+                    m.SetFCSArtemisIV(true);
                     HasFCS = true;
                     break;
                 }
             }
-            if( HasFCS ) { break; }
+            if (HasFCS) {
+                break;
+            }
         }
 
         // clear out all of the engine, gyro, cockpit, and actuator locations
         // needed for later lookups since we don't load each critical slot
         // independently, we do it per item
-        for( int i = 0; i < 8; i++ ) {
-            for( int j = 0; j < 12; j++ ) {
-                if( Criticals[i][j] > 0x00 && Criticals[i][j] < 0x11 || Criticals[i][j] == 0x12 || Criticals[i][j] == 0x18 || Criticals[i][j] == 0x19 || Criticals[i][j] == 0x26 ) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 12; j++) {
+                if (Criticals[i][j] > 0x00 && Criticals[i][j] < 0x11 || Criticals[i][j] == 0x12
+                        || Criticals[i][j] == 0x18 || Criticals[i][j] == 0x19 || Criticals[i][j] == 0x26) {
                     Criticals[i][j] = 0x00;
                 }
             }
@@ -926,57 +960,61 @@ public class HMPReader {
         // now for equipment.
         // get the secondary hash table for lookups
         Hashtable<Long, String> Other = null;
-        if( IntStrucTechBase == AvailableCode.TECH_CLAN ) {
+        if (IntStrucTechBase == AvailableCode.TECH_CLAN) {
             Other = Clan;
         } else {
             Other = Sphere;
         }
         // now we get to fish through the loadout trying to figure out what
         // equipment this 'Mech has.
-        DataFactory df = new DataFactory( m );
-        for( int i = 0; i < 8; i++ ) {
-            for( int j = 0; j < 12; j++ ) {
-                if( Criticals[i][j] != 0x00 ) {
-                    // transform the lookup number.  we'll also find out if it was rear-mounted
-                    Long lookup = GetLookupNum( Criticals[i][j] );
-                    boolean rear = IsRearMounted( Criticals[i][j] );
+        DataFactory df = new DataFactory(m);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 12; j++) {
+                if (Criticals[i][j] != 0x00) {
+                    // transform the lookup number. we'll also find out if it was rear-mounted
+                    Long lookup = GetLookupNum(Criticals[i][j]);
+                    boolean rear = IsRearMounted(Criticals[i][j]);
                     boolean found = true;
 
                     // for each critical, we'll need to find the appropriate item
                     // if we can't find it, create an error to let the user know
-                    String Name = Common.get( lookup );
-                    if( Name == null ) {
-                        Name = (String) Other.get( lookup );
-                        if( Name == null ) {
+                    String Name = Common.get(lookup);
+                    if (Name == null) {
+                        Name = (String) Other.get(lookup);
+                        if (Name == null) {
                             found = false;
                         }
                     }
 
-                    if( found ) {
+                    if (found) {
                         // fetch the item from the database
-                        if( m.UsingArtemisIV() ) {
-                            if( Name.contains( "@ LRM" ) || Name.contains( "@ SRM" ) ) { Name += " (Artemis IV Capable)"; }
+                        if (m.UsingArtemisIV()) {
+                            if (Name.contains("@ LRM") || Name.contains("@ SRM")) {
+                                Name += " (Artemis IV Capable)";
+                            }
                         }
-                        abPlaceable neweq = df.GetEquipment().GetByName( Name, m );
-                        if( neweq != null ) {
+                        abPlaceable neweq = df.GetEquipment().GetByName(Name, m);
+                        if (neweq != null) {
                             // is the item splittable?
-                            if( neweq.CanSplit() ) {
+                            if (neweq.CanSplit()) {
                                 // if it is splittable, figure out how many criticals are here
                                 int S1Index = j;
                                 int S1Num = 0;
-                                for( int k = j; k < 12; k++ ) {
-                                    if( ( Criticals[i][k] & 0x0000FFFF ) == ( 0x0000FFFF & lookup ) ) { S1Num++; }
+                                for (int k = j; k < 12; k++) {
+                                    if ((Criticals[i][k] & 0x0000FFFF) == (0x0000FFFF & lookup)) {
+                                        S1Num++;
+                                    }
                                 }
                                 // do we need to check adjacent locations?
-                                if( S1Num == neweq.NumCrits() ) {
+                                if (S1Num == neweq.NumCrits()) {
                                     // nope just allocate it
-                                    m.GetLoadout().AddToQueue( neweq );
-                                    m.GetLoadout().AddTo( neweq, i, S1Index );
+                                    m.GetLoadout().AddToQueue(neweq);
+                                    m.GetLoadout().AddTo(neweq, i, S1Index);
                                     Criticals[i][j] = 0x00;
-                                    if( neweq.NumCrits() > 1 ) {
+                                    if (neweq.NumCrits() > 1) {
                                         // we'll need to clear out the rest of the
                                         // criticals so we don't "find" this again
-                                        for( int k = 1; k < neweq.NumCrits(); k++ ) {
+                                        for (int k = 1; k < neweq.NumCrits(); k++) {
                                             Criticals[i][j + k] = 0x00;
                                         }
                                     }
@@ -985,7 +1023,7 @@ public class HMPReader {
                                     int SecondLoc = -1;
                                     int ThirdLoc = -1;
                                     int FourthLoc = -1;
-                                    switch( i ) {
+                                    switch (i) {
                                         case LocationIndex.MECH_LOC_CT:
                                             SecondLoc = LocationIndex.MECH_LOC_LT;
                                             ThirdLoc = LocationIndex.MECH_LOC_RT;
@@ -1014,80 +1052,92 @@ public class HMPReader {
                                             break;
                                     }
                                     // how many locations do we have to check?
-                                    // this whole process is retarded.  Keeping the criticals in a series of arrays
-                                    // is so backwards...  How do you differentiate between two items of the same type?
-                                    // Suppose we'll just have to keep count before we annihalate the item in the Criticals...
+                                    // this whole process is retarded. Keeping the criticals in a series of arrays
+                                    // is so backwards... How do you differentiate between two items of the same
+                                    // type?
+                                    // Suppose we'll just have to keep count before we annihalate the item in the
+                                    // Criticals...
                                     int S2Num = 0;
                                     int S2Index = -1;
                                     int S2Loc = -1;
                                     int NumLeft = neweq.NumCrits() - S1Num;
-                                    if( SecondLoc > 0 ) {
-                                        if( ThirdLoc > 0 ) {
-                                            if( FourthLoc > 0 ) {
+                                    if (SecondLoc > 0) {
+                                        if (ThirdLoc > 0) {
+                                            if (FourthLoc > 0) {
                                                 // Check all three locations
-                                                for( int k = 0; k < 12; k++ ) {
-                                                    if( S2Index < 0 ) {
-                                                        if( ( Criticals[SecondLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                for (int k = 0; k < 12; k++) {
+                                                    if (S2Index < 0) {
+                                                        if ((Criticals[SecondLoc][k] & 0x0000FFFF) == (lookup
+                                                                & 0x0000FFFF)) {
                                                             S2Num++;
                                                             S2Index = k;
                                                             S2Loc = SecondLoc;
                                                         }
                                                     } else {
-                                                        if( ( Criticals[SecondLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                        if ((Criticals[SecondLoc][k] & 0x0000FFFF) == (lookup
+                                                                & 0x0000FFFF)) {
                                                             S2Num++;
                                                         }
                                                     }
                                                 }
-                                                for( int k = 0; k < 12; k++ ) {
-                                                    if( S2Index < 0 ) {
-                                                        if( ( Criticals[ThirdLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                for (int k = 0; k < 12; k++) {
+                                                    if (S2Index < 0) {
+                                                        if ((Criticals[ThirdLoc][k] & 0x0000FFFF) == (lookup
+                                                                & 0x0000FFFF)) {
                                                             S2Num++;
                                                             S2Index = k;
                                                             S2Loc = ThirdLoc;
                                                         }
                                                     } else {
-                                                        if( ( Criticals[ThirdLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                        if ((Criticals[ThirdLoc][k] & 0x0000FFFF) == (lookup
+                                                                & 0x0000FFFF)) {
                                                             S2Num++;
                                                         }
                                                     }
                                                 }
-                                                for( int k = 0; k < 12; k++ ) {
-                                                    if( S2Index < 0 ) {
-                                                        if( ( Criticals[FourthLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                for (int k = 0; k < 12; k++) {
+                                                    if (S2Index < 0) {
+                                                        if ((Criticals[FourthLoc][k] & 0x0000FFFF) == (lookup
+                                                                & 0x0000FFFF)) {
                                                             S2Num++;
                                                             S2Index = k;
                                                             S2Loc = FourthLoc;
                                                         }
                                                     } else {
-                                                        if( ( Criticals[FourthLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                        if ((Criticals[FourthLoc][k] & 0x0000FFFF) == (lookup
+                                                                & 0x0000FFFF)) {
                                                             S2Num++;
                                                         }
                                                     }
                                                 }
                                             } else {
                                                 // Check both locations
-                                                for( int k = 0; k < 12; k++ ) {
-                                                    if( S2Index < 0 ) {
-                                                        if( ( Criticals[SecondLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                for (int k = 0; k < 12; k++) {
+                                                    if (S2Index < 0) {
+                                                        if ((Criticals[SecondLoc][k] & 0x0000FFFF) == (lookup
+                                                                & 0x0000FFFF)) {
                                                             S2Num++;
                                                             S2Index = k;
                                                             S2Loc = SecondLoc;
                                                         }
                                                     } else {
-                                                        if( ( Criticals[SecondLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                        if ((Criticals[SecondLoc][k] & 0x0000FFFF) == (lookup
+                                                                & 0x0000FFFF)) {
                                                             S2Num++;
                                                         }
                                                     }
                                                 }
-                                                for( int k = 0; k < 12; k++ ) {
-                                                    if( S2Index < 0 ) {
-                                                        if( ( Criticals[ThirdLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                for (int k = 0; k < 12; k++) {
+                                                    if (S2Index < 0) {
+                                                        if ((Criticals[ThirdLoc][k] & 0x0000FFFF) == (lookup
+                                                                & 0x0000FFFF)) {
                                                             S2Num++;
                                                             S2Index = k;
                                                             S2Loc = ThirdLoc;
                                                         }
                                                     } else {
-                                                        if( ( Criticals[ThirdLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                        if ((Criticals[ThirdLoc][k] & 0x0000FFFF) == (lookup
+                                                                & 0x0000FFFF)) {
                                                             S2Num++;
                                                         }
                                                     }
@@ -1095,41 +1145,45 @@ public class HMPReader {
                                             }
                                         } else {
                                             // check the other location
-                                            for( int k = 0; k < 12; k++ ) {
-                                                if( S2Index < 0 ) {
-                                                    if( ( Criticals[SecondLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                            for (int k = 0; k < 12; k++) {
+                                                if (S2Index < 0) {
+                                                    if ((Criticals[SecondLoc][k] & 0x0000FFFF) == (lookup
+                                                            & 0x0000FFFF)) {
                                                         S2Num++;
                                                         S2Index = k;
                                                         S2Loc = SecondLoc;
                                                     }
                                                 } else {
-                                                    if( ( Criticals[SecondLoc][k] & 0x0000FFFF ) == ( lookup & 0x0000FFFF ) ) {
+                                                    if ((Criticals[SecondLoc][k] & 0x0000FFFF) == (lookup
+                                                            & 0x0000FFFF)) {
                                                         S2Num++;
                                                     }
                                                 }
                                             }
                                         }
-                                        if( S2Num < NumLeft ) {
+                                        if (S2Num < NumLeft) {
                                             // Specified but not enough crits to fit
-                                            Errors.add( new ErrorReport( Name + "\nHas too many crits to fit in the " + LocationIndex.MechLocs[i] + "\n and we could not find another location for it.\nAdd and place the item normally." ) );
+                                            Errors.add(new ErrorReport(Name + "\nHas too many crits to fit in the "
+                                                    + LocationIndex.MechLocs[i]
+                                                    + "\n and we could not find another location for it.\nAdd and place the item normally."));
                                         } else {
-                                            if( S2Num > NumLeft ) {
-                                                // we have another item.  This one goes on top, I guess.
+                                            if (S2Num > NumLeft) {
+                                                // we have another item. This one goes on top, I guess.
                                                 S2Num = NumLeft;
                                             }
                                             // now we can allocate the stupid item
-                                            m.GetLoadout().AddToQueue( neweq );
-                                            m.GetLoadout().RemoveFromQueue( neweq );
-                                            m.GetLoadout().AddTo( m.GetLoadout().GetCrits( i ), neweq, S1Index, S1Num );
-                                            m.GetLoadout().AddTo( m.GetLoadout().GetCrits( S2Loc ), neweq, S2Index, S2Num );
-                                            if( rear ) {
-                                                neweq.MountRear( rear );
+                                            m.GetLoadout().AddToQueue(neweq);
+                                            m.GetLoadout().RemoveFromQueue(neweq);
+                                            m.GetLoadout().AddTo(m.GetLoadout().GetCrits(i), neweq, S1Index, S1Num);
+                                            m.GetLoadout().AddTo(m.GetLoadout().GetCrits(S2Loc), neweq, S2Index, S2Num);
+                                            if (rear) {
+                                                neweq.MountRear(rear);
                                             }
                                             // Clear out the old slots in the retarded criticals array
-                                            for( int k = S1Index; k < S1Index + S1Num; k++ ) {
+                                            for (int k = S1Index; k < S1Index + S1Num; k++) {
                                                 Criticals[i][k] = 0x00;
                                             }
-                                            for( int k = S2Index; k < S2Index + S2Num; k++ ) {
+                                            for (int k = S2Index; k < S2Index + S2Num; k++) {
                                                 Criticals[S2Loc][k] = 0x00;
                                             }
                                         }
@@ -1138,32 +1192,36 @@ public class HMPReader {
                             } else {
                                 // easier.
                                 int size = neweq.NumCrits();
-                                if( m.UsingArtemisIV() && neweq instanceof RangedWeapon ) {
-                                    if( m.UsingArtemisIV() ) { ((RangedWeapon) neweq).UseFCS( true, ifMissileGuidance.FCS_ArtemisIV ); }
+                                if (m.UsingArtemisIV() && neweq instanceof RangedWeapon) {
+                                    if (m.UsingArtemisIV()) {
+                                        ((RangedWeapon) neweq).UseFCS(true, ifMissileGuidance.FCS_ArtemisIV);
+                                    }
                                 }
-                                m.GetLoadout().AddToQueue( neweq );
-                                m.GetLoadout().AddTo( neweq, i, j );
-                                if( rear ) {
-                                    neweq.MountRear( rear );
+                                m.GetLoadout().AddToQueue(neweq);
+                                m.GetLoadout().AddTo(neweq, i, j);
+                                if (rear) {
+                                    neweq.MountRear(rear);
                                 }
                                 Criticals[i][j] = 0x00;
-                                if( size > 1 ) {
+                                if (size > 1) {
                                     // we'll need to clear out the rest of the
                                     // criticals so we don't "find" this again
-                                    for( int k = 1; k < size; k++ ) {
+                                    for (int k = 1; k < size; k++) {
                                         Criticals[i][j + k] = 0x00;
                                     }
                                 }
                             }
                         } else {
-                            Errors.add( new ErrorReport( lookup, Name ) );
+                            Errors.add(new ErrorReport(lookup, Name));
                         }
                     } else {
-                        String name = Unused.get( lookup );
-                        if( name == null ) {
-                            Errors.add( new ErrorReport( "The equipment specified by HMP_REF: " + lookup + " could not be found.\nSkipping that item." ) );
+                        String name = Unused.get(lookup);
+                        if (name == null) {
+                            Errors.add(new ErrorReport("The equipment specified by HMP_REF: " + lookup
+                                    + " could not be found.\nSkipping that item."));
                         } else {
-                            Errors.add( new ErrorReport( name + "\nis unused by SSW or is not a valid piece of equipment.\nSkipping that item." ) );
+                            Errors.add(new ErrorReport(name
+                                    + "\nis unused by SSW or is not a valid piece of equipment.\nSkipping that item."));
                         }
                     }
                 }
@@ -1171,11 +1229,13 @@ public class HMPReader {
         }
 
         // do we have a targeting computer
-        if( HasTC ) {
+        if (HasTC) {
             boolean TCTB = false;
-            if( TCTechBase == AvailableCode.TECH_CLAN ) { TCTB = true; }
-            m.GetLoadout().UseTC( true, TCTB );
-            m.GetLoadout().AddTo( m.GetLoadout().GetTC(), TCLoc, TCIdx );
+            if (TCTechBase == AvailableCode.TECH_CLAN) {
+                TCTB = true;
+            }
+            m.GetLoadout().UseTC(true, TCTB);
+            m.GetLoadout().AddTo(m.GetLoadout().GetTC(), TCLoc, TCIdx);
         }
 
         return m;
@@ -1185,13 +1245,13 @@ public class HMPReader {
         Unused.put(Long.valueOf(0x25), "IS2 Compact Heat Sinks");
 
         // cockpit
-//        BFB.Common.put(Long.valueOf(0x0C), "Life Support");
-//        BFB.Common.put(Long.valueOf(0x0D), "Sensors");
-//        BFB.Common.put(Long.valueOf(0x0E), "Cockpit");
+        // BFB.Common.put(Long.valueOf(0x0C), "Life Support");
+        // BFB.Common.put(Long.valueOf(0x0D), "Sensors");
+        // BFB.Common.put(Long.valueOf(0x0E), "Cockpit");
 
         // targeting computers and FCS
-//        BFB.Common.put(Long.valueOf(0x12), "Targeting Computer");
-//        BFB.Common.put(Long.valueOf(0x18), "Artemis IV");
+        // BFB.Common.put(Long.valueOf(0x12), "Targeting Computer");
+        // BFB.Common.put(Long.valueOf(0x18), "Artemis IV");
 
         // specialty equipment
         Common.put(Long.valueOf(0x20), "Supercharger");
@@ -1268,9 +1328,11 @@ public class HMPReader {
         Sphere.put(Long.valueOf(0x49), "(IS) Medium X-Pulse Laser");
         Sphere.put(Long.valueOf(0x4A), "(IS) Small X-Pulse Laser");
         Sphere.put(Long.valueOf(0x52), "Heavy Flamer");
-        //Sphere.put(Long.valueOf(0x53), "ISPPCCapacitor"); // HMP uses this code for ERPPC
+        // Sphere.put(Long.valueOf(0x53), "ISPPCCapacitor"); // HMP uses this code for
+        // ERPPC
         Sphere.put(Long.valueOf(0x58), "(CL) ER Micro Laser");
-        //Sphere.put(Long.valueOf(0x59), "ISPPCCapacitor"); // HMP uses this code for standard PPC
+        // Sphere.put(Long.valueOf(0x59), "ISPPCCapacitor"); // HMP uses this code for
+        // standard PPC
         Sphere.put(Long.valueOf(0x5A), "(IS) ER Medium Laser");
         Sphere.put(Long.valueOf(0x5B), "(IS) ER Small Laser");
         Sphere.put(Long.valueOf(0x85), "Vehicle Flamer");
@@ -1315,9 +1377,10 @@ public class HMPReader {
         Clan.put(Long.valueOf(0x98), "(IS) Large X-Pulse Laser");
         Clan.put(Long.valueOf(0x99), "(IS) Medium X-Pulse Laser");
         Clan.put(Long.valueOf(0x9A), "(IS) Small X-Pulse Laser");
-        //Clan.put(Long.valueOf(0xA3), "ISPPCCapacitor"); // HMP uses this code for ERPPC
+        // Clan.put(Long.valueOf(0xA3), "ISPPCCapacitor"); // HMP uses this code for
+        // ERPPC
         Clan.put(Long.valueOf(0xA8), "(CL) Micro Pulse Laser");
-        //Clan.put(Long.valueOf(0xA9), "ISPPCCapacitor"); // HMP uses this code for PPC
+        // Clan.put(Long.valueOf(0xA9), "ISPPCCapacitor"); // HMP uses this code for PPC
         Clan.put(Long.valueOf(0xAA), "(IS) ER Medium Laser");
         Clan.put(Long.valueOf(0xAB), "(IS) ER Small Laser");
         Clan.put(Long.valueOf(0xD5), "Vehicle Flamer");
@@ -1628,9 +1691,9 @@ public class HMPReader {
         Common.put(Long.valueOf(0x2b5), "(CL) @ Rotary AC/5");
         // special for ammo mutator
         // 28c-28f = atm
-        //BFB.Common.put(Long.valueOf(0x100000298L), "ISLBXAC2 Ammo (THB)");
-        //BFB.Common.put(Long.valueOf(0x100000299L), "ISLBXAC5 Ammo (THB)");
-        //BFB.Common.put(Long.valueOf(0x10000029AL), "ISLBXAC20 Ammo (THB)");
+        // BFB.Common.put(Long.valueOf(0x100000298L), "ISLBXAC2 Ammo (THB)");
+        // BFB.Common.put(Long.valueOf(0x100000299L), "ISLBXAC5 Ammo (THB)");
+        // BFB.Common.put(Long.valueOf(0x10000029AL), "ISLBXAC20 Ammo (THB)");
         Sphere.put(Long.valueOf(0x01CE), "(IS) @ AC/2");
         Sphere.put(Long.valueOf(0x01CF), "(IS) @ AC/5");
         Sphere.put(Long.valueOf(0x01D0), "(IS) @ AC/10");
@@ -1948,8 +2011,8 @@ public class HMPReader {
         Unused.put(Long.valueOf(0x127), "CLRotaryAC20");
     }
 
-    private int DecodeRulesLevel( int OldRules ) {
-        switch( OldRules ) {
+    private int DecodeRulesLevel(int OldRules) {
+        switch (OldRules) {
             case 1:
                 return AvailableCode.RULES_INTRODUCTORY;
             case 2:
@@ -1992,20 +2055,20 @@ public class HMPReader {
         return b1 + b2 + b3 + b4;
     }
 
-    private boolean IsRearMounted( long critical ) {
-        return ( critical & 0xFFFF0000 ) != 0;
+    private boolean IsRearMounted(long critical) {
+        return (critical & 0xFFFF0000) != 0;
     }
 
-    private Long GetLookupNum( long l ) {
+    private Long GetLookupNum(long l) {
         // According to HMPFile.java, this will return the actual lookup number.
         // the first two bytes of the critical location number are the type.
-        Long retval = Long.valueOf( l & 0xFFFF );
+        Long retval = Long.valueOf(l & 0xFFFF);
         return retval;
     }
 
-    private String BuildLookupName( String name, int mechbase, int techbase ) {
-        if( mechbase == AvailableCode.TECH_BOTH ) {
-            if( techbase == 0 ) {
+    private String BuildLookupName(String name, int mechbase, int techbase) {
+        if (mechbase == AvailableCode.TECH_BOTH) {
+            if (techbase == 0) {
                 return "(IS) " + name;
             } else {
                 return "(CL) " + name;
@@ -2020,18 +2083,18 @@ public class HMPReader {
         private String CustomError = null;
         private boolean HasCustom = false;
 
-        public ErrorReport( Long num, String name ) {
+        public ErrorReport(Long num, String name) {
             HMPNumber = num;
             EQName = name;
         }
 
-        public ErrorReport( String custom ) {
+        public ErrorReport(String custom) {
             CustomError = custom;
             HasCustom = true;
         }
 
         public String GetErrorReport() {
-            if( HasCustom ) {
+            if (HasCustom) {
                 return CustomError;
             } else {
                 return "The following item could not be loaded:\nHMP_REF: " + HMPNumber + ", NAME: " + EQName;
