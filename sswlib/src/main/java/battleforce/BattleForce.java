@@ -28,7 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package battleforce;
 
-import java.awt.Image;
 import java.util.Vector;
 
 public class BattleForce {
@@ -36,13 +35,15 @@ public class BattleForce {
     public String ForceName = "",
                   LogoPath = "",
                   Type = InnerSphere;
-    private Image Logo = null;
-    private int PointValue = 0;
+    // private Image Logo = null;
+    // private int PointValue = 0; // Not used.
 
     public static final String InnerSphere = "Inner Sphere",
                                 Clan = "Clan",
                                 Comstar = "Comstar";
 
+    /*
+    // Not used internally
     private void setInnerSphere() {
         Type = InnerSphere;
     }
@@ -54,6 +55,7 @@ public class BattleForce {
     private void setComstar() {
         Type = Comstar;
     }
+    */
 
     public int PointValue() {
         int Total = 0;
