@@ -59,8 +59,8 @@ public class CVArmor extends abPlaceable {
                     CLLR = new stArmorCLLR(),
                     CLRE = new stArmorCLRE(),
                     ISAB = new stArmorISAB(),
-                    HeatDiss = new stArmorHD(),
-                    ISIR = new stArmorISIR(),
+                    // HeatDiss = new stArmorHD(), // Variables not used
+                    // ISIR = new stArmorISIR(),
                     ISBR = new stArmorISBR(),
                     Patchwork = new stArmorPatchwork();
     private ifArmor Config = Standard,
@@ -80,20 +80,21 @@ public class CVArmor extends abPlaceable {
 
     public final void SetMaxArmor(int locations) {
         // this sets the maximum array when tonnage changes.
-        int Percentage = ((!Owner.IsVTOL()) ? GetMaxArmor() : GetMaxArmor()-2) / locations;
+        // Variable not used within method
+        // int Percentage = ((!Owner.IsVTOL()) ? GetMaxArmor() : GetMaxArmor()-2) / locations;
 
         MaxArmor[LocationIndex.CV_LOC_BODY] = 0;
         MaxArmor[LocationIndex.CV_LOC_FRONT] = GetMaxArmor();
         MaxArmor[LocationIndex.CV_LOC_LEFT] = GetMaxArmor();
         MaxArmor[LocationIndex.CV_LOC_RIGHT] = GetMaxArmor();
         MaxArmor[LocationIndex.CV_LOC_REAR] = GetMaxArmor();
-        
+
         if ( Owner.isHasTurret1() )
             MaxArmor[LocationIndex.CV_LOC_TURRET1] = GetMaxArmor();
-        
+
         if ( Owner.isHasTurret2() )
             MaxArmor[LocationIndex.CV_LOC_TURRET2] = GetMaxArmor();
-        
+
         if ( Owner.IsVTOL() )
             MaxArmor[LocationIndex.CV_LOC_ROTOR] = 2;
     }
@@ -601,8 +602,8 @@ public class CVArmor extends abPlaceable {
                 return;
         }
     }
-    
-    
+
+
     public void SetISAB() {
         Config = ISAB;
     }
@@ -633,9 +634,9 @@ public class CVArmor extends abPlaceable {
                 return;
         }
     }
-    
-    
-    
+
+
+
     public void SetISBR() {
         Config = ISBR;
     }
@@ -667,7 +668,7 @@ public class CVArmor extends abPlaceable {
         }
     }
     //</editor-fold>
-    
+
     private void CheckPatchworkSpace( ifArmor test, int loc ) throws Exception {
         if( test.PatchworkSpaces() > Owner.GetLoadout().FreeItems() ) {
             throw new Exception( "Cannot change " + LocationIndex.CVLocs[loc] + " armor to " + test.CritName() + "\nbecause there is not enough space." );
@@ -744,7 +745,7 @@ public class CVArmor extends abPlaceable {
         // returns the maximum amount of armor allowed.\
         return (int) ( Owner.GetTonnage() * 3.5 ) + 40;
     }
-    
+
     public int GetArmorPoints(double Tonnage) {
         return (int) ( Math.floor( Tonnage * 16 * GetAVMult() ) );
     }
@@ -760,7 +761,7 @@ public class CVArmor extends abPlaceable {
         result += ArmorPoints[LocationIndex.CV_LOC_TURRET2];
         return result;
     }
-    
+
     public void ClearArmorValues() {
         for (int i = 0; i < ArmorPoints.length; i++) {
             ArmorPoints[i] = 0;
@@ -812,13 +813,13 @@ public class CVArmor extends abPlaceable {
         if( Config == Patchwork ) { return true; }
         return false;
     }
-    
+
     public boolean IsStealth() {
         return Config.IsStealth();
     }
 
 //</editor-fold>
-    
+
     public boolean RequiresExtraRules() {
         if ( IsHardened() || IsReactive() || IsReflective() || IsStealth() ) {
             return true;
@@ -846,7 +847,7 @@ public class CVArmor extends abPlaceable {
         // armor is always roll again, so no armoring
         return false;
     }
-    
+
     public boolean AllowOmni()
     {
         return Config.AllowOmni();
@@ -948,28 +949,28 @@ public class CVArmor extends abPlaceable {
         result = mid * 0.5;
         return result;
     }
-    
+
     public void Maximize() {
         int AV = GetMaxArmor();
-        
+
         // remove all existing amounts so we can reset
         ClearArmorValues();
-        
+
         if ( Owner.IsVTOL() ) {
             SetArmor(LocationIndex.CV_LOC_ROTOR, 2);
             AV -= 2;
         }
         int split = AV / Owner.getLocationCount();
-        
+
         if ( Owner.isHasTurret1() ) SetArmor( LocationIndex.CV_LOC_TURRET1, split);
         if ( Owner.isHasTurret2() ) SetArmor( LocationIndex.CV_LOC_TURRET2, split);
-        
+
         SetArmor( LocationIndex.CV_LOC_LEFT, split);
         SetArmor( LocationIndex.CV_LOC_RIGHT, split);
-        
+
         SetArmor( LocationIndex.CV_LOC_FRONT, (int)Math.ceil((split * 2) * .6) );
         SetArmor( LocationIndex.CV_LOC_REAR, (split * 2)-GetLocationArmor(LocationIndex.CV_LOC_FRONT));
-        
+
         if ( GetArmorValue() < GetMaxArmor() ) {
             int val = GetMaxArmor()-GetArmorValue();
             for (int i = 0; i < val; i++) {

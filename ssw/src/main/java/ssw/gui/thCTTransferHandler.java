@@ -57,7 +57,7 @@ public class thCTTransferHandler extends TransferHandler {
         // all we want to do is transfer the index in the queue
         LocationDragDatagram d = new LocationDragDatagram();
         d.Location = LocationIndex.MECH_LOC_CT;
-        d.SourceIndex = ((JList) comp).getSelectedIndex();
+        d.SourceIndex = ((JList<?>) comp).getSelectedIndex();
         d.Locked = CurMech.GetLoadout().GetCTCrits()[d.SourceIndex].LocationLocked();
         if( CurMech.GetLoadout().GetCTCrits()[d.SourceIndex] instanceof EmptyItem ) {
             d.Empty = true;
@@ -176,7 +176,7 @@ public class thCTTransferHandler extends TransferHandler {
 
         // get the item
         abPlaceable a;
-        ArrayList v = new ArrayList();
+        ArrayList<LocationIndex> v = new ArrayList<LocationIndex>();
         if( DropItem.Location == -1 ) {
             // from the queue
             a = CurMech.GetLoadout().GetFromQueueByIndex( DropItem.SourceIndex );

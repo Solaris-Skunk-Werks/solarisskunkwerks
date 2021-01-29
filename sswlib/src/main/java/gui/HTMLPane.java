@@ -87,7 +87,7 @@ public class HTMLPane extends JPanel implements ActionListener {
     private JMenuBar MainMenu;
     private JMenu EditMenu, Font, FontSize, FontColor, Style;
     private JMenuItem Black, Yellow, Red, Orange, Blue, Green, Cyan, Magenta,
-                      Undo, Redo, Source, Clear, SelectAll, Bullets, Unordered,
+                      Undo, Redo, Source, Clear, SelectAll, // Bullets, Unordered, // Not Used
                       Subscript, Superscript, Strikethrough;
 
     protected UndoableEditListener UndoHandler = new UndoHandler();
@@ -105,7 +105,7 @@ public class HTMLPane extends JPanel implements ActionListener {
     private Action UnderlineAction = new StyledEditorKit.UnderlineAction();
     private Action ItalicAction = new StyledEditorKit.ItalicAction();
 
-    private javax.swing.ImageIcon check = new javax.swing.ImageIcon( getClass().getResource("/images/ui-check-box.png") );
+    // private javax.swing.ImageIcon check = new javax.swing.ImageIcon( getClass().getResource("/images/ui-check-box.png") ); // Not Used
 
 /*    private HTMLEditorKit.InsertHTMLTextAction UnorderedListAction
         = new HTMLEditorKit.InsertHTMLTextAction( "Bullets", "<ul><li> </li></ul>", HTML.Tag.P, HTML.Tag.UL );

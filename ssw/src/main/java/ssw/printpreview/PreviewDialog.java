@@ -105,6 +105,8 @@ public class PreviewDialog extends JDialog implements ActionListener {
         private int pages;
     }
 
+    /*
+     * Neither are used within class
     private JButton getButton(String iconName) {
         return getButton(null, iconName, null);
     }
@@ -112,6 +114,7 @@ public class PreviewDialog extends JDialog implements ActionListener {
     private JButton getButton(String iconName, AbstractAction action) {
         return getButton(null, iconName, action);
     }
+    */
 
     private JButton getButton(String name, String iconName, AbstractAction action) {
         JButton result = null;
@@ -129,9 +132,11 @@ public class PreviewDialog extends JDialog implements ActionListener {
         return result;
     }
 
+    /* Not used internally
     private void Refresh() {
         this.repaint();
     }
+    */
 
     public void actionPerformed(ActionEvent e) {
         dispose();

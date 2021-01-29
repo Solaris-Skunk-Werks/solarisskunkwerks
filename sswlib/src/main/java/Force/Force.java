@@ -40,7 +40,7 @@ import java.awt.Image;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ArrayList;
+
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import list.view.Column;
@@ -679,7 +679,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
     public int getRowCount() { return Units.size(); }
     public int getColumnCount() { return 11; }
     @Override
-    public Class getColumnClass(int c) {
+    public Class<?> getColumnClass(int c) {
         if (Units.size() > 0) {
             return getClassOf(0, c).getClass();
         } else {

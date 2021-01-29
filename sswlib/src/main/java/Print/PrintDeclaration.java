@@ -34,9 +34,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.print.*;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Vector;
 
 public class PrintDeclaration implements Printable {
     public Graphics2D Graphic;
@@ -45,7 +43,7 @@ public class PrintDeclaration implements Printable {
     private PageFormat format = null;
     private ImageTracker imageTracker;
     private String[] Types = new String[]{"  Primary", "Secondary", "Secondary"};
-    private String Title = "Fire Declaration Markers";
+    // private String Title = "Fire Declaration Markers"; // Not Used
     private boolean PrintUnitWarrior = true,
                     PrintUnitLogo = true;
 

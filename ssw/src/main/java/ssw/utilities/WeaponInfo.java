@@ -37,7 +37,7 @@ public class WeaponInfo {
     // contains a weapon and ammo pairing (may hold multiple ammos)
     // may also contain a single weapon if need be
     private ifWeapon Weapon;
-    private Vector Ammos = new Vector();
+    private Vector<Ammunition> Ammos = new Vector<Ammunition>();
     private int FiringRate = 1;
     public final static int[][] Clusters = {
         { 1, 1, 1, 1, 2, 2, 3, 3,  3,  4,  4,  4,  5,  5,  5,  5,  6,  6,  6,  7,  7,  7,  8,  8,  9,  9,  9, 10, 10, 12 },
@@ -88,7 +88,7 @@ public class WeaponInfo {
         int retval = 0;
 
         if( Weapon.HasAmmo() ) {
-            
+
         } else {
             if( Weapon.IsCluster() ) {
                 return GetDamageAtRange( range ) * Weapon.ClusterSize();
@@ -104,7 +104,7 @@ public class WeaponInfo {
         int retval = 0;
 
         if( Weapon.HasAmmo() ) {
-            
+
         } else {
             if( Weapon.IsCluster() ) {
                 return GetDamageAtRange( range ) * GetAverageClusterSize();

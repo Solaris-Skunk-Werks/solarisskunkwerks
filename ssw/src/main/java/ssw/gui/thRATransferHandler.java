@@ -57,7 +57,7 @@ public class thRATransferHandler extends TransferHandler {
         // all we want to do is transfer the index in the queue
         LocationDragDatagram d = new LocationDragDatagram();
         d.Location = LocationIndex.MECH_LOC_RA;
-        d.SourceIndex = ((JList) comp).getSelectedIndex();
+        d.SourceIndex = ((JList<?>) comp).getSelectedIndex();
         d.Locked = CurMech.GetLoadout().GetRACrits()[d.SourceIndex].LocationLocked();
         if( CurMech.GetLoadout().GetRACrits()[d.SourceIndex] instanceof EmptyItem ) {
             d.Empty = true;
@@ -161,7 +161,7 @@ public class thRATransferHandler extends TransferHandler {
 
         // get the item
         abPlaceable a;
-        ArrayList v = new ArrayList();
+        ArrayList<LocationIndex> v = new ArrayList<LocationIndex>();
         if( DropItem.Location == -1 ) {
             // from the queue
             a = CurMech.GetLoadout().GetFromQueueByIndex( DropItem.SourceIndex );
