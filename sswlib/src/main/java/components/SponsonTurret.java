@@ -28,7 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
-import common.CommonTools;
 import java.util.ArrayList;
 
 public class SponsonTurret extends abPlaceable {

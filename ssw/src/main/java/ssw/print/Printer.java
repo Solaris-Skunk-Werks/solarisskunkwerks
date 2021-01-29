@@ -40,7 +40,6 @@ import battleforce.BattleForce;
 import common.CommonTools;
 import components.Mech;
 import filehandlers.Media;
-import gui.*;
 import Print.*;
 import filehandlers.ImageTracker;
 
@@ -74,7 +73,7 @@ public class Printer {
     public Printer() {
         this(null);
     }
-    
+
     public Printer(ifMechForm p) {
         Parent = p;
         setPaperSize(Letter);
@@ -220,7 +219,7 @@ public class Printer {
                 if ( ! BatchDialog() ) return;
             }
         }
-        
+
         for (int index=0; index <= Mechs.size()-1; index++) {
             PrintMech pm = (PrintMech) Mechs.get(index);
             job.setJobName( pm.CurMech.GetFullName().trim() );
@@ -324,13 +323,13 @@ public class Printer {
         if ( !this.logoPath.isEmpty() ) {
             POptions.setLogo(new File(this.logoPath));
         }
-        
+
         POptions.setVisible( true );
 
         if( ! POptions.Result() ) {
             return false;
         }
-        
+
         for ( int m=0; m <= Mechs.size()-1; m++ ) {
             PrintMech pMech = (PrintMech) Mechs.get(m);
             pMech.setPrintPilot(POptions.PrintPilot());

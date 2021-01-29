@@ -28,13 +28,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package Print;
 
-import Print.Points.PIPRow;
 import components.CombatVehicle;
 import components.LocationIndex;
 import components.Mech;
 import filehandlers.ImageTracker;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PIPPrinter {
@@ -71,7 +69,7 @@ public class PIPPrinter {
         this.imageTracker = images;
         this.graphics = graphics;
     }
-    
+
     /**
      * Creates an PIPPrinter object with the given objects
      *
@@ -81,7 +79,7 @@ public class PIPPrinter {
     public PIPPrinter( Graphics2D graphics, Mech curMech, ImageTracker images ) {
         this(graphics, curMech, true, false, images);
     }
-    
+
     /**
      * Creates an PIPPrinter object with the given objects
      *
@@ -162,7 +160,7 @@ public class PIPPrinter {
         if ( CurVee.isHasTurret2() ) Points = new TWAdvGroundPoints();
         if ( CurVee.IsNaval() ) Points = new TWNavalPoints();
         if ( CurVee.IsVTOL() ) Points = new TWVTOLPoints();
-        
+
         Armor.put(LocationIndex.CV_LOC_FRONT, new PIPSettings(LocationIndex.CV_LOC_FRONT, false, new Point(463,52), new Point(17,20), "FRONT_", Points.GetArmorFrontPoints()));
         Armor.put(LocationIndex.CV_LOC_LEFT, new PIPSettings(LocationIndex.CV_LOC_LEFT, false, new Point(457,84), new Point(28,88), "LEFT_", Points.GetArmorLeftPoints()));
         Armor.put(LocationIndex.CV_LOC_RIGHT, new PIPSettings(LocationIndex.CV_LOC_RIGHT, false, new Point(422,66), new Point(32,86), "RIGHT_", Points.GetArmorRightPoints()));
@@ -173,7 +171,7 @@ public class PIPPrinter {
             Armor.put(LocationIndex.CV_LOC_TURRET2, new PIPSettings(LocationIndex.CV_LOC_TURRET2, false, new Point(556,55), new Point(-30,98), "TURRET2_", Points.GetArmorTurret2Points()));
         if ( CurVee.IsVTOL() )
             Armor.put(LocationIndex.CV_LOC_ROTOR, new PIPSettings(LocationIndex.CV_LOC_ROTOR, false, new Point(400,160), new Point(51,125), "ROTOR_", Points.GetArmorRotorPoints()));
-        
+
         Internal.put(LocationIndex.CV_LOC_FRONT, new PIPSettings(LocationIndex.CV_LOC_FRONT, true, new Point(452,389), new Point(13,13), "INT_FRONT_", Points.GetInternalFrontPoints()));
         Internal.put(LocationIndex.CV_LOC_LEFT, new PIPSettings(LocationIndex.CV_LOC_LEFT, true, new Point(450,410), new Point(17,61), "INT_LEFT_", Points.GetInternalLeftPoints()));
         Internal.put(LocationIndex.CV_LOC_RIGHT, new PIPSettings(LocationIndex.CV_LOC_RIGHT, true, new Point(426,401), new Point(21,59), "INT_RIGHT_", Points.GetInternalRightPoints()));
@@ -184,14 +182,14 @@ public class PIPPrinter {
             Internal.put(LocationIndex.CV_LOC_TURRET2, new PIPSettings(LocationIndex.CV_LOC_TURRET2, true, new Point(514,400), new Point(-14,75), "INT_TURRET2_", Points.GetInternalTurret2Points()));
         if ( CurVee.IsVTOL() )
             Internal.put(LocationIndex.CV_LOC_ROTOR, new PIPSettings(LocationIndex.CV_LOC_ROTOR, true, new Point(418,463), new Point(25,89), "INT_ROTOR_", Points.GetInternalRotorPoints()));
-        
+
     }
-    
+
     public ifPrintPoints GetPoints()
     {
         return Points;
     }
-    
+
     /**
      * Renders the armor points for the print out based on the inputs received
      *
@@ -212,7 +210,7 @@ public class PIPPrinter {
     public void Render( Graphics2D graphics, CombatVehicle CurVee, boolean useCanon ) {
         this.graphics = graphics;
         this.useCanon = useCanon;
-        
+
         if ( graphics == null ) { return; }
 
         graphics.setStroke(new BasicStroke(.75f));
@@ -233,7 +231,7 @@ public class PIPPrinter {
                 renderImage(settings);
             } else {
                for( int i = 0; i < CurVee.GetIntStruc().NumCVSpaces(); i++ ) {
-                   if ( settings.points.length >= i ) 
+                   if ( settings.points.length >= i )
                        PrintConsts.FilledCircle( graphics, Color.BLACK, Color.WHITE, 5, settings.points[i].x, settings.points[i].y);
                     //graphics.drawOval( settings.points[i].x, settings.points[i].y, 5, 5 );
                 }
@@ -357,7 +355,7 @@ public class PIPPrinter {
         public int GetArmor() {
             return CurMech.GetArmor().GetLocationArmor(LocationID);
         }
-        
+
         public int GetArmor(CombatVehicle vee ) {
             return vee.GetArmor().GetLocationArmor(LocationID);
         }

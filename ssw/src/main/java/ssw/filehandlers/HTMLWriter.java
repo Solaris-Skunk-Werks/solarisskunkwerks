@@ -39,7 +39,6 @@ import java.util.Hashtable;
 import java.util.ArrayList;
 import common.CommonTools;
 import filehandlers.FileCommon;
-import filehandlers.FileCommon;
 
 public class HTMLWriter {
 

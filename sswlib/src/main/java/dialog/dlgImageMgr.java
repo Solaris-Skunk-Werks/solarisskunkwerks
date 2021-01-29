@@ -40,7 +40,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.border.TitledBorder;
 import filehandlers.MechWriter;
 import java.util.ArrayList;
-import java.util.Vector;
 import java.util.prefs.Preferences;
 
 public class dlgImageMgr extends javax.swing.JDialog {

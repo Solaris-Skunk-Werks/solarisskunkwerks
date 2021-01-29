@@ -33,7 +33,6 @@ import common.CommonTools;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
 public class Skills {
@@ -53,7 +52,7 @@ public class Skills {
     public Skills() {
 
     }
-    
+
     public Skills(float BV) {
         this.BV = BV;
         SetSkills();
@@ -274,7 +273,7 @@ public class Skills {
         private float BV = 0f;
 
         public Skill() {
-            
+
         }
 
         public Skill(int Gunnery, int Piloting, float BV) {
