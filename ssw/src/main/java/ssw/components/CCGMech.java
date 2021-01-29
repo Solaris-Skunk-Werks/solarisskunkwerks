@@ -194,7 +194,7 @@ public class CCGMech {
      * @param TotalHeatDis   The total amount of heat the 'Mech can dissapate in one
      *                       turn.
      */
-    public void setAttackValue(ArrayList<ifWeapon> CurrentLoadout, int MovementHeat, int TotalHeatDis) {
+    public void setAttackValue(ArrayList<abPlaceable> CurrentLoadout, int MovementHeat, int TotalHeatDis) {
         double attackValue = 0.0;
         double missileValue = 0.0;
         int vanPPCERLLcount = 0;
@@ -202,7 +202,7 @@ public class CCGMech {
         if (CurrentLoadout.size() > 0) {
             for (int i = 0; i < CurrentLoadout.size(); i++) {
                 if (CurrentLoadout.get(i) instanceof ifWeapon) {
-                    ifWeapon currentWeapon = CurrentLoadout.get(i);
+                    ifWeapon currentWeapon = (ifWeapon) CurrentLoadout.get(i);
                     double currentWeaponAttackValue = 0.0;
                     double currentMissileValue = 0.0;
                     // a bunch of checks to see if we even need to calculated
