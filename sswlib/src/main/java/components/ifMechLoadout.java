@@ -90,7 +90,7 @@ public interface ifMechLoadout {
 
     public EquipmentCollection GetCollection(abPlaceable p);
 
-    public ArrayList GetQueue();
+    public ArrayList<abPlaceable> GetQueue();
 
     public ArrayList<abPlaceable> GetNonCore();
 
@@ -249,11 +249,11 @@ public interface ifMechLoadout {
 
     public void SetCLCrits(abPlaceable[] c);
 
-    public void SetNonCore(ArrayList v);
+    public void SetNonCore(ArrayList<abPlaceable> v);
 
-    public void SetTCList(ArrayList v);
+    public void SetTCList(ArrayList<abPlaceable> v);
 
-    public void SetEquipment(ArrayList v);
+    public void SetEquipment(ArrayList<abPlaceable> v);
 
     public boolean CanUseClanCASE();
 
@@ -435,7 +435,7 @@ public interface ifMechLoadout {
 
     public void RemoveMechMod(MechModifier m);
 
-    public ArrayList GetMechMods();
+    public ArrayList<MechModifier> GetMechMods();
 
     public void SetBoobyTrap(boolean b) throws Exception;
 
