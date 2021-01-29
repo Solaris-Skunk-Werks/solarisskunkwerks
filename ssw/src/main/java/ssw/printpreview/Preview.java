@@ -35,7 +35,7 @@ class Preview extends JComponent {
      *
      */
     private static final long serialVersionUID = 7655013771128802932L;
-    private final static int DEFAULT_PREVIEW_SIZE = 1024;
+    // private final static int DEFAULT_PREVIEW_SIZE = 1024; // Not Used
     private final static double MINIMUM_ZOOM_FACTOR = 0.1;
     private Dimension viewportSize;
 
@@ -73,15 +73,16 @@ class Preview extends JComponent {
         PageFormat format = pageable.getPageFormat(index);
         if (zoom == 0.0) {
             this.zoom = viewportSize.width / format.getWidth();
-        } else
-            this.zoom = zoom;
+        }
+
         resize();
     }
 
     public void moveIndex(int indexStep) {
         int newIndex = index + indexStep;
         try {
-            Printable printable = pageable.getPrintable(newIndex);
+            // Printable printable = pageable.getPrintable(newIndex); // Assigned but not used
+            pageable.getPrintable(newIndex); // Copying here just in case the call is what is important.
             resize();
             index = newIndex;
         } catch (IndexOutOfBoundsException ignored) {
