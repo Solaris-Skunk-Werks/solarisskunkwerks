@@ -24,7 +24,7 @@ public class dlgPrintBattleforce extends javax.swing.JDialog {
      *
      */
     private static final long serialVersionUID = 5419050756388713021L;
-    private BattleForce force;
+    // private BattleForce force;
     public boolean Result = false;
     public String Sheet = BattleForce.InnerSphere;
 
@@ -33,7 +33,7 @@ public class dlgPrintBattleforce extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
 
-        this.force = force;
+       //  this.force = force;
         lblForce.setText(lblForce.getText().replace("{Force}", force.ForceName).replace("{Units}", force.BattleForceStats.size()+""));
         this.setTitle(force.ForceName);
 

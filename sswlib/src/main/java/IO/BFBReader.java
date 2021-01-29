@@ -46,7 +46,7 @@ public class BFBReader {
         dbf.setAttribute(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);
         dbf.setExpandEntityReferences(false);
     }
-    
+
     public Scenario ReadScenario( String filename ) throws Exception {
         System.out.println("Loading Scenario from " + filename);
         Scenario scenario = new Scenario();
@@ -93,7 +93,7 @@ public class BFBReader {
 
         db = dbf.newDocumentBuilder();
         load = db.parse( filename );
-        NodeList n = load.getElementsByTagName("unit");   
+        // NodeList n = load.getElementsByTagName("unit"); // Unneeded operation as variable is never used.
     }
 
     public Node ReadWarriors( String filename ) throws Exception {

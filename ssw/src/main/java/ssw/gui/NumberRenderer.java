@@ -5,7 +5,6 @@
 
 package ssw.gui;
 
-import java.text.Format;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 

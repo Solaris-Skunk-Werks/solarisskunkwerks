@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import org.w3c.dom.Node;
 import battleforce.BattleForce;
 import battleforce.BattleForceStats;
-import java.util.ArrayList;
 import list.view.Column;
 
 public class Group {
@@ -218,7 +217,7 @@ public class Group {
         }
         return TotalBV;
     }
-    
+
     public int getTotalPV() {
         TotalPV = 0;
         for ( Unit u : Units ) {

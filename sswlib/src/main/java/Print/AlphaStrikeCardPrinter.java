@@ -72,7 +72,7 @@ public class AlphaStrikeCardPrinter implements Printable {
     public void Add( BattleForceStats stat ) {
         getBattleforce().BattleForceStats.add(stat);
     }
-    
+
     public void setUnitSheet( String item ) {
         Card = imageTracker.getImage( item );
     }
@@ -86,7 +86,7 @@ public class AlphaStrikeCardPrinter implements Printable {
         Render();
         return Printable.PAGE_EXISTS;
     }
-    
+
     public void Render() {
         int elementCount = 0;
         Image icon = null;
@@ -118,7 +118,7 @@ public class AlphaStrikeCardPrinter implements Printable {
                 Image image = imageTracker.getImage(stats.getImage());
                 Dimension dim = imageTracker.media.reSize(image, 100d, 130d);
                 image.getScaledInstance(dim.width, dim.height, Image.SCALE_SMOOTH);
-                Point offset = imageTracker.media.offsetImageBottom( new Dimension(100, 130), dim);
+                // Point offset = imageTracker.media.offsetImageBottom( new Dimension(100, 130), dim); // Not used within scope.
                 graphic.drawImage(image, x+UnitImageWidth-dim.width-5, y+25, dim.width, dim.height, null);
 
                 if ( icon != null && printLogo ) {
@@ -131,7 +131,7 @@ public class AlphaStrikeCardPrinter implements Printable {
 
             Point minBounds = new Point(6, 6);
             Point maxBounds = new Point(UnitImageWidth - 6, UnitImageHeight - 6);
-            
+
             //Print out a grid for dev purposes only
             for (int j = minBounds.y; i < maxBounds.y; i+=10)
             {

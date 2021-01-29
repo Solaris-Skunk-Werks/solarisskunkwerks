@@ -55,7 +55,7 @@ public class thHDTransferHandler extends TransferHandler {
         // all we want to do is transfer the index in the queue
         LocationDragDatagram d = new LocationDragDatagram();
         d.Location = LocationIndex.MECH_LOC_HD;
-        d.SourceIndex = ((JList) comp).getSelectedIndex();
+        d.SourceIndex = ((JList<?>) comp).getSelectedIndex();
         d.Locked = CurMech.GetLoadout().GetHDCrits()[d.SourceIndex].LocationLocked();
         if( CurMech.GetLoadout().GetHDCrits()[d.SourceIndex] instanceof EmptyItem ) {
             d.Empty = true;

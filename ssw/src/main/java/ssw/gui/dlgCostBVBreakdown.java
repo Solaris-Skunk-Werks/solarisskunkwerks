@@ -38,14 +38,14 @@ public class dlgCostBVBreakdown extends javax.swing.JDialog {
      */
     private static final long serialVersionUID = 4927619301628972669L;
     private Mech CurMech;
-    private String NL;
+    // private String NL;
 
     /** Creates new form dlgCostBVBreakdown */
     public dlgCostBVBreakdown(java.awt.Frame parent, boolean modal, Mech m ) {
         super(parent, modal);
         initComponents();
         CurMech = m;
-        NL = System.getProperty( "line.separator" );
+       //  NL = System.getProperty( "line.separator" );
         CostBVBreakdown Breakdown = new CostBVBreakdown(m);
         txtCostBV.setText( Breakdown.Render() );
         txtCostBV.setCaretPosition( 0 );

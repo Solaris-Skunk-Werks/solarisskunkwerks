@@ -5,7 +5,6 @@
 
 package list.view;
 
-import java.text.Format;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 
