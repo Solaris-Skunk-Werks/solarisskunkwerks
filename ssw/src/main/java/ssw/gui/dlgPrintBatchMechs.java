@@ -52,11 +52,14 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
         public Mech m;
         public dlgPrintSavedMechOptions POptions;
 
+        /*
+         // Not used internally or anywhere else in code.
         public mechData (String name, Mech m, dlgPrintSavedMechOptions POptions){
             this.name = name;
             this.m = m;
             this.POptions = POptions;
         }
+        */
 
         public mechData (String name, Mech m){
             this.name = name;
@@ -94,7 +97,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
 
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lstChoosenMechs = new javax.swing.JList();
+        lstChoosenMechs = new javax.swing.JList<mechData>();
         btnRemoveMech = new javax.swing.JButton();
         btnPrintAll = new javax.swing.JButton();
         btnAddMech = new javax.swing.JButton();
@@ -345,7 +348,7 @@ public class dlgPrintBatchMechs extends javax.swing.JDialog {
     private javax.swing.JButton btnRemoveMech;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList lstChoosenMechs;
+    private javax.swing.JList<mechData> lstChoosenMechs;
     // End of variables declaration//GEN-END:variables
 
 }
