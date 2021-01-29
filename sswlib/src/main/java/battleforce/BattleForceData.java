@@ -3,20 +3,20 @@ package battleforce;
 import java.util.ArrayList;
 
 /*
- * This class is used to setup basic data for BattleForce calculations.  Allows 
- * for weapon information to be added and will do the work of totalling up the 
+ * This class is used to setup basic data for BattleForce calculations.  Allows
+ * for weapon information to be added and will do the work of totalling up the
  * amounts and ammunition and determining the final value
  */
 public class BattleForceData {
-    public DataSet  Base = new DataSet(false);
-    public DataSet  AdjBase = new DataSet(false);
-    public DataSet  AC = new DataSet(true);
-    public DataSet  LRM = new DataSet(true);
-    public DataSet  SRM = new DataSet(true);
-    public DataSet  TOR = new DataSet(true);
-    public DataSet  TUR = new DataSet(true);
-    public DataSet  IF = new DataSet(false);
-    public DataSet  FLK = new DataSet(false);
+    public DataSet Base = new DataSet(false);
+    public DataSet AdjBase = new DataSet(false);
+    public DataSet AC = new DataSet(true);
+    public DataSet LRM = new DataSet(true);
+    public DataSet SRM = new DataSet(true);
+    public DataSet TOR = new DataSet(true);
+    public DataSet TUR = new DataSet(true);
+    public DataSet IF = new DataSet(false);
+    public DataSet FLK = new DataSet(false);
     private int TotalHeatGenerated = 0;
     private int TotalHeatDissipation = 0;
     private ArrayList<String> Notes = new ArrayList<String>();
@@ -28,10 +28,10 @@ public class BattleForceData {
 
     /**
      * Set the total heat dissipation for all special damage situations
-     * 
-     * @param TotalDiss 
+     *
+     * @param TotalDiss
      */
-    public void SetHeat( int TotalDiss ) {
+    public void SetHeat(int TotalDiss) {
         this.TotalHeatDissipation = TotalDiss;
         Base.SetHeat(TotalHeatGenerated, TotalHeatDissipation);
         AC.SetHeat(TotalHeatGenerated, TotalHeatDissipation);
@@ -43,41 +43,49 @@ public class BattleForceData {
         FLK.SetHeat(TotalHeatGenerated, TotalHeatDissipation);
         AdjBase.SetHeat(TotalHeatGenerated, TotalHeatDissipation);
 
-        //System.out.println("Heat Set " + TotalHeatGenerated + " [" + TotalHeatDissipation + "]");
+        // System.out.println("Heat Set " + TotalHeatGenerated + " [" +
+        // TotalHeatDissipation + "]");
     }
 
     /**
      * Sets the heat levels for calculations
-     * 
-     * @param TotalHeat Total heat generated when firing everything and moving as fast as possible
-     * @param TotalDiss  Total heat that can be removed in a single turn
+     *
+     * @param TotalHeat Total heat generated when firing everything and moving as
+     *                  fast as possible
+     * @param TotalDiss Total heat that can be removed in a single turn
      */
-    public void SetHeat( int TotalHeat, int TotalDiss ) {
+    public void SetHeat(int TotalHeat, int TotalDiss) {
         this.TotalHeatGenerated = TotalHeat;
         SetHeat(TotalDiss);
     }
-        
+
     public int BaseMaxShort() {
-        return Base.BattleForceValue(Base.baseShort); //+
-                //Base.BattleForceValue(AC.baseShort) +
-                //Base.BattleForceValue(SRM.baseShort) +
-                //Base.BattleForceValue(LRM.baseShort);
+        return Base.BattleForceValue(Base.baseShort); // +
+        // Base.BattleForceValue(AC.baseShort) +
+        // Base.BattleForceValue(SRM.baseShort) +
+        // Base.BattleForceValue(LRM.baseShort);
     }
 
     public int BaseMaxMedium() {
-        //System.out.println(AdjBase.BattleForceValue(AdjBase.baseMedium) + "/" + AC.BattleForceValue(AC.baseMedium) + "/" + SRM.BattleForceValue(SRM.baseMedium) + "/" + LRM.BattleForceValue(LRM.baseMedium));
-        return Base.BattleForceValue(Base.baseMedium); //+
-                //Base.BattleForceValue(AC.baseMedium) +
-                //Base.BattleForceValue(SRM.baseMedium) +
-                //Base.BattleForceValue(LRM.baseMedium);
+        // System.out.println(AdjBase.BattleForceValue(AdjBase.baseMedium) + "/" +
+        // AC.BattleForceValue(AC.baseMedium) + "/" +
+        // SRM.BattleForceValue(SRM.baseMedium) + "/" +
+        // LRM.BattleForceValue(LRM.baseMedium));
+        return Base.BattleForceValue(Base.baseMedium); // +
+        // Base.BattleForceValue(AC.baseMedium) +
+        // Base.BattleForceValue(SRM.baseMedium) +
+        // Base.BattleForceValue(LRM.baseMedium);
     }
 
     public int BaseMaxLong() {
-        //System.out.println(AdjBase.BattleForceValue(AdjBase.baseMedium) + "/" + AC.BattleForceValue(AC.baseMedium) + "/" + SRM.BattleForceValue(SRM.baseMedium) + "/" + LRM.BattleForceValue(LRM.baseMedium));
-        return Base.BattleForceValue(Base.baseLong); //+
-                //Base.BattleForceValue(AC.baseMedium) +
-                //Base.BattleForceValue(SRM.baseMedium) +
-                //Base.BattleForceValue(LRM.baseMedium);
+        // System.out.println(AdjBase.BattleForceValue(AdjBase.baseMedium) + "/" +
+        // AC.BattleForceValue(AC.baseMedium) + "/" +
+        // SRM.BattleForceValue(SRM.baseMedium) + "/" +
+        // LRM.BattleForceValue(LRM.baseMedium));
+        return Base.BattleForceValue(Base.baseLong); // +
+        // Base.BattleForceValue(AC.baseMedium) +
+        // Base.BattleForceValue(SRM.baseMedium) +
+        // Base.BattleForceValue(LRM.baseMedium);
     }
 
     public int AdjustedMaxMedium() {
@@ -93,18 +101,18 @@ public class BattleForceData {
         AdjBase.baseLong = Base.baseLong;
         AdjBase.baseExtreme = Base.baseExtreme;
 
-//        Commented out 7/17/2013 because errata changes make it so that base damage
-//        does not get changed
-//        if ( AC.CheckSpecial() ) Adjust(AC);
-//        if ( SRM.CheckSpecial() ) Adjust(SRM);
-//        if ( LRM.CheckSpecial() ) Adjust(LRM);
-//        if ( TOR.CheckSpecial() ) Adjust(TOR);
-        
+        // Commented out 7/17/2013 because errata changes make it so that base damage
+        // does not get changed
+        // if ( AC.CheckSpecial() ) Adjust(AC);
+        // if ( SRM.CheckSpecial() ) Adjust(SRM);
+        // if ( LRM.CheckSpecial() ) Adjust(LRM);
+        // if ( TOR.CheckSpecial() ) Adjust(TOR);
+
         AdjBase.SetHeat(TotalHeatGenerated, TotalHeatDissipation);
         AdjBase.BattleForceValues();
     }
 
-    public void Adjust( DataSet special ) {
+    public void Adjust(DataSet special) {
         AdjBase.baseShort -= special.baseShort;
         AdjBase.baseMedium -= special.baseMedium;
         AdjBase.baseLong -= special.baseLong;
@@ -113,36 +121,36 @@ public class BattleForceData {
 
     /**
      * Add weapon data to the base calculations
-     * 
+     *
      * @param vals double[] with calculated values for each range
      */
-    public void AddBase( double[] vals ) {
+    public void AddBase(double[] vals) {
         Base.AddBase(vals);
-        TotalHeatGenerated += (int)vals[BFConstants.BF_OV];
+        TotalHeatGenerated += (int) vals[BFConstants.BF_OV];
     }
 
     /**
      * Add special heat (like Stealth Armor)
-     * 
+     *
      * @param Heat Amount of heat to add
      */
-    public void AddHeat( int Heat ) {
+    public void AddHeat(int Heat) {
         this.TotalHeatGenerated += Heat;
     }
 
     /**
      * Collection of notes generated during the calculation process
-     * 
+     *
      * @param note Note to add to the list
      */
-    public void AddNote( String note ) {
+    public void AddNote(String note) {
         Notes.add(note);
     }
 
     @Override
     public String toString() {
         String data = "";
-        for ( String note : Notes ) {
+        for (String note : Notes) {
             data += note + "\n";
         }
         data += "\n";
@@ -172,7 +180,7 @@ public class BattleForceData {
     public int getTotalHeatDissipation() {
         return TotalHeatDissipation;
     }
-    
+
     public class DataSet {
         private double baseShort = 0.0;
         private double baseMedium = 0.0;
@@ -182,10 +190,10 @@ public class BattleForceData {
         private double heatMedium = 0.0;
         private double heatLong = 0.0;
         private double heatExtreme = 0.0;
-        private int BFBaseShort = 0;
-        private int BFBaseMedium = 0;
-        private int BFBaseLong = 0;
-        private int BFBaseExtreme = 0;
+        // private int BFBaseShort = 0;
+        // private int BFBaseMedium = 0;
+        // private int BFBaseLong = 0;
+        // private int BFBaseExtreme = 0;
         private int BFShort = 0;
         private int BFMedium = 0;
         private int BFLong = 0;
@@ -194,34 +202,30 @@ public class BattleForceData {
         private int TotalHeatDissipation = 0;
         private int LauncherCount = 0;
         private int AmmoCount = 0;
-        private boolean hasOverheat = false,
-                        isSpecial = false,
-                        SpecialDamage = false,
-                        useNormalRound = false,
-                        NotEnoughAmmo = false;
+        private boolean hasOverheat = false, isSpecial = false, SpecialDamage = false, useNormalRound = false,
+                NotEnoughAmmo = false;
 
         public DataSet() {
             this(false);
         }
 
         /**
-         * DateSet holds all the information about the weapons for this specific
-         * item
-         * 
+         * DateSet holds all the information about the weapons for this specific item
+         *
          * @param isSpecial Is this dataset used for a Special Ability
          */
-        public DataSet( boolean isSpecial ) {
+        public DataSet(boolean isSpecial) {
             this.isSpecial = isSpecial;
         }
 
         /**
          * Determine if there is enough ammo for the launchers
-         * 
+         *
          * @return True if enough, false if not.
          */
         public boolean EnoughAmmo() {
-            if ( LauncherCount > 0 ) {
-                if ( AmmoCount - (LauncherCount * 10) < 0 ) {
+            if (LauncherCount > 0) {
+                if (AmmoCount - (LauncherCount * 10) < 0) {
                     NotEnoughAmmo = true;
                     return false;
                 }
@@ -229,22 +233,25 @@ public class BattleForceData {
             NotEnoughAmmo = false;
             return true;
         }
-        
+
         /**
          * Determines if the unit has special damage or not
+         *
          * @return True if using special damage
          */
         public boolean CheckSpecial() {
             boolean retval = false;
-            if ( TotalHeatDissipation < TotalHeatGenerated ) {
+            if (TotalHeatDissipation < TotalHeatGenerated) {
                 hasOverheat = true;
-                if ( heatMedium > 9.0 ) retval = true;
+                if (heatMedium > 9.0)
+                    retval = true;
             } else {
-                if ( baseMedium > 9.0 ) retval = true;
+                if (baseMedium > 9.0)
+                    retval = true;
             }
-            //if ( !EnoughAmmo() )
-            //    retval = false;
-            
+            // if ( !EnoughAmmo() )
+            // retval = false;
+
             SpecialDamage = retval;
             BattleForceValues();
             return retval;
@@ -261,64 +268,66 @@ public class BattleForceData {
 
         /**
          * Returns a / delimited string of values for the ranges
-         * 
+         *
          * @return ie. 0/1/1
          */
         public String GetAbility() {
-            return BFShort + "/" + BFMedium + "/" + BFLong; //+ "/" + BFExtreme;
+            return BFShort + "/" + BFMedium + "/" + BFLong; // + "/" + BFExtreme;
         }
 
-        public void AddBase( double[] vals ) {
+        public void AddBase(double[] vals) {
             this.baseShort += vals[BFConstants.BF_SHORT];
             this.baseMedium += vals[BFConstants.BF_MEDIUM];
             this.baseLong += vals[BFConstants.BF_LONG];
             this.baseExtreme += vals[BFConstants.BF_EXTREME];
-            this.TotalHeatGenerated += (int)vals[BFConstants.BF_OV];
+            this.TotalHeatGenerated += (int) vals[BFConstants.BF_OV];
         }
 
-//        /**
-//         * Add amount of ammo to this specific type
-//         * 
-//         * @param lotsize Amount of ammo to add
-//         */
-//        public void AddAmmo( int lotsize ) {
-//            this.AmmoCount += lotsize;
-//        }
-//
-//        /*
-//         * Used to increase the count of launchers that need ammunition
-//         */
-//        public void AddLauncher() {
-//            LauncherCount++;
-//        }
-        
-        public void SetHeat( int TotalHeatGenerated, int TotalHeatDissipation ) {
+        // /**
+        // * Add amount of ammo to this specific type
+        // *
+        // * @param lotsize Amount of ammo to add
+        // */
+        // public void AddAmmo( int lotsize ) {
+        // this.AmmoCount += lotsize;
+        // }
+        //
+        // /*
+        // * Used to increase the count of launchers that need ammunition
+        // */
+        // public void AddLauncher() {
+        // LauncherCount++;
+        // }
+
+        public void SetHeat(int TotalHeatGenerated, int TotalHeatDissipation) {
             this.TotalHeatGenerated = TotalHeatGenerated;
             this.TotalHeatDissipation = TotalHeatDissipation;
-            if ( TotalHeatDissipation < TotalHeatGenerated ) hasOverheat = true;
+            if (TotalHeatDissipation < TotalHeatGenerated)
+                hasOverheat = true;
             HeatAdjustments();
             BattleForceValues();
         }
 
-        public double HeatAdjustment( double base ) {
-            //if (!EnoughAmmo()) { base *= .75; }
-            if ( TotalHeatGenerated > 0 && TotalHeatDissipation > 0 && base > 0 ) {
+        public double HeatAdjustment(double base) {
+            // if (!EnoughAmmo()) { base *= .75; }
+            if (TotalHeatGenerated > 0 && TotalHeatDissipation > 0 && base > 0) {
                 return Math.ceil((base * TotalHeatDissipation) / TotalHeatGenerated);
             }
             return 0.0;
         }
 
         private void HeatAdjustments() {
-            this.heatShort = HeatAdjustment( baseShort );
-            this.heatMedium = HeatAdjustment( baseMedium );
-            this.heatLong = HeatAdjustment( baseLong );
-            this.heatExtreme = HeatAdjustment( baseExtreme );
+            this.heatShort = HeatAdjustment(baseShort);
+            this.heatMedium = HeatAdjustment(baseMedium);
+            this.heatLong = HeatAdjustment(baseLong);
+            this.heatExtreme = HeatAdjustment(baseExtreme);
         }
 
-        public int BattleForceValue( double base ) {
-            //if (!EnoughAmmo()) { base *= .75; }  This is being done in the per weapon damage check
-            if ( base > 9.0 || SpecialDamage || !isSpecial )
-                if ( isSpecial || useNormalRound)
+        public int BattleForceValue(double base) {
+            // if (!EnoughAmmo()) { base *= .75; } This is being done in the per weapon
+            // damage check
+            if (base > 9.0 || SpecialDamage || !isSpecial)
+                if (isSpecial || useNormalRound)
                     return (int) Math.round(base / 10);
                 else
                     return (int) Math.ceil(base / 10);
@@ -326,27 +335,33 @@ public class BattleForceData {
         }
 
         private void BattleForceValues() {
-            if ( hasOverheat ) {
-                this.BFShort = BattleForceValue( heatShort );
-                this.BFMedium = BattleForceValue( heatMedium );
-                this.BFLong = BattleForceValue( heatLong );
-                this.BFExtreme = BattleForceValue( heatExtreme );
+            if (hasOverheat) {
+                this.BFShort = BattleForceValue(heatShort);
+                this.BFMedium = BattleForceValue(heatMedium);
+                this.BFLong = BattleForceValue(heatLong);
+                this.BFExtreme = BattleForceValue(heatExtreme);
             } else {
-                this.BFShort = BattleForceValue( baseShort );
-                this.BFMedium = BattleForceValue( baseMedium );
-                this.BFLong = BattleForceValue( baseLong );
-                this.BFExtreme = BattleForceValue( baseExtreme );
+                this.BFShort = BattleForceValue(baseShort);
+                this.BFMedium = BattleForceValue(baseMedium);
+                this.BFLong = BattleForceValue(baseLong);
+                this.BFExtreme = BattleForceValue(baseExtreme);
             }
         }
 
         @Override
         public String toString() {
             String data = "";
-            data += " Base: " + String.format( "%1$,.2f", baseShort ) + "/" + String.format( "%1$,.2f", baseMedium ) + "/" + String.format( "%1$,.2f", baseLong ) + "/" + String.format( "%1$,.2f", baseExtreme ) + "\n";
-            if ( hasOverheat) data += " Heat: " + String.format( "%1$,.2f", heatShort ) + "/" + String.format( "%1$,.2f", heatMedium ) + "/" + String.format( "%1$,.2f", heatLong ) + "/" + String.format( "%1$,.2f", heatExtreme ) + "\n";
+            data += " Base: " + String.format("%1$,.2f", baseShort) + "/" + String.format("%1$,.2f", baseMedium) + "/"
+                    + String.format("%1$,.2f", baseLong) + "/" + String.format("%1$,.2f", baseExtreme) + "\n";
+            if (hasOverheat)
+                data += " Heat: " + String.format("%1$,.2f", heatShort) + "/" + String.format("%1$,.2f", heatMedium)
+                        + "/" + String.format("%1$,.2f", heatLong) + "/" + String.format("%1$,.2f", heatExtreme) + "\n";
             data += "   BF: " + BFShort + "/" + BFMedium + "/" + BFLong + "/" + BFExtreme + "\n";
             data += " Separate Damage: " + SpecialDamage + "\n";
-            if ( NotEnoughAmmo ) { data += "Not enough ammo for all of the launchers (" + LauncherCount + " launchers with " + AmmoCount + " total ammo; needs " + (LauncherCount * 10) + ")\n"; }
+            if (NotEnoughAmmo) {
+                data += "Not enough ammo for all of the launchers (" + LauncherCount + " launchers with " + AmmoCount
+                        + " total ammo; needs " + (LauncherCount * 10) + ")\n";
+            }
             return data;
         }
 
@@ -492,7 +507,7 @@ public class BattleForceData {
             HeatAdjustments();
         }
 
-        public void setNormalRound( boolean useNormal ) {
+        public void setNormalRound(boolean useNormal) {
             this.useNormalRound = useNormal;
         }
     }
