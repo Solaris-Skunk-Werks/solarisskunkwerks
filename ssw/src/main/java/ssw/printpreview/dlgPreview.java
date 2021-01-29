@@ -21,6 +21,10 @@ import java.util.prefs.Preferences;
 import ssw.print.Printer;
 
 public class dlgPreview extends javax.swing.JFrame implements ActionListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5821445186749448291L;
     private final static double DEFAULT_ZOOM_FACTOR_STEP = .5;
     protected Pageable pageable;
     private Printer printer;
@@ -53,7 +57,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         chkRS.setSelected(sswPrefs.getBoolean("UseRS", false));
         cmbPaperSize.setSelectedIndex(sswPrefs.getInt("PaperSize", 0));
         if ( chkRS.isSelected() ) { chkRSActionPerformed(null); }
-        
+
         chkUseHexConversion.setSelected( sswPrefs.getBoolean( "UseMiniConversion", false ) );
         if( chkUseHexConversion.isSelected() ) {
             lblOneHex.setEnabled( true );

@@ -27,6 +27,10 @@ import ssw.print.Printer;
  * @author gblouin
  */
 public class dlgBFPreview extends javax.swing.JFrame implements ActionListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4141263480257521396L;
     private final static double DEFAULT_ZOOM_FACTOR_STEP = .5;
     protected Pageable pageable;
     private Printer printer;

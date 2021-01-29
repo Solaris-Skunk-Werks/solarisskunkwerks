@@ -33,6 +33,11 @@ import filehandlers.TXTWriter;
 
 public class dlgTextExport extends javax.swing.JDialog {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7071345474929035366L;
+
     /** Creates new form dlgTextExport */
     public dlgTextExport(java.awt.Frame parent, boolean modal, Mech m ) {
         super(parent, modal);

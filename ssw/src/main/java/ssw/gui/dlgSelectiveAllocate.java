@@ -37,6 +37,10 @@ import javax.swing.border.TitledBorder;
 
 public class dlgSelectiveAllocate extends javax.swing.JDialog {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3069566157073941808L;
     ifMechForm Parent;
     abPlaceable Item = null;
     EquipmentCollection Items = null;
@@ -119,7 +123,7 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
     private void InitializeCollection() {
         abPlaceable CurItem = Items.GetType();
         int size = CurItem.NumCrits();
-        
+
         if( Parent.GetMech().IsQuad() ) {
             ((TitledBorder) pnlRA.getBorder()).setTitle( "RFL" );
             ((TitledBorder) pnlLA.getBorder()).setTitle( "LFL" );
@@ -550,9 +554,9 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
         // update the labels to reflect the new values.
         lblHDQuant.setText( Alloc[LocationIndex.MECH_LOC_HD] + " of " + Crits[LocationIndex.MECH_LOC_HD] );
         if( Item == null ) {
-            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );            
+            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );
         } else {
-            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );            
+            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );
         }
     }//GEN-LAST:event_spnHDCritsStateChanged
 
@@ -601,9 +605,9 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
         // update the labels to reflect the new values.
         lblRTQuant.setText( Alloc[LocationIndex.MECH_LOC_RT] + " of " + Crits[LocationIndex.MECH_LOC_RT] );
         if( Item == null ) {
-            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );            
+            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );
         } else {
-            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );            
+            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );
         }
     }//GEN-LAST:event_spnRTCritsStateChanged
 
@@ -652,9 +656,9 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
         // update the labels to reflect the new values.
         lblLTQuant.setText( Alloc[LocationIndex.MECH_LOC_LT] + " of " + Crits[LocationIndex.MECH_LOC_LT] );
         if( Item == null ) {
-            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );            
+            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );
         } else {
-            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );            
+            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );
         }
     }//GEN-LAST:event_spnLTCritsStateChanged
 
@@ -703,9 +707,9 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
         // update the labels to reflect the new values.
         lblCTQuant.setText( Alloc[LocationIndex.MECH_LOC_CT] + " of " + Crits[LocationIndex.MECH_LOC_CT] );
         if( Item == null ) {
-            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );            
+            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );
         } else {
-            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );            
+            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );
         }
     }//GEN-LAST:event_spnCTCritsStateChanged
 
@@ -754,9 +758,9 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
         // update the labels to reflect the new values.
         lblLAQuant.setText( Alloc[LocationIndex.MECH_LOC_LA] + " of " + Crits[LocationIndex.MECH_LOC_LA] );
         if( Item == null ) {
-            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );            
+            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );
         } else {
-            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );            
+            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );
         }
     }//GEN-LAST:event_spnLACritsStateChanged
 
@@ -805,9 +809,9 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
         // update the labels to reflect the new values.
         lblRAQuant.setText( Alloc[LocationIndex.MECH_LOC_RA] + " of " + Crits[LocationIndex.MECH_LOC_RA] );
         if( Item == null ) {
-            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );            
+            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );
         } else {
-            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );            
+            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );
         }
     }//GEN-LAST:event_spnRACritsStateChanged
 
@@ -856,9 +860,9 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
         // update the labels to reflect the new values.
         lblLLQuant.setText( Alloc[LocationIndex.MECH_LOC_LL] + " of " + Crits[LocationIndex.MECH_LOC_LL] );
         if( Item == null ) {
-            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );            
+            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );
         } else {
-            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );            
+            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );
         }
     }//GEN-LAST:event_spnLLCritsStateChanged
 
@@ -907,12 +911,12 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
         // update the labels to reflect the new values.
         lblRLQuant.setText( Alloc[LocationIndex.MECH_LOC_RL] + " of " + Crits[LocationIndex.MECH_LOC_RL] );
         if( Item == null ) {
-            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );            
+            lblItemCrits.setText( total + " of " + Items.GetSize() + " Allocated" );
         } else {
-            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );            
+            lblItemCrits.setText( total + " of " + Item.NumCrits() + " Allocated" );
         }
     }//GEN-LAST:event_spnRLCritsStateChanged
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOkay;
@@ -944,5 +948,5 @@ public class dlgSelectiveAllocate extends javax.swing.JDialog {
     private javax.swing.JSpinner spnRLCrits;
     private javax.swing.JSpinner spnRTCrits;
     // End of variables declaration//GEN-END:variables
-    
+
 }

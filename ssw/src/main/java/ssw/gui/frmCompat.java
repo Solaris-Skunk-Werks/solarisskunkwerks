@@ -32,6 +32,11 @@ import javax.swing.Box;
 
 public class frmCompat extends javax.swing.JFrame {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7124821475700356184L;
+
     /** Creates new form frmCompat */
     public frmCompat() {
         initComponents();

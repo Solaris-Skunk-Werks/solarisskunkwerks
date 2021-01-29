@@ -36,6 +36,10 @@ import components.*;
 import filehandlers.FileCommon;
 
 public class EquipmentSelectedRenderer extends DefaultListCellRenderer {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7437464798284019170L;
     private ifMechForm Parent;
     private abPlaceable a = null;
 

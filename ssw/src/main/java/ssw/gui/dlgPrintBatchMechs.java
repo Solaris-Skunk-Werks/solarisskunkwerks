@@ -42,7 +42,12 @@ import ssw.print.Printer;
  * @author Michael Mills
  */
 public class dlgPrintBatchMechs extends javax.swing.JDialog {
-    private class mechData{
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2957620689123290536L;
+
+    private class mechData {
         public String name;
         public Mech m;
         public dlgPrintSavedMechOptions POptions;

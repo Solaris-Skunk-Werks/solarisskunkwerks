@@ -39,7 +39,7 @@ import org.w3c.dom.Node;
  * This object stores information that is specific to the Warchest system
  * for Battletech.  This information includes the cost of the track, the Objectives
  * and their Rewards and also Optional Bonuses and their amounts.
- * 
+ *
  * @author George Blouin
  */
 public class Warchest implements ifSerializable {
@@ -48,9 +48,9 @@ public class Warchest implements ifSerializable {
     private ArrayList<Objective> objectives = new ArrayList<Objective>();
 
     public Warchest() {
-        
+
     }
-    
+
     /**
      * @param node An xml node that contains the required data
      */
@@ -111,7 +111,7 @@ public class Warchest implements ifSerializable {
             }
             data += CommonTools.NL;
         }
-        
+
         if ( objectives.size() > 0 ) {
             data += "  Objectives" + CommonTools.NL;
             for ( Objective o : objectives ) {
@@ -173,9 +173,14 @@ public class Warchest implements ifSerializable {
         }
         return model;
     }
-    
+
     public AbstractTableModel getBonusTable() {
         AbstractTableModel model = new AbstractTableModel() {
+
+            /**
+             *
+             */
+            private static final long serialVersionUID = -3366882362333693842L;
 
             public int getRowCount() {
                 return bonuses.size();
@@ -209,6 +214,11 @@ public class Warchest implements ifSerializable {
     public AbstractTableModel getObjectiveTable() {
         AbstractTableModel model = new AbstractTableModel() {
 
+            /**
+             *
+             */
+            private static final long serialVersionUID = 2386484469679345832L;
+
             public int getRowCount() {
                 return objectives.size();
             }
@@ -237,5 +247,5 @@ public class Warchest implements ifSerializable {
 
         return model;
     }
-    
+
 }

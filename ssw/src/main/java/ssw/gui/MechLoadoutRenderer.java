@@ -36,6 +36,10 @@ import javax.swing.JList;
 import components.*;
 
 public class MechLoadoutRenderer extends DefaultListCellRenderer {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6819033611138896545L;
     private ifMechForm Parent;
     private Color EmptyFG,
                   EmptyBG,

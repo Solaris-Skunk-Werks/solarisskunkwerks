@@ -39,6 +39,10 @@ import components.abPlaceable;
 import filehandlers.FileCommon;
 
 public class AmmoChooserRenderer extends DefaultListCellRenderer {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -408196200015299689L;
     private dlgAmmoChooser Parent;
     private abPlaceable a = null;
 

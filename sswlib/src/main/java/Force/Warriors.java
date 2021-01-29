@@ -47,6 +47,10 @@ import org.w3c.dom.*;
  * @author George Blouin
  */
 public class Warriors extends AbstractTableModel {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1333658916698836359L;
     private ArrayList<Warrior> list = new ArrayList<Warrior>();
     private String defaultPath = "data/Personnel/WarriorList.psn",
                     Title = "",
@@ -158,7 +162,7 @@ public class Warriors extends AbstractTableModel {
         tbl.getColumnModel().getColumn(1).setPreferredWidth(100);
         tbl.getColumnModel().getColumn(3).setPreferredWidth(20);
     }
-        
+
     @Override
     public String getColumnName( int col ) {
         switch( col ) {

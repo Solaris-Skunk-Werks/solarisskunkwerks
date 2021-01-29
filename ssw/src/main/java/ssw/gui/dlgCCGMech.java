@@ -22,6 +22,10 @@ import components.ifMechLoadout;
  */
 public class dlgCCGMech extends javax.swing.JDialog {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4454863213045636732L;
     private Mech CurMech;
     private String NL;
 
@@ -190,4 +194,3 @@ public class dlgCCGMech extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
 }
-

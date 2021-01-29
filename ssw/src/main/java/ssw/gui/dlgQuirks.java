@@ -34,6 +34,10 @@ import java.util.ArrayList;
 import list.view.tbQuirks;
 
 public class dlgQuirks extends javax.swing.JDialog {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4195412552625797884L;
     private DataFactory list;
     private ArrayList<Quirk> existingQuirks;
     private tbQuirks tblQ;
@@ -212,13 +216,13 @@ public class dlgQuirks extends javax.swing.JDialog {
     private void tblListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListMouseClicked
         if ( evt.getClickCount() == 2 ) {
             btnAddActionPerformed(null);
-        } 
+        }
     }//GEN-LAST:event_tblListMouseClicked
 
     private void tblSelectedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSelectedMouseClicked
         if ( evt.getClickCount() == 2 ) {
             btnRemoveActionPerformed(null);
-        } 
+        }
     }//GEN-LAST:event_tblSelectedMouseClicked
 
 

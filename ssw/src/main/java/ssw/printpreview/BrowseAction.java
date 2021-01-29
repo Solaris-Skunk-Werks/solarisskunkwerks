@@ -26,7 +26,12 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 
 class BrowseAction extends AbstractAction {
-    public BrowseAction(String name, String iconName, Preview preview, int pageStep ) {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6790125631407379202L;
+
+    public BrowseAction(String name, String iconName, Preview preview, int pageStep) {
         super();
         if ( !name.isEmpty() ) {
             this.putValue(Action.NAME, name);
@@ -45,12 +50,12 @@ class BrowseAction extends AbstractAction {
     public BrowseAction(Preview preview, int pageStep) {
         this("", "", preview, pageStep);
     }
-    
+
     public void actionPerformed(ActionEvent e) {
         preview.moveIndex(pageStep);
         preview.repaint();
     }
-    
+
     protected Preview preview;
     protected int pageStep;
 }

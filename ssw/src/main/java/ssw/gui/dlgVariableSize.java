@@ -33,6 +33,10 @@ import components.Equipment;
 
 public class dlgVariableSize extends javax.swing.JDialog {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6176467832586662183L;
     private Equipment CurEquip;
     private double CurTons;
     private boolean result = true;

@@ -39,6 +39,10 @@ import components.EquipmentCollection;
 import filehandlers.FileCommon;
 
 public class EquipmentListRenderer extends DefaultListCellRenderer {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8848264932602618278L;
     private ifMechForm Parent;
     private abPlaceable a = null;
 

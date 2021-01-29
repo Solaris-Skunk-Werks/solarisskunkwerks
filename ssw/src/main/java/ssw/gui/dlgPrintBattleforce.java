@@ -20,6 +20,10 @@ import battleforce.BattleForce;
  * @author gblouin
  */
 public class dlgPrintBattleforce extends javax.swing.JDialog {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5419050756388713021L;
     private BattleForce force;
     public boolean Result = false;
     public String Sheet = BattleForce.InnerSphere;

@@ -33,6 +33,10 @@ import components.AvailableCode;
 import components.abPlaceable;
 
 public class dlgPlaceableInfo extends javax.swing.JDialog {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7878421703509892901L;
     ifMechForm Parent;
 
     /** Creates new form dlgPlaceableInfo */

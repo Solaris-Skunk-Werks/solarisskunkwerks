@@ -33,6 +33,10 @@ import utilities.CostBVBreakdown;
 
 public class dlgCostBVBreakdown extends javax.swing.JDialog {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4927619301628972669L;
     private Mech CurMech;
     private String NL;
 

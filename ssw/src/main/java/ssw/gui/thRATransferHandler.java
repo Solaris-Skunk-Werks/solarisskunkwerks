@@ -38,6 +38,10 @@ import javax.swing.TransferHandler;
 import components.*;
 
 public class thRATransferHandler extends TransferHandler {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1183780725264049577L;
     private ifMechForm Parent;
     private Mech CurMech;
 

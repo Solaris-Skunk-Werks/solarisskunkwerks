@@ -34,6 +34,10 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 public class tbQuirks extends AbstractTableModel {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1986433171909626102L;
     public ArrayList quirklist;
 
     public tbQuirks(ArrayList quirks)

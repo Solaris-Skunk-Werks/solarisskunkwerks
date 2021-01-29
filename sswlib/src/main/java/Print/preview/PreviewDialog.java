@@ -44,11 +44,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 
 public class PreviewDialog extends JDialog implements ActionListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7637909796176909169L;
     private final static double DEFAULT_ZOOM_FACTOR_STEP = .5;
 
     public PreviewDialog(String title, JFrame owner, Pageable pageable, double zoom) {
         super(owner, title, true);
-        this.pageable = pageable;        
+        this.pageable = pageable;
         Preview preview = new Preview(pageable, zoom);
         JScrollPane scrollPane = new JScrollPane(preview);
         getContentPane().add(scrollPane, "Center");
@@ -59,7 +63,7 @@ public class PreviewDialog extends JDialog implements ActionListener {
         toolbar.add(getButton( "Back", "Back24.gif", new BrowseAction(preview, -1)));
         toolbar.add(getButton( "Forward", "Forward24.gif", new BrowseAction(preview, 1)));
         toolbar.add(new JToolBar.Separator());
-        toolbar.add(getButton( "Zoom +", "ZoomIn24.gif", new ZoomAction(preview, DEFAULT_ZOOM_FACTOR_STEP))); 
+        toolbar.add(getButton( "Zoom +", "ZoomIn24.gif", new ZoomAction(preview, DEFAULT_ZOOM_FACTOR_STEP)));
         toolbar.add(getButton( "Zoom -", "ZoomOut24.gif", new ZoomAction(preview, -DEFAULT_ZOOM_FACTOR_STEP)));
         toolbar.add(new JToolBar.Separator());
         JPanel dialog = new JPanel();
@@ -67,9 +71,9 @@ public class PreviewDialog extends JDialog implements ActionListener {
         JButton ok = new JButton("OK");
         ok.addActionListener(this);
         dialog.add(ok);
-        getContentPane().add(dialog, "South");        
+        getContentPane().add(dialog, "South");
     }
-    
+
     public PreviewDialog(String title, JFrame owner, Pageable pageable) {
         this(title, owner, pageable, 0.0);
     }
@@ -81,33 +85,33 @@ public class PreviewDialog extends JDialog implements ActionListener {
     public PreviewDialog(String title, JFrame owner, Printable printable, PageFormat format, int pages) {
         this(title, owner, printable, format, pages, 0.0);
     }
-    
+
     private static class MyPageable implements Pageable {
         public MyPageable(Printable printable, PageFormat format, int pages) {
             this.printable = printable;
             this.format = format;
             this.pages = pages;
         }
-        
-        public int getNumberOfPages() { 
-            return pages; 
+
+        public int getNumberOfPages() {
+            return pages;
         }
-        
+
         public Printable getPrintable(int index) {
             if (index >= pages) throw new IndexOutOfBoundsException();
             return printable;
         }
-        
+
         public PageFormat getPageFormat(int index) {
             if (index >= pages) throw new IndexOutOfBoundsException();
             return format;
         }
-        
+
         private Printable printable;
         private PageFormat format;
         private int pages;
     }
-    
+
     private JButton getButton(String iconName) {
         return getButton(null, iconName, null);
     }
@@ -115,20 +119,20 @@ public class PreviewDialog extends JDialog implements ActionListener {
     private JButton getButton(String iconName, AbstractAction action) {
         return getButton(null, iconName, action);
     }
-    
+
     private JButton getButton(String name, String iconName, AbstractAction action) {
         JButton result = null;
 
-        ImageIcon icon = null;        
+        ImageIcon icon = null;
         icon = new ImageIcon(getClass().getResource("/ssw/BFB.Images/" + iconName));
 
         if (action != null) {
             if (icon != null) action.putValue(Action.SMALL_ICON, icon);
-            if (name != null) action.putValue(Action.NAME, name);    
+            if (name != null) action.putValue(Action.NAME, name);
             result = new JButton(action);
-        } else 
+        } else
             result = new JButton(name, icon);
-        
+
         return result;
     }
 
@@ -139,6 +143,6 @@ public class PreviewDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         dispose();
     }
-    
+
     protected Pageable pageable;
 }

@@ -44,6 +44,10 @@ import list.view.*;
 import ssw.print.Printer;
 
 public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7326880783593697067L;
     private ifMechForm parent;
     private UnitList list = new UnitList();
     private Media media = new Media();
@@ -63,7 +67,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         ImageIcon icon = new ImageIcon(super.getClass().getResource("/ssw/Images/appicon.png"));
         super.setIconImage(icon.getImage());
         this.parent = (ifMechForm) parent;
-        
+
         prgResaving.setVisible(false);
         cmbTech.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Tech", "Clan", "Inner Sphere", "Mixed" }));
         cmbEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Era", "Age of War/Star League", "Succession Wars", "Clan Invasion", "Dark Ages", "All Eras (non-canon)" }));
@@ -72,7 +76,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         cmbMotive.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Motive", "Biped", "Quad" }));
         NL = System.getProperty( "line.separator" );
     }
-    
+
     private void LoadMech() {
         switch ( Requestor ) {
             case SSW:
@@ -139,7 +143,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         this.lblStatus.setText("Loading Mechs...");
         this.txtSelected.setText("0 Units Selected for 0 BV and 0 C-Bills");
         this.tblMechData.setModel(new UnitList());
-        
+
         if (dirPath.isEmpty()) {
             dirPath = parent.GetPrefs().get("ListPath", parent.GetPrefs().get( "LastOpenDirectory", "" ) );
 
@@ -163,7 +167,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         }
 
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        
+
         list = new UnitList(dirPath, useIndex);
 
         if (list.Size() > 0) {
@@ -239,7 +243,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             //do nothing
         }
     }
-    
+
     public void propertyChange( PropertyChangeEvent e ) {
        prgResaving.setValue( ((Resaver) e.getSource()).getProgress() );
     }
@@ -1254,7 +1258,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
     private void btnClearFilterFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearFilterFilter
         setupList(list, false);
-        
+
         //clear the dropdowns
         cmbEra.setSelectedIndex(0);
         cmbMotive.setSelectedIndex(0);
@@ -1383,7 +1387,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
     private void btnViewForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewForceActionPerformed
         lblForce.setText("");
-        
+
         //if ( tblMechData.getSelectedRowCount() > 0 ) {
         //    btnAdd2ForceActionPerformed(evt);
         //}

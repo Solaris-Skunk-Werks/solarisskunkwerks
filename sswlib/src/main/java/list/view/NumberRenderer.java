@@ -15,6 +15,11 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class NumberRenderer extends DefaultTableCellRenderer {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8448429028889590402L;
+
     public NumberRenderer()
     {
     }
