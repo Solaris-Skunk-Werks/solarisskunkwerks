@@ -33,34 +33,34 @@ import java.util.Vector;
 public class EquipmentCollection {
     // provides a class for consolidating multiple pieces of equipment in a JList
 
-    private Vector equips = new Vector( 10, 5 );
+    private Vector<abPlaceable> equips = new Vector<abPlaceable>(10, 5);
     private ifMechLoadout Owner;
 
-    public EquipmentCollection( ifMechLoadout l ) {
+    public EquipmentCollection(ifMechLoadout l) {
         Owner = l;
     }
 
     public abPlaceable GetType() {
-        return (abPlaceable) equips.get( 0 );
+        return equips.get(0);
     }
 
-    public boolean SameType( abPlaceable p ) {
-        if( ((abPlaceable) equips.get( 0 )).LookupName().equals( p.LookupName() ) ) {
+    public boolean SameType(abPlaceable p) {
+        if (equips.get(0).LookupName().equals(p.LookupName())) {
             return true;
         } else {
             return false;
         }
     }
 
-    public boolean Add( abPlaceable p ) {
+    public boolean Add(abPlaceable p) {
         // ensure that the lookupnames match.
-        if( equips.size() < 1 ) {
-            equips.add( p );
+        if (equips.size() < 1) {
+            equips.add(p);
             return true;
         } else {
-            if( SameType( p ) ) {
-                if( ! equips.contains( p ) ) {
-                    equips.add( p );
+            if (SameType(p)) {
+                if (!equips.contains(p)) {
+                    equips.add(p);
                 }
                 return true;
             } else {
@@ -69,12 +69,12 @@ public class EquipmentCollection {
         }
     }
 
-    public void Remove( abPlaceable p ) {
-        equips.remove( p );
+    public void Remove(abPlaceable p) {
+        equips.remove(p);
     }
 
-    public boolean Contains( abPlaceable p ) {
-        return equips.contains( p );
+    public boolean Contains(abPlaceable p) {
+        return equips.contains(p);
     }
 
     public int GetSize() {
@@ -82,7 +82,7 @@ public class EquipmentCollection {
     }
 
     public boolean IsEmpty() {
-        if( equips.size() < 1 ) {
+        if (equips.size() < 1) {
             return true;
         } else {
             return false;
@@ -91,21 +91,21 @@ public class EquipmentCollection {
 
     @Override
     public String toString() {
-        if( equips.size() < 1 ) {
+        if (equips.size() < 1) {
             return "EquipmentCollection - 0 elements";
         } else {
-            if( Owner.GetTechBase() == AvailableCode.TECH_BOTH ) {
-                if( equips.get( 0 ) instanceof Equipment ) {
-                    if( ((Equipment) equips.get( 0 )).IsVariableSize() ) {
-                        return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).CritName();
+            if (Owner.GetTechBase() == AvailableCode.TECH_BOTH) {
+                if (equips.get(0) instanceof Equipment) {
+                    if (((Equipment) equips.get(0)).IsVariableSize()) {
+                        return "(" + equips.size() + ") " + equips.get(0).CritName();
                     } else {
-                        return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).LookupName();
+                        return "(" + equips.size() + ") " + equips.get(0).LookupName();
                     }
                 } else {
-                    return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).LookupName();
+                    return "(" + equips.size() + ") " + equips.get(0).LookupName();
                 }
             } else {
-                return "(" + equips.size() + ") " + ((abPlaceable) equips.get( 0 )).CritName();
+                return "(" + equips.size() + ") " + equips.get(0).CritName();
             }
         }
     }
