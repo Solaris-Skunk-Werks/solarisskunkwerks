@@ -31,6 +31,10 @@ package ssw.gui;
 import components.AvailableCode;
 
 public class dlgSummaryInfo extends javax.swing.JDialog {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2331190294631798531L;
     ifMechForm Parent;
 
     /** Creates new form dlgSummaryInfo */
@@ -433,7 +437,7 @@ public class dlgSummaryInfo extends javax.swing.JDialog {
     private void btnOkayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkayActionPerformed
         dispose();
     }//GEN-LAST:event_btnOkayActionPerformed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOkay;
     private javax.swing.JLabel jLabel1;
@@ -469,5 +473,5 @@ public class dlgSummaryInfo extends javax.swing.JDialog {
     private javax.swing.JLabel lblTotalDryWeight;
     private javax.swing.JLabel lblTotalWeight;
     // End of variables declaration//GEN-END:variables
-    
+
 }

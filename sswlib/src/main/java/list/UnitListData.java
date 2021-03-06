@@ -68,6 +68,7 @@ public class UnitListData extends abUnitData {
     public UnitListData( String filename, String basePath ) throws Exception {
         MechReader read = new MechReader();
         UnitListData tempData = new UnitListData();
+
         try
         {
             tempData = read.ReadMechData(filename, basePath);
@@ -89,9 +90,11 @@ public class UnitListData extends abUnitData {
             this.Omni = tempData.isOmni();
             this.filename = tempData.getFilename().replace(basePath, "");
             this.Config = tempData.getConfig();
-            for ( int i=0; i < tempData.Configurations.size(); i++ ){
+
+            for (int i = 0; i < tempData.Configurations.size(); i++) {
                 this.Configurations.add(tempData.Configurations.get(i));
             }
+
             this.bfstat = tempData.getBattleForceStats();
         } catch ( Exception e1 ) {
             throw new Exception("[MechListData " + e1.getMessage() + "]");
@@ -183,7 +186,7 @@ public class UnitListData extends abUnitData {
     public String toString() {
         return getFullName() + " (" + getBV() + ") " + getInfo();
     }
-    
+
     public int getUnitType() {
         if ( this.filename.endsWith(".ssw") ) {
             return CommonTools.BattleMech;

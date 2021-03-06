@@ -32,6 +32,11 @@ import common.CommonTools;
 import components.*;
 
 public class dlgWeaponInfo extends javax.swing.JDialog {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2926692648021667553L;
+
     abPlaceable CurItem;
 
     /** Creates new form dlgItemInfo */
@@ -976,7 +981,7 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
         dispose();
     }//GEN-LAST:event_btnCloseActionPerformed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JLabel jLabel1;
@@ -1056,5 +1061,5 @@ public class dlgWeaponInfo extends javax.swing.JDialog {
     private javax.swing.JPanel pnlClanAvailability;
     private javax.swing.JPanel pnlISAvailability;
     // End of variables declaration//GEN-END:variables
-    
+
 }

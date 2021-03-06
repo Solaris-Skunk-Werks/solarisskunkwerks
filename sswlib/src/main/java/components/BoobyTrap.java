@@ -31,7 +31,7 @@ package components;
 public class BoobyTrap extends abPlaceable {
 
     private ifMechLoadout Owner;
-    private int MP = 0;
+    // private int MP = 0; // Not Used
     private static AvailableCode AC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private int Crits = 1;
 

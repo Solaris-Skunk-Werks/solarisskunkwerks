@@ -42,7 +42,7 @@ public class SimplePlaceable extends abPlaceable {
     private String ActualName,
                    LookupName,
                    CritName,
-                   ChatName,
+                   // ChatName, // Not Used
                    BookReference,
                    MegaMekName;
     private AvailableCode AC;
@@ -112,7 +112,7 @@ public class SimplePlaceable extends abPlaceable {
             return Tonnage;
         }
     }
-    
+
     public void SetArmoredTonnage(double tonnage){
         ArmoredTonnage = tonnage;
     }

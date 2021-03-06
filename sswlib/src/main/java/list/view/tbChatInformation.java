@@ -32,7 +32,12 @@ import list.UnitList;
 import list.UnitListData;
 
 public class tbChatInformation extends abView {
-    public tbChatInformation( UnitList list ) {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -208845266128004476L;
+
+    public tbChatInformation(UnitList list) {
         this.list = list;
 
         Columns.add(new Column( 0, "Type/Model", "Name", false, 125, String.class, true, SortOrder.ASCENDING ));

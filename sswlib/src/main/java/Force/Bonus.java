@@ -36,11 +36,11 @@ import org.w3c.dom.Node;
 /**
  * This object contains information about a Warchest Optional Bonus
  */
-public class Bonus extends abWarchestItem implements ifSerializable {
+public class Bonus extends abWarchestItem { // implements ifSerializable { // Redundant as already defined in abWarchestItem
     public Bonus( String Description, int Value ) {
         super(Description, Value);
     }
-    
+
     public Bonus() {
         super("", 0);
     }

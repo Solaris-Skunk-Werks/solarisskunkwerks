@@ -29,21 +29,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.filehandlers;
 
 import components.Mech;
-import java.util.Hashtable;
-import visitors.VMechFullRecalc;
+// import java.util.Hashtable;
+// import visitors.VMechFullRecalc;
 
 public class MTFReader {
-    private Hashtable MMLookup = new Hashtable();
+    // private Hashtable MMLookup = new Hashtable(); // Not used anywhere nor in a subclass.
     public MTFReader() {
         BuildHash();
     }
 
     public Mech ReadMech() {
         Mech m = new Mech();
-        VMechFullRecalc Recalc = new VMechFullRecalc();
+        // VMechFullRecalc Recalc = new VMechFullRecalc(); // Not used
         // m.Visit( Recalc );
 
-        
+
         return m;
     }
 

@@ -44,7 +44,7 @@ public class SupportVehicle {
 	// Properties - Fluff Strings
 	private String Name = "",
     			   Model = "",
-    			   TechBase = "Inner Sphere",
+    			   // TechBase = "Inner Sphere",
     			   Overview = "",
     			   Capabilities = "",
     			   History = "",
@@ -69,9 +69,9 @@ public class SupportVehicle {
 				baseMove;
 	// Properties - SV Specific Strings
 	private String motiveType,
-	   			   size,
-	   			   techRating,
-	   			   engineType;
+									size,
+									techRating;
+								// engineType; // Not Used
 	// Properties - SV Specific Doubles
 	private double Tonnage,
 				   baseChassisValue,
@@ -79,7 +79,7 @@ public class SupportVehicle {
 	// Properties - SV Specific Integers
 	private int cruiseSpeed;
 	// Properties - SV Specific Lists
-	private LinkedList<stSVLocation> locations;
+	// private LinkedList<stSVLocation> locations; // Not Used
 	// Properties - SV Specific Booleans
 	private boolean TO_Opt_twoTurrets;
 	// Properties - States
@@ -217,162 +217,162 @@ public class SupportVehicle {
 		this.size = "Medium";
 		this.setMotiveType("Wheeled");
 	}
-	
+
 	// METHODS
 	// Methods - General Accessors
-	
+
 	public String getName() {
 		String nameTemp = this.Name;
 		return nameTemp;
 	}
-	
+
 	public String getModel() {
 		String modelTemp = this.Model;
 		return modelTemp;
 	}
-	
+
 	public String getOverview() {
 		String overviewTemp = this.Overview;
 		return overviewTemp;
 	}
-	
+
 	public String getCapabilites() {
 		String capabilitiesTemp = this.Capabilities;
 		return capabilitiesTemp;
 	}
-	
+
 	public String getHistory() {
 		String historyTemp = this.History;
 		return historyTemp;
 	}
-	
+
 	public String getVariants() {
 		String variantsTemp = this.Variants;
 		return variantsTemp;
 	}
-	
+
 	public String getDeployment() {
 		String deploymentTemp = this.Deployment;
 		return deploymentTemp;
 	}
-	
+
 	public String getCompany() {
 		String companyTemp = this.Company;
 		return companyTemp;
 	}
-	
+
 	public String getAdditional() {
 		String additionalTemp = this.Additional;
 		return additionalTemp;
 	}
-	
+
 	public String getNotables() {
 		String notablesTemp = this.Notables;
 		return notablesTemp;
 	}
-	
+
 	public String getArmorModel() {
 		String armorModelTemp = this.ArmorModel;
 		return armorModelTemp;
 	}
-	
+
 	public String getLocations() {
 		String locationsTemp = this.Location;
 		return locationsTemp;
 	}
-	
+
 	public String getEngineManufacturer() {
 		String engineManTemp = this.EngineManufacturer;
 		return engineManTemp;
 	}
-	
+
 	public String getCommSystem() {
 		String commTemp = this.CommSystem;
 		return commTemp;
 	}
-	
+
 	public String getChassisModel() {
 		String chassisModelTemp = this.ChassisModel;
 		return chassisModelTemp;
 	}
-	
+
 	public String getSolaris7ID() {
 		String solarisIDTemp = this.Solaris7ID;
 		return solarisIDTemp;
 	}
-	
+
 	public String getSolaris7ImageID() {
 		String solarisImageTemp = this.Solaris7ImageID;
 		return solarisImageTemp;
 	}
-	
+
 	public String getTandTSystem() {
 		String targetTemp = this.TandTSystem;
 		return targetTemp;
 	}
-	
+
 	public String getSSWImage() {
 		String sswImageTemp = this.SSWImage;
 		return sswImageTemp;
 	}
-	
+
 	public int getEra() {
 		int eraTemp = this.Era;
 		return eraTemp;
 	}
-	
+
 	public int getYear() {
 		int yearTemp = this.Year;
 		return yearTemp;
 	}
-	
+
 	public int getRulesLevel() {
 		int rulesTemp = this.RulesLevel;
 		return rulesTemp;
 	}
-	
+
 	public double getTonnage() {
 		double tonnageTemp = this.Tonnage;
 		return tonnageTemp;
 	}
-	
+
 	// Methods - SV Specific Accessors
-	
+
 	public String getMotiveType() {
 		String motiveTemp = this.motiveType;
 		return motiveTemp;
 	}
-	
+
 	public String getSize() {
 		String sizeTemp = this.size;
 		return sizeTemp;
 	}
-	
+
 	public String getTechRating() {
 		String trTemp = this.techRating;
 		return trTemp;
 	}
-	
+
 	public double getBCV() {
 		double bcvTemp = this.baseChassisValue;
 		return bcvTemp;
 	}
-	
+
 	public double getBEV() {
 		double bevTemp = this.baseEngineValue;
 		return bevTemp;
 	}
-	
+
 	public double getMinimumTonnage() {
 		double minTemp = this.chassis.getMinimumTonnage();
 		return minTemp;
 	}
-	
+
 	public Preferences getPref() {
 		Preferences prefTemp = this.pref;
 		return prefTemp;
 	}
-	
+
 	/**
 	 * Calculates the structural mass required for the support vehicle.
 	 * @return A double containing the structural mass required.
@@ -384,7 +384,7 @@ public class SupportVehicle {
 		structureTonnage = structureTonnage * this.chassis.getBCV();
 		return structureTonnage;
 	}
-	
+
 	/**
 	 * Calculates the total structural mass multiplier for the chassis mods.
 	 * @return A double containing the structural mass multipler for the chassis mods.
@@ -412,7 +412,7 @@ public class SupportVehicle {
 		if (this.isVSTOL.equals("true")) { multiple = multiple * 2; }
 		return multiple;
 	}
-	
+
 	/**
 	 * Returns the structural mass multiplier for the current tech rating.
 	 * @return A double containing the structural mass multplier for the current tech rating.
@@ -427,11 +427,11 @@ public class SupportVehicle {
 		else if (this.techRating.equals("F")) { multiple = 0.66; }
 		return multiple;
 	}
-	
+
 	public int getBaseMove() {
 		return this.baseMove;
 	}
-	
+
 	/**
 	 * Gets the maximum move (flank MP, max accel, whatever).
 	 * @return An integer representing the maximum move.
@@ -441,18 +441,18 @@ public class SupportVehicle {
 		maxMove = Math.ceil(maxMove);
 		return (int) maxMove;
 	}
-	
+
 	// Methods - SV Specific Mutators
-	
+
 	public void setTechRating(String newRating) {
 		this.techRating = newRating;
 	}
-	
+
 	/**
 	 * Sets motive type and calls appropriate helper methods to manage chassis modifications
 	 * and engine types.
 	 * @param String newType: The motive type to set.
-	 */	
+	 */
 	public void setMotiveType(String newType) {
 		if (newType.equals("Airship")) {
 			this.cmAirship();
@@ -498,14 +498,14 @@ public class SupportVehicle {
 		this.setChassis();
 		this.setLocations();
 	}
-	
+
 	public void setSize(String newSize) {
 		this.cmSmallCheck();
 		this.size = newSize;
 		this.setChassis();
 		this.setLocations();
 	}
-	
+
 	public void setTonnage(double newTonnage) {
 		if (newTonnage >= this.chassis.getMinimumTonnage()) {
 			if (newTonnage <= this.chassis.getMaximumTonnage()) {
@@ -515,7 +515,7 @@ public class SupportVehicle {
 		this.cmSmallCheck();
 		this.setLocations();
 	}
-	
+
 	/**
 	 * Handles the chassis state.
 	 */
@@ -571,115 +571,115 @@ public class SupportVehicle {
 			else if (this.size.equals("Large")) { this.chassis = this.wigeLarge; }
 		}
 	}
-	
+
 	// Methods - Chassis
 	// Methods - Chassis - Chassis Mods Accessors
-	
+
 	public String getAmphibous() {
 		String amphibiousTemp = this.isAmphibious;
 		return amphibiousTemp;
 	}
-	
+
 	public String getArmored() {
 		String armoredTemp = this.isArmored;
 		return armoredTemp;
 	}
-	
+
 	public String getBicycle() {
 		String bicycleTemp = this.isBicycle;
 		return bicycleTemp;
 	}
-	
+
 	public String getConvertible() {
 		String convertibleTemp = this.isConvertible;
 		return convertibleTemp;
 	}
-	
+
 	public String getDuneBuggy() {
 		String duneBuggyTemp = this.isDuneBuggy;
 		return duneBuggyTemp;
 	}
-	
+
 	public String getEnviroSeal() {
 		String enviroSealTemp = this.isEnvironmentallySealed;
 		return enviroSealTemp;
 	}
-	
+
 	public String getExternalPower() {
 		String externalPowerTemp = this.isExternalPowerPickup;
 		return externalPowerTemp;
 	}
-	
+
 	public String getHydrofoil() {
 		String hydrofoilTemp = this.isHydrofoil;
 		return hydrofoilTemp;
 	}
-	
+
 	public String getMonocycle() {
 		String monocycleTemp = this.isMonocycle;
 		return monocycleTemp;
 	}
-	
+
 	public String getOffRoad() {
 		String offRoadTemp = this.isOffRoad;
 		return offRoadTemp;
 	}
-	
+
 	public String getOmni() {
 		String omniTemp = this.isOmni;
 		return omniTemp;
 	}
-	
+
 	public String getProp() {
 		String propTemp = this.isProp;
 		return propTemp;
 	}
-	
+
 	public String getSnowmobile() {
 		String snowmobileTemp = this.isSnowmobile;
 		return snowmobileTemp;
 	}
-	
+
 	public String getSTOL() {
 		String stolTemp = this.isSTOL;
 		return stolTemp;
 	}
-	
+
 	public String getSubmersible() {
 		String subTemp = this.isSubmersible;
 		return subTemp;
 	}
-	
+
 	public String getTractorGround() {
 		String tractorGTemp = this.isTractorGround;
 		return tractorGTemp;
 	}
-	
+
 	public String getTractorNaval() {
 		String tractorNTemp = this.isTractorNaval;
 		return tractorNTemp;
 	}
-	
+
 	public String getTrailer() {
 		String trailerTemp = this.isTrailer;
 		return trailerTemp;
 	}
-	
+
 	public String getUltraLight() {
 		String ultraLightTemp = this.isUltraLight;
 		return ultraLightTemp;
 	}
-	
+
 	public String getVSTOL() {
 		String vstolTemp = this.isVSTOL;
 		return vstolTemp;
 	}
-	
+
 	// Methods - Chassis - Chassis Mods Controls
 	// These methods control the chassis mods when motive type and/or size are
 	// changed.  Do NOT edit them without checking TM and TacOps unless you
 	// want to break something.
-	
+
 	private void cmAirship() {
 		if (this.isAmphibious.equals("no")) { this.isAmphibious = "false"; }
 		this.isArmored = "no";
@@ -700,7 +700,7 @@ public class SupportVehicle {
 		if (this.isUltraLight.equals("no")) { this.isUltraLight = "false"; }
 		this.isVSTOL = "no";
 	}
-	
+
 	private void cmFixedWing() {
 		if (this.isAmphibious.equals("no")) { this.isAmphibious = "false"; }
 		if (this.isArmored.equals("no")) { this.isArmored = "false"; }
@@ -721,7 +721,7 @@ public class SupportVehicle {
 		if (this.isUltraLight.equals("no")) { this.isUltraLight = "false"; }
 		if (this.isVSTOL.equals("no")) { this.isVSTOL = "false"; }
 	}
-	
+
 	private void cmHover() {
 		this.isAmphibious = "no";
 		if (this.isArmored.equals("no")) { this.isArmored = "false"; }
@@ -742,7 +742,7 @@ public class SupportVehicle {
 		if (this.isUltraLight.equals("no")) { this.isUltraLight = "false"; }
 		this.isVSTOL = "no";
 	}
-	
+
 	private void cmNaval() {
 		this.isAmphibious = "no";
 		if (this.isArmored.equals("no")) { this.isArmored = "false"; }
@@ -763,7 +763,7 @@ public class SupportVehicle {
 		if (this.isUltraLight.equals("no")) { this.isUltraLight = "false"; }
 		this.isVSTOL = "no";
 	}
-	
+
 	private void cmRail() {
 		if (this.isAmphibious.equals("no")) { this.isAmphibious = "false"; }
 		if (this.isArmored.equals("no")) { this.isArmored = "false"; }
@@ -784,7 +784,7 @@ public class SupportVehicle {
 		if (this.isUltraLight.equals("no")) { this.isUltraLight = "false"; }
 		this.isVSTOL = "no";
 	}
-	
+
 	private void cmSatellite() {
 		if (this.isAmphibious.equals("no")) { this.isAmphibious = "false"; }
 		if (this.isArmored.equals("no")) { this.isArmored = "false"; }
@@ -805,7 +805,7 @@ public class SupportVehicle {
 		if (this.isUltraLight.equals("no")) { this.isUltraLight = "false"; }
 		this.isVSTOL = "no";
 	}
-	
+
 	private void cmTracked() {
 		if (this.isAmphibious.equals("no")) { this.isAmphibious = "false"; }
 		if (this.isArmored.equals("no")) { this.isArmored = "false"; }
@@ -826,7 +826,7 @@ public class SupportVehicle {
 		if (this.isUltraLight.equals("no")) { this.isUltraLight = "false"; }
 		this.isVSTOL = "no";
 	}
-	
+
 	private void cmVTOL() {
 		if (this.isAmphibious.equals("no")) { this.isAmphibious = "false"; }
 		if (this.isArmored.equals("no")) { this.isArmored = "false"; }
@@ -847,7 +847,7 @@ public class SupportVehicle {
 		if (this.isUltraLight.equals("no")) { this.isUltraLight = "false"; }
 		this.isVSTOL = "no";
 	}
-	
+
 	private void cmWheeled() {
 		if (this.isAmphibious.equals("no")) { this.isAmphibious = "false"; }
 		if (this.isArmored.equals("no")) { this.isArmored = "false"; }
@@ -868,7 +868,7 @@ public class SupportVehicle {
 		if (this.isUltraLight.equals("no")) { this.isUltraLight = "false"; }
 		this.isVSTOL = "no";
 	}
-	
+
 	private void cmWiGE() {
 		if (this.isAmphibious.equals("no")) { this.isAmphibious = "false"; }
 		if (this.isArmored.equals("no")) { this.isArmored = "false"; }
@@ -889,7 +889,7 @@ public class SupportVehicle {
 		if (this.isUltraLight.equals("no")) { this.isUltraLight = "false"; }
 		this.isVSTOL = "no";
 	}
-	
+
 	private void cmSmallCheck() {
 		if (this.size.equals("Small") == false) {
 			this.isUltraLight = "no";
@@ -900,7 +900,7 @@ public class SupportVehicle {
 			}
 		}
 	}
-	
+
 	// Methods - Chassis - Locations
 	/// Note that this method needs to be updated once armor handling is added.
 	/// As written, it currently discards any existing armor if called.
@@ -939,7 +939,7 @@ public class SupportVehicle {
 			}
 		}
 	}
-	
+
 	// Methods - Engine
 	/**
 	 * Checks to see if an engine type is valid.
@@ -1032,8 +1032,8 @@ public class SupportVehicle {
 			throw new Exception("Unknown engine type");
 		}
 	}
-	
-	
+
+
 	/**
 	 * Sets the engine type, if that engine type is valid.
          * Used to actually process input about the engine type.
@@ -1141,20 +1141,20 @@ public class SupportVehicle {
 			throw new Exception("Invalid engine type");
 		}
 	}
-	
+
 	public void setCruiseMP(int cruise) {
 		this.cruiseSpeed = cruise;
 	}
-	
+
 	public int getCruiseMP() {
 		return this.cruiseSpeed;
 	}
-	
+
 	public int getFlankMP() {
 		int flank = (int) Math.ceil(this.cruiseSpeed);
 		return flank;
 	}
-        
+
 	public double getEngineTonnage() {
             this.setEngineTonnage();
 		double tonnage = this.Tonnage;
@@ -1172,7 +1172,7 @@ public class SupportVehicle {
             if (this.techRating.equals("F")) { engineMultiplier = this.engine.getMultipliers().get(5); }
             this.Tonnage = motiveFactor * engineMultiplier * this.baseEngineValue;
         }
-	
+
 	// Methods - Other
 	public void Visit( ifVisitor v ) throws Exception {
         v.Visit( this );

@@ -37,10 +37,15 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 public class DamageChart extends JPanel {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1303342508543758261L;
+
     private int GridX = 1;
     private int GridY = 1;
-    private Vector charts = new Vector();
-    private Vector colors = new Vector();
+    private Vector<int[]> charts = new Vector<int[]>();
+    private Vector<Color> colors = new Vector<Color>();
     private boolean TextView = false;
 
     public DamageChart() {
@@ -51,7 +56,7 @@ public class DamageChart extends JPanel {
  * Sets the grid width and height for this damage chart.
  * X should be one greater than the maximum range the unit can hit at
  * Y should be one greater than the maximum damage the unit can produce at any range.
- * 
+ *
  * @param x Grid X Units
  * @param y Grid Y Units
  */
@@ -66,7 +71,7 @@ public class DamageChart extends JPanel {
  * Adds a Damage At Range chart to the chart.  The DAR chart should consist of
  * an int[], with each array element representing the damage at that range.
  * For instance, chart[9] should return the damage the unit produces at range 9.
- * 
+ *
  * @param chart The Damage At Range chart.
  * @param ccolor The color to draw the DAR chart's line in.
  */

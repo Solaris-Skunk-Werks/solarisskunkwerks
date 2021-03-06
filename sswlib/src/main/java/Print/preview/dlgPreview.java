@@ -25,6 +25,10 @@ import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
 public class dlgPreview extends javax.swing.JFrame implements ActionListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8723654169235549547L;
     private final static double DEFAULT_ZOOM_FACTOR_STEP = .5;
     protected Pageable pageable;
     private Preview preview;
@@ -70,13 +74,13 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         this(title, owner, printer.Preview(), 0.0, images);
         setPrinter(printer);
     }
-    
+
     public dlgPreview(String title, Component owner, PagePrinter printer, Scenario scenario, ImageTracker images) {
         this(title, owner, printer.Preview(), 0.0, images);
         setScenario(scenario);
         setPrinter(printer);
     }
-    
+
     public dlgPreview(String title, Component owner, PagePrinter printer, Scenario scenario, ImageTracker images, boolean RSOnly) {
         this(title, owner, printer.Preview(), 0.0, images);
         this.printer = printer;
@@ -99,27 +103,27 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
     public void setBFOnly() {
         chkPrintRecordsheets.setSelected(false);
         chkPrintRecordsheets.setEnabled(false);
-        
+
         chkPrintBattleforce.setSelected(true);
 
         chkPrintScenario.setSelected(false);
         chkPrintScenario.setEnabled(false);
         Verify();
     }
-    
+
     public final void setRSOnly() {
         chkPrintForce.setSelected(false);
         chkPrintForce.setEnabled(false);
-        
+
         chkPrintBattleforce.setSelected(false);
         chkPrintBattleforce.setEnabled(false);
-        
+
         chkPrintScenario.setSelected(false);
         chkPrintScenario.setEnabled(false);
-        
+
         chkPrintFireChits.setSelected(false);
         chkPrintFireChits.setEnabled(false);
-        
+
         chkPrintRecordsheets.setSelected(true);
     }
 
@@ -274,7 +278,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
                     }
                 }
             }
-        
+
 
             if ( chkPrintForce.isSelected()) {
                 int index = 0;
@@ -396,7 +400,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
                             printer.Append( pageSize, hqs);
                         }
                         break;
-                            
+
                     case 3:
                         imageTracker.preLoadBattleForceImages();
                         for ( BattleForce f : scenario.toBattleForceByGroup( 6 ) ) {
@@ -511,7 +515,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
         bfbPrefs.putBoolean(Constants.Print_Recordsheet, chkPrintRecordsheets.isSelected());
         bfbPrefs.putBoolean(Constants.Print_BattleForce, chkPrintBattleforce.isSelected());
         bfbPrefs.putBoolean(Constants.Format_OneForcePerPage, chkBFOnePerPage.isSelected());
-        
+
         bfbPrefs.putBoolean("BF_Backs", chkBFBacks.isSelected());
         bfbPrefs.putBoolean("BF_Color", chkUseColor.isSelected());
 

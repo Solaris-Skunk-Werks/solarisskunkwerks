@@ -34,8 +34,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class RUSReader {
 
@@ -44,10 +42,10 @@ public class RUSReader {
       * options provided.
        * Expected format: AS7-D Atlas,80
        * If the last comma in the line contains a numeric value it will be read, otherwise ignored
-      * 
+      *
       * @param filename The canonical filename to load this.
       * @return An RUS object filled with whatever options were in the file
-      * @throws java.lang.FileNotFoundException 
+      * @throws java.lang.FileNotFoundException
       */
     public void Load( String filename, RUS rus ) throws FileNotFoundException {
         try {
@@ -56,13 +54,13 @@ public class RUSReader {
             String line = null;
             while ((line = reader.readLine()) != null) {
                 // Is there a comma in the line?  If not ignore it
-                if ( line.contains(",") ) {
+                if (line.contains(",")) {
                     String[] parts = line.split(",");
                     int val = -1;
                     try {
                         //Is the last section of the line numeric?  If not ignore it
-                        val = Integer.parseInt(parts[parts.length-1].trim());
-                    } catch ( Exception e ) {
+                        val = Integer.parseInt(parts[parts.length - 1].trim());
+                    } catch (Exception e) {
                         //do nothing
                     }
                     if (val >= 0) {
@@ -70,6 +68,8 @@ public class RUSReader {
                     }
                 }
             }
+
+            reader.close();
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
             //Logger.getLogger(RUSReader.class.getName()).log(Level.SEVERE, null, ex);

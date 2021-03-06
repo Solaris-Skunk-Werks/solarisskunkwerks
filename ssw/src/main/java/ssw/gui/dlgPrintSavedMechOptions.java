@@ -15,6 +15,10 @@ import filehandlers.Media;
 import Print.PrintMech;
 
 public class dlgPrintSavedMechOptions extends javax.swing.JDialog {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3443117870878903897L;
     private Mech CurMech;
     private ifMechForm Parent;
     private boolean Result = false;
@@ -597,7 +601,7 @@ private void btnChooseImageActionPerformed(java.awt.event.ActionEvent evt) {//GE
 }//GEN-LAST:event_btnChooseImageActionPerformed
 
 private void chkPrintImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkPrintImageActionPerformed
-    if ( CurMech != null ) { 
+    if ( CurMech != null ) {
         btnChooseImage.setEnabled(chkPrintImage.isSelected());
     }
 }//GEN-LAST:event_chkPrintImageActionPerformed

@@ -33,13 +33,13 @@ import components.*;
 public class VArmorSetIR implements ifVisitor {
     // sets the mech's armor to ablation
     private Mech CurMech;
-    private boolean Clan = false;
+    // private boolean Clan = false; // Not being used
 
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
 
-    public void SetClan( boolean clan ) {
+    public void SetClan(boolean clan) {
     }
 
     public void Visit(Mech m) {
@@ -49,61 +49,61 @@ public class VArmorSetIR implements ifVisitor {
         MechArmor a = CurMech.GetArmor();
 
         // remove the old armor, if needed
-        l.Remove( a );
+        l.Remove(a);
         a.ResetPatchworkConfigs();
 
         // set the armor type
         a.SetISIR();
-        
+
         // place the armor
-        a.Place( l );
+        a.Place(l);
         // check for and add any MechModifier
-        if( a.GetMechModifier() != null ) {
-            CurMech.AddMechModifier( a.GetMechModifier() );
+        if (a.GetMechModifier() != null) {
+            CurMech.AddMechModifier(a.GetMechModifier());
         }
     }
 
-    public void Visit( CombatVehicle v ) throws Exception {
-        //Not allowed
+    public void Visit(CombatVehicle v) throws Exception {
+        // Not allowed
     }
 
-    public void Visit( Infantry i ) throws Exception {
+    public void Visit(Infantry i) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( SupportVehicle s ) throws Exception {
+    public void Visit(SupportVehicle s) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( BattleArmor b ) throws Exception {
+    public void Visit(BattleArmor b) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( Fighter f ) throws Exception {
+    public void Visit(Fighter f) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( Spaceship s ) throws Exception {
+    public void Visit(Spaceship s) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( SpaceStation s ) throws Exception {
+    public void Visit(SpaceStation s) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( ProtoMech p ) throws Exception {
+    public void Visit(ProtoMech p) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( MobileStructure m ) throws Exception {
+    public void Visit(MobileStructure m) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( LargeSupportVehicle l ) throws Exception {
+    public void Visit(LargeSupportVehicle l) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( Dropship d ) throws Exception {
+    public void Visit(Dropship d) throws Exception {
         // does nothing at the moment
     }
 }

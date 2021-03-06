@@ -27,14 +27,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package list.view;
 
-import java.text.NumberFormat;
 import javax.swing.SortOrder;
-import javax.swing.text.NumberFormatter;
 import list.UnitList;
 import list.UnitListData;
 
 public class tbTotalWarfareView extends abView {
-    public tbTotalWarfareView( UnitList list ) {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3746192148272629301L;
+
+    public tbTotalWarfareView(UnitList list) {
         this.list = list;
 
         Columns.add(new Column( 0, "Tons", "Tonnage", false, 20, Integer.class, true, SortOrder.ASCENDING ));

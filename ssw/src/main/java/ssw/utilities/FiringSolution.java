@@ -30,15 +30,15 @@ package ssw.utilities;
 
 public class FiringSolution {
     // provides a class for containing a firing solution at a set range.
-    private int range = -1;
-    private String NL;
+    // private int range = -1; // Variables not used
+    // private String NL; // Variables not used
 
 // This is a text formating string (80 chars) I keep around for when it's needed
 // "----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+"
 // retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.0f", a.GetCritName(), a.GetDefensiveBV(), a.GetOffensiveBV(), a.GetCost() ) + NL;
 
     public FiringSolution( int r ) {
-        range = r;
-        NL = System.getProperty( "line.separator" );
+        // range = r; // Variable not used
+        // NL = System.getProperty( "line.separator" ); // Variables not used
     }
 }

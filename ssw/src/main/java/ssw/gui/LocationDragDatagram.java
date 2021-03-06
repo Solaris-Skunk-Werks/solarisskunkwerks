@@ -35,6 +35,10 @@ import java.io.IOException;
 import java.io.Serializable;
 
 public class LocationDragDatagram implements Serializable, Transferable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5755641028016259584L;
     public int Location = -1;
     public int SourceIndex = -1;
     public boolean Locked = false;

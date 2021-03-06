@@ -33,69 +33,70 @@ import java.util.ArrayList;
 
 public class VFCSArtemisIVLoader implements ifVisitor {
     // this is normally set to true since we simply unallocate items that can't
-    // fit their artemis.  For Omnimechs with locked missile launchers it's
+    // fit their artemis. For Omnimechs with locked missile launchers it's
     // another matter entirely.
     boolean result = true;
 
-    public void SetClan( boolean clan ) {
+    public void SetClan(boolean clan) {
     }
 
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
 
-    public void Visit( Mech m ) {
-        ArrayList test = m.GetLoadout().GetNonCore();
+    public void Visit(Mech m) {
+        ArrayList<abPlaceable> test = m.GetLoadout().GetNonCore();
         abPlaceable p;
         abPlaceable FCS;
-        for( int i = 0; i < test.size(); i++ ) {
-            p = (abPlaceable) test.get( i );
-            if( p instanceof RangedWeapon ) {
+        for (int i = 0; i < test.size(); i++) {
+            p = (abPlaceable) test.get(i);
+            if (p instanceof RangedWeapon) {
                 RangedWeapon MW = (RangedWeapon) p;
-                if( MW.GetFCSType() == ifMissileGuidance.FCS_ArtemisIV || MW.GetFCSType() == ifMissileGuidance.FCS_ArtemisV ) {
-                    if( m.UsingArtemisIV() ) {
-                        if( MW.IsUsingFCS() ) {
-                            if( m.IsOmnimech() ) {
-                                if( MW.LocationLocked() ) {
+                if (MW.GetFCSType() == ifMissileGuidance.FCS_ArtemisIV
+                        || MW.GetFCSType() == ifMissileGuidance.FCS_ArtemisV) {
+                    if (m.UsingArtemisIV()) {
+                        if (MW.IsUsingFCS()) {
+                            if (m.IsOmnimech()) {
+                                if (MW.LocationLocked()) {
                                     result = false;
                                     return;
                                 } else {
-                                    if( ! ( MW.GetFCS() instanceof ArtemisIVFCS ) ) {
-                                        SwitchSystem( MW, m );
+                                    if (!(MW.GetFCS() instanceof ArtemisIVFCS)) {
+                                        SwitchSystem(MW, m);
                                     }
                                 }
                             } else {
-                                if( ! ( MW.GetFCS() instanceof ArtemisIVFCS ) ) {
-                                    SwitchSystem( MW, m );
+                                if (!(MW.GetFCS() instanceof ArtemisIVFCS)) {
+                                    SwitchSystem(MW, m);
                                 }
                             }
                         } else {
-                            MW.UseFCS( true, ifMissileGuidance.FCS_ArtemisIV );
+                            MW.UseFCS(true, ifMissileGuidance.FCS_ArtemisIV);
                             FCS = (abPlaceable) MW.GetFCS();
-                            LocationIndex index = m.GetLoadout().FindIndex( MW );
-                            if( index.Location >= 0 ) {
+                            LocationIndex index = m.GetLoadout().FindIndex(MW);
+                            if (index.Location >= 0) {
                                 try {
-                                    m.GetLoadout().AddTo( FCS, index.Location, index.Index + MW.NumCrits() );
-                                } catch ( Exception e ) {
-                                    m.GetLoadout().UnallocateAll( MW, false );
+                                    m.GetLoadout().AddTo(FCS, index.Location, index.Index + MW.NumCrits());
+                                } catch (Exception e) {
+                                    m.GetLoadout().UnallocateAll(MW, false);
                                 }
                             }
                         }
                     } else {
-                        if( MW.GetFCS() instanceof ArtemisIVFCS ) {
-                            if( m.IsOmnimech() ) {
-                                if( MW.LocationLocked() ) {
+                        if (MW.GetFCS() instanceof ArtemisIVFCS) {
+                            if (m.IsOmnimech()) {
+                                if (MW.LocationLocked()) {
                                     result = false;
                                     return;
                                 } else {
                                     FCS = (abPlaceable) MW.GetFCS();
-                                    m.GetLoadout().UnallocateAll( FCS, true );
-                                    MW.UseFCS( false, ifMissileGuidance.FCS_ArtemisIV );
+                                    m.GetLoadout().UnallocateAll(FCS, true);
+                                    MW.UseFCS(false, ifMissileGuidance.FCS_ArtemisIV);
                                 }
                             } else {
                                 FCS = (abPlaceable) MW.GetFCS();
-                                m.GetLoadout().UnallocateAll( FCS, true );
-                                MW.UseFCS( false, ifMissileGuidance.FCS_ArtemisIV );
+                                m.GetLoadout().UnallocateAll(FCS, true);
+                                MW.UseFCS(false, ifMissileGuidance.FCS_ArtemisIV);
                             }
                         }
                     }
@@ -110,37 +111,38 @@ public class VFCSArtemisIVLoader implements ifVisitor {
         return result;
     }
 
-    private void SwitchSystem( RangedWeapon MW, Mech m ) {
+    private void SwitchSystem(RangedWeapon MW, Mech m) {
         abPlaceable FCS = (abPlaceable) MW.GetFCS();
-        m.GetLoadout().UnallocateAll( FCS, true );
-        MW.UseFCS( false, ifMissileGuidance.FCS_ArtemisIV );
-        MW.UseFCS( true, ifMissileGuidance.FCS_ArtemisIV );
+        m.GetLoadout().UnallocateAll(FCS, true);
+        MW.UseFCS(false, ifMissileGuidance.FCS_ArtemisIV);
+        MW.UseFCS(true, ifMissileGuidance.FCS_ArtemisIV);
         FCS = (abPlaceable) MW.GetFCS();
-        LocationIndex index = m.GetLoadout().FindIndex( MW );
-        if( index.Location >= 0 ) {
+        LocationIndex index = m.GetLoadout().FindIndex(MW);
+        if (index.Location >= 0) {
             try {
-                m.GetLoadout().AddTo( FCS, index.Location, index.Index + MW.NumCrits() );
-            } catch ( Exception e ) {
-                m.GetLoadout().UnallocateAll( MW, false );
+                m.GetLoadout().AddTo(FCS, index.Location, index.Index + MW.NumCrits());
+            } catch (Exception e) {
+                m.GetLoadout().UnallocateAll(MW, false);
             }
         }
     }
 
-    public void Visit( CombatVehicle v ) throws Exception {
-        ArrayList test = v.GetLoadout().GetNonCore();
+    public void Visit(CombatVehicle v) throws Exception {
+        ArrayList<abPlaceable> test = v.GetLoadout().GetNonCore();
         abPlaceable p;
-        
-        for( int i = 0; i < test.size(); i++ ) {
-            p = (abPlaceable) test.get( i );
-            //Is it a Ranged Weapon
-            if( p instanceof RangedWeapon ) {
+
+        for (int i = 0; i < test.size(); i++) {
+            p = (abPlaceable) test.get(i);
+            // Is it a Ranged Weapon
+            if (p instanceof RangedWeapon) {
                 RangedWeapon MW = (RangedWeapon) p;
-                
-                //if the weapon cannot do FCS let's move on quickly
-                if ( !MW.IsFCSCapable() ) continue;
-                
-                //if the location is locked...stop here!
-                if( v.IsOmni() && MW.LocationLocked() ) {
+
+                // if the weapon cannot do FCS let's move on quickly
+                if (!MW.IsFCSCapable())
+                    continue;
+
+                // if the location is locked...stop here!
+                if (v.IsOmni() && MW.LocationLocked()) {
                     result = false;
                     return;
                 }
@@ -149,43 +151,43 @@ public class VFCSArtemisIVLoader implements ifVisitor {
         }
     }
 
-    public void Visit( Infantry i ) throws Exception {
+    public void Visit(Infantry i) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( SupportVehicle s ) throws Exception {
+    public void Visit(SupportVehicle s) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( BattleArmor b ) throws Exception {
+    public void Visit(BattleArmor b) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( Fighter f ) throws Exception {
+    public void Visit(Fighter f) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( Spaceship s ) throws Exception {
+    public void Visit(Spaceship s) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( SpaceStation s ) throws Exception {
+    public void Visit(SpaceStation s) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( ProtoMech p ) throws Exception {
+    public void Visit(ProtoMech p) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( MobileStructure m ) throws Exception {
+    public void Visit(MobileStructure m) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( LargeSupportVehicle l ) throws Exception {
+    public void Visit(LargeSupportVehicle l) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( Dropship d ) throws Exception {
+    public void Visit(Dropship d) throws Exception {
         // does nothing at the moment
     }
 }

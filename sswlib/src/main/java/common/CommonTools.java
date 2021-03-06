@@ -31,7 +31,6 @@ package common;
 import components.*;
 import java.io.File;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
@@ -53,7 +52,7 @@ public class CommonTools {
                             Dropship = 9,
                             SupportVehicle = 10,
                             MobileStructure = 11;
-    
+
     public final static String[] UnitTypes = { "BattleMech", "IndustrialMech",
                                  "ProtoMech", "Combat Vehicle", "Infantry",
                                  "Battle Armor", "Conventional Fighter",
@@ -188,14 +187,14 @@ public class CommonTools {
                 } else {
                     if( AC.IsPrimitiveOnly() ) { return false; }
                 }
-                
+
                 // If this 'Mech is Super Heavy, the equipment must be compatible
                 if ( ((Mech) u).IsSuperheavy() ) {
                     if ( ! AC.IsSuperHeavyCompatible() ) { return false; }
                 } else {
                     if ( AC.IsSuperHeavyOnly() ) { return false; }
                 }
-                
+
                 break;
             case AvailableCode.UNIT_INDUSTRIALMECH:
                 if( ! ( u instanceof Mech ) ) { return false; }
@@ -700,7 +699,7 @@ public class CommonTools {
      * weapon-specific, it does not account for target or firer movement, or
      * other modifiers.  If the weapon cannot hit at the given range, we return
      * 12.
-     * 
+     *
      * @param w The weapon in question.
      * @param a The ammunition that the weapon will be using.
      * @param range The range that the weapon will be hitting a target at.
@@ -824,7 +823,7 @@ public class CommonTools {
     }
 
     /***
-     * Adds .5 and rounds the result...this should round up to the full integer anything <.4 
+     * Adds .5 and rounds the result...this should round up to the full integer anything <.4
      * @param d Value to round up to the next full integer
      * @return rounded integer
      */

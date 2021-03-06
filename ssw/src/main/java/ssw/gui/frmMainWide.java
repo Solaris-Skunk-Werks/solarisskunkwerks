@@ -59,6 +59,10 @@ import java.util.prefs.Preferences;
 
 public class frmMainWide extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner, common.DesignForm, ifMechForm {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5685712596481252262L;
     String[] Selections = { "", "", "", "", "", "", "", "" };
     Mech CurMech;
     VSetArmorTonnage ArmorTons;
@@ -114,7 +118,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     private Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
     // ImageIcon FluffImage = Utils.createImageIcon( SSWConstants.NO_IMAGE );
     public DataFactory data;
-    public ArrayList<Quirk> quirks = new ArrayList<Quirk>();
+    public ArrayList<Quirk> quirks;
 
     private dlgPrintBatchMechs BatchWindow = null;
     private ImageTracker imageTracker = new ImageTracker();
@@ -124,7 +128,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     final int BALLISTIC = 0,
               ENERGY = 1,
               MISSILE = 2,
-              PHYSICAL = 3, 
+              PHYSICAL = 3,
               EQUIPMENT = 4,
               AMMUNITION = 6,
               SELECTED = 7,
@@ -143,6 +147,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         CurMech = new Mech( Prefs );
         ArmorTons = new VSetArmorTonnage( Prefs );
         Mechrender = new MechLoadoutRenderer( this );
+        quirks = CurMech.GetQuirks();
 
         // added for easy checking
         PPCCapAC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
@@ -242,7 +247,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                 LaserInsulator();
             }
         });
-        
+
         mnuAddPulseModule.addActionListener( new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 PulseModule();
@@ -446,6 +451,11 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         txtSumPAmpsACode.setVisible( false );
 
         tblWeaponManufacturers.setModel( new javax.swing.table.AbstractTableModel() {
+            /**
+             *
+             */
+            private static final long serialVersionUID = -5390969271554214836L;
+
             @Override
             public String getColumnName( int col ) {
                 if( col == 1 ) {
@@ -1547,7 +1557,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
         if ( !CurMech.GetGyro().LookupName().equals(cmbGyroType.getSelectedItem().toString()) )
             cmbGyroType.setSelectedItem(CurMech.GetGyro().LookupName());
-        
+
         // check the command console and ejection seat
         if( CurMech.GetCockpit().CanUseCommandConsole() && CommonTools.IsAllowed( CurMech.GetCommandConsole().GetAvailability(), CurMech ) ) {
             chkCommandConsole.setEnabled( true );
@@ -2373,7 +2383,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                 chkRAAES.setSelected( false );
             } else {
                 int index = CurMech.GetLoadout().FindIndex( CurMech.GetRAAES() ).Index;
-                try { 
+                try {
                     CurMech.SetRAAES( false, -1 );
                     CurMech.SetRAAES( true, index );
                 } catch( Exception e ) {
@@ -2386,7 +2396,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
                 chkLAAES.setSelected( false );
             } else {
                 int index = CurMech.GetLoadout().FindIndex( CurMech.GetLAAES() ).Index;
-                try { 
+                try {
                     CurMech.SetLAAES( false, -1 );
                     CurMech.SetLAAES( true, index );
                 } catch( Exception e ) {
@@ -2703,6 +2713,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         RefreshInfoPane();
         SetWeaponChoosers();
         ResetAmmo();
+        ResetQuirks();
 
         Overview.StartNewDocument();
         Capabilities.StartNewDocument();
@@ -2742,6 +2753,21 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             ItemInfo.setLocationRelativeTo( this );
             ItemInfo.setVisible( true );
         }
+    }
+    
+    private void ResetQuirks() {
+        quirks = new ArrayList<>();
+        tblQuirks.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Cost", "Quirk"
+            }));
+        CurMech.SetQuirks(quirks);
     }
 
     private void UnallocateAll() {
@@ -2890,7 +2916,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             restrict += "Can Split, ";
         }
 
-        // now for weapon and ammo specific 
+        // now for weapon and ammo specific
         if( p instanceof ifWeapon ) {
             ifWeapon w = (ifWeapon) p;
             lblInfoType.setText( w.GetType() );
@@ -3724,7 +3750,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
         RefreshInfoPane();
     }
-    
+
     private void PulseModule() {
         // if the current item can support a Pulse Module, adds one on
         if( CurItem instanceof RangedWeapon ) {
@@ -4232,7 +4258,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
     private void SolidifyJJManufacturer() {
         // this method is used mainly for OmniMechs with varying jump jet loads
         if( ! txtJJModel.getText().equals( "" ) || ! CurMech.GetJJModel().equals( "" ) ) {
-            if( ! txtJJModel.getText().equals( CurMech.GetJJModel() ) ) { 
+            if( ! txtJJModel.getText().equals( CurMech.GetJJModel() ) ) {
                 CurMech.SetJJModel( txtJJModel.getText() );
             }
         }
@@ -4627,7 +4653,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
      * WARNING: Do NOT modify this code. The content of this method is
      * always regenerated by the Form Editor.
      */
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -10525,7 +10551,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         Prefs.put("Currentfile", "");
     }//GEN-LAST:event_mnuNewMechActionPerformed
 
-    private void mnuOpenActionPerformed(java.awt.event.ActionEvent evt) {                                        
+    private void mnuOpenActionPerformed(java.awt.event.ActionEvent evt) {
         //dlgOpen dOpen = new dlgOpen(this, true);
         if( CurMech.HasChanged() ) {
             int choice = javax.swing.JOptionPane.showConfirmDialog( this,
@@ -13666,7 +13692,7 @@ private void btnLockChassisActionPerformed(java.awt.event.ActionEvent evt) {//GE
         tbpMainTabPane.setSelectedComponent( pnlEquipment );
         return;
     }
-    
+
     // 2020-10-19 Omnis can't have Hardened Armor, but we wrote this generic
     // in case later other armor types com along
     if (!CurMech.GetArmor().AllowOmni()){
@@ -15314,7 +15340,7 @@ private void setViewToolbar(boolean Visible)
     public ImageTracker getImageTracker() {
         return imageTracker;
     }
-    
+
     public void setUnit( ArrayList v ) {
         this.setMech( (Mech) v.get(0) );
     }

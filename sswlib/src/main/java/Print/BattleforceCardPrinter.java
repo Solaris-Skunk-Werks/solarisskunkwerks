@@ -49,7 +49,7 @@ public class BattleforceCardPrinter implements Printable {
     private Image RecordSheet,
                     Unit,
                     Charts;
-    private int UnitSize = 4,
+    private int // UnitSize = 4, // Variable not read anywhere
                 UnitImageWidth = 187,
                 UnitImageHeight = 234,
                 ElementLimit = 2;
@@ -81,7 +81,7 @@ public class BattleforceCardPrinter implements Printable {
     public void setRecordSheet( String sheet ) {
         RecordSheet = imageTracker.getImage(sheet);
     }
-    
+
     public void setUnitSheet( String item ) {
         Unit = imageTracker.getImage( item );
     }
@@ -97,15 +97,15 @@ public class BattleforceCardPrinter implements Printable {
     }
 
     public void setInnerSphere() {
-        UnitSize = 4;
+        // UnitSize = 4;// Set but not used
     }
 
     public void setClan() {
-        UnitSize = 5;
+        // UnitSize = 5;// Set but not used
     }
 
     public void setComstar() {
-        UnitSize = 6;
+        // UnitSize = 6; // Set but not used
     }
 
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
@@ -117,7 +117,7 @@ public class BattleforceCardPrinter implements Printable {
         Render();
         return Printable.PAGE_EXISTS;
     }
-    
+
     public void Render() {
         int elementCount = 0;
         Image icon = null;
@@ -172,7 +172,7 @@ public class BattleforceCardPrinter implements Printable {
 
             //graphic.setFont( new Font("Verdana", Font.PLAIN, 8) );
             graphic.setFont( PrintConsts.PlainFont );
-            
+
             //Unit Name
             int offset = y + 55;
             for ( String line : PrintConsts.wrapText(stats.getElement(), 24, false) ) {

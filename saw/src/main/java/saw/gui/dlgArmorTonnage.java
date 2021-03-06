@@ -34,9 +34,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class dlgArmorTonnage extends javax.swing.JDialog {
+    private static final long serialVersionUID = -5493538800967300377L;
+
     private boolean NewTonnage = false;
     private double result;
-    
+
     /** Creates new form dlgArmorTonnage */
     public dlgArmorTonnage(java.awt.Frame parent, boolean modal, CombatVehicle vee) {
         super(parent, modal);
@@ -159,7 +161,7 @@ public class dlgArmorTonnage extends javax.swing.JDialog {
         NewTonnage = false;
         this.setVisible( false );
     }//GEN-LAST:event_btnCancelActionPerformed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOkay;

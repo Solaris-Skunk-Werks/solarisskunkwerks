@@ -48,6 +48,10 @@ import javax.swing.ImageIcon;
 import javax.swing.SpinnerNumberModel;
 
 public class dlgUnit extends javax.swing.JDialog {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8879297096883466444L;
     private Force force;
     private Unit unit;
     private boolean Default = true;
@@ -180,7 +184,7 @@ public class dlgUnit extends javax.swing.JDialog {
                 tpnTRO.setCaretPosition(0);
                 break;
         }
-        
+
     }
 
     private void setC3() {
@@ -228,7 +232,7 @@ public class dlgUnit extends javax.swing.JDialog {
                 stats = new BattleForceStats(unit.v);
                 break;
         }
-        
+
         lblBFMV.setText(stats.getMovement());
 
         lblBFShort.setText(stats.getShort()+"");
@@ -711,6 +715,10 @@ public class dlgUnit extends javax.swing.JDialog {
         });
 
         lstSkills.setModel(new javax.swing.AbstractListModel() {
+            /**
+             *
+             */
+            private static final long serialVersionUID = 7250619854461540939L;
             String[] strings = { "0 / 0  (1000)", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -851,6 +859,10 @@ public class dlgUnit extends javax.swing.JDialog {
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Mechwarrior List"));
 
         lstPersonnel.setModel(new javax.swing.AbstractListModel() {
+            /**
+             *
+             */
+            private static final long serialVersionUID = -7184327738128057082L;
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -1400,7 +1412,7 @@ public class dlgUnit extends javax.swing.JDialog {
             cmbGunnery.setSelectedIndex(w.getGunnery());
             cmbPiloting.setSelectedIndex(w.getPiloting());
             txtMod.setText(w.getManeiDomini()+"");
-            
+
             unit.Refresh();
         }
     }//GEN-LAST:event_btnSelectWarriorActionPerformed

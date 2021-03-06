@@ -33,57 +33,56 @@ import states.*;
 
 public class CVJumpJetFactory {
     // provides a means of getting jump jets into the loadout easily.
-    private int NumJJ = 0,
-                BaseLoadoutNumJJ = 0;
+    private int NumJJ = 0, BaseLoadoutNumJJ = 0;
     private ifCVLoadout Owner;
-    private LinkedList CurrentJumps = new LinkedList();
-    private static ifJumpJetFactory NJJ = new stJumpJetStandard(),
-                                    IJJ = new stJumpJetImproved(),
-                                    UMU = new stJumpJetUMU();
+    private LinkedList<JumpJet> CurrentJumps = new LinkedList<JumpJet>();
+    private static ifJumpJetFactory NJJ = new stJumpJetStandard();
+    private static ifJumpJetFactory IJJ = new stJumpJetImproved();
+    private static ifJumpJetFactory UMU = new stJumpJetUMU();
     private ifJumpJetFactory CurConfig = NJJ;
 
-    public CVJumpJetFactory( ifCVLoadout l ) {
+    public CVJumpJetFactory(ifCVLoadout l) {
         // the basic constructor
         Owner = l;
         ReCalculate();
     }
 
-    public CVJumpJetFactory( ifCVLoadout l, CVJumpJetFactory PlacedJumps ) {
-        // this constructor is used for cloning purposes.  since we're only
+    public CVJumpJetFactory(ifCVLoadout l, CVJumpJetFactory PlacedJumps) {
+        // this constructor is used for cloning purposes. since we're only
         // going to do this with Omnimechs, there is no need to recalculate.
         Owner = l;
         BaseLoadoutNumJJ = PlacedJumps.NumJJ;
         NumJJ = BaseLoadoutNumJJ;
 
-        if( PlacedJumps.IsImproved() ) {
+        if (PlacedJumps.IsImproved()) {
             SetImproved();
-        } else if( PlacedJumps.IsUMU() ) {
+        } else if (PlacedJumps.IsUMU()) {
             SetUMU();
         } else {
             SetNormal();
         }
 
-        if( BaseLoadoutNumJJ > 0 ) {
+        if (BaseLoadoutNumJJ > 0) {
             JumpJet[] j = PlacedJumps.GetPlacedJumps();
-            for( int i = 0; i < j.length; i++ ) {
-                CurrentJumps.add( j[i] );
+            for (int i = 0; i < j.length; i++) {
+                CurrentJumps.add(j[i]);
             }
         }
     }
 
     public void SetNormal() {
         CurConfig = NJJ;
-        Owner.GetOwner().SetChanged( true );
+        Owner.GetOwner().SetChanged(true);
     }
 
     public void SetImproved() {
         CurConfig = IJJ;
-        Owner.GetOwner().SetChanged( true );
+        Owner.GetOwner().SetChanged(true);
     }
 
     public void SetUMU() {
         CurConfig = UMU;
-        Owner.GetOwner().SetChanged( true );
+        Owner.GetOwner().SetChanged(true);
     }
 
     public boolean IsImproved() {
@@ -102,7 +101,7 @@ public class CVJumpJetFactory {
         return BaseLoadoutNumJJ;
     }
 
-    public void SetBaseLoadoutNumJJ( int j ) {
+    public void SetBaseLoadoutNumJJ(int j) {
         BaseLoadoutNumJJ = j;
     }
 
@@ -120,40 +119,42 @@ public class CVJumpJetFactory {
 
     public void IncrementNumJJ() {
         // can we add a new jump jet?
-        if( CanAddJJ() ) {
+        if (CanAddJJ()) {
             JumpJet j = (JumpJet) GetJumpJet();
-            j.Place( Owner );
+            j.Place(Owner);
             NumJJ++;
         }
-        Owner.GetOwner().SetChanged( true );
+        Owner.GetOwner().SetChanged(true);
     }
 
     public boolean DecrementNumJJ() {
         JumpJet j = (JumpJet) CurrentJumps.getLast();
-        Owner.GetOwner().SetChanged( true );
-        return RemoveJJ( j );
+        Owner.GetOwner().SetChanged(true);
+        return RemoveJJ(j);
     }
 
     public double GetTonnage() {
         // returns the total tonnage of jump jets we have installed
-        double result = ( NumJJ * Owner.GetOwner().GetJJMult() * CurConfig.GetTonnage() );
-        for( int i = 0; i < CurrentJumps.size(); i++ ) {
-            result += ((JumpJet) CurrentJumps.get( i )).GetTonnage();
+        double result = (NumJJ * Owner.GetOwner().GetJJMult() * CurConfig.GetTonnage());
+        for (int i = 0; i < CurrentJumps.size(); i++) {
+            result += ((JumpJet) CurrentJumps.get(i)).GetTonnage();
         }
         return result;
     }
 
     public double GetOmniTonnage() {
         // returns the total tonnage of jump jets we have installed
-        return ( ( NumJJ - BaseLoadoutNumJJ ) * Owner.GetOwner().GetJJMult() * CurConfig.GetTonnage() );
+        return ((NumJJ - BaseLoadoutNumJJ) * Owner.GetOwner().GetJJMult() * CurConfig.GetTonnage());
     }
 
     public double GetCost() {
         // returns the cost of these jump jets
-        if( NumJJ <= 0 ) { return 0.0; }
-        double result = ( CurConfig.GetCost() * ( NumJJ * NumJJ ) * Owner.GetOwner().GetTonnage() );
-        for( int i = 0; i < CurrentJumps.size(); i++ ) {
-            result += ((JumpJet) CurrentJumps.get( i )).GetCost();
+        if (NumJJ <= 0) {
+            return 0.0;
+        }
+        double result = (CurConfig.GetCost() * (NumJJ * NumJJ) * Owner.GetOwner().GetTonnage());
+        for (int i = 0; i < CurrentJumps.size(); i++) {
+            result += ((JumpJet) CurrentJumps.get(i)).GetCost();
         }
         return result;
     }
@@ -165,18 +166,18 @@ public class CVJumpJetFactory {
     }
 
     public String ReportCrits() {
-        return ( NumJJ * CurConfig.GetNumCrits() ) + "";
+        return (NumJJ * CurConfig.GetNumCrits()) + "";
     }
 
     private boolean CanAddJJ() {
-        if( CurConfig.IsImproved() ) {
-            if( NumJJ < Owner.GetOwner().getFlankMP() ) {
+        if (CurConfig.IsImproved()) {
+            if (NumJJ < Owner.GetOwner().getFlankMP()) {
                 return true;
             } else {
                 return false;
             }
         } else {
-            if( NumJJ < Owner.GetOwner().getCruiseMP() ) {
+            if (NumJJ < Owner.GetOwner().getCruiseMP()) {
                 return true;
             } else {
                 return false;
@@ -184,57 +185,57 @@ public class CVJumpJetFactory {
         }
     }
 
-    private boolean RemoveJJ( JumpJet j ) {
+    private boolean RemoveJJ(JumpJet j) {
         // can we actually remove Jump Jets?
-        if( NumJJ <= 0 ) {
+        if (NumJJ <= 0) {
             return false;
         }
 
         // remove the Jump Jet
-        j.Remove( Owner );
-        CurrentJumps.remove( j );
+        j.Remove(Owner);
+        CurrentJumps.remove(j);
         NumJJ--;
-        Owner.GetOwner().SetChanged( true );
+        Owner.GetOwner().SetChanged(true);
         return true;
     }
 
     public void ClearJumpJets() {
         // this routine removes all jump jets and sets the number to 0.
         JumpJet j;
-        for( int i = CurrentJumps.size() - 1; i >= 0; i-- ) {
+        for (int i = CurrentJumps.size() - 1; i >= 0; i--) {
             j = (JumpJet) CurrentJumps.get(i);
             CurrentJumps.remove(j);
-            j.Remove( Owner );
+            j.Remove(Owner);
         }
         NumJJ = 0;
-        Owner.GetOwner().SetChanged( true );
+        Owner.GetOwner().SetChanged(true);
     }
 
     public void ReCalculate() {
         // clear the loadout of JumpJets
         JumpJet j;
-        for( int i = CurrentJumps.size() - 1; i >= 0; i-- ) {
+        for (int i = CurrentJumps.size() - 1; i >= 0; i--) {
             j = (JumpJet) CurrentJumps.get(i);
             CurrentJumps.remove(j);
-            j.Remove( Owner );
+            j.Remove(Owner);
         }
 
         // see if we can still support the number of jumps we had.
-        if( NumJJ > MaxJumps() ) {
+        if (NumJJ > MaxJumps()) {
             // we can't.
             NumJJ = MaxJumps();
         }
 
         // Now add the jump jets we need back into the loadout
-        for( int i = 0; i < NumJJ; i++ ) {
+        for (int i = 0; i < NumJJ; i++) {
             j = (JumpJet) GetJumpJet();
-            j.Place( Owner );
+            j.Place(Owner);
         }
     }
 
     public int MaxJumps() {
         // calculates the maximum number of jumps we can have on this mech
-        if( CurConfig.IsImproved() ) {
+        if (CurConfig.IsImproved()) {
             return Owner.GetOwner().getCruiseMP();
         } else {
             return Owner.GetOwner().getFlankMP();
@@ -249,24 +250,24 @@ public class CVJumpJetFactory {
     public JumpJet[] GetPlacedJumps() {
         // returns the currently placed jumpjets in array form
         JumpJet[] retval = new JumpJet[CurrentJumps.size()];
-        for( int i = CurrentJumps.size() - 1; i >= 0; i-- ) {
-            retval[i] = (JumpJet) CurrentJumps.get( i );
+        for (int i = CurrentJumps.size() - 1; i >= 0; i--) {
+            retval[i] = (JumpJet) CurrentJumps.get(i);
         }
         return retval;
     }
 
     public double GetOffensiveBV() {
         double result = 0.0;
-        for( int i = 0; i < CurrentJumps.size(); i++ ) {
-            result += ((JumpJet) CurrentJumps.get( i )).GetOffensiveBV();
+        for (int i = 0; i < CurrentJumps.size(); i++) {
+            result += ((JumpJet) CurrentJumps.get(i)).GetOffensiveBV();
         }
         return result;
     }
 
     public double GetDefensiveBV() {
         double result = 0.0;
-        for( int i = 0; i < CurrentJumps.size(); i++ ) {
-            result += ((JumpJet) CurrentJumps.get( i )).GetDefensiveBV();
+        for (int i = 0; i < CurrentJumps.size(); i++) {
+            result += ((JumpJet) CurrentJumps.get(i)).GetDefensiveBV();
         }
         return result;
     }

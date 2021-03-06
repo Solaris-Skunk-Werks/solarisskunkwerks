@@ -32,6 +32,7 @@ import java.awt.Point;
 import javax.swing.JFrame;
 
 public class dlgAboutBox extends javax.swing.JDialog {
+    private static final long serialVersionUID = -2014513138244194718L;
 
     JFrame Parent;
 
@@ -324,5 +325,5 @@ public class dlgAboutBox extends javax.swing.JDialog {
     private javax.swing.JLabel lblVersion;
     private javax.swing.JLabel lblVersionLabel;
     // End of variables declaration//GEN-END:variables
-    
+
 }

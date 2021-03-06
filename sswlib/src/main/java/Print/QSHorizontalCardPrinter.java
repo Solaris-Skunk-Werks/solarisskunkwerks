@@ -49,8 +49,8 @@ public class QSHorizontalCardPrinter implements Printable {
     private Image[] BFIcons;
     private int UnitImageWidth = PaperSize.getInchesInPixels(3.5),
                 UnitImageHeight = PaperSize.getInchesInPixels(2.5),
-                HorizontalLimit = 2,
-                MaxUnits = 8;
+                HorizontalLimit = 2;
+                // MaxUnits = 8; // Not being used.
 
     private boolean printMechs = true,
                     printLogo = true,
@@ -71,7 +71,7 @@ public class QSHorizontalCardPrinter implements Printable {
                     MoveColor = Color.ORANGE,
                     SkillColor = new Color(238, 216, 0),
                     NameColor = Color.ORANGE,
-                    PilotColor = Color.ORANGE,
+                    // PilotColor = Color.ORANGE, // Not being used
                     SizeColor = new Color(242, 242, 242);
 
     public QSHorizontalCardPrinter( BattleForce f, ImageTracker images) {
@@ -104,7 +104,7 @@ public class QSHorizontalCardPrinter implements Printable {
         MoveColor = OVColor;
         SkillColor = OVColor;
         NameColor = OVColor;
-        PilotColor = OVColor;
+        // PilotColor = OVColor; // Being assigned but not used
         SizeColor = OVColor;
         Shadow = Color.WHITE;
         DarkShadow = Color.WHITE;
@@ -128,7 +128,7 @@ public class QSHorizontalCardPrinter implements Printable {
         Render();
         return Printable.PAGE_EXISTS;
     }
-    
+
     public void Render() {
         int elementCount = 0;
         Image icon = null;
@@ -203,7 +203,7 @@ public class QSHorizontalCardPrinter implements Printable {
 
                 //Unit Name
                 //PrintConsts.ShadowText( graphic, PrintConsts.XtraSmallBoldFont, NameColor, DarkShadow, (stats.getUnit() + " [" + battleforce.ForceName + "]").replace("[]", ""), x+10, y+p.y+1 );
-            
+
                 //Skill
                 PrintConsts.ShadowText( graphic, PrintConsts.Small8Font, SkillColor, Shadow, stats.getSkill()+"", x+128.0, (double) y+49.50);
             }
@@ -261,7 +261,7 @@ public class QSHorizontalCardPrinter implements Printable {
                     graphic.drawImage(logo, x+p.x, y+p.y, 15, 15, null);
                 }
             }
-            
+
             x += UnitImageWidth + 1;
 
             if ( printCardBack ) {

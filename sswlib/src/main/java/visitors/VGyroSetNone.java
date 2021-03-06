@@ -29,44 +29,44 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package visitors;
 
 import components.*;
-import states.stCockpitInterface;
+// import states.stCockpitInterface; // Not Used
 
 public class VGyroSetNone implements ifVisitor {
     private Mech CurMech;
 
-    public void SetClan( boolean clan ) {
+    public void SetClan(boolean clan) {
     }
 
     public void LoadLocations(LocationIndex[] locs) {
         // does nothing here, but may later.
     }
 
-    public void Visit( Mech m ) throws Exception {
+    public void Visit(Mech m) throws Exception {
         CurMech = m;
         boolean CASEInstalled = false;
         boolean SChargerInstalled = false;
         Gyro g = CurMech.GetGyro();
         ifMechLoadout l = CurMech.GetLoadout();
 
-        //if (!(CurMech.GetCockpit().GetCurrentState() instanceof stCockpitInterface))
-        //    throw new Exception( "The selected cockpit requires a gyro." );
+        // if (!(CurMech.GetCockpit().GetCurrentState() instanceof stCockpitInterface))
+        // throw new Exception( "The selected cockpit requires a gyro." );
 
         // see if we have CASE installed in the CT
-        if( CurMech.HasCTCase() ) {
-            // remove it.  We may not be able to replace it, but we'll try
+        if (CurMech.HasCTCase()) {
+            // remove it. We may not be able to replace it, but we'll try
             CASEInstalled = true;
             CurMech.RemoveCTCase();
         }
 
         // see if we have a supercharger installed
-        if( CurMech.GetLoadout().HasSupercharger() ) {
-            if( CurMech.GetLoadout().Find( CurMech.GetLoadout().GetSupercharger() ) == LocationIndex.MECH_LOC_CT ) {
+        if (CurMech.GetLoadout().HasSupercharger()) {
+            if (CurMech.GetLoadout().Find(CurMech.GetLoadout().GetSupercharger()) == LocationIndex.MECH_LOC_CT) {
                 SChargerInstalled = true;
                 try {
-                    CurMech.GetLoadout().SetSupercharger( false, -1, -1 );
-                } catch ( Exception e ) {
-                    // wow, a problem removing it.  Log it for later.
-                    System.err.println( e.getMessage() );
+                    CurMech.GetLoadout().SetSupercharger(false, -1, -1);
+                } catch (Exception e) {
+                    // wow, a problem removing it. Log it for later.
+                    System.err.println(e.getMessage());
                 }
             }
         }
@@ -81,73 +81,73 @@ public class VGyroSetNone implements ifVisitor {
         g.SetNone();
 
         // now replace the engine criticals
-        if( ! m.GetEngine().Place(l) ) {
-            throw new Exception( m.GetEngine().LookupName() + " cannot be allocated!" );
+        if (!m.GetEngine().Place(l)) {
+            throw new Exception(m.GetEngine().LookupName() + " cannot be allocated!");
         }
 
         // if we had CASE installed, try to replace it
-        if( CASEInstalled ) {
+        if (CASEInstalled) {
             // at this point, we don't care whether it happened or not since the
             // primary inhabitants of the CT are taken care of.
             try {
                 CurMech.AddCTCase();
-            } catch( Exception e ) {
-                // unhandled at this time.  write out a system error
-                System.err.println( e.getMessage() );
+            } catch (Exception e) {
+                // unhandled at this time. write out a system error
+                System.err.println(e.getMessage());
             }
         }
 
         // try to reinstall the Supercharger
-        if( SChargerInstalled ) {
+        if (SChargerInstalled) {
             try {
-                CurMech.GetLoadout().SetSupercharger( true, LocationIndex.MECH_LOC_CT, -1 );
-            } catch ( Exception e ) {
-                System.err.println( e.getMessage() );
+                CurMech.GetLoadout().SetSupercharger(true, LocationIndex.MECH_LOC_CT, -1);
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
             }
         }
     }
 
-    public void Visit( CombatVehicle v ) throws Exception {
+    public void Visit(CombatVehicle v) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( Infantry i ) throws Exception {
+    public void Visit(Infantry i) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( SupportVehicle s ) throws Exception {
+    public void Visit(SupportVehicle s) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( BattleArmor b ) throws Exception {
+    public void Visit(BattleArmor b) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( Fighter f ) throws Exception {
+    public void Visit(Fighter f) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( Spaceship s ) throws Exception {
+    public void Visit(Spaceship s) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( SpaceStation s ) throws Exception {
+    public void Visit(SpaceStation s) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( ProtoMech p ) throws Exception {
+    public void Visit(ProtoMech p) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( MobileStructure m ) throws Exception {
+    public void Visit(MobileStructure m) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( LargeSupportVehicle l ) throws Exception {
+    public void Visit(LargeSupportVehicle l) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( Dropship d ) throws Exception {
+    public void Visit(Dropship d) throws Exception {
         // does nothing at the moment
     }
 }

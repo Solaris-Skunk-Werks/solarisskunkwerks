@@ -47,12 +47,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.TreeSelectionListener;
+// import javax.swing.event.UndoableEditListener;
 import javax.swing.table.TableRowSorter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -60,9 +61,12 @@ import javax.swing.tree.TreeSelectionModel;
 
 public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner {
 
+    private static final long serialVersionUID = -6890478470060344517L;
+
     private frmBase parent;
     private UnitList list,  filtered,  chosen = new UnitList();
-    private String MechListPath = "",  BaseRUSPath = "./Data/Tables/",  RUSDirectory = "",  RUSPath = BaseRUSPath;
+    private String MechListPath = "",  BaseRUSPath = "./Data/Tables/";
+    // private String RUSDirectory = "",  RUSPath = BaseRUSPath; // Not used in uncommented code.
     private Force force;
     private RUS rus = new RUS();
     private FSL fsl = new FSL();
@@ -80,10 +84,10 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
         initComponents();
         this.parent = (frmBase) parent;
 
-        cmbTech.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Any Tech", "Clan", "Inner Sphere", "Mixed"}));
-        cmbEra.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Any Era", "Age of War/Star League", "Succession Wars", "Clan Invasion"}));
-        cmbMechType.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Any Type", "BattleMech", "IndustrialMech", "Primitive BattleMech", "Primitive IndustrialMech"}));
-        cmbMotive.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Any Motive", "Biped", "Quad"}));
+        cmbTech.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[]{"Any Tech", "Clan", "Inner Sphere", "Mixed"}));
+        cmbEra.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[]{"Any Era", "Age of War/Star League", "Succession Wars", "Clan Invasion"}));
+        cmbMechType.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[]{"Any Type", "BattleMech", "IndustrialMech", "Primitive BattleMech", "Primitive IndustrialMech"}));
+        cmbMotive.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[]{"Any Motive", "Biped", "Quad"}));
 
         LoadList(true);
         loadChosen();
@@ -125,7 +129,7 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
     private void loadChosen() {
         int BV = 0;
         float Cost = 0;
-        DefaultListModel newList = new DefaultListModel();
+        DefaultListModel<UnitListData> newList = new DefaultListModel<UnitListData>();
 
         for (UnitListData data : chosen.getList()) {
             newList.addElement(data);
@@ -172,36 +176,43 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
     /** Add nodes from under "dir" into curTop. Highly recursive. */
     DefaultMutableTreeNode addNodes(DefaultMutableTreeNode curTop, File dir) {
         String curPath = dir.getPath();
-        String dirName = dir.getName();
+        // String dirName = dir.getName(); // Not used in method
         DefaultMutableTreeNode curDir = new DefaultMutableTreeNode(new DirectoryLeaf(dir));
         if (curTop != null) { // should only be null at root
             curTop.add(curDir);
         }
-        ArrayList ol = new ArrayList();
+        ArrayList<String> ol = new ArrayList<String>();
         String[] tmp = dir.list();
         ol.addAll(Arrays.asList(tmp));
         Collections.sort(ol, String.CASE_INSENSITIVE_ORDER);
+
         File f;
-        ArrayList files = new ArrayList();
+        // ArrayList files = new ArrayList(); // Not used in loops.
         // Make two passes, one for Dirs and one for Files. This is #1.
         for (int i = 0; i < ol.size(); i++) {
-            String thisObject = (String) ol.get(i);
+            String thisObject = ol.get(i);
             String newPath;
+
             if (curPath.equals(".")) {
                 newPath = thisObject;
             } else {
                 newPath = curPath + File.separator + thisObject;
             }
+
             if ((f = new File(newPath)).isDirectory()) {
                 addNodes(curDir, f);
             } else {
                 //files.addElement(thisObject);
             }
         }
+
+        /* Null op as 'files' isn't populated previously
         // Pass two: for files.
         for (int fnum = 0; fnum < files.size(); fnum++) {
             curDir.add(new DefaultMutableTreeNode(files.get(fnum)));
         }
+        */
+
         return curDir;
     }
 
@@ -250,10 +261,11 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
                     return (String.CASE_INSENSITIVE_ORDER).compare(o1.toString(), o2.toString());
                 }
             });
-            DefaultListModel listModel = new DefaultListModel();
-            for ( DirectoryLeaf leaf : v ) {
+            DefaultListModel<DirectoryLeaf> listModel = new DefaultListModel<DirectoryLeaf>();
+            for (DirectoryLeaf leaf : v) {
                 listModel.addElement(leaf);
             }
+
             lstFiles.setModel(listModel);
         } catch (NullPointerException npe) {
             Media.Messager("Could not load " + dirPath + ".\n" + npe.getMessage());
@@ -279,14 +291,16 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
     }
 
     private void Calculate() {
-        int BV = 0;
-        float Cost = 0;
+        /* BV/Cost not actually used */
+
+        // int BV = 0;
+        // float Cost = 0;
 
         int[] rows = tblMechData.getSelectedRows();
         for (int i = 0; i < rows.length; i++) {
             UnitListData data = ((UnitList) tblMechData.getModel()).Get(tblMechData.convertRowIndexToModel(rows[i]));
-            BV += data.getBV();
-            Cost += data.getCost();
+           //  BV += data.getBV();
+           //  Cost += data.getCost();
             setTooltip(data);
         }
     }
@@ -331,7 +345,7 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
         tblMechData.setModel(mechList);
 
         //Create a sorting class and apply it to the list
-        TableRowSorter sorter = new TableRowSorter<UnitList>(mechList);
+        TableRowSorter<UnitList> sorter = new TableRowSorter<UnitList>(mechList);
         List<RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
         sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
         sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
@@ -362,7 +376,6 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
      * WARNING: Do NOT modify this code. The content of this method is
      * always regenerated by the Form Editor.
      */
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -382,15 +395,15 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
         jLabel11 = new javax.swing.JLabel();
         txtSource = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        cmbTech = new javax.swing.JComboBox();
+        cmbTech = new javax.swing.JComboBox<String>();
         jLabel13 = new javax.swing.JLabel();
-        cmbEra = new javax.swing.JComboBox();
+        cmbEra = new javax.swing.JComboBox<String>();
         jLabel14 = new javax.swing.JLabel();
-        cmbClass = new javax.swing.JComboBox();
+        cmbClass = new javax.swing.JComboBox<String>();
         jLabel15 = new javax.swing.JLabel();
-        cmbMotive = new javax.swing.JComboBox();
+        cmbMotive = new javax.swing.JComboBox<String>();
         jLabel16 = new javax.swing.JLabel();
-        cmbMechType = new javax.swing.JComboBox();
+        cmbMechType = new javax.swing.JComboBox<String>();
         jLabel17 = new javax.swing.JLabel();
         chkOmniOnly = new javax.swing.JCheckBox();
         jLabel18 = new javax.swing.JLabel();
@@ -415,32 +428,32 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
         jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        lstOptions = new javax.swing.JList();
+        lstOptions = new javax.swing.JList<String>();
         jScrollPane6 = new javax.swing.JScrollPane();
         treDirectories = new javax.swing.JTree();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        lstFiles = new javax.swing.JList();
+        lstFiles = new javax.swing.JList<DirectoryLeaf>();
         pnlFSL = new javax.swing.JPanel();
         spnFSL = new javax.swing.JScrollPane();
         tblFSL = new javax.swing.JTable();
         jPanel17 = new javax.swing.JPanel();
-        cmbFaction = new javax.swing.JComboBox();
-        cmbType = new javax.swing.JComboBox();
-        cmbSource = new javax.swing.JComboBox();
-        cmbFSLEra = new javax.swing.JComboBox();
+        cmbFaction = new javax.swing.JComboBox<String>();
+        cmbType = new javax.swing.JComboBox<String>();
+        cmbSource = new javax.swing.JComboBox<String>();
+        cmbFSLEra = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         pnlRandomSelection = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lstSelected = new javax.swing.JList();
+        lstSelected = new javax.swing.JList<String>();
         btnClearSelection = new javax.swing.JButton();
         btnClipboard = new javax.swing.JButton();
         pnlSelected = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        lstChosen = new javax.swing.JList();
+        lstChosen = new javax.swing.JList<UnitListData>();
         btnClearChosen = new javax.swing.JButton();
         btnAddUnits = new javax.swing.JButton();
         btnDeleteUnit = new javax.swing.JButton();
@@ -648,7 +661,7 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel5.add(jLabel14, gridBagConstraints);
 
-        cmbClass.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "Light", "Medium", "Heavy", "Assault" }));
+        cmbClass.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "All", "Light", "Medium", "Heavy", "Assault" }));
         cmbClass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbClassActionPerformed(evt);
@@ -673,7 +686,7 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel5.add(jLabel15, gridBagConstraints);
 
-        cmbMotive.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Biped", "Quad" }));
+        cmbMotive.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Biped", "Quad" }));
         cmbMotive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbMotiveActionPerformed(evt);
@@ -698,7 +711,7 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel5.add(jLabel16, gridBagConstraints);
 
-        cmbMechType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "BattleMech", "IndustrialMech", "Primitive BattleMech", "Primitive IndustrialMech" }));
+        cmbMechType.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "BattleMech", "IndustrialMech", "Primitive BattleMech", "Primitive IndustrialMech" }));
         cmbMechType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbMechTypeActionPerformed(evt);
@@ -1069,13 +1082,13 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
         ));
         spnFSL.setViewportView(tblFSL);
 
-        cmbFaction.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbFaction.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        cmbType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbType.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        cmbSource.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbSource.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        cmbFSLEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbFSLEra.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel3.setText("Faction");
 
@@ -1384,12 +1397,10 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_btnOpenDirActionPerformed
 
     private void txtMinCostFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMinCostFilter
-        // TODO add your handling code here:
-}//GEN-LAST:event_txtMinCostFilter
+    }//GEN-LAST:event_txtMinCostFilter
 
     private void txtMaxCostFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaxCostFilter
-        // TODO add your handling code here:
-}//GEN-LAST:event_txtMaxCostFilter
+    }//GEN-LAST:event_txtMaxCostFilter
 
     private void btnClearFilterFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearFilterFilter
         setupList(getList());
@@ -1401,7 +1412,7 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
         txtMinCost.setText("");
         txtMaxCost.setText("");
         txtName.setText("");
-}//GEN-LAST:event_btnClearFilterFilter
+    }//GEN-LAST:event_btnClearFilterFilter
 
     private void lstFilesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstFilesValueChanged
         DirectoryLeaf f = (DirectoryLeaf) lstFiles.getSelectedValue();
@@ -1419,15 +1430,15 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void btnRollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRollActionPerformed
         lstSelected.setModel(rus.Generate(Integer.parseInt(spnSelections.getValue().toString()), Integer.parseInt(spnAddOn.getValue().toString())));
-}//GEN-LAST:event_btnRollActionPerformed
+    }//GEN-LAST:event_btnRollActionPerformed
 
     private void tbpSelectionsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tbpSelectionsFocusGained
         //LoadRUSFiles(parent.Prefs.get("RUSPath", ""));
-}//GEN-LAST:event_tbpSelectionsFocusGained
+    }//GEN-LAST:event_tbpSelectionsFocusGained
 
     private void btnClearSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearSelectionActionPerformed
         lstSelected.setModel(rus.ClearSelection());
-}//GEN-LAST:event_btnClearSelectionActionPerformed
+    }//GEN-LAST:event_btnClearSelectionActionPerformed
 
     private void btnClipboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClipboardActionPerformed
         String data = "";
@@ -1445,11 +1456,11 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_btnClipboardActionPerformed
 
     private void lstSelectedKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstSelectedKeyPressed
-        if (lstSelected.getSelectedValues().length > 0) {
+        if (lstSelected.getSelectedValuesList().size() > 0) {
             if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-                DefaultListModel model = (DefaultListModel) lstSelected.getModel();
-                for (int i = lstSelected.getSelectedValues().length - 1; i >= 0; i--) {
-                    model.removeElement((Object) lstSelected.getSelectedValues()[i]);
+                DefaultListModel<String>  model = (DefaultListModel<String>) lstSelected.getModel();
+                for (int i = lstSelected.getSelectedValuesList().size() - 1; i >= 0; i--) {
+                    model.removeElement(lstSelected.getSelectedValuesList().get(i));
                 }
                 lstSelected.clearSelection();
             }
@@ -1457,8 +1468,8 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_lstSelectedKeyPressed
 
     private void lstSelectedValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstSelectedValueChanged
-        if ((lstSelected.getSelectedValues().length > 0)) {
-            String Item = ((Object) lstSelected.getSelectedValues()[0]).toString();
+        if ((lstSelected.getSelectedValuesList().size() > 0)) {
+            String Item = lstSelected.getSelectedValuesList().get(0);
             if (Item.contains(" ")) {
                 String Name = RUS.ParseDesignName(Item);
                 txtName.setText(Name);
@@ -1486,21 +1497,20 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_cmbClassActionPerformed
 
     private void lstChosenValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChosenValueChanged
-        // TODO add your handling code here:
-}//GEN-LAST:event_lstChosenValueChanged
+    }//GEN-LAST:event_lstChosenValueChanged
 
     private void lstChosenKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstChosenKeyPressed
-        if (lstChosen.getSelectedValues().length > 0) {
+        if (lstChosen.getSelectedValuesList().size() > 0) {
             if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
                 btnDeleteUnitActionPerformed(null);
             }
         }
-}//GEN-LAST:event_lstChosenKeyPressed
+    }//GEN-LAST:event_lstChosenKeyPressed
 
     private void btnClearChosenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearChosenActionPerformed
         chosen.RemoveAll();
         loadChosen();
-}//GEN-LAST:event_btnClearChosenActionPerformed
+    }//GEN-LAST:event_btnClearChosenActionPerformed
 
     private void btnAddUnitsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddUnitsActionPerformed
         if (chosen.Size() > 0) {
@@ -1512,7 +1522,7 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
             parent.Refresh();
             this.setVisible(false);
         }
-}//GEN-LAST:event_btnAddUnitsActionPerformed
+    }//GEN-LAST:event_btnAddUnitsActionPerformed
 
     private void lstOptionsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstOptionsValueChanged
     }//GEN-LAST:event_lstOptionsValueChanged
@@ -1549,14 +1559,15 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
     }//GEN-LAST:event_tblMechDataMouseMoved
 
     private void tblMechDataFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tblMechDataFocusGained
-        // TODO add your handling code here:
     }//GEN-LAST:event_tblMechDataFocusGained
 
     private void btnDeleteUnitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteUnitActionPerformed
-        Object[] remove = lstChosen.getSelectedValues();
-        for (Object data : remove) {
-            chosen.Remove((UnitListData) data);
+        List<UnitListData> remove = lstChosen.getSelectedValuesList();
+
+        for (UnitListData data : remove) {
+            chosen.Remove(data);
         }
+
         loadChosen();
     }//GEN-LAST:event_btnDeleteUnitActionPerformed
 
@@ -1623,15 +1634,15 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnRoll;
     private javax.swing.JCheckBox chkOmniOnly;
-    private javax.swing.JComboBox cmbClass;
-    private javax.swing.JComboBox cmbEra;
-    private javax.swing.JComboBox cmbFSLEra;
-    private javax.swing.JComboBox cmbFaction;
-    private javax.swing.JComboBox cmbMechType;
-    private javax.swing.JComboBox cmbMotive;
-    private javax.swing.JComboBox cmbSource;
-    private javax.swing.JComboBox cmbTech;
-    private javax.swing.JComboBox cmbType;
+    private javax.swing.JComboBox<String> cmbClass;
+    private javax.swing.JComboBox<String> cmbEra;
+    private javax.swing.JComboBox<String> cmbFSLEra;
+    private javax.swing.JComboBox<String> cmbFaction;
+    private javax.swing.JComboBox<String> cmbMechType;
+    private javax.swing.JComboBox<String> cmbMotive;
+    private javax.swing.JComboBox<String> cmbSource;
+    private javax.swing.JComboBox<String> cmbTech;
+    private javax.swing.JComboBox<String> cmbType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1664,10 +1675,10 @@ public class dlgOpen extends javax.swing.JFrame implements java.awt.datatransfer
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JLabel lblLoading;
-    private javax.swing.JList lstChosen;
-    private javax.swing.JList lstFiles;
-    private javax.swing.JList lstOptions;
-    private javax.swing.JList lstSelected;
+    private javax.swing.JList<UnitListData> lstChosen;
+    private javax.swing.JList<DirectoryLeaf> lstFiles;
+    private javax.swing.JList<String> lstOptions;
+    private javax.swing.JList<String> lstSelected;
     private javax.swing.JPanel pnlFSL;
     private javax.swing.JPanel pnlRandom;
     private javax.swing.JPanel pnlRandomSelection;

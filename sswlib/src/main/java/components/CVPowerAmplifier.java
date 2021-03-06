@@ -54,12 +54,12 @@ public class CVPowerAmplifier {
 
     public double GetTonnage() {
         double tons = 0.0;
-        
+
         //we only use the poweramp if the engine is ICE
         if ( CurLoadout.GetEngine().IsNuclear())
             return tons;
-        
-        ArrayList v = CurLoadout.GetNonCore();
+
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
             if( v.get( i ) instanceof RangedWeapon ) {
                 if ( ((ifWeapon)v.get( i ) ).RequiresPowerAmps() )

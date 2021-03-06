@@ -37,6 +37,10 @@ import javax.swing.table.TableRowSorter;
 import list.view.Column;
 
 public abstract class abTable extends AbstractTableModel {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -567468160100474241L;
     public ArrayList<Column> Columns = new ArrayList<Column>();
     public ArrayList<Column> SortFields = new ArrayList<Column>();
     public Force force;

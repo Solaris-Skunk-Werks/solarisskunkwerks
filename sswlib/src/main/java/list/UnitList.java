@@ -38,6 +38,8 @@ import java.util.ArrayList;
 
 
 public class UnitList extends AbstractTableModel {
+    private static final long serialVersionUID = -3263076465516677079L;
+
     private ArrayList<UnitListData> List = new ArrayList<UnitListData>();
     private String Directory = "";
     private int IndexVersion = 10;
@@ -47,7 +49,7 @@ public class UnitList extends AbstractTableModel {
     public UnitList() {
 
     }
-    
+
     public UnitList(String directory) {
         this(directory, true);
     }
@@ -78,7 +80,7 @@ public class UnitList extends AbstractTableModel {
             }
         }
     }
-    
+
     final void Load( String Directory ) {
         File d = new File(Directory);
         if ( d.isDirectory() && !d.isHidden() ) {
@@ -93,7 +95,7 @@ public class UnitList extends AbstractTableModel {
             }
         }
     }
-    
+
     boolean EditorFile(File f) {
         for ( String ext : Extensions ) {
             if ( f.getPath().endsWith(ext) ) return true;
@@ -220,13 +222,13 @@ public class UnitList extends AbstractTableModel {
             if ( ! filter.getSource().isEmpty() ) {
                 if (! mData.getSource().toUpperCase().contains( filter.getSource().toUpperCase() ) ) remove = true;
             }
-            
+
             if (remove) m.List.remove(mData);
         }
 
         return m;
     }
-    
+
     public final void Write() throws IOException {
         if (List.size() > 0) {
             BufferedWriter bw = new BufferedWriter(new FileWriter(getDirectory() + File.separator + "index.ssi") );
@@ -243,9 +245,12 @@ public class UnitList extends AbstractTableModel {
         try {
             BufferedReader br = new BufferedReader(new FileReader(getDirectory() + File.separator + "index.ssi"));
             int version = Integer.parseInt(br.readLine().split(":")[1]);
+
             if (version != IndexVersion) {
+                br.close();
                 return false;
             }
+
             List = UnitCacheParser.LoadUnitCache(br);
             br.close();
             return true;
@@ -281,9 +286,13 @@ public class UnitList extends AbstractTableModel {
         return "";
     }
     public int getRowCount() { return List.size(); }
-    public int getColumnCount() { return 9; }
+
+    public int getColumnCount() {
+        return 9;
+    }
+
     @Override
-    public Class getColumnClass(int c) {
+    public Class<?> getColumnClass(int c) {
         if (List.size() > 0) {
             return getClassOf(c).getClass();
         } else {
@@ -320,7 +329,7 @@ public class UnitList extends AbstractTableModel {
     public void fireTableDataChanged() {
         super.fireTableDataChanged();
     }
-    
+
     public Object getValueAt( int row, int col ) {
         UnitListData m = (UnitListData) List.get( row );
         switch( col ) {

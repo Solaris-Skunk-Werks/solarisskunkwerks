@@ -169,7 +169,7 @@ public class TargetingComputer extends abPlaceable {
 
     private int GetSize() {
         double Build = 0.0;
-        ArrayList V = Owner.GetTCList();
+        ArrayList<abPlaceable> V = Owner.GetTCList();
 
         if( V.size() == 0 ) {
             return 0;
@@ -211,7 +211,7 @@ public class TargetingComputer extends abPlaceable {
     public String toString() {
         return CritName();
     }
-    
+
     public String toDisplay() {
         return " (" + Owner.GetTCList().size() + " items : " + GetTonnage() + " tons)";
     }

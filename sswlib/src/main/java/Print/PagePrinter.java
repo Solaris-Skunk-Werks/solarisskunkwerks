@@ -31,14 +31,14 @@ package Print;
 import filehandlers.Media;
 import java.awt.print.*;
 import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
+// import javax.print.PrintServiceLookup;
 
 public class PagePrinter {
     private String jobName = "Skunkwerks Print";
     private boolean DoPrint = true;
 
     private Book pages = new Book();
-    private PrintService service;
+    // private PrintService service;  // Not used
     private PrinterJob job = PrinterJob.getPrinterJob();
 
     public PagePrinter() {
@@ -57,19 +57,21 @@ public class PagePrinter {
         pages = new Book();
     }
 
-    public void selectService( String printerName ) {
+    public void selectService(String printerName) {
+        /* service isn't used so turning into NoOp
         PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
         for (PrintService printer : services ) {
             if ( printer.getName().equals(printerName) ) {
                 service = printer;
             }
         }
+        */
     }
 
     public void selectService( PrintService printerName ) {
-        service = printerName;
+        // service = printerName;
     }
-    
+
     public Book Preview() {
         return pages;
     }
@@ -93,7 +95,7 @@ public class PagePrinter {
         DoPrint = job.printDialog();
 
         job.setPageable(Preview());
-        
+
         if( DoPrint ) {
             try {
                 job.print();

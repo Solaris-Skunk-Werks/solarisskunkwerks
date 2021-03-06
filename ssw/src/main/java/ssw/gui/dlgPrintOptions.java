@@ -34,6 +34,10 @@ import components.Mech;
 import javax.print.*;
 
 public class dlgPrintOptions extends javax.swing.JDialog {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3854640898103189648L;
     private Mech CurMech;
     private ifMechForm Parent;
     private boolean Result = false;
@@ -66,7 +70,7 @@ public class dlgPrintOptions extends javax.swing.JDialog {
             txtWarriorName.setEnabled( false );
         } else {
             chkAdjustBV.setSelected(Parent.GetPrefs().getBoolean("AdjustPG", false));
-            lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );   
+            lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );
         }
         if (Parent.GetPrefs().getBoolean("UseA4", false)) {
             cmbPaperSize.setSelectedIndex(1);
@@ -394,7 +398,7 @@ private void cmbPilotingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
 private void cmbGunneryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGunneryActionPerformed
     if( chkAdjustBV.isSelected() ) {
-        lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );   
+        lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );
     }
 }//GEN-LAST:event_cmbGunneryActionPerformed
 
@@ -416,7 +420,7 @@ private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
 private void chkAdjustBVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdjustBVActionPerformed
     if( chkAdjustBV.isSelected() ) {
-        lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );   
+        lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );
     } else {
         lblAdjustBV.setText( String.format( "%1$,d", CurMech.GetCurrentBV() ) );
     }
@@ -431,7 +435,7 @@ private void chkMWStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         cmbPiloting.setEnabled( false );
         txtWarriorName.setEnabled( false );
     } else {
-        lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );   
+        lblAdjustBV.setText( String.format( "%1$,.0f", CommonTools.GetAdjustedBV( CurMech.GetCurrentBV(), cmbGunnery.getSelectedIndex(), cmbPiloting.getSelectedIndex() ) ) );
         cmbGunnery.setEnabled( true );
         cmbPiloting.setEnabled( true );
         txtWarriorName.setEnabled( true );

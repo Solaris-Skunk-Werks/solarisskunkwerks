@@ -89,7 +89,7 @@ public class Cockpit extends abPlaceable {
     public void SetTorsoMount() {
         CurConfig = TorsoCockpit;
     }
-    
+
     public void SetVirtualRealityPilotingPod(){
         CurConfig = VirtualRealityPilotingPod;
     }
@@ -97,14 +97,14 @@ public class Cockpit extends abPlaceable {
     public void SetRobotic() {
         CurConfig = RoboticCockpit;
     }
-    
+
     /**
      * Set this cockpit to a Super Heavy cockpit
      */
     public void SetSuperHeavy() {
         CurConfig = SuperHeavyCockpit;
     }
-            
+
 
     public ifState GetCurrentState() {
         return (ifState) CurConfig;
@@ -192,7 +192,7 @@ public class Cockpit extends abPlaceable {
                 return false;
             }
         }
-        
+
         return true;
     }
 
@@ -201,9 +201,10 @@ public class Cockpit extends abPlaceable {
         // Add in the cockpit, life support, and sensors.
         // Cockpit itself first
         LocationIndex loc = null;
+
         try {
             if( locs[0] == null ) {
-                l.AddTo( this, loc.Location, loc.Index );
+                return false; // l.AddTo( this, loc.Location, loc.Index ); // Null Access.
             } else {
                 l.AddTo( this, locs[0].Location, locs[0].Index);
             }
@@ -265,7 +266,7 @@ public class Cockpit extends abPlaceable {
                 return false;
             }
         }
-        
+
         // Do we have a third Life Support Location?
         if( CurConfig.HasThirdLifeSupport() ) {
             try {
@@ -424,17 +425,17 @@ public class Cockpit extends abPlaceable {
     }
 
     public ifState[] GetStates() {
-        ifState[] retval = { 
-            (ifState) StandardCockpit, 
+        ifState[] retval = {
+            (ifState) StandardCockpit,
             (ifState) SmallCockpit,
-            (ifState) TorsoCockpit, 
+            (ifState) TorsoCockpit,
             (ifState) VirtualRealityPilotingPod,
-            (ifState) IndustrialCockpit, 
+            (ifState) IndustrialCockpit,
             (ifState) IndusAFCCockpit,
-            (ifState) InterfaceCockpit, 
-            (ifState) Primitive, 
-            (ifState) PrimIndustrial, 
-            (ifState) PrimIndusAFC, 
+            (ifState) InterfaceCockpit,
+            (ifState) Primitive,
+            (ifState) PrimIndustrial,
+            (ifState) PrimIndusAFC,
             (ifState) RoboticCockpit,
             (ifState) SuperHeavyCockpit};
         return retval;
@@ -452,12 +453,12 @@ public class Cockpit extends abPlaceable {
     {
         return CurConfig.HasThirdSensors();
     }
-    
+
     public boolean HasThirdLifeSupport()
     {
         return CurConfig.HasThirdLifeSupport();
     }
-    
+
     // the following 3 methods provided for the torso-mounted cockpit for saving
     public SimplePlaceable GetFirstSensors() {
         return CurConfig.GetSensors();
@@ -478,7 +479,7 @@ public class Cockpit extends abPlaceable {
     public SimplePlaceable GetSecondLS() {
         return CurConfig.GetSecondLifeSupport();
     }
-    
+
     public SimplePlaceable GetThirdLS() {
         return CurConfig.GetThirdLifeSupport();
     }

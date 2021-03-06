@@ -46,11 +46,11 @@ public class ASHorizontalCardPrinter implements Printable {
     private ImageTracker imageTracker;
     private Graphics2D graphic;
     private Image   Background, Overlay;
-    private Image[] BFIcons;
+    // private Image[] BFIcons; // Not Used
     private int UnitImageWidth = PaperSize.getInchesInPixels(3.5),
                 UnitImageHeight = PaperSize.getInchesInPixels(2.5),
-                HorizontalLimit = 2,
-                MaxUnits = 8;
+                HorizontalLimit = 2;
+                // MaxUnits = 8; // Not Used
 
     private boolean printMechs = true,
                     printLogo = true,
@@ -69,7 +69,7 @@ public class ASHorizontalCardPrinter implements Printable {
                     MoveColor = Color.ORANGE,
                     SkillColor = new Color(238, 216, 0),
                     NameColor = Color.ORANGE,
-                    PilotColor = Color.ORANGE,
+                    // PilotColor = Color.ORANGE, Not Used
                     SizeColor = new Color(242, 242, 242);
 
     public ASHorizontalCardPrinter( BattleForce f, ImageTracker images) {
@@ -92,7 +92,7 @@ public class ASHorizontalCardPrinter implements Printable {
         MoveColor = OVColor;
         SkillColor = OVColor;
         NameColor = OVColor;
-        PilotColor = OVColor;
+        // PilotColor = OVColor; Not read
         SizeColor = OVColor;
         Shadow = Color.WHITE;
         DarkShadow = Color.WHITE;
@@ -109,7 +109,7 @@ public class ASHorizontalCardPrinter implements Printable {
         Render();
         return Printable.PAGE_EXISTS;
     }
-    
+
     public void Render() {
         int elementCount = 0;
         Image icon = null;
@@ -177,7 +177,7 @@ public class ASHorizontalCardPrinter implements Printable {
 
                 //Unit Name
                 //PrintConsts.ShadowText( graphic, PrintConsts.XtraSmallBoldFont, NameColor, DarkShadow, (stats.getUnit() + " [" + battleforce.ForceName + "]").replace("[]", ""), x+10, y+p.y+1 );
-            
+
                 //Skill
                 PrintConsts.ShadowText( graphic, PrintConsts.Bold8Font, SkillColor, Shadow, stats.getSkill()+"", x+142.0, (double) y+48.4);
             }
@@ -185,7 +185,7 @@ public class ASHorizontalCardPrinter implements Printable {
             //Type (TP)
             p.setLocation(24.0, 48.5);
             PrintConsts.ShadowText( graphic, PrintConsts.Bold8Font, MoveColor, Shadow, stats.getBFType(), x+p.x, (double) y+p.getY());
-            
+
             p.setLocation(54.0, 48.5);
             //Weight Class
             PrintConsts.ShadowText( graphic, PrintConsts.Bold8Font, SizeColor, Shadow, stats.getWeight()+"", x+p.x, (double) y+p.getY());
@@ -239,7 +239,7 @@ public class ASHorizontalCardPrinter implements Printable {
                     graphic.drawImage(logo, x+p.x, y+p.y, 20, 20, null);
                 }
             }
-            
+
             x += UnitImageWidth + 1;
         }
 

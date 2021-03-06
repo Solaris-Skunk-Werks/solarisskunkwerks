@@ -35,8 +35,8 @@ public class VSetArmorTonnage implements ifVisitor {
     private double ArmorTons;
     private int ArmorPoints[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     private int CTRPerc = MechArmor.DEFAULT_CTR_ARMOR_PERCENT,
-                STRPerc = MechArmor.DEFAULT_STR_ARMOR_PERCENT,
-                ArmorPriority = MechArmor.ARMOR_PRIORITY_TORSO;
+                STRPerc = MechArmor.DEFAULT_STR_ARMOR_PERCENT;
+                // ArmorPriority = MechArmor.ARMOR_PRIORITY_TORSO;
     private Preferences Prefs;
 
     public VSetArmorTonnage( Preferences p ) {
@@ -48,7 +48,7 @@ public class VSetArmorTonnage implements ifVisitor {
             ArmorPoints[i] = 0;
         }
     }
-    
+
     public void SetClan( boolean clan ) {
     }
 
@@ -64,7 +64,7 @@ public class VSetArmorTonnage implements ifVisitor {
         // only the armor changes, so pass us off
         CTRPerc = Prefs.getInt( "ArmorCTRPercent", MechArmor.DEFAULT_CTR_ARMOR_PERCENT );
         STRPerc = Prefs.getInt( "ArmorSTRPercent", MechArmor.DEFAULT_STR_ARMOR_PERCENT );
-        ArmorPriority = Prefs.getInt( "ArmorPriority", MechArmor.ARMOR_PRIORITY_TORSO );
+        // ArmorPriority = Prefs.getInt( "ArmorPriority", MechArmor.ARMOR_PRIORITY_TORSO );
         MechArmor a = m.GetArmor();
 
         // set the armor tonnage
@@ -121,12 +121,12 @@ public class VSetArmorTonnage implements ifVisitor {
         // only the armor changes, so pass us off
         CTRPerc = Prefs.getInt( "ArmorFrontPercent", CVArmor.DEFAULT_FRONT_ARMOR_PERCENT );
         STRPerc = Prefs.getInt( "ArmorTurretPercent", CVArmor.DEFAULT_TURRET_ARMOR_PERCENT );
-        ArmorPriority = Prefs.getInt( "ArmorPriority", CVArmor.ARMOR_PRIORITY_FRONT );
+        // ArmorPriority = Prefs.getInt( "ArmorPriority", CVArmor.ARMOR_PRIORITY_FRONT );
         CVArmor a = v.GetArmor();
 
         // remove all existing amounts so we can reset
         a.ClearArmorValues();
-        
+
         if( ArmorTons >= a.GetMaxTonnage() ) {
             a.Maximize();
         } else if( ArmorTons <= 0 ) {
@@ -136,14 +136,14 @@ public class VSetArmorTonnage implements ifVisitor {
         } else {
             // allocate the armor
             AllocateArmor( a );
-            
+
             // fix the armor
             FixArmor( a );
-            
+
             if ( a.GetArmorValue() < a.GetArmorPoints(ArmorTons) ) {
                 AllocateExtra(a, (a.GetArmorPoints(ArmorTons)-a.GetArmorValue()));
                 FixArmor( a );
-            }            
+            }
         }
     }
 
@@ -215,19 +215,19 @@ public class VSetArmorTonnage implements ifVisitor {
 
         // remove all existing amounts so we can reset
         a.ClearArmorValues();
-        
+
         if ( a.GetOwner().IsVTOL() ) {
             ArmorPoints[LocationIndex.CV_LOC_ROTOR] = 2;
             AV -= 2;
         }
         int split = AV / a.GetOwner().getLocationCount();
-        
+
         if ( a.GetOwner().isHasTurret1() ) ArmorPoints[LocationIndex.CV_LOC_TURRET1] = split;
         if ( a.GetOwner().isHasTurret2() ) ArmorPoints[LocationIndex.CV_LOC_TURRET2] = split;
-        
+
         ArmorPoints[LocationIndex.CV_LOC_LEFT] = split;
         ArmorPoints[LocationIndex.CV_LOC_RIGHT] = split;
-        
+
         ArmorPoints[LocationIndex.CV_LOC_FRONT] = (int)Math.ceil((split * 2) * .6);
         ArmorPoints[LocationIndex.CV_LOC_REAR] = (split * 2)-ArmorPoints[LocationIndex.CV_LOC_FRONT];
     }
@@ -308,6 +308,8 @@ public class VSetArmorTonnage implements ifVisitor {
         return result;
     }
 
+    /*
+     * Not used inside class at this time.
     private int CheckMaximums( CVArmor a, int AV ) {
         int result = AV;
 
@@ -356,6 +358,7 @@ public class VSetArmorTonnage implements ifVisitor {
 
         return result;
     }
+    */
 
     private void AllocateExtra( MechArmor a, int AV ) {
         // recursive routine for allocating the armor.  Pass in the AV we have
@@ -640,6 +643,8 @@ public class VSetArmorTonnage implements ifVisitor {
         }
     }
 
+    /*
+     * Not used in class
     private void Symmetrize( CVArmor a ) {
         if( ArmorPoints[LocationIndex.CV_LOC_LEFT] > ArmorPoints[LocationIndex.CV_LOC_RIGHT] || ArmorPoints[LocationIndex.CV_LOC_LEFT] < ArmorPoints[LocationIndex.CV_LOC_RIGHT] ) {
             if( ArmorPoints[LocationIndex.CV_LOC_LEFT] > ArmorPoints[LocationIndex.CV_LOC_RIGHT] ) {
@@ -667,6 +672,7 @@ public class VSetArmorTonnage implements ifVisitor {
         }
 
     }
+    */
 
     private void FixArmor( MechArmor a ) {
         // fixes the armor values to the mech

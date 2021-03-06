@@ -8,6 +8,10 @@ import java.io.File;
 /* ImagePreview.java by FileChooserDemo2.java. */
 public class ImagePreview extends JComponent
                           implements PropertyChangeListener {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -785642359105414636L;
     ImageIcon thumbnail = null;
     File file = null;
 

@@ -40,24 +40,17 @@ import battleforce.BattleForce;
 import common.CommonTools;
 import components.Mech;
 import filehandlers.Media;
-import gui.*;
 import Print.*;
 import filehandlers.ImageTracker;
 
 public class Printer {
     private ifMechForm Parent;
     private Vector<PrintMech> Mechs = new Vector<PrintMech>();
-    private Vector battleforces = new Vector();
-    private BattleForce battleforce;
-    private BattleforcePrinter printForce;
-    private String jobName = "SSW Batch Print",
-                    logoPath = "",
-                    MechImagePath = "",
-                    ChartImageOption = "";
-    private Boolean Charts = true,
-                    Canon = true,
-                    useDialog = true,
-                    TRO = false;
+    private Vector<BattleforceCardPrinter> battleforces = new Vector<BattleforceCardPrinter>();
+    // private BattleForce battleforce; // Not Used
+    // private BattleforcePrinter printForce; // Not Used
+    private String jobName = "SSW Batch Print", logoPath = "";
+    private Boolean Charts = true, Canon = true, useDialog = true, TRO = false;
 
     private ImageTracker images = new ImageTracker();
 
@@ -66,7 +59,7 @@ public class Printer {
     private PageFormat page = new PageFormat();
     private PrinterJob job = PrinterJob.getPrinterJob();
 
-    //To convert paper size to pixels is inches / 0.0139 rounded down
+    // To convert paper size to pixels is inches / 0.0139 rounded down
     public final static PaperSize Letter = new PaperSize(8.5d, 11d);
     public final static PaperSize A4 = new PaperSize(595, 842, 18, 18, 559, 806);
     public final static PaperSize Legal = new PaperSize(8.5d, 14.0d);
@@ -74,7 +67,7 @@ public class Printer {
     public Printer() {
         this(null);
     }
-    
+
     public Printer(ifMechForm p) {
         Parent = p;
         setPaperSize(Letter);
@@ -94,18 +87,14 @@ public class Printer {
     }
 
     public void setPaperSize(PaperSize s) {
-        paper.setSize( s.PaperWidth, s.PaperHeight );
-        paper.setImageableArea( s.ImageableX, s.ImageableY, s.ImageableWidth, s.ImageableHeight );
-        if ( s == A4 )
-        {
-            for ( PrintMech pm : Mechs )
-            {
+        paper.setSize(s.PaperWidth, s.PaperHeight);
+        paper.setImageableArea(s.ImageableX, s.ImageableY, s.ImageableWidth, s.ImageableHeight);
+        if (s == A4) {
+            for (PrintMech pm : Mechs) {
                 pm.setA4();
             }
-        } else if ( s == Letter )
-        {
-            for ( PrintMech pm : Mechs )
-            {
+        } else if (s == Letter) {
+            for (PrintMech pm : Mechs) {
                 pm.setLetter();
             }
         }
@@ -115,21 +104,21 @@ public class Printer {
         return Charts;
     }
 
-    public Vector GetMechs() {
+    public Vector<PrintMech> GetMechs() {
         return Mechs;
     }
 
     public void setCharts(Boolean Charts) {
         this.Charts = Charts;
-        for (int index=0; index <= Mechs.size()-1; index++) {
+        for (int index = 0; index <= Mechs.size() - 1; index++) {
             PrintMech pm = (PrintMech) Mechs.get(index);
             pm.setCharts(Charts);
         }
     }
 
-    public void setCanon( boolean Canon ) {
+    public void setCanon(boolean Canon) {
         this.Canon = Canon;
-        for (int index=0; index <= Mechs.size()-1; index++) {
+        for (int index = 0; index <= Mechs.size() - 1; index++) {
             PrintMech pm = (PrintMech) Mechs.get(index);
             pm.setCanon(Canon);
         }
@@ -145,37 +134,39 @@ public class Printer {
 
     public void setTRO(Boolean TRO) {
         this.TRO = TRO;
-        for (int index=0; index <= Mechs.size()-1; index++) {
+        for (int index = 0; index <= Mechs.size() - 1; index++) {
             PrintMech pm = (PrintMech) Mechs.get(index);
             pm.setTRO(TRO);
         }
     }
 
-    public void setHexConversion( int Rate ) {
-        for (int index=0; index <= Mechs.size()-1; index++) {
+    public void setHexConversion(int Rate) {
+        for (int index = 0; index <= Mechs.size() - 1; index++) {
             PrintMech pm = (PrintMech) Mechs.get(index);
-            pm.SetMiniConversion( Rate );
+            pm.SetMiniConversion(Rate);
         }
     }
 
-    public void setPrintWarrior( boolean value ) {
-        for (int index=0; index <= Mechs.size()-1; index++) {
+    public void setPrintWarrior(boolean value) {
+        for (int index = 0; index <= Mechs.size() - 1; index++) {
             PrintMech pm = (PrintMech) Mechs.get(index);
             pm.setPrintPilot(value);
         }
     }
 
-    public void setWarriorData( int Gunnery, int Piloting, String Name, String Unit ) {
-        for (int index=0; index <= Mechs.size()-1; index++) {
+    public void setWarriorData(int Gunnery, int Piloting, String Name, String Unit) {
+        for (int index = 0; index <= Mechs.size() - 1; index++) {
             PrintMech pm = (PrintMech) Mechs.get(index);
             pm.SetPilotData(Name, Gunnery, Piloting);
             pm.setGroupName(Unit);
         }
     }
 
-    public void AddMech(Mech m, String Mechwarrior, int Gunnery, int Piloting, boolean Charts, boolean PilotInfo, boolean AdjBV) {
+    public void AddMech(Mech m, String Mechwarrior, int Gunnery, int Piloting, boolean Charts, boolean PilotInfo,
+            boolean AdjBV) {
         double BV = (double) m.GetCurrentBV();
-        if (AdjBV) BV = CommonTools.GetAdjustedBV(m.GetCurrentBV(), Gunnery, Piloting);
+        if (AdjBV)
+            BV = CommonTools.GetAdjustedBV(m.GetCurrentBV(), Gunnery, Piloting);
 
         PrintMech pm = new PrintMech(m, images);
         pm.SetPilotData(Mechwarrior, Gunnery, Piloting);
@@ -188,14 +179,14 @@ public class Printer {
         AddMech(m, Mechwarrior, Gunnery, Piloting, Charts, true, true);
     }
 
-    public void AddMech(Mech m){
+    public void AddMech(Mech m) {
         AddMech(m, "", 4, 5, Charts, true, true);
     }
 
-    public void AddForce( BattleForce f ) {
+    public void AddForce(BattleForce f) {
         images.preLoadBattleForceImages();
-        //battleforces.add( new PrintBattleforce(f) );
-        battleforces.add( new BattleforceCardPrinter(f, images) );
+        // battleforces.add( new PrintBattleforce(f) );
+        battleforces.add(new BattleforceCardPrinter(f, images));
     }
 
     public void Clear() {
@@ -209,21 +200,25 @@ public class Printer {
     }
 
     public void PrintSingles() {
-        if (Mechs.size() == 0) { return;}
+        if (Mechs.size() == 0) {
+            return;
+        }
 
-        page.setPaper( paper );
+        page.setPaper(paper);
 
-        if ( useDialog ) {
+        if (useDialog) {
             if (Mechs.size() == 1) {
-                if ( ! PrintDialog( (PrintMech) Mechs.get(0) ) ) return;
+                if (!PrintDialog((PrintMech) Mechs.get(0)))
+                    return;
             } else {
-                if ( ! BatchDialog() ) return;
+                if (!BatchDialog())
+                    return;
             }
         }
-        
-        for (int index=0; index <= Mechs.size()-1; index++) {
+
+        for (int index = 0; index <= Mechs.size() - 1; index++) {
             PrintMech pm = (PrintMech) Mechs.get(index);
-            job.setJobName( pm.CurMech.GetFullName().trim() );
+            job.setJobName(pm.CurMech.GetFullName().trim());
             job.setPrintable(pm);
             try {
                 job.print();
@@ -233,37 +228,42 @@ public class Printer {
         }
     }
 
-    public void Print( boolean useDialog ) {
+    public void Print(boolean useDialog) {
         this.useDialog = useDialog;
         Print();
     }
 
     public void Print() {
-        //If they didn't provide a mech exit
-        if (Mechs.size() == 0) { return; }
+        // If they didn't provide a mech exit
+        if (Mechs.size() == 0) {
+            return;
+        }
 
         job.setJobName(jobName.trim());
 
-        //Here is where we will show the print dialog, determine if it's a single mech or multiples
-        if ( useDialog ) {
+        // Here is where we will show the print dialog, determine if it's a single mech
+        // or multiples
+        if (useDialog) {
             if (Mechs.size() == 1) {
-                if ( ! PrintDialog( (PrintMech) Mechs.get(0) ) ) return;
+                if (!PrintDialog((PrintMech) Mechs.get(0)))
+                    return;
             } else {
-                if ( ! BatchDialog() ) return;
+                if (!BatchDialog())
+                    return;
             }
         }
 
-        //start building the print objects necessary
+        // start building the print objects necessary
         GeneratePrints();
 
         job.setPageable(pages);
         boolean DoPrint = job.printDialog();
-        if( DoPrint ) {
+        if (DoPrint) {
             try {
                 job.print();
-            } catch( PrinterException e ) {
-                System.err.println( e.getMessage() );
-                System.out.println( e.getStackTrace() );
+            } catch (PrinterException e) {
+                System.err.println(e.getMessage());
+                System.out.println(e.getStackTrace());
             }
 
             Mechs.clear();
@@ -276,28 +276,29 @@ public class Printer {
     }
 
     private void GeneratePrints() {
-        //reset the book so we don't get extra pages!
+        // reset the book so we don't get extra pages!
         pages = new Book();
 
-        //start building the print objects necessary
-        page.setPaper( paper );
+        // start building the print objects necessary
+        page.setPaper(paper);
 
-        for (int index=0; index <= Mechs.size()-1; index++) {
+        for (int index = 0; index <= Mechs.size() - 1; index++) {
             PrintMech pm = (PrintMech) Mechs.get(index);
             pages.append(pm, page);
-            if (Mechs.size() == 1) job.setJobName(pm.CurMech.GetFullName().trim());
+            if (Mechs.size() == 1)
+                job.setJobName(pm.CurMech.GetFullName().trim());
         }
 
     }
 
     private Boolean PrintDialog(PrintMech pMech) {
-        dlgPrintSavedMechOptions POptions = new dlgPrintSavedMechOptions( (javax.swing.JFrame) Parent, true, pMech);
-        POptions.setTitle( "Printing " + pMech.CurMech.GetFullName() );
-        POptions.setLocationRelativeTo( (javax.swing.JFrame) Parent );
+        dlgPrintSavedMechOptions POptions = new dlgPrintSavedMechOptions((javax.swing.JFrame) Parent, true, pMech);
+        POptions.setTitle("Printing " + pMech.CurMech.GetFullName());
+        POptions.setLocationRelativeTo((javax.swing.JFrame) Parent);
 
-        POptions.setVisible( true );
+        POptions.setVisible(true);
 
-        if( ! POptions.Result() ) {
+        if (!POptions.Result()) {
             return false;
         }
 
@@ -309,36 +310,42 @@ public class Printer {
         pMech.setMechImage(POptions.getImage());
         pMech.setLogoImage(POptions.getLogo());
         pMech.setCanon(POptions.getCanon());
-        if ( POptions.UseMiniConversion() ) { pMech.SetMiniConversion( POptions.GetMiniConversionRate() );}
-        if ( POptions.UseA4Paper() ) { pMech.setA4(); }
+        if (POptions.UseMiniConversion()) {
+            pMech.SetMiniConversion(POptions.GetMiniConversionRate());
+        }
+        if (POptions.UseA4Paper()) {
+            pMech.setA4();
+        }
 
         POptions.dispose();
         return true;
     }
 
     private Boolean BatchDialog() {
-        dlgPrintSavedMechOptions POptions = new dlgPrintSavedMechOptions( (javax.swing.JFrame) Parent, true);
-        POptions.setTitle( "Printing Batched Units");
-        POptions.setLocationRelativeTo( (javax.swing.JFrame) Parent );
+        dlgPrintSavedMechOptions POptions = new dlgPrintSavedMechOptions((javax.swing.JFrame) Parent, true);
+        POptions.setTitle("Printing Batched Units");
+        POptions.setLocationRelativeTo((javax.swing.JFrame) Parent);
 
-        if ( !this.logoPath.isEmpty() ) {
+        if (!this.logoPath.isEmpty()) {
             POptions.setLogo(new File(this.logoPath));
         }
-        
-        POptions.setVisible( true );
 
-        if( ! POptions.Result() ) {
+        POptions.setVisible(true);
+
+        if (!POptions.Result()) {
             return false;
         }
-        
-        for ( int m=0; m <= Mechs.size()-1; m++ ) {
+
+        for (int m = 0; m <= Mechs.size() - 1; m++) {
             PrintMech pMech = (PrintMech) Mechs.get(m);
             pMech.setPrintPilot(POptions.PrintPilot());
             pMech.setCharts(POptions.PrintCharts());
             pMech.setMechImage(POptions.getImage());
             pMech.setLogoImage(POptions.getLogo());
             pMech.setCanon(POptions.getCanon());
-            if ( POptions.UseMiniConversion() ) { pMech.SetMiniConversion( POptions.GetMiniConversionRate() );}
+            if (POptions.UseMiniConversion()) {
+                pMech.SetMiniConversion(POptions.GetMiniConversionRate());
+            }
         }
 
         POptions.dispose();
@@ -351,84 +358,92 @@ public class Printer {
 
     public void setLogoPath(String logoPath) {
         this.logoPath = logoPath;
-        if ( !logoPath.isEmpty() ) {
+        if (!logoPath.isEmpty()) {
             Media media = new Media();
-            for (int index=0; index <= Mechs.size()-1; index++) {
+            for (int index = 0; index <= Mechs.size() - 1; index++) {
                 PrintMech pm = (PrintMech) Mechs.get(index);
                 pm.setLogoImage(media.GetImage(logoPath));
             }
         } else {
-            for (int index=0; index <= Mechs.size()-1; index++) {
+            for (int index = 0; index <= Mechs.size() - 1; index++) {
                 PrintMech pm = (PrintMech) Mechs.get(index);
                 pm.setLogoImage(null);
             }
         }
     }
 
-    public void setMechImagePath(String MechImagePath) {
-        this.MechImagePath = MechImagePath;
-        if ( !MechImagePath.isEmpty() ) {
+    public void setMechImagePath(String imagePath) {
+        if (!imagePath.isEmpty()) {
             Media media = new Media();
-            for (int index=0; index <= Mechs.size()-1; index++) {
+            for (int index = 0; index <= Mechs.size() - 1; index++) {
                 PrintMech pm = (PrintMech) Mechs.get(index);
-                pm.setMechImage(media.GetImage(MechImagePath));
+                pm.setMechImage(media.GetImage(imagePath));
             }
         } else {
-            for (int index=0; index <= Mechs.size()-1; index++) {
+            for (int index = 0; index <= Mechs.size() - 1; index++) {
                 PrintMech pm = (PrintMech) Mechs.get(index);
                 pm.setMechImage(null);
             }
         }
     }
-    public void setChartImageOption( String Option ) {
-        this.ChartImageOption = Option;
+
+    public void setChartImageOption(String Option) {
         for (int i = 0; i < Mechs.size(); i++) {
-            PrintMech pm = (PrintMech)Mechs.get(i);
+            PrintMech pm = (PrintMech) Mechs.get(i);
             pm.setChartImageOption(Option);
         }
     }
 
-    public void setBattleForceSheet( String Type ) {
-        for ( int i=0; i < battleforces.size(); i++ ) {
-            ((BattleforcePrinter) battleforces.get(i)).setType(Type);
+    public void setBattleForceSheet(String Type) {
+        for (int i = 0; i < battleforces.size(); i++) {
+            battleforces.get(i).setType(Type);
         }
     }
 
     public Book PreviewBattleforce() {
-        if ( battleforces.size() == 0 ) { return new Book(); }
+        if (battleforces.size() == 0) {
+            return new Book();
+        }
         pages = new Book();
-        page.setPaper( paper );
-        for ( int i=0; i < battleforces.size(); i++ ) {
-            pages.append(((BattleforceCardPrinter) battleforces.get(i)), page);
+        page.setPaper(paper);
+        for (int i = 0; i < battleforces.size(); i++) {
+            pages.append(battleforces.get(i), page);
         }
         return pages;
     }
 
-    public void PrintBattleforce( boolean useDialog ) {
+    public void PrintBattleforce(boolean useDialog) {
         this.useDialog = useDialog;
         PrintBattleforce();
     }
 
     public void PrintBattleforce() {
-        if ( battleforces.size() == 0 ) { return; }
+        if (battleforces.size() == 0) {
+            return;
+        }
         pages = new Book();
-        page.setPaper( paper );
+        page.setPaper(paper);
 
-        if ( jobName.isEmpty() ) { jobName = "BattleForce"; }
-        if ( battleforces.size() == 1 ) {
-            BattleForce bf = ((BattleforcePrinter) battleforces.get(0)).getBattleforce();
-            if ( !bf.ForceName.isEmpty() ) { jobName = bf.ForceName.trim(); }
+        if (jobName.isEmpty()) {
+            jobName = "BattleForce";
+        }
+        if (battleforces.size() == 1) {
+            BattleForce bf = battleforces.get(0).getBattleforce();
+            if (!bf.ForceName.isEmpty()) {
+                jobName = bf.ForceName.trim();
+            }
         }
 
         job.setJobName(jobName);
 
-        if ( useDialog ) {
-            for ( int i=0; i < battleforces.size(); i++ ) {
-                BattleforcePrinter bf = (BattleforcePrinter) battleforces.get(i);
-                dlgPrintBattleforce pForce = new dlgPrintBattleforce( (javax.swing.JFrame) Parent, true, bf.getBattleforce());
+        if (useDialog) {
+            for (int i = 0; i < battleforces.size(); i++) {
+                BattleforceCardPrinter bf = battleforces.get(i);
+                dlgPrintBattleforce pForce = new dlgPrintBattleforce((javax.swing.JFrame) Parent, true,
+                        bf.getBattleforce());
                 pForce.setLocationRelativeTo((javax.swing.JFrame) Parent);
                 pForce.setVisible(true);
-                if ( !pForce.Result ) {
+                if (!pForce.Result) {
                     return;
                 }
 
@@ -436,18 +451,18 @@ public class Printer {
             }
         }
 
-        for ( int i=0; i < battleforces.size(); i++ ) {
-            pages.append((BattleforcePrinter) battleforces.get(i), page);
+        for (int i = 0; i < battleforces.size(); i++) {
+            pages.append(battleforces.get(i), page);
         }
 
         job.setPageable(pages);
         boolean DoPrint = job.printDialog();
-        if( DoPrint ) {
+        if (DoPrint) {
             try {
                 job.print();
-            } catch( PrinterException e ) {
-                System.err.println( e.getMessage() );
-                System.out.println( e.getStackTrace() );
+            } catch (PrinterException e) {
+                System.err.println(e.getMessage());
+                System.out.println(e.getStackTrace());
             }
         }
     }

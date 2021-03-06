@@ -32,7 +32,12 @@ import list.UnitList;
 import list.UnitListData;
 
 public class tbBattleForceView extends abView {
-    public tbBattleForceView( UnitList list ) {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1487361433658592322L;
+
+    public tbBattleForceView(UnitList list) {
         this.list = list;
 
         Columns.add(new Column( 0, "Unit", "TypeModel", 200 ));
@@ -47,7 +52,7 @@ public class tbBattleForceView extends abView {
         Columns.add(new Column( 9, "Str", "Structure", 20, Integer.class ));
         Columns.add(new Column( 10, "Base PV", "BaseBV", 30, Integer.class ));
         Columns.add(new Column( 11, "Adj PV", "TotalBV", false, 40, Integer.class, true, SortOrder.ASCENDING ));
-    
+
         Columns.get(0).sortOrder = SortOrder.ASCENDING;
         Columns.get(6).sortOrder = SortOrder.ASCENDING;
 

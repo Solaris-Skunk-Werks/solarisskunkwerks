@@ -47,6 +47,10 @@ import filehandlers.Media;
 
 public class dlgPrefs extends javax.swing.JDialog {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7677951752003414280L;
     private Preferences Prefs;
 
     /** Creates new form dlfPrefs */

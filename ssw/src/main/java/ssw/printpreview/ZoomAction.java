@@ -26,6 +26,11 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 
 class ZoomAction extends AbstractAction {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6176865184343138575L;
+
     public ZoomAction(String name, String iconName, Preview preview, double zoomStep, boolean resetZoom) {
         super();
 
@@ -47,7 +52,7 @@ class ZoomAction extends AbstractAction {
     public ZoomAction(Preview preview, double zoomStep) {
         this("", "", preview, zoomStep, false);
     }
-    
+
     public void actionPerformed(ActionEvent e) {
         if ( resetZoom ) {
             preview.setZoom(zoomStep);
@@ -56,10 +61,8 @@ class ZoomAction extends AbstractAction {
         }
         preview.repaint();
     }
-    
+
     protected Preview preview;
     protected double zoomStep;
     protected boolean resetZoom;
 }
-
-

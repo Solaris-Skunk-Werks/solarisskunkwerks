@@ -106,8 +106,8 @@ public class Advantages {
         return ret;
     }
 
-    public DefaultListModel getMDModsModel() {
-        DefaultListModel m = new DefaultListModel();
+    public DefaultListModel<Enhancement> getMDModsModel() {
+        DefaultListModel<Enhancement> m = new DefaultListModel<Enhancement>();
         for ( Enhancement e : getMDMods() ) {
             m.addElement(e);
         }

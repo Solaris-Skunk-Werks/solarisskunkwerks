@@ -31,7 +31,12 @@ package ssw.gui;
 import ssw.constants.SSWConstants;
 
 public class dlgCredits extends javax.swing.JDialog {
-    
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4858716341188790959L;
+
     /** Creates new form dlgCredits */
     public dlgCredits(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -39,7 +44,7 @@ public class dlgCredits extends javax.swing.JDialog {
         setResizable( false );
         setTitle( SSWConstants.AppName + " Credits" );
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -129,7 +134,7 @@ public class dlgCredits extends javax.swing.JDialog {
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
         dispose();
     }//GEN-LAST:event_btnCloseActionPerformed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JLabel jLabel1;
@@ -139,5 +144,5 @@ public class dlgCredits extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     // End of variables declaration//GEN-END:variables
-    
+
 }

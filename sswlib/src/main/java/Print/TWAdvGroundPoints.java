@@ -34,52 +34,67 @@ import java.util.ArrayList;
 
 public class TWAdvGroundPoints implements ifPrintPoints {
 
-    //<editor-fold desc="Arrays" default="collapsed">        
+    //<editor-fold desc="Arrays" default="collapsed">
+    /*
+     * Not Being Used
     private final static Point[] FrontInternalPoints = {
-        new Point( 464, 134 ), new Point( 471, 134 ), new Point( 478, 134 ), new Point( 485, 134 ), new Point( 492, 134 ), 
-        new Point( 464, 142 ), new Point( 471, 142 ), new Point( 478, 142 ), new Point( 485, 142 ), new Point( 492, 142 ), 
+        new Point( 464, 134 ), new Point( 471, 134 ), new Point( 478, 134 ), new Point( 485, 134 ), new Point( 492, 134 ),
+        new Point( 464, 142 ), new Point( 471, 142 ), new Point( 478, 142 ), new Point( 485, 142 ), new Point( 492, 142 ),
     };
-    
+    */
+
+    /*
+     * Not Being Used
     private final static Point[] TurretArmorPoints = {
                               new Point( 461, 215), new Point( 467, 215), new Point( 473, 215), new Point( 479, 215), new Point( 485, 215),  new Point( 491, 215), new Point( 497, 215),
-        new Point( 455, 221), new Point( 461, 221), new Point( 467, 221), new Point( 473, 221), new Point( 479, 221), new Point( 485, 221),  new Point( 491, 221), new Point( 497, 221), new Point( 503, 221), 
-        new Point( 455, 227), new Point( 461, 227), new Point( 467, 227), new Point( 473, 227), new Point( 479, 227), new Point( 485, 227),  new Point( 491, 227), new Point( 497, 227), new Point( 503, 227), 
-        new Point( 455, 233), new Point( 461, 233), new Point( 467, 233), new Point( 473, 233), new Point( 479, 233), new Point( 485, 233),  new Point( 491, 233), new Point( 497, 233), new Point( 503, 233), 
-        new Point( 455, 239), new Point( 461, 239), new Point( 467, 239), new Point( 473, 239), new Point( 479, 239), new Point( 485, 239),  new Point( 491, 239), new Point( 497, 239), new Point( 503, 239), 
-        new Point( 455, 245), new Point( 461, 245), new Point( 467, 245), new Point( 473, 245), new Point( 479, 245), new Point( 485, 245),  new Point( 491, 245), new Point( 497, 245), new Point( 503, 245), 
-        new Point( 455, 251), new Point( 461, 251), new Point( 467, 251), new Point( 473, 251), new Point( 479, 251), new Point( 485, 251),  new Point( 491, 251), new Point( 497, 251), new Point( 503, 251), 
+        new Point( 455, 221), new Point( 461, 221), new Point( 467, 221), new Point( 473, 221), new Point( 479, 221), new Point( 485, 221),  new Point( 491, 221), new Point( 497, 221), new Point( 503, 221),
+        new Point( 455, 227), new Point( 461, 227), new Point( 467, 227), new Point( 473, 227), new Point( 479, 227), new Point( 485, 227),  new Point( 491, 227), new Point( 497, 227), new Point( 503, 227),
+        new Point( 455, 233), new Point( 461, 233), new Point( 467, 233), new Point( 473, 233), new Point( 479, 233), new Point( 485, 233),  new Point( 491, 233), new Point( 497, 233), new Point( 503, 233),
+        new Point( 455, 239), new Point( 461, 239), new Point( 467, 239), new Point( 473, 239), new Point( 479, 239), new Point( 485, 239),  new Point( 491, 239), new Point( 497, 239), new Point( 503, 239),
+        new Point( 455, 245), new Point( 461, 245), new Point( 467, 245), new Point( 473, 245), new Point( 479, 245), new Point( 485, 245),  new Point( 491, 245), new Point( 497, 245), new Point( 503, 245),
+        new Point( 455, 251), new Point( 461, 251), new Point( 467, 251), new Point( 473, 251), new Point( 479, 251), new Point( 485, 251),  new Point( 491, 251), new Point( 497, 251), new Point( 503, 251),
     };
-    
+    */
+
+    /*
+     * Not Being Used
     private final static Point[] TurretInternalPoints = {
         new Point( 467, 200), new Point( 473, 200), new Point( 479, 200), new Point( 485, 200), new Point( 491, 200),
         new Point( 467, 206), new Point( 473, 206), new Point( 479, 206), new Point( 485, 206), new Point( 491, 206),
     };
-    
+    */
+
+    /*
+     * Not Being Used
     private final static Point[] Turret2ArmorPoints = {
-        new Point( 528, 59 ), new Point( 534, 59 ), new Point( 528, 65 ), new Point( 534, 65 ), 
-        new Point( 540, 65 ), new Point( 546, 65 ), new Point( 528, 71 ), new Point( 534, 71 ), 
-        new Point( 540, 71 ), new Point( 546, 71 ), new Point( 528, 77 ), new Point( 534, 77 ), 
-        new Point( 540, 77 ), new Point( 546, 77 ), new Point( 528, 83 ), new Point( 534, 83 ), 
-        new Point( 540, 83 ), new Point( 546, 83 ), new Point( 534, 89 ), new Point( 540, 89 ), 
-        new Point( 534, 95 ), new Point( 540, 95 ), new Point( 534, 101 ), new Point( 540, 101 ), 
-        new Point( 534, 107 ), new Point( 540, 107 ), new Point( 534, 113 ), new Point( 540, 113 ), 
-        new Point( 534, 119 ), new Point( 540, 119 ), new Point( 534, 125 ), new Point( 540, 125 ), 
-        new Point( 534, 131 ), new Point( 540, 131 ) 
+        new Point( 528, 59 ), new Point( 534, 59 ), new Point( 528, 65 ), new Point( 534, 65 ),
+        new Point( 540, 65 ), new Point( 546, 65 ), new Point( 528, 71 ), new Point( 534, 71 ),
+        new Point( 540, 71 ), new Point( 546, 71 ), new Point( 528, 77 ), new Point( 534, 77 ),
+        new Point( 540, 77 ), new Point( 546, 77 ), new Point( 528, 83 ), new Point( 534, 83 ),
+        new Point( 540, 83 ), new Point( 546, 83 ), new Point( 534, 89 ), new Point( 540, 89 ),
+        new Point( 534, 95 ), new Point( 540, 95 ), new Point( 534, 101 ), new Point( 540, 101 ),
+        new Point( 534, 107 ), new Point( 540, 107 ), new Point( 534, 113 ), new Point( 540, 113 ),
+        new Point( 534, 119 ), new Point( 540, 119 ), new Point( 534, 125 ), new Point( 540, 125 ),
+        new Point( 534, 131 ), new Point( 540, 131 )
     };
-        
+    */
+
+    /*
+     * Not being used
     private final static Point[] Turret2InternalPoints = {
         new Point( 450, 266),
     };
-    
+    */
+
     private final static Point[] RotorArmorPoints = {
-        new Point( 449, 158 ), new Point( 443, 158 ) 
+        new Point( 449, 158 ), new Point( 443, 158 )
     };
-      
+
     private final static Point[] RotorInternalPoints = {
         new Point( 450, 266),
     };
 //</editor-fold>
-    
+
     private final static Point[] WeaponPoints = {
         new Point( 10, 200 ), //count
         new Point( 28, 200 ), //name
@@ -90,7 +105,7 @@ public class TWAdvGroundPoints implements ifPrintPoints {
         new Point( 174, 200 ), //sht
         new Point( 188, 200 ), //med
         new Point( 206, 200 ) }; //lng
-    
+
     private final static Point[] DataPoints = {
         new Point( 32, 104 ), //MechName
         new Point( 58, 129 ), //WALKMP = 1,
@@ -107,7 +122,7 @@ public class TWAdvGroundPoints implements ifPrintPoints {
         new Point( 497, 592 ), //HEATSINK_NUMBER = 12
         new Point( 511, 592 ), //HEATSINK_DISSIPATION = 13
         new Point( 522, 699 ),
-        new Point( 522, 713 ), 
+        new Point( 522, 713 ),
         new Point( 142, 354 ), //MAX_HEAT = 16
         new Point( 440, 26 ), //TOTAL_ARMOR = 17
         new Point( 122, 708 ),  //STATS = 18;
@@ -115,7 +130,7 @@ public class TWAdvGroundPoints implements ifPrintPoints {
         new Point( 62, 162 ),   // Engine Type = 20
         new Point( 35, 353 )    // AMMO = 21
     };
-    
+
     private final static Point[] ArmorInfo = {
         new Point( 470, 42 ), // Front
         new Point( 386, 172 ), // left
@@ -147,7 +162,7 @@ public class TWAdvGroundPoints implements ifPrintPoints {
         start.setLocation(433,50);
         Rows.add(new PIPRow(new Point(start.x-offset.x, start.y-3), 1, offset.x, offset.y));
         Rows.add(new PIPRow(new Point(start.x+(14*offset.x), start.y-3), 1, offset.x, offset.y));
-            
+
         return PIPRow.RenderRows(Rows);
     }
 
@@ -166,7 +181,7 @@ public class TWAdvGroundPoints implements ifPrintPoints {
         Rows.add(new PIPRow(new Point(start.x+(offset.x*2), start.y+(offset.y*6)+1), 8, offset.x, offset.y));
         //5th Col
         Rows.add(new PIPRow(new Point(start.x+(offset.x*3), start.y+(offset.y*9)+2), 3, offset.x, offset.y));
-        
+
         return PIPRow.RenderColumns(Rows);
     }
 
@@ -185,7 +200,7 @@ public class TWAdvGroundPoints implements ifPrintPoints {
         Rows.add(new PIPRow(new Point(start.x-(offset.x*2), start.y+(offset.y*6)+1), 8, offset.x, offset.y));
         //5th Col
         Rows.add(new PIPRow(new Point(start.x-(offset.x*3), start.y+(offset.y*9)+2), 3, offset.x, offset.y));
-        
+
         return PIPRow.RenderColumns(Rows);
     }
 
@@ -246,7 +261,7 @@ public class TWAdvGroundPoints implements ifPrintPoints {
     public Point GetImageBounds() {
         return new Point( 175, 123 );
     }
-    
+
     public Point GetLogoImageLoc() {
         return new Point( 331, 195 );
     }
@@ -309,7 +324,7 @@ public class TWAdvGroundPoints implements ifPrintPoints {
     public Point[] GetInternalRotorPoints() {
         return RotorInternalPoints;
     }
-    
+
     //<editor-fold desc="Mech Info">
     public Point[] GetCritHDPoints() {
         throw new UnsupportedOperationException("Not supported yet.");

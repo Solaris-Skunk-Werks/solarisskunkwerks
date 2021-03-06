@@ -35,6 +35,10 @@ import filehandlers.Media;
 
 public class dlgSplitCrits extends javax.swing.JDialog {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5607979630893009085L;
     abPlaceable ItemToPlace;
     ifMechForm Parent;
     int FirstLoc = 0,
@@ -400,7 +404,7 @@ public class dlgSplitCrits extends javax.swing.JDialog {
         result = false;
         setVisible( false );
     }//GEN-LAST:event_btnCancelActionPerformed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOkay;
@@ -412,5 +416,5 @@ public class dlgSplitCrits extends javax.swing.JDialog {
     private javax.swing.JLabel lblFirstLoc;
     private javax.swing.JLabel lblItemName;
     // End of variables declaration//GEN-END:variables
-    
+
 }

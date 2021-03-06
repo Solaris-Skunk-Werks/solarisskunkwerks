@@ -34,16 +34,17 @@ import components.MechModifier;
 
 public class stChassisCVIS implements ifChassis, ifState {
     // Combat Vehicle Internal Structure
-    private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
+    private final static AvailableCode AC = new AvailableCode(AvailableCode.TECH_BOTH);
 
     public stChassisCVIS() {
-        AC.SetISCodes( 'D', 'A', 'A', 'A', 'A' );
-        AC.SetISDates( 0, 0, false, 2470, 0, 0, false, false );
-        AC.SetISFactions( "", "", "TH", "" );
-        AC.SetCLCodes( 'D', 'X', 'A', 'A', 'A' );
-        AC.SetCLDates( 0, 0, false, 2470, 0, 0, false, false );
-        AC.SetCLFactions( "", "", "TH", "" );
-        AC.SetRulesLevels( AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        AC.SetISCodes('D', 'A', 'A', 'A', 'A');
+        AC.SetISDates(0, 0, false, 2470, 0, 0, false, false);
+        AC.SetISFactions("", "", "TH", "");
+        AC.SetCLCodes('D', 'X', 'A', 'A', 'A');
+        AC.SetCLDates(0, 0, false, 2470, 0, 0, false, false);
+        AC.SetCLFactions("", "", "TH", "");
+        AC.SetRulesLevels(AvailableCode.RULES_INTRODUCTORY, AvailableCode.RULES_UNALLOWED,
+                AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED);
     }
 
     public boolean HasCounterpart() {
@@ -53,7 +54,7 @@ public class stChassisCVIS implements ifChassis, ifState {
     public int GetCrits() {
         return 0;
     }
-    
+
     public String ActualName() {
         return "Combat Vehicle Structure";
     }
@@ -70,7 +71,7 @@ public class stChassisCVIS implements ifChassis, ifState {
         return "Std";
     }
 
-    public String MegaMekName( boolean UseRear ) {
+    public String MegaMekName(boolean UseRear) {
         return "Standard";
     }
 
@@ -78,54 +79,55 @@ public class stChassisCVIS implements ifChassis, ifState {
         return "Tech Manual";
     }
 
-    public double GetStrucTon( int Tonnage, boolean fractional ) {
-        if ( !fractional )
-            return CommonTools.RoundHalfUp((double)Tonnage / 10.0);
+    public double GetStrucTon(int Tonnage, boolean fractional) {
+        if (!fractional)
+            return CommonTools.RoundHalfUp((double) Tonnage / 10.0);
         else
-            return (double)Tonnage / 10.0;
+            return (double) Tonnage / 10.0;
     }
-    
+
     public boolean IsQuad() {
         return false;
     }
-    
+
     /**
      * Determines if this Chassis is a Tripod
+     *
      * @return True if this chassis is a Tripod
      */
     public boolean IsTripod() {
         return false;
     }
-    
+
     public int GetHeadPoints() {
         // All mech heads have 3 internal structure points
         return 0;
     }
 
-    public int GetCTPoints( int Tonnage ) {
+    public int GetCTPoints(int Tonnage) {
         return 0;
     }
 
-    public int GetSidePoints( int Tonnage ) {
-        return 0;
-    }
-    
-    public int GetArmPoints( int Tonnage ) {
+    public int GetSidePoints(int Tonnage) {
         return 0;
     }
 
-    public int GetLegPoints( int Tonnage ) {
+    public int GetArmPoints(int Tonnage) {
         return 0;
     }
-    
-    public double GetCost( int Tonnage ) {
-        return 10000 * GetStrucTon( Tonnage, false );
+
+    public int GetLegPoints(int Tonnage) {
+        return 0;
     }
-    
+
+    public double GetCost(int Tonnage) {
+        return 10000 * GetStrucTon(Tonnage, false);
+    }
+
     public double GetBVMult() {
         return 1.0f;
     }
-    
+
     public boolean IncrementPlaced() {
         return false;
     }
@@ -138,9 +140,12 @@ public class stChassisCVIS implements ifChassis, ifState {
         return AC;
     }
 
-    private int GetIndex( int Tonnage ) {
-        return Tonnage / 5 - 2;
-    }
+    /*
+     * Not used locally
+     * private int GetIndex( int Tonnage ) {
+     *     return Tonnage / 5 - 2;
+     * }
+     */
 
     public MechModifier GetMechModifier() {
         return null;
@@ -152,7 +157,7 @@ public class stChassisCVIS implements ifChassis, ifState {
         return "Standard";
     }
 
-    public int GetCVPoints( int Tonnage ) {
-        return (int)Math.ceil(Tonnage / 10.0);
+    public int GetCVPoints(int Tonnage) {
+        return (int) Math.ceil(Tonnage / 10.0);
     }
 }

@@ -7,7 +7,7 @@ desired directory. You can then launch the various applications by double clicki
 `java -jar SSW.jar`.  More detailed install instructions can be found in [this repository's wiki](https://github.com/Solaris-Skunk-Werks/solarisskunkwerks/wiki/How-to-download-and-install-the-SSW-apps)
 
 ## Building From Source
-This project uses the gradle build system and requires gradle to be installed to be able to compile from source. If you 
+This project uses the gradle build system and requires gradle and a JDK of version 8 or higher to be installed to be able to compile from source. If you 
 intend to develop the project with an IDE, you'll need one with gradle support. Intellij IDEA and Netbeans 11.x have been
 tested and both have gradle support out of the box. Netbeans earlier than 11.x should work but you may need to install the 
 gradle plugin.

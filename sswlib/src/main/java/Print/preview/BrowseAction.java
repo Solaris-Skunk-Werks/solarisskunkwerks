@@ -26,7 +26,12 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 
 class BrowseAction extends AbstractAction {
-    public BrowseAction( String name, String iconName, Preview preview, int pageStep ) {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2902692657673095185L;
+
+    public BrowseAction(String name, String iconName, Preview preview, int pageStep) {
         super();
         if ( !name.isEmpty() ) {
             this.putValue(Action.NAME, name);

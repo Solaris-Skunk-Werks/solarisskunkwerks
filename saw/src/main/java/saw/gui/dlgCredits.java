@@ -29,7 +29,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package saw.gui;
 
 public class dlgCredits extends javax.swing.JDialog {
-    
+    private static final long serialVersionUID = -9066410622172896446L;
+
     /** Creates new form dlgCredits */
     public dlgCredits(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -37,7 +38,7 @@ public class dlgCredits extends javax.swing.JDialog {
         setResizable( false );
         setTitle( saw.Constants.AppName + " Credits" );
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -127,7 +128,7 @@ public class dlgCredits extends javax.swing.JDialog {
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
         dispose();
     }//GEN-LAST:event_btnCloseActionPerformed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JLabel jLabel1;
@@ -137,5 +138,5 @@ public class dlgCredits extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     // End of variables declaration//GEN-END:variables
-    
+
 }

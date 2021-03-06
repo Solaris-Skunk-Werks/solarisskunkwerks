@@ -32,9 +32,9 @@ import components.*;
 
 public class VHeatSinkSetProtoDouble implements ifVisitor {
     private Mech CurMech;
-    private boolean Clan = false;
+    // private boolean Clan = false; // Not being used in class.
 
-    public void SetClan( boolean clan ) {
+    public void SetClan(boolean clan) {
     }
 
     public void LoadLocations(LocationIndex[] locs) {
@@ -46,9 +46,9 @@ public class VHeatSinkSetProtoDouble implements ifVisitor {
         CurMech = m;
         HeatSinkFactory h = CurMech.GetHeatSinks();
 
-        //h.SetStarLeagueProtoDHS();
-        
-        switch( CurMech.GetEra() ) {
+        // h.SetStarLeagueProtoDHS();
+
+        switch (CurMech.GetEra()) {
             case AvailableCode.ERA_STAR_LEAGUE:
                 h.SetStarLeagueProtoDHS();
                 break;
@@ -68,47 +68,47 @@ public class VHeatSinkSetProtoDouble implements ifVisitor {
         return "Prototype Double Heat Sink Visitor";
     }
 
-    public void Visit( CombatVehicle v ) throws Exception {
+    public void Visit(CombatVehicle v) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( Infantry i ) throws Exception {
+    public void Visit(Infantry i) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( SupportVehicle s ) throws Exception {
+    public void Visit(SupportVehicle s) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( BattleArmor b ) throws Exception {
+    public void Visit(BattleArmor b) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( Fighter f ) throws Exception {
+    public void Visit(Fighter f) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( Spaceship s ) throws Exception {
+    public void Visit(Spaceship s) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( SpaceStation s ) throws Exception {
+    public void Visit(SpaceStation s) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( ProtoMech p ) throws Exception {
+    public void Visit(ProtoMech p) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( MobileStructure m ) throws Exception {
+    public void Visit(MobileStructure m) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( LargeSupportVehicle l ) throws Exception {
+    public void Visit(LargeSupportVehicle l) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( Dropship d ) throws Exception {
+    public void Visit(Dropship d) throws Exception {
         // does nothing at the moment
     }
 }

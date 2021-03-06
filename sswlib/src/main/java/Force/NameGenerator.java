@@ -34,8 +34,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class NameGenerator {
     private ArrayList<String> MaleFirstNames = new ArrayList<String>();
@@ -74,22 +72,24 @@ public class NameGenerator {
             String line = null;
             while ((line = reader.readLine()) != null) {
                 // Is there a comma in the line?  If not ignore it
-                if ( line.contains(",") ) {
+                if (line.contains(",")) {
                     String[] parts = line.split(",");
                     int val = -1;
                     try {
                         //Is the last section of the line numeric?  If not ignore it
-                        val = Integer.parseInt(parts[parts.length-1].trim());
-                    } catch ( Exception e ) {
+                        val = Integer.parseInt(parts[parts.length - 1].trim());
+                    } catch (Exception e) {
                         //do nothing
                     }
                     if (val >= 0) {
-                        for ( int i=0; i < val; i++ ) {
+                        for (int i = 0; i < val; i++) {
                             store.add(parts[0]);
                         }
                     }
                 }
             }
+
+            reader.close();
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
         } catch (IOException ex) {

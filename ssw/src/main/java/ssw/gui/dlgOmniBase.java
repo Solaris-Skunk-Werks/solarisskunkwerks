@@ -31,6 +31,10 @@ package ssw.gui;
 import filehandlers.Media;
 
 public class dlgOmniBase extends javax.swing.JDialog {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1287880356816080697L;
     String input = "";
     boolean cancel = false;
 
@@ -137,7 +141,7 @@ public class dlgOmniBase extends javax.swing.JDialog {
             setVisible( false );
         }
     }//GEN-LAST:event_OkayActionPerformed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Okay;
     private javax.swing.JButton btnCancel;
@@ -147,5 +151,5 @@ public class dlgOmniBase extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtLoadoutName;
     // End of variables declaration//GEN-END:variables
-    
+
 }

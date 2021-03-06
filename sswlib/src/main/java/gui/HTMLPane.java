@@ -73,6 +73,10 @@ import javax.swing.undo.UndoManager;
 
 public class HTMLPane extends JPanel implements ActionListener {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8903309571492323612L;
     private HTMLDocument Document;
     private JPanel Controls = new JPanel();
     private JScrollPane Scroller;
@@ -83,7 +87,7 @@ public class HTMLPane extends JPanel implements ActionListener {
     private JMenuBar MainMenu;
     private JMenu EditMenu, Font, FontSize, FontColor, Style;
     private JMenuItem Black, Yellow, Red, Orange, Blue, Green, Cyan, Magenta,
-                      Undo, Redo, Source, Clear, SelectAll, Bullets, Unordered,
+                      Undo, Redo, Source, Clear, SelectAll, // Bullets, Unordered, // Not Used
                       Subscript, Superscript, Strikethrough;
 
     protected UndoableEditListener UndoHandler = new UndoHandler();
@@ -101,7 +105,7 @@ public class HTMLPane extends JPanel implements ActionListener {
     private Action UnderlineAction = new StyledEditorKit.UnderlineAction();
     private Action ItalicAction = new StyledEditorKit.ItalicAction();
 
-    private javax.swing.ImageIcon check = new javax.swing.ImageIcon( getClass().getResource("/images/ui-check-box.png") );
+    // private javax.swing.ImageIcon check = new javax.swing.ImageIcon( getClass().getResource("/images/ui-check-box.png") ); // Not Used
 
 /*    private HTMLEditorKit.InsertHTMLTextAction UnorderedListAction
         = new HTMLEditorKit.InsertHTMLTextAction( "Bullets", "<ul><li> </li></ul>", HTML.Tag.P, HTML.Tag.UL );
@@ -433,6 +437,11 @@ public class HTMLPane extends JPanel implements ActionListener {
     }
 
     private class UndoAction extends AbstractAction {
+        /**
+         *
+         */
+        private static final long serialVersionUID = -611107834653405452L;
+
         public UndoAction() {
             super( "Undo" );
             setEnabled( false );
@@ -461,6 +470,11 @@ public class HTMLPane extends JPanel implements ActionListener {
     }
 
     private class RedoAction extends AbstractAction {
+        /**
+         *
+         */
+        private static final long serialVersionUID = 3081425073533555277L;
+
         public RedoAction() {
             super( "Redo" );
             setEnabled( false );
@@ -489,6 +503,11 @@ public class HTMLPane extends JPanel implements ActionListener {
     }
 
     class SubscriptAction extends StyledEditorKit.StyledTextAction {
+        /**
+         *
+         */
+        private static final long serialVersionUID = 7299699244636651073L;
+
         public SubscriptAction() {
             super( StyleConstants.Subscript.toString() );
         }
@@ -507,6 +526,11 @@ public class HTMLPane extends JPanel implements ActionListener {
     }
 
     class SuperscriptAction extends StyledEditorKit.StyledTextAction {
+        /**
+         *
+         */
+        private static final long serialVersionUID = 7113449619152288273L;
+
         public SuperscriptAction() {
             super( StyleConstants.Superscript.toString() );
         }
@@ -525,6 +549,11 @@ public class HTMLPane extends JPanel implements ActionListener {
     }
 
     class StrikeThroughAction extends StyledEditorKit.StyledTextAction {
+        /**
+         *
+         */
+        private static final long serialVersionUID = 7776719295905120017L;
+
         public StrikeThroughAction() {
             super( StyleConstants.StrikeThrough.toString() );
         }
@@ -543,6 +572,11 @@ public class HTMLPane extends JPanel implements ActionListener {
     }
 
     private class SSWHTMLEditorKit extends HTMLEditorKit {
+        /**
+         *
+         */
+        private static final long serialVersionUID = 6286144508677076119L;
+
         @Override
         public void write(Writer out, Document doc, int pos, int len) throws IOException, BadLocationException {
             if (doc instanceof HTMLDocument) {
@@ -573,5 +607,3 @@ public class HTMLPane extends JPanel implements ActionListener {
         }
     }
 }
-
-

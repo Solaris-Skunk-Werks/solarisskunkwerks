@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import javax.swing.JDialog;
 
 public class dlgManeiDomini extends javax.swing.JDialog {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3835014964320414921L;
     public double Modifier = 1.0;
     public ArrayList<Enhancement> Enhancements = new ArrayList<Enhancement>();
 
@@ -51,7 +55,20 @@ public class dlgManeiDomini extends javax.swing.JDialog {
         jLabel4.setText("Select Manei Domini Enhancements");
 
         lstMods.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "0, Cosmetic Enhancement", "0, Prosthetic Hand/Foot/Arm/Leg", "1, Enhanced Prosthetic Hand/Foot/Arm/Leg", "3, Improved Enhanced Prosthetic Hand/Foot/Arm/Leg", "1, Secondary Power Supply", "3, Prosthetic Leg MASC", "2, Pain Shunt", "3, Pheremone Effuser", "4, Toxin Effuser", "2, Cybernetic Eye/Ear/Speech Implants", "3, Multi-Modal Cybernetic Eye/Ear/Speech Implants", "5, Enhanced Multi-Modal Cybernetic Eye/Ear/Speech Implants", "2, Recorder/Transmitter/Receiver/Communications Implant", "4, Boosted Recorder/Transmitter/Receiver/Communications Implants", "3, Filtration Liver/Lung Implants", "3, Vehicular Direct Neural Interface (VDNI)", "5, Buffered VDNI", "4, Myomer Full-Body Implants" };
+            /**
+             *
+             */
+            private static final long serialVersionUID = 8884451191147836064L;
+            String[] strings = { "0, Cosmetic Enhancement", "0, Prosthetic Hand/Foot/Arm/Leg",
+                    "1, Enhanced Prosthetic Hand/Foot/Arm/Leg", "3, Improved Enhanced Prosthetic Hand/Foot/Arm/Leg",
+                    "1, Secondary Power Supply", "3, Prosthetic Leg MASC", "2, Pain Shunt", "3, Pheremone Effuser",
+                    "4, Toxin Effuser", "2, Cybernetic Eye/Ear/Speech Implants",
+                    "3, Multi-Modal Cybernetic Eye/Ear/Speech Implants",
+                    "5, Enhanced Multi-Modal Cybernetic Eye/Ear/Speech Implants",
+                    "2, Recorder/Transmitter/Receiver/Communications Implant",
+                    "4, Boosted Recorder/Transmitter/Receiver/Communications Implants",
+                    "3, Filtration Liver/Lung Implants", "3, Vehicular Direct Neural Interface (VDNI)",
+                    "5, Buffered VDNI", "4, Myomer Full-Body Implants" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });

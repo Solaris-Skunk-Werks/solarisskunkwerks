@@ -57,6 +57,10 @@ import java.util.prefs.Preferences;
 
 
 public class frmForce extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2004297022968677762L;
     private Force force = new Force();
     private Media media = new Media();
     private ImageTracker imageTracker;
@@ -991,7 +995,7 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
         MTFWriter mtf = new MTFWriter();
         String mtfDir = media.GetDirectorySelection(null, prefs.get( "MTFExportPath", "" ) );
         if (!mtfDir.endsWith(File.separator)) { mtfDir += File.separator; }
-        
+
         for ( int i = 0; i < force.getUnits().size(); i++ ) {
             Unit u = (Unit) force.getUnits().get(i);
             u.LoadUnit();
@@ -1004,7 +1008,7 @@ public class frmForce extends javax.swing.JFrame implements java.awt.datatransfe
                 error += "Attempted " + filename + ": " + ie.getMessage() + "\n";
             }
         }
-        
+
         if ( !error.isEmpty() ) {
             Media.Messager(error);
         } else {

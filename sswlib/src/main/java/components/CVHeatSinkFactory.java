@@ -33,14 +33,13 @@ import states.*;
 
 public class CVHeatSinkFactory {
     // provides a means of getting heatsinks into the loadout easily.
-    private int NumHS,
-                BaseLoadoutNumHS = 0;
+    private int NumHS, BaseLoadoutNumHS = 0;
     private ifCVLoadout Owner;
-    private LinkedList CurrentSinks = new LinkedList();
+    private LinkedList<HeatSink> CurrentSinks = new LinkedList<HeatSink>();
     private static ifHeatSinkFactory SHS = new stHeatSinkSingle();
     private ifHeatSinkFactory CurConfig = SHS;
 
-    public CVHeatSinkFactory( ifCVLoadout l ) {
+    public CVHeatSinkFactory(ifCVLoadout l) {
         // the basic constructor
         Owner = l;
         NumHS = Owner.GetOwner().GetEngine().FreeHeatSinks();
@@ -48,29 +47,29 @@ public class CVHeatSinkFactory {
         // now we have to add heat sinks to the currentsinks if they can't all
         // fit internal to the engine.
         int i = NumHS - InternalHeatSinks();
-        if( i > 0 ) {
-            for( ; i > 0; i-- ) {
+        if (i > 0) {
+            for (; i > 0; i--) {
                 HeatSink h = (HeatSink) GetHeatSink();
-                h.Place( l );
+                h.Place(l);
             }
         }
     }
 
-    public CVHeatSinkFactory( ifCVLoadout l, int BaseNumHS, ifHeatSinkFactory type, HeatSink[] PlacedHeatSinks ) {
-        // this constructor is usedzfor cloning purposes.  since we should only
+    public CVHeatSinkFactory(ifCVLoadout l, int BaseNumHS, ifHeatSinkFactory type, HeatSink[] PlacedHeatSinks) {
+        // this constructor is used for cloning purposes. since we should only
         // be doing this when we have an omnimech, recalculation is not needed
         Owner = l;
         NumHS = BaseNumHS;
         CurConfig = type;
         BaseLoadoutNumHS = NumHS;
-        for( int i = 0; i < PlacedHeatSinks.length; i++ ) {
-            CurrentSinks.add( PlacedHeatSinks[i] );
+        for (int i = 0; i < PlacedHeatSinks.length; i++) {
+            CurrentSinks.add(PlacedHeatSinks[i]);
         }
     }
 
     public void SetSingle() {
         CurConfig = SHS;
-        Owner.GetOwner().SetChanged( true );
+        Owner.GetOwner().SetChanged(true);
     }
 
     public boolean IsDouble() {
@@ -101,7 +100,7 @@ public class CVHeatSinkFactory {
         return BaseLoadoutNumHS;
     }
 
-    public void SetBaseLoadoutNumHS( int h ) {
+    public void SetBaseLoadoutNumHS(int h) {
         BaseLoadoutNumHS = h;
     }
 
@@ -125,33 +124,35 @@ public class CVHeatSinkFactory {
     public void IncrementNumHS() {
         // do we need a new heat sink?
         NumHS++;
-        Owner.GetOwner().SetChanged( true );
+        Owner.GetOwner().SetChanged(true);
     }
 
     public boolean DecrementNumHS() {
-        HeatSink h;
+        // HeatSink h; // Not Used
 
         // Can we actually remove heatsinks?
-        if( NumHS <= Owner.GetOwner().GetEngine().FreeHeatSinks() ) {
+        if (NumHS <= Owner.GetOwner().GetEngine().FreeHeatSinks()) {
             return false;
         }
 
         NumHS--;
-        Owner.GetOwner().SetChanged( true );
+        Owner.GetOwner().SetChanged(true);
         return true;
     }
 
-    public void SetNumHS( int hs ) {
-        // sets the number of heat sinks to the specified number.  Only really
-        // used when loading a mech.  First, blow out all the sinks.
+    public void SetNumHS(int hs) {
+        // sets the number of heat sinks to the specified number. Only really
+        // used when loading a mech. First, blow out all the sinks.
         NumHS = 0;
 
         // get some required information
         int BaseHS = Owner.GetOwner().GetEngine().FreeHeatSinks();
-        if( BaseHS > hs ) { hs = BaseHS; }
+        if (BaseHS > hs) {
+            hs = BaseHS;
+        }
 
         // now get all the heat sinks we need
-        for( int i = 0; i < hs; i++ ) {
+        for (int i = 0; i < hs; i++) {
             IncrementNumHS();
         }
     }
@@ -162,53 +163,53 @@ public class CVHeatSinkFactory {
 
     public double GetTonnage() {
         // returns the total tonnage of heat sinks we have.
-        double tons = ( NumHS - Owner.GetOwner().GetEngine().FreeHeatSinks() ) * CurConfig.GetTonnage();
-        if( tons <= 0.0 ) { 
-            // we're still initializing or even.  return a 0 answer.
-            tons =  0.0;
+        double tons = (NumHS - Owner.GetOwner().GetEngine().FreeHeatSinks()) * CurConfig.GetTonnage();
+        if (tons <= 0.0) {
+            // we're still initializing or even. return a 0 answer.
+            tons = 0.0;
         }
         // now check for armored sinks and add that to the result
-        for( int i = 0; i < CurrentSinks.size(); i++ ) {
-            tons += ((HeatSink) CurrentSinks.get( i )).GetTonnage();
+        for (int i = 0; i < CurrentSinks.size(); i++) {
+            tons += ((HeatSink) CurrentSinks.get(i)).GetTonnage();
         }
         return tons;
     }
 
     public double GetLoadoutTonnage() {
         // returns the tonnage of heatsinks over the base loadout.
-        double tons = ( NumHS - BaseLoadoutNumHS ) * CurConfig.GetTonnage();
-        if( tons <= 0.0 ) { 
-            // we're still initializing or even.  return a 0 answer.
-            tons =  0.0;
+        double tons = (NumHS - BaseLoadoutNumHS) * CurConfig.GetTonnage();
+        if (tons <= 0.0) {
+            // we're still initializing or even. return a 0 answer.
+            tons = 0.0;
         }
         // now check for armored sinks and add that to the result
-        for( int i = 0; i < CurrentSinks.size(); i++ ) {
-            tons += ((HeatSink) CurrentSinks.get( i )).GetTonnage();
+        for (int i = 0; i < CurrentSinks.size(); i++) {
+            tons += ((HeatSink) CurrentSinks.get(i)).GetTonnage();
         }
         return tons;
     }
 
     public double GetOmniTonnage() {
         // returns the tonnage used by the particular omni loadout
-        return ( NumHS - BaseLoadoutNumHS ) * CurConfig.GetTonnage();
+        return (NumHS - BaseLoadoutNumHS) * CurConfig.GetTonnage();
     }
 
     public double GetCost() {
         // returns the cost of these heat sinks
         double CostHS;
-        if( CurConfig.IsDouble() || CurConfig.IsLaser() || CurConfig.IsCompact() ) {
+        if (CurConfig.IsDouble() || CurConfig.IsLaser() || CurConfig.IsCompact()) {
             CostHS = NumHS * CurConfig.GetCost();
         } else {
-            if( Owner.GetOwner().GetEngine().IsFusion() ) {
+            if (Owner.GetOwner().GetEngine().IsFusion()) {
                 // free single fusion sinks cost nothing
-                CostHS = ( NumHS - Owner.GetOwner().GetEngine().FreeHeatSinks() ) * CurConfig.GetCost();
+                CostHS = (NumHS - Owner.GetOwner().GetEngine().FreeHeatSinks()) * CurConfig.GetCost();
             } else {
                 CostHS = NumHS * CurConfig.GetCost();
             }
         }
         // now check for armored sinks and add that to the result
-        for( int i = 0; i < CurrentSinks.size(); i++ ) {
-            CostHS += ((HeatSink) CurrentSinks.get( i )).GetCost();
+        for (int i = 0; i < CurrentSinks.size(); i++) {
+            CostHS += ((HeatSink) CurrentSinks.get(i)).GetCost();
         }
         return CostHS;
     }
@@ -221,19 +222,21 @@ public class CVHeatSinkFactory {
 
     public int NumCrits() {
         int result = CurrentSinks.size() * CurConfig.GetNumCrits();
-        if( result < 0 ) {
+        if (result < 0) {
             return 0;
         } else {
             return result;
         }
     }
 
+    /*
+    // Method not used internally
     private boolean NeedNewHS() {
         // this returns whether or not we need to get a new heat sink or whether
         // we can simply increment the number of heatsinks.
-        if( Owner.GetOwner().IsOmni() ) {
-            if( IsCompact() ) {
-                if( FindOpenCompact() == null ) {
+        if (Owner.GetOwner().IsOmni()) {
+            if (IsCompact()) {
+                if (FindOpenCompact() == null) {
                     return true;
                 } else {
                     return false;
@@ -241,10 +244,10 @@ public class CVHeatSinkFactory {
             }
             return true;
         } else {
-            if( NumHS >= InternalHeatSinks() ) {
+            if (NumHS >= InternalHeatSinks()) {
                 // need to get a new sink
-                if( IsCompact() ) {
-                    if( FindOpenCompact() != null ) {
+                if (IsCompact()) {
+                    if (FindOpenCompact() != null) {
                         return false;
                     }
                 }
@@ -254,21 +257,22 @@ public class CVHeatSinkFactory {
             }
         }
     }
+    */
 
     public HeatSink FindOpenCompact() {
         // this routine finds the next available single Compact Heat Sink
         // if it cannot find a single compact, it returns null
-        for( int i = 0; i < CurrentSinks.size(); i++ ) {
-            if( ((HeatSink) CurrentSinks.get( i )).NumHeatSinks() == 1 ) {
-                return (HeatSink) CurrentSinks.get( i );
+        for (int i = 0; i < CurrentSinks.size(); i++) {
+            if (((HeatSink) CurrentSinks.get(i)).NumHeatSinks() == 1) {
+                return (HeatSink) CurrentSinks.get(i);
             }
         }
         return null;
     }
 
     public int InternalHeatSinks() {
-        // returns the number of internal heat sinks.  needed because of compacts
-        if( IsCompact() ) {
+        // returns the number of internal heat sinks. needed because of compacts
+        if (IsCompact()) {
             return Owner.GetOwner().GetEngine().InternalHeatSinks() * 2;
         } else {
             return Owner.GetOwner().GetEngine().InternalHeatSinks();
@@ -283,21 +287,21 @@ public class CVHeatSinkFactory {
         int temp = NumHS;
         NumHS = 0;
 
-        if( temp < Owner.GetOwner().GetEngine().FreeHeatSinks() ) {
+        if (temp < Owner.GetOwner().GetEngine().FreeHeatSinks()) {
             temp = Owner.GetOwner().GetEngine().FreeHeatSinks();
         }
 
         // blow out all the sinks
         abPlaceable h;
-        for( int i = CurrentSinks.size(); i > 0; i-- ) {
+        for (int i = CurrentSinks.size(); i > 0; i--) {
             h = (abPlaceable) CurrentSinks.getLast();
-            h.Remove( Owner );
+            h.Remove(Owner);
             CurrentSinks.remove(h);
         }
 
         // rebuild the heat sinks
-        for( ; temp > 0; temp-- ) {
-            // temp -= NumHS 
+        for (; temp > 0; temp--) {
+            // temp -= NumHS
             IncrementNumHS();
         }
     }
@@ -305,8 +309,8 @@ public class CVHeatSinkFactory {
     public HeatSink[] GetPlacedHeatSinks() {
         // returns the currently placed heat sinks in array form
         HeatSink[] retval = new HeatSink[CurrentSinks.size()];
-        for( int i = 0; i < CurrentSinks.size(); i++ ) {
-            retval[i] = (HeatSink) CurrentSinks.get( i );
+        for (int i = 0; i < CurrentSinks.size(); i++) {
+            retval[i] = (HeatSink) CurrentSinks.get(i);
         }
         return retval;
     }
@@ -319,8 +323,8 @@ public class CVHeatSinkFactory {
     public double GetOffensiveBV() {
         // convenience method
         double result = 0.0;
-        for( int i = 0; i < CurrentSinks.size(); i++ ) {
-            result += ((HeatSink) CurrentSinks.get( i )).GetOffensiveBV();
+        for (int i = 0; i < CurrentSinks.size(); i++) {
+            result += ((HeatSink) CurrentSinks.get(i)).GetOffensiveBV();
         }
         return result;
     }
@@ -328,8 +332,8 @@ public class CVHeatSinkFactory {
     public double GetDefensiveBV() {
         // convenience method
         double result = 0.0;
-        for( int i = 0; i < CurrentSinks.size(); i++ ) {
-            result += ((HeatSink) CurrentSinks.get( i )).GetDefensiveBV();
+        for (int i = 0; i < CurrentSinks.size(); i++) {
+            result += ((HeatSink) CurrentSinks.get(i)).GetDefensiveBV();
         }
         return result;
     }

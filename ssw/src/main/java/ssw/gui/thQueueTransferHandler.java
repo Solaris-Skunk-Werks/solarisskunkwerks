@@ -35,6 +35,11 @@ import javax.swing.TransferHandler;
 
 public class thQueueTransferHandler extends TransferHandler {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6747422530397892520L;
+
     // the Queue transfer handler only deals with exporting to other list boxes.
     // other listeners will deal with adding items to the queue.
     @Override
@@ -42,7 +47,7 @@ public class thQueueTransferHandler extends TransferHandler {
         // all we want to do is transfer the index in the queue
         LocationDragDatagram d = new LocationDragDatagram();
         d.Location = -1;
-        d.SourceIndex = ((JList) comp).getSelectedIndex();
+        d.SourceIndex = ((JList<?>) comp).getSelectedIndex();
         return d;
     }
 

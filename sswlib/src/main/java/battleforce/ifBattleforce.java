@@ -41,7 +41,7 @@ public interface ifBattleforce {
     public int GetBFArmor();
     public int GetBFStructure();
     public int [] GetBFDamage( BattleForceStats bfs );
-    public ArrayList GetBFAbilities();
+    public ArrayList<String> GetBFAbilities();
     public String GetBFConversionStr( );
     public int GetBFPoints();
     public int GetAmmoCount( int ammoIndex );

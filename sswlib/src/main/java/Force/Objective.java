@@ -33,7 +33,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import org.w3c.dom.Node;
 
-public class Objective extends abWarchestItem implements ifSerializable {
+public class Objective extends abWarchestItem { // implements ifSerializable { // Redundant as already defined in abWarchestItem
     public Objective( String Description, int Value ) {
         super(Description, Value);
     }
