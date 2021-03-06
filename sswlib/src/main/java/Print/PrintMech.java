@@ -79,7 +79,13 @@ public class PrintMech implements Printable {
         imageTracker = images;
         RecordSheet = images.getImage( PrintConsts.RS_TW_BP );
         ChartImage = images.getImage(PrintConsts.BP_ChartImage );
-        if ( !m.GetSSWImage().equals("../BFB.Images/No_Image.png")  ) MechImage = imageTracker.getImage(m.GetSSWImage());
+        if ( !m.GetSSWImage().equals("../BFB.Images/No_Image.png")  )
+            MechImage = imageTracker.getImage(m.GetSSWImage());
+
+        //If we could not load the stored image, find it
+        if (MechImage == null)
+            MechImage = images.getImage(imageTracker.media.DetermineMatchingImage(m.GetName(), m.GetModel(), ""));
+
         Advanced = adv;
         BV = CommonTools.GetAdjustedBV(CurMech.GetCurrentBV(), Gunnery, Piloting);
         UseA4Paper = A4;
@@ -96,7 +102,7 @@ public class PrintMech implements Printable {
         SetPilotData(Warrior, Gun, Pilot);
     }
     // </editor-fold>
-    
+
     // <editor-fold desc="Settor Methods">
     public void SetPilotData( String pname, int pgun, int ppilot ) {
         PilotName = pname;
@@ -114,7 +120,7 @@ public class PrintMech implements Printable {
     public void SetMiniConversion( int conv ) {
         useMiniConvRate = false;
         MiniConvRate = 1;
-        
+
         if ( conv > 0 ) {
             MiniConvRate = conv;
             useMiniConvRate = true;
@@ -195,11 +201,11 @@ public class PrintMech implements Printable {
     public int getPiloting(){
         return Piloting;
     }
-    
+
     public Image getMechImage() {
         return MechImage;
     }
-    
+
     public Image getLogoImage() {
         return LogoImage;
     }
@@ -219,14 +225,14 @@ public class PrintMech implements Printable {
             return Printable.PAGE_EXISTS;
         }
     }
-    
+
     private void PreparePrint( Graphics2D graphics ) {
         Items = PrintConsts.SortEquipmentByLocation( CurMech, MiniConvRate );
         boolean mechHasShield = CurMech.HasRAShield() || CurMech.HasLAShield();
         ap = new PIPPrinter(graphics, CurMech, Canon, mechHasShield, imageTracker);
         this.BV = CommonTools.GetAdjustedBV(CurMech.GetCurrentBV(), Gunnery, Piloting);
         GetRecordSheet(imageTracker);
-        
+
         //DrawImages( graphics );
         DrawSheet( graphics );
         DrawPips( graphics );
@@ -252,7 +258,7 @@ public class PrintMech implements Printable {
         if( Charts ) {
             graphics.scale( 0.8d, 0.8d );
         }
-        
+
         graphics.drawImage( RecordSheet, 0, 0, 576, 756, null );
         //graphics.drawImage( RecordSheet, 0, 0, 560, 757, null );
 
@@ -266,16 +272,16 @@ public class PrintMech implements Printable {
             graphics.drawString(item, 70, line);
             line += graphics.getFont().getSize();
         }
-        
+
         CheckShields( graphics );
-        
+
         Point start = points.GetMechImageLoc();
         start.x -= 3;
         start.y -= 6;
         if ( printMech ) {
             if (MechImage == null) // fallback to fluff image if user didn't explicitly choose a TRO pic in the print dialog
                 MechImage = imageTracker.media.GetImage(imageTracker.media.DetermineMatchingImage(CurMech.GetName(), CurMech.GetModel(), CurMech.GetSSWImage()));
-            if( MechImage != null ) {
+            if( MechImage != null) {
                 //graphics.drawRect(start.x, start.y, 150, 210);
                 Dimension d = imageTracker.media.reSize(getMechImage(), 150, 210);
                 Point offset = imageTracker.media.offsetImageCenter( new Dimension(150, 210), d);
@@ -426,7 +432,7 @@ public class PrintMech implements Printable {
             graphics.fillRect(p[6].x-5, p[6].y-28, 30, 10);
             graphics.setColor(Color.black);
         }
-            
+
         for ( PlaceableInfo item : Items ) {
             xoffset = 0;
             graphics.drawString( item.Count + "", p[0].x+1, p[0].y + offset );
@@ -509,7 +515,7 @@ public class PrintMech implements Printable {
 
         //Jumping Movement!
         String JumpMP = "";
-        if ( CurMech.GetJumpJets().GetNumJJ() > 0 ) 
+        if ( CurMech.GetJumpJets().GetNumJJ() > 0 )
             JumpMP += (CurMech.GetJumpJets().GetNumJJ() * MiniConvRate) + "";
 
         if ( CurMech.GetAdjustedJumpingMP( false ) != CurMech.GetJumpJets().GetNumJJ() )
@@ -529,7 +535,7 @@ public class PrintMech implements Printable {
         if ( CurMech.GetJumpJets().IsUMU() ) JumpMP += " UMU";
 
         graphics.drawString( JumpMP, p[PrintConsts.JUMPMP].x, p[PrintConsts.JUMPMP].y );
-        
+
         // end hacking of movement.
 
         //Tonnage
@@ -551,13 +557,13 @@ public class PrintMech implements Printable {
             graphics.drawString( "Dissipation (" + CurMech.GetHeatSinks().TotalDissipation() + ")", p[PrintConsts.MAX_HEAT].x-1, p[PrintConsts.MAX_HEAT].y+1 );
             //graphics.drawString( "Weapon Heat (" + CurMech.GetWeaponHeat(false, false, true, false) + ")", p[PrintConsts.MAX_HEAT].x-1, p[PrintConsts.MAX_HEAT].y );
             graphics.setFont( PrintConsts.SmallFont );
-            
+
             // The Armor Pts text should be placed just a bit higher on the sheet if using a right arm shield
             if (CurMech.HasRAShield() == true)
                 graphics.drawString( "Armor Pts: " + CurMech.GetArmor().GetArmorValue(), p[PrintConsts.TOTAL_ARMOR].x-8, p[PrintConsts.TOTAL_ARMOR].y+0 );
-            else    
+            else
                 graphics.drawString( "Armor Pts: " + CurMech.GetArmor().GetArmorValue(), p[PrintConsts.TOTAL_ARMOR].x-8, p[PrintConsts.TOTAL_ARMOR].y+16 );
-            
+
             graphics.setFont( PrintConsts.BoldFont );
         } else {
             graphics.drawString( String.format( "%1$,d", CurMech.GetCurrentBV() ), p[PrintConsts.BV2].x, p[PrintConsts.BV2].y );
@@ -676,7 +682,7 @@ public class PrintMech implements Printable {
         int extraDHS = 0;
         boolean isProto = CurMech.GetHeatSinks().IsProtoDHS();
         ArrayList equipment = CurMech.GetLoadout().GetEquipment();
-        
+
         for (int i = 0; i < equipment.size(); i++){
             if (equipment.get(i) instanceof EquipmentProtoSuccWarsDoubleHeatSink){
                 extraDHS += 1;
@@ -684,7 +690,7 @@ public class PrintMech implements Printable {
                 extraDHS += 1;
             }
         }
-        
+
         if (!isProto && extraDHS == 0)
         {
             // Standard heat sink setup
@@ -717,7 +723,7 @@ public class PrintMech implements Printable {
             int singles;
             int doubles;
             if (isProto)
-            {            
+            {
                 singles = numberOfHS < internalHS ? numberOfHS : internalHS;
                 doubles = (numberOfHS - singles) + extraDHS;
             } else {
@@ -941,14 +947,14 @@ public class PrintMech implements Printable {
 
         if ( ChartImageOption.equals("Minimal") )
             ChartImage = images.getImage(PrintConsts.BP_ChartImage_Minimal);
-        
+
         if ( CurMech.IsQuad() ) {
             RecordSheet = images.getImage( PrintConsts.RS_TW_QD );
             if ( !ChartImageOption.equals("Minimal"))
-                ChartImage = images.getImage(PrintConsts.QD_ChartImage); 
+                ChartImage = images.getImage(PrintConsts.QD_ChartImage);
             else
                 ChartImage = images.getImage(PrintConsts.QD_ChartImage_Minimal);
-            
+
             points = new TWQuadPoints();
         }
 
@@ -980,12 +986,12 @@ public class PrintMech implements Printable {
     {
         UseA4Paper = false;
     }
-    
+
     public void setChartImageOption( String Option ) {
         ChartImageOption = Option;
         GetRecordSheet(imageTracker);
     }
-        
+
     private class AmmoData {
         public String ActualName,
                       ChatName,

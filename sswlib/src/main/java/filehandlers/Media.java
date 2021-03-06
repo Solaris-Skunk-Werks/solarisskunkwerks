@@ -46,11 +46,14 @@ import java.util.ArrayList;
 import java.util.prefs.Preferences;
 import javax.swing.JOptionPane;
 
+import IO.Utils;
+
 public class Media {
     MediaTracker Tracker = new MediaTracker(new JLabel());
     Toolkit toolkit = Toolkit.getDefaultToolkit();
     JFileChooser fileChooser = new JFileChooser();
     ArrayList<File> imageFiles = new ArrayList<File>();
+    Integer trackerIndex = 0;
 
     public static final int OK = JOptionPane.OK_OPTION,
                             CANCEL = JOptionPane.CANCEL_OPTION;
@@ -101,16 +104,22 @@ public class Media {
         }
         return fileChooser.getSelectedFile();
     }
+
     public Image GetImage(String filename) {
-        //System.out.println("Loading " + filename);
         if ( filename.isEmpty() ) return null;
         Image retval = toolkit.getImage( filename );
-        Tracker.addImage( retval, 0 );
+        trackerIndex++;
+        Tracker.addImage( retval, trackerIndex);
         try {
-            Tracker.waitForID( 0 );
+            Tracker.waitForID( trackerIndex );
+
+            //Check to see if the image loaded or not
+            if (Tracker.isErrorID(trackerIndex))
+                return null;
         } catch (InterruptedException ie) {
-            System.out.println(ie.getMessage());
+            return null;
         }
+
         return retval;
     }
 
@@ -213,7 +222,6 @@ public class Media {
 
     public Point offsetImageBottom( Dimension spaceDimensions, Dimension currentDimensions ) {
         Point offset = new Point(0, 0);
-        //offset.x = originalDimensions.width - currentDimensions.width;
         offset.y = spaceDimensions.height - currentDimensions.height;
         return offset;
     }
@@ -257,7 +265,6 @@ public class Media {
 
     public String FindMatchingImage( String Name, String Model, String DirectoryPath ) {
         Preferences Prefs = Preferences.userRoot().node( Constants.SSWPrefs );
-        //System.out.println("Checking BFB.Images @" + Prefs.get("DefaultImagePath", ""));
         if ( DirectoryPath.isEmpty() ) DirectoryPath = Prefs.get("DefaultImagePath", "");
         if ( DirectoryPath.isEmpty() ) return "";
 
@@ -286,19 +293,17 @@ public class Media {
             PossibleNames.add(Second.replace(" ", ""));
         }
 
-        if ( DirectoryPath.endsWith(".jpg") || 
-             DirectoryPath.endsWith(".png") || 
+        if ( DirectoryPath.endsWith(".jpg") ||
+             DirectoryPath.endsWith(".png") ||
              DirectoryPath.endsWith(".gif") ||
              DirectoryPath.endsWith(".ssw") ||
              DirectoryPath.endsWith(".saw") ) DirectoryPath = DirectoryPath.substring(0, DirectoryPath.lastIndexOf("\\")+1);
         if ( !DirectoryPath.endsWith("\\") ) DirectoryPath += "\\";
-       
+
         String path;
         if ( imageFiles.isEmpty() ) { imageFiles = LoadDirectories(DirectoryPath); }
 
         for ( String nameToCheck : PossibleNames ) {
-            //System.out.println("Checking " + nameToCheck);
-            //path = CheckDirectories( nameToCheck, DirectoryPath );
             path = CheckDirectories( nameToCheck, imageFiles );
             if ( !path.isEmpty() ) return path;
         }
@@ -310,7 +315,7 @@ public class Media {
         ArrayList<File> fileList = new ArrayList<File>();
         try
         {
-            File d = new File(DirectoryPath);
+            File d = new File(Utils.convertFilePathSeparator(DirectoryPath));
             if ( d.isDirectory() ) {
                 for ( File f : d.listFiles() ) {
                     if ( f.isDirectory() ) {
@@ -365,7 +370,7 @@ public class Media {
     public static int Options(Component component, String Message, String Title) {
         return javax.swing.JOptionPane.showOptionDialog(component, Message, Title, JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
     }
-    
+
     private class ExtensionFilter extends javax.swing.filechooser.FileFilter {
         String Extension = "";
 
