@@ -151,39 +151,54 @@ public class PPCCapacitor extends abPlaceable {
     }
 
     private void BuildOffensiveBV() {
-        // the calculations here ARE NOT canon, but they should work for the
-        // normal, canon PPCs, including the Enhanced ER PPC (we hope).  We add
-        // 2.5 to the damage because the PPC Cap fires only every other round.
-        double basemult = 0.0;
-        if( Owner.GetDamageShort() != Owner.GetDamageMedium() || Owner.GetDamageShort() != Owner.GetDamageMedium() ) {
-            double mult1 = ( ((double) Owner.GetDamageShort()) + 2.5 ) / ((double) Owner.GetDamageShort());
-            if( Owner.GetDamageShort() < 12 && ( Owner.GetDamageShort() + 5 ) >= 12 ) {
-                mult1 *= 1.2;
-            }
-            double mult2 = ( ((double) Owner.GetDamageMedium()) + 2.5 ) / ((double) Owner.GetDamageMedium());
-            if( Owner.GetDamageMedium() < 12 && ( Owner.GetDamageMedium() + 5 ) >= 12 ) {
-                mult2 *= 1.2;
-            }
-            double mult3 = ( ((double) Owner.GetDamageLong()) + 2.5 ) / ((double) Owner.GetDamageLong());
-            if( Owner.GetDamageLong() < 12 && ( Owner.GetDamageLong() + 5 ) >= 12 ) {
-                mult3 *= 1.2;
-            }
-            basemult = ( mult1 + mult2 + mult3 ) * 0.33333;
-        } else {
-            basemult = ( ((double) Owner.GetDamageShort()) + 2.5 ) / ((double) Owner.GetDamageShort());
-            if( Owner.GetDamageShort() < 12 && ( Owner.GetDamageShort() + 5 ) >= 12 ) {
-                basemult *= 1.2;
-            }
-        }
-        OffBV = Owner.GetOffensiveBV() * ( basemult - 1.0 );
-        // minor modification since the math doesn't work (damn you, TPTB!!!)
-        if( Owner.LookupName().equals( "(IS) ER PPC" ) ) {
-            OffBV -= 0.49;
-        }
 
-        if (Owner.LookupName().equals("(CL) ER PPC")) {
-            //Interstellar Ops pg 194 sets Clan ER PPC + Capacitor at 548.  So only add 136 here as the PPC is 412.
-            OffBV = 136;
+        switch(Owner.LookupName()) {
+            case "(CL) ER PPC":
+                OffBV = 548 - Owner.GetOffensiveBV(); //Interstellar Ops pg 194
+                break;
+            case "(IS) Heavy PPC":
+                OffBV = 370 - Owner.GetOffensiveBV(); //Tactical Ops pg 382
+                break;
+            case "(IS) PPC":
+                OffBV = 264 - Owner.GetOffensiveBV(); //Tactical Ops pg 382
+                break;
+            case "(IS) Light PPC":
+                OffBV = 132 - Owner.GetOffensiveBV(); //Tactical Ops pg 382
+                break;
+            case "(IS) Snub-Nose PPC":
+                OffBV = 252 - Owner.GetOffensiveBV(); //Tactical Ops pg 382
+                break;
+            case "(IS) ER PPC":
+                // minor modification since the math doesn't work (damn you, TPTB!!!)
+                OffBV = 343 - Owner.GetOffensiveBV(); //Tactical Ops pg 382
+                break;
+            default:
+                // the calculations here ARE NOT canon, but they should work for the
+                // normal, canon PPCs, including the Enhanced ER PPC (we hope).  We add
+                // 2.5 to the damage because the PPC Cap fires only every other round.
+                double basemult = 0.0;
+                if( Owner.GetDamageShort() != Owner.GetDamageMedium() || Owner.GetDamageShort() != Owner.GetDamageMedium() ) {
+                    double mult1 = ( ((double) Owner.GetDamageShort()) + 2.5 ) / ((double) Owner.GetDamageShort());
+                    if( Owner.GetDamageShort() < 12 && ( Owner.GetDamageShort() + 5 ) >= 12 ) {
+                        mult1 *= 1.2;
+                    }
+                    double mult2 = ( ((double) Owner.GetDamageMedium()) + 2.5 ) / ((double) Owner.GetDamageMedium());
+                    if( Owner.GetDamageMedium() < 12 && ( Owner.GetDamageMedium() + 5 ) >= 12 ) {
+                        mult2 *= 1.2;
+                    }
+                    double mult3 = ( ((double) Owner.GetDamageLong()) + 2.5 ) / ((double) Owner.GetDamageLong());
+                    if( Owner.GetDamageLong() < 12 && ( Owner.GetDamageLong() + 5 ) >= 12 ) {
+                        mult3 *= 1.2;
+                    }
+                    basemult = ( mult1 + mult2 + mult3 ) * 0.33333;
+                } else {
+                    basemult = ( ((double) Owner.GetDamageShort()) + 2.5 ) / ((double) Owner.GetDamageShort());
+                    if( Owner.GetDamageShort() < 12 && ( Owner.GetDamageShort() + 5 ) >= 12 ) {
+                        basemult *= 1.2;
+                    }
+                }
+                OffBV = Owner.GetOffensiveBV() * ( basemult - 1.0 );
+                break;
         }
     }
 }
