@@ -649,7 +649,7 @@ public class FileCommon {
             return retval;
         }
     }
-    
+
     public static String EncodeLocation( int loc, boolean quad, ifUnit u ) {
         if ( u instanceof Mech )
         {
@@ -793,11 +793,11 @@ public class FileCommon {
                 return "??";
         }
     }
-    
+
     public static String EncodeLocations( int[] check, boolean quad ) {
         return EncodeLocations( check, quad, common.CommonTools.BattleMech );
     }
-    
+
     public static String EncodeLocations( int[] check, boolean quad, int UnitType ) {
         // this will work initializing to 0 since you cannot split into the head
         // and no contiguous item can be split into more than two locations.
@@ -826,7 +826,7 @@ public class FileCommon {
 
         return retval;
     }
-    
+
 
     public static String DecodeCrits( int[] check ) {
         String retval = "";
@@ -867,7 +867,7 @@ public class FileCommon {
 
         return SortEquipmentForStats((ifLoadout)m.GetLoadout(), v, ExportOut, AmmoEnd);
     }
-    
+
     public static ArrayList<abPlaceable> SortEquipmentForStats( Mech m, ArrayList v, boolean ExportOut, boolean AmmoEnd ) {
         // this routine takes the given ArrayList of equipment and sorts it by
         // location, starting with the head and working down to legs.
@@ -1004,7 +1004,7 @@ public class FileCommon {
         retval = retval.replaceAll( "<", "&lt;" );
         retval = retval.replaceAll( ">", "&gt;" );
         retval = retval.replaceAll( "\'", "&apos;" );
-        retval = retval.replaceAll( "\"", "&quot;" );
+        retval = retval.replaceAll( "\"", "'" );
         retval = retval.replaceAll( "\n\r", ":br:" );
         retval = retval.replaceAll( "\n", ":br:" );
         retval = retval.replaceAll( "\r", ":br:" );
