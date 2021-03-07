@@ -180,5 +180,10 @@ public class PPCCapacitor extends abPlaceable {
         if( Owner.LookupName().equals( "(IS) ER PPC" ) ) {
             OffBV -= 0.49;
         }
+
+        if (Owner.LookupName().equals("(CL) ER PPC")) {
+            //Interstellar Ops pg 194 sets Clan ER PPC + Capacitor at 548.  So only add 136 here as the PPC is 412.
+            OffBV = 136;
+        }
     }
 }
