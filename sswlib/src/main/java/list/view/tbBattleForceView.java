@@ -47,7 +47,7 @@ public class tbBattleForceView extends abView {
         Columns.add(new Column( 9, "Str", "Structure", 20, Integer.class ));
         Columns.add(new Column( 10, "Base PV", "BaseBV", 30, Integer.class ));
         Columns.add(new Column( 11, "Adj PV", "TotalBV", false, 40, Integer.class, true, SortOrder.ASCENDING ));
-    
+
         Columns.get(0).sortOrder = SortOrder.ASCENDING;
         Columns.get(6).sortOrder = SortOrder.ASCENDING;
 
@@ -56,7 +56,7 @@ public class tbBattleForceView extends abView {
     }
 
     public Object getValueAt( int row, int col ) {
-        UnitListData m = (UnitListData) list.Get( row );
+        UnitListData m = list.Get( row );
         switch( col ) {
             case 0:
                 return m.getBattleForceStats().getElement();
@@ -82,7 +82,8 @@ public class tbBattleForceView extends abView {
                 return m.getBattleForceStats().getBasePV();
             case 11:
                 return m.getBattleForceStats().getPointValue();
+            default:
+                return null;
         }
-        return null;
     }
 }

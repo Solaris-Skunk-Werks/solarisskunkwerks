@@ -48,21 +48,22 @@ public class tbTotalWarfareCompact extends abView {
     }
 
     public Object getValueAt( int row, int col ) {
-        UnitListData m = (UnitListData) list.Get( row );
+        UnitListData m = list.Get( row );
         switch( col ) {
             case 0:
-                return (int) m.getTonnage();
+                return m.getTonnage();
             case 1:
                 return m.getFullName();
             case 2:
-                return (int) m.getBV();
+                return m.getBV();
             case 3:
                 return m.getLevel();
             case 4:
                 return m.getEra();
             case 5:
                 return m.getTech();
+            default:
+                return null;
         }
-        return null;
     }
 }

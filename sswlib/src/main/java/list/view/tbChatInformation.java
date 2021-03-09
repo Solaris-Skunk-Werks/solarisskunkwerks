@@ -51,14 +51,14 @@ public class tbChatInformation extends abView {
     }
 
     public Object getValueAt( int row, int col ) {
-        UnitListData m = (UnitListData) list.Get( row );
+        UnitListData m = list.Get( row );
         switch( col ) {
             case 0:
                 return m.getFullName();
             case 1:
                 return m.getInfo();
             case 2:
-                return (int) m.getBV();
+                return m.getBV();
             case 3:
                 return String.format("%10.0f", m.getCost());
             case 4:
@@ -67,7 +67,8 @@ public class tbChatInformation extends abView {
                 return m.getEra();
             case 6:
                 return m.getTech();
+            default:
+                return null;
         }
-        return null;
     }
 }

@@ -27,13 +27,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package list.view;
 
-import java.text.NumberFormat;
 import javax.swing.SortOrder;
-import javax.swing.text.NumberFormatter;
 import list.UnitList;
 import list.UnitListData;
 
 public class tbTotalWarfareView extends abView {
+    private static final long serialVersionUID = 3746192148272629301L;
+
     public tbTotalWarfareView( UnitList list ) {
         this.list = list;
 
@@ -55,14 +55,14 @@ public class tbTotalWarfareView extends abView {
     }
 
     public Object getValueAt( int row, int col ) {
-        UnitListData m = (UnitListData) list.Get( row );
+        UnitListData m = list.Get( row );
         switch( col ) {
             case 0:
-                return (int) m.getTonnage();
+                return m.getTonnage();
             case 1:
                 return m.getFullName();
             case 2:
-                return (int) m.getBV();
+                return m.getBV();
             case 3:
                 return String.format("%10.0f", m.getCost());
             case 4:
@@ -75,7 +75,8 @@ public class tbTotalWarfareView extends abView {
                 return m.getYear();
             case 8:
                 return m.getSource();
+            default:
+                return null;
         }
-        return null;
     }
 }
