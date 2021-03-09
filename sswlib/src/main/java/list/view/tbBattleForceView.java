@@ -32,9 +32,7 @@ import list.UnitList;
 import list.UnitListData;
 
 public class tbBattleForceView extends abView {
-    public tbBattleForceView( UnitList list ) {
-        this.list = list;
-
+    public tbBattleForceView() {
         Columns.add(new Column( 0, "Unit", "TypeModel", 200 ));
         Columns.add(new Column( 1, "MV", "MV", 20, Integer.class ));
         Columns.add(new Column( 2, "S", "S", 20, Integer.class ));

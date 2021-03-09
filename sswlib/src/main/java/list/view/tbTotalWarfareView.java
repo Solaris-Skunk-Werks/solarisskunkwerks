@@ -34,9 +34,7 @@ import list.UnitListData;
 public class tbTotalWarfareView extends abView {
     private static final long serialVersionUID = 3746192148272629301L;
 
-    public tbTotalWarfareView( UnitList list ) {
-        this.list = list;
-
+    public tbTotalWarfareView() {
         Columns.add(new Column( 0, "Tons", "Tonnage", false, 20, Integer.class, true, SortOrder.ASCENDING ));
         Columns.add(new Column( 1, "Type/Model", "Name", false, 150, String.class, true, SortOrder.ASCENDING ));
         Columns.add(new Column( 2, "BV", "BV", false, 20, Integer.class, true, SortOrder.ASCENDING ));
