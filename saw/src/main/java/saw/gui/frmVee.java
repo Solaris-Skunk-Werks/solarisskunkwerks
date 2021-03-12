@@ -148,7 +148,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         CurVee = new CombatVehicle( );
         initComponents();
 
-        Prefs = Preferences.userRoot().node( Constants.SSWPrefs );
+        Prefs = Preferences.userRoot().node( Constants.SAWPrefs );
         ArmorTons = new VSetArmorTonnage( Prefs );
         cmbMotiveTypeActionPerformed(null);
         spnTonnageStateChanged(null);
@@ -355,10 +355,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         mnuVGLAmmo.setVisible( false );
 
         // set the program options
-        cmbRulesLevel.setSelectedItem( Prefs.get( "NewCV_RulesLevel", "Tournament Legal" ) );
-        cmbEra.setSelectedItem( Prefs.get( "NewCV_Era", "Age of War/Star League" ) );
+        cmbRulesLevel.setSelectedItem( Prefs.get( "NewVee_RulesLevel", "Tournament Legal" ) );
+        cmbEra.setSelectedItem( Prefs.get( "NewVee_Era", "Age of War/Star League" ) );
         BuildTechBaseSelector();
-        cmbTechBase.setSelectedItem( Prefs.get( "NewCV_Techbase", "Inner Sphere" ) );
+        cmbTechBase.setSelectedItem( Prefs.get( "NewVee_Techbase", "Inner Sphere" ) );
         BuildEngineSelector();
         BuildArmorSelector();
         BuildTurretSelector();
@@ -1685,7 +1685,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         jLabel2.setText("Rules Level:");
 
-        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Introductory", "Tournament Legal", "Advanced", "Experimental" }));
+        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Introductory", "Tournament Legal", "Advanced Rules", "Experimental Tech", "Era Specific" }));
         cmbRulesLevel.setSelectedIndex(1);
         cmbRulesLevel.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbRulesLevel.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -1709,7 +1709,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         jLabel3.setText("Tech Base:");
 
-        cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan", "Mixed Tech" }));
+        cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan", "Mixed" }));
         cmbTechBase.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbTechBase.setPreferredSize(new java.awt.Dimension(150, 20));
         cmbTechBase.addActionListener(new java.awt.event.ActionListener() {
@@ -6816,12 +6816,15 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbMotiveType.setSelectedIndex( 0 );
         chkYearRestrict.setSelected( false );
         txtProdYear.setText( "" );
+        txtProdYear.setEnabled( true );
         cmbEra.setEnabled( true );
         cmbProductionEra.setEnabled( true );
         cmbTechBase.setEnabled( true );
         cmbTurret.setSelectedIndex(0);
         spnTurretTonnage.setModel(new SpinnerNumberModel(0.0, 0.0, 50.0, 0.5));
-        txtProdYear.setEnabled( true );
+
+        if (cmbOmniVariant.getItemCount() > 0)
+            cmbOmniVariant.setSelectedIndex(0);
 
         cmbRulesLevel.setSelectedItem( Prefs.get( "NewVee_RulesLevel", "Tournament Legal" ) );
         cmbEra.setSelectedItem( Prefs.get( "NewVee_Era", "Age of War/Star League" ) );
@@ -6990,12 +6993,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // as appropriate
         if( chkOmniVee.isEnabled() ) {
             if( chkOmniVee.isSelected() ) {
-                //btnLockChassis.setEnabled( true );
+                btnLockChassis.setEnabled( true );
             } else {
-                //btnLockChassis.setEnabled( false );
+                btnLockChassis.setEnabled( false );
             }
         } else {
-            //btnLockChassis.setEnabled( false );
+            btnLockChassis.setEnabled( false );
         }
     }
     private void RefreshEquipment() {
