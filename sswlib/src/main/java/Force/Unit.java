@@ -497,9 +497,10 @@ public class Unit implements ifSerializable {
 
     public void RenderPrint(ForceListPrinter p) {
         p.setFont(PrintConsts.PlainFont);
-        p.WriteStr(TypeModel, 120);
+        String[] typeParts = PrintConsts.wrapText(TypeModel, 22, true);
+        p.WriteStr(typeParts[0], 120);
         p.WriteStr(getMechwarrior(), 140);
-        p.WriteStr(CommonTools.UnitTypes[UnitType], 60);
+        p.WriteStr(CommonTools.UnitTypes[UnitType], 70);
         p.WriteStr(String.format("%1$,.2f", Tonnage), 50);
         p.WriteStr(String.format("%1$,.0f", BaseBV), 40);
         p.WriteStr(GetSkills(), 30);
@@ -507,6 +508,13 @@ public class Unit implements ifSerializable {
         p.WriteStr(Boolean.valueOf(UsingC3).toString(), 30);
         p.WriteStr(String.format("%1$,.0f", TotalBV), 0);
         p.NewLine();
+
+        //Intentionally only doing 1 extra for now until we can see if there is any data that requires more
+        if (typeParts.length > 1) {
+            p.WriteStr(typeParts[1], 120);
+            p.NewLine();
+        }
+
     }
 
     public void SerializeXML(BufferedWriter file) throws IOException {

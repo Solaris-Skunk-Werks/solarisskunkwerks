@@ -213,7 +213,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
         for ( Unit u : getUnits() ) {
             if ( u.UsingC3 )
                 u.setForceC3BV(TotalC3BV);
-            
+
             TotalBaseBV += u.BaseBV;
             TotalModifier += u.MiscMod;
             TotalTonnage += u.Tonnage;
@@ -321,7 +321,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
         for ( Group g : Groups ) {
             if ( g.getUnits().size() == 0 ) { remove.add(g); }
         }
-        
+
         for ( Group d : remove ) {
             Groups.remove(d);
         }
@@ -434,7 +434,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
             String colName = "Mechwarrior";
             if( curGroup.length() >= 25) colName = "";
             p.WriteStr(colName, 140);
-            p.WriteStr("Type", 60);
+            p.WriteStr("Type", 70);
             p.WriteStr("Tonnage", 50);
             p.WriteStr("Base BV", 40);
             p.WriteStr("G/P", 30);
@@ -453,7 +453,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
                 p.setFont(PrintConsts.SmallItalicFont);
                 p.WriteStr(g.getUnits().size() + " Units", 120);
                 p.WriteStr("", 140);
-                p.WriteStr("", 60);
+                p.WriteStr("", 70);
                 p.WriteStr(String.format("%1$,.2f", g.getTotalTonnage()), 50);
                 p.WriteStr(String.format("%1$,.0f", g.getTotalBaseBV()), 40);
                 p.WriteStr("", 30);
@@ -472,7 +472,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
             p.setFont(PrintConsts.ItalicFont);
             p.WriteStr(TotalUnits + " Units", 120);
             p.WriteStr("", 140);
-            p.WriteStr("", 60);
+            p.WriteStr("", 70);
             p.WriteStr(String.format("%1$,.2f", TotalTonnage), 50);
             p.WriteStr(String.format("%1$,.0f", TotalBaseBV), 40);
             p.WriteStr("", 30);
