@@ -7230,7 +7230,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkClanCASE.setEnabled( true );
         chkOmniVee.setSelected( false );
         chkOmniVee.setEnabled( true );
-        btnLockChassis.setEnabled( true );
         spnCruiseMP.setEnabled( true );
         chkYearRestrict.setEnabled( true );
         //chkBSPFD.setEnabled( true );
