@@ -498,8 +498,9 @@ public class Unit implements ifSerializable {
     public void RenderPrint(ForceListPrinter p) {
         p.setFont(PrintConsts.PlainFont);
         String[] typeParts = PrintConsts.wrapText(TypeModel, 22, true);
+        String[] mechwarriorParts = PrintConsts.wrapText(getMechwarrior(), 25, true);
         p.WriteStr(typeParts[0], 120);
-        p.WriteStr(getMechwarrior(), 140);
+        p.WriteStr(mechwarriorParts[0], 140);
         p.WriteStr(CommonTools.UnitTypes[UnitType], 70);
         p.WriteStr(String.format("%1$,.2f", Tonnage), 50);
         p.WriteStr(String.format("%1$,.0f", BaseBV), 40);
@@ -509,12 +510,12 @@ public class Unit implements ifSerializable {
         p.WriteStr(String.format("%1$,.0f", TotalBV), 0);
         p.NewLine();
 
-        //Intentionally only doing 1 extra for now until we can see if there is any data that requires more
-        if (typeParts.length > 1) {
-            p.WriteStr(typeParts[1], 120);
+        //Handles all the lines for whichever part is the longest
+        for (Integer idx = 1; idx < Math.max(typeParts.length, mechwarriorParts.length); idx++) {
+            p.WriteStr((typeParts.length > idx) ? typeParts[idx] : "", 120);
+            p.WriteStr((mechwarriorParts.length > idx) ? mechwarriorParts[idx] : "", 140);
             p.NewLine();
         }
-
     }
 
     public void SerializeXML(BufferedWriter file) throws IOException {

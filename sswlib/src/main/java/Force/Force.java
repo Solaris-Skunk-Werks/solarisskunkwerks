@@ -445,6 +445,7 @@ public class Force extends AbstractTableModel implements ifSerializable {
 
             for ( Unit u : g.getUnits() ) {
                 u.RenderPrint(p);
+                p.currentY += 2;
             }
 
             if ( Groups.size() > 1 ) {
