@@ -6823,8 +6823,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbTurret.setSelectedIndex(0);
         spnTurretTonnage.setModel(new SpinnerNumberModel(0.0, 0.0, 50.0, 0.5));
 
-        if (cmbOmniVariant.getItemCount() > 0)
-            cmbOmniVariant.setSelectedIndex(0);
+        cmbOmniVariant.setSelectedItem("");
 
         cmbRulesLevel.setSelectedItem( Prefs.get( "NewVee_RulesLevel", "Tournament Legal" ) );
         cmbEra.setSelectedItem( Prefs.get( "NewVee_Era", "Age of War/Star League" ) );
@@ -7224,7 +7223,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkTrailer.setEnabled( true );
         //btnEfficientArmor.setEnabled( true );
         //btnBalanceArmor.setEnabled( true );
-        //btnLockChassis.setEnabled( true );
+        btnLockChassis.setEnabled( false );
         chkFCSAIV.setEnabled( true );
         chkFCSAV.setEnabled( true );
         chkFCSApollo.setEnabled( true );
@@ -7238,6 +7237,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkSupercharger.setEnabled( true );
         chkEnviroSealing.setEnabled( false );
         // now enable the Omni controls
+        cmbOmniVariant.setSelectedItem("");
         cmbOmniVariant.setEnabled( false );
         btnAddVariant.setEnabled( false );
         btnDeleteVariant.setEnabled( false );
@@ -8869,6 +8869,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now that we're done with the special stuff...
         Load = false;
 
+        cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( new String[0] ) );
         if( CurVee.IsOmni() ) {
             if ( CurVee.isHasTurret1() )
                 spnTurretTonnage.setModel( new SpinnerNumberModel(CurVee.GetBaseLoadout().GetTurret().GetMaxTonnage(), 0, 99.0, 0.5) );
