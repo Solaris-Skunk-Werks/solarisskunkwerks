@@ -6823,7 +6823,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbTurret.setSelectedIndex(0);
         spnTurretTonnage.setModel(new SpinnerNumberModel(0.0, 0.0, 50.0, 0.5));
 
-        cmbOmniVariant.setSelectedItem("");
+        cmbOmniVariant.setModel( new javax.swing.DefaultComboBoxModel( new String[0] ) );
 
         cmbRulesLevel.setSelectedItem( Prefs.get( "NewVee_RulesLevel", "Tournament Legal" ) );
         cmbEra.setSelectedItem( Prefs.get( "NewVee_Era", "Age of War/Star League" ) );
