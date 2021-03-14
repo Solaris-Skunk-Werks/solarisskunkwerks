@@ -30,6 +30,7 @@ package ssw.gui;
 
 import Force.Unit;
 import IO.MTFWriter;
+import IO.Utils;
 
 import java.awt.Cursor;
 import java.beans.PropertyChangeEvent;
@@ -300,8 +301,9 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         protected Void doInBackground() throws Exception {
             MechReader read = new MechReader();
             MechWriter writer = new MechWriter();
-
             File FileList = new File(dirPath);
+            totalFileCount = Utils.countFilesInDirectory(FileList, ".ssw");
+
             try {
                 processDir( FileList, read, writer );
             } catch ( IOException ie ) {
@@ -316,7 +318,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         private void processDir( File directory, MechReader read, MechWriter writer ) throws IOException {
             File[] files = directory.listFiles();
-            totalFileCount += files.length;
+
             for ( int i=0; i < files.length; i++ ) {
                 if ( files[i].isFile() && files[i].getCanonicalPath().endsWith(".ssw") ) {
                     processFile( files[i], read, writer );
@@ -385,8 +387,9 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         protected Void doInBackground() throws Exception {
             MechReader read = new MechReader();
             MTFWriter writer = new MTFWriter();
-
             File FileList = new File(dirPath);
+            totalFileCount = Utils.countFilesInDirectory(FileList, ".ssw");
+
             try {
                 processDir( FileList, read, writer );
             } catch ( IOException ie ) {
@@ -401,7 +404,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         private void processDir( File directory, MechReader read, MTFWriter writer ) throws IOException {
             File[] files = directory.listFiles();
-            totalFileCount += files.length;
+
             for ( int i=0; i < files.length; i++ ) {
                 if ( files[i].isFile() && files[i].getCanonicalPath().endsWith(".ssw") ) {
                     processFile( files[i], read, writer );
