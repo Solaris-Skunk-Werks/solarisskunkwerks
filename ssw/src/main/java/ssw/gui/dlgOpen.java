@@ -666,7 +666,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         tlbActions.add(btnMagic);
         tlbActions.add(jSeparator3);
 
-        btnMTF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/wand.png"))); // NOI18N
+        btnMTF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/crown.png"))); // NOI18N
         btnMTF.setToolTipText("Export ALL to MTF (Long Process!)");
         btnMTF.setFocusable(false);
         btnMTF.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
