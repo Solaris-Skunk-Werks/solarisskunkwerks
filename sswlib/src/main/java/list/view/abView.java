@@ -70,7 +70,12 @@ public abstract class abView extends AbstractTableModel {
             }
         }
     }
-    
+
+    public abView setList(UnitList list) {
+        this.list = list;
+        return this;
+    }
+
     public Object Get( int index ) {
         return list.Get(index);
     }

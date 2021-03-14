@@ -53,7 +53,11 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private String dirPath = "";
     private String NL = "";
     private String msg = "";
-    private abView currentView = new tbTotalWarfareView(list);
+    private abView twView = new tbTotalWarfareView();
+    private abView bfView = new tbBattleForceView();
+    private abView compView = new tbTotalWarfareCompact();
+    private abView chatView = new tbChatInformation();
+    private abView currentView = twView;
     private boolean cancelledListDirSelection = false;
 
     public int Requestor = SSW;
@@ -66,7 +70,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         //ImageIcon icon = new ImageIcon(super.getClass().getResource("/ssw/Images/appicon.png"));
         //super.setIconImage(icon.getImage());
         this.parent = (common.DesignForm) parent;
-        
+
         prgResaving.setVisible(false);
         cmbTech.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Tech", "Clan", "Inner Sphere", "Mixed" }));
         cmbEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Era", "Age of War/Star League", "Succession Wars", "Clan Invasion", "Dark Ages", "All Eras (non-canon)" }));
@@ -74,7 +78,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         cmbMotive.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Motive", "Hovercraft", "Naval (Displacement)", "Naval (Hydrofoil)", "Naval (Submarine)", "Tracked", "VTOL", "Wheeled", "WiGE" }));
         NL = System.getProperty( "line.separator" );
     }
-    
+
     private void LoadMech() {
         switch ( Requestor ) {
             case SSW:
@@ -141,7 +145,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         this.lblStatus.setText("Loading Units...");
         this.txtSelected.setText("0 Units Selected for 0 BV and 0 C-Bills");
         this.tblMechData.setModel(new UnitList());
-        
+
         if (dirPath.isEmpty()) {
             dirPath = parent.GetPrefs().get("ListPath", parent.GetPrefs().get( "LastOpenCVDirectory", "" ) );
 
@@ -165,7 +169,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         }
 
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        
+
         list = new UnitList(dirPath, useIndex);
 
         if (list.Size() > 0) {
@@ -242,7 +246,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             //do nothing
         }
     }
-    
+
     public void propertyChange( PropertyChangeEvent e ) {
        prgResaving.setValue( ((Resaver) e.getSource()).getProgress() );
     }
@@ -1226,7 +1230,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
     private void btnClearFilterFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearFilterFilter
         setupList(list, false);
-        
+
         //clear the dropdowns
         cmbEra.setSelectedIndex(0);
         cmbMotive.setSelectedIndex(0);
@@ -1350,7 +1354,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
     private void btnViewForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewForceActionPerformed
         lblForce.setText("");
-        
+
         //if ( tblMechData.getSelectedRowCount() > 0 ) {
         //    btnAdd2ForceActionPerformed(evt);
         //}
@@ -1369,19 +1373,19 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private void cmbViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbViewActionPerformed
         switch ( cmbView.getSelectedIndex() ) {
             case 0:
-                currentView = new tbTotalWarfareView(list);
+                currentView = twView.setList(list);
                 break;
             case 1:
-                currentView = new tbTotalWarfareCompact(list);
+                currentView = compView.setList(list);
                 break;
             case 2:
-                currentView = new tbBattleForceView(list);
+                currentView = bfView.setList(list);
                 break;
             case 3:
-                currentView = new tbChatInformation(list);
+                currentView = chatView.setList(list);
                 break;
             default:
-                currentView = new tbTotalWarfareView(list);
+                currentView = twView.setList(list);
         }
         tblMechData.setModel(currentView);
         currentView.setupTable(tblMechData);
