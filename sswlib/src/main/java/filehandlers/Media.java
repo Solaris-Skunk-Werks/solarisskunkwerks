@@ -353,7 +353,7 @@ public class Media {
         if ( !CurrentImage.isEmpty() )
         {
             Image img = GetImage(CurrentImage);
-            if ( img.getHeight(null) > 0 )
+            if (img != null && img.getHeight(null) > 0 )
                 return CurrentImage;
         }
         return FindMatchingImage(Name, Model, "");
