@@ -360,11 +360,15 @@ public class Media {
     }
 
     public static void Messager(String message) {
-        javax.swing.JOptionPane.showMessageDialog(null, message);
+        if (message != null && !message.isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(null, message);
+        }
     }
 
     public static void Messager(Component component, String message) {
-        javax.swing.JOptionPane.showMessageDialog(component, message);
+        if (message != null && !message.isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(component, message);
+        }
     }
 
     public static int Options(Component component, String Message, String Title) {
