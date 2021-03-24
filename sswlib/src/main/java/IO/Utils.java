@@ -10,4 +10,17 @@ public class Utils {
             return path.replace("\\", File.separator);
         }
     }
+
+    public static Integer countFilesInDirectory(File directory, String extension) {
+        int count = 0;
+        for (File file : directory.listFiles()) {
+            if (file.isFile() && file.getName().endsWith(extension)) {
+                count++;
+            }
+            if (file.isDirectory()) {
+                count += countFilesInDirectory(file, extension);
+            }
+        }
+        return count;
+    }
 }

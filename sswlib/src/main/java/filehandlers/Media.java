@@ -353,18 +353,22 @@ public class Media {
         if ( !CurrentImage.isEmpty() )
         {
             Image img = GetImage(CurrentImage);
-            if ( img.getHeight(null) > 0 )
+            if (img != null && img.getHeight(null) > 0 )
                 return CurrentImage;
         }
         return FindMatchingImage(Name, Model, "");
     }
 
     public static void Messager(String message) {
-        javax.swing.JOptionPane.showMessageDialog(null, message);
+        if (message != null && message.trim().length() > 0) {
+            javax.swing.JOptionPane.showMessageDialog(null, message);
+        }
     }
 
     public static void Messager(Component component, String message) {
-        javax.swing.JOptionPane.showMessageDialog(component, message);
+        if (message != null && message.trim().length() > 0) {
+            javax.swing.JOptionPane.showMessageDialog(component, message);
+        }
     }
 
     public static int Options(Component component, String Message, String Title) {
