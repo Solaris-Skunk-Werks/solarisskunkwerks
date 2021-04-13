@@ -41,13 +41,13 @@ public class UnitList extends AbstractTableModel {
     private ArrayList<UnitListData> List = new ArrayList<UnitListData>();
     private String Directory = "";
     private int IndexVersion = 10;
-    private abView currentModel = new tbTotalWarfareView(this);
+    private abView currentModel = new tbTotalWarfareView();
     String[] Extensions = { ".ssw", ".saw" };
 
     public UnitList() {
 
     }
-    
+
     public UnitList(String directory) {
         this(directory, true);
     }
@@ -78,7 +78,7 @@ public class UnitList extends AbstractTableModel {
             }
         }
     }
-    
+
     final void Load( String Directory ) {
         File d = new File(Directory);
         if ( d.isDirectory() && !d.isHidden() ) {
@@ -93,7 +93,7 @@ public class UnitList extends AbstractTableModel {
             }
         }
     }
-    
+
     boolean EditorFile(File f) {
         for ( String ext : Extensions ) {
             if ( f.getPath().endsWith(ext) ) return true;
@@ -220,13 +220,13 @@ public class UnitList extends AbstractTableModel {
             if ( ! filter.getSource().isEmpty() ) {
                 if (! mData.getSource().toUpperCase().contains( filter.getSource().toUpperCase() ) ) remove = true;
             }
-            
+
             if (remove) m.List.remove(mData);
         }
 
         return m;
     }
-    
+
     public final void Write() throws IOException {
         if (List.size() > 0) {
             BufferedWriter bw = new BufferedWriter(new FileWriter(getDirectory() + File.separator + "index.ssi") );
@@ -320,7 +320,7 @@ public class UnitList extends AbstractTableModel {
     public void fireTableDataChanged() {
         super.fireTableDataChanged();
     }
-    
+
     public Object getValueAt( int row, int col ) {
         UnitListData m = (UnitListData) List.get( row );
         switch( col ) {
@@ -357,7 +357,7 @@ public class UnitList extends AbstractTableModel {
      * @return the currentModel
      */
     public abView getCurrentModel() {
-        return currentModel;
+        return currentModel.setList(this);
     }
 
     /**

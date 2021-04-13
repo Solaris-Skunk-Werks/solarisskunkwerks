@@ -29,6 +29,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package ssw.gui;
 
 import Force.Unit;
+import IO.MTFWriter;
+import IO.Utils;
+
 import java.awt.Cursor;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -41,6 +44,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import list.*;
 import list.view.*;
+import ssw.filehandlers.MTFReader;
 import ssw.print.Printer;
 
 public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListener {
@@ -50,7 +54,11 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private String dirPath = "";
     private String NL = "";
     private String msg = "";
-    private abView currentView = new tbTotalWarfareView(list);
+    private abView twView = new tbTotalWarfareView();
+    private abView bfView = new tbBattleForceView();
+    private abView compView = new tbTotalWarfareCompact();
+    private abView chatView = new tbChatInformation();
+    private abView currentView = twView;
     private boolean cancelledListDirSelection = false;
 
     public int Requestor = SSW;
@@ -63,7 +71,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         ImageIcon icon = new ImageIcon(super.getClass().getResource("/ssw/Images/appicon.png"));
         super.setIconImage(icon.getImage());
         this.parent = (ifMechForm) parent;
-        
+
         prgResaving.setVisible(false);
         cmbTech.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Tech", "Clan", "Inner Sphere", "Mixed" }));
         cmbEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Era", "Age of War/Star League", "Succession Wars", "Clan Invasion", "Dark Ages", "All Eras (non-canon)" }));
@@ -72,7 +80,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         cmbMotive.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Any Motive", "Biped", "Quad" }));
         NL = System.getProperty( "line.separator" );
     }
-    
+
     private void LoadMech() {
         switch ( Requestor ) {
             case SSW:
@@ -139,7 +147,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         this.lblStatus.setText("Loading Mechs...");
         this.txtSelected.setText("0 Units Selected for 0 BV and 0 C-Bills");
         this.tblMechData.setModel(new UnitList());
-        
+
         if (dirPath.isEmpty()) {
             dirPath = parent.GetPrefs().get("ListPath", parent.GetPrefs().get( "LastOpenDirectory", "" ) );
 
@@ -163,7 +171,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         }
 
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        
+
         list = new UnitList(dirPath, useIndex);
 
         if (list.Size() > 0) {
@@ -224,6 +232,27 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         }
     }
 
+    private void batchUpdateMTFs() {
+        prgResaving.setValue(0);
+        prgResaving.setVisible(true);
+        int Response = javax.swing.JOptionPane.showConfirmDialog(this, "This will open every file in the current directory and all subdirectories and create an MTF file.\nThis process could take a few minutes, are you ready?", "Batch Mech Processing", javax.swing.JOptionPane.YES_NO_OPTION);
+        if (Response == javax.swing.JOptionPane.YES_OPTION) {
+            msg = "";
+            setCursor( Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR ) );
+            try {
+                MTFSaver Saving = new MTFSaver( this );
+                Saving.addPropertyChangeListener( this );
+                Saving.execute();
+            } catch( Exception e ) {
+                // fatal error.  let the user know
+                Media.Messager( this, "A fatal error occured while processing the 'Mechs:\n" + e.getMessage() );
+                e.printStackTrace();
+            }
+        } else {
+            prgResaving.setVisible(false);
+        }
+    }
+
     private void setTooltip( UnitListData data ) {
         //spnMechTable.setToolTipText( data.getInfo() );
         try {
@@ -239,9 +268,9 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
             //do nothing
         }
     }
-    
+
     public void propertyChange( PropertyChangeEvent e ) {
-       prgResaving.setValue( ((Resaver) e.getSource()).getProgress() );
+       prgResaving.setValue( ((SwingWorker<Void,Void>) e.getSource()).getProgress() );
     }
 
     private class Resaver extends SwingWorker<Void,Void> {
@@ -272,8 +301,9 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         protected Void doInBackground() throws Exception {
             MechReader read = new MechReader();
             MechWriter writer = new MechWriter();
-
             File FileList = new File(dirPath);
+            totalFileCount = Utils.countFilesInDirectory(FileList, ".ssw");
+
             try {
                 processDir( FileList, read, writer );
             } catch ( IOException ie ) {
@@ -288,7 +318,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
         private void processDir( File directory, MechReader read, MechWriter writer ) throws IOException {
             File[] files = directory.listFiles();
-            totalFileCount += files.length;
+
             for ( int i=0; i < files.length; i++ ) {
                 if ( files[i].isFile() && files[i].getCanonicalPath().endsWith(".ssw") ) {
                     processFile( files[i], read, writer );
@@ -308,6 +338,92 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
                 writer.setMech(m);
                 try {
                     writer.WriteXML( file.getCanonicalPath() );
+                    filesUpdated += 1;
+                } catch( IOException e ) {
+                    msg += "Could not load the following file(s):" + NL;
+                    msg += file.getCanonicalPath() + NL + NL;
+                }
+            } catch ( Exception e ) {
+                // log the error
+                msg += file.getCanonicalPath() + NL;
+                if( e.getMessage() == null ) {
+                    StackTraceElement[] trace = e.getStackTrace();
+                    for( int j = 0; j < trace.length; j++ ) {
+                        msg += trace[j].toString() + NL;
+                    }
+                    msg += NL;
+                } else {
+                    msg += e.getMessage() + NL + NL;
+                }
+            }
+        }
+    }
+
+    private class MTFSaver extends SwingWorker<Void,Void> {
+        dlgOpen Owner;
+        int filesUpdated = 0,
+            totalFileCount = 0;
+
+        public MTFSaver( dlgOpen owner ) {
+            Owner = owner;
+        }
+
+        @Override
+        public void done() {
+            setCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) );
+            if( msg.length() > 0 ) {
+                dlgTextExport Message = new dlgTextExport( Owner, true, msg );
+                Message.setLocationRelativeTo( Owner );
+                Message.setVisible( true );
+            } else {
+                Media.Messager( Owner, filesUpdated + " Files Updated.  Reloading list next." );
+            }
+            prgResaving.setVisible(false);
+            prgResaving.setValue( 0 );
+            LoadList(false);
+        }
+
+        @Override
+        protected Void doInBackground() throws Exception {
+            MechReader read = new MechReader();
+            MTFWriter writer = new MTFWriter();
+            File FileList = new File(dirPath);
+            totalFileCount = Utils.countFilesInDirectory(FileList, ".ssw");
+
+            try {
+                processDir( FileList, read, writer );
+            } catch ( IOException ie ) {
+                System.out.println(ie.getMessage());
+                throw new Exception(msg);
+            } catch ( Exception e ) {
+                throw e;
+            }
+
+            return null;
+        }
+
+        private void processDir( File directory, MechReader read, MTFWriter writer ) throws IOException {
+            File[] files = directory.listFiles();
+
+            for ( int i=0; i < files.length; i++ ) {
+                if ( files[i].isFile() && files[i].getCanonicalPath().endsWith(".ssw") ) {
+                    processFile( files[i], read, writer );
+                    int progress = ((int) (( ((double) filesUpdated + 1) / (double) totalFileCount ) * 100.0 ) );
+                    setProgress( progress );
+                } else if ( files[i].isDirectory() ) {
+                    processDir( files[i], read, writer );
+                }
+            }
+        }
+
+        private void processFile( File file, MechReader read, MTFWriter writer ) throws IOException {
+            try {
+                Mech m = read.ReadMech( file.getCanonicalPath(), parent.GetData() );
+
+                // save the mech to XML in the current location
+                writer.setMech(m);
+                try {
+                    writer.WriteMTF( file.getCanonicalPath().replace(".ssw", ".mtf") );
                     filesUpdated += 1;
                 } catch( IOException e ) {
                     msg += "Could not load the following file(s):" + NL;
@@ -353,6 +469,8 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         jSeparator2 = new javax.swing.JToolBar.Separator();
         btnMagic = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
+        btnMTF = new javax.swing.JButton();
+        jSeparator6 = new javax.swing.JToolBar.Separator();
         lblForce = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JToolBar.Separator();
         cmbView = new javax.swing.JComboBox();
@@ -547,6 +665,20 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         });
         tlbActions.add(btnMagic);
         tlbActions.add(jSeparator3);
+
+        btnMTF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssw/Images/crown.png"))); // NOI18N
+        btnMTF.setToolTipText("Export ALL to MTF (Long Process!)");
+        btnMTF.setFocusable(false);
+        btnMTF.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMTF.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnMTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMTFActionPerformed(evt);
+            }
+        });
+        tlbActions.add(btnMTF);
+        tlbActions.add(jSeparator6);
+
         tlbActions.add(lblForce);
         tlbActions.add(jSeparator5);
 
@@ -1198,6 +1330,12 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
         //setCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) );
     }//GEN-LAST:event_btnMagicActionPerformed
 
+    private void btnMTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMagicActionPerformed
+        //setCursor( Cursor.getPredefinedCursor( Cursor.WAIT_CURSOR ) );
+        batchUpdateMTFs();
+        //setCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) );
+    }//GEN-LAST:event_btnMagicActionPerformed
+
     private void Filter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filter
         ListFilter filters = new ListFilter();
         filters.setExtension(".ssw");
@@ -1254,7 +1392,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
     private void btnClearFilterFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearFilterFilter
         setupList(list, false);
-        
+
         //clear the dropdowns
         cmbEra.setSelectedIndex(0);
         cmbMotive.setSelectedIndex(0);
@@ -1383,7 +1521,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
 
     private void btnViewForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewForceActionPerformed
         lblForce.setText("");
-        
+
         //if ( tblMechData.getSelectedRowCount() > 0 ) {
         //    btnAdd2ForceActionPerformed(evt);
         //}
@@ -1402,19 +1540,19 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private void cmbViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbViewActionPerformed
         switch ( cmbView.getSelectedIndex() ) {
             case 0:
-                currentView = new tbTotalWarfareView(list);
+                currentView = twView.setList(list);
                 break;
             case 1:
-                currentView = new tbTotalWarfareCompact(list);
+                currentView = compView.setList(list);
                 break;
             case 2:
-                currentView = new tbBattleForceView(list);
+                currentView = bfView.setList(list);
                 break;
             case 3:
-                currentView = new tbChatInformation(list);
+                currentView = chatView.setList(list);
                 break;
             default:
-                currentView = new tbTotalWarfareView(list);
+                currentView = twView.setList(list);
         }
         tblMechData.setModel(currentView);
         currentView.setupTable(tblMechData);
@@ -1499,6 +1637,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private javax.swing.JButton btnExport;
     private javax.swing.JButton btnFilter;
     private javax.swing.JButton btnMagic;
+    private javax.swing.JButton btnMTF;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnOptions;
     private javax.swing.JButton btnPrint;
@@ -1532,6 +1671,7 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar.Separator jSeparator5;
+    private javax.swing.JToolBar.Separator jSeparator6;
     private javax.swing.JLabel lblBV;
     private javax.swing.JLabel lblCost;
     private javax.swing.JLabel lblEra;

@@ -1,9 +1,13 @@
-apply plugin: 'java'
+plugins {
+    id 'java'
+    id 'com.palantir.git-version' version '0.12.3'
+}
 
 allprojects {
-    version '0.7.5'
+    version '0.7.6'
     ext {
-        release='Stable'
+        release='SNAPSHOT'
+        rev=versionDetails().gitHash
     }
     jar {
         onlyIf { !sourceSets.main.allSource.files.isEmpty() }
@@ -46,7 +50,7 @@ task zipRelease(type: Zip, dependsOn: releaseBuild) {
     from "${buildDir}/release"
         include "**/"
     if ("$release" != "Stable") {
-        archiveName "SSW_${version}-${release}.zip"
+        archiveName "SSW_${version}-${release}-${rev}.zip"
     } else {
         archiveName "SSW_${version}.zip"
     }
