@@ -97,7 +97,7 @@ Someone also said something about "Jaunty" fixing the issue, although I have no 
  
 If all else fails on Ubuntu, Get Slack!  It really is the best Linux/GNU distro out there!
  
-http://slackware.com/
+[http://slackware.com/](http://slackware.com/)
 
 ## Adding Custom Weapons
 
