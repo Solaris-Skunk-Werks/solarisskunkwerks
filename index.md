@@ -111,26 +111,27 @@ Save the file.
 
 Depending on which program you use, the process differs at this point.
 
-Open Office
-Make sure the correct Worksheet is selected
-Click File, Save As
-Change the name of the file to customweapons (for weapons) or customammunition (for ammo), or customequipment (for equipment) or customphysical (for physical weapons). **Do not use the default equipment name provided by the save prompt, unless you're actually doing equipment**
-Change the "Save as type" to "Text CSV (.csv) (*.csv)"
-When prompted, change the Field Delimiter to ';' (Semi-colon) and leave the Text Delimiter Field Blank. Click Okay.
-Click Okay to any warning messages.
-Microsoft Excel
-Curse
-Click Start, then Control Panel, then Regional and Language Options
-For Vista, click Formats Tab, and then click "Customize this Format"
-For XP, click Regional Options Tab, and then click "Customize"
-Change the List Separator from ',' to ';' (That's a semi-colon)
-Click okay.
-Go back to Excel, make sure the correct sheet is selected (so if you want to add Weapons, make sure WeaponsMechOnly is the sheet you're on).
-Click file (or the Office Button, depending on version), Save As, and Other Formats
-Change the name of the file to customweapons (for weapons) or customammunition (for ammo), or customequipment (for equipment) or customphysical (for physical weapons). **Do not use the default equipment name provided by the save prompt, unless you're actually doing equipment**
-Change the "Save as type" to "CSV (Comma delimited) (*.csv)"
-When prompted that the file type does not support workbooks with multiple sheets, click OK to save only the active sheet. 
-Click Yes when prompted again about incompatible features.
+#### Open Office
+1. Make sure the correct Worksheet is selected
+1. Click File, Save As
+1. Change the name of the file to customweapons (for weapons) or customammunition (for ammo), or customequipment (for equipment) or customphysical (for physical weapons). **Do not use the default equipment name provided by the save prompt, unless you're actually doing equipment**
+1. Change the "Save as type" to "Text CSV (.csv) (*.csv)"
+1. When prompted, change the Field Delimiter to ';' (Semi-colon) and leave the Text Delimiter Field Blank. Click Okay.
+1. Click Okay to any warning messages.
+
+#### Microsoft Excel
+1. Curse
+1. Click Start, then Control Panel, then Regional and Language Options
+1. For Vista, click Formats Tab, and then click "Customize this Format"
+   1. For XP, click Regional Options Tab, and then click "Customize"
+1. Change the List Separator from ',' to ';' (That's a semi-colon)
+1. Click okay.
+1. Go back to Excel, make sure the correct sheet is selected (so if you want to add Weapons, make sure WeaponsMechOnly is the sheet you're on).
+1. Click file (or the Office Button, depending on version), Save As, and Other Formats
+1. Change the name of the file to customweapons (for weapons) or customammunition (for ammo), or customequipment (for equipment) or customphysical (for physical weapons). **Do not use the default equipment name provided by the save prompt, unless you're actually doing equipment**
+1. Change the "Save as type" to "CSV (Comma delimited) (*.csv)"
+1. When prompted that the file type does not support workbooks with multiple sheets, click OK to save only the active sheet. 
+1. Click Yes when prompted again about incompatible features.
 
 (The steps from now on are the same if you're using open office or MS Office)
 Close Office (either one)
