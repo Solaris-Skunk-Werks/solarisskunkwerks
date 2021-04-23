@@ -6,7 +6,7 @@ In case you missed it, this project is **ACTIVE**
 
 ### It is our pleasure to release Solaris Skunk Werks 0.7.6! Below the link we have a brief listing of the updates to SSW.
 
-You can download the newest version, and join our development discord through our Github page here. We welcome all who want to help make SSW even better: https://github.com/Solaris-Skunk-Werks/solarisskunkwerks#solaris-skunk-werks
+You can download the newest version, and join our development discord through our Github page here. We welcome all who want to help make SSW even better: [https://github.com/Solaris-Skunk-Werks/solarisskunkwerks#solaris-skunk-werks](https://github.com/Solaris-Skunk-Werks/solarisskunkwerks#solaris-skunk-werks)
 
 #### Fixes and Features:
 * Fix issue causing images to not be found for units.
@@ -22,7 +22,7 @@ You can download the newest version, and join our development discord through ou
 ## Running SSW
 This program was written in Java 6 SE using the Netbeans IDE.  You will need the latest version of the Java VM to run this program.  For most operating systems, the Java VM can be found here:
 
-http://java.sun.com 
+[http://java.sun.com](http://java.sun.com)
 
 Unzip the folder "SSW" from the archive you downloaded and place it somewhere you like (such as your desktop).  The program will not work while the file is still compressed, so this is a crucial step.
 
@@ -40,17 +40,17 @@ Sometimes you may encounter a situation where SSW will not load.  Often it is du
  
 Apple doesn't like to play nice with Java developers and feels that the JDK from Sun isn't as good as the one they have.  Thus, it's out of date.  This is my take, anyway, and if you're going to do things Steve Job's way you're going to need help.
  
-Taharga over on the Classic Battletech Forums (http://www.classicbattletech.com/forums) has found a fix for SSW when running on OS X.  Go to Applications -> Utilities -> Java -> Java Preferences and drag Java 6.0 to the top of the application runtime settings.
+Taharga over on the Classic Battletech Forums ([http://www.classicbattletech.com/forums](http://www.classicbattletech.com/forums)) has found a fix for SSW when running on OS X.  Go to Applications -> Utilities -> Java -> Java Preferences and drag Java 6.0 to the top of the application runtime settings.
 
 If that does not work, although I have not personally tested it, I recommend that OS X users give SoyLatte a try.  You can get it here:
  
-http://landonf.bikemonkey.org/static/soylatte/
+[http://landonf.bikemonkey.org/static/soylatte/](http://landonf.bikemonkey.org/static/soylatte/)
  
  
 We also have a user-supplied fix via email (thanks, Danny!):
 I'm actually very new to mac, I've always been a PC guy until just recently so when i went to the soylatte site i was at a complete loss since i'm no programmer and didn't understand half of the terminology. I did eventually find a fix though that i thought you might want to add to your web-site as being new to mac and not too comfortable with the installation of soylatte i found this fix much more simple and quick. Plus it's an actual release from apple. So it might be easier for novices like myself.
 
-http://vegdave.wordpress.com/2007/10/13/java-se-6-mac-os-x-binary/
+[http://vegdave.wordpress.com/2007/10/13/java-se-6-mac-os-x-binary/](http://vegdave.wordpress.com/2007/10/13/java-se-6-mac-os-x-binary/)
 
 at the very top is a download link for java SE6 for mac OS X 10.4, apparently it existed for a very short time until apple pulled it to allow only 10.5 users to have java6. The above page has a link where someone is hosting the file for download. The only problem is that when you try to install it the system says you have a newer version already and won't install. Down in the comments someone explains how to get past this.
 
