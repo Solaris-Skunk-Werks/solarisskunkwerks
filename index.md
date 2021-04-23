@@ -4,17 +4,16 @@
 
 In case you missed it, this project is **ACTIVE**
 
+### It is our pleasure to release Solaris Skunk Werks 0.7.6! Below the link we have a brief listing of the updates to SSW.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+You can download the newest version, and join our development discord through our Github page here. We welcome all who want to help make SSW even better: https://github.com/Solaris-Skunk-Werks/solarisskunkwerks#solaris-skunk-werks
 
-
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Solaris-Skunk-Werks/solarisskunkwerks/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+#### Fixes and Features:
+* Fix issue causing images to not be found for units.
+* Update PPC Capacitor BV calculation to match Interstellar Operations.
+* Fix exporting of BFB forces to MUL format.
+* Fix SAW Preference saving and loading, NOTE: You will need to set the preferences for SAW on first load as it has its own store now.
+* Fix Selected Variant and Lock Chassis so that they clear and load correctly.
+* Fix Roster sheet so that long Unit or Mechwarrior names now wrap to new lines.
+* New Feature - New button added to Open dialog that will convert ALL units to MTF format.
+* 'Set Armor Tonnage' is now pre-filled with current armor tonnage.
