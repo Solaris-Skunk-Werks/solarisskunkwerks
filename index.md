@@ -149,6 +149,28 @@ If you have different types of equipment you wish to add (such as a weapon and i
 
 Start up SSW, it should read the changes in the equipment file, and your new item should be there. Unfortunately at this time, you'll have to redo these steps with each new release.
 
+## Frequently Asked Questions
+
+#### Why are older designs with Ferro Fibrous armor not "correct" in SSW?
+_posted Feb 26, 2009, 6:42 PM by lostinspace@solarisskunkwerks.com_
+
+It's a simple question of rounding.  In Tech Manual, all armor calculations are rounded down, whereas before they were rounded up.  So, many old canon designs cannot be built exactly in SSW (since it uses the newer rules).  Most people simply remove a single point of armor (always the amount of the error, so far) from the Center Torso or Center Torso (rear).
+
+#### Where is (my favorite piece of equipment)?
+_posted Feb 26, 2009, 6:00 PM by lostinspace@solarisskunkwerks.com_
+
+First, we don't have everything in the program just yet and we do appreciate your patience with us.  We program this in our spare time.
+
+Now, where is that piece of equipment?  Well, if you don't have the later books a good place to start is to set SSW to Experimental Tech -> All Eras (non-canon).  You can then check the availability of an item by era or even year, which makes that a great setting for lookups.  If you do have the books, check the item itself and find out when it was available.
+
+
+#### When will LAMs be in the program?
+_posted Feb 26, 2009, 5:57 PM by lostinspace@solarisskunkwerks.com_
+
+I dread this question every time I hear it.  I positively hate the stupid things.  However, that is not the reason they are not included.
+
+Bear in mind that SSW has been, and always will be, programmed from Tech Manual forward.  LAMs are old rules, and until they appear in a later book will not be included.  Fortunately, by all accounts, LAMs will be included in the upcoming Interstellar Operations book.  Once I have that in my hands I'll begin coding LAMs into the program.
+
 # About
 
 Solaris Skunk Werks is a tool used to design Battlemechs for use with the Battletech wargame.  The program was designed from the beginning to work with the newer Tech Manual style of building mechs, and does not include the older "levels of play" as such.  In other words, SSW is a program that will support Tech Manual on up, but not older books.
