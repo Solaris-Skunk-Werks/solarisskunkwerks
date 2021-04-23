@@ -85,9 +85,11 @@ Installing sun-java6-fonts seemed to help some users of the other program (what 
  
 You could also write a script with the following lines:
  
+```
 #!/bin/bash
 export LC_ALL=en_US.ISO-8859-15
 java -jar SSW.jar
+```
  
 Place this script in the same location as the SSW.jar file and ""chmod +x" it.  The character set defined as LC_ALL will depend on your locale.  If you are in the U.S. and use the U.S. English character set, the above script should work.
  
