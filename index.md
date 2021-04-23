@@ -1,34 +1,13 @@
-![image](https://user-images.githubusercontent.com/1138818/115812248-5031a580-a3ae-11eb-8df4-5ec108c36bfa.png)
+![SSW Logo](https://user-images.githubusercontent.com/1138818/115812248-5031a580-a3ae-11eb-8df4-5ec108c36bfa.png)
 
-## Welcome to GitHub Pages
+## Welcome to Solaris Skunkwerks
 
-Can I just hit it here?
+In case you missed it, this project is **ACTIVE**
 
-You can use the [editor on GitHub](https://github.com/Solaris-Skunk-Werks/solarisskunkwerks/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
