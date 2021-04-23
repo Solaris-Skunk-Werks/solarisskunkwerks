@@ -148,3 +148,20 @@ If you've done everything right, you should get a message about writing to a new
 If you have different types of equipment you wish to add (such as a weapon and its ammunition), you'll need to create .csv files for each worksheet. So for the weapon you follow the instructions from Step 6 with "WeaponsMechOnly" worksheet selected, and then you'd do the same steps with the AmmunitionMechOnly Worksheet selected.
 
 Start up SSW, it should read the changes in the equipment file, and your new item should be there. Unfortunately at this time, you'll have to redo these steps with each new release.
+
+# About
+
+Solaris Skunk Werks is a tool used to design Battlemechs for use with the Battletech wargame.  The program was designed from the beginning to work with the newer Tech Manual style of building mechs, and does not include the older "levels of play" as such.  In other words, SSW is a program that will support Tech Manual on up, but not older books.
+
+SSW is a feature-rich environment for 'Mech designers, offering a customizable HTML export, standard Technical Readout style Text Export, the ability to export your creation to a single line of text suitable for online chat (the so-called "Chat Export"), and even export to the popular and excellent MegaMek game in the form of an MTF file.  We support the latest record sheet printing and will eventually support Tactical Operations record sheets, and offer a customizable armor and internals dot pattern in the form of dot images, as well as a compact, easily marked-off format for more "utilitarian" users.  Our record sheets can also be printed with the most common charts used in the table-top Battletech game.
+
+SSW was originally designed as a "writer's tool" for 'Mechs, and is dedicated and programmed for the users of the Solaris 7 online community.  We plan to expand our "fluff" writing support in the near future with RTF style controls that will appear on the appropriate exports as well as a spell-checker, which will hopefully include the more common Battletech terms.  We also plan to include any custom images of your 'Mech in the actual savefile.
+
+As you can see SSW is, and probably always will be, a work in-progress.  We hope you find this work useful and look forward to any feedback you have about our creation.
+
+Legaleze:
+MechWarrior, BattleMech, ‘Mech and AeroTech are registered trademarks of The Topps Company, Inc. All rights reserved.
+Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of InMediaRes Productions, LLC.
+
+Solaris Skunk Werks License:
+Solaris Skunk Werks is published under the BSD License, and some parts are covered under the GNU Lesser General Public License.  A copy of both these licenses is provided in "SSW/docs".  You may freely download the latest sourcecode.
