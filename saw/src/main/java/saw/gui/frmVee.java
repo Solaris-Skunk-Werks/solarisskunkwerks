@@ -6383,7 +6383,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 }//GEN-LAST:event_btnAddToForceListActionPerformed
 
     private void btnForceListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForceListActionPerformed
-
+        parent.GetForceDialogue().setLocationRelativeTo(this);
+        parent.GetForceDialogue().setVisible(true);
 }//GEN-LAST:event_btnForceListActionPerformed
 
     private void spnCruiseMPStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnCruiseMPStateChanged
