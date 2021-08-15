@@ -2554,6 +2554,11 @@ public class TripodLoadout implements ifMechLoadout, ifLoadout {
             while( ! Placed ) {
                 try {
                     switch( Loc ) {
+                        case LocationIndex.MECH_LOC_HD:
+                            AddToHD( p, FirstFree( HDCrits ) );
+                            Loc++;
+                            Placed = true;
+                            break;
                         case LocationIndex.MECH_LOC_CT:
                             AddToCT( p, FirstFree( CTCrits ) );
                             Loc++;
@@ -2595,7 +2600,7 @@ public class TripodLoadout implements ifMechLoadout, ifLoadout {
                             Placed = true;
                             break;
                         default:
-                            Loc = LocationIndex.MECH_LOC_CT;
+                            Loc = LocationIndex.MECH_LOC_HD;
                             DefCount++;
                     }
                 } catch( Exception x ) {
