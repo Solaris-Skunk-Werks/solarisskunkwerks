@@ -5831,7 +5831,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 }//GEN-LAST:event_btnAddToForceListActionPerformed
 
     private void btnForceListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForceListActionPerformed
-
+        GetForceDialogue().setLocationRelativeTo(this);
+        GetForceDialogue().setVisible(true);
 }//GEN-LAST:event_btnForceListActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
