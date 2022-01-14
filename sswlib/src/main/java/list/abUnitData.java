@@ -28,7 +28,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package list;
 
+import java.io.File;
 import java.util.ArrayList;
+
 import battleforce.BattleForceStats;
 
 /**
@@ -203,7 +205,10 @@ public abstract class abUnitData implements ifUnitData {
     }
 
     public String getFilename() {
-        return filename;
+        if (filename == null) {
+            return null;
+        }
+        return filename.replace("\\", File.separator);
     }
 
     public void setFilename(String filename) {

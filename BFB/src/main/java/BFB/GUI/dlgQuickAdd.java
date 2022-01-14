@@ -40,7 +40,7 @@ public class dlgQuickAdd extends javax.swing.JDialog {
         cmbPiloting.setSelectedIndex(5);
 
         list = new UnitList(this.parent.Prefs.get("ListPath", ""), true);
-        viewModel = new tbTotalWarfareCompact(list);
+        viewModel = new tbTotalWarfareCompact();
         tblList.setModel(new DefaultTableModel());
         //setupList(list);
     }
@@ -57,7 +57,7 @@ public class dlgQuickAdd extends javax.swing.JDialog {
     }
 
     private void setupList(UnitList mechList) {
-        viewModel.list = mechList;
+        viewModel.setList(mechList);
         viewModel.setupTable(tblList);
     }
 

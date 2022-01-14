@@ -62,12 +62,12 @@ public class dlgPrefs extends javax.swing.JDialog {
     }
 
     private void SetState() {
-        cmbRulesLevel.setSelectedItem( Prefs.get( "NewMech_RulesLevel", "Tournament Legal" ) );
-        cmbEra.setSelectedItem( Prefs.get( "NewMech_Era", "Age of War/Star League" ) );
+        cmbRulesLevel.setSelectedItem( Prefs.get( "NewVee_RulesLevel", "Tournament Legal" ) );
+        cmbEra.setSelectedItem( Prefs.get( "NewVee_Era", "Age of War/Star League" ) );
         cmbEraActionPerformed( null );
-        cmbTechbase.setSelectedItem( Prefs.get( "NewMech_Techbase", "Inner Sphere" ) );
+        cmbTechbase.setSelectedItem( Prefs.get( "NewVee_Techbase", "Inner Sphere" ) );
         cmbTechbaseActionPerformed( null );
-        cmbHeatSinks.setSelectedItem( Prefs.get( "NewMech_Heatsinks", "Single Heat Sink" ) );
+        cmbHeatSinks.setSelectedItem( Prefs.get( "NewVee_Heatsinks", "Single Heat Sink" ) );
 
         txtHTMLPath.setText( Prefs.get( "HTMLExportPath", "none" ) );
         txtTXTPath.setText( Prefs.get( "TXTExportPath", "none" ) );
@@ -138,10 +138,10 @@ public class dlgPrefs extends javax.swing.JDialog {
     }
 
     private void SaveState() {
-        Prefs.put( "NewMech_RulesLevel", (String) cmbRulesLevel.getSelectedItem() );
-        Prefs.put( "NewMech_Era", (String) cmbEra.getSelectedItem() );
-        Prefs.put( "NewMech_Techbase", (String) cmbTechbase.getSelectedItem() );
-        Prefs.put( "NewMech_Heatsinks", (String) cmbHeatSinks.getSelectedItem() );
+        Prefs.put( "NewVee_RulesLevel", (String) cmbRulesLevel.getSelectedItem() );
+        Prefs.put( "NewVee_Era", (String) cmbEra.getSelectedItem() );
+        Prefs.put( "NewVee_Techbase", (String) cmbTechbase.getSelectedItem() );
+        Prefs.put( "NewVee_Heatsinks", (String) cmbHeatSinks.getSelectedItem() );
         Prefs.put( "HTMLExportPath", txtHTMLPath.getText() );
         Prefs.put( "TXTExportPath", txtTXTPath.getText() );
         Prefs.put( "MTFExportPath", txtMTFPath.getText() );
@@ -201,10 +201,10 @@ public class dlgPrefs extends javax.swing.JDialog {
     }
 
     private void SetDefaults() {
-        Prefs.put( "NewMech_RulesLevel", "Tournament Legal" );
-        Prefs.put( "NewMech_Era", "Age of War/Star League" );
-        Prefs.put( "NewMech_Techbase", "Inner Sphere" );
-        Prefs.put( "NewMech_Heatsinks", "Single Heat Sink" );
+        Prefs.put( "NewVee_RulesLevel", "Tournament Legal" );
+        Prefs.put( "NewVee_Era", "Age of War/Star League" );
+        Prefs.put( "NewVee_Techbase", "Inner Sphere" );
+        Prefs.put( "NewVee_Heatsinks", "Single Heat Sink" );
         Prefs.put( "HTMLExportPath", "none" );
         Prefs.put( "TXTExportPath", "none" );
         Prefs.put( "MTFExportPath", "none" );
@@ -369,7 +369,7 @@ public class dlgPrefs extends javax.swing.JDialog {
 
         pnlConstruction.setLayout(new java.awt.GridBagLayout());
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "New 'Mech Defaults"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "New Vee Defaults"));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Introductory", "Tournament Legal", "Advanced Rules", "Experimental Tech", "Era Specific" }));
@@ -1102,7 +1102,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         gridBagConstraints.gridy = 6;
         jPanel10.add(btnMTFPath, gridBagConstraints);
 
-        chkLoadLastMech.setText("Load last 'Mech on startup");
+        chkLoadLastMech.setText("Load last Vee on startup");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;

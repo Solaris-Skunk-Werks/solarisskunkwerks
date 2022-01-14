@@ -28,18 +28,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package list.view;
 
 import javax.swing.SortOrder;
-import list.UnitList;
 import list.UnitListData;
 
 public class tbTotalWarfareCompact extends abView {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 5852527095691485580L;
-
-    public tbTotalWarfareCompact(UnitList list) {
-        this.list = list;
-
+    public tbTotalWarfareCompact() {
         Columns.add(new Column( 0, "Tons", "Tonnage", false, 20, Integer.class, true, SortOrder.ASCENDING ));
         Columns.add(new Column( 1, "Type/Model", "Name", false, 180, String.class, true, SortOrder.ASCENDING ));
         Columns.add(new Column( 2, "BV", "BV", false, 20, Integer.class, true, SortOrder.ASCENDING ));
@@ -53,21 +45,22 @@ public class tbTotalWarfareCompact extends abView {
     }
 
     public Object getValueAt( int row, int col ) {
-        UnitListData m = (UnitListData) list.Get( row );
+        UnitListData m = list.Get( row );
         switch( col ) {
             case 0:
-                return (int) m.getTonnage();
+                return m.getTonnage();
             case 1:
                 return m.getFullName();
             case 2:
-                return (int) m.getBV();
+                return m.getBV();
             case 3:
                 return m.getLevel();
             case 4:
                 return m.getEra();
             case 5:
                 return m.getTech();
+            default:
+                return null;
         }
-        return null;
     }
 }

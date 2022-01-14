@@ -55,7 +55,11 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private String dirPath = "";
     private String NL = "";
     private String msg = "";
-    private abView currentView = new tbTotalWarfareView(list);
+    private abView twView = new tbTotalWarfareView();
+    private abView bfView = new tbBattleForceView();
+    private abView compView = new tbTotalWarfareCompact();
+    private abView chatView = new tbChatInformation();
+    private abView currentView = twView;
     private boolean cancelledListDirSelection = false;
 
     public int Requestor = SSW;
@@ -1370,19 +1374,19 @@ public class dlgOpen extends javax.swing.JFrame implements PropertyChangeListene
     private void cmbViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbViewActionPerformed
         switch ( cmbView.getSelectedIndex() ) {
             case 0:
-                currentView = new tbTotalWarfareView(list);
+                currentView = twView.setList(list);
                 break;
             case 1:
-                currentView = new tbTotalWarfareCompact(list);
+                currentView = compView.setList(list);
                 break;
             case 2:
-                currentView = new tbBattleForceView(list);
+                currentView = bfView.setList(list);
                 break;
             case 3:
-                currentView = new tbChatInformation(list);
+                currentView = chatView.setList(list);
                 break;
             default:
-                currentView = new tbTotalWarfareView(list);
+                currentView = twView.setList(list);
         }
         tblMechData.setModel(currentView);
         currentView.setupTable(tblMechData);

@@ -6,6 +6,8 @@ plugins {
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
+    compileJava.options.encoding = "UTF-8"
+    compileTestJava.options.encoding = "UTF-8"
 }
 
 tasks.withType(JavaCompile) {
@@ -17,7 +19,7 @@ tasks.withType(JavaCompile) {
 dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'org.apache.commons:commons-csv:1.8'
-    
+
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 

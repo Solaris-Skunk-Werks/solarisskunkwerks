@@ -88,7 +88,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
     private Force addToForce = new Force();
 
     private UnitList list = new UnitList(),  filtered,  chosen = new UnitList();
-    private abView currentView = new tbTotalWarfareView(list);
+    private abView currentView = new tbTotalWarfareView();
     private String MechListPath = "", BaseRUSPath = "./Data/Tables/",  RUSDirectory = "",  RUSPath = BaseRUSPath, CurrentFile = "";
     private RUS rus = new RUS();
 
@@ -4280,7 +4280,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
 }//GEN-LAST:event_btnFilterFilter
 
     private void setupList(UnitList mechList, boolean forceSort) {
-        currentView.list = mechList;
+        currentView.setList(mechList);
         tblMechData.setModel(currentView);
         currentView.setupTable(tblMechData);
 

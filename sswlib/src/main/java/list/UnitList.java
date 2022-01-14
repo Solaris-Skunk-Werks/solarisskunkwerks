@@ -43,7 +43,7 @@ public class UnitList extends AbstractTableModel {
     private ArrayList<UnitListData> List = new ArrayList<UnitListData>();
     private String Directory = "";
     private int IndexVersion = 10;
-    private abView currentModel = new tbTotalWarfareView(this);
+    private abView currentModel = new tbTotalWarfareView();
     String[] Extensions = { ".ssw", ".saw" };
 
     public UnitList() {
@@ -366,7 +366,7 @@ public class UnitList extends AbstractTableModel {
      * @return the currentModel
      */
     public abView getCurrentModel() {
-        return currentModel;
+        return currentModel.setList(this);
     }
 
     /**

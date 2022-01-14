@@ -137,7 +137,7 @@ public class Unit implements ifSerializable {
             setOmni(true);
             Configuration = m.GetLoadout().GetName();
         }
-        
+
         if ( !m.GetSSWImage().isEmpty()) {
             UnitImage = m.GetSSWImage();
         }
@@ -196,7 +196,7 @@ public class Unit implements ifSerializable {
             setOmni(true);
             Configuration = vee.GetLoadout().GetName();
         }
-        
+
         if ( !vee.GetSSWImage().isEmpty() ) {
             UnitImage = vee.GetSSWImage();
         }
@@ -233,7 +233,7 @@ public class Unit implements ifSerializable {
         this.v = vee;
         Refresh();
     }
-    
+
     public Unit( BattleForceStats stat ) {
         this();
         Name = stat.getName();
@@ -384,7 +384,7 @@ public class Unit implements ifSerializable {
                 break;
         }
     }
-    
+
     public void UpdateByVehicle() {
         LoadUnit();
         if ( v != null ) {
@@ -441,7 +441,7 @@ public class Unit implements ifSerializable {
             StatsCalced = true;
         }
     }
-    
+
     public void UpdateByMech() {
         LoadUnit();
         if ( m != null ) {
@@ -497,9 +497,11 @@ public class Unit implements ifSerializable {
 
     public void RenderPrint(ForceListPrinter p) {
         p.setFont(PrintConsts.PlainFont);
-        p.WriteStr(TypeModel, 120);
-        p.WriteStr(getMechwarrior(), 140);
-        p.WriteStr(CommonTools.UnitTypes[UnitType], 60);
+        String[] typeParts = PrintConsts.wrapText(TypeModel, 22, true);
+        String[] mechwarriorParts = PrintConsts.wrapText(getMechwarrior(), 25, true);
+        p.WriteStr(typeParts[0], 120);
+        p.WriteStr(mechwarriorParts[0], 140);
+        p.WriteStr(CommonTools.UnitTypes[UnitType], 70);
         p.WriteStr(String.format("%1$,.2f", Tonnage), 50);
         p.WriteStr(String.format("%1$,.0f", BaseBV), 40);
         p.WriteStr(GetSkills(), 30);
@@ -507,6 +509,13 @@ public class Unit implements ifSerializable {
         p.WriteStr(Boolean.valueOf(UsingC3).toString(), 30);
         p.WriteStr(String.format("%1$,.0f", TotalBV), 0);
         p.NewLine();
+
+        //Handles all the lines for whichever part is the longest
+        for (Integer idx = 1; idx < Math.max(typeParts.length, mechwarriorParts.length); idx++) {
+            p.WriteStr((typeParts.length > idx) ? typeParts[idx] : "", 120);
+            p.WriteStr((mechwarriorParts.length > idx) ? mechwarriorParts[idx] : "", 140);
+            p.NewLine();
+        }
     }
 
     public void SerializeXML(BufferedWriter file) throws IOException {
@@ -539,7 +548,7 @@ public class Unit implements ifSerializable {
         this.Model.replace("Alt", "");
         this.Model.trim();
 
-        file.write(CommonTools.tab + "<entity chassis=\"" + this.Name + "\" model=\"" + this.Model + "\">");
+        file.write(CommonTools.tab + "<entity chassis=\"" + FileCommon.EncodeFluff(this.Name) + "\" model=\"" + FileCommon.EncodeFluff(this.Model) + "\">");
         file.newLine();
         file.write(CommonTools.tab + CommonTools.tab + "<pilot name=\"" + this.getMechwarrior() + "\" gunnery=\"" + this.getGunnery() + "\" piloting=\"" + this.getPiloting() + "\" />");
         file.newLine();
@@ -688,7 +697,7 @@ public class Unit implements ifSerializable {
             StatsCalced = true;
         }
     }
-    
+
     private void LoadVehicle() throws Exception {
         CVReader reader = new CVReader();
         String baseDirectory = sswPrefs.get("ListPath", "");
@@ -702,7 +711,7 @@ public class Unit implements ifSerializable {
         }
         if ( !v.GetSSWImage().isEmpty() )
             this.UnitImage = v.GetSSWImage();
-        
+
         if ( BFStats.getPointValue() == 0 ) {
             BFStats = new BattleForceStats(v);
         }
@@ -750,7 +759,7 @@ public class Unit implements ifSerializable {
             StatsCalced = true;
         }
     }
-    
+
     public BattleForceStats getBFStats() {
         if ( BFStats != null ) {
             BFStats.setName(this.Name);
@@ -833,7 +842,7 @@ public class Unit implements ifSerializable {
     public final void setOmni(boolean isOmni) {
         this.isOmni = isOmni;
     }
-    
+
     public String getInfo() {
         return Info;
     }
@@ -863,7 +872,7 @@ public class Unit implements ifSerializable {
         }
         return val;
     }
-    
+
     public boolean HasC3() {
         return C3Available;
     }
@@ -880,11 +889,11 @@ public class Unit implements ifSerializable {
     public String getFullName() {
         return (Name + " " + Model + " " + Configuration).replace("  ", " ").trim();
     }
-    
+
     public String getImage() {
         return UnitImage;
     }
-    
+
     public void SetCurLoadout( String loadout) {
         switch(UnitType) {
             case CommonTools.BattleMech:
@@ -894,7 +903,7 @@ public class Unit implements ifSerializable {
                 v.SetCurLoadout(loadout);
         }
     }
-    
+
     public void SetUnitImage( String image ) {
         UnitImage = image;
         switch(UnitType) {
@@ -906,7 +915,7 @@ public class Unit implements ifSerializable {
                 break;
         }
     }
-    
+
     public void SaveUnit() {
         try
         {

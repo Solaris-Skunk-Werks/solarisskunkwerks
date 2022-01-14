@@ -28,18 +28,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package list.view;
 
 import javax.swing.SortOrder;
-import list.UnitList;
 import list.UnitListData;
 
 public class tbBattleForceView extends abView {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1487361433658592322L;
-
-    public tbBattleForceView(UnitList list) {
-        this.list = list;
-
+    public tbBattleForceView() {
         Columns.add(new Column( 0, "Unit", "TypeModel", 200 ));
         Columns.add(new Column( 1, "MV", "MV", 20, Integer.class ));
         Columns.add(new Column( 2, "S", "S", 20, Integer.class ));
@@ -61,7 +53,7 @@ public class tbBattleForceView extends abView {
     }
 
     public Object getValueAt( int row, int col ) {
-        UnitListData m = (UnitListData) list.Get( row );
+        UnitListData m = list.Get( row );
         switch( col ) {
             case 0:
                 return m.getBattleForceStats().getElement();
@@ -87,7 +79,8 @@ public class tbBattleForceView extends abView {
                 return m.getBattleForceStats().getBasePV();
             case 11:
                 return m.getBattleForceStats().getPointValue();
+            default:
+                return null;
         }
-        return null;
     }
 }

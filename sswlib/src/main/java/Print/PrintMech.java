@@ -77,10 +77,15 @@ public class PrintMech implements Printable {
     public PrintMech(Mech m, Image i, boolean adv, boolean A4, ImageTracker images) {
         CurMech = m;
         imageTracker = images;
-        RecordSheet = images.getImage(PrintConsts.RS_TW_BP);
-        ChartImage = images.getImage(PrintConsts.BP_ChartImage);
-        if (!m.GetSSWImage().equals("../BFB.Images/No_Image.png"))
+        RecordSheet = images.getImage( PrintConsts.RS_TW_BP );
+        ChartImage = images.getImage(PrintConsts.BP_ChartImage );
+        if ( !m.GetSSWImage().equals("../BFB.Images/No_Image.png")  )
             MechImage = imageTracker.getImage(m.GetSSWImage());
+
+        //If we could not load the stored image, find it
+        if (MechImage == null)
+            MechImage = images.getImage(imageTracker.media.DetermineMatchingImage(m.GetName(), m.GetModel(), ""));
+
         Advanced = adv;
         BV = CommonTools.GetAdjustedBV(CurMech.GetCurrentBV(), Gunnery, Piloting);
         UseA4Paper = A4;
@@ -116,7 +121,7 @@ public class PrintMech implements Printable {
         useMiniConvRate = false;
         MiniConvRate = 1;
 
-        if (conv > 0) {
+        if ( conv > 0 ) {
             MiniConvRate = conv;
             useMiniConvRate = true;
         }
@@ -223,8 +228,8 @@ public class PrintMech implements Printable {
         }
     }
 
-    private void PreparePrint(Graphics2D graphics) {
-        Items = PrintConsts.SortEquipmentByLocation(CurMech, MiniConvRate);
+    private void PreparePrint( Graphics2D graphics ) {
+        Items = PrintConsts.SortEquipmentByLocation( CurMech, MiniConvRate );
         boolean mechHasShield = CurMech.HasRAShield() || CurMech.HasLAShield();
         ap = new PIPPrinter(graphics, CurMech, Canon, mechHasShield, imageTracker);
         this.BV = CommonTools.GetAdjustedBV(CurMech.GetCurrentBV(), Gunnery, Piloting);
@@ -599,26 +604,19 @@ public class PrintMech implements Printable {
                 graphics.drawString(String.format("%1$,d", CurMech.GetCurrentBV()), p[PrintConsts.BV2].x,
                         p[PrintConsts.BV2].y);
             else
-                graphics.drawString(String.format("%1$,.0f (Base: %2$,d)", BV, CurMech.GetCurrentBV()),
-                        p[PrintConsts.BV2].x, p[PrintConsts.BV2].y);
-            graphics.drawString("Weapon Heat (" + CurMech.GetWeaponHeat(false, false, true, false) + ")",
-                    p[PrintConsts.MAX_HEAT].x - 1, p[PrintConsts.MAX_HEAT].y - 7);
-            graphics.drawString("Dissipation (" + CurMech.GetHeatSinks().TotalDissipation() + ")",
-                    p[PrintConsts.MAX_HEAT].x - 1, p[PrintConsts.MAX_HEAT].y + 1);
-            // graphics.drawString( "Weapon Heat (" + CurMech.GetWeaponHeat(false, false,
-            // true, false) + ")", p[PrintConsts.MAX_HEAT].x-1, p[PrintConsts.MAX_HEAT].y );
-            graphics.setFont(PrintConsts.SmallFont);
+                graphics.drawString( String.format( "%1$,.0f (Base: %2$,d)", BV, CurMech.GetCurrentBV() ), p[PrintConsts.BV2].x, p[PrintConsts.BV2].y );
+            graphics.drawString( "Weapon Heat (" + CurMech.GetWeaponHeat(false, false, true, false) + ")", p[PrintConsts.MAX_HEAT].x-1, p[PrintConsts.MAX_HEAT].y-7 );
+            graphics.drawString( "Dissipation (" + CurMech.GetHeatSinks().TotalDissipation() + ")", p[PrintConsts.MAX_HEAT].x-1, p[PrintConsts.MAX_HEAT].y+1 );
+            //graphics.drawString( "Weapon Heat (" + CurMech.GetWeaponHeat(false, false, true, false) + ")", p[PrintConsts.MAX_HEAT].x-1, p[PrintConsts.MAX_HEAT].y );
+            graphics.setFont( PrintConsts.SmallFont );
 
-            // The Armor Pts text should be placed just a bit higher on the sheet if using a
-            // right arm shield
+            // The Armor Pts text should be placed just a bit higher on the sheet if using a right arm shield
             if (CurMech.HasRAShield() == true)
-                graphics.drawString("Armor Pts: " + CurMech.GetArmor().GetArmorValue(),
-                        p[PrintConsts.TOTAL_ARMOR].x - 8, p[PrintConsts.TOTAL_ARMOR].y + 0);
+                graphics.drawString( "Armor Pts: " + CurMech.GetArmor().GetArmorValue(), p[PrintConsts.TOTAL_ARMOR].x-8, p[PrintConsts.TOTAL_ARMOR].y+0 );
             else
-                graphics.drawString("Armor Pts: " + CurMech.GetArmor().GetArmorValue(),
-                        p[PrintConsts.TOTAL_ARMOR].x - 8, p[PrintConsts.TOTAL_ARMOR].y + 16);
+                graphics.drawString( "Armor Pts: " + CurMech.GetArmor().GetArmorValue(), p[PrintConsts.TOTAL_ARMOR].x-8, p[PrintConsts.TOTAL_ARMOR].y+16 );
 
-            graphics.setFont(PrintConsts.BoldFont);
+            graphics.setFont( PrintConsts.BoldFont );
         } else {
             graphics.drawString(String.format("%1$,d", CurMech.GetCurrentBV()), p[PrintConsts.BV2].x,
                     p[PrintConsts.BV2].y);
