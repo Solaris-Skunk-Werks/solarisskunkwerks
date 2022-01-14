@@ -59,7 +59,7 @@ public class MechTurret extends abPlaceable implements ifTurret {
             //Make sure if they can split, that they haven't been.
             if( ((RangedWeapon) w).CanSplit() ) {
                 //Gets all crit slots
-                ArrayList locations = Owner.FindIndexes( (abPlaceable) w );
+                ArrayList<LocationIndex> locations = Owner.FindIndexes( (abPlaceable) w );
                 //first one
                 LocationIndex firstSlot = (LocationIndex) locations.get(0);
                 //check all of them

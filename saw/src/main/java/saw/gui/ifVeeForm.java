@@ -28,12 +28,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package saw.gui;
 
-import common.DataFactory;
+// import common.DataFactory;
 import components.CombatVehicle;
-import components.abPlaceable;
-import dialog.frmForce;
-import java.util.prefs.Preferences;
-import states.ifState;
+// import components.abPlaceable;
+// import dialog.frmForce;
+// import java.util.prefs.Preferences;
+// import states.ifState;
 
 /**
  *

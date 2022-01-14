@@ -32,19 +32,19 @@ import components.*;
 
 public class VArmorSetVStealth implements ifVisitor {
     // sets the mech's armor to stealth
-    private Mech CurMech;
-    private LocationIndex[] Locs = null;
+    // private Mech CurMech;
+    // private LocationIndex[] Locs = null;
 
     public VArmorSetVStealth() {
     }
 
-    public void LoadLocations( LocationIndex[] locs ) {
-        // loads up any location indexes needed to place this.  mainly for use
+    public void LoadLocations(LocationIndex[] locs) {
+        // loads up any location indexes needed to place this. mainly for use
         // when loading a 'Mech up.
-        Locs = locs;
+        // Locs = locs;
     }
 
-    public void SetClan( boolean clan ) {
+    public void SetClan(boolean clan) {
     }
 
     public void Visit(Mech m) throws Exception {
@@ -52,47 +52,47 @@ public class VArmorSetVStealth implements ifVisitor {
         throw new Exception("Vehicular Stealth Armor cannot be placed on a 'Mech.");
     }
 
-    public void Visit( CombatVehicle v ) throws Exception {
+    public void Visit(CombatVehicle v) throws Exception {
         v.GetArmor().SetISVST();
     }
 
-    public void Visit( Infantry i ) throws Exception {
+    public void Visit(Infantry i) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( SupportVehicle s ) throws Exception {
+    public void Visit(SupportVehicle s) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( BattleArmor b ) throws Exception {
+    public void Visit(BattleArmor b) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( Fighter f ) throws Exception {
+    public void Visit(Fighter f) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( Spaceship s ) throws Exception {
+    public void Visit(Spaceship s) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( SpaceStation s ) throws Exception {
+    public void Visit(SpaceStation s) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( ProtoMech p ) throws Exception {
+    public void Visit(ProtoMech p) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( MobileStructure m ) throws Exception {
+    public void Visit(MobileStructure m) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( LargeSupportVehicle l ) throws Exception {
+    public void Visit(LargeSupportVehicle l) throws Exception {
         // does nothing at the moment
     }
 
-    public void Visit( Dropship d ) throws Exception {
+    public void Visit(Dropship d) throws Exception {
         // does nothing at the moment
     }
 }

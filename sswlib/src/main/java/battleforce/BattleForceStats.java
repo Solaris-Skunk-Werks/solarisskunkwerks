@@ -53,7 +53,7 @@ public class BattleForceStats {
                     Logo = "";
     private double[] Mods = {2.63, 2.24, 1.82, 1.38, 1.00, 0.86, 0.77, 0.68};
 
-    private boolean isTerrainModified = false;
+    // private boolean isTerrainModified = false; // Not used
     private ArrayList<String> Abilities = new ArrayList<String>();
     private ArrayList<String> AltMunitions = new ArrayList<String>();
     private BattleForceData BFData = new BattleForceData();
@@ -156,7 +156,7 @@ public class BattleForceStats {
         setGunnery(Gunnery);
         setPiloting(Piloting);
     }
-    
+
     public BattleForceStats( Node n ) throws Exception {
         try {
             BasePV = Integer.parseInt(n.getAttributes().getNamedItem("pv").getTextContent());
@@ -259,7 +259,7 @@ public class BattleForceStats {
         updateGP();
         return Gunnery + "/" + Piloting;
     }
-    
+
     private void updateGP() {
         switch (Skill) {
             case 0:
@@ -373,7 +373,7 @@ public class BattleForceStats {
                 String[] data = ability.replace("AC ", "").replace("SRM ", "").replace("LRM ", "").replace("AC", "").replace("SRM", "").replace("LRM", "").replace("TUR", "").replace("(", "").replace(")", "").split("/");
                 info[1] = data[0];
                 info[2] = data[1];
-                if ( data.length > 2 ) 
+                if ( data.length > 2 )
                     info[3] = data[2];
                 else
                     info[3] = "0";
@@ -637,11 +637,11 @@ public class BattleForceStats {
     public void setLogo(String Logo) {
         this.Logo = Logo;
     }
-    
+
     public String getBFType() {
         return BFType;
     }
-    
+
     public void setBFType(String BFType) {
         this.BFType = BFType;
     }

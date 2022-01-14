@@ -36,7 +36,7 @@ import states.*;
 
 public interface ifMechForm {
     public Preferences GetPrefs();
-    public int GetLocation( javax.swing.JList list );
+    public int GetLocation( javax.swing.JList<?> list );
     public Mech GetMech();
     public String BuildLookupName( ifState s );
     public abPlaceable GetCurItem();

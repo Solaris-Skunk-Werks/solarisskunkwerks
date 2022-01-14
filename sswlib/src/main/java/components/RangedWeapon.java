@@ -80,9 +80,9 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
                     CanUseCapacitor = false,
                     CanUseInsulator = false,
                     CanUsePulseModule = false,
-                    CanUseCaseless = false,
-                    CanOS = false,
-                    CanIOS = false;
+                    CanUseCaseless = false;
+                    // CanOS = false, // Unused Variables
+                    // CanIOS = false;
     private transient boolean MountedRear = false,
                               UsingCapacitor = false,
                               UsingInsulator = false,
@@ -629,7 +629,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         if( UsingPulseModule){
             tempHeat += 2;
         }
-        
+
         return tempHeat;
     }
 
@@ -855,12 +855,12 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     public boolean CanAllocLegs() {
         return Alloc_Legs;
     }
-    
+
     @Override
     public boolean CanAllocCVBody() {
         return alloc_body;
     }
-    
+
     @Override
     public boolean CanAllocCVFront() {
         return alloc_front;
@@ -956,7 +956,7 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
     public LaserInsulator GetInsulator() {
         return Insulator;
     }
-    
+
     public boolean CanUsePulseModule() {
         return CanUsePulseModule;
     }
@@ -1134,10 +1134,10 @@ public class RangedWeapon extends abPlaceable implements ifWeapon {
         String retval = CritName;
         if( MountedRear )
             retval = "(R) " + retval;
-            
-        if ( UsingFCS ) 
+
+        if ( UsingFCS )
             retval += " w/" + GetFCS().toString();
-            
+
         return retval;
     }
 }

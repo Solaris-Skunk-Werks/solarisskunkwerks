@@ -29,7 +29,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package components;
 
 import java.util.ArrayList;
-import common.CommonTools;
 
 /**
  *
@@ -39,7 +38,7 @@ public class Dumper extends abPlaceable {
     private ifMechLoadout Owner;
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
     private String DumpDirection;
-    private LocationIndex DumperLocation;
+    // private LocationIndex DumperLocation; // Not Used
 
     public Dumper( ifMechLoadout l)
     {
@@ -104,7 +103,7 @@ public class Dumper extends abPlaceable {
         //TODO: Add dumper calculation based on location
         double tonnage = 0.0;
         LocationIndex location = Owner.FindIndex(this);
-        ArrayList equipment = Owner.GetEquipment();
+        ArrayList<abPlaceable> equipment = Owner.GetEquipment();
         for (int i = 0; i < equipment.size(); i++)
         {
              abPlaceable currentItem = (abPlaceable) equipment.get( i );
@@ -147,7 +146,7 @@ public class Dumper extends abPlaceable {
     public double GetCurOffensiveBV(boolean UseRear, boolean UseTC, boolean UseAES, boolean UseRobotic) {
         return 0.0;
     }
-    
+
     public double GetDefensiveBV() {
         return 0.0;
     }

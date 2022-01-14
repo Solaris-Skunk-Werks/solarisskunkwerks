@@ -29,6 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package saw.gui;
 
 public class dlgLicense extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1771463188420594068L;
 
     /** Creates new form dlgLicense */
     public dlgLicense(java.awt.Frame parent, boolean modal) {
@@ -128,5 +129,5 @@ public class dlgLicense extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
-    
+
 }

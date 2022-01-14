@@ -9,7 +9,8 @@ import list.*;
 import list.view.*;
 
 public class dlgQuickAdd extends javax.swing.JDialog {
-    
+    private static final long serialVersionUID = -749945358585948118L;
+
     private frmBase parent;
     private Force force;
     private UnitList list,  filtered = new UnitList();
@@ -39,7 +40,7 @@ public class dlgQuickAdd extends javax.swing.JDialog {
         cmbPiloting.setSelectedIndex(5);
 
         list = new UnitList(this.parent.Prefs.get("ListPath", ""), true);
-        viewModel = new tbTotalWarfareCompact(list);
+        viewModel = new tbTotalWarfareCompact();
         tblList.setModel(new DefaultTableModel());
         //setupList(list);
     }
@@ -56,11 +57,10 @@ public class dlgQuickAdd extends javax.swing.JDialog {
     }
 
     private void setupList(UnitList mechList) {
-        viewModel.list = mechList;
+        viewModel.setList(mechList);
         viewModel.setupTable(tblList);
     }
 
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -70,8 +70,8 @@ public class dlgQuickAdd extends javax.swing.JDialog {
         tblList = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
-        cmbGunnery = new javax.swing.JComboBox();
-        cmbPiloting = new javax.swing.JComboBox();
+        cmbGunnery = new javax.swing.JComboBox<String>();
+        cmbPiloting = new javax.swing.JComboBox<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Quick Add Units");
@@ -118,10 +118,10 @@ public class dlgQuickAdd extends javax.swing.JDialog {
             }
         });
 
-        cmbGunnery.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }));
+        cmbGunnery.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }));
         cmbGunnery.setSelectedIndex(4);
 
-        cmbPiloting.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }));
+        cmbPiloting.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }));
         cmbPiloting.setEditor(null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -204,8 +204,8 @@ public class dlgQuickAdd extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClose;
-    private javax.swing.JComboBox cmbGunnery;
-    private javax.swing.JComboBox cmbPiloting;
+    private javax.swing.JComboBox<String> cmbGunnery;
+    private javax.swing.JComboBox<String> cmbPiloting;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblList;

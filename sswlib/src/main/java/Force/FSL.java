@@ -35,7 +35,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.AbstractTableModel;
 
 public class FSL extends AbstractTableModel {
-    private ArrayList Items = new ArrayList();
+    private static final long serialVersionUID = -782713552784624633L;
+
+    private ArrayList<FSLItem> Items = new ArrayList<FSLItem>();
 
     public void Add( FSLItem item ) {
         Items.add( item );
@@ -57,22 +59,27 @@ public class FSL extends AbstractTableModel {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filename)));
             String line = null;
-            
+
             //skip the first line as it has headers
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                if ( line.trim().length() > 0 ) { Add(line); }
+                if (line.trim().length() > 0) {
+                    Add(line);
+                }
             }
+
+            reader.close();
         } catch (IOException ex) {
             //do nothing
         }
     }
 
-    public DefaultComboBoxModel getFactions() {
-        ArrayList storage = new ArrayList();
-        DefaultComboBoxModel list = new DefaultComboBoxModel();
+    public DefaultComboBoxModel<String> getFactions() {
+        ArrayList<String> storage = new ArrayList<String>();
+        DefaultComboBoxModel<String> list = new DefaultComboBoxModel<String>();
         for ( int i=0; i < Items.size(); i++ ) {
-            FSLItem item = (FSLItem) Items.get(i);
+            FSLItem item = Items.get(i);
+
             if ( ! storage.contains( item.Faction ) ) {
                 list.addElement( item.Faction );
                 storage.add(item.Faction);
@@ -81,42 +88,50 @@ public class FSL extends AbstractTableModel {
         return list;
     }
 
-    public DefaultComboBoxModel getTypes() {
-        ArrayList storage = new ArrayList();
-        DefaultComboBoxModel list = new DefaultComboBoxModel();
-        for ( int i=0; i < Items.size(); i++ ) {
-            FSLItem item = (FSLItem) Items.get(i);
-            if ( ! storage.contains( item.Type ) ) {
-                list.addElement( item.Type );
+    public DefaultComboBoxModel<String> getTypes() {
+        ArrayList<String> storage = new ArrayList<String>();
+        DefaultComboBoxModel<String> list = new DefaultComboBoxModel<String>();
+        for (int i = 0; i < Items.size(); i++) {
+            FSLItem item = Items.get(i);
+
+            if (!storage.contains(item.Type)) {
+                list.addElement(item.Type);
                 storage.add(item.Type);
             }
         }
+
         return list;
     }
 
-    public DefaultComboBoxModel getSources() {
-        ArrayList storage = new ArrayList();
-        DefaultComboBoxModel list = new DefaultComboBoxModel();
+    public DefaultComboBoxModel<String> getSources() {
+        ArrayList<String> storage = new ArrayList<String>();
+        DefaultComboBoxModel<String> list = new DefaultComboBoxModel<String>();
+
         for ( int i=0; i < Items.size(); i++ ) {
-            FSLItem item = (FSLItem) Items.get(i);
+            FSLItem item = Items.get(i);
+
             if ( ! storage.contains( item.Source ) ) {
                 list.addElement( item.Source );
                 storage.add(item.Source);
             }
         }
+
         return list;
     }
 
-    public DefaultComboBoxModel getEras() {
-        ArrayList storage = new ArrayList();
-        DefaultComboBoxModel list = new DefaultComboBoxModel();
-        for ( int i=0; i < Items.size(); i++ ) {
-            FSLItem item = (FSLItem) Items.get(i);
-            if ( ! storage.contains( item.Era ) ) {
-                list.addElement( item.Era );
+    public DefaultComboBoxModel<String> getEras() {
+        ArrayList<String> storage = new ArrayList<String>();
+        DefaultComboBoxModel<String> list = new DefaultComboBoxModel<String>();
+
+        for (int i = 0; i < Items.size(); i++) {
+            FSLItem item = Items.get(i);
+
+            if (!storage.contains(item.Era)) {
+                list.addElement(item.Era);
                 storage.add(item.Era);
             }
         }
+
         return list;
     }
 
@@ -147,17 +162,22 @@ public class FSL extends AbstractTableModel {
         return "";
     }
     public int getRowCount() { return Items.size(); }
-    public int getColumnCount() { return 10; }
+
+    public int getColumnCount() {
+        return 10;
+    }
+
     @Override
-    public Class getColumnClass(int c) {
+    public Class<?> getColumnClass(int c) {
         if (Items.size() > 0) {
             return getClassOf(0, c).getClass();
         } else {
             return String.class;
         }
     }
+
     public Object getClassOf( int row, int col ) {
-        FSLItem u = (FSLItem) Items.get( row );
+        FSLItem u = Items.get( row );
         switch( col ) {
             case 0:
                 return u.Faction;
@@ -183,7 +203,7 @@ public class FSL extends AbstractTableModel {
         return "";
     }
     public Object getValueAt( int row, int col ) {
-        FSLItem u = (FSLItem) Items.get( row );
+        FSLItem u = Items.get( row );
         switch( col ) {
             case 0:
                 return u.Faction;
@@ -213,15 +233,6 @@ public class FSL extends AbstractTableModel {
         return false;
     }
 
-
-
-
-
-
-
-
-
-
     public class FSLItem {
         private String  Faction = "",
                         Type = "",
@@ -232,10 +243,10 @@ public class FSL extends AbstractTableModel {
                         Date = "",
                         Era = "";
 
-        private float   BV = 0.0f,
-                        Cost = 0.0f;
+        private float BV = 0.0f,
+                     Cost = 0.0f;
 
-        private int     Tonnage = 0;
+        private int Tonnage = 0;
 
         public FSLItem( String Faction, String Type, String Name, String RulesLevel, String TechBase, String Source, String Date, String Era, float BV, float Cost, int Tonnage ) {
             this.Faction = Faction;
@@ -252,28 +263,32 @@ public class FSL extends AbstractTableModel {
         }
 
         public FSLItem( String Line ) {
-            //javax.swing.JOptionPane.showMessageDialog(null, "Given: " + Line);
             if ( Line.contains(CommonTools.Tab) ) {
                 String[] data = Line.split(CommonTools.Tab);
+
                 if ( data.length >= 12 ) {
                     this.Faction = data[0].trim();
                     this.Type = data[1].trim();
                     this.Name = data[2].trim();
+
                     try {
                         this.Tonnage = Integer.parseInt(data[4].trim());
-                    } catch ( Exception e ) {
+                    } catch (Exception e) {
                         //do nothing
                     }
+
                     try {
                         this.Cost = Float.parseFloat(data[5].trim());
-                    } catch ( Exception e ) {
+                    } catch (Exception e) {
                         //do nothing
                     }
+
                     this.RulesLevel = data[6].trim();
                     this.TechBase = data[7].trim();
                     this.Source = data[8].trim();
                     this.Date = data[9].trim();
                     this.Era = data[10].trim();
+
                     try {
                         this.BV = Float.parseFloat(data[11].trim());
                     } catch ( Exception e ) {

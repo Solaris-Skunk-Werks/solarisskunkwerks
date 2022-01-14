@@ -32,18 +32,18 @@ import java.util.Vector;
 
 public class CVAmmunitionHandler {
     private Vector<Ammunition> Ammo = new Vector<Ammunition>();
-    private CVLoadout Owner;
+    // private CVLoadout Owner; // Not Used
 
-    public CVAmmunitionHandler( CVLoadout c ) {
-        Owner = c;
+    public CVAmmunitionHandler(CVLoadout c) {
+        // Owner = c;
     }
 
-    public void AddAmmo( Ammunition a ) {
-        Ammo.add( a );
+    public void AddAmmo(Ammunition a) {
+        Ammo.add(a);
     }
 
-    public void RemoveAmmo( Ammunition a ) {
-        Ammo.remove( a );
+    public void RemoveAmmo(Ammunition a) {
+        Ammo.remove(a);
     }
 
     public Vector<Ammunition> GetAmmo() {
@@ -52,22 +52,26 @@ public class CVAmmunitionHandler {
 
     public double GetTonnage() {
         double retval = 0.0;
-        for( int i = 0; i < Ammo.size(); i++ ) {
-            retval += Ammo.get( i ).GetTonnage();
+        for (int i = 0; i < Ammo.size(); i++) {
+            retval += Ammo.get(i).GetTonnage();
         }
         return retval;
     }
 
+    // Original was Vector<Ammunition>
+    // Was changed to Vector<?> To remove unchecked warning then apply checking at
+    // access time
     public int AmmoSpace() {
-        Vector<Ammunition> check = (Vector<Ammunition>) Ammo.clone();
+        Vector<?> check = (Vector<?>) Ammo.clone();
         int curIDX = 0, retval = 0;
-        while( check.size() > 0 ) {
-            curIDX = check.lastElement().GetAmmoIndex();
-            check.remove( check.lastElement() );
+        while (check.size() > 0) {
+            curIDX = ((Ammunition) check.lastElement()).GetAmmoIndex();
+            check.remove(check.lastElement());
             retval++;
-            for( int i = check.size() - 1; i > -1; i-- ) {
-                if( check.get( i ).GetAmmoIndex() == curIDX ) {
-                    check.removeElementAt( i );
+
+            for (int i = check.size() - 1; i > -1; i--) {
+                if (((Ammunition) check.get(i)).GetAmmoIndex() == curIDX) {
+                    check.removeElementAt(i);
                 }
             }
         }
@@ -76,6 +80,6 @@ public class CVAmmunitionHandler {
 
     @Override
     public String toString() {
-        return "Total Ammo (" + String.format( "%1$3.1f", GetTonnage() ) + " tons, " + AmmoSpace() + " spaces)";
+        return "Total Ammo (" + String.format("%1$3.1f", GetTonnage()) + " tons, " + AmmoSpace() + " spaces)";
     }
 }

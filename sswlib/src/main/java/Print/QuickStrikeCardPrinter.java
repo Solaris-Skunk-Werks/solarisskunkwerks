@@ -40,7 +40,7 @@ import battleforce.BattleForce;
 import battleforce.BattleForceStats;
 import filehandlers.ImageTracker;
 import java.awt.Font;
-import java.awt.Point;
+// import java.awt.Point; // Not Used
 
 public class QuickStrikeCardPrinter implements Printable {
     private BattleForce battleforce;
@@ -70,7 +70,7 @@ public class QuickStrikeCardPrinter implements Printable {
     public void Add( BattleForceStats stat ) {
         getBattleforce().BattleForceStats.add(stat);
     }
-    
+
     public void setUnitSheet( String item ) {
         Unit = imageTracker.getImage( item );
     }
@@ -84,7 +84,7 @@ public class QuickStrikeCardPrinter implements Printable {
         Render();
         return Printable.PAGE_EXISTS;
     }
-    
+
     public void Render() {
         int elementCount = 0;
         Image icon = null;
@@ -115,7 +115,7 @@ public class QuickStrikeCardPrinter implements Printable {
                 Image image = imageTracker.getImage(stats.getImage());
                 Dimension dim = imageTracker.media.reSize(image, 100d, 130d);
                 image.getScaledInstance(dim.width, dim.height, Image.SCALE_SMOOTH);
-                Point offset = imageTracker.media.offsetImageBottom( new Dimension(100, 130), dim);
+                // Point offset = imageTracker.media.offsetImageBottom( new Dimension(100, 130), dim); // Set but not accessed
                 graphic.drawImage(image, x+UnitImageWidth-dim.width-5, y+25, dim.width, dim.height, null);
 
                 if ( icon != null && printLogo ) {

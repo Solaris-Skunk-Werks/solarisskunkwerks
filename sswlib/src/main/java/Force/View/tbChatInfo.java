@@ -33,6 +33,11 @@ import javax.swing.SortOrder;
 import list.view.Column;
 
 public class tbChatInfo extends abTable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8285286597171806962L;
+
     public tbChatInfo() {
         Columns.add(new Column( 0, "Unit", "TypeModel", 100 ));
         Columns.add(new Column( 1, "Info", "ChatInfo", 400, false));

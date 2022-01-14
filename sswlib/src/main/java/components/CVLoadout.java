@@ -32,7 +32,6 @@ import common.CommonTools;
 import common.Constants;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 
 import visitors.VFCSApolloLoader;
 import visitors.VFCSArtemisIVLoader;
@@ -77,7 +76,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     private SponsonTurret SponsonTurretLeft = new SponsonTurret(this, false),
                           SponsonTurretRight = new SponsonTurret(this, false);
     private CVPowerAmplifier PowerAmplifier = new CVPowerAmplifier(this);
-    
+
     private int RulesLevel = AvailableCode.RULES_TOURNAMENT,
                 TechBase = AvailableCode.TECH_INNER_SPHERE,
                 Era = AvailableCode.ERA_STAR_LEAGUE,
@@ -91,7 +90,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         Jumps = new CVJumpJetFactory( this );
         HeatSinks = new CVHeatSinkFactory( this );
     }
-    
+
     public CVLoadout( String name, CombatVehicle m, int BaseNumHS, CVHeatSinkFactory hs, CVJumpJetFactory jump ) {
         // provided for cloning purposes
         Name = name;
@@ -99,7 +98,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         Jumps = new CVJumpJetFactory( this, jump );
         HeatSinks = new CVHeatSinkFactory( this, BaseNumHS, hs.CurrentConfig(), hs.GetPlacedHeatSinks() );
     }
-    
+
     public CombatVehicle GetOwner() {
         return Owner;
     }
@@ -227,7 +226,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     public ArrayList GetEquipment() {
         ArrayList equip = new ArrayList();
         for ( abPlaceable a : (ArrayList<abPlaceable>) GetNonCore() ) {
-            if ( !(a instanceof Ammunition) ) 
+            if ( !(a instanceof Ammunition) )
                 equip.add(a);
         }
 
@@ -273,26 +272,26 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         Items.add(Turret2Items);
         Items.add(SponsonTurretLeftItems);
         Items.add(SponsonTurretRightItems);
-        
+
         ArrayList<abPlaceable> remove = new ArrayList<abPlaceable>();
-        
+
         for ( ArrayList<abPlaceable> list : Items ) {
             for ( abPlaceable a : list ) {
                 if ( !a.LocationLocked() )
                     remove.add(a);
             }
         }
-        
+
         for(abPlaceable a : remove ) {
             Remove(a);
         }
 
         //reset the number of heat sinks to the Engine base since they got rid of all the weapons.
         GetHeatSinks().SetNumHS(GetTotalHeat());
-        
+
         Owner.SetChanged( true );
     }
-    
+
     public void ResetHeatSinks() {
         //reset the number of heat sinks to the Engine base since they got rid of all the weapons.
         GetHeatSinks().SetNumHS(GetTotalHeat());
@@ -347,7 +346,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
                     RearItems.add(p);
                 } else
                     throw new Exception(p.ActualName() + " cannot be allocated to the Rear.");
-                
+
                 break;
             case LocationIndex.CV_LOC_RIGHT:
                 if ( p.CanAllocCVSide() )
@@ -366,7 +365,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
                     }
                 } else
                     throw new Exception(p.ActualName() + " cannot be allocated to the Turret.");
-                
+
                 break;
             case LocationIndex.CV_LOC_TURRET2:
                 if ( p.CanAllocCVTurret() )
@@ -397,7 +396,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         }
         RefreshHeatSinks();
     }
-    
+
     private boolean HasHitch(ArrayList<abPlaceable> items)
     {
         for( int i = 0; i < items.size(); ++i ) {
@@ -412,10 +411,10 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
             GetHeatSinks().SetNumHS(GetTotalHeat());
         if ( GetHeatSinks().GetNumHS() < GetEngine().FreeHeatSinks() )
             GetHeatSinks().SetNumHS(GetEngine().FreeHeatSinks());
-        if ( Owner.IsOmni() && Owner.GetBaseLoadout().GetHeatSinks().GetNumHS() > GetHeatSinks().GetNumHS() ) 
+        if ( Owner.IsOmni() && Owner.GetBaseLoadout().GetHeatSinks().GetNumHS() > GetHeatSinks().GetNumHS() )
             GetHeatSinks().SetNumHS(Owner.GetBaseLoadout().GetHeatSinks().GetNumHS());
     }
-    
+
     public double GetItemsTonnage( ArrayList<abPlaceable> items ) {
         double total = 0;
         for( abPlaceable a : items ) {
@@ -423,7 +422,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         }
         return total;
     }
-    
+
     public int GetTotalHeat() {
         int total = 0;
         for ( abPlaceable a : (ArrayList<abPlaceable>)GetNonCore() ) {
@@ -462,7 +461,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         if ( p.CanAllocCVSide() ) {
             AddTo(p, LocationIndex.CV_LOC_RIGHT);
             Owner.SetChanged( true );
-        } else 
+        } else
             throw new Exception(p.ActualName() + " cannot be allocated to the Side.");
     }
 
@@ -470,7 +469,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         if ( !p.CanAllocCVRear() ) {
             AddTo(p, LocationIndex.CV_LOC_REAR);
             Owner.SetChanged( true );
-        } else 
+        } else
             throw new Exception(p.ActualName() + " cannot be allocated to the Rear.");
     }
 
@@ -480,7 +479,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
             Owner.SetChanged( true );
         } else
             throw new Exception(p.ActualName() + " cannot be allocated to the Body.");
-        
+
     }
 
     public void AddToTurret1(abPlaceable p) throws Exception {
@@ -691,7 +690,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
             if ( FrontItems.contains( p ) )
                 FrontItems.remove( p );
             if ( LeftItems.contains(p))
-                LeftItems.remove(p);            
+                LeftItems.remove(p);
             if ( RightItems.contains(p))
                 RightItems.remove(p);
             if ( BodyItems.contains(p))
@@ -747,7 +746,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         Items.add(Turret2Items);
         Items.add(SponsonTurretLeftItems);
         Items.add(SponsonTurretRightItems);
-        
+
         for ( ArrayList<abPlaceable> list : Items ) {
             for ( abPlaceable a : list ) {
                 a.SetLocked(true);
@@ -766,7 +765,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         Items.add(Turret2Items);
         Items.add(SponsonTurretLeftItems);
         Items.add(SponsonTurretRightItems);
-        
+
         for ( ArrayList<abPlaceable> list : Items ) {
             for ( abPlaceable a : list ) {
                 a.SetLocked(false);
@@ -800,7 +799,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         clone.SetTurret2( (ArrayList<abPlaceable>)Turret2Items.clone() );
         clone.SetSponsonTurretLeftItems((ArrayList<abPlaceable>) SponsonTurretLeftItems.clone());
         clone.SetSponsonTurretRightItems((ArrayList<abPlaceable>) SponsonTurretRightItems.clone());
-        
+
         if( TCList.size() > 0 ) {
             clone.SetTCList( (ArrayList) TCList.clone() );
         }
@@ -891,7 +890,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         UsingCASE = false;
         Remove(Case);
     }
-    
+
     public void SetISCASE() {
         UsingCASE = true;
         Remove(Case);
@@ -903,7 +902,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     }
 
     public boolean HasISCASE() {
-        if ( UsingCASE ) return true;        
+        if ( UsingCASE ) return true;
         if ( Owner.IsOmni() && this != Owner.GetBaseLoadout() ) return Owner.GetBaseLoadout().HasISCASE();
         return false;
     }
@@ -1010,7 +1009,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     public void CheckTC() {
         // this routine checks to see if the targeting computer can be allocated
         // and does so if needed.  It will also remove the TC if it has to.
-        
+
         // remove the TC from the loadout
         Remove( CurTC );
         if( ! Use_TC ) {
@@ -1018,9 +1017,9 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
             TCList = new ArrayList<abPlaceable>();
             return;
         }
-        
+
         BodyItems.add(CurTC);
-        
+
         Owner.SetChanged( true );
     }
 
@@ -1146,7 +1145,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         Turret1.SetItems(Turret1Items);
         return Turret1;
     }
-    
+
     public void SetTurret( Turret t ) {
         Turret1 = t;
     }
@@ -1155,7 +1154,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         Turret2.SetItems(Turret2Items);
         return Turret2;
     }
-    
+
     public void SetRearTurret( Turret t ) {
         Turret2 = t;
     }
@@ -1193,16 +1192,16 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         Owner.SetChanged( true );
         */
     }
-    
+
     public ifUnit GetUnit() {
         return Owner;
     }
-    
+
     public double GetTurretTonnage() {
         Turret1.SetItems(Turret1Items);
         return Turret1.GetTonnage();
     }
-    
+
     public double GetRearTurretTonnage() {
         Turret2.SetItems(Turret2Items);
         return Turret2.GetTonnage();

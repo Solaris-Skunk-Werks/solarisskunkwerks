@@ -54,7 +54,7 @@ public class PowerAmplifier {
 
     public double GetTonnage() {
         double tons = 0.0;
-        ArrayList v = CurLoadout.GetNonCore();
+        ArrayList<abPlaceable> v = CurLoadout.GetNonCore();
         for( int i = 0; i < v.size(); i++ ) {
             if( v.get( i ) instanceof ifWeapon ) {
                 if ( ((ifWeapon)v.get( i ) ).RequiresPowerAmps() )

@@ -32,6 +32,11 @@ import ssw.constants.SSWConstants;
 
 public class dlgLicense extends javax.swing.JDialog {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4048615687999325205L;
+
     /** Creates new form dlgLicense */
     public dlgLicense(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -130,5 +135,5 @@ public class dlgLicense extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
-    
+
 }

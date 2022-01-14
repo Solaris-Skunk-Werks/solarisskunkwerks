@@ -34,6 +34,7 @@ import components.Ammunition;
 import components.CombatVehicle;
 import components.LocationIndex;
 import components.PlaceableInfo;
+import components.abPlaceable;
 import filehandlers.ImageTracker;
 import java.awt.*;
 import java.awt.print.PageFormat;
@@ -48,7 +49,7 @@ public class PrintVehicle implements Printable {
                   LogoImage = null,
                   RecordSheet = null,
                   ChartImage = null;
-    private boolean Advanced = false,
+    private boolean // Advanced = false, Not used
                     Charts = false,
                     PrintPilot = true,
                     UseA4Paper = false,
@@ -64,9 +65,9 @@ public class PrintVehicle implements Printable {
                 Gunnery = 4,
                 MiniConvRate = 1;
     private double BV = 0.0;
-    private ifPrintPoints points = null;
-    private Color Black = new Color( 0, 0, 0 ),
-                  Grey = new Color( 128, 128, 128 );
+    // private ifPrintPoints points = null;
+    // private Color Black = new Color( 0, 0, 0 ), // Never used
+    //              Grey = new Color( 128, 128, 128 );
     private ImageTracker imageTracker;
     private Preferences Prefs = Preferences.userRoot().node( Constants.SSWPrefs );
 
@@ -79,7 +80,7 @@ public class PrintVehicle implements Printable {
         CurVee = m;
         imageTracker = images;
         if ( !m.GetSSWImage().equals("../BFB.Images/No_Image.png")  ) UnitImage = imageTracker.getImage(m.GetSSWImage());
-        Advanced = adv;
+        // Advanced = adv; // Assigned but not used.
         BV = CommonTools.GetAdjustedBV(CurVee.GetCurrentBV(), Gunnery, Piloting);
         UseA4Paper = A4;
         GetRecordSheet(imageTracker);
@@ -95,7 +96,7 @@ public class PrintVehicle implements Printable {
         SetPilotData(Warrior, Gun, Pilot);
     }
     // </editor-fold>
-    
+
     // <editor-fold desc="Settor Methods">
     public void SetPilotData( String pname, int pgun, int ppilot ) {
         PilotName = pname;
@@ -188,11 +189,11 @@ public class PrintVehicle implements Printable {
     public int getPiloting(){
         return Piloting;
     }
-    
+
     public Image getUnitImage() {
         return UnitImage;
     }
-    
+
     public Image getLogoImage() {
         return LogoImage;
     }
@@ -212,7 +213,7 @@ public class PrintVehicle implements Printable {
             return Printable.PAGE_EXISTS;
         }
     }
-    
+
     private void PreparePrint( Graphics2D graphics ) {
         Items = PrintConsts.SortEquipmentByLocation( CurVee, MiniConvRate );
         ap = new PIPPrinter(graphics, CurVee, Canon, imageTracker);
@@ -242,11 +243,11 @@ public class PrintVehicle implements Printable {
         if( Charts ) {
             graphics.scale( 0.8d, 0.8d );
         }
-        
+
         graphics.drawImage( RecordSheet, 0, 0, 576, 756, null );
         //graphics.drawImage( RecordSheet, 0, 0, 556, 760, null ); vee size?
         //graphics.drawImage( RecordSheet, 0, 0, 560, 757, null );
-        
+
         Point start = ap.GetPoints().GetMechImageLoc();
         start.x -= 3;
         start.y -= 6;
@@ -355,7 +356,7 @@ public class PrintVehicle implements Printable {
                 AmmoData CurAmmo = (AmmoData) AmmoList.get(index);
                 graphics.drawString( CurAmmo.Format(), p[0].x, p[0].y + offset);
                 graphics.drawString( CurAmmo.LotSize + "", p[3].x-30, p[3].y + offset);
-                
+
                 //Ammo boxes
                 Point spot = new Point(p[3].x-15, p[3].y + offset - 5);
                 graphics.setStroke(new BasicStroke(0.5f));
@@ -393,12 +394,12 @@ public class PrintVehicle implements Printable {
         } else {
             graphics.drawString( CurVee.GetEngine().CritName() + "", p[19].x, p[19].y );
         }
-        
+
 
         //Jumping Movement!
         /*
         String JumpMP = "";
-        if ( CurVee.GetJumpJets().GetNumJJ() > 0 ) 
+        if ( CurVee.GetJumpJets().GetNumJJ() > 0 )
             JumpMP += (CurVee.GetJumpJets().GetNumJJ() * MiniConvRate) + "";
 
         if (JumpMP.isEmpty()) JumpMP = "0";
@@ -469,7 +470,7 @@ public class PrintVehicle implements Printable {
         graphics.drawString( "(" + CurVee.GetArmor().GetLocationArmor( LocationIndex.CV_LOC_LEFT ) + ")", p[LocationIndex.CV_LOC_LEFT].x, p[LocationIndex.CV_LOC_LEFT].y );
         graphics.drawString( "(" + CurVee.GetArmor().GetLocationArmor( LocationIndex.CV_LOC_RIGHT ) + ")", p[LocationIndex.CV_LOC_RIGHT].x, p[LocationIndex.CV_LOC_RIGHT].y );
         graphics.drawString( "(" + CurVee.GetArmor().GetLocationArmor( LocationIndex.CV_LOC_REAR ) + ")", p[LocationIndex.CV_LOC_REAR].x, p[LocationIndex.CV_LOC_REAR].y );
-        if ( CurVee.IsVTOL() ) 
+        if ( CurVee.IsVTOL() )
             graphics.drawString( "(" + CurVee.GetArmor().GetLocationArmor( LocationIndex.CV_LOC_ROTOR ) + ")", p[LocationIndex.CV_LOC_ROTOR].x, p[LocationIndex.CV_LOC_ROTOR].y );
         if ( CurVee.isHasTurret1() )
             graphics.drawString( "(" + CurVee.GetArmor().GetLocationArmor( LocationIndex.CV_LOC_TURRET1 ) + ")", p[LocationIndex.CV_LOC_TURRET1].x, p[LocationIndex.CV_LOC_TURRET1].y );
@@ -477,6 +478,8 @@ public class PrintVehicle implements Printable {
             graphics.drawString( "(" + CurVee.GetArmor().GetLocationArmor( LocationIndex.CV_LOC_TURRET2 ) + ")", p[LocationIndex.CV_LOC_TURRET2].x, p[LocationIndex.CV_LOC_TURRET2].y );
     }
 
+    /*
+    // Never used locally
     private void DrawImages( Graphics2D graphics ) {
         //PrintMech Image
         Point start = ap.GetPoints().GetMechImageLoc();
@@ -493,7 +496,9 @@ public class PrintVehicle implements Printable {
             graphics.drawImage( LogoImage, ap.GetPoints().GetLogoImageLoc().x, ap.GetPoints().GetLogoImageLoc().y, 50, 50, null );
         }
     }
-
+    */
+    /*
+    // Never used locally
     private void DrawGrid( Graphics2D graphics ) {
         graphics.setFont( PrintConsts.ReallySmallFont );
         boolean bPrint = true;
@@ -509,10 +514,11 @@ public class PrintVehicle implements Printable {
             graphics.drawLine(0, y, 576, y);
         }
     }
+    */
 
     private ArrayList<AmmoData> GetAmmo() {
         //Output the list of Ammunition
-        ArrayList all = CurVee.GetLoadout().GetNonCore();
+        ArrayList<abPlaceable> all = CurVee.GetLoadout().GetNonCore();
         ArrayList<AmmoData> AmmoLister = new ArrayList<AmmoData>();
         for ( int index=0; index < all.size(); index++ ) {
             if(  all.get( index ) instanceof Ammunition ) {
@@ -535,30 +541,33 @@ public class PrintVehicle implements Printable {
         return AmmoLister;
     }
 
+    /*
+    // Never used locally
     private boolean AmmoContains( ArrayList<AmmoData> AmmoList, String CheckExpr ) {
         for ( AmmoData data : AmmoList ) {
             if ( data.Format().contains(CheckExpr) ) return true;
         }
         return false;
     }
+    */
 
     private void GetRecordSheet( ImageTracker images ) {
         // loads the correct record sheet and points based on the information given
         RecordSheet = images.getImage( PrintConsts.RS_TW_GROUND );
         ChartImage = images.getImage(PrintConsts.BP_ChartImage );
-        points = new TWGroundPoints();
+        // points = new TWGroundPoints(); // Assigned but never used
 
         //We have to use the advanced sheet for dual turrets
         if ( CurVee.isHasTurret2() )
             RecordSheet = images.getImage( PrintConsts.RS_TO_GROUND );
-        
+
         if ( CurVee.IsVTOL() ) {
             if ( CurVee.isHasTurret1() )
                 RecordSheet = images.getImage( PrintConsts.RS_TW_VTOL );
             else
                 RecordSheet = images.getImage( PrintConsts.RS_TW_VTOL );
         }
-        
+
         if ( CurVee.IsNaval() )
             RecordSheet = images.getImage( PrintConsts.RS_TW_NAVAL );
     }
@@ -588,7 +597,7 @@ public class PrintVehicle implements Printable {
     }
     private class AmmoData {
         public String ActualName,
-                      ChatName,
+                      // ChatName,
                       GenericName,
                       CritName,
                       LookupName;
@@ -597,7 +606,7 @@ public class PrintVehicle implements Printable {
 
         public AmmoData( Ammunition ammo ) {
             this.ActualName = ammo.ActualName();
-            this.ChatName = ammo.ChatName();
+            // this.ChatName = ammo.ChatName(); // Assigned but never used.
             this.CritName = ammo.CritName().replace("@", "").trim();
             this.LookupName = ammo.LookupName();
 

@@ -42,6 +42,10 @@ import java.util.Vector;
 import java.util.prefs.Preferences;
 
 public class dlgPrint extends javax.swing.JDialog {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4270519652104777795L;
     private ImageTracker imageTracker;
     private Scenario scenario;
     private Preferences bfbPrefs = Preferences.userRoot().node( Constants.BFBPrefs );
@@ -130,7 +134,7 @@ public class dlgPrint extends javax.swing.JDialog {
             if (chkTables.isSelected()) { iconPath = "/images/RecordsheetTables_BG.png"; }
             lblRecordsheetIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource(iconPath)));
         }
-        
+
         if ( chkPrintBattleforce.isSelected() ) {
             iconPath = "/images/BattleForce_BG.png";
             switch ( cmbBFSheetType.getSelectedIndex() ) {
@@ -244,7 +248,7 @@ public class dlgPrint extends javax.swing.JDialog {
                         printer.Append( letter, qs);
                     }
                     break;
-                    
+
                 default:
             }
         }

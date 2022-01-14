@@ -5,7 +5,6 @@
 
 package list.view;
 
-import java.text.Format;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -14,6 +13,11 @@ import javax.swing.table.DefaultTableCellRenderer;
  * @author olaughlj
  */
 public class NumberRenderer extends DefaultTableCellRenderer {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8448429028889590402L;
 
     public NumberRenderer()
     {

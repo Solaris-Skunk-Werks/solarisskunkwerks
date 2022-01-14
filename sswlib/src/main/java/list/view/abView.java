@@ -37,6 +37,10 @@ import javax.swing.table.TableRowSorter;
 import list.UnitList;
 
 public abstract class abView extends AbstractTableModel {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4787285225481758727L;
     public Vector<Column> Columns = new Vector<Column>();
     public Vector<Column> SortFields = new Vector<Column>();
     public UnitList list;
@@ -70,7 +74,12 @@ public abstract class abView extends AbstractTableModel {
             }
         }
     }
-    
+
+    public abView setList(UnitList list) {
+        this.list = list;
+        return this;
+    }
+
     public Object Get( int index ) {
         return list.Get(index);
     }

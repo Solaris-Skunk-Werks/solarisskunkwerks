@@ -37,6 +37,10 @@ import filehandlers.Media;
 
 public class dlgAmmoChooser extends javax.swing.JDialog {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6093818877019978635L;
     private Mech CurMech;
     private ArrayList Ammo = new ArrayList();
     private DataFactory Data;
@@ -129,6 +133,10 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
         jScrollPane2.setPreferredSize(new java.awt.Dimension(250, 145));
 
         lstAvailableAmmo.setModel(new javax.swing.AbstractListModel() {
+            /**
+             *
+             */
+            private static final long serialVersionUID = -5907520580999585121L;
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -148,6 +156,10 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
         jScrollPane1.setPreferredSize(new java.awt.Dimension(250, 145));
 
         lstInstalledAmmo.setModel(new javax.swing.AbstractListModel() {
+            /**
+             *
+             */
+            private static final long serialVersionUID = 4090389589630402457L;
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -381,7 +393,7 @@ public class dlgAmmoChooser extends javax.swing.JDialog {
     }//GEN-LAST:event_txtAmmoYearKeyTyped
 
     private void cmbRulesLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRulesLevelActionPerformed
-        if( cmbRulesLevel.getSelectedIndex() < CurMech.GetRulesLevel() ) { 
+        if( cmbRulesLevel.getSelectedIndex() < CurMech.GetRulesLevel() ) {
             Media.Messager( this, "You cannot use a Rules Level lower than the 'Mech's." );
             cmbRulesLevel.setSelectedIndex( CurMech.GetRulesLevel() );
         }

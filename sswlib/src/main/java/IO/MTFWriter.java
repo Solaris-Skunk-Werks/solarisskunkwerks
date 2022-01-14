@@ -28,7 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package IO;
 
-import common.CommonTools;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -50,7 +49,7 @@ public class MTFWriter {
     public MTFWriter( Mech m ) {
         CurMech = m;
     }
-    
+
     public MTFWriter( CombatVehicle v ) {
         CurVee = v;
     }
@@ -360,7 +359,7 @@ public class MTFWriter {
         // all done
         FR.close();
     }
-    
+
     public void WriteVeeMTF( String filename ) throws IOException {
         BufferedWriter FR = new BufferedWriter( new FileWriter( filename ) );
 
@@ -577,18 +576,18 @@ public class MTFWriter {
         // all done
         FR.close();
     }
-    
+
     public void WriteMTF( String filename ) throws IOException {
         if (CurMech != null) {
             WriteMechMTF(filename);
             return;
         }
-        
+
         if ( CurVee != null ) {
             WriteVeeMTF(filename);
             return;
         }
-                
+
     }
 
     public void setMech( Mech m ) {

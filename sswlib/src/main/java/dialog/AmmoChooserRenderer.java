@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package dialog;
 
-import dialog.dlgAmmoChooser;
+// import dialog.dlgAmmoChooser;
 import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
@@ -39,6 +39,10 @@ import components.abPlaceable;
 import filehandlers.FileCommon;
 
 public class AmmoChooserRenderer extends DefaultListCellRenderer {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -408196200015299689L;
     private dlgAmmoChooser Parent;
     private abPlaceable a = null;
 
@@ -47,7 +51,7 @@ public class AmmoChooserRenderer extends DefaultListCellRenderer {
     }
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus) {
+    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean hasFocus) {
         JLabel label = (JLabel)super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
         String Text = "";
         if( value instanceof abPlaceable ) {

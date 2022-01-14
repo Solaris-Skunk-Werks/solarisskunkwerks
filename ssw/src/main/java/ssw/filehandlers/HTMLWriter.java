@@ -39,7 +39,6 @@ import java.util.Hashtable;
 import java.util.ArrayList;
 import common.CommonTools;
 import filehandlers.FileCommon;
-import filehandlers.FileCommon;
 
 public class HTMLWriter {
 
@@ -90,7 +89,11 @@ public class HTMLWriter {
                     while( end == false ) {
                         read = FR.readLine();
                         // see if someone forgot to end the fluff line
-                        if( read == null ) { throw new IOException( "Unexpected EOF: No End Equipment Fluff tag."); }
+                        if (read == null) {
+                            FW.close();
+                            FR.close();
+                            throw new IOException("Unexpected EOF: No End Equipment Fluff tag.");
+                        }
                         // check for the end, then add the line
                         if( read.contains( "<+-SSW_END_EQUIPMENT_FLUFF_BLOCK-+>" ) ) {
                             end = true;
@@ -108,7 +111,11 @@ public class HTMLWriter {
                     while( end == false ) {
                         read = FR.readLine();
                         // see if someone forgot to end the fluff line
-                        if( read == null ) { throw new IOException( "Unexpected EOF: No End Equipment tag."); }
+                        if (read == null) {
+                            FW.close();
+                            FR.close();
+                            throw new IOException("Unexpected EOF: No End Equipment tag.");
+                        }
                         // check for the end, then add the line
                         if( read.contains( "<+-SSW_END_EQUIPMENT_STAT_BLOCK-+>" ) ) {
                             end = true;
@@ -127,7 +134,11 @@ public class HTMLWriter {
                     while( end == false ) {
                         read = FR.readLine();
                         // see if someone forgot to end the fluff line
-                        if( read == null ) { throw new IOException( "Unexpected EOF: No End Omnimech tag."); }
+                        if (read == null) {
+                            FW.close();
+                            FR.close();
+                            throw new IOException("Unexpected EOF: No End Omnimech tag.");
+                        }
                         // check for the end, then add the line
                         if( read.contains( "<+-SSW_END_OMNIMECH_STAT_BLOCK-+>" ) ) {
                             end = true;
@@ -142,7 +153,10 @@ public class HTMLWriter {
                         try {
                             FW.write( BuildOmniLines( omni ) );
                             FW.newLine();
-                        } catch( IOException e ) {
+                        } catch (IOException e) {
+                            FW.close();
+                            FR.close();
+
                             throw e;
                         }
                     }
@@ -153,7 +167,11 @@ public class HTMLWriter {
                     while( end == false ) {
                         read = FR.readLine();
                         // see if someone forgot to end the fluff line
-                        if( read == null ) { throw new IOException( "Unexpected EOF: No End Normal Armor tag."); }
+                        if (read == null) {
+                            FW.close();
+                            FR.close();
+                            throw new IOException("Unexpected EOF: No End Normal Armor tag.");
+                        }
                         // check for the end, then add the line
                         if( read.contains( "<+-SSW_END_NORMAL_ARMOR_BLOCK-+>" ) ) {
                             end = true;
@@ -170,7 +188,10 @@ public class HTMLWriter {
                                 FW.write( ProcessLine( (String) armor.get( i ) ) );
                                 FW.newLine();
                             }
-                        } catch( IOException e ) {
+                        } catch (IOException e) {
+                            FW.close();
+                            FR.close();
+
                             throw e;
                         }
                     }
@@ -181,7 +202,11 @@ public class HTMLWriter {
                     while( end == false ) {
                         read = FR.readLine();
                         // see if someone forgot to end the fluff line
-                        if( read == null ) { throw new IOException( "Unexpected EOF: No End Patchwork Armor tag."); }
+                        if (read == null) {
+                            FW.close();
+                            FR.close();
+                            throw new IOException("Unexpected EOF: No End Patchwork Armor tag.");
+                        }
                         // check for the end, then add the line
                         if( read.contains( "<+-SSW_END_PATCHWORK_ARMOR_BLOCK-+>" ) ) {
                             end = true;
@@ -198,7 +223,10 @@ public class HTMLWriter {
                                 FW.write( ProcessLine( (String) armor.get( i ) ) );
                                 FW.newLine();
                             }
-                        } catch( IOException e ) {
+                        } catch (IOException e) {
+                            FW.close();
+                            FR.close();
+
                             throw e;
                         }
                     }
@@ -1164,10 +1192,10 @@ public class HTMLWriter {
             }
 
             // sort the weapons by BV
-            Object[] o = CurMech.SortWeapons( ret, false );
+            ArrayList<abPlaceable> o = CurMech.SortWeapons( ret, false );
             ret.clear();
-            for( int i = 0; i < o.length; i++ ) {
-                ret.add( o[i] );
+            for( int i = 0; i < o.size(); i++ ) {
+                ret.add( o.get(i) );
             }
 
             // now add any extra equipment to the end of the list.
@@ -1612,11 +1640,11 @@ public class HTMLWriter {
 
     private String GetHeatSinkLine() {
         String retval = "";
-                 
+
         int extraDHS = 0;
         boolean isProto = CurMech.GetHeatSinks().IsProtoDHS();
         ArrayList equipment = CurMech.GetLoadout().GetEquipment();
-        
+
         for (int i = 0; i < equipment.size(); i++){
             if (equipment.get(i) instanceof EquipmentProtoSuccWarsDoubleHeatSink){
                 extraDHS += 1;
@@ -1624,20 +1652,20 @@ public class HTMLWriter {
                 extraDHS += 1;
             }
         }
-        
+
         if (isProto || extraDHS != 0){
             int numberOfHS = CurMech.GetHeatSinks().GetNumHS();
             int internalHS = CurMech.GetHeatSinks().InternalHeatSinks();
             int singles;
             int doubles;
             if (isProto)
-            {            
+            {
                 singles = numberOfHS < internalHS ? numberOfHS : internalHS;
                 doubles = (numberOfHS - singles) + extraDHS;
             } else {
                 singles = numberOfHS;
                 doubles = extraDHS;
-            }  
+            }
             retval =  singles + " + " + doubles + "(" + CurMech.GetHeatSinks().TotalDissipation() + ")";
         } else if( CurMech.GetHeatSinks().IsDouble() ) {
             retval = CurMech.GetHeatSinks().GetNumHS() + " (" + CurMech.GetHeatSinks().TotalDissipation() + ")";

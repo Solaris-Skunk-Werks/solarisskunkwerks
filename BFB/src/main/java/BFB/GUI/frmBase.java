@@ -76,15 +76,19 @@ import list.UnitListData;
 import list.view.*;
 
 public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2205387839854272044L;
     public Scenario scenario = new Scenario();
     public Preferences Prefs;
     private dlgOpen dOpen;
     private Media media = new Media();
     private ImageTracker images = new ImageTracker();
     private Force addToForce = new Force();
-    
+
     private UnitList list = new UnitList(),  filtered,  chosen = new UnitList();
-    private abView currentView = new tbTotalWarfareView(list);
+    private abView currentView = new tbTotalWarfareView();
     private String MechListPath = "", BaseRUSPath = "./Data/Tables/",  RUSDirectory = "",  RUSPath = BaseRUSPath, CurrentFile = "";
     private RUS rus = new RUS();
 
@@ -124,7 +128,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         initComponents();
         Prefs = Preferences.userRoot().node( Constants.BFBPrefs );
         MechListPath = Prefs.get("ListPath", "");
-        
+
         popUtilities.add(popGroup);
         popUtilities.add(popSkill);
         popUtilities.add(popName);
@@ -149,7 +153,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         edtSpecialRules.addKeyListener(KeyTyped);
         edtVictoryConditions.addKeyListener(KeyTyped);
         edtAftermath.addKeyListener(KeyTyped);
-        
+
         Refresh();
         lblStatusUpdate.setText("");
         LoadRUSOptions();
@@ -174,7 +178,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         } else {
             btnISTop.setSelected(true);
         }
-        
+
         if ( scenario.getDefenderForce().getType().equals(BattleForce.Comstar) ) {
             btnCSBottom.setSelected(true);
         } else if ( scenario.getDefenderForce().getType().equals(BattleForce.Clan) ) {
@@ -184,7 +188,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         lblForceMod.setText( String.format( "%1$,.2f", CommonTools.GetForceSizeMultiplier( scenario.getAttackerForce().getUnits().size(), scenario.getDefenderForce().getUnits().size() )) );
-        
+
         updateFields();
     }
 
@@ -317,7 +321,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void loadScenario( String filename ) {
         if ( filename.isEmpty() ) { return; }
-        
+
         BFBReader reader = new BFBReader();
         //Force[] forces;
         try {
@@ -2668,6 +2672,10 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         );
 
         jList1.setModel(new javax.swing.AbstractListModel() {
+            /**
+             *
+             */
+            private static final long serialVersionUID = -8856346254604751858L;
             String[] strings = { "Light", "Medium", "Heavy", "Assault" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -3429,7 +3437,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
                System.out.println(e.getMessage());
                return;
             }
-            
+
             DefaultCursor();
         }
 }//GEN-LAST:event_mnuLoadActionPerformed
@@ -3537,7 +3545,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
 
             XMLWriter writer = new XMLWriter();
             writer.WriteScenario(scenario, filename);
-            
+
             Prefs.put("LastOpenBFBFile", filename);
             //Prefs.put("CurrentBFBFile", filename);
             CurrentFile = filename;
@@ -3626,7 +3634,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         MULWriter mw = new MULWriter();
         String dir = "";
         dir = media.GetDirectorySelection(this, Prefs.get("MULDirectory", ""));
-        if ( dir.isEmpty() ) { 
+        if ( dir.isEmpty() ) {
             DefaultCursor();
             return;
         }
@@ -3941,11 +3949,11 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         //Media.Messager("This will output a csv list of mechs and also a list of EVERY SINGLE Mech's cost and BV2 calculation!");
         WaitCursor();
         if ( list == null ) { LoadList(true); }
-        
+
         TXTWriter out = new TXTWriter();
         String dir = "";
         dir = media.GetDirectorySelection(this, Prefs.get("ListDirectory", ""));
-        if ( dir.isEmpty() ) { 
+        if ( dir.isEmpty() ) {
             DefaultCursor();
             return;
         }
@@ -4197,7 +4205,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
         dlgGen.setLocationRelativeTo(this);
         dlgGen.setVisible(true);
     }//GEN-LAST:event_btnAddGeneric1ActionPerformed
-    
+
     private void setTooltip(UnitListData data) {
         spnMechTable.setToolTipText(data.getInfo());
         txtInfo.setText(data.getInfo());
@@ -4272,7 +4280,7 @@ public class frmBase extends javax.swing.JFrame implements java.awt.datatransfer
 }//GEN-LAST:event_btnFilterFilter
 
     private void setupList(UnitList mechList, boolean forceSort) {
-        currentView.list = mechList;
+        currentView.setList(mechList);
         tblMechData.setModel(currentView);
         currentView.setupTable(tblMechData);
 

@@ -35,9 +35,9 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
 public class RUS {
-    private DefaultListModel DisplayList = new DefaultListModel();
-    private ArrayList Choices = new ArrayList();
-    private DefaultListModel Selection = new DefaultListModel();
+    private DefaultListModel<String> DisplayList = new DefaultListModel<String>();
+    private ArrayList<String> Choices = new ArrayList<String>();
+    private DefaultListModel<String> Selection = new DefaultListModel<String>();
 
     public final static String ParseDesignName( String selection ) {
         String Name = "", Model = "";
@@ -87,7 +87,7 @@ public class RUS {
         }
     }
 
-    public DefaultListModel getDisplay() {
+    public DefaultListModel<String> getDisplay() {
         return DisplayList;
     }
 
@@ -105,17 +105,17 @@ public class RUS {
         }
     }
 
-    public DefaultListModel Add( String Item ) {
+    public DefaultListModel<String> Add( String Item ) {
         getSelection().addElement(Item);
         return getSelection();
     }
 
     public void ClearItems() {
-        DisplayList = new DefaultListModel();
+        DisplayList = new DefaultListModel<String>();
         Choices.clear();
     }
 
-    public DefaultListModel Generate( int Selections, int AddOn ) {
+    public DefaultListModel<String> Generate( int Selections, int AddOn ) {
         java.util.Random random = new Random();
 
         for (int i=0; i < Selections; i++ ) {
@@ -133,15 +133,15 @@ public class RUS {
         return Choices.get(Row).toString();
     }
 
-    public DefaultListModel ClearSelection() {
-        Selection = new DefaultListModel();
+    public DefaultListModel<String> ClearSelection() {
+        Selection = new DefaultListModel<String>();
         return Selection;
     }
 
     /**
      * @return the Selection
      */
-    public DefaultListModel getSelection() {
+    public DefaultListModel<String> getSelection() {
         return Selection;
     }
 }

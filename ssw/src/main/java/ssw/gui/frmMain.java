@@ -59,6 +59,11 @@ import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
 public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner, common.DesignForm, ifMechForm {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2308727814118207666L;
+
     FocusAdapter spinners = new FocusAdapter() {
         @Override
         public void focusGained(FocusEvent e) {
@@ -129,7 +134,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
     // ImageIcon FluffImage = Utils.createImageIcon( SSWConstants.NO_IMAGE );
     public DataFactory data;
-    public ArrayList<Quirk> quirks = new ArrayList<Quirk>();
+    public ArrayList<Quirk> quirks;
 
     private dlgPrintBatchMechs BatchWindow = null;
     private ImageTracker imageTracker = new ImageTracker();
@@ -139,7 +144,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     final int BALLISTIC = 0,
               ENERGY = 1,
               MISSILE = 2,
-              PHYSICAL = 3, 
+              PHYSICAL = 3,
               EQUIPMENT = 4,
               AMMUNITION = 6,
               SELECTED = 7,
@@ -157,6 +162,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         CurMech = new Mech( Prefs );
         ArmorTons = new VSetArmorTonnage( Prefs );
         Mechrender = new MechLoadoutRenderer( this );
+        quirks = CurMech.GetQuirks();
 
         // added for easy checking
         PPCCapAC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
@@ -256,7 +262,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 LaserInsulator();
             }
         });
-        
+
         mnuAddPulseModule.addActionListener( new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 PulseModule();
@@ -466,6 +472,11 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         txtSumPAmpsACode.setVisible( false );
 
         tblWeaponManufacturers.setModel( new javax.swing.table.AbstractTableModel() {
+            /**
+             *
+             */
+            private static final long serialVersionUID = 6932836760592287993L;
+
             @Override
             public String getColumnName( int col ) {
                 if( col == 1 ) {
@@ -1552,7 +1563,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         String LookupVal = (String) cmbCockpitType.getSelectedItem();
         if( OldVal.equals( LookupVal ) ) { return; }
         ifVisitor v = (ifVisitor) CurMech.Lookup( LookupVal );
-        
+
         try {
             CurMech.Visit( v );
         } catch( Exception e ) {
@@ -1570,7 +1581,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
         if ( !CurMech.GetGyro().LookupName().equals(cmbGyroType.getSelectedItem().toString()) )
             cmbGyroType.setSelectedItem(CurMech.GetGyro().LookupName());
-        
+
         // check the command console and ejection seat
         if( CurMech.GetCockpit().CanUseCommandConsole() && CommonTools.IsAllowed( CurMech.GetCommandConsole().GetAvailability(), CurMech ) ) {
             chkCommandConsole.setEnabled( true );
@@ -2396,7 +2407,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 chkRAAES.setSelected( false );
             } else {
                 int index = CurMech.GetLoadout().FindIndex( CurMech.GetRAAES() ).Index;
-                try { 
+                try {
                     CurMech.SetRAAES( false, -1 );
                     CurMech.SetRAAES( true, index );
                 } catch( Exception e ) {
@@ -2409,7 +2420,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 chkLAAES.setSelected( false );
             } else {
                 int index = CurMech.GetLoadout().FindIndex( CurMech.GetLAAES() ).Index;
-                try { 
+                try {
                     CurMech.SetLAAES( false, -1 );
                     CurMech.SetLAAES( true, index );
                 } catch( Exception e ) {
@@ -2831,7 +2842,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             ItemInfo.setVisible( true );
         }
     }
-    
+
     private void ResetQuirks() {
         quirks = new ArrayList<>();
         tblQuirks.setModel(new javax.swing.table.DefaultTableModel(
@@ -2844,6 +2855,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             new String [] {
                 "Cost", "Quirk"
             }));
+        CurMech.SetQuirks(quirks);
     }
 
     private void UnallocateAll() {
@@ -2992,7 +3004,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             restrict += "Can Split, ";
         }
 
-        // now for weapon and ammo specific 
+        // now for weapon and ammo specific
         if( p instanceof ifWeapon ) {
             ifWeapon w = (ifWeapon) p;
             lblInfoType.setText( w.GetType() );
@@ -3824,7 +3836,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
         RefreshInfoPane();
     }
-    
+
     private void PulseModule() {
         // if the current item can support a Pulse Module, adds one on
         if( CurItem instanceof RangedWeapon ) {
@@ -3918,7 +3930,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
 
     private void DumperMount() {
         if ( CurItem instanceof Equipment ) {
-           
+
         }
     }
 
@@ -4344,7 +4356,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
     private void SolidifyJJManufacturer() {
         // this method is used mainly for OmniMechs with varying jump jet loads
         if( ! txtJJModel.getText().equals( "" ) || ! CurMech.GetJJModel().equals( "" ) ) {
-            if( ! txtJJModel.getText().equals( CurMech.GetJJModel() ) ) { 
+            if( ! txtJJModel.getText().equals( CurMech.GetJJModel() ) ) {
                 CurMech.SetJJModel( txtJJModel.getText() );
             }
         }
@@ -4740,7 +4752,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
      * WARNING: Do NOT modify this code. The content of this method is
      * always regenerated by the Form Editor.
      */
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -10671,7 +10683,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             System.out.println(e.getMessage());
         }
         System.out.flush();
-        
+
         System.exit(0);
     }
 
@@ -11311,7 +11323,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
                 cmbCockpitType.setSelectedItem("Standard Cockpit");
                 RecalcCockpit();
             }
-            
+
             CurMech.SetBiped();
             SetPatchworkArmor();
             // internal structure is always reset to standard on changing the
@@ -12867,7 +12879,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             tbpMainTabPane.setSelectedComponent( pnlCriticals );
             return;
         }
-        
+
         // 2020-10-19 Omnis can't have Hardened Armor, but we wrote this generic
         // in case later other armor types com along
         if (!CurMech.GetArmor().AllowOmni()){
@@ -12966,7 +12978,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         RefreshInfoPane();
     }//GEN-LAST:event_btnAddVariantActionPerformed
 
-    private void mnuOpenActionPerformed(java.awt.event.ActionEvent evt) {                                        
+    private void mnuOpenActionPerformed(java.awt.event.ActionEvent evt) {
         //dlgOpen dOpen = new dlgOpen(this, true);
         if( CurMech.HasChanged() ) {
             int choice = javax.swing.JOptionPane.showConfirmDialog( this,
@@ -14952,7 +14964,7 @@ private void chkBoobyTrapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         Media.Messager( this, e.getMessage() );
         chkBoobyTrap.setSelected( false );
     }
-    
+
     // now refresh the information panes
     RefreshEquipment();
     RefreshSummary();
@@ -15536,7 +15548,7 @@ private void setViewToolbar(boolean Visible)
     public ImageTracker getImageTracker() {
         return imageTracker;
     }
-    
+
     public void setUnit( ArrayList v ) {
         this.setMech( (Mech) v.get(0) );
     }

@@ -37,7 +37,6 @@ import filehandlers.FileCommon;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.event.TableModelListener;
 import org.w3c.dom.Node;
@@ -58,7 +57,7 @@ public class Scenario implements ifSerializable {
                     Aftermath = "";
     private ArrayList<Force> forces = new ArrayList<Force>();
     private Warchest warchest = new Warchest();
-    private abTable currentModel;
+    // private abTable currentModel; // Unused Variable
 
     public Scenario() {
         forces.add(new Force());
@@ -144,7 +143,7 @@ public class Scenario implements ifSerializable {
         for ( Force f : forces ) {
             f.useUnevenForceMod = UseMod;
         }
-        
+
         if ( UseMod ) {
             forceSizeModifier = true;
             setOpFor();
@@ -200,7 +199,7 @@ public class Scenario implements ifSerializable {
                     stat.setForceName( f.ForceName );
                     stat.setLogo(g.getLogo());
                     bf.BattleForceStats.add(stat);
-                    
+
                     if ( bf.BattleForceStats.size() == SizeLimit ) {
                         BattleForces.add(bf);
                         bf = new BattleForce();

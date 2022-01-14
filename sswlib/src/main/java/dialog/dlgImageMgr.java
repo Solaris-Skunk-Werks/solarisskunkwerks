@@ -40,10 +40,13 @@ import javax.swing.DefaultListModel;
 import javax.swing.border.TitledBorder;
 import filehandlers.MechWriter;
 import java.util.ArrayList;
-import java.util.Vector;
 import java.util.prefs.Preferences;
 
 public class dlgImageMgr extends javax.swing.JDialog {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5147617552433439077L;
     public ArrayList<Force> forces = new ArrayList<Force>();
     public boolean hasWork = false;
 
@@ -137,6 +140,10 @@ public class dlgImageMgr extends javax.swing.JDialog {
         pnlList.setBorder(javax.swing.BorderFactory.createTitledBorder("Designs Missing BFB.Images"));
 
         lstUnits.setModel(new javax.swing.AbstractListModel() {
+            /**
+             *
+             */
+            private static final long serialVersionUID = 6806666663211325298L;
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -220,7 +227,7 @@ public class dlgImageMgr extends javax.swing.JDialog {
     private void lstUnitsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstUnitsValueChanged
         if ( lstUnits.getSelectedValue() != null ) {
             Media media = new Media();
-            
+
             curUnit = units.get( ( (Object) lstUnits.getSelectedValue() ).toString() );
             pnlMech.setBorder(new TitledBorder(curUnit.TypeModel));
             lblStatus.setText(curUnit.TypeModel + " Loaded.");

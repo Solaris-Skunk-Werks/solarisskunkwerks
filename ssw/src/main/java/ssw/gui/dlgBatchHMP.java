@@ -40,28 +40,34 @@ import filehandlers.*;
 
 public class dlgBatchHMP extends javax.swing.JDialog implements PropertyChangeListener {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7759558535085918814L;
+
     /** Creates new form dlgTextExport */
-    public dlgBatchHMP(java.awt.Frame parent, boolean modal ) {
+    public dlgBatchHMP(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setTitle( "Import Multiple HMP Files" );
+        setTitle("Import Multiple HMP Files");
     }
 
-    public void propertyChange( PropertyChangeEvent e ) {
-       prgImporting.setValue( ((Importer) e.getSource()).getProgress() );
+    public void propertyChange(PropertyChangeEvent e) {
+        prgImporting.setValue(((Importer) e.getSource()).getProgress());
     }
 
-    private class Importer extends SwingWorker<Void,Void> {
-        dlgBatchHMP Owner;
-        public Importer( dlgBatchHMP owner ) {
-            Owner = owner;
+    private class Importer extends SwingWorker<Void, Void> {
+        // dlgBatchHMP Owner; // Not Used
+
+        public Importer(dlgBatchHMP owner) {
+            // Owner = owner; // Only assigned but never used.
         }
 
         @Override
         public void done() {
-            setCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) );
-            Media.Messager( "Finished!  Check the log for errors." );
-            prgImporting.setValue( 0 );
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            Media.Messager("Finished!  Check the log for errors.");
+            prgImporting.setValue(0);
         }
 
         @Override
@@ -73,70 +79,71 @@ public class dlgBatchHMP extends javax.swing.JDialog implements PropertyChangeLi
             Vector<File> files = new Vector<File>();
 
             // load up the list of files
-            File d = new File( txtSource.getText() );
-            if ( d.isDirectory() ) {
-                if( d.listFiles() == null ) {
-                    throw new Exception( "There are no files in the source directory.\nCannot continue." );
+            File d = new File(txtSource.getText());
+            if (d.isDirectory()) {
+                if (d.listFiles() == null) {
+                    throw new Exception("There are no files in the source directory.\nCannot continue.");
                 }
-                for ( File f : d.listFiles() ) {
-                    if ( f.isFile() && f.getPath().endsWith(".hmp") ) {
-                        files.add( f );
+                for (File f : d.listFiles()) {
+                    if (f.isFile() && f.getPath().endsWith(".hmp")) {
+                        files.add(f);
                     }
                 }
             } else {
-                throw new Exception( "The source is not a directory.\nCannot continue." );
+                throw new Exception("The source is not a directory.\nCannot continue.");
             }
 
-            if( files.size() < 1 ) {
-                throw new Exception( "No HMP files found in the source directory.\nCannot continue." );
+            if (files.size() < 1) {
+                throw new Exception("No HMP files found in the source directory.\nCannot continue.");
             }
 
-            for( int i = 0; i < files.size(); i++ ) {
-                File f = files.get( i );
-                String basename = f.getName().replace( ".hmp", "" );
+            for (int i = 0; i < files.size(); i++) {
+                File f = files.get(i);
+                String basename = f.getName().replace(".hmp", "");
 
                 try {
                     // import the new 'Mech
-                    Mech m = HMPr.GetMech( f.getCanonicalPath(), true );
+                    Mech m = HMPr.GetMech(f.getCanonicalPath(), true);
                     MsgTemp = HMPr.GetErrors();
 
                     // save it off to SSW format
-                    XMLw.setMech( m );
-                    XMLw.WriteXML( txtDestination.getText() + File.separator + basename + ".ssw" );
-                } catch( Exception e ) {
-                    // had a problem loading the mech.  let the user know.
-                    if( e.getMessage() == null ) {
+                    XMLw.setMech(m);
+                    XMLw.WriteXML(txtDestination.getText() + File.separator + basename + ".ssw");
+                } catch (Exception e) {
+                    // had a problem loading the mech. let the user know.
+                    if (e.getMessage() == null) {
                         Messages += "An unknown error has occured.\n" + f.getName() + " is not loadable.\n\n";
                     } else {
                         Messages += e.getMessage() + "\n" + f.getName() + "\n\n";
                     }
                 }
 
-                if( MsgTemp.length() > 0 ) {
+                if (MsgTemp.length() > 0) {
                     Messages += MsgTemp + "\n" + f.getName() + "\n\n";
                 }
 
-                if( Messages.length() != LastMsgLength ) {
+                if (Messages.length() != LastMsgLength) {
                     LastMsgLength = Messages.length();
-                    txtMessages.setText( Messages );
-                    txtMessages.setCaretPosition( 0 );
+                    txtMessages.setText(Messages);
+                    txtMessages.setCaretPosition(0);
                 }
 
-                int progress = ((int) (( ((double) i + 1) / (double) files.size() ) * 100.0 ) );
-                setProgress( progress );
+                int progress = ((int) ((((double) i + 1) / (double) files.size()) * 100.0));
+                setProgress(progress);
             }
 
             return null;
         }
     }
 
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
      */
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -270,48 +277,50 @@ public class dlgBatchHMP extends javax.swing.JDialog implements PropertyChangeLi
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
-    dispose();
-}//GEN-LAST:event_btnCloseActionPerformed
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCloseActionPerformed
+        dispose();
+    }// GEN-LAST:event_btnCloseActionPerformed
 
-private void btnSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSourceActionPerformed
-    Media media = new Media();
-    String dirPath = media.GetDirectorySelection( this );
-    txtSource.setText( dirPath );
-}//GEN-LAST:event_btnSourceActionPerformed
+    private void btnSourceActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSourceActionPerformed
+        Media media = new Media();
+        String dirPath = media.GetDirectorySelection(this);
+        txtSource.setText(dirPath);
+    }// GEN-LAST:event_btnSourceActionPerformed
 
-private void btnDestinationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDestinationActionPerformed
-    Media media = new Media();
-    String dirPath = media.GetDirectorySelection( this );
-    txtDestination.setText( dirPath );
-}//GEN-LAST:event_btnDestinationActionPerformed
+    private void btnDestinationActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDestinationActionPerformed
+        Media media = new Media();
+        String dirPath = media.GetDirectorySelection(this);
+        txtDestination.setText(dirPath);
+    }// GEN-LAST:event_btnDestinationActionPerformed
 
-private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
+    private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnImportActionPerformed
         prgImporting.setValue(0);
-        if( txtSource.getText().length() < 1 ) {
-            Media.Messager( this, "The Source directory is empty.\nPlease choose a Source directory." );
+        if (txtSource.getText().length() < 1) {
+            Media.Messager(this, "The Source directory is empty.\nPlease choose a Source directory.");
             return;
         }
-        if( txtDestination.getText().length() < 1 ) {
-            Media.Messager( this, "The Destination directory is empty.\nPlease choose a Destination directory." );
+        if (txtDestination.getText().length() < 1) {
+            Media.Messager(this, "The Destination directory is empty.\nPlease choose a Destination directory.");
             return;
         }
-        int Response = javax.swing.JOptionPane.showConfirmDialog( this, "This will import each HMP file in the Source directory\nand save it to an SSW file in the Destination directory.\nThis process could take a few minutes, are you ready?", "Batch HMP Import", javax.swing.JOptionPane.YES_NO_OPTION );
-        if( Response == javax.swing.JOptionPane.YES_OPTION ) {
-            setCursor( Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR ) );
+        int Response = javax.swing.JOptionPane.showConfirmDialog(this,
+                "This will import each HMP file in the Source directory\nand save it to an SSW file in the Destination directory.\nThis process could take a few minutes, are you ready?",
+                "Batch HMP Import", javax.swing.JOptionPane.YES_NO_OPTION);
+        if (Response == javax.swing.JOptionPane.YES_OPTION) {
+            setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             try {
-                Importer Import = new Importer( this );
-                Import.addPropertyChangeListener( this );
+                Importer Import = new Importer(this);
+                Import.addPropertyChangeListener(this);
                 Import.execute();
-            } catch( Exception e ) {
-                // fatal error.  let the user know
-                Media.Messager( this, "A fatal error occured while processing the 'Mechs:\n" + e.getMessage() );
+            } catch (Exception e) {
+                // fatal error. let the user know
+                Media.Messager(this, "A fatal error occured while processing the 'Mechs:\n" + e.getMessage());
                 e.printStackTrace();
             }
-            setCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) );
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             prgImporting.setValue(0);
         }
-}//GEN-LAST:event_btnImportActionPerformed
+    }// GEN-LAST:event_btnImportActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;

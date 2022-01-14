@@ -29,10 +29,13 @@ public class UnitCacheParser {
     public static int WriteUnitCache(ArrayList<UnitListData> unitList, BufferedWriter bw) throws IOException {
         int unitsWritten = 0;
         CSVPrinter printer = new CSVPrinter(bw, CSVFormat.DEFAULT);
+
         for (UnitListData unit : unitList) {
             printer.printRecord(unit.toCsvIndex());
             unitsWritten++;
         }
+
+        printer.close();
         return unitsWritten;
     }
 }

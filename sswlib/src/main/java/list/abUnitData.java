@@ -28,7 +28,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package list;
 
+import java.io.File;
 import java.util.ArrayList;
+
 import battleforce.BattleForceStats;
 
 /**
@@ -56,11 +58,12 @@ public abstract class abUnitData implements ifUnitData {
     boolean Omni = false;
     String basePath = "",
            filename = "";
-    public ArrayList Configurations = new ArrayList();
+    public ArrayList<abUnitData> Configurations = new ArrayList<abUnitData>();
     public BattleForceStats bfstat = new BattleForceStats();
-    private String[] indexFields = new String[]{"Name", "Model", "Level", "Era",
-    "Tech", "Source", "Tonnage", "Year", "BV", "Cost", "Filename", "Type",
-    "Motive", "Info", "Config"};
+
+    // Not used in this or child classes
+    // private String[] indexFields = new String[]{"Name", "Model", "Level", "Era", "Tech", "Source", "Tonnage", "Year", "BV", "Cost", "Filename", "Type","Motive", "Info", "Config"};
+
     static final int name = 0,
                 model = 1,
                 configuration = 2,
@@ -202,7 +205,10 @@ public abstract class abUnitData implements ifUnitData {
     }
 
     public String getFilename() {
-        return filename;
+        if (filename == null) {
+            return null;
+        }
+        return filename.replace("\\", File.separator);
     }
 
     public void setFilename(String filename) {
@@ -246,7 +252,7 @@ public abstract class abUnitData implements ifUnitData {
     public void setBattleForceStats( BattleForceStats stat ) {
         this.bfstat = stat;
     }
-    
+
     public BattleForceStats getBattleForceStats() {
         if ( bfstat.getName().isEmpty() ) bfstat.setName(getFullName());
         return bfstat;

@@ -38,6 +38,10 @@ import javax.swing.TransferHandler;
 import components.*;
 
 public class thLLTransferHandler extends TransferHandler {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6496360274416983909L;
     private ifMechForm Parent;
     private Mech CurMech;
 
@@ -53,7 +57,7 @@ public class thLLTransferHandler extends TransferHandler {
         // all we want to do is transfer the index in the queue
         LocationDragDatagram d = new LocationDragDatagram();
         d.Location = LocationIndex.MECH_LOC_LL;
-        d.SourceIndex = ((JList) comp).getSelectedIndex();
+        d.SourceIndex = ((JList<?>) comp).getSelectedIndex();
         d.Locked = CurMech.GetLoadout().GetLLCrits()[d.SourceIndex].LocationLocked();
         if( CurMech.GetLoadout().GetLLCrits()[d.SourceIndex] instanceof EmptyItem ) {
             d.Empty = true;
@@ -158,7 +162,7 @@ public class thLLTransferHandler extends TransferHandler {
 
         // get the item
         abPlaceable a;
-        ArrayList v = new ArrayList();
+        ArrayList<LocationIndex> v = new ArrayList<LocationIndex>();
         if( DropItem.Location == -1 ) {
             // from the queue
             a = CurMech.GetLoadout().GetFromQueueByIndex( DropItem.SourceIndex );

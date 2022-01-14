@@ -28,13 +28,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package list.view;
 
 import javax.swing.SortOrder;
-import list.UnitList;
 import list.UnitListData;
 
 public class tbChatInformation extends abView {
-    public tbChatInformation( UnitList list ) {
-        this.list = list;
-
+    public tbChatInformation() {
         Columns.add(new Column( 0, "Type/Model", "Name", false, 125, String.class, true, SortOrder.ASCENDING ));
         Columns.add(new Column( 1, "Information", "ChatInfo", false, 325, String.class, true, SortOrder.ASCENDING ));
         Columns.add(new Column( 2, "BV", "BV", false, 20, Integer.class, true, SortOrder.ASCENDING ));
@@ -51,14 +48,14 @@ public class tbChatInformation extends abView {
     }
 
     public Object getValueAt( int row, int col ) {
-        UnitListData m = (UnitListData) list.Get( row );
+        UnitListData m = list.Get( row );
         switch( col ) {
             case 0:
                 return m.getFullName();
             case 1:
                 return m.getInfo();
             case 2:
-                return (int) m.getBV();
+                return m.getBV();
             case 3:
                 return String.format("%10.0f", m.getCost());
             case 4:
@@ -67,7 +64,8 @@ public class tbChatInformation extends abView {
                 return m.getEra();
             case 6:
                 return m.getTech();
+            default:
+                return null;
         }
-        return null;
     }
 }

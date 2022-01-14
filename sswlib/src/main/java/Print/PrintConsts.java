@@ -34,9 +34,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.Calendar;
-import java.util.Enumeration;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.ListIterator;
 
 public class PrintConsts {
@@ -112,7 +110,7 @@ public class PrintConsts {
 
     //public final static Font BaseFont = FontLoader.getFont("Eurosti.ttf").deriveFont(Font.PLAIN, 20);
     //public final static Font BaseBoldFont = FontLoader.getFont("Eurostib.ttf").deriveFont(Font.PLAIN, 20);
-    
+
     public final static Font BaseFont = FontLoader.getFont("EurostileLTStd.ttf").deriveFont(Font.PLAIN, 20);
     public final static Font BaseBoldFont = FontLoader.getFont("EurostileLTStd-Demi.ttf").deriveFont(Font.PLAIN, 20);
     public final static Font BaseCritFont = FontLoader.getFont("LiberationSans-Regular.ttf").deriveFont(Font.PLAIN, 10);
@@ -202,7 +200,7 @@ public class PrintConsts {
             if (chars[i] == '\n') {
                 line.append(word);
                 lines.add(line.toString());
-                
+
                 line.delete(0, line.length());
                 word.delete(0, word.length());
             }
@@ -221,9 +219,9 @@ public class PrintConsts {
         if (line.length() > 0) {
             lines.add(line.toString());
         }
-        
+
         String[] ret = new String[lines.size()];
-        
+
         return lines.toArray(ret);
     }
 
@@ -232,13 +230,13 @@ public class PrintConsts {
             "Copyright " + (Calendar.getInstance()).get(Calendar.YEAR) + " The Topps Company, Inc. Battletech, 'Mech and BattleMech are trademarks of The Topps Company, Inc.  All Rights reserved.",
             "  Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of InMediaRes Productions, LLC. Permission to photocopy for personal use."};
     }
-    
+
     public static String GetPrintName( abPlaceable a, int Techbase, int Loc ) {
         // returns a modified PrintName, useful for special situations such as
         // mixed-tech mechs.
         return GetPrintName( a, Techbase, a.CritName( Loc ));
     }
-    
+
     public static String GetPrintName( abPlaceable a, int Techbase, String Name ) {
         String retval = Name;
         if( a instanceof RangedWeapon && Techbase == AvailableCode.TECH_BOTH ) {
@@ -253,12 +251,12 @@ public class PrintConsts {
         }
         return retval;
     }
-    
+
     public static ArrayList<PlaceableInfo> SortEquipmentByLocation( Mech CurMech, int MiniConvRate ) {
         boolean HasAmmoData = false;
 
         ArrayList v = (ArrayList) CurMech.GetLoadout().GetNonCore().clone();
-        
+
         // Remove Proto Double Heatsinks, so they don't clog up the equipment list
         ListIterator listIterator = v.listIterator();
         while (listIterator.hasNext()){
@@ -267,7 +265,7 @@ public class PrintConsts {
                  listIterator.remove();
              } else if(temp instanceof EquipmentProtoStarLeagueDoubleHeatSink) {
                  listIterator.remove();
-             }   
+             }
         }
                 // add in MASC and the targeting computer if needed.
         if( CurMech.GetPhysEnhance().IsMASC() ) v.add( CurMech.GetPhysEnhance() );
@@ -387,7 +385,7 @@ public class PrintConsts {
 
         return temp;
     }
-    
+
     public static ArrayList<PlaceableInfo> SortEquipmentByLocation( CombatVehicle CurUnit, int MiniConvRate ) {
         ArrayList<PlaceableInfo> Data = new ArrayList<PlaceableInfo>();
 
@@ -410,16 +408,16 @@ public class PrintConsts {
         Data.addAll(HandleLocation( CurUnit, MiniConvRate, a, LocationIndex.CV_LOC_SPONSON_LEFT));
         a = CurUnit.GetLoadout().GetSponsonTurretRightItems().toArray(a);
         Data.addAll(HandleLocation( CurUnit, MiniConvRate, a, LocationIndex.CV_LOC_SPONSON_RIGHT));
-        
+
         return Data;
     }
-    
+
     private static ArrayList<PlaceableInfo> HandleLocation( CombatVehicle CurUnit, int MiniConvRate, abPlaceable[] items, int Location ) {
         ArrayList<PlaceableInfo> Data = new ArrayList<PlaceableInfo>();
         PlaceableInfo p = null;
         int count = 0;
         boolean HasAmmoData = false;
-        
+
         for (int i = 0; i < items.length; i++) {
             if ( items[i] != null ) {
                 if ( items[i] instanceof Ammunition ) continue;
@@ -435,7 +433,7 @@ public class PrintConsts {
                         }
                     }
                 }
-                
+
                 if ( p.name.equals("Targeting Computer") ||
                      p.name.equals("AES") ) count = 1;
 
@@ -496,10 +494,10 @@ public class PrintConsts {
                         }
                     }
                 }
-                
+
             }
         }
-        
+
         return Data;
     }
 }
