@@ -41081,7 +41081,7 @@
     "FCSType": 2,
     "WeaponClass": 2,
     "RackSize": 2,
-    "Tonnage": 0.5,
+    "Tonnage": 0.25,
     "Cost": 8000.0,
     "OffBV": 4.0,
     "DefBV": 0.0,

@@ -71,7 +71,11 @@ public class Constants {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return props.getProperty("version");
+        String ver = props.getProperty("version");
+        if (!props.getProperty("release").equals("Stable")) {
+            ver += "-" + props.getProperty("rev");
+        }
+        return ver;
     }
 
     public static String GetRelease() {

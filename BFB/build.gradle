@@ -52,6 +52,7 @@ task writeProperties(type: WriteProperties) {
     outputFile "${buildDir}/resources/main/BFB/build.properties"
     property 'version', version
     property 'release', release
+    property 'rev', rev
 }
 
 compileJava.finalizedBy(writeProperties)
