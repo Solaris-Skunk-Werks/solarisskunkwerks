@@ -295,6 +295,14 @@ public class PrintVehicle implements Printable {
 //            graphics.drawString("+2", p[7].x, p[7].y-15);
 //            graphics.drawString("+4", p[8].x, p[8].y-15);
 //        }
+		
+		//Coverup the (hexes) above the ranges if we are not using traditional measurements
+        if (MiniConvRate > 1)
+        {
+            graphics.setColor(Color.white);
+            graphics.fillRect(p[6].x, p[8].y, 30, 10);
+            graphics.setColor(Color.black);
+        }
 
         graphics.setFont( PrintConsts.ReallySmallFont );
         if (TotalItemLines() > 15) { graphics.setFont( PrintConsts.TinyFont ); }
@@ -385,7 +393,7 @@ public class PrintVehicle implements Printable {
         graphics.setFont( PrintConsts.Small8Font );
         graphics.drawString( ( CurVee.getCruiseMP() * MiniConvRate ) + "", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
         graphics.drawString( CurVee.getFlankMP( MiniConvRate ) + "", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
-
+        
         // Movement and Engine
         if ( !CurVee.IsVTOL() ) {
             graphics.drawString( CurVee.GetMotiveLookupName() + "" + CurVee.GetChassisModifierString(), p[19].x, p[19].y );
