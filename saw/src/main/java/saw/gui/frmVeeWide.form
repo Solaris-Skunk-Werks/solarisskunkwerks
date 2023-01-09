@@ -1071,7 +1071,7 @@
                 <Component class="javax.swing.JComboBox" name="cmbProductionEra">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="11">
+                      <StringArray count="12">
                         <StringItem index="0" value="Age of War"/>
                         <StringItem index="1" value="Star League"/>
                         <StringItem index="2" value="Early Succession War"/>
@@ -1083,6 +1083,7 @@
                         <StringItem index="8" value="Early Republic"/>
                         <StringItem index="9" value="Late Republic"/>
                         <StringItem index="10" value="Dark Ages"/>
+                        <StringItem index="11" value="ilClan"/>
                       </StringArray>
                     </Property>
                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">

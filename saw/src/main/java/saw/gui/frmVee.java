@@ -1685,7 +1685,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         jLabel2.setText("Rules Level:");
 
-        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Introductory", "Tournament Legal", "Advanced Rules", "Experimental Tech", "Era Specific" }));
+        cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Introductory", "Tournament Legal", "Advanced", "Experimental" }));
         cmbRulesLevel.setSelectedIndex(1);
         cmbRulesLevel.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbRulesLevel.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -1709,7 +1709,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         jLabel3.setText("Tech Base:");
 
-        cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan", "Mixed" }));
+        cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan", "Mixed Tech" }));
         cmbTechBase.setMinimumSize(new java.awt.Dimension(150, 20));
         cmbTechBase.setPreferredSize(new java.awt.Dimension(150, 20));
         cmbTechBase.addActionListener(new java.awt.event.ActionListener() {
@@ -1741,7 +1741,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtProdYear.setMinimumSize(new java.awt.Dimension(60, 20));
         txtProdYear.setPreferredSize(new java.awt.Dimension(60, 20));
 
-        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "LSW - LosTech", "LSW - Renaissance", "Clan Invasion", "Civil War", "Jihad", "Early Republic", "Late Republic", "Dark Ages" }));
+        cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "LSW - LosTech", "LSW - Renaissance", "Clan Invasion", "Civil War", "Jihad", "Early Republic", "Late Republic", "Dark Ages", "ilClan" }));
         cmbProductionEra.setMaximumSize(new java.awt.Dimension(90, 20));
         cmbProductionEra.setMinimumSize(new java.awt.Dimension(90, 20));
         cmbProductionEra.setPreferredSize(new java.awt.Dimension(90, 20));
@@ -1913,10 +1913,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
         });
         spnTonnage.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 spnTonnageInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -1962,10 +1962,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
         });
         spnHeatSinks.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 spnHeatSinksInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -2075,10 +2075,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
         });
         spnCruiseMP.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 spnCruiseMPInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -4907,7 +4907,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
         });
 
-        mnuNewMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mnuNewMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK));
         mnuNewMech.setText("New");
         mnuNewMech.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4916,7 +4916,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         });
         mnuFile.add(mnuNewMech);
 
-        mnuLoad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mnuLoad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
         mnuLoad.setText("Load");
         mnuLoad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4925,7 +4925,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         });
         mnuFile.add(mnuLoad);
 
-        mnuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mnuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
         mnuOpen.setText("Open");
         mnuOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4955,7 +4955,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         mnuFile.add(mnuImport);
         mnuFile.add(jSeparator22);
 
-        mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         mnuSave.setText("Save");
         mnuSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4964,7 +4964,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         });
         mnuFile.add(mnuSave);
 
-        mnuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mnuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         mnuSaveAs.setText("Save As...");
         mnuSaveAs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -5021,7 +5021,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         mnuPrint.setText("Print");
         mnuFile.add(mnuPrint);
 
-        mnuPrintPreview.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mnuPrintPreview.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         mnuPrintPreview.setText("Print Preview");
         mnuPrintPreview.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -5031,7 +5031,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         mnuFile.add(mnuPrintPreview);
         mnuFile.add(jSeparator24);
 
-        mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK));
         mnuExit.setText("Exit");
         mnuExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -5044,7 +5044,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         mnuClearFluff.setText("Tools");
 
-        mnuSummary.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mnuSummary.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
         mnuSummary.setText("Show Summary");
         mnuSummary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -5079,7 +5079,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         mnuClearFluff.add(mnuBFB);
         mnuClearFluff.add(jSeparator27);
 
-        mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
         mnuOptions.setText("Preferences");
         mnuOptions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -5088,7 +5088,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         });
         mnuClearFluff.add(mnuOptions);
 
-        mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
         mnuViewToolbar.setSelected(true);
         mnuViewToolbar.setText("View Toolbar");
         mnuViewToolbar.addActionListener(new java.awt.event.ActionListener() {
