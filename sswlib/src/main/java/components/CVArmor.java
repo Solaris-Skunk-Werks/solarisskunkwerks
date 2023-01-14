@@ -1068,6 +1068,17 @@ public class CVArmor extends abPlaceable {
 
     @Override
     public String toString() {
+		if( Config.NumCrits() > 0 ) {
+            if( Config.NumCrits() > Placed ) {
+                if( Config.IsStealth() ) {
+                    return Config.CritName();
+                } else {
+                    return Config.CritName() + " (" + ( Config.NumCrits() - Placed ) + ")";
+                }
+            } else {
+                return Config.CritName();
+            }
+        }
         return Config.CritName();
     }
 
