@@ -33,6 +33,7 @@ import components.*;
 public class VArmorSetVStealth implements ifVisitor {
     // sets the mech's armor to stealth
     private Mech CurMech;
+    private CombatVehicle CurVee;
     private LocationIndex[] Locs = null;
 
     public VArmorSetVStealth() {
