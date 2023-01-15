@@ -1872,7 +1872,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
 
     public boolean HasECM() {
         for (abPlaceable item : (ArrayList<abPlaceable>)CurLoadout.GetEquipment()) {
-            if (item.LookupName().contains("ECM") || item.LookupName().contains("Watchdog")) {
+            if (item.LookupName().contains("ECM") || item.LookupName().contains("Watchdog") || item.LookupName().contains("CEWS")) {
                 return true;
             }
         }
