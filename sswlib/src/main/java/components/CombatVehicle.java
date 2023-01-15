@@ -1871,13 +1871,10 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     }
 
     public boolean HasECM() {
-        // ensures that, if the 'Mech needs ECM, it has it.
-        SimplePlaceable p = new SimplePlaceable( "ECMTest", "ECMTest", "ECMTest", "ECMTest", "none", 0, false, null );
-        p.SetExclusions(new String[] { "ECM", "Watchdog" });
-        try {
-            CurLoadout.CheckExclusions( p );
-        } catch( Exception e ) {
-            return true;
+        for (abPlaceable item : (ArrayList<abPlaceable>)CurLoadout.GetEquipment()) {
+            if (item.LookupName().contains("ECM") || item.LookupName().contains("Watchdog")) {
+                return true;
+            }
         }
         return false;
     }
