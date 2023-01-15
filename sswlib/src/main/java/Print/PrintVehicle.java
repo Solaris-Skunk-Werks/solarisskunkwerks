@@ -62,7 +62,7 @@ public class PrintVehicle implements Printable {
                     currentAmmoFormat = "";
     private int Piloting = 5,
                 Gunnery = 4,
-                MiniConvRate = 1;
+                MiniConvRate = 0;
     private double BV = 0.0;
     private ifPrintPoints points = null;
     private Color Black = new Color( 0, 0, 0 ),
@@ -297,10 +297,10 @@ public class PrintVehicle implements Printable {
 //        }
 		
 		//Coverup the (hexes) above the ranges if we are not using traditional measurements
-        if (MiniConvRate > 1)
+        if (MiniConvRate > 0)
         {
             graphics.setColor(Color.white);
-            graphics.fillRect(p[6].x, p[8].y, 30, 10);
+            graphics.fillRect(p[6].x-5, p[6].y-28, 30, 10);
             graphics.setColor(Color.black);
         }
 
