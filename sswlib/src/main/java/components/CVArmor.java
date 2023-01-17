@@ -41,6 +41,7 @@ public class CVArmor extends abPlaceable {
 
     // Declares
     private CombatVehicle Owner;
+    private int Placed = 0;
     private int[] ArmorPoints = { 0, 0, 0, 0, 0, 0, 0, 0 };
     private int[] MaxArmor = { 390, 390, 390, 390, 390, 390, 2, 390 };
     private ifArmor Industrial = new stArmorIN(),
@@ -1029,7 +1030,9 @@ public class CVArmor extends abPlaceable {
     }
 
     @Override
-    public void ResetPlaced() { return; }
+    public void ResetPlaced() {
+        Placed = 0;
+    }
 
     @Override
     public boolean Contiguous() {
@@ -1068,6 +1071,17 @@ public class CVArmor extends abPlaceable {
 
     @Override
     public String toString() {
+		if( Config.NumCrits() > 0 ) {
+            if( Config.NumCrits() > Placed ) {
+                if( Config.IsStealth() ) {
+                    return Config.CritName();
+                } else {
+                    return Config.CritName() + " (" + ( Config.NumCrits() - Placed ) + ")";
+                }
+            } else {
+                return Config.CritName();
+            }
+        }
         return Config.CritName();
     }
 

@@ -5581,6 +5581,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             //RecalcHeatSinks();
             RecalcArmor();
             RecalcEquipment();
+            RefreshEquipment();
         }
 
         BuildTurretSelector();
@@ -7030,7 +7031,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             chkFCSAV.setEnabled( false );
         }
 
-        // fix Artemis IV controls
+        // fix ApolloFCS controls
         ArtCheck = new ApolloFCS( null );
         if( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ) {
             chkFCSApollo.setEnabled( true );
