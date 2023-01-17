@@ -2794,12 +2794,12 @@ public class Mech implements ifUnit, ifBattleforce {
                             }
                             break;
                         case 4:
-                            if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.IsUsingClanCASE() ) {
+                            if ((!CurLoadout.HasLACASEII() & !CurLoadout.HasLTCASEII() & !CurLoadout.IsUsingClanCASE()) | CurLoadout.IsQuad()) {
                                 result -= p.NumCrits() + mod;
                             }
                             break;
                         case 5:
-                            if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.IsUsingClanCASE() ) {
+                            if ((!CurLoadout.HasRACASEII() & !CurLoadout.HasRTCASEII() & !CurLoadout.IsUsingClanCASE()) | CurLoadout.IsQuad())  {
                                 result -= p.NumCrits() + mod;
                             }
                             break;
@@ -2837,12 +2837,12 @@ public class Mech implements ifUnit, ifBattleforce {
                             }
                             break;
                         case 4:
-                            if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                            if ((!CurLoadout.HasLACASEII() & !CurLoadout.HasLTCASEII() & !CurLoadout.HasLTCASE() & !CurLoadout.IsUsingClanCASE()) | CurLoadout.IsQuad()) {
                                 result -= p.NumCrits() + mod;
                             }
                             break;
                         case 5:
-                            if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                            if ((!CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() & !CurLoadout.IsUsingClanCASE()) | CurLoadout.IsQuad()) {
                                 result -= p.NumCrits() + mod;
                             }
                             break;
