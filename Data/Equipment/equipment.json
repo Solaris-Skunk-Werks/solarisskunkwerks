@@ -133,7 +133,7 @@
     "alloc_body": false,
     "CanSplit": false,
     "CanMountRear": true,
-    "Explosive": false,
+    "Explosive": true,
     "VariableSize": false,
     "RequiresQuad": false,
     "Availability": {
