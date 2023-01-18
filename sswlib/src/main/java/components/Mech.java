@@ -2569,18 +2569,12 @@ public class Mech implements ifUnit, ifBattleforce {
                             }
                             break;
                         case 4:
-                            if (CurLoadout instanceof QuadLoadout && (! CurLoadout.HasLACASEII() )){
-                                result -= 15.0 * p.NumCrits();
-                            }
-                            else if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.IsUsingClanCASE() ) {
+                            if ((!CurLoadout.HasLACASEII() & !CurLoadout.HasLTCASEII() & !CurLoadout.HasLTCASE() & !CurLoadout.IsUsingClanCASE()) | CurLoadout.IsQuad()) {
                                 result -= 15.0 * p.NumCrits();
                             }
                             break;
                         case 5:
-                            if (CurLoadout instanceof QuadLoadout && (! CurLoadout.HasRACASEII() )){
-                                result -= 15.0 * p.NumCrits();
-                            }
-                            else if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.IsUsingClanCASE() ) {
+                            if ((!CurLoadout.HasRACASEII() & !CurLoadout.HasRTCASEII() & !CurLoadout.HasRTCASE() & !CurLoadout.IsUsingClanCASE()) | CurLoadout.IsQuad()) {
                                 result -= 15.0 * p.NumCrits();
                             }
                             break;
@@ -2618,12 +2612,12 @@ public class Mech implements ifUnit, ifBattleforce {
                             }
                             break;
                         case 4:
-                            if( ! CurLoadout.HasLACASEII() &! CurLoadout.HasLTCASEII() &! CurLoadout.HasLTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                            if ((!CurLoadout.HasLACASEII() & !CurLoadout.HasLTCASEII() & !CurLoadout.HasLTCASE() & !CurLoadout.IsUsingClanCASE()) | CurLoadout.IsQuad()) {
                                 result -= 15.0 * p.NumCrits();
                             }
                             break;
                         case 5:
-                            if( ! CurLoadout.HasRACASEII() &! CurLoadout.HasRTCASEII() &! CurLoadout.HasRTCASE() &! CurLoadout.IsUsingClanCASE() ) {
+                            if ((!CurLoadout.HasRACASEII() & !CurLoadout.HasRTCASEII() & !CurLoadout.HasRTCASE() & !CurLoadout.IsUsingClanCASE()) | CurLoadout.IsQuad()) {
                                 result -= 15.0 * p.NumCrits();
                             }
                             break;
