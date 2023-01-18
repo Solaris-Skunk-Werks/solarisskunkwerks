@@ -2126,7 +2126,7 @@
     "ToHitLong": 0,
     "DamageAdd": 5,
     "CritAdd": 1,
-    "PWClass": 5,
+    "PWClass": 4,
     "TonMult": 0.0,
     "CritMult": 0.0,
     "TonAdd": 2.0,
