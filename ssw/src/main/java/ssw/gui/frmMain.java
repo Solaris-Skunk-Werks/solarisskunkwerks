@@ -12498,7 +12498,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         String filename = "";
-        IO.MTFWriter mtfw = new IO.MTFWriter( CurMech );
+        IO.MTFWriter mtfw = new IO.MTFWriter( CurMech, SSWConstants.AppDescription + " " + SSWConstants.GetVersion() );
         try {
             filename = savemech.getCanonicalPath();
             mtfw.WriteMTF( filename );
