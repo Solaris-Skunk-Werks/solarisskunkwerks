@@ -5565,7 +5565,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         }
     }
     
-        private void BuildExpEquipmentSelector() {
+    private void BuildExpEquipmentSelector() {
         JCheckBox[] ExpEquipmentCheckboxes = { chkArmoredMotive,
                                                chkSupercharger,
                                                chkCommandConsole,
@@ -5574,6 +5574,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                                                chkEscapePod,
                                                chkSponsonTurret };
         if (cmbRulesLevel.getSelectedIndex() > 1) {
+
             if (CurVee.CanUseSponson())
                 chkSponsonTurret.setEnabled(true);
         } else
@@ -6393,7 +6394,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             //chkBSPFD.setEnabled( false );
             //chkBSPFD.setSelected( false );
         }
-        if( CommonTools.IsAllowed( CurVee.GetLoadout().GetSupercharger().GetAvailability(), CurVee ) ) {
+        if( CommonTools.IsAllowed( CurVee.GetLoadout().GetSupercharger().GetAvailability(), CurVee ) && !CurVee.IsVTOL() ) {
             chkSupercharger.setEnabled( true );
         } else {
             chkSupercharger.setEnabled( false );
@@ -8907,8 +8908,25 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     }//GEN-LAST:event_chkFractionalActionPerformed
 
     private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSuperchargerActionPerformed
- 
-  }//GEN-LAST:event_chkSuperchargerActionPerformed
+        if( CurVee.GetLoadout().HasSupercharger() == chkSupercharger.isSelected() ) {
+            return;
+        }
+        try {
+            CurVee.GetLoadout().SetSupercharger( chkSupercharger.isSelected());
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            try {
+                CurVee.GetLoadout().SetSupercharger( false );
+            } catch( Exception x ) {
+                // how the hell did we get an error removing it?
+                Media.Messager( this, x.getMessage() );
+            }
+            chkSupercharger.setSelected( false );
+        }
+        // now refresh the information panes
+        RefreshSummary();
+        RefreshInfoPane();
+    }
 
     private void chkEnviroSealingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEnviroSealingActionPerformed
         CurVee.SetEnvironmentalSealing(chkEnviroSealing.isSelected());
@@ -9298,6 +9316,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         RecalcArmorLocations();
         RefreshSummary();
         RefreshInfoPane();
+        RefreshEquipment();
     }//GEN-LAST:event_cmbMotiveTypeActionPerformed
 
     private void cmbProductionEraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProductionEraActionPerformed

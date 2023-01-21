@@ -311,7 +311,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         //Ammo only ever goes in the Body
         if ( p instanceof Ammunition ) Loc = LocationIndex.CV_LOC_BODY;
         //Quite a bit of equipment can only go in the body
-        if ( p instanceof Equipment ) {
+        if ( p instanceof Equipment &&  Loc != LocationIndex.CV_LOC_BODY) {
             if ( !((Equipment)p).CanAllocCVFront() && !((Equipment)p).CanAllocCVSide() && !((Equipment)p).CanAllocCVRear() && !((Equipment)p).CanAllocCVTurret() )
                 Loc = LocationIndex.CV_LOC_BODY;
             // Check max items allowed for that location
@@ -632,10 +632,10 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         //Owner.CheckArmoredComponents();
 
         // see if there's anything to flush out
-        if( GetNonCore().size() <= 0 ) { return; }
+        if( NonCore.isEmpty() ) { return; }
 
-        for( int i = GetNonCore().size() - 1; i >= 0; i-- ) {
-            p = (abPlaceable) GetNonCore().get( i );
+        for( int i = NonCore.size() - 1; i >= 0; i-- ) {
+            p = (abPlaceable) NonCore.get( i );
             AC = p.GetAvailability();
             try {
                 CheckExclusions( p );
@@ -645,7 +645,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
             } catch( Exception e ) {
                 Remove( p );
             }
-            if( GetNonCore().contains( p ) ) {
+            if( NonCore.contains( p ) ) {
                 if( Rules < AvailableCode.RULES_EXPERIMENTAL ) {
                     p.ArmorComponent( false );
                 }
@@ -1026,10 +1026,19 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
 
     public void SetSupercharger(boolean b) throws Exception {
         UsingSupercharger = b;
+        try {
+            AddTo(SCharger, LocationIndex.CV_LOC_BODY);
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+
+        AddMechModifier( SCharger.GetMechModifier() );
         Owner.SetChanged( true );
     }
 
     public void SetSupercharger(Supercharger s) {
+        // this sets the loadout's supercharger to a different one.
+        // Used for cloning purposes only!
         SCharger = s;
         Owner.SetChanged( true );
     }
