@@ -6036,7 +6036,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
             chkSupercharger.setSelected( false );
         }
-        // now refresh the information panes
+        RefreshSelectedEquipment();
         RefreshSummary();
         RefreshInfoPane();
 }//GEN-LAST:event_chkSuperchargerActionPerformed

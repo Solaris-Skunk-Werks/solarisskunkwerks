@@ -8923,7 +8923,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             }
             chkSupercharger.setSelected( false );
         }
-        // now refresh the information panes
+        RefreshSelectedEquipment();
         RefreshSummary();
         RefreshInfoPane();
     }

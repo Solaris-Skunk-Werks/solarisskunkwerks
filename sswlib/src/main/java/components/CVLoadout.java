@@ -1026,13 +1026,21 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
 
     public void SetSupercharger(boolean b) throws Exception {
         UsingSupercharger = b;
-        try {
-            AddTo(SCharger, LocationIndex.CV_LOC_BODY);
-        } catch (Exception ex) {
-            System.err.println(ex.getMessage());
-        }
 
-        AddMechModifier( SCharger.GetMechModifier() );
+        if( !UsingSupercharger ) {
+            Remove( SCharger );
+            RemoveMechMod(SCharger.GetMechModifier());
+            return;
+        } else {
+
+            try {
+                AddTo(SCharger, LocationIndex.CV_LOC_BODY);
+            } catch (Exception ex) {
+                System.err.println(ex.getMessage());
+            }
+
+            AddMechModifier(SCharger.GetMechModifier());
+        }
         Owner.SetChanged( true );
     }
 
