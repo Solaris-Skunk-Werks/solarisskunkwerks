@@ -56,13 +56,14 @@ public class PrintVehicle implements Printable {
                     TRO = false,
                     printMech = false,
                     printLogo = false,
-                    makeAmmoGeneric = false;
+                    makeAmmoGeneric = false,
+                    UseMiniRate = false;
     private String PilotName = "",
                     GroupName = "",
                     currentAmmoFormat = "";
     private int Piloting = 5,
                 Gunnery = 4,
-                MiniConvRate = 0;
+                MiniConvRate = 1;
     private double BV = 0.0;
     private ifPrintPoints points = null;
     private Color Black = new Color( 0, 0, 0 ),
@@ -110,8 +111,9 @@ public class PrintVehicle implements Printable {
         PrintPilot = PrintP;
     }
 
-    public void SetMiniConversion( int conv ) {
+    public void SetMiniConversion( int conv, Boolean useMini ) {
         MiniConvRate = conv;
+        UseMiniRate = useMini;
     }
 
     public void setMechwarrior(String name) {
@@ -168,7 +170,7 @@ public class PrintVehicle implements Printable {
         this.TRO = TRO;
         setCanon(true);
         setCharts(false);
-        SetMiniConversion(1);
+        SetMiniConversion(1, false);
         setPrintPilot(false);
         currentAmmoFormat = Prefs.get( "AmmoNamePrintFormat", "" );
         Prefs.put( "AmmoNamePrintFormat", "Ammo (%P) %L" );
@@ -297,7 +299,7 @@ public class PrintVehicle implements Printable {
 //        }
 		
 		//Coverup the (hexes) above the ranges if we are not using traditional measurements
-        if (MiniConvRate > 0)
+        if (UseMiniRate)
         {
             graphics.setColor(Color.white);
             graphics.fillRect(p[6].x-5, p[6].y-28, 30, 10);
