@@ -725,7 +725,51 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     }
 
     public boolean IsAllocated(abPlaceable p) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // checks to see if the specified item is allocated in the loadout
+
+        if( FrontItems.contains(p)) {
+            // found it.
+            return true;
+        }
+        if( LeftItems.contains(p) ) {
+            // found it.
+            return true;
+        }
+        if( RightItems.contains(p) ) {
+            // found it.
+            return true;
+        }
+        if( BodyItems.contains(p) ) {
+            // found it.
+            return true;
+        }
+        if( RearItems.contains(p) ) {
+            // found it.
+            return true;
+        }
+        if( Turret1Items.contains(p) ) {
+            // found it.
+            return true;
+        }
+        if( Turret2Items.contains(p) ) {
+            // found it.
+            return true;
+        }
+        if( SponsonTurretLeftItems.contains(p) ) {
+            // found it.
+            return true;
+        }
+        if( SponsonTurretRightItems.contains(p) ) {
+            // found it.
+            return true;
+        }
+        if( RotorItems.contains(p) ) {
+            // found it.
+            return true;
+        }
+
+        // couldn't find it
+        return false;
     }
 
     public int UnplacedItems() {
@@ -1025,22 +1069,17 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     }
 
     public void SetSupercharger(boolean b) throws Exception {
-        UsingSupercharger = b;
-
-        if( !UsingSupercharger ) {
+        if( b == false ) {
             Remove( SCharger );
-            RemoveMechMod(SCharger.GetMechModifier());
             return;
-        } else {
-
-            try {
-                AddTo(SCharger, LocationIndex.CV_LOC_BODY);
-            } catch (Exception ex) {
-                System.err.println(ex.getMessage());
-            }
-
-            AddMechModifier(SCharger.GetMechModifier());
         }
+
+        try {
+            AddTo(SCharger, LocationIndex.CV_LOC_BODY);
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+        AddMechModifier(SCharger.GetMechModifier());
         Owner.SetChanged( true );
     }
 
@@ -1052,7 +1091,11 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     }
 
     public boolean HasSupercharger() {
-        return UsingSupercharger;
+        if( IsAllocated( SCharger ) ) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public Supercharger GetSupercharger() {

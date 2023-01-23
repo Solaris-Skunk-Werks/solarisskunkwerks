@@ -1246,6 +1246,12 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         return CruiseMP;
     }
 
+    public int GetAdjustedCruiseMP( boolean BV, boolean MASCTSM ) {
+        int retval = CruiseMP;
+        retval += GetTotalModifiers( BV, MASCTSM ).WalkingAdder();
+        if( retval < 0 ) { return 0; }
+        return retval;
+    }
     public int getMaxCruiseMP() {
         if( CurEngine.IsPrimitive() ) {
             return (int) Math.floor( ( ( 400.0 + (double)CurConfig.GetSuspensionFactor(Tonnage) ) / (double)Tonnage ) / 1.2 );
@@ -1564,7 +1570,18 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     public int getFlankMP( int MiniMult ) {
         return (int) Math.floor( ( getCruiseMP() * MiniMult ) * 1.5 + 0.5 );
     }
-    
+
+    public int GetAdjustedFlankMP( boolean BV, boolean MASCTSM ) {
+        // this had to become more complicated because of the peculiar
+        // idiosyncracies of the BV system.  Stupid.
+        MechModifier m = GetTotalModifiers( BV, MASCTSM );
+        int WalkValue = GetAdjustedCruiseMP( BV, MASCTSM );
+        double Multiplier = 1.5 + m.RunningMultiplier();
+        int retval = (int) Math.floor( WalkValue * Multiplier + 0.5 ) + m.RunningAdder();
+        if( retval < 0 ) { return 0; }
+        return retval;
+    }
+
     public void SetRulesLevel( int r ) {
         if( Omni ) {
             CurLoadout.SetRulesLevel( r );

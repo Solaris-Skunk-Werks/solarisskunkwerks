@@ -142,7 +142,7 @@ public class CVCostBVBreakdown {
             retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", CurUnit.GetBlueShield().CritName(), CurUnit.GetBlueShield().GetDefensiveBV(), CurUnit.GetBlueShield().GetOffensiveBV(), CurUnit.GetBlueShield().GetCost() ) + NL;
         }
         if( CurUnit.GetLoadout().HasSupercharger() ) {
-            retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", CurUnit.GetLoadout().GetSupercharger().CritName(), CurUnit.GetLoadout().GetSupercharger().GetDefensiveBV(), CurUnit.GetLoadout().GetSupercharger().GetOffensiveBV(), CurUnit.GetLoadout().GetSupercharger().GetCost() ) + NL;
+            //retval += String.format( "%1$-46s %2$,6.0f    %3$,6.0f    %4$,13.2f", CurUnit.GetLoadout().GetSupercharger().CritName(), CurUnit.GetLoadout().GetSupercharger().GetDefensiveBV(), CurUnit.GetLoadout().GetSupercharger().GetOffensiveBV(), CurUnit.GetLoadout().GetSupercharger().GetCost() ) + NL;
         }
         return retval;
     }
@@ -249,8 +249,8 @@ public class CVCostBVBreakdown {
         String retval = "";
 
         double temp;
-        temp = (double) (CurUnit.getFlankMP() + ( Math.floor( 0 * 0.5 + 0.5 )  ) - 5.0 );
-        retval += "    Adjusted Flank MP (" + CurUnit.getFlankMP( ) + ") + ( Adjusted Jumping MP (" + 0 + ") / 2 ) - 5 = " + String.format( "%1$,.2f", CurUnit.getFlankMP() + ( Math.floor( 0 * 0.5 + 0.5 )  ) - 5.0 ) + NL;
+        temp = (double) (CurUnit.GetAdjustedFlankMP(false, true) + ( Math.floor( 0 * 0.5 + 0.5 )  ) - 5.0 );
+        retval += "    Adjusted Flank MP (" + CurUnit.GetAdjustedFlankMP(false, true ) + ") + ( Adjusted Jumping MP (" + 0 + ") / 2 ) - 5 = " + String.format( "%1$,.2f", CurUnit.GetAdjustedFlankMP(false, true) + ( Math.floor( 0 * 0.5 + 0.5 )  ) - 5.0 ) + NL;
         retval += "    " + String.format( "%1$,.2f", temp ) + " / 10 + 1 = " + String.format( "%1$.3f", ( temp * 0.1 + 1.0 ) ) + NL;
         temp = temp * 0.1 + 1.0;
         retval += "    " + String.format( "%1$,.2f", temp ) + " ^ 1.2 = " + (double) Math.floor( ( Math.pow( temp, 1.2 ) ) * 100 + 0.5 ) / 100 + " (rounded off to two digits)" + NL;
