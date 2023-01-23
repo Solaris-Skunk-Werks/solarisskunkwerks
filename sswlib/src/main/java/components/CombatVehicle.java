@@ -424,7 +424,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         result += GetFullAmphibiousTonnage();
         result += GetEnvironmentalSealingTonnage();
         //if( HasBlueShield ) { result += BlueShield.GetTonnage(); }
-        if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
+        //if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
 
         ArrayList v = CurLoadout.GetNonCore();
         if( v.size() > 0 ) {
@@ -449,7 +449,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         if( CurLoadout.UsingTC() ) { result += GetTC().GetTonnage(); }
         if( ! CurEngine.IsNuclear() ) { result += CurLoadout.GetPowerAmplifier().GetTonnage(); }
         if( HasBlueShield ) { result += BlueShield.GetTonnage(); }
-        if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
+        //if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
         if( UsingEnvironmentalSealing ) { result += EnviroSealing.GetTonnage(); }
 
         ArrayList v = CurLoadout.GetNonCore();
@@ -2024,9 +2024,9 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
             if( HasBlueShield() ) {
                 result += BlueShield.GetDefensiveBV();
             }
-            if( CurLoadout.HasSupercharger() ) {
-                result += CurLoadout.GetSupercharger().GetDefensiveBV();
-            }
+//            if( CurLoadout.HasSupercharger() ) {
+//                result += CurLoadout.GetSupercharger().GetDefensiveBV();
+//            }
         }
         return result;
     }
