@@ -1071,6 +1071,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     public void SetSupercharger(boolean b) throws Exception {
         if( b == false ) {
             Remove( SCharger );
+            RemoveMechMod(SCharger.GetMechModifier());
             return;
         }
 
