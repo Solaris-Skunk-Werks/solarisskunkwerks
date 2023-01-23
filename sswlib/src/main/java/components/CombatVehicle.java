@@ -2333,7 +2333,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
 
     public double GetOffensiveFactor() {
         double result = 0.0;
-        result += (double) (getFlankMP() - 5.0f);
+        result += (double) (GetAdjustedFlankMP(true, true) - 5.0f);
         result = result * 0.1 + 1.0;
         result = (double) Math.pow( result, 1.2 ) ;
 
