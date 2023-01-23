@@ -890,6 +890,14 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             txtInfoFreeCrits.setForeground(Color.black);
         }
 
+        // fill in the movement summary
+        String temp = "Max W/R: ";
+        temp += CurVee.GetAdjustedCruiseMP( false, true ) + "/";
+        temp += CurVee.GetAdjustedFlankMP( false, true ) + "/";
+//        temp += CurMech.GetAdjustedJumpingMP( false ) + "/";
+//        temp += CurMech.GetAdjustedBoosterMP( false );
+        lblMoveSummary.setText( temp );
+
         // fill in the info
         if( CurVee.UsingFractionalAccounting() ) {
             txtInfoTonnage.setText( "Tons: " + CommonTools.RoundFractionalTons( CurVee.GetCurrentTons() ) );
@@ -1068,6 +1076,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         btnOptions = new javax.swing.JButton();
         jSeparator21 = new javax.swing.JToolBar.Separator();
         lblSelectVariant = new javax.swing.JLabel();
+        lblMoveSummary = new javax.swing.JLabel();
         cmbOmniVariant = new javax.swing.JComboBox();
         tbpMainTabPane = new javax.swing.JTabbedPane();
         pnlBasicSetup = new javax.swing.JPanel();
@@ -2103,7 +2112,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                     .addGroup(pnlMovementLayout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addGap(2, 2, 2)
-                        .addComponent(spnCruiseMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(spnCruiseMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblMoveSummary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlMovementLayout.createSequentialGroup()
                         .addGap(5, 5, 5)
                         .addGroup(pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2124,7 +2135,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                     .addGroup(pnlMovementLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel10))
-                    .addComponent(spnCruiseMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(spnCruiseMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblMoveSummary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -2153,6 +2165,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlChassisMods.add(chkFlotationHull, gridBagConstraints);
+
+        lblMoveSummary.setText("W/R: 12/20");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 0);
+        pnlMovement.add(lblMoveSummary, gridBagConstraints);
 
         chkLimitedAmph.setText("Limited Amphibious");
         chkLimitedAmph.setEnabled(false);
@@ -10126,6 +10144,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JLabel lblRightIntPts;
     private javax.swing.JLabel lblRotorIntPts;
     private javax.swing.JLabel lblSelectVariant;
+    private javax.swing.JLabel lblMoveSummary;
     private javax.swing.JLabel lblSupensionFacter;
     private javax.swing.JLabel lblTurretIntPts;
     private javax.swing.JLabel lblVeeClass;
