@@ -891,9 +891,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
 
         // fill in the movement summary
-        String temp = "Max W/R: ";
+        String temp = "Max C/F: ";
         temp += CurVee.GetAdjustedCruiseMP( false, true ) + "/";
-        temp += CurVee.GetAdjustedFlankMP( false, true ) + "/";
+        temp += CurVee.GetAdjustedFlankMP( false, true );
 //        temp += CurMech.GetAdjustedJumpingMP( false ) + "/";
 //        temp += CurMech.GetAdjustedBoosterMP( false );
         lblMoveSummary.setText( temp );
@@ -2104,6 +2104,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         javax.swing.GroupLayout pnlMovementLayout = new javax.swing.GroupLayout(pnlMovement);
         pnlMovement.setLayout(pnlMovementLayout);
+
         pnlMovementLayout.setHorizontalGroup(
             pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMovementLayout.createSequentialGroup()
@@ -2113,8 +2114,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                         .addComponent(jLabel10)
                         .addGap(2, 2, 2)
                         .addComponent(spnCruiseMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addComponent(lblMoveSummary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(5, 5, 5)
+                            .addComponent(lblMoveSummary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlMovementLayout.createSequentialGroup()
                         .addGap(5, 5, 5)
                         .addGroup(pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2126,7 +2127,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                                 .addComponent(jLabel13)
                                 .addGap(2, 2, 2)
                                 .addComponent(spnJumpMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         pnlMovementLayout.setVerticalGroup(
             pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2136,7 +2137,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                         .addGap(3, 3, 3)
                         .addComponent(jLabel10))
                         .addComponent(spnCruiseMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblMoveSummary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblMoveSummary, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
