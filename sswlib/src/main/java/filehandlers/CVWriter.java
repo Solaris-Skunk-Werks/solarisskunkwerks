@@ -430,14 +430,14 @@ public class CVWriter {
             retval += prefix + "</equipment>" + NL;
         }
         */
-        if( CurUnit.GetLoadout().HasSupercharger() ) {
-            abPlaceable p = (abPlaceable) CurUnit.GetLoadout().GetSupercharger();
-            retval += prefix + "<equipment>" + NL;
-            retval += prefix + tab + "<name manufacturer=\"\">Supercharger</name>" + NL;
-            retval += prefix + tab + "<type>Supercharger</type>" + NL;
-            retval += GetLocationLines( prefix + tab, p );
-            retval += prefix + "</equipment>" + NL;
-        }
+//        if( CurUnit.GetLoadout().HasSupercharger() ) {
+//            abPlaceable p = (abPlaceable) CurUnit.GetLoadout().GetSupercharger();
+//            retval += prefix + "<equipment>" + NL;
+//            retval += prefix + tab + "<name manufacturer=\"\">Supercharger</name>" + NL;
+//            retval += prefix + tab + "<type>Supercharger</type>" + NL;
+//            retval += GetLocationLines( prefix + tab, p );
+//            retval += prefix + "</equipment>" + NL;
+//        }
         return retval;
     }
 
@@ -469,6 +469,8 @@ public class CVWriter {
             return "TargetingComputer";
         } else if ( p instanceof CASE ) {
             return "CASE";
+        } else if ( p instanceof Supercharger ) {
+            return "Supercharger";
         } else {
             return "miscellaneous";
         }
