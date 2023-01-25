@@ -470,7 +470,7 @@ public class CVWriter {
         } else if ( p instanceof CASE ) {
             return "CASE";
         } else if ( p instanceof Supercharger ) {
-            return "physical enhancement";
+            return "Supercharger";
         } else {
             return "miscellaneous";
         }
