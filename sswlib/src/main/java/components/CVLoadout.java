@@ -1088,6 +1088,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         // this sets the loadout's supercharger to a different one.
         // Used for cloning purposes only!
         SCharger = s;
+        AddMechModifier(SCharger.GetMechModifier());
         Owner.SetChanged( true );
     }
 
