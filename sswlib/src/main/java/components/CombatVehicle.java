@@ -1582,6 +1582,18 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         return retval;
     }
 
+    public int GetAdjustedFlankMP( boolean BV, boolean MASCTSM, int MiniMult ) {
+        // this had to become more complicated because of the peculiar
+        // idiosyncracies of the BV system.  Stupid.
+        // this method provided for miniatures-scale printing
+        MechModifier m = GetTotalModifiers( BV, MASCTSM );
+        int WalkValue = GetAdjustedCruiseMP( BV, MASCTSM ) * MiniMult;
+        double Multiplier = 1.5 + m.RunningMultiplier();
+        int retval = (int) Math.floor( WalkValue * Multiplier + 0.5 ) + m.RunningAdder();
+        if( retval < 0 ) { return 0; }
+        return retval;
+    }
+
     public void SetRulesLevel( int r ) {
         if( Omni ) {
             CurLoadout.SetRulesLevel( r );

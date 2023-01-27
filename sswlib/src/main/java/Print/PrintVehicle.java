@@ -393,9 +393,24 @@ public class PrintVehicle implements Printable {
 
         // have to hack the movement to print the correct stuff here.
         graphics.setFont( PrintConsts.Small8Font );
-        graphics.drawString( ( CurVee.getCruiseMP() * MiniConvRate ) + "", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
-        graphics.drawString( CurVee.getFlankMP( MiniConvRate ) + "", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
-        
+        //graphics.drawString( ( CurVee.getCruiseMP() * MiniConvRate ) + "", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
+        //graphics.drawString( CurVee.getFlankMP( MiniConvRate ) + "", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
+
+        if( CurVee.GetAdjustedCruiseMP( false, true ) != CurVee.getCruiseMP() ) {
+            graphics.drawString( ( CurVee.getCruiseMP() * MiniConvRate ) + " (" + ( CurVee.GetAdjustedCruiseMP( false, true ) * MiniConvRate ) + ")", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
+        } else {
+            graphics.drawString( ( CurVee.getCruiseMP() * MiniConvRate ) + "", p[PrintConsts.WALKMP].x, p[PrintConsts.WALKMP].y );
+        }
+        if( CurVee.GetAdjustedFlankMP( false, true ) != CurVee.getFlankMP() ) {
+            if( CurVee.GetAdjustedFlankMP( false, true ) < CurVee.getFlankMP() ) {
+                graphics.drawString( CurVee.GetAdjustedFlankMP( false, true, MiniConvRate ) + "", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
+            } else {
+                graphics.drawString( CurVee.getFlankMP( MiniConvRate ) + " (" + CurVee.GetAdjustedFlankMP( false, true, MiniConvRate ) + ")", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
+            }
+        } else {
+            graphics.drawString( CurVee.getFlankMP( MiniConvRate ) + "", p[PrintConsts.RUNMP].x, p[PrintConsts.RUNMP].y );
+        }
+
         // Movement and Engine
         if ( !CurVee.IsVTOL() ) {
             graphics.drawString( CurVee.GetMotiveLookupName() + "" + CurVee.GetChassisModifierString(), p[19].x, p[19].y );
