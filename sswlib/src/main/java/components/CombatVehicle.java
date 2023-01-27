@@ -2024,9 +2024,9 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
             if( HasBlueShield() ) {
                 result += BlueShield.GetDefensiveBV();
             }
-//            if( CurLoadout.HasSupercharger() ) {
-//                result += CurLoadout.GetSupercharger().GetDefensiveBV();
-//            }
+            if( CurLoadout.HasSupercharger() ) {
+                result += CurLoadout.GetSupercharger().GetDefensiveBV();
+            }
         }
         return result;
     }
@@ -2145,7 +2145,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         // target number for speed.
 
         // subtract one since we're indexing an array
-        int RunMP = getFlankMP() - 1;
+        int RunMP = GetAdjustedFlankMP(true, false) - 1;
         int JumpMP = 0;
 
         // this is a safeguard for using MASC on an incredibly speedy chassis
