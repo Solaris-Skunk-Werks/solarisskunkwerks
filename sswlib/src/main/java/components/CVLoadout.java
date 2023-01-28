@@ -926,8 +926,15 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     }
 
     public void SetClanCASE(boolean b) {
+        UsingCASE = b;
         UsingClanCASE = b;
         Case.SetClan(b);
+        Remove(Case);
+        try {
+            AddTo(Case, LocationIndex.CV_LOC_BODY);
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
         Owner.SetChanged( true );
     }
 

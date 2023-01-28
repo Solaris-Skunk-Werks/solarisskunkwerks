@@ -243,8 +243,8 @@ public class CVWriter {
                 FR.newLine();
                 FR.write( tab + tab + "<cost>" + CurUnit.GetTotalCost() + "</cost>" );
                 FR.newLine();
-                //FR.write( tab + tab + "<clancase>" + FileCommon.GetBoolean( CurUnit.GetLoadout().IsUsingClanCASE() ) + "</clancase>" );
-                //FR.newLine();
+                FR.write( tab + tab + "<clancase>" + FileCommon.GetBoolean( CurUnit.GetLoadout().IsUsingClanCASE() ) + "</clancase>" );
+                FR.newLine();
                 if( CurUnit.GetJumpJets().GetNumJJ() > CurUnit.GetJumpJets().GetBaseLoadoutNumJJ() ) {
                     FR.write( tab + tab + "<jumpjets number=\"" + CurUnit.GetJumpJets().GetNumJJ() + "\">" );
                     FR.newLine();

@@ -1738,14 +1738,14 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         info += GetTonnage() + "t, ";
         // MP
         info += getCruiseMP();
-        //if( getCruiseMP() != GetAdjustedWalkingMP( false, true ) ) {
-        //    info += "[" + GetAdjustedWalkingMP( false, true ) + "]";
-        //}
+        if( getCruiseMP() != GetAdjustedCruiseMP( false, true ) ) {
+            info += "[" + GetAdjustedCruiseMP( false, true ) + "]";
+        }
         info += "/";
         info += getFlankMP();
-        //if( getFlankMP() != GetAdjustedRunningMP( false, true ) ) {
-        //    info += "[" + GetAdjustedRunningMP( false, true ) + "]";
-        //}
+        if( getFlankMP() != GetAdjustedFlankMP( false, true ) ) {
+            info += "[" + GetAdjustedFlankMP( false, true ) + "]";
+        }
         if ( CurLoadout.GetJumpJets().GetNumJJ() > 0 ) {
             info += "/" + CurLoadout.GetJumpJets().GetNumJJ();
             //if( CurLoadout.GetJumpJets().GetNumJJ() != this.GetAdjustedJumpingMP( false ) ) {
