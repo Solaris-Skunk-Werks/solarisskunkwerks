@@ -222,12 +222,12 @@ public class CVTXTWriter {
 //        retval += "    Cruise MP:  " + CurVee.GetAdjustedCruiseMP(false, true) + NL;
 //        retval += "    Flank MP:   " + CurVee.GetAdjustedFlankMP(false, true) + NL;
         if( CurVee.GetAdjustedCruiseMP( false, true ) != CurVee.getCruiseMP() ) {
-            retval += "Cruise MP: " + CommonTools.FormatSpeed( CurVee.getCruiseMP() ) + " (" + CommonTools.FormatSpeed( CurVee.GetAdjustedCruiseMP( false, true ) * 10.8 ) + " km/h)" + NL;
+            retval += "Cruise MP: " + CommonTools.FormatSpeed( CurVee.getCruiseMP() ) + " (" + CommonTools.FormatSpeed( CurVee.GetAdjustedCruiseMP( false, true ) ) + ")" + NL;
         } else {
             retval += "Cruise MP: " + CommonTools.FormatSpeed( CurVee.getCruiseMP() ) + NL;
         }
         if( CurVee.GetAdjustedFlankMP( false, true ) != CurVee.getFlankMP() ) {
-            retval += "Flank MP: " + CommonTools.FormatSpeed( CurVee.getFlankMP() ) + " (" + CommonTools.FormatSpeed( CurVee.GetAdjustedFlankMP( false, true ) * 10.8 ) + " km/h)" + NL;
+            retval += "Flank MP: " + CommonTools.FormatSpeed( CurVee.getFlankMP() ) + " (" + CommonTools.FormatSpeed( CurVee.GetAdjustedFlankMP( false, true ) ) + ")" + NL;
         } else {
             retval += "Flank MP: " + CommonTools.FormatSpeed( CurVee.getFlankMP() ) + NL;
         }
