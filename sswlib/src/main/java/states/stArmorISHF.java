@@ -38,7 +38,7 @@ public class stArmorISHF implements ifArmor, ifState {
         AC.SetISCodes( 'E', 'X', 'X', 'E', 'D' );
         AC.SetISDates( 0, 0, false, 3056, 0, 0, false, false );
         AC.SetISFactions( "", "", "LA", "" );
-        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );
         AC.SetPBMAllowed(true);
     }
 

@@ -42,7 +42,7 @@ public class stArmorISFF implements ifArmor, ifState {
         AC.SetISCodes( 'E', 'D', 'F', 'D', 'C' );
         AC.SetISDates( 0, 0, false, 2571, 2810, 3040, true, true );
         AC.SetISFactions( "", "", "TH", "DC" );
-        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );
+        AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT );
         AC.SetPBMAllowed(true);
     }
 
