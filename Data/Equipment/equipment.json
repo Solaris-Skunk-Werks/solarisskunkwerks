@@ -5071,7 +5071,7 @@
     "CritName": "Cargo, Liquid",
     "Type": "IE",
     "LookupName": "Cargo, Liquid",
-    "MegaMekName": "CargoLiquid",
+    "MegaMekName": "Liquid Storage",
     "BookReference": "Tech Manual",
     "ChatName": "LqdCrgo",
     "Specials": "-",
