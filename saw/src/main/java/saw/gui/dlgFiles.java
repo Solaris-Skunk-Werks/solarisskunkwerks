@@ -56,7 +56,7 @@ public class dlgFiles extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("<html> <h3>Solaris Armorwerks needs to know where you have placed your Unit files.</h3> <p>If you have not downloaded the zip file containing these files yet please go to <br /> <h4>http://www.solarisskunkwerks.com/downloads</h4><br />  and download the Master file available there. </p> <br /> <p>Once this file has downloaded you can unzip it wherever you would like as the next step will be to tell SAW where you put them.</p>");
+        jLabel1.setText("<html> <h3>Solaris Armorwerks needs to know where you have placed your Unit files.</h3> <p>If you have not downloaded the zip file containing these files yet please go to <br /> <h4>https://github.com/Solaris-Skunk-Werks/SSW-Master/archive/refs/heads/master.zip</h4><br />  and download the Master file available there. </p> <br /> <p>Once this file has downloaded you can unzip it wherever you would like as the next step will be to tell SAW where you put them.</p>");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
