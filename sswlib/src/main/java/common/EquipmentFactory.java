@@ -558,7 +558,7 @@ public class EquipmentFactory {
         a.SetCLFactions( "", "", "CSF", "" );
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
-        a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
 
         // MGA light machine gun
         addBW = GetRangedWeaponByName( "(IS) Light Machine Gun", null );
@@ -611,7 +611,7 @@ public class EquipmentFactory {
         a.SetCLFactions( "--", "--", "CDS", "--" );
         a.SetPBMAllowed( true );
         a.SetPIMAllowed( true );
-        a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        a.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
 
         // LMGA light machine gun
         addBW = GetRangedWeaponByName( "(CL) Light Machine Gun", null );
