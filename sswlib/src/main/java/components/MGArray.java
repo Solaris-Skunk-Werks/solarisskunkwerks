@@ -525,4 +525,9 @@ public class MGArray extends abPlaceable implements ifWeapon {
     public String toString() {
         return GetName();
     }
+
+    @Override
+    public boolean CanAllocCVBody() {
+        return false;
+    }
 }
