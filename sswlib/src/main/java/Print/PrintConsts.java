@@ -448,6 +448,18 @@ public class PrintConsts {
                 // ATM, MML, Artemis, TC, etc
                 PlaceableInfo factory = new PlaceableInfo(MiniConvRate, common.Constants.Vehicle);
                 if ( p.Item instanceof ifWeapon ) {
+                    //TODO: Why did I have to do this?  It works fine for Mechs but didn't here
+                    if (p.Item instanceof MGArray) {
+                        MGArray temp =((MGArray) p.Item);
+                        p.damage = temp.GetDamageShort() + "";
+                        p.rShort = temp.GetRangeShort() + "";
+                        p.rMed = temp.GetRangeMedium() + "";
+                        p.rLong = temp.GetRangeLong() + "";
+                        if( temp.GetSpecials().equals( "-" ) )
+                            p.damage += " [" + temp.GetType() + "]";
+                        else
+                            p.specials = ("[" + temp.GetType() + ", " + temp.GetSpecials() + "]").replace(", -", "");
+                    }
                     if( ((ifWeapon) p.Item).GetWeaponClass() == ifWeapon.W_MISSILE ) {
                         if ( ((ifWeapon) p.Item).CritName().contains("ATM") ) {
                             ArrayList<PlaceableInfo> t = new ArrayList<PlaceableInfo>();
