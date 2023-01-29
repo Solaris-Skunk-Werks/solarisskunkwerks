@@ -157,7 +157,7 @@ public class MGArray extends abPlaceable implements ifWeapon {
     }
 
     public int NumCVSpaces() {
-        return 1;
+        return 1 + NumMGs;
     }
 
     @Override
