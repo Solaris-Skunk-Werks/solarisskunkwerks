@@ -391,12 +391,6 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
             default:
                 throw new Exception( "Location not recognized or not an integer\nwhile placing " + p.CritName() );
         }
-        // add in the machine guns if this is an array
-        if( p instanceof MGArray ) {
-            for( int i = 0; i < ((MGArray) p).GetNumMGs(); i++ ) {
-                AddTo(((MGArray) p).GetMGs()[i], Loc);
-            }
-        }
         if ( p instanceof RangedWeapon ) {
             if ( ((RangedWeapon)p).IsTCCapable() )
                 TCList.add(p);
