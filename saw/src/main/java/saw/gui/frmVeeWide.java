@@ -6177,6 +6177,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         chkFullAmph.setSelected(false);
         chkDuneBuggy.setSelected(false);
         chkEnviroSealing.setSelected(false);
+        chkTrailer.setSelected(false);
+        chkSupercharger.setSelected(false);
+        chkJetBooster.setSelected(false);
 
         if( Omni ) {
             UnlockGUIFromOmni();
@@ -9521,6 +9524,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                     CurVee.SetMixed();
                     break;
             }
+
+            //Adding these here for now, since the loadout gets completely trashed, these selections need to go away.
+            chkSupercharger.setSelected(false);
+            chkJetBooster.setSelected(false);
 
             // save the current selections.  The 'Mech should have already
             // flushed any illegal equipment in the changeover
