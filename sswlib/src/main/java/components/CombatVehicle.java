@@ -1249,9 +1249,6 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     public int GetAdjustedCruiseMP( boolean BV, boolean MASCTSM ) {
         MechModifier m = GetTotalModifiers( BV, MASCTSM );
         int retval = CruiseMP;
-        if (m.WalkingMultiplier() > 0) {
-            retval = (int) Math.floor(CruiseMP * m.WalkingMultiplier());
-        }
         retval += GetTotalModifiers( BV, MASCTSM ).WalkingAdder();
         if( retval < 0 ) { return 0; }
         return retval;
