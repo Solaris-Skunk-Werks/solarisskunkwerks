@@ -45,6 +45,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     private CVJumpJetFactory Jumps;
     private TargetingComputer CurTC = new TargetingComputer( this, false );
     private Supercharger SCharger = new Supercharger( this );
+    private VTOLBooster VBooster = new VTOLBooster(this);
     private String Name = Constants.BASELOADOUT_NAME,
                    Source = "";
     private ArrayList<abPlaceable> Queue = new ArrayList<abPlaceable>(),
@@ -71,7 +72,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
                     UsingCASE = false,
                     UsingSupercharger = false,
                     YearSpecified = false,
-                    YearRestricted = false;
+                    YearRestricted = false,
+                    UsingVTOLBooster = false;
     private Turret Turret1 = new Turret(this, false),
                    Turret2 = new Turret(this, false);
     private SponsonTurret SponsonTurretLeft = new SponsonTurret(this, false),
@@ -1040,6 +1042,27 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
 
     public Supercharger GetSupercharger() {
         return SCharger;
+    }
+
+    public void SetVTOLBooster(boolean b) throws Exception {
+        UsingVTOLBooster = b;
+        if (!b) {
+            Remove(VBooster);
+            RemoveMechMod(VBooster.GetMechModifier());
+            return;
+        }
+
+        try {
+            AddToBody(VBooster);
+            AddMechModifier(VBooster.GetMechModifier());
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+        Owner.setChanged(true);
+    }
+    public boolean HasVTOLBooster() { return UsingVTOLBooster; }
+    public VTOLBooster GetVTOLBooster() {
+        return VBooster;
     }
 
     public CVPowerAmplifier GetPowerAmplifier() {

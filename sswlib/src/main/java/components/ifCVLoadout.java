@@ -148,6 +148,9 @@ public interface ifCVLoadout {
     public void SetSupercharger( Supercharger s );
     public boolean HasSupercharger();
     public Supercharger GetSupercharger();
+    public void SetVTOLBooster(boolean b) throws Exception;
+    public boolean HasVTOLBooster();
+    public VTOLBooster GetVTOLBooster();
     public CVPowerAmplifier GetPowerAmplifier();
     public void CheckExclusions( abPlaceable a ) throws Exception;
     public void MoveToQueue(int loc);

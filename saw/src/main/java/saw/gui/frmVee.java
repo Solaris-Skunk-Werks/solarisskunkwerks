@@ -2229,7 +2229,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         chkJetBooster.setText("VTOL Jet Booster");
         chkJetBooster.setEnabled(false);
-
+        chkJetBooster.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkJetBoosterActionPerformed(evt);
+            }
+        });
         chkSupercharger.setText("Supercharger");
         chkSupercharger.setEnabled(false);
         chkSupercharger.addActionListener(new java.awt.event.ActionListener() {
@@ -5571,7 +5575,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             BuildExpEquipmentSelector();
             FixMPSpinner();
             FixJJSpinnerModel();
-            RefreshEquipment();
 
             // now reset the combo boxes to the closest choices we previously selected
             LoadSelections();
@@ -5581,11 +5584,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             //RecalcHeatSinks();
             RecalcArmor();
             RecalcEquipment();
-            RefreshEquipment();
         }
 
         BuildTurretSelector();
         // now refresh the information panes
+        RefreshEquipment();
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
@@ -5707,6 +5710,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                                                chkJetBooster,
                                                chkEscapePod,
                                                chkSponsonTurret };
+
         if (cmbRulesLevel.getSelectedIndex() > 1) {
             if (CurVee.CanUseSponson())
                 chkSponsonTurret.setEnabled(true);
@@ -5772,6 +5776,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         if( CurVee.IsVTOL() != wasVtol ) RecalcArmorPlacement();
         RecalcArmorLocations();
         SetWeaponChoosers();
+        RefreshEquipment();
         RefreshSummary();
         RefreshInfoPane();
 }//GEN-LAST:event_cmbMotiveTypeActionPerformed
@@ -6019,9 +6024,29 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         lblInfoMountRestrict.setText(lblInfoMountRestrict.getText() + " MM Name " + p.MegaMekName(false));
     }
 
-    private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSuperchargerActionPerformed
+    private void chkJetBoosterActionPerformed(java.awt.event.ActionEvent evt) {
+        if( CurVee.GetLoadout().HasVTOLBooster() == chkJetBooster.isSelected() ) {
+            return;
+        }
+        try {
+            CurVee.GetLoadout().SetVTOLBooster( chkJetBooster.isSelected());
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            try {
+                CurVee.GetLoadout().SetVTOLBooster( false );
+            } catch( Exception x ) {
+                // how the hell did we get an error removing it?
+                Media.Messager( this, x.getMessage() );
+            }
+            chkJetBooster.setSelected( false );
+        }
+        RefreshSelectedEquipment();
+        RefreshSummary();
+        RefreshInfoPane();
+    }
+    private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {
 
-}//GEN-LAST:event_chkSuperchargerActionPerformed
+    }
 
     private void chkUseTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkUseTCActionPerformed
         if( CurVee.UsingTC() == chkUseTC.isSelected() ) { return; }
@@ -7065,7 +7090,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         } else {
             chkSupercharger.setEnabled( false );
         }
-
+        if( CurVee.IsVTOL() && CommonTools.IsAllowed( CurVee.GetLoadout().GetVTOLBooster().GetAvailability(), CurVee ) ) {
+            chkJetBooster.setEnabled( true );
+        } else {
+            chkJetBooster.setEnabled( false );
+        }
         // now set all the equipment if needed
         if( ! chkFCSAIV.isEnabled() ) {
             try {

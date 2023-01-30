@@ -2215,6 +2215,11 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         chkJetBooster.setText("VTOL Jet Booster");
         chkJetBooster.setEnabled(false);
+        chkJetBooster.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkJetBoosterActionPerformed(evt);
+            }
+        });
 
         chkSupercharger.setText("Supercharger");
         chkSupercharger.setEnabled(false);
@@ -6398,7 +6403,11 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         } else {
             chkSupercharger.setEnabled( false );
         }
-
+        if( CurVee.IsVTOL() && CommonTools.IsAllowed( CurVee.GetLoadout().GetVTOLBooster().GetAvailability(), CurVee ) ) {
+            chkJetBooster.setEnabled( true );
+        } else {
+            chkJetBooster.setEnabled( false );
+        }
         // now set all the equipment if needed
         if( ! chkFCSAIV.isEnabled() ) {
             try {
@@ -8906,6 +8915,26 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         RefreshInfoPane();
     }//GEN-LAST:event_chkFractionalActionPerformed
 
+    private void chkJetBoosterActionPerformed(java.awt.event.ActionEvent evt) {
+        if( CurVee.GetLoadout().HasVTOLBooster() == chkJetBooster.isSelected() ) {
+            return;
+        }
+        try {
+            CurVee.GetLoadout().SetVTOLBooster( chkJetBooster.isSelected());
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            try {
+                CurVee.GetLoadout().SetVTOLBooster( false );
+            } catch( Exception x ) {
+                // how the hell did we get an error removing it?
+                Media.Messager( this, x.getMessage() );
+            }
+            chkJetBooster.setSelected( false );
+        }
+        RefreshSelectedEquipment();
+        RefreshSummary();
+        RefreshInfoPane();
+    }
     private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSuperchargerActionPerformed
  
   }//GEN-LAST:event_chkSuperchargerActionPerformed
@@ -9296,6 +9325,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         FixMPSpinner();
         if( CurVee.IsVTOL() != wasVtol ) RecalcArmorPlacement();
         RecalcArmorLocations();
+        RefreshEquipment();
         RefreshSummary();
         RefreshInfoPane();
     }//GEN-LAST:event_cmbMotiveTypeActionPerformed
@@ -9678,7 +9708,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 }
                 BuildTechBaseSelector();
                 cmbTechBase.setSelectedIndex(CurVee.GetLoadout().GetTechBase());
-                RefreshEquipment();
                 RecalcEquipment();
             } else {
                 // can't.  reset to the default rules level and scold the user
@@ -9720,7 +9749,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             BuildExpEquipmentSelector();
             FixMPSpinner();
             FixJJSpinnerModel();
-            RefreshEquipment();
 
             // now reset the combo boxes to the closest choices we previously selected
             LoadSelections();
@@ -9734,6 +9762,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         BuildTurretSelector();
         // now refresh the information panes
+        RefreshEquipment();
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
