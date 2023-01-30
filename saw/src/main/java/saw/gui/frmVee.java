@@ -6900,6 +6900,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkDuneBuggy.setSelected(false);
         chkEnviroSealing.setSelected(false);
         chkTrailer.setSelected(false);
+        chkSupercharger.setSelected(false);
+        chkJetBooster.setSelected(false);
 
         if( Omni ) {
             UnlockGUIFromOmni();
@@ -8352,6 +8354,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                     break;
             }
 
+            //Adding these here for now, since the loadout gets completely trashed, these selections need to go away.
+            chkSupercharger.setSelected(false);
+            chkJetBooster.setSelected(false);
+
             // save the current selections.  The 'Mech should have already
             // flushed any illegal equipment in the changeover
             SaveSelections();
@@ -8396,6 +8402,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkUseTC.setSelected( false );
 
         // now refresh the information panes
+        RefreshEquipment();
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
