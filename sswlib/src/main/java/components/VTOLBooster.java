@@ -86,9 +86,9 @@ public class VTOLBooster extends abPlaceable {
     public double GetTonnage() {
         double retval = 0.0;
         if( Owner.UsingFractionalAccounting() ) {
-            retval = Math.ceil( Owner.GetEngine().GetTonnage() * 0.1);
+            retval = Math.ceil( Owner.GetEngine().GetTonnage() * 100 ) * 0.001;
         } else {
-            retval = Math.ceil( Owner.GetEngine().GetTonnage() * 0.1);
+            retval = ((int) ( Math.ceil( Owner.GetEngine().GetTonnage() * 0.1 * 2 ))) * 0.5;
         }
         if( IsArmored() ) {
             retval += 0.5;
