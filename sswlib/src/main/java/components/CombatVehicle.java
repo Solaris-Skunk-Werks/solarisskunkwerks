@@ -1579,7 +1579,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         // this had to become more complicated because of the peculiar
         // idiosyncracies of the BV system.  Stupid.
         MechModifier m = GetTotalModifiers( BV, MASCTSM );
-        int WalkValue = GetAdjustedCruiseMP( BV, MASCTSM );
+        int WalkValue = getCruiseMP();
         double Multiplier = 1.5 + m.RunningMultiplier();
         int retval = (int) Math.floor( WalkValue * Multiplier + 0.5 ) + m.RunningAdder();
         if( retval < 0 ) { return 0; }
