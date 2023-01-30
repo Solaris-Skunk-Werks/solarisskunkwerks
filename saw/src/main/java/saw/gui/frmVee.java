@@ -6064,9 +6064,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshSummary();
         RefreshInfoPane();
     }
-    private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
     private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSuperchargerActionPerformed
         if( CurVee.GetLoadout().HasSupercharger() == chkSupercharger.isSelected() ) {
             return;
