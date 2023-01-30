@@ -41,7 +41,7 @@ public class VTOLBooster extends abPlaceable {
         AC.SetCLFactions( "", "", "ES", "" );
         AC.SetRulesLevels( AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = (ifLoadout)l;
-        AddMechModifier(new MechModifier(0, 0, 0, 0.0, 0.5, 0, 3, 0, 0.0, 0.0, 0.0, 0.0, true, false));
+        AddMechModifier(new MechModifier(0, 0, 0, 0.5, 0, 3, 0, 0.0, 0.0, 0.0, 0.0, true, false));
     }
 
     public String ActualName() {

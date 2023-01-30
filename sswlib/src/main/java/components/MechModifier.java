@@ -40,7 +40,6 @@ public class MechModifier {
                   MinDefBonus = 0.0,
                   ArmorMult = 0.0,
                   IntMult = 0.0,
-                  WalkMult = 0.0,
                   RunMult = 0.0;
     private boolean BVMovement,
                     BVHeatMod,
@@ -83,10 +82,6 @@ public class MechModifier {
         BVHeatMod = BVHeat;
         ConfigOnly = Config_Only;
     }
-    public MechModifier( int wadd, int radd, int jadd, double wmult, double rmult, int gmod, int pmod, int heat, double def, double mindef, double amult, double imult, boolean BVMove, boolean BVHeat ) {
-        this(wadd, radd, jadd, rmult, gmod, pmod, heat, def, mindef, amult, imult, BVMove, BVHeat, false );
-        WalkMult = wmult;
-    }
 
     public void SetCanJump(boolean j) {
         CanJump = j;
@@ -110,10 +105,6 @@ public class MechModifier {
 
     public int JumpingAdder() {
         return JumpAdd;
-    }
-
-    public double WalkingMultiplier() {
-        return WalkMult;
     }
 
     public double RunningMultiplier() {
@@ -161,7 +152,6 @@ public class MechModifier {
         WalkAdd += m.WalkingAdder();
         RunAdd += m.RunningAdder();
         JumpAdd += m.JumpingAdder();
-        WalkMult += m.WalkingMultiplier();
         RunMult += m.RunningMultiplier();
         GunneryMod += m.GunneryMod();
         PilotMod += m.PilotingModifier();
@@ -184,7 +174,6 @@ public class MechModifier {
             WalkAdd += m.WalkingAdder();
             RunAdd += m.RunningAdder();
             JumpAdd += m.JumpingAdder();
-            WalkMult += m.WalkingMultiplier();
             RunMult += m.RunningMultiplier();
         }
         GunneryMod += m.GunneryMod();
@@ -205,7 +194,7 @@ public class MechModifier {
 
     @Override
     public String toString() {
-        String retval = WalkAdd + "/" + RunAdd + "/" + JumpAdd + ", WalkMult=" + WalkMult + ", RunMult=" + RunMult + ", " + GunneryMod + "/" + PilotMod + ", " + HeatAdd + " heat, ";
+        String retval = WalkAdd + "/" + RunAdd + "/" + JumpAdd + ", RunMult=" + RunMult + ", " + GunneryMod + "/" + PilotMod + ", " + HeatAdd + " heat, ";
         retval += DefBonus + " DMod, " + MinDefBonus + " MinDMod, " + ArmorMult + "/" + IntMult + " multipliers";
         return retval;
     }
