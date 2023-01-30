@@ -39,7 +39,7 @@ public class Supercharger extends abPlaceable {
         AC.SetCLCodes( 'C', 'X', 'F', 'F', 'D' );
         AC.SetCLDates( 0, 0, false, 3078, 0, 0, false, false );
         AC.SetCLFactions( "", "", "ES", "" );
-        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
+        AC.SetRulesLevels( AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = (ifLoadout)l;
         AddMechModifier( new MechModifier( 0, 0, 0, 0.5, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, true, false ) );
     }
