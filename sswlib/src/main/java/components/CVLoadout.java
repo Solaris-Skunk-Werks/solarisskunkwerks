@@ -260,6 +260,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
 
     public void ClearLoadout() {
         FullUnallocate();
+        UsingSupercharger = false;
+        UsingVTOLBooster = false;
         Owner.SetChanged( true );
     }
 

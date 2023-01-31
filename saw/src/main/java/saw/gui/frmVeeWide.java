@@ -6407,7 +6407,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         } else {
             chkSupercharger.setEnabled( false );
         }
-        if( CurVee.IsVTOL() && CommonTools.IsAllowed( CurVee.GetLoadout().GetVTOLBooster().GetAvailability(), CurVee ) ) {
+        if( CurVee.IsVTOL() && CommonTools.IsAllowed( CurVee.GetLoadout().GetVTOLBooster().GetAvailability(), CurVee ) && !CurVee.isOmni() ) {
             chkJetBooster.setEnabled( true );
         } else {
             chkJetBooster.setEnabled( false );
@@ -6578,6 +6578,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         chkYearRestrict.setEnabled( true );
         //chkBSPFD.setEnabled( true );
         chkSupercharger.setEnabled( true );
+        chkJetBooster.setEnabled(true);
         chkEnviroSealing.setEnabled( false );
         // now enable the Omni controls
         cmbOmniVariant.setEnabled( false );
@@ -6847,7 +6848,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     }
     
     private void LockGUIForOmni() {
-        // this locks most of the GUI controls.  Used mainly by Omnimechs.
+        // this locks most of the GUI controls.  Used mainly by OmniVehichles.
         isLocked = true;
         
         chkOmniVee.setSelected( true );
@@ -6888,6 +6889,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         chkFractional.setEnabled( false );
         chkEnviroSealing.setEnabled( false );
+        chkJetBooster.setEnabled(false);
         if( CurVee.GetBaseLoadout().HasSupercharger() ) {
             chkSupercharger.setEnabled( false );
         }

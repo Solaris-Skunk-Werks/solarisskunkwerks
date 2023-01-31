@@ -7129,7 +7129,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         } else {
             chkSupercharger.setEnabled( false );
         }
-        if( CurVee.IsVTOL() && CommonTools.IsAllowed( CurVee.GetLoadout().GetVTOLBooster().GetAvailability(), CurVee ) ) {
+        if( CurVee.IsVTOL() && CommonTools.IsAllowed( CurVee.GetLoadout().GetVTOLBooster().GetAvailability(), CurVee ) && !CurVee.IsOmni()) {
             chkJetBooster.setEnabled( true );
         } else {
             chkJetBooster.setEnabled( false );
@@ -7304,6 +7304,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkYearRestrict.setEnabled( true );
         //chkBSPFD.setEnabled( true );
         chkSupercharger.setEnabled( true );
+        chkJetBooster.setEnabled(true);
         chkEnviroSealing.setEnabled( false );
         // now enable the Omni controls
         cmbOmniVariant.setSelectedItem("");
@@ -8576,7 +8577,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     }
 
     private void LockGUIForOmni() {
-        // this locks most of the GUI controls.  Used mainly by Omnimechs.
+        // this locks most of the GUI controls.  Used mainly by OmniVehicles.
         isLocked = true;
 
         chkOmniVee.setSelected( true );
@@ -8601,6 +8602,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         btnLockChassis.setEnabled( false );
         chkYearRestrict.setEnabled( false );
         chkTrailer.setEnabled( false );
+        chkJetBooster.setEnabled(false);
         if( CurVee.GetBaseLoadout().GetJumpJets().GetNumJJ() > 0 ) {
             //cmbJumpJetType.setEnabled( false );
         }
