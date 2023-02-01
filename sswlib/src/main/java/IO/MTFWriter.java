@@ -42,18 +42,13 @@ public class MTFWriter {
     private CombatVehicle CurVee;
     private String Prepend = "";
     private boolean mixed = false;
+    private String Version = "";
 
     public MTFWriter( ) {
-
     }
 
-    public MTFWriter( Mech m ) {
-        CurMech = m;
-    }
-    
-    public MTFWriter( CombatVehicle v ) {
-        CurVee = v;
-    }
+    public MTFWriter( Mech m, String version ) { CurMech = m; Version = version; }
+    public MTFWriter( CombatVehicle v, String version ) { CurVee = v; Version = version; }
 
     public void WriteMechMTF( String filename ) throws IOException {
         BufferedWriter FR = new BufferedWriter( new FileWriter( filename ) );
@@ -72,8 +67,7 @@ public class MTFWriter {
                 mixed = true;
                 break;
         }
-        // first block for vesioning and name
-        FR.write( "Version:1.1" );
+        FR.write( "Generator:" + Version );
         FR.newLine();
         FR.write( CurMech.GetName() );
         FR.newLine();
@@ -364,7 +358,6 @@ public class MTFWriter {
     public void WriteVeeMTF( String filename ) throws IOException {
         BufferedWriter FR = new BufferedWriter( new FileWriter( filename ) );
 
-        // get the prepend string for stuff that needs it
         switch( CurVee.GetLoadout().GetTechBase() ) {
             case AvailableCode.TECH_INNER_SPHERE:
                 Prepend = "IS";
@@ -378,8 +371,7 @@ public class MTFWriter {
                 mixed = true;
                 break;
         }
-        // first block for vesioning and name
-        FR.write( "Version:1.1" );
+        FR.write( "Generator:" + Version );
         FR.newLine();
         FR.write( CurVee.GetName() );
         FR.newLine();
@@ -393,8 +385,6 @@ public class MTFWriter {
             FR.write( CurVee.GetModel() );
         }
         FR.newLine();
-
-        // second block handles general mech stuff
         FR.newLine();
         FR.write( "Config:" + CurVee.getCurConfig().GetMotiveLookupName() );
         FR.newLine();
@@ -419,8 +409,6 @@ public class MTFWriter {
         FR.newLine();
         FR.write( "Rules Level:" + CurVee.GetMegaMekLevel() );
         FR.newLine();
-
-        // third block for mech specifics
         FR.newLine();
         FR.write( "Mass:" + CurVee.GetTonnage() );
         FR.newLine();
@@ -471,6 +459,8 @@ public class MTFWriter {
         }
         FR.write( "Cruise MP:" + CurVee.getCruiseMP() );
         FR.newLine();
+        FR.write( "Flank MP:" + CurVee.getFlankMP() );
+        FR.newLine();
         FR.write( "Jump MP:" + CurVee.GetJumpJets().GetNumJJ() );
         FR.newLine();
 
@@ -486,27 +476,37 @@ public class MTFWriter {
             FR.write( "Armor:" + CurVee.GetArmor().MegaMekName( false ) );
         }
         FR.newLine();
-        FR.write( "LA Armor:" + CurVee.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LA) );
+        FR.write( "Front Armor:" + CurVee.GetArmor().GetLocationArmor( LocationIndex.CV_LOC_FRONT) );
         FR.newLine();
-        FR.write( "RA Armor:" + CurVee.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RA) );
+        FR.write( "Left Side Armor:" + CurVee.GetArmor().GetLocationArmor( LocationIndex.CV_LOC_LEFT) );
         FR.newLine();
-        FR.write( "LT Armor:" + CurVee.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LT) );
+        FR.write( "Right Side Armor:" + CurVee.GetArmor().GetLocationArmor( LocationIndex.CV_LOC_RIGHT) );
         FR.newLine();
-        FR.write( "RT Armor:" + CurVee.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RT) );
+        FR.write( "Body Armor:" + CurVee.GetArmor().GetLocationArmor( LocationIndex.CV_LOC_BODY) );
         FR.newLine();
-        FR.write( "CT Armor:" + CurVee.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CT) );
-        FR.newLine();
-        FR.write( "HD Armor:" + CurVee.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_HD) );
-        FR.newLine();
-        FR.write( "LL Armor:" + CurVee.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LL) );
-        FR.newLine();
-        FR.write( "RL Armor:" + CurVee.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RL) );
-        FR.newLine();
-        FR.write( "RTL Armor:" + CurVee.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_LTR) );
-        FR.newLine();
-        FR.write( "RTR Armor:" + CurVee.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_RTR) );
-        FR.newLine();
-        FR.write( "RTC Armor:" + CurVee.GetArmor().GetLocationArmor( LocationIndex.MECH_LOC_CTR) );
+        if (CurVee.getCurConfig().IsVTOL()) {
+            FR.write("Rotor Armor:" + CurVee.GetArmor().GetLocationArmor(LocationIndex.CV_LOC_ROTOR));
+            FR.newLine();
+        }
+        if (CurVee.isHasSponsonTurret()) {
+            FR.write("Left Sponson Armor:" + CurVee.GetArmor().GetLocationArmor(LocationIndex.CV_LOC_SPONSON_LEFT));
+            FR.newLine();
+            FR.write( "Right Sponson Armor:" + CurVee.GetArmor().GetLocationArmor( LocationIndex.CV_LOC_SPONSON_RIGHT) );
+            FR.newLine();
+        }
+        if (CurVee.isHasTurret1() && !CurVee.isHasTurret2()) {
+            FR.write("Turret Armor:" + CurVee.GetArmor().GetLocationArmor(LocationIndex.CV_LOC_TURRET1));
+            FR.newLine();
+        }
+        if (CurVee.isHasTurret1() && CurVee.isHasTurret2()) {
+            FR.write("Turret 1 Armor:" + CurVee.GetArmor().GetLocationArmor(LocationIndex.CV_LOC_TURRET1));
+            FR.newLine();
+        }
+        if (CurVee.isHasTurret2()) {
+            FR.write("Turret 2 Armor:" + CurVee.GetArmor().GetLocationArmor(LocationIndex.CV_LOC_TURRET2));
+            FR.newLine();
+        }
+        FR.write( "Rear Armor:" + CurVee.GetArmor().GetLocationArmor( LocationIndex.CV_LOC_REAR) );
         FR.newLine();
 
         // sixth block for weapon information.  Get the loadout directly as this
@@ -550,9 +550,9 @@ public class MTFWriter {
                     }
                     // now that we have the amount, add the line in
                     if( ammoamount > 0 ) {
-                        FR.write( "1 " + GetMMName( p ) + ", " + LocationIndex.MechLocs[l.Find( p )] + rear + ", Ammo:" + ammoamount );
+                        FR.write( "1 " + GetMMName( p ) + ", " + LocationIndex.CVLocs[l.Find( p )] + rear + ", Ammo:" + ammoamount );
                     } else {
-                        FR.write( "1 " + GetMMName( p ) + ", " + LocationIndex.MechLocs[l.Find( p )] + rear );
+                        FR.write( "1 " + GetMMName( p ) + ", " + LocationIndex.CVLocs[l.Find( p )] + rear );
                     }
                 } else {
                     // check for a rear-facing weapon
@@ -561,24 +561,24 @@ public class MTFWriter {
                         rear = " (R)";
                     }
                     // no ammo checking needed
-                    FR.write( "1 " + GetMMName( p ) + ", " + LocationIndex.MechLocs[l.Find( p )] + rear );
+                    FR.write( "1 " + GetMMName( p ) + ", " + LocationIndex.CVLocs[l.Find( p )] + rear );
                 }
                 FR.newLine();
             } else {
                 // not a weapon so no ammo checking.  Add it to the file
-                FR.write( "1 " + GetMMName( p ) + ", " + LocationIndex.MechLocs[l.Find( p )] );
+                FR.write( "1 " + GetMMName( p ) + ", " + LocationIndex.CVLocs[l.Find( p )] );
                 FR.newLine();
             }
             // format is:
             // "1 <weapon lookupname>, <location>, Ammo:<total lot size>
         }
 
-
         // all done
         FR.close();
     }
     
     public void WriteMTF( String filename ) throws IOException {
+
         if (CurMech != null) {
             WriteMechMTF(filename);
             return;

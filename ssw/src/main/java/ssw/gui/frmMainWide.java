@@ -11331,7 +11331,7 @@ private void btnExportMTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     }
 
     String filename = "";
-    IO.MTFWriter mtfw = new IO.MTFWriter( CurMech );
+    IO.MTFWriter mtfw = new IO.MTFWriter( CurMech, SSWConstants.AppDescription + " " + SSWConstants.GetVersion() );
     try {
         filename = savemech.getCanonicalPath();
         mtfw.WriteMTF( filename );

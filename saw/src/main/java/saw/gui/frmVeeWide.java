@@ -7708,7 +7708,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         }
 
         String filename = "";
-        IO.MTFWriter mtfw = new IO.MTFWriter(CurVee);
+        IO.MTFWriter mtfw = new IO.MTFWriter(CurVee, saw.Constants.AppDescription + " " + saw.Constants.GetVersion());
         try {
             filename = savemech.getCanonicalPath();
             mtfw.WriteMTF(filename);
