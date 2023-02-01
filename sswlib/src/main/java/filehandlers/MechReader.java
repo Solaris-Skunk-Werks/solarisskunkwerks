@@ -1868,6 +1868,7 @@ public class MechReader {
         if( type.equals( "energy" ) ) {
             boolean ppccap = false;
             boolean insulated = false;
+            boolean pulsemodule = false;
             if( name.contains( " + PPC Capacitor" ) ) {
                 name = name.substring( 0, name.length() - 16 );
                 ppccap = true;
@@ -1880,6 +1881,10 @@ public class MechReader {
                 name = name.substring( 0, name.length() - 12 );
                 insulated = true;
             }
+            if( name.contains(" + Pulse Module")) {
+                name = name.replace(" + Pulse Module", "");
+                pulsemodule = true;
+            }
             if( name.contains( "Variable Speed Laser" ) ) {
                 name = name.replace( "Variable Speed Laser", "Variable Speed Pulse Laser" );
             }
@@ -1891,6 +1896,7 @@ public class MechReader {
             if( retval != null ) {
                 ((RangedWeapon) retval).UseCapacitor( ppccap );
                 ((RangedWeapon) retval).UseInsulator( insulated );
+                ((RangedWeapon) retval).UsePulseModule( pulsemodule);
             }
         } else if( type.equals( "ballistic" ) ) {
             boolean caseless = false;
