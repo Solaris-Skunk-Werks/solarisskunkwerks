@@ -42,7 +42,7 @@ public class stArmorISBR implements ifArmor, ifState {
         AC.SetISCodes( 'E', 'X', 'X', 'X', 'E' );
         AC.SetISDates( 0, 0, false, 3131, 0, 0, false, false );
         AC.SetISFactions( "", "", "DC", "" );
-        AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED );
+        AC.SetRulesLevels( AvailableCode.RULES_ADVANCED, AvailableCode.RULES_EXPERIMENTAL, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED, AvailableCode.RULES_ADVANCED );
         AC.SetPBMAllowed(true);
     }
 
