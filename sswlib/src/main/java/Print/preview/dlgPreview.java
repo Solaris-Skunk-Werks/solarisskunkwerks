@@ -479,7 +479,7 @@ public class dlgPreview extends javax.swing.JFrame implements ActionListener {
                                         pv.setPrintPilot(chkPrintGroup.isSelected());
                                         if ( cmbPaperSize.getSelectedIndex() == 2 ) pv.setA4();
                                         if ( chkPrintGroup.isSelected() ) pv.setGroupName( g.getName() + " [" + g.getForce().ForceName + "]" );
-                                        if ( chkUseHexConversion.isSelected() ) pv.SetMiniConversion(cmbHexConvFactor.getSelectedIndex()+1);
+                                        if ( chkUseHexConversion.isSelected() ) {pv.SetMiniConversion(cmbHexConvFactor.getSelectedIndex()+1, true);} else {pv.SetMiniConversion(1, false);};
                                         if ( chkLogo.isSelected() ) pv.setLogoImage(imageTracker.getImage(g.getLogo()));
                                         if ( cmbRSType.getSelectedIndex() == 1 ) pv.setTRO(true);
                                         printer.Append( pageSize, pv);

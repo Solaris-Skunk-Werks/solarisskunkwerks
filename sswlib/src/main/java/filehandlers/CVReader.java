@@ -419,7 +419,7 @@ public class CVReader {
         // take care of Clan CASE on previous save file versions
         if( SaveFileVersion < 1 ) {
             // this will fail if Inner Sphere, so we're safe
-            //m.GetLoadout().SetClanCASE( true );
+            m.GetLoadout().SetClanCASE( true );
         }
         n = n.item( 0 ).getChildNodes();
         LocationIndex ltc = new LocationIndex();
@@ -428,7 +428,7 @@ public class CVReader {
             if( n.item( i ).getNodeName().equals( "source" ) ) {
                 m.setSource( n.item( i ).getTextContent() );
             } else if( n.item( i ).getNodeName().equals( "clancase" ) ) {
-                //m.GetLoadout().SetClanCASE( ParseBoolean( n.item( i ).getTextContent() ) );
+                m.GetLoadout().SetClanCASE( ParseBoolean( n.item( i ).getTextContent() ) );
             } else if( n.item( i ).getNodeName().equals( "heatsinks" ) ) {
                 map = n.item( i ).getAttributes();
                 int numhs = Integer.parseInt( map.getNamedItem( "number" ).getTextContent() );
@@ -553,8 +553,11 @@ public class CVReader {
                         }
                         ltc = l;
                     } else if( eType.equals( "CASE" ) ) {
-                        m.GetLoadout().SetISCASE();
-                        m.GetLoadout().SetClanCASE(( m.GetTechBase() == AvailableCode.TECH_CLAN));
+                        if (m.GetLoadout().IsUsingClanCASE()) {
+                            m.GetLoadout().SetClanCASE(true);
+                        } else {
+                            m.GetLoadout().SetISCASE();
+                        }
                     } else if( eType.equals( "Supercharger" ) ) {
                         m.GetLoadout().SetSupercharger( true );
                     }
@@ -873,7 +876,7 @@ public class CVReader {
                 // take care of Clan CASE on previous save file versions
                 if( SaveFileVersion < 1 ) {
                     // this will fail if Inner Sphere, so we're safe
-                    //m.GetLoadout().SetClanCASE( true );
+                    m.GetLoadout().SetClanCASE( true );
                 }
                 if( SaveFileVersion < 2 ) {
                     m.setSource( Source );
@@ -901,7 +904,7 @@ public class CVReader {
                             }
                         }
                     } else if( n.item( i ).getNodeName().equals( "clancase" ) ) {
-                        //m.GetLoadout().SetClanCASE( ParseBoolean( n.item( i ).getTextContent() ) );
+                        m.GetLoadout().SetClanCASE( ParseBoolean( n.item( i ).getTextContent() ) );
                     } else if( n.item( i ).getNodeName().equals( "heatsinks" ) ) {
                         hsLoc.clear();
                         map = n.item( i ).getAttributes();
@@ -1021,8 +1024,11 @@ public class CVReader {
                                 }
                                 ltc = l;
                             } else if( eType.equals( "CASE" ) ) {
-                                m.GetLoadout().SetISCASE();
-                                m.GetLoadout().SetClanCASE(( m.GetTechBase() == AvailableCode.TECH_CLAN));
+                                if (m.GetLoadout().IsUsingClanCASE()) {
+                                    m.GetLoadout().SetClanCASE(true);
+                                } else {
+                                    m.GetLoadout().SetISCASE();
+                                }
                             } else if( eType.equals( "Supercharger" ) ) {
                                 m.GetLoadout().SetSupercharger( true );
                             }

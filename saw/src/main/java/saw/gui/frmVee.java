@@ -890,6 +890,14 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             txtInfoFreeCrits.setForeground(Color.black);
         }
 
+        // fill in the movement summary
+        String temp = "Max C/F: ";
+        temp += CurVee.GetAdjustedCruiseMP( false, true ) + "/";
+        temp += CurVee.GetAdjustedFlankMP( false, true );
+//        temp += CurMech.GetAdjustedJumpingMP( false ) + "/";
+//        temp += CurMech.GetAdjustedBoosterMP( false );
+        lblMoveSummary.setText( temp );
+
         // fill in the info
         if( CurVee.UsingFractionalAccounting() ) {
             txtInfoTonnage.setText( "Tons: " + CommonTools.RoundFractionalTons( CurVee.GetCurrentTons() ) );
@@ -1068,6 +1076,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         btnOptions = new javax.swing.JButton();
         jSeparator21 = new javax.swing.JToolBar.Separator();
         lblSelectVariant = new javax.swing.JLabel();
+        lblMoveSummary = new javax.swing.JLabel();
         cmbOmniVariant = new javax.swing.JComboBox();
         tbpMainTabPane = new javax.swing.JTabbedPane();
         pnlBasicSetup = new javax.swing.JPanel();
@@ -2095,6 +2104,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         javax.swing.GroupLayout pnlMovementLayout = new javax.swing.GroupLayout(pnlMovement);
         pnlMovement.setLayout(pnlMovementLayout);
+
         pnlMovementLayout.setHorizontalGroup(
             pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMovementLayout.createSequentialGroup()
@@ -2103,7 +2113,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                     .addGroup(pnlMovementLayout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addGap(2, 2, 2)
-                        .addComponent(spnCruiseMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(spnCruiseMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(5, 5, 5)
+                            .addComponent(lblMoveSummary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlMovementLayout.createSequentialGroup()
                         .addGap(5, 5, 5)
                         .addGroup(pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2115,7 +2127,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                                 .addComponent(jLabel13)
                                 .addGap(2, 2, 2)
                                 .addComponent(spnJumpMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         pnlMovementLayout.setVerticalGroup(
             pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2124,7 +2136,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                     .addGroup(pnlMovementLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel10))
-                    .addComponent(spnCruiseMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(spnCruiseMP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblMoveSummary, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(pnlMovementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -2153,6 +2166,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlChassisMods.add(chkFlotationHull, gridBagConstraints);
+
+        lblMoveSummary.setText("W/R: 12/20");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 0);
+        pnlMovement.add(lblMoveSummary, gridBagConstraints);
 
         chkLimitedAmph.setText("Limited Amphibious");
         chkLimitedAmph.setEnabled(false);
@@ -2229,7 +2248,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         chkJetBooster.setText("VTOL Jet Booster");
         chkJetBooster.setEnabled(false);
-
+        chkJetBooster.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkJetBoosterActionPerformed(evt);
+            }
+        });
         chkSupercharger.setText("Supercharger");
         chkSupercharger.setEnabled(false);
         chkSupercharger.addActionListener(new java.awt.event.ActionListener() {
@@ -5571,7 +5594,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             BuildExpEquipmentSelector();
             FixMPSpinner();
             FixJJSpinnerModel();
-            RefreshEquipment();
 
             // now reset the combo boxes to the closest choices we previously selected
             LoadSelections();
@@ -5581,11 +5603,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             //RecalcHeatSinks();
             RecalcArmor();
             RecalcEquipment();
-            RefreshEquipment();
         }
 
         BuildTurretSelector();
         // now refresh the information panes
+        RefreshEquipment();
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
@@ -5707,6 +5729,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                                                chkJetBooster,
                                                chkEscapePod,
                                                chkSponsonTurret };
+
         if (cmbRulesLevel.getSelectedIndex() > 1) {
             if (CurVee.CanUseSponson())
                 chkSponsonTurret.setEnabled(true);
@@ -5772,8 +5795,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         if( CurVee.IsVTOL() != wasVtol ) RecalcArmorPlacement();
         RecalcArmorLocations();
         SetWeaponChoosers();
+        RefreshEquipment();
         RefreshSummary();
         RefreshInfoPane();
+        RefreshEquipment();
 }//GEN-LAST:event_cmbMotiveTypeActionPerformed
 
     private void ShowInfoOn( abPlaceable p ) {
@@ -6019,8 +6044,45 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         lblInfoMountRestrict.setText(lblInfoMountRestrict.getText() + " MM Name " + p.MegaMekName(false));
     }
 
+    private void chkJetBoosterActionPerformed(java.awt.event.ActionEvent evt) {
+        if( CurVee.GetLoadout().HasVTOLBooster() == chkJetBooster.isSelected() ) {
+            return;
+        }
+        try {
+            CurVee.GetLoadout().SetVTOLBooster( chkJetBooster.isSelected());
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            try {
+                CurVee.GetLoadout().SetVTOLBooster( false );
+            } catch( Exception x ) {
+                // how the hell did we get an error removing it?
+                Media.Messager( this, x.getMessage() );
+            }
+            chkJetBooster.setSelected( false );
+        }
+        RefreshSelectedEquipment();
+        RefreshSummary();
+        RefreshInfoPane();
+    }
     private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSuperchargerActionPerformed
-
+        if( CurVee.GetLoadout().HasSupercharger() == chkSupercharger.isSelected() ) {
+            return;
+        }
+        try {
+            CurVee.GetLoadout().SetSupercharger( chkSupercharger.isSelected());
+        } catch( Exception e ) {
+            Media.Messager( this, e.getMessage() );
+            try {
+                CurVee.GetLoadout().SetSupercharger( false );
+            } catch( Exception x ) {
+                // how the hell did we get an error removing it?
+                Media.Messager( this, x.getMessage() );
+            }
+            chkSupercharger.setSelected( false );
+        }
+        RefreshSelectedEquipment();
+        RefreshSummary();
+        RefreshInfoPane();
 }//GEN-LAST:event_chkSuperchargerActionPerformed
 
     private void chkUseTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkUseTCActionPerformed
@@ -6838,6 +6900,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkDuneBuggy.setSelected(false);
         chkEnviroSealing.setSelected(false);
         chkTrailer.setSelected(false);
+        chkSupercharger.setSelected(false);
+        chkJetBooster.setSelected(false);
 
         if( Omni ) {
             UnlockGUIFromOmni();
@@ -7060,12 +7124,16 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             //chkBSPFD.setEnabled( false );
             //chkBSPFD.setSelected( false );
         }
-        if( CommonTools.IsAllowed( CurVee.GetLoadout().GetSupercharger().GetAvailability(), CurVee ) ) {
+        if( CommonTools.IsAllowed( CurVee.GetLoadout().GetSupercharger().GetAvailability(), CurVee ) && !CurVee.IsVTOL() ) {
             chkSupercharger.setEnabled( true );
         } else {
             chkSupercharger.setEnabled( false );
         }
-
+        if( CurVee.IsVTOL() && CommonTools.IsAllowed( CurVee.GetLoadout().GetVTOLBooster().GetAvailability(), CurVee ) && !CurVee.IsOmni()) {
+            chkJetBooster.setEnabled( true );
+        } else {
+            chkJetBooster.setEnabled( false );
+        }
         // now set all the equipment if needed
         if( ! chkFCSAIV.isEnabled() ) {
             try {
@@ -7236,6 +7304,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkYearRestrict.setEnabled( true );
         //chkBSPFD.setEnabled( true );
         chkSupercharger.setEnabled( true );
+        chkJetBooster.setEnabled(true);
         chkEnviroSealing.setEnabled( false );
         // now enable the Omni controls
         cmbOmniVariant.setSelectedItem("");
@@ -8286,6 +8355,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                     break;
             }
 
+            //Adding these here for now, since the loadout gets completely trashed, these selections need to go away.
+            chkSupercharger.setSelected(false);
+            chkJetBooster.setSelected(false);
+
             // save the current selections.  The 'Mech should have already
             // flushed any illegal equipment in the changeover
             SaveSelections();
@@ -8330,6 +8403,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkUseTC.setSelected( false );
 
         // now refresh the information panes
+        RefreshEquipment();
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
@@ -8503,7 +8577,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     }
 
     private void LockGUIForOmni() {
-        // this locks most of the GUI controls.  Used mainly by Omnimechs.
+        // this locks most of the GUI controls.  Used mainly by OmniVehicles.
         isLocked = true;
 
         chkOmniVee.setSelected( true );
@@ -8528,6 +8602,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         btnLockChassis.setEnabled( false );
         chkYearRestrict.setEnabled( false );
         chkTrailer.setEnabled( false );
+        chkJetBooster.setEnabled(false);
         if( CurVee.GetBaseLoadout().GetJumpJets().GetNumJJ() > 0 ) {
             //cmbJumpJetType.setEnabled( false );
         }
@@ -10110,6 +10185,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JLabel lblRightIntPts;
     private javax.swing.JLabel lblRotorIntPts;
     private javax.swing.JLabel lblSelectVariant;
+    private javax.swing.JLabel lblMoveSummary;
     private javax.swing.JLabel lblSupensionFacter;
     private javax.swing.JLabel lblTurretIntPts;
     private javax.swing.JLabel lblVeeClass;
