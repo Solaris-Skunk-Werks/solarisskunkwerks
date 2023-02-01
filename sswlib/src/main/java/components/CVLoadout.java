@@ -667,6 +667,12 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         SponsonTurretRightItems.remove(p);
         NonCore.remove(p);
         TCList.remove(p);
+        // if the item is an MG Array, check for it's MGs and unallocate
+        if( p instanceof MGArray ) {
+            for( int i = 0; i < ((MGArray) p).GetMGs().length; i++ ) {
+                UnallocateAll( ((MGArray) p).GetMGs()[i], true );
+            }
+        }
         Owner.SetChanged( true );
         return true;
     }

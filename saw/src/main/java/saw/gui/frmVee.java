@@ -9275,7 +9275,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         dlgTextExport Text = new dlgTextExport(this, true, CurVee);
         Text.setLocationRelativeTo(this);
         Text.setVisible(true);
-        CurVee.SetCurLoadout((String) cmbOmniVariant.getSelectedItem());
+        if (cmbOmniVariant.isEnabled()) {
+            CurVee.SetCurLoadout((String) cmbOmniVariant.getSelectedItem());
+        }
         SetSource = true;
     }//GEN-LAST:event_mnuTextTROActionPerformed
 
