@@ -67,6 +67,8 @@ public class MTFWriter {
                 mixed = true;
                 break;
         }
+        FR.write( "Version:1.1" );
+        FR.newLine();
         FR.write( "Generator:" + Version );
         FR.newLine();
         FR.write( CurMech.GetName() );
