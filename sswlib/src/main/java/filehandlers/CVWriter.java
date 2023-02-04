@@ -175,6 +175,9 @@ public class CVWriter {
         FR.write( tab + tab + "<info>" + CurUnit.GetChatInfo() + "</info>" );
         FR.newLine();
 
+        FR.write( tab + tab + "<clancase>" + FileCommon.GetBoolean( CurUnit.GetLoadout().IsUsingClanCASE() ) + "</clancase>" );
+        FR.newLine();
+
         BattleForceStats stat = new BattleForceStats(CurUnit);
         stat.SerializeXML(FR, 2);
         FR.newLine();
