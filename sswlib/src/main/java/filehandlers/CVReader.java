@@ -553,7 +553,7 @@ public class CVReader {
                         }
                         ltc = l;
                     } else if( eType.equals( "CASE" ) ) {
-                        if (m.GetLoadout().IsUsingClanCASE()) {
+                        if (m.GetLoadout().IsUsingClanCASE() || (m.GetTechBase() == AvailableCode.TECH_CLAN)) {
                             m.GetLoadout().SetClanCASE(true);
                         } else {
                             m.GetLoadout().SetISCASE();
