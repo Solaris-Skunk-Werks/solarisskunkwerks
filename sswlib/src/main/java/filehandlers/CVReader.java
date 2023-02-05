@@ -536,7 +536,9 @@ public class CVReader {
                         lotsize = Integer.parseInt( nl.item( j ).getTextContent() );
                     }
                 }
-                if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" ) || eType.equals( "CASEII" ) || eType.equals( "Supercharger" ) ) {
+                if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" )
+                        || eType.equals( "CASEII" ) || eType.equals( "Supercharger" )
+                        || eType.equals( "VTOL Jet Booster")) {
                     if( eType.equals( "TargetingComputer") ) {
                         if( SaveFileVersion == 0 ) {
                             if( m.GetTechbase() == AvailableCode.TECH_CLAN ) {
@@ -560,6 +562,8 @@ public class CVReader {
                         }
                     } else if( eType.equals( "Supercharger" ) ) {
                         m.GetLoadout().SetSupercharger( true );
+                    } else if( eType.equals( "VTOL Jet Booster" ) ) {
+                        m.GetLoadout().SetVTOLBooster( true );
                     }
                 } else {
                     abPlaceable p = GetEquipmentByName( eName, eType, m );
@@ -1007,7 +1011,9 @@ public class CVReader {
                                 lotsize = Integer.parseInt( nl.item( j ).getTextContent() );
                             }
                         }
-                        if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" ) || eType.equals( "CASEII" ) || eType.equals( "Supercharger" ) ) {
+                        if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" )
+                                || eType.equals( "CASEII" ) || eType.equals( "Supercharger" )
+                                || eType.equals( "VTOL Jet Booster")) {
                             if( eType.equals( "TargetingComputer") ) {
                                 if( SaveFileVersion == 0 ) {
                                     if( m.GetTechbase() == AvailableCode.TECH_CLAN ) {
@@ -1031,6 +1037,8 @@ public class CVReader {
                                 }
                             } else if( eType.equals( "Supercharger" ) ) {
                                 m.GetLoadout().SetSupercharger( true );
+                            } else if ( eType.equals( "VTOL Jet Booster")) {
+                                m.GetLoadout().SetVTOLBooster( true);
                             }
                         } else {
                             abPlaceable p = GetEquipmentByName( eName, eType, m );

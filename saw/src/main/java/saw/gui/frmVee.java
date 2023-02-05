@@ -7190,6 +7190,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 chkSupercharger.setSelected( false );
             }
         }
+        if (chkJetBooster.isEnabled()) {
+            chkJetBooster.setSelected(CurVee.GetLoadout().HasVTOLBooster());
+        }
 
         if( ! chkUseTC.isEnabled() ) { CurVee.UseTC( false, false ); }
         chkClanCASE.setSelected( CurVee.GetLoadout().HasISCASE() );
