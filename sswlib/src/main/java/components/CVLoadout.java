@@ -938,11 +938,11 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     }
 
     public void AddCase(boolean isClan) {
+        UsingClanCASE = isClan;
         if (Owner.HasCase()) { return; }
         Owner.SetCase(true);
         try {
             AddTo(Case, LocationIndex.CV_LOC_BODY);
-            UsingClanCASE = isClan;
             UsingCASE = true;
             Owner.SetChanged( true );
         } catch (Exception ex) {
@@ -953,6 +953,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     public void RemoveCase() {
         UsingCASE = false;
         UsingClanCASE = false;
+        Owner.SetCase(false);
         Remove(Case);
         Owner.SetChanged( true );
     }

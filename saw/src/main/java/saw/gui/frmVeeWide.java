@@ -1283,7 +1283,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         chkFCSAIV = new javax.swing.JCheckBox();
         chkFCSAV = new javax.swing.JCheckBox();
         chkFCSApollo = new javax.swing.JCheckBox();
-        chkClanCASE = new javax.swing.JCheckBox();
+        chkCASE = new javax.swing.JCheckBox();
         pnlControls = new javax.swing.JPanel();
         btnRemoveEquip = new javax.swing.JButton();
         btnClearEquip = new javax.swing.JButton();
@@ -3677,10 +3677,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         pnlSpecials.add(chkFCSApollo, gridBagConstraints);
 
-        chkClanCASE.setText("Use CASE");
-        chkClanCASE.addActionListener(new java.awt.event.ActionListener() {
+        chkCASE.setText("Use CASE");
+        chkCASE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkClanCASEActionPerformed(evt);
+                chkCASEActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -3688,7 +3688,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         gridBagConstraints.gridy = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 0, 0);
-        pnlSpecials.add(chkClanCASE, gridBagConstraints);
+        pnlSpecials.add(chkCASE, gridBagConstraints);
 
         pnlControls.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Controls"));
         pnlControls.setLayout(new java.awt.GridBagLayout());
@@ -6349,10 +6349,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         //fix the CASE control
         CASE Case = new CASE();
         if ( CommonTools.IsAllowed( Case.GetAvailability(), CurVee) || CurVee.GetTechBase() == AvailableCode.TECH_CLAN ) {
-            chkClanCASE.setEnabled(true);
+            chkCASE.setEnabled(true);
         } else {
-            chkClanCASE.setSelected(false);
-            chkClanCASE.setEnabled(false);
+            chkCASE.setSelected(false);
+            chkCASE.setEnabled(false);
         }
 
         // fix Artemis IV controls
@@ -6470,7 +6470,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         }
 
         if( ! chkUseTC.isEnabled() ) { CurVee.UseTC( false, false ); }
-        chkClanCASE.setSelected( CurVee.GetLoadout().HasCase() );
+        chkCASE.setSelected( CurVee.GetLoadout().HasCase() );
 
         if( CurVee.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
             chkFractional.setEnabled( true );
@@ -6841,9 +6841,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             chkSupercharger.setSelected( false );
         }
         if( CurVee.GetLoadout().HasCase() ) {
-            chkClanCASE.setSelected( true );
+            chkCASE.setSelected( true );
         } else {
-            chkClanCASE.setSelected( false );
+            chkCASE.setSelected( false );
         }
     }
     
@@ -7116,7 +7116,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         data.Rebuild( CurVee );
         RefreshEquipment();
         chkUseTC.setSelected( CurVee.UsingTC() );
-        chkClanCASE.setSelected( CurVee.GetLoadout().HasCase() );
+        chkCASE.setSelected( CurVee.GetLoadout().HasCase() );
         chkEnviroSealing.setSelected( CurVee.HasEnvironmentalSealing() );
         //chkCommandConsole.setSelected( CurVee.HasCommandConsole() );
         RefreshSummary();
@@ -8117,9 +8117,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         ShowInfoOn(p);
     }//GEN-LAST:event_lstSelectedEquipmentValueChanged
 
-    private void chkClanCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkClanCASEActionPerformed
-        if (!chkClanCASE.isSelected()) {
-            CurVee.GetLoadout().SetClanCASE(false);
+    private void chkCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCASEActionPerformed
+        if (!chkCASE.isSelected()) {
             CurVee.GetLoadout().RemoveCase();
             SetWeaponChoosers();
             RefreshSummary();
@@ -8148,7 +8147,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         SetWeaponChoosers();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkClanCASEActionPerformed
+    }//GEN-LAST:event_chkCASEActionPerformed
 
     private void chkFCSApolloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFCSApolloActionPerformed
         if (CurVee.UsingApollo() == chkFCSApollo.isSelected()) {
@@ -9551,8 +9550,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             LoadSelections();
 
             if (CurVee.GetTechBase() == AvailableCode.TECH_CLAN) {
-                chkClanCASE.setSelected(true);
-                chkClanCASEActionPerformed(evt);
+                chkCASE.setSelected(true);
+                chkCASEActionPerformed(evt);
             }
             // recalculate the mech.
             RecalcEngine();
@@ -9931,7 +9930,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JCheckBox chkArmoredMotive;
     private javax.swing.JCheckBox chkBalanceFRArmor;
     private javax.swing.JCheckBox chkBalanceLRArmor;
-    private javax.swing.JCheckBox chkClanCASE;
+    private javax.swing.JCheckBox chkCASE;
     private javax.swing.JCheckBox chkCommandConsole;
     private javax.swing.JCheckBox chkDuneBuggy;
     private javax.swing.JCheckBox chkEnviroSealing;

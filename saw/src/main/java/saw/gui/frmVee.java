@@ -1293,7 +1293,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkFCSAIV = new javax.swing.JCheckBox();
         chkFCSAV = new javax.swing.JCheckBox();
         chkFCSApollo = new javax.swing.JCheckBox();
-        chkClanCASE = new javax.swing.JCheckBox();
+        chkCASE = new javax.swing.JCheckBox();
         pnlSelected = new javax.swing.JPanel();
         jScrollPane23 = new javax.swing.JScrollPane();
         lstSelectedEquipment = new javax.swing.JList();
@@ -3804,10 +3804,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         pnlSpecials.add(chkFCSApollo, gridBagConstraints);
 
-        chkClanCASE.setText("Use CASE");
-        chkClanCASE.addActionListener(new java.awt.event.ActionListener() {
+        chkCASE.setText("Use CASE");
+        chkCASE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkClanCASEActionPerformed(evt);
+                chkCASEActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -3815,7 +3815,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         gridBagConstraints.gridy = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 0, 0);
-        pnlSpecials.add(chkClanCASE, gridBagConstraints);
+        pnlSpecials.add(chkCASE, gridBagConstraints);
 
         pnlSelected.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Selected Equipment"));
         pnlSelected.setMaximumSize(new java.awt.Dimension(212, 286));
@@ -6182,9 +6182,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         SetWeaponChoosers();
 }//GEN-LAST:event_chkFCSApolloActionPerformed
 
-    private void chkClanCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkClanCASEActionPerformed
-        if ( !chkClanCASE.isSelected() ) {
-            CurVee.GetLoadout().SetClanCASE(false);
+    private void chkCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCASEActionPerformed
+        if ( !chkCASE.isSelected() ) {
             CurVee.GetLoadout().RemoveCase();
             SetWeaponChoosers();
             RefreshSummary();
@@ -6213,7 +6212,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         SetWeaponChoosers();
         RefreshSummary();
         RefreshInfoPane();
-}//GEN-LAST:event_chkClanCASEActionPerformed
+}//GEN-LAST:event_chkCASEActionPerformed
 
     private void lstSelectedEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstSelectedEquipmentValueChanged
         if( lstSelectedEquipment.getSelectedIndex() < 0 ) { return; }
@@ -7068,10 +7067,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         //fix the CASE control
         CASE Case = new CASE();
         if ( CommonTools.IsAllowed( Case.GetAvailability(), CurVee) || CurVee.GetTechBase() == AvailableCode.TECH_CLAN ) {
-            chkClanCASE.setEnabled(true);
+            chkCASE.setEnabled(true);
         } else {
-            chkClanCASE.setSelected(false);
-            chkClanCASE.setEnabled(false);
+            chkCASE.setSelected(false);
+            chkCASE.setEnabled(false);
         }
 
         // fix Artemis IV controls
@@ -7189,7 +7188,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
 
         if( ! chkUseTC.isEnabled() ) { CurVee.UseTC( false, false ); }
-        chkClanCASE.setSelected( CurVee.GetLoadout().HasCase() );
+        chkCASE.setSelected( CurVee.GetLoadout().HasCase() );
 
         if( CurVee.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
             chkFractional.setEnabled( true );
@@ -7211,7 +7210,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 chkSupercharger.setEnabled( false );
             }
             if( CurVee.GetBaseLoadout().HasCase() ) {
-                chkClanCASE.setEnabled(false);
+                chkCASE.setEnabled(false);
             }
         } else {
             try {
@@ -7294,7 +7293,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkFCSAIV.setEnabled( true );
         chkFCSAV.setEnabled( true );
         chkFCSApollo.setEnabled( true );
-        chkClanCASE.setEnabled( true );
+        chkCASE.setEnabled( true );
         chkOmniVee.setSelected( false );
         chkOmniVee.setEnabled( true );
         spnCruiseMP.setEnabled( true );
@@ -8380,8 +8379,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             LoadSelections();
 
             if ( CurVee.GetTechBase() == AvailableCode.TECH_CLAN ) {
-                chkClanCASE.setSelected(true);
-                chkClanCASEActionPerformed(evt);
+                chkCASE.setSelected(true);
+                chkCASEActionPerformed(evt);
             }
             // recalculate the mech.
             RecalcEngine();
@@ -8567,9 +8566,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             chkSupercharger.setSelected( false );
         }
         if( CurVee.GetLoadout().HasCase() ) {
-            chkClanCASE.setSelected( true );
+            chkCASE.setSelected( true );
         } else {
-            chkClanCASE.setSelected( false );
+            chkCASE.setSelected( false );
         }
     }
 
@@ -8613,8 +8612,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         if( chkFCSApollo.isSelected() ) {
             chkFCSApollo.setEnabled( false );
         }
-        if ( chkClanCASE.isSelected() ) {
-            chkClanCASE.setEnabled(false);
+        if ( chkCASE.isSelected() ) {
+            chkCASE.setEnabled(false);
         }
 
         chkFractional.setEnabled( false );
@@ -8898,7 +8897,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbTechBase.setEnabled( true );
         txtProdYear.setEnabled( true );
         chkTrailer.setSelected( CurVee.isTrailer() );
-        chkClanCASE.setSelected(CurVee.GetLoadout().HasCase());
+        chkCASE.setSelected(CurVee.GetLoadout().HasCase());
         switch( CurVee.GetEra() ) {
             case AvailableCode.ERA_STAR_LEAGUE:
                 lblEraYears.setText( "2443 ~ 2800" );
@@ -9953,7 +9952,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JCheckBox chkArmoredMotive;
     private javax.swing.JCheckBox chkBalanceFRArmor;
     private javax.swing.JCheckBox chkBalanceLRArmor;
-    private javax.swing.JCheckBox chkClanCASE;
+    private javax.swing.JCheckBox chkCASE;
     private javax.swing.JCheckBox chkCommandConsole;
     private javax.swing.JCheckBox chkDuneBuggy;
     private javax.swing.JCheckBox chkEnviroSealing;
