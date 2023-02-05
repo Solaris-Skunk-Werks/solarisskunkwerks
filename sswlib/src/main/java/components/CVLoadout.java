@@ -939,6 +939,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
 
     public void AddCase(boolean isClan) {
         UsingClanCASE = isClan;
+        Case.SetClan(isClan);
         if (Owner.HasCase()) { return; }
         Owner.SetCase(true);
         try {
