@@ -355,7 +355,7 @@ public class PrintVehicle implements Printable {
         if ( !TRO ) {
             if ( AmmoList.size() > 0 ) {
                 offset += 2;
-                graphics.drawString("Ammunition Type" + ( CurVee.GetLoadout().HasISCASE() ? " [CASE]":"" ), p[0].x, p[0].y + offset);
+                graphics.drawString("Ammunition Type" + ( CurVee.GetLoadout().HasCase() ? " [CASE]":"" ), p[0].x, p[0].y + offset);
                 graphics.drawString("Rounds", p[3].x-30, p[3].y + offset);
                 offset += 2;
                 graphics.drawLine(p[0].x, p[0].y + offset, p[8].x + 8, p[8].y + offset);

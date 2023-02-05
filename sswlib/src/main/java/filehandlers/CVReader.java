@@ -416,11 +416,6 @@ public class CVReader {
         if ( omniCombatVehicle && map.getNamedItem("turretlimit") != null ) {
             m.GetLoadout().GetTurret().SetTonnage( Double.parseDouble(map.getNamedItem("turretlimit").getTextContent() ) );
         }
-        // take care of Clan CASE on previous save file versions
-        if( SaveFileVersion < 1 ) {
-            // this will fail if Inner Sphere, so we're safe
-            m.GetLoadout().SetClanCASE( true );
-        }
         n = n.item( 0 ).getChildNodes();
         LocationIndex ltc = new LocationIndex();
         for( int i = 0; i < n.getLength(); i++ ) {
@@ -553,11 +548,7 @@ public class CVReader {
                         }
                         ltc = l;
                     } else if( eType.equals( "CASE" ) ) {
-                        if (m.GetLoadout().IsUsingClanCASE() || (m.GetTechBase() == AvailableCode.TECH_CLAN)) {
-                            m.GetLoadout().SetClanCASE(true);
-                        } else {
-                            m.GetLoadout().SetISCASE();
-                        }
+                        m.GetLoadout().AddCase(m.GetLoadout().IsUsingClanCASE() || (m.GetTechBase() == AvailableCode.TECH_CLAN));
                     } else if( eType.equals( "Supercharger" ) ) {
                         m.GetLoadout().SetSupercharger( true );
                     }
@@ -873,11 +864,6 @@ public class CVReader {
                     }
                     m.GetLoadout().SetRulesLevel( ruleslevel );
                 }
-                // take care of Clan CASE on previous save file versions
-                if( SaveFileVersion < 1 ) {
-                    // this will fail if Inner Sphere, so we're safe
-                    m.GetLoadout().SetClanCASE( true );
-                }
                 if( SaveFileVersion < 2 ) {
                     m.setSource( Source );
                 }
@@ -1024,11 +1010,7 @@ public class CVReader {
                                 }
                                 ltc = l;
                             } else if( eType.equals( "CASE" ) ) {
-                                if (m.GetLoadout().IsUsingClanCASE()) {
-                                    m.GetLoadout().SetClanCASE(true);
-                                } else {
-                                    m.GetLoadout().SetISCASE();
-                                }
+                                m.GetLoadout().AddCase(m.GetLoadout().IsUsingClanCASE() || (m.GetTechBase() == AvailableCode.TECH_CLAN));
                             } else if( eType.equals( "Supercharger" ) ) {
                                 m.GetLoadout().SetSupercharger( true );
                             }

@@ -835,7 +835,6 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         clone.SetTechBase( TechBase );
         clone.SetEra( Era );
         clone.SetYear( Year, false );
-        clone.SetClanCASE( UsingClanCASE );
         try {
             clone.SetFCSArtemisIV( UseAIVFCS );
             clone.SetFCSArtemisV( UseAVFCS );
@@ -854,7 +853,10 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         clone.SetTurret2( (ArrayList<abPlaceable>)Turret2Items.clone() );
         clone.SetSponsonTurretLeftItems((ArrayList<abPlaceable>) SponsonTurretLeftItems.clone());
         clone.SetSponsonTurretRightItems((ArrayList<abPlaceable>) SponsonTurretRightItems.clone());
-        
+
+        if ( HasCase() ) {
+            clone.AddCase(UsingClanCASE);
+        }
         if( TCList.size() > 0 ) {
             clone.SetTCList( (ArrayList) TCList.clone() );
         }
@@ -935,44 +937,37 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         return UsingClanCASE;
     }
 
-    public void SetClanCASE(boolean b) {
-        UsingCASE = b;
-        UsingClanCASE = b;
-        Case.SetClan(b);
-        Remove(Case);
+    public void AddCase(boolean isClan) {
+        if (Owner.HasCase()) { return; }
+        Owner.SetCase(true);
         try {
             AddTo(Case, LocationIndex.CV_LOC_BODY);
+            UsingClanCASE = isClan;
+            UsingCASE = true;
+            Owner.SetChanged( true );
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
+    }
+
+    public void RemoveCase() {
+        UsingCASE = false;
+        UsingClanCASE = false;
+        Remove(Case);
+        Owner.SetChanged( true );
+    }
+    public boolean HasCase() {
+        return Owner.HasCase();
+    }
+    public void SetClanCASE(boolean b) {
+        UsingClanCASE = b;
+        Case.SetClan(b);
         Owner.SetChanged( true );
     }
 
-    public void RemoveISCase() {
-        UsingCASE = false;
-        Remove(Case);
-    }
-    
-    public void SetISCASE() {
-        UsingCASE = true;
-        Remove(Case);
-        try {
-            AddTo(Case, LocationIndex.CV_LOC_BODY);
-        } catch (Exception ex) {
-            System.err.println(ex.getMessage());
-        }
-    }
-
-    public boolean HasISCASE() {
-        if ( UsingCASE ) return true;        
-        if ( Owner.IsOmni() && this != Owner.GetBaseLoadout() ) return Owner.GetBaseLoadout().HasISCASE();
-        return false;
-    }
-
-    public CASE GetISCase() {
+    public CASE GetCase() {
         return Case;
     }
-
 
     // handlers for Artemis IV operations.
     public void SetFCSArtemisIV( boolean b ) throws Exception {

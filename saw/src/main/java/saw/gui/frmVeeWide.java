@@ -6470,7 +6470,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         }
 
         if( ! chkUseTC.isEnabled() ) { CurVee.UseTC( false, false ); }
-        chkClanCASE.setSelected( CurVee.GetLoadout().HasISCASE() );
+        chkClanCASE.setSelected( CurVee.GetLoadout().HasCase() );
 
         if( CurVee.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
             chkFractional.setEnabled( true );
@@ -6840,7 +6840,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         } else {
             chkSupercharger.setSelected( false );
         }
-        if( CurVee.GetLoadout().HasISCASE() ) {
+        if( CurVee.GetLoadout().HasCase() ) {
             chkClanCASE.setSelected( true );
         } else {
             chkClanCASE.setSelected( false );
@@ -7116,7 +7116,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         data.Rebuild( CurVee );
         RefreshEquipment();
         chkUseTC.setSelected( CurVee.UsingTC() );
-        chkClanCASE.setSelected( CurVee.GetLoadout().HasISCASE() );
+        chkClanCASE.setSelected( CurVee.GetLoadout().HasCase() );
         chkEnviroSealing.setSelected( CurVee.HasEnvironmentalSealing() );
         //chkCommandConsole.setSelected( CurVee.HasCommandConsole() );
         RefreshSummary();
@@ -8120,7 +8120,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private void chkClanCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkClanCASEActionPerformed
         if (!chkClanCASE.isSelected()) {
             CurVee.GetLoadout().SetClanCASE(false);
-            CurVee.GetLoadout().RemoveISCase();
+            CurVee.GetLoadout().RemoveCase();
             SetWeaponChoosers();
             RefreshSummary();
             RefreshInfoPane();
@@ -8130,20 +8130,16 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         try {
             switch (CurVee.GetTechBase()) {
                 case AvailableCode.TECH_INNER_SPHERE:
-                    CurVee.GetLoadout().SetISCASE();
+                    CurVee.GetLoadout().AddCase(false);
                     break;
                 case AvailableCode.TECH_CLAN:
-                    CurVee.GetLoadout().SetClanCASE(true);
-                    CurVee.GetLoadout().SetISCASE();
+                    CurVee.GetLoadout().AddCase(true);
                     break;
                 case AvailableCode.TECH_BOTH:
                     dlgTechBaseChooser tech = new dlgTechBaseChooser(this, true);
                     tech.setLocationRelativeTo(this);
                     tech.setVisible(true);
-                    if (tech.IsClan()) {
-                        CurVee.GetLoadout().SetClanCASE(true);
-                    }
-                    CurVee.GetLoadout().SetISCASE();
+                    CurVee.GetLoadout().AddCase(tech.IsClan());
                     break;
             }
         } catch (Exception e) {

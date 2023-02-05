@@ -6185,7 +6185,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private void chkClanCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkClanCASEActionPerformed
         if ( !chkClanCASE.isSelected() ) {
             CurVee.GetLoadout().SetClanCASE(false);
-            CurVee.GetLoadout().RemoveISCase();
+            CurVee.GetLoadout().RemoveCase();
             SetWeaponChoosers();
             RefreshSummary();
             RefreshInfoPane();
@@ -6195,19 +6195,16 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         try {
             switch ( CurVee.GetTechBase() ) {
                 case AvailableCode.TECH_INNER_SPHERE:
-                    CurVee.GetLoadout().SetISCASE();
+                    CurVee.GetLoadout().AddCase(false);
                     break;
                 case AvailableCode.TECH_CLAN:
-                    CurVee.GetLoadout().SetClanCASE(true);
-                    CurVee.GetLoadout().SetISCASE();
+                    CurVee.GetLoadout().AddCase(true);
                     break;
                 case AvailableCode.TECH_BOTH:
                     dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
                     tech.setLocationRelativeTo( this );
                     tech.setVisible( true );
-                    if ( tech.IsClan() )
-                        CurVee.GetLoadout().SetClanCASE(true);
-                    CurVee.GetLoadout().SetISCASE();
+                    CurVee.GetLoadout().AddCase(tech.IsClan());
                     break;
             }
         } catch ( Exception e ) {
@@ -7192,7 +7189,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
 
         if( ! chkUseTC.isEnabled() ) { CurVee.UseTC( false, false ); }
-        chkClanCASE.setSelected( CurVee.GetLoadout().HasISCASE() );
+        chkClanCASE.setSelected( CurVee.GetLoadout().HasCase() );
 
         if( CurVee.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
             chkFractional.setEnabled( true );
@@ -7213,7 +7210,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             if( CurVee.GetBaseLoadout().HasSupercharger() ) {
                 chkSupercharger.setEnabled( false );
             }
-            if( CurVee.GetBaseLoadout().HasISCASE() ) {
+            if( CurVee.GetBaseLoadout().HasCase() ) {
                 chkClanCASE.setEnabled(false);
             }
         } else {
@@ -8569,7 +8566,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         } else {
             chkSupercharger.setSelected( false );
         }
-        if( CurVee.GetLoadout().HasISCASE() ) {
+        if( CurVee.GetLoadout().HasCase() ) {
             chkClanCASE.setSelected( true );
         } else {
             chkClanCASE.setSelected( false );
@@ -8901,7 +8898,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbTechBase.setEnabled( true );
         txtProdYear.setEnabled( true );
         chkTrailer.setSelected( CurVee.isTrailer() );
-        chkClanCASE.setSelected(CurVee.GetLoadout().HasISCASE());
+        chkClanCASE.setSelected(CurVee.GetLoadout().HasCase());
         switch( CurVee.GetEra() ) {
             case AvailableCode.ERA_STAR_LEAGUE:
                 lblEraYears.setText( "2443 ~ 2800" );
