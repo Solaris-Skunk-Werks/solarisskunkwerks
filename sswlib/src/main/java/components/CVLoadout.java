@@ -864,6 +864,9 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         if( HasSupercharger() ) {
             clone.SetSupercharger( SCharger );
         }
+        if (HasVTOLBooster()) {
+            clone.SetVTOLBooster( VBooster );
+        }
         if( Owner.IsOmni() ) {
             clone.SetBaseLoadout( this );
         }
@@ -1137,6 +1140,15 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         }
         Owner.setChanged(true);
     }
+
+    public void SetVTOLBooster(VTOLBooster s) {
+        // this sets the loadout's booster to a different one.
+        // Used for cloning purposes only!
+        VBooster = s;
+        AddMechModifier(VBooster.GetMechModifier());
+        Owner.SetChanged( true );
+    }
+
     public boolean HasVTOLBooster() { return UsingVTOLBooster; }
     public VTOLBooster GetVTOLBooster() {
         return VBooster;
