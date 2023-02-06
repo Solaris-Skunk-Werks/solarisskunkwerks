@@ -7063,6 +7063,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             chkCASE.setSelected(false);
             chkCASE.setEnabled(false);
         }
+        chkCASE.setSelected( CurVee.GetLoadout().HasCase() );
 
         // fix Artemis IV controls
         ifMissileGuidance ArtCheck = new ArtemisIVFCS( null );
@@ -7179,7 +7180,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
 
         if( ! chkUseTC.isEnabled() ) { CurVee.UseTC( false, false ); }
-        chkCASE.setSelected( CurVee.GetLoadout().HasCase() );
 
         if( CurVee.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
             chkFractional.setEnabled( true );
