@@ -1145,6 +1145,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         // this sets the loadout's booster to a different one.
         // Used for cloning purposes only!
         VBooster = s;
+        UsingVTOLBooster = true;
         AddMechModifier(VBooster.GetMechModifier());
         Owner.SetChanged( true );
     }
