@@ -7190,6 +7190,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 chkSupercharger.setSelected( false );
             }
         }
+        chkJetBooster.setSelected(CurVee.GetLoadout().HasVTOLBooster());
 
         if( ! chkUseTC.isEnabled() ) { CurVee.UseTC( false, false ); }
         chkClanCASE.setSelected( CurVee.GetLoadout().HasISCASE() );
@@ -8541,39 +8542,13 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
     private void CheckEquipment() {
         // consolidating some code here.
-        if( CurVee.UsingArtemisIV() ) {
-            chkFCSAIV.setSelected( true );
-        } else {
-            chkFCSAIV.setSelected( false );
-        }
-        if( CurVee.UsingArtemisV() ) {
-            chkFCSAV.setSelected( true );
-        } else {
-            chkFCSAV.setSelected( false );
-        }
-        if( CurVee.UsingApollo() ) {
-            chkFCSApollo.setSelected( true );
-        } else {
-            chkFCSApollo.setSelected( false );
-        }
-
-        if( CurVee.UsingTC() ) {
-            chkUseTC.setSelected( true );
-        } else {
-            chkUseTC.setSelected( false );
-        }
-
-
-        if( CurVee.GetLoadout().HasSupercharger() ) {
-            chkSupercharger.setSelected( true );
-        } else {
-            chkSupercharger.setSelected( false );
-        }
-        if( CurVee.GetLoadout().HasISCASE() ) {
-            chkClanCASE.setSelected( true );
-        } else {
-            chkClanCASE.setSelected( false );
-        }
+        chkFCSAIV.setSelected( CurVee.UsingArtemisIV() );
+        chkFCSAV.setSelected( CurVee.UsingArtemisV() );
+        chkFCSApollo.setSelected( CurVee.UsingApollo() );
+        chkUseTC.setSelected( CurVee.UsingTC() );
+        chkJetBooster.setSelected( CurVee.GetBaseLoadout().HasVTOLBooster() );
+        chkSupercharger.setSelected( CurVee.GetBaseLoadout().HasSupercharger() );
+        chkClanCASE.setSelected( CurVee.GetBaseLoadout().HasISCASE() );
     }
 
     private void LockGUIForOmni() {
@@ -8602,7 +8577,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         btnLockChassis.setEnabled( false );
         chkYearRestrict.setEnabled( false );
         chkTrailer.setEnabled( false );
-        chkJetBooster.setEnabled(false);
         if( CurVee.GetBaseLoadout().GetJumpJets().GetNumJJ() > 0 ) {
             //cmbJumpJetType.setEnabled( false );
         }
@@ -8622,6 +8596,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         chkFractional.setEnabled( false );
         chkEnviroSealing.setEnabled( false );
+        chkJetBooster.setEnabled(false);
         if( CurVee.GetBaseLoadout().HasSupercharger() ) {
             chkSupercharger.setEnabled( false );
         }
