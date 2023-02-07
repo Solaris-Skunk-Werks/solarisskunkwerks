@@ -1293,7 +1293,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkFCSAIV = new javax.swing.JCheckBox();
         chkFCSAV = new javax.swing.JCheckBox();
         chkFCSApollo = new javax.swing.JCheckBox();
-        chkClanCASE = new javax.swing.JCheckBox();
+        chkCASE = new javax.swing.JCheckBox();
         pnlSelected = new javax.swing.JPanel();
         jScrollPane23 = new javax.swing.JScrollPane();
         lstSelectedEquipment = new javax.swing.JList();
@@ -3804,10 +3804,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
         pnlSpecials.add(chkFCSApollo, gridBagConstraints);
 
-        chkClanCASE.setText("Use CASE");
-        chkClanCASE.addActionListener(new java.awt.event.ActionListener() {
+        chkCASE.setText("Use CASE");
+        chkCASE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkClanCASEActionPerformed(evt);
+                chkCASEActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -3815,7 +3815,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         gridBagConstraints.gridy = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 0, 0);
-        pnlSpecials.add(chkClanCASE, gridBagConstraints);
+        pnlSpecials.add(chkCASE, gridBagConstraints);
 
         pnlSelected.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Selected Equipment"));
         pnlSelected.setMaximumSize(new java.awt.Dimension(212, 286));
@@ -5584,7 +5584,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
             // since you can only ever change the rules level when not restricted,
             // we're not doing it here.  Pass in default values.
-            //CurVee.GetLoadout().FlushIllegal( locArmor.GetEra(), 0, false );
             CurVee.GetLoadout().FlushIllegal();
 
             // refresh all the combo boxes.
@@ -5599,8 +5598,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             LoadSelections();
 
             RecalcEngine();
-            //RecalcIntStruc();
-            //RecalcHeatSinks();
             RecalcArmor();
             RecalcEquipment();
         }
@@ -5612,7 +5609,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshInfoPane();
         SetWeaponChoosers();
         ResetAmmo();
-}//GEN-LAST:event_cmbRulesLevelActionPerformed
+    }
+
     // check the tonnage to see if it's legal and acts accordingly
     public void CheckTonnage( boolean RulesChange ) {
         if( CurVee.GetTonnage() < 1 ) {
@@ -5637,8 +5635,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbArmorType.setSelectedItem( Selections[1] );
     }
 
-    private void BuildTurretSelector()
-    {
+    private void BuildTurretSelector() {
         ArrayList list = new ArrayList();
 
         if ( !CurVee.IsOmni())
@@ -5669,8 +5666,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             cmbTurret.setSelectedItem("No Turret");
     }
 
-    private void BuildChassisSelector()
-    {
+    private void BuildChassisSelector() {
         chkFlotationHull.setSelected(false);
         chkLimitedAmph.setSelected(false);
         chkFullAmph.setSelected(false);
@@ -5740,7 +5736,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
     }
 
-    private void cmbMotiveTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMotiveTypeActionPerformed
+    private void cmbMotiveTypeActionPerformed(java.awt.event.ActionEvent evt) {
         if ( Load ) return;
         boolean wasVtol = CurVee.IsVTOL();
 
@@ -5799,7 +5795,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshSummary();
         RefreshInfoPane();
         RefreshEquipment();
-}//GEN-LAST:event_cmbMotiveTypeActionPerformed
+    }
 
     private void ShowInfoOn( abPlaceable p ) {
         // this fills in all the information on the Equipment panel for the given
@@ -6064,7 +6060,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshSummary();
         RefreshInfoPane();
     }
-    private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSuperchargerActionPerformed
+
+    private void chkSuperchargerActionPerformed(java.awt.event.ActionEvent evt) {
         if( CurVee.GetLoadout().HasSupercharger() == chkSupercharger.isSelected() ) {
             return;
         }
@@ -6083,9 +6080,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshSelectedEquipment();
         RefreshSummary();
         RefreshInfoPane();
-}//GEN-LAST:event_chkSuperchargerActionPerformed
+    }
 
-    private void chkUseTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkUseTCActionPerformed
+    private void chkUseTCActionPerformed(java.awt.event.ActionEvent evt) {
         if( CurVee.UsingTC() == chkUseTC.isSelected() ) { return; }
         if( chkUseTC.isSelected() ) {
             try {
@@ -6111,9 +6108,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshSelectedEquipment();
         RefreshSummary();
         RefreshInfoPane();
-}//GEN-LAST:event_chkUseTCActionPerformed
+    }
 
-    private void chkFCSAIVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFCSAIVActionPerformed
+    private void chkFCSAIVActionPerformed(java.awt.event.ActionEvent evt) {
         if( CurVee.UsingArtemisIV() == chkFCSAIV.isSelected() ) { return; }
         if( chkFCSAIV.isSelected() ) {
             try {
@@ -6134,9 +6131,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
-}//GEN-LAST:event_chkFCSAIVActionPerformed
+    }
 
-    private void chkFCSAVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFCSAVActionPerformed
+    private void chkFCSAVActionPerformed(java.awt.event.ActionEvent evt) {
         if( CurVee.UsingArtemisV() == chkFCSAV.isSelected() ) { return; }
         if( chkFCSAV.isSelected() ) {
             try {
@@ -6157,9 +6154,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
-}//GEN-LAST:event_chkFCSAVActionPerformed
+    }
 
-    private void chkFCSApolloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFCSApolloActionPerformed
+    private void chkFCSApolloActionPerformed(java.awt.event.ActionEvent evt) {
          if( CurVee.UsingApollo() == chkFCSApollo.isSelected() ) { return; }
         if( chkFCSApollo.isSelected() ) {
             try {
@@ -6180,12 +6177,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
-}//GEN-LAST:event_chkFCSApolloActionPerformed
+    }
 
-    private void chkClanCASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkClanCASEActionPerformed
-        if ( !chkClanCASE.isSelected() ) {
-            CurVee.GetLoadout().SetClanCASE(false);
-            CurVee.GetLoadout().RemoveISCase();
+    private void chkCASEActionPerformed(java.awt.event.ActionEvent evt) {
+        if ( !chkCASE.isSelected() ) {
+            CurVee.GetLoadout().RemoveCase();
             SetWeaponChoosers();
             RefreshSummary();
             RefreshInfoPane();
@@ -6195,19 +6191,16 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         try {
             switch ( CurVee.GetTechBase() ) {
                 case AvailableCode.TECH_INNER_SPHERE:
-                    CurVee.GetLoadout().SetISCASE();
+                    CurVee.GetLoadout().AddCase(false);
                     break;
                 case AvailableCode.TECH_CLAN:
-                    CurVee.GetLoadout().SetClanCASE(true);
-                    CurVee.GetLoadout().SetISCASE();
+                    CurVee.GetLoadout().AddCase(true);
                     break;
                 case AvailableCode.TECH_BOTH:
                     dlgTechBaseChooser tech = new dlgTechBaseChooser( this, true );
                     tech.setLocationRelativeTo( this );
                     tech.setVisible( true );
-                    if ( tech.IsClan() )
-                        CurVee.GetLoadout().SetClanCASE(true);
-                    CurVee.GetLoadout().SetISCASE();
+                    CurVee.GetLoadout().AddCase(tech.IsClan());
                     break;
             }
         } catch ( Exception e ) {
@@ -6216,27 +6209,26 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         SetWeaponChoosers();
         RefreshSummary();
         RefreshInfoPane();
-}//GEN-LAST:event_chkClanCASEActionPerformed
+    }
 
-    private void lstSelectedEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstSelectedEquipmentValueChanged
+    private void lstSelectedEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {
         if( lstSelectedEquipment.getSelectedIndex() < 0 ) { return; }
         abPlaceable p = (abPlaceable) Equipment[SELECTED][lstSelectedEquipment.getSelectedIndex()];
         ShowInfoOn( p );
-}//GEN-LAST:event_lstSelectedEquipmentValueChanged
-
-    private void lstSelectedEquipmentKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstSelectedEquipmentKeyPressed
-    if ( evt.getKeyCode() == KeyEvent.VK_DELETE ) {
-        btnRemoveEquipActionPerformed(new ActionEvent(evt.getSource(), evt.getID(), null));
     }
-}//GEN-LAST:event_lstSelectedEquipmentKeyPressed
 
-    private void btnRemoveEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveEquipActionPerformed
+    private void lstSelectedEquipmentKeyPressed(java.awt.event.KeyEvent evt) {
+        if ( evt.getKeyCode() == KeyEvent.VK_DELETE ) {
+            btnRemoveEquipActionPerformed(new ActionEvent(evt.getSource(), evt.getID(), null));
+        }
+    }
+
+    private void btnRemoveEquipActionPerformed(java.awt.event.ActionEvent evt) {
         if( lstSelectedEquipment.getSelectedIndex() < 0 ) { return; }
         int[] selected = lstSelectedEquipment.getSelectedIndices();
         if( selected.length == 0 ) { return; }
         // we work in reverse so we can properly manage the items in the queue
         for( int i = selected.length - 1; i >= 0; i-- ) {
-            // abPlaceable p = (abPlaceable) locArmor.GetLoadout().GetNonCore().get( lstSelectedEquipment.getSelectedIndex() );
             abPlaceable p = (abPlaceable) CurVee.GetLoadout().GetNonCore().get( selected[i] );
             if ( p instanceof TargetingComputer ) {
                 CurVee.UseTC(false, CurVee.GetTechBase() == AvailableCode.TECH_CLAN);
@@ -6267,9 +6259,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-}//GEN-LAST:event_btnRemoveEquipActionPerformed
+    }
 
-    private void btnClearEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearEquipActionPerformed
+    private void btnClearEquipActionPerformed(java.awt.event.ActionEvent evt) {
         CurVee.GetLoadout().SafeClearLoadout();
 
         // refresh the selected equipment listbox
@@ -6291,9 +6283,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-}//GEN-LAST:event_btnClearEquipActionPerformed
+    }
 
-    private void btnAddEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEquipActionPerformed
+    private void btnAddEquipActionPerformed(java.awt.event.ActionEvent evt) {
         abPlaceable a = null;
         int Index = 0;
         ArrayList v;
@@ -6439,18 +6431,18 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             RefreshInfoPane();
             cmbNumEquips.setSelectedIndex( 0 );
         }
-}//GEN-LAST:event_btnAddEquipActionPerformed
+    }
 
-    private void btnAddToForceListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToForceListActionPerformed
+    private void btnAddToForceListActionPerformed(java.awt.event.ActionEvent evt) {
 
-}//GEN-LAST:event_btnAddToForceListActionPerformed
+    }
 
-    private void btnForceListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForceListActionPerformed
+    private void btnForceListActionPerformed(java.awt.event.ActionEvent evt) {
         GetForceDialogue().setLocationRelativeTo(this);
         GetForceDialogue().setVisible(true);
-}//GEN-LAST:event_btnForceListActionPerformed
+    }
 
-    private void spnCruiseMPStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnCruiseMPStateChanged
+    private void spnCruiseMPStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
 
         // see what changed and perform the appropriate action
@@ -6458,7 +6450,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         javax.swing.JComponent editor = spnCruiseMP.getEditor();
         javax.swing.JFormattedTextField tf = ((javax.swing.JSpinner.DefaultEditor)editor).getTextField();
 
-        //n.setMinimum(1);
         // get the value from the text box, if it's valid.
         try {
             spnCruiseMP.commitEdit();
@@ -6491,19 +6482,17 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // spinner model and recalculate the heat sinks
         FixMPSpinner();
         FixJJSpinnerModel();
-        //CurVee.GetHeatSinks().ReCalculate();
-        //CurVee.GetLoadout().UnallocateFuelTanks();
 
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnCruiseMPStateChanged
+    }
 
-    private void spnTonnageFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_spnTonnageFocusGained
+    private void spnTonnageFocusGained(java.awt.event.FocusEvent evt) {
 
-    }//GEN-LAST:event_spnTonnageFocusGained
+    }
 
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {
         setCursor( Hourglass );
 
         File savevee = GetSaveFile( "saw", Prefs.get( "LastOpenCVDirectory", "" ), true, false );
@@ -6557,7 +6546,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         setCursor( NormalCursor );
         setTitle( saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
         CurVee.SetChanged( false );
-    }//GEN-LAST:event_btnSaveActionPerformed
+    }
+
     private void SaveOmniFluffInfo() {
         if( SetSource ) {
             CurVee.setSource( txtSource.getText() );
@@ -6767,7 +6757,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         return true;
     }
 
-    private void spnTonnageStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnTonnageStateChanged
+    private void spnTonnageStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
 
         // We have to decode the selected index to set values.  A bit safer, I
@@ -6820,10 +6810,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         FixArmorSpinners();
 
         // now refresh the information panes
-        //RefreshInternalPoints();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnTonnageStateChanged
+    }
 
     private void EnableJumpJets( boolean enable ) {
         // this enables or disables the jump jet spinner if needed
@@ -6956,8 +6945,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         BuildArmorSelector();
         BuildExpEquipmentSelector();
         CheckOmni();
-        //cmbEngineType.setSelectedItem( saw.Constants.DEFAULT_ENGINE );
-        //cmbArmorType.setSelectedItem( saw.Constants.DEFAULT_ARMOR );
         FixMPSpinner();
         FixJJSpinnerModel();
         FixArmorSpinners();
@@ -7033,7 +7020,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 //}
             }
         } );
-
         tblWeaponManufacturers.getInputMap( javax.swing.JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put( javax.swing.KeyStroke.getKeyStroke( java.awt.event.KeyEvent.VK_TAB, 0, false ), "selectNextRow" );
 
         if( cmbEra.getSelectedIndex() == AvailableCode.ERA_ALL ) {
@@ -7066,16 +7052,18 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             btnLockChassis.setEnabled( false );
         }
     }
+
     private void RefreshEquipment() {
         // refreshes the equipment selectors
         //fix the CASE control
         CASE Case = new CASE();
         if ( CommonTools.IsAllowed( Case.GetAvailability(), CurVee) || CurVee.GetTechBase() == AvailableCode.TECH_CLAN ) {
-            chkClanCASE.setEnabled(true);
+            chkCASE.setEnabled(true);
         } else {
-            chkClanCASE.setSelected(false);
-            chkClanCASE.setEnabled(false);
+            chkCASE.setSelected(false);
+            chkCASE.setEnabled(false);
         }
+        chkCASE.setSelected( CurVee.GetLoadout().HasCase() );
 
         // fix Artemis IV controls
         ifMissileGuidance ArtCheck = new ArtemisIVFCS( null );
@@ -7193,7 +7181,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkJetBooster.setSelected(CurVee.GetLoadout().HasVTOLBooster());
 
         if( ! chkUseTC.isEnabled() ) { CurVee.UseTC( false, false ); }
-        chkClanCASE.setSelected( CurVee.GetLoadout().HasISCASE() );
 
         if( CurVee.GetRulesLevel() >= AvailableCode.RULES_EXPERIMENTAL ) {
             chkFractional.setEnabled( true );
@@ -7214,8 +7201,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             if( CurVee.GetBaseLoadout().HasSupercharger() ) {
                 chkSupercharger.setEnabled( false );
             }
-            if( CurVee.GetBaseLoadout().HasISCASE() ) {
-                chkClanCASE.setEnabled(false);
+            if( CurVee.GetBaseLoadout().HasCase() ) {
+                chkCASE.setEnabled(false);
             }
         } else {
             try {
@@ -7298,7 +7285,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkFCSAIV.setEnabled( true );
         chkFCSAV.setEnabled( true );
         chkFCSApollo.setEnabled( true );
-        chkClanCASE.setEnabled( true );
+        chkCASE.setEnabled( true );
         chkOmniVee.setSelected( false );
         chkOmniVee.setEnabled( true );
         spnCruiseMP.setEnabled( true );
@@ -7351,6 +7338,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
         SetPatchworkArmor();
     }
+
     private boolean AddECM() {
         // Adds an ECM suite if a certain system needs it
         if( Prefs.getBoolean( "AutoAddECM", true ) ) {
@@ -7491,7 +7479,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
     }
 
-    private void cmbEngineTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEngineTypeActionPerformed
+    private void cmbEngineTypeActionPerformed(java.awt.event.ActionEvent evt) {
         if( Load ) { return; }
         if( BuildLookupName( CurVee.GetEngine().GetCurrentState() ).equals( (String) cmbEngineType.getSelectedItem() ) ) {
             // only nuclear-powered mechs may use jump jets
@@ -7509,24 +7497,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             return;
         }
         RecalcEngine();
-        //spnCruiseMP.setValue(CurVee.getMinCruiseMP());
         FixMPSpinner();
 
         //When the engine changes we need to re-check the Heat Sinks
         CurVee.ResetHeatSinks();
-
-        // only nuclear-powered mechs may use jump jets
-        /*if( CurVee.GetEngine().IsNuclear() ) {
-            /*
-            if( cmbJumpJetType.getSelectedItem() == null ) {
-                EnableJumpJets( false );
-            } else {
-                EnableJumpJets( true );
-            }
-
-        } else {
-            EnableJumpJets( false );
-        }*/
 
         // refresh the selected equipment listbox
         if( CurVee.GetLoadout().GetNonCore().toArray().length <= 0 ) {
@@ -7539,9 +7513,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_cmbEngineTypeActionPerformed
+    }
 
-    private void cmbEraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEraActionPerformed
+    private void cmbEraActionPerformed(java.awt.event.ActionEvent evt) {
         if( Load ) { return; }
         // whenever the era is changed we basically need to reset the GUI and
         // most of the mech.  Certain things we will transfer.
@@ -7600,7 +7574,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         CurVee.SetChanged(true);
 
         if( CurVee.IsOmni() ) {
-            //BuildJumpJetSelector();
             RefreshEquipment();
             RefreshSummary();
             RefreshInfoPane();
@@ -7629,11 +7602,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // refresh all the combo boxes.
         BuildChassisSelector();
         BuildEngineSelector();
-        //BuildGyroSelector();
-        //BuildCockpitSelector();
-        //BuildEnhancementSelector();
-        //BuildHeatsinkSelector();
-        //BuildJumpJetSelector();
         BuildArmorSelector();
         FixMPSpinner();
         FixJJSpinnerModel();
@@ -7645,29 +7613,21 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // when a new era is selected, we have to recalculate the mech
         RecalcEngine();
-        //RecalcGyro();
-        //RecalcIntStruc();
-        //RecalcCockpit();
-        //CurVee.GetActuators().PlaceActuators();
-        //RecalcHeatSinks();
-        //RecalcJumpJets();
-        //RecalcEnhancements();
         RecalcArmor();
         RecalcEquipment();
 
         // since you can only ever change the era when not restricted, we're not
         // doing it here.  Pass in default values.
         CurVee.GetLoadout().FlushIllegal();
-        //CurVee.GetLoadout().FlushIllegal( cmbEra.getSelectedIndex(), 0, false );
 
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
         ResetAmmo();
-    }//GEN-LAST:event_cmbEraActionPerformed
+    }
 
-    private void chkFractionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFractionalActionPerformed
+    private void chkFractionalActionPerformed(java.awt.event.ActionEvent evt) {
         if( chkFractional.isSelected() == CurVee.UsingFractionalAccounting() ) { return; }
         CurVee.SetFractionalAccounting( chkFractional.isSelected() );
         if( ! CurVee.UsingFractionalAccounting() ) {
@@ -7682,17 +7642,17 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshEquipment();
         RefreshSummary();
         RefreshInfoPane();
-}//GEN-LAST:event_chkFractionalActionPerformed
+    }
 
-    private void spnTonnageInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_spnTonnageInputMethodTextChanged
+    private void spnTonnageInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
         spnTonnageStateChanged(null);
-    }//GEN-LAST:event_spnTonnageInputMethodTextChanged
+    }
 
-    private void spnCruiseMPInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_spnCruiseMPInputMethodTextChanged
+    private void spnCruiseMPInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
         spnCruiseMPStateChanged(null);
-    }//GEN-LAST:event_spnCruiseMPInputMethodTextChanged
+    }
 
-    private void btnMaximizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaximizeActionPerformed
+    private void btnMaximizeActionPerformed(java.awt.event.ActionEvent evt) {
         // this simply maximizes the mech's armor
         CVArmor a = CurVee.GetArmor();
         a.Maximize();
@@ -7703,9 +7663,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnMaximizeActionPerformed
+    }
 
-    private void cmbArmorTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbArmorTypeActionPerformed
+    private void cmbArmorTypeActionPerformed(java.awt.event.ActionEvent evt) {
         if( Load ) { return; }
         if( BuildLookupName( CurVee.GetArmor().GetCurrentState() ).equals( (String) cmbArmorType.getSelectedItem() ) ) {
             return;
@@ -7717,9 +7677,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_cmbArmorTypeActionPerformed
+    }
 
-    private void btnUseRemainingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUseRemainingActionPerformed
+    private void btnUseRemainingActionPerformed(java.awt.event.ActionEvent evt) {
         // see if we have a good number
         double freetons = CurVee.GetTonnage() - CurVee.GetCurrentTons() + CurVee.GetArmor().GetTonnage();
 
@@ -7742,9 +7702,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnUseRemainingActionPerformed
+    }
 
-    private void btnLoadImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadImageActionPerformed
+    private void btnLoadImageActionPerformed(java.awt.event.ActionEvent evt) {
         // Opens a file chooser for the user, then resizes the chosen image to
         // fit in the fluff label and adds it
         JFileChooser fc = new JFileChooser();
@@ -7801,15 +7761,15 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // add the image to the fluff image label
         lblFluffImage.setIcon( newFluffImage );
         CurVee.SetSSWImage( fc.getSelectedFile().getPath() );
-}//GEN-LAST:event_btnLoadImageActionPerformed
+    }
 
-    private void btnClearImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearImageActionPerformed
+    private void btnClearImageActionPerformed(java.awt.event.ActionEvent evt) {
         // Set the fluff image to default
         lblFluffImage.setIcon( null );
         CurVee.SetSSWImage("");
-}//GEN-LAST:event_btnClearImageActionPerformed
+    }
 
-    private void btnExportTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportTXTActionPerformed
+    private void btnExportTXTActionPerformed(java.awt.event.ActionEvent evt) {
         // exports the mech to TXT format
         String CurLoadout = "";
         if( CurVee.IsOmni() ) {
@@ -7844,9 +7804,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             //cmbOmniVariantActionPerformed( evt );
         }
         setTitle( saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
-}//GEN-LAST:event_btnExportTXTActionPerformed
+    }
 
-    private void btnExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportHTMLActionPerformed
+    private void btnExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {
         // exports the mech to HTML format
         String CurLoadout = "";
         if( CurVee.IsOmni() ) {
@@ -7881,11 +7841,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             //cmbOmniVariantActionPerformed( evt );
         }
         setTitle( saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
-}//GEN-LAST:event_btnExportHTMLActionPerformed
+    }
 
-    private void btnExportMTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportMTFActionPerformed
+    private void btnExportMTFActionPerformed(java.awt.event.ActionEvent evt) {
         // exports the mech to MTF format for use in Megamek
-
         String dir = Prefs.get( "MTFExportPath", "none" );
         if( dir.equals( "none" ) ) {
             dir = Prefs.get( "LastOpenCVDirectory", "" );
@@ -7908,9 +7867,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // if there were no problems, let the user know how it went
         Media.Messager( this, "Vehicle saved successfully to MTF:\n" + filename );
         setTitle( saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
-}//GEN-LAST:event_btnExportMTFActionPerformed
+    }
 
-    private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddQuirkActionPerformed
+    private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {
         /*
         dlgQuirks qmanage = new dlgQuirks(this, true, data, quirks);
         qmanage.setLocationRelativeTo(this);
@@ -7918,9 +7877,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         tblQuirks.setModel(new tbQuirks(quirks));
          *
          */
-}//GEN-LAST:event_btnAddQuirkActionPerformed
+    }
 
-    private void cmbTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTurretActionPerformed
+    private void cmbTurretActionPerformed(java.awt.event.ActionEvent evt) {
         if( Load ) { return; }
         //TODO add logic to CombatVehicle to handle the turret
         String Turret = cmbTurret.getSelectedItem().toString();
@@ -7944,9 +7903,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshSelectedEquipment();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_cmbTurretActionPerformed
+    }
 
-    private void btnSetArmorTonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetArmorTonsActionPerformed
+    private void btnSetArmorTonsActionPerformed(java.awt.event.ActionEvent evt) {
         // we'll need a new dialogue to get the tonnage
         dlgArmorTonnage ArmorDialogue = new dlgArmorTonnage( this, true, CurVee );
         ArmorDialogue.setLocationRelativeTo( this );
@@ -7975,9 +7934,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnSetArmorTonsActionPerformed
+    }
 
-    private void spnHeatSinksStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnHeatSinksStateChanged
+    private void spnHeatSinksStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnHeatSinks.getModel();
@@ -8012,7 +7971,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnHeatSinksStateChanged
+    }
 
     private void FixHeatSinkSpinnerModel() {
         // mainly provided for Omnis.
@@ -8027,15 +7986,15 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         ((JSpinner.DefaultEditor)spnHeatSinks.getEditor()).getTextField().addFocusListener(spinners);
     }
 
-    private void spnHeatSinksFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_spnHeatSinksFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_spnHeatSinksFocusGained
+    private void spnHeatSinksFocusGained(java.awt.event.FocusEvent evt) {
 
-    private void spnHeatSinksInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_spnHeatSinksInputMethodTextChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_spnHeatSinksInputMethodTextChanged
+    }
 
-    private void spnFrontArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnFrontArmorStateChanged
+    private void spnHeatSinksInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+
+    }
+
+    private void spnFrontArmorStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnFrontArmor.getModel();
@@ -8084,9 +8043,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnFrontArmorStateChanged
+    }
 
-    private void spnLeftArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnLeftArmorStateChanged
+    private void spnLeftArmorStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnLeftArmor.getModel();
@@ -8135,9 +8094,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnLeftArmorStateChanged
+    }
 
-    private void spnRightArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRightArmorStateChanged
+    private void spnRightArmorStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRightArmor.getModel();
@@ -8186,9 +8145,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnRightArmorStateChanged
+    }
 
-    private void spnRearArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRearArmorStateChanged
+    private void spnRearArmorStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRearArmor.getModel();
@@ -8237,9 +8196,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnRearArmorStateChanged
+    }
 
-    private void spnTurretArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnTurretArmorStateChanged
+    private void spnTurretArmorStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnTurretArmor.getModel();
@@ -8281,51 +8240,51 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnTurretArmorStateChanged
+    }
 
-    private void lstChooseAmmunitionValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseAmmunitionValueChanged
+    private void lstChooseAmmunitionValueChanged(javax.swing.event.ListSelectionEvent evt) {
         if( lstChooseAmmunition.getSelectedIndex() < 0 ) { return; }
         CurItem = (abPlaceable) Equipment[AMMUNITION][lstChooseAmmunition.getSelectedIndex()];
         ShowInfoOn( CurItem );
-    }//GEN-LAST:event_lstChooseAmmunitionValueChanged
+    }
 
-    private void lstChooseArtilleryValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseArtilleryValueChanged
+    private void lstChooseArtilleryValueChanged(javax.swing.event.ListSelectionEvent evt) {
         if( lstChooseArtillery.getSelectedIndex() < 0 ) { return; }
         CurItem = (abPlaceable) Equipment[ARTILLERY][lstChooseArtillery.getSelectedIndex()];
         ShowInfoOn( CurItem );
-    }//GEN-LAST:event_lstChooseArtilleryValueChanged
+    }
 
-    private void lstChooseEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseEquipmentValueChanged
+    private void lstChooseEquipmentValueChanged(javax.swing.event.ListSelectionEvent evt) {
         if( lstChooseEquipment.getSelectedIndex() < 0 ) { return; }
         CurItem = (abPlaceable) Equipment[EQUIPMENT][lstChooseEquipment.getSelectedIndex()];
         ShowInfoOn( CurItem );
-    }//GEN-LAST:event_lstChooseEquipmentValueChanged
+    }
 
-    private void lstChooseMissileValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseMissileValueChanged
+    private void lstChooseMissileValueChanged(javax.swing.event.ListSelectionEvent evt) {
         if( lstChooseMissile.getSelectedIndex() < 0 ) { return; }
         CurItem = (abPlaceable) Equipment[MISSILE][lstChooseMissile.getSelectedIndex()];
         ShowInfoOn( CurItem );
-    }//GEN-LAST:event_lstChooseMissileValueChanged
+    }
 
-    private void lstChooseEnergyValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseEnergyValueChanged
+    private void lstChooseEnergyValueChanged(javax.swing.event.ListSelectionEvent evt) {
         if( lstChooseEnergy.getSelectedIndex() < 0 ) { return; }
         CurItem = (abPlaceable) Equipment[ENERGY][lstChooseEnergy.getSelectedIndex()];
         ShowInfoOn( CurItem );
-    }//GEN-LAST:event_lstChooseEnergyValueChanged
+    }
 
-    private void lstChooseBallisticValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChooseBallisticValueChanged
+    private void lstChooseBallisticValueChanged(javax.swing.event.ListSelectionEvent evt) {
         if( lstChooseBallistic.getSelectedIndex() < 0 ) { return; }
         CurItem = (abPlaceable) Equipment[BALLISTIC][lstChooseBallistic.getSelectedIndex()];
         ShowInfoOn( CurItem );
-}//GEN-LAST:event_lstChooseBallisticValueChanged
+    }
 
-    private void lstChoosePhysicalValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstChoosePhysicalValueChanged
+    private void lstChoosePhysicalValueChanged(javax.swing.event.ListSelectionEvent evt) {
         if( lstChoosePhysical.getSelectedIndex() < 0 ) { return; }
         CurItem = (abPlaceable) Equipment[PHYSICAL][lstChoosePhysical.getSelectedIndex()];
         ShowInfoOn( CurItem );
-    }//GEN-LAST:event_lstChoosePhysicalValueChanged
+    }
 
-    private void cmbTechBaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTechBaseActionPerformed
+    private void cmbTechBaseActionPerformed(java.awt.event.ActionEvent evt) {
         if( Load ) { return; }
         // do we really need to do this?
         if( CurVee.IsOmni() ) {
@@ -8369,11 +8328,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             // refresh all the combo boxes.
             BuildChassisSelector();
             BuildEngineSelector();
-            //BuildGyroSelector();
-            //BuildCockpitSelector();
-            //BuildEnhancementSelector();
-            //BuildHeatsinkSelector();
-            //BuildJumpJetSelector();
             BuildArmorSelector();
             RefreshEquipment();
             FixMPSpinner();
@@ -8384,18 +8338,11 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             LoadSelections();
 
             if ( CurVee.GetTechBase() == AvailableCode.TECH_CLAN ) {
-                chkClanCASE.setSelected(true);
-                chkClanCASEActionPerformed(evt);
+                chkCASE.setSelected(true);
+                chkCASEActionPerformed(evt);
             }
             // recalculate the mech.
             RecalcEngine();
-            //RecalcGyro();
-            //RecalcIntStruc();
-            //RecalcCockpit();
-            //CurVee.GetActuators().PlaceActuators();
-            //RecalcHeatSinks();
-            //RecalcJumpJets();
-            //RecalcEnhancements();
             RecalcArmor();
         }
 
@@ -8408,9 +8355,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
-    }//GEN-LAST:event_cmbTechBaseActionPerformed
+    }
 
-    private void spnRotorArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRotorArmorStateChanged
+    private void spnRotorArmorStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRotorArmor.getModel();
@@ -8452,9 +8399,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnRotorArmorStateChanged
+    }
 
-    private void btnNewVeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewVeeActionPerformed
+    private void btnNewVeeActionPerformed(java.awt.event.ActionEvent evt) {
         if( CurVee.HasChanged() ) {
             int choice = javax.swing.JOptionPane.showConfirmDialog( this,
                 "The current Vehicle has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION );
@@ -8462,9 +8409,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
         GetNewVee();
         Prefs.put("Currentfile", "");
-    }//GEN-LAST:event_btnNewVeeActionPerformed
+    }
 
-    private void btnLockChassisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLockChassisActionPerformed
+    private void btnLockChassisActionPerformed(java.awt.event.ActionEvent evt) {
         // currently testing right now.
         SaveOmniFluffInfo();
         String VariantName = "";
@@ -8506,16 +8453,14 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // make it an omni
         CurVee.SetOmni(VariantName);
         chkOmniVee.setEnabled(false);
-        //FixTransferHandlers();
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
         LockGUIForOmni();
         RefreshOmniVariants();
         RefreshOmniChoices();
-        //SolidifyJJManufacturer();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnLockChassisActionPerformed
+    }
 
     private void RefreshOmniVariants() {
         ArrayList v = CurVee.GetLoadouts();
@@ -8548,7 +8493,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkUseTC.setSelected( CurVee.UsingTC() );
         chkJetBooster.setSelected( CurVee.GetBaseLoadout().HasVTOLBooster() );
         chkSupercharger.setSelected( CurVee.GetBaseLoadout().HasSupercharger() );
-        chkClanCASE.setSelected( CurVee.GetBaseLoadout().HasISCASE() );
+        chkCASE.setSelected( CurVee.GetBaseLoadout().HasCase() );
     }
 
     private void LockGUIForOmni() {
@@ -8590,8 +8535,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         if( chkFCSApollo.isSelected() ) {
             chkFCSApollo.setEnabled( false );
         }
-        if ( chkClanCASE.isSelected() ) {
-            chkClanCASE.setEnabled(false);
+        if ( chkCASE.isSelected() ) {
+            chkCASE.setEnabled(false);
         }
 
         chkFractional.setEnabled( false );
@@ -8608,7 +8553,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         btnRenameVariant.setEnabled( true );
     }
 
-    private void btnAddVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddVariantActionPerformed
+    private void btnAddVariantActionPerformed(java.awt.event.ActionEvent evt) {
         SaveOmniFluffInfo();
         String VariantName = "";
 
@@ -8636,20 +8581,16 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // fix the GUI
         LoadOmniFluffInfo();
-        //FixTransferHandlers();
-        //SetLoadoutArrays();
         SetWeaponChoosers();
-        //BuildJumpJetSelector();
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
         RefreshOmniVariants();
         RefreshOmniChoices();
-        //SolidifyJJManufacturer();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnAddVariantActionPerformed
+    }
 
-    private void btnDeleteVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteVariantActionPerformed
+    private void btnDeleteVariantActionPerformed(java.awt.event.ActionEvent evt) {
         // see if the user actually wants to delete the variant
         int choice = javax.swing.JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to delete this variant?", "Delete Variant?", javax.swing.JOptionPane.YES_NO_OPTION);
@@ -8668,19 +8609,15 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // refresh all the displays
         LoadOmniFluffInfo();
         RefreshOmniVariants();
-        //FixTransferHandlers();
-        //SetLoadoutArrays();
         SetWeaponChoosers();
-        //BuildJumpJetSelector();
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
         RefreshOmniChoices();
-        //SolidifyJJManufacturer();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnDeleteVariantActionPerformed
+    }
 
-    private void btnRenameVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenameVariantActionPerformed
+    private void btnRenameVariantActionPerformed(java.awt.event.ActionEvent evt) {
         SaveOmniFluffInfo();
         String VariantName = "";
 
@@ -8713,9 +8650,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         CurVee.GetLoadout().SetName(VariantName);
         RefreshOmniVariants();
-    }//GEN-LAST:event_btnRenameVariantActionPerformed
+    }
 
-    private void cmbOmniVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOmniVariantActionPerformed
+    private void cmbOmniVariantActionPerformed(java.awt.event.ActionEvent evt) {
         SaveOmniFluffInfo();
         String variant = (String) cmbOmniVariant.getSelectedItem();
         boolean changed = CurVee.HasChanged();
@@ -8724,11 +8661,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // now fix the GUI
         LoadOmniFluffInfo();
-        //FixTransferHandlers();
-        //SetLoadoutArrays();
         SetWeaponChoosers();
-        //BuildJumpJetSelector();
-        //cmbJumpJetType.setSelectedItem(CurVee.GetJumpJets().LookupName());
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
         RefreshOmniVariants();
@@ -8740,26 +8673,26 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // this prevents the program from setting the changed tag if we simply
         // open an omnimech for browsing.
         CurVee.SetChanged(changed);
-    }//GEN-LAST:event_cmbOmniVariantActionPerformed
+    }
 
-    private void chkOmniVeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkOmniVeeActionPerformed
+    private void chkOmniVeeActionPerformed(java.awt.event.ActionEvent evt) {
         if( chkOmniVee.isSelected() ) {
             btnLockChassis.setEnabled( true );
         } else {
             btnLockChassis.setEnabled( false );
         }
         cmbTurretActionPerformed(evt);
-    }//GEN-LAST:event_chkOmniVeeActionPerformed
+    }
 
-    private void cmbProductionEraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProductionEraActionPerformed
+    private void cmbProductionEraActionPerformed(java.awt.event.ActionEvent evt) {
         CurVee.SetProductionEra(cmbProductionEra.getSelectedIndex());
-    }//GEN-LAST:event_cmbProductionEraActionPerformed
+    }
 
-    private void mnuNewMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNewMechActionPerformed
+    private void mnuNewMechActionPerformed(java.awt.event.ActionEvent evt) {
         btnNewVeeActionPerformed(evt);
-    }//GEN-LAST:event_mnuNewMechActionPerformed
+    }
 
-    private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLoadActionPerformed
+    private void mnuLoadActionPerformed(java.awt.event.ActionEvent evt) {
         if (CurVee.HasChanged()) {
             int choice = javax.swing.JOptionPane.showConfirmDialog(this,
                     "The current Vehicle has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION);
@@ -8775,11 +8708,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         CurVee = m;
         LoadVehicleIntoGUI();
         CurVee.SetChanged(false);
-    }//GEN-LAST:event_mnuLoadActionPerformed
+    }
 
-    private void mnuOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOpenActionPerformed
+    private void mnuOpenActionPerformed(java.awt.event.ActionEvent evt) {
         btnOpenActionPerformed(evt);
-    }//GEN-LAST:event_mnuOpenActionPerformed
+    }
+
     public CombatVehicle LoadVehicle (){
         CombatVehicle m = null;
 
@@ -8846,8 +8780,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         return m;
     }
 
-    private void LoadVehicleFromFile( String filename )
-    {
+    private void LoadVehicleFromFile( String filename ) {
         CombatVehicle m = null;
         if (! filename.isEmpty() ) {
             try {
@@ -8876,7 +8809,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbTechBase.setEnabled( true );
         txtProdYear.setEnabled( true );
         chkTrailer.setSelected( CurVee.isTrailer() );
-        chkClanCASE.setSelected(CurVee.GetLoadout().HasISCASE());
+        chkCASE.setSelected(CurVee.GetLoadout().HasCase());
         switch( CurVee.GetEra() ) {
             case AvailableCode.ERA_STAR_LEAGUE:
                 lblEraYears.setText( "2443 ~ 2800" );
@@ -8951,7 +8884,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshEquipment();
         chkUseTC.setSelected( CurVee.UsingTC() );
         chkEnviroSealing.setSelected( CurVee.HasEnvironmentalSealing() );
-        //chkCommandConsole.setSelected( CurVee.HasCommandConsole() );
         RefreshSummary();
         RefreshInfoPane();
         SetWeaponChoosers();
@@ -8988,9 +8920,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         CurVee.SetChanged(false);
     }
 
-
-
-    private void mnuImportHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuImportHMPActionPerformed
+    private void mnuImportHMPActionPerformed(java.awt.event.ActionEvent evt) {
         if (CurVee.HasChanged()) {
             int choice = javax.swing.JOptionPane.showConfirmDialog(this,
                     "The current Vehicle has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION);
@@ -9069,15 +8999,15 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         CurVee = m;
         LoadVehicleIntoGUI();
         CurVee.SetChanged(false);
-    }//GEN-LAST:event_mnuImportHMPActionPerformed
+    }
 
-    private void mnuBatchHMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBatchHMPActionPerformed
+    private void mnuBatchHMPActionPerformed(java.awt.event.ActionEvent evt) {
         dlgBatchHMP batch = new dlgBatchHMP(this, true);
         batch.setLocationRelativeTo(this);
         batch.setVisible(true);
-    }//GEN-LAST:event_mnuBatchHMPActionPerformed
+    }
 
-    private void mnuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSaveActionPerformed
+    private void mnuSaveActionPerformed(java.awt.event.ActionEvent evt) {
         // Solidify the mech first.
         setCursor(Hourglass);
 
@@ -9140,9 +9070,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         setCursor(NormalCursor);
         setTitle(saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel());
         CurVee.SetChanged(false);
-    }//GEN-LAST:event_mnuSaveActionPerformed
+    }
 
-    private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSaveAsActionPerformed
+    private void mnuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {
         setCursor(Hourglass);
         File savemech = GetSaveFile("saw", Prefs.get("LastOpenCVDirectory", ""), false, false);
         if (savemech == null) {
@@ -9199,27 +9129,27 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         setTitle(saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel());
         CurVee.SetChanged(false);
         setCursor(NormalCursor);
-    }//GEN-LAST:event_mnuSaveAsActionPerformed
+    }
 
-    private void mnuExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportHTMLActionPerformed
+    private void mnuExportHTMLActionPerformed(java.awt.event.ActionEvent evt) {
         SetSource = false;
         btnExportHTMLActionPerformed(evt);
         SetSource = true;
-    }//GEN-LAST:event_mnuExportHTMLActionPerformed
+    }
 
-    private void mnuExportMTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportMTFActionPerformed
+    private void mnuExportMTFActionPerformed(java.awt.event.ActionEvent evt) {
         SetSource = false;
         btnExportMTFActionPerformed(evt);
         SetSource = true;
-    }//GEN-LAST:event_mnuExportMTFActionPerformed
+    }
 
-    private void mnuExportTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportTXTActionPerformed
+    private void mnuExportTXTActionPerformed(java.awt.event.ActionEvent evt) {
         SetSource = false;
         btnExportTXTActionPerformed(evt);
         SetSource = true;
-    }//GEN-LAST:event_mnuExportTXTActionPerformed
+    }
 
-    private void mnuExportClipboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportClipboardActionPerformed
+    private void mnuExportClipboardActionPerformed(java.awt.event.ActionEvent evt) {
         // takes the text export and copies it to thesystem clipboard.
         String CurLoadout = "";
         String output = "";
@@ -9246,20 +9176,20 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
         java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(export, this);
-    }//GEN-LAST:event_mnuExportClipboardActionPerformed
+    }
 
-    private void mnuCreateTCGMechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCreateTCGMechActionPerformed
+    private void mnuCreateTCGMechActionPerformed(java.awt.event.ActionEvent evt) {
         // Create CCG stats for mech
         // TODO: Add handling code to check if a canon card already exists.
         SolidifyVehicle();
         //dlgCCGMech ccgMech = new dlgCCGMech(this, true, CurVee);
         //ccgMech.setLocationRelativeTo(this);
         //ccgMech.setVisible(true);
-    }//GEN-LAST:event_mnuCreateTCGMechActionPerformed
+    }
 
-    private void mnuPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintPreviewActionPerformed
+    private void mnuPrintPreviewActionPerformed(java.awt.event.ActionEvent evt) {
         btnPrintActionPerformed(evt);
-    }//GEN-LAST:event_mnuPrintPreviewActionPerformed
+    }
 
     public void QuickSave() {
         File saveFile = GetSaveFile( "saw", Prefs.get( "LastOpenCVDirectory", "" ), true, false );
@@ -9278,7 +9208,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
     }
 
-    private void mnuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExitActionPerformed
+    private void mnuExitActionPerformed(java.awt.event.ActionEvent evt) {
         if (CurVee.HasChanged()) {
             int choice = javax.swing.JOptionPane.showConfirmDialog(this,
                     "The current Vehicle has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION);
@@ -9287,11 +9217,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
         }
         CloseProgram();
-    }//GEN-LAST:event_mnuExitActionPerformed
+    }
 
-    private void mnuFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFileActionPerformed
-// TODO add your handling code here:
-    }//GEN-LAST:event_mnuFileActionPerformed
+    private void mnuFileActionPerformed(java.awt.event.ActionEvent evt) {
+    }
 
     private void CloseProgram() {
         try {
@@ -9305,21 +9234,21 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         System.exit(0);
     }
 
-    private void mnuSummaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSummaryActionPerformed
+    private void mnuSummaryActionPerformed(java.awt.event.ActionEvent evt) {
         SolidifyVehicle();
         dlgSummaryInfo Summary = new dlgSummaryInfo(this, true, CurVee);
         Summary.setLocationRelativeTo(this);
         Summary.setVisible(true);
-    }//GEN-LAST:event_mnuSummaryActionPerformed
+    }
 
-    private void mnuCostBVBreakdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCostBVBreakdownActionPerformed
+    private void mnuCostBVBreakdownActionPerformed(java.awt.event.ActionEvent evt) {
         SolidifyVehicle();
         dlgCostBVBreakdown costbv = new dlgCostBVBreakdown(this, true, CurVee);
         costbv.setLocationRelativeTo(this);
         costbv.setVisible(true);
-    }//GEN-LAST:event_mnuCostBVBreakdownActionPerformed
+    }
 
-    private void mnuTextTROActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuTextTROActionPerformed
+    private void mnuTextTROActionPerformed(java.awt.event.ActionEvent evt) {
         SetSource = false;
         SolidifyVehicle();
         dlgTextExport Text = new dlgTextExport(this, true, CurVee);
@@ -9329,9 +9258,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             CurVee.SetCurLoadout((String) cmbOmniVariant.getSelectedItem());
         }
         SetSource = true;
-    }//GEN-LAST:event_mnuTextTROActionPerformed
+    }
 
-    private void mnuBFBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBFBActionPerformed
+    private void mnuBFBActionPerformed(java.awt.event.ActionEvent evt) {
         String[] call = {"java", "-Xmx256m", "-jar", "bfb.jar"};
         try {
             Runtime.getRuntime().exec(call);
@@ -9339,22 +9268,22 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             Media.Messager("Error while trying to open BFB\n" + ex.getMessage());
             System.out.println(ex.getMessage());
         }
-    }//GEN-LAST:event_mnuBFBActionPerformed
+    }
 
-    private void mnuOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOptionsActionPerformed
+    private void mnuOptionsActionPerformed(java.awt.event.ActionEvent evt) {
         dlgPrefs preferences = new dlgPrefs(this, true);
         preferences.setLocationRelativeTo(this);
         preferences.setVisible(true);
         ResetAmmo();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_mnuOptionsActionPerformed
+    }
 
-    private void mnuViewToolbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuViewToolbarActionPerformed
+    private void mnuViewToolbarActionPerformed(java.awt.event.ActionEvent evt) {
         setViewToolbar(mnuViewToolbar.getState());
-    }//GEN-LAST:event_mnuViewToolbarActionPerformed
+    }
 
-    private void mnuClearUserDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuClearUserDataActionPerformed
+    private void mnuClearUserDataActionPerformed(java.awt.event.ActionEvent evt) {
         int choice = javax.swing.JOptionPane.showConfirmDialog(this,
                 "This will remove all Solaris 7 user data.\nAre you sure you want to continue?", "Clear User Data?", javax.swing.JOptionPane.YES_NO_OPTION);
         if (choice == 1) {
@@ -9364,9 +9293,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             Prefs.put("S7Password", "");
             Prefs.put("S7UserID", "");
         }
-    }//GEN-LAST:event_mnuClearUserDataActionPerformed
+    }
 
-    private void mnuUnlockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuUnlockActionPerformed
+    private void mnuUnlockActionPerformed(java.awt.event.ActionEvent evt) {
         int choice = javax.swing.JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to unlock the chassis?\nAll omni loadouts"
                 + " will be deleted\nand the Vehicle will revert to its base loadout.",
@@ -9380,9 +9309,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         FixJJSpinnerModel();
         FixHeatSinkSpinnerModel();
         LoadVehicleIntoGUI();
-    }//GEN-LAST:event_mnuUnlockActionPerformed
+    }
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {
         Overview.StartNewDocument();
         Capabilities.StartNewDocument();
         History.StartNewDocument();
@@ -9398,21 +9327,21 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         txtJJModel.setText("");
         txtCommSystem.setText("");
         txtTNTSystem.setText("");
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }
 
-    private void mnuCreditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCreditsActionPerformed
+    private void mnuCreditsActionPerformed(java.awt.event.ActionEvent evt) {
         dlgCredits Credits = new dlgCredits(this, true);
         Credits.setLocationRelativeTo(this);
         Credits.setVisible(true);
-    }//GEN-LAST:event_mnuCreditsActionPerformed
+    }
 
-    private void mnuAboutSSWActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAboutSSWActionPerformed
+    private void mnuAboutSSWActionPerformed(java.awt.event.ActionEvent evt) {
         dlgAboutBox about = new dlgAboutBox(this, true);
         about.setLocationRelativeTo(this);
         about.setVisible(true);
-    }//GEN-LAST:event_mnuAboutSSWActionPerformed
+    }
 
-    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {
         SolidifyVehicle();
         PagePrinter printer = SetupPrinter();
         Scenario s = new Scenario();
@@ -9420,9 +9349,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         dlgPreview prv = new dlgPreview("Print Preview", this, printer, s, imageTracker, true);
         prv.setLocationRelativeTo(this);
         prv.setVisible(true);
-    }//GEN-LAST:event_btnPrintActionPerformed
+    }
 
-    private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
+    private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {
         if( CurVee.HasChanged() ) {
             int choice = javax.swing.JOptionPane.showConfirmDialog( this,
                 "The current Vehicle has changed.\nDo you want to discard those changes?", "Discard Changes?", javax.swing.JOptionPane.YES_NO_OPTION );
@@ -9433,24 +9362,22 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         dOpen.setSize( 1024, 600 );
         dOpen.setVisible(true);
-    }//GEN-LAST:event_btnOpenActionPerformed
+    }
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         CloseProgram();
-    }//GEN-LAST:event_formWindowClosed
+    }
 
-    private void btnOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOptionsActionPerformed
+    private void btnOptionsActionPerformed(java.awt.event.ActionEvent evt) {
         dlgPrefs preferences = new dlgPrefs( this, true );
         preferences.setLocationRelativeTo( this );
         preferences.setVisible( true );
-        //Mechrender.Reset();
         ResetAmmo();
-        //RefreshInternalPoints();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_btnOptionsActionPerformed
+    }
 
-    private void chkYearRestrictActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkYearRestrictActionPerformed
+    private void chkYearRestrictActionPerformed(java.awt.event.ActionEvent evt) {
         // This locks in the mech's production year, era, and tech base.
         int year = 0;
         if( CurVee.IsYearRestricted() == chkYearRestrict.isSelected() ) { return; }
@@ -9547,11 +9474,6 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // first, refresh all the combo boxes.
         BuildChassisSelector();
         BuildEngineSelector();
-        //BuildGyroSelector();
-        //BuildCockpitSelector();
-        //BuildEnhancementSelector();
-        //BuildHeatsinkSelector();
-        //BuildJumpJetSelector();
         BuildArmorSelector();
         RefreshEquipment();
         CheckOmni();
@@ -9561,16 +9483,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         // now redo the mech based on what happened.
         RecalcEngine();
-        //RecalcGyro();
-        //RecalcIntStruc();
-        //RecalcCockpit();
-        //CurVee.GetActuators().PlaceActuators();
-        //RecalcHeatSinks();
-        //RecalcJumpJets();
-        //RecalcEnhancements();
         RecalcArmor();
         RecalcEquipment();
-        //CurVee.GetLoadout().FlushIllegal( cmbMechEra.getSelectedIndex(), year, chkYearRestrict.isSelected() );
         CurVee.GetLoadout().FlushIllegal();
 
         // finally, refresh the information panes
@@ -9578,10 +9492,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshInfoPane();
         SetWeaponChoosers();
         ResetAmmo();
-    }//GEN-LAST:event_chkYearRestrictActionPerformed
+    }
 
-    private void btnExportClipboardIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportClipboardIconActionPerformed
-    // takes the text export and copies it to thesystem clipboard.
+    private void btnExportClipboardIconActionPerformed(java.awt.event.ActionEvent evt) {
+        // takes the text export and copies it to thesystem clipboard.
         String CurLoadout = "";
         String output = "";
 
@@ -9607,15 +9521,15 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
         java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents( export, this );
-    }//GEN-LAST:event_btnExportClipboardIconActionPerformed
+    }
 
-    private void btnChatInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChatInfoActionPerformed
+    private void btnChatInfoActionPerformed(java.awt.event.ActionEvent evt) {
         java.awt.datatransfer.StringSelection export = new java.awt.datatransfer.StringSelection(CurVee.GetChatInfo());
         java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(export, this);
-    }//GEN-LAST:event_btnChatInfoActionPerformed
+    }
 
-    private void btnExportHTMLIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportHTMLIconActionPerformed
+    private void btnExportHTMLIconActionPerformed(java.awt.event.ActionEvent evt) {
         SetSource = false;
         // exports the mech to HTML format
         String CurLoadout = "";
@@ -9652,21 +9566,21 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         }
         setTitle( saw.Constants.AppName + " " + saw.Constants.GetVersion() + " - " + CurVee.GetName() + " " + CurVee.GetModel() );
         SetSource = true;
-    }//GEN-LAST:event_btnExportHTMLIconActionPerformed
+    }
 
-    private void btnExportTextIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportTextIconActionPerformed
+    private void btnExportTextIconActionPerformed(java.awt.event.ActionEvent evt) {
         SetSource = false;
         btnExportTXTActionPerformed( evt );
         SetSource = true;
-    }//GEN-LAST:event_btnExportTextIconActionPerformed
+    }
 
-    private void btnExportMTFIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportMTFIconActionPerformed
+    private void btnExportMTFIconActionPerformed(java.awt.event.ActionEvent evt) {
         SetSource = false;
         btnExportMTFActionPerformed( evt );
         SetSource = true;
-    }//GEN-LAST:event_btnExportMTFIconActionPerformed
+    }
 
-    private void spnTurretTonnageStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnTurretTonnageStateChanged
+    private void spnTurretTonnageStateChanged(javax.swing.event.ChangeEvent evt) {
         double Tons = 0;
         try
         {
@@ -9679,9 +9593,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnTurretTonnageStateChanged
+    }
 
-    private void chkTrailerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkTrailerActionPerformed
+    private void chkTrailerActionPerformed(java.awt.event.ActionEvent evt) {
         CurVee.SetTrailer(chkTrailer.isSelected());
         String curEngine = cmbEngineType.getSelectedItem().toString();
         BuildEngineSelector();
@@ -9708,40 +9622,38 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             else
                 cmbEngineType.setSelectedItem(curEngine);
             cmbEngineTypeActionPerformed(evt);
-            //spnCruiseMP.setValue(1);
-            //((SpinnerNumberModel)spnCruiseMP.getModel()).setMinimum(1);
             lblFlankMP.setText( "" + CurVee.getFlankMP() );
         }
         SetWeaponChoosers();
         RefreshEquipment();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkTrailerActionPerformed
+    }
 
-    private void chkFlotationHullActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFlotationHullActionPerformed
+    private void chkFlotationHullActionPerformed(java.awt.event.ActionEvent evt) {
         CurVee.SetFlotationHull(chkFlotationHull.isSelected());
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkFlotationHullActionPerformed
+    }
 
-    private void chkLimitedAmphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLimitedAmphActionPerformed
+    private void chkLimitedAmphActionPerformed(java.awt.event.ActionEvent evt) {
         CurVee.SetLimitedAmphibious(chkLimitedAmph.isSelected());
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkLimitedAmphActionPerformed
+    }
 
-    private void chkDuneBuggyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkDuneBuggyActionPerformed
+    private void chkDuneBuggyActionPerformed(java.awt.event.ActionEvent evt) {
         CurVee.SetDuneBuggy(chkDuneBuggy.isSelected());
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkDuneBuggyActionPerformed
+    }
 
-    private void chkEnviroSealingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEnviroSealingActionPerformed
+    private void chkEnviroSealingActionPerformed(java.awt.event.ActionEvent evt) {
         CurVee.SetEnvironmentalSealing(chkEnviroSealing.isSelected());
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkEnviroSealingActionPerformed
+    }
 
-    private void spnRearTurretArmorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnRearTurretArmorStateChanged
+    private void spnRearTurretArmorStateChanged(javax.swing.event.ChangeEvent evt) {
         if( Load ) { return; }
         // see what changed and perform the appropriate action
         javax.swing.SpinnerNumberModel n = (SpinnerNumberModel) spnRearTurretArmor.getModel();
@@ -9779,14 +9691,14 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         // now refresh the information panes
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_spnRearTurretArmorStateChanged
+    }
 
-    private void cmbLocationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbLocationMouseClicked
+    private void cmbLocationMouseClicked(java.awt.event.MouseEvent evt) {
         if ( evt.getClickCount() == 2 )
             btnAddEquipActionPerformed(null);
-    }//GEN-LAST:event_cmbLocationMouseClicked
+    }
 
-    private void chkSponsonTurretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSponsonTurretActionPerformed
+    private void chkSponsonTurretActionPerformed(java.awt.event.ActionEvent evt) {
         if (chkSponsonTurret.isSelected())
             CurVee.setHasSponsonTurret(true);
         else
@@ -9795,13 +9707,12 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         BuildLocationSelector();
         RefreshSummary();
         RefreshInfoPane();
-    }//GEN-LAST:event_chkSponsonTurretActionPerformed
+    }
 
-    private void chkEscapePodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEscapePodActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chkEscapePodActionPerformed
+    private void chkEscapePodActionPerformed(java.awt.event.ActionEvent evt) {
+    }
 
-    private void mnuReloadEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReloadEquipmentActionPerformed
+    private void mnuReloadEquipmentActionPerformed(java.awt.event.ActionEvent evt) {
         try {
             data = new DataFactory( CurVee );
         } catch( Exception e ) {
@@ -9809,7 +9720,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             e.printStackTrace();
         }
         SetWeaponChoosers();
-    }//GEN-LAST:event_mnuReloadEquipmentActionPerformed
+    }
 
     private void chkFullAmphActionPerformed(java.awt.event.ActionEvent evt) {
         CurVee.SetFullAmphibious(chkFullAmph.isSelected());
@@ -9931,7 +9842,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JCheckBox chkArmoredMotive;
     private javax.swing.JCheckBox chkBalanceFRArmor;
     private javax.swing.JCheckBox chkBalanceLRArmor;
-    private javax.swing.JCheckBox chkClanCASE;
+    private javax.swing.JCheckBox chkCASE;
     private javax.swing.JCheckBox chkCommandConsole;
     private javax.swing.JCheckBox chkDuneBuggy;
     private javax.swing.JCheckBox chkEnviroSealing;

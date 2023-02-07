@@ -74,6 +74,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
                     Changed = false,
                     Primitive = false,
                     HasBlueShield = false,
+                    HasCase = false,
                     HasTurret1 = false,
                     HasTurret2 = false,
                     HasSponsonTurret = false,
@@ -2725,6 +2726,14 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
                 // only added for code completeness, we should never reach this
                 return 5;
         }
+    }
+
+    public void SetCase(boolean b) {
+        HasCase = b;
+    }
+
+    public boolean HasCase() {
+        return HasCase;
     }
     
     public void SetTrailer(boolean b ) {
