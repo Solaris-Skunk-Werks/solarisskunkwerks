@@ -474,6 +474,8 @@ public class CVWriter {
             return "CASE";
         } else if ( p instanceof Supercharger ) {
             return "Supercharger";
+        } else if ( p instanceof VTOLBooster ) {
+            return "VTOL Jet Booster";
         } else {
             return "miscellaneous";
         }
