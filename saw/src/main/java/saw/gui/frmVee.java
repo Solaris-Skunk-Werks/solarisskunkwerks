@@ -8493,7 +8493,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         chkUseTC.setSelected( CurVee.UsingTC() );
         chkJetBooster.setSelected( CurVee.GetBaseLoadout().HasVTOLBooster() );
         chkSupercharger.setSelected( CurVee.GetBaseLoadout().HasSupercharger() );
-        chkClanCASE.setSelected( CurVee.GetBaseLoadout().HasISCASE() );
+        chkCASE.setSelected( CurVee.GetBaseLoadout().HasCase() );
     }
 
     private void LockGUIForOmni() {
