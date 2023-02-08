@@ -107,8 +107,8 @@
     "protomech": false,
     "isvariable": false
   },
-  "Compact ‘Mech": {
-    "name": "Compact ‘Mech",
+  "Compact 'Mech": {
+    "name": "Compact 'Mech",
     "cost": 1,
     "description": "This Quirk describes a ’Mech that is particularly slim in stature, such as the Jackalope. It enables the ’Mech to share a BattleMech cubicle with another Compact ’Mech. It also allows a ’Mech recovery vehicle to transport two Compact ’Mechs. In both cases, the combined tonnage of the two ’Mechs cannot exceed relevant tonnage limits.  The Compact ’Mech quirk only provides this bonus for transportation purposes Compact ’Mechs cannot share the same space at the same time when undergoing maintenance or repairs.  This quirk can only be applied to ’Mechs that also possess the Narrow/Low Profile quirk, and is further limited to ’Mechs of medium weight (55 tons) or less.",
     "positive": true,
