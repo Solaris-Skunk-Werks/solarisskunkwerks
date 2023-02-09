@@ -133,6 +133,7 @@ public interface ifCVLoadout {
     public void AddCase(boolean isClan);
     public void RemoveCase();
     public boolean HasCase();
+    public void SetCase( CASE c );
     public CASE GetCase();
     public void SetClanCASE(boolean b);
     public void SetFCSArtemisIV( boolean b ) throws Exception;

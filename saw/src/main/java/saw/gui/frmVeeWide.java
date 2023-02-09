@@ -6348,128 +6348,25 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         // refreshes the equipment selectors
         //fix the CASE control
         CASE Case = new CASE();
-        if ( CommonTools.IsAllowed( Case.GetAvailability(), CurVee) || CurVee.GetTechBase() == AvailableCode.TECH_CLAN ) {
-            chkCASE.setEnabled(true);
-        } else {
-            chkCASE.setSelected(false);
-            chkCASE.setEnabled(false);
-        }
-        chkCASE.setSelected( CurVee.GetLoadout().HasCase() );
+        setCheckbox(chkCASE, ( CommonTools.IsAllowed( Case.GetAvailability(), CurVee) || CurVee.GetTechBase() == AvailableCode.TECH_CLAN ), CurVee.GetLoadout().HasCase());
 
         // fix Artemis IV controls
         ifMissileGuidance ArtCheck = new ArtemisIVFCS( null );
-        if( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ) {
-            chkFCSAIV.setEnabled( true );
-        } else {
-            chkFCSAIV.setSelected( false );
-            chkFCSAIV.setEnabled( false );
-        }
+        setCheckbox(chkFCSAIV, ( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ), CurVee.UsingArtemisIV());
 
         // fix Artemis V controls
         ArtCheck = new ArtemisVFCS( null );
-        if( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ) {
-            chkFCSAV.setEnabled( true );
-        } else {
-            chkFCSAV.setSelected( false );
-            chkFCSAV.setEnabled( false );
-        }
+        setCheckbox(chkFCSAV, ( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ), CurVee.UsingArtemisV());
 
-        // fix Artemis IV controls
+        // fix ApolloFCS controls
         ArtCheck = new ApolloFCS( null );
-        if( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ) {
-            chkFCSApollo.setEnabled( true );
-        } else {
-            chkFCSApollo.setSelected( false );
-            chkFCSApollo.setEnabled( false );
-        }
+        setCheckbox(chkFCSApollo, ( CommonTools.IsAllowed( ArtCheck.GetAvailability(), CurVee ) ), CurVee.UsingApollo());
 
         // fix the targeting computer display
-        if( CommonTools.IsAllowed( CurVee.GetTC().GetAvailability(), CurVee ) ) {
-            chkUseTC.setEnabled( true );
-            if( CurVee.UsingTC() ) {
-                chkUseTC.setSelected( true );
-            } else {
-                chkUseTC.setSelected( false );
-            }
-        } else {
-            chkUseTC.setSelected( false );
-            chkUseTC.setEnabled( false );
-        }
+        setCheckbox(chkUseTC, ( CommonTools.IsAllowed( CurVee.GetTC().GetAvailability(), CurVee ) ), CurVee.UsingTC());
 
-        // check all multi-slot systems
-        if( CommonTools.IsAllowed( CurVee.GetBlueShield().GetAvailability(), CurVee ) ) {
-            //chkBSPFD.setEnabled( true );
-        } else {
-            //chkBSPFD.setEnabled( false );
-            //chkBSPFD.setSelected( false );
-        }
-        if( CommonTools.IsAllowed( CurVee.GetLoadout().GetSupercharger().GetAvailability(), CurVee ) && !CurVee.IsVTOL() ) {
-            chkSupercharger.setEnabled( true );
-        } else {
-            chkSupercharger.setEnabled( false );
-        }
-        if( CurVee.IsVTOL() && CommonTools.IsAllowed( CurVee.GetLoadout().GetVTOLBooster().GetAvailability(), CurVee ) && !CurVee.isOmni() ) {
-            chkJetBooster.setEnabled( true );
-        } else {
-            chkJetBooster.setEnabled( false );
-        }
-        // now set all the equipment if needed
-        if( ! chkFCSAIV.isEnabled() ) {
-            try {
-                CurVee.SetFCSArtemisIV( false );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-            }
-            chkFCSAIV.setSelected( false );
-        } else {
-            if( CurVee.UsingArtemisIV() ) {
-                chkFCSAIV.setSelected( true );
-            } else {
-                chkFCSAIV.setSelected( false );
-            }
-        }
-        if( ! chkFCSAV.isEnabled() ) {
-            try {
-                CurVee.SetFCSArtemisV( false );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-            }
-            chkFCSAV.setSelected( false );
-        } else {
-            if( CurVee.UsingArtemisV() ) {
-                chkFCSAV.setSelected( true );
-            } else {
-                chkFCSAV.setSelected( false );
-            }
-        }
-        if( ! chkFCSApollo.isEnabled() ) {
-            try {
-                CurVee.SetFCSApollo( false );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-            }
-            chkFCSApollo.setSelected( false );
-        } else {
-            if( CurVee.UsingApollo() ) {
-                chkFCSApollo.setSelected( true );
-            } else {
-                chkFCSApollo.setSelected( false );
-            }
-        }
-        if( ! chkSupercharger.isEnabled() ) {
-            try {
-                CurVee.GetLoadout().SetSupercharger( false );
-            } catch( Exception e ) {
-                Media.Messager( this, e.getMessage() );
-            }
-        } else {
-            if( CurVee.GetLoadout().HasSupercharger() ) {
-                chkSupercharger.setSelected( true );
-            } else {
-                chkSupercharger.setSelected( false );
-            }
-        }
-        chkJetBooster.setSelected(CurVee.GetLoadout().HasVTOLBooster());
+        setCheckbox(chkSupercharger, ( CommonTools.IsAllowed( CurVee.GetLoadout().GetSupercharger().GetAvailability(), CurVee ) && !CurVee.IsVTOL() ), CurVee.GetLoadout().HasSupercharger());
+        setCheckbox(chkJetBooster, ( CommonTools.IsAllowed( CurVee.GetLoadout().GetVTOLBooster().GetAvailability(), CurVee ) && CurVee.IsVTOL() && !CurVee.IsOmni() ), CurVee.GetLoadout().HasVTOLBooster());
 
         if( ! chkUseTC.isEnabled() ) { CurVee.UseTC( false, false ); }
 
@@ -6484,25 +6381,30 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         if( CurVee.IsOmni() ) {
             // these items can only be loaded into the base chassis, so they
             // are always locked for an Omni (although they may be checked).
-            //chkBSPFD.setEnabled( false );
             chkEnviroSealing.setEnabled( false );
             chkCommandConsole.setEnabled( false );
+            chkJetBooster.setEnabled(false);
 
-            // now see if we have a supercharger on the base chassis
+            //These items can be selected on the base or variants but if the base
+            //has them disable and mark as selected
             if( CurVee.GetBaseLoadout().HasSupercharger() ) {
                 chkSupercharger.setEnabled( false );
+                chkSupercharger.setSelected( true );
             }
-        } else {
-            try {
-                //if( ! chkBSPFD.isEnabled() ) { locArmor.SetBlueShield( false ); }
-                //if( ! chkCommandConsole.isEnabled() ) { locArmor.SetCommandConsole( false ); }
-            } catch( Exception e ) {
-                // we should never get this, but report it if we do
-                Media.Messager( this, e.getMessage() );
+            if( CurVee.GetLoadout().HasCase() ) {
+                chkCASE.setEnabled( false );
+                chkCASE.setSelected( true );
             }
         }
     }
 
+    private void setCheckbox(JCheckBox element, Boolean isEnabled, Boolean isSelected) {
+        element.setEnabled(isEnabled);
+        element.setSelected(false);
+        if (isEnabled) {
+            element.setSelected(isSelected);
+        }
+    }
     private void SetWeaponChoosers() {
         // sets the weapon choosers up.  first, get the user's choices.
 
@@ -6568,7 +6470,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         chkTrailer.setEnabled( true );
         //btnEfficientArmor.setEnabled( true );
         //btnBalanceArmor.setEnabled( true );
-        //btnLockChassis.setEnabled( true );
         chkFCSAIV.setEnabled( true );
         chkFCSAV.setEnabled( true );
         chkFCSApollo.setEnabled( true );
@@ -6577,7 +6478,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         btnLockChassis.setEnabled( true );
         spnCruiseMP.setEnabled( true );
         chkYearRestrict.setEnabled( true );
-        //chkBSPFD.setEnabled( true );
         chkSupercharger.setEnabled( true );
         chkJetBooster.setEnabled(true);
         chkEnviroSealing.setEnabled( false );
@@ -6820,7 +6720,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         chkUseTC.setSelected( CurVee.UsingTC() );
         chkJetBooster.setSelected( CurVee.GetBaseLoadout().HasVTOLBooster() );
         chkSupercharger.setSelected( CurVee.GetBaseLoadout().HasSupercharger() );
-        chkCASE.setSelected( CurVee.GetBaseLoadout().HasCase() );
+        chkCASE.setSelected( CurVee.GetLoadout().HasCase() );
     }
     
     private void LockGUIForOmni() {
@@ -6868,6 +6768,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         chkJetBooster.setEnabled(false);
         if( CurVee.GetBaseLoadout().HasSupercharger() ) {
             chkSupercharger.setEnabled( false );
+        }
+        if ( chkCASE.isSelected() ) {
+            chkCASE.setEnabled(false);
         }
 
         // now enable the omnimech controls
@@ -9595,6 +9498,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         // get the currently chosen selections
         SaveSelections();
 
+        // since you can only ever change the era when not restricted, we're not
+        // doing it here.  Pass in default values.
+        CurVee.GetLoadout().FlushIllegal();
+
         // refresh all the combo boxes.
         BuildChassisSelector();
         BuildEngineSelector();
@@ -9611,10 +9518,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         RecalcEngine();
         RecalcArmor();
         RecalcEquipment();
-
-        // since you can only ever change the era when not restricted, we're not
-        // doing it here.  Pass in default values.
-        CurVee.GetLoadout().FlushIllegal();
 
         // now refresh the information panes
         RefreshSummary();
