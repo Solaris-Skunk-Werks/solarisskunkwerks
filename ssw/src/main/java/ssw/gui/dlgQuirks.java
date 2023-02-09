@@ -44,11 +44,17 @@ public class dlgQuirks extends javax.swing.JDialog {
         initComponents();
 
         list = quirks;
+        ArrayList<Quirk> mechQuirks = new ArrayList<Quirk>();
+        for (Quirk item : list.GetQuirks()) {
+            if (item.isBattlemech() || item.isIndustrialmech()) {
+                mechQuirks.add(item);
+            }
+        }
         existingQuirks = currentQuirks;
 
         tblQ = new tbQuirks(currentQuirks);
         tblQ.setupTable(tblSelected);
-        tblList.setModel(new tbQuirks(list.GetQuirks()));
+        tblList.setModel(new tbQuirks(mechQuirks));
     }
 
     private void Refresh()

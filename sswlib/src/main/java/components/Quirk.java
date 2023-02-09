@@ -92,10 +92,12 @@ public class Quirk {
     /**
      * @return the cost
      */
-    public int getCost() {
-        return cost;
-    }
+    public int getCost() { return cost; }
 
+    public String getCostDisplay() {
+        if (isvariable) return "Varies";
+        return cost + "";
+    }
 
     /**
      * @return the description
@@ -198,7 +200,7 @@ public class Quirk {
     /**
      * @return the isvariable
      */
-    public boolean isIsvariable() {
+    public boolean isVariable() {
         return isvariable;
     }
 

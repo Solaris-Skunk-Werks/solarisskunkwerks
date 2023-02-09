@@ -507,7 +507,7 @@ public class MechWriter {
                         "\" conventionalfigher=\"" + Boolean.toString(quirk.isConventionalfighter()) + "\" dropship=\"" + Boolean.toString(quirk.isDropship()) +
                         "\" jumpship=\"" + Boolean.toString(quirk.isDropship()) + "\" warship=\"" + Boolean.toString(quirk.isWarship()) + 
                         "\" spacestation=\"" + Boolean.toString(quirk.isSpacestation()) + "\" protomech=\"" + Boolean.toString(quirk.isProtomech()) 
-                        + "\" isvariable=\"" + Boolean.toString(quirk.isIsvariable()) + "\">");
+                        + "\" isvariable=\"" + Boolean.toString(quirk.isVariable()) + "\">");
                 FR.newLine();
                 FR.write(tab + tab + tab + tab + "<Name>" + FileCommon.EncodeFluff(quirk.getName()) + "</Name>");
                 FR.newLine();
