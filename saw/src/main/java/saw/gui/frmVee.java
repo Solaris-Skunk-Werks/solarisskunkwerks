@@ -1080,7 +1080,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         cmbOmniVariant = new javax.swing.JComboBox();
         tbpMainTabPane = new javax.swing.JTabbedPane();
         pnlBasicSetup = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
+        pnlBasicInfo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtVehicleName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -1233,7 +1233,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         jLabel92 = new javax.swing.JLabel();
         jLabel93 = new javax.swing.JLabel();
         spnRotorArmor = new javax.swing.JSpinner();
-        jPanel7 = new javax.swing.JPanel();
+        pnlArmorType = new javax.swing.JPanel();
         jLabel52 = new javax.swing.JLabel();
         cmbArmorType = new javax.swing.JComboBox();
         chkBalanceLRArmor = new javax.swing.JCheckBox();
@@ -1680,7 +1680,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         });
         tlbIconBar.add(cmbOmniVariant);
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Basic Information"));
+        pnlBasicInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Basic Information"));
 
         jLabel1.setText("Vehicle Name:");
 
@@ -1760,8 +1760,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
         });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(pnlBasicInfo);
+        pnlBasicInfo.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -2732,10 +2732,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         javax.swing.GroupLayout pnlInformationLayout = new javax.swing.GroupLayout(pnlInformation);
         pnlInformation.setLayout(pnlInformationLayout);
         pnlInformationLayout.setHorizontalGroup(
-            pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            pnlInformationLayout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
             .addGroup(pnlInformationLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
                     .addGroup(pnlInformationLayout.createSequentialGroup()
                         .addGap(95, 95, 95)
                         .addComponent(jLabel30)
@@ -2864,35 +2864,35 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         javax.swing.GroupLayout pnlBasicSetupLayout = new javax.swing.GroupLayout(pnlBasicSetup);
         pnlBasicSetup.setLayout(pnlBasicSetupLayout);
         pnlBasicSetupLayout.setHorizontalGroup(
-            pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
             .addGroup(pnlBasicSetupLayout.createSequentialGroup()
-                .addGroup(pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlChassisMods, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
+                    .addComponent(pnlChassisMods, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlMovement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlBasicInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
                     .addComponent(pnlExperimental, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlChassis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
                     .addComponent(pnlSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlOmniInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlInformation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlInformation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
         pnlBasicSetupLayout.setVerticalGroup(
-            pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
             .addGroup(pnlBasicSetupLayout.createSequentialGroup()
-                .addGroup(pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlBasicSetupLayout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
                     .addGroup(pnlBasicSetupLayout.createSequentialGroup()
                         .addComponent(pnlChassis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlExperimental, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlBasicSetupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(pnlBasicSetupLayout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
                         .addGroup(pnlBasicSetupLayout.createSequentialGroup()
                             .addComponent(pnlOmniInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2900,10 +2900,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(pnlInformation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBasicSetupLayout.createSequentialGroup()
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlBasicInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(pnlMovement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(2, 2, 2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(pnlChassisMods, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
@@ -3203,7 +3203,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 .addContainerGap())
         );
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Armor Type"));
+        pnlArmorType.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Armor Type"));
 
         jLabel52.setText("Armor Type:");
 
@@ -3242,8 +3242,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             }
         });
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(pnlArmorType);
+        pnlArmorType.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
@@ -3359,7 +3359,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlArmorType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(214, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -3371,7 +3371,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                         .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlArmorType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(199, 199, 199))))
@@ -3389,9 +3389,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         jScrollPane8.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane8.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane8.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane8.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane8.setPreferredSize(new java.awt.Dimension(200, 260));
+        jScrollPane8.setMaximumSize(new java.awt.Dimension(300, 300));
+        jScrollPane8.setMinimumSize(new java.awt.Dimension(300, 300));
+        jScrollPane8.setPreferredSize(new java.awt.Dimension(300, 300));
 
         lstChooseBallistic.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Placeholder" };
@@ -3399,9 +3399,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             public Object getElementAt(int i) { return strings[i]; }
         });
         lstChooseBallistic.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseBallistic.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChooseBallistic.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseBallistic.setPreferredSize(null);
+        lstChooseBallistic.setMaximumSize(new java.awt.Dimension(300, 300));
+        lstChooseBallistic.setMinimumSize(new java.awt.Dimension(300, 300));
+        lstChooseBallistic.setPreferredSize(new java.awt.Dimension(300, 300));
         lstChooseBallistic.setVisibleRowCount(16);
         lstChooseBallistic.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -3428,25 +3428,16 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         pnlBallisticLayout.setHorizontalGroup(
             pnlBallisticLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBallisticLayout.createSequentialGroup()
-                .addGap(106, 106, 106)
-                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(pnlBallisticLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(6, 6, 6))
-            .addGroup(pnlBallisticLayout.createSequentialGroup()
-                .addGap(106, 106, 106)
-                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
         );
         pnlBallisticLayout.setVerticalGroup(
             pnlBallisticLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBallisticLayout.createSequentialGroup()
-                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
         );
 
         tbpWeaponChooser.addTab("Ballistic", pnlBallistic);
@@ -3460,9 +3451,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         jScrollPane9.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane9.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane9.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane9.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane9.setPreferredSize(new java.awt.Dimension(200, 260));
+        jScrollPane9.setMaximumSize(new java.awt.Dimension(300, 300));
+        jScrollPane9.setMinimumSize(new java.awt.Dimension(300, 300));
+        jScrollPane9.setPreferredSize(new java.awt.Dimension(300, 300));
 
         lstChooseEnergy.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Placeholder" };
@@ -3470,9 +3461,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             public Object getElementAt(int i) { return strings[i]; }
         });
         lstChooseEnergy.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseEnergy.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChooseEnergy.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseEnergy.setPreferredSize(null);
+        lstChooseEnergy.setMaximumSize(new java.awt.Dimension(300, 300));
+        lstChooseEnergy.setMinimumSize(new java.awt.Dimension(300, 300));
+        lstChooseEnergy.setPreferredSize(new java.awt.Dimension(300, 300));
         lstChooseEnergy.setVisibleRowCount(16);
         lstChooseEnergy.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -3508,9 +3499,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         jScrollPane19.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane19.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane19.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane19.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane19.setPreferredSize(new java.awt.Dimension(200, 260));
+        jScrollPane19.setMaximumSize(new java.awt.Dimension(300, 300));
+        jScrollPane19.setMinimumSize(new java.awt.Dimension(300, 300));
+        jScrollPane19.setPreferredSize(new java.awt.Dimension(300, 300));
 
         lstChooseMissile.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Placeholder" };
@@ -3518,9 +3509,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             public Object getElementAt(int i) { return strings[i]; }
         });
         lstChooseMissile.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseMissile.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChooseMissile.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseMissile.setPreferredSize(null);
+        lstChooseMissile.setMaximumSize(new java.awt.Dimension(300, 300));
+        lstChooseMissile.setMinimumSize(new java.awt.Dimension(300, 300));
+        lstChooseMissile.setPreferredSize(new java.awt.Dimension(300, 300));
         lstChooseMissile.setVisibleRowCount(16);
         lstChooseMissile.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -3556,9 +3547,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         jScrollPane20.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane20.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane20.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane20.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane20.setPreferredSize(new java.awt.Dimension(200, 260));
+        jScrollPane20.setMaximumSize(new java.awt.Dimension(300, 300));
+        jScrollPane20.setMinimumSize(new java.awt.Dimension(300, 300));
+        jScrollPane20.setPreferredSize(new java.awt.Dimension(300, 300));
 
         lstChoosePhysical.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Placeholder" };
@@ -3566,9 +3557,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             public Object getElementAt(int i) { return strings[i]; }
         });
         lstChoosePhysical.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChoosePhysical.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChoosePhysical.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChoosePhysical.setPreferredSize(null);
+        lstChoosePhysical.setMaximumSize(new java.awt.Dimension(300, 300));
+        lstChoosePhysical.setMinimumSize(new java.awt.Dimension(300, 300));
+        lstChoosePhysical.setPreferredSize(new java.awt.Dimension(300, 300));
         lstChoosePhysical.setVisibleRowCount(16);
         lstChoosePhysical.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -3604,9 +3595,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         jScrollPane21.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane21.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane21.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane21.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane21.setPreferredSize(new java.awt.Dimension(200, 260));
+        jScrollPane21.setMaximumSize(new java.awt.Dimension(300, 300));
+        jScrollPane21.setMinimumSize(new java.awt.Dimension(300, 300));
+        jScrollPane21.setPreferredSize(new java.awt.Dimension(300, 300));
 
         lstChooseEquipment.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Placeholder" };
@@ -3614,9 +3605,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             public Object getElementAt(int i) { return strings[i]; }
         });
         lstChooseEquipment.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseEquipment.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChooseEquipment.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseEquipment.setPreferredSize(null);
+        lstChooseEquipment.setMaximumSize(new java.awt.Dimension(300, 300));
+        lstChooseEquipment.setMinimumSize(new java.awt.Dimension(300, 300));
+        lstChooseEquipment.setPreferredSize(new java.awt.Dimension(300, 300));
         lstChooseEquipment.setVisibleRowCount(16);
         lstChooseEquipment.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -3652,9 +3643,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         jScrollPane24.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane24.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane24.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane24.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane24.setPreferredSize(new java.awt.Dimension(200, 260));
+        jScrollPane24.setMaximumSize(new java.awt.Dimension(300, 300));
+        jScrollPane24.setMinimumSize(new java.awt.Dimension(300, 300));
+        jScrollPane24.setPreferredSize(new java.awt.Dimension(300, 300));
 
         lstChooseArtillery.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Placeholder" };
@@ -3662,9 +3653,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             public Object getElementAt(int i) { return strings[i]; }
         });
         lstChooseArtillery.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseArtillery.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChooseArtillery.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseArtillery.setPreferredSize(null);
+        lstChooseArtillery.setMaximumSize(new java.awt.Dimension(300, 300));
+        lstChooseArtillery.setMinimumSize(new java.awt.Dimension(300, 300));
+        lstChooseArtillery.setPreferredSize(new java.awt.Dimension(300, 300));
         lstChooseArtillery.setVisibleRowCount(16);
         lstChooseArtillery.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -3700,9 +3691,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         jScrollPane22.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane22.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane22.setMaximumSize(new java.awt.Dimension(200, 260));
-        jScrollPane22.setMinimumSize(new java.awt.Dimension(200, 260));
-        jScrollPane22.setPreferredSize(new java.awt.Dimension(200, 260));
+        jScrollPane22.setMaximumSize(new java.awt.Dimension(300, 300));
+        jScrollPane22.setMinimumSize(new java.awt.Dimension(300, 300));
+        jScrollPane22.setPreferredSize(new java.awt.Dimension(300, 300));
 
         lstChooseAmmunition.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Placeholder" };
@@ -3710,9 +3701,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             public Object getElementAt(int i) { return strings[i]; }
         });
         lstChooseAmmunition.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseAmmunition.setMaximumSize(new java.awt.Dimension(180, 10000));
-        lstChooseAmmunition.setMinimumSize(new java.awt.Dimension(180, 100));
-        lstChooseAmmunition.setPreferredSize(null);
+        lstChooseAmmunition.setMaximumSize(new java.awt.Dimension(300, 300));
+        lstChooseAmmunition.setMinimumSize(new java.awt.Dimension(300, 300));
+        lstChooseAmmunition.setPreferredSize(new java.awt.Dimension(300, 300));
         lstChooseAmmunition.setVisibleRowCount(16);
         lstChooseAmmunition.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -4233,7 +4224,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                             .addComponent(pnlSpecials, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pnlEquipInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlEquipInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -4248,8 +4239,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                     .addComponent(pnlSelected, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tbpWeaponChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlEquipInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(844, 844, 844))
+                .addComponent(pnlEquipInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         tbpMainTabPane.addTab("Equipment", jPanel3);
@@ -4261,9 +4251,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
 
         lblFluffImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFluffImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblFluffImage.setMaximumSize(new java.awt.Dimension(290, 350));
-        lblFluffImage.setMinimumSize(new java.awt.Dimension(290, 350));
-        lblFluffImage.setPreferredSize(new java.awt.Dimension(290, 350));
+        lblFluffImage.setMaximumSize(new java.awt.Dimension(325, 350));
+        lblFluffImage.setMinimumSize(new java.awt.Dimension(325, 350));
+        lblFluffImage.setPreferredSize(new java.awt.Dimension(325, 350));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -4894,31 +4884,31 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Conversion Steps"));
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextAreaBFConversion.setColumns(20);
+        jTextAreaBFConversion.setColumns(60);
         jTextAreaBFConversion.setEditable(false);
         jTextAreaBFConversion.setRows(5);
         jScrollPane14.setViewportView(jTextAreaBFConversion);
 
-        jPanel10.add(jScrollPane14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 660, 190));
+        jPanel10.add(jScrollPane14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 740, 190));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlBFStats, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
+                    .addComponent(pnlBFStats, javax.swing.GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE))
+                .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
-                .addComponent(pnlBFStats, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap()
+                .addComponent(pnlBFStats, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                    .addContainerGap()
+                .addComponent(jPanel10, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE))
         );
 
         tbpMainTabPane.addTab("BattleForce", jPanel9);
@@ -5182,7 +5172,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
             .addComponent(tlbIconBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnlInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -5191,7 +5181,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tlbIconBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -9975,9 +9965,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel pnlBasicInfo;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel pnlArmorType;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
