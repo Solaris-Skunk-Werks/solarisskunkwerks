@@ -1144,7 +1144,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     }
 
     public boolean HasVTOLBooster() { return IsAllocated(VBooster); }
-    
+
     public VTOLBooster GetVTOLBooster() {
         return VBooster;
     }

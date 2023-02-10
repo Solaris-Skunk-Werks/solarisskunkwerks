@@ -6391,7 +6391,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 chkSupercharger.setEnabled( false );
                 chkSupercharger.setSelected( true );
             }
-            if( CurVee.GetLoadout().HasCase() ) {
+            if( CurVee.GetBaseLoadout().HasCase() ) {
                 chkCASE.setEnabled( false );
                 chkCASE.setSelected( true );
             }

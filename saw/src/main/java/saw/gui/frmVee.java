@@ -7100,7 +7100,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
                 chkSupercharger.setEnabled( false );
                 chkSupercharger.setSelected( true );
             }
-            if( CurVee.GetLoadout().HasCase() ) {
+            if( CurVee.GetBaseLoadout().HasCase() ) {
                 chkCASE.setEnabled( false );
                 chkCASE.setSelected( true );
             }
