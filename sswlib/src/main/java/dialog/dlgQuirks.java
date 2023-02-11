@@ -194,33 +194,33 @@ public class dlgQuirks extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
         Quirk q = (Quirk)((tbQuirks) tblList.getModel()).get( tblList.convertRowIndexToModel( tblList.getSelectedRow() ));
         tblQ.quirklist.add(q);
         Refresh();
-    }//GEN-LAST:event_btnAddActionPerformed
+    }
 
-    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {
         Quirk q = (Quirk)((tbQuirks) tblSelected.getModel()).get( tblSelected.convertRowIndexToModel( tblSelected.getSelectedRow() ));
         tblQ.quirklist.remove(q);
         Refresh();
-    }//GEN-LAST:event_btnRemoveActionPerformed
+    }
 
-    private void btnDoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoneActionPerformed
+    private void btnDoneActionPerformed(java.awt.event.ActionEvent evt) {
         setVisible( false );
-    }//GEN-LAST:event_btnDoneActionPerformed
+    }
 
-    private void tblListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListMouseClicked
+    private void tblListMouseClicked(java.awt.event.MouseEvent evt) {
         if ( evt.getClickCount() == 2 ) {
             btnAddActionPerformed(null);
         } 
-    }//GEN-LAST:event_tblListMouseClicked
+    }
 
-    private void tblSelectedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSelectedMouseClicked
+    private void tblSelectedMouseClicked(java.awt.event.MouseEvent evt) {
         if ( evt.getClickCount() == 2 ) {
             btnRemoveActionPerformed(null);
         } 
-    }//GEN-LAST:event_tblSelectedMouseClicked
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
