@@ -6266,7 +6266,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtTNTSystem.setText( "" );
         txtSource.setText( "" );
         lblFluffImage.setIcon( null );
-        ResetQuirks();
+        RefreshQuirks();
 
         //Reset Manufacturers
         tblWeaponManufacturers.setModel( new javax.swing.table.AbstractTableModel() {
@@ -7688,12 +7688,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
     private void RefreshQuirks() {
         tblQuirks.setModel(new tbQuirks(CurVee.GetQuirks()));
-    }
-
-    private void ResetQuirks() {
-        quirks = new ArrayList<>();
-        tblQuirks.setModel(new tbQuirks(quirks));
-        CurVee.SetQuirks(quirks);
     }
 
     private void btnExportMTFActionPerformed(java.awt.event.ActionEvent evt) {
