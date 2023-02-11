@@ -4674,10 +4674,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             pnlQuirksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlQuirksLayout.createSequentialGroup()
                 .addComponent(lblBattleMechQuirks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(btnAddQuirk)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scpQuirkTable, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAddQuirk)
                 .addContainerGap())
         );
 
@@ -6264,6 +6264,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtTNTSystem.setText( "" );
         txtSource.setText( "" );
         lblFluffImage.setIcon( null );
+        ResetQuirks();
 
         //Reset Manufacturers
         tblWeaponManufacturers.setModel( new javax.swing.table.AbstractTableModel() {
@@ -7671,9 +7672,30 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     }
 
     private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {
-        dlgQuirks qmanage = new dlgQuirks(this, true, data, quirks);
+        ArrayList<Quirk> filtered = new ArrayList<Quirk>();
+        for (Quirk item : data.GetQuirks()) {
+            if (item.isCombatvehicle()) {
+                filtered.add(item);
+            }
+        }
+        dlgQuirks qmanage = new dlgQuirks(this, true, filtered, quirks);
         qmanage.setLocationRelativeTo(this); qmanage.setVisible(true);
         tblQuirks.setModel(new tbQuirks(quirks));
+    }
+
+    private void ResetQuirks() {
+        quirks = new ArrayList<>();
+        tblQuirks.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                        {null, null},
+                        {null, null},
+                        {null, null},
+                        {null, null}
+                },
+                new String [] {
+                        "Cost", "Quirk"
+                }));
+        CurVee.SetQuirks(quirks);
     }
 
     private void btnExportMTFActionPerformed(java.awt.event.ActionEvent evt) {

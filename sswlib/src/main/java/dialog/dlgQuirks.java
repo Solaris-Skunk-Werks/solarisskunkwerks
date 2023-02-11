@@ -35,21 +35,19 @@ import list.view.tbQuirks;
 import java.util.ArrayList;
 
 public class dlgQuirks extends javax.swing.JDialog {
-    private DataFactory list;
     private ArrayList<Quirk> existingQuirks;
     private tbQuirks tblQ;
 
     /** Creates new form dlgQuirks */
-    public dlgQuirks(java.awt.Frame parent, boolean modal, DataFactory quirks, ArrayList<Quirk> currentQuirks) {
+    public dlgQuirks(java.awt.Frame parent, boolean modal, ArrayList<Quirk> availableQuirks, ArrayList<Quirk> currentQuirks) {
         super(parent, modal);
         initComponents();
 
-        list = quirks;
         existingQuirks = currentQuirks;
 
         tblQ = new tbQuirks(currentQuirks);
         tblQ.setupTable(tblSelected);
-        tblList.setModel(new tbQuirks(list.GetQuirks()));
+        tblList.setModel(new tbQuirks(availableQuirks));
     }
 
     private void Refresh()
