@@ -115,7 +115,7 @@ public class Main {
                 switch( screensize ) {
                     case Constants.SCREEN_SIZE_WIDE_1280:
                         MainFrame = new frmVeeWide();
-                        MainFrame.setSize( 1280, 600 );
+                        MainFrame.setSize( 1280, 625 );
                         break;
                     case Constants.SCREEN_SIZE_WIDE_1600:
                         MainFrame = new frmVeeWide();
