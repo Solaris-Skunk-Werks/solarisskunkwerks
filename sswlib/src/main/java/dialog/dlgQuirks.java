@@ -28,15 +28,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package dialog;
 
-import common.DataFactory;
 import components.Quirk;
 import components.ifUnit;
 import list.view.tbQuirks;
-
 import java.util.ArrayList;
 
 public class dlgQuirks extends javax.swing.JDialog {
-    private ArrayList<Quirk> existingQuirks;
     private tbQuirks tblQ;
     private ifUnit Unit;
 
@@ -46,7 +43,6 @@ public class dlgQuirks extends javax.swing.JDialog {
         initComponents();
 
         Unit = unit;
-        existingQuirks = currentQuirks;
 
         tblQ = new tbQuirks(currentQuirks);
         tblQ.setupTable(tblSelected);
@@ -197,20 +193,17 @@ public class dlgQuirks extends javax.swing.JDialog {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
         Quirk q = (Quirk)((tbQuirks) tblList.getModel()).get( tblList.convertRowIndexToModel( tblList.getSelectedRow() ));
-        //Unit.AddQuirk(q);
         tblQ.quirklist.add(q);
         Refresh();
     }
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {
         Quirk q = (Quirk)((tbQuirks) tblSelected.getModel()).get( tblSelected.convertRowIndexToModel( tblSelected.getSelectedRow() ));
-        //Unit.RemoveQuirk(q);
         tblQ.quirklist.remove(q);
         Refresh();
     }
 
     private void btnDoneActionPerformed(java.awt.event.ActionEvent evt) {
-        Unit.SetQuirks(tblQ.quirklist);
         setVisible( false );
     }
 

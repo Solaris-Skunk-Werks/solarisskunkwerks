@@ -29,6 +29,5 @@ public interface ifUnit {
     public boolean UsingTC();
     public TargetingComputer GetTC();
     public void SetQuirks (ArrayList<Quirk> q);
-    public void AddQuirk(Quirk q);
-    public void RemoveQuirk(Quirk q);
+
 }

@@ -1059,14 +1059,6 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         return Quirks;
     }
 
-    public void AddQuirk(Quirk q) {
-        Quirks.add(q);
-    }
-
-    public void RemoveQuirk(Quirk q) {
-        Quirks.remove(q);
-    }
-
     public void SetQuirks (ArrayList<Quirk> q) {
         Quirks = q;
 

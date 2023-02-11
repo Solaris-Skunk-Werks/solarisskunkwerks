@@ -4651,7 +4651,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         tblQuirks.getTableHeader().setReorderingAllowed(false);
         scpQuirkTable.setViewportView(tblQuirks);
 
-        btnAddQuirk.setText("Add Quirk");
+        btnAddQuirk.setText("Manage Quirks");
         btnAddQuirk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddQuirkActionPerformed(evt);
@@ -7107,6 +7107,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         media.blankLogo(lblFluffImage);
         media.setLogo(lblFluffImage, media.DetermineMatchingImage(CurVee.GetName(), CurVee.GetModel(), CurVee.GetSSWImage()));
 
+        quirks = CurVee.GetQuirks();
         Overview.SetText( CurVee.getOverview() );
         Capabilities.SetText( CurVee.getCapabilities() );
         History.SetText( CurVee.getHistory() );
@@ -7684,6 +7685,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         dlgQuirks qmanage = new dlgQuirks(this, true, CurVee, filtered, quirks);
         qmanage.setLocationRelativeTo(this); qmanage.setVisible(true);
         tblQuirks.setModel(new tbQuirks(quirks));
+        CurVee.SetQuirks(quirks);
     }
 
     private void RefreshQuirks() {
