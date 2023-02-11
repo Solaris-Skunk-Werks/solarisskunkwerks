@@ -37,9 +37,11 @@ import Print.preview.dlgPreview;
 import battleforce.BattleForceStats;
 import common.*;
 import components.*;
+import dialog.dlgQuirks;
 import dialog.frmForce;
 import filehandlers.*;
 import gui.TextPane;
+import list.view.tbQuirks;
 import saw.filehandlers.HTMLWriter;
 import states.ifState;
 import visitors.VArmorSetPatchworkLocation;
@@ -48,6 +50,7 @@ import visitors.VSetArmorTonnage;
 import visitors.ifVisitor;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -89,7 +92,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private ImageTracker imageTracker = new ImageTracker();
     public dlgOpen dOpen = new dlgOpen(this, true);
     public frmForce dForce = new frmForce(this, imageTracker);
-    
+    public ArrayList<Quirk> quirks = new ArrayList<Quirk>();
     TextPane Overview = new TextPane();
     TextPane Capabilities = new TextPane();
     TextPane Deployment = new TextPane();
@@ -152,6 +155,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         ArmorTons = new VSetArmorTonnage( Prefs );
         cmbMotiveTypeActionPerformed(null);
         spnTonnageStateChanged(null);
+
 
         setTitle( saw.Constants.AppDescription + " " + saw.Constants.GetVersion() );
 
@@ -1333,7 +1337,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlNotables = new javax.swing.JPanel();
         pnlAdditionalFluff = new javax.swing.JPanel();
         pnlManufacturers = new javax.swing.JPanel();
-        jLabel82 = new javax.swing.JLabel();
+        lblManuInfo = new javax.swing.JLabel();
         jLabel83 = new javax.swing.JLabel();
         jLabel84 = new javax.swing.JLabel();
         jLabel85 = new javax.swing.JLabel();
@@ -1350,6 +1354,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlWeaponsManufacturers = new javax.swing.JPanel();
         chkIndividualWeapons = new javax.swing.JCheckBox();
         scpWeaponManufacturers = new javax.swing.JScrollPane();
+        scpManufacturers = new javax.swing.JScrollPane();
         tblWeaponManufacturers = new javax.swing.JTable();
         txtManufacturerLocation = new javax.swing.JTextField();
         jLabel90 = new javax.swing.JLabel();
@@ -1387,7 +1392,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         jTextAreaBFConversion = new javax.swing.JTextArea();
         pnlImage = new javax.swing.JPanel();
         lblFluffImage = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        pnlImageButtons = new javax.swing.JPanel();
         btnLoadImage = new javax.swing.JButton();
         btnClearImage = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -1763,14 +1768,14 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                             .addComponent(jLabel1, GroupLayout.Alignment.TRAILING))
                         .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtVehicleName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                             .addGroup(GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addGroup(GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                                     .addGap(2, 2, 2)
                                     .addComponent(txtSource, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel5Layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(txtModel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(24, Short.MAX_VALUE))
             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -1804,7 +1809,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel81)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
@@ -1822,14 +1827,14 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                     .addComponent(cmbTechBase, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addComponent(lblEraYears)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(lblProdYear))
                     .addComponent(txtProdYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbProductionEra, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkYearRestrict)
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1977,9 +1982,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                     .addGroup(pnlChassisLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                         .addGroup(pnlChassisLayout.createSequentialGroup()
                             .addComponent(jLabel32)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(cmbTurret, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(spnTurretTonnage))
                         .addGroup(pnlChassisLayout.createSequentialGroup()
                             .addComponent(jLabel9)
@@ -1990,9 +1995,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                     .addComponent(jLabel8)
                     .addGap(2, 2, 2)
                     .addComponent(spnTonnage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblVeeClass)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(lblVeeLimits)))
             .addGroup(pnlChassisLayout.createSequentialGroup()
                 .addContainerGap()
@@ -2027,12 +2032,12 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                         .addGap(3, 3, 3)
                         .addComponent(jLabel9))
                     .addComponent(cmbEngineType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlChassisLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel32)
                     .addComponent(cmbTurret, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(spnTurretTonnage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlChassisLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(pnlChassisLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
@@ -2246,17 +2251,17 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             pnlExperimentalLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(pnlExperimentalLayout.createSequentialGroup()
                 .addComponent(chkArmoredMotive)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkSupercharger)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkCommandConsole)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkMinesweeper)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(chkJetBooster)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkEscapePod)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkSponsonTurret)
                 .addContainerGap())
         );
@@ -3074,14 +3079,14 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlLeftArmor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                     .addComponent(pnlFrontArmor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(pnlRearTurretArmor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(pnlRearArmor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(pnlTurretArmor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(pnlRotorArmor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlRightArmor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -3094,7 +3099,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                         .addComponent(pnlLeftArmor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(pnlFrontArmor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
@@ -3104,7 +3109,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                                     .addComponent(pnlRightArmor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                     .addComponent(pnlRotorArmor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 11, GroupLayout.PREFERRED_SIZE)
                 .addComponent(pnlRearTurretArmor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlRearArmor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -3185,9 +3190,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                         .addGap(3, 3, 3)
                         .addComponent(jLabel52))
                     .addComponent(cmbArmorType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkBalanceLRArmor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkBalanceFRArmor)
                 .addGap(0, 0, 0)
                 .addComponent(btnSetArmorTons)
@@ -3266,7 +3271,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                     .addComponent(pnlChassisMods, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlMovement, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlBasicSetupLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                     .addComponent(pnlExperimental, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel11, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -3276,9 +3281,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                     .addComponent(pnlSummary, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlOmniInfo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlInformation, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlBasicSetupLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel8, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -3290,24 +3295,24 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 .addGroup(pnlBasicSetupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBasicSetupLayout.createSequentialGroup()
                         .addComponent(jPanel7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlBasicSetupLayout.createSequentialGroup()
                         .addComponent(pnlChassis, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlExperimental, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlBasicSetupLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
                         .addGroup(pnlBasicSetupLayout.createSequentialGroup()
                             .addComponent(pnlOmniInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(pnlSummary, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(pnlInformation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addGroup(GroupLayout.Alignment.LEADING, pnlBasicSetupLayout.createSequentialGroup()
                             .addComponent(jPanel5, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(pnlMovement, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(pnlChassisMods, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE))
@@ -3784,7 +3789,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlSelected.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Selected Equipment"));
         pnlSelected.setMaximumSize(new java.awt.Dimension(250, 1000));
         pnlSelected.setMinimumSize(new java.awt.Dimension(150, 250));
-        pnlSelected.setLayout(new javax.swing.BoxLayout(pnlSelected, javax.swing.BoxLayout.LINE_AXIS));
+        pnlSelected.setLayout(new BoxLayout(pnlSelected, BoxLayout.LINE_AXIS));
 
         lstSelectedEquipment.setModel( new javax.swing.DefaultListModel());
         lstSelectedEquipment.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -3852,7 +3857,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         scrBallistic.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrBallistic.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrBallistic.setViewportView(lstChooseBallistic);
-        pnlBallistic.setLayout(new javax.swing.BoxLayout(pnlBallistic, javax.swing.BoxLayout.Y_AXIS));
+        pnlBallistic.setLayout(new BoxLayout(pnlBallistic, BoxLayout.Y_AXIS));
         pnlBallistic.add(scrBallistic);
 
         lstChooseEnergy.setModel(new javax.swing.AbstractListModel() {
@@ -3880,7 +3885,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         scrEnergy.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrEnergy.setViewportView(lstChooseEnergy);
 
-        pnlEnergy.setLayout(new javax.swing.BoxLayout(pnlEnergy, javax.swing.BoxLayout.Y_AXIS));
+        pnlEnergy.setLayout(new BoxLayout(pnlEnergy, BoxLayout.Y_AXIS));
         pnlEnergy.add(scrEnergy);
 
         lstChooseMissile.setModel(new javax.swing.AbstractListModel() {
@@ -3906,7 +3911,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         scrMissile.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrMissile.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrMissile.setViewportView(lstChooseMissile);
-        pnlMissile.setLayout(new javax.swing.BoxLayout(pnlMissile, javax.swing.BoxLayout.Y_AXIS));
+        pnlMissile.setLayout(new BoxLayout(pnlMissile, BoxLayout.Y_AXIS));
         pnlMissile.add(scrMissile);
 
         lstChoosePhysical.setModel(new javax.swing.AbstractListModel() {
@@ -3932,7 +3937,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         scrPhysical.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrPhysical.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrPhysical.setViewportView(lstChoosePhysical);
-        pnlPhysical.setLayout(new javax.swing.BoxLayout(pnlPhysical, javax.swing.BoxLayout.Y_AXIS));
+        pnlPhysical.setLayout(new BoxLayout(pnlPhysical, BoxLayout.Y_AXIS));
         pnlPhysical.add(scrPhysical);
 
         lstChooseEquipment.setModel(new javax.swing.AbstractListModel() {
@@ -3958,7 +3963,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         scrEquipment.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrEquipment.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrEquipment.setViewportView(lstChooseEquipment);
-        pnlEquipmentChooser.setLayout(new javax.swing.BoxLayout(pnlEquipmentChooser, javax.swing.BoxLayout.Y_AXIS));
+        pnlEquipmentChooser.setLayout(new BoxLayout(pnlEquipmentChooser, BoxLayout.Y_AXIS));
         pnlEquipmentChooser.add(scrEquipment);
 
         lstChooseArtillery.setModel(new javax.swing.AbstractListModel() {
@@ -3984,7 +3989,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         scrArtillery.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrArtillery.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrArtillery.setViewportView(lstChooseArtillery);
-        pnlArtillery.setLayout(new javax.swing.BoxLayout(pnlArtillery, javax.swing.BoxLayout.Y_AXIS));
+        pnlArtillery.setLayout(new BoxLayout(pnlArtillery, BoxLayout.Y_AXIS));
         pnlArtillery.add(scrArtillery);
 
         lstChooseAmmunition.setModel(new javax.swing.AbstractListModel() {
@@ -4010,7 +4015,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         scrAmmo.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrAmmo.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrAmmo.setViewportView(lstChooseAmmunition);
-        pnlAmmunition.setLayout(new javax.swing.BoxLayout(pnlAmmunition, javax.swing.BoxLayout.Y_AXIS));
+        pnlAmmunition.setLayout(new BoxLayout(pnlAmmunition, BoxLayout.Y_AXIS));
         pnlAmmunition.add(scrAmmo);
 
         tbpWeaponChooser.addTab("Ballistic", pnlBallistic);
@@ -4042,7 +4047,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                     .addGroup(pnlEquipmentLayout.createSequentialGroup()
                         .addComponent(pnlControls, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(pnlSpecials, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(pnlEquipmentLayout.createSequentialGroup()
                 .addComponent(pnlEquipInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
         );
@@ -4083,143 +4088,35 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlExport.add(btnExportMTF, gridBagConstraints);
 
         tbpFluffEditors.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-        //tbpFluffEditors.setMaximumSize(new java.awt.Dimension(420, 455));
-        //tbpFluffEditors.setMinimumSize(new java.awt.Dimension(420, 455));
+        tbpFluffEditors.setMaximumSize(new java.awt.Dimension(1000, 1000));
+        tbpFluffEditors.setMinimumSize(new java.awt.Dimension(420, 455));
 
         //pnlOverview.setMaximumSize(new java.awt.Dimension(427, 485));
         //pnlOverview.setMinimumSize(new java.awt.Dimension(427, 485));
-        pnlOverview.setLayout(new javax.swing.BoxLayout(pnlOverview, javax.swing.BoxLayout.Y_AXIS));
+        pnlOverview.setLayout(new BoxLayout(pnlOverview, BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Overview", pnlOverview);
 
         //pnlCapabilities.setMaximumSize(new java.awt.Dimension(427, 485));
         //pnlCapabilities.setMinimumSize(new java.awt.Dimension(427, 485));
-        pnlCapabilities.setLayout(new javax.swing.BoxLayout(pnlCapabilities, javax.swing.BoxLayout.Y_AXIS));
+        pnlCapabilities.setLayout(new BoxLayout(pnlCapabilities, BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Capabilities", pnlCapabilities);
 
-        pnlHistory.setLayout(new javax.swing.BoxLayout(pnlHistory, javax.swing.BoxLayout.Y_AXIS));
+        pnlHistory.setLayout(new BoxLayout(pnlHistory, BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Battle History", pnlHistory);
 
-        pnlDeployment.setLayout(new javax.swing.BoxLayout(pnlDeployment, javax.swing.BoxLayout.Y_AXIS));
+        pnlDeployment.setLayout(new BoxLayout(pnlDeployment, BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Deployment", pnlDeployment);
 
-        pnlVariants.setLayout(new javax.swing.BoxLayout(pnlVariants, javax.swing.BoxLayout.Y_AXIS));
+        pnlVariants.setLayout(new BoxLayout(pnlVariants, BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Variants", pnlVariants);
 
-        pnlNotables.setLayout(new javax.swing.BoxLayout(pnlNotables, javax.swing.BoxLayout.Y_AXIS));
+        pnlNotables.setLayout(new BoxLayout(pnlNotables, BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Notables", pnlNotables);
 
-        pnlAdditionalFluff.setLayout(new javax.swing.BoxLayout(pnlAdditionalFluff, javax.swing.BoxLayout.Y_AXIS));
+        pnlAdditionalFluff.setLayout(new BoxLayout(pnlAdditionalFluff, BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Additional", pnlAdditionalFluff);
 
-        pnlManufacturers.setLayout(new java.awt.GridBagLayout());
-
-        jLabel82.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel82.setText("Manufacturer Information");
-        jLabel82.setMaximumSize(new java.awt.Dimension(175, 15));
-        jLabel82.setMinimumSize(new java.awt.Dimension(175, 15));
-        jLabel82.setPreferredSize(new java.awt.Dimension(175, 15));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 0);
-        pnlManufacturers.add(jLabel82, gridBagConstraints);
-
-        jLabel83.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jLabel83.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel83.setText("Manufacturing Company:");
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
-        pnlManufacturers.add(jLabel83, gridBagConstraints);
-
-        jLabel84.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jLabel84.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel84.setText("Location:");
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 76;
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        pnlManufacturers.add(jLabel84, gridBagConstraints);
-
-        jLabel85.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jLabel85.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel85.setText("Engine Manufacturer:");
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 17;
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        pnlManufacturers.add(jLabel85, gridBagConstraints);
-
-        jLabel86.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jLabel86.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel86.setText("Armor Model:");
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 56;
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        pnlManufacturers.add(jLabel86, gridBagConstraints);
-
-        jLabel87.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jLabel87.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel87.setText("Chassis Model:");
-        jLabel87.setEnabled(false);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 47;
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        pnlManufacturers.add(jLabel87, gridBagConstraints);
-
-        jLabel88.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jLabel88.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel88.setText("Communications System:");
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        pnlManufacturers.add(jLabel88, gridBagConstraints);
-
-        jLabel89.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jLabel89.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel89.setText("Targeting and Tracking:");
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 7;
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        pnlManufacturers.add(jLabel89, gridBagConstraints);
-
-        txtManufacturer.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 184;
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 2, 0, 11);
-        pnlManufacturers.add(txtManufacturer, gridBagConstraints);
-        MouseListener mlManufacturer = new MouseAdapter() {
+        MouseListener showFluff = new MouseAdapter() {
             public void mouseReleased( MouseEvent e ) {
                 if( e.isPopupTrigger() ) {
                     mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
@@ -4231,152 +4128,42 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 }
             }
         };
-        txtManufacturer.addMouseListener( mlManufacturer );
 
-        txtEngineManufacturer.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 184;
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
-        pnlManufacturers.add(txtEngineManufacturer, gridBagConstraints);
-        MouseListener mlEngineManufacturer = new MouseAdapter() {
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-        };
-        txtEngineManufacturer.addMouseListener( mlEngineManufacturer );
+        lblManuInfo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblManuInfo.setText("Manufacturer Information");
 
-        txtArmorModel.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 184;
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
-        pnlManufacturers.add(txtArmorModel, gridBagConstraints);
-        MouseListener mlArmorModel = new MouseAdapter() {
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-        };
-        txtArmorModel.addMouseListener( mlArmorModel );
-
-        txtChassisModel.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        txtChassisModel.setEnabled(false);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 184;
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
-        pnlManufacturers.add(txtChassisModel, gridBagConstraints);
-        MouseListener mlChassisModel = new MouseAdapter() {
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-        };
-        txtChassisModel.addMouseListener( mlChassisModel );
-
-        txtCommSystem.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 184;
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
-        pnlManufacturers.add(txtCommSystem, gridBagConstraints);
-        MouseListener mlCommSystem = new MouseAdapter() {
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-        };
-        txtCommSystem.addMouseListener( mlCommSystem );
-
-        txtTNTSystem.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 184;
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
-        pnlManufacturers.add(txtTNTSystem, gridBagConstraints);
-        MouseListener mlTNTSystem = new MouseAdapter() {
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-        };
-        txtTNTSystem.addMouseListener( mlTNTSystem );
+        pnlManufacturers.setLayout(new BoxLayout(pnlManufacturers, BoxLayout.Y_AXIS));
+        pnlManufacturers.setPreferredSize(new Dimension(400, 100));
+        pnlManufacturers.add(lblManuInfo);
+        pnlManufacturers.add(DataEntry("Manufacturing Company:", txtManufacturer, showFluff));
+        pnlManufacturers.add(DataEntry("Location:", txtManufacturerLocation, showFluff));
+        pnlManufacturers.add(DataEntry("Chassis Model:", txtChassisModel, showFluff));
+        pnlManufacturers.add(DataEntry("Engine Manufacturer:", txtEngineManufacturer, showFluff));
+        pnlManufacturers.add(DataEntry("Armor Model:", txtArmorModel, showFluff));
+        pnlManufacturers.add(DataEntry("Communications System:", txtCommSystem, showFluff));
+        pnlManufacturers.add(DataEntry("Targeting and Tracking:", txtTNTSystem, showFluff));
 
         pnlWeaponsManufacturers.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Weapons Manufacturers", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
         pnlWeaponsManufacturers.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        pnlWeaponsManufacturers.setMinimumSize(new java.awt.Dimension(315, 260));
-        pnlWeaponsManufacturers.setLayout(new java.awt.GridBagLayout());
+        pnlWeaponsManufacturers.setMinimumSize(new java.awt.Dimension(200, 200));
+        pnlWeaponsManufacturers.setLayout(new BoxLayout(pnlWeaponsManufacturers, BoxLayout.Y_AXIS));
 
         chkIndividualWeapons.setText("Assign manufacturers individually");
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 10, 4, 0);
-        pnlWeaponsManufacturers.add(chkIndividualWeapons, gridBagConstraints);
-
-        scpWeaponManufacturers.setPreferredSize(new java.awt.Dimension(452, 392));
+        pnlWeaponsManufacturers.add(chkIndividualWeapons);
 
         tblWeaponManufacturers.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Weapon", "Manufacturer"
-            }
+                new Object [][] {
+                        {null, null},
+                        {null, null},
+                        {null, null},
+                        {null, null}
+                },
+                new String [] {
+                        "Weapon", "Manufacturer"
+                }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true
+                    false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -4384,85 +4171,13 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             }
         });
         scpWeaponManufacturers.setViewportView(tblWeaponManufacturers);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.ipadx = 280;
-        gridBagConstraints.ipady = 180;
-        pnlWeaponsManufacturers.add(scpWeaponManufacturers, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 10, 2, 10);
-        pnlManufacturers.add(pnlWeaponsManufacturers, gridBagConstraints);
-
-        txtManufacturerLocation.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 184;
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
-        pnlManufacturers.add(txtManufacturerLocation, gridBagConstraints);
-        MouseListener mlManufacturerLocation = new MouseAdapter() {
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-        };
-        txtManufacturerLocation.addMouseListener( mlManufacturerLocation );
-
-        jLabel90.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jLabel90.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel90.setText("Jump Jet Model:");
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 44;
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        pnlManufacturers.add(jLabel90, gridBagConstraints);
-
-        txtJJModel.setEnabled(false);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 184;
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 11);
-        pnlManufacturers.add(txtJJModel, gridBagConstraints);
-        MouseListener mlJJModel = new MouseAdapter() {
-            public void mouseReleased( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-            public void mousePressed( MouseEvent e ) {
-                if( e.isPopupTrigger() ) {
-                    mnuFluff.show( e.getComponent(), e.getX(), e.getY() );
-                }
-            }
-        };
-        txtJJModel.addMouseListener( mlJJModel );
+        pnlWeaponsManufacturers.add(scpWeaponManufacturers);
+        pnlManufacturers.add(pnlWeaponsManufacturers);
 
         tbpFluffEditors.addTab("Manufacturers", pnlManufacturers);
 
         lblBattleMechQuirks.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblBattleMechQuirks.setText("Quirks");
-        lblBattleMechQuirks.setMaximumSize(new java.awt.Dimension(175, 15));
-        lblBattleMechQuirks.setMinimumSize(new java.awt.Dimension(175, 15));
-        lblBattleMechQuirks.setPreferredSize(new java.awt.Dimension(175, 15));
 
         tblQuirks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -4519,9 +4234,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             pnlQuirksLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(pnlQuirksLayout.createSequentialGroup()
                 .addComponent(lblBattleMechQuirks, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scpQuirkTable, GroupLayout.PREFERRED_SIZE, 389, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAddQuirk)
                 .addContainerGap())
         );
@@ -4630,12 +4345,11 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlImage.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Fluff Image", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
 
         lblFluffImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFluffImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lblFluffImage.setMaximumSize(new java.awt.Dimension(375, 260));
         lblFluffImage.setMinimumSize(new java.awt.Dimension(375, 260));
         lblFluffImage.setPreferredSize(new java.awt.Dimension(350, 350));
 
-        jPanel1.setLayout(new java.awt.GridBagLayout());
+        pnlImageButtons.setLayout(new java.awt.GridBagLayout());
 
         btnLoadImage.setText("Load Image");
         btnLoadImage.addActionListener(new java.awt.event.ActionListener() {
@@ -4643,7 +4357,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 btnLoadImageActionPerformed(evt);
             }
         });
-        jPanel1.add(btnLoadImage, new GridBagConstraints());
+        pnlImageButtons.add(btnLoadImage, new GridBagConstraints());
 
         btnClearImage.setText("Clear Image");
         btnClearImage.addActionListener(new java.awt.event.ActionListener() {
@@ -4654,20 +4368,20 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        jPanel1.add(btnClearImage, gridBagConstraints);
+        pnlImageButtons.add(btnClearImage, gridBagConstraints);
 
         GroupLayout pnlImageLayout = new GroupLayout(pnlImage);
         pnlImage.setLayout(pnlImageLayout);
         pnlImageLayout.setHorizontalGroup(
             pnlImageLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlImageButtons, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
             .addComponent(lblFluffImage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         );
         pnlImageLayout.setVerticalGroup(
             pnlImageLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(pnlImageLayout.createSequentialGroup()
-                .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
+                .addComponent(pnlImageButtons, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblFluffImage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -4679,9 +4393,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             .addGroup(pnlFluffLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlImage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbpFluffEditors, GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tbpFluffEditors, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlFluffLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(pnlFluffLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                         .addComponent(pnlBFStats, GroupLayout.PREFERRED_SIZE, 378, GroupLayout.PREFERRED_SIZE)
@@ -4690,19 +4404,19 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 .addContainerGap())
         );
         pnlFluffLayout.setVerticalGroup(
-            pnlFluffLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            pnlFluffLayout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
             .addGroup(pnlFluffLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlFluffLayout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
                     .addGroup(pnlFluffLayout.createSequentialGroup()
                         .addComponent(pnlBFStats, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel10, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlExport, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addComponent(tbpFluffEditors, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlExport, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tbpFluffEditors, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                     .addComponent(pnlImage, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                    .addContainerGap())
         );
 
         tbpMainTabPane.addTab("Fluff and BattleForce", pnlFluff);
@@ -4982,6 +4696,31 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pack();
     }
 
+    private JPanel DataEntry(String label, JTextField input, MouseListener listener) {
+        JPanel entry = new JPanel();
+        entry.setLayout(new BoxLayout(entry, BoxLayout.X_AXIS));
+
+        JLabel dataLabel = new JLabel();
+        dataLabel.setText(label);
+        dataLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        dataLabel.setPreferredSize(new Dimension(150, 20));
+
+        input.setFont(new java.awt.Font("Arial", 0, 11));
+        input.addMouseListener(listener);
+
+        entry.add(dataLabel);
+        entry.add(input);
+
+        return entry;
+    }
+    private GridBagConstraints placeItem(int x, int y, int top, int left, int bottom, int right) {
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = x;
+        gridBagConstraints.gridy = y;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(top, left, bottom, right);
+        return gridBagConstraints;
+    }
     private void RefreshSummary() {
         // refreshes the display completely using info from the mech.
         txtSumEngTons.setText( "" + CurVee.GetEngineTonnage() );
@@ -6111,6 +5850,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         //Reset Manufacturers
         tblWeaponManufacturers.setModel( new javax.swing.table.AbstractTableModel() {
+
             @Override
             public String getColumnName( int col ) {
                 if( col == 1 ) {
@@ -6119,7 +5859,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                     return "Item Name";
                 }
             }
-            public int getRowCount() { return CurVee.GetLoadout().GetEquipment().size(); }
+            public int getRowCount() { return CurVee.GetLoadout().GetEquipment().size() + 5; }
             public int getColumnCount() { return 2; }
             public Object getValueAt( int row, int col ) {
                 Object o = CurVee.GetLoadout().GetEquipment().get( row );
@@ -6947,6 +6687,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         media.blankLogo(lblFluffImage);
         media.setLogo(lblFluffImage, media.DetermineMatchingImage(CurVee.GetName(), CurVee.GetModel(), CurVee.GetSSWImage()));
 
+        quirks = CurVee.GetQuirks();
         Overview.SetText( CurVee.getOverview() );
         Capabilities.SetText( CurVee.getCapabilities() );
         History.SetText( CurVee.getHistory() );
@@ -7515,12 +7256,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     }
 
     private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {
-        /*
-         * dlgQuirks qmanage = new dlgQuirks(this, true, data, quirks);
-         * qmanage.setLocationRelativeTo(this); qmanage.setVisible(true);
-         * tblQuirks.setModel(new tbQuirks(quirks));
-         *
-         */
+       dlgQuirks qmanage = new dlgQuirks(this, true, data, quirks);
+       qmanage.setLocationRelativeTo(this); qmanage.setVisible(true);
+       tblQuirks.setModel(new tbQuirks(quirks));
     }
 
     private void btnExportMTFActionPerformed(java.awt.event.ActionEvent evt) {
@@ -9800,7 +9538,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
-    private javax.swing.JLabel jLabel82;
+    private javax.swing.JLabel lblManuInfo;
     private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel85;
@@ -9815,7 +9553,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JLabel jLabel93;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel pnlImageButtons;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel5;
@@ -9988,6 +9726,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JPanel pnlWeaponsManufacturers;
     private javax.swing.JScrollPane scpQuirkTable;
     private javax.swing.JScrollPane scpWeaponManufacturers;
+    private javax.swing.JScrollPane scpManufacturers;
     private javax.swing.JSpinner spnCruiseMP;
     private javax.swing.JSpinner spnFrontArmor;
     private javax.swing.JSpinner spnHeatSinks;
