@@ -37,11 +37,9 @@ import Print.preview.dlgPreview;
 import battleforce.BattleForceStats;
 import common.*;
 import components.*;
-import dialog.dlgQuirks;
 import dialog.frmForce;
 import filehandlers.*;
 import gui.TextPane;
-import list.view.tbQuirks;
 import saw.filehandlers.HTMLWriter;
 import states.ifState;
 import visitors.VArmorSetPatchworkLocation;
@@ -92,7 +90,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private ImageTracker imageTracker = new ImageTracker();
     public dlgOpen dOpen = new dlgOpen(this, true);
     public frmForce dForce = new frmForce(this, imageTracker);
-    public ArrayList<Quirk> quirks = new ArrayList<Quirk>();
+
     TextPane Overview = new TextPane();
     TextPane Capabilities = new TextPane();
     TextPane Deployment = new TextPane();
@@ -6687,7 +6685,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         media.blankLogo(lblFluffImage);
         media.setLogo(lblFluffImage, media.DetermineMatchingImage(CurVee.GetName(), CurVee.GetModel(), CurVee.GetSSWImage()));
 
-        quirks = CurVee.GetQuirks();
         Overview.SetText( CurVee.getOverview() );
         Capabilities.SetText( CurVee.getCapabilities() );
         History.SetText( CurVee.getHistory() );
@@ -7256,9 +7253,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     }
 
     private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {
-       dlgQuirks qmanage = new dlgQuirks(this, true, data, quirks);
-       qmanage.setLocationRelativeTo(this); qmanage.setVisible(true);
-       tblQuirks.setModel(new tbQuirks(quirks));
+//       dlgQuirks qmanage = new dlgQuirks(this, true, data, quirks);
+//       qmanage.setLocationRelativeTo(this); qmanage.setVisible(true);
+//       tblQuirks.setModel(new tbQuirks(quirks));
     }
 
     private void btnExportMTFActionPerformed(java.awt.event.ActionEvent evt) {
