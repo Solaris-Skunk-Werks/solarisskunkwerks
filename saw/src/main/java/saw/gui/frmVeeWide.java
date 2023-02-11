@@ -214,6 +214,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlAdditionalFluff.add( Additional );
         pnlVariants.add( Variants );
         pnlNotables.add( Notables );
+
+        quirks = CurVee.GetQuirks();
         pack();
 
         
@@ -7098,6 +7100,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         RefreshInfoPane();
         SetWeaponChoosers();
         ResetAmmo();
+        RefreshQuirks();
 
         // load the fluff image.
         Media media = new Media();
@@ -7678,23 +7681,18 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 filtered.add(item);
             }
         }
-        dlgQuirks qmanage = new dlgQuirks(this, true, filtered, quirks);
+        dlgQuirks qmanage = new dlgQuirks(this, true, CurVee, filtered, quirks);
         qmanage.setLocationRelativeTo(this); qmanage.setVisible(true);
         tblQuirks.setModel(new tbQuirks(quirks));
     }
 
+    private void RefreshQuirks() {
+        tblQuirks.setModel(new tbQuirks(CurVee.GetQuirks()));
+    }
+
     private void ResetQuirks() {
         quirks = new ArrayList<>();
-        tblQuirks.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {null, null},
-                        {null, null},
-                        {null, null},
-                        {null, null}
-                },
-                new String [] {
-                        "Cost", "Quirk"
-                }));
+        tblQuirks.setModel(new tbQuirks(quirks));
         CurVee.SetQuirks(quirks);
     }
 
