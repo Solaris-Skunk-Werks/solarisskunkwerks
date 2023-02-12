@@ -48,7 +48,6 @@ import visitors.VSetArmorTonnage;
 import visitors.ifVisitor;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -67,8 +66,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     Preferences Prefs;
     String[] Selections = { "", "" };
     public DataFactory data;
-    private Cursor Hourglass = new Cursor( Cursor.WAIT_CURSOR );
-    private Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
+    private final Cursor Hourglass = new Cursor( Cursor.WAIT_CURSOR );
+    private final Cursor NormalCursor = new Cursor( Cursor.DEFAULT_CURSOR );
     boolean Load = false,
             isLocked = false,
             SetSource = true;
@@ -87,7 +86,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private final AvailableCode PulseModuleAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
     private final AvailableCode CaselessAmmoAC = new AvailableCode( AvailableCode.TECH_INNER_SPHERE );
 
-    private ImageTracker imageTracker = new ImageTracker();
+    private final ImageTracker imageTracker = new ImageTracker();
     public dlgOpen dOpen = new dlgOpen(this, true);
     public frmForce dForce = new frmForce(this, imageTracker);
 
@@ -101,7 +100,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
     JPopupMenu mnuUtilities = new JPopupMenu();
     JMenuItem mnuDetails = new JMenuItem( "Details" );
-    JMenuItem mnuMountRear = new JMenuItem( "Mount Rear" );
     JMenuItem mnuSetVariable = new JMenuItem( "Set Tonnage" );
     JMenuItem mnuSetLotSize = new JMenuItem( "Set Lot Size" );
     JMenuItem mnuArmorComponent = new JMenuItem( "Armor Component" );
@@ -135,11 +133,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         public void focusGained(FocusEvent e) {
             if ( e.getSource() instanceof JTextComponent ) {
                 final JTextComponent textComponent = ((JTextComponent)e.getSource());
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        textComponent.selectAll();
-                    }
-                });
+                SwingUtilities.invokeLater(textComponent::selectAll);
             }
         }
     };
@@ -215,110 +209,28 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlVariants.add( Variants );
         pnlNotables.add( Notables );
         pack();
-
         
-        mnuDetails.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GetInfoOn();
-                ShowInfoOn(CurItem);
-            }
+        mnuDetails.addActionListener(evt -> {
+            GetInfoOn();
+            ShowInfoOn(CurItem);
         });
 
-        mnuSetVariable.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetVariableSize();
-            }
-        });
-
-        mnuSetLotSize.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetAmmoLotSize();
-            }
-        });
-
-        mnuAddCapacitor.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                PPCCapacitor();
-            }
-        });
-
-        mnuAddInsulator.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                LaserInsulator();
-            }
-        });
-        
-        mnuAddPulseModule.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                PulseModule();
-            }
-        });
-
-        mnuDumper.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                DumperMount();
-            }
-        });
-
-        mnuCaseless.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwitchCaseless();
-            }
-        });
-
-        mnuVGLArcFore.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetVGLArcFore();
-            }
-        });
-
-        mnuVGLArcForeSide.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetVGLArcForeSide();
-            }
-        });
-
-        mnuVGLArcRear.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetVGLArcRear();
-            }
-        });
-
-        mnuVGLArcRearSide.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetVGLArcRearSide();
-            }
-        });
-
-        mnuVGLAmmoFrag.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetVGLAmmoFrag();
-            }
-        });
-
-        mnuVGLAmmoChaff.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetVGLAmmoChaff();
-            }
-        });
-
-        mnuVGLAmmoIncen.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetVGLAmmoIncendiary();
-            }
-        });
-
-        mnuVGLAmmoSmoke.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SetVGLAmmoSmoke();
-            }
-        });
-
-        mnuRemoveItem.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                RemoveItemCritTab();
-            }
-        });
+        mnuSetVariable.addActionListener(e -> SetVariableSize());
+        mnuSetLotSize.addActionListener(e -> SetAmmoLotSize());
+        mnuAddCapacitor.addActionListener(e -> PPCCapacitor());
+        mnuAddInsulator.addActionListener(e -> LaserInsulator());
+        mnuAddPulseModule.addActionListener(e -> PulseModule());
+        mnuDumper.addActionListener(e -> DumperMount());
+        mnuCaseless.addActionListener(e -> SwitchCaseless());
+        mnuVGLArcFore.addActionListener(e -> SetVGLArcFore());
+        mnuVGLArcForeSide.addActionListener(e -> SetVGLArcForeSide());
+        mnuVGLArcRear.addActionListener(e -> SetVGLArcRear());
+        mnuVGLArcRearSide.addActionListener(e -> SetVGLArcRearSide());
+        mnuVGLAmmoFrag.addActionListener(e -> SetVGLAmmoFrag());
+        mnuVGLAmmoChaff.addActionListener(e -> SetVGLAmmoChaff());
+        mnuVGLAmmoIncen.addActionListener(e -> SetVGLAmmoIncendiary());
+        mnuVGLAmmoSmoke.addActionListener(e -> SetVGLAmmoSmoke());
+        mnuRemoveItem.addActionListener(e -> RemoveItemCritTab());
 
         mnuVGLArc.setText( "Set VGL Arc" );
         mnuVGLArc.add( mnuVGLArcFore );
@@ -383,23 +295,11 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         ((JSpinner.DefaultEditor)spnRearTurretArmor.getEditor()).getTextField().addFocusListener(spinners);
         ((JSpinner.DefaultEditor)spnRotorArmor.getEditor()).getTextField().addFocusListener(spinners);
 
-        mnuFluffCut.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed( ActionEvent e ) {
-                FluffCut( mnuFluff.getInvoker() );
-            }
-        });
+        mnuFluffCut.addActionListener(e -> FluffCut( mnuFluff.getInvoker() ));
 
-        mnuFluffCopy.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                FluffCopy( mnuFluff.getInvoker() );
-            }
-        });
+        mnuFluffCopy.addActionListener(e -> FluffCopy( mnuFluff.getInvoker() ));
 
-        mnuFluffPaste.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                FluffPaste( mnuFluff.getInvoker() );
-            }
-        });
+        mnuFluffPaste.addActionListener(e -> FluffPaste( mnuFluff.getInvoker() ));
 
         mnuFluff.add( mnuFluffCut );
         mnuFluff.add( mnuFluffCopy );
@@ -427,11 +327,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             }
             @Override
             public boolean isCellEditable( int row, int col ) {
-                if( col == 0 ) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return col != 0;
             }
             @Override
             public void setValueAt( Object value, int row, int col ) {
@@ -443,9 +339,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                     fireTableCellUpdated( row, col );
                 } else {
                     ArrayList v = CurVee.GetLoadout().GetEquipment();
-                    for( int i = 0; i < v.size(); i++ ) {
-                        if( FileCommon.LookupStripArc( ((abPlaceable) v.get( i )).LookupName() ).equals( FileCommon.LookupStripArc( a.LookupName() ) ) ) {
-                            ((abPlaceable) v.get( i )).SetManufacturer( (String) value );
+                    for (Object o : v) {
+                        if (FileCommon.LookupStripArc(((abPlaceable) o).LookupName()).equals(FileCommon.LookupStripArc(a.LookupName()))) {
+                            ((abPlaceable) o).SetManufacturer((String) value);
                         }
                     }
                     fireTableDataChanged();
@@ -492,7 +388,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 CurVee.GetLoadout().Remove( p );
             } else {
                 ((RangedWeapon) CurItem).UseCapacitor( true );
-                abPlaceable p = ((RangedWeapon) CurItem).GetCapacitor();
                 LocationIndex Loc = CurVee.GetLoadout().FindIndex( CurItem );
                 if( Loc.Location != -1 ) {
                     try {
@@ -502,10 +397,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                         // couldn't allocate the capacitor?  Unallocate the PPC.
                         try {
                             CurVee.GetLoadout().UnallocateAll( CurItem, false );
-                            // remove the capacitor if it's in the queue
-                            //if( CurVee.GetLoadout().QueueContains( p ) ) {
-                            //    CurVee.GetLoadout().GetQueue().remove( p );
-                            //}
                         } catch( Exception e1 ) {
                             // failed big.  no problem
                             Media.Messager( this, "Fatal error adding a PPC Capacitor:\n" + e.getMessage() + "\nThe Capacitor will be removed." );
@@ -538,10 +429,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                         // couldn't allocate the insulator?  Unallocate the PPC.
                         try {
                             CurVee.GetLoadout().UnallocateAll( CurItem, false );
-                            // remove the insulator if it's in the queue
-                            //if( CurVee.GetLoadout().QueueContains( p ) ) {
-                            //    CurVee.GetLoadout().GetQueue().remove( p );
-                            //}
                         } catch( Exception e1 ) {
                             // failed big.  no problem
                             Media.Messager( this, "Fatal error adding a Laser Insulator:\n" + e.getMessage() + "\nThe Insulator will be removed." );
@@ -574,10 +461,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                         // couldn't allocate the insulator?  Unallocate the PPC.
                         try {
                             CurVee.GetLoadout().UnallocateAll( CurItem, false );
-                            // remove the insulator if it's in the queue
-                            //if( CurVee.GetLoadout().QueueContains( p ) ) {
-                            //    CurVee.GetLoadout().GetQueue().remove( p );
-                            //}
                         } catch( Exception e1 ) {
                             // failed big.  no problem
                             Media.Messager( this, "Fatal error adding a Laser Insulator:\n" + e.getMessage() + "\nThe Insulator will be removed." );
@@ -612,29 +495,29 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             ArrayList replace = new ArrayList();
             abPlaceable p;
             boolean HasOrig = false;
-            for( int i = 0; i < check.size(); i++ ) {
-                p = (abPlaceable) check.get( i );
-                if( p instanceof RangedWeapon ) {
-                    if( ((RangedWeapon) p).GetAmmoIndex() == origIDX ) {
+            for (Object o : check) {
+                p = (abPlaceable) o;
+                if (p instanceof RangedWeapon) {
+                    if (((RangedWeapon) p).GetAmmoIndex() == origIDX) {
                         HasOrig = true;
                     }
                 }
-                if( p instanceof Ammunition ) {
-                    replace.add( p );
+                if (p instanceof Ammunition) {
+                    replace.add(p);
                 }
             }
 
             // replace any ammo with the new stuff if there are no other original weapons
             if( ! HasOrig ) {
                 Object[] newammo = data.GetEquipment().GetAmmo( newIDX, CurVee );
-                for( int i = 0; i < replace.size(); i++ ) {
-                    p = (abPlaceable) replace.get( i );
-                    if( ((Ammunition) p).GetAmmoIndex() == origIDX ) {
-                        CurVee.GetLoadout().Remove( p );
-                        if( newammo.length > 0 ) {
-                            p = data.GetEquipment().GetCopy( (abPlaceable) newammo[0], CurVee);
+                for (Object o : replace) {
+                    p = (abPlaceable) o;
+                    if (((Ammunition) p).GetAmmoIndex() == origIDX) {
+                        CurVee.GetLoadout().Remove(p);
+                        if (newammo.length > 0) {
+                            p = data.GetEquipment().GetCopy((abPlaceable) newammo[0], CurVee);
                             try {
-                                CurVee.GetLoadout().AddTo( p, LocationIndex.CV_LOC_BODY );
+                                CurVee.GetLoadout().AddTo(p, LocationIndex.CV_LOC_BODY);
                             } catch (Exception ex) {
                                 Media.Messager(ex.getMessage());
                             }
@@ -791,19 +674,11 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             }
         }
         if( CurItem instanceof Equipment ) {
-            if( ((Equipment) CurItem).IsVariableSize() ) {
-                mnuSetVariable.setVisible( true );
-            } else {
-                mnuSetVariable.setVisible( false );
-            }
+            mnuSetVariable.setVisible(((Equipment) CurItem).IsVariableSize());
         } else {
             mnuSetVariable.setVisible( false );
         }
-        if( CurItem.CoreComponent() || CurItem.LocationLinked() ) {
-            mnuRemoveItem.setEnabled( false );
-        } else {
-            mnuRemoveItem.setEnabled( true );
-        }
+        mnuRemoveItem.setEnabled(!CurItem.CoreComponent() && !CurItem.LocationLinked());
     }
 
     private void RemoveItemCritTab() {
@@ -811,7 +686,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             CurVee.GetLoadout().Remove( CurItem );
 
             // refresh the selected equipment listbox
-            if( CurVee.GetLoadout().GetNonCore().toArray().length <= 0 ) {
+            if(CurVee.GetLoadout().GetNonCore().toArray().length == 0) {
                 Equipment[SELECTED] = new Object[] { " " };
             } else {
                 Equipment[SELECTED] = CurVee.GetLoadout().GetNonCore().toArray();
@@ -858,14 +733,12 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
     public boolean LegalLotChange( abPlaceable p ) {
         if( ! ( p instanceof Ammunition ) ) { return false; }
-        if( CurVee.UsingFractionalAccounting() ) { return true; }
-        return false;
+        return CurVee.UsingFractionalAccounting();
     }
 
     public boolean LegalDumper( abPlaceable p ) {
         if ( ! ( p instanceof Equipment ) ) { return false; }
-        if ( ( (Equipment)p).CritName().equals("Cargo Container") ) { return true; }
-        return false;
+        return p.CritName().equals("Cargo Container");
     }
 
     public void RefreshInfoPane() {
@@ -928,7 +801,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         }
         java.awt.datatransfer.StringSelection export = new java.awt.datatransfer.StringSelection( cut );
         java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
-        clipboard.setContents( export, (ClipboardOwner) this);
+        clipboard.setContents( export, this);
     }
 
     private void FluffCopy( Component c ) {
@@ -955,7 +828,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         }
         java.awt.datatransfer.StringSelection export = new java.awt.datatransfer.StringSelection( copy );
         java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
-        clipboard.setContents( export, (ClipboardOwner) this);
+        clipboard.setContents( export, this);
     }
 
     private void FluffPaste( Component c ) {
@@ -963,7 +836,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         char space = 20;
         char linereturn = 13;
         java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
-        String txtimport = null;
+        String txtimport;
         try {
             txtimport = (String) clipboard.getData( DataFlavor.stringFlavor );
             txtimport.replace(linereturn, space);
@@ -972,7 +845,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             e.printStackTrace();
             return;
         }
-        if( txtimport == null ) { return; }
         if( c instanceof JEditorPane ) {
             JEditorPane j = (JEditorPane) c;
             int insert = j.getCaretPosition();
@@ -992,15 +864,15 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         ArrayList v = CurVee.GetLoadout().GetNonCore(), wep = new ArrayList();
         Object a;
 
-        for( int i = 0; i < v.size(); i++ ) {
-            a = v.get( i );
-            if( a instanceof ifWeapon ) {
-                if( ((ifWeapon) a).HasAmmo() ) {
-                    wep.add( a );
+        for (Object o : v) {
+            a = o;
+            if (a instanceof ifWeapon) {
+                if (((ifWeapon) a).HasAmmo()) {
+                    wep.add(a);
                 }
-            } else if( a instanceof Equipment ) {
-                if( ((Equipment) a).HasAmmo() ) {
-                    wep.add( a );
+            } else if (a instanceof Equipment) {
+                if (((Equipment) a).HasAmmo()) {
+                    wep.add(a);
                 }
             }
         }
@@ -1035,7 +907,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private void initComponents() {
         GridBagConstraints gridBagConstraints;
 
-        pnlInfoPane = new javax.swing.JPanel();
+        JPanel pnlInfoPane = new JPanel();
         txtInfoTonnage = new javax.swing.JTextField();
         txtInfoFreeTons = new javax.swing.JTextField();
         txtInfoFreeCrits = new javax.swing.JTextField();
@@ -1043,76 +915,76 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtInfoBattleValue = new javax.swing.JTextField();
         txtInfoCost = new javax.swing.JTextField();
         tlbIconBar = new javax.swing.JToolBar();
-        btnNewVee = new javax.swing.JButton();
-        btnOpen = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JToolBar.Separator();
-        btnPrint = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JToolBar.Separator();
-        btnExportClipboardIcon = new javax.swing.JButton();
-        btnExportHTMLIcon = new javax.swing.JButton();
-        btnExportTextIcon = new javax.swing.JButton();
-        btnExportMTFIcon = new javax.swing.JButton();
-        btnChatInfo = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JToolBar.Separator();
-        jSeparator25 = new javax.swing.JToolBar.Separator();
-        btnAddToForceList = new javax.swing.JButton();
-        btnForceList = new javax.swing.JButton();
-        jSeparator4 = new javax.swing.JToolBar.Separator();
-        btnOptions = new javax.swing.JButton();
-        jSeparator21 = new javax.swing.JToolBar.Separator();
-        lblSelectVariant = new javax.swing.JLabel();
+        JButton btnNewVee = new JButton();
+        JButton btnOpen = new JButton();
+        JButton btnSave = new JButton();
+        JToolBar.Separator jSeparator1 = new JToolBar.Separator();
+        JButton btnPrint = new JButton();
+        JToolBar.Separator jSeparator2 = new JToolBar.Separator();
+        JButton btnExportClipboardIcon = new JButton();
+        JButton btnExportHTMLIcon = new JButton();
+        JButton btnExportTextIcon = new JButton();
+        JButton btnExportMTFIcon = new JButton();
+        JButton btnChatInfo = new JButton();
+        JToolBar.Separator jSeparator3 = new JToolBar.Separator();
+        JToolBar.Separator jSeparator25 = new JToolBar.Separator();
+        JButton btnAddToForceList = new JButton();
+        JButton btnForceList = new JButton();
+        JToolBar.Separator jSeparator4 = new JToolBar.Separator();
+        JButton btnOptions = new JButton();
+        JToolBar.Separator jSeparator21 = new JToolBar.Separator();
+        JLabel lblSelectVariant = new JLabel();
         cmbOmniVariant = new javax.swing.JComboBox();
         tbpMainTabPane = new javax.swing.JTabbedPane();
         pnlBasicSetup = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        JPanel jPanel5 = new JPanel();
+        JLabel jLabel1 = new JLabel();
         txtVehicleName = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        JLabel jLabel4 = new JLabel();
         txtModel = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        JLabel jLabel2 = new JLabel();
         cmbRulesLevel = new javax.swing.JComboBox();
-        jLabel5 = new javax.swing.JLabel();
+        JLabel jLabel5 = new JLabel();
         cmbEra = new javax.swing.JComboBox();
-        jLabel3 = new javax.swing.JLabel();
+        JLabel jLabel3 = new JLabel();
         cmbTechBase = new javax.swing.JComboBox();
         lblEraYears = new javax.swing.JLabel();
         chkYearRestrict = new javax.swing.JCheckBox();
-        jLabel81 = new javax.swing.JLabel();
+        JLabel jLabel81 = new JLabel();
         txtSource = new javax.swing.JTextField();
-        lblProdYear = new javax.swing.JLabel();
+        JLabel lblProdYear = new JLabel();
         txtProdYear = new javax.swing.JTextField();
         cmbProductionEra = new javax.swing.JComboBox();
-        pnlChassis = new javax.swing.JPanel();
+        JPanel pnlChassis = new JPanel();
         cmbMotiveType = new javax.swing.JComboBox();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        JLabel jLabel7 = new JLabel();
+        JLabel jLabel8 = new JLabel();
         chkOmniVee = new javax.swing.JCheckBox();
         chkTrailer = new javax.swing.JCheckBox();
         spnTonnage = new javax.swing.JSpinner();
-        jLabel9 = new javax.swing.JLabel();
+        JLabel jLabel9 = new JLabel();
         cmbEngineType = new javax.swing.JComboBox();
-        jLabel32 = new javax.swing.JLabel();
+        JLabel jLabel32 = new JLabel();
         cmbTurret = new javax.swing.JComboBox();
         lblVeeClass = new javax.swing.JLabel();
         lblVeeLimits = new javax.swing.JLabel();
-        jLabel91 = new javax.swing.JLabel();
+        JLabel jLabel91 = new JLabel();
         spnHeatSinks = new javax.swing.JSpinner();
         spnTurretTonnage = new javax.swing.JSpinner();
-        pnlMovement = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        JPanel pnlMovement = new JPanel();
+        JLabel jLabel10 = new JLabel();
         spnCruiseMP = new javax.swing.JSpinner();
-        jLabel11 = new javax.swing.JLabel();
+        JLabel jLabel11 = new JLabel();
         lblFlankMP = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        JLabel jLabel13 = new JLabel();
         spnJumpMP = new javax.swing.JSpinner();
-        pnlChassisMods = new javax.swing.JPanel();
+        JPanel pnlChassisMods = new JPanel();
         chkFlotationHull = new javax.swing.JCheckBox();
         chkLimitedAmph = new javax.swing.JCheckBox();
         chkFullAmph = new javax.swing.JCheckBox();
         chkDuneBuggy = new javax.swing.JCheckBox();
         chkEnviroSealing = new javax.swing.JCheckBox();
-        pnlExperimental = new javax.swing.JPanel();
+        JPanel pnlExperimental = new JPanel();
         chkArmoredMotive = new javax.swing.JCheckBox();
         chkCommandConsole = new javax.swing.JCheckBox();
         chkEscapePod = new javax.swing.JCheckBox();
@@ -1120,213 +992,214 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         chkJetBooster = new javax.swing.JCheckBox();
         chkSupercharger = new javax.swing.JCheckBox();
         chkSponsonTurret = new javax.swing.JCheckBox();
-        jPanel11 = new javax.swing.JPanel();
+        JPanel jPanel11 = new JPanel();
         chkFractional = new javax.swing.JCheckBox();
-        pnlSummary = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        JPanel pnlSummary = new JPanel();
+        JLabel jLabel12 = new JLabel();
+        JLabel jLabel14 = new JLabel();
+        JLabel jLabel15 = new JLabel();
+        JLabel jLabel16 = new JLabel();
+        JLabel jLabel17 = new JLabel();
         txtSumIntTons = new javax.swing.JTextField();
         txtSumIntAV = new javax.swing.JTextField();
-        jLabel18 = new javax.swing.JLabel();
+        JLabel jLabel18 = new JLabel();
         txtSumEngTons = new javax.swing.JTextField();
         txtSumEngAV = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
+        JLabel jLabel19 = new JLabel();
         txtSumLifTons = new javax.swing.JTextField();
         txtSumLifAV = new javax.swing.JTextField();
         txtSumEngSpace = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
+        JLabel jLabel20 = new JLabel();
         txtSumConTons = new javax.swing.JTextField();
         txtSumConAV = new javax.swing.JTextField();
-        jLabel21 = new javax.swing.JLabel();
+        JLabel jLabel21 = new JLabel();
         txtSumJJTons = new javax.swing.JTextField();
-        txtSumJJSpace = new javax.swing.JTextField();
+        JTextField txtSumJJSpace = new JTextField();
         txtSumJJAV = new javax.swing.JTextField();
-        jLabel22 = new javax.swing.JLabel();
+        JLabel jLabel22 = new JLabel();
         txtSumHSTons = new javax.swing.JTextField();
         txtSumHSAV = new javax.swing.JTextField();
-        jLabel23 = new javax.swing.JLabel();
+        JLabel jLabel23 = new JLabel();
         txtSumArmTons = new javax.swing.JTextField();
         txtSumArmSpace = new javax.swing.JTextField();
         txtSumArmAV = new javax.swing.JTextField();
-        jLabel24 = new javax.swing.JLabel();
+        JLabel jLabel24 = new JLabel();
         txtSumTurTons = new javax.swing.JTextField();
         txtSumTurAV = new javax.swing.JTextField();
-        jLabel25 = new javax.swing.JLabel();
+        JLabel jLabel25 = new JLabel();
         txtSumRTuTons = new javax.swing.JTextField();
         txtSumRTuAV = new javax.swing.JTextField();
-        jLabel26 = new javax.swing.JLabel();
+        JLabel jLabel26 = new JLabel();
         txtSumSpnTons = new javax.swing.JTextField();
         txtSumSpnAV = new javax.swing.JTextField();
-        jLabel27 = new javax.swing.JLabel();
+        JLabel jLabel27 = new JLabel();
         txtSumPATons = new javax.swing.JTextField();
         txtSumPAAV = new javax.swing.JTextField();
-        pnlInformation = new javax.swing.JPanel();
-        titleSuspension = new javax.swing.JLabel();
+        JPanel pnlInformation = new JPanel();
+        JLabel titleSuspension = new JLabel();
         lblSupensionFacter = new javax.swing.JLabel();
-        titleMinEngTon = new javax.swing.JLabel();
+        JLabel titleMinEngTon = new JLabel();
         lblMinEngineTons = new javax.swing.JLabel();
-        titleBaseEngRate = new javax.swing.JLabel();
+        JLabel titleBaseEngRate = new JLabel();
         lblBaseEngineRating = new javax.swing.JLabel();
-        titleFinalEngRate = new javax.swing.JLabel();
+        JLabel titleFinalEngRate = new JLabel();
         lblFinalEngineRating = new javax.swing.JLabel();
-        titleFreeHeatSinks = new javax.swing.JLabel();
+        JLabel titleFreeHeatSinks = new JLabel();
         lblFreeHeatSinks = new javax.swing.JLabel();
-        titleCrew = new javax.swing.JLabel();
+        JLabel titleCrew = new JLabel();
         lblNumCrew = new javax.swing.JLabel();
-        pnlOmniInfo = new javax.swing.JPanel();
+        JPanel pnlOmniInfo = new JPanel();
         btnLockChassis = new javax.swing.JButton();
         btnAddVariant = new javax.swing.JButton();
         btnDeleteVariant = new javax.swing.JButton();
         btnRenameVariant = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        pnlRightArmor = new javax.swing.JPanel();
+        JPanel jPanel6 = new JPanel();
+        JPanel pnlRightArmor = new JPanel();
         lblRightIntPts = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
-        jLabel46 = new javax.swing.JLabel();
+        JLabel jLabel40 = new JLabel();
+        JLabel jLabel46 = new JLabel();
         spnRightArmor = new javax.swing.JSpinner();
-        pnlFrontArmor = new javax.swing.JPanel();
+        JPanel pnlFrontArmor = new JPanel();
         lblFrontIntPts = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
-        jLabel47 = new javax.swing.JLabel();
+        JLabel jLabel45 = new JLabel();
+        JLabel jLabel47 = new JLabel();
         spnFrontArmor = new javax.swing.JSpinner();
-        pnlLeftArmor = new javax.swing.JPanel();
+        JPanel pnlLeftArmor = new JPanel();
         lblLeftIntPts = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
-        jLabel48 = new javax.swing.JLabel();
+        JLabel jLabel41 = new JLabel();
+        JLabel jLabel48 = new JLabel();
         spnLeftArmor = new javax.swing.JSpinner();
-        pnlRearArmor = new javax.swing.JPanel();
+        JPanel pnlRearArmor = new JPanel();
         lblRearIntPts = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
-        jLabel49 = new javax.swing.JLabel();
+        JLabel jLabel44 = new JLabel();
+        JLabel jLabel49 = new JLabel();
         spnRearArmor = new javax.swing.JSpinner();
         pnlTurretArmor = new javax.swing.JPanel();
         lblTurretIntPts = new javax.swing.JLabel();
-        jLabel42 = new javax.swing.JLabel();
-        jLabel50 = new javax.swing.JLabel();
+        JLabel jLabel42 = new JLabel();
+        JLabel jLabel50 = new JLabel();
         spnTurretArmor = new javax.swing.JSpinner();
         pnlRearTurretArmor = new javax.swing.JPanel();
         lblRearTurretIntPts = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
-        jLabel51 = new javax.swing.JLabel();
+        JLabel jLabel43 = new JLabel();
+        JLabel jLabel51 = new JLabel();
         spnRearTurretArmor = new javax.swing.JSpinner();
         pnlRotorArmor = new javax.swing.JPanel();
         lblRotorIntPts = new javax.swing.JLabel();
-        jLabel92 = new javax.swing.JLabel();
-        jLabel93 = new javax.swing.JLabel();
+        JLabel jLabel92 = new JLabel();
+        JLabel jLabel93 = new JLabel();
         spnRotorArmor = new javax.swing.JSpinner();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel52 = new javax.swing.JLabel();
+        JPanel jPanel7 = new JPanel();
+        JLabel jLabel52 = new JLabel();
         cmbArmorType = new javax.swing.JComboBox();
         chkBalanceLRArmor = new javax.swing.JCheckBox();
         chkBalanceFRArmor = new javax.swing.JCheckBox();
         btnSetArmorTons = new javax.swing.JButton();
         btnUseRemaining = new javax.swing.JButton();
         btnMaximize = new javax.swing.JButton();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
+        JPanel jPanel8 = new JPanel();
+        JLabel jLabel34 = new JLabel();
+        JLabel jLabel36 = new JLabel();
         lblArmorTotals = new javax.swing.JLabel();
         lblArmorCoverage = new javax.swing.JLabel();
         txtArmorTons = new javax.swing.JTextField();
         txtArmorSpace = new javax.swing.JTextField();
         lblArmorTonsWasted = new javax.swing.JLabel();
         lblArmorLeftInLot = new javax.swing.JLabel();
-        pnlEquipment = new javax.swing.JPanel();
+        JPanel pnlEquipment = new JPanel();
         pnlEquipInfo = new javax.swing.JPanel();
-        lblAvailability = new javax.swing.JLabel();
-        lblSW = new javax.swing.JLabel();
-        lblCI = new javax.swing.JLabel();
+        JLabel lblAvailability = new JLabel();
+        JLabel lblSW = new JLabel();
+        JLabel lblCI = new JLabel();
         lblInfoAVSL = new javax.swing.JLabel();
         lblInfoAVSW = new javax.swing.JLabel();
         lblInfoAVCI = new javax.swing.JLabel();
-        lblIntro = new javax.swing.JLabel();
-        lblExtinct = new javax.swing.JLabel();
-        lblReintro = new javax.swing.JLabel();
+        JLabel lblIntro = new JLabel();
+        JLabel lblExtinct = new JLabel();
+        JLabel lblReintro = new JLabel();
         lblInfoIntro = new javax.swing.JLabel();
         lblInfoExtinct = new javax.swing.JLabel();
         lblInfoReintro = new javax.swing.JLabel();
-        lblName = new javax.swing.JLabel();
-        lblType = new javax.swing.JLabel();
-        jLabel59 = new javax.swing.JLabel();
-        jLabel60 = new javax.swing.JLabel();
-        jLabel61 = new javax.swing.JLabel();
-        lblInfoName = new javax.swing.JLabel();
+        JLabel lblName = new JLabel();
+        JLabel lblType = new JLabel();
+        JLabel jLabel59 = new JLabel();
+        JLabel jLabel60 = new JLabel();
+        JLabel jLabel61 = new JLabel();
+        JLabel lblInfoName = new JLabel();
         lblInfoType = new javax.swing.JLabel();
         lblInfoHeat = new javax.swing.JLabel();
         lblInfoDamage = new javax.swing.JLabel();
         lblInfoRange = new javax.swing.JLabel();
-        jSeparator17 = new javax.swing.JSeparator();
-        jLabel62 = new javax.swing.JLabel();
-        jLabel63 = new javax.swing.JLabel();
-        jLabel64 = new javax.swing.JLabel();
-        jLabel65 = new javax.swing.JLabel();
+        JSeparator jSeparator17 = new JSeparator();
+        JLabel jLabel62 = new JLabel();
+        JLabel jLabel63 = new JLabel();
+        JLabel jLabel64 = new JLabel();
+        JLabel jLabel65 = new JLabel();
         lblInfoAmmo = new javax.swing.JLabel();
         lblInfoTonnage = new javax.swing.JLabel();
         lblInfoCrits = new javax.swing.JLabel();
         lblInfoSpecials = new javax.swing.JLabel();
-        jSeparator20 = new javax.swing.JSeparator();
-        jLabel66 = new javax.swing.JLabel();
+        JSeparator jSeparator20 = new JSeparator();
+        JLabel jLabel66 = new JLabel();
         lblInfoCost = new javax.swing.JLabel();
-        jLabel67 = new javax.swing.JLabel();
+        JLabel jLabel67 = new JLabel();
         lblInfoBV = new javax.swing.JLabel();
-        jLabel68 = new javax.swing.JLabel();
-        lblMMName = new javax.swing.JLabel();
+        JLabel jLabel68 = new JLabel();
+        JLabel lblMMName = new JLabel();
         lblMMNameInfo = new javax.swing.JLabel();
         lblInfoMountRestrict = new javax.swing.JLabel();
-        jLabel69 = new javax.swing.JLabel();
+        JLabel jLabel69 = new JLabel();
         lblInfoRulesLevel = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        JLabel jLabel6 = new JLabel();
         lblInfoAVDA = new javax.swing.JLabel();
-        pnlSpecials = new javax.swing.JPanel();
-        jLabel37 = new javax.swing.JLabel();
+        JPanel pnlSpecials = new JPanel();
+        JLabel jLabel37 = new JLabel();
         chkUseTC = new javax.swing.JCheckBox();
         chkFCSAIV = new javax.swing.JCheckBox();
         chkFCSAV = new javax.swing.JCheckBox();
         chkFCSApollo = new javax.swing.JCheckBox();
         chkCASE = new javax.swing.JCheckBox();
-        pnlControls = new javax.swing.JPanel();
-        btnRemoveEquip = new javax.swing.JButton();
-        btnClearEquip = new javax.swing.JButton();
-        btnAddEquip = new javax.swing.JButton();
+        JPanel pnlControls = new JPanel();
+        JButton btnRemoveEquip = new JButton();
+        JButton btnClearEquip = new JButton();
+        // Variables declaration - do not modify//GEN-BEGIN:variables
+        JButton btnAddEquip = new JButton();
         cmbNumEquips = new javax.swing.JComboBox();
-        scrLocations = new javax.swing.JScrollPane();
+        JScrollPane scrLocations = new JScrollPane();
         cmbLocation = new javax.swing.JList();
-        pnlSelected = new javax.swing.JPanel();
-        scrSelectedEquip = new javax.swing.JScrollPane();
+        JPanel pnlSelected = new JPanel();
+        JScrollPane scrSelectedEquip = new JScrollPane();
         lstSelectedEquipment = new javax.swing.JList();
         tbpWeaponChooser = new javax.swing.JTabbedPane();
-        pnlBallistic = new javax.swing.JPanel();
-        scrPhysical = new javax.swing.JScrollPane();
+        JPanel pnlBallistic = new JPanel();
+        JScrollPane scrPhysical = new JScrollPane();
         lstChooseBallistic = new javax.swing.JList();
-        pnlEnergy = new javax.swing.JPanel();
-        jSeparator7 = new javax.swing.JSeparator();
-        scrMissile = new javax.swing.JScrollPane();
+        JPanel pnlEnergy = new JPanel();
+        JSeparator jSeparator7 = new JSeparator();
+        JScrollPane scrMissile = new JScrollPane();
         lstChooseEnergy = new javax.swing.JList();
-        jSeparator8 = new javax.swing.JSeparator();
-        pnlMissile = new javax.swing.JPanel();
-        scrEquipment = new javax.swing.JScrollPane();
+        JSeparator jSeparator8 = new JSeparator();
+        JPanel pnlMissile = new JPanel();
+        JScrollPane scrEquipment = new JScrollPane();
         lstChooseMissile = new javax.swing.JList();
-        pnlPhysical = new javax.swing.JPanel();
-        scrEnergy = new javax.swing.JScrollPane();
+        JPanel pnlPhysical = new JPanel();
+        JScrollPane scrEnergy = new JScrollPane();
         lstChoosePhysical = new javax.swing.JList();
-        pnlEquipmentChooser = new javax.swing.JPanel();
-        scrBallistic = new javax.swing.JScrollPane();
+        JPanel pnlEquipmentChooser = new JPanel();
+        JScrollPane scrBallistic = new JScrollPane();
         lstChooseEquipment = new javax.swing.JList();
-        pnlArtillery = new javax.swing.JPanel();
-        scrArtillery = new javax.swing.JScrollPane();
+        JPanel pnlArtillery = new JPanel();
+        JScrollPane scrArtillery = new JScrollPane();
         lstChooseArtillery = new javax.swing.JList();
-        pnlAmmunition = new javax.swing.JPanel();
-        scrAmmo = new javax.swing.JScrollPane();
+        JPanel pnlAmmunition = new JPanel();
+        JScrollPane scrAmmo = new JScrollPane();
         lstChooseAmmunition = new javax.swing.JList();
-        pnlFluff = new javax.swing.JPanel();
-        pnlExport = new javax.swing.JPanel();
-        btnExportTXT = new javax.swing.JButton();
-        btnExportHTML = new javax.swing.JButton();
-        btnExportMTF = new javax.swing.JButton();
-        tbpFluffEditors = new javax.swing.JTabbedPane();
+        JPanel pnlFluff = new JPanel();
+        JPanel pnlExport = new JPanel();
+        JButton btnExportTXT = new JButton();
+        JButton btnExportHTML = new JButton();
+        JButton btnExportMTF = new JButton();
+        JTabbedPane tbpFluffEditors = new JTabbedPane();
         pnlOverview = new javax.swing.JPanel();
         pnlCapabilities = new javax.swing.JPanel();
         pnlHistory = new javax.swing.JPanel();
@@ -1334,45 +1207,45 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlVariants = new javax.swing.JPanel();
         pnlNotables = new javax.swing.JPanel();
         pnlAdditionalFluff = new javax.swing.JPanel();
-        pnlManufacturers = new javax.swing.JPanel();
-        lblManuInfo = new javax.swing.JLabel();
-        jLabel83 = new javax.swing.JLabel();
-        jLabel84 = new javax.swing.JLabel();
-        jLabel85 = new javax.swing.JLabel();
-        jLabel86 = new javax.swing.JLabel();
-        jLabel87 = new javax.swing.JLabel();
-        jLabel88 = new javax.swing.JLabel();
-        jLabel89 = new javax.swing.JLabel();
+        JPanel pnlManufacturers = new JPanel();
+        JLabel lblManuInfo = new JLabel();
+        JLabel jLabel83 = new JLabel();
+        JLabel jLabel84 = new JLabel();
+        JLabel jLabel85 = new JLabel();
+        JLabel jLabel86 = new JLabel();
+        JLabel jLabel87 = new JLabel();
+        JLabel jLabel88 = new JLabel();
+        JLabel jLabel89 = new JLabel();
         txtManufacturer = new javax.swing.JTextField();
         txtEngineManufacturer = new javax.swing.JTextField();
         txtArmorModel = new javax.swing.JTextField();
         txtChassisModel = new javax.swing.JTextField();
         txtCommSystem = new javax.swing.JTextField();
         txtTNTSystem = new javax.swing.JTextField();
-        pnlWeaponsManufacturers = new javax.swing.JPanel();
+        JPanel pnlWeaponsManufacturers = new JPanel();
         chkIndividualWeapons = new javax.swing.JCheckBox();
-        scpWeaponManufacturers = new javax.swing.JScrollPane();
-        scpManufacturers = new javax.swing.JScrollPane();
+        JScrollPane scpWeaponManufacturers = new JScrollPane();
+        JScrollPane scpManufacturers = new JScrollPane();
         tblWeaponManufacturers = new javax.swing.JTable();
         txtManufacturerLocation = new javax.swing.JTextField();
-        jLabel90 = new javax.swing.JLabel();
+        JLabel jLabel90 = new JLabel();
         txtJJModel = new javax.swing.JTextField();
-        pnlQuirks = new javax.swing.JPanel();
-        lblBattleMechQuirks = new javax.swing.JLabel();
-        scpQuirkTable = new javax.swing.JScrollPane();
-        tblQuirks = new javax.swing.JTable();
-        btnAddQuirk = new javax.swing.JButton();
-        pnlBFStats = new javax.swing.JPanel();
-        jLabel70 = new javax.swing.JLabel();
-        jLabel71 = new javax.swing.JLabel();
-        jLabel72 = new javax.swing.JLabel();
-        jLabel73 = new javax.swing.JLabel();
-        jLabel74 = new javax.swing.JLabel();
-        jLabel75 = new javax.swing.JLabel();
-        jLabel76 = new javax.swing.JLabel();
-        jLabel77 = new javax.swing.JLabel();
-        jLabel78 = new javax.swing.JLabel();
-        jLabel79 = new javax.swing.JLabel();
+        JPanel pnlQuirks = new JPanel();
+        JLabel lblBattleMechQuirks = new JLabel();
+        JScrollPane scpQuirkTable = new JScrollPane();
+        JTable tblQuirks = new JTable();
+        JButton btnAddQuirk = new JButton();
+        JPanel pnlBFStats = new JPanel();
+        JLabel jLabel70 = new JLabel();
+        JLabel jLabel71 = new JLabel();
+        JLabel jLabel72 = new JLabel();
+        JLabel jLabel73 = new JLabel();
+        JLabel jLabel74 = new JLabel();
+        JLabel jLabel75 = new JLabel();
+        JLabel jLabel76 = new JLabel();
+        JLabel jLabel77 = new JLabel();
+        JLabel jLabel78 = new JLabel();
+        JLabel jLabel79 = new JLabel();
         lblBFMV = new javax.swing.JLabel();
         lblBFWt = new javax.swing.JLabel();
         lblBFOV = new javax.swing.JLabel();
@@ -1383,59 +1256,59 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         lblBFArmor = new javax.swing.JLabel();
         lblBFStructure = new javax.swing.JLabel();
         lblBFSA = new javax.swing.JLabel();
-        jLabel80 = new javax.swing.JLabel();
+        JLabel jLabel80 = new JLabel();
         lblBFPoints = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        jScrollPane14 = new javax.swing.JScrollPane();
+        JPanel pnlConversionSteps = new JPanel();
+        JScrollPane scpBFConversion = new JScrollPane();
         jTextAreaBFConversion = new javax.swing.JTextArea();
-        pnlImage = new javax.swing.JPanel();
+        JPanel pnlImage = new JPanel();
         lblFluffImage = new javax.swing.JLabel();
-        pnlImageButtons = new javax.swing.JPanel();
-        btnLoadImage = new javax.swing.JButton();
-        btnClearImage = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        mnuFile = new javax.swing.JMenu();
-        mnuNewMech = new javax.swing.JMenuItem();
-        mnuLoad = new javax.swing.JMenuItem();
-        mnuOpen = new javax.swing.JMenuItem();
-        mnuImport = new javax.swing.JMenu();
-        mnuImportHMP = new javax.swing.JMenuItem();
-        mnuBatchHMP = new javax.swing.JMenuItem();
-        jSeparator22 = new javax.swing.JSeparator();
-        mnuSave = new javax.swing.JMenuItem();
-        mnuSaveAs = new javax.swing.JMenuItem();
-        mnuExport = new javax.swing.JMenu();
-        mnuExportHTML = new javax.swing.JMenuItem();
-        mnuExportMTF = new javax.swing.JMenuItem();
-        mnuExportTXT = new javax.swing.JMenuItem();
-        mnuExportClipboard = new javax.swing.JMenuItem();
-        mnuCreateTCGMech = new javax.swing.JMenuItem();
-        jSeparator23 = new javax.swing.JSeparator();
-        mnuPrint = new javax.swing.JMenu();
-        mnuPrintPreview = new javax.swing.JMenuItem();
-        jSeparator24 = new javax.swing.JSeparator();
-        mnuExit = new javax.swing.JMenuItem();
-        mnuClearFluff = new javax.swing.JMenu();
-        mnuSummary = new javax.swing.JMenuItem();
-        mnuCostBVBreakdown = new javax.swing.JMenuItem();
-        mnuTextTRO = new javax.swing.JMenuItem();
-        jSeparator26 = new javax.swing.JSeparator();
-        mnuBFB = new javax.swing.JMenuItem();
-        jSeparator27 = new javax.swing.JSeparator();
-        mnuOptions = new javax.swing.JMenuItem();
+        JPanel pnlImageButtons = new JPanel();
+        JButton btnLoadImage = new JButton();
+        JButton btnClearImage = new JButton();
+        JMenuBar jMenuBar1 = new JMenuBar();
+        JMenu mnuFile = new JMenu();
+        JMenuItem mnuNewMech = new JMenuItem();
+        JMenuItem mnuLoad = new JMenuItem();
+        JMenuItem mnuOpen = new JMenuItem();
+        JMenu mnuImport = new JMenu();
+        JMenuItem mnuImportHMP = new JMenuItem();
+        JMenuItem mnuBatchHMP = new JMenuItem();
+        JSeparator jSeparator22 = new JSeparator();
+        JMenuItem mnuSave = new JMenuItem();
+        JMenuItem mnuSaveAs = new JMenuItem();
+        JMenu mnuExport = new JMenu();
+        JMenuItem mnuExportHTML = new JMenuItem();
+        JMenuItem mnuExportMTF = new JMenuItem();
+        JMenuItem mnuExportTXT = new JMenuItem();
+        JMenuItem mnuExportClipboard = new JMenuItem();
+        JMenuItem mnuCreateTCGMech = new JMenuItem();
+        JSeparator jSeparator23 = new JSeparator();
+        JMenu mnuPrint = new JMenu();
+        JMenuItem mnuPrintPreview = new JMenuItem();
+        JSeparator jSeparator24 = new JSeparator();
+        JMenuItem mnuExit = new JMenuItem();
+        JMenu mnuClearFluff = new JMenu();
+        JMenuItem mnuSummary = new JMenuItem();
+        JMenuItem mnuCostBVBreakdown = new JMenuItem();
+        JMenuItem mnuTextTRO = new JMenuItem();
+        JSeparator jSeparator26 = new JSeparator();
+        JMenuItem mnuBFB = new JMenuItem();
+        JSeparator jSeparator27 = new JSeparator();
+        JMenuItem mnuOptions = new JMenuItem();
         mnuViewToolbar = new javax.swing.JCheckBoxMenuItem();
-        mnuClearUserData = new javax.swing.JMenuItem();
-        jSeparator30 = new javax.swing.JSeparator();
+        JMenuItem mnuClearUserData = new JMenuItem();
+        JSeparator jSeparator30 = new JSeparator();
         mnuUnlock = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        mnuReloadEquipment = new javax.swing.JMenuItem();
-        mnuHelp = new javax.swing.JMenu();
-        mnuCredits = new javax.swing.JMenuItem();
-        mnuAboutSSW = new javax.swing.JMenuItem();
+        JMenuItem jMenuItem1 = new JMenuItem();
+        JMenuItem mnuReloadEquipment = new JMenuItem();
+        JMenu mnuHelp = new JMenu();
+        JMenuItem mnuCredits = new JMenuItem();
+        JMenuItem mnuAboutSSW = new JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1600, 900));
-        setMinimumSize(new java.awt.Dimension(1280, 650));
+        setMaximumSize(new Dimension(1600, 900));
+        setMinimumSize(new Dimension(1280, 650));
         setResizable(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -1446,49 +1319,49 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtInfoTonnage.setEditable(false);
         txtInfoTonnage.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoTonnage.setText("Tonnage: 000.00");
-        txtInfoTonnage.setMaximumSize(new java.awt.Dimension(110, 20));
-        txtInfoTonnage.setMinimumSize(new java.awt.Dimension(110, 20));
-        txtInfoTonnage.setPreferredSize(new java.awt.Dimension(110, 20));
+        txtInfoTonnage.setMaximumSize(new Dimension(110, 20));
+        txtInfoTonnage.setMinimumSize(new Dimension(110, 20));
+        txtInfoTonnage.setPreferredSize(new Dimension(110, 20));
         pnlInfoPane.add(txtInfoTonnage);
 
         txtInfoFreeTons.setEditable(false);
         txtInfoFreeTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoFreeTons.setText("Free Tons: 000.00");
-        txtInfoFreeTons.setMaximumSize(new java.awt.Dimension(115, 20));
-        txtInfoFreeTons.setMinimumSize(new java.awt.Dimension(115, 20));
-        txtInfoFreeTons.setPreferredSize(new java.awt.Dimension(115, 20));
+        txtInfoFreeTons.setMaximumSize(new Dimension(115, 20));
+        txtInfoFreeTons.setMinimumSize(new Dimension(115, 20));
+        txtInfoFreeTons.setPreferredSize(new Dimension(115, 20));
         pnlInfoPane.add(txtInfoFreeTons);
 
         txtInfoFreeCrits.setEditable(false);
         txtInfoFreeCrits.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoFreeCrits.setText("Space: 00");
-        txtInfoFreeCrits.setMaximumSize(new java.awt.Dimension(65, 20));
-        txtInfoFreeCrits.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtInfoFreeCrits.setPreferredSize(new java.awt.Dimension(65, 20));
+        txtInfoFreeCrits.setMaximumSize(new Dimension(65, 20));
+        txtInfoFreeCrits.setMinimumSize(new Dimension(65, 20));
+        txtInfoFreeCrits.setPreferredSize(new Dimension(65, 20));
         pnlInfoPane.add(txtInfoFreeCrits);
 
         txtTurretInfo.setEditable(false);
         txtTurretInfo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtTurretInfo.setText("Turret: 000.00");
-        txtTurretInfo.setMaximumSize(new java.awt.Dimension(120, 20));
-        txtTurretInfo.setMinimumSize(new java.awt.Dimension(120, 20));
-        txtTurretInfo.setPreferredSize(new java.awt.Dimension(100, 20));
+        txtTurretInfo.setMaximumSize(new Dimension(120, 20));
+        txtTurretInfo.setMinimumSize(new Dimension(120, 20));
+        txtTurretInfo.setPreferredSize(new Dimension(100, 20));
         pnlInfoPane.add(txtTurretInfo);
 
         txtInfoBattleValue.setEditable(false);
         txtInfoBattleValue.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoBattleValue.setText("BV: 00,000");
-        txtInfoBattleValue.setMaximumSize(new java.awt.Dimension(75, 20));
-        txtInfoBattleValue.setMinimumSize(new java.awt.Dimension(75, 20));
-        txtInfoBattleValue.setPreferredSize(new java.awt.Dimension(75, 20));
+        txtInfoBattleValue.setMaximumSize(new Dimension(75, 20));
+        txtInfoBattleValue.setMinimumSize(new Dimension(75, 20));
+        txtInfoBattleValue.setPreferredSize(new Dimension(75, 20));
         pnlInfoPane.add(txtInfoBattleValue);
 
         txtInfoCost.setEditable(false);
         txtInfoCost.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInfoCost.setText("Cost: 000,000,000,000.00");
-        txtInfoCost.setMaximumSize(new java.awt.Dimension(165, 20));
-        txtInfoCost.setMinimumSize(new java.awt.Dimension(165, 20));
-        txtInfoCost.setPreferredSize(new java.awt.Dimension(165, 20));
+        txtInfoCost.setMaximumSize(new Dimension(165, 20));
+        txtInfoCost.setMinimumSize(new Dimension(165, 20));
+        txtInfoCost.setPreferredSize(new Dimension(165, 20));
         pnlInfoPane.add(txtInfoCost);
 
         tlbIconBar.setFloatable(false);
@@ -1498,33 +1371,21 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         btnNewVee.setFocusable(false);
         btnNewVee.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnNewVee.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnNewVee.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNewVeeActionPerformed(evt);
-            }
-        });
+        btnNewVee.addActionListener(this::btnNewVeeActionPerformed);
         tlbIconBar.add(btnNewVee);
 
         btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/folder-open-document.png"))); // NOI18N
         btnOpen.setFocusable(false);
         btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnOpen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOpenActionPerformed(evt);
-            }
-        });
+        btnOpen.addActionListener(this::btnOpenActionPerformed);
         tlbIconBar.add(btnOpen);
 
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/disk-black.png"))); // NOI18N
         btnSave.setFocusable(false);
         btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
-            }
-        });
+        btnSave.addActionListener(this::btnSaveActionPerformed);
         tlbIconBar.add(btnSave);
         tlbIconBar.add(jSeparator1);
 
@@ -1532,11 +1393,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         btnPrint.setFocusable(false);
         btnPrint.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPrint.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnPrint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintActionPerformed(evt);
-            }
-        });
+        btnPrint.addActionListener(this::btnPrintActionPerformed);
         tlbIconBar.add(btnPrint);
         tlbIconBar.add(jSeparator2);
 
@@ -1545,11 +1402,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         btnExportClipboardIcon.setFocusable(false);
         btnExportClipboardIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnExportClipboardIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnExportClipboardIcon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportClipboardIconActionPerformed(evt);
-            }
-        });
+        btnExportClipboardIcon.addActionListener(this::btnExportClipboardIconActionPerformed);
         tlbIconBar.add(btnExportClipboardIcon);
 
         btnExportHTMLIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/document-image.png"))); // NOI18N
@@ -1557,11 +1410,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         btnExportHTMLIcon.setFocusable(false);
         btnExportHTMLIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnExportHTMLIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnExportHTMLIcon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportHTMLIconActionPerformed(evt);
-            }
-        });
+        btnExportHTMLIcon.addActionListener(this::btnExportHTMLIconActionPerformed);
         tlbIconBar.add(btnExportHTMLIcon);
 
         btnExportTextIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/document-text.png"))); // NOI18N
@@ -1569,11 +1418,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         btnExportTextIcon.setFocusable(false);
         btnExportTextIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnExportTextIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnExportTextIcon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportTextIconActionPerformed(evt);
-            }
-        });
+        btnExportTextIcon.addActionListener(this::btnExportTextIconActionPerformed);
         tlbIconBar.add(btnExportTextIcon);
 
         btnExportMTFIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/document--arrow.png"))); // NOI18N
@@ -1581,11 +1426,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         btnExportMTFIcon.setFocusable(false);
         btnExportMTFIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnExportMTFIcon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnExportMTFIcon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportMTFIconActionPerformed(evt);
-            }
-        });
+        btnExportMTFIcon.addActionListener(this::btnExportMTFIconActionPerformed);
         tlbIconBar.add(btnExportMTFIcon);
 
         btnChatInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/balloon.png"))); // NOI18N
@@ -1593,11 +1434,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         btnChatInfo.setFocusable(false);
         btnChatInfo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnChatInfo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnChatInfo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChatInfoActionPerformed(evt);
-            }
-        });
+        btnChatInfo.addActionListener(this::btnChatInfoActionPerformed);
         tlbIconBar.add(btnChatInfo);
         tlbIconBar.add(jSeparator3);
         tlbIconBar.add(jSeparator25);
@@ -1607,11 +1444,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         btnAddToForceList.setFocusable(false);
         btnAddToForceList.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAddToForceList.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnAddToForceList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddToForceListActionPerformed(evt);
-            }
-        });
+        btnAddToForceList.addActionListener(this::btnAddToForceListActionPerformed);
         tlbIconBar.add(btnAddToForceList);
 
         btnForceList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/saw/images/clipboard.png"))); // NOI18N
@@ -1619,11 +1452,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         btnForceList.setFocusable(false);
         btnForceList.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnForceList.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnForceList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnForceListActionPerformed(evt);
-            }
-        });
+        btnForceList.addActionListener(this::btnForceListActionPerformed);
         tlbIconBar.add(btnForceList);
         tlbIconBar.add(jSeparator4);
 
@@ -1631,11 +1460,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         btnOptions.setFocusable(false);
         btnOptions.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnOptions.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnOptions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOptionsActionPerformed(evt);
-            }
-        });
+        btnOptions.addActionListener(this::btnOptionsActionPerformed);
         tlbIconBar.add(btnOptions);
         tlbIconBar.add(jSeparator21);
 
@@ -1644,95 +1469,71 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         tlbIconBar.add(lblSelectVariant);
 
         cmbOmniVariant.setEnabled(false);
-        cmbOmniVariant.setMaximumSize(new java.awt.Dimension(150, 20));
-        cmbOmniVariant.setMinimumSize(new java.awt.Dimension(150, 20));
-        cmbOmniVariant.setPreferredSize(new java.awt.Dimension(150, 20));
-        cmbOmniVariant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbOmniVariantActionPerformed(evt);
-            }
-        });
+        cmbOmniVariant.setMaximumSize(new Dimension(150, 20));
+        cmbOmniVariant.setMinimumSize(new Dimension(150, 20));
+        cmbOmniVariant.setPreferredSize(new Dimension(150, 20));
+        cmbOmniVariant.addActionListener(this::cmbOmniVariantActionPerformed);
         tlbIconBar.add(cmbOmniVariant);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Basic Information"));
 
         jLabel1.setText("Vehicle Name:");
 
-        txtVehicleName.setMinimumSize(new java.awt.Dimension(150, 20));
-        txtVehicleName.setPreferredSize(new java.awt.Dimension(150, 20));
+        txtVehicleName.setMinimumSize(new Dimension(150, 20));
+        txtVehicleName.setPreferredSize(new Dimension(150, 20));
 
         jLabel4.setText("Model:");
 
-        txtModel.setMinimumSize(new java.awt.Dimension(150, 20));
-        txtModel.setPreferredSize(new java.awt.Dimension(150, 20));
+        txtModel.setMinimumSize(new Dimension(150, 20));
+        txtModel.setPreferredSize(new Dimension(150, 20));
 
         jLabel2.setText("Rules Level:");
 
         cmbRulesLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Introductory", "Tournament Legal", "Advanced", "Experimental" }));
         cmbRulesLevel.setSelectedIndex(1);
-        cmbRulesLevel.setMinimumSize(new java.awt.Dimension(150, 20));
-        cmbRulesLevel.setPreferredSize(new java.awt.Dimension(150, 20));
-        cmbRulesLevel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbRulesLevelActionPerformed(evt);
-            }
-        });
+        cmbRulesLevel.setMinimumSize(new Dimension(150, 20));
+        cmbRulesLevel.setPreferredSize(new Dimension(150, 20));
+        cmbRulesLevel.addActionListener(this::cmbRulesLevelActionPerformed);
 
         jLabel5.setText("Era:");
 
         cmbEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War/Star League", "Succession Wars", "Clan Invasion", "Dark Ages", "All Eras (non-canon)" }));
         cmbEra.setSelectedIndex(1);
-        cmbEra.setMinimumSize(new java.awt.Dimension(150, 20));
-        cmbEra.setPreferredSize(new java.awt.Dimension(150, 20));
-        cmbEra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbEraActionPerformed(evt);
-            }
-        });
+        cmbEra.setMinimumSize(new Dimension(150, 20));
+        cmbEra.setPreferredSize(new Dimension(150, 20));
+        cmbEra.addActionListener(this::cmbEraActionPerformed);
 
         jLabel3.setText("Tech Base:");
 
         cmbTechBase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inner Sphere", "Clan", "Mixed Tech" }));
-        cmbTechBase.setMinimumSize(new java.awt.Dimension(150, 20));
-        cmbTechBase.setPreferredSize(new java.awt.Dimension(150, 20));
-        cmbTechBase.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbTechBaseActionPerformed(evt);
-            }
-        });
+        cmbTechBase.setMinimumSize(new Dimension(150, 20));
+        cmbTechBase.setPreferredSize(new Dimension(150, 20));
+        cmbTechBase.addActionListener(this::cmbTechBaseActionPerformed);
 
         lblEraYears.setText("2443~2800");
 
         chkYearRestrict.setText("Restrict Availability by Year");
-        chkYearRestrict.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkYearRestrictActionPerformed(evt);
-            }
-        });
+        chkYearRestrict.addActionListener(this::chkYearRestrictActionPerformed);
 
         jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel81.setText("Source:");
 
-        txtSource.setMinimumSize(new java.awt.Dimension(150, 20));
-        txtSource.setPreferredSize(new java.awt.Dimension(150, 20));
+        txtSource.setMinimumSize(new Dimension(150, 20));
+        txtSource.setPreferredSize(new Dimension(150, 20));
 
         lblProdYear.setText("Prod Year/Era:");
 
         txtProdYear.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtProdYear.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txtProdYear.setMaximumSize(new java.awt.Dimension(60, 20));
-        txtProdYear.setMinimumSize(new java.awt.Dimension(60, 20));
-        txtProdYear.setPreferredSize(new java.awt.Dimension(60, 20));
+        txtProdYear.setMaximumSize(new Dimension(60, 20));
+        txtProdYear.setMinimumSize(new Dimension(60, 20));
+        txtProdYear.setPreferredSize(new Dimension(60, 20));
 
         cmbProductionEra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Age of War", "Star League", "Early Succession War", "LSW - LosTech", "LSW - Renaissance", "Clan Invasion", "Civil War", "Jihad", "Early Republic", "Late Republic", "Dark Ages", "ilClan" }));
-        cmbProductionEra.setMaximumSize(new java.awt.Dimension(90, 20));
-        cmbProductionEra.setMinimumSize(new java.awt.Dimension(90, 20));
-        cmbProductionEra.setPreferredSize(new java.awt.Dimension(90, 20));
-        cmbProductionEra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbProductionEraActionPerformed(evt);
-            }
-        });
+        cmbProductionEra.setMaximumSize(new Dimension(90, 20));
+        cmbProductionEra.setMinimumSize(new Dimension(90, 20));
+        cmbProductionEra.setPreferredSize(new Dimension(90, 20));
+        cmbProductionEra.addActionListener(this::cmbProductionEraActionPerformed);
 
         GroupLayout jPanel5Layout = new GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1852,44 +1653,27 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtProdYear.addMouseListener( mlProdYear );
 
         pnlChassis.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Chassis"));
-        pnlChassis.setNextFocusableComponent(spnCruiseMP);
 
         cmbMotiveType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hovercraft", "Naval (Displacement)", "Naval (Hydrofoil)", "Naval (Submarine)", "Tracked", "VTOL", "Wheeled", "WiGE", "Hovercraft (Super Heavy)", "Displacement (Super Heavy)" }));
-        cmbMotiveType.setMinimumSize(new java.awt.Dimension(150, 20));
-        cmbMotiveType.setPreferredSize(new java.awt.Dimension(150, 20));
-        cmbMotiveType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbMotiveTypeActionPerformed(evt);
-            }
-        });
+        cmbMotiveType.setMinimumSize(new Dimension(150, 20));
+        cmbMotiveType.setPreferredSize(new Dimension(150, 20));
+        cmbMotiveType.addActionListener(this::cmbMotiveTypeActionPerformed);
 
         jLabel7.setText("Motive Type:");
 
         jLabel8.setText("Tonnage:");
 
         chkOmniVee.setText("OmniVehicle");
-        chkOmniVee.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkOmniVeeActionPerformed(evt);
-            }
-        });
+        chkOmniVee.addActionListener(this::chkOmniVeeActionPerformed);
 
         chkTrailer.setText("Trailer");
         chkTrailer.setEnabled(false);
-        chkTrailer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkTrailerActionPerformed(evt);
-            }
-        });
+        chkTrailer.addActionListener(this::chkTrailerActionPerformed);
 
         spnTonnage.setModel(new javax.swing.SpinnerNumberModel(10, 1, null, 1));
-        spnTonnage.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnTonnage.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnTonnage.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnTonnageStateChanged(evt);
-            }
-        });
+        spnTonnage.setMinimumSize(new Dimension(45, 20));
+        spnTonnage.setPreferredSize(new Dimension(45, 20));
+        spnTonnage.addChangeListener(this::spnTonnageStateChanged);
         spnTonnage.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 spnTonnageFocusGained(evt);
@@ -1906,22 +1690,14 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         jLabel9.setText("Engine:");
 
         cmbEngineType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "I.C.E.", "Fusion", "Light Fusion", "XL Fusion", "Compact Fusion" }));
-        cmbEngineType.setMinimumSize(new java.awt.Dimension(150, 20));
-        cmbEngineType.setPreferredSize(new java.awt.Dimension(150, 20));
-        cmbEngineType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbEngineTypeActionPerformed(evt);
-            }
-        });
+        cmbEngineType.setMinimumSize(new Dimension(150, 20));
+        cmbEngineType.setPreferredSize(new Dimension(150, 20));
+        cmbEngineType.addActionListener(this::cmbEngineTypeActionPerformed);
 
         jLabel32.setText("Turret:");
 
         cmbTurret.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No Turret", "Single Turret", "Dual Turret", "Sponson Turrets", "Chin Turret", "Mast Turret" }));
-        cmbTurret.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbTurretActionPerformed(evt);
-            }
-        });
+        cmbTurret.addActionListener(this::cmbTurretActionPerformed);
 
         lblVeeClass.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblVeeClass.setText("Assault Vee");
@@ -1931,14 +1707,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         jLabel91.setText("Heat Sinks:");
 
         spnHeatSinks.setModel(new javax.swing.SpinnerNumberModel(10, 1, null, 1));
-        spnHeatSinks.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnHeatSinks.setNextFocusableComponent(spnCruiseMP);
-        spnHeatSinks.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnHeatSinks.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnHeatSinksStateChanged(evt);
-            }
-        });
+        spnHeatSinks.setMinimumSize(new Dimension(45, 20));
+        spnHeatSinks.setPreferredSize(new Dimension(45, 20));
+        spnHeatSinks.addChangeListener(this::spnHeatSinksStateChanged);
         spnHeatSinks.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 spnHeatSinksFocusGained(evt);
@@ -1954,11 +1725,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         spnTurretTonnage.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 50.0d, 0.5d));
         spnTurretTonnage.setEnabled(false);
-        spnTurretTonnage.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnTurretTonnageStateChanged(evt);
-            }
-        });
+        spnTurretTonnage.addChangeListener(this::spnTurretTonnageStateChanged);
 
         GroupLayout pnlChassisLayout = new GroupLayout(pnlChassis);
         pnlChassis.setLayout(pnlChassisLayout);
@@ -2045,18 +1812,13 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         );
 
         pnlMovement.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Movement"));
-        pnlMovement.setNextFocusableComponent(pnlChassisMods);
 
         jLabel10.setText("Cruise MP:");
 
         spnCruiseMP.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
-        spnCruiseMP.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnCruiseMP.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnCruiseMP.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnCruiseMPStateChanged(evt);
-            }
-        });
+        spnCruiseMP.setMinimumSize(new Dimension(45, 20));
+        spnCruiseMP.setPreferredSize(new Dimension(45, 20));
+        spnCruiseMP.addChangeListener(this::spnCruiseMPStateChanged);
         spnCruiseMP.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
@@ -2072,9 +1834,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         jLabel13.setText("Jump MP:");
 
         spnJumpMP.setEnabled(false);
-        spnJumpMP.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnJumpMP.setNextFocusableComponent(chkFlotationHull);
-        spnJumpMP.setPreferredSize(new java.awt.Dimension(45, 20));
+        spnJumpMP.setMinimumSize(new Dimension(45, 20));
+        spnJumpMP.setPreferredSize(new Dimension(45, 20));
 
         GroupLayout pnlMovementLayout = new GroupLayout(pnlMovement);
         pnlMovement.setLayout(pnlMovementLayout);
@@ -2126,11 +1887,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         chkFlotationHull.setText("Flotation Hull");
         chkFlotationHull.setEnabled(false);
-        chkFlotationHull.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkFlotationHullActionPerformed(evt);
-            }
-        });
+        chkFlotationHull.addActionListener(this::chkFlotationHullActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -2139,11 +1896,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         chkLimitedAmph.setText("Limited Amphibious");
         chkLimitedAmph.setEnabled(false);
-        chkLimitedAmph.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkLimitedAmphActionPerformed(evt);
-            }
-        });
+        chkLimitedAmph.addActionListener(this::chkLimitedAmphActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -2152,11 +1905,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         chkFullAmph.setText("Fully Amphibious");
         chkFullAmph.setEnabled(false);
-        chkFullAmph.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkFullAmphActionPerformed(evt);
-            }
-        });
+        chkFullAmph.addActionListener(this::chkFullAmphActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -2165,11 +1914,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         chkDuneBuggy.setText("Dune Buggy");
         chkDuneBuggy.setEnabled(false);
-        chkDuneBuggy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkDuneBuggyActionPerformed(evt);
-            }
-        });
+        chkDuneBuggy.addActionListener(this::chkDuneBuggyActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -2178,12 +1923,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         chkEnviroSealing.setText("Enviro (Vacuum) Sealing");
         chkEnviroSealing.setEnabled(false);
-        chkEnviroSealing.setNextFocusableComponent(chkArmoredMotive);
-        chkEnviroSealing.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkEnviroSealingActionPerformed(evt);
-            }
-        });
+        chkEnviroSealing.addActionListener(this::chkEnviroSealingActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -2200,35 +1940,21 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         chkEscapePod.setText("Combat Vehicle Escape Pod");
         chkEscapePod.setEnabled(false);
-        chkEscapePod.setNextFocusableComponent(chkFractional);
 
         chkMinesweeper.setText("Minesweeper");
         chkMinesweeper.setEnabled(false);
 
         chkJetBooster.setText("VTOL Jet Booster");
         chkJetBooster.setEnabled(false);
-        chkJetBooster.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkJetBoosterActionPerformed(evt);
-            }
-        });
+        chkJetBooster.addActionListener(this::chkJetBoosterActionPerformed);
 
         chkSupercharger.setText("Supercharger");
         chkSupercharger.setEnabled(false);
-        chkSupercharger.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkSuperchargerActionPerformed(evt);
-            }
-        });
+        chkSupercharger.addActionListener(this::chkSuperchargerActionPerformed);
 
         chkSponsonTurret.setText("Sponson Turret");
         chkSponsonTurret.setEnabled(false);
-        chkSponsonTurret.setNextFocusableComponent(chkFractional);
-        chkSponsonTurret.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkSponsonTurretActionPerformed(evt);
-            }
-        });
+        chkSponsonTurret.addActionListener(this::chkSponsonTurretActionPerformed);
 
         GroupLayout pnlExperimentalLayout = new GroupLayout(pnlExperimental);
         pnlExperimental.setLayout(pnlExperimentalLayout);
@@ -2269,12 +1995,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         chkFractional.setText("Use Fractional Accounting");
         chkFractional.setEnabled(false);
-        chkFractional.setNextFocusableComponent(txtVehicleName);
-        chkFractional.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkFractionalActionPerformed(evt);
-            }
-        });
+        chkFractional.addActionListener(this::chkFractionalActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -2311,8 +2032,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumIntTons.setEditable(false);
         txtSumIntTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumIntTons.setText("000.00");
-        txtSumIntTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumIntTons.setPreferredSize(new java.awt.Dimension(50, 20));
+        txtSumIntTons.setMinimumSize(new Dimension(50, 20));
+        txtSumIntTons.setPreferredSize(new Dimension(50, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -2322,8 +2043,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumIntAV.setEditable(false);
         txtSumIntAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumIntAV.setText("X/X-X-X");
-        txtSumIntAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumIntAV.setPreferredSize(new java.awt.Dimension(65, 20));
+        txtSumIntAV.setMinimumSize(new Dimension(65, 20));
+        txtSumIntAV.setPreferredSize(new Dimension(65, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
@@ -2341,8 +2062,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumEngTons.setEditable(false);
         txtSumEngTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumEngTons.setText("000.00");
-        txtSumEngTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumEngTons.setPreferredSize(new java.awt.Dimension(50, 20));
+        txtSumEngTons.setMinimumSize(new Dimension(50, 20));
+        txtSumEngTons.setPreferredSize(new Dimension(50, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -2352,8 +2073,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumEngAV.setEditable(false);
         txtSumEngAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumEngAV.setText("X/X-X-X");
-        txtSumEngAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumEngAV.setPreferredSize(new java.awt.Dimension(65, 20));
+        txtSumEngAV.setMinimumSize(new Dimension(65, 20));
+        txtSumEngAV.setPreferredSize(new Dimension(65, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
@@ -2371,8 +2092,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumLifTons.setEditable(false);
         txtSumLifTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumLifTons.setText("000.00");
-        txtSumLifTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumLifTons.setPreferredSize(new java.awt.Dimension(50, 20));
+        txtSumLifTons.setMinimumSize(new Dimension(50, 20));
+        txtSumLifTons.setPreferredSize(new Dimension(50, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
@@ -2382,8 +2103,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumLifAV.setEditable(false);
         txtSumLifAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumLifAV.setText("X/X-X-X");
-        txtSumLifAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumLifAV.setPreferredSize(new java.awt.Dimension(65, 20));
+        txtSumLifAV.setMinimumSize(new Dimension(65, 20));
+        txtSumLifAV.setPreferredSize(new Dimension(65, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 3;
@@ -2393,8 +2114,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumEngSpace.setEditable(false);
         txtSumEngSpace.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumEngSpace.setText("00");
-        txtSumEngSpace.setMinimumSize(new java.awt.Dimension(40, 20));
-        txtSumEngSpace.setPreferredSize(new java.awt.Dimension(40, 20));
+        txtSumEngSpace.setMinimumSize(new Dimension(40, 20));
+        txtSumEngSpace.setPreferredSize(new Dimension(40, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -2412,8 +2133,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumConTons.setEditable(false);
         txtSumConTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumConTons.setText("000.00");
-        txtSumConTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumConTons.setPreferredSize(new java.awt.Dimension(50, 20));
+        txtSumConTons.setMinimumSize(new Dimension(50, 20));
+        txtSumConTons.setPreferredSize(new Dimension(50, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
@@ -2423,8 +2144,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumConAV.setEditable(false);
         txtSumConAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumConAV.setText("X/X-X-X");
-        txtSumConAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumConAV.setPreferredSize(new java.awt.Dimension(65, 20));
+        txtSumConAV.setMinimumSize(new Dimension(65, 20));
+        txtSumConAV.setPreferredSize(new Dimension(65, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 4;
@@ -2442,8 +2163,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumJJTons.setEditable(false);
         txtSumJJTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumJJTons.setText("000.00");
-        txtSumJJTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumJJTons.setPreferredSize(new java.awt.Dimension(50, 20));
+        txtSumJJTons.setMinimumSize(new Dimension(50, 20));
+        txtSumJJTons.setPreferredSize(new Dimension(50, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
@@ -2453,8 +2174,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumJJSpace.setEditable(false);
         txtSumJJSpace.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumJJSpace.setText("00");
-        txtSumJJSpace.setMinimumSize(new java.awt.Dimension(40, 20));
-        txtSumJJSpace.setPreferredSize(new java.awt.Dimension(40, 20));
+        txtSumJJSpace.setMinimumSize(new Dimension(40, 20));
+        txtSumJJSpace.setPreferredSize(new Dimension(40, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 5;
@@ -2464,8 +2185,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumJJAV.setEditable(false);
         txtSumJJAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumJJAV.setText("X/X-X-X");
-        txtSumJJAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumJJAV.setPreferredSize(new java.awt.Dimension(65, 20));
+        txtSumJJAV.setMinimumSize(new Dimension(65, 20));
+        txtSumJJAV.setPreferredSize(new Dimension(65, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 5;
@@ -2483,8 +2204,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumHSTons.setEditable(false);
         txtSumHSTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumHSTons.setText("000.00");
-        txtSumHSTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumHSTons.setPreferredSize(new java.awt.Dimension(50, 20));
+        txtSumHSTons.setMinimumSize(new Dimension(50, 20));
+        txtSumHSTons.setPreferredSize(new Dimension(50, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
@@ -2494,8 +2215,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumHSAV.setEditable(false);
         txtSumHSAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumHSAV.setText("X/X-X-X");
-        txtSumHSAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumHSAV.setPreferredSize(new java.awt.Dimension(65, 20));
+        txtSumHSAV.setMinimumSize(new Dimension(65, 20));
+        txtSumHSAV.setPreferredSize(new Dimension(65, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 6;
@@ -2513,8 +2234,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumArmTons.setEditable(false);
         txtSumArmTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumArmTons.setText("000.00");
-        txtSumArmTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumArmTons.setPreferredSize(new java.awt.Dimension(50, 20));
+        txtSumArmTons.setMinimumSize(new Dimension(50, 20));
+        txtSumArmTons.setPreferredSize(new Dimension(50, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 7;
@@ -2524,8 +2245,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumArmSpace.setEditable(false);
         txtSumArmSpace.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumArmSpace.setText("00");
-        txtSumArmSpace.setMinimumSize(new java.awt.Dimension(40, 20));
-        txtSumArmSpace.setPreferredSize(new java.awt.Dimension(40, 20));
+        txtSumArmSpace.setMinimumSize(new Dimension(40, 20));
+        txtSumArmSpace.setPreferredSize(new Dimension(40, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 7;
@@ -2535,8 +2256,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumArmAV.setEditable(false);
         txtSumArmAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumArmAV.setText("X/X-X-X");
-        txtSumArmAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumArmAV.setPreferredSize(new java.awt.Dimension(65, 20));
+        txtSumArmAV.setMinimumSize(new Dimension(65, 20));
+        txtSumArmAV.setPreferredSize(new Dimension(65, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 7;
@@ -2554,8 +2275,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumTurTons.setEditable(false);
         txtSumTurTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumTurTons.setText("000.00");
-        txtSumTurTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumTurTons.setPreferredSize(new java.awt.Dimension(50, 20));
+        txtSumTurTons.setMinimumSize(new Dimension(50, 20));
+        txtSumTurTons.setPreferredSize(new Dimension(50, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 8;
@@ -2565,8 +2286,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumTurAV.setEditable(false);
         txtSumTurAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumTurAV.setText("X/X-X-X");
-        txtSumTurAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumTurAV.setPreferredSize(new java.awt.Dimension(65, 20));
+        txtSumTurAV.setMinimumSize(new Dimension(65, 20));
+        txtSumTurAV.setPreferredSize(new Dimension(65, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 8;
@@ -2584,8 +2305,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumRTuTons.setEditable(false);
         txtSumRTuTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumRTuTons.setText("000.00");
-        txtSumRTuTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumRTuTons.setPreferredSize(new java.awt.Dimension(50, 20));
+        txtSumRTuTons.setMinimumSize(new Dimension(50, 20));
+        txtSumRTuTons.setPreferredSize(new Dimension(50, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 9;
@@ -2595,8 +2316,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumRTuAV.setEditable(false);
         txtSumRTuAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumRTuAV.setText("X/X-X-X");
-        txtSumRTuAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumRTuAV.setPreferredSize(new java.awt.Dimension(65, 20));
+        txtSumRTuAV.setMinimumSize(new Dimension(65, 20));
+        txtSumRTuAV.setPreferredSize(new Dimension(65, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 9;
@@ -2614,8 +2335,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumSpnTons.setEditable(false);
         txtSumSpnTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumSpnTons.setText("000.00");
-        txtSumSpnTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumSpnTons.setPreferredSize(new java.awt.Dimension(50, 20));
+        txtSumSpnTons.setMinimumSize(new Dimension(50, 20));
+        txtSumSpnTons.setPreferredSize(new Dimension(50, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 10;
@@ -2625,8 +2346,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumSpnAV.setEditable(false);
         txtSumSpnAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumSpnAV.setText("X/X-X-X");
-        txtSumSpnAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumSpnAV.setPreferredSize(new java.awt.Dimension(65, 20));
+        txtSumSpnAV.setMinimumSize(new Dimension(65, 20));
+        txtSumSpnAV.setPreferredSize(new Dimension(65, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 10;
@@ -2644,8 +2365,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumPATons.setEditable(false);
         txtSumPATons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumPATons.setText("000.00");
-        txtSumPATons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtSumPATons.setPreferredSize(new java.awt.Dimension(50, 20));
+        txtSumPATons.setMinimumSize(new Dimension(50, 20));
+        txtSumPATons.setPreferredSize(new Dimension(50, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 11;
@@ -2655,8 +2376,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtSumPAAV.setEditable(false);
         txtSumPAAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSumPAAV.setText("X/X-X-X");
-        txtSumPAAV.setMinimumSize(new java.awt.Dimension(65, 20));
-        txtSumPAAV.setPreferredSize(new java.awt.Dimension(65, 20));
+        txtSumPAAV.setMinimumSize(new Dimension(65, 20));
+        txtSumPAAV.setPreferredSize(new Dimension(65, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 11;
@@ -2760,14 +2481,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         btnLockChassis.setText("Lock Chassis");
         btnLockChassis.setEnabled(false);
-        btnLockChassis.setMaximumSize(new java.awt.Dimension(200, 23));
-        btnLockChassis.setMinimumSize(new java.awt.Dimension(105, 23));
-        btnLockChassis.setPreferredSize(new java.awt.Dimension(120, 23));
-        btnLockChassis.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLockChassisActionPerformed(evt);
-            }
-        });
+        btnLockChassis.setMaximumSize(new Dimension(200, 23));
+        btnLockChassis.setMinimumSize(new Dimension(105, 23));
+        btnLockChassis.setPreferredSize(new Dimension(120, 23));
+        btnLockChassis.addActionListener(this::btnLockChassisActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -2776,14 +2493,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         btnAddVariant.setText("Add Variant");
         btnAddVariant.setEnabled(false);
-        btnAddVariant.setMaximumSize(new java.awt.Dimension(200, 23));
-        btnAddVariant.setMinimumSize(new java.awt.Dimension(80, 23));
-        btnAddVariant.setPreferredSize(new java.awt.Dimension(120, 23));
-        btnAddVariant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddVariantActionPerformed(evt);
-            }
-        });
+        btnAddVariant.setMaximumSize(new Dimension(200, 23));
+        btnAddVariant.setMinimumSize(new Dimension(80, 23));
+        btnAddVariant.setPreferredSize(new Dimension(120, 23));
+        btnAddVariant.addActionListener(this::btnAddVariantActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -2792,14 +2505,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         btnDeleteVariant.setText("Delete Variant");
         btnDeleteVariant.setEnabled(false);
-        btnDeleteVariant.setMaximumSize(new java.awt.Dimension(200, 23));
-        btnDeleteVariant.setMinimumSize(new java.awt.Dimension(80, 23));
-        btnDeleteVariant.setPreferredSize(new java.awt.Dimension(120, 23));
-        btnDeleteVariant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteVariantActionPerformed(evt);
-            }
-        });
+        btnDeleteVariant.setMaximumSize(new Dimension(200, 23));
+        btnDeleteVariant.setMinimumSize(new Dimension(80, 23));
+        btnDeleteVariant.setPreferredSize(new Dimension(120, 23));
+        btnDeleteVariant.addActionListener(this::btnDeleteVariantActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -2808,13 +2517,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         btnRenameVariant.setText("Rename Variant");
         btnRenameVariant.setEnabled(false);
-        btnRenameVariant.setMinimumSize(new java.awt.Dimension(80, 23));
-        btnRenameVariant.setPreferredSize(new java.awt.Dimension(120, 23));
-        btnRenameVariant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRenameVariantActionPerformed(evt);
-            }
-        });
+        btnRenameVariant.setMinimumSize(new Dimension(80, 23));
+        btnRenameVariant.setPreferredSize(new Dimension(120, 23));
+        btnRenameVariant.addActionListener(this::btnRenameVariantActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -2829,9 +2534,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         lblRightIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRightIntPts.setText("00");
         lblRightIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblRightIntPts.setMaximumSize(new java.awt.Dimension(45, 20));
-        lblRightIntPts.setMinimumSize(new java.awt.Dimension(45, 20));
-        lblRightIntPts.setPreferredSize(new java.awt.Dimension(45, 20));
+        lblRightIntPts.setMaximumSize(new Dimension(45, 20));
+        lblRightIntPts.setMinimumSize(new Dimension(45, 20));
+        lblRightIntPts.setPreferredSize(new Dimension(45, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -2846,13 +2551,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         gridBagConstraints.gridy = 2;
         pnlRightArmor.add(jLabel46, gridBagConstraints);
 
-        spnRightArmor.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnRightArmor.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnRightArmor.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnRightArmorStateChanged(evt);
-            }
-        });
+        spnRightArmor.setMinimumSize(new Dimension(45, 20));
+        spnRightArmor.setPreferredSize(new Dimension(45, 20));
+        spnRightArmor.addChangeListener(this::spnRightArmorStateChanged);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -2864,9 +2565,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         lblFrontIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFrontIntPts.setText("00");
         lblFrontIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblFrontIntPts.setMaximumSize(new java.awt.Dimension(45, 20));
-        lblFrontIntPts.setMinimumSize(new java.awt.Dimension(45, 20));
-        lblFrontIntPts.setPreferredSize(new java.awt.Dimension(45, 20));
+        lblFrontIntPts.setMaximumSize(new Dimension(45, 20));
+        lblFrontIntPts.setMinimumSize(new Dimension(45, 20));
+        lblFrontIntPts.setPreferredSize(new Dimension(45, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -2881,13 +2582,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         gridBagConstraints.gridy = 2;
         pnlFrontArmor.add(jLabel47, gridBagConstraints);
 
-        spnFrontArmor.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnFrontArmor.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnFrontArmor.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnFrontArmorStateChanged(evt);
-            }
-        });
+        spnFrontArmor.setMinimumSize(new Dimension(45, 20));
+        spnFrontArmor.setPreferredSize(new Dimension(45, 20));
+        spnFrontArmor.addChangeListener(this::spnFrontArmorStateChanged);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -2899,9 +2596,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         lblLeftIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLeftIntPts.setText("00");
         lblLeftIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblLeftIntPts.setMaximumSize(new java.awt.Dimension(45, 20));
-        lblLeftIntPts.setMinimumSize(new java.awt.Dimension(45, 20));
-        lblLeftIntPts.setPreferredSize(new java.awt.Dimension(45, 20));
+        lblLeftIntPts.setMaximumSize(new Dimension(45, 20));
+        lblLeftIntPts.setMinimumSize(new Dimension(45, 20));
+        lblLeftIntPts.setPreferredSize(new Dimension(45, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -2916,13 +2613,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         gridBagConstraints.gridy = 2;
         pnlLeftArmor.add(jLabel48, gridBagConstraints);
 
-        spnLeftArmor.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnLeftArmor.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnLeftArmor.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnLeftArmorStateChanged(evt);
-            }
-        });
+        spnLeftArmor.setMinimumSize(new Dimension(45, 20));
+        spnLeftArmor.setPreferredSize(new Dimension(45, 20));
+        spnLeftArmor.addChangeListener(this::spnLeftArmorStateChanged);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -2934,9 +2627,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         lblRearIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRearIntPts.setText("00");
         lblRearIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblRearIntPts.setMaximumSize(new java.awt.Dimension(45, 20));
-        lblRearIntPts.setMinimumSize(new java.awt.Dimension(45, 20));
-        lblRearIntPts.setPreferredSize(new java.awt.Dimension(45, 20));
+        lblRearIntPts.setMaximumSize(new Dimension(45, 20));
+        lblRearIntPts.setMinimumSize(new Dimension(45, 20));
+        lblRearIntPts.setPreferredSize(new Dimension(45, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -2951,13 +2644,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         gridBagConstraints.gridy = 2;
         pnlRearArmor.add(jLabel49, gridBagConstraints);
 
-        spnRearArmor.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnRearArmor.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnRearArmor.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnRearArmorStateChanged(evt);
-            }
-        });
+        spnRearArmor.setMinimumSize(new Dimension(45, 20));
+        spnRearArmor.setPreferredSize(new Dimension(45, 20));
+        spnRearArmor.addChangeListener(this::spnRearArmorStateChanged);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -2969,9 +2658,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         lblTurretIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTurretIntPts.setText("00");
         lblTurretIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblTurretIntPts.setMaximumSize(new java.awt.Dimension(45, 20));
-        lblTurretIntPts.setMinimumSize(new java.awt.Dimension(45, 20));
-        lblTurretIntPts.setPreferredSize(new java.awt.Dimension(45, 20));
+        lblTurretIntPts.setMaximumSize(new Dimension(45, 20));
+        lblTurretIntPts.setMinimumSize(new Dimension(45, 20));
+        lblTurretIntPts.setPreferredSize(new Dimension(45, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -2986,13 +2675,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         gridBagConstraints.gridy = 2;
         pnlTurretArmor.add(jLabel50, gridBagConstraints);
 
-        spnTurretArmor.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnTurretArmor.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnTurretArmor.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnTurretArmorStateChanged(evt);
-            }
-        });
+        spnTurretArmor.setMinimumSize(new Dimension(45, 20));
+        spnTurretArmor.setPreferredSize(new Dimension(45, 20));
+        spnTurretArmor.addChangeListener(this::spnTurretArmorStateChanged);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -3005,9 +2690,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         lblRearTurretIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRearTurretIntPts.setText("00");
         lblRearTurretIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblRearTurretIntPts.setMaximumSize(new java.awt.Dimension(45, 20));
-        lblRearTurretIntPts.setMinimumSize(new java.awt.Dimension(45, 20));
-        lblRearTurretIntPts.setPreferredSize(new java.awt.Dimension(45, 20));
+        lblRearTurretIntPts.setMaximumSize(new Dimension(45, 20));
+        lblRearTurretIntPts.setMinimumSize(new Dimension(45, 20));
+        lblRearTurretIntPts.setPreferredSize(new Dimension(45, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -3022,13 +2707,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         gridBagConstraints.gridy = 2;
         pnlRearTurretArmor.add(jLabel51, gridBagConstraints);
 
-        spnRearTurretArmor.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnRearTurretArmor.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnRearTurretArmor.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnRearTurretArmorStateChanged(evt);
-            }
-        });
+        spnRearTurretArmor.setMinimumSize(new Dimension(45, 20));
+        spnRearTurretArmor.setPreferredSize(new Dimension(45, 20));
+        spnRearTurretArmor.addChangeListener(this::spnRearTurretArmorStateChanged);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -3041,9 +2722,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         lblRotorIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRotorIntPts.setText("00");
         lblRotorIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblRotorIntPts.setMaximumSize(new java.awt.Dimension(45, 20));
-        lblRotorIntPts.setMinimumSize(new java.awt.Dimension(45, 20));
-        lblRotorIntPts.setPreferredSize(new java.awt.Dimension(45, 20));
+        lblRotorIntPts.setMaximumSize(new Dimension(45, 20));
+        lblRotorIntPts.setMinimumSize(new Dimension(45, 20));
+        lblRotorIntPts.setPreferredSize(new Dimension(45, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -3058,13 +2739,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         gridBagConstraints.gridy = 2;
         pnlRotorArmor.add(jLabel93, gridBagConstraints);
 
-        spnRotorArmor.setMinimumSize(new java.awt.Dimension(45, 20));
-        spnRotorArmor.setPreferredSize(new java.awt.Dimension(45, 20));
-        spnRotorArmor.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnRotorArmorStateChanged(evt);
-            }
-        });
+        spnRotorArmor.setMinimumSize(new Dimension(45, 20));
+        spnRotorArmor.setPreferredSize(new Dimension(45, 20));
+        spnRotorArmor.addChangeListener(this::spnRotorArmorStateChanged);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -3119,13 +2796,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         jLabel52.setText("Armor Type:");
 
         cmbArmorType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Standard", "Industrial", "Commercial", "Ferro-Fibrous", "Light Ferro-Fibrous", "Heavy Ferro-Fibrous", "Vehicular Stealth" }));
-        cmbArmorType.setMinimumSize(new java.awt.Dimension(150, 20));
-        cmbArmorType.setPreferredSize(new java.awt.Dimension(150, 20));
-        cmbArmorType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbArmorTypeActionPerformed(evt);
-            }
-        });
+        cmbArmorType.setMinimumSize(new Dimension(150, 20));
+        cmbArmorType.setPreferredSize(new Dimension(150, 20));
+        cmbArmorType.addActionListener(this::cmbArmorTypeActionPerformed);
 
         chkBalanceLRArmor.setSelected(true);
         chkBalanceLRArmor.setText("Balance Left/Right Armor");
@@ -3133,25 +2806,13 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         chkBalanceFRArmor.setText("Balance Front/Rear Armor");
 
         btnSetArmorTons.setText("Set Armor Tonnage");
-        btnSetArmorTons.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSetArmorTonsActionPerformed(evt);
-            }
-        });
+        btnSetArmorTons.addActionListener(this::btnSetArmorTonsActionPerformed);
 
         btnUseRemaining.setText("Use Remaining Tonnage");
-        btnUseRemaining.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUseRemainingActionPerformed(evt);
-            }
-        });
+        btnUseRemaining.addActionListener(this::btnUseRemainingActionPerformed);
 
         btnMaximize.setText("Maximize Armor");
-        btnMaximize.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMaximizeActionPerformed(evt);
-            }
-        });
+        btnMaximize.addActionListener(this::btnMaximizeActionPerformed);
 
         GroupLayout jPanel7Layout = new GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -3225,8 +2886,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtArmorTons.setEditable(false);
         txtArmorTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtArmorTons.setText("000.00");
-        txtArmorTons.setMinimumSize(new java.awt.Dimension(50, 20));
-        txtArmorTons.setPreferredSize(new java.awt.Dimension(50, 20));
+        txtArmorTons.setMinimumSize(new Dimension(50, 20));
+        txtArmorTons.setPreferredSize(new Dimension(50, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -3235,8 +2896,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtArmorSpace.setEditable(false);
         txtArmorSpace.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtArmorSpace.setText("00");
-        txtArmorSpace.setMinimumSize(new java.awt.Dimension(40, 20));
-        txtArmorSpace.setPreferredSize(new java.awt.Dimension(40, 20));
+        txtArmorSpace.setMinimumSize(new Dimension(40, 20));
+        txtArmorSpace.setPreferredSize(new Dimension(40, 20));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -3438,14 +3099,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
         pnlEquipInfo.add(jLabel61, gridBagConstraints);
-
-//        lblInfoName.setText(" ");
-//        gridBagConstraints = new GridBagConstraints();
-//        gridBagConstraints.gridx = 0;
-//        gridBagConstraints.gridy = 1;
-//        gridBagConstraints.anchor = GridBagConstraints.WEST;
-//        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
-//        pnlEquipInfo.add(lblInfoName, gridBagConstraints);
 
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -3651,11 +3304,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         chkUseTC.setText("Targeting Computer");
         chkUseTC.setEnabled(false);
-        chkUseTC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkUseTCActionPerformed(evt);
-            }
-        });
+        chkUseTC.addActionListener(this::chkUseTCActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -3664,11 +3313,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlSpecials.add(chkUseTC, gridBagConstraints);
 
         chkFCSAIV.setText("Use Artemis IV");
-        chkFCSAIV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkFCSAIVActionPerformed(evt);
-            }
-        });
+        chkFCSAIV.addActionListener(this::chkFCSAIVActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -3678,11 +3323,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         chkFCSAV.setText("Use Artemis V");
         chkFCSAV.setEnabled(false);
-        chkFCSAV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkFCSAVActionPerformed(evt);
-            }
-        });
+        chkFCSAV.addActionListener(this::chkFCSAVActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -3692,11 +3333,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         chkFCSApollo.setText("Use MRM Apollo");
         chkFCSApollo.setEnabled(false);
-        chkFCSApollo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkFCSApolloActionPerformed(evt);
-            }
-        });
+        chkFCSApollo.addActionListener(this::chkFCSApolloActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -3705,11 +3342,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlSpecials.add(chkFCSApollo, gridBagConstraints);
 
         chkCASE.setText("Use CASE");
-        chkCASE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkCASEActionPerformed(evt);
-            }
-        });
+        chkCASE.addActionListener(this::chkCASEActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
@@ -3721,21 +3354,13 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlControls.setLayout(new java.awt.GridBagLayout());
 
         btnRemoveEquip.setText("<<");
-        btnRemoveEquip.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoveEquipActionPerformed(evt);
-            }
-        });
+        btnRemoveEquip.addActionListener(this::btnRemoveEquipActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 8);
         pnlControls.add(btnRemoveEquip, gridBagConstraints);
 
         btnClearEquip.setText("Clear");
-        btnClearEquip.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClearEquipActionPerformed(evt);
-            }
-        });
+        btnClearEquip.addActionListener(this::btnClearEquipActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -3743,11 +3368,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlControls.add(btnClearEquip, gridBagConstraints);
 
         btnAddEquip.setText(">>");
-        btnAddEquip.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddEquipActionPerformed(evt);
-            }
-        });
+        btnAddEquip.addActionListener(this::btnAddEquipActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -3785,16 +3406,12 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlControls.add(scrLocations, gridBagConstraints);
 
         pnlSelected.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Selected Equipment"));
-        pnlSelected.setMaximumSize(new java.awt.Dimension(250, 1000));
-        pnlSelected.setMinimumSize(new java.awt.Dimension(150, 250));
+        pnlSelected.setMaximumSize(new Dimension(250, 1000));
+        pnlSelected.setMinimumSize(new Dimension(150, 250));
         pnlSelected.setLayout(new BoxLayout(pnlSelected, BoxLayout.LINE_AXIS));
 
         lstSelectedEquipment.setModel( new javax.swing.DefaultListModel());
-        lstSelectedEquipment.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstSelectedEquipmentValueChanged(evt);
-            }
-        });
+        lstSelectedEquipment.addListSelectionListener(this::lstSelectedEquipmentValueChanged);
         lstSelectedEquipment.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 lstSelectedEquipmentKeyPressed(evt);
@@ -3838,11 +3455,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             public Object getElementAt(int i) { return strings[i]; }
         });
         lstChooseBallistic.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseBallistic.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChooseBallisticValueChanged(evt);
-            }
-        });
+        lstChooseBallistic.addListSelectionListener(this::lstChooseBallisticValueChanged);
         MouseListener mlBallistic = new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
@@ -3864,11 +3477,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             public Object getElementAt(int i) { return strings[i]; }
         });
         lstChooseEnergy.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseEnergy.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChooseEnergyValueChanged(evt);
-            }
-        });
+        lstChooseEnergy.addListSelectionListener(this::lstChooseEnergyValueChanged);
         MouseListener mlEnergy = new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
@@ -3892,11 +3501,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             public Object getElementAt(int i) { return strings[i]; }
         });
         lstChooseMissile.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseMissile.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChooseMissileValueChanged(evt);
-            }
-        });
+        lstChooseMissile.addListSelectionListener(this::lstChooseMissileValueChanged);
         MouseListener mlMissile = new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
@@ -3918,11 +3523,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             public Object getElementAt(int i) { return strings[i]; }
         });
         lstChoosePhysical.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChoosePhysical.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChoosePhysicalValueChanged(evt);
-            }
-        });
+        lstChoosePhysical.addListSelectionListener(this::lstChoosePhysicalValueChanged);
         MouseListener mlPhysical = new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
@@ -3944,11 +3545,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             public Object getElementAt(int i) { return strings[i]; }
         });
         lstChooseEquipment.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseEquipment.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChooseEquipmentValueChanged(evt);
-            }
-        });
+        lstChooseEquipment.addListSelectionListener(this::lstChooseEquipmentValueChanged);
         MouseListener mlEquipment = new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
@@ -3970,11 +3567,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             public Object getElementAt(int i) { return strings[i]; }
         });
         lstChooseArtillery.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseArtillery.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChooseArtilleryValueChanged(evt);
-            }
-        });
+        lstChooseArtillery.addListSelectionListener(this::lstChooseArtilleryValueChanged);
         MouseListener mlArtillery = new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
@@ -3996,11 +3589,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             public Object getElementAt(int i) { return strings[i]; }
         });
         lstChooseAmmunition.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseAmmunition.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lstChooseAmmunitionValueChanged(evt);
-            }
-        });
+        lstChooseAmmunition.addListSelectionListener(this::lstChooseAmmunitionValueChanged);
         MouseListener mlAmmo = new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
                 if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
@@ -4052,50 +3641,34 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         tbpMainTabPane.addTab("Equipment", pnlEquipment);
 
-        pnlExport.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Export", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
+        pnlExport.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Export", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", Font.PLAIN, 11))); // NOI18N
         pnlExport.setLayout(new java.awt.GridBagLayout());
 
         btnExportTXT.setText("to TXT");
-        btnExportTXT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportTXTActionPerformed(evt);
-            }
-        });
+        btnExportTXT.addActionListener(this::btnExportTXTActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         pnlExport.add(btnExportTXT, gridBagConstraints);
 
         btnExportHTML.setText("to HTML");
-        btnExportHTML.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportHTMLActionPerformed(evt);
-            }
-        });
+        btnExportHTML.addActionListener(this::btnExportHTMLActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
         pnlExport.add(btnExportHTML, gridBagConstraints);
 
         btnExportMTF.setText("to MegaMek");
-        btnExportMTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportMTFActionPerformed(evt);
-            }
-        });
+        btnExportMTF.addActionListener(this::btnExportMTFActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         pnlExport.add(btnExportMTF, gridBagConstraints);
 
-        tbpFluffEditors.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-        tbpFluffEditors.setMaximumSize(new java.awt.Dimension(1000, 1000));
-        tbpFluffEditors.setMinimumSize(new java.awt.Dimension(420, 455));
+        tbpFluffEditors.setTabPlacement(JTabbedPane.RIGHT);
+        tbpFluffEditors.setMaximumSize(new Dimension(1000, 1000));
+        tbpFluffEditors.setMinimumSize(new Dimension(420, 455));
 
-        //pnlOverview.setMaximumSize(new java.awt.Dimension(427, 485));
-        //pnlOverview.setMinimumSize(new java.awt.Dimension(427, 485));
         pnlOverview.setLayout(new BoxLayout(pnlOverview, BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Overview", pnlOverview);
 
-        //pnlCapabilities.setMaximumSize(new java.awt.Dimension(427, 485));
-        //pnlCapabilities.setMinimumSize(new java.awt.Dimension(427, 485));
         pnlCapabilities.setLayout(new BoxLayout(pnlCapabilities, BoxLayout.Y_AXIS));
         tbpFluffEditors.addTab("Capabilities", pnlCapabilities);
 
@@ -4127,7 +3700,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             }
         };
 
-        lblManuInfo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblManuInfo.setFont(new java.awt.Font("Arial", Font.BOLD, 12)); // NOI18N
         lblManuInfo.setText("Manufacturer Information");
 
         pnlManufacturers.setLayout(new BoxLayout(pnlManufacturers, BoxLayout.Y_AXIS));
@@ -4141,9 +3714,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlManufacturers.add(DataEntry("Communications System:", txtCommSystem, showFluff));
         pnlManufacturers.add(DataEntry("Targeting and Tracking:", txtTNTSystem, showFluff));
 
-        pnlWeaponsManufacturers.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Weapons Manufacturers", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
-        pnlWeaponsManufacturers.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        pnlWeaponsManufacturers.setMinimumSize(new java.awt.Dimension(200, 200));
+        pnlWeaponsManufacturers.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Weapons Manufacturers", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", Font.PLAIN, 11))); // NOI18N
+        pnlWeaponsManufacturers.setFont(new java.awt.Font("Arial", Font.PLAIN, 11)); // NOI18N
+        pnlWeaponsManufacturers.setMinimumSize(new Dimension(200, 200));
         pnlWeaponsManufacturers.setLayout(new BoxLayout(pnlWeaponsManufacturers, BoxLayout.Y_AXIS));
 
         chkIndividualWeapons.setText("Assign manufacturers individually");
@@ -4172,9 +3745,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlWeaponsManufacturers.add(scpWeaponManufacturers);
         pnlManufacturers.add(pnlWeaponsManufacturers);
 
-        tbpFluffEditors.addTab("Manufacturers", pnlManufacturers);
+        //tbpFluffEditors.addTab("Manufacturers", pnlManufacturers);
 
-        lblBattleMechQuirks.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblBattleMechQuirks.setFont(new java.awt.Font("Arial", Font.BOLD, 12)); // NOI18N
         lblBattleMechQuirks.setText("Quirks");
 
         tblQuirks.setModel(new javax.swing.table.DefaultTableModel(
@@ -4208,11 +3781,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         scpQuirkTable.setViewportView(tblQuirks);
 
         btnAddQuirk.setText("Add Quirk");
-        btnAddQuirk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddQuirkActionPerformed(evt);
-            }
-        });
+        btnAddQuirk.addActionListener(this::btnAddQuirkActionPerformed);
 
         GroupLayout pnlQuirksLayout = new GroupLayout(pnlQuirks);
         pnlQuirks.setLayout(pnlQuirksLayout);
@@ -4319,50 +3888,42 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         lblBFPoints.setText("0");
         pnlBFStats.add(lblBFPoints, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
 
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Conversion Steps"));
+        pnlConversionSteps.setBorder(javax.swing.BorderFactory.createTitledBorder("Conversion Steps"));
 
-        jTextAreaBFConversion.setColumns(20);
+        jTextAreaBFConversion.setColumns(60);
         jTextAreaBFConversion.setEditable(false);
         jTextAreaBFConversion.setRows(5);
-        jScrollPane14.setViewportView(jTextAreaBFConversion);
+        scpBFConversion.setViewportView(jTextAreaBFConversion);
 
-        GroupLayout jPanel10Layout = new GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
+        GroupLayout jPanel10Layout = new GroupLayout(pnlConversionSteps);
+        pnlConversionSteps.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            jPanel10Layout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addComponent(jScrollPane14)
+                .addContainerGap()
+                .addComponent(scpBFConversion, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane14)
+            jPanel10Layout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
+            .addComponent(scpBFConversion)
         );
 
-        pnlImage.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Fluff Image", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 11))); // NOI18N
+        pnlImage.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Fluff Image", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", Font.PLAIN, 11))); // NOI18N
 
         lblFluffImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFluffImage.setMaximumSize(new java.awt.Dimension(375, 260));
-        lblFluffImage.setMinimumSize(new java.awt.Dimension(375, 260));
-        lblFluffImage.setPreferredSize(new java.awt.Dimension(350, 350));
+        lblFluffImage.setMaximumSize(new Dimension(375, 260));
+        lblFluffImage.setMinimumSize(new Dimension(375, 260));
+        lblFluffImage.setPreferredSize(new Dimension(350, 350));
 
         pnlImageButtons.setLayout(new java.awt.GridBagLayout());
 
         btnLoadImage.setText("Load Image");
-        btnLoadImage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoadImageActionPerformed(evt);
-            }
-        });
+        btnLoadImage.addActionListener(this::btnLoadImageActionPerformed);
         pnlImageButtons.add(btnLoadImage, new GridBagConstraints());
 
         btnClearImage.setText("Clear Image");
-        btnClearImage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClearImageActionPerformed(evt);
-            }
-        });
+        btnClearImage.addActionListener(this::btnClearImageActionPerformed);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -4390,15 +3951,14 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             pnlFluffLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(pnlFluffLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlImage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(pnlManufacturers, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+
                 .addComponent(tbpFluffEditors, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlFluffLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlFluffLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                        .addComponent(pnlBFStats, GroupLayout.PREFERRED_SIZE, 378, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel10, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(pnlExport, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlImage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+
                 .addContainerGap())
         );
         pnlFluffLayout.setVerticalGroup(
@@ -4406,69 +3966,47 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             .addGroup(pnlFluffLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlFluffLayout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
-                    .addGroup(pnlFluffLayout.createSequentialGroup()
-                        .addComponent(pnlBFStats, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel10, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlExport, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pnlManufacturers, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tbpFluffEditors, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                     .addComponent(pnlImage, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addContainerGap())
         );
 
-        tbpMainTabPane.addTab("Fluff and BattleForce", pnlFluff);
+        tbpMainTabPane.addTab("Fluff", pnlFluff);
+
+        JPanel pnlBF = new JPanel();
+        pnlBF.setLayout(new BoxLayout(pnlBF, BoxLayout.X_AXIS));
+        pnlBF.add(pnlBFStats);
+        pnlBF.add(pnlConversionSteps);
+        //pnlBF.add(pnlExport);
+        tbpMainTabPane.addTab("BattleForce", pnlBF);
 
         mnuFile.setText("File");
-        mnuFile.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuFileActionPerformed(evt);
-            }
-        });
+        mnuFile.addActionListener(this::mnuFileActionPerformed);
 
         mnuNewMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK));
         mnuNewMech.setText("New");
-        mnuNewMech.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuNewMechActionPerformed(evt);
-            }
-        });
+        mnuNewMech.addActionListener(this::mnuNewMechActionPerformed);
         mnuFile.add(mnuNewMech);
 
         mnuLoad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
         mnuLoad.setText("Load");
-        mnuLoad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuLoadActionPerformed(evt);
-            }
-        });
+        mnuLoad.addActionListener(this::mnuLoadActionPerformed);
         mnuFile.add(mnuLoad);
 
         mnuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
         mnuOpen.setText("Open");
-        mnuOpen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuOpenActionPerformed(evt);
-            }
-        });
+        mnuOpen.addActionListener(this::mnuOpenActionPerformed);
         mnuFile.add(mnuOpen);
 
         mnuImport.setText("Import...");
 
         mnuImportHMP.setText("from Heavy Metal Pro (HMP)");
-        mnuImportHMP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuImportHMPActionPerformed(evt);
-            }
-        });
+        mnuImportHMP.addActionListener(this::mnuImportHMPActionPerformed);
         mnuImport.add(mnuImportHMP);
 
         mnuBatchHMP.setText("Batch Import HMP Files");
-        mnuBatchHMP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuBatchHMPActionPerformed(evt);
-            }
-        });
+        mnuBatchHMP.addActionListener(this::mnuBatchHMPActionPerformed);
         mnuImport.add(mnuBatchHMP);
 
         mnuFile.add(mnuImport);
@@ -4476,62 +4014,34 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         mnuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         mnuSave.setText("Save");
-        mnuSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuSaveActionPerformed(evt);
-            }
-        });
+        mnuSave.addActionListener(this::mnuSaveActionPerformed);
         mnuFile.add(mnuSave);
 
         mnuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         mnuSaveAs.setText("Save As...");
-        mnuSaveAs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuSaveAsActionPerformed(evt);
-            }
-        });
+        mnuSaveAs.addActionListener(this::mnuSaveAsActionPerformed);
         mnuFile.add(mnuSaveAs);
 
         mnuExport.setText("Export As...");
 
         mnuExportHTML.setText("to HTML (Web)");
-        mnuExportHTML.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuExportHTMLActionPerformed(evt);
-            }
-        });
+        mnuExportHTML.addActionListener(this::mnuExportHTMLActionPerformed);
         mnuExport.add(mnuExportHTML);
 
         mnuExportMTF.setText("to MTF (MegaMek)");
-        mnuExportMTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuExportMTFActionPerformed(evt);
-            }
-        });
+        mnuExportMTF.addActionListener(this::mnuExportMTFActionPerformed);
         mnuExport.add(mnuExportMTF);
 
         mnuExportTXT.setText("to TXT (Text)");
-        mnuExportTXT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuExportTXTActionPerformed(evt);
-            }
-        });
+        mnuExportTXT.addActionListener(this::mnuExportTXTActionPerformed);
         mnuExport.add(mnuExportTXT);
 
         mnuExportClipboard.setText("to Clipboard (Text)");
-        mnuExportClipboard.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuExportClipboardActionPerformed(evt);
-            }
-        });
+        mnuExportClipboard.addActionListener(this::mnuExportClipboardActionPerformed);
         mnuExport.add(mnuExportClipboard);
 
         mnuCreateTCGMech.setText("to TCG Format (Card)");
-        mnuCreateTCGMech.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuCreateTCGMechActionPerformed(evt);
-            }
-        });
+        mnuCreateTCGMech.addActionListener(this::mnuCreateTCGMechActionPerformed);
         mnuExport.add(mnuCreateTCGMech);
 
         mnuFile.add(mnuExport);
@@ -4542,21 +4052,13 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         mnuPrintPreview.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         mnuPrintPreview.setText("Print Preview");
-        mnuPrintPreview.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuPrintPreviewActionPerformed(evt);
-            }
-        });
+        mnuPrintPreview.addActionListener(this::mnuPrintPreviewActionPerformed);
         mnuFile.add(mnuPrintPreview);
         mnuFile.add(jSeparator24);
 
         mnuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK));
         mnuExit.setText("Exit");
-        mnuExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuExitActionPerformed(evt);
-            }
-        });
+        mnuExit.addActionListener(this::mnuExitActionPerformed);
         mnuFile.add(mnuExit);
 
         jMenuBar1.add(mnuFile);
@@ -4565,90 +4067,50 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         mnuSummary.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
         mnuSummary.setText("Show Summary");
-        mnuSummary.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuSummaryActionPerformed(evt);
-            }
-        });
+        mnuSummary.addActionListener(this::mnuSummaryActionPerformed);
         mnuClearFluff.add(mnuSummary);
 
         mnuCostBVBreakdown.setText("Cost/BV Breakdown");
-        mnuCostBVBreakdown.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuCostBVBreakdownActionPerformed(evt);
-            }
-        });
+        mnuCostBVBreakdown.addActionListener(this::mnuCostBVBreakdownActionPerformed);
         mnuClearFluff.add(mnuCostBVBreakdown);
 
         mnuTextTRO.setText("Show Text TRO Format");
-        mnuTextTRO.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuTextTROActionPerformed(evt);
-            }
-        });
+        mnuTextTRO.addActionListener(this::mnuTextTROActionPerformed);
         mnuClearFluff.add(mnuTextTRO);
         mnuClearFluff.add(jSeparator26);
 
         mnuBFB.setText("Load Force Balancer");
-        mnuBFB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuBFBActionPerformed(evt);
-            }
-        });
+        mnuBFB.addActionListener(this::mnuBFBActionPerformed);
         mnuClearFluff.add(mnuBFB);
         mnuClearFluff.add(jSeparator27);
 
         mnuOptions.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
         mnuOptions.setText("Preferences");
-        mnuOptions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuOptionsActionPerformed(evt);
-            }
-        });
+        mnuOptions.addActionListener(this::mnuOptionsActionPerformed);
         mnuClearFluff.add(mnuOptions);
 
         mnuViewToolbar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
         mnuViewToolbar.setSelected(true);
         mnuViewToolbar.setText("View Toolbar");
-        mnuViewToolbar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuViewToolbarActionPerformed(evt);
-            }
-        });
+        mnuViewToolbar.addActionListener(this::mnuViewToolbarActionPerformed);
         mnuClearFluff.add(mnuViewToolbar);
 
         mnuClearUserData.setText("Clear User Data");
-        mnuClearUserData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuClearUserDataActionPerformed(evt);
-            }
-        });
+        mnuClearUserData.addActionListener(this::mnuClearUserDataActionPerformed);
         mnuClearFluff.add(mnuClearUserData);
         mnuClearFluff.add(jSeparator30);
 
         mnuUnlock.setText("Unlock Chassis");
         mnuUnlock.setEnabled(false);
-        mnuUnlock.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuUnlockActionPerformed(evt);
-            }
-        });
+        mnuUnlock.addActionListener(this::mnuUnlockActionPerformed);
         mnuClearFluff.add(mnuUnlock);
 
         jMenuItem1.setText("Clear All Fluff");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
+        jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
         mnuClearFluff.add(jMenuItem1);
 
         mnuReloadEquipment.setText("Reload Equipment");
-        mnuReloadEquipment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuReloadEquipmentActionPerformed(evt);
-            }
-        });
+        mnuReloadEquipment.addActionListener(this::mnuReloadEquipmentActionPerformed);
         mnuClearFluff.add(mnuReloadEquipment);
 
         jMenuBar1.add(mnuClearFluff);
@@ -4656,19 +4118,11 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         mnuHelp.setText("Help");
 
         mnuCredits.setText("Credits");
-        mnuCredits.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuCreditsActionPerformed(evt);
-            }
-        });
+        mnuCredits.addActionListener(this::mnuCreditsActionPerformed);
         mnuHelp.add(mnuCredits);
 
         mnuAboutSSW.setText("About SAW");
-        mnuAboutSSW.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuAboutSSWActionPerformed(evt);
-            }
-        });
+        mnuAboutSSW.addActionListener(this::mnuAboutSSWActionPerformed);
         mnuHelp.add(mnuAboutSSW);
 
         jMenuBar1.add(mnuHelp);
@@ -4703,7 +4157,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         dataLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         dataLabel.setPreferredSize(new Dimension(150, 20));
 
-        input.setFont(new java.awt.Font("Arial", 0, 11));
+        input.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         input.addMouseListener(listener);
 
         entry.add(dataLabel);
@@ -4841,7 +4295,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private void SolidifyVehicle() {
         // sets some of the basic vehicle information normally kept in the GUI and
         // prepares the vehicle for saving to file
-        int year = 0;
+        int year;
         CurVee.setName( txtVehicleName.getText() );
         CurVee.setModel( txtModel.getText() );
         if( txtProdYear.getText().isEmpty() ) {
@@ -5519,7 +4973,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     }
 
     private File GetSaveFile( final String extension, String path, boolean autooverwrite, boolean singleloadout ) {
-        String filename = "";
+        String filename;
         boolean overwrite = false;
 
         // perform standard actions required before saving
@@ -5568,7 +5022,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             }
         }
 
-        File retval = null;
+        File retval;
         if( autooverwrite && overwrite ) {
             retval = new File( path + File.separator + filename );
         } else {
@@ -5585,11 +5039,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
                     String checkext = Utils.getExtension( f );
                     if( checkext != null ) {
-                        if( checkext.equals( extension ) ) {
-                            return true;
-                        } else {
-                            return false;
-                        }
+                        return checkext.equals(extension);
                     }
                     return false;
                 }
@@ -5660,14 +5110,14 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         // ensure we're not overweight
         if( CurVee.IsOmni() ) {
             ArrayList v = CurVee.GetLoadouts();
-            for( int i = 0; i < v.size(); i++ ) {
-                CurVee.SetCurLoadout( ((ifCVLoadout) v.get( i )).GetName() );
-                if( CurVee.GetCurrentTons() > CurVee.GetTonnage() ) {
-                    Media.Messager( this, ((ifCVLoadout) v.get( i )).GetName() +
-                        " loadout is overweight.  Reduce the weight\nto equal or below the Vehicle's tonnage." );
+            for (Object o : v) {
+                CurVee.SetCurLoadout(((ifCVLoadout) o).GetName());
+                if (CurVee.GetCurrentTons() > CurVee.GetTonnage()) {
+                    Media.Messager(this, ((ifCVLoadout) o).GetName() +
+                            " loadout is overweight.  Reduce the weight\nto equal or below the Vehicle's tonnage.");
                     //cmbOmniVariant.setSelectedItem( ((ifCVLoadout) v.get( i )).GetName() );
                     //cmbOmniVariantActionPerformed( evt );
-                    tbpMainTabPane.setSelectedComponent( pnlBasicSetup );
+                    tbpMainTabPane.setSelectedComponent(pnlBasicSetup);
                     SetSource = true;
                     return false;
                 }
@@ -5713,11 +5163,11 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         String OldVal = BuildLookupName( CurVee.GetEngine().GetCurrentState() );
         String LookupVal = (String) cmbEngineType.getSelectedItem();
         if( OldVal.equals( LookupVal ) ) { return; }
-        ifVisitor v = (ifVisitor) CurVee.Lookup( LookupVal );
+        ifVisitor v = CurVee.Lookup( LookupVal );
         try {
             CurVee.Visit( v );
         } catch( Exception e ) {
-            v = (ifVisitor) CurVee.Lookup( OldVal );
+            v = CurVee.Lookup( OldVal );
             try {
                 Media.Messager( this, "The new engine type is not valid.  Error:\n" + e.getMessage() + "\nReverting to the previous engine." );
                 CurVee.Visit( v );
@@ -5726,7 +5176,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 // wow, second one?  Get a new 'Mech.
                 Media.Messager( this, "Fatal error while attempting to revert to the old engine:\n" + e.getMessage() + "\nStarting over with a new Vehicle.  Sorry." );
                 GetNewVee();
-                return;
             }
         }
     }
@@ -5816,8 +5265,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         BuildArmorSelector();
         BuildExpEquipmentSelector();
         CheckOmni();
-        //cmbEngineType.setSelectedItem( saw.Constants.DEFAULT_ENGINE );
-        //cmbArmorType.setSelectedItem( saw.Constants.DEFAULT_ARMOR );
         FixMPSpinner();
         FixJJSpinnerModel();
         FixArmorSpinners();
@@ -5860,6 +5307,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             public int getRowCount() { return CurVee.GetLoadout().GetEquipment().size() + 5; }
             public int getColumnCount() { return 2; }
             public Object getValueAt( int row, int col ) {
+                if (CurVee.GetLoadout().GetEquipment().isEmpty()) { return null; }
                 Object o = CurVee.GetLoadout().GetEquipment().get( row );
                 if( col == 1 ) {
                     return ((abPlaceable) o).GetManufacturer();
@@ -5869,11 +5317,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             }
             @Override
             public boolean isCellEditable( int row, int col ) {
-                if( col == 0 ) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return col != 0;
             }
             @Override
             public void setValueAt( Object value, int row, int col ) {
@@ -5885,11 +5329,11 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 //    fireTableCellUpdated( row, col );
                 //} else {
                     ArrayList v = CurVee.GetLoadout().GetEquipment();
-                    for( int i = 0; i < v.size(); i++ ) {
-                        if( FileCommon.LookupStripArc( ((abPlaceable) v.get( i )).LookupName() ).equals( FileCommon.LookupStripArc( a.LookupName() ) ) ) {
-                            ((abPlaceable) v.get( i )).SetManufacturer( (String) value );
-                        }
+                for (Object o : v) {
+                    if (FileCommon.LookupStripArc(((abPlaceable) o).LookupName()).equals(FileCommon.LookupStripArc(a.LookupName()))) {
+                        ((abPlaceable) o).SetManufacturer((String) value);
                     }
+                }
                     fireTableDataChanged();
                 //}
             }
@@ -6076,14 +5520,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             if( CurVee.GetBaseLoadout().HasSupercharger() ) {
                 chkSupercharger.setEnabled( false );
             }
-        } else {
-            try {
-                //if( ! chkBSPFD.isEnabled() ) { locArmor.SetBlueShield( false ); }
-                //if( ! chkCommandConsole.isEnabled() ) { locArmor.SetCommandConsole( false ); }
-            } catch( Exception e ) {
-                // we should never get this, but report it if we do
-                Media.Messager( this, e.getMessage() );
-            }
         }
     }
 
@@ -6099,7 +5535,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         Equipment[ARTILLERY] = data.GetEquipment().GetArtillery( CurVee );
         Equipment[EQUIPMENT] = data.GetEquipment().GetEquipment( CurVee );
         Equipment[AMMUNITION] = new Object[] { " " };
-        if( CurVee.GetLoadout().GetNonCore().toArray().length <= 0 ) {
+        if(CurVee.GetLoadout().GetNonCore().toArray().length == 0) {
             Equipment[SELECTED] = new Object[] { " " };
         } else {
             Equipment[SELECTED] = CurVee.GetLoadout().GetNonCore().toArray();
@@ -6152,7 +5588,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         chkTrailer.setEnabled( true );
         //btnEfficientArmor.setEnabled( true );
         //btnBalanceArmor.setEnabled( true );
-        //btnLockChassis.setEnabled( true );
         chkFCSAIV.setEnabled( true );
         chkFCSAV.setEnabled( true );
         chkFCSApollo.setEnabled( true );
@@ -6161,7 +5596,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         btnLockChassis.setEnabled( true );
         spnCruiseMP.setEnabled( true );
         chkYearRestrict.setEnabled( true );
-        //chkBSPFD.setEnabled( true );
         chkSupercharger.setEnabled( true );
         chkJetBooster.setEnabled(true);
         chkEnviroSealing.setEnabled( false );
@@ -6235,11 +5669,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                     return false;
                 }
             }
-            return true;
         } else {
             Media.Messager( this, "Please add an appropriate ECM Suite to complement this\n system.  The Vehicle is not valid without an ECM Suite." );
-            return true;
         }
+        return true;
     }
 
     private void SetPatchworkArmor() {
@@ -6376,7 +5809,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private void RefreshOmniVariants() {
         ArrayList v = CurVee.GetLoadouts();
         String[] variants = new String[v.size()];
-        if( v.size() <= 0 ) {
+        if(v.size() == 0) {
             variants = new String[] { common.Constants.BASELOADOUT_NAME };
         } else {
             for( int i = 0; i < v.size(); i++ ) {
@@ -6540,7 +5973,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         fc.setAcceptAllFileFilterUsed( false );
         fc.setCurrentDirectory( tempFile );
         int returnVal = fc.showDialog( this, "Load Vehicle" );
-        if( returnVal != JFileChooser.APPROVE_OPTION ) { return m; }
+        if( returnVal != JFileChooser.APPROVE_OPTION ) { return null; }
         File loadmech = fc.getSelectedFile();
         String filename = "";
         try {
@@ -6550,7 +5983,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             Prefs.put("CurrentCVfile", loadmech.getCanonicalPath());
         } catch( Exception e ) {
             Media.Messager( this, "There was a problem opening the file:\n" + e.getMessage() );
-            return m;
+            return null;
         }
 
         try {
@@ -9289,10 +8722,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     }
 
     private void chkSponsonTurretActionPerformed(java.awt.event.ActionEvent evt) {
-        if (chkSponsonTurret.isSelected())
-            CurVee.setHasSponsonTurret(true);
-        else
-            CurVee.setHasSponsonTurret(false);
+        CurVee.setHasSponsonTurret(chkSponsonTurret.isSelected());
         RefreshSelectedEquipment();
         BuildLocationSelector();
     }
@@ -9352,7 +8782,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         // changes, here is a quick little routine to do it without extra fuss.
 
         int min = 0;
-        int max = 0;
+        int max;
         int current = 0;
 
 //        if( locArmor.IsOmni() ) {
@@ -9389,33 +8819,11 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         spnJumpMP.setModel( new javax.swing.SpinnerNumberModel( current, min, max, 1) );
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddEquip;
-    private javax.swing.JButton btnAddQuirk;
-    private javax.swing.JButton btnAddToForceList;
     private javax.swing.JButton btnAddVariant;
-    private javax.swing.JButton btnChatInfo;
-    private javax.swing.JButton btnClearEquip;
-    private javax.swing.JButton btnClearImage;
     private javax.swing.JButton btnDeleteVariant;
-    private javax.swing.JButton btnExportClipboardIcon;
-    private javax.swing.JButton btnExportHTML;
-    private javax.swing.JButton btnExportHTMLIcon;
-    private javax.swing.JButton btnExportMTF;
-    private javax.swing.JButton btnExportMTFIcon;
-    private javax.swing.JButton btnExportTXT;
-    private javax.swing.JButton btnExportTextIcon;
-    private javax.swing.JButton btnForceList;
-    private javax.swing.JButton btnLoadImage;
     private javax.swing.JButton btnLockChassis;
     private javax.swing.JButton btnMaximize;
-    private javax.swing.JButton btnNewVee;
-    private javax.swing.JButton btnOpen;
-    private javax.swing.JButton btnOptions;
-    private javax.swing.JButton btnPrint;
-    private javax.swing.JButton btnRemoveEquip;
     private javax.swing.JButton btnRenameVariant;
-    private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSetArmorTons;
     private javax.swing.JButton btnUseRemaining;
     private javax.swing.JCheckBox chkArmoredMotive;
@@ -9453,136 +8861,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JComboBox cmbRulesLevel;
     private javax.swing.JComboBox cmbTechBase;
     private javax.swing.JComboBox cmbTurret;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel titleFreeHeatSinks;
-    private javax.swing.JLabel titleSuspension;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel titleCrew;
-    private javax.swing.JLabel titleMinEngTon;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel titleBaseEngRate;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel titleFinalEngRate;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel lblAvailability;
-    private javax.swing.JLabel lblSW;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
-    private javax.swing.JLabel jLabel48;
-    private javax.swing.JLabel jLabel49;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel51;
-    private javax.swing.JLabel jLabel52;
-    private javax.swing.JLabel lblCI;
-    private javax.swing.JLabel lblIntro;
-    private javax.swing.JLabel lblExtinct;
-    private javax.swing.JLabel lblReintro;
-    private javax.swing.JLabel lblName;
-    private javax.swing.JLabel lblType;
-    private javax.swing.JLabel jLabel59;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel60;
-    private javax.swing.JLabel jLabel61;
-    private javax.swing.JLabel jLabel62;
-    private javax.swing.JLabel jLabel63;
-    private javax.swing.JLabel jLabel64;
-    private javax.swing.JLabel jLabel65;
-    private javax.swing.JLabel jLabel66;
-    private javax.swing.JLabel jLabel67;
-    private javax.swing.JLabel jLabel68;
-    private javax.swing.JLabel lblMMName;
     private javax.swing.JLabel lblMMNameInfo;
-    private javax.swing.JLabel jLabel69;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel70;
-    private javax.swing.JLabel jLabel71;
-    private javax.swing.JLabel jLabel72;
-    private javax.swing.JLabel jLabel73;
-    private javax.swing.JLabel jLabel74;
-    private javax.swing.JLabel jLabel75;
-    private javax.swing.JLabel jLabel76;
-    private javax.swing.JLabel jLabel77;
-    private javax.swing.JLabel jLabel78;
-    private javax.swing.JLabel jLabel79;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel80;
-    private javax.swing.JLabel jLabel81;
-    private javax.swing.JLabel lblManuInfo;
-    private javax.swing.JLabel jLabel83;
-    private javax.swing.JLabel jLabel84;
-    private javax.swing.JLabel jLabel85;
-    private javax.swing.JLabel jLabel86;
-    private javax.swing.JLabel jLabel87;
-    private javax.swing.JLabel jLabel88;
-    private javax.swing.JLabel jLabel89;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabel90;
-    private javax.swing.JLabel jLabel91;
-    private javax.swing.JLabel jLabel92;
-    private javax.swing.JLabel jLabel93;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel pnlImageButtons;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JScrollPane scrLocations;
-    private javax.swing.JScrollPane jScrollPane14;
-    private javax.swing.JScrollPane scrMissile;
-    private javax.swing.JScrollPane scrPhysical;
-    private javax.swing.JScrollPane scrEquipment;
-    private javax.swing.JScrollPane scrAmmo;
-    private javax.swing.JScrollPane scrSelectedEquip;
-    private javax.swing.JScrollPane scrArtillery;
-    private javax.swing.JScrollPane scrBallistic;
-    private javax.swing.JScrollPane scrEnergy;
-    private javax.swing.JToolBar.Separator jSeparator1;
-    private javax.swing.JSeparator jSeparator17;
-    private javax.swing.JToolBar.Separator jSeparator2;
-    private javax.swing.JSeparator jSeparator20;
-    private javax.swing.JToolBar.Separator jSeparator21;
-    private javax.swing.JSeparator jSeparator22;
-    private javax.swing.JSeparator jSeparator23;
-    private javax.swing.JSeparator jSeparator24;
-    private javax.swing.JToolBar.Separator jSeparator25;
-    private javax.swing.JSeparator jSeparator26;
-    private javax.swing.JSeparator jSeparator27;
-    private javax.swing.JToolBar.Separator jSeparator3;
-    private javax.swing.JSeparator jSeparator30;
-    private javax.swing.JToolBar.Separator jSeparator4;
-    private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JTextArea jTextAreaBFConversion;
     private javax.swing.JLabel lblArmorCoverage;
     private javax.swing.JLabel lblArmorLeftInLot;
@@ -9600,7 +8879,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JLabel lblBFStructure;
     private javax.swing.JLabel lblBFWt;
     private javax.swing.JLabel lblBaseEngineRating;
-    private javax.swing.JLabel lblBattleMechQuirks;
     private javax.swing.JLabel lblEraYears;
     private javax.swing.JLabel lblFinalEngineRating;
     private javax.swing.JLabel lblFlankMP;
@@ -9620,7 +8898,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JLabel lblInfoHeat;
     private javax.swing.JLabel lblInfoIntro;
     private javax.swing.JLabel lblInfoMountRestrict;
-    private javax.swing.JLabel lblInfoName;
     private javax.swing.JLabel lblInfoRange;
     private javax.swing.JLabel lblInfoReintro;
     private javax.swing.JLabel lblInfoRulesLevel;
@@ -9630,12 +8907,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JLabel lblLeftIntPts;
     private javax.swing.JLabel lblMinEngineTons;
     private javax.swing.JLabel lblNumCrew;
-    private javax.swing.JLabel lblProdYear;
     private javax.swing.JLabel lblRearIntPts;
     private javax.swing.JLabel lblRearTurretIntPts;
     private javax.swing.JLabel lblRightIntPts;
     private javax.swing.JLabel lblRotorIntPts;
-    private javax.swing.JLabel lblSelectVariant;
     private javax.swing.JLabel lblSupensionFacter;
     private javax.swing.JLabel lblTurretIntPts;
     private javax.swing.JLabel lblVeeClass;
@@ -9648,82 +8923,20 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JList lstChooseMissile;
     private javax.swing.JList lstChoosePhysical;
     private javax.swing.JList lstSelectedEquipment;
-    private javax.swing.JMenuItem mnuAboutSSW;
-    private javax.swing.JMenuItem mnuBFB;
-    private javax.swing.JMenuItem mnuBatchHMP;
-    private javax.swing.JMenu mnuClearFluff;
-    private javax.swing.JMenuItem mnuClearUserData;
-    private javax.swing.JMenuItem mnuCostBVBreakdown;
-    private javax.swing.JMenuItem mnuCreateTCGMech;
-    private javax.swing.JMenuItem mnuCredits;
-    private javax.swing.JMenuItem mnuExit;
-    private javax.swing.JMenu mnuExport;
-    private javax.swing.JMenuItem mnuExportClipboard;
-    private javax.swing.JMenuItem mnuExportHTML;
-    private javax.swing.JMenuItem mnuExportMTF;
-    private javax.swing.JMenuItem mnuExportTXT;
-    private javax.swing.JMenu mnuFile;
-    private javax.swing.JMenu mnuHelp;
-    private javax.swing.JMenu mnuImport;
-    private javax.swing.JMenuItem mnuImportHMP;
-    private javax.swing.JMenuItem mnuLoad;
-    private javax.swing.JMenuItem mnuNewMech;
-    private javax.swing.JMenuItem mnuOpen;
-    private javax.swing.JMenuItem mnuOptions;
-    private javax.swing.JMenu mnuPrint;
-    private javax.swing.JMenuItem mnuPrintPreview;
-    private javax.swing.JMenuItem mnuReloadEquipment;
-    private javax.swing.JMenuItem mnuSave;
-    private javax.swing.JMenuItem mnuSaveAs;
-    private javax.swing.JMenuItem mnuSummary;
-    private javax.swing.JMenuItem mnuTextTRO;
     private javax.swing.JMenuItem mnuUnlock;
     private javax.swing.JCheckBoxMenuItem mnuViewToolbar;
     private javax.swing.JPanel pnlAdditionalFluff;
-    private javax.swing.JPanel pnlAmmunition;
-    private javax.swing.JPanel pnlArtillery;
-    private javax.swing.JPanel pnlBFStats;
-    private javax.swing.JPanel pnlBallistic;
     private javax.swing.JPanel pnlBasicSetup;
     private javax.swing.JPanel pnlCapabilities;
-    private javax.swing.JPanel pnlChassis;
-    private javax.swing.JPanel pnlChassisMods;
-    private javax.swing.JPanel pnlControls;
     private javax.swing.JPanel pnlDeployment;
-    private javax.swing.JPanel pnlEnergy;
     private javax.swing.JPanel pnlEquipInfo;
-    private javax.swing.JPanel pnlEquipment;
-    private javax.swing.JPanel pnlEquipmentChooser;
-    private javax.swing.JPanel pnlExperimental;
-    private javax.swing.JPanel pnlExport;
-    private javax.swing.JPanel pnlFluff;
-    private javax.swing.JPanel pnlFrontArmor;
     private javax.swing.JPanel pnlHistory;
-    private javax.swing.JPanel pnlImage;
-    private javax.swing.JPanel pnlInfoPane;
-    private javax.swing.JPanel pnlInformation;
-    private javax.swing.JPanel pnlLeftArmor;
-    private javax.swing.JPanel pnlManufacturers;
-    private javax.swing.JPanel pnlMissile;
-    private javax.swing.JPanel pnlMovement;
     private javax.swing.JPanel pnlNotables;
-    private javax.swing.JPanel pnlOmniInfo;
     private javax.swing.JPanel pnlOverview;
-    private javax.swing.JPanel pnlPhysical;
-    private javax.swing.JPanel pnlQuirks;
-    private javax.swing.JPanel pnlRearArmor;
     private javax.swing.JPanel pnlRearTurretArmor;
-    private javax.swing.JPanel pnlRightArmor;
     private javax.swing.JPanel pnlRotorArmor;
-    private javax.swing.JPanel pnlSelected;
-    private javax.swing.JPanel pnlSpecials;
-    private javax.swing.JPanel pnlSummary;
     private javax.swing.JPanel pnlTurretArmor;
     private javax.swing.JPanel pnlVariants;
-    private javax.swing.JPanel pnlWeaponsManufacturers;
-    private javax.swing.JScrollPane scpQuirkTable;
-    private javax.swing.JScrollPane scpWeaponManufacturers;
-    private javax.swing.JScrollPane scpManufacturers;
     private javax.swing.JSpinner spnCruiseMP;
     private javax.swing.JSpinner spnFrontArmor;
     private javax.swing.JSpinner spnHeatSinks;
@@ -9736,9 +8949,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JSpinner spnTonnage;
     private javax.swing.JSpinner spnTurretArmor;
     private javax.swing.JSpinner spnTurretTonnage;
-    private javax.swing.JTable tblQuirks;
     private javax.swing.JTable tblWeaponManufacturers;
-    private javax.swing.JTabbedPane tbpFluffEditors;
     private javax.swing.JTabbedPane tbpMainTabPane;
     private javax.swing.JTabbedPane tbpWeaponChooser;
     private javax.swing.JToolBar tlbIconBar;
@@ -9772,7 +8983,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JTextField txtSumIntAV;
     private javax.swing.JTextField txtSumIntTons;
     private javax.swing.JTextField txtSumJJAV;
-    private javax.swing.JTextField txtSumJJSpace;
     private javax.swing.JTextField txtSumJJTons;
     private javax.swing.JTextField txtSumLifAV;
     private javax.swing.JTextField txtSumLifTons;
