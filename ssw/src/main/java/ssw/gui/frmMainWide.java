@@ -9334,7 +9334,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         tblQuirks.getTableHeader().setReorderingAllowed(false);
         scpQuirkTable.setViewportView(tblQuirks);
 
-        btnAddQuirk.setText("Add Quirk");
+        btnAddQuirk.setText("Manage Quirks");
         btnAddQuirk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddQuirkActionPerformed(evt);
@@ -14760,16 +14760,17 @@ private void chkBoobyTrapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     RefreshInfoPane();
 }//GEN-LAST:event_chkBoobyTrapActionPerformed
 
-private void cmbProductionEraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProductionEraActionPerformed
-    CurMech.SetProductionEra( cmbProductionEra.getSelectedIndex() );
-}//GEN-LAST:event_cmbProductionEraActionPerformed
+    private void cmbProductionEraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProductionEraActionPerformed
+        CurMech.SetProductionEra( cmbProductionEra.getSelectedIndex() );
+    }//GEN-LAST:event_cmbProductionEraActionPerformed
 
-    private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddQuirkActionPerformed
+    private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {
         dlgQuirks qmanage = new dlgQuirks(this, true, data, quirks);
         qmanage.setLocationRelativeTo(this);
         qmanage.setVisible(true);
         tblQuirks.setModel(new tbQuirks(quirks));
-    }//GEN-LAST:event_btnAddQuirkActionPerformed
+        CurMech.SetQuirks(quirks);
+    }
 
     private void mnuReloadEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReloadEquipmentActionPerformed
         try {
