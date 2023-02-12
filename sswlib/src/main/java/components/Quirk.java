@@ -92,12 +92,21 @@ public class Quirk {
     /**
      * @return the cost
      */
-    public int getCost() { return cost; }
-
-    public String getCostDisplay() {
-        if (isvariable) return "Varies";
-        return cost + "";
+    public String getCost() {
+        if (isPositive()) {
+            return "+" + cost;
+        }
+        return "-" + cost;
     }
+
+    public String getDirection() {
+        if (isPositive()) {
+            return "Pos";
+        } else {
+            return "Neg";
+        }
+    }
+
 
     /**
      * @return the description

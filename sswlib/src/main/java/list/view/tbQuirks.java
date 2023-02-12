@@ -43,7 +43,10 @@ public class tbQuirks extends AbstractTableModel {
 
     public void setupTable( JTable tbl ) {
         tbl.setModel(this);
-        tbl.getColumnModel().getColumn(0).setPreferredWidth(1);
+        tbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tbl.setAutoCreateRowSorter(true);
+        tbl.getColumnModel().getColumn(0).setMinWidth(1);
+        tbl.getColumnModel().getColumn(1).setMinWidth(100);
     }
 
     public Object get( int index ) {
