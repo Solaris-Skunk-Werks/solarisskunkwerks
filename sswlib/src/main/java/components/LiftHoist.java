@@ -138,7 +138,7 @@ public class LiftHoist extends abPlaceable implements ifEquipment {
 
     @Override
     public boolean CoreComponent() {
-        return true;
+        return false;
     }
 
     @Override
@@ -156,15 +156,17 @@ public class LiftHoist extends abPlaceable implements ifEquipment {
 
     @Override
     public void Validate(Mech m) throws Exception {
-        if( MaxAllowed() > 0 ) {
-            ArrayList currentEquipment = m.GetLoadout().GetEquipment();
-            for (int i = 0, c = 0; i < currentEquipment.size(); ++i) {
-                abPlaceable currentItem = (abPlaceable) currentEquipment.get(i);
-                if (currentItem.LookupName().equals(LookupName())) {
-                    ++c;
-                    if (c == MaxAllowed()) {
-                        throw new Exception("Only " + MaxAllowed() + " " + CritName() + "(s) may be mounted on one 'Mech.");
-                    }
+        if (MaxAllowed() == 0) {
+            return;
+        }
+
+        int count = 0;
+        for (Object item : m.GetLoadout().GetEquipment()) {
+            abPlaceable currentItem = (abPlaceable) item;
+            if (currentItem.LookupName().equals(LookupName())) {
+                ++count;
+                if (count == MaxAllowed()) {
+                    throw new Exception("Only " + MaxAllowed() + " " + CritName() + "(s) may be mounted on one 'Mech.");
                 }
             }
         }

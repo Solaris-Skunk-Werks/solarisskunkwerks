@@ -12267,8 +12267,8 @@ private void btnAddEquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     if( a != null ) {
         try {
             CurMech.GetLoadout().CheckExclusions( a );
-            if( a instanceof Equipment ) {
-                ((Equipment) a).Validate(CurMech);
+            if( a instanceof ifEquipment ) {
+                ((ifEquipment) a).Validate(CurMech);
             }
         } catch( Exception e ) {
             Media.Messager( e.getMessage() );
