@@ -122,6 +122,7 @@ public class EquipmentFactory {
         Equipment.add( new ModularArmor() );
         Equipment.add( new EquipmentProtoSuccWarsDoubleHeatSink());
         Equipment.add( new EquipmentProtoStarLeagueDoubleHeatSink());
+        Equipment.add( new LiftHoist(m));
         BuildPhysicals( m );
         if (( m.GetUnitType() == AvailableCode.UNIT_BATTLEMECH ) && ( m instanceof Mech) ) {
             PhysicalWeapons.add( new Talons( (Mech) m ) );
@@ -141,6 +142,8 @@ public class EquipmentFactory {
             retval = new ExtendedFuelTank( (Mech) m );
         } else if( p instanceof DroneOperatingSystem ) {
             retval = new DroneOperatingSystem( (Mech) m );
+        } else if (p instanceof LiftHoist) {
+            retval = new LiftHoist(m);
         } else if( p instanceof Equipment ) {
             retval = ((Equipment) p).Clone();
         } else if( p instanceof ModularArmor ) {

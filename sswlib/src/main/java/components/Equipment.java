@@ -32,7 +32,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class Equipment extends abPlaceable {
+public class Equipment extends abPlaceable implements ifEquipment {
     private String ActualName,
                    CritName,
                    Type,

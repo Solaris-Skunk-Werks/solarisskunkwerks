@@ -6363,10 +6363,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         if( a != null ) {
             try {
                 CurVee.GetLoadout().CheckExclusions( a );
-                if( a instanceof Equipment ) {
-                    if ( ! ((Equipment) a).Validate( CurVee ) ) {
-                        if( ((Equipment) a).MaxAllowed() > 0 ) {
-                            throw new Exception( "Only " + ((Equipment) a).MaxAllowed() + " " + a.CritName() + "(s) may be mounted on one Vehicle." );
+                if( a instanceof ifEquipment ) {
+                    if ( ! ((ifEquipment) a).Validate( CurVee ) ) {
+                        if( ((ifEquipment) a).MaxAllowed() > 0 ) {
+                            throw new Exception( "Only " + ((ifEquipment) a).MaxAllowed() + " " + a.CritName() + "(s) may be mounted on one Vehicle." );
                         }
                     }
                 }
