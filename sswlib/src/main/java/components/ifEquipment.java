@@ -29,8 +29,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package components;
 
 public interface ifEquipment {
-    // an abstract class for weapons of all types.  This provides a basic
-    // functionality for most weapon types and can be overriden if needed.
+    // an abstract class for equipment of all types.  This provides a basic
+    // functionality for most equipment types and can be overridden if needed.
     public String LookupName();
     public String CritName();
     public boolean IsVariableSize();
@@ -40,4 +40,6 @@ public interface ifEquipment {
 
     public void Validate( Mech m ) throws Exception;
     public boolean Validate( CombatVehicle v );
+
+    public boolean CanAllocCVBody();
 }

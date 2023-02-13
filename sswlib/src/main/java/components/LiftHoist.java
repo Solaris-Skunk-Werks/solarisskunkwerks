@@ -172,21 +172,21 @@ public class LiftHoist extends abPlaceable implements ifEquipment {
 
     @Override
     public boolean Validate(CombatVehicle v) {
-        if( MaxAllowed() > 0 ) {
-            ArrayList currentEquipment = v.GetLoadout().GetEquipment();
-            for( int i = 0, c = 0; i < currentEquipment.size(); ++i ) {
-                abPlaceable currentItem = (abPlaceable) currentEquipment.get( i );
-                if( currentItem.LookupName().equals( LookupName() ) ) {
-                    ++c;
-                    if( c == MaxAllowed() ) {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        } else {
+        if (MaxAllowed() == 0) {
             return true;
         }
+
+        int count = 0;
+        for(Object item : v.GetLoadout().GetEquipment()) {
+            abPlaceable currentItem = (abPlaceable) item;
+            if( currentItem.LookupName().equals( LookupName() ) ) {
+                ++count;
+                if( count == MaxAllowed() ) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
