@@ -34,7 +34,7 @@ import java.util.ArrayList;
  *
  * @author gblouin
  */
-public class LiftHoist extends abPlaceable implements ifEquipment {
+public class LiftHoist extends Equipment implements ifEquipment {
     private ifUnit Owner;
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
     public LiftHoist(ifUnit l)
