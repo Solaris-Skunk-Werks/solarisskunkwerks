@@ -52,6 +52,8 @@ public class LiftHoist extends Equipment implements ifEquipment {
         AC.SetSuperHeavyOnly(false);
         AC.SetRulesLevels( AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_TOURNAMENT, AvailableCode.RULES_UNALLOWED, AvailableCode.RULES_UNALLOWED );
         Owner = l;
+
+        SetMountableRear(true);
     }
 
     public String ActualName() {
@@ -199,6 +201,11 @@ public class LiftHoist extends Equipment implements ifEquipment {
             }
         }
         return false;
+    }
+
+    @Override
+    public String GetEquipmentType() {
+        return "equipment";
     }
 
 }
