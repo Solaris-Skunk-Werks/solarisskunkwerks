@@ -8880,6 +8880,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JSpinner spnTonnage;
     private javax.swing.JSpinner spnTurretArmor;
     private javax.swing.JSpinner spnTurretTonnage;
+    private javax.swing.JTable tblQuirks;
     private javax.swing.JTable tblWeaponManufacturers;
     private javax.swing.JTabbedPane tbpMainTabPane;
     private javax.swing.JTabbedPane tbpWeaponChooser;
