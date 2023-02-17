@@ -28,14 +28,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package components;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author gblouin
  */
 public class LiftHoist extends Equipment implements ifEquipment {
-    private ifUnit Owner;
+    private final ifUnit Owner;
+    private transient boolean Rear = false;
     private final static AvailableCode AC = new AvailableCode( AvailableCode.TECH_BOTH );
     public LiftHoist(ifUnit l)
     {
@@ -56,12 +55,16 @@ public class LiftHoist extends Equipment implements ifEquipment {
         SetMountableRear(true);
     }
 
+    public String RearName() {
+        return Rear ? "(R) " : "";
+    }
+
     public String ActualName() {
         return "Lift Hoist";
     }
 
     public String CritName() {
-        return "Lift Hoist";
+        return RearName() + "Lift Hoist";
     }
 
     @Override
@@ -134,8 +137,7 @@ public class LiftHoist extends Equipment implements ifEquipment {
 
     @Override
     public AvailableCode GetAvailability() {
-        AvailableCode retval = AC.Clone();
-        return retval;
+        return AC.Clone();
     }
 
     @Override
@@ -196,9 +198,7 @@ public class LiftHoist extends Equipment implements ifEquipment {
     @Override
     public boolean CanAllocCVBody() {
         if (Owner instanceof CombatVehicle){
-            if (((CombatVehicle) Owner).IsVTOL()) {
-                return true;
-            }
+            return ((CombatVehicle) Owner).IsVTOL();
         }
         return false;
     }
@@ -208,4 +208,12 @@ public class LiftHoist extends Equipment implements ifEquipment {
         return "equipment";
     }
 
+    @Override
+    public void MountRear( boolean rear ) {
+        Rear = rear;
+    }
+    @Override
+    public boolean IsMountedRear() {
+        return Rear;
+    }
 }
