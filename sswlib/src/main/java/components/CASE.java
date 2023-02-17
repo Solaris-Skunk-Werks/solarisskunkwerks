@@ -139,4 +139,6 @@ public class CASE extends abPlaceable {
     public void SetClan(boolean b ) {
         IsClan = b;
     }
+
+    public boolean IsClan() { return IsClan; }
 }

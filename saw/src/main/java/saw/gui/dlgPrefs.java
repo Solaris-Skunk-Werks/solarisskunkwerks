@@ -127,6 +127,9 @@ public class dlgPrefs extends javax.swing.JDialog {
             case saw.Constants.SCREEN_SIZE_WIDE_1280:
                 rdoWidescreen.setSelected( true );
                 break;
+            case saw.Constants.SCREEN_SIZE_WIDE_1600:
+                rdoLargescreen.setSelected(true);
+                break;
             default:
                 rdoNormalSize.setSelected( true );
                 break;
@@ -193,6 +196,8 @@ public class dlgPrefs extends javax.swing.JDialog {
             Prefs.putInt( "SSWScreenSize", saw.Constants.SCREEN_SIZE_NORMAL );
         } else if( rdoWidescreen.isSelected() ) {
             Prefs.putInt( "SSWScreenSize", saw.Constants.SCREEN_SIZE_WIDE_1280 );
+        } else if (rdoLargescreen.isSelected()) {
+            Prefs.putInt( "SSWScreenSize", saw.Constants.SCREEN_SIZE_WIDE_1600);
         }
     }
 
@@ -349,6 +354,7 @@ public class dlgPrefs extends javax.swing.JDialog {
         jPanel14 = new javax.swing.JPanel();
         rdoNormalSize = new javax.swing.JRadioButton();
         rdoWidescreen = new javax.swing.JRadioButton();
+        rdoLargescreen = new javax.swing.JRadioButton();
         lblScreenSizeNotice = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         btnSave = new javax.swing.JButton();
@@ -1196,10 +1202,18 @@ public class dlgPrefs extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel14.add(rdoWidescreen, gridBagConstraints);
 
-        lblScreenSizeNotice.setText("Change requires restart of SSW.");
+        btgScreenSize.add(rdoLargescreen);
+        rdoLargescreen.setText("Large Screen (1600 wide)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        jPanel14.add(rdoLargescreen, gridBagConstraints);
+
+        lblScreenSizeNotice.setText("Change requires restart of SSW.");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel14.add(lblScreenSizeNotice, gridBagConstraints);
 
@@ -1719,6 +1733,7 @@ public class dlgPrefs extends javax.swing.JDialog {
     private javax.swing.JRadioButton rdoExportSortOut;
     private javax.swing.JRadioButton rdoNormalSize;
     private javax.swing.JRadioButton rdoWidescreen;
+    private javax.swing.JRadioButton rdoLargescreen;
     private javax.swing.JTextField txtAmmoExportName;
     private javax.swing.JTextField txtAmmoPrintName;
     private javax.swing.JTextField txtCTRArmor;

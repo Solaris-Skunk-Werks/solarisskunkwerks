@@ -48,7 +48,8 @@ public class Constants {
                      ART4_ART_5 = 2,
                      ART4_APOLLO = 3;
     public final static int SCREEN_SIZE_NORMAL = 0,
-                            SCREEN_SIZE_WIDE_1280 = 1;
+                            SCREEN_SIZE_WIDE_1280 = 1,
+                            SCREEN_SIZE_WIDE_1600 = 2;
 
     public static String GetVersion() {
         Properties props = new Properties();

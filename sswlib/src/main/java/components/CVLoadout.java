@@ -260,6 +260,8 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
 
     public void ClearLoadout() {
         FullUnallocate();
+
+        //Clear out any flags during the clearout as this is used for Tech changes
         UsingSupercharger = false;
         UsingVTOLBooster = false;
         Owner.SetChanged( true );
@@ -627,14 +629,14 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     }
 
     public void FlushIllegal() {
-        // since most everything else is taken care of during mech recalculates,
+        // since most everything else is taken care of during recalculates,
         // this method is provided for non-core equipment
         AvailableCode AC;
         abPlaceable p;
         int Rules = Owner.GetRulesLevel();
 
         //Owner.CheckArmoredComponents();
-
+        NonCore = GetNonCore();
         // see if there's anything to flush out
         if( NonCore.isEmpty() ) { return; }
 
@@ -854,14 +856,14 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         clone.SetSponsonTurretLeftItems((ArrayList<abPlaceable>) SponsonTurretLeftItems.clone());
         clone.SetSponsonTurretRightItems((ArrayList<abPlaceable>) SponsonTurretRightItems.clone());
 
-        if ( HasCase() ) {
-            clone.AddCase(UsingClanCASE);
-        }
         if( TCList.size() > 0 ) {
             clone.SetTCList( (ArrayList) TCList.clone() );
         }
         if( Equipment.size() > 0 ) {
             clone.SetEquipment( (ArrayList) Equipment.clone() );
+        }
+        if (HasCase()) {
+            clone.SetCase( Case );
         }
         if( HasSupercharger() ) {
             clone.SetSupercharger( SCharger );
@@ -937,17 +939,15 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     }
 
     public boolean IsUsingClanCASE() {
-        return UsingClanCASE;
+        return Case.IsClan();
     }
 
     public void AddCase(boolean isClan) {
-        UsingClanCASE = isClan;
         Case.SetClan(isClan);
-        if (Owner.HasCase()) { return; }
-        Owner.SetCase(true);
+
+        if (HasCase()) { return; }
         try {
             AddTo(Case, LocationIndex.CV_LOC_BODY);
-            UsingCASE = true;
             Owner.SetChanged( true );
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
@@ -955,17 +955,19 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     }
 
     public void RemoveCase() {
-        UsingCASE = false;
-        UsingClanCASE = false;
-        Owner.SetCase(false);
+        Case.SetClan(false);
         Remove(Case);
         Owner.SetChanged( true );
     }
+
     public boolean HasCase() {
-        return Owner.HasCase();
+        return IsAllocated(Case);
+    }
+
+    public void SetCase( CASE c ) {
+        Case = c;
     }
     public void SetClanCASE(boolean b) {
-        UsingClanCASE = b;
         Case.SetClan(b);
         Owner.SetChanged( true );
     }
@@ -1110,11 +1112,7 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     }
 
     public boolean HasSupercharger() {
-        if( IsAllocated( SCharger ) ) {
-            return true;
-        } else {
-            return false;
-        }
+        return IsAllocated( SCharger );
     }
 
     public Supercharger GetSupercharger() {
@@ -1122,7 +1120,6 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
     }
 
     public void SetVTOLBooster(boolean b) throws Exception {
-        UsingVTOLBooster = b;
         if (!b) {
             Remove(VBooster);
             RemoveMechMod(VBooster.GetMechModifier());
@@ -1142,12 +1139,12 @@ public class CVLoadout implements ifCVLoadout, ifLoadout {
         // this sets the loadout's booster to a different one.
         // Used for cloning purposes only!
         VBooster = s;
-        UsingVTOLBooster = true;
         AddMechModifier(VBooster.GetMechModifier());
         Owner.SetChanged( true );
     }
 
-    public boolean HasVTOLBooster() { return UsingVTOLBooster; }
+    public boolean HasVTOLBooster() { return IsAllocated(VBooster); }
+
     public VTOLBooster GetVTOLBooster() {
         return VBooster;
     }
