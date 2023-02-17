@@ -42,4 +42,5 @@ public interface ifEquipment {
     public boolean Validate( CombatVehicle v );
 
     public boolean CanAllocCVBody();
+    public String GetEquipmentType();
 }

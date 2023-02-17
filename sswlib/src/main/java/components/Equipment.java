@@ -591,6 +591,10 @@ public class Equipment extends abPlaceable implements ifEquipment {
     }
 
     @Override
+    public String GetEquipmentType() {
+        return "equipment";
+    }
+    @Override
     public String toString() {
         return CritName();
     }
