@@ -5308,6 +5308,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             public int getColumnCount() { return 2; }
             public Object getValueAt( int row, int col ) {
                 if (CurVee.GetLoadout().GetEquipment().isEmpty()) { return null; }
+                if (CurVee.GetLoadout().GetEquipment().size() <= row) { return null; }
                 Object o = CurVee.GetLoadout().GetEquipment().get( row );
                 if( col == 1 ) {
                     return ((abPlaceable) o).GetManufacturer();
