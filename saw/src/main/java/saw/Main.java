@@ -43,10 +43,6 @@ import saw.gui.frmVeeWide;
 
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
-
     public static void main(String[] args) {
         Preferences prefs = Preferences.userRoot().node( common.Constants.SAWPrefs );
         prefs.remove("FileToOpen");
@@ -119,16 +115,20 @@ public class Main {
                 switch( screensize ) {
                     case Constants.SCREEN_SIZE_WIDE_1280:
                         MainFrame = new frmVeeWide();
-                        MainFrame.setSize( 1280, 600 );
+                        MainFrame.setSize( 1280, 625 );
+                        break;
+                    case Constants.SCREEN_SIZE_WIDE_1600:
+                        MainFrame = new frmVeeWide();
+                        MainFrame.setSize( 1600, 900 );
                         break;
                     default:
                         MainFrame = new frmVee();
-                        //MainFrame.setSize( 800, 600 );
+                        MainFrame.setSize( 825, 625 );
                         break;
                 }
                 
                 try {
-                    icon = new ImageIcon(MainFrame.getClass().getResource("/saw/Images/appicon.png"));
+                    icon = new ImageIcon(MainFrame.getClass().getResource("/Images/SSW_Logo.png"));
                     MainFrame.setIconImage(icon.getImage());
                 } catch (Exception e) {
                     System.out.println("Error loading Icon image...\n" + e.getMessage());
