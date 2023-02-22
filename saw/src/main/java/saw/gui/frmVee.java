@@ -5851,10 +5851,10 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         if( a != null ) {
             try {
                 CurVee.GetLoadout().CheckExclusions( a );
-                if( a instanceof Equipment ) {
-                    if ( ! ((Equipment) a).Validate( CurVee ) ) {
-                        if( ((Equipment) a).MaxAllowed() > 0 ) {
-                            throw new Exception( "Only " + ((Equipment) a).MaxAllowed() + " " + a.CritName() + "(s) may be mounted on one Vehicle." );
+                if( a instanceof ifEquipment ) {
+                    if ( ! ((ifEquipment) a).Validate( CurVee ) ) {
+                        if( ((ifEquipment) a).MaxAllowed() > 0 ) {
+                            throw new Exception( "Only " + ((ifEquipment) a).MaxAllowed() + " " + a.CritName() + "(s) may be mounted on one Vehicle." );
                         }
                     }
                 }
@@ -6474,6 +6474,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             public int getRowCount() { return CurVee.GetLoadout().GetEquipment().size(); }
             public int getColumnCount() { return 2; }
             public Object getValueAt( int row, int col ) {
+                if (CurVee.GetLoadout().GetEquipment().isEmpty()) { return null; }
+                if (CurVee.GetLoadout().GetEquipment().size() <= row) { return null; }
                 Object o = CurVee.GetLoadout().GetEquipment().get( row );
                 if( col == 1 ) {
                     return ((abPlaceable) o).GetManufacturer();

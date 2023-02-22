@@ -12311,8 +12311,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( a != null ) {
             try {
                 CurMech.GetLoadout().CheckExclusions( a );
-                if( a instanceof Equipment ) {
-                    ((Equipment)a).Validate( CurMech );
+                if( a instanceof ifEquipment ) {
+                    ((ifEquipment)a).Validate( CurMech );
                 }
             } catch( Exception e ) {
                 Media.Messager( e.getMessage() );
