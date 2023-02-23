@@ -37,9 +37,11 @@ import Print.preview.dlgPreview;
 import battleforce.BattleForceStats;
 import common.*;
 import components.*;
+import dialog.dlgQuirks;
 import dialog.frmForce;
 import filehandlers.*;
 import gui.TextPane;
+import list.view.tbQuirks;
 import saw.filehandlers.HTMLWriter;
 import states.ifState;
 import visitors.VArmorSetPatchworkLocation;
@@ -88,6 +90,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private final ImageTracker imageTracker = new ImageTracker();
     public dlgOpen dOpen = new dlgOpen(this, true);
     public frmForce dForce = new frmForce(this, imageTracker);
+    public ArrayList<Quirk> quirks = new ArrayList<Quirk>();
 
     TextPane Overview = new TextPane();
     TextPane Capabilities = new TextPane();
@@ -207,6 +210,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         pnlAdditionalFluff.add( Additional );
         pnlVariants.add( Variants );
         pnlNotables.add( Notables );
+        quirks = CurVee.GetQuirks();
         pack();
 
 
@@ -1294,7 +1298,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         JPanel pnlQuirks = new JPanel();
         JLabel lblBattleMechQuirks = new JLabel();
         JScrollPane scpQuirkTable = new JScrollPane();
-        JTable tblQuirks = new JTable();
+        tblQuirks = new JTable();
         JButton btnAddQuirk = new JButton();
         JPanel jPanel9 = new JPanel();
         JPanel pnlBFStats = new JPanel();
@@ -7245,15 +7249,21 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     }
 
     private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {
-        /*
-        dlgQuirks qmanage = new dlgQuirks(this, true, data, quirks);
-        qmanage.setLocationRelativeTo(this);
-        qmanage.setVisible(true);
-        tblQuirks.setModel(new tbQuirks(quirks));
-         *
-         */
+        ArrayList<Quirk> filtered = new ArrayList<Quirk>();
+        for (Quirk item : data.GetQuirks()) {
+            if (item.isCombatvehicle()) {
+                filtered.add(item);
+            }
+        }
+        dlgQuirks qmanage = new dlgQuirks(this, true, CurVee, filtered, quirks);
+        qmanage.setLocationRelativeTo(this); qmanage.setVisible(true);
+        CurVee.SetQuirks(quirks);
+        RefreshQuirks();
     }
 
+    private void RefreshQuirks() {
+        tblQuirks.setModel(new tbQuirks(CurVee.GetQuirks()));
+    }
     private void cmbTurretActionPerformed(java.awt.event.ActionEvent evt) {
         if( Load ) { return; }
         //TODO add logic to CombatVehicle to handle the turret
@@ -8269,6 +8279,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         media.blankLogo(lblFluffImage);
         media.setLogo(lblFluffImage, media.DetermineMatchingImage(CurVee.GetName(), CurVee.GetModel(), CurVee.GetSSWImage()));
 
+        quirks = CurVee.GetQuirks();
         Overview.SetText( CurVee.getOverview() );
         Capabilities.SetText( CurVee.getCapabilities() );
         History.SetText( CurVee.getHistory() );
@@ -9361,6 +9372,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JTextField txtTNTSystem;
     private javax.swing.JTextField txtTurretInfo;
     private javax.swing.JTextField txtVehicleName;
+    private javax.swing.JTable tblQuirks;
     // End of variables declaration//GEN-END:variables
 
     public void lostOwnership(Clipboard clipboard, Transferable contents) {
