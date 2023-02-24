@@ -5162,6 +5162,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private void GetNewVee() {
         boolean Omni = CurVee.IsOmni();
 
+        quirks = new ArrayList<Quirk>();
         CurVee = new CombatVehicle();
         spnTonnage.setModel(new SpinnerNumberModel(CurVee.GetTonnage(), 1, CurVee.GetMaxTonnage(), 1));
         spnCruiseMP.setModel(new SpinnerNumberModel(CurVee.getCruiseMP(), 1, CurVee.getMaxCruiseMP(), 1));
@@ -5254,6 +5255,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         SetWeaponChoosers();
         ResetAmmo();
 
+        RefreshQuirks();
+
         Overview.StartNewDocument();
         Capabilities.StartNewDocument();
         History.StartNewDocument();
@@ -5271,7 +5274,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         txtTNTSystem.setText( "" );
         txtSource.setText( "" );
         lblFluffImage.setIcon( null );
-        RefreshQuirks();
 
         //Reset Manufacturers
         tblWeaponManufacturers.setModel( new javax.swing.table.AbstractTableModel() {

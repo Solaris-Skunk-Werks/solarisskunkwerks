@@ -651,9 +651,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         Prefs.putBoolean("ViewToolbar", Visible);
         //mnuViewToolbar.setState(Visible);
         if (Visible) {
-            if (this.getHeight() != 600) { this.setSize(750, 600); }
+            if (this.getHeight() != 600) { this.setSize(750, 625); }
         } else {
-            if (this.getHeight() != 575) { this.setSize(750, 575); }
+            if (this.getHeight() != 575) { this.setSize(750, 600); }
         }
     }
     private void ConfigureUtilsMenu( java.awt.Component c ) {
@@ -4353,7 +4353,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         tblQuirks.getTableHeader().setReorderingAllowed(false);
         scpQuirkTable.setViewportView(tblQuirks);
 
-        btnAddQuirk.setText("Add Quirk");
+        btnAddQuirk.setText("Manage Quirk");
         btnAddQuirk.addActionListener(this::btnAddQuirkActionPerformed);
 
         javax.swing.GroupLayout pnlQuirksLayout = new javax.swing.GroupLayout(pnlQuirks);
@@ -4687,7 +4687,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tlbIconBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbpMainTabPane, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbpMainTabPane, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(pnlInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -6353,6 +6353,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private void GetNewVee() {
         boolean Omni = CurVee.IsOmni();
 
+        quirks = new ArrayList<Quirk>();
         CurVee = new CombatVehicle();
         spnTonnage.setModel(new SpinnerNumberModel(CurVee.GetTonnage(), 1, CurVee.GetMaxTonnage(), 1));
         spnCruiseMP.setModel(new SpinnerNumberModel(CurVee.getCruiseMP(), 1, CurVee.getMaxCruiseMP(), 1));
@@ -6447,6 +6448,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         SetWeaponChoosers();
         ResetAmmo();
 
+        quirks = CurVee.GetQuirks();
         Overview.StartNewDocument();
         Capabilities.StartNewDocument();
         History.StartNewDocument();
@@ -8279,7 +8281,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         media.blankLogo(lblFluffImage);
         media.setLogo(lblFluffImage, media.DetermineMatchingImage(CurVee.GetName(), CurVee.GetModel(), CurVee.GetSSWImage()));
 
-        quirks = CurVee.GetQuirks();
+        RefreshQuirks();
+
         Overview.SetText( CurVee.getOverview() );
         Capabilities.SetText( CurVee.getCapabilities() );
         History.SetText( CurVee.getHistory() );
