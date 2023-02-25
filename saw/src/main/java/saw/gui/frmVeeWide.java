@@ -5255,7 +5255,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         SetWeaponChoosers();
         ResetAmmo();
 
-        RefreshQuirks();
+        tblQuirks.setModel(new tbQuirks(new ArrayList<Quirk>()));
 
         Overview.StartNewDocument();
         Capabilities.StartNewDocument();

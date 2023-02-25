@@ -176,6 +176,8 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         CurLoadout.GetHeatSinks().SetSingle();
         MainLoadout = CurLoadout;
 
+        Quirks = new ArrayList<Quirk>();
+
         BuildLookupTable();
         setTonnage(10);
     }

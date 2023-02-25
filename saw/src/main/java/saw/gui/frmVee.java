@@ -6448,7 +6448,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         SetWeaponChoosers();
         ResetAmmo();
 
-        quirks = CurVee.GetQuirks();
+        tblQuirks.setModel(new tbQuirks(new ArrayList<Quirk>()));
+
         Overview.StartNewDocument();
         Capabilities.StartNewDocument();
         History.StartNewDocument();
