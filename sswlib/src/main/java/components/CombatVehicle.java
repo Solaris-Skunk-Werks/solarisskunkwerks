@@ -105,6 +105,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     private CVArmor CurArmor = new CVArmor( this );
     private Hashtable Lookup = new Hashtable();
     private ArrayList<MechModifier> MechMods = new ArrayList<MechModifier>();
+    private ArrayList<Quirk> Quirks = new ArrayList<Quirk>();
     private static AvailableCode OmniAvailable = new AvailableCode( AvailableCode.TECH_BOTH ),
                                  DualTurretAC = new AvailableCode( AvailableCode.TECH_BOTH ),
                                  ChinTurretAC = new AvailableCode( AvailableCode.TECH_BOTH ),
@@ -174,6 +175,8 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         CurLoadout = new CVLoadout(this);
         CurLoadout.GetHeatSinks().SetSingle();
         MainLoadout = CurLoadout;
+
+        Quirks = new ArrayList<Quirk>();
 
         BuildLookupTable();
         setTonnage(10);
@@ -1054,6 +1057,15 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         this.Model = Model;
     }
 
+    public ArrayList<Quirk> GetQuirks() {
+        return Quirks;
+    }
+
+    public void SetQuirks (ArrayList<Quirk> q) {
+        Quirks = q;
+
+        SetChanged( true );
+    }
     public String getOverview() {
         return Overview;
     }

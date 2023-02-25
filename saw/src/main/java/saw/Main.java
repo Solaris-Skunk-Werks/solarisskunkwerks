@@ -123,7 +123,7 @@ public class Main {
                         break;
                     default:
                         MainFrame = new frmVee();
-                        MainFrame.setSize( 825, 625 );
+                        MainFrame.setSize( 850, 650 );
                         break;
                 }
                 

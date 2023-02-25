@@ -37,9 +37,11 @@ import Print.preview.dlgPreview;
 import battleforce.BattleForceStats;
 import common.*;
 import components.*;
+import dialog.dlgQuirks;
 import dialog.frmForce;
 import filehandlers.*;
 import gui.TextPane;
+import list.view.tbQuirks;
 import saw.filehandlers.HTMLWriter;
 import states.ifState;
 import visitors.VArmorSetPatchworkLocation;
@@ -89,7 +91,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private final ImageTracker imageTracker = new ImageTracker();
     public dlgOpen dOpen = new dlgOpen(this, true);
     public frmForce dForce = new frmForce(this, imageTracker);
-
+    public ArrayList<Quirk> quirks = new ArrayList<Quirk>();
     TextPane Overview = new TextPane();
     TextPane Capabilities = new TextPane();
     TextPane Deployment = new TextPane();
@@ -137,7 +139,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             }
         }
     };
-    
+
     /** Creates new form frmMain2 */
     public frmVeeWide() {
         CurVee = new CombatVehicle( );
@@ -193,7 +195,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             System.err.println( e.getMessage() );
             e.printStackTrace();
         }
-        
+
         Overview.SetEditorSize( 310, 380 );
         Capabilities.SetEditorSize( 310, 380 );
         Deployment.SetEditorSize( 310, 380 );
@@ -208,8 +210,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlAdditionalFluff.add( Additional );
         pnlVariants.add( Variants );
         pnlNotables.add( Notables );
+
+        quirks = CurVee.GetQuirks();
         pack();
-        
+
         mnuDetails.addActionListener(evt -> {
             GetInfoOn();
             ShowInfoOn(CurItem);
@@ -266,7 +270,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         mnuCaseless.setVisible( false );
         mnuVGLArc.setVisible( false );
         mnuVGLAmmo.setVisible( false );
-        
+
         // set the program options
         cmbRulesLevel.setSelectedItem( Prefs.get( "NewCV_RulesLevel", "Tournament Legal" ) );
         cmbEra.setSelectedItem( Prefs.get( "NewCV_Era", "Age of War/Star League" ) );
@@ -304,8 +308,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         mnuFluff.add( mnuFluffCut );
         mnuFluff.add( mnuFluffCopy );
         mnuFluff.add( mnuFluffPaste );
-        
-        
+
+
         tblWeaponManufacturers.setModel( new javax.swing.table.AbstractTableModel() {
             @Override
             public String getColumnName( int col ) {
@@ -348,7 +352,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 }
             }
         } );
-        
+
         tblWeaponManufacturers.getInputMap( javax.swing.JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put( javax.swing.KeyStroke.getKeyStroke( java.awt.event.KeyEvent.VK_TAB, 0, false ), "selectNextRow" );
 
         if( Prefs.getBoolean( "LoadLastMech", false ) ) { LoadVehicleFromFile(Prefs.get("LastOpenCVDirectory", "") + Prefs.get("LastOpenCVFile", "") ); }
@@ -368,7 +372,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             ItemInfo.setVisible( true );
         }
     }
-    
+
     private void SetAmmoLotSize() {
         if( CurItem instanceof Ammunition ) {
             dlgAmmoLotSize ammo = new dlgAmmoLotSize( this, true, (Ammunition) CurItem );
@@ -378,7 +382,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         RefreshSummary();
         RefreshInfoPane();
     }
-    
+
     private void PPCCapacitor() {
         // if the current item can support a capacitor, adds one on
         if( CurItem instanceof RangedWeapon ) {
@@ -441,7 +445,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         RefreshInfoPane();
         RefreshSelectedEquipment();
     }
-    
+
     private void PulseModule() {
         // if the current item can support a Pulse Module, adds one on
         if( CurItem instanceof RangedWeapon ) {
@@ -476,7 +480,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
     private void DumperMount() {
         if ( CurItem instanceof Equipment ) {
-           
+
         }
     }
 
@@ -605,7 +609,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             }
         }
     }
-    
+
     private void setViewToolbar(boolean Visible) {
         tlbIconBar.setVisible(Visible);
         Prefs.putBoolean("ViewToolbar", Visible);
@@ -751,7 +755,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             txtInfoTonnage.setForeground( Color.BLACK );
             txtInfoFreeTons.setForeground( Color.BLACK );
         }
-        
+
         if ( CurVee.GetAvailableSlots() < 0 ) {
             txtInfoFreeCrits.setForeground(Color.red);
         } else {
@@ -768,7 +772,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         }
         txtInfoBattleValue.setText( "BV: " + String.format( "%1$,d", CurVee.GetCurrentBV() ) );
         txtInfoCost.setText( "Cost: " + String.format( "%1$,.0f", Math.floor( CurVee.GetTotalCost() + 0.5f ) ) );
-        
+
         javax.swing.table.AbstractTableModel m = (javax.swing.table.AbstractTableModel) tblWeaponManufacturers.getModel();
         m.fireTableDataChanged();
     }
@@ -907,6 +911,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private void initComponents() {
         GridBagConstraints gridBagConstraints;
 
+        tblQuirks = new JTable();
         JPanel pnlInfoPane = new JPanel();
         txtInfoTonnage = new javax.swing.JTextField();
         txtInfoFreeTons = new javax.swing.JTextField();
@@ -1233,7 +1238,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         JPanel pnlQuirks = new JPanel();
         JLabel lblBattleMechQuirks = new JLabel();
         JScrollPane scpQuirkTable = new JScrollPane();
-        JTable tblQuirks = new JTable();
         JButton btnAddQuirk = new JButton();
         JPanel pnlBFStats = new JPanel();
         JLabel jLabel70 = new JLabel();
@@ -3750,37 +3754,12 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         lblBattleMechQuirks.setFont(new java.awt.Font("Arial", Font.BOLD, 12)); // NOI18N
         lblBattleMechQuirks.setText("Quirks");
 
-        tblQuirks.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Quirk", "Cost"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        tblQuirks.setModel(new tbQuirks(new ArrayList<Quirk>()));
         tblQuirks.setColumnSelectionAllowed(true);
         tblQuirks.getTableHeader().setReorderingAllowed(false);
         scpQuirkTable.setViewportView(tblQuirks);
 
-        btnAddQuirk.setText("Add Quirk");
+        btnAddQuirk.setText("Manage Quirks");
         btnAddQuirk.addActionListener(this::btnAddQuirkActionPerformed);
 
         GroupLayout pnlQuirksLayout = new GroupLayout(pnlQuirks);
@@ -3800,11 +3779,11 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlQuirksLayout.setVerticalGroup(
             pnlQuirksLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(pnlQuirksLayout.createSequentialGroup()
-                .addComponent(lblBattleMechQuirks, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scpQuirkTable, GroupLayout.PREFERRED_SIZE, 389, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAddQuirk)
+                .addComponent(lblBattleMechQuirks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(btnAddQuirk)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scpQuirkTable, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -4252,7 +4231,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
     private void RecalcArmorPlacement() {
         if ( Load ) return;
-        
+
         double tonnage = CurVee.GetArmor().GetTonnage();
         ArmorTons.SetArmorTonnage( tonnage );
         try {
@@ -4269,10 +4248,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         RefreshSummary();
         RefreshInfoPane();
     }
-    
+
     private void RecalcArmorLocations() {
         pnlRotorArmor.setVisible(false);
-        
+
         if ( cmbTurret.getSelectedItem().toString().equals("No Turret") ) {
                 spnTurretArmor.setValue(0);
                 spnRearTurretArmor.setValue(0);
@@ -4286,7 +4265,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 pnlTurretArmor.setVisible(true);
                 pnlRearTurretArmor.setVisible(true);
         }
-        if ( CurVee.IsVTOL() ) 
+        if ( CurVee.IsVTOL() )
             pnlRotorArmor.setVisible(true);
         else
             spnRotorArmor.setValue(0);
@@ -4347,7 +4326,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
     private void BuildLocationSelector() {
         int curSelection = Math.max(cmbLocation.getSelectedIndex(), 0);
-        
+
         ArrayList locs = new ArrayList();
         locs.add("Front");
         locs.add("Left");
@@ -4360,13 +4339,13 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         locs.add("Body");
         if ( CurVee.isHasTurret1() )
             locs.add("Turret");
-        if ( CurVee.isHasTurret2() ) 
+        if ( CurVee.isHasTurret2() )
             locs.add("Rear Turret");
-        
+
         cmbLocation.setModel(new DefaultComboBoxModel(locs.toArray()));
         cmbLocation.setSelectedIndex(curSelection);
     }
-    
+
     private void BuildArmorSelector() {
         // builds the armor selection box
         ArrayList list = new ArrayList();
@@ -4388,7 +4367,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         // now set the armor chooser
         cmbArmorType.setModel( new javax.swing.DefaultComboBoxModel( temp ) );
-        
+
         cmbArmorType.setSelectedItem(CurVee.GetArmor().ActualName());
     }
 
@@ -4442,7 +4421,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         // fixes the armor spinners to match the new tonnage / motive type
         CVArmor a = CurVee.GetArmor();
         a.SetMaxArmor(CurVee.GetArmorableLocationCount());
-  
+
         spnFrontArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.CV_LOC_FRONT ), 0, a.GetLocationMax(LocationIndex.CV_LOC_FRONT), 1) );
         spnLeftArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.CV_LOC_LEFT ), 0, a.GetLocationMax(LocationIndex.CV_LOC_LEFT), 1) );
         spnRightArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.CV_LOC_RIGHT ), 0, a.GetLocationMax(LocationIndex.CV_LOC_RIGHT), 1) );
@@ -4456,7 +4435,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         ((JSpinner.DefaultEditor)spnCruiseMP.getEditor()).getTextField().addFocusListener(spinners);
         ((JSpinner.DefaultEditor)spnJumpMP.getEditor()).getTextField().addFocusListener(spinners);
         ((JSpinner.DefaultEditor)spnHeatSinks.getEditor()).getTextField().addFocusListener(spinners);
-        
+
         //Setup Spinner focus
         ((JSpinner.DefaultEditor)spnFrontArmor.getEditor()).getTextField().addFocusListener(spinners);
         ((JSpinner.DefaultEditor)spnLeftArmor.getEditor()).getTextField().addFocusListener(spinners);
@@ -4486,10 +4465,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
     public void FixTonnageSpinner( int MinTonnage, int MaximumTonnage ) {
         int CurVal = Integer.parseInt(spnTonnage.getValue().toString());
-        
+
         if ( CurVal < MinTonnage )
             CurVal = MinTonnage;
-        
+
         if ( CurVal > MaximumTonnage )
             CurVal = MaximumTonnage;
 
@@ -4502,7 +4481,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         if( CurVee.GetTonnage() < 1 ) {
             spnTonnage.setValue(1);
         }
-        
+
         if ( CurVee.GetTonnage() > CurVee.GetMaxTonnage() ) {
             spnTonnage.setValue(CurVee.GetMaxTonnage());
         }
@@ -4603,7 +4582,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             chkEnviroSealing.setEnabled(false);
         }
     }
-    
+
     private void BuildExpEquipmentSelector() {
         JCheckBox[] ExpEquipmentCheckboxes = { chkArmoredMotive,
                                                chkSupercharger,
@@ -4884,7 +4863,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             setCursor( NormalCursor );
             return;
         }
-        
+
         //Since we are saving to a new file update the stored prefs
         try {
             Prefs.put("LastOpenCVDirectory", savevee.getCanonicalPath().replace(savevee.getName(), ""));
@@ -5182,12 +5161,13 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
     private void GetNewVee() {
         boolean Omni = CurVee.IsOmni();
-        
+
+        quirks = new ArrayList<Quirk>();
         CurVee = new CombatVehicle();
         spnTonnage.setModel(new SpinnerNumberModel(CurVee.GetTonnage(), 1, CurVee.GetMaxTonnage(), 1));
         spnCruiseMP.setModel(new SpinnerNumberModel(CurVee.getCruiseMP(), 1, CurVee.getMaxCruiseMP(), 1));
         spnHeatSinks.setModel(new SpinnerNumberModel(CurVee.GetHeatSinks().GetNumHS(), 0, 50, 1));
-        
+
         cmbMotiveType.setSelectedIndex( 0 );
         chkYearRestrict.setSelected( false );
         txtProdYear.setText( "" );
@@ -5236,7 +5216,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             CurVee.SetYear( 0, false );
             break;
         }
-        
+
         cmbTechBase.setSelectedItem( Prefs.get( "NewVee_Techbase", "Inner Sphere" ) );
         switch( cmbTechBase.getSelectedIndex() ) {
             case AvailableCode.TECH_INNER_SPHERE:
@@ -5274,6 +5254,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         RefreshInfoPane();
         SetWeaponChoosers();
         ResetAmmo();
+
+        tblQuirks.setModel(new tbQuirks(new ArrayList<Quirk>()));
 
         Overview.StartNewDocument();
         Capabilities.StartNewDocument();
@@ -5468,7 +5450,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         lstSelectedEquipment.setListData( Equipment[SELECTED] );
         lstChooseArtillery.setListData( Equipment[ARTILLERY] );
         lstSelectedEquipment.repaint();
-        
+
         ResetAmmo();
     }
 
@@ -5476,7 +5458,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         // this should be used anytime a new mech is made or when unlocking
         // an Omni.
         isLocked = false;
-        
+
         chkOmniVee.setSelected( false );
         chkOmniVee.setEnabled( true );
         mnuUnlock.setEnabled( false );
@@ -5693,7 +5675,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 clan = true;
         }
     }
-    
+
     private void FixHeatSinkSpinnerModel() {
         // mainly provided for Omnis.
         if( CurVee.IsOmni() ) {
@@ -5739,7 +5721,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         // equipment it has loaded.
         CheckEquipment();
     }
-    
+
     private void CheckEquipment() {
         // consolidating some code here.
         chkFCSAIV.setSelected( CurVee.UsingArtemisIV() );
@@ -5750,11 +5732,11 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         chkSupercharger.setSelected( CurVee.GetBaseLoadout().HasSupercharger() );
         chkCASE.setSelected( CurVee.GetLoadout().HasCase() );
     }
-    
+
     private void LockGUIForOmni() {
         // this locks most of the GUI controls.  Used mainly by OmniVehichles.
         isLocked = true;
-        
+
         chkOmniVee.setSelected( true );
         chkOmniVee.setEnabled( false );
         mnuUnlock.setEnabled( true );
@@ -5945,7 +5927,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         // Put it in the gui.
         UnlockGUIFromOmni();
-        
+
         chkYearRestrict.setSelected( CurVee.IsYearRestricted() );
         txtProdYear.setText( "" + CurVee.GetYear() );
         cmbEra.setEnabled( true );
@@ -5979,21 +5961,21 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             cmbTechBase.setEnabled( false );
             txtProdYear.setEnabled( false );
         }
-        
+
         //Set all the inputs
         txtVehicleName.setText( CurVee.GetName() );
         txtModel.setText( CurVee.GetModel() );
         cmbTechBase.setSelectedIndex( CurVee.GetLoadout().GetTechBase() );
         cmbMotiveType.setSelectedItem( CurVee.GetMotiveLookupName() );
         spnTonnage.setModel( new javax.swing.SpinnerNumberModel(CurVee.GetTonnage(), 1, CurVee.GetMaxTonnage(), 1) );
-        spnCruiseMP.setModel( new javax.swing.SpinnerNumberModel(CurVee.getCruiseMP(), 1, CurVee.getMaxCruiseMP(), 1) );        
+        spnCruiseMP.setModel( new javax.swing.SpinnerNumberModel(CurVee.getCruiseMP(), 1, CurVee.getMaxCruiseMP(), 1) );
         if ( CurVee.isHasTurret1() ) cmbTurret.setSelectedItem("Single Turret");
         if ( CurVee.isHasTurret2() ) cmbTurret.setSelectedItem("Dual Turret");
         FixArmorSpinners();
 
         // now that we're done with the special stuff...
         Load = false;
-        
+
         if( CurVee.IsOmni() ) {
             if ( CurVee.isHasTurret1() )
                 spnTurretTonnage.setModel( new SpinnerNumberModel(CurVee.GetBaseLoadout().GetTurret().GetMaxTonnage(), 0, 99.0, 0.5) );
@@ -6026,12 +6008,14 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         RefreshInfoPane();
         SetWeaponChoosers();
         ResetAmmo();
+        RefreshQuirks();
 
         // load the fluff image.
         Media media = new Media();
         media.blankLogo(lblFluffImage);
         media.setLogo(lblFluffImage, media.DetermineMatchingImage(CurVee.GetName(), CurVee.GetModel(), CurVee.GetSSWImage()));
 
+        quirks = CurVee.GetQuirks();
         Overview.SetText( CurVee.getOverview() );
         Capabilities.SetText( CurVee.getCapabilities() );
         History.SetText( CurVee.getHistory() );
@@ -6345,7 +6329,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             mnuSaveActionPerformed(null);
         }
     }
-    
+
     private void mnuExitActionPerformed(java.awt.event.ActionEvent evt) {
         if (CurVee.HasChanged()) {
             int choice = javax.swing.JOptionPane.showConfirmDialog(this,
@@ -6371,7 +6355,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         System.exit(0);
     }
-    
+
     private void mnuSummaryActionPerformed(java.awt.event.ActionEvent evt) {
         SolidifyVehicle();
         dlgSummaryInfo Summary = new dlgSummaryInfo(this, true, CurVee);
@@ -6600,9 +6584,20 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     }
 
     private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {
-//       dlgQuirks qmanage = new dlgQuirks(this, true, data, quirks);
-//       qmanage.setLocationRelativeTo(this); qmanage.setVisible(true);
-//       tblQuirks.setModel(new tbQuirks(quirks));
+        ArrayList<Quirk> filtered = new ArrayList<Quirk>();
+        for (Quirk item : data.GetQuirks()) {
+            if (item.isCombatvehicle()) {
+                filtered.add(item);
+            }
+        }
+        dlgQuirks qmanage = new dlgQuirks(this, true, CurVee, filtered, quirks);
+        qmanage.setLocationRelativeTo(this); qmanage.setVisible(true);
+        CurVee.SetQuirks(quirks);
+        RefreshQuirks();
+    }
+
+    private void RefreshQuirks() {
+        tblQuirks.setModel(new tbQuirks(CurVee.GetQuirks()));
     }
 
     private void btnExportMTFActionPerformed(java.awt.event.ActionEvent evt) {
@@ -7113,7 +7108,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         }
         // now refresh the information panes
         RefreshSummary();
-        RefreshInfoPane(); 
+        RefreshInfoPane();
    }
 
     private void chkUseTCActionPerformed(java.awt.event.ActionEvent evt) {
@@ -7205,7 +7200,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         // this simply maximizes the mech's armor
         CVArmor a = CurVee.GetArmor();
         a.Maximize();
-        
+
         // if we fix the spinner models, they should refresh the screen
         FixArmorSpinners();
 
@@ -7735,7 +7730,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         // currently testing right now.
         SaveOmniFluffInfo();
         String VariantName = "";
-        
+
         // 2020-11-13 Omnis can't have Hardened Armor, but we wrote this generic
         // in case later other armor types come along
         if (!CurVee.GetArmor().AllowOmni()){
@@ -8030,10 +8025,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         }
         RecalcEngine();
         FixMPSpinner();
-        
+
         //When the engine changes we need to re-check the Heat Sinks
         CurVee.ResetHeatSinks();
-        
+
         // only nuclear-powered mechs may use jump jets
         if (CurVee.GetEngine().IsNuclear()) {
             /*
@@ -8172,7 +8167,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private void cmbMotiveTypeActionPerformed(java.awt.event.ActionEvent evt) {
         if ( Load ) return;
         boolean wasVtol = CurVee.IsVTOL();
-        
+
         switch (cmbMotiveType.getSelectedIndex()) {
             case 0:      //Hovercraft
                 CurVee.SetHover();
@@ -8650,7 +8645,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         }
         SetWeaponChoosers();
     }
-    
+
     private PagePrinter SetupPrinter() {
         PagePrinter printer = new PagePrinter();
         Media media = new Media();
@@ -8661,10 +8656,10 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         sheet.setPrintMech(true);
         sheet.setUnitImage(media.GetImage(CurVee.GetSSWImage()));
         printer.Append(BFBPrinter.Letter.toPage(), sheet);
-        
+
         return printer;
     }
-    
+
     private void FixMPSpinner() {
         // This fixes the walking MP spinner if the mech's tonnage changes.
         int MaxWalk = CurVee.getMaxCruiseMP();
@@ -8911,6 +8906,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     private javax.swing.JTextField txtTNTSystem;
     private javax.swing.JTextField txtTurretInfo;
     private javax.swing.JTextField txtVehicleName;
+    private javax.swing.JTable tblQuirks;
     // End of variables declaration//GEN-END:variables
 
     public void lostOwnership(Clipboard clipboard, Transferable contents) {

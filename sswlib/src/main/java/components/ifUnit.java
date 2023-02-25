@@ -5,6 +5,8 @@
 
 package components;
 
+import java.util.ArrayList;
+
 public interface ifUnit {
     public int GetUnitType();
     public int GetRulesLevel();
@@ -26,4 +28,6 @@ public interface ifUnit {
     public PhysicalEnhancement GetPhysEnhance();
     public boolean UsingTC();
     public TargetingComputer GetTC();
+    public void SetQuirks (ArrayList<Quirk> q);
+
 }

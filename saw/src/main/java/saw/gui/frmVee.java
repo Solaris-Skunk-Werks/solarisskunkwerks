@@ -37,9 +37,11 @@ import Print.preview.dlgPreview;
 import battleforce.BattleForceStats;
 import common.*;
 import components.*;
+import dialog.dlgQuirks;
 import dialog.frmForce;
 import filehandlers.*;
 import gui.TextPane;
+import list.view.tbQuirks;
 import saw.filehandlers.HTMLWriter;
 import states.ifState;
 import visitors.VArmorSetPatchworkLocation;
@@ -88,6 +90,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private final ImageTracker imageTracker = new ImageTracker();
     public dlgOpen dOpen = new dlgOpen(this, true);
     public frmForce dForce = new frmForce(this, imageTracker);
+    public ArrayList<Quirk> quirks = new ArrayList<Quirk>();
 
     TextPane Overview = new TextPane();
     TextPane Capabilities = new TextPane();
@@ -207,6 +210,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         pnlAdditionalFluff.add( Additional );
         pnlVariants.add( Variants );
         pnlNotables.add( Notables );
+        quirks = CurVee.GetQuirks();
         pack();
 
 
@@ -647,9 +651,9 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         Prefs.putBoolean("ViewToolbar", Visible);
         //mnuViewToolbar.setState(Visible);
         if (Visible) {
-            if (this.getHeight() != 600) { this.setSize(750, 600); }
+            if (this.getHeight() != 600) { this.setSize(750, 625); }
         } else {
-            if (this.getHeight() != 575) { this.setSize(750, 575); }
+            if (this.getHeight() != 575) { this.setSize(750, 600); }
         }
     }
     private void ConfigureUtilsMenu( java.awt.Component c ) {
@@ -1294,7 +1298,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         JPanel pnlQuirks = new JPanel();
         JLabel lblBattleMechQuirks = new JLabel();
         JScrollPane scpQuirkTable = new JScrollPane();
-        JTable tblQuirks = new JTable();
+        tblQuirks = new JTable();
         JButton btnAddQuirk = new JButton();
         JPanel jPanel9 = new JPanel();
         JPanel pnlBFStats = new JPanel();
@@ -4349,7 +4353,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         tblQuirks.getTableHeader().setReorderingAllowed(false);
         scpQuirkTable.setViewportView(tblQuirks);
 
-        btnAddQuirk.setText("Add Quirk");
+        btnAddQuirk.setText("Manage Quirk");
         btnAddQuirk.addActionListener(this::btnAddQuirkActionPerformed);
 
         javax.swing.GroupLayout pnlQuirksLayout = new javax.swing.GroupLayout(pnlQuirks);
@@ -4683,7 +4687,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tlbIconBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbpMainTabPane, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbpMainTabPane, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(pnlInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -6349,6 +6353,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private void GetNewVee() {
         boolean Omni = CurVee.IsOmni();
 
+        quirks = new ArrayList<Quirk>();
         CurVee = new CombatVehicle();
         spnTonnage.setModel(new SpinnerNumberModel(CurVee.GetTonnage(), 1, CurVee.GetMaxTonnage(), 1));
         spnCruiseMP.setModel(new SpinnerNumberModel(CurVee.getCruiseMP(), 1, CurVee.getMaxCruiseMP(), 1));
@@ -6442,6 +6447,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         RefreshInfoPane();
         SetWeaponChoosers();
         ResetAmmo();
+
+        tblQuirks.setModel(new tbQuirks(new ArrayList<Quirk>()));
 
         Overview.StartNewDocument();
         Capabilities.StartNewDocument();
@@ -7247,15 +7254,21 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     }
 
     private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {
-        /*
-        dlgQuirks qmanage = new dlgQuirks(this, true, data, quirks);
-        qmanage.setLocationRelativeTo(this);
-        qmanage.setVisible(true);
-        tblQuirks.setModel(new tbQuirks(quirks));
-         *
-         */
+        ArrayList<Quirk> filtered = new ArrayList<Quirk>();
+        for (Quirk item : data.GetQuirks()) {
+            if (item.isCombatvehicle()) {
+                filtered.add(item);
+            }
+        }
+        dlgQuirks qmanage = new dlgQuirks(this, true, CurVee, filtered, quirks);
+        qmanage.setLocationRelativeTo(this); qmanage.setVisible(true);
+        CurVee.SetQuirks(quirks);
+        RefreshQuirks();
     }
 
+    private void RefreshQuirks() {
+        tblQuirks.setModel(new tbQuirks(CurVee.GetQuirks()));
+    }
     private void cmbTurretActionPerformed(java.awt.event.ActionEvent evt) {
         if( Load ) { return; }
         //TODO add logic to CombatVehicle to handle the turret
@@ -8270,6 +8283,8 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
         Media media = new Media();
         media.blankLogo(lblFluffImage);
         media.setLogo(lblFluffImage, media.DetermineMatchingImage(CurVee.GetName(), CurVee.GetModel(), CurVee.GetSSWImage()));
+
+        RefreshQuirks();
 
         Overview.SetText( CurVee.getOverview() );
         Capabilities.SetText( CurVee.getCapabilities() );
@@ -9363,6 +9378,7 @@ public final class frmVee extends javax.swing.JFrame implements java.awt.datatra
     private javax.swing.JTextField txtTNTSystem;
     private javax.swing.JTextField txtTurretInfo;
     private javax.swing.JTextField txtVehicleName;
+    private javax.swing.JTable tblQuirks;
     // End of variables declaration//GEN-END:variables
 
     public void lostOwnership(Clipboard clipboard, Transferable contents) {

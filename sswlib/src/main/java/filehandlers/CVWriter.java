@@ -292,6 +292,32 @@ public class CVWriter {
         FR.newLine();
         FR.write( tab + tab + "<additional>" + FileCommon.EncodeFluff( CurUnit.GetAdditional() ) + "</additional>" );
         FR.newLine();
+        if (CurUnit.GetQuirks().size() > 0)
+        {
+            FR.write(tab + tab + "<quirks>");
+            FR.newLine();
+            for (Quirk quirk : CurUnit.GetQuirks())
+            {
+                FR.write(tab + tab + tab + "<quirk postive=\"" + Boolean.toString(quirk.isPositive())+"\" battlemech=\"" + Boolean.toString(quirk.isBattlemech()) +
+                        "\" industrialmech=\"" + Boolean.toString(quirk.isIndustrialmech()) + "\" combatvehicle=\"" + Boolean.toString(quirk.isCombatvehicle()) +
+                        "\" battlearmor=\"" + Boolean.toString(quirk.isBattlearmor()) + "\" aerospacefighter=\"" + Boolean.toString(quirk.isAerospacefighter()) +
+                        "\" conventionalfigher=\"" + Boolean.toString(quirk.isConventionalfighter()) + "\" dropship=\"" + Boolean.toString(quirk.isDropship()) +
+                        "\" jumpship=\"" + Boolean.toString(quirk.isDropship()) + "\" warship=\"" + Boolean.toString(quirk.isWarship()) +
+                        "\" spacestation=\"" + Boolean.toString(quirk.isSpacestation()) + "\" protomech=\"" + Boolean.toString(quirk.isProtomech())
+                        + "\" isvariable=\"" + Boolean.toString(quirk.isIsvariable()) + "\">");
+                FR.newLine();
+                FR.write(tab + tab + tab + tab + "<Name>" + FileCommon.EncodeFluff(quirk.getName()) + "</Name>");
+                FR.newLine();
+                FR.write(tab + tab + tab + tab + "<Cost>" + quirk.getCost() + "</Cost>");
+                FR.newLine();
+                FR.write(tab + tab + tab + tab + "<Description>" + FileCommon.EncodeFluff(quirk.getDescription()) + "</Description>");
+                FR.newLine();
+                FR.write(tab + tab + tab + "</quirk>");
+                FR.newLine();
+            }
+            FR.write(tab + tab + "</quirks>");
+            FR.newLine();
+        }
         FR.write( tab + tab + "<jumpjet_model>" + FileCommon.EncodeFluff( CurUnit.GetJJModel() ) + "</jumpjet_model>" );
         FR.newLine();
         FR.write( tab + tab + "<commsystem>" + FileCommon.EncodeFluff( CurUnit.GetCommSystem() ) + "</commsystem>" );
