@@ -2720,7 +2720,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlRearTurretArmor.add(spnRearTurretArmor, gridBagConstraints);
 
         pnlRotorArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Rotor"));
-        pnlRotorArmor.setEnabled(false);
         pnlRotorArmor.setLayout(new java.awt.GridBagLayout());
 
         lblRotorIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -4250,25 +4249,31 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
     }
 
     private void RecalcArmorLocations() {
-        pnlRotorArmor.setVisible(false);
-
         if ( cmbTurret.getSelectedItem().toString().equals("No Turret") ) {
-                spnTurretArmor.setValue(0);
-                spnRearTurretArmor.setValue(0);
-                pnlTurretArmor.setVisible(false);
-                pnlRearTurretArmor.setVisible(false);
-        } else if ( cmbTurret.getSelectedItem().toString().equals("Single Turret") ) {
-                pnlTurretArmor.setVisible(true);
-                spnRearTurretArmor.setValue(0);
-                pnlRearTurretArmor.setVisible(false);
+            spnTurretArmor.setValue(0);
+            spnRearTurretArmor.setValue(0);
+            pnlTurretArmor.setVisible(false);
+            pnlRearTurretArmor.setVisible(false);
+        } else if ( cmbTurret.getSelectedItem().toString().equals("Single Turret")) {
+            pnlTurretArmor.setVisible(true);
+            spnRearTurretArmor.setValue(0);
+            pnlRearTurretArmor.setVisible(false);
+        } else if (cmbTurret.getSelectedItem().toString().equals("Chin Turret")) {
+            pnlTurretArmor.setVisible(true);
+            spnRearTurretArmor.setValue(0);
+            pnlRearTurretArmor.setVisible(false);
         } else if ( cmbTurret.getSelectedItem().toString().equals("Dual Turret") ) {
-                pnlTurretArmor.setVisible(true);
-                pnlRearTurretArmor.setVisible(true);
+            pnlTurretArmor.setVisible(true);
+            pnlRearTurretArmor.setVisible(true);
         }
-        if ( CurVee.IsVTOL() )
+        if ( CurVee.IsVTOL() ) {
             pnlRotorArmor.setVisible(true);
-        else
+            //spnRotorArmor.setEnabled(true);
+        } else {
+            pnlRotorArmor.setVisible(false);
+            //spnRotorArmor.setEnabled(false);
             spnRotorArmor.setValue(0);
+        }
     }
 
     private void SolidifyVehicle() {
