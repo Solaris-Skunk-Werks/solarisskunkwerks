@@ -49,6 +49,7 @@ import visitors.VSetArmorTonnage;
 import visitors.ifVisitor;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.event.*;
@@ -58,6 +59,19 @@ import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
 public class frmMainWide extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner, common.DesignForm, ifMechForm {
+    FocusAdapter spinners = new FocusAdapter() {
+        @Override
+        public void focusGained(FocusEvent e) {
+            if ( e.getSource() instanceof JTextComponent) {
+                final JTextComponent textComponent = ((JTextComponent)e.getSource());
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        textComponent.selectAll();
+                    }
+                });
+            }
+        }
+    };
 
     String[] Selections = { "", "", "", "", "", "", "", "" };
     Mech CurMech;
@@ -2411,6 +2425,19 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         spnCTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_CTR ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_CT ), 1) );
         spnLTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_LTR ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_LT ), 1) );
         spnRTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_RTR ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_RT ), 1) );
+
+        //Setup Spinner focus
+        ((JSpinner.DefaultEditor)spnHDArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnCTArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnCTRArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnRTArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnRTRArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnLTArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnLTRArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnRAArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnRLArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnLAArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnLLArmor.getEditor()).getTextField().addFocusListener(spinners);
     }
 
     private void SaveSelections() {
