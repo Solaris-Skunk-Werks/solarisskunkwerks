@@ -49,6 +49,7 @@ import visitors.VSetArmorTonnage;
 import visitors.ifVisitor;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.event.*;
@@ -58,7 +59,19 @@ import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
 public class frmMainWide extends javax.swing.JFrame implements java.awt.datatransfer.ClipboardOwner, common.DesignForm, ifMechForm {
-
+    FocusAdapter spinners = new FocusAdapter() {
+        @Override
+        public void focusGained(FocusEvent e) {
+            if ( e.getSource() instanceof JTextComponent) {
+                final JTextComponent textComponent = ((JTextComponent)e.getSource());
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        textComponent.selectAll();
+                    }
+                });
+            }
+        }
+    };
     String[] Selections = { "", "", "", "", "", "", "", "" };
     Mech CurMech;
     VSetArmorTonnage ArmorTons;
@@ -677,6 +690,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
         // reset the spinner model and we're done.
         spnWalkMP.setModel( new javax.swing.SpinnerNumberModel( CurWalk, 1, MaxWalk, 1) );
+        ((JSpinner.DefaultEditor)spnWalkMP.getEditor()).getTextField().addFocusListener(spinners);
     }
 
     private void BuildChassisSelector() {
@@ -871,6 +885,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
 
         spnJumpMP.setModel( new javax.swing.SpinnerNumberModel( current, min, max, 1) );
+        ((JSpinner.DefaultEditor)spnJumpMP.getEditor()).getTextField().addFocusListener(spinners);
     }
 
     private void FixHeatSinkSpinnerModel() {
@@ -882,6 +897,8 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             spnNumberOfHS.setModel( new javax.swing.SpinnerNumberModel(
                 CurMech.GetHeatSinks().GetNumHS(), CurMech.GetEngine().FreeHeatSinks(), 65, 1) );
         }
+
+        ((JSpinner.DefaultEditor)spnNumberOfHS.getEditor()).getTextField().addFocusListener(spinners);
     }
 
     private void FixJumpBoosterSpinnerModel() {
@@ -1716,6 +1733,8 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             CurMech.GetHeatSinks().ReCalculate();
             spnNumberOfHS.setModel( new javax.swing.SpinnerNumberModel(
                 CurMech.GetHeatSinks().GetNumHS(), CurMech.GetEngine().FreeHeatSinks(), 65, 1) );
+
+            ((JSpinner.DefaultEditor)spnNumberOfHS.getEditor()).getTextField().addFocusListener(spinners);
         }
 
         // see if we should enable the Power Amplifier display
@@ -2411,6 +2430,19 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         spnCTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_CTR ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_CT ), 1) );
         spnLTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_LTR ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_LT ), 1) );
         spnRTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_RTR ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_RT ), 1) );
+        
+        //Setup Spinner focus
+        ((JSpinner.DefaultEditor)spnHDArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnCTArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnCTRArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnRTArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnRTRArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnLTArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnLTRArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnRAArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnRLArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnLAArmor.getEditor()).getTextField().addFocusListener(spinners);
+        ((JSpinner.DefaultEditor)spnLLArmor.getEditor()).getTextField().addFocusListener(spinners);
     }
 
     private void SaveSelections() {
@@ -9334,7 +9366,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         tblQuirks.getTableHeader().setReorderingAllowed(false);
         scpQuirkTable.setViewportView(tblQuirks);
 
-        btnAddQuirk.setText("Add Quirk");
+        btnAddQuirk.setText("Manage Quirks");
         btnAddQuirk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddQuirkActionPerformed(evt);
@@ -14760,16 +14792,17 @@ private void chkBoobyTrapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     RefreshInfoPane();
 }//GEN-LAST:event_chkBoobyTrapActionPerformed
 
-private void cmbProductionEraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProductionEraActionPerformed
-    CurMech.SetProductionEra( cmbProductionEra.getSelectedIndex() );
-}//GEN-LAST:event_cmbProductionEraActionPerformed
+    private void cmbProductionEraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProductionEraActionPerformed
+        CurMech.SetProductionEra( cmbProductionEra.getSelectedIndex() );
+    }//GEN-LAST:event_cmbProductionEraActionPerformed
 
-    private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddQuirkActionPerformed
+    private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {
         dlgQuirks qmanage = new dlgQuirks(this, true, data, quirks);
         qmanage.setLocationRelativeTo(this);
         qmanage.setVisible(true);
         tblQuirks.setModel(new tbQuirks(quirks));
-    }//GEN-LAST:event_btnAddQuirkActionPerformed
+        CurMech.SetQuirks(quirks);
+    }
 
     private void mnuReloadEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReloadEquipmentActionPerformed
         try {

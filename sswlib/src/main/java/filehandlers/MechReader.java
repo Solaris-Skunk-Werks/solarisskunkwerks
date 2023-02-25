@@ -1788,7 +1788,7 @@ public class MechReader {
                                 description = items.item(w).getTextContent();
                             }
                         }
-                        if (name != null && description != null && cost != 0)
+                        if (name != null && description != null)
                         {
                             quirks.add(new Quirk(name, postive, cost, battlemech, industrialmech, combatvehicle, battlearmor, aerospacefighter, conventionalfighter,dropship,
                                                  jumpship, warship, spacestation, protomech, isvariable, description));
