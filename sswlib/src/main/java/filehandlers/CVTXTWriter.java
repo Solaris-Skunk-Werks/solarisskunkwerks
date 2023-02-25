@@ -111,14 +111,9 @@ public class CVTXTWriter {
         FR.close();
     }
 
-    public String GetChatStats( Mech m ) {
-        // a fun convenience routine for those who talk in chat or forums.
-        String retval = "";
-
-        // pondering some sort of GetChatName() for abplaceables.
-        retval += m.GetTonnage() + " tons, " + m.GetAdjustedWalkingMP( false, true ) + "/" + m.GetAdjustedRunningMP( false, true ) + "/" + m.GetAdjustedJumpingMP( false );
-
-        return retval;
+    public String GetChatStats( CombatVehicle m ) {
+        // !!! DO NOT USE THIS METHOD, INSTEAD UPDATE CombatVehicle.GetChatInfo();
+        return "";
     }
 
     public String GetTextExport() {
@@ -150,8 +145,18 @@ public class CVTXTWriter {
 
         //retval += "Chassis: " + CurVee.GetChassisModel() + " " + CurVee.GetIntStruc().CritName() + NL;
         retval += "Power Plant: " + CurVee.GetEngineManufacturer() + " " + CurVee.GetEngine().GetRating() + " " + CurVee.GetEngine() + NL;
-        retval += "Cruise Speed: " + CommonTools.FormatSpeed( CurVee.getCruiseMP() * 10.8 ) + " km/h" + NL;
-        retval += "Flanking Speed: " + CommonTools.FormatSpeed( CurVee.getFlankMP() * 10.8 ) + " km/h" + NL;
+        //retval += "Cruise Speed: " + CommonTools.FormatSpeed( CurVee.GetAdjustedCruiseMP(false, true) * 10.8 ) + " km/h" + NL;
+        //retval += "Flanking Speed: " + CommonTools.FormatSpeed( CurVee.GetAdjustedFlankMP(false, true) * 10.8 ) + " km/h" + NL;
+        if( CurVee.GetAdjustedCruiseMP( false, true ) != CurVee.getCruiseMP() ) {
+            retval += "Cruise Speed: " + CommonTools.FormatSpeed( CurVee.getCruiseMP() * 10.8 ) + " km/h (" + CommonTools.FormatSpeed( CurVee.GetAdjustedCruiseMP( false, true ) * 10.8 ) + " km/h)" + NL;
+        } else {
+            retval += "Cruise Speed: " + CommonTools.FormatSpeed( CurVee.getCruiseMP() * 10.8 ) + " km/h" + NL;
+        }
+        if( CurVee.GetAdjustedFlankMP( false, true ) != CurVee.getFlankMP() ) {
+            retval += "Maximum Speed: " + CommonTools.FormatSpeed( CurVee.getFlankMP() * 10.8 ) + " km/h (" + CommonTools.FormatSpeed( CurVee.GetAdjustedFlankMP( false, true ) * 10.8 ) + " km/h)" + NL;
+        } else {
+            retval += "Maximum Speed: " + CommonTools.FormatSpeed( CurVee.getFlankMP() * 10.8 ) + " km/h" + NL;
+        }
         if ( CurVee.GetJumpJets().GetNumJJ() > 0 ) {
             retval += "Jump Jets: " + CurVee.GetJJModel() + NL;
             retval += "    Jump Capacity: " + GetJumpJetDistanceLine() + NL;
@@ -214,8 +219,18 @@ public class CVTXTWriter {
         retval += "--------------------------------------------------------------------------------" + NL;
         retval += String.format( "Internal Structure: %1$-28s %2$3s points              %3" + tformat, CurVee.GetIntStruc().CritName(), CurVee.GetIntStruc().GetTotalPoints(), CurVee.GetIntStruc().GetTonnage() ) + NL;
         retval += String.format( "Engine:             %1$-28s %2$3s                     %3" + tformat, FileCommon.GetExportName( CurVee, CurVee.GetEngine() ), CurVee.GetEngine().GetRating(), CurVee.GetEngine().GetTonnage() ) + NL;
-        retval += "    Cruise MP:  " + CurVee.getCruiseMP() + NL;
-        retval += "    Flank MP:   " + CurVee.getFlankMP() + NL;
+//        retval += "    Cruise MP:  " + CurVee.GetAdjustedCruiseMP(false, true) + NL;
+//        retval += "    Flank MP:   " + CurVee.GetAdjustedFlankMP(false, true) + NL;
+        if( CurVee.GetAdjustedCruiseMP( false, true ) != CurVee.getCruiseMP() ) {
+            retval += "Cruise MP: " + CommonTools.FormatSpeed( CurVee.getCruiseMP() ) + " (" + CommonTools.FormatSpeed( CurVee.GetAdjustedCruiseMP( false, true ) ) + ")" + NL;
+        } else {
+            retval += "Cruise MP: " + CommonTools.FormatSpeed( CurVee.getCruiseMP() ) + NL;
+        }
+        if( CurVee.GetAdjustedFlankMP( false, true ) != CurVee.getFlankMP() ) {
+            retval += "Flank MP: " + CommonTools.FormatSpeed( CurVee.getFlankMP() ) + " (" + CommonTools.FormatSpeed( CurVee.GetAdjustedFlankMP( false, true ) ) + ")" + NL;
+        } else {
+            retval += "Flank MP: " + CommonTools.FormatSpeed( CurVee.getFlankMP() ) + NL;
+        }
         if( CurVee.GetJumpJets().GetNumJJ() > 0 ) {
             retval += "    Jumping MP: " + GetJumpingMPLine() + " " + GetJumpJetTypeLine() + NL;
             retval += String.format( "    %1$-68s %2$6.2f", "Jump Jet Locations: " + FileCommon.GetJumpJetLocations( CurVee ), CurVee.GetJumpJets().GetTonnage() ) + NL;
@@ -488,7 +503,8 @@ public class CVTXTWriter {
             //v.add( CurVee.GetTC() );
         }
         if( CurVee.GetLoadout().HasSupercharger() ) {
-            v.add( CurVee.GetLoadout().GetSupercharger() );
+            //don't add as we already have it in the Body
+            //v.add( CurVee.GetLoadout().GetSupercharger() );
         }
 
         if( v.size() < 1 ) { return ""; }
@@ -644,9 +660,9 @@ public class CVTXTWriter {
             //don't add as we already have it in the Body of the Vehicle
             //v.add( CurVee.GetTC() );
         }
-        if( CurVee.GetLoadout().HasSupercharger() ) {
-            v.add( CurVee.GetLoadout().GetSupercharger() );
-        }
+//        if( CurVee.GetLoadout().HasSupercharger() ) {
+//            v.add( CurVee.GetLoadout().GetSupercharger() );
+//        }
 
         // now sort the equipment by location
         v = FileCommon.SortEquipmentForStats( CurVee, v );

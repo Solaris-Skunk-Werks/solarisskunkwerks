@@ -9923,7 +9923,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
             tblQuirks.getColumnModel().getColumn(1).setPreferredWidth(5);
         }
 
-        btnAddQuirk.setText("Add Quirk");
+        btnAddQuirk.setText("Manage Quirks");
         btnAddQuirk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddQuirkActionPerformed(evt);
@@ -12311,8 +12311,8 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         if( a != null ) {
             try {
                 CurMech.GetLoadout().CheckExclusions( a );
-                if( a instanceof Equipment ) {
-                    ((Equipment)a).Validate( CurMech );
+                if( a instanceof ifEquipment ) {
+                    ((ifEquipment)a).Validate( CurMech );
                 }
             } catch( Exception e ) {
                 Media.Messager( e.getMessage() );
@@ -12498,7 +12498,7 @@ public class frmMain extends javax.swing.JFrame implements java.awt.datatransfer
         }
 
         String filename = "";
-        IO.MTFWriter mtfw = new IO.MTFWriter( CurMech );
+        IO.MTFWriter mtfw = new IO.MTFWriter( CurMech, SSWConstants.AppDescription + " " + SSWConstants.GetVersion() );
         try {
             filename = savemech.getCanonicalPath();
             mtfw.WriteMTF( filename );
@@ -14965,12 +14965,13 @@ private void cmbProductionEraActionPerformed(java.awt.event.ActionEvent evt) {//
     CurMech.SetProductionEra( cmbProductionEra.getSelectedIndex() );
 }//GEN-LAST:event_cmbProductionEraActionPerformed
 
-private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddQuirkActionPerformed
-    dlgQuirks qmanage = new dlgQuirks(this, true, data, quirks);
-    qmanage.setLocationRelativeTo(this);
-    qmanage.setVisible(true);
-    tblQuirks.setModel(new tbQuirks(quirks));
-}//GEN-LAST:event_btnAddQuirkActionPerformed
+    private void btnAddQuirkActionPerformed(java.awt.event.ActionEvent evt) {
+        dlgQuirks qmanage = new dlgQuirks(this, true, data, quirks);
+        qmanage.setLocationRelativeTo(this);
+        qmanage.setVisible(true);
+        tblQuirks.setModel(new tbQuirks(quirks));
+        CurMech.SetQuirks(quirks);
+    }
 
     private void mnuReloadEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReloadEquipmentActionPerformed
         try {

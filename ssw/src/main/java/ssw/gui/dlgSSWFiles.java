@@ -56,7 +56,7 @@ public class dlgSSWFiles extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("<html>\n<h3>Solaris Skunkwerks needs to know where you have placed your Mech files.</h3>\n<p>If you have not downloaded the zip file containing these files yet please go to <br />\n<h4>http://www.solarisskunkwerks.com/downloads</h4><br />\n and download the Master file available there. </p>\n<br />\n<p>Once this file has downloaded you can unzip it wherever you would like as the next step will be to tell SSW where you put them.</p>");
+        jLabel1.setText("<html>\n<h3>Solaris Skunkwerks needs to know where you have placed your Mech files.</h3>\n<p>If you have not downloaded the zip file containing these files yet please go to <br />\n<h4>https://github.com/Solaris-Skunk-Werks/SSW-Master/archive/refs/heads/master.zip</h4><br />\n and download the Master file available there. </p>\n<br />\n<p>Once this file has downloaded you can unzip it wherever you would like as the next step will be to tell SSW where you put them.</p>");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

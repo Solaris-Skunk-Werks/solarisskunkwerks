@@ -1,4 +1,40 @@
 {
+  "Accurate Weapon": {
+    "name": "Accurate Weapon",
+    "cost": 0,
+    "description": "Being of exceptional design, a weapon or bay is more accurate than normal, and receives a –1 Target Number modifier. The cost is 1 point per 5 points (or fraction thereof) of maximum damage the weapon or bay can inflict in a single Damage Value grouping. More than one weapon or bay on a unit can receive this positive quirk, but the cost for each must be paid. If the “weapon” deals 0 damage (such as TAG), the cost is 2 points.",
+    "positive": true,
+    "battlemech": true,
+    "industrialmech": true,
+    "combatvehicle": true,
+    "battlearmor": true,
+    "aerospacefighter": true,
+    "conventionalfighter": true,
+    "dropship": true,
+    "jumpship": false,
+    "warship": true,
+    "spacestation": true,
+    "protomech": true,
+    "isvariable": true
+  },
+  "Anti-Aircraft Targeting": {
+    "name": "Anti-Aircraft Targeting",
+    "cost": 0,
+    "description": "Some 'Mechs, like the Rifleman, have an advanced targeting system that can accurately target airborne units. This includes 'Mechs performing a combat drop (see p. 20, SO), but not jumping 'Mechs. All attacks against such units while airborne (not grounded) receive a –2 Target Number modifier. The cost is 1 point per 7 points (or fraction thereof ) of maximum damage that all the weapons mounted on the 'Mech can inflict (excluding physical attack weapons). This bonus is only available when the 'Mech itself is on the ground.",
+    "positive": true,
+    "battlemech": true,
+    "industrialmech": true,
+    "combatvehicle": true,
+    "battlearmor": false,
+    "aerospacefighter": false,
+    "conventionalfighter": false,
+    "dropship": false,
+    "jumpship": false,
+    "warship": false,
+    "spacestation": false,
+    "protomech": false,
+    "isvariable": true
+  },
   "Atmospheric Flyer": {
     "name": "Atmospheric Flyer",
     "cost": 3,
@@ -56,7 +92,7 @@
   "Battlefists": {
     "name": "Battlefists",
     "cost": 2,
-    "description": "The Battlefists quirk applies only to ’Mechs that are equipped with hand actuators. This quirk reflects ’Mechs that feature hands which are better designed for melee combat as a consequence of their unique configuration (such as the Awesome’s mace-like fist, or the Pillager’s sharpened “knuckles”). This quirk is only paid for once, even if the ’Mech has two fists. If the ’Mech has two hands, and this quirk is only meant to apply to one of those hands, this must be specified (the cost remains the same). A ’Mech with Battlefists receives a –1 Target Number modifier when making Punch attacks.",
+    "description": "The Battlefists quirk applies only to 'Mechs that are equipped with hand actuators. This quirk reflects 'Mechs that feature hands which are better designed for melee combat as a consequence of their unique configuration (such as the Awesome's mace-like fist, or the Pillager's sharpened “knuckles”). This quirk is only paid for once, even if the 'Mech has two fists. If the 'Mech has two hands, and this quirk is only meant to apply to one of those hands, this must be specified (the cost remains the same). A 'Mech with Battlefists receives a –1 Target Number modifier when making Punch attacks.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -107,10 +143,10 @@
     "protomech": false,
     "isvariable": false
   },
-  "Compact ‘Mech": {
-    "name": "Compact ‘Mech",
+  "Compact 'Mech": {
+    "name": "Compact 'Mech",
     "cost": 1,
-    "description": "This Quirk describes a ’Mech that is particularly slim in stature, such as the Jackalope. It enables the ’Mech to share a BattleMech cubicle with another Compact ’Mech. It also allows a ’Mech recovery vehicle to transport two Compact ’Mechs. In both cases, the combined tonnage of the two ’Mechs cannot exceed relevant tonnage limits.  The Compact ’Mech quirk only provides this bonus for transportation purposes Compact ’Mechs cannot share the same space at the same time when undergoing maintenance or repairs.  This quirk can only be applied to ’Mechs that also possess the Narrow/Low Profile quirk, and is further limited to ’Mechs of medium weight (55 tons) or less.",
+    "description": "This Quirk describes a 'Mech that is particularly slim in stature, such as the Jackalope. It enables the 'Mech to share a BattleMech cubicle with another Compact 'Mech. It also allows a 'Mech recovery vehicle to transport two Compact 'Mechs. In both cases, the combined tonnage of the two 'Mechs cannot exceed relevant tonnage limits.  The Compact 'Mech quirk only provides this bonus for transportation purposes Compact 'Mechs cannot share the same space at the same time when undergoing maintenance or repairs.  This quirk can only be applied to 'Mechs that also possess the Narrow/Low Profile quirk, and is further limited to 'Mechs of medium weight (55 tons) or less.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -146,7 +182,7 @@
   "Directional Torso Mount": {
     "name": "Directional Torso Mount",
     "cost": 2,
-    "description": "A well-known feature of the original Goliath, a Directional Torso Mount acts as a somewhat more restrictive BattleMech shoulder turret, allowing any weapons in the mount to shoot in either the front arc or the rear arc, depending on the mount’s current facing. The mount’s facing is set at the start of the game, and can be changed at the same time torso twists are made. However, unlike a torso twist, it does not reset at each End Phase: the arc chosen remains until deliberately changed. The mount rotates with any torso twist as normal.  Each time a location with a Directional Torso Mount takes a hit (Front or Rear), the player must roll 2D6. A result of 9+ means the mount is destroyed and its weapon locked in its current arc, in addition to the normal effects of the attack.  The 3-point version of this quirk is available only to quad ’Mechs. In this case, the mount operates as a full turret, capable of rotating a full 360 degrees.  No weapon with location placement restrictions (such as a heavy Gauss rifle) can be placed in a Directional Torso Mount",
+    "description": "A well-known feature of the original Goliath, a Directional Torso Mount acts as a somewhat more restrictive BattleMech shoulder turret, allowing any weapons in the mount to shoot in either the front arc or the rear arc, depending on the mount's current facing. The mount's facing is set at the start of the game, and can be changed at the same time torso twists are made. However, unlike a torso twist, it does not reset at each End Phase: the arc chosen remains until deliberately changed. The mount rotates with any torso twist as normal.  Each time a location with a Directional Torso Mount takes a hit (Front or Rear), the player must roll 2D6. A result of 9+ means the mount is destroyed and its weapon locked in its current arc, in addition to the normal effects of the attack.  The 3-point version of this quirk is available only to quad 'Mechs. In this case, the mount operates as a full turret, capable of rotating a full 360 degrees.  No weapon with location placement restrictions (such as a heavy Gauss rifle) can be placed in a Directional Torso Mount",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -236,7 +272,7 @@
   "Extended Torso Twist": {
     "name": "Extended Torso Twist",
     "cost": 3,
-    "description": "When torso twisting, the `Mech can change its facing by one or two hexsides. Quad ’Mechs normally cannot torso twist at all. However, a quad ’Mech with this quirk can perform a normal (not extended) torso twist.",
+    "description": "When torso twisting, the `Mech can change its facing by one or two hexsides. Quad 'Mechs normally cannot torso twist at all. However, a quad 'Mech with this quirk can perform a normal (not extended) torso twist.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -254,7 +290,7 @@
   "Fine Manipulators": {
     "name": "Fine Manipulators",
     "cost": 0,
-    "description": "Though ’Mechs generally rely on hand actuators for any manual work, some units, such as the Jupiter, feature manipulators otherwise more commonly found on vehicles for delicate work.  A ’Mech with this quirk may mount up to one Manipulator (see TM, p. 245) in each side torso and/or arm location. These do not follow the normal construction rules and are weight free the exact number must be specified.",
+    "description": "Though 'Mechs generally rely on hand actuators for any manual work, some units, such as the Jupiter, feature manipulators otherwise more commonly found on vehicles for delicate work.  A 'Mech with this quirk may mount up to one Manipulator (see TM, p. 245) in each side torso and/or arm location. These do not follow the normal construction rules and are weight free the exact number must be specified.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -290,7 +326,7 @@
   "Good Reputation": {
     "name": "Good Reputation",
     "cost": 0,
-    "description": "Whether due to clever marketing, use by an iconic MechWarrior, or proven capabilities, some ’Mechs are extremely popular. Such ’Mechs are worth a premium on the open market, as buyer demand means that acquiring one at its base price is almost impossible. For each level of this quirk, the ’Mech is worth 10% more C-bills than normal. This quirk is not worth points because it is not, strictly speaking, a bonus to the ’Mech.  Note that in some eras and/or locations, such as during the late Third Succession War period, ’Mechs as a whole are so rare that all may be considered to have the 1 point version of this quirk. Furthermore, this quirk is not applicable to Clan machines, as the Clans do not really have a secondary ’Mech market and Inner Sphere customers will gladly pay inflated prices to acquire Clan ’Mechs regardless of their reputation.",
+    "description": "Whether due to clever marketing, use by an iconic MechWarrior, or proven capabilities, some 'Mechs are extremely popular. Such 'Mechs are worth a premium on the open market, as buyer demand means that acquiring one at its base price is almost impossible. For each level of this quirk, the 'Mech is worth 10% more C-bills than normal. This quirk is not worth points because it is not, strictly speaking, a bonus to the 'Mech.  Note that in some eras and/or locations, such as during the late Third Succession War period, 'Mechs as a whole are so rare that all may be considered to have the 1 point version of this quirk. Furthermore, this quirk is not applicable to Clan machines, as the Clans do not really have a secondary 'Mech market and Inner Sphere customers will gladly pay inflated prices to acquire Clan 'Mechs regardless of their reputation.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -541,7 +577,7 @@
   "Nimble Jumper": {
     "name": "Nimble Jumper",
     "cost": 3,
-    "description": "Jump jets are brute-force thrusters designed only to transport a ’Mech directly from point A to point B. Some ’Mechs, however, such as the Spider, are especially nimble when jumping. When a ’Mech with this quirk jumps, it need not follow the most direct path to its target hex. Instead, it may deviate from that path by up to one hex of its controller’s choice (assuming the ’Mech has the Jumping MP required, of course additional heat for such a jump is generated as normal for the jump jet type in use). For example, a jump that would normally cover six hexes can instead cover up to seven.  If a ’Mech jumps in this fashion, attacks against the ’Mech receive an additional +1 Target Movement Modifier (a total of +2 for jumping, instead of the normal +1 the extra hex traveled is also factored into the ’Mech’s Target Movement Modifier, as normal). However, attacks made by the jumping ’Mech receive the same additional Target Number modifier (a total of +4 for jumping, instead of +3).  This quirk can only be taken by light or medium ’Mechs, and only for those that have at least as many Jumping MP as they do Walking MP",
+    "description": "Jump jets are brute-force thrusters designed only to transport a 'Mech directly from point A to point B. Some 'Mechs, however, such as the Spider, are especially nimble when jumping. When a 'Mech with this quirk jumps, it need not follow the most direct path to its target hex. Instead, it may deviate from that path by up to one hex of its controller's choice (assuming the 'Mech has the Jumping MP required, of course additional heat for such a jump is generated as normal for the jump jet type in use). For example, a jump that would normally cover six hexes can instead cover up to seven.  If a 'Mech jumps in this fashion, attacks against the 'Mech receive an additional +1 Target Movement Modifier (a total of +2 for jumping, instead of the normal +1 the extra hex traveled is also factored into the 'Mech's Target Movement Modifier, as normal). However, attacks made by the jumping 'Mech receive the same additional Target Number modifier (a total of +4 for jumping, instead of +3).  This quirk can only be taken by light or medium 'Mechs, and only for those that have at least as many Jumping MP as they do Walking MP",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -559,7 +595,7 @@
   "Overhead Arms": {
     "name": "Overhead Arms",
     "cost": 2,
-    "description": "’Mechs equipped with overhead arms—such as the Fire Moth—can deliver ranged, direct-fire attacks while hiding almost completely from view. This quirk cannot be combined with the Low-Mounted Arms quirk, nor can it be taken by any ’Mech that either does not have arms, or lacks any form of direct-fire ranged weaponry in said arms.  If standing, a ’Mech with Overhead Arms behind an adjacent Level 2 hill or building can fire its arm-mounted direct-fire weapons over it. Such attacks receive a +2 Target Number modifier. Friendly spotters cannot assist with this type of attack.  However, a ’Mech with Overhead Arms is always exposed to return fire in these circumstances: it can still be attacked despite being behind Level 2 terrain. Apply a +2 Target Number modifier to any attacks that pass through such covering terrain, in addition to the normal +1 partial cover modifier. In this case, only arm hits actually strike the target: all other hits strike the covering terrain instead. This form of partial cover is not negated by the attacker being any number of levels higher than the defender",
+    "description": "'Mechs equipped with overhead arms—such as the Fire Moth—can deliver ranged, direct-fire attacks while hiding almost completely from view. This quirk cannot be combined with the Low-Mounted Arms quirk, nor can it be taken by any 'Mech that either does not have arms, or lacks any form of direct-fire ranged weaponry in said arms.  If standing, a 'Mech with Overhead Arms behind an adjacent Level 2 hill or building can fire its arm-mounted direct-fire weapons over it. Such attacks receive a +2 Target Number modifier. Friendly spotters cannot assist with this type of attack.  However, a 'Mech with Overhead Arms is always exposed to return fire in these circumstances: it can still be attacked despite being behind Level 2 terrain. Apply a +2 Target Number modifier to any attacks that pass through such covering terrain, in addition to the normal +1 partial cover modifier. In this case, only arm hits actually strike the target: all other hits strike the covering terrain instead. This form of partial cover is not negated by the attacker being any number of levels higher than the defender",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -613,7 +649,7 @@
   "Rugged": {
     "name": "Rugged",
     "cost": 1,
-    "description": "Some ’Mechs are extremely reliable, reducing the frequency with which they require maintenance. The cost is 1 point if the ‘Mech can go for two times as long between maintenance periods as normal, and 2 points if it can go up to three times as long.",
+    "description": "Some 'Mechs are extremely reliable, reducing the frequency with which they require maintenance. The cost is 1 point if the ‘Mech can go for two times as long between maintenance periods as normal, and 2 points if it can go up to three times as long.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -685,7 +721,7 @@
   "Stabilized Weapon": {
     "name": "Stabilized Weapon",
     "cost": 0,
-    "description": "Some weapons, such as the center torso and head lasers of the Mongoose, are better cushioned against or otherwise compensated for the increased inaccuracy caused by moving at high speeds. If the ’Mech runs, all Target Numbers for that weapon receive a –1 modifier.  The cost is 1 point per 7 points (or fraction thereof) of maximum damage the weapon can inflict in a single Damage Value grouping. If the “weapon” deals 0 damage (such as TAG), the cost is 1 point. More than one weapon can receive this positive quirk, but the cost for each must be paid.",
+    "description": "Some weapons, such as the center torso and head lasers of the Mongoose, are better cushioned against or otherwise compensated for the increased inaccuracy caused by moving at high speeds. If the 'Mech runs, all Target Numbers for that weapon receive a –1 modifier.  The cost is 1 point per 7 points (or fraction thereof) of maximum damage the weapon can inflict in a single Damage Value grouping. If the “weapon” deals 0 damage (such as TAG), the cost is 1 point. More than one weapon can receive this positive quirk, but the cost for each must be paid.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -721,7 +757,7 @@
   "Ubiquitous": {
     "name": "Ubiquitous",
     "cost": 1,
-    "description": "Some ’Mechs, such as the Archer, Wasp, and Locust, have been in production for literally centuries, with thousands or even tens of thousands produced in that time across multiple nations. For other ’Mechs, the manufacturer has gone to exceptional lengths to ensure that parts are readily available, such as mass producing them or using parts from other, more common machines. Whatever the case, when attempting to locate replacement parts for these ’Mechs, apply a –2 Target Number modifier.  Note that this quirk does not cross between the Clans and the Inner Sphere. For example, a machine Ubiquitous amongst the Clans would not be Ubiquitous in the Inner Sphere, and vice versa.",
+    "description": "Some 'Mechs, such as the Archer, Wasp, and Locust, have been in production for literally centuries, with thousands or even tens of thousands produced in that time across multiple nations. For other 'Mechs, the manufacturer has gone to exceptional lengths to ensure that parts are readily available, such as mass producing them or using parts from other, more common machines. Whatever the case, when attempting to locate replacement parts for these 'Mechs, apply a –2 Target Number modifier.  Note that this quirk does not cross between the Clans and the Inner Sphere. For example, a machine Ubiquitous amongst the Clans would not be Ubiquitous in the Inner Sphere, and vice versa.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -757,7 +793,7 @@
   "Vestigial Hands": {
     "name": "Vestigial Hands",
     "cost": 0,
-    "description": "A ’Mech with vestigial hands lacks manipulators substantial enough for most game purposes, and does not have hand actuator critical hit slots. However, a ’Mech with vestigial hands may lift and drop items (see Lifting Items (Simplified), p. 21) if a scenario objective requires it.",
+    "description": "A 'Mech with vestigial hands lacks manipulators substantial enough for most game purposes, and does not have hand actuator critical hit slots. However, a 'Mech with vestigial hands may lift and drop items (see Lifting Items (Simplified), p. 21) if a scenario objective requires it.",
     "positive": true,
     "battlemech": true,
     "industrialmech": true,
@@ -919,7 +955,7 @@
   "EM Interference": {
     "name": "EM Interference",
     "cost": 1,
-    "description": "An energy weapon is insufficiently shielded and causes interference with other delicate electronics. The turn after the weapon has been fired, the following equipment aboard the ’Mech will not function: any ECM, any Active Probe, Artemis IV FCS, Artemis V FCS, Blue Shield PFD, any C3, Chameleon LPS, Cockpit Command Console, Electronic Warfare Equipment, MASC, MRM FCS, NARC, Null Signature System, Stealth Armor, Streak Launchers, Supercharger, Targeting Computer, and Void Signature System. Alternatively, this quirk can be purchased for the ’Mech itself, in which case the problem occurs whenever any energy weapon on the ’Mech is fired. The cost for this version of the quirk is 2 points, but can only be purchased if the ’Mech has more than one energy weapon.",
+    "description": "An energy weapon is insufficiently shielded and causes interference with other delicate electronics. The turn after the weapon has been fired, the following equipment aboard the 'Mech will not function: any ECM, any Active Probe, Artemis IV FCS, Artemis V FCS, Blue Shield PFD, any C3, Chameleon LPS, Cockpit Command Console, Electronic Warfare Equipment, MASC, MRM FCS, NARC, Null Signature System, Stealth Armor, Streak Launchers, Supercharger, Targeting Computer, and Void Signature System. Alternatively, this quirk can be purchased for the 'Mech itself, in which case the problem occurs whenever any energy weapon on the 'Mech is fired. The cost for this version of the quirk is 2 points, but can only be purchased if the 'Mech has more than one energy weapon.",
     "positive": false,
     "battlemech": true,
     "industrialmech": true,
@@ -1027,7 +1063,7 @@
   "Illegal Design": {
     "name": "Illegal Design",
     "cost": 0,
-    "description": "’Mechs designed with this quirk do not follow the existing construction rules for some reason, achieving effects that are not normally allowed in game-play, and which can fail spectacularly at any moment. (Note: The total weight and critical space of all components must still fit within the design’s tonnage and critical space.)  If employed, the opposing player may roll 2D6 to determine if the ’Mech with this quirk suffers a catastrophic failure once every 6 turns of combat. On a result of 6 or higher, such catastrophic failure occurs in 1D6 of the ’Mech’s hit locations (using the Front/Back Hit Locations Table). A Critical Hit check is then made for each failure location determined, applying a +4 modifier to the roll result. On any modified roll result of 13+, the location suffers complete collapse if it is an arm, leg, head, wing, main gun, or turret. This will destroy all items within (and any explosive components checks should be made as appropriate for location destruction). If the affected location is none of the above, it suffers 4 critical hits, determined as normal.  Illegal ’Mechs suffer an additional +4 Target Number modifier to repair or replace any damaged or destroyed components, and double all repair and maintenance times for work performed on them. If an Illegal ’Mech repair fails, the item gains the Nonfunctional quirk as well.  Finally, because they are technically failures at the time of their production, Illegal ’Mechs should also receive the Obsolete quirk (see p. 88), with the year of their obsolescence determined to be the same as their year of introduction",
+    "description": "'Mechs designed with this quirk do not follow the existing construction rules for some reason, achieving effects that are not normally allowed in game-play, and which can fail spectacularly at any moment. (Note: The total weight and critical space of all components must still fit within the design's tonnage and critical space.)  If employed, the opposing player may roll 2D6 to determine if the 'Mech with this quirk suffers a catastrophic failure once every 6 turns of combat. On a result of 6 or higher, such catastrophic failure occurs in 1D6 of the 'Mech's hit locations (using the Front/Back Hit Locations Table). A Critical Hit check is then made for each failure location determined, applying a +4 modifier to the roll result. On any modified roll result of 13+, the location suffers complete collapse if it is an arm, leg, head, wing, main gun, or turret. This will destroy all items within (and any explosive components checks should be made as appropriate for location destruction). If the affected location is none of the above, it suffers 4 critical hits, determined as normal.  Illegal 'Mechs suffer an additional +4 Target Number modifier to repair or replace any damaged or destroyed components, and double all repair and maintenance times for work performed on them. If an Illegal 'Mech repair fails, the item gains the Nonfunctional quirk as well.  Finally, because they are technically failures at the time of their production, Illegal 'Mechs should also receive the Obsolete quirk (see p. 88), with the year of their obsolescence determined to be the same as their year of introduction",
     "positive": false,
     "battlemech": true,
     "industrialmech": true,
@@ -1081,7 +1117,7 @@
   "Low-Mounted Arms": {
     "name": "Low-Mounted Arms",
     "cost": 2,
-    "description": "’Mechs equipped with extremely low-mounted arms—such as the Dark Crow—have mounted their arms far too low to take advantage of the ’Mech’s height advantage. This quirk cannot be combined with the Overhead Arms quirk, nor can it be taken by any ’Mech that either does not have arms, or lacks any form of weaponry in its arms.  A ’Mech with Low-Mounted Arms fires its arm-mounted weapons as if they are actually mounted in the ’Mech’s legs, even though these arms still rotate with the torso position. As a result, these weapons may be blocked from firing by partial cover such as low hills and buildings. By the same token, attacks against ’Mech with Low-Mounted Arms that pass over partial cover cannot strike the ’Mech’s arms either, and instead will strike the covering terrain.",
+    "description": "'Mechs equipped with extremely low-mounted arms—such as the Dark Crow—have mounted their arms far too low to take advantage of the 'Mech's height advantage. This quirk cannot be combined with the Overhead Arms quirk, nor can it be taken by any 'Mech that either does not have arms, or lacks any form of weaponry in its arms.  A 'Mech with Low-Mounted Arms fires its arm-mounted weapons as if they are actually mounted in the 'Mech's legs, even though these arms still rotate with the torso position. As a result, these weapons may be blocked from firing by partial cover such as low hills and buildings. By the same token, attacks against 'Mech with Low-Mounted Arms that pass over partial cover cannot strike the 'Mech's arms either, and instead will strike the covering terrain.",
     "positive": false,
     "battlemech": true,
     "industrialmech": true,
@@ -1171,7 +1207,7 @@
   "Non-Functional Item": {
     "name": "Non-Functional Item",
     "cost": 5,
-    "description": "A ’Mech with this quirk has one or more components or pieces of equipment that simply do not work. No amount of repairs or replacement will correct this issue the ’Mech must be redesigned from the ground up to solve the problem.  A ’Mech can have multiple Non-functional quirks, but each must be assigned to the specifically non-operational components they possess",
+    "description": "A 'Mech with this quirk has one or more components or pieces of equipment that simply do not work. No amount of repairs or replacement will correct this issue the 'Mech must be redesigned from the ground up to solve the problem.  A 'Mech can have multiple Non-functional quirks, but each must be assigned to the specifically non-operational components they possess",
     "positive": false,
     "battlemech": true,
     "industrialmech": true,
@@ -1225,7 +1261,7 @@
   "Oversized": {
     "name": "Oversized",
     "cost": 2,
-    "description": "The Oversized quirk cannot be combined with the Narrow/Low Profile quirk, and is further limited to ’Mechs of heavy weight (60 tons) and larger. This quirk describes a ’Mech that has been built physically larger than the norm, such as the Mackie or Scylla.  Any Piloting Skill Rolls required of an Oversized ’Mech to avoid damage when passing through buildings suffer a +1 Target Number modifier. Furthermore, they find it harder to use covering terrain effectively: an Oversized ’Mech never receives the +1 Target Number modifier for partial cover when being attacked",
+    "description": "The Oversized quirk cannot be combined with the Narrow/Low Profile quirk, and is further limited to 'Mechs of heavy weight (60 tons) and larger. This quirk describes a 'Mech that has been built physically larger than the norm, such as the Mackie or Scylla.  Any Piloting Skill Rolls required of an Oversized 'Mech to avoid damage when passing through buildings suffer a +1 Target Number modifier. Furthermore, they find it harder to use covering terrain effectively: an Oversized 'Mech never receives the +1 Target Number modifier for partial cover when being attacked",
     "positive": false,
     "battlemech": true,
     "industrialmech": true,
@@ -1405,7 +1441,7 @@
   "Ramshackle": {
     "name": "Ramshackle",
     "cost": 3,
-    "description": "Decades or even centuries of hard service and substandard maintenance have led to an unpredictable machine patched together with bailing wire and prayers.  The ’Mech’s controller rolls 1D6 at the start of the battle. The result indicates what negative quirk, if any, applies to that ’Mech for the duration of the battle: Sensor Ghosts (1), EM Interference (entire ’Mech) (2), Hard to Pilot (3), Cooling System Flaws (4), Poor Performance (5), or no negative result (6)",
+    "description": "Decades or even centuries of hard service and substandard maintenance have led to an unpredictable machine patched together with bailing wire and prayers.  The 'Mech's controller rolls 1D6 at the start of the battle. The result indicates what negative quirk, if any, applies to that 'Mech for the duration of the battle: Sensor Ghosts (1), EM Interference (entire 'Mech) (2), Hard to Pilot (3), Cooling System Flaws (4), Poor Performance (5), or no negative result (6)",
     "positive": false,
     "battlemech": true,
     "industrialmech": true,
@@ -1441,7 +1477,7 @@
   "Slow Traverse": {
     "name": "Slow Traverse",
     "cost": 1,
-    "description": "The ’Mech has an underpowered turret traverse mechanism. Any turret (or 3-point Directional Torso Mount) on the ’Mech may only rotate one hexside in a turn.",
+    "description": "The 'Mech has an underpowered turret traverse mechanism. Any turret (or 3-point Directional Torso Mount) on the 'Mech may only rotate one hexside in a turn.",
     "positive": false,
     "battlemech": true,
     "industrialmech": true,
@@ -1459,7 +1495,7 @@
   "Static Ammo Feed": {
     "name": "Static Ammo Feed",
     "cost": 1,
-    "description": "Weapons with the Static Ammo Feed quirk use a very crude or minimized form of ammunition feed that renders the weapon incapable of switching between multiple ammunition bins. It is most commonly seen in ’Mechs that feature exposed ammunition feeds, such as the Blade or the Cygnus, and thus often occurs in conjunction with the Exposed Weapon Linkage quirk.  The Static Ammo Feed quirk must be taken for each affected weapon type the ’Mech carries, though it can cover multiple weapons of that type at the same time. Thus, a ’Mech with two Autocannon/10s and two Autocannon/5s would need two Static Ammo Quirks to account for all four weapons having this issue, if desired—one for the AC/10s and the other for the AC/5s. This quick cannot be applied to weapons without switchable ammunition.  Weapons covered by this quirk will be unable to switch between different ammunition types, even if they possess the Switchable (S) feature. Thus, all ammunition carried for a weapon with a Static Ammo Feed must be of the same type throughout play.",
+    "description": "Weapons with the Static Ammo Feed quirk use a very crude or minimized form of ammunition feed that renders the weapon incapable of switching between multiple ammunition bins. It is most commonly seen in 'Mechs that feature exposed ammunition feeds, such as the Blade or the Cygnus, and thus often occurs in conjunction with the Exposed Weapon Linkage quirk.  The Static Ammo Feed quirk must be taken for each affected weapon type the 'Mech carries, though it can cover multiple weapons of that type at the same time. Thus, a 'Mech with two Autocannon/10s and two Autocannon/5s would need two Static Ammo Quirks to account for all four weapons having this issue, if desired—one for the AC/10s and the other for the AC/5s. This quick cannot be applied to weapons without switchable ammunition.  Weapons covered by this quirk will be unable to switch between different ammunition types, even if they possess the Switchable (S) feature. Thus, all ammunition carried for a weapon with a Static Ammo Feed must be of the same type throughout play.",
     "positive": false,
     "battlemech": true,
     "industrialmech": true,

@@ -175,6 +175,9 @@ public class CVWriter {
         FR.write( tab + tab + "<info>" + CurUnit.GetChatInfo() + "</info>" );
         FR.newLine();
 
+        FR.write( tab + tab + "<clancase>" + FileCommon.GetBoolean( CurUnit.GetLoadout().IsUsingClanCASE() ) + "</clancase>" );
+        FR.newLine();
+
         BattleForceStats stat = new BattleForceStats(CurUnit);
         stat.SerializeXML(FR, 2);
         FR.newLine();
@@ -243,8 +246,8 @@ public class CVWriter {
                 FR.newLine();
                 FR.write( tab + tab + "<cost>" + CurUnit.GetTotalCost() + "</cost>" );
                 FR.newLine();
-                //FR.write( tab + tab + "<clancase>" + FileCommon.GetBoolean( CurUnit.GetLoadout().IsUsingClanCASE() ) + "</clancase>" );
-                //FR.newLine();
+                FR.write( tab + tab + "<clancase>" + FileCommon.GetBoolean( CurUnit.GetLoadout().IsUsingClanCASE() ) + "</clancase>" );
+                FR.newLine();
                 if( CurUnit.GetJumpJets().GetNumJJ() > CurUnit.GetJumpJets().GetBaseLoadoutNumJJ() ) {
                     FR.write( tab + tab + "<jumpjets number=\"" + CurUnit.GetJumpJets().GetNumJJ() + "\">" );
                     FR.newLine();
@@ -289,6 +292,32 @@ public class CVWriter {
         FR.newLine();
         FR.write( tab + tab + "<additional>" + FileCommon.EncodeFluff( CurUnit.GetAdditional() ) + "</additional>" );
         FR.newLine();
+        if (CurUnit.GetQuirks().size() > 0)
+        {
+            FR.write(tab + tab + "<quirks>");
+            FR.newLine();
+            for (Quirk quirk : CurUnit.GetQuirks())
+            {
+                FR.write(tab + tab + tab + "<quirk postive=\"" + Boolean.toString(quirk.isPositive())+"\" battlemech=\"" + Boolean.toString(quirk.isBattlemech()) +
+                        "\" industrialmech=\"" + Boolean.toString(quirk.isIndustrialmech()) + "\" combatvehicle=\"" + Boolean.toString(quirk.isCombatvehicle()) +
+                        "\" battlearmor=\"" + Boolean.toString(quirk.isBattlearmor()) + "\" aerospacefighter=\"" + Boolean.toString(quirk.isAerospacefighter()) +
+                        "\" conventionalfigher=\"" + Boolean.toString(quirk.isConventionalfighter()) + "\" dropship=\"" + Boolean.toString(quirk.isDropship()) +
+                        "\" jumpship=\"" + Boolean.toString(quirk.isDropship()) + "\" warship=\"" + Boolean.toString(quirk.isWarship()) +
+                        "\" spacestation=\"" + Boolean.toString(quirk.isSpacestation()) + "\" protomech=\"" + Boolean.toString(quirk.isProtomech())
+                        + "\" isvariable=\"" + Boolean.toString(quirk.isIsvariable()) + "\">");
+                FR.newLine();
+                FR.write(tab + tab + tab + tab + "<Name>" + FileCommon.EncodeFluff(quirk.getName()) + "</Name>");
+                FR.newLine();
+                FR.write(tab + tab + tab + tab + "<Cost>" + quirk.getCost() + "</Cost>");
+                FR.newLine();
+                FR.write(tab + tab + tab + tab + "<Description>" + FileCommon.EncodeFluff(quirk.getDescription()) + "</Description>");
+                FR.newLine();
+                FR.write(tab + tab + tab + "</quirk>");
+                FR.newLine();
+            }
+            FR.write(tab + tab + "</quirks>");
+            FR.newLine();
+        }
         FR.write( tab + tab + "<jumpjet_model>" + FileCommon.EncodeFluff( CurUnit.GetJJModel() ) + "</jumpjet_model>" );
         FR.newLine();
         FR.write( tab + tab + "<commsystem>" + FileCommon.EncodeFluff( CurUnit.GetCommSystem() ) + "</commsystem>" );
@@ -430,14 +459,14 @@ public class CVWriter {
             retval += prefix + "</equipment>" + NL;
         }
         */
-        if( CurUnit.GetLoadout().HasSupercharger() ) {
-            abPlaceable p = (abPlaceable) CurUnit.GetLoadout().GetSupercharger();
-            retval += prefix + "<equipment>" + NL;
-            retval += prefix + tab + "<name manufacturer=\"\">Supercharger</name>" + NL;
-            retval += prefix + tab + "<type>Supercharger</type>" + NL;
-            retval += GetLocationLines( prefix + tab, p );
-            retval += prefix + "</equipment>" + NL;
-        }
+//        if( CurUnit.GetLoadout().HasSupercharger() ) {
+//            abPlaceable p = (abPlaceable) CurUnit.GetLoadout().GetSupercharger();
+//            retval += prefix + "<equipment>" + NL;
+//            retval += prefix + tab + "<name manufacturer=\"\">Supercharger</name>" + NL;
+//            retval += prefix + tab + "<type>Supercharger</type>" + NL;
+//            retval += GetLocationLines( prefix + tab, p );
+//            retval += prefix + "</equipment>" + NL;
+//        }
         return retval;
     }
 
@@ -469,6 +498,10 @@ public class CVWriter {
             return "TargetingComputer";
         } else if ( p instanceof CASE ) {
             return "CASE";
+        } else if ( p instanceof Supercharger ) {
+            return "Supercharger";
+        } else if ( p instanceof VTOLBooster ) {
+            return "VTOL Jet Booster";
         } else {
             return "miscellaneous";
         }

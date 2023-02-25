@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008~2012, George Blouin Jr. (george.blouin@gmail.com)
+Copyright (c) 2008~2009, Justin R. Bengtson (poopshotgun@yahoo.com)
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -26,61 +26,21 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package list.view;
+package components;
 
-import components.Quirk;
-import java.util.ArrayList;
-import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
+public interface ifEquipment {
+    // an abstract class for equipment of all types.  This provides a basic
+    // functionality for most equipment types and can be overridden if needed.
+    public String LookupName();
+    public String CritName();
+    public boolean IsVariableSize();
+    public boolean HasAmmo();
+    public int GetAmmoIndex();
+    public int MaxAllowed();
 
-public class tbQuirks extends AbstractTableModel {
-    public ArrayList quirklist;
+    public void Validate( Mech m ) throws Exception;
+    public boolean Validate( CombatVehicle v );
 
-    public tbQuirks(ArrayList quirks)
-    {
-        quirklist = quirks;
-    }
-
-    public void setupTable( JTable tbl ) {
-        tbl.setModel(this);
-        tbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tbl.setAutoCreateRowSorter(true);
-        tbl.getColumnModel().getColumn(0).setMinWidth(1);
-        tbl.getColumnModel().getColumn(1).setMinWidth(100);
-    }
-
-    public Object get( int index ) {
-        return quirklist.get(index);
-    }
-
-    public int getRowCount() {
-        return quirklist.size();
-    }
-
-    public int getColumnCount() {
-        return 2;
-    }
-
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        switch (columnIndex)
-        {
-            case 0:
-                return ((Quirk)quirklist.get(rowIndex)).getCost();
-            case 1:
-                return ((Quirk)quirklist.get(rowIndex)).getName();
-        }
-        return null;
-    }
-
-    @Override
-    public String getColumnName( int col ) {
-        switch(col)
-        {
-            case 0:
-                return "Cost";
-            case 1:
-                return "Quirk";
-        }
-        return "";
-    }
+    public boolean CanAllocCVBody();
+    public String GetEquipmentType();
 }

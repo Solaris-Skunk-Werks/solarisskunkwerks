@@ -133,10 +133,12 @@ public class CASE extends abPlaceable {
 
     @Override
     public String toString() {
-        return "C.A.S.E.";
+        return "CASE";
     }
     
     public void SetClan(boolean b ) {
         IsClan = b;
     }
+
+    public boolean IsClan() { return IsClan; }
 }

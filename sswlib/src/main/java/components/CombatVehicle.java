@@ -74,6 +74,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
                     Changed = false,
                     Primitive = false,
                     HasBlueShield = false,
+                    HasCase = false,
                     HasTurret1 = false,
                     HasTurret2 = false,
                     HasSponsonTurret = false,
@@ -104,6 +105,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     private CVArmor CurArmor = new CVArmor( this );
     private Hashtable Lookup = new Hashtable();
     private ArrayList<MechModifier> MechMods = new ArrayList<MechModifier>();
+    private ArrayList<Quirk> Quirks = new ArrayList<Quirk>();
     private static AvailableCode OmniAvailable = new AvailableCode( AvailableCode.TECH_BOTH ),
                                  DualTurretAC = new AvailableCode( AvailableCode.TECH_BOTH ),
                                  ChinTurretAC = new AvailableCode( AvailableCode.TECH_BOTH ),
@@ -173,6 +175,8 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         CurLoadout = new CVLoadout(this);
         CurLoadout.GetHeatSinks().SetSingle();
         MainLoadout = CurLoadout;
+
+        Quirks = new ArrayList<Quirk>();
 
         BuildLookupTable();
         setTonnage(10);
@@ -424,7 +428,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         result += GetFullAmphibiousTonnage();
         result += GetEnvironmentalSealingTonnage();
         //if( HasBlueShield ) { result += BlueShield.GetTonnage(); }
-        if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
+        //if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
 
         ArrayList v = CurLoadout.GetNonCore();
         if( v.size() > 0 ) {
@@ -449,7 +453,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         if( CurLoadout.UsingTC() ) { result += GetTC().GetTonnage(); }
         if( ! CurEngine.IsNuclear() ) { result += CurLoadout.GetPowerAmplifier().GetTonnage(); }
         if( HasBlueShield ) { result += BlueShield.GetTonnage(); }
-        if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
+        //if( CurLoadout.HasSupercharger() ) { result += CurLoadout.GetSupercharger().GetTonnage(); }
         if( UsingEnvironmentalSealing ) { result += EnviroSealing.GetTonnage(); }
 
         ArrayList v = CurLoadout.GetNonCore();
@@ -1053,6 +1057,15 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         this.Model = Model;
     }
 
+    public ArrayList<Quirk> GetQuirks() {
+        return Quirks;
+    }
+
+    public void SetQuirks (ArrayList<Quirk> q) {
+        Quirks = q;
+
+        SetChanged( true );
+    }
     public String getOverview() {
         return Overview;
     }
@@ -1246,6 +1259,13 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         return CruiseMP;
     }
 
+    public int GetAdjustedCruiseMP( boolean BV, boolean MASCTSM ) {
+        MechModifier m = GetTotalModifiers( BV, MASCTSM );
+        int retval = CruiseMP;
+        retval += GetTotalModifiers( BV, MASCTSM ).WalkingAdder();
+        if( retval < 0 ) { return 0; }
+        return retval;
+    }
     public int getMaxCruiseMP() {
         if( CurEngine.IsPrimitive() ) {
             return (int) Math.floor( ( ( 400.0 + (double)CurConfig.GetSuspensionFactor(Tonnage) ) / (double)Tonnage ) / 1.2 );
@@ -1564,7 +1584,30 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
     public int getFlankMP( int MiniMult ) {
         return (int) Math.floor( ( getCruiseMP() * MiniMult ) * 1.5 + 0.5 );
     }
-    
+
+    public int GetAdjustedFlankMP( boolean BV, boolean MASCTSM ) {
+        // this had to become more complicated because of the peculiar
+        // idiosyncracies of the BV system.  Stupid.
+        MechModifier m = GetTotalModifiers( BV, MASCTSM );
+        int WalkValue = getCruiseMP();
+        double Multiplier = 1.5 + m.RunningMultiplier();
+        int retval = (int) Math.floor( WalkValue * Multiplier + 0.5 ) + m.RunningAdder();
+        if( retval < 0 ) { return 0; }
+        return retval;
+    }
+
+    public int GetAdjustedFlankMP( boolean BV, boolean MASCTSM, int MiniMult ) {
+        // this had to become more complicated because of the peculiar
+        // idiosyncracies of the BV system.  Stupid.
+        // this method provided for miniatures-scale printing
+        MechModifier m = GetTotalModifiers( BV, MASCTSM );
+        int WalkValue = GetAdjustedCruiseMP( BV, MASCTSM ) * MiniMult;
+        double Multiplier = 1.5 + m.RunningMultiplier();
+        int retval = (int) Math.floor( WalkValue * Multiplier + 0.5 ) + m.RunningAdder();
+        if( retval < 0 ) { return 0; }
+        return retval;
+    }
+
     public void SetRulesLevel( int r ) {
         if( Omni ) {
             CurLoadout.SetRulesLevel( r );
@@ -1709,14 +1752,14 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         info += GetTonnage() + "t, ";
         // MP
         info += getCruiseMP();
-        //if( getCruiseMP() != GetAdjustedWalkingMP( false, true ) ) {
-        //    info += "[" + GetAdjustedWalkingMP( false, true ) + "]";
-        //}
+        if( getCruiseMP() != GetAdjustedCruiseMP( false, true ) ) {
+            info += "[" + GetAdjustedCruiseMP( false, true ) + "]";
+        }
         info += "/";
         info += getFlankMP();
-        //if( getFlankMP() != GetAdjustedRunningMP( false, true ) ) {
-        //    info += "[" + GetAdjustedRunningMP( false, true ) + "]";
-        //}
+        if( getFlankMP() != GetAdjustedFlankMP( false, true ) ) {
+            info += "[" + GetAdjustedFlankMP( false, true ) + "]";
+        }
         if ( CurLoadout.GetJumpJets().GetNumJJ() > 0 ) {
             info += "/" + CurLoadout.GetJumpJets().GetNumJJ();
             //if( CurLoadout.GetJumpJets().GetNumJJ() != this.GetAdjustedJumpingMP( false ) ) {
@@ -2128,7 +2171,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
         // target number for speed.
 
         // subtract one since we're indexing an array
-        int RunMP = getFlankMP() - 1;
+        int RunMP = GetAdjustedFlankMP(true, false) - 1;
         int JumpMP = 0;
 
         // this is a safeguard for using MASC on an incredibly speedy chassis
@@ -2316,7 +2359,7 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
 
     public double GetOffensiveFactor() {
         double result = 0.0;
-        result += (double) (getFlankMP() - 5.0f);
+        result += (double) (GetAdjustedFlankMP(true, true) - 5.0f);
         result = result * 0.1 + 1.0;
         result = (double) Math.pow( result, 1.2 ) ;
 
@@ -2695,6 +2738,14 @@ public class CombatVehicle implements ifUnit, ifBattleforce {
                 // only added for code completeness, we should never reach this
                 return 5;
         }
+    }
+
+    public void SetCase(boolean b) {
+        HasCase = b;
+    }
+
+    public boolean HasCase() {
+        return HasCase;
     }
     
     public void SetTrailer(boolean b ) {

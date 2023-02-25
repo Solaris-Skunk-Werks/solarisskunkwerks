@@ -416,11 +416,6 @@ public class CVReader {
         if ( omniCombatVehicle && map.getNamedItem("turretlimit") != null ) {
             m.GetLoadout().GetTurret().SetTonnage( Double.parseDouble(map.getNamedItem("turretlimit").getTextContent() ) );
         }
-        // take care of Clan CASE on previous save file versions
-        if( SaveFileVersion < 1 ) {
-            // this will fail if Inner Sphere, so we're safe
-            //m.GetLoadout().SetClanCASE( true );
-        }
         n = n.item( 0 ).getChildNodes();
         LocationIndex ltc = new LocationIndex();
         for( int i = 0; i < n.getLength(); i++ ) {
@@ -428,7 +423,7 @@ public class CVReader {
             if( n.item( i ).getNodeName().equals( "source" ) ) {
                 m.setSource( n.item( i ).getTextContent() );
             } else if( n.item( i ).getNodeName().equals( "clancase" ) ) {
-                //m.GetLoadout().SetClanCASE( ParseBoolean( n.item( i ).getTextContent() ) );
+                m.GetLoadout().SetClanCASE( ParseBoolean( n.item( i ).getTextContent() ) );
             } else if( n.item( i ).getNodeName().equals( "heatsinks" ) ) {
                 map = n.item( i ).getAttributes();
                 int numhs = Integer.parseInt( map.getNamedItem( "number" ).getTextContent() );
@@ -536,7 +531,9 @@ public class CVReader {
                         lotsize = Integer.parseInt( nl.item( j ).getTextContent() );
                     }
                 }
-                if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" ) || eType.equals( "CASEII" ) || eType.equals( "Supercharger" ) ) {
+                if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" )
+                        || eType.equals( "CASEII" ) || eType.equals( "Supercharger" )
+                        || eType.equals( "VTOL Jet Booster")) {
                     if( eType.equals( "TargetingComputer") ) {
                         if( SaveFileVersion == 0 ) {
                             if( m.GetTechbase() == AvailableCode.TECH_CLAN ) {
@@ -553,10 +550,11 @@ public class CVReader {
                         }
                         ltc = l;
                     } else if( eType.equals( "CASE" ) ) {
-                        m.GetLoadout().SetISCASE();
-                        m.GetLoadout().SetClanCASE(( m.GetTechBase() == AvailableCode.TECH_CLAN));
+                        m.GetLoadout().AddCase(m.GetLoadout().IsUsingClanCASE() || (m.GetTechBase() == AvailableCode.TECH_CLAN));
                     } else if( eType.equals( "Supercharger" ) ) {
                         m.GetLoadout().SetSupercharger( true );
+                    } else if( eType.equals( "VTOL Jet Booster" ) ) {
+                        m.GetLoadout().SetVTOLBooster( true );
                     }
                 } else {
                     abPlaceable p = GetEquipmentByName( eName, eType, m );
@@ -870,11 +868,6 @@ public class CVReader {
                     }
                     m.GetLoadout().SetRulesLevel( ruleslevel );
                 }
-                // take care of Clan CASE on previous save file versions
-                if( SaveFileVersion < 1 ) {
-                    // this will fail if Inner Sphere, so we're safe
-                    //m.GetLoadout().SetClanCASE( true );
-                }
                 if( SaveFileVersion < 2 ) {
                     m.setSource( Source );
                 }
@@ -901,7 +894,7 @@ public class CVReader {
                             }
                         }
                     } else if( n.item( i ).getNodeName().equals( "clancase" ) ) {
-                        //m.GetLoadout().SetClanCASE( ParseBoolean( n.item( i ).getTextContent() ) );
+                        m.GetLoadout().SetClanCASE( ParseBoolean( n.item( i ).getTextContent() ) );
                     } else if( n.item( i ).getNodeName().equals( "heatsinks" ) ) {
                         hsLoc.clear();
                         map = n.item( i ).getAttributes();
@@ -1004,7 +997,9 @@ public class CVReader {
                                 lotsize = Integer.parseInt( nl.item( j ).getTextContent() );
                             }
                         }
-                        if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" ) || eType.equals( "CASEII" ) || eType.equals( "Supercharger" ) ) {
+                        if( eType.equals( "TargetingComputer" ) || eType.equals( "CASE" )
+                                || eType.equals( "CASEII" ) || eType.equals( "Supercharger" )
+                                || eType.equals( "VTOL Jet Booster")) {
                             if( eType.equals( "TargetingComputer") ) {
                                 if( SaveFileVersion == 0 ) {
                                     if( m.GetTechbase() == AvailableCode.TECH_CLAN ) {
@@ -1021,10 +1016,11 @@ public class CVReader {
                                 }
                                 ltc = l;
                             } else if( eType.equals( "CASE" ) ) {
-                                m.GetLoadout().SetISCASE();
-                                m.GetLoadout().SetClanCASE(( m.GetTechBase() == AvailableCode.TECH_CLAN));
+                                m.GetLoadout().AddCase(m.GetLoadout().IsUsingClanCASE() || (m.GetTechBase() == AvailableCode.TECH_CLAN));
                             } else if( eType.equals( "Supercharger" ) ) {
                                 m.GetLoadout().SetSupercharger( true );
+                            } else if ( eType.equals( "VTOL Jet Booster")) {
+                                m.GetLoadout().SetVTOLBooster( true);
                             }
                         } else {
                             abPlaceable p = GetEquipmentByName( eName, eType, m );
@@ -1110,6 +1106,54 @@ public class CVReader {
         } else {
             m.SetAdditional( FileCommon.DecodeFluff( n.item( 0 ).getTextContent() ) );
         }
+        n = d.getElementsByTagName( "quirks" );
+        if (n.getLength() != 0) {
+            ArrayList<Quirk> quirks = new ArrayList<Quirk>();
+            NodeList quirkList = n.item( 0 ).getChildNodes();
+            for( int i = 0; i < quirkList.getLength(); i++ ) {
+                if (quirkList.item(i).getNodeName().equals("quirk")) {
+                    Node nodeQuirk = quirkList.item(i);
+                    map = nodeQuirk.getAttributes();
+
+                    boolean postive = Boolean.parseBoolean(map.getNamedItem("postive").getTextContent());
+                    boolean battlemech = Boolean.parseBoolean(map.getNamedItem("battlemech").getTextContent());
+                    boolean industrialmech = Boolean.parseBoolean(map.getNamedItem("industrialmech").getTextContent());
+                    boolean combatvehicle = Boolean.parseBoolean(map.getNamedItem("combatvehicle").getTextContent());
+                    boolean battlearmor = Boolean.parseBoolean(map.getNamedItem("battlearmor").getTextContent());
+                    boolean aerospacefighter = Boolean.parseBoolean(map.getNamedItem("aerospacefighter").getTextContent());
+                    boolean conventionalfighter = Boolean.parseBoolean(map.getNamedItem("conventionalfigher").getTextContent());
+                    boolean dropship = Boolean.parseBoolean(map.getNamedItem("dropship").getTextContent());
+                    boolean jumpship = Boolean.parseBoolean(map.getNamedItem("jumpship").getTextContent());
+                    boolean warship = Boolean.parseBoolean(map.getNamedItem("warship").getTextContent());
+                    boolean spacestation = Boolean.parseBoolean(map.getNamedItem("spacestation").getTextContent());
+                    boolean protomech = Boolean.parseBoolean(map.getNamedItem("protomech").getTextContent());
+                    boolean isvariable = Boolean.parseBoolean(map.getNamedItem("isvariable").getTextContent());
+                    String name = null;
+                    String description = null;
+                    int cost = 0;
+                    if (nodeQuirk != null) {
+                        NodeList items = nodeQuirk.getChildNodes();
+                        for (int w = 0; w < items.getLength(); w++) {
+                            if (items.item(w).getNodeName().equals("Name")) {
+                                name = items.item(w).getTextContent();
+                            }
+                            else if (items.item(w).getNodeName().equals("Cost")) {
+                                cost = Integer.parseInt(items.item(w).getTextContent());
+                            }
+                            else if (items.item(w).getNodeName().equals("Description")) {
+                                description = items.item(w).getTextContent();
+                            }
+                        }
+                        if (name != null && description != null && cost != 0)
+                        {
+                            quirks.add(new Quirk(name, postive, cost, battlemech, industrialmech, combatvehicle, battlearmor, aerospacefighter, conventionalfighter,dropship,
+                                    jumpship, warship, spacestation, protomech, isvariable, description));
+                        }
+                    }
+                }
+            }
+            m.SetQuirks(quirks);
+        }
         n = d.getElementsByTagName( "jumpjet_model" );
         if( n.item( 0 ).getTextContent() == null ) {
             m.SetJJModel( "" );
@@ -1180,6 +1224,7 @@ public class CVReader {
         if( type.equals( "energy" ) ) {
             boolean ppccap = false;
             boolean insulated = false;
+            boolean pulsemodule = false;
             if( name.contains( " + PPC Capacitor" ) ) {
                 name = name.substring( 0, name.length() - 16 );
                 ppccap = true;
@@ -1192,6 +1237,10 @@ public class CVReader {
                 name = name.substring( 0, name.length() - 12 );
                 insulated = true;
             }
+            if( name.contains(" + Pulse Module")) {
+                name = name.replace(" + Pulse Module", "");
+                pulsemodule = true;
+            }
             if( name.contains( "Variable Speed Laser" ) ) {
                 name = name.replace( "Variable Speed Laser", "Variable Speed Pulse Laser" );
             }
@@ -1203,6 +1252,7 @@ public class CVReader {
             if( retval != null ) {
                 ((RangedWeapon) retval).UseCapacitor( ppccap );
                 ((RangedWeapon) retval).UseInsulator( insulated );
+                ((RangedWeapon) retval).UsePulseModule( pulsemodule);
             }
         } else if( type.equals( "ballistic" ) ) {
             boolean caseless = false;
