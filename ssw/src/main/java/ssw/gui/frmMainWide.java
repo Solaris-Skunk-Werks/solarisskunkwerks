@@ -72,7 +72,6 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             }
         }
     };
-
     String[] Selections = { "", "", "", "", "", "", "", "" };
     Mech CurMech;
     VSetArmorTonnage ArmorTons;
@@ -691,6 +690,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
 
         // reset the spinner model and we're done.
         spnWalkMP.setModel( new javax.swing.SpinnerNumberModel( CurWalk, 1, MaxWalk, 1) );
+        ((JSpinner.DefaultEditor)spnWalkMP.getEditor()).getTextField().addFocusListener(spinners);
     }
 
     private void BuildChassisSelector() {
@@ -885,6 +885,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         }
 
         spnJumpMP.setModel( new javax.swing.SpinnerNumberModel( current, min, max, 1) );
+        ((JSpinner.DefaultEditor)spnJumpMP.getEditor()).getTextField().addFocusListener(spinners);
     }
 
     private void FixHeatSinkSpinnerModel() {
@@ -896,6 +897,8 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             spnNumberOfHS.setModel( new javax.swing.SpinnerNumberModel(
                 CurMech.GetHeatSinks().GetNumHS(), CurMech.GetEngine().FreeHeatSinks(), 65, 1) );
         }
+
+        ((JSpinner.DefaultEditor)spnNumberOfHS.getEditor()).getTextField().addFocusListener(spinners);
     }
 
     private void FixJumpBoosterSpinnerModel() {
@@ -1730,6 +1733,8 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
             CurMech.GetHeatSinks().ReCalculate();
             spnNumberOfHS.setModel( new javax.swing.SpinnerNumberModel(
                 CurMech.GetHeatSinks().GetNumHS(), CurMech.GetEngine().FreeHeatSinks(), 65, 1) );
+
+            ((JSpinner.DefaultEditor)spnNumberOfHS.getEditor()).getTextField().addFocusListener(spinners);
         }
 
         // see if we should enable the Power Amplifier display
@@ -2425,7 +2430,7 @@ public class frmMainWide extends javax.swing.JFrame implements java.awt.datatran
         spnCTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_CTR ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_CT ), 1) );
         spnLTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_LTR ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_LT ), 1) );
         spnRTRArmor.setModel( new javax.swing.SpinnerNumberModel( a.GetLocationArmor( LocationIndex.MECH_LOC_RTR ), 0, a.GetLocationMax( LocationIndex.MECH_LOC_RT ), 1) );
-
+        
         //Setup Spinner focus
         ((JSpinner.DefaultEditor)spnHDArmor.getEditor()).getTextField().addFocusListener(spinners);
         ((JSpinner.DefaultEditor)spnCTArmor.getEditor()).getTextField().addFocusListener(spinners);
