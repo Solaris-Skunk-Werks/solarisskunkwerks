@@ -1,5 +1,6 @@
 package common;
 
+import java.awt.*;
 import java.io.File;
 import javax.swing.ImageIcon;
 
@@ -35,5 +36,17 @@ public class Utils {
             System.err.println("Couldn't find file: " + path);
             return null;
         }
+    }
+
+    public static GridBagConstraints gridBag(int x, int y) {
+        return new GridBagConstraints(x, y, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, 1, new Insets(0, 0, 0, 0), 0, 0);
+    }
+
+    public static GridBagConstraints gridBag(int x, int y, Insets inset) {
+        return new GridBagConstraints(x, y, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, 1, inset, 0, 0);
+    }
+
+    public static GridBagConstraints gridBag(int x, int y, int width, int anchor, Insets inset) {
+        return new GridBagConstraints(x, y, width, 1, 1.0, 1.0, anchor, 1, inset, 0, 0);
     }
 }

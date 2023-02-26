@@ -50,10 +50,10 @@ import visitors.VSetArmorTonnage;
 import visitors.ifVisitor;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.*;
@@ -1001,46 +1001,46 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         JPanel jPanel11 = new JPanel();
         chkFractional = new javax.swing.JCheckBox("Use Fractional Accounting");
         JPanel pnlSummary = new JPanel();
-        JLabel jLabel12 = new JLabel("Item");
-        JLabel jLabel14 = new JLabel("Tonnage");
+        JLabel lblSummaryItem = new JLabel("Item");
+        JLabel lblSummaryTonnage = new JLabel("Tonnage");
         JLabel jLabel15 = new JLabel("Space");
         JLabel jLabel16 = new JLabel("Availability");
         JLabel jLabel17 = new JLabel("Internal Structure:");
-        txtSumIntTons = new javax.swing.JTextField();
-        txtSumIntAV = new javax.swing.JTextField();
+        txtSumIntTons = new javax.swing.JTextField("000.00");
+        txtSumIntAV = new javax.swing.JTextField("X/X-X-X");
         JLabel jLabel18 = new JLabel("Engine:");
-        txtSumEngTons = new javax.swing.JTextField();
-        txtSumEngAV = new javax.swing.JTextField();
+        txtSumEngTons = new javax.swing.JTextField("000.00");
+        txtSumEngAV = new javax.swing.JTextField("X/X-X-X");
         JLabel jLabel19 = new JLabel("Lift/Dive/Rotor:");
-        txtSumLifTons = new javax.swing.JTextField();
-        txtSumLifAV = new javax.swing.JTextField();
-        txtSumEngSpace = new javax.swing.JTextField();
+        txtSumLifTons = new javax.swing.JTextField("000.00");
+        txtSumLifAV = new javax.swing.JTextField("X/X-X-X");
+        txtSumEngSpace = new javax.swing.JTextField("00");
         JLabel jLabel20 = new JLabel("Controls:");
-        txtSumConTons = new javax.swing.JTextField();
-        txtSumConAV = new javax.swing.JTextField();
+        txtSumConTons = new javax.swing.JTextField("000.00");
+        txtSumConAV = new javax.swing.JTextField("X/X-X-X");
         JLabel jLabel21 = new JLabel("Jump Jets:");
-        txtSumJJTons = new javax.swing.JTextField();
-        JTextField txtSumJJSpace = new JTextField();
-        txtSumJJAV = new javax.swing.JTextField();
+        txtSumJJTons = new javax.swing.JTextField("000.00");
+        JTextField txtSumJJSpace = new JTextField("00");
+        txtSumJJAV = new javax.swing.JTextField("X/X-X-X");
         JLabel jLabel22 = new JLabel("Heat Sinks:");
-        txtSumHSTons = new javax.swing.JTextField();
-        txtSumHSAV = new javax.swing.JTextField();
+        txtSumHSTons = new javax.swing.JTextField("000.00");
+        txtSumHSAV = new javax.swing.JTextField("X/X-X-X");
         JLabel jLabel23 = new JLabel("Armor:");
-        txtSumArmTons = new javax.swing.JTextField();
-        txtSumArmSpace = new javax.swing.JTextField();
-        txtSumArmAV = new javax.swing.JTextField();
+        txtSumArmTons = new javax.swing.JTextField("000.00");
+        txtSumArmSpace = new javax.swing.JTextField("00");
+        txtSumArmAV = new javax.swing.JTextField("X/X-X-X");
         JLabel jLabel24 = new JLabel("Turret:");
-        txtSumTurTons = new javax.swing.JTextField();
-        txtSumTurAV = new javax.swing.JTextField();
+        txtSumTurTons = new javax.swing.JTextField("000.00");
+        txtSumTurAV = new javax.swing.JTextField("X/X-X-X");
         JLabel jLabel25 = new JLabel("Rear Turret:");
-        txtSumRTuTons = new javax.swing.JTextField();
-        txtSumRTuAV = new javax.swing.JTextField();
+        txtSumRTuTons = new javax.swing.JTextField("000.00");
+        txtSumRTuAV = new javax.swing.JTextField("X/X-X-X");
         JLabel jLabel26 = new JLabel("Sponsons:");
-        txtSumSpnTons = new javax.swing.JTextField();
-        txtSumSpnAV = new javax.swing.JTextField();
+        txtSumSpnTons = new javax.swing.JTextField("000.00");
+        txtSumSpnAV = new javax.swing.JTextField("X/X-X-X");
         JLabel jLabel27 = new JLabel("Power Amplifiers:");
-        txtSumPATons = new javax.swing.JTextField();
-        txtSumPAAV = new javax.swing.JTextField();
+        txtSumPATons = new javax.swing.JTextField("000.00");
+        txtSumPAAV = new javax.swing.JTextField("X/X-X-X");
         JPanel pnlInformation = new JPanel();
         JLabel titleSuspension = new JLabel("Suspension Factor:");
         lblSupensionFacter = new javax.swing.JLabel("000");
@@ -1059,7 +1059,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         btnAddVariant = new javax.swing.JButton("Add Variant");
         btnDeleteVariant = new javax.swing.JButton("Delete Variant");
         btnRenameVariant = new javax.swing.JButton("Rename Variant");
-        JPanel jPanel6 = new JPanel();
+        JPanel pnlArmorLocations = new JPanel();
         JPanel pnlRightArmor = new JPanel();
         lblRightIntPts = new javax.swing.JLabel("00");
         JLabel jLabel40 = new JLabel("Internal");
@@ -1865,43 +1865,20 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         chkFlotationHull.setEnabled(false);
         chkFlotationHull.addActionListener(this::chkFlotationHullActionPerformed);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        pnlChassisMods.add(chkFlotationHull, gridBagConstraints);
-
         chkLimitedAmph.setEnabled(false);
         chkLimitedAmph.addActionListener(this::chkLimitedAmphActionPerformed);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        pnlChassisMods.add(chkLimitedAmph, gridBagConstraints);
-
         chkFullAmph.setEnabled(false);
         chkFullAmph.addActionListener(this::chkFullAmphActionPerformed);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        pnlChassisMods.add(chkFullAmph, gridBagConstraints);
-
         chkDuneBuggy.setEnabled(false);
         chkDuneBuggy.addActionListener(this::chkDuneBuggyActionPerformed);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        pnlChassisMods.add(chkDuneBuggy, gridBagConstraints);
-
         chkEnviroSealing.setEnabled(false);
         chkEnviroSealing.addActionListener(this::chkEnviroSealingActionPerformed);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        pnlChassisMods.add(chkEnviroSealing, gridBagConstraints);
+
+        pnlChassisMods.add(chkFlotationHull, Utils.gridBag(0, 0));
+        pnlChassisMods.add(chkLimitedAmph, Utils.gridBag(0, 1));
+        pnlChassisMods.add(chkFullAmph, Utils.gridBag(0, 2));
+        pnlChassisMods.add(chkDuneBuggy, Utils.gridBag(0, 3));
+        pnlChassisMods.add(chkEnviroSealing, Utils.gridBag(0, 4));
 
         pnlExperimental.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Experimental Equipment"));
 
@@ -1955,374 +1932,148 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         chkFractional.setEnabled(false);
         chkFractional.addActionListener(this::chkFractionalActionPerformed);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        jPanel11.add(chkFractional, gridBagConstraints);
+        jPanel11.add(chkFractional, Utils.gridBag(0, 0));
 
         pnlSummary.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Summary"));
         pnlSummary.setLayout(new java.awt.GridBagLayout());
 
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
-        pnlSummary.add(jLabel12, gridBagConstraints);
-        pnlSummary.add(jLabel14, new GridBagConstraints());
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
-        pnlSummary.add(jLabel15, gridBagConstraints);
+        pnlSummary.add(lblSummaryItem, new GridBagConstraints());
+        pnlSummary.add(lblSummaryTonnage, new GridBagConstraints());
+        pnlSummary.add(jLabel15, new GridBagConstraints());
         pnlSummary.add(jLabel16, new GridBagConstraints());
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
-        pnlSummary.add(jLabel17, gridBagConstraints);
+
+        jLabel17.setHorizontalAlignment(SwingConstants.RIGHT);
+        pnlSummary.add(jLabel17, Utils.gridBag(0, 1));
 
         txtSumIntTons.setEditable(false);
-        txtSumIntTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumIntTons.setText("000.00");
-        txtSumIntTons.setMinimumSize(new Dimension(50, 20));
-        txtSumIntTons.setPreferredSize(new Dimension(50, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        pnlSummary.add(txtSumIntTons, gridBagConstraints);
+        txtSumIntTons.setHorizontalAlignment(SwingConstants.CENTER);
+        pnlSummary.add(txtSumIntTons, Utils.gridBag(1, 1));
 
         txtSumIntAV.setEditable(false);
-        txtSumIntAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumIntAV.setText("X/X-X-X");
-        txtSumIntAV.setMinimumSize(new Dimension(65, 20));
-        txtSumIntAV.setPreferredSize(new Dimension(65, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        pnlSummary.add(txtSumIntAV, gridBagConstraints);
+        txtSumIntAV.setHorizontalAlignment(SwingConstants.CENTER);
+        pnlSummary.add(txtSumIntAV, Utils.gridBag(3, 1));
 
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
-        pnlSummary.add(jLabel18, gridBagConstraints);
+        jLabel18.setHorizontalAlignment(SwingConstants.RIGHT);
+        pnlSummary.add(jLabel18, Utils.gridBag(0, 2));
 
         txtSumEngTons.setEditable(false);
-        txtSumEngTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumEngTons.setText("000.00");
-        txtSumEngTons.setMinimumSize(new Dimension(50, 20));
-        txtSumEngTons.setPreferredSize(new Dimension(50, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        pnlSummary.add(txtSumEngTons, gridBagConstraints);
+        txtSumEngTons.setHorizontalAlignment(SwingConstants.CENTER);
+        pnlSummary.add(txtSumEngTons, Utils.gridBag(1, 2));
 
         txtSumEngAV.setEditable(false);
-        txtSumEngAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumEngAV.setText("X/X-X-X");
-        txtSumEngAV.setMinimumSize(new Dimension(65, 20));
-        txtSumEngAV.setPreferredSize(new Dimension(65, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        pnlSummary.add(txtSumEngAV, gridBagConstraints);
+        txtSumEngAV.setHorizontalAlignment(SwingConstants.CENTER);
+        pnlSummary.add(txtSumEngAV, Utils.gridBag(3, 2));
 
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
-        pnlSummary.add(jLabel19, gridBagConstraints);
+        jLabel19.setHorizontalAlignment(SwingConstants.RIGHT);
+        pnlSummary.add(jLabel19, Utils.gridBag(0, 3));
 
         txtSumLifTons.setEditable(false);
         txtSumLifTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumLifTons.setText("000.00");
-        txtSumLifTons.setMinimumSize(new Dimension(50, 20));
-        txtSumLifTons.setPreferredSize(new Dimension(50, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        pnlSummary.add(txtSumLifTons, gridBagConstraints);
+        pnlSummary.add(txtSumLifTons, Utils.gridBag(1, 3));
 
         txtSumLifAV.setEditable(false);
         txtSumLifAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumLifAV.setText("X/X-X-X");
-        txtSumLifAV.setMinimumSize(new Dimension(65, 20));
-        txtSumLifAV.setPreferredSize(new Dimension(65, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        pnlSummary.add(txtSumLifAV, gridBagConstraints);
+        pnlSummary.add(txtSumLifAV, Utils.gridBag(3, 3));
 
         txtSumEngSpace.setEditable(false);
         txtSumEngSpace.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumEngSpace.setText("00");
-        txtSumEngSpace.setMinimumSize(new Dimension(40, 20));
-        txtSumEngSpace.setPreferredSize(new Dimension(40, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
-        pnlSummary.add(txtSumEngSpace, gridBagConstraints);
+        pnlSummary.add(txtSumEngSpace, Utils.gridBag(2, 2, new Insets(0, 2, 0, 2)));
 
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
-        pnlSummary.add(jLabel20, gridBagConstraints);
+        jLabel20.setHorizontalAlignment(SwingConstants.RIGHT);
+        pnlSummary.add(jLabel20, Utils.gridBag(0, 4));
 
         txtSumConTons.setEditable(false);
         txtSumConTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumConTons.setText("000.00");
-        txtSumConTons.setMinimumSize(new Dimension(50, 20));
-        txtSumConTons.setPreferredSize(new Dimension(50, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        pnlSummary.add(txtSumConTons, gridBagConstraints);
+        pnlSummary.add(txtSumConTons, Utils.gridBag(1, 4));
 
         txtSumConAV.setEditable(false);
         txtSumConAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumConAV.setText("X/X-X-X");
-        txtSumConAV.setMinimumSize(new Dimension(65, 20));
-        txtSumConAV.setPreferredSize(new Dimension(65, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        pnlSummary.add(txtSumConAV, gridBagConstraints);
+        pnlSummary.add(txtSumConAV, Utils.gridBag(3, 4));
 
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
-        pnlSummary.add(jLabel21, gridBagConstraints);
+        jLabel21.setHorizontalAlignment(SwingConstants.RIGHT);
+        pnlSummary.add(jLabel21, Utils.gridBag(0, 5));
 
         txtSumJJTons.setEditable(false);
         txtSumJJTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumJJTons.setText("000.00");
-        txtSumJJTons.setMinimumSize(new Dimension(50, 20));
-        txtSumJJTons.setPreferredSize(new Dimension(50, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        pnlSummary.add(txtSumJJTons, gridBagConstraints);
+        pnlSummary.add(txtSumJJTons, Utils.gridBag(1, 5));
 
         txtSumJJSpace.setEditable(false);
         txtSumJJSpace.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumJJSpace.setText("00");
-        txtSumJJSpace.setMinimumSize(new Dimension(40, 20));
-        txtSumJJSpace.setPreferredSize(new Dimension(40, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
-        pnlSummary.add(txtSumJJSpace, gridBagConstraints);
+        pnlSummary.add(txtSumJJSpace, Utils.gridBag(2, 5, new Insets(0, 2, 0, 2)));
 
         txtSumJJAV.setEditable(false);
         txtSumJJAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumJJAV.setText("X/X-X-X");
-        txtSumJJAV.setMinimumSize(new Dimension(65, 20));
-        txtSumJJAV.setPreferredSize(new Dimension(65, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        pnlSummary.add(txtSumJJAV, gridBagConstraints);
+        pnlSummary.add(txtSumJJAV, Utils.gridBag(3, 5));
 
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
-        pnlSummary.add(jLabel22, gridBagConstraints);
+        jLabel22.setHorizontalAlignment(SwingConstants.RIGHT);
+        pnlSummary.add(jLabel22, Utils.gridBag(0, 6));
 
         txtSumHSTons.setEditable(false);
         txtSumHSTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumHSTons.setText("000.00");
-        txtSumHSTons.setMinimumSize(new Dimension(50, 20));
-        txtSumHSTons.setPreferredSize(new Dimension(50, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        pnlSummary.add(txtSumHSTons, gridBagConstraints);
+        pnlSummary.add(txtSumHSTons, Utils.gridBag(1, 6));
 
         txtSumHSAV.setEditable(false);
         txtSumHSAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumHSAV.setText("X/X-X-X");
-        txtSumHSAV.setMinimumSize(new Dimension(65, 20));
-        txtSumHSAV.setPreferredSize(new Dimension(65, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        pnlSummary.add(txtSumHSAV, gridBagConstraints);
+        pnlSummary.add(txtSumHSAV, Utils.gridBag(3, 6));
 
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
-        pnlSummary.add(jLabel23, gridBagConstraints);
+        jLabel23.setHorizontalAlignment(SwingConstants.RIGHT);
+        pnlSummary.add(jLabel23, Utils.gridBag(0, 7));
 
         txtSumArmTons.setEditable(false);
         txtSumArmTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumArmTons.setText("000.00");
-        txtSumArmTons.setMinimumSize(new Dimension(50, 20));
-        txtSumArmTons.setPreferredSize(new Dimension(50, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        pnlSummary.add(txtSumArmTons, gridBagConstraints);
+        pnlSummary.add(txtSumArmTons, Utils.gridBag(1, 7));
 
         txtSumArmSpace.setEditable(false);
         txtSumArmSpace.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumArmSpace.setText("00");
-        txtSumArmSpace.setMinimumSize(new Dimension(40, 20));
-        txtSumArmSpace.setPreferredSize(new Dimension(40, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
-        pnlSummary.add(txtSumArmSpace, gridBagConstraints);
+        pnlSummary.add(txtSumArmSpace, Utils.gridBag(2, 7, new Insets(0, 2, 0, 2)));
 
         txtSumArmAV.setEditable(false);
         txtSumArmAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumArmAV.setText("X/X-X-X");
-        txtSumArmAV.setMinimumSize(new Dimension(65, 20));
-        txtSumArmAV.setPreferredSize(new Dimension(65, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        pnlSummary.add(txtSumArmAV, gridBagConstraints);
+        pnlSummary.add(txtSumArmAV, Utils.gridBag(3, 7));
 
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
-        pnlSummary.add(jLabel24, gridBagConstraints);
+        jLabel24.setHorizontalAlignment(SwingConstants.RIGHT);
+        pnlSummary.add(jLabel24, Utils.gridBag(0, 8));
 
         txtSumTurTons.setEditable(false);
         txtSumTurTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumTurTons.setText("000.00");
-        txtSumTurTons.setMinimumSize(new Dimension(50, 20));
-        txtSumTurTons.setPreferredSize(new Dimension(50, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        pnlSummary.add(txtSumTurTons, gridBagConstraints);
+        pnlSummary.add(txtSumTurTons, Utils.gridBag(1, 8));
 
         txtSumTurAV.setEditable(false);
         txtSumTurAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumTurAV.setText("X/X-X-X");
-        txtSumTurAV.setMinimumSize(new Dimension(65, 20));
-        txtSumTurAV.setPreferredSize(new Dimension(65, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        pnlSummary.add(txtSumTurAV, gridBagConstraints);
+        pnlSummary.add(txtSumTurAV, Utils.gridBag(3, 8));
 
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
-        pnlSummary.add(jLabel25, gridBagConstraints);
+        jLabel25.setHorizontalAlignment(SwingConstants.RIGHT);
+        pnlSummary.add(jLabel25, Utils.gridBag(0, 9));
 
         txtSumRTuTons.setEditable(false);
         txtSumRTuTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumRTuTons.setText("000.00");
-        txtSumRTuTons.setMinimumSize(new Dimension(50, 20));
-        txtSumRTuTons.setPreferredSize(new Dimension(50, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        pnlSummary.add(txtSumRTuTons, gridBagConstraints);
+        pnlSummary.add(txtSumRTuTons, Utils.gridBag(1, 9));
 
         txtSumRTuAV.setEditable(false);
         txtSumRTuAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumRTuAV.setText("X/X-X-X");
-        txtSumRTuAV.setMinimumSize(new Dimension(65, 20));
-        txtSumRTuAV.setPreferredSize(new Dimension(65, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        pnlSummary.add(txtSumRTuAV, gridBagConstraints);
+        pnlSummary.add(txtSumRTuAV, Utils.gridBag(3, 9));
 
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
-        pnlSummary.add(jLabel26, gridBagConstraints);
+        jLabel26.setHorizontalAlignment(SwingConstants.RIGHT);
+        pnlSummary.add(jLabel26, Utils.gridBag(0, 10));
 
         txtSumSpnTons.setEditable(false);
         txtSumSpnTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumSpnTons.setText("000.00");
-        txtSumSpnTons.setMinimumSize(new Dimension(50, 20));
-        txtSumSpnTons.setPreferredSize(new Dimension(50, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        pnlSummary.add(txtSumSpnTons, gridBagConstraints);
+        pnlSummary.add(txtSumSpnTons, Utils.gridBag(1, 10));
 
         txtSumSpnAV.setEditable(false);
         txtSumSpnAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumSpnAV.setText("X/X-X-X");
-        txtSumSpnAV.setMinimumSize(new Dimension(65, 20));
-        txtSumSpnAV.setPreferredSize(new Dimension(65, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        pnlSummary.add(txtSumSpnAV, gridBagConstraints);
+        pnlSummary.add(txtSumSpnAV, Utils.gridBag(3, 10));
 
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
-        pnlSummary.add(jLabel27, gridBagConstraints);
+        jLabel27.setHorizontalAlignment(SwingConstants.RIGHT);
+        pnlSummary.add(jLabel27, Utils.gridBag(0, 11));
 
         txtSumPATons.setEditable(false);
         txtSumPATons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumPATons.setText("000.00");
-        txtSumPATons.setMinimumSize(new Dimension(50, 20));
-        txtSumPATons.setPreferredSize(new Dimension(50, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        pnlSummary.add(txtSumPATons, gridBagConstraints);
+        pnlSummary.add(txtSumPATons, Utils.gridBag(1, 11));
 
         txtSumPAAV.setEditable(false);
         txtSumPAAV.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSumPAAV.setText("X/X-X-X");
-        txtSumPAAV.setMinimumSize(new Dimension(65, 20));
-        txtSumPAAV.setPreferredSize(new Dimension(65, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        pnlSummary.add(txtSumPAAV, gridBagConstraints);
+        pnlSummary.add(txtSumPAAV, Utils.gridBag(3, 11));
 
         pnlInformation.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Information"));
 
@@ -2394,250 +2145,22 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         pnlOmniInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Omni Configuration"));
         pnlOmniInfo.setLayout(new java.awt.GridBagLayout());
+        pnlOmniInfo.add(OmniButton(btnLockChassis, this::btnLockChassisActionPerformed), Utils.gridBag(0, 0));
+        pnlOmniInfo.add(OmniButton(btnAddVariant, this::btnAddVariantActionPerformed), Utils.gridBag(0, 1));
+        pnlOmniInfo.add(OmniButton(btnDeleteVariant, this::btnDeleteVariantActionPerformed), Utils.gridBag(1, 0));
+        pnlOmniInfo.add(OmniButton(btnRenameVariant, this::btnRenameVariantActionPerformed), Utils.gridBag(1, 1));
 
-        btnLockChassis.setEnabled(false);
-        btnLockChassis.setMaximumSize(new Dimension(200, 23));
-        btnLockChassis.setMinimumSize(new Dimension(105, 23));
-        btnLockChassis.setPreferredSize(new Dimension(120, 23));
-        btnLockChassis.addActionListener(this::btnLockChassisActionPerformed);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        pnlOmniInfo.add(btnLockChassis, gridBagConstraints);
+        pnlArmorLocations.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Armor Locations"));
+        pnlRightArmor = ArmorLocation("Right", lblRightIntPts, spnRightArmor, this::spnRightArmorStateChanged);
+        pnlFrontArmor = ArmorLocation("Front", lblFrontIntPts, spnFrontArmor, this::spnFrontArmorStateChanged);
+        pnlLeftArmor = ArmorLocation("Left", lblLeftIntPts, spnLeftArmor, this::spnLeftArmorStateChanged);
+        pnlRearArmor = ArmorLocation("Rear", lblRearIntPts, spnRearArmor, this::spnRearArmorStateChanged);
+        pnlTurretArmor = ArmorLocation("Turret", lblTurretIntPts, spnTurretArmor, this::spnTurretArmorStateChanged);
+        pnlRearTurretArmor = ArmorLocation("R Turret", lblRearTurretIntPts, spnRearTurretArmor, this::spnRearTurretArmorStateChanged);
+        pnlRotorArmor = ArmorLocation("Rotor", lblRotorIntPts, spnRotorArmor, this::spnRotorArmorStateChanged);
 
-        btnAddVariant.setEnabled(false);
-        btnAddVariant.setMaximumSize(new Dimension(200, 23));
-        btnAddVariant.setMinimumSize(new Dimension(80, 23));
-        btnAddVariant.setPreferredSize(new Dimension(120, 23));
-        btnAddVariant.addActionListener(this::btnAddVariantActionPerformed);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        pnlOmniInfo.add(btnAddVariant, gridBagConstraints);
-
-        btnDeleteVariant.setEnabled(false);
-        btnDeleteVariant.setMaximumSize(new Dimension(200, 23));
-        btnDeleteVariant.setMinimumSize(new Dimension(80, 23));
-        btnDeleteVariant.setPreferredSize(new Dimension(120, 23));
-        btnDeleteVariant.addActionListener(this::btnDeleteVariantActionPerformed);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        pnlOmniInfo.add(btnDeleteVariant, gridBagConstraints);
-
-        btnRenameVariant.setEnabled(false);
-        btnRenameVariant.setMinimumSize(new Dimension(80, 23));
-        btnRenameVariant.setPreferredSize(new Dimension(120, 23));
-        btnRenameVariant.addActionListener(this::btnRenameVariantActionPerformed);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        pnlOmniInfo.add(btnRenameVariant, gridBagConstraints);
-
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Armor Locations"));
-
-        pnlRightArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Right"));
-        pnlRightArmor.setLayout(new java.awt.GridBagLayout());
-
-        lblRightIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblRightIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblRightIntPts.setMaximumSize(new Dimension(45, 20));
-        lblRightIntPts.setMinimumSize(new Dimension(45, 20));
-        lblRightIntPts.setPreferredSize(new Dimension(45, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        pnlRightArmor.add(lblRightIntPts, gridBagConstraints);
-
-        pnlRightArmor.add(jLabel40, new GridBagConstraints());
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        pnlRightArmor.add(jLabel46, gridBagConstraints);
-
-        spnRightArmor.setMinimumSize(new Dimension(45, 20));
-        spnRightArmor.setPreferredSize(new Dimension(45, 20));
-        spnRightArmor.addChangeListener(this::spnRightArmorStateChanged);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        pnlRightArmor.add(spnRightArmor, gridBagConstraints);
-
-        pnlFrontArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Front"));
-        pnlFrontArmor.setLayout(new java.awt.GridBagLayout());
-
-        lblFrontIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFrontIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblFrontIntPts.setMaximumSize(new Dimension(45, 20));
-        lblFrontIntPts.setMinimumSize(new Dimension(45, 20));
-        lblFrontIntPts.setPreferredSize(new Dimension(45, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        pnlFrontArmor.add(lblFrontIntPts, gridBagConstraints);
-
-        pnlFrontArmor.add(jLabel45, new GridBagConstraints());
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        pnlFrontArmor.add(jLabel47, gridBagConstraints);
-
-        spnFrontArmor.setMinimumSize(new Dimension(45, 20));
-        spnFrontArmor.setPreferredSize(new Dimension(45, 20));
-        spnFrontArmor.addChangeListener(this::spnFrontArmorStateChanged);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        pnlFrontArmor.add(spnFrontArmor, gridBagConstraints);
-
-        pnlLeftArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Left"));
-        pnlLeftArmor.setLayout(new java.awt.GridBagLayout());
-
-        lblLeftIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblLeftIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblLeftIntPts.setMaximumSize(new Dimension(45, 20));
-        lblLeftIntPts.setMinimumSize(new Dimension(45, 20));
-        lblLeftIntPts.setPreferredSize(new Dimension(45, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        pnlLeftArmor.add(lblLeftIntPts, gridBagConstraints);
-
-        pnlLeftArmor.add(jLabel41, new GridBagConstraints());
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        pnlLeftArmor.add(jLabel48, gridBagConstraints);
-
-        spnLeftArmor.setMinimumSize(new Dimension(45, 20));
-        spnLeftArmor.setPreferredSize(new Dimension(45, 20));
-        spnLeftArmor.addChangeListener(this::spnLeftArmorStateChanged);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        pnlLeftArmor.add(spnLeftArmor, gridBagConstraints);
-
-        pnlRearArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Rear"));
-        pnlRearArmor.setLayout(new java.awt.GridBagLayout());
-
-        lblRearIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblRearIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblRearIntPts.setMaximumSize(new Dimension(45, 20));
-        lblRearIntPts.setMinimumSize(new Dimension(45, 20));
-        lblRearIntPts.setPreferredSize(new Dimension(45, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        pnlRearArmor.add(lblRearIntPts, gridBagConstraints);
-
-        pnlRearArmor.add(jLabel44, new GridBagConstraints());
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        pnlRearArmor.add(jLabel49, gridBagConstraints);
-
-        spnRearArmor.setMinimumSize(new Dimension(45, 20));
-        spnRearArmor.setPreferredSize(new Dimension(45, 20));
-        spnRearArmor.addChangeListener(this::spnRearArmorStateChanged);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        pnlRearArmor.add(spnRearArmor, gridBagConstraints);
-
-        pnlTurretArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Turret"));
-        pnlTurretArmor.setLayout(new java.awt.GridBagLayout());
-
-        lblTurretIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTurretIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblTurretIntPts.setMaximumSize(new Dimension(45, 20));
-        lblTurretIntPts.setMinimumSize(new Dimension(45, 20));
-        lblTurretIntPts.setPreferredSize(new Dimension(45, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        pnlTurretArmor.add(lblTurretIntPts, gridBagConstraints);
-
-        pnlTurretArmor.add(jLabel42, new GridBagConstraints());
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        pnlTurretArmor.add(jLabel50, gridBagConstraints);
-
-        spnTurretArmor.setMinimumSize(new Dimension(45, 20));
-        spnTurretArmor.setPreferredSize(new Dimension(45, 20));
-        spnTurretArmor.addChangeListener(this::spnTurretArmorStateChanged);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        pnlTurretArmor.add(spnTurretArmor, gridBagConstraints);
-
-        pnlRearTurretArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "R Turret"));
-        pnlRearTurretArmor.setLayout(new java.awt.GridBagLayout());
-
-        lblRearTurretIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblRearTurretIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblRearTurretIntPts.setMaximumSize(new Dimension(45, 20));
-        lblRearTurretIntPts.setMinimumSize(new Dimension(45, 20));
-        lblRearTurretIntPts.setPreferredSize(new Dimension(45, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        pnlRearTurretArmor.add(lblRearTurretIntPts, gridBagConstraints);
-
-        pnlRearTurretArmor.add(jLabel43, new GridBagConstraints());
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        pnlRearTurretArmor.add(jLabel51, gridBagConstraints);
-
-        spnRearTurretArmor.setMinimumSize(new Dimension(45, 20));
-        spnRearTurretArmor.setPreferredSize(new Dimension(45, 20));
-        spnRearTurretArmor.addChangeListener(this::spnRearTurretArmorStateChanged);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        pnlRearTurretArmor.add(spnRearTurretArmor, gridBagConstraints);
-
-        pnlRotorArmor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Rotor"));
-        pnlRotorArmor.setLayout(new java.awt.GridBagLayout());
-
-        lblRotorIntPts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblRotorIntPts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblRotorIntPts.setMaximumSize(new Dimension(45, 20));
-        lblRotorIntPts.setMinimumSize(new Dimension(45, 20));
-        lblRotorIntPts.setPreferredSize(new Dimension(45, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        pnlRotorArmor.add(lblRotorIntPts, gridBagConstraints);
-
-        pnlRotorArmor.add(jLabel92, new GridBagConstraints());
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        pnlRotorArmor.add(jLabel93, gridBagConstraints);
-
-        spnRotorArmor.setMinimumSize(new Dimension(45, 20));
-        spnRotorArmor.setPreferredSize(new Dimension(45, 20));
-        spnRotorArmor.addChangeListener(this::spnRotorArmorStateChanged);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        pnlRotorArmor.add(spnRotorArmor, gridBagConstraints);
-
-        GroupLayout jPanel6Layout = new GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
+        GroupLayout jPanel6Layout = new GroupLayout(pnlArmorLocations);
+        pnlArmorLocations.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
@@ -2740,53 +2263,29 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Armor Information"));
         jPanel8.setLayout(new java.awt.GridBagLayout());
-        jPanel8.add(jLabel34, new GridBagConstraints());
-        jPanel8.add(jLabel36, new GridBagConstraints());
+        jLabel34.setHorizontalAlignment(SwingConstants.CENTER);
+        jPanel8.add(jLabel34, Utils.gridBag(0, 0));
+        jLabel36.setHorizontalAlignment(SwingConstants.CENTER);
+        jPanel8.add(jLabel36, Utils.gridBag(1, 0));
 
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
-        jPanel8.add(lblArmorTotals, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = GridBagConstraints.SOUTHEAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
-        jPanel8.add(lblArmorCoverage, gridBagConstraints);
+        lblArmorTotals.setHorizontalAlignment(SwingConstants.RIGHT);
+        jPanel8.add(lblArmorTotals, Utils.gridBag(2, 0));
+        lblArmorCoverage.setHorizontalAlignment(SwingConstants.RIGHT);
+        jPanel8.add(lblArmorCoverage, Utils.gridBag(2, 1));
 
         txtArmorTons.setEditable(false);
         txtArmorTons.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtArmorTons.setMinimumSize(new Dimension(50, 20));
         txtArmorTons.setPreferredSize(new Dimension(50, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        jPanel8.add(txtArmorTons, gridBagConstraints);
+        jPanel8.add(txtArmorTons, Utils.gridBag(0, 1));
 
         txtArmorSpace.setEditable(false);
-        txtArmorSpace.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtArmorSpace.setMinimumSize(new Dimension(40, 20));
+        txtArmorSpace.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtArmorSpace.setPreferredSize(new Dimension(40, 20));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        jPanel8.add(txtArmorSpace, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
-        jPanel8.add(lblArmorTonsWasted, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
-        jPanel8.add(lblArmorLeftInLot, gridBagConstraints);
+        jPanel8.add(txtArmorSpace, Utils.gridBag(1, 1, new Insets(0, 2, 0, 0)));
+        lblArmorTonsWasted.setHorizontalAlignment(SwingConstants.RIGHT);
+        jPanel8.add(lblArmorTonsWasted, Utils.gridBag(0, 2, 3, GridBagConstraints.EAST, new Insets(4, 0, 0, 0)));
+        lblArmorLeftInLot.setHorizontalAlignment(SwingConstants.RIGHT);
+        jPanel8.add(lblArmorLeftInLot, Utils.gridBag(0, 3, 3, GridBagConstraints.EAST, new Insets(4, 0, 0, 0)));
 
         GroupLayout pnlBasicSetupLayout = new GroupLayout(pnlBasicSetup);
         pnlBasicSetup.setLayout(pnlBasicSetupLayout);
@@ -2808,7 +2307,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                     .addComponent(pnlOmniInfo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlInformation, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlArmorLocations, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlBasicSetupLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -2842,7 +2341,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                             .addComponent(pnlMovement, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(pnlChassisMods, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jPanel6, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(pnlArmorLocations, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -3871,6 +3370,28 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         );
 
         pack();
+    }
+
+    private JButton OmniButton(JButton button, ActionListener listener) {
+        button.setEnabled(false);
+        button.setPreferredSize(new Dimension(120, 23));
+        button.addActionListener(listener);
+        return button;
+    }
+    private JPanel ArmorLocation(String title, JLabel label, JSpinner spinner, ChangeListener listener) {
+        JPanel pnl = new JPanel();
+        pnl.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), title));
+        pnl.setLayout(new java.awt.GridBagLayout());
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        label.setPreferredSize(new Dimension(45, 20));
+        pnl.add(label, Utils.gridBag(0, 1));
+        pnl.add(new JLabel("Internal"), new GridBagConstraints());
+        pnl.add(new JLabel("Armor"), Utils.gridBag(0, 2));
+        spinner.setPreferredSize(new Dimension(45, 20));
+        spinner.addChangeListener(listener);
+        pnl.add(spinner, Utils.gridBag(0, 3));
+        return pnl;
     }
 
     private JPanel DataEntry(String label, JTextField input, MouseListener listener) {
