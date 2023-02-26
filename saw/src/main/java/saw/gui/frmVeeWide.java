@@ -1702,7 +1702,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         ((JSpinner.DefaultEditor)spnTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
 
         spnRearTurretTonnage.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 50.0d, 0.5d));
-        spnRearTurretTonnage.setVisible(false);
+        spnRearTurretTonnage.setEnabled(false);
         spnRearTurretTonnage.addChangeListener(this::spnRearTurretTonnageStateChanged);
         ((JSpinner.DefaultEditor)spnRearTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
 
@@ -7271,21 +7271,21 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             if (!isLocked) {
                 spnTurretTonnage.setEnabled(true);
             }
-            spnRearTurretTonnage.setVisible(false);
+            spnRearTurretTonnage.setEnabled(false);
             spnRearTurretTonnage.setValue(0);
         } else if (Turret.equals("Dual Turret")) {
             CurVee.setHasTurret1(true);
             CurVee.setHasTurret2(true);
             if (!isLocked) {
                 spnTurretTonnage.setEnabled(true);
-                spnRearTurretTonnage.setVisible(true);
+                spnRearTurretTonnage.setEnabled(true);
             }
         } else {
             CurVee.setHasTurret1(false);
             CurVee.setHasTurret2(false);
             spnTurretTonnage.setEnabled(false);
             spnTurretTonnage.setValue(0);
-            spnRearTurretTonnage.setVisible(false);
+            spnRearTurretTonnage.setEnabled(false);
             spnRearTurretTonnage.setValue(0);
         }
 
