@@ -4528,16 +4528,24 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         cmbMotiveType.setSelectedItem( CurVee.GetMotiveLookupName() );
         spnTonnage.setModel( new javax.swing.SpinnerNumberModel(CurVee.GetTonnage(), 1, CurVee.GetMaxTonnage(), 1) );
         spnCruiseMP.setModel( new javax.swing.SpinnerNumberModel(CurVee.getCruiseMP(), 1, CurVee.getMaxCruiseMP(), 1) );
-        if ( CurVee.isHasTurret1() ) cmbTurret.setSelectedItem("Single Turret");
-        if ( CurVee.isHasTurret2() ) cmbTurret.setSelectedItem("Dual Turret");
+        if ( CurVee.isHasTurret1() ) {
+            cmbTurret.setSelectedItem("Single Turret");
+            spnTurretTonnage.setEnabled(true);
+            spnTurretTonnage.setValue(CurVee.GetLoadout().GetTurret().GetTonnage());
+        }
+        if ( CurVee.isHasTurret2() ) {
+            cmbTurret.setSelectedItem("Dual Turret");
+            spnRearTurretTonnage.setEnabled(true);
+            spnRearTurretTonnage.setValue(CurVee.GetLoadout().GetRearTurret().GetTonnage());
+        }
         FixArmorSpinners();
 
         // now that we're done with the special stuff...
         Load = false;
 
         if( CurVee.IsOmni() ) {
-            if ( CurVee.isHasTurret1() )
-                spnTurretTonnage.setModel( new SpinnerNumberModel(CurVee.GetBaseLoadout().GetTurret().GetMaxTonnage(), 0, 99.0, 0.5) );
+//            if ( CurVee.isHasTurret1() )
+//                spnTurretTonnage.setModel( new SpinnerNumberModel(CurVee.GetBaseLoadout().GetTurret().GetMaxTonnage(), 0, 99.0, 0.5) );
             LockGUIForOmni();
             RefreshOmniVariants();
             RefreshOmniChoices();
