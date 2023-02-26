@@ -51,6 +51,7 @@ import visitors.ifVisitor;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -1114,52 +1115,28 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         lblArmorLeftInLot = new javax.swing.JLabel("99 Points Left In This 1/2 Ton Lot");
         JPanel pnlEquipment = new JPanel();
         pnlEquipInfo = new javax.swing.JPanel();
-        JLabel lblAvailability = new JLabel("Avail. (AoW/SL)");
-        JLabel lblSW = new JLabel("Avail. (SW)");
-        JLabel lblCI = new JLabel("Avail. (CI)");
         lblInfoAVSL = new javax.swing.JLabel();
         lblInfoAVSW = new javax.swing.JLabel();
         lblInfoAVCI = new javax.swing.JLabel();
-        JLabel lblIntro = new JLabel("Introduction");
-        JLabel lblExtinct = new JLabel("Extinction");
-        JLabel lblReintro = new JLabel("Reintroduction");
         lblInfoIntro = new javax.swing.JLabel();
         lblInfoExtinct = new javax.swing.JLabel();
         lblInfoReintro = new javax.swing.JLabel();
-        JLabel lblName = new JLabel(" ");
-        JLabel lblType = new JLabel("Type");
-        JLabel jLabel59 = new JLabel("Heat");
-        JLabel jLabel60 = new JLabel("Damage");
-        JLabel jLabel61 = new JLabel("Range");
         JLabel lblInfoName = new JLabel();
         lblInfoType = new javax.swing.JLabel();
         lblInfoHeat = new javax.swing.JLabel();
         lblInfoDamage = new javax.swing.JLabel();
         lblInfoRange = new javax.swing.JLabel();
-        JSeparator jSeparator17 = new JSeparator();
-        JLabel jLabel62 = new JLabel("Ammo");
-        JLabel jLabel63 = new JLabel("Tonnage");
-        JLabel jLabel64 = new JLabel("Crits");
-        JLabel jLabel65 = new JLabel("Specials");
         lblInfoAmmo = new javax.swing.JLabel();
         lblInfoTonnage = new javax.swing.JLabel();
         lblInfoCrits = new javax.swing.JLabel();
         lblInfoSpecials = new javax.swing.JLabel();
-        JSeparator jSeparator20 = new JSeparator();
-        JLabel jLabel66 = new JLabel("Cost");
         lblInfoCost = new javax.swing.JLabel();
-        JLabel jLabel67 = new JLabel("BV");
         lblInfoBV = new javax.swing.JLabel();
-        JLabel jLabel68 = new JLabel("Mounting Restrictions");
-        JLabel lblMMName = new JLabel("MM Name");
         lblMMNameInfo = new javax.swing.JLabel();
         lblInfoMountRestrict = new javax.swing.JLabel();
-        JLabel jLabel69 = new JLabel("Rules Level");
         lblInfoRulesLevel = new javax.swing.JLabel();
-        JLabel jLabel6 = new JLabel("Avail. (DA)");
         lblInfoAVDA = new javax.swing.JLabel();
         JPanel pnlSpecials = new JPanel();
-        JLabel jLabel37 = new JLabel("Missile Guidance:");
         chkUseTC = new javax.swing.JCheckBox("Targeting Computer");
         chkFCSAIV = new javax.swing.JCheckBox("Use Artemis IV");
         chkFCSAV = new javax.swing.JCheckBox("Use Artemis V");
@@ -1170,35 +1147,19 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         JButton btnClearEquip = new JButton("Clear");
         // Variables declaration - do not modify//GEN-BEGIN:variables
         JButton btnAddEquip = new JButton(">>");
-        cmbNumEquips = new javax.swing.JComboBox();
+        cmbNumEquips = new javax.swing.JComboBox(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" });
         JScrollPane scrLocations = new JScrollPane();
         cmbLocation = new javax.swing.JList();
         JPanel pnlSelected = new JPanel();
         JScrollPane scrSelectedEquip = new JScrollPane();
         lstSelectedEquipment = new javax.swing.JList();
         tbpWeaponChooser = new javax.swing.JTabbedPane();
-        JPanel pnlBallistic = new JPanel();
-        JScrollPane scrPhysical = new JScrollPane();
         lstChooseBallistic = new javax.swing.JList();
-        JPanel pnlEnergy = new JPanel();
-        JSeparator jSeparator7 = new JSeparator();
-        JScrollPane scrMissile = new JScrollPane();
         lstChooseEnergy = new javax.swing.JList();
-        JSeparator jSeparator8 = new JSeparator();
-        JPanel pnlMissile = new JPanel();
-        JScrollPane scrEquipment = new JScrollPane();
         lstChooseMissile = new javax.swing.JList();
-        JPanel pnlPhysical = new JPanel();
-        JScrollPane scrEnergy = new JScrollPane();
         lstChoosePhysical = new javax.swing.JList();
-        JPanel pnlEquipmentChooser = new JPanel();
-        JScrollPane scrBallistic = new JScrollPane();
         lstChooseEquipment = new javax.swing.JList();
-        JPanel pnlArtillery = new JPanel();
-        JScrollPane scrArtillery = new JScrollPane();
         lstChooseArtillery = new javax.swing.JList();
-        JPanel pnlAmmunition = new JPanel();
-        JScrollPane scrAmmo = new JScrollPane();
         lstChooseAmmunition = new javax.swing.JList();
         JPanel pnlFluff = new JPanel();
         JPanel pnlExport = new JPanel();
@@ -1215,13 +1176,6 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlAdditionalFluff = new javax.swing.JPanel();
         JPanel pnlManufacturers = new JPanel();
         JLabel lblManuInfo = new JLabel();
-        JLabel jLabel83 = new JLabel();
-        JLabel jLabel84 = new JLabel();
-        JLabel jLabel85 = new JLabel();
-        JLabel jLabel86 = new JLabel();
-        JLabel jLabel87 = new JLabel();
-        JLabel jLabel88 = new JLabel();
-        JLabel jLabel89 = new JLabel();
         txtManufacturer = new javax.swing.JTextField();
         txtEngineManufacturer = new javax.swing.JTextField();
         txtArmorModel = new javax.swing.JTextField();
@@ -1231,10 +1185,8 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         JPanel pnlWeaponsManufacturers = new JPanel();
         chkIndividualWeapons = new javax.swing.JCheckBox();
         JScrollPane scpWeaponManufacturers = new JScrollPane();
-        JScrollPane scpManufacturers = new JScrollPane();
         tblWeaponManufacturers = new javax.swing.JTable();
         txtManufacturerLocation = new javax.swing.JTextField();
-        JLabel jLabel90 = new JLabel();
         txtJJModel = new javax.swing.JTextField();
         JPanel pnlQuirks = new JPanel();
         JLabel lblBattleMechQuirks = new JLabel("Quirks");
@@ -2351,377 +2303,86 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         tbpMainTabPane.addTab("Basic Setup and Armor", pnlBasicSetup);
 
+        //region Equipment Tab / Highlighted Equipment Information
         pnlEquipInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Information"));
         pnlEquipInfo.setLayout(new java.awt.GridBagLayout());
+        pnlEquipInfo.add(new JLabel("Avail. (AoW/SL)"), Utils.gridBag(0, 3, new Insets(0, 0, 0, 3)));
+        pnlEquipInfo.add(new JLabel("Avail. (SW)"), Utils.gridBag(0, 4, new Insets(0, 0, 0, 3)));
+        pnlEquipInfo.add(new JLabel("Avail. (CI)"), Utils.gridBag(0, 5, new Insets(0, 0, 0, 3)));
+        pnlEquipInfo.add(lblInfoAVSL, Utils.gridBag(1, 3, new Insets(0, 3, 0, 3)));
+        pnlEquipInfo.add(lblInfoAVSW, Utils.gridBag(1, 4, new Insets(0, 3, 0, 3)));
+        pnlEquipInfo.add(lblInfoAVCI, Utils.gridBag(1, 5, new Insets(0, 3, 0, 3)));
+        pnlEquipInfo.add(new JLabel("Introduction"), Utils.gridBag(2, 3, 2, GridBagConstraints.EAST, new Insets(0, 3, 0, 3)));
+        pnlEquipInfo.add(new JLabel("Extinction"), Utils.gridBag(2, 4, 2, GridBagConstraints.EAST, new Insets(0, 3, 0, 3)));
+        pnlEquipInfo.add(new JLabel("Reintroduction"), Utils.gridBag(2, 5, 2, GridBagConstraints.EAST, new Insets(0, 3, 0, 3)));
+        pnlEquipInfo.add(lblInfoIntro, Utils.gridBag(4, 3, new Insets(0, 3, 0, 3)));
+        pnlEquipInfo.add(lblInfoExtinct, Utils.gridBag(4, 4, new Insets(0, 3, 0, 3)));
+        pnlEquipInfo.add(lblInfoReintro, Utils.gridBag(4, 5, new Insets(0, 3, 0, 3)));
+        pnlEquipInfo.add(new JLabel(" "), Utils.gridBag(0, 0, new Insets(4, 0, 0, 3)));
+        pnlEquipInfo.add(new JLabel("Type"), Utils.gridBag(1, 0, new Insets(4, 3, 0, 3)));
+        pnlEquipInfo.add(new JLabel("Heat"), Utils.gridBag(2, 0, new Insets(4, 3, 0, 3)));
+        pnlEquipInfo.add(new JLabel("Damage"), Utils.gridBag(3, 0, new Insets(4, 3, 0, 3)));
+        pnlEquipInfo.add(new JLabel("Range"), Utils.gridBag(4, 0, new Insets(4, 3, 0, 3)));
+        pnlEquipInfo.add(new JLabel("Ammo"), Utils.gridBag(5, 0, new Insets(4, 3, 0, 3)));
+        pnlEquipInfo.add(new JLabel("Tonnage"), Utils.gridBag(6, 0, new Insets(4, 3, 0, 3)));
+        pnlEquipInfo.add(new JLabel("Crits"), Utils.gridBag(7, 0, new Insets(4, 3, 0, 3)));
+        pnlEquipInfo.add(new JLabel("Specials"), Utils.gridBag(8, 0, new Insets(4, 3, 0, 0)));
+        pnlEquipInfo.add(lblInfoType, Utils.gridBag(1, 1, new Insets(0, 3, 0, 3)));
+        pnlEquipInfo.add(lblInfoHeat, Utils.gridBag(2, 1, new Insets(0, 3, 0, 3)));
+        pnlEquipInfo.add(lblInfoDamage, Utils.gridBag(3, 1, new Insets(0, 3, 0, 3)));
+        pnlEquipInfo.add(lblInfoRange, Utils.gridBag(4, 1, new Insets(0, 3, 0, 3)));
+        pnlEquipInfo.add(Utils.etchedSeperator(), Utils.gridBag(0, 2, GridBagConstraints.REMAINDER, GridBagConstraints.WEST, new Insets(4, 0, 4, 0)));
+        pnlEquipInfo.add(lblInfoAmmo, Utils.gridBag(5, 1, new Insets(0, 3, 0, 3)));
+        pnlEquipInfo.add(lblInfoTonnage, Utils.gridBag(6, 1, new Insets(0, 3, 0, 3)));
+        pnlEquipInfo.add(lblInfoCrits, Utils.gridBag(7, 1, new Insets(0, 3, 0, 3)));
+        pnlEquipInfo.add(lblInfoSpecials, Utils.gridBag(8, 1, new Insets(0, 3, 0, 0)));
+        pnlEquipInfo.add(Utils.etchedSeperator(), Utils.gridBag(0, 7, GridBagConstraints.REMAINDER, GridBagConstraints.WEST, new Insets(4, 0, 4, 0)));
+        pnlEquipInfo.add(new JLabel("Cost"), Utils.gridBag(5, 4, 2, GridBagConstraints.EAST, new Insets(0, 3, 0, 3)));
+        pnlEquipInfo.add(lblInfoCost, Utils.gridBag(7, 4, 2, GridBagConstraints.WEST, new Insets(0, 3, 0, 0)));
+        pnlEquipInfo.add(new JLabel("BV"), Utils.gridBag(5, 5, 2, GridBagConstraints.WEST, new Insets(0, 3, 0, 3)));
+        pnlEquipInfo.add(lblInfoBV, Utils.gridBag(7, 5, 2, GridBagConstraints.WEST, new Insets(0, 3, 0, 0)));
+        pnlEquipInfo.add(new JLabel("Mounting Restrictions"), Utils.gridBag(0, 8, 2, GridBagConstraints.WEST, new Insets(0, 0, 4, 3)));
+        pnlEquipInfo.add(lblInfoMountRestrict, Utils.gridBag(2, 8, 7, GridBagConstraints.WEST, new Insets(0, 3, 4, 0)));
+        pnlEquipInfo.add(new JLabel("MM Name"), Utils.gridBag(0, 9, 2, GridBagConstraints.WEST, new Insets(0, 0, 4, 3)));
+        pnlEquipInfo.add(lblMMNameInfo, Utils.gridBag(2, 9, 7, GridBagConstraints.WEST, new Insets(0, 3, 4, 0)));
+        pnlEquipInfo.add(new JLabel("Rules Level"), Utils.gridBag(5, 3, 2, GridBagConstraints.EAST, new Insets(0, 3, 0, 3)));
+        pnlEquipInfo.add(lblInfoRulesLevel, Utils.gridBag(7, 3, 2, GridBagConstraints.WEST, new Insets(0, 3, 0, 0)));
+        pnlEquipInfo.add(new JLabel("Avail. (DA)"), Utils.gridBag(0, 6, new Insets(0, 0, 0, 3)));
+        pnlEquipInfo.add(lblInfoAVDA, Utils.gridBag(1, 6, new Insets(0, 3, 0, 3)));
+        //endregion
 
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
-        pnlEquipInfo.add(lblAvailability, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
-        pnlEquipInfo.add(lblSW, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
-        pnlEquipInfo.add(lblCI, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(lblInfoAVSL, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(lblInfoAVSW, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(lblInfoAVCI, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(lblIntro, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(lblExtinct, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(lblReintro, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(lblInfoIntro, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(lblInfoExtinct, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(lblInfoReintro, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 3);
-        pnlEquipInfo.add(lblName, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
-        pnlEquipInfo.add(lblType, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
-        pnlEquipInfo.add(jLabel59, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
-        pnlEquipInfo.add(jLabel60, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
-        pnlEquipInfo.add(jLabel61, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(lblInfoType, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(lblInfoHeat, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(lblInfoDamage, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(lblInfoRange, gridBagConstraints);
-
-        jSeparator17.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
-        pnlEquipInfo.add(jSeparator17, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
-        pnlEquipInfo.add(jLabel62, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
-        pnlEquipInfo.add(jLabel63, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 3);
-        pnlEquipInfo.add(jLabel64, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 8;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(4, 3, 0, 0);
-        pnlEquipInfo.add(jLabel65, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(lblInfoAmmo, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(lblInfoTonnage, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(lblInfoCrits, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 8;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
-        pnlEquipInfo.add(lblInfoSpecials, gridBagConstraints);
-
-        jSeparator20.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
-        pnlEquipInfo.add(jSeparator20, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(jLabel66, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
-        pnlEquipInfo.add(lblInfoCost, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(jLabel67, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
-        pnlEquipInfo.add(lblInfoBV, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 3);
-        pnlEquipInfo.add(jLabel68, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 4, 0);
-        pnlEquipInfo.add(lblInfoMountRestrict, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 3);
-        pnlEquipInfo.add(lblMMName, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 4, 0);
-        pnlEquipInfo.add(lblMMNameInfo, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(jLabel69, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
-        pnlEquipInfo.add(lblInfoRulesLevel, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
-        pnlEquipInfo.add(jLabel6, gridBagConstraints);
-
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
-        pnlEquipInfo.add(lblInfoAVDA, gridBagConstraints);
+        //region Equipment Tab / Specials Panel
+        chkFCSAIV.addActionListener(this::chkFCSAIVActionPerformed);
+        chkFCSAV.setEnabled(false);
+        chkFCSAV.addActionListener(this::chkFCSAVActionPerformed);
+        chkFCSApollo.setEnabled(false);
+        chkFCSApollo.addActionListener(this::chkFCSApolloActionPerformed);
+        chkUseTC.setEnabled(false);
+        chkUseTC.addActionListener(this::chkUseTCActionPerformed);
+        chkCASE.addActionListener(this::chkCASEActionPerformed);
 
         pnlSpecials.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Specials"));
         pnlSpecials.setLayout(new java.awt.GridBagLayout());
+        pnlSpecials.add(new JLabel("Missile Guidance:"), Utils.gridBag(0, 0));
+        pnlSpecials.add(chkFCSAIV, Utils.gridBag(0, 1));
+        pnlSpecials.add(chkFCSAV, Utils.gridBag(0, 2));
+        pnlSpecials.add(chkFCSApollo, Utils.gridBag(0, 3));
+        pnlSpecials.add(chkUseTC, Utils.gridBag(0, 4));
+        pnlSpecials.add(chkCASE, Utils.gridBag(0, 5));
+        //endregion
 
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 0);
-        pnlSpecials.add(jLabel37, gridBagConstraints);
-
-        chkUseTC.setEnabled(false);
-        chkUseTC.addActionListener(this::chkUseTCActionPerformed);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 0, 0);
-        pnlSpecials.add(chkUseTC, gridBagConstraints);
-
-        chkFCSAIV.addActionListener(this::chkFCSAIVActionPerformed);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
-        pnlSpecials.add(chkFCSAIV, gridBagConstraints);
-
-        chkFCSAV.setEnabled(false);
-        chkFCSAV.addActionListener(this::chkFCSAVActionPerformed);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
-        pnlSpecials.add(chkFCSAV, gridBagConstraints);
-
-        chkFCSApollo.setEnabled(false);
-        chkFCSApollo.addActionListener(this::chkFCSApolloActionPerformed);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
-        pnlSpecials.add(chkFCSApollo, gridBagConstraints);
-
-        chkCASE.addActionListener(this::chkCASEActionPerformed);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 0, 0);
-        pnlSpecials.add(chkCASE, gridBagConstraints);
+        //region Equipment Tab / Controls Panel
+        btnRemoveEquip.addActionListener(this::btnRemoveEquipActionPerformed);
+        btnClearEquip.addActionListener(this::btnClearEquipActionPerformed);
+        btnAddEquip.addActionListener(this::btnAddEquipActionPerformed);
 
         pnlControls.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Controls"));
         pnlControls.setLayout(new java.awt.GridBagLayout());
-
-        btnRemoveEquip.addActionListener(this::btnRemoveEquipActionPerformed);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 8);
-        pnlControls.add(btnRemoveEquip, gridBagConstraints);
-
-        btnClearEquip.addActionListener(this::btnClearEquipActionPerformed);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
-        pnlControls.add(btnClearEquip, gridBagConstraints);
-
-        btnAddEquip.addActionListener(this::btnAddEquipActionPerformed);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
-        pnlControls.add(btnAddEquip, gridBagConstraints);
-
-        cmbNumEquips.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" }));
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(4, 8, 0, 0);
-        pnlControls.add(cmbNumEquips, gridBagConstraints);
+        pnlControls.setPreferredSize(new Dimension(135, 200));
+        pnlControls.add(btnRemoveEquip, Utils.gridBag(0, 0));
+        pnlControls.add(btnClearEquip, Utils.gridBag(0, 1));
+        pnlControls.add(btnAddEquip, Utils.gridBag(1, 0));
+        pnlControls.add(cmbNumEquips, Utils.gridBag(1, 1));
 
         cmbLocation.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Front", "Left", "Right", "Rear", "Body", "Turret", "Rear Turret" };
@@ -2738,19 +2399,15 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         });
         scrLocations.setViewportView(cmbLocation);
 
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
-        pnlControls.add(scrLocations, gridBagConstraints);
+        pnlControls.add(scrLocations, Utils.gridBag(0, 2, 2, 1));
 
         pnlSelected.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Selected Equipment"));
         pnlSelected.setMaximumSize(new Dimension(250, 1000));
         pnlSelected.setMinimumSize(new Dimension(150, 250));
         pnlSelected.setLayout(new BoxLayout(pnlSelected, BoxLayout.LINE_AXIS));
+        //endregion
 
+        //region Equipment Tab / Selected Equipment Panel
         lstSelectedEquipment.setModel( new javax.swing.DefaultListModel());
         lstSelectedEquipment.addListSelectionListener(this::lstSelectedEquipmentValueChanged);
         lstSelectedEquipment.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -2783,176 +2440,34 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         scrSelectedEquip.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrSelectedEquip.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrSelectedEquip.setViewportView(lstSelectedEquipment);
-
         pnlSelected.add(scrSelectedEquip);
+        //endregion
+
+        //region Equipment Tab / Weapons and Equipment Lists
+        AbstractListModel placeholder = new javax.swing.AbstractListModel() {
+            String[] strings = { "Placeholder" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        };
+
+        MouseListener mlAddEquip = new MouseAdapter() {
+            public void mouseClicked( MouseEvent e ) {
+                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
+                    btnAddEquipActionPerformed( null );
+                }
+            }
+        };
 
         tbpWeaponChooser.setTabPlacement(javax.swing.JTabbedPane.RIGHT);
         tbpWeaponChooser.setMinimumSize(new Dimension(150, 250));
         tbpWeaponChooser.setMaximumSize(new Dimension(350, 1000));
-
-        lstChooseBallistic.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseBallistic.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseBallistic.addListSelectionListener(this::lstChooseBallisticValueChanged);
-        MouseListener mlBallistic = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseBallistic.addMouseListener( mlBallistic );
-        lstChooseBallistic.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        scrBallistic.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrBallistic.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrBallistic.setViewportView(lstChooseBallistic);
-        pnlBallistic.setLayout(new BoxLayout(pnlBallistic, BoxLayout.Y_AXIS));
-        pnlBallistic.add(scrBallistic);
-
-        lstChooseEnergy.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseEnergy.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseEnergy.addListSelectionListener(this::lstChooseEnergyValueChanged);
-        MouseListener mlEnergy = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseEnergy.addMouseListener( mlEnergy );
-        lstChooseEnergy.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-
-        scrEnergy.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrEnergy.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrEnergy.setViewportView(lstChooseEnergy);
-
-        pnlEnergy.setLayout(new BoxLayout(pnlEnergy, BoxLayout.Y_AXIS));
-        pnlEnergy.add(scrEnergy);
-
-        lstChooseMissile.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseMissile.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseMissile.addListSelectionListener(this::lstChooseMissileValueChanged);
-        MouseListener mlMissile = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseMissile.addMouseListener( mlMissile );
-        lstChooseMissile.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        scrMissile.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrMissile.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrMissile.setViewportView(lstChooseMissile);
-        pnlMissile.setLayout(new BoxLayout(pnlMissile, BoxLayout.Y_AXIS));
-        pnlMissile.add(scrMissile);
-
-        lstChoosePhysical.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChoosePhysical.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChoosePhysical.addListSelectionListener(this::lstChoosePhysicalValueChanged);
-        MouseListener mlPhysical = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChoosePhysical.addMouseListener( mlPhysical );
-        lstChoosePhysical.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        scrPhysical.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrPhysical.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrPhysical.setViewportView(lstChoosePhysical);
-        pnlPhysical.setLayout(new BoxLayout(pnlPhysical, BoxLayout.Y_AXIS));
-        pnlPhysical.add(scrPhysical);
-
-        lstChooseEquipment.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseEquipment.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseEquipment.addListSelectionListener(this::lstChooseEquipmentValueChanged);
-        MouseListener mlEquipment = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseEquipment.addMouseListener( mlEquipment );
-        lstChooseEquipment.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        scrEquipment.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrEquipment.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrEquipment.setViewportView(lstChooseEquipment);
-        pnlEquipmentChooser.setLayout(new BoxLayout(pnlEquipmentChooser, BoxLayout.Y_AXIS));
-        pnlEquipmentChooser.add(scrEquipment);
-
-        lstChooseArtillery.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseArtillery.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseArtillery.addListSelectionListener(this::lstChooseArtilleryValueChanged);
-        MouseListener mlArtillery = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseArtillery.addMouseListener( mlArtillery );
-        lstChooseArtillery.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        scrArtillery.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrArtillery.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrArtillery.setViewportView(lstChooseArtillery);
-        pnlArtillery.setLayout(new BoxLayout(pnlArtillery, BoxLayout.Y_AXIS));
-        pnlArtillery.add(scrArtillery);
-
-        lstChooseAmmunition.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Placeholder" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstChooseAmmunition.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstChooseAmmunition.addListSelectionListener(this::lstChooseAmmunitionValueChanged);
-        MouseListener mlAmmo = new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount() == 2 && e.getButton() == 1 ) {
-                    btnAddEquipActionPerformed( null );
-                }
-            }
-        };
-        lstChooseAmmunition.addMouseListener( mlAmmo );
-        lstChooseAmmunition.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
-        scrAmmo.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrAmmo.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrAmmo.setViewportView(lstChooseAmmunition);
-        pnlAmmunition.setLayout(new BoxLayout(pnlAmmunition, BoxLayout.Y_AXIS));
-        pnlAmmunition.add(scrAmmo);
-
-        tbpWeaponChooser.addTab("Ballistic", pnlBallistic);
-        tbpWeaponChooser.addTab("Energy", pnlEnergy);
-        tbpWeaponChooser.addTab("Missile", pnlMissile);
-        tbpWeaponChooser.addTab("Physical", pnlPhysical);
-        tbpWeaponChooser.addTab("Equipment", pnlEquipmentChooser);
-        tbpWeaponChooser.addTab("Artillery", pnlArtillery);
-        tbpWeaponChooser.addTab("Ammunition", pnlAmmunition);
+        tbpWeaponChooser.addTab("Ballistic", EquipmentLocation(lstChooseBallistic, this::lstChooseBallisticValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Energy", EquipmentLocation(lstChooseEnergy, this::lstChooseEnergyValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Missile", EquipmentLocation(lstChooseMissile, this::lstChooseMissileValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Physical", EquipmentLocation(lstChoosePhysical, this::lstChoosePhysicalValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Equipment", EquipmentLocation(lstChooseEquipment, this::lstChooseEquipmentValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Artillery", EquipmentLocation(lstChooseArtillery, this::lstChooseArtilleryValueChanged, mlAddEquip, placeholder));
+        tbpWeaponChooser.addTab("Ammunition", EquipmentLocation(lstChooseAmmunition, this::lstChooseAmmunitionValueChanged, mlAddEquip, placeholder));
 
         GroupLayout pnlEquipmentLayout = new GroupLayout(pnlEquipment);
         pnlEquipment.setLayout(pnlEquipmentLayout);
@@ -2981,7 +2496,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         );
 
         tbpMainTabPane.addTab("Equipment", pnlEquipment);
+        //endregion
 
+        //region Battleforce Tab / Export Panel (hidden)
         pnlExport.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Export", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", Font.PLAIN, 11))); // NOI18N
         pnlExport.setLayout(new java.awt.GridBagLayout());
 
@@ -2999,7 +2516,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         pnlExport.add(btnExportMTF, gridBagConstraints);
+        //endregion
 
+        //region Fluff Tab / Fluff Editors
         tbpFluffEditors.setTabPlacement(JTabbedPane.RIGHT);
         tbpFluffEditors.setMaximumSize(new Dimension(1000, 1000));
         tbpFluffEditors.setMinimumSize(new Dimension(420, 455));
@@ -3037,7 +2556,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 }
             }
         };
+        //endregion
 
+        //region Fluff Tab / Manufacturers
         lblManuInfo.setFont(new java.awt.Font("Arial", Font.BOLD, 12)); // NOI18N
         lblManuInfo.setText("Manufacturer Information");
 
@@ -3084,7 +2605,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlManufacturers.add(pnlWeaponsManufacturers);
 
         //tbpFluffEditors.addTab("Manufacturers", pnlManufacturers);
+        //endregion
 
+        //region Fluff Tab / Quirks Editor
         lblBattleMechQuirks.setFont(new java.awt.Font("Arial", Font.BOLD, 12)); // NOI18N
 
         tblQuirks.setModel(new tbQuirks(new ArrayList<Quirk>()));
@@ -3120,10 +2643,70 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         );
 
         tbpFluffEditors.addTab("Quirks", pnlQuirks);
+        //endregion
 
+        //region Fluff Tab / Fluff Image
+        pnlImage.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Fluff Image", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", Font.PLAIN, 11))); // NOI18N
+        pnlImage.setPreferredSize(new Dimension(400, 450));
+        pnlImageButtons.setLayout(new java.awt.GridBagLayout());
+
+        btnLoadImage.addActionListener(this::btnLoadImageActionPerformed);
+        pnlImageButtons.add(btnLoadImage, new GridBagConstraints());
+
+        btnClearImage.addActionListener(this::btnClearImageActionPerformed);
+        pnlImageButtons.add(btnClearImage, Utils.gridBag(1, 0));
+
+        GroupLayout pnlImageLayout = new GroupLayout(pnlImage);
+        pnlImage.setLayout(pnlImageLayout);
+        pnlImageLayout.setHorizontalGroup(
+                pnlImageLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(pnlImageButtons, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblFluffImage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        );
+        pnlImageLayout.setVerticalGroup(
+                pnlImageLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlImageLayout.createSequentialGroup()
+                                .addComponent(pnlImageButtons, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblFluffImage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        //endregion
+
+        //region Fluff Tab / Layout
+        GroupLayout pnlFluffLayout = new GroupLayout(pnlFluff);
+        pnlFluff.setLayout(pnlFluffLayout);
+        pnlFluffLayout.setHorizontalGroup(
+                pnlFluffLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlFluffLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(pnlManufacturers, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+
+                                .addComponent(tbpFluffEditors, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pnlImage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+
+                                .addContainerGap())
+        );
+        pnlFluffLayout.setVerticalGroup(
+                pnlFluffLayout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
+                        .addGroup(pnlFluffLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(pnlFluffLayout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
+                                        .addComponent(pnlManufacturers, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(tbpFluffEditors, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                                        .addComponent(pnlImage, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap())
+        );
+
+        tbpMainTabPane.addTab("Fluff", pnlFluff);
+        //endregion
+
+        //region Battleforce Tab / Battleforce Stats
         pnlBFStats.setBorder(javax.swing.BorderFactory.createTitledBorder("BattleForce Stats"));
         pnlBFStats.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         pnlBFStats.add(jLabel70, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
         pnlBFStats.add(jLabel71, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
         pnlBFStats.add(jLabel72, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, -1, -1));
@@ -3155,6 +2738,9 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         pnlBFStats.add(lblBFSA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 430, 20));
         pnlBFStats.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
         pnlBFStats.add(lblBFPoints, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
+        //endregion
+
+        //region Battleforce Tab / Conversion Steps
         pnlConversionSteps.setBorder(javax.swing.BorderFactory.createTitledBorder("Conversion Steps"));
 
         jTextAreaBFConversion.setColumns(60);
@@ -3175,69 +2761,18 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
             jPanel10Layout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
             .addComponent(scpBFConversion)
         );
+        //endregion
 
-        pnlImage.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Fluff Image", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", Font.PLAIN, 11))); // NOI18N
-        pnlImage.setPreferredSize(new Dimension(400, 450));
-        pnlImageButtons.setLayout(new java.awt.GridBagLayout());
-
-        btnLoadImage.addActionListener(this::btnLoadImageActionPerformed);
-        pnlImageButtons.add(btnLoadImage, new GridBagConstraints());
-
-        btnClearImage.addActionListener(this::btnClearImageActionPerformed);
-        pnlImageButtons.add(btnClearImage, Utils.gridBag(1, 0));
-
-        GroupLayout pnlImageLayout = new GroupLayout(pnlImage);
-        pnlImage.setLayout(pnlImageLayout);
-        pnlImageLayout.setHorizontalGroup(
-            pnlImageLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(pnlImageButtons, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-            .addComponent(lblFluffImage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        );
-        pnlImageLayout.setVerticalGroup(
-            pnlImageLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(pnlImageLayout.createSequentialGroup()
-                .addComponent(pnlImageButtons, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblFluffImage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        GroupLayout pnlFluffLayout = new GroupLayout(pnlFluff);
-        pnlFluff.setLayout(pnlFluffLayout);
-        pnlFluffLayout.setHorizontalGroup(
-            pnlFluffLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFluffLayout.createSequentialGroup()
-                .addContainerGap()
-                            .addComponent(pnlManufacturers, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-
-                .addComponent(tbpFluffEditors, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(pnlImage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-
-                .addContainerGap())
-        );
-        pnlFluffLayout.setVerticalGroup(
-            pnlFluffLayout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
-            .addGroup(pnlFluffLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlFluffLayout.createParallelGroup(GroupLayout.Alignment.LEADING, true)
-                        .addComponent(pnlManufacturers, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tbpFluffEditors, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
-                    .addComponent(pnlImage, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addContainerGap())
-        );
-
-        tbpMainTabPane.addTab("Fluff", pnlFluff);
-
+        //region Battleforce Tab / Layout
         JPanel pnlBF = new JPanel();
         pnlBF.setLayout(new BoxLayout(pnlBF, BoxLayout.X_AXIS));
         pnlBF.add(pnlBFStats);
         pnlBF.add(pnlConversionSteps);
         //pnlBF.add(pnlExport);
         tbpMainTabPane.addTab("BattleForce", pnlBF);
+        //endregion
 
+        //region Menus
         mnuFile.addActionListener(this::mnuFileActionPerformed);
 
         mnuNewMech.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK));
@@ -3361,6 +2896,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 .addComponent(tbpMainTabPane)
                 .addComponent(pnlInfoPane, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
         );
+        //endregion
 
         pack();
     }
@@ -3371,6 +2907,7 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         button.addActionListener(listener);
         return button;
     }
+
     private JPanel ArmorLocation(String title, JLabel label, JSpinner spinner, ChangeListener listener) {
         JPanel pnl = new JPanel();
         pnl.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), title));
@@ -3385,6 +2922,22 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         spinner.addChangeListener(listener);
         pnl.add(spinner, Utils.gridBag(0, 3));
         return pnl;
+    }
+
+    private JPanel EquipmentLocation(JList list, ListSelectionListener selection, MouseListener listener, AbstractListModel display) {
+        JPanel panel = new JPanel();
+        list.setModel(display);
+        list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        list.addListSelectionListener(selection);
+        list.addMouseListener( listener );
+        list.setCellRenderer( new saw.gui.EquipmentListRenderer( this ) );
+        JScrollPane pane = new JScrollPane();
+        pane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        pane.setViewportView(list);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.add(pane);
+        return panel;
     }
 
     private JPanel DataEntry(String label, JTextField input, MouseListener listener) {

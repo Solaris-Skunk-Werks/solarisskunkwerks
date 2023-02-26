@@ -2,7 +2,7 @@ package common;
 
 import java.awt.*;
 import java.io.File;
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 /* Utils.java is used by FileChooserDemo2.java. */
 public class Utils {
@@ -46,7 +46,17 @@ public class Utils {
         return new GridBagConstraints(x, y, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, 1, inset, 0, 0);
     }
 
+    public static GridBagConstraints gridBag(int x, int y, int width, int height) {
+        return new GridBagConstraints(x, y, width, height, 1.0, 1.0, GridBagConstraints.WEST, 1, new Insets(0, 0, 0, 0), 0, 0);
+    }
+
     public static GridBagConstraints gridBag(int x, int y, int width, int anchor, Insets inset) {
         return new GridBagConstraints(x, y, width, 1, 1.0, 1.0, anchor, 1, inset, 0, 0);
+    }
+
+    public static JSeparator etchedSeperator() {
+        JSeparator sep = new JSeparator();
+        sep.setBorder(BorderFactory.createEtchedBorder());
+        return sep;
     }
 }
