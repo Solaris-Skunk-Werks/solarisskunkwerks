@@ -1699,10 +1699,14 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         spnTurretTonnage.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 50.0d, 0.5d));
         spnTurretTonnage.setEnabled(false);
         spnTurretTonnage.addChangeListener(this::spnTurretTonnageStateChanged);
+        ((JSpinner.DefaultEditor)spnTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
 
         spnRearTurretTonnage.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 50.0d, 0.5d));
-        spnRearTurretTonnage.setEnabled(false);
+        spnRearTurretTonnage.setVisible(false);
         spnRearTurretTonnage.addChangeListener(this::spnRearTurretTonnageStateChanged);
+        ((JSpinner.DefaultEditor)spnRearTurretTonnage.getEditor()).getTextField().addFocusListener(spinners);
+
+            JLabel lblTurretTonnage = new JLabel("Turret Tonnage: ");
 
         GroupLayout pnlChassisLayout = new GroupLayout(pnlChassis);
         pnlChassis.setLayout(pnlChassisLayout);
@@ -1726,14 +1730,13 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                             .addComponent(jLabel32)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(cmbTurret, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(spnTurretTonnage))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED))
                         .addGroup(pnlChassisLayout.createSequentialGroup()
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTurretTonnage)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(spnTurretTonnage)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(spnRearTurretTonnage))
+                                .addComponent(spnRearTurretTonnage))
                         .addGroup(pnlChassisLayout.createSequentialGroup()
                             .addComponent(jLabel9)
                             .addGap(2, 2, 2)
@@ -1783,12 +1786,13 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlChassisLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel32)
-                    .addComponent(cmbTurret, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spnTurretTonnage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(pnlChassisLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(spnRearTurretTonnage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(cmbTurret, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlChassisLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(lblTurretTonnage)
+                        .addComponent(spnTurretTonnage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spnRearTurretTonnage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlChassisLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(pnlChassisLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
@@ -3173,22 +3177,14 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         );
 
         pnlImage.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Fluff Image", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", Font.PLAIN, 11))); // NOI18N
-
-        lblFluffImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFluffImage.setMaximumSize(new Dimension(375, 260));
-        lblFluffImage.setMinimumSize(new Dimension(375, 260));
-        lblFluffImage.setPreferredSize(new Dimension(350, 350));
-
+        pnlImage.setPreferredSize(new Dimension(400, 450));
         pnlImageButtons.setLayout(new java.awt.GridBagLayout());
 
         btnLoadImage.addActionListener(this::btnLoadImageActionPerformed);
         pnlImageButtons.add(btnLoadImage, new GridBagConstraints());
 
         btnClearImage.addActionListener(this::btnClearImageActionPerformed);
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        pnlImageButtons.add(btnClearImage, gridBagConstraints);
+        pnlImageButtons.add(btnClearImage, Utils.gridBag(1, 0));
 
         GroupLayout pnlImageLayout = new GroupLayout(pnlImage);
         pnlImage.setLayout(pnlImageLayout);
@@ -3340,17 +3336,14 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
 
         mnuReloadEquipment.addActionListener(this::mnuReloadEquipmentActionPerformed);
         mnuClearFluff.add(mnuReloadEquipment);
-
         jMenuBar1.add(mnuClearFluff);
 
         mnuCredits.addActionListener(this::mnuCreditsActionPerformed);
         mnuHelp.add(mnuCredits);
-
         mnuAboutSSW.addActionListener(this::mnuAboutSSWActionPerformed);
         mnuHelp.add(mnuAboutSSW);
 
         jMenuBar1.add(mnuHelp);
-
         setJMenuBar(jMenuBar1);
 
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -7275,20 +7268,25 @@ public final class frmVeeWide extends javax.swing.JFrame implements java.awt.dat
         String Turret = cmbTurret.getSelectedItem().toString();
         if (Turret.equals("Single Turret") || Turret.equals("Chin Turret")) {
             CurVee.setHasTurret1(true);
-            if (chkOmniVee.isSelected() && !isLocked) {
+            if (!isLocked) {
                 spnTurretTonnage.setEnabled(true);
             }
+            spnRearTurretTonnage.setVisible(false);
+            spnRearTurretTonnage.setValue(0);
         } else if (Turret.equals("Dual Turret")) {
             CurVee.setHasTurret1(true);
             CurVee.setHasTurret2(true);
-            if (chkOmniVee.isSelected() && !isLocked) {
+            if (!isLocked) {
                 spnTurretTonnage.setEnabled(true);
+                spnRearTurretTonnage.setVisible(true);
             }
         } else {
             CurVee.setHasTurret1(false);
             CurVee.setHasTurret2(false);
             spnTurretTonnage.setEnabled(false);
             spnTurretTonnage.setValue(0);
+            spnRearTurretTonnage.setVisible(false);
+            spnRearTurretTonnage.setValue(0);
         }
 
         BuildLocationSelector();
